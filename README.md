@@ -5,25 +5,33 @@ this project is trying to accomplish and why it matters.
 Describe the problem(s) this project solves.
 Describe how this software can improve the lives of its audience._
 
-_Other things to include:_
+#### Technology Stack
+This application is written in JavaScript and [Less](http://lesscss.org) within
+the [React](https://facebook.github.io/react/) framework.  It uses
+[Webpack](http://webpack.github.io/docs/) at runtime to manage module loading.
 
-  - **Technology stack**: Indicate the technological nature of the software, including primary programming language(s) and whether the software is intended as standalone or as a module in a framework or other ecosystem.
-  - **Status**:  Alpha, Beta, 1.1, etc. It's OK to write a sentence, too. The goal is to let interested people know where this project is at. This is also a good place to link to the [CHANGELOG](CHANGELOG.md).
-  - **Links to production or demo instances**
-  - Describe what sets this apart from related-projects. Linking to another doc or page is OK if this can't be expressed in a sentence or two.
+The code is written with the [ES6](http://es6-features.org/) feature set
+of JavaScript. Backwards compatibility is achieved by compiling the script with
+[Babel](https://babeljs.io/) prior to using it within the browser.
 
+Unit testing of the application is performed within
+[Jest](https://facebook.github.io/jest/) with
+[Enzyme](http://airbnb.io/enzyme/index.html) providing support for event testing.
 
-**Screenshot**: 
+[npm](https://www.npmjs.com/) is used to manage the build/test/deploy cycle.
+
+#### Status
+This is so pre-alpha it is omega
+
+#### Screenshot
 TODO
 
 ## Dependencies
 
-This application depends on the following third-parties:
+This application depends on the following third-party components:
 
 1. [Capital Framework](https://cfpb.github.io/capital-framework/) - CFPB standard styling and controls
 1. [History](https://github.com/reacttraining/history) - Integrating the address bar with the application
-1. [React](https://facebook.github.io/react/) - The framework
-
 
 ## Installation
 
@@ -32,7 +40,7 @@ are in the [INSTALL](INSTALL.md) document.
 
 ## Configuration
 
-[INSTALL](INSTALL.md#Configuring)
+Please see the subsection Configuring in [INSTALL](INSTALL.md#configuring)
 
 ## Usage
 
