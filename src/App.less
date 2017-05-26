@@ -1,0 +1,98 @@
+@import (less) "~capital-framework/src/capital-framework.less";
+@import (less) "base.less";
+
+// App-wide definitions
+
+.layout-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.layout-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-fixed {
+    flex: none;
+}
+
+.flex-all {
+    flex: 1 0 auto;
+}
+
+.cols {
+  .grid_nested-col-group();
+}
+
+.col:before {
+    content: "";
+    display: block;
+    width: 100%;
+}
+
+.col-1 {
+    .grid_column( 1 );
+}
+
+.col-2 {
+    .grid_column( 2 );
+}
+
+.col-3 {
+    .grid_column( 3 );
+}
+
+.col-4 {
+    .grid_column( 4 );
+}
+
+.col-6 {
+    .grid_column( 6 );
+}
+
+.col-8 {
+    .grid_column( 8 );
+}
+
+.col-9 {
+    .grid_column( 9 );
+}
+
+.col-10 {
+    .grid_column( 10 );
+}
+
+.col-12 {
+    .grid_column( 12 );
+}
+
+// This component specific
+
+.refine-panel {
+  border-width: 2px;
+  border-style: dashed;
+  border-color: #ccc;
+
+  margin-top: @gutter-normal;
+  margin-bottom: @gutter-normal;
+  padding: @gutter-normal;
+
+  height: 400px;
+}
+
+.content {
+  margin-top: @gutter-normal;
+  margin-bottom: @gutter-normal;
+}
+
+.cards-panel {
+  margin: 0;
+  padding: 0;
+}
+
+summary {
+  margin-top: @gutter-normal;
+  margin-bottom: @gutter-normal;
+}
