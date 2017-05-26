@@ -1,0 +1,39 @@
+exports[`initial state renders without crashing 1`] = `
+<main
+  className="col-12">
+  <aside
+    className="col-3">
+    <div
+      className="refine-panel">
+      Refine Panel
+    </div>
+  </aside>
+  <div
+    className="col-9 content">
+    <section>
+      <form
+        action=""
+        onSubmit={[Function]}>
+        <input
+          className="btn"
+          type="button"
+          value="Types" />
+        <input
+          onChange={[Function]}
+          type="text"
+          value="foo" />
+        <input
+          className="btn primary"
+          type="submit"
+          value="Search" />
+      </form>
+    </section>
+    <div
+      className="results-panel">
+      <summary />
+      <ul
+        className="cards-panel" />
+    </div>
+  </div>
+</main>
+`;

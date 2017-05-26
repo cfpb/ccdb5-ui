@@ -1,0 +1,54 @@
+exports[`initial state renders without crashing 1`] = `
+<nav
+  aria-label="Pagination"
+  className="m-pagination"
+  role="navigation">
+  <button
+    className="a-btn a-btn__icon-on-left cf-icon cf-icon-left cf-icon__before m-pagination_btn-prev"
+    disabled={false}
+    onClick={[Function]}>
+    Previous
+  </button>
+  <button
+    className="a-btn a-btn__icon-on-right cf-icon cf-icon-right cf-icon__after m-pagination_btn-next"
+    disabled={false}
+    onClick={[Function]}>
+    Next
+  </button>
+  <form
+    action=""
+    className="m-pagination_form"
+    onSubmit={[Function]}>
+    <label
+      className="m-pagination_label"
+      htmlFor="m-pagination_current-page">
+      Page
+      <span
+        className="u-visually-hidden">
+        number 
+        8
+         out
+      </span>
+      <input
+        className="m-pagination_current-page"
+        id="m-pagination_current-page"
+        inputMode="numeric"
+        max={40}
+        min="1"
+        name="page"
+        onChange={[Function]}
+        pattern="[0-9]*"
+        type="number"
+        value={8} />
+      of 
+      40
+    </label>
+    <button
+      className="a-btn a-btn__link m-pagination_btn-submit"
+      id="m-pagination_btn-submit"
+      type="submit">
+      Go
+    </button>
+  </form>
+</nav>
+`;
