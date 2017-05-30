@@ -59,9 +59,15 @@ module.exports = {
     // This does not produce a real file. It's just the virtual path that is
     // served by WebpackDevServer in development. This is the JS bundle
     // containing code from all our entry points, and the Webpack runtime.
-    filename: 'static/js/bundle.js',
+    filename: 'ccdb5.main.js',
     // This is the URL that app is served from. We use "/" in development.
-    publicPath: publicPath
+    publicPath: publicPath,
+    library: 'ccdb5_ui'
+  },
+  externals: {
+      'react': 'React',
+      'react-dom': 'ReactDOM',
+      'capital-framework': undefined
   },
   resolve: {
     // This allows you to set a fallback for where Webpack should look for modules.

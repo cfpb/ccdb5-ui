@@ -6,8 +6,8 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var ManifestPlugin = require('webpack-manifest-plugin');
 var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
-var paths = require('./paths');
 var getClientEnvironment = require('./env');
+var paths = require('./paths');
 
 
 
@@ -59,13 +59,15 @@ module.exports = {
   output: {
     // The build folder.
     path: paths.appBuild,
-    // Generated JS file names (with nested folders).
-    // There will be one main bundle, and one file per asynchronous chunk.
-    // We don't currently advertise code splitting but Webpack supports it.
-    filename: 'static/js/[name].js',
-    chunkFilename: 'static/js/[name].chunk.js',
+    filename: 'ccdb5.main.js',
     // We inferred the "public path" (such as / or /my-project) from homepage.
-    publicPath: publicPath
+    publicPath: publicPath,
+    library: 'ccdb5_ui'
+  },
+  externals: {
+      'react': 'React',
+      'react-dom': 'ReactDOM',
+      'capital-framework': undefined
   },
   resolve: {
     // This allows you to set a fallback for where Webpack should look for modules.

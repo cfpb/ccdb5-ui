@@ -6,7 +6,7 @@ import Pagination from './Pagination';
 import SearchBar from './SearchBar';
 import UrlBarSynch from './UrlBarSynch';
 
-export default class App extends Component {
+export class App extends Component {
   constructor() {
     super();
 
