@@ -47,5 +47,4 @@ author or the affirmer.
 
 ## Exceptions
 
-1. [Capital Framework](https://cfpb.github.io/capital-framework/)
 1. [History](https://github.com/reacttraining/history)
