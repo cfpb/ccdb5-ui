@@ -59,7 +59,7 @@ module.exports = {
   output: {
     // The build folder.
     path: paths.appBuild,
-    filename: 'ccdb5.main.js',
+    filename: 'ccdb5.min.js',
     // We inferred the "public path" (such as / or /my-project) from homepage.
     publicPath: publicPath,
     library: 'ccdb5_ui'
