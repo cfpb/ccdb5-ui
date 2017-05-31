@@ -3,7 +3,7 @@
   "version": "5.0.0",
   "private": false,
   "description": "Consumer Complaint Database 5.0 UI",
-  "homepage": "http://www.consumerfinance.gov/",
+  "homepage": "https://www.consumerfinance.gov/",
   "author": {
     "name": "Consumer Financial Protection Bureau",
     "email": "tech@cfpb.gov",
@@ -15,9 +15,17 @@
   },
   "license": "CC0-1.0",
   "dependencies": {
-    "capital-framework": "^4.3.2",
+    "cf-buttons": "^4.3.0",
+    "cf-core": "^4.2.0",
+    "cf-expandables": "^4.1.2",
+    "cf-forms": "^4.2.0",
+    "cf-grid": "^4.1.0",
+    "cf-icons": "^4.1.0",
+    "cf-layout": "^4.2.0",
+    "cf-pagination": "^4.1.1",
+    "cf-tables": "^4.1.1",
+    "cf-typography": "^4.1.0",
     "history": "^4.6.1",
-    "normalize-css": "^2.3.1",
     "query-string": "^4.3.4",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
@@ -69,7 +77,6 @@
     "whatwg-fetch": "2.0.2"
   },
   "scripts": {
-    "postinstall": "./patch-capfram.sh",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom --coverage --watch"
