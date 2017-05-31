@@ -23,13 +23,14 @@
 }
 
 .cols {
-  .grid_nested-col-group();
+    .grid_nested-col-group();
 }
 
 .col:before {
-    content: "";
     display: block;
+
     width: 100%;
+    content: "";
 }
 
 .col-1 {
@@ -71,28 +72,24 @@
 // This component specific
 
 .refine-panel {
-  border-width: 2px;
-  border-style: dashed;
-  border-color: #ccc;
-
-  margin-top: @gutter-normal;
-  margin-bottom: @gutter-normal;
-  padding: @gutter-normal;
-
-  height: 400px;
+    height: 400px;
+    padding: @gutter-normal;
+    border: 2px dashed @gray-40;
+    margin-top: @gutter-normal;
+    margin-bottom: @gutter-normal;
 }
 
 .content {
-  margin-top: @gutter-normal;
-  margin-bottom: @gutter-normal;
+    margin-top: @gutter-normal;
+    margin-bottom: @gutter-normal;
 }
 
 .cards-panel {
-  margin: 0;
-  padding: 0;
+    padding: 0;
+    margin: 0;
 }
 
 summary {
-  margin-top: @gutter-normal;
-  margin-bottom: @gutter-normal;
+    margin-top: @gutter-normal;
+    margin-bottom: @gutter-normal;
 }
