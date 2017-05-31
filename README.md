@@ -1,93 +1,101 @@
-#### CFPB Open Source Project Template Instructions
+# Consumer Complaint Database - 5.0
 
-1. Create a new project.
-2. [Copy these files into the new project](#installation)
-3. Update the README, replacing the contents below as prescribed.
-4. Add any libraries, assets, or hard dependencies whose source code will be included
-   in the project's repository to the _Exceptions_ section in the [TERMS](TERMS.md).
-  - If no exceptions are needed, remove that section from TERMS.
-5. If working with an existing code base, answer the questions on the [open source checklist](opensource-checklist.md)
-6. Delete these instructions and everything up to the _Project Title_ from the README.
-7. Write some great software and tell people about it.
-
-> Keep the README fresh! It's the first thing people see and will make the initial impression.
-
-## Installation
-
-To install all of the template files, run the following script from the root of your project's directory:
-
-```
-bash -c "$(curl -s https://raw.githubusercontent.com/CFPB/development/master/open-source-template.sh)"
-```
-
-----
-
-# Project Title
-
-**Description**:  Put a meaningful, short, plain-language description of what
+**Description**:  _Put a meaningful, short, plain-language description of what
 this project is trying to accomplish and why it matters.
 Describe the problem(s) this project solves.
-Describe how this software can improve the lives of its audience.
+Describe how this software can improve the lives of its audience._
 
-Other things to include:
+#### Technology Stack
+This application is written in JavaScript and [Less](http://lesscss.org) within
+the [React](https://facebook.github.io/react/) framework.  It uses
+[Webpack](http://webpack.github.io/docs/) at runtime to manage module loading.
 
-  - **Technology stack**: Indicate the technological nature of the software, including primary programming language(s) and whether the software is intended as standalone or as a module in a framework or other ecosystem.
-  - **Status**:  Alpha, Beta, 1.1, etc. It's OK to write a sentence, too. The goal is to let interested people know where this project is at. This is also a good place to link to the [CHANGELOG](CHANGELOG.md).
-  - **Links to production or demo instances**
-  - Describe what sets this apart from related-projects. Linking to another doc or page is OK if this can't be expressed in a sentence or two.
+The code is written with the [ES6](http://es6-features.org/) feature set
+of JavaScript. Backwards compatibility is achieved by compiling the script with
+[Babel](https://babeljs.io/) prior to using it within the browser.
 
+Unit testing of the application is performed within
+[Jest](https://facebook.github.io/jest/) with
+[Enzyme](http://airbnb.io/enzyme/index.html) providing support for event testing.
 
-**Screenshot**: If the software has visual components, place a screenshot after the description; e.g.,
+[npm](https://www.npmjs.com/) is used to manage the build/test/deploy cycle.
 
-![](https://raw.githubusercontent.com/cfpb/open-source-project-template/master/screenshot.png)
+#### Status
+This is so pre-alpha it is omega
 
+#### Screenshot
+TODO
 
 ## Dependencies
 
-Describe any dependencies that must be installed for this software to work.
-This includes programming languages, databases or other storage mechanisms, build tools, frameworks, and so forth.
-If specific versions of other software are required, or known not to work, call that out.
+This application depends on the following third-party components:
+
+1. [Capital Framework](https://cfpb.github.io/capital-framework/) - CFPB standard styling and controls
+1. [History](https://github.com/reacttraining/history) - Integrating the address bar with the application
 
 ## Installation
 
-Detailed instructions on how to install, configure, and get the project running.
-This should be frequently tested to ensure reliability. Alternatively, link to
-a separate [INSTALL](INSTALL.md) document.
+Detailed instructions on how to install, configure, and get the project running
+are in the [INSTALL](INSTALL.md) document.
 
 ## Configuration
 
-If the software is configurable, describe it in detail, either here or in other documentation to which you link.
+Please see the subsection Configuring in [INSTALL](INSTALL.md#configuring)
 
 ## Usage
 
-Show users how to use the software.
-Be specific.
-Use appropriate formatting when showing code snippets.
+#### Developing code
+To run the app in development mode:
+
+```bash
+npm start
+```
+
+Open http://localhost:3000 to view it in the browser.
+
+The page will reload if you make edits.
+You will also see any lint errors in the console.
+
+Enter `Control-C` to exit development mode
+
+#### Build deployment package
+To build the app for production to the build folder:
+
+```bash
+npm run build
+```
+
+It bundles React in production mode and optimizes the build for the
+best performance.
 
 ## How to test the software
 
-If the software includes automated tests, detail how to run those tests.
+#### Unit testing
+To launch the test runner in interactive watch/test mode:
+
+```bash
+npm test
+```
+
+Enter `Control-C` to exit interactive watch mode
+
+#### Browser Testing
+
+`TODO`
 
 ## Known issues
 
-Document any known significant shortcomings with the software.
+The [Issue Tracker](https://github.com/cfpb/ccdb5-ui/issues) contains the most
+up to date status of issues or bugs with this repository.
 
 ## Getting help
 
-Instruct users how to get help with this software; this might include links to an issue tracker, wiki, mailing list, etc.
-
-**Example**
-
-If you have questions, concerns, bug reports, etc, please file an issue in this repository's Issue Tracker.
+If you have questions, concerns, bug reports, etc, please file an issue in this
+repository's [Issue Tracker](https://github.com/cfpb/ccdb5-ui/issues).
 
 ## Getting involved
 
-This section should detail why people should get involved and describe key areas you are
-currently focusing on; e.g., trying to get feedback on features, fixing certain bugs, building
-important pieces, etc.
-
-General instructions on _how_ to contribute should be stated with a link to [CONTRIBUTING](CONTRIBUTING.md).
-
+[CONTRIBUTING](CONTRIBUTING.md).
 
 ----
 
@@ -101,6 +109,3 @@ General instructions on _how_ to contribute should be stated with a link to [CON
 
 ## Credits and references
 
-1. Projects that inspired you
-2. Related projects
-3. Books, papers, talks, or other sources that have meaningful impact or influence on this project
