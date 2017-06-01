@@ -1,5 +1,8 @@
 # Consumer Complaint Database - 5.0
 
+[![Build Status](https://travis-ci.org/cfpb/ccdb5-ui.svg?branch=master)](https://travis-ci.org/cfpb/ccdb5-ui)
+[![Coverage Status](https://coveralls.io/repos/github/cfpb/ccdb5-ui/badge.svg?branch=master)](https://coveralls.io/github/cfpb/ccdb5-ui?branch=master)
+
 **Description**:  _Put a meaningful, short, plain-language description of what
 this project is trying to accomplish and why it matters.
 Describe the problem(s) this project solves.
