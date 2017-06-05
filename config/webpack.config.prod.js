@@ -24,7 +24,12 @@ if (env.stringified['process.env'].NODE_ENV !== '"production"') {
 
 const cssFilename = 'static/css/[name].css';
 
+// ExtractTextPlugin expects the build output to be flat.
+// (See https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/27)
+// However, our output is structured with css, js and media folders.
+// To have this structure working with relative paths, we have to use custom options.
 const extractTextPluginOptions = shouldUseRelativeAssetPaths
+  // Making sure that the publicPath goes back to to build folder.
   ? { publicPath: Array(cssFilename.split('/').length).join('../') }
   : undefined;
 
@@ -37,6 +42,13 @@ module.exports = merge({
   },
   module: {
     loaders: [      
+      // ** ADDING/UPDATING LOADERS **
+      // The "url" loader handles all assets unless explicitly excluded.
+      // The `exclude` list *must* be updated with every change to loader extensions.
+      // When adding a new loader, you must add its `test`
+      // as a new entry in the `exclude` list for "url" loader.
+      // "url" loader embeds assets smaller than specified size as data URLs to avoid requests.
+      // Otherwise, it acts like the "file" loader.
       {
         exclude: [
           /\.html$/,
@@ -58,18 +70,38 @@ module.exports = merge({
         loader: 'babel',
         
       },
-      {
+      // The notation here is somewhat confusing.
+      // "postcss" loader applies autoprefixer to our CSS.
+      // "css" loader resolves paths in CSS and adds assets as dependencies.
+      // "style" loader normally turns CSS into JS modules injecting <style>,
+      // but unlike in development configuration, we do something different.
+      // `ExtractTextPlugin` first applies the "postcss" and "css" loaders
+      // (second argument), then grabs the result CSS and puts it into a
+      // separate file in our build process. This way we actually ship
+      // a single CSS file in production instead of JS code injecting <style>
+      // tags. If you use code splitting, however, any async bundles will still
+      // use the "style" loader inside the async code so CSS from them won't be
+      // in the main CSS file.
+       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract(
           'style',
           'css?importLoaders=1!postcss',
           extractTextPluginOptions
         )
+        // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
       }
+      // ** STOP ** Are you adding a new loader?
+      // Remember to add the new extension(s) to the "url" loader exclusion list.
     ]
   },
   plugins: [
+    // Makes some environment variables available in index.html.
+    // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
+    // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    // In development, this will be an empty string.
     new InterpolateHtmlPlugin(env.raw),
+    // Generates an `index.html` file with the <script> injected
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
@@ -86,12 +118,17 @@ module.exports = merge({
         minifyURLs: true
       }
     }),
+    // Makes some environment variables available to the JS code, for example:
+    // if (process.env.NODE_ENV === 'development') { ... }. See `./env.js`.
     new webpack.DefinePlugin(env.stringified),
+    // This helps ensure the builds are consistent if source hasn't changed:
     new webpack.optimize.OccurrenceOrderPlugin(),
+    // Try to dedupe duplicated modules, if any:
     new webpack.optimize.DedupePlugin(),
+    // Minify the code
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        "screw_ie8": true,
+        screw_ie8: true, // React doesn't support IE8
         warnings: false
       },
       mangle: {
@@ -102,9 +139,7 @@ module.exports = merge({
         screw_ie8: true
       }
     }),
-    new ExtractTextPlugin(cssFilename),
-    new ManifestPlugin({
-      fileName: 'asset-manifest.json'
-    })
+    // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
+    new ExtractTextPlugin(cssFilename)
   ]
 }, baseConfig);
