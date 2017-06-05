@@ -33,6 +33,7 @@ module.exports = merge({
       // The `exclude` list *must* be updated with every change to loader extensions.
       // When adding a new loader, you must add its `test`
       // as a new entry in the `exclude` list for "url" loader.
+
       // "url" loader embeds assets smaller than specified size as data URLs to avoid requests.
       // Otherwise, it acts like the "file" loader.
       {
@@ -61,9 +62,10 @@ module.exports = merge({
         include: paths.appSrc,
         loader: 'babel',
         query: {
+
           // This is a feature of `babel-loader` for webpack (not Babel itself).
           // It enables caching results in ./node_modules/.cache/babel-loader/
-          // directory for faster rebuilds.          
+          // directory for faster rebuilds.
           cacheDirectory: true
         }
       },
@@ -86,7 +88,7 @@ module.exports = merge({
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     // In development, this will be an empty string.
     new InterpolateHtmlPlugin(env.raw),
-    // Generates an `index.html` file with the <script> injected
+    // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
