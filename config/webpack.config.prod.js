@@ -37,7 +37,6 @@ module.exports = merge({
   bail: true,
   devtool: 'source-map',
   output: {
-    filename: 'ccdb5.min.js',
     publicPath: publicPath,
   },
   module: {

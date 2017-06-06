@@ -1,12 +1,16 @@
+// Required so that the expose-loader test works which moves the ReactDOM
+// variable into the global space
+// eslint-disable-next-line
+import ReactDOM from 'react-dom';
 
-import React, { Component } from 'react';
+import React from 'react';
 import './App.less';
 import ComplaintCard from './ComplaintCard';
 import Pagination from './Pagination';
 import SearchBar from './SearchBar';
 import UrlBarSynch from './UrlBarSynch';
 
-export class App extends Component {
+export class App extends React.Component {
   constructor() {
     super();
 
