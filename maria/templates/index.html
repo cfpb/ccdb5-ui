@@ -1,0 +1,23 @@
+{# extends 'front/base_nonresponsive.html' #}
+
+{% block app_css %}
+{% endblock %}
+
+{% block title %}Search the Consumer Complaint Database{% endblock %}
+
+{% block content %}
+<div id="root"></div>
+{% endblock %}
+
+{% block page_js %}
+  <script src="/static/js/ccdb5.min.js"></script>
+  <script type="text/javascript">
+    ReactDOM.render(
+      React.createElement(ccdb5_ui.App, {}, null),
+      document.getElementById('root')
+    );
+  </script>
+{% endblock %}
+
+{% block app_js %}
+{% endblock %}
