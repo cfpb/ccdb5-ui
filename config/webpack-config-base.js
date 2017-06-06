@@ -9,12 +9,11 @@ module.exports = {
     paths.appIndexJs
   ],  
   output: {
+    filename: 'ccdb5.min.js',
     path: paths.appBuild,
     library: 'ccdb5_ui'
   },
   externals: {
-    'react': 'React',
-    'react-dom': 'ReactDOM',
     'capital-framework': undefined
   },
   resolve: {
@@ -52,6 +51,16 @@ module.exports = {
       {
         test: /\.less$/,
         loader: 'style!css!less'
+      },
+      // make sure the `React` global variable is available
+      {
+        test: require.resolve('react'),
+        loader: "expose-loader?React"
+      },
+      // make sure the `ReactDOM` global variable is available
+      {
+        test: require.resolve('react-dom'),
+        loader: 'expose-loader?ReactDOM'
       }
     ]
   },
