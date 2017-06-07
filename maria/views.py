@@ -1,9 +1,21 @@
 from django.views.generic.base import TemplateView
+from django.conf import settings
+
+try:
+    STANDALONE = settings.STANDALONE
+except:  # pragma: no cover
+    STANDALONE = False
+
+
+if STANDALONE:
+    BASE_TEMPLATE = 'base.html'
+else:  # pragma: no cover
+    BASE_TEMPLATE = 'front/base_nonresponsive.html'
 
 
 class IndexView(TemplateView):
     template_name = 'index.html'
-    base_template = 'base.html'
+    base_template = BASE_TEMPLATE
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
