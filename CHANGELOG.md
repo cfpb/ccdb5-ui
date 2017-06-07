@@ -1,17 +1,5 @@
-All notable changes to this project will be documented in this file.
-We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
+This project does not use `CHANGELOG.md` to track release changes.
 
+See the project repository release history at:
 
-## x.y.z - YYYY-MM-DD
-
-### Added
-- Lorem ipsum dolor sit amet
-
-### Deprecated
-- Nothing.
-
-### Removed
-- Nothing.
-
-### Fixed
-- Nothing.
+https://github.com/cfpb/ccdb5-ui/releases
