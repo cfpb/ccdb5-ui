@@ -56,7 +56,11 @@ module.exports = merge({
           /\.css$/,
           /\.json$/,
           /\.svg$/,
-          /\.less$/
+          /\.less$/,
+          /\.eot$/,
+          /\.svg$/,
+          /\.ttf$/,
+          /\.woff$/
         ],
         loader: 'url',
         query: {
@@ -90,7 +94,12 @@ module.exports = merge({
           extractTextPluginOptions
         )
         // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
-      }
+      },
+      // Do not load the Captial Framework font dependencies
+      { test: /\.eot$/, loader: 'ignore-loader' },
+      { test: /\.svg$/, loader: 'ignore-loader' },
+      { test: /\.ttf$/, loader: 'ignore-loader' },
+      { test: /\.woff$/, loader: 'ignore-loader' }
       // ** STOP ** Are you adding a new loader?
       // Remember to add the new extension(s) to the "url" loader exclusion list.
     ]
@@ -102,23 +111,6 @@ module.exports = merge({
     // In production, it will be an empty string unless you specify "homepage"
     // in `package.json`, in which case it will be the pathname of that URL.
     new InterpolateHtmlPlugin(env.raw),
-    // Generates an `index.html` file with the <script> injected.
-    new HtmlWebpackPlugin({
-      inject: true,
-      template: paths.appHtml,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true,
-        removeEmptyAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        keepClosingSlash: true,
-        minifyJS: true,
-        minifyCSS: true,
-        minifyURLs: true
-      }
-    }),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
     // It is absolutely essential that NODE_ENV was set to production here.
