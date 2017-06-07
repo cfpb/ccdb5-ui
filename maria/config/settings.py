@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# This is set here so that we can use the local server, this will not
+# be part of the cfgov-refresh settings
+STANDALONE = True
 
 # Application definition
 
@@ -34,17 +37,18 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.staticfiles',
+    'maria'
 )
 
 MIDDLEWARE_CLASSES = (
 )
 
-ROOT_URLCONF = 'maria.urls'
+ROOT_URLCONF = 'maria.config.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['maria/templates'],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -57,7 +61,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'maria.wsgi.application'
+WSGI_APPLICATION = 'maria.config.wsgi.application'
 
 
 # Database
@@ -86,5 +90,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'dist'),
+    os.path.join(BASE_DIR, '../dist'),
 )
