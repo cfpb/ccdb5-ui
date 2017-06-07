@@ -1,6 +1,8 @@
-{# extends 'front/base_nonresponsive.html' #}
+{% extends maria_base_template %}
 
-{% block app_css %}
+{% load static %}
+
+{% block css %}
 {% endblock %}
 
 {% block title %}Search the Consumer Complaint Database{% endblock %}
@@ -10,7 +12,7 @@
 {% endblock %}
 
 {% block page_js %}
-  <script src="/static/js/ccdb5.min.js"></script>
+  <script src="{% static "ccdb5.min.js" %}" type="text/javascript"></script>
   <script type="text/javascript">
     ReactDOM.render(
       React.createElement(ccdb5_ui.App, {}, null),
