@@ -1,6 +1,6 @@
 from django.conf.urls import url
-from django.views.generic.base import TemplateView
+from maria.views import IndexView
 
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='index.html')),
+    url(r'^$', IndexView.as_view()),
 ]
