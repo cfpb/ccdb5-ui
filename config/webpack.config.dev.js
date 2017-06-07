@@ -23,8 +23,7 @@ module.exports = merge({
   ],  
   output: {
     pathinfo: true,
-    publicPath: '/',
-    filename: 'ccdb5.js'
+    publicPath: '/'
   },
   module: {
     loaders: [      
