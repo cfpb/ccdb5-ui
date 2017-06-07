@@ -55,7 +55,6 @@ module.exports = merge({
           /\.(js|jsx)$/,
           /\.css$/,
           /\.json$/,
-          /\.svg$/,
           /\.less$/,
           /\.eot$/,
           /\.svg$/,
@@ -97,7 +96,6 @@ module.exports = merge({
       },
       // Do not load the Captial Framework font dependencies
       { test: /\.eot$/, loader: 'ignore-loader' },
-      { test: /\.svg$/, loader: 'ignore-loader' },
       { test: /\.ttf$/, loader: 'ignore-loader' },
       { test: /\.woff$/, loader: 'ignore-loader' }
       // ** STOP ** Are you adding a new loader?
