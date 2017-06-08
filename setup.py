@@ -23,7 +23,7 @@ setup(
     package_data={
         'maria': [
             'templates/index.html',
-            'dist/*'
+            'static/*'
         ]
     },
     include_package_data=True,
