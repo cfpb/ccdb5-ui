@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    {% block meta_viewport %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% endblock meta_viewport %}
+    <title>
+        {% block title %}
+        {% endblock title %}
+    </title>
+{% block css %}
+{% endblock css %}
+{% block app_js %}
+{% endblock app_js %}
+</head>
+
+<body>
+{% block body %}
+{% block header %}
+{% endblock header %}
+{% block content %}
+{% endblock content %}
+{% endblock body %}
+
+{% block page_js %}
+{% endblock page_js %}
+</body>
+</html>

@@ -62,6 +62,7 @@
     "fs-extra": "0.30.0",
     "html-webpack-plugin": "2.24.0",
     "http-proxy-middleware": "0.17.3",
+    "ignore-loader": "^0.1.2",
     "jest": "18.1.0",
     "json-loader": "0.5.4",
     "less": "^2.3.1",

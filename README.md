@@ -23,6 +23,10 @@ Unit testing of the application is performed within
 
 [npm](https://www.npmjs.com/) is used to manage the build/test/deploy cycle.
 
+The `ccdb5_ui` (note the underscore) directory contains a thin [Django](https://www.djangoproject.com/) 
+implementation that allows it to be used as a plugin for
+[CFPB's public website](https://github.com/cfpb/cfgov-refresh).
+
 #### Status
 This is so pre-alpha it is omega
 

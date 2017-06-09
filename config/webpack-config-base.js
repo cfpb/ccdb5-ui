@@ -41,13 +41,7 @@ module.exports = {
         test: /\.json$/,
         loader: 'json'
       },
-      {
-        test: /\.svg$/,
-        loader: 'file',
-        query: {
-          name: 'static/media/[name].[ext]'
-        }
-      },
+      { test: /\.svg$/, loader: 'ignore-loader' },
       {
         test: /\.less$/,
         loader: 'style!css!less'
