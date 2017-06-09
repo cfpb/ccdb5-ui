@@ -21,7 +21,7 @@ setup(
     maintainer_email='tech@cfpb.gov',
     packages=find_packages(),
     package_data={
-        'maria': [
+        'ccdb5_ui': [
             'templates/index.html',
             'static/*'
         ]
