@@ -13,11 +13,11 @@ else:  # pragma: no cover
     BASE_TEMPLATE = 'front/base_nonresponsive.html'
 
 
-class IndexView(TemplateView):
+class CCDB5MainView(TemplateView):
     template_name = 'index.html'
     base_template = BASE_TEMPLATE
 
     def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data(**kwargs)
-        context['maria_base_template'] = self.base_template
+        context = super(CCDB5MainView, self).get_context_data(**kwargs)
+        context['ccdb5_base_template'] = self.base_template
         return context
