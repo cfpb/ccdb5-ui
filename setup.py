@@ -14,7 +14,7 @@ def read_file(filename):
 
 setup(
     name='ccdb5_ui',
-    version='0.1.0',
+    version='0.2.1',
     author='CFPB',
     author_email='tech@cfpb.gov',
     maintainer='cfpb',
@@ -27,7 +27,7 @@ setup(
         ]
     },
     include_package_data=True,
-    description=u'Consumer Complaint Database 5.0 UI',
+    description=u'Consumer Complaint Database UI',
     classifiers=[
         'Intended Audience :: Developers',
         'Programming Language :: Python',
