@@ -1,8 +1,8 @@
 {
   "name": "ccdb5-ui",
-  "version": "5.0.0",
+  "version": "0.2.1",
   "private": false,
-  "description": "Consumer Complaint Database 5.0 UI",
+  "description": "Consumer Complaint Database UI",
   "homepage": "https://www.consumerfinance.gov/",
   "author": {
     "name": "Consumer Financial Protection Bureau",

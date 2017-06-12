@@ -14,7 +14,7 @@ else:  # pragma: no cover
 
 
 class CCDB5MainView(TemplateView):
-    template_name = 'index.html'
+    template_name = 'ccdb-main.html'
     base_template = BASE_TEMPLATE
 
     def get_context_data(self, **kwargs):
