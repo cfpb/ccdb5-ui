@@ -52,25 +52,25 @@ export default class Pagination extends React.Component {
       <nav className="m-pagination"
            role="navigation"
            aria-label="Pagination">
-          <button className="a-btn
-                    a-btn__icon-on-left
-                    cf-icon
-                    cf-icon-left
-                    cf-icon__before
-                    m-pagination_btn-prev"
-                    onClick={() => this._setPage(this.state.current - 1)}
-                    disabled={this.state.current <= 1}>
+          <button className="a-btn m-pagination_btn-prev"
+                  onClick={() => this._setPage(this.state.current - 1)}
+                  disabled={this.state.current <= 1}>
+              <span className="a-btn_icon
+                               a-btn_icon__on-left
+                               cf-icon
+                               cf-icon__before
+                               cf-icon-left"></span>
               Previous
           </button>
-          <button className="a-btn
-                    a-btn__icon-on-right
-                    cf-icon
-                    cf-icon-right
-                    cf-icon__after
-                    m-pagination_btn-next"
+          <button className="a-btn m-pagination_btn-next"
                     onClick={() => this._setPage(this.state.current + 1)}
                     disabled={this.state.current >= this.state.total}>
               Next
+              <span className="a-btn_icon
+                               a-btn_icon__on-right
+                               cf-icon
+                               cf-icon__after
+                               cf-icon-right"></span>
           </button>
           <form className="m-pagination_form"
                 action="" onSubmit={this._handleSubmit}>
