@@ -3,7 +3,7 @@ import createHistory from 'history/createBrowserHistory';
 
 const urlParams = ['searchText', 'from', 'size'];
 const defaultParams = {
-  searchText: 'foo',
+  searchText: '',
   from: 0,
   size: 10
 }
