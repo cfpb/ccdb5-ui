@@ -40,24 +40,28 @@ export class App extends React.Component {
     let to = this.state.from + this.state.size;
 
     return (
-      <main className="col-12">
-        <aside className="col-3">
-          <div className="refine-panel">Refine Panel</div>
-        </aside>
-        <div className="col-9 content">
+      <main className="content content__1-3" role="main">
+        <div className="content_wrapper">
           <SearchBar onSearch={this._onSearch} 
                      searchText={this.state.searchText} />
-          <div className="results-panel">
-            <summary>
+          <aside className="content_sidebar">
+            <div className="refine-panel">Refine Panel</div>
+          </aside>
+          <section className="content_main">
+            <div className="results-panel">
+              <summary>
+                <div><h2>Showing x of y complaints</h2></div>
+                <div>Page | Sort | Export</div>
+              </summary>
+              <ul className="cards-panel">
+                {this.state.items
+                  .filter((e, i) => i >= this.state.from && i < to)
+                  .map(item => <ComplaintCard key={item.complaint_id}
+                                              row={item} />)}
+              </ul>
               <Pagination {...this.state} onPage={this._onPage} />
-            </summary>
-            <ul className="cards-panel">
-              {this.state.items
-                .filter((e, i) => i >= this.state.from && i < to)
-                .map(item => <ComplaintCard key={item.complaint_id}
-                                            row={item} />)}
-            </ul>
-          </div>
+            </div>
+          </section>
         </div>
       </main>
     );
