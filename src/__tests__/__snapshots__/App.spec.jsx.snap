@@ -1,25 +1,28 @@
 exports[`initial state renders without crashing 1`] = `
 <main
-  className="col-12">
-  <aside
-    className="col-3">
-    <div
-      className="refine-panel">
-      Refine Panel
-    </div>
-  </aside>
+  className="content content__1-3"
+  role="main">
   <div
-    className="col-9 content">
-    <section>
+    className="content_wrapper">
+    <nav
+      className="searchBar">
+      <h2>
+        Search Complaint Data
+      </h2>
       <form
         action=""
         onSubmit={[Function]}>
+        <label
+          className="a-label a-label__heading">
+          Search Within
+        </label>
         <input
           className="btn"
           type="button"
           value="Types" />
         <input
           onChange={[Function]}
+          placeholder="Enter your search term(s)"
           type="text"
           value="foo" />
         <input
@@ -27,13 +30,32 @@ exports[`initial state renders without crashing 1`] = `
           type="submit"
           value="Search" />
       </form>
+    </nav>
+    <aside
+      className="content_sidebar">
+      <div
+        className="refine-panel">
+        Refine Panel
+      </div>
+    </aside>
+    <section
+      className="content_main">
+      <div
+        className="results-panel">
+        <summary>
+          <div>
+            <h2>
+              Showing x of y complaints
+            </h2>
+          </div>
+          <div>
+            Page | Sort | Export
+          </div>
+        </summary>
+        <ul
+          className="cards-panel" />
+      </div>
     </section>
-    <div
-      className="results-panel">
-      <summary />
-      <ul
-        className="cards-panel" />
-    </div>
   </div>
 </main>
 `;
