@@ -4,16 +4,20 @@ exports[`initial state renders without crashing 1`] = `
   className="m-pagination"
   role="navigation">
   <button
-    className="a-btn a-btn__icon-on-left cf-icon cf-icon-left cf-icon__before m-pagination_btn-prev"
+    className="a-btn m-pagination_btn-prev"
     disabled={false}
     onClick={[Function]}>
+    <span
+      className="a-btn_icon a-btn_icon__on-left cf-icon cf-icon__before cf-icon-left" />
     Previous
   </button>
   <button
-    className="a-btn a-btn__icon-on-right cf-icon cf-icon-right cf-icon__after m-pagination_btn-next"
+    className="a-btn m-pagination_btn-next"
     disabled={false}
     onClick={[Function]}>
     Next
+    <span
+      className="a-btn_icon a-btn_icon__on-right cf-icon cf-icon__after cf-icon-right" />
   </button>
   <form
     action=""
