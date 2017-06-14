@@ -1,0 +1,8 @@
+exports[`initial state renders without crashing 1`] = `
+<section
+  className="refine-panel">
+  <h3>
+    Filter results by...
+  </h3>
+</section>
+`;
