@@ -33,15 +33,18 @@ export default class SearchBar extends React.Component {
 
   render() {
     return (
-        <section>
+        <nav className="searchBar">
+          <h2>Search Complaint Data</h2>
           <form action="" onSubmit={this._handleSubmit}>
+            <label className="a-label a-label__heading">Search Within</label>
             <input type="button" className="btn" value="Types" />
             <input type="text"
                    value={this.state.inputValue}
-                   onChange={this._updateInputValue} />
+                   onChange={this._updateInputValue}
+                   placeholder="Enter your search term(s)" />
             <input type="submit" className="btn primary" value="Search" />
           </form>
-        </section>
+        </nav>
     );
   }
 }

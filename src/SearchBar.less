@@ -1,11 +1,22 @@
 @import (less) "base.less";
 
-.btn {
-    background-color: @gray;
-    color: @white;
-}
+.searchBar {
+    padding: @gutter-normal;
+    border: 1px solid @gray-20;
 
-.btn.primary {
-    background-color: @pacific;
-    color: @white;
+    background-color: @gray-5;
+
+    .btn {
+        background-color: @gray;
+        color: @white;
+    }
+
+    .btn.primary {
+        background-color: @pacific;
+        color: @white;
+    }
+
+    input[type=text] {
+        width: 80%;
+    }
 }
