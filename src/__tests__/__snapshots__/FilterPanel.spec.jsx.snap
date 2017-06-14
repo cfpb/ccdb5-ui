@@ -4,5 +4,24 @@ exports[`initial state renders without crashing 1`] = `
   <h3>
     Filter results by...
   </h3>
+  <section
+    className="single-checkbox">
+    <h5>
+      Only show complaints with narratives?
+    </h5>
+    <div
+      className="m-form-field m-form-field__checkbox">
+      <input
+        className="a-checkbox"
+        id="theCheckbox"
+        type="checkbox" />
+      <label
+        className="a-label"
+        for="theCheckbox">
+        Yes
+      </label>
+    </div>
+  </section>
+  <hr />
 </section>
 `;
