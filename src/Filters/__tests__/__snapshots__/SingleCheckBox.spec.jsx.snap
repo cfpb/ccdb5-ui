@@ -1,0 +1,20 @@
+exports[`initial state renders without crashing 1`] = `
+<section
+  className="single-checkbox">
+  <h5>
+    foo
+  </h5>
+  <div
+    className="m-form-field m-form-field__checkbox">
+    <input
+      className="a-checkbox"
+      id="theCheckbox"
+      type="checkbox" />
+    <label
+      className="a-label"
+      for="theCheckbox">
+      bar
+    </label>
+  </div>
+</section>
+`;
