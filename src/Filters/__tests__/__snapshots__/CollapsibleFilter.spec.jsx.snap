@@ -1,0 +1,23 @@
+exports[`initial state renders without crashing 1`] = `
+<section
+  className="collapsible-filter">
+  <div
+    className="layout-row">
+    <h5
+      className="flex-all">
+      foo
+    </h5>
+    <div
+      className="flex-fixed toggle">
+      <a>
+        Hide
+      </a>
+      <span
+        className="cf-icon cf-icon-minus-round" />
+    </div>
+  </div>
+  <p>
+    bar
+  </p>
+</section>
+`;

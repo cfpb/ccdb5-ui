@@ -23,5 +23,70 @@ exports[`initial state renders without crashing 1`] = `
     </div>
   </section>
   <hr />
+  <section
+    className="collapsible-filter">
+    <div
+      className="layout-row">
+      <h5
+        className="flex-all">
+        Date CFPB Received the complaint
+      </h5>
+      <div
+        className="flex-fixed toggle">
+        <a>
+          Hide
+        </a>
+        <span
+          className="cf-icon cf-icon-minus-round" />
+      </div>
+    </div>
+    <p />
+    <div
+      className="layout-row">
+      <div
+        class="flex-all">
+        <label
+          className="a-label a-label__heading">
+          From:
+        </label>
+        <input
+          type="date" />
+      </div>
+      <div
+        class="flex-all">
+        <label
+          className="a-label a-label__heading">
+          Through:
+        </label>
+        <input
+          type="date" />
+      </div>
+    </div>
+  </section>
+  <hr />
+  <section
+    className="collapsible-filter">
+    <div
+      className="layout-row">
+      <h5
+        className="flex-all">
+        Matched Company Name
+      </h5>
+      <div
+        className="flex-fixed toggle">
+        <a>
+          Hide
+        </a>
+        <span
+          className="cf-icon cf-icon-minus-round" />
+      </div>
+    </div>
+    <p>
+      The company name as it appears in our complaint system, which may be different than the name the consumer provided in the complaint
+    </p>
+    <input
+      placeholder="Enter company name"
+      type="text" />
+  </section>
 </section>
 `;
