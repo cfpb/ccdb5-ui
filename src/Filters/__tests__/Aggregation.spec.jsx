@@ -1,16 +1,13 @@
 import React from 'react';
-import FilterPanel from '../FilterPanel';
+import Aggregation from '../Aggregation';
 import renderer from 'react-test-renderer';
 
 describe('initial state', () => {
-  const aggs = {
-    timely_response: [],
-    company_response: []
-  };
-
   it('renders without crashing', () => {
+    let options = [];
+
     const target = renderer.create(
-      <FilterPanel aggs={ aggs } />
+      <Aggregation options={options} />
     );
 
     let tree = target.toJSON();

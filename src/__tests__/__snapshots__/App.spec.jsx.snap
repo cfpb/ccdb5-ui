@@ -2,6 +2,42 @@ exports[`initial state renders without crashing 1`] = `
 <main
   className="content content__1-3"
   role="main">
+  <header
+    className="content_hero">
+    <h1>
+      Consumer Complaint Database
+    </h1>
+    <p>
+      Consumer complaints get added to this public database after the company has responded to the complaint (or after they\'ve had the complaint for 15 calendar days, whichever comes first). We only publish the description of what happened if the consumer agrees to share it and after we take steps to 
+      <a>
+        remove personal information
+      </a>
+      . Data is generally updated nightly.
+    </p>
+    <ul
+      className="m-list m-list__horizontal">
+      <li
+        className="m-list_item">
+        <a>
+          Database Disclaimers
+        </a>
+         |
+      </li>
+      <li
+        className="m-list_item">
+        <a>
+          How we use complaint data
+        </a>
+         |
+      </li>
+      <li
+        className="m-list_item">
+        <a>
+          Technical Document
+        </a>
+      </li>
+    </ul>
+  </header>
   <div
     className="content_wrapper">
     <nav
@@ -33,16 +69,323 @@ exports[`initial state renders without crashing 1`] = `
     </nav>
     <aside
       className="content_sidebar">
-      <div
-        className="refine-panel">
-        Refine Panel
-      </div>
+      <section
+        className="filter-panel">
+        <h3>
+          Filter results by...
+        </h3>
+        <section
+          className="single-checkbox">
+          <h5>
+            Only show complaints with narratives?
+          </h5>
+          <div
+            className="m-form-field m-form-field__checkbox">
+            <input
+              className="a-checkbox"
+              id="theCheckbox"
+              type="checkbox" />
+            <label
+              className="a-label"
+              htmlFor="theCheckbox">
+              Yes
+            </label>
+          </div>
+        </section>
+        <hr />
+        <section
+          className="collapsible-filter">
+          <div
+            className="layout-row">
+            <h5
+              className="flex-all">
+              Date CFPB Received the complaint
+            </h5>
+            <div
+              className="flex-fixed toggle">
+              <a>
+                Hide
+              </a>
+              <span
+                className="cf-icon cf-icon-minus-round" />
+            </div>
+          </div>
+          <p />
+          <div
+            className="layout-row">
+            <div
+              className="flex-all">
+              <label
+                className="a-label a-label__heading">
+                From:
+              </label>
+              <input
+                type="date" />
+            </div>
+            <div
+              className="flex-all">
+              <label
+                className="a-label a-label__heading">
+                Through:
+              </label>
+              <input
+                type="date" />
+            </div>
+          </div>
+        </section>
+        <hr />
+        <section
+          className="collapsible-filter">
+          <div
+            className="layout-row">
+            <h5
+              className="flex-all">
+              Matched Company Name
+            </h5>
+            <div
+              className="flex-fixed toggle">
+              <a>
+                Hide
+              </a>
+              <span
+                className="cf-icon cf-icon-minus-round" />
+            </div>
+          </div>
+          <p>
+            The company name as it appears in our complaint system, which may be different than the name the consumer provided in the complaint
+          </p>
+          <input
+            placeholder="Enter company name"
+            type="text" />
+        </section>
+        <hr />
+        <section
+          className="collapsible-filter aggregation">
+          <div
+            className="layout-row">
+            <h5
+              className="flex-all">
+              Did company provide a timely response?
+            </h5>
+            <div
+              className="flex-fixed toggle">
+              <a>
+                Hide
+              </a>
+              <span
+                className="cf-icon cf-icon-minus-round" />
+            </div>
+          </div>
+          <p />
+          <ul>
+            <li
+              className="flex-fixed layout-row">
+              <input
+                aria-label="No"
+                checked={true}
+                className="flex-fixed"
+                type="checkbox" />
+              <span
+                className="flex-all bucket-key">
+                No
+              </span>
+              <span
+                className="flex-fixed bucket-count">
+                678845
+              </span>
+            </li>
+            <li
+              className="flex-fixed layout-row">
+              <input
+                aria-label="Yes"
+                checked={false}
+                className="flex-fixed"
+                type="checkbox" />
+              <span
+                className="flex-all bucket-key">
+                Yes
+              </span>
+              <span
+                className="flex-fixed bucket-count">
+                487578
+              </span>
+            </li>
+          </ul>
+          <div
+            className="flex-fixed">
+            <button
+              className="a-btn a-btn__link hover more">
+              + Show X more
+            </button>
+          </div>
+        </section>
+        <hr />
+        <section
+          className="collapsible-filter aggregation">
+          <div
+            className="layout-row">
+            <h5
+              className="flex-all">
+              Company Response
+            </h5>
+            <div
+              className="flex-fixed toggle">
+              <a>
+                Hide
+              </a>
+              <span
+                className="cf-icon cf-icon-minus-round" />
+            </div>
+          </div>
+          <p>
+            How the company responded to the complaint
+          </p>
+          <ul>
+            <li
+              className="flex-fixed layout-row">
+              <input
+                aria-label="Closed with explanation"
+                checked={false}
+                className="flex-fixed"
+                type="checkbox" />
+              <span
+                className="flex-all bucket-key">
+                Closed with explanation
+              </span>
+              <span
+                className="flex-fixed bucket-count">
+                574783
+              </span>
+            </li>
+            <li
+              className="flex-fixed layout-row">
+              <input
+                aria-label="Closed with monetary relief"
+                checked={false}
+                className="flex-fixed"
+                type="checkbox" />
+              <span
+                className="flex-all bucket-key">
+                Closed with monetary relief
+              </span>
+              <span
+                className="flex-fixed bucket-count">
+                151083
+              </span>
+            </li>
+            <li
+              className="flex-fixed layout-row">
+              <input
+                aria-label="Closed with non-monetary relief"
+                checked={false}
+                className="flex-fixed"
+                type="checkbox" />
+              <span
+                className="flex-all bucket-key">
+                Closed with non-monetary relief
+              </span>
+              <span
+                className="flex-fixed bucket-count">
+                94550
+              </span>
+            </li>
+            <li
+              className="flex-fixed layout-row">
+              <input
+                aria-label="Untimely response"
+                checked={false}
+                className="flex-fixed"
+                type="checkbox" />
+              <span
+                className="flex-all bucket-key">
+                Untimely response
+              </span>
+              <span
+                className="flex-fixed bucket-count">
+                26894
+              </span>
+            </li>
+            <li
+              className="flex-fixed layout-row">
+              <input
+                aria-label="Closed"
+                checked={false}
+                className="flex-fixed"
+                type="checkbox" />
+              <span
+                className="flex-all bucket-key">
+                Closed
+              </span>
+              <span
+                className="flex-fixed bucket-count">
+                19151
+              </span>
+            </li>
+            <li
+              className="flex-fixed layout-row">
+              <input
+                aria-label="Closed without relief"
+                checked={false}
+                className="flex-fixed"
+                type="checkbox" />
+              <span
+                className="flex-all bucket-key">
+                Closed without relief
+              </span>
+              <span
+                className="flex-fixed bucket-count">
+                4263
+              </span>
+            </li>
+            <li
+              className="flex-fixed layout-row">
+              <input
+                aria-label="Closed with relief"
+                checked={false}
+                className="flex-fixed"
+                type="checkbox" />
+              <span
+                className="flex-all bucket-key">
+                Closed with relief
+              </span>
+              <span
+                className="flex-fixed bucket-count">
+                1347
+              </span>
+            </li>
+            <li
+              className="flex-fixed layout-row">
+              <input
+                aria-label="In progress"
+                checked={false}
+                className="flex-fixed"
+                type="checkbox" />
+              <span
+                className="flex-all bucket-key">
+                In progress
+              </span>
+              <span
+                className="flex-fixed bucket-count">
+                587
+              </span>
+            </li>
+          </ul>
+          <div
+            className="flex-fixed">
+            <button
+              className="a-btn a-btn__link hover more">
+              + Show X more
+            </button>
+          </div>
+        </section>
+      </section>
     </aside>
     <section
       className="content_main">
       <div
         className="results-panel">
-        <summary>
+        <summary
+          className="action-bar">
           <div>
             <h2>
               Showing x of y complaints
