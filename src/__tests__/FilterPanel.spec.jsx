@@ -1,11 +1,11 @@
 import React from 'react';
-import RefinePanel from '../RefinePanel';
+import FilterPanel from '../FilterPanel';
 import renderer from 'react-test-renderer';
 
 describe('initial state', () => {
   it('renders without crashing', () => {
     const target = renderer.create(
-      <RefinePanel />
+      <FilterPanel />
     );
 
     let tree = target.toJSON();
