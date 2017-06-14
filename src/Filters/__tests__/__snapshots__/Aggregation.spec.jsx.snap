@@ -1,0 +1,27 @@
+exports[`initial state renders without crashing 1`] = `
+<section
+  className="collapsible-filter aggregation">
+  <div
+    className="layout-row">
+    <h5
+      className="flex-all" />
+    <div
+      className="flex-fixed toggle">
+      <a>
+        Hide
+      </a>
+      <span
+        className="cf-icon cf-icon-minus-round" />
+    </div>
+  </div>
+  <p />
+  <ul />
+  <div
+    className="flex-fixed">
+    <button
+      className="a-btn a-btn__link hover more">
+      + Show X more
+    </button>
+  </div>
+</section>
+`;

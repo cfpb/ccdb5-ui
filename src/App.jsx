@@ -5,7 +5,10 @@ import ReactDOM from 'react-dom';
 
 import React from 'react';
 import './App.less';
+import ActionBar from './ActionBar';
 import ComplaintCard from './ComplaintCard';
+import FilterPanel from './FilterPanel';
+import Hero from './Hero';
 import Pagination from './Pagination';
 import SearchBar from './SearchBar';
 import UrlBarSynch from './UrlBarSynch';
@@ -25,7 +28,24 @@ export class App extends React.Component {
     // Build up the state from the URL
     let nonQs = {
       items: [],
-      total: 0
+      total: 0,
+
+      aggs: {
+        timely_response: [
+          {key: 'No', active: true, doc_count: 678845},
+          {key: 'Yes', active: false, doc_count: 487578}
+        ],
+        company_response: [
+          {key: 'Closed with explanation', active: false, doc_count: 574783},
+          {key: 'Closed with monetary relief', active: false, doc_count: 151083},
+          {key: 'Closed with non-monetary relief', active: false, doc_count: 94550},
+          {key: 'Untimely response', active: false, doc_count: 26894},
+          {key: 'Closed', active: false, doc_count: 19151},
+          {key: 'Closed without relief', active: false, doc_count: 4263},
+          {key: 'Closed with relief', active: false, doc_count: 1347},
+          {key: 'In progress', active: false, doc_count: 587},
+        ]
+      }
     };
     let qs = this.urlBar.getParams();
 
@@ -40,24 +60,26 @@ export class App extends React.Component {
     let to = this.state.from + this.state.size;
 
     return (
-      <main className="col-12">
-        <aside className="col-3">
-          <div className="refine-panel">Refine Panel</div>
-        </aside>
-        <div className="col-9 content">
+      <main className="content content__1-3" role="main">
+        <Hero />
+        <div className="content_wrapper">
           <SearchBar onSearch={this._onSearch} 
                      searchText={this.state.searchText} />
-          <div className="results-panel">
-            <summary>
+          <aside className="content_sidebar">
+            <FilterPanel aggs={this.state.aggs} />
+          </aside>
+          <section className="content_main">
+            <div className="results-panel">
+              <ActionBar />
+              <ul className="cards-panel">
+                {this.state.items
+                  .filter((e, i) => i >= this.state.from && i < to)
+                  .map(item => <ComplaintCard key={item.complaint_id}
+                                              row={item} />)}
+              </ul>
               <Pagination {...this.state} onPage={this._onPage} />
-            </summary>
-            <ul className="cards-panel">
-              {this.state.items
-                .filter((e, i) => i >= this.state.from && i < to)
-                .map(item => <ComplaintCard key={item.complaint_id}
-                                            row={item} />)}
-            </ul>
-          </div>
+            </div>
+          </section>
         </div>
       </main>
     );

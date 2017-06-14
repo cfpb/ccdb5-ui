@@ -43,7 +43,7 @@ describe('_extractQueryStringParams', () => {
     var actual = target._extractQueryStringParams('');
     expect(actual.from).toEqual(0);
     expect(actual.size).toEqual(10);
-    expect(actual.searchText).toEqual('foo');
+    expect(actual.searchText).toEqual('');
   });
 
   it('returns integers for some params', () => {

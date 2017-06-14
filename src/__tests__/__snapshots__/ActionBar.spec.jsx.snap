@@ -1,0 +1,13 @@
+exports[`initial state renders without crashing 1`] = `
+<summary
+  className="action-bar">
+  <div>
+    <h2>
+      Showing x of y complaints
+    </h2>
+  </div>
+  <div>
+    Page | Sort | Export
+  </div>
+</summary>
+`;

@@ -79,27 +79,37 @@
     .grid_column( 12 );
 }
 
+// Overrides
+
+.content__1-3 {
+    .content_wrapper {
+        padding-left: 0;
+        padding-right: 0;
+
+        max-width: initial;
+    }
+
+    .content_sidebar {
+        width: 33%;
+        padding: 0;
+        border: 0;
+        margin: 0;
+    }
+
+    .content_main {
+        width: 66%;
+        padding: 0;
+        border: 0;
+
+        &:after {
+            border-left: 0;            
+        }
+    }
+}
+
 // This component specific
-
-.refine-panel {
-    height: 400px;
-    padding: @gutter-normal;
-    border: 2px dashed @gray-40;
-    margin-top: @gutter-normal;
-    margin-bottom: @gutter-normal;
-}
-
-.content {
-    margin-top: @gutter-normal;
-    margin-bottom: @gutter-normal;
-}
 
 .cards-panel {
     padding: 0;
     margin: 0;
-}
-
-summary {
-    margin-top: @gutter-normal;
-    margin-bottom: @gutter-normal;
 }
