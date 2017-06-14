@@ -1,7 +1,8 @@
 import React from 'react';
 import './FilterPanel.less';
-import SingleCheckbox from './Filters/SingleCheckbox';
+import Aggregation from './Filters/Aggregation';
 import CollapsibleFilter from './Filters/CollapsibleFilter';
+import SingleCheckbox from './Filters/SingleCheckbox';
 
 export default class FilterPanel extends React.Component {
   render() {
@@ -13,11 +14,11 @@ export default class FilterPanel extends React.Component {
         <hr />
         <CollapsibleFilter title="Date CFPB Received the complaint">
             <div className="layout-row">
-                <div class="flex-all">
+                <div className="flex-all">
                     <label className="a-label a-label__heading">From:</label>
                     <input type="date" />
                 </div>
-                <div class="flex-all">
+                <div className="flex-all">
                     <label className="a-label a-label__heading">Through:</label>
                     <input type="date" />
                 </div>
@@ -28,6 +29,15 @@ export default class FilterPanel extends React.Component {
                            desc="The company name as it appears in our complaint system, which may be different than the name the consumer provided in the complaint">
             <input type="text" placeholder="Enter company name" />
         </CollapsibleFilter>
+        <hr />
+        <Aggregation title="Did company provide a timely response?"
+                         options={this.props.aggs.timely_response}
+        />
+        <hr />
+        <Aggregation title="Company Response"
+                         desc="How the company responded to the complaint"
+                         options={this.props.aggs.company_response}
+        />
       </section>
     );
   }
