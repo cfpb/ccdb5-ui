@@ -13,7 +13,186 @@ exports[`initial state renders without crashing 1`] = `
     </div>
   </summary>
   <ul
-    className="cards-panel" />
+    className="cards-panel">
+    <li>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          company
+        </div>
+        <div
+          className="col col-9">
+          foo
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          company_public_response
+        </div>
+        <div
+          className="col col-9">
+          Closed
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          company_response
+        </div>
+        <div
+          className="col col-9">
+          Closed
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          complaint_what_happened
+        </div>
+        <div
+          className="col col-9">
+          Lorem Ipsum
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          consumer_consent_provided
+        </div>
+        <div
+          className="col col-9">
+          Yes
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          consumer_disputed
+        </div>
+        <div
+          className="col col-9">
+          No
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          date_received
+        </div>
+        <div
+          className="col col-9">
+          2013-02-03
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          date_sent_to_company
+        </div>
+        <div
+          className="col col-9">
+          2013-02-03
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          issue
+        </div>
+        <div
+          className="col col-9">
+          Foo
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          product
+        </div>
+        <div
+          className="col col-9">
+          Bar
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          state
+        </div>
+        <div
+          className="col col-9">
+          DC
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          sub_issue
+        </div>
+        <div
+          className="col col-9">
+          Baz
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          sub_product
+        </div>
+        <div
+          className="col col-9">
+          Qaz
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          submitted_via
+        </div>
+        <div
+          className="col col-9">
+          email
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          timely
+        </div>
+        <div
+          className="col col-9">
+          yes
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          zip_code
+        </div>
+        <div
+          className="col col-9">
+          200XX
+        </div>
+      </div>
+    </li>
+  </ul>
   <nav
     aria-label="Pagination"
     className="m-pagination"
