@@ -1,0 +1,74 @@
+exports[`initial state renders without crashing 1`] = `
+<section
+  className="results-panel">
+  <summary
+    className="action-bar">
+    <div>
+      <h2>
+        Showing x of y complaints
+      </h2>
+    </div>
+    <div>
+      Page | Sort | Export
+    </div>
+  </summary>
+  <ul
+    className="cards-panel" />
+  <nav
+    aria-label="Pagination"
+    className="m-pagination"
+    role="navigation">
+    <button
+      className="a-btn m-pagination_btn-prev"
+      disabled={true}
+      onClick={[Function]}>
+      <span
+        className="a-btn_icon a-btn_icon__on-left cf-icon cf-icon__before cf-icon-left" />
+      Previous
+    </button>
+    <button
+      className="a-btn m-pagination_btn-next"
+      disabled={true}
+      onClick={[Function]}>
+      Next
+      <span
+        className="a-btn_icon a-btn_icon__on-right cf-icon cf-icon__after cf-icon-right" />
+    </button>
+    <form
+      action=""
+      className="m-pagination_form"
+      onSubmit={[Function]}>
+      <label
+        className="m-pagination_label"
+        htmlFor="m-pagination_current-page">
+        Page
+        <span
+          className="u-visually-hidden">
+          number 
+          1
+           out
+        </span>
+        <input
+          className="m-pagination_current-page"
+          id="m-pagination_current-page"
+          inputMode="numeric"
+          max={0}
+          min="1"
+          name="page"
+          onChange={[Function]}
+          pattern="[0-9]*"
+          type="number"
+          value={1} />
+        of 
+        0
+      </label>
+      <button
+        className="a-btn a-btn__link m-pagination_btn-submit"
+        id="m-pagination_btn-submit"
+        type="submit">
+        Go
+      </button>
+    </form>
+  </nav>
+</section>
+`;
