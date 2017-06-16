@@ -1,0 +1,253 @@
+exports[`initial state renders without crashing 1`] = `
+<section
+  className="results-panel">
+  <summary
+    className="action-bar">
+    <div>
+      <h2>
+        Showing x of y complaints
+      </h2>
+    </div>
+    <div>
+      Page | Sort | Export
+    </div>
+  </summary>
+  <ul
+    className="cards-panel">
+    <li>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          company
+        </div>
+        <div
+          className="col col-9">
+          foo
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          company_public_response
+        </div>
+        <div
+          className="col col-9">
+          Closed
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          company_response
+        </div>
+        <div
+          className="col col-9">
+          Closed
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          complaint_what_happened
+        </div>
+        <div
+          className="col col-9">
+          Lorem Ipsum
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          consumer_consent_provided
+        </div>
+        <div
+          className="col col-9">
+          Yes
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          consumer_disputed
+        </div>
+        <div
+          className="col col-9">
+          No
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          date_received
+        </div>
+        <div
+          className="col col-9">
+          2013-02-03
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          date_sent_to_company
+        </div>
+        <div
+          className="col col-9">
+          2013-02-03
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          issue
+        </div>
+        <div
+          className="col col-9">
+          Foo
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          product
+        </div>
+        <div
+          className="col col-9">
+          Bar
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          state
+        </div>
+        <div
+          className="col col-9">
+          DC
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          sub_issue
+        </div>
+        <div
+          className="col col-9">
+          Baz
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          sub_product
+        </div>
+        <div
+          className="col col-9">
+          Qaz
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          submitted_via
+        </div>
+        <div
+          className="col col-9">
+          email
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          timely
+        </div>
+        <div
+          className="col col-9">
+          yes
+        </div>
+      </div>
+      <div
+        className="col col-12">
+        <div
+          className="col col-3">
+          zip_code
+        </div>
+        <div
+          className="col col-9">
+          200XX
+        </div>
+      </div>
+    </li>
+  </ul>
+  <nav
+    aria-label="Pagination"
+    className="m-pagination"
+    role="navigation">
+    <button
+      className="a-btn m-pagination_btn-prev"
+      disabled={true}
+      onClick={[Function]}>
+      <span
+        className="a-btn_icon a-btn_icon__on-left cf-icon cf-icon__before cf-icon-left" />
+      Previous
+    </button>
+    <button
+      className="a-btn m-pagination_btn-next"
+      disabled={true}
+      onClick={[Function]}>
+      Next
+      <span
+        className="a-btn_icon a-btn_icon__on-right cf-icon cf-icon__after cf-icon-right" />
+    </button>
+    <form
+      action=""
+      className="m-pagination_form"
+      onSubmit={[Function]}>
+      <label
+        className="m-pagination_label"
+        htmlFor="m-pagination_current-page">
+        Page
+        <span
+          className="u-visually-hidden">
+          number 
+          1
+           out
+        </span>
+        <input
+          className="m-pagination_current-page"
+          id="m-pagination_current-page"
+          inputMode="numeric"
+          max={0}
+          min="1"
+          name="page"
+          onChange={[Function]}
+          pattern="[0-9]*"
+          type="number"
+          value={1} />
+        of 
+        0
+      </label>
+      <button
+        className="a-btn a-btn__link m-pagination_btn-submit"
+        id="m-pagination_btn-submit"
+        type="submit">
+        Go
+      </button>
+    </form>
+  </nav>
+</section>
+`;

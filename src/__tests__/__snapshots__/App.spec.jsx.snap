@@ -383,23 +383,20 @@ exports[`initial state renders without crashing 1`] = `
       </section>
     </aside>
     <section
-      className="content_main">
-      <div
-        className="results-panel">
-        <summary
-          className="action-bar">
-          <div>
-            <h2>
-              Showing x of y complaints
-            </h2>
-          </div>
-          <div>
-            Page | Sort | Export
-          </div>
-        </summary>
-        <ul
-          className="cards-panel" />
-      </div>
+      className="results-panel content_main">
+      <summary
+        className="action-bar">
+        <div>
+          <h2>
+            Showing x of y complaints
+          </h2>
+        </div>
+        <div>
+          Page | Sort | Export
+        </div>
+      </summary>
+      <ul
+        className="cards-panel" />
     </section>
   </div>
 </main>

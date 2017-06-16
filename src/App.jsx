@@ -5,12 +5,10 @@ import ReactDOM from 'react-dom';
 
 import React from 'react';
 import './App.less';
-import ActionBar from './ActionBar';
-import ComplaintCard from './ComplaintCard';
 import FilterPanel from './FilterPanel';
 import Hero from './Hero';
-import Pagination from './Pagination';
 import SearchBar from './SearchBar';
+import ResultsPanel from './ResultsPanel';
 import UrlBarSynch from './UrlBarSynch';
 
 export class App extends React.Component {
@@ -57,8 +55,6 @@ export class App extends React.Component {
   }
 
   render() {
-    let to = this.state.from + this.state.size;
-
     return (
       <main className="content content__1-3" role="main">
         <Hero />
@@ -68,18 +64,8 @@ export class App extends React.Component {
           <aside className="content_sidebar">
             <FilterPanel aggs={this.state.aggs} />
           </aside>
-          <section className="content_main">
-            <div className="results-panel">
-              <ActionBar />
-              <ul className="cards-panel">
-                {this.state.items
-                  .filter((e, i) => i >= this.state.from && i < to)
-                  .map(item => <ComplaintCard key={item.complaint_id}
-                                              row={item} />)}
-              </ul>
-              <Pagination {...this.state} onPage={this._onPage} />
-            </div>
-          </section>
+          <ResultsPanel {...this.state} onPage={this._onPage}
+                        className="content_main" />
         </div>
       </main>
     );
