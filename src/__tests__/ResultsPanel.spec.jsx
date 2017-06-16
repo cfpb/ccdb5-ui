@@ -9,6 +9,7 @@ describe('initial state', () => {
         company: 'foo',
         company_public_response: 'Closed',
         company_response: 'Closed',
+        complaint_id: '1',
         complaint_what_happened: 'Lorem Ipsum',
         consumer_consent_provided: 'Yes',
         consumer_disputed: 'No',
