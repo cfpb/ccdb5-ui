@@ -5,7 +5,7 @@ import ComplaintCard from './ComplaintCard';
 import Pagination from './Pagination';
 import './ResultsPanel.less';
 
-class ResultsPanelContainer extends React.Component {
+export class ResultsPanel extends React.Component {
   render() {
     let composeClasses = 'results-panel';
     if (this.props.className) {
@@ -33,12 +33,9 @@ const mapStateToProps = state => {
   return {
     from: state.query.from,
     size: state.query.size,
-    items: state.results.items
+    items: state.results.items,
+    total: state.results.total
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ResultsPanelContainer)
+export default connect(mapStateToProps)(ResultsPanel)

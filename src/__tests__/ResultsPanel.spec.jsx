@@ -1,5 +1,5 @@
 import React from 'react';
-import ResultsPanel from '../ResultsPanel';
+import { ResultsPanel } from '../ResultsPanel';
 import renderer from 'react-test-renderer';
 
 describe('initial state', () => {

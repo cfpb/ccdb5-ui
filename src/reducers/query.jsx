@@ -1,5 +1,5 @@
 import { SEARCH_TEXT } from '../constants'
-const defaultQuery = {
+export const defaultQuery = {
   searchText: '',
   from: 0,
   size: 10

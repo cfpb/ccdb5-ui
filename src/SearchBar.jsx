@@ -4,7 +4,7 @@ import search from './actions/search'
 import { getComplaints } from './actions/complaints'
 import './SearchBar.less';
 
-class SearchBarContainer extends React.Component {
+export class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -68,4 +68,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBarContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar)
