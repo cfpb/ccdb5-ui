@@ -4,12 +4,33 @@
 import ReactDOM from 'react-dom';
 
 import React from 'react';
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk'
+
+import { getComplaints } from './actions/complaints'
+
+import reducers from './reducers'
+
 import './App.less';
 import FilterPanel from './FilterPanel';
 import Hero from './Hero';
 import SearchBar from './SearchBar';
 import ResultsPanel from './ResultsPanel';
 import UrlBarSynch from './UrlBarSynch';
+
+const middleware = [thunkMiddleware]
+
+let store = createStore(
+  reducers,
+  applyMiddleware(...middleware)
+);
+
+// Every time the state changes, log it
+// Note that subscribe() returns a function for unregistering the listener
+let unsubscribe = store.subscribe(() =>
+  console.log(store.getState())
+)
 
 export class App extends React.Component {
   constructor() {
@@ -56,18 +77,19 @@ export class App extends React.Component {
 
   render() {
     return (
-      <main className="content content__1-3" role="main">
-        <Hero />
-        <div className="content_wrapper">
-          <SearchBar onSearch={this._onSearch} 
-                     searchText={this.state.searchText} />
-          <aside className="content_sidebar">
-            <FilterPanel aggs={this.state.aggs} />
-          </aside>
-          <ResultsPanel {...this.state} onPage={this._onPage}
-                        className="content_main" />
-        </div>
-      </main>
+      <Provider store={store}>
+        <main className="content content__1-3" role="main">
+          <Hero />
+          <div className="content_wrapper">
+            <SearchBar />
+            <aside className="content_sidebar">
+              <FilterPanel aggs={this.state.aggs} />
+            </aside>
+            <ResultsPanel onPage={this._onPage}
+                          className="content_main" />
+          </div>
+        </main>
+      </Provider>
     );
   }
 
@@ -75,23 +97,14 @@ export class App extends React.Component {
   // API Call
 
   _callApi() {
-    return fetch('https://data.consumerfinance.gov/resource/jhzv-w97w.json')
-    .then(result => result.json())
-    .then(items => this.setState({items: items, total: items.length}))
+    store.dispatch(getComplaints())
   }
 
   //---------------------------------------------------------------------------
   // Handlers
 
   _onSearch(s) {
-    let update = {
-      searchText: s,
-      from: 0,
-      total: 0
-    };
-
-    this.urlBar.setParams(Object.assign({}, this.state, update));
-    this.setState(update);
+    this.urlBar.setParams(store.getState());
     this._callApi();
   }
 
