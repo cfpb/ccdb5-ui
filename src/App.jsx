@@ -17,7 +17,6 @@ import FilterPanel from './FilterPanel';
 import Hero from './Hero';
 import SearchBar from './SearchBar';
 import ResultsPanel from './ResultsPanel';
-import UrlBarSynch from './UrlBarSynch';
 
 const middleware = [thunkMiddleware]
 
@@ -39,10 +38,6 @@ export class App extends React.Component {
     // This binding is necessary to make `this` work in the callback
     // https://facebook.github.io/react/docs/handling-events.html
     this._onPage = this._onPage.bind(this);
-    this._onSearch = this._onSearch.bind(this);
-    this._onUrlChanged = this._onUrlChanged.bind(this);
-
-    this.urlBar = new UrlBarSynch(this._onUrlChanged);
 
     // Build up the state from the URL
     let nonQs = {
@@ -66,13 +61,12 @@ export class App extends React.Component {
         ]
       }
     };
-    let qs = this.urlBar.getParams();
 
-    this.state = Object.assign({}, nonQs, qs);
+    this.state = Object.assign({}, nonQs);
   }
 
   componentDidMount() {
-    this._callApi();
+    store.dispatch(getComplaints())
   }
 
   render() {
@@ -94,19 +88,7 @@ export class App extends React.Component {
   }
 
   //---------------------------------------------------------------------------
-  // API Call
-
-  _callApi() {
-    store.dispatch(getComplaints())
-  }
-
-  //---------------------------------------------------------------------------
   // Handlers
-
-  _onSearch(s) {
-    this.urlBar.setParams(store.getState());
-    this._callApi();
-  }
 
   _onPage(page) {
     let update = {
@@ -115,9 +97,5 @@ export class App extends React.Component {
 
     this.urlBar.setParams(Object.assign({}, this.state, update));
     this.setState(update);
-  }
-
-  _onUrlChanged(params) {
-    this.setState(params);
   }
 }
