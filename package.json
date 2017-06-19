@@ -26,9 +26,13 @@
     "cf-tables": "^4.1.1",
     "cf-typography": "^4.1.0",
     "history": "^4.6.1",
+    "prop-types": "^15.5.10",
     "query-string": "^4.3.4",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "react-redux": "^5.0.5",
+    "redux": "^3.7.0",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "autoprefixer": "6.7.2",
