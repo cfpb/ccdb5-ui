@@ -53,13 +53,13 @@ export class SearchBar extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+export const mapStateToProps = state => {
   return {
     searchText: state.query.searchText
   }
 }
 
-const mapDispatchToProps = dispatch => {
+export const mapDispatchToProps = dispatch => {
   return {
     onSearch: text => {
       dispatch(search(text, 'qaz'))
