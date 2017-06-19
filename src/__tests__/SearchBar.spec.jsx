@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {shallow} from 'enzyme';
-import SearchBar from '../SearchBar';
+import { SearchBar } from '../SearchBar';
 
 it('receives updates when the parent state changes', () => {
    const node = document.createElement('div');
