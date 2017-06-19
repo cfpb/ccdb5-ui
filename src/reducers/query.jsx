@@ -11,8 +11,7 @@ export default (state = defaultQuery, action) => {
     return {
       ...state,
       searchText: action.searchText,
-      from: 0,
-      total: 0
+      from: 0
     }
 
   default:
