@@ -9,20 +9,16 @@ import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 
 import { getComplaints } from './actions/complaints'
-
 import reducers from './reducers'
-
-import './App.less';
 import FilterPanel from './FilterPanel';
 import Hero from './Hero';
 import SearchBar from './SearchBar';
 import ResultsPanel from './ResultsPanel';
-
-const middleware = [thunkMiddleware]
+import './App.less';
 
 let store = createStore(
   reducers,
-  applyMiddleware(...middleware)
+  applyMiddleware(thunkMiddleware)
 );
 
 // Every time the state changes, log it
@@ -32,32 +28,6 @@ let store = createStore(
 // )
 
 export class App extends React.Component {
-  constructor() {
-    super();
-
-    // Build up the state from the URL
-    let nonQs = {
-      aggs: {
-        timely_response: [
-          {key: 'No', active: true, doc_count: 678845},
-          {key: 'Yes', active: false, doc_count: 487578}
-        ],
-        company_response: [
-          {key: 'Closed with explanation', active: false, doc_count: 574783},
-          {key: 'Closed with monetary relief', active: false, doc_count: 151083},
-          {key: 'Closed with non-monetary relief', active: false, doc_count: 94550},
-          {key: 'Untimely response', active: false, doc_count: 26894},
-          {key: 'Closed', active: false, doc_count: 19151},
-          {key: 'Closed without relief', active: false, doc_count: 4263},
-          {key: 'Closed with relief', active: false, doc_count: 1347},
-          {key: 'In progress', active: false, doc_count: 587},
-        ]
-      }
-    };
-
-    this.state = Object.assign({}, nonQs);
-  }
-
   componentDidMount() {
     store.dispatch(getComplaints())
   }
@@ -70,7 +40,7 @@ export class App extends React.Component {
           <div className="content_wrapper">
             <SearchBar />
             <aside className="content_sidebar">
-              <FilterPanel aggs={this.state.aggs} />
+              <FilterPanel />
             </aside>
             <ResultsPanel className="content_main" />
           </div>
