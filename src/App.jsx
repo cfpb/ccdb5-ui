@@ -27,23 +27,16 @@ let store = createStore(
 
 // Every time the state changes, log it
 // Note that subscribe() returns a function for unregistering the listener
-let unsubscribe = store.subscribe(() =>
-  console.log(store.getState())
-)
+// let unsubscribe = store.subscribe(() =>
+//   console.log(store.getState())
+// )
 
 export class App extends React.Component {
   constructor() {
     super();
 
-    // This binding is necessary to make `this` work in the callback
-    // https://facebook.github.io/react/docs/handling-events.html
-    this._onPage = this._onPage.bind(this);
-
     // Build up the state from the URL
     let nonQs = {
-      items: [],
-      total: 0,
-
       aggs: {
         timely_response: [
           {key: 'No', active: true, doc_count: 678845},
@@ -79,23 +72,10 @@ export class App extends React.Component {
             <aside className="content_sidebar">
               <FilterPanel aggs={this.state.aggs} />
             </aside>
-            <ResultsPanel onPage={this._onPage}
-                          className="content_main" />
+            <ResultsPanel className="content_main" />
           </div>
         </main>
       </Provider>
     );
-  }
-
-  //---------------------------------------------------------------------------
-  // Handlers
-
-  _onPage(page) {
-    let update = {
-      from: (page - 1) * this.state.size
-    }
-
-    this.urlBar.setParams(Object.assign({}, this.state, update));
-    this.setState(update);
   }
 }

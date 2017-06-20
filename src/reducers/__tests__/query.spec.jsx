@@ -26,4 +26,18 @@ describe('reducer:query', () => {
         size: 100
       })
   })
+
+  it('handles CHANGE_PAGE actions', () => {
+    const action = {
+      type: types.CHANGE_PAGE,
+      page: 2
+    }
+    const state = {
+      size: 100
+    }
+    expect(target(state, action)).toEqual({
+        from: 100,
+        size: 100
+      })
+  })
 })

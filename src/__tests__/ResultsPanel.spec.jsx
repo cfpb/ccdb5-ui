@@ -1,8 +1,11 @@
 import React from 'react';
+import { Provider } from 'react-redux'
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
 import { ResultsPanel } from '../ResultsPanel';
 import renderer from 'react-test-renderer';
 
-describe('initial state', () => {
+describe('component:ReactPanel', () => {
   it('renders without crashing', () => {
     const items = [
       {
@@ -26,8 +29,23 @@ describe('initial state', () => {
       }
     ];
 
+    const middlewares = [thunk]
+    const mockStore = configureMockStore(middlewares)
+    const store = mockStore({
+      query: {
+        from: 0,
+        size: 10
+      },
+      results: {
+        items: items,
+        total: 1
+      }
+    })
+
     const target = renderer.create(
-      <ResultsPanel items={ items } from="0" size="10" />
+      <Provider store={ store } >
+          <ResultsPanel items={ items } from="0" size="10" />
+      </Provider>
     );
 
     let tree = target.toJSON();
