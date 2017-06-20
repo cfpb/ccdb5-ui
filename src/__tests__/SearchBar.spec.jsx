@@ -4,26 +4,39 @@ import { shallow } from 'enzyme';
 import { SearchBar, mapDispatchToProps } from '../SearchBar';
 import * as types from '../constants'
 
+function setup(initialText) {
+  const props = {
+    searchText: initialText,
+    onSearch: jest.fn()
+  }
+
+  const target = shallow(<SearchBar {...props} />);
+
+  return {
+    props,
+    target
+  }
+}
+
 describe('component:SearchBar', () =>{
   it('receives updates when the parent state changes', () => {
-     const node = document.createElement('div');
-     const target = ReactDOM.render(<SearchBar searchText="foo" />, node);
+    const node = document.createElement('div');
+    const target = ReactDOM.render(<SearchBar searchText="foo" />, node);
 
-     ReactDOM.render(<SearchBar searchText="bar" />, node);
-     expect(target.state.inputValue).toEqual('bar');
+    ReactDOM.render(<SearchBar searchText="bar" />, node);
+    expect(target.state.inputValue).toEqual('bar');
   });
 
   it('calls the callback when the form is submitted', () => {
-    const cb = jest.fn();
-    const target = shallow(<SearchBar searchText="qaz" onSearch={cb} />);
+    const { target, props } = setup('bar')
     const theForm = target.find('form');
 
     theForm.simulate('submit', { preventDefault: () => {} });
-    expect(cb).toHaveBeenCalledWith('qaz');
+    expect(props.onSearch).toHaveBeenCalledWith('bar')  
   })
 
   it('records text input from the user', () => {
-    const target = shallow(<SearchBar searchText="foo" />);
+    const { target } = setup('foo')
     const textInput = target.find('[type="text"]');
 
     expect(target.state('inputValue')).toEqual('foo');
@@ -32,23 +45,10 @@ describe('component:SearchBar', () =>{
   });
 
   describe('mapDispatchToProps', () => {
-    let dispatchSpy = null;
-
-    beforeEach(() => {
-      dispatchSpy = jest.fn();
-    })
-
-    describe('onSearch', () => {
-      it('calls the SEARCH_TEXT action', () => {
-        const {onSearch} = mapDispatchToProps(dispatchSpy);
-        onSearch('foo', 'bar');
-        const searchCall = dispatchSpy.mock.calls[0][0];
-
-        expect(dispatchSpy.mock.calls.length).toEqual(2);
-        expect(searchCall.type).toEqual(types.SEARCH_TEXT);
-        expect(searchCall.searchText).toEqual('foo');
-        expect(searchCall.searchType).toEqual('qaz');
-      })
+    it('hooks into onSearch', () => {
+      const dispatch = jest.fn();
+      mapDispatchToProps(dispatch).onSearch('foo', 'bar');
+      expect(dispatch.mock.calls.length).toEqual(1);
     })
   })
 })
