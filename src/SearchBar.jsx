@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import search from './actions/search'
-import { getComplaints } from './actions/complaints'
 import './SearchBar.less';
 
 export class SearchBar extends React.Component {
@@ -63,7 +62,6 @@ export const mapDispatchToProps = dispatch => {
   return {
     onSearch: text => {
       dispatch(search(text, 'qaz'))
-      dispatch(getComplaints())
     }
   }
 }
