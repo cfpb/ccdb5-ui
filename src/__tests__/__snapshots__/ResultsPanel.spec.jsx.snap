@@ -1,4 +1,4 @@
-exports[`initial state renders without crashing 1`] = `
+exports[`component:ReactPanel renders without crashing 1`] = `
 <section
   className="results-panel">
   <summary
@@ -231,7 +231,7 @@ exports[`initial state renders without crashing 1`] = `
           className="m-pagination_current-page"
           id="m-pagination_current-page"
           inputMode="numeric"
-          max={0}
+          max={1}
           min="1"
           name="page"
           onChange={[Function]}
@@ -239,7 +239,7 @@ exports[`initial state renders without crashing 1`] = `
           type="number"
           value={1} />
         of 
-        0
+        1
       </label>
       <button
         className="a-btn a-btn__link m-pagination_btn-submit"

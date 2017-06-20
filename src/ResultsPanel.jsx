@@ -23,7 +23,7 @@ export class ResultsPanel extends React.Component {
               .map(item => <ComplaintCard key={item.complaint_id}
                                           row={item} />)}
           </ul>
-          <Pagination {...this.props} />
+          <Pagination />
         </section>
     );
   }
@@ -33,8 +33,7 @@ const mapStateToProps = state => {
   return {
     from: state.query.from,
     size: state.query.size,
-    items: state.results.items,
-    total: state.results.total
+    items: state.results.items
   }
 }
 
