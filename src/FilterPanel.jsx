@@ -1,10 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import './FilterPanel.less';
 import Aggregation from './Filters/Aggregation';
 import CollapsibleFilter from './Filters/CollapsibleFilter';
 import SingleCheckbox from './Filters/SingleCheckbox';
 
-export default class FilterPanel extends React.Component {
+export class FilterPanel extends React.Component {
   render() {
     return (
       <section className="filter-panel">
@@ -42,3 +43,11 @@ export default class FilterPanel extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    aggs: state.aggs
+  }
+}
+
+export default connect(mapStateToProps)(FilterPanel)
