@@ -2,27 +2,27 @@ jest.mock('../complaints');
 
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import search, { searchUpdating } from '../search'
+import search, { searchChanged } from '../search'
 import * as types from '../../constants'
 
 describe('action:search', () => {
-  describe('searchUpdating', () => {
+  describe('searchChanged', () => {
     it('creates a simple action', () => {
         const searchText = 'foo'
         const searchType = 'qaz'
         const expectedAction = {
-          type: types.SEARCH_TEXT,
+          type: types.SEARCH_CHANGED,
           searchText,
           searchType
         }
-        expect(searchUpdating(searchText, searchType)).toEqual(expectedAction)
+        expect(searchChanged(searchText, searchType)).toEqual(expectedAction)
     })
   })
 
   describe('search', () => {
     it('executes a chain of actions', () => {
       const expectedActions = [
-        { type: types.SEARCH_TEXT, searchText: 'foo', searchType: 'bar' },
+        { type: types.SEARCH_CHANGED, searchText: 'foo', searchType: 'bar' },
         { type: 'getComplaintsMock' }
       ]
 

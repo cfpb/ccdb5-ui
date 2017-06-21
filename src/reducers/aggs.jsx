@@ -1,4 +1,4 @@
-import { RCV_COMPLAINTS } from '../constants'
+import { COMPLAINTS_RECEIVED } from '../constants'
 
 export const defaultAggs = {
   timely_response: [
@@ -19,7 +19,7 @@ export const defaultAggs = {
 
 export default (state = defaultAggs, action) => {
   switch(action.type) {
-  case RCV_COMPLAINTS:
+  case COMPLAINTS_RECEIVED:
     // TODO: Handle translating the buckets to aggs state here
     return state
 

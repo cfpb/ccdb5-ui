@@ -10,9 +10,9 @@ describe('reducer:query', () => {
       })
   })
 
-  it('handles SEARCH_TEXT actions', () => {
+  it('handles SEARCH_CHANGED actions', () => {
     const action = {
-      type: types.SEARCH_TEXT,
+      type: types.SEARCH_CHANGED,
       searchText: 'foo',
       searchType: 'bar',
     }
@@ -27,9 +27,9 @@ describe('reducer:query', () => {
       })
   })
 
-  it('handles CHANGE_PAGE actions', () => {
+  it('handles PAGE_CHANGED actions', () => {
     const action = {
-      type: types.CHANGE_PAGE,
+      type: types.PAGE_CHANGED,
       page: 2
     }
     const state = {
