@@ -21,20 +21,7 @@ const store = createStore(
   applyMiddleware(thunkMiddleware)
 );
 
-// Every time the state changes, log it
-// Note that subscribe() returns a function for unregistering the listener
-// let current = {}
-// let unsubscribe = store.subscribe(() => {
-//   let prev = current
-//   current = store.getState()
-//   console.log(prev, '\n', current)
-// })
-
 export class App extends React.Component {
-  // componentDidMount() {
-  //   store.dispatch(getComplaints())
-  // }
-
   render() {
     return (
       <Provider store={store}>
