@@ -1,62 +1,71 @@
 const queryString = require('query-string');
 import createHistory from 'history/createBrowserHistory';
+import React from 'react';
+import { connect } from 'react-redux'
+import announceUrlChanged from './actions/url'
 
-const urlParams = ['searchText', 'from', 'size'];
-const defaultParams = {
-  searchText: '',
-  from: 0,
-  size: 10
+export function toQS(props) {
+  return '?' + queryString.stringify(props.params)
 }
 
-export default class UrlBarSynch {
-  constructor(onChangeCallback) {
-    this.onChangeCallback = onChangeCallback;
+export class UrlBarSynch extends React.Component {
+  constructor(props) {
+    super(props)
 
     // URL handling
-    this.history = createHistory();
-    this.location = this.history.location;
+    this.history = createHistory()
+    this.location = this.history.location
+    this.defaultQS = toQS(props)
+    this.currentQS = this.location.search
      
     // Listen for changes to the current location. 
-    this.unlisten = this.history.listen(this._onUrlChanged.bind(this));
+    this.history.listen(this._onUrlChanged.bind(this));
   }
 
-  getParams() {
-    return this._extractQueryStringParams(this.location.search);
+  // This will initialize the application with the params in the URL
+  // and then call the API
+  componentDidMount() {
+    this.props.onUrlChanged(this.location)
   }
 
-  setParams(params) {
-    var subset = urlParams.reduce(
-      (accum, k) => ((accum[k] = params[k], accum)), {}
-    );
-
-    var qs = queryString.stringify(subset);
-
-    this.history.push({
-      search: '?' + qs
-    });
+  componentWillReceiveProps(nextProps) {
+    const qs = toQS(nextProps);
+    if( qs !== this.currentQS ) {
+      this.currentQS = qs
+      this.history.push({
+        search: qs
+      });
+    }
   }
 
-  // componentWillUnmount() {
-  //   this.unlisten();
-  // }
+  render() {
+    return null
+  }
 
   //---------------------------------------------------------------------------
   // URL Handlers
 
-  _extractQueryStringParams(qs) {
-    var values = Object.assign({}, defaultParams, queryString.parse(qs));
-
-    values.from = parseInt(values.from, 10) || defaultParams.from;
-    values.size = parseInt(values.size, 10) || defaultParams.size;
-
-    return values;
-  }
-
   _onUrlChanged(location, action) {
-    if(action === 'POP' && this.onChangeCallback) {
-      let params = this._extractQueryStringParams(location.search)
-      this.onChangeCallback(params);
+    if(action === 'POP') {
+      this.currentQS = location.search
+      this.props.onUrlChanged(location);
     }
   }
 }
+
+export const mapStateToProps = state => {
+  return {
+    params: { ...state.query }
+  }
+}
+
+export const mapDispatchToProps = dispatch => {
+  return {
+    onUrlChanged: location => {
+      dispatch(announceUrlChanged(location))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UrlBarSynch)
 

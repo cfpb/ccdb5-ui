@@ -1,85 +1,60 @@
 import React from 'react';
-import UrlBarSynch from '../UrlBarSynch';
+import { UrlBarSynch, mapDispatchToProps } from '../UrlBarSynch';
+import * as types from '../constants'
 
-describe('getParams', () => {
-  it('returns a dictionary of parameters from the current URL', () => {
-    const target = new UrlBarSynch();
-    target._extractQueryStringParams = jest.fn(() => 'foo');
-
-    const actual = target.getParams();
-    expect(target._extractQueryStringParams).toHaveBeenCalled();
-    expect(actual).toEqual('foo');
-  });
-});
-
-describe('setParams', () => {
-  var target = null;
-  var pushed = null;
-
+describe('component:UrlBarSynch', () =>{
+  let target;
+  let props;
   beforeEach(() => {
-    target = new UrlBarSynch();
-    target.history.push = jest.fn((x) => pushed = x.search);
+    props = {
+      params: {
+        searchText: '',
+        from: 0,
+        size: 10
+      },
+      onUrlChanged: jest.fn()
+    }
+
+   target = new UrlBarSynch(props);
+   target.history.push = jest.fn()
   });
 
-  it('handles an empty set', () => {
-    target.setParams({});
-    expect(pushed).toEqual('?');
+  describe('componentWillReceiveProps', () => {
+    it('pushes a change to the url bar when parameters change', () => {
+      props.params.from = 99
+      const expected = '?from=99&searchText=&size=10'
+
+      target.componentWillReceiveProps(props)
+
+      expect(target.currentQS).toEqual(expected)
+      expect(target.history.push).toHaveBeenCalledWith({ search: expected })
+    })
+
+    it('does not push history when parameters are the same', () => {
+      target.currentQS = '?from=0&searchText=&size=10'
+      target.componentWillReceiveProps(props)
+      expect(target.history.push).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('_onUrlChanged', () => {
+    it('does nothing when the action is not "POP"', () => {
+      target._onUrlChanged({search: '?foo=bar'}, 'PUSH');
+      expect(props.onUrlChanged).not.toHaveBeenCalled();
+    });
+
+    it('calls the provided callback when the POP action happens', () => {
+      target._onUrlChanged({search: '?foo=bar'}, 'POP');
+      expect(target.currentQS).toEqual('?foo=bar')
+      expect(props.onUrlChanged).toHaveBeenCalledWith({search: '?foo=bar'});
+    });
   });
 
-  it('only handles known params', () => {
-    target.setParams({foo: 'bar', from: 10});
-    expect(pushed).toEqual('?from=10');
-  });
-});
-
-describe('_extractQueryStringParams', () => {
-  var target = null;
-
-  beforeEach(() => {
-    target = new UrlBarSynch();
-  });
-
-  it('handles an empty query string', () => {
-    var actual = target._extractQueryStringParams('');
-    expect(actual.from).toEqual(0);
-    expect(actual.size).toEqual(10);
-    expect(actual.searchText).toEqual('');
-  });
-
-  it('returns integers for some params', () => {
-    var actual = target._extractQueryStringParams('?from=20&size=50');
-    expect(actual.from).toEqual(20);
-    expect(actual.size).toEqual(50);
-  });
-
-  it('returns defaults for out-of-range params', () => {
-    var actual = target._extractQueryStringParams('?from=foo&size=bar');
-    expect(actual.from).toEqual(0);
-    expect(actual.size).toEqual(10);
-  });
-});
-
-describe('_onUrlChanged', () => {
-  var target = null;
-
-  it('does nothing when no callback has been provided', () => {
-    target = new UrlBarSynch();
-    target._extractQueryStringParams = jest.fn((s) => s);
-    target._onUrlChanged({search: 'bar'}, 'POP');
-    expect(target._extractQueryStringParams).not.toHaveBeenCalled();
-  });
-
-  it('does nothing when the action is not "POP"', () => {
-    target = new UrlBarSynch(console.log);
-    target._extractQueryStringParams = jest.fn((s) => s);
-    target._onUrlChanged({search: 'bar'}, 'PUSH');
-    expect(target._extractQueryStringParams).not.toHaveBeenCalled();
-  });
-
-  it('calls the provided callback when the POP action happens', () => {
-    var cb = (o) => { expect(o).toEqual('bar'); }
-    target = new UrlBarSynch(cb);
-    target._extractQueryStringParams = jest.fn((s) => s);
-    target._onUrlChanged({search: 'bar'}, 'POP');
-  });  
-});
+  describe('mapDispatchToProps', () => {
+    it('hooks into announceUrlChanged', () => {
+      const dispatch = jest.fn();
+      mapDispatchToProps(dispatch).onUrlChanged({});
+      expect(dispatch.mock.calls.length).toEqual(1);
+    })
+  })
+})
