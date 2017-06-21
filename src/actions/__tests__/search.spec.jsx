@@ -1,10 +1,4 @@
-jest.mock('../complaints', () => {
-  return {
-    getComplaints: () => {
-      return { type: 'stubbed' }
-    }
-  };
-}, {virtual: true});
+jest.mock('../complaints');
 
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
@@ -29,7 +23,7 @@ describe('action:search', () => {
     it('executes a chain of actions', () => {
       const expectedActions = [
         { type: types.SEARCH_TEXT, searchText: 'foo', searchType: 'bar' },
-        { type: 'stubbed' }
+        { type: 'getComplaintsMock' }
       ]
 
       const middlewares = [thunk]
@@ -42,4 +36,3 @@ describe('action:search', () => {
   })
 })
 
-jest.unmock('../complaints');
