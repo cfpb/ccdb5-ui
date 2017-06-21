@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux'
+import { changePage } from './actions/paging'
 
-export default class Pagination extends React.Component {
+export class Pagination extends React.Component {
   constructor(props) {
     super(props);
     this.state = this._calculatePages(props);
@@ -102,3 +104,21 @@ export default class Pagination extends React.Component {
     );
   }
 }
+
+export const mapStateToProps = state => {
+  return {
+    from: state.query.from,
+    size: state.query.size,
+    total: state.results.total
+  }
+}
+
+export const mapDispatchToProps = dispatch => {
+  return {
+    onPage: page => {
+      dispatch(changePage(page))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Pagination)

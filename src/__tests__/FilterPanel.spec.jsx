@@ -1,5 +1,5 @@
 import React from 'react';
-import FilterPanel from '../FilterPanel';
+import { FilterPanel } from '../FilterPanel';
 import renderer from 'react-test-renderer';
 
 describe('initial state', () => {
