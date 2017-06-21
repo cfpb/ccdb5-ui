@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux'
+import search from './actions/search'
 import './SearchBar.less';
 
-export default class SearchBar extends React.Component {
+export class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -49,3 +51,19 @@ export default class SearchBar extends React.Component {
     );
   }
 }
+
+export const mapStateToProps = state => {
+  return {
+    searchText: state.query.searchText
+  }
+}
+
+export const mapDispatchToProps = dispatch => {
+  return {
+    onSearch: text => {
+      dispatch(search(text, 'qaz'))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar)

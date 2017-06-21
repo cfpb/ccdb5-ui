@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import {shallow} from 'enzyme';
-import Pagination from '../Pagination';
+import { Pagination, mapDispatchToProps } from '../Pagination';
 
 describe('initial state', () => {
   it('renders without crashing', () => {
@@ -84,4 +84,12 @@ describe('disabled buttons', () => {
     const next = target.find('.m-pagination_btn-next');
     expect(next.props().disabled).toEqual(true);
   });
+});
+
+describe('mapDispatchToProps', () => {
+  it('hooks into onPage', () => {
+    const dispatch = jest.fn();
+    mapDispatchToProps(dispatch).onPage(99);
+    expect(dispatch.mock.calls.length).toEqual(1);
+  })
 });

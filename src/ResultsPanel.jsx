@@ -1,10 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import ActionBar from './ActionBar';
 import ComplaintCard from './ComplaintCard';
 import Pagination from './Pagination';
 import './ResultsPanel.less';
 
-export default class ResultsPanel extends React.Component {
+export class ResultsPanel extends React.Component {
   render() {
     let composeClasses = 'results-panel';
     if (this.props.className) {
@@ -22,8 +23,18 @@ export default class ResultsPanel extends React.Component {
               .map(item => <ComplaintCard key={item.complaint_id}
                                           row={item} />)}
           </ul>
-          <Pagination {...this.props} />
+          <Pagination />
         </section>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    from: state.query.from,
+    size: state.query.size,
+    items: state.results.items
+  }
+}
+
+export default connect(mapStateToProps)(ResultsPanel)
