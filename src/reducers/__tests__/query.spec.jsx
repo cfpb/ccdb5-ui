@@ -40,4 +40,47 @@ describe('reducer:query', () => {
         size: 100
       })
   })
+
+  describe('URL_CHANGED actions', () => {
+    let action = null
+    let state = null
+    beforeEach(() => {
+      action = {
+        type: types.URL_CHANGED,
+        params: {}
+      }
+
+      state = {
+        searchText: '',
+        from: 99,
+        size: 99
+      }
+    })
+
+    it('handles empty params', () => {
+      expect(target(state, action)).toEqual(state)
+    })
+
+    it('converts some parameters to integers', () => {
+      // Writing it this way helps with branch coverage
+      action.params = { size: '100' }
+      expect(target({}, action)).toEqual({ size: 100 })
+
+      action.params = { from: '10' }
+      expect(target({}, action)).toEqual({ from: 10 })
+    })
+
+    it('ignores unknown parameters', () => {
+      action.params = {
+        searchText: 'hello',
+        foo: 'bar'
+      }
+
+      expect(target(state, action)).toEqual({
+        searchText: 'hello',
+        from: 99,
+        size: 99
+      })
+    })
+  })
 })
