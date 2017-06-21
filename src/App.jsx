@@ -16,7 +16,7 @@ import SearchBar from './SearchBar';
 import ResultsPanel from './ResultsPanel';
 import './App.less';
 
-let store = createStore(
+const store = createStore(
   reducers,
   applyMiddleware(thunkMiddleware)
 );
