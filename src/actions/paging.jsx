@@ -1,8 +1,8 @@
-import { CHANGE_PAGE } from '../constants'
+import { PAGE_CHANGED } from '../constants'
 
 export function changePage(page) {
   return {
-    type: CHANGE_PAGE,
+    type: PAGE_CHANGED,
     page
   }
 }

@@ -9,9 +9,9 @@ describe('reducer:results', () => {
       })
   })
 
-  it('handles RCV_COMPLAINTS actions', () => {
+  it('handles COMPLAINTS_RECEIVED actions', () => {
     const action = {
-      type: types.RCV_COMPLAINTS,
+      type: types.COMPLAINTS_RECEIVED,
       items: ['123', '456'],
     }
     expect(target({}, action)).toEqual({

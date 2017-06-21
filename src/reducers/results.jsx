@@ -1,4 +1,4 @@
-import { RCV_COMPLAINTS } from '../constants'
+import { COMPLAINTS_RECEIVED } from '../constants'
 const defaultResults = {
   items: [],
   total: 0
@@ -6,7 +6,7 @@ const defaultResults = {
 
 export default (state = defaultResults, action) => {
   switch(action.type) {
-  case RCV_COMPLAINTS:
+  case COMPLAINTS_RECEIVED:
     return {
       ...state,
       items: action.items,

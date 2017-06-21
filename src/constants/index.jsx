@@ -1,7 +1,9 @@
-export const SEARCH_TEXT        = 'SEARCH_TEXT'
+// Internal triggers
+export const PAGE_CHANGED              = 'PAGE_CHANGED'
+export const SEARCH_CHANGED            = 'SEARCH_CHANGED'
+export const SIZE_CHANGED              = 'SIZE_CHANGED'
+export const SORT_CHANGED              = 'SORT_CHANGED'
 
-export const CHANGE_PAGE        = 'CHANGE_PAGE'
-
-export const GET_COMPLAINTS     = 'GET_COMPLAINTS'
-export const RCV_COMPLAINTS     = 'RCV_COMPLAINTS'
-export const ERR_COMPLAINTS     = 'ERR_COMPLAINTS'
+// External Triggers
+export const COMPLAINTS_RECEIVED       = 'COMPLAINTS_RECEIVED'
+export const COMPLAINTS_FAILED         = 'COMPLAINTS_FAILED'

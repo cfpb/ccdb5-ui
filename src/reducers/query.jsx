@@ -1,4 +1,4 @@
-import { SEARCH_TEXT, CHANGE_PAGE } from '../constants'
+import { SEARCH_CHANGED, PAGE_CHANGED } from '../constants'
 export const defaultQuery = {
   searchText: '',
   from: 0,
@@ -7,14 +7,14 @@ export const defaultQuery = {
 
 export default (state = defaultQuery, action) => {
   switch(action.type) {
-  case SEARCH_TEXT:
+  case SEARCH_CHANGED:
     return {
       ...state,
       searchText: action.searchText,
       from: 0
     }
 
-  case CHANGE_PAGE:
+  case PAGE_CHANGED:
     return {
       ...state,
       from: (action.page - 1) * state.size

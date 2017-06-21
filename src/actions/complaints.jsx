@@ -1,16 +1,16 @@
-import { RCV_COMPLAINTS } from '../constants'
+import { COMPLAINTS_RECEIVED } from '../constants'
 
 export function getComplaints() {
   return dispatch => {
     return fetch('https://data.consumerfinance.gov/resource/jhzv-w97w.json')
     .then(result => result.json())
-    .then(items => dispatch(receiveComplaints(items)))
+    .then(items => dispatch(complaintsReceived(items)))
   }
 }
 
-export function receiveComplaints(items) {
+export function complaintsReceived(items) {
   return {
-    type: RCV_COMPLAINTS,
+    type: COMPLAINTS_RECEIVED,
     items
   }
 }

@@ -27,7 +27,7 @@ describe('getComplaints', () => {
 
   it('calls the API', () => {
     const expectedActions = [
-      { type: types.RCV_COMPLAINTS, items: ['123'] }
+      { type: types.COMPLAINTS_RECEIVED, items: ['123'] }
     ]
     const store = mockStore({ })
 

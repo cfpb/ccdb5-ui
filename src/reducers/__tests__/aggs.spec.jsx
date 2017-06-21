@@ -7,9 +7,9 @@ describe('reducer:aggs', () => {
     expect(actual.timely_response.length).toEqual(2)
   })
 
-  it('handles RCV_COMPLAINTS actions', () => {
+  it('handles COMPLAINTS_RECEIVED actions', () => {
     const action = {
-      type: types.RCV_COMPLAINTS
+      type: types.COMPLAINTS_RECEIVED
     }
     const state = {
     }
