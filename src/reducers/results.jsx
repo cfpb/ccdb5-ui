@@ -7,10 +7,14 @@ const defaultResults = {
 export default (state = defaultResults, action) => {
   switch(action.type) {
   case COMPLAINTS_RECEIVED:
+    const items = action.data.hits.hits.map(x => {
+      return x._source
+    })
+
     return {
       ...state,
-      items: action.items,
-      total: action.items.length
+      items: items,
+      total: items.length
     }
 
   default:
