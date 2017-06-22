@@ -9,9 +9,7 @@ const mockStore = configureMockStore(middlewares)
 describe('getComplaints', () => {
   beforeEach(() => {
     global.fetch = jest.fn().mockImplementation((url) => {
-        expect(url).toEqual(
-          'https://data.consumerfinance.gov/resource/jhzv-w97w.json'
-        );
+        expect(url).toEqual('@@API?size=10');
 
         var p = new Promise((resolve, reject) => {
           resolve({
@@ -27,9 +25,15 @@ describe('getComplaints', () => {
 
   it('calls the API', () => {
     const expectedActions = [
-      { type: types.COMPLAINTS_RECEIVED, items: ['123'] }
+      { type: types.COMPLAINTS_RECEIVED, data: ['123'] }
     ]
-    const store = mockStore({ })
+    const store = mockStore({
+      query: {
+        searchText: '',
+        from: 0,
+        size: 10
+      }
+    })
 
     return store.dispatch(actions.getComplaints()).then(() => {
       // return of async actions
