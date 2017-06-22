@@ -17,7 +17,8 @@ describe('reducer:results', () => {
           hits: [
             { _source: '123' },
             { _source: '456' }
-          ]
+          ],
+          total: 2
         }
       },
     }
