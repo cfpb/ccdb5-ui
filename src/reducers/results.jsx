@@ -14,7 +14,7 @@ export default (state = defaultResults, action) => {
     return {
       ...state,
       items: items,
-      total: items.length
+      total: action.data.hits.total
     }
 
   default:
