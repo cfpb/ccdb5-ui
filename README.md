@@ -3,10 +3,8 @@
 [![Build Status](https://travis-ci.org/cfpb/ccdb5-ui.svg?branch=master)](https://travis-ci.org/cfpb/ccdb5-ui)
 [![Coverage Status](https://coveralls.io/repos/github/cfpb/ccdb5-ui/badge.svg?branch=master)](https://coveralls.io/github/cfpb/ccdb5-ui?branch=master)
 
-**Description**:  _Put a meaningful, short, plain-language description of what
-this project is trying to accomplish and why it matters.
-Describe the problem(s) this project solves.
-Describe how this software can improve the lives of its audience._
+**Description**:
+This application allows consumers to search complaints submitted to the CFPB by other consumers. 
 
 #### Technology Stack
 This application is written in JavaScript and [Less](http://lesscss.org) within
@@ -28,7 +26,7 @@ implementation that allows it to be used as a plugin for
 [CFPB's public website](https://github.com/cfpb/cfgov-refresh).
 
 #### Status
-This is so pre-alpha it is omega
+Pre-pre-alpha
 
 #### Screenshot
 TODO
@@ -52,6 +50,19 @@ Please see the subsection Configuring in [INSTALL](INSTALL.md#configuring)
 ## Usage
 
 #### Developing code
+
+###### Prerequisites
+This application depends on the [Public Complaints API](https://github.com/cfpb/ccdb5-api)
+to be available.
+
+For local development, you will need to the following:
+* [Get a local version of consumerfinance.gov running](https://github.com/cfpb/cfgov-refresh#quickstart)
+* [Fill the local Elasticsearch with data](https://github.com/cfpb/ccdb-data-pipeline)
+* _(optional)_ [Install the API](https://github.com/cfpb/ccdb5-api)
+  * Once it is cloned, make sure the website knows the plugin is available. Look under "Loading Sibling Projects, option 2" [here](https://cfpb.github.io/cfgov-refresh/development-tips/)
+
+###### Code-Build cycle
+
 To run the app in development mode:
 
 ```bash
@@ -117,10 +128,10 @@ repository's [Issue Tracker](https://github.com/cfpb/ccdb5-ui/issues).
 ## Links that were helpful
 
 #### React-Redux
-https://egghead.io/lessons/javascript-redux-the-single-immutable-state-tree
-https://medium.com/lexical-labs-engineering/redux-best-practices-64d59775802e
-https://medium.com/@kylpo/redux-best-practices-eef55a20cc72
-https://github.com/markerikson/react-redux-links/blob/master/tips-and-best-practices.md
-https://getstream.io/blog/react-redux-best-practices-gotchas/
-https://tech.affirm.com/redux-patterns-and-anti-patterns-7d80ef3d53bc
+* https://egghead.io/lessons/javascript-redux-the-single-immutable-state-tree
+* https://medium.com/lexical-labs-engineering/redux-best-practices-64d59775802e
+* https://medium.com/@kylpo/redux-best-practices-eef55a20cc72
+* https://github.com/markerikson/react-redux-links/blob/master/tips-and-best-practices.md
+* https://getstream.io/blog/react-redux-best-practices-gotchas/
+* https://tech.affirm.com/redux-patterns-and-anti-patterns-7d80ef3d53bc
 
