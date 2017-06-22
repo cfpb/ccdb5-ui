@@ -12,14 +12,11 @@ export class ResultsPanel extends React.Component {
       composeClasses += ' ' + this.props.className;
     }
 
-    let to = this.props.from + this.props.size;
-
     return (
         <section className={composeClasses}>
           <ActionBar />
           <ul className="cards-panel">
             {this.props.items
-              .filter((e, i) => i >= this.props.from && i < to)
               .map(item => <ComplaintCard key={item.complaint_id}
                                           row={item} />)}
           </ul>
@@ -31,8 +28,6 @@ export class ResultsPanel extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    from: state.query.from,
-    size: state.query.size,
     items: state.results.items
   }
 }
