@@ -8,9 +8,9 @@ export function getComplaints() {
   }
 }
 
-export function complaintsReceived(items) {
+export function complaintsReceived(data) {
   return {
     type: COMPLAINTS_RECEIVED,
-    items
+    data
   }
 }

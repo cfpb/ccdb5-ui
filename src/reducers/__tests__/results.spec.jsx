@@ -12,7 +12,14 @@ describe('reducer:results', () => {
   it('handles COMPLAINTS_RECEIVED actions', () => {
     const action = {
       type: types.COMPLAINTS_RECEIVED,
-      items: ['123', '456'],
+      data: {
+        hits: {
+          hits: [
+            { _source: '123' },
+            { _source: '456' }
+          ]
+        }
+      },
     }
     expect(target({}, action)).toEqual({
       items: ['123', '456'],
