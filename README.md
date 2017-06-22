@@ -114,5 +114,13 @@ repository's [Issue Tracker](https://github.com/cfpb/ccdb5-ui/issues).
 
 ----
 
-## Credits and references
+## Links that were helpful
+
+#### React-Redux
+https://egghead.io/lessons/javascript-redux-the-single-immutable-state-tree
+https://medium.com/lexical-labs-engineering/redux-best-practices-64d59775802e
+https://medium.com/@kylpo/redux-best-practices-eef55a20cc72
+https://github.com/markerikson/react-redux-links/blob/master/tips-and-best-practices.md
+https://getstream.io/blog/react-redux-best-practices-gotchas/
+https://tech.affirm.com/redux-patterns-and-anti-patterns-7d80ef3d53bc
 
