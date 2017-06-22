@@ -9,9 +9,7 @@ const mockStore = configureMockStore(middlewares)
 describe('getComplaints', () => {
   beforeEach(() => {
     global.fetch = jest.fn().mockImplementation((url) => {
-        expect(url).toEqual(
-          'https://data.consumerfinance.gov/resource/jhzv-w97w.json'
-        );
+        expect(url).toEqual('@@API');
 
         var p = new Promise((resolve, reject) => {
           resolve({

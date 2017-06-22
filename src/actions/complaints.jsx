@@ -2,7 +2,7 @@ import { COMPLAINTS_RECEIVED } from '../constants'
 
 export function getComplaints() {
   return dispatch => {
-    return fetch('https://data.consumerfinance.gov/resource/jhzv-w97w.json')
+    return fetch('@@API')
     .then(result => result.json())
     .then(items => dispatch(complaintsReceived(items)))
   }
