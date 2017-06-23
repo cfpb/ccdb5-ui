@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
+import { IntlProvider } from 'react-intl';
 import { ResultsPanel } from '../ResultsPanel';
 import renderer from 'react-test-renderer';
 
@@ -44,7 +45,9 @@ describe('component:ReactPanel', () => {
 
     const target = renderer.create(
       <Provider store={ store } >
+        <IntlProvider locale="en">
           <ResultsPanel items={ items } from="0" size="10" />
+        </IntlProvider>
       </Provider>
     );
 
