@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 
 import React from 'react';
 import { Provider } from 'react-redux'
+import { IntlProvider } from 'react-intl';
 import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 
@@ -25,17 +26,19 @@ export class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <main className="content content__1-3" role="main">
-          <UrlBarSynch />
-          <Hero />
-          <div className="content_wrapper">
-            <SearchBar />
-            <aside className="content_sidebar">
-              <FilterPanel />
-            </aside>
-            <ResultsPanel className="content_main" />
-          </div>
-        </main>
+        <IntlProvider locale="en">
+          <main className="content content__1-3" role="main">
+            <UrlBarSynch />
+            <Hero />
+            <div className="content_wrapper">
+              <SearchBar />
+              <aside className="content_sidebar">
+                <FilterPanel />
+              </aside>
+              <ResultsPanel className="content_main" />
+            </div>
+          </main>
+        </IntlProvider>
       </Provider>
     );
   }

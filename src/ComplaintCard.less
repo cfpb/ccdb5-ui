@@ -1,9 +1,60 @@
 @import (less) "base.less";
 
-li {
-    padding-bottom: @gutter-normal;
-    border-bottom: 1px solid @gray-40;
-    margin-bottom: @gutter-minimum; 
+li.card-container {
+  padding: @gutter-normal;
+  border-bottom: 1px solid @gray-40;
+  margin-top: @gutter-normal;
+  margin-bottom: @gutter-normal;
 
-    list-style-type: none;
+  list-style-type: none;
+}
+
+.card {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+  .card-left {
+    box-sizing: border-box;
+    min-width: 260px;
+    padding-right: @grid_gutter-width;
+  }
+  .card-right {    
+  }
+
+  .layout-row {
+    .spacer {
+      margin: @gutter-narrow;
+    }
+
+    h5 {
+      margin-right: @gutter-minimum;
+    }
+  }
+
+  .layout-column {
+    h3 {
+      margin-top: 0;
+      margin-bottom: @gutter-minimum;
+
+      a {
+        border-bottom-width: 2px;
+      }
+
+      &.to-detail {
+        margin-bottom: @gutter-normal;
+      }
+    }
+
+    h5 {
+      margin-top: 0;
+      margin-bottom: @gutter-minimum;
+    }
+  }
+
+  .subitem {
+    margin-right: @gutter-minimum;
+
+    font-family: @webfont-demi;
+  }
 }

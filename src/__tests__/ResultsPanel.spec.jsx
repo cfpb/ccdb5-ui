@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
+import { IntlProvider } from 'react-intl';
 import { ResultsPanel } from '../ResultsPanel';
 import renderer from 'react-test-renderer';
 
@@ -16,8 +17,8 @@ describe('component:ReactPanel', () => {
         complaint_what_happened: 'Lorem Ipsum',
         consumer_consent_provided: 'Yes',
         consumer_disputed: 'No',
-        date_received: '2013-02-03',
-        date_sent_to_company: '2013-02-03',
+        date_received: '2013-02-03T12:00:00Z',
+        date_sent_to_company: '2013-01-01T12:00:00Z',
         issue: 'Foo',
         product: 'Bar',
         state: 'DC',
@@ -44,7 +45,9 @@ describe('component:ReactPanel', () => {
 
     const target = renderer.create(
       <Provider store={ store } >
+        <IntlProvider locale="en">
           <ResultsPanel items={ items } from="0" size="10" />
+        </IntlProvider>
       </Provider>
     );
 
