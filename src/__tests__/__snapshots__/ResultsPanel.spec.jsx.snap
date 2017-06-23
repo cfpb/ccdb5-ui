@@ -62,7 +62,7 @@ exports[`component:ReactPanel renders without crashing 1`] = `
               <span
                 className="body-copy">
                 <span>
-                  2/2/2013
+                  2/3/2013
                 </span>
               </span>
             </div>
