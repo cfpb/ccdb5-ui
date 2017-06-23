@@ -1,179 +1,558 @@
+exports[`initial state hides the section when there is no narrative 1`] = `
+<li
+  className="card-container">
+  <div
+    className="card">
+    <div
+      className="card-left layout-column">
+      <h3
+        className="to-detail">
+        <a>
+          99990909
+        </a>
+      </h3>
+      <h5>
+        Matched company name
+      </h5>
+      <span
+        className="body-copy">
+        ABC Corp
+      </span>
+      <br />
+      <h5>
+        Company response to consumer
+      </h5>
+      <span
+        className="body-copy">
+        Ipsum
+      </span>
+      <br />
+      <h5>
+        Timely response?
+      </h5>
+      <span
+        className="body-copy">
+        Yes
+      </span>
+    </div>
+    <div
+      className="card-right layout-column">
+      <div
+        className="layout-row">
+        <div
+          className="layout-row">
+          <h5>
+            Date received:
+          </h5>
+          <span
+            className="body-copy">
+            <span>
+              2/2/2013
+            </span>
+          </span>
+        </div>
+        <div
+          className="spacer" />
+        <div
+          className="layout-row">
+          <h5>
+            Consumer\'s state:
+          </h5>
+          <span
+            className="body-copy">
+            DC
+          </span>
+        </div>
+      </div>
+      <br />
+      <h5>
+        Product
+      </h5>
+      <h3>
+        Beta
+      </h3>
+      <div
+        className="layout-row">
+        <span
+          className="body-copy subitem">
+          Sub-product:
+        </span>
+        <span
+          className="body-copy">
+          Delta
+        </span>
+      </div>
+      <br />
+      <h5>
+        Issue
+      </h5>
+      <h3>
+        Alpha
+      </h3>
+      <div
+        className="layout-row">
+        <span
+          className="body-copy subitem">
+          Sub-issue:
+        </span>
+        <span
+          className="body-copy">
+          Gamma
+        </span>
+      </div>
+      <br />
+    </div>
+  </div>
+</li>
+`;
+
+exports[`initial state hides the section when there is no sub-issue 1`] = `
+<li
+  className="card-container">
+  <div
+    className="card">
+    <div
+      className="card-left layout-column">
+      <h3
+        className="to-detail">
+        <a>
+          99990909
+        </a>
+      </h3>
+      <h5>
+        Matched company name
+      </h5>
+      <span
+        className="body-copy">
+        ABC Corp
+      </span>
+      <br />
+      <h5>
+        Company response to consumer
+      </h5>
+      <span
+        className="body-copy">
+        Ipsum
+      </span>
+      <br />
+      <h5>
+        Timely response?
+      </h5>
+      <span
+        className="body-copy">
+        Yes
+      </span>
+    </div>
+    <div
+      className="card-right layout-column">
+      <div
+        className="layout-row">
+        <div
+          className="layout-row">
+          <h5>
+            Date received:
+          </h5>
+          <span
+            className="body-copy">
+            <span>
+              2/2/2013
+            </span>
+          </span>
+        </div>
+        <div
+          className="spacer" />
+        <div
+          className="layout-row">
+          <h5>
+            Consumer\'s state:
+          </h5>
+          <span
+            className="body-copy">
+            DC
+          </span>
+        </div>
+      </div>
+      <br />
+      <h5>
+        Product
+      </h5>
+      <h3>
+        Beta
+      </h3>
+      <div
+        className="layout-row">
+        <span
+          className="body-copy subitem">
+          Sub-product:
+        </span>
+        <span
+          className="body-copy">
+          Delta
+        </span>
+      </div>
+      <br />
+      <h5>
+        Issue
+      </h5>
+      <h3>
+        Alpha
+      </h3>
+      <br />
+      <div>
+        <h5>
+          Consumer Complaint Narrative
+        </h5>
+        <span
+          className="body-copy">
+          Oh baby you. Got what I need
+        </span>
+      </div>
+    </div>
+  </div>
+</li>
+`;
+
+exports[`initial state hides the section when there is no sub-product 1`] = `
+<li
+  className="card-container">
+  <div
+    className="card">
+    <div
+      className="card-left layout-column">
+      <h3
+        className="to-detail">
+        <a>
+          99990909
+        </a>
+      </h3>
+      <h5>
+        Matched company name
+      </h5>
+      <span
+        className="body-copy">
+        ABC Corp
+      </span>
+      <br />
+      <h5>
+        Company response to consumer
+      </h5>
+      <span
+        className="body-copy">
+        Ipsum
+      </span>
+      <br />
+      <h5>
+        Timely response?
+      </h5>
+      <span
+        className="body-copy">
+        Yes
+      </span>
+    </div>
+    <div
+      className="card-right layout-column">
+      <div
+        className="layout-row">
+        <div
+          className="layout-row">
+          <h5>
+            Date received:
+          </h5>
+          <span
+            className="body-copy">
+            <span>
+              2/2/2013
+            </span>
+          </span>
+        </div>
+        <div
+          className="spacer" />
+        <div
+          className="layout-row">
+          <h5>
+            Consumer\'s state:
+          </h5>
+          <span
+            className="body-copy">
+            DC
+          </span>
+        </div>
+      </div>
+      <br />
+      <h5>
+        Product
+      </h5>
+      <h3>
+        Beta
+      </h3>
+      <br />
+      <h5>
+        Issue
+      </h5>
+      <h3>
+        Alpha
+      </h3>
+      <div
+        className="layout-row">
+        <span
+          className="body-copy subitem">
+          Sub-issue:
+        </span>
+        <span
+          className="body-copy">
+          Gamma
+        </span>
+      </div>
+      <br />
+      <div>
+        <h5>
+          Consumer Complaint Narrative
+        </h5>
+        <span
+          className="body-copy">
+          Oh baby you. Got what I need
+        </span>
+      </div>
+    </div>
+  </div>
+</li>
+`;
+
+exports[`initial state includes an overflow link when the narrative is long 1`] = `
+<li
+  className="card-container">
+  <div
+    className="card">
+    <div
+      className="card-left layout-column">
+      <h3
+        className="to-detail">
+        <a>
+          99990909
+        </a>
+      </h3>
+      <h5>
+        Matched company name
+      </h5>
+      <span
+        className="body-copy">
+        ABC Corp
+      </span>
+      <br />
+      <h5>
+        Company response to consumer
+      </h5>
+      <span
+        className="body-copy">
+        Ipsum
+      </span>
+      <br />
+      <h5>
+        Timely response?
+      </h5>
+      <span
+        className="body-copy">
+        Yes
+      </span>
+    </div>
+    <div
+      className="card-right layout-column">
+      <div
+        className="layout-row">
+        <div
+          className="layout-row">
+          <h5>
+            Date received:
+          </h5>
+          <span
+            className="body-copy">
+            <span>
+              2/2/2013
+            </span>
+          </span>
+        </div>
+        <div
+          className="spacer" />
+        <div
+          className="layout-row">
+          <h5>
+            Consumer\'s state:
+          </h5>
+          <span
+            className="body-copy">
+            DC
+          </span>
+        </div>
+      </div>
+      <br />
+      <h5>
+        Product
+      </h5>
+      <h3>
+        Beta
+      </h3>
+      <div
+        className="layout-row">
+        <span
+          className="body-copy subitem">
+          Sub-product:
+        </span>
+        <span
+          className="body-copy">
+          Delta
+        </span>
+      </div>
+      <br />
+      <h5>
+        Issue
+      </h5>
+      <h3>
+        Alpha
+      </h3>
+      <div
+        className="layout-row">
+        <span
+          className="body-copy subitem">
+          Sub-issue:
+        </span>
+        <span
+          className="body-copy">
+          Gamma
+        </span>
+      </div>
+      <br />
+      <div>
+        <h5>
+          Consumer Complaint Narrative
+        </h5>
+        <span
+          className="body-copy">
+          Call me Ishmael. Some years ago- never mind how long precisely- having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulati
+          <span>
+             
+            <a>
+              [...]
+            </a>
+          </span>
+        </span>
+      </div>
+    </div>
+  </div>
+</li>
+`;
+
 exports[`initial state renders without crashing 1`] = `
-<li>
+<li
+  className="card-container">
   <div
-    className="col col-12">
+    className="card">
     <div
-      className="col col-3">
-      company
+      className="card-left layout-column">
+      <h3
+        className="to-detail">
+        <a>
+          99990909
+        </a>
+      </h3>
+      <h5>
+        Matched company name
+      </h5>
+      <span
+        className="body-copy">
+        ABC Corp
+      </span>
+      <br />
+      <h5>
+        Company response to consumer
+      </h5>
+      <span
+        className="body-copy">
+        Ipsum
+      </span>
+      <br />
+      <h5>
+        Timely response?
+      </h5>
+      <span
+        className="body-copy">
+        Yes
+      </span>
     </div>
     <div
-      className="col col-9">
-      ABC Corp
-    </div>
-  </div>
-  <div
-    className="col col-12">
-    <div
-      className="col col-3">
-      company_public_response
-    </div>
-    <div
-      className="col col-9">
-      Lorem
-    </div>
-  </div>
-  <div
-    className="col col-12">
-    <div
-      className="col col-3">
-      company_response
-    </div>
-    <div
-      className="col col-9">
-      Ipsum
-    </div>
-  </div>
-  <div
-    className="col col-12">
-    <div
-      className="col col-3">
-      complaint_what_happened
-    </div>
-    <div
-      className="col col-9">
-      Oh baby you. Got what I need
-    </div>
-  </div>
-  <div
-    className="col col-12">
-    <div
-      className="col col-3">
-      consumer_consent_provided
-    </div>
-    <div
-      className="col col-9">
-      Yes
-    </div>
-  </div>
-  <div
-    className="col col-12">
-    <div
-      className="col col-3">
-      consumer_disputed
-    </div>
-    <div
-      className="col col-9">
-      Yes
-    </div>
-  </div>
-  <div
-    className="col col-12">
-    <div
-      className="col col-3">
-      date_received
-    </div>
-    <div
-      className="col col-9">
-      2013-02-03
-    </div>
-  </div>
-  <div
-    className="col col-12">
-    <div
-      className="col col-3">
-      date_sent_to_company
-    </div>
-    <div
-      className="col col-9">
-      2013-01-01
-    </div>
-  </div>
-  <div
-    className="col col-12">
-    <div
-      className="col col-3">
-      issue
-    </div>
-    <div
-      className="col col-9">
-      Alpha
-    </div>
-  </div>
-  <div
-    className="col col-12">
-    <div
-      className="col col-3">
-      product
-    </div>
-    <div
-      className="col col-9">
-      Beta
-    </div>
-  </div>
-  <div
-    className="col col-12">
-    <div
-      className="col col-3">
-      state
-    </div>
-    <div
-      className="col col-9">
-      DC
-    </div>
-  </div>
-  <div
-    className="col col-12">
-    <div
-      className="col col-3">
-      sub_issue
-    </div>
-    <div
-      className="col col-9">
-      Gamma
-    </div>
-  </div>
-  <div
-    className="col col-12">
-    <div
-      className="col col-3">
-      sub_product
-    </div>
-    <div
-      className="col col-9">
-      Delta
-    </div>
-  </div>
-  <div
-    className="col col-12">
-    <div
-      className="col col-3">
-      submitted_via
-    </div>
-    <div
-      className="col col-9">
-      Email
-    </div>
-  </div>
-  <div
-    className="col col-12">
-    <div
-      className="col col-3">
-      timely
-    </div>
-    <div
-      className="col col-9">
-      Yes
-    </div>
-  </div>
-  <div
-    className="col col-12">
-    <div
-      className="col col-3">
-      zip_code
-    </div>
-    <div
-      className="col col-9">
-      20008
+      className="card-right layout-column">
+      <div
+        className="layout-row">
+        <div
+          className="layout-row">
+          <h5>
+            Date received:
+          </h5>
+          <span
+            className="body-copy">
+            <span>
+              2/2/2013
+            </span>
+          </span>
+        </div>
+        <div
+          className="spacer" />
+        <div
+          className="layout-row">
+          <h5>
+            Consumer\'s state:
+          </h5>
+          <span
+            className="body-copy">
+            DC
+          </span>
+        </div>
+      </div>
+      <br />
+      <h5>
+        Product
+      </h5>
+      <h3>
+        Beta
+      </h3>
+      <div
+        className="layout-row">
+        <span
+          className="body-copy subitem">
+          Sub-product:
+        </span>
+        <span
+          className="body-copy">
+          Delta
+        </span>
+      </div>
+      <br />
+      <h5>
+        Issue
+      </h5>
+      <h3>
+        Alpha
+      </h3>
+      <div
+        className="layout-row">
+        <span
+          className="body-copy subitem">
+          Sub-issue:
+        </span>
+        <span
+          className="body-copy">
+          Gamma
+        </span>
+      </div>
+      <br />
+      <div>
+        <h5>
+          Consumer Complaint Narrative
+        </h5>
+        <span
+          className="body-copy">
+          Oh baby you. Got what I need
+        </span>
+      </div>
     </div>
   </div>
 </li>
