@@ -15,12 +15,145 @@ exports[`initial state renders without crashing 1`] = `
     </div>
   </div>
   <p />
-  <ul />
+  <ul>
+    <li
+      className="flex-fixed layout-row">
+      <input
+        aria-label="foo"
+        checked={undefined}
+        className="flex-fixed"
+        type="checkbox" />
+      <span
+        className="flex-all bucket-key">
+        foo
+      </span>
+      <span
+        className="flex-fixed bucket-count">
+        <span>
+          99
+        </span>
+      </span>
+    </li>
+  </ul>
+</section>
+`;
+
+exports[`show more only shows the first 6 items of large arrays 1`] = `
+<section
+  className="collapsible-filter aggregation">
+  <div
+    className="layout-row">
+    <h5
+      className="flex-all" />
+    <div
+      className="flex-fixed toggle">
+      <a>
+        Hide
+      </a>
+      <span
+        className="cf-icon cf-icon-minus-round" />
+    </div>
+  </div>
+  <p />
+  <ul>
+    <li
+      className="flex-fixed layout-row">
+      <input
+        aria-label="alpha"
+        checked={undefined}
+        className="flex-fixed"
+        type="checkbox" />
+      <span
+        className="flex-all bucket-key">
+        alpha
+      </span>
+      <span
+        className="flex-fixed bucket-count">
+        <span>
+          99
+        </span>
+      </span>
+    </li>
+    <li
+      className="flex-fixed layout-row">
+      <input
+        aria-label="beta"
+        checked={undefined}
+        className="flex-fixed"
+        type="checkbox" />
+      <span
+        className="flex-all bucket-key">
+        beta
+      </span>
+      <span
+        className="flex-fixed bucket-count">
+        <span>
+          99
+        </span>
+      </span>
+    </li>
+    <li
+      className="flex-fixed layout-row">
+      <input
+        aria-label="gamma"
+        checked={undefined}
+        className="flex-fixed"
+        type="checkbox" />
+      <span
+        className="flex-all bucket-key">
+        gamma
+      </span>
+      <span
+        className="flex-fixed bucket-count">
+        <span>
+          99
+        </span>
+      </span>
+    </li>
+    <li
+      className="flex-fixed layout-row">
+      <input
+        aria-label="delta"
+        checked={undefined}
+        className="flex-fixed"
+        type="checkbox" />
+      <span
+        className="flex-all bucket-key">
+        delta
+      </span>
+      <span
+        className="flex-fixed bucket-count">
+        <span>
+          99
+        </span>
+      </span>
+    </li>
+    <li
+      className="flex-fixed layout-row">
+      <input
+        aria-label="epsilon"
+        checked={undefined}
+        className="flex-fixed"
+        type="checkbox" />
+      <span
+        className="flex-all bucket-key">
+        epsilon
+      </span>
+      <span
+        className="flex-fixed bucket-count">
+        <span>
+          99
+        </span>
+      </span>
+    </li>
+  </ul>
   <div
     className="flex-fixed">
     <button
       className="a-btn a-btn__link hover more">
-      + Show X more
+      + Show 
+      2
+       more
     </button>
   </div>
 </section>
