@@ -31,13 +31,47 @@ export class FilterPanel extends React.Component {
             <input type="text" placeholder="Enter company name" />
         </CollapsibleFilter>
         <hr />
+        <Aggregation title="Product / sub-product"
+                     desc="The type of product and sub-product the consumer identified in the complaint"
+                     options={this.props.aggs.product}
+        />
+        <hr />
+        <Aggregation title="Issue / sub-issue"
+                     desc="The type of issue and sub-issue the consumer identified in the complaint"
+                     options={this.props.aggs.issue}
+        />
+        <hr />
+        <CollapsibleFilter title="State"
+                           desc="The state of the mailing address provided by the consumer">
+            <input type="text" placeholder="Enter state name or abbreviation" />
+        </CollapsibleFilter>
+        <hr />
+        <CollapsibleFilter title="Zip Code"
+                           desc="The mailing ZIP code provided by the consumer">
+            <input type="text" placeholder="Enter first three digits of zip code" />
+        </CollapsibleFilter>
+        <hr />
         <Aggregation title="Did company provide a timely response?"
-                         options={this.props.aggs.timely_response}
+                         options={this.props.aggs.timely}
         />
         <hr />
         <Aggregation title="Company Response"
                          desc="How the company responded to the complaint"
                          options={this.props.aggs.company_response}
+        />
+        <hr />
+        <Aggregation title="Company Public Response"
+                         desc="The company's optional public-facing response to a consumer's complaint"
+                         options={this.props.aggs.company_public_response}
+        />
+        <hr />
+        <Aggregation title="Did the consumer dispute the response?"
+                     options={this.props.aggs.consumer_disputed}
+        />
+        <hr />
+        <Aggregation title="Consumer Consent"
+                     desc="Whether a consumer opted to publish their compaint narrative"
+                     options={this.props.aggs.consumer_consent_provided}
         />
       </section>
     );

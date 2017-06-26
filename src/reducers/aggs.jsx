@@ -1,27 +1,48 @@
 import { COMPLAINTS_RECEIVED } from '../constants'
 
 export const defaultAggs = {
-  timely_response: [
-    {key: 'No', active: true, doc_count: 678845},
-    {key: 'Yes', active: false, doc_count: 487578}
-  ],
-  company_response: [
-    {key: 'Closed with explanation', active: false, doc_count: 574783},
-    {key: 'Closed with monetary relief', active: false, doc_count: 151083},
-    {key: 'Closed with non-monetary relief', active: false, doc_count: 94550},
-    {key: 'Untimely response', active: false, doc_count: 26894},
-    {key: 'Closed', active: false, doc_count: 19151},
-    {key: 'Closed without relief', active: false, doc_count: 4263},
-    {key: 'Closed with relief', active: false, doc_count: 1347},
-    {key: 'In progress', active: false, doc_count: 587},
-  ]
+  company: [],
+  company_public_response: [],
+  company_response: [],
+  consumer_consent_provided: [],
+  consumer_disputed: [],
+  issue: [],
+  product: [],
+  state: [],
+  submitted_via: [],
+  tag: [],
+  timely: [],
+  zip_code: []
+}
+
+const mapTitleToFilter = {
+  'Company public response': 'company_public_response',
+  'Company response': 'company_response',
+  'Consumer Consent': 'consumer_consent_provided',
+  'Did company provide a timely response?': 'timely',
+  'Did the consumer dispute the response?': 'consumer_disputed',
+  'How did the consumer submit the complaint to CFPB?': 'submitted_via',
+  'Issue / Subissue': 'issue',
+  'Matched company name': 'company',
+  'Product / Subproduct': 'product',
+  'State': 'state',
+  'Tags': 'tag',
+  'Zip code': 'zip_code',
 }
 
 export default (state = defaultAggs, action) => {
   switch(action.type) {
   case COMPLAINTS_RECEIVED:
-    // TODO: Handle translating the buckets to aggs state here
-    return state
+    const aggs = action.data.aggregations
+    const keys = Object.keys(aggs)
+    const result = {...state}
+
+    keys.forEach(key => {
+      const internalKey = mapTitleToFilter[key]
+      result[internalKey] = aggs[key][key].buckets
+    })
+
+    return result
 
   default:
     return state

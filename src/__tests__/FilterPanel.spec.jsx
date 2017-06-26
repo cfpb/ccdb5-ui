@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer';
 
 describe('initial state', () => {
   const aggs = {
-    timely_response: [],
+    timely: [],
     company_response: []
   };
 

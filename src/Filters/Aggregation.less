@@ -1,24 +1,28 @@
 @import (less) "../base.less";
 
+@max-count-width: 65px;
+
 .aggregation {
     ul {
-        padding-left: 0;
+      padding-left: 0;
 
-        li {
-            padding: 0;
-            border: 0;
-            margin-bottom: @gutter-narrow;
+      li {
+        padding: 0;
+        border: 0;
+        margin-bottom: @gutter-narrow;
 
-            input[type='checkbox'] {
-            }
-
-            .bucket-key {
-                padding-left: @gutter-normal;
-            }
-
-            .bucket-count {
-                text-align: right;
-            }
+        input[type='checkbox'] {
         }
+
+        .bucket-key {
+          max-width: ~"calc(100% - 95px)";  // @max-count-width + @gutter-normal * 2
+          padding-left: @gutter-normal;
+        }
+
+        .bucket-count {
+          width: @max-count-width;
+          text-align: right;
+        }
+      }
     }
 }
