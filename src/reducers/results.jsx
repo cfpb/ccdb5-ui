@@ -1,7 +1,8 @@
 import { COMPLAINTS_RECEIVED } from '../constants'
 const defaultResults = {
   items: [],
-  total: 0
+  total: 0,
+  doc_count: 0
 }
 
 export default (state = defaultResults, action) => {
@@ -14,7 +15,8 @@ export default (state = defaultResults, action) => {
     return {
       ...state,
       items: items,
-      total: action.data.hits.total
+      total: action.data.hits.total,
+      doc_count: 162576  // TODO: Update API results to always provide total count
     }
 
   default:
