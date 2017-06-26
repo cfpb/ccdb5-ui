@@ -5,7 +5,15 @@ exports[`component:ReactPanel renders without crashing 1`] = `
     className="action-bar">
     <div>
       <h2>
-        Showing x of y complaints
+        Showing 
+        <span>
+          1
+        </span>
+         matches out of 
+        <span>
+          100
+        </span>
+         total complaints
       </h2>
     </div>
     <div>
