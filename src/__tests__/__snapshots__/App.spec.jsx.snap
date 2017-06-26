@@ -388,7 +388,11 @@ exports[`initial state renders without crashing 1`] = `
         className="action-bar">
         <div>
           <h2>
-            Showing x of y complaints
+            Showing 
+            <span>
+              0
+            </span>
+             total complaints
           </h2>
         </div>
         <div>
