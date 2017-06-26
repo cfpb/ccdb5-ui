@@ -5,7 +5,8 @@ describe('reducer:results', () => {
   it('has a default state', () => {
     expect(target(undefined, {})).toEqual({
         items: [],
-        total: 0
+        total: 0,
+        doc_count: 0
       })
   })
 
@@ -18,13 +19,14 @@ describe('reducer:results', () => {
             { _source: '123' },
             { _source: '456' }
           ],
-          total: 2
+          total: 2,
         }
       },
     }
     expect(target({}, action)).toEqual({
       items: ['123', '456'],
-      total: 2
+      total: 2,
+      doc_count: 162576
     })
   })
 })
