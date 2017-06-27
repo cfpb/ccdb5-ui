@@ -1,15 +1,17 @@
 import { FILTER_CHANGED } from '../constants'
+import { getComplaints } from './complaints'
 
-export function filterChanged(filterCategory, filterName) {
+export function filterToggle(filterName, filterValue) {
   return {
     type: FILTER_CHANGED,
-    filterCategory,
-    filterName
+    filterName: filterName,
+    filterValue: filterValue
   }
 }
 
-export default function filterChanged(filterCategory, filterName) {
+export default function filterChanged(filterName, filterValue) {
   return dispatch => {
-      dispatch(filterChanged(filterCategory, filterName))
+      dispatch(filterToggle(filterName, filterValue))
+      dispatch(getComplaints())
   }
 }
