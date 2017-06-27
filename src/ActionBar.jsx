@@ -58,7 +58,7 @@ export class ActionBar extends React.Component {
 export const mapStateToProps = state => {
   return {
     size: state.query.size,
-    sort: 'relevance_desc', // state.query.sort,
+    sort: state.query.sort,
     hits: state.results.total,
     total: state.results.doc_count
   }
