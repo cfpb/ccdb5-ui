@@ -1,9 +1,42 @@
 @import (less) "base.less";
+@import (less) "select.less";
 
 .action-bar {
-    padding: @gutter-normal;
-    border: 1px solid @gray-40;
-    border-left: 0;  // Don't double the border with the filters
+  border: 1px solid @gray-40;
+  border-left: 0;  // Don't double the border with the filters
 
-    background-color: @green-20;
+  background-color: @green-20;
+
+  .cf-select {    
+    padding-bottom: 0;
+    border-left: 0;
+    border-bottom: 0;
+
+    select {
+      padding-top: @gutter-minimum;
+      padding-left: @gutter-normal;
+
+      background-color: transparent;
+      font-family: @webfont-demi;
+      font-size: 90%;
+      text-transform: uppercase;
+    }
+  }
+
+  h2 {
+    padding: @gutter-normal;
+    margin: 0;
+  }
+
+  h5 {
+    padding-left: @gutter-normal;
+    padding-top: @gutter-minimum;
+    border-top: 1px solid @gray-40;
+    margin: 0;
+    margin-bottom: @gutter-narrow;
+
+    a {
+      border-bottom: solid 1px @pacific;
+    }
+  }
 }
