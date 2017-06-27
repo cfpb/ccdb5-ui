@@ -375,11 +375,77 @@ exports[`initial state renders without crashing 1`] = `
         className="action-bar">
         <div>
           <h2>
-            Showing x of y complaints
+            Showing 
+            <span>
+              0
+            </span>
+             total complaints
           </h2>
         </div>
-        <div>
-          Page | Sort | Export
+        <div
+          className="layout-row">
+          <div
+            className="cf-select">
+            <select
+              id="choose-size"
+              onChange={[Function]}
+              value={10}>
+              <option
+                value={10}>
+                Show 
+                10
+                 results
+              </option>
+              <option
+                value={25}>
+                Show 
+                25
+                 results
+              </option>
+              <option
+                value={50}>
+                Show 
+                50
+                 results
+              </option>
+              <option
+                value={100}>
+                Show 
+                100
+                 results
+              </option>
+            </select>
+          </div>
+          <div
+            className="cf-select">
+            <select
+              id="choose-sort"
+              onChange={[Function]}
+              value="relevance_desc">
+              <option
+                value="relevance_desc">
+                Sort by relevance
+              </option>
+              <option
+                value="relevance_asc">
+                Sort by relevance (asc)
+              </option>
+              <option
+                value="created_date_asc">
+                Sort by oldest to newest
+              </option>
+              <option
+                value="created_date_desc">
+                Sort by newest to oldest
+              </option>
+            </select>
+          </div>
+          <h5
+            className="flex-all">
+            <a>
+              Export results
+            </a>
+          </h5>
         </div>
       </summary>
       <ul

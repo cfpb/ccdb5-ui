@@ -3,7 +3,8 @@ import * as types from '../constants'
 export const defaultQuery = {
   searchText: '',
   from: 0,
-  size: 10
+  size: 10,
+  sort: 'relevance_desc'
 }
 
 const urlParams = ['searchText', 'from', 'size'];
@@ -42,6 +43,19 @@ export default (state = defaultQuery, action) => {
     return {
       ...state,
       from: (action.page - 1) * state.size
+    }
+
+  case types.SIZE_CHANGED:
+    return {
+      ...state,
+      from: 0,
+      size: action.size
+    }
+
+  case types.SORT_CHANGED:
+    return {
+      ...state,
+      sort: action.sort
     }
 
   case types.URL_CHANGED:
