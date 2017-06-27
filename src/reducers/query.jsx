@@ -6,7 +6,7 @@ export const defaultQuery = {
   size: 10
 }
 
-const urlParams = ['searchText', 'from', 'size'];
+const urlParams = ['searchText', 'from', 'size', 'timely'];
 const urlParamsInt = ['from', 'size'];
 
 export function processParams(state, params) {
@@ -29,9 +29,19 @@ export function processParams(state, params) {
   return processed
 }
 
+export function toggleFilter(state, params) {
+  console.log('REDUCER Params: ', params);
+  console.log('REDUCER State: ', state);
+  console.log('THING TO PASS TO OBJECT: ', params.filterName,'=',params.filterValue.key);
+  return {
+    ...state
+  }
+}
+
 export default (state = defaultQuery, action) => {
   switch(action.type) {
   case types.SEARCH_CHANGED:
+  console.log('SEARCH_CHANGED state: ', state);
     return {
       ...state,
       searchText: action.searchText,
@@ -45,8 +55,18 @@ export default (state = defaultQuery, action) => {
     }
 
   case types.URL_CHANGED:
+    console.log("URL_CHANGED return: ", processParams(state, action.params));
     return processParams(state, action.params)
 
+  case types.FILTER_CHANGED:
+    // TODO: Update the search query with the filter change adapted from each AggregationItem
+    return toggleFilter(state, action)
+
+  case types.SUBFILTER_CHANGED:
+    // TODO: Update the search query with the filter change adapted from each AggregationItem
+    return {
+      ...state
+    }
   default:
     return state
   }
