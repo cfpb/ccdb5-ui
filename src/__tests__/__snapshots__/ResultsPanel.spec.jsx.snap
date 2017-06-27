@@ -55,7 +55,7 @@ exports[`component:ReactPanel renders without crashing 1`] = `
         <select
           id="choose-sort"
           onChange={[Function]}
-          value="relevance_desc">
+          value={undefined}>
           <option
             value="relevance_desc">
             Sort by relevance
