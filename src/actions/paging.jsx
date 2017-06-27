@@ -12,6 +12,7 @@ export function pageChanged(page) {
 }
 
 export function sizeChanged(size) {
+  console.assert(typeof size === 'number')
   return {
     type: SIZE_CHANGED,
     size

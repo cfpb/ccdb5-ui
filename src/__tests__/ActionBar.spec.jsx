@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
-import { ActionBar} from '../ActionBar';
+import { ActionBar, mapDispatchToProps } from '../ActionBar';
 import renderer from 'react-test-renderer';
 
 describe('initial state', () => {
@@ -14,5 +14,19 @@ describe('initial state', () => {
     let tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   });
+
+  describe('mapDispatchToProps', () => {
+    it('hooks into onSize', () => {
+      const dispatch = jest.fn();
+      mapDispatchToProps(dispatch).onSize({target: { value: '50' }});
+      expect(dispatch.mock.calls.length).toEqual(1);
+    })
+
+    it('hooks into onSort', () => {
+      const dispatch = jest.fn();
+      mapDispatchToProps(dispatch).onSort({target: { value: 'foo' }});
+      expect(dispatch.mock.calls.length).toEqual(1);
+    })
+  })
 });
 
