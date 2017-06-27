@@ -6,7 +6,8 @@ describe('reducer:query', () => {
     expect(target(undefined, {})).toEqual({
         searchText: '',
         from: 0,
-        size: 10
+        size: 10,
+        sort: 'relevance_desc'
       })
   })
 
@@ -37,6 +38,36 @@ describe('reducer:query', () => {
     }
     expect(target(state, action)).toEqual({
         from: 100,
+        size: 100
+      })
+  })
+
+  it('handles SIZE_CHANGED actions', () => {
+    const action = {
+      type: types.SIZE_CHANGED,
+      size: 50
+    }
+    const state = {
+      size: 100
+    }
+    expect(target(state, action)).toEqual({
+        from: 0,
+        size: 50
+      })
+  })
+
+  it('handles SORT_CHANGED actions', () => {
+    const action = {
+      type: types.SORT_CHANGED,
+      sort: 'foo'
+    }
+    const state = {
+      from: 100,
+      size: 100
+    }
+    expect(target(state, action)).toEqual({
+        from: 100,
+        sort: 'foo',
         size: 100
       })
   })

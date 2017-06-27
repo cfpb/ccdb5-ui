@@ -39,7 +39,8 @@ describe('component:ReactPanel', () => {
       },
       results: {
         items: items,
-        total: 1
+        total: 1,
+        doc_count: 100
       }
     })
 
