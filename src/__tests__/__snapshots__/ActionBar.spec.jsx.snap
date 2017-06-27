@@ -20,6 +20,7 @@ exports[`initial state renders without crashing 1`] = `
       className="cf-select">
       <select
         id="choose-size"
+        onChange={undefined}
         value={undefined}>
         <option
           value={10}>
@@ -51,6 +52,7 @@ exports[`initial state renders without crashing 1`] = `
       className="cf-select">
       <select
         id="choose-sort"
+        onChange={undefined}
         value={undefined}>
         <option
           value="relevance_desc">
