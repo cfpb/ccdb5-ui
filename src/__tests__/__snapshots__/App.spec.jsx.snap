@@ -401,6 +401,7 @@ exports[`initial state renders without crashing 1`] = `
             className="cf-select">
             <select
               id="choose-size"
+              onChange={[Function]}
               value={10}>
               <option
                 value={10}>
@@ -432,6 +433,7 @@ exports[`initial state renders without crashing 1`] = `
             className="cf-select">
             <select
               id="choose-sort"
+              onChange={[Function]}
               value="relevance_desc">
               <option
                 value="relevance_desc">

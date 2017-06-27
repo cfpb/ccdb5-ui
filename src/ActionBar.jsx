@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { FormattedNumber } from 'react-intl';
+import { FormattedNumber } from 'react-intl'
+import { changeSize, changeSort } from './actions/paging'
 import './ActionBar.less';
 
 const sizes = [10, 25, 50, 100]
@@ -31,14 +32,16 @@ export class ActionBar extends React.Component {
           </div>
           <div className="layout-row">
             <div className="cf-select">
-              <select value={this.props.size} id="choose-size">
+              <select value={this.props.size} id="choose-size"
+                      onChange={this.props.onSize}>
                 { sizes.map(x => {
                   return (<option key={x} value={x}>Show {x} results</option>)
                 })}
               </select>
             </div>
             <div className="cf-select">
-              <select value={this.props.sort} id="choose-sort">
+              <select value={this.props.sort} id="choose-sort"
+                      onChange={this.props.onSort}>
                 { Object.keys(sorts).map(x => {
                   return (<option key={x} value={x}>{ sorts[x] }</option>)
                 })}
@@ -63,6 +66,13 @@ export const mapStateToProps = state => {
 
 export const mapDispatchToProps = dispatch => {
   return {
+    onSize: ev => {
+      const iSize = parseInt(ev.target.value, 10)
+      dispatch(changeSize(iSize))
+    },
+    onSort: ev => {
+      dispatch(changeSort(ev.target.value))
+    }
   }
 }
 
