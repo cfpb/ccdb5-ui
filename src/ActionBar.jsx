@@ -3,6 +3,14 @@ import { connect } from 'react-redux'
 import { FormattedNumber } from 'react-intl';
 import './ActionBar.less';
 
+const sizes = [10, 25, 50, 100]
+const sorts = {
+  relevance_desc: 'Sort by relevance',
+  relevance_asc: 'Sort by relevance (asc)',
+  created_date_asc: 'Sort by oldest to newest',
+  created_date_desc: 'Sort by newest to oldest'
+}
+
 export class ActionBar extends React.Component {
   render() {
     return (
@@ -23,19 +31,17 @@ export class ActionBar extends React.Component {
           </div>
           <div className="layout-row">
             <div className="cf-select">
-              <select id="choose-size">
-                <option value="10">Show 10 results</option>
-                <option value="25">Show 25 results</option>
-                <option value="50">Show 50 results</option>
-                <option value="100">Show 100 results</option>
+              <select value={this.props.size} id="choose-size">
+                { sizes.map(x => {
+                  return (<option key={x} value={x}>Show {x} results</option>)
+                })}
               </select>
             </div>
             <div className="cf-select">
-              <select id="choose-sort">
-                <option value="relevance_asc">Sort by relevance</option>
-                <option value="relevance_desc">Sort by relevance (desc)</option>
-                <option value="date_asc">Sort by oldest to newest</option>
-                <option value="date_desc">Sort by newest to oldest</option>
+              <select value={this.props.sort} id="choose-sort">
+                { Object.keys(sorts).map(x => {
+                  return (<option key={x} value={x}>{ sorts[x] }</option>)
+                })}
               </select>
             </div>
 
@@ -48,6 +54,8 @@ export class ActionBar extends React.Component {
 
 export const mapStateToProps = state => {
   return {
+    size: state.query.size,
+    sort: 'relevance_desc', // state.query.sort,
     hits: state.results.total,
     total: state.results.doc_count
   }
