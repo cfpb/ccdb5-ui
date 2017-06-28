@@ -3,12 +3,12 @@ import './Aggregation.less';
 import { connect } from 'react-redux';
 import { filterChanged } from '../actions/filter';
 
-const AggregationItem = ({ item, fieldName, onClick }) => {
+const AggregationItem = ({ item, fieldName, active, onClick }) => {
     return (
         <li className="flex-fixed layout-row" key={item.key}>
             <input type="checkbox" className="flex-fixed"
                    aria-label={item.key}
-                   checked={item.active}
+                   checked={active}
                    onClick={onClick}
             />
             <span className="flex-all bucket-key">{item.key}</span>
@@ -24,7 +24,7 @@ AggregationItem.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    active: state.query[ownProps.fieldName] === ownProps.item.key
+    active: typeof state.query[ownProps.fieldName] !== 'undefined' && state.query[ownProps.fieldName].indexOf(ownProps.item.key) > -1
   };
 };
 
