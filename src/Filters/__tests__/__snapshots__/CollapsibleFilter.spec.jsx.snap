@@ -9,11 +9,13 @@ exports[`initial state renders without crashing 1`] = `
     </h5>
     <div
       className="flex-fixed toggle">
-      <a>
+      <button
+        className="a-btn a-btn__link hover"
+        onClick={[Function]}>
         Hide
-      </a>
-      <span
-        className="cf-icon cf-icon-minus-round" />
+        <span
+          className="cf-icon cf-icon-minus-round" />
+      </button>
     </div>
   </div>
   <p>

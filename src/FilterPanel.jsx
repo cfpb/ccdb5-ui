@@ -52,26 +52,31 @@ export class FilterPanel extends React.Component {
         </CollapsibleFilter>
         <hr />
         <Aggregation title="Did company provide a timely response?"
-                         options={this.props.aggs.timely}
+                     options={this.props.aggs.timely}
+                     showChildren={false}
         />
         <hr />
         <Aggregation title="Company Response"
-                         desc="How the company responded to the complaint"
-                         options={this.props.aggs.company_response}
+                     desc="How the company responded to the complaint"
+                     options={this.props.aggs.company_response}
+                     showChildren={false}
         />
         <hr />
         <Aggregation title="Company Public Response"
-                         desc="The company's optional public-facing response to a consumer's complaint"
-                         options={this.props.aggs.company_public_response}
+                     desc="The company's optional public-facing response to a consumer's complaint"
+                     options={this.props.aggs.company_public_response}
+                     showChildren={false}                     
         />
         <hr />
         <Aggregation title="Did the consumer dispute the response?"
                      options={this.props.aggs.consumer_disputed}
+                     showChildren={false}
         />
         <hr />
         <Aggregation title="Consumer Consent"
                      desc="Whether a consumer opted to publish their compaint narrative"
                      options={this.props.aggs.consumer_consent_provided}
+                     showChildren={false}
         />
       </section>
     );

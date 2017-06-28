@@ -11,6 +11,7 @@ export default class Aggregation extends React.Component {
     return (
         <CollapsibleFilter title={this.props.title} 
                            desc={this.props.desc}
+                           showChildren={this.props.showChildren}
                            className="aggregation">
             <ul>
             {some.map(bucket =>
