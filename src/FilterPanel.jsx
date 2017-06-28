@@ -33,7 +33,7 @@ export class FilterPanel extends React.Component {
         <hr />
         <Aggregation title="Did company provide a timely response?"
                          options={this.props.aggs.timely_response}
-                         fieldName="timely_response"
+                         fieldName="timely"
         />
         <hr />
         <Aggregation title="Company Response"
