@@ -32,9 +32,7 @@ describe('show more', () => {
 
   it('only shows the first 6 items of large arrays', () => {
     const target = renderer.create(
-      <IntlProvider locale="en">
-        <Aggregation options={options} />
-      </IntlProvider>
+      <Aggregation options={options} />
     );
 
     let tree = target.toJSON();
