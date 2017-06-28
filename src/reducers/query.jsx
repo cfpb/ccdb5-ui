@@ -7,7 +7,7 @@ export const defaultQuery = {
   sort: 'relevance_desc'
 }
 
-const urlParams = ['searchText', 'from', 'size', 'timely'];
+const urlParams = ['searchText', 'from', 'size'];
 const urlParamsInt = ['from', 'size'];
 
 export function processParams(state, params) {
@@ -30,12 +30,26 @@ export function processParams(state, params) {
   return processed
 }
 
+function filterArrayAction(target = [], val){
+  // defaults create new array if param doesn't exist yet
+  // if the value doesn't exist in the array, pushes
+  // if value exists in the array, filters.
+  // returns a cast copy to avoid any state mutation
+
+  if (target.indexOf(val) === -1) {
+    target.push(val);
+  } else {
+    target = target.filter(function(value){
+      return value !== val;
+    });
+  }
+  return [ ...target ];
+}
 export function toggleFilter(state, params) {
-  console.log('REDUCER Params: ', params);
-  console.log('REDUCER State: ', state);
-  console.log('THING TO PASS TO OBJECT: ', params.filterName,'=',params.filterValue.key);
+
   return {
-    ...state
+    ...state,
+    [params.filterName]: filterArrayAction( state[params.filterName], params.filterValue.key )
   }
 }
 
