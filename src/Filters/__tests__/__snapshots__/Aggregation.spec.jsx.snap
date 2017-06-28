@@ -7,11 +7,13 @@ exports[`initial state renders without crashing 1`] = `
       className="flex-all" />
     <div
       className="flex-fixed toggle">
-      <a>
+      <button
+        className="a-btn a-btn__link hover"
+        onClick={[Function]}>
         Hide
-      </a>
-      <span
-        className="cf-icon cf-icon-minus-round" />
+        <span
+          className="cf-icon cf-icon-minus-round" />
+      </button>
     </div>
   </div>
   <p />
@@ -45,11 +47,13 @@ exports[`show more only shows the first 6 items of large arrays 1`] = `
       className="flex-all" />
     <div
       className="flex-fixed toggle">
-      <a>
+      <button
+        className="a-btn a-btn__link hover"
+        onClick={[Function]}>
         Hide
-      </a>
-      <span
-        className="cf-icon cf-icon-minus-round" />
+        <span
+          className="cf-icon cf-icon-minus-round" />
+      </button>
     </div>
   </div>
   <p />

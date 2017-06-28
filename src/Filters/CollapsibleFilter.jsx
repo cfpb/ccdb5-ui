@@ -2,6 +2,23 @@ import React from 'react';
 import './CollapsibleFilter.less';
 
 export default class CollapsibleFilter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showChildren: typeof props.showChildren === 'undefined' ? true : props.showChildren
+    };
+
+    // This binding is necessary to make `this` work in the callback
+    // https://facebook.github.io/react/docs/handling-events.html
+    this._toggleChildDisplay = this._toggleChildDisplay.bind(this);
+  }
+
+  _toggleChildDisplay() {
+    this.setState({
+      showChildren: !this.state.showChildren
+    });
+  }
+
   render() {
     let composeClasses = 'collapsible-filter';
     if (this.props.className) {
@@ -13,12 +30,17 @@ export default class CollapsibleFilter extends React.Component {
           <div className="layout-row">
             <h5 className="flex-all">{this.props.title}</h5>
             <div className="flex-fixed toggle">
-                <a>Hide</a>
-                <span className="cf-icon cf-icon-minus-round"></span>
+                <button className="a-btn a-btn__link hover"
+                        onClick={this._toggleChildDisplay}>
+                { this.state.showChildren ? 'Hide' : 'Show' }
+                  <span className={
+                    "cf-icon " + (this.state.showChildren ? 'cf-icon-minus-round' : 'cf-icon-plus-round')
+                  }></span>
+                </button>
             </div>
           </div>
           <p>{this.props.desc}</p>
-          {this.props.children}
+          { this.state.showChildren ? this.props.children : null }
       </section>
     );
   }
