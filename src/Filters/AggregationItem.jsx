@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import './Aggregation.less';
 import { connect } from 'react-redux';
-import { filterChanged, filterToggle } from '../actions/filter';
+import { filterChanged } from '../actions/filter';
 
 const AggregationItem = ({ item, fieldName, onClick }) => {
     return (
@@ -24,8 +24,7 @@ AggregationItem.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    active: false
-    // active = state.query[ownProps.title].
+    active: state.query[ownProps.fieldName] === ownProps.item.key
   };
 };
 
@@ -33,7 +32,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onClick: () => {
       console.log('ONCLICK : ', ownProps);
-      dispatch(filterToggle(ownProps.fieldName, ownProps.item));
+      dispatch(filterChanged(ownProps.fieldName, ownProps.item));
     },
   };
 };
