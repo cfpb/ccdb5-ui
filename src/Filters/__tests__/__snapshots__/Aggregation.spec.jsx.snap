@@ -29,9 +29,7 @@ exports[`initial state renders without crashing 1`] = `
       </span>
       <span
         className="flex-fixed bucket-count">
-        <span>
-          99
-        </span>
+        99
       </span>
     </li>
   </ul>
@@ -69,9 +67,7 @@ exports[`show more only shows the first 6 items of large arrays 1`] = `
       </span>
       <span
         className="flex-fixed bucket-count">
-        <span>
-          99
-        </span>
+        99
       </span>
     </li>
     <li
@@ -87,9 +83,7 @@ exports[`show more only shows the first 6 items of large arrays 1`] = `
       </span>
       <span
         className="flex-fixed bucket-count">
-        <span>
-          99
-        </span>
+        99
       </span>
     </li>
     <li
@@ -105,9 +99,7 @@ exports[`show more only shows the first 6 items of large arrays 1`] = `
       </span>
       <span
         className="flex-fixed bucket-count">
-        <span>
-          99
-        </span>
+        99
       </span>
     </li>
     <li
@@ -123,9 +115,7 @@ exports[`show more only shows the first 6 items of large arrays 1`] = `
       </span>
       <span
         className="flex-fixed bucket-count">
-        <span>
-          99
-        </span>
+        99
       </span>
     </li>
     <li
@@ -141,9 +131,7 @@ exports[`show more only shows the first 6 items of large arrays 1`] = `
       </span>
       <span
         className="flex-fixed bucket-count">
-        <span>
-          99
-        </span>
+        99
       </span>
     </li>
   </ul>
