@@ -184,8 +184,9 @@ exports[`initial state renders without crashing 1`] = `
               className="flex-fixed layout-row">
               <input
                 aria-label="No"
-                checked={true}
+                checked={false}
                 className="flex-fixed"
+                onClick={[Function]}
                 type="checkbox" />
               <span
                 className="flex-all bucket-key">
@@ -202,6 +203,7 @@ exports[`initial state renders without crashing 1`] = `
                 aria-label="Yes"
                 checked={false}
                 className="flex-fixed"
+                onClick={[Function]}
                 type="checkbox" />
               <span
                 className="flex-all bucket-key">
@@ -249,6 +251,7 @@ exports[`initial state renders without crashing 1`] = `
                 aria-label="Closed with explanation"
                 checked={false}
                 className="flex-fixed"
+                onClick={[Function]}
                 type="checkbox" />
               <span
                 className="flex-all bucket-key">
@@ -265,6 +268,7 @@ exports[`initial state renders without crashing 1`] = `
                 aria-label="Closed with monetary relief"
                 checked={false}
                 className="flex-fixed"
+                onClick={[Function]}
                 type="checkbox" />
               <span
                 className="flex-all bucket-key">
@@ -281,6 +285,7 @@ exports[`initial state renders without crashing 1`] = `
                 aria-label="Closed with non-monetary relief"
                 checked={false}
                 className="flex-fixed"
+                onClick={[Function]}
                 type="checkbox" />
               <span
                 className="flex-all bucket-key">
@@ -297,6 +302,7 @@ exports[`initial state renders without crashing 1`] = `
                 aria-label="Untimely response"
                 checked={false}
                 className="flex-fixed"
+                onClick={[Function]}
                 type="checkbox" />
               <span
                 className="flex-all bucket-key">
@@ -313,6 +319,7 @@ exports[`initial state renders without crashing 1`] = `
                 aria-label="Closed"
                 checked={false}
                 className="flex-fixed"
+                onClick={[Function]}
                 type="checkbox" />
               <span
                 className="flex-all bucket-key">
@@ -329,6 +336,7 @@ exports[`initial state renders without crashing 1`] = `
                 aria-label="Closed without relief"
                 checked={false}
                 className="flex-fixed"
+                onClick={[Function]}
                 type="checkbox" />
               <span
                 className="flex-all bucket-key">
@@ -345,6 +353,7 @@ exports[`initial state renders without crashing 1`] = `
                 aria-label="Closed with relief"
                 checked={false}
                 className="flex-fixed"
+                onClick={[Function]}
                 type="checkbox" />
               <span
                 className="flex-all bucket-key">
@@ -361,6 +370,7 @@ exports[`initial state renders without crashing 1`] = `
                 aria-label="In progress"
                 checked={false}
                 className="flex-fixed"
+                onClick={[Function]}
                 type="checkbox" />
               <span
                 className="flex-all bucket-key">
