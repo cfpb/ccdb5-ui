@@ -1,0 +1,15 @@
+exports[`component:Pill renders without crashing 1`] = `
+<li
+  className="pill flex-fixed">
+  <span
+    className="name">
+    bar
+  </span>
+  <button
+    onClick={0}
+    title="Remove bar as a filter">
+    <span
+      className="cf-icon cf-icon-delete" />
+  </button>
+</li>
+`;
