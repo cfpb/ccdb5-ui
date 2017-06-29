@@ -53,6 +53,7 @@ export function toggleFilter(state, params) {
   }
 }
 
+// TODO: Set defaultQueryState to recognize existing URL params
 export default (state = defaultQuery, action) => {
   switch(action.type) {
   case types.SEARCH_CHANGED:
