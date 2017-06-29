@@ -35,4 +35,3 @@ describe('action:search', () => {
     })
   })
 })
-
