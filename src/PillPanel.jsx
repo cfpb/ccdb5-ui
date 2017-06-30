@@ -28,7 +28,7 @@ export const PillPanel = ({ filters, clearAll }) => {
 }
 
 export const mapStateToProps = (state) => {
-  const subState = state.query || {}
+  const subState = state.query
   const filters = knownFilters
     // Only use the known filters that are in the substate
     .filter(x => {
