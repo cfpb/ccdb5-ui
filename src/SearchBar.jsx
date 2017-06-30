@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import search from './actions/search'
-import PillPanel from './PillPanel'
 import './SearchBar.less';
 
 export class SearchBar extends React.Component {
@@ -48,7 +47,6 @@ export class SearchBar extends React.Component {
                    id="searchText" />
             <input type="submit" className="btn primary" value="Search" />
           </form>
-          <PillPanel />
         </nav>
     );
   }
