@@ -30,7 +30,7 @@ export function processParams(state, params) {
   return processed
 }
 
-function filterArrayAction(target = [], val){
+export function filterArrayAction(target = [], val){
   // defaults create new array if param doesn't exist yet
   // if the value doesn't exist in the array, pushes
   // if value exists in the array, filters.
@@ -45,11 +45,15 @@ function filterArrayAction(target = [], val){
   }
   return [ ...target ];
 }
-export function toggleFilter(state, params) {
-
+export function toggleFilter(state, action) {
+  console.log('TOGGLE RETURN VALUE: ', {
+    ...state,
+    [action.filterName]: filterArrayAction( state[action.filterName], action.filterValue.key )
+  });
   return {
     ...state,
-    [params.filterName]: filterArrayAction( state[params.filterName], params.filterValue.key )
+    //{ timely: [ 'Yes' ] } - returns an updated state for combined query reducer
+    [action.filterName]: filterArrayAction( state[action.filterName], action.filterValue.key )
   }
 }
 
