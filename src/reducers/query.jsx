@@ -20,6 +20,18 @@ export function processParams(state, params) {
     }
   })
 
+  // Handle the aggregation filters
+  types.knownFilters.forEach(field => {
+    if( typeof params[field] !== 'undefined' ) {
+      if( typeof params[field] === 'string') {
+        processed[field] = [params[field]];
+      }
+      else {
+        processed[field] = params[field];
+      }
+    }
+  })
+
   // Convert from strings
   urlParamsInt.forEach(field => {
     if( typeof processed[field] !== 'undefined' ) {
@@ -53,7 +65,6 @@ export function toggleFilter(state, action) {
   }
 }
 
-// TODO: Set defaultQueryState to recognize existing URL params
 export default (state = defaultQuery, action) => {
   switch(action.type) {
   case types.SEARCH_CHANGED:
@@ -86,14 +97,8 @@ export default (state = defaultQuery, action) => {
     return processParams(state, action.params)
 
   case types.FILTER_CHANGED:
-    // TODO: Update the search query with the filter change adapted from each AggregationItem
     return toggleFilter(state, action)
 
-  case types.SUBFILTER_CHANGED:
-    // TODO: Update the search query with the filter change adapted from each AggregationItem
-    return {
-      ...state
-    }
   default:
     return state
   }

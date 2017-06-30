@@ -113,6 +113,18 @@ describe('reducer:query', () => {
         size: 99
       })
     })
+
+    it('handles a single filter', () => {
+      action.params = { product: 'Debt Collection' }
+      expect(target({}, action)).toEqual({ product: ['Debt Collection'] })
+    })
+
+    it('handles a multiple filters', () => {
+      action.params = { product: ['Debt Collection', 'Mortgage'] }
+      expect(target({}, action)).toEqual({ 
+        product: ['Debt Collection', 'Mortgage']
+      })
+    })
   })
 
   describe('FILTER_CHANGED actions updates query with filter state', () => {
