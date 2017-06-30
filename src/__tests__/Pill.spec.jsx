@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 import { SLUG_SEPARATOR } from '../constants'
-import { Pill, mapStateToProps } from '../Pill';
+import { Pill, mapStateToProps, mapDispatchToProps } from '../Pill';
 
 function setupEnzyme() {
   const props = {
@@ -43,4 +43,13 @@ describe('component:Pill', () => {
     button.simulate('click');
     expect(props.remove).toHaveBeenCalled();
   });
+  
+  describe('mapDispatchToProps', () => {
+    it('hooks into removeFilter', () => {
+      const { props } = setupEnzyme()
+      const dispatch = jest.fn();
+      mapDispatchToProps(dispatch, props).remove();
+      expect(dispatch.mock.calls.length).toEqual(1);
+    })
+  })
 });

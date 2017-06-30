@@ -10,7 +10,10 @@ export const defaultQuery = {
 const urlParams = ['searchText', 'from', 'size'];
 const urlParamsInt = ['from', 'size'];
 
-export function processParams(state, params) {
+// ----------------------------------------------------------------------------
+// Complex reduction logic
+
+function processParams(state, params) {
   const processed = Object.assign({}, state)
 
   // Filter for known
@@ -65,6 +68,20 @@ export function toggleFilter(state, action) {
   }
 }
 
+function removeFilter(state, action) {
+  const newState = {...state}
+  if (action.filterName in newState) {
+    const idx = newState[action.filterName].indexOf(action.filterValue)
+    if (idx !== -1 ) {
+      newState[action.filterName].splice(idx, 1)
+    }
+  }
+  return newState
+}
+
+// ----------------------------------------------------------------------------
+// Action Handler
+
 export default (state = defaultQuery, action) => {
   switch(action.type) {
   case types.SEARCH_CHANGED:
@@ -98,6 +115,18 @@ export default (state = defaultQuery, action) => {
 
   case types.FILTER_CHANGED:
     return toggleFilter(state, action)
+
+  case types.FILTER_REMOVED:
+    return removeFilter(state, action)
+
+  case types.FILTER_ALL_REMOVED:
+    const newState = {...state}
+    types.knownFilters.forEach(kf => {
+      if (kf in newState) {
+        delete newState[kf]
+      }
+    })
+    return newState
 
   default:
     return state

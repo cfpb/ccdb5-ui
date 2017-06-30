@@ -16,7 +16,7 @@ exports[`component:PillPanel renders without crashing 1`] = `
         Apples
       </span>
       <button
-        onClick={undefined}
+        onClick={[Function]}
         title="Remove Apples as a filter">
         <span
           className="cf-icon cf-icon-delete" />
@@ -29,7 +29,7 @@ exports[`component:PillPanel renders without crashing 1`] = `
         Bananas are great
       </span>
       <button
-        onClick={undefined}
+        onClick={[Function]}
         title="Remove Bananas are great as a filter">
         <span
           className="cf-icon cf-icon-delete" />
@@ -39,7 +39,7 @@ exports[`component:PillPanel renders without crashing 1`] = `
       className="clear-all">
       <button
         className="a-btn a-btn__link body-copy"
-        onClick={undefined}>
+        onClick={[Function]}>
         Clear all filters
       </button>
     </li>

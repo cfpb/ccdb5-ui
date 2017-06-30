@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { knownFilters } from './constants'
 import Pill from './Pill';
+import { removeAllFilters } from './actions/filter'
 import './PillPanel.less';
 
 export const PillPanel = ({ filters, clearAll }) => {
@@ -49,7 +50,7 @@ export const mapStateToProps = (state) => {
 
 export const mapDispatchToProps = (dispatch) => {
   return {
-    clearAll: console.log('clearAll')
+    clearAll: () => { dispatch(removeAllFilters()) }
   }
 }
 
