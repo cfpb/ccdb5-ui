@@ -6,7 +6,7 @@ exports[`component:Pill renders without crashing 1`] = `
     bar
   </span>
   <button
-    onClick={0}
+    onClick={undefined}
     title="Remove bar as a filter">
     <span
       className="cf-icon cf-icon-delete" />

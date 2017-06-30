@@ -1,17 +1,34 @@
 import React from 'react';
-//import { connect } from 'react-redux';
+import { connect } from 'react-redux';
+import { SLUG_SEPARATOR } from './constants'
 import './Pill.less';
 
-export const Pill = ({fieldName, value}) => {
+export const Pill = ({fieldName, value, trimmed, remove}) => {
   return (
     <li className="pill flex-fixed">
-      <span className="name">{ value }</span>
-      <button onClick={ (0) } 
-              title={'Remove ' + value + ' as a filter'}>
+      <span className="name">{ trimmed }</span>
+      <button onClick={ remove } 
+              title={'Remove ' + trimmed + ' as a filter'}>
           <span className="cf-icon cf-icon-delete"></span>
       </button>
     </li>
   );
 }
 
-export default Pill;
+export const mapStateToProps = (state, ownProps) => {
+  const parts = ownProps.value.split(SLUG_SEPARATOR)
+  const trimmed = parts.length > 1 ? parts.pop() : parts[0];
+
+  return {
+    ...ownProps,
+    trimmed
+  }
+}
+
+export const mapDispatchToProps = (dispatch, props) => {
+  return {
+    remove: console.log('remove', props.fieldName, props.value)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Pill);
