@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
+import { IntlProvider } from 'react-intl';
 import Aggregation from '../Aggregation';
 import renderer from 'react-test-renderer';
 
@@ -17,7 +18,9 @@ function setupSnapshot(initialAggs) {
 
   return renderer.create(
     <Provider store={store}>
-      <Aggregation fieldName="company_response"/>
+      <IntlProvider locale="en">
+        <Aggregation fieldName="company_response"/>
+      </IntlProvider>
     </Provider>
   )
 }

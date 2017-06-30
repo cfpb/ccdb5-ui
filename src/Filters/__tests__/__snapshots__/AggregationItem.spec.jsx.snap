@@ -2,14 +2,20 @@ exports[`component:AggregationItemFilter renders without crashing 1`] = `
 <li
   className="flex-fixed layout-row">
   <input
-    aria-label={undefined}
+    aria-label="foo"
     checked={false}
     className="flex-fixed"
     onClick={[Function]}
     type="checkbox" />
   <span
-    className="flex-all bucket-key" />
+    className="flex-all bucket-key">
+    foo
+  </span>
   <span
-    className="flex-fixed bucket-count" />
+    className="flex-fixed bucket-count">
+    <span>
+      1,000
+    </span>
+  </span>
 </li>
 `;
