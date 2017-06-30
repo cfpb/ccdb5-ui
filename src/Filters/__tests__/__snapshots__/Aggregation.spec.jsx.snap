@@ -22,8 +22,9 @@ exports[`initial state renders without crashing 1`] = `
       className="flex-fixed layout-row">
       <input
         aria-label="foo"
-        checked={undefined}
+        checked={false}
         className="flex-fixed"
+        onClick={[Function]}
         type="checkbox" />
       <span
         className="flex-all bucket-key">
@@ -62,8 +63,9 @@ exports[`show more only shows the first 6 items of large arrays 1`] = `
       className="flex-fixed layout-row">
       <input
         aria-label="alpha"
-        checked={undefined}
+        checked={false}
         className="flex-fixed"
+        onClick={[Function]}
         type="checkbox" />
       <span
         className="flex-all bucket-key">
@@ -78,8 +80,9 @@ exports[`show more only shows the first 6 items of large arrays 1`] = `
       className="flex-fixed layout-row">
       <input
         aria-label="beta"
-        checked={undefined}
+        checked={false}
         className="flex-fixed"
+        onClick={[Function]}
         type="checkbox" />
       <span
         className="flex-all bucket-key">
@@ -94,8 +97,9 @@ exports[`show more only shows the first 6 items of large arrays 1`] = `
       className="flex-fixed layout-row">
       <input
         aria-label="gamma"
-        checked={undefined}
+        checked={false}
         className="flex-fixed"
+        onClick={[Function]}
         type="checkbox" />
       <span
         className="flex-all bucket-key">
@@ -110,8 +114,9 @@ exports[`show more only shows the first 6 items of large arrays 1`] = `
       className="flex-fixed layout-row">
       <input
         aria-label="delta"
-        checked={undefined}
+        checked={false}
         className="flex-fixed"
+        onClick={[Function]}
         type="checkbox" />
       <span
         className="flex-all bucket-key">
@@ -126,8 +131,9 @@ exports[`show more only shows the first 6 items of large arrays 1`] = `
       className="flex-fixed layout-row">
       <input
         aria-label="epsilon"
-        checked={undefined}
+        checked={false}
         className="flex-fixed"
+        onClick={[Function]}
         type="checkbox" />
       <span
         className="flex-all bucket-key">

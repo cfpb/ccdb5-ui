@@ -31,7 +31,6 @@ describe('component:AggregationItemFilter', () => {
     const state = { query: {} };
     const ownProps = { fieldName: 'timely', item: { key: "Yes" }};
     let propsReturn = mapStateToProps(state, ownProps);
-    console.log('PROPS RETURN: ', propsReturn);
     expect(propsReturn.active).toEqual(false);
   });
   it('mapStateToProps returns correct active value fieldName key matches query', () => {
