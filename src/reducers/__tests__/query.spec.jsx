@@ -1,4 +1,4 @@
-import target from '../query'
+import target, { filterArrayAction, toggleFilter } from '../query'
 import * as types from '../../constants'
 
 describe('reducer:query', () => {
@@ -114,4 +114,42 @@ describe('reducer:query', () => {
       })
     })
   })
+
+  describe('FILTER_CHANGED actions updates query with filter state', () => {
+    let key = ''
+    let state = null
+    let filterName = ''
+    let filterValue = null
+    let action = null
+
+    beforeEach(() => {
+      key = 'affirmative';
+      filterName = 'filtyMcFilterson';
+      filterValue = { key };
+      state = { };
+      action = { type: types.FILTER_CHANGED, filterName, filterValue };
+    });
+
+    it('handles FILTER_CHANGED actions and returns correct object', () => {
+      expect(target(state, action)).toEqual(
+        { [filterName]: [key] }
+      );
+    });
+
+    it('creates a filter array if target is undefined', () => {
+      let filterReturn = filterArrayAction(undefined, key);
+      expect(filterReturn).toEqual([key]);
+    });
+
+    it('adds additional filters when passed', () => {
+      let filterReturn = filterArrayAction([key], 'bye');
+      expect(filterReturn).toEqual([key, 'bye']);
+    });
+
+    it('removes filters when already present', () => {
+      let filterReturn = filterArrayAction([key, 'bye'], key);
+      expect(filterReturn).toEqual(['bye']);
+    });
+
+  });
 })
