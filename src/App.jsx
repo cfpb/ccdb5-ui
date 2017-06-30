@@ -9,6 +9,8 @@ import { IntlProvider } from 'react-intl';
 import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 
+import { composeWithDevTools } from 'redux-devtools-extension';
+
 import reducers from './reducers'
 import FilterPanel from './FilterPanel';
 import Hero from './Hero';
@@ -17,10 +19,19 @@ import ResultsPanel from './ResultsPanel';
 import UrlBarSynch from './UrlBarSynch';
 import './App.less';
 
-const store = createStore(
-  reducers,
-  applyMiddleware(thunkMiddleware)
-);
+const middleware = [thunkMiddleware];
+
+const composeEnhancers = composeWithDevTools({
+  // required for redux-devtools-extension
+  // Specify name here, actionsBlacklist, actionsCreators and other options if needed
+});
+
+// required format for redux-devtools-extension
+const store = createStore(reducers, /* preloadedState, */ composeEnhancers(
+  applyMiddleware(...middleware),
+  // other store enhancers if any
+));
+
 
 export class App extends React.Component {
   render() {
