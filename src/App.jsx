@@ -12,7 +12,7 @@ import thunkMiddleware from 'redux-thunk'
 import reducers from './reducers'
 import FilterPanel from './FilterPanel';
 import Hero from './Hero';
-import SearchBar from './SearchBar';
+import SearchPanel from './SearchPanel';
 import ResultsPanel from './ResultsPanel';
 import UrlBarSynch from './UrlBarSynch';
 import './App.less';
@@ -31,7 +31,7 @@ export class App extends React.Component {
             <UrlBarSynch />
             <Hero />
             <div className="content_wrapper">
-              <SearchBar />
+              <SearchPanel />
               <aside className="content_sidebar">
                 <FilterPanel />
               </aside>
