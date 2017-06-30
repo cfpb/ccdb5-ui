@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/cfpb/ccdb5-ui/badge.svg?branch=master)](https://coveralls.io/github/cfpb/ccdb5-ui?branch=master)
 
 **Description**:
-This application allows consumers to search complaints submitted to the CFPB by other consumers. 
+This application allows consumers to search complaints submitted to the CFPB by other consumers.
 
 #### Technology Stack
 This application is written in JavaScript and [Less](http://lesscss.org) within
@@ -21,7 +21,7 @@ Unit testing of the application is performed within
 
 [npm](https://www.npmjs.com/) is used to manage the build/test/deploy cycle.
 
-The `ccdb5_ui` (note the underscore) directory contains a thin [Django](https://www.djangoproject.com/) 
+The `ccdb5_ui` (note the underscore) directory contains a thin [Django](https://www.djangoproject.com/)
 implementation that allows it to be used as a plugin for
 [CFPB's public website](https://github.com/cfpb/cfgov-refresh).
 
@@ -134,4 +134,4 @@ repository's [Issue Tracker](https://github.com/cfpb/ccdb5-ui/issues).
 * https://github.com/markerikson/react-redux-links/blob/master/tips-and-best-practices.md
 * https://getstream.io/blog/react-redux-best-practices-gotchas/
 * https://tech.affirm.com/redux-patterns-and-anti-patterns-7d80ef3d53bc
-
+* https://github.com/gaearon/redux-devtools
