@@ -1,4 +1,4 @@
-jest.mock('../url');
+jest.mock('../complaints');
 
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
@@ -21,17 +21,18 @@ describe('action:filterActions', () => {
 
   describe('filterChanged', () => {
     it('executes a chain of actions', () => {
+      const filterName = 'timely'
+      const filterValue = 'Yes'
       const expectedActions = [
-        { type: types.FILTER_CHANGED, filterName: 'timely', filterValue: 'Yes'},
-        { type: 'announceURLChangedMock' }
+        { type: types.FILTER_CHANGED, filterName, filterValue},
+        { type: 'getComplaintsMock' }
       ]
 
       const middlewares = [thunk]
       const mockStore = configureMockStore(middlewares)
       const store = mockStore({ })
 
-      store.dispatch(filterChanged({filterName: 'timely', filterValue: 'Yes'}) )
-      console.error("STORE GETACTIONS: ", store.getActions());
+      store.dispatch(filterChanged(filterName, filterValue) )
       expect(store.getActions()).toEqual(expectedActions)
     })
   })
