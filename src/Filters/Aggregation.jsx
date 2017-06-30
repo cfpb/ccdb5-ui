@@ -1,5 +1,6 @@
 import React from 'react';
 import CollapsibleFilter from './CollapsibleFilter';
+import AggregationItem from './AggregationItem';
 import './Aggregation.less';
 
 export default class Aggregation extends React.Component {
@@ -9,19 +10,13 @@ export default class Aggregation extends React.Component {
     const remain = all.length - 6
 
     return (
-        <CollapsibleFilter title={this.props.title} 
+        <CollapsibleFilter title={this.props.title}
                            desc={this.props.desc}
                            showChildren={this.props.showChildren}
                            className="aggregation">
             <ul>
             {some.map(bucket =>
-                <li className="flex-fixed layout-row" key={bucket.key}>
-                    <input type="checkbox" className="flex-fixed"
-                           aria-label={bucket.key}
-                           checked={bucket.active} />
-                    <span className="flex-all bucket-key">{bucket.key}</span>
-                    <span className="flex-fixed bucket-count">{bucket.doc_count}</span>
-                </li>
+                <AggregationItem item={bucket} key={ bucket.key } fieldName={ this.props.fieldName } />
             )}
             </ul>
             {remain > 0 ? (

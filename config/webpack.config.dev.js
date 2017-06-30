@@ -20,13 +20,13 @@ module.exports = merge({
   devtool: 'cheap-module-source-map',
   entry: [
     require.resolve('react-dev-utils/webpackHotDevClient')
-  ],  
+  ],
   output: {
     pathinfo: true,
     publicPath: '/'
   },
   module: {
-    loaders: [      
+    loaders: [
       // ** ADDING/UPDATING LOADERS **
       // The "url" loader handles all assets unless explicitly excluded.
       // The `exclude` list *must* be updated with every change to loader extensions.
@@ -75,6 +75,8 @@ module.exports = merge({
         query: {
           search: '@@API',
           replace: 'http://localhost:8000/data-research/consumer-complaints/api/v1/'
+          // If using the API without cf.gov build, you can use:
+          // replace: 'http://localhost:8000/'
         }
       },
       // "postcss" loader applies autoprefixer to our CSS.

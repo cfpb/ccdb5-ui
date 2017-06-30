@@ -26,19 +26,19 @@ export class FilterPanel extends React.Component {
             </div>
         </CollapsibleFilter>
         <hr />
-        <CollapsibleFilter title="Matched Company Name" 
+        <CollapsibleFilter title="Matched Company Name"
                            desc="The company name as it appears in our complaint system, which may be different than the name the consumer provided in the complaint">
             <input type="text" placeholder="Enter company name" />
         </CollapsibleFilter>
         <hr />
         <Aggregation title="Product / sub-product"
                      desc="The type of product and sub-product the consumer identified in the complaint"
-                     options={this.props.aggs.product}
+                     fieldName="product"
         />
         <hr />
         <Aggregation title="Issue / sub-issue"
                      desc="The type of issue and sub-issue the consumer identified in the complaint"
-                     options={this.props.aggs.issue}
+                     fieldName="issue"
         />
         <hr />
         <CollapsibleFilter title="State"
@@ -52,30 +52,30 @@ export class FilterPanel extends React.Component {
         </CollapsibleFilter>
         <hr />
         <Aggregation title="Did company provide a timely response?"
-                     options={this.props.aggs.timely}
+                     fieldName="timely"
                      showChildren={false}
         />
         <hr />
         <Aggregation title="Company Response"
                      desc="How the company responded to the complaint"
-                     options={this.props.aggs.company_response}
+                     fieldName="company_response"
                      showChildren={false}
         />
         <hr />
         <Aggregation title="Company Public Response"
                      desc="The company's optional public-facing response to a consumer's complaint"
-                     options={this.props.aggs.company_public_response}
+                     fieldName="company_public_response"
                      showChildren={false}                     
         />
         <hr />
         <Aggregation title="Did the consumer dispute the response?"
-                     options={this.props.aggs.consumer_disputed}
+                     fieldName="consumer_disputed"
                      showChildren={false}
         />
         <hr />
         <Aggregation title="Consumer Consent"
                      desc="Whether a consumer opted to publish their compaint narrative"
-                     options={this.props.aggs.consumer_consent_provided}
+                     fieldName="consumer_consent_provided"
                      showChildren={false}
         />
       </section>
