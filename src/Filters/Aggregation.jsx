@@ -1,9 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import CollapsibleFilter from './CollapsibleFilter';
 import AggregationItem from './AggregationItem';
 import './Aggregation.less';
 
-export default class Aggregation extends React.Component {
+export class Aggregation extends React.Component {
   render() {
     const all = this.props.options || [];
     const some = all.length > 6 ? all.slice(0, 5) : all
@@ -24,8 +25,15 @@ export default class Aggregation extends React.Component {
                    <button className="a-btn a-btn__link hover more">+ Show {remain} more</button>
               </div>
             ) : null}
-        </CollapsibleFilter>                 
+        </CollapsibleFilter>
     );
   }
 }
 
+export const mapStateToProps = (state, ownProps) => {
+  return {
+    options: state.aggs[ownProps.fieldName]
+  }
+};
+
+export default connect(mapStateToProps)(Aggregation);
