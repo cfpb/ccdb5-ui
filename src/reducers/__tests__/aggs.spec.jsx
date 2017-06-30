@@ -24,8 +24,8 @@ describe('reducer:aggs', () => {
       type: types.COMPLAINTS_RECEIVED,
       data: { 
         aggregations: {
-          'Company response': {
-            'Company response': {
+          'company_response': {
+            'company_response': {
               buckets: [
                 {key: 'foo', doc_count: 99}
               ]
