@@ -35,8 +35,7 @@ export class SearchBar extends React.Component {
 
   render() {
     return (
-        <nav className="searchBar">
-          <h2>Search Complaint Data</h2>
+        <nav className="search-bar">
           <form action="" onSubmit={this._handleSubmit}>
             <label className="a-label a-label__heading" htmlFor="searchText">Search Within</label>
             <input type="button" className="btn" value="Types" />

@@ -1,0 +1,28 @@
+@import (less) "base.less";
+
+.pill {
+    padding: 3px @gutter-minimum;
+    border-radius: 8px;
+    margin-right: @gutter-normal;
+
+    background-color: @gray-20;
+    color: @black;
+    font-face: webfont-regular();
+    font-size: @size-v;
+
+    button {
+      padding: 0;
+      padding-left: @gutter-minimum;
+      border: 0;
+      border-left: 1px solid @black;
+      margin: 0;
+
+      background-color: @gray-20;
+      border-color: @gray-20;
+      color: @black;
+
+      &:hover, &:active {
+        background-color: @gray-40;
+      }
+    }
+}
