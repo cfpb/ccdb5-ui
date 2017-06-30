@@ -22,7 +22,6 @@ export default (state = defaultAggs, action) => {
   case COMPLAINTS_RECEIVED:
     // TODO: Handle translating the buckets to aggs state here
     return state
-
   default:
     return state
   }
