@@ -1,12 +1,12 @@
 import { FILTER_CHANGED } from '../constants'
-import announceUrlChanged from './url'
+import { getComplaints } from './complaints'
 
 // Simple Action
 export function filterToggle(filterName, filterValue) {
   return {
     type: FILTER_CHANGED,
-    filterName: filterName,
-    filterValue: filterValue
+    filterName,
+    filterValue
   }
 }
 
@@ -14,6 +14,6 @@ export function filterToggle(filterName, filterValue) {
 export function filterChanged(filterName, filterValue) {
   return dispatch => {
       dispatch( filterToggle(filterName, filterValue) )
-      dispatch( announceUrlChanged(location) )
+      dispatch( getComplaints() )
   }
 }
