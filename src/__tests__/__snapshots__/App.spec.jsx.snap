@@ -40,35 +40,38 @@ exports[`initial state renders without crashing 1`] = `
   </header>
   <div
     className="content_wrapper">
-    <nav
-      className="searchBar">
+    <div
+      className="search-panel">
       <h2>
         Search Complaint Data
       </h2>
-      <form
-        action=""
-        onSubmit={[Function]}>
-        <label
-          className="a-label a-label__heading"
-          htmlFor="searchText">
-          Search Within
-        </label>
-        <input
-          className="btn"
-          type="button"
-          value="Types" />
-        <input
-          id="searchText"
-          onChange={[Function]}
-          placeholder="Enter your search term(s)"
-          type="text"
-          value="foo" />
-        <input
-          className="btn primary"
-          type="submit"
-          value="Search" />
-      </form>
-    </nav>
+      <nav
+        className="search-bar">
+        <form
+          action=""
+          onSubmit={[Function]}>
+          <label
+            className="a-label a-label__heading"
+            htmlFor="searchText">
+            Search Within
+          </label>
+          <input
+            className="btn"
+            type="button"
+            value="Types" />
+          <input
+            id="searchText"
+            onChange={[Function]}
+            placeholder="Enter your search term(s)"
+            type="text"
+            value="foo" />
+          <input
+            className="btn primary"
+            type="submit"
+            value="Search" />
+        </form>
+      </nav>
+    </div>
     <aside
       className="content_sidebar">
       <section
