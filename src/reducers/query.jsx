@@ -46,10 +46,6 @@ export function filterArrayAction(target = [], val){
   return [ ...target ];
 }
 export function toggleFilter(state, action) {
-  console.log('TOGGLE RETURN VALUE: ', {
-    ...state,
-    [action.filterName]: filterArrayAction( state[action.filterName], action.filterValue.key )
-  });
   return {
     ...state,
     //{ timely: [ 'Yes' ] } - returns an updated state for combined query reducer
@@ -61,7 +57,6 @@ export function toggleFilter(state, action) {
 export default (state = defaultQuery, action) => {
   switch(action.type) {
   case types.SEARCH_CHANGED:
-  console.log('SEARCH_CHANGED state: ', state);
     return {
       ...state,
       searchText: action.searchText,
@@ -88,7 +83,6 @@ export default (state = defaultQuery, action) => {
     }
 
   case types.URL_CHANGED:
-    console.log("URL_CHANGED return: ", processParams(state, action.params));
     return processParams(state, action.params)
 
   case types.FILTER_CHANGED:
