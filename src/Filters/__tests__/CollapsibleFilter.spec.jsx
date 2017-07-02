@@ -1,4 +1,5 @@
 import React from 'react';
+import { mount } from 'enzyme';
 import CollapsibleFilter from '../CollapsibleFilter';
 import renderer from 'react-test-renderer';
 
@@ -13,3 +14,13 @@ describe('initial state', () => {
   });
 });
 
+describe('component:CollapsibleFilter', () => {
+  it('hides the children when Hide is clicked', () => {
+    const target = mount(<CollapsibleFilter showChildren={true} />);
+    const theButton = target.find('.toggle button')
+
+    expect(target.state('showChildren')).toEqual(true);
+    theButton.simulate('click');
+    expect(target.state('showChildren')).toEqual(false);
+  })    
+})

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { removeFilter } from './actions/filter'
 import { SLUG_SEPARATOR } from './constants'
 import './Pill.less';
 
@@ -27,7 +28,7 @@ export const mapStateToProps = (state, ownProps) => {
 
 export const mapDispatchToProps = (dispatch, props) => {
   return {
-    remove: console.log('remove', props.fieldName, props.value)
+    remove: () => { dispatch(removeFilter(props.fieldName, props.value))}
   }
 }
 

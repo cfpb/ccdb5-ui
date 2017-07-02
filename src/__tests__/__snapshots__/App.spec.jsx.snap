@@ -108,11 +108,13 @@ exports[`initial state renders without crashing 1`] = `
             </h5>
             <div
               className="flex-fixed toggle">
-              <a>
+              <button
+                className="a-btn a-btn__link hover"
+                onClick={[Function]}>
                 Hide
-              </a>
-              <span
-                className="cf-icon cf-icon-minus-round" />
+                <span
+                  className="cf-icon cf-icon-minus-round" />
+              </button>
             </div>
           </div>
           <p />
@@ -149,11 +151,13 @@ exports[`initial state renders without crashing 1`] = `
             </h5>
             <div
               className="flex-fixed toggle">
-              <a>
+              <button
+                className="a-btn a-btn__link hover"
+                onClick={[Function]}>
                 Hide
-              </a>
-              <span
-                className="cf-icon cf-icon-minus-round" />
+                <span
+                  className="cf-icon cf-icon-minus-round" />
+              </button>
             </div>
           </div>
           <p>
@@ -170,61 +174,124 @@ exports[`initial state renders without crashing 1`] = `
             className="layout-row">
             <h5
               className="flex-all">
+              Product / sub-product
+            </h5>
+            <div
+              className="flex-fixed toggle">
+              <button
+                className="a-btn a-btn__link hover"
+                onClick={[Function]}>
+                Hide
+                <span
+                  className="cf-icon cf-icon-minus-round" />
+              </button>
+            </div>
+          </div>
+          <p>
+            The type of product and sub-product the consumer identified in the complaint
+          </p>
+          <ul />
+        </section>
+        <hr />
+        <section
+          className="collapsible-filter aggregation">
+          <div
+            className="layout-row">
+            <h5
+              className="flex-all">
+              Issue / sub-issue
+            </h5>
+            <div
+              className="flex-fixed toggle">
+              <button
+                className="a-btn a-btn__link hover"
+                onClick={[Function]}>
+                Hide
+                <span
+                  className="cf-icon cf-icon-minus-round" />
+              </button>
+            </div>
+          </div>
+          <p>
+            The type of issue and sub-issue the consumer identified in the complaint
+          </p>
+          <ul />
+        </section>
+        <hr />
+        <section
+          className="collapsible-filter">
+          <div
+            className="layout-row">
+            <h5
+              className="flex-all">
+              State
+            </h5>
+            <div
+              className="flex-fixed toggle">
+              <button
+                className="a-btn a-btn__link hover"
+                onClick={[Function]}>
+                Hide
+                <span
+                  className="cf-icon cf-icon-minus-round" />
+              </button>
+            </div>
+          </div>
+          <p>
+            The state of the mailing address provided by the consumer
+          </p>
+          <input
+            placeholder="Enter state name or abbreviation"
+            type="text" />
+        </section>
+        <hr />
+        <section
+          className="collapsible-filter">
+          <div
+            className="layout-row">
+            <h5
+              className="flex-all">
+              Zip Code
+            </h5>
+            <div
+              className="flex-fixed toggle">
+              <button
+                className="a-btn a-btn__link hover"
+                onClick={[Function]}>
+                Hide
+                <span
+                  className="cf-icon cf-icon-minus-round" />
+              </button>
+            </div>
+          </div>
+          <p>
+            The mailing ZIP code provided by the consumer
+          </p>
+          <input
+            placeholder="Enter first three digits of zip code"
+            type="text" />
+        </section>
+        <hr />
+        <section
+          className="collapsible-filter aggregation">
+          <div
+            className="layout-row">
+            <h5
+              className="flex-all">
               Did company provide a timely response?
             </h5>
             <div
               className="flex-fixed toggle">
-              <a>
-                Hide
-              </a>
-              <span
-                className="cf-icon cf-icon-minus-round" />
+              <button
+                className="a-btn a-btn__link hover"
+                onClick={[Function]}>
+                Show
+                <span
+                  className="cf-icon cf-icon-plus-round" />
+              </button>
             </div>
           </div>
           <p />
-          <ul>
-            <li
-              className="flex-fixed layout-row">
-              <input
-                aria-label="No"
-                checked={false}
-                className="flex-fixed"
-                onClick={[Function]}
-                type="checkbox" />
-              <span
-                className="flex-all bucket-key">
-                No
-              </span>
-              <span
-                className="flex-fixed bucket-count">
-                678845
-              </span>
-            </li>
-            <li
-              className="flex-fixed layout-row">
-              <input
-                aria-label="Yes"
-                checked={false}
-                className="flex-fixed"
-                onClick={[Function]}
-                type="checkbox" />
-              <span
-                className="flex-all bucket-key">
-                Yes
-              </span>
-              <span
-                className="flex-fixed bucket-count">
-                487578
-              </span>
-            </li>
-          </ul>
-          <div
-            className="flex-fixed">
-            <button
-              className="a-btn a-btn__link hover more">
-              + Show X more
-            </button>
-          </div>
         </section>
         <hr />
         <section
@@ -237,161 +304,88 @@ exports[`initial state renders without crashing 1`] = `
             </h5>
             <div
               className="flex-fixed toggle">
-              <a>
-                Hide
-              </a>
-              <span
-                className="cf-icon cf-icon-minus-round" />
+              <button
+                className="a-btn a-btn__link hover"
+                onClick={[Function]}>
+                Show
+                <span
+                  className="cf-icon cf-icon-plus-round" />
+              </button>
             </div>
           </div>
           <p>
             How the company responded to the complaint
           </p>
-          <ul>
-            <li
-              className="flex-fixed layout-row">
-              <input
-                aria-label="Closed with explanation"
-                checked={false}
-                className="flex-fixed"
-                onClick={[Function]}
-                type="checkbox" />
-              <span
-                className="flex-all bucket-key">
-                Closed with explanation
-              </span>
-              <span
-                className="flex-fixed bucket-count">
-                574783
-              </span>
-            </li>
-            <li
-              className="flex-fixed layout-row">
-              <input
-                aria-label="Closed with monetary relief"
-                checked={false}
-                className="flex-fixed"
-                onClick={[Function]}
-                type="checkbox" />
-              <span
-                className="flex-all bucket-key">
-                Closed with monetary relief
-              </span>
-              <span
-                className="flex-fixed bucket-count">
-                151083
-              </span>
-            </li>
-            <li
-              className="flex-fixed layout-row">
-              <input
-                aria-label="Closed with non-monetary relief"
-                checked={false}
-                className="flex-fixed"
-                onClick={[Function]}
-                type="checkbox" />
-              <span
-                className="flex-all bucket-key">
-                Closed with non-monetary relief
-              </span>
-              <span
-                className="flex-fixed bucket-count">
-                94550
-              </span>
-            </li>
-            <li
-              className="flex-fixed layout-row">
-              <input
-                aria-label="Untimely response"
-                checked={false}
-                className="flex-fixed"
-                onClick={[Function]}
-                type="checkbox" />
-              <span
-                className="flex-all bucket-key">
-                Untimely response
-              </span>
-              <span
-                className="flex-fixed bucket-count">
-                26894
-              </span>
-            </li>
-            <li
-              className="flex-fixed layout-row">
-              <input
-                aria-label="Closed"
-                checked={false}
-                className="flex-fixed"
-                onClick={[Function]}
-                type="checkbox" />
-              <span
-                className="flex-all bucket-key">
-                Closed
-              </span>
-              <span
-                className="flex-fixed bucket-count">
-                19151
-              </span>
-            </li>
-            <li
-              className="flex-fixed layout-row">
-              <input
-                aria-label="Closed without relief"
-                checked={false}
-                className="flex-fixed"
-                onClick={[Function]}
-                type="checkbox" />
-              <span
-                className="flex-all bucket-key">
-                Closed without relief
-              </span>
-              <span
-                className="flex-fixed bucket-count">
-                4263
-              </span>
-            </li>
-            <li
-              className="flex-fixed layout-row">
-              <input
-                aria-label="Closed with relief"
-                checked={false}
-                className="flex-fixed"
-                onClick={[Function]}
-                type="checkbox" />
-              <span
-                className="flex-all bucket-key">
-                Closed with relief
-              </span>
-              <span
-                className="flex-fixed bucket-count">
-                1347
-              </span>
-            </li>
-            <li
-              className="flex-fixed layout-row">
-              <input
-                aria-label="In progress"
-                checked={false}
-                className="flex-fixed"
-                onClick={[Function]}
-                type="checkbox" />
-              <span
-                className="flex-all bucket-key">
-                In progress
-              </span>
-              <span
-                className="flex-fixed bucket-count">
-                587
-              </span>
-            </li>
-          </ul>
+        </section>
+        <hr />
+        <section
+          className="collapsible-filter aggregation">
           <div
-            className="flex-fixed">
-            <button
-              className="a-btn a-btn__link hover more">
-              + Show X more
-            </button>
+            className="layout-row">
+            <h5
+              className="flex-all">
+              Company Public Response
+            </h5>
+            <div
+              className="flex-fixed toggle">
+              <button
+                className="a-btn a-btn__link hover"
+                onClick={[Function]}>
+                Show
+                <span
+                  className="cf-icon cf-icon-plus-round" />
+              </button>
+            </div>
           </div>
+          <p>
+            The company\'s optional public-facing response to a consumer\'s complaint
+          </p>
+        </section>
+        <hr />
+        <section
+          className="collapsible-filter aggregation">
+          <div
+            className="layout-row">
+            <h5
+              className="flex-all">
+              Did the consumer dispute the response?
+            </h5>
+            <div
+              className="flex-fixed toggle">
+              <button
+                className="a-btn a-btn__link hover"
+                onClick={[Function]}>
+                Show
+                <span
+                  className="cf-icon cf-icon-plus-round" />
+              </button>
+            </div>
+          </div>
+          <p />
+        </section>
+        <hr />
+        <section
+          className="collapsible-filter aggregation">
+          <div
+            className="layout-row">
+            <h5
+              className="flex-all">
+              Consumer Consent
+            </h5>
+            <div
+              className="flex-fixed toggle">
+              <button
+                className="a-btn a-btn__link hover"
+                onClick={[Function]}>
+                Show
+                <span
+                  className="cf-icon cf-icon-plus-round" />
+              </button>
+            </div>
+          </div>
+          <p>
+            Whether a consumer opted to publish their compaint narrative
+          </p>
         </section>
       </section>
     </aside>

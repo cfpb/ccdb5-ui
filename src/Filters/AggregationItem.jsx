@@ -1,6 +1,7 @@
 import React from 'react';
 import './Aggregation.less';
 import { connect } from 'react-redux';
+import { FormattedNumber } from 'react-intl'
 import { filterChanged } from '../actions/filter';
 
 export const AggregationItem = ({ item, fieldName, active, onClick }) => {
@@ -12,7 +13,9 @@ export const AggregationItem = ({ item, fieldName, active, onClick }) => {
                    onClick={onClick}
             />
             <span className="flex-all bucket-key">{item.key}</span>
-            <span className="flex-fixed bucket-count">{item.doc_count}</span>
+            <span className="flex-fixed bucket-count">
+              <FormattedNumber value={item.doc_count} />
+            </span>
         </li>
     );
 }
