@@ -113,6 +113,18 @@ describe('reducer:query', () => {
         size: 99
       })
     })
+
+    it('handles a single filter', () => {
+      action.params = { product: 'Debt Collection' }
+      expect(target({}, action)).toEqual({ product: ['Debt Collection'] })
+    })
+
+    it('handles a multiple filters', () => {
+      action.params = { product: ['Debt Collection', 'Mortgage'] }
+      expect(target({}, action)).toEqual({ 
+        product: ['Debt Collection', 'Mortgage']
+      })
+    })
   })
 
   describe('FILTER_CHANGED actions updates query with filter state', () => {
@@ -152,4 +164,58 @@ describe('reducer:query', () => {
     });
 
   });
+
+  describe('FILTER_REMOVED actions', () => {
+    let action;
+    beforeEach(() => {
+      action = {
+        type: types.FILTER_REMOVED,
+        filterName: 'foo',
+        filterValue: 'baz'
+      }      
+    })
+
+    it('removes a filter when one exists', () => {
+      const state = {
+        foo: ['bar', 'baz', 'qaz']
+      }
+      expect(target(state, action)).toEqual({
+        foo: ['bar', 'qaz']
+      })
+    })    
+
+    it('handles a missing filter', () => {
+      const state = {
+        foobar: ['bar', 'baz', 'qaz']
+      }
+      expect(target(state, action)).toEqual({
+        foobar: ['bar', 'baz', 'qaz']
+      })
+    })    
+
+    it('handles a missing filter value', () => {
+      const state = {
+        foo: ['bar', 'qaz']
+      }
+      expect(target(state, action)).toEqual({
+        foo: ['bar', 'qaz']
+      })
+    })    
+  })
+
+  it('handles FILTER_ALL_REMOVED actions', () => {
+    const action = {
+      type: types.FILTER_ALL_REMOVED
+    }
+    const state = {
+      from: 100,
+      size: 100,
+      timely: ['bar', 'baz', 'qaz'],
+      company: ['Acme']
+    }
+    expect(target(state, action)).toEqual({
+      from: 100,
+      size: 100
+    })
+  })
 })

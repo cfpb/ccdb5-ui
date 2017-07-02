@@ -5,6 +5,8 @@ export const SIZE_CHANGED              = 'SIZE_CHANGED'
 export const SORT_CHANGED              = 'SORT_CHANGED'
 export const URL_CHANGED               = 'URL_CHANGED'
 export const FILTER_CHANGED            = 'FILTER_CHANGED'
+export const FILTER_REMOVED            = 'FILTER_REMOVED'
+export const FILTER_ALL_REMOVED        = 'FILTER_ALL_REMOVED'
 
 // External Triggers
 export const COMPLAINTS_RECEIVED       = 'COMPLAINTS_RECEIVED'

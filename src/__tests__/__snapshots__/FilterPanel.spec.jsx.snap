@@ -33,11 +33,13 @@ exports[`initial state renders without crashing 1`] = `
       </h5>
       <div
         className="flex-fixed toggle">
-        <a>
+        <button
+          className="a-btn a-btn__link hover"
+          onClick={[Function]}>
           Hide
-        </a>
-        <span
-          className="cf-icon cf-icon-minus-round" />
+          <span
+            className="cf-icon cf-icon-minus-round" />
+        </button>
       </div>
     </div>
     <p />
@@ -74,11 +76,13 @@ exports[`initial state renders without crashing 1`] = `
       </h5>
       <div
         className="flex-fixed toggle">
-        <a>
+        <button
+          className="a-btn a-btn__link hover"
+          onClick={[Function]}>
           Hide
-        </a>
-        <span
-          className="cf-icon cf-icon-minus-round" />
+          <span
+            className="cf-icon cf-icon-minus-round" />
+        </button>
       </div>
     </div>
     <p>
@@ -95,26 +99,124 @@ exports[`initial state renders without crashing 1`] = `
       className="layout-row">
       <h5
         className="flex-all">
+        Product / sub-product
+      </h5>
+      <div
+        className="flex-fixed toggle">
+        <button
+          className="a-btn a-btn__link hover"
+          onClick={[Function]}>
+          Hide
+          <span
+            className="cf-icon cf-icon-minus-round" />
+        </button>
+      </div>
+    </div>
+    <p>
+      The type of product and sub-product the consumer identified in the complaint
+    </p>
+    <ul />
+  </section>
+  <hr />
+  <section
+    className="collapsible-filter aggregation">
+    <div
+      className="layout-row">
+      <h5
+        className="flex-all">
+        Issue / sub-issue
+      </h5>
+      <div
+        className="flex-fixed toggle">
+        <button
+          className="a-btn a-btn__link hover"
+          onClick={[Function]}>
+          Hide
+          <span
+            className="cf-icon cf-icon-minus-round" />
+        </button>
+      </div>
+    </div>
+    <p>
+      The type of issue and sub-issue the consumer identified in the complaint
+    </p>
+    <ul />
+  </section>
+  <hr />
+  <section
+    className="collapsible-filter">
+    <div
+      className="layout-row">
+      <h5
+        className="flex-all">
+        State
+      </h5>
+      <div
+        className="flex-fixed toggle">
+        <button
+          className="a-btn a-btn__link hover"
+          onClick={[Function]}>
+          Hide
+          <span
+            className="cf-icon cf-icon-minus-round" />
+        </button>
+      </div>
+    </div>
+    <p>
+      The state of the mailing address provided by the consumer
+    </p>
+    <input
+      placeholder="Enter state name or abbreviation"
+      type="text" />
+  </section>
+  <hr />
+  <section
+    className="collapsible-filter">
+    <div
+      className="layout-row">
+      <h5
+        className="flex-all">
+        Zip Code
+      </h5>
+      <div
+        className="flex-fixed toggle">
+        <button
+          className="a-btn a-btn__link hover"
+          onClick={[Function]}>
+          Hide
+          <span
+            className="cf-icon cf-icon-minus-round" />
+        </button>
+      </div>
+    </div>
+    <p>
+      The mailing ZIP code provided by the consumer
+    </p>
+    <input
+      placeholder="Enter first three digits of zip code"
+      type="text" />
+  </section>
+  <hr />
+  <section
+    className="collapsible-filter aggregation">
+    <div
+      className="layout-row">
+      <h5
+        className="flex-all">
         Did company provide a timely response?
       </h5>
       <div
         className="flex-fixed toggle">
-        <a>
-          Hide
-        </a>
-        <span
-          className="cf-icon cf-icon-minus-round" />
+        <button
+          className="a-btn a-btn__link hover"
+          onClick={[Function]}>
+          Show
+          <span
+            className="cf-icon cf-icon-plus-round" />
+        </button>
       </div>
     </div>
     <p />
-    <ul />
-    <div
-      className="flex-fixed">
-      <button
-        className="a-btn a-btn__link hover more">
-        + Show X more
-      </button>
-    </div>
   </section>
   <hr />
   <section
@@ -127,24 +229,88 @@ exports[`initial state renders without crashing 1`] = `
       </h5>
       <div
         className="flex-fixed toggle">
-        <a>
-          Hide
-        </a>
-        <span
-          className="cf-icon cf-icon-minus-round" />
+        <button
+          className="a-btn a-btn__link hover"
+          onClick={[Function]}>
+          Show
+          <span
+            className="cf-icon cf-icon-plus-round" />
+        </button>
       </div>
     </div>
     <p>
       How the company responded to the complaint
     </p>
-    <ul />
+  </section>
+  <hr />
+  <section
+    className="collapsible-filter aggregation">
     <div
-      className="flex-fixed">
-      <button
-        className="a-btn a-btn__link hover more">
-        + Show X more
-      </button>
+      className="layout-row">
+      <h5
+        className="flex-all">
+        Company Public Response
+      </h5>
+      <div
+        className="flex-fixed toggle">
+        <button
+          className="a-btn a-btn__link hover"
+          onClick={[Function]}>
+          Show
+          <span
+            className="cf-icon cf-icon-plus-round" />
+        </button>
+      </div>
     </div>
+    <p>
+      The company\'s optional public-facing response to a consumer\'s complaint
+    </p>
+  </section>
+  <hr />
+  <section
+    className="collapsible-filter aggregation">
+    <div
+      className="layout-row">
+      <h5
+        className="flex-all">
+        Did the consumer dispute the response?
+      </h5>
+      <div
+        className="flex-fixed toggle">
+        <button
+          className="a-btn a-btn__link hover"
+          onClick={[Function]}>
+          Show
+          <span
+            className="cf-icon cf-icon-plus-round" />
+        </button>
+      </div>
+    </div>
+    <p />
+  </section>
+  <hr />
+  <section
+    className="collapsible-filter aggregation">
+    <div
+      className="layout-row">
+      <h5
+        className="flex-all">
+        Consumer Consent
+      </h5>
+      <div
+        className="flex-fixed toggle">
+        <button
+          className="a-btn a-btn__link hover"
+          onClick={[Function]}>
+          Show
+          <span
+            className="cf-icon cf-icon-plus-round" />
+        </button>
+      </div>
+    </div>
+    <p>
+      Whether a consumer opted to publish their compaint narrative
+    </p>
   </section>
 </section>
 `;

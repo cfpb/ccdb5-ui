@@ -56,4 +56,12 @@ describe('component:PillPanel', () => {
     button.simulate('click');
     expect(props.clearAll).toHaveBeenCalled();
   });
+
+  describe('mapDispatchToProps', () => {
+    it('hooks into removeAllFilters', () => {
+      const dispatch = jest.fn();
+      mapDispatchToProps(dispatch).clearAll();
+      expect(dispatch.mock.calls.length).toEqual(1);
+    })
+  })
 })

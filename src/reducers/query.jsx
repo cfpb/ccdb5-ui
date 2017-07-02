@@ -10,13 +10,28 @@ export const defaultQuery = {
 const urlParams = ['searchText', 'from', 'size'];
 const urlParamsInt = ['from', 'size'];
 
-export function processParams(state, params) {
+// ----------------------------------------------------------------------------
+// Complex reduction logic
+
+function processParams(state, params) {
   const processed = Object.assign({}, state)
 
   // Filter for known
   urlParams.forEach(field => {
     if( typeof params[field] !== 'undefined' ) {
       processed[field] = params[field]
+    }
+  })
+
+  // Handle the aggregation filters
+  types.knownFilters.forEach(field => {
+    if( typeof params[field] !== 'undefined' ) {
+      if( typeof params[field] === 'string') {
+        processed[field] = [params[field]];
+      }
+      else {
+        processed[field] = params[field];
+      }
     }
   })
 
@@ -53,7 +68,20 @@ export function toggleFilter(state, action) {
   }
 }
 
-// TODO: Set defaultQueryState to recognize existing URL params
+function removeFilter(state, action) {
+  const newState = {...state}
+  if (action.filterName in newState) {
+    const idx = newState[action.filterName].indexOf(action.filterValue)
+    if (idx !== -1 ) {
+      newState[action.filterName].splice(idx, 1)
+    }
+  }
+  return newState
+}
+
+// ----------------------------------------------------------------------------
+// Action Handler
+
 export default (state = defaultQuery, action) => {
   switch(action.type) {
   case types.SEARCH_CHANGED:
@@ -86,14 +114,20 @@ export default (state = defaultQuery, action) => {
     return processParams(state, action.params)
 
   case types.FILTER_CHANGED:
-    // TODO: Update the search query with the filter change adapted from each AggregationItem
     return toggleFilter(state, action)
 
-  case types.SUBFILTER_CHANGED:
-    // TODO: Update the search query with the filter change adapted from each AggregationItem
-    return {
-      ...state
-    }
+  case types.FILTER_REMOVED:
+    return removeFilter(state, action)
+
+  case types.FILTER_ALL_REMOVED:
+    const newState = {...state}
+    types.knownFilters.forEach(kf => {
+      if (kf in newState) {
+        delete newState[kf]
+      }
+    })
+    return newState
+
   default:
     return state
   }
