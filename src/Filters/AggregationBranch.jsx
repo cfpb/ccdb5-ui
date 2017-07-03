@@ -7,7 +7,7 @@ import './AggregationBranch.less'
 export class AggregationBranch extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { showChildren: false}
+    this.state = { showChildren: this.props.showChildren || false }
     this._toggleChildDisplay = this._toggleChildDisplay.bind(this)
   }
 

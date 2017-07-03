@@ -1,0 +1,92 @@
+exports[`component::AggregationBranch initial state renders without crashing 1`] = `
+<div
+  className="aggregation-branch">
+  <li
+    className="flex-fixed layout-row parent">
+    <input
+      aria-label="foo"
+      checked={undefined}
+      className="flex-fixed"
+      onClick={undefined}
+      type="checkbox" />
+    <div
+      className="flex-all toggle">
+      <button
+        className="a-btn a-btn__link hover"
+        onClick={[Function]}>
+        <span>
+          foo
+        </span>
+        <span
+          className="cf-icon cf-icon-up" />
+      </button>
+    </div>
+    <span
+      className="flex-fixed parent-count">
+      <span>
+        99
+      </span>
+    </span>
+  </li>
+  <ul
+    className="children">
+    <li
+      className="flex-fixed layout-row">
+      <input
+        aria-label="foo•bar"
+        checked={false}
+        className="flex-fixed"
+        onClick={[Function]}
+        type="checkbox" />
+      <span
+        className="flex-all bucket-key">
+        bar
+      </span>
+      <span
+        className="flex-fixed bucket-count">
+        <span>
+          90
+        </span>
+      </span>
+    </li>
+    <li
+      className="flex-fixed layout-row">
+      <input
+        aria-label="foo•baz"
+        checked={false}
+        className="flex-fixed"
+        onClick={[Function]}
+        type="checkbox" />
+      <span
+        className="flex-all bucket-key">
+        baz
+      </span>
+      <span
+        className="flex-fixed bucket-count">
+        <span>
+          5
+        </span>
+      </span>
+    </li>
+    <li
+      className="flex-fixed layout-row">
+      <input
+        aria-label="foo•qaz"
+        checked={false}
+        className="flex-fixed"
+        onClick={[Function]}
+        type="checkbox" />
+      <span
+        className="flex-all bucket-key">
+        qaz
+      </span>
+      <span
+        className="flex-fixed bucket-count">
+        <span>
+          4
+        </span>
+      </span>
+    </li>
+  </ul>
+</div>
+`;
