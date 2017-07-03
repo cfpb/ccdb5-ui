@@ -1,0 +1,30 @@
+@import (less) "../base.less";
+@import (less) "./Aggregation.less";
+
+.aggregation-branch {
+  li.parent {
+    -webkit-align-items: baseline;
+            align-items: baseline;
+
+    .toggle {
+      max-width: ~"calc(100% - 95px)";  // @max-count-width + @gutter-normal * 2
+      padding-left: @gutter-normal;
+
+      font-size: @size-iv;
+      font-weight: normal;
+
+      button {
+        text-align: left;
+      }
+    }
+
+    .parent-count {
+      width: @max-count-width;
+      text-align: right;
+    }    
+  }
+
+  ul.children {
+    padding-left: @gutter-normal * 1.5;
+  }
+}
