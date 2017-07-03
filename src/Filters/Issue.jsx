@@ -6,8 +6,8 @@ import CollapsibleFilter from './CollapsibleFilter'
 export class Issue extends React.Component {
   render() {
     const all = this.props.options || []
-    const some = all.length > 6 ? all.slice(0, 5) : all
-    const remain = all.length - 6
+    const some = all.length > 5 ? all.slice(0, 5) : all
+    const remain = all.length - 5
 
     return (
       <CollapsibleFilter title="Issue / sub-issue"
@@ -34,7 +34,7 @@ export class Issue extends React.Component {
   }
 }
 
-export const mapStateToProps = (state, ownProps) => {
+export const mapStateToProps = state => {
   return {
     options: state.aggs.issue
   }
