@@ -7,7 +7,7 @@ exports[`component::AggregationBranch initial state renders without crashing 1`]
       aria-label="foo"
       checked={false}
       className="flex-fixed"
-      onClick={undefined}
+      onClick={[Function]}
       type="checkbox" />
     <div
       className="flex-all toggle">

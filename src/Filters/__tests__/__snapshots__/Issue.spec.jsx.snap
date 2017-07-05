@@ -30,7 +30,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
           aria-label="Incorrect information on credit report"
           checked={false}
           className="flex-fixed"
-          onClick={undefined}
+          onClick={[Function]}
           type="checkbox" />
         <div
           className="flex-all toggle">
@@ -60,7 +60,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
           aria-label="Cont\'d attempts collect debt not owed"
           checked={false}
           className="flex-fixed"
-          onClick={undefined}
+          onClick={[Function]}
           type="checkbox" />
         <div
           className="flex-all toggle">

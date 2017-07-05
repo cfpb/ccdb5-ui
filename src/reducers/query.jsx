@@ -45,6 +45,25 @@ function processParams(state, params) {
   return processed
 }
 
+export function addFilterBranch(state, action) {
+  const newState = {...state}
+  const name = action.filterName
+  const a = newState[name] || []
+
+  // Add the parent value as a filter
+  a.push(action.parentValue)
+
+  // Add the children
+  action.childrenValues.forEach(x => {
+    if (a.indexOf(x) === -1) {
+      a.push(x)
+    }
+  })
+
+  newState[name] = a
+  return newState
+}
+
 export function filterArrayAction(target = [], val){
   // defaults create new array if param doesn't exist yet
   // if the value doesn't exist in the array, pushes
@@ -60,6 +79,7 @@ export function filterArrayAction(target = [], val){
   }
   return [ ...target ];
 }
+
 export function toggleFilter(state, action) {
   return {
     ...state,
@@ -127,6 +147,9 @@ export default (state = defaultQuery, action) => {
       }
     })
     return newState
+
+  case types.FILTER_PARENT_CHECKED:
+    return addFilterBranch(state, action)
 
   default:
     return state
