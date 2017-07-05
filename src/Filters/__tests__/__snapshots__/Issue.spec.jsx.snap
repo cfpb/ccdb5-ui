@@ -28,7 +28,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
         className="flex-fixed layout-row parent">
         <input
           aria-label="Incorrect information on credit report"
-          checked={undefined}
+          checked={false}
           className="flex-fixed"
           onClick={undefined}
           type="checkbox" />
@@ -58,7 +58,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
         className="flex-fixed layout-row parent">
         <input
           aria-label="Cont\'d attempts collect debt not owed"
-          checked={undefined}
+          checked={false}
           className="flex-fixed"
           onClick={undefined}
           type="checkbox" />

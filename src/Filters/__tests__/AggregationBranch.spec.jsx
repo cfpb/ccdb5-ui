@@ -6,6 +6,7 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import renderer from 'react-test-renderer';
 import ReduxAggregationBranch, { AggregationBranch } from '../AggregationBranch'
+import { SLUG_SEPARATOR } from '../../constants'
 
 // ----------------------------------------------------------------------------
 // Setup 
@@ -40,7 +41,9 @@ function setupSnapshot() {
   const middlewares = [thunk]
   const mockStore = configureMockStore(middlewares)
   const store = mockStore({
-    query: {}
+    query: {
+      issue: ['foo' + SLUG_SEPARATOR + 'bar']
+    }
   })
 
   return renderer.create(
@@ -48,8 +51,7 @@ function setupSnapshot() {
       <IntlProvider locale="en">
         <ReduxAggregationBranch item={item} 
                                 subitems={subitems}
-                                fieldName="issue"
-                                showChildren={true} />
+                                fieldName="issue" />
       </IntlProvider>
     </Provider>
   )
