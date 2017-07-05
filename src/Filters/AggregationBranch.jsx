@@ -3,13 +3,29 @@ import { FormattedNumber } from 'react-intl'
 import { connect } from 'react-redux';
 import { SLUG_SEPARATOR } from '../constants'
 import AggregationItem from './AggregationItem'
+import { checkParentFilter, removeFilter } from '../actions/filter';
 import './AggregationBranch.less'
 
 export class AggregationBranch extends React.Component {
   constructor(props) {
     super(props)
     this.state = { showChildren: this.props.showChildren || false }
+    this._decideClickAction = this._decideClickAction.bind(this)
     this._toggleChildDisplay = this._toggleChildDisplay.bind(this)
+  }
+
+  _decideClickAction() {
+    const {item, subitems, fieldName, active} = this.props
+
+    if (active) {
+      this.props.onlyRemoveParent(fieldName, item.key)
+    }
+    else {
+      const childValues = subitems.map(sub => {
+        return item.key + SLUG_SEPARATOR + sub.key
+      })
+      this.props.selectBranch(fieldName, item.key, childValues)
+    }
   }
 
   _toggleChildDisplay() {
@@ -19,7 +35,7 @@ export class AggregationBranch extends React.Component {
   }
 
   render() {
-    const {item, subitems, fieldName, active, onClick} = this.props
+    const {item, subitems, fieldName, active} = this.props
 
     // Fix up the subitems to prepend the current item key
     const buckets = subitems.map(sub => {
@@ -37,11 +53,11 @@ export class AggregationBranch extends React.Component {
 
     return (
       <div className="aggregation-branch">
-        <li className="flex-fixed layout-row parent" key={item.key}>
+        <li className="flex-fixed layout-row parent">
           <input type="checkbox" className="flex-fixed"
                  aria-label={item.key}
                  checked={active}
-                 onClick={onClick}
+                 onClick={this._decideClickAction}
           />
           <div className="flex-all toggle">
             <button className="a-btn a-btn__link hover"
@@ -85,13 +101,15 @@ export const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export const mapDispatchToProps = (dispatch, ownProps) => {
+export const mapDispatchToProps = dispatch => {
   return {
+    onlyRemoveParent: (fieldName, fieldValue) => {
+      dispatch(removeFilter(fieldName, fieldValue))
+    },
+    selectBranch: (fieldName, parentValue, childrenValues) => {
+      dispatch(checkParentFilter(fieldName, parentValue, childrenValues))
+    }
   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AggregationBranch)
-
-// TODO: Get active flag from state
-// TODO: OnClick logic
-// TODO: FILTER_PARENT_CHECKED action

@@ -218,4 +218,33 @@ describe('reducer:query', () => {
       size: 100
     })
   })
+
+  describe('handles FILTER_PARENT_CHECKED actions', () => {
+    let action;
+    beforeEach(() => {
+      action = {
+        type: types.FILTER_PARENT_CHECKED,
+        filterName: 'issue',
+        parentValue: 'Mo Money',
+        childrenValues: ['Mo Problems']
+      }
+    })
+
+    it("adds all filters if they didn't exist", () => {
+      expect(target({}, action)).toEqual({
+        issue: ['Mo Money', 'Mo Problems']
+      })
+    })
+
+    it("skips child filters if they exist already", () => {
+      const state = {
+        issue: ['foo']
+      }
+      action.childrenValues.push('foo')
+
+      expect(target(state, action)).toEqual({
+        issue: ['foo', 'Mo Money', 'Mo Problems']
+      })
+    })
+  })
 })

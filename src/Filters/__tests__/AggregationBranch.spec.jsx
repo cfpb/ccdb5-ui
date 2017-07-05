@@ -1,11 +1,13 @@
 import React from 'react'
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
-import { shallow } from 'enzyme';
+import { shallow } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import renderer from 'react-test-renderer';
-import ReduxAggregationBranch, { AggregationBranch } from '../AggregationBranch'
+import renderer from 'react-test-renderer'
+import ReduxAggregationBranch, {
+  AggregationBranch, mapDispatchToProps
+} from '../AggregationBranch'
 import { SLUG_SEPARATOR } from '../../constants'
 
 // ----------------------------------------------------------------------------
@@ -22,14 +24,17 @@ const subitems = [
   { key: 'qaz', doc_count: 4 },
 ]
 
-function setupEnzyme() {
+function setupEnzyme(active=false) {
   const props = {
+    active,
     item: item,
     subitems: subitems,
-    fieldName: "issue"
+    fieldName: "issue",
+    onlyRemoveParent: jest.fn(),
+    selectBranch: jest.fn()
   }
 
-  const target = shallow(<AggregationBranch {...props} />);
+  const target = shallow(<AggregationBranch {...props} />)
 
   return {
     props,
@@ -74,9 +79,50 @@ describe('component::AggregationBranch', () => {
       const { target, props } = setupEnzyme()
       const theButton = target.find('.toggle button')
 
-      expect(target.state('showChildren')).toEqual(false);
-      theButton.simulate('click');
-      expect(target.state('showChildren')).toEqual(true);
-    })  
+      expect(target.state('showChildren')).toEqual(false)
+      theButton.simulate('click')
+      expect(target.state('showChildren')).toEqual(true)
+    })
+  })
+
+  describe('parent checkbox logic', () => {
+    it('calls one action when the checkbox is already selected', () => {
+      const { target, props } = setupEnzyme(true)
+      const checkbox = target.find('li.parent input[type="checkbox"]')
+      checkbox.simulate('click')
+      expect(props.onlyRemoveParent).toHaveBeenCalledWith('issue', 'foo')
+      expect(props.selectBranch).not.toHaveBeenCalled()
+    })
+
+    it('calls another action when the checkbox is not selected', () => {
+      const { target, props } = setupEnzyme()
+      const checkbox = target.find('li.parent input[type="checkbox"]')
+      checkbox.simulate('click')
+      expect(props.onlyRemoveParent).not.toHaveBeenCalled()
+      expect(props.selectBranch).toHaveBeenCalledWith(
+        'issue', 'foo', ['foo•bar', 'foo•baz', 'foo•qaz']
+      )
+    })
+  })
+
+  describe('mapDispatchToProps', () => {
+    it('hooks into removeFilter', () => {
+      const dispatch = jest.fn()
+      mapDispatchToProps(dispatch).onlyRemoveParent({
+        fieldName: 'foo',
+        fieldValue: 'bar'
+      })
+      expect(dispatch.mock.calls.length).toEqual(1)
+    })
+
+    it('hooks into checkParentFilter', () => {
+      const dispatch = jest.fn()
+      mapDispatchToProps(dispatch).selectBranch({
+        fieldName: 'foo',
+        parentValue: 'bar',
+        childrenValues: ['baz']
+      })
+      expect(dispatch.mock.calls.length).toEqual(1)
+    })
   })
 })
