@@ -1,12 +1,13 @@
 import React from 'react'
 import { FormattedNumber } from 'react-intl'
+import { connect } from 'react-redux';
 import { SLUG_SEPARATOR } from '../constants'
-import AggregationItem from './AggregationItem';
+import AggregationItem from './AggregationItem'
 import './AggregationBranch.less'
 
 export class AggregationBranch extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = { showChildren: this.props.showChildren || false }
     this._toggleChildDisplay = this._toggleChildDisplay.bind(this)
   }
@@ -67,9 +68,30 @@ export class AggregationBranch extends React.Component {
   }
 }
 
-export default AggregationBranch
+export const mapStateToProps = (state, ownProps) => {
+  // Find all query filters that refer to the field name
+  const candidates = state.query[ownProps.fieldName] || []
 
-// TODO: ShowChildren is TRUE if one of the children is selected
+  // Do any of these values contain the key?
+  const hasKey = candidates.filter(x => x.indexOf(ownProps.item.key) !== -1)
+
+  // Does the key contain the separator?
+  const activeChildren = hasKey.filter(x => x.indexOf(SLUG_SEPARATOR) !== -1)
+  const activeParent = hasKey.filter(x => x.indexOf(SLUG_SEPARATOR) === -1)
+
+  return {
+    active: activeParent.length > 0,
+    showChildren: activeChildren.length > 0
+  }
+}
+
+export const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AggregationBranch)
+
 // TODO: Get active flag from state
 // TODO: OnClick logic
 // TODO: FILTER_PARENT_CHECKED action

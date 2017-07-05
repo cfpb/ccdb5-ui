@@ -5,7 +5,7 @@ exports[`component::AggregationBranch initial state renders without crashing 1`]
     className="flex-fixed layout-row parent">
     <input
       aria-label="foo"
-      checked={undefined}
+      checked={false}
       className="flex-fixed"
       onClick={undefined}
       type="checkbox" />
@@ -34,7 +34,7 @@ exports[`component::AggregationBranch initial state renders without crashing 1`]
       className="flex-fixed layout-row">
       <input
         aria-label="foo•bar"
-        checked={false}
+        checked={true}
         className="flex-fixed"
         onClick={[Function]}
         type="checkbox" />
