@@ -1,0 +1,44 @@
+@import (less) "../base.less";
+
+.typeahead {
+  padding-bottom: @gutter-normal;
+
+  input {
+    width: 100%;
+  }
+
+  .typeahead-selector {
+    position: relative;
+
+    ul {
+      border: solid 1px @gray-20;
+      border-top: 0;
+
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+
+      li.footer {
+        padding-top: @gutter-narrow;
+        padding-left: 0;
+        margin: 0;
+
+        background-color: @gray-10;
+        color: @pacific;
+        cursor: default;
+        font-style: italic;
+        list-style-type: none;
+      }
+    }
+  }
+
+  li.typeahead-option {
+    padding-left: @gutter-narrow;
+    margin: 0;
+
+    background-color: @white;
+    cursor: default;
+    list-style-type: none;
+  }
+}
