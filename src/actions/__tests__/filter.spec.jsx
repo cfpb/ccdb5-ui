@@ -41,6 +41,22 @@ describe('action:filterActions', () => {
     })
   })
 
+  describe('filterParentChecked', () => {
+    it('creates a simple action', () => {
+        const filterName = 'issue'
+        const parentValue = 'Mo Money'
+        const childrenValues = ['Mo Problems']
+        const expectedAction = {
+          type: types.FILTER_PARENT_CHECKED,
+          filterName,
+          parentValue,
+          childrenValues
+        }
+        expect(sut.filterParentChecked(filterName, parentValue, childrenValues))
+          .toEqual( expectedAction );
+    })
+  })
+
   describe('compound actions', () => {
     let middlewares, mockStore, store
 
@@ -86,6 +102,28 @@ describe('action:filterActions', () => {
         ]
 
         store.dispatch(sut.removeAllFilters())
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+    })
+
+    describe('checkParentFilter', () => {
+      it('executes a chain of actions', () => {
+        const filterName = 'issue'
+        const parentValue = 'Mo Money'
+        const childrenValues = ['Mo Problems']
+        const expectedActions = [
+          { type:
+            types.FILTER_PARENT_CHECKED,
+            filterName,
+            parentValue,
+            childrenValues
+          },
+          { type: 'getComplaintsMock' }
+        ]
+
+        store.dispatch(sut.checkParentFilter(
+          filterName, parentValue, childrenValues
+        ))
         expect(store.getActions()).toEqual(expectedActions)
       })
     })

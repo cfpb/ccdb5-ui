@@ -1,9 +1,10 @@
-import React from 'react';
+import React from 'react'
 import { connect } from 'react-redux'
-import './FilterPanel.less';
-import Aggregation from './Filters/Aggregation';
-import CollapsibleFilter from './Filters/CollapsibleFilter';
-import SingleCheckbox from './Filters/SingleCheckbox';
+import './FilterPanel.less'
+import Aggregation from './Filters/Aggregation'
+import CollapsibleFilter from './Filters/CollapsibleFilter'
+import Issue from './Filters/Issue'
+import SingleCheckbox from './Filters/SingleCheckbox'
 
 export class FilterPanel extends React.Component {
   render() {
@@ -36,10 +37,7 @@ export class FilterPanel extends React.Component {
                      fieldName="product"
         />
         <hr />
-        <Aggregation title="Issue / sub-issue"
-                     desc="The type of issue and sub-issue the consumer identified in the complaint"
-                     fieldName="issue"
-        />
+        <Issue />
         <hr />
         <CollapsibleFilter title="State"
                            desc="The state of the mailing address provided by the consumer">
@@ -79,7 +77,7 @@ export class FilterPanel extends React.Component {
                      showChildren={false}
         />
       </section>
-    );
+    )
   }
 }
 
