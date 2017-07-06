@@ -25,7 +25,8 @@ export class Issue extends React.Component {
                          showChildren={this.props.showChildren}
                          className="aggregation">
         <Typeahead placeholder="Enter name of issue"
-                   onInputChange={this._onInputChange} />
+                   onInputChange={this._onInputChange}
+                   renderOption={this._renderOption} />
         <ul>
           {some.map(bucket =>
             <AggregationBranch key={bucket.key}
@@ -56,7 +57,11 @@ export class Issue extends React.Component {
     const filtered = this.props.forTypeahead
       .filter(x => x.normalized.indexOf(normalized) !== -1)
       .map(x => {
-        return {key: x.key, position: x.normalized.indexOf(normalized)}
+        return {
+          key: x.key,
+          position: x.normalized.indexOf(normalized),
+          value
+        }
       })
 
     // Sort the matches so that matches at the beginning of the string
@@ -65,8 +70,20 @@ export class Issue extends React.Component {
       return a.position - b.position
     })
 
-    // Return only the string
-    return filtered.map(x => x.key)
+    return filtered
+  }
+
+  _renderOption(obj) {
+    const start = obj.key.substring(0, obj.position)
+    const match = obj.key.substr(obj.position, obj.value.length)
+    const end = obj.key.substring(obj.position + obj.value.length)
+
+    return {
+      value: obj.key,
+      component: (
+        <span>{start}<b>{match}</b>{end}</span>
+      )
+    }
   }
 }
 
