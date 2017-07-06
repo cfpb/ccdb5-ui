@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 export default class Option extends React.Component {
   render() {
     return (
-     <li className="typeahead-option"
+     <li className="typeahead-option body-copy"
          onClick={this.props.onClick}>
        { this.props.children }
      </li>

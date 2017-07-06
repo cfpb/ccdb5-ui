@@ -5,13 +5,17 @@
 
   input {
     width: 100%;
+
+    &:focus {
+      border: solid 2px @pacific;
+    }
   }
 
   .typeahead-selector {
     position: relative;
 
     ul {
-      border: solid 1px @gray-20;
+      border: solid 2px @pacific;
       border-top: 0;
 
       position: absolute;
@@ -34,11 +38,19 @@
   }
 
   li.typeahead-option {
-    padding-left: @gutter-narrow;
+    padding: @gutter-normal;
+    border-top: solid 1px @gray-40;
     margin: 0;
 
     background-color: @white;
     cursor: default;
     list-style-type: none;
+
+    &:hover {
+      border-top: solid 2px @pacific;
+      border-bottom: solid 2px @pacific;
+
+      background-color: @pacific-20;
+    }
   }
 }
