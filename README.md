@@ -38,6 +38,10 @@ This application depends on the following third-party components:
 1. [Capital Framework](https://cfpb.github.io/capital-framework/) - CFPB standard styling and controls
 1. [History](https://github.com/reacttraining/history) - Integrating the address bar with the application
 
+It also contains portions adapted from:
+
+1. [react-typeahead](https://github.com/fmoo/react-typeahead)
+
 ## Installation
 
 Detailed instructions on how to install, configure, and get the project running

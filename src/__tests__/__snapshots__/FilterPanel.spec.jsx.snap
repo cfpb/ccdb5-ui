@@ -140,6 +140,15 @@ exports[`initial state renders without crashing 1`] = `
     <p>
       The type of issue and sub-issue the consumer identified in the complaint
     </p>
+    <section
+      className="typeahead">
+      <input
+        disabled={false}
+        onChange={[Function]}
+        placeholder="Enter name of issue"
+        type="text"
+        value="" />
+    </section>
     <ul />
   </section>
   <hr />
