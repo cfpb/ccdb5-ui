@@ -30,3 +30,11 @@ export const knownFilters = [
 ]
 
 export const SLUG_SEPARATOR            = '•'
+
+// Keyboard
+export const VK_DOWN                   = 40
+export const VK_ENTER                  = 14
+export const VK_ESCAPE                 = 27
+export const VK_RETURN                 = 13
+export const VK_TAB                    = 9
+export const VK_UP                     = 38
