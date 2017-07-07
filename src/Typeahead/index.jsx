@@ -265,8 +265,8 @@ Typeahead.propTypes = {
   disabled: PropTypes.bool,
   maxVisible: PropTypes.number,
   minLength: PropTypes.number,
-  onInputChange: PropTypes.func,
-  onOptionSelected: PropTypes.func,
+  onInputChange: PropTypes.func.isRequired,
+  onOptionSelected: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   renderOption: PropTypes.func,
   value: PropTypes.string
@@ -276,8 +276,6 @@ Typeahead.defaultProps = {
   disabled: false,
   maxVisible: 5,
   minLength: 2,
-  onInputChange: () => [],
-  onOptionSelected: (obj) => {console.warn('onOptionSelected', obj)},
   placeholder: 'Enter your search text',
   renderOption: (x) => {
     return {
