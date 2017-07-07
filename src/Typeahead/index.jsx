@@ -255,7 +255,7 @@ export default class Typeahead extends React.Component {
                   onOptionSelected={this._selectOption.bind(this)}
                   renderOption={this.props.renderOption}
                   selectedIndex={this.state.selectedIndex}
-                  footer="Continue typing to narrow the set of results"
+                  footer="Continue typing for more results"
         />
     )
   }

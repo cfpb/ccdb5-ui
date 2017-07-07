@@ -133,7 +133,7 @@ exports[`component::Typeahead render phases renders the TOO_MANY phase 1`] = `
       </li>
       <li
         className="footer">
-        Continue typing to narrow the set of results
+        Continue typing for more results
       </li>
     </ul>
   </div>
