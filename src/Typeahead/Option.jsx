@@ -5,8 +5,13 @@ import PropTypes from 'prop-types'
 
 export default class Option extends React.Component {
   render() {
+    const classes = ['typeahead-option', 'body-copy']
+    if (this.props.selected) {
+      classes.push('selected')
+    }
+
     return (
-     <li className="typeahead-option body-copy"
+     <li className={classes.join(' ')}
          onClick={this.props.onClick}>
        { this.props.children }
      </li>
@@ -15,10 +20,12 @@ export default class Option extends React.Component {
 }
 
 Option.propTypes = {
+  selected: PropTypes.bool,
   onClick: PropTypes.func
 }
 
 Option.defaultProps = {
+  selected: false,
   onClick: function(event) {
     event.preventDefault();
   }

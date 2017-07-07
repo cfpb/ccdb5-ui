@@ -13,7 +13,9 @@ export default class Selector extends React.Component {
     const results = this.props.options.map((x, i) => {
       const { component, value } = this.props.renderOption(x)
       return (
-        <Option key={value + i} onClick={this._onClick.bind(this, value)}>
+        <Option key={value + i}
+                onClick={this._onClick.bind(this, value)}
+                selected={this.props.selectedIndex === i}>
           {component}
         </Option>
       )
@@ -33,8 +35,10 @@ export default class Selector extends React.Component {
 Selector.propTypes = {
   footer: PropTypes.string,
   options: PropTypes.array,
-  renderOption: PropTypes.func  
+  renderOption: PropTypes.func,
+  selectedIndex: PropTypes.number  
 }
 
 Selector.defaultProps = {
+  selectedIndex: -1
 }
