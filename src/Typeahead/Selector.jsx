@@ -5,8 +5,9 @@ import PropTypes from 'prop-types'
 import Option from './Option'
 
 export default class Selector extends React.Component {
-  _onClick(result, event) {
-    console.log(result)
+  _onClick(index, event) {
+    this.props.onOptionSelected(index)
+    event.preventDefault()
   }
 
   render() {
@@ -14,7 +15,7 @@ export default class Selector extends React.Component {
       const { component, value } = this.props.renderOption(x)
       return (
         <Option key={value + i}
-                onClick={this._onClick.bind(this, value)}
+                onClick={this._onClick.bind(this, i)}
                 selected={this.props.selectedIndex === i}>
           {component}
         </Option>
@@ -34,11 +35,13 @@ export default class Selector extends React.Component {
 
 Selector.propTypes = {
   footer: PropTypes.string,
+  onOptionSelected: PropTypes.func,
   options: PropTypes.array,
   renderOption: PropTypes.func,
   selectedIndex: PropTypes.number  
 }
 
 Selector.defaultProps = {
+  onOptionSelected: (obj) => {console.warn('onOptionSelected', obj)},
   selectedIndex: -1
 }

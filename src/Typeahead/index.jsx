@@ -3,21 +3,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Selector from './Selector'
+import * as keys from '../constants'
 import './Typeahead.less'
 
 // ----------------------------------------------------------------------------
 // State Machine
 
+// TODO: Use with onInputChangeAsynch
 // const ERROR = 'ERROR'
+const NOT_FOCUSED = 'NOT_FOCUSED'
 const EMPTY = 'EMPTY'
 const ACCUM = 'ACCUM'
 const WAITING = 'WAITING'
 const NO_RESULTS = 'NO_RESULTS'
 const RESULTS = 'RESULTS'
 const TOO_MANY = 'TOO_MANY'
-// const CHOSEN = 'CHOSEN'
+const CHOSEN = 'CHOSEN'
 
-const nextStateFromValue = (value, props) => {
+export const nextStateFromValue = (value, props) => {
   let phase = value ? WAITING : EMPTY
   if (value && value.length < props.minLength) {
     phase = ACCUM
@@ -25,11 +28,13 @@ const nextStateFromValue = (value, props) => {
 
   return {
     inputValue: value,
-    phase
+    phase,
+    searchResults: [],
+    selectedIndex: -1
   }
 }
 
-const nextStateFromOptions = (options, props) => {
+export const nextStateFromOptions = (options, props) => {
   let phase = RESULTS
   if (!options || options.length === 0) {
     phase = NO_RESULTS
@@ -40,7 +45,8 @@ const nextStateFromOptions = (options, props) => {
 
   return {
     phase,
-    searchResults: options
+    searchResults: options,
+    selectedIndex: -1
   }
 }
 
@@ -50,28 +56,45 @@ const nextStateFromOptions = (options, props) => {
 export default class Typeahead extends React.Component {
   constructor(props) {
     super(props)
-    this.state = Object.assign(
-      {
-        searchResults: []
-      },
-      nextStateFromValue(props.value, props)
-    )
+    this.state = nextStateFromValue(props.value, props)
+    this.stateHistory = [this.state]
 
     // Render/Phase Map
     this.renderMap = {
       ERROR: this._renderError.bind(this),
+      NOT_FOCUSED: this._renderEmpty.bind(this),
       EMPTY: this._renderEmpty.bind(this),
-      ACCUM: this._renderAccum.bind(this),
+      ACCUM: this._renderEmpty.bind(this),
       WAITING: this._renderWaiting.bind(this),
       NO_RESULTS: this._renderNoResults.bind(this),
       RESULTS: this._renderResults.bind(this),
       TOO_MANY: this._renderTooManyResults.bind(this),
-      CHOSEN: this._renderChosen.bind(this)
+      CHOSEN: this._renderEmpty.bind(this)
     }
 
+    // Key/function map
+    this.keyMap = {}
+    this.keyMap[keys.VK_ESCAPE] = this._keyCancel.bind(this)
+    this.keyMap[keys.VK_UP] = this._nav.bind(this, -1)
+    this.keyMap[keys.VK_DOWN] = this._nav.bind(this, 1)
+
+    // TODO: If allowAnyValue psuedocode
+    // if (this.props.allowAnyValue) {
+    //   this.keyMap[keys.VK_ENTER] = this._keyEnter.bind(this)
+    //   this.keyMap[keys.VK_RETURN] = this._keyEnter.bind(this)
+    //   this.keyMap[keys.VK_TAB] = this._keyTab.bind(this)
+    //}
+    //else {
+    this.keyMap[keys.VK_ENTER] = this._chooseSelectedIndex.bind(this)
+    this.keyMap[keys.VK_RETURN] = this._chooseSelectedIndex.bind(this)
+    this.keyMap[keys.VK_TAB] = this._chooseSelectedIndex.bind(this)
+
     // Bindings
-    this._valueUpdated = this._valueUpdated.bind(this)
+    this._onBlur = this._onBlur.bind(this)
+    this._onFocus = this._onFocus.bind(this)
+    this._onKeyDown = this._onKeyDown.bind(this)
     this._setOptions = this._setOptions.bind(this)
+    this._valueUpdated = this._valueUpdated.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -80,10 +103,13 @@ export default class Typeahead extends React.Component {
 
   render() {
     return (
-      <section className="typeahead">
+      <section className="typeahead"
+               onBlur={this._onBlur}
+               onFocus={this._onFocus}>
         <input type="text"
                disabled={this.props.disabled}
                onChange={this._valueUpdated}
+               onKeyDown={this._onKeyDown}
                placeholder={this.props.placeholder}
                value={this.state.inputValue}
         />
@@ -95,9 +121,25 @@ export default class Typeahead extends React.Component {
   // --------------------------------------------------------------------------
   // Event Methods
 
-  _valueUpdated(evt) {
-    this._callForOptions(evt.target.value)
-  }  
+  _onBlur(event) {
+    this.stateHistory.push(this.state)
+    this.setState({phase: NOT_FOCUSED})
+  }
+
+  _onFocus(event) {
+    this.setState(this.stateHistory.pop())
+  }
+
+  _onKeyDown(event) {
+    const handler = this.keyMap[event.which]
+    if (handler) {
+      handler(event)
+    }
+  }
+
+  _valueUpdated(event) {
+    this._callForOptions(event.target.value)
+  }
 
   // --------------------------------------------------------------------------
   // Search Methods
@@ -125,6 +167,58 @@ export default class Typeahead extends React.Component {
     this.setState(nextState)
   }
 
+  _selectOption(index) {
+    this.props.onOptionSelected(this.state.searchResults[index])
+    this.setState({
+      phase: CHOSEN,
+      inputValue: '',
+      searchResults: [],
+      selectedIndex: -1
+    })
+  }
+
+  // --------------------------------------------------------------------------
+  // Key Helpers
+
+  _chooseSelectedIndex(event) {
+    if (this.state.searchResults.length === 0) {
+      return;
+    }
+
+    let idx = this.state.selectedIndex
+    if (idx === -1) {
+      idx = 0
+    }
+
+    this._selectOption(idx)
+    event.preventDefault()
+  }
+
+  _keyCancel(event) {
+    event.preventDefault()
+    this.setState(nextStateFromValue('', this.props))
+  }
+
+  _nav(delta, event) {
+    event.preventDefault()
+
+    const max = Math.min(this.props.maxVisible, this.state.searchResults.length)
+    if (max === 0) {
+      return
+    }
+
+    // Clamp the new index
+    let newIndex = this.state.selectedIndex + delta
+    if (newIndex < 0) {
+      newIndex = 0
+    }
+    if (newIndex >= max) {
+      newIndex = max - 1
+    }
+
+    this.setState({selectedIndex: newIndex})
+  }
+
   // --------------------------------------------------------------------------
   // Render Helpers
 
@@ -134,10 +228,6 @@ export default class Typeahead extends React.Component {
 
   _renderEmpty() {
     return null
-  }
-
-  _renderAccum() {
-    return (<span className="instructions">Enter more characters to see results</span>)
   }
 
   _renderWaiting() {
@@ -151,7 +241,10 @@ export default class Typeahead extends React.Component {
   _renderResults() {
     return (
         <Selector options={this.state.searchResults}
-                  renderOption={this.props.renderOption} />
+                  onOptionSelected={this._selectOption.bind(this)}
+                  renderOption={this.props.renderOption}
+                  selectedIndex={this.state.selectedIndex}
+        />
     )
   }
 
@@ -159,13 +252,12 @@ export default class Typeahead extends React.Component {
     const subset = this.state.searchResults.slice(0, this.props.maxVisible)
     return (
         <Selector options={subset}
+                  onOptionSelected={this._selectOption.bind(this)}
                   renderOption={this.props.renderOption}
-                  footer="Continue typing to narrow the set of results" />
+                  selectedIndex={this.state.selectedIndex}
+                  footer="Continue typing to narrow the set of results"
+        />
     )
-  }
-
-  _renderChosen() {
-    return null
   }
 }
 
@@ -185,6 +277,7 @@ Typeahead.defaultProps = {
   maxVisible: 5,
   minLength: 2,
   onInputChange: () => [],
+  onOptionSelected: (obj) => {console.warn('onOptionSelected', obj)},
   placeholder: 'Enter your search text',
   renderOption: (x) => {
     return {

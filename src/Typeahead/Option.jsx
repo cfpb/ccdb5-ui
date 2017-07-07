@@ -12,7 +12,7 @@ export default class Option extends React.Component {
 
     return (
      <li className={classes.join(' ')}
-         onClick={this.props.onClick}>
+         onMouseDown={this.props.onClick}>
        { this.props.children }
      </li>
     )
