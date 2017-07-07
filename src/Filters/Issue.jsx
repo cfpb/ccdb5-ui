@@ -12,6 +12,7 @@ export class Issue extends React.Component {
   constructor(props) {
     super(props)
     this._onInputChange = this._onInputChange.bind(this)
+    this._onOptionSelected = this._onOptionSelected.bind(this)
   }
 
   render() {
@@ -26,6 +27,7 @@ export class Issue extends React.Component {
                          className="aggregation">
         <Typeahead placeholder="Enter name of issue"
                    onInputChange={this._onInputChange}
+                   onOptionSelected={this._onOptionSelected}
                    renderOption={this._renderOption} />
         <ul>
           {some.map(bucket =>
@@ -84,6 +86,11 @@ export class Issue extends React.Component {
         <span>{start}<b>{match}</b>{end}</span>
       )
     }
+  }
+
+  _onOptionSelected(obj) {
+    // TODO: Select the parent + children
+    console.log('Selected "', obj.key, '"')
   }
 }
 
