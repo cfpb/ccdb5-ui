@@ -21,12 +21,9 @@ export default class Option extends React.Component {
 
 Option.propTypes = {
   selected: PropTypes.bool,
-  onClick: PropTypes.func
+  onClick: PropTypes.func.isRequired
 }
 
 Option.defaultProps = {
-  selected: false,
-  onClick: function(event) {
-    event.preventDefault();
-  }
+  selected: false
 }

@@ -35,13 +35,12 @@ export default class Selector extends React.Component {
 
 Selector.propTypes = {
   footer: PropTypes.string,
-  onOptionSelected: PropTypes.func,
+  onOptionSelected: PropTypes.func.isRequired,
   options: PropTypes.array,
-  renderOption: PropTypes.func,
+  renderOption: PropTypes.func.isRequired,
   selectedIndex: PropTypes.number  
 }
 
 Selector.defaultProps = {
-  onOptionSelected: (obj) => {console.warn('onOptionSelected', obj)},
   selectedIndex: -1
 }
