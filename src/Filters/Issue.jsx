@@ -16,7 +16,7 @@ export class Issue extends React.Component {
   }
 
   render() {
-    const all = this.props.options || []
+    const all = this.props.options
     const some = all.length > 5 ? all.slice(0, 5) : all
     const remain = all.length - 5
 
