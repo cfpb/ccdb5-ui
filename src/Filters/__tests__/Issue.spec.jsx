@@ -5,7 +5,8 @@ import renderer from 'react-test-renderer';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux'
 import { shallow } from 'enzyme';
-import ReduxIssue, { Issue } from '../Issue'
+import { SLUG_SEPARATOR } from '../../constants'
+import ReduxIssue, { Issue, mapStateToProps } from '../Issue'
 
 const fixture = [
   {
@@ -138,6 +139,32 @@ describe('component:Issue', () => {
       it('does nothing yet', () => {
         const actual = target.instance()._onOptionSelected({})
       })
+    })
+  })
+
+  describe('sorting', () => {
+    it('places selections ahead of unselected', () => {
+      const selected = [
+        'Incorrect information on credit report',
+        'Incorrect information on credit report' + SLUG_SEPARATOR + 'Account Status',
+        'Not here'
+      ]
+      const actual = mapStateToProps({ 
+        query: {issue: selected},
+        aggs: {issue: fixture}
+      })
+      expect(actual.options[1]).toEqual(fixture[5])
+    })
+
+    it('treats child selections as parent selections', () => {
+      const selected = [
+        "Cont'd attempts collect debt not owed" + SLUG_SEPARATOR + 'Debt was paid'
+      ]
+      const actual = mapStateToProps({ 
+        query: {issue: selected},
+        aggs: {issue: fixture}
+      })
+      expect(actual.options[0]).toEqual(fixture[1])
     })
   })
 })
