@@ -1,5 +1,6 @@
 import {
-  FILTER_CHANGED, FILTER_REMOVED, FILTER_ALL_REMOVED, FILTER_PARENT_CHECKED
+  FILTER_CHANGED, FILTER_REMOVED, FILTER_ALL_REMOVED, FILTER_MULTIPLE_ADDED,
+  FILTER_MULTIPLE_REMOVED
 } from '../constants'
 import { getComplaints } from './complaints'
 
@@ -28,18 +29,33 @@ export function filterAllRemoved() {
   }
 }
 
-export function filterParentChecked(filterName, parentValue, childrenValues) {
-  console.assert(Array.isArray(childrenValues))
+export function filterMultipleAdded(filterName, values) {
+  console.assert(Array.isArray(values))
   return {
-    type: FILTER_PARENT_CHECKED,
+    type: FILTER_MULTIPLE_ADDED,
     filterName,
-    parentValue,
-    childrenValues
+    values
+  }
+}
+
+export function filterMultipleRemoved(filterName, values) {
+  console.assert(Array.isArray(values))
+  return {
+    type: FILTER_MULTIPLE_REMOVED,
+    filterName,
+    values
   }
 }
 
 // ----------------------------------------------------------------------------
 // Compound Actions
+
+export function addMultipleFilters(filterName, values) {
+  return dispatch => {
+    dispatch( filterMultipleAdded(filterName, values) )
+    dispatch( getComplaints() )
+  }
+}
 
 export function filterChanged(filterName, filterValue) {
   return dispatch => {
@@ -62,9 +78,9 @@ export function removeAllFilters() {
   }
 }
 
-export function checkParentFilter(filterName, parentValue, childrenValues) {
+export function removeMultipleFilters(filterName, values) {
   return dispatch => {
-    dispatch( filterParentChecked(filterName, parentValue, childrenValues) )
+    dispatch( filterMultipleRemoved(filterName, values) )
     dispatch( getComplaints() )
   }
 }
