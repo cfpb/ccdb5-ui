@@ -6,7 +6,7 @@ import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux'
 import { shallow } from 'enzyme';
 import { SLUG_SEPARATOR } from '../../constants'
-import ReduxIssue, { Issue, mapStateToProps } from '../Issue'
+import ReduxIssue, {Issue, mapStateToProps, mapDispatchToProps} from '../Issue'
 
 const fixture = [
   {
@@ -66,7 +66,8 @@ function setupEnzyme(initial) {
       {key: 'Foo', normalized: 'foo'},
       {key: 'Bar', normalized: 'bar'},
       {key: 'Baz', normalized: 'baz'},
-    ]
+    ],
+    typeaheadSelect: jest.fn()
   }
 
   const target = shallow(<Issue {...props} />);
@@ -112,9 +113,9 @@ describe('component:Issue', () => {
   })
 
   describe('Typeahead interface', () => {
-    let target
+    let target, props
     beforeEach(() => {
-      ({target} = setupEnzyme(fixture))
+      ({target, props} = setupEnzyme(fixture))
     })
 
     describe('_onInputChange', () => {
@@ -136,8 +137,16 @@ describe('component:Issue', () => {
     })
 
     describe('_onOptionSelected', () => {
-      it('does nothing yet', () => {
-        const actual = target.instance()._onOptionSelected({})
+      it('checks all the filters associated with the option', () => {
+        const key = "Cont'd attempts collect debt not owed"
+        target.instance()._onOptionSelected({
+          key
+        })
+
+        const values = props.typeaheadSelect.mock.calls[0][0]
+        expect(values.length).toEqual(3)
+        expect(values[1]).toContain(key)
+        expect(values[1]).toContain(SLUG_SEPARATOR)
       })
     })
   })
@@ -165,6 +174,14 @@ describe('component:Issue', () => {
         aggs: {issue: fixture}
       })
       expect(actual.options[0]).toEqual(fixture[1])
+    })
+  })
+
+  describe('mapDispatchToProps', () => {
+    it('hooks into addMultipleFilters', () => {
+      const dispatch = jest.fn()
+      mapDispatchToProps(dispatch).typeaheadSelect(['bar', 'baz'])
+      expect(dispatch.mock.calls.length).toEqual(1)
     })
   })
 })
