@@ -41,7 +41,7 @@ exports[`initial state renders without crashing 1`] = `
 </section>
 `;
 
-exports[`show more only shows the first 6 items of large arrays 1`] = `
+exports[`show more and less only shows the first 6 items of large arrays 1`] = `
 <section
   className="collapsible-filter aggregation">
   <div

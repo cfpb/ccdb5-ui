@@ -3,9 +3,8 @@ import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import { IntlProvider } from 'react-intl';
-import Aggregation from '../Aggregation';
-import CollapsibleFilter from '../CollapsibleFilter';
-import { mount } from 'enzyme';
+import ReduxAggregation, { Aggregation } from '../Aggregation';
+import { shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
 
 const fixture = [
@@ -20,20 +19,11 @@ const fixture = [
 ];
 
 function setupEnzyme(initial) {
-  const middlewares = [thunk]
-  const mockStore = configureMockStore(middlewares)
-  const store = mockStore({
-    query: {},
-    aggs: {
-      company_response: initial
-    }
-  })
   const props = {
-    options: initial,
-    store
+    options: initial
   }
 
-  const target = mount(<Aggregation {...props} />);
+  const target = shallow(<Aggregation {...props} />);
 
   return {
     props,
@@ -54,7 +44,7 @@ function setupSnapshot(initialAggs) {
   return renderer.create(
     <Provider store={store}>
       <IntlProvider locale="en">
-        <Aggregation fieldName="company_response"/>
+        <ReduxAggregation fieldName="company_response"/>
       </IntlProvider>
     </Provider>
   )
@@ -70,19 +60,20 @@ describe('initial state', () => {
   });
 });
 
-describe('show more', () => {
+describe('show more and less', () => {
   it('only shows the first 6 items of large arrays', () => {
     const target = setupSnapshot(fixture);
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   })
 
-  it('expects a default showAll state of false', () => {
-    // FAILING HERE:
+  it('expects showAll to start false and toggle all bool states', () => {
     const { target } = setupEnzyme(fixture)
-    console.log("TARGET: ", target);
+    // Initial state should be false
     expect(target.state().showMore).toEqual(false);
     target.instance()._toggleShowMore();
-    expect(target.state().state.showMore).toEqual(true);
+    expect(target.state().showMore).toEqual(true);
+    target.instance()._toggleShowMore();
+    expect(target.state().showMore).toEqual(false);
   })
 })
