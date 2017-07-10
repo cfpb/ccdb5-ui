@@ -1,0 +1,5 @@
+exports[`component::Option looks different when selected 1`] = `
+<li
+  className="typeahead-option body-copy selected"
+  onMouseDown={[Function]} />
+`;

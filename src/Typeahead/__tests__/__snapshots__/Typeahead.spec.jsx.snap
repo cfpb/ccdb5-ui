@@ -1,0 +1,160 @@
+exports[`component::Typeahead render phases renders the ACCUM phase 1`] = `
+<section
+  className="typeahead"
+  onBlur={[Function]}
+  onFocus={[Function]}>
+  <input
+    disabled={false}
+    onChange={[Function]}
+    onKeyDown={[Function]}
+    placeholder="Enter your search text"
+    type="text"
+    value="i" />
+</section>
+`;
+
+exports[`component::Typeahead render phases renders the EMPTY phase 1`] = `
+<section
+  className="typeahead"
+  onBlur={[Function]}
+  onFocus={[Function]}>
+  <input
+    disabled={false}
+    onChange={[Function]}
+    onKeyDown={[Function]}
+    placeholder="Enter your search text"
+    type="text"
+    value="" />
+</section>
+`;
+
+exports[`component::Typeahead render phases renders the ERROR phase 1`] = `
+<section
+  className="typeahead"
+  onBlur={[Function]}
+  onFocus={[Function]}>
+  <input
+    disabled={false}
+    onChange={[Function]}
+    onKeyDown={[Function]}
+    placeholder="Enter your search text"
+    type="text"
+    value="" />
+  <span
+    className="error">
+    There was a problem retrieving the options
+  </span>
+</section>
+`;
+
+exports[`component::Typeahead render phases renders the NO_RESULTS phase 1`] = `
+<section
+  className="typeahead"
+  onBlur={[Function]}
+  onFocus={[Function]}>
+  <input
+    disabled={false}
+    onChange={[Function]}
+    onKeyDown={[Function]}
+    placeholder="Enter your search text"
+    type="text"
+    value="" />
+  <span
+    className="no-results">
+    No results found
+  </span>
+</section>
+`;
+
+exports[`component::Typeahead render phases renders the RESULTS phase 1`] = `
+<section
+  className="typeahead"
+  onBlur={[Function]}
+  onFocus={[Function]}>
+  <input
+    disabled={false}
+    onChange={[Function]}
+    onKeyDown={[Function]}
+    placeholder="Enter your search text"
+    type="text"
+    value="" />
+  <div
+    className="typeahead-selector">
+    <ul>
+      <li
+        className="typeahead-option body-copy"
+        onMouseDown={[Function]}>
+        foo
+      </li>
+    </ul>
+  </div>
+</section>
+`;
+
+exports[`component::Typeahead render phases renders the TOO_MANY phase 1`] = `
+<section
+  className="typeahead"
+  onBlur={[Function]}
+  onFocus={[Function]}>
+  <input
+    disabled={false}
+    onChange={[Function]}
+    onKeyDown={[Function]}
+    placeholder="Enter your search text"
+    type="text"
+    value="" />
+  <div
+    className="typeahead-selector">
+    <ul>
+      <li
+        className="typeahead-option body-copy"
+        onMouseDown={[Function]}>
+        foo
+      </li>
+      <li
+        className="typeahead-option body-copy"
+        onMouseDown={[Function]}>
+        bar
+      </li>
+      <li
+        className="typeahead-option body-copy"
+        onMouseDown={[Function]}>
+        baz
+      </li>
+      <li
+        className="typeahead-option body-copy"
+        onMouseDown={[Function]}>
+        qaz
+      </li>
+      <li
+        className="typeahead-option body-copy"
+        onMouseDown={[Function]}>
+        quux
+      </li>
+      <li
+        className="footer">
+        Continue typing for more results
+      </li>
+    </ul>
+  </div>
+</section>
+`;
+
+exports[`component::Typeahead render phases renders the WAITING phase 1`] = `
+<section
+  className="typeahead"
+  onBlur={[Function]}
+  onFocus={[Function]}>
+  <input
+    disabled={false}
+    onChange={[Function]}
+    onKeyDown={[Function]}
+    placeholder="Enter your search text"
+    type="text"
+    value="indubitably" />
+  <span
+    className="waiting">
+    waiting...
+  </span>
+</section>
+`;
