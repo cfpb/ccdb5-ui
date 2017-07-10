@@ -4,33 +4,7 @@ import { SLUG_SEPARATOR } from '../constants'
 import AggregationBranch from './AggregationBranch'
 import CollapsibleFilter from './CollapsibleFilter'
 import Typeahead from '../Typeahead'
-
-export const normalize = s => {
-  return s.toLowerCase()
-} 
-
-export const sortSelThenCount = (options, selected) => {
-  const retVal = (options || []).slice()
-
-  // Sort the array so that selected items appear first, then by doc_count
-  retVal.sort((a,b) => {
-    const aSel = selected.indexOf(a.key) !== -1
-    const bSel = selected.indexOf(b.key) !== -1
-
-    if( aSel && !bSel ) {
-      return -1;
-    }
-    if( !aSel && bSel ) {
-      return 1;
-    }
-
-    // Both are selected or not selected
-    // Sort by descending doc_count
-    return b.doc_count - a.doc_count
-  })
-  
-  return retVal
-}
+import { normalize, sortSelThenCount } from './utils'
 
 export class Issue extends React.Component {
   constructor(props) {
