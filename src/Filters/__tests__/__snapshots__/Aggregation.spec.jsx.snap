@@ -41,7 +41,7 @@ exports[`initial state renders without crashing 1`] = `
 </section>
 `;
 
-exports[`show more only shows the first 6 items of large arrays 1`] = `
+exports[`show more and less only shows the first 6 items of large arrays 1`] = `
 <section
   className="collapsible-filter aggregation">
   <div
@@ -160,7 +160,8 @@ exports[`show more only shows the first 6 items of large arrays 1`] = `
   <div
     className="flex-fixed">
     <button
-      className="a-btn a-btn__link hover more">
+      className="a-btn a-btn__link hover more"
+      onClick={[Function]}>
       + Show 
       2
        more
