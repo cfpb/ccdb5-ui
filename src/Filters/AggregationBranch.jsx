@@ -3,6 +3,7 @@ import { FormattedNumber } from 'react-intl'
 import { connect } from 'react-redux';
 import { SLUG_SEPARATOR } from '../constants'
 import AggregationItem from './AggregationItem'
+import { slugify } from './utils'
 import { addMultipleFilters, removeMultipleFilters } from '../actions/filter'
 import './AggregationBranch.less'
 
@@ -20,7 +21,7 @@ export class AggregationBranch extends React.Component {
     // List all the filters
     const values = [item.key]
     subitems.forEach(sub => {
-      values.push(item.key + SLUG_SEPARATOR + sub.key)
+      values.push(slugify(item.key, sub.key))
     })
 
     const action = active ? this.props.uncheckParent : this.props.checkParent
@@ -39,7 +40,7 @@ export class AggregationBranch extends React.Component {
     // Fix up the subitems to prepend the current item key
     const buckets = subitems.map(sub => {
       return {
-        key: item.key + SLUG_SEPARATOR + sub.key,
+        key: slugify(item.key, sub.key),
         value: sub.key,
         doc_count: sub.doc_count
       }

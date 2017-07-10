@@ -1,5 +1,11 @@
+import { SLUG_SEPARATOR } from '../constants'
+
 export const normalize = s => {
   return s.toLowerCase()
+} 
+
+export const slugify = (a,b) => {
+  return a + SLUG_SEPARATOR + b
 } 
 
 export const sortSelThenCount = (options, selected) => {

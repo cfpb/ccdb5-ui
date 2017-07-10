@@ -5,7 +5,7 @@ import AggregationBranch from './AggregationBranch'
 import CollapsibleFilter from './CollapsibleFilter'
 import Typeahead from '../Typeahead'
 import { addMultipleFilters } from '../actions/filter'
-import { normalize, sortSelThenCount } from './utils'
+import { normalize, slugify, sortSelThenCount } from './utils'
 
 export class Issue extends React.Component {
   constructor(props) {
@@ -101,7 +101,7 @@ export class Issue extends React.Component {
     // Build a list of all the keys
     const values = [item.key]
     this.props.options[idx]["sub_issue.raw"].buckets.forEach(sub => {
-      values.push(item.key + SLUG_SEPARATOR + sub.key)
+      values.push(slugify(item.key, sub.key))
     })
 
     this.props.typeaheadSelect(values)
