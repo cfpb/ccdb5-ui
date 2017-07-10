@@ -8,7 +8,7 @@ import renderer from 'react-test-renderer'
 import ReduxAggregationBranch, {
   AggregationBranch, mapDispatchToProps
 } from '../AggregationBranch'
-import { SLUG_SEPARATOR } from '../../constants'
+import { slugify } from '../utils'
 
 // ----------------------------------------------------------------------------
 // Setup 
@@ -47,7 +47,7 @@ function setupSnapshot() {
   const mockStore = configureMockStore(middlewares)
   const store = mockStore({
     query: {
-      issue: ['foo' + SLUG_SEPARATOR + 'bar']
+      issue: [slugify('foo', 'bar')]
     }
   })
 

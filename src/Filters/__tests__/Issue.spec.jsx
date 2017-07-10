@@ -5,8 +5,8 @@ import renderer from 'react-test-renderer';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux'
 import { shallow } from 'enzyme';
-import { SLUG_SEPARATOR } from '../../constants'
 import ReduxIssue, {Issue, mapStateToProps, mapDispatchToProps} from '../Issue'
+import { slugify } from '../utils'
 
 const fixture = [
   {
@@ -143,10 +143,11 @@ describe('component:Issue', () => {
           key
         })
 
-        const values = props.typeaheadSelect.mock.calls[0][0]
-        expect(values.length).toEqual(3)
-        expect(values[1]).toContain(key)
-        expect(values[1]).toContain(SLUG_SEPARATOR)
+        expect(props.typeaheadSelect).toHaveBeenCalledWith([
+          key,
+          slugify(key, 'Debt is not mine'),
+          slugify(key, 'Debt was paid')
+        ])
       })
     })
   })
@@ -155,7 +156,7 @@ describe('component:Issue', () => {
     it('places selections ahead of unselected', () => {
       const selected = [
         'Incorrect information on credit report',
-        'Incorrect information on credit report' + SLUG_SEPARATOR + 'Account Status',
+        slugify('Incorrect information on credit report', 'Account Status'),
         'Not here'
       ]
       const actual = mapStateToProps({ 
@@ -167,7 +168,7 @@ describe('component:Issue', () => {
 
     it('treats child selections as parent selections', () => {
       const selected = [
-        "Cont'd attempts collect debt not owed" + SLUG_SEPARATOR + 'Debt was paid'
+        slugify("Cont'd attempts collect debt not owed", 'Debt was paid')
       ]
       const actual = mapStateToProps({ 
         query: {issue: selected},
