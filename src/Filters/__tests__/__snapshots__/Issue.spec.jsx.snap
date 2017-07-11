@@ -155,10 +155,12 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
   <div
     className="flex-fixed">
     <button
-      className="a-btn a-btn__link hover more">
+      className="a-btn a-btn__link hover more"
+      onClick={[Function]}>
       + Show 
       1
-       more
+       
+      more
     </button>
   </div>
 </section>
