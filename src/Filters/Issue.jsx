@@ -1,16 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { SLUG_SEPARATOR } from '../constants'
 import AggregationBranch from './AggregationBranch'
 import CollapsibleFilter from './CollapsibleFilter'
 import Typeahead from '../Typeahead'
-
-const normalize = s => {
-  return s.toLowerCase()
-} 
+import { addMultipleFilters } from '../actions/filter'
+import { normalize, slugify, sortSelThenCount } from './utils'
 
 export class Issue extends React.Component {
   constructor(props) {
     super(props)
+
     this._onInputChange = this._onInputChange.bind(this)
     this._onOptionSelected = this._onOptionSelected.bind(this)
   }
@@ -88,14 +88,44 @@ export class Issue extends React.Component {
     }
   }
 
-  _onOptionSelected(obj) {
-    // TODO: Select the parent + children
-    console.log('Selected "', obj.key, '"')
+  _onOptionSelected(item) {
+    // Find this option in the list
+    let idx = -1
+    for (let i = 0; i < this.props.options.length && idx === -1; i++) {
+      if (this.props.options[i].key === item.key) {
+        idx = i
+      }
+    }
+    console.assert(idx !== -1)
+
+    // Build a list of all the keys
+    const values = [item.key]
+    this.props.options[idx]["sub_issue.raw"].buckets.forEach(sub => {
+      values.push(slugify(item.key, sub.key))
+    })
+
+    this.props.typeaheadSelect(values)
   }
 }
 
 export const mapStateToProps = state => {
-  const options = state.aggs.issue || []
+  // See if there are an active issue filters
+  const allIssues = state.query.issue || []
+  const selections = []
+
+  // Reduce the issues to the parent keys (and dedup)
+  allIssues.forEach(x => {
+    const idx = x.indexOf(SLUG_SEPARATOR)
+    const key = (idx !== -1) ? x.substr(0, idx) : x
+    if (selections.indexOf(key) === -1)  {
+      selections.push(key)
+    }
+  })
+
+  // Make a cloned, sorted version of the aggs
+  const options = sortSelThenCount(state.aggs.issue, selections)
+
+  // create an array optimized for typeahead
   const forTypeahead = options.map(x => {
     return {
       key: x.key,
@@ -109,4 +139,12 @@ export const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(Issue)
+export const mapDispatchToProps = dispatch => {
+  return {
+    typeaheadSelect: (values) => {
+      dispatch(addMultipleFilters('issue', values))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Issue)

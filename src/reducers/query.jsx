@@ -45,16 +45,13 @@ function processParams(state, params) {
   return processed
 }
 
-export function addFilterBranch(state, action) {
+export function addMultipleFilters(state, action) {
   const newState = {...state}
   const name = action.filterName
   const a = newState[name] || []
 
-  // Add the parent value as a filter
-  a.push(action.parentValue)
-
-  // Add the children
-  action.childrenValues.forEach(x => {
+  // Add the filters
+  action.values.forEach(x => {
     if (a.indexOf(x) === -1) {
       a.push(x)
     }
@@ -96,6 +93,21 @@ function removeFilter(state, action) {
       newState[action.filterName].splice(idx, 1)
     }
   }
+  return newState
+}
+
+function removeMultipleFilters(state, action) {
+  const newState = {...state}
+  const a = newState[action.filterName]
+  if (a) {
+    action.values.forEach(x => {
+      const idx = a.indexOf(x)
+      if (idx !== -1) {
+        a.splice(idx, 1)
+      }
+    })
+  }
+
   return newState
 }
 
@@ -148,8 +160,11 @@ export default (state = defaultQuery, action) => {
     })
     return newState
 
-  case types.FILTER_PARENT_CHECKED:
-    return addFilterBranch(state, action)
+  case types.FILTER_MULTIPLE_ADDED:
+    return addMultipleFilters(state, action)
+
+  case types.FILTER_MULTIPLE_REMOVED:
+    return removeMultipleFilters(state, action)
 
   default:
     return state

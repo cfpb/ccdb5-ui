@@ -7,7 +7,8 @@ export const URL_CHANGED               = 'URL_CHANGED'
 export const FILTER_CHANGED            = 'FILTER_CHANGED'
 export const FILTER_REMOVED            = 'FILTER_REMOVED'
 export const FILTER_ALL_REMOVED        = 'FILTER_ALL_REMOVED'
-export const FILTER_PARENT_CHECKED     = 'FILTER_PARENT_CHECKED'
+export const FILTER_MULTIPLE_ADDED     = 'FILTER_MULTIPLE_ADDED'
+export const FILTER_MULTIPLE_REMOVED   = 'FILTER_MULTIPLE_REMOVED'
 
 // External Triggers
 export const COMPLAINTS_RECEIVED       = 'COMPLAINTS_RECEIVED'

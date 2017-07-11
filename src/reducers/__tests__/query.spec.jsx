@@ -219,14 +219,13 @@ describe('reducer:query', () => {
     })
   })
 
-  describe('handles FILTER_PARENT_CHECKED actions', () => {
+  describe('handles FILTER_MULTIPLE_ADDED actions', () => {
     let action;
     beforeEach(() => {
       action = {
-        type: types.FILTER_PARENT_CHECKED,
+        type: types.FILTER_MULTIPLE_ADDED,
         filterName: 'issue',
-        parentValue: 'Mo Money',
-        childrenValues: ['Mo Problems']
+        values: ['Mo Money', 'Mo Problems']
       }
     })
 
@@ -236,15 +235,39 @@ describe('reducer:query', () => {
       })
     })
 
-    it("skips child filters if they exist already", () => {
+    it("skips filters if they exist already", () => {
       const state = {
         issue: ['foo']
       }
-      action.childrenValues.push('foo')
+      action.values.push('foo')
 
       expect(target(state, action)).toEqual({
         issue: ['foo', 'Mo Money', 'Mo Problems']
       })
+    })
+  })
+
+  describe('handles FILTER_MULTIPLE_REMOVED actions', () => {
+    let action;
+    beforeEach(() => {
+      action = {
+        type: types.FILTER_MULTIPLE_REMOVED,
+        filterName: 'issue',
+        values: ['Mo Money', 'Mo Problems', 'bar']
+      }
+    })
+
+    it("removes filters if they exist", () => {
+      const state = {
+        issue: ['foo', 'Mo Money', 'Mo Problems']
+      }
+      expect(target(state, action)).toEqual({
+        issue: ['foo']
+      })
+    })
+
+    it("ignores unknown filters", () => {
+      expect(target({}, action)).toEqual({})
     })
   })
 })
