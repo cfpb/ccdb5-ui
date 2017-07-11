@@ -17,155 +17,28 @@ exports[`initial state renders without crashing 1`] = `
     </div>
   </div>
   <p />
-  <ul>
-    <li
-      className="flex-fixed layout-row">
-      <input
-        aria-label="foo"
-        checked={false}
-        className="flex-fixed"
-        onClick={[Function]}
-        type="checkbox" />
-      <span
-        className="flex-all bucket-key">
-        foo
-      </span>
-      <span
-        className="flex-fixed bucket-count">
-        <span>
-          99
-        </span>
-      </span>
-    </li>
-  </ul>
-</section>
-`;
-
-exports[`show more and less only shows the first 6 items of large arrays 1`] = `
-<section
-  className="collapsible-filter aggregation">
-  <div
-    className="layout-row">
-    <h5
-      className="flex-all" />
-    <div
-      className="flex-fixed toggle">
-      <button
-        className="a-btn a-btn__link hover"
-        onClick={[Function]}>
-        Hide
+  <div>
+    <ul>
+      <li
+        className="flex-fixed layout-row">
+        <input
+          aria-label="foo"
+          checked={false}
+          className="flex-fixed"
+          onClick={[Function]}
+          type="checkbox" />
         <span
-          className="cf-icon cf-icon-minus-round" />
-      </button>
-    </div>
-  </div>
-  <p />
-  <ul>
-    <li
-      className="flex-fixed layout-row">
-      <input
-        aria-label="alpha"
-        checked={false}
-        className="flex-fixed"
-        onClick={[Function]}
-        type="checkbox" />
-      <span
-        className="flex-all bucket-key">
-        alpha
-      </span>
-      <span
-        className="flex-fixed bucket-count">
-        <span>
-          99
+          className="flex-all bucket-key">
+          foo
         </span>
-      </span>
-    </li>
-    <li
-      className="flex-fixed layout-row">
-      <input
-        aria-label="beta"
-        checked={false}
-        className="flex-fixed"
-        onClick={[Function]}
-        type="checkbox" />
-      <span
-        className="flex-all bucket-key">
-        beta
-      </span>
-      <span
-        className="flex-fixed bucket-count">
-        <span>
-          99
+        <span
+          className="flex-fixed bucket-count">
+          <span>
+            99
+          </span>
         </span>
-      </span>
-    </li>
-    <li
-      className="flex-fixed layout-row">
-      <input
-        aria-label="gamma"
-        checked={false}
-        className="flex-fixed"
-        onClick={[Function]}
-        type="checkbox" />
-      <span
-        className="flex-all bucket-key">
-        gamma
-      </span>
-      <span
-        className="flex-fixed bucket-count">
-        <span>
-          99
-        </span>
-      </span>
-    </li>
-    <li
-      className="flex-fixed layout-row">
-      <input
-        aria-label="delta"
-        checked={false}
-        className="flex-fixed"
-        onClick={[Function]}
-        type="checkbox" />
-      <span
-        className="flex-all bucket-key">
-        delta
-      </span>
-      <span
-        className="flex-fixed bucket-count">
-        <span>
-          99
-        </span>
-      </span>
-    </li>
-    <li
-      className="flex-fixed layout-row">
-      <input
-        aria-label="epsilon"
-        checked={false}
-        className="flex-fixed"
-        onClick={[Function]}
-        type="checkbox" />
-      <span
-        className="flex-all bucket-key">
-        epsilon
-      </span>
-      <span
-        className="flex-fixed bucket-count">
-        <span>
-          99
-        </span>
-      </span>
-    </li>
-  </ul>
-  <div
-    className="flex-fixed">
-    <button
-      className="a-btn a-btn__link hover more"
-      onClick={[Function]}>
-      + Show 
-      2
-       more
-    </button>
+      </li>
+    </ul>
   </div>
 </section>
 `;
