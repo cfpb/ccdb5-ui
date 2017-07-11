@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import './FilterPanel.less'
 import Aggregation from './Filters/Aggregation'
 import CollapsibleFilter from './Filters/CollapsibleFilter'
+import FederalState from './Filters/FederalState'
 import Issue from './Filters/Issue'
 import SingleCheckbox from './Filters/SingleCheckbox'
 
@@ -39,10 +40,7 @@ export class FilterPanel extends React.Component {
         <hr />
         <Issue />
         <hr />
-        <CollapsibleFilter title="State"
-                           desc="The state of the mailing address provided by the consumer">
-            <input type="text" placeholder="Enter state name or abbreviation" />
-        </CollapsibleFilter>
+        <FederalState />
         <hr />
         <CollapsibleFilter title="Zip Code"
                            desc="The mailing ZIP code provided by the consumer">
