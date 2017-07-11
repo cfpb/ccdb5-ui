@@ -11,6 +11,9 @@ export class Issue extends React.Component {
   constructor(props) {
     super(props)
 
+    this.state = { showMore: this.props.showMore || false }
+
+    this._toggleShowMore = this._toggleShowMore.bind(this);
     this._onInputChange = this._onInputChange.bind(this)
     this._onOptionSelected = this._onOptionSelected.bind(this)
   }
@@ -30,22 +33,39 @@ export class Issue extends React.Component {
                    onOptionSelected={this._onOptionSelected}
                    renderOption={this._renderOption} />
         <ul>
-          {some.map(bucket =>
-            <AggregationBranch key={bucket.key}
-                               item={bucket}
-                               subitems={bucket['sub_issue.raw'].buckets}
-                               fieldName="issue" />
+          {!this.state.showMore ?
+            some.map(bucket =>
+              <AggregationBranch key={bucket.key}
+                                 item={bucket}
+                                 subitems={bucket['sub_issue.raw'].buckets}
+                                 fieldName="issue" />
+          ) :
+            all.map(bucket =>
+              <AggregationBranch key={bucket.key}
+                                 item={bucket}
+                                 subitems={bucket['sub_issue.raw'].buckets}
+                                 fieldName="issue" />
           )}
         </ul>
-          {remain > 0 ? (
-            <div className="flex-fixed">
-               <button className="a-btn a-btn__link hover more">
-                 + Show {remain} more
-               </button>
-            </div>
-          ) : null}
+        {remain > 0 ? (
+          <div className="flex-fixed">
+               <button className="a-btn a-btn__link hover more"
+                       onClick={ this._toggleShowMore }>
+                  + Show {remain} {!this.state.showMore ? 'more' : 'less'} 
+                </button>
+          </div>
+        ) : null}
       </CollapsibleFilter>
     )
+  }
+
+  // --------------------------------------------------------------------------
+  // Helpers
+
+  _toggleShowMore() {
+    this.setState({
+      showMore: !this.state.showMore
+    })
   }
 
   // --------------------------------------------------------------------------
