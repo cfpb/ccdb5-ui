@@ -163,7 +163,7 @@ exports[`show more and less only shows the first 6 items of large arrays 1`] = `
       className="a-btn a-btn__link hover more"
       onClick={[Function]}>
       + Show 
-      2
+      3
        more
     </button>
   </div>
