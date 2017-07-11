@@ -5,7 +5,8 @@ import renderer from 'react-test-renderer';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux'
 import { shallow } from 'enzyme';
-import ReduxIssue, { Issue } from '../Issue'
+import ReduxIssue, {Issue, mapStateToProps, mapDispatchToProps} from '../Issue'
+import { slugify } from '../utils'
 
 const fixture = [
   {
@@ -65,7 +66,8 @@ function setupEnzyme(initial) {
       {key: 'Foo', normalized: 'foo'},
       {key: 'Bar', normalized: 'bar'},
       {key: 'Baz', normalized: 'baz'},
-    ]
+    ],
+    typeaheadSelect: jest.fn()
   }
 
   const target = shallow(<Issue {...props} />);
@@ -111,9 +113,9 @@ describe('component:Issue', () => {
   })
 
   describe('Typeahead interface', () => {
-    let target
+    let target, props
     beforeEach(() => {
-      ({target} = setupEnzyme(fixture))
+      ({target, props} = setupEnzyme(fixture))
     })
 
     describe('_onInputChange', () => {
@@ -135,9 +137,52 @@ describe('component:Issue', () => {
     })
 
     describe('_onOptionSelected', () => {
-      it('does nothing yet', () => {
-        const actual = target.instance()._onOptionSelected({})
+      it('checks all the filters associated with the option', () => {
+        const key = "Cont'd attempts collect debt not owed"
+        target.instance()._onOptionSelected({
+          key
+        })
+
+        expect(props.typeaheadSelect).toHaveBeenCalledWith([
+          key,
+          slugify(key, 'Debt is not mine'),
+          slugify(key, 'Debt was paid')
+        ])
       })
+    })
+  })
+
+  describe('sorting', () => {
+    it('places selections ahead of unselected', () => {
+      const selected = [
+        'Incorrect information on credit report',
+        slugify('Incorrect information on credit report', 'Account Status'),
+        'Not here'
+      ]
+      const actual = mapStateToProps({ 
+        query: {issue: selected},
+        aggs: {issue: fixture}
+      })
+      expect(actual.options[1]).toEqual(fixture[5])
+    })
+
+    it('treats child selections as parent selections', () => {
+      const selected = [
+        slugify("Cont'd attempts collect debt not owed", 'Debt was paid')
+      ]
+      const actual = mapStateToProps({ 
+        query: {issue: selected},
+        aggs: {issue: fixture}
+      })
+      expect(actual.options[0]).toEqual(fixture[1])
+    })
+  })
+
+  describe('mapDispatchToProps', () => {
+    it('hooks into addMultipleFilters', () => {
+      const dispatch = jest.fn()
+      mapDispatchToProps(dispatch).typeaheadSelect(['bar', 'baz'])
+      expect(dispatch.mock.calls.length).toEqual(1)
     })
   })
 })

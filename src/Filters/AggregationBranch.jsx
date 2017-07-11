@@ -3,7 +3,8 @@ import { FormattedNumber } from 'react-intl'
 import { connect } from 'react-redux';
 import { SLUG_SEPARATOR } from '../constants'
 import AggregationItem from './AggregationItem'
-import { checkParentFilter, removeFilter } from '../actions/filter';
+import { slugify } from './utils'
+import { addMultipleFilters, removeMultipleFilters } from '../actions/filter'
 import './AggregationBranch.less'
 
 export class AggregationBranch extends React.Component {
@@ -16,16 +17,15 @@ export class AggregationBranch extends React.Component {
 
   _decideClickAction() {
     const {item, subitems, fieldName, active} = this.props
+    
+    // List all the filters
+    const values = [item.key]
+    subitems.forEach(sub => {
+      values.push(slugify(item.key, sub.key))
+    })
 
-    if (active) {
-      this.props.onlyRemoveParent(fieldName, item.key)
-    }
-    else {
-      const childValues = subitems.map(sub => {
-        return item.key + SLUG_SEPARATOR + sub.key
-      })
-      this.props.selectBranch(fieldName, item.key, childValues)
-    }
+    const action = active ? this.props.uncheckParent : this.props.checkParent
+    action(fieldName, values)
   }
 
   _toggleChildDisplay() {
@@ -40,7 +40,7 @@ export class AggregationBranch extends React.Component {
     // Fix up the subitems to prepend the current item key
     const buckets = subitems.map(sub => {
       return {
-        key: item.key + SLUG_SEPARATOR + sub.key,
+        key: slugify(item.key, sub.key),
         value: sub.key,
         doc_count: sub.doc_count
       }
@@ -103,11 +103,11 @@ export const mapStateToProps = (state, ownProps) => {
 
 export const mapDispatchToProps = dispatch => {
   return {
-    onlyRemoveParent: (fieldName, fieldValue) => {
-      dispatch(removeFilter(fieldName, fieldValue))
+    uncheckParent: (fieldName, values) => {
+      dispatch(removeMultipleFilters(fieldName, values))
     },
-    selectBranch: (fieldName, parentValue, childrenValues) => {
-      dispatch(checkParentFilter(fieldName, parentValue, childrenValues))
+    checkParent: (fieldName, values) => {
+      dispatch(addMultipleFilters(fieldName, values))
     }
   }
 }

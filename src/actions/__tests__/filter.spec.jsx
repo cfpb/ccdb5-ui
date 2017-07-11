@@ -41,18 +41,30 @@ describe('action:filterActions', () => {
     })
   })
 
-  describe('filterParentChecked', () => {
+  describe('filterMultipleAdded', () => {
     it('creates a simple action', () => {
         const filterName = 'issue'
-        const parentValue = 'Mo Money'
-        const childrenValues = ['Mo Problems']
+        const values = ['Mo Money', 'Mo Problems']
         const expectedAction = {
-          type: types.FILTER_PARENT_CHECKED,
+          type: types.FILTER_MULTIPLE_ADDED,
           filterName,
-          parentValue,
-          childrenValues
+          values
         }
-        expect(sut.filterParentChecked(filterName, parentValue, childrenValues))
+        expect(sut.filterMultipleAdded(filterName, values))
+          .toEqual( expectedAction );
+    })
+  })
+
+  describe('filterMultipleRemoved', () => {
+    it('creates a simple action', () => {
+        const filterName = 'issue'
+        const values = ['Mo Money', 'Mo Problems']
+        const expectedAction = {
+          type: types.FILTER_MULTIPLE_REMOVED,
+          filterName,
+          values
+        }
+        expect(sut.filterMultipleRemoved(filterName, values))
           .toEqual( expectedAction );
     })
   })
@@ -64,6 +76,24 @@ describe('action:filterActions', () => {
       middlewares = [thunk]
       mockStore = configureMockStore(middlewares)
       store = mockStore({ })      
+    })
+
+    describe('addMultipleFilters', () => {
+      it('executes a chain of actions', () => {
+        const filterName = 'issue'
+        const values = ['Mo Money', 'Mo Problems']
+        const expectedActions = [
+          { type:
+            types.FILTER_MULTIPLE_ADDED,
+            filterName,
+            values
+          },
+          { type: 'getComplaintsMock' }
+        ]
+
+        store.dispatch(sut.addMultipleFilters(filterName, values))
+        expect(store.getActions()).toEqual(expectedActions)
+      })
     })
 
     describe('filterChanged', () => {
@@ -106,24 +136,20 @@ describe('action:filterActions', () => {
       })
     })
 
-    describe('checkParentFilter', () => {
+    describe('removeMultipleFilters', () => {
       it('executes a chain of actions', () => {
         const filterName = 'issue'
-        const parentValue = 'Mo Money'
-        const childrenValues = ['Mo Problems']
+        const values = ['Mo Money', 'Mo Problems']
         const expectedActions = [
           { type:
-            types.FILTER_PARENT_CHECKED,
+            types.FILTER_MULTIPLE_REMOVED,
             filterName,
-            parentValue,
-            childrenValues
+            values
           },
           { type: 'getComplaintsMock' }
         ]
 
-        store.dispatch(sut.checkParentFilter(
-          filterName, parentValue, childrenValues
-        ))
+        store.dispatch(sut.removeMultipleFilters(filterName, values))
         expect(store.getActions()).toEqual(expectedActions)
       })
     })

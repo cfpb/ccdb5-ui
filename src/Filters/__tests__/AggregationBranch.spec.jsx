@@ -8,7 +8,7 @@ import renderer from 'react-test-renderer'
 import ReduxAggregationBranch, {
   AggregationBranch, mapDispatchToProps
 } from '../AggregationBranch'
-import { SLUG_SEPARATOR } from '../../constants'
+import { slugify } from '../utils'
 
 // ----------------------------------------------------------------------------
 // Setup 
@@ -30,8 +30,8 @@ function setupEnzyme(active=false) {
     item: item,
     subitems: subitems,
     fieldName: "issue",
-    onlyRemoveParent: jest.fn(),
-    selectBranch: jest.fn()
+    checkParent: jest.fn(),
+    uncheckParent: jest.fn()
   }
 
   const target = shallow(<AggregationBranch {...props} />)
@@ -47,7 +47,7 @@ function setupSnapshot() {
   const mockStore = configureMockStore(middlewares)
   const store = mockStore({
     query: {
-      issue: ['foo' + SLUG_SEPARATOR + 'bar']
+      issue: [slugify('foo', 'bar')]
     }
   })
 
@@ -90,37 +90,38 @@ describe('component::AggregationBranch', () => {
       const { target, props } = setupEnzyme(true)
       const checkbox = target.find('li.parent input[type="checkbox"]')
       checkbox.simulate('click')
-      expect(props.onlyRemoveParent).toHaveBeenCalledWith('issue', 'foo')
-      expect(props.selectBranch).not.toHaveBeenCalled()
+      expect(props.uncheckParent).toHaveBeenCalledWith(
+        'issue', ['foo', 'foo•bar', 'foo•baz', 'foo•qaz']
+      )
+      expect(props.checkParent).not.toHaveBeenCalled()
     })
 
     it('calls another action when the checkbox is not selected', () => {
       const { target, props } = setupEnzyme()
       const checkbox = target.find('li.parent input[type="checkbox"]')
       checkbox.simulate('click')
-      expect(props.onlyRemoveParent).not.toHaveBeenCalled()
-      expect(props.selectBranch).toHaveBeenCalledWith(
-        'issue', 'foo', ['foo•bar', 'foo•baz', 'foo•qaz']
+      expect(props.uncheckParent).not.toHaveBeenCalled()
+      expect(props.checkParent).toHaveBeenCalledWith(
+        'issue', ['foo', 'foo•bar', 'foo•baz', 'foo•qaz']
       )
     })
   })
 
   describe('mapDispatchToProps', () => {
-    it('hooks into removeFilter', () => {
+    it('hooks into addMultipleFilters', () => {
       const dispatch = jest.fn()
-      mapDispatchToProps(dispatch).onlyRemoveParent({
+      mapDispatchToProps(dispatch).checkParent({
         fieldName: 'foo',
-        fieldValue: 'bar'
+        values: ['bar', 'baz']
       })
       expect(dispatch.mock.calls.length).toEqual(1)
     })
 
-    it('hooks into checkParentFilter', () => {
+    it('hooks into removeMultipleFilters', () => {
       const dispatch = jest.fn()
-      mapDispatchToProps(dispatch).selectBranch({
+      mapDispatchToProps(dispatch).uncheckParent({
         fieldName: 'foo',
-        parentValue: 'bar',
-        childrenValues: ['baz']
+        values: ['bar', 'baz']
       })
       expect(dispatch.mock.calls.length).toEqual(1)
     })
