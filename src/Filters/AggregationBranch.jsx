@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { FormattedNumber } from 'react-intl'
 import { connect } from 'react-redux';
 import { SLUG_SEPARATOR } from '../constants'
@@ -10,7 +11,7 @@ import './AggregationBranch.less'
 export class AggregationBranch extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { showChildren: this.props.showChildren || false }
+    this.state = { showChildren: this.props.showChildren }
     this._decideClickAction = this._decideClickAction.bind(this)
     this._toggleChildDisplay = this._toggleChildDisplay.bind(this)
   }
@@ -82,6 +83,25 @@ export class AggregationBranch extends React.Component {
       </div>
     )
   }
+}
+
+AggregationBranch.propTypes = {
+  active: PropTypes.bool,
+  checkParent: PropTypes.func.isRequired,
+  fieldName: PropTypes.string.isRequired,
+  item: PropTypes.shape({
+    doc_count: PropTypes.number.isRequired,
+    key: PropTypes.string.isRequired,
+    value: PropTypes.string
+  }).isRequired,
+  showChildren: PropTypes.bool,
+  subitems: PropTypes.array.isRequired,
+  uncheckParent: PropTypes.func.isRequired
+}
+
+AggregationBranch.defaultProps = {
+  active: false,
+  showChildren: false
 }
 
 export const mapStateToProps = (state, ownProps) => {
