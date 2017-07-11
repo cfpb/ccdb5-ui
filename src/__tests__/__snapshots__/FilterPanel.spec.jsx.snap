@@ -115,7 +115,9 @@ exports[`initial state renders without crashing 1`] = `
     <p>
       The type of product and sub-product the consumer identified in the complaint
     </p>
-    <ul />
+    <div>
+      <ul />
+    </div>
   </section>
   <hr />
   <section
@@ -152,7 +154,9 @@ exports[`initial state renders without crashing 1`] = `
         type="text"
         value="" />
     </section>
-    <ul />
+    <div>
+      <ul />
+    </div>
   </section>
   <hr />
   <section

@@ -33,133 +33,137 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
       type="text"
       value="" />
   </section>
-  <ul>
-    <div
-      className="aggregation-branch">
+  <div>
+    <ul>
+      <div
+        className="aggregation-branch">
+        <li
+          className="flex-fixed layout-row parent">
+          <input
+            aria-label="Incorrect information on credit report"
+            checked={false}
+            className="flex-fixed"
+            onClick={[Function]}
+            type="checkbox" />
+          <div
+            className="flex-all toggle">
+            <button
+              className="a-btn a-btn__link hover"
+              onClick={[Function]}>
+              <span>
+                Incorrect information on credit report
+              </span>
+              <span
+                className="cf-icon cf-icon-down" />
+            </button>
+          </div>
+          <span
+            className="flex-fixed parent-count">
+            <span>
+              20,991
+            </span>
+          </span>
+        </li>
+      </div>
+      <div
+        className="aggregation-branch">
+        <li
+          className="flex-fixed layout-row parent">
+          <input
+            aria-label="Cont\'d attempts collect debt not owed"
+            checked={false}
+            className="flex-fixed"
+            onClick={[Function]}
+            type="checkbox" />
+          <div
+            className="flex-all toggle">
+            <button
+              className="a-btn a-btn__link hover"
+              onClick={[Function]}>
+              <span>
+                Cont\'d attempts collect debt not owed
+              </span>
+              <span
+                className="cf-icon cf-icon-down" />
+            </button>
+          </div>
+          <span
+            className="flex-fixed parent-count">
+            <span>
+              17,244
+            </span>
+          </span>
+        </li>
+      </div>
       <li
-        className="flex-fixed layout-row parent">
+        className="flex-fixed layout-row">
         <input
-          aria-label="Incorrect information on credit report"
+          aria-label="Loan servicing, payments, escrow account"
           checked={false}
           className="flex-fixed"
           onClick={[Function]}
           type="checkbox" />
-        <div
-          className="flex-all toggle">
-          <button
-            className="a-btn a-btn__link hover"
-            onClick={[Function]}>
-            <span>
-              Incorrect information on credit report
-            </span>
-            <span
-              className="cf-icon cf-icon-down" />
-          </button>
-        </div>
         <span
-          className="flex-fixed parent-count">
+          className="flex-all bucket-key">
+          Loan servicing, payments, escrow account
+        </span>
+        <span
+          className="flex-fixed bucket-count">
           <span>
-            20,991
+            14,605
           </span>
         </span>
       </li>
-    </div>
-    <div
-      className="aggregation-branch">
       <li
-        className="flex-fixed layout-row parent">
+        className="flex-fixed layout-row">
         <input
-          aria-label="Cont\'d attempts collect debt not owed"
+          aria-label="Loan modification,collection,foreclosure"
           checked={false}
           className="flex-fixed"
           onClick={[Function]}
           type="checkbox" />
-        <div
-          className="flex-all toggle">
-          <button
-            className="a-btn a-btn__link hover"
-            onClick={[Function]}>
-            <span>
-              Cont\'d attempts collect debt not owed
-            </span>
-            <span
-              className="cf-icon cf-icon-down" />
-          </button>
-        </div>
         <span
-          className="flex-fixed parent-count">
+          className="flex-all bucket-key">
+          Loan modification,collection,foreclosure
+        </span>
+        <span
+          className="flex-fixed bucket-count">
           <span>
-            17,244
+            10,716
           </span>
         </span>
       </li>
+      <li
+        className="flex-fixed layout-row">
+        <input
+          aria-label="Dealing with my lender or servicer"
+          checked={false}
+          className="flex-fixed"
+          onClick={[Function]}
+          type="checkbox" />
+        <span
+          className="flex-all bucket-key">
+          Dealing with my lender or servicer
+        </span>
+        <span
+          className="flex-fixed bucket-count">
+          <span>
+            7,783
+          </span>
+        </span>
+      </li>
+    </ul>
+    <div
+      className="flex-fixed">
+      <button
+        className="a-btn a-btn__link hover more"
+        onClick={[Function]}>
+        + Show 
+        1
+         
+        more
+      </button>
     </div>
-    <li
-      className="flex-fixed layout-row">
-      <input
-        aria-label="Loan servicing, payments, escrow account"
-        checked={false}
-        className="flex-fixed"
-        onClick={[Function]}
-        type="checkbox" />
-      <span
-        className="flex-all bucket-key">
-        Loan servicing, payments, escrow account
-      </span>
-      <span
-        className="flex-fixed bucket-count">
-        <span>
-          14,605
-        </span>
-      </span>
-    </li>
-    <li
-      className="flex-fixed layout-row">
-      <input
-        aria-label="Loan modification,collection,foreclosure"
-        checked={false}
-        className="flex-fixed"
-        onClick={[Function]}
-        type="checkbox" />
-      <span
-        className="flex-all bucket-key">
-        Loan modification,collection,foreclosure
-      </span>
-      <span
-        className="flex-fixed bucket-count">
-        <span>
-          10,716
-        </span>
-      </span>
-    </li>
-    <li
-      className="flex-fixed layout-row">
-      <input
-        aria-label="Dealing with my lender or servicer"
-        checked={false}
-        className="flex-fixed"
-        onClick={[Function]}
-        type="checkbox" />
-      <span
-        className="flex-all bucket-key">
-        Dealing with my lender or servicer
-      </span>
-      <span
-        className="flex-fixed bucket-count">
-        <span>
-          7,783
-        </span>
-      </span>
-    </li>
-  </ul>
-  <div
-    className="flex-fixed">
-    <button
-      className="a-btn a-btn__link hover more">
-      + Show 
-      1
-       more
-    </button>
   </div>
 </section>
 `;
@@ -199,6 +203,8 @@ exports[`component:Issue snapshots renders without crashing 1`] = `
       type="text"
       value="" />
   </section>
-  <ul />
+  <div>
+    <ul />
+  </div>
 </section>
 `;

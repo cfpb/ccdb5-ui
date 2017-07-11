@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { SLUG_SEPARATOR } from '../constants'
 import AggregationBranch from './AggregationBranch'
 import CollapsibleFilter from './CollapsibleFilter'
+import MoreOrLess from './MoreOrLess'
 import Typeahead from '../Typeahead'
 import { addMultipleFilters } from '../actions/filter'
 import { normalize, slugify, sortSelThenCount } from './utils'
@@ -13,12 +14,13 @@ export class Issue extends React.Component {
 
     this._onInputChange = this._onInputChange.bind(this)
     this._onOptionSelected = this._onOptionSelected.bind(this)
+    this._onBucket = this._onBucket.bind(this)
   }
 
   render() {
-    const all = this.props.options
-    const some = all.length > 5 ? all.slice(0, 5) : all
-    const remain = all.length - 5
+    const listComponentProps = {
+      fieldName: 'issue'
+    }
 
     return (
       <CollapsibleFilter title="Issue / sub-issue"
@@ -29,21 +31,10 @@ export class Issue extends React.Component {
                    onInputChange={this._onInputChange}
                    onOptionSelected={this._onOptionSelected}
                    renderOption={this._renderOption} />
-        <ul>
-          {some.map(bucket =>
-            <AggregationBranch key={bucket.key}
-                               item={bucket}
-                               subitems={bucket['sub_issue.raw'].buckets}
-                               fieldName="issue" />
-          )}
-        </ul>
-          {remain > 0 ? (
-            <div className="flex-fixed">
-               <button className="a-btn a-btn__link hover more">
-                 + Show {remain} more
-               </button>
-            </div>
-          ) : null}
+         <MoreOrLess listComponent={AggregationBranch}
+                     listComponentProps={listComponentProps}
+                     options={this.props.options}
+                     perBucketProps={this._onBucket} />
       </CollapsibleFilter>
     )
   }
@@ -106,6 +97,15 @@ export class Issue extends React.Component {
 
     this.props.typeaheadSelect(values)
   }
+
+  // --------------------------------------------------------------------------
+  // MoreOrLess Helpers
+
+  _onBucket(bucket, props) {
+    props.subitems = bucket['sub_issue.raw'].buckets
+    return props
+  }
+
 }
 
 export const mapStateToProps = state => {
