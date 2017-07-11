@@ -235,7 +235,7 @@ exports[`initial state renders without crashing 1`] = `
         </section>
         <hr />
         <section
-          className="collapsible-filter">
+          className="collapsible-filter aggregation">
           <div
             className="layout-row">
             <h5
@@ -256,9 +256,19 @@ exports[`initial state renders without crashing 1`] = `
           <p>
             The state of the mailing address provided by the consumer
           </p>
-          <input
-            placeholder="Enter state name or abbreviation"
-            type="text" />
+          <section
+            className="typeahead"
+            onBlur={[Function]}
+            onFocus={[Function]}>
+            <input
+              disabled={false}
+              onChange={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Enter state name or abbreviation"
+              type="text"
+              value="" />
+          </section>
+          <ul />
         </section>
         <hr />
         <section
