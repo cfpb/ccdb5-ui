@@ -51,6 +51,7 @@ export class FederalState extends React.Component {
   _onInputChange(value) {
     // Normalize the input value 
     const normalized = normalize(value)
+    const allUpper = normalized.toUpperCase()
 
     // Find the matches
     const filtered = this.props.forTypeahead
@@ -64,9 +65,20 @@ export class FederalState extends React.Component {
         }
       })
 
-    // Sort the matches so that matches at the beginning of the string
-    // appear first
+    // Sort the matches so that:
     filtered.sort((a,b) => {
+      // 1.) A matching state abbreviation appears first (OR > North Carolina)
+      const aMatched = (a.key === allUpper)
+      const bMatched = (b.key === allUpper)
+
+      if( aMatched && !bMatched ) {
+        return -1
+      }
+      if( !aMatched && bMatched ) {
+        return 1
+      }
+
+      // 2.) matches at the beginning of the string appear before later matches
       return a.position - b.position
     })
 
