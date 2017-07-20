@@ -3,7 +3,7 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
-import AggregationItem from './AggregationItem'
+import StickyOptions from './StickyOptions'
 import CollapsibleFilter from './CollapsibleFilter'
 import Typeahead from '../Typeahead'
 import { addMultipleFilters } from '../actions/filter'
@@ -19,6 +19,7 @@ export class FederalState extends React.Component {
     super(props)
     this._onInputChange = this._onInputChange.bind(this)
     this._onOptionSelected = this._onOptionSelected.bind(this)
+    this._onMissingItem = this._onMissingItem.bind(this)
   }
 
   render() {
@@ -31,16 +32,11 @@ export class FederalState extends React.Component {
                    onInputChange={this._onInputChange}
                    onOptionSelected={this._onOptionSelected}
                    renderOption={this._renderOption} />
-        <ul>
-        {
-          this.props.options.map(bucket => 
-            <AggregationItem item={bucket}
-                             key={bucket.key}
-                             fieldName="state"
-            />
-          )
-        }
-        </ul>
+        <StickyOptions fieldName='state'
+                       onMissingItem={this._onMissingItem}
+                       options={this.props.options}
+                       selections={this.props.selections}
+        />
       </CollapsibleFilter>
     )
   }
@@ -51,6 +47,7 @@ export class FederalState extends React.Component {
   _onInputChange(value) {
     // Normalize the input value 
     const normalized = normalize(value)
+    const allUpper = normalized.toUpperCase()
 
     // Find the matches
     const filtered = this.props.forTypeahead
@@ -64,9 +61,20 @@ export class FederalState extends React.Component {
         }
       })
 
-    // Sort the matches so that matches at the beginning of the string
-    // appear first
+    // Sort the matches so that:
     filtered.sort((a,b) => {
+      // 1.) A matching state abbreviation appears first (OR > North Carolina)
+      const aMatched = (a.key === allUpper)
+      const bMatched = (b.key === allUpper)
+
+      if( aMatched && !bMatched ) {
+        return -1
+      }
+      if( !aMatched && bMatched ) {
+        return 1
+      }
+
+      // 2.) matches at the beginning of the string appear before later matches
       return a.position - b.position
     })
 
@@ -89,13 +97,23 @@ export class FederalState extends React.Component {
   _onOptionSelected(item) {
     this.props.typeaheadSelect(item.key)
   }
+
+  // --------------------------------------------------------------------------
+  // StickyOption Helpers
+
+  _onMissingItem(key) {
+    return {
+      key,
+      value: buildLabel(key),
+      doc_count: 0
+    }
+  }
 }
 
 export const mapStateToProps = state => {
   // See if there are an active Federal State filters
   const selections = state.query.state || []
   const options = (state.aggs.state || [])
-    .filter(x => selections.indexOf(x.key) !== -1)
     .map(x => {
       return {
         ...x,
@@ -115,8 +133,9 @@ export const mapStateToProps = state => {
   })
 
   return {
+    forTypeahead,
     options,
-    forTypeahead
+    selections
   }
 }
 
