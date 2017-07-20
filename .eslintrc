@@ -8,7 +8,7 @@ ecmaFeatures:
   destructuring: false
   forOf: true
   generators: false
-  modules: false
+  modules: true
   objectLiteralComputedProperties: false
   objectLiteralDuplicateProperties: false
   objectLiteralShorthandMethods: false
@@ -25,10 +25,7 @@ ecmaFeatures:
   jsx: true
   experimentalObjectRestSpread: false
 
-parser: espree
-
-parserOptions:
-  sourceType: module
+parser: babel-eslint
 
 env:
   browser: true
@@ -59,10 +56,17 @@ env:
 globals:
   $: false
 
+plugins:
+  - react
+
 # Linting rules for ESLint.
 # 0's ignore a rule, 1's produce a warning, and 2's throw an error.
 # See http://eslint.org/docs/rules/ for full documentation.
 rules:
+  # React rules
+  react/jsx-uses-react: 2
+  react/jsx-uses-vars: 2
+  react/react-in-jsx-scope: 2
 
   # Rules for flagging POSSIBLE ERRORS.
 
@@ -890,7 +894,7 @@ rules:
 
   # Requires or disallows use of semicolons instead of ASI.
   semi:
-    - 2
+    - 0
     - always
 
   # Enforces sorting variables within the same declaration block.
