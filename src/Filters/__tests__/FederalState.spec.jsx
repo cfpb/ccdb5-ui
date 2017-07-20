@@ -25,6 +25,7 @@ function setupEnzyme() {
       {key: 'RI', label: 'Rhode Island (RI)', normalized: 'rhode island (ri)'},
       {key: 'WY', label: 'Wyoming (WY)', normalized: 'wyoming (wy)'}
     ],
+    selections: ['DC'],
     showChildren: true,
     typeaheadSelect: jest.fn()
   }
@@ -113,6 +114,19 @@ describe('component::FederalState', () => {
         target.instance()._onOptionSelected({key})
         expect(props.typeaheadSelect).toHaveBeenCalledWith(key)
       })
+    })
+  })
+
+  describe('StickyOptions interface', () => {
+    it('provides the correct label for a missing aggregation', () => {
+        const {target} = setupEnzyme()
+        const key = "WY"
+        const actual = target.instance()._onMissingItem(key)
+        expect(actual).toEqual({
+          key,
+          doc_count: 0,
+          value: 'Wyoming (WY)'
+        })
     })
   })
 
