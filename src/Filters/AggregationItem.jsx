@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import './Aggregation.less'
 import { connect } from 'react-redux'
 import { FormattedNumber } from 'react-intl'
 import { filterChanged } from '../actions/filter'
