@@ -7,7 +7,9 @@ exports[`initial state hides the section when there is no narrative 1`] = `
       className="card-left layout-column">
       <h3
         className="to-detail">
-        <a>
+        <a
+          href="/detail/99990909"
+          onClick={[Function]}>
           99990909
         </a>
       </h3>
@@ -115,7 +117,9 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
       className="card-left layout-column">
       <h3
         className="to-detail">
-        <a>
+        <a
+          href="/detail/99990909"
+          onClick={[Function]}>
           99990909
         </a>
       </h3>
@@ -221,7 +225,9 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
       className="card-left layout-column">
       <h3
         className="to-detail">
-        <a>
+        <a
+          href="/detail/99990909"
+          onClick={[Function]}>
           99990909
         </a>
       </h3>
@@ -327,7 +333,9 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
       className="card-left layout-column">
       <h3
         className="to-detail">
-        <a>
+        <a
+          href="/detail/99990909"
+          onClick={[Function]}>
           99990909
         </a>
       </h3>
@@ -450,7 +458,9 @@ exports[`initial state renders without crashing 1`] = `
       className="card-left layout-column">
       <h3
         className="to-detail">
-        <a>
+        <a
+          href="/detail/99990909"
+          onClick={[Function]}>
           99990909
         </a>
       </h3>
