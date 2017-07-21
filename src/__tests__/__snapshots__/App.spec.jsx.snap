@@ -1,502 +1,504 @@
 exports[`initial state renders without crashing 1`] = `
-<main
-  className="content content__1-3"
-  role="main">
-  <header
-    className="content_hero">
-    <h1>
-      Consumer Complaint Database
-    </h1>
-    <p>
-      Consumer complaints get added to this public database after the company has responded to the complaint (or after they\'ve had the complaint for 15 calendar days, whichever comes first). We only publish the description of what happened if the consumer agrees to share it and after we take steps to 
-      <a>
-        remove personal information
-      </a>
-      . Data is generally updated nightly.
-    </p>
-    <ul
-      className="m-list m-list__horizontal">
-      <li
-        className="m-list_item">
+<div>
+  <main
+    className="content content__1-3"
+    role="main">
+    <header
+      className="content_hero">
+      <h1>
+        Consumer Complaint Database
+      </h1>
+      <p>
+        Consumer complaints get added to this public database after the company has responded to the complaint (or after they\'ve had the complaint for 15 calendar days, whichever comes first). We only publish the description of what happened if the consumer agrees to share it and after we take steps to 
         <a>
-          Database Disclaimers
+          remove personal information
         </a>
-         |
-      </li>
-      <li
-        className="m-list_item">
-        <a>
-          How we use complaint data
-        </a>
-         |
-      </li>
-      <li
-        className="m-list_item">
-        <a>
-          Technical Document
-        </a>
-      </li>
-    </ul>
-  </header>
-  <div
-    className="content_wrapper">
-    <div
-      className="search-panel">
-      <h2>
-        Search Complaint Data
-      </h2>
-      <nav
-        className="search-bar">
-        <form
-          action=""
-          onSubmit={[Function]}>
-          <label
-            className="a-label a-label__heading"
-            htmlFor="searchText">
-            Search Within
-          </label>
-          <input
-            className="btn"
-            type="button"
-            value="Types" />
-          <input
-            id="searchText"
-            onChange={[Function]}
-            placeholder="Enter your search term(s)"
-            type="text"
-            value="foo" />
-          <input
-            className="btn primary"
-            type="submit"
-            value="Search" />
-        </form>
-      </nav>
-    </div>
-    <aside
-      className="content_sidebar">
-      <section
-        className="filter-panel">
-        <h3>
-          Filter results by...
-        </h3>
-        <section
-          className="single-checkbox">
-          <h5>
-            Only show complaints with narratives?
-          </h5>
-          <div
-            className="m-form-field m-form-field__checkbox">
-            <input
-              className="a-checkbox"
-              id="theCheckbox"
-              type="checkbox" />
-            <label
-              className="a-label"
-              htmlFor="theCheckbox">
-              Yes
-            </label>
-          </div>
-        </section>
-        <hr />
-        <section
-          className="collapsible-filter">
-          <div
-            className="layout-row">
-            <h5
-              className="flex-all">
-              Date CFPB Received the complaint
-            </h5>
-            <div
-              className="flex-fixed toggle">
-              <button
-                className="a-btn a-btn__link hover"
-                onClick={[Function]}>
-                Hide
-                <span
-                  className="cf-icon cf-icon-minus-round" />
-              </button>
-            </div>
-          </div>
-          <p />
-          <div
-            className="layout-row">
-            <div
-              className="flex-all">
-              <label
-                className="a-label a-label__heading">
-                From:
-              </label>
-              <input
-                type="date" />
-            </div>
-            <div
-              className="flex-all">
-              <label
-                className="a-label a-label__heading">
-                Through:
-              </label>
-              <input
-                type="date" />
-            </div>
-          </div>
-        </section>
-        <hr />
-        <section
-          className="collapsible-filter">
-          <div
-            className="layout-row">
-            <h5
-              className="flex-all">
-              Matched Company Name
-            </h5>
-            <div
-              className="flex-fixed toggle">
-              <button
-                className="a-btn a-btn__link hover"
-                onClick={[Function]}>
-                Hide
-                <span
-                  className="cf-icon cf-icon-minus-round" />
-              </button>
-            </div>
-          </div>
-          <p>
-            The company name as it appears in our complaint system, which may be different than the name the consumer provided in the complaint
-          </p>
-          <input
-            placeholder="Enter company name"
-            type="text" />
-        </section>
-        <hr />
-        <section
-          className="collapsible-filter aggregation">
-          <div
-            className="layout-row">
-            <h5
-              className="flex-all">
-              Product / sub-product
-            </h5>
-            <div
-              className="flex-fixed toggle">
-              <button
-                className="a-btn a-btn__link hover"
-                onClick={[Function]}>
-                Hide
-                <span
-                  className="cf-icon cf-icon-minus-round" />
-              </button>
-            </div>
-          </div>
-          <p>
-            The type of product and sub-product the consumer identified in the complaint
-          </p>
-          <div>
-            <ul />
-          </div>
-        </section>
-        <hr />
-        <section
-          className="collapsible-filter aggregation">
-          <div
-            className="layout-row">
-            <h5
-              className="flex-all">
-              Issue / sub-issue
-            </h5>
-            <div
-              className="flex-fixed toggle">
-              <button
-                className="a-btn a-btn__link hover"
-                onClick={[Function]}>
-                Hide
-                <span
-                  className="cf-icon cf-icon-minus-round" />
-              </button>
-            </div>
-          </div>
-          <p>
-            The type of issue and sub-issue the consumer identified in the complaint
-          </p>
-          <section
-            className="typeahead"
-            onBlur={[Function]}
-            onFocus={[Function]}>
-            <input
-              disabled={false}
-              onChange={[Function]}
-              onKeyDown={[Function]}
-              placeholder="Enter name of issue"
-              type="text"
-              value="" />
-          </section>
-          <div>
-            <ul />
-          </div>
-        </section>
-        <hr />
-        <section
-          className="collapsible-filter aggregation">
-          <div
-            className="layout-row">
-            <h5
-              className="flex-all">
-              State
-            </h5>
-            <div
-              className="flex-fixed toggle">
-              <button
-                className="a-btn a-btn__link hover"
-                onClick={[Function]}>
-                Hide
-                <span
-                  className="cf-icon cf-icon-minus-round" />
-              </button>
-            </div>
-          </div>
-          <p>
-            The state of the mailing address provided by the consumer
-          </p>
-          <section
-            className="typeahead"
-            onBlur={[Function]}
-            onFocus={[Function]}>
-            <input
-              disabled={false}
-              onChange={[Function]}
-              onKeyDown={[Function]}
-              placeholder="Enter state name or abbreviation"
-              type="text"
-              value="" />
-          </section>
-          <ul />
-        </section>
-        <hr />
-        <section
-          className="collapsible-filter">
-          <div
-            className="layout-row">
-            <h5
-              className="flex-all">
-              Zip Code
-            </h5>
-            <div
-              className="flex-fixed toggle">
-              <button
-                className="a-btn a-btn__link hover"
-                onClick={[Function]}>
-                Hide
-                <span
-                  className="cf-icon cf-icon-minus-round" />
-              </button>
-            </div>
-          </div>
-          <p>
-            The mailing ZIP code provided by the consumer
-          </p>
-          <input
-            placeholder="Enter first three digits of zip code"
-            type="text" />
-        </section>
-        <hr />
-        <section
-          className="collapsible-filter aggregation">
-          <div
-            className="layout-row">
-            <h5
-              className="flex-all">
-              Did company provide a timely response?
-            </h5>
-            <div
-              className="flex-fixed toggle">
-              <button
-                className="a-btn a-btn__link hover"
-                onClick={[Function]}>
-                Show
-                <span
-                  className="cf-icon cf-icon-plus-round" />
-              </button>
-            </div>
-          </div>
-          <p />
-        </section>
-        <hr />
-        <section
-          className="collapsible-filter aggregation">
-          <div
-            className="layout-row">
-            <h5
-              className="flex-all">
-              Company Response
-            </h5>
-            <div
-              className="flex-fixed toggle">
-              <button
-                className="a-btn a-btn__link hover"
-                onClick={[Function]}>
-                Show
-                <span
-                  className="cf-icon cf-icon-plus-round" />
-              </button>
-            </div>
-          </div>
-          <p>
-            How the company responded to the complaint
-          </p>
-        </section>
-        <hr />
-        <section
-          className="collapsible-filter aggregation">
-          <div
-            className="layout-row">
-            <h5
-              className="flex-all">
-              Company Public Response
-            </h5>
-            <div
-              className="flex-fixed toggle">
-              <button
-                className="a-btn a-btn__link hover"
-                onClick={[Function]}>
-                Show
-                <span
-                  className="cf-icon cf-icon-plus-round" />
-              </button>
-            </div>
-          </div>
-          <p>
-            The company\'s optional public-facing response to a consumer\'s complaint
-          </p>
-        </section>
-        <hr />
-        <section
-          className="collapsible-filter aggregation">
-          <div
-            className="layout-row">
-            <h5
-              className="flex-all">
-              Did the consumer dispute the response?
-            </h5>
-            <div
-              className="flex-fixed toggle">
-              <button
-                className="a-btn a-btn__link hover"
-                onClick={[Function]}>
-                Show
-                <span
-                  className="cf-icon cf-icon-plus-round" />
-              </button>
-            </div>
-          </div>
-          <p />
-        </section>
-        <hr />
-        <section
-          className="collapsible-filter aggregation">
-          <div
-            className="layout-row">
-            <h5
-              className="flex-all">
-              Consumer Consent
-            </h5>
-            <div
-              className="flex-fixed toggle">
-              <button
-                className="a-btn a-btn__link hover"
-                onClick={[Function]}>
-                Show
-                <span
-                  className="cf-icon cf-icon-plus-round" />
-              </button>
-            </div>
-          </div>
-          <p>
-            Whether a consumer opted to publish their compaint narrative
-          </p>
-        </section>
-      </section>
-    </aside>
-    <section
-      className="results-panel content_main">
-      <summary
-        className="action-bar">
-        <div>
-          <h2>
-            Showing 
-            <span>
-              0
-            </span>
-             total complaints
-          </h2>
-        </div>
-        <div
-          className="layout-row">
-          <div
-            className="cf-select">
-            <select
-              id="choose-size"
-              onChange={[Function]}
-              value={10}>
-              <option
-                value={10}>
-                Show 
-                10
-                 results
-              </option>
-              <option
-                value={25}>
-                Show 
-                25
-                 results
-              </option>
-              <option
-                value={50}>
-                Show 
-                50
-                 results
-              </option>
-              <option
-                value={100}>
-                Show 
-                100
-                 results
-              </option>
-            </select>
-          </div>
-          <div
-            className="cf-select">
-            <select
-              id="choose-sort"
-              onChange={[Function]}
-              value="relevance_desc">
-              <option
-                value="relevance_desc">
-                Sort by relevance
-              </option>
-              <option
-                value="relevance_asc">
-                Sort by relevance (asc)
-              </option>
-              <option
-                value="created_date_asc">
-                Sort by oldest to newest
-              </option>
-              <option
-                value="created_date_desc">
-                Sort by newest to oldest
-              </option>
-            </select>
-          </div>
-          <h5
-            className="flex-all">
-            <a>
-              Export results
-            </a>
-          </h5>
-        </div>
-      </summary>
+        . Data is generally updated nightly.
+      </p>
       <ul
-        className="cards-panel" />
-    </section>
-  </div>
-</main>
+        className="m-list m-list__horizontal">
+        <li
+          className="m-list_item">
+          <a>
+            Database Disclaimers
+          </a>
+           |
+        </li>
+        <li
+          className="m-list_item">
+          <a>
+            How we use complaint data
+          </a>
+           |
+        </li>
+        <li
+          className="m-list_item">
+          <a>
+            Technical Document
+          </a>
+        </li>
+      </ul>
+    </header>
+    <div
+      className="content_wrapper">
+      <div
+        className="search-panel">
+        <h2>
+          Search Complaint Data
+        </h2>
+        <nav
+          className="search-bar">
+          <form
+            action=""
+            onSubmit={[Function]}>
+            <label
+              className="a-label a-label__heading"
+              htmlFor="searchText">
+              Search Within
+            </label>
+            <input
+              className="btn"
+              type="button"
+              value="Types" />
+            <input
+              id="searchText"
+              onChange={[Function]}
+              placeholder="Enter your search term(s)"
+              type="text"
+              value="foo" />
+            <input
+              className="btn primary"
+              type="submit"
+              value="Search" />
+          </form>
+        </nav>
+      </div>
+      <aside
+        className="content_sidebar">
+        <section
+          className="filter-panel">
+          <h3>
+            Filter results by...
+          </h3>
+          <section
+            className="single-checkbox">
+            <h5>
+              Only show complaints with narratives?
+            </h5>
+            <div
+              className="m-form-field m-form-field__checkbox">
+              <input
+                className="a-checkbox"
+                id="theCheckbox"
+                type="checkbox" />
+              <label
+                className="a-label"
+                htmlFor="theCheckbox">
+                Yes
+              </label>
+            </div>
+          </section>
+          <hr />
+          <section
+            className="collapsible-filter">
+            <div
+              className="layout-row">
+              <h5
+                className="flex-all">
+                Date CFPB Received the complaint
+              </h5>
+              <div
+                className="flex-fixed toggle">
+                <button
+                  className="a-btn a-btn__link hover"
+                  onClick={[Function]}>
+                  Hide
+                  <span
+                    className="cf-icon cf-icon-minus-round" />
+                </button>
+              </div>
+            </div>
+            <p />
+            <div
+              className="layout-row">
+              <div
+                className="flex-all">
+                <label
+                  className="a-label a-label__heading">
+                  From:
+                </label>
+                <input
+                  type="date" />
+              </div>
+              <div
+                className="flex-all">
+                <label
+                  className="a-label a-label__heading">
+                  Through:
+                </label>
+                <input
+                  type="date" />
+              </div>
+            </div>
+          </section>
+          <hr />
+          <section
+            className="collapsible-filter">
+            <div
+              className="layout-row">
+              <h5
+                className="flex-all">
+                Matched Company Name
+              </h5>
+              <div
+                className="flex-fixed toggle">
+                <button
+                  className="a-btn a-btn__link hover"
+                  onClick={[Function]}>
+                  Hide
+                  <span
+                    className="cf-icon cf-icon-minus-round" />
+                </button>
+              </div>
+            </div>
+            <p>
+              The company name as it appears in our complaint system, which may be different than the name the consumer provided in the complaint
+            </p>
+            <input
+              placeholder="Enter company name"
+              type="text" />
+          </section>
+          <hr />
+          <section
+            className="collapsible-filter aggregation">
+            <div
+              className="layout-row">
+              <h5
+                className="flex-all">
+                Product / sub-product
+              </h5>
+              <div
+                className="flex-fixed toggle">
+                <button
+                  className="a-btn a-btn__link hover"
+                  onClick={[Function]}>
+                  Hide
+                  <span
+                    className="cf-icon cf-icon-minus-round" />
+                </button>
+              </div>
+            </div>
+            <p>
+              The type of product and sub-product the consumer identified in the complaint
+            </p>
+            <div>
+              <ul />
+            </div>
+          </section>
+          <hr />
+          <section
+            className="collapsible-filter aggregation">
+            <div
+              className="layout-row">
+              <h5
+                className="flex-all">
+                Issue / sub-issue
+              </h5>
+              <div
+                className="flex-fixed toggle">
+                <button
+                  className="a-btn a-btn__link hover"
+                  onClick={[Function]}>
+                  Hide
+                  <span
+                    className="cf-icon cf-icon-minus-round" />
+                </button>
+              </div>
+            </div>
+            <p>
+              The type of issue and sub-issue the consumer identified in the complaint
+            </p>
+            <section
+              className="typeahead"
+              onBlur={[Function]}
+              onFocus={[Function]}>
+              <input
+                disabled={false}
+                onChange={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Enter name of issue"
+                type="text"
+                value="" />
+            </section>
+            <div>
+              <ul />
+            </div>
+          </section>
+          <hr />
+          <section
+            className="collapsible-filter aggregation">
+            <div
+              className="layout-row">
+              <h5
+                className="flex-all">
+                State
+              </h5>
+              <div
+                className="flex-fixed toggle">
+                <button
+                  className="a-btn a-btn__link hover"
+                  onClick={[Function]}>
+                  Hide
+                  <span
+                    className="cf-icon cf-icon-minus-round" />
+                </button>
+              </div>
+            </div>
+            <p>
+              The state of the mailing address provided by the consumer
+            </p>
+            <section
+              className="typeahead"
+              onBlur={[Function]}
+              onFocus={[Function]}>
+              <input
+                disabled={false}
+                onChange={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Enter state name or abbreviation"
+                type="text"
+                value="" />
+            </section>
+            <ul />
+          </section>
+          <hr />
+          <section
+            className="collapsible-filter">
+            <div
+              className="layout-row">
+              <h5
+                className="flex-all">
+                Zip Code
+              </h5>
+              <div
+                className="flex-fixed toggle">
+                <button
+                  className="a-btn a-btn__link hover"
+                  onClick={[Function]}>
+                  Hide
+                  <span
+                    className="cf-icon cf-icon-minus-round" />
+                </button>
+              </div>
+            </div>
+            <p>
+              The mailing ZIP code provided by the consumer
+            </p>
+            <input
+              placeholder="Enter first three digits of zip code"
+              type="text" />
+          </section>
+          <hr />
+          <section
+            className="collapsible-filter aggregation">
+            <div
+              className="layout-row">
+              <h5
+                className="flex-all">
+                Did company provide a timely response?
+              </h5>
+              <div
+                className="flex-fixed toggle">
+                <button
+                  className="a-btn a-btn__link hover"
+                  onClick={[Function]}>
+                  Show
+                  <span
+                    className="cf-icon cf-icon-plus-round" />
+                </button>
+              </div>
+            </div>
+            <p />
+          </section>
+          <hr />
+          <section
+            className="collapsible-filter aggregation">
+            <div
+              className="layout-row">
+              <h5
+                className="flex-all">
+                Company Response
+              </h5>
+              <div
+                className="flex-fixed toggle">
+                <button
+                  className="a-btn a-btn__link hover"
+                  onClick={[Function]}>
+                  Show
+                  <span
+                    className="cf-icon cf-icon-plus-round" />
+                </button>
+              </div>
+            </div>
+            <p>
+              How the company responded to the complaint
+            </p>
+          </section>
+          <hr />
+          <section
+            className="collapsible-filter aggregation">
+            <div
+              className="layout-row">
+              <h5
+                className="flex-all">
+                Company Public Response
+              </h5>
+              <div
+                className="flex-fixed toggle">
+                <button
+                  className="a-btn a-btn__link hover"
+                  onClick={[Function]}>
+                  Show
+                  <span
+                    className="cf-icon cf-icon-plus-round" />
+                </button>
+              </div>
+            </div>
+            <p>
+              The company\'s optional public-facing response to a consumer\'s complaint
+            </p>
+          </section>
+          <hr />
+          <section
+            className="collapsible-filter aggregation">
+            <div
+              className="layout-row">
+              <h5
+                className="flex-all">
+                Did the consumer dispute the response?
+              </h5>
+              <div
+                className="flex-fixed toggle">
+                <button
+                  className="a-btn a-btn__link hover"
+                  onClick={[Function]}>
+                  Show
+                  <span
+                    className="cf-icon cf-icon-plus-round" />
+                </button>
+              </div>
+            </div>
+            <p />
+          </section>
+          <hr />
+          <section
+            className="collapsible-filter aggregation">
+            <div
+              className="layout-row">
+              <h5
+                className="flex-all">
+                Consumer Consent
+              </h5>
+              <div
+                className="flex-fixed toggle">
+                <button
+                  className="a-btn a-btn__link hover"
+                  onClick={[Function]}>
+                  Show
+                  <span
+                    className="cf-icon cf-icon-plus-round" />
+                </button>
+              </div>
+            </div>
+            <p>
+              Whether a consumer opted to publish their compaint narrative
+            </p>
+          </section>
+        </section>
+      </aside>
+      <section
+        className="results-panel content_main">
+        <summary
+          className="action-bar">
+          <div>
+            <h2>
+              Showing 
+              <span>
+                0
+              </span>
+               total complaints
+            </h2>
+          </div>
+          <div
+            className="layout-row">
+            <div
+              className="cf-select">
+              <select
+                id="choose-size"
+                onChange={[Function]}
+                value={10}>
+                <option
+                  value={10}>
+                  Show 
+                  10
+                   results
+                </option>
+                <option
+                  value={25}>
+                  Show 
+                  25
+                   results
+                </option>
+                <option
+                  value={50}>
+                  Show 
+                  50
+                   results
+                </option>
+                <option
+                  value={100}>
+                  Show 
+                  100
+                   results
+                </option>
+              </select>
+            </div>
+            <div
+              className="cf-select">
+              <select
+                id="choose-sort"
+                onChange={[Function]}
+                value="relevance_desc">
+                <option
+                  value="relevance_desc">
+                  Sort by relevance
+                </option>
+                <option
+                  value="relevance_asc">
+                  Sort by relevance (asc)
+                </option>
+                <option
+                  value="created_date_asc">
+                  Sort by oldest to newest
+                </option>
+                <option
+                  value="created_date_desc">
+                  Sort by newest to oldest
+                </option>
+              </select>
+            </div>
+            <h5
+              className="flex-all">
+              <a>
+                Export results
+              </a>
+            </h5>
+          </div>
+        </summary>
+        <ul
+          className="cards-panel" />
+      </section>
+    </div>
+  </main>
+</div>
 `;
