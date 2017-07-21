@@ -6,6 +6,8 @@ import CollapsibleFilter from './Filters/CollapsibleFilter'
 import FederalState from './Filters/FederalState'
 import Issue from './Filters/Issue'
 import SingleCheckbox from './Filters/SingleCheckbox'
+import ZipCode from './Filters/ZipCode'
+
 
 export class FilterPanel extends React.Component {
   render() {
@@ -42,10 +44,7 @@ export class FilterPanel extends React.Component {
         <hr />
         <FederalState />
         <hr />
-        <CollapsibleFilter title="Zip Code"
-                           desc="The mailing ZIP code provided by the consumer">
-            <input type="text" placeholder="Enter first three digits of zip code" />
-        </CollapsibleFilter>
+        <ZipCode />
         <hr />
         <Aggregation title="Did company provide a timely response?"
                      fieldName="timely"
