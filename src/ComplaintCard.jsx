@@ -13,12 +13,20 @@ export default class ComplaintCard extends React.Component {
     let narrative = row.complaint_what_happened || ""
     const hasOverflow = narrative.length > MAX_NARRATIVE
     narrative = narrative.substring(0, MAX_NARRATIVE)
+    const complaintIdPath = '/detail/' + row.complaint_id;
 
     return (
       <li className="card-container">
         <div className="card">
           <div className="card-left layout-column">
-            <h3 className="to-detail"><Link to={'/detail/' + row.complaint_id } >{ row.complaint_id }</Link></h3>
+            <h3 className="to-detail">
+              <Link to={{
+               pathname: complaintIdPath,
+               state: { complaint_id: row.complaint_id }
+              }}>
+                { row.complaint_id }
+              </Link>
+            </h3>
             <h5>Matched company name</h5>
             <span className="body-copy">{ row.company }</span>
             <br />

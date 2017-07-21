@@ -63,7 +63,7 @@ export class DetailComponents extends React.Component {
   render() {
     return (
       <div>
-        <p>YOU HAVE REACHED THE DETAIL SCREEN.</p>
+        <p>ID = {this.props.match.params.id}</p>
       </div>
     )
   }
@@ -77,7 +77,7 @@ export class App extends React.Component {
         <Router>
           <div>
             <Route exact path="/" component={SearchComponents}/>
-            <Route path="/detail" component={DetailComponents}/>
+            <Route path="/detail/:id" component={DetailComponents}/>
           </div>
         </Router>
 
