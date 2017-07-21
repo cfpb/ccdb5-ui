@@ -272,7 +272,7 @@ exports[`initial state renders without crashing 1`] = `
         </section>
         <hr />
         <section
-          className="collapsible-filter">
+          className="collapsible-filter aggregation">
           <div
             className="layout-row">
             <h5
@@ -293,9 +293,19 @@ exports[`initial state renders without crashing 1`] = `
           <p>
             The mailing ZIP code provided by the consumer
           </p>
-          <input
-            placeholder="Enter first three digits of zip code"
-            type="text" />
+          <section
+            className="typeahead"
+            onBlur={[Function]}
+            onFocus={[Function]}>
+            <input
+              disabled={false}
+              onChange={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Enter first three digits of zip code"
+              type="text"
+              value="" />
+          </section>
+          <ul />
         </section>
         <hr />
         <section

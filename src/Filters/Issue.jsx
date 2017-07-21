@@ -4,15 +4,14 @@ import { SLUG_SEPARATOR } from '../constants'
 import AggregationBranch from './AggregationBranch'
 import CollapsibleFilter from './CollapsibleFilter'
 import MoreOrLess from './MoreOrLess'
-import Typeahead from '../Typeahead'
+import Typeahead from '../Typeahead/HighlightingTypeahead'
 import { addMultipleFilters } from '../actions/filter'
-import { normalize, slugify, sortSelThenCount } from './utils'
+import { slugify, sortSelThenCount } from './utils'
 
 export class Issue extends React.Component {
   constructor(props) {
     super(props)
 
-    this._onInputChange = this._onInputChange.bind(this)
     this._onOptionSelected = this._onOptionSelected.bind(this)
     this._onBucket = this._onBucket.bind(this)
   }
@@ -28,56 +27,19 @@ export class Issue extends React.Component {
                          showChildren={this.props.showChildren}
                          className="aggregation">
         <Typeahead placeholder="Enter name of issue"
-                   onInputChange={this._onInputChange}
+                   options={this.props.forTypeahead}
                    onOptionSelected={this._onOptionSelected}
-                   renderOption={this._renderOption} />
-         <MoreOrLess listComponent={AggregationBranch}
-                     listComponentProps={listComponentProps}
-                     options={this.props.options}
-                     perBucketProps={this._onBucket} />
+        />
+        <MoreOrLess listComponent={AggregationBranch}
+                    listComponentProps={listComponentProps}
+                    options={this.props.options}
+                    perBucketProps={this._onBucket} />
       </CollapsibleFilter>
     )
   }
 
   // --------------------------------------------------------------------------
   // Typeahead Helpers
-
-  _onInputChange(value) {
-    // Normalize the input value 
-    const normalized = normalize(value)
-
-    // Find the matches
-    const filtered = this.props.forTypeahead
-      .filter(x => x.normalized.indexOf(normalized) !== -1)
-      .map(x => {
-        return {
-          key: x.key,
-          position: x.normalized.indexOf(normalized),
-          value
-        }
-      })
-
-    // Sort the matches so that matches at the beginning of the string
-    // appear first
-    filtered.sort((a,b) => {
-      return a.position - b.position
-    })
-
-    return filtered
-  }
-
-  _renderOption(obj) {
-    const start = obj.key.substring(0, obj.position)
-    const match = obj.key.substr(obj.position, obj.value.length)
-    const end = obj.key.substring(obj.position + obj.value.length)
-
-    return {
-      value: obj.key,
-      component: (
-        <span>{start}<b>{match}</b>{end}</span>
-      )
-    }
-  }
 
   _onOptionSelected(item) {
     // Find this option in the list
@@ -105,7 +67,6 @@ export class Issue extends React.Component {
     props.subitems = bucket['sub_issue.raw'].buckets
     return props
   }
-
 }
 
 export const mapStateToProps = state => {
@@ -126,12 +87,7 @@ export const mapStateToProps = state => {
   const options = sortSelThenCount(state.aggs.issue, selections)
 
   // create an array optimized for typeahead
-  const forTypeahead = options.map(x => {
-    return {
-      key: x.key,
-      normalized: normalize(x.key)
-    }
-  })
+  const forTypeahead = options.map( x => x.key )
 
   return {
     options,

@@ -62,11 +62,7 @@ const fixture = [
 function setupEnzyme(initial) {
   const props = {
     options: initial,
-    forTypeahead: [
-      {key: 'Foo', normalized: 'foo'},
-      {key: 'Bar', normalized: 'bar'},
-      {key: 'Baz', normalized: 'baz'},
-    ],
+    forTypeahead: ['Foo', 'Bar', 'Baz'],
     typeaheadSelect: jest.fn()
   }
 
@@ -116,24 +112,6 @@ describe('component:Issue', () => {
     let target, props
     beforeEach(() => {
       ({target, props} = setupEnzyme(fixture))
-    })
-
-    describe('_onInputChange', () => {
-      it('produces a custom array of matches', () => {
-        const actual = target.instance()._onInputChange('BA')
-        expect(actual.length).toEqual(2)
-      })
-    })
-
-    describe('_renderOption', () => {
-      it('produces a custom component', () => {
-        const options = target.instance()._onInputChange('FOO')
-        const actual = target.instance()._renderOption(options[0])
-        expect(actual).toEqual({
-          value: 'Foo',
-          component: expect.anything()
-        })
-      })
     })
 
     describe('_onOptionSelected', () => {
