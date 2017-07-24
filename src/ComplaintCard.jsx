@@ -1,7 +1,6 @@
 import React from 'react';
 import { FormattedDate } from 'react-intl';
 import './ComplaintCard.less';
-import { Link } from 'react-router-dom';
 
 const MAX_NARRATIVE = 300
 
@@ -20,12 +19,7 @@ export default class ComplaintCard extends React.Component {
         <div className="card">
           <div className="card-left layout-column">
             <h3 className="to-detail">
-              <Link to={{
-               pathname: complaintIdPath,
-               state: { complaint_id: row.complaint_id }
-              }}>
-                { row.complaint_id }
-              </Link>
+              <a href={ complaintIdPath }>{ row.complaint_id }</a>
             </h3>
             <h5>Matched company name</h5>
             <span className="body-copy">{ row.company }</span>

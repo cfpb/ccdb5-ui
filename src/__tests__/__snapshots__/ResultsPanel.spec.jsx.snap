@@ -93,8 +93,7 @@ exports[`component:ReactPanel renders without crashing 1`] = `
           <h3
             className="to-detail">
             <a
-              href="/detail/1"
-              onClick={[Function]}>
+              href="/detail/1">
               1
             </a>
           </h3>
