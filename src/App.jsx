@@ -16,6 +16,7 @@ import FilterPanel from './FilterPanel';
 import Hero from './Hero';
 import SearchPanel from './SearchPanel';
 import ResultsPanel from './ResultsPanel';
+import RootModal from './Dialogs/RootModal'
 import UrlBarSynch from './UrlBarSynch';
 import './App.less';
 
@@ -48,6 +49,7 @@ export class App extends React.Component {
               </aside>
               <ResultsPanel className="content_main" />
             </div>
+            <RootModal />
           </main>
         </IntlProvider>
       </Provider>
