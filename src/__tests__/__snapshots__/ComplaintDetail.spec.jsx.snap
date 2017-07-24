@@ -1,0 +1,7 @@
+exports[`initial state renders without crashing 1`] = `
+<div>
+  <p>
+    THE COMPLAINT ID YOU HAVE REQUESTED IS: 
+  </p>
+</div>
+`;
