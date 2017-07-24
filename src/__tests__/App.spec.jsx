@@ -28,7 +28,6 @@ describe('initial state', () => {
     );
 
     let detailTree = detailTarget.toJSON();
-    console.log("DETAIL TREE: ", detailTree);
     expect(detailTree).toMatchSnapshot();
   });
 });
