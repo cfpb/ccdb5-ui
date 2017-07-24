@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import ActionBar from './ActionBar';
 import ComplaintCard from './ComplaintCard';
 import Pagination from './Pagination';
+import { MemoryRouter } from 'react-router';
 import './ResultsPanel.less';
 
 export class ResultsPanel extends React.Component {
@@ -13,6 +14,7 @@ export class ResultsPanel extends React.Component {
     }
 
     return (
+      <MemoryRouter>
         <section className={composeClasses}>
           <ActionBar />
           <ul className="cards-panel">
@@ -22,6 +24,7 @@ export class ResultsPanel extends React.Component {
           </ul>
           <Pagination />
         </section>
+      </MemoryRouter>
     );
   }
 }
