@@ -13,7 +13,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import {
   BrowserRouter as Router,
-  Route
+  Route,
+  Switch
 } from 'react-router-dom'
 
 
@@ -22,6 +23,7 @@ import FilterPanel from './FilterPanel';
 import Hero from './Hero';
 import SearchPanel from './SearchPanel';
 import ResultsPanel from './ResultsPanel';
+import ComplaintDetail from './ComplaintDetail';
 import UrlBarSynch from './UrlBarSynch';
 import './App.less';
 
@@ -61,10 +63,12 @@ export class SearchComponents extends React.Component {
 
 export class DetailComponents extends React.Component {
   render() {
+    const complaint_id = this.props.match.params.id;
+
     return (
-      <div>
-        <p>ID = {this.props.match.params.id}</p>
-      </div>
+      <IntlProvider locale="en">
+          <ComplaintDetail complaint_id={complaint_id}/>
+      </IntlProvider>
     )
   }
 }
@@ -72,15 +76,13 @@ export class DetailComponents extends React.Component {
 export class App extends React.Component {
   render() {
     return (
-
       <Provider store={store}>
         <Router>
-          <div>
+          <Switch>
             <Route exact path="/" component={SearchComponents}/>
             <Route path="/detail/:id" component={DetailComponents}/>
-          </div>
+          </Switch>
         </Router>
-
       </Provider>
     );
   }
