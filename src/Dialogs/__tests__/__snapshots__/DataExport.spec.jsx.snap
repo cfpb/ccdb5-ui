@@ -1,0 +1,5 @@
+exports[`component::DataExport initial state renders without crashing 1`] = `
+<span>
+  Hello JSX
+</span>
+`;

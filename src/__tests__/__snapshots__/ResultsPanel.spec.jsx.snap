@@ -76,9 +76,11 @@ exports[`component:ReactPanel renders without crashing 1`] = `
       </div>
       <h5
         className="flex-all">
-        <a>
+        <button
+          className="a-btn a-btn__link hover"
+          onClick={[Function]}>
           Export results
-        </a>
+        </button>
       </h5>
     </div>
   </summary>
