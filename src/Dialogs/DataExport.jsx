@@ -60,9 +60,6 @@ export class DataExport extends React.Component {
                 </label>
             </div>
           </div>
-          <div className="disclaimer">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur semper tincidunt neque. Suspendisse potenti. Duis ac risus eget lorem feugiat blandit. Sed non tempus nisi, ut fermentum lorem. Nunc quis lorem sapien. Vestibulum consequat pharetra lectus et hendrerit. Curabitur porttitor orci sit amet enim posuere, non congue orci luctus.
-          </div>
           <div className="timeliness-warning">
             The export process could take several minutes if you're downloading many complaints
           </div>
