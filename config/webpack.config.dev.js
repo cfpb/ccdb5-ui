@@ -74,7 +74,7 @@ module.exports = merge({
         loader: 'string-replace',
         query: {
           search: '@@API',
-          replace: 'http://localhost:8000/data-research/consumer-complaints/api/v1/'
+          replace: 'http://localhost:8000/data-research/consumer-complaints/search/api/v1/'
           // If using the API without cf.gov build, you can use:
           // replace: 'http://localhost:8000/'
         }
