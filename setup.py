@@ -14,7 +14,7 @@ def read_file(filename):
 
 setup(
     name='ccdb5_ui',
-    version='0.2.1',
+    version='0.3.0',
     author='CFPB',
     author_email='tech@cfpb.gov',
     maintainer='cfpb',
