@@ -4,6 +4,9 @@
   max-width: 480px;
 
   .header {
+    padding: @gutter-normal;
+    padding-bottom: 0;
+
     -webkit-align-items: flex-start;
             align-items: flex-start;
 
@@ -21,6 +24,8 @@
   }
 
   .body {
+    padding: 0 @gutter-normal;
+
     .instructions {
       margin-bottom: @gutter-normal;
     }
@@ -46,22 +51,27 @@
       .caveat {
         font-size: smaller;
       }
-    }
 
-    .disclaimer {
-      margin: @gutter-normal 0;
+      .other-formats {
+        margin-top: @gutter-normal * 1.5;
+
+        .a-btn__link {
+          color: @pacific;
+        }
+      }
     }
 
     .timeliness-warning {
-      margin: @gutter-normal 0;
+      margin-bottom: @gutter-normal * 1.5;
 
       font-size: smaller;
     }
   }
 
   .footer {
-    margin-top: @gutter-normal;
+    padding: @gutter-normal;
 
+    background-color: @gray-5;
     -webkit-align-items: baseline;
             align-items: baseline;
 
