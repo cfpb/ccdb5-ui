@@ -1,3 +1,2 @@
-include AUTHORS CHANGELOG.md README.md INSTALL.md LICENCE
-recursive-include eregs *.py *.html *.js
+include CHANGELOG.md README.md INSTALL.md LICENSE
 recursive-include ccdb5_ui *.py *.html *.js
