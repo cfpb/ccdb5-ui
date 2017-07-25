@@ -1,0 +1,76 @@
+@import (less) "../base.less";
+
+.export-modal {
+  max-width: 480px;
+
+  .header {
+    -webkit-align-items: flex-start;
+            align-items: flex-start;
+
+    .a-btn__link {
+      border: 0;
+
+      color: @pacific;
+    }
+
+    .cf-icon {
+      padding-left: @gutter-minimum;
+
+      color: @pacific;
+    }  
+  }
+
+  .body {
+    .instructions {
+      margin-bottom: @gutter-normal;
+    }
+
+    .group {
+      margin-bottom: @gutter-wide;
+
+      .group-title {
+        margin: @gutter-normal 0;
+
+        font-size: @size-iv;
+        font-weight: bold;
+      }
+
+      .m-form-field {
+        margin-bottom: @gutter-normal;
+
+        .multiline-label {
+          display: inline-block;
+        }
+      }
+
+      .caveat {
+        font-size: smaller;
+      }
+    }
+
+    .disclaimer {
+      margin: @gutter-normal 0;
+    }
+
+    .timeliness-warning {
+      margin: @gutter-normal 0;
+
+      font-size: smaller;
+    }
+  }
+
+  .footer {
+    margin-top: @gutter-normal;
+
+    -webkit-align-items: baseline;
+            align-items: baseline;
+
+    button {
+      margin-right: @gutter-normal;
+
+      &.a-btn__link {
+        height: @size-iv;
+      }
+    }
+  }
+}
