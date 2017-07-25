@@ -79,7 +79,7 @@ module.exports = merge({
         loader: 'string-replace',
         query: {
           search: '@@API',
-          replace: '/data-research/consumer-complaints/api/v1/'
+          replace: '/data-research/consumer-complaints/search/api/v1/'
         }
       },
       // The notation here is somewhat confusing.
