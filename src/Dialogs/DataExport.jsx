@@ -1,7 +1,23 @@
 import React from 'react'
+import { FormattedNumber } from 'react-intl'
+import { connect } from 'react-redux'
 import './DataExport.less'
+import { exportResults, visitSocrata } from '../actions/dataExport'
 
 export class DataExport extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      dataset: 'filtered',
+      format: 'json'
+    }
+
+    this._chooseDataset = this._chooseDataset.bind(this)
+    this._chooseFormat = this._chooseFormat.bind(this)
+    this._exportClicked = this._exportClicked.bind(this)
+  }
+
   render() {
     return (
       <section className='export-modal'>
@@ -24,12 +40,30 @@ export class DataExport extends React.Component {
               Select a format for the exported file
             </div>
             <div className="m-form-field m-form-field__radio">
-                <input className="a-radio" type="radio" id="format_csv"/>
-                <label className="a-label" for="format_csv">CSV</label>
+              <input checked={this.state.format === 'csv'}
+                     className="a-radio"
+                     id="format_csv"
+                     onChange={this._chooseFormat}
+                     type="radio"
+                     value='csv' />
+              <label className="a-label" htmlFor="format_csv">CSV</label>
             </div>
             <div className="m-form-field m-form-field__radio">
-                <input className="a-radio" type="radio" id="format_json" />
-                <label className="a-label" for="format_json">JSON</label>
+              <input checked={this.state.format === 'json'}
+                     className="a-radio"
+                     id="format_json"
+                     onChange={this._chooseFormat} 
+                     type="radio"
+                     value='json' />
+              <label className="a-label" htmlFor="format_json">JSON</label>
+            </div>
+            <div className="other-formats">
+              Or you can&nbsp;
+              <button className="a-btn a-btn__link"
+                      onClick={this.props.onOtherFormats}>
+               download the data in a different format
+              </button>
+              , if needed.
             </div>
           </div>
 
@@ -38,26 +72,44 @@ export class DataExport extends React.Component {
               Select which complaints you'd like to export
             </div>
             <div className="m-form-field m-form-field__radio">
-                <input className="a-radio" type="radio" id="dataset_filtered" />
-                <label className="a-label" for="dataset_filtered">
-                  <div className="multiline-label">
-                    <div>Filtered dataset (xxx,xxx complaints)</div>
-                    <div className='caveat'>
-                    (only the results of the last search and/or filter performed)
-                    </div>
+              <input checked={this.state.dataset === 'filtered'}
+                     className="a-radio"
+                     id="dataset_filtered"
+                     onChange={this._chooseDataset}
+                     type="radio"
+                     value='filtered' />
+              <label className="a-label" htmlFor="dataset_filtered">
+                <div className="multiline-label">
+                  <div>
+                    Filtered dataset (
+                    <FormattedNumber value={this.props.someComplaints} />
+                    &nbsp;complaints)
                   </div>
-                </label>
+                  <div className='caveat'>
+                  (only the results of the last search and/or filter performed)
+                  </div>
+                </div>
+              </label>
             </div>
             <div className="m-form-field m-form-field__radio">
-                <input className="a-radio" type="radio" id="dataset_full" />
-                <label className="a-label" for="dataset_full">
-                  <div className="multiline-label">
-                    <div>Full dataset (xxx,xxx complaints)</div>
-                    <div className='caveat'>
-                    (not recommended due to very large file size)
-                    </div>
+              <input checked={this.state.dataset === 'full'}
+                     className="a-radio"
+                     id="dataset_full"
+                     onChange={this._chooseDataset}
+                     type="radio"
+                     value='full' />
+              <label className="a-label" htmlFor="dataset_full">
+                <div className="multiline-label">
+                  <div>
+                    Full dataset (
+                    <FormattedNumber value={this.props.allComplaints} />
+                    &nbsp;complaints)
                   </div>
-                </label>
+                  <div className='caveat'>
+                  (not recommended due to very large file size)
+                  </div>
+                </div>
+              </label>
             </div>
           </div>
           <div className="timeliness-warning">
@@ -65,7 +117,10 @@ export class DataExport extends React.Component {
           </div>
         </div>
         <div className="footer layout-row">
-          <button className="a-btn">Start Export</button>
+          <button className="a-btn"
+                  onClick={this._exportClicked}>
+            Start Export
+          </button>
           <button className="a-btn a-btn__link a-btn__warning"
                   onClick={this.props.onClose}>
             Cancel
@@ -74,6 +129,42 @@ export class DataExport extends React.Component {
       </section>
     )
   }
+
+  // --------------------------------------------------------------------------
+  // Form helpers
+
+  _chooseDataset(ev) {
+    this.setState({
+      dataset: ev.target.value
+    });
+  }
+
+  _chooseFormat(ev) {
+    this.setState({
+      format: ev.target.value
+    });
+  }
+
+  _exportClicked(ev) {
+    const size = (this.state.dataset === 'full') 
+      ? this.props.allComplaints
+      : this.props.someComplaints
+    this.props.startExport(this.state.format, size)
+  }
 }
 
-export default DataExport
+export const mapStateToProps = state => {
+  return {
+    someComplaints: state.results.total,
+    allComplaints: state.results.doc_count
+  }
+}
+
+export const mapDispatchToProps = dispatch => {
+  return {
+    onOtherFormats: _ => dispatch(visitSocrata()),
+    startExport: (format, size) => dispatch(exportResults(format, size))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DataExport)
