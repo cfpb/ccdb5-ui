@@ -3,7 +3,13 @@
 // https://stackoverflow.com/questions/3916191
 
 import { stateToQS } from './complaints'
+import { buildLink, simulateClick } from './domUtils'
 import { MODAL_HID, MODAL_SHOWN, MODAL_TYPE_DATA_EXPORT } from '../constants'
+
+const DATA_HOST = 'https://data.consumerfinance.gov'
+
+// ----------------------------------------------------------------------------
+// Action Creators
 
 export function showExportDialog() {
   return {
@@ -13,32 +19,37 @@ export function showExportDialog() {
   }
 }
 
-export function exportResults(format, size) {
+export function exportAllResults(format) {
+  return (dispatch, getState) => {
+    dispatch({type: MODAL_HID})
+
+    const uri = DATA_HOST + '/api/views/nsyy-je5y/rows.json'
+    const link = buildLink(uri, 'download.' + format)
+    simulateClick(link)
+  }
+}
+
+export function exportSomeResults(format, size) {
   return (dispatch, getState) => {
     dispatch({type: MODAL_HID})
 
     const params = {...getState()}
-    params.query.size = 1000
+    params.query.size = Math.min(10000, size)
+
+    // TODO: set the format, correct size and no_aggs in the query string
+
     const uri = '@@API' + stateToQS(params)
-    const link = document.createElement("a")
-    link.href = uri
-    link.download = 'monkey.csv'
-    //link.target = '_blank'
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  }  
+    const link = buildLink(uri, 'download.' + format)
+    simulateClick(link)
+  }
 }
 
 export function visitSocrata() {
   return dispatch => {
     dispatch({type: MODAL_HID})
 
-    const link = document.createElement("a")
-    link.href = 'https://data.consumerfinance.gov/dataset/Consumer-Complaints/s6ew-h6mp'
-    link.target = '_blank'
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  }  
+    const uri = DATA_HOST + '/dataset/Consumer-Complaints/s6ew-h6mp'
+    const link = buildLink(uri)
+    simulateClick(link)
+  }
 }
