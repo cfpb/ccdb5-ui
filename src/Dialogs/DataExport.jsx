@@ -2,7 +2,9 @@ import React from 'react'
 import { FormattedNumber } from 'react-intl'
 import { connect } from 'react-redux'
 import './DataExport.less'
-import { exportResults, visitSocrata } from '../actions/dataExport'
+import {
+  exportAllResults, exportSomeResults, visitSocrata
+} from '../actions/dataExport'
 
 export class DataExport extends React.Component {
   constructor(props) {
@@ -146,10 +148,12 @@ export class DataExport extends React.Component {
   }
 
   _exportClicked(ev) {
-    const size = (this.state.dataset === 'full') 
-      ? this.props.allComplaints
-      : this.props.someComplaints
-    this.props.startExport(this.state.format, size)
+    if (this.state.dataset === 'full') {
+      this.props.exportAll(this.state.format)
+    }
+    else {
+      this.props.exportSome(this.state.format, this.props.someComplaints)
+    }
   }
 }
 
@@ -163,7 +167,8 @@ export const mapStateToProps = state => {
 export const mapDispatchToProps = dispatch => {
   return {
     onOtherFormats: _ => dispatch(visitSocrata()),
-    startExport: (format, size) => dispatch(exportResults(format, size))
+    exportAll: (format) => dispatch(exportAllResults(format)),
+    exportSome: (format, size) => dispatch(exportSomeResults(format, size))
   }
 }
 
