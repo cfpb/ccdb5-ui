@@ -1,0 +1,2 @@
+include CHANGELOG.md README.md INSTALL.md LICENSE
+recursive-include ccdb5_ui *.py *.html *.js
