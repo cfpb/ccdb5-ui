@@ -1,10 +1,28 @@
+import { shallow } from 'enzyme'
 import React from 'react'
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
 import renderer from 'react-test-renderer'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import ReduxDataExport from '../DataExport'
+import ReduxDataExport, { DataExport, mapDispatchToProps } from '../DataExport'
+
+function setupEnzyme() {
+  const props = {
+    allComplaints: 999,
+    exportAll: jest.fn(),
+    exportSome: jest.fn(),
+    onOtherFormats: jest.fn(),
+    someComplaints: 99
+  }
+
+  const target = shallow(<DataExport {...props} />)
+
+  return {
+    props,
+    target
+  }
+}
 
 function setupSnapshot() {
   const middlewares = [thunk]
@@ -31,6 +49,69 @@ describe('component::DataExport', () => {
       const target = setupSnapshot()
       const tree = target.toJSON()
       expect(tree).toMatchSnapshot()
+    })
+  })
+
+  describe('user interaction', () => {
+    let target, props
+    beforeEach(() => {
+      ({target, props} = setupEnzyme())
+    })
+
+    it('supports changing the format', () => {
+      const radio = target.find('#format_csv')
+      radio.simulate('change', { target: radio.node.props })
+      expect(target.state('format')).toEqual('csv')
+    })
+
+    it('supports changing the which dataset is used', () => {
+      const radio = target.find('#dataset_filtered')
+      radio.simulate('change', { target: radio.node.props })
+      expect(target.state('dataset')).toEqual('filtered')
+    })
+
+    it('provides link to Socrata', () => {
+      const btn = target.find('.other-formats button')
+      btn.simulate('click')
+      expect(props.onOtherFormats).toHaveBeenCalled()
+    })
+
+    describe('clicking Start Export', () => {
+      let startExport
+      beforeEach(() => {
+        startExport = target.find('.footer button').first()
+      })
+
+      it('calls a specific action when "filtered" is chosen', () => {
+        startExport.simulate('click')
+        expect(props.exportSome).toHaveBeenCalled()
+      })
+
+      it('calls a specific action when "all" is chosen', () => {
+        target.setState({dataset: 'full'})
+        startExport.simulate('click')
+        expect(props.exportAll).toHaveBeenCalled()
+      })
+    })
+  })
+
+  describe('mapDispatchToProps', () => {
+    it('provides a way to call visitSocrata', () => {
+      const dispatch = jest.fn()
+      mapDispatchToProps(dispatch).onOtherFormats()
+      expect(dispatch.mock.calls.length).toEqual(1)
+    })
+
+    it('provides a way to call exportAllResults', () => {
+      const dispatch = jest.fn()
+      mapDispatchToProps(dispatch).exportAll('json')
+      expect(dispatch.mock.calls.length).toEqual(1)
+    })
+
+    it('provides a way to call exportSomeResults', () => {
+      const dispatch = jest.fn()
+      mapDispatchToProps(dispatch).exportSome('csv', 1300)
+      expect(dispatch.mock.calls.length).toEqual(1)
     })
   })
 })
