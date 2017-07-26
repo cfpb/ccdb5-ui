@@ -32,7 +32,7 @@ export class DataExport extends React.Component {
           </button>
         </div>
         <div className="body">
-          <div className="instructions">
+          <div className="body-copy instructions">
             To download a copy of this dataset, choose the file format and
             which complaints you want to export below.
           </div>
@@ -87,7 +87,7 @@ export class DataExport extends React.Component {
                     <FormattedNumber value={this.props.someComplaints} />
                     &nbsp;complaints)
                   </div>
-                  <div className='caveat'>
+                  <div className='body-copy'>
                   (only the results of the last search and/or filter performed)
                   </div>
                 </div>
@@ -107,7 +107,7 @@ export class DataExport extends React.Component {
                     <FormattedNumber value={this.props.allComplaints} />
                     &nbsp;complaints)
                   </div>
-                  <div className='caveat'>
+                  <div className='body-copy'>
                   (not recommended due to very large file size)
                   </div>
                 </div>
