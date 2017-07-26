@@ -24,13 +24,13 @@ function setupEnzyme() {
   }
 }
 
-function setupSnapshot() {
+function setupSnapshot(total=1001) {
   const middlewares = [thunk]
   const mockStore = configureMockStore(middlewares)
   const store = mockStore({
     results: {
       doc_count: 9999,
-      total: 1001
+      total
     },
   })
 
@@ -47,6 +47,12 @@ describe('component::DataExport', () => {
   describe('initial state', () => {
     it('renders without crashing', () => {
       const target = setupSnapshot()
+      const tree = target.toJSON()
+      expect(tree).toMatchSnapshot()
+    })
+
+    it('hides the dataset radio buttons when there is no filter', () => {
+      const target = setupSnapshot(9999)
       const tree = target.toJSON()
       expect(tree).toMatchSnapshot()
     })
@@ -93,6 +99,15 @@ describe('component::DataExport', () => {
         expect(props.exportAll).toHaveBeenCalled()
       })
     })
+  })
+
+  describe('componentWillReceiveProps', () => {
+    it('updates the dataset attribute of the state', () => {
+      const {target} = setupEnzyme()
+      target.setProps({dataset: 'foo'})
+      expect(target.state('dataset')).toEqual('foo')
+    })
+    
   })
 
   describe('mapDispatchToProps', () => {

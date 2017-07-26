@@ -11,13 +11,17 @@ export class DataExport extends React.Component {
     super(props)
 
     this.state = {
-      dataset: 'filtered',
+      dataset: props.dataset,
       format: 'json'
     }
 
     this._chooseDataset = this._chooseDataset.bind(this)
     this._chooseFormat = this._chooseFormat.bind(this)
     this._exportClicked = this._exportClicked.bind(this)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({dataset: nextProps.dataset});
   }
 
   render() {
@@ -69,6 +73,7 @@ export class DataExport extends React.Component {
             </div>
           </div>
 
+          { this.props.someComplaints === this.props.allComplaints ? null :
           <div className='group'>
             <div className='group-title'>
               Select which complaints you'd like to export
@@ -114,6 +119,7 @@ export class DataExport extends React.Component {
               </label>
             </div>
           </div>
+          }
           <div className="timeliness-warning">
             The export process could take several minutes if you're downloading many complaints
           </div>
@@ -158,9 +164,14 @@ export class DataExport extends React.Component {
 }
 
 export const mapStateToProps = state => {
+  const someComplaints = state.results.total
+  const allComplaints = state.results.doc_count
+  const dataset = (someComplaints === allComplaints) ? 'full' : 'filtered'
+
   return {
-    someComplaints: state.results.total,
-    allComplaints: state.results.doc_count
+    allComplaints,
+    dataset,
+    someComplaints
   }
 }
 
