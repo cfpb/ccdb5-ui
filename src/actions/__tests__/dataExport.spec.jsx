@@ -60,7 +60,7 @@ describe('action:dataExport', () => {
         store.dispatch(sut.exportSomeResults('csv', 11111))
         expect(store.getActions()).toEqual(expectedActions)
         expect(mockDomUtils.buildLink).toHaveBeenCalledWith(
-          '@@API?size=10000',
+          '@@API?format=csv&size=10000',
           'download.csv'
         )
         expect(mockDomUtils.simulateClick).toHaveBeenCalled()

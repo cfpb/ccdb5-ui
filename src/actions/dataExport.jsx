@@ -33,8 +33,13 @@ export function exportSomeResults(format, size) {
   return (dispatch, getState) => {
     dispatch({type: MODAL_HID})
 
-    const params = {...getState()}
+    // params = {...getState()} only makes a shallow copy
+    // Need to make a deep-copy or this size gets in the store (!)
+    const params = {
+      query: {...getState().query}
+    }
     params.query.size = Math.min(10000, size)
+    params.query.format = format
 
     // TODO: set the format, correct size and no_aggs in the query string
 
