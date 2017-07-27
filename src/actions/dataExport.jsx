@@ -23,7 +23,7 @@ export function exportAllResults(format) {
   return (dispatch, getState) => {
     dispatch({type: MODAL_HID})
 
-    const uri = DATA_HOST + '/api/views/nsyy-je5y/rows.json'
+    const uri = DATA_HOST + '/api/views/s6ew-h6mp/rows.json'
     const link = buildLink(uri, 'download.' + format)
     simulateClick(link)
   }
