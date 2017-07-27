@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { FormattedNumber } from 'react-intl'
+import { showExportDialog } from './actions/dataExport'
 import { changeSize, changeSort } from './actions/paging'
 import './ActionBar.less';
 
@@ -48,7 +49,12 @@ export class ActionBar extends React.Component {
               </select>
             </div>
 
-            <h5 className="flex-all"><a>Export results</a></h5>
+            <h5 className="flex-all">
+              <button className="a-btn a-btn__link hover"
+                      onClick={this.props.onExportResults}>
+                Export results
+              </button>
+            </h5>
           </div>
         </summary>
     );
@@ -72,6 +78,9 @@ export const mapDispatchToProps = dispatch => {
     },
     onSort: ev => {
       dispatch(changeSort(ev.target.value))
+    },
+    onExportResults: _ => {
+      dispatch(showExportDialog())
     }
   }
 }

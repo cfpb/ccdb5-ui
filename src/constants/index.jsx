@@ -9,10 +9,15 @@ export const FILTER_REMOVED            = 'FILTER_REMOVED'
 export const FILTER_ALL_REMOVED        = 'FILTER_ALL_REMOVED'
 export const FILTER_MULTIPLE_ADDED     = 'FILTER_MULTIPLE_ADDED'
 export const FILTER_MULTIPLE_REMOVED   = 'FILTER_MULTIPLE_REMOVED'
+export const MODAL_HID                 = 'MODAL_HID'
+export const MODAL_SHOWN               = 'MODAL_SHOWN'
 
 // External Triggers
 export const COMPLAINTS_RECEIVED       = 'COMPLAINTS_RECEIVED'
 export const COMPLAINTS_FAILED         = 'COMPLAINTS_FAILED'
+
+// Modal Dialogs
+export const MODAL_TYPE_DATA_EXPORT     = 'MODAL_TYPE_DATA_EXPORT'
 
 // Useful constants
 export const knownFilters = [

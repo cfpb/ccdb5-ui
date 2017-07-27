@@ -12,11 +12,17 @@ export default (state = defaultResults, action) => {
       return x._source
     })
 
+    const doc_count = Math.max(
+      state.doc_count,
+      action.data.hits.total,
+      action.data['_meta'].total_record_count
+    )
+
     return {
       ...state,
       items: items,
       total: action.data.hits.total,
-      doc_count: 162576  // TODO: Update API results to always provide total count
+      doc_count
     }
 
   default:

@@ -1,0 +1,82 @@
+@import (less) "../base.less";
+
+.export-modal {
+  max-width: 480px;
+
+  .header {
+    padding: @gutter-normal;
+    padding-bottom: 0;
+
+    -webkit-align-items: flex-start;
+            align-items: flex-start;
+
+    .a-btn__link {
+      border: 0;
+
+      color: @pacific;
+    }
+
+    .cf-icon {
+      padding-left: @gutter-minimum;
+
+      color: @pacific;
+    }  
+  }
+
+  .body {
+    padding: 0 @gutter-normal;
+
+    .instructions {
+      margin-bottom: @gutter-normal;
+    }
+
+    .group {
+      margin-bottom: @gutter-wide;
+
+      .group-title {
+        margin: @gutter-normal 0;
+
+        font-size: @size-iv;
+        font-weight: bold;
+      }
+
+      .m-form-field {
+        margin-bottom: @gutter-normal;
+
+        .multiline-label {
+          display: inline-block;
+        }
+      }
+
+      .other-formats {
+        margin-top: @gutter-normal * 1.5;
+
+        .a-btn__link {
+          color: @pacific;
+        }
+      }
+    }
+
+    .timeliness-warning {
+      margin-bottom: @gutter-normal * 1.5;
+
+      font-size: smaller;
+    }
+  }
+
+  .footer {
+    padding: @gutter-normal;
+
+    background-color: @gray-5;
+    -webkit-align-items: baseline;
+            align-items: baseline;
+
+    button {
+      margin-right: @gutter-normal;
+
+      &.a-btn__link {
+        height: @size-iv;
+      }
+    }
+  }
+}

@@ -20,10 +20,15 @@ describe('reducer:results', () => {
             { _source: '456' }
           ],
           total: 2,
+        },
+        '_meta': {
+          total_record_count: 162576,
+          last_updated: '2017-07-10T00:00:00.000Z',
+          license: 'CC0'
         }
-      },
+      }
     }
-    expect(target({}, action)).toEqual({
+    expect(target({doc_count: 0}, action)).toEqual({
       items: ['123', '456'],
       total: 2,
       doc_count: 162576
