@@ -59,25 +59,51 @@ exports[`initial state renders without crashing 1`] = `
         <form
           action=""
           onSubmit={[Function]}>
-          <label
-            className="a-label a-label__heading"
-            htmlFor="searchText">
+          <h5>
             Search Within
-          </label>
-          <input
-            className="btn"
-            type="button"
-            value="Types" />
-          <input
-            id="searchText"
-            onChange={[Function]}
-            placeholder="Enter your search term(s)"
-            type="text"
-            value="foo" />
-          <input
-            className="btn primary"
-            type="submit"
-            value="Search" />
+          </h5>
+          <div
+            className="layout-row">
+            <div
+              className="cf-select">
+              <select
+                aria-label="Choose which field will be searched"
+                id="searchField"
+                onChange={[Function]}
+                value="all">
+                <optgroup
+                  label="Search Within">
+                  <option
+                    value="all">
+                    All Data
+                  </option>
+                  <option
+                    value="company">
+                    Company Name
+                  </option>
+                  <option
+                    value="complaint_what_happened">
+                    Narratives
+                  </option>
+                </optgroup>
+              </select>
+            </div>
+            <input
+              aria-label="The term to search for"
+              className="flex-all"
+              id="searchText"
+              onChange={[Function]}
+              placeholder="Enter your search term(s)"
+              type="text"
+              value="foo" />
+            <button
+              className="a-btn"
+              type="submit">
+              Search
+              <span
+                className="a-btn_icon a-btn_icon__on-right cf-icon cf-icon__after cf-icon-search" />
+            </button>
+          </div>
         </form>
       </nav>
     </div>
