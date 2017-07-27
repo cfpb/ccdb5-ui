@@ -1,21 +1,34 @@
 @import (less) "base.less";
 
 .search-bar {
-    .btn {
-        background-color: @gray-80;
-        color: @white;
+  .cf-select {
+    display: flex;
+
+    background-color: @gray;
+    flex-direction: column;
+    justify-content: center;
+
+    select {
+      background-color: @gray;
+      color: @white;
+
+      &:focus {
+        outline: none;
+      }
     }
 
-    .btn.primary {
-        background-color: @pacific;
-        color: @white;
+    &:after {
+      color: @white;
     }
+  }
 
-    input[type=text] {
-        width: 80%;
+  h5 {
+    margin-bottom: @gutter-minimum;
+  }
 
-        &::placeholder {
-            color: @gray;
-        }
+  input[type=text] {
+    &::placeholder {
+        color: @gray;
     }
+  }
 }

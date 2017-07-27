@@ -9,20 +9,20 @@ describe('action:search', () => {
   describe('searchChanged', () => {
     it('creates a simple action', () => {
         const searchText = 'foo'
-        const searchType = 'qaz'
+        const searchField = 'qaz'
         const expectedAction = {
           type: types.SEARCH_CHANGED,
           searchText,
-          searchType
+          searchField
         }
-        expect(searchChanged(searchText, searchType)).toEqual(expectedAction)
+        expect(searchChanged(searchText, searchField)).toEqual(expectedAction)
     })
   })
 
   describe('search', () => {
     it('executes a chain of actions', () => {
       const expectedActions = [
-        { type: types.SEARCH_CHANGED, searchText: 'foo', searchType: 'bar' },
+        { type: types.SEARCH_CHANGED, searchText: 'foo', searchField: 'bar' },
         { type: 'getComplaintsMock' }
       ]
 

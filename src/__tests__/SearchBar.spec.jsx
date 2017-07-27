@@ -7,6 +7,7 @@ import * as types from '../constants'
 function setup(initialText) {
   const props = {
     searchText: initialText,
+    searchField: 'all',
     onSearch: jest.fn()
   }
 
@@ -32,7 +33,7 @@ describe('component:SearchBar', () =>{
     const theForm = target.find('form');
 
     theForm.simulate('submit', { preventDefault: () => {} });
-    expect(props.onSearch).toHaveBeenCalledWith('bar')  
+    expect(props.onSearch).toHaveBeenCalledWith('bar', 'all')  
   })
 
   it('records text input from the user', () => {
@@ -43,6 +44,14 @@ describe('component:SearchBar', () =>{
     textInput.simulate('change', {target: { value: 'bar'}});
     expect(target.state('inputValue')).toEqual('bar');
   });
+
+  it('allows the user to select the field to search within', () => {
+    const { target } = setup('foo')
+    const dropDown = target.find('#searchField');
+
+    dropDown.simulate('change', {target: { value: 'company'}});
+    expect(target.state('searchField')).toEqual('company');
+  })
 
   describe('mapDispatchToProps', () => {
     it('hooks into onSearch', () => {
