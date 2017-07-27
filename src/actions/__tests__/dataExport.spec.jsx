@@ -44,7 +44,7 @@ describe('action:dataExport', () => {
         store.dispatch(sut.exportAllResults('json'))
         expect(store.getActions()).toEqual(expectedActions)
         expect(mockDomUtils.buildLink).toHaveBeenCalledWith(
-          expect.stringMatching(/.*nsyy-je5y.*/),
+          expect.stringMatching(/.*s6ew-h6mp.*/),
           'download.json'
         )
         expect(mockDomUtils.simulateClick).toHaveBeenCalled()
