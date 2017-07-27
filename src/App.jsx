@@ -24,6 +24,7 @@ import Hero from './Hero';
 import SearchPanel from './SearchPanel';
 import ResultsPanel from './ResultsPanel';
 import ComplaintDetail from './ComplaintDetail';
+import RootModal from './Dialogs/RootModal'
 import UrlBarSynch from './UrlBarSynch';
 import './App.less';
 
@@ -55,6 +56,7 @@ export class SearchComponents extends React.Component {
             </aside>
             <ResultsPanel className="content_main" />
           </div>
+          <RootModal />
         </main>
       </IntlProvider>
     )
