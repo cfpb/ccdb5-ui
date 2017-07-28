@@ -9,8 +9,7 @@ import './Typeahead.less'
 // ----------------------------------------------------------------------------
 // State Machine
 
-// TODO: Use with onInputChangeAsynch
-// const ERROR = 'ERROR'
+const ERROR = 'ERROR'
 const EMPTY = 'EMPTY'
 const ACCUM = 'ACCUM'
 const WAITING = 'WAITING'
@@ -93,12 +92,32 @@ export default class Typeahead extends React.Component {
     this._onBlur = this._onBlur.bind(this)
     this._onFocus = this._onFocus.bind(this)
     this._onKeyDown = this._onKeyDown.bind(this)
+    this._onOptionsError = this._onOptionsError.bind(this)
     this._setOptions = this._setOptions.bind(this)
     this._valueUpdated = this._valueUpdated.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState(nextStateFromValue(nextProps.value, nextProps))
+  }
+
+  componentDidUpdate() {
+    if (this.state.phase !== WAITING ) {
+      return
+    }
+
+    const value = this.state.inputValue
+    const returned = this.props.onInputChange(value)
+
+    if (typeof(returned.then) === 'function') {
+      returned.then(
+        options => this._setOptions(options),
+        error => this._onOptionsError(error)
+      )
+    }
+    else {
+      this._setOptions(returned)
+    }
   }
 
   render() {
@@ -138,28 +157,17 @@ export default class Typeahead extends React.Component {
   }
 
   _valueUpdated(event) {
-    this._callForOptions(event.target.value)
+    const nextState = nextStateFromValue(event.target.value, this.props)
+    this.setState(nextState)
   }
 
   // --------------------------------------------------------------------------
   // Search Methods
 
-  _callForOptions(value) {
-    const nextState = nextStateFromValue(value, this.props)
-    this.setState(nextState)
-    if (nextState.phase !== WAITING ) {
-      return
-    }
-
-    // TODO: If async psuedocode
-    // if (this.props.onInputChangeAsynch) {
-    //   this.props.onInputChangeAsynch(value).then(
-    //     options => _setOptions(options),
-    //     error => onError(error)
-    //   )
-    // }
-
-    this._setOptions(this.props.onInputChange(value))
+  _onOptionsError() {
+    this.setState({
+      phase: ERROR
+    })
   }
 
   _setOptions(options) {
