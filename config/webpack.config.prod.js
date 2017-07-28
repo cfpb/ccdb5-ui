@@ -40,7 +40,7 @@ module.exports = merge({
     publicPath: publicPath,
   },
   module: {
-    loaders: [      
+    loaders: [
       // ** ADDING/UPDATING LOADERS **
       // The "url" loader handles all assets unless explicitly excluded.
       // The `exclude` list *must* be updated with every change to loader extensions.
@@ -71,7 +71,7 @@ module.exports = merge({
         test: /\.(js|jsx)$/,
         include: paths.appSrc,
         loader: 'babel',
-        
+
       },
       {
         test: /\.(js|jsx)$/,
@@ -79,7 +79,7 @@ module.exports = merge({
         loader: 'string-replace',
         query: {
           search: '@@API',
-          replace: '/data-research/consumer-complaints/search/api/v1/'
+          replace: '/data-research/consumer-complaints/api/v1/'
         }
       },
       // The notation here is somewhat confusing.

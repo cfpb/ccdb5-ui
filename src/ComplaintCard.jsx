@@ -12,7 +12,7 @@ export default class ComplaintCard extends React.Component {
     let narrative = row.complaint_what_happened || ""
     const hasOverflow = narrative.length > MAX_NARRATIVE
     narrative = narrative.substring(0, MAX_NARRATIVE)
-    const complaintIdPath = '/detail/' + row.complaint_id;
+    const complaintIdPath = 'detail/' + row.complaint_id;
 
     return (
       <li className="card-container">
