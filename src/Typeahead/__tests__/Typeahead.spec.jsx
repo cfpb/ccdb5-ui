@@ -108,6 +108,43 @@ describe('component::Typeahead', () => {
     })
   })
 
+  describe('asynchronous options', () => {
+    let target, props, input
+    let fakePromise, onSuccess, onFail
+    beforeEach(() => {
+      ({target, props} = setupEnzyme())
+      input = target.find('input')
+
+      fakePromise = {
+        then: (x, y) => {onSuccess = x, onFail = y}
+      }
+      props.onInputChange.mockImplementation(() => fakePromise)
+    })
+
+    it('detects a promise', () => {
+      input.simulate('change', {target: { value: 'bar'}})
+      expect(props.onInputChange).toHaveBeenCalledWith('bar')
+      expect(target.state('inputValue')).toEqual('bar')
+      expect(target.state('phase')).toEqual('WAITING')
+    })
+
+    it('sets the options when the promise is resolved', () => {
+      input.simulate('change', {target: { value: 'bar'}})
+      expect(props.onInputChange).toHaveBeenCalledWith('bar')
+      expect(target.state('phase')).toEqual('WAITING')
+      onSuccess(['a', 'b'])
+      expect(target.state('phase')).toEqual('RESULTS')
+    })
+
+    it('enters the error state when the promise is rejected', () => {
+      input.simulate('change', {target: { value: 'bar'}})
+      expect(props.onInputChange).toHaveBeenCalledWith('bar')
+      expect(target.state('phase')).toEqual('WAITING')
+      onFail('oops')
+      expect(target.state('phase')).toEqual('ERROR')
+    })
+  })
+
   describe('keyboard events', () => {
     let fixture, target, props, input
     beforeEach(() => {
