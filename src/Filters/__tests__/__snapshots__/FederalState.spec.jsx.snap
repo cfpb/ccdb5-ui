@@ -22,11 +22,11 @@ exports[`component::FederalState initial state renders without crashing 1`] = `
     The state of the mailing address provided by the consumer
   </p>
   <section
-    className="typeahead"
+    className="typeahead "
     onBlur={[Function]}
     onFocus={[Function]}>
     <input
-      disabled={false}
+      autoComplete="off"
       onChange={[Function]}
       onKeyDown={[Function]}
       placeholder="Enter state name or abbreviation"

@@ -262,18 +262,19 @@ export default class Typeahead extends React.Component {
 }
 
 Typeahead.propTypes = {
-  disabled: PropTypes.bool,
+  className: PropTypes.string,
   maxVisible: PropTypes.number,
   minLength: PropTypes.number,
   onInputChange: PropTypes.func.isRequired,
   onOptionSelected: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   renderOption: PropTypes.func,
+  textBoxProps: PropTypes.object,
   value: PropTypes.string
 }
 
 Typeahead.defaultProps = {
-  disabled: false,
+  className: '',
   maxVisible: 5,
   minLength: 2,
   placeholder: 'Enter your search text',
@@ -283,5 +284,6 @@ Typeahead.defaultProps = {
       component: x
     }
   },
+  textBoxProps: {},
   value: ''
 }

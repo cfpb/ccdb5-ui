@@ -1,10 +1,10 @@
 exports[`component::Typeahead render phases renders the ACCUM phase 1`] = `
 <section
-  className="typeahead"
+  className="typeahead "
   onBlur={[Function]}
   onFocus={[Function]}>
   <input
-    disabled={false}
+    autoComplete="off"
     onChange={[Function]}
     onKeyDown={[Function]}
     placeholder="Enter your search text"
@@ -15,11 +15,11 @@ exports[`component::Typeahead render phases renders the ACCUM phase 1`] = `
 
 exports[`component::Typeahead render phases renders the EMPTY phase 1`] = `
 <section
-  className="typeahead"
+  className="typeahead "
   onBlur={[Function]}
   onFocus={[Function]}>
   <input
-    disabled={false}
+    autoComplete="off"
     onChange={[Function]}
     onKeyDown={[Function]}
     placeholder="Enter your search text"
@@ -30,11 +30,11 @@ exports[`component::Typeahead render phases renders the EMPTY phase 1`] = `
 
 exports[`component::Typeahead render phases renders the ERROR phase 1`] = `
 <section
-  className="typeahead"
+  className="typeahead "
   onBlur={[Function]}
   onFocus={[Function]}>
   <input
-    disabled={false}
+    autoComplete="off"
     onChange={[Function]}
     onKeyDown={[Function]}
     placeholder="Enter your search text"
@@ -49,11 +49,11 @@ exports[`component::Typeahead render phases renders the ERROR phase 1`] = `
 
 exports[`component::Typeahead render phases renders the NO_RESULTS phase 1`] = `
 <section
-  className="typeahead"
+  className="typeahead "
   onBlur={[Function]}
   onFocus={[Function]}>
   <input
-    disabled={false}
+    autoComplete="off"
     onChange={[Function]}
     onKeyDown={[Function]}
     placeholder="Enter your search text"
@@ -68,11 +68,11 @@ exports[`component::Typeahead render phases renders the NO_RESULTS phase 1`] = `
 
 exports[`component::Typeahead render phases renders the RESULTS phase 1`] = `
 <section
-  className="typeahead"
+  className="typeahead "
   onBlur={[Function]}
   onFocus={[Function]}>
   <input
-    disabled={false}
+    autoComplete="off"
     onChange={[Function]}
     onKeyDown={[Function]}
     placeholder="Enter your search text"
@@ -93,11 +93,11 @@ exports[`component::Typeahead render phases renders the RESULTS phase 1`] = `
 
 exports[`component::Typeahead render phases renders the TOO_MANY phase 1`] = `
 <section
-  className="typeahead"
+  className="typeahead "
   onBlur={[Function]}
   onFocus={[Function]}>
   <input
-    disabled={false}
+    autoComplete="off"
     onChange={[Function]}
     onKeyDown={[Function]}
     placeholder="Enter your search text"
@@ -137,24 +137,5 @@ exports[`component::Typeahead render phases renders the TOO_MANY phase 1`] = `
       </li>
     </ul>
   </div>
-</section>
-`;
-
-exports[`component::Typeahead render phases renders the WAITING phase 1`] = `
-<section
-  className="typeahead"
-  onBlur={[Function]}
-  onFocus={[Function]}>
-  <input
-    disabled={false}
-    onChange={[Function]}
-    onKeyDown={[Function]}
-    placeholder="Enter your search text"
-    type="text"
-    value="indubitably" />
-  <span
-    className="waiting">
-    waiting...
-  </span>
 </section>
 `;
