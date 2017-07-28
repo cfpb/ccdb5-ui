@@ -253,11 +253,11 @@ exports[`initial state renders without crashing 1`] = `
             The type of issue and sub-issue the consumer identified in the complaint
           </p>
           <section
-            className="typeahead"
+            className="typeahead "
             onBlur={[Function]}
             onFocus={[Function]}>
             <input
-              disabled={false}
+              autoComplete="off"
               onChange={[Function]}
               onKeyDown={[Function]}
               placeholder="Enter name of issue"
@@ -292,11 +292,11 @@ exports[`initial state renders without crashing 1`] = `
             The state of the mailing address provided by the consumer
           </p>
           <section
-            className="typeahead"
+            className="typeahead "
             onBlur={[Function]}
             onFocus={[Function]}>
             <input
-              disabled={false}
+              autoComplete="off"
               onChange={[Function]}
               onKeyDown={[Function]}
               placeholder="Enter state name or abbreviation"
@@ -329,11 +329,11 @@ exports[`initial state renders without crashing 1`] = `
             The mailing ZIP code provided by the consumer
           </p>
           <section
-            className="typeahead"
+            className="typeahead "
             onBlur={[Function]}
             onFocus={[Function]}>
             <input
-              disabled={false}
+              autoComplete="off"
               onChange={[Function]}
               onKeyDown={[Function]}
               placeholder="Enter first three digits of zip code"

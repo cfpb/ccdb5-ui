@@ -47,12 +47,6 @@ describe('component::Typeahead', () => {
       expect(tree).toMatchSnapshot()
     })
 
-    it('renders the WAITING phase', () => {
-      const target = setupSnapshot('indubitably')
-      const tree = target.toJSON()
-      expect(tree).toMatchSnapshot()
-    })
-
     it('renders the NO_RESULTS phase', () => {
       const target = setupSnapshot()
       target.getInstance()._setOptions([])
