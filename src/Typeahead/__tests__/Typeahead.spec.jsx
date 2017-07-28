@@ -20,10 +20,12 @@ function setupEnzyme(initalProps={}) {
 }
 
 function setupSnapshot(initialValue='') {
-  return renderer.create(<Typeahead value={initialValue}
+  const target = renderer.create(<Typeahead value={initialValue}
                                     onInputChange={jest.fn()}
                                     onOptionSelected={jest.fn()}
-                         />)
+                                 />)
+  target.getInstance().setState({focused: true})
+  return target
 }
 
 describe('component::Typeahead', () => {
@@ -70,20 +72,19 @@ describe('component::Typeahead', () => {
   })
 
   describe('focus/blur', () => {
-    it('pushes the current state on blur', () => {
+    it('sets the current state on blur', () => {
       const { target } = setupEnzyme({value: 'foo'})
-      expect(target.state('phase')).toEqual('WAITING')
+      target.setState({focused: true})
       target.simulate('blur')
-      expect(target.state('phase')).toEqual('NOT_FOCUSED')
-      expect(target.instance().stateHistory.length).toEqual(2)
+      expect(target.state('focused')).toEqual(false)
     })
 
-    it('restores the state on focus', () => {
+    it('sets the state on focus', () => {
       const { target } = setupEnzyme({value: 'foo'})
-      expect(target.instance().stateHistory.length).toEqual(1)
-      target.simulate('focus')
       expect(target.state('phase')).toEqual('WAITING')
-      expect(target.instance().stateHistory.length).toEqual(0)
+      expect(target.state('focused')).toEqual(false)
+      target.simulate('focus')
+      expect(target.state('focused')).toEqual(true)
     })
   })
 
