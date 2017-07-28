@@ -11,7 +11,6 @@ import './Typeahead.less'
 
 // TODO: Use with onInputChangeAsynch
 // const ERROR = 'ERROR'
-const NOT_FOCUSED = 'NOT_FOCUSED'
 const EMPTY = 'EMPTY'
 const ACCUM = 'ACCUM'
 const WAITING = 'WAITING'
@@ -56,13 +55,14 @@ export const nextStateFromOptions = (options, props) => {
 export default class Typeahead extends React.Component {
   constructor(props) {
     super(props)
-    this.state = nextStateFromValue(props.value, props)
-    this.stateHistory = [this.state]
+    this.state = {
+      ...nextStateFromValue(props.value, props),
+      focused: false
+    }
 
     // Render/Phase Map
     this.renderMap = {
       ERROR: this._renderError.bind(this),
-      NOT_FOCUSED: this._renderEmpty.bind(this),
       EMPTY: this._renderEmpty.bind(this),
       ACCUM: this._renderEmpty.bind(this),
       WAITING: this._renderWaiting.bind(this),
@@ -103,17 +103,18 @@ export default class Typeahead extends React.Component {
 
   render() {
     return (
-      <section className="typeahead"
+      <section className={`typeahead ${ this.props.className }`}
                onBlur={this._onBlur}
                onFocus={this._onFocus}>
         <input type="text"
-               disabled={this.props.disabled}
+               autoComplete="off"
                onChange={this._valueUpdated}
                onKeyDown={this._onKeyDown}
                placeholder={this.props.placeholder}
                value={this.state.inputValue}
+               {...this.props.textBoxProps}
         />
-        { this.renderMap[this.state.phase]() }
+        { this.state.focused ? this.renderMap[this.state.phase]() : null }
       </section>
     )
   }
@@ -122,12 +123,11 @@ export default class Typeahead extends React.Component {
   // Event Methods
 
   _onBlur(event) {
-    this.stateHistory.push(this.state)
-    this.setState({phase: NOT_FOCUSED})
+    this.setState({ focused: false })
   }
 
   _onFocus(event) {
-    this.setState(this.stateHistory.pop())
+    this.setState({ focused: true })
   }
 
   _onKeyDown(event) {
