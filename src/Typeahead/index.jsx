@@ -87,17 +87,17 @@ export default class Typeahead extends React.Component {
       this.keyMap[keys.VK_ESCAPE] = this._openKeyCancel.bind(this)
       this.keyMap[keys.VK_UP] = this._openNav.bind(this, -1)
       this.keyMap[keys.VK_DOWN] = this._openNav.bind(this, 1)
-      this.keyMap[keys.VK_ENTER] = this._chooseSelectedIndex.bind(this)
-      this.keyMap[keys.VK_RETURN] = this._chooseSelectedIndex.bind(this)
-      this.keyMap[keys.VK_TAB] = this._chooseSelectedIndex.bind(this)
+      this.keyMap[keys.VK_ENTER] = this._openChooseIndex.bind(this)
+      this.keyMap[keys.VK_RETURN] = this._openChooseIndex.bind(this)
+      this.keyMap[keys.VK_TAB] = this._openChooseIndex.bind(this)
     }
     else {
       this.keyMap[keys.VK_ESCAPE] = this._closedKeyCancel.bind(this)
       this.keyMap[keys.VK_UP] = this._closedNav.bind(this, -1)
       this.keyMap[keys.VK_DOWN] = this._closedNav.bind(this, 1)
-      this.keyMap[keys.VK_ENTER] = this._chooseSelectedIndex.bind(this)
-      this.keyMap[keys.VK_RETURN] = this._chooseSelectedIndex.bind(this)
-      this.keyMap[keys.VK_TAB] = this._chooseSelectedIndex.bind(this)
+      this.keyMap[keys.VK_ENTER] = this._closedChooseIndex.bind(this)
+      this.keyMap[keys.VK_RETURN] = this._closedChooseIndex.bind(this)
+      this.keyMap[keys.VK_TAB] = this._closedChooseIndex.bind(this)
     }
 
     // Bindings
@@ -202,9 +202,7 @@ export default class Typeahead extends React.Component {
   }
 
   _onOptionsError() {
-    this.setState({
-      phase: ERROR
-    })
+    this.setState({ phase: ERROR })
   }
 
   _setOptions(options) {
@@ -230,7 +228,7 @@ export default class Typeahead extends React.Component {
   // --------------------------------------------------------------------------
   // Key Helpers
 
-  _chooseSelectedIndex(event) {
+  _closedChooseIndex(event) {
     if (this.state.searchResults.length === 0) {
       return;
     }
@@ -254,6 +252,17 @@ export default class Typeahead extends React.Component {
     const newIndex = this._calculateNewIndex(delta)
     if (newIndex >= 0) {
       this.setState({selectedIndex: newIndex})
+    }
+  }
+
+  _openChooseIndex(event) {
+    if (this.state.searchResults.length === 0) {
+      event.preventDefault()
+      this.props.onOptionSelected(this.state.inputValue)
+      this.setState({phase: CHOSEN})
+    }
+    else {
+      this._closedChooseIndex(event)
     }
   }
 
