@@ -22,11 +22,18 @@
     }
   }
 
+  .typeahead {
+    padding-bottom: 0;
+  }
+
   h5 {
     margin-bottom: @gutter-minimum;
   }
 
   input[type=text] {
+    box-sizing: border-box;
+    height: 100%;
+
     &::placeholder {
         color: @gray;
     }
