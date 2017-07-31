@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import search from './actions/search'
+import Typeahead, { MODE_OPEN } from './Typeahead'
 import './SearchBar.less'
 
 const searchFields = {
@@ -20,8 +21,9 @@ export class SearchBar extends React.Component {
     // This binding is necessary to make `this` work in the callback
     // https://facebook.github.io/react/docs/handling-events.html
     this._handleSubmit = this._handleSubmit.bind(this)
-    this._updateInputValue = this._updateInputValue.bind(this)
+    this._onInputChange = this._onInputChange.bind(this)
     this._onSelectSearchField = this._onSelectSearchField.bind(this)
+    this._onTypeaheadSelected = this._onTypeaheadSelected.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -29,6 +31,11 @@ export class SearchBar extends React.Component {
       inputValue: nextProps.searchText,
       searchField: nextProps.searchField
     })
+  }
+
+  // This prevents a duplicate update that seems to be triggered on page load
+  shouldComponentUpdate(nextProps, nextState) {
+    return JSON.stringify(this.state) !== JSON.stringify(nextState)
   }
 
   render() {
@@ -53,15 +60,22 @@ export class SearchBar extends React.Component {
                   </optgroup>
                 </select>
               </div>
-              <input type="text"
-                     aria-label="The term to search for"
-                     className="flex-all"
-                     id="searchText"
-                     onChange={this._updateInputValue}
-                     placeholder="Enter your search term(s)"
-                     value={this.state.inputValue}
+              <Typeahead className="flex-all"
+                         mode={MODE_OPEN}
+                         onInputChange={this._onInputChange}
+                         onOptionSelected={this._onTypeaheadSelected}
+                         placeholder="Enter your search term(s)"
+                         renderOption={this._renderOption}
+                         textBoxProps={({
+                           "aria-label": "The term to search for",
+                           id: "searchText"
+                         })}
+                         value={this.state.inputValue}
               />
-              <button className="a-btn" type="submit">
+
+              <button type="submit"
+                      className="a-btn"
+                      ref={(elem) => { this.submitButton = elem }}>
                   Search
                   <span className="a-btn_icon
                                    a-btn_icon__on-right
@@ -89,17 +103,66 @@ export class SearchBar extends React.Component {
     })
   }
 
-  _updateInputValue(event) {
-    this.setState({
-      inputValue: event.target.value
+  // --------------------------------------------------------------------------
+  // Typeahead interface
+
+  _onInputChange(value) {
+    const n = value.toLowerCase()
+
+    // Find the matches
+    const filtered = (this.props.forTypeahead || [])
+      .filter(x => x.normalized.indexOf(n) !== -1)
+      .map(x => {
+        return {
+          key: x.key,
+          position: x.normalized.indexOf(n),
+          value
+        }
+      })
+
+    // Sort the matches so that matches at the beginning of the string
+    // appear first
+    filtered.sort((a,b) => {
+      return a.position - b.position
     })
+
+    return new Promise((resolve) => {
+       setTimeout(() => {resolve(filtered)}, 1000)
+    })
+  }
+
+  _renderOption(obj) {
+    const start = obj.key.substring(0, obj.position)
+    const match = obj.key.substr(obj.position, obj.value.length)
+    const end = obj.key.substring(obj.position + obj.value.length)
+
+    return {
+      value: obj.key,
+      component: (
+        <span>{start}<b>{match}</b>{end}</span>
+      )
+    }
+  }
+
+  _onTypeaheadSelected(obj) {
+    this.setState({
+      inputValue: (typeof obj === 'object') ? obj.key: obj
+    })
+    this.submitButton.focus()
   }
 }
 
 export const mapStateToProps = state => {
+  const forTypeahead = ['Bank', 'Credit', 'Loan', 'Mortgage', 'Report']
+    .map(x => ({
+      key: x,
+      normalized: x.toLowerCase()
+    }))
+
   return {
     searchText: state.query.searchText,
-    searchField: state.query.searchField
+    searchField: state.query.searchField,
+    forTypeahead
   }
 }
 

@@ -1,17 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { SearchBar, mapDispatchToProps } from '../SearchBar';
 import * as types from '../constants'
 
 function setup(initialText) {
   const props = {
+    forTypeahead: [
+      {key: 'Foo', normalized: 'foo'},
+      {key: 'Bar', normalized: 'bar'},
+      {key: 'Baz', normalized: 'baz'}
+    ],
     searchText: initialText,
     searchField: 'all',
     onSearch: jest.fn()
   }
 
-  const target = shallow(<SearchBar {...props} />);
+  const target = mount(<SearchBar {...props} />);
 
   return {
     props,
@@ -36,21 +41,69 @@ describe('component:SearchBar', () =>{
     expect(props.onSearch).toHaveBeenCalledWith('bar', 'all')  
   })
 
-  it('records text input from the user', () => {
-    const { target } = setup('foo')
-    const textInput = target.find('[type="text"]');
-
-    expect(target.state('inputValue')).toEqual('foo');
-    textInput.simulate('change', {target: { value: 'bar'}});
-    expect(target.state('inputValue')).toEqual('bar');
-  });
-
   it('allows the user to select the field to search within', () => {
     const { target } = setup('foo')
     const dropDown = target.find('#searchField');
 
     dropDown.simulate('change', {target: { value: 'company'}});
     expect(target.state('searchField')).toEqual('company');
+  })
+
+  // TODO: Change when API is ready with actual suggest endpoint
+  describe('Typeahead interface', () => {
+    let target, props
+    beforeEach(() => {
+      ({target, props} = setup('BAR'))
+    })
+
+    describe('_onInputChange', () => {
+      it('provides a promise', () => {
+        jest.useFakeTimers()
+
+        const {target} = setup()
+        const actual = target.instance()._onInputChange('BA')
+        expect(actual.then).toBeInstanceOf(Function)
+        jest.runAllTimers()
+      })
+    })
+
+    describe('_renderOption', () => {
+      it('produces a custom component', () => {
+        const {target, props} = setup()
+        const option = {
+          ...props.forTypeahead[0],
+          position: 0,
+          value: 'FOO'
+        }
+        const actual = target.instance()._renderOption(option)
+        expect(actual).toEqual({
+          value: 'Foo',
+          component: expect.anything()
+        })
+      })
+    })
+
+    describe('_onTypeaheadSelected', () => {
+      it('handles objects', () => {
+        const key = 'Bank'
+        target.instance()._onTypeaheadSelected({key})
+        expect(target.state('inputValue')).toEqual('Bank')
+      })
+
+      it('handles strings', () => {
+        const key = 'Bank'
+        target.instance()._onTypeaheadSelected(key)
+        expect(target.state('inputValue')).toEqual('Bank')
+      })
+
+      it('sets the focus on the submit button', () => {
+        const instance = target.instance()
+        instance.submitButton.focus = jest.fn()
+
+        instance._onTypeaheadSelected('foo')
+        expect(instance.submitButton.focus).toHaveBeenCalled()
+      })
+    })
   })
 
   describe('mapDispatchToProps', () => {
