@@ -22,8 +22,24 @@
     }
   }
 
-  .typeahead {
-    padding-bottom: 0;
+  .typeahead-portal {
+    height: @grid_gutter-width;
+    position: relative;
+
+    .typeahead {
+      height: 100%;
+
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+
+      span.waiting, span.error, span.no-results {        
+        position: absolute;
+        top: -1 * @grid_gutter-width + @gutter-minimum;
+        left: 0;
+      }
+    }
   }
 
   h5 {

@@ -60,18 +60,19 @@ export class SearchBar extends React.Component {
                   </optgroup>
                 </select>
               </div>
-              <Typeahead className="flex-all"
-                         mode={MODE_OPEN}
-                         onInputChange={this._onInputChange}
-                         onOptionSelected={this._onTypeaheadSelected}
-                         placeholder="Enter your search term(s)"
-                         renderOption={this._renderOption}
-                         textBoxProps={({
-                           "aria-label": "The term to search for",
-                           id: "searchText"
-                         })}
-                         value={this.state.inputValue}
-              />
+              <div className="flex-all typeahead-portal">
+                <Typeahead mode={MODE_OPEN}
+                           onInputChange={this._onInputChange}
+                           onOptionSelected={this._onTypeaheadSelected}
+                           placeholder="Enter your search term(s)"
+                           renderOption={this._renderOption}
+                           textBoxProps={({
+                             "aria-label": "The term to search for",
+                             id: "searchText"
+                           })}
+                           value={this.state.inputValue}
+                />
+              </div>
 
               <button type="submit"
                       className="a-btn"
