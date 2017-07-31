@@ -265,13 +265,16 @@ describe('component::Typeahead', () => {
       expect(target.state('phase')).toEqual('RESULTS')
     })
 
+    afterEach(() => {
+      expect(fixture.preventDefault).toHaveBeenCalled()
+    })
+
     it('hides the drop down when "ESC" is pressed', () => {
       fixture.which = keys.VK_ESCAPE
       input.simulate('keydown', fixture)
 
       expect(target.state('inputValue')).toEqual('bar')
       expect(target.state('phase')).toEqual('CHOSEN')
-      expect(fixture.preventDefault).toHaveBeenCalled()
     })
 
     describe('arrow keys', () => {
@@ -281,7 +284,6 @@ describe('component::Typeahead', () => {
 
         expect(target.state('selectedIndex')).toEqual(0)
         expect(target.state('inputValue')).toEqual('alpha')
-        expect(fixture.preventDefault).toHaveBeenCalled()
       })
 
       it('has no effect when there are no results', () => {
@@ -292,12 +294,11 @@ describe('component::Typeahead', () => {
 
         expect(target.state('selectedIndex')).toEqual(-1)
         expect(target.state('inputValue')).toEqual('bar')
-        expect(fixture.preventDefault).toHaveBeenCalled()
       })
     })
 
     describe('ENTER/TAB', () => {
-      it('selects the highlighted option when "TAB" is pressed', () => {
+      it('selects the highlighted option', () => {
         target.instance().setState({
           selectedIndex: 1
         })
@@ -309,7 +310,18 @@ describe('component::Typeahead', () => {
         expect(target.state('phase')).toEqual('CHOSEN')
         expect(target.state('searchResults')).toEqual([])
         expect(target.state('selectedIndex')).toEqual(-1)
-        expect(fixture.preventDefault).toHaveBeenCalled()
+      })
+
+      it('uses the text box value when there are no options', () => {
+        target.instance().setState({
+          selectedIndex: -1,
+          searchResults: []
+        })
+        fixture.which = keys.VK_TAB
+        input.simulate('keydown', fixture)
+
+        expect(props.onOptionSelected).toHaveBeenCalledWith('bar')
+        expect(target.state('phase')).toEqual('CHOSEN')
       })
     })
   })
