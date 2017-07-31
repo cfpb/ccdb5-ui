@@ -7,6 +7,15 @@ import * as keys from '../constants'
 import './Typeahead.less'
 
 // ----------------------------------------------------------------------------
+// Usage Mode
+
+// The user can enter any text of choose one of the drop down options
+export const MODE_OPEN = 'OPEN'
+
+// The user is only allowed to choose one of the drop down options
+export const MODE_CLOSED = 'CLOSED'
+
+// ----------------------------------------------------------------------------
 // State Machine
 
 const ERROR = 'ERROR'
@@ -73,20 +82,23 @@ export default class Typeahead extends React.Component {
 
     // Key/function map
     this.keyMap = {}
-    this.keyMap[keys.VK_ESCAPE] = this._keyCancel.bind(this)
-    this.keyMap[keys.VK_UP] = this._nav.bind(this, -1)
-    this.keyMap[keys.VK_DOWN] = this._nav.bind(this, 1)
 
-    // TODO: If allowAnyValue psuedocode
-    // if (this.props.allowAnyValue) {
-    //   this.keyMap[keys.VK_ENTER] = this._keyEnter.bind(this)
-    //   this.keyMap[keys.VK_RETURN] = this._keyEnter.bind(this)
-    //   this.keyMap[keys.VK_TAB] = this._keyTab.bind(this)
-    //}
-    //else {
-    this.keyMap[keys.VK_ENTER] = this._chooseSelectedIndex.bind(this)
-    this.keyMap[keys.VK_RETURN] = this._chooseSelectedIndex.bind(this)
-    this.keyMap[keys.VK_TAB] = this._chooseSelectedIndex.bind(this)
+    if (this.props.mode === MODE_OPEN ) {
+      this.keyMap[keys.VK_ESCAPE] = this._openKeyCancel.bind(this)
+      this.keyMap[keys.VK_UP] = this._openNav.bind(this, -1)
+      this.keyMap[keys.VK_DOWN] = this._openNav.bind(this, 1)
+      this.keyMap[keys.VK_ENTER] = this._chooseSelectedIndex.bind(this)
+      this.keyMap[keys.VK_RETURN] = this._chooseSelectedIndex.bind(this)
+      this.keyMap[keys.VK_TAB] = this._chooseSelectedIndex.bind(this)
+    }
+    else {
+      this.keyMap[keys.VK_ESCAPE] = this._closedKeyCancel.bind(this)
+      this.keyMap[keys.VK_UP] = this._closedNav.bind(this, -1)
+      this.keyMap[keys.VK_DOWN] = this._closedNav.bind(this, 1)
+      this.keyMap[keys.VK_ENTER] = this._chooseSelectedIndex.bind(this)
+      this.keyMap[keys.VK_RETURN] = this._chooseSelectedIndex.bind(this)
+      this.keyMap[keys.VK_TAB] = this._chooseSelectedIndex.bind(this)
+    }
 
     // Bindings
     this._onBlur = this._onBlur.bind(this)
@@ -102,22 +114,7 @@ export default class Typeahead extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.state.phase !== WAITING ) {
-      return
-    }
-
-    const value = this.state.inputValue
-    const returned = this.props.onInputChange(value)
-
-    if (typeof(returned.then) === 'function') {
-      returned.then(
-        options => this._setOptions(options),
-        error => this._onOptionsError(error)
-      )
-    }
-    else {
-      this._setOptions(returned)
-    }
+    this._callForOptions()
   }
 
   render() {
@@ -164,6 +161,46 @@ export default class Typeahead extends React.Component {
   // --------------------------------------------------------------------------
   // Search Methods
 
+  _calculateNewIndex(delta) {
+    const max = Math.min(
+      this.props.maxVisible, this.state.searchResults.length
+    )
+    if (max === 0) {
+      return -1
+    }
+
+    // Clamp the new index
+    let newIndex = this.state.selectedIndex + delta
+    if (newIndex < 0) {
+      newIndex = 0
+    }
+    if (newIndex >= max) {
+      newIndex = max - 1
+    }
+
+    return newIndex
+  }
+
+  _callForOptions() {
+    if (this.state.phase !== WAITING ) {
+      return
+    }
+
+    const value = this.state.inputValue
+    const returned = this.props.onInputChange(value)
+
+    // Did the callback produce a promise?
+    if (typeof(returned.then) === 'function') {
+      returned.then(
+        options => this._setOptions(options),
+        error => this._onOptionsError(error)
+      )
+    }
+    else {
+      this._setOptions(returned)
+    }
+  }
+
   _onOptionsError() {
     this.setState({
       phase: ERROR
@@ -177,12 +214,17 @@ export default class Typeahead extends React.Component {
 
   _selectOption(index) {
     this.props.onOptionSelected(this.state.searchResults[index])
-    this.setState({
+    const nextState = {
       phase: CHOSEN,
-      inputValue: '',
       searchResults: [],
       selectedIndex: -1
-    })
+    }
+
+    if (this.props.mode === MODE_CLOSED) {
+      nextState.inputValue = ''
+    }
+
+    this.setState(nextState)
   }
 
   // --------------------------------------------------------------------------
@@ -202,29 +244,37 @@ export default class Typeahead extends React.Component {
     event.preventDefault()
   }
 
-  _keyCancel(event) {
+  _closedKeyCancel(event) {
     event.preventDefault()
     this.setState(nextStateFromValue('', this.props))
   }
 
-  _nav(delta, event) {
+  _closedNav(delta, event) {
     event.preventDefault()
-
-    const max = Math.min(this.props.maxVisible, this.state.searchResults.length)
-    if (max === 0) {
-      return
+    const newIndex = this._calculateNewIndex(delta)
+    if (newIndex >= 0) {
+      this.setState({selectedIndex: newIndex})
     }
+  }
 
-    // Clamp the new index
-    let newIndex = this.state.selectedIndex + delta
-    if (newIndex < 0) {
-      newIndex = 0
-    }
-    if (newIndex >= max) {
-      newIndex = max - 1
-    }
+  _openKeyCancel(event) {
+    event.preventDefault()
+    this.setState({phase: CHOSEN})
+  }
 
-    this.setState({selectedIndex: newIndex})
+  _openNav(delta, event) {
+    event.preventDefault()
+    const newIndex = this._calculateNewIndex(delta)
+    if (newIndex >= 0) {
+      // TODO: may need an extractor callback eventually
+      // For now, assume the shape of the options
+      const inputValue = this.state.searchResults[newIndex].key
+
+      this.setState({
+        selectedIndex: newIndex,
+        inputValue
+      })
+    }
   }
 
   // --------------------------------------------------------------------------
@@ -273,6 +323,7 @@ Typeahead.propTypes = {
   className: PropTypes.string,
   maxVisible: PropTypes.number,
   minLength: PropTypes.number,
+  mode: PropTypes.oneOf([MODE_OPEN, MODE_CLOSED]).isRequired,
   onInputChange: PropTypes.func.isRequired,
   onOptionSelected: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
@@ -285,6 +336,7 @@ Typeahead.defaultProps = {
   className: '',
   maxVisible: 5,
   minLength: 2,
+  mode: MODE_CLOSED,
   placeholder: 'Enter your search text',
   renderOption: (x) => {
     return {
