@@ -88,20 +88,23 @@ exports[`initial state renders without crashing 1`] = `
                 </optgroup>
               </select>
             </div>
-            <section
-              className="typeahead flex-all"
-              onBlur={[Function]}
-              onFocus={[Function]}>
-              <input
-                aria-label="The term to search for"
-                autoComplete="off"
-                id="searchText"
-                onChange={[Function]}
-                onKeyDown={[Function]}
-                placeholder="Enter your search term(s)"
-                type="text"
-                value="foo" />
-            </section>
+            <div
+              className="flex-all typeahead-portal">
+              <section
+                className="typeahead "
+                onBlur={[Function]}
+                onFocus={[Function]}>
+                <input
+                  aria-label="The term to search for"
+                  autoComplete="off"
+                  id="searchText"
+                  onChange={[Function]}
+                  onKeyDown={[Function]}
+                  placeholder="Enter your search term(s)"
+                  type="text"
+                  value="foo" />
+              </section>
+            </div>
             <button
               className="a-btn"
               type="submit">
