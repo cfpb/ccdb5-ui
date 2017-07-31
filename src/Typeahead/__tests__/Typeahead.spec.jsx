@@ -1,7 +1,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme';
-import Typeahead from '..'
+import Typeahead, { MODE_OPEN } from '..'
 import * as keys from '../../constants'
 
 function setupEnzyme(initalProps={}) {
@@ -145,7 +145,7 @@ describe('component::Typeahead', () => {
     })
   })
 
-  describe('keyboard events', () => {
+  describe('keyboard events in CLOSED mode', () => {
     let fixture, target, props, input
     beforeEach(() => {
       ({target, props} = setupEnzyme())
@@ -241,6 +241,75 @@ describe('component::Typeahead', () => {
         input.simulate('keydown', fixture)
 
         expect(props.onOptionSelected).toHaveBeenCalledWith('beta')
+      })
+    })
+  })
+
+  describe('keyboard events in OPEN mode', () => {
+    let fixture, target, props, input
+    beforeEach(() => {
+      ({target, props} = setupEnzyme({
+        mode: MODE_OPEN,
+        onInputChange: jest.fn(() => ([
+          {key: 'alpha'},
+          {key: 'beta'}
+        ]))
+      }))
+
+      input = target.find('input')
+      fixture = {
+        preventDefault: jest.fn()
+      }
+
+      input.simulate('change', {target: { value: 'bar'}})
+      expect(target.state('phase')).toEqual('RESULTS')
+    })
+
+    it('hides the drop down when "ESC" is pressed', () => {
+      fixture.which = keys.VK_ESCAPE
+      input.simulate('keydown', fixture)
+
+      expect(target.state('inputValue')).toEqual('bar')
+      expect(target.state('phase')).toEqual('CHOSEN')
+      expect(fixture.preventDefault).toHaveBeenCalled()
+    })
+
+    describe('arrow keys', () => {
+      it('sets the text box value to the selected value', () => {
+        fixture.which = keys.VK_DOWN
+        input.simulate('keydown', fixture)
+
+        expect(target.state('selectedIndex')).toEqual(0)
+        expect(target.state('inputValue')).toEqual('alpha')
+        expect(fixture.preventDefault).toHaveBeenCalled()
+      })
+
+      it('has no effect when there are no results', () => {
+        target.instance()._calculateNewIndex = jest.fn(() => -1)
+
+        fixture.which = keys.VK_DOWN
+        input.simulate('keydown', fixture)
+
+        expect(target.state('selectedIndex')).toEqual(-1)
+        expect(target.state('inputValue')).toEqual('bar')
+        expect(fixture.preventDefault).toHaveBeenCalled()
+      })
+    })
+
+    describe('ENTER/TAB', () => {
+      it('selects the highlighted option when "TAB" is pressed', () => {
+        target.instance().setState({
+          selectedIndex: 1
+        })
+        fixture.which = keys.VK_TAB
+        input.simulate('keydown', fixture)
+
+        expect(props.onOptionSelected).toHaveBeenCalledWith({ key: 'beta'})
+        expect(target.state('inputValue')).toEqual('bar')
+        expect(target.state('phase')).toEqual('CHOSEN')
+        expect(target.state('searchResults')).toEqual([])
+        expect(target.state('selectedIndex')).toEqual(-1)
+        expect(fixture.preventDefault).toHaveBeenCalled()
       })
     })
   })
