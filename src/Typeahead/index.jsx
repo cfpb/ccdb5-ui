@@ -7,6 +7,24 @@ import * as keys from '../constants'
 import './Typeahead.less'
 
 // ----------------------------------------------------------------------------
+// attribution: underscore.js (MIT License)
+
+export function debounce(func, wait) {
+  var timer = null;
+
+  var later = function(context, args) {
+    timer = null;
+    func.apply(context, args);
+  }
+
+  return function() {
+    if (!timer) {
+      timer = setTimeout(later, wait)
+    }
+  }
+}
+
+// ----------------------------------------------------------------------------
 // Usage Mode
 
 // The user can enter any text of choose one of the drop down options
@@ -107,6 +125,10 @@ export default class Typeahead extends React.Component {
     this._onOptionsError = this._onOptionsError.bind(this)
     this._setOptions = this._setOptions.bind(this)
     this._valueUpdated = this._valueUpdated.bind(this)
+
+    this.search = debounce(
+      this._callForOptions.bind(this), this.props.debounceWait
+    )
   }
 
   componentWillReceiveProps(nextProps) {
@@ -114,7 +136,7 @@ export default class Typeahead extends React.Component {
   }
 
   componentDidUpdate() {
-    this._callForOptions()
+    this.search() 
   }
 
   render() {
@@ -330,6 +352,7 @@ export default class Typeahead extends React.Component {
 
 Typeahead.propTypes = {
   className: PropTypes.string,
+  debounceWait: PropTypes.number,
   maxVisible: PropTypes.number,
   minLength: PropTypes.number,
   mode: PropTypes.oneOf([MODE_OPEN, MODE_CLOSED]).isRequired,
@@ -343,6 +366,7 @@ Typeahead.propTypes = {
 
 Typeahead.defaultProps = {
   className: '',
+  debounceWait: 250,
   maxVisible: 5,
   minLength: 2,
   mode: MODE_CLOSED,
