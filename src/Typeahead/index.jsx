@@ -125,10 +125,11 @@ export default class Typeahead extends React.Component {
     this._onOptionsError = this._onOptionsError.bind(this)
     this._setOptions = this._setOptions.bind(this)
     this._valueUpdated = this._valueUpdated.bind(this)
+    this._callForOptions = this._callForOptions.bind(this)
 
-    this.search = debounce(
-      this._callForOptions.bind(this), this.props.debounceWait
-    )
+    this.search = (this.props.debounceWait)
+      ? debounce(this._callForOptions, this.props.debounceWait)
+      : this._callForOptions
   }
 
   componentWillReceiveProps(nextProps) {
@@ -366,7 +367,7 @@ Typeahead.propTypes = {
 
 Typeahead.defaultProps = {
   className: '',
-  debounceWait: 250,
+  debounceWait: 0,
   maxVisible: 5,
   minLength: 2,
   mode: MODE_CLOSED,
