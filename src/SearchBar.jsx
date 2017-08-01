@@ -110,26 +110,16 @@ export class SearchBar extends React.Component {
   _onInputChange(value) {
     const n = value.toLowerCase()
 
-    // Find the matches
-    const filtered = (this.props.forTypeahead || [])
-      .filter(x => x.normalized.indexOf(n) !== -1)
-      .map(x => {
-        return {
-          key: x.key,
-          position: x.normalized.indexOf(n),
-          value
-        }
-      })
-
-    // Sort the matches so that matches at the beginning of the string
-    // appear first
-    filtered.sort((a,b) => {
-      return a.position - b.position
-    })
-
-    return new Promise((resolve) => {
-       setTimeout(() => {resolve(filtered)}, 1000)
-    })
+    const uri = '@@API_suggest/?text=' + value
+    return fetch(uri)
+    .then(result => result.json())
+    .then(items => items.map(x => {
+      return {
+        key: x,
+        position: x.indexOf(n),
+        value
+      }
+    }))
   }
 
   _renderOption(obj) {
@@ -154,16 +144,9 @@ export class SearchBar extends React.Component {
 }
 
 export const mapStateToProps = state => {
-  const forTypeahead = ['Bank', 'Credit', 'Loan', 'Mortgage', 'Report']
-    .map(x => ({
-      key: x,
-      normalized: x.toLowerCase()
-    }))
-
   return {
     searchText: state.query.searchText,
-    searchField: state.query.searchField,
-    forTypeahead
+    searchField: state.query.searchField
   }
 }
 
