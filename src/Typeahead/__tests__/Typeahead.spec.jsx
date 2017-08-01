@@ -1,7 +1,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme';
-import Typeahead, { MODE_OPEN } from '..'
+import Typeahead, { MODE_OPEN, debounce } from '..'
 import * as keys from '../../constants'
 
 function setupEnzyme(initalProps={}, removeDebounce=true) {
@@ -330,5 +330,33 @@ describe('component::Typeahead', () => {
         expect(target.state('phase')).toEqual('CHOSEN')
       })
     })
+  })
+})
+
+describe('debounce', () => {
+  beforeEach(() => {
+    jest.useFakeTimers()
+  })
+
+  it('calls the passed in function after N milliseconds', () => {
+    const spy = jest.fn()
+    const target = debounce(spy, 200)
+    target()
+    expect(spy).not.toHaveBeenCalled()
+    jest.runTimersToTime(200)
+    expect(spy).toHaveBeenCalled()
+  })
+
+  it('only triggers one call while the timer is active', () => {
+    const spy = jest.fn()
+    const target = debounce(spy, 200)
+
+    target()
+    target()
+    target()
+
+    expect(spy).not.toHaveBeenCalled()
+    jest.runAllTimers()
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 })
