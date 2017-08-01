@@ -118,6 +118,7 @@ export default class ComplaintDetail extends React.Component {
 }
 
 ComplaintDetail.propTypes = {
+  complaint_id: PropTypes.string.isRequired,
   row: PropTypes.object
 }
 
@@ -139,7 +140,7 @@ ComplaintDetail.defaultProps = {
     sub_issue: null,
     sub_product: "Checking account",
     submitted_via: "Web",
-    tags: null,
+    tags: "Older American",
     timely: "Yes",
     zip_code: "423XX"
   }
