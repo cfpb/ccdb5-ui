@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import Typeahead, { MODE_OPEN } from '..'
 import * as keys from '../../constants'
 
-function setupEnzyme(initalProps={}) {
+function setupEnzyme(initalProps={}, removeDebounce=true) {
   const props = Object.assign({
     onInputChange: jest.fn((x) => ['alpha', 'beta', 'gamma']),
     onOptionSelected: jest.fn(),
@@ -12,6 +12,12 @@ function setupEnzyme(initalProps={}) {
   }, initalProps)
 
   const target = shallow(<Typeahead {...props} />);
+
+  // Remove debounce
+  if (removeDebounce) {
+    const instance = target.instance()
+    instance.search = instance._callForOptions
+  }
 
   return {
     props,
