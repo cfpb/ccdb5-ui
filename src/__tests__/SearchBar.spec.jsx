@@ -1,7 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { mount } from 'enzyme';
-import { SearchBar, mapDispatchToProps } from '../SearchBar';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { mount } from 'enzyme'
+import { SearchBar, mapDispatchToProps } from '../SearchBar'
 import * as types from '../constants'
 
 function setup(initialText) {
@@ -16,7 +16,7 @@ function setup(initialText) {
     onSearch: jest.fn()
   }
 
-  const target = mount(<SearchBar {...props} />);
+  const target = mount(<SearchBar {...props} />)
 
   return {
     props,
@@ -25,31 +25,44 @@ function setup(initialText) {
 }
 
 describe('component:SearchBar', () =>{
-  it('receives updates when the parent state changes', () => {
-    const node = document.createElement('div');
-    const target = ReactDOM.render(<SearchBar searchText="foo" />, node);
+  beforeEach(() => {
+    global.fetch = jest.fn().mockImplementation((url) => {
+      expect(url).toContain('@@API_suggest/?text=')
 
-    ReactDOM.render(<SearchBar searchText="bar" />, node);
-    expect(target.state.inputValue).toEqual('bar');
-  });
+      return new Promise((resolve) => {
+        resolve({
+          json: function() { 
+            return ['foo', 'bar', 'baz', 'qaz']
+          }
+        })
+      })
+    })
+  })
+
+  it('receives updates when the parent state changes', () => {
+    const node = document.createElement('div')
+    const target = ReactDOM.render(<SearchBar searchText="foo" />, node)
+
+    ReactDOM.render(<SearchBar searchText="bar" />, node)
+    expect(target.state.inputValue).toEqual('bar')
+  })
 
   it('calls the callback when the form is submitted', () => {
     const { target, props } = setup('bar')
-    const theForm = target.find('form');
+    const theForm = target.find('form')
 
-    theForm.simulate('submit', { preventDefault: () => {} });
+    theForm.simulate('submit', { preventDefault: () => {} })
     expect(props.onSearch).toHaveBeenCalledWith('bar', 'all')  
   })
 
   it('allows the user to select the field to search within', () => {
     const { target } = setup('foo')
-    const dropDown = target.find('#searchField');
+    const dropDown = target.find('#searchField')
 
-    dropDown.simulate('change', {target: { value: 'company'}});
-    expect(target.state('searchField')).toEqual('company');
+    dropDown.simulate('change', {target: { value: 'company'}})
+    expect(target.state('searchField')).toEqual('company')
   })
 
-  // TODO: Change when API is ready with actual suggest endpoint
   describe('Typeahead interface', () => {
     let target, props
     beforeEach(() => {
@@ -58,12 +71,9 @@ describe('component:SearchBar', () =>{
 
     describe('_onInputChange', () => {
       it('provides a promise', () => {
-        jest.useFakeTimers()
-
         const {target} = setup()
         const actual = target.instance()._onInputChange('BA')
         expect(actual.then).toBeInstanceOf(Function)
-        jest.runAllTimers()
       })
     })
 
@@ -108,9 +118,9 @@ describe('component:SearchBar', () =>{
 
   describe('mapDispatchToProps', () => {
     it('hooks into onSearch', () => {
-      const dispatch = jest.fn();
-      mapDispatchToProps(dispatch).onSearch('foo', 'bar');
-      expect(dispatch.mock.calls.length).toEqual(1);
+      const dispatch = jest.fn()
+      mapDispatchToProps(dispatch).onSearch('foo', 'bar')
+      expect(dispatch.mock.calls.length).toEqual(1)
     })
   })
 })
