@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
 import search from './actions/search'
@@ -62,7 +63,8 @@ export class SearchBar extends React.Component {
                 </select>
               </div>
               <div className="flex-all typeahead-portal">
-                <Typeahead mode={MODE_OPEN}
+                <Typeahead debounceWait={this.props.debounceWait}
+                           mode={MODE_OPEN}
                            onInputChange={this._onInputChange}
                            onOptionSelected={this._onTypeaheadSelected}
                            placeholder="Enter your search term(s)"
@@ -137,6 +139,17 @@ export class SearchBar extends React.Component {
     })
     this.submitButton.focus()
   }
+}
+
+// ----------------------------------------------------------------------------
+// Meta
+
+SearchBar.propTypes = {
+  debounceWait: PropTypes.number,
+}
+
+SearchBar.defaultProps = {
+  debounceWait: 250,
 }
 
 export const mapStateToProps = state => {

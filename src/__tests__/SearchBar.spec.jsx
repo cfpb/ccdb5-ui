@@ -6,6 +6,7 @@ import * as types from '../constants'
 
 function setup(initialText) {
   const props = {
+    debounceWait: 0,
     searchText: initialText,
     searchField: 'all',
     onSearch: jest.fn()
@@ -36,9 +37,11 @@ describe('component:SearchBar', () =>{
 
   it('receives updates when the parent state changes', () => {
     const node = document.createElement('div')
-    const target = ReactDOM.render(<SearchBar searchText="foo" />, node)
+    const {props} = setup('foo')
+    const target = ReactDOM.render(<SearchBar {...props} />, node)
 
-    ReactDOM.render(<SearchBar searchText="bar" />, node)
+    props.searchText = 'bar'
+    ReactDOM.render(<SearchBar {...props} />, node)
     expect(target.state.inputValue).toEqual('bar')
   })
 
