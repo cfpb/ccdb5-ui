@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Typeahead from '.'
+import HighlightingOption from './HighlightingOption'
 
 export const normalize = s => {
   return s.toLowerCase()
@@ -49,6 +50,7 @@ export default class HighlightingTypeahead extends React.Component {
       .map(x => {
         return {
           key: x.key,
+          label: x.key,
           position: x.normalized.indexOf(normalized),
           value
         }
@@ -64,15 +66,9 @@ export default class HighlightingTypeahead extends React.Component {
   }
 
   _renderOption(obj) {
-    const start = obj.key.substring(0, obj.position)
-    const match = obj.key.substr(obj.position, obj.value.length)
-    const end = obj.key.substring(obj.position + obj.value.length)
-
     return {
       value: obj.key,
-      component: (
-        <span>{start}<b>{match}</b>{end}</span>
-      )
+      component: (<HighlightingOption {...obj} />)
     }
   }
 }

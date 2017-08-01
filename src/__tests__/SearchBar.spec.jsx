@@ -6,11 +6,6 @@ import * as types from '../constants'
 
 function setup(initialText) {
   const props = {
-    forTypeahead: [
-      {key: 'Foo', normalized: 'foo'},
-      {key: 'Bar', normalized: 'bar'},
-      {key: 'Baz', normalized: 'baz'}
-    ],
     searchText: initialText,
     searchField: 'all',
     onSearch: jest.fn()
@@ -81,14 +76,19 @@ describe('component:SearchBar', () =>{
       it('produces a custom component', () => {
         const {target, props} = setup()
         const option = {
-          ...props.forTypeahead[0],
+          key: 'Foo',
+          label: 'foo',
           position: 0,
           value: 'FOO'
         }
         const actual = target.instance()._renderOption(option)
-        expect(actual).toEqual({
-          value: 'Foo',
-          component: expect.anything()
+        expect(actual.value).toEqual('Foo')
+        expect(actual.component).toMatchObject({
+          props: {
+            label: 'foo',
+            position: 0,
+            value: 'FOO'
+          }          
         })
       })
     })
