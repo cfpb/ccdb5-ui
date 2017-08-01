@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import search from './actions/search'
 import Typeahead, { MODE_OPEN } from './Typeahead'
+import HighlightingOption from './Typeahead/HighlightingOption'
 import './SearchBar.less'
 
 const searchFields = {
@@ -116,6 +117,7 @@ export class SearchBar extends React.Component {
     .then(items => items.map(x => {
       return {
         key: x,
+        label: x,
         position: x.indexOf(n),
         value
       }
@@ -123,15 +125,9 @@ export class SearchBar extends React.Component {
   }
 
   _renderOption(obj) {
-    const start = obj.key.substring(0, obj.position)
-    const match = obj.key.substr(obj.position, obj.value.length)
-    const end = obj.key.substring(obj.position + obj.value.length)
-
     return {
       value: obj.key,
-      component: (
-        <span>{start}<b>{match}</b>{end}</span>
-      )
+      component: (<HighlightingOption {...obj} />)
     }
   }
 
