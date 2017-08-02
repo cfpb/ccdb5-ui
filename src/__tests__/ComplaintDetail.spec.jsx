@@ -25,19 +25,49 @@ const fixture = {
   zip_code: '423XX'
 }
 
-function setupSnapshot(overrides={}) {
-  const props = Object.assign({}, fixture, overrides)
+function _buildJson(row) {
+  return {
+    hits: { hits: [{ _source: row }] } 
+  }
+}
 
-  return renderer.create(
+function setupSnapshot(overrides={}) {
+  const row = Object.assign({}, fixture, overrides)
+
+  // Provide hooks for "API"
+  let onSuccess, onFail
+
+  global.fetch = jest.fn().mockImplementation((url) => {
+    expect(url).toContain('@@API123456789')
+
+    return {
+      then: (x) => {
+        x({ json: () => ({})})
+        return {
+          then: (x) => {
+            onSuccess = () => x(_buildJson(row))
+            return {
+              catch: (y) => {onFail = y}
+            }
+          }
+        }
+      }
+    }
+  })
+
+  const target = renderer.create(
     <IntlProvider locale="en">
-      <ComplaintDetail complaint_id='123456789' row={props} />
+      <ComplaintDetail complaint_id='123456789' />
     </IntlProvider>
   )
+
+  return {target, onSuccess, onFail}
 }
 
 describe('snapshots', () => {
   it('renders without crashing', () => {
-    const target = setupSnapshot()
+    const {target, onSuccess} = setupSnapshot()
+    onSuccess()
     const tree = target.toJSON()
     expect(tree).toMatchSnapshot()
   })
@@ -51,9 +81,9 @@ describe('snapshots', () => {
       'FOO'
     ]
     
-    let target, tree
     values.forEach(v => {
-      const target = setupSnapshot({consumer_consent_provided: v})
+      const {target, onSuccess} = setupSnapshot({consumer_consent_provided: v})
+      onSuccess()
       const tree = target.toJSON()
       expect(tree).toMatchSnapshot()
     })
@@ -62,28 +92,44 @@ describe('snapshots', () => {
   it('supports "Timely Response" icons', () => {
     const values = ['Yes', 'No']
     
-    let target, tree
     values.forEach(v => {
-      const target = setupSnapshot({timely: v})
+      const {target, onSuccess} = setupSnapshot({timely: v})
+      onSuccess()
       const tree = target.toJSON()
       expect(tree).toMatchSnapshot()
     })
   })
 
   it('renders without a narrative', () => {
-    const target = setupSnapshot({complaint_what_happened: ''})
+    const {target, onSuccess} = setupSnapshot({complaint_what_happened: ''})
+    onSuccess()
     const tree = target.toJSON()
     expect(tree).toMatchSnapshot()
   })
 
   it('renders without a sub-issue', () => {
-    const target = setupSnapshot({sub_issue: ''})
+    const {target, onSuccess} = setupSnapshot({sub_issue: ''})
+    onSuccess()
     const tree = target.toJSON()
     expect(tree).toMatchSnapshot()
   })
 
   it('renders without a sub-product', () => {
-    const target = setupSnapshot({sub_product: ''})
+    const {target, onSuccess} = setupSnapshot({sub_product: ''})
+    onSuccess()
+    const tree = target.toJSON()
+    expect(tree).toMatchSnapshot()
+  })
+
+  it('renders WAITING phase', () => {
+    const {target} = setupSnapshot({sub_product: ''})
+    const tree = target.toJSON()
+    expect(tree).toMatchSnapshot()
+  })
+
+  it('renders ERROR phase', () => {
+    const {target, onFail} = setupSnapshot({sub_product: ''})
+    onFail()
     const tree = target.toJSON()
     expect(tree).toMatchSnapshot()
   })
