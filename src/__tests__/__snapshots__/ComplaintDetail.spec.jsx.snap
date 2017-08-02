@@ -187,10 +187,14 @@ exports[`component::ComplaintDetail snapshots renders without a narrative 1`] = 
         <h5>
           Consumer consent to publish narrative
         </h5>
-        <span
-          className="body-copy">
-          Consent provided
-        </span>
+        <div>
+          <span
+            className="cf-icon cf-icon__before cf-icon-approved-round" />
+          <span
+            className="body-copy">
+            Consent provided
+          </span>
+        </div>
         <br />
       </div>
     </div>
@@ -364,10 +368,14 @@ exports[`component::ComplaintDetail snapshots renders without a sub-issue 1`] = 
         <h5>
           Consumer consent to publish narrative
         </h5>
-        <span
-          className="body-copy">
-          Consent provided
-        </span>
+        <div>
+          <span
+            className="cf-icon cf-icon__before cf-icon-approved-round" />
+          <span
+            className="body-copy">
+            Consent provided
+          </span>
+        </div>
         <br />
         <div>
           <h5>
@@ -550,10 +558,14 @@ exports[`component::ComplaintDetail snapshots renders without a sub-product 1`] 
         <h5>
           Consumer consent to publish narrative
         </h5>
-        <span
-          className="body-copy">
-          Consent provided
-        </span>
+        <div>
+          <span
+            className="cf-icon cf-icon__before cf-icon-approved-round" />
+          <span
+            className="body-copy">
+            Consent provided
+          </span>
+        </div>
         <br />
         <div>
           <h5>
@@ -747,10 +759,14 @@ exports[`component::ComplaintDetail snapshots renders without crashing 1`] = `
         <h5>
           Consumer consent to publish narrative
         </h5>
-        <span
-          className="body-copy">
-          Consent provided
-        </span>
+        <div>
+          <span
+            className="cf-icon cf-icon__before cf-icon-approved-round" />
+          <span
+            className="body-copy">
+            Consent provided
+          </span>
+        </div>
         <br />
         <div>
           <h5>
@@ -944,10 +960,14 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
         <h5>
           Consumer consent to publish narrative
         </h5>
-        <span
-          className="body-copy">
-          Consent provided
-        </span>
+        <div>
+          <span
+            className="cf-icon cf-icon__before cf-icon-approved-round" />
+          <span
+            className="body-copy">
+            Consent provided
+          </span>
+        </div>
         <br />
         <div>
           <h5>
@@ -1141,10 +1161,14 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
         <h5>
           Consumer consent to publish narrative
         </h5>
-        <span
-          className="body-copy">
-          Consent not provided
-        </span>
+        <div>
+          <span
+            className="cf-icon cf-icon__before cf-icon-delete-round" />
+          <span
+            className="body-copy">
+            Consent not provided
+          </span>
+        </div>
         <br />
         <div>
           <h5>
@@ -1338,10 +1362,14 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
         <h5>
           Consumer consent to publish narrative
         </h5>
-        <span
-          className="body-copy">
-          Consent withdrawn
-        </span>
+        <div>
+          <span
+            className="cf-icon cf-icon__before cf-icon-minus-round" />
+          <span
+            className="body-copy">
+            Consent withdrawn
+          </span>
+        </div>
         <br />
         <div>
           <h5>
@@ -1535,10 +1563,14 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
         <h5>
           Consumer consent to publish narrative
         </h5>
-        <span
-          className="body-copy">
-          N/A
-        </span>
+        <div>
+          <span
+            className="cf-icon cf-icon__before cf-icon-help-round" />
+          <span
+            className="body-copy">
+            N/A
+          </span>
+        </div>
         <br />
         <div>
           <h5>
@@ -1732,10 +1764,14 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
         <h5>
           Consumer consent to publish narrative
         </h5>
-        <span
-          className="body-copy">
-          FOO
-        </span>
+        <div>
+          <span
+            className="cf-icon cf-icon__before cf-icon-error-round" />
+          <span
+            className="body-copy">
+            FOO
+          </span>
+        </div>
         <br />
         <div>
           <h5>
@@ -1929,10 +1965,14 @@ exports[`component::ComplaintDetail snapshots supports "Timely Response" icons 1
         <h5>
           Consumer consent to publish narrative
         </h5>
-        <span
-          className="body-copy">
-          Consent provided
-        </span>
+        <div>
+          <span
+            className="cf-icon cf-icon__before cf-icon-approved-round" />
+          <span
+            className="body-copy">
+            Consent provided
+          </span>
+        </div>
         <br />
         <div>
           <h5>
@@ -2126,10 +2166,14 @@ exports[`component::ComplaintDetail snapshots supports "Timely Response" icons 2
         <h5>
           Consumer consent to publish narrative
         </h5>
-        <span
-          className="body-copy">
-          Consent provided
-        </span>
+        <div>
+          <span
+            className="cf-icon cf-icon__before cf-icon-approved-round" />
+          <span
+            className="body-copy">
+            Consent provided
+          </span>
+        </div>
         <br />
         <div>
           <h5>

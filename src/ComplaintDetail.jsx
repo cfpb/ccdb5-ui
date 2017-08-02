@@ -81,6 +81,30 @@ export default class ComplaintDetail extends React.Component {
   // --------------------------------------------------------------------------
   // Subrender Methods
 
+  _renderConsumerConsent(value) {
+    const iconMap = {
+      'Consent provided': 'cf-icon-approved-round',
+      'Consent not provided': 'cf-icon-delete-round',
+      'Consent withdrawn': 'cf-icon-minus-round',
+      'N/A': 'cf-icon-help-round',
+    }
+
+    let styles = ['cf-icon', 'cf-icon__before']
+    if (value in iconMap) {
+      styles.push(iconMap[value])
+    }
+    else {
+      styles.push('cf-icon-error-round')
+    }
+
+    return (
+      <div>
+        <span className={styles.join(' ')}></span>
+        <span className="body-copy">{ value }</span>
+      </div>
+    )
+  }
+
   _renderError() {
     return (
        <h1>There was a problem retrieving { this.props.complaint_id }</h1>
@@ -140,7 +164,7 @@ export default class ComplaintDetail extends React.Component {
             }
             <br />
             <h5>Consumer consent to publish narrative</h5>
-            <span className="body-copy">{ row.consumer_consent_provided }</span>
+            { this._renderConsumerConsent(row.consumer_consent_provided) }
             <br />            
             { narrative ? (
               <div>
