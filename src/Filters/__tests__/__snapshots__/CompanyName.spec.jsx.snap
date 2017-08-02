@@ -1,0 +1,58 @@
+exports[`component::CompanyName snapshots renders without crashing 1`] = `
+<section
+  className="collapsible-filter aggregation">
+  <div
+    className="layout-row">
+    <h5
+      className="flex-all">
+      Matched Company Name
+    </h5>
+    <div
+      className="flex-fixed toggle">
+      <button
+        className="a-btn a-btn__link hover"
+        onClick={[Function]}>
+        Hide
+        <span
+          className="cf-icon cf-icon-minus-round" />
+      </button>
+    </div>
+  </div>
+  <p>
+    The company name as it appears in our complaint system, which may be different than the name the consumer provided in their complaint
+  </p>
+  <section
+    className="typeahead"
+    onBlur={[Function]}
+    onFocus={[Function]}>
+    <input
+      disabled={false}
+      onChange={[Function]}
+      onKeyDown={[Function]}
+      placeholder="Enter company name"
+      type="text"
+      value="" />
+  </section>
+  <ul>
+    <li
+      className="flex-fixed layout-row">
+      <input
+        aria-label="CAPITAL"
+        checked={true}
+        className="flex-fixed"
+        onClick={[Function]}
+        type="checkbox" />
+      <span
+        className="flex-all bucket-key">
+        CAPITAL
+      </span>
+      <span
+        className="flex-fixed bucket-count">
+        <span>
+          999
+        </span>
+      </span>
+    </li>
+  </ul>
+</section>
+`;
