@@ -11,7 +11,6 @@ export class CompanyName extends React.Component {
   constructor(props) {
     super(props)
     this._onOptionSelected = this._onOptionSelected.bind(this)
-    this._onBucket = this._onBucket.bind(this)
   }
 
   render() {
@@ -33,11 +32,6 @@ export class CompanyName extends React.Component {
 
   _onOptionSelected(item) {
     this.props.typeaheadSelect(item.key)
-  }
-
-  _onBucket(bucket, props) {
-    props.subitems = bucket['company.raw'].buckets
-    return props
   }
 }
 
