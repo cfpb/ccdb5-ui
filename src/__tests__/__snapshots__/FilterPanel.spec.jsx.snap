@@ -67,7 +67,7 @@ exports[`initial state renders without crashing 1`] = `
   </section>
   <hr />
   <section
-    className="collapsible-filter">
+    className="collapsible-filter aggregation">
     <div
       className="layout-row">
       <h5
@@ -86,11 +86,21 @@ exports[`initial state renders without crashing 1`] = `
       </div>
     </div>
     <p>
-      The company name as it appears in our complaint system, which may be different than the name the consumer provided in the complaint
+      The company name as it appears in our complaint system, which may be different than the name the consumer provided in their complaint
     </p>
-    <input
-      placeholder="Enter company name"
-      type="text" />
+    <section
+      className="typeahead"
+      onBlur={[Function]}
+      onFocus={[Function]}>
+      <input
+        disabled={false}
+        onChange={[Function]}
+        onKeyDown={[Function]}
+        placeholder="Enter company name"
+        type="text"
+        value="" />
+    </section>
+    <ul />
   </section>
   <hr />
   <section

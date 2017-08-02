@@ -16,7 +16,7 @@ export class CompanyName extends React.Component {
 
   render() {
     return (
-      <CollapsibleFilter title='Company Name'
+      <CollapsibleFilter title='Matched Company Name'
                          desc='The company name as it appears in our complaint system, which may be different than the name the consumer provided in their complaint'
                          className='aggregation'>
         <Typeahead placeholder='Enter company name'
