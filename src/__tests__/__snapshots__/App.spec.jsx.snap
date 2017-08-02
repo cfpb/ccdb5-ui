@@ -8,9 +8,10 @@ exports[`initial state renders the detail route 1`] = `
       <div
         className="back-to-search">
         <button
-          className="a-btn a-btn__link">
+          className="a-btn a-btn__link"
+          onClick={[Function]}>
           <span
-            className="a-btn_icon a-btn_icon__on-left cf-icon cf-icon__before cf-icon-left" />
+            className="cf-icon cf-icon-left" />
           Back to search results
         </button>
       </div>

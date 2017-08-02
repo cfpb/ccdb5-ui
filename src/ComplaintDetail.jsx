@@ -60,12 +60,9 @@ export default class ComplaintDetail extends React.Component {
       <section className="card-container">
         <nav className="layout-row">
           <div className="back-to-search">
-            <button className="a-btn a-btn__link">
-                <span className="a-btn_icon
-                             a-btn_icon__on-left
-                             cf-icon
-                             cf-icon__before
-                             cf-icon-left"></span>
+            <button className="a-btn a-btn__link"
+                    onClick={this.props.onClickedBack}>
+                <span className="cf-icon cf-icon-left"></span>
                 Back to search results
             </button>          
           </div>
@@ -198,5 +195,10 @@ export default class ComplaintDetail extends React.Component {
 // Meta
 
 ComplaintDetail.propTypes = {
-  complaint_id: PropTypes.string.isRequired
+  complaint_id: PropTypes.string.isRequired,
+  onClickedBack: PropTypes.func
+}
+
+ComplaintDetail.defaultProps = {
+  onClickedBack: () => history.go(-1)
 }
