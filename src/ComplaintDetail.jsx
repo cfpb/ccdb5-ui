@@ -3,13 +3,59 @@ import React from 'react';
 import { FormattedDate } from 'react-intl';
 import './ComplaintDetail.less';
 
+const ERROR = 'ERROR'
+const WAITING = 'WAITING'
+const RESULTS = 'RESULTS'
+
 export default class ComplaintDetail extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      phase: WAITING
+    }
+
+    // Render/Phase Map
+    this.renderMap = {
+      ERROR: this._renderError.bind(this),
+      WAITING: this._renderWaiting.bind(this),
+      RESULTS: this._renderResults.bind(this),
+    }
+
+    // Binds
+    this._processError = this._processError.bind(this)
+    this._processResults = this._processResults.bind(this)
+  }
+
+  // --------------------------------------------------------------------------
+  // Interfacing with the API
+
+  _callAPI(id) {
+    const uri = '@@API' + id
+    fetch(uri)
+      .then(result => result.json())
+      .then(data => this._processResults(data))
+      .catch(error => this._processError(error))
+  }
+
+  _processError(error) {
+    this.setState({phase: ERROR})
+  }
+
+  _processResults(data) {
+    this.setState({
+      phase: RESULTS,
+      row: data.hits.hits[0]._source
+    })
+  }
+
+  // --------------------------------------------------------------------------
+  // React Methods
+
+  componentDidMount() {
+    this._callAPI(this.props.complaint_id)
+  }
+
   render() {
-    const row = this.props.row;
-
-    // Process the narrative
-    let narrative = row.complaint_what_happened || ""
-
     return (
       <section className="card-container">
         <nav className="layout-row">
@@ -30,7 +76,29 @@ export default class ComplaintDetail extends React.Component {
             </a>
           </div>
         </nav>
-        <h1>{ row.complaint_id }</h1>
+        { this.renderMap[this.state.phase]() }
+      </section>
+    )
+  }
+
+  // --------------------------------------------------------------------------
+  // Subrender Methods
+
+  _renderError() {
+    return (
+       <h1>There was a problem retrieving { this.props.complaint_id }</h1>
+    )
+  }
+
+  _renderResults() {
+    const row = this.state.row
+
+    // Process the narrative
+    let narrative = row.complaint_what_happened || ""
+
+    return (
+      <article>
+        <h1>{ this.props.complaint_id }</h1>
         <div className="card">
           <div className="card-left layout-column">
             <h5>Date CFPB received the complaint</h5>
@@ -112,36 +180,23 @@ export default class ComplaintDetail extends React.Component {
             <span className="body-copy">{ row.company_public_response }</span>
           </div>
         </div>
-      </section>
-    );
+      </article>
+    )
   }
+
+  _renderWaiting() {
+    return (
+      <div className="waiting">
+        <h1>Loading { this.props.complaint_id }...</h1>
+      </div>
+    )
+  }
+
 }
+
+// ----------------------------------------------------------------------------
+// Meta
 
 ComplaintDetail.propTypes = {
-  complaint_id: PropTypes.string.isRequired,
-  row: PropTypes.object
-}
-
-ComplaintDetail.defaultProps = {
-  row: {
-    company: "JPMORGAN CHASE & CO.",
-    company_public_response: "Company believes the complaint is the result of a misunderstanding",
-    company_response: "Closed with explanation",
-    complaint_id: "2371744",
-    complaint_what_happened: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ante magna, posuere ut nibh dictum, maximus pretium lorem. Fusce ut aliquam neque. Curabitur in massa pulvinar, mollis felis non, cursus est. Suspendisse euismod, enim eu luctus congue, neque ligula hendrerit ante, non congue ex elit mattis sem. Maecenas in tincidunt libero, eget pretium ante. Mauris ut pulvinar tellus. In euismod tellus ultricies porttitor posuere.\n\nMaecenas iaculis ex pretium vehicula condimentum. Aenean nulla nisi, consectetur nec finibus nec, euismod sed ligula. Sed fermentum ligula id lacinia luctus. Morbi sodales sed risus ut eleifend. Vivamus ligula nulla, maximus vitae libero eget, consectetur dapibus ipsum. Curabitur porta erat lacus, et fringilla ligula placerat scelerisque. Cras interdum, magna eget varius posuere, velit nisi placerat nunc, sit amet dictum arcu eros ut erat. Duis dignissim interdum felis sed consectetur. Praesent nulla nisi, ornare a fermentum in, lobortis vehicula magna. Vivamus venenatis lorem in nisl vulputate, ut consectetur tortor ornare. Nullam nibh nulla, venenatis sit amet nibh consequat, tristique porttitor nibh. Nulla hendrerit justo non ultricies scelerisque. Proin dictum, elit vel fringilla maximus, lacus ante volutpat nibh, eu auctor purus justo ut metus.",
-    consumer_consent_provided: "Consent provided",
-    consumer_disputed: "Yes",
-    date_received: "2017-03-04T00:00:00",
-    date_sent_to_company: "2017-03-04T00:00:00",
-    has_narrative: true,
-    issue: "Account opening, closing, or management",
-    product: "Bank account or service",
-    state: "KY",
-    sub_issue: null,
-    sub_product: "Checking account",
-    submitted_via: "Web",
-    tags: "Older American",
-    timely: "Yes",
-    zip_code: "423XX"
-  }
+  complaint_id: PropTypes.string.isRequired
 }
