@@ -81,6 +81,20 @@ export default class ComplaintDetail extends React.Component {
   // --------------------------------------------------------------------------
   // Subrender Methods
 
+  _renderCompanyTimely(value) {
+    let styles = ['cf-icon', 'cf-icon__before', 'cf-icon-clock-round']
+    if (value.toLowerCase() === 'no') {
+      styles.push('not-timely')
+    }
+
+    return (
+      <div>
+        <span className={styles.join(' ')}></span>
+        <span className="body-copy">{ value }</span>
+      </div>
+    )    
+  }
+
   _renderConsumerConsent(value) {
     const iconMap = {
       'Consent provided': 'cf-icon-approved-round',
@@ -192,7 +206,7 @@ export default class ComplaintDetail extends React.Component {
           </div>
           <div className="card-right layout-column">
             <h5>Timely response?</h5>
-            <span className="body-copy">{ row.timely }</span>
+            { this._renderCompanyTimely(row.timely) }
             <br />
             <h5>Company response to consumer</h5>
             <span className="body-copy">{ row.company_response }</span>

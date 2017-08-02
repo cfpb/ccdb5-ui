@@ -230,10 +230,14 @@ exports[`component::ComplaintDetail snapshots renders without a narrative 1`] = 
         <h5>
           Timely response?
         </h5>
-        <span
-          className="body-copy">
-          Yes
-        </span>
+        <div>
+          <span
+            className="cf-icon cf-icon__before cf-icon-clock-round" />
+          <span
+            className="body-copy">
+            Yes
+          </span>
+        </div>
         <br />
         <h5>
           Company response to consumer
@@ -420,10 +424,14 @@ exports[`component::ComplaintDetail snapshots renders without a sub-issue 1`] = 
         <h5>
           Timely response?
         </h5>
-        <span
-          className="body-copy">
-          Yes
-        </span>
+        <div>
+          <span
+            className="cf-icon cf-icon__before cf-icon-clock-round" />
+          <span
+            className="body-copy">
+            Yes
+          </span>
+        </div>
         <br />
         <h5>
           Company response to consumer
@@ -610,10 +618,14 @@ exports[`component::ComplaintDetail snapshots renders without a sub-product 1`] 
         <h5>
           Timely response?
         </h5>
-        <span
-          className="body-copy">
-          Yes
-        </span>
+        <div>
+          <span
+            className="cf-icon cf-icon__before cf-icon-clock-round" />
+          <span
+            className="body-copy">
+            Yes
+          </span>
+        </div>
         <br />
         <h5>
           Company response to consumer
@@ -811,10 +823,14 @@ exports[`component::ComplaintDetail snapshots renders without crashing 1`] = `
         <h5>
           Timely response?
         </h5>
-        <span
-          className="body-copy">
-          Yes
-        </span>
+        <div>
+          <span
+            className="cf-icon cf-icon__before cf-icon-clock-round" />
+          <span
+            className="body-copy">
+            Yes
+          </span>
+        </div>
         <br />
         <h5>
           Company response to consumer
@@ -1012,10 +1028,14 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
         <h5>
           Timely response?
         </h5>
-        <span
-          className="body-copy">
-          Yes
-        </span>
+        <div>
+          <span
+            className="cf-icon cf-icon__before cf-icon-clock-round" />
+          <span
+            className="body-copy">
+            Yes
+          </span>
+        </div>
         <br />
         <h5>
           Company response to consumer
@@ -1213,10 +1233,14 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
         <h5>
           Timely response?
         </h5>
-        <span
-          className="body-copy">
-          Yes
-        </span>
+        <div>
+          <span
+            className="cf-icon cf-icon__before cf-icon-clock-round" />
+          <span
+            className="body-copy">
+            Yes
+          </span>
+        </div>
         <br />
         <h5>
           Company response to consumer
@@ -1414,10 +1438,14 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
         <h5>
           Timely response?
         </h5>
-        <span
-          className="body-copy">
-          Yes
-        </span>
+        <div>
+          <span
+            className="cf-icon cf-icon__before cf-icon-clock-round" />
+          <span
+            className="body-copy">
+            Yes
+          </span>
+        </div>
         <br />
         <h5>
           Company response to consumer
@@ -1615,10 +1643,14 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
         <h5>
           Timely response?
         </h5>
-        <span
-          className="body-copy">
-          Yes
-        </span>
+        <div>
+          <span
+            className="cf-icon cf-icon__before cf-icon-clock-round" />
+          <span
+            className="body-copy">
+            Yes
+          </span>
+        </div>
         <br />
         <h5>
           Company response to consumer
@@ -1816,10 +1848,14 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
         <h5>
           Timely response?
         </h5>
-        <span
-          className="body-copy">
-          Yes
-        </span>
+        <div>
+          <span
+            className="cf-icon cf-icon__before cf-icon-clock-round" />
+          <span
+            className="body-copy">
+            Yes
+          </span>
+        </div>
         <br />
         <h5>
           Company response to consumer
@@ -2017,10 +2053,14 @@ exports[`component::ComplaintDetail snapshots supports "Timely Response" icons 1
         <h5>
           Timely response?
         </h5>
-        <span
-          className="body-copy">
-          Yes
-        </span>
+        <div>
+          <span
+            className="cf-icon cf-icon__before cf-icon-clock-round" />
+          <span
+            className="body-copy">
+            Yes
+          </span>
+        </div>
         <br />
         <h5>
           Company response to consumer
@@ -2218,10 +2258,14 @@ exports[`component::ComplaintDetail snapshots supports "Timely Response" icons 2
         <h5>
           Timely response?
         </h5>
-        <span
-          className="body-copy">
-          No
-        </span>
+        <div>
+          <span
+            className="cf-icon cf-icon__before cf-icon-clock-round not-timely" />
+          <span
+            className="body-copy">
+            No
+          </span>
+        </div>
         <br />
         <h5>
           Company response to consumer
