@@ -7,6 +7,7 @@ import FederalState from './Filters/FederalState'
 import Issue from './Filters/Issue'
 import SingleCheckbox from './Filters/SingleCheckbox'
 import ZipCode from './Filters/ZipCode'
+import CompanyName from './Filters/CompanyName'
 
 
 export class FilterPanel extends React.Component {
@@ -30,10 +31,7 @@ export class FilterPanel extends React.Component {
             </div>
         </CollapsibleFilter>
         <hr />
-        <CollapsibleFilter title="Matched Company Name"
-                           desc="The company name as it appears in our complaint system, which may be different than the name the consumer provided in the complaint">
-            <input type="text" placeholder="Enter company name" />
-        </CollapsibleFilter>
+        <CompanyName />
         <hr />
         <Aggregation title="Product / sub-product"
                      desc="The type of product and sub-product the consumer identified in the complaint"
