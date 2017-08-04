@@ -51,7 +51,7 @@ describe('component:SimpleFilter', () =>{
   });
 
   describe('componentWillReceiveProps', () => {
-    it('pushes a change to the url bar when parameters change', () => {
+    it('changes props correctly', () => {
       props.params.timely = 'no'
       const expected = 'no'
 
