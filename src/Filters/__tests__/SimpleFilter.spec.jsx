@@ -4,6 +4,7 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import { IntlProvider } from 'react-intl';
 import ReduxSimpleFilter from '../SimpleFilter';
+import { SimpleFilter, mapDispatchToProps } from '../SimpleFilter';
 import renderer from 'react-test-renderer';
 
 function setupSnapshot(initialAggs) {
@@ -12,7 +13,8 @@ function setupSnapshot(initialAggs) {
   const store = mockStore({
     query: {},
     aggs: {
-      company_response: initialAggs
+      company_response: initialAggs,
+      timely: 'yes'
     }
   })
 
@@ -35,3 +37,27 @@ describe('initial state', () => {
   });
 });
 
+describe('component:SimpleFilter', () =>{
+  let target;
+  let props;
+  beforeEach(() => {
+    props = {
+      params: {
+        timely: 'yes'
+      }
+    }
+
+   target = new SimpleFilter(props);
+  });
+
+  describe('componentWillReceiveProps', () => {
+    it('pushes a change to the url bar when parameters change', () => {
+      props.params.timely = 'no'
+      const expected = 'no'
+
+      target.componentWillReceiveProps(props)
+
+      expect(target.props.params.timely).toEqual(expected)
+    })
+  })
+})
