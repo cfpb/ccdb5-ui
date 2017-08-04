@@ -1,4 +1,4 @@
-import { COMPLAINTS_RECEIVED } from '../constants'
+import * as types from '../constants'
 const queryString = require('query-string');
 
 // ----------------------------------------------------------------------------
@@ -44,9 +44,33 @@ export function getComplaints() {
   }
 }
 
+export function getComplaintDetail(id) {
+  return (dispatch) => {
+    const uri = '@@API' + id
+    fetch(uri)
+      .then(result => result.json())
+      .then(data => dispatch(complaintDetailReceived(data)))
+      .catch(error => dispatch(complaintDetailFailed(error)))
+  }
+}
+
 export function complaintsReceived(data) {
   return {
-    type: COMPLAINTS_RECEIVED,
+    type: types.COMPLAINTS_RECEIVED,
     data
+  }
+}
+
+export function complaintDetailReceived(data) {
+  return {
+    type: types.COMPLAINT_DETAIL_RECEIVED,
+    data
+  }
+}
+
+export function complaintDetailFailed(error) {
+  return {
+    type: types.COMPLAINT_DETAIL_FAILED,
+    error
   }
 }
