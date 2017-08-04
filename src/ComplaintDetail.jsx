@@ -1,18 +1,17 @@
+import './ComplaintDetail.less';
+import { connect } from 'react-redux'
+import { FormattedDate } from 'react-intl';
+import { getComplaintDetail } from './actions/complaints'
 import PropTypes from 'prop-types'
 import React from 'react';
-import { FormattedDate } from 'react-intl';
-import './ComplaintDetail.less';
 
 const ERROR = 'ERROR'
 const WAITING = 'WAITING'
 const RESULTS = 'RESULTS'
 
-export default class ComplaintDetail extends React.Component {
+export class ComplaintDetail extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      phase: WAITING
-    }
 
     // Render/Phase Map
     this.renderMap = {
@@ -20,39 +19,13 @@ export default class ComplaintDetail extends React.Component {
       WAITING: this._renderWaiting.bind(this),
       RESULTS: this._renderResults.bind(this),
     }
-
-    // Binds
-    this._processError = this._processError.bind(this)
-    this._processResults = this._processResults.bind(this)
-  }
-
-  // --------------------------------------------------------------------------
-  // Interfacing with the API
-
-  _callAPI(id) {
-    const uri = '@@API' + id
-    fetch(uri)
-      .then(result => result.json())
-      .then(data => this._processResults(data))
-      .catch(error => this._processError(error))
-  }
-
-  _processError(error) {
-    this.setState({phase: ERROR})
-  }
-
-  _processResults(data) {
-    this.setState({
-      phase: RESULTS,
-      row: data.hits.hits[0]._source
-    })
   }
 
   // --------------------------------------------------------------------------
   // React Methods
 
   componentDidMount() {
-    this._callAPI(this.props.complaint_id)
+    this.props.loadDetail(this.props.complaint_id)
   }
 
   render() {
@@ -73,7 +46,7 @@ export default class ComplaintDetail extends React.Component {
             </a>
           </div>
         </nav>
-        { this.renderMap[this.state.phase]() }
+        { this.renderMap[this.props.phase]() }
       </section>
     )
   }
@@ -126,7 +99,7 @@ export default class ComplaintDetail extends React.Component {
   }
 
   _renderResults() {
-    const row = this.state.row
+    const row = this.props.row
 
     // Process the narrative
     let narrative = row.complaint_what_happened || ""
@@ -234,9 +207,38 @@ export default class ComplaintDetail extends React.Component {
 
 ComplaintDetail.propTypes = {
   complaint_id: PropTypes.string.isRequired,
-  onClickedBack: PropTypes.func
+  onClickedBack: PropTypes.func,
+  phase: PropTypes.string,
+  row: PropTypes.object
 }
 
 ComplaintDetail.defaultProps = {
-  onClickedBack: () => history.go(-1)
+  onClickedBack: () => history.go(-1),
+  phase: WAITING,
+  row: {}
 }
+
+export const mapStateToProps = state => {
+  const row = state.detail.data
+  let phase = typeof(row.date_received) === 'undefined' ? WAITING : RESULTS
+
+  // Phase Logic
+  if ( state.detail.error ) {
+    phase = ERROR
+  }
+
+  return {
+    phase,
+    row
+  }
+}
+
+export const mapDispatchToProps = dispatch => {
+  return {
+    loadDetail: id => {
+      dispatch(getComplaintDetail(id))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ComplaintDetail)

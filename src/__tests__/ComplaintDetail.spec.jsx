@@ -1,8 +1,13 @@
-import { shallow } from 'enzyme';
-import React from 'react';
-import { IntlProvider } from 'react-intl';
-import renderer from 'react-test-renderer';
-import ComplaintDetail from '../ComplaintDetail';
+import ReduxComplaintDetail, {
+  ComplaintDetail, mapDispatchToProps
+} from '../ComplaintDetail'
+import configureMockStore from 'redux-mock-store'
+import { IntlProvider } from 'react-intl'
+import { Provider } from 'react-redux'
+import React from 'react'
+import renderer from 'react-test-renderer'
+import { shallow } from 'enzyme'
+import thunk from 'redux-thunk'
 
 const fixture = {
   company: 'JPMORGAN CHASE & CO.',
@@ -37,7 +42,7 @@ function setupEnzyme() {
     complaint_id: '123456789'   
   }
 
-  const target = shallow(<ComplaintDetail {...props} />);
+  const target = shallow(<ComplaintDetail {...props} />)
 
   return {
     props,
@@ -45,44 +50,33 @@ function setupEnzyme() {
   }
 }
 
-function setupSnapshot(overrides={}) {
-  const row = Object.assign({}, fixture, overrides)
+function setupSnapshot(overrides={}, error='') {
+  let data = Object.assign({}, fixture, overrides)
+  if (error) {
+    data = {}
+  }
 
-  // Provide hooks for "API"
-  let onSuccess, onFail
-
-  global.fetch = jest.fn().mockImplementation((url) => {
-    expect(url).toContain('@@API123456789')
-
-    return {
-      then: (x) => {
-        x({ json: () => ({})})
-        return {
-          then: (x) => {
-            onSuccess = () => x(_buildJson(row))
-            return {
-              catch: (y) => {onFail = y}
-            }
-          }
-        }
-      }
-    }
+  const middlewares = [thunk]
+  const mockStore = configureMockStore(middlewares)
+  const store = mockStore({
+    detail: {data, error}
   })
 
   const target = renderer.create(
-    <IntlProvider locale="en">
-      <ComplaintDetail complaint_id='123456789' />
-    </IntlProvider>
+    <Provider store={store}>
+      <IntlProvider locale="en">
+        <ReduxComplaintDetail complaint_id='123456789' />
+      </IntlProvider>
+    </Provider>
   )
 
-  return {target, onSuccess, onFail}
+  return target
 }
 
 describe('component::ComplaintDetail', () => {
   describe('snapshots', () => {
     it('renders without crashing', () => {
-      const {target, onSuccess} = setupSnapshot()
-      onSuccess()
+      const target = setupSnapshot()
       const tree = target.toJSON()
       expect(tree).toMatchSnapshot()
     })
@@ -97,8 +91,7 @@ describe('component::ComplaintDetail', () => {
       ]
       
       values.forEach(v => {
-        const {target, onSuccess} = setupSnapshot({consumer_consent_provided: v})
-        onSuccess()
+        const target = setupSnapshot({consumer_consent_provided: v})
         const tree = target.toJSON()
         expect(tree).toMatchSnapshot()
       })
@@ -108,43 +101,51 @@ describe('component::ComplaintDetail', () => {
       const values = ['Yes', 'No']
       
       values.forEach(v => {
-        const {target, onSuccess} = setupSnapshot({timely: v})
-        onSuccess()
+        const target = setupSnapshot({timely: v})
         const tree = target.toJSON()
         expect(tree).toMatchSnapshot()
       })
     })
 
     it('renders without a narrative', () => {
-      const {target, onSuccess} = setupSnapshot({complaint_what_happened: ''})
-      onSuccess()
+      const target = setupSnapshot({complaint_what_happened: ''})
       const tree = target.toJSON()
       expect(tree).toMatchSnapshot()
     })
 
     it('renders without a sub-issue', () => {
-      const {target, onSuccess} = setupSnapshot({sub_issue: ''})
-      onSuccess()
+      const target = setupSnapshot({sub_issue: ''})
       const tree = target.toJSON()
       expect(tree).toMatchSnapshot()
     })
 
     it('renders without a sub-product', () => {
-      const {target, onSuccess} = setupSnapshot({sub_product: ''})
-      onSuccess()
+      const target = setupSnapshot({sub_product: ''})
       const tree = target.toJSON()
       expect(tree).toMatchSnapshot()
     })
 
     it('renders WAITING phase', () => {
-      const {target} = setupSnapshot({sub_product: ''})
+      const middlewares = [thunk]
+      const mockStore = configureMockStore(middlewares)
+      const store = mockStore({
+        detail: {data: {}, error: ''}
+      })
+
+      const target = renderer.create(
+        <Provider store={store}>
+          <IntlProvider locale="en">
+            <ReduxComplaintDetail complaint_id='123456789' />
+          </IntlProvider>
+        </Provider>
+      )
+
       const tree = target.toJSON()
       expect(tree).toMatchSnapshot()
     })
 
     it('renders ERROR phase', () => {
-      const {target, onFail} = setupSnapshot({sub_product: ''})
-      onFail()
+      const target = setupSnapshot({}, 'Error fetching data')
       const tree = target.toJSON()
       expect(tree).toMatchSnapshot()
     })
