@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import AggregationItem from './AggregationItem'
-import SimpleCollapsibleFilter from './SimpleCollapsibleFilter'
+import CollapsibleFilter from './CollapsibleFilter'
 import MoreOrLess from './MoreOrLess'
 import './Aggregation.less'
 
@@ -18,7 +18,7 @@ export class SimpleFilter extends React.Component {
     }
 
     return (
-      <SimpleCollapsibleFilter title={this.props.title}
+      <CollapsibleFilter title={this.props.title}
                                desc={this.props.desc}
                                showChildren={this.props.showChildren}
                                className="aggregation">
@@ -26,7 +26,7 @@ export class SimpleFilter extends React.Component {
                      listComponentProps={listComponentProps}
                      options={this.props.options}
          />
-      </SimpleCollapsibleFilter>
+      </CollapsibleFilter>
     )
   }
 }
