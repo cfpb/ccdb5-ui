@@ -4,8 +4,7 @@ const args = JSON.parse( process.env.npm_config_argv ).original.slice( 2 );
 
 // TODO: Move to a config file.
 const linterFiles = {
-  _:      [ './src/**/*.jsx', './config/**/*.js', './scripts/**/*.js' ],
-  config: './.eslintrc'
+  _:      [ './src/**/*.jsx', './config/**/*.js', './scripts/**/*.js' ]
 };
 
 const linterArgs = minimist( args );
