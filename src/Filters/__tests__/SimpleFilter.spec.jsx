@@ -2,10 +2,26 @@ import React from 'react';
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
+import { shallow } from 'enzyme';
 import { IntlProvider } from 'react-intl';
 import ReduxSimpleFilter from '../SimpleFilter';
 import { SimpleFilter, mapDispatchToProps } from '../SimpleFilter';
 import renderer from 'react-test-renderer';
+
+function setupEnzyme() {
+  const props = {
+    fieldName: 'timely',
+    showChildren: false,
+    options: []
+  }
+
+  const target = shallow(<SimpleFilter {...props} />);
+
+  return {
+    props,
+    target
+  }
+}
 
 function setupSnapshot(initialAggs) {
   const middlewares = [thunk]
@@ -37,27 +53,10 @@ describe('initial state', () => {
   });
 });
 
-describe('component:SimpleFilter', () =>{
-  let target;
-  let props;
-  beforeEach(() => {
-    props = {
-      params: {
-        timely: 'yes'
-      }
-    }
-
-   target = new SimpleFilter(props);
+describe('componentWillReceiveProps', () => {
+  it('changes props correctly', () => {
+    const {target} = setupEnzyme()
+    target.setProps({showChildren: true})
+    expect(target.state('showChildren')).toEqual(true)
   });
-
-  describe('componentWillReceiveProps', () => {
-    it('changes props correctly', () => {
-      props.params.timely = 'no'
-      const expected = 'no'
-
-      target.componentWillReceiveProps(props)
-
-      expect(target.props.params.timely).toEqual(expected)
-    })
-  })
-})
+});
