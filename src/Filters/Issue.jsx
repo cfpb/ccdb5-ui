@@ -77,7 +77,7 @@ export const mapStateToProps = state => {
   // Reduce the issues to the parent keys (and dedup)
   allIssues.forEach( x => {
     const idx = x.indexOf( SLUG_SEPARATOR )
-    const key = idx !== -1 ? x.substr( 0, idx ) : x
+    const key = idx === -1 ? x : x.substr( 0, idx )
     if ( selections.indexOf( key ) === -1 ) {
       selections.push( key )
     }
