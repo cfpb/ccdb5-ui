@@ -24,7 +24,7 @@ exports[`initial state renders without crashing 1`] = `
   </section>
   <hr />
   <section
-    className="collapsible-filter">
+    className="collapsible-filter aggregation date-filter">
     <div
       className="layout-row">
       <h5
