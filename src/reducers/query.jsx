@@ -2,12 +2,13 @@ import * as types from '../constants'
 
 export const defaultQuery = {
   searchText: '',
+  searchField: 'all',
   from: 0,
   size: 10,
   sort: 'relevance_desc'
 }
 
-const urlParams = ['searchText', 'from', 'size'];
+const urlParams = ['searchText', 'searchField', 'from', 'size'];
 const urlParamsInt = ['from', 'size'];
 
 // ----------------------------------------------------------------------------
@@ -120,6 +121,7 @@ export default (state = defaultQuery, action) => {
     return {
       ...state,
       searchText: action.searchText,
+      searchField: action.searchField,
       from: 0
     }
 

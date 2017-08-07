@@ -6,6 +6,7 @@ const queryString = require('query-string');
 
 const fieldMap = {
   searchText: 'search_term',
+  searchField: 'field',
   from: 'frm'
 }
 

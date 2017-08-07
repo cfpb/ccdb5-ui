@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import StickyOptions from './StickyOptions'
 import CollapsibleFilter from './CollapsibleFilter'
 import Typeahead from '../Typeahead'
+import HighlightingOption from '../Typeahead/HighlightingOption'
 import { addMultipleFilters } from '../actions/filter'
 import { THESE_UNITED_STATES } from '../constants'
 import { normalize } from './utils'
@@ -82,15 +83,9 @@ export class FederalState extends React.Component {
   }
 
   _renderOption(obj) {
-    const start = obj.label.substring(0, obj.position)
-    const match = obj.label.substr(obj.position, obj.value.length)
-    const end = obj.label.substring(obj.position + obj.value.length)
-
     return {
       value: obj.key,
-      component: (
-        <span>{start}<b>{match}</b>{end}</span>
-      )
+      component: (<HighlightingOption {...obj} />)
     }
   }
 
