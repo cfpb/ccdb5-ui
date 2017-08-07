@@ -4,9 +4,10 @@ import * as types from '../../constants'
 describe('reducer:results', () => {
   it('has a default state', () => {
     expect(target(undefined, {})).toEqual({
+        doc_count: 0,
+        error: '',
         items: [],
-        total: 0,
-        doc_count: 0
+        total: 0
       })
   })
 
@@ -28,10 +29,24 @@ describe('reducer:results', () => {
         }
       }
     }
-    expect(target({doc_count: 0}, action)).toEqual({
+    expect(target({doc_count: 0, error: 'foo'}, action)).toEqual({
+      doc_count: 162576,
+      error: '',
       items: ['123', '456'],
-      total: 2,
-      doc_count: 162576
+      total: 2
+    })
+  })
+
+  it('handles COMPLAINTS_FAILED actions', () => {
+    const action = {
+      type: types.COMPLAINTS_FAILED,
+      error: 'foo bar'
+    }
+    expect(target({doc_count: 100, items: [1, 2, 3]}, action)).toEqual({
+      doc_count: 0,
+      error: 'foo bar',
+      items: [],
+      total: 0
     })
   })
 })
