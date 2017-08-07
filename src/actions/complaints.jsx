@@ -42,6 +42,7 @@ export function getComplaints() {
     return fetch(uri)
     .then(result => result.json())
     .then(items => dispatch(complaintsReceived(items)))
+    .catch(error => dispatch(complaintsFailed(error)))
   }
 }
 
@@ -59,6 +60,13 @@ export function complaintsReceived(data) {
   return {
     type: types.COMPLAINTS_RECEIVED,
     data
+  }
+}
+
+export function complaintsFailed(error) {
+  return {
+    type: types.COMPLAINTS_FAILED,
+    error
   }
 }
 
