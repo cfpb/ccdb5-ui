@@ -40,8 +40,8 @@ export class MoreOrLess extends React.Component {
         }
         </ul>
         {remain > 0 ?
-          <div className='flex-fixed'>
-               <button className='a-btn a-btn__link hover more'
+          <div className="flex-fixed">
+               <button className="a-btn a-btn__link hover more"
                        onClick={ this._toggleShowMore }>
                   + Show {remain} {this.state.showMore ? 'less' : 'more'}
                 </button>

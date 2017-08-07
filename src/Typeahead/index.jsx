@@ -143,8 +143,8 @@ export default class Typeahead extends React.Component {
       <section className={`typeahead ${ this.props.className }`}
                onBlur={this._onBlur}
                onFocus={this._onFocus}>
-        <input type='text'
-               autoComplete='off'
+        <input type="text"
+               autoComplete="off"
                onChange={this._valueUpdated}
                onKeyDown={this._onKeyDown}
                placeholder={this.props.placeholder}
@@ -309,7 +309,7 @@ export default class Typeahead extends React.Component {
   // Render Helpers
 
   _renderError() {
-    return <span className='error'>There was a problem retrieving the options</span>
+    return <span className="error">There was a problem retrieving the options</span>
   }
 
   _renderEmpty() {
@@ -317,11 +317,11 @@ export default class Typeahead extends React.Component {
   }
 
   _renderWaiting() {
-    return <span className='waiting'>waiting...</span>
+    return <span className="waiting">waiting...</span>
   }
 
   _renderNoResults() {
-    return <span className='no-results'>No results found</span>
+    return <span className="no-results">No results found</span>
   }
 
   _renderResults() {
@@ -341,7 +341,7 @@ export default class Typeahead extends React.Component {
                   onOptionSelected={this._selectOption.bind( this )}
                   renderOption={this.props.renderOption}
                   selectedIndex={this.state.selectedIndex}
-                  footer='Continue typing for more results'
+                  footer="Continue typing for more results"
         />
     )
   }

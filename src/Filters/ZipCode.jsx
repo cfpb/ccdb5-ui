@@ -15,10 +15,10 @@ export class ZipCode extends React.Component {
 
   render() {
     return (
-      <CollapsibleFilter title='Zip Code'
-                         desc='The mailing ZIP code provided by the consumer'
-                         className='aggregation'>
-        <Typeahead placeholder='Enter first three digits of zip code'
+      <CollapsibleFilter title="Zip Code"
+                         desc="The mailing ZIP code provided by the consumer"
+                         className="aggregation">
+        <Typeahead placeholder="Enter first three digits of zip code"
                    options={this.props.forTypeahead}
                    onOptionSelected={this._onOptionSelected}
         />

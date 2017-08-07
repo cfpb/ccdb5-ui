@@ -22,11 +22,11 @@ export class Issue extends React.Component {
     }
 
     return (
-      <CollapsibleFilter title='Issue / sub-issue'
-                         desc='The type of issue and sub-issue the consumer identified in the complaint'
+      <CollapsibleFilter title="Issue / sub-issue"
+                         desc="The type of issue and sub-issue the consumer identified in the complaint"
                          showChildren={this.props.showChildren}
-                         className='aggregation'>
-        <Typeahead placeholder='Enter name of issue'
+                         className="aggregation">
+        <Typeahead placeholder="Enter name of issue"
                    options={this.props.forTypeahead}
                    onOptionSelected={this._onOptionSelected}
         />

@@ -23,15 +23,15 @@ export class FederalState extends React.Component {
 
   render() {
     return (
-      <CollapsibleFilter title='State'
-                         desc='The state of the mailing address provided by the consumer'
+      <CollapsibleFilter title="State"
+                         desc="The state of the mailing address provided by the consumer"
                          showChildren={this.props.showChildren}
-                         className='aggregation'>
-        <Typeahead placeholder='Enter state name or abbreviation'
+                         className="aggregation">
+        <Typeahead placeholder="Enter state name or abbreviation"
                    onInputChange={this._onInputChange}
                    onOptionSelected={this._onOptionSelected}
                    renderOption={this._renderOption} />
-        <StickyOptions fieldName='state'
+        <StickyOptions fieldName="state"
                        onMissingItem={this._onMissingItem}
                        options={this.props.options}
                        selections={this.props.selections}

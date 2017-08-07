@@ -15,7 +15,7 @@ export class Aggregation extends React.Component {
       <CollapsibleFilter title={this.props.title}
                          desc={this.props.desc}
                          showChildren={this.props.showChildren}
-                         className='aggregation'>
+                         className="aggregation">
          <MoreOrLess listComponent={AggregationItem}
                      listComponentProps={listComponentProps}
                      options={this.props.options}

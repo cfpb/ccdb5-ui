@@ -13,29 +13,29 @@ import ZipCode from './Filters/ZipCode'
 export class FilterPanel extends React.Component {
   render() {
     return (
-      <section className='filter-panel'>
+      <section className="filter-panel">
         <h3>Filter results by...</h3>
-        <SingleCheckbox title='Only show complaints with narratives?'
-                        label='Yes' />
+        <SingleCheckbox title="Only show complaints with narratives?"
+                        label="Yes" />
         <hr />
-        <CollapsibleFilter title='Date CFPB Received the complaint'>
-            <div className='layout-row'>
-                <div className='flex-all'>
-                    <label className='a-label a-label__heading'>From:</label>
-                    <input type='date' />
+        <CollapsibleFilter title="Date CFPB Received the complaint">
+            <div className="layout-row">
+                <div className="flex-all">
+                    <label className="a-label a-label__heading">From:</label>
+                    <input type="date" />
                 </div>
-                <div className='flex-all'>
-                    <label className='a-label a-label__heading'>Through:</label>
-                    <input type='date' />
+                <div className="flex-all">
+                    <label className="a-label a-label__heading">Through:</label>
+                    <input type="date" />
                 </div>
             </div>
         </CollapsibleFilter>
         <hr />
         <CompanyName />
         <hr />
-        <Aggregation title='Product / sub-product'
-                     desc='The type of product and sub-product the consumer identified in the complaint'
-                     fieldName='product'
+        <Aggregation title="Product / sub-product"
+                     desc="The type of product and sub-product the consumer identified in the complaint"
+                     fieldName="product"
         />
         <hr />
         <Issue />
@@ -44,27 +44,27 @@ export class FilterPanel extends React.Component {
         <hr />
         <ZipCode />
         <hr />
-        <SimpleFilter title='Did company provide a timely response?'
-                      fieldName='timely'
+        <SimpleFilter title="Did company provide a timely response?"
+                      fieldName="timely"
         />
         <hr />
-        <SimpleFilter title='Company Response'
-                     desc='How the company responded to the complaint'
-                     fieldName='company_response'
+        <SimpleFilter title="Company Response"
+                     desc="How the company responded to the complaint"
+                     fieldName="company_response"
         />
         <hr />
-        <SimpleFilter title='Company Public Response'
+        <SimpleFilter title="Company Public Response"
                      desc="The company's optional public-facing response to a consumer's complaint"
-                     fieldName='company_public_response'
+                     fieldName="company_public_response"
         />
         <hr />
-        <SimpleFilter title='Did the consumer dispute the response?'
-                     fieldName='consumer_disputed'
+        <SimpleFilter title="Did the consumer dispute the response?"
+                     fieldName="consumer_disputed"
         />
         <hr />
-        <SimpleFilter title='Consumer Consent'
-                     desc='Whether a consumer opted to publish their compaint narrative'
-                     fieldName='consumer_consent_provided'
+        <SimpleFilter title="Consumer Consent"
+                     desc="Whether a consumer opted to publish their compaint narrative"
+                     fieldName="consumer_consent_provided"
         />
       </section>
     )

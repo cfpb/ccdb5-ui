@@ -5,11 +5,11 @@ import { removeFilter } from './actions/filter'
 import { SLUG_SEPARATOR } from './constants'
 
 export const Pill = ( { fieldName, value, trimmed, remove } ) =>
-    <li className='pill flex-fixed'>
-      <span className='name'>{ trimmed }</span>
+    <li className="pill flex-fixed">
+      <span className="name">{ trimmed }</span>
       <button onClick={ remove }
               title={'Remove ' + trimmed + ' as a filter'}>
-          <span className='cf-icon cf-icon-delete'></span>
+          <span className="cf-icon cf-icon-delete"></span>
       </button>
     </li>
 

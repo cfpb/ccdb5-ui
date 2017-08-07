@@ -15,42 +15,42 @@ export default class ComplaintCard extends React.Component {
     const complaintIdPath = '/detail/' + row.complaint_id;
 
     return (
-      <li className='card-container'>
-        <div className='card'>
-          <div className='card-left layout-column'>
-            <h3 className='to-detail'>
+      <li className="card-container">
+        <div className="card">
+          <div className="card-left layout-column">
+            <h3 className="to-detail">
               <a href={ complaintIdPath }>{ row.complaint_id }</a>
             </h3>
             <h5>Matched company name</h5>
-            <span className='body-copy'>{ row.company }</span>
+            <span className="body-copy">{ row.company }</span>
             <br />
             <h5>Company response to consumer</h5>
-            <span className='body-copy'>{ row.company_response }</span>
+            <span className="body-copy">{ row.company_response }</span>
             <br />
             <h5>Timely response?</h5>
-            <span className='body-copy'>{ row.timely }</span>
+            <span className="body-copy">{ row.timely }</span>
           </div>
-          <div className='card-right layout-column'>
-            <div className='layout-row'>
-              <div className='layout-row'>
+          <div className="card-right layout-column">
+            <div className="layout-row">
+              <div className="layout-row">
                 <h5>Date received:</h5>
-                <span className='body-copy'>
+                <span className="body-copy">
                   <FormattedDate value={ row.date_received } />
                 </span>
               </div>
-              <div className='spacer' />
-              <div className='layout-row'>
+              <div className="spacer" />
+              <div className="layout-row">
                 <h5>Consumer's state:</h5>
-                <span className='body-copy'>{ row.state }</span>
+                <span className="body-copy">{ row.state }</span>
               </div>
             </div>
             <br />
             <h5>Product</h5>
             <h3>{ row.product }</h3>
             { row.sub_product ?
-              <div className='layout-row'>
-                <span className='body-copy subitem'>Sub-product:</span>
-                <span className='body-copy'>{ row.sub_product }</span>
+              <div className="layout-row">
+                <span className="body-copy subitem">Sub-product:</span>
+                <span className="body-copy">{ row.sub_product }</span>
               </div> :
                null
             }
@@ -58,9 +58,9 @@ export default class ComplaintCard extends React.Component {
             <h5>Issue</h5>
             <h3>{ row.issue }</h3>
             { row.sub_issue ?
-              <div className='layout-row'>
-                <span className='body-copy subitem'>Sub-issue:</span>
-                <span className='body-copy'>{ row.sub_issue }</span>
+              <div className="layout-row">
+                <span className="body-copy subitem">Sub-issue:</span>
+                <span className="body-copy">{ row.sub_issue }</span>
               </div> :
                null
             }
@@ -68,7 +68,7 @@ export default class ComplaintCard extends React.Component {
             { narrative ?
               <div>
                 <h5>Consumer Complaint Narrative</h5>
-                <span className='body-copy'>
+                <span className="body-copy">
                   { narrative }
                   { hasOverflow ? <span> <a>[...]</a></span> : null }
                 </span>

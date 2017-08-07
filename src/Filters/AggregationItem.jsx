@@ -8,14 +8,14 @@ export const AggregationItem = ( { item, fieldName, active, onClick } ) => {
   const value = item.value || item.key
 
   return (
-        <li className='flex-fixed layout-row'>
-            <input type='checkbox' className='flex-fixed'
+        <li className="flex-fixed layout-row">
+            <input type="checkbox" className="flex-fixed"
                    aria-label={item.key}
                    checked={active}
                    onClick={onClick}
             />
-            <span className='flex-all bucket-key'>{value}</span>
-            <span className='flex-fixed bucket-count'>
+            <span className="flex-all bucket-key">{value}</span>
+            <span className="flex-fixed bucket-count">
               <FormattedNumber value={item.doc_count} />
             </span>
         </li>

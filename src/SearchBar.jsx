@@ -42,16 +42,16 @@ export class SearchBar extends React.Component {
 
   render() {
     return (
-        <nav className='search-bar'>
-          <form action='' onSubmit={this._handleSubmit}>
+        <nav className="search-bar">
+          <form action="" onSubmit={this._handleSubmit}>
             <h5>Search Within</h5>
-            <div className='layout-row'>
-              <div className='cf-select'>
-                <select aria-label='Choose which field will be searched'
-                        id='searchField'
+            <div className="layout-row">
+              <div className="cf-select">
+                <select aria-label="Choose which field will be searched"
+                        id="searchField"
                         onChange={this._onSelectSearchField}
                         value={this.state.searchField}>
-                  <optgroup label='Search Within'>
+                  <optgroup label="Search Within">
                   {
                     Object.keys( searchFields ).map( x =>
                         <option key={x} value={x}>{searchFields[x]}</option>
@@ -60,12 +60,12 @@ export class SearchBar extends React.Component {
                   </optgroup>
                 </select>
               </div>
-              <div className='flex-all typeahead-portal'>
+              <div className="flex-all typeahead-portal">
                 <Typeahead debounceWait={this.props.debounceWait}
                            mode={MODE_OPEN}
                            onInputChange={this._onInputChange}
                            onOptionSelected={this._onTypeaheadSelected}
-                           placeholder='Enter your search term(s)'
+                           placeholder="Enter your search term(s)"
                            renderOption={this._renderOption}
                            textBoxProps={( {
                              'aria-label': 'The term to search for',
@@ -75,15 +75,15 @@ export class SearchBar extends React.Component {
                 />
               </div>
 
-              <button type='submit'
-                      className='a-btn'
+              <button type="submit"
+                      className="a-btn"
                       ref={elem => { this.submitButton = elem }}>
                   Search
-                  <span className='a-btn_icon
+                  <span className="a-btn_icon
                                    a-btn_icon__on-right
                                    cf-icon
                                    cf-icon__after
-                                   cf-icon-search'></span>
+                                   cf-icon-search"></span>
               </button>
             </div>
           </form>
