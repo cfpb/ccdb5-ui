@@ -152,7 +152,7 @@ export default ( state = defaultQuery, action ) => {
     case types.FILTER_REMOVED:
       return removeFilter( state, action )
 
-    case types.FILTER_ALL_REMOVED:
+    case types.FILTER_ALL_REMOVED: {
       const newState = { ...state }
       types.knownFilters.forEach( kf => {
         if ( kf in newState ) {
@@ -160,6 +160,7 @@ export default ( state = defaultQuery, action ) => {
         }
       } )
       return newState
+    }
 
     case types.FILTER_MULTIPLE_ADDED:
       return addMultipleFilters( state, action )

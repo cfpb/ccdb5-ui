@@ -2,7 +2,7 @@
  * This method builds an anchor tag
  * @param {string} uri The url for the link
  * @param {string} download (optional) the value of the `download` attribute
- * @return {Element} an unattached element created by the DOM
+ * @returns {Element} an unattached element created by the DOM
  */
 export function buildLink( uri, download = null ) {
   const link = document.createElement( 'a' )

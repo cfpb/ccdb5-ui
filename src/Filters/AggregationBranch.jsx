@@ -71,7 +71,7 @@ export class AggregationBranch extends React.Component {
             <FormattedNumber value={item.doc_count} />
           </span>
         </li>
-        { !this.state.showChildren ? null :
+        { this.state.showChildren === false ? null :
           <ul className='children'>{
             buckets.map( bucket =>
               <AggregationItem item={bucket} key={bucket.key} fieldName={fieldName} />

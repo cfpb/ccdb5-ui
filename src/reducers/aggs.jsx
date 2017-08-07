@@ -17,7 +17,7 @@ export const defaultAggs = {
 
 export default ( state = defaultAggs, action ) => {
   switch ( action.type ) {
-    case COMPLAINTS_RECEIVED:
+    case COMPLAINTS_RECEIVED: {
       const aggs = action.data.aggregations
       const keys = Object.keys( aggs )
       const result = { ...state }
@@ -27,6 +27,7 @@ export default ( state = defaultAggs, action ) => {
       } )
 
       return result
+    }
 
     default:
       return state
