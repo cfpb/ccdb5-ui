@@ -1,0 +1,108 @@
+@import (less) "base.less";
+
+.card-container {
+  max-width: 100%;
+  padding: @gutter-normal;
+
+  nav {
+    width: 100%;
+    justify-content: space-between;
+
+    a, button {
+      color: @pacific;
+      font-size: @base-font-size-px;
+    }
+
+    .a-btn__link {
+      border: 0;
+
+      span {
+        margin-right: @gutter-normal;
+      }
+    }
+  }
+
+  h1 {
+    margin: @gutter-normal 0;
+  }
+
+  h3.company-information {
+    margin-top: @gutter-wide;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    .card-left {
+      box-sizing: border-box;
+      min-width: 260px;
+      width: 33%;
+      padding-right: @grid_gutter-width;
+    }
+    .card-right {    
+      width: 67%;
+    }
+
+    .cf-icon__before {
+      padding-right: @gutter-narrow;
+      font-size: 16px;
+
+      &.cf-icon-approved-round {
+        color: @green;
+      }
+
+      &.cf-icon-delete-round {
+        color: @red;
+      }
+
+      &.cf-icon-minus-round {
+        color: @gold;
+      }
+
+      &.cf-icon-help-round {
+        color: @navy;
+      }
+
+      &.cf-icon-error-round {
+        color: @gray-80;
+      }
+
+      &.cf-icon-clock-round {
+        color: @green;
+      }
+
+      &.cf-icon-clock-round.not-timely {
+        color: @gold;
+      }
+    }
+
+    .layout-column {
+      h3 {
+        margin-top: 0;
+        margin-bottom: @gutter-minimum;
+      }
+
+      h5 {
+        margin-top: 0;
+        margin-bottom: @gutter-minimum;
+      }
+    }
+
+    .subitem {
+      margin-right: @gutter-minimum;
+
+      font-family: @webfont-demi;
+    }
+  }
+
+  .waiting {
+    display: flex;
+    height: 100vh;
+
+    align-items: center;
+    background-color: @gray-10;
+    justify-content: center;
+  }
+}

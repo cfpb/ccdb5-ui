@@ -1,17 +1,17 @@
 import { SEARCH_CHANGED } from '../constants'
 import { getComplaints } from './complaints'
 
-export function searchChanged(searchText, searchType) {
+export function searchChanged(searchText, searchField) {
   return {
     type: SEARCH_CHANGED,
     searchText,
-    searchType
+    searchField
   }
 }
 
-export default function search(searchText, searchType) {
+export default function search(searchText, searchField) {
   return dispatch => {
-      dispatch(searchChanged(searchText, searchType))
+      dispatch(searchChanged(searchText, searchField))
       dispatch(getComplaints())
   }
 }
