@@ -1,3 +1,187 @@
+exports[`component:ReactPanel displays a message when an error has occurred 1`] = `
+<section
+  className="results-panel">
+  <summary
+    className="action-bar">
+    <div>
+      <h2>
+        Showing 
+        <span>
+          0
+        </span>
+         matches out of 
+        <span>
+          100
+        </span>
+         total complaints
+      </h2>
+    </div>
+    <div
+      className="layout-row">
+      <div
+        className="cf-select">
+        <select
+          id="choose-size"
+          onChange={[Function]}
+          value={10}>
+          <option
+            value={10}>
+            Show 
+            10
+             results
+          </option>
+          <option
+            value={25}>
+            Show 
+            25
+             results
+          </option>
+          <option
+            value={50}>
+            Show 
+            50
+             results
+          </option>
+          <option
+            value={100}>
+            Show 
+            100
+             results
+          </option>
+        </select>
+      </div>
+      <div
+        className="cf-select">
+        <select
+          id="choose-sort"
+          onChange={[Function]}
+          value={undefined}>
+          <option
+            value="relevance_desc">
+            Sort by relevance
+          </option>
+          <option
+            value="relevance_asc">
+            Sort by relevance (asc)
+          </option>
+          <option
+            value="created_date_asc">
+            Sort by oldest to newest
+          </option>
+          <option
+            value="created_date_desc">
+            Sort by newest to oldest
+          </option>
+        </select>
+      </div>
+      <h5
+        className="flex-all">
+        <button
+          className="a-btn a-btn__link hover"
+          onClick={[Function]}>
+          Export results
+        </button>
+      </h5>
+    </div>
+  </summary>
+  <h2>
+    There was a problem executing your search
+  </h2>
+</section>
+`;
+
+exports[`component:ReactPanel displays a message when there are no results 1`] = `
+<section
+  className="results-panel">
+  <summary
+    className="action-bar">
+    <div>
+      <h2>
+        Showing 
+        <span>
+          0
+        </span>
+         matches out of 
+        <span>
+          100
+        </span>
+         total complaints
+      </h2>
+    </div>
+    <div
+      className="layout-row">
+      <div
+        className="cf-select">
+        <select
+          id="choose-size"
+          onChange={[Function]}
+          value={10}>
+          <option
+            value={10}>
+            Show 
+            10
+             results
+          </option>
+          <option
+            value={25}>
+            Show 
+            25
+             results
+          </option>
+          <option
+            value={50}>
+            Show 
+            50
+             results
+          </option>
+          <option
+            value={100}>
+            Show 
+            100
+             results
+          </option>
+        </select>
+      </div>
+      <div
+        className="cf-select">
+        <select
+          id="choose-sort"
+          onChange={[Function]}
+          value={undefined}>
+          <option
+            value="relevance_desc">
+            Sort by relevance
+          </option>
+          <option
+            value="relevance_asc">
+            Sort by relevance (asc)
+          </option>
+          <option
+            value="created_date_asc">
+            Sort by oldest to newest
+          </option>
+          <option
+            value="created_date_desc">
+            Sort by newest to oldest
+          </option>
+        </select>
+      </div>
+      <h5
+        className="flex-all">
+        <button
+          className="a-btn a-btn__link hover"
+          onClick={[Function]}>
+          Export results
+        </button>
+      </h5>
+    </div>
+  </summary>
+  <h2>
+    No results were found for your search
+  </h2>
+</section>
+`;
+
 exports[`component:ReactPanel renders without crashing 1`] = `
 <section
   className="results-panel">
