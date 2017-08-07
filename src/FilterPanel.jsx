@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import './FilterPanel.less'
-import Aggregation from './Filters/Aggregation'
 import SimpleFilter from './Filters/SimpleFilter'
 import CollapsibleFilter from './Filters/CollapsibleFilter'
 import FederalState from './Filters/FederalState'
@@ -9,6 +8,7 @@ import Issue from './Filters/Issue'
 import SingleCheckbox from './Filters/SingleCheckbox'
 import ZipCode from './Filters/ZipCode'
 import CompanyName from './Filters/CompanyName'
+import Product from './Filters/Product'
 
 
 export class FilterPanel extends React.Component {
@@ -34,10 +34,7 @@ export class FilterPanel extends React.Component {
         <hr />
         <CompanyName />
         <hr />
-        <Aggregation title="Product / sub-product"
-                     desc="The type of product and sub-product the consumer identified in the complaint"
-                     fieldName="product"
-        />
+        <Product />
         <hr />
         <Issue />
         <hr />
