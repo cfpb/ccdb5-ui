@@ -1,34 +1,34 @@
-import React from 'react';
 import './CollapsibleFilter.less';
 import PropTypes from 'prop-types'
+import React from 'react';
 
 export default class CollapsibleFilter extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor( props ) {
+    super( props );
     this.state = {
       showChildren: props.showChildren
     };
 
     // This binding is necessary to make `this` work in the callback
     // https://facebook.github.io/react/docs/handling-events.html
-    this._toggleChildDisplay = this._toggleChildDisplay.bind(this);
+    this._toggleChildDisplay = this._toggleChildDisplay.bind( this );
   }
 
   _toggleChildDisplay() {
-    this.setState({
+    this.setState( {
       showChildren: !this.state.showChildren
-    });
+    } );
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
+  componentWillReceiveProps( nextProps ) {
+    this.setState( {
       showChildren: nextProps.showChildren
-    });
+    } );
   }
 
   render() {
     let composeClasses = 'collapsible-filter';
-    if (this.props.className) {
+    if ( this.props.className ) {
       composeClasses += ' ' + this.props.className;
     }
 
@@ -41,7 +41,7 @@ export default class CollapsibleFilter extends React.Component {
                         onClick={this._toggleChildDisplay}>
                 { this.state.showChildren ? 'Hide' : 'Show' }
                   <span className={
-                    "cf-icon " + (this.state.showChildren ? 'cf-icon-minus-round' : 'cf-icon-plus-round')
+                    'cf-icon ' + ( this.state.showChildren ? 'cf-icon-minus-round' : 'cf-icon-plus-round' )
                   }></span>
                 </button>
             </div>

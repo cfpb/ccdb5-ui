@@ -8,7 +8,7 @@ export default class SingleCheckbox extends React.Component {
         <div className="m-form-field m-form-field__checkbox">
             <input className="a-checkbox" type="checkbox" id="theCheckbox" />
             <label className="a-label" htmlFor="theCheckbox">{this.props.label}</label>
-        </div> 
+        </div>
       </section>
     );
   }

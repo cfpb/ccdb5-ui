@@ -1,12 +1,12 @@
-import React from 'react';
+import './PillPanel.less';
 import { connect } from 'react-redux'
 import { knownFilters } from './constants'
 import Pill from './Pill';
+import React from 'react';
 import { removeAllFilters } from './actions/filter'
-import './PillPanel.less';
 
-export const PillPanel = ({ filters, clearAll }) => {
-  if( !filters || filters.length === 0 ) {
+export const PillPanel = ( { filters, clearAll } ) => {
+  if ( !filters || filters.length === 0 ) {
     return null
   }
 
@@ -14,9 +14,9 @@ export const PillPanel = ({ filters, clearAll }) => {
     <section className="pill-panel">
       <h5 className="pill-label flex-fixed">Filters Applied:</h5>
       <ul className="layout-row">
-        { filters.map(x => <Pill key={x.fieldName + x.value}
+        { filters.map( x => <Pill key={x.fieldName + x.value}
                                  fieldName={x.fieldName}
-                                 value={x.value} />)
+                                 value={x.value} /> )
         }
         <li className="clear-all">
           <button className="a-btn a-btn__link body-copy" onClick={ clearAll }>
@@ -28,30 +28,26 @@ export const PillPanel = ({ filters, clearAll }) => {
   );
 }
 
-export const mapStateToProps = (state) => {
+export const mapStateToProps = state => {
   const subState = state.query
   const filters = knownFilters
     // Only use the known filters that are in the substate
-    .filter(x => {
-      return x in subState
-    })
+    .filter( x => x in subState )
     // Create a flattened array of pill objects
-    .reduce((accum, fieldName) => {
+    .reduce( ( accum, fieldName ) => {
       const arr = subState[fieldName].map(
-        value => { return {fieldName, value} }
+        value => ( { fieldName, value } )
       )
-      return accum.concat(arr)
-    }, [])
+      return accum.concat( arr )
+    }, [] )
 
   return {
     filters: filters
   }
 }
 
-export const mapDispatchToProps = (dispatch) => {
-  return {
-    clearAll: () => { dispatch(removeAllFilters()) }
-  }
-}
+export const mapDispatchToProps = dispatch => ( {
+  clearAll: () => { dispatch( removeAllFilters() ) }
+} )
 
-export default connect(mapStateToProps, mapDispatchToProps)(PillPanel);
+export default connect( mapStateToProps, mapDispatchToProps )( PillPanel );
