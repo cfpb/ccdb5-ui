@@ -1,15 +1,15 @@
 // It uses this name rather than 'State' to distinguish from the React state
 // Idea https://en.wikipedia.org/wiki/U.S._state
 
-import React from 'react'
-import { connect } from 'react-redux'
-import StickyOptions from './StickyOptions'
-import CollapsibleFilter from './CollapsibleFilter'
-import Typeahead from '../Typeahead'
-import HighlightingOption from '../Typeahead/HighlightingOption'
 import { addMultipleFilters } from '../actions/filter'
-import { THESE_UNITED_STATES } from '../constants'
+import CollapsibleFilter from './CollapsibleFilter'
+import { connect } from 'react-redux'
+import HighlightingOption from '../Typeahead/HighlightingOption'
 import { normalize } from './utils'
+import React from 'react'
+import StickyOptions from './StickyOptions'
+import { THESE_UNITED_STATES } from '../constants'
+import Typeahead from '../Typeahead'
 
 const buildLabel = x => THESE_UNITED_STATES[x] + ' (' + x + ')'
 

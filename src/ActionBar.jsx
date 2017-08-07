@@ -1,9 +1,9 @@
-import React from 'react';
+import './ActionBar.less';
+import { changeSize, changeSort } from './actions/paging'
 import { connect } from 'react-redux'
 import { FormattedNumber } from 'react-intl'
+import React from 'react';
 import { showExportDialog } from './actions/dataExport'
-import { changeSize, changeSort } from './actions/paging'
-import './ActionBar.less';
 
 const sizes = [ 10, 25, 50, 100 ]
 const sorts = {

@@ -1,10 +1,10 @@
-import React from 'react'
-import { FormattedNumber } from 'react-intl'
-import { connect } from 'react-redux'
 import './DataExport.less'
 import {
   exportAllResults, exportSomeResults, visitSocrata
 } from '../actions/dataExport'
+import { connect } from 'react-redux'
+import { FormattedNumber } from 'react-intl'
+import React from 'react'
 
 export class DataExport extends React.Component {
   constructor( props ) {

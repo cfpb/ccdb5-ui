@@ -1,15 +1,14 @@
-import React from 'react'
-import { connect } from 'react-redux'
 import './FilterPanel.less'
 import Aggregation from './Filters/Aggregation'
-import SimpleFilter from './Filters/SimpleFilter'
 import CollapsibleFilter from './Filters/CollapsibleFilter'
+import CompanyName from './Filters/CompanyName'
+import { connect } from 'react-redux'
 import FederalState from './Filters/FederalState'
 import Issue from './Filters/Issue'
+import React from 'react'
+import SimpleFilter from './Filters/SimpleFilter'
 import SingleCheckbox from './Filters/SingleCheckbox'
 import ZipCode from './Filters/ZipCode'
-import CompanyName from './Filters/CompanyName'
-
 
 export class FilterPanel extends React.Component {
   render() {

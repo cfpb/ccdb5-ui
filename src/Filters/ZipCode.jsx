@@ -1,9 +1,9 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import { addMultipleFilters } from '../actions/filter'
 import CollapsibleFilter from './CollapsibleFilter'
+import { connect } from 'react-redux'
+import React from 'react'
 import StickyOptions from './StickyOptions'
 import Typeahead from '../Typeahead/HighlightingTypeahead'
-import { addMultipleFilters } from '../actions/filter'
 
 const FIELD_NAME = 'zip_code'
 

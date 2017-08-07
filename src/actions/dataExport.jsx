@@ -2,9 +2,9 @@
 // https://stackoverflow.com/questions/35623656
 // https://stackoverflow.com/questions/3916191
 
-import { stateToQS } from './complaints'
 import { buildLink, simulateClick } from './domUtils'
 import { MODAL_HID, MODAL_SHOWN, MODAL_TYPE_DATA_EXPORT } from '../constants'
+import { stateToQS } from './complaints'
 
 const DATA_HOST = 'https://data.consumerfinance.gov'
 

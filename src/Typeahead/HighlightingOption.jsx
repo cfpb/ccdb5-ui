@@ -1,5 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
 export const HighlightingOption = ( { label, position, value } ) => {
   const start = label.substring( 0, position )

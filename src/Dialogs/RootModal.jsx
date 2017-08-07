@@ -1,11 +1,11 @@
 // Tip of the hat to: https://stackoverflow.com/questions/35623656
 
-import React from 'react'
-import ReactModal from 'react-modal'
-import { connect } from 'react-redux'
-import DataExport from './DataExport'
 import './RootModal.less'
 import * as types from '../constants'
+import { connect } from 'react-redux'
+import DataExport from './DataExport'
+import React from 'react'
+import ReactModal from 'react-modal'
 
 const buildMap = () => {
   const retVal = {}

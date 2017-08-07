@@ -1,5 +1,5 @@
-import { combineReducers } from 'redux'
 import aggs from './aggs'
+import { combineReducers } from 'redux'
 import detail from './detail'
 import modal from './modal'
 import query from './query'

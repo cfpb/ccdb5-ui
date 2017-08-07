@@ -1,6 +1,6 @@
-import React from 'react';
-import { FormattedDate } from 'react-intl';
-import './ComplaintCard.less';
+import './ComplaintCard.less'
+import { FormattedDate } from 'react-intl'
+import React from 'react'
 
 const MAX_NARRATIVE = 300
 

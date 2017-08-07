@@ -1,32 +1,28 @@
-// Required so that the expose-loader test works which moves the ReactDOM
-// variable into the global space
-// eslint-disable-next-line
-import ReactDOM from 'react-dom';
-
-import React from 'react';
-import { Provider } from 'react-redux'
-import { IntlProvider } from 'react-intl';
+import './App.less';
 import { applyMiddleware, createStore } from 'redux'
-import thunkMiddleware from 'redux-thunk'
-
-import { composeWithDevTools } from 'redux-devtools-extension';
-
 import {
   Route,
   BrowserRouter as Router,
   Switch
 } from 'react-router-dom'
 
-
-import reducers from './reducers'
+import ComplaintDetail from './ComplaintDetail';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import FilterPanel from './FilterPanel';
 import Hero from './Hero';
-import SearchPanel from './SearchPanel';
+import { IntlProvider } from 'react-intl';
+import { Provider } from 'react-redux'
+import React from 'react';
+// Required so that the expose-loader test works which moves the ReactDOM
+// variable into the global space
+// eslint-disable-next-line
+import ReactDOM from 'react-dom';
+import reducers from './reducers'
 import ResultsPanel from './ResultsPanel';
-import ComplaintDetail from './ComplaintDetail';
 import RootModal from './Dialogs/RootModal'
+import SearchPanel from './SearchPanel';
+import thunkMiddleware from 'redux-thunk'
 import UrlBarSynch from './UrlBarSynch';
-import './App.less';
 
 const middleware = [ thunkMiddleware ];
 

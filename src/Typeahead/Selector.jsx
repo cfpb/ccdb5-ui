@@ -1,8 +1,8 @@
 // Adapted from https://github.com/fmoo/react-typeahead
 
-import React from 'react'
-import PropTypes from 'prop-types'
 import Option from './Option'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 export default class Selector extends React.Component {
   _onClick( index, event ) {

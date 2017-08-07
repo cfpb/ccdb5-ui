@@ -1,8 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { FormattedNumber } from 'react-intl'
 import { filterChanged } from '../actions/filter'
+import { FormattedNumber } from 'react-intl'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 export const AggregationItem = ( { item, fieldName, active, onClick } ) => {
   const value = item.value || item.key

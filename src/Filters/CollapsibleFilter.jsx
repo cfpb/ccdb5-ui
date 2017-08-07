@@ -1,6 +1,6 @@
-import React from 'react';
 import './CollapsibleFilter.less';
 import PropTypes from 'prop-types'
+import React from 'react';
 
 export default class CollapsibleFilter extends React.Component {
   constructor( props ) {

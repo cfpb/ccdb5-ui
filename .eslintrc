@@ -1079,9 +1079,9 @@ rules:
 
   # Sort import declarations within module.
   sort-imports:
-    - 1
+    - 2
     -
-      ignoreCase: false
+      ignoreCase: true
       ignoreMemberSort: false
       memberSyntaxSortOrder:
         - none
