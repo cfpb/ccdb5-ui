@@ -11,20 +11,20 @@ const NO_RESULTS = 'NO_RESULTS'
 const RESULTS = 'RESULTS'
 
 export class ResultsPanel extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor( props ) {
+    super( props )
 
     // Render/Phase Map
     this.renderMap = {
-      ERROR: this._renderError.bind(this),
-      NO_RESULTS: this._renderNoResults.bind(this),
-      RESULTS: this._renderResults.bind(this)
+      ERROR: this._renderError.bind( this ),
+      NO_RESULTS: this._renderNoResults.bind( this ),
+      RESULTS: this._renderResults.bind( this )
     }
   }
 
   render() {
     let composeClasses = 'results-panel'
-    if (this.props.className) {
+    if ( this.props.className ) {
       composeClasses += ' ' + this.props.className
     }
 
@@ -47,15 +47,14 @@ export class ResultsPanel extends React.Component {
   _determinePhase() {
     // determine the phase
     let phase = NO_RESULTS
-    if( this.props.error ) {
+    if ( this.props.error ) {
       phase = ERROR
-    }
-    else if( this.props.items.length > 0 ) {
+    } else if ( this.props.items.length > 0 ) {
       phase = RESULTS
     }
 
     return phase
-  }  
+  }
 
   // --------------------------------------------------------------------------
   // Subrender Methods
@@ -74,7 +73,7 @@ export class ResultsPanel extends React.Component {
 
   _renderResults() {
     return (
-      <ul className="cards-panel">
+      <ul className='cards-panel'>
         { this.props.items.map(
           item => <ComplaintCard key={item.complaint_id} row={item} />
         )}
@@ -83,11 +82,9 @@ export class ResultsPanel extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    error: state.results.error,
-    items: state.results.items
-  }
-}
+const mapStateToProps = state => ( {
+  error: state.results.error,
+  items: state.results.items
+} )
 
-export default connect(mapStateToProps)(ResultsPanel)
+export default connect( mapStateToProps )( ResultsPanel )

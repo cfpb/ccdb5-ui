@@ -1,13 +1,13 @@
 import {
-  FILTER_CHANGED, FILTER_REMOVED, FILTER_ALL_REMOVED, FILTER_MULTIPLE_ADDED,
-  FILTER_MULTIPLE_REMOVED
+  FILTER_ALL_REMOVED, FILTER_CHANGED, FILTER_MULTIPLE_ADDED, FILTER_MULTIPLE_REMOVED,
+  FILTER_REMOVED
 } from '../constants'
 import { getComplaints } from './complaints'
 
 // ----------------------------------------------------------------------------
 // Simple actions
 
-export function filterToggle(filterName, filterValue) {
+export function filterToggle( filterName, filterValue ) {
   return {
     type: FILTER_CHANGED,
     filterName,
@@ -15,7 +15,7 @@ export function filterToggle(filterName, filterValue) {
   }
 }
 
-export function filterRemoved(filterName, filterValue) {
+export function filterRemoved( filterName, filterValue ) {
   return {
     type: FILTER_REMOVED,
     filterName,
@@ -29,8 +29,8 @@ export function filterAllRemoved() {
   }
 }
 
-export function filterMultipleAdded(filterName, values) {
-  console.assert(Array.isArray(values))
+export function filterMultipleAdded( filterName, values ) {
+  console.assert( Array.isArray( values ) )
   return {
     type: FILTER_MULTIPLE_ADDED,
     filterName,
@@ -38,8 +38,8 @@ export function filterMultipleAdded(filterName, values) {
   }
 }
 
-export function filterMultipleRemoved(filterName, values) {
-  console.assert(Array.isArray(values))
+export function filterMultipleRemoved( filterName, values ) {
+  console.assert( Array.isArray( values ) )
   return {
     type: FILTER_MULTIPLE_REMOVED,
     filterName,
@@ -50,23 +50,23 @@ export function filterMultipleRemoved(filterName, values) {
 // ----------------------------------------------------------------------------
 // Compound Actions
 
-export function addMultipleFilters(filterName, values) {
+export function addMultipleFilters( filterName, values ) {
   return dispatch => {
-    dispatch( filterMultipleAdded(filterName, values) )
+    dispatch( filterMultipleAdded( filterName, values ) )
     dispatch( getComplaints() )
   }
 }
 
-export function filterChanged(filterName, filterValue) {
+export function filterChanged( filterName, filterValue ) {
   return dispatch => {
-    dispatch( filterToggle(filterName, filterValue) )
+    dispatch( filterToggle( filterName, filterValue ) )
     dispatch( getComplaints() )
   }
 }
 
-export function removeFilter(filterName, filterValue) {
+export function removeFilter( filterName, filterValue ) {
   return dispatch => {
-    dispatch( filterRemoved(filterName, filterValue) )
+    dispatch( filterRemoved( filterName, filterValue ) )
     dispatch( getComplaints() )
   }
 }
@@ -78,9 +78,9 @@ export function removeAllFilters() {
   }
 }
 
-export function removeMultipleFilters(filterName, values) {
+export function removeMultipleFilters( filterName, values ) {
   return dispatch => {
-    dispatch( filterMultipleRemoved(filterName, values) )
+    dispatch( filterMultipleRemoved( filterName, values ) )
     dispatch( getComplaints() )
   }
 }

@@ -15,7 +15,7 @@ export class Aggregation extends React.Component {
       <CollapsibleFilter title={this.props.title}
                          desc={this.props.desc}
                          showChildren={this.props.showChildren}
-                         className="aggregation">
+                         className='aggregation'>
          <MoreOrLess listComponent={AggregationItem}
                      listComponentProps={listComponentProps}
                      options={this.props.options}
@@ -25,10 +25,8 @@ export class Aggregation extends React.Component {
   }
 }
 
-export const mapStateToProps = (state, ownProps) => {
-  return {
-    options: state.aggs[ownProps.fieldName] || []
-  }
-}
+export const mapStateToProps = ( state, ownProps ) => ( {
+  options: state.aggs[ownProps.fieldName] || []
+} )
 
-export default connect(mapStateToProps)(Aggregation)
+export default connect( mapStateToProps )( Aggregation )

@@ -11,16 +11,14 @@ import { addMultipleFilters } from '../actions/filter'
 import { THESE_UNITED_STATES } from '../constants'
 import { normalize } from './utils'
 
-const buildLabel = x => {
-  return THESE_UNITED_STATES[x] + ' (' + x + ')'
-}
+const buildLabel = x => THESE_UNITED_STATES[x] + ' (' + x + ')'
 
 export class FederalState extends React.Component {
-  constructor(props) {
-    super(props)
-    this._onInputChange = this._onInputChange.bind(this)
-    this._onOptionSelected = this._onOptionSelected.bind(this)
-    this._onMissingItem = this._onMissingItem.bind(this)
+  constructor( props ) {
+    super( props )
+    this._onInputChange = this._onInputChange.bind( this )
+    this._onOptionSelected = this._onOptionSelected.bind( this )
+    this._onMissingItem = this._onMissingItem.bind( this )
   }
 
   render() {
@@ -45,61 +43,59 @@ export class FederalState extends React.Component {
   // --------------------------------------------------------------------------
   // Typeahead Helpers
 
-  _onInputChange(value) {
-    // Normalize the input value 
-    const normalized = normalize(value)
+  _onInputChange( value ) {
+    // Normalize the input value
+    const normalized = normalize( value )
     const allUpper = normalized.toUpperCase()
 
     // Find the matches
     const filtered = this.props.forTypeahead
-      .filter(x => x.normalized.indexOf(normalized) !== -1)
-      .map(x => {
-        return {
-          key: x.key,
-          label: x.label,
-          position: x.normalized.indexOf(normalized),
-          value
-        }
-      })
+      .filter( x => x.normalized.indexOf( normalized ) !== -1 )
+      .map( x => ( {
+        key: x.key,
+        label: x.label,
+        position: x.normalized.indexOf( normalized ),
+        value
+      } ) )
 
     // Sort the matches so that:
-    filtered.sort((a,b) => {
+    filtered.sort( ( a, b ) => {
       // 1.) A matching state abbreviation appears first (OR > North Carolina)
-      const aMatched = (a.key === allUpper)
-      const bMatched = (b.key === allUpper)
+      const aMatched = a.key === allUpper
+      const bMatched = b.key === allUpper
 
-      if( aMatched && !bMatched ) {
+      if ( aMatched && !bMatched ) {
         return -1
       }
-      if( !aMatched && bMatched ) {
+      if ( !aMatched && bMatched ) {
         return 1
       }
 
       // 2.) matches at the beginning of the string appear before later matches
       return a.position - b.position
-    })
+    } )
 
     return filtered
   }
 
-  _renderOption(obj) {
+  _renderOption( obj ) {
     return {
       value: obj.key,
-      component: (<HighlightingOption {...obj} />)
+      component: <HighlightingOption {...obj} />
     }
   }
 
-  _onOptionSelected(item) {
-    this.props.typeaheadSelect(item.key)
+  _onOptionSelected( item ) {
+    this.props.typeaheadSelect( item.key )
   }
 
   // --------------------------------------------------------------------------
   // StickyOption Helpers
 
-  _onMissingItem(key) {
+  _onMissingItem( key ) {
     return {
       key,
-      value: buildLabel(key),
+      value: buildLabel( key ),
       doc_count: 0
     }
   }
@@ -108,24 +104,22 @@ export class FederalState extends React.Component {
 export const mapStateToProps = state => {
   // See if there are an active Federal State filters
   const selections = state.query.state || []
-  const options = (state.aggs.state || [])
-    .map(x => {
-      return {
-        ...x,
-        value: buildLabel(x.key)
-      }
-    })
+  const options = ( state.aggs.state || [] )
+    .map( x => ( {
+      ...x,
+      value: buildLabel( x.key )
+    } ) )
 
   // create an array optimized for typeahead
-  const forTypeahead = Object.keys(THESE_UNITED_STATES).map(x => {
-    const label = buildLabel(x)
+  const forTypeahead = Object.keys( THESE_UNITED_STATES ).map( x => {
+    const label = buildLabel( x )
 
     return {
       key: x,
       label,
-      normalized: normalize(label)
+      normalized: normalize( label )
     }
-  })
+  } )
 
   return {
     forTypeahead,
@@ -134,12 +128,10 @@ export const mapStateToProps = state => {
   }
 }
 
-export const mapDispatchToProps = dispatch => {
-  return {
-    typeaheadSelect: (value) => {
-      dispatch(addMultipleFilters('state', [value]))
-    }
+export const mapDispatchToProps = dispatch => ( {
+  typeaheadSelect: value => {
+    dispatch( addMultipleFilters( 'state', [ value ] ) )
   }
-}
+} )
 
-export default connect(mapStateToProps, mapDispatchToProps)(FederalState)
+export default connect( mapStateToProps, mapDispatchToProps )( FederalState )

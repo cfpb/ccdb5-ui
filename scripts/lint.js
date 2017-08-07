@@ -1,5 +1,3 @@
-'use strict';
-
 const esLintCLI = require( 'esLint/lib/cli' );
 const minimist = require( 'minimist' );
 const args = JSON.parse( process.env.npm_config_argv ).original.slice( 2 );
@@ -13,7 +11,7 @@ const linterFiles = {
 const linterArgs = minimist( args );
 
 if ( Array.isArray( linterArgs._ ) && linterArgs._.length === 0 ) {
-	delete linterArgs._;
+  delete linterArgs._;
 }
 
 const eslintOptions = Object.assign( linterFiles, linterArgs );
