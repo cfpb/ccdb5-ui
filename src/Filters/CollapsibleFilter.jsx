@@ -1,11 +1,12 @@
 import React from 'react';
 import './CollapsibleFilter.less';
+import PropTypes from 'prop-types'
 
 export default class CollapsibleFilter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showChildren: typeof props.showChildren === 'undefined' ? true : props.showChildren
+      showChildren: props.showChildren
     };
 
     // This binding is necessary to make `this` work in the callback
@@ -16,6 +17,12 @@ export default class CollapsibleFilter extends React.Component {
   _toggleChildDisplay() {
     this.setState({
       showChildren: !this.state.showChildren
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      showChildren: nextProps.showChildren
     });
   }
 
@@ -44,4 +51,12 @@ export default class CollapsibleFilter extends React.Component {
       </section>
     );
   }
+}
+
+CollapsibleFilter.PropTypes = {
+  showChildren: PropTypes.bool
+}
+
+CollapsibleFilter.defaultProps = {
+  showChildren: true
 }

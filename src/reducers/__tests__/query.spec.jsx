@@ -5,6 +5,7 @@ describe('reducer:query', () => {
   it('has a default state', () => {
     expect(target(undefined, {})).toEqual({
         searchText: '',
+        searchField: 'all',
         from: 0,
         size: 10,
         sort: 'relevance_desc'

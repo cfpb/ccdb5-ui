@@ -69,7 +69,9 @@ export class DetailComponents extends React.Component {
 
     return (
       <IntlProvider locale="en">
+        <main role="main">
           <ComplaintDetail complaint_id={complaint_id}/>
+        </main>
       </IntlProvider>
     )
   }

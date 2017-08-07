@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import './FilterPanel.less'
 import Aggregation from './Filters/Aggregation'
+import SimpleFilter from './Filters/SimpleFilter'
 import CollapsibleFilter from './Filters/CollapsibleFilter'
 import FederalState from './Filters/FederalState'
 import Issue from './Filters/Issue'
@@ -44,32 +45,27 @@ export class FilterPanel extends React.Component {
         <hr />
         <ZipCode />
         <hr />
-        <Aggregation title="Did company provide a timely response?"
-                     fieldName="timely"
-                     showChildren={false}
+        <SimpleFilter title="Did company provide a timely response?"
+                      fieldName="timely"
         />
         <hr />
-        <Aggregation title="Company Response"
+        <SimpleFilter title="Company Response"
                      desc="How the company responded to the complaint"
                      fieldName="company_response"
-                     showChildren={false}
         />
         <hr />
-        <Aggregation title="Company Public Response"
+        <SimpleFilter title="Company Public Response"
                      desc="The company's optional public-facing response to a consumer's complaint"
-                     fieldName="company_public_response"
-                     showChildren={false}                     
+                     fieldName="company_public_response"                
         />
         <hr />
-        <Aggregation title="Did the consumer dispute the response?"
+        <SimpleFilter title="Did the consumer dispute the response?"
                      fieldName="consumer_disputed"
-                     showChildren={false}
         />
         <hr />
-        <Aggregation title="Consumer Consent"
+        <SimpleFilter title="Consumer Consent"
                      desc="Whether a consumer opted to publish their compaint narrative"
                      fieldName="consumer_consent_provided"
-                     showChildren={false}
         />
       </section>
     )
