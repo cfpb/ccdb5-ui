@@ -589,8 +589,9 @@ exports[`initial state renders without crashing 1`] = `
           </h5>
         </div>
       </summary>
-      <ul
-        className="cards-panel" />
+      <h2>
+        No results were found for your search
+      </h2>
     </section>
   </div>
   <span />
