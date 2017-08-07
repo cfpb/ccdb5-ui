@@ -1,15 +1,14 @@
-import React from 'react'
-import { connect } from 'react-redux'
 import './FilterPanel.less'
 import Aggregation from './Filters/Aggregation'
-import SimpleFilter from './Filters/SimpleFilter'
 import CollapsibleFilter from './Filters/CollapsibleFilter'
+import CompanyName from './Filters/CompanyName'
+import { connect } from 'react-redux'
 import FederalState from './Filters/FederalState'
 import Issue from './Filters/Issue'
+import React from 'react'
+import SimpleFilter from './Filters/SimpleFilter'
 import SingleCheckbox from './Filters/SingleCheckbox'
 import ZipCode from './Filters/ZipCode'
-import CompanyName from './Filters/CompanyName'
-
 
 export class FilterPanel extends React.Component {
   render() {
@@ -56,7 +55,7 @@ export class FilterPanel extends React.Component {
         <hr />
         <SimpleFilter title="Company Public Response"
                      desc="The company's optional public-facing response to a consumer's complaint"
-                     fieldName="company_public_response"                
+                     fieldName="company_public_response"
         />
         <hr />
         <SimpleFilter title="Did the consumer dispute the response?"
@@ -72,10 +71,8 @@ export class FilterPanel extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    aggs: state.aggs
-  }
-}
+const mapStateToProps = state => ( {
+  aggs: state.aggs
+} )
 
-export default connect(mapStateToProps)(FilterPanel)
+export default connect( mapStateToProps )( FilterPanel )

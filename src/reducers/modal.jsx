@@ -11,8 +11,8 @@ const initialState = {
 // ----------------------------------------------------------------------------
 // Action Handler
 
-export default (state = initialState, action) => {
-  switch (action.type) {
+export default ( state = initialState, action ) => {
+  switch ( action.type ) {
     case MODAL_SHOWN:
       return {
         modalType: action.modalType,
