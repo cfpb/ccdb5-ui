@@ -1,13 +1,11 @@
-'use strict';
-
-var paths = require('./paths');
-var autoprefixer = require('autoprefixer');
+var paths = require( './paths' );
+var autoprefixer = require( 'autoprefixer' );
 
 module.exports = {
   entry: [
-    require.resolve('./polyfills'),
+    require.resolve( './polyfills' ),
     paths.appIndexJs
-  ],  
+  ],
   output: {
     filename: 'ccdb5.min.js',
     path: paths.appBuild,
@@ -23,7 +21,7 @@ module.exports = {
     // if there any conflicts. This matches Node resolution mechanism.
     // https://github.com/facebookincubator/create-react-app/issues/253
     fallback: paths.nodePaths,
-    extensions: ['.js', '.json', '.jsx', ''],
+    extensions: [ '.js', '.json', '.jsx', '' ],
     alias: {
       'react-native': 'react-native-web'
     }
@@ -48,25 +46,25 @@ module.exports = {
       },
       // make sure the `React` global variable is available
       {
-        test: require.resolve('react'),
-        loader: "expose-loader?React"
+        test: require.resolve( 'react' ),
+        loader: 'expose-loader?React'
       },
       // make sure the `ReactDOM` global variable is available
       {
-        test: require.resolve('react-dom'),
+        test: require.resolve( 'react-dom' ),
         loader: 'expose-loader?ReactDOM'
       }
     ]
   },
   postcss: function() {
     return [
-      autoprefixer({
+      autoprefixer( {
         browsers: [
           '>1%',
           'last 4 versions',
-          'Firefox ESR',
+          'Firefox ESR'
         ]
-      }),
+      } )
     ];
   },
   // Some libraries import Node modules but don't use them in the browser.
@@ -75,5 +73,5 @@ module.exports = {
     fs: 'empty',
     net: 'empty',
     tls: 'empty'
-  }  
+  }
 }

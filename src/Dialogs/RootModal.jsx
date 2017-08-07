@@ -16,30 +16,28 @@ const buildMap = () => {
 
 export const MODAL_COMPONENTS = buildMap()
 
-export const RootModal = ({ modalType, modalProps, onClose }) => {
+export const RootModal = ( { modalType, modalProps, onClose } ) => {
   if ( modalType in MODAL_COMPONENTS ) {
     const SpecificModal = MODAL_COMPONENTS[modalType]
 
     return (
       <ReactModal isOpen={true}
-                  contentLabel="CFPB Modal Dialog"
-                  className="modal-body"
-                  overlayClassName="modal-overlay"
+                  contentLabel='CFPB Modal Dialog'
+                  className='modal-body'
+                  overlayClassName='modal-overlay'
                   onRequestClose={onClose}>
         <SpecificModal {...modalProps} onClose={onClose} />
       </ReactModal>
     )
   }
 
-  return (<span />)
+  return <span />
 }
 
-export const mapDispatchToProps = dispatch => {
-  return {
-    onClose: _ => {
-      dispatch({type: types.MODAL_HID})
-    }
+export const mapDispatchToProps = dispatch => ( {
+  onClose: _ => {
+    dispatch( { type: types.MODAL_HID } )
   }
-}
+} )
 
-export default connect(state => state.modal, mapDispatchToProps)(RootModal)
+export default connect( state => state.modal, mapDispatchToProps )( RootModal )

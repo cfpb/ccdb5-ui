@@ -1,25 +1,22 @@
-'use strict';
+var merge = require( 'webpack-merge' );
+var baseConfig = require( '../config/webpack-config-base' );
 
-var merge = require('webpack-merge');
-var baseConfig = require('../config/webpack-config-base');
-
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var ManifestPlugin = require('webpack-manifest-plugin');
-var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
-var getClientEnvironment = require('./env');
-var paths = require('./paths');
-
+var webpack = require( 'webpack' );
+var HtmlWebpackPlugin = require( 'html-webpack-plugin' );
+var ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
+var ManifestPlugin = require( 'webpack-manifest-plugin' );
+var InterpolateHtmlPlugin = require( 'react-dev-utils/InterpolateHtmlPlugin' );
+var getClientEnvironment = require( './env' );
+var paths = require( './paths' );
 
 
 var publicPath = paths.servedPath;
 var shouldUseRelativeAssetPaths = publicPath === './';
-var publicUrl = publicPath.slice(0, -1);
-var env = getClientEnvironment(publicUrl);
+var publicUrl = publicPath.slice( 0, -1 );
+var env = getClientEnvironment( publicUrl );
 
-if (env.stringified['process.env'].NODE_ENV !== '"production"') {
-  throw new Error('Production builds must have NODE_ENV=production.');
+if ( env.stringified['process.env'].NODE_ENV !== '"production"' ) {
+  throw new Error( 'Production builds must have NODE_ENV=production.' );
 }
 
 const cssFilename = 'static/css/[name].css';
@@ -28,19 +25,19 @@ const cssFilename = 'static/css/[name].css';
 // (See https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/27)
 // However, our output is structured with css, js and media folders.
 // To have this structure working with relative paths, we have to use custom options.
-const extractTextPluginOptions = shouldUseRelativeAssetPaths
+const extractTextPluginOptions = shouldUseRelativeAssetPaths ?
   // Making sure that the publicPath goes back to to build folder.
-  ? { publicPath: Array(cssFilename.split('/').length).join('../') }
-  : undefined;
+  { publicPath: Array( cssFilename.split( '/' ).length ).join( '../' ) } :
+  undefined;
 
-module.exports = merge({
+module.exports = merge( {
   bail: true,
   devtool: 'source-map',
   output: {
-    publicPath: publicPath,
+    publicPath: publicPath
   },
   module: {
-    loaders: [      
+    loaders: [
       // ** ADDING/UPDATING LOADERS **
       // The "url" loader handles all assets unless explicitly excluded.
       // The `exclude` list *must* be updated with every change to loader extensions.
@@ -70,8 +67,8 @@ module.exports = merge({
       {
         test: /\.(js|jsx)$/,
         include: paths.appSrc,
-        loader: 'babel',
-        
+        loader: 'babel'
+
       },
       {
         test: /\.(js|jsx)$/,
@@ -118,18 +115,18 @@ module.exports = merge({
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     // In production, it will be an empty string unless you specify "homepage"
     // in `package.json`, in which case it will be the pathname of that URL.
-    new InterpolateHtmlPlugin(env.raw),
+    new InterpolateHtmlPlugin( env.raw ),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
     // It is absolutely essential that NODE_ENV was set to production here.
     // Otherwise React will be compiled in the very slow development mode.
-    new webpack.DefinePlugin(env.stringified),
+    new webpack.DefinePlugin( env.stringified ),
     // This helps ensure the builds are consistent if source hasn't changed:
     new webpack.optimize.OccurrenceOrderPlugin(),
     // Try to dedupe duplicated modules, if any:
     new webpack.optimize.DedupePlugin(),
     // Minify the code.
-    new webpack.optimize.UglifyJsPlugin({
+    new webpack.optimize.UglifyJsPlugin( {
       compress: {
         screw_ie8: true, // React doesn't support IE8
         warnings: false
@@ -141,8 +138,8 @@ module.exports = merge({
         comments: false,
         screw_ie8: true
       }
-    }),
+    } ),
     // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
-    new ExtractTextPlugin(cssFilename)
+    new ExtractTextPlugin( cssFilename )
   ]
-}, baseConfig);
+}, baseConfig );

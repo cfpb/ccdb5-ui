@@ -6,10 +6,10 @@ import MoreOrLess from './MoreOrLess'
 import './Aggregation.less'
 
 export class SimpleFilter extends React.Component {
-  componentWillReceiveProps(nextProps) {
-    this.setState({
+  componentWillReceiveProps( nextProps ) {
+    this.setState( {
       showChildren: nextProps.showChildren
-    });
+    } );
   }
 
   render() {
@@ -21,7 +21,7 @@ export class SimpleFilter extends React.Component {
       <CollapsibleFilter title={this.props.title}
                                desc={this.props.desc}
                                showChildren={this.props.showChildren}
-                               className="aggregation">
+                               className='aggregation'>
          <MoreOrLess listComponent={AggregationItem}
                      listComponentProps={listComponentProps}
                      options={this.props.options}
@@ -31,7 +31,7 @@ export class SimpleFilter extends React.Component {
   }
 }
 
-export const mapStateToProps = (state, ownProps) => {
+export const mapStateToProps = ( state, ownProps ) => {
   // Find all query filters that refer to the field name
   const activeChildren = state.query[ownProps.fieldName] || []
 
@@ -41,4 +41,4 @@ export const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)(SimpleFilter)
+export default connect( mapStateToProps )( SimpleFilter )

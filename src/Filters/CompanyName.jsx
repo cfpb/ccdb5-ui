@@ -8,9 +8,9 @@ import { addMultipleFilters } from '../actions/filter'
 const FIELD_NAME = 'company'
 
 export class CompanyName extends React.Component {
-  constructor(props) {
-    super(props)
-    this._onOptionSelected = this._onOptionSelected.bind(this)
+  constructor( props ) {
+    super( props )
+    this._onOptionSelected = this._onOptionSelected.bind( this )
   }
 
   render() {
@@ -30,8 +30,8 @@ export class CompanyName extends React.Component {
     )
   }
 
-  _onOptionSelected(item) {
-    this.props.typeaheadSelect(item.key)
+  _onOptionSelected( item ) {
+    this.props.typeaheadSelect( item.key )
   }
 }
 
@@ -46,12 +46,10 @@ export const mapStateToProps = state => {
   }
 }
 
-export const mapDispatchToProps = dispatch => {
-  return {
-    typeaheadSelect: (value) => {
-      dispatch(addMultipleFilters(FIELD_NAME, [value]))
-    }
+export const mapDispatchToProps = dispatch => ( {
+  typeaheadSelect: value => {
+    dispatch( addMultipleFilters( FIELD_NAME, [ value ] ) )
   }
-}
+} )
 
-export default connect(mapStateToProps, mapDispatchToProps)(CompanyName)
+export default connect( mapStateToProps, mapDispatchToProps )( CompanyName )

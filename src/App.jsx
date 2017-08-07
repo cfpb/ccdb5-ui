@@ -6,14 +6,14 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import { Provider } from 'react-redux'
 import { IntlProvider } from 'react-intl';
-import { createStore, applyMiddleware } from 'redux'
+import { applyMiddleware, createStore } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import {
-  BrowserRouter as Router,
   Route,
+  BrowserRouter as Router,
   Switch
 } from 'react-router-dom'
 
@@ -28,33 +28,33 @@ import RootModal from './Dialogs/RootModal'
 import UrlBarSynch from './UrlBarSynch';
 import './App.less';
 
-const middleware = [thunkMiddleware];
+const middleware = [ thunkMiddleware ];
 
-const composeEnhancers = composeWithDevTools({
+const composeEnhancers = composeWithDevTools( {
   // required for redux-devtools-extension
   // Specify name here, actionsBlacklist, actionsCreators and other options if needed
-});
+} );
 
 // required format for redux-devtools-extension
-const store = createStore(reducers, /* preloadedState, */ composeEnhancers(
-  applyMiddleware(...middleware),
+const store = createStore( reducers, /* preloadedState, */ composeEnhancers(
+  applyMiddleware( ...middleware ),
   // other store enhancers if any
-));
+) );
 
 
 export class SearchComponents extends React.Component {
   render() {
     return (
-      <IntlProvider locale="en">
-        <main className="content content__1-3" role="main">
+      <IntlProvider locale='en'>
+        <main className='content content__1-3' role='main'>
           <UrlBarSynch />
           <Hero />
-          <div className="content_wrapper">
+          <div className='content_wrapper'>
             <SearchPanel />
-            <aside className="content_sidebar">
+            <aside className='content_sidebar'>
               <FilterPanel />
             </aside>
-            <ResultsPanel className="content_main" />
+            <ResultsPanel className='content_main' />
           </div>
           <RootModal />
         </main>
@@ -68,8 +68,8 @@ export class DetailComponents extends React.Component {
     const complaint_id = this.props.match.params.id;
 
     return (
-      <IntlProvider locale="en">
-        <main role="main">
+      <IntlProvider locale='en'>
+        <main role='main'>
           <ComplaintDetail complaint_id={complaint_id}/>
         </main>
       </IntlProvider>
@@ -83,8 +83,8 @@ export class App extends React.Component {
       <Provider store={store}>
         <Router>
           <Switch>
-            <Route path="*/detail/:id" component={DetailComponents}/>
-            <Route path="/" component={SearchComponents}/>
+            <Route path='*/detail/:id' component={DetailComponents}/>
+            <Route path='/' component={SearchComponents}/>
           </Switch>
         </Router>
       </Provider>
