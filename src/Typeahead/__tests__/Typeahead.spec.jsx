@@ -1,10 +1,10 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme';
-import Typeahead from '..'
+import Typeahead, { MODE_OPEN, debounce } from '..'
 import * as keys from '../../constants'
 
-function setupEnzyme(initalProps={}) {
+function setupEnzyme(initalProps={}, removeDebounce=true) {
   const props = Object.assign({
     onInputChange: jest.fn((x) => ['alpha', 'beta', 'gamma']),
     onOptionSelected: jest.fn(),
@@ -13,6 +13,12 @@ function setupEnzyme(initalProps={}) {
 
   const target = shallow(<Typeahead {...props} />);
 
+  // Remove debounce
+  if (removeDebounce) {
+    const instance = target.instance()
+    instance.search = instance._callForOptions
+  }
+
   return {
     props,
     target
@@ -20,10 +26,12 @@ function setupEnzyme(initalProps={}) {
 }
 
 function setupSnapshot(initialValue='') {
-  return renderer.create(<Typeahead value={initialValue}
+  const target = renderer.create(<Typeahead value={initialValue}
                                     onInputChange={jest.fn()}
                                     onOptionSelected={jest.fn()}
-                         />)
+                                 />)
+  target.getInstance().setState({focused: true})
+  return target
 }
 
 describe('component::Typeahead', () => {
@@ -43,12 +51,6 @@ describe('component::Typeahead', () => {
 
     it('renders the ACCUM phase', () => {
       const target = setupSnapshot('i')
-      const tree = target.toJSON()
-      expect(tree).toMatchSnapshot()
-    })
-
-    it('renders the WAITING phase', () => {
-      const target = setupSnapshot('indubitably')
       const tree = target.toJSON()
       expect(tree).toMatchSnapshot()
     })
@@ -76,20 +78,19 @@ describe('component::Typeahead', () => {
   })
 
   describe('focus/blur', () => {
-    it('pushes the current state on blur', () => {
+    it('sets the current state on blur', () => {
       const { target } = setupEnzyme({value: 'foo'})
-      expect(target.state('phase')).toEqual('WAITING')
+      target.setState({focused: true})
       target.simulate('blur')
-      expect(target.state('phase')).toEqual('NOT_FOCUSED')
-      expect(target.instance().stateHistory.length).toEqual(2)
+      expect(target.state('focused')).toEqual(false)
     })
 
-    it('restores the state on focus', () => {
+    it('sets the state on focus', () => {
       const { target } = setupEnzyme({value: 'foo'})
-      expect(target.instance().stateHistory.length).toEqual(1)
-      target.simulate('focus')
       expect(target.state('phase')).toEqual('WAITING')
-      expect(target.instance().stateHistory.length).toEqual(0)
+      expect(target.state('focused')).toEqual(false)
+      target.simulate('focus')
+      expect(target.state('focused')).toEqual(true)
     })
   })
 
@@ -113,7 +114,44 @@ describe('component::Typeahead', () => {
     })
   })
 
-  describe('keyboard events', () => {
+  describe('asynchronous options', () => {
+    let target, props, input
+    let fakePromise, onSuccess, onFail
+    beforeEach(() => {
+      ({target, props} = setupEnzyme())
+      input = target.find('input')
+
+      fakePromise = {
+        then: (x, y) => {onSuccess = x, onFail = y}
+      }
+      props.onInputChange.mockImplementation(() => fakePromise)
+    })
+
+    it('detects a promise', () => {
+      input.simulate('change', {target: { value: 'bar'}})
+      expect(props.onInputChange).toHaveBeenCalledWith('bar')
+      expect(target.state('inputValue')).toEqual('bar')
+      expect(target.state('phase')).toEqual('WAITING')
+    })
+
+    it('sets the options when the promise is resolved', () => {
+      input.simulate('change', {target: { value: 'bar'}})
+      expect(props.onInputChange).toHaveBeenCalledWith('bar')
+      expect(target.state('phase')).toEqual('WAITING')
+      onSuccess(['a', 'b'])
+      expect(target.state('phase')).toEqual('RESULTS')
+    })
+
+    it('enters the error state when the promise is rejected', () => {
+      input.simulate('change', {target: { value: 'bar'}})
+      expect(props.onInputChange).toHaveBeenCalledWith('bar')
+      expect(target.state('phase')).toEqual('WAITING')
+      onFail('oops')
+      expect(target.state('phase')).toEqual('ERROR')
+    })
+  })
+
+  describe('keyboard events in CLOSED mode', () => {
     let fixture, target, props, input
     beforeEach(() => {
       ({target, props} = setupEnzyme())
@@ -211,5 +249,114 @@ describe('component::Typeahead', () => {
         expect(props.onOptionSelected).toHaveBeenCalledWith('beta')
       })
     })
+  })
+
+  describe('keyboard events in OPEN mode', () => {
+    let fixture, target, props, input
+    beforeEach(() => {
+      ({target, props} = setupEnzyme({
+        mode: MODE_OPEN,
+        onInputChange: jest.fn(() => ([
+          {key: 'alpha'},
+          {key: 'beta'}
+        ]))
+      }))
+
+      input = target.find('input')
+      fixture = {
+        preventDefault: jest.fn()
+      }
+
+      input.simulate('change', {target: { value: 'bar'}})
+      expect(target.state('phase')).toEqual('RESULTS')
+    })
+
+    afterEach(() => {
+      expect(fixture.preventDefault).toHaveBeenCalled()
+    })
+
+    it('hides the drop down when "ESC" is pressed', () => {
+      fixture.which = keys.VK_ESCAPE
+      input.simulate('keydown', fixture)
+
+      expect(target.state('inputValue')).toEqual('bar')
+      expect(target.state('phase')).toEqual('CHOSEN')
+    })
+
+    describe('arrow keys', () => {
+      it('sets the text box value to the selected value', () => {
+        fixture.which = keys.VK_DOWN
+        input.simulate('keydown', fixture)
+
+        expect(target.state('selectedIndex')).toEqual(0)
+        expect(target.state('inputValue')).toEqual('alpha')
+      })
+
+      it('has no effect when there are no results', () => {
+        target.instance()._calculateNewIndex = jest.fn(() => -1)
+
+        fixture.which = keys.VK_DOWN
+        input.simulate('keydown', fixture)
+
+        expect(target.state('selectedIndex')).toEqual(-1)
+        expect(target.state('inputValue')).toEqual('bar')
+      })
+    })
+
+    describe('ENTER/TAB', () => {
+      it('selects the highlighted option', () => {
+        target.instance().setState({
+          selectedIndex: 1
+        })
+        fixture.which = keys.VK_TAB
+        input.simulate('keydown', fixture)
+
+        expect(props.onOptionSelected).toHaveBeenCalledWith({ key: 'beta'})
+        expect(target.state('inputValue')).toEqual('bar')
+        expect(target.state('phase')).toEqual('CHOSEN')
+        expect(target.state('searchResults')).toEqual([])
+        expect(target.state('selectedIndex')).toEqual(-1)
+      })
+
+      it('uses the text box value when there are no options', () => {
+        target.instance().setState({
+          selectedIndex: -1,
+          searchResults: []
+        })
+        fixture.which = keys.VK_TAB
+        input.simulate('keydown', fixture)
+
+        expect(props.onOptionSelected).toHaveBeenCalledWith('bar')
+        expect(target.state('phase')).toEqual('CHOSEN')
+      })
+    })
+  })
+})
+
+describe('debounce', () => {
+  beforeEach(() => {
+    jest.useFakeTimers()
+  })
+
+  it('calls the passed in function after N milliseconds', () => {
+    const spy = jest.fn()
+    const target = debounce(spy, 200)
+    target()
+    expect(spy).not.toHaveBeenCalled()
+    jest.runTimersToTime(200)
+    expect(spy).toHaveBeenCalled()
+  })
+
+  it('only triggers one call while the timer is active', () => {
+    const spy = jest.fn()
+    const target = debounce(spy, 200)
+
+    target()
+    target()
+    target()
+
+    expect(spy).not.toHaveBeenCalled()
+    jest.runAllTimers()
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 })

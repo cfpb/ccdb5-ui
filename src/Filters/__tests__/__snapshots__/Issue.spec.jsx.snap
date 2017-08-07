@@ -22,11 +22,11 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
     The type of issue and sub-issue the consumer identified in the complaint
   </p>
   <section
-    className="typeahead"
+    className="typeahead "
     onBlur={[Function]}
     onFocus={[Function]}>
     <input
-      disabled={false}
+      autoComplete="off"
       onChange={[Function]}
       onKeyDown={[Function]}
       placeholder="Enter name of issue"
@@ -192,11 +192,11 @@ exports[`component:Issue snapshots renders without crashing 1`] = `
     The type of issue and sub-issue the consumer identified in the complaint
   </p>
   <section
-    className="typeahead"
+    className="typeahead "
     onBlur={[Function]}
     onFocus={[Function]}>
     <input
-      disabled={false}
+      autoComplete="off"
       onChange={[Function]}
       onKeyDown={[Function]}
       placeholder="Enter name of issue"

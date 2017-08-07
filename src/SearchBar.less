@@ -1,21 +1,57 @@
 @import (less) "base.less";
 
 .search-bar {
-    .btn {
-        background-color: @gray-80;
-        color: @white;
+  .cf-select {
+    display: flex;
+
+    background-color: @gray;
+    flex-direction: column;
+    justify-content: center;
+
+    select {
+      background-color: @gray;
+      color: @white;
+
+      &:focus {
+        outline: none;
+      }
     }
 
-    .btn.primary {
-        background-color: @pacific;
-        color: @white;
+    &:after {
+      color: @white;
     }
+  }
 
-    input[type=text] {
-        width: 80%;
+  .typeahead-portal {
+    height: @grid_gutter-width;
+    position: relative;
 
-        &::placeholder {
-            color: @gray;
-        }
+    .typeahead {
+      height: 100%;
+
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+
+      span.waiting, span.error, span.no-results {        
+        position: absolute;
+        top: -1 * @grid_gutter-width + @gutter-minimum;
+        left: 0;
+      }
     }
+  }
+
+  h5 {
+    margin-bottom: @gutter-minimum;
+  }
+
+  input[type=text] {
+    box-sizing: border-box;
+    height: 100%;
+
+    &::placeholder {
+        color: @gray;
+    }
+  }
 }
