@@ -111,6 +111,7 @@ function build( previousFileSizes ) {
       console.log();
       console.log( '  ' + chalk.cyan( useYarn ? 'yarn' : 'npm' ) + ' run deploy' );
       console.log();
+    // eslint-disable-next-line no-negated-condition
     } else if ( publicPath !== '/' ) {
       // "homepage": "http://mywebsite.com/project"
       console.log( 'The project was built assuming it is hosted at ' + chalk.green( publicPath ) + '.' );

@@ -267,7 +267,8 @@ function runDevServer( host, port, protocol ) {
   // Launch WebpackDevServer.
   devServer.listen( port, err => {
     if ( err ) {
-      return console.log( err );
+      console.log( err );
+      return;
     }
 
     if ( isInteractive ) {
