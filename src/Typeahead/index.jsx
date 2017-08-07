@@ -1,10 +1,10 @@
 // Adapted from https://github.com/fmoo/react-typeahead
 
-import React from 'react'
-import PropTypes from 'prop-types'
-import Selector from './Selector'
-import * as keys from '../constants'
 import './Typeahead.less'
+import * as keys from '../constants'
+import PropTypes from 'prop-types'
+import React from 'react'
+import Selector from './Selector'
 
 // ----------------------------------------------------------------------------
 // attribution: underscore.js (MIT License)

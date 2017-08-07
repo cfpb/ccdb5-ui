@@ -1,6 +1,6 @@
-import React from 'react';
-import { connect } from 'react-redux'
 import { changePage } from './actions/paging'
+import { connect } from 'react-redux'
+import React from 'react'
 
 export class Pagination extends React.Component {
   constructor( props ) {

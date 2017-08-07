@@ -1,12 +1,12 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { SLUG_SEPARATOR } from '../constants'
+import { slugify, sortSelThenCount } from './utils'
+import { addMultipleFilters } from '../actions/filter'
 import AggregationBranch from './AggregationBranch'
 import CollapsibleFilter from './CollapsibleFilter'
+import { connect } from 'react-redux'
 import MoreOrLess from './MoreOrLess'
+import React from 'react'
+import { SLUG_SEPARATOR } from '../constants'
 import Typeahead from '../Typeahead/HighlightingTypeahead'
-import { addMultipleFilters } from '../actions/filter'
-import { slugify, sortSelThenCount } from './utils'
 
 export class Issue extends React.Component {
   constructor( props ) {

@@ -1,7 +1,7 @@
+import './SearchPanel.less'
+import PillPanel from './PillPanel'
 import React from 'react';
 import SearchBar from './SearchBar'
-import PillPanel from './PillPanel'
-import './SearchPanel.less'
 
 export const SearchPanel = () =>
     <div className='search-panel'>

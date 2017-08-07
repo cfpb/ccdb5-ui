@@ -1,9 +1,9 @@
-import React from 'react';
+import './PillPanel.less';
 import { connect } from 'react-redux'
 import { knownFilters } from './constants'
 import Pill from './Pill';
+import React from 'react';
 import { removeAllFilters } from './actions/filter'
-import './PillPanel.less';
 
 export const PillPanel = ( { filters, clearAll } ) => {
   if ( !filters || filters.length === 0 ) {

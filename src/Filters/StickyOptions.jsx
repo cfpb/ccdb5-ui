@@ -1,6 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import AggregationItem from './AggregationItem'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 // --------------------------------------------------------------------------
 // Pure Functions

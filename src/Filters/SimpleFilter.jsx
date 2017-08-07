@@ -1,9 +1,9 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import './Aggregation.less'
 import AggregationItem from './AggregationItem'
 import CollapsibleFilter from './CollapsibleFilter'
+import { connect } from 'react-redux'
 import MoreOrLess from './MoreOrLess'
-import './Aggregation.less'
+import React from 'react'
 
 export class SimpleFilter extends React.Component {
   componentWillReceiveProps( nextProps ) {

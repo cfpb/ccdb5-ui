@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Typeahead from '.'
 import HighlightingOption from './HighlightingOption'
+import PropTypes from 'prop-types'
+import React from 'react'
+import Typeahead from '.'
 
 export const normalize = s => s.toLowerCase()
 

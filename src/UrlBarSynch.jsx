@@ -1,8 +1,9 @@
-const queryString = require( 'query-string' );
+import announceUrlChanged from './actions/url'
+import { connect } from 'react-redux'
 import createHistory from 'history/createBrowserHistory';
 import React from 'react';
-import { connect } from 'react-redux'
-import announceUrlChanged from './actions/url'
+
+const queryString = require( 'query-string' );
 
 export function toQS( props ) {
   return '?' + queryString.stringify( props.params )

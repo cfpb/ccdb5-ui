@@ -1,10 +1,10 @@
+import './SearchBar.less'
+import Typeahead, { MODE_OPEN } from './Typeahead'
+import { connect } from 'react-redux'
+import HighlightingOption from './Typeahead/HighlightingOption'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { connect } from 'react-redux'
 import search from './actions/search'
-import Typeahead, { MODE_OPEN } from './Typeahead'
-import HighlightingOption from './Typeahead/HighlightingOption'
-import './SearchBar.less'
 
 const searchFields = {
   all: 'All Data',

@@ -1,5 +1,5 @@
-import { SEARCH_CHANGED } from '../constants'
 import { getComplaints } from './complaints'
+import { SEARCH_CHANGED } from '../constants'
 
 export function searchChanged( searchText, searchField ) {
   return {

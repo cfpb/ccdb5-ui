@@ -1,8 +1,8 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import './Pill.less'
+import { connect } from 'react-redux'
+import React from 'react'
 import { removeFilter } from './actions/filter'
 import { SLUG_SEPARATOR } from './constants'
-import './Pill.less';
 
 export const Pill = ( { fieldName, value, trimmed, remove } ) =>
     <li className='pill flex-fixed'>

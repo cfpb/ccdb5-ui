@@ -1,5 +1,5 @@
-import { URL_CHANGED } from '../constants'
 import { getComplaints } from './complaints'
+import { URL_CHANGED } from '../constants'
 
 const queryString = require( 'query-string' );
 
