@@ -89,11 +89,11 @@ exports[`initial state renders without crashing 1`] = `
       The company name as it appears in our complaint system, which may be different than the name the consumer provided in their complaint
     </p>
     <section
-      className="typeahead"
+      className="typeahead "
       onBlur={[Function]}
       onFocus={[Function]}>
       <input
-        disabled={false}
+        autoComplete="off"
         onChange={[Function]}
         onKeyDown={[Function]}
         placeholder="Enter company name"
