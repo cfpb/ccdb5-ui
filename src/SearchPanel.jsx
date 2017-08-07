@@ -4,7 +4,7 @@ import React from 'react';
 import SearchBar from './SearchBar'
 
 export const SearchPanel = () =>
-    <div className='search-panel'>
+    <div className="search-panel">
       <h2>Search Complaint Data</h2>
       <SearchBar />
       <PillPanel />

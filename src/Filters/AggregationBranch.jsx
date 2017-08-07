@@ -51,15 +51,15 @@ export class AggregationBranch extends React.Component {
     }
 
     return (
-      <div className='aggregation-branch'>
-        <li className='flex-fixed layout-row parent'>
-          <input type='checkbox' className='flex-fixed'
+      <div className="aggregation-branch">
+        <li className="flex-fixed layout-row parent">
+          <input type="checkbox" className="flex-fixed"
                  aria-label={item.key}
                  checked={active}
                  onClick={this._decideClickAction}
           />
-          <div className='flex-all toggle'>
-            <button className='a-btn a-btn__link hover'
+          <div className="flex-all toggle">
+            <button className="a-btn a-btn__link hover"
                     onClick={this._toggleChildDisplay}>
               <span>{item.key}</span>
               <span className={
@@ -67,12 +67,12 @@ export class AggregationBranch extends React.Component {
               }></span>
             </button>
           </div>
-          <span className='flex-fixed parent-count'>
+          <span className="flex-fixed parent-count">
             <FormattedNumber value={item.doc_count} />
           </span>
         </li>
         { this.state.showChildren === false ? null :
-          <ul className='children'>{
+          <ul className="children">{
             buckets.map( bucket =>
               <AggregationItem item={bucket} key={bucket.key} fieldName={fieldName} />
             )

@@ -51,54 +51,54 @@ export class Pagination extends React.Component {
     }
 
     return (
-      <nav className='m-pagination'
-           role='navigation'
-           aria-label='Pagination'>
-          <button className='a-btn m-pagination_btn-prev'
+      <nav className="m-pagination"
+           role="navigation"
+           aria-label="Pagination">
+          <button className="a-btn m-pagination_btn-prev"
                   onClick={() => this._setPage( this.state.current - 1 )}
                   disabled={this.state.current <= 1}>
-              <span className='a-btn_icon
+              <span className="a-btn_icon
                                a-btn_icon__on-left
                                cf-icon
                                cf-icon__before
-                               cf-icon-left'></span>
+                               cf-icon-left"></span>
               Previous
           </button>
-          <button className='a-btn m-pagination_btn-next'
+          <button className="a-btn m-pagination_btn-next"
                     onClick={() => this._setPage( this.state.current + 1 )}
                     disabled={this.state.current >= this.state.total}>
               Next
-              <span className='a-btn_icon
+              <span className="a-btn_icon
                                a-btn_icon__on-right
                                cf-icon
                                cf-icon__after
-                               cf-icon-right'></span>
+                               cf-icon-right"></span>
           </button>
-          <form className='m-pagination_form'
-                action='' onSubmit={this._handleSubmit}>
-              <label className='m-pagination_label'
-                     htmlFor='m-pagination_current-page'>
+          <form className="m-pagination_form"
+                action="" onSubmit={this._handleSubmit}>
+              <label className="m-pagination_label"
+                     htmlFor="m-pagination_current-page">
                   Page
-                  <span className='u-visually-hidden'>
+                  <span className="u-visually-hidden">
                       number {this.state.current} out
                   </span>
-                  <input className='m-pagination_current-page'
-                         id='m-pagination_current-page'
-                         name='page'
-                         type='number'
-                         min='1'
+                  <input className="m-pagination_current-page"
+                         id="m-pagination_current-page"
+                         name="page"
+                         type="number"
+                         min="1"
                          max={this.state.total}
-                         pattern='[0-9]*'
-                         inputMode='numeric'
+                         pattern="[0-9]*"
+                         inputMode="numeric"
                          value={this.state.inputValue}
                          onChange={this._updateInputValue} />
                   of {this.state.total}
               </label>
-              <button className='a-btn
+              <button className="a-btn
                              a-btn__link
-                             m-pagination_btn-submit'
-                      id='m-pagination_btn-submit'
-                      type='submit'>Go</button>
+                             m-pagination_btn-submit"
+                      id="m-pagination_btn-submit"
+                      type="submit">Go</button>
           </form>
       </nav>
     );

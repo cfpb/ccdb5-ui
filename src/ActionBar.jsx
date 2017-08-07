@@ -16,7 +16,7 @@ const sorts = {
 export class ActionBar extends React.Component {
   render() {
     return (
-        <summary className='action-bar'>
+        <summary className="action-bar">
           <div>{ this.props.hits === this.props.total ?
              <h2>
                  Showing&nbsp;
@@ -31,22 +31,22 @@ export class ActionBar extends React.Component {
                 &nbsp;total complaints</h2>
           }
           </div>
-          <div className='layout-row'>
-            <div className='cf-select'>
-              <select value={this.props.size} id='choose-size'
+          <div className="layout-row">
+            <div className="cf-select">
+              <select value={this.props.size} id="choose-size"
                       onChange={this.props.onSize}>
                 { sizes.map( x => <option key={x} value={x}>Show {x} results</option> )}
               </select>
             </div>
-            <div className='cf-select'>
-              <select value={this.props.sort} id='choose-sort'
+            <div className="cf-select">
+              <select value={this.props.sort} id="choose-sort"
                       onChange={this.props.onSort}>
                 { Object.keys( sorts ).map( x => <option key={x} value={x}>{ sorts[x] }</option> )}
               </select>
             </div>
 
-            <h5 className='flex-all'>
-              <button className='a-btn a-btn__link hover'
+            <h5 className="flex-all">
+              <button className="a-btn a-btn__link hover"
                       onClick={this.props.onExportResults}>
                 Export results
               </button>

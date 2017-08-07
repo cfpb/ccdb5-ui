@@ -22,9 +22,9 @@ export const RootModal = ( { modalType, modalProps, onClose } ) => {
 
     return (
       <ReactModal isOpen={true}
-                  contentLabel='CFPB Modal Dialog'
-                  className='modal-body'
-                  overlayClassName='modal-overlay'
+                  contentLabel="CFPB Modal Dialog"
+                  className="modal-body"
+                  overlayClassName="modal-overlay"
                   onRequestClose={onClose}>
         <SpecificModal {...modalProps} onClose={onClose} />
       </ReactModal>

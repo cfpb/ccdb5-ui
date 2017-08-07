@@ -73,7 +73,7 @@ export class ResultsPanel extends React.Component {
 
   _renderResults() {
     return (
-      <ul className='cards-panel'>
+      <ul className="cards-panel">
         { this.props.items.map(
           item => <ComplaintCard key={item.complaint_id} row={item} />
         )}
