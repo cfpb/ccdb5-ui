@@ -1,20 +1,20 @@
+import './SearchBar.less'
+import Typeahead, { MODE_OPEN } from './Typeahead'
+import { connect } from 'react-redux'
+import HighlightingOption from './Typeahead/HighlightingOption'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { connect } from 'react-redux'
 import search from './actions/search'
-import Typeahead, { MODE_OPEN } from './Typeahead'
-import HighlightingOption from './Typeahead/HighlightingOption'
-import './SearchBar.less'
 
 const searchFields = {
-  'all': 'All Data',
-  'company': 'Company Name',
-  'complaint_what_happened': 'Narratives'
+  all: 'All Data',
+  company: 'Company Name',
+  complaint_what_happened: 'Narratives'
 }
 
 export class SearchBar extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor( props ) {
+    super( props )
     this.state = {
       inputValue: props.searchText,
       searchField: props.searchField
@@ -22,22 +22,22 @@ export class SearchBar extends React.Component {
 
     // This binding is necessary to make `this` work in the callback
     // https://facebook.github.io/react/docs/handling-events.html
-    this._handleSubmit = this._handleSubmit.bind(this)
-    this._onInputChange = this._onInputChange.bind(this)
-    this._onSelectSearchField = this._onSelectSearchField.bind(this)
-    this._onTypeaheadSelected = this._onTypeaheadSelected.bind(this)
+    this._handleSubmit = this._handleSubmit.bind( this )
+    this._onInputChange = this._onInputChange.bind( this )
+    this._onSelectSearchField = this._onSelectSearchField.bind( this )
+    this._onTypeaheadSelected = this._onTypeaheadSelected.bind( this )
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
+  componentWillReceiveProps( nextProps ) {
+    this.setState( {
       inputValue: nextProps.searchText,
       searchField: nextProps.searchField
-    })
+    } )
   }
 
   // This prevents a duplicate update that seems to be triggered on page load
-  shouldComponentUpdate(nextProps, nextState) {
-    return JSON.stringify(this.state) !== JSON.stringify(nextState)
+  shouldComponentUpdate( nextProps, nextState ) {
+    return JSON.stringify( this.state ) !== JSON.stringify( nextState )
   }
 
   render() {
@@ -52,12 +52,10 @@ export class SearchBar extends React.Component {
                         onChange={this._onSelectSearchField}
                         value={this.state.searchField}>
                   <optgroup label="Search Within">
-                  { 
-                    Object.keys(searchFields).map(x => {
-                      return (
+                  {
+                    Object.keys( searchFields ).map( x =>
                         <option key={x} value={x}>{searchFields[x]}</option>
                       )
-                    })
                   }
                   </optgroup>
                 </select>
@@ -69,24 +67,24 @@ export class SearchBar extends React.Component {
                            onOptionSelected={this._onTypeaheadSelected}
                            placeholder="Enter your search term(s)"
                            renderOption={this._renderOption}
-                           textBoxProps={({
-                             "aria-label": "The term to search for",
-                             id: "searchText"
-                           })}
+                           textBoxProps={( {
+                             'aria-label': 'The term to search for',
+                             'id': 'searchText'
+                           } )}
                            value={this.state.inputValue}
                 />
               </div>
 
               <button type="submit"
                       className="a-btn"
-                      ref={(elem) => { this.submitButton = elem }}>
+                      ref={elem => { this.submitButton = elem }}>
                   Search
                   <span className="a-btn_icon
                                    a-btn_icon__on-right
                                    cf-icon
                                    cf-icon__after
                                    cf-icon-search"></span>
-              </button>              
+              </button>
             </div>
           </form>
         </nav>
@@ -96,47 +94,45 @@ export class SearchBar extends React.Component {
   // --------------------------------------------------------------------------
   // Event Handlers
 
-  _handleSubmit(event) {
+  _handleSubmit( event ) {
     event.preventDefault()
-    this.props.onSearch(this.state.inputValue, this.state.searchField)
+    this.props.onSearch( this.state.inputValue, this.state.searchField )
   }
 
-  _onSelectSearchField(event) {
-    this.setState({
+  _onSelectSearchField( event ) {
+    this.setState( {
       searchField: event.target.value
-    })
+    } )
   }
 
   // --------------------------------------------------------------------------
   // Typeahead interface
 
-  _onInputChange(value) {
+  _onInputChange( value ) {
     const n = value.toLowerCase()
 
     const uri = '@@API_suggest/?text=' + value
-    return fetch(uri)
-    .then(result => result.json())
-    .then(items => items.map(x => {
-      return {
-        key: x,
-        label: x,
-        position: x.indexOf(n),
-        value
-      }
-    }))
+    return fetch( uri )
+    .then( result => result.json() )
+    .then( items => items.map( x => ( {
+      key: x,
+      label: x,
+      position: x.indexOf( n ),
+      value
+    } ) ) )
   }
 
-  _renderOption(obj) {
+  _renderOption( obj ) {
     return {
       value: obj.key,
-      component: (<HighlightingOption {...obj} />)
+      component: <HighlightingOption {...obj} />
     }
   }
 
-  _onTypeaheadSelected(obj) {
-    this.setState({
-      inputValue: (typeof obj === 'object') ? obj.key: obj
-    })
+  _onTypeaheadSelected( obj ) {
+    this.setState( {
+      inputValue: typeof obj === 'object' ? obj.key : obj
+    } )
     this.submitButton.focus()
   }
 }
@@ -145,26 +141,22 @@ export class SearchBar extends React.Component {
 // Meta
 
 SearchBar.propTypes = {
-  debounceWait: PropTypes.number,
+  debounceWait: PropTypes.number
 }
 
 SearchBar.defaultProps = {
-  debounceWait: 250,
+  debounceWait: 250
 }
 
-export const mapStateToProps = state => {
-  return {
-    searchText: state.query.searchText,
-    searchField: state.query.searchField
+export const mapStateToProps = state => ( {
+  searchText: state.query.searchText,
+  searchField: state.query.searchField
+} )
+
+export const mapDispatchToProps = dispatch => ( {
+  onSearch: ( text, searchField ) => {
+    dispatch( search( text, searchField ) )
   }
-}
+} )
 
-export const mapDispatchToProps = dispatch => {
-  return {
-    onSearch: (text, searchField) => {
-      dispatch(search(text, searchField))
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBar)
+export default connect( mapStateToProps, mapDispatchToProps )( SearchBar )

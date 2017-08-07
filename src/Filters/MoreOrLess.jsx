@@ -1,15 +1,15 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
 export class MoreOrLess extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor( props ) {
+    super( props )
     this.state = { showMore: this.props.showMore }
-    this._toggleShowMore = this._toggleShowMore.bind(this)
+    this._toggleShowMore = this._toggleShowMore.bind( this )
   }
 
-  _buildListComponent(bucket) {
-    const itemProps = this.props.perBucketProps(bucket, 
+  _buildListComponent( bucket ) {
+    const itemProps = this.props.perBucketProps( bucket,
       {
         ...this.props.listComponentProps,
         item: bucket,
@@ -17,46 +17,46 @@ export class MoreOrLess extends React.Component {
       }
     )
 
-    return (<this.props.listComponent {...itemProps} />)
+    return <this.props.listComponent {...itemProps} />
   }
 
   _toggleShowMore() {
-    this.setState({
+    this.setState( {
       showMore: !this.state.showMore
-    })
+    } )
   }
 
   render() {
     const all = this.props.options
-    const some = all.length > 5 ? all.slice(0, 5) : all
+    const some = all.length > 5 ? all.slice( 0, 5 ) : all
     const remain = all.length - 5
 
     return (
       <div>
         <ul>
-        {!this.state.showMore ?
-          some.map(bucket => this._buildListComponent(bucket)) :
-          all.map(bucket => this._buildListComponent(bucket))
+        {this.state.showMore ?
+          all.map( bucket => this._buildListComponent( bucket ) ) :
+          some.map( bucket => this._buildListComponent( bucket ) )
         }
         </ul>
-        {remain > 0 ? (
+        {remain > 0 ?
           <div className="flex-fixed">
                <button className="a-btn a-btn__link hover more"
                        onClick={ this._toggleShowMore }>
-                  + Show {remain} {!this.state.showMore ? 'more' : 'less'} 
+                  + Show {remain} {this.state.showMore ? 'less' : 'more'}
                 </button>
-          </div>
-        ) : null}
+          </div> :
+         null}
       </div>
     )
   }
 }
 
 MoreOrLess.propTypes = {
-  listComponent: PropTypes.oneOfType([
+  listComponent: PropTypes.oneOfType( [
     PropTypes.element,
     PropTypes.func
-  ]).isRequired,
+  ] ).isRequired,
   listComponentProps: PropTypes.object,
   options: PropTypes.array.isRequired,
   perBucketProps: PropTypes.func,
@@ -65,7 +65,7 @@ MoreOrLess.propTypes = {
 
 MoreOrLess.defaultProps = {
   listComponentProps: {},
-  perBucketProps: (bucket, props) => props,
+  perBucketProps: ( bucket, props ) => props,
   showMore: false
 }
 

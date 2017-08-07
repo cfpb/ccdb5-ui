@@ -1,25 +1,22 @@
-'use strict';
+var merge = require( 'webpack-merge' );
+var baseConfig = require( '../config/webpack-config-base' );
 
-var merge = require('webpack-merge');
-var baseConfig = require('../config/webpack-config-base');
-
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
-var WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
-var getClientEnvironment = require('./env');
-var paths = require('./paths');
-
+var webpack = require( 'webpack' );
+var HtmlWebpackPlugin = require( 'html-webpack-plugin' );
+var CaseSensitivePathsPlugin = require( 'case-sensitive-paths-webpack-plugin' );
+var InterpolateHtmlPlugin = require( 'react-dev-utils/InterpolateHtmlPlugin' );
+var WatchMissingNodeModulesPlugin = require( 'react-dev-utils/WatchMissingNodeModulesPlugin' );
+var getClientEnvironment = require( './env' );
+var paths = require( './paths' );
 
 
 var publicUrl = '';
-var env = getClientEnvironment(publicUrl);
+var env = getClientEnvironment( publicUrl );
 
-module.exports = merge({
+module.exports = merge( {
   devtool: 'cheap-module-source-map',
   entry: [
-    require.resolve('react-dev-utils/webpackHotDevClient')
+    require.resolve( 'react-dev-utils/webpackHotDevClient' )
   ],
   output: {
     pathinfo: true,
@@ -98,15 +95,15 @@ module.exports = merge({
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     // In development, this will be an empty string.
-    new InterpolateHtmlPlugin(env.raw),
+    new InterpolateHtmlPlugin( env.raw ),
     // Generates an `index.html` file with the <script> injected.
-    new HtmlWebpackPlugin({
+    new HtmlWebpackPlugin( {
       inject: true,
-      template: paths.appHtml,
-    }),
+      template: paths.appHtml
+    } ),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'development') { ... }. See `./env.js`.
-    new webpack.DefinePlugin(env.stringified),
+    new webpack.DefinePlugin( env.stringified ),
     // This is necessary to emit hot updates (currently CSS only):
     new webpack.HotModuleReplacementPlugin(),
     // Watcher doesn't work well if you mistype casing in a path so we use
@@ -117,6 +114,6 @@ module.exports = merge({
     // to restart the development server for Webpack to discover it. This plugin
     // makes the discovery automatic so you don't have to restart.
     // See https://github.com/facebookincubator/create-react-app/issues/186
-    new WatchMissingNodeModulesPlugin(paths.appNodeModules)
+    new WatchMissingNodeModulesPlugin( paths.appNodeModules )
   ]
-}, baseConfig);
+}, baseConfig );
