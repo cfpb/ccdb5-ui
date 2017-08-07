@@ -1,10 +1,39 @@
 exports[`initial state renders the detail route 1`] = `
-<div>
-  <p>
-    THE COMPLAINT ID YOU HAVE REQUESTED IS: 
-    1234
-  </p>
-</div>
+<main
+  role="main">
+  <section
+    className="card-container">
+    <nav
+      className="layout-row">
+      <div
+        className="back-to-search">
+        <button
+          className="a-btn a-btn__link"
+          onClick={[Function]}>
+          <span
+            className="cf-icon cf-icon-left" />
+          Back to search results
+        </button>
+      </div>
+      <div
+        className="meaning">
+        <a
+          href="https://www.consumerfinance.gov/complaint/data-use/"
+          target="_blank">
+          What do all these data points mean?
+        </a>
+      </div>
+    </nav>
+    <div
+      className="waiting">
+      <h1>
+        Loading 
+        1234
+        ...
+      </h1>
+    </div>
+  </section>
+</main>
 `;
 
 exports[`initial state renders without crashing 1`] = `
@@ -59,25 +88,60 @@ exports[`initial state renders without crashing 1`] = `
         <form
           action=""
           onSubmit={[Function]}>
-          <label
-            className="a-label a-label__heading"
-            htmlFor="searchText">
+          <h5>
             Search Within
-          </label>
-          <input
-            className="btn"
-            type="button"
-            value="Types" />
-          <input
-            id="searchText"
-            onChange={[Function]}
-            placeholder="Enter your search term(s)"
-            type="text"
-            value="foo" />
-          <input
-            className="btn primary"
-            type="submit"
-            value="Search" />
+          </h5>
+          <div
+            className="layout-row">
+            <div
+              className="cf-select">
+              <select
+                aria-label="Choose which field will be searched"
+                id="searchField"
+                onChange={[Function]}
+                value="all">
+                <optgroup
+                  label="Search Within">
+                  <option
+                    value="all">
+                    All Data
+                  </option>
+                  <option
+                    value="company">
+                    Company Name
+                  </option>
+                  <option
+                    value="complaint_what_happened">
+                    Narratives
+                  </option>
+                </optgroup>
+              </select>
+            </div>
+            <div
+              className="flex-all typeahead-portal">
+              <section
+                className="typeahead "
+                onBlur={[Function]}
+                onFocus={[Function]}>
+                <input
+                  aria-label="The term to search for"
+                  autoComplete="off"
+                  id="searchText"
+                  onChange={[Function]}
+                  onKeyDown={[Function]}
+                  placeholder="Enter your search term(s)"
+                  type="text"
+                  value="foo" />
+              </section>
+            </div>
+            <button
+              className="a-btn"
+              type="submit">
+              Search
+              <span
+                className="a-btn_icon a-btn_icon__on-right cf-icon cf-icon__after cf-icon-search" />
+            </button>
+          </div>
         </form>
       </nav>
     </div>
@@ -237,11 +301,11 @@ exports[`initial state renders without crashing 1`] = `
             The type of issue and sub-issue the consumer identified in the complaint
           </p>
           <section
-            className="typeahead"
+            className="typeahead "
             onBlur={[Function]}
             onFocus={[Function]}>
             <input
-              disabled={false}
+              autoComplete="off"
               onChange={[Function]}
               onKeyDown={[Function]}
               placeholder="Enter name of issue"
@@ -276,11 +340,11 @@ exports[`initial state renders without crashing 1`] = `
             The state of the mailing address provided by the consumer
           </p>
           <section
-            className="typeahead"
+            className="typeahead "
             onBlur={[Function]}
             onFocus={[Function]}>
             <input
-              disabled={false}
+              autoComplete="off"
               onChange={[Function]}
               onKeyDown={[Function]}
               placeholder="Enter state name or abbreviation"
@@ -313,11 +377,11 @@ exports[`initial state renders without crashing 1`] = `
             The mailing ZIP code provided by the consumer
           </p>
           <section
-            className="typeahead"
+            className="typeahead "
             onBlur={[Function]}
             onFocus={[Function]}>
             <input
-              disabled={false}
+              autoComplete="off"
               onChange={[Function]}
               onKeyDown={[Function]}
               placeholder="Enter first three digits of zip code"
