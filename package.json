@@ -95,7 +95,8 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom --coverage",
-    "dev-flow": "node scripts/test.js --env=jsdom --coverage --watch"
+    "dev-flow": "node scripts/test.js --env=jsdom --coverage --watch",
+    "lint": "node scripts/lint.js"
   },
   "jest": {
     "collectCoverageFrom": [

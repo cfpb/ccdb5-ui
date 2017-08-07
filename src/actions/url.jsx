@@ -1,13 +1,13 @@
-import { URL_CHANGED } from '../constants'
 import { getComplaints } from './complaints'
+import { URL_CHANGED } from '../constants'
 
-const queryString = require('query-string');
+const queryString = require( 'query-string' );
 
 //-----------------------------------------------------------------------------
 
-export function processLocation(location) {
+export function processLocation( location ) {
   const qs = location.search;
-  const params = queryString.parse(qs);
+  const params = queryString.parse( qs );
 
   return {
     pathname: location.pathname,
@@ -17,7 +17,7 @@ export function processLocation(location) {
 
 //-----------------------------------------------------------------------------
 
-export function urlChanged(pathname, params) {
+export function urlChanged( pathname, params ) {
   return {
     type: URL_CHANGED,
     pathname,
@@ -25,10 +25,10 @@ export function urlChanged(pathname, params) {
   }
 }
 
-export default function announceUrlChanged(location) {
-  const { pathname, params } = processLocation(location);
+export default function announceUrlChanged( location ) {
+  const { pathname, params } = processLocation( location );
   return dispatch => {
-    dispatch(urlChanged(pathname, params))
-    dispatch(getComplaints())
+    dispatch( urlChanged( pathname, params ) )
+    dispatch( getComplaints() )
   }
 }

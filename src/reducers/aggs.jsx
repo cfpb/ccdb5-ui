@@ -15,20 +15,21 @@ export const defaultAggs = {
   zip_code: []
 }
 
-export default (state = defaultAggs, action) => {
-  switch(action.type) {
-  case COMPLAINTS_RECEIVED:
-    const aggs = action.data.aggregations
-    const keys = Object.keys(aggs)
-    const result = {...state}
+export default ( state = defaultAggs, action ) => {
+  switch ( action.type ) {
+    case COMPLAINTS_RECEIVED: {
+      const aggs = action.data.aggregations
+      const keys = Object.keys( aggs )
+      const result = { ...state }
 
-    keys.forEach(key => {
-      result[key] = aggs[key][key].buckets
-    })
+      keys.forEach( key => {
+        result[key] = aggs[key][key].buckets
+      } )
 
-    return result
+      return result
+    }
 
-  default:
-    return state
+    default:
+      return state
   }
 }

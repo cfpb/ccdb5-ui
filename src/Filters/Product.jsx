@@ -1,16 +1,16 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { SLUG_SEPARATOR } from '../constants'
 import AggregationBranch from './AggregationBranch'
 import CollapsibleFilter from './CollapsibleFilter'
+import { connect } from 'react-redux'
 import MoreOrLess from './MoreOrLess'
+import React from 'react'
+import { SLUG_SEPARATOR } from '../constants'
 import { sortSelThenCount } from './utils'
 
 export class Product extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor( props ) {
+    super( props )
 
-    this._onBucket = this._onBucket.bind(this)
+    this._onBucket = this._onBucket.bind( this )
   }
 
   render() {
@@ -34,7 +34,7 @@ export class Product extends React.Component {
   // --------------------------------------------------------------------------
   // MoreOrLess Helpers
 
-  _onBucket(bucket, props) {
+  _onBucket( bucket, props ) {
     props.subitems = bucket['sub_product.raw'].buckets
     return props
   }
@@ -46,20 +46,20 @@ export const mapStateToProps = state => {
   const selections = []
 
   // Reduce the products to the parent keys (and dedup)
-  allProducts.forEach(x => {
-    const idx = x.indexOf(SLUG_SEPARATOR)
-    const key = (idx !== -1) ? x.substr(0, idx) : x
-    if (selections.indexOf(key) === -1)  {
-      selections.push(key)
+  allProducts.forEach( x => {
+    const idx = x.indexOf( SLUG_SEPARATOR )
+    const key = idx === -1 ? x : x.substr( 0, idx )
+    if ( selections.indexOf( key ) === -1 ) {
+      selections.push( key )
     }
-  })
+  } )
 
   // Make a cloned, sorted version of the aggs
-  const options = sortSelThenCount(state.aggs.product, selections)
+  const options = sortSelThenCount( state.aggs.product, selections )
 
   return {
     options
   }
 }
 
-export default connect(mapStateToProps)(Product)
+export default connect( mapStateToProps )( Product )
