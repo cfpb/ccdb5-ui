@@ -26,3 +26,13 @@ export const sortSelThenCount = ( options, selected ) => {
 
   return retVal
 }
+
+/**
+* Convert a date to a truncated ISO-8601 string
+*
+* @param {Date} date the date to convert
+* @returns {string} the date formatted as yyyy-mm-ddd
+*/
+export function shortIsoFormat( date ) {
+  return date.toISOString().substring( 0, 10 )
+}

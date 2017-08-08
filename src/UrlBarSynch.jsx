@@ -2,7 +2,8 @@ import announceUrlChanged from './actions/url'
 import { connect } from 'react-redux'
 import createHistory from 'history/createBrowserHistory'
 import { dateFilters } from './constants'
-import React from 'react';
+import React from 'react'
+import { shortIsoFormat } from './Filters/utils'
 
 const queryString = require( 'query-string' );
 
@@ -18,7 +19,7 @@ export function toQS( props ) {
   // Process the dates differently
   dateFilters.forEach( field => {
     if ( typeof clone[field] !== 'undefined' ) {
-      clone[field] = clone[field].toISOString().substring( 0, 10 )
+      clone[field] = shortIsoFormat( clone[field] )
     }
   } )
 
