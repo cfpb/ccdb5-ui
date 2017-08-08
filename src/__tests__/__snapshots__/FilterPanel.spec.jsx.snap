@@ -52,7 +52,13 @@ exports[`initial state renders without crashing 1`] = `
           From:
         </label>
         <input
-          type="date" />
+          aria-describedby="input-error_message-from"
+          className=""
+          max=""
+          min="2014-01-01"
+          onChange={[Function]}
+          type="date"
+          value="" />
       </div>
       <div
         className="flex-all">
@@ -61,7 +67,13 @@ exports[`initial state renders without crashing 1`] = `
           Through:
         </label>
         <input
-          type="date" />
+          aria-describedby="input-error_message-through"
+          className=""
+          max=""
+          min="2014-01-01"
+          onChange={[Function]}
+          type="date"
+          value="" />
       </div>
     </div>
   </section>
