@@ -8,12 +8,44 @@ export const defaultQuery = {
   sort: 'relevance_desc'
 }
 
-const urlParams = [ 'searchText', 'searchField', 'from', 'size' ];
-const urlParamsInt = [ 'from', 'size' ];
+const urlParams = [ 'searchText', 'searchField', 'from', 'size' ]
+const urlParamsInt = [ 'from', 'size' ]
 
 // ----------------------------------------------------------------------------
 // Complex reduction logic
 
+/**
+* Safely converts a string to a local date
+*
+* @param {string} value Hopefully, an ISO-8601 formatted string
+* @returns {string} The parsed and validated date, or null
+*/
+export function toDate( value ) {
+  if ( isNaN( Date.parse( value ) ) ) {
+    return null
+  }
+
+  // Adjust UTC to local timezone
+  // This code adjusts for daylight saving time
+  // but does not work for locations east of Greenwich
+  var utcDate = new Date( value )
+  var localTimeThen = new Date(
+    utcDate.getFullYear(),
+    utcDate.getMonth(),
+    utcDate.getDate() + 1
+  )
+
+  return localTimeThen
+}
+
+/**
+* Processes an object of key/value strings into the correct internal format
+*
+* @param {object} state the current state in the Redux store
+* @param {object} params a set of key/value pairs from the URL
+* @returns {object} a filtered set of key/value pairs with the values set to
+* the correct type
+*/
 function processParams( state, params ) {
   const processed = Object.assign( {}, state )
 
@@ -31,6 +63,16 @@ function processParams( state, params ) {
         processed[field] = [ params[field] ];
       } else {
         processed[field] = params[field];
+      }
+    }
+  } )
+
+  // Handle date filters
+  types.dateFilters.forEach( field => {
+    if ( typeof params[field] !== 'undefined' ) {
+      const d = toDate( params[field] )
+      if ( d ) {
+        processed[field] = d
       }
     }
   } )

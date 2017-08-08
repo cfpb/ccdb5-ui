@@ -102,6 +102,17 @@ describe('reducer:query', () => {
       expect(target({}, action)).toEqual({ from: 10 })
     })
 
+    it('converts some parameters to dates', () => {
+      const expected = new Date(2013, 1, 3)
+      action.params = { min_date: '2013-02-03' }
+      expect(target({}, action)).toEqual({ min_date: expected })
+    })
+
+    it('ignores incorrect dates', () => {
+      action.params = { min_date: 'foo' }
+      expect(target({}, action)).toEqual({})
+    })
+
     it('ignores unknown parameters', () => {
       action.params = {
         searchText: 'hello',
