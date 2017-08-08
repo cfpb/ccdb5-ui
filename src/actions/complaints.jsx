@@ -1,4 +1,5 @@
 import * as types from '../constants'
+import { shortIsoFormat } from '../Filters/utils'
 const queryString = require( 'query-string' );
 
 // ----------------------------------------------------------------------------
@@ -31,7 +32,7 @@ export function stateToQS( state ) {
 
     // Process dates
     if ( types.dateFilters.indexOf( field ) !== -1 ) {
-      value = value.toISOString().substring( 0, 10 )
+      value = shortIsoFormat( value )
     }
 
     // Map the internal field names to the API field names
