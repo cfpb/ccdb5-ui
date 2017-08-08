@@ -87,6 +87,43 @@ function processParams( state, params ) {
   return processed
 }
 
+/**
+* Change a date range filter
+*
+* @param {object} state the current state in the Redux store
+* @param {object} action the payload containing the date range to change
+* @returns {object} the new state for the Redux store
+*/
+export function changeDateRange( state, action ) {
+
+  /* eslint-disable camelcase */
+
+  const newState = {
+    ...state,
+    min_date: action.minDate,
+    max_date: action.maxDate
+  }
+
+  /* eslint-enable camelcase */
+
+  // Remove nulls
+  const fields = [ 'min_date', 'max_date' ]
+  fields.forEach( field => {
+    if ( newState[field] === null ) {
+      delete newState[field]
+    }
+  } )
+
+  return newState
+}
+
+/**
+* Adds new filters to the current set
+*
+* @param {object} state the current state in the Redux store
+* @param {object} action the payload containing the filters to add
+* @returns {object} the new state for the Redux store
+*/
 export function addMultipleFilters( state, action ) {
   const newState = { ...state }
   const name = action.filterName
@@ -103,12 +140,15 @@ export function addMultipleFilters( state, action ) {
   return newState
 }
 
+/**
+* defaults create new array if param doesn't exist yet
+* if the value doesn't exist in the array, pushes
+* if value exists in the array, filters.
+* @param {array} target the current filter
+* @param {string} val the filter to toggle
+* @returns {array} a cast copy to avoid any state mutation
+*/
 export function filterArrayAction( target = [], val ) {
-  // defaults create new array if param doesn't exist yet
-  // if the value doesn't exist in the array, pushes
-  // if value exists in the array, filters.
-  // returns a cast copy to avoid any state mutation
-
   if ( target.indexOf( val ) === -1 ) {
     target.push( val );
   } else {
@@ -119,14 +159,29 @@ export function filterArrayAction( target = [], val ) {
   return [ ...target ];
 }
 
+/**
+* Toggles a filter in the current set
+*
+* @param {object} state the current state in the Redux store
+* @param {object} action the payload containing the filters to change
+* @returns {object} the new state for the Redux store
+*/
 export function toggleFilter( state, action ) {
   return {
     ...state,
-    // { timely: [ 'Yes' ] } - returns an updated state for combined query reducer
-    [action.filterName]: filterArrayAction( state[action.filterName], action.filterValue.key )
+    [action.filterName]: filterArrayAction(
+      state[action.filterName], action.filterValue.key
+    )
   }
 }
 
+/**
+* Removes a filter from the current set
+*
+* @param {object} state the current state in the Redux store
+* @param {object} action the payload containing the filter to remove
+* @returns {object} the new state for the Redux store
+*/
 function removeFilter( state, action ) {
   const newState = { ...state }
   if ( action.filterName in newState ) {
@@ -138,6 +193,13 @@ function removeFilter( state, action ) {
   return newState
 }
 
+/**
+* Removes multiple filters from the current set
+*
+* @param {object} state the current state in the Redux store
+* @param {object} action the payload containing the filters to remove
+* @returns {object} the new state for the Redux store
+*/
 function removeMultipleFilters( state, action ) {
   const newState = { ...state }
   const a = newState[action.filterName]
@@ -158,6 +220,9 @@ function removeMultipleFilters( state, action ) {
 
 export default ( state = defaultQuery, action ) => {
   switch ( action.type ) {
+    case types.DATE_RANGE_CHANGED:
+      return changeDateRange( state, action )
+
     case types.SEARCH_CHANGED:
       return {
         ...state,
