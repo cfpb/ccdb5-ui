@@ -37,6 +37,11 @@ export const knownFilters = [
   'zip_code'
 ]
 
+export const dateFilters = [
+  'max_date',
+  'min_date'
+]
+
 export const SLUG_SEPARATOR = '•'
 
 // Keyboard
