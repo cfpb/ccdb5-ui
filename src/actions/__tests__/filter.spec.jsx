@@ -6,6 +6,22 @@ import * as sut from '../filter'
 import * as types from '../../constants'
 
 describe('action:filterActions', () => {
+  describe('dateRangeChanged', () => {
+    it('creates a simple action', () => {
+        const filterName = 'date_received'
+        const minDate = 'foo'
+        const maxDate = 'bar'
+        const expectedAction = {
+          type: types.DATE_RANGE_CHANGED,
+          filterName,
+          minDate,
+          maxDate
+        }
+        expect(sut.dateRangeChanged(filterName, minDate, maxDate))
+          .toEqual( expectedAction );
+    })
+  })
+
   describe('filterToggled', () => {
     it('creates a simple action', () => {
         const filterName = 'timely'
@@ -92,6 +108,26 @@ describe('action:filterActions', () => {
         ]
 
         store.dispatch(sut.addMultipleFilters(filterName, values))
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+    })
+
+    describe('changeDateRange', () => {
+      it('executes a chain of actions', () => {
+        const filterName = 'date_received'
+        const minDate = 'foo'
+        const maxDate = 'bar'
+        const expectedActions = [
+          { type:
+            types.DATE_RANGE_CHANGED,
+            filterName,
+            minDate,
+            maxDate
+          },
+          { type: 'getComplaintsMock' }
+        ]
+
+        store.dispatch(sut.changeDateRange(filterName, minDate, maxDate))
         expect(store.getActions()).toEqual(expectedActions)
       })
     })

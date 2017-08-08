@@ -1,4 +1,5 @@
 import {
+  DATE_RANGE_CHANGED,
   FILTER_ALL_REMOVED, FILTER_CHANGED, FILTER_MULTIPLE_ADDED,
   FILTER_MULTIPLE_REMOVED, FILTER_REMOVED
 } from '../constants'
@@ -8,7 +9,24 @@ import { getComplaints } from './complaints'
 // Simple actions
 
 /**
-* Creates an action when an aggregation filter checkbox is clicked
+* Notifies the application that a date range has changed
+*
+* @param {string} filterName which filter is being updated
+* @param {Date} minDate the minimum date in the range
+* @param {Date} maxDate the maximum date in the range
+* @returns {string} a packaged payload to be used by Redux reducers
+*/
+export function dateRangeChanged( filterName, minDate, maxDate ) {
+  return {
+    type: DATE_RANGE_CHANGED,
+    filterName,
+    minDate,
+    maxDate
+  }
+}
+
+/**
+* Notifies the application that an aggregation filter changed
 *
 * @param {string} filterName which filter was clicked
 * @param {string} filterValue the value of the filter that was clicked
@@ -23,7 +41,7 @@ export function filterToggle( filterName, filterValue ) {
 }
 
 /**
-* Creates an action to remove a filter
+* Notifies the application that a filter was removed
 *
 * @param {string} filterName which filter was clicked
 * @param {string} filterValue the value of the filter that was clicked
@@ -38,7 +56,7 @@ export function filterRemoved( filterName, filterValue ) {
 }
 
 /**
-* Creates an action to remove all filters
+* Notifies the application that all filters have been removed
 *
 * @returns {string} a packaged payload to be used by Redux reducers
 */
@@ -49,7 +67,7 @@ export function filterAllRemoved() {
 }
 
 /**
-* Creates an action to add several related filters
+* Notifies the application that several related filters were added
 *
 * @param {string} filterName which filter is being updated
 * @param {array} values one or more values to add to the filter set
@@ -66,7 +84,7 @@ export function filterMultipleAdded( filterName, values ) {
 }
 
 /**
-* Creates an action to remove several related filters
+* Notifies the application that several related filters were removed
 *
 * @param {string} filterName which filter is being updated
 * @param {array} values one or more values to remove to the filter set
@@ -95,6 +113,23 @@ export function filterMultipleRemoved( filterName, values ) {
 export function addMultipleFilters( filterName, values ) {
   return dispatch => {
     dispatch( filterMultipleAdded( filterName, values ) )
+    dispatch( getComplaints() )
+  }
+}
+
+/**
+* Changes the date range of a filter
+*
+* @param {string} filterName which filter is being updated
+* @param {Date} minDate the minimum date in the range
+* @param {Date} maxDate the maximum date in the range
+* @returns {function} a series of actions to execute
+*/
+export function changeDateRange( filterName, minDate, maxDate ) {
+  return dispatch => {
+    // eslint-disable-next-line
+    console.assert(filterName === 'date_received')
+    dispatch( dateRangeChanged( filterName, minDate, maxDate ) )
     dispatch( getComplaints() )
   }
 }
