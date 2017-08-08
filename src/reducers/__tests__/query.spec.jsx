@@ -284,4 +284,30 @@ describe('reducer:query', () => {
       expect(target({}, action)).toEqual({})
     })
   })
+
+  describe('handles DATE_RANGE_CHANGED actions', () => {
+    let action;
+    beforeEach(() => {
+      action = {
+        type: types.DATE_RANGE_CHANGED,
+        filterName: 'date_received',
+        minDate: new Date(2001, 0, 30),
+        maxDate: new Date(2013, 1, 3)
+      }
+    })
+
+    it("adds the dates", () => {
+      expect(target({}, action)).toEqual({
+        min_date: new Date(2001, 0, 30),
+        max_date: new Date(2013, 1, 3)
+      })
+    })
+
+    it("does not add empty dates", () => {
+      action.minDate = null
+      expect(target({}, action)).toEqual({
+        max_date: new Date(2013, 1, 3)
+      })
+    })
+  })
 })
