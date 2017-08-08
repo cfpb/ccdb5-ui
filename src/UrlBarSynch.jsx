@@ -1,12 +1,28 @@
 import announceUrlChanged from './actions/url'
 import { connect } from 'react-redux'
-import createHistory from 'history/createBrowserHistory';
+import createHistory from 'history/createBrowserHistory'
+import { dateFilters } from './constants'
 import React from 'react';
 
 const queryString = require( 'query-string' );
 
+/**
+* Converts the properties into a query string
+*
+* @param {string} props the props of a component
+* @returns {string} a fomratted query string that can be appended to a URL
+*/
 export function toQS( props ) {
-  return '?' + queryString.stringify( props.params )
+  const clone = { ...props.params }
+
+  // Process the dates differently
+  dateFilters.forEach( field => {
+    if ( typeof clone[field] !== 'undefined' ) {
+      clone[field] = clone[field].toISOString().substring( 0, 10 )
+    }
+  } )
+
+  return '?' + queryString.stringify( clone )
 }
 
 export class UrlBarSynch extends React.Component {
