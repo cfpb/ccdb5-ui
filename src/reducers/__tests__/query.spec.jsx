@@ -103,7 +103,7 @@ describe('reducer:query', () => {
     })
 
     it('converts some parameters to dates', () => {
-      const expected = new Date(2013, 1, 3, 12)
+      const expected = new Date(2013, 1, 3)
       action.params = { min_date: '2013-02-03' }
       const actual = target({}, action).min_date
       expect(actual.getFullYear()).toEqual(expected.getFullYear())
