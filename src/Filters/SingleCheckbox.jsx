@@ -6,7 +6,7 @@ export class SingleCheckbox extends React.Component {
   constructor(props) {
     super(props);
 
-    this.is_checked = this.props.active
+    this.is_checked = this.props.active || false
 
     this._toggleCheckbox = this._toggleCheckbox.bind(this);
   }
@@ -17,7 +17,7 @@ export class SingleCheckbox extends React.Component {
     });
   }
 
-  _toggleCheckbox() {
+  _toggleCheckbox() {    
     filterChanged(this.props.fieldName, this.is_checked)
     this.is_checked = !this.is_checked
   }
@@ -31,7 +31,7 @@ export class SingleCheckbox extends React.Component {
               <li className="flex-fixed layout-row">
                   <input type="checkbox" className="flex-fixed"
                          aria-label="Yes"
-                         checked={this.is_checked}
+                         checked={this.props.active}
                          onClick={this._toggleCheckbox}
                   />
                   <span className="flex-all bucket-key">Yes</span>
@@ -48,7 +48,6 @@ export const mapStateToProps = (state, ownProps) => {
   const activeChildren = state.query[ownProps.fieldName] || []
 
   return {
-    options: state.aggs[ownProps.fieldName] || [],
     active: activeChildren.length > 0
   }
 }
@@ -56,7 +55,7 @@ export const mapStateToProps = (state, ownProps) => {
 export const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onClick: () => {
-      dispatch(filterChanged(ownProps.fieldName, ownProps.item))
+      dispatch(filterChanged(ownProps.fieldName, ownProps.active))
     },
   }
 }
