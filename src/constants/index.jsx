@@ -1,4 +1,5 @@
 // Internal triggers
+export const DATE_RANGE_CHANGED = 'DATE_RANGE_CHANGED'
 export const PAGE_CHANGED = 'PAGE_CHANGED'
 export const SEARCH_CHANGED = 'SEARCH_CHANGED'
 export const SIZE_CHANGED = 'SIZE_CHANGED'
