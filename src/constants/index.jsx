@@ -34,7 +34,8 @@ export const knownFilters = [
   'submitted_via',
   'tag',
   'timely',
-  'zip_code'
+  'zip_code',
+  'has_narrative'
 ]
 
 export const SLUG_SEPARATOR            = '•'
