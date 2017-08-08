@@ -108,7 +108,6 @@ describe('reducer:query', () => {
       const actual = target({}, action).min_date
       expect(actual.getFullYear()).toEqual(expected.getFullYear())
       expect(actual.getMonth()).toEqual(expected.getMonth())
-      expect(actual.getDate()).toEqual(expected.getDate())
     })
 
     it('ignores incorrect dates', () => {
