@@ -10,6 +10,12 @@ const fieldMap = {
   from: 'frm'
 }
 
+/**
+* Converts a set of key/value pairs into a query string for the API
+*
+* @param {string} state a set of key/value pairs
+* @returns {string} a formatted query string
+*/
 export function stateToQS( state ) {
   const params = {}
   const fields = Object.keys( state.query )
@@ -21,11 +27,18 @@ export function stateToQS( state ) {
       return;
     }
 
+    var value = state.query[field]
+
+    // Process dates
+    if ( types.dateFilters.indexOf( field ) !== -1 ) {
+      value = value.toISOString().substring( 0, 10 )
+    }
+
     // Map the internal field names to the API field names
     if ( fieldMap[field] ) {
-      params[fieldMap[field]] = state.query[field]
+      params[fieldMap[field]] = value
     } else {
-      params[field] = state.query[field]
+      params[field] = value
     }
   } )
 
@@ -35,6 +48,11 @@ export function stateToQS( state ) {
 // ----------------------------------------------------------------------------
 // Action Creators
 
+/**
+* Calls the search endpoint of the API
+*
+* @returns {Promise} a chain of promises that will update the Redux store
+*/
 export function getComplaints() {
   return ( dispatch, getState ) => {
     const uri = '@@API' + stateToQS( getState() )
@@ -45,6 +63,12 @@ export function getComplaints() {
   }
 }
 
+/**
+* Calls the detail endpoint of the API
+*
+* @param {string} id the id of the complaint to retrieve
+* @returns {Promise} a chain of promises that will update the Redux store
+*/
 export function getComplaintDetail( id ) {
   return dispatch => {
     const uri = '@@API' + id
@@ -55,6 +79,12 @@ export function getComplaintDetail( id ) {
   }
 }
 
+/**
+* Creates an action in response to search results being received from the API
+*
+* @param {string} data the raw data returned from the API
+* @returns {string} a packaged payload to be used by Redux reducers
+*/
 export function complaintsReceived( data ) {
   return {
     type: types.COMPLAINTS_RECEIVED,
@@ -62,6 +92,12 @@ export function complaintsReceived( data ) {
   }
 }
 
+/**
+* Creates an action in response after a search fails
+*
+* @param {string} error the error returned from `fetch`, not the API
+* @returns {string} a packaged payload to be used by Redux reducers
+*/
 export function complaintsFailed( error ) {
   return {
     type: types.COMPLAINTS_FAILED,
@@ -69,6 +105,12 @@ export function complaintsFailed( error ) {
   }
 }
 
+/**
+* Creates an action in response to a complaint being received from the API
+*
+* @param {string} data the raw data returned from the API
+* @returns {string} a packaged payload to be used by Redux reducers
+*/
 export function complaintDetailReceived( data ) {
   return {
     type: types.COMPLAINT_DETAIL_RECEIVED,
@@ -76,6 +118,12 @@ export function complaintDetailReceived( data ) {
   }
 }
 
+/**
+* Creates an action in response after a detail search fails
+*
+* @param {string} error the error returned from `fetch`, not the API
+* @returns {string} a packaged payload to be used by Redux reducers
+*/
 export function complaintDetailFailed( error ) {
   return {
     type: types.COMPLAINT_DETAIL_FAILED,
