@@ -34,5 +34,5 @@ export const sortSelThenCount = ( options, selected ) => {
 * @returns {string} the date formatted as yyyy-mm-ddd
 */
 export function shortIsoFormat( date ) {
-  return (date) ? date.toISOString().substring( 0, 10 ) : ''
+  return date ? date.toISOString().substring( 0, 10 ) : ''
 }
