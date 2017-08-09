@@ -77,6 +77,13 @@ function processParams( state, params ) {
     }
   } )
 
+  // Handle flag filters
+  types.flagFilters.forEach( field => {
+    if ( typeof params[field] !== 'undefined' ) {
+      processed[field] = params[field].toString()
+    }
+  } )
+
   // Convert from strings
   urlParamsInt.forEach( field => {
     if ( typeof processed[field] !== 'undefined' ) {
