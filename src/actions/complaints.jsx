@@ -35,6 +35,15 @@ export function stateToQS( state ) {
       value = shortIsoFormat( value )
     }
 
+    // Process boolean flags
+    if ( types.flagFilters.indexOf( field ) !== -1 ) {
+      if ( value === 'Yes' || value === 'yes' || value === 'True' || value === 'true') {
+        value = true
+      } else {
+        value = false
+      }
+    }
+
     // Map the internal field names to the API field names
     if ( fieldMap[field] ) {
       params[fieldMap[field]] = value

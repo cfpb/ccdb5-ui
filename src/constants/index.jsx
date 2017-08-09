@@ -45,6 +45,10 @@ export const dateFilters = [
   'min_date'
 ]
 
+export const flagFilters = [
+  'has_narrative'
+]
+
 export const SLUG_SEPARATOR = '•'
 
 // Keyboard

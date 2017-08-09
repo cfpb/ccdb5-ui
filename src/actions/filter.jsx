@@ -207,12 +207,12 @@ export function removeMultipleFilters( filterName, values ) {
 * Changes the value on a boolean filter
 *
 * @param {string} filterName which filter is being updated
-* @param {bool} values the value being changed
+* @param {bool} value the value being changed
 * @returns {function} a series of actions to execute
 */
-export function changeFlagFilter( filterName, values ) {
+export function changeFlagFilter( filterName, value ) {
   return dispatch => {
-    dispatch( filterFlagToggle( filterName, values ) )
+    dispatch( filterFlagToggle( filterName, value ) )
     dispatch( getComplaints() )
   }
 }
