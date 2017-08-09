@@ -1,0 +1,196 @@
+exports[`component:Product snapshots only shows the first five items 1`] = `
+<section
+  className="collapsible-filter aggregation">
+  <div
+    className="layout-row">
+    <h5
+      className="flex-all">
+      Product / sub-product
+    </h5>
+    <div
+      className="flex-fixed toggle">
+      <button
+        className="a-btn a-btn__link hover"
+        onClick={[Function]}>
+        Hide
+        <span
+          className="cf-icon cf-icon-minus-round" />
+      </button>
+    </div>
+  </div>
+  <p>
+    The type of product and sub-product the consumer identified in the complaint
+  </p>
+  <a
+    href="http://files.consumerfinance.gov/f/documents/201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf"
+    target="_blank">
+    Recent changes to products and sub-products
+  </a>
+  <div>
+    <ul>
+      <div
+        className="aggregation-branch">
+        <li
+          className="flex-fixed layout-row parent">
+          <input
+            aria-label="Credit reporting, credit repair services, or other personal consumer reports"
+            checked={false}
+            className="flex-fixed"
+            onClick={[Function]}
+            type="checkbox" />
+          <div
+            className="flex-all toggle">
+            <button
+              className="a-btn a-btn__link hover"
+              onClick={[Function]}>
+              <span>
+                Credit reporting, credit repair services, or other personal consumer reports
+              </span>
+              <span
+                className="cf-icon cf-icon-down" />
+            </button>
+          </div>
+          <span
+            className="flex-fixed parent-count">
+            <span>
+              3,277
+            </span>
+          </span>
+        </li>
+      </div>
+      <div
+        className="aggregation-branch">
+        <li
+          className="flex-fixed layout-row parent">
+          <input
+            aria-label="Mortgage"
+            checked={false}
+            className="flex-fixed"
+            onClick={[Function]}
+            type="checkbox" />
+          <div
+            className="flex-all toggle">
+            <button
+              className="a-btn a-btn__link hover"
+              onClick={[Function]}>
+              <span>
+                Mortgage
+              </span>
+              <span
+                className="cf-icon cf-icon-down" />
+            </button>
+          </div>
+          <span
+            className="flex-fixed parent-count">
+            <span>
+              2,299
+            </span>
+          </span>
+        </li>
+      </div>
+      <li
+        className="flex-fixed layout-row">
+        <input
+          aria-label="Credit reporting"
+          checked={false}
+          className="flex-fixed"
+          onClick={[Function]}
+          type="checkbox" />
+        <span
+          className="flex-all bucket-key">
+          Credit reporting
+        </span>
+        <span
+          className="flex-fixed bucket-count">
+          <span>
+            1,052
+          </span>
+        </span>
+      </li>
+      <li
+        className="flex-fixed layout-row">
+        <input
+          aria-label="Student loan"
+          checked={false}
+          className="flex-fixed"
+          onClick={[Function]}
+          type="checkbox" />
+        <span
+          className="flex-all bucket-key">
+          Student loan
+        </span>
+        <span
+          className="flex-fixed bucket-count">
+          <span>
+            959
+          </span>
+        </span>
+      </li>
+      <li
+        className="flex-fixed layout-row">
+        <input
+          aria-label="Credit card or prepaid card"
+          checked={false}
+          className="flex-fixed"
+          onClick={[Function]}
+          type="checkbox" />
+        <span
+          className="flex-all bucket-key">
+          Credit card or prepaid card
+        </span>
+        <span
+          className="flex-fixed bucket-count">
+          <span>
+            836
+          </span>
+        </span>
+      </li>
+    </ul>
+    <div
+      className="flex-fixed">
+      <button
+        className="a-btn a-btn__link hover more"
+        onClick={[Function]}>
+        + Show 
+        1
+         
+        more
+      </button>
+    </div>
+  </div>
+</section>
+`;
+
+exports[`component:Product snapshots renders without crashing 1`] = `
+<section
+  className="collapsible-filter aggregation">
+  <div
+    className="layout-row">
+    <h5
+      className="flex-all">
+      Product / sub-product
+    </h5>
+    <div
+      className="flex-fixed toggle">
+      <button
+        className="a-btn a-btn__link hover"
+        onClick={[Function]}>
+        Hide
+        <span
+          className="cf-icon cf-icon-minus-round" />
+      </button>
+    </div>
+  </div>
+  <p>
+    The type of product and sub-product the consumer identified in the complaint
+  </p>
+  <a
+    href="http://files.consumerfinance.gov/f/documents/201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf"
+    target="_blank">
+    Recent changes to products and sub-products
+  </a>
+  <div>
+    <ul />
+  </div>
+</section>
+`;
