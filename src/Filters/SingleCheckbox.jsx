@@ -28,6 +28,7 @@ export class SingleCheckbox extends React.Component {
         <h5>{this.props.title}</h5>
         <div className="m-form-field m-form-field__checkbox">
             <input className="a-checkbox"
+                   id="theCheckbox"
                    type="checkbox"
                    onClick={ this._changeFlag.bind( this, this.props.fieldName ) }
                    checked={ this.state.isChecked }
