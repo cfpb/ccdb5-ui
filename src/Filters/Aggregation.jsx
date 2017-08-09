@@ -1,9 +1,9 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import './Aggregation.less'
 import AggregationItem from './AggregationItem'
 import CollapsibleFilter from './CollapsibleFilter'
+import { connect } from 'react-redux'
 import MoreOrLess from './MoreOrLess'
-import './Aggregation.less'
+import React from 'react'
 
 export class Aggregation extends React.Component {
   render() {
@@ -25,10 +25,8 @@ export class Aggregation extends React.Component {
   }
 }
 
-export const mapStateToProps = (state, ownProps) => {
-  return {
-    options: state.aggs[ownProps.fieldName] || []
-  }
-}
+export const mapStateToProps = ( state, ownProps ) => ( {
+  options: state.aggs[ownProps.fieldName] || []
+} )
 
-export default connect(mapStateToProps)(Aggregation)
+export default connect( mapStateToProps )( Aggregation )

@@ -1,52 +1,52 @@
-import React from 'react';
-import { connect } from 'react-redux'
 import { changePage } from './actions/paging'
+import { connect } from 'react-redux'
+import React from 'react'
 
 export class Pagination extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = this._calculatePages(props);
+  constructor( props ) {
+    super( props );
+    this.state = this._calculatePages( props );
 
     // This binding is necessary to make `this` work in the callback
     // https://facebook.github.io/react/docs/handling-events.html
-    this._handleSubmit = this._handleSubmit.bind(this);
-    this._updateInputValue = this._updateInputValue.bind(this);
+    this._handleSubmit = this._handleSubmit.bind( this );
+    this._updateInputValue = this._updateInputValue.bind( this );
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState(this._calculatePages(nextProps));
+  componentWillReceiveProps( nextProps ) {
+    this.setState( this._calculatePages( nextProps ) );
   }
 
-  _calculatePages(props) {
+  _calculatePages( props ) {
     const from = props.from || 0;
     const size = props.size || 1;
     const total = props.total || 0;
-    const c = Math.ceil(from / size) + 1;
+    const c = Math.ceil( from / size ) + 1;
 
     return {
       current: c,
-      total: Math.ceil(total / size),
+      total: Math.ceil( total / size ),
       inputValue: c
     }
   }
 
-  _handleSubmit(event) {
+  _handleSubmit( event ) {
     event.preventDefault();
-    this._setPage(this.state.inputValue);
+    this._setPage( this.state.inputValue );
   }
 
-  _setPage(page) {
-    this.props.onPage(page);
+  _setPage( page ) {
+    this.props.onPage( page );
   }
 
-  _updateInputValue(evt) {
-    this.setState({
+  _updateInputValue( evt ) {
+    this.setState( {
       inputValue: evt.target.value
-    });
+    } );
   }
 
   render() {
-    if( this.props.total === 0) {
+    if ( this.props.total === 0 ) {
       return null;
     }
 
@@ -55,7 +55,7 @@ export class Pagination extends React.Component {
            role="navigation"
            aria-label="Pagination">
           <button className="a-btn m-pagination_btn-prev"
-                  onClick={() => this._setPage(this.state.current - 1)}
+                  onClick={() => this._setPage( this.state.current - 1 )}
                   disabled={this.state.current <= 1}>
               <span className="a-btn_icon
                                a-btn_icon__on-left
@@ -65,7 +65,7 @@ export class Pagination extends React.Component {
               Previous
           </button>
           <button className="a-btn m-pagination_btn-next"
-                    onClick={() => this._setPage(this.state.current + 1)}
+                    onClick={() => this._setPage( this.state.current + 1 )}
                     disabled={this.state.current >= this.state.total}>
               Next
               <span className="a-btn_icon
@@ -105,20 +105,16 @@ export class Pagination extends React.Component {
   }
 }
 
-export const mapStateToProps = state => {
-  return {
-    from: state.query.from,
-    size: state.query.size,
-    total: state.results.total
-  }
-}
+export const mapStateToProps = state => ( {
+  from: state.query.from,
+  size: state.query.size,
+  total: state.results.total
+} )
 
-export const mapDispatchToProps = dispatch => {
-  return {
-    onPage: page => {
-      dispatch(changePage(page))
-    }
+export const mapDispatchToProps = dispatch => ( {
+  onPage: page => {
+    dispatch( changePage( page ) )
   }
-}
+} )
 
-export default connect(mapStateToProps, mapDispatchToProps)(Pagination)
+export default connect( mapStateToProps, mapDispatchToProps )( Pagination )
