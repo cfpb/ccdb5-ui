@@ -27,16 +27,23 @@ export class DateFilter extends React.Component {
     this.setState( this._validate( newState ) )
   }
 
-  render() {
-    const hasMessages = Object.keys( this.state.messages ).length > 0
+  componentDidUpdate() {
+    if ( this._hasMessages() === false ) {
+      const { from, through } = this.state
+      const dateFrom = from ? new Date( from ) : null
+      const dateThrough = through ? new Date( through ) : null
+      this.props.changeDateRange( dateFrom, dateThrough )
+    }
+  }
 
+  render() {
     return (
       <CollapsibleFilter title="Date CFPB Received the complaint"
                          className="aggregation date-filter">
           <div className="layout-row">
             { this._renderDateInput( 'From:', 'from' ) }
             { this._renderDateInput( 'Through:', 'through' ) }
-            { hasMessages ? this._renderMessages() : null }
+            { this._hasMessages() ? this._renderMessages() : null }
           </div>
         </CollapsibleFilter>
     )
@@ -94,6 +101,10 @@ export class DateFilter extends React.Component {
   // --------------------------------------------------------------------------
   // Validation methods
 
+  _hasMessages() {
+    return Object.keys( this.state.messages ).length > 0
+  }
+
   _lookupStyle( field ) {
     const style = []
     if ( field in this.state.messages ) {
@@ -112,11 +123,11 @@ export class DateFilter extends React.Component {
       return "'" + v + "' is not a valid date."
     }
 
-    if ( v < this.props.minimumDate ) {
+    if ( this.props.minimumDate && v < this.props.minimumDate ) {
       return "'" + v + "' must be greater than " + this.props.minimumDate
     }
 
-    if ( v > this.props.maximumDate ) {
+    if ( this.props.maximumDate && v > this.props.maximumDate ) {
       return "'" + v + "' must be less than " + this.props.maximumDate
     }
 
@@ -169,9 +180,9 @@ export const mapStateToProps = state => ( {
   through: shortIsoFormat( state.query.max_date )
 } )
 
-export const mapDispatchToProps = dispatch => ( {
+export const mapDispatchToProps = ( dispatch, ownProps ) => ( {
   changeDateRange: ( from, through ) => {
-    dispatch( changeDateRange( 'date_received', from, through ) )
+    dispatch( changeDateRange( ownProps.fieldName, from, through ) )
   }
 } )
 
