@@ -55,7 +55,7 @@ export class DateFilter extends React.Component {
   _renderDateInput( label, field ) {
     return (
       <div className="flex-all">
-          <label className="a-label a-label__heading">{ label }</label>
+          <label className="a-label a-label__heading body-copy">{ label }</label>
           <input type="date"
                  aria-describedby={'input-error_message-' + field}
                  className={ this._lookupStyle( field ) }
