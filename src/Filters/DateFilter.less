@@ -1,0 +1,28 @@
+@import (less) "../base.less";
+
+.date-filter {
+  h5 {
+    margin-bottom:0;
+  }
+
+  input[type=date] {
+    color: @gray;
+    font-size: @size-vi;
+  }
+
+  ul.messages {
+    padding-top: @gutter-narrow;
+
+    li {
+      margin: 0;
+      
+      list-style: none;
+    }
+
+    .a-error-message {
+      .cf-icon {
+        padding-right: @gutter-minimum;
+      }
+    }
+  }
+}

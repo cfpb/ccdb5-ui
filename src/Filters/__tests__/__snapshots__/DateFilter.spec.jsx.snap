@@ -1,0 +1,143 @@
+exports[`component::DateFilter snapshot shows errors 1`] = `
+<section
+  className="collapsible-filter aggregation date-filter">
+  <div
+    className="layout-row">
+    <h5
+      className="flex-all">
+      Date CFPB Received the complaint
+    </h5>
+    <div
+      className="flex-fixed toggle">
+      <button
+        className="a-btn a-btn__link hover"
+        onClick={[Function]}>
+        Hide
+        <span
+          className="cf-icon cf-icon-minus-round" />
+      </button>
+    </div>
+  </div>
+  <p />
+  <div
+    className="layout-row">
+    <div
+      className="flex-all">
+      <label
+        className="a-label a-label__heading body-copy">
+        From:
+      </label>
+      <input
+        aria-describedby="input-error_message-from"
+        className="a-text-input__error"
+        max="2015-12-31"
+        min="2015-01-01"
+        onChange={[Function]}
+        type="date"
+        value="2016-01-01" />
+    </div>
+    <div
+      className="flex-all">
+      <label
+        className="a-label a-label__heading body-copy">
+        Through:
+      </label>
+      <input
+        aria-describedby="input-error_message-through"
+        className="a-text-input__error"
+        max="2015-12-31"
+        min="2015-01-01"
+        onChange={[Function]}
+        type="date"
+        value="2000-01-01" />
+    </div>
+    <ul
+      className="messages">
+      <li
+        className="a-error-message"
+        id="input-error_message-from"
+        role="alert">
+        <span
+          aria-hidden="true"
+          className="cf-icon cf-icon-delete-round" />
+        \'2016-01-01\' must be less than 2015-12-31
+      </li>
+      <li
+        className="a-error-message"
+        id="input-error_message-through"
+        role="alert">
+        <span
+          aria-hidden="true"
+          className="cf-icon cf-icon-delete-round" />
+        \'2000-01-01\' must be greater than 2015-01-01
+      </li>
+      <li
+        className="a-error-message"
+        id="input-error_message-ordered"
+        role="alert">
+        <span
+          aria-hidden="true"
+          className="cf-icon cf-icon-delete-round" />
+        \'From\' must be less than \'Through\'
+      </li>
+    </ul>
+  </div>
+</section>
+`;
+
+exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`] = `
+<section
+  className="collapsible-filter aggregation date-filter">
+  <div
+    className="layout-row">
+    <h5
+      className="flex-all">
+      Date CFPB Received the complaint
+    </h5>
+    <div
+      className="flex-fixed toggle">
+      <button
+        className="a-btn a-btn__link hover"
+        onClick={[Function]}>
+        Hide
+        <span
+          className="cf-icon cf-icon-minus-round" />
+      </button>
+    </div>
+  </div>
+  <p />
+  <div
+    className="layout-row">
+    <div
+      className="flex-all">
+      <label
+        className="a-label a-label__heading body-copy">
+        From:
+      </label>
+      <input
+        aria-describedby="input-error_message-from"
+        className=""
+        max="2015-12-31"
+        min="2015-01-01"
+        onChange={[Function]}
+        type="date"
+        value="" />
+    </div>
+    <div
+      className="flex-all">
+      <label
+        className="a-label a-label__heading body-copy">
+        Through:
+      </label>
+      <input
+        aria-describedby="input-error_message-through"
+        className=""
+        max="2015-12-31"
+        min="2015-01-01"
+        onChange={[Function]}
+        type="date"
+        value="" />
+    </div>
+  </div>
+</section>
+`;

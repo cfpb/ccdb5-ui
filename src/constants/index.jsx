@@ -1,4 +1,5 @@
 // Internal triggers
+export const DATE_RANGE_CHANGED = 'DATE_RANGE_CHANGED'
 export const PAGE_CHANGED = 'PAGE_CHANGED'
 export const SEARCH_CHANGED = 'SEARCH_CHANGED'
 export const SIZE_CHANGED = 'SIZE_CHANGED'
@@ -35,6 +36,11 @@ export const knownFilters = [
   'tag',
   'timely',
   'zip_code'
+]
+
+export const dateFilters = [
+  'max_date',
+  'min_date'
 ]
 
 export const SLUG_SEPARATOR = '•'

@@ -2,6 +2,7 @@ import './FilterPanel.less'
 import CollapsibleFilter from './Filters/CollapsibleFilter'
 import CompanyName from './Filters/CompanyName'
 import { connect } from 'react-redux'
+import DateFilter from './Filters/DateFilter'
 import FederalState from './Filters/FederalState'
 import Issue from './Filters/Issue'
 import Product from './Filters/Product'
@@ -18,18 +19,7 @@ export class FilterPanel extends React.Component {
         <SingleCheckbox title="Only show complaints with narratives?"
                         label="Yes" />
         <hr />
-        <CollapsibleFilter title="Date CFPB Received the complaint">
-            <div className="layout-row">
-                <div className="flex-all">
-                    <label className="a-label a-label__heading">From:</label>
-                    <input type="date" />
-                </div>
-                <div className="flex-all">
-                    <label className="a-label a-label__heading">Through:</label>
-                    <input type="date" />
-                </div>
-            </div>
-        </CollapsibleFilter>
+        <DateFilter fieldName="date_received" />
         <hr />
         <CompanyName />
         <hr />

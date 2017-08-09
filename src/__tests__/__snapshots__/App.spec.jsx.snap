@@ -172,7 +172,7 @@ exports[`initial state renders without crashing 1`] = `
         </section>
         <hr />
         <section
-          className="collapsible-filter">
+          className="collapsible-filter aggregation date-filter">
           <div
             className="layout-row">
             <h5
@@ -196,20 +196,32 @@ exports[`initial state renders without crashing 1`] = `
             <div
               className="flex-all">
               <label
-                className="a-label a-label__heading">
+                className="a-label a-label__heading body-copy">
                 From:
               </label>
               <input
-                type="date" />
+                aria-describedby="input-error_message-from"
+                className=""
+                max=""
+                min="2014-01-01"
+                onChange={[Function]}
+                type="date"
+                value="" />
             </div>
             <div
               className="flex-all">
               <label
-                className="a-label a-label__heading">
+                className="a-label a-label__heading body-copy">
                 Through:
               </label>
               <input
-                type="date" />
+                aria-describedby="input-error_message-through"
+                className=""
+                max=""
+                min="2014-01-01"
+                onChange={[Function]}
+                type="date"
+                value="" />
             </div>
           </div>
         </section>
