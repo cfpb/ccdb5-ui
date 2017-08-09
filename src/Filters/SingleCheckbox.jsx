@@ -19,6 +19,10 @@ export class SingleCheckbox extends React.Component {
     this.setState( newState )
   }
 
+  componentDidUpdate() {
+    this.props.changeFlagFilter( this.state.is_checked )
+  }
+
   render() {
     return (
       <section className="single-checkbox">
@@ -60,7 +64,7 @@ SingleCheckbox.defaultProps = {
 }
 
 export const mapStateToProps = state => ( {
-  is_checked: state.query.has_narrative ? true : false
+  is_checked: typeof state.query.has_narrative !== 'undefined' && (state.query.has_narrative.toString() === 'yes' || state.query.has_narrative.toString() === 'true' )
 } )
 
 export const mapDispatchToProps = dispatch => ( {
