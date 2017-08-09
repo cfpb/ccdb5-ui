@@ -2,25 +2,24 @@ import { changeFlagFilter } from '../actions/filter'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { shortIsoFormat } from './utils'
 
 export class SingleCheckbox extends React.Component {
   constructor( props ) {
     super( props )
 
-    this.state = { is_checked: this.props.is_checked }
+    this.state = { isChecked: this.props.isChecked }
   }
 
   componentWillReceiveProps( nextProps ) {
     const newState = {
-      is_checked: nextProps.is_checked
+      isChecked: nextProps.isChecked
     }
 
     this.setState( newState )
   }
 
   componentDidUpdate() {
-    this.props.changeFlagFilter( this.state.is_checked )
+    this.props.changeFlagFilter( this.state.isChecked )
   }
 
   render() {
@@ -30,8 +29,8 @@ export class SingleCheckbox extends React.Component {
         <div className="m-form-field m-form-field__checkbox">
             <input className="a-checkbox"
                    type="checkbox"
-                   onChange={ this._changeFlag.bind( this, this.props.fieldName ) }
-                   checked={ this.state.is_checked }
+                   onClick={ this._changeFlag.bind( this, this.props.fieldName ) }
+                   checked={ this.state.isChecked }
                    value={ this.props.fieldName } />
             <label className="a-label" htmlFor="theCheckbox">Yes</label>
         </div>
@@ -44,7 +43,7 @@ export class SingleCheckbox extends React.Component {
 
   _changeFlag( field, event ) {
     const newState = {
-      is_checked: !this.state.is_checked
+      isChecked: !this.state.isChecked
     }
     newState[field] = event.target.value
     this.setState( newState )
@@ -56,20 +55,22 @@ export class SingleCheckbox extends React.Component {
 
 SingleCheckbox.propTypes = {
   fieldName: PropTypes.string.isRequired,
-  is_checked: PropTypes.bool
+  isChecked: PropTypes.bool
 }
 
 SingleCheckbox.defaultProps = {
-  is_checked: false
+  isChecked: false
 }
 
 export const mapStateToProps = state => ( {
-  is_checked: typeof state.query.has_narrative !== 'undefined' && (state.query.has_narrative.toString() === 'yes' || state.query.has_narrative.toString() === 'true' )
+  isChecked: typeof state.query.has_narrative !== 'undefined' &&
+    ( state.query.has_narrative.toString() === 'yes' ||
+      state.query.has_narrative.toString() === 'true' )
 } )
 
 export const mapDispatchToProps = dispatch => ( {
-  changeFlagFilter: is_checked => {
-    dispatch( changeFlagFilter( 'has_narrative', is_checked ) )
+  changeFlagFilter: isChecked => {
+    dispatch( changeFlagFilter( 'has_narrative', isChecked ) )
   }
 } )
 
