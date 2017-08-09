@@ -1,4 +1,4 @@
-import { changeDateRange } from '../actions/filter'
+import { changeFlagFilter } from '../actions/filter'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -20,15 +20,15 @@ export class SingleCheckbox extends React.Component {
   }
 
   render() {
-    console.log(this.state.is_checked)
     return (
       <section className="single-checkbox">
         <h5>{this.props.title}</h5>
         <div className="m-form-field m-form-field__checkbox">
             <input className="a-checkbox"
                    type="checkbox"
-                   onChange={this._changeFlag.bind( this, this.props.fieldName )}
-                   checked={this.state.is_checked}/>
+                   onChange={ this._changeFlag.bind( this, this.props.fieldName ) }
+                   checked={ this.state.is_checked }
+                   value={ this.props.fieldName } />
             <label className="a-label" htmlFor="theCheckbox">Yes</label>
         </div>
       </section>
@@ -40,7 +40,7 @@ export class SingleCheckbox extends React.Component {
 
   _changeFlag( field, event ) {
     const newState = {
-      is_checked: this.state.is_checked
+      is_checked: !this.state.is_checked
     }
     newState[field] = event.target.value
     this.setState( newState )
@@ -64,8 +64,8 @@ export const mapStateToProps = state => ( {
 } )
 
 export const mapDispatchToProps = dispatch => ( {
-  changeDateRange: ( from, through ) => {
-    dispatch( changeDateRange( 'date_received', from, through ) )
+  changeFlagFilter: is_checked => {
+    dispatch( changeFlagFilter( 'has_narrative', is_checked ) )
   }
 } )
 
