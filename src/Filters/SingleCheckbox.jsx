@@ -1,63 +1,72 @@
+import { changeDateRange } from '../actions/filter'
 import { connect } from 'react-redux'
-import { filterChanged } from '../actions/filter'
+import PropTypes from 'prop-types'
 import React from 'react'
+import { shortIsoFormat } from './utils'
 
 export class SingleCheckbox extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor( props ) {
+    super( props )
 
-    this.is_checked = this.props.active || false
-
-    this._toggleCheckbox = this._toggleCheckbox.bind(this);
+    this.state = { is_checked: this.props.is_checked }
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      is_checked: nextProps.active
-    });
-  }
+  componentWillReceiveProps( nextProps ) {
+    const newState = {
+      is_checked: nextProps.is_checked
+    }
 
-  _toggleCheckbox() {    
-    filterChanged(this.props.fieldName, this.is_checked)
-    this.is_checked = !this.is_checked
+    this.setState( newState )
   }
 
   render() {
+    console.log(this.state.is_checked)
     return (
       <section className="single-checkbox">
         <h5>{this.props.title}</h5>
         <div className="m-form-field m-form-field__checkbox">
-            <ul>
-              <li className="flex-fixed layout-row">
-                  <input type="checkbox" className="flex-fixed"
-                         aria-label="Yes"
-                         checked={this.props.active}
-                         onClick={this._toggleCheckbox}
-                  />
-                  <span className="flex-all bucket-key">Yes</span>
-              </li>
-            </ul>
+            <input className="a-checkbox"
+                   type="checkbox"
+                   onChange={this._changeFlag.bind( this, this.props.fieldName )}
+                   checked={this.state.is_checked}/>
+            <label className="a-label" htmlFor="theCheckbox">Yes</label>
         </div>
       </section>
-    );
+    )
+  }
+
+  // --------------------------------------------------------------------------
+  // Helper Methods
+
+  _changeFlag( field, event ) {
+    const newState = {
+      is_checked: this.state.is_checked
+    }
+    newState[field] = event.target.value
+    this.setState( newState )
   }
 }
 
-export const mapStateToProps = (state, ownProps) => {
-  // Find all query filters that refer to the field name
-  const activeChildren = state.query[ownProps.fieldName] || []
+// ----------------------------------------------------------------------------
+// Meta
 
-  return {
-    active: activeChildren.length > 0
-  }
+SingleCheckbox.propTypes = {
+  fieldName: PropTypes.string.isRequired,
+  is_checked: PropTypes.bool
 }
 
-export const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    onClick: () => {
-      dispatch(filterChanged(ownProps.fieldName, ownProps.active))
-    },
-  }
+SingleCheckbox.defaultProps = {
+  is_checked: false
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SingleCheckbox)
+export const mapStateToProps = state => ( {
+  is_checked: state.query.has_narrative ? true : false
+} )
+
+export const mapDispatchToProps = dispatch => ( {
+  changeDateRange: ( from, through ) => {
+    dispatch( changeDateRange( 'date_received', from, through ) )
+  }
+} )
+
+export default connect( mapStateToProps, mapDispatchToProps )( SingleCheckbox )
