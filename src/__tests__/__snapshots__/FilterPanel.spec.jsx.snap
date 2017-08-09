@@ -48,7 +48,7 @@ exports[`initial state renders without crashing 1`] = `
       <div
         className="flex-all">
         <label
-          className="a-label a-label__heading">
+          className="a-label a-label__heading body-copy">
           From:
         </label>
         <input
@@ -63,7 +63,7 @@ exports[`initial state renders without crashing 1`] = `
       <div
         className="flex-all">
         <label
-          className="a-label a-label__heading">
+          className="a-label a-label__heading body-copy">
           Through:
         </label>
         <input
