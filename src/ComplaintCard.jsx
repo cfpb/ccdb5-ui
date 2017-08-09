@@ -1,6 +1,6 @@
-import React from 'react';
-import { FormattedDate } from 'react-intl';
-import './ComplaintCard.less';
+import './ComplaintCard.less'
+import { FormattedDate } from 'react-intl'
+import React from 'react'
 
 const MAX_NARRATIVE = 300
 
@@ -9,9 +9,9 @@ export default class ComplaintCard extends React.Component {
     const row = this.props.row;
 
     // Process the narrative
-    let narrative = row.complaint_what_happened || ""
+    let narrative = row.complaint_what_happened || ''
     const hasOverflow = narrative.length > MAX_NARRATIVE
-    narrative = narrative.substring(0, MAX_NARRATIVE)
+    narrative = narrative.substring( 0, MAX_NARRATIVE )
     const complaintIdPath = '/detail/' + row.complaint_id;
 
     return (
@@ -47,33 +47,33 @@ export default class ComplaintCard extends React.Component {
             <br />
             <h5>Product</h5>
             <h3>{ row.product }</h3>
-            { row.sub_product ? (
+            { row.sub_product ?
               <div className="layout-row">
                 <span className="body-copy subitem">Sub-product:</span>
                 <span className="body-copy">{ row.sub_product }</span>
-              </div>
-              ) : null
+              </div> :
+               null
             }
             <br />
             <h5>Issue</h5>
             <h3>{ row.issue }</h3>
-            { row.sub_issue ? (
+            { row.sub_issue ?
               <div className="layout-row">
                 <span className="body-copy subitem">Sub-issue:</span>
                 <span className="body-copy">{ row.sub_issue }</span>
-              </div>
-              ) : null
+              </div> :
+               null
             }
             <br />
-            { narrative ? (
+            { narrative ?
               <div>
                 <h5>Consumer Complaint Narrative</h5>
                 <span className="body-copy">
                   { narrative }
-                  { hasOverflow ? (<span> <a>[...]</a></span>) : null }
+                  { hasOverflow ? <span> <a>[...]</a></span> : null }
                 </span>
-              </div>
-              ) : null
+              </div> :
+               null
             }
           </div>
         </div>

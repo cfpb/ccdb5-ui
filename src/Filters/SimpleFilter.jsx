@@ -1,15 +1,15 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import './Aggregation.less'
 import AggregationItem from './AggregationItem'
 import CollapsibleFilter from './CollapsibleFilter'
+import { connect } from 'react-redux'
 import MoreOrLess from './MoreOrLess'
-import './Aggregation.less'
+import React from 'react'
 
 export class SimpleFilter extends React.Component {
-  componentWillReceiveProps(nextProps) {
-    this.setState({
+  componentWillReceiveProps( nextProps ) {
+    this.setState( {
       showChildren: nextProps.showChildren
-    });
+    } );
   }
 
   render() {
@@ -31,7 +31,7 @@ export class SimpleFilter extends React.Component {
   }
 }
 
-export const mapStateToProps = (state, ownProps) => {
+export const mapStateToProps = ( state, ownProps ) => {
   // Find all query filters that refer to the field name
   const activeChildren = state.query[ownProps.fieldName] || []
 
@@ -41,4 +41,4 @@ export const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)(SimpleFilter)
+export default connect( mapStateToProps )( SimpleFilter )

@@ -1,34 +1,28 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Typeahead from '.'
 import HighlightingOption from './HighlightingOption'
+import PropTypes from 'prop-types'
+import React from 'react'
+import Typeahead from '.'
 
-export const normalize = s => {
-  return s.toLowerCase()
-}
+export const normalize = s => s.toLowerCase()
 
-export const compileOptions = options => {
-  return options.map(x => {
-    return {
-      key: x,
-      normalized: normalize(x)
-    }
-  })
-}
+export const compileOptions = options => options.map( x => ( {
+  key: x,
+  normalized: normalize( x )
+} ) )
 
 export default class HighlightingTypeahead extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor( props ) {
+    super( props )
     this.state = {
-      compiled: compileOptions(props.options)
+      compiled: compileOptions( props.options )
     }
-    this._onInputChange = this._onInputChange.bind(this)
+    this._onInputChange = this._onInputChange.bind( this )
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      compiled: compileOptions(nextProps.options)
-    })
+  componentWillReceiveProps( nextProps ) {
+    this.setState( {
+      compiled: compileOptions( nextProps.options )
+    } )
   }
 
   render() {
@@ -40,35 +34,31 @@ export default class HighlightingTypeahead extends React.Component {
     )
   }
 
-  _onInputChange(value) {
-    // Normalize the input value 
-    const normalized = normalize(value)
+  _onInputChange( value ) {
+    // Normalize the input value
+    const normalized = normalize( value )
 
     // Find the matches
     const filtered = this.state.compiled
-      .filter(x => x.normalized.indexOf(normalized) !== -1)
-      .map(x => {
-        return {
-          key: x.key,
-          label: x.key,
-          position: x.normalized.indexOf(normalized),
-          value
-        }
-      })
+      .filter( x => x.normalized.indexOf( normalized ) !== -1 )
+      .map( x => ( {
+        key: x.key,
+        label: x.key,
+        position: x.normalized.indexOf( normalized ),
+        value
+      } ) )
 
     // Sort the matches so that matches at the beginning of the string
     // appear first
-    filtered.sort((a,b) => {
-      return a.position - b.position
-    })
+    filtered.sort( ( a, b ) => a.position - b.position )
 
     return filtered
   }
 
-  _renderOption(obj) {
+  _renderOption( obj ) {
     return {
       value: obj.key,
-      component: (<HighlightingOption {...obj} />)
+      component: <HighlightingOption {...obj} />
     }
   }
 }
@@ -78,7 +68,7 @@ HighlightingTypeahead.propTypes = {
   maxVisible: PropTypes.number,
   minLength: PropTypes.number,
   onOptionSelected: PropTypes.func.isRequired,
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  options: PropTypes.arrayOf( PropTypes.string ).isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.string
 }
