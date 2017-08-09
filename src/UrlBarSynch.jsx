@@ -1,7 +1,7 @@
+import { dateFilters, flagFilters } from './constants'
 import announceUrlChanged from './actions/url'
 import { connect } from 'react-redux'
 import createHistory from 'history/createBrowserHistory'
-import { dateFilters } from './constants'
 import React from 'react'
 import { shortIsoFormat } from './Filters/utils'
 
@@ -20,6 +20,13 @@ export function toQS( props ) {
   dateFilters.forEach( field => {
     if ( typeof clone[field] !== 'undefined' ) {
       clone[field] = shortIsoFormat( clone[field] )
+    }
+  } )
+
+  // Process the dates differently
+  flagFilters.forEach( field => {
+    if ( typeof clone[field] !== 'undefined' ) {
+      clone[field] = clone[field].toString()
     }
   } )
 

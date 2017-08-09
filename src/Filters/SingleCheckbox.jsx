@@ -19,7 +19,7 @@ export class SingleCheckbox extends React.Component {
   }
 
   componentDidUpdate() {
-    this.props.changeFlagFilter( this.state.isChecked )
+    this.props.changeFlagFilter( 'has_narrative', this.state.isChecked )
   }
 
   render() {
