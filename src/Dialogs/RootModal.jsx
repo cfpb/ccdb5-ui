@@ -35,7 +35,7 @@ export const RootModal = ( { modalType, modalProps, onClose } ) => {
 }
 
 export const mapDispatchToProps = dispatch => ( {
-  onClose: _ => {
+  onClose: () => {
     dispatch( { type: types.MODAL_HID } )
   }
 } )

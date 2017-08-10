@@ -9,15 +9,24 @@ import Selector from './Selector'
 // ----------------------------------------------------------------------------
 // attribution: underscore.js (MIT License)
 
+/**
+* Delay the implementation of a function until after a period of time
+* This prevents expensive calls from being made while triggering events are
+* still happening
+*
+* @param {function} func a function with an embedded expensive call
+* @param {int} wait the number of msecs to delay before calling the function
+* @returns {function} a replacement function to use in place of the original
+*/
 export function debounce( func, wait ) {
   var timer = null;
 
-  var later = function( context, args ) {
+  var later = ( context, args ) => {
     timer = null;
     func.apply( context, args );
   }
 
-  return function() {
+  return () => {
     if ( !timer ) {
       timer = setTimeout( later, wait )
     }
@@ -159,11 +168,11 @@ export default class Typeahead extends React.Component {
   // --------------------------------------------------------------------------
   // Event Methods
 
-  _onBlur( event ) {
+  _onBlur() {
     this.setState( { focused: false } )
   }
 
-  _onFocus( event ) {
+  _onFocus() {
     this.setState( { focused: true } )
   }
 
@@ -294,7 +303,7 @@ export default class Typeahead extends React.Component {
     event.preventDefault()
     const newIndex = this._calculateNewIndex( delta )
     if ( newIndex >= 0 ) {
-      // TODO: may need an extractor callback eventually
+      // May need an extractor callback eventually
       // For now, assume the shape of the options
       const inputValue = this.state.searchResults[newIndex].key
 
@@ -309,7 +318,9 @@ export default class Typeahead extends React.Component {
   // Render Helpers
 
   _renderError() {
-    return <span className="error">There was a problem retrieving the options</span>
+    return <span className="error">
+      There was a problem retrieving the options
+    </span>
   }
 
   _renderEmpty() {

@@ -17,13 +17,16 @@ export class Issue extends React.Component {
   }
 
   render() {
+    const desc = 'The type of issue and sub-issue the consumer identified ' +
+      'in the complaint'
+
     const listComponentProps = {
       fieldName: 'issue'
     }
 
     return (
       <CollapsibleFilter title="Issue / sub-issue"
-                         desc="The type of issue and sub-issue the consumer identified in the complaint"
+                         desc={desc}
                          showChildren={this.props.showChildren}
                          className="aggregation">
         <Typeahead placeholder="Enter name of issue"
@@ -49,6 +52,7 @@ export class Issue extends React.Component {
         idx = i
       }
     }
+    // eslint-disable-next-line
     console.assert( idx !== -1 )
 
     // Build a list of all the keys

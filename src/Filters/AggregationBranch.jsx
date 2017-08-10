@@ -42,12 +42,16 @@ export class AggregationBranch extends React.Component {
     const buckets = subitems.map( sub => ( {
       key: slugify( item.key, sub.key ),
       value: sub.key,
+      // eslint-disable-next-line camelcase
       doc_count: sub.doc_count
     } ) )
 
     // Special returns
     if ( buckets.length === 0 ) {
-      return <AggregationItem item={item} key={item.key} fieldName={fieldName} />
+      return <AggregationItem item={item}
+                              key={item.key}
+                              fieldName={fieldName}
+             />
     }
 
     return (
@@ -62,8 +66,8 @@ export class AggregationBranch extends React.Component {
             <button className="a-btn a-btn__link hover"
                     onClick={this._toggleChildDisplay}>
               <span>{item.key}</span>
-              <span className={
-                'cf-icon ' + ( this.state.showChildren ? 'cf-icon-up' : 'cf-icon-down' )
+              <span className={ 'cf-icon ' +
+                ( this.state.showChildren ? 'cf-icon-up' : 'cf-icon-down' )
               }></span>
             </button>
           </div>
@@ -74,7 +78,10 @@ export class AggregationBranch extends React.Component {
         { this.state.showChildren === false ? null :
           <ul className="children">{
             buckets.map( bucket =>
-              <AggregationItem item={bucket} key={bucket.key} fieldName={fieldName} />
+              <AggregationItem item={bucket}
+                               key={bucket.key}
+                               fieldName={fieldName}
+              />
             )
           }</ul>
         }
@@ -88,6 +95,7 @@ AggregationBranch.propTypes = {
   checkParent: PropTypes.func.isRequired,
   fieldName: PropTypes.string.isRequired,
   item: PropTypes.shape( {
+    // eslint-disable-next-line camelcase
     doc_count: PropTypes.number.isRequired,
     key: PropTypes.string.isRequired,
     value: PropTypes.string
@@ -110,12 +118,12 @@ export const mapStateToProps = ( state, ownProps ) => {
   const hasKey = candidates.filter( x => x.indexOf( ownProps.item.key ) !== -1 )
 
   // Does the key contain the separator?
-  const activeChildren = hasKey.filter( x => x.indexOf( SLUG_SEPARATOR ) !== -1 )
+  const activeChild = hasKey.filter( x => x.indexOf( SLUG_SEPARATOR ) !== -1 )
   const activeParent = hasKey.filter( x => x.indexOf( SLUG_SEPARATOR ) === -1 )
 
   return {
     active: activeParent.length > 0,
-    showChildren: activeChildren.length > 0
+    showChildren: activeChild.length > 0
   }
 }
 
@@ -128,4 +136,6 @@ export const mapDispatchToProps = dispatch => ( {
   }
 } )
 
-export default connect( mapStateToProps, mapDispatchToProps )( AggregationBranch )
+export default connect(
+ mapStateToProps, mapDispatchToProps
+)( AggregationBranch )

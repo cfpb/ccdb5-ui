@@ -19,6 +19,7 @@ const zeroCounts = cache => {
   Object.keys( cache ).forEach( x => {
     result[x] = {
       ...cache[x],
+      // eslint-disable-next-line camelcase
       doc_count: 0
     }
   } )
@@ -98,6 +99,7 @@ StickyOptions.propTypes = {
 StickyOptions.defaultProps = {
   onMissingItem: x => ( {
     key: x,
+    // eslint-disable-next-line camelcase
     doc_count: 0
   } ),
   selections: []
