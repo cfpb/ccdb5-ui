@@ -6,7 +6,6 @@ import React from 'react'
 export class SingleCheckbox extends React.Component {
   constructor( props ) {
     super( props )
-
     this.state = { isChecked: this.props.isChecked }
   }
 
@@ -14,12 +13,11 @@ export class SingleCheckbox extends React.Component {
     const newState = {
       isChecked: nextProps.isChecked
     }
-
     this.setState( newState )
   }
 
   componentDidUpdate() {
-    this.props.changeFlagFilter( 'has_narrative', this.state.isChecked )
+    this.props.changeFlagFilter( this.props.fieldName, this.state.isChecked )
   }
 
   render() {
@@ -30,7 +28,7 @@ export class SingleCheckbox extends React.Component {
             <input className="a-checkbox"
                    id="theCheckbox"
                    type="checkbox"
-                   onClick={ this._changeFlag.bind( this, this.props.fieldName ) }
+                   onClick={ this._changeFlag.bind( this ) }
                    checked={ this.state.isChecked }
                    value={ this.props.fieldName } />
             <label className="a-label" htmlFor="theCheckbox">Yes</label>
@@ -42,11 +40,10 @@ export class SingleCheckbox extends React.Component {
   // --------------------------------------------------------------------------
   // Helper Methods
 
-  _changeFlag( field, event ) {
+  _changeFlag( ) {
     const newState = {
       isChecked: !this.state.isChecked
     }
-    newState[field] = event.target.value
     this.setState( newState )
   }
 }
@@ -70,8 +67,8 @@ export const mapStateToProps = state => ( {
 } )
 
 export const mapDispatchToProps = dispatch => ( {
-  changeFlagFilter: (fieldName, isChecked) => {
-    dispatch( changeFlagFilter( 'has_narrative', isChecked ) )
+  changeFlagFilter: ( fieldName, isChecked ) => {
+    dispatch( changeFlagFilter( fieldName, isChecked ) )
   }
 } )
 

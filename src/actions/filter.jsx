@@ -41,7 +41,7 @@ export function filterToggle( filterName, filterValue ) {
 }
 
 /**
-* Notifies the application that a filter changed
+* Notifies the application that a flag filter changed
 *
 * @param {string} filterName which filter was clicked
 * @param {bool} filterValue the value of the filter that was clicked
@@ -204,7 +204,7 @@ export function removeMultipleFilters( filterName, values ) {
 }
 
 /**
-* Changes the value on a boolean filter
+* Changes the value on a flag filter
 *
 * @param {string} filterName which filter is being updated
 * @param {bool} value the value being changed
