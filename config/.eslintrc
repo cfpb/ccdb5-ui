@@ -1,6 +1,10 @@
 rules:
-  camel-case: 0
+  camelcase:
+    - 0
+    -
+      properties: never
   global-require: 0
+  max-len: 0
   no-console: 0
   no-inline-comments: 0
   no-process-env: 0
