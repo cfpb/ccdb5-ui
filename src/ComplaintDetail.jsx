@@ -131,23 +131,11 @@ export class ComplaintDetail extends React.Component {
           <div className="card-right layout-column">
             <h5>Product</h5>
             <h3>{ row.product }</h3>
-            { row.sub_product ?
-              <div className="layout-row">
-                <span className="body-copy subitem">Sub-product:</span>
-                <span className="body-copy">{ row.sub_product }</span>
-              </div> :
-               null
-            }
+            { this._renderSub( 'Sub-product:', row.sub_product ) }
             <br />
             <h5>Issue</h5>
             <h3>{ row.issue }</h3>
-            { row.sub_issue ?
-              <div className="layout-row">
-                <span className="body-copy subitem">Sub-issue:</span>
-                <span className="body-copy">{ row.sub_issue }</span>
-              </div> :
-               null
-            }
+            { this._renderSub( 'Sub-issue:', row.sub_issue ) }
             <br />
             <h5>Consumer consent to publish narrative</h5>
             { this._renderConsumerConsent( row.consumer_consent_provided ) }
@@ -191,6 +179,17 @@ export class ComplaintDetail extends React.Component {
     )
   }
 
+  _renderSub( label, value ) {
+    return (
+      value ?
+        <div className="layout-row">
+          <span className="body-copy subitem">{ label }</span>
+          <span className="body-copy">{ value }</span>
+        </div> :
+         null
+    )
+  }
+
   _renderWaiting() {
     return (
       <div className="waiting">
@@ -205,6 +204,7 @@ export class ComplaintDetail extends React.Component {
 // Meta
 
 ComplaintDetail.propTypes = {
+  // eslint-disable-next-line camelcase
   complaint_id: PropTypes.string.isRequired,
   onClickedBack: PropTypes.func,
   phase: PropTypes.string,

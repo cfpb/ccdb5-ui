@@ -11,6 +11,11 @@ const DATA_HOST = 'https://data.consumerfinance.gov'
 // ----------------------------------------------------------------------------
 // Action Creators
 
+/**
+* Notifies the application that the export dialog box should appear
+*
+* @returns {string} a packaged payload to be used by Redux reducers
+*/
 export function showExportDialog() {
   return {
     type: MODAL_SHOWN,
@@ -19,8 +24,14 @@ export function showExportDialog() {
   }
 }
 
+/**
+* Call the URL that contains the entire dataset
+*
+* @param {string} format JSON or CSV
+* @returns {function} a set of steps to execute
+*/
 export function exportAllResults( format ) {
-  return ( dispatch, getState ) => {
+  return dispatch => {
     dispatch( { type: MODAL_HID } )
 
     const uri = DATA_HOST + '/api/views/s6ew-h6mp/rows.json'
@@ -29,6 +40,13 @@ export function exportAllResults( format ) {
   }
 }
 
+/**
+* Call the export endpoint of the API with the current filter criteria
+*
+* @param {string} format JSON or CSV
+* @param {int} size The number of rows in the dataset
+* @returns {function} a set of steps to execute
+*/
 export function exportSomeResults( format, size ) {
   return ( dispatch, getState ) => {
     dispatch( { type: MODAL_HID } )
@@ -49,6 +67,11 @@ export function exportSomeResults( format, size ) {
   }
 }
 
+/**
+* Navigate to Socrata in a different window
+*
+* @returns {function} a set of steps to execute
+*/
 export function visitSocrata() {
   return dispatch => {
     dispatch( { type: MODAL_HID } )

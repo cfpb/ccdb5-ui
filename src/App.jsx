@@ -28,11 +28,12 @@ const middleware = [ thunkMiddleware ];
 
 const composeEnhancers = composeWithDevTools( {
   // required for redux-devtools-extension
-  // Specify name here, actionsBlacklist, actionsCreators and other options if needed
+  // Specify name here, actionsBlacklist, actionsCreators and other options
+  // if needed
 } );
 
 // required format for redux-devtools-extension
-const store = createStore( reducers, /* preloadedState, */ composeEnhancers(
+const store = createStore( reducers, composeEnhancers(
   applyMiddleware( ...middleware ),
   // other store enhancers if any
 ) );
@@ -59,6 +60,8 @@ export class SearchComponents extends React.Component {
   }
 }
 
+/* eslint-disable camelcase */
+
 export class DetailComponents extends React.Component {
   render() {
     const complaint_id = this.props.match.params.id;
@@ -72,6 +75,8 @@ export class DetailComponents extends React.Component {
     )
   }
 }
+
+/* eslint-enable camelcase */
 
 export class App extends React.Component {
   render() {

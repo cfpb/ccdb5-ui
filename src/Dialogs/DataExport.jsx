@@ -121,7 +121,8 @@ export class DataExport extends React.Component {
           </div>
           }
           <div className="timeliness-warning">
-            The export process could take several minutes if you're downloading many complaints
+            The export process could take several minutes if you're downloading
+            many complaints
           </div>
         </div>
         <div className="footer layout-row">
@@ -153,7 +154,7 @@ export class DataExport extends React.Component {
     } );
   }
 
-  _exportClicked( ev ) {
+  _exportClicked() {
     if ( this.state.dataset === 'full' ) {
       this.props.exportAll( this.state.format )
     } else {
@@ -175,7 +176,7 @@ export const mapStateToProps = state => {
 }
 
 export const mapDispatchToProps = dispatch => ( {
-  onOtherFormats: _ => dispatch( visitSocrata() ),
+  onOtherFormats: () => dispatch( visitSocrata() ),
   exportAll: format => dispatch( exportAllResults( format ) ),
   exportSome: ( format, size ) => dispatch( exportSomeResults( format, size ) )
 } )

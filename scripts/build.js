@@ -53,6 +53,7 @@ function printErrors( summary, errors ) {
 // Create the production build and print the deployment instructions.
 function build( previousFileSizes ) {
   console.log( 'Creating an optimized production build...' );
+  // eslint-disable-next-line complexity, max-statements
   webpack( config ).run( ( err, stats ) => {
     if ( err ) {
       printErrors( 'Failed to compile.', [ err ] );
@@ -134,8 +135,8 @@ function build( previousFileSizes ) {
         console.log( '  ' + chalk.green( '"homepage"' ) + chalk.cyan( ': ' ) + chalk.green( '"http://myname.github.io/myapp"' ) + chalk.cyan( ',' ) );
         console.log();
       }
-      var build = path.relative( process.cwd(), paths.appBuild );
-      console.log( 'The ' + chalk.cyan( build ) + ' folder is ready to be deployed.' );
+      var buildPath = path.relative( process.cwd(), paths.appBuild );
+      console.log( 'The ' + chalk.cyan( buildPath ) + ' folder is ready to be deployed.' );
       console.log( 'You may serve it with a static server:' );
       console.log();
       if ( useYarn ) {

@@ -14,16 +14,24 @@ export class Product extends React.Component {
   }
 
   render() {
+    const desc = 'The type of product and sub-product the consumer ' +
+      'identified in the complaint'
+
+    const href = 'http://files.consumerfinance.gov/f/documents/' +
+      '201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf'
+
     const listComponentProps = {
       fieldName: 'product'
     }
 
     return (
       <CollapsibleFilter title="Product / sub-product"
-                         desc="The type of product and sub-product the consumer identified in the complaint"
+                         desc={desc}
                          showChildren={this.props.showChildren}
                          className="aggregation">
-        <a href="http://files.consumerfinance.gov/f/documents/201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf" target="_blank">Recent changes to products and sub-products</a>
+        <a href={href} target="_blank">
+          Recent changes to products and sub-products
+        </a>
         <MoreOrLess listComponent={AggregationBranch}
                     listComponentProps={listComponentProps}
                     options={this.props.options}
