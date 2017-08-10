@@ -36,8 +36,7 @@ export const knownFilters = [
   'submitted_via',
   'tag',
   'timely',
-  'zip_code',
-  'has_narrative'
+  'zip_code'
 ]
 
 export const dateFilters = [
