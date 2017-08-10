@@ -23,7 +23,7 @@ export function toQS( props ) {
     }
   } )
 
-  // Process the dates differently
+  // Process the flags differently
   flagFilters.forEach( field => {
     if ( typeof clone[field] !== 'undefined' ) {
       clone[field] = clone[field].toString()

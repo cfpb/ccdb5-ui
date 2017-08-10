@@ -125,6 +125,34 @@ export function changeDateRange( state, action ) {
 }
 
 /**
+* Change a boolean flag filter
+*
+* @param {object} state the current state in the Redux store
+* @param {object} action the payload containing the flag to change
+* @returns {object} the new state for the Redux store
+*/
+export function changeFlagFilter( state, action ) {
+
+  /* eslint-disable camelcase */
+  const newState = {
+    ...state,
+    has_narrative: action.filterValue
+  }
+
+  /* eslint-enable camelcase */
+
+  // Remove nulls
+  const fields = [ 'has_narrative' ]
+  fields.forEach( field => {
+    if ( !newState[field] ) {
+      delete newState[field]
+    }
+  } )
+
+  return newState
+}
+
+/**
 * Adds new filters to the current set
 *
 * @param {object} state the current state in the Redux store
@@ -275,6 +303,9 @@ export default ( state = defaultQuery, action ) => {
       } )
       return newState
     }
+
+    case types.FILTER_FLAG_CHANGED:
+      return changeFlagFilter( state, action )
 
     case types.FILTER_MULTIPLE_ADDED:
       return addMultipleFilters( state, action )

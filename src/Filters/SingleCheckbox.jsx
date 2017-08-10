@@ -70,7 +70,7 @@ export const mapStateToProps = state => ( {
 } )
 
 export const mapDispatchToProps = dispatch => ( {
-  changeFlagFilter: isChecked => {
+  changeFlagFilter: (fieldName, isChecked) => {
     dispatch( changeFlagFilter( 'has_narrative', isChecked ) )
   }
 } )
