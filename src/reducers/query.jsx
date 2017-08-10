@@ -128,7 +128,7 @@ export function changeDateRange( state, action ) {
 * Change a boolean flag filter
 *
 * @param {object} state the current state in the Redux store
-* @param {object} action the payload containing the flag to change
+* @param {object} action the payload containing the value to change
 * @returns {object} the new state for the Redux store
 */
 export function changeFlagFilter( state, action ) {
@@ -291,6 +291,9 @@ export default ( state = defaultQuery, action ) => {
     case types.FILTER_CHANGED:
       return toggleFilter( state, action )
 
+    case types.FILTER_FLAG_CHANGED:
+      return changeFlagFilter( state, action )
+
     case types.FILTER_REMOVED:
       return removeFilter( state, action )
 
@@ -303,9 +306,6 @@ export default ( state = defaultQuery, action ) => {
       } )
       return newState
     }
-
-    case types.FILTER_FLAG_CHANGED:
-      return changeFlagFilter( state, action )
 
     case types.FILTER_MULTIPLE_ADDED:
       return addMultipleFilters( state, action )
