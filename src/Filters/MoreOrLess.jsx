@@ -1,3 +1,5 @@
+/* eslint complexity: ["error", 6] */
+
 import PropTypes from 'prop-types'
 import React from 'react'
 

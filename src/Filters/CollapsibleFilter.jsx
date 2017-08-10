@@ -32,18 +32,26 @@ export default class CollapsibleFilter extends React.Component {
       composeClasses += ' ' + this.props.className;
     }
 
+    const opened =
+      <button className="a-btn a-btn__link hover"
+              onClick={this._toggleChildDisplay}>
+        Hide
+        <span className="cf-icon cf-icon-minus-round"></span>
+      </button>
+
+    const closed =
+      <button className="a-btn a-btn__link hover"
+              onClick={this._toggleChildDisplay}>
+        Show
+        <span className="cf-icon cf-icon-plus-round"></span>
+      </button>
+
     return (
       <section className={composeClasses}>
           <div className="layout-row">
             <h5 className="flex-all">{this.props.title}</h5>
             <div className="flex-fixed toggle">
-                <button className="a-btn a-btn__link hover"
-                        onClick={this._toggleChildDisplay}>
-                { this.state.showChildren ? 'Hide' : 'Show' }
-                  <span className={
-                    'cf-icon ' + ( this.state.showChildren ? 'cf-icon-minus-round' : 'cf-icon-plus-round' )
-                  }></span>
-                </button>
+              { this.state.showChildren ? opened : closed }
             </div>
           </div>
           <p>{this.props.desc}</p>
