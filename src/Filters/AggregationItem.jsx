@@ -4,6 +4,8 @@ import { FormattedNumber } from 'react-intl'
 import PropTypes from 'prop-types'
 import React from 'react'
 
+// The linter does not detect the use of 'fieldName' which _is_ used
+// eslint-disable-next-line no-unused-vars
 export const AggregationItem = ( { item, fieldName, active, onClick } ) => {
   const value = item.value || item.key
 
@@ -26,6 +28,7 @@ AggregationItem.propTypes = {
   active: PropTypes.bool,
   fieldName: PropTypes.string.isRequired,
   item: PropTypes.shape( {
+    // eslint-disable-next-line camelcase
     doc_count: PropTypes.number.isRequired,
     key: PropTypes.string.isRequired,
     value: PropTypes.string
@@ -37,9 +40,12 @@ AggregationItem.defaultProps = {
   active: false
 }
 
-export const mapStateToProps = ( state, ownProps ) => ( {
-  active: typeof state.query[ownProps.fieldName] !== 'undefined' && state.query[ownProps.fieldName].indexOf( ownProps.item.key ) > -1
-} )
+export const mapStateToProps = ( state, ownProps ) => {
+  const field = state.query[ownProps.fieldName]
+  const value = ownProps.item.key
+  const active = typeof field !== 'undefined' && field.indexOf( value ) > -1
+  return { active }
+}
 
 export const mapDispatchToProps = ( dispatch, ownProps ) => ( {
   onClick: () => {

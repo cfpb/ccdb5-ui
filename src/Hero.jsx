@@ -11,7 +11,9 @@ export default class Hero extends React.Component {
           company has responded to the complaint (or after they've had the
           complaint for 15 calendar days, whichever comes first). We only
           publish the description of what happened if the consumer agrees to
-          share it and after we take steps to <a>remove personal information</a>.
+          share it and after we take steps to <a>
+            remove personal information
+          </a>.
           Data is generally updated nightly.
           </p>
           <ul className="m-list m-list__horizontal">

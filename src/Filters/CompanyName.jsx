@@ -14,9 +14,13 @@ export class CompanyName extends React.Component {
   }
 
   render() {
+    const desc = 'The company name as it appears in our complaint system, ' +
+      'which may be different than the name the consumer provided in their ' +
+      'complaint'
+
     return (
       <CollapsibleFilter title="Matched Company Name"
-                         desc="The company name as it appears in our complaint system, which may be different than the name the consumer provided in their complaint"
+                         desc={desc}
                          className="aggregation">
         <Typeahead placeholder="Enter company name"
                    options={this.props.forTypeahead}
