@@ -4,13 +4,14 @@ import './RootModal.less'
 import * as types from '../constants'
 import { connect } from 'react-redux'
 import DataExport from './DataExport'
+import MoreAbout from './MoreAbout'
 import React from 'react'
 import ReactModal from 'react-modal'
 
 const buildMap = () => {
   const retVal = {}
   retVal[types.MODAL_TYPE_DATA_EXPORT] = DataExport
-
+  retVal[types.MODAL_TYPE_MORE_ABOUT] = MoreAbout
   return retVal
 }
 
