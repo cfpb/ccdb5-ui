@@ -26,7 +26,10 @@ export default class Selector extends React.Component {
       <div className="typeahead-selector">
         <ul>
           {results}
-          { this.props.footer ? <li className="footer">{this.props.footer}</li> : null }
+          { this.props.footer ?
+            <li className="footer">{this.props.footer}</li> :
+            null
+          }
         </ul>
       </div>
     )

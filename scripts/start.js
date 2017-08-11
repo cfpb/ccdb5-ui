@@ -69,6 +69,7 @@ function setupCompiler( host, port, protocol ) {
 
   // "done" event fires when Webpack has finished recompiling the bundle.
   // Whether or not you have warnings or errors, you will get this event.
+  // eslint-disable-next-line complexity, max-statements
   compiler.plugin( 'done', function( stats ) {
     if ( isInteractive ) {
       clearConsole();

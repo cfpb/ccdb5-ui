@@ -6,12 +6,17 @@ import React from 'react';
 import { showExportDialog } from './actions/dataExport'
 
 const sizes = [ 10, 25, 50, 100 ]
+
+/* eslint-disable camelcase */
+
 const sorts = {
   relevance_desc: 'Sort by relevance',
   relevance_asc: 'Sort by relevance (asc)',
   created_date_asc: 'Sort by oldest to newest',
   created_date_desc: 'Sort by newest to oldest'
 }
+
+/* eslint-enable camelcase */
 
 export class ActionBar extends React.Component {
   render() {
@@ -35,13 +40,17 @@ export class ActionBar extends React.Component {
             <div className="cf-select">
               <select value={this.props.size} id="choose-size"
                       onChange={this.props.onSize}>
-                { sizes.map( x => <option key={x} value={x}>Show {x} results</option> )}
+                { sizes.map(
+                  x => <option key={x} value={x}>Show {x} results</option>
+                  )}
               </select>
             </div>
             <div className="cf-select">
               <select value={this.props.sort} id="choose-sort"
                       onChange={this.props.onSort}>
-                { Object.keys( sorts ).map( x => <option key={x} value={x}>{ sorts[x] }</option> )}
+                { Object.keys( sorts ).map( x =>
+                  <option key={x} value={x}>{ sorts[x] }</option>
+                  )}
               </select>
             </div>
 
@@ -72,7 +81,7 @@ export const mapDispatchToProps = dispatch => ( {
   onSort: ev => {
     dispatch( changeSort( ev.target.value ) )
   },
-  onExportResults: _ => {
+  onExportResults: () => {
     dispatch( showExportDialog() )
   }
 } )
