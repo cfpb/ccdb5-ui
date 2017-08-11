@@ -1,3 +1,25 @@
+exports[`initial state pre-check filter based on query 1`] = `
+<section
+  className="single-checkbox">
+  <h5 />
+  <div
+    className="m-form-field m-form-field__checkbox">
+    <input
+      checked={true}
+      className="a-checkbox"
+      id="theCheckbox"
+      onClick={[Function]}
+      type="checkbox"
+      value="has_narrative" />
+    <label
+      className="a-label"
+      htmlFor="theCheckbox">
+      Yes
+    </label>
+  </div>
+</section>
+`;
+
 exports[`initial state renders without crashing 1`] = `
 <section
   className="single-checkbox">
@@ -10,7 +32,7 @@ exports[`initial state renders without crashing 1`] = `
       id="theCheckbox"
       onClick={[Function]}
       type="checkbox"
-      value={undefined} />
+      value="has_narrative" />
     <label
       className="a-label"
       htmlFor="theCheckbox">
