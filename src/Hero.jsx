@@ -1,9 +1,26 @@
 import './Hero.less';
+import { MODAL_SHOWN, MODAL_TYPE_MORE_ABOUT } from './constants'
 import { connect } from 'react-redux'
 import React from 'react';
 
+/**
+* Notifies the application that the "More About..." dialog box should appear
+*
+* @returns {string} a packaged payload to be used by Redux reducers
+*/
+export function showMoreAboutDialog() {
+  return {
+    type: MODAL_SHOWN,
+    modalType: MODAL_TYPE_MORE_ABOUT,
+    modalProps: {}
+  }
+}
+
 export class Hero extends React.Component {
   render() {
+    const socrataUrl = 'https://data.consumerfinance.gov/dataset/' +
+      'Consumer-Complaints/s6ew-h6mp'
+
     return (
         <header className="content_hero">
           <h1>Consumer Complaint Database</h1>
@@ -35,6 +52,11 @@ export class Hero extends React.Component {
                 Technical Documentation
               </a>
             </li>
+            <li className="m-list_item">
+              <a href={socrataUrl} target="_blank">
+                View complaint data in Socrata
+              </a>
+            </li>
           </ul>
         </header>
     );
@@ -46,7 +68,7 @@ export const mapStateToProps = () => ( {
 
 export const mapDispatchToProps = dispatch => ( {
   onMoreAbout: () => {
-    dispatch( () => { console.log( 'clicked' ) } )
+    dispatch( showMoreAboutDialog() )
   }
 } )
 
