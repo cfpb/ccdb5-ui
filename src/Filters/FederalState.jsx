@@ -22,9 +22,11 @@ export class FederalState extends React.Component {
   }
 
   render() {
+    const desc = 'The state of the mailing address provided by the consumer'
+
     return (
       <CollapsibleFilter title="State"
-                         desc="The state of the mailing address provided by the consumer"
+                         desc={desc}
                          showChildren={this.props.showChildren}
                          className="aggregation">
         <Typeahead placeholder="Enter state name or abbreviation"
@@ -96,6 +98,7 @@ export class FederalState extends React.Component {
     return {
       key,
       value: buildLabel( key ),
+      // eslint-disable-next-line camelcase
       doc_count: 0
     }
   }

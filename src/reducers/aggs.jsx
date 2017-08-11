@@ -1,5 +1,7 @@
 import { COMPLAINTS_RECEIVED } from '../constants'
 
+/* eslint-disable camelcase */
+
 export const defaultAggs = {
   company: [],
   company_public_response: [],
@@ -14,6 +16,8 @@ export const defaultAggs = {
   timely: [],
   zip_code: []
 }
+
+/* eslint-enable camelcase */
 
 export default ( state = defaultAggs, action ) => {
   switch ( action.type ) {

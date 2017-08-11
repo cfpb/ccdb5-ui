@@ -1,5 +1,4 @@
 import './FilterPanel.less'
-import CollapsibleFilter from './Filters/CollapsibleFilter'
 import CompanyName from './Filters/CompanyName'
 import { connect } from 'react-redux'
 import DateFilter from './Filters/DateFilter'
@@ -13,6 +12,11 @@ import ZipCode from './Filters/ZipCode'
 
 export class FilterPanel extends React.Component {
   render() {
+    const descPublicResponse = "The company's optional public-facing " +
+      "response to a consumer's complaint"
+    const descConsumerConsent = 'Whether a consumer opted to publish their ' +
+      'compaint narrative'
+
     return (
       <section className="filter-panel">
         <h3>Filter results by...</h3>
@@ -41,7 +45,7 @@ export class FilterPanel extends React.Component {
         />
         <hr />
         <SimpleFilter title="Company Public Response"
-                     desc="The company's optional public-facing response to a consumer's complaint"
+                     desc={descPublicResponse}
                      fieldName="company_public_response"
         />
         <hr />
@@ -50,7 +54,7 @@ export class FilterPanel extends React.Component {
         />
         <hr />
         <SimpleFilter title="Consumer Consent"
-                     desc="Whether a consumer opted to publish their compaint narrative"
+                     desc={descConsumerConsent}
                      fieldName="consumer_consent_provided"
         />
       </section>

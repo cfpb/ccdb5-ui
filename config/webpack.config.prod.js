@@ -2,9 +2,7 @@ var merge = require( 'webpack-merge' );
 var baseConfig = require( '../config/webpack-config-base' );
 
 var webpack = require( 'webpack' );
-var HtmlWebpackPlugin = require( 'html-webpack-plugin' );
 var ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
-var ManifestPlugin = require( 'webpack-manifest-plugin' );
 var InterpolateHtmlPlugin = require( 'react-dev-utils/InterpolateHtmlPlugin' );
 var getClientEnvironment = require( './env' );
 var paths = require( './paths' );

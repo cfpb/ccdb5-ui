@@ -1,4 +1,7 @@
+/* eslint-disable camelcase */
+
 import { COMPLAINTS_FAILED, COMPLAINTS_RECEIVED } from '../constants'
+
 const defaultResults = {
   doc_count: 0,
   error: '',

@@ -7,12 +7,7 @@ const MAX_NARRATIVE = 300
 export default class ComplaintCard extends React.Component {
   render() {
     const row = this.props.row;
-
-    // Process the narrative
-    let narrative = row.complaint_what_happened || ''
-    const hasOverflow = narrative.length > MAX_NARRATIVE
-    narrative = narrative.substring( 0, MAX_NARRATIVE )
-    const complaintIdPath = '/detail/' + row.complaint_id;
+    const complaintIdPath = 'detail/' + row.complaint_id
 
     return (
       <li className="card-container">
@@ -65,19 +60,29 @@ export default class ComplaintCard extends React.Component {
                null
             }
             <br />
-            { narrative ?
-              <div>
-                <h5>Consumer Complaint Narrative</h5>
-                <span className="body-copy">
-                  { narrative }
-                  { hasOverflow ? <span> <a>[...]</a></span> : null }
-                </span>
-              </div> :
-               null
-            }
+            { this._renderNarrative( row.complaint_what_happened || '' ) }
           </div>
         </div>
       </li>
-    );
+    )
   }
+
+  // --------------------------------------------------------------------------
+  // Subrender methods
+
+  _renderNarrative( narrative ) {
+    const hasOverflow = narrative.length > MAX_NARRATIVE
+    narrative = narrative.substring( 0, MAX_NARRATIVE )
+
+    return narrative ?
+        <div>
+          <h5>Consumer Complaint Narrative</h5>
+          <span className="body-copy">
+            { narrative }
+            { hasOverflow ? <span> <a>[...]</a></span> : null }
+          </span>
+        </div> :
+       null
+  }
+
 }
