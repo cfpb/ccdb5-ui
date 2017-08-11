@@ -21,7 +21,7 @@ export class FilterPanel extends React.Component {
       <section className="filter-panel">
         <h3>Filter results by...</h3>
         <SingleCheckbox title="Only show complaints with narratives?"
-                        label="Yes" />
+                        fieldName="has_narrative" />
         <hr />
         <DateFilter fieldName="date_received" />
         <hr />

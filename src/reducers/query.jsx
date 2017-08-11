@@ -77,6 +77,13 @@ function processParams( state, params ) {
     }
   } )
 
+  // Handle flag filters
+  types.flagFilters.forEach( field => {
+    if ( typeof params[field] !== 'undefined' ) {
+      processed[field] = params[field].toString()
+    }
+  } )
+
   // Convert from strings
   urlParamsInt.forEach( field => {
     if ( typeof processed[field] !== 'undefined' ) {
@@ -110,6 +117,34 @@ export function changeDateRange( state, action ) {
   const fields = [ 'min_date', 'max_date' ]
   fields.forEach( field => {
     if ( newState[field] === null ) {
+      delete newState[field]
+    }
+  } )
+
+  return newState
+}
+
+/**
+* Change a boolean flag filter
+*
+* @param {object} state the current state in the Redux store
+* @param {object} action the payload containing the value to change
+* @returns {object} the new state for the Redux store
+*/
+export function changeFlagFilter( state, action ) {
+
+  /* eslint-disable camelcase */
+  const newState = {
+    ...state,
+    [action.filterName]: action.filterValue
+  }
+
+  /* eslint-enable camelcase */
+
+  // Remove nulls
+  const fields = [ 'has_narrative' ]
+  fields.forEach( field => {
+    if ( !newState[field] ) {
       delete newState[field]
     }
   } )
@@ -255,6 +290,9 @@ export default ( state = defaultQuery, action ) => {
 
     case types.FILTER_CHANGED:
       return toggleFilter( state, action )
+
+    case types.FILTER_FLAG_CHANGED:
+      return changeFlagFilter( state, action )
 
     case types.FILTER_REMOVED:
       return removeFilter( state, action )

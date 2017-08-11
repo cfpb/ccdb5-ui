@@ -110,6 +110,13 @@ describe('reducer:query', () => {
       expect(actual.getMonth()).toEqual(expected.getMonth())
     })
 
+    it('converts flag parameters to strings', () => {
+      const expected = 'true'
+      action.params = { has_narrative: true }
+      const actual = target({}, action).has_narrative
+      expect(actual).toEqual(expected)
+    })
+
     it('ignores incorrect dates', () => {
       action.params = { min_date: 'foo' }
       expect(target({}, action)).toEqual({})
@@ -307,6 +314,30 @@ describe('reducer:query', () => {
       action.minDate = null
       expect(target({}, action)).toEqual({
         max_date: new Date(2013, 1, 3)
+      })
+    })
+  })
+
+  describe('handles FILTER_FLAG_CHANGED actions', () => {
+    let action;
+    beforeEach(() => {
+      action = {
+        type: types.FILTER_FLAG_CHANGED,
+        filterName: 'has_narrative',
+        filterValue: true
+      }
+    })
+
+    it("adds narrative filter when present", () => {
+      expect(target({}, action)).toEqual({
+        has_narrative: true
+      })
+    })
+
+    it("does not add when narrative filter is false", () => {
+      action.filterValue = false
+      expect(target({}, action)).toEqual({
+
       })
     })
   })

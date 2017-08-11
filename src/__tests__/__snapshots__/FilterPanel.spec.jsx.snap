@@ -12,9 +12,12 @@ exports[`initial state renders without crashing 1`] = `
     <div
       className="m-form-field m-form-field__checkbox">
       <input
+        checked={false}
         className="a-checkbox"
         id="theCheckbox"
-        type="checkbox" />
+        onClick={[Function]}
+        type="checkbox"
+        value="has_narrative" />
       <label
         className="a-label"
         htmlFor="theCheckbox">
