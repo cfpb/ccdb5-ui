@@ -328,13 +328,13 @@ describe('reducer:query', () => {
       }
     })
 
-    it("adds the dates", () => {
+    it("adds narrative filter when present", () => {
       expect(target({}, action)).toEqual({
         has_narrative: true
       })
     })
 
-    it("does not add empty dates", () => {
+    it("does not add when narrative filter is false", () => {
       action.filterValue = false
       expect(target({}, action)).toEqual({
 
