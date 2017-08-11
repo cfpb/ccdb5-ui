@@ -74,6 +74,14 @@ exports[`initial state renders without crashing 1`] = `
           Technical Documentation
         </a>
       </li>
+      <li
+        className="m-list_item">
+        <a
+          href="https://data.consumerfinance.gov/dataset/Consumer-Complaints/s6ew-h6mp"
+          target="_blank">
+          View complaint data in Socrata
+        </a>
+      </li>
     </ul>
   </header>
   <div

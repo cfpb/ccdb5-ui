@@ -21,6 +21,7 @@ export const COMPLAINT_DETAIL_FAILED = 'COMPLAINT_DETAIL_FAILED'
 
 // Modal Dialogs
 export const MODAL_TYPE_DATA_EXPORT = 'MODAL_TYPE_DATA_EXPORT'
+export const MODAL_TYPE_MORE_ABOUT = 'MODAL_TYPE_MORE_ABOUT'
 
 // Useful constants
 export const knownFilters = [
