@@ -12,9 +12,12 @@ exports[`initial state renders without crashing 1`] = `
     <div
       className="m-form-field m-form-field__checkbox">
       <input
+        checked={false}
         className="a-checkbox"
         id="theCheckbox"
-        type="checkbox" />
+        onClick={[Function]}
+        type="checkbox"
+        value="has_narrative" />
       <label
         className="a-label"
         htmlFor="theCheckbox">
@@ -137,6 +140,11 @@ exports[`initial state renders without crashing 1`] = `
     <p>
       The type of product and sub-product the consumer identified in the complaint
     </p>
+    <a
+      href="http://files.consumerfinance.gov/f/documents/201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf"
+      target="_blank">
+      Recent changes to products and sub-products
+    </a>
     <div>
       <ul />
     </div>

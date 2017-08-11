@@ -35,6 +35,12 @@ export function stateToQS( state ) {
       value = shortIsoFormat( value )
     }
 
+    // Process boolean flags
+    const positives = [ 'yes', 'true' ]
+    if ( types.flagFilters.indexOf( field ) !== -1 ) {
+      value = positives.includes( String( value ).toLowerCase() )
+    }
+
     // Map the internal field names to the API field names
     if ( fieldMap[field] ) {
       params[fieldMap[field]] = value

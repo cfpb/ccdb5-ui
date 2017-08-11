@@ -22,6 +22,20 @@ describe('action:filterActions', () => {
     })
   })
 
+  describe('filterFlagToggle', () => {
+    it('creates a simple action', () => {
+        const filterName = 'has_narrative'
+        const filterValue = 'true'
+        const expectedAction = {
+          type: types.FILTER_FLAG_CHANGED,
+          filterName,
+          filterValue
+        }
+        expect(sut.filterFlagToggle(filterName, filterValue))
+          .toEqual( expectedAction );
+    })
+  })
+
   describe('filterToggled', () => {
     it('creates a simple action', () => {
         const filterName = 'timely'
@@ -128,6 +142,24 @@ describe('action:filterActions', () => {
         ]
 
         store.dispatch(sut.changeDateRange(filterName, minDate, maxDate))
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+    })
+
+    describe('changeFlagFilter', () => {
+      it('executes a chain of actions', () => {
+        const filterName = 'has_narrative'
+        const filterValue = 'true'
+        const expectedActions = [
+          { type:
+            types.FILTER_FLAG_CHANGED,
+            filterName,
+            filterValue
+          },
+          { type: 'getComplaintsMock' }
+        ]
+
+        store.dispatch(sut.changeFlagFilter(filterName, filterValue))
         expect(store.getActions()).toEqual(expectedActions)
       })
     })
