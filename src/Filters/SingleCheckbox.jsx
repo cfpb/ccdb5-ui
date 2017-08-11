@@ -60,11 +60,14 @@ SingleCheckbox.defaultProps = {
   isChecked: false
 }
 
-export const mapStateToProps = state => ( {
-  isChecked: typeof state.query.has_narrative !== 'undefined' &&
-    ( state.query.has_narrative.toString() === 'yes' ||
-      state.query.has_narrative.toString() === 'true' )
-} )
+export const mapStateToProps = state => {
+  var queryValue = state.query.has_narrative
+  return {
+    isChecked: typeof queryValue !== 'undefined' &&
+      ( queryValue.toString() === 'yes' ||
+        queryValue.toString() === 'true' )
+  }
+}
 
 export const mapDispatchToProps = dispatch => ( {
   changeFlagFilter: ( fieldName, isChecked ) => {
