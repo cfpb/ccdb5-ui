@@ -1,7 +1,7 @@
 import {
   DATE_RANGE_CHANGED,
-  FILTER_ALL_REMOVED, FILTER_CHANGED, FILTER_MULTIPLE_ADDED,
-  FILTER_MULTIPLE_REMOVED, FILTER_REMOVED
+  FILTER_ALL_REMOVED, FILTER_CHANGED, FILTER_FLAG_CHANGED,
+  FILTER_MULTIPLE_ADDED, FILTER_MULTIPLE_REMOVED, FILTER_REMOVED
 } from '../constants'
 import { getComplaints } from './complaints'
 
@@ -35,6 +35,21 @@ export function dateRangeChanged( filterName, minDate, maxDate ) {
 export function filterToggle( filterName, filterValue ) {
   return {
     type: FILTER_CHANGED,
+    filterName,
+    filterValue
+  }
+}
+
+/**
+* Notifies the application that a flag filter changed
+*
+* @param {string} filterName which filter was clicked
+* @param {bool} filterValue the value of the filter that was clicked
+* @returns {string} a packaged payload to be used by Redux reducers
+*/
+export function filterFlagToggle( filterName, filterValue ) {
+  return {
+    type: FILTER_FLAG_CHANGED,
     filterName,
     filterValue
   }
@@ -184,6 +199,20 @@ export function removeAllFilters() {
 export function removeMultipleFilters( filterName, values ) {
   return dispatch => {
     dispatch( filterMultipleRemoved( filterName, values ) )
+    dispatch( getComplaints() )
+  }
+}
+
+/**
+* Changes the value on a flag filter
+*
+* @param {string} filterName which filter is being updated
+* @param {bool} value the value being changed
+* @returns {function} a series of actions to execute
+*/
+export function changeFlagFilter( filterName, value ) {
+  return dispatch => {
+    dispatch( filterFlagToggle( filterName, value ) )
     dispatch( getComplaints() )
   }
 }

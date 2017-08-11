@@ -1,11 +1,11 @@
 import './FilterPanel.less'
-import Aggregation from './Filters/Aggregation'
 import CollapsibleFilter from './Filters/CollapsibleFilter'
 import CompanyName from './Filters/CompanyName'
 import { connect } from 'react-redux'
 import DateFilter from './Filters/DateFilter'
 import FederalState from './Filters/FederalState'
 import Issue from './Filters/Issue'
+import Product from './Filters/Product'
 import React from 'react'
 import SimpleFilter from './Filters/SimpleFilter'
 import SingleCheckbox from './Filters/SingleCheckbox'
@@ -17,16 +17,13 @@ export class FilterPanel extends React.Component {
       <section className="filter-panel">
         <h3>Filter results by...</h3>
         <SingleCheckbox title="Only show complaints with narratives?"
-                        label="Yes" />
+                        fieldName="has_narrative" />
         <hr />
         <DateFilter fieldName="date_received" />
         <hr />
         <CompanyName />
         <hr />
-        <Aggregation title="Product / sub-product"
-                     desc="The type of product and sub-product the consumer identified in the complaint"
-                     fieldName="product"
-        />
+        <Product />
         <hr />
         <Issue />
         <hr />

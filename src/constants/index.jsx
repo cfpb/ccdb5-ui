@@ -6,6 +6,7 @@ export const SIZE_CHANGED = 'SIZE_CHANGED'
 export const SORT_CHANGED = 'SORT_CHANGED'
 export const URL_CHANGED = 'URL_CHANGED'
 export const FILTER_CHANGED = 'FILTER_CHANGED'
+export const FILTER_FLAG_CHANGED = 'FILTER_FLAG_CHANGED'
 export const FILTER_REMOVED = 'FILTER_REMOVED'
 export const FILTER_ALL_REMOVED = 'FILTER_ALL_REMOVED'
 export const FILTER_MULTIPLE_ADDED = 'FILTER_MULTIPLE_ADDED'
@@ -41,6 +42,10 @@ export const knownFilters = [
 export const dateFilters = [
   'max_date',
   'min_date'
+]
+
+export const flagFilters = [
+  'has_narrative'
 ]
 
 export const SLUG_SEPARATOR = '•'
