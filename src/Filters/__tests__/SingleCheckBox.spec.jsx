@@ -63,13 +63,12 @@ describe('component::SingleCheckbox', () => {
   describe('flag filter changed', () => {
     it('triggers an update when checkbox is clicked', () => {
       const { target, props } = setupEnzyme()
-      const input = target.find('input[id="theCheckbox"]')
+      const input = target.find('#theCheckbox')
 
       input.simulate('click')
       const actual = props.changeFlagFilter.mock.calls[0]
 
-      expect(actual[0]).toEqual('has_narrative')
-      expect(actual[1]).toEqual(false)
+      expect(props.changeFlagFilter).toHaveBeenCalledWith('has_narrative', false)
     })
   })
 

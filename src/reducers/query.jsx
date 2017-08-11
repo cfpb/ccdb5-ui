@@ -136,7 +136,7 @@ export function changeFlagFilter( state, action ) {
   /* eslint-disable camelcase */
   const newState = {
     ...state,
-    has_narrative: action.filterValue
+    [action.filterName]: action.filterValue
   }
 
   /* eslint-enable camelcase */
