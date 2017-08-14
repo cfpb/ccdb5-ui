@@ -53,14 +53,17 @@ exports[`component::ComplaintDetail snapshots renders WAITING phase 1`] = `
       </a>
     </div>
   </nav>
-  <div
-    className="waiting">
-    <h1>
-      Loading 
-      123456789
-      ...
-    </h1>
-  </div>
+  <section
+    className="light-box">
+    <div
+      className="loading-box">
+      <span
+        className="cf-icon cf-icon-update cf-icon__before cf-icon__spin" />
+      <span>
+        This page is loading
+      </span>
+    </div>
+  </section>
 </section>
 `;
 

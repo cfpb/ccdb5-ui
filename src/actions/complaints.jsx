@@ -1,3 +1,5 @@
+/* eslint complexity: ["error", 6] */
+
 import * as types from '../constants'
 import { shortIsoFormat } from '../Filters/utils'
 const queryString = require( 'query-string' );
@@ -63,6 +65,7 @@ export function stateToQS( state ) {
 export function getComplaints() {
   return ( dispatch, getState ) => {
     const uri = '@@API' + stateToQS( getState() )
+    dispatch( callingApi( uri ) )
     return fetch( uri )
     .then( result => result.json() )
     .then( items => dispatch( complaintsReceived( items ) ) )
@@ -79,10 +82,24 @@ export function getComplaints() {
 export function getComplaintDetail( id ) {
   return dispatch => {
     const uri = '@@API' + id
+    dispatch( callingApi( uri ) )
     fetch( uri )
       .then( result => result.json() )
       .then( data => dispatch( complaintDetailReceived( data ) ) )
       .catch( error => dispatch( complaintDetailFailed( error ) ) )
+  }
+}
+
+/**
+* Notifies the application that an API call is happening
+*
+* @param {string} url the url being called
+* @returns {string} a packaged payload to be used by Redux reducers
+*/
+export function callingApi( url ) {
+  return {
+    type: types.API_CALLED,
+    url
   }
 }
 
