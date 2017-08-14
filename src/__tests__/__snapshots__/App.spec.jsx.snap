@@ -24,14 +24,17 @@ exports[`initial state renders the detail route 1`] = `
         </a>
       </div>
     </nav>
-    <div
-      className="waiting">
-      <h1>
-        Loading 
-        1234
-        ...
-      </h1>
-    </div>
+    <section
+      className="light-box">
+      <div
+        className="loading-box">
+        <span
+          className="cf-icon cf-icon-update cf-icon__before cf-icon__spin" />
+        <span>
+          This page is loading
+        </span>
+      </div>
+    </section>
   </section>
 </main>
 `;
@@ -620,6 +623,17 @@ exports[`initial state renders without crashing 1`] = `
       <h2>
         No results were found for your search
       </h2>
+      <section
+        className="light-box">
+        <div
+          className="loading-box">
+          <span
+            className="cf-icon cf-icon-update cf-icon__before cf-icon__spin" />
+          <span>
+            This page is loading
+          </span>
+        </div>
+      </section>
     </section>
   </div>
   <span />

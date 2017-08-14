@@ -2,6 +2,7 @@ import './ComplaintDetail.less';
 import { connect } from 'react-redux'
 import { FormattedDate } from 'react-intl';
 import { getComplaintDetail } from './actions/complaints'
+import Loading from './Dialogs/Loading'
 import PropTypes from 'prop-types'
 import React from 'react';
 
@@ -192,9 +193,7 @@ export class ComplaintDetail extends React.Component {
 
   _renderWaiting() {
     return (
-      <div className="waiting">
-        <h1>Loading { this.props.complaint_id }...</h1>
-      </div>
+      <Loading isLoading={true} />
     )
   }
 
