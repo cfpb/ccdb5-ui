@@ -1,16 +1,25 @@
 /* eslint-disable camelcase */
 
-import { COMPLAINTS_FAILED, COMPLAINTS_RECEIVED } from '../constants'
+import {
+  API_CALLED, COMPLAINTS_FAILED, COMPLAINTS_RECEIVED
+} from '../constants'
 
 const defaultResults = {
   doc_count: 0,
   error: '',
+  isLoading: false,
   items: [],
   total: 0
 }
 
 export default ( state = defaultResults, action ) => {
   switch ( action.type ) {
+    case API_CALLED:
+      return {
+        ...state,
+        isLoading: true
+      }
+
     case COMPLAINTS_RECEIVED: {
       const items = action.data.hits.hits.map( x => x._source )
 
@@ -24,6 +33,7 @@ export default ( state = defaultResults, action ) => {
         ...state,
         doc_count,
         error: '',
+        isLoading: false,
         items: items,
         total: action.data.hits.total
       }
