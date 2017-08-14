@@ -12,6 +12,18 @@ const defaultResults = {
   total: 0
 }
 
+export const _processHits = data => data.hits.hits.map( x => {
+  const item = { ...x._source }
+
+  if ( x.highlight ) {
+    Object.keys( x.highlight ).forEach( field => {
+      item[field] = x.highlight[field][0]
+    } )
+  }
+
+  return item
+} )
+
 export default ( state = defaultResults, action ) => {
   switch ( action.type ) {
     case API_CALLED:
@@ -21,7 +33,7 @@ export default ( state = defaultResults, action ) => {
       }
 
     case COMPLAINTS_RECEIVED: {
-      const items = action.data.hits.hits.map( x => x._source )
+      const items = _processHits( action.data )
 
       const doc_count = Math.max(
       state.doc_count,
