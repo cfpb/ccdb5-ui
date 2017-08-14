@@ -16,25 +16,34 @@ exports[`initial state hides the section when there is no narrative 1`] = `
         Matched company name
       </h5>
       <span
-        className="body-copy">
-        ABC Corp
-      </span>
+        className="body-copy"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "ABC Corp",
+          }
+        } />
       <br />
       <h5>
         Company response to consumer
       </h5>
       <span
-        className="body-copy">
-        Ipsum
-      </span>
+        className="body-copy"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Ipsum",
+          }
+        } />
       <br />
       <h5>
         Timely response?
       </h5>
       <span
-        className="body-copy">
-        Yes
-      </span>
+        className="body-copy"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Yes",
+          }
+        } />
     </div>
     <div
       className="card-right layout-column">
@@ -60,18 +69,24 @@ exports[`initial state hides the section when there is no narrative 1`] = `
             Consumer\'s state:
           </h5>
           <span
-            className="body-copy">
-            DC
-          </span>
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "DC",
+              }
+            } />
         </div>
       </div>
       <br />
       <h5>
         Product
       </h5>
-      <h3>
-        Beta
-      </h3>
+      <h3
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Beta",
+          }
+        } />
       <div
         className="layout-row">
         <span
@@ -79,17 +94,23 @@ exports[`initial state hides the section when there is no narrative 1`] = `
           Sub-product:
         </span>
         <span
-          className="body-copy">
-          Delta
-        </span>
+          className="body-copy"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Delta",
+            }
+          } />
       </div>
       <br />
       <h5>
         Issue
       </h5>
-      <h3>
-        Alpha
-      </h3>
+      <h3
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Alpha",
+          }
+        } />
       <div
         className="layout-row">
         <span
@@ -97,9 +118,12 @@ exports[`initial state hides the section when there is no narrative 1`] = `
           Sub-issue:
         </span>
         <span
-          className="body-copy">
-          Gamma
-        </span>
+          className="body-copy"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Gamma",
+            }
+          } />
       </div>
       <br />
     </div>
@@ -125,25 +149,34 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
         Matched company name
       </h5>
       <span
-        className="body-copy">
-        ABC Corp
-      </span>
+        className="body-copy"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "ABC Corp",
+          }
+        } />
       <br />
       <h5>
         Company response to consumer
       </h5>
       <span
-        className="body-copy">
-        Ipsum
-      </span>
+        className="body-copy"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Ipsum",
+          }
+        } />
       <br />
       <h5>
         Timely response?
       </h5>
       <span
-        className="body-copy">
-        Yes
-      </span>
+        className="body-copy"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Yes",
+          }
+        } />
     </div>
     <div
       className="card-right layout-column">
@@ -169,18 +202,24 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
             Consumer\'s state:
           </h5>
           <span
-            className="body-copy">
-            DC
-          </span>
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "DC",
+              }
+            } />
         </div>
       </div>
       <br />
       <h5>
         Product
       </h5>
-      <h3>
-        Beta
-      </h3>
+      <h3
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Beta",
+          }
+        } />
       <div
         className="layout-row">
         <span
@@ -188,26 +227,35 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
           Sub-product:
         </span>
         <span
-          className="body-copy">
-          Delta
-        </span>
+          className="body-copy"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Delta",
+            }
+          } />
       </div>
       <br />
       <h5>
         Issue
       </h5>
-      <h3>
-        Alpha
-      </h3>
+      <h3
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Alpha",
+          }
+        } />
       <br />
       <div>
         <h5>
           Consumer Complaint Narrative
         </h5>
         <span
-          className="body-copy">
-          Oh baby you. Got what I need
-        </span>
+          className="body-copy"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Oh baby you. Got what I need",
+            }
+          } />
       </div>
     </div>
   </div>
@@ -232,25 +280,34 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
         Matched company name
       </h5>
       <span
-        className="body-copy">
-        ABC Corp
-      </span>
+        className="body-copy"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "ABC Corp",
+          }
+        } />
       <br />
       <h5>
         Company response to consumer
       </h5>
       <span
-        className="body-copy">
-        Ipsum
-      </span>
+        className="body-copy"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Ipsum",
+          }
+        } />
       <br />
       <h5>
         Timely response?
       </h5>
       <span
-        className="body-copy">
-        Yes
-      </span>
+        className="body-copy"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Yes",
+          }
+        } />
     </div>
     <div
       className="card-right layout-column">
@@ -276,25 +333,34 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
             Consumer\'s state:
           </h5>
           <span
-            className="body-copy">
-            DC
-          </span>
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "DC",
+              }
+            } />
         </div>
       </div>
       <br />
       <h5>
         Product
       </h5>
-      <h3>
-        Beta
-      </h3>
+      <h3
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Beta",
+          }
+        } />
       <br />
       <h5>
         Issue
       </h5>
-      <h3>
-        Alpha
-      </h3>
+      <h3
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Alpha",
+          }
+        } />
       <div
         className="layout-row">
         <span
@@ -302,9 +368,12 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
           Sub-issue:
         </span>
         <span
-          className="body-copy">
-          Gamma
-        </span>
+          className="body-copy"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Gamma",
+            }
+          } />
       </div>
       <br />
       <div>
@@ -312,9 +381,12 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
           Consumer Complaint Narrative
         </h5>
         <span
-          className="body-copy">
-          Oh baby you. Got what I need
-        </span>
+          className="body-copy"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Oh baby you. Got what I need",
+            }
+          } />
       </div>
     </div>
   </div>
@@ -339,25 +411,34 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
         Matched company name
       </h5>
       <span
-        className="body-copy">
-        ABC Corp
-      </span>
+        className="body-copy"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "ABC Corp",
+          }
+        } />
       <br />
       <h5>
         Company response to consumer
       </h5>
       <span
-        className="body-copy">
-        Ipsum
-      </span>
+        className="body-copy"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Ipsum",
+          }
+        } />
       <br />
       <h5>
         Timely response?
       </h5>
       <span
-        className="body-copy">
-        Yes
-      </span>
+        className="body-copy"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Yes",
+          }
+        } />
     </div>
     <div
       className="card-right layout-column">
@@ -383,18 +464,24 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
             Consumer\'s state:
           </h5>
           <span
-            className="body-copy">
-            DC
-          </span>
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "DC",
+              }
+            } />
         </div>
       </div>
       <br />
       <h5>
         Product
       </h5>
-      <h3>
-        Beta
-      </h3>
+      <h3
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Beta",
+          }
+        } />
       <div
         className="layout-row">
         <span
@@ -402,17 +489,23 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
           Sub-product:
         </span>
         <span
-          className="body-copy">
-          Delta
-        </span>
+          className="body-copy"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Delta",
+            }
+          } />
       </div>
       <br />
       <h5>
         Issue
       </h5>
-      <h3>
-        Alpha
-      </h3>
+      <h3
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Alpha",
+          }
+        } />
       <div
         className="layout-row">
         <span
@@ -420,9 +513,12 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
           Sub-issue:
         </span>
         <span
-          className="body-copy">
-          Gamma
-        </span>
+          className="body-copy"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Gamma",
+            }
+          } />
       </div>
       <br />
       <div>
@@ -430,14 +526,18 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
           Consumer Complaint Narrative
         </h5>
         <span
-          className="body-copy">
-          Call me Ishmael. Some years ago- never mind how long precisely- having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulati
-          <span>
-             
-            <a>
-              [...]
-            </a>
-          </span>
+          className="body-copy"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Call me Ishmael. Some years ago- never mind how long precisely- having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulati",
+            }
+          } />
+        <span>
+           
+          <a
+            href="detail/99990909">
+            [...]
+          </a>
         </span>
       </div>
     </div>
@@ -463,25 +563,34 @@ exports[`initial state renders without crashing 1`] = `
         Matched company name
       </h5>
       <span
-        className="body-copy">
-        ABC Corp
-      </span>
+        className="body-copy"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "ABC Corp",
+          }
+        } />
       <br />
       <h5>
         Company response to consumer
       </h5>
       <span
-        className="body-copy">
-        Ipsum
-      </span>
+        className="body-copy"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Ipsum",
+          }
+        } />
       <br />
       <h5>
         Timely response?
       </h5>
       <span
-        className="body-copy">
-        Yes
-      </span>
+        className="body-copy"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Yes",
+          }
+        } />
     </div>
     <div
       className="card-right layout-column">
@@ -507,18 +616,24 @@ exports[`initial state renders without crashing 1`] = `
             Consumer\'s state:
           </h5>
           <span
-            className="body-copy">
-            DC
-          </span>
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "DC",
+              }
+            } />
         </div>
       </div>
       <br />
       <h5>
         Product
       </h5>
-      <h3>
-        Beta
-      </h3>
+      <h3
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Beta",
+          }
+        } />
       <div
         className="layout-row">
         <span
@@ -526,17 +641,23 @@ exports[`initial state renders without crashing 1`] = `
           Sub-product:
         </span>
         <span
-          className="body-copy">
-          Delta
-        </span>
+          className="body-copy"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Delta",
+            }
+          } />
       </div>
       <br />
       <h5>
         Issue
       </h5>
-      <h3>
-        Alpha
-      </h3>
+      <h3
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Alpha",
+          }
+        } />
       <div
         className="layout-row">
         <span
@@ -544,9 +665,12 @@ exports[`initial state renders without crashing 1`] = `
           Sub-issue:
         </span>
         <span
-          className="body-copy">
-          Gamma
-        </span>
+          className="body-copy"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Gamma",
+            }
+          } />
       </div>
       <br />
       <div>
@@ -554,9 +678,12 @@ exports[`initial state renders without crashing 1`] = `
           Consumer Complaint Narrative
         </h5>
         <span
-          className="body-copy">
-          Oh baby you. Got what I need
-        </span>
+          className="body-copy"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Oh baby you. Got what I need",
+            }
+          } />
       </div>
     </div>
   </div>

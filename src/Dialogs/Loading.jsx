@@ -4,7 +4,7 @@ import React from 'react'
 
 export default class Loading extends React.Component {
   render() {
-    return this.props.isLoading ? (
+    return this.props.isLoading ?
       <section className="light-box">
         <div className="loading-box">
           <span className="cf-icon
@@ -14,8 +14,8 @@ export default class Loading extends React.Component {
           </span>
           <span>This page is loading</span>
         </div>
-      </section>
-    ) : null
+      </section> :
+     null
   }
 }
 

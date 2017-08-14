@@ -287,25 +287,34 @@ exports[`component:ReactPanel renders without crashing 1`] = `
             Matched company name
           </h5>
           <span
-            className="body-copy">
-            foo
-          </span>
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "foo",
+              }
+            } />
           <br />
           <h5>
             Company response to consumer
           </h5>
           <span
-            className="body-copy">
-            Closed
-          </span>
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Closed",
+              }
+            } />
           <br />
           <h5>
             Timely response?
           </h5>
           <span
-            className="body-copy">
-            yes
-          </span>
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "yes",
+              }
+            } />
         </div>
         <div
           className="card-right layout-column">
@@ -331,18 +340,24 @@ exports[`component:ReactPanel renders without crashing 1`] = `
                 Consumer\'s state:
               </h5>
               <span
-                className="body-copy">
-                DC
-              </span>
+                className="body-copy"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "DC",
+                  }
+                } />
             </div>
           </div>
           <br />
           <h5>
             Product
           </h5>
-          <h3>
-            Bar
-          </h3>
+          <h3
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Bar",
+              }
+            } />
           <div
             className="layout-row">
             <span
@@ -350,17 +365,23 @@ exports[`component:ReactPanel renders without crashing 1`] = `
               Sub-product:
             </span>
             <span
-              className="body-copy">
-              Qaz
-            </span>
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Qaz",
+                }
+              } />
           </div>
           <br />
           <h5>
             Issue
           </h5>
-          <h3>
-            Foo
-          </h3>
+          <h3
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Foo",
+              }
+            } />
           <div
             className="layout-row">
             <span
@@ -368,9 +389,12 @@ exports[`component:ReactPanel renders without crashing 1`] = `
               Sub-issue:
             </span>
             <span
-              className="body-copy">
-              Baz
-            </span>
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Baz",
+                }
+              } />
           </div>
           <br />
           <div>
@@ -378,9 +402,12 @@ exports[`component:ReactPanel renders without crashing 1`] = `
               Consumer Complaint Narrative
             </h5>
             <span
-              className="body-copy">
-              Lorem Ipsum
-            </span>
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Lorem Ipsum",
+                }
+              } />
           </div>
         </div>
       </div>
