@@ -2,6 +2,7 @@ import './ResultsPanel.less'
 import ActionBar from './ActionBar'
 import ComplaintCard from './ComplaintCard'
 import { connect } from 'react-redux'
+import Loading from './Dialogs/Loading'
 import { MemoryRouter } from 'react-router'
 import Pagination from './Pagination'
 import React from 'react'
@@ -36,6 +37,7 @@ export class ResultsPanel extends React.Component {
           <ActionBar />
           { this.renderMap[phase]() }
           <Pagination />
+          <Loading isLoading={this.props.isLoading || false} />
         </section>
       </MemoryRouter>
     )
@@ -84,6 +86,7 @@ export class ResultsPanel extends React.Component {
 
 const mapStateToProps = state => ( {
   error: state.results.error,
+  isLoading: state.results.isLoading,
   items: state.results.items
 } )
 

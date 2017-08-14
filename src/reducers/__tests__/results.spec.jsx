@@ -6,6 +6,7 @@ describe('reducer:results', () => {
     expect(target(undefined, {})).toEqual({
         doc_count: 0,
         error: '',
+        isLoading: false,
         items: [],
         total: 0
       })
@@ -32,6 +33,7 @@ describe('reducer:results', () => {
     expect(target({doc_count: 0, error: 'foo'}, action)).toEqual({
       doc_count: 162576,
       error: '',
+      isLoading: false,
       items: ['123', '456'],
       total: 2
     })
@@ -45,6 +47,7 @@ describe('reducer:results', () => {
     expect(target({doc_count: 100, items: [1, 2, 3]}, action)).toEqual({
       doc_count: 0,
       error: 'foo bar',
+      isLoading: false,
       items: [],
       total: 0
     })
