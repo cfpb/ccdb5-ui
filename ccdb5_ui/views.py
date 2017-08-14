@@ -8,9 +8,9 @@ except:  # pragma: no cover
 
 
 if STANDALONE:
-    BASE_TEMPLATE = 'base.html'
+    BASE_TEMPLATE = 'standalone_base.html'
 else:  # pragma: no cover
-    BASE_TEMPLATE = 'front/base_nonresponsive.html'
+    BASE_TEMPLATE = 'front/base_update.html'
 
 
 class CCDB5MainView(TemplateView):
