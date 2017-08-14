@@ -4,7 +4,7 @@ import React from 'react';
 export default class Hero extends React.Component {
   render() {
     return (
-        <header className="content_hero">
+        <header className="content_hero hero">
           <h1>Consumer Complaint Database</h1>
           <p>
           Consumer complaints get added to this public database after the
