@@ -38,7 +38,7 @@ export class DateFilter extends React.Component {
 
   render() {
     return (
-      <CollapsibleFilter title="Date CFPB Received the complaint"
+      <CollapsibleFilter title={ this.props.title }
                          className="aggregation date-filter">
           <div className="layout-row">
             { this._renderDateInput( 'From:', 'from' ) }
@@ -171,7 +171,8 @@ DateFilter.propTypes = {
   from: PropTypes.string,
   maximumDate: PropTypes.string,
   minimumDate: PropTypes.string,
-  through: PropTypes.string
+  through: PropTypes.string,
+  title: PropTypes.string.isRequired
 }
 
 DateFilter.defaultProps = {
