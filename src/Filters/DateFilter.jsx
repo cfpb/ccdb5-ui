@@ -181,9 +181,9 @@ DateFilter.defaultProps = {
   through: ''
 }
 
-export const mapStateToProps = state => ( {
-  from: shortIsoFormat( state.query.min_date ),
-  through: shortIsoFormat( state.query.max_date )
+export const mapStateToProps = ( state, ownProps ) => ( {
+  from: shortIsoFormat( state.query[ownProps.fieldName + '_min'] ),
+  through: shortIsoFormat( state.query[ownProps.fieldName + '_max'] )
 } )
 
 export const mapDispatchToProps = ( dispatch, ownProps ) => ( {
