@@ -13,7 +13,8 @@ function setupEnzyme(initialProps={}) {
     from: '',
     maximumDate: '',
     minimumDate: '',
-    through: ''
+    through: '',
+    title: 'Date CFPB Received the complaint'
   }, initialProps)
 
   const target = shallow(<DateFilter {...props} />);
@@ -36,6 +37,7 @@ function setupSnapshot(query={}) {
       <ReduxDateFilter fieldName="date_received"
                        minimumDate="2015-01-01"
                        maximumDate="2015-12-31"
+                       title="Date CFPB Received the complaint"
       />
     </Provider>
   )
