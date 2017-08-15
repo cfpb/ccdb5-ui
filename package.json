@@ -97,9 +97,7 @@
     "test": "node scripts/test.js --env=jsdom --coverage",
     "dev-flow": "node scripts/test.js --env=jsdom --coverage --watch",
     "lint": "node scripts/lint.js",
-    "preversion": "npm test",
-    "version": "npm run build && git add -A ccdb5_ui",
-    "postversion": "git push && git push --tags"
+    "version": "npm run build && git add -A ccdb5_ui"
   },
   "jest": {
     "collectCoverageFrom": [
