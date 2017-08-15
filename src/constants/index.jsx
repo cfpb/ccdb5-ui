@@ -42,6 +42,8 @@ export const knownFilters = [
 ]
 
 export const dateFilters = [
+  'company_received_max',
+  'company_received_min',
   'date_received_max',
   'date_received_min'
 ]
