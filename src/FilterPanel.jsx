@@ -23,7 +23,8 @@ export class FilterPanel extends React.Component {
         <SingleCheckbox title="Only show complaints with narratives?"
                         fieldName="has_narrative" />
         <hr />
-        <DateFilter fieldName="date_received" />
+        <DateFilter fieldName="date_received"
+                    title="Date CFPB Received the complaint" />
         <hr />
         <CompanyName />
         <hr />
@@ -49,8 +50,8 @@ export class FilterPanel extends React.Component {
                      fieldName="company_public_response"
         />
         <hr />
-        <SimpleFilter title="Did the consumer dispute the response?"
-                     fieldName="consumer_disputed"
+        <DateFilter title="Date complaint sent to company"
+                    fieldName="company_received"
         />
         <hr />
         <SimpleFilter title="Consumer Consent"
