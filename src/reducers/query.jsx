@@ -42,11 +42,12 @@ export function toDate( value ) {
 * Processes an object of key/value strings into the correct internal format
 *
 * @param {object} state the current state in the Redux store
-* @param {object} params a set of key/value pairs from the URL
+* @param {object} action the payload containing the key/value pairs
 * @returns {object} a filtered set of key/value pairs with the values set to
 * the correct type
 */
-function processParams( state, params ) {
+function processParams( state, action ) {
+  const params = action.params
   const processed = Object.assign( {}, state )
 
   // Filter for known
@@ -211,6 +212,22 @@ export function toggleFilter( state, action ) {
 }
 
 /**
+* Removes all filters from the current set
+*
+* @param {object} state the current state in the Redux store
+* @returns {object} the new state for the Redux store
+*/
+export function removeAllFilters( state ) {
+  const newState = { ...state }
+  types.knownFilters.forEach( kf => {
+    if ( kf in newState ) {
+      delete newState[kf]
+    }
+  } )
+  return newState
+}
+
+/**
 * Removes a filter from the current set
 *
 * @param {object} state the current state in the Redux store
@@ -253,11 +270,37 @@ function removeMultipleFilters( state, action ) {
 // ----------------------------------------------------------------------------
 // Action Handler
 
-export default ( state = defaultQuery, action ) => {
-  switch ( action.type ) {
-    case types.DATE_RANGE_CHANGED:
-      return changeDateRange( state, action )
+/**
+* Creates a hash table of action types to handlers
+*
+* @returns {object} a map of types to functions
+*/
+export function _buildHandlerMap() {
+  const handlers = {}
 
+  handlers[types.DATE_RANGE_CHANGED] = changeDateRange
+  handlers[types.FILTER_ALL_REMOVED] = removeAllFilters
+  handlers[types.FILTER_CHANGED] = toggleFilter
+  handlers[types.FILTER_FLAG_CHANGED] = changeFlagFilter
+  handlers[types.FILTER_MULTIPLE_ADDED] = addMultipleFilters
+  handlers[types.FILTER_MULTIPLE_REMOVED] = removeMultipleFilters
+  handlers[types.FILTER_REMOVED] = removeFilter
+  handlers[types.URL_CHANGED] = processParams
+
+  return handlers
+}
+
+const _handlers = _buildHandlerMap()
+
+/* eslint complexity: ["error", 6] */
+
+export default ( state = defaultQuery, action ) => {
+
+  if ( action.type in _handlers ) {
+    return _handlers[action.type]( state, action )
+  }
+
+  switch ( action.type ) {
     case types.SEARCH_CHANGED:
       return {
         ...state,
@@ -284,34 +327,6 @@ export default ( state = defaultQuery, action ) => {
         ...state,
         sort: action.sort
       }
-
-    case types.URL_CHANGED:
-      return processParams( state, action.params )
-
-    case types.FILTER_CHANGED:
-      return toggleFilter( state, action )
-
-    case types.FILTER_FLAG_CHANGED:
-      return changeFlagFilter( state, action )
-
-    case types.FILTER_REMOVED:
-      return removeFilter( state, action )
-
-    case types.FILTER_ALL_REMOVED: {
-      const newState = { ...state }
-      types.knownFilters.forEach( kf => {
-        if ( kf in newState ) {
-          delete newState[kf]
-        }
-      } )
-      return newState
-    }
-
-    case types.FILTER_MULTIPLE_ADDED:
-      return addMultipleFilters( state, action )
-
-    case types.FILTER_MULTIPLE_REMOVED:
-      return removeMultipleFilters( state, action )
 
     default:
       return state
