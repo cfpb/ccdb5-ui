@@ -1,6 +1,6 @@
 {
   "name": "ccdb5-ui",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "private": false,
   "description": "Consumer Complaint Database UI",
   "homepage": "https://www.consumerfinance.gov/",
@@ -96,7 +96,10 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom --coverage",
     "dev-flow": "node scripts/test.js --env=jsdom --coverage --watch",
-    "lint": "node scripts/lint.js"
+    "lint": "node scripts/lint.js",
+    "preversion": "npm test",
+    "version": "npm run build && git add -A ccdb5_ui",
+    "postversion": "git push && git push --tags"
   },
   "jest": {
     "collectCoverageFrom": [

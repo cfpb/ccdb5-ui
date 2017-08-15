@@ -81,14 +81,20 @@ You will also see any lint errors in the console.
 Enter `Control-C` to exit development mode
 
 #### Build deployment package
-To build the app for production to the build folder:
+To build the app for production:
 
 ```bash
-npm run build
+npm version [major | minor | patch]
 ```
 
-It bundles React in production mode and optimizes the build for the
+This will:
+1. Run the tests and make sure they pass
+1. Bumps the version in package.json & package-lock.json
+1. Builds the application in production mode and optimizes the build for the
 best performance.
+1. It stages the built package in Git
+1. It pushes the update to Git
+1. it pushes the new tag to Git
 
 ## How to test the software
 
