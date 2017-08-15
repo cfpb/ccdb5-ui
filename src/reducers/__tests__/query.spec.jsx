@@ -104,8 +104,8 @@ describe('reducer:query', () => {
 
     it('converts some parameters to dates', () => {
       const expected = new Date(2013, 1, 3)
-      action.params = { min_date: '2013-02-03' }
-      const actual = target({}, action).min_date
+      action.params = { date_received_min: '2013-02-03' }
+      const actual = target({}, action).date_received_min
       expect(actual.getFullYear()).toEqual(expected.getFullYear())
       expect(actual.getMonth()).toEqual(expected.getMonth())
     })
@@ -118,7 +118,7 @@ describe('reducer:query', () => {
     })
 
     it('ignores incorrect dates', () => {
-      action.params = { min_date: 'foo' }
+      action.params = { date_received_min: 'foo' }
       expect(target({}, action)).toEqual({})
     })
 
@@ -305,15 +305,15 @@ describe('reducer:query', () => {
 
     it("adds the dates", () => {
       expect(target({}, action)).toEqual({
-        min_date: new Date(2001, 0, 30),
-        max_date: new Date(2013, 1, 3)
+        date_received_min: new Date(2001, 0, 30),
+        date_received_max: new Date(2013, 1, 3)
       })
     })
 
     it("does not add empty dates", () => {
       action.minDate = null
       expect(target({}, action)).toEqual({
-        max_date: new Date(2013, 1, 3)
+        date_received_max: new Date(2013, 1, 3)
       })
     })
   })

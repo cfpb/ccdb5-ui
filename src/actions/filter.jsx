@@ -142,8 +142,6 @@ export function addMultipleFilters( filterName, values ) {
 */
 export function changeDateRange( filterName, minDate, maxDate ) {
   return dispatch => {
-    // eslint-disable-next-line
-    console.assert(filterName === 'date_received')
     dispatch( dateRangeChanged( filterName, minDate, maxDate ) )
     dispatch( getComplaints() )
   }

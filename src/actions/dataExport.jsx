@@ -56,10 +56,11 @@ export function exportSomeResults( format, size ) {
     const params = {
       query: { ...getState().query }
     }
+    // TODO: set the correct size in the query string
     params.query.size = Math.min( 10000, size )
     params.query.format = format
-
-    // TODO: set the format, correct size and no_aggs in the query string
+    // eslint-disable-next-line camelcase
+    params.query.no_aggs = true
 
     const uri = '@@API' + stateToQS( params )
     const link = buildLink( uri, 'download.' + format )

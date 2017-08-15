@@ -11,7 +11,7 @@ describe('component:UrlBarSynch', () =>{
         searchText: '',
         from: 0,
         size: 10,
-        min_date: new Date(2013, 1, 3),
+        date_received_min: new Date(2013, 1, 3),
         has_narrative: true
       },
       onUrlChanged: jest.fn()
@@ -24,7 +24,7 @@ describe('component:UrlBarSynch', () =>{
   describe('componentWillReceiveProps', () => {
     it('pushes a change to the url bar when parameters change', () => {
       props.params.from = 99
-      const expected = '?from=99&has_narrative=true&min_date=2013-02-03&searchText=&size=10'
+      const expected = '?date_received_min=2013-02-03&from=99&has_narrative=true&searchText=&size=10'
 
       target.componentWillReceiveProps(props)
 
@@ -33,7 +33,7 @@ describe('component:UrlBarSynch', () =>{
     })
 
     it('does not push history when parameters are the same', () => {
-      target.currentQS = '?from=0&has_narrative=true&min_date=2013-02-03&searchText=&size=10'
+      target.currentQS = '?date_received_min=2013-02-03&from=0&has_narrative=true&searchText=&size=10'
       target.componentWillReceiveProps(props)
       expect(target.history.push).not.toHaveBeenCalled()
     })
