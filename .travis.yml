@@ -10,3 +10,12 @@ script:
 
 after_script:
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+  
+before_deploy:
+  - npm version patch
+  
+deploy:
+  provider: releases
+  skip_cleanup: true
+  on:
+    tags: true
