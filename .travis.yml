@@ -18,4 +18,4 @@ deploy:
   provider: releases
   skip_cleanup: true
   on:
-    branch: master
+    branch: foo
