@@ -103,18 +103,18 @@ function processParams( state, params ) {
 */
 export function changeDateRange( state, action ) {
 
-  /* eslint-disable camelcase */
+  const fields = [
+    action.filterName + '_min',
+    action.filterName + '_max'
+  ]
 
   const newState = {
     ...state,
-    min_date: action.minDate,
-    max_date: action.maxDate
+    [fields[0]]: action.minDate,
+    [fields[1]]: action.maxDate
   }
 
-  /* eslint-enable camelcase */
-
   // Remove nulls
-  const fields = [ 'min_date', 'max_date' ]
   fields.forEach( field => {
     if ( newState[field] === null ) {
       delete newState[field]

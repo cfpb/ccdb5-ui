@@ -42,8 +42,8 @@ export const knownFilters = [
 ]
 
 export const dateFilters = [
-  'max_date',
-  'min_date'
+  'date_received_max',
+  'date_received_min'
 ]
 
 export const flagFilters = [

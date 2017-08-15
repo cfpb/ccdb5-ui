@@ -12,7 +12,9 @@ describe('action::complaints', () => {
 
     beforeEach(() => {
       global.fetch = jest.fn().mockImplementation((url) => {
-        expect(url).toContain('@@API?has_narrative=true&min_date=2013-02-03&size=10')
+        expect(url).toContain(
+          '@@API?date_received_min=2013-02-03&has_narrative=true&size=10'
+        )
 
         return {
           then: (x) => {
@@ -34,7 +36,7 @@ describe('action::complaints', () => {
           searchText: '',
           from: 0,
           size: 10,
-          min_date: new Date(2013, 1, 3),
+          date_received_min: new Date(2013, 1, 3),
           has_narrative: true
         }
       })

@@ -51,8 +51,8 @@ describe('component::DateFilter', () => {
 
     it('shows errors', () => {
       const target = setupSnapshot({
-        min_date: new Date(2016, 0, 1),
-        max_date: new Date(2000, 0, 1)
+        date_received_min: new Date(2016, 0, 1),
+        date_received_max: new Date(2000, 0, 1)
       })
       const tree = target.toJSON()
       expect(tree).toMatchSnapshot()
