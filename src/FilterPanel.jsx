@@ -50,8 +50,8 @@ export class FilterPanel extends React.Component {
                      fieldName="company_public_response"
         />
         <hr />
-        <SimpleFilter title="Did the consumer dispute the response?"
-                     fieldName="consumer_disputed"
+        <DateFilter title="Date complaint sent to company"
+                    fieldName="company_received"
         />
         <hr />
         <SimpleFilter title="Consumer Consent"

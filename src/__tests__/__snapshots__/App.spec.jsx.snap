@@ -493,25 +493,58 @@ exports[`initial state renders without crashing 1`] = `
         </section>
         <hr />
         <section
-          className="collapsible-filter aggregation">
+          className="collapsible-filter aggregation date-filter">
           <div
             className="layout-row">
             <h5
               className="flex-all">
-              Did the consumer dispute the response?
+              Date complaint sent to company
             </h5>
             <div
               className="flex-fixed toggle">
               <button
                 className="a-btn a-btn__link hover"
                 onClick={[Function]}>
-                Show
+                Hide
                 <span
-                  className="cf-icon cf-icon-plus-round" />
+                  className="cf-icon cf-icon-minus-round" />
               </button>
             </div>
           </div>
           <p />
+          <div
+            className="layout-row">
+            <div
+              className="flex-all">
+              <label
+                className="a-label a-label__heading body-copy">
+                From:
+              </label>
+              <input
+                aria-describedby="input-error_message-from"
+                className=""
+                max=""
+                min="2014-01-01"
+                onChange={[Function]}
+                type="date"
+                value="" />
+            </div>
+            <div
+              className="flex-all">
+              <label
+                className="a-label a-label__heading body-copy">
+                Through:
+              </label>
+              <input
+                aria-describedby="input-error_message-through"
+                className=""
+                max=""
+                min="2014-01-01"
+                onChange={[Function]}
+                type="date"
+                value="" />
+            </div>
+          </div>
         </section>
         <hr />
         <section
