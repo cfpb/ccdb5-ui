@@ -7,7 +7,7 @@ exports[`component::AggregationBranch initial state renders without crashing 1`]
       aria-label="foo"
       checked={false}
       className="flex-fixed"
-      onClick={[Function]}
+      onChange={[Function]}
       type="checkbox" />
     <div
       className="flex-all toggle">
@@ -36,7 +36,7 @@ exports[`component::AggregationBranch initial state renders without crashing 1`]
         aria-label="foo•bar"
         checked={true}
         className="flex-fixed"
-        onClick={[Function]}
+        onChange={[Function]}
         type="checkbox" />
       <span
         className="flex-all bucket-key">
@@ -55,7 +55,7 @@ exports[`component::AggregationBranch initial state renders without crashing 1`]
         aria-label="foo•baz"
         checked={false}
         className="flex-fixed"
-        onClick={[Function]}
+        onChange={[Function]}
         type="checkbox" />
       <span
         className="flex-all bucket-key">
@@ -74,7 +74,7 @@ exports[`component::AggregationBranch initial state renders without crashing 1`]
         aria-label="foo•qaz"
         checked={false}
         className="flex-fixed"
-        onClick={[Function]}
+        onChange={[Function]}
         type="checkbox" />
       <span
         className="flex-all bucket-key">

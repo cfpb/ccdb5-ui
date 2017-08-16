@@ -60,7 +60,7 @@ export class AggregationBranch extends React.Component {
           <input type="checkbox" className="flex-fixed"
                  aria-label={item.key}
                  checked={active}
-                 onClick={this._decideClickAction}
+                 onChange={this._decideClickAction}
           />
           <div className="flex-all toggle">
             <button className="a-btn a-btn__link hover"

@@ -5,7 +5,7 @@ exports[`component:AggregationItemFilter renders without crashing 1`] = `
     aria-label="foo"
     checked={false}
     className="flex-fixed"
-    onClick={[Function]}
+    onChange={[Function]}
     type="checkbox" />
   <span
     className="flex-all bucket-key">
