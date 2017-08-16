@@ -40,7 +40,7 @@ exports[`component::ZipCode snapshots renders without crashing 1`] = `
         aria-label="300XX"
         checked={true}
         className="flex-fixed"
-        onClick={[Function]}
+        onChange={[Function]}
         type="checkbox" />
       <span
         className="flex-all bucket-key">

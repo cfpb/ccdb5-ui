@@ -36,7 +36,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
             aria-label="Credit reporting, credit repair services, or other personal consumer reports"
             checked={false}
             className="flex-fixed"
-            onClick={[Function]}
+            onChange={[Function]}
             type="checkbox" />
           <div
             className="flex-all toggle">
@@ -66,7 +66,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
             aria-label="Mortgage"
             checked={false}
             className="flex-fixed"
-            onClick={[Function]}
+            onChange={[Function]}
             type="checkbox" />
           <div
             className="flex-all toggle">
@@ -94,7 +94,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
           aria-label="Credit reporting"
           checked={false}
           className="flex-fixed"
-          onClick={[Function]}
+          onChange={[Function]}
           type="checkbox" />
         <span
           className="flex-all bucket-key">
@@ -113,7 +113,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
           aria-label="Student loan"
           checked={false}
           className="flex-fixed"
-          onClick={[Function]}
+          onChange={[Function]}
           type="checkbox" />
         <span
           className="flex-all bucket-key">
@@ -132,7 +132,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
           aria-label="Credit card or prepaid card"
           checked={false}
           className="flex-fixed"
-          onClick={[Function]}
+          onChange={[Function]}
           type="checkbox" />
         <span
           className="flex-all bucket-key">

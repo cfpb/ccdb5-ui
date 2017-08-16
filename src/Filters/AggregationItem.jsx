@@ -14,7 +14,7 @@ export const AggregationItem = ( { item, fieldName, active, onClick } ) => {
             <input type="checkbox" className="flex-fixed"
                    aria-label={item.key}
                    checked={active}
-                   onClick={onClick}
+                   onChange={onClick}
             />
             <span className="flex-all bucket-key">{value}</span>
             <span className="flex-fixed bucket-count">
