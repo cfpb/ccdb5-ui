@@ -1,17 +1,18 @@
 @import (less) "../base.less";
 
-.collapsible-filter {
+.o-expandable {
   h5 {
     max-width: ~"calc(100% - 55px)";
     box-sizing: border-box;
     padding-right: @gutter-minimum;
   }
 
-  .toggle {
-    .a-btn__link {
+  .o-expandable_cue {
+    &.a-btn__link {
       border: 0;
 
       color: @pacific;
+      font-size: @size-v;
     }
 
     .cf-icon {

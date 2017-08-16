@@ -186,23 +186,23 @@ exports[`initial state renders without crashing 1`] = `
         </section>
         <hr />
         <section
-          className="collapsible-filter aggregation date-filter">
+          className="o-expandable aggregation date-filter">
           <div
-            className="layout-row">
+            className="o-expandable_header o-expandable_target">
             <h5
-              className="flex-all">
+              className="o-expandable_header-left o-expandable_label">
               Date CFPB Received the complaint
             </h5>
-            <div
-              className="flex-fixed toggle">
+            <span
+              className="o-expandable_header-right o-expandable_link">
               <button
-                className="a-btn a-btn__link hover"
+                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
                 onClick={[Function]}>
                 Hide
                 <span
                   className="cf-icon cf-icon-minus-round" />
               </button>
-            </div>
+            </span>
           </div>
           <p />
           <div
@@ -241,23 +241,23 @@ exports[`initial state renders without crashing 1`] = `
         </section>
         <hr />
         <section
-          className="collapsible-filter aggregation">
+          className="o-expandable aggregation">
           <div
-            className="layout-row">
+            className="o-expandable_header o-expandable_target">
             <h5
-              className="flex-all">
+              className="o-expandable_header-left o-expandable_label">
               Matched Company Name
             </h5>
-            <div
-              className="flex-fixed toggle">
+            <span
+              className="o-expandable_header-right o-expandable_link">
               <button
-                className="a-btn a-btn__link hover"
+                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
                 onClick={[Function]}>
                 Hide
                 <span
                   className="cf-icon cf-icon-minus-round" />
               </button>
-            </div>
+            </span>
           </div>
           <p>
             The company name as it appears in our complaint system, which may be different than the name the consumer provided in their complaint
@@ -278,23 +278,23 @@ exports[`initial state renders without crashing 1`] = `
         </section>
         <hr />
         <section
-          className="collapsible-filter aggregation">
+          className="o-expandable aggregation">
           <div
-            className="layout-row">
+            className="o-expandable_header o-expandable_target">
             <h5
-              className="flex-all">
+              className="o-expandable_header-left o-expandable_label">
               Product / sub-product
             </h5>
-            <div
-              className="flex-fixed toggle">
+            <span
+              className="o-expandable_header-right o-expandable_link">
               <button
-                className="a-btn a-btn__link hover"
+                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
                 onClick={[Function]}>
                 Hide
                 <span
                   className="cf-icon cf-icon-minus-round" />
               </button>
-            </div>
+            </span>
           </div>
           <p>
             The type of product and sub-product the consumer identified in the complaint
@@ -310,23 +310,23 @@ exports[`initial state renders without crashing 1`] = `
         </section>
         <hr />
         <section
-          className="collapsible-filter aggregation">
+          className="o-expandable aggregation">
           <div
-            className="layout-row">
+            className="o-expandable_header o-expandable_target">
             <h5
-              className="flex-all">
+              className="o-expandable_header-left o-expandable_label">
               Issue / sub-issue
             </h5>
-            <div
-              className="flex-fixed toggle">
+            <span
+              className="o-expandable_header-right o-expandable_link">
               <button
-                className="a-btn a-btn__link hover"
+                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
                 onClick={[Function]}>
                 Hide
                 <span
                   className="cf-icon cf-icon-minus-round" />
               </button>
-            </div>
+            </span>
           </div>
           <p>
             The type of issue and sub-issue the consumer identified in the complaint
@@ -349,23 +349,23 @@ exports[`initial state renders without crashing 1`] = `
         </section>
         <hr />
         <section
-          className="collapsible-filter aggregation">
+          className="o-expandable aggregation">
           <div
-            className="layout-row">
+            className="o-expandable_header o-expandable_target">
             <h5
-              className="flex-all">
+              className="o-expandable_header-left o-expandable_label">
               State
             </h5>
-            <div
-              className="flex-fixed toggle">
+            <span
+              className="o-expandable_header-right o-expandable_link">
               <button
-                className="a-btn a-btn__link hover"
+                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
                 onClick={[Function]}>
                 Hide
                 <span
                   className="cf-icon cf-icon-minus-round" />
               </button>
-            </div>
+            </span>
           </div>
           <p>
             The state of the mailing address provided by the consumer
@@ -386,23 +386,23 @@ exports[`initial state renders without crashing 1`] = `
         </section>
         <hr />
         <section
-          className="collapsible-filter aggregation">
+          className="o-expandable aggregation">
           <div
-            className="layout-row">
+            className="o-expandable_header o-expandable_target">
             <h5
-              className="flex-all">
+              className="o-expandable_header-left o-expandable_label">
               Zip Code
             </h5>
-            <div
-              className="flex-fixed toggle">
+            <span
+              className="o-expandable_header-right o-expandable_link">
               <button
-                className="a-btn a-btn__link hover"
+                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
                 onClick={[Function]}>
                 Hide
                 <span
                   className="cf-icon cf-icon-minus-round" />
               </button>
-            </div>
+            </span>
           </div>
           <p>
             The mailing ZIP code provided by the consumer
@@ -423,45 +423,45 @@ exports[`initial state renders without crashing 1`] = `
         </section>
         <hr />
         <section
-          className="collapsible-filter aggregation">
+          className="o-expandable aggregation">
           <div
-            className="layout-row">
+            className="o-expandable_header o-expandable_target">
             <h5
-              className="flex-all">
+              className="o-expandable_header-left o-expandable_label">
               Did company provide a timely response?
             </h5>
-            <div
-              className="flex-fixed toggle">
+            <span
+              className="o-expandable_header-right o-expandable_link">
               <button
-                className="a-btn a-btn__link hover"
+                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
                 onClick={[Function]}>
                 Show
                 <span
                   className="cf-icon cf-icon-plus-round" />
               </button>
-            </div>
+            </span>
           </div>
           <p />
         </section>
         <hr />
         <section
-          className="collapsible-filter aggregation">
+          className="o-expandable aggregation">
           <div
-            className="layout-row">
+            className="o-expandable_header o-expandable_target">
             <h5
-              className="flex-all">
+              className="o-expandable_header-left o-expandable_label">
               Company Response
             </h5>
-            <div
-              className="flex-fixed toggle">
+            <span
+              className="o-expandable_header-right o-expandable_link">
               <button
-                className="a-btn a-btn__link hover"
+                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
                 onClick={[Function]}>
                 Show
                 <span
                   className="cf-icon cf-icon-plus-round" />
               </button>
-            </div>
+            </span>
           </div>
           <p>
             How the company responded to the complaint
@@ -469,23 +469,23 @@ exports[`initial state renders without crashing 1`] = `
         </section>
         <hr />
         <section
-          className="collapsible-filter aggregation">
+          className="o-expandable aggregation">
           <div
-            className="layout-row">
+            className="o-expandable_header o-expandable_target">
             <h5
-              className="flex-all">
+              className="o-expandable_header-left o-expandable_label">
               Company Public Response
             </h5>
-            <div
-              className="flex-fixed toggle">
+            <span
+              className="o-expandable_header-right o-expandable_link">
               <button
-                className="a-btn a-btn__link hover"
+                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
                 onClick={[Function]}>
                 Show
                 <span
                   className="cf-icon cf-icon-plus-round" />
               </button>
-            </div>
+            </span>
           </div>
           <p>
             The company\'s optional public-facing response to a consumer\'s complaint
@@ -493,23 +493,23 @@ exports[`initial state renders without crashing 1`] = `
         </section>
         <hr />
         <section
-          className="collapsible-filter aggregation date-filter">
+          className="o-expandable aggregation date-filter">
           <div
-            className="layout-row">
+            className="o-expandable_header o-expandable_target">
             <h5
-              className="flex-all">
+              className="o-expandable_header-left o-expandable_label">
               Date complaint sent to company
             </h5>
-            <div
-              className="flex-fixed toggle">
+            <span
+              className="o-expandable_header-right o-expandable_link">
               <button
-                className="a-btn a-btn__link hover"
+                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
                 onClick={[Function]}>
                 Hide
                 <span
                   className="cf-icon cf-icon-minus-round" />
               </button>
-            </div>
+            </span>
           </div>
           <p />
           <div
@@ -548,23 +548,23 @@ exports[`initial state renders without crashing 1`] = `
         </section>
         <hr />
         <section
-          className="collapsible-filter aggregation">
+          className="o-expandable aggregation">
           <div
-            className="layout-row">
+            className="o-expandable_header o-expandable_target">
             <h5
-              className="flex-all">
+              className="o-expandable_header-left o-expandable_label">
               Consumer Consent
             </h5>
-            <div
-              className="flex-fixed toggle">
+            <span
+              className="o-expandable_header-right o-expandable_link">
               <button
-                className="a-btn a-btn__link hover"
+                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
                 onClick={[Function]}>
                 Show
                 <span
                   className="cf-icon cf-icon-plus-round" />
               </button>
-            </div>
+            </span>
           </div>
           <p>
             Whether a consumer opted to publish their compaint narrative
