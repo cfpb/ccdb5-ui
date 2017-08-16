@@ -1,20 +1,20 @@
 exports[`initial state renders without crashing 1`] = `
 <section
-  className="collapsible-filter aggregation">
+  className="o-expandable aggregation">
   <div
-    className="layout-row">
+    className="o-expandable_header o-expandable_target">
     <h5
-      className="flex-all" />
-    <div
-      className="flex-fixed toggle">
+      className="o-expandable_header-left o-expandable_label" />
+    <span
+      className="o-expandable_header-right o-expandable_link">
       <button
-        className="a-btn a-btn__link hover"
+        className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
         onClick={[Function]}>
         Show
         <span
           className="cf-icon cf-icon-plus-round" />
       </button>
-    </div>
+    </span>
   </div>
   <p />
 </section>

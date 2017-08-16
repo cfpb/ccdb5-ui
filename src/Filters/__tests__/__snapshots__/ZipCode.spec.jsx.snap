@@ -1,22 +1,22 @@
 exports[`component::ZipCode snapshots renders without crashing 1`] = `
 <section
-  className="collapsible-filter aggregation">
+  className="o-expandable aggregation">
   <div
-    className="layout-row">
+    className="o-expandable_header o-expandable_target">
     <h5
-      className="flex-all">
+      className="o-expandable_header-left o-expandable_label">
       Zip Code
     </h5>
-    <div
-      className="flex-fixed toggle">
+    <span
+      className="o-expandable_header-right o-expandable_link">
       <button
-        className="a-btn a-btn__link hover"
+        className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
         onClick={[Function]}>
         Hide
         <span
           className="cf-icon cf-icon-minus-round" />
       </button>
-    </div>
+    </span>
   </div>
   <p>
     The mailing ZIP code provided by the consumer
@@ -40,7 +40,7 @@ exports[`component::ZipCode snapshots renders without crashing 1`] = `
         aria-label="300XX"
         checked={true}
         className="flex-fixed"
-        onClick={[Function]}
+        onChange={[Function]}
         type="checkbox" />
       <span
         className="flex-all bucket-key">
