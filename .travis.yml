@@ -11,11 +11,13 @@ script:
 after_script:
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
   
-before_deploy:
-  - npm version patch
-  
 deploy:
-  provider: releases
+ provider: script
+  skip_cleanup: true
+  script: npm version patch -m "[skip ci] Releasing, upgrading the version to %s"
+  on:
+    branch: master
+ provider: releases
   api_key: ${GITHUB_API_KEY}
   skip_cleanup: true
   on:
