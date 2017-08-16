@@ -5,6 +5,13 @@ node_js:
 install:
   - npm install
 
+before_script:
+  - git config --global user.email "cfpbdeploybot@cfpb.gov"
+  - git config --global user.name "cfpbdeploybot"
+  - git config --global push.default matching
+  - git config credential.helper "store --file=.git/credentials"
+  - echo "https://${GITHUB_API_KEY}:@github.com" > .git/credentials
+
 script:
   - npm test
 
@@ -17,8 +24,16 @@ deploy:
    script: npm version patch -m "[skip ci] Releasing, upgrading the version to %s"
    on:
      branch: master
- - provider: releases
-   api_key: ${GITHUB_API_KEY}
+     tags: false
+ - provider: script
    skip_cleanup: true
+   script: git push origin HEAD:$TRAVIS_BRANCH
    on:
      branch: master
+     tags: false
+ - provider: script
+   skip_cleanup: true
+   script: git push --tags
+   on:
+     branch: master
+     tags: false
