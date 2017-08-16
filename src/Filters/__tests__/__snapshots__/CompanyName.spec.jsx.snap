@@ -40,7 +40,7 @@ exports[`component::CompanyName snapshots renders without crashing 1`] = `
         aria-label="CAPITAL"
         checked={true}
         className="flex-fixed"
-        onClick={[Function]}
+        onChange={[Function]}
         type="checkbox" />
       <span
         className="flex-all bucket-key">

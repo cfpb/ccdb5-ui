@@ -89,7 +89,7 @@ describe('component::AggregationBranch', () => {
     it('calls one action when the checkbox is already selected', () => {
       const { target, props } = setupEnzyme(true)
       const checkbox = target.find('li.parent input[type="checkbox"]')
-      checkbox.simulate('click')
+      checkbox.simulate('change')
       expect(props.uncheckParent).toHaveBeenCalledWith(
         'issue', ['foo', 'foo•bar', 'foo•baz', 'foo•qaz']
       )
@@ -99,7 +99,7 @@ describe('component::AggregationBranch', () => {
     it('calls another action when the checkbox is not selected', () => {
       const { target, props } = setupEnzyme()
       const checkbox = target.find('li.parent input[type="checkbox"]')
-      checkbox.simulate('click')
+      checkbox.simulate('change')
       expect(props.uncheckParent).not.toHaveBeenCalled()
       expect(props.checkParent).toHaveBeenCalledWith(
         'issue', ['foo', 'foo•bar', 'foo•baz', 'foo•qaz']

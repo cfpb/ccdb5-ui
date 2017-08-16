@@ -43,7 +43,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
             aria-label="Incorrect information on credit report"
             checked={false}
             className="flex-fixed"
-            onClick={[Function]}
+            onChange={[Function]}
             type="checkbox" />
           <div
             className="flex-all toggle">
@@ -73,7 +73,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
             aria-label="Cont\'d attempts collect debt not owed"
             checked={false}
             className="flex-fixed"
-            onClick={[Function]}
+            onChange={[Function]}
             type="checkbox" />
           <div
             className="flex-all toggle">
@@ -101,7 +101,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
           aria-label="Loan servicing, payments, escrow account"
           checked={false}
           className="flex-fixed"
-          onClick={[Function]}
+          onChange={[Function]}
           type="checkbox" />
         <span
           className="flex-all bucket-key">
@@ -120,7 +120,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
           aria-label="Loan modification,collection,foreclosure"
           checked={false}
           className="flex-fixed"
-          onClick={[Function]}
+          onChange={[Function]}
           type="checkbox" />
         <span
           className="flex-all bucket-key">
@@ -139,7 +139,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
           aria-label="Dealing with my lender or servicer"
           checked={false}
           className="flex-fixed"
-          onClick={[Function]}
+          onChange={[Function]}
           type="checkbox" />
         <span
           className="flex-all bucket-key">
