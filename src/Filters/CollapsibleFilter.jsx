@@ -27,20 +27,22 @@ export default class CollapsibleFilter extends React.Component {
   }
 
   render() {
-    let composeClasses = 'collapsible-filter';
+    let composeClasses = 'o-expandable'
     if ( this.props.className ) {
       composeClasses += ' ' + this.props.className;
     }
 
+    const buttonClasses = 'a-btn a-btn__link o-expandable_cue '
+
     const opened =
-      <button className="a-btn a-btn__link hover"
+      <button className={ buttonClasses + 'o-expandable_cue-close' }
               onClick={this._toggleChildDisplay}>
         Hide
         <span className="cf-icon cf-icon-minus-round"></span>
       </button>
 
     const closed =
-      <button className="a-btn a-btn__link hover"
+      <button className={ buttonClasses + 'o-expandable_cue-open' }
               onClick={this._toggleChildDisplay}>
         Show
         <span className="cf-icon cf-icon-plus-round"></span>
@@ -48,14 +50,16 @@ export default class CollapsibleFilter extends React.Component {
 
     return (
       <section className={composeClasses}>
-          <div className="layout-row">
-            <h5 className="flex-all">{this.props.title}</h5>
-            <div className="flex-fixed toggle">
-              { this.state.showChildren ? opened : closed }
-            </div>
-          </div>
-          <p>{this.props.desc}</p>
-          { this.state.showChildren ? this.props.children : null }
+        <div className="o-expandable_header o-expandable_target">
+          <h5 className="o-expandable_header-left o-expandable_label">
+              {this.props.title}
+          </h5>
+          <span className="o-expandable_header-right o-expandable_link">
+            { this.state.showChildren ? opened : closed }
+          </span>
+        </div>
+        <p>{this.props.desc}</p>
+        { this.state.showChildren ? this.props.children : null }
       </section>
     );
   }
