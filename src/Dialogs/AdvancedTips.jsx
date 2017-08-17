@@ -6,7 +6,7 @@ export default class AdvancedTips extends React.Component {
   render() {
     return (
       <nav className="advanced_tips">
-          <div className="o-expandable o-expandable__padded">
+          <div className="o-expandable">
             <div className="o-expandable_content o-expandable_content__onload-open">
               <h3>Advanced search tips</h3>
               <div className="tips">
