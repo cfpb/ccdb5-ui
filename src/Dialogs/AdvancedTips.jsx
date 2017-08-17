@@ -57,7 +57,6 @@ export default class AdvancedTips extends React.Component {
                     </p>
                   </div>
                 </div>
-                <hr></hr>
                 <div className="tip">
                   <h4>Proximity Search</h4>
                   <input className="a-text-input example-input_full"
