@@ -9,7 +9,7 @@ setup_git() {
 }
 
 make_version() {
-  npm version patch -m "[skip ci] Releasing, upgrading the version to %s"
+  npm version patch -m "chore: release version %s [skip ci]"
   # git tag <tag-name> -a -f -m "Travis build: $TRAVIS_BUILD_NUMBER"
 }
 
