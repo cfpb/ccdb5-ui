@@ -2,7 +2,7 @@ exports[`component::AdvancedTips initial state renders HTML 1`] = `
 <nav
   className="advanced_tips">
   <div
-    className="o-expandable o-expandable__padded">
+    className="o-expandable">
     <div
       className="o-expandable_content o-expandable_content__onload-open">
       <h3>
@@ -85,7 +85,6 @@ exports[`component::AdvancedTips initial state renders HTML 1`] = `
             </p>
           </div>
         </div>
-        <hr />
         <div
           className="tip">
           <h4>
