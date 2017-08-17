@@ -1,5 +1,6 @@
 import './SearchBar.less'
 import Typeahead, { MODE_OPEN } from './Typeahead'
+import AdvancedTips from './Dialogs/AdvancedTips'
 import { connect } from 'react-redux'
 import HighlightingOption from './Typeahead/HighlightingOption'
 import PropTypes from 'prop-types'
@@ -18,7 +19,8 @@ export class SearchBar extends React.Component {
     super( props )
     this.state = {
       inputValue: props.searchText,
-      searchField: props.searchField
+      searchField: props.searchField,
+      advancedShown: false
     }
 
     // This binding is necessary to make `this` work in the callback
@@ -27,6 +29,7 @@ export class SearchBar extends React.Component {
     this._onInputChange = this._onInputChange.bind( this )
     this._onSelectSearchField = this._onSelectSearchField.bind( this )
     this._onTypeaheadSelected = this._onTypeaheadSelected.bind( this )
+    this._onAdvancedClicked = this._onAdvancedClicked.bind( this )
   }
 
   componentWillReceiveProps( nextProps ) {
@@ -43,6 +46,7 @@ export class SearchBar extends React.Component {
 
   render() {
     return (
+      <div>
         <nav className="search-bar">
           <form action="" onSubmit={this._handleSubmit}>
             <h5>Search Within</h5>
@@ -86,9 +90,24 @@ export class SearchBar extends React.Component {
                                    cf-icon__after
                                    cf-icon-search"></span>
               </button>
+              <div className="advanced-container">
+              {
+               this.state.advancedShown
+                 ? <a className="a-btn a-btn__link o-expandable_cue-close"
+                      onClick={ this._onAdvancedClicked }>Hide advanced search tips</a>
+                    : <a className="a-btn a-btn__link o-expandable_cue-open"
+                      onClick={ this._onAdvancedClicked }>Show advanced search tips</a>
+              }
+              </div>
             </div>
           </form>
         </nav>
+        {
+         this.state.advancedShown
+           ? <AdvancedTips />
+           : null
+         }
+       </div>
     )
   }
 
@@ -103,6 +122,12 @@ export class SearchBar extends React.Component {
   _onSelectSearchField( event ) {
     this.setState( {
       searchField: event.target.value
+    } )
+  }
+
+  _onAdvancedClicked( event ) {
+    this.setState( {
+      advancedShown: !this.state.advancedShown
     } )
   }
 
