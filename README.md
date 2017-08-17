@@ -8,8 +8,9 @@ This application allows consumers to search complaints submitted to the CFPB by 
 
 #### Technology Stack
 This application is written in JavaScript and [Less](http://lesscss.org) within
-the [React](https://facebook.github.io/react/) framework.  It uses
-[Webpack](http://webpack.github.io/docs/) at runtime to manage module loading.
+the [React](https://facebook.github.io/react/) + [Redux](http://redux.js.org/) 
+framework.  It uses [Webpack](http://webpack.github.io/docs/) at runtime to 
+manage module loading.
 
 The code is written with the [ES6](http://es6-features.org/) feature set
 of JavaScript. Backwards compatibility is achieved by compiling the script with
@@ -26,10 +27,10 @@ implementation that allows it to be used as a plugin for
 [CFPB's public website](https://github.com/cfpb/cfgov-refresh).
 
 #### Status
-Pre-pre-alpha
+Pre-release
 
 #### Screenshot
-TODO
+![screen August 17, 2017](documentation/screenshot.png)
 
 ## Dependencies
 
@@ -81,20 +82,29 @@ You will also see any lint errors in the console.
 Enter `Control-C` to exit development mode
 
 #### Build deployment package
-To build the app for production:
+
+Our [Travis](https://travis-ci.org/cfpb/ccdb5-ui) configuration is set up to
+build a deployment package after every push to `master`.  If this needs to be
+done manually, here are the steps to build the app for production:
 
 ```bash
-npm version [major | minor | patch]
+npm version [major | minor | patch] -m [message]
 ```
 
 This will:
-1. Run the tests and make sure they pass
-1. Bumps the version in package.json & package-lock.json
-1. Builds the application in production mode and optimizes the build for the
+1. Bump the version in `package.json` (and `package-lock.json` for npm > 5.0)
+1. Build the application in production mode and optimize the build for the
 best performance.
-1. It stages the built package in Git
-1. It pushes the update to Git
-1. it pushes the new tag to Git
+1. Create a new Git tag for the incremented version
+1. Commit the changes with the message provided
+
+
+```bash
+git push
+git push --tags
+```
+
+This will push the latest changes to the repo and ensure the new tag is included
 
 ## How to test the software
 
@@ -106,10 +116,6 @@ npm test
 ```
 
 Enter `Control-C` to exit interactive watch mode
-
-#### Browser Testing
-
-`TODO`
 
 ## Known issues
 
@@ -145,3 +151,9 @@ repository's [Issue Tracker](https://github.com/cfpb/ccdb5-ui/issues).
 * https://getstream.io/blog/react-redux-best-practices-gotchas/
 * https://tech.affirm.com/redux-patterns-and-anti-patterns-7d80ef3d53bc
 * https://github.com/gaearon/redux-devtools
+
+#### Travis building assets
+
+* https://gist.github.com/willprice/e07efd73fb7f13f917ea
+* https://github.com/JemsFramework/di/blob/release-current/.travis.yml
+
