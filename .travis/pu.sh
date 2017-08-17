@@ -1,8 +1,8 @@
 #!/bin/sh
 
 setup_git() {
-  git config --global user.email "cfpbdeploybot@cfpb.gov"
-  git config --global user.name "cfpbdeploybot"
+  # git config --global user.email "cfpbdeploybot@cfpb.gov"
+  # git config --global user.name "cfpbdeploybot"
   git config --global push.default matching
   git config credential.helper "store --file=.git/credentials"
   echo "https://${GITHUB_API_KEY}:@github.com" > .git/credentials
