@@ -160,10 +160,8 @@ export class SearchBar extends React.Component {
   }
 
   _onTypeaheadSelected( obj ) {
-    this.setState( {
-      inputValue: typeof obj === 'object' ? obj.key : obj
-    } )
-    this.submitButton.focus()
+    const inputValue = typeof obj === 'object' ? obj.key : obj
+    this.props.onSearch( inputValue, this.state.searchField )
   }
 }
 
