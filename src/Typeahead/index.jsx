@@ -116,6 +116,9 @@ export default class Typeahead extends React.Component {
       this.keyMap[keys.VK_ENTER] = this._openKeyEnter.bind( this )
       this.keyMap[keys.VK_RETURN] = this._openKeyEnter.bind( this )
       this.keyMap[keys.VK_TAB] = this._openChooseIndex.bind( this )
+
+      // In open mode, just hide the fact that no typeahead results match
+      this.renderMap[NO_RESULTS] = this._renderEmpty.bind( this )
     } else {
       this.keyMap[keys.VK_ESCAPE] = this._closedKeyCancel.bind( this )
       this.keyMap[keys.VK_UP] = this._closedNav.bind( this, -1 )
