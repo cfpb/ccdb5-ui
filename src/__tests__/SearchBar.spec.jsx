@@ -82,6 +82,12 @@ describe('component:SearchBar', () =>{
         const actual = target.instance()._onInputChange('BA')
         expect(actual.then).toBeInstanceOf(Function)
       })
+
+      it('sets the state', () => {
+        const {target} = setup()
+        const actual = target.instance()._onInputChange('BA')
+        expect(target.state('inputValue')).toEqual('BA')
+      })
     })
 
     describe('_renderOption', () => {
@@ -109,21 +115,13 @@ describe('component:SearchBar', () =>{
       it('handles objects', () => {
         const key = 'Bank'
         target.instance()._onTypeaheadSelected({key})
-        expect(target.state('inputValue')).toEqual('Bank')
+        expect(props.onSearch).toHaveBeenCalledWith('Bank', 'all')
       })
 
       it('handles strings', () => {
         const key = 'Bank'
         target.instance()._onTypeaheadSelected(key)
-        expect(target.state('inputValue')).toEqual('Bank')
-      })
-
-      it('sets the focus on the submit button', () => {
-        const instance = target.instance()
-        instance.submitButton.focus = jest.fn()
-
-        instance._onTypeaheadSelected('foo')
-        expect(instance.submitButton.focus).toHaveBeenCalled()
+        expect(props.onSearch).toHaveBeenCalledWith('Bank', 'all')
       })
     })
   })

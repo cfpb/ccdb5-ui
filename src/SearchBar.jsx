@@ -139,6 +139,10 @@ export class SearchBar extends React.Component {
   // Typeahead interface
 
   _onInputChange( value ) {
+    this.setState( {
+      inputValue: value
+    } )
+
     const n = value.toLowerCase()
 
     const uri = '@@API_suggest/?text=' + value
@@ -160,10 +164,8 @@ export class SearchBar extends React.Component {
   }
 
   _onTypeaheadSelected( obj ) {
-    this.setState( {
-      inputValue: typeof obj === 'object' ? obj.key : obj
-    } )
-    this.submitButton.focus()
+    const inputValue = typeof obj === 'object' ? obj.key : obj
+    this.props.onSearch( inputValue, this.state.searchField )
   }
 }
 

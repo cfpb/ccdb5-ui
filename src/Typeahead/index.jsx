@@ -113,9 +113,12 @@ export default class Typeahead extends React.Component {
       this.keyMap[keys.VK_ESCAPE] = this._openKeyCancel.bind( this )
       this.keyMap[keys.VK_UP] = this._openNav.bind( this, -1 )
       this.keyMap[keys.VK_DOWN] = this._openNav.bind( this, 1 )
-      this.keyMap[keys.VK_ENTER] = this._openChooseIndex.bind( this )
-      this.keyMap[keys.VK_RETURN] = this._openChooseIndex.bind( this )
+      this.keyMap[keys.VK_ENTER] = this._openKeyEnter.bind( this )
+      this.keyMap[keys.VK_RETURN] = this._openKeyEnter.bind( this )
       this.keyMap[keys.VK_TAB] = this._openChooseIndex.bind( this )
+
+      // In open mode, just hide the fact that no typeahead results match
+      this.renderMap[NO_RESULTS] = this._renderEmpty.bind( this )
     } else {
       this.keyMap[keys.VK_ESCAPE] = this._closedKeyCancel.bind( this )
       this.keyMap[keys.VK_UP] = this._closedNav.bind( this, -1 )
@@ -292,6 +295,12 @@ export default class Typeahead extends React.Component {
     } else {
       this._closedChooseIndex( event )
     }
+  }
+
+  _openKeyEnter( event ) {
+    event.preventDefault()
+    this.props.onOptionSelected( this.state.inputValue )
+    this.setState( { phase: CHOSEN } )
   }
 
   _openKeyCancel( event ) {
