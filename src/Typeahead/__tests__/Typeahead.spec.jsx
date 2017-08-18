@@ -329,6 +329,19 @@ describe('component::Typeahead', () => {
         expect(props.onOptionSelected).toHaveBeenCalledWith('bar')
         expect(target.state('phase')).toEqual('CHOSEN')
       })
+
+      it('uses the text and not the highlighted option', () => {
+        target.instance().setState({
+          selectedIndex: 1,
+          inputValue: 'be'
+        })
+        fixture.which = keys.VK_ENTER
+        input.simulate('keydown', fixture)
+
+        expect(props.onOptionSelected).toHaveBeenCalledWith('be')
+        expect(target.state('inputValue')).toEqual('be')
+        expect(target.state('phase')).toEqual('CHOSEN')
+      })
     })
   })
 })
