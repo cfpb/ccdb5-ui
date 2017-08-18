@@ -139,6 +139,10 @@ export class SearchBar extends React.Component {
   // Typeahead interface
 
   _onInputChange( value ) {
+    this.setState( {
+      inputValue: value
+    } )
+
     const n = value.toLowerCase()
 
     const uri = '@@API_suggest/?text=' + value

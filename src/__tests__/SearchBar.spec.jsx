@@ -82,6 +82,12 @@ describe('component:SearchBar', () =>{
         const actual = target.instance()._onInputChange('BA')
         expect(actual.then).toBeInstanceOf(Function)
       })
+
+      it('sets the state', () => {
+        const {target} = setup()
+        const actual = target.instance()._onInputChange('BA')
+        expect(target.state('inputValue')).toEqual('BA')
+      })
     })
 
     describe('_renderOption', () => {
