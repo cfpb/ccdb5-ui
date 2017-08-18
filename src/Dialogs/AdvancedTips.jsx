@@ -7,7 +7,8 @@ export default class AdvancedTips extends React.Component {
     return (
       <nav className="advanced_tips">
           <div className="o-expandable">
-            <div className="o-expandable_content o-expandable_content__onload-open">
+            <div className="o-expandable_content
+              o-expandable_content__onload-open">
               <h3>Advanced search tips</h3>
               <div className="tips">
                 <div className="tip">
@@ -34,11 +35,12 @@ export default class AdvancedTips extends React.Component {
                           type="text" readOnly value="Mort?age"/>
                   <div className="tip-description">
                     <p>
-                      Use * after a few letters or a word to show results that
-                      start with those letters or word
+                      Use * after a few letters or a word to
+                       show results that start with those letters or word
                     </p>
                     <p>
-                      Use ? to show results where the “?” is replaced by any character
+                      Use ? to show results where the “?” is
+                      replaced by any character
                     </p>
                   </div>
                 </div>
@@ -47,7 +49,8 @@ export default class AdvancedTips extends React.Component {
                   <input className="a-text-input example-input first"
                           type="text" readOnly value="+foreclosure"/>
                   <input className="a-text-input example-input"
-                          type="text" readOnly value="-&#34;debt collector&#34;" />
+                          type="text" readOnly
+                          value="-&#34;debt collector&#34;" />
                   <div className="tip-description">
                     <p>
                       Use + if the search must contain the term
@@ -60,7 +63,8 @@ export default class AdvancedTips extends React.Component {
                 <div className="tip">
                   <h4>Proximity Search</h4>
                   <input className="a-text-input example-input_full"
-                          type="text" readOnly value="&#34;Loan default&#34;~3"/>
+                          type="text" readOnly
+                          value="&#34;Loan default&#34;~3"/>
                   <div className="tip-description">
                     <p>
                       Use ~[#] to search for two words within that number of
