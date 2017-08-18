@@ -92,20 +92,24 @@ export class SearchBar extends React.Component {
               </button>
               <div className="advanced-container">
               {
-               this.state.advancedShown
-                 ? <a className="a-btn a-btn__link o-expandable_cue-close"
-                      onClick={ this._onAdvancedClicked }>Hide advanced search tips</a>
-                    : <a className="a-btn a-btn__link o-expandable_cue-open"
-                      onClick={ this._onAdvancedClicked }>Show advanced search tips</a>
+               this.state.advancedShown ?
+                 <a className="a-btn a-btn__link o-expandable_cue-close"
+                      onClick={ this._onAdvancedClicked }>
+                      Hide advanced search tips
+                  </a> :
+                  <a className="a-btn a-btn__link o-expandable_cue-open"
+                      onClick={ this._onAdvancedClicked }>
+                      Show advanced search tips
+                  </a>
               }
               </div>
             </div>
           </form>
         </nav>
         {
-         this.state.advancedShown
-           ? <AdvancedTips />
-           : null
+         this.state.advancedShown ?
+           <AdvancedTips /> :
+           null
          }
        </div>
     )
@@ -125,7 +129,7 @@ export class SearchBar extends React.Component {
     } )
   }
 
-  _onAdvancedClicked( event ) {
+  _onAdvancedClicked( ) {
     this.setState( {
       advancedShown: !this.state.advancedShown
     } )
