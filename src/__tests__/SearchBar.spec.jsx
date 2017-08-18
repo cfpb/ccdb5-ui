@@ -27,7 +27,7 @@ describe('component:SearchBar', () =>{
 
       return new Promise((resolve) => {
         resolve({
-          json: function() { 
+          json: function() {
             return ['foo', 'bar', 'baz', 'qaz']
           }
         })
@@ -50,7 +50,7 @@ describe('component:SearchBar', () =>{
     const theForm = target.find('form')
 
     theForm.simulate('submit', { preventDefault: () => {} })
-    expect(props.onSearch).toHaveBeenCalledWith('bar', 'all')  
+    expect(props.onSearch).toHaveBeenCalledWith('bar', 'all')
   })
 
   it('allows the user to select the field to search within', () => {
@@ -59,6 +59,15 @@ describe('component:SearchBar', () =>{
 
     dropDown.simulate('change', {target: { value: 'company'}})
     expect(target.state('searchField')).toEqual('company')
+  })
+
+  it('changes AdvancedShown state from initial false, to true and back', () => {
+    const { target } = setup('foo')
+    expect(target.state('advancedShown')).toEqual(false);
+    target.instance()._onAdvancedClicked();
+    expect(target.state('advancedShown')).toEqual(true);
+    target.instance()._onAdvancedClicked();
+    expect(target.state('advancedShown')).toEqual(false);
   })
 
   describe('Typeahead interface', () => {
@@ -91,7 +100,7 @@ describe('component:SearchBar', () =>{
             label: 'foo',
             position: 0,
             value: 'FOO'
-          }          
+          }
         })
       })
     })
