@@ -602,7 +602,7 @@ exports[`initial state renders without crashing 1`] = `
             <select
               id="choose-size"
               onChange={[Function]}
-              value={10}>
+              value={25}>
               <option
                 value={10}>
                 Show 
