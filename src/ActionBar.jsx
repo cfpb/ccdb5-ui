@@ -55,7 +55,7 @@ export class ActionBar extends React.Component {
             </div>
 
             <h5 className="flex-all">
-              <button className="a-btn a-btn__link hover"
+              <button className="a-btn a-btn__link"
                       onClick={this.props.onExportResults}>
                 Export results
               </button>
