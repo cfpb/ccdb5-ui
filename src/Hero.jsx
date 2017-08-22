@@ -49,7 +49,7 @@ export class Hero extends React.Component {
             </li>
             <li className="m-list_item">
               <a href="https://cfpb.github.io/api/ccdb/" target="_blank">
-                Technical Documentation
+                Technical documentation
               </a>
             </li>
             <li className="m-list_item">
