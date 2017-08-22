@@ -11,8 +11,13 @@ import { slugify } from './utils'
 export class AggregationBranch extends React.Component {
   constructor( props ) {
     super( props )
+
     this.state = { showChildren: this.props.showChildren }
+
+    this.refCheckbox = null
+
     this._decideClickAction = this._decideClickAction.bind( this )
+    this._setReference = this._setReference.bind( this )
     this._toggleChildDisplay = this._toggleChildDisplay.bind( this )
   }
 
@@ -29,10 +34,20 @@ export class AggregationBranch extends React.Component {
     action( fieldName, values )
   }
 
+  _setReference( elem ) {
+    this.refCheckbox = elem
+  }
+
   _toggleChildDisplay() {
     this.setState( {
       showChildren: !this.state.showChildren
     } )
+  }
+
+  componentDidUpdate() {
+    if ( this.refCheckbox ) {
+      this.refCheckbox.indeterminate = this.props.indeterminate
+    }
   }
 
   render() {
@@ -61,6 +76,7 @@ export class AggregationBranch extends React.Component {
                  aria-label={item.key}
                  checked={active}
                  onChange={this._decideClickAction}
+                 ref={this._setReference}
           />
           <div className="flex-all toggle">
             <button className="a-btn a-btn__link hover"
@@ -94,6 +110,7 @@ AggregationBranch.propTypes = {
   active: PropTypes.bool,
   checkParent: PropTypes.func.isRequired,
   fieldName: PropTypes.string.isRequired,
+  indeterminate: PropTypes.bool,
   item: PropTypes.shape( {
     // eslint-disable-next-line camelcase
     doc_count: PropTypes.number.isRequired,
@@ -107,6 +124,7 @@ AggregationBranch.propTypes = {
 
 AggregationBranch.defaultProps = {
   active: false,
+  indeterminate: false,
   showChildren: false
 }
 
@@ -123,6 +141,7 @@ export const mapStateToProps = ( state, ownProps ) => {
 
   return {
     active: activeParent.length > 0,
+    indeterminate: activeParent.length === 0 && activeChild.length > 0,
     showChildren: activeChild.length > 0
   }
 }

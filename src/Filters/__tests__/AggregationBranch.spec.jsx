@@ -24,9 +24,10 @@ const subitems = [
   { key: 'qaz', doc_count: 4 },
 ]
 
-function setupEnzyme(active=false) {
+function setupEnzyme(active=false, refElem=null) {
   const props = {
     active,
+    indeterminate: false,
     item: item,
     subitems: subitems,
     fieldName: "issue",
@@ -35,6 +36,9 @@ function setupEnzyme(active=false) {
   }
 
   const target = shallow(<AggregationBranch {...props} />)
+
+  // Fake the `ref` call
+  target.instance()._setReference(refElem)
 
   return {
     props,
@@ -104,6 +108,18 @@ describe('component::AggregationBranch', () => {
       expect(props.checkParent).toHaveBeenCalledWith(
         'issue', ['foo', 'foo•bar', 'foo•baz', 'foo•qaz']
       )
+    })
+
+    it('displays indeterminate when at least one child is checked', () => {
+      const spyElem = {}
+      const { target, props } = setupEnzyme(false, spyElem)
+      target.setProps({ indeterminate: true })
+
+      // Fake componentDidUpdate since it is not called for shallow renders
+      // https://github.com/airbnb/enzyme/issues/465
+      target.instance().componentDidUpdate()
+
+      expect(spyElem.indeterminate).toEqual(true)
     })
   })
 
