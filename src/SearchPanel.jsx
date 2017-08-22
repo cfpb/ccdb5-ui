@@ -5,7 +5,7 @@ import SearchBar from './SearchBar'
 
 export const SearchPanel = () =>
     <div className="search-panel">
-      <h2>Search Complaint Data</h2>
+      <h2>Search complaint data</h2>
       <SearchBar />
       <PillPanel />
     </div>

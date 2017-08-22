@@ -92,7 +92,7 @@ exports[`initial state renders without crashing 1`] = `
     <div
       className="search-panel">
       <h2>
-        Search Complaint Data
+        Search complaint data
       </h2>
       <div>
         <nav
