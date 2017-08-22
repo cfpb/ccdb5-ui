@@ -29,9 +29,11 @@ export class Product extends React.Component {
                          desc={desc}
                          showChildren={this.props.showChildren}
                          className="aggregation">
-        <a href={href} target="_blank">
-          Recent changes to products and sub-products
-        </a>
+        <p>
+          <a className="a-btn__link" href={href} target="_blank">
+            Recent changes to products and sub-products
+          </a>
+        </p>
         <MoreOrLess listComponent={AggregationBranch}
                     listComponentProps={listComponentProps}
                     options={this.props.options}
