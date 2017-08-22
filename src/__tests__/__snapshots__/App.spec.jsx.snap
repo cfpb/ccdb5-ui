@@ -656,7 +656,7 @@ exports[`initial state renders without crashing 1`] = `
           <h5
             className="flex-all">
             <button
-              className="a-btn a-btn__link hover"
+              className="a-btn a-btn__link"
               onClick={[Function]}>
               Export results
             </button>

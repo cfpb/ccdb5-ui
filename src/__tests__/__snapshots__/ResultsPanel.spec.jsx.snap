@@ -77,7 +77,7 @@ exports[`component:ReactPanel displays a message when an error has occurred 1`] 
       <h5
         className="flex-all">
         <button
-          className="a-btn a-btn__link hover"
+          className="a-btn a-btn__link"
           onClick={[Function]}>
           Export results
         </button>
@@ -169,7 +169,7 @@ exports[`component:ReactPanel displays a message when there are no results 1`] =
       <h5
         className="flex-all">
         <button
-          className="a-btn a-btn__link hover"
+          className="a-btn a-btn__link"
           onClick={[Function]}>
           Export results
         </button>
@@ -261,7 +261,7 @@ exports[`component:ReactPanel renders without crashing 1`] = `
       <h5
         className="flex-all">
         <button
-          className="a-btn a-btn__link hover"
+          className="a-btn a-btn__link"
           onClick={[Function]}>
           Export results
         </button>
