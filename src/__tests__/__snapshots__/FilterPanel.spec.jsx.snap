@@ -52,7 +52,7 @@ exports[`initial state renders without crashing 1`] = `
         className="flex-all">
         <label
           className="a-label a-label__heading body-copy">
-          From:
+          From
         </label>
         <input
           aria-describedby="input-error_message-from"
@@ -67,7 +67,7 @@ exports[`initial state renders without crashing 1`] = `
         className="flex-all">
         <label
           className="a-label a-label__heading body-copy">
-          Through:
+          Through
         </label>
         <input
           aria-describedby="input-error_message-through"
@@ -359,7 +359,7 @@ exports[`initial state renders without crashing 1`] = `
         className="flex-all">
         <label
           className="a-label a-label__heading body-copy">
-          From:
+          From
         </label>
         <input
           aria-describedby="input-error_message-from"
@@ -374,7 +374,7 @@ exports[`initial state renders without crashing 1`] = `
         className="flex-all">
         <label
           className="a-label a-label__heading body-copy">
-          Through:
+          Through
         </label>
         <input
           aria-describedby="input-error_message-through"
