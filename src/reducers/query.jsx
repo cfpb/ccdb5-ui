@@ -4,7 +4,7 @@ export const defaultQuery = {
   searchText: '',
   searchField: 'all',
   from: 0,
-  size: 10,
+  size: 25,
   sort: 'relevance_desc'
 }
 

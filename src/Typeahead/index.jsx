@@ -34,9 +34,30 @@ export function debounce( func, wait ) {
 }
 
 // ----------------------------------------------------------------------------
+// attribution: lodash.js (Creative Commons License)
+
+/**
+* Binds methods of an object to the object itself, overwriting the existing
+* method
+*
+* @param {Object} obj The object to bind and assign the bound methods to.
+* @param {...(string|string[])} methodNames The object method names to bind,
+*  specified individually or in arrays.
+* @returns {Object} the updated object
+*/
+export function bindAll( obj, methodNames ) {
+  const length = methodNames.length
+  for ( let i = 0; i < length; i++ ) {
+    const key = methodNames[i]
+    obj[key] = obj[key].bind( obj )
+  }
+  return obj;
+}
+
+// ----------------------------------------------------------------------------
 // Usage Mode
 
-// The user can enter any text of choose one of the drop down options
+// The user can enter any text or choose one of the drop down options
 export const MODE_OPEN = 'OPEN'
 
 // The user is only allowed to choose one of the drop down options
@@ -94,48 +115,51 @@ export default class Typeahead extends React.Component {
       focused: false
     }
 
+    // Bindings
+    bindAll( this, [
+      '_callForOptions',
+      '_closedChooseIndex', '_closedKeyCancel',
+      '_renderError', '_renderEmpty', '_renderNoResults', '_renderResults',
+      '_renderTooManyResults', '_renderWaiting',
+      '_onBlur', '_onFocus', '_onKeyDown', '_onOptionsError',
+      '_openChooseIndex', '_openKeyCancel', '_openKeyEnter',
+      '_selectOption', '_setOptions',
+      '_valueUpdated'
+    ] )
+
     // Render/Phase Map
     this.renderMap = {
-      ERROR: this._renderError.bind( this ),
-      EMPTY: this._renderEmpty.bind( this ),
-      ACCUM: this._renderEmpty.bind( this ),
-      WAITING: this._renderWaiting.bind( this ),
-      NO_RESULTS: this._renderNoResults.bind( this ),
-      RESULTS: this._renderResults.bind( this ),
-      TOO_MANY: this._renderTooManyResults.bind( this ),
-      CHOSEN: this._renderEmpty.bind( this )
+      ERROR: this._renderError,
+      EMPTY: this._renderEmpty,
+      ACCUM: this._renderEmpty,
+      WAITING: this._renderWaiting,
+      NO_RESULTS: this._renderNoResults,
+      RESULTS: this._renderResults,
+      TOO_MANY: this._renderTooManyResults,
+      CHOSEN: this._renderEmpty
     }
 
     // Key/function map
     this.keyMap = {}
 
     if ( this.props.mode === MODE_OPEN ) {
-      this.keyMap[keys.VK_ESCAPE] = this._openKeyCancel.bind( this )
+      this.keyMap[keys.VK_ESCAPE] = this._openKeyCancel
       this.keyMap[keys.VK_UP] = this._openNav.bind( this, -1 )
       this.keyMap[keys.VK_DOWN] = this._openNav.bind( this, 1 )
-      this.keyMap[keys.VK_ENTER] = this._openKeyEnter.bind( this )
-      this.keyMap[keys.VK_RETURN] = this._openKeyEnter.bind( this )
-      this.keyMap[keys.VK_TAB] = this._openChooseIndex.bind( this )
+      this.keyMap[keys.VK_ENTER] = this._openKeyEnter
+      this.keyMap[keys.VK_RETURN] = this._openKeyEnter
+      this.keyMap[keys.VK_TAB] = this._openChooseIndex
 
       // In open mode, just hide the fact that no typeahead results match
-      this.renderMap[NO_RESULTS] = this._renderEmpty.bind( this )
+      this.renderMap[NO_RESULTS] = this._renderEmpty
     } else {
-      this.keyMap[keys.VK_ESCAPE] = this._closedKeyCancel.bind( this )
+      this.keyMap[keys.VK_ESCAPE] = this._closedKeyCancel
       this.keyMap[keys.VK_UP] = this._closedNav.bind( this, -1 )
       this.keyMap[keys.VK_DOWN] = this._closedNav.bind( this, 1 )
-      this.keyMap[keys.VK_ENTER] = this._closedChooseIndex.bind( this )
-      this.keyMap[keys.VK_RETURN] = this._closedChooseIndex.bind( this )
-      this.keyMap[keys.VK_TAB] = this._closedChooseIndex.bind( this )
+      this.keyMap[keys.VK_ENTER] = this._closedChooseIndex
+      this.keyMap[keys.VK_RETURN] = this._closedChooseIndex
+      this.keyMap[keys.VK_TAB] = this._closedChooseIndex
     }
-
-    // Bindings
-    this._onBlur = this._onBlur.bind( this )
-    this._onFocus = this._onFocus.bind( this )
-    this._onKeyDown = this._onKeyDown.bind( this )
-    this._onOptionsError = this._onOptionsError.bind( this )
-    this._setOptions = this._setOptions.bind( this )
-    this._valueUpdated = this._valueUpdated.bind( this )
-    this._callForOptions = this._callForOptions.bind( this )
 
     this.search = this.props.debounceWait ?
       debounce( this._callForOptions, this.props.debounceWait ) :
@@ -347,7 +371,7 @@ export default class Typeahead extends React.Component {
   _renderResults() {
     return (
         <Selector options={this.state.searchResults}
-                  onOptionSelected={this._selectOption.bind( this )}
+                  onOptionSelected={this._selectOption}
                   renderOption={this.props.renderOption}
                   selectedIndex={this.state.selectedIndex}
         />
@@ -358,7 +382,7 @@ export default class Typeahead extends React.Component {
     const subset = this.state.searchResults.slice( 0, this.props.maxVisible )
     return (
         <Selector options={subset}
-                  onOptionSelected={this._selectOption.bind( this )}
+                  onOptionSelected={this._selectOption}
                   renderOption={this.props.renderOption}
                   selectedIndex={this.state.selectedIndex}
                   footer="Continue typing for more results"

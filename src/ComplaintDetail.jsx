@@ -109,41 +109,41 @@ export class ComplaintDetail extends React.Component {
         <h1>{ this.props.complaint_id }</h1>
         <div className="card">
           <div className="card-left layout-column">
-            <h5>Date CFPB received the complaint</h5>
+            <h4>Date CFPB received the complaint</h4>
             <span className="body-copy">
               <FormattedDate value={ row.date_received } />
             </span>
             <br />
-            <h5>Consumer's state</h5>
+            <h4>Consumer's state</h4>
             <span className="body-copy">{ row.state }</span>
             <br />
-            <h5>Consumer's zip</h5>
+            <h4>Consumer's zip</h4>
             <span className="body-copy">{ row.zip_code }</span>
             <br />
-            <h5>Complaint submitted via</h5>
+            <h4>Complaint submitted via</h4>
             <span className="body-copy">{ row.submitted_via }</span>
             <br />
-            <h5>Tags</h5>
+            <h4>Tags</h4>
             <span className="body-copy">{ row.tags }</span>
             <br />
-            <h5>Did consumer dispute the response?</h5>
+            <h4>Did consumer dispute the response?</h4>
             <span className="body-copy">{ row.consumer_disputed }</span>
           </div>
           <div className="card-right layout-column">
-            <h5>Product</h5>
+            <h4>Product</h4>
             <h3>{ row.product }</h3>
             { this._renderSub( 'Sub-product:', row.sub_product ) }
             <br />
-            <h5>Issue</h5>
+            <h4>Issue</h4>
             <h3>{ row.issue }</h3>
             { this._renderSub( 'Sub-issue:', row.sub_issue ) }
             <br />
-            <h5>Consumer consent to publish narrative</h5>
+            <h4>Consumer consent to publish narrative</h4>
             { this._renderConsumerConsent( row.consumer_consent_provided ) }
             <br />
             { narrative ?
               <div>
-                <h5>Consumer Complaint Narrative</h5>
+                <h4>Consumer Complaint Narrative</h4>
                 <span className="body-copy">
                   { narrative }
                 </span>
@@ -156,23 +156,23 @@ export class ComplaintDetail extends React.Component {
         <h3 className="company-information">Company Information</h3>
         <div className="card">
           <div className="card-left layout-column">
-            <h5>Date complaint sent to company</h5>
+            <h4>Date complaint sent to company</h4>
             <span className="body-copy">
               <FormattedDate value={ row.date_sent_to_company } />
             </span>
             <br />
-            <h5>Matched company name</h5>
+            <h4>Matched company name</h4>
             <span className="body-copy">{ row.company }</span>
             <br />
           </div>
           <div className="card-right layout-column">
-            <h5>Timely response?</h5>
+            <h4>Timely response?</h4>
             { this._renderCompanyTimely( row.timely ) }
             <br />
-            <h5>Company response to consumer</h5>
+            <h4>Company response to consumer</h4>
             <span className="body-copy">{ row.company_response }</span>
             <br />
-            <h5>Company public response</h5>
+            <h4>Company public response</h4>
             <span className="body-copy">{ row.company_public_response }</span>
           </div>
         </div>
