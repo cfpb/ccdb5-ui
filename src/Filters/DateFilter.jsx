@@ -41,8 +41,8 @@ export class DateFilter extends React.Component {
       <CollapsibleFilter title={ this.props.title }
                          className="aggregation date-filter">
           <div className="layout-row">
-            { this._renderDateInput( 'From:', 'from' ) }
-            { this._renderDateInput( 'Through:', 'through' ) }
+            { this._renderDateInput( 'From', 'from' ) }
+            { this._renderDateInput( 'Through', 'through' ) }
             { this._hasMessages() ? this._renderMessages() : null }
           </div>
         </CollapsibleFilter>
