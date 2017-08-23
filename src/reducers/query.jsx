@@ -8,7 +8,7 @@ export const defaultQuery = {
   sort: 'relevance_desc'
 }
 
-const urlParams = [ 'searchText', 'searchField', 'from', 'size' ]
+const urlParams = [ 'searchText', 'searchField' ]
 const urlParamsInt = [ 'from', 'size' ]
 
 // ----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ export function toDate( value ) {
 */
 function processParams( state, action ) {
   const params = action.params
-  const processed = Object.assign( {}, state )
+  const processed = Object.assign( {}, defaultQuery )
 
   // Filter for known
   urlParams.forEach( field => {
@@ -85,10 +85,13 @@ function processParams( state, action ) {
     }
   } )
 
-  // Convert from strings
+  // Handle numeric params
   urlParamsInt.forEach( field => {
-    if ( typeof processed[field] !== 'undefined' ) {
-      processed[field] = parseInt( processed[field], 10 )
+    if ( typeof params[field] !== 'undefined' ) {
+      const n = parseInt( params[field], 10 )
+      if ( isNaN(n) === false ) {
+        processed[field] = n
+      }
     }
   } )
 
