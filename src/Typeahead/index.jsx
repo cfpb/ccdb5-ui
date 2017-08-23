@@ -181,6 +181,7 @@ export default class Typeahead extends React.Component {
                onFocus={this._onFocus}>
         <input type="text"
                autoComplete="off"
+               className="a-text-input"
                onChange={this._valueUpdated}
                onKeyDown={this._onKeyDown}
                placeholder={this.props.placeholder}
