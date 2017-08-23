@@ -89,7 +89,7 @@ function processParams( state, action ) {
   urlParamsInt.forEach( field => {
     if ( typeof params[field] !== 'undefined' ) {
       const n = parseInt( params[field], 10 )
-      if ( isNaN(n) === false ) {
+      if ( isNaN( n ) === false ) {
         processed[field] = n
       }
     }
