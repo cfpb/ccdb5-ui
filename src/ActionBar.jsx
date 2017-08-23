@@ -10,10 +10,10 @@ const sizes = [ 10, 25, 50, 100 ]
 /* eslint-disable camelcase */
 
 const sorts = {
-  relevance_desc: 'Sort by relevance',
-  relevance_asc: 'Sort by relevance (asc)',
+  created_date_desc: 'Sort by newest to oldest',
   created_date_asc: 'Sort by oldest to newest',
-  created_date_desc: 'Sort by newest to oldest'
+  relevance_desc: 'Sort by relevance',
+  relevance_asc: 'Sort by relevance (asc)'
 }
 
 /* eslint-enable camelcase */
@@ -55,7 +55,7 @@ export class ActionBar extends React.Component {
             </div>
 
             <h5 className="flex-all">
-              <button className="a-btn a-btn__link hover"
+              <button className="a-btn a-btn__link"
                       onClick={this.props.onExportResults}>
                 Export results
               </button>

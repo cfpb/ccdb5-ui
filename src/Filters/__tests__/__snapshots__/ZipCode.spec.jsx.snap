@@ -27,6 +27,7 @@ exports[`component::ZipCode snapshots renders without crashing 1`] = `
     onFocus={[Function]}>
     <input
       autoComplete="off"
+      className="a-text-input"
       onChange={[Function]}
       onKeyDown={[Function]}
       placeholder="Enter first three digits of zip code"

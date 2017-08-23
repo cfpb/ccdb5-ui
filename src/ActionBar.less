@@ -36,12 +36,16 @@
     margin-bottom: @gutter-minimum;
 
     .a-btn {
-      border-bottom: solid 1px @pacific;
+      border-bottom: dotted 1px @dark-pacific;
 
-      color: @pacific;
+      color: @dark-pacific;
       font-family: @webfont-demi;
       font-size: @size-v;
       text-transform: uppercase;
+
+      &:hover {
+        color: @link-text-hover;
+      }
     }
   }
 }
