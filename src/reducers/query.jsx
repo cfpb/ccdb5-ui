@@ -5,7 +5,7 @@ export const defaultQuery = {
   searchField: 'all',
   from: 0,
   size: 25,
-  sort: 'relevance_desc'
+  sort: 'created_date_desc'
 }
 
 const urlParams = [ 'searchText', 'searchField' ]

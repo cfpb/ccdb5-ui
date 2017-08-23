@@ -57,20 +57,20 @@ exports[`component:ReactPanel displays a message when an error has occurred 1`] 
           onChange={[Function]}
           value={undefined}>
           <option
-            value="relevance_desc">
-            Sort by relevance
-          </option>
-          <option
-            value="relevance_asc">
-            Sort by relevance (asc)
+            value="created_date_desc">
+            Sort by newest to oldest
           </option>
           <option
             value="created_date_asc">
             Sort by oldest to newest
           </option>
           <option
-            value="created_date_desc">
-            Sort by newest to oldest
+            value="relevance_desc">
+            Sort by relevance
+          </option>
+          <option
+            value="relevance_asc">
+            Sort by relevance (asc)
           </option>
         </select>
       </div>
@@ -149,20 +149,20 @@ exports[`component:ReactPanel displays a message when there are no results 1`] =
           onChange={[Function]}
           value={undefined}>
           <option
-            value="relevance_desc">
-            Sort by relevance
-          </option>
-          <option
-            value="relevance_asc">
-            Sort by relevance (asc)
+            value="created_date_desc">
+            Sort by newest to oldest
           </option>
           <option
             value="created_date_asc">
             Sort by oldest to newest
           </option>
           <option
-            value="created_date_desc">
-            Sort by newest to oldest
+            value="relevance_desc">
+            Sort by relevance
+          </option>
+          <option
+            value="relevance_asc">
+            Sort by relevance (asc)
           </option>
         </select>
       </div>
@@ -241,20 +241,20 @@ exports[`component:ReactPanel renders without crashing 1`] = `
           onChange={[Function]}
           value={undefined}>
           <option
-            value="relevance_desc">
-            Sort by relevance
-          </option>
-          <option
-            value="relevance_asc">
-            Sort by relevance (asc)
+            value="created_date_desc">
+            Sort by newest to oldest
           </option>
           <option
             value="created_date_asc">
             Sort by oldest to newest
           </option>
           <option
-            value="created_date_desc">
-            Sort by newest to oldest
+            value="relevance_desc">
+            Sort by relevance
+          </option>
+          <option
+            value="relevance_asc">
+            Sort by relevance (asc)
           </option>
         </select>
       </div>
