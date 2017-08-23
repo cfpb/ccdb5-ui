@@ -27,6 +27,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
     onFocus={[Function]}>
     <input
       autoComplete="off"
+      className="a-text-input"
       onChange={[Function]}
       onKeyDown={[Function]}
       placeholder="Enter name of issue"
@@ -197,6 +198,7 @@ exports[`component:Issue snapshots renders without crashing 1`] = `
     onFocus={[Function]}>
     <input
       autoComplete="off"
+      className="a-text-input"
       onChange={[Function]}
       onKeyDown={[Function]}
       placeholder="Enter name of issue"
