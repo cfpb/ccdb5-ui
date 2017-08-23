@@ -74,7 +74,7 @@ exports[`initial state renders without crashing 1`] = `
         <a
           href="https://cfpb.github.io/api/ccdb/"
           target="_blank">
-          Technical Documentation
+          Technical documentation
         </a>
       </li>
       <li
@@ -92,7 +92,7 @@ exports[`initial state renders without crashing 1`] = `
     <div
       className="search-panel">
       <h2>
-        Search Complaint Data
+        Search complaint data
       </h2>
       <div>
         <nav
@@ -138,6 +138,7 @@ exports[`initial state renders without crashing 1`] = `
                   <input
                     aria-label="The term to search for"
                     autoComplete="off"
+                    className="a-text-input"
                     id="searchText"
                     onChange={[Function]}
                     onKeyDown={[Function]}
@@ -221,7 +222,7 @@ exports[`initial state renders without crashing 1`] = `
               className="flex-all">
               <label
                 className="a-label a-label__heading body-copy">
-                From:
+                From
               </label>
               <input
                 aria-describedby="input-error_message-from"
@@ -236,7 +237,7 @@ exports[`initial state renders without crashing 1`] = `
               className="flex-all">
               <label
                 className="a-label a-label__heading body-copy">
-                Through:
+                Through
               </label>
               <input
                 aria-describedby="input-error_message-through"
@@ -278,6 +279,7 @@ exports[`initial state renders without crashing 1`] = `
             onFocus={[Function]}>
             <input
               autoComplete="off"
+              className="a-text-input"
               onChange={[Function]}
               onKeyDown={[Function]}
               placeholder="Enter company name"
@@ -309,11 +311,14 @@ exports[`initial state renders without crashing 1`] = `
           <p>
             The type of product and sub-product the consumer identified in the complaint
           </p>
-          <a
-            href="http://files.consumerfinance.gov/f/documents/201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf"
-            target="_blank">
-            Recent changes to products and sub-products
-          </a>
+          <p>
+            <a
+              className="a-btn__link"
+              href="http://files.consumerfinance.gov/f/documents/201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf"
+              target="_blank">
+              Recent changes to products and sub-products
+            </a>
+          </p>
           <div>
             <ul />
           </div>
@@ -347,6 +352,7 @@ exports[`initial state renders without crashing 1`] = `
             onFocus={[Function]}>
             <input
               autoComplete="off"
+              className="a-text-input"
               onChange={[Function]}
               onKeyDown={[Function]}
               placeholder="Enter name of issue"
@@ -386,6 +392,7 @@ exports[`initial state renders without crashing 1`] = `
             onFocus={[Function]}>
             <input
               autoComplete="off"
+              className="a-text-input"
               onChange={[Function]}
               onKeyDown={[Function]}
               placeholder="Enter state name or abbreviation"
@@ -423,6 +430,7 @@ exports[`initial state renders without crashing 1`] = `
             onFocus={[Function]}>
             <input
               autoComplete="off"
+              className="a-text-input"
               onChange={[Function]}
               onKeyDown={[Function]}
               placeholder="Enter first three digits of zip code"
@@ -528,7 +536,7 @@ exports[`initial state renders without crashing 1`] = `
               className="flex-all">
               <label
                 className="a-label a-label__heading body-copy">
-                From:
+                From
               </label>
               <input
                 aria-describedby="input-error_message-from"
@@ -543,7 +551,7 @@ exports[`initial state renders without crashing 1`] = `
               className="flex-all">
               <label
                 className="a-label a-label__heading body-copy">
-                Through:
+                Through
               </label>
               <input
                 aria-describedby="input-error_message-through"
@@ -634,7 +642,15 @@ exports[`initial state renders without crashing 1`] = `
             <select
               id="choose-sort"
               onChange={[Function]}
-              value="relevance_desc">
+              value="created_date_desc">
+              <option
+                value="created_date_desc">
+                Sort by newest to oldest
+              </option>
+              <option
+                value="created_date_asc">
+                Sort by oldest to newest
+              </option>
               <option
                 value="relevance_desc">
                 Sort by relevance
@@ -643,20 +659,12 @@ exports[`initial state renders without crashing 1`] = `
                 value="relevance_asc">
                 Sort by relevance (asc)
               </option>
-              <option
-                value="created_date_asc">
-                Sort by oldest to newest
-              </option>
-              <option
-                value="created_date_desc">
-                Sort by newest to oldest
-              </option>
             </select>
           </div>
           <h5
             className="flex-all">
             <button
-              className="a-btn a-btn__link hover"
+              className="a-btn a-btn__link"
               onClick={[Function]}>
               Export results
             </button>

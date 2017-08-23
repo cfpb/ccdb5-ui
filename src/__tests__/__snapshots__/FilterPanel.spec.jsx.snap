@@ -52,7 +52,7 @@ exports[`initial state renders without crashing 1`] = `
         className="flex-all">
         <label
           className="a-label a-label__heading body-copy">
-          From:
+          From
         </label>
         <input
           aria-describedby="input-error_message-from"
@@ -67,7 +67,7 @@ exports[`initial state renders without crashing 1`] = `
         className="flex-all">
         <label
           className="a-label a-label__heading body-copy">
-          Through:
+          Through
         </label>
         <input
           aria-describedby="input-error_message-through"
@@ -109,6 +109,7 @@ exports[`initial state renders without crashing 1`] = `
       onFocus={[Function]}>
       <input
         autoComplete="off"
+        className="a-text-input"
         onChange={[Function]}
         onKeyDown={[Function]}
         placeholder="Enter company name"
@@ -140,11 +141,14 @@ exports[`initial state renders without crashing 1`] = `
     <p>
       The type of product and sub-product the consumer identified in the complaint
     </p>
-    <a
-      href="http://files.consumerfinance.gov/f/documents/201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf"
-      target="_blank">
-      Recent changes to products and sub-products
-    </a>
+    <p>
+      <a
+        className="a-btn__link"
+        href="http://files.consumerfinance.gov/f/documents/201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf"
+        target="_blank">
+        Recent changes to products and sub-products
+      </a>
+    </p>
     <div>
       <ul />
     </div>
@@ -178,6 +182,7 @@ exports[`initial state renders without crashing 1`] = `
       onFocus={[Function]}>
       <input
         autoComplete="off"
+        className="a-text-input"
         onChange={[Function]}
         onKeyDown={[Function]}
         placeholder="Enter name of issue"
@@ -217,6 +222,7 @@ exports[`initial state renders without crashing 1`] = `
       onFocus={[Function]}>
       <input
         autoComplete="off"
+        className="a-text-input"
         onChange={[Function]}
         onKeyDown={[Function]}
         placeholder="Enter state name or abbreviation"
@@ -254,6 +260,7 @@ exports[`initial state renders without crashing 1`] = `
       onFocus={[Function]}>
       <input
         autoComplete="off"
+        className="a-text-input"
         onChange={[Function]}
         onKeyDown={[Function]}
         placeholder="Enter first three digits of zip code"
@@ -359,7 +366,7 @@ exports[`initial state renders without crashing 1`] = `
         className="flex-all">
         <label
           className="a-label a-label__heading body-copy">
-          From:
+          From
         </label>
         <input
           aria-describedby="input-error_message-from"
@@ -374,7 +381,7 @@ exports[`initial state renders without crashing 1`] = `
         className="flex-all">
         <label
           className="a-label a-label__heading body-copy">
-          Through:
+          Through
         </label>
         <input
           aria-describedby="input-error_message-through"

@@ -30,7 +30,7 @@ exports[`initial state renders without crashing 1`] = `
       <a
         href="https://cfpb.github.io/api/ccdb/"
         target="_blank">
-        Technical Documentation
+        Technical documentation
       </a>
     </li>
     <li

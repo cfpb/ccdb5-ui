@@ -27,6 +27,7 @@ exports[`component::FederalState initial state renders without crashing 1`] = `
     onFocus={[Function]}>
     <input
       autoComplete="off"
+      className="a-text-input"
       onChange={[Function]}
       onKeyDown={[Function]}
       placeholder="Enter state name or abbreviation"

@@ -3,6 +3,8 @@
 .search-bar {
   .cf-select {
     display: flex;
+    box-sizing: border-box;
+    height: 35px;
 
     background-color: @gray;
     flex-direction: column;
@@ -48,14 +50,5 @@
 
   h5 {
     margin-bottom: @gutter-minimum;
-  }
-
-  input[type=text] {
-    box-sizing: border-box;
-    height: 100%;
-
-    &::placeholder {
-        color: @gray;
-    }
   }
 }

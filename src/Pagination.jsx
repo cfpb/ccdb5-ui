@@ -36,6 +36,7 @@ export class Pagination extends React.Component {
   }
 
   _setPage( page ) {
+    window.scrollTo( 0, 0 )
     this.props.onPage( page );
   }
 

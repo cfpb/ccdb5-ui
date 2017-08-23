@@ -5,6 +5,7 @@ exports[`component::Typeahead render phases renders the ACCUM phase 1`] = `
   onFocus={[Function]}>
   <input
     autoComplete="off"
+    className="a-text-input"
     onChange={[Function]}
     onKeyDown={[Function]}
     placeholder="Enter your search text"
@@ -20,6 +21,7 @@ exports[`component::Typeahead render phases renders the EMPTY phase 1`] = `
   onFocus={[Function]}>
   <input
     autoComplete="off"
+    className="a-text-input"
     onChange={[Function]}
     onKeyDown={[Function]}
     placeholder="Enter your search text"
@@ -35,6 +37,7 @@ exports[`component::Typeahead render phases renders the ERROR phase 1`] = `
   onFocus={[Function]}>
   <input
     autoComplete="off"
+    className="a-text-input"
     onChange={[Function]}
     onKeyDown={[Function]}
     placeholder="Enter your search text"
@@ -54,6 +57,7 @@ exports[`component::Typeahead render phases renders the NO_RESULTS phase 1`] = `
   onFocus={[Function]}>
   <input
     autoComplete="off"
+    className="a-text-input"
     onChange={[Function]}
     onKeyDown={[Function]}
     placeholder="Enter your search text"
@@ -73,6 +77,7 @@ exports[`component::Typeahead render phases renders the RESULTS phase 1`] = `
   onFocus={[Function]}>
   <input
     autoComplete="off"
+    className="a-text-input"
     onChange={[Function]}
     onKeyDown={[Function]}
     placeholder="Enter your search text"
@@ -98,6 +103,7 @@ exports[`component::Typeahead render phases renders the TOO_MANY phase 1`] = `
   onFocus={[Function]}>
   <input
     autoComplete="off"
+    className="a-text-input"
     onChange={[Function]}
     onKeyDown={[Function]}
     placeholder="Enter your search text"

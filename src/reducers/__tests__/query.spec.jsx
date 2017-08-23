@@ -1,4 +1,6 @@
-import target, { filterArrayAction, toggleFilter } from '../query'
+import target, {
+  defaultQuery, filterArrayAction, toggleFilter
+} from '../query'
 import * as types from '../../constants'
 
 describe('reducer:query', () => {
@@ -8,7 +10,7 @@ describe('reducer:query', () => {
         searchField: 'all',
         from: 0,
         size: 25,
-        sort: 'relevance_desc'
+        sort: 'created_date_desc'
       })
   })
 
@@ -82,24 +84,29 @@ describe('reducer:query', () => {
         params: {}
       }
 
-      state = {
-        searchText: '',
-        from: 99,
-        size: 99
-      }
+      state = { ...defaultQuery }
     })
 
     it('handles empty params', () => {
       expect(target(state, action)).toEqual(state)
     })
 
-    it('converts some parameters to integers', () => {
-      // Writing it this way helps with branch coverage
-      action.params = { size: '100' }
-      expect(target({}, action)).toEqual({ size: 100 })
+    it('handles string params', () => {
+      action.params = { searchText: 'hello' }
+      const actual = target(state, action)
+      expect(actual.searchText).toEqual('hello')
+    })
 
-      action.params = { from: '10' }
-      expect(target({}, action)).toEqual({ from: 10 })
+    it('converts some parameters to integers', () => {
+      action.params = { size: '100' }
+      const actual = target(state, action)
+      expect(actual.size).toEqual(100)
+    })
+
+    it('ignores bad integer parameters', () => {
+      action.params = { size: 'foo' }
+      const actual = target(state, action)
+      expect(actual.size).toEqual(25)
     })
 
     it('converts some parameters to dates', () => {
@@ -119,32 +126,24 @@ describe('reducer:query', () => {
 
     it('ignores incorrect dates', () => {
       action.params = { date_received_min: 'foo' }
-      expect(target({}, action)).toEqual({})
+      expect(target({}, action)).toEqual(state)
     })
 
     it('ignores unknown parameters', () => {
-      action.params = {
-        searchText: 'hello',
-        foo: 'bar'
-      }
-
-      expect(target(state, action)).toEqual({
-        searchText: 'hello',
-        from: 99,
-        size: 99
-      })
+      action.params = { foo: 'bar' }
+      expect(target(state, action)).toEqual(state)
     })
 
     it('handles a single filter', () => {
       action.params = { product: 'Debt Collection' }
-      expect(target({}, action)).toEqual({ product: ['Debt Collection'] })
+      const actual = target({}, action)
+      expect( actual.product ).toEqual( ['Debt Collection'] )
     })
 
     it('handles a multiple filters', () => {
       action.params = { product: ['Debt Collection', 'Mortgage'] }
-      expect(target({}, action)).toEqual({ 
-        product: ['Debt Collection', 'Mortgage']
-      })
+      const actual = target({}, action)
+      expect( actual.product ).toEqual( ['Debt Collection', 'Mortgage'] )
     })
   })
 

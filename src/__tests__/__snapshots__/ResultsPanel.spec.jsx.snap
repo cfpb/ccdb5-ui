@@ -57,6 +57,14 @@ exports[`component:ReactPanel displays a message when an error has occurred 1`] 
           onChange={[Function]}
           value={undefined}>
           <option
+            value="created_date_desc">
+            Sort by newest to oldest
+          </option>
+          <option
+            value="created_date_asc">
+            Sort by oldest to newest
+          </option>
+          <option
             value="relevance_desc">
             Sort by relevance
           </option>
@@ -64,20 +72,12 @@ exports[`component:ReactPanel displays a message when an error has occurred 1`] 
             value="relevance_asc">
             Sort by relevance (asc)
           </option>
-          <option
-            value="created_date_asc">
-            Sort by oldest to newest
-          </option>
-          <option
-            value="created_date_desc">
-            Sort by newest to oldest
-          </option>
         </select>
       </div>
       <h5
         className="flex-all">
         <button
-          className="a-btn a-btn__link hover"
+          className="a-btn a-btn__link"
           onClick={[Function]}>
           Export results
         </button>
@@ -149,6 +149,14 @@ exports[`component:ReactPanel displays a message when there are no results 1`] =
           onChange={[Function]}
           value={undefined}>
           <option
+            value="created_date_desc">
+            Sort by newest to oldest
+          </option>
+          <option
+            value="created_date_asc">
+            Sort by oldest to newest
+          </option>
+          <option
             value="relevance_desc">
             Sort by relevance
           </option>
@@ -156,20 +164,12 @@ exports[`component:ReactPanel displays a message when there are no results 1`] =
             value="relevance_asc">
             Sort by relevance (asc)
           </option>
-          <option
-            value="created_date_asc">
-            Sort by oldest to newest
-          </option>
-          <option
-            value="created_date_desc">
-            Sort by newest to oldest
-          </option>
         </select>
       </div>
       <h5
         className="flex-all">
         <button
-          className="a-btn a-btn__link hover"
+          className="a-btn a-btn__link"
           onClick={[Function]}>
           Export results
         </button>
@@ -241,6 +241,14 @@ exports[`component:ReactPanel renders without crashing 1`] = `
           onChange={[Function]}
           value={undefined}>
           <option
+            value="created_date_desc">
+            Sort by newest to oldest
+          </option>
+          <option
+            value="created_date_asc">
+            Sort by oldest to newest
+          </option>
+          <option
             value="relevance_desc">
             Sort by relevance
           </option>
@@ -248,20 +256,12 @@ exports[`component:ReactPanel renders without crashing 1`] = `
             value="relevance_asc">
             Sort by relevance (asc)
           </option>
-          <option
-            value="created_date_asc">
-            Sort by oldest to newest
-          </option>
-          <option
-            value="created_date_desc">
-            Sort by newest to oldest
-          </option>
         </select>
       </div>
       <h5
         className="flex-all">
         <button
-          className="a-btn a-btn__link hover"
+          className="a-btn a-btn__link"
           onClick={[Function]}>
           Export results
         </button>

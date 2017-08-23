@@ -25,7 +25,7 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
       className="flex-all">
       <label
         className="a-label a-label__heading body-copy">
-        From:
+        From
       </label>
       <input
         aria-describedby="input-error_message-from"
@@ -40,7 +40,7 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
       className="flex-all">
       <label
         className="a-label a-label__heading body-copy">
-        Through:
+        Through
       </label>
       <input
         aria-describedby="input-error_message-through"
@@ -112,7 +112,7 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
       className="flex-all">
       <label
         className="a-label a-label__heading body-copy">
-        From:
+        From
       </label>
       <input
         aria-describedby="input-error_message-from"
@@ -127,7 +127,7 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
       className="flex-all">
       <label
         className="a-label a-label__heading body-copy">
-        Through:
+        Through
       </label>
       <input
         aria-describedby="input-error_message-through"
