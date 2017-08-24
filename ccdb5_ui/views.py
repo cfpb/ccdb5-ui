@@ -10,7 +10,7 @@ except:  # pragma: no cover
 if STANDALONE:
     BASE_TEMPLATE = 'ccdb5_ui/standalone_base.html'
 else:  # pragma: no cover
-    BASE_TEMPLATE = 'ccdb5_ui/ccdb_base.html'
+    BASE_TEMPLATE = 'front/base_update.html'
 
 
 class CCDB5MainView(TemplateView):
