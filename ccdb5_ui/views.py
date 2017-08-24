@@ -8,13 +8,13 @@ except:  # pragma: no cover
 
 
 if STANDALONE:
-    BASE_TEMPLATE = 'standalone_base.html'
+    BASE_TEMPLATE = 'ccdb5_ui/standalone_base.html'
 else:  # pragma: no cover
-    BASE_TEMPLATE = 'front/base_update.html'
+    BASE_TEMPLATE = 'ccdb5_ui/ccdb_base.html'
 
 
 class CCDB5MainView(TemplateView):
-    template_name = 'ccdb-main.html'
+    template_name = 'ccdb5_ui/ccdb-main.html'
     base_template = BASE_TEMPLATE
 
     def get_context_data(self, **kwargs):
