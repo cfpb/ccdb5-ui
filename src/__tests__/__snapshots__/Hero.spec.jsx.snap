@@ -1,9 +1,14 @@
 exports[`initial state renders without crashing 1`] = `
 <header
   className="content_hero">
-  <h1>
+  <h1
+    className="content-header">
     Consumer Complaint Database
   </h1>
+  <h4
+    className="content-header">
+    Beta
+  </h4>
   <p>
     Consumer complaints are added to this public database after the company has responded to the complaint, confirming a commercial relationship with the consumer, or after they\'ve had the complaint for 15 calendar days, whichever comes first. We don’t verify all the facts alleged in complaints, but we do give companies the opportunity to publicly respond to complaints by selecting responses from a pre-populated list. Company-level information should be considered in the context of company size and/or market share.
   </p>
