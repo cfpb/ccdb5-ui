@@ -593,6 +593,28 @@ exports[`initial state renders without crashing 1`] = `
             Whether a consumer opted to publish their compaint narrative
           </p>
         </section>
+        <hr />
+        <section
+          className="o-expandable aggregation">
+          <div
+            className="o-expandable_header o-expandable_target">
+            <h5
+              className="o-expandable_header-left o-expandable_label">
+              How did the consumer submit the complaint to the CFPB?
+            </h5>
+            <span
+              className="o-expandable_header-right o-expandable_link">
+              <button
+                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
+                onClick={[Function]}>
+                Show
+                <span
+                  className="cf-icon cf-icon-plus-round" />
+              </button>
+            </span>
+          </div>
+          <p />
+        </section>
       </section>
     </aside>
     <section
