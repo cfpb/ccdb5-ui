@@ -231,6 +231,7 @@ exports[`initial state renders without crashing 1`] = `
               </label>
               <div>
                 <input
+                  aria-describedby="input-error_message-from"
                   className="a-text-input"
                   max={null}
                   min={2014-01-01T17:00:00.000Z}
@@ -248,6 +249,7 @@ exports[`initial state renders without crashing 1`] = `
               </label>
               <div>
                 <input
+                  aria-describedby="input-error_message-through"
                   className="a-text-input"
                   max={null}
                   min={2014-01-01T17:00:00.000Z}
@@ -549,6 +551,7 @@ exports[`initial state renders without crashing 1`] = `
               </label>
               <div>
                 <input
+                  aria-describedby="input-error_message-from"
                   className="a-text-input"
                   max={null}
                   min={2014-01-01T17:00:00.000Z}
@@ -566,6 +569,7 @@ exports[`initial state renders without crashing 1`] = `
               </label>
               <div>
                 <input
+                  aria-describedby="input-error_message-through"
                   className="a-text-input"
                   max={null}
                   min={2014-01-01T17:00:00.000Z}
