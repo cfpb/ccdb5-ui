@@ -28,6 +28,16 @@ export const sortSelThenCount = ( options, selected ) => {
 }
 
 /**
+* Safely format a date
+*
+* @param {Date} date the date to convert
+* @returns {string} the date formatted for the current locale
+*/
+export function shortFormat( date ) {
+  return date ? date.toLocaleDateString() : ''
+}
+
+/**
 * Convert a date to a truncated ISO-8601 string
 *
 * @param {Date} date the date to convert
