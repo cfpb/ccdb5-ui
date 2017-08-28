@@ -177,7 +177,7 @@ DateInput.propTypes = {
   onDateEntered: PropTypes.func.isRequired,
   onError: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
-  textBoxProps: PropTypes.object,  
+  textBoxProps: PropTypes.object,
   value: PropTypes.string
 }
 
