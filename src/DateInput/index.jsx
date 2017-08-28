@@ -50,6 +50,7 @@ export default class DateInput extends React.Component {
                placeholder={ placeholder }
                size="15"
                value={ this.state.asText }
+               {...this.props.textBoxProps}
         />
       </div>
     )
@@ -67,7 +68,7 @@ export default class DateInput extends React.Component {
 
   get _className() {
     const style = [ 'a-text-input' ]
-    if ( this.phase === ERROR ) {
+    if ( this.state.phase === ERROR ) {
       style.push( 'a-text-input__error' )
     }
 
@@ -173,9 +174,10 @@ DateInput.propTypes = {
   max: PropTypes.instanceOf( Date ),
   min: PropTypes.instanceOf( Date ),
   onChange: PropTypes.func,
-  onDateEntered: PropTypes.func,
-  onError: PropTypes.func,
+  onDateEntered: PropTypes.func.isRequired,
+  onError: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
+  textBoxProps: PropTypes.object,  
   value: PropTypes.string
 }
 
@@ -185,7 +187,7 @@ DateInput.defaultProps = {
   max: null,
   min: null,
   onChange: () => {},
-  onDateEntered: () => {},
-  onError: () => {},
-  placeholder: ''
+  placeholder: '',
+  textBoxProps: {},
+  value: ''
 }

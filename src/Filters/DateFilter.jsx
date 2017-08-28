@@ -22,7 +22,8 @@ export class DateFilter extends React.Component {
   componentWillReceiveProps( nextProps ) {
     const newState = {
       from: nextProps.from,
-      through: nextProps.through
+      through: nextProps.through,
+      messages: {}
     }
 
     this.setState( newState )
@@ -58,6 +59,10 @@ export class DateFilter extends React.Component {
   }
 
   _renderDateInput( label, field ) {
+    const localProps = {
+      'aria-describedby': 'input-error_message-' + field
+    }
+
     return (
       <div className="flex-all">
           <label className="a-label a-label__heading body-copy">
@@ -67,6 +72,7 @@ export class DateFilter extends React.Component {
                      max={ this.props.maximumDate }
                      onDateEntered={ this._onDateEntered.bind( this, field ) }
                      onError={ this._onError.bind( this, field ) }
+                     textBoxProps={ localProps }
                      value={ this.state[field] }
           />
       </div>
