@@ -61,39 +61,61 @@ describe('component::DateFilter', () => {
     })
   })
 
-  xdescribe('date entry', () => {
-    it('triggers an update when a valid from date is entered', () => {
-      const { target, props } = setupEnzyme()
-      const input = target.find('input[aria-describedby="input-error_message-from"]')
-      input.simulate('change', { target: { value: '2015-06-07' }})
-      const actual = props.changeDateRange.mock.calls[0]
-      expect(actual[0]).toEqual(expect.any(Date))
-      expect(actual[0].getFullYear()).toEqual(2015)
-      expect(actual[0].getMonth()).toEqual(6-1)
-      expect(actual[1]).toEqual(null)
+  describe('DateInput interface', () => {
+    let target, props
+    beforeEach(() => {
+      ({ target, props } = setupEnzyme())
     })
 
-    it('triggers an update when a valid through date is entered', () => {
-      const { target, props } = setupEnzyme()
-      const input = target.find('input[aria-describedby="input-error_message-through"]')
-      input.simulate('change', { target: { value: '2015-06-07' }})
-      const actual = props.changeDateRange.mock.calls[0]
-      expect(actual[1]).toEqual(expect.any(Date))
-      expect(actual[1].getFullYear()).toEqual(2015)
-      expect(actual[1].getMonth()).toEqual(6-1)
-      expect(actual[0]).toEqual(null)
+    describe('_onDateEntered', () => {
+      it('converts the date to a string', () => {
+        target.instance()._onDateEntered('from', new Date(2012, 11, 31))
+        expect(target.state('from')).toEqual('12/31/2012')
+      })
+
+      it('resets any messages that may have existed', () => {
+        target.setState({
+          messages: {
+            from: 'foo'
+          }
+        })
+        target.instance()._onDateEntered('from', new Date(2012, 11, 31))
+        expect(target.state('messages')).toEqual({})
+      })
+
+      it('checks for range errors', () => {
+        target.setState({
+          through: '1/1/2000'
+        })
+        target.instance()._onDateEntered('from', new Date(2012, 11, 31))
+        expect(target.state('messages').ordered).toEqual(
+          '\'From\' must be less than \'Through\''
+        )
+      })
+
+      it('calls changeDateRange', () => {
+        target.instance()._onDateEntered('through', new Date(2012, 11, 31))
+        expect(props.changeDateRange).toHaveBeenCalledWith(
+          null, new Date(2012, 11, 31)
+        )
+      })
     })
 
-    it('does not trigger an update when an invalid date is entered', () => {
-      const { target, props } = setupEnzyme()
-      const input = target.find('input[aria-describedby="input-error_message-from"]')
-      input.simulate('change', { target: { value: '9999-99-9' }})
-      expect(props.changeDateRange).not.toHaveBeenCalled()
-      expect(target.state('messages').from).toEqual("'9999-99-9' is not a valid date.")
+    describe('_onError', () => {
+      it('associates the error to the field', () => {
+        target.instance()._onError('from', 'foo', '2/31/2012')
+        expect(target.state()).toEqual({
+          from: '2/31/2012',
+          messages: {
+            from: 'foo'
+          },
+          through: ''
+        })
+      })
     })
   })
 
-  xdescribe('componentWillReceiveProps', () => {
+  describe('componentWillReceiveProps', () => {
     it('does not trigger a new update', () => {
       const {target, props} = setupEnzyme()
       target.setProps({from: '2016-01-01', through: '2015-12-31'})

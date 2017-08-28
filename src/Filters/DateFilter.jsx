@@ -29,15 +29,6 @@ export class DateFilter extends React.Component {
     this.setState( newState )
   }
 
-  componentDidUpdate() {
-    if ( this._hasMessages() === false ) {
-      const { from, through } = this.state
-      const dateFrom = from ? new Date( from ) : null
-      const dateThrough = through ? new Date( through ) : null
-      this.props.changeDateRange( dateFrom, dateThrough )
-    }
-  }
-
   render() {
     return (
       <CollapsibleFilter title={ this.props.title }
@@ -45,7 +36,10 @@ export class DateFilter extends React.Component {
           <div className="layout-row">
             { this._renderDateInput( 'From', 'from' ) }
             { this._renderDateInput( 'Through', 'through' ) }
-            { this._hasMessages() ? this._renderMessages() : null }
+            { this._hasMessages( this.state.messages ) ?
+              this._renderMessages() :
+              null
+            }
           </div>
         </CollapsibleFilter>
     )
@@ -54,8 +48,8 @@ export class DateFilter extends React.Component {
   // --------------------------------------------------------------------------
   // Subrender Methods
 
-  _hasMessages() {
-    return Object.keys( this.state.messages ).length > 0
+  _hasMessages( messages ) {
+    return Object.keys( messages ).length > 0
   }
 
   _renderDateInput( label, field ) {
@@ -100,6 +94,8 @@ export class DateFilter extends React.Component {
   // --------------------------------------------------------------------------
   // DateInput interface methods
 
+  /* eslint complexity: ["error", 6] */
+
   _onDateEntered( field, date ) {
     const newState = {
       from: this.state.from,
@@ -123,6 +119,13 @@ export class DateFilter extends React.Component {
     }
 
     this.setState( newState )
+
+    // If it's good, send an update
+    if ( this._hasMessages( newState.messages ) === false ) {
+      const dateFrom = from.isValid() ? from.toDate() : null
+      const dateThrough = through.isValid() ? through.toDate() : null
+      this.props.changeDateRange( dateFrom, dateThrough )
+    }
   }
 
   _onError( field, error, value ) {
