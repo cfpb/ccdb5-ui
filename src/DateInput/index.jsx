@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { shortFormat } from '../Filters/utils'
 
-
 const FORMAT = 'MM-DD-YYYY'
 const ONLY_VALID_SYMBOLS = /^[0-9/-]{1,10}$/
 const HAS_4_DIGIT_YEAR = /^(\d{1,2})[-/](\d{1,2})[-/](\d{4})$/
@@ -34,8 +33,15 @@ export default class DateInput extends React.Component {
     this._changeDate = this._changeDate.bind( this )
   }
 
+  componentWillMount() {
+    if ( this.state.message ) {
+      this.props.onError( this.state.message, this.props.value )
+    }
+  }
+
   componentWillReceiveProps( nextProps ) {
-    this.setState( this._calculateState( nextProps, nextProps.value ) )
+    const state = this._calculateState( nextProps, nextProps.value )
+    this.setState( state )
   }
 
   render() {
@@ -93,19 +99,9 @@ export default class DateInput extends React.Component {
         break
 
       case ERROR:
-        this.props.onError( `'${ v }' is not a valid date.`, v )
-        break
-
       case TOO_LOW:
-        this.props.onError(
-          `'${ v }' must be greater than ` + shortFormat( this.props.min ), v
-        )
-        break
-
       case TOO_HIGH:
-        this.props.onError(
-          `'${ v }' must be less than ` + shortFormat( this.props.max ), v
-        )
+        this.props.onError( newState.message, v )
         break
 
       default:
@@ -163,7 +159,25 @@ export default class DateInput extends React.Component {
       state.phase = this._validateAsDate( props, state.asDate )
     }
 
+    state.message = this._buildErrorMessage( state.phase, props, v )
+
     return state
+  }
+
+  _buildErrorMessage( phase, props, v ) {
+    switch ( phase ) {
+      case ERROR:
+        return `'${ v }' is not a valid date.`
+
+      case TOO_LOW:
+        return `'${ v }' must be greater than ` + shortFormat( props.min )
+
+      case TOO_HIGH:
+        return `'${ v }' must be less than ` + shortFormat( props.max )
+
+      default:
+        return ''
+    }
   }
 }
 
