@@ -58,6 +58,10 @@ export class FilterPanel extends React.Component {
                      desc={descConsumerConsent}
                      fieldName="consumer_consent_provided"
         />
+        <hr />
+        <SimpleFilter title="How did the consumer submit the complaint to the CFPB?"
+                     fieldName="submitted_via"
+        />
       </section>
     )
   }
