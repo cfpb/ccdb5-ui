@@ -12,11 +12,11 @@ export class DateFilter extends React.Component {
   constructor( props ) {
     super( props )
 
-    this.state = {
+    this.state = this._validate( {
       from: this.props.from,
       through: this.props.through,
       messages: {}
-    }
+    } )
   }
 
   componentWillReceiveProps( nextProps ) {
@@ -26,7 +26,7 @@ export class DateFilter extends React.Component {
       messages: {}
     }
 
-    this.setState( newState )
+    this.setState( this._validate( newState ) )
   }
 
   render() {
@@ -92,36 +92,46 @@ export class DateFilter extends React.Component {
   }
 
   // --------------------------------------------------------------------------
+  // Validation methods
+
+  _validate( state ) {
+
+    // Check for range errors
+    const from = moment( state.from, 'MM-DD-YYYY' )
+    const through = moment( state.through, 'MM-DD-YYYY' )
+    if ( from && through && from > through ) {
+      state.messages.ordered = "'From' must be less than 'Through'"
+    } else {
+      delete state.messages.ordered
+    }
+
+    return state
+  }
+
+  // --------------------------------------------------------------------------
   // DateInput interface methods
 
-  /* eslint complexity: ["error", 6] */
-
   _onDateEntered( field, date ) {
-    const newState = {
+    let state = {
       from: this.state.from,
       through: this.state.through,
       messages: { ...this.state.messages }
     }
 
     // Update the correct field
-    newState[field] = shortFormat( date )
+    state[field] = shortFormat( date )
 
     // Clear any messages for that field
-    delete newState.messages[field]
+    delete state.messages[field]
 
-    // Check for range errors
-    const from = moment( newState.from, 'MM-DD-YYYY' )
-    const through = moment( newState.through, 'MM-DD-YYYY' )
-    if ( from && through && from > through ) {
-      newState.messages.ordered = "'From' must be less than 'Through'"
-    } else {
-      delete newState.messages.ordered
-    }
+    state = this._validate( state )
 
-    this.setState( newState )
+    this.setState( state )
 
     // If it's good, send an update
-    if ( this._hasMessages( newState.messages ) === false ) {
+    if ( this._hasMessages( state.messages ) === false ) {
+      const from = moment( state.from, 'MM-DD-YYYY' )
+      const through = moment( state.through, 'MM-DD-YYYY' )
       const dateFrom = from.isValid() ? from.toDate() : null
       const dateThrough = through.isValid() ? through.toDate() : null
       this.props.changeDateRange( dateFrom, dateThrough )
