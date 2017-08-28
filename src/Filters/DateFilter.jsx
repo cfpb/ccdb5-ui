@@ -2,20 +2,21 @@ import './DateFilter.less'
 import { changeDateRange } from '../actions/filter'
 import CollapsibleFilter from './CollapsibleFilter'
 import { connect } from 'react-redux'
+import DateInput from '../DateInput'
+import moment from 'moment'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { shortIsoFormat } from './utils'
+import { shortFormat } from './utils'
 
 export class DateFilter extends React.Component {
   constructor( props ) {
     super( props )
 
-    this.state = this._validate(
-      {
-        from: this.props.from,
-        through: this.props.through
-      }
-    )
+    this.state = {
+      from: this.props.from,
+      through: this.props.through,
+      messages: {}
+    }
   }
 
   componentWillReceiveProps( nextProps ) {
@@ -24,7 +25,7 @@ export class DateFilter extends React.Component {
       through: nextProps.through
     }
 
-    this.setState( this._validate( newState ) )
+    this.setState( newState )
   }
 
   componentDidUpdate() {
@@ -52,19 +53,21 @@ export class DateFilter extends React.Component {
   // --------------------------------------------------------------------------
   // Subrender Methods
 
+  _hasMessages() {
+    return Object.keys( this.state.messages ).length > 0
+  }
+
   _renderDateInput( label, field ) {
     return (
       <div className="flex-all">
           <label className="a-label a-label__heading body-copy">
             { label }
           </label>
-          <input type="date"
-                 aria-describedby={'input-error_message-' + field}
-                 className={ this._lookupStyle( field ) }
-                 onChange={ this._changeDate.bind( this, field ) }
-                 min={ this.props.minimumDate }
-                 max={ this.props.maximumDate }
-                 value={ this.state[field] }
+          <DateInput min={ this.props.minimumDate }
+                     max={ this.props.maximumDate }
+                     onDateEntered={ this._onDateEntered.bind( this, field ) }
+                     onError={ this._onError.bind( this, field ) }
+                     value={ this.state[field] }
           />
       </div>
     )
@@ -89,77 +92,37 @@ export class DateFilter extends React.Component {
   }
 
   // --------------------------------------------------------------------------
-  // Date Methods
+  // DateInput interface methods
 
-  _changeDate( field, event ) {
+  _onDateEntered( field, date ) {
     const newState = {
       from: this.state.from,
-      through: this.state.through
-    }
-    newState[field] = event.target.value
-    this.setState( this._validate( newState ) )
-  }
-
-  // --------------------------------------------------------------------------
-  // Validation methods
-
-  _hasMessages() {
-    return Object.keys( this.state.messages ).length > 0
-  }
-
-  _lookupStyle( field ) {
-    const style = []
-    if ( field in this.state.messages ) {
-      style.push( 'a-text-input__error' )
+      through: this.state.through,
+      messages: { ...this.state.messages }
     }
 
-    return style.join( ' ' )
-  }
+    // Update the correct field
+    newState[field] = shortFormat( date )
 
-  /* eslint complexity: ["error", 10] */
+    // Clear any messages for that field
+    delete newState.messages[field]
 
-  _validateOneDate( v ) {
-    if ( v === '' ) {
-      return ''
-    }
-
-    if ( isNaN( Date.parse( v ) ) ) {
-      return "'" + v + "' is not a valid date."
-    }
-
-    if ( this.props.minimumDate && v < this.props.minimumDate ) {
-      return "'" + v + "' must be greater than " + this.props.minimumDate
-    }
-
-    if ( this.props.maximumDate && v > this.props.maximumDate ) {
-      return "'" + v + "' must be less than " + this.props.maximumDate
-    }
-
-    return ''
-  }
-
-  /* eslint complexity: ["error", 5] */
-
-  _validate( state ) {
-    const messages = {}
-    const { from, through } = state
-
-    let m = this._validateOneDate( from )
-    if ( m ) {
-      messages.from = m
-    }
-
-    m = this._validateOneDate( through )
-    if ( m ) {
-      messages.through = m
-    }
-
+    // Check for range errors
+    const from = moment( newState.from, 'MM-DD-YYYY' )
+    const through = moment( newState.through, 'MM-DD-YYYY' )
     if ( from && through && from > through ) {
-      messages.ordered = "'From' must be less than 'Through'"
+      newState.messages.ordered = "'From' must be less than 'Through'"
+    } else {
+      delete newState.messages.ordered
     }
 
-    state.messages = messages
-    return state
+    this.setState( newState )
+  }
+
+  _onError( field, error, value ) {
+    const messages = { ...this.state.messages }
+    messages[field] = error
+    this.setState( { messages, [field]: value } )
   }
 }
 
@@ -169,22 +132,22 @@ export class DateFilter extends React.Component {
 DateFilter.propTypes = {
   fieldName: PropTypes.string.isRequired,
   from: PropTypes.string,
-  maximumDate: PropTypes.string,
-  minimumDate: PropTypes.string,
+  maximumDate: PropTypes.instanceOf( Date ),
+  minimumDate: PropTypes.instanceOf( Date ),
   through: PropTypes.string,
   title: PropTypes.string.isRequired
 }
 
 DateFilter.defaultProps = {
   from: '',
-  maximumDate: '',
-  minimumDate: '2014-01-01',
+  maximumDate: null,
+  minimumDate: new Date( '2014-01-01T12:00:00' ),
   through: ''
 }
 
 export const mapStateToProps = ( state, ownProps ) => ( {
-  from: shortIsoFormat( state.query[ownProps.fieldName + '_min'] ),
-  through: shortIsoFormat( state.query[ownProps.fieldName + '_max'] )
+  from: shortFormat( state.query[ownProps.fieldName + '_min'] ),
+  through: shortFormat( state.query[ownProps.fieldName + '_max'] )
 } )
 
 export const mapDispatchToProps = ( dispatch, ownProps ) => ( {
