@@ -26,6 +26,7 @@
     "cf-tables": "^4.1.1",
     "cf-typography": "^4.1.0",
     "history": "^4.6.1",
+    "moment": "^2.18.1",
     "prop-types": "^15.5.10",
     "query-string": "^4.3.4",
     "react": "^15.5.4",
