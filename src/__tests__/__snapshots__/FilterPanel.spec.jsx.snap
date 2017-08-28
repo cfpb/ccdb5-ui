@@ -54,14 +54,16 @@ exports[`initial state renders without crashing 1`] = `
           className="a-label a-label__heading body-copy">
           From
         </label>
-        <input
-          aria-describedby="input-error_message-from"
-          className=""
-          max=""
-          min="2014-01-01"
-          onChange={[Function]}
-          type="date"
-          value="" />
+        <div>
+          <input
+            className="a-text-input"
+            max={null}
+            min={2014-01-01T17:00:00.000Z}
+            onChange={[Function]}
+            placeholder="mm/dd/yyyy"
+            size="15"
+            value="" />
+        </div>
       </div>
       <div
         className="flex-all">
@@ -69,14 +71,16 @@ exports[`initial state renders without crashing 1`] = `
           className="a-label a-label__heading body-copy">
           Through
         </label>
-        <input
-          aria-describedby="input-error_message-through"
-          className=""
-          max=""
-          min="2014-01-01"
-          onChange={[Function]}
-          type="date"
-          value="" />
+        <div>
+          <input
+            className="a-text-input"
+            max={null}
+            min={2014-01-01T17:00:00.000Z}
+            onChange={[Function]}
+            placeholder="mm/dd/yyyy"
+            size="15"
+            value="" />
+        </div>
       </div>
     </div>
   </section>
@@ -368,14 +372,16 @@ exports[`initial state renders without crashing 1`] = `
           className="a-label a-label__heading body-copy">
           From
         </label>
-        <input
-          aria-describedby="input-error_message-from"
-          className=""
-          max=""
-          min="2014-01-01"
-          onChange={[Function]}
-          type="date"
-          value="" />
+        <div>
+          <input
+            className="a-text-input"
+            max={null}
+            min={2014-01-01T17:00:00.000Z}
+            onChange={[Function]}
+            placeholder="mm/dd/yyyy"
+            size="15"
+            value="" />
+        </div>
       </div>
       <div
         className="flex-all">
@@ -383,14 +389,16 @@ exports[`initial state renders without crashing 1`] = `
           className="a-label a-label__heading body-copy">
           Through
         </label>
-        <input
-          aria-describedby="input-error_message-through"
-          className=""
-          max=""
-          min="2014-01-01"
-          onChange={[Function]}
-          type="date"
-          value="" />
+        <div>
+          <input
+            className="a-text-input"
+            max={null}
+            min={2014-01-01T17:00:00.000Z}
+            onChange={[Function]}
+            placeholder="mm/dd/yyyy"
+            size="15"
+            value="" />
+        </div>
       </div>
     </div>
   </section>
