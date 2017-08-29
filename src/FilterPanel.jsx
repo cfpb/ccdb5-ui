@@ -16,6 +16,9 @@ export class FilterPanel extends React.Component {
       "response to a consumer's complaint"
     const descConsumerConsent = 'Whether a consumer opted to publish their ' +
       'compaint narrative'
+    const descTags = 'Data that supports easier searching and sorting of ' +
+      'complaints submitted by or on behalf of older Americans and/or ' +
+      'servicemembers'
 
     return (
       <section className="filter-panel">
@@ -59,8 +62,14 @@ export class FilterPanel extends React.Component {
                      fieldName="consumer_consent_provided"
         />
         <hr />
-        <SimpleFilter title="How did the consumer submit the complaint to the CFPB?"
+        <SimpleFilter title="How did the consumer submit the
+           complaint to the CFPB?"
                      fieldName="submitted_via"
+        />
+        <hr />
+        <SimpleFilter title="Tags"
+                     desc={descTags}
+                     fieldName="tags"
         />
       </section>
     )
