@@ -615,6 +615,30 @@ exports[`initial state renders without crashing 1`] = `
           </div>
           <p />
         </section>
+        <hr />
+        <section
+          className="o-expandable aggregation">
+          <div
+            className="o-expandable_header o-expandable_target">
+            <h5
+              className="o-expandable_header-left o-expandable_label">
+              Tags
+            </h5>
+            <span
+              className="o-expandable_header-right o-expandable_link">
+              <button
+                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
+                onClick={[Function]}>
+                Show
+                <span
+                  className="cf-icon cf-icon-plus-round" />
+              </button>
+            </span>
+          </div>
+          <p>
+            Data that supports easier searching and sorting of complaints submitted by or on behalf of older Americans and/or servicemembers
+          </p>
+        </section>
       </section>
     </aside>
     <section
