@@ -3,7 +3,7 @@ import configureMockStore from 'redux-mock-store'
 import { Provider } from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import thunk from 'redux-thunk'
 
 function setupEnzyme(initialProps={}) {
@@ -11,13 +11,13 @@ function setupEnzyme(initialProps={}) {
     changeDateRange: jest.fn(),
     fieldName: 'date_received',
     from: '',
-    maximumDate: '',
-    minimumDate: '',
+    maximumDate: null,
+    minimumDate: null,
     through: '',
     title: 'Date CFPB Received the complaint'
   }, initialProps)
 
-  const target = shallow(<DateFilter {...props} />);
+  const target = mount(<DateFilter {...props} />);
 
   return {
     props,
@@ -35,8 +35,8 @@ function setupSnapshot(query={}) {
   return renderer.create(
     <Provider store={store}>
       <ReduxDateFilter fieldName="date_received"
-                       minimumDate="2015-01-01"
-                       maximumDate="2015-12-31"
+                       minimumDate={ new Date( '2015-01-01T12:00:00.000Z' ) }
+                       maximumDate={ new Date( '2015-12-31T12:00:00.000Z' ) }
                        title="Date CFPB Received the complaint"
       />
     </Provider>
@@ -61,49 +61,64 @@ describe('component::DateFilter', () => {
     })
   })
 
-  describe('date entry', () => {
-    it('triggers an update when a valid from date is entered', () => {
-      const { target, props } = setupEnzyme()
-      const input = target.find('input[aria-describedby="input-error_message-from"]')
-      input.simulate('change', { target: { value: '2015-06-07' }})
-      const actual = props.changeDateRange.mock.calls[0]
-      expect(actual[0]).toEqual(expect.any(Date))
-      expect(actual[0].getFullYear()).toEqual(2015)
-      expect(actual[0].getMonth()).toEqual(6-1)
-      expect(actual[1]).toEqual(null)
+  describe('DateInput interface', () => {
+    let target, props
+    beforeEach(() => {
+      ({ target, props } = setupEnzyme())
     })
 
-    it('triggers an update when a valid through date is entered', () => {
-      const { target, props } = setupEnzyme()
-      const input = target.find('input[aria-describedby="input-error_message-through"]')
-      input.simulate('change', { target: { value: '2015-06-07' }})
-      const actual = props.changeDateRange.mock.calls[0]
-      expect(actual[1]).toEqual(expect.any(Date))
-      expect(actual[1].getFullYear()).toEqual(2015)
-      expect(actual[1].getMonth()).toEqual(6-1)
-      expect(actual[0]).toEqual(null)
+    describe('_onDateEntered', () => {
+      it('converts the date to a string', () => {
+        target.instance()._onDateEntered('from', new Date(2012, 11, 31))
+        expect(target.state('from')).toEqual('12/31/2012')
+      })
+
+      it('resets any messages that may have existed', () => {
+        target.setState({
+          messages: {
+            from: 'foo'
+          }
+        })
+        target.instance()._onDateEntered('from', new Date(2012, 11, 31))
+        expect(target.state('messages')).toEqual({})
+      })
+
+      it('checks for range errors', () => {
+        target.setState({
+          through: '1/1/2000'
+        })
+        target.instance()._onDateEntered('from', new Date(2012, 11, 31))
+        expect(target.state('messages').ordered).toEqual(
+          '\'From\' must be less than \'Through\''
+        )
+      })
+
+      it('calls changeDateRange', () => {
+        target.instance()._onDateEntered('through', new Date(2012, 11, 31))
+        expect(props.changeDateRange).toHaveBeenCalledWith(
+          null, new Date(2012, 11, 31)
+        )
+      })
     })
 
-    it('does not trigger an update when an invalid date is entered', () => {
-      const { target, props } = setupEnzyme()
-      const input = target.find('input[aria-describedby="input-error_message-from"]')
-      input.simulate('change', { target: { value: '9999-99-9' }})
-      expect(props.changeDateRange).not.toHaveBeenCalled()
-      expect(target.state('messages').from).toEqual("'9999-99-9' is not a valid date.")
+    describe('_onError', () => {
+      it('associates the error to the field', () => {
+        target.instance()._onError('from', 'foo', '2/31/2012')
+        expect(target.state()).toEqual({
+          from: '2/31/2012',
+          messages: {
+            from: 'foo'
+          },
+          through: ''
+        })
+      })
     })
   })
 
   describe('componentWillReceiveProps', () => {
-    it('validates the new props', () => {
-      const {target} = setupEnzyme()
-      target.instance()._validate = jest.fn(() => ({}))
-      target.setProps({from: '2015-01-01', to: '2015-12-31'})
-      expect(target.instance()._validate).toHaveBeenCalled()
-    })    
-
     it('does not trigger a new update', () => {
       const {target, props} = setupEnzyme()
-      target.setProps({from: '2015-01-01', to: '2015-12-31'})
+      target.setProps({from: '2016-01-01', through: '2015-12-31'})
       expect(props.changeDateRange).not.toHaveBeenCalled()
     })    
   })
