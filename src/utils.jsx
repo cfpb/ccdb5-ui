@@ -1,4 +1,4 @@
-import { SLUG_SEPARATOR } from '../constants'
+import { SLUG_SEPARATOR } from './constants'
 
 export const normalize = s => s.toLowerCase()
 

@@ -3,7 +3,7 @@
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { shortFormat } from '../Filters/utils'
+import { shortFormat } from '../utils'
 
 const FORMAT = 'MM-DD-YYYY'
 const ONLY_VALID_SYMBOLS = /^[0-9/-]{1,10}$/

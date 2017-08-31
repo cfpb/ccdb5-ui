@@ -8,7 +8,7 @@ import renderer from 'react-test-renderer'
 import ReduxAggregationBranch, {
   AggregationBranch, mapDispatchToProps
 } from '../AggregationBranch'
-import { slugify } from '../utils'
+import { slugify } from '../../utils'
 
 // ----------------------------------------------------------------------------
 // Setup 
