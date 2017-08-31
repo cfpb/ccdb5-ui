@@ -6,7 +6,7 @@ import DateInput from '../DateInput'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { shortFormat } from './utils'
+import { shortFormat } from '../utils'
 
 export class DateFilter extends React.Component {
   constructor( props ) {

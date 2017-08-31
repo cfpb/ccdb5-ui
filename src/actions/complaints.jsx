@@ -1,7 +1,7 @@
 /* eslint complexity: ["error", 6] */
 
 import * as types from '../constants'
-import { shortIsoFormat } from '../Filters/utils'
+import { shortIsoFormat } from '../utils'
 const queryString = require( 'query-string' );
 
 // ----------------------------------------------------------------------------

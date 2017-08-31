@@ -1,4 +1,4 @@
-import { slugify, sortSelThenCount } from './utils'
+import { slugify, sortSelThenCount } from '../utils'
 import { addMultipleFilters } from '../actions/filter'
 import AggregationBranch from './AggregationBranch'
 import CollapsibleFilter from './CollapsibleFilter'

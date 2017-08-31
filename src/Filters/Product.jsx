@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import MoreOrLess from './MoreOrLess'
 import React from 'react'
 import { SLUG_SEPARATOR } from '../constants'
-import { sortSelThenCount } from './utils'
+import { sortSelThenCount } from '../utils'
 
 export class Product extends React.Component {
   constructor( props ) {
