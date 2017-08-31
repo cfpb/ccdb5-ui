@@ -1,5 +1,6 @@
 exports[`component::DateInput snapshots renders without crashing 1`] = `
-<div>
+<div
+  className="m-btn-inside-input">
   <input
     className="a-text-input"
     max={null}
@@ -8,11 +9,17 @@ exports[`component::DateInput snapshots renders without crashing 1`] = `
     placeholder="mm/dd/yyyy"
     size="15"
     value="" />
+  <button
+    className="a-btn a-btn__link">
+    <span
+      className="cf-icon cf-icon-delete" />
+  </button>
 </div>
 `;
 
 exports[`undefined 1`] = `
-<div>
+<div
+  className="m-btn-inside-input">
   <input
     className="a-text-input a-text-input__error"
     max={null}
@@ -21,5 +28,10 @@ exports[`undefined 1`] = `
     placeholder="mm/dd/yyyy"
     size="15"
     value="foo" />
+  <button
+    className="a-btn a-btn__link">
+    <span
+      className="cf-icon cf-icon-delete" />
+  </button>
 </div>
 `;
