@@ -36,6 +36,17 @@ describe('module::utils', () => {
       jest.runAllTimers()
       expect(spy).toHaveBeenCalledTimes(1)
     })
+
+    it('passes arguments to the original function', () => {
+      const spy = jest.fn()
+      const target = debounce(spy, 200)
+
+      target('foo', 'bar', 'baz', 'qaz')
+
+      expect(spy).not.toHaveBeenCalled()
+      jest.runAllTimers()
+      expect(spy).toHaveBeenCalledWith('foo', 'bar', 'baz', 'qaz')
+    })
   })
 })
 

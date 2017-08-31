@@ -5,6 +5,7 @@ import { shallow } from 'enzyme';
 
 function setupEnzyme(initialProps={}) {
   const props = Object.assign({
+    debounceWait: 0,
     onChange: jest.fn(),
     onDateEntered: jest.fn(),
     onError: jest.fn()
@@ -20,7 +21,8 @@ function setupEnzyme(initialProps={}) {
 
 function setupSnapshot(value='') {
   return renderer.create(
-    <DateInput onDateEntered={jest.fn()}
+    <DateInput debounceWait={0}
+               onDateEntered={jest.fn()}
                onError={jest.fn()}
                value={value} />
   )
