@@ -31,8 +31,8 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
         <input
           aria-describedby="input-error_message-from"
           className="a-text-input"
-          max={2015-12-31T00:00:00.000Z}
-          min={2015-01-01T00:00:00.000Z}
+          max={2015-12-31T12:00:00.000Z}
+          min={2015-01-01T12:00:00.000Z}
           onChange={[Function]}
           placeholder="mm/dd/yyyy"
           size="15"
@@ -49,8 +49,8 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
         <input
           aria-describedby="input-error_message-through"
           className="a-text-input"
-          max={2015-12-31T00:00:00.000Z}
-          min={2015-01-01T00:00:00.000Z}
+          max={2015-12-31T12:00:00.000Z}
+          min={2015-01-01T12:00:00.000Z}
           onChange={[Function]}
           placeholder="mm/dd/yyyy"
           size="15"
@@ -75,7 +75,7 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
         <span
           aria-hidden="true"
           className="cf-icon cf-icon-delete-round" />
-        \'1/1/2000\' must be greater than 12/31/2014
+        \'1/1/2000\' must be greater than 1/1/2015
       </li>
     </ul>
   </div>
@@ -115,8 +115,8 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
         <input
           aria-describedby="input-error_message-from"
           className="a-text-input"
-          max={2015-12-31T00:00:00.000Z}
-          min={2015-01-01T00:00:00.000Z}
+          max={2015-12-31T12:00:00.000Z}
+          min={2015-01-01T12:00:00.000Z}
           onChange={[Function]}
           placeholder="mm/dd/yyyy"
           size="15"
@@ -133,8 +133,8 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
         <input
           aria-describedby="input-error_message-through"
           className="a-text-input"
-          max={2015-12-31T00:00:00.000Z}
-          min={2015-01-01T00:00:00.000Z}
+          max={2015-12-31T12:00:00.000Z}
+          min={2015-01-01T12:00:00.000Z}
           onChange={[Function]}
           placeholder="mm/dd/yyyy"
           size="15"
