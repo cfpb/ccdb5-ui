@@ -35,8 +35,8 @@ function setupSnapshot(query={}) {
   return renderer.create(
     <Provider store={store}>
       <ReduxDateFilter fieldName="date_received"
-                       minimumDate={ new Date( '2015-01-01' ) }
-                       maximumDate={ new Date( '2015-12-31' ) }
+                       minimumDate={ new Date( '2015-01-01T12:00:00.000Z' ) }
+                       maximumDate={ new Date( '2015-12-31T12:00:00.000Z' ) }
                        title="Date CFPB Received the complaint"
       />
     </Provider>
