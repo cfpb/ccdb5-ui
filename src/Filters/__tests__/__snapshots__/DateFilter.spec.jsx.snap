@@ -27,14 +27,17 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
         className="a-label a-label__heading body-copy">
         From
       </label>
-      <input
-        aria-describedby="input-error_message-from"
-        className="a-text-input__error"
-        max="2015-12-31"
-        min="2015-01-01"
-        onChange={[Function]}
-        type="date"
-        value="2016-01-01" />
+      <div>
+        <input
+          aria-describedby="input-error_message-from"
+          className="a-text-input"
+          max={2015-12-31T12:00:00.000Z}
+          min={2015-01-01T12:00:00.000Z}
+          onChange={[Function]}
+          placeholder="mm/dd/yyyy"
+          size="15"
+          value="1/1/2016" />
+      </div>
     </div>
     <div
       className="flex-all">
@@ -42,35 +45,20 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
         className="a-label a-label__heading body-copy">
         Through
       </label>
-      <input
-        aria-describedby="input-error_message-through"
-        className="a-text-input__error"
-        max="2015-12-31"
-        min="2015-01-01"
-        onChange={[Function]}
-        type="date"
-        value="2000-01-01" />
+      <div>
+        <input
+          aria-describedby="input-error_message-through"
+          className="a-text-input"
+          max={2015-12-31T12:00:00.000Z}
+          min={2015-01-01T12:00:00.000Z}
+          onChange={[Function]}
+          placeholder="mm/dd/yyyy"
+          size="15"
+          value="1/1/2000" />
+      </div>
     </div>
     <ul
       className="messages">
-      <li
-        className="a-error-message"
-        id="input-error_message-from"
-        role="alert">
-        <span
-          aria-hidden="true"
-          className="cf-icon cf-icon-delete-round" />
-        \'2016-01-01\' must be less than 2015-12-31
-      </li>
-      <li
-        className="a-error-message"
-        id="input-error_message-through"
-        role="alert">
-        <span
-          aria-hidden="true"
-          className="cf-icon cf-icon-delete-round" />
-        \'2000-01-01\' must be greater than 2015-01-01
-      </li>
       <li
         className="a-error-message"
         id="input-error_message-ordered"
@@ -79,6 +67,15 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
           aria-hidden="true"
           className="cf-icon cf-icon-delete-round" />
         \'From\' must be less than \'Through\'
+      </li>
+      <li
+        className="a-error-message"
+        id="input-error_message-through"
+        role="alert">
+        <span
+          aria-hidden="true"
+          className="cf-icon cf-icon-delete-round" />
+        \'1/1/2000\' must be greater than 1/1/2015
       </li>
     </ul>
   </div>
@@ -114,14 +111,17 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
         className="a-label a-label__heading body-copy">
         From
       </label>
-      <input
-        aria-describedby="input-error_message-from"
-        className=""
-        max="2015-12-31"
-        min="2015-01-01"
-        onChange={[Function]}
-        type="date"
-        value="" />
+      <div>
+        <input
+          aria-describedby="input-error_message-from"
+          className="a-text-input"
+          max={2015-12-31T12:00:00.000Z}
+          min={2015-01-01T12:00:00.000Z}
+          onChange={[Function]}
+          placeholder="mm/dd/yyyy"
+          size="15"
+          value="" />
+      </div>
     </div>
     <div
       className="flex-all">
@@ -129,14 +129,17 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
         className="a-label a-label__heading body-copy">
         Through
       </label>
-      <input
-        aria-describedby="input-error_message-through"
-        className=""
-        max="2015-12-31"
-        min="2015-01-01"
-        onChange={[Function]}
-        type="date"
-        value="" />
+      <div>
+        <input
+          aria-describedby="input-error_message-through"
+          className="a-text-input"
+          max={2015-12-31T12:00:00.000Z}
+          min={2015-01-01T12:00:00.000Z}
+          onChange={[Function]}
+          placeholder="mm/dd/yyyy"
+          size="15"
+          value="" />
+      </div>
     </div>
   </div>
 </section>

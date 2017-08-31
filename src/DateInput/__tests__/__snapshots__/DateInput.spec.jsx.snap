@@ -1,0 +1,25 @@
+exports[`component::DateInput snapshots renders without crashing 1`] = `
+<div>
+  <input
+    className="a-text-input"
+    max={null}
+    min={null}
+    onChange={[Function]}
+    placeholder="mm/dd/yyyy"
+    size="15"
+    value="" />
+</div>
+`;
+
+exports[`undefined 1`] = `
+<div>
+  <input
+    className="a-text-input a-text-input__error"
+    max={null}
+    min={null}
+    onChange={[Function]}
+    placeholder="mm/dd/yyyy"
+    size="15"
+    value="foo" />
+</div>
+`;
