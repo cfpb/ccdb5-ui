@@ -46,3 +46,51 @@ export function shortFormat( date ) {
 export function shortIsoFormat( date ) {
   return date ? date.toISOString().substring( 0, 10 ) : ''
 }
+
+// ----------------------------------------------------------------------------
+// attribution: underscore.js (MIT License)
+
+/**
+* Delay the implementation of a function until after a period of time
+* This prevents expensive calls from being made while triggering events are
+* still happening
+*
+* @param {function} func a function with an embedded expensive call
+* @param {int} wait the number of msecs to delay before calling the function
+* @returns {function} a replacement function to use in place of the original
+*/
+export function debounce( func, wait ) {
+  var timer = null;
+
+  var later = ( context, args ) => {
+    timer = null;
+    func.apply( context, args );
+  }
+
+  return () => {
+    if ( !timer ) {
+      timer = setTimeout( later, wait )
+    }
+  }
+}
+
+// ----------------------------------------------------------------------------
+// attribution: lodash.js (Creative Commons License)
+
+/**
+* Binds methods of an object to the object itself, overwriting the existing
+* method
+*
+* @param {Object} obj The object to bind and assign the bound methods to.
+* @param {...(string|string[])} methodNames The object method names to bind,
+*  specified individually or in arrays.
+* @returns {Object} the updated object
+*/
+export function bindAll( obj, methodNames ) {
+  const length = methodNames.length
+  for ( let i = 0; i < length; i++ ) {
+    const key = methodNames[i]
+    obj[key] = obj[key].bind( obj )
+  }
+  return obj;
+}
