@@ -240,11 +240,6 @@ exports[`initial state renders without crashing 1`] = `
                     placeholder="mm/dd/yyyy"
                     size="15"
                     value="" />
-                  <button
-                    className="a-btn a-btn__link">
-                    <span
-                      className="cf-icon cf-icon-delete" />
-                  </button>
                 </div>
               </li>
               <li>
@@ -263,11 +258,6 @@ exports[`initial state renders without crashing 1`] = `
                     placeholder="mm/dd/yyyy"
                     size="15"
                     value="" />
-                  <button
-                    className="a-btn a-btn__link">
-                    <span
-                      className="cf-icon cf-icon-delete" />
-                  </button>
                 </div>
               </li>
             </ul>
@@ -572,11 +562,6 @@ exports[`initial state renders without crashing 1`] = `
                     placeholder="mm/dd/yyyy"
                     size="15"
                     value="" />
-                  <button
-                    className="a-btn a-btn__link">
-                    <span
-                      className="cf-icon cf-icon-delete" />
-                  </button>
                 </div>
               </li>
               <li>
@@ -595,11 +580,6 @@ exports[`initial state renders without crashing 1`] = `
                     placeholder="mm/dd/yyyy"
                     size="15"
                     value="" />
-                  <button
-                    className="a-btn a-btn__link">
-                    <span
-                      className="cf-icon cf-icon-delete" />
-                  </button>
                 </div>
               </li>
             </ul>

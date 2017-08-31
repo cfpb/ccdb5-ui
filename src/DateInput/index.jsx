@@ -1,4 +1,4 @@
-/* eslint complexity: ["error", 6] */
+/* eslint complexity: ["error", 7] */
 
 import './DateInput.less'
 import { bindAll, debounce, shortFormat } from '../utils'
@@ -31,7 +31,7 @@ export default class DateInput extends React.Component {
 
     this.state = this._calculateState( props, this.props.value )
 
-    bindAll( this, [ '_onChange', '_triggerCallbacks' ] )
+    bindAll( this, [ '_onClear', '_onChange', '_triggerCallbacks' ] )
     this._triggerCallbacks = this.props.debounceWait ?
       debounce( this._triggerCallbacks, this.props.debounceWait ) :
       this._triggerCallbacks
@@ -70,9 +70,13 @@ export default class DateInput extends React.Component {
                value={ this.state.asText }
                {...this.props.textBoxProps}
         />
-        <button className="a-btn a-btn__link">
-            <span className="cf-icon cf-icon-delete"></span>
-        </button>
+        { this.state.asText ?
+          <button className="a-btn a-btn__link"
+                  onClick={ this._onClear }>
+              <span className="cf-icon cf-icon-delete"></span>
+          </button> :
+          null
+        }
       </div>
     )
   }
@@ -92,6 +96,11 @@ export default class DateInput extends React.Component {
   // --------------------------------------------------------------------------
   // Event Handlers
 
+  _onClear() {
+    const newState = this._calculateState( this.props, '' )
+    this.setState( newState )
+  }
+
   _onChange( event ) {
     const v = event.target.value
     const newState = this._calculateState( this.props, v )
@@ -101,7 +110,9 @@ export default class DateInput extends React.Component {
   _triggerCallbacks() {
     switch ( this.state.phase ) {
       case EMPTY:
-        this.props.onDateEntered( null )
+        if ( this.props.value ) {
+          this.props.onDateEntered( null )
+        }
         break
 
       case VALID:

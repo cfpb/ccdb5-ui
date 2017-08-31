@@ -39,7 +39,8 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
             size="15"
             value="1/1/2016" />
           <button
-            className="a-btn a-btn__link">
+            className="a-btn a-btn__link"
+            onClick={[Function]}>
             <span
               className="cf-icon cf-icon-delete" />
           </button>
@@ -62,7 +63,8 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
             size="15"
             value="1/1/2000" />
           <button
-            className="a-btn a-btn__link">
+            className="a-btn a-btn__link"
+            onClick={[Function]}>
             <span
               className="cf-icon cf-icon-delete" />
           </button>
@@ -134,11 +136,6 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
             placeholder="mm/dd/yyyy"
             size="15"
             value="" />
-          <button
-            className="a-btn a-btn__link">
-            <span
-              className="cf-icon cf-icon-delete" />
-          </button>
         </div>
       </li>
       <li>
@@ -157,11 +154,6 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
             placeholder="mm/dd/yyyy"
             size="15"
             value="" />
-          <button
-            className="a-btn a-btn__link">
-            <span
-              className="cf-icon cf-icon-delete" />
-          </button>
         </div>
       </li>
     </ul>
