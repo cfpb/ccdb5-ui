@@ -1,9 +1,9 @@
 /* eslint complexity: ["error", 6] */
 
+import { bindAll, debounce, shortFormat } from '../utils'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { shortFormat } from '../utils'
 
 const FORMAT = 'MM-DD-YYYY'
 const ONLY_VALID_SYMBOLS = /^[0-9/-]{1,10}$/
@@ -30,7 +30,10 @@ export default class DateInput extends React.Component {
 
     this.state = this._calculateState( props, this.props.value )
 
-    this._changeDate = this._changeDate.bind( this )
+    bindAll( this, [ '_onChange', '_triggerCallbacks' ] )
+    this._triggerCallbacks = this.props.debounceWait ?
+      debounce( this._triggerCallbacks, this.props.debounceWait ) :
+      this._triggerCallbacks
   }
 
   componentWillMount() {
@@ -44,13 +47,21 @@ export default class DateInput extends React.Component {
     this.setState( state )
   }
 
+  shouldComponentUpdate( nextProps, nextState ) {
+    return JSON.stringify( this.state ) !== JSON.stringify( nextState )
+  }
+
+  componentDidUpdate() {
+    this._triggerCallbacks()
+  }
+
   render() {
     const placeholder = this.props.placeholder || 'mm/dd/yyyy'
 
     return (
       <div>
         <input className={ this._className }
-               onChange={ this._changeDate }
+               onChange={ this._onChange }
                min={ this.props.min }
                max={ this.props.max }
                placeholder={ placeholder }
@@ -84,28 +95,30 @@ export default class DateInput extends React.Component {
   // --------------------------------------------------------------------------
   // Event Handlers
 
-  _changeDate( event ) {
+  _onChange( event ) {
     const v = event.target.value
     const newState = this._calculateState( this.props, v )
     this.setState( newState )
+  }
 
-    switch ( newState.phase ) {
+  _triggerCallbacks() {
+    switch ( this.state.phase ) {
       case EMPTY:
         this.props.onDateEntered( null )
         break
 
       case VALID:
-        this.props.onDateEntered( newState.asDate.toDate() )
+        this.props.onDateEntered( this.state.asDate.toDate() )
         break
 
       case ERROR:
       case TOO_LOW:
       case TOO_HIGH:
-        this.props.onError( newState.message, v )
+        this.props.onError( this.state.message, this.state.asText )
         break
 
       default:
-        this.props.onChange( v )
+        this.props.onChange( this.state.asText )
         break
     }
   }
@@ -185,6 +198,7 @@ export default class DateInput extends React.Component {
 // Meta
 
 DateInput.propTypes = {
+  debounceWait: PropTypes.number,
   max: PropTypes.instanceOf( Date ),
   min: PropTypes.instanceOf( Date ),
   onChange: PropTypes.func,
@@ -198,6 +212,7 @@ DateInput.propTypes = {
 /* eslint-disable no-empty-function */
 
 DateInput.defaultProps = {
+  debounceWait: 400,
   max: null,
   min: null,
   onChange: () => {},

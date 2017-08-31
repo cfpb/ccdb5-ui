@@ -67,9 +67,9 @@ export function debounce( func, wait ) {
     func.apply( context, args );
   }
 
-  return () => {
+  return ( ...theArgs ) => {
     if ( !timer ) {
-      timer = setTimeout( later, wait )
+      timer = setTimeout( later, wait, this, theArgs )
     }
   }
 }
