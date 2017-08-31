@@ -1,5 +1,6 @@
 /* eslint complexity: ["error", 6] */
 
+import './DateInput.less'
 import { bindAll, debounce, shortFormat } from '../utils'
 import moment from 'moment'
 import PropTypes from 'prop-types'
@@ -59,8 +60,8 @@ export default class DateInput extends React.Component {
     const placeholder = this.props.placeholder || 'mm/dd/yyyy'
 
     return (
-      <div>
-        <input className={ this._className }
+      <div className="m-btn-inside-input">
+        <input className={ this._inputClassName }
                onChange={ this._onChange }
                min={ this.props.min }
                max={ this.props.max }
@@ -69,21 +70,17 @@ export default class DateInput extends React.Component {
                value={ this.state.asText }
                {...this.props.textBoxProps}
         />
+        <button className="a-btn a-btn__link">
+            <span className="cf-icon cf-icon-delete"></span>
+        </button>
       </div>
     )
   }
 
-  // https://cfpb.github.io/capital-framework/components/cf-forms/
-  //       <div className="m-btn-inside-input">
-  //
-  // <button className="a-btn a-btn__link">
-  //     <span className="cf-icon cf-icon-delete"></span>
-  // </button>
-
   // --------------------------------------------------------------------------
   // Properties
 
-  get _className() {
+  get _inputClassName() {
     const style = [ 'a-text-input' ]
     if ( this.state.phase === ERROR ) {
       style.push( 'a-text-input__error' )

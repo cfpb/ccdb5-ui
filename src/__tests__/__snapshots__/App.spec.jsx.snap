@@ -221,44 +221,56 @@ exports[`initial state renders without crashing 1`] = `
             </span>
           </div>
           <p />
-          <div
-            className="layout-row">
-            <div
-              className="flex-all">
-              <label
-                className="a-label a-label__heading body-copy">
-                From
-              </label>
-              <div>
-                <input
-                  aria-describedby="input-error_message-from"
-                  className="a-text-input"
-                  max={null}
-                  min={2014-01-01T12:00:00.000Z}
-                  onChange={[Function]}
-                  placeholder="mm/dd/yyyy"
-                  size="15"
-                  value="" />
-              </div>
-            </div>
-            <div
-              className="flex-all">
-              <label
-                className="a-label a-label__heading body-copy">
-                Through
-              </label>
-              <div>
-                <input
-                  aria-describedby="input-error_message-through"
-                  className="a-text-input"
-                  max={null}
-                  min={2014-01-01T12:00:00.000Z}
-                  onChange={[Function]}
-                  placeholder="mm/dd/yyyy"
-                  size="15"
-                  value="" />
-              </div>
-            </div>
+          <div>
+            <ul
+              className="date-inputs">
+              <li>
+                <label
+                  className="a-label a-label__heading body-copy">
+                  From
+                </label>
+                <div
+                  className="m-btn-inside-input">
+                  <input
+                    aria-describedby="input-error_message-from"
+                    className="a-text-input"
+                    max={null}
+                    min={2014-01-01T12:00:00.000Z}
+                    onChange={[Function]}
+                    placeholder="mm/dd/yyyy"
+                    size="15"
+                    value="" />
+                  <button
+                    className="a-btn a-btn__link">
+                    <span
+                      className="cf-icon cf-icon-delete" />
+                  </button>
+                </div>
+              </li>
+              <li>
+                <label
+                  className="a-label a-label__heading body-copy">
+                  Through
+                </label>
+                <div
+                  className="m-btn-inside-input">
+                  <input
+                    aria-describedby="input-error_message-through"
+                    className="a-text-input"
+                    max={null}
+                    min={2014-01-01T12:00:00.000Z}
+                    onChange={[Function]}
+                    placeholder="mm/dd/yyyy"
+                    size="15"
+                    value="" />
+                  <button
+                    className="a-btn a-btn__link">
+                    <span
+                      className="cf-icon cf-icon-delete" />
+                  </button>
+                </div>
+              </li>
+            </ul>
           </div>
         </section>
         <hr />
@@ -541,44 +553,56 @@ exports[`initial state renders without crashing 1`] = `
             </span>
           </div>
           <p />
-          <div
-            className="layout-row">
-            <div
-              className="flex-all">
-              <label
-                className="a-label a-label__heading body-copy">
-                From
-              </label>
-              <div>
-                <input
-                  aria-describedby="input-error_message-from"
-                  className="a-text-input"
-                  max={null}
-                  min={2014-01-01T12:00:00.000Z}
-                  onChange={[Function]}
-                  placeholder="mm/dd/yyyy"
-                  size="15"
-                  value="" />
-              </div>
-            </div>
-            <div
-              className="flex-all">
-              <label
-                className="a-label a-label__heading body-copy">
-                Through
-              </label>
-              <div>
-                <input
-                  aria-describedby="input-error_message-through"
-                  className="a-text-input"
-                  max={null}
-                  min={2014-01-01T12:00:00.000Z}
-                  onChange={[Function]}
-                  placeholder="mm/dd/yyyy"
-                  size="15"
-                  value="" />
-              </div>
-            </div>
+          <div>
+            <ul
+              className="date-inputs">
+              <li>
+                <label
+                  className="a-label a-label__heading body-copy">
+                  From
+                </label>
+                <div
+                  className="m-btn-inside-input">
+                  <input
+                    aria-describedby="input-error_message-from"
+                    className="a-text-input"
+                    max={null}
+                    min={2014-01-01T12:00:00.000Z}
+                    onChange={[Function]}
+                    placeholder="mm/dd/yyyy"
+                    size="15"
+                    value="" />
+                  <button
+                    className="a-btn a-btn__link">
+                    <span
+                      className="cf-icon cf-icon-delete" />
+                  </button>
+                </div>
+              </li>
+              <li>
+                <label
+                  className="a-label a-label__heading body-copy">
+                  Through
+                </label>
+                <div
+                  className="m-btn-inside-input">
+                  <input
+                    aria-describedby="input-error_message-through"
+                    className="a-text-input"
+                    max={null}
+                    min={2014-01-01T12:00:00.000Z}
+                    onChange={[Function]}
+                    placeholder="mm/dd/yyyy"
+                    size="15"
+                    value="" />
+                  <button
+                    className="a-btn a-btn__link">
+                    <span
+                      className="cf-icon cf-icon-delete" />
+                  </button>
+                </div>
+              </li>
+            </ul>
           </div>
         </section>
         <hr />

@@ -33,9 +33,11 @@ export class DateFilter extends React.Component {
     return (
       <CollapsibleFilter title={ this.props.title }
                          className="aggregation date-filter">
-          <div className="layout-row">
+          <div>
+            <ul className="date-inputs">
             { this._renderDateInput( 'From', 'from' ) }
             { this._renderDateInput( 'Through', 'through' ) }
+            </ul>
             { this._hasMessages( this.state.messages ) ?
               this._renderMessages() :
               null
@@ -58,7 +60,7 @@ export class DateFilter extends React.Component {
     }
 
     return (
-      <div className="flex-all">
+      <li>
           <label className="a-label a-label__heading body-copy">
             { label }
           </label>
@@ -69,7 +71,7 @@ export class DateFilter extends React.Component {
                      textBoxProps={ localProps }
                      value={ this.state[field] }
           />
-      </div>
+      </li>
     )
   }
 
