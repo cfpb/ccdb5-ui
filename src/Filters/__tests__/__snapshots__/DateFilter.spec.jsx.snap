@@ -19,44 +19,58 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
     </span>
   </div>
   <p />
-  <div
-    className="layout-row">
-    <div
-      className="flex-all">
-      <label
-        className="a-label a-label__heading body-copy">
-        From
-      </label>
-      <div>
-        <input
-          aria-describedby="input-error_message-from"
-          className="a-text-input"
-          max={2015-12-31T12:00:00.000Z}
-          min={2015-01-01T12:00:00.000Z}
-          onChange={[Function]}
-          placeholder="mm/dd/yyyy"
-          size="15"
-          value="1/1/2016" />
-      </div>
-    </div>
-    <div
-      className="flex-all">
-      <label
-        className="a-label a-label__heading body-copy">
-        Through
-      </label>
-      <div>
-        <input
-          aria-describedby="input-error_message-through"
-          className="a-text-input"
-          max={2015-12-31T12:00:00.000Z}
-          min={2015-01-01T12:00:00.000Z}
-          onChange={[Function]}
-          placeholder="mm/dd/yyyy"
-          size="15"
-          value="1/1/2000" />
-      </div>
-    </div>
+  <div>
+    <ul
+      className="date-inputs">
+      <li>
+        <label
+          className="a-label a-label__heading body-copy">
+          From
+        </label>
+        <div
+          className="m-btn-inside-input">
+          <input
+            aria-describedby="input-error_message-from"
+            className="a-text-input"
+            max={2015-12-31T12:00:00.000Z}
+            min={2015-01-01T12:00:00.000Z}
+            onChange={[Function]}
+            placeholder="mm/dd/yyyy"
+            size="15"
+            value="1/1/2016" />
+          <button
+            className="a-btn a-btn__link"
+            onClick={[Function]}>
+            <span
+              className="cf-icon cf-icon-delete" />
+          </button>
+        </div>
+      </li>
+      <li>
+        <label
+          className="a-label a-label__heading body-copy">
+          Through
+        </label>
+        <div
+          className="m-btn-inside-input">
+          <input
+            aria-describedby="input-error_message-through"
+            className="a-text-input"
+            max={2015-12-31T12:00:00.000Z}
+            min={2015-01-01T12:00:00.000Z}
+            onChange={[Function]}
+            placeholder="mm/dd/yyyy"
+            size="15"
+            value="1/1/2000" />
+          <button
+            className="a-btn a-btn__link"
+            onClick={[Function]}>
+            <span
+              className="cf-icon cf-icon-delete" />
+          </button>
+        </div>
+      </li>
+    </ul>
     <ul
       className="messages">
       <li
@@ -103,44 +117,46 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
     </span>
   </div>
   <p />
-  <div
-    className="layout-row">
-    <div
-      className="flex-all">
-      <label
-        className="a-label a-label__heading body-copy">
-        From
-      </label>
-      <div>
-        <input
-          aria-describedby="input-error_message-from"
-          className="a-text-input"
-          max={2015-12-31T12:00:00.000Z}
-          min={2015-01-01T12:00:00.000Z}
-          onChange={[Function]}
-          placeholder="mm/dd/yyyy"
-          size="15"
-          value="" />
-      </div>
-    </div>
-    <div
-      className="flex-all">
-      <label
-        className="a-label a-label__heading body-copy">
-        Through
-      </label>
-      <div>
-        <input
-          aria-describedby="input-error_message-through"
-          className="a-text-input"
-          max={2015-12-31T12:00:00.000Z}
-          min={2015-01-01T12:00:00.000Z}
-          onChange={[Function]}
-          placeholder="mm/dd/yyyy"
-          size="15"
-          value="" />
-      </div>
-    </div>
+  <div>
+    <ul
+      className="date-inputs">
+      <li>
+        <label
+          className="a-label a-label__heading body-copy">
+          From
+        </label>
+        <div
+          className="m-btn-inside-input">
+          <input
+            aria-describedby="input-error_message-from"
+            className="a-text-input"
+            max={2015-12-31T12:00:00.000Z}
+            min={2015-01-01T12:00:00.000Z}
+            onChange={[Function]}
+            placeholder="mm/dd/yyyy"
+            size="15"
+            value="" />
+        </div>
+      </li>
+      <li>
+        <label
+          className="a-label a-label__heading body-copy">
+          Through
+        </label>
+        <div
+          className="m-btn-inside-input">
+          <input
+            aria-describedby="input-error_message-through"
+            className="a-text-input"
+            max={2015-12-31T12:00:00.000Z}
+            min={2015-01-01T12:00:00.000Z}
+            onChange={[Function]}
+            placeholder="mm/dd/yyyy"
+            size="15"
+            value="" />
+        </div>
+      </li>
+    </ul>
   </div>
 </section>
 `;

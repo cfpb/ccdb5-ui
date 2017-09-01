@@ -6,7 +6,7 @@ import { FormattedNumber } from 'react-intl'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { SLUG_SEPARATOR } from '../constants'
-import { slugify } from './utils'
+import { slugify } from '../utils'
 
 export class AggregationBranch extends React.Component {
   constructor( props ) {

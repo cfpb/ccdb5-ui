@@ -3,7 +3,7 @@ import announceUrlChanged from './actions/url'
 import { connect } from 'react-redux'
 import createHistory from 'history/createBrowserHistory'
 import React from 'react'
-import { shortIsoFormat } from './Filters/utils'
+import { shortIsoFormat } from './utils'
 
 const queryString = require( 'query-string' );
 

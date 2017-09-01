@@ -5,6 +5,7 @@ import { shallow } from 'enzyme';
 
 function setupEnzyme(initialProps={}) {
   const props = Object.assign({
+    debounceWait: 0,
     onChange: jest.fn(),
     onDateEntered: jest.fn(),
     onError: jest.fn()
@@ -20,7 +21,8 @@ function setupEnzyme(initialProps={}) {
 
 function setupSnapshot(value='') {
   return renderer.create(
-    <DateInput onDateEntered={jest.fn()}
+    <DateInput debounceWait={0}
+               onDateEntered={jest.fn()}
                onError={jest.fn()}
                value={value} />
   )
@@ -35,8 +37,14 @@ describe('component::DateInput', () => {
       expect(tree).toMatchSnapshot()
     })
 
-    describe('renders an error state', () => {
+    it('renders an error state', () => {
       const target = setupSnapshot('foo')
+      const tree = target.toJSON()
+      expect(tree).toMatchSnapshot()
+    })
+
+    it('shows the clear button after text is entered', () => {
+      const target = setupSnapshot('12')
       const tree = target.toJSON()
       expect(tree).toMatchSnapshot()
     })
@@ -48,6 +56,16 @@ describe('component::DateInput', () => {
       const input = target.find('input')
       input.simulate('change', { target: { value: '' }})
       expect(props.onDateEntered).toHaveBeenCalledWith(null)
+    })
+
+    it('does not call onDateEntered when value was already null', () => {
+      const { target, props } = setupEnzyme()
+      const input = target.find('input')
+      input.simulate('change', { target: { value: '12/' }})
+      expect(target.state('asText')).toEqual('12/')
+      input.simulate('change', { target: { value: '' }})
+      expect(target.state('asText')).toEqual('')
+      expect(props.onDateEntered).not.toHaveBeenCalled()
     })
 
     it('calls onDateEntered when a valid date is entered', () => {
@@ -92,6 +110,16 @@ describe('component::DateInput', () => {
       const input = target.find('input')
       input.simulate('change', { target: { value: '10/11/20' }})
       expect(props.onChange).toHaveBeenCalledWith( '10/11/20' )
+    })
+  })
+
+  describe('clear button', () => {
+    it('resets the control when clicked', () => {
+      const { target, props } = setupEnzyme({ value: '10/2/2015' })
+      const input = target.find('button')
+      input.simulate('click')
+      expect(target.state('asText')).toEqual('')
+      expect(props.onDateEntered).toHaveBeenCalledWith(null)
     })
   })
 
