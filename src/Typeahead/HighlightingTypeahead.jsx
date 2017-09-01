@@ -1,9 +1,8 @@
 import HighlightingOption from './HighlightingOption'
+import { normalize } from '../utils'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Typeahead from '.'
-
-export const normalize = s => s.toLowerCase()
 
 export const compileOptions = options => options.map( x => ( {
   key: x,

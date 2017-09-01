@@ -6,7 +6,7 @@ import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux'
 import { shallow } from 'enzyme';
 import ReduxProduct, {Product, mapStateToProps} from '../Product'
-import { slugify } from '../utils'
+import { slugify } from '../../utils'
 
 const fixture = [
   {
