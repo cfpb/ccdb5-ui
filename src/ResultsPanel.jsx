@@ -6,10 +6,19 @@ import Loading from './Dialogs/Loading'
 import { MemoryRouter } from 'react-router'
 import Pagination from './Pagination'
 import React from 'react'
+import Warning from './Warning'
 
 const ERROR = 'ERROR'
 const NO_RESULTS = 'NO_RESULTS'
 const RESULTS = 'RESULTS'
+
+const WARN_DATA_ISSUE = 'We’re currently experiencing technical issues that' +
+  ' have delayed the refresh of data on the Consumer Complaint Database.  We' +
+  ' expect to refresh the data in the next few days.'
+const WARN_DATA_STALE = 'We’re currently experiencing technical issues that' +
+  ' have delayed the refresh of consumer complaint narratives on the ' +
+  'Consumer Complaint Database.  We expect to refresh the data in the next ' +
+  'few days.'
 
 export class ResultsPanel extends React.Component {
   constructor( props ) {
@@ -24,23 +33,38 @@ export class ResultsPanel extends React.Component {
   }
 
   render() {
-    let composeClasses = 'results-panel'
-    if ( this.props.className ) {
-      composeClasses += ' ' + this.props.className
-    }
-
     const phase = this._determinePhase()
 
     return (
       <MemoryRouter>
-        <section className={composeClasses}>
+        <section className={ this._className }>
           <ActionBar />
+          { this.props.hasDataIssue ?
+            <Warning text={ WARN_DATA_ISSUE } /> :
+            null
+          }
+          { this.props.isDataStale ?
+            <Warning text={ WARN_DATA_STALE } /> :
+            null
+          }
           { this.renderMap[phase]() }
           <Pagination />
           <Loading isLoading={this.props.isLoading || false} />
         </section>
       </MemoryRouter>
     )
+  }
+
+  // --------------------------------------------------------------------------
+  // Properties
+
+  get _className() {
+    let composeClasses = 'results-panel'
+    if ( this.props.className ) {
+      composeClasses += ' ' + this.props.className
+    }
+
+    return composeClasses
   }
 
   // --------------------------------------------------------------------------
@@ -86,6 +110,8 @@ export class ResultsPanel extends React.Component {
 
 const mapStateToProps = state => ( {
   error: state.results.error,
+  hasDataIssue:  state.results.hasDataIssue,
+  isDataStale:  state.results.isDataStale,
   isLoading: state.results.isLoading,
   items: state.results.items
 } )

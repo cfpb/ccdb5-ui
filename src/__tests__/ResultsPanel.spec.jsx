@@ -28,7 +28,16 @@ const fixture = [
   }
 ]
 
-function setupSnapshot(items=[], error='') {
+function setupSnapshot(items=[], initialStore={}) {
+  const results = Object.assign({
+    doc_count: 100,
+    error: '',
+    hasDataIssue: false,
+    isDataStale: false,
+    items,
+    total: items.length
+  }, initialStore)
+
   const middlewares = [thunk]
   const mockStore = configureMockStore(middlewares)
   const store = mockStore({
@@ -36,12 +45,7 @@ function setupSnapshot(items=[], error='') {
       from: 0,
       size: 10
     },
-    results: {
-      doc_count: 100,
-      error,
-      items,
-      total: items.length
-    }
+    results
   })
 
   return renderer.create(
@@ -67,7 +71,19 @@ describe('component:ReactPanel', () => {
   })
 
   it('displays a message when an error has occurred', () => {
-    const target = setupSnapshot([], 'oops!')
+    const target = setupSnapshot([], { error: 'oops!' })
+    const tree = target.toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
+  it('displays a message when the data is stale', () => {
+    const target = setupSnapshot(fixture, { isDataStale: true })
+    const tree = target.toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
+  it('displays a message when the data has issues', () => {
+    const target = setupSnapshot(fixture, { hasDataIssue: true })
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   })

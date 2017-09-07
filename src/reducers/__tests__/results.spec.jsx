@@ -6,6 +6,8 @@ describe('reducer:results', () => {
     expect(target(undefined, {})).toEqual({
         doc_count: 0,
         error: '',
+        hasDataIssue: false,
+        isDataStale: false,
         isLoading: false,
         items: [],
         total: 0
@@ -72,6 +74,8 @@ describe('reducer:results', () => {
     expect(target({doc_count: 100, items: [1, 2, 3]}, action)).toEqual({
       doc_count: 0,
       error: 'foo bar',
+      hasDataIssue: false,
+      isDataStale: false,
       isLoading: false,
       items: [],
       total: 0
