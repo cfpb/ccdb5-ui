@@ -88,7 +88,12 @@ describe('component::DataExport', () => {
         startExport = target.find('.footer button').first()
       })
 
+      it('is disabled at the beginning', () => {
+        expect(startExport.prop('disabled')).toEqual(true)
+      })
+
       it('calls a specific action when "filtered" is chosen', () => {
+        target.setState({dataset: 'filtered'})
         startExport.simulate('click')
         expect(props.exportSome).toHaveBeenCalled()
       })
@@ -102,10 +107,12 @@ describe('component::DataExport', () => {
   })
 
   describe('componentWillReceiveProps', () => {
-    it('updates the dataset attribute of the state', () => {
+    it('reruns all the validations', () => {
       const {target} = setupEnzyme()
-      target.setProps({dataset: 'foo'})
-      expect(target.state('dataset')).toEqual('foo')
+      target.setProps({someComplaints: 999})
+      expect(target.state('messages')).toEqual(
+        { format: 'You must select a format for the export' }
+      )
     })
     
   })
