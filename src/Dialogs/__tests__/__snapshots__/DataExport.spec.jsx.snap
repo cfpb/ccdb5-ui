@@ -28,34 +28,45 @@ exports[`component::DataExport initial state hides the dataset radio buttons whe
         Select a format for the exported file
       </div>
       <div
-        className="m-form-field m-form-field__radio">
-        <input
-          checked={false}
-          className="a-radio"
-          id="format_csv"
-          onChange={[Function]}
-          type="radio"
-          value="csv" />
-        <label
-          className="a-label"
-          htmlFor="format_csv">
-          CSV
-        </label>
+        className="group__error">
+        <div
+          className="m-form-field m-form-field__radio">
+          <input
+            checked={false}
+            className="a-radio"
+            id="format_csv"
+            onChange={[Function]}
+            type="radio"
+            value="csv" />
+          <label
+            className="a-label"
+            htmlFor="format_csv">
+            CSV
+          </label>
+        </div>
+        <div
+          className="m-form-field m-form-field__radio">
+          <input
+            checked={false}
+            className="a-radio"
+            id="format_json"
+            onChange={[Function]}
+            type="radio"
+            value="json" />
+          <label
+            className="a-label"
+            htmlFor="format_json">
+            JSON
+          </label>
+        </div>
       </div>
       <div
-        className="m-form-field m-form-field__radio">
-        <input
-          checked={true}
-          className="a-radio"
-          id="format_json"
-          onChange={[Function]}
-          type="radio"
-          value="json" />
-        <label
-          className="a-label"
-          htmlFor="format_json">
-          JSON
-        </label>
+        className="a-error-message"
+        role="alert">
+        <span
+          aria-hidden="true"
+          className="cf-icon cf-icon-delete-round" />
+        You must select a format for the export
       </div>
       <div
         className="other-formats">
@@ -77,6 +88,7 @@ exports[`component::DataExport initial state hides the dataset radio buttons whe
     className="footer layout-row">
     <button
       className="a-btn"
+      disabled={true}
       onClick={[Function]}>
       Start Export
     </button>
@@ -119,34 +131,45 @@ exports[`component::DataExport initial state renders without crashing 1`] = `
         Select a format for the exported file
       </div>
       <div
-        className="m-form-field m-form-field__radio">
-        <input
-          checked={false}
-          className="a-radio"
-          id="format_csv"
-          onChange={[Function]}
-          type="radio"
-          value="csv" />
-        <label
-          className="a-label"
-          htmlFor="format_csv">
-          CSV
-        </label>
+        className="group__error">
+        <div
+          className="m-form-field m-form-field__radio">
+          <input
+            checked={false}
+            className="a-radio"
+            id="format_csv"
+            onChange={[Function]}
+            type="radio"
+            value="csv" />
+          <label
+            className="a-label"
+            htmlFor="format_csv">
+            CSV
+          </label>
+        </div>
+        <div
+          className="m-form-field m-form-field__radio">
+          <input
+            checked={false}
+            className="a-radio"
+            id="format_json"
+            onChange={[Function]}
+            type="radio"
+            value="json" />
+          <label
+            className="a-label"
+            htmlFor="format_json">
+            JSON
+          </label>
+        </div>
       </div>
       <div
-        className="m-form-field m-form-field__radio">
-        <input
-          checked={true}
-          className="a-radio"
-          id="format_json"
-          onChange={[Function]}
-          type="radio"
-          value="json" />
-        <label
-          className="a-label"
-          htmlFor="format_json">
-          JSON
-        </label>
+        className="a-error-message"
+        role="alert">
+        <span
+          aria-hidden="true"
+          className="cf-icon cf-icon-delete-round" />
+        You must select a format for the export
       </div>
       <div
         className="other-formats">
@@ -166,60 +189,71 @@ exports[`component::DataExport initial state renders without crashing 1`] = `
         Select which complaints you\'d like to export
       </div>
       <div
-        className="m-form-field m-form-field__radio">
-        <input
-          checked={true}
-          className="a-radio"
-          id="dataset_filtered"
-          onChange={[Function]}
-          type="radio"
-          value="filtered" />
-        <label
-          className="a-label"
-          htmlFor="dataset_filtered">
-          <div
-            className="multiline-label">
-            <div>
-              Filtered dataset (
-              <span>
-                1,001
-              </span>
-               complaints)
-            </div>
+        className="group__error">
+        <div
+          className="m-form-field m-form-field__radio">
+          <input
+            checked={false}
+            className="a-radio"
+            id="dataset_filtered"
+            onChange={[Function]}
+            type="radio"
+            value="filtered" />
+          <label
+            className="a-label"
+            htmlFor="dataset_filtered">
             <div
-              className="body-copy">
-              (only the results of the last search and/or filter performed)
+              className="multiline-label">
+              <div>
+                Filtered dataset (
+                <span>
+                  1,001
+                </span>
+                 complaints)
+              </div>
+              <div
+                className="body-copy">
+                (only the results of the last search and/or filter)
+              </div>
             </div>
-          </div>
-        </label>
+          </label>
+        </div>
+        <div
+          className="m-form-field m-form-field__radio">
+          <input
+            checked={false}
+            className="a-radio"
+            id="dataset_full"
+            onChange={[Function]}
+            type="radio"
+            value="full" />
+          <label
+            className="a-label"
+            htmlFor="dataset_full">
+            <div
+              className="multiline-label">
+              <div>
+                Full dataset (
+                <span>
+                  9,999
+                </span>
+                 complaints)
+              </div>
+              <div
+                className="body-copy">
+                (not recommended due to very large file size)
+              </div>
+            </div>
+          </label>
+        </div>
       </div>
       <div
-        className="m-form-field m-form-field__radio">
-        <input
-          checked={false}
-          className="a-radio"
-          id="dataset_full"
-          onChange={[Function]}
-          type="radio"
-          value="full" />
-        <label
-          className="a-label"
-          htmlFor="dataset_full">
-          <div
-            className="multiline-label">
-            <div>
-              Full dataset (
-              <span>
-                9,999
-              </span>
-               complaints)
-            </div>
-            <div
-              className="body-copy">
-              (not recommended due to very large file size)
-            </div>
-          </div>
-        </label>
+        className="a-error-message"
+        role="alert">
+        <span
+          aria-hidden="true"
+          className="cf-icon cf-icon-delete-round" />
+        You must choose which dataset to export
       </div>
     </div>
     <div
@@ -231,6 +265,7 @@ exports[`component::DataExport initial state renders without crashing 1`] = `
     className="footer layout-row">
     <button
       className="a-btn"
+      disabled={true}
       onClick={[Function]}>
       Start Export
     </button>
