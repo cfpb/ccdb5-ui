@@ -36,7 +36,7 @@ export const sortSelThenCount = ( options, selected ) => {
 */
 export function shortFormat( date ) {
   const wrapped = moment( date )
-  return date ? wrapped.format('M/D/YYYY') : ''
+  return date ? wrapped.format( 'M/D/YYYY' ) : ''
 }
 
 /**
