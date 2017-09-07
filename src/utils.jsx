@@ -1,3 +1,4 @@
+import moment from 'moment'
 import { SLUG_SEPARATOR } from './constants'
 
 export const normalize = s => s.toLowerCase()
@@ -34,7 +35,8 @@ export const sortSelThenCount = ( options, selected ) => {
 * @returns {string} the date formatted for the current locale
 */
 export function shortFormat( date ) {
-  return date ? date.toLocaleDateString() : ''
+  const wrapped = moment( date )
+  return date ? wrapped.format('M/D/YYYY') : ''
 }
 
 /**
