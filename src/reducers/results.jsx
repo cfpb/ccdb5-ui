@@ -7,6 +7,8 @@ import {
 const defaultResults = {
   doc_count: 0,
   error: '',
+  hasDataIssue: false,
+  isDataStale: false,
   isLoading: false,
   items: [],
   total: 0
@@ -45,6 +47,8 @@ export default ( state = defaultResults, action ) => {
         ...state,
         doc_count,
         error: '',
+        hasDataIssue: action.data._meta.has_data_issue,
+        isDataStale: action.data._meta.is_data_stale,
         isLoading: false,
         items: items,
         total: action.data.hits.total
