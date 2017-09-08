@@ -9,12 +9,8 @@ setup_git() {
 }
 
 make_version() {
-  if [ -n $(git status -s) ]
-  then
-    echo Uncommited changes! Try to reverse dirty state
-    git checkout -- .
-    git status
-  fi
+  git checkout -- .
+  git status
   npm version patch -m "chore: release version %s [skip ci]"
 }
 
