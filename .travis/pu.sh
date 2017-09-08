@@ -9,9 +9,13 @@ setup_git() {
 }
 
 make_version() {
-  git status
+  if [[ -n $(git status -s) ]]
+  then
+    echo Uncommited changes! Trying package-lock.json
+    git add package-lock.json
+    git status
+  fi
   npm version patch -m "chore: release version %s [skip ci]"
-  # git tag <tag-name> -a -f -m "Travis build: $TRAVIS_BUILD_NUMBER"
 }
 
 upload_files() {
