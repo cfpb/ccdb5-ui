@@ -9,10 +9,10 @@ setup_git() {
 }
 
 make_version() {
-  if [[ -n $(git status -s) ]]
+  if [ -n $(git status -s) ]
   then
-    echo Uncommited changes! Trying package-lock.json
-    git add package-lock.json
+    echo Uncommited changes! Try to reverse dirty state
+    git checkout -- .
     git status
   fi
   npm version patch -m "chore: release version %s [skip ci]"
