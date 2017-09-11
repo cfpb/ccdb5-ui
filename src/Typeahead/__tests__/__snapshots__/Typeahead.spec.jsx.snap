@@ -3,14 +3,24 @@ exports[`component::Typeahead render phases renders the ACCUM phase 1`] = `
   className="typeahead "
   onBlur={[Function]}
   onFocus={[Function]}>
-  <input
-    autoComplete="off"
-    className="a-text-input"
-    onChange={[Function]}
-    onKeyDown={[Function]}
-    placeholder="Enter your search text"
-    type="text"
-    value="i" />
+  <div
+    className="m-btn-inside-input">
+    <input
+      autoComplete="off"
+      className="a-text-input"
+      onChange={[Function]}
+      onKeyDown={[Function]}
+      placeholder="Enter your search text"
+      type="text"
+      value="i" />
+    <button
+      className="a-btn a-btn__link"
+      onClick={[Function]}>
+      <span
+        className="cf-icon cf-icon-delete" />
+      Clear
+    </button>
+  </div>
 </section>
 `;
 
@@ -19,14 +29,17 @@ exports[`component::Typeahead render phases renders the EMPTY phase 1`] = `
   className="typeahead "
   onBlur={[Function]}
   onFocus={[Function]}>
-  <input
-    autoComplete="off"
-    className="a-text-input"
-    onChange={[Function]}
-    onKeyDown={[Function]}
-    placeholder="Enter your search text"
-    type="text"
-    value="" />
+  <div
+    className="m-btn-inside-input">
+    <input
+      autoComplete="off"
+      className="a-text-input"
+      onChange={[Function]}
+      onKeyDown={[Function]}
+      placeholder="Enter your search text"
+      type="text"
+      value="" />
+  </div>
 </section>
 `;
 
@@ -35,14 +48,17 @@ exports[`component::Typeahead render phases renders the ERROR phase 1`] = `
   className="typeahead "
   onBlur={[Function]}
   onFocus={[Function]}>
-  <input
-    autoComplete="off"
-    className="a-text-input"
-    onChange={[Function]}
-    onKeyDown={[Function]}
-    placeholder="Enter your search text"
-    type="text"
-    value="" />
+  <div
+    className="m-btn-inside-input">
+    <input
+      autoComplete="off"
+      className="a-text-input"
+      onChange={[Function]}
+      onKeyDown={[Function]}
+      placeholder="Enter your search text"
+      type="text"
+      value="" />
+  </div>
   <span
     className="error">
     There was a problem retrieving the options
@@ -55,14 +71,17 @@ exports[`component::Typeahead render phases renders the NO_RESULTS phase 1`] = `
   className="typeahead "
   onBlur={[Function]}
   onFocus={[Function]}>
-  <input
-    autoComplete="off"
-    className="a-text-input"
-    onChange={[Function]}
-    onKeyDown={[Function]}
-    placeholder="Enter your search text"
-    type="text"
-    value="" />
+  <div
+    className="m-btn-inside-input">
+    <input
+      autoComplete="off"
+      className="a-text-input"
+      onChange={[Function]}
+      onKeyDown={[Function]}
+      placeholder="Enter your search text"
+      type="text"
+      value="" />
+  </div>
   <span
     className="no-results">
     No results found
@@ -75,14 +94,17 @@ exports[`component::Typeahead render phases renders the RESULTS phase 1`] = `
   className="typeahead "
   onBlur={[Function]}
   onFocus={[Function]}>
-  <input
-    autoComplete="off"
-    className="a-text-input"
-    onChange={[Function]}
-    onKeyDown={[Function]}
-    placeholder="Enter your search text"
-    type="text"
-    value="" />
+  <div
+    className="m-btn-inside-input">
+    <input
+      autoComplete="off"
+      className="a-text-input"
+      onChange={[Function]}
+      onKeyDown={[Function]}
+      placeholder="Enter your search text"
+      type="text"
+      value="" />
+  </div>
   <div
     className="typeahead-selector">
     <ul>
@@ -101,14 +123,17 @@ exports[`component::Typeahead render phases renders the TOO_MANY phase 1`] = `
   className="typeahead "
   onBlur={[Function]}
   onFocus={[Function]}>
-  <input
-    autoComplete="off"
-    className="a-text-input"
-    onChange={[Function]}
-    onKeyDown={[Function]}
-    placeholder="Enter your search text"
-    type="text"
-    value="" />
+  <div
+    className="m-btn-inside-input">
+    <input
+      autoComplete="off"
+      className="a-text-input"
+      onChange={[Function]}
+      onKeyDown={[Function]}
+      placeholder="Enter your search text"
+      type="text"
+      value="" />
+  </div>
   <div
     className="typeahead-selector">
     <ul>
