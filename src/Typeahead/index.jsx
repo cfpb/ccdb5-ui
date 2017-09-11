@@ -128,19 +128,28 @@ export default class Typeahead extends React.Component {
   }
 
   render() {
+    const clear = <button className="a-btn a-btn__link"
+                          onClick={ this._closedKeyCancel }>
+                      <span className="cf-icon cf-icon-delete"></span>
+                      Clear
+                  </button>
+
     return (
       <section className={`typeahead ${ this.props.className }`}
                onBlur={this._onBlur}
                onFocus={this._onFocus}>
-        <input type="text"
-               autoComplete="off"
-               className="a-text-input"
-               onChange={this._valueUpdated}
-               onKeyDown={this._onKeyDown}
-               placeholder={this.props.placeholder}
-               value={this.state.inputValue}
-               {...this.props.textBoxProps}
-        />
+        <div className="m-btn-inside-input">
+          <input type="text"
+                 autoComplete="off"
+                 className="a-text-input"
+                 onChange={this._valueUpdated}
+                 onKeyDown={this._onKeyDown}
+                 placeholder={this.props.placeholder}
+                 value={this.state.inputValue}
+                 {...this.props.textBoxProps}
+          />
+          { this.state.inputValue ? clear : null }
+         </div>
         { this.state.focused ? this.renderMap[this.state.phase]() : null }
       </section>
     )
