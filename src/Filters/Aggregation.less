@@ -9,6 +9,8 @@
         border: 0;
         margin-bottom: @gutter-narrow;
 
+        position: relative;
+
         -webkit-align-items: baseline;
                 align-items: baseline;
 
@@ -31,12 +33,12 @@
         }
 
         .bucket-count {
-          width: @max-count-width;
+          position: absolute;
+          top: 0;
+          right: 0;          
 
           color: @dark-gray;
           font-size: 14px;
-          text-align: right;
-          vertical-align: top;
         }
       }
     }
