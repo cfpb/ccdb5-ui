@@ -51,7 +51,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
             className="flex-all toggle a-label"
             htmlFor="issueIncorrectinformation on credit report">
             <button
-              className="a-btn a-btn__link hover"
+              className="a-btn a-btn__link"
               onClick={[Function]}>
               <span>
                 Incorrect information on credit report
@@ -83,7 +83,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
             className="flex-all toggle a-label"
             htmlFor="issueCont\'dattempts collect debt not owed">
             <button
-              className="a-btn a-btn__link hover"
+              className="a-btn a-btn__link"
               onClick={[Function]}>
               <span>
                 Cont\'d attempts collect debt not owed
@@ -167,7 +167,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
     <div
       className="flex-fixed">
       <button
-        className="a-btn a-btn__link hover more"
+        className="a-btn a-btn__link more"
         onClick={[Function]}>
         + Show 
         1
