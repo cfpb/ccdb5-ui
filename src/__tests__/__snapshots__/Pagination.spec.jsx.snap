@@ -44,8 +44,10 @@ exports[`initial state renders without crashing 1`] = `
         pattern="[0-9]*"
         type="number"
         value={8} />
-      of 
-      40
+      of 
+      <span>
+        40
+      </span>
     </label>
     <button
       className="a-btn a-btn__link m-pagination_btn-submit"
