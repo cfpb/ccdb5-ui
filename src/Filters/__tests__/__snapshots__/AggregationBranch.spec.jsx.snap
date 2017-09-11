@@ -14,7 +14,7 @@ exports[`component::AggregationBranch initial state renders without crashing 1`]
       className="flex-all toggle a-label"
       htmlFor="issuefoo">
       <button
-        className="a-btn a-btn__link hover"
+        className="a-btn a-btn__link"
         onClick={[Function]}>
         <span>
           foo
