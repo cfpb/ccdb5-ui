@@ -378,8 +378,10 @@ exports[`component:ReactPanel displays a message when the data has issues 1`] = 
           pattern="[0-9]*"
           type="number"
           value={1} />
-        of 
-        1
+        of 
+        <span>
+          1
+        </span>
       </label>
       <button
         className="a-btn a-btn__link m-pagination_btn-submit"
@@ -680,8 +682,10 @@ exports[`component:ReactPanel displays a message when the data is stale 1`] = `
           pattern="[0-9]*"
           type="number"
           value={1} />
-        of 
-        1
+        of 
+        <span>
+          1
+        </span>
       </label>
       <button
         className="a-btn a-btn__link m-pagination_btn-submit"
@@ -1062,8 +1066,10 @@ exports[`component:ReactPanel renders without crashing 1`] = `
           pattern="[0-9]*"
           type="number"
           value={1} />
-        of 
-        1
+        of 
+        <span>
+          1
+        </span>
       </label>
       <button
         className="a-btn a-btn__link m-pagination_btn-submit"
