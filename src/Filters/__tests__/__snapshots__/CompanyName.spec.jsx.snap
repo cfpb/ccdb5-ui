@@ -36,17 +36,19 @@ exports[`component::CompanyName snapshots renders without crashing 1`] = `
   </section>
   <ul>
     <li
-      className="flex-fixed layout-row">
+      className="flex-fixed layout-row m-form-field m-form-field__checkbox">
       <input
         aria-label="CAPITAL"
         checked={true}
-        className="flex-fixed"
+        className="flex-fixed a-checkbox"
+        id="companyCAPITAL"
         onChange={[Function]}
         type="checkbox" />
-      <span
-        className="flex-all bucket-key">
+      <label
+        className="a-label flex-all bucket-key"
+        htmlFor="companyCAPITAL">
         CAPITAL
-      </span>
+      </label>
       <span
         className="flex-fixed bucket-count">
         <span>

@@ -69,16 +69,23 @@ export class AggregationBranch extends React.Component {
              />
     }
 
+    const liStyle = 'flex-fixed layout-row parent m-form-field ' +
+      'm-form-field__checkbox'
+    const id = fieldName + item.key.replace( ' ', '' )
+
     return (
       <div className="aggregation-branch">
-        <li className="flex-fixed layout-row parent">
-          <input type="checkbox" className="flex-fixed"
+        <li className={liStyle}>
+          <input type="checkbox"
                  aria-label={item.key}
                  checked={active}
+                 className="flex-fixed a-checkbox"
+                 id={id}
                  onChange={this._decideClickAction}
                  ref={this._setReference}
           />
-          <div className="flex-all toggle">
+          <label className="flex-all toggle a-label"
+                 htmlFor={id}>
             <button className="a-btn a-btn__link hover"
                     onClick={this._toggleChildDisplay}>
               <span>{item.key}</span>
@@ -86,7 +93,7 @@ export class AggregationBranch extends React.Component {
                 ( this.state.showChildren ? 'cf-icon-up' : 'cf-icon-down' )
               }></span>
             </button>
-          </div>
+          </label>
           <span className="flex-fixed parent-count">
             <FormattedNumber value={item.doc_count} />
           </span>

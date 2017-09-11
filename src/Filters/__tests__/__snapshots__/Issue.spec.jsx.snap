@@ -39,15 +39,17 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
       <div
         className="aggregation-branch">
         <li
-          className="flex-fixed layout-row parent">
+          className="flex-fixed layout-row parent m-form-field m-form-field__checkbox">
           <input
             aria-label="Incorrect information on credit report"
             checked={false}
-            className="flex-fixed"
+            className="flex-fixed a-checkbox"
+            id="issueIncorrectinformation on credit report"
             onChange={[Function]}
             type="checkbox" />
-          <div
-            className="flex-all toggle">
+          <label
+            className="flex-all toggle a-label"
+            htmlFor="issueIncorrectinformation on credit report">
             <button
               className="a-btn a-btn__link hover"
               onClick={[Function]}>
@@ -57,7 +59,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
               <span
                 className="cf-icon cf-icon-down" />
             </button>
-          </div>
+          </label>
           <span
             className="flex-fixed parent-count">
             <span>
@@ -69,15 +71,17 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
       <div
         className="aggregation-branch">
         <li
-          className="flex-fixed layout-row parent">
+          className="flex-fixed layout-row parent m-form-field m-form-field__checkbox">
           <input
             aria-label="Cont\'d attempts collect debt not owed"
             checked={false}
-            className="flex-fixed"
+            className="flex-fixed a-checkbox"
+            id="issueCont\'dattempts collect debt not owed"
             onChange={[Function]}
             type="checkbox" />
-          <div
-            className="flex-all toggle">
+          <label
+            className="flex-all toggle a-label"
+            htmlFor="issueCont\'dattempts collect debt not owed">
             <button
               className="a-btn a-btn__link hover"
               onClick={[Function]}>
@@ -87,7 +91,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
               <span
                 className="cf-icon cf-icon-down" />
             </button>
-          </div>
+          </label>
           <span
             className="flex-fixed parent-count">
             <span>
@@ -97,17 +101,19 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
         </li>
       </div>
       <li
-        className="flex-fixed layout-row">
+        className="flex-fixed layout-row m-form-field m-form-field__checkbox">
         <input
           aria-label="Loan servicing, payments, escrow account"
           checked={false}
-          className="flex-fixed"
+          className="flex-fixed a-checkbox"
+          id="issueLoanservicing, payments, escrow account"
           onChange={[Function]}
           type="checkbox" />
-        <span
-          className="flex-all bucket-key">
+        <label
+          className="a-label flex-all bucket-key"
+          htmlFor="issueLoanservicing, payments, escrow account">
           Loan servicing, payments, escrow account
-        </span>
+        </label>
         <span
           className="flex-fixed bucket-count">
           <span>
@@ -116,17 +122,19 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
         </span>
       </li>
       <li
-        className="flex-fixed layout-row">
+        className="flex-fixed layout-row m-form-field m-form-field__checkbox">
         <input
           aria-label="Loan modification,collection,foreclosure"
           checked={false}
-          className="flex-fixed"
+          className="flex-fixed a-checkbox"
+          id="issueLoanmodification,collection,foreclosure"
           onChange={[Function]}
           type="checkbox" />
-        <span
-          className="flex-all bucket-key">
+        <label
+          className="a-label flex-all bucket-key"
+          htmlFor="issueLoanmodification,collection,foreclosure">
           Loan modification,collection,foreclosure
-        </span>
+        </label>
         <span
           className="flex-fixed bucket-count">
           <span>
@@ -135,17 +143,19 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
         </span>
       </li>
       <li
-        className="flex-fixed layout-row">
+        className="flex-fixed layout-row m-form-field m-form-field__checkbox">
         <input
           aria-label="Dealing with my lender or servicer"
           checked={false}
-          className="flex-fixed"
+          className="flex-fixed a-checkbox"
+          id="issueDealingwith my lender or servicer"
           onChange={[Function]}
           type="checkbox" />
-        <span
-          className="flex-all bucket-key">
+        <label
+          className="a-label flex-all bucket-key"
+          htmlFor="issueDealingwith my lender or servicer">
           Dealing with my lender or servicer
-        </span>
+        </label>
         <span
           className="flex-fixed bucket-count">
           <span>
