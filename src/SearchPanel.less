@@ -2,6 +2,11 @@
 
 .search-panel {
   padding: @gutter-normal;
+
+  @media @phone {
+    padding: 0;
+  }
+
   border: 1px solid @gray-40;
   border-bottom: 0;  // Don't double the border with the content
 
