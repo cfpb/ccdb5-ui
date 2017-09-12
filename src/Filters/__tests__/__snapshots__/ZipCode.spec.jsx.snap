@@ -30,7 +30,7 @@ exports[`component::ZipCode snapshots renders without crashing 1`] = `
       className="a-text-input"
       onChange={[Function]}
       onKeyDown={[Function]}
-      placeholder="Enter first three digits of zip code"
+      placeholder="Enter first three digits of ZIP code"
       type="text"
       value="" />
   </section>
