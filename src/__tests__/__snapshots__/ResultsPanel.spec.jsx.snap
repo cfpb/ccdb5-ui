@@ -74,14 +74,14 @@ exports[`component:ReactPanel displays a message when an error has occurred 1`] 
           </option>
         </select>
       </div>
-      <h5
+      <h4
         className="flex-all">
         <button
           className="a-btn a-btn__link"
           onClick={[Function]}>
           Export results
         </button>
-      </h5>
+      </h4>
     </div>
   </summary>
   <h2>
@@ -166,14 +166,14 @@ exports[`component:ReactPanel displays a message when the data has issues 1`] = 
           </option>
         </select>
       </div>
-      <h5
+      <h4
         className="flex-all">
         <button
           className="a-btn a-btn__link"
           onClick={[Function]}>
           Export results
         </button>
-      </h5>
+      </h4>
     </div>
   </summary>
   <div
@@ -203,9 +203,9 @@ exports[`component:ReactPanel displays a message when the data has issues 1`] = 
               1
             </a>
           </h3>
-          <h5>
+          <h4>
             Matched company name
-          </h5>
+          </h4>
           <span
             className="body-copy"
             dangerouslySetInnerHTML={
@@ -214,9 +214,9 @@ exports[`component:ReactPanel displays a message when the data has issues 1`] = 
               }
             } />
           <br />
-          <h5>
+          <h4>
             Company response to consumer
-          </h5>
+          </h4>
           <span
             className="body-copy"
             dangerouslySetInnerHTML={
@@ -225,9 +225,9 @@ exports[`component:ReactPanel displays a message when the data has issues 1`] = 
               }
             } />
           <br />
-          <h5>
+          <h4>
             Timely response?
-          </h5>
+          </h4>
           <span
             className="body-copy"
             dangerouslySetInnerHTML={
@@ -242,9 +242,9 @@ exports[`component:ReactPanel displays a message when the data has issues 1`] = 
             className="layout-row">
             <div
               className="layout-row">
-              <h5>
+              <h4>
                 Date received:
-              </h5>
+              </h4>
               <span
                 className="body-copy">
                 <span>
@@ -256,9 +256,9 @@ exports[`component:ReactPanel displays a message when the data has issues 1`] = 
               className="spacer" />
             <div
               className="layout-row">
-              <h5>
+              <h4>
                 Consumer\'s state:
-              </h5>
+              </h4>
               <span
                 className="body-copy"
                 dangerouslySetInnerHTML={
@@ -269,9 +269,9 @@ exports[`component:ReactPanel displays a message when the data has issues 1`] = 
             </div>
           </div>
           <br />
-          <h5>
+          <h4>
             Product
-          </h5>
+          </h4>
           <h3
             dangerouslySetInnerHTML={
               Object {
@@ -293,9 +293,9 @@ exports[`component:ReactPanel displays a message when the data has issues 1`] = 
               } />
           </div>
           <br />
-          <h5>
+          <h4>
             Issue
-          </h5>
+          </h4>
           <h3
             dangerouslySetInnerHTML={
               Object {
@@ -318,9 +318,9 @@ exports[`component:ReactPanel displays a message when the data has issues 1`] = 
           </div>
           <br />
           <div>
-            <h5>
+            <h4>
               Consumer Complaint Narrative
-            </h5>
+            </h4>
             <span
               className="body-copy"
               dangerouslySetInnerHTML={
@@ -470,14 +470,14 @@ exports[`component:ReactPanel displays a message when the data is stale 1`] = `
           </option>
         </select>
       </div>
-      <h5
+      <h4
         className="flex-all">
         <button
           className="a-btn a-btn__link"
           onClick={[Function]}>
           Export results
         </button>
-      </h5>
+      </h4>
     </div>
   </summary>
   <div
@@ -507,9 +507,9 @@ exports[`component:ReactPanel displays a message when the data is stale 1`] = `
               1
             </a>
           </h3>
-          <h5>
+          <h4>
             Matched company name
-          </h5>
+          </h4>
           <span
             className="body-copy"
             dangerouslySetInnerHTML={
@@ -518,9 +518,9 @@ exports[`component:ReactPanel displays a message when the data is stale 1`] = `
               }
             } />
           <br />
-          <h5>
+          <h4>
             Company response to consumer
-          </h5>
+          </h4>
           <span
             className="body-copy"
             dangerouslySetInnerHTML={
@@ -529,9 +529,9 @@ exports[`component:ReactPanel displays a message when the data is stale 1`] = `
               }
             } />
           <br />
-          <h5>
+          <h4>
             Timely response?
-          </h5>
+          </h4>
           <span
             className="body-copy"
             dangerouslySetInnerHTML={
@@ -546,9 +546,9 @@ exports[`component:ReactPanel displays a message when the data is stale 1`] = `
             className="layout-row">
             <div
               className="layout-row">
-              <h5>
+              <h4>
                 Date received:
-              </h5>
+              </h4>
               <span
                 className="body-copy">
                 <span>
@@ -560,9 +560,9 @@ exports[`component:ReactPanel displays a message when the data is stale 1`] = `
               className="spacer" />
             <div
               className="layout-row">
-              <h5>
+              <h4>
                 Consumer\'s state:
-              </h5>
+              </h4>
               <span
                 className="body-copy"
                 dangerouslySetInnerHTML={
@@ -573,9 +573,9 @@ exports[`component:ReactPanel displays a message when the data is stale 1`] = `
             </div>
           </div>
           <br />
-          <h5>
+          <h4>
             Product
-          </h5>
+          </h4>
           <h3
             dangerouslySetInnerHTML={
               Object {
@@ -597,9 +597,9 @@ exports[`component:ReactPanel displays a message when the data is stale 1`] = `
               } />
           </div>
           <br />
-          <h5>
+          <h4>
             Issue
-          </h5>
+          </h4>
           <h3
             dangerouslySetInnerHTML={
               Object {
@@ -622,9 +622,9 @@ exports[`component:ReactPanel displays a message when the data is stale 1`] = `
           </div>
           <br />
           <div>
-            <h5>
+            <h4>
               Consumer Complaint Narrative
-            </h5>
+            </h4>
             <span
               className="body-copy"
               dangerouslySetInnerHTML={
@@ -774,14 +774,14 @@ exports[`component:ReactPanel displays a message when there are no results 1`] =
           </option>
         </select>
       </div>
-      <h5
+      <h4
         className="flex-all">
         <button
           className="a-btn a-btn__link"
           onClick={[Function]}>
           Export results
         </button>
-      </h5>
+      </h4>
     </div>
   </summary>
   <h2>
@@ -866,14 +866,14 @@ exports[`component:ReactPanel renders without crashing 1`] = `
           </option>
         </select>
       </div>
-      <h5
+      <h4
         className="flex-all">
         <button
           className="a-btn a-btn__link"
           onClick={[Function]}>
           Export results
         </button>
-      </h5>
+      </h4>
     </div>
   </summary>
   <ul
@@ -891,9 +891,9 @@ exports[`component:ReactPanel renders without crashing 1`] = `
               1
             </a>
           </h3>
-          <h5>
+          <h4>
             Matched company name
-          </h5>
+          </h4>
           <span
             className="body-copy"
             dangerouslySetInnerHTML={
@@ -902,9 +902,9 @@ exports[`component:ReactPanel renders without crashing 1`] = `
               }
             } />
           <br />
-          <h5>
+          <h4>
             Company response to consumer
-          </h5>
+          </h4>
           <span
             className="body-copy"
             dangerouslySetInnerHTML={
@@ -913,9 +913,9 @@ exports[`component:ReactPanel renders without crashing 1`] = `
               }
             } />
           <br />
-          <h5>
+          <h4>
             Timely response?
-          </h5>
+          </h4>
           <span
             className="body-copy"
             dangerouslySetInnerHTML={
@@ -930,9 +930,9 @@ exports[`component:ReactPanel renders without crashing 1`] = `
             className="layout-row">
             <div
               className="layout-row">
-              <h5>
+              <h4>
                 Date received:
-              </h5>
+              </h4>
               <span
                 className="body-copy">
                 <span>
@@ -944,9 +944,9 @@ exports[`component:ReactPanel renders without crashing 1`] = `
               className="spacer" />
             <div
               className="layout-row">
-              <h5>
+              <h4>
                 Consumer\'s state:
-              </h5>
+              </h4>
               <span
                 className="body-copy"
                 dangerouslySetInnerHTML={
@@ -957,9 +957,9 @@ exports[`component:ReactPanel renders without crashing 1`] = `
             </div>
           </div>
           <br />
-          <h5>
+          <h4>
             Product
-          </h5>
+          </h4>
           <h3
             dangerouslySetInnerHTML={
               Object {
@@ -981,9 +981,9 @@ exports[`component:ReactPanel renders without crashing 1`] = `
               } />
           </div>
           <br />
-          <h5>
+          <h4>
             Issue
-          </h5>
+          </h4>
           <h3
             dangerouslySetInnerHTML={
               Object {
@@ -1006,9 +1006,9 @@ exports[`component:ReactPanel renders without crashing 1`] = `
           </div>
           <br />
           <div>
-            <h5>
+            <h4>
               Consumer Complaint Narrative
-            </h5>
+            </h4>
             <span
               className="body-copy"
               dangerouslySetInnerHTML={

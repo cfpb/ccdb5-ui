@@ -3,10 +3,10 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
   className="o-expandable aggregation date-filter">
   <div
     className="o-expandable_header o-expandable_target">
-    <h5
+    <h4
       className="o-expandable_header-left o-expandable_label">
       Date CFPB Received the complaint
-    </h5>
+    </h4>
     <span
       className="o-expandable_header-right o-expandable_link">
       <button
@@ -101,10 +101,10 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
   className="o-expandable aggregation date-filter">
   <div
     className="o-expandable_header o-expandable_target">
-    <h5
+    <h4
       className="o-expandable_header-left o-expandable_label">
       Date CFPB Received the complaint
-    </h5>
+    </h4>
     <span
       className="o-expandable_header-right o-expandable_link">
       <button

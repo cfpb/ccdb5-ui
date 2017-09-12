@@ -23,7 +23,7 @@ export class SingleCheckbox extends React.Component {
   render() {
     return (
       <section className="single-checkbox">
-        <h5>{this.props.title}</h5>
+        <h4>{this.props.title}</h4>
         <div className="m-form-field m-form-field__checkbox">
             <input className="a-checkbox"
                    id="theCheckbox"
