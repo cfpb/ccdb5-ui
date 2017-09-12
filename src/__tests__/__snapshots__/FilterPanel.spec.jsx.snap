@@ -115,14 +115,17 @@ exports[`initial state renders without crashing 1`] = `
       className="typeahead "
       onBlur={[Function]}
       onFocus={[Function]}>
-      <input
-        autoComplete="off"
-        className="a-text-input"
-        onChange={[Function]}
-        onKeyDown={[Function]}
-        placeholder="Enter company name"
-        type="text"
-        value="" />
+      <div
+        className="m-btn-inside-input">
+        <input
+          autoComplete="off"
+          className="a-text-input"
+          onChange={[Function]}
+          onKeyDown={[Function]}
+          placeholder="Enter company name"
+          type="text"
+          value="" />
+      </div>
     </section>
     <ul />
   </section>
@@ -188,14 +191,17 @@ exports[`initial state renders without crashing 1`] = `
       className="typeahead "
       onBlur={[Function]}
       onFocus={[Function]}>
-      <input
-        autoComplete="off"
-        className="a-text-input"
-        onChange={[Function]}
-        onKeyDown={[Function]}
-        placeholder="Enter name of issue"
-        type="text"
-        value="" />
+      <div
+        className="m-btn-inside-input">
+        <input
+          autoComplete="off"
+          className="a-text-input"
+          onChange={[Function]}
+          onKeyDown={[Function]}
+          placeholder="Enter name of issue"
+          type="text"
+          value="" />
+      </div>
     </section>
     <div>
       <ul />
@@ -228,14 +234,17 @@ exports[`initial state renders without crashing 1`] = `
       className="typeahead "
       onBlur={[Function]}
       onFocus={[Function]}>
-      <input
-        autoComplete="off"
-        className="a-text-input"
-        onChange={[Function]}
-        onKeyDown={[Function]}
-        placeholder="Enter state name or abbreviation"
-        type="text"
-        value="" />
+      <div
+        className="m-btn-inside-input">
+        <input
+          autoComplete="off"
+          className="a-text-input"
+          onChange={[Function]}
+          onKeyDown={[Function]}
+          placeholder="Enter state name or abbreviation"
+          type="text"
+          value="" />
+      </div>
     </section>
     <ul />
   </section>
@@ -266,14 +275,17 @@ exports[`initial state renders without crashing 1`] = `
       className="typeahead "
       onBlur={[Function]}
       onFocus={[Function]}>
-      <input
-        autoComplete="off"
-        className="a-text-input"
-        onChange={[Function]}
-        onKeyDown={[Function]}
-        placeholder="Enter first three digits of ZIP code"
-        type="text"
-        value="" />
+      <div
+        className="m-btn-inside-input">
+        <input
+          autoComplete="off"
+          className="a-text-input"
+          onChange={[Function]}
+          onKeyDown={[Function]}
+          placeholder="Enter first three digits of ZIP code"
+          type="text"
+          value="" />
+      </div>
     </section>
     <ul />
   </section>
