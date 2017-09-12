@@ -3,8 +3,12 @@
 .search-panel {
   padding: @gutter-normal;
 
+  @media @desktop {
+    padding: @grid_gutter-width;
+  }
+
   @media @phone {
-    padding: 0;
+    padding: @gutter-narrow;
   }
 
   border: 1px solid @gray-40;
