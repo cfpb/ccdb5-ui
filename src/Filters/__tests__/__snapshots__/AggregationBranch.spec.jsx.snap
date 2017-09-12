@@ -2,17 +2,19 @@ exports[`component::AggregationBranch initial state renders without crashing 1`]
 <div
   className="aggregation-branch">
   <li
-    className="flex-fixed layout-row parent">
+    className="flex-fixed layout-row parent m-form-field m-form-field__checkbox">
     <input
       aria-label="foo"
       checked={false}
-      className="flex-fixed"
+      className="flex-fixed a-checkbox"
+      id="issuefoo"
       onChange={[Function]}
       type="checkbox" />
-    <div
-      className="flex-all toggle">
+    <label
+      className="flex-all toggle a-label"
+      htmlFor="issuefoo">
       <button
-        className="a-btn a-btn__link hover"
+        className="a-btn a-btn__link"
         onClick={[Function]}>
         <span>
           foo
@@ -20,7 +22,7 @@ exports[`component::AggregationBranch initial state renders without crashing 1`]
         <span
           className="cf-icon cf-icon-up" />
       </button>
-    </div>
+    </label>
     <span
       className="flex-fixed parent-count">
       <span>
@@ -31,17 +33,19 @@ exports[`component::AggregationBranch initial state renders without crashing 1`]
   <ul
     className="children">
     <li
-      className="flex-fixed layout-row">
+      className="flex-fixed layout-row m-form-field m-form-field__checkbox">
       <input
         aria-label="foo•bar"
         checked={true}
-        className="flex-fixed"
+        className="flex-fixed a-checkbox"
+        id="issuefoo•bar"
         onChange={[Function]}
         type="checkbox" />
-      <span
-        className="flex-all bucket-key">
+      <label
+        className="a-label flex-all bucket-key"
+        htmlFor="issuefoo•bar">
         bar
-      </span>
+      </label>
       <span
         className="flex-fixed bucket-count">
         <span>
@@ -50,17 +54,19 @@ exports[`component::AggregationBranch initial state renders without crashing 1`]
       </span>
     </li>
     <li
-      className="flex-fixed layout-row">
+      className="flex-fixed layout-row m-form-field m-form-field__checkbox">
       <input
         aria-label="foo•baz"
         checked={false}
-        className="flex-fixed"
+        className="flex-fixed a-checkbox"
+        id="issuefoo•baz"
         onChange={[Function]}
         type="checkbox" />
-      <span
-        className="flex-all bucket-key">
+      <label
+        className="a-label flex-all bucket-key"
+        htmlFor="issuefoo•baz">
         baz
-      </span>
+      </label>
       <span
         className="flex-fixed bucket-count">
         <span>
@@ -69,17 +75,19 @@ exports[`component::AggregationBranch initial state renders without crashing 1`]
       </span>
     </li>
     <li
-      className="flex-fixed layout-row">
+      className="flex-fixed layout-row m-form-field m-form-field__checkbox">
       <input
         aria-label="foo•qaz"
         checked={false}
-        className="flex-fixed"
+        className="flex-fixed a-checkbox"
+        id="issuefoo•qaz"
         onChange={[Function]}
         type="checkbox" />
-      <span
-        className="flex-all bucket-key">
+      <label
+        className="a-label flex-all bucket-key"
+        htmlFor="issuefoo•qaz">
         qaz
-      </span>
+      </label>
       <span
         className="flex-fixed bucket-count">
         <span>

@@ -12,9 +12,9 @@ exports[`initial state hides the section when there is no narrative 1`] = `
           99990909
         </a>
       </h3>
-      <h5>
+      <h4>
         Matched company name
-      </h5>
+      </h4>
       <span
         className="body-copy"
         dangerouslySetInnerHTML={
@@ -23,9 +23,9 @@ exports[`initial state hides the section when there is no narrative 1`] = `
           }
         } />
       <br />
-      <h5>
+      <h4>
         Company response to consumer
-      </h5>
+      </h4>
       <span
         className="body-copy"
         dangerouslySetInnerHTML={
@@ -34,9 +34,9 @@ exports[`initial state hides the section when there is no narrative 1`] = `
           }
         } />
       <br />
-      <h5>
+      <h4>
         Timely response?
-      </h5>
+      </h4>
       <span
         className="body-copy"
         dangerouslySetInnerHTML={
@@ -51,9 +51,9 @@ exports[`initial state hides the section when there is no narrative 1`] = `
         className="layout-row">
         <div
           className="layout-row">
-          <h5>
+          <h4>
             Date received:
-          </h5>
+          </h4>
           <span
             className="body-copy">
             <span>
@@ -65,9 +65,9 @@ exports[`initial state hides the section when there is no narrative 1`] = `
           className="spacer" />
         <div
           className="layout-row">
-          <h5>
+          <h4>
             Consumer\'s state:
-          </h5>
+          </h4>
           <span
             className="body-copy"
             dangerouslySetInnerHTML={
@@ -78,9 +78,9 @@ exports[`initial state hides the section when there is no narrative 1`] = `
         </div>
       </div>
       <br />
-      <h5>
+      <h4>
         Product
-      </h5>
+      </h4>
       <h3
         dangerouslySetInnerHTML={
           Object {
@@ -102,9 +102,9 @@ exports[`initial state hides the section when there is no narrative 1`] = `
           } />
       </div>
       <br />
-      <h5>
+      <h4>
         Issue
-      </h5>
+      </h4>
       <h3
         dangerouslySetInnerHTML={
           Object {
@@ -145,9 +145,9 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
           99990909
         </a>
       </h3>
-      <h5>
+      <h4>
         Matched company name
-      </h5>
+      </h4>
       <span
         className="body-copy"
         dangerouslySetInnerHTML={
@@ -156,9 +156,9 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
           }
         } />
       <br />
-      <h5>
+      <h4>
         Company response to consumer
-      </h5>
+      </h4>
       <span
         className="body-copy"
         dangerouslySetInnerHTML={
@@ -167,9 +167,9 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
           }
         } />
       <br />
-      <h5>
+      <h4>
         Timely response?
-      </h5>
+      </h4>
       <span
         className="body-copy"
         dangerouslySetInnerHTML={
@@ -184,9 +184,9 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
         className="layout-row">
         <div
           className="layout-row">
-          <h5>
+          <h4>
             Date received:
-          </h5>
+          </h4>
           <span
             className="body-copy">
             <span>
@@ -198,9 +198,9 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
           className="spacer" />
         <div
           className="layout-row">
-          <h5>
+          <h4>
             Consumer\'s state:
-          </h5>
+          </h4>
           <span
             className="body-copy"
             dangerouslySetInnerHTML={
@@ -211,9 +211,9 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
         </div>
       </div>
       <br />
-      <h5>
+      <h4>
         Product
-      </h5>
+      </h4>
       <h3
         dangerouslySetInnerHTML={
           Object {
@@ -235,9 +235,9 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
           } />
       </div>
       <br />
-      <h5>
+      <h4>
         Issue
-      </h5>
+      </h4>
       <h3
         dangerouslySetInnerHTML={
           Object {
@@ -246,9 +246,9 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
         } />
       <br />
       <div>
-        <h5>
+        <h4>
           Consumer Complaint Narrative
-        </h5>
+        </h4>
         <span
           className="body-copy"
           dangerouslySetInnerHTML={
@@ -276,9 +276,9 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
           99990909
         </a>
       </h3>
-      <h5>
+      <h4>
         Matched company name
-      </h5>
+      </h4>
       <span
         className="body-copy"
         dangerouslySetInnerHTML={
@@ -287,9 +287,9 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
           }
         } />
       <br />
-      <h5>
+      <h4>
         Company response to consumer
-      </h5>
+      </h4>
       <span
         className="body-copy"
         dangerouslySetInnerHTML={
@@ -298,9 +298,9 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
           }
         } />
       <br />
-      <h5>
+      <h4>
         Timely response?
-      </h5>
+      </h4>
       <span
         className="body-copy"
         dangerouslySetInnerHTML={
@@ -315,9 +315,9 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
         className="layout-row">
         <div
           className="layout-row">
-          <h5>
+          <h4>
             Date received:
-          </h5>
+          </h4>
           <span
             className="body-copy">
             <span>
@@ -329,9 +329,9 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
           className="spacer" />
         <div
           className="layout-row">
-          <h5>
+          <h4>
             Consumer\'s state:
-          </h5>
+          </h4>
           <span
             className="body-copy"
             dangerouslySetInnerHTML={
@@ -342,9 +342,9 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
         </div>
       </div>
       <br />
-      <h5>
+      <h4>
         Product
-      </h5>
+      </h4>
       <h3
         dangerouslySetInnerHTML={
           Object {
@@ -352,9 +352,9 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
           }
         } />
       <br />
-      <h5>
+      <h4>
         Issue
-      </h5>
+      </h4>
       <h3
         dangerouslySetInnerHTML={
           Object {
@@ -377,9 +377,9 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
       </div>
       <br />
       <div>
-        <h5>
+        <h4>
           Consumer Complaint Narrative
-        </h5>
+        </h4>
         <span
           className="body-copy"
           dangerouslySetInnerHTML={
@@ -407,9 +407,9 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
           99990909
         </a>
       </h3>
-      <h5>
+      <h4>
         Matched company name
-      </h5>
+      </h4>
       <span
         className="body-copy"
         dangerouslySetInnerHTML={
@@ -418,9 +418,9 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
           }
         } />
       <br />
-      <h5>
+      <h4>
         Company response to consumer
-      </h5>
+      </h4>
       <span
         className="body-copy"
         dangerouslySetInnerHTML={
@@ -429,9 +429,9 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
           }
         } />
       <br />
-      <h5>
+      <h4>
         Timely response?
-      </h5>
+      </h4>
       <span
         className="body-copy"
         dangerouslySetInnerHTML={
@@ -446,9 +446,9 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
         className="layout-row">
         <div
           className="layout-row">
-          <h5>
+          <h4>
             Date received:
-          </h5>
+          </h4>
           <span
             className="body-copy">
             <span>
@@ -460,9 +460,9 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
           className="spacer" />
         <div
           className="layout-row">
-          <h5>
+          <h4>
             Consumer\'s state:
-          </h5>
+          </h4>
           <span
             className="body-copy"
             dangerouslySetInnerHTML={
@@ -473,9 +473,9 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
         </div>
       </div>
       <br />
-      <h5>
+      <h4>
         Product
-      </h5>
+      </h4>
       <h3
         dangerouslySetInnerHTML={
           Object {
@@ -497,9 +497,9 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
           } />
       </div>
       <br />
-      <h5>
+      <h4>
         Issue
-      </h5>
+      </h4>
       <h3
         dangerouslySetInnerHTML={
           Object {
@@ -522,9 +522,9 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
       </div>
       <br />
       <div>
-        <h5>
+        <h4>
           Consumer Complaint Narrative
-        </h5>
+        </h4>
         <span
           className="body-copy"
           dangerouslySetInnerHTML={
@@ -559,9 +559,9 @@ exports[`initial state renders without crashing 1`] = `
           99990909
         </a>
       </h3>
-      <h5>
+      <h4>
         Matched company name
-      </h5>
+      </h4>
       <span
         className="body-copy"
         dangerouslySetInnerHTML={
@@ -570,9 +570,9 @@ exports[`initial state renders without crashing 1`] = `
           }
         } />
       <br />
-      <h5>
+      <h4>
         Company response to consumer
-      </h5>
+      </h4>
       <span
         className="body-copy"
         dangerouslySetInnerHTML={
@@ -581,9 +581,9 @@ exports[`initial state renders without crashing 1`] = `
           }
         } />
       <br />
-      <h5>
+      <h4>
         Timely response?
-      </h5>
+      </h4>
       <span
         className="body-copy"
         dangerouslySetInnerHTML={
@@ -598,9 +598,9 @@ exports[`initial state renders without crashing 1`] = `
         className="layout-row">
         <div
           className="layout-row">
-          <h5>
+          <h4>
             Date received:
-          </h5>
+          </h4>
           <span
             className="body-copy">
             <span>
@@ -612,9 +612,9 @@ exports[`initial state renders without crashing 1`] = `
           className="spacer" />
         <div
           className="layout-row">
-          <h5>
+          <h4>
             Consumer\'s state:
-          </h5>
+          </h4>
           <span
             className="body-copy"
             dangerouslySetInnerHTML={
@@ -625,9 +625,9 @@ exports[`initial state renders without crashing 1`] = `
         </div>
       </div>
       <br />
-      <h5>
+      <h4>
         Product
-      </h5>
+      </h4>
       <h3
         dangerouslySetInnerHTML={
           Object {
@@ -649,9 +649,9 @@ exports[`initial state renders without crashing 1`] = `
           } />
       </div>
       <br />
-      <h5>
+      <h4>
         Issue
-      </h5>
+      </h4>
       <h3
         dangerouslySetInnerHTML={
           Object {
@@ -674,9 +674,9 @@ exports[`initial state renders without crashing 1`] = `
       </div>
       <br />
       <div>
-        <h5>
+        <h4>
           Consumer Complaint Narrative
-        </h5>
+        </h4>
         <span
           className="body-copy"
           dangerouslySetInnerHTML={

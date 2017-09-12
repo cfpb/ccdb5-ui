@@ -2,6 +2,15 @@
 
 .search-panel {
   padding: @gutter-normal;
+
+  @media @desktop {
+    padding: @grid_gutter-width;
+  }
+
+  @media @phone {
+    padding: @gutter-narrow;
+  }
+
   border: 1px solid @gray-40;
   border-bottom: 0;  // Don't double the border with the content
 

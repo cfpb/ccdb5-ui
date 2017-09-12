@@ -1,16 +1,18 @@
 exports[`component:AggregationItemFilter renders without crashing 1`] = `
 <li
-  className="flex-fixed layout-row">
+  className="flex-fixed layout-row m-form-field m-form-field__checkbox">
   <input
     aria-label="foo"
     checked={false}
-    className="flex-fixed"
+    className="flex-fixed a-checkbox"
+    id="fieldNamefoo"
     onChange={[Function]}
     type="checkbox" />
-  <span
-    className="flex-all bucket-key">
+  <label
+    className="a-label flex-all bucket-key"
+    htmlFor="fieldNamefoo">
     foo
-  </span>
+  </label>
   <span
     className="flex-fixed bucket-count">
     <span>

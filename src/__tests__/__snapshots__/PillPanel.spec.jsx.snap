@@ -3,10 +3,10 @@ exports[`component:PillPanel does not render when there are no filters 1`] = `nu
 exports[`component:PillPanel renders without crashing 1`] = `
 <section
   className="pill-panel">
-  <h5
+  <h4
     className="pill-label flex-fixed">
     Filters Applied:
-  </h5>
+  </h4>
   <ul
     className="layout-row">
     <li

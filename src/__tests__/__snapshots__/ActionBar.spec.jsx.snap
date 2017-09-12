@@ -72,14 +72,14 @@ exports[`initial state renders without crashing 1`] = `
         </option>
       </select>
     </div>
-    <h5
+    <h4
       className="flex-all">
       <button
         className="a-btn a-btn__link"
         onClick={undefined}>
         Export results
       </button>
-    </h5>
+    </h4>
   </div>
 </summary>
 `;
