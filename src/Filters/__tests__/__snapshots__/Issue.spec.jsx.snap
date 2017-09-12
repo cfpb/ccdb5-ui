@@ -3,10 +3,10 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
   className="o-expandable aggregation">
   <div
     className="o-expandable_header o-expandable_target">
-    <h5
+    <h4
       className="o-expandable_header-left o-expandable_label">
       Issue / sub-issue
-    </h5>
+    </h4>
     <span
       className="o-expandable_header-right o-expandable_link">
       <button
@@ -184,10 +184,10 @@ exports[`component:Issue snapshots renders without crashing 1`] = `
   className="o-expandable aggregation">
   <div
     className="o-expandable_header o-expandable_target">
-    <h5
+    <h4
       className="o-expandable_header-left o-expandable_label">
       Issue / sub-issue
-    </h5>
+    </h4>
     <span
       className="o-expandable_header-right o-expandable_link">
       <button

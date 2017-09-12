@@ -105,9 +105,9 @@ exports[`initial state renders without crashing 1`] = `
           <form
             action=""
             onSubmit={[Function]}>
-            <h5>
+            <h4>
               Search Within
-            </h5>
+            </h4>
             <div
               className="layout-row">
               <div
@@ -181,9 +181,9 @@ exports[`initial state renders without crashing 1`] = `
         </h3>
         <section
           className="single-checkbox">
-          <h5>
+          <h4>
             Only show complaints with narratives?
-          </h5>
+          </h4>
           <div
             className="m-form-field m-form-field__checkbox">
             <input
@@ -205,10 +205,10 @@ exports[`initial state renders without crashing 1`] = `
           className="o-expandable aggregation date-filter">
           <div
             className="o-expandable_header o-expandable_target">
-            <h5
+            <h4
               className="o-expandable_header-left o-expandable_label">
-              Date CFPB Received the complaint
-            </h5>
+              Date CFPB received the complaint
+            </h4>
             <span
               className="o-expandable_header-right o-expandable_link">
               <button
@@ -268,10 +268,10 @@ exports[`initial state renders without crashing 1`] = `
           className="o-expandable aggregation">
           <div
             className="o-expandable_header o-expandable_target">
-            <h5
+            <h4
               className="o-expandable_header-left o-expandable_label">
-              Matched Company Name
-            </h5>
+              Matched company name
+            </h4>
             <span
               className="o-expandable_header-right o-expandable_link">
               <button
@@ -306,10 +306,10 @@ exports[`initial state renders without crashing 1`] = `
           className="o-expandable aggregation">
           <div
             className="o-expandable_header o-expandable_target">
-            <h5
+            <h4
               className="o-expandable_header-left o-expandable_label">
               Product / sub-product
-            </h5>
+            </h4>
             <span
               className="o-expandable_header-right o-expandable_link">
               <button
@@ -341,10 +341,10 @@ exports[`initial state renders without crashing 1`] = `
           className="o-expandable aggregation">
           <div
             className="o-expandable_header o-expandable_target">
-            <h5
+            <h4
               className="o-expandable_header-left o-expandable_label">
               Issue / sub-issue
-            </h5>
+            </h4>
             <span
               className="o-expandable_header-right o-expandable_link">
               <button
@@ -381,10 +381,10 @@ exports[`initial state renders without crashing 1`] = `
           className="o-expandable aggregation">
           <div
             className="o-expandable_header o-expandable_target">
-            <h5
+            <h4
               className="o-expandable_header-left o-expandable_label">
               State
-            </h5>
+            </h4>
             <span
               className="o-expandable_header-right o-expandable_link">
               <button
@@ -419,10 +419,10 @@ exports[`initial state renders without crashing 1`] = `
           className="o-expandable aggregation">
           <div
             className="o-expandable_header o-expandable_target">
-            <h5
+            <h4
               className="o-expandable_header-left o-expandable_label">
-              Zip Code
-            </h5>
+              Zip code
+            </h4>
             <span
               className="o-expandable_header-right o-expandable_link">
               <button
@@ -457,10 +457,10 @@ exports[`initial state renders without crashing 1`] = `
           className="o-expandable aggregation">
           <div
             className="o-expandable_header o-expandable_target">
-            <h5
+            <h4
               className="o-expandable_header-left o-expandable_label">
               Did company provide a timely response?
-            </h5>
+            </h4>
             <span
               className="o-expandable_header-right o-expandable_link">
               <button
@@ -479,10 +479,10 @@ exports[`initial state renders without crashing 1`] = `
           className="o-expandable aggregation">
           <div
             className="o-expandable_header o-expandable_target">
-            <h5
+            <h4
               className="o-expandable_header-left o-expandable_label">
-              Company Response
-            </h5>
+              Company response
+            </h4>
             <span
               className="o-expandable_header-right o-expandable_link">
               <button
@@ -503,10 +503,10 @@ exports[`initial state renders without crashing 1`] = `
           className="o-expandable aggregation">
           <div
             className="o-expandable_header o-expandable_target">
-            <h5
+            <h4
               className="o-expandable_header-left o-expandable_label">
-              Company Public Response
-            </h5>
+              Company public response
+            </h4>
             <span
               className="o-expandable_header-right o-expandable_link">
               <button
@@ -527,10 +527,10 @@ exports[`initial state renders without crashing 1`] = `
           className="o-expandable aggregation date-filter">
           <div
             className="o-expandable_header o-expandable_target">
-            <h5
+            <h4
               className="o-expandable_header-left o-expandable_label">
               Date complaint sent to company
-            </h5>
+            </h4>
             <span
               className="o-expandable_header-right o-expandable_link">
               <button
@@ -590,10 +590,10 @@ exports[`initial state renders without crashing 1`] = `
           className="o-expandable aggregation">
           <div
             className="o-expandable_header o-expandable_target">
-            <h5
+            <h4
               className="o-expandable_header-left o-expandable_label">
-              Consumer Consent
-            </h5>
+              Consumer consent
+            </h4>
             <span
               className="o-expandable_header-right o-expandable_link">
               <button
@@ -614,10 +614,10 @@ exports[`initial state renders without crashing 1`] = `
           className="o-expandable aggregation">
           <div
             className="o-expandable_header o-expandable_target">
-            <h5
+            <h4
               className="o-expandable_header-left o-expandable_label">
               How did the consumer submit the complaint to the CFPB?
-            </h5>
+            </h4>
             <span
               className="o-expandable_header-right o-expandable_link">
               <button
@@ -636,10 +636,10 @@ exports[`initial state renders without crashing 1`] = `
           className="o-expandable aggregation">
           <div
             className="o-expandable_header o-expandable_target">
-            <h5
+            <h4
               className="o-expandable_header-left o-expandable_label">
               Tags
-            </h5>
+            </h4>
             <span
               className="o-expandable_header-right o-expandable_link">
               <button
@@ -728,14 +728,14 @@ exports[`initial state renders without crashing 1`] = `
               </option>
             </select>
           </div>
-          <h5
+          <h4
             className="flex-all">
             <button
               className="a-btn a-btn__link"
               onClick={[Function]}>
               Export results
             </button>
-          </h5>
+          </h4>
         </div>
       </summary>
       <h2>

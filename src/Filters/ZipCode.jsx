@@ -15,7 +15,7 @@ export class ZipCode extends React.Component {
 
   render() {
     return (
-      <CollapsibleFilter title="Zip Code"
+      <CollapsibleFilter title="Zip code"
                          desc="The mailing ZIP code provided by the consumer"
                          className="aggregation">
         <Typeahead placeholder="Enter first three digits of ZIP code"

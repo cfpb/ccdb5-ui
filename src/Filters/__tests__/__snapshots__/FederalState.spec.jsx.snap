@@ -3,10 +3,10 @@ exports[`component::FederalState initial state renders without crashing 1`] = `
   className="o-expandable aggregation">
   <div
     className="o-expandable_header o-expandable_target">
-    <h5
+    <h4
       className="o-expandable_header-left o-expandable_label">
       State
-    </h5>
+    </h4>
     <span
       className="o-expandable_header-right o-expandable_link">
       <button

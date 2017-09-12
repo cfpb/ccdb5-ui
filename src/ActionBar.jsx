@@ -54,12 +54,12 @@ export class ActionBar extends React.Component {
               </select>
             </div>
 
-            <h5 className="flex-all">
+            <h4 className="flex-all">
               <button className="a-btn a-btn__link"
                       onClick={this.props.onExportResults}>
                 Export results
               </button>
-            </h5>
+            </h4>
           </div>
         </summary>
     );

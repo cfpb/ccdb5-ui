@@ -1,7 +1,7 @@
 exports[`initial state pre-check filter based on query 1`] = `
 <section
   className="single-checkbox">
-  <h5 />
+  <h4 />
   <div
     className="m-form-field m-form-field__checkbox">
     <input
@@ -23,7 +23,7 @@ exports[`initial state pre-check filter based on query 1`] = `
 exports[`initial state renders without crashing 1`] = `
 <section
   className="single-checkbox">
-  <h5 />
+  <h4 />
   <div
     className="m-form-field m-form-field__checkbox">
     <input
