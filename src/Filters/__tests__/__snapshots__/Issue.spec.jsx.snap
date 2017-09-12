@@ -25,14 +25,17 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
     className="typeahead "
     onBlur={[Function]}
     onFocus={[Function]}>
-    <input
-      autoComplete="off"
-      className="a-text-input"
-      onChange={[Function]}
-      onKeyDown={[Function]}
-      placeholder="Enter name of issue"
-      type="text"
-      value="" />
+    <div
+      className="m-btn-inside-input">
+      <input
+        autoComplete="off"
+        className="a-text-input"
+        onChange={[Function]}
+        onKeyDown={[Function]}
+        placeholder="Enter name of issue"
+        type="text"
+        value="" />
+    </div>
   </section>
   <div>
     <ul>
@@ -206,14 +209,17 @@ exports[`component:Issue snapshots renders without crashing 1`] = `
     className="typeahead "
     onBlur={[Function]}
     onFocus={[Function]}>
-    <input
-      autoComplete="off"
-      className="a-text-input"
-      onChange={[Function]}
-      onKeyDown={[Function]}
-      placeholder="Enter name of issue"
-      type="text"
-      value="" />
+    <div
+      className="m-btn-inside-input">
+      <input
+        autoComplete="off"
+        className="a-text-input"
+        onChange={[Function]}
+        onKeyDown={[Function]}
+        placeholder="Enter name of issue"
+        type="text"
+        value="" />
+    </div>
   </section>
   <div>
     <ul />
