@@ -1,15 +1,20 @@
 @import (less) "base.less";
 
 .filter-panel {
-    padding: @gutter-normal;
-    border: 1px solid @gray-40;
+  padding: @gutter-normal;
 
-    background: @gray-5;
+  @media @desktop {
+    padding: @grid_gutter-width;
+  }
 
-    hr {
-        margin-top: @gutter-normal;
-        margin-bottom: @gutter-normal;
+  border: 1px solid @gray-40;
 
-        color: @gray-40;
-    }
+  background: @gray-5;
+
+  hr {
+    margin-top: @gutter-normal;
+    margin-bottom: @gutter-normal;
+
+    color: @gray-40;
+  }
 }

@@ -94,19 +94,44 @@
     }
 
     .content_sidebar {
-        width: 33%;
+        width: 420px;
         padding: 0;
         border: 0;
         margin: 0;
     }
 
     .content_main {
-        width: 67%;
+        width: ~"calc(100% - 420px)";
         padding: 0;
         border: 0;
 
         &:after {
             border-left: 0;
+        }
+    }
+}
+
+@media @tablet {
+    .content__1-3 {
+        .content_sidebar {
+            width: 305px;
+        }
+
+        .content_main {
+            width: ~"calc(100% - 305px)";
+        }
+    }
+}
+
+@media @phone {
+    .content__1-3 {
+        .content_sidebar {
+            width: 0;
+            display: none;
+        }
+
+        .content_main {
+            width: 100%;
         }
     }
 }
