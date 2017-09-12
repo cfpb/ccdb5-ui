@@ -4,19 +4,23 @@ import { FormattedNumber } from 'react-intl'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-// The linter does not detect the use of 'fieldName' which _is_ used
-// eslint-disable-next-line no-unused-vars
 export const AggregationItem = ( { item, fieldName, active, onClick } ) => {
   const value = item.value || item.key
+  const liStyle = 'flex-fixed layout-row m-form-field m-form-field__checkbox'
+  const id = fieldName + item.key.replace( ' ', '' )
 
   return (
-        <li className="flex-fixed layout-row">
-            <input type="checkbox" className="flex-fixed"
+        <li className={liStyle}>
+            <input type="checkbox" className="flex-fixed a-checkbox"
                    aria-label={item.key}
                    checked={active}
+                   id={id}
                    onChange={onClick}
             />
-            <span className="flex-all bucket-key">{value}</span>
+            <label className="a-label flex-all bucket-key"
+                   htmlFor={id}>
+              {value}
+            </label>
             <span className="flex-fixed bucket-count">
               <FormattedNumber value={item.doc_count} />
             </span>

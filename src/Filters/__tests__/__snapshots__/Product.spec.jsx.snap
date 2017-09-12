@@ -3,10 +3,10 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
   className="o-expandable aggregation">
   <div
     className="o-expandable_header o-expandable_target">
-    <h5
+    <h4
       className="o-expandable_header-left o-expandable_label">
       Product / sub-product
-    </h5>
+    </h4>
     <span
       className="o-expandable_header-right o-expandable_link">
       <button
@@ -34,17 +34,19 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
       <div
         className="aggregation-branch">
         <li
-          className="flex-fixed layout-row parent">
+          className="flex-fixed layout-row parent m-form-field m-form-field__checkbox">
           <input
             aria-label="Credit reporting, credit repair services, or other personal consumer reports"
             checked={false}
-            className="flex-fixed"
+            className="flex-fixed a-checkbox"
+            id="productCreditreporting, credit repair services, or other personal consumer reports"
             onChange={[Function]}
             type="checkbox" />
-          <div
-            className="flex-all toggle">
+          <label
+            className="flex-all toggle a-label"
+            htmlFor="productCreditreporting, credit repair services, or other personal consumer reports">
             <button
-              className="a-btn a-btn__link hover"
+              className="a-btn a-btn__link"
               onClick={[Function]}>
               <span>
                 Credit reporting, credit repair services, or other personal consumer reports
@@ -52,7 +54,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
               <span
                 className="cf-icon cf-icon-down" />
             </button>
-          </div>
+          </label>
           <span
             className="flex-fixed parent-count">
             <span>
@@ -64,17 +66,19 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
       <div
         className="aggregation-branch">
         <li
-          className="flex-fixed layout-row parent">
+          className="flex-fixed layout-row parent m-form-field m-form-field__checkbox">
           <input
             aria-label="Mortgage"
             checked={false}
-            className="flex-fixed"
+            className="flex-fixed a-checkbox"
+            id="productMortgage"
             onChange={[Function]}
             type="checkbox" />
-          <div
-            className="flex-all toggle">
+          <label
+            className="flex-all toggle a-label"
+            htmlFor="productMortgage">
             <button
-              className="a-btn a-btn__link hover"
+              className="a-btn a-btn__link"
               onClick={[Function]}>
               <span>
                 Mortgage
@@ -82,7 +86,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
               <span
                 className="cf-icon cf-icon-down" />
             </button>
-          </div>
+          </label>
           <span
             className="flex-fixed parent-count">
             <span>
@@ -92,17 +96,19 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
         </li>
       </div>
       <li
-        className="flex-fixed layout-row">
+        className="flex-fixed layout-row m-form-field m-form-field__checkbox">
         <input
           aria-label="Credit reporting"
           checked={false}
-          className="flex-fixed"
+          className="flex-fixed a-checkbox"
+          id="productCreditreporting"
           onChange={[Function]}
           type="checkbox" />
-        <span
-          className="flex-all bucket-key">
+        <label
+          className="a-label flex-all bucket-key"
+          htmlFor="productCreditreporting">
           Credit reporting
-        </span>
+        </label>
         <span
           className="flex-fixed bucket-count">
           <span>
@@ -111,17 +117,19 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
         </span>
       </li>
       <li
-        className="flex-fixed layout-row">
+        className="flex-fixed layout-row m-form-field m-form-field__checkbox">
         <input
           aria-label="Student loan"
           checked={false}
-          className="flex-fixed"
+          className="flex-fixed a-checkbox"
+          id="productStudentloan"
           onChange={[Function]}
           type="checkbox" />
-        <span
-          className="flex-all bucket-key">
+        <label
+          className="a-label flex-all bucket-key"
+          htmlFor="productStudentloan">
           Student loan
-        </span>
+        </label>
         <span
           className="flex-fixed bucket-count">
           <span>
@@ -130,17 +138,19 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
         </span>
       </li>
       <li
-        className="flex-fixed layout-row">
+        className="flex-fixed layout-row m-form-field m-form-field__checkbox">
         <input
           aria-label="Credit card or prepaid card"
           checked={false}
-          className="flex-fixed"
+          className="flex-fixed a-checkbox"
+          id="productCreditcard or prepaid card"
           onChange={[Function]}
           type="checkbox" />
-        <span
-          className="flex-all bucket-key">
+        <label
+          className="a-label flex-all bucket-key"
+          htmlFor="productCreditcard or prepaid card">
           Credit card or prepaid card
-        </span>
+        </label>
         <span
           className="flex-fixed bucket-count">
           <span>
@@ -152,7 +162,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
     <div
       className="flex-fixed">
       <button
-        className="a-btn a-btn__link hover more"
+        className="a-btn a-btn__link more"
         onClick={[Function]}>
         + Show 
         1
@@ -169,10 +179,10 @@ exports[`component:Product snapshots renders without crashing 1`] = `
   className="o-expandable aggregation">
   <div
     className="o-expandable_header o-expandable_target">
-    <h5
+    <h4
       className="o-expandable_header-left o-expandable_label">
       Product / sub-product
-    </h5>
+    </h4>
     <span
       className="o-expandable_header-right o-expandable_link">
       <button

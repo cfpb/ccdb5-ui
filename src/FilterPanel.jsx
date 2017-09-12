@@ -27,7 +27,7 @@ export class FilterPanel extends React.Component {
                         fieldName="has_narrative" />
         <hr />
         <DateFilter fieldName="date_received"
-                    title="Date CFPB Received the complaint" />
+                    title="Date CFPB received the complaint" />
         <hr />
         <CompanyName />
         <hr />
@@ -43,12 +43,12 @@ export class FilterPanel extends React.Component {
                       fieldName="timely"
         />
         <hr />
-        <SimpleFilter title="Company Response"
+        <SimpleFilter title="Company response"
                      desc="How the company responded to the complaint"
                      fieldName="company_response"
         />
         <hr />
-        <SimpleFilter title="Company Public Response"
+        <SimpleFilter title="Company public response"
                      desc={descPublicResponse}
                      fieldName="company_public_response"
         />
@@ -57,7 +57,7 @@ export class FilterPanel extends React.Component {
                     fieldName="company_received"
         />
         <hr />
-        <SimpleFilter title="Consumer Consent"
+        <SimpleFilter title="Consumer consent"
                      desc={descConsumerConsent}
                      fieldName="consumer_consent_provided"
         />

@@ -12,7 +12,7 @@ export const PillPanel = ( { filters, clearAll } ) => {
 
   return (
     <section className="pill-panel">
-      <h5 className="pill-label flex-fixed">Filters Applied:</h5>
+      <h4 className="pill-label flex-fixed">Filters Applied:</h4>
       <ul className="layout-row">
         { filters.map( x => <Pill key={x.fieldName + x.value}
                                  fieldName={x.fieldName}

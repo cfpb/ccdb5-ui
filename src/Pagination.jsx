@@ -1,5 +1,6 @@
 import { changePage } from './actions/paging'
 import { connect } from 'react-redux'
+import { FormattedNumber } from 'react-intl'
 import React from 'react'
 
 export class Pagination extends React.Component {
@@ -93,7 +94,8 @@ export class Pagination extends React.Component {
                          inputMode="numeric"
                          value={this.state.inputValue}
                          onChange={this._updateInputValue} />
-                  of {this.state.total}
+                  of&nbsp;
+                  <FormattedNumber value={this.state.total} />
               </label>
               <button className="a-btn
                              a-btn__link

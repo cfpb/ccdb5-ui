@@ -2,6 +2,16 @@
 
 .content_hero {
     padding: @gutter-normal;
+
+    @media @desktop {
+      padding: @grid_gutter-width;
+      padding-top: @gutter-normal;
+    }
+
+    @media @phone {
+      padding: @gutter-narrow;
+    }
+
     margin-top: @grid_gutter-width;
 
     p {

@@ -2,36 +2,48 @@
 
 .aggregation-branch {
   li.parent {
+    position: relative;
+
     -webkit-align-items: baseline;
             align-items: baseline;
 
     .toggle {
-      max-width: ~"calc(100% - 95px)";  // @max-count-width + @gutter-normal * 2
-      padding-left: @gutter-normal;
+      max-width: ~"calc(100% - 95px)";  // @max-count-width + @bucket-indent
+      padding-left: @bucket-indent;
 
       font-size: @size-iv;
       font-weight: normal;
+      text-indent: -1 * @bucket-indent;
 
       button {
         text-align: left;
+        vertical-align: top;
       }
 
       .a-btn__link {
         border: 0;
+      }
 
-        color: @pacific;
+      &.a-label::before {
+        box-sizing: border-box;
+        width: 20px;
+        height: 20px;
+
+        text-indent: 0;
       }
 
       .cf-icon {
         padding-left: @gutter-minimum;
-
-        color: @pacific;
       }
     }
 
     .parent-count {
-      width: @max-count-width;
-      text-align: right;
+      position: absolute;
+      top: 0;
+      right: 0;          
+
+      color: @dark-gray;
+      font-size: 14px;
     }    
   }
 

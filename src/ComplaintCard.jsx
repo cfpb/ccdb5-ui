@@ -16,31 +16,31 @@ export default class ComplaintCard extends React.Component {
             <h3 className="to-detail">
               <a href={ complaintIdPath }>{ row.complaint_id }</a>
             </h3>
-            <h5>Matched company name</h5>
+            <h4>Matched company name</h4>
             { this._renderPossibleHighlight( row.company ) }
             <br />
-            <h5>Company response to consumer</h5>
+            <h4>Company response to consumer</h4>
             { this._renderPossibleHighlight( row.company_response ) }
             <br />
-            <h5>Timely response?</h5>
+            <h4>Timely response?</h4>
             { this._renderPossibleHighlight( row.timely ) }
           </div>
           <div className="card-right layout-column">
             <div className="layout-row">
               <div className="layout-row">
-                <h5>Date received:</h5>
+                <h4>Date received:</h4>
                 <span className="body-copy">
                   <FormattedDate value={ row.date_received } />
                 </span>
               </div>
               <div className="spacer" />
               <div className="layout-row">
-                <h5>Consumer's state:</h5>
+                <h4>Consumer's state:</h4>
                 { this._renderPossibleHighlight( row.state ) }
               </div>
             </div>
             <br />
-            <h5>Product</h5>
+            <h4>Product</h4>
             <h3 dangerouslySetInnerHTML={ { __html: row.product } }></h3>
             { row.sub_product ?
               <div className="layout-row">
@@ -50,7 +50,7 @@ export default class ComplaintCard extends React.Component {
                null
             }
             <br />
-            <h5>Issue</h5>
+            <h4>Issue</h4>
             <h3 dangerouslySetInnerHTML={ { __html: row.issue } }></h3>
             { row.sub_issue ?
               <div className="layout-row">
@@ -84,7 +84,7 @@ export default class ComplaintCard extends React.Component {
 
     return narrative ?
         <div>
-          <h5>Consumer Complaint Narrative</h5>
+          <h4>Consumer Complaint Narrative</h4>
             { this._renderPossibleHighlight( narrative ) }
             { hasOverflow ? <span> <a href={ url }>[...]</a></span> : null }
         </div> :

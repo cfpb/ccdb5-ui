@@ -3,10 +3,10 @@ exports[`component::ZipCode snapshots renders without crashing 1`] = `
   className="o-expandable aggregation">
   <div
     className="o-expandable_header o-expandable_target">
-    <h5
+    <h4
       className="o-expandable_header-left o-expandable_label">
-      Zip Code
-    </h5>
+      Zip code
+    </h4>
     <span
       className="o-expandable_header-right o-expandable_link">
       <button
@@ -32,24 +32,26 @@ exports[`component::ZipCode snapshots renders without crashing 1`] = `
         className="a-text-input"
         onChange={[Function]}
         onKeyDown={[Function]}
-        placeholder="Enter first three digits of zip code"
+        placeholder="Enter first three digits of ZIP code"
         type="text"
         value="" />
     </div>
   </section>
   <ul>
     <li
-      className="flex-fixed layout-row">
+      className="flex-fixed layout-row m-form-field m-form-field__checkbox">
       <input
         aria-label="300XX"
         checked={true}
-        className="flex-fixed"
+        className="flex-fixed a-checkbox"
+        id="zip_code300XX"
         onChange={[Function]}
         type="checkbox" />
-      <span
-        className="flex-all bucket-key">
+      <label
+        className="a-label flex-all bucket-key"
+        htmlFor="zip_code300XX">
         300XX
-      </span>
+      </label>
       <span
         className="flex-fixed bucket-count">
         <span>

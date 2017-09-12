@@ -49,7 +49,7 @@ export class SearchBar extends React.Component {
       <div>
         <nav className="search-bar">
           <form action="" onSubmit={this._handleSubmit}>
-            <h5>Search Within</h5>
+            <h4>Search Within</h4>
             <div className="layout-row">
               <div className="cf-select">
                 <select aria-label="Choose which field will be searched"
