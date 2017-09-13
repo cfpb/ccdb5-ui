@@ -32,6 +32,12 @@
         text-indent: 0;
       }
 
+      &.indeterminate::before {
+        border: solid 2px @dark-gray;
+
+        background: url('indeterminate.png') no-repeat scroll center center transparent; 
+      }
+
       .cf-icon {
         padding-left: @gutter-minimum;
       }
