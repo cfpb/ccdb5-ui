@@ -42,7 +42,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
       <div
         className="aggregation-branch">
         <li
-          className="flex-fixed layout-row parent m-form-field m-form-field__checkbox">
+          className="flex-fixed layout-row parent m-form-field m-form-field__checkbox body-copy">
           <input
             aria-label="Incorrect information on credit report"
             checked={false}
@@ -74,7 +74,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
       <div
         className="aggregation-branch">
         <li
-          className="flex-fixed layout-row parent m-form-field m-form-field__checkbox">
+          className="flex-fixed layout-row parent m-form-field m-form-field__checkbox body-copy">
           <input
             aria-label="Cont\'d attempts collect debt not owed"
             checked={false}
@@ -113,7 +113,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
           onChange={[Function]}
           type="checkbox" />
         <label
-          className="a-label flex-all bucket-key"
+          className="a-label flex-all bucket-key body-copy"
           htmlFor="issueLoanservicing, payments, escrow account">
           Loan servicing, payments, escrow account
         </label>
@@ -134,7 +134,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
           onChange={[Function]}
           type="checkbox" />
         <label
-          className="a-label flex-all bucket-key"
+          className="a-label flex-all bucket-key body-copy"
           htmlFor="issueLoanmodification,collection,foreclosure">
           Loan modification,collection,foreclosure
         </label>
@@ -155,7 +155,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
           onChange={[Function]}
           type="checkbox" />
         <label
-          className="a-label flex-all bucket-key"
+          className="a-label flex-all bucket-key body-copy"
           htmlFor="issueDealingwith my lender or servicer">
           Dealing with my lender or servicer
         </label>
