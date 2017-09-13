@@ -66,7 +66,7 @@ export class AggregationBranch extends React.Component {
     }
 
     const liStyle = 'flex-fixed layout-row parent m-form-field ' +
-      'm-form-field__checkbox'
+      'm-form-field__checkbox body-copy'
     const id = fieldName + item.key.replace( ' ', '' )
 
     return (
