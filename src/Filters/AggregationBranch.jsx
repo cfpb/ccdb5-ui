@@ -1,12 +1,19 @@
 import './AggregationBranch.less'
 import { addMultipleFilters, removeMultipleFilters } from '../actions/filter'
+import { bindAll, slugify } from '../utils'
 import AggregationItem from './AggregationItem'
 import { connect } from 'react-redux';
 import { FormattedNumber } from 'react-intl'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { SLUG_SEPARATOR } from '../constants'
-import { slugify } from '../utils'
+
+export const UNCHECKED = 'UNCHECKED'
+export const INDETERMINATE = 'INDETERMINATE'
+export const CHECKED = 'CHECKED'
+
+// ----------------------------------------------------------------------------
+// Class
 
 export class AggregationBranch extends React.Component {
   constructor( props ) {
@@ -14,15 +21,11 @@ export class AggregationBranch extends React.Component {
 
     this.state = { showChildren: this.props.showChildren }
 
-    this.refCheckbox = null
-
-    this._decideClickAction = this._decideClickAction.bind( this )
-    this._setReference = this._setReference.bind( this )
-    this._toggleChildDisplay = this._toggleChildDisplay.bind( this )
+    bindAll( this, [ '_decideClickAction', '_toggleChildDisplay' ] )
   }
 
   _decideClickAction() {
-    const { item, subitems, fieldName, active } = this.props
+    const { item, subitems, fieldName, checkedState } = this.props
 
     // List all the filters
     const values = [ item.key ]
@@ -30,12 +33,11 @@ export class AggregationBranch extends React.Component {
       values.push( slugify( item.key, sub.key ) )
     } )
 
-    const action = active ? this.props.uncheckParent : this.props.checkParent
-    action( fieldName, values )
-  }
+    const action = checkedState === CHECKED ?
+      this.props.uncheckParent :
+      this.props.checkParent
 
-  _setReference( elem ) {
-    this.refCheckbox = elem
+    action( fieldName, values )
   }
 
   _toggleChildDisplay() {
@@ -44,14 +46,8 @@ export class AggregationBranch extends React.Component {
     } )
   }
 
-  componentDidUpdate() {
-    if ( this.refCheckbox ) {
-      this.refCheckbox.indeterminate = this.props.indeterminate
-    }
-  }
-
   render() {
-    const { item, subitems, fieldName, active } = this.props
+    const { item, subitems, fieldName, checkedState } = this.props
 
     // Fix up the subitems to prepend the current item key
     const buckets = subitems.map( sub => ( {
@@ -78,13 +74,12 @@ export class AggregationBranch extends React.Component {
         <li className={liStyle}>
           <input type="checkbox"
                  aria-label={item.key}
-                 checked={active}
+                 checked={checkedState === CHECKED}
                  className="flex-fixed a-checkbox"
                  id={id}
                  onChange={this._decideClickAction}
-                 ref={this._setReference}
           />
-          <label className="flex-all toggle a-label"
+          <label className={this._labelStyle}
                  htmlFor={id}>
             <button className="a-btn a-btn__link"
                     onClick={this._toggleChildDisplay}>
@@ -111,13 +106,24 @@ export class AggregationBranch extends React.Component {
       </div>
     )
   }
+
+  // --------------------------------------------------------------------------
+  // Properties
+
+  get _labelStyle() {
+    let s = 'flex-all toggle a-label'
+    if ( this.props.checkedState === INDETERMINATE ) {
+      s += ' indeterminate'
+    }
+
+    return s
+  }
 }
 
 AggregationBranch.propTypes = {
-  active: PropTypes.bool,
   checkParent: PropTypes.func.isRequired,
+  checkedState: PropTypes.string,
   fieldName: PropTypes.string.isRequired,
-  indeterminate: PropTypes.bool,
   item: PropTypes.shape( {
     // eslint-disable-next-line camelcase
     doc_count: PropTypes.number.isRequired,
@@ -130,8 +136,7 @@ AggregationBranch.propTypes = {
 }
 
 AggregationBranch.defaultProps = {
-  active: false,
-  indeterminate: false,
+  checkedState: UNCHECKED,
   showChildren: false
 }
 
@@ -146,9 +151,15 @@ export const mapStateToProps = ( state, ownProps ) => {
   const activeChild = hasKey.filter( x => x.indexOf( SLUG_SEPARATOR ) !== -1 )
   const activeParent = hasKey.filter( x => x.indexOf( SLUG_SEPARATOR ) === -1 )
 
+  let checkedState = UNCHECKED
+  if ( activeParent.length === 0 && activeChild.length > 0 ) {
+    checkedState = INDETERMINATE
+  } else if ( activeParent.length > 0 ) {
+    checkedState = CHECKED
+  }
+
   return {
-    active: activeParent.length > 0,
-    indeterminate: activeParent.length === 0 && activeChild.length > 0,
+    checkedState,
     showChildren: activeChild.length > 0
   }
 }

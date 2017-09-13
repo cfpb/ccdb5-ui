@@ -6,7 +6,7 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import renderer from 'react-test-renderer'
 import ReduxAggregationBranch, {
-  AggregationBranch, mapDispatchToProps
+  AggregationBranch, CHECKED, mapDispatchToProps, UNCHECKED
 } from '../AggregationBranch'
 import { slugify } from '../../utils'
 
@@ -24,21 +24,17 @@ const subitems = [
   { key: 'qaz', doc_count: 4 },
 ]
 
-function setupEnzyme(active=false, refElem=null) {
+function setupEnzyme(checkedState=UNCHECKED) {
   const props = {
-    active,
-    indeterminate: false,
+    checkedState,
+    checkParent: jest.fn(),
+    fieldName: "issue",
     item: item,
     subitems: subitems,
-    fieldName: "issue",
-    checkParent: jest.fn(),
     uncheckParent: jest.fn()
   }
 
   const target = shallow(<AggregationBranch {...props} />)
-
-  // Fake the `ref` call
-  target.instance()._setReference(refElem)
 
   return {
     props,
@@ -46,12 +42,12 @@ function setupEnzyme(active=false, refElem=null) {
   }
 }
 
-function setupSnapshot() {
+function setupSnapshot(selections) {
   const middlewares = [thunk]
   const mockStore = configureMockStore(middlewares)
   const store = mockStore({
     query: {
-      issue: [slugify('foo', 'bar')]
+      issue: selections
     }
   })
 
@@ -70,12 +66,32 @@ function setupSnapshot() {
 // Test 
 
 describe('component::AggregationBranch', () => {
-  describe('initial state', () => {
-    it('renders without crashing', () => {
-      const target = setupSnapshot()
+  describe('snapshots', () => {
+    it('renders with all checked', () => {
+      const selections = [
+        'foo',
+        slugify('foo', 'bar'),
+        slugify('foo', 'baz'),
+        slugify('foo', 'qaz'),
+      ]
+      const target = setupSnapshot(selections)
       const tree = target.toJSON()
       expect(tree).toMatchSnapshot()
     })
+
+    it('renders with indeterminate', () => {
+      const selections = [slugify('foo', 'bar')]
+      const target = setupSnapshot(selections)
+      const tree = target.toJSON()
+      expect(tree).toMatchSnapshot()
+    })
+
+    it('renders with none checked', () => {
+      const target = setupSnapshot( [] )
+      const tree = target.toJSON()
+      expect(tree).toMatchSnapshot()
+    })
+
   })
 
   describe('toggle behavior', () => {
@@ -91,7 +107,7 @@ describe('component::AggregationBranch', () => {
 
   describe('parent checkbox logic', () => {
     it('calls one action when the checkbox is already selected', () => {
-      const { target, props } = setupEnzyme(true)
+      const { target, props } = setupEnzyme(CHECKED)
       const checkbox = target.find('li.parent input[type="checkbox"]')
       checkbox.simulate('change')
       expect(props.uncheckParent).toHaveBeenCalledWith(
@@ -108,18 +124,6 @@ describe('component::AggregationBranch', () => {
       expect(props.checkParent).toHaveBeenCalledWith(
         'issue', ['foo', 'foo•bar', 'foo•baz', 'foo•qaz']
       )
-    })
-
-    it('displays indeterminate when at least one child is checked', () => {
-      const spyElem = {}
-      const { target, props } = setupEnzyme(false, spyElem)
-      target.setProps({ indeterminate: true })
-
-      // Fake componentDidUpdate since it is not called for shallow renders
-      // https://github.com/airbnb/enzyme/issues/465
-      target.instance().componentDidUpdate()
-
-      expect(spyElem.indeterminate).toEqual(true)
     })
   })
 
