@@ -39,14 +39,32 @@
     flex-direction: row;
     flex-wrap: nowrap;
 
+    @media @phone {
+      flex-wrap: wrap;
+    }
+
     .card-left {
       box-sizing: border-box;
       min-width: 260px;
       width: 33%;
       padding-right: @grid_gutter-width;
+
+      @media @tablet {
+        padding-right: @gutter-normal;
+      }
+
+      @media @phone {
+        width: 100%;
+        padding-right: @gutter-narrow;
+      }
     }
     .card-right {    
       width: 67%;
+
+      @media @phone {
+        width: 100%;
+        padding-top: @gutter-normal;
+      }
     }
 
     .cf-icon__before {
