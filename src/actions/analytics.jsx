@@ -1,5 +1,4 @@
-
-let Analytics = {
+const Analytics = {
 
   tagManagerIsLoaded: false,
 
@@ -56,7 +55,6 @@ let Analytics = {
    * @param {object} dataLayerOptions Type of event.
    */
   sendEvent: function( dataLayerOptions ) {
-    console.log('SEND EVENT GA FUNCTION FIRED')
     var callback = dataLayerOptions.eventCallback;
     if ( Analytics.tagManagerIsLoaded ) {
       window.dataLayer.push( dataLayerOptions );
@@ -65,23 +63,8 @@ let Analytics = {
     }
   }
 
-  /**
-   * @name sendEvents
-   * @kind function
-   *
-   * @description
-   * Pushes multiple events to the GTM dataLayer.
-   *
-   * @param {array} eventsArray Array of event objects.
-   */
-  // We don't require sending multiple events at this time.
-  // sendEvents: function( eventsArray ) {
-  //   if ( Array.isArray( eventsArray ) ) {
-  //     for ( var i = 0, len = eventsArray.length; i < len; i++ ) {
-  //       Analytics.sendEvent( eventsArray[i] );
-  //     }
-  //   }
-  // }
+  // sendEvents(array) for multiple events is here is required in future:
+  // https://github.com/cfpb/college-costs/blob/master/src/disclosures/js/utils/Analytics.js#L77
 
 }
 
