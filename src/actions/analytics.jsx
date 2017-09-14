@@ -56,6 +56,7 @@ let Analytics = {
    * @param {object} dataLayerOptions Type of event.
    */
   sendEvent: function( dataLayerOptions ) {
+    console.log('SEND EVENT GA FUNCTION FIRED')
     var callback = dataLayerOptions.eventCallback;
     if ( Analytics.tagManagerIsLoaded ) {
       window.dataLayer.push( dataLayerOptions );
