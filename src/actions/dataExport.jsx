@@ -4,6 +4,7 @@
 
 import { buildLink, simulateClick } from './domUtils'
 import { MODAL_HID, MODAL_SHOWN, MODAL_TYPE_DATA_EXPORT } from '../constants'
+import Analytics from './analytics'
 import { stateToQS } from './complaints'
 
 const DATA_HOST = 'https://data.consumerfinance.gov'
@@ -17,6 +18,9 @@ const DATA_HOST = 'https://data.consumerfinance.gov'
 * @returns {string} a packaged payload to be used by Redux reducers
 */
 export function showExportDialog() {
+  Analytics.sendEvent(
+    Analytics.getDataLayerOptions( 'Export', 'User Opens Export Modal' )
+  )
   return {
     type: MODAL_SHOWN,
     modalType: MODAL_TYPE_DATA_EXPORT,
@@ -31,6 +35,9 @@ export function showExportDialog() {
 * @returns {function} a set of steps to execute
 */
 export function exportAllResults( format ) {
+  Analytics.sendEvent(
+    Analytics.getDataLayerOptions( 'Export All Data', format )
+  )
   return dispatch => {
     dispatch( { type: MODAL_HID } )
 
@@ -48,6 +55,9 @@ export function exportAllResults( format ) {
 * @returns {function} a set of steps to execute
 */
 export function exportSomeResults( format, size ) {
+  Analytics.sendEvent(
+    Analytics.getDataLayerOptions( 'Export Some Data', format )
+  )
   return ( dispatch, getState ) => {
     dispatch( { type: MODAL_HID } )
 
@@ -74,6 +84,9 @@ export function exportSomeResults( format, size ) {
 * @returns {function} a set of steps to execute
 */
 export function visitSocrata() {
+  Analytics.sendEvent(
+    Analytics.getDataLayerOptions( 'Export', 'User redirects to Socrata' )
+  )
   return dispatch => {
     dispatch( { type: MODAL_HID } )
 

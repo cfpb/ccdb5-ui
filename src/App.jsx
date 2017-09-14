@@ -1,4 +1,4 @@
-import './App.less';
+import './App.less'
 import { applyMiddleware, createStore } from 'redux'
 import {
   Route,
@@ -6,23 +6,24 @@ import {
   Switch
 } from 'react-router-dom'
 
-import ComplaintDetail from './ComplaintDetail';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import FilterPanel from './FilterPanel';
-import Hero from './Hero';
-import { IntlProvider } from 'react-intl';
+import ComplaintDetail from './ComplaintDetail'
+import { composeWithDevTools } from 'redux-devtools-extension'
+import FilterPanel from './FilterPanel'
+import Hero from './Hero'
+import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
-import React from 'react';
+import React from 'react'
 // Required so that the expose-loader test works which moves the ReactDOM
 // variable into the global space
 // eslint-disable-next-line
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom'
 import reducers from './reducers'
-import ResultsPanel from './ResultsPanel';
+import ResultsPanel from './ResultsPanel'
 import RootModal from './Dialogs/RootModal'
-import SearchPanel from './SearchPanel';
+import SearchPanel from './SearchPanel'
 import thunkMiddleware from 'redux-thunk'
-import UrlBarSynch from './UrlBarSynch';
+import UrlBarSynch from './UrlBarSynch'
+
 
 const middleware = [ thunkMiddleware ];
 
@@ -30,13 +31,13 @@ const composeEnhancers = composeWithDevTools( {
   // required for redux-devtools-extension
   // Specify name here, actionsBlacklist, actionsCreators and other options
   // if needed
-} );
+} )
 
 // required format for redux-devtools-extension
 const store = createStore( reducers, composeEnhancers(
   applyMiddleware( ...middleware ),
   // other store enhancers if any
-) );
+) )
 
 
 export class SearchComponents extends React.Component {
