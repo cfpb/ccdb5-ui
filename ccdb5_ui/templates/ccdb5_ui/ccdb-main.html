@@ -8,6 +8,33 @@
 {% block title %}Search the Consumer Complaint Database{% endblock %}
 
 {% block content %}
+<noscript>
+  <style type="text/css">
+    .js-error-warning {
+        display: block;
+        width: 100%;
+        padding: 1em;
+        border-bottom: 2px solid #e79e8e;
+        margin-top: 0;
+        position: absolute;
+        top: 0;
+        background-color: #f7e0d9;
+        font-family: 'AvenirNextLTW01-Regular',Arial,sans-serif;
+        z-index: 999999;
+     }
+    h2 {
+        font-family: 'AvenirNextLTW01-Demi',Arial,sans-serif;
+        font-size: 18px;
+    }     
+  </style>
+  <div class="js-error-warning">
+      <h2>You must have JavaScript to use the tools on this page.</h2>
+      To improve your experience, please
+      <a href="http://www.enable-javascript.com/" class="go-link">
+        enable JavaScript in your browser
+      </a>
+  </div>
+</noscript>
 <div class="wrapper wrapper__match-content">
   <div class="content_full" id="root"></div>
 </div>
