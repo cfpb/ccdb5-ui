@@ -7,22 +7,23 @@
       li {
         padding: 0;
         border: 0;
-        margin-bottom: @gutter-narrow;
+        margin-bottom: @gutter-normal;
 
         position: relative;
 
         -webkit-align-items: baseline;
                 align-items: baseline;
 
-        input[type='checkbox'] {
-        }
-
-        .a-label::before {
+        .a-label:before {
           box-sizing: border-box;
           width: 20px;
           height: 20px;
 
           text-indent: 0;
+        }
+
+        .a-checkbox:checked + .a-label:before {
+          border: solid 2px @dark-gray;
         }
 
         .bucket-key {

@@ -34,7 +34,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
       <div
         className="aggregation-branch">
         <li
-          className="flex-fixed layout-row parent m-form-field m-form-field__checkbox">
+          className="flex-fixed layout-row parent m-form-field m-form-field__checkbox body-copy">
           <input
             aria-label="Credit reporting, credit repair services, or other personal consumer reports"
             checked={false}
@@ -66,7 +66,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
       <div
         className="aggregation-branch">
         <li
-          className="flex-fixed layout-row parent m-form-field m-form-field__checkbox">
+          className="flex-fixed layout-row parent m-form-field m-form-field__checkbox body-copy">
           <input
             aria-label="Mortgage"
             checked={false}
@@ -105,7 +105,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
           onChange={[Function]}
           type="checkbox" />
         <label
-          className="a-label flex-all bucket-key"
+          className="a-label flex-all bucket-key body-copy"
           htmlFor="productCreditreporting">
           Credit reporting
         </label>
@@ -126,7 +126,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
           onChange={[Function]}
           type="checkbox" />
         <label
-          className="a-label flex-all bucket-key"
+          className="a-label flex-all bucket-key body-copy"
           htmlFor="productStudentloan">
           Student loan
         </label>
@@ -147,7 +147,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
           onChange={[Function]}
           type="checkbox" />
         <label
-          className="a-label flex-all bucket-key"
+          className="a-label flex-all bucket-key body-copy"
           htmlFor="productCreditcard or prepaid card">
           Credit card or prepaid card
         </label>

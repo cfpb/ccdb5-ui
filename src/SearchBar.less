@@ -1,6 +1,13 @@
 @import (less) "base.less";
 
 .search-bar {
+  @media @phone {
+    h4, .advanced-container {
+      width: 0;
+      display: none;
+    }
+  }
+
   .cf-select {
     display: flex;
     box-sizing: border-box;
@@ -9,6 +16,11 @@
     background-color: @gray;
     flex-direction: column;
     justify-content: center;
+
+    @media @phone {
+      width: 0;
+      display: none;
+    }
 
     select {
       background-color: @gray;
@@ -26,6 +38,7 @@
 
   .typeahead-portal {
     height: @grid_gutter-width;
+    min-width: 12em;
     position: relative;
 
     .typeahead {
