@@ -17,7 +17,7 @@ export const AggregationItem = ( { item, fieldName, active, onClick } ) => {
                    id={id}
                    onChange={onClick}
             />
-            <label className="a-label flex-all bucket-key"
+            <label className="a-label flex-all bucket-key body-copy"
                    htmlFor={id}>
               {value}
             </label>

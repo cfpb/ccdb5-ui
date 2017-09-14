@@ -1,11 +1,11 @@
-exports[`component::AggregationBranch initial state renders without crashing 1`] = `
+exports[`component::AggregationBranch snapshots renders with all checked 1`] = `
 <div
   className="aggregation-branch">
   <li
-    className="flex-fixed layout-row parent m-form-field m-form-field__checkbox">
+    className="flex-fixed layout-row parent m-form-field m-form-field__checkbox body-copy">
     <input
       aria-label="foo"
-      checked={false}
+      checked={true}
       className="flex-fixed a-checkbox"
       id="issuefoo"
       onChange={[Function]}
@@ -42,7 +42,108 @@ exports[`component::AggregationBranch initial state renders without crashing 1`]
         onChange={[Function]}
         type="checkbox" />
       <label
-        className="a-label flex-all bucket-key"
+        className="a-label flex-all bucket-key body-copy"
+        htmlFor="issuefoo•bar">
+        bar
+      </label>
+      <span
+        className="flex-fixed bucket-count">
+        <span>
+          90
+        </span>
+      </span>
+    </li>
+    <li
+      className="flex-fixed layout-row m-form-field m-form-field__checkbox">
+      <input
+        aria-label="foo•baz"
+        checked={true}
+        className="flex-fixed a-checkbox"
+        id="issuefoo•baz"
+        onChange={[Function]}
+        type="checkbox" />
+      <label
+        className="a-label flex-all bucket-key body-copy"
+        htmlFor="issuefoo•baz">
+        baz
+      </label>
+      <span
+        className="flex-fixed bucket-count">
+        <span>
+          5
+        </span>
+      </span>
+    </li>
+    <li
+      className="flex-fixed layout-row m-form-field m-form-field__checkbox">
+      <input
+        aria-label="foo•qaz"
+        checked={true}
+        className="flex-fixed a-checkbox"
+        id="issuefoo•qaz"
+        onChange={[Function]}
+        type="checkbox" />
+      <label
+        className="a-label flex-all bucket-key body-copy"
+        htmlFor="issuefoo•qaz">
+        qaz
+      </label>
+      <span
+        className="flex-fixed bucket-count">
+        <span>
+          4
+        </span>
+      </span>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`component::AggregationBranch snapshots renders with indeterminate 1`] = `
+<div
+  className="aggregation-branch">
+  <li
+    className="flex-fixed layout-row parent m-form-field m-form-field__checkbox body-copy">
+    <input
+      aria-label="foo"
+      checked={false}
+      className="flex-fixed a-checkbox"
+      id="issuefoo"
+      onChange={[Function]}
+      type="checkbox" />
+    <label
+      className="flex-all toggle a-label indeterminate"
+      htmlFor="issuefoo">
+      <button
+        className="a-btn a-btn__link"
+        onClick={[Function]}>
+        <span>
+          foo
+        </span>
+        <span
+          className="cf-icon cf-icon-up" />
+      </button>
+    </label>
+    <span
+      className="flex-fixed parent-count">
+      <span>
+        99
+      </span>
+    </span>
+  </li>
+  <ul
+    className="children">
+    <li
+      className="flex-fixed layout-row m-form-field m-form-field__checkbox">
+      <input
+        aria-label="foo•bar"
+        checked={true}
+        className="flex-fixed a-checkbox"
+        id="issuefoo•bar"
+        onChange={[Function]}
+        type="checkbox" />
+      <label
+        className="a-label flex-all bucket-key body-copy"
         htmlFor="issuefoo•bar">
         bar
       </label>
@@ -63,7 +164,7 @@ exports[`component::AggregationBranch initial state renders without crashing 1`]
         onChange={[Function]}
         type="checkbox" />
       <label
-        className="a-label flex-all bucket-key"
+        className="a-label flex-all bucket-key body-copy"
         htmlFor="issuefoo•baz">
         baz
       </label>
@@ -84,7 +185,7 @@ exports[`component::AggregationBranch initial state renders without crashing 1`]
         onChange={[Function]}
         type="checkbox" />
       <label
-        className="a-label flex-all bucket-key"
+        className="a-label flex-all bucket-key body-copy"
         htmlFor="issuefoo•qaz">
         qaz
       </label>
@@ -96,5 +197,40 @@ exports[`component::AggregationBranch initial state renders without crashing 1`]
       </span>
     </li>
   </ul>
+</div>
+`;
+
+exports[`component::AggregationBranch snapshots renders with none checked 1`] = `
+<div
+  className="aggregation-branch">
+  <li
+    className="flex-fixed layout-row parent m-form-field m-form-field__checkbox body-copy">
+    <input
+      aria-label="foo"
+      checked={false}
+      className="flex-fixed a-checkbox"
+      id="issuefoo"
+      onChange={[Function]}
+      type="checkbox" />
+    <label
+      className="flex-all toggle a-label"
+      htmlFor="issuefoo">
+      <button
+        className="a-btn a-btn__link"
+        onClick={[Function]}>
+        <span>
+          foo
+        </span>
+        <span
+          className="cf-icon cf-icon-down" />
+      </button>
+    </label>
+    <span
+      className="flex-fixed parent-count">
+      <span>
+        99
+      </span>
+    </span>
+  </li>
 </div>
 `;

@@ -9,7 +9,7 @@ exports[`component:AggregationItemFilter renders without crashing 1`] = `
     onChange={[Function]}
     type="checkbox" />
   <label
-    className="a-label flex-all bucket-key"
+    className="a-label flex-all bucket-key body-copy"
     htmlFor="fieldNamefoo">
     foo
   </label>

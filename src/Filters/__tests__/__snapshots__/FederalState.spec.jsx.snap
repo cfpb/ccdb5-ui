@@ -48,7 +48,7 @@ exports[`component::FederalState initial state renders without crashing 1`] = `
         onChange={[Function]}
         type="checkbox" />
       <label
-        className="a-label flex-all bucket-key"
+        className="a-label flex-all bucket-key body-copy"
         htmlFor="stateDC">
         District Of Columbia (DC)
       </label>

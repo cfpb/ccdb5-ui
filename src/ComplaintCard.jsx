@@ -14,7 +14,9 @@ export default class ComplaintCard extends React.Component {
         <div className="card">
           <div className="card-left layout-column">
             <h3 className="to-detail">
-              <a href={ complaintIdPath }>{ row.complaint_id }</a>
+              <a href={ complaintIdPath }>
+                { this._stripPossibleHighlight( row.complaint_id ) }
+              </a>
             </h3>
             <h4>Matched company name</h4>
             { this._renderPossibleHighlight( row.company ) }
@@ -67,6 +69,14 @@ export default class ComplaintCard extends React.Component {
         </div>
       </li>
     )
+  }
+
+  // --------------------------------------------------------------------------
+  // Helper methods
+
+  _stripPossibleHighlight( s ) {
+    const re = /(<em>)?(.*?)(<\/em>)?/gi
+    return s.replace( re, '$2' )
   }
 
   // --------------------------------------------------------------------------
