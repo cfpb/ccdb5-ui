@@ -34,7 +34,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
       <div
         className="aggregation-branch">
         <li
-          className="flex-fixed layout-row parent m-form-field m-form-field__checkbox body-copy">
+          className="layout-row parent m-form-field m-form-field__checkbox body-copy">
           <input
             aria-label="Credit reporting, credit repair services, or other personal consumer reports"
             checked={false}
@@ -47,7 +47,8 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
             htmlFor="productCreditreporting, credit repair services, or other personal consumer reports">
             <button
               className="a-btn a-btn__link"
-              onClick={[Function]}>
+              onClick={[Function]}
+              title="Credit reporting, credit repair services, or other personal consumer reports">
               <span>
                 Credit reporting, credit repair services, or other personal consumer reports
               </span>
@@ -66,7 +67,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
       <div
         className="aggregation-branch">
         <li
-          className="flex-fixed layout-row parent m-form-field m-form-field__checkbox body-copy">
+          className="layout-row parent m-form-field m-form-field__checkbox body-copy">
           <input
             aria-label="Mortgage"
             checked={false}
@@ -79,7 +80,8 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
             htmlFor="productMortgage">
             <button
               className="a-btn a-btn__link"
-              onClick={[Function]}>
+              onClick={[Function]}
+              title="Mortgage">
               <span>
                 Mortgage
               </span>
@@ -96,7 +98,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
         </li>
       </div>
       <li
-        className="flex-fixed layout-row m-form-field m-form-field__checkbox">
+        className="layout-row m-form-field m-form-field__checkbox">
         <input
           aria-label="Credit reporting"
           checked={false}
@@ -117,7 +119,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
         </span>
       </li>
       <li
-        className="flex-fixed layout-row m-form-field m-form-field__checkbox">
+        className="layout-row m-form-field m-form-field__checkbox">
         <input
           aria-label="Student loan"
           checked={false}
@@ -138,7 +140,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
         </span>
       </li>
       <li
-        className="flex-fixed layout-row m-form-field m-form-field__checkbox">
+        className="layout-row m-form-field m-form-field__checkbox">
         <input
           aria-label="Credit card or prepaid card"
           checked={false}
@@ -159,8 +161,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
         </span>
       </li>
     </ul>
-    <div
-      className="flex-fixed">
+    <div>
       <button
         className="a-btn a-btn__link more"
         onClick={[Function]}>

@@ -1,6 +1,6 @@
 exports[`component:AggregationItemFilter renders without crashing 1`] = `
 <li
-  className="flex-fixed layout-row m-form-field m-form-field__checkbox">
+  className="layout-row m-form-field m-form-field__checkbox">
   <input
     aria-label="foo"
     checked={false}

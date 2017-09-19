@@ -2,7 +2,7 @@ exports[`component::AggregationBranch snapshots renders with all checked 1`] = `
 <div
   className="aggregation-branch">
   <li
-    className="flex-fixed layout-row parent m-form-field m-form-field__checkbox body-copy">
+    className="layout-row parent m-form-field m-form-field__checkbox body-copy">
     <input
       aria-label="foo"
       checked={true}
@@ -15,7 +15,8 @@ exports[`component::AggregationBranch snapshots renders with all checked 1`] = `
       htmlFor="issuefoo">
       <button
         className="a-btn a-btn__link"
-        onClick={[Function]}>
+        onClick={[Function]}
+        title="foo">
         <span>
           foo
         </span>
@@ -33,7 +34,7 @@ exports[`component::AggregationBranch snapshots renders with all checked 1`] = `
   <ul
     className="children">
     <li
-      className="flex-fixed layout-row m-form-field m-form-field__checkbox">
+      className="layout-row m-form-field m-form-field__checkbox">
       <input
         aria-label="foo•bar"
         checked={true}
@@ -54,7 +55,7 @@ exports[`component::AggregationBranch snapshots renders with all checked 1`] = `
       </span>
     </li>
     <li
-      className="flex-fixed layout-row m-form-field m-form-field__checkbox">
+      className="layout-row m-form-field m-form-field__checkbox">
       <input
         aria-label="foo•baz"
         checked={true}
@@ -75,7 +76,7 @@ exports[`component::AggregationBranch snapshots renders with all checked 1`] = `
       </span>
     </li>
     <li
-      className="flex-fixed layout-row m-form-field m-form-field__checkbox">
+      className="layout-row m-form-field m-form-field__checkbox">
       <input
         aria-label="foo•qaz"
         checked={true}
@@ -103,7 +104,7 @@ exports[`component::AggregationBranch snapshots renders with indeterminate 1`] =
 <div
   className="aggregation-branch">
   <li
-    className="flex-fixed layout-row parent m-form-field m-form-field__checkbox body-copy">
+    className="layout-row parent m-form-field m-form-field__checkbox body-copy">
     <input
       aria-label="foo"
       checked={false}
@@ -116,7 +117,8 @@ exports[`component::AggregationBranch snapshots renders with indeterminate 1`] =
       htmlFor="issuefoo">
       <button
         className="a-btn a-btn__link"
-        onClick={[Function]}>
+        onClick={[Function]}
+        title="foo">
         <span>
           foo
         </span>
@@ -134,7 +136,7 @@ exports[`component::AggregationBranch snapshots renders with indeterminate 1`] =
   <ul
     className="children">
     <li
-      className="flex-fixed layout-row m-form-field m-form-field__checkbox">
+      className="layout-row m-form-field m-form-field__checkbox">
       <input
         aria-label="foo•bar"
         checked={true}
@@ -155,7 +157,7 @@ exports[`component::AggregationBranch snapshots renders with indeterminate 1`] =
       </span>
     </li>
     <li
-      className="flex-fixed layout-row m-form-field m-form-field__checkbox">
+      className="layout-row m-form-field m-form-field__checkbox">
       <input
         aria-label="foo•baz"
         checked={false}
@@ -176,7 +178,7 @@ exports[`component::AggregationBranch snapshots renders with indeterminate 1`] =
       </span>
     </li>
     <li
-      className="flex-fixed layout-row m-form-field m-form-field__checkbox">
+      className="layout-row m-form-field m-form-field__checkbox">
       <input
         aria-label="foo•qaz"
         checked={false}
@@ -204,7 +206,7 @@ exports[`component::AggregationBranch snapshots renders with none checked 1`] = 
 <div
   className="aggregation-branch">
   <li
-    className="flex-fixed layout-row parent m-form-field m-form-field__checkbox body-copy">
+    className="layout-row parent m-form-field m-form-field__checkbox body-copy">
     <input
       aria-label="foo"
       checked={false}
@@ -217,7 +219,8 @@ exports[`component::AggregationBranch snapshots renders with none checked 1`] = 
       htmlFor="issuefoo">
       <button
         className="a-btn a-btn__link"
-        onClick={[Function]}>
+        onClick={[Function]}
+        title="foo">
         <span>
           foo
         </span>

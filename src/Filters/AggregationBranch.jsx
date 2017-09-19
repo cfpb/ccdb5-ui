@@ -65,7 +65,7 @@ export class AggregationBranch extends React.Component {
              />
     }
 
-    const liStyle = 'flex-fixed layout-row parent m-form-field ' +
+    const liStyle = 'layout-row parent m-form-field ' +
       'm-form-field__checkbox body-copy'
     const id = fieldName + item.key.replace( ' ', '' )
 
@@ -82,7 +82,8 @@ export class AggregationBranch extends React.Component {
           <label className={this._labelStyle}
                  htmlFor={id}>
             <button className="a-btn a-btn__link"
-                    onClick={this._toggleChildDisplay}>
+                    onClick={this._toggleChildDisplay}
+                    title={item.key}>
               <span>{item.key}</span>
               <span className={ 'cf-icon ' +
                 ( this.state.showChildren ? 'cf-icon-up' : 'cf-icon-down' )

@@ -39,7 +39,7 @@ exports[`component::FederalState initial state renders without crashing 1`] = `
   </section>
   <ul>
     <li
-      className="flex-fixed layout-row m-form-field m-form-field__checkbox">
+      className="layout-row m-form-field m-form-field__checkbox">
       <input
         aria-label="DC"
         checked={true}

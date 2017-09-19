@@ -42,7 +42,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
       <div
         className="aggregation-branch">
         <li
-          className="flex-fixed layout-row parent m-form-field m-form-field__checkbox body-copy">
+          className="layout-row parent m-form-field m-form-field__checkbox body-copy">
           <input
             aria-label="Incorrect information on credit report"
             checked={false}
@@ -55,7 +55,8 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
             htmlFor="issueIncorrectinformation on credit report">
             <button
               className="a-btn a-btn__link"
-              onClick={[Function]}>
+              onClick={[Function]}
+              title="Incorrect information on credit report">
               <span>
                 Incorrect information on credit report
               </span>
@@ -74,7 +75,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
       <div
         className="aggregation-branch">
         <li
-          className="flex-fixed layout-row parent m-form-field m-form-field__checkbox body-copy">
+          className="layout-row parent m-form-field m-form-field__checkbox body-copy">
           <input
             aria-label="Cont\'d attempts collect debt not owed"
             checked={false}
@@ -87,7 +88,8 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
             htmlFor="issueCont\'dattempts collect debt not owed">
             <button
               className="a-btn a-btn__link"
-              onClick={[Function]}>
+              onClick={[Function]}
+              title="Cont\'d attempts collect debt not owed">
               <span>
                 Cont\'d attempts collect debt not owed
               </span>
@@ -104,7 +106,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
         </li>
       </div>
       <li
-        className="flex-fixed layout-row m-form-field m-form-field__checkbox">
+        className="layout-row m-form-field m-form-field__checkbox">
         <input
           aria-label="Loan servicing, payments, escrow account"
           checked={false}
@@ -125,7 +127,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
         </span>
       </li>
       <li
-        className="flex-fixed layout-row m-form-field m-form-field__checkbox">
+        className="layout-row m-form-field m-form-field__checkbox">
         <input
           aria-label="Loan modification,collection,foreclosure"
           checked={false}
@@ -146,7 +148,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
         </span>
       </li>
       <li
-        className="flex-fixed layout-row m-form-field m-form-field__checkbox">
+        className="layout-row m-form-field m-form-field__checkbox">
         <input
           aria-label="Dealing with my lender or servicer"
           checked={false}
@@ -167,8 +169,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
         </span>
       </li>
     </ul>
-    <div
-      className="flex-fixed">
+    <div>
       <button
         className="a-btn a-btn__link more"
         onClick={[Function]}>
