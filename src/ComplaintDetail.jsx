@@ -33,14 +33,14 @@ export class ComplaintDetail extends React.Component {
     return (
       <section className="card-container">
         <nav className="layout-row">
-          <div className="back-to-search">
+          <div className="back-to-search flex-fixed">
             <button className="a-btn a-btn__link"
                     onClick={this.props.onClickedBack}>
                 <span className="cf-icon cf-icon-left"></span>
                 Back to search results
             </button>
           </div>
-          <div className="meaning">
+          <div className="meaning flex-fixed">
             <a href="https://www.consumerfinance.gov/complaint/data-use/"
                target="_blank">
               What do all these data points mean?
