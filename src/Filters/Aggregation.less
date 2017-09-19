@@ -1,5 +1,17 @@
 @import (less) "../base.less";
 
+.lt-ie10 {
+  .aggregation {
+    .layout-row {
+      width: 100%;
+    }
+
+    .flex-all {
+      width: ~"calc(100% - 95px)";
+    }
+  }
+}
+
 .aggregation {
     ul {
       padding-left: 0;
