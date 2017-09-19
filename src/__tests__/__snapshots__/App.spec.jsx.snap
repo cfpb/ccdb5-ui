@@ -111,7 +111,7 @@ exports[`initial state renders without crashing 1`] = `
             <div
               className="layout-row">
               <div
-                className="cf-select">
+                className="cf-select flex-fixed">
                 <select
                   aria-label="Choose which field will be searched"
                   id="searchField"
@@ -163,14 +163,14 @@ exports[`initial state renders without crashing 1`] = `
                 </section>
               </div>
               <button
-                className="a-btn"
+                className="a-btn flex-fixed"
                 type="submit">
                 Search
                 <span
                   className="a-btn_icon a-btn_icon__on-right cf-icon cf-icon__after cf-icon-search" />
               </button>
               <div
-                className="advanced-container">
+                className="advanced-container flex-fixed">
                 <a
                   className="a-btn a-btn__link o-expandable_cue-open"
                   onClick={[Function]}>
@@ -695,7 +695,7 @@ exports[`initial state renders without crashing 1`] = `
         <div
           className="layout-row">
           <div
-            className="cf-select">
+            className="cf-select flex-fixed">
             <select
               id="choose-size"
               onChange={[Function]}
@@ -727,7 +727,7 @@ exports[`initial state renders without crashing 1`] = `
             </select>
           </div>
           <div
-            className="cf-select">
+            className="cf-select flex-fixed">
             <select
               id="choose-sort"
               onChange={[Function]}

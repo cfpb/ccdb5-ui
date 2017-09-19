@@ -17,7 +17,7 @@ exports[`initial state renders without crashing 1`] = `
   <div
     className="layout-row">
     <div
-      className="cf-select">
+      className="cf-select flex-fixed">
       <select
         id="choose-size"
         onChange={undefined}
@@ -49,7 +49,7 @@ exports[`initial state renders without crashing 1`] = `
       </select>
     </div>
     <div
-      className="cf-select">
+      className="cf-select flex-fixed">
       <select
         id="choose-sort"
         onChange={undefined}
