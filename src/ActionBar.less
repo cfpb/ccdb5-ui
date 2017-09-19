@@ -13,13 +13,17 @@
     border-bottom: 0;
 
     select {
-      padding-top: @gutter-minimum;
+      padding-top: @gutter-minimum * 1.3;
       padding-left: @gutter-normal;
 
       background-color: transparent;
       font-family: @webfont-demi;
       font-size: 90%;
       text-transform: uppercase;
+    }
+
+    &:after {
+      background-color: @green-20;
     }
   }
 
