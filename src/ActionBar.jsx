@@ -37,7 +37,7 @@ export class ActionBar extends React.Component {
           }
           </div>
           <div className="layout-row">
-            <div className="cf-select">
+            <div className="cf-select flex-fixed">
               <select value={this.props.size} id="choose-size"
                       onChange={this.props.onSize}>
                 { sizes.map(
@@ -45,7 +45,7 @@ export class ActionBar extends React.Component {
                   )}
               </select>
             </div>
-            <div className="cf-select">
+            <div className="cf-select flex-fixed">
               <select value={this.props.sort} id="choose-sort"
                       onChange={this.props.onSort}>
                 { Object.keys( sorts ).map( x =>
