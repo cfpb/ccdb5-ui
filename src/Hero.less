@@ -61,5 +61,19 @@
       text-transform: uppercase;
       vertical-align: text-bottom;
     }
-
 }
+
+.lt-ie10 {
+  .content_hero {
+    h1.content-header {
+      float: left;
+    }
+
+    h4.content-header::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+  }
+}
+
