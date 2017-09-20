@@ -11,19 +11,18 @@ exports[`component::AggregationBranch snapshots renders with all checked 1`] = `
       onChange={[Function]}
       type="checkbox" />
     <label
-      className="flex-all toggle a-label"
-      htmlFor="issuefoo">
-      <button
-        className="a-btn a-btn__link"
-        onClick={[Function]}
-        title="foo">
-        <span>
-          foo
-        </span>
-        <span
-          className="cf-icon cf-icon-up" />
-      </button>
-    </label>
+      className="toggle a-label"
+      htmlFor="issuefoo" />
+    <button
+      className="flex-all a-btn a-btn__link"
+      onClick={[Function]}
+      title="foo">
+      <span>
+        foo
+      </span>
+      <span
+        className="cf-icon cf-icon-up" />
+    </button>
     <span
       className="flex-fixed parent-count">
       <span>
@@ -113,19 +112,18 @@ exports[`component::AggregationBranch snapshots renders with indeterminate 1`] =
       onChange={[Function]}
       type="checkbox" />
     <label
-      className="flex-all toggle a-label indeterminate"
-      htmlFor="issuefoo">
-      <button
-        className="a-btn a-btn__link"
-        onClick={[Function]}
-        title="foo">
-        <span>
-          foo
-        </span>
-        <span
-          className="cf-icon cf-icon-up" />
-      </button>
-    </label>
+      className="toggle a-label indeterminate"
+      htmlFor="issuefoo" />
+    <button
+      className="flex-all a-btn a-btn__link"
+      onClick={[Function]}
+      title="foo">
+      <span>
+        foo
+      </span>
+      <span
+        className="cf-icon cf-icon-up" />
+    </button>
     <span
       className="flex-fixed parent-count">
       <span>
@@ -215,19 +213,18 @@ exports[`component::AggregationBranch snapshots renders with none checked 1`] = 
       onChange={[Function]}
       type="checkbox" />
     <label
-      className="flex-all toggle a-label"
-      htmlFor="issuefoo">
-      <button
-        className="a-btn a-btn__link"
-        onClick={[Function]}
-        title="foo">
-        <span>
-          foo
-        </span>
-        <span
-          className="cf-icon cf-icon-down" />
-      </button>
-    </label>
+      className="toggle a-label"
+      htmlFor="issuefoo" />
+    <button
+      className="flex-all a-btn a-btn__link"
+      onClick={[Function]}
+      title="foo">
+      <span>
+        foo
+      </span>
+      <span
+        className="cf-icon cf-icon-down" />
+    </button>
     <span
       className="flex-fixed parent-count">
       <span>

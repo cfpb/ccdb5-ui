@@ -51,19 +51,18 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
             onChange={[Function]}
             type="checkbox" />
           <label
-            className="flex-all toggle a-label"
-            htmlFor="issueIncorrectinformation on credit report">
-            <button
-              className="a-btn a-btn__link"
-              onClick={[Function]}
-              title="Incorrect information on credit report">
-              <span>
-                Incorrect information on credit report
-              </span>
-              <span
-                className="cf-icon cf-icon-down" />
-            </button>
-          </label>
+            className="toggle a-label"
+            htmlFor="issueIncorrectinformation on credit report" />
+          <button
+            className="flex-all a-btn a-btn__link"
+            onClick={[Function]}
+            title="Incorrect information on credit report">
+            <span>
+              Incorrect information on credit report
+            </span>
+            <span
+              className="cf-icon cf-icon-down" />
+          </button>
           <span
             className="flex-fixed parent-count">
             <span>
@@ -84,19 +83,18 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
             onChange={[Function]}
             type="checkbox" />
           <label
-            className="flex-all toggle a-label"
-            htmlFor="issueCont\'dattempts collect debt not owed">
-            <button
-              className="a-btn a-btn__link"
-              onClick={[Function]}
-              title="Cont\'d attempts collect debt not owed">
-              <span>
-                Cont\'d attempts collect debt not owed
-              </span>
-              <span
-                className="cf-icon cf-icon-down" />
-            </button>
-          </label>
+            className="toggle a-label"
+            htmlFor="issueCont\'dattempts collect debt not owed" />
+          <button
+            className="flex-all a-btn a-btn__link"
+            onClick={[Function]}
+            title="Cont\'d attempts collect debt not owed">
+            <span>
+              Cont\'d attempts collect debt not owed
+            </span>
+            <span
+              className="cf-icon cf-icon-down" />
+          </button>
           <span
             className="flex-fixed parent-count">
             <span>

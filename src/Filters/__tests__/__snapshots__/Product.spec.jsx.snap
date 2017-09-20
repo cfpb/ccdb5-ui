@@ -43,19 +43,18 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
             onChange={[Function]}
             type="checkbox" />
           <label
-            className="flex-all toggle a-label"
-            htmlFor="productCreditreporting, credit repair services, or other personal consumer reports">
-            <button
-              className="a-btn a-btn__link"
-              onClick={[Function]}
-              title="Credit reporting, credit repair services, or other personal consumer reports">
-              <span>
-                Credit reporting, credit repair services, or other personal consumer reports
-              </span>
-              <span
-                className="cf-icon cf-icon-down" />
-            </button>
-          </label>
+            className="toggle a-label"
+            htmlFor="productCreditreporting, credit repair services, or other personal consumer reports" />
+          <button
+            className="flex-all a-btn a-btn__link"
+            onClick={[Function]}
+            title="Credit reporting, credit repair services, or other personal consumer reports">
+            <span>
+              Credit reporting, credit repair services, or other personal consumer reports
+            </span>
+            <span
+              className="cf-icon cf-icon-down" />
+          </button>
           <span
             className="flex-fixed parent-count">
             <span>
@@ -76,19 +75,18 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
             onChange={[Function]}
             type="checkbox" />
           <label
-            className="flex-all toggle a-label"
-            htmlFor="productMortgage">
-            <button
-              className="a-btn a-btn__link"
-              onClick={[Function]}
-              title="Mortgage">
-              <span>
-                Mortgage
-              </span>
-              <span
-                className="cf-icon cf-icon-down" />
-            </button>
-          </label>
+            className="toggle a-label"
+            htmlFor="productMortgage" />
+          <button
+            className="flex-all a-btn a-btn__link"
+            onClick={[Function]}
+            title="Mortgage">
+            <span>
+              Mortgage
+            </span>
+            <span
+              className="cf-icon cf-icon-down" />
+          </button>
           <span
             className="flex-fixed parent-count">
             <span>

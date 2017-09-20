@@ -81,15 +81,15 @@ export class AggregationBranch extends React.Component {
           />
           <label className={this._labelStyle}
                  htmlFor={id}>
-            <button className="a-btn a-btn__link"
-                    onClick={this._toggleChildDisplay}
-                    title={item.key}>
-              <span>{item.key}</span>
-              <span className={ 'cf-icon ' +
-                ( this.state.showChildren ? 'cf-icon-up' : 'cf-icon-down' )
-              }></span>
-            </button>
           </label>
+          <button className="flex-all a-btn a-btn__link"
+                  onClick={this._toggleChildDisplay}
+                  title={item.key}>
+            <span>{item.key}</span>
+            <span className={ 'cf-icon ' +
+              ( this.state.showChildren ? 'cf-icon-up' : 'cf-icon-down' )
+            }></span>
+          </button>
           <span className="flex-fixed parent-count">
             <FormattedNumber value={item.doc_count} />
           </span>
@@ -112,7 +112,7 @@ export class AggregationBranch extends React.Component {
   // Properties
 
   get _labelStyle() {
-    let s = 'flex-all toggle a-label'
+    let s = 'toggle a-label'
     if ( this.props.checkedState === INDETERMINATE ) {
       s += ' indeterminate'
     }
