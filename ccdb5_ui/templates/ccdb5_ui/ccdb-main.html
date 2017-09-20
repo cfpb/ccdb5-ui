@@ -36,7 +36,13 @@
   </div>
 </noscript>
 <div class="wrapper wrapper__match-content">
-  <div class="content_full" id="root"></div>
+  {% if unsupported_browser %}
+    <div class="js-error-warning">
+        <h2>A more up-to-date browser is required to use the tools on this page.</h2>
+    </div>
+  {% else %}
+    <div class="content_full" id="root"></div>
+  {% endif %}
 </div>
 {% endblock %}
 
