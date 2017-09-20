@@ -97,7 +97,7 @@ describe('component::AggregationBranch', () => {
   describe('toggle behavior', () => {
     it('shows the children when the label is clicked', () => {
       const { target, props } = setupEnzyme()
-      const theButton = target.find('.toggle button')
+      const theButton = target.find('button')
 
       expect(target.state('showChildren')).toEqual(false)
       theButton.simulate('click')

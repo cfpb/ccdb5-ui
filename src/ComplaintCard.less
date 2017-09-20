@@ -5,6 +5,20 @@
   min-width: initial;
 }
 
+.lt-ie10 {
+  .card {
+    display: table;
+    
+    .card-left {
+      float: left;
+    }
+
+    .card-right {
+      width: ~"calc(67% - 30px)";
+    }
+  }
+}
+
 li.card-container {
   padding: @gutter-normal;
   border-bottom: 1px solid @gray-40;

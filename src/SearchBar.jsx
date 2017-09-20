@@ -51,7 +51,7 @@ export class SearchBar extends React.Component {
           <form action="" onSubmit={this._handleSubmit}>
             <h4>Search Within</h4>
             <div className="layout-row">
-              <div className="cf-select">
+              <div className="cf-select flex-fixed">
                 <select aria-label="Choose which field will be searched"
                         id="searchField"
                         onChange={this._onSelectSearchField}
@@ -81,7 +81,7 @@ export class SearchBar extends React.Component {
               </div>
 
               <button type="submit"
-                      className="a-btn"
+                      className="a-btn flex-fixed"
                       ref={elem => { this.submitButton = elem }}>
                   Search
                   <span className="a-btn_icon
@@ -90,7 +90,7 @@ export class SearchBar extends React.Component {
                                    cf-icon__after
                                    cf-icon-search"></span>
               </button>
-              <div className="advanced-container">
+              <div className="advanced-container flex-fixed">
               {
                this.state.advancedShown ?
                  <a className="a-btn a-btn__link o-expandable_cue-close"

@@ -36,11 +36,20 @@
   </div>
 </noscript>
 <div class="wrapper wrapper__match-content">
-  <div class="content_full" id="root"></div>
+  {% if unsupported_browser %}
+    <div class="js-error-warning">
+        <h2>A more up-to-date browser is required to use the tools on this page.</h2>
+    </div>
+  {% else %}
+    <div class="content_full" id="root"></div>
+  {% endif %}
 </div>
 {% endblock %}
 
 {% block page_js %}
+  <!--[if IE 9]><!-->
+  <script src="https://cdn.polyfill.io/v2/polyfill.js?features=Intl.~locale.en"></script>
+  <!--<![endif]-->
   <script src="{% static "ccdb5.min.js" %}" type="text/javascript"></script>
   <script type="text/javascript">
     ReactDOM.render(

@@ -6,7 +6,7 @@ import React from 'react'
 
 export const AggregationItem = ( { item, fieldName, active, onClick } ) => {
   const value = item.value || item.key
-  const liStyle = 'flex-fixed layout-row m-form-field m-form-field__checkbox'
+  const liStyle = 'layout-row m-form-field m-form-field__checkbox'
   const id = fieldName + item.key.replace( ' ', '' )
 
   return (
