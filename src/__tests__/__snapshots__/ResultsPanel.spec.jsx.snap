@@ -19,7 +19,7 @@ exports[`component:ReactPanel displays a message when an error has occurred 1`] 
     <div
       className="layout-row">
       <div
-        className="cf-select">
+        className="cf-select flex-fixed">
         <select
           id="choose-size"
           onChange={[Function]}
@@ -51,7 +51,7 @@ exports[`component:ReactPanel displays a message when an error has occurred 1`] 
         </select>
       </div>
       <div
-        className="cf-select">
+        className="cf-select flex-fixed">
         <select
           id="choose-sort"
           onChange={[Function]}
@@ -111,7 +111,7 @@ exports[`component:ReactPanel displays a message when the data has issues 1`] = 
     <div
       className="layout-row">
       <div
-        className="cf-select">
+        className="cf-select flex-fixed">
         <select
           id="choose-size"
           onChange={[Function]}
@@ -143,7 +143,7 @@ exports[`component:ReactPanel displays a message when the data has issues 1`] = 
         </select>
       </div>
       <div
-        className="cf-select">
+        className="cf-select flex-fixed">
         <select
           id="choose-sort"
           onChange={[Function]}
@@ -415,7 +415,7 @@ exports[`component:ReactPanel displays a message when the data is stale 1`] = `
     <div
       className="layout-row">
       <div
-        className="cf-select">
+        className="cf-select flex-fixed">
         <select
           id="choose-size"
           onChange={[Function]}
@@ -447,7 +447,7 @@ exports[`component:ReactPanel displays a message when the data is stale 1`] = `
         </select>
       </div>
       <div
-        className="cf-select">
+        className="cf-select flex-fixed">
         <select
           id="choose-sort"
           onChange={[Function]}
@@ -719,7 +719,7 @@ exports[`component:ReactPanel displays a message when there are no results 1`] =
     <div
       className="layout-row">
       <div
-        className="cf-select">
+        className="cf-select flex-fixed">
         <select
           id="choose-size"
           onChange={[Function]}
@@ -751,7 +751,7 @@ exports[`component:ReactPanel displays a message when there are no results 1`] =
         </select>
       </div>
       <div
-        className="cf-select">
+        className="cf-select flex-fixed">
         <select
           id="choose-sort"
           onChange={[Function]}
@@ -811,7 +811,7 @@ exports[`component:ReactPanel renders without crashing 1`] = `
     <div
       className="layout-row">
       <div
-        className="cf-select">
+        className="cf-select flex-fixed">
         <select
           id="choose-size"
           onChange={[Function]}
@@ -843,7 +843,7 @@ exports[`component:ReactPanel renders without crashing 1`] = `
         </select>
       </div>
       <div
-        className="cf-select">
+        className="cf-select flex-fixed">
         <select
           id="choose-sort"
           onChange={[Function]}

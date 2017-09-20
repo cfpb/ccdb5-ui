@@ -4,7 +4,7 @@ exports[`component::ComplaintDetail snapshots renders ERROR phase 1`] = `
   <nav
     className="layout-row">
     <div
-      className="back-to-search">
+      className="back-to-search flex-fixed">
       <button
         className="a-btn a-btn__link"
         onClick={[Function]}>
@@ -14,7 +14,7 @@ exports[`component::ComplaintDetail snapshots renders ERROR phase 1`] = `
       </button>
     </div>
     <div
-      className="meaning">
+      className="meaning flex-fixed">
       <a
         href="https://www.consumerfinance.gov/complaint/data-use/"
         target="_blank">
@@ -35,7 +35,7 @@ exports[`component::ComplaintDetail snapshots renders WAITING phase 1`] = `
   <nav
     className="layout-row">
     <div
-      className="back-to-search">
+      className="back-to-search flex-fixed">
       <button
         className="a-btn a-btn__link"
         onClick={[Function]}>
@@ -45,7 +45,7 @@ exports[`component::ComplaintDetail snapshots renders WAITING phase 1`] = `
       </button>
     </div>
     <div
-      className="meaning">
+      className="meaning flex-fixed">
       <a
         href="https://www.consumerfinance.gov/complaint/data-use/"
         target="_blank">
@@ -73,7 +73,7 @@ exports[`component::ComplaintDetail snapshots renders without a narrative 1`] = 
   <nav
     className="layout-row">
     <div
-      className="back-to-search">
+      className="back-to-search flex-fixed">
       <button
         className="a-btn a-btn__link"
         onClick={[Function]}>
@@ -83,7 +83,7 @@ exports[`component::ComplaintDetail snapshots renders without a narrative 1`] = 
       </button>
     </div>
     <div
-      className="meaning">
+      className="meaning flex-fixed">
       <a
         href="https://www.consumerfinance.gov/complaint/data-use/"
         target="_blank">
@@ -269,7 +269,7 @@ exports[`component::ComplaintDetail snapshots renders without a sub-issue 1`] = 
   <nav
     className="layout-row">
     <div
-      className="back-to-search">
+      className="back-to-search flex-fixed">
       <button
         className="a-btn a-btn__link"
         onClick={[Function]}>
@@ -279,7 +279,7 @@ exports[`component::ComplaintDetail snapshots renders without a sub-issue 1`] = 
       </button>
     </div>
     <div
-      className="meaning">
+      className="meaning flex-fixed">
       <a
         href="https://www.consumerfinance.gov/complaint/data-use/"
         target="_blank">
@@ -463,7 +463,7 @@ exports[`component::ComplaintDetail snapshots renders without a sub-product 1`] 
   <nav
     className="layout-row">
     <div
-      className="back-to-search">
+      className="back-to-search flex-fixed">
       <button
         className="a-btn a-btn__link"
         onClick={[Function]}>
@@ -473,7 +473,7 @@ exports[`component::ComplaintDetail snapshots renders without a sub-product 1`] 
       </button>
     </div>
     <div
-      className="meaning">
+      className="meaning flex-fixed">
       <a
         href="https://www.consumerfinance.gov/complaint/data-use/"
         target="_blank">
@@ -657,7 +657,7 @@ exports[`component::ComplaintDetail snapshots renders without crashing 1`] = `
   <nav
     className="layout-row">
     <div
-      className="back-to-search">
+      className="back-to-search flex-fixed">
       <button
         className="a-btn a-btn__link"
         onClick={[Function]}>
@@ -667,7 +667,7 @@ exports[`component::ComplaintDetail snapshots renders without crashing 1`] = `
       </button>
     </div>
     <div
-      className="meaning">
+      className="meaning flex-fixed">
       <a
         href="https://www.consumerfinance.gov/complaint/data-use/"
         target="_blank">
@@ -862,7 +862,7 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
   <nav
     className="layout-row">
     <div
-      className="back-to-search">
+      className="back-to-search flex-fixed">
       <button
         className="a-btn a-btn__link"
         onClick={[Function]}>
@@ -872,7 +872,7 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
       </button>
     </div>
     <div
-      className="meaning">
+      className="meaning flex-fixed">
       <a
         href="https://www.consumerfinance.gov/complaint/data-use/"
         target="_blank">
@@ -1067,7 +1067,7 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
   <nav
     className="layout-row">
     <div
-      className="back-to-search">
+      className="back-to-search flex-fixed">
       <button
         className="a-btn a-btn__link"
         onClick={[Function]}>
@@ -1077,7 +1077,7 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
       </button>
     </div>
     <div
-      className="meaning">
+      className="meaning flex-fixed">
       <a
         href="https://www.consumerfinance.gov/complaint/data-use/"
         target="_blank">
@@ -1272,7 +1272,7 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
   <nav
     className="layout-row">
     <div
-      className="back-to-search">
+      className="back-to-search flex-fixed">
       <button
         className="a-btn a-btn__link"
         onClick={[Function]}>
@@ -1282,7 +1282,7 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
       </button>
     </div>
     <div
-      className="meaning">
+      className="meaning flex-fixed">
       <a
         href="https://www.consumerfinance.gov/complaint/data-use/"
         target="_blank">
@@ -1477,7 +1477,7 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
   <nav
     className="layout-row">
     <div
-      className="back-to-search">
+      className="back-to-search flex-fixed">
       <button
         className="a-btn a-btn__link"
         onClick={[Function]}>
@@ -1487,7 +1487,7 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
       </button>
     </div>
     <div
-      className="meaning">
+      className="meaning flex-fixed">
       <a
         href="https://www.consumerfinance.gov/complaint/data-use/"
         target="_blank">
@@ -1682,7 +1682,7 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
   <nav
     className="layout-row">
     <div
-      className="back-to-search">
+      className="back-to-search flex-fixed">
       <button
         className="a-btn a-btn__link"
         onClick={[Function]}>
@@ -1692,7 +1692,7 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
       </button>
     </div>
     <div
-      className="meaning">
+      className="meaning flex-fixed">
       <a
         href="https://www.consumerfinance.gov/complaint/data-use/"
         target="_blank">
@@ -1887,7 +1887,7 @@ exports[`component::ComplaintDetail snapshots supports "Timely Response" icons 1
   <nav
     className="layout-row">
     <div
-      className="back-to-search">
+      className="back-to-search flex-fixed">
       <button
         className="a-btn a-btn__link"
         onClick={[Function]}>
@@ -1897,7 +1897,7 @@ exports[`component::ComplaintDetail snapshots supports "Timely Response" icons 1
       </button>
     </div>
     <div
-      className="meaning">
+      className="meaning flex-fixed">
       <a
         href="https://www.consumerfinance.gov/complaint/data-use/"
         target="_blank">
@@ -2092,7 +2092,7 @@ exports[`component::ComplaintDetail snapshots supports "Timely Response" icons 2
   <nav
     className="layout-row">
     <div
-      className="back-to-search">
+      className="back-to-search flex-fixed">
       <button
         className="a-btn a-btn__link"
         onClick={[Function]}>
@@ -2102,7 +2102,7 @@ exports[`component::ComplaintDetail snapshots supports "Timely Response" icons 2
       </button>
     </div>
     <div
-      className="meaning">
+      className="meaning flex-fixed">
       <a
         href="https://www.consumerfinance.gov/complaint/data-use/"
         target="_blank">
