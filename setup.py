@@ -14,7 +14,7 @@ def read_file(filename):
 
 setup(
     name='ccdb5_ui',
-    version_format='{tag}.dev{commitcount}+{gitsha}'
+    version_format='{tag}.dev{commitcount}+{gitsha}',
     author='CFPB',
     author_email='tech@cfpb.gov',
     maintainer='cfpb',
