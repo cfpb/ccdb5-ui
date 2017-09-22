@@ -7,9 +7,19 @@ import SearchBar from './SearchBar'
 
 export class SearchPanel extends React.Component {
   render() {
+    // Adjust UTC to local timezone
+    // This code adjusts for daylight saving time
+    // but does not work for locations east of Greenwich
+    var utcDate = new Date( this.props.lastUpdated )
+    var localTimeThen = new Date(
+      utcDate.getFullYear(),
+      utcDate.getMonth(),
+      utcDate.getDate() + 1
+    )
+
     return (
       <div className="search-panel">
-        <h2>Search complaint data <span className="date-subscript">(last updated: <FormattedDate value={ this.props.lastUpdated } />)</span></h2>
+        <h2>Search complaint data <span className="date-subscript">(last updated: <FormattedDate value={ localTimeThen } />)</span></h2>
         <SearchBar />
         <PillPanel />
       </div>
