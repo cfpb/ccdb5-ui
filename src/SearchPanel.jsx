@@ -4,7 +4,7 @@ import { FormattedDate } from 'react-intl'
 import PillPanel from './PillPanel'
 import React from 'react';
 import SearchBar from './SearchBar'
-import shortIsoFormat from './utils.jsx'
+import { shortIsoFormat } from './utils'
 
 export class SearchPanel extends React.Component {
   render() {
@@ -18,7 +18,7 @@ export class SearchPanel extends React.Component {
       utcDate.getDate() + 1
     )
 
-    var tryagain = utcDate.toISOString().substring( 0, 10 );
+    var tryagain = shortIsoFormat( utcDate );
 
     return (
       <div className="search-panel">
