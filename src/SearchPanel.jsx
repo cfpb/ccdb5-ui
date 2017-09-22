@@ -4,6 +4,7 @@ import { FormattedDate } from 'react-intl'
 import PillPanel from './PillPanel'
 import React from 'react';
 import SearchBar from './SearchBar'
+import shortIsoFormat from './utils.jsx'
 
 export class SearchPanel extends React.Component {
   render() {
@@ -17,9 +18,11 @@ export class SearchPanel extends React.Component {
       utcDate.getDate() + 1
     )
 
+    var tryagain = utcDate.toISOString().substring( 0, 10 );
+
     return (
       <div className="search-panel">
-        <h2>Search complaint data <span className="date-subscript">(last updated: <FormattedDate value={ localTimeThen } />)</span></h2>
+        <h2>Search complaint data <span className="date-subscript">(last updated: <FormattedDate value={ tryagain } />)</span></h2>
         <SearchBar />
         <PillPanel />
       </div>
