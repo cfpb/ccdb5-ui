@@ -9,7 +9,7 @@ export class SearchPanel extends React.Component {
   render() {
     return (
       <div className="search-panel">
-        <h2>Search complaint data (last updated: <FormattedDate value={ this.props.lastUpdated } />)</h2>
+        <h2>Search complaint data <span className="date-subscript">(last updated: <FormattedDate value={ this.props.lastUpdated } />)</span></h2>
         <SearchBar />
         <PillPanel />
       </div>
