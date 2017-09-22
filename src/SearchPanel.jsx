@@ -1,4 +1,5 @@
 import './SearchPanel.less'
+import { connect } from 'react-redux'
 import PillPanel from './PillPanel'
 import React from 'react';
 import SearchBar from './SearchBar'
@@ -7,11 +8,16 @@ export class SearchPanel extends React.Component {
   render() {
     return (
       <div className="search-panel">
-        <h2>Search complaint data AHHHHHH</h2>
+        <h2>Search complaint data (last updated: { this.props.lastUpdated })</h2>
         <SearchBar />
         <PillPanel />
       </div>
     )
   }
 }
-export default SearchPanel
+
+const mapStateToProps = state => ( {
+  lastUpdated: state.results.lastUpdated
+} )
+
+export default connect( mapStateToProps )( SearchPanel )

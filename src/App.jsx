@@ -42,15 +42,13 @@ const store = createStore( reducers, composeEnhancers(
 
 export class SearchComponents extends React.Component {
   render() {
-    const temp = this.props;
-
     return (
       <IntlProvider locale="en">
         <main className="content content__1-3" role="main">
           <UrlBarSynch />
           <Hero />
           <div className="content_wrapper">
-            <SearchPanel lastUpdated={ temp } />
+            <SearchPanel />
             <aside className="content_sidebar">
               <FilterPanel />
             </aside>
