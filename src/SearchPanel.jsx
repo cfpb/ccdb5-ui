@@ -1,5 +1,6 @@
 import './SearchPanel.less'
 import { connect } from 'react-redux'
+import { FormattedDate } from 'react-intl'
 import PillPanel from './PillPanel'
 import React from 'react';
 import SearchBar from './SearchBar'
@@ -8,7 +9,7 @@ export class SearchPanel extends React.Component {
   render() {
     return (
       <div className="search-panel">
-        <h2>Search complaint data (last updated: { this.props.lastUpdated })</h2>
+        <h2>Search complaint data (last updated: <FormattedDate value={ this.props.lastUpdated } />)</h2>
         <SearchBar />
         <PillPanel />
       </div>
