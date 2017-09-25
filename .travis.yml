@@ -1,19 +1,24 @@
 language: node_js
-
+python: 2.7
 install:
-  - npm install
-
+- npm install
 script:
-  - npm test
-
+- npm test
+- python setup.py bdist_wheel
 after_script:
-  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
-  
+- cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 deploy:
- provider: script
- skip_cleanup: true
- script: .travis/pu.sh
- on:
-   branch: master
-   tags: false
-
+  - provider: script
+    skip_cleanup: true
+    script: .travis/pu.sh
+    on:
+        branch: master
+        tags: false
+  - provider: releases
+    skip_cleanup: true
+    api_key:
+      secure: STFsKAJWKjyuzt+ZJlzMo1EYO4JXd4IyRq09UcU/sPBiCx8ekTkMYuQDb6aKfYIZr6ipMurVDioIRDDtllkkj82ySPdDqxvhufFD3WBX/M7QKkhoSnKUHl1KSyvktY0G9TkPkaXEGyMv9SrTIe0j2n39DMGDJCIvuVrfYxweTezLrZAAEFUbnLskwHH6TRSsDDTcivgyJMTGyoUThSh6k+U2NAxuZnFXn1P7JILG/8lHDpfPj+EZ7I6DACmzWlYyUGLX9AaVs6TY7+CVnLgVWLqO34On3SFlrfsacbswAaj86iww1dxzqpSQBoTzoTQ5wa9vzesUlPE8mT9A1Gik5i8xB+pjc0eZyq1w4m60cJ4niry0VGQ6t4abrRqviFrbUAHDq1N4j8PEAn3jp4SacFfH2TnJqFl6DM1L2EhR1QeOlU8A7uT9N/LE/DxYBBfPU4V83gtAQFEclLuSB4Eg1p9JIx/wyP+JYFk1xPCq/nYbb0KTy0dGvDLJion4cBmYe4X8GolVxVd1nJJpLvci1yvANjcJd/WUKo9ve08EGtwoaqvbIroWQZntqysCMHydoj4+CQZNpSF7JrdAfFZA3AsY+QHENj5Gh7bHE06awuwhXxwyYGxyHSGNQkcpOwsQgd+wuDjiLFxw4XKICk0CxT2VRcra38VQV4pViWcfbHY=
+    file_glob: true
+    file: dist/*.whl
+    on:
+        tags: true
