@@ -84,11 +84,6 @@ export class SearchBar extends React.Component {
                       className="a-btn flex-fixed"
                       ref={elem => { this.submitButton = elem }}>
                   Search
-                  <span className="a-btn_icon
-                                   a-btn_icon__on-right
-                                   cf-icon
-                                   cf-icon__after
-                                   cf-icon-search"></span>
               </button>
               <div className="advanced-container flex-fixed">
               {
