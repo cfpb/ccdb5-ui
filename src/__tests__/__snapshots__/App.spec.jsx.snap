@@ -141,7 +141,9 @@ exports[`initial state renders without crashing 1`] = `
                   onBlur={[Function]}
                   onFocus={[Function]}>
                   <div
-                    className="m-btn-inside-input">
+                    className="m-btn-inside-input input-contains-label">
+                    <label
+                      className="input-contains-label_before input-contains-label_before__search" />
                     <input
                       aria-label="The term to search for"
                       autoComplete="off"
@@ -166,8 +168,6 @@ exports[`initial state renders without crashing 1`] = `
                 className="a-btn flex-fixed"
                 type="submit">
                 Search
-                <span
-                  className="a-btn_icon a-btn_icon__on-right cf-icon cf-icon__after cf-icon-search" />
               </button>
               <div
                 className="advanced-container flex-fixed">
@@ -301,7 +301,9 @@ exports[`initial state renders without crashing 1`] = `
             onBlur={[Function]}
             onFocus={[Function]}>
             <div
-              className="m-btn-inside-input">
+              className="m-btn-inside-input input-contains-label">
+              <label
+                className="input-contains-label_before input-contains-label_before__search" />
               <input
                 autoComplete="off"
                 className="a-text-input"
@@ -377,7 +379,9 @@ exports[`initial state renders without crashing 1`] = `
             onBlur={[Function]}
             onFocus={[Function]}>
             <div
-              className="m-btn-inside-input">
+              className="m-btn-inside-input input-contains-label">
+              <label
+                className="input-contains-label_before input-contains-label_before__search" />
               <input
                 autoComplete="off"
                 className="a-text-input"
@@ -420,7 +424,9 @@ exports[`initial state renders without crashing 1`] = `
             onBlur={[Function]}
             onFocus={[Function]}>
             <div
-              className="m-btn-inside-input">
+              className="m-btn-inside-input input-contains-label">
+              <label
+                className="input-contains-label_before input-contains-label_before__search" />
               <input
                 autoComplete="off"
                 className="a-text-input"
@@ -461,7 +467,9 @@ exports[`initial state renders without crashing 1`] = `
             onBlur={[Function]}
             onFocus={[Function]}>
             <div
-              className="m-btn-inside-input">
+              className="m-btn-inside-input input-contains-label">
+              <label
+                className="input-contains-label_before input-contains-label_before__search" />
               <input
                 autoComplete="off"
                 className="a-text-input"
