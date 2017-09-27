@@ -1,4 +1,4 @@
-exports[`component:ReactPanel displays a message when the data is stale 1`] = `
+exports[`component:SearchPanel displays last updated date when present 1`] = `
 <div
   className="search-panel">
   <h2>
@@ -82,7 +82,7 @@ exports[`component:ReactPanel displays a message when the data is stale 1`] = `
 </div>
 `;
 
-exports[`component:ReactPanel renders without crashing 1`] = `
+exports[`component:SearchPanel renders without crashing 1`] = `
 <div
   className="search-panel">
   <h2>
