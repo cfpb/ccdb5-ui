@@ -8,25 +8,24 @@ import { shortIsoFormat } from './utils'
 
 export class SearchPanel extends React.Component {
   render() {
-    // Adjust UTC to local timezone
-    // This code adjusts for daylight saving time
-    // but does not work for locations east of Greenwich
-    var utcDate = new Date( this.props.lastUpdated )
-    var localTimeThen = new Date(
-      utcDate.getFullYear(),
-      utcDate.getMonth(),
-      utcDate.getDate() + 1
-    )
-
-    var tryagain = shortIsoFormat( utcDate );
-
-    return (
-      <div className="search-panel">
-        <h2>Search complaint data <span className="date-subscript">(last updated: <FormattedDate value={ tryagain } />)</span></h2>
-        <SearchBar />
-        <PillPanel />
-      </div>
-    )
+    if (this.props.lastUpdated) {
+      var shortDate = shortIsoFormat( new Date( this.props.lastUpdated ) );
+      return (
+	      <div className="search-panel">
+	        <h2>Search complaint data <span className="date-subscript">(last updated: <FormattedDate value={ shortDate } />)</span></h2>
+	        <SearchBar />
+	        <PillPanel />
+	      </div>
+	    )
+    } else {
+    	return (
+	      <div className="search-panel">
+	        <h2>Search complaint data</h2>
+	        <SearchBar />
+	        <PillPanel />
+	      </div>
+	    )
+    }
   }
 }
 
