@@ -1,123 +1,167 @@
-exports[`SearchPanel renders renders with last updated date 1`] = `
-ShallowWrapper {
-  "complexSelector": ComplexSelector {
-    "buildPredicate": [Function],
-    "childrenOfNode": [Function],
-    "findWhereUnwrapped": [Function],
-  },
-  "length": 1,
-  "node": <div
-    className="search-panel">
-    <h2>
-        Search complaint data 
-        <span
-            className="date-subscript">
-            (last updated: 
-            <FormattedDate
-                value={2016-02-01T05:00:00.000Z} />
-            )
-        </span>
-    </h2>
-    <Connect(SearchBar) />
-    <Connect(Component) />
-</div>,
-  "nodes": Array [
-    <div
-      className="search-panel">
-      <h2>
-            Search complaint data 
-            <span
-                  className="date-subscript">
-                  (last updated: 
-                  <FormattedDate
-                        value={2016-02-01T05:00:00.000Z} />
-                  )
-            </span>
-      </h2>
-      <Connect(SearchBar) />
-      <Connect(Component) />
-</div>,
-  ],
-  "options": Object {},
-  "renderer": ReactShallowRenderer {
-    "_instance": ShallowComponentWrapper {
-      "_calledComponentWillUnmount": false,
-      "_compositeType": 0,
-      "_context": Object {},
-      "_currentElement": <SearchPanel
-        lastUpdated={2016-02-01T05:00:00.000Z} />,
-      "_debugID": 1,
-      "_hostContainerInfo": null,
-      "_hostParent": null,
-      "_instance": SearchPanel {
-        "_reactInternalInstance": [Circular],
-        "context": Object {},
-        "props": Object {
-          "lastUpdated": 2016-02-01T05:00:00.000Z,
-        },
-        "refs": Object {},
-        "state": null,
-        "updater": Object {
-          "enqueueCallback": [Function],
-          "enqueueCallbackInternal": [Function],
-          "enqueueElementInternal": [Function],
-          "enqueueForceUpdate": [Function],
-          "enqueueReplaceState": [Function],
-          "enqueueSetState": [Function],
-          "isMounted": [Function],
-          "validateCallback": [Function],
-        },
-      },
-      "_mountOrder": 1,
-      "_pendingCallbacks": null,
-      "_pendingElement": null,
-      "_pendingForceUpdate": false,
-      "_pendingReplaceState": false,
-      "_pendingStateQueue": null,
-      "_renderedComponent": NoopInternalComponent {
-        "_currentElement": <div
-          className="search-panel">
-          <h2>
-                    Search complaint data 
-                    <span
-                              className="date-subscript">
-                              (last updated: 
-                              <FormattedDate
-                                        value={2016-02-01T05:00:00.000Z} />
-                              )
-                    </span>
-          </h2>
-          <Connect(SearchBar) />
-          <Connect(Component) />
-</div>,
-        "_debugID": 2,
-        "_renderedOutput": <div
-          className="search-panel">
-          <h2>
-                    Search complaint data 
-                    <span
-                              className="date-subscript">
-                              (last updated: 
-                              <FormattedDate
-                                        value={2016-02-01T05:00:00.000Z} />
-                              )
-                    </span>
-          </h2>
-          <Connect(SearchBar) />
-          <Connect(Component) />
-</div>,
-      },
-      "_renderedNodeType": 0,
-      "_rootNodeID": 0,
-      "_topLevelWrapper": null,
-      "_updateBatchNumber": null,
-      "_warnedAboutRefsInRender": false,
-    },
-    "getRenderOutput": [Function],
-    "render": [Function],
-  },
-  "root": [Circular],
-  "unrendered": <SearchPanel
-    lastUpdated={2016-02-01T05:00:00.000Z} />,
-}
+exports[`component:ReactPanel displays a message when the data is stale 1`] = `
+<div
+  className="search-panel">
+  <h2>
+    Search complaint data 
+  </h2>
+  <div>
+    <nav
+      className="search-bar">
+      <form
+        action=""
+        onSubmit={[Function]}>
+        <h4>
+          Search Within
+        </h4>
+        <div
+          className="layout-row">
+          <div
+            className="cf-select flex-fixed">
+            <select
+              aria-label="Choose which field will be searched"
+              id="searchField"
+              onChange={[Function]}
+              value={undefined}>
+              <optgroup
+                label="Search Within">
+                <option
+                  value="all">
+                  All Data
+                </option>
+                <option
+                  value="company">
+                  Company Name
+                </option>
+                <option
+                  value="complaint_what_happened">
+                  Narratives
+                </option>
+              </optgroup>
+            </select>
+          </div>
+          <div
+            className="flex-all typeahead-portal">
+            <section
+              className="typeahead "
+              onBlur={[Function]}
+              onFocus={[Function]}>
+              <div
+                className="m-btn-inside-input input-contains-label">
+                <label
+                  className="input-contains-label_before input-contains-label_before__search" />
+                <input
+                  aria-label="The term to search for"
+                  autoComplete="off"
+                  className="a-text-input"
+                  id="searchText"
+                  onChange={[Function]}
+                  onKeyDown={[Function]}
+                  placeholder="Enter your search term(s)"
+                  type="text"
+                  value="" />
+              </div>
+            </section>
+          </div>
+          <button
+            className="a-btn flex-fixed"
+            type="submit">
+            Search
+          </button>
+          <div
+            className="advanced-container flex-fixed">
+            <a
+              className="a-btn a-btn__link o-expandable_cue-open"
+              onClick={[Function]}>
+              Show advanced search tips
+            </a>
+          </div>
+        </div>
+      </form>
+    </nav>
+  </div>
+</div>
+`;
+
+exports[`component:ReactPanel renders without crashing 1`] = `
+<div
+  className="search-panel">
+  <h2>
+    Search complaint data 
+  </h2>
+  <div>
+    <nav
+      className="search-bar">
+      <form
+        action=""
+        onSubmit={[Function]}>
+        <h4>
+          Search Within
+        </h4>
+        <div
+          className="layout-row">
+          <div
+            className="cf-select flex-fixed">
+            <select
+              aria-label="Choose which field will be searched"
+              id="searchField"
+              onChange={[Function]}
+              value={undefined}>
+              <optgroup
+                label="Search Within">
+                <option
+                  value="all">
+                  All Data
+                </option>
+                <option
+                  value="company">
+                  Company Name
+                </option>
+                <option
+                  value="complaint_what_happened">
+                  Narratives
+                </option>
+              </optgroup>
+            </select>
+          </div>
+          <div
+            className="flex-all typeahead-portal">
+            <section
+              className="typeahead "
+              onBlur={[Function]}
+              onFocus={[Function]}>
+              <div
+                className="m-btn-inside-input input-contains-label">
+                <label
+                  className="input-contains-label_before input-contains-label_before__search" />
+                <input
+                  aria-label="The term to search for"
+                  autoComplete="off"
+                  className="a-text-input"
+                  id="searchText"
+                  onChange={[Function]}
+                  onKeyDown={[Function]}
+                  placeholder="Enter your search term(s)"
+                  type="text"
+                  value="" />
+              </div>
+            </section>
+          </div>
+          <button
+            className="a-btn flex-fixed"
+            type="submit">
+            Search
+          </button>
+          <div
+            className="advanced-container flex-fixed">
+            <a
+              className="a-btn a-btn__link o-expandable_cue-open"
+              onClick={[Function]}>
+              Show advanced search tips
+            </a>
+          </div>
+        </div>
+      </form>
+    </nav>
+  </div>
+</div>
 `;
