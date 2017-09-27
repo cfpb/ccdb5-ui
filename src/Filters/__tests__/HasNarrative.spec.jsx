@@ -1,4 +1,4 @@
-import ReduxSingleCheckbox, { SingleCheckbox, mapDispatchToProps } from '../SingleCheckbox'
+import ReduxHasNarrative, { HasNarrative, mapDispatchToProps } from '../HasNarrative'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
@@ -13,7 +13,7 @@ function setupEnzyme(initialProps={}) {
     isChecked: true
   }, initialProps)
 
-  const target = shallow(<SingleCheckbox {...props} />);
+  const target = shallow(<HasNarrative {...props} />);
 
   return {
     props,
@@ -30,7 +30,7 @@ function setupSnapshot(query={}) {
 
   return renderer.create(
     <Provider store={store}>
-      <ReduxSingleCheckbox fieldName="has_narrative" />
+      <ReduxHasNarrative fieldName="has_narrative" />
     </Provider>
   )
 }
@@ -51,7 +51,7 @@ describe('initial state', () => {
     })
 });
 
-describe('component::SingleCheckbox', () => {
+describe('component::HasNarrative', () => {
   describe('componentWillReceiveProps', () => {
     it('does not trigger a new update', () => {
       const {target, props} = setupEnzyme()
