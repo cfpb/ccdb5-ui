@@ -6,6 +6,7 @@ describe('reducer:results', () => {
     expect(target(undefined, {})).toEqual({
         doc_count: 0,
         error: '',
+        lastUpdated: null,
         hasDataIssue: false,
         isDataStale: false,
         isLoading: false,
@@ -41,6 +42,9 @@ describe('reducer:results', () => {
       expect(target({doc_count: 0, error: 'foo'}, action)).toEqual({
         doc_count: 162576,
         error: '',
+        lastUpdated: '2017-07-10T00:00:00.000Z',
+        hasDataIssue: undefined,
+        isDataStale: undefined,
         isLoading: false,
         items: [
           { a: '123' },
@@ -56,6 +60,9 @@ describe('reducer:results', () => {
       expect(target({doc_count: 0, error: 'foo'}, action)).toEqual({
         doc_count: 162576,
         error: '',
+        lastUpdated: '2017-07-10T00:00:00.000Z',
+        hasDataIssue: undefined,
+        isDataStale: undefined,
         isLoading: false,
         items: [
           { a: '<em>123</em>' },
@@ -74,6 +81,7 @@ describe('reducer:results', () => {
     expect(target({doc_count: 100, items: [1, 2, 3]}, action)).toEqual({
       doc_count: 0,
       error: 'foo bar',
+      lastUpdated: null,
       hasDataIssue: false,
       isDataStale: false,
       isLoading: false,
