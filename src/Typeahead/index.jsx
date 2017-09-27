@@ -138,7 +138,11 @@ export default class Typeahead extends React.Component {
       <section className={`typeahead ${ this.props.className }`}
                onBlur={this._onBlur}
                onFocus={this._onFocus}>
-        <div className="m-btn-inside-input">
+        <div className="m-btn-inside-input input-contains-label">
+            <label className="input-contains-label_before
+                              input-contains-label_before__search">
+            </label>
+
           <input type="text"
                  autoComplete="off"
                  className="a-text-input"
