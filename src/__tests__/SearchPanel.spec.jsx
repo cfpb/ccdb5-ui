@@ -1,31 +1,40 @@
-import { SearchPanel } from '../SearchPanel';
+import { SearchPanel } from '../SearchPanel'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import thunk from 'redux-thunk'
-import { shallow } from 'enzyme';
+import configureMockStore from 'redux-mock-store'
+import { IntlProvider } from 'react-intl'
+import { Provider } from 'react-redux'
 
-function setupEnzyme(initialProps={}) {
-  const props = Object.assign({
-    lastUpdated: new Date( '2016-02-01T05:00:00.000Z' )
-  }, initialProps)
+function setupSnapshot(initialStore={}) {
+  const results = Object.assign({}, initialStore)
 
-  const target = shallow(<SearchPanel {...props} />);
-
-  return {
-    target,
-    props
-  }
-}
-
-describe('SearchPanel', () => {
-  let target, props
-  beforeEach(() => {
-    ({ target, props } = setupEnzyme())
+  const middlewares = [thunk]
+  const mockStore = configureMockStore(middlewares)
+  const store = mockStore({
+    query: {},
+    results
   })
 
-  describe('renders', () => {
-    it('renders with last updated date', () => {
-      expect(target).toMatchSnapshot()
-    })
+  return renderer.create(
+    <Provider store={ store } >
+      <IntlProvider locale="en">
+        <SearchPanel />
+      </IntlProvider>
+    </Provider>
+  )
+}
+
+describe('component:SearchPanel', () => {
+  it('renders without crashing', () => {
+    const target = setupSnapshot()
+    const tree = target.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('displays last updated date when present', () => {
+    const target = setupSnapshot({ lastUpdated: new Date( '2016-02-01T05:00:00.000Z' ) })
+    const tree = target.toJSON();
+    expect(tree).toMatchSnapshot();
   })
 })
