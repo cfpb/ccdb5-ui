@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-export class SingleCheckbox extends React.Component {
+export class HasNarrative extends React.Component {
   constructor( props ) {
     super( props )
     this.state = { isChecked: this.props.isChecked }
@@ -23,7 +23,7 @@ export class SingleCheckbox extends React.Component {
   render() {
     return (
       <section className="single-checkbox">
-        <h4>{this.props.title}</h4>
+        <h4>Only show complaints with narratives?</h4>
         <div className="m-form-field m-form-field__checkbox">
             <input className="a-checkbox"
                    id="theCheckbox"
@@ -51,17 +51,18 @@ export class SingleCheckbox extends React.Component {
 // ----------------------------------------------------------------------------
 // Meta
 
-SingleCheckbox.propTypes = {
-  fieldName: PropTypes.string.isRequired,
+HasNarrative.propTypes = {
+  fieldName: PropTypes.string,
   isChecked: PropTypes.bool
 }
 
-SingleCheckbox.defaultProps = {
+HasNarrative.defaultProps = {
+  fieldName: 'has_narrative',
   isChecked: false
 }
 
-export const mapStateToProps = state => {
-  var queryValue = state.query.has_narrative
+export const mapStateToProps = ( state, ownProps ) => {
+  var queryValue = state.query[ownProps.fieldName]
   return {
     isChecked: typeof queryValue !== 'undefined' &&
       ( queryValue.toString() === 'yes' ||
@@ -75,4 +76,4 @@ export const mapDispatchToProps = dispatch => ( {
   }
 } )
 
-export default connect( mapStateToProps, mapDispatchToProps )( SingleCheckbox )
+export default connect( mapStateToProps, mapDispatchToProps )( HasNarrative )
