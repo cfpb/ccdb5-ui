@@ -3,6 +3,16 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
 
+const FIELD_NAME = 'has_narrative'
+const NARRATIVE_SEARCH_FIELD = 'complaint_what_happened'
+
+const SEARCHING = 'SEARCHING'
+const FILTERING = 'FILTERING'
+const NOTHING = 'NOTHING'
+
+// ----------------------------------------------------------------------------
+// The Class
+
 export class HasNarrative extends React.Component {
   constructor( props ) {
     super( props )
@@ -28,11 +38,12 @@ export class HasNarrative extends React.Component {
         <h4>Only show complaints with narratives?</h4>
         <div className="m-form-field m-form-field__checkbox">
             <input className="a-checkbox"
+                   checked={ this.props.phase !== NOTHING }
+                   disabled={ this.props.phase === SEARCHING }
                    id="theCheckbox"
-                   type="checkbox"
                    onClick={ this._changeFlag.bind( this ) }
-                   checked={ this.state.isChecked }
-                   value={ this.props.fieldName } />
+                   type="checkbox"
+                   value={ FIELD_NAME } />
             <label className="a-label" htmlFor="theCheckbox">Yes</label>
         </div>
       </section>
@@ -54,21 +65,25 @@ export class HasNarrative extends React.Component {
 // Meta
 
 HasNarrative.propTypes = {
-  fieldName: PropTypes.string,
   isChecked: PropTypes.bool
 }
 
-HasNarrative.defaultProps = {
-  fieldName: 'has_narrative',
-  isChecked: false
-}
+export const mapStateToProps = state => {
+  const queryValue = state.query[FIELD_NAME] || ''
+  const searchField = state.query.searchField
 
-export const mapStateToProps = ( state, ownProps ) => {
-  var queryValue = state.query[ownProps.fieldName]
+  const isChecked = queryValue.toString() === 'true'
+
+  let phase = NOTHING
+  if ( searchField === NARRATIVE_SEARCH_FIELD ) {
+    phase = SEARCHING
+  } else if ( isChecked ) {
+    phase = FILTERING
+  }
+
   return {
-    isChecked: typeof queryValue !== 'undefined' &&
-      ( queryValue.toString() === 'yes' ||
-        queryValue.toString() === 'true' )
+    isChecked,
+    phase
   }
 }
 

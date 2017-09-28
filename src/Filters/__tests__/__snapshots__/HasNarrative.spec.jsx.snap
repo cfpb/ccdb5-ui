@@ -9,6 +9,7 @@ exports[`initial state pre-check filter based on query 1`] = `
     <input
       checked={true}
       className="a-checkbox"
+      disabled={false}
       id="theCheckbox"
       onClick={[Function]}
       type="checkbox"
@@ -33,6 +34,7 @@ exports[`initial state renders without crashing 1`] = `
     <input
       checked={false}
       className="a-checkbox"
+      disabled={false}
       id="theCheckbox"
       onClick={[Function]}
       type="checkbox"
