@@ -16,8 +16,10 @@ export class HasNarrative extends React.Component {
     this.setState( newState )
   }
 
-  componentDidUpdate() {
-    this.props.changeFlagFilter( this.props.fieldName, this.state.isChecked )
+  componentDidUpdate( _, prevState ) {
+    if ( prevState.isChecked !== this.state.isChecked ) {
+      this.props.changeFlagFilter( FIELD_NAME, this.state.isChecked )
+    }
   }
 
   render() {
