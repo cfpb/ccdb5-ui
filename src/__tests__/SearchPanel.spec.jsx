@@ -19,7 +19,7 @@ function setupSnapshot(initialStore={}) {
   return renderer.create(
     <Provider store={ store } >
       <IntlProvider locale="en">
-        <SearchPanel />
+        <SearchPanel lastUpdated={ results.lastUpdated } />
       </IntlProvider>
     </Provider>
   )
