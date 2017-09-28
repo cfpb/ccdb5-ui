@@ -3,6 +3,14 @@ exports[`component:SearchPanel displays last updated date when present 1`] = `
   className="search-panel">
   <h2>
     Search complaint data 
+    <span
+      className="date-subscript">
+      (last updated: 
+      <span>
+        2/1/2016
+      </span>
+      )
+    </span>
   </h2>
   <div>
     <nav
