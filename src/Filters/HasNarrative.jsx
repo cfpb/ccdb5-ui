@@ -40,11 +40,11 @@ export class HasNarrative extends React.Component {
             <input className="a-checkbox"
                    checked={ this.props.phase !== NOTHING }
                    disabled={ this.props.phase === SEARCHING }
-                   id="theCheckbox"
+                   id="filterHasNarrative"
                    onClick={ this._changeFlag.bind( this ) }
                    type="checkbox"
                    value={ FIELD_NAME } />
-            <label className="a-label" htmlFor="theCheckbox">Yes</label>
+            <label className="a-label" htmlFor="filterHasNarrative">Yes</label>
         </div>
       </section>
     )
