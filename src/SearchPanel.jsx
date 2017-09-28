@@ -4,14 +4,16 @@ import { FormattedDate } from 'react-intl'
 import PillPanel from './PillPanel'
 import React from 'react';
 import SearchBar from './SearchBar'
-import { shortIsoFormat } from './utils'
 
 export class SearchPanel extends React.Component {
   render() {
     var lastUpdatedMessage = null;
 
     if ( this.props.lastUpdated ) {
-      lastUpdatedMessage = <span className="date-subscript">(last updated: <FormattedDate value={ this.props.lastUpdated } />)</span>
+      lastUpdatedMessage =
+        <span className="date-subscript">
+          (last updated: <FormattedDate value={ this.props.lastUpdated } />)
+        </span>
     }
 
     return (
