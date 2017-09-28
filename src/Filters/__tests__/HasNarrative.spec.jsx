@@ -9,7 +9,6 @@ import thunk from 'redux-thunk'
 function setupEnzyme(initialProps={}) {
   const props = Object.assign({
     changeFlagFilter: jest.fn(),
-    fieldName: 'has_narrative',
     isChecked: true
   }, initialProps)
 
@@ -30,7 +29,7 @@ function setupSnapshot(query={}) {
 
   return renderer.create(
     <Provider store={store}>
-      <ReduxHasNarrative fieldName="has_narrative" />
+      <ReduxHasNarrative />
     </Provider>
   )
 }
@@ -43,19 +42,35 @@ describe('initial state', () => {
   });
 
   it('pre-check filter based on query', () => {
-      const target = setupSnapshot({
-        has_narrative: true
-      })
-      const tree = target.toJSON()
-      expect(tree).toMatchSnapshot()
+    const target = setupSnapshot({
+      has_narrative: true
     })
+    const tree = target.toJSON()
+    expect(tree).toMatchSnapshot()
+  })
+
+  it('checks and disables the filter when searching narratives', () => {
+    const target = setupSnapshot({
+      searchField: 'complaint_what_happened'
+    })
+    const tree = target.toJSON()
+    expect(tree).toMatchSnapshot()
+  })
 });
 
 describe('component::HasNarrative', () => {
   describe('componentWillReceiveProps', () => {
     it('does not trigger a new update', () => {
       const {target, props} = setupEnzyme()
-      target.setProps({ has_narrative: true })
+      target.setProps({ foo: 'bar' })
+      expect(props.changeFlagFilter).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('componentDidUpdate', () => {
+    it('does not trigger a new update unless the isChecked property changes', () => {
+      const {target, props} = setupEnzyme()
+      target.setState({ foo: 'bar' })
       expect(props.changeFlagFilter).not.toHaveBeenCalled()
     })    
   })
@@ -75,8 +90,7 @@ describe('component::HasNarrative', () => {
   describe('mapDispatchToProps', () => {
     it('hooks into changeFlagFilter', () => {
       const dispatch = jest.fn()
-      const props = {fieldName: 'qaz'}
-      mapDispatchToProps(dispatch, props).changeFlagFilter('foo', 'bar')
+      mapDispatchToProps(dispatch).changeFlagFilter('foo', 'bar')
       expect(dispatch.mock.calls.length).toEqual(1)
     })
   })

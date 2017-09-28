@@ -1,3 +1,28 @@
+exports[`initial state checks and disables the filter when searching narratives 1`] = `
+<section
+  className="single-checkbox">
+  <h4>
+    Only show complaints with narratives?
+  </h4>
+  <div
+    className="m-form-field m-form-field__checkbox">
+    <input
+      checked={true}
+      className="a-checkbox"
+      disabled={true}
+      id="theCheckbox"
+      onClick={[Function]}
+      type="checkbox"
+      value="has_narrative" />
+    <label
+      className="a-label"
+      htmlFor="theCheckbox">
+      Yes
+    </label>
+  </div>
+</section>
+`;
+
 exports[`initial state pre-check filter based on query 1`] = `
 <section
   className="single-checkbox">
