@@ -10,13 +10,13 @@ exports[`initial state checks and disables the filter when searching narratives 
       checked={true}
       className="a-checkbox"
       disabled={true}
-      id="theCheckbox"
+      id="filterHasNarrative"
       onClick={[Function]}
       type="checkbox"
       value="has_narrative" />
     <label
       className="a-label"
-      htmlFor="theCheckbox">
+      htmlFor="filterHasNarrative">
       Yes
     </label>
   </div>
@@ -35,13 +35,13 @@ exports[`initial state pre-check filter based on query 1`] = `
       checked={true}
       className="a-checkbox"
       disabled={false}
-      id="theCheckbox"
+      id="filterHasNarrative"
       onClick={[Function]}
       type="checkbox"
       value="has_narrative" />
     <label
       className="a-label"
-      htmlFor="theCheckbox">
+      htmlFor="filterHasNarrative">
       Yes
     </label>
   </div>
@@ -60,13 +60,13 @@ exports[`initial state renders without crashing 1`] = `
       checked={false}
       className="a-checkbox"
       disabled={false}
-      id="theCheckbox"
+      id="filterHasNarrative"
       onClick={[Function]}
       type="checkbox"
       value="has_narrative" />
     <label
       className="a-label"
-      htmlFor="theCheckbox">
+      htmlFor="filterHasNarrative">
       Yes
     </label>
   </div>
