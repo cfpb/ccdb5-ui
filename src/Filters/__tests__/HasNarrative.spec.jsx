@@ -1,4 +1,4 @@
-import ReduxSingleCheckbox, { SingleCheckbox, mapDispatchToProps } from '../SingleCheckbox'
+import ReduxHasNarrative, { HasNarrative, mapDispatchToProps } from '../HasNarrative'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
@@ -9,11 +9,10 @@ import thunk from 'redux-thunk'
 function setupEnzyme(initialProps={}) {
   const props = Object.assign({
     changeFlagFilter: jest.fn(),
-    fieldName: 'has_narrative',
     isChecked: true
   }, initialProps)
 
-  const target = shallow(<SingleCheckbox {...props} />);
+  const target = shallow(<HasNarrative {...props} />);
 
   return {
     props,
@@ -30,7 +29,7 @@ function setupSnapshot(query={}) {
 
   return renderer.create(
     <Provider store={store}>
-      <ReduxSingleCheckbox fieldName="has_narrative" />
+      <ReduxHasNarrative />
     </Provider>
   )
 }
@@ -43,19 +42,35 @@ describe('initial state', () => {
   });
 
   it('pre-check filter based on query', () => {
-      const target = setupSnapshot({
-        has_narrative: true
-      })
-      const tree = target.toJSON()
-      expect(tree).toMatchSnapshot()
+    const target = setupSnapshot({
+      has_narrative: true
     })
+    const tree = target.toJSON()
+    expect(tree).toMatchSnapshot()
+  })
+
+  it('checks and disables the filter when searching narratives', () => {
+    const target = setupSnapshot({
+      searchField: 'complaint_what_happened'
+    })
+    const tree = target.toJSON()
+    expect(tree).toMatchSnapshot()
+  })
 });
 
-describe('component::SingleCheckbox', () => {
+describe('component::HasNarrative', () => {
   describe('componentWillReceiveProps', () => {
     it('does not trigger a new update', () => {
       const {target, props} = setupEnzyme()
-      target.setProps({ has_narrative: true })
+      target.setProps({ foo: 'bar' })
+      expect(props.changeFlagFilter).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('componentDidUpdate', () => {
+    it('does not trigger a new update unless the isChecked property changes', () => {
+      const {target, props} = setupEnzyme()
+      target.setState({ foo: 'bar' })
       expect(props.changeFlagFilter).not.toHaveBeenCalled()
     })    
   })
@@ -63,7 +78,7 @@ describe('component::SingleCheckbox', () => {
   describe('flag filter changed', () => {
     it('triggers an update when checkbox is clicked', () => {
       const { target, props } = setupEnzyme()
-      const input = target.find('#theCheckbox')
+      const input = target.find('#filterHasNarrative')
 
       input.simulate('click')
       const actual = props.changeFlagFilter.mock.calls[0]
@@ -75,8 +90,7 @@ describe('component::SingleCheckbox', () => {
   describe('mapDispatchToProps', () => {
     it('hooks into changeFlagFilter', () => {
       const dispatch = jest.fn()
-      const props = {fieldName: 'qaz'}
-      mapDispatchToProps(dispatch, props).changeFlagFilter('foo', 'bar')
+      mapDispatchToProps(dispatch).changeFlagFilter('foo', 'bar')
       expect(dispatch.mock.calls.length).toEqual(1)
     })
   })

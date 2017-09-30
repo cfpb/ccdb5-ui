@@ -14,13 +14,14 @@ exports[`initial state renders without crashing 1`] = `
       <input
         checked={false}
         className="a-checkbox"
-        id="theCheckbox"
+        disabled={false}
+        id="filterHasNarrative"
         onClick={[Function]}
         type="checkbox"
         value="has_narrative" />
       <label
         className="a-label"
-        htmlFor="theCheckbox">
+        htmlFor="filterHasNarrative">
         Yes
       </label>
     </div>
