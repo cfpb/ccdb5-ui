@@ -3,11 +3,11 @@ import CompanyName from './Filters/CompanyName'
 import { connect } from 'react-redux'
 import DateFilter from './Filters/DateFilter'
 import FederalState from './Filters/FederalState'
+import HasNarrative from './Filters/HasNarrative'
 import Issue from './Filters/Issue'
 import Product from './Filters/Product'
 import React from 'react'
 import SimpleFilter from './Filters/SimpleFilter'
-import SingleCheckbox from './Filters/SingleCheckbox'
 import ZipCode from './Filters/ZipCode'
 
 export class FilterPanel extends React.Component {
@@ -23,8 +23,7 @@ export class FilterPanel extends React.Component {
     return (
       <section className="filter-panel">
         <h3>Filter results by...</h3>
-        <SingleCheckbox title="Only show complaints with narratives?"
-                        fieldName="has_narrative" />
+        <HasNarrative />
         <hr />
         <DateFilter fieldName="date_received"
                     title="Date CFPB received the complaint" />
