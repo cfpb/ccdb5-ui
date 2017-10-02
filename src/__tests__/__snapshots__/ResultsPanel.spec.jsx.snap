@@ -316,8 +316,8 @@ exports[`component:ReactPanel displays a message when the data has issues 1`] = 
                 }
               } />
           </div>
-          <br />
           <div>
+            <br />
             <h4>
               Consumer Complaint Narrative
             </h4>
@@ -620,8 +620,8 @@ exports[`component:ReactPanel displays a message when the data is stale 1`] = `
                 }
               } />
           </div>
-          <br />
           <div>
+            <br />
             <h4>
               Consumer Complaint Narrative
             </h4>
@@ -1004,8 +1004,8 @@ exports[`component:ReactPanel renders without crashing 1`] = `
                 }
               } />
           </div>
-          <br />
           <div>
+            <br />
             <h4>
               Consumer Complaint Narrative
             </h4>

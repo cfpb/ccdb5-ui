@@ -2,9 +2,13 @@
 
 .results-panel {
   .cards-panel {
-    padding: 0;
+    padding: @grid_gutter-width;
     margin: 0;
+ 
+   @media @phone {
+    padding: @gutter-normal;
   }
+ }
 
   h2 {
     padding: @gutter-normal;    
