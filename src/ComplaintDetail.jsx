@@ -143,7 +143,7 @@ export class ComplaintDetail extends React.Component {
             <br />
             { narrative ?
               <div>
-                <h4>Consumer Complaint Narrative</h4>
+                <h4>Consumer complaint narrative</h4>
                 <span className="body-copy">
                   { narrative }
                 </span>
@@ -153,7 +153,7 @@ export class ComplaintDetail extends React.Component {
           </div>
         </div>
 
-        <h3 className="company-information">Company Information</h3>
+        <h2 className="company-information">Company information</h2>
         <div className="card">
           <div className="card-left layout-column">
             <h4>Date complaint sent to company</h4>

@@ -61,7 +61,6 @@ export default class ComplaintCard extends React.Component {
               </div> :
                null
             }
-            <br />
             { this._renderNarrative(
                 row.complaint_what_happened || '', complaintIdPath
               ) }
@@ -94,6 +93,7 @@ export default class ComplaintCard extends React.Component {
 
     return narrative ?
         <div>
+          <br />
           <h4>Consumer Complaint Narrative</h4>
             { this._renderPossibleHighlight( narrative ) }
             { hasOverflow ? <span> <a href={ url }>[...]</a></span> : null }
