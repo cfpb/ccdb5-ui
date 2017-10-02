@@ -125,7 +125,6 @@ exports[`initial state hides the section when there is no narrative 1`] = `
             }
           } />
       </div>
-      <br />
     </div>
   </div>
 </li>
@@ -244,8 +243,8 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
             "__html": "Alpha",
           }
         } />
-      <br />
       <div>
+        <br />
         <h4>
           Consumer Complaint Narrative
         </h4>
@@ -375,8 +374,8 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
             }
           } />
       </div>
-      <br />
       <div>
+        <br />
         <h4>
           Consumer Complaint Narrative
         </h4>
@@ -520,8 +519,8 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
             }
           } />
       </div>
-      <br />
       <div>
+        <br />
         <h4>
           Consumer Complaint Narrative
         </h4>
@@ -672,8 +671,8 @@ exports[`initial state renders without crashing 1`] = `
             }
           } />
       </div>
-      <br />
       <div>
+        <br />
         <h4>
           Consumer Complaint Narrative
         </h4>
