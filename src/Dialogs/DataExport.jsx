@@ -131,14 +131,15 @@ export class DataExport extends React.Component {
   // Subrender methods
 
   _renderFormatGroup() {
-    const groupClass = this.state.messages.format ? 'group__error' : ''
 
     return <div className="group">
             <div className="group-title">
               Select a format for the exported file
+              <span className="required-helper"> (required)</span>
             </div>
-            <div className={groupClass}>
-              <div className="m-form-field m-form-field__radio">
+            <div className="body-copy">
+              <div className="m-form-field m-form-field__radio
+                              m-form-field__lg-target">
                 <input checked={this.state.format === 'csv'}
                        className="a-radio"
                        id="format_csv"
@@ -147,7 +148,8 @@ export class DataExport extends React.Component {
                        value="csv" />
                 <label className="a-label" htmlFor="format_csv">CSV</label>
               </div>
-              <div className="m-form-field m-form-field__radio">
+              <div className="m-form-field m-form-field__radio
+                              m-form-field__lg-target">
                 <input checked={this.state.format === 'json'}
                        className="a-radio"
                        id="format_json"
@@ -157,14 +159,6 @@ export class DataExport extends React.Component {
                 <label className="a-label" htmlFor="format_json">JSON</label>
               </div>
             </div>
-            { this.state.messages.format ?
-                <div className="a-error-message" role="alert">
-                    <span className="cf-icon cf-icon-delete-round"
-                          aria-hidden="true"></span>
-                    { this.state.messages.format }
-                </div> :
-                null
-            }
             <div className="other-formats">
               Or you can&nbsp;
               <button className="a-btn a-btn__link"
@@ -177,14 +171,15 @@ export class DataExport extends React.Component {
   }
 
   _renderDatasetGroup() {
-    const groupClass = this.state.messages.dataset ? 'group__error' : ''
 
     return <div className="group">
             <div className="group-title">
               Select which complaints you'd like to export
+              <span className="required-helper"> (required)</span>
             </div>
-            <div className={groupClass}>
-              <div className="m-form-field m-form-field__radio">
+            <div className="body-copy">
+              <div className="m-form-field m-form-field__radio
+                              m-form-field__lg-target">
                 <input checked={this.state.dataset === 'filtered'}
                        className="a-radio"
                        id="dataset_filtered"
@@ -204,7 +199,8 @@ export class DataExport extends React.Component {
                   </div>
                 </label>
               </div>
-              <div className="m-form-field m-form-field__radio">
+              <div className="m-form-field m-form-field__radio
+                              m-form-field__lg-target">
                 <input checked={this.state.dataset === 'full'}
                        className="a-radio"
                        id="dataset_full"
@@ -225,14 +221,6 @@ export class DataExport extends React.Component {
                 </label>
               </div>
             </div>
-            { this.state.messages.dataset ?
-                <div className="a-error-message" role="alert">
-                    <span className="cf-icon cf-icon-delete-round"
-                          aria-hidden="true"></span>
-                    { this.state.messages.dataset }
-                </div> :
-                null
-            }
           </div>
   }
 }
