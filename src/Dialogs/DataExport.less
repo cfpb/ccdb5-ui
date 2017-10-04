@@ -2,12 +2,13 @@
 
 .export-modal {
   .body {
+
     .instructions {
       margin-bottom: @gutter-normal;
     }
 
     .group {
-      margin-bottom: @gutter-wide;
+      margin-bottom: @gutter-normal;
 
       .a-error-message .cf-icon {
         margin-right: @gutter-minimum;
@@ -22,7 +23,6 @@
 
       .group-title {
         margin: @gutter-normal 0;
-
         font-size: @size-iv;
         font-weight: bold;
       }
@@ -37,6 +37,10 @@
 
       .other-formats {
         margin-top: @gutter-normal * 1.5;
+      }
+
+      .required-helper {
+        color: @gray;
       }
     }
 
