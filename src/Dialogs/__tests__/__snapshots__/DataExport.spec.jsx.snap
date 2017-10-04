@@ -26,11 +26,15 @@ exports[`component::DataExport initial state hides the dataset radio buttons whe
       <div
         className="group-title">
         Select a format for the exported file
+        <span
+          className="required-helper">
+           (required)
+        </span>
       </div>
       <div
-        className="group__error">
+        className="body-copy">
         <div
-          className="m-form-field m-form-field__radio">
+          className="m-form-field m-form-field__radio m-form-field__lg-target">
           <input
             checked={false}
             className="a-radio"
@@ -45,7 +49,7 @@ exports[`component::DataExport initial state hides the dataset radio buttons whe
           </label>
         </div>
         <div
-          className="m-form-field m-form-field__radio">
+          className="m-form-field m-form-field__radio m-form-field__lg-target">
           <input
             checked={false}
             className="a-radio"
@@ -59,14 +63,6 @@ exports[`component::DataExport initial state hides the dataset radio buttons whe
             JSON
           </label>
         </div>
-      </div>
-      <div
-        className="a-error-message"
-        role="alert">
-        <span
-          aria-hidden="true"
-          className="cf-icon cf-icon-delete-round" />
-        You must select a format for the export
       </div>
       <div
         className="other-formats">
@@ -129,11 +125,15 @@ exports[`component::DataExport initial state renders without crashing 1`] = `
       <div
         className="group-title">
         Select a format for the exported file
+        <span
+          className="required-helper">
+           (required)
+        </span>
       </div>
       <div
-        className="group__error">
+        className="body-copy">
         <div
-          className="m-form-field m-form-field__radio">
+          className="m-form-field m-form-field__radio m-form-field__lg-target">
           <input
             checked={false}
             className="a-radio"
@@ -148,7 +148,7 @@ exports[`component::DataExport initial state renders without crashing 1`] = `
           </label>
         </div>
         <div
-          className="m-form-field m-form-field__radio">
+          className="m-form-field m-form-field__radio m-form-field__lg-target">
           <input
             checked={false}
             className="a-radio"
@@ -162,14 +162,6 @@ exports[`component::DataExport initial state renders without crashing 1`] = `
             JSON
           </label>
         </div>
-      </div>
-      <div
-        className="a-error-message"
-        role="alert">
-        <span
-          aria-hidden="true"
-          className="cf-icon cf-icon-delete-round" />
-        You must select a format for the export
       </div>
       <div
         className="other-formats">
@@ -187,11 +179,15 @@ exports[`component::DataExport initial state renders without crashing 1`] = `
       <div
         className="group-title">
         Select which complaints you\'d like to export
+        <span
+          className="required-helper">
+           (required)
+        </span>
       </div>
       <div
-        className="group__error">
+        className="body-copy">
         <div
-          className="m-form-field m-form-field__radio">
+          className="m-form-field m-form-field__radio m-form-field__lg-target">
           <input
             checked={false}
             className="a-radio"
@@ -219,7 +215,7 @@ exports[`component::DataExport initial state renders without crashing 1`] = `
           </label>
         </div>
         <div
-          className="m-form-field m-form-field__radio">
+          className="m-form-field m-form-field__radio m-form-field__lg-target">
           <input
             checked={false}
             className="a-radio"
@@ -246,14 +242,6 @@ exports[`component::DataExport initial state renders without crashing 1`] = `
             </div>
           </label>
         </div>
-      </div>
-      <div
-        className="a-error-message"
-        role="alert">
-        <span
-          aria-hidden="true"
-          className="cf-icon cf-icon-delete-round" />
-        You must choose which dataset to export
       </div>
     </div>
     <div
