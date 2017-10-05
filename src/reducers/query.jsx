@@ -1,4 +1,6 @@
 import * as types from '../constants'
+import { shortIsoFormat } from '../utils'
+const queryString = require( 'query-string' );
 
 export const defaultQuery = {
   searchText: '',
@@ -6,6 +8,12 @@ export const defaultQuery = {
   from: 0,
   size: 25,
   sort: 'created_date_desc'
+}
+
+const fieldMap = {
+  searchText: 'search_term',
+  searchField: 'field',
+  from: 'frm'
 }
 
 const urlParams = [ 'searchText', 'searchField' ]
@@ -271,7 +279,51 @@ function removeMultipleFilters( state, action ) {
 }
 
 // ----------------------------------------------------------------------------
-// Action Handler
+// Query String Builder
+
+/**
+* Converts a set of key/value pairs into a query string for API calls
+*
+* @param {string} state a set of key/value pairs
+* @returns {string} a formatted query string
+*/
+export function stateToQS( state ) {
+  const params = {}
+  const fields = Object.keys( state )
+
+  // Copy over the fields
+  fields.forEach( field => {
+    // Do not include empty fields
+    if ( !state[field] ) {
+      return;
+    }
+
+    var value = state[field]
+
+    // Process dates
+    if ( types.dateFilters.indexOf( field ) !== -1 ) {
+      value = shortIsoFormat( value )
+    }
+
+    // Process boolean flags
+    const positives = [ 'yes', 'true' ]
+    if ( types.flagFilters.indexOf( field ) !== -1 ) {
+      value = positives.includes( String( value ).toLowerCase() )
+    }
+
+    // Map the internal field names to the API field names
+    if ( fieldMap[field] ) {
+      params[fieldMap[field]] = value
+    } else {
+      params[field] = value
+    }
+  } )
+
+  return '?' + queryString.stringify( params )
+}
+
+// ----------------------------------------------------------------------------
+// Action Handlers
 
 /**
 * Creates a hash table of action types to handlers
@@ -297,8 +349,14 @@ const _handlers = _buildHandlerMap()
 
 /* eslint complexity: ["error", 6] */
 
-export default ( state = defaultQuery, action ) => {
-
+/**
+* Routes an action to an appropriate handler
+*
+* @param {object} state the current state in the Redux store
+* @param {object} action the command being executed
+* @returns {object} the new state for the Redux store
+*/
+function handleSpecificAction( state, action ) {
   if ( action.type in _handlers ) {
     return _handlers[action.type]( state, action )
   }
@@ -334,4 +392,14 @@ export default ( state = defaultQuery, action ) => {
     default:
       return state
   }
+}
+
+export default ( state = defaultQuery, action ) => {
+  const newState = handleSpecificAction( state, action )
+  delete newState.queryString
+
+  const qs = stateToQS( newState )
+  newState.queryString = qs !== '?' ? qs : ''
+
+  return newState
 }
