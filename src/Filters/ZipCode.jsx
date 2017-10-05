@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import HighlightingOption from '../Typeahead/HighlightingOption'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { stateToQS } from '../actions/complaints'
 import StickyOptions from './StickyOptions'
 import Typeahead from '../Typeahead'
 
@@ -49,7 +48,7 @@ export class ZipCode extends React.Component {
   _onInputChange( value ) {
     const n = value.toLowerCase()
 
-    const qs = stateToQS( this.props.reduxState ) + '&text=' + value
+    const qs = this.props.queryString + '&text=' + value
 
     const uri = '@@API_suggest_zip/' + qs
     return fetch( uri )
@@ -87,8 +86,8 @@ export const mapStateToProps = state => {
 
   return {
     options,
-    selections: state.query[FIELD_NAME] || [],
-    reduxState: state
+    queryString: state.query.queryString,
+    selections: state.query[FIELD_NAME] || []
   }
 }
 
