@@ -1,58 +1,4 @@
-/* eslint complexity: ["error", 6] */
-
 import * as types from '../constants'
-import { shortIsoFormat } from '../utils'
-const queryString = require( 'query-string' );
-
-// ----------------------------------------------------------------------------
-// Builders
-
-const fieldMap = {
-  searchText: 'search_term',
-  searchField: 'field',
-  from: 'frm'
-}
-
-/**
-* Converts a set of key/value pairs into a query string for the API
-*
-* @param {string} state a set of key/value pairs
-* @returns {string} a formatted query string
-*/
-export function stateToQS( state ) {
-  const params = {}
-  const fields = Object.keys( state.query )
-
-  // Copy over the fields
-  fields.forEach( field => {
-    // Do not include empty fields
-    if ( !state.query[field] ) {
-      return;
-    }
-
-    var value = state.query[field]
-
-    // Process dates
-    if ( types.dateFilters.indexOf( field ) !== -1 ) {
-      value = shortIsoFormat( value )
-    }
-
-    // Process boolean flags
-    const positives = [ 'yes', 'true' ]
-    if ( types.flagFilters.indexOf( field ) !== -1 ) {
-      value = positives.includes( String( value ).toLowerCase() )
-    }
-
-    // Map the internal field names to the API field names
-    if ( fieldMap[field] ) {
-      params[fieldMap[field]] = value
-    } else {
-      params[field] = value
-    }
-  } )
-
-  return '?' + queryString.stringify( params )
-}
 
 // ----------------------------------------------------------------------------
 // Action Creators
@@ -64,7 +10,8 @@ export function stateToQS( state ) {
 */
 export function getComplaints() {
   return ( dispatch, getState ) => {
-    const uri = '@@API' + stateToQS( getState() )
+    const qs = getState().query.queryString
+    const uri = '@@API' + qs
     dispatch( callingApi( uri ) )
     return fetch( uri )
     .then( result => result.json() )
