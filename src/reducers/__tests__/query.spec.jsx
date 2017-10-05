@@ -9,6 +9,7 @@ describe('reducer:query', () => {
         searchText: '',
         searchField: 'all',
         from: 0,
+        queryString: '?field=all&size=25&sort=created_date_desc',
         size: 25,
         sort: 'created_date_desc'
       })
@@ -27,6 +28,7 @@ describe('reducer:query', () => {
     expect(target(state, action)).toEqual({
         searchText: 'foo',
         from: 0,
+        queryString: '?search_term=foo&size=100',
         size: 100
       })
   })
@@ -41,6 +43,7 @@ describe('reducer:query', () => {
     }
     expect(target(state, action)).toEqual({
         from: 100,
+        queryString: '?frm=100&size=100',
         size: 100
       })
   })
@@ -55,6 +58,7 @@ describe('reducer:query', () => {
     }
     expect(target(state, action)).toEqual({
         from: 0,
+        queryString: '?size=50',
         size: 50
       })
   })
@@ -70,6 +74,7 @@ describe('reducer:query', () => {
     }
     expect(target(state, action)).toEqual({
         from: 100,
+        queryString: '?frm=100&size=100&sort=foo',
         sort: 'foo',
         size: 100
       })
@@ -164,7 +169,10 @@ describe('reducer:query', () => {
 
     it('handles FILTER_CHANGED actions and returns correct object', () => {
       expect(target(state, action)).toEqual(
-        { [filterName]: [key] }
+        {
+          [filterName]: [key],
+          queryString: '?filtyMcFilterson=affirmative'
+        }
       );
     });
 
@@ -200,7 +208,8 @@ describe('reducer:query', () => {
         foo: ['bar', 'baz', 'qaz']
       }
       expect(target(state, action)).toEqual({
-        foo: ['bar', 'qaz']
+        foo: ['bar', 'qaz'],
+        queryString: '?foo=bar&foo=qaz'
       })
     })    
 
@@ -209,7 +218,8 @@ describe('reducer:query', () => {
         foobar: ['bar', 'baz', 'qaz']
       }
       expect(target(state, action)).toEqual({
-        foobar: ['bar', 'baz', 'qaz']
+        foobar: ['bar', 'baz', 'qaz'],
+        queryString: '?foobar=bar&foobar=baz&foobar=qaz'
       })
     })    
 
@@ -218,7 +228,8 @@ describe('reducer:query', () => {
         foo: ['bar', 'qaz']
       }
       expect(target(state, action)).toEqual({
-        foo: ['bar', 'qaz']
+        foo: ['bar', 'qaz'],
+        queryString: '?foo=bar&foo=qaz'
       })
     })    
   })
@@ -235,6 +246,7 @@ describe('reducer:query', () => {
     }
     expect(target(state, action)).toEqual({
       from: 100,
+      queryString: '?frm=100&size=100',
       size: 100
     })
   })
@@ -251,7 +263,8 @@ describe('reducer:query', () => {
 
     it("adds all filters if they didn't exist", () => {
       expect(target({}, action)).toEqual({
-        issue: ['Mo Money', 'Mo Problems']
+        issue: ['Mo Money', 'Mo Problems'],
+        queryString: '?issue=Mo%20Money&issue=Mo%20Problems'
       })
     })
 
@@ -262,7 +275,8 @@ describe('reducer:query', () => {
       action.values.push('foo')
 
       expect(target(state, action)).toEqual({
-        issue: ['foo', 'Mo Money', 'Mo Problems']
+        issue: ['foo', 'Mo Money', 'Mo Problems'],
+        queryString: '?issue=foo&issue=Mo%20Money&issue=Mo%20Problems'
       })
     })
   })
@@ -282,12 +296,15 @@ describe('reducer:query', () => {
         issue: ['foo', 'Mo Money', 'Mo Problems']
       }
       expect(target(state, action)).toEqual({
-        issue: ['foo']
+        issue: ['foo'],
+        queryString: '?issue=foo'
       })
     })
 
     it("ignores unknown filters", () => {
-      expect(target({}, action)).toEqual({})
+      expect(target({}, action)).toEqual({
+        queryString: ''
+      })
     })
   })
 
@@ -305,14 +322,16 @@ describe('reducer:query', () => {
     it("adds the dates", () => {
       expect(target({}, action)).toEqual({
         date_received_min: new Date(2001, 0, 30),
-        date_received_max: new Date(2013, 1, 3)
+        date_received_max: new Date(2013, 1, 3),
+        queryString:'?date_received_max=2013-02-03&date_received_min=2001-01-30'
       })
     })
 
     it("does not add empty dates", () => {
       action.minDate = null
       expect(target({}, action)).toEqual({
-        date_received_max: new Date(2013, 1, 3)
+        date_received_max: new Date(2013, 1, 3),
+        queryString: '?date_received_max=2013-02-03'
       })
     })
   })
@@ -329,14 +348,15 @@ describe('reducer:query', () => {
 
     it("adds narrative filter when present", () => {
       expect(target({}, action)).toEqual({
-        has_narrative: true
+        has_narrative: true,
+        queryString: '?has_narrative=true'
       })
     })
 
     it("does not add when narrative filter is false", () => {
       action.filterValue = false
       expect(target({}, action)).toEqual({
-
+        queryString: ''
       })
     })
   })
