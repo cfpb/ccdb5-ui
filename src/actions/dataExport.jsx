@@ -41,7 +41,7 @@ export function exportAllResults( format ) {
   return dispatch => {
     dispatch( { type: MODAL_HID } )
 
-    const uri = DATA_HOST + '/api/views/s6ew-h6mp/rows.json'
+    const uri = DATA_HOST + '/api/views/s6ew-h6mp/rows.' + format
     const link = buildLink( uri, 'download.' + format )
     simulateClick( link )
   }
