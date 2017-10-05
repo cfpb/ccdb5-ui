@@ -5,7 +5,7 @@
 import { buildLink, simulateClick } from './domUtils'
 import { MODAL_HID, MODAL_SHOWN, MODAL_TYPE_DATA_EXPORT } from '../constants'
 import Analytics from './analytics'
-import { stateToQS } from './complaints'
+import { stateToQS } from '../reducers/query'
 
 const DATA_HOST = 'https://data.consumerfinance.gov'
 
@@ -63,14 +63,13 @@ export function exportSomeResults( format, size ) {
 
     // params = {...getState()} only makes a shallow copy
     // Need to make a deep-copy or this size gets in the store (!)
-    const params = {
-      query: { ...getState().query }
-    }
+    const params = { ...getState().query }
+
     // TODO: set the correct size in the query string
-    params.query.size = Math.min( 10000, size )
-    params.query.format = format
+    params.size = Math.min( 10000, size )
+    params.format = format
     // eslint-disable-next-line camelcase
-    params.query.no_aggs = true
+    params.no_aggs = true
 
     const uri = '@@API' + stateToQS( params )
     const link = buildLink( uri, 'download.' + format )
