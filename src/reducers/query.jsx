@@ -399,7 +399,7 @@ export default ( state = defaultQuery, action ) => {
   delete newState.queryString
 
   const qs = stateToQS( newState )
-  newState.queryString = qs !== '?' ? qs : ''
+  newState.queryString = qs === '?' ? '' : qs
 
   return newState
 }
