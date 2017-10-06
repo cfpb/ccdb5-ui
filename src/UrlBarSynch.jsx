@@ -11,10 +11,14 @@ const queryString = require( 'query-string' );
 * Converts the properties into a query string
 *
 * @param {string} props the props of a component
-* @returns {string} a fomratted query string that can be appended to a URL
+* @returns {string} a formatted query string that can be appended to a URL
 */
 export function toQS( props ) {
-  const clone = { ...props.params }
+  // The query string in the Redux store is for the API and is a slightly
+  // different format than the one for the application.
+  // So we extract it and then ignore it
+  // eslint-disable-next-line no-unused-vars
+  const { queryString: apiQS, ...clone } = { ...props.params }
 
   // Process the dates differently
   dateFilters.forEach( field => {
