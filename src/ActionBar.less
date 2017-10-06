@@ -25,11 +25,19 @@
     &:after {
       background-color: @green-20;
     }
+
+    #choose-size {
+      padding-left: @grid_gutter-width;      
+    }
   }
 
   h2 {
-    padding: @gutter-normal;
+    padding: @gutter-normal @grid_gutter-width;
     margin: 0;
+ 
+    @media @phone {
+      padding: @gutter-normal;
+    }
   }
 
   h4 {
