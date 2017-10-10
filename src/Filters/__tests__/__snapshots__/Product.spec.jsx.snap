@@ -1,20 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`component:Product snapshots only shows the first five items 1`] = `
 <section
-  className="o-expandable aggregation">
+  className="o-expandable aggregation"
+>
   <div
-    className="o-expandable_header o-expandable_target">
+    className="o-expandable_header o-expandable_target"
+  >
     <h4
-      className="o-expandable_header-left o-expandable_label">
+      className="o-expandable_header-left o-expandable_label"
+    >
       Product / sub-product
     </h4>
     <span
-      className="o-expandable_header-right o-expandable_link">
+      className="o-expandable_header-right o-expandable_link"
+    >
       <button
         className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
-        onClick={[Function]}>
+        onClick={[Function]}
+      >
         Hide
         <span
-          className="cf-icon cf-icon-minus-round" />
+          className="cf-icon cf-icon-minus-round"
+        />
       </button>
     </span>
   </div>
@@ -25,38 +33,46 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
     <a
       className="a-btn__link"
       href="http://files.consumerfinance.gov/f/documents/201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf"
-      target="_blank">
+      target="_blank"
+    >
       Recent changes to products and sub-products
     </a>
   </p>
   <div>
     <ul>
       <div
-        className="aggregation-branch">
+        className="aggregation-branch"
+      >
         <li
-          className="layout-row parent m-form-field m-form-field__checkbox body-copy">
+          className="layout-row parent m-form-field m-form-field__checkbox body-copy"
+        >
           <input
             aria-label="Credit reporting, credit repair services, or other personal consumer reports"
             checked={false}
             className="flex-fixed a-checkbox"
             id="productCreditreporting, credit repair services, or other personal consumer reports"
             onChange={[Function]}
-            type="checkbox" />
+            type="checkbox"
+          />
           <label
             className="toggle a-label"
-            htmlFor="productCreditreporting, credit repair services, or other personal consumer reports" />
+            htmlFor="productCreditreporting, credit repair services, or other personal consumer reports"
+          />
           <button
             className="flex-all a-btn a-btn__link"
             onClick={[Function]}
-            title="Credit reporting, credit repair services, or other personal consumer reports">
+            title="Credit reporting, credit repair services, or other personal consumer reports"
+          >
             <span>
               Credit reporting, credit repair services, or other personal consumer reports
             </span>
             <span
-              className="cf-icon cf-icon-down" />
+              className="cf-icon cf-icon-down"
+            />
           </button>
           <span
-            className="flex-fixed parent-count">
+            className="flex-fixed parent-count"
+          >
             <span>
               3,277
             </span>
@@ -64,31 +80,38 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
         </li>
       </div>
       <div
-        className="aggregation-branch">
+        className="aggregation-branch"
+      >
         <li
-          className="layout-row parent m-form-field m-form-field__checkbox body-copy">
+          className="layout-row parent m-form-field m-form-field__checkbox body-copy"
+        >
           <input
             aria-label="Mortgage"
             checked={false}
             className="flex-fixed a-checkbox"
             id="productMortgage"
             onChange={[Function]}
-            type="checkbox" />
+            type="checkbox"
+          />
           <label
             className="toggle a-label"
-            htmlFor="productMortgage" />
+            htmlFor="productMortgage"
+          />
           <button
             className="flex-all a-btn a-btn__link"
             onClick={[Function]}
-            title="Mortgage">
+            title="Mortgage"
+          >
             <span>
               Mortgage
             </span>
             <span
-              className="cf-icon cf-icon-down" />
+              className="cf-icon cf-icon-down"
+            />
           </button>
           <span
-            className="flex-fixed parent-count">
+            className="flex-fixed parent-count"
+          >
             <span>
               2,299
             </span>
@@ -96,63 +119,75 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
         </li>
       </div>
       <li
-        className="layout-row m-form-field m-form-field__checkbox">
+        className="layout-row m-form-field m-form-field__checkbox"
+      >
         <input
           aria-label="Credit reporting"
           checked={false}
           className="flex-fixed a-checkbox"
           id="productCreditreporting"
           onChange={[Function]}
-          type="checkbox" />
+          type="checkbox"
+        />
         <label
           className="a-label flex-all bucket-key body-copy"
-          htmlFor="productCreditreporting">
+          htmlFor="productCreditreporting"
+        >
           Credit reporting
         </label>
         <span
-          className="flex-fixed bucket-count">
+          className="flex-fixed bucket-count"
+        >
           <span>
             1,052
           </span>
         </span>
       </li>
       <li
-        className="layout-row m-form-field m-form-field__checkbox">
+        className="layout-row m-form-field m-form-field__checkbox"
+      >
         <input
           aria-label="Student loan"
           checked={false}
           className="flex-fixed a-checkbox"
           id="productStudentloan"
           onChange={[Function]}
-          type="checkbox" />
+          type="checkbox"
+        />
         <label
           className="a-label flex-all bucket-key body-copy"
-          htmlFor="productStudentloan">
+          htmlFor="productStudentloan"
+        >
           Student loan
         </label>
         <span
-          className="flex-fixed bucket-count">
+          className="flex-fixed bucket-count"
+        >
           <span>
             959
           </span>
         </span>
       </li>
       <li
-        className="layout-row m-form-field m-form-field__checkbox">
+        className="layout-row m-form-field m-form-field__checkbox"
+      >
         <input
           aria-label="Credit card or prepaid card"
           checked={false}
           className="flex-fixed a-checkbox"
           id="productCreditcard or prepaid card"
           onChange={[Function]}
-          type="checkbox" />
+          type="checkbox"
+        />
         <label
           className="a-label flex-all bucket-key body-copy"
-          htmlFor="productCreditcard or prepaid card">
+          htmlFor="productCreditcard or prepaid card"
+        >
           Credit card or prepaid card
         </label>
         <span
-          className="flex-fixed bucket-count">
+          className="flex-fixed bucket-count"
+        >
           <span>
             836
           </span>
@@ -162,7 +197,8 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
     <div>
       <button
         className="a-btn a-btn__link more"
-        onClick={[Function]}>
+        onClick={[Function]}
+      >
         + Show 
         1
          
@@ -175,21 +211,27 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
 
 exports[`component:Product snapshots renders without crashing 1`] = `
 <section
-  className="o-expandable aggregation">
+  className="o-expandable aggregation"
+>
   <div
-    className="o-expandable_header o-expandable_target">
+    className="o-expandable_header o-expandable_target"
+  >
     <h4
-      className="o-expandable_header-left o-expandable_label">
+      className="o-expandable_header-left o-expandable_label"
+    >
       Product / sub-product
     </h4>
     <span
-      className="o-expandable_header-right o-expandable_link">
+      className="o-expandable_header-right o-expandable_link"
+    >
       <button
         className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
-        onClick={[Function]}>
+        onClick={[Function]}
+      >
         Hide
         <span
-          className="cf-icon cf-icon-minus-round" />
+          className="cf-icon cf-icon-minus-round"
+        />
       </button>
     </span>
   </div>
@@ -200,7 +242,8 @@ exports[`component:Product snapshots renders without crashing 1`] = `
     <a
       className="a-btn__link"
       href="http://files.consumerfinance.gov/f/documents/201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf"
-      target="_blank">
+      target="_blank"
+    >
       Recent changes to products and sub-products
     </a>
   </p>

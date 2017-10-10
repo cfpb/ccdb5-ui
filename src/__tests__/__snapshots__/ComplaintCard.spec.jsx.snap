@@ -1,14 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`initial state hides the section when there is no narrative 1`] = `
 <li
-  className="card-container">
+  className="card-container"
+>
   <div
-    className="card">
+    className="card"
+  >
     <div
-      className="card-left layout-column">
+      className="card-left layout-column"
+    >
       <h3
-        className="to-detail">
+        className="to-detail"
+      >
         <a
-          href="detail/99990909">
+          href="detail/99990909"
+        >
           99990909
         </a>
       </h3>
@@ -21,7 +28,8 @@ exports[`initial state hides the section when there is no narrative 1`] = `
           Object {
             "__html": "ABC Corp",
           }
-        } />
+        }
+      />
       <br />
       <h4>
         Company response to consumer
@@ -32,7 +40,8 @@ exports[`initial state hides the section when there is no narrative 1`] = `
           Object {
             "__html": "Ipsum",
           }
-        } />
+        }
+      />
       <br />
       <h4>
         Timely response?
@@ -43,30 +52,37 @@ exports[`initial state hides the section when there is no narrative 1`] = `
           Object {
             "__html": "Yes",
           }
-        } />
+        }
+      />
     </div>
     <div
-      className="card-right layout-column">
+      className="card-right layout-column"
+    >
       <div
-        className="layout-row">
+        className="layout-row"
+      >
         <div
-          className="layout-row">
+          className="layout-row"
+        >
           <h4>
             Date received:
           </h4>
           <span
-            className="body-copy">
+            className="body-copy"
+          >
             <span>
               2/3/2013
             </span>
           </span>
         </div>
         <div
-          className="spacer" />
+          className="spacer"
+        />
         <div
-          className="layout-row">
+          className="layout-row"
+        >
           <h4>
-            Consumer\'s state:
+            Consumer's state:
           </h4>
           <span
             className="body-copy"
@@ -74,7 +90,8 @@ exports[`initial state hides the section when there is no narrative 1`] = `
               Object {
                 "__html": "DC",
               }
-            } />
+            }
+          />
         </div>
       </div>
       <br />
@@ -86,11 +103,14 @@ exports[`initial state hides the section when there is no narrative 1`] = `
           Object {
             "__html": "Beta",
           }
-        } />
+        }
+      />
       <div
-        className="layout-row">
+        className="layout-row"
+      >
         <span
-          className="body-copy subitem">
+          className="body-copy subitem"
+        >
           Sub-product:
         </span>
         <span
@@ -99,7 +119,8 @@ exports[`initial state hides the section when there is no narrative 1`] = `
             Object {
               "__html": "Delta",
             }
-          } />
+          }
+        />
       </div>
       <br />
       <h4>
@@ -110,11 +131,14 @@ exports[`initial state hides the section when there is no narrative 1`] = `
           Object {
             "__html": "Alpha",
           }
-        } />
+        }
+      />
       <div
-        className="layout-row">
+        className="layout-row"
+      >
         <span
-          className="body-copy subitem">
+          className="body-copy subitem"
+        >
           Sub-issue:
         </span>
         <span
@@ -123,7 +147,8 @@ exports[`initial state hides the section when there is no narrative 1`] = `
             Object {
               "__html": "Gamma",
             }
-          } />
+          }
+        />
       </div>
     </div>
   </div>
@@ -132,15 +157,20 @@ exports[`initial state hides the section when there is no narrative 1`] = `
 
 exports[`initial state hides the section when there is no sub-issue 1`] = `
 <li
-  className="card-container">
+  className="card-container"
+>
   <div
-    className="card">
+    className="card"
+  >
     <div
-      className="card-left layout-column">
+      className="card-left layout-column"
+    >
       <h3
-        className="to-detail">
+        className="to-detail"
+      >
         <a
-          href="detail/99990909">
+          href="detail/99990909"
+        >
           99990909
         </a>
       </h3>
@@ -153,7 +183,8 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
           Object {
             "__html": "ABC Corp",
           }
-        } />
+        }
+      />
       <br />
       <h4>
         Company response to consumer
@@ -164,7 +195,8 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
           Object {
             "__html": "Ipsum",
           }
-        } />
+        }
+      />
       <br />
       <h4>
         Timely response?
@@ -175,30 +207,37 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
           Object {
             "__html": "Yes",
           }
-        } />
+        }
+      />
     </div>
     <div
-      className="card-right layout-column">
+      className="card-right layout-column"
+    >
       <div
-        className="layout-row">
+        className="layout-row"
+      >
         <div
-          className="layout-row">
+          className="layout-row"
+        >
           <h4>
             Date received:
           </h4>
           <span
-            className="body-copy">
+            className="body-copy"
+          >
             <span>
               2/3/2013
             </span>
           </span>
         </div>
         <div
-          className="spacer" />
+          className="spacer"
+        />
         <div
-          className="layout-row">
+          className="layout-row"
+        >
           <h4>
-            Consumer\'s state:
+            Consumer's state:
           </h4>
           <span
             className="body-copy"
@@ -206,7 +245,8 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
               Object {
                 "__html": "DC",
               }
-            } />
+            }
+          />
         </div>
       </div>
       <br />
@@ -218,11 +258,14 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
           Object {
             "__html": "Beta",
           }
-        } />
+        }
+      />
       <div
-        className="layout-row">
+        className="layout-row"
+      >
         <span
-          className="body-copy subitem">
+          className="body-copy subitem"
+        >
           Sub-product:
         </span>
         <span
@@ -231,7 +274,8 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
             Object {
               "__html": "Delta",
             }
-          } />
+          }
+        />
       </div>
       <br />
       <h4>
@@ -242,7 +286,8 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
           Object {
             "__html": "Alpha",
           }
-        } />
+        }
+      />
       <div>
         <br />
         <h4>
@@ -254,7 +299,8 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
             Object {
               "__html": "Oh baby you. Got what I need",
             }
-          } />
+          }
+        />
       </div>
     </div>
   </div>
@@ -263,15 +309,20 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
 
 exports[`initial state hides the section when there is no sub-product 1`] = `
 <li
-  className="card-container">
+  className="card-container"
+>
   <div
-    className="card">
+    className="card"
+  >
     <div
-      className="card-left layout-column">
+      className="card-left layout-column"
+    >
       <h3
-        className="to-detail">
+        className="to-detail"
+      >
         <a
-          href="detail/99990909">
+          href="detail/99990909"
+        >
           99990909
         </a>
       </h3>
@@ -284,7 +335,8 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
           Object {
             "__html": "ABC Corp",
           }
-        } />
+        }
+      />
       <br />
       <h4>
         Company response to consumer
@@ -295,7 +347,8 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
           Object {
             "__html": "Ipsum",
           }
-        } />
+        }
+      />
       <br />
       <h4>
         Timely response?
@@ -306,30 +359,37 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
           Object {
             "__html": "Yes",
           }
-        } />
+        }
+      />
     </div>
     <div
-      className="card-right layout-column">
+      className="card-right layout-column"
+    >
       <div
-        className="layout-row">
+        className="layout-row"
+      >
         <div
-          className="layout-row">
+          className="layout-row"
+        >
           <h4>
             Date received:
           </h4>
           <span
-            className="body-copy">
+            className="body-copy"
+          >
             <span>
               2/3/2013
             </span>
           </span>
         </div>
         <div
-          className="spacer" />
+          className="spacer"
+        />
         <div
-          className="layout-row">
+          className="layout-row"
+        >
           <h4>
-            Consumer\'s state:
+            Consumer's state:
           </h4>
           <span
             className="body-copy"
@@ -337,7 +397,8 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
               Object {
                 "__html": "DC",
               }
-            } />
+            }
+          />
         </div>
       </div>
       <br />
@@ -349,7 +410,8 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
           Object {
             "__html": "Beta",
           }
-        } />
+        }
+      />
       <br />
       <h4>
         Issue
@@ -359,11 +421,14 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
           Object {
             "__html": "Alpha",
           }
-        } />
+        }
+      />
       <div
-        className="layout-row">
+        className="layout-row"
+      >
         <span
-          className="body-copy subitem">
+          className="body-copy subitem"
+        >
           Sub-issue:
         </span>
         <span
@@ -372,7 +437,8 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
             Object {
               "__html": "Gamma",
             }
-          } />
+          }
+        />
       </div>
       <div>
         <br />
@@ -385,7 +451,8 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
             Object {
               "__html": "Oh baby you. Got what I need",
             }
-          } />
+          }
+        />
       </div>
     </div>
   </div>
@@ -394,15 +461,20 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
 
 exports[`initial state includes an overflow link when the narrative is long 1`] = `
 <li
-  className="card-container">
+  className="card-container"
+>
   <div
-    className="card">
+    className="card"
+  >
     <div
-      className="card-left layout-column">
+      className="card-left layout-column"
+    >
       <h3
-        className="to-detail">
+        className="to-detail"
+      >
         <a
-          href="detail/99990909">
+          href="detail/99990909"
+        >
           99990909
         </a>
       </h3>
@@ -415,7 +487,8 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
           Object {
             "__html": "ABC Corp",
           }
-        } />
+        }
+      />
       <br />
       <h4>
         Company response to consumer
@@ -426,7 +499,8 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
           Object {
             "__html": "Ipsum",
           }
-        } />
+        }
+      />
       <br />
       <h4>
         Timely response?
@@ -437,30 +511,37 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
           Object {
             "__html": "Yes",
           }
-        } />
+        }
+      />
     </div>
     <div
-      className="card-right layout-column">
+      className="card-right layout-column"
+    >
       <div
-        className="layout-row">
+        className="layout-row"
+      >
         <div
-          className="layout-row">
+          className="layout-row"
+        >
           <h4>
             Date received:
           </h4>
           <span
-            className="body-copy">
+            className="body-copy"
+          >
             <span>
               2/3/2013
             </span>
           </span>
         </div>
         <div
-          className="spacer" />
+          className="spacer"
+        />
         <div
-          className="layout-row">
+          className="layout-row"
+        >
           <h4>
-            Consumer\'s state:
+            Consumer's state:
           </h4>
           <span
             className="body-copy"
@@ -468,7 +549,8 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
               Object {
                 "__html": "DC",
               }
-            } />
+            }
+          />
         </div>
       </div>
       <br />
@@ -480,11 +562,14 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
           Object {
             "__html": "Beta",
           }
-        } />
+        }
+      />
       <div
-        className="layout-row">
+        className="layout-row"
+      >
         <span
-          className="body-copy subitem">
+          className="body-copy subitem"
+        >
           Sub-product:
         </span>
         <span
@@ -493,7 +578,8 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
             Object {
               "__html": "Delta",
             }
-          } />
+          }
+        />
       </div>
       <br />
       <h4>
@@ -504,11 +590,14 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
           Object {
             "__html": "Alpha",
           }
-        } />
+        }
+      />
       <div
-        className="layout-row">
+        className="layout-row"
+      >
         <span
-          className="body-copy subitem">
+          className="body-copy subitem"
+        >
           Sub-issue:
         </span>
         <span
@@ -517,7 +606,8 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
             Object {
               "__html": "Gamma",
             }
-          } />
+          }
+        />
       </div>
       <div>
         <br />
@@ -530,11 +620,13 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
             Object {
               "__html": "Call me Ishmael. Some years ago- never mind how long precisely- having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulati",
             }
-          } />
+          }
+        />
         <span>
            
           <a
-            href="detail/99990909">
+            href="detail/99990909"
+          >
             [...]
           </a>
         </span>
@@ -546,15 +638,20 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
 
 exports[`initial state renders without crashing 1`] = `
 <li
-  className="card-container">
+  className="card-container"
+>
   <div
-    className="card">
+    className="card"
+  >
     <div
-      className="card-left layout-column">
+      className="card-left layout-column"
+    >
       <h3
-        className="to-detail">
+        className="to-detail"
+      >
         <a
-          href="detail/99990909">
+          href="detail/99990909"
+        >
           99990909
         </a>
       </h3>
@@ -567,7 +664,8 @@ exports[`initial state renders without crashing 1`] = `
           Object {
             "__html": "ABC Corp",
           }
-        } />
+        }
+      />
       <br />
       <h4>
         Company response to consumer
@@ -578,7 +676,8 @@ exports[`initial state renders without crashing 1`] = `
           Object {
             "__html": "Ipsum",
           }
-        } />
+        }
+      />
       <br />
       <h4>
         Timely response?
@@ -589,30 +688,37 @@ exports[`initial state renders without crashing 1`] = `
           Object {
             "__html": "Yes",
           }
-        } />
+        }
+      />
     </div>
     <div
-      className="card-right layout-column">
+      className="card-right layout-column"
+    >
       <div
-        className="layout-row">
+        className="layout-row"
+      >
         <div
-          className="layout-row">
+          className="layout-row"
+        >
           <h4>
             Date received:
           </h4>
           <span
-            className="body-copy">
+            className="body-copy"
+          >
             <span>
               2/3/2013
             </span>
           </span>
         </div>
         <div
-          className="spacer" />
+          className="spacer"
+        />
         <div
-          className="layout-row">
+          className="layout-row"
+        >
           <h4>
-            Consumer\'s state:
+            Consumer's state:
           </h4>
           <span
             className="body-copy"
@@ -620,7 +726,8 @@ exports[`initial state renders without crashing 1`] = `
               Object {
                 "__html": "DC",
               }
-            } />
+            }
+          />
         </div>
       </div>
       <br />
@@ -632,11 +739,14 @@ exports[`initial state renders without crashing 1`] = `
           Object {
             "__html": "Beta",
           }
-        } />
+        }
+      />
       <div
-        className="layout-row">
+        className="layout-row"
+      >
         <span
-          className="body-copy subitem">
+          className="body-copy subitem"
+        >
           Sub-product:
         </span>
         <span
@@ -645,7 +755,8 @@ exports[`initial state renders without crashing 1`] = `
             Object {
               "__html": "Delta",
             }
-          } />
+          }
+        />
       </div>
       <br />
       <h4>
@@ -656,11 +767,14 @@ exports[`initial state renders without crashing 1`] = `
           Object {
             "__html": "Alpha",
           }
-        } />
+        }
+      />
       <div
-        className="layout-row">
+        className="layout-row"
+      >
         <span
-          className="body-copy subitem">
+          className="body-copy subitem"
+        >
           Sub-issue:
         </span>
         <span
@@ -669,7 +783,8 @@ exports[`initial state renders without crashing 1`] = `
             Object {
               "__html": "Gamma",
             }
-          } />
+          }
+        />
       </div>
       <div>
         <br />
@@ -682,7 +797,8 @@ exports[`initial state renders without crashing 1`] = `
             Object {
               "__html": "Oh baby you. Got what I need",
             }
-          } />
+          }
+        />
       </div>
     </div>
   </div>

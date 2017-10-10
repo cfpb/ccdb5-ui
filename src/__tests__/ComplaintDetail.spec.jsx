@@ -39,7 +39,8 @@ function _buildJson(row) {
 
 function setupEnzyme() {
   const props = {
-    complaint_id: '123456789'   
+    complaint_id: '123456789',
+    loadDetail: jest.fn()
   }
 
   const target = shallow(<ComplaintDetail {...props} />)

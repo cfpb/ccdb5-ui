@@ -1,18 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`initial state renders without crashing 1`] = `
 <section
-  className="o-expandable aggregation">
+  className="o-expandable aggregation"
+>
   <div
-    className="o-expandable_header o-expandable_target">
+    className="o-expandable_header o-expandable_target"
+  >
     <h4
-      className="o-expandable_header-left o-expandable_label" />
+      className="o-expandable_header-left o-expandable_label"
+    />
     <span
-      className="o-expandable_header-right o-expandable_link">
+      className="o-expandable_header-right o-expandable_link"
+    >
       <button
         className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
-        onClick={[Function]}>
+        onClick={[Function]}
+      >
         Show
         <span
-          className="cf-icon cf-icon-plus-round" />
+          className="cf-icon cf-icon-plus-round"
+        />
       </button>
     </span>
   </div>

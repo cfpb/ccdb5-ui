@@ -1,10 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`component:SearchPanel displays last updated date when present 1`] = `
 <div
-  className="search-panel">
+  className="search-panel"
+>
   <h2>
     Search complaint data 
     <span
-      className="date-subscript">
+      className="date-subscript"
+    >
       (last updated: 
       <span>
         2/1/2016
@@ -14,49 +18,62 @@ exports[`component:SearchPanel displays last updated date when present 1`] = `
   </h2>
   <div>
     <nav
-      className="search-bar">
+      className="search-bar"
+    >
       <form
         action=""
-        onSubmit={[Function]}>
+        onSubmit={[Function]}
+      >
         <h4>
           Search Within
         </h4>
         <div
-          className="layout-row">
+          className="layout-row"
+        >
           <div
-            className="cf-select flex-fixed">
+            className="cf-select flex-fixed"
+          >
             <select
               aria-label="Choose which field will be searched"
               id="searchField"
               onChange={[Function]}
-              value={undefined}>
+              value={undefined}
+            >
               <optgroup
-                label="Search Within">
+                label="Search Within"
+              >
                 <option
-                  value="all">
+                  value="all"
+                >
                   All Data
                 </option>
                 <option
-                  value="company">
+                  value="company"
+                >
                   Company Name
                 </option>
                 <option
-                  value="complaint_what_happened">
+                  value="complaint_what_happened"
+                >
                   Narratives
                 </option>
               </optgroup>
             </select>
           </div>
           <div
-            className="flex-all typeahead-portal">
+            className="flex-all typeahead-portal"
+          >
             <section
               className="typeahead "
               onBlur={[Function]}
-              onFocus={[Function]}>
+              onFocus={[Function]}
+            >
               <div
-                className="m-btn-inside-input input-contains-label">
+                className="m-btn-inside-input input-contains-label"
+              >
                 <label
-                  className="input-contains-label_before input-contains-label_before__search" />
+                  className="input-contains-label_before input-contains-label_before__search"
+                />
                 <input
                   aria-label="The term to search for"
                   autoComplete="off"
@@ -66,20 +83,24 @@ exports[`component:SearchPanel displays last updated date when present 1`] = `
                   onKeyDown={[Function]}
                   placeholder="Enter your search term(s)"
                   type="text"
-                  value="" />
+                  value=""
+                />
               </div>
             </section>
           </div>
           <button
             className="a-btn flex-fixed"
-            type="submit">
+            type="submit"
+          >
             Search
           </button>
           <div
-            className="advanced-container flex-fixed">
+            className="advanced-container flex-fixed"
+          >
             <a
               className="a-btn a-btn__link o-expandable_cue-open"
-              onClick={[Function]}>
+              onClick={[Function]}
+            >
               Show advanced search tips
             </a>
           </div>
@@ -92,55 +113,69 @@ exports[`component:SearchPanel displays last updated date when present 1`] = `
 
 exports[`component:SearchPanel renders without crashing 1`] = `
 <div
-  className="search-panel">
+  className="search-panel"
+>
   <h2>
     Search complaint data 
   </h2>
   <div>
     <nav
-      className="search-bar">
+      className="search-bar"
+    >
       <form
         action=""
-        onSubmit={[Function]}>
+        onSubmit={[Function]}
+      >
         <h4>
           Search Within
         </h4>
         <div
-          className="layout-row">
+          className="layout-row"
+        >
           <div
-            className="cf-select flex-fixed">
+            className="cf-select flex-fixed"
+          >
             <select
               aria-label="Choose which field will be searched"
               id="searchField"
               onChange={[Function]}
-              value={undefined}>
+              value={undefined}
+            >
               <optgroup
-                label="Search Within">
+                label="Search Within"
+              >
                 <option
-                  value="all">
+                  value="all"
+                >
                   All Data
                 </option>
                 <option
-                  value="company">
+                  value="company"
+                >
                   Company Name
                 </option>
                 <option
-                  value="complaint_what_happened">
+                  value="complaint_what_happened"
+                >
                   Narratives
                 </option>
               </optgroup>
             </select>
           </div>
           <div
-            className="flex-all typeahead-portal">
+            className="flex-all typeahead-portal"
+          >
             <section
               className="typeahead "
               onBlur={[Function]}
-              onFocus={[Function]}>
+              onFocus={[Function]}
+            >
               <div
-                className="m-btn-inside-input input-contains-label">
+                className="m-btn-inside-input input-contains-label"
+              >
                 <label
-                  className="input-contains-label_before input-contains-label_before__search" />
+                  className="input-contains-label_before input-contains-label_before__search"
+                />
                 <input
                   aria-label="The term to search for"
                   autoComplete="off"
@@ -150,20 +185,24 @@ exports[`component:SearchPanel renders without crashing 1`] = `
                   onKeyDown={[Function]}
                   placeholder="Enter your search term(s)"
                   type="text"
-                  value="" />
+                  value=""
+                />
               </div>
             </section>
           </div>
           <button
             className="a-btn flex-fixed"
-            type="submit">
+            type="submit"
+          >
             Search
           </button>
           <div
-            className="advanced-container flex-fixed">
+            className="advanced-container flex-fixed"
+          >
             <a
               className="a-btn a-btn__link o-expandable_cue-open"
-              onClick={[Function]}>
+              onClick={[Function]}
+            >
               Show advanced search tips
             </a>
           </div>

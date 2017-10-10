@@ -41,7 +41,7 @@ export class HasNarrative extends React.Component {
                    checked={ this.props.phase !== NOTHING }
                    disabled={ this.props.phase === SEARCHING }
                    id="filterHasNarrative"
-                   onClick={ this._changeFlag.bind( this ) }
+                   onChange={ this._changeFlag.bind( this ) }
                    type="checkbox"
                    value={ FIELD_NAME } />
             <label className="a-label" htmlFor="filterHasNarrative">Yes</label>

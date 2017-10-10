@@ -1,95 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`component::AggregationBranch snapshots renders with all checked 1`] = `
 <div
-  className="aggregation-branch">
+  className="aggregation-branch"
+>
   <li
-    className="layout-row parent m-form-field m-form-field__checkbox body-copy">
+    className="layout-row parent m-form-field m-form-field__checkbox body-copy"
+  >
     <input
       aria-label="foo"
       checked={true}
       className="flex-fixed a-checkbox"
       id="issuefoo"
       onChange={[Function]}
-      type="checkbox" />
+      type="checkbox"
+    />
     <label
       className="toggle a-label"
-      htmlFor="issuefoo" />
+      htmlFor="issuefoo"
+    />
     <button
       className="flex-all a-btn a-btn__link"
       onClick={[Function]}
-      title="foo">
+      title="foo"
+    >
       <span>
         foo
       </span>
       <span
-        className="cf-icon cf-icon-up" />
+        className="cf-icon cf-icon-up"
+      />
     </button>
     <span
-      className="flex-fixed parent-count">
+      className="flex-fixed parent-count"
+    >
       <span>
         99
       </span>
     </span>
   </li>
   <ul
-    className="children">
+    className="children"
+  >
     <li
-      className="layout-row m-form-field m-form-field__checkbox">
+      className="layout-row m-form-field m-form-field__checkbox"
+    >
       <input
         aria-label="foo•bar"
         checked={true}
         className="flex-fixed a-checkbox"
         id="issuefoo•bar"
         onChange={[Function]}
-        type="checkbox" />
+        type="checkbox"
+      />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="issuefoo•bar">
+        htmlFor="issuefoo•bar"
+      >
         bar
       </label>
       <span
-        className="flex-fixed bucket-count">
+        className="flex-fixed bucket-count"
+      >
         <span>
           90
         </span>
       </span>
     </li>
     <li
-      className="layout-row m-form-field m-form-field__checkbox">
+      className="layout-row m-form-field m-form-field__checkbox"
+    >
       <input
         aria-label="foo•baz"
         checked={true}
         className="flex-fixed a-checkbox"
         id="issuefoo•baz"
         onChange={[Function]}
-        type="checkbox" />
+        type="checkbox"
+      />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="issuefoo•baz">
+        htmlFor="issuefoo•baz"
+      >
         baz
       </label>
       <span
-        className="flex-fixed bucket-count">
+        className="flex-fixed bucket-count"
+      >
         <span>
           5
         </span>
       </span>
     </li>
     <li
-      className="layout-row m-form-field m-form-field__checkbox">
+      className="layout-row m-form-field m-form-field__checkbox"
+    >
       <input
         aria-label="foo•qaz"
         checked={true}
         className="flex-fixed a-checkbox"
         id="issuefoo•qaz"
         onChange={[Function]}
-        type="checkbox" />
+        type="checkbox"
+      />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="issuefoo•qaz">
+        htmlFor="issuefoo•qaz"
+      >
         qaz
       </label>
       <span
-        className="flex-fixed bucket-count">
+        className="flex-fixed bucket-count"
+      >
         <span>
           4
         </span>
@@ -101,96 +123,116 @@ exports[`component::AggregationBranch snapshots renders with all checked 1`] = `
 
 exports[`component::AggregationBranch snapshots renders with indeterminate 1`] = `
 <div
-  className="aggregation-branch">
+  className="aggregation-branch"
+>
   <li
-    className="layout-row parent m-form-field m-form-field__checkbox body-copy">
+    className="layout-row parent m-form-field m-form-field__checkbox body-copy"
+  >
     <input
       aria-label="foo"
       checked={false}
       className="flex-fixed a-checkbox"
       id="issuefoo"
       onChange={[Function]}
-      type="checkbox" />
+      type="checkbox"
+    />
     <label
       className="toggle a-label indeterminate"
-      htmlFor="issuefoo" />
+      htmlFor="issuefoo"
+    />
     <button
       className="flex-all a-btn a-btn__link"
       onClick={[Function]}
-      title="foo">
+      title="foo"
+    >
       <span>
         foo
       </span>
       <span
-        className="cf-icon cf-icon-up" />
+        className="cf-icon cf-icon-up"
+      />
     </button>
     <span
-      className="flex-fixed parent-count">
+      className="flex-fixed parent-count"
+    >
       <span>
         99
       </span>
     </span>
   </li>
   <ul
-    className="children">
+    className="children"
+  >
     <li
-      className="layout-row m-form-field m-form-field__checkbox">
+      className="layout-row m-form-field m-form-field__checkbox"
+    >
       <input
         aria-label="foo•bar"
         checked={true}
         className="flex-fixed a-checkbox"
         id="issuefoo•bar"
         onChange={[Function]}
-        type="checkbox" />
+        type="checkbox"
+      />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="issuefoo•bar">
+        htmlFor="issuefoo•bar"
+      >
         bar
       </label>
       <span
-        className="flex-fixed bucket-count">
+        className="flex-fixed bucket-count"
+      >
         <span>
           90
         </span>
       </span>
     </li>
     <li
-      className="layout-row m-form-field m-form-field__checkbox">
+      className="layout-row m-form-field m-form-field__checkbox"
+    >
       <input
         aria-label="foo•baz"
         checked={false}
         className="flex-fixed a-checkbox"
         id="issuefoo•baz"
         onChange={[Function]}
-        type="checkbox" />
+        type="checkbox"
+      />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="issuefoo•baz">
+        htmlFor="issuefoo•baz"
+      >
         baz
       </label>
       <span
-        className="flex-fixed bucket-count">
+        className="flex-fixed bucket-count"
+      >
         <span>
           5
         </span>
       </span>
     </li>
     <li
-      className="layout-row m-form-field m-form-field__checkbox">
+      className="layout-row m-form-field m-form-field__checkbox"
+    >
       <input
         aria-label="foo•qaz"
         checked={false}
         className="flex-fixed a-checkbox"
         id="issuefoo•qaz"
         onChange={[Function]}
-        type="checkbox" />
+        type="checkbox"
+      />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="issuefoo•qaz">
+        htmlFor="issuefoo•qaz"
+      >
         qaz
       </label>
       <span
-        className="flex-fixed bucket-count">
+        className="flex-fixed bucket-count"
+      >
         <span>
           4
         </span>
@@ -202,31 +244,38 @@ exports[`component::AggregationBranch snapshots renders with indeterminate 1`] =
 
 exports[`component::AggregationBranch snapshots renders with none checked 1`] = `
 <div
-  className="aggregation-branch">
+  className="aggregation-branch"
+>
   <li
-    className="layout-row parent m-form-field m-form-field__checkbox body-copy">
+    className="layout-row parent m-form-field m-form-field__checkbox body-copy"
+  >
     <input
       aria-label="foo"
       checked={false}
       className="flex-fixed a-checkbox"
       id="issuefoo"
       onChange={[Function]}
-      type="checkbox" />
+      type="checkbox"
+    />
     <label
       className="toggle a-label"
-      htmlFor="issuefoo" />
+      htmlFor="issuefoo"
+    />
     <button
       className="flex-all a-btn a-btn__link"
       onClick={[Function]}
-      title="foo">
+      title="foo"
+    >
       <span>
         foo
       </span>
       <span
-        className="cf-icon cf-icon-down" />
+        className="cf-icon cf-icon-down"
+      />
     </button>
     <span
-      className="flex-fixed parent-count">
+      className="flex-fixed parent-count"
+    >
       <span>
         99
       </span>

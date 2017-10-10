@@ -49,8 +49,8 @@ describe('component::RootModal', () => {
 
   it('only renders registered dialogs', () => {
     const {target, props} = setupEnzyme()
-    expect(target.nodes[0].type).not.toEqual('span')
-    expect(target.nodes[0].type).toBeInstanceOf(Function)
+    expect(target.getElements()[0].type).not.toEqual('span')
+    expect(target.getElements()[0].type).toBeInstanceOf(Function)
   })
 
   describe('mapDispatchToProps', () => {
