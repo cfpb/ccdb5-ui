@@ -66,13 +66,13 @@ describe('component::DataExport', () => {
 
     it('supports changing the format', () => {
       const radio = target.find('#format_csv')
-      radio.simulate('change', { target: radio.node.props })
+      radio.simulate('change', { target: radio.getElements()[0].props })
       expect(target.state('format')).toEqual('csv')
     })
 
     it('supports changing the which dataset is used', () => {
       const radio = target.find('#dataset_filtered')
-      radio.simulate('change', { target: radio.node.props })
+      radio.simulate('change', { target: radio.getElements()[0].props })
       expect(target.state('dataset')).toEqual('filtered')
     })
 
