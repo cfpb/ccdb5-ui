@@ -1,22 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`initial state checks and disables the filter when searching narratives 1`] = `
 <section
-  className="single-checkbox">
+  className="single-checkbox"
+>
   <h4>
     Only show complaints with narratives?
   </h4>
   <div
-    className="m-form-field m-form-field__checkbox">
+    className="m-form-field m-form-field__checkbox"
+  >
     <input
       checked={true}
       className="a-checkbox"
       disabled={true}
       id="filterHasNarrative"
-      onClick={[Function]}
+      onChange={[Function]}
       type="checkbox"
-      value="has_narrative" />
+      value="has_narrative"
+    />
     <label
       className="a-label"
-      htmlFor="filterHasNarrative">
+      htmlFor="filterHasNarrative"
+    >
       Yes
     </label>
   </div>
@@ -25,23 +31,27 @@ exports[`initial state checks and disables the filter when searching narratives 
 
 exports[`initial state pre-check filter based on query 1`] = `
 <section
-  className="single-checkbox">
+  className="single-checkbox"
+>
   <h4>
     Only show complaints with narratives?
   </h4>
   <div
-    className="m-form-field m-form-field__checkbox">
+    className="m-form-field m-form-field__checkbox"
+  >
     <input
       checked={true}
       className="a-checkbox"
       disabled={false}
       id="filterHasNarrative"
-      onClick={[Function]}
+      onChange={[Function]}
       type="checkbox"
-      value="has_narrative" />
+      value="has_narrative"
+    />
     <label
       className="a-label"
-      htmlFor="filterHasNarrative">
+      htmlFor="filterHasNarrative"
+    >
       Yes
     </label>
   </div>
@@ -50,23 +60,27 @@ exports[`initial state pre-check filter based on query 1`] = `
 
 exports[`initial state renders without crashing 1`] = `
 <section
-  className="single-checkbox">
+  className="single-checkbox"
+>
   <h4>
     Only show complaints with narratives?
   </h4>
   <div
-    className="m-form-field m-form-field__checkbox">
+    className="m-form-field m-form-field__checkbox"
+  >
     <input
       checked={false}
       className="a-checkbox"
       disabled={false}
       id="filterHasNarrative"
-      onClick={[Function]}
+      onChange={[Function]}
       type="checkbox"
-      value="has_narrative" />
+      value="has_narrative"
+    />
     <label
       className="a-label"
-      htmlFor="filterHasNarrative">
+      htmlFor="filterHasNarrative"
+    >
       Yes
     </label>
   </div>

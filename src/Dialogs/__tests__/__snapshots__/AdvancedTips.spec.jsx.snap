@@ -1,17 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`component::AdvancedTips initial state renders HTML 1`] = `
 <nav
-  className="advanced_tips">
+  className="advanced_tips"
+>
   <div
-    className="o-expandable">
+    className="o-expandable"
+  >
     <div
-      className="o-expandable_content o-expandable_content__onload-open">
+      className="o-expandable_content o-expandable_content__onload-open"
+    >
       <h3>
         Advanced search tips
       </h3>
       <div
-        className="tips">
+        className="tips"
+      >
         <div
-          className="tip">
+          className="tip"
+        >
           <h4>
             And/Or
           </h4>
@@ -19,14 +26,17 @@ exports[`component::AdvancedTips initial state renders HTML 1`] = `
             className="a-text-input example-input first"
             readOnly={true}
             type="text"
-            value="Credit AND Card" />
+            value="Credit AND Card"
+          />
           <input
             className="a-text-input example-input"
             readOnly={true}
             type="text"
-            value="Loan OR Mortgage" />
+            value="Loan OR Mortgage"
+          />
           <div
-            className="tip-description">
+            className="tip-description"
+          >
             <p>
               Use AND when results must contain both terms
             </p>
@@ -36,7 +46,8 @@ exports[`component::AdvancedTips initial state renders HTML 1`] = `
           </div>
         </div>
         <div
-          className="tip">
+          className="tip"
+        >
           <h4>
             Wildcard search
           </h4>
@@ -44,14 +55,17 @@ exports[`component::AdvancedTips initial state renders HTML 1`] = `
             className="a-text-input example-input first"
             readOnly={true}
             type="text"
-            value="pay*" />
+            value="pay*"
+          />
           <input
             className="a-text-input example-input"
             readOnly={true}
             type="text"
-            value="Mort?age" />
+            value="Mort?age"
+          />
           <div
-            className="tip-description">
+            className="tip-description"
+          >
             <p>
               Use * after a few letters or a word to show results that start with those letters or word
             </p>
@@ -61,7 +75,8 @@ exports[`component::AdvancedTips initial state renders HTML 1`] = `
           </div>
         </div>
         <div
-          className="tip">
+          className="tip"
+        >
           <h4>
             Must/must not contain
           </h4>
@@ -69,14 +84,17 @@ exports[`component::AdvancedTips initial state renders HTML 1`] = `
             className="a-text-input example-input first"
             readOnly={true}
             type="text"
-            value="+foreclosure" />
+            value="+foreclosure"
+          />
           <input
             className="a-text-input example-input"
             readOnly={true}
             type="text"
-            value="-\"debt collector\"" />
+            value="-\\"debt collector\\""
+          />
           <div
-            className="tip-description">
+            className="tip-description"
+          >
             <p>
               Use + if the search must contain the term
             </p>
@@ -86,7 +104,8 @@ exports[`component::AdvancedTips initial state renders HTML 1`] = `
           </div>
         </div>
         <div
-          className="tip">
+          className="tip"
+        >
           <h4>
             Proximity Search
           </h4>
@@ -94,16 +113,19 @@ exports[`component::AdvancedTips initial state renders HTML 1`] = `
             className="a-text-input example-input_full"
             readOnly={true}
             type="text"
-            value="\"Loan default\"~3" />
+            value="\\"Loan default\\"~3"
+          />
           <div
-            className="tip-description">
+            className="tip-description"
+          >
             <p>
               Use ~[#] to search for two words within that number of characters from one another; the words should be in quotation marks
             </p>
           </div>
         </div>
         <div
-          className="tip">
+          className="tip"
+        >
           <h4>
             Fuzzy Search
           </h4>
@@ -111,16 +133,19 @@ exports[`component::AdvancedTips initial state renders HTML 1`] = `
             className="a-text-input example-input_full"
             readOnly={true}
             type="text"
-            value="Mortgage~2" />
+            value="Mortgage~2"
+          />
           <div
-            className="tip-description">
+            className="tip-description"
+          >
             <p>
               Use ~[#] to search for terms that are similar to your keyword terms within a certain margin of error (~1 catches 80% of spelling errors)
             </p>
           </div>
         </div>
         <div
-          className="tip">
+          className="tip"
+        >
           <h4>
             Boost Search
           </h4>
@@ -128,9 +153,11 @@ exports[`component::AdvancedTips initial state renders HTML 1`] = `
             className="a-text-input example-input_full"
             readOnly={true}
             type="text"
-            value="pay^2 bill" />
+            value="pay^2 bill"
+          />
           <div
-            className="tip-description">
+            className="tip-description"
+          >
             <p>
               Use ~2 after a term to boost its relevance above the other term
             </p>

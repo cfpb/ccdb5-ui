@@ -1,6 +1,6 @@
+import { mount } from 'enzyme'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { shallow } from 'enzyme';
 import Typeahead, { MODE_OPEN } from '..'
 import * as keys from '../../constants'
 
@@ -11,7 +11,7 @@ function setupEnzyme(initalProps={}, removeDebounce=true) {
     renderOption: jest.fn()
   }, initalProps)
 
-  const target = shallow(<Typeahead {...props} />);
+  const target = mount(<Typeahead {...props} />);
 
   // Remove debounce
   if (removeDebounce) {
@@ -78,15 +78,20 @@ describe('component::Typeahead', () => {
   })
 
   describe('focus/blur', () => {
+    const renderOption = x => ( {
+      value: x,
+      component: x
+    } )
+
     it('sets the current state on blur', () => {
-      const { target } = setupEnzyme({value: 'foo'})
+      const {target} = setupEnzyme({ renderOption, value: 'foo' })
       target.setState({focused: true})
       target.simulate('blur')
       expect(target.state('focused')).toEqual(false)
     })
 
     it('sets the state on focus', () => {
-      const { target } = setupEnzyme({value: 'foo'})
+      const {target} = setupEnzyme({ renderOption, value: 'foo' })
       expect(target.state('phase')).toEqual('WAITING')
       expect(target.state('focused')).toEqual(false)
       target.simulate('focus')

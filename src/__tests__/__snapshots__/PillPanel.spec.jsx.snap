@@ -1,45 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`component:PillPanel does not render when there are no filters 1`] = `null`;
 
 exports[`component:PillPanel renders without crashing 1`] = `
 <section
-  className="pill-panel">
+  className="pill-panel"
+>
   <h4
-    className="pill-label flex-fixed">
+    className="pill-label flex-fixed"
+  >
     Filters Applied:
   </h4>
   <ul
-    className="layout-row">
+    className="layout-row"
+  >
     <li
-      className="pill flex-fixed">
+      className="pill flex-fixed"
+    >
       <span
-        className="name">
+        className="name"
+      >
         Apples
       </span>
       <button
         onClick={[Function]}
-        title="Remove Apples as a filter">
+        title="Remove Apples as a filter"
+      >
         <span
-          className="cf-icon cf-icon-delete" />
+          className="cf-icon cf-icon-delete"
+        />
       </button>
     </li>
     <li
-      className="pill flex-fixed">
+      className="pill flex-fixed"
+    >
       <span
-        className="name">
+        className="name"
+      >
         Bananas are great
       </span>
       <button
         onClick={[Function]}
-        title="Remove Bananas are great as a filter">
+        title="Remove Bananas are great as a filter"
+      >
         <span
-          className="cf-icon cf-icon-delete" />
+          className="cf-icon cf-icon-delete"
+        />
       </button>
     </li>
     <li
-      className="clear-all">
+      className="clear-all"
+    >
       <button
         className="a-btn a-btn__link body-copy"
-        onClick={[Function]}>
+        onClick={[Function]}
+      >
         Clear all filters
       </button>
     </li>

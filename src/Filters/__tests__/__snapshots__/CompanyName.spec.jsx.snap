@@ -1,20 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`component::CompanyName snapshots renders without crashing 1`] = `
 <section
-  className="o-expandable aggregation">
+  className="o-expandable aggregation"
+>
   <div
-    className="o-expandable_header o-expandable_target">
+    className="o-expandable_header o-expandable_target"
+  >
     <h4
-      className="o-expandable_header-left o-expandable_label">
+      className="o-expandable_header-left o-expandable_label"
+    >
       Matched company name
     </h4>
     <span
-      className="o-expandable_header-right o-expandable_link">
+      className="o-expandable_header-right o-expandable_link"
+    >
       <button
         className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
-        onClick={[Function]}>
+        onClick={[Function]}
+      >
         Hide
         <span
-          className="cf-icon cf-icon-minus-round" />
+          className="cf-icon cf-icon-minus-round"
+        />
       </button>
     </span>
   </div>
@@ -24,11 +32,14 @@ exports[`component::CompanyName snapshots renders without crashing 1`] = `
   <section
     className="typeahead "
     onBlur={[Function]}
-    onFocus={[Function]}>
+    onFocus={[Function]}
+  >
     <div
-      className="m-btn-inside-input input-contains-label">
+      className="m-btn-inside-input input-contains-label"
+    >
       <label
-        className="input-contains-label_before input-contains-label_before__search" />
+        className="input-contains-label_before input-contains-label_before__search"
+      />
       <input
         autoComplete="off"
         className="a-text-input"
@@ -36,26 +47,31 @@ exports[`component::CompanyName snapshots renders without crashing 1`] = `
         onKeyDown={[Function]}
         placeholder="Enter company name"
         type="text"
-        value="" />
+        value=""
+      />
     </div>
   </section>
   <ul>
     <li
-      className="layout-row m-form-field m-form-field__checkbox">
+      className="layout-row m-form-field m-form-field__checkbox"
+    >
       <input
         aria-label="CAPITAL"
         checked={true}
         className="flex-fixed a-checkbox"
         id="companyCAPITAL"
         onChange={[Function]}
-        type="checkbox" />
+        type="checkbox"
+      />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="companyCAPITAL">
+        htmlFor="companyCAPITAL"
+      >
         CAPITAL
       </label>
       <span
-        className="flex-fixed bucket-count">
+        className="flex-fixed bucket-count"
+      >
         <span>
           999
         </span>

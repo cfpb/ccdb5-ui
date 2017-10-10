@@ -1,20 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`component:AggregationItemFilter renders without crashing 1`] = `
 <li
-  className="layout-row m-form-field m-form-field__checkbox">
+  className="layout-row m-form-field m-form-field__checkbox"
+>
   <input
     aria-label="foo"
     checked={false}
     className="flex-fixed a-checkbox"
     id="fieldNamefoo"
     onChange={[Function]}
-    type="checkbox" />
+    type="checkbox"
+  />
   <label
     className="a-label flex-all bucket-key body-copy"
-    htmlFor="fieldNamefoo">
+    htmlFor="fieldNamefoo"
+  >
     foo
   </label>
   <span
-    className="flex-fixed bucket-count">
+    className="flex-fixed bucket-count"
+  >
     <span>
       1,000
     </span>

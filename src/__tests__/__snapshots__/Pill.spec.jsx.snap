@@ -1,15 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`component:Pill renders without crashing 1`] = `
 <li
-  className="pill flex-fixed">
+  className="pill flex-fixed"
+>
   <span
-    className="name">
+    className="name"
+  >
     bar
   </span>
   <button
     onClick={undefined}
-    title="Remove bar as a filter">
+    title="Remove bar as a filter"
+  >
     <span
-      className="cf-icon cf-icon-delete" />
+      className="cf-icon cf-icon-delete"
+    />
   </button>
 </li>
 `;
