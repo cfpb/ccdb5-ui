@@ -1,35 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`initial state renders the detail route 1`] = `
 <main
-  role="main">
+  role="main"
+>
   <section
-    className="card-container">
+    className="card-container"
+  >
     <nav
-      className="layout-row">
+      className="layout-row"
+    >
       <div
-        className="back-to-search flex-fixed">
+        className="back-to-search flex-fixed"
+      >
         <button
           className="a-btn a-btn__link"
-          onClick={[Function]}>
+          onClick={[Function]}
+        >
           <span
-            className="cf-icon cf-icon-left" />
+            className="cf-icon cf-icon-left"
+          />
           Back to search results
         </button>
       </div>
       <div
-        className="meaning flex-fixed">
+        className="meaning flex-fixed"
+      >
         <a
           href="https://www.consumerfinance.gov/complaint/data-use/"
-          target="_blank">
+          target="_blank"
+        >
           What do all these data points mean?
         </a>
       </div>
     </nav>
     <section
-      className="light-box">
+      className="light-box"
+    >
       <div
-        className="loading-box">
+        className="loading-box"
+      >
         <span
-          className="cf-icon cf-icon-update cf-icon__before cf-icon__spin" />
+          className="cf-icon cf-icon-update cf-icon__before cf-icon__spin"
+        />
         <span>
           This page is loading
         </span>
@@ -42,108 +55,136 @@ exports[`initial state renders the detail route 1`] = `
 exports[`initial state renders without crashing 1`] = `
 <main
   className="content content__1-3"
-  role="main">
+  role="main"
+>
   <header
-    className="content_hero">
+    className="content_hero"
+  >
     <h1
-      className="content-header">
+      className="content-header"
+    >
       Consumer Complaint Database
     </h1>
     <h4
-      className="content-header">
+      className="content-header"
+    >
       Beta
     </h4>
     <p>
-      Consumer complaints are added to this public database after the company has responded to the complaint, confirming a commercial relationship with the consumer, or after they\'ve had the complaint for 15 calendar days, whichever comes first. We don’t verify all the facts alleged in complaints, but we do give companies the opportunity to publicly respond to complaints by selecting responses from a pre-populated list. Company-level information should be considered in the context of company size and/or market share.
+      Consumer complaints are added to this public database after the company has responded to the complaint, confirming a commercial relationship with the consumer, or after they've had the complaint for 15 calendar days, whichever comes first. We don’t verify all the facts alleged in complaints, but we do give companies the opportunity to publicly respond to complaints by selecting responses from a pre-populated list. Company-level information should be considered in the context of company size and/or market share.
     </p>
     <ul
-      className="m-list m-list__horizontal">
+      className="m-list m-list__horizontal"
+    >
       <li
-        className="m-list_item">
+        className="m-list_item"
+      >
         <button
           className="a-btn a-btn__link"
-          onClick={[Function]}>
+          onClick={[Function]}
+        >
           More about the complaint database
         </button>
       </li>
       <li
-        className="m-list_item">
+        className="m-list_item"
+      >
         <a
           href="https://www.consumerfinance.gov/complaint/data-use/"
-          target="_blank">
+          target="_blank"
+        >
           How we use complaint data
         </a>
       </li>
       <li
-        className="m-list_item">
+        className="m-list_item"
+      >
         <a
           href="https://cfpb.github.io/api/ccdb/"
-          target="_blank">
+          target="_blank"
+        >
           Technical documentation
         </a>
       </li>
       <li
-        className="m-list_item">
+        className="m-list_item"
+      >
         <a
           href="https://data.consumerfinance.gov/dataset/Consumer-Complaints/s6ew-h6mp"
-          target="_blank">
+          target="_blank"
+        >
           View complaint data in Socrata
         </a>
       </li>
     </ul>
   </header>
   <div
-    className="content_wrapper">
+    className="content_wrapper"
+  >
     <div
-      className="search-panel">
+      className="search-panel"
+    >
       <h2>
         Search complaint data 
       </h2>
       <div>
         <nav
-          className="search-bar">
+          className="search-bar"
+        >
           <form
             action=""
-            onSubmit={[Function]}>
+            onSubmit={[Function]}
+          >
             <h4>
               Search Within
             </h4>
             <div
-              className="layout-row">
+              className="layout-row"
+            >
               <div
-                className="cf-select flex-fixed">
+                className="cf-select flex-fixed"
+              >
                 <select
                   aria-label="Choose which field will be searched"
                   id="searchField"
                   onChange={[Function]}
-                  value="all">
+                  value="all"
+                >
                   <optgroup
-                    label="Search Within">
+                    label="Search Within"
+                  >
                     <option
-                      value="all">
+                      value="all"
+                    >
                       All Data
                     </option>
                     <option
-                      value="company">
+                      value="company"
+                    >
                       Company Name
                     </option>
                     <option
-                      value="complaint_what_happened">
+                      value="complaint_what_happened"
+                    >
                       Narratives
                     </option>
                   </optgroup>
                 </select>
               </div>
               <div
-                className="flex-all typeahead-portal">
+                className="flex-all typeahead-portal"
+              >
                 <section
                   className="typeahead "
                   onBlur={[Function]}
-                  onFocus={[Function]}>
+                  onFocus={[Function]}
+                >
                   <div
-                    className="m-btn-inside-input input-contains-label">
+                    className="m-btn-inside-input input-contains-label"
+                  >
                     <label
-                      className="input-contains-label_before input-contains-label_before__search" />
+                      className="input-contains-label_before input-contains-label_before__search"
+                    />
                     <input
                       aria-label="The term to search for"
                       autoComplete="off"
@@ -153,12 +194,15 @@ exports[`initial state renders without crashing 1`] = `
                       onKeyDown={[Function]}
                       placeholder="Enter your search term(s)"
                       type="text"
-                      value="foo" />
+                      value="foo"
+                    />
                     <button
                       className="a-btn a-btn__link"
-                      onClick={[Function]}>
+                      onClick={[Function]}
+                    >
                       <span
-                        className="cf-icon cf-icon-delete" />
+                        className="cf-icon cf-icon-delete"
+                      />
                       Clear
                     </button>
                   </div>
@@ -166,14 +210,17 @@ exports[`initial state renders without crashing 1`] = `
               </div>
               <button
                 className="a-btn flex-fixed"
-                type="submit">
+                type="submit"
+              >
                 Search
               </button>
               <div
-                className="advanced-container flex-fixed">
+                className="advanced-container flex-fixed"
+              >
                 <a
                   className="a-btn a-btn__link o-expandable_cue-open"
-                  onClick={[Function]}>
+                  onClick={[Function]}
+                >
                   Show advanced search tips
                 </a>
               </div>
@@ -183,65 +230,80 @@ exports[`initial state renders without crashing 1`] = `
       </div>
     </div>
     <aside
-      className="content_sidebar">
+      className="content_sidebar"
+    >
       <section
-        className="filter-panel">
+        className="filter-panel"
+      >
         <h3>
           Filter results by...
         </h3>
         <section
-          className="single-checkbox">
+          className="single-checkbox"
+        >
           <h4>
             Only show complaints with narratives?
           </h4>
           <div
-            className="m-form-field m-form-field__checkbox">
+            className="m-form-field m-form-field__checkbox"
+          >
             <input
               checked={false}
               className="a-checkbox"
               disabled={false}
               id="filterHasNarrative"
-              onClick={[Function]}
+              onChange={[Function]}
               type="checkbox"
-              value="has_narrative" />
+              value="has_narrative"
+            />
             <label
               className="a-label"
-              htmlFor="filterHasNarrative">
+              htmlFor="filterHasNarrative"
+            >
               Yes
             </label>
           </div>
         </section>
         <hr />
         <section
-          className="o-expandable aggregation date-filter">
+          className="o-expandable aggregation date-filter"
+        >
           <div
-            className="o-expandable_header o-expandable_target">
+            className="o-expandable_header o-expandable_target"
+          >
             <h4
-              className="o-expandable_header-left o-expandable_label">
+              className="o-expandable_header-left o-expandable_label"
+            >
               Date CFPB received the complaint
             </h4>
             <span
-              className="o-expandable_header-right o-expandable_link">
+              className="o-expandable_header-right o-expandable_link"
+            >
               <button
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
-                onClick={[Function]}>
+                onClick={[Function]}
+              >
                 Hide
                 <span
-                  className="cf-icon cf-icon-minus-round" />
+                  className="cf-icon cf-icon-minus-round"
+                />
               </button>
             </span>
           </div>
           <p />
           <div>
             <ul
-              className="date-inputs">
+              className="date-inputs"
+            >
               <li>
                 <label
-                  className="a-label a-label__heading body-copy">
+                  className="a-label a-label__heading body-copy"
+                >
                   From
                 </label>
                 <div
-                  className="m-btn-inside-input">
+                  className="m-btn-inside-input"
+                >
                   <input
                     aria-describedby="input-error_message-from"
                     className="a-text-input"
@@ -250,16 +312,19 @@ exports[`initial state renders without crashing 1`] = `
                     onChange={[Function]}
                     placeholder="mm/dd/yyyy"
                     size="15"
-                    value="" />
+                    value=""
+                  />
                 </div>
               </li>
               <li>
                 <label
-                  className="a-label a-label__heading body-copy">
+                  className="a-label a-label__heading body-copy"
+                >
                   Through
                 </label>
                 <div
-                  className="m-btn-inside-input">
+                  className="m-btn-inside-input"
+                >
                   <input
                     aria-describedby="input-error_message-through"
                     className="a-text-input"
@@ -268,7 +333,8 @@ exports[`initial state renders without crashing 1`] = `
                     onChange={[Function]}
                     placeholder="mm/dd/yyyy"
                     size="15"
-                    value="" />
+                    value=""
+                  />
                 </div>
               </li>
             </ul>
@@ -276,21 +342,27 @@ exports[`initial state renders without crashing 1`] = `
         </section>
         <hr />
         <section
-          className="o-expandable aggregation">
+          className="o-expandable aggregation"
+        >
           <div
-            className="o-expandable_header o-expandable_target">
+            className="o-expandable_header o-expandable_target"
+          >
             <h4
-              className="o-expandable_header-left o-expandable_label">
+              className="o-expandable_header-left o-expandable_label"
+            >
               Matched company name
             </h4>
             <span
-              className="o-expandable_header-right o-expandable_link">
+              className="o-expandable_header-right o-expandable_link"
+            >
               <button
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
-                onClick={[Function]}>
+                onClick={[Function]}
+              >
                 Hide
                 <span
-                  className="cf-icon cf-icon-minus-round" />
+                  className="cf-icon cf-icon-minus-round"
+                />
               </button>
             </span>
           </div>
@@ -300,11 +372,14 @@ exports[`initial state renders without crashing 1`] = `
           <section
             className="typeahead "
             onBlur={[Function]}
-            onFocus={[Function]}>
+            onFocus={[Function]}
+          >
             <div
-              className="m-btn-inside-input input-contains-label">
+              className="m-btn-inside-input input-contains-label"
+            >
               <label
-                className="input-contains-label_before input-contains-label_before__search" />
+                className="input-contains-label_before input-contains-label_before__search"
+              />
               <input
                 autoComplete="off"
                 className="a-text-input"
@@ -312,28 +387,35 @@ exports[`initial state renders without crashing 1`] = `
                 onKeyDown={[Function]}
                 placeholder="Enter company name"
                 type="text"
-                value="" />
+                value=""
+              />
             </div>
           </section>
           <ul />
         </section>
         <hr />
         <section
-          className="o-expandable aggregation">
+          className="o-expandable aggregation"
+        >
           <div
-            className="o-expandable_header o-expandable_target">
+            className="o-expandable_header o-expandable_target"
+          >
             <h4
-              className="o-expandable_header-left o-expandable_label">
+              className="o-expandable_header-left o-expandable_label"
+            >
               Product / sub-product
             </h4>
             <span
-              className="o-expandable_header-right o-expandable_link">
+              className="o-expandable_header-right o-expandable_link"
+            >
               <button
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
-                onClick={[Function]}>
+                onClick={[Function]}
+              >
                 Hide
                 <span
-                  className="cf-icon cf-icon-minus-round" />
+                  className="cf-icon cf-icon-minus-round"
+                />
               </button>
             </span>
           </div>
@@ -344,7 +426,8 @@ exports[`initial state renders without crashing 1`] = `
             <a
               className="a-btn__link"
               href="http://files.consumerfinance.gov/f/documents/201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf"
-              target="_blank">
+              target="_blank"
+            >
               Recent changes to products and sub-products
             </a>
           </p>
@@ -354,21 +437,27 @@ exports[`initial state renders without crashing 1`] = `
         </section>
         <hr />
         <section
-          className="o-expandable aggregation">
+          className="o-expandable aggregation"
+        >
           <div
-            className="o-expandable_header o-expandable_target">
+            className="o-expandable_header o-expandable_target"
+          >
             <h4
-              className="o-expandable_header-left o-expandable_label">
+              className="o-expandable_header-left o-expandable_label"
+            >
               Issue / sub-issue
             </h4>
             <span
-              className="o-expandable_header-right o-expandable_link">
+              className="o-expandable_header-right o-expandable_link"
+            >
               <button
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
-                onClick={[Function]}>
+                onClick={[Function]}
+              >
                 Hide
                 <span
-                  className="cf-icon cf-icon-minus-round" />
+                  className="cf-icon cf-icon-minus-round"
+                />
               </button>
             </span>
           </div>
@@ -378,11 +467,14 @@ exports[`initial state renders without crashing 1`] = `
           <section
             className="typeahead "
             onBlur={[Function]}
-            onFocus={[Function]}>
+            onFocus={[Function]}
+          >
             <div
-              className="m-btn-inside-input input-contains-label">
+              className="m-btn-inside-input input-contains-label"
+            >
               <label
-                className="input-contains-label_before input-contains-label_before__search" />
+                className="input-contains-label_before input-contains-label_before__search"
+              />
               <input
                 autoComplete="off"
                 className="a-text-input"
@@ -390,7 +482,8 @@ exports[`initial state renders without crashing 1`] = `
                 onKeyDown={[Function]}
                 placeholder="Enter name of issue"
                 type="text"
-                value="" />
+                value=""
+              />
             </div>
           </section>
           <div>
@@ -399,21 +492,27 @@ exports[`initial state renders without crashing 1`] = `
         </section>
         <hr />
         <section
-          className="o-expandable aggregation">
+          className="o-expandable aggregation"
+        >
           <div
-            className="o-expandable_header o-expandable_target">
+            className="o-expandable_header o-expandable_target"
+          >
             <h4
-              className="o-expandable_header-left o-expandable_label">
+              className="o-expandable_header-left o-expandable_label"
+            >
               State
             </h4>
             <span
-              className="o-expandable_header-right o-expandable_link">
+              className="o-expandable_header-right o-expandable_link"
+            >
               <button
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
-                onClick={[Function]}>
+                onClick={[Function]}
+              >
                 Hide
                 <span
-                  className="cf-icon cf-icon-minus-round" />
+                  className="cf-icon cf-icon-minus-round"
+                />
               </button>
             </span>
           </div>
@@ -423,11 +522,14 @@ exports[`initial state renders without crashing 1`] = `
           <section
             className="typeahead "
             onBlur={[Function]}
-            onFocus={[Function]}>
+            onFocus={[Function]}
+          >
             <div
-              className="m-btn-inside-input input-contains-label">
+              className="m-btn-inside-input input-contains-label"
+            >
               <label
-                className="input-contains-label_before input-contains-label_before__search" />
+                className="input-contains-label_before input-contains-label_before__search"
+              />
               <input
                 autoComplete="off"
                 className="a-text-input"
@@ -435,28 +537,35 @@ exports[`initial state renders without crashing 1`] = `
                 onKeyDown={[Function]}
                 placeholder="Enter state name or abbreviation"
                 type="text"
-                value="" />
+                value=""
+              />
             </div>
           </section>
           <ul />
         </section>
         <hr />
         <section
-          className="o-expandable aggregation">
+          className="o-expandable aggregation"
+        >
           <div
-            className="o-expandable_header o-expandable_target">
+            className="o-expandable_header o-expandable_target"
+          >
             <h4
-              className="o-expandable_header-left o-expandable_label">
+              className="o-expandable_header-left o-expandable_label"
+            >
               Zip code
             </h4>
             <span
-              className="o-expandable_header-right o-expandable_link">
+              className="o-expandable_header-right o-expandable_link"
+            >
               <button
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
-                onClick={[Function]}>
+                onClick={[Function]}
+              >
                 Hide
                 <span
-                  className="cf-icon cf-icon-minus-round" />
+                  className="cf-icon cf-icon-minus-round"
+                />
               </button>
             </span>
           </div>
@@ -466,11 +575,14 @@ exports[`initial state renders without crashing 1`] = `
           <section
             className="typeahead "
             onBlur={[Function]}
-            onFocus={[Function]}>
+            onFocus={[Function]}
+          >
             <div
-              className="m-btn-inside-input input-contains-label">
+              className="m-btn-inside-input input-contains-label"
+            >
               <label
-                className="input-contains-label_before input-contains-label_before__search" />
+                className="input-contains-label_before input-contains-label_before__search"
+              />
               <input
                 autoComplete="off"
                 className="a-text-input"
@@ -478,28 +590,35 @@ exports[`initial state renders without crashing 1`] = `
                 onKeyDown={[Function]}
                 placeholder="Enter first three digits of ZIP code"
                 type="text"
-                value="" />
+                value=""
+              />
             </div>
           </section>
           <ul />
         </section>
         <hr />
         <section
-          className="o-expandable aggregation">
+          className="o-expandable aggregation"
+        >
           <div
-            className="o-expandable_header o-expandable_target">
+            className="o-expandable_header o-expandable_target"
+          >
             <h4
-              className="o-expandable_header-left o-expandable_label">
+              className="o-expandable_header-left o-expandable_label"
+            >
               Did company provide a timely response?
             </h4>
             <span
-              className="o-expandable_header-right o-expandable_link">
+              className="o-expandable_header-right o-expandable_link"
+            >
               <button
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
-                onClick={[Function]}>
+                onClick={[Function]}
+              >
                 Show
                 <span
-                  className="cf-icon cf-icon-plus-round" />
+                  className="cf-icon cf-icon-plus-round"
+                />
               </button>
             </span>
           </div>
@@ -507,21 +626,27 @@ exports[`initial state renders without crashing 1`] = `
         </section>
         <hr />
         <section
-          className="o-expandable aggregation">
+          className="o-expandable aggregation"
+        >
           <div
-            className="o-expandable_header o-expandable_target">
+            className="o-expandable_header o-expandable_target"
+          >
             <h4
-              className="o-expandable_header-left o-expandable_label">
+              className="o-expandable_header-left o-expandable_label"
+            >
               Company response
             </h4>
             <span
-              className="o-expandable_header-right o-expandable_link">
+              className="o-expandable_header-right o-expandable_link"
+            >
               <button
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
-                onClick={[Function]}>
+                onClick={[Function]}
+              >
                 Show
                 <span
-                  className="cf-icon cf-icon-plus-round" />
+                  className="cf-icon cf-icon-plus-round"
+                />
               </button>
             </span>
           </div>
@@ -531,59 +656,74 @@ exports[`initial state renders without crashing 1`] = `
         </section>
         <hr />
         <section
-          className="o-expandable aggregation">
+          className="o-expandable aggregation"
+        >
           <div
-            className="o-expandable_header o-expandable_target">
+            className="o-expandable_header o-expandable_target"
+          >
             <h4
-              className="o-expandable_header-left o-expandable_label">
+              className="o-expandable_header-left o-expandable_label"
+            >
               Company public response
             </h4>
             <span
-              className="o-expandable_header-right o-expandable_link">
+              className="o-expandable_header-right o-expandable_link"
+            >
               <button
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
-                onClick={[Function]}>
+                onClick={[Function]}
+              >
                 Show
                 <span
-                  className="cf-icon cf-icon-plus-round" />
+                  className="cf-icon cf-icon-plus-round"
+                />
               </button>
             </span>
           </div>
           <p>
-            The company\'s optional public-facing response to a consumer\'s complaint
+            The company's optional public-facing response to a consumer's complaint
           </p>
         </section>
         <hr />
         <section
-          className="o-expandable aggregation date-filter">
+          className="o-expandable aggregation date-filter"
+        >
           <div
-            className="o-expandable_header o-expandable_target">
+            className="o-expandable_header o-expandable_target"
+          >
             <h4
-              className="o-expandable_header-left o-expandable_label">
+              className="o-expandable_header-left o-expandable_label"
+            >
               Date complaint sent to company
             </h4>
             <span
-              className="o-expandable_header-right o-expandable_link">
+              className="o-expandable_header-right o-expandable_link"
+            >
               <button
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
-                onClick={[Function]}>
+                onClick={[Function]}
+              >
                 Hide
                 <span
-                  className="cf-icon cf-icon-minus-round" />
+                  className="cf-icon cf-icon-minus-round"
+                />
               </button>
             </span>
           </div>
           <p />
           <div>
             <ul
-              className="date-inputs">
+              className="date-inputs"
+            >
               <li>
                 <label
-                  className="a-label a-label__heading body-copy">
+                  className="a-label a-label__heading body-copy"
+                >
                   From
                 </label>
                 <div
-                  className="m-btn-inside-input">
+                  className="m-btn-inside-input"
+                >
                   <input
                     aria-describedby="input-error_message-from"
                     className="a-text-input"
@@ -592,16 +732,19 @@ exports[`initial state renders without crashing 1`] = `
                     onChange={[Function]}
                     placeholder="mm/dd/yyyy"
                     size="15"
-                    value="" />
+                    value=""
+                  />
                 </div>
               </li>
               <li>
                 <label
-                  className="a-label a-label__heading body-copy">
+                  className="a-label a-label__heading body-copy"
+                >
                   Through
                 </label>
                 <div
-                  className="m-btn-inside-input">
+                  className="m-btn-inside-input"
+                >
                   <input
                     aria-describedby="input-error_message-through"
                     className="a-text-input"
@@ -610,7 +753,8 @@ exports[`initial state renders without crashing 1`] = `
                     onChange={[Function]}
                     placeholder="mm/dd/yyyy"
                     size="15"
-                    value="" />
+                    value=""
+                  />
                 </div>
               </li>
             </ul>
@@ -618,21 +762,27 @@ exports[`initial state renders without crashing 1`] = `
         </section>
         <hr />
         <section
-          className="o-expandable aggregation">
+          className="o-expandable aggregation"
+        >
           <div
-            className="o-expandable_header o-expandable_target">
+            className="o-expandable_header o-expandable_target"
+          >
             <h4
-              className="o-expandable_header-left o-expandable_label">
+              className="o-expandable_header-left o-expandable_label"
+            >
               Consumer consent
             </h4>
             <span
-              className="o-expandable_header-right o-expandable_link">
+              className="o-expandable_header-right o-expandable_link"
+            >
               <button
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
-                onClick={[Function]}>
+                onClick={[Function]}
+              >
                 Show
                 <span
-                  className="cf-icon cf-icon-plus-round" />
+                  className="cf-icon cf-icon-plus-round"
+                />
               </button>
             </span>
           </div>
@@ -642,21 +792,27 @@ exports[`initial state renders without crashing 1`] = `
         </section>
         <hr />
         <section
-          className="o-expandable aggregation">
+          className="o-expandable aggregation"
+        >
           <div
-            className="o-expandable_header o-expandable_target">
+            className="o-expandable_header o-expandable_target"
+          >
             <h4
-              className="o-expandable_header-left o-expandable_label">
+              className="o-expandable_header-left o-expandable_label"
+            >
               How did the consumer submit the complaint to the CFPB?
             </h4>
             <span
-              className="o-expandable_header-right o-expandable_link">
+              className="o-expandable_header-right o-expandable_link"
+            >
               <button
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
-                onClick={[Function]}>
+                onClick={[Function]}
+              >
                 Show
                 <span
-                  className="cf-icon cf-icon-plus-round" />
+                  className="cf-icon cf-icon-plus-round"
+                />
               </button>
             </span>
           </div>
@@ -664,21 +820,27 @@ exports[`initial state renders without crashing 1`] = `
         </section>
         <hr />
         <section
-          className="o-expandable aggregation">
+          className="o-expandable aggregation"
+        >
           <div
-            className="o-expandable_header o-expandable_target">
+            className="o-expandable_header o-expandable_target"
+          >
             <h4
-              className="o-expandable_header-left o-expandable_label">
+              className="o-expandable_header-left o-expandable_label"
+            >
               Tags
             </h4>
             <span
-              className="o-expandable_header-right o-expandable_link">
+              className="o-expandable_header-right o-expandable_link"
+            >
               <button
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
-                onClick={[Function]}>
+                onClick={[Function]}
+              >
                 Show
                 <span
-                  className="cf-icon cf-icon-plus-round" />
+                  className="cf-icon cf-icon-plus-round"
+                />
               </button>
             </span>
           </div>
@@ -689,9 +851,11 @@ exports[`initial state renders without crashing 1`] = `
       </section>
     </aside>
     <section
-      className="results-panel content_main">
+      className="results-panel content_main"
+    >
       <summary
-        className="action-bar">
+        className="action-bar"
+      >
         <div>
           <h2>
             Showing 
@@ -702,33 +866,40 @@ exports[`initial state renders without crashing 1`] = `
           </h2>
         </div>
         <div
-          className="layout-row">
+          className="layout-row"
+        >
           <div
-            className="cf-select flex-fixed">
+            className="cf-select flex-fixed"
+          >
             <select
               id="choose-size"
               onChange={[Function]}
-              value={25}>
+              value={25}
+            >
               <option
-                value={10}>
+                value={10}
+              >
                 Show 
                 10
                  results
               </option>
               <option
-                value={25}>
+                value={25}
+              >
                 Show 
                 25
                  results
               </option>
               <option
-                value={50}>
+                value={50}
+              >
                 Show 
                 50
                  results
               </option>
               <option
-                value={100}>
+                value={100}
+              >
                 Show 
                 100
                  results
@@ -736,34 +907,42 @@ exports[`initial state renders without crashing 1`] = `
             </select>
           </div>
           <div
-            className="cf-select flex-fixed">
+            className="cf-select flex-fixed"
+          >
             <select
               id="choose-sort"
               onChange={[Function]}
-              value="created_date_desc">
+              value="created_date_desc"
+            >
               <option
-                value="created_date_desc">
+                value="created_date_desc"
+              >
                 Sort by newest to oldest
               </option>
               <option
-                value="created_date_asc">
+                value="created_date_asc"
+              >
                 Sort by oldest to newest
               </option>
               <option
-                value="relevance_desc">
+                value="relevance_desc"
+              >
                 Sort by relevance
               </option>
               <option
-                value="relevance_asc">
+                value="relevance_asc"
+              >
                 Sort by relevance (asc)
               </option>
             </select>
           </div>
           <h4
-            className="flex-all">
+            className="flex-all"
+          >
             <button
               className="a-btn a-btn__link"
-              onClick={[Function]}>
+              onClick={[Function]}
+            >
               Export results
             </button>
           </h4>
@@ -773,11 +952,14 @@ exports[`initial state renders without crashing 1`] = `
         No results were found for your search
       </h2>
       <section
-        className="light-box">
+        className="light-box"
+      >
         <div
-          className="loading-box">
+          className="loading-box"
+        >
           <span
-            className="cf-icon cf-icon-update cf-icon__before cf-icon__spin" />
+            className="cf-icon cf-icon-update cf-icon__before cf-icon__spin"
+          />
           <span>
             This page is loading
           </span>

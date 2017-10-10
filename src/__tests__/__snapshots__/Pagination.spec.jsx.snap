@@ -1,34 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`initial state renders without crashing 1`] = `
 <nav
   aria-label="Pagination"
   className="m-pagination"
-  role="navigation">
+  role="navigation"
+>
   <button
     className="a-btn m-pagination_btn-prev"
     disabled={false}
-    onClick={[Function]}>
+    onClick={[Function]}
+  >
     <span
-      className="a-btn_icon a-btn_icon__on-left cf-icon cf-icon__before cf-icon-left" />
+      className="a-btn_icon a-btn_icon__on-left cf-icon cf-icon__before cf-icon-left"
+    />
     Previous
   </button>
   <button
     className="a-btn m-pagination_btn-next"
     disabled={false}
-    onClick={[Function]}>
+    onClick={[Function]}
+  >
     Next
     <span
-      className="a-btn_icon a-btn_icon__on-right cf-icon cf-icon__after cf-icon-right" />
+      className="a-btn_icon a-btn_icon__on-right cf-icon cf-icon__after cf-icon-right"
+    />
   </button>
   <form
     action=""
     className="m-pagination_form"
-    onSubmit={[Function]}>
+    onSubmit={[Function]}
+  >
     <label
       className="m-pagination_label"
-      htmlFor="m-pagination_current-page">
+      htmlFor="m-pagination_current-page"
+    >
       Page
       <span
-        className="u-visually-hidden">
+        className="u-visually-hidden"
+      >
         number 
         8
          out
@@ -43,7 +53,8 @@ exports[`initial state renders without crashing 1`] = `
         onChange={[Function]}
         pattern="[0-9]*"
         type="number"
-        value={8} />
+        value={8}
+      />
       of 
       <span>
         40
@@ -52,7 +63,8 @@ exports[`initial state renders without crashing 1`] = `
     <button
       className="a-btn a-btn__link m-pagination_btn-submit"
       id="m-pagination_btn-submit"
-      type="submit">
+      type="submit"
+    >
       Go
     </button>
   </form>

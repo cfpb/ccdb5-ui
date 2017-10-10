@@ -1,6 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`component::DateInput snapshots renders an error state 1`] = `
 <div
-  className="m-btn-inside-input">
+  className="m-btn-inside-input"
+>
   <input
     className="a-text-input a-text-input__error"
     max={null}
@@ -8,19 +11,23 @@ exports[`component::DateInput snapshots renders an error state 1`] = `
     onChange={[Function]}
     placeholder="mm/dd/yyyy"
     size="15"
-    value="foo" />
+    value="foo"
+  />
   <button
     className="a-btn a-btn__link"
-    onClick={[Function]}>
+    onClick={[Function]}
+  >
     <span
-      className="cf-icon cf-icon-delete" />
+      className="cf-icon cf-icon-delete"
+    />
   </button>
 </div>
 `;
 
 exports[`component::DateInput snapshots renders without crashing 1`] = `
 <div
-  className="m-btn-inside-input">
+  className="m-btn-inside-input"
+>
   <input
     className="a-text-input"
     max={null}
@@ -28,13 +35,15 @@ exports[`component::DateInput snapshots renders without crashing 1`] = `
     onChange={[Function]}
     placeholder="mm/dd/yyyy"
     size="15"
-    value="" />
+    value=""
+  />
 </div>
 `;
 
 exports[`component::DateInput snapshots shows the clear button after text is entered 1`] = `
 <div
-  className="m-btn-inside-input">
+  className="m-btn-inside-input"
+>
   <input
     className="a-text-input"
     max={null}
@@ -42,12 +51,15 @@ exports[`component::DateInput snapshots shows the clear button after text is ent
     onChange={[Function]}
     placeholder="mm/dd/yyyy"
     size="15"
-    value="12" />
+    value="12"
+  />
   <button
     className="a-btn a-btn__link"
-    onClick={[Function]}>
+    onClick={[Function]}
+  >
     <span
-      className="cf-icon cf-icon-delete" />
+      className="cf-icon cf-icon-delete"
+    />
   </button>
 </div>
 `;
