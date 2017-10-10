@@ -80,7 +80,7 @@ describe('component::HasNarrative', () => {
       const { target, props } = setupEnzyme()
       const input = target.find('#filterHasNarrative')
 
-      input.simulate('click')
+      input.simulate('change')
       const actual = props.changeFlagFilter.mock.calls[0]
 
       expect(props.changeFlagFilter).toHaveBeenCalledWith('has_narrative', false)
