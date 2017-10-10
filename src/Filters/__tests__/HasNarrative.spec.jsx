@@ -1,9 +1,9 @@
 import ReduxHasNarrative, { HasNarrative, mapDispatchToProps } from '../HasNarrative'
-import React from 'react'
-import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
+import { mount } from 'enzyme'
+import { Provider } from 'react-redux'
+import React from 'react'
 import renderer from 'react-test-renderer'
-import { shallow } from 'enzyme'
 import thunk from 'redux-thunk'
 
 function setupEnzyme(initialProps={}) {
@@ -12,7 +12,7 @@ function setupEnzyme(initialProps={}) {
     isChecked: true
   }, initialProps)
 
-  const target = shallow(<HasNarrative {...props} />);
+  const target = mount(<HasNarrative {...props} />);
 
   return {
     props,

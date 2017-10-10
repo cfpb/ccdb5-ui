@@ -1,7 +1,7 @@
 import DateInput from '..'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 function setupEnzyme(initialProps={}) {
   const props = Object.assign({
@@ -11,7 +11,7 @@ function setupEnzyme(initialProps={}) {
     onError: jest.fn()
   }, initialProps)
 
-  const target = shallow(<DateInput {...props} />);
+  const target = mount(<DateInput {...props} />);
 
   return {
     props,

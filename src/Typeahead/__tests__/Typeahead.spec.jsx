@@ -1,6 +1,6 @@
+import { mount } from 'enzyme'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { shallow } from 'enzyme';
 import Typeahead, { MODE_OPEN } from '..'
 import * as keys from '../../constants'
 
@@ -11,7 +11,7 @@ function setupEnzyme(initalProps={}, removeDebounce=true) {
     renderOption: jest.fn()
   }, initalProps)
 
-  const target = shallow(<Typeahead {...props} />);
+  const target = mount(<Typeahead {...props} />);
 
   // Remove debounce
   if (removeDebounce) {
