@@ -1,6 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`initial state renders without crashing 1`] = `
 <summary
-  className="action-bar">
+  className="action-bar"
+>
   <div>
     <h2>
       Showing 
@@ -15,33 +18,40 @@ exports[`initial state renders without crashing 1`] = `
     </h2>
   </div>
   <div
-    className="layout-row">
+    className="layout-row"
+  >
     <div
-      className="cf-select flex-fixed">
+      className="cf-select flex-fixed"
+    >
       <select
         id="choose-size"
         onChange={undefined}
-        value={undefined}>
+        value={undefined}
+      >
         <option
-          value={10}>
+          value={10}
+        >
           Show 
           10
            results
         </option>
         <option
-          value={25}>
+          value={25}
+        >
           Show 
           25
            results
         </option>
         <option
-          value={50}>
+          value={50}
+        >
           Show 
           50
            results
         </option>
         <option
-          value={100}>
+          value={100}
+        >
           Show 
           100
            results
@@ -49,34 +59,42 @@ exports[`initial state renders without crashing 1`] = `
       </select>
     </div>
     <div
-      className="cf-select flex-fixed">
+      className="cf-select flex-fixed"
+    >
       <select
         id="choose-sort"
         onChange={undefined}
-        value={undefined}>
+        value={undefined}
+      >
         <option
-          value="created_date_desc">
+          value="created_date_desc"
+        >
           Sort by newest to oldest
         </option>
         <option
-          value="created_date_asc">
+          value="created_date_asc"
+        >
           Sort by oldest to newest
         </option>
         <option
-          value="relevance_desc">
+          value="relevance_desc"
+        >
           Sort by relevance
         </option>
         <option
-          value="relevance_asc">
+          value="relevance_asc"
+        >
           Sort by relevance (asc)
         </option>
       </select>
     </div>
     <h4
-      className="flex-all">
+      className="flex-all"
+    >
       <button
         className="a-btn a-btn__link"
-        onClick={undefined}>
+        onClick={undefined}
+      >
         Export results
       </button>
     </h4>

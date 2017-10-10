@@ -1,20 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`component:Issue snapshots only shows the first five items 1`] = `
 <section
-  className="o-expandable aggregation">
+  className="o-expandable aggregation"
+>
   <div
-    className="o-expandable_header o-expandable_target">
+    className="o-expandable_header o-expandable_target"
+  >
     <h4
-      className="o-expandable_header-left o-expandable_label">
+      className="o-expandable_header-left o-expandable_label"
+    >
       Issue / sub-issue
     </h4>
     <span
-      className="o-expandable_header-right o-expandable_link">
+      className="o-expandable_header-right o-expandable_link"
+    >
       <button
         className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
-        onClick={[Function]}>
+        onClick={[Function]}
+      >
         Hide
         <span
-          className="cf-icon cf-icon-minus-round" />
+          className="cf-icon cf-icon-minus-round"
+        />
       </button>
     </span>
   </div>
@@ -24,11 +32,14 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
   <section
     className="typeahead "
     onBlur={[Function]}
-    onFocus={[Function]}>
+    onFocus={[Function]}
+  >
     <div
-      className="m-btn-inside-input input-contains-label">
+      className="m-btn-inside-input input-contains-label"
+    >
       <label
-        className="input-contains-label_before input-contains-label_before__search" />
+        className="input-contains-label_before input-contains-label_before__search"
+      />
       <input
         autoComplete="off"
         className="a-text-input"
@@ -36,37 +47,45 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
         onKeyDown={[Function]}
         placeholder="Enter name of issue"
         type="text"
-        value="" />
+        value=""
+      />
     </div>
   </section>
   <div>
     <ul>
       <div
-        className="aggregation-branch">
+        className="aggregation-branch"
+      >
         <li
-          className="layout-row parent m-form-field m-form-field__checkbox body-copy">
+          className="layout-row parent m-form-field m-form-field__checkbox body-copy"
+        >
           <input
             aria-label="Incorrect information on credit report"
             checked={false}
             className="flex-fixed a-checkbox"
             id="issueIncorrectinformation on credit report"
             onChange={[Function]}
-            type="checkbox" />
+            type="checkbox"
+          />
           <label
             className="toggle a-label"
-            htmlFor="issueIncorrectinformation on credit report" />
+            htmlFor="issueIncorrectinformation on credit report"
+          />
           <button
             className="flex-all a-btn a-btn__link"
             onClick={[Function]}
-            title="Incorrect information on credit report">
+            title="Incorrect information on credit report"
+          >
             <span>
               Incorrect information on credit report
             </span>
             <span
-              className="cf-icon cf-icon-down" />
+              className="cf-icon cf-icon-down"
+            />
           </button>
           <span
-            className="flex-fixed parent-count">
+            className="flex-fixed parent-count"
+          >
             <span>
               20,991
             </span>
@@ -74,31 +93,38 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
         </li>
       </div>
       <div
-        className="aggregation-branch">
+        className="aggregation-branch"
+      >
         <li
-          className="layout-row parent m-form-field m-form-field__checkbox body-copy">
+          className="layout-row parent m-form-field m-form-field__checkbox body-copy"
+        >
           <input
-            aria-label="Cont\'d attempts collect debt not owed"
+            aria-label="Cont'd attempts collect debt not owed"
             checked={false}
             className="flex-fixed a-checkbox"
-            id="issueCont\'dattempts collect debt not owed"
+            id="issueCont'dattempts collect debt not owed"
             onChange={[Function]}
-            type="checkbox" />
+            type="checkbox"
+          />
           <label
             className="toggle a-label"
-            htmlFor="issueCont\'dattempts collect debt not owed" />
+            htmlFor="issueCont'dattempts collect debt not owed"
+          />
           <button
             className="flex-all a-btn a-btn__link"
             onClick={[Function]}
-            title="Cont\'d attempts collect debt not owed">
+            title="Cont'd attempts collect debt not owed"
+          >
             <span>
-              Cont\'d attempts collect debt not owed
+              Cont'd attempts collect debt not owed
             </span>
             <span
-              className="cf-icon cf-icon-down" />
+              className="cf-icon cf-icon-down"
+            />
           </button>
           <span
-            className="flex-fixed parent-count">
+            className="flex-fixed parent-count"
+          >
             <span>
               17,244
             </span>
@@ -106,63 +132,75 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
         </li>
       </div>
       <li
-        className="layout-row m-form-field m-form-field__checkbox">
+        className="layout-row m-form-field m-form-field__checkbox"
+      >
         <input
           aria-label="Loan servicing, payments, escrow account"
           checked={false}
           className="flex-fixed a-checkbox"
           id="issueLoanservicing, payments, escrow account"
           onChange={[Function]}
-          type="checkbox" />
+          type="checkbox"
+        />
         <label
           className="a-label flex-all bucket-key body-copy"
-          htmlFor="issueLoanservicing, payments, escrow account">
+          htmlFor="issueLoanservicing, payments, escrow account"
+        >
           Loan servicing, payments, escrow account
         </label>
         <span
-          className="flex-fixed bucket-count">
+          className="flex-fixed bucket-count"
+        >
           <span>
             14,605
           </span>
         </span>
       </li>
       <li
-        className="layout-row m-form-field m-form-field__checkbox">
+        className="layout-row m-form-field m-form-field__checkbox"
+      >
         <input
           aria-label="Loan modification,collection,foreclosure"
           checked={false}
           className="flex-fixed a-checkbox"
           id="issueLoanmodification,collection,foreclosure"
           onChange={[Function]}
-          type="checkbox" />
+          type="checkbox"
+        />
         <label
           className="a-label flex-all bucket-key body-copy"
-          htmlFor="issueLoanmodification,collection,foreclosure">
+          htmlFor="issueLoanmodification,collection,foreclosure"
+        >
           Loan modification,collection,foreclosure
         </label>
         <span
-          className="flex-fixed bucket-count">
+          className="flex-fixed bucket-count"
+        >
           <span>
             10,716
           </span>
         </span>
       </li>
       <li
-        className="layout-row m-form-field m-form-field__checkbox">
+        className="layout-row m-form-field m-form-field__checkbox"
+      >
         <input
           aria-label="Dealing with my lender or servicer"
           checked={false}
           className="flex-fixed a-checkbox"
           id="issueDealingwith my lender or servicer"
           onChange={[Function]}
-          type="checkbox" />
+          type="checkbox"
+        />
         <label
           className="a-label flex-all bucket-key body-copy"
-          htmlFor="issueDealingwith my lender or servicer">
+          htmlFor="issueDealingwith my lender or servicer"
+        >
           Dealing with my lender or servicer
         </label>
         <span
-          className="flex-fixed bucket-count">
+          className="flex-fixed bucket-count"
+        >
           <span>
             7,783
           </span>
@@ -172,7 +210,8 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
     <div>
       <button
         className="a-btn a-btn__link more"
-        onClick={[Function]}>
+        onClick={[Function]}
+      >
         + Show 
         1
          
@@ -185,21 +224,27 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
 
 exports[`component:Issue snapshots renders without crashing 1`] = `
 <section
-  className="o-expandable aggregation">
+  className="o-expandable aggregation"
+>
   <div
-    className="o-expandable_header o-expandable_target">
+    className="o-expandable_header o-expandable_target"
+  >
     <h4
-      className="o-expandable_header-left o-expandable_label">
+      className="o-expandable_header-left o-expandable_label"
+    >
       Issue / sub-issue
     </h4>
     <span
-      className="o-expandable_header-right o-expandable_link">
+      className="o-expandable_header-right o-expandable_link"
+    >
       <button
         className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
-        onClick={[Function]}>
+        onClick={[Function]}
+      >
         Hide
         <span
-          className="cf-icon cf-icon-minus-round" />
+          className="cf-icon cf-icon-minus-round"
+        />
       </button>
     </span>
   </div>
@@ -209,11 +254,14 @@ exports[`component:Issue snapshots renders without crashing 1`] = `
   <section
     className="typeahead "
     onBlur={[Function]}
-    onFocus={[Function]}>
+    onFocus={[Function]}
+  >
     <div
-      className="m-btn-inside-input input-contains-label">
+      className="m-btn-inside-input input-contains-label"
+    >
       <label
-        className="input-contains-label_before input-contains-label_before__search" />
+        className="input-contains-label_before input-contains-label_before__search"
+      />
       <input
         autoComplete="off"
         className="a-text-input"
@@ -221,7 +269,8 @@ exports[`component:Issue snapshots renders without crashing 1`] = `
         onKeyDown={[Function]}
         placeholder="Enter name of issue"
         type="text"
-        value="" />
+        value=""
+      />
     </div>
   </section>
   <div>

@@ -1,96 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`component::DataExport initial state hides the dataset radio buttons when there is no filter 1`] = `
 <section
-  className="export-modal">
+  className="export-modal"
+>
   <div
-    className="header layout-row">
+    className="header layout-row"
+  >
     <h3
-      className="flex-all">
+      className="flex-all"
+    >
       Export complaints
     </h3>
     <button
       className="a-btn a-btn__link"
-      onClick={undefined}>
+      onClick={undefined}
+    >
       Close
       <span
-        className="cf-icon cf-icon-delete-round" />
+        className="cf-icon cf-icon-delete-round"
+      />
     </button>
   </div>
   <div
-    className="body">
+    className="body"
+  >
     <div
-      className="body-copy instructions">
+      className="body-copy instructions"
+    >
       To download a copy of this dataset, choose the file format and which complaints you want to export below.
     </div>
     <div
-      className="group">
+      className="group"
+    >
       <div
-        className="group-title">
+        className="group-title"
+      >
         Select a format for the exported file
         <span
-          className="required-helper">
+          className="required-helper"
+        >
            (required)
         </span>
       </div>
       <div
-        className="body-copy">
+        className="body-copy"
+      >
         <div
-          className="m-form-field m-form-field__radio m-form-field__lg-target">
+          className="m-form-field m-form-field__radio m-form-field__lg-target"
+        >
           <input
             checked={false}
             className="a-radio"
             id="format_csv"
             onChange={[Function]}
             type="radio"
-            value="csv" />
+            value="csv"
+          />
           <label
             className="a-label"
-            htmlFor="format_csv">
+            htmlFor="format_csv"
+          >
             CSV
           </label>
         </div>
         <div
-          className="m-form-field m-form-field__radio m-form-field__lg-target">
+          className="m-form-field m-form-field__radio m-form-field__lg-target"
+        >
           <input
             checked={false}
             className="a-radio"
             id="format_json"
             onChange={[Function]}
             type="radio"
-            value="json" />
+            value="json"
+          />
           <label
             className="a-label"
-            htmlFor="format_json">
+            htmlFor="format_json"
+          >
             JSON
           </label>
         </div>
       </div>
       <div
-        className="other-formats">
+        className="other-formats"
+      >
         Or you can 
         <button
           className="a-btn a-btn__link"
-          onClick={[Function]}>
+          onClick={[Function]}
+        >
           download the data in a different format
         </button>
         , if needed.
       </div>
     </div>
     <div
-      className="timeliness-warning">
-      The export process could take several minutes if you\'re downloading many complaints
+      className="timeliness-warning"
+    >
+      The export process could take several minutes if you're downloading many complaints
     </div>
   </div>
   <div
-    className="footer layout-row">
+    className="footer layout-row"
+  >
     <button
       className="a-btn"
       disabled={true}
-      onClick={[Function]}>
+      onClick={[Function]}
+    >
       Start Export
     </button>
     <button
       className="a-btn a-btn__link a-btn__warning"
-      onClick={undefined}>
+      onClick={undefined}
+    >
       Cancel
     </button>
   </div>
@@ -99,107 +124,134 @@ exports[`component::DataExport initial state hides the dataset radio buttons whe
 
 exports[`component::DataExport initial state renders without crashing 1`] = `
 <section
-  className="export-modal">
+  className="export-modal"
+>
   <div
-    className="header layout-row">
+    className="header layout-row"
+  >
     <h3
-      className="flex-all">
+      className="flex-all"
+    >
       Export complaints
     </h3>
     <button
       className="a-btn a-btn__link"
-      onClick={undefined}>
+      onClick={undefined}
+    >
       Close
       <span
-        className="cf-icon cf-icon-delete-round" />
+        className="cf-icon cf-icon-delete-round"
+      />
     </button>
   </div>
   <div
-    className="body">
+    className="body"
+  >
     <div
-      className="body-copy instructions">
+      className="body-copy instructions"
+    >
       To download a copy of this dataset, choose the file format and which complaints you want to export below.
     </div>
     <div
-      className="group">
+      className="group"
+    >
       <div
-        className="group-title">
+        className="group-title"
+      >
         Select a format for the exported file
         <span
-          className="required-helper">
+          className="required-helper"
+        >
            (required)
         </span>
       </div>
       <div
-        className="body-copy">
+        className="body-copy"
+      >
         <div
-          className="m-form-field m-form-field__radio m-form-field__lg-target">
+          className="m-form-field m-form-field__radio m-form-field__lg-target"
+        >
           <input
             checked={false}
             className="a-radio"
             id="format_csv"
             onChange={[Function]}
             type="radio"
-            value="csv" />
+            value="csv"
+          />
           <label
             className="a-label"
-            htmlFor="format_csv">
+            htmlFor="format_csv"
+          >
             CSV
           </label>
         </div>
         <div
-          className="m-form-field m-form-field__radio m-form-field__lg-target">
+          className="m-form-field m-form-field__radio m-form-field__lg-target"
+        >
           <input
             checked={false}
             className="a-radio"
             id="format_json"
             onChange={[Function]}
             type="radio"
-            value="json" />
+            value="json"
+          />
           <label
             className="a-label"
-            htmlFor="format_json">
+            htmlFor="format_json"
+          >
             JSON
           </label>
         </div>
       </div>
       <div
-        className="other-formats">
+        className="other-formats"
+      >
         Or you can 
         <button
           className="a-btn a-btn__link"
-          onClick={[Function]}>
+          onClick={[Function]}
+        >
           download the data in a different format
         </button>
         , if needed.
       </div>
     </div>
     <div
-      className="group">
+      className="group"
+    >
       <div
-        className="group-title">
-        Select which complaints you\'d like to export
+        className="group-title"
+      >
+        Select which complaints you'd like to export
         <span
-          className="required-helper">
+          className="required-helper"
+        >
            (required)
         </span>
       </div>
       <div
-        className="body-copy">
+        className="body-copy"
+      >
         <div
-          className="m-form-field m-form-field__radio m-form-field__lg-target">
+          className="m-form-field m-form-field__radio m-form-field__lg-target"
+        >
           <input
             checked={false}
             className="a-radio"
             id="dataset_filtered"
             onChange={[Function]}
             type="radio"
-            value="filtered" />
+            value="filtered"
+          />
           <label
             className="a-label"
-            htmlFor="dataset_filtered">
+            htmlFor="dataset_filtered"
+          >
             <div
-              className="multiline-label">
+              className="multiline-label"
+            >
               <div>
                 Filtered dataset (
                 <span>
@@ -208,26 +260,31 @@ exports[`component::DataExport initial state renders without crashing 1`] = `
                  complaints)
               </div>
               <div
-                className="body-copy">
+                className="body-copy"
+              >
                 (only the results of the last search and/or filter)
               </div>
             </div>
           </label>
         </div>
         <div
-          className="m-form-field m-form-field__radio m-form-field__lg-target">
+          className="m-form-field m-form-field__radio m-form-field__lg-target"
+        >
           <input
             checked={false}
             className="a-radio"
             id="dataset_full"
             onChange={[Function]}
             type="radio"
-            value="full" />
+            value="full"
+          />
           <label
             className="a-label"
-            htmlFor="dataset_full">
+            htmlFor="dataset_full"
+          >
             <div
-              className="multiline-label">
+              className="multiline-label"
+            >
               <div>
                 Full dataset (
                 <span>
@@ -236,7 +293,8 @@ exports[`component::DataExport initial state renders without crashing 1`] = `
                  complaints)
               </div>
               <div
-                className="body-copy">
+                className="body-copy"
+              >
                 (not recommended due to very large file size)
               </div>
             </div>
@@ -245,21 +303,25 @@ exports[`component::DataExport initial state renders without crashing 1`] = `
       </div>
     </div>
     <div
-      className="timeliness-warning">
-      The export process could take several minutes if you\'re downloading many complaints
+      className="timeliness-warning"
+    >
+      The export process could take several minutes if you're downloading many complaints
     </div>
   </div>
   <div
-    className="footer layout-row">
+    className="footer layout-row"
+  >
     <button
       className="a-btn"
       disabled={true}
-      onClick={[Function]}>
+      onClick={[Function]}
+    >
       Start Export
     </button>
     <button
       className="a-btn a-btn__link a-btn__warning"
-      onClick={undefined}>
+      onClick={undefined}
+    >
       Cancel
     </button>
   </div>
