@@ -967,6 +967,5 @@ exports[`initial state renders without crashing 1`] = `
       </section>
     </section>
   </div>
-  <span />
 </main>
 `;
