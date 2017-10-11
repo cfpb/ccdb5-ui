@@ -42,7 +42,7 @@ module.exports = {
       { test: /\.svg$/, loader: 'ignore-loader' },
       {
         test: /\.less$/,
-        loader: 'style!css!less'
+        loader: 'style!css!postcss!less'
       },
       // make sure the `React` global variable is available
       {
