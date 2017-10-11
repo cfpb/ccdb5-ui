@@ -32,7 +32,7 @@ export const RootModal = ( { modalType, modalProps, onClose } ) => {
     )
   }
 
-  return <span />
+  return <ReactModal isOpen={false}></ReactModal>
 }
 
 export const mapDispatchToProps = dispatch => ( {
