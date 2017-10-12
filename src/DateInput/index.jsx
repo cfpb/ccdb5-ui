@@ -29,11 +29,11 @@ export default class DateInput extends React.Component {
   constructor( props ) {
     super( props )
 
-    this.state = this._calculateState( props, this.props.value )
+    this.state = this._calculateState( props, props.value )
 
     bindAll( this, [ '_onClear', '_onChange', '_triggerCallbacks' ] )
-    this._triggerCallbacks = this.props.debounceWait ?
-      debounce( this._triggerCallbacks, this.props.debounceWait ) :
+    this._triggerCallbacks = props.debounceWait ?
+      debounce( this._triggerCallbacks, props.debounceWait ) :
       this._triggerCallbacks
   }
 
