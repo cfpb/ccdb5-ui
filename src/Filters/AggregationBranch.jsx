@@ -19,7 +19,7 @@ export class AggregationBranch extends React.Component {
   constructor( props ) {
     super( props )
 
-    this.state = { showChildren: this.props.showChildren }
+    this.state = { showChildren: props.showChildren }
 
     bindAll( this, [ '_decideClickAction', '_toggleChildDisplay' ] )
   }
