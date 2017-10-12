@@ -16,7 +16,7 @@ const NOTHING = 'NOTHING'
 export class HasNarrative extends React.Component {
   constructor( props ) {
     super( props )
-    this.state = { isChecked: this.props.isChecked }
+    this.state = { isChecked: props.isChecked }
   }
 
   componentWillReceiveProps( nextProps ) {
