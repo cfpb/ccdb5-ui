@@ -6,7 +6,7 @@ import React from 'react'
 export class MoreOrLess extends React.Component {
   constructor( props ) {
     super( props )
-    this.state = { showMore: this.props.showMore }
+    this.state = { showMore: props.showMore }
     this._toggleShowMore = this._toggleShowMore.bind( this )
   }
 
