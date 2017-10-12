@@ -350,7 +350,7 @@ exports[`initial state renders without crashing 1`] = `
             <h4
               className="o-expandable_header-left o-expandable_label"
             >
-              Matched company name
+              Matched Company Name
             </h4>
             <span
               className="o-expandable_header-right o-expandable_link"
