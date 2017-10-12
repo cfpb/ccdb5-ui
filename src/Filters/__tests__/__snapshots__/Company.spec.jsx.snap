@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`component::CompanyName snapshots renders without crashing 1`] = `
+exports[`component::Company snapshots renders without crashing 1`] = `
 <section
   className="o-expandable aggregation"
 >
@@ -10,7 +10,7 @@ exports[`component::CompanyName snapshots renders without crashing 1`] = `
     <h4
       className="o-expandable_header-left o-expandable_label"
     >
-      Matched company name
+      Matched Company Name
     </h4>
     <span
       className="o-expandable_header-right o-expandable_link"
@@ -56,24 +56,24 @@ exports[`component::CompanyName snapshots renders without crashing 1`] = `
       className="layout-row m-form-field m-form-field__checkbox"
     >
       <input
-        aria-label="CAPITAL"
+        aria-label="Monocle Popper Inc"
         checked={true}
         className="flex-fixed a-checkbox"
-        id="companyCAPITAL"
+        id="companyMonoclePopper Inc"
         onChange={[Function]}
         type="checkbox"
       />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="companyCAPITAL"
+        htmlFor="companyMonoclePopper Inc"
       >
-        CAPITAL
+        Monocle Popper Inc
       </label>
       <span
         className="flex-fixed bucket-count"
       >
         <span>
-          999
+          9,999
         </span>
       </span>
     </li>
