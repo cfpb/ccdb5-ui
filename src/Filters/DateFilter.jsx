@@ -13,8 +13,8 @@ export class DateFilter extends React.Component {
     super( props )
 
     this.state = this._validate( {
-      from: this.props.from,
-      through: this.props.through,
+      from: props.from,
+      through: props.through,
       messages: {}
     } )
   }

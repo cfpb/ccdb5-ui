@@ -95,7 +95,7 @@ export default class Typeahead extends React.Component {
     // Key/function map
     this.keyMap = {}
 
-    if ( this.props.mode === MODE_OPEN ) {
+    if ( props.mode === MODE_OPEN ) {
       this.keyMap[keys.VK_ESCAPE] = this._openKeyCancel
       this.keyMap[keys.VK_UP] = this._openNav.bind( this, -1 )
       this.keyMap[keys.VK_DOWN] = this._openNav.bind( this, 1 )
@@ -114,8 +114,8 @@ export default class Typeahead extends React.Component {
       this.keyMap[keys.VK_TAB] = this._closedChooseIndex
     }
 
-    this.search = this.props.debounceWait ?
-      debounce( this._callForOptions, this.props.debounceWait ) :
+    this.search = props.debounceWait ?
+      debounce( this._callForOptions, props.debounceWait ) :
       this._callForOptions
   }
 
