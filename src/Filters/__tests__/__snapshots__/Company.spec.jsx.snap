@@ -10,7 +10,7 @@ exports[`component::Company snapshots renders without crashing 1`] = `
     <h4
       className="o-expandable_header-left o-expandable_label"
     >
-      Matched Company Name
+      Matched company name
     </h4>
     <span
       className="o-expandable_header-right o-expandable_link"
