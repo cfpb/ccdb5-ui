@@ -1,5 +1,5 @@
 import './FilterPanel.less'
-import CompanyName from './Filters/CompanyName'
+import Company from './Filters/Company'
 import { connect } from 'react-redux'
 import DateFilter from './Filters/DateFilter'
 import FederalState from './Filters/FederalState'
@@ -28,7 +28,7 @@ export class FilterPanel extends React.Component {
         <DateFilter fieldName="date_received"
                     title="Date CFPB received the complaint" />
         <hr />
-        <CompanyName />
+        <Company />
         <hr />
         <Product />
         <hr />

@@ -8,9 +8,9 @@ import React from 'react'
 import StickyOptions from './StickyOptions'
 import Typeahead from '../Typeahead'
 
-const FIELD_NAME = 'zip_code'
+const FIELD_NAME = 'company'
 
-export class ZipCode extends React.Component {
+export class Company extends React.Component {
   constructor( props ) {
     super( props )
 
@@ -23,14 +23,18 @@ export class ZipCode extends React.Component {
   }
 
   render() {
+    const desc = 'The company name as it appears in our complaint system, ' +
+      'which may be different than the name the consumer provided in their ' +
+      'complaint'
+
     return (
-      <CollapsibleFilter title="Zip code"
-                         desc="The mailing ZIP code provided by the consumer"
+      <CollapsibleFilter title="Matched company name"
+                         desc={desc}
                          className="aggregation">
         <Typeahead debounceWait={this.props.debounceWait}
                    onInputChange={this._onInputChange}
                    onOptionSelected={this._onOptionSelected}
-                   placeholder="Enter first three digits of ZIP code"
+                   placeholder="Enter company name"
                    renderOption={this._renderOption}
         />
         <StickyOptions fieldName={FIELD_NAME}
@@ -50,7 +54,7 @@ export class ZipCode extends React.Component {
 
     const qs = this.props.queryString + '&text=' + value
 
-    const uri = '@@API_suggest_zip/' + qs
+    const uri = '@@API_suggest_company/' + qs
     return fetch( uri )
     .then( result => result.json() )
     .then( items => items.map( x => ( {
@@ -73,11 +77,11 @@ export class ZipCode extends React.Component {
   }
 }
 
-ZipCode.propTypes = {
+Company.propTypes = {
   debounceWait: PropTypes.number
 }
 
-ZipCode.defaultProps = {
+Company.defaultProps = {
   debounceWait: 250
 }
 
@@ -97,4 +101,4 @@ export const mapDispatchToProps = dispatch => ( {
   }
 } )
 
-export default connect( mapStateToProps, mapDispatchToProps )( ZipCode )
+export default connect( mapStateToProps, mapDispatchToProps )( Company )
