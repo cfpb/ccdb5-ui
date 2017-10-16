@@ -46,7 +46,7 @@ export class ZipCode extends React.Component {
   // Typeahead interface
 
   _onInputChange( value ) {
-    const n = value
+    const n = value.toLowerCase()
 
     const qs = this.props.queryString + '&text=' + value
 
@@ -56,7 +56,7 @@ export class ZipCode extends React.Component {
     .then( items => items.map( x => ( {
       key: x,
       label: x,
-      position: x.indexOf( n ),
+      position: x.toLowerCase().indexOf( n ),
       value
     } ) ) )
   }
