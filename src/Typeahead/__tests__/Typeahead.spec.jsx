@@ -349,4 +349,21 @@ describe('component::Typeahead', () => {
       })
     })
   })
+
+  describe('clear button in OPEN mode', () => {
+    let target, props, button
+    beforeEach(() => {
+      ({target, props} = setupEnzyme({
+        mode: MODE_OPEN,
+        value: 'bar'
+      }))
+
+      button = target.find('button')
+    })
+
+    it('clears the value and triggers a search', () => {
+      button.simulate('click')
+      expect(props.onOptionSelected).toHaveBeenCalledWith('')
+    })
+  })
 })

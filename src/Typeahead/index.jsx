@@ -75,7 +75,7 @@ export default class Typeahead extends React.Component {
       '_renderError', '_renderEmpty', '_renderNoResults', '_renderResults',
       '_renderTooManyResults', '_renderWaiting',
       '_onBlur', '_onFocus', '_onKeyDown', '_onOptionsError',
-      '_openChooseIndex', '_openKeyCancel', '_openKeyEnter',
+      '_openChooseIndex', '_openClear', '_openKeyCancel', '_openKeyEnter',
       '_selectOption', '_setOptions',
       '_valueUpdated'
     ] )
@@ -128,8 +128,12 @@ export default class Typeahead extends React.Component {
   }
 
   render() {
+    const clearAction = this.props.mode === MODE_OPEN ?
+      this._openClear :
+      this._closedKeyCancel
+
     const clear = <button className="a-btn a-btn__link"
-                          onClick={ this._closedKeyCancel }>
+                          onClick={ clearAction }>
                       <span className="cf-icon cf-icon-delete"></span>
                       Clear
                   </button>
@@ -286,6 +290,11 @@ export default class Typeahead extends React.Component {
     } else {
       this._closedChooseIndex( event )
     }
+  }
+
+  _openClear() {
+    this.setState( nextStateFromValue( '', this.props ) )
+    this.props.onOptionSelected( '' )
   }
 
   _openKeyEnter( event ) {
