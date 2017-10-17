@@ -49,17 +49,16 @@
 {% block page_js %}
   <script src="{% static "ccdb5.min.js" %}" type="text/javascript"></script>
   <script type="text/javascript">
-     function browserSupportsAllFeatures() {
+    function browserSupportsAllFeatures() {
       return window.Set && window.Promise && window.fetch
     }
 
     if (browserSupportsAllFeatures()) {
       // Browsers that support all features run `main()` immediately.
       main()
-      console.log('brower supports all features')
+      console.log('browser supports all features')
     } else {
       // All other browsers loads polyfills and then run `main()`.
-      console.log('polyfill should be loaded')
       loadScript('https://cdn.polyfill.io/v2/polyfill.min.js?features=default,Intl.~locale.en', main)
     }
 
@@ -70,7 +69,6 @@
     }
 
     function loadScript(src, done) {
-      console.log('loadScript called')
       var js = document.createElement('script');
       js.src = src;
       js.onload = function() {
@@ -84,7 +82,7 @@
 
     function main(err) {
       if ( err ) {
-        alert('A more up to date browser is required to use this application.')
+        alert('There was a problem on the page: ', err)
       } else {
         ReactDOM.render(
           React.createElement(ccdb5_ui.App, {}, null),
