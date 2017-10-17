@@ -62,12 +62,6 @@
       loadScript('https://cdn.polyfill.io/v2/polyfill.min.js?features=default,Intl.~locale.en', main)
     }
 
-    function main(err) {
-      // Initiate all other code paths.
-      // If there's an error loading the polyfills, handle that
-      // case gracefully and track that the error occurred.
-    }
-
     function loadScript(src, done) {
       var js = document.createElement('script');
       js.src = src;
