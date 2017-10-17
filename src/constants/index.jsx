@@ -66,9 +66,12 @@ export const VK_UP = 38
 // JSON Objects
 
 export const THESE_UNITED_STATES = {
+  AA: 'Armed Forces Americas',
+  AE: 'Armed Forces Europe',
   AL: 'Alabama',
   AK: 'Alaska',
   AS: 'American Samoa',
+  AP: 'Armed Forces Pacific',
   AZ: 'Arizona',
   AR: 'Arkansas',
   CA: 'California',
