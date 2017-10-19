@@ -143,14 +143,28 @@ module.exports = {
           {
             test: /\.(js|jsx)$/,
             include: paths.appSrc,
-            loader: require.resolve('babel-loader'),
-            options: {
-              
-              // This is a feature of `babel-loader` for webpack (not Babel itself).
-              // It enables caching results in ./node_modules/.cache/babel-loader/
-              // directory for faster rebuilds.
-              cacheDirectory: true,
-            },
+            use: [
+              {
+                loader: require.resolve('babel-loader'),
+                options: {
+                  
+                  // This is a feature of `babel-loader` for webpack (not Babel itself).
+                  // It enables caching results in ./node_modules/.cache/babel-loader/
+                  // directory for faster rebuilds.
+                  cacheDirectory: true,
+                }
+              },
+              {
+                loader: require.resolve('string-replace-loader'),
+                options: {
+                  search: '@@API',
+                  replace: 'http://localhost:8000/data-research/consumer-complaints/search/api/v1/',
+                  flags: 'g'
+                  // If using the API without cf.gov build, you can use:
+                  // replace: 'http://localhost:8000/'
+                }
+              }
+            ]
           },
           // "postcss" loader applies autoprefixer to our CSS.
           // "css" loader resolves paths in CSS and adds assets as dependencies.
