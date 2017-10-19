@@ -43,16 +43,6 @@ module.exports = {
       {
         test: /\.less$/,
         loader: 'style!css!postcss!less'
-      },
-      // make sure the `React` global variable is available
-      {
-        test: require.resolve( 'react' ),
-        loader: 'expose-loader?React'
-      },
-      // make sure the `ReactDOM` global variable is available
-      {
-        test: require.resolve( 'react-dom' ),
-        loader: 'expose-loader?ReactDOM'
       }
     ]
   },
