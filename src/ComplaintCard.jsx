@@ -18,7 +18,7 @@ export default class ComplaintCard extends React.Component {
                 { this._stripPossibleHighlight( row.complaint_id ) }
               </a>
             </h3>
-            <h4>Matched company name</h4>
+            <h4>Company name</h4>
             { this._renderPossibleHighlight( row.company ) }
             <br />
             <h4>Company response to consumer</h4>
