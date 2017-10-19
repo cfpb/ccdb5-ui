@@ -147,11 +147,22 @@ module.exports = {
           {
             test: /\.(js|jsx)$/,
             include: paths.appSrc,
-            loader: require.resolve('babel-loader'),
-            options: {
-              
-              compact: true,
-            },
+            use: [
+              {
+                loader: require.resolve('babel-loader'),
+                options: {
+                  compact: true,
+                }
+              },
+              {
+                loader: require.resolve('string-replace-loader'),
+                options: {
+                  search: '@@API',
+                  replace: '/data-research/consumer-complaints/search/api/v1/',
+                  flags: 'g'
+                }
+              }
+            ]
           },
           // The notation here is somewhat confusing.
           // "postcss" loader applies autoprefixer to our CSS.
