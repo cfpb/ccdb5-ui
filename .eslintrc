@@ -635,7 +635,9 @@ rules:
       properties: false
 
   # Set a specific tab width for your code.
-  indent:
+  indent: off
+
+  indent-legacy:
     - 2
     - 2
     -
