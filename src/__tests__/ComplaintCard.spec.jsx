@@ -11,7 +11,7 @@ describe('initial state', () => {
       company: 'ABC Corp',
       company_public_response: 'Lorem',
       company_response: 'Ipsum',
-      complaint_id: '<em99990909</em>',
+      complaint_id: '99990909',
       complaint_what_happened: 'Oh baby you. Got what I need',
       consumer_consent_provided: 'Yes',
       consumer_disputed: 'Yes',
