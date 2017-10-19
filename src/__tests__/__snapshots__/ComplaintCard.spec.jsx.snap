@@ -20,7 +20,7 @@ exports[`initial state hides the section when there is no narrative 1`] = `
         </a>
       </h3>
       <h4>
-        Matched company name
+        Company name
       </h4>
       <span
         className="body-copy"
@@ -175,7 +175,7 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
         </a>
       </h3>
       <h4>
-        Matched company name
+        Company name
       </h4>
       <span
         className="body-copy"
@@ -327,7 +327,7 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
         </a>
       </h3>
       <h4>
-        Matched company name
+        Company name
       </h4>
       <span
         className="body-copy"
@@ -479,7 +479,7 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
         </a>
       </h3>
       <h4>
-        Matched company name
+        Company name
       </h4>
       <span
         className="body-copy"
@@ -656,7 +656,7 @@ exports[`initial state renders without crashing 1`] = `
         </a>
       </h3>
       <h4>
-        Matched company name
+        Company name
       </h4>
       <span
         className="body-copy"
