@@ -11,7 +11,7 @@ describe('initial state', () => {
       company: 'ABC Corp',
       company_public_response: 'Lorem',
       company_response: 'Ipsum',
-      complaint_id: '99990909',
+      complaint_id: '<em99990909</em>',
       complaint_what_happened: 'Oh baby you. Got what I need',
       consumer_consent_provided: 'Yes',
       consumer_disputed: 'Yes',
@@ -118,4 +118,18 @@ ocean with me.";
     expect(tree).toMatchSnapshot();
     expect(tree).not.toContain('Delta');
   });
+
+  it('removes <em> highlighting tags effectively from text', () => {
+    item.complaint_id = '<em>99990909</em>';
+    const target = renderer.create(
+      <MemoryRouter>
+        <IntlProvider locale="en">
+          <ComplaintCard key={item.complaint_id} row={item} />
+        </IntlProvider>
+      </MemoryRouter>
+    );
+    let tree = target.toJSON();
+    expect(tree).toMatchSnapshot();
+    expect(tree).not.toContain('<a href="detail/<em>99990909</em>"><em>99990909</em></a>');
+  })
 });
