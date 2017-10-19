@@ -120,7 +120,7 @@ export class ComplaintDetail extends React.Component {
             <h4>Consumer's zip</h4>
             <span className="body-copy">{ row.zip_code }</span>
             <br />
-            <h4>Complaint submitted via</h4>
+            <h4>Submitted via</h4>
             <span className="body-copy">{ row.submitted_via }</span>
             <br />
             <h4>Tags</h4>
@@ -161,7 +161,7 @@ export class ComplaintDetail extends React.Component {
               <FormattedDate value={ row.date_sent_to_company } />
             </span>
             <br />
-            <h4>Matched company name</h4>
+            <h4>Company name</h4>
             <span className="body-copy">{ row.company }</span>
             <br />
           </div>

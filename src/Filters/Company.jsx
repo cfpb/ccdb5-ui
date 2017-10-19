@@ -28,7 +28,7 @@ export class Company extends React.Component {
       'complaint'
 
     return (
-      <CollapsibleFilter title="Matched company name"
+      <CollapsibleFilter title="Company name"
                          desc={desc}
                          className="aggregation">
         <Typeahead debounceWait={this.props.debounceWait}

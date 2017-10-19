@@ -157,7 +157,7 @@ exports[`component::ComplaintDetail snapshots renders without a narrative 1`] = 
         </span>
         <br />
         <h4>
-          Complaint submitted via
+          Submitted via
         </h4>
         <span
           className="body-copy"
@@ -267,7 +267,7 @@ exports[`component::ComplaintDetail snapshots renders without a narrative 1`] = 
         </span>
         <br />
         <h4>
-          Matched company name
+          Company name
         </h4>
         <span
           className="body-copy"
@@ -387,7 +387,7 @@ exports[`component::ComplaintDetail snapshots renders without a sub-issue 1`] = 
         </span>
         <br />
         <h4>
-          Complaint submitted via
+          Submitted via
         </h4>
         <span
           className="body-copy"
@@ -493,7 +493,7 @@ exports[`component::ComplaintDetail snapshots renders without a sub-issue 1`] = 
         </span>
         <br />
         <h4>
-          Matched company name
+          Company name
         </h4>
         <span
           className="body-copy"
@@ -613,7 +613,7 @@ exports[`component::ComplaintDetail snapshots renders without a sub-product 1`] 
         </span>
         <br />
         <h4>
-          Complaint submitted via
+          Submitted via
         </h4>
         <span
           className="body-copy"
@@ -719,7 +719,7 @@ exports[`component::ComplaintDetail snapshots renders without a sub-product 1`] 
         </span>
         <br />
         <h4>
-          Matched company name
+          Company name
         </h4>
         <span
           className="body-copy"
@@ -839,7 +839,7 @@ exports[`component::ComplaintDetail snapshots renders without crashing 1`] = `
         </span>
         <br />
         <h4>
-          Complaint submitted via
+          Submitted via
         </h4>
         <span
           className="body-copy"
@@ -959,7 +959,7 @@ exports[`component::ComplaintDetail snapshots renders without crashing 1`] = `
         </span>
         <br />
         <h4>
-          Matched company name
+          Company name
         </h4>
         <span
           className="body-copy"
@@ -1079,7 +1079,7 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
         </span>
         <br />
         <h4>
-          Complaint submitted via
+          Submitted via
         </h4>
         <span
           className="body-copy"
@@ -1199,7 +1199,7 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
         </span>
         <br />
         <h4>
-          Matched company name
+          Company name
         </h4>
         <span
           className="body-copy"
@@ -1319,7 +1319,7 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
         </span>
         <br />
         <h4>
-          Complaint submitted via
+          Submitted via
         </h4>
         <span
           className="body-copy"
@@ -1439,7 +1439,7 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
         </span>
         <br />
         <h4>
-          Matched company name
+          Company name
         </h4>
         <span
           className="body-copy"
@@ -1559,7 +1559,7 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
         </span>
         <br />
         <h4>
-          Complaint submitted via
+          Submitted via
         </h4>
         <span
           className="body-copy"
@@ -1679,7 +1679,7 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
         </span>
         <br />
         <h4>
-          Matched company name
+          Company name
         </h4>
         <span
           className="body-copy"
@@ -1799,7 +1799,7 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
         </span>
         <br />
         <h4>
-          Complaint submitted via
+          Submitted via
         </h4>
         <span
           className="body-copy"
@@ -1919,7 +1919,7 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
         </span>
         <br />
         <h4>
-          Matched company name
+          Company name
         </h4>
         <span
           className="body-copy"
@@ -2039,7 +2039,7 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
         </span>
         <br />
         <h4>
-          Complaint submitted via
+          Submitted via
         </h4>
         <span
           className="body-copy"
@@ -2159,7 +2159,7 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
         </span>
         <br />
         <h4>
-          Matched company name
+          Company name
         </h4>
         <span
           className="body-copy"
@@ -2279,7 +2279,7 @@ exports[`component::ComplaintDetail snapshots supports "Timely Response" icons 1
         </span>
         <br />
         <h4>
-          Complaint submitted via
+          Submitted via
         </h4>
         <span
           className="body-copy"
@@ -2399,7 +2399,7 @@ exports[`component::ComplaintDetail snapshots supports "Timely Response" icons 1
         </span>
         <br />
         <h4>
-          Matched company name
+          Company name
         </h4>
         <span
           className="body-copy"
@@ -2519,7 +2519,7 @@ exports[`component::ComplaintDetail snapshots supports "Timely Response" icons 2
         </span>
         <br />
         <h4>
-          Complaint submitted via
+          Submitted via
         </h4>
         <span
           className="body-copy"
@@ -2639,7 +2639,7 @@ exports[`component::ComplaintDetail snapshots supports "Timely Response" icons 2
         </span>
         <br />
         <h4>
-          Matched company name
+          Company name
         </h4>
         <span
           className="body-copy"
