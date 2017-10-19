@@ -14,9 +14,9 @@ exports[`initial state hides the section when there is no narrative 1`] = `
         className="to-detail"
       >
         <a
-          href="detail/99990909"
+          href="detail/<em99990909"
         >
-          99990909
+          &lt;em99990909
         </a>
       </h3>
       <h4>
@@ -169,9 +169,9 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
         className="to-detail"
       >
         <a
-          href="detail/99990909"
+          href="detail/<em99990909"
         >
-          99990909
+          &lt;em99990909
         </a>
       </h3>
       <h4>
@@ -321,9 +321,9 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
         className="to-detail"
       >
         <a
-          href="detail/99990909"
+          href="detail/<em99990909"
         >
-          99990909
+          &lt;em99990909
         </a>
       </h3>
       <h4>
@@ -460,6 +460,183 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
 `;
 
 exports[`initial state includes an overflow link when the narrative is long 1`] = `
+<li
+  className="card-container"
+>
+  <div
+    className="card"
+  >
+    <div
+      className="card-left layout-column"
+    >
+      <h3
+        className="to-detail"
+      >
+        <a
+          href="detail/<em99990909"
+        >
+          &lt;em99990909
+        </a>
+      </h3>
+      <h4>
+        Company name
+      </h4>
+      <span
+        className="body-copy"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "ABC Corp",
+          }
+        }
+      />
+      <br />
+      <h4>
+        Company response to consumer
+      </h4>
+      <span
+        className="body-copy"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Ipsum",
+          }
+        }
+      />
+      <br />
+      <h4>
+        Timely response?
+      </h4>
+      <span
+        className="body-copy"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Yes",
+          }
+        }
+      />
+    </div>
+    <div
+      className="card-right layout-column"
+    >
+      <div
+        className="layout-row"
+      >
+        <div
+          className="layout-row"
+        >
+          <h4>
+            Date received:
+          </h4>
+          <span
+            className="body-copy"
+          >
+            <span>
+              2/3/2013
+            </span>
+          </span>
+        </div>
+        <div
+          className="spacer"
+        />
+        <div
+          className="layout-row"
+        >
+          <h4>
+            Consumer's state:
+          </h4>
+          <span
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "DC",
+              }
+            }
+          />
+        </div>
+      </div>
+      <br />
+      <h4>
+        Product
+      </h4>
+      <h3
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Beta",
+          }
+        }
+      />
+      <div
+        className="layout-row"
+      >
+        <span
+          className="body-copy subitem"
+        >
+          Sub-product:
+        </span>
+        <span
+          className="body-copy"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Delta",
+            }
+          }
+        />
+      </div>
+      <br />
+      <h4>
+        Issue
+      </h4>
+      <h3
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Alpha",
+          }
+        }
+      />
+      <div
+        className="layout-row"
+      >
+        <span
+          className="body-copy subitem"
+        >
+          Sub-issue:
+        </span>
+        <span
+          className="body-copy"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Gamma",
+            }
+          }
+        />
+      </div>
+      <div>
+        <br />
+        <h4>
+          Consumer Complaint Narrative
+        </h4>
+        <span
+          className="body-copy"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Call me Ishmael. Some years ago- never mind how long precisely- having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulati",
+            }
+          }
+        />
+        <span>
+           
+          <a
+            href="detail/<em99990909</em>"
+          >
+            [...]
+          </a>
+        </span>
+      </div>
+    </div>
+  </div>
+</li>
+`;
+
+exports[`initial state removes <em> highlighting tags effectively from text 1`] = `
 <li
   className="card-container"
 >
@@ -618,18 +795,10 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
           className="body-copy"
           dangerouslySetInnerHTML={
             Object {
-              "__html": "Call me Ishmael. Some years ago- never mind how long precisely- having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulati",
+              "__html": "Oh baby you. Got what I need",
             }
           }
         />
-        <span>
-           
-          <a
-            href="detail/99990909"
-          >
-            [...]
-          </a>
-        </span>
       </div>
     </div>
   </div>
@@ -650,9 +819,9 @@ exports[`initial state renders without crashing 1`] = `
         className="to-detail"
       >
         <a
-          href="detail/99990909"
+          href="detail/<em99990909"
         >
-          99990909
+          &lt;em99990909
         </a>
       </h3>
       <h4>
