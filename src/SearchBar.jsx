@@ -140,13 +140,17 @@ export class SearchBar extends React.Component {
 
     const n = value.toLowerCase()
 
-    const uri = '@@API_suggest/?text=' + value
+    const uriCompany = '@@API_suggest_company/?text=' + value
+    const uriDefault = '@@API_suggest/?text=' + value
+
+    const uri = this.state.searchField === 'company' ? uriCompany : uriDefault
+
     return fetch( uri )
     .then( result => result.json() )
     .then( items => items.map( x => ( {
       key: x,
       label: x,
-      position: x.indexOf( n ),
+      position: x.toLowerCase().indexOf( n ),
       value
     } ) ) )
   }

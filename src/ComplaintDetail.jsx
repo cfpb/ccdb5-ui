@@ -74,7 +74,8 @@ export class ComplaintDetail extends React.Component {
       'Consent provided': 'cf-icon-approved-round',
       'Consent not provided': 'cf-icon-delete-round',
       'Consent withdrawn': 'cf-icon-minus-round',
-      'N/A': 'cf-icon-help-round'
+      'N/A': 'cf-icon-help-round',
+      'Other': 'cf-icon-help-round'
     }
 
     const styles = [ 'cf-icon', 'cf-icon__before' ]
@@ -82,6 +83,7 @@ export class ComplaintDetail extends React.Component {
       styles.push( iconMap[value] )
     } else {
       styles.push( 'cf-icon-error-round' )
+      value = 'No data available'
     }
 
     return (
