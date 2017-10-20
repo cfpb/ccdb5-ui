@@ -14,7 +14,7 @@ export default class ComplaintCard extends React.Component {
         <div className="card">
           <div className="card-left layout-column">
             <h3 className="to-detail">
-              <a href={ complaintIdPath }>
+              <a href={ this._stripPossibleHighlight( complaintIdPath ) }>
                 { this._stripPossibleHighlight( row.complaint_id ) }
               </a>
             </h3>
