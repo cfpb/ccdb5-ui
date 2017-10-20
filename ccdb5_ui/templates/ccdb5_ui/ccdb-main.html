@@ -8,6 +8,7 @@
 {% block title %}Search the Consumer Complaint Database{% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static "main.css" %}">
 <noscript>
   <style type="text/css">
     .js-error-warning {
@@ -48,15 +49,9 @@
 
 {% block page_js %}
   <!--[if IE 9]><!-->
-  <script src="https://cdn.polyfill.io/v2/polyfill.js?features=Intl.~locale.en"></script>
+  <script src="https://cdn.polyfill.io/v2/polyfill.js?features=default,Intl.~locale.en"></script>
   <!--<![endif]-->
   <script src="{% static "ccdb5.min.js" %}" type="text/javascript"></script>
-  <script type="text/javascript">
-    ReactDOM.render(
-      React.createElement(ccdb5_ui.App, {}, null),
-      document.getElementById('root')
-    );
-  </script>
 {% endblock %}
 
 {% block app_js %}
