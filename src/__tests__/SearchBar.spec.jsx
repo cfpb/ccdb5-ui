@@ -23,7 +23,8 @@ function setup(initialText) {
 describe('component:SearchBar', () =>{
   beforeEach(() => {
     global.fetch = jest.fn().mockImplementation((url) => {
-      expect(url).toContain('@@API_suggest/?text=')
+      expect(url).toContain('@@API_suggest')
+      expect(url).toContain('/?text=')
 
       return new Promise((resolve) => {
         resolve({
