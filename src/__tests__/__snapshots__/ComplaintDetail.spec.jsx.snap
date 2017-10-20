@@ -2120,7 +2120,7 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
           <span
             className="body-copy"
           >
-            FOO
+            No data available
           </span>
         </div>
         <br />
