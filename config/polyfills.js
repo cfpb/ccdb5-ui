@@ -8,6 +8,11 @@ if (typeof Promise === 'undefined') {
   window.Promise = require('promise/lib/es6-extensions.js');
 }
 
+if (typeof Set === 'undefined') {
+  window.Set = require("core-js/es6/set");
+  window.Map = require("core-js/es6/map");
+}
+
 // fetch() polyfill for making API calls.
 require('whatwg-fetch');
 
