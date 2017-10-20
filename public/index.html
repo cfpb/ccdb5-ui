@@ -17,9 +17,41 @@
     <div id="root"></div>
   </body>
   <script type="text/javascript">
-    ReactDOM.render(
-      React.createElement(ccdb5_ui.App, {}, null),
-      document.getElementById('root')
-    );
+    function browserSupportsAllFeatures() {
+      return window.Set && window.Promise && window.fetch
+    }
+
+    if (browserSupportsAllFeatures()) {
+      // Browsers that support all features run `main()` immediately.
+      main()
+      console.log('browser supports all features')
+    } else {
+      // All other browsers loads polyfills and then run `main()`.
+      loadScript('https://cdn.polyfill.io/v2/polyfill.min.js?features=default,Intl.~locale.en', main)
+    }
+
+    function loadScript(src, done) {
+      var js = document.createElement('script');
+      js.src = src;
+      js.onload = function() {
+        done();
+      };
+      js.onerror = function() {
+        done(new Error('Failed to load script ' + src));
+      };
+      document.head.appendChild(js);
+    }
+
+    function main(err) {
+      if ( err ) {
+        alert('There was a problem on the page: ', err)
+      } else {
+        ReactDOM.render(
+          React.createElement(ccdb5_ui.App, {}, null),
+          document.getElementById('root')
+        );
+      } 
+    }
   </script>
+
 </html>
