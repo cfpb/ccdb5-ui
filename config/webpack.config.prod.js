@@ -216,6 +216,23 @@ module.exports = {
             ),
             // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
           },
+          // This loader handles font files
+          {
+            test: [
+              /\.eot$/,
+              /\.svg$/,
+              /\.ttf$/,
+              /\.woff$/
+            ],
+            loader: require.resolve('file-loader'),
+            options: {
+              // Do not output the font file
+              emitFile: false,
+
+              // Write the path where the font files will be in the main site
+              name: 'static/fonts/[name].[ext]'
+            }            
+          },
           // This loader doesn't use a "test" so it will catch all modules
           // that fall through the other loaders.
           {
