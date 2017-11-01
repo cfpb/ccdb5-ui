@@ -56,6 +56,7 @@ export class ActionBar extends React.Component {
 
             <h4 className="flex-all">
               <button className="a-btn a-btn__link"
+                      data-gtm_ignore="true"
                       onClick={this.props.onExportResults}>
                 Export results
               </button>
