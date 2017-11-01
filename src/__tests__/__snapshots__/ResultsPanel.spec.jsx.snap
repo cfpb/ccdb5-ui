@@ -96,6 +96,7 @@ exports[`component:ReactPanel displays a message when an error has occurred 1`] 
       >
         <button
           className="a-btn a-btn__link"
+          data-gtm_ignore="true"
           onClick={[Function]}
         >
           Export results
@@ -205,6 +206,7 @@ exports[`component:ReactPanel displays a message when the data has issues 1`] = 
       >
         <button
           className="a-btn a-btn__link"
+          data-gtm_ignore="true"
           onClick={[Function]}
         >
           Export results
@@ -565,6 +567,7 @@ exports[`component:ReactPanel displays a message when the data is stale 1`] = `
       >
         <button
           className="a-btn a-btn__link"
+          data-gtm_ignore="true"
           onClick={[Function]}
         >
           Export results
@@ -925,6 +928,7 @@ exports[`component:ReactPanel displays a message when there are no results 1`] =
       >
         <button
           className="a-btn a-btn__link"
+          data-gtm_ignore="true"
           onClick={[Function]}
         >
           Export results
@@ -1034,6 +1038,7 @@ exports[`component:ReactPanel renders without crashing 1`] = `
       >
         <button
           className="a-btn a-btn__link"
+          data-gtm_ignore="true"
           onClick={[Function]}
         >
           Export results
