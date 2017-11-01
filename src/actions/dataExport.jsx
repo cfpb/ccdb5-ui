@@ -65,8 +65,7 @@ export function exportSomeResults( format, size ) {
     // Need to make a deep-copy or this size gets in the store (!)
     const params = { ...getState().query }
 
-    // TODO: set the correct size in the query string
-    params.size = Math.min( 10000, size )
+    params.size = size
     params.format = format
     // eslint-disable-next-line camelcase
     params.no_aggs = true
