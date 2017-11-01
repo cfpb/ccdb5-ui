@@ -29,6 +29,7 @@ export class DataExport extends React.Component {
         <div className="header layout-row">
           <h3 className="flex-all">Export complaints</h3>
           <button className="a-btn a-btn__link"
+                  data-gtm_ignore="true"
                   onClick={this.props.onClose}>
             Close
             <span className="cf-icon cf-icon-delete-round"></span>
@@ -50,11 +51,13 @@ export class DataExport extends React.Component {
         </div>
         <div className="footer layout-row">
           <button className="a-btn"
+                  data-gtm_ignore="true"
                   disabled={ Object.keys( this.state.messages ).length > 0 }
                   onClick={this._exportClicked}>
             Start Export
           </button>
           <button className="a-btn a-btn__link a-btn__warning"
+                  data-gtm_ignore="true"
                   onClick={this.props.onClose}>
             Cancel
           </button>
@@ -162,6 +165,7 @@ export class DataExport extends React.Component {
             <div className="other-formats">
               Or you can&nbsp;
               <button className="a-btn a-btn__link"
+                      data-gtm_ignore="true"
                       onClick={this.props.onOtherFormats}>
                download the data in a different format
               </button>
