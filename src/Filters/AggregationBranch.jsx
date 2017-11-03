@@ -145,12 +145,12 @@ export const mapStateToProps = ( state, ownProps ) => {
   // Find all query filters that refer to the field name
   const candidates = state.query[ownProps.fieldName] || []
 
-  // Do any of these values contain the key?
-  const hasKey = candidates.filter( x => x.indexOf( ownProps.item.key ) !== -1 )
+  // Do any of these values start with the key?
+  const hasKey = candidates.filter( x => x.indexOf( ownProps.item.key ) === 0 )
 
   // Does the key contain the separator?
   const activeChild = hasKey.filter( x => x.indexOf( SLUG_SEPARATOR ) !== -1 )
-  const activeParent = hasKey.filter( x => x.indexOf( SLUG_SEPARATOR ) === -1 )
+  const activeParent = hasKey.filter( x => x === ownProps.item.key )
 
   let checkedState = UNCHECKED
   if ( activeParent.length === 0 && activeChild.length > 0 ) {
