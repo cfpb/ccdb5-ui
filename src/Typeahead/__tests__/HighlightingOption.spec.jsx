@@ -12,6 +12,15 @@ describe('component::HighlightingOption', () => {
       const tree = target.toJSON()
       expect(tree).toMatchSnapshot()
     })
+
+    it('handles position == -1', () => {
+      const target = renderer.create(
+        <HighlightingOption label="Foobar" position={-1} value="foo" />
+      )
+
+      const tree = target.toJSON()
+      expect(tree).toMatchSnapshot()
+    })
   })
 })
 

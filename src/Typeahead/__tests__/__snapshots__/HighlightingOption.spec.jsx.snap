@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`component::HighlightingOption initial state handles position == -1 1`] = `
+<span>
+  Foobar
+</span>
+`;
+
 exports[`component::HighlightingOption initial state renders without crashing 1`] = `
 <span>
   
