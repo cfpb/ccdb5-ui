@@ -162,7 +162,7 @@ DateFilter.propTypes = {
 DateFilter.defaultProps = {
   from: '',
   maximumDate: null,
-  minimumDate: new Date( '2014-01-01T12:00:00.000Z' ),
+  minimumDate: new Date( '2011-11-30T12:00:00.000Z' ),
   through: ''
 }
 
