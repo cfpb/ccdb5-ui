@@ -103,6 +103,12 @@ describe('component::DataExport', () => {
         startExport.simulate('click')
         expect(props.exportAll).toHaveBeenCalled()
       })
+
+      it('displays the long download warning', () => {
+        target.setState({dataset: 'full'})
+        startExport.simulate('click')
+        expect(target.state('mode')).toEqual('NOTIFYING')
+      })
     })
   })
 
