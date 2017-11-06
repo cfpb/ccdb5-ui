@@ -38,9 +38,7 @@ export function exportAllResults( format ) {
   Analytics.sendEvent(
     Analytics.getDataLayerOptions( 'Export All Data', format )
   )
-  return dispatch => {
-    dispatch( { type: MODAL_HID } )
-
+  return () => {
     const uri = DATA_HOST + '/api/views/s6ew-h6mp/rows.' + format
     const link = buildLink( uri, 'download.' + format )
     simulateClick( link )
@@ -58,9 +56,7 @@ export function exportSomeResults( format, size ) {
   Analytics.sendEvent(
     Analytics.getDataLayerOptions( 'Export Some Data', format )
   )
-  return ( dispatch, getState ) => {
-    dispatch( { type: MODAL_HID } )
-
+  return ( _, getState ) => {
     // params = {...getState()} only makes a shallow copy
     // Need to make a deep-copy or this size gets in the store (!)
     const params = { ...getState().query }

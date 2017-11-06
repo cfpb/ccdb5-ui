@@ -7,6 +7,14 @@ import { connect } from 'react-redux'
 import { FormattedNumber } from 'react-intl'
 import React from 'react'
 
+// ----------------------------------------------------------------------------
+// Modes
+
+const PROMPTING = 'PROMPTING'
+const NOTIFYING = 'NOTIFYING'
+
+// ----------------------------------------------------------------------------
+
 export class DataExport extends React.Component {
   constructor( props ) {
     super( props )
@@ -35,33 +43,14 @@ export class DataExport extends React.Component {
             <span className="cf-icon cf-icon-delete-round"></span>
           </button>
         </div>
-        <div className="body">
-          <div className="body-copy instructions">
-            To download a copy of this dataset, choose the file format and
-            which complaints you want to export below.
-          </div>
-          { this._renderFormatGroup() }
-          { this.props.someComplaints === this.props.allComplaints ? null :
-            this._renderDatasetGroup()
-          }
-          <div className="timeliness-warning">
-            The export process could take several minutes if you're downloading
-            many complaints
-          </div>
-        </div>
-        <div className="footer layout-row">
-          <button className="a-btn"
-                  data-gtm_ignore="true"
-                  disabled={ Object.keys( this.state.messages ).length > 0 }
-                  onClick={this._exportClicked}>
-            Start Export
-          </button>
-          <button className="a-btn a-btn__link a-btn__warning"
-                  data-gtm_ignore="true"
-                  onClick={this.props.onClose}>
-            Cancel
-          </button>
-        </div>
+        { this.state.mode === PROMPTING ?
+          this._renderBodyPrompting() :
+          this._renderBodyNotifying()
+        }
+        { this.state.mode === PROMPTING ?
+          this._renderFooterPrompting() :
+          null
+        }
       </section>
     )
   }
@@ -95,7 +84,8 @@ export class DataExport extends React.Component {
 
   _validate( props ) {
     let nextState = {
-      messages: {}
+      messages: {},
+      mode: PROMPTING
     }
     nextState = this._validateDataset( props, nextState )
     nextState = this._validateFormat( nextState )
@@ -128,13 +118,62 @@ export class DataExport extends React.Component {
     } else {
       this.props.exportSome( this.state.format, this.props.someComplaints )
     }
+
+    this.setState( { mode: NOTIFYING } )
   }
 
   // --------------------------------------------------------------------------
   // Subrender methods
 
-  _renderFormatGroup() {
+  _renderBodyPrompting() {
+    return (
+        <div className="body">
+          <div className="body-copy instructions">
+            To download a copy of this dataset, choose the file format and
+            which complaints you want to export below.
+          </div>
+          { this._renderFormatGroup() }
+          { this.props.someComplaints === this.props.allComplaints ? null :
+            this._renderDatasetGroup()
+          }
+          <div className="timeliness-warning">
+            The export process could take several minutes if you're downloading
+            many complaints
+          </div>
+        </div>
+    )
+  }
 
+  _renderBodyNotifying() {
+    return (
+        <div className="body">
+          <div className="body-copy instructions">
+            It may take a few minutes for your file to download.
+            You can keep working while it processes.
+          </div>
+        </div>
+    )
+  }
+
+  _renderFooterPrompting() {
+    return (
+        <div className="footer layout-row">
+          <button className="a-btn"
+                  data-gtm_ignore="true"
+                  disabled={ Object.keys( this.state.messages ).length > 0 }
+                  onClick={this._exportClicked}>
+            Start Export
+          </button>
+          <button className="a-btn a-btn__link a-btn__warning"
+                  data-gtm_ignore="true"
+                  onClick={this.props.onClose}>
+            Cancel
+          </button>
+        </div>
+    )
+  }
+
+  _renderFormatGroup() {
     return <div className="group">
             <div className="group-title">
               Select a format for the exported file
@@ -175,7 +214,6 @@ export class DataExport extends React.Component {
   }
 
   _renderDatasetGroup() {
-
     return <div className="group">
             <div className="group-title">
               Select which complaints you'd like to export

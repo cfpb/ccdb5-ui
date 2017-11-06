@@ -37,9 +37,7 @@ describe('action:dataExport', () => {
 
     describe('exportAllResults', () => {
       it('executes a chain of actions', () => {
-        const expectedActions = [
-          { type: types.MODAL_HID }
-        ]
+        const expectedActions = []
 
         store.dispatch(sut.exportAllResults('json'))
         expect(store.getActions()).toEqual(expectedActions)
@@ -53,9 +51,7 @@ describe('action:dataExport', () => {
 
     describe('exportSomeResults', () => {
       it('executes a chain of actions', () => {
-        const expectedActions = [
-          { type: types.MODAL_HID }
-        ]
+        const expectedActions = []
 
         store.dispatch(sut.exportSomeResults('csv', 11111))
         expect(store.getActions()).toEqual(expectedActions)
