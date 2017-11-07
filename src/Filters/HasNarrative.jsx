@@ -1,10 +1,10 @@
 import { changeFlagFilter } from '../actions/filter'
 import { connect } from 'react-redux'
+import { NARRATIVE_SEARCH_FIELD } from '../constants'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 const FIELD_NAME = 'has_narrative'
-const NARRATIVE_SEARCH_FIELD = 'complaint_what_happened'
 
 const SEARCHING = 'SEARCHING'
 const FILTERING = 'FILTERING'

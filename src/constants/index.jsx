@@ -26,6 +26,8 @@ export const MODAL_TYPE_DATA_EXPORT = 'MODAL_TYPE_DATA_EXPORT'
 export const MODAL_TYPE_MORE_ABOUT = 'MODAL_TYPE_MORE_ABOUT'
 
 // Useful constants
+export const NARRATIVE_SEARCH_FIELD = 'complaint_what_happened'
+
 export const knownFilters = [
   'company',
   'company_public_response',
