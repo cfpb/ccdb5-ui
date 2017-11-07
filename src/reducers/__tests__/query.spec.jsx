@@ -234,20 +234,47 @@ describe('reducer:query', () => {
     })    
   })
 
-  it('handles FILTER_ALL_REMOVED actions', () => {
-    const action = {
-      type: types.FILTER_ALL_REMOVED
-    }
-    const state = {
-      from: 100,
-      size: 100,
-      timely: ['bar', 'baz', 'qaz'],
-      company: ['Acme']
-    }
-    expect(target(state, action)).toEqual({
-      from: 100,
-      queryString: '?frm=100&size=100',
-      size: 100
+  describe('FILTER_ALL_REMOVED actions', () => {
+    let action, state;
+    beforeEach(() => {
+      action = {
+        type: types.FILTER_ALL_REMOVED
+      }
+
+      state = {
+        company: ['Acme'],
+        date_received_min: new Date(2012, 0, 1),
+        from: 100,
+        has_narrative: true,
+        searchField: 'all',
+        size: 100,
+        timely: ['bar', 'baz', 'qaz'],
+      }
+    })
+
+    it('clears all filters', () => {
+      expect(target(state, action)).toEqual({
+        from: 100,
+        queryString: '?field=all&frm=100&size=100',
+        searchField: 'all',
+        size: 100
+      })
+    })
+
+    describe('when searching Narratives', () => {
+      it('does not clear the hasNarrative filter', () => {
+        const qs = '?field=' + types.NARRATIVE_SEARCH_FIELD +
+          '&frm=100&has_narrative=true&size=100'
+
+        state.searchField = types.NARRATIVE_SEARCH_FIELD
+        expect(target(state, action)).toEqual({
+          from: 100,
+          has_narrative: true,
+          queryString: qs,
+          searchField: types.NARRATIVE_SEARCH_FIELD,
+          size: 100
+        })
+      })
     })
   })
 
