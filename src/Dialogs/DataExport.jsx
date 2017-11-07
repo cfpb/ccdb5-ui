@@ -58,12 +58,8 @@ export class DataExport extends React.Component {
   // --------------------------------------------------------------------------
   // Validation methods
 
-  _validateDataset( props, state ) {
-    const dataset = props.someComplaints === props.allComplaints ?
-      'full' :
-      state.dataset
-
-    if ( typeof dataset === 'undefined' ) {
+  _validateDataset( state ) {
+    if ( typeof state.dataset === 'undefined' ) {
       state.messages.dataset = 'You must choose which dataset to export'
     } else {
       delete state.messages.dataset
@@ -87,7 +83,13 @@ export class DataExport extends React.Component {
       messages: {},
       mode: PROMPTING
     }
-    nextState = this._validateDataset( props, nextState )
+
+    // When there is no filter, always use full dataset
+    if ( props.someComplaints === props.allComplaints ) {
+      nextState.dataset = 'full'
+    }
+
+    nextState = this._validateDataset( nextState )
     nextState = this._validateFormat( nextState )
 
     return nextState
@@ -97,7 +99,7 @@ export class DataExport extends React.Component {
   // Form helpers
 
   _chooseDataset( ev ) {
-    const nextState = this._validateDataset( this.props, {
+    const nextState = this._validateDataset( {
       dataset: ev.target.value,
       messages: this.state.messages
     } )
