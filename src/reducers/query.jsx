@@ -230,7 +230,17 @@ export function toggleFilter( state, action ) {
 */
 export function removeAllFilters( state ) {
   const newState = { ...state }
-  types.knownFilters.forEach( kf => {
+
+  const allFilters = types.knownFilters.concat(
+    types.dateFilters, types.flagFilters
+  )
+
+  if ( state.searchField === types.NARRATIVE_SEARCH_FIELD ) {
+    const idx = allFilters.indexOf( 'has_narrative' )
+    allFilters.splice( idx, 1 )
+  }
+
+  allFilters.forEach( kf => {
     if ( kf in newState ) {
       delete newState[kf]
     }
