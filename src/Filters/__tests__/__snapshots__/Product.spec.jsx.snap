@@ -44,7 +44,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
         className="aggregation-branch"
       >
         <li
-          className="layout-row parent m-form-field m-form-field__checkbox body-copy"
+          className="parent m-form-field m-form-field__checkbox body-copy"
         >
           <input
             aria-label="Credit reporting, credit repair services, or other personal consumer reports"
@@ -83,7 +83,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
         className="aggregation-branch"
       >
         <li
-          className="layout-row parent m-form-field m-form-field__checkbox body-copy"
+          className="parent m-form-field m-form-field__checkbox body-copy"
         >
           <input
             aria-label="Mortgage"
