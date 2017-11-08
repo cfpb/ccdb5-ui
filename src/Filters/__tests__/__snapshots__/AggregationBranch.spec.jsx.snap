@@ -5,7 +5,7 @@ exports[`component::AggregationBranch snapshots renders with all checked 1`] = `
   className="aggregation-branch"
 >
   <li
-    className="layout-row parent m-form-field m-form-field__checkbox body-copy"
+    className="parent m-form-field m-form-field__checkbox body-copy"
   >
     <input
       aria-label="foo"
@@ -126,7 +126,7 @@ exports[`component::AggregationBranch snapshots renders with indeterminate 1`] =
   className="aggregation-branch"
 >
   <li
-    className="layout-row parent m-form-field m-form-field__checkbox body-copy"
+    className="parent m-form-field m-form-field__checkbox body-copy"
   >
     <input
       aria-label="foo"
@@ -247,7 +247,7 @@ exports[`component::AggregationBranch snapshots renders with none checked 1`] = 
   className="aggregation-branch"
 >
   <li
-    className="layout-row parent m-form-field m-form-field__checkbox body-copy"
+    className="parent m-form-field m-form-field__checkbox body-copy"
   >
     <input
       aria-label="foo"
