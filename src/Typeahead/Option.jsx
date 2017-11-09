@@ -12,7 +12,8 @@ export default class Option extends React.Component {
 
     return (
      <li className={classes.join( ' ' )}
-         onMouseDown={this.props.onClick}>
+         onMouseDown={this.props.onClick}
+         onTouchStart={this.props.onClick}>
        { this.props.children }
      </li>
     )
