@@ -148,6 +148,7 @@ exports[`component::Typeahead render phases renders the RESULTS phase 1`] = `
       <li
         className="typeahead-option body-copy"
         onMouseDown={[Function]}
+        onTouchStart={[Function]}
       >
         foo
       </li>
@@ -185,30 +186,35 @@ exports[`component::Typeahead render phases renders the TOO_MANY phase 1`] = `
       <li
         className="typeahead-option body-copy"
         onMouseDown={[Function]}
+        onTouchStart={[Function]}
       >
         foo
       </li>
       <li
         className="typeahead-option body-copy"
         onMouseDown={[Function]}
+        onTouchStart={[Function]}
       >
         bar
       </li>
       <li
         className="typeahead-option body-copy"
         onMouseDown={[Function]}
+        onTouchStart={[Function]}
       >
         baz
       </li>
       <li
         className="typeahead-option body-copy"
         onMouseDown={[Function]}
+        onTouchStart={[Function]}
       >
         qaz
       </li>
       <li
         className="typeahead-option body-copy"
         onMouseDown={[Function]}
+        onTouchStart={[Function]}
       >
         quux
       </li>
