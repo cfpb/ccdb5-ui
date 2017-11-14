@@ -1,4 +1,5 @@
 import './ComplaintDetail.less';
+import { bindAll } from './utils'
 import { connect } from 'react-redux'
 import { FormattedDate } from 'react-intl';
 import { getComplaintDetail } from './actions/complaints'
@@ -14,11 +15,16 @@ export class ComplaintDetail extends React.Component {
   constructor( props ) {
     super( props )
 
+    bindAll( this, [
+      '_renderBackDefault', '_renderBackDirect',
+      '_renderError', '_renderResults', '_renderWaiting'
+    ] )
+
     // Render/Phase Map
     this.renderMap = {
-      ERROR: this._renderError.bind( this ),
-      WAITING: this._renderWaiting.bind( this ),
-      RESULTS: this._renderResults.bind( this )
+      ERROR: this._renderError,
+      WAITING: this._renderWaiting,
+      RESULTS: this._renderResults
     }
   }
 
@@ -34,11 +40,7 @@ export class ComplaintDetail extends React.Component {
       <section className="card-container">
         <nav className="layout-row">
           <div className="back-to-search flex-fixed">
-            <button className="a-btn a-btn__link"
-                    onClick={this.props.onClickedBack}>
-                <span className="cf-icon cf-icon-left"></span>
-                Back to search results
-            </button>
+            { this._selectWhichBackButton( document ) }
           </div>
           <div className="meaning flex-fixed">
             <a href="https://www.consumerfinance.gov/complaint/data-use/"
@@ -53,7 +55,42 @@ export class ComplaintDetail extends React.Component {
   }
 
   // --------------------------------------------------------------------------
+  // Global Access Methods
+
+  _selectWhichBackButton( doc ) {
+    return doc.referrer === '' ?
+      this._renderBackDirect() :
+      this._renderBackDefault()
+  }
+
+  _getRootUrl( fullPath ) {
+    const idx = fullPath.indexOf( 'detail' )
+    return fullPath.substring( 0, idx )
+  }
+
+  // --------------------------------------------------------------------------
   // Subrender Methods
+
+  _renderBackDefault() {
+    return (
+      <button className="a-btn a-btn__link"
+              onClick={this.props.onClickedBack}>
+          <span className="cf-icon cf-icon-left"></span>
+          Back to search results
+      </button>
+    )
+  }
+
+  _renderBackDirect() {
+    const root = this._getRootUrl( location.pathname )
+    return (
+      <button className="a-btn a-btn__link"
+              onClick={() => { window.location = root }}>
+          <span className="cf-icon cf-icon-left"></span>
+          Go to search home page
+      </button>
+    )
+  }
 
   _renderCompanyTimely( value ) {
     const styles = [ 'cf-icon', 'cf-icon__before', 'cf-icon-clock-round' ]
