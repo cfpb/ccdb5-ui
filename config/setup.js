@@ -14,3 +14,8 @@ global.fetch = jest.fn().mockImplementation((url) => {
     })
   })
 })
+
+Object.defineProperty(document, 'referrer', {
+  configurable: true,
+  value: 'http://www.example.org'
+} )
