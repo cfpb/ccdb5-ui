@@ -5,6 +5,7 @@ import {
 } from '../constants'
 
 const defaultResults = {
+  activeCall: '',
   doc_count: 0,
   error: '',
   lastUpdated: null,
@@ -32,6 +33,7 @@ export default ( state = defaultResults, action ) => {
     case API_CALLED:
       return {
         ...state,
+        activeCall: action.url,
         isLoading: true
       }
 
@@ -46,6 +48,7 @@ export default ( state = defaultResults, action ) => {
 
       return {
         ...state,
+        activeCall: '',
         doc_count,
         error: '',
         lastUpdated: action.data._meta.last_updated,
