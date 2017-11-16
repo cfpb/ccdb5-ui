@@ -7,10 +7,10 @@ import SearchBar from './SearchBar'
 
 export class SearchPanel extends React.Component {
   render() {
-    var lastUpdatedMessage = null;
+    var lastIndexedMessage = null;
 
     if ( this.props.lastIndexed ) {
-      lastUpdatedMessage =
+      lastIndexedMessage =
         <span className="date-subscript">
           (last updated: <FormattedDate value={ this.props.lastIndexed } />)
         </span>
@@ -18,7 +18,7 @@ export class SearchPanel extends React.Component {
 
     return (
         <div className="search-panel">
-          <h2>Search complaint data { lastUpdatedMessage }</h2>
+          <h2>Search complaint data { lastIndexedMessage }</h2>
           <SearchBar />
           <PillPanel />
         </div>
