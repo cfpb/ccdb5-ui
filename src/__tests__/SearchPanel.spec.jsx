@@ -19,7 +19,7 @@ function setupSnapshot(initialStore={}) {
   return renderer.create(
     <Provider store={ store } >
       <IntlProvider locale="en">
-        <SearchPanel lastUpdated={ results.lastUpdated } />
+        <SearchPanel lastIndexed={ results.lastIndexed } />
       </IntlProvider>
     </Provider>
   )
@@ -33,7 +33,7 @@ describe('component:SearchPanel', () => {
   });
 
   it('displays last updated date when present', () => {
-    const target = setupSnapshot({ lastUpdated: new Date( '2016-02-01T05:00:00.000Z' ) })
+    const target = setupSnapshot({ lastIndexed: new Date( '2016-02-01T05:00:00.000Z' ) })
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   })
