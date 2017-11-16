@@ -7,6 +7,7 @@ describe('reducer:results', () => {
         doc_count: 0,
         error: '',
         lastUpdated: null,
+        lastIndexed: null,
         hasDataIssue: false,
         isDataStale: false,
         isLoading: false,
@@ -32,6 +33,7 @@ describe('reducer:results', () => {
           '_meta': {
             total_record_count: 162576,
             last_updated: '2017-07-10T00:00:00.000Z',
+            last_indexed: '2017-07-11T00:00:00.000Z',
             license: 'CC0'
           }
         }
@@ -43,6 +45,7 @@ describe('reducer:results', () => {
         doc_count: 162576,
         error: '',
         lastUpdated: '2017-07-10T00:00:00.000Z',
+        lastIndexed: '2017-07-11T00:00:00.000Z',
         hasDataIssue: undefined,
         isDataStale: undefined,
         isLoading: false,
@@ -61,6 +64,7 @@ describe('reducer:results', () => {
         doc_count: 162576,
         error: '',
         lastUpdated: '2017-07-10T00:00:00.000Z',
+        lastIndexed: '2017-07-11T00:00:00.000Z',
         hasDataIssue: undefined,
         isDataStale: undefined,
         isLoading: false,
@@ -82,6 +86,7 @@ describe('reducer:results', () => {
       doc_count: 0,
       error: 'foo bar',
       lastUpdated: null,
+      lastIndexed: null,
       hasDataIssue: false,
       isDataStale: false,
       isLoading: false,
