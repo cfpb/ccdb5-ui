@@ -10,8 +10,14 @@ import * as types from '../constants'
 */
 export function getComplaints() {
   return ( dispatch, getState ) => {
-    const qs = getState().query.queryString
+    const store = getState()
+    const qs = store.query.queryString
     const uri = '@@API' + qs
+
+    // This call is already in process
+    if( uri === store.results.activeCall )
+      return null
+
     dispatch( callingApi( uri ) )
     return fetch( uri )
     .then( result => result.json() )

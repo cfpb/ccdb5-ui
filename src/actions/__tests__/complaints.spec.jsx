@@ -39,6 +39,9 @@ describe('action::complaints', () => {
           queryString: '?foo',
           searchText: '',
           size: 10,
+        },
+        results: {
+          activeCall: ''
         }
       })
     })
@@ -46,6 +49,15 @@ describe('action::complaints', () => {
     it('calls the API', () => {
       store.dispatch(actions.getComplaints())
       expect(global.fetch).toHaveBeenCalled()
+    })
+
+    it('discards duplicate API calls', () => {
+      const s = store.getState()
+      s.results.activeCall = '@@API' + s.query.queryString
+      store = mockStore(s)
+
+      store.dispatch(actions.getComplaints())
+      expect(global.fetch).not.toHaveBeenCalled()
     })
 
     describe('when the API call is finished', () => {
