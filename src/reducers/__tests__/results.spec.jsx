@@ -11,6 +11,7 @@ describe('reducer:results', () => {
         lastIndexed: null,
         hasDataIssue: false,
         isDataStale: false,
+        isNarrativeStale: false,
         isLoading: false,
         items: [],
         total: 0
@@ -104,6 +105,7 @@ describe('reducer:results', () => {
       lastIndexed: null,
       hasDataIssue: false,
       isDataStale: false,
+      isNarrativeStale: false,
       isLoading: false,
       items: [],
       total: 0
