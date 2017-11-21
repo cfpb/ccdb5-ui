@@ -104,9 +104,373 @@ exports[`component:ReactPanel displays a message when an error has occurred 1`] 
       </h4>
     </div>
   </summary>
+  <div />
   <h2>
     There was a problem executing your search
   </h2>
+</section>
+`;
+
+exports[`component:ReactPanel displays a message when only the narratives are stale 1`] = `
+<section
+  className="results-panel"
+>
+  <summary
+    className="action-bar"
+  >
+    <div>
+      <h2>
+        Showing 
+        <span>
+          1
+        </span>
+         matches out of 
+        <span>
+          100
+        </span>
+         total complaints
+      </h2>
+    </div>
+    <div
+      className="layout-row"
+    >
+      <div
+        className="cf-select flex-fixed"
+      >
+        <select
+          id="choose-size"
+          onChange={[Function]}
+          value={10}
+        >
+          <option
+            value={10}
+          >
+            Show 
+            10
+             results
+          </option>
+          <option
+            value={25}
+          >
+            Show 
+            25
+             results
+          </option>
+          <option
+            value={50}
+          >
+            Show 
+            50
+             results
+          </option>
+          <option
+            value={100}
+          >
+            Show 
+            100
+             results
+          </option>
+        </select>
+      </div>
+      <div
+        className="cf-select flex-fixed"
+      >
+        <select
+          id="choose-sort"
+          onChange={[Function]}
+          value={undefined}
+        >
+          <option
+            value="created_date_desc"
+          >
+            Sort by newest to oldest
+          </option>
+          <option
+            value="created_date_asc"
+          >
+            Sort by oldest to newest
+          </option>
+          <option
+            value="relevance_desc"
+          >
+            Sort by relevance
+          </option>
+          <option
+            value="relevance_asc"
+          >
+            Sort by relevance (asc)
+          </option>
+        </select>
+      </div>
+      <h4
+        className="flex-all"
+      >
+        <button
+          className="a-btn a-btn__link"
+          data-gtm_ignore="true"
+          onClick={[Function]}
+        >
+          Export results
+        </button>
+      </h4>
+    </div>
+  </summary>
+  <div>
+    <div
+      className="m-notification m-notification__visible m-notification__warning"
+    >
+      <span
+        className="m-notification_icon cf-icon"
+      />
+      <div
+        className="m-notification_content"
+      >
+        <div
+          className="h4 m-notification_message"
+        >
+          We’re currently experiencing technical issues that have delayed the refresh of consumer complaint narratives on the Consumer Complaint Database.  We expect to refresh the data in the next few days.
+        </div>
+      </div>
+    </div>
+  </div>
+  <ul
+    className="cards-panel"
+  >
+    <li
+      className="card-container"
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-left layout-column"
+        >
+          <h3
+            className="to-detail"
+          >
+            <a
+              href="detail/1"
+            >
+              1
+            </a>
+          </h3>
+          <h4>
+            Company name
+          </h4>
+          <span
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "foo",
+              }
+            }
+          />
+          <br />
+          <h4>
+            Company response to consumer
+          </h4>
+          <span
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Closed",
+              }
+            }
+          />
+          <br />
+          <h4>
+            Timely response?
+          </h4>
+          <span
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "yes",
+              }
+            }
+          />
+        </div>
+        <div
+          className="card-right layout-column"
+        >
+          <div
+            className="layout-row"
+          >
+            <div
+              className="layout-row"
+            >
+              <h4>
+                Date received:
+              </h4>
+              <span
+                className="body-copy"
+              >
+                <span>
+                  2/3/2013
+                </span>
+              </span>
+            </div>
+            <div
+              className="spacer"
+            />
+            <div
+              className="layout-row"
+            >
+              <h4>
+                Consumer's state:
+              </h4>
+              <span
+                className="body-copy"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "DC",
+                  }
+                }
+              />
+            </div>
+          </div>
+          <br />
+          <h4>
+            Product
+          </h4>
+          <h3
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Bar",
+              }
+            }
+          />
+          <div
+            className="layout-row"
+          >
+            <span
+              className="body-copy subitem"
+            >
+              Sub-product:
+            </span>
+            <span
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Qaz",
+                }
+              }
+            />
+          </div>
+          <br />
+          <h4>
+            Issue
+          </h4>
+          <h3
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Foo",
+              }
+            }
+          />
+          <div
+            className="layout-row"
+          >
+            <span
+              className="body-copy subitem"
+            >
+              Sub-issue:
+            </span>
+            <span
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Baz",
+                }
+              }
+            />
+          </div>
+          <div>
+            <br />
+            <h4>
+              Consumer Complaint Narrative
+            </h4>
+            <span
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Lorem Ipsum",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <nav
+    aria-label="Pagination"
+    className="m-pagination"
+    role="navigation"
+  >
+    <button
+      className="a-btn m-pagination_btn-prev"
+      disabled={true}
+      onClick={[Function]}
+    >
+      <span
+        className="a-btn_icon a-btn_icon__on-left cf-icon cf-icon__before cf-icon-left"
+      />
+      Previous
+    </button>
+    <button
+      className="a-btn m-pagination_btn-next"
+      disabled={true}
+      onClick={[Function]}
+    >
+      Next
+      <span
+        className="a-btn_icon a-btn_icon__on-right cf-icon cf-icon__after cf-icon-right"
+      />
+    </button>
+    <form
+      action=""
+      className="m-pagination_form"
+      onSubmit={[Function]}
+    >
+      <label
+        className="m-pagination_label"
+        htmlFor="m-pagination_current-page"
+      >
+        Page
+        <span
+          className="u-visually-hidden"
+        >
+          number 
+          1
+           out
+        </span>
+        <input
+          className="m-pagination_current-page"
+          id="m-pagination_current-page"
+          inputMode="numeric"
+          max={1}
+          min="1"
+          name="page"
+          onChange={[Function]}
+          pattern="[0-9]*"
+          type="number"
+          value={1}
+        />
+        of 
+        <span>
+          1
+        </span>
+      </label>
+      <button
+        className="a-btn a-btn__link m-pagination_btn-submit"
+        id="m-pagination_btn-submit"
+        type="submit"
+      >
+        Go
+      </button>
+    </form>
+  </nav>
 </section>
 `;
 
@@ -230,6 +594,7 @@ exports[`component:ReactPanel displays a message when the data has issues 1`] = 
       </div>
     </div>
   </div>
+  <div />
   <ul
     className="cards-panel"
   >
@@ -575,19 +940,21 @@ exports[`component:ReactPanel displays a message when the data is stale 1`] = `
       </h4>
     </div>
   </summary>
-  <div
-    className="m-notification m-notification__visible m-notification__warning"
-  >
-    <span
-      className="m-notification_icon cf-icon"
-    />
+  <div>
     <div
-      className="m-notification_content"
+      className="m-notification m-notification__visible m-notification__warning"
     >
+      <span
+        className="m-notification_icon cf-icon"
+      />
       <div
-        className="h4 m-notification_message"
+        className="m-notification_content"
       >
-        We’re currently experiencing technical issues that have delayed the refresh of consumer complaint narratives on the Consumer Complaint Database.  We expect to refresh the data in the next few days.
+        <div
+          className="h4 m-notification_message"
+        >
+          We’re currently experiencing technical issues that have delayed the refresh of data in the Consumer Complaint Database.  We expect to refresh the data in the next few days.
+        </div>
       </div>
     </div>
   </div>
@@ -936,9 +1303,373 @@ exports[`component:ReactPanel displays a message when there are no results 1`] =
       </h4>
     </div>
   </summary>
+  <div />
   <h2>
     No results were found for your search
   </h2>
+</section>
+`;
+
+exports[`component:ReactPanel only displays data message when both types are stale 1`] = `
+<section
+  className="results-panel"
+>
+  <summary
+    className="action-bar"
+  >
+    <div>
+      <h2>
+        Showing 
+        <span>
+          1
+        </span>
+         matches out of 
+        <span>
+          100
+        </span>
+         total complaints
+      </h2>
+    </div>
+    <div
+      className="layout-row"
+    >
+      <div
+        className="cf-select flex-fixed"
+      >
+        <select
+          id="choose-size"
+          onChange={[Function]}
+          value={10}
+        >
+          <option
+            value={10}
+          >
+            Show 
+            10
+             results
+          </option>
+          <option
+            value={25}
+          >
+            Show 
+            25
+             results
+          </option>
+          <option
+            value={50}
+          >
+            Show 
+            50
+             results
+          </option>
+          <option
+            value={100}
+          >
+            Show 
+            100
+             results
+          </option>
+        </select>
+      </div>
+      <div
+        className="cf-select flex-fixed"
+      >
+        <select
+          id="choose-sort"
+          onChange={[Function]}
+          value={undefined}
+        >
+          <option
+            value="created_date_desc"
+          >
+            Sort by newest to oldest
+          </option>
+          <option
+            value="created_date_asc"
+          >
+            Sort by oldest to newest
+          </option>
+          <option
+            value="relevance_desc"
+          >
+            Sort by relevance
+          </option>
+          <option
+            value="relevance_asc"
+          >
+            Sort by relevance (asc)
+          </option>
+        </select>
+      </div>
+      <h4
+        className="flex-all"
+      >
+        <button
+          className="a-btn a-btn__link"
+          data-gtm_ignore="true"
+          onClick={[Function]}
+        >
+          Export results
+        </button>
+      </h4>
+    </div>
+  </summary>
+  <div>
+    <div
+      className="m-notification m-notification__visible m-notification__warning"
+    >
+      <span
+        className="m-notification_icon cf-icon"
+      />
+      <div
+        className="m-notification_content"
+      >
+        <div
+          className="h4 m-notification_message"
+        >
+          We’re currently experiencing technical issues that have delayed the refresh of data in the Consumer Complaint Database.  We expect to refresh the data in the next few days.
+        </div>
+      </div>
+    </div>
+  </div>
+  <ul
+    className="cards-panel"
+  >
+    <li
+      className="card-container"
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-left layout-column"
+        >
+          <h3
+            className="to-detail"
+          >
+            <a
+              href="detail/1"
+            >
+              1
+            </a>
+          </h3>
+          <h4>
+            Company name
+          </h4>
+          <span
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "foo",
+              }
+            }
+          />
+          <br />
+          <h4>
+            Company response to consumer
+          </h4>
+          <span
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Closed",
+              }
+            }
+          />
+          <br />
+          <h4>
+            Timely response?
+          </h4>
+          <span
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "yes",
+              }
+            }
+          />
+        </div>
+        <div
+          className="card-right layout-column"
+        >
+          <div
+            className="layout-row"
+          >
+            <div
+              className="layout-row"
+            >
+              <h4>
+                Date received:
+              </h4>
+              <span
+                className="body-copy"
+              >
+                <span>
+                  2/3/2013
+                </span>
+              </span>
+            </div>
+            <div
+              className="spacer"
+            />
+            <div
+              className="layout-row"
+            >
+              <h4>
+                Consumer's state:
+              </h4>
+              <span
+                className="body-copy"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "DC",
+                  }
+                }
+              />
+            </div>
+          </div>
+          <br />
+          <h4>
+            Product
+          </h4>
+          <h3
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Bar",
+              }
+            }
+          />
+          <div
+            className="layout-row"
+          >
+            <span
+              className="body-copy subitem"
+            >
+              Sub-product:
+            </span>
+            <span
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Qaz",
+                }
+              }
+            />
+          </div>
+          <br />
+          <h4>
+            Issue
+          </h4>
+          <h3
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Foo",
+              }
+            }
+          />
+          <div
+            className="layout-row"
+          >
+            <span
+              className="body-copy subitem"
+            >
+              Sub-issue:
+            </span>
+            <span
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Baz",
+                }
+              }
+            />
+          </div>
+          <div>
+            <br />
+            <h4>
+              Consumer Complaint Narrative
+            </h4>
+            <span
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Lorem Ipsum",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <nav
+    aria-label="Pagination"
+    className="m-pagination"
+    role="navigation"
+  >
+    <button
+      className="a-btn m-pagination_btn-prev"
+      disabled={true}
+      onClick={[Function]}
+    >
+      <span
+        className="a-btn_icon a-btn_icon__on-left cf-icon cf-icon__before cf-icon-left"
+      />
+      Previous
+    </button>
+    <button
+      className="a-btn m-pagination_btn-next"
+      disabled={true}
+      onClick={[Function]}
+    >
+      Next
+      <span
+        className="a-btn_icon a-btn_icon__on-right cf-icon cf-icon__after cf-icon-right"
+      />
+    </button>
+    <form
+      action=""
+      className="m-pagination_form"
+      onSubmit={[Function]}
+    >
+      <label
+        className="m-pagination_label"
+        htmlFor="m-pagination_current-page"
+      >
+        Page
+        <span
+          className="u-visually-hidden"
+        >
+          number 
+          1
+           out
+        </span>
+        <input
+          className="m-pagination_current-page"
+          id="m-pagination_current-page"
+          inputMode="numeric"
+          max={1}
+          min="1"
+          name="page"
+          onChange={[Function]}
+          pattern="[0-9]*"
+          type="number"
+          value={1}
+        />
+        of 
+        <span>
+          1
+        </span>
+      </label>
+      <button
+        className="a-btn a-btn__link m-pagination_btn-submit"
+        id="m-pagination_btn-submit"
+        type="submit"
+      >
+        Go
+      </button>
+    </form>
+  </nav>
 </section>
 `;
 
@@ -1046,6 +1777,7 @@ exports[`component:ReactPanel renders without crashing 1`] = `
       </h4>
     </div>
   </summary>
+  <div />
   <ul
     className="cards-panel"
   >

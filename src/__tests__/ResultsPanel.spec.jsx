@@ -82,6 +82,19 @@ describe('component:ReactPanel', () => {
     expect(tree).toMatchSnapshot();
   })
 
+  it('displays a message when only the narratives are stale', () => {
+    const target = setupSnapshot(fixture, { isNarrativeStale: true })
+    const tree = target.toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
+  it('only displays data message when both types are stale', () => {
+    const target = setupSnapshot(fixture, 
+      { isDataStale: true, isNarrativeStale: true })
+    const tree = target.toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
   it('displays a message when the data has issues', () => {
     const target = setupSnapshot(fixture, { hasDataIssue: true })
     const tree = target.toJSON();

@@ -1,5 +1,6 @@
 import './ResultsPanel.less'
 import ActionBar from './ActionBar'
+import { bindAll } from './utils'
 import ComplaintCard from './ComplaintCard'
 import { connect } from 'react-redux'
 import Loading from './Dialogs/Loading'
@@ -15,8 +16,14 @@ const RESULTS = 'RESULTS'
 const WARN_DATA_ISSUE = 'We’re currently experiencing technical issues that' +
   ' have delayed the refresh of data on the Consumer Complaint Database.  We' +
   ' expect to refresh the data in the next few days.'
+
+const WARN_NARRATIVES_STALE = 'We’re currently experiencing technical issues' +
+  ' that have delayed the refresh of consumer complaint narratives on the ' +
+  'Consumer Complaint Database.  We expect to refresh the data in the next ' +
+  'few days.'
+
 const WARN_DATA_STALE = 'We’re currently experiencing technical issues that' +
-  ' have delayed the refresh of consumer complaint narratives on the ' +
+  ' have delayed the refresh of data in the ' +
   'Consumer Complaint Database.  We expect to refresh the data in the next ' +
   'few days.'
 
@@ -30,6 +37,10 @@ export class ResultsPanel extends React.Component {
       NO_RESULTS: this._renderNoResults.bind( this ),
       RESULTS: this._renderResults.bind( this )
     }
+
+    bindAll( this, [
+      '_renderStaleWarnings'
+    ] )
   }
 
   render() {
@@ -43,10 +54,7 @@ export class ResultsPanel extends React.Component {
             <Warning text={ WARN_DATA_ISSUE } /> :
             null
           }
-          { this.props.isDataStale ?
-            <Warning text={ WARN_DATA_STALE } /> :
-            null
-          }
+          { this._renderStaleWarnings() }
           { this.renderMap[phase]() }
           <Pagination />
           <Loading isLoading={this.props.isLoading || false} />
@@ -97,6 +105,21 @@ export class ResultsPanel extends React.Component {
     )
   }
 
+  _renderStaleWarnings() {
+    return (
+      <div>
+      { this.props.isDataStale ?
+        <Warning text={ WARN_DATA_STALE } /> :
+        null
+      }
+      { this.props.isNarrativeStale && !this.props.isDataStale ?
+        <Warning text={ WARN_NARRATIVES_STALE } /> :
+        null
+      }
+      </div>
+    )
+  }
+
   _renderResults() {
     return (
       <ul className="cards-panel">
@@ -112,6 +135,7 @@ const mapStateToProps = state => ( {
   error: state.results.error,
   hasDataIssue:  state.results.hasDataIssue,
   isDataStale:  state.results.isDataStale,
+  isNarrativeStale: state.results.isNarrativeStale,
   isLoading: state.results.isLoading,
   items: state.results.items
 } )
