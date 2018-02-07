@@ -26,7 +26,7 @@ class CCDB5MainView(TemplateView):
 
     def get_context_data(self, **kwargs):
         # See if an unsupported browser is making the request
-        browser = self.request.META['HTTP_USER_AGENT']
+        browser = self.request.META.get('HTTP_USER_AGENT', '')
         unsupported = any([x for x in no_support if x in browser])
 
         context = super(CCDB5MainView, self).get_context_data(**kwargs)

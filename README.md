@@ -110,13 +110,19 @@ This will push the latest changes to the repo and ensure the new tag is included
 ## How to test the software
 
 #### Unit testing
-To launch the test runner in interactive watch/test mode:
+To launch the JavaScript test runner in interactive watch/test mode:
 
 ```bash
 npm test
 ```
 
 Enter `Control-C` to exit interactive watch mode
+
+To run the Python unit tests:
+
+```bash
+./manage.py test
+```
 
 ## Known issues
 
