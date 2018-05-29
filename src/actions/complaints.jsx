@@ -15,8 +15,9 @@ export function getComplaints() {
     const uri = '@@API' + qs
 
     // This call is already in process
-    if( uri === store.results.activeCall )
+    if ( uri === store.results.activeCall ) {
       return null
+    }
 
     dispatch( callingApi( uri ) )
     return fetch( uri )
