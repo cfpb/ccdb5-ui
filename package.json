@@ -54,7 +54,7 @@
     "chalk": "2.2.0",
     "connect-history-api-fallback": "1.4.0",
     "core-js": "^2.5.1",
-    "coveralls": "^3.0.0",
+    "coveralls": "^3.0.1",
     "cross-spawn": "5.1.0",
     "css-loader": "0.28.7",
     "detect-port": "1.2.1",
