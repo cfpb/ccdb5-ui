@@ -323,18 +323,6 @@ describe('component::Typeahead', () => {
         expect(target.state('selectedIndex')).toEqual(-1)
       })
 
-      it('uses the text box value when there are no options', () => {
-        target.instance().setState({
-          selectedIndex: -1,
-          searchResults: []
-        })
-        fixture.which = keys.VK_TAB
-        input.simulate('keydown', fixture)
-
-        expect(props.onOptionSelected).toHaveBeenCalledWith('bar')
-        expect(target.state('phase')).toEqual('CHOSEN')
-      })
-
       it('uses the text and not the highlighted option', () => {
         target.instance().setState({
           selectedIndex: 1,
