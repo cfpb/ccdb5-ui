@@ -118,10 +118,11 @@ npm test
 
 Enter `Control-C` to exit interactive watch mode
 
-To run the Python unit tests:
+To run the Python unit tests, first install [Tox](https://tox.readthedocs.io/en/latest/),
+and then run:
 
 ```bash
-./manage.py test
+tox
 ```
 
 ## Known issues
