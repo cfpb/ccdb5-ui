@@ -9,7 +9,7 @@ cd ccdb5-ui
 
 # Setup python development
 mkvirtualenv ccdb5-ui
-pip install -r requirements.txt
+pip install .
 
 # Setup node/react/webpack development
 npm install  # yarn install also works
