@@ -1,19 +1,23 @@
+---
 language: node_js
-python: 2.7
+python:
+  - "2.7"
 install:
-- npm install
+  - npm install
+  - pip install --user tox
 script:
-- npm test
-- python setup.py bdist_wheel
+  - npm test
+  - tox
+  - python setup.py bdist_wheel
 after_script:
-- cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 deploy:
   - provider: script
     skip_cleanup: true
     script: .travis/pu.sh
     on:
-        branch: master
-        tags: false
+      branch: master
+      tags: false
   - provider: releases
     skip_cleanup: true
     api_key:
@@ -21,4 +25,4 @@ deploy:
     file_glob: true
     file: dist/*.whl
     on:
-        tags: true
+      tags: true
