@@ -38,5 +38,8 @@ setup(
     ],
     long_description=read_file('README.md'),
     zip_safe=False,
-    setup_requires=['cfgov_setup==1.2', 'setuptools-git-version==1.0.3']
+    setup_requires=['cfgov_setup==1.2', 'setuptools-git-version==1.0.3'],
+    install_requires=[
+        'Django>=1.8,<1.12',
+    ]
 )
