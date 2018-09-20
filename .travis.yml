@@ -4,6 +4,9 @@ python:
   - "2.7"
 install:
   - npm install
+  # We don't want changes to package-lock.json to show up as local git
+  # changes when the Python wheel tag is determined.
+  - git checkout package-lock.json
   - pip install --user tox
 script:
   - npm test
@@ -12,12 +15,6 @@ script:
 after_script:
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 deploy:
-  - provider: script
-    skip_cleanup: true
-    script: .travis/pu.sh
-    on:
-      branch: master
-      tags: false
   - provider: releases
     skip_cleanup: true
     api_key:
