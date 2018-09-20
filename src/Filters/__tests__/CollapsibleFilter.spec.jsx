@@ -17,7 +17,7 @@ describe('initial state', () => {
 describe('component:CollapsibleFilter', () => {
   it('hides the children when Hide is clicked', () => {
     const target = mount(<CollapsibleFilter showChildren={true} />);
-    const theButton = target.find('.o-expandable_cue button')
+    const theButton = target.find('button.o-expandable_cue');
 
     expect(target.state('showChildren')).toEqual(true);
     theButton.simulate('click');
