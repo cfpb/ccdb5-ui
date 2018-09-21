@@ -3,14 +3,14 @@ language: node_js
 python:
   - "2.7"
 install:
-  - npm install
+  - pip install --user tox
+script:
+  # The tox tests run the frontend build so no manual npm install is needed.
+  - tox
+  - npm test
   # We don't want changes to package-lock.json to show up as local git
   # changes when the Python wheel tag is determined.
   - git checkout package-lock.json
-  - pip install --user tox
-script:
-  - npm test
-  - tox
   - python setup.py bdist_wheel
 after_script:
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js

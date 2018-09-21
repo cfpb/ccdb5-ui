@@ -72,3 +72,9 @@ node_modules/
 bower_components/
 .grunt/
 src/vendor/
+
+# Build artifacts #
+###################
+build
+dist
+ccdb5_ui/static
