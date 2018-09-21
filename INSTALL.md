@@ -7,13 +7,9 @@
 git clone https://github.com/cfpb/ccdb5-ui.git
 cd ccdb5-ui
 
-# Setup python development
+# Setup python development and run the frontend build
 mkvirtualenv ccdb5-ui
-pip install .
-
-# Setup node/react/webpack development
-npm install  # yarn install also works
-npm run build
+pip install -e .
 ```
 
 ## Configuring
