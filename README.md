@@ -85,27 +85,7 @@ Enter `Control-C` to exit development mode
 #### Build deployment package
 
 Our [Travis](https://travis-ci.org/cfpb/ccdb5-ui) configuration is set up to
-build a deployment package after every push to `master`.  If this needs to be
-done manually, here are the steps to build the app for production:
-
-```bash
-npm version [major | minor | patch] -m [message]
-```
-
-This will:
-1. Bump the version in `package.json` (and `package-lock.json` for npm > 5.0)
-1. Build the application in production mode and optimize the build for the
-best performance.
-1. Create a new Git tag for the incremented version
-1. Commit the changes with the message provided
-
-
-```bash
-git push
-git push --tags
-```
-
-This will push the latest changes to the repo and ensure the new tag is included
+build a deployment package after every push to `master`.
 
 ## How to test the software
 
