@@ -82,11 +82,6 @@ You will also see any lint errors in the console.
 
 Enter `Control-C` to exit development mode
 
-#### Build deployment package
-
-Our [Travis](https://travis-ci.org/cfpb/ccdb5-ui) configuration is set up to
-build a deployment package after every push to `master`.
-
 ## How to test the software
 
 #### Unit testing
