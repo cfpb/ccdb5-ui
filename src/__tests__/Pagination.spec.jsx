@@ -74,6 +74,13 @@ it('records text input from the user', () => {
   expect(target.state('inputValue')).toEqual(49)  
 })
 
+it('corrects large size to size limit', () => {
+  const target = shallow(<Pagination from="175" size="500" total="1000" />)
+  
+  // Expect 1000 / 100
+  expect(target.state('total')).toEqual(10)
+})
+
 describe('disabled buttons', () => {
   it('disables the previous button when on the first page', () => {
     const target = shallow(<Pagination from="0" size="10" total="100" />)
