@@ -20,7 +20,10 @@ export class Pagination extends React.Component {
 
   _calculatePages( props ) {
     const from = props.from || 0;
-    const size = props.size || 1;
+    var size = props.size || 1;
+    if ( size > 100 ) {
+      size = 100;
+    }
     const total = props.total || 0;
     const c = Math.ceil( from / size ) + 1;
 
