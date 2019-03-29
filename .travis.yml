@@ -1,9 +1,10 @@
 ---
-language: node_js
+language: python
 python:
-  - "2.7"
+  - 2.7
+  - 3.6
 install:
-  - pip install --user tox
+  - pip install tox-travis
 script:
   # The tox tests run the frontend build so no manual npm install is needed.
   - tox
@@ -11,7 +12,7 @@ script:
   # We don't want changes to package-lock.json to show up as local git
   # changes when the Python wheel tag is determined.
   - git checkout package-lock.json
-  - python setup.py bdist_wheel
+  - python setup.py bdist_wheel --universal
 after_script:
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 deploy:
