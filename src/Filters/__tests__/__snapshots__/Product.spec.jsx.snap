@@ -130,7 +130,10 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
           type="checkbox"
         />
         <label
-          className="a-label flex-all bucket-key body-copy"
+          className="a-label"
+        />
+        <label
+          className="flex-all bucket-key body-copy"
           htmlFor="productCreditreporting"
         >
           Credit reporting
@@ -155,7 +158,10 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
           type="checkbox"
         />
         <label
-          className="a-label flex-all bucket-key body-copy"
+          className="a-label"
+        />
+        <label
+          className="flex-all bucket-key body-copy"
           htmlFor="productStudentloan"
         >
           Student loan
@@ -180,7 +186,10 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
           type="checkbox"
         />
         <label
-          className="a-label flex-all bucket-key body-copy"
+          className="a-label"
+        />
+        <label
+          className="flex-all bucket-key body-copy"
           htmlFor="productCreditcard or prepaid card"
         >
           Credit card or prepaid card

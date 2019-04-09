@@ -9,6 +9,10 @@ export const AggregationItem = ( { item, fieldName, active, onClick } ) => {
   const liStyle = 'layout-row m-form-field m-form-field__checkbox'
   const id = fieldName + item.key.replace( ' ', '' )
 
+  // 2019-04-09 JMF
+  // The seemingly do-nothing <label className="a-label"></label>
+  // helps maintain consistent spacing with AggBranch in IE/Chromw/Firefox
+
   return (
         <li className={liStyle}>
             <input type="checkbox" className="flex-fixed a-checkbox"
@@ -17,7 +21,8 @@ export const AggregationItem = ( { item, fieldName, active, onClick } ) => {
                    id={id}
                    onChange={onClick}
             />
-            <label className="a-label flex-all bucket-key body-copy"
+            <label className="a-label"></label>
+            <label className="flex-all bucket-key body-copy"
                    htmlFor={id}>
               {value}
             </label>
