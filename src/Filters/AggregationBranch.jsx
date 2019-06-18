@@ -4,6 +4,7 @@ import { bindAll, slugify } from '../utils'
 import AggregationItem from './AggregationItem'
 import { connect } from 'react-redux';
 import { FormattedNumber } from 'react-intl'
+import iconMap from '../iconMap'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { SLUG_SEPARATOR } from '../constants'
@@ -70,9 +71,9 @@ export class AggregationBranch extends React.Component {
 
     let chevronIcon;
     if ( this.state.showChildren ) {
-      chevronIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 988.7 1200" class="cf-icon-svg"><path d="M923.6 967.6c-17.3 0-33.8-6.8-46-19L494.1 565 110.5 948.5c-25.6 25.1-66.8 24.8-91.9-.8-24.8-25.3-24.8-65.8 0-91.1l429.5-429.5c25.4-25.4 66.5-25.4 91.9 0l429.6 429.5c25.4 25.4 25.4 66.5.1 91.9-12.3 12.3-28.8 19.1-46.1 19.1z"></path></svg>;
+      chevronIcon = <span dangerouslySetInnerHTML={{__html: iconMap.getIcon( 'up' ) }} />;
     } else {
-      chevronIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 988.2 1200" class="cf-icon-svg"><path d="M494.1 967.2c-17.3 0-33.8-6.8-46-19L18.6 518.6c-25.1-25.6-24.8-66.8.8-91.9 25.3-24.8 65.8-24.8 91.1 0l383.6 383.6 383.6-383.6c25.6-25.1 66.8-24.8 91.9.8 24.8 25.3 24.8 65.8 0 91.1L540.1 948.1c-12.2 12.2-28.7 19.1-46 19.1z"></path></svg>;
+      chevronIcon = <span dangerouslySetInnerHTML={{__html: iconMap.getIcon( 'down' ) }} />;
     }
 
     return (
