@@ -236,7 +236,7 @@ module.exports = {
             ],
             loader: require.resolve('file-loader'),
             options: {
-              // Do not output the font file
+              // Output the icon files
               emitFile: true,
 
               // Write the path where the font files will be in the main site
