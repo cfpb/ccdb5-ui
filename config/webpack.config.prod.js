@@ -68,7 +68,7 @@ module.exports = {
       path
         .relative(paths.appSrc, info.absoluteResourcePath)
         .replace(/\\/g, '/'),
-    library: 'ccdb5_ui'  
+    library: 'ccdb5_ui'
   },
   resolve: {
     // This allows you to set a fallback for where Webpack should look for modules.
@@ -87,7 +87,7 @@ module.exports = {
     // for React Native Web.
     extensions: ['.web.js', '.js', '.json', '.web.jsx', '.jsx'],
     alias: {
-      
+
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
@@ -118,7 +118,7 @@ module.exports = {
             options: {
               formatter: eslintFormatter,
               eslintPath: require.resolve('eslint'),
-              
+
             },
             loader: require.resolve('eslint-loader'),
           },
@@ -219,9 +219,6 @@ module.exports = {
           // This loader handles font files
           {
             test: [
-              /\.eot$/,
-              /\.svg$/,
-              /\.ttf$/,
               /\.woff$/
             ],
             loader: require.resolve('file-loader'),
@@ -231,7 +228,20 @@ module.exports = {
 
               // Write the path where the font files will be in the main site
               name: 'static/fonts/[name].[ext]'
-            }            
+            }
+          },
+          {
+            test: [
+              /\.svg$/,
+            ],
+            loader: require.resolve('file-loader'),
+            options: {
+              // Do not output the font file
+              emitFile: true,
+
+              // Write the path where the font files will be in the main site
+              name: './icons/[name].[ext]'
+            }
           },
           // This loader doesn't use a "test" so it will catch all modules
           // that fall through the other loaders.
