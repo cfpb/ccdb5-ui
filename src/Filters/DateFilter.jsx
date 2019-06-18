@@ -3,6 +3,7 @@ import { changeDateRange } from '../actions/filter'
 import CollapsibleFilter from './CollapsibleFilter'
 import { connect } from 'react-redux'
 import DateInput from '../DateInput'
+import iconMap from '../iconMap'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -84,7 +85,7 @@ export class DateFilter extends React.Component {
               id={'input-error_message-' + field}
               role="alert">
             <span aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1200" className="cf-icon-svg"><path d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"></path></svg>
+              <span dangerouslySetInnerHTML={{__html: iconMap.getIcon( 'delete-round', 'cf-icon-delete-round' ) }} />
             </span>
 
             { this.state.messages[field] }

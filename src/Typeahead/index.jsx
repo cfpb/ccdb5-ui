@@ -3,6 +3,7 @@
 import './Typeahead.less'
 import * as keys from '../constants'
 import { bindAll, debounce } from '../utils'
+import iconMap from '../iconMap'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Selector from './Selector'
@@ -134,7 +135,7 @@ export default class Typeahead extends React.Component {
 
     const clear = <button className="a-btn a-btn__link"
                           onClick={ clearAction }>
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 718.9 1200" className="cf-icon-svg"><path d="M451.4 613.7l248.1-248.1c25.6-25.1 26-66.3.8-91.9s-66.3-26-91.9-.8l-.8.8-248.1 248.1-248.1-248.1c-25.4-25.4-66.5-25.4-91.9 0s-25.4 66.5 0 91.9l248.1 248.1L19.5 861.8c-25.6 25.1-26 66.3-.8 91.9s66.3 26 91.9.8l.8-.8 248.1-248.1 248.1 248.1c25.4 25.4 66.5 25.4 91.9 0s25.4-66.5 0-91.9L451.4 613.7z"></path></svg>
+                      <span dangerouslySetInnerHTML={{__html: iconMap.getIcon( 'delete' ) }} />
                       Clear
                   </button>
 
@@ -145,7 +146,7 @@ export default class Typeahead extends React.Component {
         <div className="m-btn-inside-input input-contains-label">
             <label className="input-contains-label_before
                               input-contains-label_before__search">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880.6 1200" className="cf-icon-svg"><path d="M860.1 879.2L645.7 664.8c90.8-136.8 76-323-44.6-443.5-137.5-137.5-360.5-137.5-498 0s-137.5 360.5 0 498c118.5 118.4 303.9 137 443.5 44.6L761 978.3c27.3 27.3 71.7 27.3 99 0s27.4-71.8.1-99.1zm-508-116.9C191.4 762 61.3 631.5 61.6 470.8c.3-160.7 130.8-290.8 291.5-290.5s290.8 130.8 290.5 291.5c-.2 118.2-71.9 224.6-181.5 269.1-34.9 14.2-72.3 21.5-110 21.4z"></path></svg>
+                <span dangerouslySetInnerHTML={{__html: iconMap.getIcon( 'search' ) }} />
             </label>
 
           <input type="text"
