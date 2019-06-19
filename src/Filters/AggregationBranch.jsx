@@ -71,9 +71,9 @@ export class AggregationBranch extends React.Component {
 
     let chevronIcon;
     if ( this.state.showChildren ) {
-      chevronIcon = <span dangerouslySetInnerHTML={{__html: iconMap.getIcon( 'up' ) }} />;
+      chevronIcon = iconMap.getIcon( 'up' )
     } else {
-      chevronIcon = <span dangerouslySetInnerHTML={{__html: iconMap.getIcon( 'down' ) }} />;
+      chevronIcon = iconMap.getIcon( 'down' )
     }
 
     return (

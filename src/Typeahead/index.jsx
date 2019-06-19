@@ -135,7 +135,7 @@ export default class Typeahead extends React.Component {
 
     const clear = <button className="a-btn a-btn__link"
                           onClick={ clearAction }>
-                      <span dangerouslySetInnerHTML={{__html: iconMap.getIcon( 'delete' ) }} />
+                      { iconMap.getIcon( 'delete' ) }
                       Clear
                   </button>
 
@@ -146,7 +146,7 @@ export default class Typeahead extends React.Component {
         <div className="m-btn-inside-input input-contains-label">
             <label className="input-contains-label_before
                               input-contains-label_before__search">
-                <span dangerouslySetInnerHTML={{__html: iconMap.getIcon( 'search' ) }} />
+                { iconMap.getIcon( 'search' ) }
             </label>
 
           <input type="text"

@@ -64,7 +64,7 @@ export class Pagination extends React.Component {
                   onClick={() => this._setPage( this.state.current - 1 )}
                   disabled={this.state.current <= 1}>
               <span class="a-btn_icon a-btn_icon__on-left">
-                <span dangerouslySetInnerHTML={{__html: iconMap.getIcon( 'left' ) }} />
+                { iconMap.getIcon( 'left' ) }
               </span>
               Previous
           </button>
@@ -74,7 +74,7 @@ export class Pagination extends React.Component {
               Next
               <span className="a-btn_icon
                                a-btn_icon__on-right">
-                <span dangerouslySetInnerHTML={{__html: iconMap.getIcon( 'right' ) }} />
+                { iconMap.getIcon( 'right' ) }
               </span>
           </button>
           <form className="m-pagination_form"

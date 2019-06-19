@@ -8,7 +8,7 @@ export default class Loading extends React.Component {
     return this.props.isLoading ?
       <section className="light-box">
         <div className="loading-box">
-          <span dangerouslySetInnerHTML={{__html: iconMap.getIcon( 'updating' ) }} />
+          { iconMap.getIcon( 'updating' ) }
           <span>This page is loading</span>
         </div>
       </section> :

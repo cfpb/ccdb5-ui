@@ -39,13 +39,13 @@ export default class CollapsibleFilter extends React.Component {
       <button className={ buttonClasses + 'o-expandable_cue-close' }
               onClick={this._toggleChildDisplay}>
         Hide
-        <span dangerouslySetInnerHTML={{__html: iconMap.getIcon( 'minus-round' ) }} />
+        { iconMap.getIcon( 'minus-round' ) }
       </button>
     const closed =
       <button className={ buttonClasses + 'o-expandable_cue-open' }
               onClick={this._toggleChildDisplay}>
         Show
-        <span dangerouslySetInnerHTML={{__html: iconMap.getIcon( 'plus-round' ) }} />
+        { iconMap.getIcon( 'plus-round' ) }
       </button>
 
     return (

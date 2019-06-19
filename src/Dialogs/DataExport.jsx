@@ -41,7 +41,7 @@ export class DataExport extends React.Component {
                   data-gtm_ignore="true"
                   onClick={this.props.onClose}>
             Close
-            <span dangerouslySetInnerHTML={{__html: iconMap.getIcon( 'delete-round' ) }} />
+            { iconMap.getIcon( 'delete-round' ) }
           </button>
         </div>
         { this.state.mode === PROMPTING ?
