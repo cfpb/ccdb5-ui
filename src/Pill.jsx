@@ -1,17 +1,18 @@
 import './Pill.less'
 import { connect } from 'react-redux'
+import iconMap from './iconMap'
 import React from 'react'
 import { removeFilter } from './actions/filter'
 import { SLUG_SEPARATOR } from './constants'
 
-// The linter does not detect the use of 'fieldName' which _is_ used
+// The linter does not detect the use of 'fieldName' which _is_ used.
 // eslint-disable-next-line no-unused-vars
 export const Pill = ( { fieldName, value, trimmed, remove } ) =>
     <li className="pill flex-fixed">
       <span className="name">{ trimmed }</span>
       <button onClick={ remove }
               title={'Remove ' + trimmed + ' as a filter'}>
-          <span className="cf-icon cf-icon-delete"></span>
+        { iconMap.getIcon( 'delete' ) }
       </button>
     </li>
 

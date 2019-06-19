@@ -17,8 +17,8 @@
     right: 1em;
     top:  ~"calc(50% - 8px)";
 
-    .cf-icon {
-      padding-right: @gutter-minimum * .8;
+    .cf-icon-svg {
+      padding-right: @gutter-minimum * 0.8;
     }
 
   }
@@ -91,14 +91,7 @@
     font-size: .875em;
 }
 
-.input-contains-label_before__search:before {
-  font-family: 'CFPB Minicons';
-  display: inline-block;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  content: "\e604";
+.input-contains-label_before__search .cf-icon-svg {
+  position: relative;
+  top: 3px;
 }
-
-

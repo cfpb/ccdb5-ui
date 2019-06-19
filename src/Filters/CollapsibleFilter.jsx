@@ -1,4 +1,5 @@
 import './CollapsibleFilter.less';
+import iconMap from '../iconMap'
 import PropTypes from 'prop-types'
 import React from 'react';
 
@@ -38,14 +39,13 @@ export default class CollapsibleFilter extends React.Component {
       <button className={ buttonClasses + 'o-expandable_cue-close' }
               onClick={this._toggleChildDisplay}>
         Hide
-        <span className="cf-icon cf-icon-minus-round"></span>
+        { iconMap.getIcon( 'minus-round' ) }
       </button>
-
     const closed =
       <button className={ buttonClasses + 'o-expandable_cue-open' }
               onClick={this._toggleChildDisplay}>
         Show
-        <span className="cf-icon cf-icon-plus-round"></span>
+        { iconMap.getIcon( 'plus-round' ) }
       </button>
 
     return (
@@ -65,7 +65,7 @@ export default class CollapsibleFilter extends React.Component {
   }
 }
 
-CollapsibleFilter.PropTypes = {
+CollapsibleFilter.propTypes = {
   showChildren: PropTypes.bool
 }
 

@@ -2,6 +2,7 @@
 
 import './DateInput.less'
 import { bindAll, debounce, shortFormat } from '../utils'
+import iconMap from '../iconMap';
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -73,7 +74,8 @@ export default class DateInput extends React.Component {
         { this.state.asText ?
           <button className="a-btn a-btn__link"
                   onClick={ this._onClear }>
-              <span className="cf-icon cf-icon-delete"></span>
+              { iconMap.getIcon( 'delete' ) }
+              <span className="u-visually-hidden">Clear</span>
           </button> :
           null
         }

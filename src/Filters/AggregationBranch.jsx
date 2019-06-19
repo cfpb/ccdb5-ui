@@ -4,6 +4,7 @@ import { bindAll, slugify } from '../utils'
 import AggregationItem from './AggregationItem'
 import { connect } from 'react-redux';
 import { FormattedNumber } from 'react-intl'
+import iconMap from '../iconMap'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { SLUG_SEPARATOR } from '../constants'
@@ -68,6 +69,13 @@ export class AggregationBranch extends React.Component {
     const liStyle = 'parent m-form-field m-form-field__checkbox body-copy'
     const id = fieldName + item.key.replace( ' ', '' )
 
+    let chevronIcon;
+    if ( this.state.showChildren ) {
+      chevronIcon = iconMap.getIcon( 'up' )
+    } else {
+      chevronIcon = iconMap.getIcon( 'down' )
+    }
+
     return (
       <div className="aggregation-branch">
         <li className={liStyle}>
@@ -85,9 +93,9 @@ export class AggregationBranch extends React.Component {
                   onClick={this._toggleChildDisplay}
                   title={item.key}>
             <span>{item.key}</span>
-            <span className={ 'cf-icon ' +
-              ( this.state.showChildren ? 'cf-icon-up' : 'cf-icon-down' )
-            }></span>
+
+            {chevronIcon}
+
           </button>
           <span className="flex-fixed parent-count">
             <FormattedNumber value={item.doc_count} />

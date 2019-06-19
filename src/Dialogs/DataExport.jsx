@@ -5,6 +5,7 @@ import {
 import { bindAll } from '../utils'
 import { connect } from 'react-redux'
 import { FormattedNumber } from 'react-intl'
+import iconMap from '../iconMap'
 import React from 'react'
 
 // ----------------------------------------------------------------------------
@@ -40,7 +41,7 @@ export class DataExport extends React.Component {
                   data-gtm_ignore="true"
                   onClick={this.props.onClose}>
             Close
-            <span className="cf-icon cf-icon-delete-round"></span>
+            { iconMap.getIcon( 'delete-round' ) }
           </button>
         </div>
         { this.state.mode === PROMPTING ?

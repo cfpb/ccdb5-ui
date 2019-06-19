@@ -1,6 +1,7 @@
 import { changePage } from './actions/paging'
 import { connect } from 'react-redux'
 import { FormattedNumber } from 'react-intl'
+import iconMap from './iconMap'
 import React from 'react'
 
 export class Pagination extends React.Component {
@@ -62,11 +63,9 @@ export class Pagination extends React.Component {
           <button className="a-btn m-pagination_btn-prev"
                   onClick={() => this._setPage( this.state.current - 1 )}
                   disabled={this.state.current <= 1}>
-              <span className="a-btn_icon
-                               a-btn_icon__on-left
-                               cf-icon
-                               cf-icon__before
-                               cf-icon-left"></span>
+              <span class="a-btn_icon a-btn_icon__on-left">
+                { iconMap.getIcon( 'left' ) }
+              </span>
               Previous
           </button>
           <button className="a-btn m-pagination_btn-next"
@@ -74,10 +73,9 @@ export class Pagination extends React.Component {
                     disabled={this.state.current >= this.state.total}>
               Next
               <span className="a-btn_icon
-                               a-btn_icon__on-right
-                               cf-icon
-                               cf-icon__after
-                               cf-icon-right"></span>
+                               a-btn_icon__on-right">
+                { iconMap.getIcon( 'right' ) }
+              </span>
           </button>
           <form className="m-pagination_form"
                 action="" onSubmit={this._handleSubmit}>
