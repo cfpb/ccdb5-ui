@@ -12,7 +12,7 @@ export const Pill = ( { fieldName, value, trimmed, remove } ) =>
       <span className="name">{ trimmed }</span>
       <button onClick={ remove }
               title={'Remove ' + trimmed + ' as a filter'}>
-          <span dangerouslySetInnerHTML={{__html: iconMap.getIcon( 'delete' ) }} />
+        { iconMap.getIcon( 'delete' ) }
       </button>
     </li>
 

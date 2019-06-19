@@ -85,7 +85,7 @@ export class DateFilter extends React.Component {
               id={'input-error_message-' + field}
               role="alert">
             <span aria-hidden="true">
-              <span dangerouslySetInnerHTML={{__html: iconMap.getIcon( 'delete-round', 'cf-icon-delete-round' ) }} />
+              { iconMap.getIcon( 'delete-round', 'cf-icon-delete-round' ) }
             </span>
 
             { this.state.messages[field] }

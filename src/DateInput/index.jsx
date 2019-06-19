@@ -74,7 +74,7 @@ export default class DateInput extends React.Component {
         { this.state.asText ?
           <button className="a-btn a-btn__link"
                   onClick={ this._onClear }>
-              <span dangerouslySetInnerHTML={{__html: iconMap.getIcon( 'delete' ) }} />
+              { iconMap.getIcon( 'delete' ) }
               <span className="u-visually-hidden">Clear</span>
           </button> :
           null
