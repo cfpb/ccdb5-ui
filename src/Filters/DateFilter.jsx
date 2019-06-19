@@ -3,6 +3,7 @@ import { changeDateRange } from '../actions/filter'
 import CollapsibleFilter from './CollapsibleFilter'
 import { connect } from 'react-redux'
 import DateInput from '../DateInput'
+import iconMap from '../iconMap'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -80,12 +81,13 @@ export class DateFilter extends React.Component {
       <ul className="messages">
       { Object.keys( this.state.messages ).map( field =>
           <li className="a-error-message"
-               key={'input-error_message-' + field}
-               id={'input-error_message-' + field}
-               role="alert">
-            <span className="cf-icon cf-icon-delete-round"
-                  aria-hidden="true">
+              key={'input-error_message-' + field}
+              id={'input-error_message-' + field}
+              role="alert">
+            <span aria-hidden="true">
+              { iconMap.getIcon( 'delete-round', 'cf-icon-delete-round' ) }
             </span>
+
             { this.state.messages[field] }
           </li>
          ) }

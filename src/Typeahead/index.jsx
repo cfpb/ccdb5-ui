@@ -3,6 +3,7 @@
 import './Typeahead.less'
 import * as keys from '../constants'
 import { bindAll, debounce } from '../utils'
+import iconMap from '../iconMap'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Selector from './Selector'
@@ -134,7 +135,7 @@ export default class Typeahead extends React.Component {
 
     const clear = <button className="a-btn a-btn__link"
                           onClick={ clearAction }>
-                      <span className="cf-icon cf-icon-delete"></span>
+                      { iconMap.getIcon( 'delete' ) }
                       Clear
                   </button>
 
@@ -145,6 +146,7 @@ export default class Typeahead extends React.Component {
         <div className="m-btn-inside-input input-contains-label">
             <label className="input-contains-label_before
                               input-contains-label_before__search">
+                { iconMap.getIcon( 'search' ) }
             </label>
 
           <input type="text"

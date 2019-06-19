@@ -3,6 +3,7 @@ import { bindAll } from './utils'
 import { connect } from 'react-redux'
 import { FormattedDate } from 'react-intl';
 import { getComplaintDetail } from './actions/complaints'
+import iconMap from './iconMap';
 import Loading from './Dialogs/Loading'
 import PropTypes from 'prop-types'
 import React from 'react';
@@ -75,7 +76,7 @@ export class ComplaintDetail extends React.Component {
     return (
       <button className="a-btn a-btn__link"
               onClick={this.props.onClickedBack}>
-          <span className="cf-icon cf-icon-left"></span>
+          { iconMap.getIcon( 'left', 'cf-icon-left' ) }
           Back to search results
       </button>
     )
@@ -86,46 +87,58 @@ export class ComplaintDetail extends React.Component {
     return (
       <button className="a-btn a-btn__link"
               onClick={() => { window.location = root }}>
-          <span className="cf-icon cf-icon-left"></span>
+          { iconMap.getIcon( 'left', 'cf-icon-left' ) }
           Go to search home page
       </button>
     )
   }
 
   _renderCompanyTimely( value ) {
-    const styles = [ 'cf-icon', 'cf-icon__before', 'cf-icon-clock-round' ]
+    const styles = [ 'cf-icon__before' ]
     if ( value.toLowerCase() === 'no' ) {
       styles.push( 'not-timely' )
     }
 
     return (
       <div>
-        <span className={styles.join( ' ' )}></span>
+        <span className="cf-icon__before">
+          { iconMap.getIcon(
+            'clock-round',
+            'cf-icon-clock-round' +
+            ( value.toLowerCase() === 'no' ? ' not-timely' : '' )
+          ) }
+        </span>
         <span className="body-copy">{ value }</span>
       </div>
     )
   }
 
   _renderConsumerConsent( value ) {
-    const iconMap = {
-      'Consent provided': 'cf-icon-approved-round',
-      'Consent not provided': 'cf-icon-delete-round',
-      'Consent withdrawn': 'cf-icon-minus-round',
-      'N/A': 'cf-icon-help-round',
-      'Other': 'cf-icon-help-round'
+    // Arrays are for SVG icon call and add custom classes for setting color.
+    const iconLookupMap = {
+      'Consent provided': [ 'approved-round', 'cf-icon-approved-round' ],
+      'Consent not provided': [ 'delete-round', 'cf-icon-delete-round' ],
+      'Consent withdrawn': [ 'minus-round', 'cf-icon-minus-round' ],
+      'N/A': [ 'help-round', 'cf-icon-help-round' ],
+      'Other': [ 'help-round', 'cf-icon-help-round' ]
     }
 
-    const styles = [ 'cf-icon', 'cf-icon__before' ]
-    if ( value in iconMap ) {
-      styles.push( iconMap[value] )
+    let consentIcon;
+    if ( value in iconLookupMap ) {
+      const consentIconLookup = iconLookupMap[value];
+      const iconName = consentIconLookup[0];
+      const customClass = consentIconLookup[1];
+      consentIcon = iconMap.getIcon( iconName, customClass )
     } else {
-      styles.push( 'cf-icon-error-round' )
+      consentIcon = iconMap.getIcon( 'error-round', 'cf-icon-error-round' );
       value = 'No data available'
     }
 
     return (
       <div>
-        <span className={styles.join( ' ' )}></span>
+        <span className="cf-icon__before">
+          { consentIcon }
+        </span>
         <span className="body-copy">{ value }</span>
       </div>
     )
