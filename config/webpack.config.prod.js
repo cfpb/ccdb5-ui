@@ -240,7 +240,7 @@ module.exports = {
               emitFile: true,
 
               // Write the path where the font files will be in the main site
-              name: './icons/[name].[ext]'
+              name: 'static/icons/[name].[ext]'
             }
           },
           // This loader doesn't use a "test" so it will catch all modules
