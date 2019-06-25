@@ -13,10 +13,7 @@ exports[`component:AggregationItemFilter renders without crashing 1`] = `
     type="checkbox"
   />
   <label
-    className="a-label"
-  />
-  <label
-    className="flex-all bucket-key body-copy"
+    className="a-label flex-all bucket-key body-copy"
     htmlFor="fieldNamefoo"
   >
     foo

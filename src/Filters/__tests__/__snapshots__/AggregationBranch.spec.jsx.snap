@@ -60,10 +60,7 @@ exports[`component::AggregationBranch snapshots renders with all checked 1`] = `
         type="checkbox"
       />
       <label
-        className="a-label"
-      />
-      <label
-        className="flex-all bucket-key body-copy"
+        className="a-label flex-all bucket-key body-copy"
         htmlFor="issuefoo•bar"
       >
         bar
@@ -88,10 +85,7 @@ exports[`component::AggregationBranch snapshots renders with all checked 1`] = `
         type="checkbox"
       />
       <label
-        className="a-label"
-      />
-      <label
-        className="flex-all bucket-key body-copy"
+        className="a-label flex-all bucket-key body-copy"
         htmlFor="issuefoo•baz"
       >
         baz
@@ -116,10 +110,7 @@ exports[`component::AggregationBranch snapshots renders with all checked 1`] = `
         type="checkbox"
       />
       <label
-        className="a-label"
-      />
-      <label
-        className="flex-all bucket-key body-copy"
+        className="a-label flex-all bucket-key body-copy"
         htmlFor="issuefoo•qaz"
       >
         qaz
@@ -196,10 +187,7 @@ exports[`component::AggregationBranch snapshots renders with indeterminate 1`] =
         type="checkbox"
       />
       <label
-        className="a-label"
-      />
-      <label
-        className="flex-all bucket-key body-copy"
+        className="a-label flex-all bucket-key body-copy"
         htmlFor="issuefoo•bar"
       >
         bar
@@ -224,10 +212,7 @@ exports[`component::AggregationBranch snapshots renders with indeterminate 1`] =
         type="checkbox"
       />
       <label
-        className="a-label"
-      />
-      <label
-        className="flex-all bucket-key body-copy"
+        className="a-label flex-all bucket-key body-copy"
         htmlFor="issuefoo•baz"
       >
         baz
@@ -252,10 +237,7 @@ exports[`component::AggregationBranch snapshots renders with indeterminate 1`] =
         type="checkbox"
       />
       <label
-        className="a-label"
-      />
-      <label
-        className="flex-all bucket-key body-copy"
+        className="a-label flex-all bucket-key body-copy"
         htmlFor="issuefoo•qaz"
       >
         qaz
