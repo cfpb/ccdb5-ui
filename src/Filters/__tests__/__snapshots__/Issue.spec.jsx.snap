@@ -171,10 +171,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
           type="checkbox"
         />
         <label
-          className="a-label"
-        />
-        <label
-          className="flex-all bucket-key body-copy"
+          className="a-label flex-all bucket-key body-copy"
           htmlFor="issueLoanservicing, payments, escrow account"
         >
           Loan servicing, payments, escrow account
@@ -199,10 +196,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
           type="checkbox"
         />
         <label
-          className="a-label"
-        />
-        <label
-          className="flex-all bucket-key body-copy"
+          className="a-label flex-all bucket-key body-copy"
           htmlFor="issueLoanmodification,collection,foreclosure"
         >
           Loan modification,collection,foreclosure
@@ -227,10 +221,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
           type="checkbox"
         />
         <label
-          className="a-label"
-        />
-        <label
-          className="flex-all bucket-key body-copy"
+          className="a-label flex-all bucket-key body-copy"
           htmlFor="issueDealingwith my lender or servicer"
         >
           Dealing with my lender or servicer
