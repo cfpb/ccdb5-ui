@@ -37,7 +37,8 @@
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.0",
     "redux-devtools-extension": "^2.13.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "autoprefixer": "7.1.5",
@@ -99,7 +100,9 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom --coverage",
     "dev-flow": "node scripts/test.js --env=jsdom --coverage --watch",
-    "lint": "node scripts/lint.js"
+    "lint": "node scripts/lint.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -135,5 +138,6 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-  }
+  },
+  "snyk": true
 }
