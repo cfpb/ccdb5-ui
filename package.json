@@ -38,7 +38,6 @@
     "cf-pagination": "^4.1.1",
     "cf-tables": "^4.1.1",
     "cf-typography": "^4.1.0",
-    "cfpb-chart-builder": "git+https://github.com/flacoman91/cfpb-chart-builder.git",
     "chalk": "2.2.0",
     "connect-history-api-fallback": "1.4.0",
     "core-js": "^2.5.1",
