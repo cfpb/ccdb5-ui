@@ -63,7 +63,7 @@ export class Pagination extends React.Component {
           <button className="a-btn m-pagination_btn-prev"
                   onClick={() => this._setPage( this.state.current - 1 )}
                   disabled={this.state.current <= 1}>
-              <span class="a-btn_icon a-btn_icon__on-left">
+              <span className="a-btn_icon a-btn_icon__on-left">
                 { iconMap.getIcon( 'left' ) }
               </span>
               Previous

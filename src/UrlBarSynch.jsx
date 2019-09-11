@@ -1,7 +1,7 @@
 import { dateFilters, flagFilters } from './constants'
 import announceUrlChanged from './actions/url'
 import { connect } from 'react-redux'
-import createHistory from 'history/createBrowserHistory'
+import { createBrowserHistory as createHistory } from 'history'
 import React from 'react'
 import { shortIsoFormat } from './utils'
 

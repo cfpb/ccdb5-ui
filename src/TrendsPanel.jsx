@@ -1,12 +1,11 @@
-import './ResultsPanel.less'
+import './TrendsPanel.less'
 import ActionBar from './ActionBar'
 import { bindAll } from './utils'
-import ComplaintCard from './ComplaintCard'
 import { connect } from 'react-redux'
 import Loading from './Dialogs/Loading'
 import { MemoryRouter } from 'react-router'
-import Pagination from './Pagination'
 import React from 'react'
+import TileChartMap from './TileChartMap';
 import Warning from './Warning'
 
 const ERROR = 'ERROR'
@@ -44,27 +43,24 @@ export class ResultsPanel extends React.Component {
   }
 
   render() {
-    const phase = this._determinePhase()
+    // const phase = this._determinePhase()
 
     return (
       <MemoryRouter>
-        <section className="results-panel">
+        <section className="trends-panel">
           <ActionBar />
           { this.props.hasDataIssue ?
             <Warning text={ WARN_DATA_ISSUE } /> :
             null
           }
           { this._renderStaleWarnings() }
-          { this.renderMap[phase]() }
-          <Pagination />
+          <TileChartMap className="tilemap" />
+          Sine hybj
           <Loading isLoading={this.props.isLoading || false} />
         </section>
       </MemoryRouter>
     )
   }
-
-  // --------------------------------------------------------------------------
-  // Properties
 
   // --------------------------------------------------------------------------
   // Phase Machine
@@ -86,7 +82,7 @@ export class ResultsPanel extends React.Component {
 
   _renderError() {
     return (
-       <h2>There was a problem executing your search RESULT</h2>
+       <h2>There was a problem executing your search TRENDS</h2>
     )
   }
 
@@ -114,9 +110,8 @@ export class ResultsPanel extends React.Component {
   _renderResults() {
     return (
       <ul className="cards-panel">
-        { this.props.items.map(
-          item => <ComplaintCard key={item.complaint_id} row={item} />
-        )}
+        some junk
+        add chart here
       </ul>
     )
   }
