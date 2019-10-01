@@ -47,6 +47,7 @@ export class SearchComponents extends React.Component {
         <main className="content content__1-3" role="main">
           <UrlBarSynch />
           <Hero />
+          TESTING 123
           <div className="content_wrapper">
             <SearchPanel />
             <aside className="content_sidebar">
