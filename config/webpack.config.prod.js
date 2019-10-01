@@ -78,7 +78,6 @@ module.exports = function(webpackEnv) {
   // common function to get style loaders
   const getStyleLoaders = (cssOptions, preProcessor) => {
     const loaders = [
-      isEnvDevelopment && require.resolve('style-loader'),
       isEnvProduction && {
         loader: MiniCssExtractPlugin.loader,
         options: shouldUseRelativeAssetPaths ? { publicPath: '../../' } : {},
@@ -133,14 +132,10 @@ module.exports = function(webpackEnv) {
   };
 
   return {
-    mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
+    mode: 'production',
     // Stop compilation early in production
-    bail: isEnvProduction,
-    devtool: isEnvProduction
-        ? shouldUseSourceMap
-            ? 'source-map'
-            : false
-        : isEnvDevelopment && 'cheap-module-source-map',
+    bail: true,
+    devtool: shouldUseSourceMap ? 'source-map' : false,
     // In production, we only want to load the polyfills and the app code.
     entry: [require.resolve('./polyfills'), paths.appIndexJs],
     output: {
@@ -240,7 +235,7 @@ module.exports = function(webpackEnv) {
       },
       // Keep the runtime chunk separated to enable long term caching
       // https://twitter.com/wSokra/status/969679223278505985
-      runtimeChunk: true,
+      runtimeChunk: false,
     },
     resolve: {
       // This allows you to set a fallback for where Webpack should look for modules.
@@ -320,7 +315,7 @@ module.exports = function(webpackEnv) {
               loader: require.resolve('url-loader'),
               options: {
                 limit: imageInlineSizeLimit,
-                name: 'static/media/[name].[hash:8].[ext]',
+                name: 'static/media/[name].[ext]',
               },
             },
             // Process application JS with Babel.
@@ -400,64 +395,30 @@ module.exports = function(webpackEnv) {
             // to a file, but in development "style" loader enables hot editing
             // of CSS.
             // By default we support CSS Modules with the extension .module.css
-            {
-              test: cssRegex,
-              exclude: cssModuleRegex,
-              use: getStyleLoaders({
-                importLoaders: 1,
-                sourceMap: isEnvProduction && shouldUseSourceMap,
-              }),
-              // Don't consider CSS imports dead code even if the
-              // containing package claims to have no side effects.
-              // Remove this when webpack adds a warning or an error for this.
-              // See https://github.com/webpack/webpack/issues/6571
-              sideEffects: true,
-            },
-            // Adds support for CSS Modules (https://github.com/css-modules/css-modules)
-            // using the extension .module.css
-            {
-              test: cssModuleRegex,
-              use: getStyleLoaders({
-                importLoaders: 1,
-                sourceMap: isEnvProduction && shouldUseSourceMap,
-                modules: true,
-                getLocalIdent: getCSSModuleLocalIdent,
-              }),
-            },
-            // Opt-in support for SASS (using .scss or .sass extensions).
-            // By default we support SASS Modules with the
-            // extensions .module.scss or .module.sass
             // {
-            //   test: sassRegex,
-            //   exclude: sassModuleRegex,
-            //   use: getStyleLoaders(
-            //       {
-            //         importLoaders: 2,
-            //         sourceMap: isEnvProduction && shouldUseSourceMap,
-            //       },
-            //       'sass-loader'
-            //   ),
+            //   test: cssRegex,
+            //   exclude: cssModuleRegex,
+            //   use: getStyleLoaders({
+            //     importLoaders: 1,
+            //     sourceMap: isEnvProduction && shouldUseSourceMap,
+            //   }),
             //   // Don't consider CSS imports dead code even if the
             //   // containing package claims to have no side effects.
             //   // Remove this when webpack adds a warning or an error for this.
             //   // See https://github.com/webpack/webpack/issues/6571
             //   sideEffects: true,
             // },
-            // // Adds support for CSS Modules, but using SASS
-            // // using the extension .module.scss or .module.sass
+            // // Adds support for CSS Modules (https://github.com/css-modules/css-modules)
+            // // using the extension .module.css
             // {
-            //   test: sassModuleRegex,
-            //   use: getStyleLoaders(
-            //       {
-            //         importLoaders: 2,
-            //         sourceMap: isEnvProduction && shouldUseSourceMap,
-            //         modules: true,
-            //         getLocalIdent: getCSSModuleLocalIdent,
-            //       },
-            //       'sass-loader'
-            //   ),
+            //   test: cssModuleRegex,
+            //   use: getStyleLoaders({
+            //     importLoaders: 1,
+            //     sourceMap: isEnvProduction && shouldUseSourceMap,
+            //     modules: true,
+            //     getLocalIdent: getCSSModuleLocalIdent,
+            //   }),
             // },
-            // "postcss" loader applies autoprefixer to our CSS.
             // "css" loader resolves paths in CSS and adds assets as dependencies.
             // "style" loader turns CSS into JS modules that inject <style> tags.
             // In production, we use a plugin to extract that CSS to a file, but
@@ -545,37 +506,6 @@ module.exports = function(webpackEnv) {
       ],
     },
     plugins: [
-      // Generates an `index.html` file with the <script> injected.
-      new HtmlWebpackPlugin(
-          Object.assign(
-              {},
-              {
-                inject: true,
-                template: paths.appHtml,
-              },
-              isEnvProduction
-                  ? {
-                    minify: {
-                      removeComments: true,
-                      collapseWhitespace: true,
-                      removeRedundantAttributes: true,
-                      useShortDoctype: true,
-                      removeEmptyAttributes: true,
-                      removeStyleLinkTypeAttributes: true,
-                      keepClosingSlash: true,
-                      minifyJS: true,
-                      minifyCSS: true,
-                      minifyURLs: true,
-                    },
-                  }
-                  : undefined
-          )
-      ),
-      // Inlines the webpack runtime script. This script is too small to warrant
-      // a network request.
-      isEnvProduction &&
-      shouldInlineRuntimeChunk &&
-      new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime~.+[.]js/]),
       // Makes some environment variables available in index.html.
       // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
       // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
@@ -592,41 +522,10 @@ module.exports = function(webpackEnv) {
       // during a production build.
       // Otherwise React will be compiled in the very slow development mode.
       new webpack.DefinePlugin(env.stringified),
-      // This is necessary to emit hot updates (currently CSS only):
-      isEnvDevelopment && new webpack.HotModuleReplacementPlugin(),
-      // Watcher doesn't work well if you mistype casing in a path so we use
-      // a plugin that prints an error when you attempt to do this.
-      // See https://github.com/facebook/create-react-app/issues/240
-      isEnvDevelopment && new CaseSensitivePathsPlugin(),
-      // If you require a missing module and then `npm install` it, you still have
-      // to restart the development server for Webpack to discover it. This plugin
-      // makes the discovery automatic so you don't have to restart.
-      // See https://github.com/facebook/create-react-app/issues/186
-      isEnvDevelopment &&
-      new WatchMissingNodeModulesPlugin(paths.appNodeModules),
-      isEnvProduction &&
       new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output
         // both options are optional
-        filename: 'static/css/main.css',
-        // chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
-      }),
-      // Generate a manifest file which contains a mapping of all asset filenames
-      // to their corresponding output file so that tools can pick it up without
-      // having to parse `index.html`.
-      new ManifestPlugin({
-        fileName: 'asset-manifest.json',
-        publicPath: publicPath,
-        generate: (seed, files) => {
-          const manifestFiles = files.reduce(function(manifest, file) {
-            manifest[file.name] = file.path;
-            return manifest;
-          }, seed);
-
-          return {
-            files: manifestFiles,
-          };
-        },
+        filename: 'main.css',
       }),
       // Moment.js is an extremely popular library that bundles large locale files
       // by default due to how Webpack interprets its code. This is a practical
@@ -634,52 +533,6 @@ module.exports = function(webpackEnv) {
       // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
       // You can remove this if you don't use Moment.js:
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-      // Generate a service worker script that will precache, and keep up to date,
-      // the HTML & assets that are part of the Webpack build.
-      isEnvProduction &&
-      new WorkboxWebpackPlugin.GenerateSW({
-        clientsClaim: true,
-        exclude: [/\.map$/, /asset-manifest\.json$/],
-        importWorkboxFrom: 'cdn',
-        navigateFallback: publicUrl + '/index.html',
-        navigateFallbackBlacklist: [
-          // Exclude URLs starting with /_, as they're likely an API call
-          new RegExp('^/_'),
-          // Exclude any URLs whose last part seems to be a file extension
-          // as they're likely a resource and not a SPA route.
-          // URLs containing a "?" character won't be blacklisted as they're likely
-          // a route with query params (e.g. auth callbacks).
-          new RegExp('/[^/?]+\\.[^/]+$'),
-        ],
-      }),
-      // TypeScript type checking
-      useTypeScript &&
-      new ForkTsCheckerWebpackPlugin({
-        typescript: resolve.sync('typescript', {
-          basedir: paths.appNodeModules,
-        }),
-        async: isEnvDevelopment,
-        useTypescriptIncrementalApi: true,
-        checkSyntacticErrors: true,
-        resolveModuleNameModule: process.versions.pnp
-            ? `${__dirname}/pnpTs.js`
-            : undefined,
-        resolveTypeReferenceDirectiveModule: process.versions.pnp
-            ? `${__dirname}/pnpTs.js`
-            : undefined,
-        tsconfig: paths.appTsConfig,
-        reportFiles: [
-          '**',
-          '!**/__tests__/**',
-          '!**/?(*.)(spec|test).*',
-          '!**/src/setupProxy.*',
-          '!**/src/setupTests.*',
-        ],
-        watch: paths.appSrc,
-        silent: true,
-        // The formatter is invoked directly in WebpackDevServerUtils during development
-        formatter: isEnvProduction ? typescriptFormatter : undefined,
-      }),
     ].filter(Boolean),
     // Some libraries import Node modules but don't use them in the browser.
     // Tell Webpack to provide empty mocks for them so importing them works.
