@@ -162,14 +162,11 @@ module.exports = function(webpackEnv) {
     ].filter(Boolean),
     output: {
       // The build folder.
-      path: isEnvProduction ? paths.appBuild : undefined,
-      // Add /* filename */ comments to generated require()s in the output.
-      pathinfo: isEnvDevelopment,
-      // There will be one main bundle, and one file per asynchronous chunk.
-      // In development, it does not produce real files.
-      filename: isEnvProduction
-          ? 'static/js/[name].[contenthash:8].js'
-          : isEnvDevelopment && 'static/js/bundle.js',
+      path: paths.appBuild,
+      // This does not produce a real file. It's just the virtual path that is
+      // served by WebpackDevServer in development. This is the JS bundle
+      // containing code from all our entry points, and the Webpack runtime.
+      filename: 'ccdb5.min.js',
       // TODO: remove this when upgrading to webpack 5
       futureEmitAssets: true,
       // There are also additional JS chunk files if you use code splitting.
@@ -180,19 +177,14 @@ module.exports = function(webpackEnv) {
       // We use "/" in development.
       publicPath: publicPath,
       // Point sourcemap entries to original disk location (format as URL on Windows)
-      devtoolModuleFilenameTemplate: isEnvProduction
-          ? info =>
-              path
-              .relative(paths.appSrc, info.absoluteResourcePath)
-              .replace(/\\/g, '/')
-          : isEnvDevelopment &&
-          (info => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')),
-      // Prevents conflicts when multiple Webpack runtimes (from different apps)
-      // are used on the same page.
-      jsonpFunction: `webpackJsonp${appPackageJson.name}`,
+      devtoolModuleFilenameTemplate: info =>
+          path
+          .relative(paths.appSrc, info.absoluteResourcePath)
+          .replace(/\\/g, '/'),
+      library: 'ccdb5_ui'
     },
     optimization: {
-      minimize: isEnvProduction,
+      minimize: true,
       minimizer: [
         // This is only used in production mode
         new TerserPlugin({
