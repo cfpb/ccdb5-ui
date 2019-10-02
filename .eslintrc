@@ -222,8 +222,8 @@ rules:
 
   # Enforces use of === and !== over == and !=.
   eqeqeq:
-     - 2
-     - smart
+    - 2
+    - smart
 
   # Enforces necessary if statements in for-in loops.
   guard-for-in: 1
