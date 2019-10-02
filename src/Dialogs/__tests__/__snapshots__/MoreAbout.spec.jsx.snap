@@ -55,7 +55,6 @@ exports[`component::MoreAbout initial state renders without crashing 1`] = `
   >
     <button
       className="a-btn"
-      onClick={undefined}
     >
       Close
     </button>
