@@ -59,9 +59,7 @@ module.exports = function(webpackEnv) {
   // Webpack uses `publicPath` to determine where the app is being served from.
   // It requires a trailing slash, or the file assets will get an incorrect path.
   // In development, we always serve from the root. This makes config easier.
-  const publicPath = isEnvProduction
-      ? paths.servedPath
-      : isEnvDevelopment && '/';
+  const publicPath = paths.servedPath;
   // Some apps do not use client-side routing with pushState.
   // For these, "homepage" can be set to "." to enable relative asset paths.
   const shouldUseRelativeAssetPaths = publicPath === './';
@@ -69,16 +67,14 @@ module.exports = function(webpackEnv) {
   // `publicUrl` is just like `publicPath`, but we will provide it to our app
   // as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
   // Omit trailing slash as %PUBLIC_URL%/xyz looks better than %PUBLIC_URL%xyz.
-  const publicUrl = isEnvProduction
-      ? publicPath.slice(0, -1)
-      : isEnvDevelopment && '';
+  const publicUrl = publicPath.slice(0, -1);
   // Get environment variables to inject into our app.
   const env = getClientEnvironment(publicUrl);
 
   // common function to get style loaders
   const getStyleLoaders = (cssOptions, preProcessor) => {
     const loaders = [
-      isEnvProduction && {
+      {
         loader: MiniCssExtractPlugin.loader,
         options: shouldUseRelativeAssetPaths ? { publicPath: '../../' } : {},
       },
@@ -108,7 +104,7 @@ module.exports = function(webpackEnv) {
             // which in turn let's users customize the target behavior as per their needs.
             postcssNormalize(),
           ],
-          sourceMap: isEnvProduction && shouldUseSourceMap,
+          sourceMap: shouldUseSourceMap,
         },
       },
     ].filter(Boolean);
@@ -117,7 +113,7 @@ module.exports = function(webpackEnv) {
           {
             loader: require.resolve('resolve-url-loader'),
             options: {
-              sourceMap: isEnvProduction && shouldUseSourceMap,
+              sourceMap: shouldUseSourceMap,
             },
           },
           {
@@ -395,30 +391,30 @@ module.exports = function(webpackEnv) {
             // to a file, but in development "style" loader enables hot editing
             // of CSS.
             // By default we support CSS Modules with the extension .module.css
-            // {
-            //   test: cssRegex,
-            //   exclude: cssModuleRegex,
-            //   use: getStyleLoaders({
-            //     importLoaders: 1,
-            //     sourceMap: isEnvProduction && shouldUseSourceMap,
-            //   }),
-            //   // Don't consider CSS imports dead code even if the
-            //   // containing package claims to have no side effects.
-            //   // Remove this when webpack adds a warning or an error for this.
-            //   // See https://github.com/webpack/webpack/issues/6571
-            //   sideEffects: true,
-            // },
-            // // Adds support for CSS Modules (https://github.com/css-modules/css-modules)
-            // // using the extension .module.css
-            // {
-            //   test: cssModuleRegex,
-            //   use: getStyleLoaders({
-            //     importLoaders: 1,
-            //     sourceMap: isEnvProduction && shouldUseSourceMap,
-            //     modules: true,
-            //     getLocalIdent: getCSSModuleLocalIdent,
-            //   }),
-            // },
+            {
+              test: cssRegex,
+              exclude: cssModuleRegex,
+              use: getStyleLoaders({
+                importLoaders: 1,
+                sourceMap: shouldUseSourceMap,
+              }),
+              // Don't consider CSS imports dead code even if the
+              // containing package claims to have no side effects.
+              // Remove this when webpack adds a warning or an error for this.
+              // See https://github.com/webpack/webpack/issues/6571
+              sideEffects: true,
+            },
+            // Adds support for CSS Modules (https://github.com/css-modules/css-modules)
+            // using the extension .module.css
+            {
+              test: cssModuleRegex,
+              use: getStyleLoaders({
+                importLoaders: 1,
+                sourceMap: isEnvProduction && shouldUseSourceMap,
+                modules: true,
+                getLocalIdent: getCSSModuleLocalIdent,
+              }),
+            },
             // "css" loader resolves paths in CSS and adds assets as dependencies.
             // "style" loader turns CSS into JS modules that inject <style> tags.
             // In production, we use a plugin to extract that CSS to a file, but
