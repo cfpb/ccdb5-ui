@@ -18,7 +18,6 @@ export class SearchPanel extends React.Component {
 
     return (
         <div className="search-panel">
-          TESTING 123
           <h2>Search complaint data { lastIndexedMessage }</h2>
           <SearchBar />
           <PillPanel />
