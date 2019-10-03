@@ -14,7 +14,7 @@ const sorts = {
   created_date_asc: 'Sort by oldest to newest',
   relevance_desc: 'Sort by relevance',
   relevance_asc: 'Sort by relevance (asc)'
-}
+};
 
 /* eslint-enable camelcase */
 
