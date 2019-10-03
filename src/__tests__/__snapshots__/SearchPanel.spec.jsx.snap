@@ -37,7 +37,6 @@ exports[`component:SearchPanel displays last updated date when present 1`] = `
               aria-label="Choose which field will be searched"
               id="searchField"
               onChange={[Function]}
-              value={undefined}
             >
               <optgroup
                 label="Search Within"
@@ -149,7 +148,6 @@ exports[`component:SearchPanel renders without crashing 1`] = `
               aria-label="Choose which field will be searched"
               id="searchField"
               onChange={[Function]}
-              value={undefined}
             >
               <optgroup
                 label="Search Within"

@@ -12,7 +12,7 @@ exports[`initial state renders without crashing 1`] = `
     onClick={[Function]}
   >
     <span
-      class="a-btn_icon a-btn_icon__on-left"
+      className="a-btn_icon a-btn_icon__on-left"
     >
       <svg
         className="cf-icon-svg"

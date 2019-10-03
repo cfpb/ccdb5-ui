@@ -67,7 +67,6 @@ exports[`component:ReactPanel displays a message when an error has occurred 1`] 
         <select
           id="choose-sort"
           onChange={[Function]}
-          value={undefined}
         >
           <option
             value="created_date_desc"
@@ -178,7 +177,6 @@ exports[`component:ReactPanel displays a message when only the narratives are st
         <select
           id="choose-sort"
           onChange={[Function]}
-          value={undefined}
         >
           <option
             value="created_date_desc"
@@ -420,7 +418,7 @@ exports[`component:ReactPanel displays a message when only the narratives are st
       onClick={[Function]}
     >
       <span
-        class="a-btn_icon a-btn_icon__on-left"
+        className="a-btn_icon a-btn_icon__on-left"
       >
         <svg
           className="cf-icon-svg"
@@ -567,7 +565,6 @@ exports[`component:ReactPanel displays a message when the data has issues 1`] = 
         <select
           id="choose-sort"
           onChange={[Function]}
-          value={undefined}
         >
           <option
             value="created_date_desc"
@@ -808,7 +805,7 @@ exports[`component:ReactPanel displays a message when the data has issues 1`] = 
       onClick={[Function]}
     >
       <span
-        class="a-btn_icon a-btn_icon__on-left"
+        className="a-btn_icon a-btn_icon__on-left"
       >
         <svg
           className="cf-icon-svg"
@@ -955,7 +952,6 @@ exports[`component:ReactPanel displays a message when the data is stale 1`] = `
         <select
           id="choose-sort"
           onChange={[Function]}
-          value={undefined}
         >
           <option
             value="created_date_desc"
@@ -1197,7 +1193,7 @@ exports[`component:ReactPanel displays a message when the data is stale 1`] = `
       onClick={[Function]}
     >
       <span
-        class="a-btn_icon a-btn_icon__on-left"
+        className="a-btn_icon a-btn_icon__on-left"
       >
         <svg
           className="cf-icon-svg"
@@ -1344,7 +1340,6 @@ exports[`component:ReactPanel displays a message when there are no results 1`] =
         <select
           id="choose-sort"
           onChange={[Function]}
-          value={undefined}
         >
           <option
             value="created_date_desc"
@@ -1455,7 +1450,6 @@ exports[`component:ReactPanel only displays data message when both types are sta
         <select
           id="choose-sort"
           onChange={[Function]}
-          value={undefined}
         >
           <option
             value="created_date_desc"
@@ -1697,7 +1691,7 @@ exports[`component:ReactPanel only displays data message when both types are sta
       onClick={[Function]}
     >
       <span
-        class="a-btn_icon a-btn_icon__on-left"
+        className="a-btn_icon a-btn_icon__on-left"
       >
         <svg
           className="cf-icon-svg"
@@ -1844,7 +1838,6 @@ exports[`component:ReactPanel renders without crashing 1`] = `
         <select
           id="choose-sort"
           onChange={[Function]}
-          value={undefined}
         >
           <option
             value="created_date_desc"
@@ -2063,7 +2056,7 @@ exports[`component:ReactPanel renders without crashing 1`] = `
       onClick={[Function]}
     >
       <span
-        class="a-btn_icon a-btn_icon__on-left"
+        className="a-btn_icon a-btn_icon__on-left"
       >
         <svg
           className="cf-icon-svg"

@@ -41,6 +41,7 @@ describe('onPage', () => {
 
   beforeEach(() => {
     cb = jest.fn()
+    window.scrollTo = jest.fn();
     target = shallow(<Pagination from="175" size="25" total="1000"
                                  onPage={cb} />)
   })
