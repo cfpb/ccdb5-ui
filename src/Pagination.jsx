@@ -4,10 +4,26 @@ import { FormattedNumber } from 'react-intl'
 import iconMap from './iconMap'
 import React from 'react'
 
+function _calculatePages(props) {
+  const from = props.from || 0;
+  var size = props.size || 1;
+  if ( size > 100 ) {
+    size = 100;
+  }
+  const total = props.total || 0;
+  const c = Math.ceil( from / size ) + 1;
+
+  return {
+    current: c,
+    total: Math.ceil( total / size ),
+    inputValue: c
+  }
+}
+
 export class Pagination extends React.Component {
   constructor( props ) {
     super( props );
-    this.state = this._calculatePages( props );
+    this.state = _calculatePages( props );
 
     // This binding is necessary to make `this` work in the callback
     // https://facebook.github.io/react/docs/handling-events.html
@@ -15,24 +31,15 @@ export class Pagination extends React.Component {
     this._updateInputValue = this._updateInputValue.bind( this );
   }
 
-  componentWillReceiveProps( nextProps ) {
-    this.setState( this._calculatePages( nextProps ) );
-  }
-
-  _calculatePages( props ) {
-    const from = props.from || 0;
-    var size = props.size || 1;
-    if ( size > 100 ) {
-      size = 100;
+  static getDerivedStateFromProps(props, state) {
+    if ( props.from !== state.from
+      || props.size !== state.size
+      || props.total !== state.total ) {
+      return _calculatePages(props);
     }
-    const total = props.total || 0;
-    const c = Math.ceil( from / size ) + 1;
 
-    return {
-      current: c,
-      total: Math.ceil( total / size ),
-      inputValue: c
-    }
+    // Return null to indicate no change to state.
+    return null;
   }
 
   _handleSubmit( event ) {
