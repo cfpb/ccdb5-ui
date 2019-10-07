@@ -15,7 +15,6 @@ exports[`component::DataExport initial state hides the dataset radio buttons whe
     <button
       className="a-btn a-btn__link"
       data-gtm_ignore="true"
-      onClick={undefined}
     >
       Close
       <svg
@@ -124,7 +123,6 @@ exports[`component::DataExport initial state hides the dataset radio buttons whe
     <button
       className="a-btn a-btn__link a-btn__warning"
       data-gtm_ignore="true"
-      onClick={undefined}
     >
       Cancel
     </button>
@@ -147,7 +145,6 @@ exports[`component::DataExport initial state renders without crashing 1`] = `
     <button
       className="a-btn a-btn__link"
       data-gtm_ignore="true"
-      onClick={undefined}
     >
       Close
       <svg
@@ -340,7 +337,6 @@ exports[`component::DataExport initial state renders without crashing 1`] = `
     <button
       className="a-btn a-btn__link a-btn__warning"
       data-gtm_ignore="true"
-      onClick={undefined}
     >
       Cancel
     </button>
