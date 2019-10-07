@@ -86,7 +86,7 @@ export class ResultsPanel extends React.Component {
 
   _renderError() {
     return (
-       <h2>There was a problem executing your search RESULT</h2>
+       <h2>There was a problem executing your search</h2>
     )
   }
 
