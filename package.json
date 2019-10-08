@@ -146,7 +146,7 @@
       "^(?!.*\\.(js|jsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
     },
     "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"
+      "/node_modules/(?!cfpb-chart-builder).+\\.js$"
     ],
     "moduleNameMapper": {
       "^react-native$": "react-native-web"
