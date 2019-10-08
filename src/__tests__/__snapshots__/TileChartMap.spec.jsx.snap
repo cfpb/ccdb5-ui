@@ -11,12 +11,12 @@ exports[`initial state renders without crashing 1`] = `
     Percentage change in the volume of new auto loans
   </h3>
   <div
-    class="cfpb-chart"
+    className="cfpb-chart"
     data-chart-color="navy"
     data-chart-description="This is the chart description."
-    data-chart-source="consumer-credit-trends/auto-loans/map_data_AUT.csv"
     data-chart-title="Map about something"
     data-chart-type="tile_map"
+    id="mymap"
   >
     This is the chart description.
   </div>

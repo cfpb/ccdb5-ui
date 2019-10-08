@@ -120,10 +120,14 @@ export class TileChartMap extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const vals = Object.values( state.aggs.state );
-  const d = vals.filter( o => stateNames.includes( o.key ) )
-    .map( o => ( { name: o.key, value: o.doc_count } ) );
-  return { data: [d]};
+  if(state.aggs) {
+    const vals = Object.values(state.aggs.state);
+    const d = vals.filter(o => stateNames.includes(o.key)).
+      map(o => ({name: o.key, value: o.doc_count}));
+    return {data: [d]};
+  }
+
+  return {};
 };
 
 export default connect( mapStateToProps )( TileChartMap )
