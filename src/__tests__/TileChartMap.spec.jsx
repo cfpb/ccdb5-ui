@@ -1,5 +1,3 @@
-jest.mock('cfpb-chart-builder');
-
 import TileChartMap from '../TileChartMap'
 import configureMockStore from 'redux-mock-store'
 import { Provider } from 'react-redux'
