@@ -101,7 +101,7 @@ export class RowChart extends React.Component {
 }
 
 const mapStateToProps = state => {
-  if(state === 'yourmom')
+  if(state === 'something')
     return false;
   return {};
 };

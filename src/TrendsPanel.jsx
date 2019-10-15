@@ -2,6 +2,7 @@ import './TrendsPanel.less'
 import ActionBar from './ActionBar'
 import { bindAll } from './utils'
 import { connect } from 'react-redux'
+import LineChart from './LineChart';
 import Loading from './Dialogs/Loading'
 import { MemoryRouter } from 'react-router'
 import React from 'react'
@@ -56,6 +57,7 @@ export class ResultsPanel extends React.Component {
           }
           { this._renderStaleWarnings() }
           <TileChartMap />
+          <LineChart />
           <RowChart />
           <Loading isLoading={this.props.isLoading || false} />
         </section>
