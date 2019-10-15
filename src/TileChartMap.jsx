@@ -21,8 +21,19 @@ export class TileChartMap extends React.Component {
     } );
   }
 
-  componentWillReceiveProps( nextProps ) {
-    this.setState( this._calculatePages( nextProps ) );
+  componentDidUpdate( prevProps ) {
+    const s1 = JSON.stringify( this.props.data );
+    const s2 = JSON.stringify( prevProps.data );
+
+    if ( s1 !== s2 ) {
+      const chart = new TileMap( {
+        el: document.getElementById( 'mymap' ),
+        data: this.props.data,
+        type: 'line',
+        color: 'green'
+      } );
+    }
+
   }
 
   _calculatePages( props ) {
@@ -34,17 +45,12 @@ export class TileChartMap extends React.Component {
   render() {
     return (
       <div>
-        <h2 id="section-tilemap">
-          TileMap
-        </h2>
-        <h3>Percentage change in the volume of new auto loans</h3>
         <div id="mymap"
              className="cfpb-chart"
              data-chart-color="navy"
              data-chart-description="This is the chart description."
              data-chart-title="Map about something"
              data-chart-type="tile_map">
-          This is the chart description.
         </div>
       </div>
     );
@@ -59,11 +65,21 @@ export class TileChartMap extends React.Component {
 
 const mapStateToProps = state => {
   if ( state.aggs ) {
-    const d = Object.values( state.aggs.state )
+    // only get the 50 US states
+    const states = Object.values( state.aggs.state )
       .filter( o => TILE_MAP_STATES.includes( o.key ) )
       .map( o => ( { name: o.key, value: o.doc_count } ) );
 
-    return { data: [ d ] };
+    const stateNames = states.map( o => o.name );
+
+    // patch any missing data
+    console.log( stateNames );
+    TILE_MAP_STATES.forEach( o => {
+      if ( !stateNames.includes( o ) ) {
+        states.push( { name: o, value: 0 } );
+      }
+    } );
+    return { data: [ states ]};
   }
 
   return {};
