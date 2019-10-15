@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import Loading from './Dialogs/Loading'
 import { MemoryRouter } from 'react-router'
 import React from 'react'
+import RowChart from './RowChart';
 import TileChartMap from './TileChartMap';
 import Warning from './Warning'
 
@@ -55,6 +56,7 @@ export class ResultsPanel extends React.Component {
           }
           { this._renderStaleWarnings() }
           <TileChartMap />
+          <RowChart />
           <Loading isLoading={this.props.isLoading || false} />
         </section>
       </MemoryRouter>
