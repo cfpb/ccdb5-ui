@@ -54,7 +54,7 @@ export class ResultsPanel extends React.Component {
             null
           }
           { this._renderStaleWarnings() }
-          <TileChartMap className="tilemap" />
+          <TileChartMap />
           <Loading isLoading={this.props.isLoading || false} />
         </section>
       </MemoryRouter>

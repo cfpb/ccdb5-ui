@@ -29,7 +29,7 @@ export class TileChartMap extends React.Component {
       const chart = new TileMap( {
         el: document.getElementById( 'mymap' ),
         data: this.props.data,
-        type: 'line',
+        type: 'tile_map',
         color: 'green'
       } );
     }
@@ -47,9 +47,6 @@ export class TileChartMap extends React.Component {
       <div>
         <div id="mymap"
              className="cfpb-chart"
-             data-chart-color="navy"
-             data-chart-description="This is the chart description."
-             data-chart-title="Map about something"
              data-chart-type="tile_map">
         </div>
       </div>
