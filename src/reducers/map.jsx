@@ -35,6 +35,82 @@ export default ( state = defaultState, action ) => {
         result.states = states;
       }
 
+      result.issues = [
+        {
+          isNotFilter: false,
+          isParent: true,
+          name: 'America',
+          value: 2,
+          width: 0.5
+        },
+        {
+          isNotFilter: false,
+          isParent: true,
+          name: 'Bank',
+          value: 2,
+          width: 0.5
+        },
+        {
+          isNotFilter: false,
+          isParent: true,
+          name: 'Something',
+          value: 2,
+          width: 0.5
+        },
+        {
+          isNotFilter: false,
+          isParent: true,
+          name: 'Wells',
+          value: 2,
+          width: 0.5
+        },
+        {
+          isNotFilter: false,
+          isParent: false,
+          name: 'Equifax',
+          value: 1,
+          width: 0.5
+        }
+      ];
+
+      result.products = [
+        {
+          isNotFilter: false,
+          isParent: true,
+          name: 'America',
+          value: 2,
+          width: 0.5
+        },
+        {
+          isNotFilter: false,
+          isParent: true,
+          name: 'Bank',
+          value: 2,
+          width: 0.5
+        },
+        {
+          isNotFilter: false,
+          isParent: true,
+          name: 'Something',
+          value: 2,
+          width: 0.5
+        },
+        {
+          isNotFilter: false,
+          isParent: true,
+          name: 'Wells',
+          value: 2,
+          width: 0.5
+        },
+        {
+          isNotFilter: false,
+          isParent: false,
+          name: 'Equifax',
+          value: 1,
+          width: 0.5
+        }
+      ];
+
       return result;
     }
 
