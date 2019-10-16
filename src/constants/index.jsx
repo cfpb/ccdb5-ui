@@ -1,6 +1,8 @@
 // Internal triggers
 export const API_CALLED = 'API_CALLED'
+export const DATE_INTERVAL_CHANGED = 'DATE_INTERVAL_CHANGED'
 export const DATE_RANGE_CHANGED = 'DATE_RANGE_CHANGED'
+export const DATE_RANGE_MIN = '2011-11-30T12:00:00.000Z'
 export const PAGE_CHANGED = 'PAGE_CHANGED'
 export const SEARCH_CHANGED = 'SEARCH_CHANGED'
 export const SIZE_CHANGED = 'SIZE_CHANGED'
@@ -50,6 +52,8 @@ export const dateFilters = [
   'date_received_max',
   'date_received_min'
 ]
+
+export const dateIntervals = [ '3m', '6m', '1y', '3y', 'All' ];
 
 export const flagFilters = [
   'has_narrative'

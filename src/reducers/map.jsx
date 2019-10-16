@@ -1,11 +1,13 @@
+// reducer for the Map Tab
 import { COMPLAINTS_RECEIVED, TILE_MAP_STATES } from '../constants'
 
 /* eslint-disable camelcase */
 
 export const defaultState = {
-  issues: [],
-  products: [],
-  states: []
+  interval: '',
+  issue: [],
+  product: [],
+  state: []
 }
 
 /* eslint-enable camelcase */
@@ -18,10 +20,30 @@ export default ( state = defaultState, action ) => {
       // only need state
       const stateData = action.data.aggregations.state;
       // doc count = stateData.doc_count
+      const total = stateData.doc_count;
+      const mapObj = o => (
+        {
+          // RAD: 2019-10-22 for some reason britecharts isnt ellipsing the
+          // text correctly
+          name: o.key,
+          value: o.doc_count,
+          pctChange: 1,
+          isParent: true,
+          hasChildren: false,
+          pctOfSet: Math.round( o.doc_count / total * 100 )
+            .toFixed( 2 ),
+          width: 0.5
+        }
+      );
 
       const states = Object.values( stateData.state.buckets )
         .filter( o => TILE_MAP_STATES.includes( o.key ) )
-        .map( o => ( { name: o.key, value: o.doc_count } ) );
+        .map( o => ( {
+          name: o.key,
+          value: o.doc_count,
+          issue: 'Being broke',
+          product: 'Bank PRODUCT'
+        } ) );
 
       const stateNames = states.map( o => o.name );
 
@@ -29,87 +51,17 @@ export default ( state = defaultState, action ) => {
       if ( stateNames.length > 0 ) {
         TILE_MAP_STATES.forEach( o => {
           if ( !stateNames.includes( o ) ) {
-            states.push( { name: o, value: 0 } );
+            states.push( { name: o, value: 0, issue: '', product: '' } );
           }
         } );
-        result.states = states;
+        result.state = states;
       }
 
-      result.issues = [
-        {
-          isNotFilter: false,
-          isParent: true,
-          name: 'America',
-          value: 2,
-          width: 0.5
-        },
-        {
-          isNotFilter: false,
-          isParent: true,
-          name: 'Bank',
-          value: 2,
-          width: 0.5
-        },
-        {
-          isNotFilter: false,
-          isParent: true,
-          name: 'Something',
-          value: 2,
-          width: 0.5
-        },
-        {
-          isNotFilter: false,
-          isParent: true,
-          name: 'Wells',
-          value: 2,
-          width: 0.5
-        },
-        {
-          isNotFilter: false,
-          isParent: false,
-          name: 'Equifax',
-          value: 1,
-          width: 0.5
-        }
-      ];
+      const issueData = action.data.aggregations.issue;
+      const productData = action.data.aggregations.product;
 
-      result.products = [
-        {
-          isNotFilter: false,
-          isParent: true,
-          name: 'America',
-          value: 2,
-          width: 0.5
-        },
-        {
-          isNotFilter: false,
-          isParent: true,
-          name: 'Bank',
-          value: 2,
-          width: 0.5
-        },
-        {
-          isNotFilter: false,
-          isParent: true,
-          name: 'Something',
-          value: 2,
-          width: 0.5
-        },
-        {
-          isNotFilter: false,
-          isParent: true,
-          name: 'Wells',
-          value: 2,
-          width: 0.5
-        },
-        {
-          isNotFilter: false,
-          isParent: false,
-          name: 'Equifax',
-          value: 1,
-          width: 0.5
-        }
-      ];
+      result.issue = issueData.issue.buckets.map( mapObj );
+      result.product = productData.product.buckets.map( mapObj );
 
       return result;
     }

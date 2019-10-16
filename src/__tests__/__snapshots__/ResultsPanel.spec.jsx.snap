@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`component:ReactPanel displays a message when an error has occurred 1`] = `
+exports[`component:ResultsPanel displays a message when an error has occurred 1`] = `
 <section
   className="results-panel"
 >
@@ -110,7 +110,7 @@ exports[`component:ReactPanel displays a message when an error has occurred 1`] 
 </section>
 `;
 
-exports[`component:ReactPanel displays a message when only the narratives are stale 1`] = `
+exports[`component:ResultsPanel displays a message when only the narratives are stale 1`] = `
 <section
   className="results-panel"
 >
@@ -498,7 +498,7 @@ exports[`component:ReactPanel displays a message when only the narratives are st
 </section>
 `;
 
-exports[`component:ReactPanel displays a message when the data has issues 1`] = `
+exports[`component:ResultsPanel displays a message when the data has issues 1`] = `
 <section
   className="results-panel"
 >
@@ -885,7 +885,7 @@ exports[`component:ReactPanel displays a message when the data has issues 1`] = 
 </section>
 `;
 
-exports[`component:ReactPanel displays a message when the data is stale 1`] = `
+exports[`component:ResultsPanel displays a message when the data is stale 1`] = `
 <section
   className="results-panel"
 >
@@ -1273,7 +1273,7 @@ exports[`component:ReactPanel displays a message when the data is stale 1`] = `
 </section>
 `;
 
-exports[`component:ReactPanel displays a message when there are no results 1`] = `
+exports[`component:ResultsPanel displays a message when there are no results 1`] = `
 <section
   className="results-panel"
 >
@@ -1383,7 +1383,7 @@ exports[`component:ReactPanel displays a message when there are no results 1`] =
 </section>
 `;
 
-exports[`component:ReactPanel only displays data message when both types are stale 1`] = `
+exports[`component:ResultsPanel only displays data message when both types are stale 1`] = `
 <section
   className="results-panel"
 >
@@ -1771,7 +1771,7 @@ exports[`component:ReactPanel only displays data message when both types are sta
 </section>
 `;
 
-exports[`component:ReactPanel renders without crashing 1`] = `
+exports[`component:ResultsPanel renders without crashing 1`] = `
 <section
   className="results-panel"
 >

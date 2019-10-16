@@ -5,23 +5,10 @@ import ResultsPanel from './ResultsPanel';
 import TrendsPanel from './TrendsPanel';
 
 export class Results extends React.Component {
-  constructor( props ) {
-    super( props )
-
-    this.state = {
-      tab: props.tab
-    };
-  }
-
-  componentWillReceiveProps( nextProps ) {
-    this.setState( {
-      tab: nextProps.tab
-    } )
-  }
   render() {
     let currentPanel = <MapPanel/>;
 
-    switch ( this.state.tab ) {
+    switch ( this.props.tab ) {
       case 'Trends':
         currentPanel = <TrendsPanel/>;
         break;

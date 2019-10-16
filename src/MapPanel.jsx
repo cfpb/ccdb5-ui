@@ -2,6 +2,7 @@ import './MapPanel.less'
 import ActionBar from './ActionBar'
 import { bindAll } from './utils'
 import { connect } from 'react-redux'
+import DateIntervals from './DateIntervals';
 import Loading from './Dialogs/Loading'
 import { MemoryRouter } from 'react-router'
 import React from 'react'
@@ -34,8 +35,7 @@ export class MapPanel extends React.Component {
     // Render/Phase Map
     this.renderMap = {
       ERROR: this._renderError.bind( this ),
-      NO_RESULTS: this._renderNoResults.bind( this ),
-      RESULTS: this._renderResults.bind( this )
+      NO_RESULTS: this._renderNoResults.bind( this )
     }
 
     bindAll( this, [
@@ -54,9 +54,10 @@ export class MapPanel extends React.Component {
             null
           }
           { this._renderStaleWarnings() }
+          <DateIntervals />
           <TileChartMap />
-          <RowChart />
-          <RowChart />
+          <RowChart aggtype="product" />
+          <RowChart aggtype="issue" />
           <Loading isLoading={this.props.isLoading || false} />
         </section>
       </MemoryRouter>
@@ -105,15 +106,6 @@ export class MapPanel extends React.Component {
         null
       }
       </div>
-    )
-  }
-
-  _renderResults() {
-    return (
-      <ul className="cards-panel">
-        some junk
-        add chart here
-      </ul>
     )
   }
 }

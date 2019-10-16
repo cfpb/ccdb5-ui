@@ -21,7 +21,7 @@ export class Pagination extends React.Component {
 
   _calculatePages( props ) {
     const from = props.from || 0;
-    var size = props.size || 1;
+    let size = props.size || 1;
     if ( size > 100 ) {
       size = 100;
     }

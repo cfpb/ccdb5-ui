@@ -44,6 +44,7 @@ export const mapDispatchToProps = dispatch => ( {
   onTab: tab => {
     dispatch( changeTab( tab ) )
   }
-} )
+} );
 
-export default connect( mapStateToProps, mapDispatchToProps )( TabbedNavigation )
+export default connect( mapStateToProps,
+  mapDispatchToProps )( TabbedNavigation )

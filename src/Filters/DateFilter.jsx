@@ -2,6 +2,7 @@ import './DateFilter.less'
 import { changeDateRange } from '../actions/filter'
 import CollapsibleFilter from './CollapsibleFilter'
 import { connect } from 'react-redux'
+import { DATE_RANGE_MIN } from '../constants';
 import DateInput from '../DateInput'
 import iconMap from '../iconMap'
 import moment from 'moment'
@@ -164,7 +165,7 @@ DateFilter.propTypes = {
 DateFilter.defaultProps = {
   from: '',
   maximumDate: null,
-  minimumDate: new Date( '2011-11-30T12:00:00.000Z' ),
+  minimumDate: new Date( DATE_RANGE_MIN ),
   through: ''
 }
 

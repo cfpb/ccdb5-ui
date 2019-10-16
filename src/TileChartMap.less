@@ -1860,11 +1860,11 @@ h5 + .cfpb-chart[data-chart-type='bar'] .cfpb-chart__small .highcharts-range-sel
 }
 /* TODO: Investigate whether responsive styles can be remove here and handled
          via class set in JS, like how the other chart types work. */
-.cfpb-chart[data-chart-type="tile_map"] {
-  height: 630px;
-}
 .cfpb-chart[data-chart-type="tile_map"] .highcharts-label {
   pointer-events: none;
+}
+.cfpb-chart[data-chart-type="tile_map"] .highcharts-legend__tile-map {
+  font-size: 12px;
 }
 .cfpb-chart[data-chart-type="tile_map"] .highcharts-label__tile-map {
   font-size: 16px;
@@ -1876,16 +1876,6 @@ h5 + .cfpb-chart[data-chart-type='bar'] .cfpb-chart__small .highcharts-range-sel
 .cfpb-chart[data-chart-type="tile_map"] .highcharts-label__tile-map span {
   position: relative !important;
   white-space: normal !important;
-}
-.cfpb-chart[data-chart-type="tile_map"] .highcharts-legend__tile-map {
-  -webkit-transform: translateY(15px);
-  transform: translateY(15px);
-}
-@media only all and (min-width: 31.25em) {
-  .cfpb-chart[data-chart-type="tile_map"] .highcharts-legend__tile-map {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-  }
 }
 .cfpb-chart[data-chart-type="tile_map"] .u-point-hover-state {
   stroke: #101820;
@@ -1922,16 +1912,53 @@ h5 + .cfpb-chart[data-chart-type='bar'] .cfpb-chart__small .highcharts-range-sel
     line-height: 1;
   }
 }
-.cfpb-chart[data-chart-type="tile_map"] .highcharts-data-label .highcharts-data-label-state-abbr {
+.cfpb-chart[data-chart-type="tile_map"] .highcharts-data-label .highcharts-data-label-state {
   text-align: center;
   cursor: default;
 }
+.cfpb-chart[data-chart-type="tile_map"] .highcharts-data-label .highcharts-data-label-state .abbr {
+  font-size: 16px;
+}
+.cfpb-chart[data-chart-type="tile_map"] .highcharts-data-label .highcharts-data-label-state .value {
+  font-size: 12px;
+}
 @media only all and (max-width: 37.5em) {
-  .cfpb-chart[data-chart-type="tile_map"] .highcharts-data-label .highcharts-data-label-state-value {
+  .cfpb-chart[data-chart-type="tile_map"] .highcharts-data-label .highcharts-data-label-state .value {
     display: block;
     margin-top: -2px;
     font-size: 9px;
   }
+}
+.cfpb-chart[data-chart-type="tile_map"] .highcharts-label-box {
+  display: none;
+}
+.cfpb-chart[data-chart-type="tile_map"] .highcharts-tooltip {
+  min-width: 200px;
+}
+.cfpb-chart[data-chart-type="tile_map"] .highcharts-tooltip span {
+  color: #fff;
+  background-color: #101820;
+  padding: 5px;
+  width: 320px;
+}
+.cfpb-chart[data-chart-type="tile_map"] .highcharts-tooltip span div p {
+  margin: 5px;
+  white-space: normal;
+}
+.cfpb-chart[data-chart-type="tile_map"] .highcharts-tooltip span div p.u-float-left {
+  width: 150px;
+  float: left;
+}
+.cfpb-chart[data-chart-type="tile_map"] .highcharts-tooltip span div p.u-right {
+  width: 150px;
+}
+.cfpb-chart[data-chart-type="tile_map"] .highcharts-tooltip span .title {
+  text-align: center;
+}
+.cfpb-chart[data-chart-type="tile_map"] .highcharts-tooltip span .row {
+  border-top: solid 1px #43484e;
+  margin-top: 5px;
+  padding-top: 5px;
 }
 @media (max-width: 600px) {
   .cfpb-chart[data-chart-type="tile_map"] {

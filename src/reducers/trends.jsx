@@ -1,3 +1,4 @@
+// reducer for trends tab
 import { COMPLAINTS_RECEIVED } from '../constants'
 
 /* eslint-disable camelcase */

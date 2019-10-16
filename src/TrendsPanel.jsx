@@ -2,6 +2,7 @@ import './TrendsPanel.less'
 import ActionBar from './ActionBar'
 import { bindAll } from './utils'
 import { connect } from 'react-redux'
+import DateIntervals from './DateIntervals';
 import LineChart from './LineChart';
 import Loading from './Dialogs/Loading'
 import { MemoryRouter } from 'react-router'
@@ -54,9 +55,10 @@ export class TrendsPanel extends React.Component {
             null
           }
           { this._renderStaleWarnings() }
+          <DateIntervals />
           <LineChart />
-          <RowChart />
-          <RowChart />
+          <RowChart aggtype="product" />
+          <RowChart aggtype="issue" />
           <Loading isLoading={this.props.isLoading || false} />
         </section>
       </MemoryRouter>

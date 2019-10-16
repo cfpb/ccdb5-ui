@@ -4,41 +4,26 @@ import React from 'react';
 import { TileMap } from 'cfpb-chart-builder';
 
 export class TileChartMap extends React.Component {
-  constructor( props ) {
-    super( props );
-    this.state = this._calculatePages( props );
-  }
-
-  componentDidMount() {
-    if ( !this.state.data || this.state.data[0]
-      && !this.state.data[0].length ) return;
-    const chart = new TileMap( {
-      el: document.getElementById( 'mymap' ),
-      data: this.state.data,
-      type: 'line',
-      color: 'green'
-    } );
-  }
-
   componentDidUpdate( prevProps ) {
-    const s1 = JSON.stringify( this.props.data );
-    const s2 = JSON.stringify( prevProps.data );
-
-    if ( s1 !== s2 ) {
-      const chart = new TileMap( {
-        el: document.getElementById( 'mymap' ),
-        data: this.props.data,
-        type: 'tile_map',
-        color: 'green'
-      } );
+    if(!this.props.data[0].length) {
+      return;
     }
 
-  }
+    const colors = [
+      'rgba(247, 248, 249, 0.5)',
+      'rgba(212, 231, 230, 0.5)',
+      'rgba(180, 210, 209, 0.5)',
+      'rgba(137, 182, 181, 0.5)',
+      'rgba(86, 149, 148, 0.5)',
+      'rgba(37, 116, 115, 0.5)'
+    ];
 
-  _calculatePages( props ) {
-    return {
-      data: props.data
-    };
+    const chart = new TileMap( {
+      el: document.getElementById( 'mymap' ),
+      data: this.props.data,
+      colors,
+      localize: true
+    } );
   }
 
   render() {
@@ -59,12 +44,7 @@ export class TileChartMap extends React.Component {
   // Subrender methods
 }
 
-const mapStateToProps = state => {
-  if ( state.map ) {
-    return { data: [ state.map.states ]};
-  }
-  return { data: false };
-};
+const mapStateToProps = state => ( { data: [ state.map.state ] } );
 
 export default connect( mapStateToProps )( TileChartMap );
 

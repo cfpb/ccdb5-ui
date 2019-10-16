@@ -264,12 +264,17 @@ exports[`initial state renders without crashing 1`] = `
         <button
           onClick={[Function]}
         >
-          List
+          Map
         </button>
         <button
           onClick={[Function]}
         >
           Trends
+        </button>
+        <button
+          onClick={[Function]}
+        >
+          List
         </button>
       </section>
     </div>
@@ -362,8 +367,27 @@ exports[`initial state renders without crashing 1`] = `
                     onChange={[Function]}
                     placeholder="mm/dd/yyyy"
                     size="15"
-                    value=""
+                    value="12/31/2015"
                   />
+                  <button
+                    className="a-btn a-btn__link"
+                    onClick={[Function]}
+                  >
+                    <svg
+                      className="cf-icon-svg"
+                      viewBox="0 0 718.9 1200"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M451.4 613.7l248.1-248.1c25.6-25.1 26-66.3.8-91.9s-66.3-26-91.9-.8l-.8.8-248.1 248.1-248.1-248.1c-25.4-25.4-66.5-25.4-91.9 0s-25.4 66.5 0 91.9l248.1 248.1L19.5 861.8c-25.6 25.1-26 66.3-.8 91.9s66.3 26 91.9.8l.8-.8 248.1-248.1 248.1 248.1c25.4 25.4 66.5 25.4 91.9 0s25.4-66.5 0-91.9L451.4 613.7z"
+                      />
+                    </svg>
+                    <span
+                      className="u-visually-hidden"
+                    >
+                      Clear
+                    </span>
+                  </button>
                 </div>
               </li>
               <li>
@@ -383,8 +407,27 @@ exports[`initial state renders without crashing 1`] = `
                     onChange={[Function]}
                     placeholder="mm/dd/yyyy"
                     size="15"
-                    value=""
+                    value="12/31/2015"
                   />
+                  <button
+                    className="a-btn a-btn__link"
+                    onClick={[Function]}
+                  >
+                    <svg
+                      className="cf-icon-svg"
+                      viewBox="0 0 718.9 1200"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M451.4 613.7l248.1-248.1c25.6-25.1 26-66.3.8-91.9s-66.3-26-91.9-.8l-.8.8-248.1 248.1-248.1-248.1c-25.4-25.4-66.5-25.4-91.9 0s-25.4 66.5 0 91.9l248.1 248.1L19.5 861.8c-25.6 25.1-26 66.3-.8 91.9s66.3 26 91.9.8l.8-.8 248.1-248.1 248.1 248.1c25.4 25.4 66.5 25.4 91.9 0s25.4-66.5 0-91.9L451.4 613.7z"
+                      />
+                    </svg>
+                    <span
+                      className="u-visually-hidden"
+                    >
+                      Clear
+                    </span>
+                  </button>
                 </div>
               </li>
             </ul>
@@ -1016,7 +1059,7 @@ exports[`initial state renders without crashing 1`] = `
       className="content_main"
     >
       <section
-        className="results-panel"
+        className="map-panel"
       >
         <summary
           className="action-bar"
@@ -1033,74 +1076,6 @@ exports[`initial state renders without crashing 1`] = `
           <div
             className="layout-row"
           >
-            <div
-              className="cf-select flex-fixed"
-            >
-              <select
-                id="choose-size"
-                onChange={[Function]}
-                value={25}
-              >
-                <option
-                  value={10}
-                >
-                  Show 
-                  10
-                   results
-                </option>
-                <option
-                  value={25}
-                >
-                  Show 
-                  25
-                   results
-                </option>
-                <option
-                  value={50}
-                >
-                  Show 
-                  50
-                   results
-                </option>
-                <option
-                  value={100}
-                >
-                  Show 
-                  100
-                   results
-                </option>
-              </select>
-            </div>
-            <div
-              className="cf-select flex-fixed"
-            >
-              <select
-                id="choose-sort"
-                onChange={[Function]}
-                value="created_date_desc"
-              >
-                <option
-                  value="created_date_desc"
-                >
-                  Sort by newest to oldest
-                </option>
-                <option
-                  value="created_date_asc"
-                >
-                  Sort by oldest to newest
-                </option>
-                <option
-                  value="relevance_desc"
-                >
-                  Sort by relevance
-                </option>
-                <option
-                  value="relevance_asc"
-                >
-                  Sort by relevance (asc)
-                </option>
-              </select>
-            </div>
             <h4
               className="flex-all"
             >
@@ -1115,9 +1090,65 @@ exports[`initial state renders without crashing 1`] = `
           </div>
         </summary>
         <div />
-        <h2>
-          No results were found for your search
-        </h2>
+        <section
+          className="date-intervals"
+        >
+          <button
+            className="date-selector "
+            onClick={[Function]}
+          >
+            3m
+          </button>
+          <button
+            className="date-selector "
+            onClick={[Function]}
+          >
+            6m
+          </button>
+          <button
+            className="date-selector "
+            onClick={[Function]}
+          >
+            1y
+          </button>
+          <button
+            className="date-selector selected"
+            onClick={[Function]}
+          >
+            3y
+          </button>
+          <button
+            className="date-selector "
+            onClick={[Function]}
+          >
+            All
+          </button>
+        </section>
+        <div>
+          <div
+            className="cfpb-chart"
+            data-chart-type="tile_map"
+            id="mymap"
+          />
+        </div>
+        <div>
+          <h3>
+            product
+             by complaint volume (5 highest counts)
+          </h3>
+          <div
+            id="rowchart-product"
+          />
+        </div>
+        <div>
+          <h3>
+            issue
+             by complaint volume (5 highest counts)
+          </h3>
+          <div
+            id="rowchart-issue"
+          />
+        </div>
         <section
           className="light-box"
         >

@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component:MapPanel renders without crashing 1`] = `
+<section
+  className="map-panel"
+>
+  <summary
+    className="action-bar"
+  >
+    <div>
+      <h2>
+        Showing 
+        <span>
+          1
+        </span>
+         matches out of 
+        <span>
+          100
+        </span>
+         total complaints
+      </h2>
+    </div>
+    <div
+      className="layout-row"
+    >
+      <h4
+        className="flex-all"
+      >
+        <button
+          className="a-btn a-btn__link"
+          data-gtm_ignore="true"
+          onClick={[Function]}
+        >
+          Export results
+        </button>
+      </h4>
+    </div>
+  </summary>
+  <div />
+  <section
+    className="date-intervals"
+  >
+    <button
+      className="date-selector "
+      onClick={[Function]}
+    >
+      3m
+    </button>
+    <button
+      className="date-selector "
+      onClick={[Function]}
+    >
+      6m
+    </button>
+    <button
+      className="date-selector "
+      onClick={[Function]}
+    >
+      1y
+    </button>
+    <button
+      className="date-selector "
+      onClick={[Function]}
+    >
+      3y
+    </button>
+    <button
+      className="date-selector "
+      onClick={[Function]}
+    >
+      All
+    </button>
+  </section>
+  <div>
+    <div
+      className="cfpb-chart"
+      data-chart-type="tile_map"
+      id="mymap"
+    />
+  </div>
+  <div>
+    <h3>
+      product
+       by complaint volume (5 highest counts)
+    </h3>
+    <div
+      id="rowchart-product"
+    />
+  </div>
+  <div>
+    <h3>
+      issue
+       by complaint volume (5 highest counts)
+    </h3>
+    <div
+      id="rowchart-issue"
+    />
+  </div>
+</section>
+`;

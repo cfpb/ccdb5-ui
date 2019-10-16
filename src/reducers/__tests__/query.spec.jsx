@@ -5,14 +5,7 @@ import * as types from '../../constants'
 
 describe('reducer:query', () => {
   it('has a default state', () => {
-    expect(target(undefined, {})).toEqual({
-        searchText: '',
-        searchField: 'all',
-        from: 0,
-        queryString: '?field=all&size=25&sort=created_date_desc',
-        size: 25,
-        sort: 'created_date_desc'
-      })
+    expect(target(undefined, {})).toEqual(defaultQuery)
   })
 
   it('handles SEARCH_CHANGED actions', () => {

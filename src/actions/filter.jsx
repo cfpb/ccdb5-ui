@@ -1,5 +1,5 @@
 import {
-  DATE_RANGE_CHANGED,
+  DATE_INTERVAL_CHANGED, DATE_RANGE_CHANGED,
   FILTER_ALL_REMOVED, FILTER_CHANGED, FILTER_FLAG_CHANGED,
   FILTER_MULTIPLE_ADDED, FILTER_MULTIPLE_REMOVED, FILTER_REMOVED
 } from '../constants'
@@ -7,6 +7,19 @@ import { getComplaints } from './complaints'
 
 // ----------------------------------------------------------------------------
 // Simple actions
+
+/**
+ * Notifies the application that date interval was toggled
+ *
+ * @param {string} dateInterval which filter was clicked
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function dateIntervalToggled( dateInterval ) {
+  return {
+    type: DATE_INTERVAL_CHANGED,
+    dateInterval
+  }
+}
 
 /**
 * Notifies the application that a date range has changed
@@ -128,6 +141,19 @@ export function filterMultipleRemoved( filterName, values ) {
 export function addMultipleFilters( filterName, values ) {
   return dispatch => {
     dispatch( filterMultipleAdded( filterName, values ) )
+    dispatch( getComplaints() )
+  }
+}
+
+/**
+ * Changes the date range due to interval selected of a filter
+ *
+ * @param {string} dateInterval the interval selected 3m, 6m, 1y, 3y, a
+ * @returns {function} a series of actions to execute
+ */
+export function changeDateInterval( dateInterval ) {
+  return dispatch => {
+    dispatch( dateIntervalToggled( dateInterval ) )
     dispatch( getComplaints() )
   }
 }

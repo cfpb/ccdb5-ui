@@ -1,18 +1,11 @@
-import { select, selectAll } from 'd3-selection';
 import { connect } from 'react-redux';
 import { line } from 'britecharts';
 import React from 'react';
-
+import { select } from 'd3-selection';
 
 export class LineChart extends React.Component {
-  constructor( props ) {
-    super( props );
-    this.state = this._calculatePages( props );
-  }
-
-  componentDidMount() {
-    // if ( !this.state.data ) return;
-    const lineContainer = select('#lineChart');
+  componentDidUpdate() {
+    const lineContainer = select( '#lineChart' );
     const lineChart = line();
 
     lineChart.margin( { left: 30, right: 10, top: 10, bottom: 40 } )
@@ -130,28 +123,9 @@ export class LineChart extends React.Component {
       ]
     };
 
-    lineContainer.datum(rows).call(lineChart);
+    lineContainer.datum( rows ).call( lineChart );
   }
 
-  // componentDidUpdate( prevProps ) {
-  //   // const s1 = JSON.stringify( this.props.data );
-  //   // const s2 = JSON.stringify( prevProps.data );
-  //   //
-  //   // if ( s1 !== s2 ) {
-  //   //   const chart = new TileMap( {
-  //   //     el: document.getElementById( 'mymap' ),
-  //   //     data: this.props.data,
-  //   //     type: 'tile_map',
-  //   //     color: 'green'
-  //   //   } );
-  //   // }
-  // }
-
-  _calculatePages( props ) {
-    return {
-      data: props.data
-    };
-  }
 
   render() {
     return (
@@ -169,11 +143,8 @@ export class LineChart extends React.Component {
   // Subrender methods
 }
 
-const mapStateToProps = state => {
-  if(state === 'somethingelse')
-    return false;
-  return {};
-};
+// tbd: addin correct reducer here
+const mapStateToProps = state => ( { data: state.map.state } );
 
 export default connect( mapStateToProps )( LineChart );
 
