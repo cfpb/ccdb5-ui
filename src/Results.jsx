@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import MapPanel from './MapPanel';
 import React from 'react'
 import ResultsPanel from './ResultsPanel';
+import TrendsPanel from './TrendsPanel';
 
 export class Results extends React.Component {
   constructor( props ) {
