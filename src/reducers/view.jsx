@@ -5,7 +5,7 @@ import {
 } from '../constants'
 
 const defaultView = {
-  tab: 'List'
+  tab: 'Map'
 }
 
 export default ( state = defaultView, action ) => {

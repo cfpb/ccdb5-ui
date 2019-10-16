@@ -71,12 +71,16 @@ const mapStateToProps = state => {
 
     // patch any missing data
     console.log( stateNames );
-    TILE_MAP_STATES.forEach( o => {
-      if ( !stateNames.includes( o ) ) {
-        states.push( { name: o, value: 0 } );
-      }
-    } );
-    return { data: [ states ]};
+    if ( stateNames.length > 0 ) {
+      TILE_MAP_STATES.forEach( o => {
+        if ( !stateNames.includes( o ) ) {
+          states.push( { name: o, value: 0 } );
+        }
+      } );
+      return { data: [ states ]};
+    }
+
+    return { data: false };
   }
 
   return {};

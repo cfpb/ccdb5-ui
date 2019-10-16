@@ -1,8 +1,7 @@
-import './TrendsPanel.less'
+import './MapPanel.less'
 import ActionBar from './ActionBar'
 import { bindAll } from './utils'
 import { connect } from 'react-redux'
-import LineChart from './LineChart';
 import Loading from './Dialogs/Loading'
 import { MemoryRouter } from 'react-router'
 import React from 'react'
@@ -28,7 +27,7 @@ const WARN_DATA_STALE = 'We’re currently experiencing technical issues that' +
   'Consumer Complaint Database.  We expect to refresh the data in the next ' +
   'few days.'
 
-export class ResultsPanel extends React.Component {
+export class MapPanel extends React.Component {
   constructor( props ) {
     super( props )
 
@@ -46,10 +45,9 @@ export class ResultsPanel extends React.Component {
 
   render() {
     // const phase = this._determinePhase()
-
     return (
       <MemoryRouter>
-        <section className="trends-panel">
+        <section className="map-panel">
           <ActionBar />
           { this.props.hasDataIssue ?
             <Warning text={ WARN_DATA_ISSUE } /> :
@@ -57,7 +55,7 @@ export class ResultsPanel extends React.Component {
           }
           { this._renderStaleWarnings() }
           <TileChartMap />
-          <LineChart />
+          <RowChart />
           <RowChart />
           <Loading isLoading={this.props.isLoading || false} />
         </section>
@@ -85,7 +83,7 @@ export class ResultsPanel extends React.Component {
 
   _renderError() {
     return (
-       <h2>There was a problem executing your search TRENDS</h2>
+       <h2>There was a problem executing your search Map Panel</h2>
     )
   }
 
@@ -129,4 +127,4 @@ const mapStateToProps = state => ( {
   items: state.results.items
 } )
 
-export default connect( mapStateToProps )( ResultsPanel )
+export default connect( mapStateToProps )( MapPanel )
