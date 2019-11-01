@@ -9,7 +9,7 @@ exports[`component:AggregationItemFilter renders without crashing 1`] = `
     checked={false}
     className="flex-fixed a-checkbox"
     id="fieldNamefoo"
-    onChange={[Function]}
+    onChange={[MockFunction]}
     type="checkbox"
   />
   <label

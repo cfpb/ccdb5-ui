@@ -121,6 +121,8 @@ function build(previousFileSizes) {
       }
 
       // Remove the "lint warnings == failed build on CI" rule
+      // RAD: 10/7/2019 Do not replace the boilerplate code in there or
+      // travis ci will fail you.
 
       return resolve({
         stats,
