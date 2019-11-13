@@ -47,7 +47,7 @@ export const nextStateFromOptions = ( options, props ) => {
   let phase = RESULTS
   if ( !options || options.length === 0 ) {
     phase = NO_RESULTS
-  } else if ( options && options.length > props.maxVisible ) {
+  } else if ( options.length > props.maxVisible ) {
     phase = TOO_MANY
   }
 

@@ -1,17 +1,5 @@
 // Internal triggers
 export const API_CALLED = 'API_CALLED'
-export const DATE_RANGE_CHANGED = 'DATE_RANGE_CHANGED'
-export const PAGE_CHANGED = 'PAGE_CHANGED'
-export const SEARCH_CHANGED = 'SEARCH_CHANGED'
-export const SIZE_CHANGED = 'SIZE_CHANGED'
-export const SORT_CHANGED = 'SORT_CHANGED'
-export const URL_CHANGED = 'URL_CHANGED'
-export const FILTER_CHANGED = 'FILTER_CHANGED'
-export const FILTER_FLAG_CHANGED = 'FILTER_FLAG_CHANGED'
-export const FILTER_REMOVED = 'FILTER_REMOVED'
-export const FILTER_ALL_REMOVED = 'FILTER_ALL_REMOVED'
-export const FILTER_MULTIPLE_ADDED = 'FILTER_MULTIPLE_ADDED'
-export const FILTER_MULTIPLE_REMOVED = 'FILTER_MULTIPLE_REMOVED'
 export const MODAL_HID = 'MODAL_HID'
 export const MODAL_SHOWN = 'MODAL_SHOWN'
 
@@ -27,6 +15,13 @@ export const MODAL_TYPE_MORE_ABOUT = 'MODAL_TYPE_MORE_ABOUT'
 
 // Useful constants
 export const NARRATIVE_SEARCH_FIELD = 'complaint_what_happened'
+
+// query manager flags
+// These constants control how the query manager works
+export const REQUERY_ALWAYS = 'REQUERY_ALWAYS'
+export const REQUERY_HITS_ONLY = 'REQUERY_HITS_ONLY'
+// default if not specified
+export const REQUERY_NEVER = 'REQUERY_NEVER'
 
 export const knownFilters = [
   'company',

@@ -1,13 +1,15 @@
 import * as types from '../constants'
-import { shortIsoFormat } from '../utils'
+import { clamp, shortIsoFormat } from '../utils'
+import actions from '../actions'
 const queryString = require( 'query-string' );
 
 export const defaultQuery = {
   searchText: '',
   searchField: 'all',
-  from: 0,
   size: 25,
-  sort: 'created_date_desc'
+  sort: 'created_date_desc',
+  page: 1,
+  totalPages: 0
 }
 
 const fieldMap = {
@@ -165,6 +167,22 @@ export function changeFlagFilter( state, action ) {
 }
 
 /**
+ * updates when search text params are changed
+ * @param {object} state current state in redux
+ * @param {object} action payload with search text and field
+ * @returns {object} updated state for redux
+ */
+export function changeSearch( state, action ) {
+  return {
+    ...state,
+    from: 0,
+    page: 1,
+    searchText: action.searchText,
+    searchField: action.searchField
+  }
+}
+
+/**
 * Adds new filters to the current set
 *
 * @param {object} state the current state in the Redux store
@@ -288,6 +306,102 @@ function removeMultipleFilters( state, action ) {
   return newState
 }
 
+/**
+ * update state based on pageChanged action
+ * @param {object} state current redux state
+ * @param {object} action command excuted
+ * @returns {object} new state in redux
+ */
+function changePage( state, action ) {
+  const page = parseInt( action.page, 10 )
+  return {
+    ...state,
+    from: ( page - 1 ) * state.size,
+    page: page
+  }
+}
+
+/**
+ * Update state based on the sort order changed action
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the command being executed
+ * @returns {object} the new state for the Redux store
+ */
+function prevPage( state ) {
+  // don't let them go lower than 1
+  const page = clamp( state.page - 1, 1, state.page );
+  return {
+    ...state,
+    from: ( page - 1 ) * state.size,
+    page: page
+  };
+}
+
+/**
+ * Update state based on the sort order changed action
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+function nextPage( state ) {
+  // don't let them go past the total num of pages
+  const page = clamp( state.page + 1, 1, state.totalPages );
+  return {
+    ...state,
+    from: ( page - 1 ) * state.size,
+    page: page
+  };
+}
+
+
+/**
+ * update state based on changeSize action
+ * @param {object} state current redux state
+ * @param {object} action command excuted
+ * @returns {object} new state in redux
+ */
+function changeSize( state, action ) {
+  return {
+    ...state,
+    from: 0,
+    page: 1,
+    size: action.size
+  }
+}
+
+/**
+ * update state based on changeSort action
+ * @param {object} state current redux state
+ * @param {object} action command excuted
+ * @returns {object} new state in redux
+ */
+function changeSort( state, action ) {
+  return {
+    ...state,
+    sort: action.sort
+  }
+}
+
+/**
+ * Upon complaint received, we need to make sure to reset the page
+ *
+ * @param  {object} state the current state in the Redux store
+ * @param {object} action the command being executed
+ * @returns {{page: number, totalPages: number}} the new state
+ */
+function updateTotalPages( state, action ) {
+  const totalPages = Math.ceil( action.data.hits.total / state.size );
+  // reset pager to 1 if the number of total pages ever changes
+  let page = state.page > totalPages ? totalPages : state.page;
+  page = page > 0 ? page : 1;
+  return {
+    ...state,
+    page,
+    totalPages
+  };
+}
+
 // ----------------------------------------------------------------------------
 // Query String Builder
 
@@ -302,6 +416,7 @@ export function stateToQS( state ) {
   const fields = Object.keys( state )
 
   // Copy over the fields
+  /* eslint complexity: ["error", 5] */
   fields.forEach( field => {
     // Do not include empty fields
     if ( !state[field] ) {
@@ -342,22 +457,26 @@ export function stateToQS( state ) {
 */
 export function _buildHandlerMap() {
   const handlers = {}
-
-  handlers[types.DATE_RANGE_CHANGED] = changeDateRange
-  handlers[types.FILTER_ALL_REMOVED] = removeAllFilters
-  handlers[types.FILTER_CHANGED] = toggleFilter
-  handlers[types.FILTER_FLAG_CHANGED] = changeFlagFilter
-  handlers[types.FILTER_MULTIPLE_ADDED] = addMultipleFilters
-  handlers[types.FILTER_MULTIPLE_REMOVED] = removeMultipleFilters
-  handlers[types.FILTER_REMOVED] = removeFilter
-  handlers[types.URL_CHANGED] = processParams
+  handlers[types.COMPLAINTS_RECEIVED] = updateTotalPages;
+  handlers[actions.DATE_RANGE_CHANGED] = changeDateRange
+  handlers[actions.FILTER_ALL_REMOVED] = removeAllFilters
+  handlers[actions.FILTER_CHANGED] = toggleFilter
+  handlers[actions.FILTER_FLAG_CHANGED] = changeFlagFilter
+  handlers[actions.FILTER_MULTIPLE_ADDED] = addMultipleFilters
+  handlers[actions.FILTER_MULTIPLE_REMOVED] = removeMultipleFilters
+  handlers[actions.FILTER_REMOVED] = removeFilter
+  handlers[actions.PAGE_CHANGED] = changePage
+  handlers[actions.NEXT_PAGE_SHOWN] = nextPage
+  handlers[actions.PREV_PAGE_SHOWN] = prevPage
+  handlers[actions.SIZE_CHANGED] = changeSize
+  handlers[actions.SORT_CHANGED] = changeSort
+  handlers[actions.URL_CHANGED] = processParams
+  handlers[actions.SEARCH_CHANGED] = changeSearch
 
   return handlers
 }
 
 const _handlers = _buildHandlerMap()
-
-/* eslint complexity: ["error", 6] */
 
 /**
 * Routes an action to an appropriate handler
@@ -371,37 +490,7 @@ function handleSpecificAction( state, action ) {
     return _handlers[action.type]( state, action )
   }
 
-  switch ( action.type ) {
-    case types.SEARCH_CHANGED:
-      return {
-        ...state,
-        searchText: action.searchText,
-        searchField: action.searchField,
-        from: 0
-      }
-
-    case types.PAGE_CHANGED:
-      return {
-        ...state,
-        from: ( action.page - 1 ) * state.size
-      }
-
-    case types.SIZE_CHANGED:
-      return {
-        ...state,
-        from: 0,
-        size: action.size
-      }
-
-    case types.SORT_CHANGED:
-      return {
-        ...state,
-        sort: action.sort
-      }
-
-    default:
-      return state
-  }
+  return state
 }
 
 export default ( state = defaultQuery, action ) => {
