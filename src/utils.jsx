@@ -1,6 +1,75 @@
 import moment from 'moment'
 import { SLUG_SEPARATOR } from './constants'
 
+/**
+ * Function to set the limit of the range of a set of numbers
+ * @param {int} x value we are checking
+ * @param {int} min smallest number it can me
+ * @param {int} max biggest number it can be
+ * @returns {*}the limited value
+ */
+export const clamp = ( x, min, max ) => {
+  if ( x < min ) {
+    x = min;
+  } else if ( x > max ) {
+    x = max;
+  }
+  return x;
+}
+
+/**
+ * Replacement for the common pattern:
+ * if( o.field )
+ *    x = o.field
+ * else
+ *    x = alternateValue
+ *
+ * Avoids some of the complexity lint warnings
+ *
+ * @param {Object} o the object being tested
+ * @param {string} field the field to check
+ * @param {string|Object} alternateValue the value to use in absence
+ * @returns {string} the value to use
+ */
+export const coalesce = ( o, field, alternateValue ) => {
+  if ( typeof o !== 'object' ) {
+    return alternateValue;
+  }
+
+  return field in o && o[field] ? o[field] : alternateValue;
+};
+
+/**
+ * Extends coalesce to check for valid enumarated values
+ *
+ * @param {Object} o the object being tested
+ * @param {string} field the field to check
+ * @param {Array} validValues a list of allowed values
+ * @param {Number} alternateValue the value to use in absence
+ * @returns {Number} the value to use
+ */
+export const coalesceEnum = ( o, field, validValues, alternateValue ) => {
+  const s = coalesce( o, field, alternateValue );
+  return validValues.indexOf( s ) === -1 ? alternateValue : s;
+}
+
+/**
+ * Extends coalesce to check for valid numbers
+ *
+ * @param {Object} o the object being tested
+ * @param {string} field the field to check
+ * @param {Number} alternateValue the value to use in absence
+ * @returns {Number} the value to use
+ */
+export const coalesceFloat = ( o, field, alternateValue ) => {
+  if ( typeof o === 'undefined' || !( field in o ) ) {
+    return alternateValue;
+  }
+
+  const f = parseFloat( o[field] );
+  return isNaN( f ) ? alternateValue : f;
+}
+
 export const normalize = s => s.toLowerCase()
 
 export const slugify = ( a, b ) => a + SLUG_SEPARATOR + b
@@ -9,6 +78,7 @@ export const sortSelThenCount = ( options, selected ) => {
   const retVal = ( options || [] ).slice()
 
   // Sort the array so that selected items appear first, then by doc_count
+  /* eslint complexity: ["error", 5] */
   retVal.sort( ( a, b ) => {
     const aSel = selected.indexOf( a.key ) !== -1
     const bSel = selected.indexOf( b.key ) !== -1

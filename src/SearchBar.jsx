@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import HighlightingOption from './Typeahead/HighlightingOption'
 import PropTypes from 'prop-types'
 import React from 'react'
-import search from './actions/search'
+import { searchChanged } from './actions/search'
 
 const searchFields = {
   all: 'All Data',
@@ -186,7 +186,7 @@ export const mapStateToProps = state => ( {
 
 export const mapDispatchToProps = dispatch => ( {
   onSearch: ( text, searchField ) => {
-    dispatch( search( text, searchField ) )
+    dispatch( searchChanged( text, searchField ) )
   }
 } )
 
