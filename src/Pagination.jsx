@@ -1,6 +1,6 @@
 import { changePage, nextPageShown, prevPageShown } from './actions/paging'
+import { FormattedNumber, IntlProvider } from 'react-intl'
 import { connect } from 'react-redux'
-import { FormattedNumber } from 'react-intl'
 import iconMap from './iconMap'
 import React from 'react'
 
@@ -49,6 +49,7 @@ export class Pagination extends React.Component {
     }
 
     return (
+      <IntlProvider locale="en">
       <nav className="m-pagination"
            role="navigation"
            aria-label="Pagination">
@@ -98,6 +99,7 @@ export class Pagination extends React.Component {
                       type="submit">Go</button>
           </form>
       </nav>
+      </IntlProvider>
     );
   }
 }
@@ -113,9 +115,7 @@ export const mapDispatchToProps = dispatch => ( {
     dispatch( nextPageShown() )
   },
   onPage: page => {
-    if ( page ) {
-      dispatch( changePage( page ) )
-    }
+    dispatch( changePage( page ) )
   },
   prevPage: () => {
     dispatch( prevPageShown() )
