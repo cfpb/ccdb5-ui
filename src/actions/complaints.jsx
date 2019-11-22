@@ -1,5 +1,10 @@
 import * as types from '../constants'
 
+export const COMPLAINTS_RECEIVED = 'COMPLAINTS_RECEIVED'
+export const COMPLAINTS_FAILED = 'COMPLAINTS_FAILED'
+export const COMPLAINT_DETAIL_RECEIVED = 'COMPLAINT_DETAIL_RECEIVED'
+export const COMPLAINT_DETAIL_FAILED = 'COMPLAINT_DETAIL_FAILED'
+
 // ----------------------------------------------------------------------------
 // Action Creators
 
@@ -65,7 +70,7 @@ export function callingApi( url ) {
 */
 export function complaintsReceived( data ) {
   return {
-    type: types.COMPLAINTS_RECEIVED,
+    type: COMPLAINTS_RECEIVED,
     data
   }
 }
@@ -78,7 +83,7 @@ export function complaintsReceived( data ) {
 */
 export function complaintsFailed( error ) {
   return {
-    type: types.COMPLAINTS_FAILED,
+    type: COMPLAINTS_FAILED,
     error
   }
 }
@@ -91,7 +96,7 @@ export function complaintsFailed( error ) {
 */
 export function complaintDetailReceived( data ) {
   return {
-    type: types.COMPLAINT_DETAIL_RECEIVED,
+    type: COMPLAINT_DETAIL_RECEIVED,
     data
   }
 }
@@ -104,7 +109,7 @@ export function complaintDetailReceived( data ) {
 */
 export function complaintDetailFailed( error ) {
   return {
-    type: types.COMPLAINT_DETAIL_FAILED,
+    type: COMPLAINT_DETAIL_FAILED,
     error
   }
 }

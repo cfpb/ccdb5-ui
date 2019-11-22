@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import * as actions from '../complaints'
+import * as sut from '../complaints'
 import * as types from '../../constants'
 
 const middlewares = [thunk]
@@ -47,7 +47,7 @@ describe('action::complaints', () => {
     })
 
     it('calls the API', () => {
-      store.dispatch(actions.getComplaints())
+      store.dispatch(sut.getComplaints())
       expect(global.fetch).toHaveBeenCalled()
     })
 
@@ -56,26 +56,26 @@ describe('action::complaints', () => {
       s.results.activeCall = '@@API' + s.query.queryString
       store = mockStore(s)
 
-      store.dispatch(actions.getComplaints())
+      store.dispatch(sut.getComplaints())
       expect(global.fetch).not.toHaveBeenCalled()
     })
 
     describe('when the API call is finished', () => {
       it('sends a simple action when data is received', () => {
-        store.dispatch(actions.getComplaints())
+        store.dispatch(sut.getComplaints())
         const expectedActions = [
           { type: types.API_CALLED, url: expect.any(String) },
-          { type: types.COMPLAINTS_RECEIVED, data: ['123']}
+          { type: sut.COMPLAINTS_RECEIVED, data: ['123']}
         ]
         onSuccess(['123'])
         expect(store.getActions()).toEqual(expectedActions)
       })
 
       it('sends a different simple action when an error occurs', () => {
-        store.dispatch(actions.getComplaints())
+        store.dispatch(sut.getComplaints())
         const expectedActions = [
           { type: types.API_CALLED, url: expect.any(String) },
-          { type: types.COMPLAINTS_FAILED, error: 'oops' }
+          { type: sut.COMPLAINTS_FAILED, error: 'oops' }
         ]
         onFail('oops')
         expect(store.getActions()).toEqual(expectedActions)
@@ -108,7 +108,7 @@ describe('action::complaints', () => {
 
     it('calls the API', () => {
       const store = mockStore({})
-      store.dispatch(actions.getComplaintDetail('123'))
+      store.dispatch(sut.getComplaintDetail('123'))
       expect(global.fetch).toHaveBeenCalled()
     })
 
@@ -116,13 +116,13 @@ describe('action::complaints', () => {
       let store
       beforeEach(() => {
         store = mockStore({})
-        store.dispatch(actions.getComplaintDetail('123'))
+        store.dispatch(sut.getComplaintDetail('123'))
       })
 
       it('sends a simple action when data is received', () => {
         const expectedActions = [
           { type: types.API_CALLED, url: '@@API123' },
-          { type: types.COMPLAINT_DETAIL_RECEIVED, data: { foo: 'bar' }}
+          { type: sut.COMPLAINT_DETAIL_RECEIVED, data: { foo: 'bar' }}
         ]
         onSuccess({ foo: 'bar' })
         expect(store.getActions()).toEqual(expectedActions)
@@ -131,7 +131,7 @@ describe('action::complaints', () => {
       it('sends a different simple action when an error occurs', () => {
         const expectedActions = [
           { type: types.API_CALLED, url: '@@API123' },
-          { type: types.COMPLAINT_DETAIL_FAILED, error: 'oops' }
+          { type: sut.COMPLAINT_DETAIL_FAILED, error: 'oops' }
         ]
         onFail('oops')
         expect(store.getActions()).toEqual(expectedActions)

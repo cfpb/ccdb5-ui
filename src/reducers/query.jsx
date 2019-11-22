@@ -457,7 +457,7 @@ export function stateToQS( state ) {
 */
 export function _buildHandlerMap() {
   const handlers = {}
-  handlers[types.COMPLAINTS_RECEIVED] = updateTotalPages;
+  handlers[actions.COMPLAINTS_RECEIVED] = updateTotalPages;
   handlers[actions.DATE_RANGE_CHANGED] = changeDateRange
   handlers[actions.FILTER_ALL_REMOVED] = removeAllFilters
   handlers[actions.FILTER_CHANGED] = toggleFilter

@@ -1,4 +1,4 @@
-import * as types from '../../constants'
+import * as sut from '../../actions/complaints'
 import target from '../detail'
 
 describe('reducer::detail', () => {
@@ -11,7 +11,7 @@ describe('reducer::detail', () => {
 
   it('handles COMPLAINT_DETAIL_RECEIVED actions', () => {
     const action = {
-      type: types.COMPLAINT_DETAIL_RECEIVED,
+      type: sut.COMPLAINT_DETAIL_RECEIVED,
       data: {
         hits: {
           hits: [
@@ -29,7 +29,7 @@ describe('reducer::detail', () => {
 
   it('handles COMPLAINT_DETAIL_FAILED actions', () => {
     const action = {
-      type: types.COMPLAINT_DETAIL_FAILED,
+      type: sut.COMPLAINT_DETAIL_FAILED,
       error: 'foo bar'
     }
     expect(target({}, action)).toEqual({
