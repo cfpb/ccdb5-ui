@@ -39,37 +39,6 @@ export const coalesce = ( o, field, alternateValue ) => {
   return field in o && o[field] ? o[field] : alternateValue;
 };
 
-/**
- * Extends coalesce to check for valid enumarated values
- *
- * @param {Object} o the object being tested
- * @param {string} field the field to check
- * @param {Array} validValues a list of allowed values
- * @param {Number} alternateValue the value to use in absence
- * @returns {Number} the value to use
- */
-export const coalesceEnum = ( o, field, validValues, alternateValue ) => {
-  const s = coalesce( o, field, alternateValue );
-  return validValues.indexOf( s ) === -1 ? alternateValue : s;
-}
-
-/**
- * Extends coalesce to check for valid numbers
- *
- * @param {Object} o the object being tested
- * @param {string} field the field to check
- * @param {Number} alternateValue the value to use in absence
- * @returns {Number} the value to use
- */
-export const coalesceFloat = ( o, field, alternateValue ) => {
-  if ( typeof o === 'undefined' || !( field in o ) ) {
-    return alternateValue;
-  }
-
-  const f = parseFloat( o[field] );
-  return isNaN( f ) ? alternateValue : f;
-}
-
 export const normalize = s => s.toLowerCase()
 
 export const slugify = ( a, b ) => a + SLUG_SEPARATOR + b

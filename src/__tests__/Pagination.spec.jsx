@@ -2,7 +2,7 @@ import { IntlProvider } from 'react-intl'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import renderer from 'react-test-renderer'
-import {shallow} from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import { Pagination, mapStateToProps, mapDispatchToProps } from '../Pagination'
 
 describe('component::Pagination', () => {
@@ -33,7 +33,7 @@ describe('component::Pagination', () => {
                                    prevPage={prevCb}/>)
     })
 
-    it('is called when the previous button is clicked', () => {
+    it('prevPage is called when the previous button is clicked', () => {
       const prev = target.find('.m-pagination_btn-prev')
       prev.simulate('click')
       expect(onCb).not.toHaveBeenCalled()
@@ -41,7 +41,7 @@ describe('component::Pagination', () => {
       expect(prevCb).toHaveBeenCalled()
     })
 
-    it('is called when the next button is clicked', () => {
+    it('nextPage is called when the next button is clicked', () => {
       const next = target.find('.m-pagination_btn-next')
       next.simulate('click')
       expect(onCb).not.toHaveBeenCalled()
@@ -49,7 +49,7 @@ describe('component::Pagination', () => {
       expect(nextCb).toHaveBeenCalled()
     })
 
-    it('is called when the form is submitted', () => {
+    it('onPage is called when the form is submitted', () => {
       target.setState({
         page: 8
       });
@@ -97,6 +97,20 @@ describe('component::Pagination', () => {
       const target = shallow(<Pagination page={10} total={10} />)
       const next = target.find('.m-pagination_btn-next')
       expect(next.props().disabled).toEqual(true)
+    })
+  })
+
+  describe('componentDidUpdate', () => {
+    it('trigger a new update when text changes', () => {
+      const props = {
+        page: 2,
+        total: 10
+      }
+
+      const target = mount(<Pagination {...props} />);
+      target.setProps({ page: 'bar' })
+      const sv = target.state('page')
+      expect(sv).toEqual('bar')
     })
   })
 
