@@ -1,5 +1,5 @@
 import target from '../aggs'
-import * as types from '../../constants'
+import { COMPLAINTS_RECEIVED } from '../../actions/complaints'
 
 describe('reducer:aggs', () => {
   it('has a default state', () => {
@@ -21,7 +21,7 @@ describe('reducer:aggs', () => {
 
   it('handles COMPLAINTS_RECEIVED actions', () => {
     const action = {
-      type: types.COMPLAINTS_RECEIVED,
+      type: COMPLAINTS_RECEIVED,
       data: { 
         aggregations: {
           'company_response': {
