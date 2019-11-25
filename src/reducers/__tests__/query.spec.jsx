@@ -19,6 +19,57 @@ describe('reducer:query', () => {
       })
   })
 
+  describe('COMPLAINTS_RECEIVED actions', ()=>{
+    it('updates total number of pages', ()=>{
+      const action = {
+        type: actions.COMPLAINTS_RECEIVED,
+        data: {
+          hits: {
+            total: 10000
+          }
+        }
+      }
+
+      const state = {
+        page: 10,
+        size: 100,
+        totalPages: 1000
+      }
+
+      expect(target(state, action)).toEqual({
+        page: 10,
+        queryString: '?page=10&size=100&totalPages=100',
+        size: 100,
+        totalPages: 100
+      })
+    })
+
+    it('limits the current page correctly', ()=>{
+      const action = {
+        type: actions.COMPLAINTS_RECEIVED,
+        data: {
+          hits: {
+            total: 10000
+          }
+        }
+      }
+
+      const state = {
+        page: 101,
+        size: 100,
+        totalPages: 1000
+      }
+
+      expect(target(state, action)).toEqual({
+        page: 100,
+        queryString: '?page=100&size=100&totalPages=100',
+        size: 100,
+        totalPages: 100
+      })
+    })
+  })
+
+
   it('handles SEARCH_CHANGED actions', () => {
     const action = {
       type: actions.SEARCH_CHANGED,
@@ -54,6 +105,43 @@ describe('reducer:query', () => {
         size: 100
       })
   })
+
+  it('handles NEXT_PAGE_SHOWN actions', ()=>{
+    const action = {
+      type: actions.NEXT_PAGE_SHOWN
+    }
+    const state = {
+      from: 100,
+      page: 2,
+      queryString: 'foobar',
+      size: 100
+    }
+    expect(target(state, action)).toEqual({
+      from: 200,
+      page: 3,
+      queryString: '?frm=200&page=3&size=100',
+      size: 100
+    })
+  });
+
+  it('handles PREV_PAGE_SHOWN actions', ()=>{
+    const action = {
+      type: actions.PREV_PAGE_SHOWN
+    }
+    const state = {
+      from: 100,
+      page: 2,
+      queryString: 'foobar',
+      size: 100
+    }
+    expect(target(state, action)).toEqual({
+      from: 0,
+      page: 1,
+      queryString: '?page=1&size=100',
+      size: 100
+    })
+  });
+
 
   it('handles SIZE_CHANGED actions', () => {
     const action = {
