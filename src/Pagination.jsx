@@ -2,6 +2,7 @@ import { changePage, nextPageShown, prevPageShown } from './actions/paging'
 import { FormattedNumber, IntlProvider } from 'react-intl'
 import { connect } from 'react-redux'
 import iconMap from './iconMap'
+import PropTypes from 'prop-types'
 import React from 'react'
 
 export class Pagination extends React.Component {
@@ -103,6 +104,18 @@ export class Pagination extends React.Component {
     );
   }
 }
+
+Pagination.defaultProps = {
+  total: 1,
+  value: 1
+}
+
+Pagination.propTypes = {
+  // eslint-disable-next-line camelcase
+  total: PropTypes.number,
+  value: PropTypes.number
+}
+
 
 export const mapStateToProps = state => ( {
   page: state.query.page,
