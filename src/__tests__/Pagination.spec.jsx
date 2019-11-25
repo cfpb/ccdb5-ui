@@ -62,7 +62,7 @@ describe('component::Pagination', () => {
   })
 
   it('records text input from the user', () => {
-    const target = shallow(<Pagination />)
+    const target = shallow(<Pagination total={10}/>)
     const textInput = target.find('[type="number"]')
     target.setState({
       page: 8
@@ -72,6 +72,19 @@ describe('component::Pagination', () => {
     textInput.simulate('change', {target: { value: 49}})
     expect(target.state('page')).toEqual(49)
   })
+
+  it('records empty text input from user', () => {
+    const target = shallow(<Pagination />)
+    const textInput = target.find('[type="number"]')
+    target.setState({
+      page: 8
+    });
+    expect(target.state('page')).toEqual(8)
+    // Note: out of range
+    textInput.simulate('change', {target: { value: ''}})
+    expect(target.state('page')).toEqual('')
+  })
+
 
   describe('button states', () => {
     it('enables the previous button when it is past first page', () => {
