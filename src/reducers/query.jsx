@@ -19,7 +19,7 @@ const fieldMap = {
 }
 
 const urlParams = [ 'searchText', 'searchField' ]
-const urlParamsInt = [ 'from', 'size' ]
+const urlParamsInt = [ 'from', 'page', 'size' ]
 
 // ----------------------------------------------------------------------------
 // Complex reduction logic
