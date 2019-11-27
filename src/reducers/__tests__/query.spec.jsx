@@ -460,26 +460,26 @@ describe('reducer:query', () => {
   })
 
   describe('handles FILTER_FLAG_CHANGED actions', () => {
-    let action;
+    let action, state;
     beforeEach(() => {
       action = {
         type: actions.FILTER_FLAG_CHANGED,
         filterName: 'has_narrative',
-        filterValue: true,
         requery: REQUERY_HITS_ONLY
       }
+      state = {}
     })
 
-    it("adds narrative filter when present", () => {
-      expect(target({}, action)).toEqual({
+    it('adds narrative filter to empty state', () => {
+      expect(target(state, action)).toEqual({
         has_narrative: true,
         queryString: '?has_narrative=true'
       })
     })
 
-    it("does not add when narrative filter is false", () => {
-      action.filterValue = false
-      expect(target({}, action)).toEqual({
+    it('toggles off narrative filter', () => {
+      state.has_narrative = true
+      expect(target(state, action)).toEqual({
         queryString: ''
       })
     })
