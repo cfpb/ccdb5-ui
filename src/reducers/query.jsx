@@ -145,12 +145,12 @@ export function changeDateRange( state, action ) {
 * @param {object} action the payload containing the value to change
 * @returns {object} the new state for the Redux store
 */
-export function changeFlagFilter( state, action ) {
+export function toggleFlagFilter( state, action ) {
 
   /* eslint-disable camelcase */
   const newState = {
     ...state,
-    [action.filterName]: action.filterValue
+    [action.filterName]: Boolean(!state[action.filterName])
   }
 
   /* eslint-enable camelcase */
@@ -460,7 +460,7 @@ export function _buildHandlerMap() {
   handlers[actions.DATE_RANGE_CHANGED] = changeDateRange
   handlers[actions.FILTER_ALL_REMOVED] = removeAllFilters
   handlers[actions.FILTER_CHANGED] = toggleFilter
-  handlers[actions.FILTER_FLAG_CHANGED] = changeFlagFilter
+  handlers[actions.FILTER_FLAG_CHANGED] = toggleFlagFilter
   handlers[actions.FILTER_MULTIPLE_ADDED] = addMultipleFilters
   handlers[actions.FILTER_MULTIPLE_REMOVED] = removeMultipleFilters
   handlers[actions.FILTER_REMOVED] = removeFilter

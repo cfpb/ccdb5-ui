@@ -22,14 +22,12 @@ describe('action:filterActions', () => {
   describe('changeFlagFilter', () => {
     it('creates a simple action', () => {
         const filterName = 'has_narrative'
-        const filterValue = 'true'
         const expectedAction = {
           type: sut.FILTER_FLAG_CHANGED,
           filterName,
-          filterValue,
           requery: REQUERY_HITS_ONLY
         }
-        expect(sut.changeFlagFilter(filterName, filterValue))
+        expect(sut.toggleFlagFilter(filterName))
           .toEqual( expectedAction );
     })
   })

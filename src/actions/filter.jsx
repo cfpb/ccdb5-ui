@@ -46,17 +46,15 @@ export function toggleFilter( filterName, filterValue ) {
 }
 
 /**
-* Notifies the application that a flag filter changed
+* Notifies the application that a flag filter toggled
 *
 * @param {string} filterName which filter was clicked
-* @param {bool} filterValue the value of the filter that was clicked
 * @returns {string} a packaged payload to be used by Redux reducers
 */
-export function changeFlagFilter( filterName, filterValue ) {
+export function toggleFlagFilter( filterName ) {
   return {
     type: FILTER_FLAG_CHANGED,
     filterName,
-    filterValue,
     requery: REQUERY_HITS_ONLY
   }
 }
