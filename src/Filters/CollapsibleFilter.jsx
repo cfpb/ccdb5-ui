@@ -21,10 +21,13 @@ export default class CollapsibleFilter extends React.Component {
     } );
   }
 
-  componentWillReceiveProps( nextProps ) {
-    this.setState( {
-      showChildren: nextProps.showChildren
-    } );
+  componentDidUpdate( prevProps ) {
+    if ( prevProps.showChildren !== this.props.showChildren ) {
+      // sync local state
+      this.setState( {
+        showChildren: this.props.showChildren
+      } )
+    }
   }
 
   render() {
