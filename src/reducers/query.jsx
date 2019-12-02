@@ -150,7 +150,7 @@ export function toggleFlagFilter( state, action ) {
   /* eslint-disable camelcase */
   const newState = {
     ...state,
-    [action.filterName]: Boolean(!state[action.filterName])
+    [action.filterName]: Boolean( !state[action.filterName] )
   }
 
   /* eslint-enable camelcase */
