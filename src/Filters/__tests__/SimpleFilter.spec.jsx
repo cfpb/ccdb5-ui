@@ -4,8 +4,9 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import { shallow } from 'enzyme';
 import { IntlProvider } from 'react-intl';
+import { mapStateToProps, SimpleFilter } from '../SimpleFilter';
 import ReduxSimpleFilter from '../SimpleFilter';
-import { SimpleFilter, mapDispatchToProps } from '../SimpleFilter';
+
 import renderer from 'react-test-renderer';
 
 function setupEnzyme() {
@@ -53,10 +54,37 @@ describe('initial state', () => {
   });
 });
 
-describe('componentWillReceiveProps', () => {
-  it('changes props correctly', () => {
-    const {target} = setupEnzyme()
-    target.setProps({showChildren: true})
-    expect(target.state('showChildren')).toEqual(true)
-  });
-});
+describe('mapStateToProps', () => {
+  let state, ownProps;
+  beforeEach(()=>{
+    state = {
+      aggs: {
+        foo: [ 1, 2, 3, 4, 5, 6 ]
+      },
+      query: {
+        foo: [ 1 ]
+      }
+    }
+    ownProps =  {
+      fieldName: 'foo'
+    }
+  })
+
+  it('shows if there are any active children', () => {
+    let actual = mapStateToProps( state, ownProps )
+    expect( actual ).toEqual( {
+      options: [ 1, 2, 3, 4, 5, 6 ],
+      showChildren: true
+    } )
+  })
+
+  it('hides if there are no active children', () => {
+    state.query.foo = []
+
+    let actual = mapStateToProps( state, ownProps )
+    expect( actual ).toEqual( {
+      options: [ 1, 2, 3, 4, 5, 6 ],
+      showChildren: false
+    } )
+  })
+})

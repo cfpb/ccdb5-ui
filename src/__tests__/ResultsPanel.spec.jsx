@@ -28,7 +28,13 @@ const fixture = [
   }
 ]
 
-function setupSnapshot(items=[], initialStore={}) {
+function setupSnapshot(items=[], initialStore={}, queryStore = null) {
+  const query = queryStore ? queryStore : {
+    page: 1,
+    size: 10,
+    totalPages: 100
+  }
+
   const results = Object.assign({
     doc_count: 100,
     error: '',
@@ -41,23 +47,20 @@ function setupSnapshot(items=[], initialStore={}) {
   const middlewares = [thunk]
   const mockStore = configureMockStore(middlewares)
   const store = mockStore({
-    query: {
-      from: 0,
-      size: 10
-    },
+    query,
     results
   })
 
   return renderer.create(
     <Provider store={ store } >
       <IntlProvider locale="en">
-        <ResultsPanel items={ items } from="0" size="10" />
+        <ResultsPanel items={ items } />
       </IntlProvider>
     </Provider>
   )
 }
 
-describe('component:ReactPanel', () => {
+describe('component:ResultsPanel', () => {
   it('renders without crashing', () => {
     const target = setupSnapshot(fixture)
     const tree = target.toJSON();
@@ -65,13 +68,22 @@ describe('component:ReactPanel', () => {
   });
 
   it('displays a message when there are no results', () => {
-    const target = setupSnapshot()
+    const target = setupSnapshot([], null, {
+      page: 1,
+      size: 10,
+      totalPages: 0
+    } )
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   })
 
   it('displays a message when an error has occurred', () => {
-    const target = setupSnapshot([], { error: 'oops!' })
+    const target = setupSnapshot( [], { error: 'oops!' },
+      {
+        page: 1,
+        size: 10,
+        totalPages: 0
+      } )
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   })

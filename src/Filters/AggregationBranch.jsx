@@ -1,6 +1,6 @@
 import './AggregationBranch.less'
 import { addMultipleFilters, removeMultipleFilters } from '../actions/filter'
-import { bindAll, slugify } from '../utils'
+import { bindAll, coalesce, slugify } from '../utils'
 import AggregationItem from './AggregationItem'
 import { connect } from 'react-redux';
 import { FormattedNumber } from 'react-intl'
@@ -150,7 +150,7 @@ AggregationBranch.defaultProps = {
 
 export const mapStateToProps = ( state, ownProps ) => {
   // Find all query filters that refer to the field name
-  const candidates = state.query[ownProps.fieldName] || []
+  const candidates = coalesce( state.query, ownProps.fieldName, [] )
 
   // Do any of these values start with the key?
   const hasKey = candidates.filter( x => x.indexOf( ownProps.item.key ) === 0 )

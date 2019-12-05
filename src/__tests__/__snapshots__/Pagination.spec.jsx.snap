@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`initial state renders without crashing 1`] = `
+exports[`component::Pagination renders without crashing 1`] = `
 <nav
   aria-label="Pagination"
   className="m-pagination"
@@ -8,7 +8,7 @@ exports[`initial state renders without crashing 1`] = `
 >
   <button
     className="a-btn m-pagination_btn-prev"
-    disabled={false}
+    disabled={true}
     onClick={[Function]}
   >
     <span
@@ -60,24 +60,24 @@ exports[`initial state renders without crashing 1`] = `
         className="u-visually-hidden"
       >
         number 
-        8
+        1
          out
       </span>
       <input
         className="m-pagination_current-page"
         id="m-pagination_current-page"
         inputMode="numeric"
-        max={40}
+        max={100}
         min="1"
         name="page"
         onChange={[Function]}
         pattern="[0-9]*"
         type="number"
-        value={8}
+        value={1}
       />
       of 
       <span>
-        40
+        100
       </span>
     </label>
     <button

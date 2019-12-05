@@ -1,5 +1,6 @@
 import target from '../results'
 import * as types from '../../constants'
+import * as sut from '../../actions/complaints'
 
 describe('reducer:results', () => {
   it('has a default state', () => {
@@ -34,7 +35,7 @@ describe('reducer:results', () => {
 
     beforeEach(() => {
       action = {
-        type: types.COMPLAINTS_RECEIVED,
+        type: sut.COMPLAINTS_RECEIVED,
         data: {
           hits: {
             hits: [
@@ -94,7 +95,7 @@ describe('reducer:results', () => {
 
   it('handles COMPLAINTS_FAILED actions', () => {
     const action = {
-      type: types.COMPLAINTS_FAILED,
+      type: sut.COMPLAINTS_FAILED,
       error: 'foo bar'
     }
     expect(target({doc_count: 100, items: [1, 2, 3]}, action)).toEqual({

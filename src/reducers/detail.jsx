@@ -1,6 +1,6 @@
 import {
   COMPLAINT_DETAIL_FAILED, COMPLAINT_DETAIL_RECEIVED
-} from '../constants'
+} from '../actions/complaints'
 
 const defaultDetail = {
   data: {},
