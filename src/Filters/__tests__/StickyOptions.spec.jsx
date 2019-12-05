@@ -29,24 +29,32 @@ function setupEnzyme(options, selections) {
 describe('component::StickyOptions', () => {
   describe('updating selections', () => {
     let target, props
-    beforeEach(() => {
-      ({target, props} = setupEnzyme(fixture, ['DC']))
+    beforeEach( () => {
+      ( { target, props } = setupEnzyme( fixture, [ 'DC' ] ) )
+    } )
+
+    it('adds new selections', () => {
+      expect( target.state( 'tracked' ) ).toEqual( [ 'DC' ] )
     })
 
-    it('adds new selections without removing previous selections', () => {
-      target.setProps({selections: ['MS']})
-      expect(target.state('tracked')).toEqual(['DC', 'MS'])
-    })
+    it( 'adds new selections without removing previous selections ', () => {
+      target.setProps( { selections: [ 'MS', 'DC', 'WA' ], options: [] } )
+      expect( target.state( 'tracked' ) ).toEqual( [ 'DC', 'MS', 'WA' ] )
+    } )
 
     it('handles unchanged selections', () => {
       target.setProps({selections: ['DC']})
       expect(target.state('tracked')).toEqual(['DC'])
     })
 
-    it('asks for the missing option when a selection is not in the cache', () => {
-      target.setProps({selections: ['NJ']})
-      expect(props.onMissingItem).toHaveBeenCalledWith('NJ')
-    })
+    it( 'asks for the missing option when a selection is not in the cache', () => {
+      target.setProps( {
+        selections: [ 'NJ' ],
+        options: [ { key: 'VA', doc_count: 9 } ]
+      } )
+      expect( props.onMissingItem ).toHaveBeenCalledWith( 'NJ' )
+    } )
   })
+
 })
 

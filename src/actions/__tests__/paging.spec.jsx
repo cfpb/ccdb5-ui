@@ -1,84 +1,38 @@
-jest.mock('../complaints');
-
-import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
+import { REQUERY_HITS_ONLY } from '../../constants'
 import * as sut from '../paging'
-import * as types from '../../constants'
 
 describe('action:paging', () => {
-  describe('pageChanged', () => {
+  describe('changePage', () => {
     it('creates a simple action', () => {
         const expectedAction = {
-          type: types.PAGE_CHANGED,
-          page: 99
+          type: sut.PAGE_CHANGED,
+          page: 99,
+          requery: REQUERY_HITS_ONLY
         }
-        expect(sut.pageChanged(99)).toEqual(expectedAction)
+        expect(sut.changePage(99)).toEqual(expectedAction)
     })
   })
 
-  describe('sizeChanged', () => {
+  describe('changeSize', () => {
     it('creates a simple action', () => {
         const expectedAction = {
-          type: types.SIZE_CHANGED,
-          size: 50
+          type: sut.SIZE_CHANGED,
+          size: 50,
+          requery: REQUERY_HITS_ONLY
         }
-        expect(sut.sizeChanged(50)).toEqual(expectedAction)
+        expect(sut.changeSize(50)).toEqual(expectedAction)
     })
   })
 
-  describe('sortChanged', () => {
+  describe('prevPageShown', () => {
     it('creates a simple action', () => {
-        const expectedAction = {
-          type: types.SORT_CHANGED,
-          sort: 'foo'
-        }
-        expect(sut.sortChanged('foo')).toEqual(expectedAction)
+      const expectedAction = {
+        type: sut.PREV_PAGE_SHOWN,
+        requery: REQUERY_HITS_ONLY
+      }
+      expect(sut.prevPageShown()).toEqual(expectedAction)
     })
   })
 
-  describe('compound actions', () => {
-    let middlewares, mockStore, store
 
-    beforeEach(() => {
-      middlewares = [thunk]
-      mockStore = configureMockStore(middlewares)
-      store = mockStore({ })      
-    })
-
-    describe('changePage', () => {
-      it('executes a chain of actions', () => {
-        const expectedActions = [
-          { type: types.PAGE_CHANGED, page: 99 },
-          { type: 'getComplaintsMock' }
-        ]
-
-        store.dispatch(sut.changePage(99))
-        expect(store.getActions()).toEqual(expectedActions)
-      })
-    })
-
-    describe('changeSize', () => {
-      it('executes a chain of actions', () => {
-        const expectedActions = [
-          { type: types.SIZE_CHANGED, size: 50 },
-          { type: 'getComplaintsMock' }
-        ]
-
-        store.dispatch(sut.changeSize(50))
-        expect(store.getActions()).toEqual(expectedActions)
-      })
-    })
-
-    describe('changeSort', () => {
-      it('executes a chain of actions', () => {
-        const expectedActions = [
-          { type: types.SORT_CHANGED, sort: 'foo' },
-          { type: 'getComplaintsMock' }
-        ]
-
-        store.dispatch(sut.changeSort('foo'))
-        expect(store.getActions()).toEqual(expectedActions)
-      })
-    })
-  })
 })

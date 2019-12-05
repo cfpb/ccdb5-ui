@@ -8,7 +8,7 @@ import thunk from 'redux-thunk'
 
 function setupEnzyme(initialProps={}) {
   const props = Object.assign({
-    changeFlagFilter: jest.fn(),
+    toggleFlagFilter: jest.fn(),
     isChecked: true
   }, initialProps)
 
@@ -59,38 +59,19 @@ describe('initial state', () => {
 });
 
 describe('component::HasNarrative', () => {
-  describe('componentWillReceiveProps', () => {
-    it('does not trigger a new update', () => {
-      const {target, props} = setupEnzyme()
-      target.setProps({ foo: 'bar' })
-      expect(props.changeFlagFilter).not.toHaveBeenCalled()
-    })
-  })
-
-  describe('componentDidUpdate', () => {
-    it('does not trigger a new update unless the isChecked property changes', () => {
-      const {target, props} = setupEnzyme()
-      target.setState({ foo: 'bar' })
-      expect(props.changeFlagFilter).not.toHaveBeenCalled()
-    })    
-  })
-
   describe('flag filter changed', () => {
     it('triggers an update when checkbox is clicked', () => {
       const { target, props } = setupEnzyme()
       const input = target.find('#filterHasNarrative')
-
       input.simulate('change')
-      const actual = props.changeFlagFilter.mock.calls[0]
-
-      expect(props.changeFlagFilter).toHaveBeenCalledWith('has_narrative', false)
+      expect(props.toggleFlagFilter).toHaveBeenCalled()
     })
   })
 
   describe('mapDispatchToProps', () => {
-    it('hooks into changeFlagFilter', () => {
+    it('hooks into toggleFlagFilter', () => {
       const dispatch = jest.fn()
-      mapDispatchToProps(dispatch).changeFlagFilter('foo', 'bar')
+      mapDispatchToProps(dispatch).toggleFlagFilter('foo')
       expect(dispatch.mock.calls.length).toEqual(1)
     })
   })

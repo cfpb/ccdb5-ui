@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import HighlightingOption from './Typeahead/HighlightingOption'
 import PropTypes from 'prop-types'
 import React from 'react'
-import search from './actions/search'
+import { searchChanged } from './actions/search'
 
 const searchFields = {
   all: 'All Data',
@@ -30,18 +30,21 @@ export class SearchBar extends React.Component {
     this._onSelectSearchField = this._onSelectSearchField.bind( this )
     this._onTypeaheadSelected = this._onTypeaheadSelected.bind( this )
     this._onAdvancedClicked = this._onAdvancedClicked.bind( this )
+    this._updateLocalState = this._updateLocalState.bind( this )
   }
 
-  componentWillReceiveProps( nextProps ) {
-    this.setState( {
-      inputValue: nextProps.searchText,
-      searchField: nextProps.searchField
-    } )
+  componentDidUpdate( prevProps ) {
+    const { searchField, searchText } = this.props
+    if ( prevProps.searchText !== searchText ||
+      prevProps.searchField !== searchField ) {
+      // sync local state from redux
+      this._updateLocalState( searchField, searchText )
+    }
   }
 
-  // This prevents a duplicate update that seems to be triggered on page load
   shouldComponentUpdate( nextProps, nextState ) {
-    return JSON.stringify( this.state ) !== JSON.stringify( nextState )
+    return JSON.stringify( this.state ) !== JSON.stringify( nextState ) ||
+      JSON.stringify( this.props ) !== JSON.stringify( nextProps )
   }
 
   render() {
@@ -130,6 +133,13 @@ export class SearchBar extends React.Component {
     } )
   }
 
+  _updateLocalState( searchField, searchText ) {
+    this.setState( {
+      inputValue: searchText,
+      searchField: searchField
+    } )
+  }
+
   // --------------------------------------------------------------------------
   // Typeahead interface
 
@@ -186,7 +196,7 @@ export const mapStateToProps = state => ( {
 
 export const mapDispatchToProps = dispatch => ( {
   onSearch: ( text, searchField ) => {
-    dispatch( search( text, searchField ) )
+    dispatch( searchChanged( text, searchField ) )
   }
 } )
 

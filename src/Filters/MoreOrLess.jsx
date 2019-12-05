@@ -57,7 +57,8 @@ export class MoreOrLess extends React.Component {
 MoreOrLess.propTypes = {
   listComponent: PropTypes.oneOfType( [
     PropTypes.element,
-    PropTypes.func
+    PropTypes.func,
+    PropTypes.object
   ] ).isRequired,
   listComponentProps: PropTypes.object,
   options: PropTypes.array.isRequired,

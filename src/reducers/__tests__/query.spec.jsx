@@ -1,41 +1,98 @@
 import target, {
-  defaultQuery, filterArrayAction, toggleFilter
+  defaultQuery, filterArrayAction
 } from '../query'
+import actions from '../../actions'
 import * as types from '../../constants'
+
+import { REQUERY_HITS_ONLY } from '../../constants'
 
 describe('reducer:query', () => {
   it('has a default state', () => {
     expect(target(undefined, {})).toEqual({
         searchText: '',
         searchField: 'all',
-        from: 0,
-        queryString: '?field=all&size=25&sort=created_date_desc',
+        page: 1,
+        queryString: '?field=all&page=1&size=25&sort=created_date_desc',
         size: 25,
-        sort: 'created_date_desc'
+        sort: 'created_date_desc',
+        totalPages: 0
       })
   })
 
+  describe('COMPLAINTS_RECEIVED actions', ()=>{
+    it('updates total number of pages', ()=>{
+      const action = {
+        type: actions.COMPLAINTS_RECEIVED,
+        data: {
+          hits: {
+            total: 10000
+          }
+        }
+      }
+
+      const state = {
+        page: 10,
+        size: 100,
+        totalPages: 1000
+      }
+
+      expect(target(state, action)).toEqual({
+        page: 10,
+        queryString: '?page=10&size=100&totalPages=100',
+        size: 100,
+        totalPages: 100
+      })
+    })
+
+    it('limits the current page correctly', ()=>{
+      const action = {
+        type: actions.COMPLAINTS_RECEIVED,
+        data: {
+          hits: {
+            total: 10000
+          }
+        }
+      }
+
+      const state = {
+        page: 101,
+        size: 100,
+        totalPages: 1000
+      }
+
+      expect(target(state, action)).toEqual({
+        page: 100,
+        queryString: '?page=100&size=100&totalPages=100',
+        size: 100,
+        totalPages: 100
+      })
+    })
+  })
+
+
   it('handles SEARCH_CHANGED actions', () => {
     const action = {
-      type: types.SEARCH_CHANGED,
+      type: actions.SEARCH_CHANGED,
       searchText: 'foo',
-      searchType: 'bar',
+      searchField: 'bar',
     }
     const state = {
       from: 80,
       size: 100
     }
     expect(target(state, action)).toEqual({
-        searchText: 'foo',
         from: 0,
-        queryString: '?search_term=foo&size=100',
+        page: 1,
+        queryString: '?field=bar&page=1&search_term=foo&size=100',
+        searchField: 'bar',
+        searchText: 'foo',
         size: 100
       })
   })
 
   it('handles PAGE_CHANGED actions', () => {
     const action = {
-      type: types.PAGE_CHANGED,
+      type: actions.PAGE_CHANGED,
       page: 2
     }
     const state = {
@@ -43,14 +100,52 @@ describe('reducer:query', () => {
     }
     expect(target(state, action)).toEqual({
         from: 100,
-        queryString: '?frm=100&size=100',
+        page: 2,
+        queryString: '?frm=100&page=2&size=100',
         size: 100
       })
   })
 
+  it('handles NEXT_PAGE_SHOWN actions', ()=>{
+    const action = {
+      type: actions.NEXT_PAGE_SHOWN
+    }
+    const state = {
+      from: 100,
+      page: 2,
+      queryString: 'foobar',
+      size: 100
+    }
+    expect(target(state, action)).toEqual({
+      from: 200,
+      page: 3,
+      queryString: '?frm=200&page=3&size=100',
+      size: 100
+    })
+  });
+
+  it('handles PREV_PAGE_SHOWN actions', ()=>{
+    const action = {
+      type: actions.PREV_PAGE_SHOWN
+    }
+    const state = {
+      from: 100,
+      page: 2,
+      queryString: 'foobar',
+      size: 100
+    }
+    expect(target(state, action)).toEqual({
+      from: 0,
+      page: 1,
+      queryString: '?page=1&size=100',
+      size: 100
+    })
+  });
+
+
   it('handles SIZE_CHANGED actions', () => {
     const action = {
-      type: types.SIZE_CHANGED,
+      type: actions.SIZE_CHANGED,
       size: 50
     }
     const state = {
@@ -58,14 +153,15 @@ describe('reducer:query', () => {
     }
     expect(target(state, action)).toEqual({
         from: 0,
-        queryString: '?size=50',
+        page: 1,
+        queryString: '?page=1&size=50',
         size: 50
       })
   })
 
   it('handles SORT_CHANGED actions', () => {
     const action = {
-      type: types.SORT_CHANGED,
+      type: actions.SORT_CHANGED,
       sort: 'foo'
     }
     const state = {
@@ -85,7 +181,7 @@ describe('reducer:query', () => {
     let state = null
     beforeEach(() => {
       action = {
-        type: types.URL_CHANGED,
+        type: actions.URL_CHANGED,
         params: {}
       }
 
@@ -164,7 +260,7 @@ describe('reducer:query', () => {
       filterName = 'filtyMcFilterson';
       filterValue = { key };
       state = { };
-      action = { type: types.FILTER_CHANGED, filterName, filterValue };
+      action = { type: actions.FILTER_CHANGED, filterName, filterValue };
     });
 
     it('handles FILTER_CHANGED actions and returns correct object', () => {
@@ -197,7 +293,7 @@ describe('reducer:query', () => {
     let action;
     beforeEach(() => {
       action = {
-        type: types.FILTER_REMOVED,
+        type: actions.FILTER_REMOVED,
         filterName: 'foo',
         filterValue: 'baz'
       }      
@@ -238,7 +334,7 @@ describe('reducer:query', () => {
     let action, state;
     beforeEach(() => {
       action = {
-        type: types.FILTER_ALL_REMOVED
+        type: actions.FILTER_ALL_REMOVED
       }
 
       state = {
@@ -282,7 +378,7 @@ describe('reducer:query', () => {
     let action;
     beforeEach(() => {
       action = {
-        type: types.FILTER_MULTIPLE_ADDED,
+        type: actions.FILTER_MULTIPLE_ADDED,
         filterName: 'issue',
         values: ['Mo Money', 'Mo Problems']
       }
@@ -312,7 +408,7 @@ describe('reducer:query', () => {
     let action;
     beforeEach(() => {
       action = {
-        type: types.FILTER_MULTIPLE_REMOVED,
+        type: actions.FILTER_MULTIPLE_REMOVED,
         filterName: 'issue',
         values: ['Mo Money', 'Mo Problems', 'bar']
       }
@@ -339,7 +435,7 @@ describe('reducer:query', () => {
     let action;
     beforeEach(() => {
       action = {
-        type: types.DATE_RANGE_CHANGED,
+        type: actions.DATE_RANGE_CHANGED,
         filterName: 'date_received',
         minDate: new Date(2001, 0, 30),
         maxDate: new Date(2013, 1, 3)
@@ -364,25 +460,26 @@ describe('reducer:query', () => {
   })
 
   describe('handles FILTER_FLAG_CHANGED actions', () => {
-    let action;
+    let action, state;
     beforeEach(() => {
       action = {
-        type: types.FILTER_FLAG_CHANGED,
+        type: actions.FILTER_FLAG_CHANGED,
         filterName: 'has_narrative',
-        filterValue: true
+        requery: REQUERY_HITS_ONLY
       }
+      state = {}
     })
 
-    it("adds narrative filter when present", () => {
-      expect(target({}, action)).toEqual({
+    it('adds narrative filter to empty state', () => {
+      expect(target(state, action)).toEqual({
         has_narrative: true,
         queryString: '?has_narrative=true'
       })
     })
 
-    it("does not add when narrative filter is false", () => {
-      action.filterValue = false
-      expect(target({}, action)).toEqual({
+    it('toggles off narrative filter', () => {
+      state.has_narrative = true
+      expect(target(state, action)).toEqual({
         queryString: ''
       })
     })
