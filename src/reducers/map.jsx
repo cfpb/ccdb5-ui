@@ -1,16 +1,44 @@
 // reducer for the Map Tab
+import { API_CALLED, TILE_MAP_STATES } from '../constants'
 import { COMPLAINTS_FAILED, COMPLAINTS_RECEIVED } from '../actions/complaints'
-import { TILE_MAP_STATES } from '../constants'
 
 export const defaultState = {
-  interval: '',
   issue: [],
   product: [],
   state: []
 }
 
+export const processAggregations = agg => {
+  const total = agg.doc_count
+  const chartResults = []
+  for ( const k in agg ) {
+    if ( agg[k].buckets ) {
+      agg[k].buckets.forEach( o => {
+        chartResults.push( {
+          name: o.key,
+          value: o.doc_count,
+          pctChange: 1,
+          isParent: true,
+          hasChildren: false,
+          pctOfSet: Math.round( o.doc_count / total * 100 )
+            .toFixed( 2 ),
+          width: 0.5
+        } )
+      } )
+    }
+  }
+  return chartResults
+}
+
 export default ( state = defaultState, action ) => {
   switch ( action.type ) {
+    case API_CALLED:
+      return {
+        ...state,
+        activeCall: action.url,
+        isLoading: true
+      }
+
     case COMPLAINTS_RECEIVED: {
       const result = { ...state };
 
@@ -56,7 +84,7 @@ export default ( state = defaultState, action ) => {
 
       const issueData = action.data.aggregations.issue;
       const productData = action.data.aggregations.product;
-
+      //result.issue = processAggregations( issueData )
       result.issue = issueData.issue.buckets.map( mapObj );
       result.product = productData.product.buckets.map( mapObj );
 
