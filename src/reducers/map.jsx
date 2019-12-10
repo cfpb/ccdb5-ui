@@ -44,23 +44,6 @@ export default ( state = defaultState, action ) => {
 
       // only need state
       const stateData = action.data.aggregations.state;
-      // doc count = stateData.doc_count
-      const total = stateData.doc_count;
-      const mapObj = o => (
-        {
-          // RAD: 2019-10-22 for some reason britecharts isnt ellipsing the
-          // text correctly
-          name: o.key,
-          value: o.doc_count,
-          pctChange: 1,
-          isParent: true,
-          hasChildren: false,
-          pctOfSet: Math.round( o.doc_count / total * 100 )
-            .toFixed( 2 ),
-          width: 0.5
-        }
-      );
-
       const states = Object.values( stateData.state.buckets )
         .filter( o => TILE_MAP_STATES.includes( o.key ) )
         .map( o => ( {
@@ -84,9 +67,8 @@ export default ( state = defaultState, action ) => {
 
       const issueData = action.data.aggregations.issue;
       const productData = action.data.aggregations.product;
-      //result.issue = processAggregations( issueData )
-      result.issue = issueData.issue.buckets.map( mapObj );
-      result.product = productData.product.buckets.map( mapObj );
+      result.issue = processAggregations( issueData )
+      result.product = processAggregations( productData )
 
       return result;
     }
