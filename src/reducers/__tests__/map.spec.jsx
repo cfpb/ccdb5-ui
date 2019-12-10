@@ -2,112 +2,58 @@ import target, { processAggregations } from '../map'
 import * as types from '../../constants'
 import * as sut from '../../actions/complaints'
 
-describe('reducer:map', () => {
+describe( 'reducer:map', () => {
   let action
 
-  it('has a default state', () => {
-    expect(target(undefined, {})).toEqual({
+  it( 'has a default state', () => {
+    expect( target( undefined, {} ) ).toEqual( {
       issue: [],
       product: [],
       state: []
-    })
-  })
+    } )
+  } )
 
-  describe('handles API_CALLED actions', () => {
+  describe( 'handles API_CALLED actions', () => {
     action = {
       type: types.API_CALLED,
       url: 'http://www.example.org'
     }
-    expect(target({}, action)).toEqual({
+    expect( target( {}, action ) ).toEqual( {
       activeCall: 'http://www.example.org',
       isLoading: true
-    })
-  })
+    } )
+  } )
 
-  describe('handles COMPLAINTS_RECEIVED actions', () => {
-    beforeEach(() => {
+  describe( 'handles COMPLAINTS_RECEIVED actions', () => {
+    beforeEach( () => {
       action = {
         type: sut.COMPLAINTS_RECEIVED,
         data: {
           aggregations: {
             foo: {},
             issue: {
-              doc_count: 469472,
-              issue:{
+              doc_count: 1000,
+              issue: {
                 buckets: [
-                  {
-                    key: 'Incorrect information on your report',
-                    doc_count: 72915
-                  },
-                  {
-                    key: 'Problem with a credit reporting company\'s investigation into an existing problem',
-                    doc_count: 36432
-                  },
-                  {
-                    key: 'Attempts to collect debt not owed',
-                    doc_count: 27080
-                  },
-                  {
-                    key: 'Incorrect information on credit report',
-                    doc_count: 21217
-                  },
-                  {
-                    key: 'Improper use of your report',
-                    doc_count: 19666
-                  },
-                  {
-                    key: 'Cont\'d attempts collect debt not owed',
-                    doc_count: 17434
-                  },
-                  {
-                    key: 'Loan servicing, payments, escrow account',
-                    doc_count: 14722
-                  },
-                  {
-                    key: 'Communication tactics',
-                    doc_count: 13366
-                  },
+                  { key: 'alpha', doc_count: 600 },
+                  { key: 'bar', doc_count: 150 },
+                  { key: 'car', doc_count: 125 },
+                  { key: 'delta', doc_count: 75 },
+                  { key: 'elephant', doc_count: 50 }
                 ]
               }
             },
             product: {
-              doc_count: 469472,
+              doc_count: 1000,
               product: {
                 doc_count_error_upper_bound: 0,
                 sum_other_doc_count: 0,
                 buckets: [
-                  {
-                    key: 'Credit reporting, credit repair services, or other personal consumer reports',
-                    doc_count: 134170
-                  },
-                  {
-                    key: 'Debt collection',
-                    doc_count: 102661
-                  },
-                  {
-                    key: 'Mortgage',
-                    doc_count: 59784
-                  },
-                  {
-                    key: 'Credit reporting',
-                    doc_count: 31588
-                  },
-                  {
-                    key: 'Credit card or prepaid card',
-                    doc_count: 29772
-                  },
-                  {
-                    key: 'Student loan',
-                    doc_count: 24425
-                  },
-                  {
-                    key: 'Credit card',
-                    doc_count: 18838
-                  },
-                  {
-                    key: 'Checking or savings account',
-                    doc_count: 17885
-                  },
+                  { key: 'foo', doc_count: 600 },
+                  { key: 'goo', doc_count: 150 },
+                  { key: 'hi', doc_count: 125 },
+                  { key: 'indigo', doc_count: 75 },
+                  { key: 'joker', doc_count: 50 }
                 ]
               }
             },
@@ -377,11 +323,11 @@ describe('reducer:map', () => {
           }
         }
       }
-    })
+    } )
 
 
-    it('maps data to object state', () => {
-      const result = target( null, action );
+    it( 'maps data to object state', () => {
+      const result = target( null, action )
       expect( result ).toEqual( {
         "state": [
           {
@@ -642,150 +588,165 @@ describe('reducer:map', () => {
           } ],
         "issue": [
           {
-            "name": "Incorrect information on your report",
-            "value": 72915,
+            "name": "alpha",
+            "value": 600,
             "pctChange": 1,
             "isParent": true,
             "hasChildren": false,
-            "pctOfSet": "16.00",
+            "pctOfSet": "60.00",
             "width": 0.5
           }, {
-            "name": "Problem with a credit reporting company's investigation into an existing problem",
-            "value": 36432,
+            "name": "bar",
+            "value": 150,
             "pctChange": 1,
             "isParent": true,
             "hasChildren": false,
-            "pctOfSet": "8.00",
+            "pctOfSet": "15.00",
             "width": 0.5
           }, {
-            "name": "Attempts to collect debt not owed",
-            "value": 27080,
-            "pctChange": 1,
-            "isParent": true,
-            "hasChildren": false,
-            "pctOfSet": "6.00",
-            "width": 0.5
-          }, {
-            "name": "Incorrect information on credit report",
-            "value": 21217,
-            "pctChange": 1,
-            "isParent": true,
-            "hasChildren": false,
-            "pctOfSet": "5.00",
-            "width": 0.5
-          }, {
-            "name": "Improper use of your report",
-            "value": 19666,
-            "pctChange": 1,
-            "isParent": true,
-            "hasChildren": false,
-            "pctOfSet": "4.00",
-            "width": 0.5
-          }, {
-            "name": "Cont'd attempts collect debt not owed",
-            "value": 17434,
-            "pctChange": 1,
-            "isParent": true,
-            "hasChildren": false,
-            "pctOfSet": "4.00",
-            "width": 0.5
-          }, {
-            "name": "Loan servicing, payments, escrow account",
-            "value": 14722,
-            "pctChange": 1,
-            "isParent": true,
-            "hasChildren": false,
-            "pctOfSet": "3.00",
-            "width": 0.5
-          }, {
-            "name": "Communication tactics",
-            "value": 13366,
-            "pctChange": 1,
-            "isParent": true,
-            "hasChildren": false,
-            "pctOfSet": "3.00",
-            "width": 0.5
-          }],
-        "product": [
-          {
-            "name": "Credit reporting, credit repair services, or other personal consumer reports",
-            "value": 134170,
-            "pctChange": 1,
-            "isParent": true,
-            "hasChildren": false,
-            "pctOfSet": "29.00",
-            "width": 0.5
-          }, {
-            "name": "Debt collection",
-            "value": 102661,
-            "pctChange": 1,
-            "isParent": true,
-            "hasChildren": false,
-            "pctOfSet": "22.00",
-            "width": 0.5
-          }, {
-            "name": "Mortgage",
-            "value": 59784,
+            "name": "car",
+            "value": 125,
             "pctChange": 1,
             "isParent": true,
             "hasChildren": false,
             "pctOfSet": "13.00",
             "width": 0.5
           }, {
-            "name": "Credit reporting",
-            "value": 31588,
+            "name": "delta",
+            "value": 75,
             "pctChange": 1,
             "isParent": true,
             "hasChildren": false,
-            "pctOfSet": "7.00",
+            "pctOfSet": "8.00",
             "width": 0.5
           }, {
-            "name": "Credit card or prepaid card",
-            "value": 29772,
-            "pctChange": 1,
-            "isParent": true,
-            "hasChildren": false,
-            "pctOfSet": "6.00",
-            "width": 0.5
-          }, {
-            "name": "Student loan",
-            "value": 24425,
+            "name": "elephant",
+            "value": 50,
             "pctChange": 1,
             "isParent": true,
             "hasChildren": false,
             "pctOfSet": "5.00",
             "width": 0.5
-          }, {
-            "name": "Credit card",
-            "value": 18838,
+          } ],
+        "product": [
+          {
+            "name": "foo",
+            "value": 600,
             "pctChange": 1,
             "isParent": true,
             "hasChildren": false,
-            "pctOfSet": "4.00",
+            "pctOfSet": "60.00",
             "width": 0.5
           }, {
-            "name": "Checking or savings account",
-            "value": 17885,
+            "name": "goo",
+            "value": 150,
             "pctChange": 1,
             "isParent": true,
             "hasChildren": false,
-            "pctOfSet": "4.00",
+            "pctOfSet": "15.00",
             "width": 0.5
-          }]
+          }, {
+            "name": "hi",
+            "value": 125,
+            "pctChange": 1,
+            "isParent": true,
+            "hasChildren": false,
+            "pctOfSet": "13.00",
+            "width": 0.5
+          }, {
+            "name": "indigo",
+            "value": 75,
+            "pctChange": 1,
+            "isParent": true,
+            "hasChildren": false,
+            "pctOfSet": "8.00",
+            "width": 0.5
+          }, {
+            "name": "joker",
+            "value": 50,
+            "pctChange": 1,
+            "isParent": true,
+            "hasChildren": false,
+            "pctOfSet": "5.00",
+            "width": 0.5
+          } ]
       } )
-    })
-  })
+    } )
+  } )
 
-  it('handles COMPLAINTS_FAILED actions', () => {
+  it( 'handles COMPLAINTS_FAILED actions', () => {
     action = {
       type: sut.COMPLAINTS_FAILED,
       error: 'foo bar'
     }
-    expect(target({doc_count: 100, items: [1, 2, 3]}, action)).toEqual({
+    expect( target( {
+      doc_count: 100,
+      items: [ 1, 2, 3 ]
+    }, action ) ).toEqual( {
       error: 'foo bar',
       issue: [],
       product: [],
       state: []
-    })
-  })
-})
+    } )
+  } )
+
+  describe( 'helper functions', () => {
+    it( 'processAggregations', () => {
+      const aggData = {
+        doc_count: 1000,
+        issue: {
+          buckets: [
+            { key: 'alpha', doc_count: 600 },
+            { key: 'bar', doc_count: 150 },
+            { key: 'car', doc_count: 125 },
+            { key: 'delta', doc_count: 75 },
+            { key: 'elephant', doc_count: 50 }
+          ]
+        }
+      }
+
+      const res = processAggregations( aggData )
+      expect( res ).toEqual( [ {
+        "hasChildren": false,
+        "isParent": true,
+        "name": "alpha",
+        "pctChange": 1,
+        "pctOfSet": "60.00",
+        "value": 600,
+        "width": 0.5
+      }, {
+        "hasChildren": false,
+        "isParent": true,
+        "name": "bar",
+        "pctChange": 1,
+        "pctOfSet": "15.00",
+        "value": 150,
+        "width": 0.5
+      }, {
+        "hasChildren": false,
+        "isParent": true,
+        "name": "car",
+        "pctChange": 1,
+        "pctOfSet": "13.00",
+        "value": 125,
+        "width": 0.5
+      }, {
+        "hasChildren": false,
+        "isParent": true,
+        "name": "delta",
+        "pctChange": 1,
+        "pctOfSet": "8.00",
+        "value": 75,
+        "width": 0.5
+      }, {
+        "hasChildren": false,
+        "isParent": true,
+        "name": "elephant",
+        "pctChange": 1,
+        "pctOfSet": "5.00",
+        "value": 50,
+        "width": 0.5
+      } ] )
+    } )
+  } )
+} )
