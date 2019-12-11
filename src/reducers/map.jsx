@@ -30,6 +30,29 @@ export const processAggregations = agg => {
   return chartResults
 }
 
+export const processStateAggregations = agg => {
+  const states = Object.values( agg.state.buckets )
+    .filter( o => TILE_MAP_STATES.includes( o.key ) )
+    .map( o => ( {
+      name: o.key,
+      value: o.doc_count,
+      issue: 'Being broke',
+      product: 'Some Product Name'
+    } ) );
+
+  const stateNames = states.map( o => o.name );
+
+  // patch any missing data
+  if ( stateNames.length > 0 ) {
+    TILE_MAP_STATES.forEach( o => {
+      if ( !stateNames.includes( o ) ) {
+        states.push( { name: o, value: 0, issue: '', product: '' } );
+      }
+    } );
+  }
+  return states
+}
+
 export default ( state = defaultState, action ) => {
   switch ( action.type ) {
     case API_CALLED:
@@ -44,29 +67,10 @@ export default ( state = defaultState, action ) => {
 
       // only need state
       const stateData = action.data.aggregations.state;
-      const states = Object.values( stateData.state.buckets )
-        .filter( o => TILE_MAP_STATES.includes( o.key ) )
-        .map( o => ( {
-          name: o.key,
-          value: o.doc_count,
-          issue: 'Being broke',
-          product: 'Some Product Name'
-        } ) );
-
-      const stateNames = states.map( o => o.name );
-
-      // patch any missing data
-      if ( stateNames.length > 0 ) {
-        TILE_MAP_STATES.forEach( o => {
-          if ( !stateNames.includes( o ) ) {
-            states.push( { name: o, value: 0, issue: '', product: '' } );
-          }
-        } );
-        result.state = states;
-      }
-
       const issueData = action.data.aggregations.issue;
       const productData = action.data.aggregations.product;
+
+      result.state = processStateAggregations( stateData )
       result.issue = processAggregations( issueData )
       result.product = processAggregations( productData )
 
