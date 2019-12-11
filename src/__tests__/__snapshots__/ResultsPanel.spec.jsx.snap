@@ -434,7 +434,7 @@ exports[`component:ResultsPanel displays a message when only the narratives are 
     </button>
     <button
       className="a-btn m-pagination_btn-next"
-      disabled={true}
+      disabled={false}
       onClick={[Function]}
     >
       Next
@@ -473,7 +473,7 @@ exports[`component:ResultsPanel displays a message when only the narratives are 
           className="m-pagination_current-page"
           id="m-pagination_current-page"
           inputMode="numeric"
-          max={1}
+          max={100}
           min="1"
           name="page"
           onChange={[Function]}
@@ -483,7 +483,7 @@ exports[`component:ResultsPanel displays a message when only the narratives are 
         />
         of 
         <span>
-          1
+          100
         </span>
       </label>
       <button
@@ -821,7 +821,7 @@ exports[`component:ResultsPanel displays a message when the data has issues 1`] 
     </button>
     <button
       className="a-btn m-pagination_btn-next"
-      disabled={true}
+      disabled={false}
       onClick={[Function]}
     >
       Next
@@ -860,7 +860,7 @@ exports[`component:ResultsPanel displays a message when the data has issues 1`] 
           className="m-pagination_current-page"
           id="m-pagination_current-page"
           inputMode="numeric"
-          max={1}
+          max={100}
           min="1"
           name="page"
           onChange={[Function]}
@@ -870,7 +870,7 @@ exports[`component:ResultsPanel displays a message when the data has issues 1`] 
         />
         of 
         <span>
-          1
+          100
         </span>
       </label>
       <button
@@ -1209,7 +1209,7 @@ exports[`component:ResultsPanel displays a message when the data is stale 1`] = 
     </button>
     <button
       className="a-btn m-pagination_btn-next"
-      disabled={true}
+      disabled={false}
       onClick={[Function]}
     >
       Next
@@ -1248,7 +1248,7 @@ exports[`component:ResultsPanel displays a message when the data is stale 1`] = 
           className="m-pagination_current-page"
           id="m-pagination_current-page"
           inputMode="numeric"
-          max={1}
+          max={100}
           min="1"
           name="page"
           onChange={[Function]}
@@ -1258,7 +1258,7 @@ exports[`component:ResultsPanel displays a message when the data is stale 1`] = 
         />
         of 
         <span>
-          1
+          100
         </span>
       </label>
       <button
@@ -1707,7 +1707,7 @@ exports[`component:ResultsPanel only displays data message when both types are s
     </button>
     <button
       className="a-btn m-pagination_btn-next"
-      disabled={true}
+      disabled={false}
       onClick={[Function]}
     >
       Next
@@ -1746,7 +1746,7 @@ exports[`component:ResultsPanel only displays data message when both types are s
           className="m-pagination_current-page"
           id="m-pagination_current-page"
           inputMode="numeric"
-          max={1}
+          max={100}
           min="1"
           name="page"
           onChange={[Function]}
@@ -1756,7 +1756,7 @@ exports[`component:ResultsPanel only displays data message when both types are s
         />
         of 
         <span>
-          1
+          100
         </span>
       </label>
       <button
@@ -2072,7 +2072,7 @@ exports[`component:ResultsPanel renders without crashing 1`] = `
     </button>
     <button
       className="a-btn m-pagination_btn-next"
-      disabled={true}
+      disabled={false}
       onClick={[Function]}
     >
       Next
@@ -2111,7 +2111,7 @@ exports[`component:ResultsPanel renders without crashing 1`] = `
           className="m-pagination_current-page"
           id="m-pagination_current-page"
           inputMode="numeric"
-          max={1}
+          max={100}
           min="1"
           name="page"
           onChange={[Function]}
@@ -2121,7 +2121,7 @@ exports[`component:ResultsPanel renders without crashing 1`] = `
         />
         of 
         <span>
-          1
+          100
         </span>
       </label>
       <button

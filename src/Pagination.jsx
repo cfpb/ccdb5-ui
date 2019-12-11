@@ -1,43 +1,35 @@
-import { changePage } from './actions/paging'
+import { changePage, nextPageShown, prevPageShown } from './actions/paging'
+import { FormattedNumber, IntlProvider } from 'react-intl'
 import { connect } from 'react-redux'
-import { FormattedNumber } from 'react-intl'
 import iconMap from './iconMap'
+import PropTypes from 'prop-types'
 import React from 'react'
 
 export class Pagination extends React.Component {
   constructor( props ) {
     super( props );
-    this.state = this._calculatePages( props );
 
+    this.state = {
+      page: props.page
+    }
     // This binding is necessary to make `this` work in the callback
     // https://facebook.github.io/react/docs/handling-events.html
     this._handleSubmit = this._handleSubmit.bind( this );
     this._updateInputValue = this._updateInputValue.bind( this );
   }
 
-  componentWillReceiveProps( nextProps ) {
-    this.setState( this._calculatePages( nextProps ) );
-  }
-
-  _calculatePages( props ) {
-    const from = props.from || 0;
-    let size = props.size || 1;
-    if ( size > 100 ) {
-      size = 100;
-    }
-    const total = props.total || 0;
-    const c = Math.ceil( from / size ) + 1;
-
-    return {
-      current: c,
-      total: Math.ceil( total / size ),
-      inputValue: c
+  componentDidUpdate( prevProps ) {
+    if ( prevProps.page !== this.props.page ) {
+      // sync local state from redux
+      this.setState( {
+        page: this.props.page
+      } )
     }
   }
 
   _handleSubmit( event ) {
     event.preventDefault();
-    this._setPage( this.state.inputValue );
+    this._setPage( this.state.page );
   }
 
   _setPage( page ) {
@@ -46,9 +38,10 @@ export class Pagination extends React.Component {
   }
 
   _updateInputValue( evt ) {
+    const page = parseInt( evt.target.value, 10 ) || ''
     this.setState( {
-      inputValue: evt.target.value
-    } );
+      page: page
+    } )
   }
 
   render() {
@@ -57,20 +50,21 @@ export class Pagination extends React.Component {
     }
 
     return (
+      <IntlProvider locale="en">
       <nav className="m-pagination"
            role="navigation"
            aria-label="Pagination">
           <button className="a-btn m-pagination_btn-prev"
-                  onClick={() => this._setPage( this.state.current - 1 )}
-                  disabled={this.state.current <= 1}>
+                  onClick={() => this.props.prevPage()}
+                  disabled={this.props.page <= 1}>
               <span className="a-btn_icon a-btn_icon__on-left">
                 { iconMap.getIcon( 'left' ) }
               </span>
               Previous
           </button>
           <button className="a-btn m-pagination_btn-next"
-                    onClick={() => this._setPage( this.state.current + 1 )}
-                    disabled={this.state.current >= this.state.total}>
+                    onClick={() => this.props.nextPage()}
+                    disabled={this.props.page >= this.props.total}>
               Next
               <span className="a-btn_icon
                                a-btn_icon__on-right">
@@ -83,20 +77,21 @@ export class Pagination extends React.Component {
                      htmlFor="m-pagination_current-page">
                   Page
                   <span className="u-visually-hidden">
-                      number {this.state.current} out
+                      number {this.props.page} out
                   </span>
                   <input className="m-pagination_current-page"
                          id="m-pagination_current-page"
                          name="page"
                          type="number"
                          min="1"
-                         max={this.state.total}
+                         max={this.props.total}
                          pattern="[0-9]*"
                          inputMode="numeric"
-                         value={this.state.inputValue}
-                         onChange={this._updateInputValue} />
+                         value={this.state.page}
+                         onChange={this._updateInputValue}
+                         />
                   of&nbsp;
-                  <FormattedNumber value={this.state.total} />
+                  <FormattedNumber value={this.props.total} />
               </label>
               <button className="a-btn
                              a-btn__link
@@ -105,19 +100,38 @@ export class Pagination extends React.Component {
                       type="submit">Go</button>
           </form>
       </nav>
+      </IntlProvider>
     );
   }
 }
 
+Pagination.defaultProps = {
+  total: 1,
+  value: 1
+}
+
+Pagination.propTypes = {
+  // eslint-disable-next-line camelcase
+  total: PropTypes.number,
+  value: PropTypes.number
+}
+
+
 export const mapStateToProps = state => ( {
-  from: state.query.from,
+  page: state.query.page,
   size: state.query.size,
-  total: state.results.total
+  total: state.query.totalPages
 } )
 
 export const mapDispatchToProps = dispatch => ( {
+  nextPage: () => {
+    dispatch( nextPageShown() )
+  },
   onPage: page => {
     dispatch( changePage( page ) )
+  },
+  prevPage: () => {
+    dispatch( prevPageShown() )
   }
 } )
 

@@ -1,28 +1,7 @@
 // Internal triggers
 export const API_CALLED = 'API_CALLED'
-export const DATE_INTERVAL_CHANGED = 'DATE_INTERVAL_CHANGED'
-export const DATE_RANGE_CHANGED = 'DATE_RANGE_CHANGED'
-export const DATE_RANGE_MIN = '2011-11-30T12:00:00.000Z'
-export const PAGE_CHANGED = 'PAGE_CHANGED'
-export const SEARCH_CHANGED = 'SEARCH_CHANGED'
-export const SIZE_CHANGED = 'SIZE_CHANGED'
-export const SORT_CHANGED = 'SORT_CHANGED'
-export const TAB_CHANGED = 'TAB_CHANGED'
-export const URL_CHANGED = 'URL_CHANGED'
-export const FILTER_CHANGED = 'FILTER_CHANGED'
-export const FILTER_FLAG_CHANGED = 'FILTER_FLAG_CHANGED'
-export const FILTER_REMOVED = 'FILTER_REMOVED'
-export const FILTER_ALL_REMOVED = 'FILTER_ALL_REMOVED'
-export const FILTER_MULTIPLE_ADDED = 'FILTER_MULTIPLE_ADDED'
-export const FILTER_MULTIPLE_REMOVED = 'FILTER_MULTIPLE_REMOVED'
 export const MODAL_HID = 'MODAL_HID'
 export const MODAL_SHOWN = 'MODAL_SHOWN'
-
-// External Triggers
-export const COMPLAINTS_RECEIVED = 'COMPLAINTS_RECEIVED'
-export const COMPLAINTS_FAILED = 'COMPLAINTS_FAILED'
-export const COMPLAINT_DETAIL_RECEIVED = 'COMPLAINT_DETAIL_RECEIVED'
-export const COMPLAINT_DETAIL_FAILED = 'COMPLAINT_DETAIL_FAILED'
 
 // Modal Dialogs
 export const MODAL_TYPE_DATA_EXPORT = 'MODAL_TYPE_DATA_EXPORT'
@@ -30,6 +9,13 @@ export const MODAL_TYPE_MORE_ABOUT = 'MODAL_TYPE_MORE_ABOUT'
 
 // Useful constants
 export const NARRATIVE_SEARCH_FIELD = 'complaint_what_happened'
+
+// query manager flags
+// These constants control how the query manager works
+export const REQUERY_ALWAYS = 'REQUERY_ALWAYS'
+export const REQUERY_HITS_ONLY = 'REQUERY_HITS_ONLY'
+// default if not specified
+export const REQUERY_NEVER = 'REQUERY_NEVER'
 
 export const knownFilters = [
   'company',
@@ -52,8 +38,6 @@ export const dateFilters = [
   'date_received_max',
   'date_received_min'
 ]
-
-export const dateIntervals = [ '3m', '6m', '1y', '3y', 'All' ];
 
 export const flagFilters = [
   'has_narrative'
@@ -189,4 +173,4 @@ export const TILE_MAP_STATES = [
   'WI',
   'WV',
   'WY'
-];
+]

@@ -1,8 +1,6 @@
 /* eslint-disable camelcase */
-
-import {
-  API_CALLED, COMPLAINTS_FAILED, COMPLAINTS_RECEIVED
-} from '../constants'
+import { COMPLAINTS_FAILED, COMPLAINTS_RECEIVED } from '../actions/complaints'
+import { API_CALLED } from '../constants'
 
 const defaultResults = {
   activeCall: '',

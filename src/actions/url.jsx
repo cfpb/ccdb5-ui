@@ -1,8 +1,8 @@
 import { getComplaints } from './complaints'
-import { URL_CHANGED } from '../constants'
 
 const queryString = require( 'query-string' );
 
+export const URL_CHANGED = 'URL_CHANGED'
 //-----------------------------------------------------------------------------
 
 /**

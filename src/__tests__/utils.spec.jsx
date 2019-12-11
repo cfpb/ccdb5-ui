@@ -1,4 +1,4 @@
-import { debounce, shortIsoFormat } from '../utils'
+import { clamp, coalesce, debounce, shortIsoFormat } from '../utils'
 import React from 'react'
 
 describe('module::utils', () => {
@@ -47,6 +47,26 @@ describe('module::utils', () => {
       jest.runAllTimers()
       expect(spy).toHaveBeenCalledWith('foo', 'bar', 'baz', 'qaz')
     })
+  })
+
+  describe( 'coalesce edge cases', () => {
+    it( 'handles non-objects', () => {
+      const actual = coalesce( false, 'foo', 'bar' );
+      expect( actual ).toEqual( 'bar' );
+    } );
+  } );
+
+  describe('clamp', ()=>{
+    it( 'limits values', () => {
+      let actual = clamp( 10, 1, 25 );
+      expect( actual ).toEqual( 10 );
+
+      actual = clamp( 10, 1, 5 );
+      expect( actual ).toEqual( 5 );
+
+      actual = clamp( 10, 15, 25 );
+      expect( actual ).toEqual( 15 );
+    } );
   })
 })
 

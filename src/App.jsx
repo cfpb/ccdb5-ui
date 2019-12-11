@@ -5,13 +5,13 @@ import {
   BrowserRouter as Router,
   Switch
 } from 'react-router-dom'
-
 import ComplaintDetail from './ComplaintDetail'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import FilterPanel from './FilterPanel'
 import Hero from './Hero'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
+import queryManager from './middleware/queryManager'
 import React from 'react'
 // Required so that the expose-loader test works which moves the ReactDOM
 // variable into the global space
@@ -25,8 +25,7 @@ import TabbedNavigation from './TabbedNavigation'
 import thunkMiddleware from 'redux-thunk'
 import UrlBarSynch from './UrlBarSynch'
 
-
-const middleware = [ thunkMiddleware ];
+const middleware = [ thunkMiddleware, queryManager ];
 
 const composeEnhancers = composeWithDevTools( {
   // required for redux-devtools-extension
