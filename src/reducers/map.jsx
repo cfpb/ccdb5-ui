@@ -65,7 +65,6 @@ export default ( state = defaultState, action ) => {
     case COMPLAINTS_RECEIVED: {
       const result = { ...state };
 
-      // only need state
       const stateData = action.data.aggregations.state;
       const issueData = action.data.aggregations.issue;
       const productData = action.data.aggregations.product;
