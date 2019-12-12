@@ -1,5 +1,5 @@
 // reducer for trends tab
-import { COMPLAINTS_RECEIVED } from '../constants'
+import { COMPLAINTS_RECEIVED } from '../actions/complaints'
 
 /* eslint-disable camelcase */
 

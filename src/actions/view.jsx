@@ -1,5 +1,6 @@
-import { getComplaints } from './complaints'
-import { TAB_CHANGED } from '../constants'
+import { REQUERY_HITS_ONLY } from '../constants'
+
+export const TAB_CHANGED = 'TAB_CHANGED'
 
 // ----------------------------------------------------------------------------
 // Simple actions
@@ -13,23 +14,7 @@ import { TAB_CHANGED } from '../constants'
 export function tabChanged( tab ) {
   return {
     type: TAB_CHANGED,
-    tab
-  }
-}
-
-
-// ----------------------------------------------------------------------------
-// Compound actions
-
-/**
-* Changes the current tab
-*
-* @param {string} tab the new tab
-* @returns {function} a series of simple actions to execute
-*/
-export function changeTab( tab ) {
-  return dispatch => {
-    dispatch( tabChanged( tab ) )
-    dispatch( getComplaints() )
+    tab,
+    requery: REQUERY_HITS_ONLY
   }
 }

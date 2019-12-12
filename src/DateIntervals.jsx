@@ -1,7 +1,7 @@
 import './DateIntervals.less'
-import { changeDateInterval } from './actions/filter';
 import { connect } from 'react-redux'
 import { dateIntervals } from './constants';
+import { dateIntervalToggled } from './actions/filter';
 import React from 'react'
 
 
@@ -37,7 +37,7 @@ export const mapStateToProps = state => ( {
 
 export const mapDispatchToProps = dispatch => ( {
   toggleDateInterval: interval => {
-    dispatch( changeDateInterval( interval ) )
+    dispatch( dateIntervalToggled( interval ) )
   }
 } );
 

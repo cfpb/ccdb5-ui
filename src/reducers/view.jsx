@@ -3,10 +3,10 @@
 import {
   DATE_INTERVAL_CHANGED,
   DATE_RANGE_CHANGED,
-  DATE_RANGE_MIN,
-  TAB_CHANGED
+  DATE_RANGE_MIN
 } from '../constants'
-import moment from 'moment';
+import moment from 'moment'
+import { TAB_CHANGED } from '../actions/view'
 
 const defaultView = {
   dateInterval: '3y',

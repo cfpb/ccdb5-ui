@@ -1,7 +1,7 @@
 import './TabbedNavigation.less'
-import { changeTab } from './actions/view'
 import { connect } from 'react-redux'
 import React from 'react'
+import { tabChanged } from './actions/view'
 
 export class TabbedNavigation extends React.Component {
   constructor( props ) {
@@ -42,7 +42,7 @@ export const mapStateToProps = state => ( {
 
 export const mapDispatchToProps = dispatch => ( {
   onTab: tab => {
-    dispatch( changeTab( tab ) )
+    dispatch( tabChanged( tab ) )
   }
 } );
 
