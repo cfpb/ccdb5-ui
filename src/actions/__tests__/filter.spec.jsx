@@ -19,6 +19,18 @@ describe('action:filterActions', () => {
     })
   })
 
+  describe('dateIntervalToggled', () => {
+    it('creates a simple action', () => {
+      const expectedAction = {
+        type: sut.DATE_INTERVAL_CHANGED,
+        dateInterval: 'foo',
+        requery: REQUERY_HITS_ONLY
+      }
+      expect(sut.dateIntervalToggled('foo'))
+        .toEqual( expectedAction );
+    })
+  })
+
   describe('changeFlagFilter', () => {
     it('creates a simple action', () => {
         const filterName = 'has_narrative'
