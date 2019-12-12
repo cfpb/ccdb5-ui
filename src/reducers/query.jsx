@@ -119,40 +119,25 @@ function processParams( state, action ) {
  * @param {object} action the payload containing the date interval to change
  * @returns {object} the new state for the Redux store
  */
-// eslint-disable-next-line complexity
 export function changeDateInterval( state, action ) {
 
   const dateInterval = action.dateInterval;
   const newState = {
     ...state
   };
-  switch ( dateInterval ) {
-    case '3m':
-      newState.date_received_min = new Date(
-        moment().subtract( 3, 'months' ).calendar()
-      );
-      break;
-    case '6m':
-      newState.date_received_min = new Date(
-        moment().subtract( 6, 'months' ).calendar()
-      );
-      break;
-    case '1y':
-      newState.date_received_min = new Date(
-        moment().subtract( 1, 'year' ).calendar()
-      );
-      break;
-    case '3y':
-      newState.date_received_min = new Date(
-        moment().subtract( 3, 'years' ).calendar()
-      );
-      break;
-    case 'All':
-      newState.date_received_min = new Date( types.DATE_RANGE_MIN );
-      newState.date_received_max = new Date();
-      break;
-    default:
-      break;
+
+  const res = {
+    '3m': new Date( moment().subtract( 3, 'months' ).calendar() ),
+    '6m': new Date( moment().subtract( 6, 'months' ).calendar() ),
+    '1y': new Date( moment().subtract( 1, 'year' ).calendar() ),
+    '3y': new Date( moment().subtract( 3, 'years' ).calendar() )
+  }
+
+  if ( res[dateInterval] ) {
+    newState.date_received_min = res[dateInterval]
+  } else if ( dateInterval === 'All' ) {
+    newState.date_received_min = new Date( types.DATE_RANGE_MIN )
+    newState.date_received_max = new Date()
   }
 
   return newState;
