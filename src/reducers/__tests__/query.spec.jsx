@@ -5,18 +5,29 @@ import actions from '../../actions'
 import * as types from '../../constants'
 
 import { REQUERY_HITS_ONLY } from '../../constants'
+import moment from 'moment'
 
 describe('reducer:query', () => {
-  it('has a default state', () => {
-    expect(target(undefined, {})).toEqual({
-        searchText: '',
-        searchField: 'all',
-        page: 1,
-        queryString: '?field=all&page=1&size=25&sort=created_date_desc',
-        size: 25,
-        sort: 'created_date_desc',
-        totalPages: 0
-      })
+  describe('default', ()=>{
+    it('has a default state', () => {
+      const res = target(undefined, {})
+      expect(res).toMatchObject({
+          searchText: '',
+          searchField: 'all',
+          page: 1,
+          size: 25,
+          sort: 'created_date_desc',
+          totalPages: 0
+        })
+      // doing this because I can't seem to mock the date since
+      // defaultQuery is imported
+      expect( res ).toHaveProperty( 'date_received_max' )
+      expect( res ).toHaveProperty( 'date_received_min' )
+      expect( res.queryString ).toContain( 'date_received_max' )
+      expect( res.queryString ).toContain( 'date_received_min' )
+      expect( res.queryString ).toContain( 'field=all&page=1&size=25' +
+        '&sort=created_date_desc' )
+    })
   })
 
   describe('COMPLAINTS_RECEIVED actions', ()=>{

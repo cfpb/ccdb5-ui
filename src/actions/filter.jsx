@@ -1,5 +1,6 @@
 import { REQUERY_HITS_ONLY } from '../constants'
 
+export const DATE_INTERVAL_CHANGED = 'DATE_INTERVAL_CHANGED'
 export const DATE_RANGE_CHANGED = 'DATE_RANGE_CHANGED'
 export const FILTER_ALL_REMOVED = 'FILTER_ALL_REMOVED'
 export const FILTER_CHANGED = 'FILTER_CHANGED'
@@ -25,6 +26,20 @@ export function changeDateRange( filterName, minDate, maxDate ) {
     filterName,
     minDate,
     maxDate,
+    requery: REQUERY_HITS_ONLY
+  }
+}
+
+/**
+ * Notifies the application that date interval (m, w, yr) was toggled
+ *
+ * @param {string} dateInterval which filter was clicked
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function dateIntervalToggled( dateInterval ) {
+  return {
+    type: DATE_INTERVAL_CHANGED,
+    dateInterval,
     requery: REQUERY_HITS_ONLY
   }
 }

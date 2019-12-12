@@ -1,9 +1,13 @@
 import * as types from '../constants'
 import { clamp, shortIsoFormat } from '../utils'
 import actions from '../actions'
+import moment from 'moment';
 const queryString = require( 'query-string' );
 
 export const defaultQuery = {
+  date_received_max: new Date(),
+  date_received_min: new Date( moment().subtract(3, 'months').calendar() ),
+  from: 0,
   searchText: '',
   searchField: 'all',
   size: 25,
@@ -106,6 +110,37 @@ function processParams( state, action ) {
   } )
 
   return processed
+}
+
+/**
+ * Change a date range filter according to selected interval
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the payload containing the date interval to change
+ * @returns {object} the new state for the Redux store
+ */
+export function changeDateInterval( state, action ) {
+
+  const dateInterval = action.dateInterval;
+  const newState = {
+    ...state
+  };
+
+  const res = {
+    '3m': new Date( moment().subtract( 3, 'months' ).calendar() ),
+    '6m': new Date( moment().subtract( 6, 'months' ).calendar() ),
+    '1y': new Date( moment().subtract( 1, 'year' ).calendar() ),
+    '3y': new Date( moment().subtract( 3, 'years' ).calendar() )
+  }
+
+  if ( res[dateInterval] ) {
+    newState.date_received_min = res[dateInterval]
+  } else if ( dateInterval === 'All' ) {
+    newState.date_received_min = new Date( types.DATE_RANGE_MIN )
+    newState.date_received_max = new Date()
+  }
+
+  return newState;
 }
 
 /**
@@ -457,6 +492,7 @@ export function stateToQS( state ) {
 export function _buildHandlerMap() {
   const handlers = {}
   handlers[actions.COMPLAINTS_RECEIVED] = updateTotalPages;
+  handlers[actions.DATE_INTERVAL_CHANGED] = changeDateInterval
   handlers[actions.DATE_RANGE_CHANGED] = changeDateRange
   handlers[actions.FILTER_ALL_REMOVED] = removeAllFilters
   handlers[actions.FILTER_CHANGED] = toggleFilter
