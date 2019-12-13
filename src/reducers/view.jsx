@@ -1,10 +1,6 @@
 /* eslint-disable camelcase */
-
-import {
-  DATE_INTERVAL_CHANGED,
-  DATE_RANGE_CHANGED,
-  DATE_RANGE_MIN
-} from '../constants'
+import { DATE_INTERVAL_CHANGED, DATE_RANGE_CHANGED } from '../actions/filter'
+import { DATE_RANGE_MIN } from '../constants'
 import moment from 'moment'
 import { TAB_CHANGED } from '../actions/view'
 
@@ -35,12 +31,13 @@ function _calculateInterval( state, action ) {
   const end = moment( action.maxDate );
   const start = moment( action.minDate );
 
-  // verify if it's 3 years
+  // verify if it's 3 or 1 years
   const yrDiff = end.diff( start, 'years' );
   if ( yrDiff === 3 || yrDiff === 1 ) {
     return yrDiff + 'y';
   }
 
+  // verify if it's 6 or 3 months
   const moDiff = end.diff( start, 'months' );
   if ( moDiff === 6 || moDiff === 3 ) {
     return moDiff + 'm';
