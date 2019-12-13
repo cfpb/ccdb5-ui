@@ -483,10 +483,6 @@ describe('reducer:query', () => {
       action.dateInterval = 'All'
       result = target( {}, action )
       expect( result.date_received_min ).toEqual( new Date( types.DATE_RANGE_MIN ) )
-      // today's date
-      const diff = moment( result.date_received_max ).diff( moment(new Date()), 'days' )
-      // make sure its same day
-      expect( diff ).toEqual( 0 )
     } )
 
     it( 'handles 3m interval', () => {
@@ -495,7 +491,12 @@ describe('reducer:query', () => {
       const min = new Date( moment().subtract( 3, 'months' ).calendar() )
       const diffMin = moment( min ).diff( moment( result.date_received_min ), 'months' )
       expect( diffMin ).toEqual( 0 )
-      // today's date
+    } )
+
+    it( 'default interval handling', () => {
+      action.dateInterval = 'foo'
+      result = target( {}, action )
+      // only set max to today's date
       const diff = moment( result.date_received_max ).diff( moment( new Date() ), 'days' )
       // make sure its same day
       expect( diff ).toEqual( 0 )
