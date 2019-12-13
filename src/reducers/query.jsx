@@ -124,7 +124,7 @@ export function changeDateInterval( state, action ) {
   const dateInterval = action.dateInterval;
   const newState = {
     ...state
-  };
+  }
 
   const res = {
     '3m': new Date( moment().subtract( 3, 'months' ).calendar() ),
@@ -137,8 +137,9 @@ export function changeDateInterval( state, action ) {
     newState.date_received_min = res[dateInterval]
   } else if ( dateInterval === 'All' ) {
     newState.date_received_min = new Date( types.DATE_RANGE_MIN )
-    newState.date_received_max = new Date()
   }
+
+  newState.date_received_max = new Date()
 
   return newState;
 }

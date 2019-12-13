@@ -470,6 +470,38 @@ describe('reducer:query', () => {
     })
   })
 
+  describe( 'describes DATE_INTERVAL_CHANGED actions', () => {
+    let action, result
+    beforeEach( () => {
+      action = {
+        type: actions.DATE_INTERVAL_CHANGED,
+        dateInterval: ''
+      }
+    } )
+
+    it( 'handles All interval', () => {
+      action.dateInterval = 'All'
+      result = target( {}, action )
+      expect( result.date_received_min ).toEqual( new Date( types.DATE_RANGE_MIN ) )
+      // today's date
+      const diff = moment( result.date_received_max ).diff( moment(new Date()), 'days' )
+      // make sure its same day
+      expect( diff ).toEqual( 0 )
+    } )
+
+    it( 'handles 3m interval', () => {
+      action.dateInterval = '3m'
+      result = target( {}, action )
+      const min = new Date( moment().subtract( 3, 'months' ).calendar() )
+      const diffMin = moment( min ).diff( result.date_received_min, 'days' )
+      expect( diffMin ).toEqual( 3 )
+      // today's date
+      const diff = moment( result.date_received_max ).diff(  new Date(), 'days' )
+      // make sure its same day
+      expect( diff ).toEqual( 0 )
+    } )
+  } )
+
   describe('handles FILTER_FLAG_CHANGED actions', () => {
     let action, state;
     beforeEach(() => {
