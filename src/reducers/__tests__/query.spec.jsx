@@ -493,10 +493,10 @@ describe('reducer:query', () => {
       action.dateInterval = '3m'
       result = target( {}, action )
       const min = new Date( moment().subtract( 3, 'months' ).calendar() )
-      const diffMin = moment( min ).diff( result.date_received_min, 'days' )
-      expect( diffMin ).toEqual( 3 )
+      const diffMin = moment( min ).diff( moment( result.date_received_min ), 'months' )
+      expect( diffMin ).toEqual( 0 )
       // today's date
-      const diff = moment( result.date_received_max ).diff(  new Date(), 'days' )
+      const diff = moment( result.date_received_max ).diff( moment( new Date() ), 'days' )
       // make sure its same day
       expect( diff ).toEqual( 0 )
     } )
