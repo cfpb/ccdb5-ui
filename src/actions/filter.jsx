@@ -40,7 +40,7 @@ export function dateIntervalToggled( dateInterval ) {
   return {
     type: DATE_INTERVAL_CHANGED,
     dateInterval,
-    requery: REQUERY_HITS_ONLY
+    requery: REQUERY_ALWAYS
   }
 }
 
