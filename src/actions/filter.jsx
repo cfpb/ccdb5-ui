@@ -1,4 +1,4 @@
-import { REQUERY_ALWAYS, REQUERY_HITS_ONLY } from '../constants'
+import { REQUERY_ALWAYS } from '../constants'
 
 export const DATE_INTERVAL_CHANGED = 'DATE_INTERVAL_CHANGED'
 export const DATE_RANGE_CHANGED = 'DATE_RANGE_CHANGED'
