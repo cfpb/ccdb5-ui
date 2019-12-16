@@ -2,7 +2,7 @@ import './DateFilter.less'
 import { changeDateRange } from '../actions/filter'
 import CollapsibleFilter from './CollapsibleFilter'
 import { connect } from 'react-redux'
-import { DATE_RANGE_MIN } from '../constants';
+import { DATE_RANGE_MIN } from '../constants'
 import DateInput from '../DateInput'
 import iconMap from '../iconMap'
 import moment from 'moment'

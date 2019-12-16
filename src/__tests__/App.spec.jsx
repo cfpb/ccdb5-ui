@@ -9,6 +9,7 @@ import thunk from 'redux-thunk'
 
 describe('initial state', () => {
   it('renders without crashing', () => {
+
     // set the date so snapshot will always be the same.
     const DATE_TO_USE = new Date('2016');
     const _Date = Date;
@@ -16,7 +17,6 @@ describe('initial state', () => {
     global.Date.UTC = _Date.UTC;
     global.Date.parse = _Date.parse;
     global.Date.now = _Date.now;
-
     defaultQuery.searchText = 'foo';
 
     const target = renderer.create(

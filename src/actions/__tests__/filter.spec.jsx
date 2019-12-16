@@ -1,4 +1,4 @@
-import { REQUERY_HITS_ONLY } from '../../constants'
+import { REQUERY_ALWAYS } from '../../constants'
 import * as sut from '../filter'
 
 describe('action:filterActions', () => {
@@ -12,10 +12,22 @@ describe('action:filterActions', () => {
           filterName,
           minDate,
           maxDate,
-          requery: REQUERY_HITS_ONLY
+          requery: REQUERY_ALWAYS
         }
         expect(sut.changeDateRange(filterName, minDate, maxDate))
           .toEqual( expectedAction );
+    })
+  })
+
+  describe('dateIntervalToggled', () => {
+    it('creates a simple action', () => {
+      const expectedAction = {
+        type: sut.DATE_INTERVAL_CHANGED,
+        dateInterval: 'foo',
+        requery: REQUERY_ALWAYS
+      }
+      expect(sut.dateIntervalToggled('foo'))
+        .toEqual( expectedAction );
     })
   })
 
@@ -25,7 +37,7 @@ describe('action:filterActions', () => {
         const expectedAction = {
           type: sut.FILTER_FLAG_CHANGED,
           filterName,
-          requery: REQUERY_HITS_ONLY
+          requery: REQUERY_ALWAYS
         }
         expect(sut.toggleFlagFilter(filterName))
           .toEqual( expectedAction );
@@ -40,7 +52,7 @@ describe('action:filterActions', () => {
           type: sut.FILTER_CHANGED,
           filterName,
           filterValue,
-          requery: REQUERY_HITS_ONLY
+          requery: REQUERY_ALWAYS
         }
         expect(sut.toggleFilter(filterName, filterValue)).toEqual( expectedAction );
     })
@@ -54,7 +66,7 @@ describe('action:filterActions', () => {
           type: sut.FILTER_REMOVED,
           filterName,
           filterValue,
-          requery: REQUERY_HITS_ONLY
+          requery: REQUERY_ALWAYS
         }
         expect(sut.removeFilter(filterName, filterValue)).toEqual( expectedAction );
     })
@@ -64,7 +76,7 @@ describe('action:filterActions', () => {
     it('creates a simple action', () => {
         const expectedAction = {
           type: sut.FILTER_ALL_REMOVED,
-          requery: REQUERY_HITS_ONLY
+          requery: REQUERY_ALWAYS
         }
         expect(sut.removeAllFilters()).toEqual( expectedAction );
     })
@@ -78,7 +90,7 @@ describe('action:filterActions', () => {
           type: sut.FILTER_MULTIPLE_ADDED,
           filterName,
           values,
-          requery: REQUERY_HITS_ONLY
+          requery: REQUERY_ALWAYS
         }
         expect(sut.addMultipleFilters(filterName, values))
           .toEqual( expectedAction );
@@ -93,7 +105,7 @@ describe('action:filterActions', () => {
           type: sut.FILTER_MULTIPLE_REMOVED,
           filterName,
           values,
-          requery: REQUERY_HITS_ONLY
+          requery: REQUERY_ALWAYS
         }
         expect(sut.removeMultipleFilters(filterName, values))
           .toEqual( expectedAction );
