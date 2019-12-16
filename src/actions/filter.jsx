@@ -26,7 +26,7 @@ export function changeDateRange( filterName, minDate, maxDate ) {
     filterName,
     minDate,
     maxDate,
-    requery: REQUERY_HITS_ONLY
+    requery: REQUERY_ALWAYS
   }
 }
 
@@ -56,7 +56,7 @@ export function toggleFilter( filterName, filterValue ) {
     type: FILTER_CHANGED,
     filterName,
     filterValue,
-    requery: REQUERY_HITS_ONLY
+    requery: REQUERY_ALWAYS
   }
 }
 
@@ -70,7 +70,7 @@ export function toggleFlagFilter( filterName ) {
   return {
     type: FILTER_FLAG_CHANGED,
     filterName,
-    requery: REQUERY_HITS_ONLY
+    requery: REQUERY_ALWAYS
   }
 }
 
@@ -86,7 +86,7 @@ export function removeFilter( filterName, filterValue ) {
     type: FILTER_REMOVED,
     filterName,
     filterValue,
-    requery: REQUERY_HITS_ONLY
+    requery: REQUERY_ALWAYS
   }
 }
 
@@ -98,7 +98,7 @@ export function removeFilter( filterName, filterValue ) {
 export function removeAllFilters() {
   return {
     type: FILTER_ALL_REMOVED,
-    requery: REQUERY_HITS_ONLY
+    requery: REQUERY_ALWAYS
   }
 }
 
@@ -116,7 +116,7 @@ export function addMultipleFilters( filterName, values ) {
     type: FILTER_MULTIPLE_ADDED,
     filterName,
     values,
-    requery: REQUERY_HITS_ONLY
+    requery: REQUERY_ALWAYS
   }
 }
 
@@ -134,6 +134,6 @@ export function removeMultipleFilters( filterName, values ) {
     type: FILTER_MULTIPLE_REMOVED,
     filterName,
     values,
-    requery: REQUERY_HITS_ONLY
+    requery: REQUERY_ALWAYS
   }
 }
