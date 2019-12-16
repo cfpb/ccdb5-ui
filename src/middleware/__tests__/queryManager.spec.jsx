@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import { queryManager } from '../queryManager'
-import { REQUERY_HITS_ONLY } from '../../constants'
+import { REQUERY_ALWAYS, REQUERY_HITS_ONLY } from '../../constants'
 
 describe( 'redux middleware::queryManager', () => {
   describe('compound actions', () => {
@@ -36,19 +36,36 @@ describe( 'redux middleware::queryManager', () => {
       expect(store.getActions()).toEqual(expectedActions)
     })
 
-    it('query if an action has metadata', () => {
-      const action = {
-        type: 'FakeAction',
-        requery: REQUERY_HITS_ONLY
-      }
+    describe( 'REQUERY_ALWAYS', () => {
+      it( 'query if an action has metadata', () => {
+        const action = {
+          type: 'FakeAction',
+          requery: REQUERY_ALWAYS
+        }
+        const expectedActions = [
+          { type: 'FakeAction', requery: REQUERY_ALWAYS },
+          { type: 'API_CALLED', url: "@@API?foo" }
+        ]
 
-      const expectedActions = [
-        { type: 'FakeAction', requery: REQUERY_HITS_ONLY },
-        { type: 'API_CALLED', url: "@@API?foo" }
-      ]
+        store.dispatch( action )
+        expect( store.getActions() ).toEqual( expectedActions )
+      } )
+    } )
 
-      store.dispatch(action)
-      expect(store.getActions()).toEqual(expectedActions)
-    })
+    describe( 'REQUERY_HITS_ONLY', () => {
+      it( 'query if an action has metadata', () => {
+        const action = {
+          type: 'FakeAction',
+          requery: REQUERY_HITS_ONLY
+        }
+        const expectedActions = [
+          { type: 'FakeAction', requery: REQUERY_HITS_ONLY },
+          { type: 'API_CALLED', url: "@@API?foo" }
+        ]
+
+        store.dispatch( action )
+        expect( store.getActions() ).toEqual( expectedActions )
+      } )
+    } )
   })
 })

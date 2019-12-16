@@ -1,4 +1,4 @@
-import { REQUERY_HITS_ONLY } from '../../constants'
+import { REQUERY_ALWAYS, REQUERY_HITS_ONLY } from '../../constants'
 import * as sut from '../filter'
 
 describe('action:filterActions', () => {
@@ -24,7 +24,7 @@ describe('action:filterActions', () => {
       const expectedAction = {
         type: sut.DATE_INTERVAL_CHANGED,
         dateInterval: 'foo',
-        requery: REQUERY_HITS_ONLY
+        requery: REQUERY_ALWAYS
       }
       expect(sut.dateIntervalToggled('foo'))
         .toEqual( expectedAction );
