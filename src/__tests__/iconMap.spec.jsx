@@ -7,9 +7,6 @@ describe('getIcon', () => {
   } )
 
   it( 'handles a unknown icons', () => {
-    const t = () => {
-      throw new Error( 'Icon not found!' )
-    };
     expect( ()=>{ iconMap.getIcon( 'bogus' ) }).toThrow( 'Icon not found!' )
   } )
 

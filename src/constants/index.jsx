@@ -3,6 +3,8 @@ export const API_CALLED = 'API_CALLED'
 export const MODAL_HID = 'MODAL_HID'
 export const MODAL_SHOWN = 'MODAL_SHOWN'
 
+export const DATE_RANGE_MIN = '2011-11-30T12:00:00.000Z'
+
 // Modal Dialogs
 export const MODAL_TYPE_DATA_EXPORT = 'MODAL_TYPE_DATA_EXPORT'
 export const MODAL_TYPE_MORE_ABOUT = 'MODAL_TYPE_MORE_ABOUT'
@@ -38,6 +40,8 @@ export const dateFilters = [
   'date_received_max',
   'date_received_min'
 ]
+
+export const dateIntervals = [ '3m', '6m', '1y', '3y', 'All' ]
 
 export const flagFilters = [
   'has_narrative'

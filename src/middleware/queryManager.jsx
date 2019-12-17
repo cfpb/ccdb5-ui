@@ -12,11 +12,9 @@ export const queryManager = store => next => action => {
   );
 
   // are we going to have a separate get hits?
-  // if ( requery === constants.REQUERY_ALWAYS ) {
-  //   store.dispatch( getComplaints() )
-  // } else
-
-  if ( requery === constants.REQUERY_HITS_ONLY ) {
+  if ( requery === constants.REQUERY_ALWAYS ) {
+    store.dispatch( getComplaints() )
+  } else if ( requery === constants.REQUERY_HITS_ONLY ) {
     store.dispatch( getComplaints() )
   }
 
