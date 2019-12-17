@@ -45,20 +45,6 @@ export function dateIntervalToggled( dateInterval ) {
 }
 
 /**
- * Notifies the application that date interval (m, w, yr) was toggled
- *
- * @param {string} dateInterval which filter was clicked
- * @returns {string} a packaged payload to be used by Redux reducers
- */
-export function dateIntervalToggled( dateInterval ) {
-  return {
-    type: DATE_INTERVAL_CHANGED,
-    dateInterval,
-    requery: REQUERY_HITS_ONLY
-  }
-}
-
-/**
 * Notifies the application that an aggregation filter changed
 *
 * @param {string} filterName which filter was clicked
