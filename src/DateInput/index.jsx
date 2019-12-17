@@ -159,11 +159,11 @@ export default class DateInput extends React.Component {
       return ERROR
     }
 
-    if ( props.min && d < props.min ) {
+    if ( props.min && moment( d ).isBefore( props.min, 'day' ) ) {
       return TOO_LOW
     }
 
-    if ( props.max && d > props.max ) {
+    if ( props.max && moment( d ).isAfter( props.max, 'day' ) ) {
       return TOO_HIGH
     }
 

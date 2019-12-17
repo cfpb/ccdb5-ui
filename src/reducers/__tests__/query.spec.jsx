@@ -5,18 +5,29 @@ import actions from '../../actions'
 import * as types from '../../constants'
 
 import { REQUERY_HITS_ONLY } from '../../constants'
+import moment from 'moment'
 
 describe('reducer:query', () => {
-  it('has a default state', () => {
-    expect(target(undefined, {})).toEqual({
-        searchText: '',
-        searchField: 'all',
-        page: 1,
-        queryString: '?field=all&page=1&size=25&sort=created_date_desc',
-        size: 25,
-        sort: 'created_date_desc',
-        totalPages: 0
-      })
+  describe('default', ()=>{
+    it('has a default state', () => {
+      const res = target(undefined, {})
+      expect(res).toMatchObject({
+          searchText: '',
+          searchField: 'all',
+          page: 1,
+          size: 25,
+          sort: 'created_date_desc',
+          totalPages: 0
+        })
+      // doing this because I can't seem to mock the date since
+      // defaultQuery is imported
+      expect( res ).toHaveProperty( 'date_received_max' )
+      expect( res ).toHaveProperty( 'date_received_min' )
+      expect( res.queryString ).toContain( 'date_received_max' )
+      expect( res.queryString ).toContain( 'date_received_min' )
+      expect( res.queryString ).toContain( 'field=all&page=1&size=25' +
+        '&sort=created_date_desc' )
+    })
   })
 
   describe('COMPLAINTS_RECEIVED actions', ()=>{
@@ -458,6 +469,39 @@ describe('reducer:query', () => {
       })
     })
   })
+
+  describe( 'describes DATE_INTERVAL_CHANGED actions', () => {
+    let action, result
+    beforeEach( () => {
+      action = {
+        type: actions.DATE_INTERVAL_CHANGED,
+        dateInterval: ''
+      }
+    } )
+
+    it( 'handles All interval', () => {
+      action.dateInterval = 'All'
+      result = target( {}, action )
+      expect( result.date_received_min ).toEqual( new Date( types.DATE_RANGE_MIN ) )
+    } )
+
+    it( 'handles 3m interval', () => {
+      action.dateInterval = '3m'
+      result = target( {}, action )
+      const min = new Date( moment().subtract( 3, 'months' ).calendar() )
+      const diffMin = moment( min ).diff( moment( result.date_received_min ), 'months' )
+      expect( diffMin ).toEqual( 0 )
+    } )
+
+    it( 'default interval handling', () => {
+      action.dateInterval = 'foo'
+      result = target( {}, action )
+      // only set max to today's date
+      const diff = moment( result.date_received_max ).diff( moment( new Date() ), 'days' )
+      // make sure its same day
+      expect( diff ).toEqual( 0 )
+    } )
+  } )
 
   describe('handles FILTER_FLAG_CHANGED actions', () => {
     let action, state;
