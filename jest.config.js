@@ -3,6 +3,9 @@ module.exports = {
     'src/**/*.{js,jsx,ts,tsx}',
     '!src/**/*.d.ts',
   ],
+  'coveragePathIgnorePatterns': [
+    'src/index.js'
+  ],
   'resolver': 'jest-pnp-resolver',
   'setupFiles': [
     '<rootDir>/config/polyfills.js',

@@ -139,7 +139,7 @@ export function changeDateInterval( state, action ) {
     newState.date_received_min = new Date( types.DATE_RANGE_MIN )
   }
 
-  newState.date_received_max = new Date()
+  newState.date_received_max = new Date( moment().startOf( 'day' ).toString() )
 
   return newState;
 }

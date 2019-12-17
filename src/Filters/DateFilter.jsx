@@ -98,6 +98,9 @@ export class DateFilter extends React.Component {
 
   // --------------------------------------------------------------------------
   // Validation methods
+  _isChanged( props, state ) {
+    return props.from !== state.from || props.through !== state.through
+  }
 
   _validate( state ) {
 
@@ -115,7 +118,7 @@ export class DateFilter extends React.Component {
 
   // --------------------------------------------------------------------------
   // DateInput interface methods
-
+  /* eslint complexity: ["error", 5] */
   _onDateEntered( field, date ) {
     let state = {
       from: this.state.from,
@@ -134,11 +137,16 @@ export class DateFilter extends React.Component {
     this.setState( state )
 
     // If it's good, send an update
-    if ( this._hasMessages( state.messages ) === false ) {
+    // only fire off change when there is a mismatch in the dates,
+    // when DateInterval changed vs manually changing the date
+    if ( this._hasMessages( state.messages ) === false &&
+      this._isChanged( this.props, state ) ) {
+
       const from = moment( state.from, 'MM-DD-YYYY' )
       const through = moment( state.through, 'MM-DD-YYYY' )
       const dateFrom = from.isValid() ? from.toDate() : null
       const dateThrough = through.isValid() ? through.toDate() : null
+
       this.props.changeDateRange( dateFrom, dateThrough )
     }
   }
