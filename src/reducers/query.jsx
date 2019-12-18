@@ -2,11 +2,13 @@ import * as types from '../constants'
 import { clamp, shortIsoFormat } from '../utils'
 import actions from '../actions'
 import moment from 'moment';
+
 const queryString = require( 'query-string' );
 
+/* eslint-disable camelcase */
 export const defaultQuery = {
   date_received_max: new Date(),
-  date_received_min: new Date( moment().subtract(3, 'months').calendar() ),
+  date_received_min: new Date( moment().subtract( 3, 'months' ).calendar() ),
   from: 0,
   searchText: '',
   searchField: 'all',
