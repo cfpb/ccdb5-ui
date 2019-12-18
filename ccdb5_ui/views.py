@@ -36,7 +36,6 @@ class CCDB5MainView(TemplateView):
         if 'detail' in path:
             noindex = True
 
-
         context = super(CCDB5MainView, self).get_context_data(**kwargs)
         context['noindex'] = noindex
         context['ccdb5_base_template'] = self.base_template
