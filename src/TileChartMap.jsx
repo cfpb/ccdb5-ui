@@ -5,12 +5,14 @@ import { TileMap } from 'cfpb-chart-builder'
 
 export class TileChartMap extends React.Component {
   componentDidUpdate( prevProps ) {
+    console.log('first')
     if ( !this.props.data[0].length ) {
       return
     }
-
+    console.log('second')
     if ( prevProps.data !== this.props.data ) {
       this._redrawMap()
+      console.log('inside you')
     }
   }
 
@@ -27,7 +29,7 @@ export class TileChartMap extends React.Component {
 
   // --------------------------------------------------------------------------
   // Event Handlers
-  _redrawMap(){
+  _redrawMap() {
     const colors = [
       'rgba(247, 248, 249, 0.5)',
       'rgba(212, 231, 230, 0.5)',
@@ -45,10 +47,9 @@ export class TileChartMap extends React.Component {
       localize: true
     } )
   }
-
 }
 
-const mapStateToProps = state => ( { data: [ state.map.state ]} )
+export const mapStateToProps = state => ( { data: [ state.map.state ]} )
 
 export default connect( mapStateToProps )( TileChartMap )
 
