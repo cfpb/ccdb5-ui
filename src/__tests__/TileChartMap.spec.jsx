@@ -1,5 +1,6 @@
 import TileChartMap from '../TileChartMap'
 import configureMockStore from 'redux-mock-store'
+import { mount } from 'enzyme'
 import { Provider } from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'
@@ -26,3 +27,17 @@ describe( 'initial state', () => {
     expect( tree ).toMatchSnapshot()
   } )
 } )
+
+describe('componentDidUpdate', () => {
+  it('trigger a new update when data changes', () => {
+    const props = {
+      page: 2,
+      total: 10
+    }
+
+    const target = mount(<TileChartMap {...props} />);
+    target.setProps({ data: 'bar' })
+    const sv = target.state('data')
+    expect(sv).toEqual('bar')
+  })
+})
