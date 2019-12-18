@@ -32,14 +32,13 @@ class CCDB5MainView(TemplateView):
         # not be indexed by robots
         path = self.request.get_full_path()
         noindex = False
-        
+
         if 'detail' in path:
             noindex = True
 
 
         context = super(CCDB5MainView, self).get_context_data(**kwargs)
         context['noindex'] = noindex
-        context['path'] = path = self.request.get_full_path()
         context['ccdb5_base_template'] = self.base_template
         context['unsupported_browser'] = unsupported
         return context
