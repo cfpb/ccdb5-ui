@@ -29,6 +29,8 @@ class CCDB5MainView(TemplateView):
         path = self.request.get_full_path()
         noindex = False
 
+        # Determine if the page is a /detail route that should
+        # not be indexed by robots
         if 'detail' in path:
             noindex = True
 
