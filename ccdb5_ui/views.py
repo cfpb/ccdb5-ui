@@ -26,15 +26,17 @@ class CCDB5MainView(TemplateView):
     def get_context_data(self, **kwargs):
         # See if an unsupported browser is making the request
         browser = self.request.META.get('HTTP_USER_AGENT', '')
-        path = self.request.get_full_path()
-        noindex = False
+        unsupported = any([x for x in no_support if x in browser])
 
         # Determine if the page is a /detail route that should
         # not be indexed by robots
+        path = self.request.get_full_path()
+        noindex = False
+        
         if 'detail' in path:
             noindex = True
 
-        unsupported = any([x for x in no_support if x in browser])
+
         context = super(CCDB5MainView, self).get_context_data(**kwargs)
         context['noindex'] = noindex
         context['path'] = path = self.request.get_full_path()
