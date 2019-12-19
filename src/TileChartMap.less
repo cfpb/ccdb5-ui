@@ -20,10 +20,11 @@
 }
 .highcharts-root {
     display: block;
+    text {
+        stroke-width: 0;
+    }
 }
-.highcharts-root text {
-    stroke-width: 0;
-}
+
 .highcharts-strong {
     font-weight: bold;
 }
@@ -56,16 +57,19 @@
 }
 
 /* Highmaps */
-.highcharts-map-series .highcharts-point {
-    -webkit-transition: fill 500ms, fill-opacity 500ms, stroke-width 250ms;
-    transition: fill 500ms, fill-opacity 500ms, stroke-width 250ms;
-    stroke: #cccccc;
-}
-.highcharts-map-series .highcharts-point-hover {
-    -webkit-transition: fill 0ms, fill-opacity 0ms;
-    transition: fill 0ms, fill-opacity 0ms;
-    fill-opacity: 0.5;
-    stroke-width: 2px;
+.highcharts-map-series {
+    .highcharts-point {
+        -webkit-transition: fill 500ms, fill-opacity 500ms, stroke-width 250ms;
+        transition: fill 500ms, fill-opacity 500ms, stroke-width 250ms;
+        stroke: #cccccc;
+    }
+
+    .highcharts-point-hover {
+        -webkit-transition: fill 0ms, fill-opacity 0ms;
+        transition: fill 0ms, fill-opacity 0ms;
+        fill-opacity: 0.5;
+        stroke-width: 2px;
+    }
 }
 
 @media only all and (max-width: 37.5em) {
@@ -82,21 +86,22 @@ x/y positioning on the SVG elements.
     font-family: inherit;
     color: #5a5d61;
 }
+
 .cfpb-chart {
     position: relative;
     max-width: 650px;
     min-width: 320px;
     height: 500px;
     margin-bottom: 25px;
-}
-.cfpb-chart .highcharts-root,
-.cfpb-chart .highcharts-container,
-.cfpb-chart .highcharts-legend-box,
-.cfpb-chart .highcharts-axis-labels,
-.cfpb-chart .highcharts-tooltip text {
-    font-size: 16px;
-    font-family: inherit;
-    color: #5a5d61;
+    .highcharts-root,
+    .highcharts-container,
+    .highcharts-legend-box,
+    .highcharts-axis-labels,
+    .highcharts-tooltip text {
+        font-size: 16px;
+        font-family: inherit;
+        color: #5a5d61;
+    }
 }
 
 /* TODO: Investigate whether responsive styles can be remove here and handled
