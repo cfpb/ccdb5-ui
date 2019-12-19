@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`initial state renders without crashing 1`] = `
+exports[`component: TileChartMap initial state renders without crashing 1`] = `
 <div>
   <div
     className="cfpb-chart"
     data-chart-type="tile_map"
-    id="mymap"
+    id="tile-chart-map"
   />
 </div>
 `;
