@@ -21,7 +21,7 @@
     "@typescript-eslint/eslint-plugin": "1.13.0",
     "@typescript-eslint/parser": "1.13.0",
     "autoprefixer": "7.1.5",
-    "babel-eslint": "10.0.2",
+    "babel-eslint": "10.0.3",
     "babel-jest": "^24.8.0",
     "babel-loader": "8.0.6",
     "babel-plugin-named-asset-import": "^0.3.3",
@@ -38,6 +38,7 @@
     "cf-pagination": "^4.1.1",
     "cf-tables": "^4.1.1",
     "cf-typography": "^4.1.0",
+    "cfpb-chart-builder": "git+https://github.com/flacoman91/cfpb-chart-builder.git#expose-charts",
     "chalk": "2.2.0",
     "connect-history-api-fallback": "1.4.0",
     "core-js": "^2.5.1",
@@ -145,7 +146,7 @@
       "^(?!.*\\.(js|jsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
     },
     "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"
+      "/node_modules/(?!cfpb-chart-builder).+\\.js$"
     ],
     "moduleNameMapper": {
       "^react-native$": "react-native-web"

@@ -1,4 +1,4 @@
-import './ResultsPanel.less'
+import './ListPanel.less'
 import ActionBar from './ActionBar'
 import { bindAll } from './utils'
 import ComplaintCard from './ComplaintCard'
@@ -27,7 +27,7 @@ const WARN_DATA_STALE = 'We’re currently experiencing technical issues that' +
   'Consumer Complaint Database.  We expect to refresh the data in the next ' +
   'few days.'
 
-export class ResultsPanel extends React.Component {
+export class ListPanel extends React.Component {
   constructor( props ) {
     super( props )
 
@@ -48,7 +48,7 @@ export class ResultsPanel extends React.Component {
 
     return (
       <MemoryRouter>
-        <section className={ this._className }>
+        <section className="results-panel">
           <ActionBar />
           { this.props.hasDataIssue ?
             <Warning text={ WARN_DATA_ISSUE } /> :
@@ -65,15 +65,6 @@ export class ResultsPanel extends React.Component {
 
   // --------------------------------------------------------------------------
   // Properties
-
-  get _className() {
-    let composeClasses = 'results-panel'
-    if ( this.props.className ) {
-      composeClasses += ' ' + this.props.className
-    }
-
-    return composeClasses
-  }
 
   // --------------------------------------------------------------------------
   // Phase Machine
@@ -140,4 +131,4 @@ const mapStateToProps = state => ( {
   items: state.results.items
 } )
 
-export default connect( mapStateToProps )( ResultsPanel )
+export default connect( mapStateToProps )( ListPanel )

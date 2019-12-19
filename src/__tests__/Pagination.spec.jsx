@@ -1,6 +1,5 @@
 import { IntlProvider } from 'react-intl'
 import React from 'react'
-import ReactDOM from 'react-dom'
 import renderer from 'react-test-renderer'
 import { mount, shallow } from 'enzyme'
 import { Pagination, mapStateToProps, mapDispatchToProps } from '../Pagination'
