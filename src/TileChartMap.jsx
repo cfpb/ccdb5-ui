@@ -5,14 +5,13 @@ import { TileMap } from 'cfpb-chart-builder'
 
 export class TileChartMap extends React.Component {
   componentDidUpdate( prevProps ) {
-    console.log('first')
-    if ( !this.props.data[0].length ) {
+    const props = this.props
+    if ( !props.data[0].length ) {
       return
     }
-    console.log('second')
-    if ( prevProps.data !== this.props.data ) {
+
+    if ( JSON.stringify( prevProps.data ) !== JSON.stringify( props.data ) ) {
       this._redrawMap()
-      console.log('inside you')
     }
   }
 
