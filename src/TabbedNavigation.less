@@ -1,0 +1,23 @@
+@import (less) "base.less";
+
+.search-panel {
+  padding: @gutter-normal;
+
+  @media @desktop {
+    padding: @grid_gutter-width;
+  }
+
+  @media @phone {
+    padding: @gutter-narrow;
+  }
+
+  border: 1px solid @gray-40;
+  border-bottom: 0;  // Don't double the border with the content
+
+  background-color: @gray-5;
+}
+
+.date-subscript {
+  font-size: @base-font-size-px;
+  color: @gray;
+}

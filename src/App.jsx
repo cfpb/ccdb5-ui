@@ -18,9 +18,10 @@ import React from 'react'
 // eslint-disable-next-line
 import ReactDOM from 'react-dom'
 import reducers from './reducers'
-import ResultsPanel from './ResultsPanel'
+import Results from './Results'
 import RootModal from './Dialogs/RootModal'
 import SearchPanel from './SearchPanel'
+import TabbedNavigation from './TabbedNavigation'
 import thunkMiddleware from 'redux-thunk'
 import UrlBarSynch from './UrlBarSynch'
 
@@ -48,10 +49,11 @@ export class SearchComponents extends React.Component {
           <Hero />
           <div className="content_wrapper">
             <SearchPanel />
+            <TabbedNavigation />
             <aside className="content_sidebar">
               <FilterPanel />
             </aside>
-            <ResultsPanel className="content_main" />
+            <Results />
           </div>
           <RootModal />
         </main>
