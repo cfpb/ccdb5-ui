@@ -48,7 +48,7 @@ export class ListPanel extends React.Component {
 
     return (
       <MemoryRouter>
-        <section className="results-panel">
+        <section className="list-panel">
           <ActionBar />
           { this.props.hasDataIssue ?
             <Warning text={ WARN_DATA_ISSUE } /> :
