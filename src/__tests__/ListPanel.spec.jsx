@@ -1,9 +1,9 @@
-import React from 'react';
-import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
 import { IntlProvider } from 'react-intl';
-import ResultsPanel from '../ResultsPanel';
+import ListPanel from '../ListPanel';
+import { Provider } from 'react-redux'
+import React from 'react';
+import thunk from 'redux-thunk'
 import renderer from 'react-test-renderer';
 
 const fixture = [
@@ -60,13 +60,13 @@ function setupSnapshot(items=[], initialStore={}, queryStore = null) {
   return renderer.create(
     <Provider store={ store } >
       <IntlProvider locale="en">
-        <ResultsPanel items={ items } from="0" size="10" />
+        <ListPanel items={ items } from="0" size="10" />
       </IntlProvider>
     </Provider>
   )
 }
 
-describe('component:ResultsPanel', () => {
+describe('component:ListPanel', () => {
   it('renders without crashing', () => {
     const target = setupSnapshot(fixture)
     const tree = target.toJSON();

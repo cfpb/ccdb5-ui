@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component: TabbedNavigation initial state renders without crashing 1`] = `
+<div
+  className="tabbedNavigation"
+>
+  <section>
+    <button
+      className="map"
+      onClick={[Function]}
+    >
+      Map
+    </button>
+    <button
+      className="list"
+      onClick={[Function]}
+    >
+      List
+    </button>
+  </section>
+</div>
+`;

@@ -1,23 +1,23 @@
 import { connect } from 'react-redux'
-import MapPanel from './MapPanel';
+import ListPanel from './ListPanel'
+import MapPanel from './MapPanel'
 import React from 'react'
-import ResultsPanel from './ResultsPanel';
-import TrendsPanel from './TrendsPanel';
+import TrendsPanel from './TrendsPanel'
 
 export class Results extends React.Component {
   render() {
-    let currentPanel = <MapPanel/>;
+    let currentPanel
 
     switch ( this.props.tab ) {
       case 'Trends':
-        currentPanel = <TrendsPanel/>;
+        currentPanel = <TrendsPanel/>
         break;
       case 'List':
-        currentPanel = <ResultsPanel/>;
+        currentPanel = <ListPanel/>
         break;
       case 'Map':
       default:
-        currentPanel = <MapPanel/>;
+        currentPanel = <MapPanel/>
         break;
     }
 

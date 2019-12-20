@@ -21,13 +21,13 @@ export class TabbedNavigation extends React.Component {
     return (
       <div className="tabbedNavigation">
         <section>
-          <button onClick={() => this._setTab( 'Map' )}>
+          <button className="map"
+                  onClick={() => this._setTab( 'Map' )}>
             Map
           </button>
-          <button onClick={() => this._setTab( 'Trends' )}>
-            Trends
-          </button>
-          <button onClick={() => this._setTab( 'List' )}>
+
+          <button className="list"
+                  onClick={() => this._setTab( 'List' )}>
             List
           </button>
         </section>

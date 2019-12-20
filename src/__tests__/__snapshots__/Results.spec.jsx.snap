@@ -283,7 +283,7 @@ exports[`component:Results renders list without crashing 1`] = `
     >
       <button
         className="a-btn m-pagination_btn-prev"
-        disabled={true}
+        disabled={false}
         onClick={[Function]}
       >
         <span
@@ -303,7 +303,7 @@ exports[`component:Results renders list without crashing 1`] = `
       </button>
       <button
         className="a-btn m-pagination_btn-next"
-        disabled={true}
+        disabled={false}
         onClick={[Function]}
       >
         Next
@@ -335,7 +335,6 @@ exports[`component:Results renders list without crashing 1`] = `
             className="u-visually-hidden"
           >
             number 
-            1
              out
           </span>
           <input
@@ -348,7 +347,6 @@ exports[`component:Results renders list without crashing 1`] = `
             onChange={[Function]}
             pattern="[0-9]*"
             type="number"
-            value={1}
           />
           of 
           <span>
@@ -446,25 +444,7 @@ exports[`component:Results renders map without crashing 1`] = `
       <div
         className="cfpb-chart"
         data-chart-type="tile_map"
-        id="mymap"
-      />
-    </div>
-    <div>
-      <h3>
-        product
-         by complaint volume (5 highest counts)
-      </h3>
-      <div
-        id="rowchart-product"
-      />
-    </div>
-    <div>
-      <h3>
-        issue
-         by complaint volume (5 highest counts)
-      </h3>
-      <div
-        id="rowchart-issue"
+        id="tile-chart-map"
       />
     </div>
   </section>

@@ -262,16 +262,13 @@ exports[`initial state renders without crashing 1`] = `
     >
       <section>
         <button
+          className="map"
           onClick={[Function]}
         >
           Map
         </button>
         <button
-          onClick={[Function]}
-        >
-          Trends
-        </button>
-        <button
+          className="list"
           onClick={[Function]}
         >
           List
@@ -1128,25 +1125,7 @@ exports[`initial state renders without crashing 1`] = `
           <div
             className="cfpb-chart"
             data-chart-type="tile_map"
-            id="mymap"
-          />
-        </div>
-        <div>
-          <h3>
-            product
-             by complaint volume (5 highest counts)
-          </h3>
-          <div
-            id="rowchart-product"
-          />
-        </div>
-        <div>
-          <h3>
-            issue
-             by complaint volume (5 highest counts)
-          </h3>
-          <div
-            id="rowchart-issue"
+            id="tile-chart-map"
           />
         </div>
         <section
