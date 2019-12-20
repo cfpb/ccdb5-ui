@@ -1,10 +1,10 @@
-import React from 'react';
-import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
 import { IntlProvider } from 'react-intl';
+import { Provider } from 'react-redux'
 import MapPanel from '../MapPanel';
+import React from 'react'
 import renderer from 'react-test-renderer';
+import thunk from 'redux-thunk'
 
 const fixture = [
   {
@@ -28,7 +28,12 @@ const fixture = [
   }
 ]
 
-function setupSnapshot(items=[], initialStore={}) {
+function setupSnapshot(items=[], initialStore={}, queryStore = null) {
+  const query = queryStore ? queryStore : {
+    page: 1,
+    size: 10,
+    totalPages: 100
+  }
   const results = Object.assign({
     doc_count: 100,
     error: '',
@@ -57,7 +62,7 @@ function setupSnapshot(items=[], initialStore={}) {
   return renderer.create(
     <Provider store={ store } >
       <IntlProvider locale="en">
-        <MapPanel />
+        <MapPanel items={ items } />
       </IntlProvider>
     </Provider>
   )
@@ -69,4 +74,50 @@ describe('component:MapPanel', () => {
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   });
+
+  it('displays a message when there are no results', () => {
+    const target = setupSnapshot([], null, {
+      page: 1,
+      size: 10,
+      totalPages: 0
+    } )
+    const tree = target.toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
+  it('displays a message when an error has occurred', () => {
+    const target = setupSnapshot( [], { error: 'oops!' },
+      {
+        page: 1,
+        size: 10,
+        totalPages: 0
+      } )
+    const tree = target.toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
+  it('displays a message when the data is stale', () => {
+    const target = setupSnapshot(fixture, { isDataStale: true })
+    const tree = target.toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
+  it('displays a message when only the narratives are stale', () => {
+    const target = setupSnapshot(fixture, { isNarrativeStale: true })
+    const tree = target.toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
+  it('only displays data message when both types are stale', () => {
+    const target = setupSnapshot(fixture,
+      { isDataStale: true, isNarrativeStale: true })
+    const tree = target.toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
+  it('displays a message when the data has issues', () => {
+    const target = setupSnapshot(fixture, { hasDataIssue: true })
+    const tree = target.toJSON();
+    expect(tree).toMatchSnapshot();
+  })
 })
