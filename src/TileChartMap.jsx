@@ -6,11 +6,17 @@ import { TileMap } from 'cfpb-chart-builder'
 export class TileChartMap extends React.Component {
   componentDidUpdate( prevProps ) {
     const props = this.props
+    console.log('CDU')
+    console.log(props)
+    console.log(prevProps)
     if ( !props.data[0].length ) {
       return
     }
 
-    if ( JSON.stringify( prevProps.data ) !== JSON.stringify( props.data ) ) {
+
+    // this forces the chart to draw if it doesnt exist on the page.
+    if ( document.getElementById('tile-chart-map').children.length === 0 ||
+      JSON.stringify( prevProps.data ) !== JSON.stringify( props.data ) ) {
       this._redrawMap()
     }
   }

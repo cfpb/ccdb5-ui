@@ -34,8 +34,7 @@ export class MapPanel extends React.Component {
     // Render/Phase Map
     this.renderMap = {
       ERROR: this._renderError.bind( this ),
-      NO_RESULTS: this._renderNoResults.bind( this ),
-      RESULTS: this._renderResults.bind( this )
+      NO_RESULTS: this._renderNoResults.bind( this )
     }
 
     bindAll( this, [
@@ -44,7 +43,7 @@ export class MapPanel extends React.Component {
   }
 
   render() {
-    const phase = this._determinePhase()
+    // const phase = this._determinePhase()
     return (
       <MemoryRouter>
         <section className="map-panel">
@@ -54,7 +53,8 @@ export class MapPanel extends React.Component {
             null
           }
           { this._renderStaleWarnings() }
-          { this.renderMap[phase]() }
+          <DateIntervals />
+          <TileChartMap />
           <Loading isLoading={this.props.isLoading || false} />
         </section>
       </MemoryRouter>
@@ -102,15 +102,6 @@ export class MapPanel extends React.Component {
         <Warning text={ WARN_NARRATIVES_STALE } /> :
         null
       }
-      </div>
-    )
-  }
-
-  _renderResults() {
-    return (
-      <div>
-        <DateIntervals />
-        <TileChartMap />
       </div>
     )
   }
