@@ -39,6 +39,38 @@ export const coalesce = ( o, field, alternateValue ) => {
   return field in o && o[field] ? o[field] : alternateValue;
 };
 
+/**
+ * Creates a hash from a string
+ *
+ * @param {string} someString the string to hash
+ * @returns {int} a hashing of the string
+ */
+export function hashCode( someString ) {
+  const s = String( someString )
+  let hash = 0
+  let i, chr
+  if ( s.length === 0 ) {
+    return hash
+  }
+  for ( i = 0; i < s.length; i++ ) {
+    chr = s.charCodeAt( i )
+    hash = ( hash << 5 ) - hash + chr
+
+    // Convert to 32bit integer
+    hash |= 0
+  }
+  return hash
+}
+
+/**
+ * Creates a hash from an object
+ *
+ * @param {string} o the object to hash
+ * @returns {string} a hashing of the object
+ */
+export function hashObject( o ) {
+  return hashCode( JSON.stringify( o ) )
+}
 export const normalize = s => s.toLowerCase()
 
 export const slugify = ( a, b ) => a + SLUG_SEPARATOR + b
