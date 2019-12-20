@@ -1,4 +1,4 @@
-import { clamp, coalesce, debounce, shortIsoFormat } from '../utils'
+import { clamp, coalesce, debounce, hashCode, shortIsoFormat } from '../utils'
 import React from 'react'
 
 describe('module::utils', () => {
@@ -66,6 +66,15 @@ describe('module::utils', () => {
 
       actual = clamp( 10, 15, 25 );
       expect( actual ).toEqual( 15 );
+    } );
+  })
+
+  describe('hashCode', ()=>{
+    it( 'hashes strings', () => {
+      let actual = hashCode( '' );
+      expect( actual ).toEqual( 0 );
+      actual = hashCode( 'foobar' );
+      expect( actual ).toEqual( -1268878963 );
     } );
   })
 })
