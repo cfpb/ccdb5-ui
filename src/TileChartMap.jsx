@@ -1,22 +1,17 @@
 import './TileChartMap.less'
 import { connect } from 'react-redux'
+import { hashObject } from './utils'
 import React from 'react'
 import { TileMap } from 'cfpb-chart-builder'
 
 export class TileChartMap extends React.Component {
   componentDidUpdate( prevProps ) {
     const props = this.props
-    console.log('CDU')
-    console.log(props)
-    console.log(prevProps)
     if ( !props.data[0].length ) {
       return
     }
 
-
-    // this forces the chart to draw if it doesnt exist on the page.
-    if ( document.getElementById('tile-chart-map').children.length === 0 ||
-      JSON.stringify( prevProps.data ) !== JSON.stringify( props.data ) ) {
+    if ( hashObject( prevProps.data ) !== hashObject( props.data ) ) {
       this._redrawMap()
     }
   }
