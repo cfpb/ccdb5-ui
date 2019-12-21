@@ -32,7 +32,7 @@ export class DateIntervals extends React.Component {
 }
 
 export const mapStateToProps = state => ( {
-  dateInterval: state.view.dateInterval
+  dateInterval: state.query.dateInterval
 } );
 
 export const mapDispatchToProps = dispatch => ( {

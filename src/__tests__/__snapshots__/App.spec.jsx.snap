@@ -1086,7 +1086,6 @@ exports[`initial state renders without crashing 1`] = `
             </h4>
           </div>
         </summary>
-        <div />
         <section
           className="date-intervals"
         >

@@ -40,18 +40,21 @@ describe( 'component: TileChartMap', () => {
   } )
 
   describe( 'componentDidUpdate', () => {
-    beforeAll( () => {
-      const div = document.createElement( 'div' )
-      div.setAttribute( 'id', 'tile-chart-map' )
-      window.domNode = div
-      document.body.appendChild( div )
+    let mapDiv
+
+    beforeEach( () => {
+      mapDiv = document.createElement( 'div' )
+      mapDiv.setAttribute( 'id', 'tile-chart-map' )
+      window.domNode = mapDiv
+      document.body.appendChild( mapDiv )
     } )
 
-    afterAll( () => {
+    afterEach( () => {
       const div = document.getElementById( 'tile-chart-map' )
       if ( div ) {
         document.body.removeChild( div )
       }
+      jest.clearAllMocks()
     } )
 
     it( 'does nothing when no data', () => {
@@ -61,12 +64,20 @@ describe( 'component: TileChartMap', () => {
       expect( TileMap ).toHaveBeenCalledTimes( 0 )
     } )
 
+    it( 'redraw when the data is the same but map element is missing', () => {
+      // append children to mock test
+      const target = shallow( <TileChartMap data={ [ [23, 4, 3] ] }/> )
+      target._redrawMap = jest.fn()
+      target.setProps( { data: [ [23, 4, 3] ] } )
+      expect( TileMap ).toHaveBeenCalledTimes( 1 )
+    } )
+
     it( 'skips redraw when the data is the same', () => {
+      mapDiv.appendChild(document.createElement('foobar'));
       const target = shallow( <TileChartMap data={ [ [23, 4, 3] ] }/> )
       target._redrawMap = jest.fn()
       target.setProps( { data: [ [23, 4, 3] ] } )
       expect( TileMap ).toHaveBeenCalledTimes( 0 )
-
     } )
 
     it( 'trigger a new update when data changes', () => {

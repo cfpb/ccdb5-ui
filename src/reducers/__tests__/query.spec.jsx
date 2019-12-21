@@ -16,8 +16,7 @@ describe('reducer:query', () => {
           searchField: 'all',
           page: 1,
           size: 25,
-          sort: 'created_date_desc',
-          totalPages: 0
+          sort: 'created_date_desc'
         })
       // doing this because I can't seem to mock the date since
       // defaultQuery is imported
@@ -50,8 +49,7 @@ describe('reducer:query', () => {
       expect(target(state, action)).toEqual({
         page: 10,
         queryString: '?page=10&size=100&totalPages=100',
-        size: 100,
-        totalPages: 100
+        size: 100
       })
     })
 
@@ -74,8 +72,7 @@ describe('reducer:query', () => {
       expect(target(state, action)).toEqual({
         page: 100,
         queryString: '?page=100&size=100&totalPages=100',
-        size: 100,
-        totalPages: 100
+        size: 100
       })
     })
   })
@@ -185,6 +182,20 @@ describe('reducer:query', () => {
         sort: 'foo',
         size: 100
       })
+  })
+
+  it('handles TAB_CHANGED actions', () => {
+    const action = {
+      type: actions.TAB_CHANGED,
+      tab: 'foo'
+    }
+    const state = {
+      tab: 'bar'
+    }
+    expect(target(state, action)).toEqual({
+      tab: 'foo',
+      queryString: '?tab=foo',
+    })
   })
 
   describe('URL_CHANGED actions', () => {
@@ -443,7 +454,7 @@ describe('reducer:query', () => {
   })
 
   describe('handles DATE_RANGE_CHANGED actions', () => {
-    let action;
+    let action, result
     beforeEach(() => {
       action = {
         type: actions.DATE_RANGE_CHANGED,
@@ -451,9 +462,10 @@ describe('reducer:query', () => {
         minDate: new Date(2001, 0, 30),
         maxDate: new Date(2013, 1, 3)
       }
+      result = null
     })
 
-    it("adds the dates", () => {
+    it('adds the dates', () => {
       expect(target({}, action)).toEqual({
         date_received_min: new Date(2001, 0, 30),
         date_received_max: new Date(2013, 1, 3),
@@ -461,11 +473,24 @@ describe('reducer:query', () => {
       })
     })
 
-    it("does not add empty dates", () => {
-      action.minDate = null
+    it('clears dateInterval when no match', () => {
+      result = target({dateInterval: '1y'}, action)
+      expect(result.dateInterval).toBeFalsy()
+    })
+
+    it( 'adds dateInterval', () => {
+      const min = new Date( moment().subtract( 3, 'months' ).calendar() )
+      action.maxDate = new Date()
+      action.minDate = min
+      result = target( {}, action )
+      expect( result.dateInterval ).toEqual( '3m' )
+    } )
+
+    it('does not add empty dates', () => {
+      action.maxDate = ''
+      action.minDate = ''
       expect(target({}, action)).toEqual({
-        date_received_max: new Date(2013, 1, 3),
-        queryString: '?date_received_max=2013-02-03'
+        queryString: ''
       })
     })
   })

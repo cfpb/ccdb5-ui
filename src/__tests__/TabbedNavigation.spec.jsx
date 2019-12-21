@@ -66,7 +66,7 @@ describe( 'component: TabbedNavigation', () => {
   describe( 'mapStateToProps', () => {
     it( 'maps state and props', () => {
       const state = {
-        view: {
+        query: {
           tab: 'foo'
         }
       }

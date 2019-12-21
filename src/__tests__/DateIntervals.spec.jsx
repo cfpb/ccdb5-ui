@@ -60,7 +60,7 @@ describe( 'component: DateIntervals', () => {
   describe( 'mapStateToProps', () => {
     it( 'maps state and props', () => {
       const state = {
-        view: {
+        query: {
           dateInterval: 'foo'
         }
       }
