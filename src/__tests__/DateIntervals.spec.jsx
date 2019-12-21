@@ -1,11 +1,12 @@
 import configureMockStore from 'redux-mock-store'
-import { mapStateToProps, DateIntervals } from '../DateIntervals'
+import {
+  mapDispatchToProps, mapStateToProps, DateIntervals
+} from '../DateIntervals'
 import { Provider } from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 import thunk from 'redux-thunk'
-
 
 function setupSnapshot() {
   const middlewares = [ thunk ]
@@ -29,6 +30,32 @@ describe( 'component: DateIntervals', () => {
       expect( tree ).toMatchSnapshot()
     } )
   } )
+
+  describe('buttons', () => {
+    let cb = null
+    let target = null
+
+    beforeEach( () => {
+      cb = jest.fn()
+
+      target = shallow( <DateIntervals toggleDateInterval={ cb }/> )
+    } )
+
+    it( 'toggleDateInterval is called the button is clicked', () => {
+      const prev = target.find( '.date-intervals button:first-child' )
+      prev.simulate( 'click' )
+      expect( cb ).toHaveBeenCalledWith('3m')
+    } )
+  })
+
+
+  describe('mapDispatchToProps', () => {
+    it('provides a way to call toggleDateInterval', () => {
+      const dispatch = jest.fn()
+      mapDispatchToProps(dispatch).toggleDateInterval()
+      expect(dispatch.mock.calls.length).toEqual(1)
+    })
+  })
 
   describe( 'mapStateToProps', () => {
     it( 'maps state and props', () => {

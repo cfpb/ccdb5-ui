@@ -5,7 +5,7 @@ exports[`component:Results renders list without crashing 1`] = `
   className="content_main"
 >
   <section
-    className="results-panel"
+    className="list-panel"
   >
     <summary
       className="action-bar"
