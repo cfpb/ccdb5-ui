@@ -1,5 +1,5 @@
 import * as types from '../constants'
-import { clamp, shortIsoFormat } from '../utils'
+import { calculateDateInterval, clamp, shortIsoFormat } from '../utils'
 import actions from '../actions'
 import moment from 'moment';
 
@@ -7,14 +7,16 @@ const queryString = require( 'query-string' );
 
 /* eslint-disable camelcase */
 export const defaultQuery = {
+  dateInterval: '3y',
   date_received_max: new Date(),
-  date_received_min: new Date( moment().subtract( 3, 'months' ).calendar() ),
+  date_received_min: new Date( moment().subtract( 3, 'years' ).calendar() ),
   from: 0,
   searchText: '',
   searchField: 'all',
   size: 25,
   sort: 'created_date_desc',
   page: 1,
+  tab: 'Map',
   totalPages: 0
 }
 
@@ -24,7 +26,11 @@ const fieldMap = {
   from: 'frm'
 }
 
-const urlParams = [ 'searchText', 'searchField' ]
+// exclude from the url
+const excludeParams = [ 'totalPages' ]
+
+
+const urlParams = [ 'dateInterval', 'searchText', 'searchField', 'tab' ]
 const urlParamsInt = [ 'from', 'page', 'size' ]
 
 // ----------------------------------------------------------------------------
@@ -125,7 +131,8 @@ export function changeDateInterval( state, action ) {
 
   const dateInterval = action.dateInterval;
   const newState = {
-    ...state
+    ...state,
+    dateInterval
   }
 
   const res = {
@@ -160,10 +167,18 @@ export function changeDateRange( state, action ) {
     action.filterName + '_max'
   ]
 
+  let { maxDate, minDate } = action
+
+  minDate = moment( minDate ).isValid() ?
+    new Date( moment( minDate ).startOf( 'day' ) ) : null
+  maxDate = moment( maxDate ).isValid() ?
+    new Date( moment( maxDate ).startOf( 'day' ) ) : null
+
+
   const newState = {
     ...state,
-    [fields[0]]: action.minDate,
-    [fields[1]]: action.maxDate
+    [fields[0]]: minDate,
+    [fields[1]]: maxDate
   }
 
   // Remove nulls
@@ -172,6 +187,13 @@ export function changeDateRange( state, action ) {
       delete newState[field]
     }
   } )
+
+  const dateInterval = calculateDateInterval( minDate, maxDate )
+  if ( dateInterval ) {
+    newState.dateInterval = dateInterval
+  } else {
+    delete newState.dateInterval
+  }
 
   return newState
 }
@@ -347,7 +369,7 @@ function removeMultipleFilters( state, action ) {
 /**
  * update state based on pageChanged action
  * @param {object} state current redux state
- * @param {object} action command excuted
+ * @param {object} action command executed
  * @returns {object} new state in redux
  */
 function changePage( state, action ) {
@@ -396,7 +418,7 @@ function nextPage( state ) {
 /**
  * update state based on changeSize action
  * @param {object} state current redux state
- * @param {object} action command excuted
+ * @param {object} action command executed
  * @returns {object} new state in redux
  */
 function changeSize( state, action ) {
@@ -411,13 +433,26 @@ function changeSize( state, action ) {
 /**
  * update state based on changeSort action
  * @param {object} state current redux state
- * @param {object} action command excuted
+ * @param {object} action command executed
  * @returns {object} new state in redux
  */
 function changeSort( state, action ) {
   return {
     ...state,
     sort: action.sort
+  }
+}
+
+/**
+ * update state based on tabChanged action
+ * @param {object} state current redux state
+ * @param {object} action command executed
+ * @returns {object} new state in redux
+ */
+function changeTab( state, action ) {
+  return {
+    ...state,
+    tab: action.tab
   }
 }
 
@@ -460,7 +495,7 @@ export function stateToQS( state ) {
       return;
     }
 
-    var value = state[field]
+    let value = state[field]
 
     // Process dates
     if ( types.dateFilters.indexOf( field ) !== -1 ) {
@@ -479,6 +514,12 @@ export function stateToQS( state ) {
     } else {
       params[field] = value
     }
+  } )
+
+  // exclude certain params from the URL since it's a calculated value
+  // coming from db and cant be restored
+  excludeParams.forEach( o => {
+    delete state[o]
   } )
 
   return '?' + queryString.stringify( params )
@@ -508,6 +549,7 @@ export function _buildHandlerMap() {
   handlers[actions.PREV_PAGE_SHOWN] = prevPage
   handlers[actions.SIZE_CHANGED] = changeSize
   handlers[actions.SORT_CHANGED] = changeSort
+  handlers[actions.TAB_CHANGED] = changeTab
   handlers[actions.URL_CHANGED] = processParams
   handlers[actions.SEARCH_CHANGED] = changeSearch
 

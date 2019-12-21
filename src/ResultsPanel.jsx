@@ -3,7 +3,7 @@ import ListPanel from './ListPanel';
 import MapPanel from './MapPanel';
 import React from 'react'
 
-export class Results extends React.Component {
+export class ResultsPanel extends React.Component {
   render() {
     let currentPanel
 
@@ -26,7 +26,7 @@ export class Results extends React.Component {
 }
 
 const mapStateToProps = state => ( {
-  tab: state.view.tab
+  tab: state.query.tab
 } )
 
-export default connect( mapStateToProps )( Results )
+export default connect( mapStateToProps )( ResultsPanel )

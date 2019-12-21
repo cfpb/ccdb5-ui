@@ -49,12 +49,10 @@ function setupSnapshot(items=[], initialStore={}, queryStore = null) {
   const store = mockStore({
     query: {
       from: 0,
-      size: 10
-    },
-    results,
-    view: {
+      size: 10,
       tab: 'List'
-    }
+    },
+    results
   })
 
   return renderer.create(

@@ -4,7 +4,6 @@ import { bindAll } from './utils'
 import ComplaintCard from './ComplaintCard'
 import { connect } from 'react-redux'
 import Loading from './Dialogs/Loading'
-import { MemoryRouter } from 'react-router'
 import Pagination from './Pagination'
 import React from 'react'
 import Warning from './Warning'
@@ -47,19 +46,17 @@ export class ListPanel extends React.Component {
     const phase = this._determinePhase()
 
     return (
-      <MemoryRouter>
-        <section className="list-panel">
-          <ActionBar />
-          { this.props.hasDataIssue ?
-            <Warning text={ WARN_DATA_ISSUE } /> :
-            null
-          }
-          { this._renderStaleWarnings() }
-          { this.renderMap[phase]() }
-          <Pagination />
-          <Loading isLoading={this.props.isLoading || false} />
-        </section>
-      </MemoryRouter>
+      <section className="list-panel">
+        <ActionBar />
+        { this.props.hasDataIssue ?
+          <Warning text={ WARN_DATA_ISSUE } /> :
+          null
+        }
+        { this._renderStaleWarnings() }
+        { this.renderMap[phase]() }
+        <Pagination />
+        <Loading isLoading={this.props.isLoading || false} />
+      </section>
     )
   }
 

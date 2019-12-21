@@ -18,7 +18,7 @@ import React from 'react'
 // eslint-disable-next-line
 import ReactDOM from 'react-dom'
 import reducers from './reducers'
-import Results from './Results'
+import ResultsPanel from './ResultsPanel'
 import RootModal from './Dialogs/RootModal'
 import SearchPanel from './SearchPanel'
 import TabbedNavigation from './TabbedNavigation'
@@ -53,7 +53,7 @@ export class SearchComponents extends React.Component {
             <aside className="content_sidebar">
               <FilterPanel />
             </aside>
-            <Results />
+            <ResultsPanel />
           </div>
           <RootModal />
         </main>

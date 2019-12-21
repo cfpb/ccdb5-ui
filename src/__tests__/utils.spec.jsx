@@ -1,5 +1,9 @@
-import { clamp, coalesce, debounce, hashCode, shortIsoFormat } from '../utils'
+import {
+  calculateDateInterval, clamp, coalesce, debounce, hashCode, shortIsoFormat
+} from '../utils'
+import { DATE_RANGE_MIN } from '../constants'
 import React from 'react'
+import moment from 'moment'
 
 describe('module::utils', () => {
   describe('shortIsoFormat', () => {
@@ -77,5 +81,44 @@ describe('module::utils', () => {
       expect( actual ).toEqual( -1268878963 );
     } );
   })
+
+  describe('calculateDateInterval', ()=>{
+    let start, end
+    it( 'returns empty when end date is not today', () => {
+      start = new Date(2011, 1, 3)
+      end = new Date(2013, 1, 3)
+      let actual = calculateDateInterval( start, end )
+      expect( actual ).toEqual( '' )
+    } )
+
+    it( 'returns empty when start date doesnt match anything ', () => {
+      end = new Date(1970, 1, 4)
+      end = new Date()
+      let actual = calculateDateInterval( start, end )
+      expect( actual ).toEqual( '' )
+    } )
+
+    it( 'returns All when dates is full range', () => {
+      start = DATE_RANGE_MIN
+      end = new Date()
+      let actual = calculateDateInterval( start, end )
+      expect( actual ).toEqual( 'All' );
+    } );
+
+    it( 'returns 3y', () => {
+      start =  new Date( moment().subtract( 3, 'years' ).calendar() )
+      end = new Date()
+      let actual = calculateDateInterval( start, end )
+      expect( actual ).toEqual( '3y' )
+    } );
+
+    it( 'returns 6m', () => {
+      start =  new Date( moment().subtract( 6, 'months' ).calendar() )
+      end = new Date()
+      let actual = calculateDateInterval( start, end )
+      expect( actual ).toEqual( '6m' )
+    } )
+  })
+
 })
 

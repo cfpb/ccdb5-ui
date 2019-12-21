@@ -37,7 +37,7 @@ export class TabbedNavigation extends React.Component {
 }
 
 export const mapStateToProps = state => ( {
-  tab: state.view.tab
+  tab: state.query.tab
 } )
 
 export const mapDispatchToProps = dispatch => ( {

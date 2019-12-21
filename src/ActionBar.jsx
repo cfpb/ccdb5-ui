@@ -73,7 +73,7 @@ export const mapStateToProps = state => ( {
   sort: state.query.sort,
   hits: state.results.total,
   total: state.results.doc_count,
-  view: state.view.tab
+  view: state.query.tab
 } )
 
 export const mapDispatchToProps = dispatch => ( {
