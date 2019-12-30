@@ -1,6 +1,6 @@
 import './DataExport.less'
 import {
-  exportAllResults, exportSomeResults, visitSocrata
+  exportAllResults, exportSomeResults
 } from '../actions/dataExport'
 import { bindAll } from '../utils'
 import { connect } from 'react-redux'
@@ -272,7 +272,6 @@ export const mapStateToProps = state => {
 }
 
 export const mapDispatchToProps = dispatch => ( {
-  onOtherFormats: () => dispatch( visitSocrata() ),
   exportAll: format => dispatch( exportAllResults( format ) ),
   exportSome: ( format, size ) => dispatch( exportSomeResults( format, size ) )
 } )
