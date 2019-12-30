@@ -7,7 +7,7 @@ import { MODAL_HID, MODAL_SHOWN, MODAL_TYPE_DATA_EXPORT } from '../constants'
 import Analytics from './analytics'
 import { stateToQS } from '../reducers/query'
 
-const DATA_HOST = 'https://data.consumerfinance.gov'
+const DATA_HOST = 'https://files.consumerfinance.gov'
 
 // ----------------------------------------------------------------------------
 // Action Creators
@@ -39,7 +39,7 @@ export function exportAllResults( format ) {
     Analytics.getDataLayerOptions( 'Export All Data', format )
   )
   return () => {
-    const uri = DATA_HOST + '/api/views/s6ew-h6mp/rows.' + format
+    const uri = DATA_HOST + '/ccdb/complaints.' + format + '.zip'
     const link = buildLink( uri, 'download.' + format )
     simulateClick( link )
   }
@@ -68,24 +68,6 @@ export function exportSomeResults( format, size ) {
 
     const uri = '@@API' + stateToQS( params )
     const link = buildLink( uri, 'download.' + format )
-    simulateClick( link )
-  }
-}
-
-/**
-* Navigate to Socrata in a different window
-*
-* @returns {function} a set of steps to execute
-*/
-export function visitSocrata() {
-  Analytics.sendEvent(
-    Analytics.getDataLayerOptions( 'Export', 'User redirects to Socrata' )
-  )
-  return dispatch => {
-    dispatch( { type: MODAL_HID } )
-
-    const uri = DATA_HOST + '/dataset/Consumer-Complaints/s6ew-h6mp'
-    const link = buildLink( uri )
     simulateClick( link )
   }
 }

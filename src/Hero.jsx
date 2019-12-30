@@ -53,11 +53,6 @@ export class Hero extends React.Component {
                 Technical documentation
               </a>
             </li>
-            <li className="m-list_item">
-              <a href={socrataUrl} target="_blank">
-                View complaint data in Socrata
-              </a>
-            </li>
           </ul>
         </header>
     );
