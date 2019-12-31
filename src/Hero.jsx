@@ -18,9 +18,6 @@ export function showMoreAboutDialog() {
 
 export class Hero extends React.Component {
   render() {
-    const socrataUrl = 'https://data.consumerfinance.gov/dataset/' +
-      'Consumer-Complaints/s6ew-h6mp'
-
     return (
         <header className="content_hero">
           <h1 className="content-header">Consumer Complaint Database</h1>
