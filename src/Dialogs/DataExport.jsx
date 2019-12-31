@@ -1,6 +1,6 @@
 import './DataExport.less'
 import {
-  exportAllResults, exportSomeResults, visitSocrata
+  exportAllResults, exportSomeResults
 } from '../actions/dataExport'
 import { bindAll } from '../utils'
 import { connect } from 'react-redux'
@@ -204,15 +204,6 @@ export class DataExport extends React.Component {
                 <label className="a-label" htmlFor="format_json">JSON</label>
               </div>
             </div>
-            <div className="other-formats">
-              Or you can&nbsp;
-              <button className="a-btn a-btn__link"
-                      data-gtm_ignore="true"
-                      onClick={this.props.onOtherFormats}>
-               download the data in a different format
-              </button>
-              , if needed.
-            </div>
           </div>
   }
 
@@ -281,7 +272,6 @@ export const mapStateToProps = state => {
 }
 
 export const mapDispatchToProps = dispatch => ( {
-  onOtherFormats: () => dispatch( visitSocrata() ),
   exportAll: format => dispatch( exportAllResults( format ) ),
   exportSome: ( format, size ) => dispatch( exportSomeResults( format, size ) )
 } )

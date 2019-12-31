@@ -42,7 +42,7 @@ describe('action:dataExport', () => {
         store.dispatch(sut.exportAllResults('json'))
         expect(store.getActions()).toEqual(expectedActions)
         expect(mockDomUtils.buildLink).toHaveBeenCalledWith(
-          expect.stringMatching(/.*s6ew-h6mp.*/),
+          expect.stringMatching(/.*files.consumerfinance.gov.*/),
           'download.json'
         )
         expect(mockDomUtils.simulateClick).toHaveBeenCalled()
@@ -63,19 +63,5 @@ describe('action:dataExport', () => {
       })
     })
 
-    describe('visitSocrata', () => {
-      it('executes a chain of actions', () => {
-        const expectedActions = [
-          { type: types.MODAL_HID }
-        ]
-
-        store.dispatch(sut.visitSocrata())
-        expect(store.getActions()).toEqual(expectedActions)
-        expect(mockDomUtils.buildLink).toHaveBeenCalledWith(
-          expect.stringMatching(/.*s6ew-h6mp.*/)
-        )
-        expect(mockDomUtils.simulateClick).toHaveBeenCalled()
-      })
-    })
   })
 })
