@@ -3,7 +3,7 @@
 // https://stackoverflow.com/questions/3916191
 
 import { buildLink, simulateClick } from './domUtils'
-import { MODAL_HID, MODAL_SHOWN, MODAL_TYPE_DATA_EXPORT } from '../constants'
+import { MODAL_SHOWN, MODAL_TYPE_DATA_EXPORT } from '../constants'
 import Analytics from './analytics'
 import { stateToQS } from '../reducers/query'
 
