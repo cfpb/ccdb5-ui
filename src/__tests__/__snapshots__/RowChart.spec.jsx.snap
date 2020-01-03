@@ -6,7 +6,7 @@ exports[`component: RowChart initial state renders without crashing 1`] = `
      by complaint volume (5 highest counts)
   </h3>
   <div
-    id="rowchart-undefined"
+    id="row-chart-undefined"
   />
 </div>
 `;
