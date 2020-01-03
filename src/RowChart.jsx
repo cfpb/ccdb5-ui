@@ -58,7 +58,7 @@ export class RowChart extends React.Component {
     const data = this.props.data.slice( 0, 5 )
     const total = this.props.total
     const ratio = total / max( data, o => o.value )
-    const chartID = '#rowchart-' + this.aggtype
+    const chartID = '#row-chart-' + this.aggtype
     d3.select( chartID + ' .row-chart' ).remove()
     const rowContainer = d3.select( chartID )
     const width = rowContainer.node().getBoundingClientRect().width
@@ -95,7 +95,7 @@ export class RowChart extends React.Component {
     return (
       <div>
         <h3>{ this.aggtype } by complaint volume (5 highest counts)</h3>
-        <div id={ 'rowchart-' + this.aggtype }>
+        <div id={ 'row-chart-' + this.aggtype }>
         </div>
       </div>
     )
