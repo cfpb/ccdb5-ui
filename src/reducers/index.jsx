@@ -6,7 +6,6 @@ import modal from './modal'
 import query from './query'
 import results from './results'
 import trends from './trends'
-import view from './view'
 
 export default combineReducers( {
   aggs,
@@ -15,6 +14,5 @@ export default combineReducers( {
   modal,
   query,
   results,
-  trends,
-  view
+  trends
 } )

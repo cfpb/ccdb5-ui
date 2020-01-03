@@ -3,8 +3,8 @@ import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import { IntlProvider } from 'react-intl';
-import Results from '../Results';
 import renderer from 'react-test-renderer';
+import ResultsPanel from '../ResultsPanel';
 
 const fixture = [
   {
@@ -43,16 +43,15 @@ function setupSnapshot(items=[], initialStore={}, tab = 'List') {
   const store = mockStore({
     map: [],
     results,
-    query: {},
-    view: {
+    query: {
       tab: tab
-    }
+    },
   });
 
   return renderer.create(
     <Provider store={ store } >
       <IntlProvider locale="en">
-        <Results />
+        <ResultsPanel />
       </IntlProvider>
     </Provider>
   )

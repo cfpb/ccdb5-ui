@@ -1,5 +1,39 @@
+import { DATE_RANGE_MIN, SLUG_SEPARATOR } from './constants'
 import moment from 'moment'
-import { SLUG_SEPARATOR } from './constants'
+
+// eslint-disable-next-line complexity
+export const calculateDateInterval = ( minDate, maxDate ) => {
+  // only check intervals if the end date is today
+  // round off the date so the partial times don't mess up calculations
+  const today = moment( new Date() ).startOf( 'day' )
+  const end = moment( maxDate ).startOf( 'day' )
+  const start = moment( minDate ).startOf( 'day' )
+
+  // make sure end date is the same as today's date
+  if ( end.diff( today, 'days', true ) !== 0 ) {
+    return ''
+  }
+
+  // is the start date the same as the oldest document?
+  if ( moment( minDate ).isSame( DATE_RANGE_MIN, 'day' ) ) {
+    return 'All'
+  }
+
+  // verify if it's 3 or 1 years
+  const yrDiff = end.diff( start, 'years', true )
+
+  if ( yrDiff === 3 || yrDiff === 1 ) {
+    return yrDiff + 'y'
+  }
+
+  // verify if it's 6 or 3 months
+  const moDiff = end.diff( start, 'months', true )
+  if ( moDiff === 6 || moDiff === 3 ) {
+    return moDiff + 'm'
+  }
+
+  return ''
+}
 
 /**
  * Function to set the limit of the range of a set of numbers
