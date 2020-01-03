@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component: DateIntervals initial state renders without crashing 1`] = `
+<section
+  className="date-intervals"
+>
+  <button
+    className="date-selector "
+    onClick={[Function]}
+  >
+    3m
+  </button>
+  <button
+    className="date-selector "
+    onClick={[Function]}
+  >
+    6m
+  </button>
+  <button
+    className="date-selector "
+    onClick={[Function]}
+  >
+    1y
+  </button>
+  <button
+    className="date-selector "
+    onClick={[Function]}
+  >
+    3y
+  </button>
+  <button
+    className="date-selector "
+    onClick={[Function]}
+  >
+    All
+  </button>
+</section>
+`;

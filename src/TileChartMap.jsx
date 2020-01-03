@@ -11,7 +11,9 @@ export class TileChartMap extends React.Component {
       return
     }
 
-    if ( hashObject( prevProps.data ) !== hashObject( props.data ) ) {
+    // force redraw when switching tabs
+    if ( hashObject( prevProps.data ) !== hashObject( props.data ) ||
+      !document.getElementById( 'tile-chart-map' ).children.length ) {
       this._redrawMap()
     }
   }
