@@ -26,6 +26,11 @@ export class TabbedNavigation extends React.Component {
             Map
           </button>
 
+          <button className="trends"
+                  onClick={() => this._setTab( 'Trends' )}>
+            Trends
+          </button>
+
           <button className="list"
                   onClick={() => this._setTab( 'List' )}>
             List
