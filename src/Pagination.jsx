@@ -45,10 +45,6 @@ export class Pagination extends React.Component {
   }
 
   render() {
-    if ( this.props.total === 0 ) {
-      return null;
-    }
-
     return (
       <IntlProvider locale="en">
       <nav className="m-pagination"

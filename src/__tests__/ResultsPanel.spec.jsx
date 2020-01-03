@@ -3,8 +3,8 @@ import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import { IntlProvider } from 'react-intl';
-import ResultsPanel from '../ResultsPanel';
 import renderer from 'react-test-renderer';
+import ResultsPanel from '../ResultsPanel';
 
 const fixture = [
   {
@@ -24,17 +24,11 @@ const fixture = [
     sub_product: 'Qaz',
     submitted_via: 'email',
     timely: 'yes',
-    zip_code: '200XX' 
+    zip_code: '200XX'
   }
 ]
 
-function setupSnapshot(items=[], initialStore={}, queryStore = null) {
-  const query = queryStore ? queryStore : {
-    page: 1,
-    size: 10,
-    totalPages: 100
-  }
-
+function setupSnapshot(items=[], initialStore={}, tab = 'List') {
   const results = Object.assign({
     doc_count: 100,
     error: '',
@@ -47,69 +41,33 @@ function setupSnapshot(items=[], initialStore={}, queryStore = null) {
   const middlewares = [thunk]
   const mockStore = configureMockStore(middlewares)
   const store = mockStore({
-    query,
-    results
-  })
+    map: [],
+    results,
+    query: {
+      tab: tab
+    },
+  });
 
   return renderer.create(
     <Provider store={ store } >
       <IntlProvider locale="en">
-        <ResultsPanel items={ items } />
+        <ResultsPanel />
       </IntlProvider>
     </Provider>
   )
 }
 
-describe('component:ResultsPanel', () => {
-  it('renders without crashing', () => {
-    const target = setupSnapshot(fixture)
+describe('component:Results', () => {
+  it('renders map without crashing', () => {
+    const target = setupSnapshot( fixture, null, 'Map' );
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
-  it('displays a message when there are no results', () => {
-    const target = setupSnapshot([], null, {
-      page: 1,
-      size: 10,
-      totalPages: 0
-    } )
+  it('renders list without crashing', () => {
+    const target = setupSnapshot( fixture, null, 'List' );
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
-  })
+  });
 
-  it('displays a message when an error has occurred', () => {
-    const target = setupSnapshot( [], { error: 'oops!' },
-      {
-        page: 1,
-        size: 10,
-        totalPages: 0
-      } )
-    const tree = target.toJSON();
-    expect(tree).toMatchSnapshot();
-  })
-
-  it('displays a message when the data is stale', () => {
-    const target = setupSnapshot(fixture, { isDataStale: true })
-    const tree = target.toJSON();
-    expect(tree).toMatchSnapshot();
-  })
-
-  it('displays a message when only the narratives are stale', () => {
-    const target = setupSnapshot(fixture, { isNarrativeStale: true })
-    const tree = target.toJSON();
-    expect(tree).toMatchSnapshot();
-  })
-
-  it('only displays data message when both types are stale', () => {
-    const target = setupSnapshot(fixture, 
-      { isDataStale: true, isNarrativeStale: true })
-    const tree = target.toJSON();
-    expect(tree).toMatchSnapshot();
-  })
-
-  it('displays a message when the data has issues', () => {
-    const target = setupSnapshot(fixture, { hasDataIssue: true })
-    const tree = target.toJSON();
-    expect(tree).toMatchSnapshot();
-  })
 })

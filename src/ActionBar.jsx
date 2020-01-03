@@ -37,6 +37,7 @@ export class ActionBar extends React.Component {
           }
           </div>
           <div className="layout-row">
+            {this.props.view === 'List' &&
             <div className="cf-select flex-fixed">
               <select value={this.props.size} id="choose-size"
                       onChange={this.props.onSize}>
@@ -44,7 +45,8 @@ export class ActionBar extends React.Component {
                   x => <option key={x} value={x}>Show {x} results</option>
                   )}
               </select>
-            </div>
+            </div>}
+            {this.props.view === 'List' &&
             <div className="cf-select flex-fixed">
               <select value={this.props.sort} id="choose-sort"
                       onChange={this.props.onSort}>
@@ -52,8 +54,7 @@ export class ActionBar extends React.Component {
                   <option key={x} value={x}>{ sorts[x] }</option>
                   )}
               </select>
-            </div>
-
+            </div>}
             <h4 className="flex-all">
               <button className="a-btn a-btn__link"
                       data-gtm_ignore="true"
@@ -71,7 +72,8 @@ export const mapStateToProps = state => ( {
   size: state.query.size,
   sort: state.query.sort,
   hits: state.results.total,
-  total: state.results.doc_count
+  total: state.results.doc_count,
+  view: state.query.tab
 } )
 
 export const mapDispatchToProps = dispatch => ( {
