@@ -102,7 +102,7 @@ export class RowChart extends React.Component {
   }
 }
 
-const mapStateToProps = ( state, ownProps ) => {
+export const mapStateToProps = ( state, ownProps ) => {
   // use state.query to rip filter out the bars
   const aggtype = ownProps.aggtype
   const filters = state.query[aggtype]
