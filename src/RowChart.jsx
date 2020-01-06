@@ -65,7 +65,7 @@ export class RowChart extends React.Component {
 
   // --------------------------------------------------------------------------
   // Event Handlers
-  _redrawChart(data) {
+  _redrawChart( data ) {
     const rowData = data.slice( 0, 5 )
     const total = this.props.total
     const ratio = total / max( rowData, o => o.value )
@@ -95,7 +95,6 @@ export class RowChart extends React.Component {
       .wrapLabels( false )
       .height( height )
     rowContainer.datum( rowData ).call( chart )
-    /* istanbul ignore next */
     this._wrapText( d3.select( chartID ).selectAll( '.tick text' ), marginLeft )
   }
 
