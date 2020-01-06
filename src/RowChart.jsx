@@ -55,14 +55,25 @@ export class RowChart extends React.Component {
   }
 
   componentDidUpdate() {
-    const data = this.props.data.slice( 0, 5 )
+    const data = this.props.data
+    if ( !data || !data.length ) {
+      return
+    }
+
+    this._redrawChart( data )
+  }
+
+  // --------------------------------------------------------------------------
+  // Event Handlers
+  _redrawChart(data) {
+    const rowData = data.slice( 0, 5 )
     const total = this.props.total
-    const ratio = total / max( data, o => o.value )
+    const ratio = total / max( rowData, o => o.value )
     const chartID = '#row-chart-' + this.aggtype
     d3.select( chartID + ' .row-chart' ).remove()
     const rowContainer = d3.select( chartID )
     const width = rowContainer.node().getBoundingClientRect().width
-    const height = this._getHeight( data.length )
+    const height = this._getHeight( rowData.length )
     const chart = row()
     const marginLeft = width / 3
     chart.margin( {
@@ -83,12 +94,9 @@ export class RowChart extends React.Component {
       .width( width )
       .wrapLabels( false )
       .height( height )
-    rowContainer.datum( data ).call( chart )
-
-    this._wrapText(
-      d3.select( chartID ).selectAll( '.tick text' ),
-      marginLeft
-    )
+    rowContainer.datum( rowData ).call( chart )
+    /* istanbul ignore next */
+    this._wrapText( d3.select( chartID ).selectAll( '.tick text' ), marginLeft )
   }
 
   render() {
