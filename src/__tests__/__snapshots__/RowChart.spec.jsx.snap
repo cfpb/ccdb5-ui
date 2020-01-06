@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`initial state renders without crashing 1`] = `
+exports[`component: RowChart initial state renders without crashing 1`] = `
 <div>
   <h3>
     foo
      by complaint volume (5 highest counts)
   </h3>
   <div
-    id="rowchart-foo"
+    id="row-chart-foo"
   />
 </div>
 `;
