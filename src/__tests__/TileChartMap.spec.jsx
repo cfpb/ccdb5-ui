@@ -40,7 +40,7 @@ describe( 'component: TileChartMap', () => {
   } )
 
   describe( 'componentDidUpdate', () => {
-    let mapDiv
+    let mapDiv, redrawSpy, target
 
     beforeEach( () => {
       mapDiv = document.createElement( 'div' )
@@ -58,32 +58,35 @@ describe( 'component: TileChartMap', () => {
     } )
 
     it( 'does nothing when no data', () => {
-      const target = shallow( <TileChartMap data={ [] }/> )
-      target._redrawMap = jest.fn()
+      target = shallow( <TileChartMap data={ [] }/> )
       target.setProps( { data: [ [] ] } )
       expect( TileMap ).toHaveBeenCalledTimes( 0 )
     } )
 
     it( 'redraw when the data is the same but map element is missing', () => {
       // append children to mock test
-      const target = shallow( <TileChartMap data={ [ [23, 4, 3] ] }/> )
-      target._redrawMap = jest.fn()
+      target = shallow( <TileChartMap data={ [ [23, 4, 3] ] }/> )
+      redrawSpy = jest.spyOn(target.instance(), '_redrawMap')
       target.setProps( { data: [ [23, 4, 3] ] } )
       expect( TileMap ).toHaveBeenCalledTimes( 1 )
+      expect( redrawSpy ).toHaveBeenCalledTimes( 1 )
     } )
 
     it( 'skips redraw when the data is the same', () => {
       mapDiv.appendChild(document.createElement('foobar'));
-      const target = shallow( <TileChartMap data={ [ [23, 4, 3] ] }/> )
-      target._redrawMap = jest.fn()
+      target = shallow( <TileChartMap data={ [ [23, 4, 3] ] }/> )
+      redrawSpy = jest.spyOn(target.instance(), '_redrawMap')
       target.setProps( { data: [ [23, 4, 3] ] } )
+      expect( redrawSpy ).toHaveBeenCalledTimes( 0 )
       expect( TileMap ).toHaveBeenCalledTimes( 0 )
+
     } )
 
     it( 'trigger a new update when data changes', () => {
-      const target = shallow( <TileChartMap data={ [ [23, 4, 3] ] }/> )
-      target._redrawMap = jest.fn()
+      target = shallow( <TileChartMap data={ [ [23, 4, 3] ] }/> )
+      redrawSpy = jest.spyOn(target.instance(), '_redrawMap')
       target.setProps( { data: [ [ 2, 5 ] ] } )
+      expect( redrawSpy ).toHaveBeenCalledTimes( 1 )
       expect( TileMap ).toHaveBeenCalledTimes( 1 )
     } )
   } )
