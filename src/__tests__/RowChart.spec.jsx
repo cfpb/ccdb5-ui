@@ -1,9 +1,9 @@
 import configureMockStore from 'redux-mock-store'
 import { mapStateToProps, RowChart } from '../RowChart'
+import { mount, shallow } from 'enzyme'
 import { Provider } from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { shallow } from 'enzyme'
 import thunk from 'redux-thunk'
 
 // this is how you override and mock an imported constructor
@@ -125,5 +125,15 @@ describe( 'component: RowChart', () => {
       } )
     } )
   } )
+
+  describe('helper functions', ()=>{
+    it('gets height based on number of rows', ()=>{
+      const target = mount(<RowChart />)
+      let res = target.instance()._getHeight(1)
+      expect(res).toEqual(100)
+      res = target.instance()._getHeight(5)
+      expect(res).toEqual(300)
+    })
+  })
 
 } )
