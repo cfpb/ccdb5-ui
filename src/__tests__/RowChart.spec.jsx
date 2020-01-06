@@ -93,22 +93,6 @@ describe( 'component: RowChart', () => {
       expect(  target._redrawChart ).toHaveBeenCalledTimes( 0 )
     } )
 
-    // it( 'redraw when the data is the same but map element is missing', () => {
-    //   // append children to mock test
-    //   const target = shallow( <RowChart data={ [ [23, 4, 3] ] } aggtype={'foo'} /> )
-    //   target._redrawMap = jest.fn()
-    //   target.setProps( { data: [ [23, 4, 3] ] } )
-    //   expect( RowChart ).toHaveBeenCalledTimes( 1 )
-    // } )
-    //
-    // it( 'skips redraw when the data is the same', () => {
-    //   mapDiv.appendChild(document.createElement('foobar'));
-    //   const target = shallow( <RowChart data={ [ [23, 4, 3] ] } aggtype={'foo'}/> )
-    //   target._redrawMap = jest.fn()
-    //   target.setProps( { data: [ [23, 4, 3] ] } )
-    //   expect( RowChart ).toHaveBeenCalledTimes( 0 )
-    // } )
-
     it( 'trigger a new update when data changes', () => {
       const target = shallow( <RowChart data={ [ 23, 4, 3 ] } aggtype={'foo'} total={1000}/> )
       target._redrawChart = jest.fn()
