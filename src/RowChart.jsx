@@ -16,8 +16,8 @@ export class RowChart extends React.Component {
   }
 
   _wrapText( text, width ) {
-    // ignore test coverage since h\this is code borrowed from d3 mbostock
-    // test wrapping functions
+    // ignore test coverage since this is code borrowed from d3 mbostock
+    // text wrapping functions
     // eslint-disable-next-line complexity
     /* istanbul ignore next */
     text.each( function() {
