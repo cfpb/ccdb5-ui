@@ -59,6 +59,7 @@ describe( 'component: TileChartMap', () => {
 
     it( 'does nothing when no data', () => {
       target = shallow( <TileChartMap data={ [] }/> )
+      redrawSpy = jest.spyOn(target.instance(), '_redrawMap')
       target.setProps( { data: [ [] ] } )
       expect( TileMap ).toHaveBeenCalledTimes( 0 )
     } )
