@@ -1,7 +1,6 @@
 import target, { processAggregations, processStateAggregations } from '../map'
-import * as types from '../../constants'
 import * as sut from '../../actions/complaints'
-import aggregations from '../__fixtures__/aggregations'
+import stateAggs from '../__fixtures__/stateAggs'
 
 describe( 'reducer:map', () => {
   let action
@@ -9,6 +8,7 @@ describe( 'reducer:map', () => {
   describe( 'reducer', () => {
     it( 'has a default state', () => {
       expect( target( undefined, {} ) ).toEqual( {
+        isLoading: false,
         issue: [],
         product: [],
         state: []
@@ -16,9 +16,9 @@ describe( 'reducer:map', () => {
     } )
   } )
 
-  describe( 'handles API_CALLED actions', () => {
+  describe( 'handles STATES_API_CALLED actions', () => {
     action = {
-      type: types.API_CALLED,
+      type: sut.STATES_API_CALLED,
       url: 'http://www.example.org'
     }
     expect( target( {}, action ) ).toEqual( {
@@ -27,12 +27,12 @@ describe( 'reducer:map', () => {
     } )
   } )
 
-  describe( 'COMPLAINTS_RECEIVED actions', () => {
+  describe( 'STATES_RECEIVED actions', () => {
     beforeEach( () => {
       action = {
-        type: sut.COMPLAINTS_RECEIVED,
+        type: sut.STATES_RECEIVED,
         data: {
-          aggregations: aggregations
+          aggregations: stateAggs
         }
       }
     } )
@@ -41,257 +41,258 @@ describe( 'reducer:map', () => {
     it( 'maps data to object state', () => {
       const result = target( null, action )
       expect( result ).toEqual( {
+        isLoading: false,
         "state": [
           {
             "name": "CA",
             "value": 62519,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "FL",
             "value": 47358,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo"
           }, {
             "name": "TX",
             "value": 44469,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo rod"
           }, {
             "name": "GA",
             "value": 28395,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "NY",
             "value": 26846,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "IL",
             "value": 18172,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prd"
           }, {
             "name": "PA",
             "value": 16054,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "NC",
             "value": 15217,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "NJ",
             "value": 15130,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "OH",
             "value": 14365,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "VA",
             "value": 12901,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "MD",
             "value": 12231,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "MI",
             "value": 10472,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "AZ",
             "value": 10372,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "TN",
             "value": 9011,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "WA",
             "value": 8542,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "MA",
             "value": 8254,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "MO",
             "value": 7832,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "SC",
             "value": 7496,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "CO",
             "value": 7461,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "NV",
             "value": 7095,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "LA",
             "value": 6369,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "AL",
             "value": 6178,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "IN",
             "value": 5659,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "MN",
             "value": 4957,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "CT",
             "value": 4685,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "WI",
             "value": 4443,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "OR",
             "value": 4261,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "UT",
             "value": 3693,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "KY",
             "value": 3392,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "MS",
             "value": 3237,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "OK",
             "value": 2989,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "AR",
             "value": 2691,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "DC",
             "value": 2493,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "KS",
             "value": 2307,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "NM",
             "value": 2176,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "DE",
             "value": 2160,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "IA",
             "value": 1751,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "ID",
             "value": 1436,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "NH",
             "value": 1408,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "NE",
             "value": 1343,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "RI",
             "value": 1166,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "ME",
             "value": 1155,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "WV",
             "value": 1075,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "MT",
             "value": 788,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "ND",
             "value": 637,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "SD",
             "value": 535,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "AK",
             "value": 524,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "WY",
             "value": 450,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "VT",
             "value": 446,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "HI",
             "value": 0,
@@ -386,10 +387,10 @@ describe( 'reducer:map', () => {
     } )
   } )
 
-  describe( 'COMPLAINTS_FAILED actions', () => {
+  describe( 'STATES_FAILED actions', () => {
     it( 'handles failed error messages', () => {
       action = {
-        type: sut.COMPLAINTS_FAILED,
+        type: sut.STATES_FAILED,
         error: 'foo bar'
       }
       expect( target( {
@@ -397,6 +398,7 @@ describe( 'reducer:map', () => {
         items: [ 1, 2, 3 ]
       }, action ) ).toEqual( {
         error: 'foo bar',
+        isLoading: false,
         issue: [],
         product: [],
         state: []
@@ -478,258 +480,258 @@ describe( 'reducer:map', () => {
         expect( res ).toEqual( [] )
       } )
       it( 'calculates the data correctly', () => {
-        const res = processStateAggregations( aggregations.state )
+        const res = processStateAggregations( stateAggs.state )
         expect( res ).toEqual( [
           {
             "name": "CA",
             "value": 62519,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "FL",
             "value": 47358,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo"
           }, {
             "name": "TX",
             "value": 44469,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo rod"
           }, {
             "name": "GA",
             "value": 28395,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "NY",
             "value": 26846,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "IL",
             "value": 18172,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prd"
           }, {
             "name": "PA",
             "value": 16054,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "NC",
             "value": 15217,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "NJ",
             "value": 15130,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "OH",
             "value": 14365,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "VA",
             "value": 12901,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "MD",
             "value": 12231,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "MI",
             "value": 10472,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "AZ",
             "value": 10372,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "TN",
             "value": 9011,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "WA",
             "value": 8542,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "MA",
             "value": 8254,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "MO",
             "value": 7832,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "SC",
             "value": 7496,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "CO",
             "value": 7461,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "NV",
             "value": 7095,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "LA",
             "value": 6369,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "AL",
             "value": 6178,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "IN",
             "value": 5659,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "MN",
             "value": 4957,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "CT",
             "value": 4685,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "WI",
             "value": 4443,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "OR",
             "value": 4261,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "UT",
             "value": 3693,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "KY",
             "value": 3392,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "MS",
             "value": 3237,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "OK",
             "value": 2989,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "AR",
             "value": 2691,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "DC",
             "value": 2493,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "KS",
             "value": 2307,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "NM",
             "value": 2176,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "DE",
             "value": 2160,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "IA",
             "value": 1751,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "ID",
             "value": 1436,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "NH",
             "value": 1408,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "NE",
             "value": 1343,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "RI",
             "value": 1166,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "ME",
             "value": 1155,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "WV",
             "value": 1075,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "MT",
             "value": 788,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "ND",
             "value": 637,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "SD",
             "value": 535,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "AK",
             "value": 524,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "WY",
             "value": 450,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "VT",
             "value": 446,
-            "issue": "Being broke",
-            "product": "Some Product Name"
+            "issue": "issue o",
+            "product": "fo prod"
           }, {
             "name": "HI",
             "value": 0,

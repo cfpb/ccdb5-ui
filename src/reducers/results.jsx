@@ -1,13 +1,17 @@
 /* eslint-disable camelcase */
-import { COMPLAINTS_FAILED, COMPLAINTS_RECEIVED } from '../actions/complaints'
-import { API_CALLED } from '../constants'
+import {
+  AGGREGATIONS_API_CALLED, AGGREGATIONS_FAILED, AGGREGATIONS_RECEIVED,
+  COMPLAINTS_API_CALLED, COMPLAINTS_FAILED, COMPLAINTS_RECEIVED
+} from '../actions/complaints'
 
 const defaultResults = {
   activeCall: '',
+  aggregationResults: {},
   doc_count: 0,
   error: '',
   lastUpdated: null,
   lastIndexed: null,
+  loadingAggregations: false,
   hasDataIssue: false,
   isDataStale: false,
   isNarrativeStale: false,
@@ -30,7 +34,26 @@ export const _processHits = data => data.hits.hits.map( x => {
 
 export default ( state = defaultResults, action ) => {
   switch ( action.type ) {
-    case API_CALLED:
+    case AGGREGATIONS_API_CALLED:
+      return {
+        ...state,
+        loadingAggregations: true
+      }
+
+    case AGGREGATIONS_RECEIVED:
+      return {
+        ...state,
+        loadingAggregations: false
+      }
+
+    case AGGREGATIONS_FAILED:
+      return {
+        ...state,
+        aggregationResults: {},
+        loadingAggregations: false
+      }
+
+    case COMPLAINTS_API_CALLED:
       return {
         ...state,
         activeCall: action.url,
