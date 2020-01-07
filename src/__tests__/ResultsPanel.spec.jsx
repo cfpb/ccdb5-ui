@@ -58,13 +58,13 @@ function setupSnapshot(items=[], initialStore={}, tab = 'List') {
 }
 
 describe('component:Results', () => {
-  it('renders map without crashing', () => {
+  it('renders map panel without crashing', () => {
     const target = setupSnapshot( fixture, null, 'Map' );
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
-  it('renders list without crashing', () => {
+  it('renders list panel without crashing', () => {
     const target = setupSnapshot( fixture, null, 'List' );
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
