@@ -1,8 +1,11 @@
 // reducer for the Map Tab
-import { API_CALLED, TILE_MAP_STATES } from '../constants'
-import { COMPLAINTS_FAILED, COMPLAINTS_RECEIVED } from '../actions/complaints'
+import {
+  STATES_API_CALLED, STATES_FAILED, STATES_RECEIVED
+} from '../actions/complaints'
+import { TILE_MAP_STATES } from '../constants'
 
 export const defaultState = {
+  isLoading: false,
   issue: [],
   product: [],
   state: []
@@ -30,14 +33,15 @@ export const processAggregations = agg => {
   return chartResults
 }
 
+
 export const processStateAggregations = agg => {
   const states = Object.values( agg.state.buckets )
     .filter( o => TILE_MAP_STATES.includes( o.key ) )
     .map( o => ( {
       name: o.key,
       value: o.doc_count,
-      issue: 'Being broke',
-      product: 'Some Product Name'
+      issue: o.issue.buckets[0].key || '',
+      product: o.product.buckets[0].key || ''
     } ) );
 
   const stateNames = states.map( o => o.name );
@@ -55,20 +59,21 @@ export const processStateAggregations = agg => {
 
 export default ( state = defaultState, action ) => {
   switch ( action.type ) {
-    case API_CALLED:
+    case STATES_API_CALLED:
       return {
         ...state,
         activeCall: action.url,
         isLoading: true
       }
 
-    case COMPLAINTS_RECEIVED: {
+    case STATES_RECEIVED: {
       const result = { ...state };
 
       const stateData = action.data.aggregations.state;
       const issueData = action.data.aggregations.issue;
       const productData = action.data.aggregations.product;
 
+      result.isLoading = false
       result.state = processStateAggregations( stateData )
       result.issue = processAggregations( issueData )
       result.product = processAggregations( productData )
@@ -76,10 +81,11 @@ export default ( state = defaultState, action ) => {
       return result;
     }
 
-    case COMPLAINTS_FAILED:
+    case STATES_FAILED:
       return {
         ...defaultState,
-        error: action.error
+        error: action.error,
+        isLoading: false
       }
 
     default:

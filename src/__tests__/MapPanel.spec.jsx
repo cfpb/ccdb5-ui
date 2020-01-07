@@ -2,6 +2,7 @@ import configureMockStore from 'redux-mock-store'
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux'
 import MapPanel from '../MapPanel';
+import { MODE_MAP } from '../constants'
 import React from 'react'
 import renderer from 'react-test-renderer';
 import thunk from 'redux-thunk'
@@ -30,7 +31,7 @@ function setupSnapshot(items=[], initialStore={}) {
     query: {
       from: 0,
       size: 10,
-      tab: 'Map'
+      tab: MODE_MAP
     },
     results
   })
