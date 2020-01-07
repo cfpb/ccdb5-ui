@@ -1,6 +1,8 @@
 // reducer for the Map Tab
-import { API_CALLED, TILE_MAP_STATES } from '../constants'
-import { COMPLAINTS_FAILED, COMPLAINTS_RECEIVED } from '../actions/complaints'
+import {
+  COMPLAINTS_API_CALLED, COMPLAINTS_FAILED, COMPLAINTS_RECEIVED
+} from '../actions/complaints'
+import { TILE_MAP_STATES } from '../constants'
 
 export const defaultState = {
   issue: [],
@@ -56,7 +58,7 @@ export const processStateAggregations = agg => {
 
 export default ( state = defaultState, action ) => {
   switch ( action.type ) {
-    case API_CALLED:
+    case COMPLAINTS_API_CALLED:
       return {
         ...state,
         activeCall: action.url,

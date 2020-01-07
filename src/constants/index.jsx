@@ -1,5 +1,4 @@
 // Internal triggers
-export const API_CALLED = 'API_CALLED'
 export const MODAL_HID = 'MODAL_HID'
 export const MODAL_SHOWN = 'MODAL_SHOWN'
 

@@ -1,12 +1,8 @@
-import Adapter from 'enzyme-adapter-react-16';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { shallow, configure } from 'enzyme';
+import { shallow } from 'enzyme';
 import { SLUG_SEPARATOR } from '../constants'
 import { Pill, mapStateToProps, mapDispatchToProps } from '../Pill';
-
-
-configure({adapter: new Adapter()});
 
 function setupEnzyme() {
   const props = {

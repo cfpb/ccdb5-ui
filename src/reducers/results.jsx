@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
-import { COMPLAINTS_FAILED, COMPLAINTS_RECEIVED } from '../actions/complaints'
-import { API_CALLED } from '../constants'
+import {
+  COMPLAINTS_API_CALLED, COMPLAINTS_FAILED, COMPLAINTS_RECEIVED
+} from '../actions/complaints'
 
 const defaultResults = {
   activeCall: '',
@@ -30,7 +31,7 @@ export const _processHits = data => data.hits.hits.map( x => {
 
 export default ( state = defaultResults, action ) => {
   switch ( action.type ) {
-    case API_CALLED:
+    case COMPLAINTS_API_CALLED:
       return {
         ...state,
         activeCall: action.url,

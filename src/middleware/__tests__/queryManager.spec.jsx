@@ -44,7 +44,7 @@ describe( 'redux middleware::queryManager', () => {
         }
         const expectedActions = [
           { type: 'FakeAction', requery: REQUERY_ALWAYS },
-          { type: 'API_CALLED', url: "@@API?foo" }
+          { type: 'COMPLAINTS_API_CALLED', url: "@@API?foo" }
         ]
 
         store.dispatch( action )
@@ -60,7 +60,7 @@ describe( 'redux middleware::queryManager', () => {
         }
         const expectedActions = [
           { type: 'FakeAction', requery: REQUERY_HITS_ONLY },
-          { type: 'API_CALLED', url: "@@API?foo" }
+          { type: 'COMPLAINTS_API_CALLED', url: "@@API?foo" }
         ]
 
         store.dispatch( action )

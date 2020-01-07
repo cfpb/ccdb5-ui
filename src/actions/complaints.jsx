@@ -1,5 +1,4 @@
-import * as types from '../constants'
-
+export const COMPLAINTS_API_CALLED = 'COMPLAINTS_API_CALLED'
 export const COMPLAINTS_RECEIVED = 'COMPLAINTS_RECEIVED'
 export const COMPLAINTS_FAILED = 'COMPLAINTS_FAILED'
 export const COMPLAINT_DETAIL_RECEIVED = 'COMPLAINT_DETAIL_RECEIVED'
@@ -57,7 +56,7 @@ export function getComplaintDetail( id ) {
 */
 export function callingApi( url ) {
   return {
-    type: types.API_CALLED,
+    type: COMPLAINTS_API_CALLED,
     url
   }
 }

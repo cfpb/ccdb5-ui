@@ -1,5 +1,4 @@
 import target, { processAggregations, processStateAggregations } from '../map'
-import * as types from '../../constants'
 import * as sut from '../../actions/complaints'
 import aggregations from '../__fixtures__/aggregations'
 
@@ -16,9 +15,9 @@ describe( 'reducer:map', () => {
     } )
   } )
 
-  describe( 'handles API_CALLED actions', () => {
+  describe( 'handles COMPLAINTS_API_CALLED actions', () => {
     action = {
-      type: types.API_CALLED,
+      type: sut.COMPLAINTS_API_CALLED,
       url: 'http://www.example.org'
     }
     expect( target( {}, action ) ).toEqual( {

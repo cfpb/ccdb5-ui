@@ -64,7 +64,7 @@ describe('action::complaints', () => {
       it('sends a simple action when data is received', () => {
         store.dispatch(sut.getComplaints())
         const expectedActions = [
-          { type: types.API_CALLED, url: expect.any(String) },
+          { type: sut.COMPLAINTS_API_CALLED, url: expect.any(String) },
           { type: sut.COMPLAINTS_RECEIVED, data: ['123']}
         ]
         onSuccess(['123'])
@@ -74,7 +74,7 @@ describe('action::complaints', () => {
       it('sends a different simple action when an error occurs', () => {
         store.dispatch(sut.getComplaints())
         const expectedActions = [
-          { type: types.API_CALLED, url: expect.any(String) },
+          { type: sut.COMPLAINTS_API_CALLED, url: expect.any(String) },
           { type: sut.COMPLAINTS_FAILED, error: 'oops' }
         ]
         onFail('oops')
@@ -121,7 +121,7 @@ describe('action::complaints', () => {
 
       it('sends a simple action when data is received', () => {
         const expectedActions = [
-          { type: types.API_CALLED, url: '@@API123' },
+          { type: sut.COMPLAINTS_API_CALLED, url: '@@API123' },
           { type: sut.COMPLAINT_DETAIL_RECEIVED, data: { foo: 'bar' }}
         ]
         onSuccess({ foo: 'bar' })
@@ -130,7 +130,7 @@ describe('action::complaints', () => {
 
       it('sends a different simple action when an error occurs', () => {
         const expectedActions = [
-          { type: types.API_CALLED, url: '@@API123' },
+          { type: sut.COMPLAINTS_API_CALLED, url: '@@API123' },
           { type: sut.COMPLAINT_DETAIL_FAILED, error: 'oops' }
         ]
         onFail('oops')

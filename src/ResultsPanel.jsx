@@ -2,16 +2,12 @@ import { connect } from 'react-redux'
 import ListPanel from './ListPanel'
 import MapPanel from './MapPanel'
 import React from 'react'
-import TrendsPanel from './TrendsPanel'
 
 export class ResultsPanel extends React.Component {
   render() {
     let currentPanel
 
     switch ( this.props.tab ) {
-      case 'Trends':
-        currentPanel = <TrendsPanel/>
-        break;
       case 'List':
         currentPanel = <ListPanel/>
         break;

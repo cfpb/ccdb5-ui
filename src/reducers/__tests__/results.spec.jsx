@@ -1,5 +1,4 @@
 import target from '../results'
-import * as types from '../../constants'
 import * as sut from '../../actions/complaints'
 
 describe('reducer:results', () => {
@@ -19,9 +18,9 @@ describe('reducer:results', () => {
       })
   })
 
-  describe('handles API_CALLED actions', () => {
+  describe('handles COMPLAINTS_API_CALLED actions', () => {
     const action = {
-      type: types.API_CALLED,
+      type: sut.COMPLAINTS_API_CALLED,
       url: 'http://www.example.org'
     }
     expect(target({}, action)).toEqual({
