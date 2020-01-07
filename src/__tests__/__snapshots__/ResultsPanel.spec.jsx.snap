@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`component:Results renders list without crashing 1`] = `
+exports[`component:Results renders list panel without crashing 1`] = `
 <div
   className="content_main"
 >
@@ -366,7 +366,7 @@ exports[`component:Results renders list without crashing 1`] = `
 </div>
 `;
 
-exports[`component:Results renders map without crashing 1`] = `
+exports[`component:Results renders map panel without crashing 1`] = `
 <div
   className="content_main"
 >
@@ -444,6 +444,24 @@ exports[`component:Results renders map without crashing 1`] = `
         className="cfpb-chart"
         data-chart-type="tile_map"
         id="tile-chart-map"
+      />
+    </div>
+    <div>
+      <h3>
+        product
+         by complaint volume (5 highest counts)
+      </h3>
+      <div
+        id="row-chart-product"
+      />
+    </div>
+    <div>
+      <h3>
+        issue
+         by complaint volume (5 highest counts)
+      </h3>
+      <div
+        id="row-chart-issue"
       />
     </div>
   </section>

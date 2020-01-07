@@ -1127,6 +1127,24 @@ exports[`initial state renders without crashing 1`] = `
             id="tile-chart-map"
           />
         </div>
+        <div>
+          <h3>
+            product
+             by complaint volume (5 highest counts)
+          </h3>
+          <div
+            id="row-chart-product"
+          />
+        </div>
+        <div>
+          <h3>
+            issue
+             by complaint volume (5 highest counts)
+          </h3>
+          <div
+            id="row-chart-issue"
+          />
+        </div>
         <section
           className="light-box"
         >
