@@ -51,7 +51,7 @@ describe( 'redux middleware::queryManager', () => {
           }
           const expectedActions = [
             { type: 'FakeAction', requery: REQUERY_ALWAYS },
-            { type: 'AGGREGATIONS_API_CALLED', url: "@@API?foo&aggstest" },
+            { type: 'AGGREGATIONS_API_CALLED', url: "@@API?foo" },
             { type: 'COMPLAINTS_API_CALLED', url: "@@API?foo" }
           ]
 
@@ -89,7 +89,7 @@ describe( 'redux middleware::queryManager', () => {
           }
           const expectedActions = [
             { type: 'FakeAction', requery: REQUERY_ALWAYS },
-            { type: 'AGGREGATIONS_API_CALLED', url: "@@API?foo&aggstest" },
+            { type: 'AGGREGATIONS_API_CALLED', url: "@@API?foo" },
             { type: 'STATES_API_CALLED', url: "@@APIstates/?foo" }
           ]
 
