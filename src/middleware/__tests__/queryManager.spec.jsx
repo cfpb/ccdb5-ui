@@ -29,6 +29,25 @@ describe( 'redux middleware::queryManager', () => {
   describe('compound actions', () => {
     let store
 
+    describe('Unknown Mode', ()=>{
+      beforeEach( () => {
+        store = setupStore('bogus')
+      } )
+
+      it( 'runs no queries', () => {
+        const action = {
+          type: 'FakeAction',
+          requery: REQUERY_HITS_ONLY
+        }
+        const expectedActions = [
+          { type: 'FakeAction', requery: REQUERY_HITS_ONLY }
+        ]
+
+        store.dispatch( action )
+        expect( store.getActions() ).toEqual( expectedActions )
+      } )
+    })
+
     describe('List Mode', ()=>{
       beforeEach( () => {
         store = setupStore('List')
