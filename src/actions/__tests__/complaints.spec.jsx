@@ -1,9 +1,6 @@
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import * as sut from '../complaints'
-import { AGGREGATIONS_API_CALLED } from '../complaints'
-import { AGGREGATIONS_FAILED } from '../complaints'
-import { AGGREGATIONS_RECEIVED } from '../complaints'
 
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
@@ -210,6 +207,82 @@ describe('action::complaints', () => {
         const expectedActions = [
           { type: sut.COMPLAINTS_API_CALLED, url: '@@API123' },
           { type: sut.COMPLAINT_DETAIL_FAILED, error: 'oops' }
+        ]
+        onFail('oops')
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+    })
+  })
+
+  describe('getStates', () => {
+    let onSuccess, onFail, store
+
+    beforeEach(() => {
+      global.fetch = jest.fn().mockImplementation((url) => {
+        expect(url).toContain(
+          '@@APIstates/?foo'
+        )
+
+        return {
+          then: (x) => {
+            x({ json: () => ({})})
+            return {
+              then: (x) => {
+                onSuccess = (data) => x(data)
+                return {
+                  catch: (y) => {onFail = y}
+                }
+              }
+            }
+          }
+        }
+      })
+
+      store = mockStore({
+        query: {
+          date_received_min: new Date(2013, 1, 3),
+          from: 0,
+          has_narrative: true,
+          queryString: '?foo',
+          searchText: '',
+          size: 10,
+        },
+        map: {
+          activeCall: ''
+        }
+      })
+    })
+
+    it('calls the API', () => {
+      store.dispatch(sut.getStates())
+      expect(global.fetch).toHaveBeenCalled()
+    })
+
+    it('discards duplicate API calls', () => {
+      const s = store.getState()
+      s.map.activeCall = '@@APIstates/' + s.query.queryString
+      store = mockStore(s)
+
+      store.dispatch(sut.getStates())
+      expect(global.fetch).not.toHaveBeenCalled()
+    })
+
+    describe('when the API call is finished', () => {
+      it('sends a simple action when data is received', () => {
+        store.dispatch(sut.getStates())
+        const expectedActions = [
+          { type: sut.STATES_API_CALLED, url: expect.any(String) },
+          { type: sut.STATES_RECEIVED, data: ['123']}
+        ]
+        onSuccess(['123'])
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+
+      it('sends a different simple action when an error occurs', () => {
+        store.dispatch(sut.getStates())
+        const expectedActions = [
+          { type: sut.STATES_API_CALLED, url: expect.any(String) },
+          { type: sut.STATES_FAILED, error: 'oops' }
         ]
         onFail('oops')
         expect(store.getActions()).toEqual(expectedActions)
