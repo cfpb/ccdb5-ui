@@ -40,8 +40,8 @@ export const processStateAggregations = agg => {
     .map( o => ( {
       name: o.key,
       value: o.doc_count,
-      issue: o.issue.buckets[0].key || '',
-      product: o.product.buckets[0].key || ''
+      issue: o.issue.buckets[0].key,
+      product: o.product.buckets[0].key
     } ) );
 
   const stateNames = states.map( o => o.name );
