@@ -37,12 +37,14 @@ export default ( state = defaultResults, action ) => {
     case AGGREGATIONS_API_CALLED:
       return {
         ...state,
+        activeCall: action.url,
         loadingAggregations: true
       }
 
     case AGGREGATIONS_RECEIVED:
       return {
         ...state,
+        aggregationResults: action.data,
         loadingAggregations: false
       }
 
@@ -50,7 +52,8 @@ export default ( state = defaultResults, action ) => {
       return {
         ...state,
         aggregationResults: {},
-        loadingAggregations: false
+        loadingAggregations: false,
+        error: action.error
       }
 
     case COMPLAINTS_API_CALLED:
