@@ -85,7 +85,7 @@ export function getAggregations() {
   return ( dispatch, getState ) => {
     const store = getState()
     const qs = store.query.queryString
-    const uri = '@@API' + qs + '&aggstest'
+    const uri = '@@API' + qs
 
     // This call is already in process
     if ( store.results.loadingAggregations ) {
