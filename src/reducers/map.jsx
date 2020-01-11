@@ -72,7 +72,7 @@ export default ( state = defaultState, action ) => {
       const stateData = action.data.aggregations.state;
       const issueData = action.data.aggregations.issue;
       const productData = action.data.aggregations.product;
-
+      result.activeCall = ''
       result.isLoading = false
       result.state = processStateAggregations( stateData )
       result.issue = processAggregations( issueData )
@@ -84,6 +84,7 @@ export default ( state = defaultState, action ) => {
     case STATES_FAILED:
       return {
         ...defaultState,
+        activeCall: '',
         error: action.error,
         isLoading: false
       }

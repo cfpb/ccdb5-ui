@@ -37,7 +37,6 @@ export default ( state = defaultResults, action ) => {
     case AGGREGATIONS_API_CALLED:
       return {
         ...state,
-        activeCall: action.url,
         loadingAggregations: true
       }
 
