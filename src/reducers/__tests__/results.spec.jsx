@@ -1,7 +1,5 @@
 import target from '../results'
 import * as sut from '../../actions/complaints'
-import { AGGREGATIONS_API_CALLED } from '../../actions/complaints'
-import { AGGREGATIONS_RECEIVED } from '../../actions/complaints'
 
 describe('reducer:results', () => {
   it('has a default state', () => {
@@ -29,7 +27,6 @@ describe('reducer:results', () => {
         url: 'http://www.example.org'
       }
       expect( target( {}, action ) ).toEqual( {
-        activeCall: 'http://www.example.org',
         loadingAggregations: true
       } )
     } )
