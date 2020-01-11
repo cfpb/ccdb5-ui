@@ -20,12 +20,6 @@ export const STATES_FAILED = 'STATES_FAILED'
  * @returns {Promise} a chain of promises that will update the Redux store
  */
 export function sendQuery() {
-  // Note: by calling these functions with the `export` prefix means that
-  // can be mocked, stubbed or faked in the unit tests.
-  // Without the prefix, they are locked into the default implementation ie
-  // a closure.
-  // Reference: https://github.com/mjackson/expect/issues/139
-
   // eslint-disable-next-line complexity
   return ( dispatch, getState ) => {
 
