@@ -83,7 +83,7 @@ export default ( state = defaultState, action ) => {
 
     case STATES_FAILED:
       return {
-        ...defaultState,
+        ...state,
         activeCall: '',
         error: action.error,
         isLoading: false
