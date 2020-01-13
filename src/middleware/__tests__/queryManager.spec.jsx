@@ -34,7 +34,20 @@ describe( 'redux middleware::queryManager', () => {
         store = setupStore('bogus')
       } )
 
-      it( 'runs no queries', () => {
+      it( 'REQUERY_ALWAYS runs no queries', () => {
+        const action = {
+          type: 'FakeAction',
+          requery: REQUERY_ALWAYS
+        }
+        const expectedActions = [
+          { type: 'FakeAction', requery: REQUERY_ALWAYS }
+        ]
+
+        store.dispatch( action )
+        expect( store.getActions() ).toEqual( expectedActions )
+      } )
+
+      it( 'REQUERY_HITS_ONLY runs no queries', () => {
         const action = {
           type: 'FakeAction',
           requery: REQUERY_HITS_ONLY

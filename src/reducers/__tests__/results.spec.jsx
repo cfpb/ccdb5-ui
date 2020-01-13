@@ -23,8 +23,7 @@ describe('reducer:results', () => {
   describe( 'Aggregations', () => {
     describe( 'handles AGGREGATIONS_API_CALLED actions', () => {
       const action = {
-        type: sut.AGGREGATIONS_API_CALLED,
-        url: 'http://www.example.org'
+        type: sut.AGGREGATIONS_API_CALLED
       }
       expect( target( {}, action ) ).toEqual( {
         loadingAggregations: true
