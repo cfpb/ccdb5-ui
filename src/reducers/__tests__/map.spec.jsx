@@ -191,8 +191,9 @@ describe( 'reducer:map', () => {
       }
       expect( target( {
         activeCall: 'someurl',
-        doc_count: 100,
-        items: [ 1, 2, 3 ]
+        issue: [ 1, 2, 3 ],
+        product: [ 1, 2, 3 ],
+        state: [ 1, 2, 3 ]
       }, action ) ).toEqual( {
         activeCall: '',
         error: 'foo bar',

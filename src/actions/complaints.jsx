@@ -29,8 +29,10 @@ export function sendQuery() {
       case MODE_MAP:
       case MODE_LIST:
       case MODE_TRENDS:
-        // TODO: this should be getAggregations in the future
-        dispatch( getAggregations() )
+        // eslint-disable-next-line no-warning-comments
+        // TODO: this should be getAggregations once the API is built
+        // dispatch( getAggregations() )
+        dispatch( getComplaints() )
         break
       default:
         return
