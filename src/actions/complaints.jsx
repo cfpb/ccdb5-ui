@@ -71,7 +71,7 @@ export function sendHitsQuery() {
 // Action Creators
 
 /**
- * Calls the search endpoint of the API
+ * Calls the aggregations endpoint of the API
  *
  * @returns {Promise} a chain of promises that will update the Redux store
  */
@@ -95,7 +95,7 @@ export function getAggregations() {
 }
 
 /**
- * Calls the search endpoint of the API
+ * Calls the complaint search endpoint of the API
  *
  * @returns {Promise} a chain of promises that will update the Redux store
  */
@@ -136,7 +136,7 @@ export function getComplaintDetail( id ) {
 }
 
 /**
- * Calls the search endpoint of the API
+ * Calls the states endpoint of the API
  *
  * @returns {Promise} a chain of promises that will update the Redux store
  */
@@ -174,7 +174,7 @@ export function callingApi( type, url ) {
 }
 
 /**
- * Creates an action in response to search results being received from the API
+ * Creates an action in response to aggregations being received from the API
  *
  * @param {string} data the raw data returned from the API
  * @returns {string} a packaged payload to be used by Redux reducers
@@ -187,7 +187,7 @@ export function aggregationsReceived( data ) {
 }
 
 /**
- * Creates an action in response after a search fails
+ * Creates an action in response after aggregation search fails
  *
  * @param {string} error the error returned from `fetch`, not the API
  * @returns {string} a packaged payload to be used by Redux reducers
@@ -226,7 +226,7 @@ export function complaintsFailed( error ) {
 }
 
 /**
- * Creates an action in response to a complaint being received from the API
+ * Creates an action in response to complaint detail being received from the API
  *
  * @param {string} data the raw data returned from the API
  * @returns {string} a packaged payload to be used by Redux reducers
@@ -252,7 +252,7 @@ export function complaintDetailFailed( error ) {
 }
 
 /**
- * Creates an action in response to search results being received from the API
+ * Creates an action in response to states results being received from the API
  *
  * @param {string} data the raw data returned from the API
  * @returns {string} a packaged payload to be used by Redux reducers
@@ -265,7 +265,7 @@ export function statesReceived( data ) {
 }
 
 /**
- * Creates an action in response after a search fails
+ * Creates an action in response after states results fails
  *
  * @param {string} error the error returned from `fetch`, not the API
  * @returns {string} a packaged payload to be used by Redux reducers
