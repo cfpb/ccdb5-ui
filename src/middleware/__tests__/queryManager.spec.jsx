@@ -3,15 +3,15 @@ import thunk from 'redux-thunk'
 import { queryManager } from '../queryManager'
 import { REQUERY_ALWAYS, REQUERY_HITS_ONLY } from '../../constants'
 
-function setupStore( viewMode = 'Map') {
-  const middlewares = [thunk, queryManager]
-  const mockStore = configureMockStore(middlewares)
+function setupStore( viewMode = 'Map' ) {
+  const middlewares = [ thunk, queryManager ]
+  const mockStore = configureMockStore( middlewares )
   return mockStore( {
     map: {
       activeCall: ''
     },
     query: {
-      date_received_min: new Date(2013, 1, 3),
+      date_received_min: new Date( 2013, 1, 3 ),
       from: 0,
       has_narrative: true,
       queryString: '?foo',
@@ -22,16 +22,16 @@ function setupStore( viewMode = 'Map') {
     results: {
       activeCall: ''
     }
-  })
+  } )
 }
 
 describe( 'redux middleware::queryManager', () => {
-  describe('compound actions', () => {
+  describe( 'compound actions', () => {
     let store
 
-    describe('Unknown Mode', ()=>{
+    describe( 'Unknown Mode', () => {
       beforeEach( () => {
-        store = setupStore('bogus')
+        store = setupStore( 'bogus' )
       } )
 
       it( 'REQUERY_ALWAYS runs no queries', () => {
@@ -59,21 +59,21 @@ describe( 'redux middleware::queryManager', () => {
         store.dispatch( action )
         expect( store.getActions() ).toEqual( expectedActions )
       } )
-    })
+    } )
 
-    describe('List Mode', ()=>{
+    describe( 'List Mode', () => {
       beforeEach( () => {
-        store = setupStore('List')
+        store = setupStore( 'List' )
       } )
-      it('does not query if an action has no metadata', () => {
+      it( 'does not query if an action has no metadata', () => {
         const action = {
           type: 'FakeAction'
         }
         const expectedActions = [ { type: 'FakeAction' } ]
 
-        store.dispatch(action)
-        expect(store.getActions()).toEqual(expectedActions)
-      })
+        store.dispatch( action )
+        expect( store.getActions() ).toEqual( expectedActions )
+      } )
 
       describe( 'REQUERY_ALWAYS', () => {
         it( 'runs both left and right queries', () => {
@@ -107,11 +107,11 @@ describe( 'redux middleware::queryManager', () => {
           expect( store.getActions() ).toEqual( expectedActions )
         } )
       } )
-    })
+    } )
 
-    describe('Map Mode', ()=>{
+    describe( 'Map Mode', () => {
       beforeEach( () => {
-        store = setupStore('Map')
+        store = setupStore( 'Map' )
       } )
       describe( 'REQUERY_ALWAYS', () => {
         it( 'runs both left and right queries', () => {
@@ -145,6 +145,6 @@ describe( 'redux middleware::queryManager', () => {
           expect( store.getActions() ).toEqual( expectedActions )
         } )
       } )
-    })
-  })
-})
+    } )
+  } )
+} )
