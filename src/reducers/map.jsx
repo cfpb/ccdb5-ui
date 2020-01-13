@@ -85,8 +85,11 @@ export default ( state = defaultState, action ) => {
       return {
         ...state,
         activeCall: '',
+        issue: [],
         error: action.error,
-        isLoading: false
+        isLoading: false,
+        product: [],
+        state: []
       }
 
     default:

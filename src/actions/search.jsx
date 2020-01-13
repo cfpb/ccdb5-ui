@@ -1,4 +1,4 @@
-import { REQUERY_HITS_ONLY } from '../constants'
+import { REQUERY_ALWAYS } from '../constants'
 
 export const SEARCH_CHANGED = 'SEARCH_CHANGED'
 
@@ -14,7 +14,7 @@ export function searchChanged( searchText, searchField ) {
     type: SEARCH_CHANGED,
     searchText,
     searchField,
-    requery: REQUERY_HITS_ONLY
+    requery: REQUERY_ALWAYS
   }
 }
 
