@@ -1,7 +1,6 @@
 ---
 language: python
 python:
-  - 2.7
   - 3.6
 install:
   - pip install tox-travis
@@ -12,7 +11,7 @@ script:
   # We don't want changes to package-lock.json to show up as local git
   # changes when the Python wheel tag is determined.
   - git checkout package-lock.json
-  - python setup.py bdist_wheel --universal
+  - python setup.py bdist_wheel
 after_script:
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 deploy:
