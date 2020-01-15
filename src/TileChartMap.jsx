@@ -1,8 +1,11 @@
 import './TileChartMap.less'
+// import * as d3 from 'd3'
+// import * as mapActions from './actions/map'
 import { connect } from 'react-redux'
 import { hashObject } from './utils'
 import React from 'react'
 import { TileMap } from 'cfpb-chart-builder'
+
 
 export class TileChartMap extends React.Component {
   componentDidUpdate( prevProps ) {
@@ -48,6 +51,23 @@ export class TileChartMap extends React.Component {
       colors,
       localize: true
     } )
+
+    // const chartId = '#tile-chart-map'
+    // d3.select( chartId )
+    //   .selectAll('path')
+    //   .on( 'mouseover', d => {
+    //     console.log( this, 'mouseover', d )
+    //   } )
+    //   .on( 'mouseout', d => {
+    //     console.log( this, 'mouseout', d )
+    //   } )
+    //   .on( 'click', d => {
+    //     console.log( 'i was clicked', this, d )
+    //     this.props.someAction( 'bitches' )
+    //
+    //     // this.handleClick();
+    //     // my react method
+    //   } )
   }
 }
 
@@ -55,3 +75,6 @@ export const mapStateToProps = state => ( { data: [ state.map.state ]} )
 
 export default connect( mapStateToProps )( TileChartMap )
 
+// export const mapDispatchToProps = dispatch => bindActionCreators({
+//   someAction: mapActions.toggleState
+// }, dispatch)

@@ -2,12 +2,15 @@
 import {
   STATES_API_CALLED, STATES_FAILED, STATES_RECEIVED
 } from '../actions/complaints'
+import { DATE_INTERVAL_CHANGED } from '../actions/filter'
+import { STATE_TOGGLED } from '../actions/map'
 import { TILE_MAP_STATES } from '../constants'
 
 export const defaultState = {
   isLoading: false,
   issue: [],
   product: [],
+  selectedState: '',
   state: []
 }
 
@@ -116,6 +119,38 @@ export function processStatesError( state, action ) {
   }
 }
 
+/**
+ * toggle a state tile on or off
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the payload containing the key/value pairs
+ * @returns {object} new state for the Redux store
+ */
+export function toggleState( state, action ) {
+  const selectedState = state.selectedState === action.selectedState ? '' :
+    action.selectedState;
+  return {
+    ...state,
+    selectedState
+  }
+}
+
+/**
+ * toggle a state tile on or off
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the payload containing the key/value pairs
+ * @returns {object} new state for the Redux store
+ */
+export function toggleTest( state, action ) {
+  const selectedState = state.selectedState === action.dateInterval ? '' :
+    action.dateInterval;
+  return {
+    ...state,
+    selectedState
+  }
+}
+
 // ----------------------------------------------------------------------------
 // Action Handlers
 
@@ -129,6 +164,8 @@ export function _buildHandlerMap() {
   handlers[STATES_API_CALLED] = statesCallInProcess
   handlers[STATES_RECEIVED] = processStatesResults
   handlers[STATES_FAILED] = processStatesError
+  handlers[STATE_TOGGLED] = toggleState
+  handlers[DATE_INTERVAL_CHANGED] = toggleTest
 
   return handlers
 }

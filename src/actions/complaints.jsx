@@ -145,7 +145,7 @@ export function getComplaintDetail( id ) {
 export function getStates() {
   return ( dispatch, getState ) => {
     const store = getState()
-    const qs = 'states/' + store.query.queryString
+    const qs = 'geo/states/' + store.query.queryString
     const uri = '@@API' + qs
 
     // This call is already in process
