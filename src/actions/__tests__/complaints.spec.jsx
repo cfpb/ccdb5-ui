@@ -220,7 +220,7 @@ describe('action::complaints', () => {
     beforeEach(() => {
       global.fetch = jest.fn().mockImplementation((url) => {
         expect(url).toContain(
-          '@@APIstates/?foo'
+          '@@APIgeo/states/?foo'
         )
 
         return {
@@ -260,7 +260,7 @@ describe('action::complaints', () => {
 
     it('discards duplicate API calls', () => {
       const s = store.getState()
-      s.map.activeCall = '@@APIstates/' + s.query.queryString
+      s.map.activeCall = '@@APIgeo/states/' + s.query.queryString
       store = mockStore(s)
 
       store.dispatch(sut.getStates())
