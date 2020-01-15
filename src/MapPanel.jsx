@@ -15,7 +15,9 @@ export class MapPanel extends React.Component {
         <ActionBar/>
         <DateIntervals/>
         <TileChartMap/>
+        { this.props.selectedState &&
         <MapToolbar/>
+        }
         <RowChart aggtype="product" />
         <RowChart aggtype="issue" />
         <Loading isLoading={ this.props.isLoading || false }/>
@@ -26,7 +28,8 @@ export class MapPanel extends React.Component {
 
 const mapStateToProps = state => ( {
   isLoading: state.map.isLoading,
-  items: state.results.items
+  items: state.results.items,
+  selectedState: state.map.selectedState
 } )
 
 export default connect( mapStateToProps )( MapPanel )

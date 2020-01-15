@@ -23,12 +23,16 @@ export class MapToolbar extends React.Component {
         <section>
           <button className="map"
                   onClick={() => this._setTab( 'Map' )}>
-            Map
+            View narratives from Texas
           </button>
 
           <button className="list"
                   onClick={() => this._setTab( 'List' )}>
-            List
+            View trends from Texas
+          </button>
+          <button className="list"
+                  onClick={() => this._setTab( 'List' )}>
+            Add Texas to filters
           </button>
         </section>
       </div>
@@ -37,7 +41,7 @@ export class MapToolbar extends React.Component {
 }
 
 export const mapStateToProps = state => ( {
-  tab: state.query.tab
+  tab: state.map.selectedState
 } )
 
 export const mapDispatchToProps = dispatch => ( {
