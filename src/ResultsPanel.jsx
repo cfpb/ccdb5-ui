@@ -1,6 +1,7 @@
+import { MODE_LIST, MODE_MAP } from './constants'
 import { connect } from 'react-redux'
-import ListPanel from './ListPanel';
-import MapPanel from './MapPanel';
+import ListPanel from './ListPanel'
+import MapPanel from './MapPanel'
 import React from 'react'
 
 export class ResultsPanel extends React.Component {
@@ -8,12 +9,12 @@ export class ResultsPanel extends React.Component {
     let currentPanel
 
     switch ( this.props.tab ) {
-      case 'List':
-        currentPanel = <ListPanel/>;
+      case MODE_LIST:
+        currentPanel = <ListPanel/>
         break;
-      case 'Map':
+      case MODE_MAP:
       default:
-        currentPanel = <MapPanel/>;
+        currentPanel = <MapPanel/>
         break;
     }
 

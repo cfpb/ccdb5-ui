@@ -23,7 +23,7 @@ export class MapPanel extends React.Component {
 }
 
 const mapStateToProps = state => ( {
-  isLoading: state.results.isLoading,
+  isLoading: state.map.isLoading,
   items: state.results.items
 } )
 

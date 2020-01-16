@@ -1,4 +1,4 @@
-import { getComplaints } from './complaints'
+import { sendQuery } from './complaints'
 
 const queryString = require( 'query-string' );
 
@@ -48,6 +48,6 @@ export default function announceUrlChanged( location ) {
   const { pathname, params } = processLocation( location );
   return dispatch => {
     dispatch( urlChanged( pathname, params ) )
-    dispatch( getComplaints() )
+    dispatch( sendQuery() )
   }
 }

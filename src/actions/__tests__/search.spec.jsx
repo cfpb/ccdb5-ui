@@ -1,4 +1,4 @@
-import { REQUERY_HITS_ONLY } from '../../constants'
+import { REQUERY_ALWAYS } from '../../constants'
 import * as sut from '../search'
 
 describe('action:search', () => {
@@ -10,7 +10,7 @@ describe('action:search', () => {
           type: sut.SEARCH_CHANGED,
           searchText,
           searchField,
-          requery: REQUERY_HITS_ONLY
+          requery: REQUERY_ALWAYS
         }
         expect(sut.searchChanged(searchText, searchField)).toEqual(expectedAction)
     })
