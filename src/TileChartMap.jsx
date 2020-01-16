@@ -35,7 +35,6 @@ export class TileChartMap extends React.Component {
   // --------------------------------------------------------------------------
   // Event Handlers
   _redrawMap() {
-    this.props.onSearch('eatme')
     const colors = [
       'rgba(247, 248, 249, 0.5)',
       'rgba(212, 231, 230, 0.5)',
@@ -64,9 +63,6 @@ export class TileChartMap extends React.Component {
       } )
       .on( 'click', d => {
         console.log( 'i was clicked', this, d )
-
-        this.props.onSearch('eatme')
-        // my react method
       } )
   }
 }
