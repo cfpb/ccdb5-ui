@@ -1,5 +1,4 @@
 // Internal triggers
-export const API_CALLED = 'API_CALLED'
 export const MODAL_HID = 'MODAL_HID'
 export const MODAL_SHOWN = 'MODAL_SHOWN'
 
@@ -8,6 +7,12 @@ export const DATE_RANGE_MIN = '2011-11-30T12:00:00.000Z'
 // Modal Dialogs
 export const MODAL_TYPE_DATA_EXPORT = 'MODAL_TYPE_DATA_EXPORT'
 export const MODAL_TYPE_MORE_ABOUT = 'MODAL_TYPE_MORE_ABOUT'
+
+
+// view modes
+export const MODE_MAP = 'Map'
+export const MODE_LIST = 'List'
+export const MODE_TRENDS = 'Trends'
 
 // Useful constants
 export const NARRATIVE_SEARCH_FIELD = 'complaint_what_happened'

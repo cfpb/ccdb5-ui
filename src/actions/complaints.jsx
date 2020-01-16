@@ -1,18 +1,106 @@
-import * as types from '../constants'
+import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../constants'
 
+export const AGGREGATIONS_API_CALLED = 'AGGREGATIONS_API_CALLED'
+export const AGGREGATIONS_RECEIVED = 'AGGREGATIONS_RECEIVED'
+export const AGGREGATIONS_FAILED = 'AGGREGATIONS_FAILED'
+export const COMPLAINTS_API_CALLED = 'COMPLAINTS_API_CALLED'
 export const COMPLAINTS_RECEIVED = 'COMPLAINTS_RECEIVED'
 export const COMPLAINTS_FAILED = 'COMPLAINTS_FAILED'
 export const COMPLAINT_DETAIL_RECEIVED = 'COMPLAINT_DETAIL_RECEIVED'
 export const COMPLAINT_DETAIL_FAILED = 'COMPLAINT_DETAIL_FAILED'
+export const STATES_API_CALLED = 'STATES_API_CALLED'
+export const STATES_RECEIVED = 'STATES_RECEIVED'
+export const STATES_FAILED = 'STATES_FAILED'
+
+// ----------------------------------------------------------------------------
+// Routing action
+/**
+ * Routes to the correct endpoint based on the state
+ *
+ * @returns {Promise} a chain of promises that will update the Redux store
+ */
+export function sendQuery() {
+  // eslint-disable-next-line complexity
+  return ( dispatch, getState ) => {
+
+    const state = getState()
+    const viewMode = state.query.tab
+    switch ( viewMode ) {
+      case MODE_MAP:
+      case MODE_LIST:
+      case MODE_TRENDS:
+        // eslint-disable-next-line no-warning-comments
+        // TODO: this should be getAggregations once the API is built
+        // dispatch( getAggregations() )
+        dispatch( getComplaints() )
+        break
+      default:
+        return
+    }
+
+    // Send the right-hand queries
+    dispatch( sendHitsQuery() )
+  }
+}
+
+/**
+ * Routes to the correct endpoint based on the state
+ *
+ * @returns {Promise} a chain of promises that will update the Redux store
+ */
+export function sendHitsQuery() {
+  // eslint-disable-next-line complexity
+  return ( dispatch, getState ) => {
+    const state = getState()
+    const viewMode = state.query.tab
+    switch ( viewMode ) {
+      case MODE_MAP:
+        dispatch( getStates() )
+        break
+      // case 'Trends':
+      //   dispatch( getTrends() )
+      //   break
+      case MODE_LIST:
+        dispatch( getComplaints() )
+        break
+      default:
+        break
+    }
+  }
+}
 
 // ----------------------------------------------------------------------------
 // Action Creators
 
 /**
-* Calls the search endpoint of the API
-*
-* @returns {Promise} a chain of promises that will update the Redux store
-*/
+ * Calls the aggregations endpoint of the API
+ *
+ * @returns {Promise} a chain of promises that will update the Redux store
+ */
+export function getAggregations() {
+  return ( dispatch, getState ) => {
+    const store = getState()
+    const qs = store.query.queryString
+    const uri = '@@API' + qs
+
+    // This call is already in process
+    if ( store.results.loadingAggregations ) {
+      return null
+    }
+
+    dispatch( callingApi( AGGREGATIONS_API_CALLED, uri ) )
+    return fetch( uri )
+      .then( result => result.json() )
+      .then( items => dispatch( aggregationsReceived( items ) ) )
+      .catch( error => dispatch( aggregationsFailed( error ) ) )
+  }
+}
+
+/**
+ * Calls the complaint search endpoint of the API
+ *
+ * @returns {Promise} a chain of promises that will update the Redux store
+ */
 export function getComplaints() {
   return ( dispatch, getState ) => {
     const store = getState()
@@ -24,24 +112,24 @@ export function getComplaints() {
       return null
     }
 
-    dispatch( callingApi( uri ) )
+    dispatch( callingApi( COMPLAINTS_API_CALLED, uri ) )
     return fetch( uri )
-    .then( result => result.json() )
-    .then( items => dispatch( complaintsReceived( items ) ) )
-    .catch( error => dispatch( complaintsFailed( error ) ) )
+      .then( result => result.json() )
+      .then( items => dispatch( complaintsReceived( items ) ) )
+      .catch( error => dispatch( complaintsFailed( error ) ) )
   }
 }
 
 /**
-* Calls the detail endpoint of the API
-*
-* @param {string} id the id of the complaint to retrieve
-* @returns {Promise} a chain of promises that will update the Redux store
-*/
+ * Calls the detail endpoint of the API
+ *
+ * @param {string} id the id of the complaint to retrieve
+ * @returns {Promise} a chain of promises that will update the Redux store
+ */
 export function getComplaintDetail( id ) {
   return dispatch => {
     const uri = '@@API' + id
-    dispatch( callingApi( uri ) )
+    dispatch( callingApi( COMPLAINTS_API_CALLED, uri ) )
     fetch( uri )
       .then( result => result.json() )
       .then( data => dispatch( complaintDetailReceived( data ) ) )
@@ -50,24 +138,75 @@ export function getComplaintDetail( id ) {
 }
 
 /**
-* Notifies the application that an API call is happening
-*
-* @param {string} url the url being called
-* @returns {string} a packaged payload to be used by Redux reducers
-*/
-export function callingApi( url ) {
+ * Calls the states endpoint of the API
+ *
+ * @returns {Promise} a chain of promises that will update the Redux store
+ */
+export function getStates() {
+  return ( dispatch, getState ) => {
+    const store = getState()
+    const qs = 'geo/states/' + store.query.queryString
+    const uri = '@@API' + qs
+
+    // This call is already in process
+    if ( uri === store.map.activeCall ) {
+      return null
+    }
+
+    dispatch( callingApi( STATES_API_CALLED, uri ) )
+    return fetch( uri )
+      .then( result => result.json() )
+      .then( items => dispatch( statesReceived( items ) ) )
+      .catch( error => dispatch( statesFailed( error ) ) )
+  }
+}
+
+/**
+ * Notifies the application that an API call is happening
+ *
+ * @param {string} type action type
+ * @param {string} url the url being called
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function callingApi( type, url ) {
   return {
-    type: types.API_CALLED,
+    type,
     url
   }
 }
 
 /**
-* Creates an action in response to search results being received from the API
-*
-* @param {string} data the raw data returned from the API
-* @returns {string} a packaged payload to be used by Redux reducers
-*/
+ * Creates an action in response to aggregations being received from the API
+ *
+ * @param {string} data the raw data returned from the API
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function aggregationsReceived( data ) {
+  return {
+    type: AGGREGATIONS_RECEIVED,
+    data
+  }
+}
+
+/**
+ * Creates an action in response after aggregation search fails
+ *
+ * @param {string} error the error returned from `fetch`, not the API
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function aggregationsFailed( error ) {
+  return {
+    type: AGGREGATIONS_FAILED,
+    error
+  }
+}
+
+/**
+ * Creates an action in response to search results being received from the API
+ *
+ * @param {string} data the raw data returned from the API
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
 export function complaintsReceived( data ) {
   return {
     type: COMPLAINTS_RECEIVED,
@@ -76,11 +215,11 @@ export function complaintsReceived( data ) {
 }
 
 /**
-* Creates an action in response after a search fails
-*
-* @param {string} error the error returned from `fetch`, not the API
-* @returns {string} a packaged payload to be used by Redux reducers
-*/
+ * Creates an action in response after a search fails
+ *
+ * @param {string} error the error returned from `fetch`, not the API
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
 export function complaintsFailed( error ) {
   return {
     type: COMPLAINTS_FAILED,
@@ -89,11 +228,11 @@ export function complaintsFailed( error ) {
 }
 
 /**
-* Creates an action in response to a complaint being received from the API
-*
-* @param {string} data the raw data returned from the API
-* @returns {string} a packaged payload to be used by Redux reducers
-*/
+ * Creates an action in response to complaint detail being received from the API
+ *
+ * @param {string} data the raw data returned from the API
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
 export function complaintDetailReceived( data ) {
   return {
     type: COMPLAINT_DETAIL_RECEIVED,
@@ -102,14 +241,40 @@ export function complaintDetailReceived( data ) {
 }
 
 /**
-* Creates an action in response after a detail search fails
-*
-* @param {string} error the error returned from `fetch`, not the API
-* @returns {string} a packaged payload to be used by Redux reducers
-*/
+ * Creates an action in response after a detail search fails
+ *
+ * @param {string} error the error returned from `fetch`, not the API
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
 export function complaintDetailFailed( error ) {
   return {
     type: COMPLAINT_DETAIL_FAILED,
+    error
+  }
+}
+
+/**
+ * Creates an action in response to states results being received from the API
+ *
+ * @param {string} data the raw data returned from the API
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function statesReceived( data ) {
+  return {
+    type: STATES_RECEIVED,
+    data
+  }
+}
+
+/**
+ * Creates an action in response after states results fails
+ *
+ * @param {string} error the error returned from `fetch`, not the API
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function statesFailed( error ) {
+  return {
+    type: STATES_FAILED,
     error
   }
 }

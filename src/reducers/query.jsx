@@ -16,7 +16,7 @@ export const defaultQuery = {
   size: 25,
   sort: 'created_date_desc',
   page: 1,
-  tab: 'Map',
+  tab: types.MODE_MAP,
   totalPages: 0
 }
 
