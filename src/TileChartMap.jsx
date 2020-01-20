@@ -1,10 +1,8 @@
 import './TileChartMap.less'
-import * as d3 from 'd3'
-// import * as mapActions from './actions/map'
+import { addStateFilter } from './actions/map'
 import { connect } from 'react-redux'
 import { hashObject } from './utils'
 import React from 'react'
-import { searchChanged } from './actions/search'
 import { TileMap } from 'cfpb-chart-builder'
 
 export class TileChartMap extends React.Component {
@@ -44,34 +42,59 @@ export class TileChartMap extends React.Component {
       'rgba(37, 116, 115, 0.5)'
     ]
 
+    const compProps = this.props
+
     // eslint-disable-next-line no-unused-vars
     const chart = new TileMap( {
       el: document.getElementById( 'tile-chart-map' ),
       data: this.props.data,
       colors,
-      localize: true
+      localize: true,
+      events: {
+        // custom event handlers we can pass on
+        click: function( event ) {
+          // pass in redux dispatch
+          // point.fullName
+          const { abbr, fullName } = event.point
+          const selectedState = { abbr, fullName }
+          // turn it off
+          if ( compProps.selectedState.abbr !== abbr ) {
+            compProps.mapShapeToggled( selectedState )
+          }
+        }
+      }
     } )
-
-    const chartId = '#tile-chart-map'
-    d3.select( chartId )
-      .selectAll( 'path' )
-      .on( 'mouseover', d => {
-        console.log( this, 'mouseover', d )
-      } )
-      .on( 'mouseout', d => {
-        console.log( this, 'mouseout', d )
-      } )
-      .on( 'click', d => {
-        console.log( 'i was clicked', this, d )
-      } )
   }
 }
 
-export const mapStateToProps = state => ( { data: [ state.map.state ] } )
+export const getStateClass = ( statesFilter, states, name ) => {
+  // no filters so no classes.
+  if ( statesFilter.length === 0 ) {
+    return ''
+  }
+
+  return statesFilter.includes( name ) ? 'selected' : 'deselected'
+}
+
+export const processStates = state => {
+  const statesFilter = state.query.state || []
+  const states = state.map.state
+  const stateData = states.map( o => {
+    o.className = getStateClass( statesFilter, states, o.name )
+    return o
+  } )
+  return [ stateData ]
+}
+
+export const mapStateToProps = state => ( {
+  data: processStates( state ),
+  stateFilters: state.query.state,
+  selectedState: state.map.selectedState
+} )
 
 export const mapDispatchToProps = dispatch => ( {
-  onSearch: ( text, searchField ) => {
-    dispatch( searchChanged( text, searchField ) )
+  mapShapeToggled: selectedState => {
+    dispatch( addStateFilter( selectedState ) )
   }
 } )
 
