@@ -41,7 +41,9 @@ function setupSnapshot(items=[], initialStore={}, tab = 'List') {
   const middlewares = [thunk]
   const mockStore = configureMockStore(middlewares)
   const store = mockStore({
-    map: [],
+    map: {
+      state: []
+    },
     results,
     query: {
       tab: tab

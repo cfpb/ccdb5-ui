@@ -96,14 +96,27 @@ describe( 'component: TileChartMap', () => {
     it( 'maps state and props', () => {
       const state = {
         map: {
-          state: [ 1, 2, 3 ]
+          state: [
+            { abbr: 'a', name: 'aa'},
+            { abbr: 'b', name: 'bb'},
+            { abbr: 'c', name: 'cc'}
+          ],
+          selectedState: 'b'
+        },
+        query: {
+          state: [ 'a' ]
         }
       }
       let actual = mapStateToProps( state )
       expect( actual ).toEqual( {
         data: [
-          [ 1, 2, 3 ]
-        ]
+          [ { abbr: 'a', name: 'aa', className: 'deselected'},
+            { abbr: 'b', name: 'bb', className: 'deselected'},
+            { abbr: 'c', name: 'cc', className: 'deselected'}
+            ]
+        ],
+        stateFilters: [ 'a' ],
+        selectedState: 'b'
       } )
     } )
   } )

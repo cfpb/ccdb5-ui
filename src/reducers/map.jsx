@@ -1,9 +1,8 @@
 // reducer for the Map Tab
+import { STATE_FILTER_ADDED, STATE_FILTER_REMOVED } from '../actions/map'
 import {
   STATES_API_CALLED, STATES_FAILED, STATES_RECEIVED
 } from '../actions/complaints'
-import { DATE_INTERVAL_CHANGED } from '../actions/filter'
-import { STATE_TOGGLED } from '../actions/map'
 import { TILE_MAP_STATES } from '../constants'
 
 export const defaultState = {
@@ -115,36 +114,41 @@ export function processStatesError( state, action ) {
     error: action.error,
     isLoading: false,
     product: [],
-    state: []
+    state: TILE_MAP_STATES.map( o => ( {
+      name: o,
+      value: 0,
+      issue: '',
+      product: ''
+    } ) )
   }
 }
 
 /**
- * toggle a state tile on or off
+ * toggle a state map toolbar
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} new state for the Redux store
+ */
+export function deselectState( state ) {
+  return {
+    ...state,
+    selectedState: ''
+  }
+}
+
+
+/**
+ * toggle a state map toolbar
  *
  * @param {object} state the current state in the Redux store
  * @param {object} action the payload containing the key/value pairs
  * @returns {object} new state for the Redux store
  */
 export function toggleState( state, action ) {
-  const selectedState = state.selectedState === action.selectedState ? '' :
-    action.selectedState;
-  return {
-    ...state,
-    selectedState
-  }
-}
+  let { selectedState } = state
+  selectedState = selectedState.abbr === action.selectedState.abbr ?
+    '' : action.selectedState
 
-/**
- * toggle a state tile on or off
- *
- * @param {object} state the current state in the Redux store
- * @param {object} action the payload containing the key/value pairs
- * @returns {object} new state for the Redux store
- */
-export function toggleTest( state, action ) {
-  const selectedState = state.selectedState === action.dateInterval ? '' :
-    action.dateInterval;
   return {
     ...state,
     selectedState
@@ -164,8 +168,8 @@ export function _buildHandlerMap() {
   handlers[STATES_API_CALLED] = statesCallInProcess
   handlers[STATES_RECEIVED] = processStatesResults
   handlers[STATES_FAILED] = processStatesError
-  handlers[STATE_TOGGLED] = toggleState
-  handlers[DATE_INTERVAL_CHANGED] = toggleTest
+  handlers[STATE_FILTER_ADDED] = toggleState
+  handlers[STATE_FILTER_REMOVED] = deselectState
 
   return handlers
 }

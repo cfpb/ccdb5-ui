@@ -1,6 +1,7 @@
 import target, { processAggregations, processStateAggregations } from '../map'
 import * as sut from '../../actions/complaints'
 import stateAggs from '../__fixtures__/stateAggs'
+import { TILE_MAP_STATES } from '../../constants'
 
 describe( 'reducer:map', () => {
   let action
@@ -11,6 +12,7 @@ describe( 'reducer:map', () => {
         isLoading: false,
         issue: [],
         product: [],
+        selectedState: '',
         state: []
       } )
     } )
@@ -200,7 +202,12 @@ describe( 'reducer:map', () => {
         isLoading: false,
         issue: [],
         product: [],
-        state: []
+        state: TILE_MAP_STATES.map( o => ( {
+          name: o,
+          value: 0,
+          issue: '',
+          product: ''
+        } ) )
       } )
     } )
   })
