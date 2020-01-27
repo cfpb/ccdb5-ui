@@ -601,9 +601,9 @@ export function _buildHandlerMap() {
   handlers[actions.PREV_PAGE_SHOWN] = prevPage
   handlers[actions.SIZE_CHANGED] = changeSize
   handlers[actions.SORT_CHANGED] = changeSort
+  handlers[actions.STATE_COMPLAINTS_SHOWN] = showStateComplaints
   handlers[actions.STATE_FILTER_ADDED] = addStateFilter
   handlers[actions.STATE_FILTER_REMOVED] = removeStateFilter
-  handlers[actions.STATE_COMPLAINTS_SHOWN] = showStateComplaints
   handlers[actions.TAB_CHANGED] = changeTab
   handlers[actions.URL_CHANGED] = processParams
   handlers[actions.SEARCH_CHANGED] = changeSearch

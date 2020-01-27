@@ -4,25 +4,18 @@ import { connect } from 'react-redux'
 import React from 'react'
 
 export class MapToolbar extends React.Component {
-  _removeStateFilter( tab ) {
-    this.props.removeFilter( tab )
-  }
-  _showComplaints( tab ) {
-    this.props.showComplaints( tab )
-  }
-
   render() {
     const { abbr, fullName } = this.props.selectedState
     return (
       <div className="mapToolbar">
         { fullName }
-        <button className="map"
-                onClick={ () => this._removeStateFilter( abbr ) }>
+        <button className="clear"
+                onClick={ () => this.props.removeState( abbr ) }>
           Clear
         </button>
         <section>
-          <button className="map"
-                  onClick={ () => this._showComplaints( abbr ) }>
+          <button className="list"
+                  onClick={ () => this.props.showComplaints( abbr ) }>
             View complaints from { fullName }
           </button>
         </section>
@@ -36,7 +29,7 @@ export const mapStateToProps = state => ( {
 } )
 
 export const mapDispatchToProps = dispatch => ( {
-  removeFilter: stateAbbr => {
+  removeState: stateAbbr => {
     dispatch( removeStateFilter( stateAbbr ) )
   },
   showComplaints: tab => {
