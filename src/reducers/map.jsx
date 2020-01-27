@@ -9,7 +9,7 @@ export const defaultState = {
   isLoading: false,
   issue: [],
   product: [],
-  selectedState: '',
+  selectedState: false,
   state: []
 }
 
@@ -132,7 +132,7 @@ export function processStatesError( state, action ) {
 export function deselectState( state ) {
   return {
     ...state,
-    selectedState: ''
+    selectedState: false
   }
 }
 
@@ -144,11 +144,8 @@ export function deselectState( state ) {
  * @param {object} action the payload containing the key/value pairs
  * @returns {object} new state for the Redux store
  */
-export function toggleState( state, action ) {
-  let { selectedState } = state
-  selectedState = selectedState.abbr === action.selectedState.abbr ?
-    '' : action.selectedState
-
+export function selectState( state, action ) {
+  const { selectedState } = action
   return {
     ...state,
     selectedState
@@ -168,7 +165,7 @@ export function _buildHandlerMap() {
   handlers[STATES_API_CALLED] = statesCallInProcess
   handlers[STATES_RECEIVED] = processStatesResults
   handlers[STATES_FAILED] = processStatesError
-  handlers[STATE_FILTER_ADDED] = toggleState
+  handlers[STATE_FILTER_ADDED] = selectState
   handlers[STATE_FILTER_REMOVED] = deselectState
 
   return handlers

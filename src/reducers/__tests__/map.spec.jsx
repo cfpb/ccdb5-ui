@@ -1,5 +1,6 @@
 import target, { processAggregations, processStateAggregations } from '../map'
-import * as sut from '../../actions/complaints'
+import * as complaintActions from '../../actions/complaints'
+import * as mapActions from '../../actions/map'
 import stateAggs from '../__fixtures__/stateAggs'
 import { TILE_MAP_STATES } from '../../constants'
 
@@ -12,7 +13,7 @@ describe( 'reducer:map', () => {
         isLoading: false,
         issue: [],
         product: [],
-        selectedState: '',
+        selectedState: false,
         state: []
       } )
     } )
@@ -20,7 +21,7 @@ describe( 'reducer:map', () => {
 
   describe( 'handles STATES_API_CALLED actions', () => {
     action = {
-      type: sut.STATES_API_CALLED,
+      type: complaintActions.STATES_API_CALLED,
       url: 'http://www.example.org'
     }
     expect( target( {}, action ) ).toEqual( {
@@ -32,7 +33,7 @@ describe( 'reducer:map', () => {
   describe( 'STATES_RECEIVED actions', () => {
     beforeEach( () => {
       action = {
-        type: sut.STATES_RECEIVED,
+        type: complaintActions.STATES_RECEIVED,
         data: {
           aggregations: stateAggs
         }
@@ -49,53 +50,53 @@ describe( 'reducer:map', () => {
           { name: "CA", value: 62519, issue: "issue o", product: "fo prod" },
           { name: "FL", value: 47358, issue: "issue o", product: "fo" },
           { name: "TX", value: 44469, issue: "issue o", product: "fo rod" },
-          { name: "GA", value: 28395, issue: "issue o", product: "fo prod" }, 
-          { name: "NY", value: 26846, issue: "issue o", product: "fo prod" }, 
-          { name: "IL", value: 18172, issue: "issue o", product: "fo prd" }, 
+          { name: "GA", value: 28395, issue: "issue o", product: "fo prod" },
+          { name: "NY", value: 26846, issue: "issue o", product: "fo prod" },
+          { name: "IL", value: 18172, issue: "issue o", product: "fo prd" },
           { name: "PA", value: 16054, issue: "issue o", product: "fo prod" },
-          { name: "NC", value: 15217, issue: "issue o", product: "fo prod" }, 
-          { name: "NJ", value: 15130, issue: "issue o", product: "fo prod" }, 
-          { name: "OH", value: 14365, issue: "issue o", product: "fo prod" }, 
-          { name: "VA", value: 12901, issue: "issue o", product: "fo prod" }, 
+          { name: "NC", value: 15217, issue: "issue o", product: "fo prod" },
+          { name: "NJ", value: 15130, issue: "issue o", product: "fo prod" },
+          { name: "OH", value: 14365, issue: "issue o", product: "fo prod" },
+          { name: "VA", value: 12901, issue: "issue o", product: "fo prod" },
           { name: "MD", value: 12231, issue: "issue o", product: "fo prod" },
-          { name: "MI", value: 10472, issue: "issue o", product: "fo prod" }, 
-          { name: "AZ", value: 10372, issue: "issue o", product: "fo prod" }, 
-          { name: "TN", value: 9011, issue: "issue o", product: "fo prod" }, 
-          { name: "WA", value: 8542, issue: "issue o", product: "fo prod" }, 
-          { name: "MA", value: 8254, issue: "issue o", product: "fo prod" }, 
-          { name: "MO", value: 7832, issue: "issue o", product: "fo prod" }, 
-          { name: "SC", value: 7496, issue: "issue o", product: "fo prod" }, 
+          { name: "MI", value: 10472, issue: "issue o", product: "fo prod" },
+          { name: "AZ", value: 10372, issue: "issue o", product: "fo prod" },
+          { name: "TN", value: 9011, issue: "issue o", product: "fo prod" },
+          { name: "WA", value: 8542, issue: "issue o", product: "fo prod" },
+          { name: "MA", value: 8254, issue: "issue o", product: "fo prod" },
+          { name: "MO", value: 7832, issue: "issue o", product: "fo prod" },
+          { name: "SC", value: 7496, issue: "issue o", product: "fo prod" },
           { name: "CO", value: 7461, issue: "issue o", product: "fo prod" },
-          { name: "NV", value: 7095, issue: "issue o", product: "fo prod" }, 
-          { name: "LA", value: 6369, issue: "issue o", product: "fo prod" }, 
-          { name: "AL", value: 6178, issue: "issue o", product: "fo prod" }, 
-          { name: "IN", value: 5659, issue: "issue o", product: "fo prod" }, 
-          { name: "MN", value: 4957, issue: "issue o", product: "fo prod" }, 
-          { name: "CT", value: 4685, issue: "issue o", product: "fo prod" }, 
-          { name: "WI", value: 4443, issue: "issue o", product: "fo prod" }, 
-          { name: "OR", value: 4261, issue: "issue o", product: "fo prod" }, 
+          { name: "NV", value: 7095, issue: "issue o", product: "fo prod" },
+          { name: "LA", value: 6369, issue: "issue o", product: "fo prod" },
+          { name: "AL", value: 6178, issue: "issue o", product: "fo prod" },
+          { name: "IN", value: 5659, issue: "issue o", product: "fo prod" },
+          { name: "MN", value: 4957, issue: "issue o", product: "fo prod" },
+          { name: "CT", value: 4685, issue: "issue o", product: "fo prod" },
+          { name: "WI", value: 4443, issue: "issue o", product: "fo prod" },
+          { name: "OR", value: 4261, issue: "issue o", product: "fo prod" },
           { name: "UT", value: 3693, issue: "issue o", product: "fo prod" },
           { name: "KY", value: 3392, issue: "issue o", product: "fo prod" },
           { name: "MS", value: 3237, issue: "issue o", product: "fo prod" },
           { name: "OK", value: 2989, issue: "issue o", product: "fo prod" },
-          { name: "AR", value: 2691, issue: "issue o", product: "fo prod" }, 
-          { name: "DC", value: 2493, issue: "issue o", product: "fo prod" }, 
-          { name: "KS", value: 2307, issue: "issue o", product: "fo prod" }, 
-          { name: "NM", value: 2176, issue: "issue o", product: "fo prod" }, 
-          { name: "DE", value: 2160, issue: "issue o", product: "fo prod" }, 
-          { name: "IA", value: 1751, issue: "issue o", product: "fo prod" }, 
-          { name: "ID", value: 1436, issue: "issue o", product: "fo prod" }, 
-          { name: "NH", value: 1408, issue: "issue o", product: "fo prod" }, 
-          { name: "NE", value: 1343, issue: "issue o", product: "fo prod" }, 
+          { name: "AR", value: 2691, issue: "issue o", product: "fo prod" },
+          { name: "DC", value: 2493, issue: "issue o", product: "fo prod" },
+          { name: "KS", value: 2307, issue: "issue o", product: "fo prod" },
+          { name: "NM", value: 2176, issue: "issue o", product: "fo prod" },
+          { name: "DE", value: 2160, issue: "issue o", product: "fo prod" },
+          { name: "IA", value: 1751, issue: "issue o", product: "fo prod" },
+          { name: "ID", value: 1436, issue: "issue o", product: "fo prod" },
+          { name: "NH", value: 1408, issue: "issue o", product: "fo prod" },
+          { name: "NE", value: 1343, issue: "issue o", product: "fo prod" },
           { name: "RI", value: 1166, issue: "issue o", product: "fo prod" },
-          { name: "ME", value: 1155, issue: "issue o", product: "fo prod" }, 
-          { name: "WV", value: 1075, issue: "issue o", product: "fo prod" }, 
+          { name: "ME", value: 1155, issue: "issue o", product: "fo prod" },
+          { name: "WV", value: 1075, issue: "issue o", product: "fo prod" },
           { name: "MT", value: 788, issue: "issue o", product: "fo prod" },
-          { name: "ND", value: 637, issue: "issue o", product: "fo prod" }, 
-          { name: "SD", value: 535, issue: "issue o", product: "fo prod" }, 
+          { name: "ND", value: 637, issue: "issue o", product: "fo prod" },
+          { name: "SD", value: 535, issue: "issue o", product: "fo prod" },
           { name: "AK", value: 524, issue: "issue o", product: "fo prod" },
-          { name: "WY", value: 450, issue: "issue o", product: "fo prod" }, 
-          { name: "VT", value: 446, issue: "issue o", product: "fo prod" }, 
+          { name: "WY", value: 450, issue: "issue o", product: "fo prod" },
+          { name: "VT", value: 446, issue: "issue o", product: "fo prod" },
           { name: "HI", value: 0, issue: "", product: "" } ],
         issue: [
           {
@@ -106,7 +107,8 @@ describe( 'reducer:map', () => {
             hasChildren: false,
             pctOfSet: "60.00",
             width: 0.5
-          }, {
+          },
+          {
             name: "bar",
             value: 150,
             pctChange: 1,
@@ -114,7 +116,8 @@ describe( 'reducer:map', () => {
             hasChildren: false,
             pctOfSet: "15.00",
             width: 0.5
-          }, {
+          },
+          {
             name: "car",
             value: 125,
             pctChange: 1,
@@ -122,7 +125,8 @@ describe( 'reducer:map', () => {
             hasChildren: false,
             pctOfSet: "13.00",
             width: 0.5
-          }, {
+          },
+          {
             name: "delta",
             value: 75,
             pctChange: 1,
@@ -130,7 +134,8 @@ describe( 'reducer:map', () => {
             hasChildren: false,
             pctOfSet: "8.00",
             width: 0.5
-          }, {
+          },
+          {
             name: "elephant",
             value: 50,
             pctChange: 1,
@@ -138,7 +143,8 @@ describe( 'reducer:map', () => {
             hasChildren: false,
             pctOfSet: "5.00",
             width: 0.5
-          } ],
+          }
+        ],
         product: [
           {
             name: "foo",
@@ -180,7 +186,8 @@ describe( 'reducer:map', () => {
             hasChildren: false,
             pctOfSet: "5.00",
             width: 0.5
-          } ]
+          }
+        ]
       } )
     } )
   } )
@@ -188,7 +195,7 @@ describe( 'reducer:map', () => {
   describe( 'STATES_FAILED actions', () => {
     it( 'handles failed error messages', () => {
       action = {
-        type: sut.STATES_FAILED,
+        type: complaintActions.STATES_FAILED,
         error: 'foo bar'
       }
       expect( target( {
@@ -210,7 +217,31 @@ describe( 'reducer:map', () => {
         } ) )
       } )
     } )
-  })
+  } )
+
+  describe( 'STATE_FILTER_ADDED actions', () => {
+    it( 'adds filter', () => {
+      action = {
+        type: mapActions.STATE_FILTER_ADDED,
+        selectedState: { abbr: 'FO', stateName: 'Foo Bar' }
+      }
+      expect( target( { selectedState: false }, action ) ).toEqual( {
+        selectedState: { abbr: 'FO', stateName: 'Foo Bar' }
+      } )
+    } )
+  } )
+
+  describe( 'STATE_FILTER_REMOVED actions', () => {
+    it( 'adds filter', () => {
+      action = {
+        type: mapActions.STATE_FILTER_REMOVED,
+        stateAbbr: 'FO'
+      }
+      expect( target( { selectedState: false }, action ) ).toEqual( {
+        selectedState: false
+      } )
+    } )
+  } )
 
   describe( 'helper functions', () => {
     describe( 'processAggregations', () => {
@@ -339,7 +370,7 @@ describe( 'reducer:map', () => {
           { name: "WY", value: 450, issue: "issue o", product: "fo prod" },
           { name: "VT", value: 446, issue: "issue o", product: "fo prod" },
           { name: "HI", value: 0, issue: "", product: "" }
-          ] )
+        ] )
       } )
     } )
   } )

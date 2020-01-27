@@ -13,7 +13,7 @@ export class TileChartMap extends React.Component {
     }
 
     // force redraw when switching tabs
-    if ( hashObject( prevProps.data ) !== hashObject( props.data ) ||
+    if ( hashObject( prevProps ) !== hashObject( props ) ||
       !document.getElementById( 'tile-chart-map' ).children.length ) {
       this._redrawMap()
     }
@@ -30,6 +30,18 @@ export class TileChartMap extends React.Component {
     )
   }
 
+  _toggleState( event ) {
+    const compProps = this.props
+    // pass in redux dispatch
+    // point.fullName
+    const { abbr, fullName } = event.point
+    const selectedState = { abbr, fullName }
+    if ( compProps.selectedState.abbr !== abbr ) {
+      compProps.mapShapeToggled( selectedState )
+    }
+  }
+
+
   // --------------------------------------------------------------------------
   // Event Handlers
   _redrawMap() {
@@ -42,7 +54,6 @@ export class TileChartMap extends React.Component {
       'rgba(37, 116, 115, 0.5)'
     ]
 
-    const compProps = this.props
 
     // eslint-disable-next-line no-unused-vars
     const chart = new TileMap( {
@@ -52,35 +63,26 @@ export class TileChartMap extends React.Component {
       localize: true,
       events: {
         // custom event handlers we can pass on
-        click: function( event ) {
-          // pass in redux dispatch
-          // point.fullName
-          const { abbr, fullName } = event.point
-          const selectedState = { abbr, fullName }
-          // turn it off
-          if ( compProps.selectedState.abbr !== abbr ) {
-            compProps.mapShapeToggled( selectedState )
-          }
-        }
+        click: this._toggleState
       }
     } )
   }
 }
 
-export const getStateClass = ( statesFilter, states, name ) => {
+export const getStateClass = ( statesFilter, abbr ) => {
   // no filters so no classes.
   if ( statesFilter.length === 0 ) {
     return ''
   }
 
-  return statesFilter.includes( name ) ? 'selected' : 'deselected'
+  return statesFilter.includes( abbr ) ? 'selected' : 'deselected'
 }
 
 export const processStates = state => {
   const statesFilter = state.query.state || []
   const states = state.map.state
   const stateData = states.map( o => {
-    o.className = getStateClass( statesFilter, states, o.name )
+    o.className = getStateClass( statesFilter, o.abbr )
     return o
   } )
   return [ stateData ]

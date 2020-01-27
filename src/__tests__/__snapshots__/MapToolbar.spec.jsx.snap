@@ -6,14 +6,14 @@ exports[`component: MapToolbar initial state renders without crashing 1`] = `
 >
   Texas
   <button
-    className="map"
+    className="clear"
     onClick={[Function]}
   >
     Clear
   </button>
   <section>
     <button
-      className="map"
+      className="list"
       onClick={[Function]}
     >
       View complaints from 
