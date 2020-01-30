@@ -51,8 +51,11 @@ describe( 'component: TileChartMap', () => {
       }
       target = shallow( <TileChartMap { ...props } /> )
       const mapEvent = { point: { abbr: 'FO', fullName: 'Foo Bar' } }
-      target.instance()._doStuff( mapEvent )
-      expect( props.mapShapeToggled ).toHaveBeenCalledTimes( 1 )
+      const instance = target.instance()
+        //._toggleState( mapEvent )
+      instance.mapShapeToggled = jest.fn()
+      instance._toggleState(mapEvent)
+      expect( instance.mapShapeToggled ).toHaveBeenCalledTimes( 1 )
     } )
 
     it( 'does nothing current state is the same', () => {
@@ -62,8 +65,11 @@ describe( 'component: TileChartMap', () => {
       }
       target = shallow( <TileChartMap { ...props } /> )
       const mapEvent = { point: { abbr: 'FO', fullName: 'Foo Bar' } }
-      target.instance()._doStuff( mapEvent )
-      expect( props.mapShapeToggled ).toHaveBeenCalledTimes( 0 )
+      const instance = target.instance()
+      instance.mapShapeToggled = jest.fn()
+      instance.selectedState = { abbr: 'FO', fullName: 'Foo Bar' }
+      instance._toggleState(mapEvent)
+      expect( instance.mapShapeToggled ).toHaveBeenCalledTimes( 0 )
     } )
   } )
 
