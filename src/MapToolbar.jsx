@@ -32,8 +32,8 @@ export const mapDispatchToProps = dispatch => ( {
   removeState: stateAbbr => {
     dispatch( removeStateFilter( stateAbbr ) )
   },
-  showComplaints: tab => {
-    dispatch( showStateComplaints( tab ) )
+  showComplaints: stateAbbr => {
+    dispatch( showStateComplaints( stateAbbr ) )
   }
 } )
 
