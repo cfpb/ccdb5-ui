@@ -33,7 +33,7 @@ function setupSnapshot( selectedState = false ) {
 } )
 
   const props = {
-    selectedState: { abbr: 'FO', fullName: 'Foo Bar' }
+    selectedState: { abbr: 'FO', name: 'Foo Bar' }
   }
 
   return renderer.create(
@@ -47,7 +47,7 @@ function setupSnapshot( selectedState = false ) {
 
 describe( 'component:MapPanel', () => {
   it( 'renders without crashing', () => {
-    const target = setupSnapshot( { abbr: 'FO', fullName: 'Foo Bar' } )
+    const target = setupSnapshot( { abbr: 'FO', name: 'Foo Bar' } )
     const tree = target.toJSON()
     expect( tree ).toMatchSnapshot()
   } )

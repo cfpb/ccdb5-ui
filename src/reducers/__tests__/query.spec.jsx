@@ -601,7 +601,7 @@ describe( 'reducer:query', () => {
       beforeEach( () => {
         action = {
           type: actions.STATE_FILTER_ADDED,
-          selectedState: { abbr: 'IL', fullName: 'Illinois' }
+          selectedState: { abbr: 'IL', name: 'Illinois' }
         }
       } )
       it( 'adds state filter', () => {

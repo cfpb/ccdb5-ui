@@ -35,7 +35,12 @@ export class TileChartMap extends React.Component {
     // point.fullName
     const compProps = this
     const { abbr, fullName } = event.point
-    const selectedState = { abbr, fullName }
+    const selectedState = {
+      abbr,
+      // rename this for consistency
+      // chart builder uses fullName
+      name: fullName
+    }
     if ( !compProps.selectedState || compProps.selectedState.abbr !== abbr ) {
       compProps.mapShapeToggled( selectedState )
     }
@@ -69,20 +74,20 @@ export class TileChartMap extends React.Component {
   }
 }
 
-export const getStateClass = ( statesFilter, abbr ) => {
+export const getStateClass = ( statesFilter, name ) => {
   // no filters so no classes.
   if ( statesFilter.length === 0 ) {
     return ''
   }
 
-  return statesFilter.includes( abbr ) ? 'selected' : 'deselected'
+  return statesFilter.includes( name ) ? 'selected' : 'deselected'
 }
 
 export const processStates = state => {
   const statesFilter = state.query.state || []
   const states = state.map.state
   const stateData = states.map( o => {
-    o.className = getStateClass( statesFilter, o.abbr )
+    o.className = getStateClass( statesFilter, o.name )
     return o
   } )
   return [ stateData ]

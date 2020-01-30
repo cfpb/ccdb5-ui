@@ -11,7 +11,7 @@ import thunk from 'redux-thunk'
 function setupEnzyme() {
   const props = {
     removeState: jest.fn(),
-    selectedState: { abbr: 'TX', fullName: 'Texas' },
+    selectedState: { abbr: 'TX', name: 'Texas' },
     showComplaints: jest.fn()
   }
 
@@ -35,7 +35,7 @@ function setupSnapshot() {
 
   const selectedState = {
     abbr: 'TX',
-    fullName: 'Texas'
+    name: 'Texas'
   }
   return renderer.create(
     <Provider store={ store }>
@@ -76,7 +76,7 @@ describe( 'component: MapToolbar', () => {
         map: {
           selectedState: {
             abbr: 'fo',
-            fullName: 'foo'
+            name: 'foo'
           }
         }
       }
@@ -84,7 +84,7 @@ describe( 'component: MapToolbar', () => {
       expect( actual ).toEqual( {
         selectedState: {
           abbr: 'fo',
-          fullName: 'foo'
+          name: 'foo'
         }
       } )
     } )

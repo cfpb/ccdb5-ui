@@ -45,30 +45,22 @@ describe( 'component: TileChartMap', () => {
     } )
 
     it( 'toggles map state when different from current state', () => {
-      const props = {
-        mapShapeToggled: jest.fn(),
-        selectedState: false
-      }
-      target = shallow( <TileChartMap { ...props } /> )
+      target = shallow( <TileChartMap/> )
       const mapEvent = { point: { abbr: 'FO', fullName: 'Foo Bar' } }
       const instance = target.instance()
-        //._toggleState( mapEvent )
+      //._toggleState( mapEvent )
       instance.mapShapeToggled = jest.fn()
-      instance._toggleState(mapEvent)
+      instance._toggleState( mapEvent )
       expect( instance.mapShapeToggled ).toHaveBeenCalledTimes( 1 )
     } )
 
     it( 'does nothing current state is the same', () => {
-      const props = {
-        mapShapeToggled: jest.fn(),
-        selectedState: { abbr: 'FO', fullName: 'Foo Bar' }
-      }
-      target = shallow( <TileChartMap { ...props } /> )
+      target = shallow( <TileChartMap/> )
       const mapEvent = { point: { abbr: 'FO', fullName: 'Foo Bar' } }
       const instance = target.instance()
       instance.mapShapeToggled = jest.fn()
-      instance.selectedState = { abbr: 'FO', fullName: 'Foo Bar' }
-      instance._toggleState(mapEvent)
+      instance.selectedState = { abbr: 'FO', name: 'Foo Bar' }
+      instance._toggleState( mapEvent )
       expect( instance.mapShapeToggled ).toHaveBeenCalledTimes( 0 )
     } )
   } )
@@ -140,26 +132,44 @@ describe( 'component: TileChartMap', () => {
       const state = {
         map: {
           state: [
-            { abbr: 'a', name: 'aa' },
-            { abbr: 'b', name: 'bb' },
-            { abbr: 'c', name: 'cc' }
+            // name comes from agg api
+            { name: 'aa', issue: 'something', product: 'a prod' },
+            { name: 'bb', issue: 'something', product: 'b prod' },
+            { name: 'cc', issue: 'something', product: 'c prod' }
           ],
-          selectedState: 'b'
+          // fyi Selected State comes from map
+          selectedState: { abbr: 'bb', name: 'bb state' }
         },
         query: {
-          state: [ 'a' ]
+          state: [ 'aa' ]
         }
       }
       let actual = mapStateToProps( state )
       expect( actual ).toEqual( {
         data: [
-          [ { abbr: 'a', name: 'aa', className: 'selected' },
-            { abbr: 'b', name: 'bb', className: 'deselected' },
-            { abbr: 'c', name: 'cc', className: 'deselected' }
+          [
+            {
+              name: 'aa',
+              className: 'selected',
+              issue: 'something',
+              product: 'a prod'
+            },
+            {
+              name: 'bb',
+              className: 'deselected',
+              issue: 'something',
+              product: 'b prod'
+            },
+            {
+              name: 'cc',
+              className: 'deselected',
+              issue: 'something',
+              product: 'c prod'
+            }
           ]
         ],
-        stateFilters: [ 'a' ],
-        selectedState: 'b'
+        stateFilters: [ 'aa' ],
+        selectedState: { abbr: 'bb', name: 'bb state' }
       } )
     } )
   } )
