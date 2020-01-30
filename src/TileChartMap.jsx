@@ -1,4 +1,5 @@
 import './TileChartMap.less'
+import { addStateFilter } from './actions/map'
 import { connect } from 'react-redux'
 import { hashObject } from './utils'
 import React from 'react'
@@ -12,7 +13,7 @@ export class TileChartMap extends React.Component {
     }
 
     // force redraw when switching tabs
-    if ( hashObject( prevProps.data ) !== hashObject( props.data ) ||
+    if ( hashObject( prevProps ) !== hashObject( props ) ||
       !document.getElementById( 'tile-chart-map' ).children.length ) {
       this._redrawMap()
     }
@@ -29,6 +30,22 @@ export class TileChartMap extends React.Component {
     )
   }
 
+  _toggleState( event ) {
+    // pass in redux dispatch
+    // point.fullName
+    const compProps = this
+    const { abbr, fullName } = event.point
+    const selectedState = {
+      abbr,
+      // rename this for consistency
+      // chart builder uses fullName
+      name: fullName
+    }
+    if ( !compProps.selectedState || compProps.selectedState.abbr !== abbr ) {
+      compProps.mapShapeToggled( selectedState )
+    }
+  }
+
   // --------------------------------------------------------------------------
   // Event Handlers
   _redrawMap() {
@@ -40,18 +57,54 @@ export class TileChartMap extends React.Component {
       'rgba(86, 149, 148, 0.5)',
       'rgba(37, 116, 115, 0.5)'
     ]
+    const toggleState = this._toggleState
+    const componentProps = this.props
 
     // eslint-disable-next-line no-unused-vars
     const chart = new TileMap( {
       el: document.getElementById( 'tile-chart-map' ),
       data: this.props.data,
       colors,
-      localize: true
+      localize: true,
+      events: {
+        // custom event handlers we can pass on
+        click: toggleState.bind( componentProps )
+      }
     } )
   }
 }
 
-export const mapStateToProps = state => ( { data: [ state.map.state ]} )
+export const getStateClass = ( statesFilter, name ) => {
+  // no filters so no classes.
+  if ( statesFilter.length === 0 ) {
+    return ''
+  }
 
-export default connect( mapStateToProps )( TileChartMap )
+  return statesFilter.includes( name ) ? 'selected' : 'deselected'
+}
+
+export const processStates = state => {
+  const statesFilter = state.query.state || []
+  const states = state.map.state
+  const stateData = states.map( o => {
+    o.className = getStateClass( statesFilter, o.name )
+    return o
+  } )
+  return [ stateData ]
+}
+
+export const mapStateToProps = state => ( {
+  data: processStates( state ),
+  stateFilters: state.query.state,
+  selectedState: state.map.selectedState
+} )
+
+export const mapDispatchToProps = dispatch => ( {
+  mapShapeToggled: selectedState => {
+    dispatch( addStateFilter( selectedState ) )
+  }
+} )
+
+
+export default connect( mapStateToProps, mapDispatchToProps )( TileChartMap )
 

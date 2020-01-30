@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component: MapToolbar initial state renders without crashing 1`] = `
+<div
+  className="mapToolbar"
+>
+  Texas
+  <button
+    className="clear"
+    onClick={[Function]}
+  >
+    Clear
+  </button>
+  <section>
+    <button
+      className="list"
+      onClick={[Function]}
+    >
+      View complaints from 
+      Texas
+    </button>
+  </section>
+</div>
+`;
