@@ -6,11 +6,11 @@ describe('action:map', () => {
     it('creates a simple action', () => {
       const expectedAction = {
         type: sut.STATE_FILTER_ADDED,
-        selectedState: { abbr: 'TX', fullName: 'Texas'},
+        selectedState: { abbr: 'TX', name: 'Texas'},
         requery: REQUERY_ALWAYS
       }
       const action = sut
-        .addStateFilter({ abbr: 'TX', fullName: 'Texas'})
+        .addStateFilter({ abbr: 'TX', name: 'Texas'})
       expect(action).toEqual(expectedAction)
     })
   })

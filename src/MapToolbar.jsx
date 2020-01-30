@@ -5,10 +5,10 @@ import React from 'react'
 
 export class MapToolbar extends React.Component {
   render() {
-    const { abbr, fullName } = this.props.selectedState
+    const { abbr, name } = this.props.selectedState
     return (
       <div className="mapToolbar">
-        { fullName }
+        { name }
         <button className="clear"
                 onClick={ () => this.props.removeState( abbr ) }>
           Clear
@@ -16,7 +16,7 @@ export class MapToolbar extends React.Component {
         <section>
           <button className="list"
                   onClick={ () => this.props.showComplaints( abbr ) }>
-            View complaints from { fullName }
+            View complaints from { name }
           </button>
         </section>
       </div>
