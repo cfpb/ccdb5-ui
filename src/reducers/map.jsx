@@ -1,4 +1,5 @@
 // reducer for the Map Tab
+import { STATE_FILTER_ADDED, STATE_FILTER_REMOVED } from '../actions/map'
 import {
   STATES_API_CALLED, STATES_FAILED, STATES_RECEIVED
 } from '../actions/complaints'
@@ -8,6 +9,7 @@ export const defaultState = {
   isLoading: false,
   issue: [],
   product: [],
+  selectedState: false,
   state: []
 }
 
@@ -112,7 +114,41 @@ export function processStatesError( state, action ) {
     error: action.error,
     isLoading: false,
     product: [],
-    state: []
+    state: TILE_MAP_STATES.map( o => ( {
+      name: o,
+      value: 0,
+      issue: '',
+      product: ''
+    } ) )
+  }
+}
+
+/**
+ * toggle a state map toolbar
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} new state for the Redux store
+ */
+export function deselectState( state ) {
+  return {
+    ...state,
+    selectedState: false
+  }
+}
+
+
+/**
+ * toggle a state map toolbar
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the payload containing the key/value pairs
+ * @returns {object} new state for the Redux store
+ */
+export function selectState( state, action ) {
+  const { selectedState } = action
+  return {
+    ...state,
+    selectedState
   }
 }
 
@@ -129,6 +165,8 @@ export function _buildHandlerMap() {
   handlers[STATES_API_CALLED] = statesCallInProcess
   handlers[STATES_RECEIVED] = processStatesResults
   handlers[STATES_FAILED] = processStatesError
+  handlers[STATE_FILTER_ADDED] = selectState
+  handlers[STATE_FILTER_REMOVED] = deselectState
 
   return handlers
 }
