@@ -31,16 +31,15 @@ export class TileChartMap extends React.Component {
   }
 
   _toggleState( event ) {
-    const compProps = this.props
     // pass in redux dispatch
     // point.fullName
+    const compProps = this
     const { abbr, fullName } = event.point
     const selectedState = { abbr, fullName }
-    if ( compProps.selectedState.abbr !== abbr ) {
+    if ( !compProps.selectedState || compProps.selectedState.abbr !== abbr ) {
       compProps.mapShapeToggled( selectedState )
     }
   }
-
 
   // --------------------------------------------------------------------------
   // Event Handlers
@@ -53,7 +52,8 @@ export class TileChartMap extends React.Component {
       'rgba(86, 149, 148, 0.5)',
       'rgba(37, 116, 115, 0.5)'
     ]
-
+    const toggleState = this._toggleState
+    const componentProps = this.props
 
     // eslint-disable-next-line no-unused-vars
     const chart = new TileMap( {
@@ -63,7 +63,7 @@ export class TileChartMap extends React.Component {
       localize: true,
       events: {
         // custom event handlers we can pass on
-        click: this._toggleState
+        click: toggleState.bind( componentProps )
       }
     } )
   }
