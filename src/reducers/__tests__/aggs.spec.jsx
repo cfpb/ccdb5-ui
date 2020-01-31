@@ -1,5 +1,5 @@
 import target from '../aggs'
-import { COMPLAINTS_RECEIVED } from '../../actions/complaints'
+import { AGGREGATIONS_RECEIVED } from '../../actions/complaints'
 
 describe('reducer:aggs', () => {
   it('has a default state', () => {
@@ -19,9 +19,9 @@ describe('reducer:aggs', () => {
     expect(actual.zip_code).toBeDefined();
   })
 
-  it('handles COMPLAINTS_RECEIVED actions', () => {
+  it('handles AGGREGATIONS_RECEIVED actions', () => {
     const action = {
-      type: COMPLAINTS_RECEIVED,
+      type: AGGREGATIONS_RECEIVED,
       data: { 
         aggregations: {
           'company_response': {

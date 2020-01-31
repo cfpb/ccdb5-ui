@@ -12,7 +12,7 @@ describe('action::complaints', () => {
     beforeEach(() => {
       global.fetch = jest.fn().mockImplementation((url) => {
         expect(url).toContain(
-          '@@API?foo'
+          '@@API?foo&size=0'
         )
 
         return {
@@ -88,7 +88,7 @@ describe('action::complaints', () => {
     beforeEach(() => {
       global.fetch = jest.fn().mockImplementation((url) => {
         expect(url).toContain(
-          '@@API?foo'
+          '@@API?foo&no_aggs=true'
         )
 
         return {
@@ -128,7 +128,7 @@ describe('action::complaints', () => {
 
     it('discards duplicate API calls', () => {
       const s = store.getState()
-      s.results.activeCall = '@@API' + s.query.queryString
+      s.results.activeCall = '@@API' + s.query.queryString + '&no_aggs=true'
       store = mockStore(s)
 
       store.dispatch(sut.getComplaints())
@@ -220,7 +220,7 @@ describe('action::complaints', () => {
     beforeEach(() => {
       global.fetch = jest.fn().mockImplementation((url) => {
         expect(url).toContain(
-          '@@APIgeo/states/?foo'
+          '@@APIgeo/states/?foo&no_aggs=true'
         )
 
         return {
@@ -260,7 +260,7 @@ describe('action::complaints', () => {
 
     it('discards duplicate API calls', () => {
       const s = store.getState()
-      s.map.activeCall = '@@APIgeo/states/' + s.query.queryString
+      s.map.activeCall = '@@APIgeo/states/' + s.query.queryString + '&no_aggs=true'
       store = mockStore(s)
 
       store.dispatch(sut.getStates())

@@ -5,7 +5,6 @@ describe('reducer:results', () => {
   it('has a default state', () => {
     expect(target(undefined, {})).toEqual({
         activeCall: '',
-        aggregationResults: {},
         doc_count: 0,
         error: '',
         lastUpdated: null,
@@ -19,55 +18,6 @@ describe('reducer:results', () => {
         total: 0
       })
   })
-
-  describe( 'Aggregations', () => {
-    describe( 'handles AGGREGATIONS_API_CALLED actions', () => {
-      const action = {
-        type: sut.AGGREGATIONS_API_CALLED
-      }
-      expect( target( {}, action ) ).toEqual( {
-        loadingAggregations: true
-      } )
-    } )
-
-    describe( 'handles AGGREGATIONS_RECEIVED actions', () => {
-      let action
-
-      beforeEach( () => {
-        action = {
-          type: sut.AGGREGATIONS_RECEIVED,
-          data: {}
-        }
-      } )
-
-
-      it( 'loads the data', () => {
-        action.data = {
-          something: 'foo'
-        }
-        expect( target( {}, action ) ).toEqual( {
-          aggregationResults: {
-            something: 'foo'
-          },
-          loadingAggregations: false
-        } )
-      } )
-    } )
-
-    it( 'handles AGGREGATIONS_FAILED actions', () => {
-      const action = {
-        type: sut.AGGREGATIONS_FAILED,
-        error: 'fooooo'
-      }
-      expect( target( {
-        aggregationResults: { foo: 'bar' }
-      }, action ) ).toEqual( {
-        aggregationResults: {},
-        loadingAggregations: false,
-        error: 'fooooo'
-      } )
-    } )
-  } )
 
   describe( 'Complaints', () => {
     describe( 'handles COMPLAINTS_API_CALLED actions', () => {
@@ -154,7 +104,6 @@ describe('reducer:results', () => {
         items: [ 1, 2, 3 ]
       }, action ) ).toEqual( {
         activeCall: '',
-        aggregationResults: {},
         doc_count: 0,
         error: 'foo bar',
         lastUpdated: null,

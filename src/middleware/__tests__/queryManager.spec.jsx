@@ -122,7 +122,7 @@ describe( 'redux middleware::queryManager', () => {
           const expectedActions = [
             { type: 'FakeAction', requery: REQUERY_ALWAYS },
             { type: 'AGGREGATIONS_API_CALLED', url: "@@API?foo&size=0" },
-            { type: 'STATES_API_CALLED', url: "@@APIgeo/states/?foo" }
+            { type: 'STATES_API_CALLED', url: "@@APIgeo/states/?foo&no_aggs=true" }
           ]
 
           store.dispatch( action )
@@ -138,7 +138,7 @@ describe( 'redux middleware::queryManager', () => {
           }
           const expectedActions = [
             { type: 'FakeAction', requery: REQUERY_HITS_ONLY },
-            { type: 'STATES_API_CALLED', url: "@@APIgeo/states/?foo" }
+            { type: 'STATES_API_CALLED', url: "@@APIgeo/states/?foo&no_aggs=true" }
           ]
 
           store.dispatch( action )
