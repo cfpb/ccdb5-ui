@@ -1,33 +1,53 @@
-import target from '../aggs'
-import { AGGREGATIONS_RECEIVED } from '../../actions/complaints'
+import target, { defaultAggs } from '../aggs'
+import {
+  AGGREGATIONS_API_CALLED, AGGREGATIONS_FAILED, AGGREGATIONS_RECEIVED
+} from '../../actions/complaints'
 
-describe('reducer:aggs', () => {
-  it('has a default state', () => {
-    const actual = target(undefined, {});
+describe( 'reducer:aggs', () => {
+  it( 'has a default state', () => {
+    const actual = target( undefined, {} )
 
-    expect(actual.company).toBeDefined();
-    expect(actual.company_public_response).toBeDefined();
-    expect(actual.company_response).toBeDefined();
-    expect(actual.consumer_consent_provided).toBeDefined();
-    expect(actual.consumer_disputed).toBeDefined();
-    expect(actual.issue).toBeDefined();
-    expect(actual["product"]).toBeDefined();
-    expect(actual.state).toBeDefined();
-    expect(actual.submitted_via).toBeDefined();
-    expect(actual.tag).toBeDefined();
-    expect(actual.timely).toBeDefined();
-    expect(actual.zip_code).toBeDefined();
-  })
+    expect( actual ).toEqual( defaultAggs )
+  } )
 
-  it('handles AGGREGATIONS_RECEIVED actions', () => {
+  it( 'handles AGGREGATIONS_API_CALLED actions', () => {
+    const action = {
+      type: AGGREGATIONS_API_CALLED,
+      url: 'foobar'
+    }
+
+    expect( target( {}, action ) ).toEqual( {
+      activeCall: 'foobar',
+      isLoading: true
+    } )
+  } )
+
+  it( 'handles AGGREGATIONS_FAILED actions', () => {
+    const action = {
+      type: AGGREGATIONS_FAILED,
+      error: 'error message'
+    }
+
+    const expected = {
+      ...defaultAggs,
+      error: 'error message'
+    }
+    expect( target( {
+      company: ['ab', 'cd'],
+      error: ''
+    }, action ) ).toEqual( expected )
+  } )
+
+
+  it( 'handles AGGREGATIONS_RECEIVED actions', () => {
     const action = {
       type: AGGREGATIONS_RECEIVED,
-      data: { 
+      data: {
         aggregations: {
           'company_response': {
             'company_response': {
               buckets: [
-                {key: 'foo', doc_count: 99}
+                { key: 'foo', doc_count: 99 }
               ]
             }
           }
@@ -36,10 +56,13 @@ describe('reducer:aggs', () => {
     }
     const expected = {
       company_response: [
-        {key: 'foo', doc_count: 99}
-      ]
+        { key: 'foo', doc_count: 99 }
+      ],
+      isLoading: false
     }
 
-    expect(target({}, action)).toEqual(expected)
-  })
-})
+    expect( target( {}, action ) ).toEqual( expected )
+  } )
+
+
+} )
