@@ -1,12 +1,10 @@
 /* eslint-disable camelcase */
 import {
-  AGGREGATIONS_API_CALLED, AGGREGATIONS_FAILED, AGGREGATIONS_RECEIVED,
   COMPLAINTS_API_CALLED, COMPLAINTS_FAILED, COMPLAINTS_RECEIVED
 } from '../actions/complaints'
 
 const defaultResults = {
   activeCall: '',
-  aggregationResults: {},
   doc_count: 0,
   error: '',
   lastUpdated: null,
@@ -34,51 +32,6 @@ export const _processHits = data => data.hits.hits.map( x => {
 
 // ----------------------------------------------------------------------------
 // Action Handlers
-
-/**
- * Updates the state when an aggregations call is in progress
- *
- * @param {object} state the current state in the Redux store
- * @returns {object} the new state for the Redux store
- */
-export function aggregationCallInProcess( state ) {
-  return {
-    ...state,
-    loadingAggregations: true
-  }
-}
-
-/**
- * Expanded logic for handling aggregations returned from the API
- *
- * @param {object} state the current state in the Redux store
- * @param {object} action the payload containing the key/value pairs
- * @returns {object} new state for the Redux store
- */
-export function processAggregationResults( state, action ) {
-  return {
-    ...state,
-    aggregationResults: action.data,
-    loadingAggregations: false
-  }
-}
-
-/**
- * handling errors from an aggregation call
- *
- * @param {object} state the current state in the Redux store
- * @param {object} action the payload containing the key/value pairs
- * @returns {object} new state for the Redux store
- */
-export function processAggregationError( state, action ) {
-  return {
-    ...state,
-    aggregationResults: {},
-    loadingAggregations: false,
-    error: action.error
-  }
-}
-
 /**
  * handles complaint api call in progress
  *
@@ -149,9 +102,6 @@ export function processHitsError( state, action ) {
  */
 export function _buildHandlerMap() {
   const handlers = {}
-  handlers[AGGREGATIONS_API_CALLED] = aggregationCallInProcess
-  handlers[AGGREGATIONS_RECEIVED] = processAggregationResults
-  handlers[AGGREGATIONS_FAILED] = processAggregationError
   handlers[COMPLAINTS_API_CALLED] = hitsCallInProcess
   handlers[COMPLAINTS_RECEIVED] = processHitsResults
   handlers[COMPLAINTS_FAILED] = processHitsError
