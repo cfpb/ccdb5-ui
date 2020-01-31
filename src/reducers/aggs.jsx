@@ -1,4 +1,4 @@
-import { COMPLAINTS_RECEIVED } from '../actions/complaints'
+import { AGGREGATIONS_RECEIVED } from '../actions/complaints'
 
 /* eslint-disable camelcase */
 
@@ -21,7 +21,7 @@ export const defaultAggs = {
 
 export default ( state = defaultAggs, action ) => {
   switch ( action.type ) {
-    case COMPLAINTS_RECEIVED: {
+    case AGGREGATIONS_RECEIVED: {
       const aggs = action.data.aggregations
       const keys = Object.keys( aggs )
       const result = { ...state }

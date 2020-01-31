@@ -101,7 +101,7 @@ export function getAggregations() {
 export function getComplaints() {
   return ( dispatch, getState ) => {
     const store = getState()
-    const qs = store.query.queryString
+    const qs = store.query.queryString + '&no_aggs=true'
     const uri = '@@API' + qs
 
     // This call is already in process
@@ -143,7 +143,7 @@ export function getStates() {
   return ( dispatch, getState ) => {
     const store = getState()
     const qs = 'geo/states/' + store.query.queryString
-    const uri = '@@API' + qs
+    const uri = '@@API' + qs + '&no_aggs=true'
 
     // This call is already in process
     if ( uri === store.map.activeCall ) {
