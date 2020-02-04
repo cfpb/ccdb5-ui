@@ -19,6 +19,7 @@ export class DateIntervals extends React.Component {
   render() {
     return (
       <section className="date-intervals">
+        <p>Date range (Click to modify range)</p>
         { dateIntervals.map( dateInterval =>
           <button onClick={ () => this._setDateInterval( dateInterval ) }
                   className={ this._btnClassName( dateInterval ) }
