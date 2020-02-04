@@ -1,4 +1,5 @@
 import './TileChartMap.less'
+import { GEO_NORM_NONE, STATE_DATA } from './constants'
 import { addStateFilter } from './actions/map'
 import { connect } from 'react-redux'
 import { hashObject } from './utils'
@@ -49,6 +50,7 @@ export class TileChartMap extends React.Component {
   // --------------------------------------------------------------------------
   // Event Handlers
   _redrawMap() {
+    console.log( 'redrawing map' )
     const colors = [
       'rgba(247, 248, 249, 0.5)',
       'rgba(212, 231, 230, 0.5)',
@@ -63,7 +65,7 @@ export class TileChartMap extends React.Component {
     // eslint-disable-next-line no-unused-vars
     const chart = new TileMap( {
       el: document.getElementById( 'tile-chart-map' ),
-      data: this.props.data,
+      data: updateData( this.props ),
       colors,
       localize: true,
       events: {
@@ -72,6 +74,22 @@ export class TileChartMap extends React.Component {
       }
     } )
   }
+}
+
+function updateData( props ) {
+  const { data, dataNormalization } = props
+  const def = dataNormalization === GEO_NORM_NONE
+  const res = data[0].map( o => ( {
+    ...o,
+    value: normalizeValue( o, def )
+  } ) )
+
+  return [ res ]
+}
+
+function normalizeValue( stateObj, def ) {
+  const pop = STATE_DATA.find( o => o.abbr === stateObj.name ).population
+  return def ? stateObj.value : stateObj.value / pop * 1000
 }
 
 export const getStateClass = ( statesFilter, name ) => {
@@ -95,6 +113,7 @@ export const processStates = state => {
 
 export const mapStateToProps = state => ( {
   data: processStates( state ),
+  dataNormalization: state.map.dataNormalization,
   stateFilters: state.query.state,
   selectedState: state.map.selectedState
 } )

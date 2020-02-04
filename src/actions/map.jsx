@@ -1,8 +1,23 @@
-import { REQUERY_ALWAYS } from '../constants'
+import { REQUERY_ALWAYS, REQUERY_NEVER } from '../constants'
 
+export const DATA_NORMALIZATION_SELECTED = 'DATA_NORMALIZATION_SELECTED'
 export const STATE_COMPLAINTS_SHOWN = 'STATE_COMPLAINTS_SHOWN'
 export const STATE_FILTER_ADDED = 'STATE_FILTER_ADDED'
 export const STATE_FILTER_REMOVED = 'STATE_FILTER_REMOVED'
+
+
+/**
+ * Indicates data normalization (yes, per capita) value was selected
+ * @param {object} value of the data normalization
+ * @returns {object} a packaged payload to be used by Redux reducers
+ */
+export function dataNormalizationChanged( value ) {
+  return {
+    type: DATA_NORMALIZATION_SELECTED,
+    requery: REQUERY_NEVER,
+    value
+  };
+}
 
 /**
  * Creates an action in response after state tile clicked
