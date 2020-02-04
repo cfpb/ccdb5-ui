@@ -14,6 +14,10 @@ export const MODE_MAP = 'Map'
 export const MODE_LIST = 'List'
 export const MODE_TRENDS = 'Trends'
 
+// map normalization modes
+export const GEO_NORM_NONE = 'None'
+export const GEO_NORM_PER1000 = 'Per 1000 pop.'
+
 // Useful constants
 export const NARRATIVE_SEARCH_FIELD = 'complaint_what_happened'
 

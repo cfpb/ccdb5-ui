@@ -1,13 +1,16 @@
 // reducer for the Map Tab
-import { STATE_FILTER_ADDED, STATE_FILTER_REMOVED } from '../actions/map'
+import {
+  DATA_NORMALIZATION_SELECTED, STATE_FILTER_ADDED, STATE_FILTER_REMOVED
+} from '../actions/map'
+import { GEO_NORM_NONE, TILE_MAP_STATES } from '../constants'
 import {
   STATES_API_CALLED, STATES_FAILED, STATES_RECEIVED
 } from '../actions/complaints'
-import { TILE_MAP_STATES } from '../constants'
 
 export const defaultState = {
   isLoading: false,
   issue: [],
+  dataNormalization: GEO_NORM_NONE,
   product: [],
   selectedState: false,
   state: []
@@ -152,6 +155,20 @@ export function selectState( state, action ) {
   }
 }
 
+/**
+ * Handler for the update data normalization action
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the command being executed
+ * @returns {object} the new state for the Redux store
+ */
+export function updateDataNormalization( state, action ) {
+  return {
+    ...state,
+    dataNormalization: action.value
+  };
+}
+
 // ----------------------------------------------------------------------------
 // Action Handlers
 
@@ -162,6 +179,8 @@ export function selectState( state, action ) {
  */
 export function _buildHandlerMap() {
   const handlers = {}
+
+  handlers[DATA_NORMALIZATION_SELECTED] = updateDataNormalization
   handlers[STATES_API_CALLED] = statesCallInProcess
   handlers[STATES_RECEIVED] = processStatesResults
   handlers[STATES_FAILED] = processStatesError

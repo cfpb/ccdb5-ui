@@ -1,6 +1,7 @@
 import './PerCapita.less'
+import { GEO_NORM_NONE, GEO_NORM_PER1000 } from './constants'
 import { connect } from 'react-redux'
-import { dateIntervalToggled } from './actions/filter';
+import { dataNormalizationChanged } from './actions/map';
 import React from 'react'
 
 
@@ -13,9 +14,10 @@ export class PerCapita extends React.Component {
     return (
       <section className="per-capita">
         <p>Map Shading</p>
-        <select>
-          <option>Complaints</option>
-          <option>Per capita</option>
+        <select value={this.props.dataNormalization}
+                onChange={this.props.onDataNormalization}>
+          <option value={GEO_NORM_NONE}>Complaints</option>
+          <option value={GEO_NORM_PER1000}>Per capita</option>
         </select>
       </section>
     )
@@ -23,12 +25,12 @@ export class PerCapita extends React.Component {
 }
 
 export const mapStateToProps = state => ( {
-  dateInterval: state.query.dateInterval
+  dataNormalization: state.map.dataNormalization
 } );
 
 export const mapDispatchToProps = dispatch => ( {
-  toggleDateInterval: interval => {
-    dispatch( dateIntervalToggled( interval ) )
+  onDataNormalization: ev => {
+    dispatch( dataNormalizationChanged( ev.target.value ) )
   }
 } );
 
