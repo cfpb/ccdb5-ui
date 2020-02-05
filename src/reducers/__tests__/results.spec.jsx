@@ -6,12 +6,6 @@ describe('reducer:results', () => {
     expect(target(undefined, {})).toEqual({
         activeCall: '',
         error: '',
-        lastUpdated: null,
-        lastIndexed: null,
-        loadingAggregations: false,
-        hasDataIssue: false,
-        isDataStale: false,
-        isNarrativeStale: false,
         isLoading: false,
         items: []
       })
@@ -57,10 +51,6 @@ describe('reducer:results', () => {
         expect( target( { error: 'foo' }, action ) ).toEqual( {
           activeCall: '',
           error: '',
-          lastUpdated: '2017-07-10T00:00:00.000Z',
-          lastIndexed: '2017-07-11T00:00:00.000Z',
-          hasDataIssue: undefined,
-          isDataStale: undefined,
           isLoading: false,
           items: [
             { a: '123' },
@@ -75,10 +65,6 @@ describe('reducer:results', () => {
         expect( target( { error: 'foo' }, action ) ).toEqual( {
           activeCall: '',
           error: '',
-          lastUpdated: '2017-07-10T00:00:00.000Z',
-          lastIndexed: '2017-07-11T00:00:00.000Z',
-          hasDataIssue: undefined,
-          isDataStale: undefined,
           isLoading: false,
           items: [
             { a: '<em>123</em>' },
@@ -98,12 +84,6 @@ describe('reducer:results', () => {
       }, action ) ).toEqual( {
         activeCall: '',
         error: 'foo bar',
-        lastUpdated: null,
-        lastIndexed: null,
-        loadingAggregations: false,
-        hasDataIssue: false,
-        isDataStale: false,
-        isNarrativeStale: false,
         isLoading: false,
         items: []
       } )

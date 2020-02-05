@@ -69,7 +69,13 @@ describe( 'reducer:aggs', () => {
         { key: 'foo', doc_count: 99 }
       ],
       isLoading: false,
-      total: 99
+      total: 99,
+      error: '',
+      lastUpdated: '2017-07-10T00:00:00.000Z',
+      lastIndexed: '2017-07-11T00:00:00.000Z',
+      hasDataIssue: undefined,
+      isDataStale: undefined,
+      isNarrativeStale: undefined
     }
 
     expect( target( { doc_count: 100 }, action ) ).toEqual( expected )
