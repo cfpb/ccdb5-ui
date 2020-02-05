@@ -30,17 +30,19 @@ const fixture = [
 
 function setupSnapshot(items=[], initialStore={}, tab = 'List') {
   const results = Object.assign({
-    doc_count: 100,
     error: '',
     hasDataIssue: false,
     isDataStale: false,
-    items,
-    total: items.length
+    items
   }, initialStore)
 
   const middlewares = [thunk]
   const mockStore = configureMockStore(middlewares)
   const store = mockStore({
+    aggs: {
+      doc_count: 100,
+      total: items.length
+    },
     map: {
       state: []
     },

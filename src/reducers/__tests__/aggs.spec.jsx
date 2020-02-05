@@ -51,17 +51,28 @@ describe( 'reducer:aggs', () => {
               ]
             }
           }
+        },
+        hits: {
+          total: 99
+        },
+        '_meta': {
+          total_record_count: 162576,
+          last_updated: '2017-07-10T00:00:00.000Z',
+          last_indexed: '2017-07-11T00:00:00.000Z',
+          license: 'CC0'
         }
       }
     }
     const expected = {
+      doc_count: 162576,
       company_response: [
         { key: 'foo', doc_count: 99 }
       ],
-      isLoading: false
+      isLoading: false,
+      total: 99
     }
 
-    expect( target( {}, action ) ).toEqual( expected )
+    expect( target( { doc_count: 100 }, action ) ).toEqual( expected )
   } )
 
 

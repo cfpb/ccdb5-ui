@@ -11,6 +11,7 @@ export const defaultAggs = {
   company_response: [],
   consumer_consent_provided: [],
   consumer_disputed: [],
+  doc_count: 0,
   isLoading: false,
   issue: [],
   product: [],
@@ -18,6 +19,7 @@ export const defaultAggs = {
   submitted_via: [],
   tag: [],
   timely: [],
+  total: 0,
   zip_code: []
 }
 
@@ -50,11 +52,19 @@ export function processAggregationResults( state, action ) {
   const keys = Object.keys( aggs )
   const result = { ...state }
 
+  const doc_count = Math.max(
+    state.doc_count,
+    action.data.hits.total,
+    action.data._meta.total_record_count
+  )
+
   keys.forEach( key => {
     result[key] = aggs[key][key].buckets
   } )
 
   result.isLoading = false
+  result.doc_count = doc_count
+  result.total = action.data.hits.total
 
   return result
 }

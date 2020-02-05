@@ -16,6 +16,10 @@ function setupSnapshot( selectedState = false ) {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
   const store = mockStore( {
+    aggs: {
+      doc_count: 100,
+      total: items.length
+    },
     map: {
       selectedState,
       state: []
@@ -26,9 +30,7 @@ function setupSnapshot( selectedState = false ) {
       tab: MODE_MAP
     },
     results: {
-      doc_count: 100,
-      items,
-      total: items.length
+      items
     }
 } )
 
