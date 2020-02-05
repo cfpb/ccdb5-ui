@@ -50,7 +50,6 @@ export class TileChartMap extends React.Component {
   // --------------------------------------------------------------------------
   // Event Handlers
   _redrawMap() {
-    console.log( 'redrawing map' )
     const colors = [
       'rgba(247, 248, 249, 0.5)',
       'rgba(212, 231, 230, 0.5)',
@@ -81,15 +80,21 @@ function updateData( props ) {
   const def = dataNormalization === GEO_NORM_NONE
   const res = data[0].map( o => ( {
     ...o,
-    value: normalizeValue( o, def )
+    displayValue: getDisplayValue( o, def ),
+    perCapita: getPerCapita( o )
   } ) )
 
   return [ res ]
 }
 
-function normalizeValue( stateObj, def ) {
+function getDisplayValue( stateObj, def ) {
   const pop = STATE_DATA.find( o => o.abbr === stateObj.name ).population
-  return def ? stateObj.value : stateObj.value / pop * 1000
+  return def ? stateObj.value : (stateObj.value / pop * 1000).toFixed(2)
+}
+
+function getPerCapita( stateObj ) {
+  const pop = STATE_DATA.find( o => o.abbr === stateObj.name ).population
+  return ( stateObj.value / pop * 1000 ).toFixed( 2 )
 }
 
 export const getStateClass = ( statesFilter, name ) => {
