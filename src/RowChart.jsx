@@ -123,7 +123,7 @@ export const mapStateToProps = ( state, ownProps ) => {
   }
   return {
     data,
-    total: state.results.total
+    total: state.aggs.total
   }
 }
 

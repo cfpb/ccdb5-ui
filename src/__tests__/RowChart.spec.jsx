@@ -105,14 +105,14 @@ describe( 'component: RowChart', () => {
   describe( 'mapStateToProps', () => {
     it( 'maps state and props', () => {
       const state = {
-        query: {
-          baz: [ 1, 2, 3 ]
+        aggs: {
+          total: 100
         },
         map: {
           baz: [ 1, 2, 3 ]
         },
-        results: {
-          total: 100
+        query: {
+          baz: [ 1, 2, 3 ]
         }
       }
       const ownProps = {

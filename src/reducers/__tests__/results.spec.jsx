@@ -5,7 +5,6 @@ describe('reducer:results', () => {
   it('has a default state', () => {
     expect(target(undefined, {})).toEqual({
         activeCall: '',
-        doc_count: 0,
         error: '',
         lastUpdated: null,
         lastIndexed: null,
@@ -14,8 +13,7 @@ describe('reducer:results', () => {
         isDataStale: false,
         isNarrativeStale: false,
         isLoading: false,
-        items: [],
-        total: 0
+        items: []
       })
   })
 
@@ -56,9 +54,8 @@ describe('reducer:results', () => {
       } )
 
       it( 'extracts the important data from inside the returned data', () => {
-        expect( target( { doc_count: 0, error: 'foo' }, action ) ).toEqual( {
+        expect( target( { error: 'foo' }, action ) ).toEqual( {
           activeCall: '',
-          doc_count: 162576,
           error: '',
           lastUpdated: '2017-07-10T00:00:00.000Z',
           lastIndexed: '2017-07-11T00:00:00.000Z',
@@ -68,17 +65,15 @@ describe('reducer:results', () => {
           items: [
             { a: '123' },
             { a: '456' }
-          ],
-          total: 2
+          ]
         } )
       } )
 
       it( 'replaces text with highlighted text if it exists', () => {
         action.data.hits.hits[0].highlight = { a: [ '<em>123</em>' ] }
 
-        expect( target( { doc_count: 0, error: 'foo' }, action ) ).toEqual( {
+        expect( target( { error: 'foo' }, action ) ).toEqual( {
           activeCall: '',
-          doc_count: 162576,
           error: '',
           lastUpdated: '2017-07-10T00:00:00.000Z',
           lastIndexed: '2017-07-11T00:00:00.000Z',
@@ -88,8 +83,7 @@ describe('reducer:results', () => {
           items: [
             { a: '<em>123</em>' },
             { a: '456' }
-          ],
-          total: 2
+          ]
         } )
       } )
     } )
@@ -100,11 +94,9 @@ describe('reducer:results', () => {
         error: 'foo bar'
       }
       expect( target( {
-        doc_count: 100,
         items: [ 1, 2, 3 ]
       }, action ) ).toEqual( {
         activeCall: '',
-        doc_count: 0,
         error: 'foo bar',
         lastUpdated: null,
         lastIndexed: null,
@@ -113,8 +105,7 @@ describe('reducer:results', () => {
         isDataStale: false,
         isNarrativeStale: false,
         isLoading: false,
-        items: [],
-        total: 0
+        items: []
       } )
     } )
   } )

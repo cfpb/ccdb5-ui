@@ -5,7 +5,6 @@ import {
 
 const defaultResults = {
   activeCall: '',
-  doc_count: 0,
   error: '',
   lastUpdated: null,
   lastIndexed: null,
@@ -14,8 +13,7 @@ const defaultResults = {
   isDataStale: false,
   isNarrativeStale: false,
   isLoading: false,
-  items: [],
-  total: 0
+  items: []
 }
 
 export const _processHits = data => data.hits.hits.map( x => {
@@ -56,16 +54,10 @@ export function hitsCallInProcess( state, action ) {
  */
 export function processHitsResults( state, action ) {
   const items = _processHits( action.data )
-  const doc_count = Math.max(
-    state.doc_count,
-    action.data.hits.total,
-    action.data._meta.total_record_count
-  )
 
   return {
     ...state,
     activeCall: '',
-    doc_count,
     error: '',
     lastUpdated: action.data._meta.last_updated,
     lastIndexed: action.data._meta.last_indexed,
@@ -73,8 +65,7 @@ export function processHitsResults( state, action ) {
     isDataStale: action.data._meta.is_data_stale,
     isNarrativeStale: action.data._meta.is_narrative_stale,
     isLoading: false,
-    items: items,
-    total: action.data.hits.total
+    items: items
   }
 }
 
