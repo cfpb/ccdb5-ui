@@ -6,12 +6,6 @@ import {
 const defaultResults = {
   activeCall: '',
   error: '',
-  lastUpdated: null,
-  lastIndexed: null,
-  loadingAggregations: false,
-  hasDataIssue: false,
-  isDataStale: false,
-  isNarrativeStale: false,
   isLoading: false,
   items: []
 }
@@ -59,11 +53,6 @@ export function processHitsResults( state, action ) {
     ...state,
     activeCall: '',
     error: '',
-    lastUpdated: action.data._meta.last_updated,
-    lastIndexed: action.data._meta.last_indexed,
-    hasDataIssue: action.data._meta.has_data_issue,
-    isDataStale: action.data._meta.is_data_stale,
-    isNarrativeStale: action.data._meta.is_narrative_stale,
     isLoading: false,
     items: items
   }

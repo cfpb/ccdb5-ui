@@ -120,10 +120,10 @@ export class ListPanel extends React.Component {
 }
 
 const mapStateToProps = state => ( {
-  error: state.results.error,
-  hasDataIssue:  state.results.hasDataIssue,
-  isDataStale:  state.results.isDataStale,
-  isNarrativeStale: state.results.isNarrativeStale,
+  error: state.aggs.error,
+  hasDataIssue:  state.aggs.hasDataIssue,
+  isDataStale:  state.aggs.isDataStale,
+  isNarrativeStale: state.aggs.isNarrativeStale,
   isLoading: state.results.isLoading,
   items: state.results.items
 } )

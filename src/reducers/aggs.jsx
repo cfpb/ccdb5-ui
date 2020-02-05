@@ -6,20 +6,27 @@ import {
 
 export const defaultAggs = {
   activeCall: '',
+  doc_count: 0,
+  isLoading: false,
+  total: 0,
+  error: '',
+  lastUpdated: null,
+  lastIndexed: null,
+  loadingAggregations: false,
+  hasDataIssue: false,
+  isDataStale: false,
+  isNarrativeStale: false,
   company: [],
   company_public_response: [],
   company_response: [],
   consumer_consent_provided: [],
   consumer_disputed: [],
-  doc_count: 0,
-  isLoading: false,
   issue: [],
   product: [],
   state: [],
   submitted_via: [],
   tag: [],
   timely: [],
-  total: 0,
   zip_code: []
 }
 
@@ -50,7 +57,6 @@ export function aggregationsCallInProcess( state, action ) {
 export function processAggregationResults( state, action ) {
   const aggs = action.data.aggregations
   const keys = Object.keys( aggs )
-  const result = { ...state }
 
   const doc_count = Math.max(
     state.doc_count,
@@ -58,13 +64,21 @@ export function processAggregationResults( state, action ) {
     action.data._meta.total_record_count
   )
 
+  const result = { ...state,
+    doc_count,
+    error: '',
+    isLoading: false,
+    lastUpdated: action.data._meta.last_updated,
+    lastIndexed: action.data._meta.last_indexed,
+    hasDataIssue: action.data._meta.has_data_issue,
+    isDataStale: action.data._meta.is_data_stale,
+    isNarrativeStale: action.data._meta.is_narrative_stale,
+    total: action.data.hits.total
+  }
+
   keys.forEach( key => {
     result[key] = aggs[key][key].buckets
   } )
-
-  result.isLoading = false
-  result.doc_count = doc_count
-  result.total = action.data.hits.total
 
   return result
 }
