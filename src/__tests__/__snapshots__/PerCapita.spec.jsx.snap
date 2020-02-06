@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component: PerCapita initial state renders without crashing 1`] = `
+<section
+  className="per-capita"
+>
+  <p>
+    Map Shading
+  </p>
+  <select>
+    <option
+      value="None"
+    >
+      Complaints
+    </option>
+    <option
+      value="Per 1000 pop."
+    >
+      Per capita
+    </option>
+  </select>
+</section>
+`;

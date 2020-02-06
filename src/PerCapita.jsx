@@ -6,10 +6,6 @@ import React from 'react'
 
 
 export class PerCapita extends React.Component {
-  _setDateInterval( page ) {
-    this.props.toggleDateInterval( page );
-  }
-
   render() {
     return (
       <section className="per-capita">
