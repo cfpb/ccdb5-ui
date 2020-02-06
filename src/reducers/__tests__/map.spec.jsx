@@ -20,6 +20,16 @@ describe( 'reducer:map', () => {
     } )
   } )
 
+  describe('handles DATA_NORMALIZATION_SELECTED', ()=>{
+    action = {
+      type: mapActions.DATA_NORMALIZATION_SELECTED,
+      value: 'FooBar'
+    }
+    expect( target( {}, action ) ).toEqual( {
+      dataNormalization: 'FooBar'
+    } )
+  })
+
   describe( 'handles STATES_API_CALLED actions', () => {
     action = {
       type: complaintActions.STATES_API_CALLED,
