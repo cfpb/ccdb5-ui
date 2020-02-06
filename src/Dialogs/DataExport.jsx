@@ -271,8 +271,8 @@ export class DataExport extends React.Component {
 }
 
 export const mapStateToProps = state => {
-  const someComplaints = state.results.total
-  const allComplaints = state.results.doc_count
+  const someComplaints = state.aggs.total
+  const allComplaints = state.aggs.doc_count
 
   return {
     allComplaints,

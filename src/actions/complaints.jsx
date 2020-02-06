@@ -29,10 +29,7 @@ export function sendQuery() {
       case MODE_MAP:
       case MODE_LIST:
       case MODE_TRENDS:
-        // eslint-disable-next-line no-warning-comments
-        // TODO: this should be getAggregations once the API is built
-        // dispatch( getAggregations() )
-        dispatch( getComplaints() )
+        dispatch( getAggregations() )
         break
       default:
         return
@@ -81,7 +78,7 @@ export function getAggregations() {
   return ( dispatch, getState ) => {
     const store = getState()
     const qs = store.query.queryString
-    const uri = '@@API' + qs
+    const uri = '@@API' + qs + '&size=0'
 
     // This call is already in process
     if ( store.results.loadingAggregations ) {
@@ -104,7 +101,7 @@ export function getAggregations() {
 export function getComplaints() {
   return ( dispatch, getState ) => {
     const store = getState()
-    const qs = store.query.queryString
+    const qs = store.query.queryString + '&no_aggs=true'
     const uri = '@@API' + qs
 
     // This call is already in process
@@ -146,7 +143,7 @@ export function getStates() {
   return ( dispatch, getState ) => {
     const store = getState()
     const qs = 'geo/states/' + store.query.queryString
-    const uri = '@@API' + qs
+    const uri = '@@API' + qs + '&no_aggs=true'
 
     // This call is already in process
     if ( uri === store.map.activeCall ) {

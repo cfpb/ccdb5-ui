@@ -35,18 +35,22 @@ function setupSnapshot(items=[], initialStore={}, queryStore = null) {
     totalPages: 100
   }
 
-  const results = Object.assign({
-    doc_count: 100,
-    error: '',
+  const aggs = Object.assign({
     hasDataIssue: false,
     isDataStale: false,
-    items,
-    total: items.length
+    doc_count: 100,
+    total: items.length,
   }, initialStore)
+
+  const results = Object.assign({
+    error: '',
+    items
+  })
 
   const middlewares = [thunk]
   const mockStore = configureMockStore(middlewares)
   const store = mockStore({
+    aggs,
     query: {
       from: 0,
       size: 10,
