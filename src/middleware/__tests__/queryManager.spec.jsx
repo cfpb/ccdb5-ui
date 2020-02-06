@@ -83,10 +83,8 @@ describe( 'redux middleware::queryManager', () => {
           }
           const expectedActions = [
             { type: 'FakeAction', requery: REQUERY_ALWAYS },
-            // put this back when we have the api
-            // { type: 'AGGREGATIONS_API_CALLED', url: "@@API?foo" },
-            { type: 'COMPLAINTS_API_CALLED', url: "@@API?foo" },
-            { type: 'COMPLAINTS_API_CALLED', url: "@@API?foo" }
+            { type: 'AGGREGATIONS_API_CALLED', url: "@@API?foo&size=0" },
+            { type: 'COMPLAINTS_API_CALLED', url: "@@API?foo&no_aggs=true" }
           ]
 
           store.dispatch( action )
@@ -102,7 +100,7 @@ describe( 'redux middleware::queryManager', () => {
           }
           const expectedActions = [
             { type: 'FakeAction', requery: REQUERY_HITS_ONLY },
-            { type: 'COMPLAINTS_API_CALLED', url: "@@API?foo" }
+            { type: 'COMPLAINTS_API_CALLED', url: "@@API?foo&no_aggs=true" }
           ]
 
           store.dispatch( action )
@@ -123,10 +121,8 @@ describe( 'redux middleware::queryManager', () => {
           }
           const expectedActions = [
             { type: 'FakeAction', requery: REQUERY_ALWAYS },
-            // put this back when we have the api
-            // { type: 'AGGREGATIONS_API_CALLED', url: "@@API?foo" },
-            { type: 'COMPLAINTS_API_CALLED', url: "@@API?foo" },
-            { type: 'STATES_API_CALLED', url: "@@APIgeo/states/?foo" }
+            { type: 'AGGREGATIONS_API_CALLED', url: "@@API?foo&size=0" },
+            { type: 'STATES_API_CALLED', url: "@@APIgeo/states/?foo&no_aggs=true" }
           ]
 
           store.dispatch( action )
@@ -142,7 +138,7 @@ describe( 'redux middleware::queryManager', () => {
           }
           const expectedActions = [
             { type: 'FakeAction', requery: REQUERY_HITS_ONLY },
-            { type: 'STATES_API_CALLED', url: "@@APIgeo/states/?foo" }
+            { type: 'STATES_API_CALLED', url: "@@APIgeo/states/?foo&no_aggs=true" }
           ]
 
           store.dispatch( action )

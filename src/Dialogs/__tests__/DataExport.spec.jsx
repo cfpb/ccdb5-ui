@@ -28,7 +28,7 @@ function setupSnapshot(total=1001) {
   const middlewares = [thunk]
   const mockStore = configureMockStore(middlewares)
   const store = mockStore({
-    results: {
+    aggs: {
       doc_count: 9999,
       total
     },
