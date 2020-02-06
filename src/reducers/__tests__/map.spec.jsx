@@ -2,7 +2,7 @@ import target, { processAggregations, processStateAggregations } from '../map'
 import * as complaintActions from '../../actions/complaints'
 import * as mapActions from '../../actions/map'
 import stateAggs from '../__fixtures__/stateAggs'
-import { TILE_MAP_STATES } from '../../constants'
+import { GEO_NORM_NONE, TILE_MAP_STATES } from '../../constants'
 
 describe( 'reducer:map', () => {
   let action
@@ -10,6 +10,7 @@ describe( 'reducer:map', () => {
   describe( 'reducer', () => {
     it( 'has a default state', () => {
       expect( target( undefined, {} ) ).toEqual( {
+        dataNormalization: GEO_NORM_NONE,
         isLoading: false,
         issue: [],
         product: [],
