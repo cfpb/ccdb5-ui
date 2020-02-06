@@ -90,9 +90,9 @@ describe( 'component: TileChartMap', () => {
 
     it( 'redraw when the data is the same but map element is missing', () => {
       // append children to mock test
-      target = shallow( <TileChartMap data={ [ [ 23, 4, 3 ] ] }/> )
+      target = shallow( <TileChartMap data={ [ [ { name: 'TX', value: 100 } ] ] }/> )
       redrawSpy = jest.spyOn( target.instance(), '_redrawMap' )
-      target.setProps( { data: [ [ 23, 4, 3 ] ] } )
+      target.setProps( { data: [ [ { name: 'TX', value: 100 } ] ] } )
       expect( TileMap ).toHaveBeenCalledTimes( 1 )
       expect( redrawSpy ).toHaveBeenCalledTimes( 1 )
     } )
@@ -108,9 +108,9 @@ describe( 'component: TileChartMap', () => {
     } )
 
     it( 'trigger a new update when data changes', () => {
-      target = shallow( <TileChartMap data={ [ [ 23, 4, 3 ] ] }/> )
+      target = shallow( <TileChartMap data={ [ [ { name: 'TX', value: 100}, { name: 'LA', value: 10 } ] ] }/> )
       redrawSpy = jest.spyOn( target.instance(), '_redrawMap' )
-      target.setProps( { data: [ [ 2, 5 ] ] } )
+      target.setProps( { data: [ [ { name: 'TX', value: 100 }, { name: 'LA', value: 100 } ] ] } )
       expect( redrawSpy ).toHaveBeenCalledTimes( 1 )
       expect( TileMap ).toHaveBeenCalledTimes( 1 )
     } )

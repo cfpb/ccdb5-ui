@@ -42,7 +42,7 @@ describe( 'component: DateIntervals', () => {
     } )
 
     it( 'toggleDateInterval is called the button is clicked', () => {
-      const prev = target.find( '.date-intervals button:first-child' )
+      const prev = target.find( '.date-intervals .interval-3m' )
       prev.simulate( 'click' )
       expect( cb ).toHaveBeenCalledWith('3m')
     } )
