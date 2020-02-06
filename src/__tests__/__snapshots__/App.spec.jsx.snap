@@ -1114,7 +1114,7 @@ exports[`initial state renders without crashing 1`] = `
               1y
             </button>
             <button
-              className="date-selector interval-3yselected"
+              className="date-selector interval-3y selected"
               onClick={[Function]}
             >
               3y

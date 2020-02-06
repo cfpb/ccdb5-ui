@@ -83,7 +83,10 @@ export class UrlBarSynch extends React.Component {
 }
 
 export const mapStateToProps = state => ( {
-  params: { ...state.query }
+  params: {
+    ...state.query,
+    dataNormalization: state.map.dataNormalization
+  }
 } )
 
 export const mapDispatchToProps = dispatch => ( {
