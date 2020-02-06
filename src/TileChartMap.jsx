@@ -75,23 +75,38 @@ export class TileChartMap extends React.Component {
   }
 }
 
+/**
+ * helper function to get display value of tile based on selected dropdown.
+ * @param {object} props contains data and normalization
+ * @returns {object} data provided to tile map
+ */
 function updateData( props ) {
   const { data, dataNormalization } = props
-  const def = dataNormalization === GEO_NORM_NONE
+  const showDefault = dataNormalization === GEO_NORM_NONE
   const res = data[0].map( o => ( {
     ...o,
-    displayValue: getDisplayValue( o, def ),
+    displayValue: getDisplayValue( o, showDefault ),
     perCapita: getPerCapita( o )
   } ) )
 
   return [ res ]
 }
 
-function getDisplayValue( stateObj, def ) {
-  const pop = STATE_DATA.find( o => o.abbr === stateObj.name ).population
-  return def ? stateObj.value : (stateObj.value / pop * 1000).toFixed(2)
+/**
+ * helper function to switch between the value and per capita values
+ * @param {object} stateObj contains value
+ * @param {boolean} showDefault whether default value should be shown or perCap
+ * @returns {number} value
+ */
+function getDisplayValue( stateObj, showDefault ) {
+  return showDefault ? stateObj.value : getPerCapita( stateObj )
 }
 
+/**
+ * helper function to calculate percapita value
+ * @param {object} stateObj a state containing abbr and value
+ * @returns {string} the per capita value
+ */
 function getPerCapita( stateObj ) {
   const pop = STATE_DATA.find( o => o.abbr === stateObj.name ).population
   return ( stateObj.value / pop * 1000 ).toFixed( 2 )
