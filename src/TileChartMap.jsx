@@ -85,21 +85,10 @@ function updateData( props ) {
   const showDefault = dataNormalization === GEO_NORM_NONE
   const res = data[0].map( o => ( {
     ...o,
-    displayValue: getDisplayValue( o, showDefault ),
-    perCapita: getPerCapita( o )
+    displayValue: showDefault ? o.value : o.perCapita
   } ) )
 
   return [ res ]
-}
-
-/**
- * helper function to switch between the value and per capita values
- * @param {object} stateObj contains value
- * @param {boolean} showDefault whether default value should be shown or perCap
- * @returns {number} value
- */
-function getDisplayValue( stateObj, showDefault ) {
-  return showDefault ? stateObj.value : getPerCapita( stateObj )
 }
 
 /**
@@ -125,6 +114,7 @@ export const processStates = state => {
   const statesFilter = state.query.state || []
   const states = state.map.state
   const stateData = states.map( o => {
+    o.perCapita = getPerCapita( o )
     o.className = getStateClass( statesFilter, o.name )
     return o
   } )

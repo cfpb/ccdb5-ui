@@ -131,17 +131,18 @@ describe( 'component: TileChartMap', () => {
     it( 'maps state and props', () => {
       const state = {
         map: {
+          dataNormalization: false,
           state: [
             // name comes from agg api
-            { name: 'aa', issue: 'something', product: 'a prod' },
-            { name: 'bb', issue: 'something', product: 'b prod' },
-            { name: 'cc', issue: 'something', product: 'c prod' }
+            { name: 'TX', issue: 'something', product: 'a prod', value: 100000 },
+            { name: 'LA', issue: 'something', product: 'b prod', value: 2 },
+            { name: 'CA', issue: 'something', product: 'c prod', value: 3 }
           ],
           // fyi Selected State comes from map
-          selectedState: { abbr: 'bb', name: 'bb state' }
+          selectedState: { abbr: 'TX', name: 'Texas' }
         },
         query: {
-          state: [ 'aa' ]
+          state: [ 'TX' ]
         }
       }
       let actual = mapStateToProps( state )
@@ -149,27 +150,34 @@ describe( 'component: TileChartMap', () => {
         data: [
           [
             {
-              name: 'aa',
+              name: 'TX',
               className: 'selected',
               issue: 'something',
-              product: 'a prod'
+              perCapita: '3.65',
+              product: 'a prod',
+              value: 100000
             },
             {
-              name: 'bb',
+              name: 'LA',
               className: 'deselected',
               issue: 'something',
-              product: 'b prod'
+              perCapita: '0.00',
+              product: 'b prod',
+              value: 2
             },
             {
-              name: 'cc',
+              name: 'CA',
               className: 'deselected',
               issue: 'something',
-              product: 'c prod'
+              perCapita: '0.00',
+              product: 'c prod',
+              value: 3
             }
           ]
         ],
-        stateFilters: [ 'aa' ],
-        selectedState: { abbr: 'bb', name: 'bb state' }
+        dataNormalization: false,
+        stateFilters: [ 'TX' ],
+        selectedState: { abbr: 'TX', name: 'Texas' }
       } )
     } )
   } )
