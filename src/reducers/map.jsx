@@ -1,5 +1,5 @@
 // reducer for the Map Tab
-import { GEO_NORM_NONE, TILE_MAP_STATES, default as types } from '../constants'
+import { GEO_NORM_NONE, TILE_MAP_STATES } from '../constants'
 import actions from '../actions'
 
 export const defaultState = {
