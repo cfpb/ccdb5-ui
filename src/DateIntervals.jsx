@@ -11,9 +11,11 @@ export class DateIntervals extends React.Component {
   }
 
   _btnClassName( dateInterval ) {
-    const btnClass = 'date-selector interval-' + dateInterval
-    return dateInterval === this.props.dateInterval ?
-      btnClass + ' selected' : btnClass
+    const classes = [ 'date-selector', 'interval-' + dateInterval ]
+    if ( dateInterval === this.props.dateInterval ) {
+      classes.push( 'selected' )
+    }
+    return classes.join( ' ' )
   }
 
   render() {
