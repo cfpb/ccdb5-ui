@@ -1,8 +1,11 @@
-import target, { processAggregations, processStateAggregations } from '../map'
-import * as complaintActions from '../../actions/complaints'
-import * as mapActions from '../../actions/map'
+import target, {
+  defaultState,
+  processAggregations,
+  processStateAggregations
+} from '../map'
+import actions from '../../actions'
 import stateAggs from '../__fixtures__/stateAggs'
-import { TILE_MAP_STATES } from '../../constants'
+import { GEO_NORM_NONE, TILE_MAP_STATES } from '../../constants'
 
 describe( 'reducer:map', () => {
   let action
@@ -10,6 +13,7 @@ describe( 'reducer:map', () => {
   describe( 'reducer', () => {
     it( 'has a default state', () => {
       expect( target( undefined, {} ) ).toEqual( {
+        dataNormalization: GEO_NORM_NONE,
         isLoading: false,
         issue: [],
         product: [],
@@ -19,9 +23,19 @@ describe( 'reducer:map', () => {
     } )
   } )
 
+  describe('handles DATA_NORMALIZATION_SELECTED', ()=>{
+    action = {
+      type: actions.DATA_NORMALIZATION_SELECTED,
+      value: 'FooBar'
+    }
+    expect( target( {}, action ) ).toEqual( {
+      dataNormalization: 'FooBar'
+    } )
+  })
+
   describe( 'handles STATES_API_CALLED actions', () => {
     action = {
-      type: complaintActions.STATES_API_CALLED,
+      type: actions.STATES_API_CALLED,
       url: 'http://www.example.org'
     }
     expect( target( {}, action ) ).toEqual( {
@@ -33,7 +47,7 @@ describe( 'reducer:map', () => {
   describe( 'STATES_RECEIVED actions', () => {
     beforeEach( () => {
       action = {
-        type: complaintActions.STATES_RECEIVED,
+        type: actions.STATES_RECEIVED,
         data: {
           aggregations: stateAggs
         }
@@ -195,7 +209,7 @@ describe( 'reducer:map', () => {
   describe( 'STATES_FAILED actions', () => {
     it( 'handles failed error messages', () => {
       action = {
-        type: complaintActions.STATES_FAILED,
+        type: actions.STATES_FAILED,
         error: 'foo bar'
       }
       expect( target( {
@@ -222,7 +236,7 @@ describe( 'reducer:map', () => {
   describe( 'STATE_FILTER_ADDED actions', () => {
     it( 'adds filter', () => {
       action = {
-        type: mapActions.STATE_FILTER_ADDED,
+        type: actions.STATE_FILTER_ADDED,
         selectedState: { abbr: 'FO', stateName: 'Foo Bar' }
       }
       expect( target( { selectedState: false }, action ) ).toEqual( {
@@ -234,12 +248,35 @@ describe( 'reducer:map', () => {
   describe( 'STATE_FILTER_REMOVED actions', () => {
     it( 'adds filter', () => {
       action = {
-        type: mapActions.STATE_FILTER_REMOVED,
+        type: actions.STATE_FILTER_REMOVED,
         stateAbbr: 'FO'
       }
       expect( target( { selectedState: false }, action ) ).toEqual( {
         selectedState: false
       } )
+    } )
+  } )
+
+  describe( 'URL_CHANGED actions', () => {
+    let action
+    let state
+    beforeEach( () => {
+      action = {
+        type: actions.URL_CHANGED,
+        params: {}
+      }
+
+      state = { ...defaultState }
+    } )
+
+    it( 'handles empty params', () => {
+      expect( target( state, action ) ).toEqual( state )
+    } )
+
+    it( 'handles dataNormalization params', () => {
+      action.params = { dataNormalization: 'hello' }
+      const actual = target( state, action )
+      expect( actual.dataNormalization ).toEqual( 'hello' )
     } )
   } )
 

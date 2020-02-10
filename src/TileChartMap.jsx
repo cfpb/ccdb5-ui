@@ -1,4 +1,5 @@
 import './TileChartMap.less'
+import { GEO_NORM_NONE, STATE_DATA } from './constants'
 import { addStateFilter } from './actions/map'
 import { connect } from 'react-redux'
 import { hashObject } from './utils'
@@ -63,7 +64,7 @@ export class TileChartMap extends React.Component {
     // eslint-disable-next-line no-unused-vars
     const chart = new TileMap( {
       el: document.getElementById( 'tile-chart-map' ),
-      data: this.props.data,
+      data: updateData( this.props ),
       colors,
       localize: true,
       events: {
@@ -72,6 +73,32 @@ export class TileChartMap extends React.Component {
       }
     } )
   }
+}
+
+/**
+ * helper function to get display value of tile based on selected dropdown.
+ * @param {object} props contains data and normalization
+ * @returns {object} data provided to tile map
+ */
+function updateData( props ) {
+  const { data, dataNormalization } = props
+  const showDefault = dataNormalization === GEO_NORM_NONE
+  const res = data[0].map( o => ( {
+    ...o,
+    displayValue: showDefault ? o.value : o.perCapita
+  } ) )
+
+  return [ res ]
+}
+
+/**
+ * helper function to calculate percapita value
+ * @param {object} stateObj a state containing abbr and value
+ * @returns {string} the per capita value
+ */
+function getPerCapita( stateObj ) {
+  const pop = STATE_DATA.find( o => o.abbr === stateObj.name ).population
+  return ( stateObj.value / pop * 1000 ).toFixed( 2 )
 }
 
 export const getStateClass = ( statesFilter, name ) => {
@@ -87,6 +114,7 @@ export const processStates = state => {
   const statesFilter = state.query.state || []
   const states = state.map.state
   const stateData = states.map( o => {
+    o.perCapita = getPerCapita( o )
     o.className = getStateClass( statesFilter, o.name )
     return o
   } )
@@ -95,6 +123,7 @@ export const processStates = state => {
 
 export const mapStateToProps = state => ( {
   data: processStates( state ),
+  dataNormalization: state.map.dataNormalization,
   stateFilters: state.query.state,
   selectedState: state.map.selectedState
 } )

@@ -1,5 +1,6 @@
 import * as sut from '../map'
-import { REQUERY_ALWAYS } from '../../constants'
+import { REQUERY_ALWAYS, REQUERY_NEVER } from '../../constants'
+import { DATA_NORMALIZATION_SELECTED } from '../map'
 
 describe('action:map', () => {
   describe('addStateFilter', () => {
@@ -14,6 +15,19 @@ describe('action:map', () => {
       expect(action).toEqual(expectedAction)
     })
   })
+
+  describe('dataNormalizationChanged', () => {
+    it('creates a simple action', () => {
+      const expectedAction = {
+        type: sut.DATA_NORMALIZATION_SELECTED,
+        requery: REQUERY_NEVER,
+        value: 'foo'
+      }
+      const action = sut.dataNormalizationChanged( 'foo' )
+      expect(action).toEqual(expectedAction)
+    })
+  })
+
 
   describe('removeStateFilter', () => {
     it('creates a simple action', () => {
