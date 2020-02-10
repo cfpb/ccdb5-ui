@@ -188,6 +188,11 @@ export const TILE_MAP_STATES = [
   'WY'
 ]
 
+// 2017 ACS census via the census API:
+// https://api.census.gov/data/2017/acs/acs5?get=B01003_001E,NAME&for=state
+//
+// B01003_001E is defined as TOTAL POPULATION
+// (detailed here: https://api.census.gov/data/2016/acs/acs5/variables.html)
 export const STATE_DATA = [
   {
     abbr: 'AL',
