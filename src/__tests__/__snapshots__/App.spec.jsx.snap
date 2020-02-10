@@ -1086,40 +1086,69 @@ exports[`initial state renders without crashing 1`] = `
             </h4>
           </div>
         </summary>
-        <section
-          className="date-intervals"
+        <div
+          className="layout-row refine"
         >
-          <button
-            className="date-selector "
-            onClick={[Function]}
+          <section
+            className="date-intervals"
           >
-            3m
-          </button>
-          <button
-            className="date-selector "
-            onClick={[Function]}
+            <p>
+              Date range (Click to modify range)
+            </p>
+            <button
+              className="date-selector interval-3m"
+              onClick={[Function]}
+            >
+              3m
+            </button>
+            <button
+              className="date-selector interval-6m"
+              onClick={[Function]}
+            >
+              6m
+            </button>
+            <button
+              className="date-selector interval-1y"
+              onClick={[Function]}
+            >
+              1y
+            </button>
+            <button
+              className="date-selector interval-3y selected"
+              onClick={[Function]}
+            >
+              3y
+            </button>
+            <button
+              className="date-selector interval-All"
+              onClick={[Function]}
+            >
+              All
+            </button>
+          </section>
+          <section
+            className="per-capita"
           >
-            6m
-          </button>
-          <button
-            className="date-selector "
-            onClick={[Function]}
-          >
-            1y
-          </button>
-          <button
-            className="date-selector selected"
-            onClick={[Function]}
-          >
-            3y
-          </button>
-          <button
-            className="date-selector "
-            onClick={[Function]}
-          >
-            All
-          </button>
-        </section>
+            <p>
+              Map Shading
+            </p>
+            <select
+              onChange={[Function]}
+              value="None"
+            >
+              <option
+                value="None"
+              >
+                Complaints
+              </option>
+              <option
+                value="Per 1000 pop."
+              >
+                Per capita
+              </option>
+            </select>
+          </section>
+        </div>
         <div>
           <div
             className="cfpb-chart"

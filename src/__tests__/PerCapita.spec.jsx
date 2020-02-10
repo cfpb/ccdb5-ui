@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store'
 import {
-  mapDispatchToProps, mapStateToProps, DateIntervals
-} from '../DateIntervals'
+  mapDispatchToProps, mapStateToProps, PerCapita
+} from '../PerCapita'
 import { Provider } from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'
@@ -17,12 +17,12 @@ function setupSnapshot() {
 
   return renderer.create(
     <Provider store={ store }>
-      <DateIntervals />
+      <PerCapita />
     </Provider>
   )
 }
 
-describe( 'component: DateIntervals', () => {
+describe( 'component: PerCapita', () => {
   describe( 'initial state', () => {
     it( 'renders without crashing', () => {
       const target = setupSnapshot()
@@ -31,41 +31,28 @@ describe( 'component: DateIntervals', () => {
     } )
   } )
 
-  describe('buttons', () => {
-    let cb = null
-    let target = null
-
-    beforeEach( () => {
-      cb = jest.fn()
-
-      target = shallow( <DateIntervals toggleDateInterval={ cb }/> )
-    } )
-
-    it( 'toggleDateInterval is called the button is clicked', () => {
-      const prev = target.find( '.date-intervals .interval-3m' )
-      prev.simulate( 'click' )
-      expect( cb ).toHaveBeenCalledWith('3m')
-    } )
-  })
-
-
   describe('mapDispatchToProps', () => {
-    it('provides a way to call toggleDateInterval', () => {
-      const dispatch = jest.fn()
-      mapDispatchToProps(dispatch).toggleDateInterval()
-      expect(dispatch.mock.calls.length).toEqual(1)
+    it('hooks into onDataNormalization', () => {
+      const dispatch = jest.fn();
+      const ev = {
+        target: {
+          value: 123
+        }
+      }
+      mapDispatchToProps(dispatch).onDataNormalization( ev );
+      expect(dispatch.mock.calls.length).toEqual(1);
     })
   })
 
   describe( 'mapStateToProps', () => {
     it( 'maps state and props', () => {
       const state = {
-        query: {
-          dateInterval: 'foo'
+        map: {
+          dataNormalization: 'foo'
         }
       }
       let actual = mapStateToProps( state )
-      expect( actual ).toEqual( { dateInterval: 'foo' } )
+      expect( actual ).toEqual( { dataNormalization: 'foo' } )
     } )
   } )
 
