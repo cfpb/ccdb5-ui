@@ -19,9 +19,7 @@ export class MapPanel extends React.Component {
           <PerCapita/>
         </div>
         <TileChartMap/>
-        { this.props.selectedState &&
         <MapToolbar/>
-        }
         <RowChart aggtype="product" />
         <RowChart aggtype="issue" />
         <Loading isLoading={ this.props.isLoading || false }/>
