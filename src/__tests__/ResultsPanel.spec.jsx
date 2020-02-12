@@ -44,6 +44,7 @@ function setupSnapshot(items=[], initialStore={}, tab = 'List') {
       total: items.length
     },
     map: {
+      selectedState: {},
       state: []
     },
     results,

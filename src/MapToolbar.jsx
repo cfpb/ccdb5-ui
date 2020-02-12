@@ -1,24 +1,33 @@
 import './MapToolbar.less'
 import { removeStateFilter, showStateComplaints } from './actions/map'
 import { connect } from 'react-redux'
+import iconMap from './iconMap'
 import React from 'react'
 
 export class MapToolbar extends React.Component {
   render() {
     const { abbr, name } = this.props.selectedState
     return (
-      <div className="mapToolbar">
-        { name }
-        <button className="clear"
-                onClick={ () => this.props.removeState( abbr ) }>
-          Clear
-        </button>
-        <section>
-          <button className="list"
-                  onClick={ () => this.props.showComplaints( abbr ) }>
-            View complaints from { name }
-          </button>
+      <div className="map-toolbar">
+        <section className="state-heading">
+          {!abbr && <span>United States of America</span> }
+          <span>{ name }</span>
+          { abbr &&
+            <a className="clear"
+               onClick={ () => this.props.removeState( abbr ) }>
+              { iconMap.getIcon( 'delete-round' ) }
+              Clear
+            </a>
+          }
         </section>
+        { name &&
+        <section className="state-navigation">
+          <a className="list"
+             onClick={ () => this.props.showComplaints( abbr ) }>
+            View complaints from { name }
+          </a>
+        </section>
+        }
       </div>
     )
   }

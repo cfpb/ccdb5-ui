@@ -1,23 +1,37 @@
 @import (less) "base.less";
 
-.search-panel {
-  padding: @gutter-normal;
+.tabbed-navigation {
+  background: @gray-5;
+  border-left: @gray-40 1px solid;
+  border-right: @gray-40 1px solid;
+  section {
+    padding-left: 10px;
+    .tab {
+      border: none;
+      margin: 0 2px;
+      background: @white;
+      padding: 13px 30px;
+      //font-size: unit(18px / @base-font-size-px, em);
+      a {
+        border-bottom: dotted 1px;
+        color: @link-text;
+      }
 
-  @media @desktop {
-    padding: @grid_gutter-width;
+      &.active {
+        border-top: 1px solid;
+        border-left: 1px solid;
+        border-right: 1px solid;
+        border-color: @gray-20;
+        border-bottom: none;
+        background: @gray-5;
+        pointer-events: none;
+        margin-bottom: -1px;
+
+        a {
+          color: @black;
+          border-bottom: none;
+        }
+      }
+    }
   }
-
-  @media @phone {
-    padding: @gutter-narrow;
-  }
-
-  border: 1px solid @gray-40;
-  border-bottom: 0;  // Don't double the border with the content
-
-  background-color: @gray-5;
-}
-
-.date-subscript {
-  font-size: @base-font-size-px;
-  color: @gray;
 }

@@ -93,14 +93,14 @@ describe( 'component: MapToolbar', () => {
   describe( 'click actions', () => {
     it( 'allows the user to remove state filter', () => {
       const { target, props } = setupEnzyme()
-      const button = target.find( 'button.clear' )
+      const button = target.find( 'a.clear' )
 
       button.simulate( 'click' )
       expect( props.removeState ).toHaveBeenCalled()
     } )
     it( 'allows the user to view complaints by state ', () => {
       const { target, props } = setupEnzyme()
-      const button = target.find( 'button.list' )
+      const button = target.find( 'a.list' )
 
       button.simulate( 'click' )
       expect( props.showComplaints ).toHaveBeenCalled()

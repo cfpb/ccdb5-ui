@@ -1,22 +1,21 @@
 @import (less) "base.less";
 
 .map-panel {
-  .cards-panel {
-    padding: @grid_gutter-width;
-    margin: 0;
- 
-   @media @phone {
+  h2 {
     padding: @gutter-normal;
   }
- }
 
-  h2 {
-    padding: @gutter-normal;    
+  h4 {
+    border: none;
   }
-
   .refine {
     section {
       margin: 10px;
+      p {
+        font-size: @size-vi;
+        font-weight: 600;
+        color: @gray-40;
+      }
     }
   }
 }
