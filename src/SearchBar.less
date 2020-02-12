@@ -61,16 +61,18 @@
 
     .typeahead {
       height: 100%;
-
       position: absolute;
       top: 0;
       right: 0;
       left: 0;
-
-      span.waiting, span.error, span.no-results {
-        position: absolute;
-        top: -1 * @grid_gutter-width + @gutter-minimum;
-        left: 0;
+      span {
+        &.waiting,
+        &.error,
+        &.no-results {
+          position: absolute;
+          top: -1 * @grid_gutter-width + @gutter-minimum;
+          left: 0;
+        }
       }
     }
   }
