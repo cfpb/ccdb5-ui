@@ -8,7 +8,10 @@ import { row } from 'britecharts'
 export class RowChart extends React.Component {
   constructor( props ) {
     super( props )
-    this.aggtype = props.aggtype
+    const aggType = props.aggtype
+    this.aggtype = aggType
+    // only capitalize first letter
+    this.chartTitle = aggType.charAt( 0 ).toUpperCase() + aggType.slice( 1 )
   }
 
   _getHeight( numRows ) {
@@ -104,7 +107,7 @@ export class RowChart extends React.Component {
   render() {
     return (
       <div>
-        <h3>{ this.aggtype } by complaint volume (5 highest counts)</h3>
+        <h3>{ this.chartTitle } by complaint volume (5 highest counts)</h3>
         <div id={ 'row-chart-' + this.aggtype }>
         </div>
       </div>

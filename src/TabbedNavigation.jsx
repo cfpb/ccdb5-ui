@@ -16,19 +16,24 @@ export class TabbedNavigation extends React.Component {
     this.props.onTab( tab );
   }
 
+  _getTabClass( tab ) {
+    const tabName = tab.toLowerCase() + ' tab'
+    return this.props.tab === tab ? tabName + ' active' : tabName
+  }
 
   render() {
     return (
-      <div className="tabbedNavigation">
+      <div className="tabbed-navigation">
         <section>
-          <button className="map"
-                  onClick={() => this._setTab( 'Map' )}>
-            Map
+          <button
+            className={ this._getTabClass( 'Map' ) }
+            onClick={() => this._setTab( 'Map' )}>
+            <a>Map</a>
           </button>
 
-          <button className="list"
+          <button className={ this._getTabClass( 'List' ) }
                   onClick={() => this._setTab( 'List' )}>
-            List
+            <a>List</a>
           </button>
         </section>
       </div>
