@@ -3,11 +3,11 @@
 
 .action-bar {
   border: 1px solid @gray-40;
-  border-left: 0;  // Don't double the border with the filters
+  border-left: 0; // Don't double the border with the filters
 
   background-color: @green-20;
 
-  .cf-select {    
+  .cf-select {
     padding-bottom: 0;
     border-left: 0;
     border-bottom: 0;
@@ -15,7 +15,6 @@
     select {
       padding-top: @gutter-minimum * 1.3;
       padding-left: @gutter-normal;
-
       background-color: transparent;
       font-family: @webfont-demi;
       font-size: 90%;
@@ -27,14 +26,14 @@
     }
 
     #choose-size {
-      padding-left: @grid_gutter-width;      
+      padding-left: @grid_gutter-width;
     }
   }
 
   h2 {
     padding: @gutter-normal @grid_gutter-width;
     margin: 0;
- 
+
     @media @phone {
       padding: @gutter-normal;
     }
@@ -46,14 +45,10 @@
     border-top: 1px solid @gray-40;
     margin: 0;
     margin-bottom: @gutter-minimum;
-
     .a-btn {
       border-bottom: dotted 1px @dark-pacific;
-
       color: @dark-pacific;
-      font-family: @webfont-demi;
       font-size: @size-v;
-
       &:hover {
         color: @link-text-hover;
       }

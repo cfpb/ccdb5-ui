@@ -1,29 +1,24 @@
 @import (less) "../base.less";
 
 .typeahead {
-  padding-bottom: @gutter-normal;
-
   input {
     box-sizing: border-box;
     width: 100%;
-
     &:focus {
       border: solid 2px @pacific;
     }
   }
-
-  .m-btn-inside-input .a-btn {
-    position: absolute;
-    right: 1em;
-    top:  ~"calc(50% - 8px)";
-
+  .m-btn-inside-input {
+    .a-btn {
+      position: absolute;
+      right: 1em;
+      top: ~"calc(50% - 8px)";
+    }
     .cf-icon-svg {
       padding-right: @gutter-minimum * 0.8;
     }
-
   }
-
-  .typeahead-selector {
+  &-selector {
     position: relative;
 
     z-index: 99;
@@ -42,7 +37,6 @@
         padding: @gutter-normal;
         border-top: solid 1px @gray-40;
         margin: 0;
-
         background-color: @pacific-20;
         cursor: default;
         font-size: @size-vi;
@@ -57,41 +51,30 @@
     padding: @gutter-normal;
     border-top: solid 1px @gray-40;
     margin: 0;
-
     background-color: @white;
     cursor: default;
     list-style-type: none;
-
-    &:hover {
-      border-top: solid 2px @pacific;
-      border-bottom: solid 2px @pacific;
-
-      background-color: @gray-10;
-    }
-
+    &:hover,
     &.selected {
       border-top: solid 2px @pacific;
       border-bottom: solid 2px @pacific;
-
       background-color: @gray-10;
     }
   }
 }
 
-
-.input-contains-label_before~input[type="text"] {
-    padding-left: 1.78571429em;
-}
-
 .input-contains-label_before {
-    position: absolute;
-    left: .85714286em;
-    top: .5em;
-    cursor: pointer;
-    font-size: .875em;
-}
-
-main .input-contains-label_before__search .cf-icon-svg {
-  position: relative;
-  top: 2px;
+  position: absolute;
+  left: 0.85714286em;
+  top: 0.5em;
+  cursor: pointer;
+  font-size: 0.875em;
+  ~ input[type="text"] {
+    padding-left: 1.78571429em;
+    padding-bottom: 0.28em;
+  }
+  &__search .cf-icon-svg {
+    position: relative;
+    top: 2px;
+  }
 }

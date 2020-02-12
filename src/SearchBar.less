@@ -14,7 +14,8 @@
 
 .search-bar {
   @media @phone {
-    h4, .advanced-container {
+    h4,
+    .advanced-container {
       width: 0;
       display: none;
     }
@@ -23,8 +24,6 @@
   .cf-select {
     display: flex;
     box-sizing: border-box;
-    height: 35px;
-
     background-color: @gray;
     flex-direction: column;
     justify-content: center;
@@ -61,16 +60,18 @@
 
     .typeahead {
       height: 100%;
-
       position: absolute;
       top: 0;
       right: 0;
       left: 0;
-
-      span.waiting, span.error, span.no-results {
-        position: absolute;
-        top: -1 * @grid_gutter-width + @gutter-minimum;
-        left: 0;
+      span {
+        &.waiting,
+        &.error,
+        &.no-results {
+          position: absolute;
+          top: -1 * @grid_gutter-width + @gutter-minimum;
+          left: 0;
+        }
       }
     }
   }
