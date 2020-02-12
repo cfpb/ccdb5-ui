@@ -128,7 +128,7 @@ describe( 'component: RowChart', () => {
 
   describe('helper functions', ()=>{
     it('gets height based on number of rows', ()=>{
-      const target = mount(<RowChart />)
+      const target = mount(<RowChart aggtype={'foo bar'}/>)
       let res = target.instance()._getHeight(1)
       expect(res).toEqual(100)
       res = target.instance()._getHeight(5)
