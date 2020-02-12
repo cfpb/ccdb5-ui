@@ -16,17 +16,13 @@
         border-bottom: dotted 1px;
         color: @link-text;
       }
-
       &.active {
-        border-top: 1px solid;
-        border-left: 1px solid;
-        border-right: 1px solid;
-        border-color: @gray-20;
+        border: 1px solid @gray-20;
         border-bottom: none;
         background: @gray-5;
         pointer-events: none;
-        margin-bottom: -1px;
-
+        position: relative;
+        top: 1px;
         a {
           color: @black;
           border-bottom: none;
