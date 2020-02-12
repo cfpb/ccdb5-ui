@@ -4,28 +4,33 @@
   background: @gray-5;
   border-left: @gray-40 1px solid;
   border-right: @gray-40 1px solid;
-  .tab {
-    border: none;
-    margin: 0 2px;
-    background: @white;
-    padding: 13px 30px;
-    //font-size: unit(18px / @base-font-size-px, em);
-    a {
-      border-bottom: dotted 1px;
-      color: @link-text;
-    }
-    &.active {
-      border-top: 1px solid;
-      border-left: 1px solid;
-      border-right: 1px solid;
-      border-color: @gray-20;
-      border-bottom: none;
-      background: @gray-5;
-      pointer-events: none;
-      margin-bottom: -1px;
+  section {
+    padding-left: 10px;
+    .tab {
+      border: none;
+      margin: 0 2px;
+      background: @white;
+      padding: 13px 30px;
+      //font-size: unit(18px / @base-font-size-px, em);
       a {
-        color: @black;
+        border-bottom: dotted 1px;
+        color: @link-text;
+      }
+
+      &.active {
+        border-top: 1px solid;
+        border-left: 1px solid;
+        border-right: 1px solid;
+        border-color: @gray-20;
         border-bottom: none;
+        background: @gray-5;
+        pointer-events: none;
+        margin-bottom: -1px;
+
+        a {
+          color: @black;
+          border-bottom: none;
+        }
       }
     }
   }
