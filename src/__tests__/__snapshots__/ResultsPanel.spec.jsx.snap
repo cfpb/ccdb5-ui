@@ -476,7 +476,7 @@ exports[`component:Results renders map panel without crashing 1`] = `
     </div>
     <div>
       <h3>
-        product
+        Product
          by complaint volume (5 highest counts)
       </h3>
       <div
@@ -485,7 +485,7 @@ exports[`component:Results renders map panel without crashing 1`] = `
     </div>
     <div>
       <h3>
-        issue
+        Issue
          by complaint volume (5 highest counts)
       </h3>
       <div

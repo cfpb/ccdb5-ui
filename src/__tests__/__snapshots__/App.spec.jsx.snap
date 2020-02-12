@@ -258,20 +258,24 @@ exports[`initial state renders without crashing 1`] = `
       </div>
     </div>
     <div
-      className="tabbedNavigation"
+      className="tabbed-navigation"
     >
       <section>
         <button
-          className="map"
+          className="map tab active"
           onClick={[Function]}
         >
-          Map
+          <a>
+            Map
+          </a>
         </button>
         <button
-          className="list"
+          className="list tab"
           onClick={[Function]}
         >
-          List
+          <a>
+            List
+          </a>
         </button>
       </section>
     </div>
@@ -1158,7 +1162,7 @@ exports[`initial state renders without crashing 1`] = `
         </div>
         <div>
           <h3>
-            product
+            Product
              by complaint volume (5 highest counts)
           </h3>
           <div
@@ -1167,7 +1171,7 @@ exports[`initial state renders without crashing 1`] = `
         </div>
         <div>
           <h3>
-            issue
+            Issue
              by complaint volume (5 highest counts)
           </h3>
           <div

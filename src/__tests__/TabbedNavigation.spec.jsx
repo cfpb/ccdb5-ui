@@ -43,13 +43,13 @@ describe( 'component: TabbedNavigation', () => {
     } )
 
     it( 'tabChanged is called with Map when the button is clicked', () => {
-      const prev = target.find( '.tabbedNavigation button.map' )
+      const prev = target.find( '.tabbed-navigation button.map' )
       prev.simulate( 'click' )
       expect( cb ).toHaveBeenCalledWith('Map')
     } )
 
     it( 'tabChanged is called with List when the button is clicked', () => {
-      const prev = target.find( '.tabbedNavigation button.list' )
+      const prev = target.find( '.tabbed-navigation button.list' )
       prev.simulate( 'click' )
       expect( cb ).toHaveBeenCalledWith('List')
     } )

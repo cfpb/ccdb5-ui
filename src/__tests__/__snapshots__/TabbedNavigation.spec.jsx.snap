@@ -2,20 +2,24 @@
 
 exports[`component: TabbedNavigation initial state renders without crashing 1`] = `
 <div
-  className="tabbedNavigation"
+  className="tabbed-navigation"
 >
   <section>
     <button
-      className="map"
+      className="map tab"
       onClick={[Function]}
     >
-      Map
+      <a>
+        Map
+      </a>
     </button>
     <button
-      className="list"
+      className="list tab"
       onClick={[Function]}
     >
-      List
+      <a>
+        List
+      </a>
     </button>
   </section>
 </div>
