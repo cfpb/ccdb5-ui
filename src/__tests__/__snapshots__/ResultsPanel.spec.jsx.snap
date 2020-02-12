@@ -474,6 +474,18 @@ exports[`component:Results renders map panel without crashing 1`] = `
         id="tile-chart-map"
       />
     </div>
+    <div
+      className="map-toolbar"
+    >
+      <section
+        className="state-heading"
+      >
+        <span>
+          United States of America
+        </span>
+        <span />
+      </section>
+    </div>
     <div>
       <h3>
         Product

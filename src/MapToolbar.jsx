@@ -10,19 +10,24 @@ export class MapToolbar extends React.Component {
     return (
       <div className="map-toolbar">
         <section className="state-heading">
+          {!abbr && <span>United States of America</span> }
           <span>{ name }</span>
-          <a className="clear"
-                  onClick={ () => this.props.removeState( abbr ) }>
+          { abbr &&
+            <a className="clear"
+               onClick={ () => this.props.removeState( abbr ) }>
               { iconMap.getIcon( 'delete-round' ) }
               Clear
-          </a>
+            </a>
+          }
         </section>
+        { name &&
         <section className="state-navigation">
           <a className="list"
-                  onClick={ () => this.props.showComplaints( abbr ) }>
+             onClick={ () => this.props.showComplaints( abbr ) }>
             View complaints from { name }
           </a>
         </section>
+        }
       </div>
     )
   }
