@@ -9,17 +9,13 @@ exports[`component: TabbedNavigation initial state renders without crashing 1`] 
       className="map tab"
       onClick={[Function]}
     >
-      <a>
-        Map
-      </a>
+      Map
     </button>
     <button
       className="list tab"
       onClick={[Function]}
     >
-      <a>
-        List
-      </a>
+      List
     </button>
   </section>
 </div>
