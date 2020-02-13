@@ -2,7 +2,7 @@
 
 exports[`component: RowChart initial state renders without crashing 1`] = `
 <div
-  class="product-section"
+  className="row-chart-section"
 >
   <h3>
     Foo

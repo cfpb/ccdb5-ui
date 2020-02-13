@@ -1169,7 +1169,7 @@ exports[`initial state renders without crashing 1`] = `
           </section>
         </div>
         <div
-          class="product-section"
+          className="row-chart-section"
         >
           <h3>
             Product
@@ -1180,7 +1180,7 @@ exports[`initial state renders without crashing 1`] = `
           />
         </div>
         <div
-          class="product-section"
+          className="row-chart-section"
         >
           <h3>
             Issue
