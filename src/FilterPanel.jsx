@@ -23,12 +23,8 @@ export class FilterPanel extends React.Component {
     return (
       <section className="filter-panel">
         <h3>Filter results by...</h3>
-        <HasNarrative />
-        <hr />
         <DateFilter fieldName="date_received"
                     title="Date CFPB received the complaint" />
-        <hr />
-        <Company />
         <hr />
         <Product />
         <hr />
@@ -37,6 +33,8 @@ export class FilterPanel extends React.Component {
         <FederalState />
         <hr />
         <ZipCode />
+        <hr />
+        <Company />
         <hr />
         <SimpleFilter title="Did company provide a timely response?"
                       fieldName="timely"
@@ -60,6 +58,8 @@ export class FilterPanel extends React.Component {
                      desc={descConsumerConsent}
                      fieldName="consumer_consent_provided"
         />
+        <hr />
+        <HasNarrative />
         <hr />
         <SimpleFilter title="How did the consumer submit the
            complaint to the CFPB?"
