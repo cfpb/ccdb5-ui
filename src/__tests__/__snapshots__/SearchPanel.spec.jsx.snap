@@ -44,7 +44,7 @@ exports[`component:SearchPanel displays last updated date when present 1`] = `
                 <option
                   value="all"
                 >
-                  All Data
+                  All data
                 </option>
                 <option
                   value="company"
@@ -155,7 +155,7 @@ exports[`component:SearchPanel renders without crashing 1`] = `
                 <option
                   value="all"
                 >
-                  All Data
+                  All data
                 </option>
                 <option
                   value="company"

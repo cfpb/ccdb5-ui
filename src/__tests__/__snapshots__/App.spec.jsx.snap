@@ -168,7 +168,7 @@ exports[`initial state renders without crashing 1`] = `
                     <option
                       value="all"
                     >
-                      All Data
+                      All data
                     </option>
                     <option
                       value="company"
@@ -1168,7 +1168,9 @@ exports[`initial state renders without crashing 1`] = `
             <span />
           </section>
         </div>
-        <div>
+        <div
+          class="product-section"
+        >
           <h3>
             Product
              by complaint volume (5 highest counts)
@@ -1177,7 +1179,9 @@ exports[`initial state renders without crashing 1`] = `
             id="row-chart-product"
           />
         </div>
-        <div>
+        <div
+          class="product-section"
+        >
           <h3>
             Issue
              by complaint volume (5 highest counts)
