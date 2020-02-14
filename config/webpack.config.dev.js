@@ -159,10 +159,8 @@ module.exports = {
                 loader: require.resolve('string-replace-loader'),
                 options: {
                   search: '@@API',
-                  replace: 'http://localhost:8333/data-research/consumer-complaints/search/api/v1/',
+                  replace: 'http://localhost:8000/data-research/consumer-complaints/search/api/v1/',
                   flags: 'g'
-                  // If using the API without cf.gov build, you can use:
-                  // replace: 'http://localhost:8000/'
                 }
               }
             ]
