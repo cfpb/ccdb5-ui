@@ -486,7 +486,9 @@ exports[`component:Results renders map panel without crashing 1`] = `
         <span />
       </section>
     </div>
-    <div>
+    <div
+      className="row-chart-section"
+    >
       <h3>
         Product
          by complaint volume (5 highest counts)
@@ -495,7 +497,9 @@ exports[`component:Results renders map panel without crashing 1`] = `
         id="row-chart-product"
       />
     </div>
-    <div>
+    <div
+      className="row-chart-section"
+    >
       <h3>
         Issue
          by complaint volume (5 highest counts)

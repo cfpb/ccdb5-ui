@@ -14,15 +14,14 @@
 
   select {
     width: 100%;
-    padding: unit(4px / @base-font-size-px, em)
-      unit(@select-height * 1.1 / @base-font-size-px, em)
-      unit(6px / @base-font-size-px, em);
+    padding: 
+    unit(4px / @base-font-size-px, em) 0 unit(6px / @base-font-size-px, em) 1rem;
     border: 0;
     border-radius: 0;
     appearance: none;
     background-color: @input-bg;
     color: @text;
-
+    margin-right: @grid_gutter-width;
     &:hover,
     &.hover,
     &:active,
@@ -53,15 +52,13 @@
   }
 
   &:after {
-    // width: unit(@select-height / @base-font-size-px, em);
     position: absolute;
     top: 50%;
     right: 0;
-    transform: translate(-100%, -50%);
+    transform: translate(-50%, -50%);
     background-color: @select-icon-bg;
     color: @select-icon;
     content: "\25BE";
-    // line-height: 2em;
     text-align: center;
     pointer-events: none;
   }

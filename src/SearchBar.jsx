@@ -8,7 +8,7 @@ import React from 'react'
 import { searchChanged } from './actions/search'
 
 const searchFields = {
-  all: 'All Data',
+  all: 'All data',
   company: 'Company Name',
   // eslint-disable-next-line camelcase
   complaint_what_happened: 'Narratives'
