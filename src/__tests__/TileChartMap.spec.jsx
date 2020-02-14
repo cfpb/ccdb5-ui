@@ -108,7 +108,7 @@ describe( 'component: TileChartMap', () => {
     } )
 
     it( 'trigger a new update when data changes', () => {
-      target = shallow( <TileChartMap data={ [ [ { name: 'TX', value: 100}, { name: 'LA', value: 10 } ] ] }/> )
+      target = shallow( <TileChartMap data={ [ [ { name: 'TX', value: 100}, { name: 'LA', value: 10 } ] ] } dataNormalization={'None'}/> )
       redrawSpy = jest.spyOn( target.instance(), '_redrawMap' )
       target.setProps( { data: [ [ { name: 'TX', value: 100 }, { name: 'LA', value: 100 } ] ] } )
       expect( redrawSpy ).toHaveBeenCalledTimes( 1 )

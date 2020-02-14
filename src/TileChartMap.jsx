@@ -61,16 +61,24 @@ export class TileChartMap extends React.Component {
     const toggleState = this._toggleState
     const componentProps = this.props
 
+    const mapElement = document.getElementById( 'tile-chart-map' )
+    // eslint-disable-next-line no-mixed-operators
+    const width = mapElement.offsetWidth - mapElement.offsetWidth * 0.1
+
+    const legendTitle = componentProps.dataNormalization === GEO_NORM_NONE ?
+      'Complaints' : 'Complaints per 1000'
     // eslint-disable-next-line no-unused-vars
     const chart = new TileMap( {
-      el: document.getElementById( 'tile-chart-map' ),
+      el: mapElement,
       data: updateData( this.props ),
       colors,
+      legendTitle,
       localize: true,
       events: {
         // custom event handlers we can pass on
         click: toggleState.bind( componentProps )
-      }
+      },
+      width
     } )
   }
 }

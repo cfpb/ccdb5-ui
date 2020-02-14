@@ -106,7 +106,7 @@ export class RowChart extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="row-chart-section">
         <h3>{ this.chartTitle } by complaint volume (5 highest counts)</h3>
         <div id={ 'row-chart-' + this.aggtype }>
         </div>
