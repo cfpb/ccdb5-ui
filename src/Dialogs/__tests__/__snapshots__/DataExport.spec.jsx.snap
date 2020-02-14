@@ -89,19 +89,6 @@ exports[`component::DataExport initial state hides the dataset radio buttons whe
           </label>
         </div>
       </div>
-      <div
-        className="other-formats"
-      >
-        Or you can 
-        <button
-          className="a-btn a-btn__link"
-          data-gtm_ignore="true"
-          onClick={[Function]}
-        >
-          download the data in a different format
-        </button>
-        , if needed.
-      </div>
     </div>
     <div
       className="timeliness-warning"
@@ -218,19 +205,6 @@ exports[`component::DataExport initial state renders without crashing 1`] = `
             JSON
           </label>
         </div>
-      </div>
-      <div
-        className="other-formats"
-      >
-        Or you can 
-        <button
-          className="a-btn a-btn__link"
-          data-gtm_ignore="true"
-          onClick={[Function]}
-        >
-          download the data in a different format
-        </button>
-        , if needed.
       </div>
     </div>
     <div

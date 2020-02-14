@@ -76,12 +76,6 @@ describe('component::DataExport', () => {
       expect(target.state('dataset')).toEqual('filtered')
     })
 
-    it('provides link to Socrata', () => {
-      const btn = target.find('.other-formats button')
-      btn.simulate('click')
-      expect(props.onOtherFormats).toHaveBeenCalled()
-    })
-
     describe('clicking Start Export', () => {
       let startExport
       beforeEach(() => {
@@ -124,11 +118,6 @@ describe('component::DataExport', () => {
   })
 
   describe('mapDispatchToProps', () => {
-    it('provides a way to call visitSocrata', () => {
-      const dispatch = jest.fn()
-      mapDispatchToProps(dispatch).onOtherFormats()
-      expect(dispatch.mock.calls.length).toEqual(1)
-    })
 
     it('provides a way to call exportAllResults', () => {
       const dispatch = jest.fn()
