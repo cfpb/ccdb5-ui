@@ -62,13 +62,17 @@ export class TileChartMap extends React.Component {
     const componentProps = this.props
 
     const mapElement = document.getElementById( 'tile-chart-map' )
-    const width = mapElement.offsetWidth - (mapElement.offsetWidth * 0.1)
+    // eslint-disable-next-line no-mixed-operators
+    const width = mapElement.offsetWidth - mapElement.offsetWidth * 0.1
+
+    const legendTitle = componentProps.dataNormalization === GEO_NORM_NONE ?
+      'Complaints' : 'Complaints per 1000'
     // eslint-disable-next-line no-unused-vars
     const chart = new TileMap( {
       el: mapElement,
       data: updateData( this.props ),
       colors,
-      legendTitle: componentProps.dataNormalization === GEO_NORM_NONE ? 'Complaints' : 'Complaints per 1000',
+      legendTitle,
       localize: true,
       events: {
         // custom event handlers we can pass on
