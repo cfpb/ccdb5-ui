@@ -18,9 +18,6 @@ export function showMoreAboutDialog() {
 
 export class Hero extends React.Component {
   render() {
-    const socrataUrl = 'https://data.consumerfinance.gov/dataset/' +
-      'Consumer-Complaints/s6ew-h6mp'
-
     return (
         <header className="content_hero">
           <h1 className="content-header">Consumer Complaint Database</h1>
@@ -51,11 +48,6 @@ export class Hero extends React.Component {
             <li className="m-list_item">
               <a href="https://cfpb.github.io/api/ccdb/" target="_blank">
                 Technical documentation
-              </a>
-            </li>
-            <li className="m-list_item">
-              <a href={socrataUrl} target="_blank">
-                View complaint data in Socrata
               </a>
             </li>
           </ul>
