@@ -19,7 +19,6 @@ no_support = [
     'MSIE 7.0;',
 ]
 
-
 class CCDB5MainView(TemplateView):
     template_name = 'ccdb5_ui/ccdb-main.html'
     base_template = BASE_TEMPLATE
@@ -29,7 +28,16 @@ class CCDB5MainView(TemplateView):
         browser = self.request.META.get('HTTP_USER_AGENT', '')
         unsupported = any([x for x in no_support if x in browser])
 
+        # Determine if the page is a /detail route that should
+        # not be indexed by robots
+        path = self.request.get_full_path()
+        noindex = False
+
+        if 'detail' in path:
+            noindex = True
+
         context = super(CCDB5MainView, self).get_context_data(**kwargs)
+        context['noindex'] = noindex
         context['ccdb5_base_template'] = self.base_template
         context['unsupported_browser'] = unsupported
         return context
