@@ -540,10 +540,15 @@ export function stateToQS( state ) {
   const fields = Object.keys( state )
 
   // Copy over the fields
-  /* eslint complexity: ["error", 5] */
+  /* eslint complexity: ["error", 6] */
   fields.forEach( field => {
     // Do not include empty fields
     if ( !state[field] ) {
+      return;
+    }
+
+    // Avoid recursion
+    if ( field === 'queryString' ) {
       return;
     }
 
@@ -630,7 +635,6 @@ function handleSpecificAction( state, action ) {
 
 export default ( state = defaultQuery, action ) => {
   const newState = handleSpecificAction( state, action )
-  delete newState.queryString
 
   const qs = stateToQS( newState )
   newState.queryString = qs === '?' ? '' : qs
