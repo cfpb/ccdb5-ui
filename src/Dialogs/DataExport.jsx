@@ -23,8 +23,10 @@ export class DataExport extends React.Component {
     this.state = this._validate( props )
 
     bindAll( this, [
-      '_chooseDataset', '_chooseFormat', '_exportClicked'
+      '_chooseDataset', '_chooseFormat', '_copyToClipboard', '_exportClicked'
     ] )
+
+    this.uriControl = React.createRef();
   }
 
   static getDerivedStateFromProps( props, state ) {
@@ -105,6 +107,17 @@ export class DataExport extends React.Component {
     nextState = this._validateFormat( nextState )
 
     return nextState
+  }
+
+  // --------------------------------------------------------------------------
+  // Copy to Clipboard
+
+  _copyToClipboard( ev ) {
+    this.uriControl.current.select();
+    document.execCommand( 'copy' );
+    // This is just personal preference.
+    // I prefer to not show the the whole text area selected.
+    ev.target.focus()
   }
 
   // --------------------------------------------------------------------------
