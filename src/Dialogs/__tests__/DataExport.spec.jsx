@@ -44,6 +44,10 @@ function setupSnapshot(total=1001) {
 }
 
 describe('component::DataExport', () => {
+  beforeEach( () => {
+    document.queryCommandSupported = jest.fn(_ => true)
+  } );
+
   describe('initial state', () => {
     it('renders without crashing', () => {
       const target = setupSnapshot()
@@ -104,17 +108,6 @@ describe('component::DataExport', () => {
         expect(target.state('mode')).toEqual('NOTIFYING')
       })
     })
-  })
-
-  describe('componentWillReceiveProps', () => {
-    it('reruns all the validations', () => {
-      const {target} = setupEnzyme()
-      target.setProps({someComplaints: 999})
-      expect(target.state('messages')).toEqual(
-        { format: 'You must select a format for the export' }
-      )
-    })
-    
   })
 
   describe('mapDispatchToProps', () => {
