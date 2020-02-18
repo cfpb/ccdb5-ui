@@ -1,6 +1,6 @@
 import './DataExport.less'
 import {
-  exportAllResults, exportSomeResults
+  buildAllResultsUri, buildSomeResultsUri, exportAllResults, exportSomeResults
 } from '../actions/dataExport'
 import { bindAll } from '../utils'
 import { connect } from 'react-redux'
@@ -27,9 +27,20 @@ export class DataExport extends React.Component {
     ] )
   }
 
-  componentWillReceiveProps( nextProps ) {
-    const nextState = this._validate( nextProps )
-    this.setState( nextState )
+  static getDerivedStateFromProps( props, state ) {
+    const { someComplaints, queryState } = props
+    const { dataset, format } = state
+
+    let exportUri
+    if ( format ) {
+      if ( dataset === 'full' ) {
+        exportUri = buildAllResultsUri( format )
+      } else if ( dataset === 'filtered' ) {
+        exportUri = buildSomeResultsUri( format, someComplaints, queryState )
+      }
+    }
+
+    return { exportUri }
   }
 
   render() {
@@ -135,6 +146,7 @@ export class DataExport extends React.Component {
             To download a copy of this dataset, choose the file format and
             which complaints you want to export below.
           </div>
+          { this._renderExportUrl() }
           { this._renderFormatGroup() }
           { this.props.someComplaints === this.props.allComplaints ? null :
             this._renderDatasetGroup()
@@ -155,6 +167,31 @@ export class DataExport extends React.Component {
             You can keep working while it processes.
           </div>
         </div>
+    )
+  }
+
+  // https://stackoverflow.com/a/42844911 - Copy via JS
+  _renderExportUrl() {
+    return (
+      <div className="heres-the-url">
+        <h4>Link to your complaint search results for future reference</h4>
+        <div className="layout-row">
+            <input className="flex-all a-text-input"
+                   type="text"
+                   value={this.state.exportUri}
+                   readOnly
+                   ref={this.uriControl}
+            />
+            { document.queryCommandSupported( 'copy' ) &&
+            <button className="a-btn a-btn__secondary"
+                    disabled={!this.state.exportUri}
+                    onClick={this._copyToClipboard}
+            >
+              Copy
+            </button>
+            }
+        </div>
+      </div>
     )
   }
 
@@ -267,7 +304,10 @@ export const mapStateToProps = state => {
 
   return {
     allComplaints,
-    someComplaints
+    someComplaints,
+    queryState: {
+      ...state.query
+    }
   }
 }
 
