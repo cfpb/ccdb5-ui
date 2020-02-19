@@ -47,6 +47,7 @@ exports[`component::DataExport initial state hides the dataset radio buttons whe
       >
         <input
           className="flex-all a-text-input"
+          id="exportUri"
           readOnly={true}
           type="text"
         />
@@ -187,6 +188,7 @@ exports[`component::DataExport initial state renders without crashing 1`] = `
       >
         <input
           className="flex-all a-text-input"
+          id="exportUri"
           readOnly={true}
           type="text"
         />
