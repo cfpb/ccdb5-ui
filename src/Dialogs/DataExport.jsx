@@ -25,8 +25,6 @@ export class DataExport extends React.Component {
     bindAll( this, [
       '_chooseDataset', '_chooseFormat', '_copyToClipboard', '_exportClicked'
     ] )
-
-    this.uriControl = React.createRef();
   }
 
   static getDerivedStateFromProps( props, state ) {
@@ -113,10 +111,9 @@ export class DataExport extends React.Component {
   // Copy to Clipboard
 
   _copyToClipboard( ev ) {
-    this.uriControl.current.select();
+    const uriControl = document.getElementById( 'exportUri' )
+    uriControl.select();
     document.execCommand( 'copy' );
-    // This is just personal preference.
-    // I prefer to not show the the whole text area selected.
     ev.target.focus()
   }
 
@@ -190,10 +187,10 @@ export class DataExport extends React.Component {
         <h4>Link to your complaint search results for future reference</h4>
         <div className="layout-row">
             <input className="flex-all a-text-input"
+                   id="exportUri"
                    type="text"
                    value={this.state.exportUri}
                    readOnly
-                   ref={this.uriControl}
             />
             { document.queryCommandSupported( 'copy' ) &&
             <button className="a-btn a-btn__secondary"
