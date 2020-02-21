@@ -23,7 +23,8 @@ export class DataExport extends React.Component {
     this.state = this._validate( props )
 
     bindAll( this, [
-      '_chooseDataset', '_chooseFormat', '_copyToClipboard', '_exportClicked'
+      '_chooseDataset', '_chooseFormat', '_copyButtonClasses',
+      '_copyToClipboard', '_exportClicked'
     ] )
   }
 
@@ -92,6 +93,7 @@ export class DataExport extends React.Component {
 
   _validate( props ) {
     let nextState = {
+      copied: false,
       messages: {},
       mode: PROMPTING
     }
@@ -115,6 +117,8 @@ export class DataExport extends React.Component {
     uriControl.select();
     document.execCommand( 'copy' );
     ev.target.focus()
+
+    this.setState( { copied: true } )
   }
 
   // --------------------------------------------------------------------------
@@ -122,6 +126,7 @@ export class DataExport extends React.Component {
 
   _chooseDataset( ev ) {
     const nextState = this._validateDataset( {
+      copied: false,
       dataset: ev.target.value,
       messages: this.state.messages
     } )
@@ -130,6 +135,7 @@ export class DataExport extends React.Component {
 
   _chooseFormat( ev ) {
     const nextState = this._validateFormat( {
+      copied: false,
       format: ev.target.value,
       messages: this.state.messages
     } )
@@ -149,6 +155,12 @@ export class DataExport extends React.Component {
   // --------------------------------------------------------------------------
   // Subrender methods
 
+  _copyButtonClasses( copied ) {
+    const styles = [ 'a-btn' ]
+    styles.push( copied ? 'export-url-copied' : 'a-btn__secondary' )
+    return styles.join( ' ' )
+  }
+
   _renderBodyPrompting() {
     return (
         <div className="body">
@@ -156,11 +168,11 @@ export class DataExport extends React.Component {
             To download a copy of this dataset, choose the file format and
             which complaints you want to export below.
           </div>
-          { this._renderExportUrl() }
           { this._renderFormatGroup() }
           { this.props.someComplaints === this.props.allComplaints ? null :
             this._renderDatasetGroup()
           }
+          { this._renderExportUrl() }
           <div className="timeliness-warning">
             The export process could take several minutes if you're downloading
             many complaints
@@ -193,11 +205,26 @@ export class DataExport extends React.Component {
                    readOnly
             />
             { document.queryCommandSupported( 'copy' ) &&
-            <button className="a-btn a-btn__secondary"
+            <button className={ this._copyButtonClasses( this.state.copied ) }
                     disabled={!this.state.exportUri}
                     onClick={this._copyToClipboard}
             >
-              Copy
+              { !this.state.copied &&
+                <div>
+                  <span class="a-btn_icon">
+                     { iconMap.getIcon( 'copy' ) }
+                  </span>
+                  Copy
+                </div>
+              }
+              { this.state.copied &&
+                <div>
+                  <span class="a-btn_icon">
+                     { iconMap.getIcon( 'checkmark-round' ) }
+                  </span>
+                  Copied
+                </div>
+              }
             </button>
             }
         </div>
