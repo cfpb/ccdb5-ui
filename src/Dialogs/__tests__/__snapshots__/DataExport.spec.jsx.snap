@@ -112,7 +112,7 @@ exports[`component::DataExport initial state hides the dataset radio buttons whe
         >
           <div>
             <span
-              class="a-btn_icon"
+              className="a-btn_icon"
             >
               <svg
                 className="cf-icon-svg"
@@ -352,7 +352,7 @@ exports[`component::DataExport initial state renders without crashing 1`] = `
         >
           <div>
             <span
-              class="a-btn_icon"
+              className="a-btn_icon"
             >
               <svg
                 className="cf-icon-svg"
@@ -592,10 +592,10 @@ exports[`component::DataExport visual changes switches the button after a copy 1
         >
           <div>
             <span
-              class="a-btn_icon"
+              className="a-btn_icon"
             >
               <svg
-                class="cf-icon-svg"
+                className="cf-icon-svg"
                 viewBox="0 0 1000 1200"
                 xmlns="http://www.w3.org/2000/svg"
               >

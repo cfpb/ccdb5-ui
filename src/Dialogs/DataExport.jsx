@@ -211,7 +211,7 @@ export class DataExport extends React.Component {
             >
               { !this.state.copied &&
                 <div>
-                  <span class="a-btn_icon">
+                  <span className="a-btn_icon">
                      { iconMap.getIcon( 'copy' ) }
                   </span>
                   Copy
@@ -219,7 +219,7 @@ export class DataExport extends React.Component {
               }
               { this.state.copied &&
                 <div>
-                  <span class="a-btn_icon">
+                  <span className="a-btn_icon">
                      { iconMap.getIcon( 'checkmark-round' ) }
                   </span>
                   Copied
