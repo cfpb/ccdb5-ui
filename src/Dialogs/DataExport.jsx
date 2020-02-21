@@ -1,8 +1,8 @@
 import './DataExport.less'
+import { bindAll, getFullUrl } from '../utils'
 import {
   buildAllResultsUri, buildSomeResultsUri, exportAllResults, exportSomeResults
 } from '../actions/dataExport'
-import { bindAll } from '../utils'
 import { connect } from 'react-redux'
 import { FormattedNumber } from 'react-intl'
 import iconMap from '../iconMap'
@@ -39,6 +39,8 @@ export class DataExport extends React.Component {
       } else if ( dataset === 'filtered' ) {
         exportUri = buildSomeResultsUri( format, someComplaints, queryState )
       }
+
+      exportUri = getFullUrl( exportUri )
     }
 
     return { exportUri }
