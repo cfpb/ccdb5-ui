@@ -1,5 +1,6 @@
 import {
-  calculateDateInterval, clamp, coalesce, debounce, hashCode, shortIsoFormat
+  calculateDateInterval, clamp, coalesce, debounce, getFullUrl, hashCode,
+  shortIsoFormat
 } from '../utils'
 import { DATE_RANGE_MIN } from '../constants'
 import React from 'react'
@@ -12,7 +13,6 @@ describe('module::utils', () => {
       expect( actual ).toEqual( '' )
     })
   })
-
 
   describe('debounce', () => {
     beforeEach(() => {
@@ -120,5 +120,17 @@ describe('module::utils', () => {
     } )
   })
 
+  describe( 'getFullUrl', () => {
+    it( 'adds a host if needed' , () => {
+      const actual = getFullUrl( '/foo/bar#baz?qaz=a&b=c' )
+      expect( actual ).toEqual( 'http://localhost/foo/bar#baz?qaz=a&b=c' )
+    } );
+
+    it( 'does not add a host if it is there' , () => {
+      const uri = 'https://www.example.org:8000/foo/bar#baz?qaz=a&b=c'
+      const actual = getFullUrl( uri )
+      expect( actual ).toEqual( uri )
+    } );
+  } );
 })
 

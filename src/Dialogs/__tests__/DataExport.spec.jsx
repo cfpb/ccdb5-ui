@@ -66,6 +66,22 @@ describe('component::DataExport', () => {
     })
   })
 
+  describe('visual changes', () => {
+    it('switches the button after a copy' , () => {
+      const target = setupSnapshot()
+      const ctlDataExport = target.root.findByType(DataExport)
+      ctlDataExport.instance.setState({
+        copied: true,
+        dataset: 'full',
+        exportUri: 'http://www.example.org',
+        format: 'csv'
+      })
+
+      const tree = target.toJSON()
+      expect(tree).toMatchSnapshot()
+    } );    
+  } );
+
   describe('user interaction', () => {
     let target, props
     beforeEach(() => {
@@ -76,12 +92,14 @@ describe('component::DataExport', () => {
       const radio = target.find('#format_csv')
       radio.simulate('change', { target: radio.getElements()[0].props })
       expect(target.state('format')).toEqual('csv')
+      expect(target.state('copied')).toEqual(false)
     })
 
     it('supports changing the which dataset is used', () => {
       const radio = target.find('#dataset_filtered')
       radio.simulate('change', { target: radio.getElements()[0].props })
       expect(target.state('dataset')).toEqual('filtered')
+      expect(target.state('copied')).toEqual(false)
     })
 
     describe('clicking Copy to Clipboard', () => {
@@ -107,6 +125,7 @@ describe('component::DataExport', () => {
         expect(document.execCommand).toHaveBeenCalledWith('copy')
         expect(el.select).toHaveBeenCalledWith()
         expect(ev.target.focus).toHaveBeenCalledWith()
+        expect(target.state('copied')).toEqual(true)
       })
 
     } );

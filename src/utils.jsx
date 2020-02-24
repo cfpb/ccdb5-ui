@@ -201,3 +201,21 @@ export function bindAll( obj, methodNames ) {
   }
   return obj;
 }
+
+// ----------------------------------------------------------------------------
+
+/**
+* Makes sure that a URI has host, protocol, etc.
+*
+* @param {string} uri the uri to test
+* @returns {string} a uri with the protocol, host and port if necessary
+*/
+export function getFullUrl( uri ) {
+  if ( !uri ) return uri;
+
+  // https://gist.github.com/jlong/2428561
+  const parser = document.createElement( 'a' );
+  parser.href = uri;
+  return parser.href
+}
+
