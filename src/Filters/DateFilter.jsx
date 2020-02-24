@@ -21,7 +21,8 @@ export class DateFilter extends React.Component {
     } )
   }
 
-  componentWillReceiveProps( nextProps ) {
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillReceiveProps( nextProps ) {
     const newState = {
       from: nextProps.from,
       through: nextProps.through,
