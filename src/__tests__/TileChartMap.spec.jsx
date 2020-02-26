@@ -151,6 +151,7 @@ describe( 'component: TileChartMap', () => {
         data: [
           [
             {
+              abbr: 'TX',
               name: 'TX',
               fullName: 'Texas',
               className: 'selected',
@@ -160,6 +161,7 @@ describe( 'component: TileChartMap', () => {
               value: 100000
             },
             {
+              abbr: 'LA',
               name: 'LA',
               fullName: 'Louisiana',
               className: 'deselected',
@@ -169,6 +171,7 @@ describe( 'component: TileChartMap', () => {
               value: 2
             },
             {
+              abbr: 'CA',
               name: 'CA',
               fullName: 'California',
               className: 'deselected',
@@ -178,6 +181,7 @@ describe( 'component: TileChartMap', () => {
               value: 3
             },
             {
+              abbr: 'MH',
               name: 'MH',
               fullName: '',
               className: 'deselected',

@@ -25,7 +25,7 @@
     display: block;
     text {
         stroke-width: 0;
-        font-weight: 600;
+        font-weight: 500;
     }
 }
 
@@ -115,12 +115,12 @@ x/y positioning on the SVG elements.
 
     .highcharts-legend-title {
         .highcharts-legend-key {
-            font-weight: 600;
+            font-weight: 500;
         }
         .highcharts-legend-description {
             font-size: 12px;
             .type {
-                font-weight: 600;
+                font-weight: 500;
                 color: @black;
             }
         }
@@ -128,12 +128,21 @@ x/y positioning on the SVG elements.
 
     .highcharts-legend__tile-map {
         font-size: 12px;
+
+        .legend-box {
+            stroke: @gray;
+        }
+
+        .legend-text {
+            transform: translate(3px, -3px);
+        }
     }
+
     .highcharts-label__tile-map {
         font-size: 16px;
         font-family: inherit;
         color: @gray;
-        font-weight: 600;
+        font-weight: 500;
 
         span {
             position: relative !important;
@@ -170,7 +179,7 @@ x/y positioning on the SVG elements.
         }
     }
     .highcharts-data-label {
-        font-weight: 600;
+        font-weight: 500;
         color: @black;
         font-size: 14px;
         line-height: 1.3;
