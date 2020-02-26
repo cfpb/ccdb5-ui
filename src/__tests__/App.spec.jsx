@@ -1,11 +1,16 @@
 import { App, DetailComponents } from '../App';
+import accessibility from 'highcharts/modules/accessibility';
 import configureMockStore from 'redux-mock-store'
 import { defaultQuery } from '../reducers/query'
+import Highcharts from 'highcharts/highmaps';
 import { MemoryRouter } from 'react-router';
 import { Provider } from 'react-redux'
 import React from 'react';
 import renderer from 'react-test-renderer';
 import thunk from 'redux-thunk'
+
+jest.mock( 'highcharts/modules/accessibility' )
+jest.mock( 'highcharts/highmaps' )
 
 describe('initial state', () => {
   it('renders without crashing', () => {
