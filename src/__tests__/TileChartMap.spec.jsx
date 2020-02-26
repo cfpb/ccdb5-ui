@@ -7,16 +7,9 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 import thunk from 'redux-thunk'
-import { TileMap } from 'cfpb-chart-builder'
+import TileMap from '../TileMap'
 
-// this is how you override and mock an imported constructor
-jest.mock( 'cfpb-chart-builder', () => {
-  return {
-    TileMap: jest.fn().mockImplementation( () => {
-      return {}
-    } )
-  }
-} )
+jest.mock( '../TileMap' )
 
 function setupSnapshot() {
   const middlewares = [ thunk ]

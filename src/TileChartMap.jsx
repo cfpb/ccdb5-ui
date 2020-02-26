@@ -54,8 +54,10 @@ export class TileChartMap extends React.Component {
     const componentProps = this.props
 
     const mapElement = document.getElementById( 'tile-chart-map' )
+    const offsetWidth = mapElement ? mapElement.offsetWidth : 800;
+
     // eslint-disable-next-line no-mixed-operators
-    const width = mapElement.offsetWidth - mapElement.offsetWidth * 0.1
+    const width = offsetWidth - offsetWidth * 0.1
 
     const description = componentProps.dataNormalization === GEO_NORM_NONE ?
       'Complaints' : 'Complaints per 1000'
