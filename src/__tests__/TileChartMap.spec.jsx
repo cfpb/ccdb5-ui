@@ -136,7 +136,8 @@ describe( 'component: TileChartMap', () => {
             // name comes from agg api
             { name: 'TX', issue: 'something', product: 'a prod', value: 100000 },
             { name: 'LA', issue: 'something', product: 'b prod', value: 2 },
-            { name: 'CA', issue: 'something', product: 'c prod', value: 3 }
+            { name: 'CA', issue: 'something', product: 'c prod', value: 3 },
+            { name: 'MH', issue: 'real data', product: 'is messy', value: 9 },
           ],
           // fyi Selected State comes from map
           selectedState: { abbr: 'TX', name: 'Texas' }
@@ -151,6 +152,7 @@ describe( 'component: TileChartMap', () => {
           [
             {
               name: 'TX',
+              fullName: 'Texas',
               className: 'selected',
               issue: 'something',
               perCapita: '3.65',
@@ -159,6 +161,7 @@ describe( 'component: TileChartMap', () => {
             },
             {
               name: 'LA',
+              fullName: 'Louisiana',
               className: 'deselected',
               issue: 'something',
               perCapita: '0.00',
@@ -167,11 +170,21 @@ describe( 'component: TileChartMap', () => {
             },
             {
               name: 'CA',
+              fullName: 'California',
               className: 'deselected',
               issue: 'something',
               perCapita: '0.00',
               product: 'c prod',
               value: 3
+            },
+            {
+              name: 'MH',
+              fullName: '',
+              className: 'deselected',
+              issue: 'real data',
+              perCapita: '9000.00',
+              product: 'is messy',
+              value: 9
             }
           ]
         ],
