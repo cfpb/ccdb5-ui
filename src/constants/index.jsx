@@ -506,4 +506,4 @@ export const STATE_DATA = {
     population: '583200',
     id: '56'
   }
-]
+}
