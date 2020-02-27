@@ -21,7 +21,6 @@ export class Hero extends React.Component {
     return (
         <header className="content_hero">
           <h1 className="content-header">Consumer Complaint Database</h1>
-          <h4 className="content-header">Beta</h4>
           <p>
           Consumer complaints are added to this public database after the
           company has responded to the complaint, confirming a commercial
