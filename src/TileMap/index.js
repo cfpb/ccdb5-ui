@@ -13,7 +13,7 @@ import { STATE_TILES } from './constants'
 * @param {Object} stateComplaint a candidate value
 * @returns {string} the maximum between the current and a state entry
 */
-function findMaxComplaints( accum, stateComplaint ) {
+export function findMaxComplaints( accum, stateComplaint ) {
   return Math.max( accum, stateComplaint.displayValue );
 }
 
@@ -23,7 +23,7 @@ function findMaxComplaints( accum, stateComplaint ) {
  * @param {Array} colors an array of colors
  * @returns {Array} the bins with bounds, name, and color
  */
-function getBins( data, colors ) {
+export function getBins( data, colors ) {
   const binCount = colors.length;
   const max = data.reduce( findMaxComplaints, 0 );
   const min = 1;
@@ -42,13 +42,13 @@ function getBins( data, colors ) {
       from: minValue,
       to: Math.round( curr + step ),
       color: colors[i],
-      name: displayValue > 0 ? `≥ ${ displayValue }` : '≥ 0'
+      name: `≥ ${ displayValue }`
     } );
   }
 
   // The last bin is unbounded
   // eslint-disable-next-line no-undefined
-  bins[binCount - 1].to = undefined;
+  bins[bins.length - 1].to = undefined;
 
   return bins;
 }
@@ -59,7 +59,7 @@ function getBins( data, colors ) {
  * @param {Array} colors an array of colors
  * @returns {Array} contains bins with bounds, colors, name, and color
  */
-function getPerCapitaBins( data, colors ) {
+export function getPerCapitaBins( data, colors ) {
   const binCount = colors.length;
   const max = data.reduce( findMaxComplaints, 0 );
   const min = 0;
@@ -84,7 +84,7 @@ function getPerCapitaBins( data, colors ) {
 
   // The last bin is unbounded
   // eslint-disable-next-line no-undefined
-  bins[binCount - 1].to = undefined;
+  bins[bins.length - 1].to = undefined;
 
   return bins;
 }
@@ -96,7 +96,7 @@ function getPerCapitaBins( data, colors ) {
  * @param {Array} bins - contains different buckets for the values
  * @returns {Object} The processed data.
  */
-function processMapData( data, bins ) {
+export function processMapData( data, bins ) {
   // Filter out any empty values just in case
   data = data.filter( function( row ) {
     return Boolean( row.name );
@@ -124,7 +124,7 @@ function processMapData( data, bins ) {
  * @param {array} bins contains bin objects
  * @returns {string} color hex or rgb code for a color
  */
-function getColorByValue( value, bins ) {
+export function getColorByValue( value, bins ) {
   let color = '#ffffff';
   for ( let i = 0; i < bins.length; i++ ) {
     if ( value > bins[i].from ) {
@@ -138,10 +138,54 @@ function getColorByValue( value, bins ) {
    Highcharts callbacks */
 
 /**
+ * callback function to format the individual tiles in HTML
+ * @returns {string} html output
+ */
+export function tileFormatter() {
+  const value = this.point.displayValue.toLocaleString();
+  return '<div class="highcharts-data-label-state">' +
+    '<span class="abbr">' + this.point.name + '</span>' +
+    '<br />' +
+    '<span class="value">' + value + '</span>' +
+    '</div>';
+}
+
+/**
+ * callback function to format the tooltip in HTML
+ * @returns {string} html output
+ */
+export function tooltipFormatter() {
+  const product = this.product ? '<div class="row u-clearfix">' +
+    '<p class="u-float-left">Product with highest complaint volume</p>' +
+    '<p class="u-right">' + this.product + '</p>' +
+    '</div>' : '';
+
+  const issue = this.issue ? '<div class="row u-clearfix">' +
+    '<p class="u-float-left">Issue with highest complaint volume</p>' +
+    '<p class="u-right">' + this.issue + '</p>' +
+    '</div>' : '';
+
+  const value = this.value.toLocaleString();
+  const perCapita = this.perCapita ? '<div class="row u-clearfix">' +
+    '<p class="u-float-left">Per capita</p>' +
+    '<p class="u-right">' + this.perCapita + '</p>' +
+    '</div>' : '';
+
+  return '<div class="title">' + this.fullName + '</div>' +
+    '<div class="row u-clearfix">' +
+    '<p class="u-float-left">Complaints</p>' +
+    '<p class="u-right">' + value + '</p>' +
+    '</div>' +
+    perCapita +
+    product +
+    issue;
+}
+
+/**
  * Draw a legend on a chart.
  * @param {Object} chart A highchart chart.
  */
-function _drawLegend( chart ) {
+export function _drawLegend( chart ) {
   const bins = chart.options.bins;
   const boxWidth = 65;
   const boxHeight = 17;
@@ -203,50 +247,6 @@ function _drawLegend( chart ) {
       .addClass( 'legend-text' )
       .add( g );
   }
-}
-
-/**
- * callback function to format the individual tiles in HTML
- * @returns {string} html output
- */
-function tileFormatter() {
-  const value = this.point.displayValue.toLocaleString();
-  return '<div class="highcharts-data-label-state">' +
-    '<span class="abbr">' + this.point.name + '</span>' +
-    '<br />' +
-    '<span class="value">' + value + '</span>' +
-    '</div>';
-}
-
-/**
- * callback function to format the tooltip in HTML
- * @returns {string} html output
- */
-function tooltipFormatter() {
-  const product = this.product ? '<div class="row u-clearfix">' +
-    '<p class="u-float-left">Product with highest complaint volume</p>' +
-    '<p class="u-right">' + this.product + '</p>' +
-    '</div>' : '';
-
-  const issue = this.issue ? '<div class="row u-clearfix">' +
-    '<p class="u-float-left">Issue with highest complaint volume</p>' +
-    '<p class="u-right">' + this.issue + '</p>' +
-    '</div>' : '';
-
-  const value = this.value.toLocaleString();
-  const perCapita = this.perCapita ? '<div class="row u-clearfix">' +
-    '<p class="u-float-left">Per capita</p>' +
-    '<p class="u-right">' + this.perCapita + '</p>' +
-    '</div>' : '';
-
-  return '<div class="title">' + this.fullName + '</div>' +
-    '<div class="row u-clearfix">' +
-    '<p class="u-float-left">Complaints</p>' +
-    '<p class="u-right">' + value + '</p>' +
-    '</div>' +
-    perCapita +
-    product +
-    issue;
 }
 
 /* ----------------------------------------------------------------------------
@@ -335,7 +335,11 @@ class TileMap {
       options.chart.width = width;
     }
 
-    return Highcharts.mapChart( el, options, _drawLegend );
+    this.draw( el, options );
+  }
+
+  draw( el, options ) {
+    Highcharts.mapChart( el, options, _drawLegend );
   }
 }
 
