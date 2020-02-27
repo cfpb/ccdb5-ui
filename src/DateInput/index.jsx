@@ -38,13 +38,15 @@ export default class DateInput extends React.Component {
       this._triggerCallbacks
   }
 
-  componentWillMount() {
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillMount() {
     if ( this.state.message ) {
       this.props.onError( this.state.message, this.props.value )
     }
   }
 
-  componentWillReceiveProps( nextProps ) {
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillReceiveProps( nextProps ) {
     const state = this._calculateState( nextProps, nextProps.value )
     this.setState( state )
   }

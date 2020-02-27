@@ -120,7 +120,8 @@ export default class Typeahead extends React.Component {
       this._callForOptions
   }
 
-  componentWillReceiveProps( nextProps ) {
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillReceiveProps( nextProps ) {
     this.setState( nextStateFromValue( nextProps.value, nextProps ) )
   }
 

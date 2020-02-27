@@ -4,7 +4,7 @@ import { addStateFilter } from './actions/map'
 import { connect } from 'react-redux'
 import { hashObject } from './utils'
 import React from 'react'
-import { TileMap } from 'cfpb-chart-builder'
+import TileMap from './TileMap'
 
 export class TileChartMap extends React.Component {
   componentDidUpdate( prevProps ) {
@@ -50,30 +50,26 @@ export class TileChartMap extends React.Component {
   // --------------------------------------------------------------------------
   // Event Handlers
   _redrawMap() {
-    const colors = [
-      'rgba(247, 248, 249, 0.5)',
-      'rgba(212, 231, 230, 0.5)',
-      'rgba(180, 210, 209, 0.5)',
-      'rgba(137, 182, 181, 0.5)',
-      'rgba(86, 149, 148, 0.5)',
-      'rgba(37, 116, 115, 0.5)'
-    ]
     const toggleState = this._toggleState
     const componentProps = this.props
 
     const mapElement = document.getElementById( 'tile-chart-map' )
-    // eslint-disable-next-line no-mixed-operators
-    const width = mapElement.offsetWidth - mapElement.offsetWidth * 0.1
+    const offsetWidth = mapElement ? mapElement.offsetWidth : 800;
 
-    const legendTitle = componentProps.dataNormalization === GEO_NORM_NONE ?
+    // eslint-disable-next-line no-mixed-operators
+    const width = offsetWidth - offsetWidth * 0.1
+
+    const description = componentProps.dataNormalization === GEO_NORM_NONE ?
       'Complaints' : 'Complaints per 1000'
+
+    const data = updateData( this.props )
+
     // eslint-disable-next-line no-unused-vars
     const chart = new TileMap( {
       el: mapElement,
-      data: updateData( this.props ),
-      colors,
-      legendTitle,
-      localize: true,
+      description,
+      data,
+      isPerCapita: componentProps.dataNormalization !== GEO_NORM_NONE,
       events: {
         // custom event handlers we can pass on
         click: toggleState.bind( componentProps )
@@ -96,16 +92,17 @@ function updateData( props ) {
     displayValue: showDefault ? o.value : o.perCapita
   } ) )
 
-  return [ res ]
+  return res
 }
 
 /**
  * helper function to calculate percapita value
  * @param {object} stateObj a state containing abbr and value
+ * @param {object} stateInfo other information about the state
  * @returns {string} the per capita value
  */
-function getPerCapita( stateObj ) {
-  const pop = STATE_DATA.find( o => o.abbr === stateObj.name ).population
+function getPerCapita( stateObj, stateInfo ) {
+  const pop = stateInfo.population
   return ( stateObj.value / pop * 1000 ).toFixed( 2 )
 }
 
@@ -122,7 +119,10 @@ export const processStates = state => {
   const statesFilter = state.query.state || []
   const states = state.map.state
   const stateData = states.map( o => {
-    o.perCapita = getPerCapita( o )
+    const stateInfo = STATE_DATA[o.name] || { name: '', population: 1 }
+    o.abbr = o.name
+    o.fullName = stateInfo.name
+    o.perCapita = getPerCapita( o, stateInfo )
     o.className = getStateClass( statesFilter, o.name )
     return o
   } )
