@@ -324,16 +324,12 @@ export function addStateFilter( state, action ) {
  * removes a state filter in the current set
  *
  * @param {object} state the current state in the Redux store
- * @param {object} action the payload containing the filters to change
  * @returns {object} the new state for the Redux store
  */
-export function removeStateFilter( state, action ) {
-  let stateFilters = state.state || []
-  stateFilters = stateFilters.filter( o => o !== action.stateAbbr )
-
+export function clearStateFilter( state ) {
   return {
     ...state,
-    state: stateFilters
+    state: []
   }
 }
 
@@ -606,7 +602,7 @@ export function _buildHandlerMap() {
   handlers[actions.SORT_CHANGED] = changeSort
   handlers[actions.STATE_COMPLAINTS_SHOWN] = showStateComplaints
   handlers[actions.STATE_FILTER_ADDED] = addStateFilter
-  handlers[actions.STATE_FILTER_REMOVED] = removeStateFilter
+  handlers[actions.STATE_FILTER_CLEARED] = clearStateFilter
   handlers[actions.TAB_CHANGED] = changeTab
   handlers[actions.URL_CHANGED] = processParams
   handlers[actions.SEARCH_CHANGED] = changeSearch
