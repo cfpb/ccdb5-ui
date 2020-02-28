@@ -56,31 +56,31 @@ describe( 'Tile map', () => {
         {
           color: 'rgba(212, 231, 230, 0.5)',
           from: 16435,
-          name: '≥ 16435',
+          name: '≥ 16,435',
           to: 32868
         },
         {
           color: 'rgba(180, 210, 209, 0.5)',
           from: 32868,
-          name: '≥ 32868',
+          name: '≥ 32,868',
           to: 49302
         },
         {
           color: 'rgba(137, 182, 181, 0.5)',
           from: 49302,
-          name: '≥ 49302',
+          name: '≥ 49,302',
           to: 65735
         },
         {
           color: 'rgba(86, 149, 148, 0.5)',
           from: 65735,
-          name: '≥ 65735',
+          name: '≥ 65,735',
           to: 82169
         },
         {
           color: 'rgba(37, 116, 115, 0.5)',
           from: 82169,
-          name: '≥ 82169',
+          name: '≥ 82,169',
           // eslint-disable-next-line no-undefined
           to: undefined
         } ] );
@@ -111,24 +111,24 @@ describe( 'Tile map', () => {
           color: 'rgba(180, 210, 209, 0.5)',
           from: 1.84,
           name: '≥ 1.84',
-          to: 2.76
+          to: 2.75
         },
         {
           color: 'rgba(137, 182, 181, 0.5)',
-          from: 2.76,
-          name: '≥ 2.76',
-          to: 3.68
+          from: 2.75,
+          name: '≥ 2.75',
+          to: 3.67
         },
         {
           color: 'rgba(86, 149, 148, 0.5)',
-          from: 3.68,
-          name: '≥ 3.68',
-          to: 4.6
+          from: 3.67,
+          name: '≥ 3.67',
+          to: 4.59
         },
         {
           color: 'rgba(37, 116, 115, 0.5)',
-          from: 4.6,
-          name: '≥ 4.6',
+          from: 4.59,
+          name: '≥ 4.59',
           // eslint-disable-next-line no-undefined
           to: undefined
         } ] );
