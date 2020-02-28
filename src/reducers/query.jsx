@@ -341,13 +341,11 @@ export function removeStateFilter( state, action ) {
  * only applies the single state filter and switches view mode to complaints
  *
  * @param {object} state the current state in the Redux store
- * @param {object} action the payload containing the filters to change
  * @returns {object} the new state for the Redux store
  */
-export function showStateComplaints( state, action ) {
+export function showStateComplaints( state ) {
   return {
     ...state,
-    state: [ action.stateAbbr ],
     tab: types.MODE_LIST
   }
 }

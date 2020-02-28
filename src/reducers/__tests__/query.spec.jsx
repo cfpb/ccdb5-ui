@@ -564,8 +564,7 @@ describe( 'reducer:query', () => {
     describe( 'STATE_COMPLAINTS_SHOWN', () => {
       it( 'switches to List View', () => {
         action = {
-          type: actions.STATE_COMPLAINTS_SHOWN,
-          stateAbbr: 'FO'
+          type: actions.STATE_COMPLAINTS_SHOWN
         }
 
         res = target( {
@@ -573,16 +572,15 @@ describe( 'reducer:query', () => {
         }, action )
 
         expect( res ).toEqual( {
-          queryString: '?state=FO&tab=List',
-          state: [ 'FO' ],
+          queryString: '?tab=List',
+          state: [ ],
           tab: types.MODE_LIST
         } )
       } )
 
-      it( 'wipes out all state filters and to List View', () => {
+      it( 'saves all state filters and switches to List View', () => {
         action = {
-          type: actions.STATE_COMPLAINTS_SHOWN,
-          stateAbbr: 'FO'
+          type: actions.STATE_COMPLAINTS_SHOWN
         }
 
         res = target( {
@@ -590,8 +588,8 @@ describe( 'reducer:query', () => {
         }, action )
 
         expect( res ).toEqual( {
-          queryString: '?state=FO&tab=List',
-          state: [ 'FO' ],
+          queryString: '?state=TX&state=MX&state=FO&tab=List',
+          state: [ 'TX', 'MX', 'FO' ],
           tab: types.MODE_LIST
         } )
       } )
