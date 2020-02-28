@@ -44,10 +44,9 @@ describe('action:map', () => {
     it('creates a simple action', () => {
       const expectedAction = {
         type: sut.STATE_COMPLAINTS_SHOWN,
-        stateAbbr: 'FO',
         requery: REQUERY_ALWAYS
       }
-      expect(sut.showStateComplaints('FO')).toEqual(expectedAction)
+      expect(sut.showStateComplaints()).toEqual(expectedAction)
     })
   })
 })

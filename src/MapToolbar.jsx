@@ -23,8 +23,8 @@ export class MapToolbar extends React.Component {
         { name &&
         <section className="state-navigation">
           <a className="list"
-             onClick={ () => this.props.showComplaints( abbr ) }>
-            View complaints from { name }
+             onClick={ () => this.props.showComplaints() }>
+            View complaints for filtered states
           </a>
         </section>
         }
@@ -41,8 +41,8 @@ export const mapDispatchToProps = dispatch => ( {
   removeState: stateAbbr => {
     dispatch( removeStateFilter( stateAbbr ) )
   },
-  showComplaints: stateAbbr => {
-    dispatch( showStateComplaints( stateAbbr ) )
+  showComplaints: () => {
+    dispatch( showStateComplaints() )
   }
 } )
 

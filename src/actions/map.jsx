@@ -50,13 +50,11 @@ export function removeStateFilter( stateAbbr ) {
 /**
  * Creates an action in response after 'view all complaints from TX' clicked
  *
- * @param {string} stateAbbr the tile map state that is toggled
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function showStateComplaints( stateAbbr ) {
+export function showStateComplaints() {
   return {
     type: STATE_COMPLAINTS_SHOWN,
-    stateAbbr,
     requery: REQUERY_ALWAYS
   }
 }
