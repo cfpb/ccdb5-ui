@@ -59,15 +59,11 @@ export class TileChartMap extends React.Component {
     // eslint-disable-next-line no-mixed-operators
     const width = offsetWidth - offsetWidth * 0.1
 
-    const description = componentProps.dataNormalization === GEO_NORM_NONE ?
-      'Complaints' : 'Complaints per 1000'
-
     const data = updateData( this.props )
 
     // eslint-disable-next-line no-unused-vars
     const chart = new TileMap( {
       el: mapElement,
-      description,
       data,
       isPerCapita: componentProps.dataNormalization !== GEO_NORM_NONE,
       events: {
