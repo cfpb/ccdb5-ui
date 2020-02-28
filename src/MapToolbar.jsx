@@ -1,5 +1,5 @@
 import './MapToolbar.less'
-import { removeStateFilter, showStateComplaints } from './actions/map'
+import { clearStateFilter, showStateComplaints } from './actions/map'
 import { connect } from 'react-redux'
 import iconMap from './iconMap'
 import React from 'react'
@@ -14,7 +14,7 @@ export class MapToolbar extends React.Component {
           <span>{ name }</span>
           { abbr &&
             <a className="clear"
-               onClick={ () => this.props.removeState( abbr ) }>
+               onClick={ () => this.props.clearStates() }>
               { iconMap.getIcon( 'delete-round' ) }
               Clear
             </a>
@@ -38,8 +38,8 @@ export const mapStateToProps = state => ( {
 } )
 
 export const mapDispatchToProps = dispatch => ( {
-  removeState: stateAbbr => {
-    dispatch( removeStateFilter( stateAbbr ) )
+  clearStates: () => {
+    dispatch( clearStateFilter() )
   },
   showComplaints: () => {
     dispatch( showStateComplaints() )

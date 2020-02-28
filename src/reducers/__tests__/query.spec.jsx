@@ -618,16 +618,15 @@ describe( 'reducer:query', () => {
       } )
     } )
 
-    describe( 'STATE_FILTER_REMOVED', () => {
+    describe( 'STATE_FILTER_CLEARED', () => {
 
-      it( 'removes state filter', () => {
+      it( 'removes state filters', () => {
         action = {
-          type: actions.STATE_FILTER_REMOVED,
-          stateAbbr: 'FO'
+          type: actions.STATE_FILTER_CLEARED
         }
 
         res = target( {
-          state: [ 'FO' ]
+          state: [ 'FO', 'BA' ]
         }, action )
 
         expect( res ).toEqual( {
@@ -639,8 +638,7 @@ describe( 'reducer:query', () => {
 
     it( 'handles no state filters', () => {
       action = {
-        type: actions.STATE_FILTER_REMOVED,
-        stateAbbr: 'FO'
+        type: actions.STATE_FILTER_CLEARED
       }
 
       res = target( {}, action )

@@ -3,7 +3,7 @@ import { REQUERY_ALWAYS, REQUERY_NEVER } from '../constants'
 export const DATA_NORMALIZATION_SELECTED = 'DATA_NORMALIZATION_SELECTED'
 export const STATE_COMPLAINTS_SHOWN = 'STATE_COMPLAINTS_SHOWN'
 export const STATE_FILTER_ADDED = 'STATE_FILTER_ADDED'
-export const STATE_FILTER_REMOVED = 'STATE_FILTER_REMOVED'
+export const STATE_FILTER_CLEARED = 'STATE_FILTER_CLEARED'
 
 
 /**
@@ -36,13 +36,11 @@ export function addStateFilter( selectedState ) {
 /**
  * Creates an action in response after state clear button clicked
  *
- * @param {string} stateAbbr the tile map state that is toggled
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function removeStateFilter( stateAbbr ) {
+export function clearStateFilter( ) {
   return {
-    type: STATE_FILTER_REMOVED,
-    stateAbbr,
+    type: STATE_FILTER_CLEARED,
     requery: REQUERY_ALWAYS
   }
 }

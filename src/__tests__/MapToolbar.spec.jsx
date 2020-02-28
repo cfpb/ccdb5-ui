@@ -10,8 +10,8 @@ import thunk from 'redux-thunk'
 
 function setupEnzyme() {
   const props = {
-    removeState: jest.fn(),
     selectedState: { abbr: 'TX', name: 'Texas' },
+    clearStates: jest.fn(),
     showComplaints: jest.fn()
   }
 
@@ -58,9 +58,9 @@ describe( 'component: MapToolbar', () => {
     beforeEach( () => {
       jest.clearAllMocks()
     } )
-    it( 'provides a way to call removeState', () => {
+    it( 'provides a way to call clearStates', () => {
       const dispatch = jest.fn()
-      mapDispatchToProps( dispatch ).removeState()
+      mapDispatchToProps( dispatch ).clearStates()
       expect( dispatch.mock.calls.length ).toEqual( 1 )
     } )
     it( 'provides a way to call showComplaints', () => {
@@ -96,7 +96,7 @@ describe( 'component: MapToolbar', () => {
       const button = target.find( 'a.clear' )
 
       button.simulate( 'click' )
-      expect( props.removeState ).toHaveBeenCalled()
+      expect( props.clearStates ).toHaveBeenCalled()
     } )
     it( 'allows the user to view complaints by state ', () => {
       const { target, props } = setupEnzyme()

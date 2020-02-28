@@ -29,14 +29,13 @@ describe('action:map', () => {
   })
 
 
-  describe('removeStateFilter', () => {
+  describe('clearStateFilter', () => {
     it('creates a simple action', () => {
       const expectedAction = {
-        type: sut.STATE_FILTER_REMOVED,
-        stateAbbr: 'FO',
+        type: sut.STATE_FILTER_CLEARED,
         requery: REQUERY_ALWAYS
       }
-      expect(sut.removeStateFilter('FO')).toEqual(expectedAction)
+      expect(sut.clearStateFilter()).toEqual(expectedAction)
     })
   })
 
