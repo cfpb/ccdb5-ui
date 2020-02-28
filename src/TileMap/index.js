@@ -71,11 +71,11 @@ export function getPerCapitaBins( data, colors ) {
   const bins = [];
 
   for ( let i = 0, curr = min; i < binCount; i++, curr += step ) {
-    const minValue =  parseFloat( curr.toFixed( 2 ) )
+    const minValue = parseFloat( curr.toFixed( 2 ) )
     const displayValue = minValue.toLocaleString();
     bins.push( {
       from: minValue,
-      to: parseFloat((curr + step).toFixed( 2 )),
+      to: parseFloat( ( curr + step ).toFixed( 2 ) ),
       color: colors[i],
       name: displayValue > 0 ? `≥ ${ displayValue }` : '≥ 0'
     } );
