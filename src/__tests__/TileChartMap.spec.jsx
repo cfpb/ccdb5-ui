@@ -7,16 +7,9 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 import thunk from 'redux-thunk'
-import { TileMap } from 'cfpb-chart-builder'
+import TileMap from '../TileMap'
 
-// this is how you override and mock an imported constructor
-jest.mock( 'cfpb-chart-builder', () => {
-  return {
-    TileMap: jest.fn().mockImplementation( () => {
-      return {}
-    } )
-  }
-} )
+jest.mock( '../TileMap' )
 
 function setupSnapshot() {
   const middlewares = [ thunk ]
@@ -136,7 +129,8 @@ describe( 'component: TileChartMap', () => {
             // name comes from agg api
             { name: 'TX', issue: 'something', product: 'a prod', value: 100000 },
             { name: 'LA', issue: 'something', product: 'b prod', value: 2 },
-            { name: 'CA', issue: 'something', product: 'c prod', value: 3 }
+            { name: 'CA', issue: 'something', product: 'c prod', value: 3 },
+            { name: 'MH', issue: 'real data', product: 'is messy', value: 9 },
           ],
           // fyi Selected State comes from map
           selectedState: { abbr: 'TX', name: 'Texas' }
@@ -150,7 +144,9 @@ describe( 'component: TileChartMap', () => {
         data: [
           [
             {
+              abbr: 'TX',
               name: 'TX',
+              fullName: 'Texas',
               className: 'selected',
               issue: 'something',
               perCapita: '3.65',
@@ -158,7 +154,9 @@ describe( 'component: TileChartMap', () => {
               value: 100000
             },
             {
+              abbr: 'LA',
               name: 'LA',
+              fullName: 'Louisiana',
               className: 'deselected',
               issue: 'something',
               perCapita: '0.00',
@@ -166,12 +164,24 @@ describe( 'component: TileChartMap', () => {
               value: 2
             },
             {
+              abbr: 'CA',
               name: 'CA',
+              fullName: 'California',
               className: 'deselected',
               issue: 'something',
               perCapita: '0.00',
               product: 'c prod',
               value: 3
+            },
+            {
+              abbr: 'MH',
+              name: 'MH',
+              fullName: '',
+              className: 'deselected',
+              issue: 'real data',
+              perCapita: '9000.00',
+              product: 'is messy',
+              value: 9
             }
           ]
         ],
