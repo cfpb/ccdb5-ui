@@ -57,7 +57,8 @@ export class UrlBarSynch extends React.Component {
     this.props.onUrlChanged( this.location )
   }
 
-  componentWillReceiveProps( nextProps ) {
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillReceiveProps( nextProps ) {
     const qs = toQS( nextProps );
     if ( qs !== this.currentQS ) {
       this.currentQS = qs
