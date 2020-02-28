@@ -272,7 +272,7 @@ const colors = [
    Tile Map class */
 
 class TileMap {
-  constructor( { el, description, data, isPerCapita, events, width } ) {
+  constructor( { el, data, isPerCapita, events, width } ) {
     let bins, legendTitle
     if ( isPerCapita ) {
       bins = getPerCapitaBins( data, colors )
@@ -295,7 +295,6 @@ class TileMap {
         dataClassColor: 'category'
       },
       title: false,
-      description: description,
       credits: false,
       legend: {
         enabled: false,
