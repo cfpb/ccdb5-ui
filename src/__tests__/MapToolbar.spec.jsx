@@ -10,8 +10,8 @@ import thunk from 'redux-thunk'
 
 function setupEnzyme() {
   const props = {
-    selectedState: { abbr: 'TX', name: 'Texas' },
     clearStates: jest.fn(),
+    filteredStates: 'Texas',
     showComplaints: jest.fn()
   }
 
@@ -28,18 +28,14 @@ function setupSnapshot() {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
   const store = mockStore( {
-    map: {
-      selectedState: false
+    query: {
+      state: [ 'TX' ]
     }
   } )
 
-  const selectedState = {
-    abbr: 'TX',
-    name: 'Texas'
-  }
   return renderer.create(
     <Provider store={ store }>
-      <MapToolbar selectedState={ selectedState }/>
+      <MapToolbar filteredStates={ 'Texas' }/>
     </Provider>
   )
 }
@@ -73,19 +69,13 @@ describe( 'component: MapToolbar', () => {
   describe( 'mapStateToProps', () => {
     it( 'maps state and props', () => {
       const state = {
-        map: {
-          selectedState: {
-            abbr: 'fo',
-            name: 'foo'
-          }
+        query: {
+          state: [ 'LA', 'MS', 'ZZ' ]
         }
       }
       let actual = mapStateToProps( state )
       expect( actual ).toEqual( {
-        selectedState: {
-          abbr: 'fo',
-          name: 'foo'
-        }
+        filteredStates: 'Louisiana, Mississippi'
       } )
     } )
   } )
