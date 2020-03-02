@@ -29,8 +29,7 @@ export class MapPanel extends React.Component {
 }
 
 const mapStateToProps = state => ( {
-  isLoading: state.map.isLoading,
-  selectedState: state.map.selectedState
+  isLoading: state.map.isLoading
 } )
 
 export default connect( mapStateToProps )( MapPanel )
