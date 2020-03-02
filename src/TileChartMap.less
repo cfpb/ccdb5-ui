@@ -71,8 +71,9 @@
     .highcharts-point-hover {
         -webkit-transition: fill 0ms, fill-opacity 0ms;
         transition: fill 0ms, fill-opacity 0ms;
+        cursor: default;
+        fill: @pacific !important;
         fill-opacity: 0.5;
-        stroke-width: 2px;
     }
 }
 
@@ -163,20 +164,6 @@ x/y positioning on the SVG elements.
                 stroke: @black
             }
         }
-
-        .highcharts-point:focus, .highcharts-point:hover {
-            stroke: @black;
-            cursor: default;
-            stroke-width: 4px !important;
-            stroke-linecap: square;
-        }
-
-        .highcharts-point-hover {
-            stroke: @black;
-            cursor: default;
-            stroke-width: 4px !important;
-            stroke-linecap: square;
-        }
     }
     .highcharts-data-label {
         font-weight: 500;
@@ -190,6 +177,7 @@ x/y positioning on the SVG elements.
             &.deselected {
                 color: @gray
             }
+
             .abbr {
                 font-size: 16px;
             }

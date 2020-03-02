@@ -1150,8 +1150,12 @@ exports[`initial state renders without crashing 1`] = `
             <span>
               United States of America
             </span>
-            <span />
+            <span>
+              
+            </span>
+            
           </section>
+          
         </div>
         <div
           className="row-chart-section"

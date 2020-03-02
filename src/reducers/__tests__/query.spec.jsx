@@ -564,8 +564,7 @@ describe( 'reducer:query', () => {
     describe( 'STATE_COMPLAINTS_SHOWN', () => {
       it( 'switches to List View', () => {
         action = {
-          type: actions.STATE_COMPLAINTS_SHOWN,
-          stateAbbr: 'FO'
+          type: actions.STATE_COMPLAINTS_SHOWN
         }
 
         res = target( {
@@ -573,16 +572,15 @@ describe( 'reducer:query', () => {
         }, action )
 
         expect( res ).toEqual( {
-          queryString: '?state=FO&tab=List',
-          state: [ 'FO' ],
+          queryString: '?tab=List',
+          state: [ ],
           tab: types.MODE_LIST
         } )
       } )
 
-      it( 'wipes out all state filters and to List View', () => {
+      it( 'saves all state filters and switches to List View', () => {
         action = {
-          type: actions.STATE_COMPLAINTS_SHOWN,
-          stateAbbr: 'FO'
+          type: actions.STATE_COMPLAINTS_SHOWN
         }
 
         res = target( {
@@ -590,8 +588,8 @@ describe( 'reducer:query', () => {
         }, action )
 
         expect( res ).toEqual( {
-          queryString: '?state=FO&tab=List',
-          state: [ 'FO' ],
+          queryString: '?state=TX&state=MX&state=FO&tab=List',
+          state: [ 'TX', 'MX', 'FO' ],
           tab: types.MODE_LIST
         } )
       } )
@@ -620,17 +618,29 @@ describe( 'reducer:query', () => {
       } )
     } )
 
-    describe( 'STATE_FILTER_REMOVED', () => {
+    describe( 'STATE_FILTER_CLEARED', () => {
 
-      it( 'removes state filter', () => {
+      it( 'removes state filters', () => {
         action = {
-          type: actions.STATE_FILTER_REMOVED,
-          stateAbbr: 'FO'
+          type: actions.STATE_FILTER_CLEARED
         }
 
         res = target( {
-          state: [ 'FO' ]
+          state: [ 'FO', 'BA' ]
         }, action )
+
+        expect( res ).toEqual( {
+          queryString: '',
+          state: []
+        } )
+      } )
+
+      it( 'handles no state filters', () => {
+        action = {
+          type: actions.STATE_FILTER_CLEARED
+        }
+
+        res = target( {}, action )
 
         expect( res ).toEqual( {
           queryString: '',
@@ -639,19 +649,29 @@ describe( 'reducer:query', () => {
       } )
     } )
 
-    it( 'handles no state filters', () => {
-      action = {
-        type: actions.STATE_FILTER_REMOVED,
-        stateAbbr: 'FO'
-      }
-
-      res = target( {}, action )
-
-      expect( res ).toEqual( {
-        queryString: '',
-        state: []
+    describe( 'STATE_FILTER_REMOVED', () => {
+      beforeEach( () => {
+        action = {
+          type: actions.STATE_FILTER_REMOVED,
+          selectedState: { abbr: 'IL', name: 'Illinois' }
+        }
+      } )
+      it( 'removes a state filter', () => {
+        res = target( { state: ['CA', 'IL'] }, action )
+        expect( res ).toEqual( {
+          queryString: '?state=CA',
+          state: [ 'CA' ]
+        } )
+      } )
+      it( 'handles empty state', () => {
+        res = target( {}, action )
+        expect( res ).toEqual( {
+          queryString: '',
+          state: []
+        } )
       } )
     } )
+
 
   } )
 } )
