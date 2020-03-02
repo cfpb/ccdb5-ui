@@ -56,10 +56,6 @@ export class TileChartMap extends React.Component {
     const componentProps = this.props
 
     const mapElement = document.getElementById( 'tile-chart-map' )
-    const offsetWidth = mapElement ? mapElement.offsetWidth : 800;
-
-    // eslint-disable-next-line no-mixed-operators
-    const width = offsetWidth - offsetWidth * 0.1
 
     const data = updateData( this.props )
 
@@ -71,8 +67,7 @@ export class TileChartMap extends React.Component {
       events: {
         // custom event handlers we can pass on
         click: toggleState.bind( componentProps )
-      },
-      width
+      }
     } )
   }
 }
