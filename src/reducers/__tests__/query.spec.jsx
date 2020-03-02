@@ -634,20 +634,44 @@ describe( 'reducer:query', () => {
           state: []
         } )
       } )
-    } )
 
-    it( 'handles no state filters', () => {
-      action = {
-        type: actions.STATE_FILTER_CLEARED
-      }
+      it( 'handles no state filters', () => {
+        action = {
+          type: actions.STATE_FILTER_CLEARED
+        }
 
-      res = target( {}, action )
+        res = target( {}, action )
 
-      expect( res ).toEqual( {
-        queryString: '',
-        state: []
+        expect( res ).toEqual( {
+          queryString: '',
+          state: []
+        } )
       } )
     } )
+
+    describe( 'STATE_FILTER_REMOVED', () => {
+      beforeEach( () => {
+        action = {
+          type: actions.STATE_FILTER_REMOVED,
+          selectedState: { abbr: 'IL', name: 'Illinois' }
+        }
+      } )
+      it( 'removes a state filter', () => {
+        res = target( { state: ['CA', 'IL'] }, action )
+        expect( res ).toEqual( {
+          queryString: '?state=CA',
+          state: [ 'CA' ]
+        } )
+      } )
+      it( 'handles empty state', () => {
+        res = target( {}, action )
+        expect( res ).toEqual( {
+          queryString: '',
+          state: []
+        } )
+      } )
+    } )
+
 
   } )
 } )
