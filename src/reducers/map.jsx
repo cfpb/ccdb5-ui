@@ -7,7 +7,6 @@ export const defaultState = {
   issue: [],
   dataNormalization: GEO_NORM_NONE,
   product: [],
-  selectedState: false,
   state: []
 }
 
@@ -122,35 +121,6 @@ export function processStatesError( state, action ) {
 }
 
 /**
- * toggle a state map toolbar
- *
- * @param {object} state the current state in the Redux store
- * @returns {object} new state for the Redux store
- */
-export function deselectState( state ) {
-  return {
-    ...state,
-    selectedState: false
-  }
-}
-
-
-/**
- * toggle a state map toolbar
- *
- * @param {object} state the current state in the Redux store
- * @param {object} action the payload containing the key/value pairs
- * @returns {object} new state for the Redux store
- */
-export function selectState( state, action ) {
-  const { selectedState } = action
-  return {
-    ...state,
-    selectedState
-  }
-}
-
-/**
  * Handler for the update data normalization action
  *
  * @param {object} state the current state in the Redux store
@@ -199,8 +169,6 @@ export function _buildHandlerMap() {
   handlers[actions.STATES_API_CALLED] = statesCallInProcess
   handlers[actions.STATES_RECEIVED] = processStatesResults
   handlers[actions.STATES_FAILED] = processStatesError
-  handlers[actions.STATE_FILTER_ADDED] = selectState
-  handlers[actions.STATE_FILTER_REMOVED] = deselectState
   handlers[actions.URL_CHANGED] = processParams
 
 
