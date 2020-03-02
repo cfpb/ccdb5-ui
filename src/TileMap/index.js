@@ -272,7 +272,7 @@ const colors = [
    Tile Map class */
 
 class TileMap {
-  constructor( { el, data, isPerCapita, events, width } ) {
+  constructor( { el, data, isPerCapita, events } ) {
     let bins, legendTitle
     if ( isPerCapita ) {
       bins = getPerCapitaBins( data, colors )
@@ -327,10 +327,6 @@ class TileMap {
     // our custom passing of information
     if ( events ) {
       options.plotOptions.series.events = events;
-    }
-
-    if ( width ) {
-      options.chart.width = width;
     }
 
     this.draw( el, options );
