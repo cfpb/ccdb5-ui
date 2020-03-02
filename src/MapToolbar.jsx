@@ -1,30 +1,31 @@
 import './MapToolbar.less'
-import { removeStateFilter, showStateComplaints } from './actions/map'
+import { clearStateFilter, showStateComplaints } from './actions/map'
 import { connect } from 'react-redux'
 import iconMap from './iconMap'
 import React from 'react'
+import { THESE_UNITED_STATES } from './constants'
 
 export class MapToolbar extends React.Component {
   render() {
-    const { abbr, name } = this.props.selectedState
+    const filteredStates = this.props.filteredStates;
     return (
       <div className="map-toolbar">
         <section className="state-heading">
-          {!abbr && <span>United States of America</span> }
-          <span>{ name }</span>
-          { abbr &&
+          {!filteredStates && <span>United States of America</span> }
+          <span>{ filteredStates }</span>
+          { filteredStates &&
             <a className="clear"
-               onClick={ () => this.props.removeState( abbr ) }>
+               onClick={ () => this.props.clearStates() }>
               { iconMap.getIcon( 'delete-round' ) }
               Clear
             </a>
           }
         </section>
-        { name &&
+        { filteredStates &&
         <section className="state-navigation">
           <a className="list"
-             onClick={ () => this.props.showComplaints( abbr ) }>
-            View complaints from { name }
+             onClick={ () => this.props.showComplaints() }>
+            View complaints for filtered states
           </a>
         </section>
         }
@@ -33,16 +34,23 @@ export class MapToolbar extends React.Component {
   }
 }
 
-export const mapStateToProps = state => ( {
-  selectedState: state.map.selectedState
-} )
+export const mapStateToProps = state => {
+  const abbrs = state.query.state || [];
+
+  return {
+    filteredStates: abbrs
+      .filter( x => x in THESE_UNITED_STATES )
+      .map( x => THESE_UNITED_STATES[x] )
+      .join( ', ' )
+  }
+}
 
 export const mapDispatchToProps = dispatch => ( {
-  removeState: stateAbbr => {
-    dispatch( removeStateFilter( stateAbbr ) )
+  clearStates: () => {
+    dispatch( clearStateFilter() )
   },
-  showComplaints: stateAbbr => {
-    dispatch( showStateComplaints( stateAbbr ) )
+  showComplaints: () => {
+    dispatch( showStateComplaints() )
   }
 } )
 
