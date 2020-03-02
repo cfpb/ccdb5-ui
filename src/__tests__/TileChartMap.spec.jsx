@@ -37,25 +37,27 @@ describe( 'component: TileChartMap', () => {
       expect( tree ).toMatchSnapshot()
     } )
 
-    it( 'toggles map state when different from current state', () => {
-      target = shallow( <TileChartMap/> )
-      const mapEvent = { point: { abbr: 'FO', fullName: 'Foo Bar' } }
-      const instance = target.instance()
-      //._toggleState( mapEvent )
-      instance.mapShapeToggled = jest.fn()
-      instance._toggleState( mapEvent )
-      expect( instance.mapShapeToggled ).toHaveBeenCalledTimes( 1 )
-    } )
+    describe('when clicking a map node', () => {
+      it( 'adds a map filter when it is not currently a filter', () => {
+        target = shallow( <TileChartMap /> )
+        const mapEvent = { point: { abbr: 'FO', fullName: 'Foo Bar' } }
+        const instance = target.instance()
+        instance.stateFilters = [ 'CA' ]
+        instance.addState = jest.fn()
+        instance._toggleState( mapEvent )
+        expect( instance.addState ).toHaveBeenCalledTimes( 1 )
+      } )
 
-    it( 'does nothing current state is the same', () => {
-      target = shallow( <TileChartMap/> )
-      const mapEvent = { point: { abbr: 'FO', fullName: 'Foo Bar' } }
-      const instance = target.instance()
-      instance.mapShapeToggled = jest.fn()
-      instance.selectedState = { abbr: 'FO', name: 'Foo Bar' }
-      instance._toggleState( mapEvent )
-      expect( instance.mapShapeToggled ).toHaveBeenCalledTimes( 0 )
-    } )
+      it( 'removes a map filter when it is currently a filter', () => {
+        target = shallow( <TileChartMap /> )
+        const mapEvent = { point: { abbr: 'FO', fullName: 'Foo Bar' } }
+        const instance = target.instance()
+        instance.stateFilters = [ 'FO' ]
+        instance.removeState = jest.fn()
+        instance._toggleState( mapEvent )
+        expect( instance.removeState ).toHaveBeenCalledTimes( 1 )
+      } )
+    } );
   } )
 
   describe( 'componentDidUpdate', () => {
@@ -113,9 +115,15 @@ describe( 'component: TileChartMap', () => {
     beforeEach( () => {
       jest.clearAllMocks()
     } )
-    it( 'provides a way to call mapShapeToggled', () => {
+    it( 'provides a way to call addState', () => {
       const dispatch = jest.fn()
-      mapDispatchToProps( dispatch ).mapShapeToggled()
+      mapDispatchToProps( dispatch ).addState()
+      expect( dispatch.mock.calls.length ).toEqual( 1 )
+    } )
+
+    it( 'provides a way to call removeState', () => {
+      const dispatch = jest.fn()
+      mapDispatchToProps( dispatch ).removeState()
       expect( dispatch.mock.calls.length ).toEqual( 1 )
     } )
   } )
@@ -131,9 +139,7 @@ describe( 'component: TileChartMap', () => {
             { name: 'LA', issue: 'something', product: 'b prod', value: 2 },
             { name: 'CA', issue: 'something', product: 'c prod', value: 3 },
             { name: 'MH', issue: 'real data', product: 'is messy', value: 9 },
-          ],
-          // fyi Selected State comes from map
-          selectedState: { abbr: 'TX', name: 'Texas' }
+          ]
         },
         query: {
           state: [ 'TX' ]
@@ -186,11 +192,8 @@ describe( 'component: TileChartMap', () => {
           ]
         ],
         dataNormalization: false,
-        stateFilters: [ 'TX' ],
-        selectedState: { abbr: 'TX', name: 'Texas' }
+        stateFilters: [ 'TX' ]
       } )
     } )
   } )
-
-
 } )

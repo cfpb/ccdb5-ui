@@ -1,6 +1,6 @@
 import './TileChartMap.less'
+import { addStateFilter, removeStateFilter } from './actions/map'
 import { GEO_NORM_NONE, STATE_DATA } from './constants'
-import { addStateFilter } from './actions/map'
 import { connect } from 'react-redux'
 import { hashObject } from './utils'
 import React from 'react'
@@ -42,8 +42,10 @@ export class TileChartMap extends React.Component {
       // chart builder uses fullName
       name: fullName
     }
-    if ( !compProps.selectedState || compProps.selectedState.abbr !== abbr ) {
-      compProps.mapShapeToggled( selectedState )
+    if ( compProps.stateFilters.includes( abbr ) ) {
+      compProps.removeState( selectedState )
+    } else {
+      compProps.addState( selectedState )
     }
   }
 
@@ -125,16 +127,22 @@ export const processStates = state => {
   return [ stateData ]
 }
 
-export const mapStateToProps = state => ( {
-  data: processStates( state ),
-  dataNormalization: state.map.dataNormalization,
-  stateFilters: state.query.state,
-  selectedState: state.map.selectedState
-} )
+export const mapStateToProps = state => {
+  const refStateFilters = state.query.state || []
+
+  return {
+    data: processStates( state ),
+    dataNormalization: state.map.dataNormalization,
+    stateFilters: [ ...refStateFilters ]
+  }
+}
 
 export const mapDispatchToProps = dispatch => ( {
-  mapShapeToggled: selectedState => {
+  addState: selectedState => {
     dispatch( addStateFilter( selectedState ) )
+  },
+  removeState: selectedState => {
+    dispatch( removeStateFilter( selectedState ) )
   }
 } )
 
