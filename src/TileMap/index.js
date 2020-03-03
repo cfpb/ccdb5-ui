@@ -144,7 +144,6 @@ export function tileFormatter() {
   const value = this.point.displayValue.toLocaleString();
   return '<div class="highcharts-data-label-state">' +
     '<span class="abbr">' + this.point.name + '</span>' +
-    '<br />' +
     '<span class="value">' + value + '</span>' +
     '</div>';
 }

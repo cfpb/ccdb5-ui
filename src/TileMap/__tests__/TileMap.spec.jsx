@@ -155,7 +155,7 @@ describe( 'Tile map', () => {
     const result = sut.tileFormatter();
     expect( result )
       .toEqual( '<div class="highcharts-data-label-state">' +
-      '<span class="abbr">FA</span><br />' +
+      '<span class="abbr">FA</span>' +
       '<span class="value">10,000</span></div>' );
   } );
 
