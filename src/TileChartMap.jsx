@@ -1,12 +1,23 @@
 import './TileChartMap.less'
 import { addStateFilter, removeStateFilter } from './actions/map'
+import { debounce, hashObject } from './utils'
 import { GEO_NORM_NONE, STATE_DATA } from './constants'
 import { connect } from 'react-redux'
-import { hashObject } from './utils'
 import React from 'react'
 import TileMap from './TileMap'
 
 export class TileChartMap extends React.Component {
+  constructor( props ) {
+    super( props )
+
+    // Bindings
+    this._throttledRedraw = debounce( this._redrawMap.bind( this ), 200 );
+  }
+
+  componentDidMount() {
+    window.addEventListener( 'resize', this._throttledRedraw );
+  }
+
   componentDidUpdate( prevProps ) {
     const props = this.props
     if ( !props.data[0].length ) {
@@ -18,6 +29,10 @@ export class TileChartMap extends React.Component {
       !document.getElementById( 'tile-chart-map' ).children.length ) {
       this._redrawMap()
     }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener( 'resize', this._throttledRedraw );
   }
 
   render() {
@@ -51,6 +66,7 @@ export class TileChartMap extends React.Component {
 
   // --------------------------------------------------------------------------
   // Event Handlers
+
   _redrawMap() {
     const toggleState = this._toggleState
     const componentProps = this.props
@@ -141,6 +157,4 @@ export const mapDispatchToProps = dispatch => ( {
   }
 } )
 
-
 export default connect( mapStateToProps, mapDispatchToProps )( TileChartMap )
-

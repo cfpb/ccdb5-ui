@@ -111,6 +111,28 @@ describe( 'component: TileChartMap', () => {
     } )
   } )
 
+  describe( 'resize listener', () => {
+    beforeEach( () => {
+      window.addEventListener = jest.fn();
+      window.removeEventListener = jest.fn();
+    } );
+
+    it( 'unregisters the same listener on unmount' , () => {
+        const a = window.addEventListener
+        const b = window.removeEventListener
+
+        target = shallow( <TileChartMap /> )
+        expect(a.mock.calls.length).toBe(1)
+        expect(a.mock.calls[0][0]).toBe('resize')
+
+        target.unmount()
+        expect(b.mock.calls.length).toBe(1)
+        expect(b.mock.calls[0][0]).toBe('resize')
+
+        expect(a.mock.calls[0][1]).toBe(b.mock.calls[0][1])
+      } );
+  } );
+
   describe( 'mapDispatchToProps', () => {
     beforeEach( () => {
       jest.clearAllMocks()
