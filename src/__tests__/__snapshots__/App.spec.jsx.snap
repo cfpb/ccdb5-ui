@@ -261,7 +261,7 @@ exports[`initial state renders without crashing 1`] = `
       </section>
     </div>
     <aside
-      className="content_sidebar"
+      className="content_sidebar map"
     >
       <section
         className="filter-panel"
@@ -1038,7 +1038,7 @@ exports[`initial state renders without crashing 1`] = `
       </section>
     </aside>
     <div
-      className="content_main"
+      className="content_main map"
     >
       <section
         className="map-panel"
