@@ -1,6 +1,7 @@
 import './RowChart.less'
 import * as d3 from 'd3'
 import { connect } from 'react-redux'
+import { debounce } from './utils'
 import { max } from 'd3-array'
 import React from 'react'
 import { row } from 'britecharts'
@@ -12,6 +13,9 @@ export class RowChart extends React.Component {
     this.aggtype = aggType
     // only capitalize first letter
     this.chartTitle = aggType.charAt( 0 ).toUpperCase() + aggType.slice( 1 )
+
+    // Bindings
+    this._throttledRedraw = debounce( this._redrawChart.bind( this ), 200 );
   }
 
   _getHeight( numRows ) {
@@ -60,18 +64,27 @@ export class RowChart extends React.Component {
     } )
   }
 
+  componentDidMount() {
+    window.addEventListener( 'resize', this._throttledRedraw );
+  }
+
   componentDidUpdate() {
+    this._redrawChart()
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener( 'resize', this._throttledRedraw );
+  }
+
+  // --------------------------------------------------------------------------
+  // Event Handlers
+
+  _redrawChart() {
     const data = this.props.data
     if ( !data || !data.length ) {
       return
     }
 
-    this._redrawChart( data )
-  }
-
-  // --------------------------------------------------------------------------
-  // Event Handlers
-  _redrawChart( data ) {
     const rowData = data.slice( 0, 5 )
     const total = this.props.total
     const ratio = total / max( rowData, o => o.value )
