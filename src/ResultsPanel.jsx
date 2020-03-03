@@ -5,6 +5,11 @@ import MapPanel from './MapPanel'
 import React from 'react'
 
 export class ResultsPanel extends React.Component {
+  _getTabClass() {
+    const classes = [ 'content_main', this.props.tab.toLowerCase() ]
+    return classes.join( ' ' )
+  }
+
   render() {
     let currentPanel
 
@@ -19,7 +24,7 @@ export class ResultsPanel extends React.Component {
     }
 
     return (
-      <div className="content_main">
+      <div className={ this._getTabClass() }>
         { currentPanel }
       </div>
     )
