@@ -305,7 +305,7 @@ const colors = [
    Tile Map class */
 
 class TileMap {
-  constructor( { el, data, isPerCapita, events } ) {
+  constructor( { el, data, isPerCapita, events, height, width } ) {
     let bins, legendTitle
     if ( isPerCapita ) {
       bins = getPerCapitaBins( data, colors )
@@ -320,7 +320,9 @@ class TileMap {
     const options = {
       bins,
       chart: {
-        styledMode: true
+        styledMode: true,
+        height,
+        width
       },
       colors,
       colorAxis: {

@@ -12,9 +12,13 @@ export class TileChartMap extends React.Component {
 
     // Bindings
     this._throttledRedraw = debounce( this._redrawMap.bind( this ), 200 );
+    this._addPrintStyles = this._addStyles.bind( this );
+    this._removePrintStyles = this._removeStyles.bind( this );
   }
 
   componentDidMount() {
+    window.addEventListener( 'afterprint', this._removePrintStyles );
+    window.addEventListener( 'beforeprint', this._addPrintStyles );
     window.addEventListener( 'resize', this._throttledRedraw );
   }
 
@@ -32,6 +36,8 @@ export class TileChartMap extends React.Component {
   }
 
   componentWillUnmount() {
+    window.removeEventListener( 'afterprint', this._removePrintStyles );
+    window.removeEventListener( 'beforeprint', this._addPrintStyles );
     window.removeEventListener( 'resize', this._throttledRedraw );
   }
 
@@ -67,24 +73,42 @@ export class TileChartMap extends React.Component {
   // --------------------------------------------------------------------------
   // Event Handlers
 
+  _addStyles() {
+    document.getElementById( 'tile-chart-map' ).classList.add('print')
+    this._redrawMap()
+  }
+
+  _removeStyles() {
+    document.getElementById( 'tile-chart-map' ).classList.remove('print')
+    this._redrawMap()
+  }
+
   _redrawMap() {
     const toggleState = this._toggleState
     const componentProps = this.props
 
     const mapElement = document.getElementById( 'tile-chart-map' )
-
+    const isPrintMode = mapElement.classList.contains('print')
+    const width = isPrintMode ? 700 : mapElement.clientWidth
     const data = updateData( this.props )
 
-    // eslint-disable-next-line no-unused-vars
-    const chart = new TileMap( {
+    const options = {
       el: mapElement,
       data,
       isPerCapita: componentProps.dataNormalization !== GEO_NORM_NONE,
       events: {
         // custom event handlers we can pass on
         click: toggleState.bind( componentProps )
-      }
-    } )
+      },
+      width
+    }
+
+    if ( isPrintMode ) {
+      options.height = 700
+    }
+
+    // eslint-disable-next-line no-unused-vars
+    const chart = new TileMap( options )
   }
 }
 
