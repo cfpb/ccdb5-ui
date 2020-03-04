@@ -1,7 +1,30 @@
 import * as complaints from '../__fixtures__/complaints';
 import * as sut from '..';
 import TileMap from '..';
-import chartMock from '../__mocks__/chartMock';
+
+const makeChartMock = () => {
+  const chartMock = {};
+
+  const props = [
+    'add',
+    'addClass',
+    'attr',
+    'g',
+    'label',
+    'path',
+    'rect',
+    'renderer',
+    'text',
+    'translate',
+  ];
+
+  for ( let i = 0; i < props.length; i++ ) {
+    const propName = props[ i ];
+    chartMock[ propName ] = jest.fn().mockImplementation(() => (chartMock));
+  }
+
+  return chartMock;  
+}
 
 describe( 'Tile map', () => {
   const colors = [
@@ -45,42 +68,49 @@ describe( 'Tile map', () => {
           color: '#fff',
           from: 0,
           name: 'N/A',
+          shortName: 'N/A',
           to: 1
         },
         {
           color: 'rgba(247, 248, 249, 0.5)',
           from: 1,
           name: '≥ 1',
+          shortName: '≥ 1',
           to: 16435
         },
         {
           color: 'rgba(212, 231, 230, 0.5)',
           from: 16435,
           name: '≥ 16,435',
+          shortName: '≥ 16K',
           to: 32868
         },
         {
           color: 'rgba(180, 210, 209, 0.5)',
           from: 32868,
           name: '≥ 32,868',
+          shortName: '≥ 32K',
           to: 49302
         },
         {
           color: 'rgba(137, 182, 181, 0.5)',
           from: 49302,
           name: '≥ 49,302',
+          shortName: '≥ 49K',
           to: 65735
         },
         {
           color: 'rgba(86, 149, 148, 0.5)',
           from: 65735,
           name: '≥ 65,735',
+          shortName: '≥ 65K',
           to: 82169
         },
         {
           color: 'rgba(37, 116, 115, 0.5)',
           from: 82169,
           name: '≥ 82,169',
+          shortName: '≥ 82K',
           // eslint-disable-next-line no-undefined
           to: undefined
         } ] );
@@ -99,36 +129,42 @@ describe( 'Tile map', () => {
           color: 'rgba(247, 248, 249, 0.5)',
           from: 0,
           name: '≥ 0',
+          shortName: '≥ 0',
           to: 0.92
         },
         {
           color: 'rgba(212, 231, 230, 0.5)',
           from: 0.92,
           name: '≥ 0.92',
+          shortName: '≥ 0.92',
           to: 1.84
         },
         {
           color: 'rgba(180, 210, 209, 0.5)',
           from: 1.84,
           name: '≥ 1.84',
+          shortName: '≥ 1.84',
           to: 2.75
         },
         {
           color: 'rgba(137, 182, 181, 0.5)',
           from: 2.75,
           name: '≥ 2.75',
+          shortName: '≥ 2.75',
           to: 3.67
         },
         {
           color: 'rgba(86, 149, 148, 0.5)',
           from: 3.67,
           name: '≥ 3.67',
+          shortName: '≥ 3.67',
           to: 4.59
         },
         {
           color: 'rgba(37, 116, 115, 0.5)',
           from: 4.59,
           name: '≥ 4.59',
+          shortName: '≥ 4.59',
           // eslint-disable-next-line no-undefined
           to: undefined
         } ] );
@@ -240,59 +276,81 @@ describe( 'Tile map', () => {
     } );
   } );
 
-  it( 'draws the legend', () => {
-    const chart = {
-      options: {
-        bins: [
-          {
-            color: 'rgba(247, 248, 249, 0.5)',
-            from: 1,
-            name: '≥ 0',
-            to: 16435
-          },
-          {
-            color: 'rgba(212, 231, 230, 0.5)',
-            from: 16435,
-            name: '≥ 16K',
-            to: 32868
-          },
-          {
-            color: 'rgba(180, 210, 209, 0.5)',
-            from: 32868,
-            name: '≥ 33K',
-            to: 49302
-          },
-          {
-            color: 'rgba(137, 182, 181, 0.5)',
-            from: 49302,
-            name: '≥ 49K',
-            to: 65735
-          },
-          {
-            color: 'rgba(86, 149, 148, 0.5)',
-            from: 65735,
-            name: '≥ 66K',
-            to: 82169
-          },
-          {
-            color: 'rgba(37, 116, 115, 0.5)',
-            from: 82169,
-            name: '≥ 82K',
-            // eslint-disable-next-line no-undefined
-            to: undefined
-          } ],
-        legend: {
-          legendTitle: 'Foo'
-        }
-      },
-      margin: []
+  describe( 'legend', () => {
+    let chart;
+    beforeEach( () => {
+      chart = {
+        options: {
+          bins: [
+            {
+              color: 'rgba(247, 248, 249, 0.5)',
+              from: 1,
+              name: '≥ 0',
+              shortName: '≥ 0',
+              to: 16435
+            },
+            {
+              color: 'rgba(212, 231, 230, 0.5)',
+              from: 16435,
+              name: '≥ 16767',
+              shortName: '≥ 16K',
+              to: 32868
+            },
+            {
+              color: 'rgba(180, 210, 209, 0.5)',
+              from: 32868,
+              name: '≥ 33413',
+              shortName: '≥ 33K',
+              to: 49302
+            },
+            {
+              color: 'rgba(137, 182, 181, 0.5)',
+              from: 49302,
+              name: '≥ 49874',
+              shortName: '≥ 49K',
+              to: 65735
+            },
+            {
+              color: 'rgba(86, 149, 148, 0.5)',
+              from: 65735,
+              name: '≥ 65735',
+              shortName: '≥ 65K',
+              to: 82169
+            },
+            {
+              color: 'rgba(37, 116, 115, 0.5)',
+              from: 82169,
+              name: '≥ 82169',
+              shortName: '≥ 82K',
+              // eslint-disable-next-line no-undefined
+              to: undefined
+            } ],
+          legend: {
+            legendTitle: 'Foo'
+          }
+        },
+        margin: []
+      };
+    } );
 
-    };
+    it( 'draws a large legend' , () => {
+      chart.renderer = makeChartMock();
+      chart.chartWidth = 900;
+      sut._drawLegend( chart );
+      expect( chart.renderer.add ).toHaveBeenCalledTimes( 24 );
+      expect( chart.renderer.rect ).toHaveBeenCalledWith( 0, 0, 65, 17 )
+      expect( chart.renderer.text ).toHaveBeenCalledWith( '≥ 82169', 0, 17 )
+      expect
+    } );
 
-    chart.renderer = chartMock;
-    const addSpies = jest.spyOn( chart.renderer, 'add' );
-    sut._drawLegend( chart );
-    expect( addSpies ).toHaveBeenCalledTimes( 24 );
+    it( 'draws a small legend' , () => {
+      chart.renderer = makeChartMock();
+      chart.chartWidth = 599;
+      sut._drawLegend( chart );
+      expect( chart.renderer.add ).toHaveBeenCalledTimes( 24 );
+      expect( chart.renderer.rect ).toHaveBeenCalledWith( 0, 0, 45, 17 )
+      expect( chart.renderer.text ).toHaveBeenCalledWith( '≥ 82K', 0, 17 )
+    } );
   } );
 
   it( 'can construct a map', () => {
@@ -321,4 +379,26 @@ describe( 'Tile map', () => {
 
     expect( drawSpy ).toHaveBeenCalled();
   } );
+
+  it( 'shortens long numbers' , () => {
+    const cases = [
+      { n: 0, e: '0' },
+      { n: 7, e: '7' },
+      { n: 42, e: '42' },
+      { n: 567, e: '567' },
+      { n: 3456, e: '3.4K' },
+      { n: 9873, e: '9.8K' },
+      { n: 23456, e: '23K' },
+      { n: 98765, e: '98K' },
+      { n: 234567, e: '234K' },
+      { n: 782345, e: '782K' },
+      { n: 1450000, e: '1.4M' },
+      { n: 9870000, e: '9.8M' },
+    ]
+
+    cases.forEach( x => {
+      expect(sut.makeShortName(x.n)).toEqual(x.e);
+    })
+  } );
+
 } );
