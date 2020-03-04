@@ -4,6 +4,10 @@ import accessibility from 'highcharts/modules/accessibility';
 import Highcharts from 'highcharts/highmaps';
 import { STATE_TILES } from './constants'
 
+const TEN_K = 10000
+const HUN_K = 100000
+const MILLION = 1000000
+
 /* ----------------------------------------------------------------------------
    Utility Functions */
 /**
@@ -15,6 +19,24 @@ import { STATE_TILES } from './constants'
 */
 export function findMaxComplaints( accum, stateComplaint ) {
   return Math.max( accum, stateComplaint.displayValue );
+}
+
+/**
+* Creates a shorter version of a number. 1,234 => 1.2K
+*
+* @param {Number} value the raw value
+* @returns {string} A string representing a shortened value
+*/
+export function makeShortName( value ) {
+  if ( value < 1000 ) {
+    return value.toLocaleString();
+  } else if ( value < TEN_K ) {
+    return ( Math.floor( value / 100 ) / 10 ).toFixed( 1 ) + 'K'
+  } else if ( value < MILLION ) {
+    return Math.floor( value / 1000 ) + 'K'
+  }
+
+  return ( Math.floor( value / HUN_K ) / 10 ).toFixed( 1 ) + 'M'
 }
 
 /**
@@ -32,17 +54,21 @@ export function getBins( data, colors ) {
   if ( max === 0 ) return [];
 
   const step = ( max - min + 1 ) / binCount;
-  const bins = [ { from: 0, to: min, color: '#fff', name: 'N/A' } ];
+  const bins = [
+    { from: 0, to: min, color: '#fff', name: 'N/A', shortName: 'N/A' }
+  ];
 
   for ( let i = 0, curr = min; i < binCount; i++, curr += step ) {
     const minValue = Math.round( curr );
-    const displayValue = Math.round( curr ).toLocaleString();
+    const displayValue = minValue.toLocaleString();
+    const shortened = makeShortName( minValue )
 
     bins.push( {
       from: minValue,
       to: Math.round( curr + step ),
       color: colors[i],
-      name: `≥ ${ displayValue }`
+      name: `≥ ${ displayValue }`,
+      shortName: `≥ ${ shortened }`
     } );
   }
 
@@ -73,11 +99,13 @@ export function getPerCapitaBins( data, colors ) {
   for ( let i = 0, curr = min; i < binCount; i++, curr += step ) {
     const minValue = parseFloat( curr.toFixed( 2 ) )
     const displayValue = minValue.toLocaleString();
+    const name = displayValue > 0 ? `≥ ${ displayValue }` : '≥ 0'
     bins.push( {
       from: minValue,
       to: parseFloat( ( curr + step ).toFixed( 2 ) ),
       color: colors[i],
-      name: displayValue > 0 ? `≥ ${ displayValue }` : '≥ 0'
+      name,
+      shortName: name
     } );
   }
 
@@ -144,7 +172,6 @@ export function tileFormatter() {
   const value = this.point.displayValue.toLocaleString();
   return '<div class="highcharts-data-label-state">' +
     '<span class="abbr">' + this.point.name + '</span>' +
-    '<br />' +
     '<span class="value">' + value + '</span>' +
     '</div>';
 }
@@ -186,9 +213,15 @@ export function tooltipFormatter() {
  */
 export function _drawLegend( chart ) {
   const bins = chart.options.bins;
-  const boxWidth = 65;
+  let boxWidth = 65;
   const boxHeight = 17;
-  const boxPadding = 5;
+  let boxPadding = 5;
+
+  const beCompact = chart.chartWidth < 600;
+  if ( beCompact ) {
+    boxWidth = 45;
+    boxPadding = 1;
+  }
 
   /* https://api.highcharts.com/class-reference/Highcharts.SVGRenderer#label
      boxes and labels for legend buckets */
@@ -242,7 +275,7 @@ export function _drawLegend( chart ) {
       .add( g );
 
     chart.renderer
-      .text( bin.name, 0, boxHeight )
+      .text( beCompact ? bin.shortName : bin.name, 0, boxHeight )
       .addClass( 'legend-text' )
       .add( g );
   }
@@ -272,7 +305,7 @@ const colors = [
    Tile Map class */
 
 class TileMap {
-  constructor( { el, data, isPerCapita, events, width } ) {
+  constructor( { el, data, isPerCapita, events } ) {
     let bins, legendTitle
     if ( isPerCapita ) {
       bins = getPerCapitaBins( data, colors )
@@ -327,10 +360,6 @@ class TileMap {
     // our custom passing of information
     if ( events ) {
       options.plotOptions.series.events = events;
-    }
-
-    if ( width ) {
-      options.chart.width = width;
     }
 
     this.draw( el, options );

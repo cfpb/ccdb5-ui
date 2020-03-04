@@ -2,7 +2,7 @@
 
 exports[`component:Results renders list panel without crashing 1`] = `
 <div
-  className="content_main"
+  className="content_main list"
 >
   <section
     className="list-panel"
@@ -368,7 +368,7 @@ exports[`component:Results renders list panel without crashing 1`] = `
 
 exports[`component:Results renders map panel without crashing 1`] = `
 <div
-  className="content_main"
+  className="content_main map"
 >
   <section
     className="map-panel"
