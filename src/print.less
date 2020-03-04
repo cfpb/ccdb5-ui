@@ -1,0 +1,41 @@
+@media print {
+  .content_main {
+    display: block;
+    width: 100% !important;
+  }
+
+  .content_sidebar {
+    display: block;
+    width: 100% !important;
+
+    .o-expandable {
+
+      &.aggregation:not(.date-filter),
+      &.aggregation.date-filter:not(:nth-of-type(1)) {
+        display: none;
+
+        hr {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .tabbed-navigation,
+  .filter-panel hr,
+  header .m-list,
+  .a-btn__link,
+  .single-checkbox,
+  .state-navigation,
+  button[type="submit"],
+  a {
+    display: none !important;
+  }
+
+  .advanced-container,
+  .search-panel,
+  .row-chart {
+    width: 100vw;
+  }
+
+}
