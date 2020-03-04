@@ -131,7 +131,7 @@
   }
 }
 
-@media @tablet {
+@media @tablet-lg {
   .content__1-3 {
     .content_sidebar {
       width: 305px;
@@ -139,6 +139,27 @@
 
     .content_main {
       width: ~"calc(100% - 305px)";
+    }
+  }
+}
+
+@media @tablet-sm {
+  .content__1-3 {
+    .content_sidebar.map {
+      width: 0;
+      display: none;
+    }
+
+    .content_main.map {
+      width: 100%;
+    }
+
+    .content_sidebar.list {
+      width: 280px;
+    }
+
+    .content_main.list {
+      width: ~"calc(100% - 280px)";
     }
   }
 }
