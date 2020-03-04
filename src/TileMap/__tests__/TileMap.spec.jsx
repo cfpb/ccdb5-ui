@@ -1,4 +1,4 @@
-import * as complaints from '../__mocks__/complaints';
+import * as complaints from '../__fixtures__/complaints';
 import * as sut from '..';
 import TileMap from '..';
 import chartMock from '../__mocks__/chartMock';
