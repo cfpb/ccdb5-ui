@@ -50,6 +50,9 @@ function setupSnapshot(items=[], initialStore={}, tab = 'List') {
     query: {
       tab: tab
     },
+    view: {
+      printMode: false
+    }
   });
 
   return renderer.create(
