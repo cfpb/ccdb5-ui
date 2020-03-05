@@ -3,6 +3,7 @@ import { addStateFilter, removeStateFilter } from './actions/map'
 import { debounce, hashObject } from './utils'
 import { GEO_NORM_NONE, STATE_DATA } from './constants'
 import { connect } from 'react-redux'
+import { printModeChanged } from './actions/view'
 import React from 'react'
 import TileMap from './TileMap'
 
@@ -12,13 +13,12 @@ export class TileChartMap extends React.Component {
 
     // Bindings
     this._throttledRedraw = debounce( this._redrawMap.bind( this ), 200 );
-    this._addPrintStyles = this._addStyles.bind( this );
-    this._removePrintStyles = this._removeStyles.bind( this );
+    this._updatePrintStyle = this._togglePrintStyles.bind( this );
   }
 
   componentDidMount() {
-    window.addEventListener( 'afterprint', this._removePrintStyles );
-    window.addEventListener( 'beforeprint', this._addPrintStyles );
+    window.addEventListener( 'afterprint', this._updatePrintStyle );
+    window.addEventListener( 'beforeprint', this._updatePrintStyle );
     window.addEventListener( 'resize', this._throttledRedraw );
   }
 
@@ -28,7 +28,7 @@ export class TileChartMap extends React.Component {
       return
     }
 
-    // force redraw when switching tabs
+    // force redraw when switching tabs, or print mode changes
     if ( hashObject( prevProps ) !== hashObject( props ) ||
       !document.getElementById( 'tile-chart-map' ).children.length ) {
       this._redrawMap()
@@ -36,8 +36,8 @@ export class TileChartMap extends React.Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener( 'afterprint', this._removePrintStyles );
-    window.removeEventListener( 'beforeprint', this._addPrintStyles );
+    window.removeEventListener( 'afterprint', this._updatePrintStyle );
+    window.removeEventListener( 'beforeprint', this._updatePrintStyle );
     window.removeEventListener( 'resize', this._throttledRedraw );
   }
 
@@ -73,29 +73,18 @@ export class TileChartMap extends React.Component {
   // --------------------------------------------------------------------------
   // Event Handlers
 
-  _addStyles() {
-    document.getElementById( 'tile-chart-map' ).classList.add('print')
-    this._redrawMap()
-  }
-
-  _removeStyles() {
-    document.getElementById( 'tile-chart-map' ).classList.remove('print')
-    this._redrawMap()
-  }
-
   _redrawMap() {
     const toggleState = this._toggleState
     const componentProps = this.props
-
     const mapElement = document.getElementById( 'tile-chart-map' )
-    const isPrintMode = mapElement.classList.contains('print')
-    const width = isPrintMode ? 700 : mapElement.clientWidth
+    const { dataNormalization, printMode } = componentProps
+    const width = printMode ? 700 : mapElement.clientWidth
     const data = updateData( this.props )
 
     const options = {
       el: mapElement,
       data,
-      isPerCapita: componentProps.dataNormalization !== GEO_NORM_NONE,
+      isPerCapita: dataNormalization !== GEO_NORM_NONE,
       events: {
         // custom event handlers we can pass on
         click: toggleState.bind( componentProps )
@@ -103,13 +92,17 @@ export class TileChartMap extends React.Component {
       width
     }
 
-    if ( isPrintMode ) {
-      options.height = 700
-    }
+    options.height = printMode ? 700 : width * 0.75;
 
     // eslint-disable-next-line no-unused-vars
     const chart = new TileMap( options )
   }
+
+  _togglePrintStyles() {
+    const compProps = this.props;
+    compProps.togglePrintMode();
+  }
+
 }
 
 /**
@@ -164,10 +157,12 @@ export const processStates = state => {
 
 export const mapStateToProps = state => {
   const refStateFilters = state.query.state || []
+  const { printMode } = state.view
 
   return {
     data: processStates( state ),
     dataNormalization: state.map.dataNormalization,
+    printMode,
     stateFilters: [ ...refStateFilters ]
   }
 }
@@ -178,6 +173,9 @@ export const mapDispatchToProps = dispatch => ( {
   },
   removeState: selectedState => {
     dispatch( removeStateFilter( selectedState ) )
+  },
+  togglePrintMode: () => {
+    dispatch( printModeChanged() )
   }
 } )
 
