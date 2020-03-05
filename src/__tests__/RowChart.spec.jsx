@@ -102,7 +102,7 @@ describe( 'component: RowChart', () => {
     } )
   } )
 
-  describe( 'resize listener', () => {
+  describe( 'event listeners', () => {
     beforeEach( () => {
       window.addEventListener = jest.fn();
       window.removeEventListener = jest.fn();
@@ -113,12 +113,16 @@ describe( 'component: RowChart', () => {
         const b = window.removeEventListener
 
         const target = shallow( <RowChart aggtype={'foo'} /> )
-        expect(a.mock.calls.length).toBe(1)
-        expect(a.mock.calls[0][0]).toBe('resize')
+        expect(a.mock.calls.length).toBe(3)
+        expect(a.mock.calls[0][0]).toBe('afterprint')
+        expect(a.mock.calls[1][0]).toBe('beforeprint')
+        expect(a.mock.calls[2][0]).toBe('resize')
 
         target.unmount()
-        expect(b.mock.calls.length).toBe(1)
-        expect(b.mock.calls[0][0]).toBe('resize')
+        expect(b.mock.calls.length).toBe(3)
+        expect(b.mock.calls[0][0]).toBe('afterprint')
+        expect(b.mock.calls[1][0]).toBe('beforeprint')
+        expect(b.mock.calls[2][0]).toBe('resize')
 
         expect(a.mock.calls[0][1]).toBe(b.mock.calls[0][1])
       } );
@@ -135,6 +139,9 @@ describe( 'component: RowChart', () => {
         },
         query: {
           baz: [ 1, 2, 3 ]
+        },
+        view: {
+          printMode: false
         }
       }
       const ownProps = {
@@ -143,6 +150,7 @@ describe( 'component: RowChart', () => {
       let actual = mapStateToProps( state, ownProps )
       expect( actual ).toEqual( {
         data: [],
+        printMode: false,
         total: 100
       } )
     } )

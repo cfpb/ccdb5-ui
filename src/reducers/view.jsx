@@ -2,7 +2,7 @@ import {
   PRINT_MODE_CHANGED
 } from '../actions/view'
 
-const defaultView = {
+export const defaultView = {
   printMode: false
 }
 

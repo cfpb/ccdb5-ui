@@ -30,6 +30,9 @@ function setupSnapshot() {
     },
     results: {
       items
+    },
+    view: {
+      printMode: false
     }
 } )
 
