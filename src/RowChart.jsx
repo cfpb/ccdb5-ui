@@ -3,6 +3,7 @@ import * as d3 from 'd3'
 import { connect } from 'react-redux'
 import { debounce } from './utils'
 import { max } from 'd3-array'
+import { printModeChanged } from './actions/view'
 import React from 'react'
 import { row } from 'britecharts'
 
@@ -16,6 +17,7 @@ export class RowChart extends React.Component {
 
     // Bindings
     this._throttledRedraw = debounce( this._redrawChart.bind( this ), 200 );
+    this._updatePrintStyle = this._togglePrintStyles.bind( this );
   }
 
   _getHeight( numRows ) {
@@ -65,6 +67,8 @@ export class RowChart extends React.Component {
   }
 
   componentDidMount() {
+    window.addEventListener( 'afterprint', this._updatePrintStyle );
+    window.addEventListener( 'beforeprint', this._updatePrintStyle );
     window.addEventListener( 'resize', this._throttledRedraw );
   }
 
@@ -73,6 +77,8 @@ export class RowChart extends React.Component {
   }
 
   componentWillUnmount() {
+    window.removeEventListener( 'afterprint', this._updatePrintStyle );
+    window.removeEventListener( 'beforeprint', this._updatePrintStyle );
     window.removeEventListener( 'resize', this._throttledRedraw );
   }
 
@@ -80,7 +86,8 @@ export class RowChart extends React.Component {
   // Event Handlers
 
   _redrawChart() {
-    const data = this.props.data
+    const componentProps = this.props
+    const { data, printMode } = componentProps
     if ( !data || !data.length ) {
       return
     }
@@ -91,7 +98,8 @@ export class RowChart extends React.Component {
     const chartID = '#row-chart-' + this.aggtype
     d3.select( chartID + ' .row-chart' ).remove()
     const rowContainer = d3.select( chartID )
-    const width = rowContainer.node().getBoundingClientRect().width
+    const width = printMode ? 750 :
+      rowContainer.node().getBoundingClientRect().width
     const height = this._getHeight( rowData.length )
     const chart = row()
     const marginLeft = width / 3
@@ -117,6 +125,11 @@ export class RowChart extends React.Component {
     this._wrapText( d3.select( chartID ).selectAll( '.tick text' ), marginLeft )
   }
 
+  _togglePrintStyles() {
+    const compProps = this.props;
+    compProps.togglePrintMode();
+  }
+
   render() {
     return (
       <div className="row-chart-section">
@@ -139,8 +152,15 @@ export const mapStateToProps = ( state, ownProps ) => {
   }
   return {
     data,
+    printMode: state.view.printMode,
     total: state.aggs.total
   }
 }
 
-export default connect( mapStateToProps )( RowChart )
+export const mapDispatchToProps = dispatch => ( {
+  togglePrintMode: () => {
+    dispatch( printModeChanged() )
+  }
+} )
+
+export default connect( mapStateToProps, mapDispatchToProps )( RowChart )
