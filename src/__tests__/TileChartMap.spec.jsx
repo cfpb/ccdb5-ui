@@ -27,6 +27,7 @@ function setupSnapshot() {
 
 describe( 'component: TileChartMap', () => {
   let mapDiv, redrawSpy, target
+  let actionMock = jest.fn()
   describe( 'initial state', () => {
     beforeEach( () => {
       jest.clearAllMocks()
@@ -57,6 +58,16 @@ describe( 'component: TileChartMap', () => {
         instance._toggleState( mapEvent )
         expect( instance.removeState ).toHaveBeenCalledTimes( 1 )
       } )
+    } );
+
+    describe('print mode', () => {
+      it( 'toggles print mode', () => {
+        target = shallow( <TileChartMap togglePrintMode={actionMock}/> )
+        const instance = target.instance()
+        instance._togglePrintStyles()
+        expect( actionMock ).toHaveBeenCalledTimes( 1 )
+      } )
+
     } );
   } )
 
@@ -150,6 +161,11 @@ describe( 'component: TileChartMap', () => {
     it( 'provides a way to call removeState', () => {
       const dispatch = jest.fn()
       mapDispatchToProps( dispatch ).removeState()
+      expect( dispatch.mock.calls.length ).toEqual( 1 )
+    } )
+    it( 'provides a way to call togglePrintMode', () => {
+      const dispatch = jest.fn()
+      mapDispatchToProps( dispatch ).togglePrintMode()
       expect( dispatch.mock.calls.length ).toEqual( 1 )
     } )
   } )
