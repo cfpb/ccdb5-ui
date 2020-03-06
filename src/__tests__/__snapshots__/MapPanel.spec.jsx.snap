@@ -8,11 +8,26 @@ exports[`component:MapPanel renders printMode without crashing 1`] = `
     className="print-info"
   >
     <p>
-      Dates: 
+      <span>
+        Dates:
+      </span>
+       
        - 
     </p>
     <p>
-      Showing 2 out of 100 total complaints
+      <div>
+        Showing 
+        <span>
+          2
+        </span>
+         out of
+        <span>
+           
+          100
+           
+        </span>
+         total complaints 
+      </div>
     </p>
   </section>
   <summary
@@ -158,7 +173,10 @@ exports[`component:MapPanel renders printMode without crashing 1`] = `
     className="print-info-footer"
   >
     <p>
-      URL: 
+      <span>
+        URL:
+      </span>
+       
       http://localhost/
     </p>
   </section>

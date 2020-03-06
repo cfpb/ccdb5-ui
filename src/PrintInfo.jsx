@@ -9,28 +9,31 @@ export class PrintInfo extends React.Component {
     const { complaintCountText, dates, searchText } = this.props
     return (
       <section className="print-info">
-        <p>Dates: { dates }</p>
-        { searchText && <p>Search Term: { searchText }</p> }
+        <p><span>Dates:</span> { dates }</p>
+        { searchText && <p><span>Search Term:</span> { searchText }</p> }
         <p>{ complaintCountText }</p>
       </section>
     )
   }
 }
 
-/* eslint-disable camelcase */
 export const getComplaintCountText = aggs => {
-  const { doc_count, total } = aggs
-  if ( doc_count === total ) {
-    return `Showing ${ total.toLocaleString() } complaints`
+  const { doc_count: docCount, total } = aggs
+  if ( docCount === total ) {
+    return (
+      <div>Showing <span>{ total.toLocaleString() }</span>complaints</div>
+    )
   }
-  return `Showing ${ total.toLocaleString() } out of ` +
-    `${ doc_count.toLocaleString() } total complaints`
+  return (
+    <div>Showing <span>{ total.toLocaleString() }</span> out of
+      <span> { docCount.toLocaleString() } </span> total complaints </div>
+  )
 }
 
 const getDateText = query => {
-  const { date_received_min, date_received_max } = query;
-  return shortFormat( date_received_min ) + ' - ' +
-    shortFormat( date_received_max );
+  const { date_received_min: dateMin, date_received_max: dateMax } = query;
+  return shortFormat( dateMin ) + ' - ' +
+    shortFormat( dateMax );
 }
 
 export const mapStateToProps = state => {
