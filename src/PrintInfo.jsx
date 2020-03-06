@@ -21,7 +21,7 @@ export const getComplaintCountText = aggs => {
   const { doc_count: docCount, total } = aggs
   if ( docCount === total ) {
     return (
-      <div>Showing <span>{ total.toLocaleString() }</span>complaints</div>
+      <div>Showing <span>{ total.toLocaleString() }</span> complaints</div>
     )
   }
   return (
