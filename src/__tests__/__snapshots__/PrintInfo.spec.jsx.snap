@@ -5,11 +5,17 @@ exports[`component: PrintInfo initial state renders without crashing 1`] = `
   className="print-info"
 >
   <p>
-    Dates: 
+    <span>
+      Dates:
+    </span>
+     
     2013 - 2020
   </p>
   <p>
-    Search Term: 
+    <span>
+      Search Term:
+    </span>
+     
     Got no money
   </p>
   <p>

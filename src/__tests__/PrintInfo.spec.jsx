@@ -25,7 +25,7 @@ describe( 'component: PrintInfo', () => {
     it( 'maps state and props', () => {
       const state = {
         aggs: {
-          doc_count: 40,
+          doc_count: 4000,
           total: 1000
         },
         query: {
@@ -35,11 +35,13 @@ describe( 'component: PrintInfo', () => {
         }
       }
       let actual = mapStateToProps( state )
-      expect( actual ).toEqual( {
-        complaintCountText: 'Showing 1,000 out of 40 total complaints',
-        dates: '3/5/2017 - 3/5/2020',
-        searchText: 'foobar'
-      } )
+      expect(actual.complaintCountText).toBeTruthy()
+      expect( actual ).toEqual(
+        expect.objectContaining( {
+          dates: '3/5/2017 - 3/5/2020',
+          searchText: 'foobar'
+        } )
+      )
     } )
   } )
 
@@ -50,7 +52,7 @@ describe( 'component: PrintInfo', () => {
         total: 100
       }
       const result = getComplaintCountText( aggs )
-      expect( result ).toEqual( 'Showing 100 complaints' )
+      expect( result ).toEqual( <div>Showing <span>100</span>complaints</div> )
     })
   });
 } )
