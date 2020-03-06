@@ -120,6 +120,14 @@ describe( 'component: TileChartMap', () => {
       expect( redrawSpy ).toHaveBeenCalledTimes( 1 )
       expect( TileMap ).toHaveBeenCalledTimes( 1 )
     } )
+
+    it( 'trigger a new update when printMode changes', () => {
+      target = shallow( <TileChartMap data={ [ [ { name: 'TX', value: 100}, { name: 'LA', value: 10 } ] ] } printMode={false}/> )
+      redrawSpy = jest.spyOn( target.instance(), '_redrawMap' )
+      target.setProps( { printMode: true } )
+      expect( redrawSpy ).toHaveBeenCalledTimes( 1 )
+      expect( TileMap ).toHaveBeenCalledTimes( 1 )
+    } )
   } )
 
   describe( 'event listeners', () => {

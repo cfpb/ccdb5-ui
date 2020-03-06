@@ -7,7 +7,7 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import thunk from 'redux-thunk'
 
-function setupSnapshot() {
+function setupSnapshot(printMode) {
   const items = [
     { key: 'CA', doc_count: 62519 },
     { key: 'FL', doc_count: 47358 }
@@ -32,7 +32,7 @@ function setupSnapshot() {
       items
     },
     view: {
-      printMode: false
+      printMode
     }
 } )
 
@@ -47,7 +47,14 @@ function setupSnapshot() {
 
 describe( 'component:MapPanel', () => {
   it( 'renders without crashing', () => {
-    const target = setupSnapshot()
+    const printMode = false
+    const target = setupSnapshot( printMode )
+    const tree = target.toJSON()
+    expect( tree ).toMatchSnapshot()
+  } )
+  it( 'renders printMode without crashing', () => {
+    const printMode = true
+    const target = setupSnapshot( printMode )
     const tree = target.toJSON()
     expect( tree ).toMatchSnapshot()
   } )

@@ -1,5 +1,170 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`component:MapPanel renders printMode without crashing 1`] = `
+<section
+  className="map-panel"
+>
+  <section
+    className="print-info"
+  >
+    <p>
+      Dates: 
+       - 
+    </p>
+    <p>
+      Showing 2 out of 100 total complaints
+    </p>
+  </section>
+  <summary
+    className="action-bar"
+  >
+    <div>
+      <h2>
+        Showing 
+        <span>
+          2
+        </span>
+         matches out of 
+        <span>
+          100
+        </span>
+         total complaints
+      </h2>
+    </div>
+    <div
+      className="layout-row"
+    >
+      <h4
+        className="flex-all"
+      >
+        <button
+          className="a-btn a-btn__link"
+          data-gtm_ignore="true"
+          onClick={[Function]}
+        >
+          Export results
+        </button>
+      </h4>
+    </div>
+  </summary>
+  <div
+    className="layout-row refine"
+  >
+    <section
+      className="date-intervals"
+    >
+      <p>
+        Date range (Click to modify range)
+      </p>
+      <button
+        className="date-selector interval-3m"
+        onClick={[Function]}
+      >
+        3m
+      </button>
+      <button
+        className="date-selector interval-6m"
+        onClick={[Function]}
+      >
+        6m
+      </button>
+      <button
+        className="date-selector interval-1y"
+        onClick={[Function]}
+      >
+        1y
+      </button>
+      <button
+        className="date-selector interval-3y"
+        onClick={[Function]}
+      >
+        3y
+      </button>
+      <button
+        className="date-selector interval-All"
+        onClick={[Function]}
+      >
+        All
+      </button>
+    </section>
+    <section
+      className="per-capita"
+    >
+      <p>
+        Map Shading
+      </p>
+      <select
+        onChange={[Function]}
+      >
+        <option
+          value="None"
+        >
+          Complaints
+        </option>
+        <option
+          value="Per 1000 pop."
+        >
+          Per capita
+        </option>
+      </select>
+    </section>
+  </div>
+  <div>
+    <div
+      className="cfpb-chart"
+      data-chart-type="tile_map"
+      id="tile-chart-map"
+    />
+  </div>
+  <div
+    className="map-toolbar"
+  >
+    <section
+      className="state-heading"
+    >
+      <span>
+        United States of America
+      </span>
+      <span>
+        
+      </span>
+      
+    </section>
+    
+  </div>
+  <div
+    className="row-chart-section"
+  >
+    <h3>
+      Product
+       by complaint volume (5 highest counts)
+    </h3>
+    <div
+      id="row-chart-product"
+    />
+  </div>
+  <div
+    className="row-chart-section"
+  >
+    <h3>
+      Issue
+       by complaint volume (5 highest counts)
+    </h3>
+    <div
+      id="row-chart-issue"
+    />
+  </div>
+  <section
+    className="print-info-footer"
+  >
+    <p>
+      URL: 
+      http://localhost/
+    </p>
+  </section>
+</section>
+`;
+
 exports[`component:MapPanel renders without crashing 1`] = `
 <section
   className="map-panel"
