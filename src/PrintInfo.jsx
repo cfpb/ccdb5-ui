@@ -32,8 +32,7 @@ export const getComplaintCountText = aggs => {
 
 const getDateText = query => {
   const { date_received_min: dateMin, date_received_max: dateMax } = query;
-  return shortFormat( dateMin ) + ' - ' +
-    shortFormat( dateMax );
+  return shortFormat( dateMin ) + ' - ' + shortFormat( dateMax );
 }
 
 export const mapStateToProps = state => {
