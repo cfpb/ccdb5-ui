@@ -3,7 +3,6 @@ import * as d3 from 'd3'
 import { connect } from 'react-redux'
 import { debounce } from './utils'
 import { max } from 'd3-array'
-import { printModeChanged } from './actions/view'
 import React from 'react'
 import { row } from 'britecharts'
 
@@ -17,7 +16,6 @@ export class RowChart extends React.Component {
 
     // Bindings
     this._throttledRedraw = debounce( this._redrawChart.bind( this ), 200 );
-    this._updatePrintStyle = this._togglePrintStyles.bind( this );
   }
 
   _getHeight( numRows ) {
@@ -67,8 +65,6 @@ export class RowChart extends React.Component {
   }
 
   componentDidMount() {
-    window.addEventListener( 'afterprint', this._updatePrintStyle );
-    window.addEventListener( 'beforeprint', this._updatePrintStyle );
     window.addEventListener( 'resize', this._throttledRedraw );
   }
 
@@ -77,8 +73,6 @@ export class RowChart extends React.Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener( 'afterprint', this._updatePrintStyle );
-    window.removeEventListener( 'beforeprint', this._updatePrintStyle );
     window.removeEventListener( 'resize', this._throttledRedraw );
   }
 
@@ -125,11 +119,6 @@ export class RowChart extends React.Component {
     this._wrapText( d3.select( chartID ).selectAll( '.tick text' ), marginLeft )
   }
 
-  _togglePrintStyles() {
-    const compProps = this.props;
-    compProps.togglePrintMode();
-  }
-
   render() {
     return (
       <div className="row-chart-section">
@@ -157,10 +146,4 @@ export const mapStateToProps = ( state, ownProps ) => {
   }
 }
 
-export const mapDispatchToProps = dispatch => ( {
-  togglePrintMode: () => {
-    dispatch( printModeChanged() )
-  }
-} )
-
-export default connect( mapStateToProps, mapDispatchToProps )( RowChart )
+export default connect( mapStateToProps )( RowChart )

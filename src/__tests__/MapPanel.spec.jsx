@@ -52,4 +52,11 @@ describe( 'component:MapPanel', () => {
     const tree = target.toJSON()
     expect( tree ).toMatchSnapshot()
   } )
+
+  it( 'renders Print without crashing', () => {
+    const printMode = true
+    const target = setupSnapshot( printMode )
+    const tree = target.toJSON()
+    expect( tree ).toMatchSnapshot()
+  } )
 } )
