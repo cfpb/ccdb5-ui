@@ -28,7 +28,7 @@ export class ResultsPanel extends React.Component {
     const classes = [ 'content_main', this.props.tab.toLowerCase() ]
     return classes.join( ' ' )
   }
-
+  /* eslint complexity: ["error", 5] */
   render() {
     let currentPanel
 
