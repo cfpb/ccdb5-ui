@@ -17,6 +17,7 @@ export class PrintInfo extends React.Component {
   }
 }
 
+/* eslint-disable camelcase */
 export const getComplaintCountText = aggs => {
   const { doc_count, total } = aggs
   if ( doc_count === total ) {
