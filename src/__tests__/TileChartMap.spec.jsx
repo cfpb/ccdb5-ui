@@ -59,16 +59,6 @@ describe( 'component: TileChartMap', () => {
         expect( instance.removeState ).toHaveBeenCalledTimes( 1 )
       } )
     } );
-
-    describe('print mode', () => {
-      it( 'toggles print mode', () => {
-        target = shallow( <TileChartMap togglePrintMode={actionMock}/> )
-        const instance = target.instance()
-        instance._togglePrintStyles()
-        expect( actionMock ).toHaveBeenCalledTimes( 1 )
-      } )
-
-    } );
   } )
 
   describe( 'componentDidUpdate', () => {
@@ -141,16 +131,12 @@ describe( 'component: TileChartMap', () => {
         const b = window.removeEventListener
 
         target = shallow( <TileChartMap /> )
-        expect(a.mock.calls.length).toBe(3)
-        expect(a.mock.calls[0][0]).toBe('afterprint')
-        expect(a.mock.calls[1][0]).toBe('beforeprint')
-        expect(a.mock.calls[2][0]).toBe('resize')
+        expect(a.mock.calls.length).toBe(1)
+        expect(a.mock.calls[0][0]).toBe('resize')
 
         target.unmount()
-        expect(b.mock.calls.length).toBe(3)
-        expect(b.mock.calls[0][0]).toBe('afterprint')
-        expect(b.mock.calls[1][0]).toBe('beforeprint')
-        expect(b.mock.calls[2][0]).toBe('resize')
+        expect(b.mock.calls.length).toBe(1)
+        expect(b.mock.calls[0][0]).toBe('resize')
 
         expect(a.mock.calls[0][1]).toBe(b.mock.calls[0][1])
       } );
@@ -169,11 +155,6 @@ describe( 'component: TileChartMap', () => {
     it( 'provides a way to call removeState', () => {
       const dispatch = jest.fn()
       mapDispatchToProps( dispatch ).removeState()
-      expect( dispatch.mock.calls.length ).toEqual( 1 )
-    } )
-    it( 'provides a way to call togglePrintMode', () => {
-      const dispatch = jest.fn()
-      mapDispatchToProps( dispatch ).togglePrintMode()
       expect( dispatch.mock.calls.length ).toEqual( 1 )
     } )
   } )
