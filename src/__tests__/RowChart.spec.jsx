@@ -100,6 +100,17 @@ describe( 'component: RowChart', () => {
       target.setProps( { data: [ 2, 5 ] } )
       expect( sp ).toHaveBeenCalledTimes( 1 )
     } )
+
+    it( 'trigger a new update when printMode changes', () => {
+      const target = shallow( <RowChart data={ [ 23, 4, 3 ] }
+                                        aggtype={'foo'} total={1000}
+                                        printMode={'false'}
+      /> )
+      target._redrawChart = jest.fn()
+      const sp = jest.spyOn(target.instance(), '_redrawChart')
+      target.setProps( { printMode: true } )
+      expect( sp ).toHaveBeenCalledTimes( 1 )
+    } )
   } )
 
   describe( 'event listeners', () => {
@@ -113,16 +124,12 @@ describe( 'component: RowChart', () => {
         const b = window.removeEventListener
 
         const target = shallow( <RowChart aggtype={'foo'} /> )
-        expect(a.mock.calls.length).toBe(3)
-        expect(a.mock.calls[0][0]).toBe('afterprint')
-        expect(a.mock.calls[1][0]).toBe('beforeprint')
-        expect(a.mock.calls[2][0]).toBe('resize')
+        expect(a.mock.calls.length).toBe(1)
+        expect(a.mock.calls[0][0]).toBe('resize')
 
         target.unmount()
-        expect(b.mock.calls.length).toBe(3)
-        expect(b.mock.calls[0][0]).toBe('afterprint')
-        expect(b.mock.calls[1][0]).toBe('beforeprint')
-        expect(b.mock.calls[2][0]).toBe('resize')
+        expect(b.mock.calls.length).toBe(1)
+        expect(b.mock.calls[0][0]).toBe('resize')
 
         expect(a.mock.calls[0][1]).toBe(b.mock.calls[0][1])
       } );
