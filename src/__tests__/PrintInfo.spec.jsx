@@ -52,7 +52,7 @@ describe( 'component: PrintInfo', () => {
         total: 100
       }
       const result = getComplaintCountText( aggs )
-      expect( result ).toEqual( <div>Showing <span>100</span>complaints</div> )
+      expect( result ).toEqual( <div>Showing <span>100</span> complaints</div> )
     })
   });
 } )
