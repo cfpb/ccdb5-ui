@@ -3,7 +3,6 @@ import { addStateFilter, removeStateFilter } from './actions/map'
 import { debounce, hashObject } from './utils'
 import { GEO_NORM_NONE, STATE_DATA } from './constants'
 import { connect } from 'react-redux'
-import { printModeChanged } from './actions/view'
 import React from 'react'
 import TileMap from './TileMap'
 
@@ -13,12 +12,9 @@ export class TileChartMap extends React.Component {
 
     // Bindings
     this._throttledRedraw = debounce( this._redrawMap.bind( this ), 200 );
-    this._updatePrintStyle = this._togglePrintStyles.bind( this );
   }
 
   componentDidMount() {
-    window.addEventListener( 'afterprint', this._updatePrintStyle );
-    window.addEventListener( 'beforeprint', this._updatePrintStyle );
     window.addEventListener( 'resize', this._throttledRedraw );
   }
 
@@ -36,8 +32,6 @@ export class TileChartMap extends React.Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener( 'afterprint', this._updatePrintStyle );
-    window.removeEventListener( 'beforeprint', this._updatePrintStyle );
     window.removeEventListener( 'resize', this._throttledRedraw );
   }
 
@@ -97,11 +91,6 @@ export class TileChartMap extends React.Component {
 
     // eslint-disable-next-line no-unused-vars
     const chart = new TileMap( options )
-  }
-
-  _togglePrintStyles() {
-    const compProps = this.props;
-    compProps.togglePrintMode();
   }
 
 }
@@ -174,9 +163,6 @@ export const mapDispatchToProps = dispatch => ( {
   },
   removeState: selectedState => {
     dispatch( removeStateFilter( selectedState ) )
-  },
-  togglePrintMode: () => {
-    dispatch( printModeChanged() )
   }
 } )
 
