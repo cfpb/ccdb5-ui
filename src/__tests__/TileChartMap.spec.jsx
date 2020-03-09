@@ -27,6 +27,7 @@ function setupSnapshot() {
 
 describe( 'component: TileChartMap', () => {
   let mapDiv, redrawSpy, target
+  let actionMock = jest.fn()
   describe( 'initial state', () => {
     beforeEach( () => {
       jest.clearAllMocks()
@@ -109,9 +110,17 @@ describe( 'component: TileChartMap', () => {
       expect( redrawSpy ).toHaveBeenCalledTimes( 1 )
       expect( TileMap ).toHaveBeenCalledTimes( 1 )
     } )
+
+    it( 'trigger a new update when printMode changes', () => {
+      target = shallow( <TileChartMap data={ [ [ { name: 'TX', value: 100}, { name: 'LA', value: 10 } ] ] } printMode={false}/> )
+      redrawSpy = jest.spyOn( target.instance(), '_redrawMap' )
+      target.setProps( { printMode: true } )
+      expect( redrawSpy ).toHaveBeenCalledTimes( 1 )
+      expect( TileMap ).toHaveBeenCalledTimes( 1 )
+    } )
   } )
 
-  describe( 'resize listener', () => {
+  describe( 'event listeners', () => {
     beforeEach( () => {
       window.addEventListener = jest.fn();
       window.removeEventListener = jest.fn();
@@ -165,6 +174,9 @@ describe( 'component: TileChartMap', () => {
         },
         query: {
           state: [ 'TX' ]
+        },
+        view: {
+          printMode: false
         }
       }
       let actual = mapStateToProps( state )
@@ -214,6 +226,7 @@ describe( 'component: TileChartMap', () => {
           ]
         ],
         dataNormalization: false,
+        printMode: false,
         stateFilters: [ 'TX' ]
       } )
     } )

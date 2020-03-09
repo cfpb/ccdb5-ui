@@ -80,7 +80,8 @@ export class RowChart extends React.Component {
   // Event Handlers
 
   _redrawChart() {
-    const data = this.props.data
+    const componentProps = this.props
+    const { data, printMode } = componentProps
     if ( !data || !data.length ) {
       return
     }
@@ -91,7 +92,8 @@ export class RowChart extends React.Component {
     const chartID = '#row-chart-' + this.aggtype
     d3.select( chartID + ' .row-chart' ).remove()
     const rowContainer = d3.select( chartID )
-    const width = rowContainer.node().getBoundingClientRect().width
+    const width = printMode ? 750 :
+      rowContainer.node().getBoundingClientRect().width
     const height = this._getHeight( rowData.length )
     const chart = row()
     const marginLeft = width / 3
@@ -139,6 +141,7 @@ export const mapStateToProps = ( state, ownProps ) => {
   }
   return {
     data,
+    printMode: state.view.printMode,
     total: state.aggs.total
   }
 }

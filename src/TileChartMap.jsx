@@ -24,7 +24,7 @@ export class TileChartMap extends React.Component {
       return
     }
 
-    // force redraw when switching tabs
+    // force redraw when switching tabs, or print mode changes
     if ( hashObject( prevProps ) !== hashObject( props ) ||
       !document.getElementById( 'tile-chart-map' ).children.length ) {
       this._redrawMap()
@@ -70,22 +70,29 @@ export class TileChartMap extends React.Component {
   _redrawMap() {
     const toggleState = this._toggleState
     const componentProps = this.props
-
     const mapElement = document.getElementById( 'tile-chart-map' )
-
+    const { dataNormalization, printMode } = componentProps
+    const elementWidth = mapElement ? mapElement.clientWidth : 700;
+    const width = printMode ? 700 : elementWidth
     const data = updateData( this.props )
 
-    // eslint-disable-next-line no-unused-vars
-    const chart = new TileMap( {
+    const options = {
       el: mapElement,
       data,
-      isPerCapita: componentProps.dataNormalization !== GEO_NORM_NONE,
+      isPerCapita: dataNormalization !== GEO_NORM_NONE,
       events: {
         // custom event handlers we can pass on
         click: toggleState.bind( componentProps )
-      }
-    } )
+      },
+      width
+    }
+
+    options.height = printMode ? 700 : width * 0.75;
+
+    // eslint-disable-next-line no-unused-vars
+    const chart = new TileMap( options )
   }
+
 }
 
 /**
@@ -140,10 +147,12 @@ export const processStates = state => {
 
 export const mapStateToProps = state => {
   const refStateFilters = state.query.state || []
+  const { printMode } = state.view
 
   return {
     data: processStates( state ),
     dataNormalization: state.map.dataNormalization,
+    printMode,
     stateFilters: [ ...refStateFilters ]
   }
 }
