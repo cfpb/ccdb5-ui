@@ -1,23 +1,38 @@
 import './TileChartMap.less'
+import { addStateFilter, removeStateFilter } from './actions/map'
+import { debounce, hashObject } from './utils'
 import { GEO_NORM_NONE, STATE_DATA } from './constants'
-import { addStateFilter } from './actions/map'
 import { connect } from 'react-redux'
-import { hashObject } from './utils'
 import React from 'react'
 import TileMap from './TileMap'
 
 export class TileChartMap extends React.Component {
+  constructor( props ) {
+    super( props )
+
+    // Bindings
+    this._throttledRedraw = debounce( this._redrawMap.bind( this ), 200 );
+  }
+
+  componentDidMount() {
+    window.addEventListener( 'resize', this._throttledRedraw );
+  }
+
   componentDidUpdate( prevProps ) {
     const props = this.props
     if ( !props.data[0].length ) {
       return
     }
 
-    // force redraw when switching tabs
+    // force redraw when switching tabs, or print mode changes
     if ( hashObject( prevProps ) !== hashObject( props ) ||
       !document.getElementById( 'tile-chart-map' ).children.length ) {
       this._redrawMap()
     }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener( 'resize', this._throttledRedraw );
   }
 
   render() {
@@ -42,37 +57,42 @@ export class TileChartMap extends React.Component {
       // chart builder uses fullName
       name: fullName
     }
-    if ( !compProps.selectedState || compProps.selectedState.abbr !== abbr ) {
-      compProps.mapShapeToggled( selectedState )
+    if ( compProps.stateFilters.includes( abbr ) ) {
+      compProps.removeState( selectedState )
+    } else {
+      compProps.addState( selectedState )
     }
   }
 
   // --------------------------------------------------------------------------
   // Event Handlers
+
   _redrawMap() {
     const toggleState = this._toggleState
     const componentProps = this.props
-
     const mapElement = document.getElementById( 'tile-chart-map' )
-    const offsetWidth = mapElement ? mapElement.offsetWidth : 800;
-
-    // eslint-disable-next-line no-mixed-operators
-    const width = offsetWidth - offsetWidth * 0.1
-
+    const { dataNormalization, printMode } = componentProps
+    const elementWidth = mapElement ? mapElement.clientWidth : 700;
+    const width = printMode ? 700 : elementWidth
     const data = updateData( this.props )
 
-    // eslint-disable-next-line no-unused-vars
-    const chart = new TileMap( {
+    const options = {
       el: mapElement,
       data,
-      isPerCapita: componentProps.dataNormalization !== GEO_NORM_NONE,
+      isPerCapita: dataNormalization !== GEO_NORM_NONE,
       events: {
         // custom event handlers we can pass on
         click: toggleState.bind( componentProps )
       },
       width
-    } )
+    }
+
+    options.height = printMode ? 700 : width * 0.75;
+
+    // eslint-disable-next-line no-unused-vars
+    const chart = new TileMap( options )
   }
+
 }
 
 /**
@@ -125,19 +145,25 @@ export const processStates = state => {
   return [ stateData ]
 }
 
-export const mapStateToProps = state => ( {
-  data: processStates( state ),
-  dataNormalization: state.map.dataNormalization,
-  stateFilters: state.query.state,
-  selectedState: state.map.selectedState
-} )
+export const mapStateToProps = state => {
+  const refStateFilters = state.query.state || []
+  const { printMode } = state.view
+
+  return {
+    data: processStates( state ),
+    dataNormalization: state.map.dataNormalization,
+    printMode,
+    stateFilters: [ ...refStateFilters ]
+  }
+}
 
 export const mapDispatchToProps = dispatch => ( {
-  mapShapeToggled: selectedState => {
+  addState: selectedState => {
     dispatch( addStateFilter( selectedState ) )
+  },
+  removeState: selectedState => {
+    dispatch( removeStateFilter( selectedState ) )
   }
 } )
 
-
 export default connect( mapStateToProps, mapDispatchToProps )( TileChartMap )
-

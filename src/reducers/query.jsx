@@ -321,19 +321,15 @@ export function addStateFilter( state, action ) {
 }
 
 /**
- * removes a state filter in the current set
+ * removes all state filters in the current set
  *
  * @param {object} state the current state in the Redux store
- * @param {object} action the payload containing the filters to change
  * @returns {object} the new state for the Redux store
  */
-export function removeStateFilter( state, action ) {
-  let stateFilters = state.state || []
-  stateFilters = stateFilters.filter( o => o !== action.stateAbbr )
-
+export function clearStateFilter( state ) {
   return {
     ...state,
-    state: stateFilters
+    state: []
   }
 }
 
@@ -341,14 +337,30 @@ export function removeStateFilter( state, action ) {
  * only applies the single state filter and switches view mode to complaints
  *
  * @param {object} state the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+export function showStateComplaints( state ) {
+  return {
+    ...state,
+    tab: types.MODE_LIST
+  }
+}
+
+/**
+ * removes one state filters in the current set
+ *
+ * @param {object} state the current state in the Redux store
  * @param {object} action the payload containing the filters to change
  * @returns {object} the new state for the Redux store
  */
-export function showStateComplaints( state, action ) {
+export function removeStateFilter( state, action ) {
+  let stateFilters = state.state || []
+  const { abbr } = action.selectedState
+  stateFilters = stateFilters.filter( o => o !== abbr )
+
   return {
     ...state,
-    state: [ action.stateAbbr ],
-    tab: types.MODE_LIST
+    state: stateFilters
   }
 }
 
@@ -608,6 +620,7 @@ export function _buildHandlerMap() {
   handlers[actions.SORT_CHANGED] = changeSort
   handlers[actions.STATE_COMPLAINTS_SHOWN] = showStateComplaints
   handlers[actions.STATE_FILTER_ADDED] = addStateFilter
+  handlers[actions.STATE_FILTER_CLEARED] = clearStateFilter
   handlers[actions.STATE_FILTER_REMOVED] = removeStateFilter
   handlers[actions.TAB_CHANGED] = changeTab
   handlers[actions.URL_CHANGED] = processParams

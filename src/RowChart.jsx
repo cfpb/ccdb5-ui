@@ -1,6 +1,7 @@
 import './RowChart.less'
 import * as d3 from 'd3'
 import { connect } from 'react-redux'
+import { debounce } from './utils'
 import { max } from 'd3-array'
 import React from 'react'
 import { row } from 'britecharts'
@@ -12,6 +13,9 @@ export class RowChart extends React.Component {
     this.aggtype = aggType
     // only capitalize first letter
     this.chartTitle = aggType.charAt( 0 ).toUpperCase() + aggType.slice( 1 )
+
+    // Bindings
+    this._throttledRedraw = debounce( this._redrawChart.bind( this ), 200 );
   }
 
   _getHeight( numRows ) {
@@ -25,7 +29,7 @@ export class RowChart extends React.Component {
     // eslint-disable-next-line complexity
     text.each( function() {
       const innerText = d3.select( this )
-      if ( innerText.node().children.length > 0 ) {
+      if ( innerText.node().children && innerText.node().children.length > 0 ) {
         // assuming its already split up
         return
       }
@@ -60,25 +64,36 @@ export class RowChart extends React.Component {
     } )
   }
 
-  componentDidUpdate() {
-    const data = this.props.data
-    if ( !data || !data.length ) {
-      return
-    }
+  componentDidMount() {
+    window.addEventListener( 'resize', this._throttledRedraw );
+  }
 
-    this._redrawChart( data )
+  componentDidUpdate() {
+    this._redrawChart()
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener( 'resize', this._throttledRedraw );
   }
 
   // --------------------------------------------------------------------------
   // Event Handlers
-  _redrawChart( data ) {
+
+  _redrawChart() {
+    const componentProps = this.props
+    const { data, printMode } = componentProps
+    if ( !data || !data.length ) {
+      return
+    }
+
     const rowData = data.slice( 0, 5 )
     const total = this.props.total
     const ratio = total / max( rowData, o => o.value )
     const chartID = '#row-chart-' + this.aggtype
     d3.select( chartID + ' .row-chart' ).remove()
     const rowContainer = d3.select( chartID )
-    const width = rowContainer.node().getBoundingClientRect().width
+    const width = printMode ? 750 :
+      rowContainer.node().getBoundingClientRect().width
     const height = this._getHeight( rowData.length )
     const chart = row()
     const marginLeft = width / 3
@@ -126,6 +141,7 @@ export const mapStateToProps = ( state, ownProps ) => {
   }
   return {
     data,
+    printMode: state.view.printMode,
     total: state.aggs.total
   }
 }

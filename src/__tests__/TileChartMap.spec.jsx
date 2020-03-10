@@ -27,6 +27,7 @@ function setupSnapshot() {
 
 describe( 'component: TileChartMap', () => {
   let mapDiv, redrawSpy, target
+  let actionMock = jest.fn()
   describe( 'initial state', () => {
     beforeEach( () => {
       jest.clearAllMocks()
@@ -37,25 +38,27 @@ describe( 'component: TileChartMap', () => {
       expect( tree ).toMatchSnapshot()
     } )
 
-    it( 'toggles map state when different from current state', () => {
-      target = shallow( <TileChartMap/> )
-      const mapEvent = { point: { abbr: 'FO', fullName: 'Foo Bar' } }
-      const instance = target.instance()
-      //._toggleState( mapEvent )
-      instance.mapShapeToggled = jest.fn()
-      instance._toggleState( mapEvent )
-      expect( instance.mapShapeToggled ).toHaveBeenCalledTimes( 1 )
-    } )
+    describe('when clicking a map node', () => {
+      it( 'adds a map filter when it is not currently a filter', () => {
+        target = shallow( <TileChartMap /> )
+        const mapEvent = { point: { abbr: 'FO', fullName: 'Foo Bar' } }
+        const instance = target.instance()
+        instance.stateFilters = [ 'CA' ]
+        instance.addState = jest.fn()
+        instance._toggleState( mapEvent )
+        expect( instance.addState ).toHaveBeenCalledTimes( 1 )
+      } )
 
-    it( 'does nothing current state is the same', () => {
-      target = shallow( <TileChartMap/> )
-      const mapEvent = { point: { abbr: 'FO', fullName: 'Foo Bar' } }
-      const instance = target.instance()
-      instance.mapShapeToggled = jest.fn()
-      instance.selectedState = { abbr: 'FO', name: 'Foo Bar' }
-      instance._toggleState( mapEvent )
-      expect( instance.mapShapeToggled ).toHaveBeenCalledTimes( 0 )
-    } )
+      it( 'removes a map filter when it is currently a filter', () => {
+        target = shallow( <TileChartMap /> )
+        const mapEvent = { point: { abbr: 'FO', fullName: 'Foo Bar' } }
+        const instance = target.instance()
+        instance.stateFilters = [ 'FO' ]
+        instance.removeState = jest.fn()
+        instance._toggleState( mapEvent )
+        expect( instance.removeState ).toHaveBeenCalledTimes( 1 )
+      } )
+    } );
   } )
 
   describe( 'componentDidUpdate', () => {
@@ -107,15 +110,51 @@ describe( 'component: TileChartMap', () => {
       expect( redrawSpy ).toHaveBeenCalledTimes( 1 )
       expect( TileMap ).toHaveBeenCalledTimes( 1 )
     } )
+
+    it( 'trigger a new update when printMode changes', () => {
+      target = shallow( <TileChartMap data={ [ [ { name: 'TX', value: 100}, { name: 'LA', value: 10 } ] ] } printMode={false}/> )
+      redrawSpy = jest.spyOn( target.instance(), '_redrawMap' )
+      target.setProps( { printMode: true } )
+      expect( redrawSpy ).toHaveBeenCalledTimes( 1 )
+      expect( TileMap ).toHaveBeenCalledTimes( 1 )
+    } )
   } )
+
+  describe( 'event listeners', () => {
+    beforeEach( () => {
+      window.addEventListener = jest.fn();
+      window.removeEventListener = jest.fn();
+    } );
+
+    it( 'unregisters the same listener on unmount' , () => {
+        const a = window.addEventListener
+        const b = window.removeEventListener
+
+        target = shallow( <TileChartMap /> )
+        expect(a.mock.calls.length).toBe(1)
+        expect(a.mock.calls[0][0]).toBe('resize')
+
+        target.unmount()
+        expect(b.mock.calls.length).toBe(1)
+        expect(b.mock.calls[0][0]).toBe('resize')
+
+        expect(a.mock.calls[0][1]).toBe(b.mock.calls[0][1])
+      } );
+  } );
 
   describe( 'mapDispatchToProps', () => {
     beforeEach( () => {
       jest.clearAllMocks()
     } )
-    it( 'provides a way to call mapShapeToggled', () => {
+    it( 'provides a way to call addState', () => {
       const dispatch = jest.fn()
-      mapDispatchToProps( dispatch ).mapShapeToggled()
+      mapDispatchToProps( dispatch ).addState()
+      expect( dispatch.mock.calls.length ).toEqual( 1 )
+    } )
+
+    it( 'provides a way to call removeState', () => {
+      const dispatch = jest.fn()
+      mapDispatchToProps( dispatch ).removeState()
       expect( dispatch.mock.calls.length ).toEqual( 1 )
     } )
   } )
@@ -131,12 +170,13 @@ describe( 'component: TileChartMap', () => {
             { name: 'LA', issue: 'something', product: 'b prod', value: 2 },
             { name: 'CA', issue: 'something', product: 'c prod', value: 3 },
             { name: 'MH', issue: 'real data', product: 'is messy', value: 9 },
-          ],
-          // fyi Selected State comes from map
-          selectedState: { abbr: 'TX', name: 'Texas' }
+          ]
         },
         query: {
           state: [ 'TX' ]
+        },
+        view: {
+          printMode: false
         }
       }
       let actual = mapStateToProps( state )
@@ -186,11 +226,9 @@ describe( 'component: TileChartMap', () => {
           ]
         ],
         dataNormalization: false,
-        stateFilters: [ 'TX' ],
-        selectedState: { abbr: 'TX', name: 'Texas' }
+        printMode: false,
+        stateFilters: [ 'TX' ]
       } )
     } )
   } )
-
-
 } )
