@@ -28,15 +28,13 @@ describe('action:map', () => {
     })
   })
 
-
-  describe('removeStateFilter', () => {
+  describe('clearStateFilter', () => {
     it('creates a simple action', () => {
       const expectedAction = {
-        type: sut.STATE_FILTER_REMOVED,
-        stateAbbr: 'FO',
+        type: sut.STATE_FILTER_CLEARED,
         requery: REQUERY_ALWAYS
       }
-      expect(sut.removeStateFilter('FO')).toEqual(expectedAction)
+      expect(sut.clearStateFilter()).toEqual(expectedAction)
     })
   })
 
@@ -44,10 +42,22 @@ describe('action:map', () => {
     it('creates a simple action', () => {
       const expectedAction = {
         type: sut.STATE_COMPLAINTS_SHOWN,
-        stateAbbr: 'FO',
         requery: REQUERY_ALWAYS
       }
-      expect(sut.showStateComplaints('FO')).toEqual(expectedAction)
+      expect(sut.showStateComplaints()).toEqual(expectedAction)
+    })
+  })
+
+  describe('removeStateFilter', () => {
+    it('creates a simple action', () => {
+      const expectedAction = {
+        type: sut.STATE_FILTER_REMOVED,
+        selectedState: { abbr: 'TX', name: 'Texas'},
+        requery: REQUERY_ALWAYS
+      }
+      const action = sut
+        .removeStateFilter({ abbr: 'TX', name: 'Texas'})
+      expect(action).toEqual(expectedAction)
     })
   })
 })

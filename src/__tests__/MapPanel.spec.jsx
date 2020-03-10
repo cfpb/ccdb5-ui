@@ -7,7 +7,7 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import thunk from 'redux-thunk'
 
-function setupSnapshot( selectedState = false ) {
+function setupSnapshot( printMode ) {
   const items = [
     { key: 'CA', doc_count: 62519 },
     { key: 'FL', doc_count: 47358 }
@@ -21,7 +21,6 @@ function setupSnapshot( selectedState = false ) {
       total: items.length
     },
     map: {
-      selectedState,
       state: []
     },
     query: {
@@ -31,17 +30,16 @@ function setupSnapshot( selectedState = false ) {
     },
     results: {
       items
+    },
+    view: {
+      printMode
     }
 } )
-
-  const props = {
-    selectedState: { abbr: 'FO', name: 'Foo Bar' }
-  }
 
   return renderer.create(
     <Provider store={ store }>
       <IntlProvider locale="en">
-        <MapPanel { ...props }/>
+        <MapPanel />
       </IntlProvider>
     </Provider>
   )
@@ -49,7 +47,15 @@ function setupSnapshot( selectedState = false ) {
 
 describe( 'component:MapPanel', () => {
   it( 'renders without crashing', () => {
-    const target = setupSnapshot( { abbr: 'FO', name: 'Foo Bar' } )
+    const printMode = false
+    const target = setupSnapshot( printMode )
+    const tree = target.toJSON()
+    expect( tree ).toMatchSnapshot()
+  } )
+
+  it( 'renders Print without crashing', () => {
+    const printMode = true
+    const target = setupSnapshot( printMode )
     const tree = target.toJSON()
     expect( tree ).toMatchSnapshot()
   } )

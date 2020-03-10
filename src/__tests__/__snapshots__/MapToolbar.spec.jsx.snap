@@ -33,8 +33,7 @@ exports[`component: MapToolbar initial state renders without crashing 1`] = `
       className="list"
       onClick={[Function]}
     >
-      View complaints from 
-      Texas
+      View complaints for filtered states
     </a>
   </section>
 </div>

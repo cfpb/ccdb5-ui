@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom'
 import ComplaintDetail from './ComplaintDetail'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import FilterPanel from './FilterPanel'
 import Hero from './Hero'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
@@ -18,6 +17,7 @@ import React from 'react'
 // eslint-disable-next-line
 import ReactDOM from 'react-dom'
 import reducers from './reducers'
+import RefinePanel from './RefinePanel'
 import ResultsPanel from './ResultsPanel'
 import RootModal from './Dialogs/RootModal'
 import SearchPanel from './SearchPanel'
@@ -50,9 +50,7 @@ export class SearchComponents extends React.Component {
           <div className="content_wrapper">
             <SearchPanel />
             <TabbedNavigation />
-            <aside className="content_sidebar">
-              <FilterPanel />
-            </aside>
+            <RefinePanel />
             <ResultsPanel />
           </div>
           <RootModal />

@@ -17,7 +17,6 @@ describe( 'reducer:map', () => {
         isLoading: false,
         issue: [],
         product: [],
-        selectedState: false,
         state: []
       } )
     } )
@@ -229,30 +228,6 @@ describe( 'reducer:map', () => {
           issue: '',
           product: ''
         } ) )
-      } )
-    } )
-  } )
-
-  describe( 'STATE_FILTER_ADDED actions', () => {
-    it( 'adds filter', () => {
-      action = {
-        type: actions.STATE_FILTER_ADDED,
-        selectedState: { abbr: 'FO', stateName: 'Foo Bar' }
-      }
-      expect( target( { selectedState: false }, action ) ).toEqual( {
-        selectedState: { abbr: 'FO', stateName: 'Foo Bar' }
-      } )
-    } )
-  } )
-
-  describe( 'STATE_FILTER_REMOVED actions', () => {
-    it( 'adds filter', () => {
-      action = {
-        type: actions.STATE_FILTER_REMOVED,
-        stateAbbr: 'FO'
-      }
-      expect( target( { selectedState: false }, action ) ).toEqual( {
-        selectedState: false
       } )
     } )
   } )
