@@ -324,7 +324,8 @@ class TileMap {
       chart: {
         styledMode: true,
         height,
-        width
+        width,
+        marginTop: 80 // value so that the legend doesnt clash with top of map
       },
       colors,
       colorAxis: {
