@@ -270,6 +270,11 @@ x/y positioning on the SVG elements.
         line-height: 1;
 
         .highcharts-data-label-state {
+            // IE 11 shift tile labels up
+            @media (-ms-high-contrast: none), (-ms-high-contrast: active) {
+                transform: translateY(-10px);
+            }
+
             .abbr {
                 font-size: 12px;
             }
