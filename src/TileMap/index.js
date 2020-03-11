@@ -172,6 +172,7 @@ export function tileFormatter() {
   const value = this.point.displayValue.toLocaleString();
   return '<div class="highcharts-data-label-state">' +
     '<span class="abbr">' + this.point.name + '</span>' +
+    '<br />' +
     '<span class="value">' + value + '</span>' +
     '</div>';
 }
@@ -277,6 +278,7 @@ export function _drawLegend( chart ) {
     chart.renderer
       .text( beCompact ? bin.shortName : bin.name, 0, boxHeight )
       .addClass( 'legend-text' )
+      .translate( 3, -3 )
       .add( g );
   }
 }
