@@ -331,8 +331,7 @@ class TileMap {
       chart: {
         styledMode: true,
         height,
-        width,
-        marginTop: 70 // value so that the legend doesnt clash with top of map
+        width
       },
       colors,
       colorAxis: {
@@ -372,6 +371,13 @@ class TileMap {
     // our custom passing of information
     if ( events ) {
       options.plotOptions.series.events = events;
+    }
+
+    // patches to adjust for legend height
+    if ( width < 500 ) {
+      const legendHeight = 70
+      options.chart.marginTop = legendHeight
+      options.chart.height += legendHeight
     }
 
     this.draw( el, options );
