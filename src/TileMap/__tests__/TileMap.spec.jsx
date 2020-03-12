@@ -195,6 +195,23 @@ describe( 'Tile map', () => {
       '<span class="value">10,000</span></div>' );
   } );
 
+  it( 'formats a map tile in Internet Explorer', () => {
+    sut.point = {
+      displayValue: 10000,
+      name: 'FA'
+    };
+
+    Object.defineProperty( window.navigator, 'userAgent',
+      { value: 'MSIE' } )
+
+    const result = sut.tileFormatter();
+    expect( result )
+      .toEqual( '<div class="highcharts-data-label-state">' +
+        '<span class="abbr">FA</span>' +
+        '<br />' +
+        '<span class="value">10,000</span></div>' );
+  } );
+
   it( 'formats the map tooltip w/ missing data', () => {
     sut.fullName = 'Another Name';
     sut.value = 10000;

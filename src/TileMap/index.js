@@ -169,10 +169,17 @@ export function getColorByValue( value, bins ) {
  * @returns {string} html output
  */
 export function tileFormatter() {
+  let iePatch = ''
+  if ( navigator.userAgent.indexOf( 'MSIE' ) !== -1 || navigator.appVersion.indexOf( 'Trident/' ) > -1 ) {
+    iePatch = '<br />'
+  }
+
+  // const iePatch = !!window.MSInputMethodContext && !!document.documentMode ?
+  //   '<br />' : '';
   const value = this.point.displayValue.toLocaleString();
   return '<div class="highcharts-data-label-state">' +
     '<span class="abbr">' + this.point.name + '</span>' +
-    '<br />' +
+    iePatch +
     '<span class="value">' + value + '</span>' +
     '</div>';
 }
@@ -325,7 +332,7 @@ class TileMap {
         styledMode: true,
         height,
         width,
-        marginTop: 80 // value so that the legend doesnt clash with top of map
+        marginTop: 70 // value so that the legend doesnt clash with top of map
       },
       colors,
       colorAxis: {
