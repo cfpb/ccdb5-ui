@@ -383,6 +383,20 @@ describe( 'Tile map', () => {
     expect( drawSpy ).toHaveBeenCalled();
   } );
 
+  it( 'can construct a narrow map', () => {
+    const options = {
+      el: document.createElement( 'div' ),
+      data: [],
+      isPerCapita: false,
+      width: 400
+    };
+
+    const drawSpy = jest.spyOn( TileMap.prototype, 'draw' );
+    // eslint-disable-next-line no-unused-vars
+    const map = new TileMap( options );
+    expect( drawSpy ).toHaveBeenCalled();
+  } );
+
   it( 'can construct a perCapita map', () => {
     const options = {
       el: document.createElement( 'div' ),
