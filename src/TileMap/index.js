@@ -174,8 +174,6 @@ export function tileFormatter() {
     iePatch = '<br />'
   }
 
-  // const iePatch = !!window.MSInputMethodContext && !!document.documentMode ?
-  //   '<br />' : '';
   const value = this.point.displayValue.toLocaleString();
   return '<div class="highcharts-data-label-state">' +
     '<span class="abbr">' + this.point.name + '</span>' +
