@@ -15,9 +15,8 @@ export class MapPanel extends React.Component {
     return (
       <section className="map-panel">
         <ActionBar/>
-        { this.props.error ?
-          <ErrorBlock text="There was a problem executing your search" /> :
-          null
+        { this.props.error &&
+          <ErrorBlock text="There was a problem executing your search" />
         }
         <div className="layout-row refine">
           <DateIntervals/>
