@@ -9,6 +9,11 @@ import moment from 'moment'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { shortFormat } from '../utils'
+import Warning from '../Warning'
+
+const WARN_SERIES_BREAK = 'In April 2017 we made changes to consumer' +
+  ' complaint Product fields. This may result in discrepancies in the' +
+  ' display of visualizations';
 
 export class DateFilter extends React.Component {
   constructor( props ) {
@@ -33,6 +38,11 @@ export class DateFilter extends React.Component {
   }
 
   render() {
+    const from = moment( this.state.from, 'MM-DD-YYYY' )
+    const through = moment( this.state.through, 'MM-DD-YYYY' )
+
+    const showWarning = moment( '2017-04-01' ).isBetween( from, through, 'day' )
+
     return (
       <CollapsibleFilter title={ this.props.title }
                          className="aggregation date-filter">
@@ -43,6 +53,10 @@ export class DateFilter extends React.Component {
             </ul>
             { this._hasMessages( this.state.messages ) ?
               this._renderMessages() :
+              null
+            }
+            { showWarning ?
+              <Warning text={ WARN_SERIES_BREAK } /> :
               null
             }
           </div>
