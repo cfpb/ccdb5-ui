@@ -3,6 +3,7 @@ import ActionBar from './ActionBar'
 import { bindAll } from './utils'
 import ComplaintCard from './ComplaintCard'
 import { connect } from 'react-redux'
+import ErrorBlock from './Error'
 import Loading from './Dialogs/Loading'
 import Pagination from './Pagination'
 import React from 'react'
@@ -83,7 +84,7 @@ export class ListPanel extends React.Component {
 
   _renderError() {
     return (
-       <h2>There was a problem executing your search</h2>
+       <ErrorBlock text="There was a problem executing your search" />
     )
   }
 
