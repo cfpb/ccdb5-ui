@@ -2,6 +2,7 @@ import './MapPanel.less'
 import ActionBar from './ActionBar'
 import { connect } from 'react-redux'
 import DateIntervals from './DateIntervals'
+import ErrorBlock from './Error'
 import Loading from './Dialogs/Loading'
 import MapToolbar from './MapToolbar'
 import PerCapita from './PerCapita'
@@ -14,6 +15,10 @@ export class MapPanel extends React.Component {
     return (
       <section className="map-panel">
         <ActionBar/>
+        { this.props.error ?
+          <ErrorBlock text="There was a problem executing your search" /> :
+          null
+        }
         <div className="layout-row refine">
           <DateIntervals/>
           <PerCapita/>
@@ -29,6 +34,7 @@ export class MapPanel extends React.Component {
 }
 
 const mapStateToProps = state => ( {
+  error: state.map.error,
   isLoading: state.map.isLoading
 } )
 
