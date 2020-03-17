@@ -1,6 +1,7 @@
 import './ActionBar.less';
 import { connect } from 'react-redux'
 import { FormattedNumber } from 'react-intl'
+import iconMap from './iconMap'
 import React from 'react';
 import { showExportDialog } from './actions/dataExport'
 
@@ -28,7 +29,13 @@ export class ActionBar extends React.Component {
               <button className="a-btn a-btn__link"
                       data-gtm_ignore="true"
                       onClick={this.props.onExportResults}>
-                Export results
+                Export data
+              </button>
+              <button className="a-btn a-btn__link"
+                      data-gtm_ignore="true"
+                      onClick={window.print}>
+                { iconMap.getIcon( 'printer' ) }
+                Print page
               </button>
             </h3>
           </div>
