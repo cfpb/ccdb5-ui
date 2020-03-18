@@ -169,9 +169,16 @@ export function getColorByValue( value, bins ) {
  * @returns {string} html output
  */
 export function tileFormatter() {
+  let iePatch = ''
+  if ( navigator.userAgent.indexOf( 'MSIE' ) !== -1 ||
+    navigator.appVersion.indexOf( 'Trident/' ) > -1 ) {
+    iePatch = '<br />'
+  }
+
   const value = this.point.displayValue.toLocaleString();
   return '<div class="highcharts-data-label-state">' +
     '<span class="abbr">' + this.point.name + '</span>' +
+    iePatch +
     '<span class="value">' + value + '</span>' +
     '</div>';
 }
@@ -277,6 +284,7 @@ export function _drawLegend( chart ) {
     chart.renderer
       .text( beCompact ? bin.shortName : bin.name, 0, boxHeight )
       .addClass( 'legend-text' )
+      .translate( 3, -3 )
       .add( g );
   }
 }
@@ -362,6 +370,13 @@ class TileMap {
     // our custom passing of information
     if ( events ) {
       options.plotOptions.series.events = events;
+    }
+
+    // patches to adjust for legend height
+    if ( width < 500 ) {
+      const legendHeight = 70
+      options.chart.marginTop = legendHeight
+      options.chart.height += legendHeight
     }
 
     this.draw( el, options );

@@ -6,6 +6,8 @@ import renderer from 'react-test-renderer'
 import { mount } from 'enzyme';
 import thunk from 'redux-thunk'
 
+const DEFAULT_MAX = new Date( '2015-12-31T12:00:00.000Z' )
+
 function setupEnzyme(initialProps={}) {
   const props = Object.assign({
     changeDateRange: jest.fn(),
@@ -25,7 +27,7 @@ function setupEnzyme(initialProps={}) {
   }
 }
 
-function setupSnapshot(query={}) {
+function setupSnapshot(query={}, maxDate=DEFAULT_MAX) {
   const middlewares = [thunk]
   const mockStore = configureMockStore(middlewares)
   const store = mockStore({
@@ -36,7 +38,7 @@ function setupSnapshot(query={}) {
     <Provider store={store}>
       <ReduxDateFilter fieldName="date_received"
                        minimumDate={ new Date( '2015-01-01T12:00:00.000Z' ) }
-                       maximumDate={ new Date( '2015-12-31T12:00:00.000Z' ) }
+                       maximumDate={ maxDate }
                        title="Date CFPB Received the complaint"
       />
     </Provider>
@@ -56,6 +58,15 @@ describe('component::DateFilter', () => {
         date_received_min: new Date(2016, 0, 1),
         date_received_max: new Date(2000, 0, 1)
       })
+      const tree = target.toJSON()
+      expect(tree).toMatchSnapshot()
+    })
+
+    it('shows a warning for April 2017', () => {
+      const target = setupSnapshot({
+        date_received_min: new Date(2016, 0, 1),
+        date_received_max: new Date(2018, 0, 1)
+      }, new Date( '2019-12-31T12:00:00.000Z' ))
       const tree = target.toJSON()
       expect(tree).toMatchSnapshot()
     })
