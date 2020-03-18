@@ -8,7 +8,9 @@
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: baseline;
-
+  .layout-row {
+    display: block;
+  }
   .clear-all {
     button {
       border-color: @dark-red;
@@ -28,5 +30,9 @@
 
   ul {
     padding-top: @gutter-narrow;
+  }
+  @media @phone {
+    flex-direction: column;
+    margin-top: 10px;
   }
 }
