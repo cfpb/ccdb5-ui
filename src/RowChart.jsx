@@ -29,7 +29,7 @@ export class RowChart extends React.Component {
     // eslint-disable-next-line complexity
     text.each( function() {
       const innerText = d3.select( this )
-      if ( innerText.node().children.length > 0 ) {
+      if ( innerText.node().children && innerText.node().children.length > 0 ) {
         // assuming its already split up
         return
       }
