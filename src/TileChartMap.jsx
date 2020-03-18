@@ -115,7 +115,7 @@ function updateData( props ) {
  * helper function to calculate percapita value
  * @param {object} stateObj a state containing abbr and value
  * @param {object} stateInfo other information about the state
- * @returns {string} the per capita value
+ * @returns {string} the Per 1000 population value
  */
 function getPerCapita( stateObj, stateInfo ) {
   const pop = stateInfo.population

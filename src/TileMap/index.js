@@ -80,7 +80,7 @@ export function getBins( data, colors ) {
 }
 
 /**
- * helper function to get the per Capita bins for legend and colors, etc.
+ * helper function to get the Per 1000 population bins for legend and colors, etc.
  * @param {Array} data all of the states w/ displayValue, complaintCount, raw
  * @param {Array} colors an array of colors
  * @returns {Array} contains bins with bounds, colors, name, and color
@@ -200,7 +200,7 @@ export function tooltipFormatter() {
 
   const value = this.value.toLocaleString();
   const perCapita = this.perCapita ? '<div class="row u-clearfix">' +
-    '<p class="u-float-left">Per capita</p>' +
+    '<p class="u-float-left">Per 1000 population</p>' +
     '<p class="u-right">' + this.perCapita + '</p>' +
     '</div>' : '';
 
