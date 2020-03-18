@@ -93,7 +93,7 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
         <option
           value="Per 1000 pop."
         >
-          Per capita
+          Per 1000 population
         </option>
       </select>
     </section>
@@ -239,7 +239,7 @@ exports[`component:MapPanel renders without crashing 1`] = `
         <option
           value="Per 1000 pop."
         >
-          Per capita
+          Per 1000 population
         </option>
       </select>
     </section>
