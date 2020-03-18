@@ -170,7 +170,8 @@ export function getColorByValue( value, bins ) {
  */
 export function tileFormatter() {
   let iePatch = ''
-  if ( navigator.userAgent.indexOf( 'MSIE' ) !== -1 || navigator.appVersion.indexOf( 'Trident/' ) > -1 ) {
+  if ( navigator.userAgent.indexOf( 'MSIE' ) !== -1 ||
+    navigator.appVersion.indexOf( 'Trident/' ) > -1 ) {
     iePatch = '<br />'
   }
 
