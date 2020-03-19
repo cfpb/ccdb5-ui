@@ -514,7 +514,14 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
         <p>
           Map Shading
         </p>
+        <label
+          className="u-visually-hidden"
+          htmlFor="data-normalization"
+        >
+          Select the kind of shading to apply to the map
+        </label>
         <select
+          id="data-normalization"
           onChange={[Function]}
         >
           <option
@@ -1041,7 +1048,14 @@ exports[`component:Results renders map panel without crashing 1`] = `
         <p>
           Map Shading
         </p>
+        <label
+          className="u-visually-hidden"
+          htmlFor="data-normalization"
+        >
+          Select the kind of shading to apply to the map
+        </label>
         <select
+          id="data-normalization"
           onChange={[Function]}
         >
           <option
