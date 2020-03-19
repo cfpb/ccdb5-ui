@@ -88,15 +88,15 @@ export class AggregationBranch extends React.Component {
           />
           <label className={this._labelStyle}
                  htmlFor={id}>
+            <button className="flex-all a-btn a-btn__link"
+                    onClick={this._toggleChildDisplay}
+                    title={item.key}>
+              <span>{item.key}</span>
+
+              {chevronIcon}
+
+            </button>
           </label>
-          <button className="flex-all a-btn a-btn__link"
-                  onClick={this._toggleChildDisplay}
-                  title={item.key}>
-            <span>{item.key}</span>
-
-            {chevronIcon}
-
-          </button>
           <span className="flex-fixed parent-count">
             <FormattedNumber value={item.doc_count} />
           </span>
