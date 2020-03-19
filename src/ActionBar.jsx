@@ -39,6 +39,9 @@ export class ActionBar extends React.Component {
           <div className="layout-row">
             {this.props.view === 'List' &&
             <div className="cf-select flex-fixed">
+              <label className="u-visually-hidden" htmlFor="choose-size">
+                Select the number of results to display at a time
+              </label>
               <select value={this.props.size} id="choose-size"
                       onChange={this.props.onSize}>
                 { sizes.map(
@@ -48,6 +51,9 @@ export class ActionBar extends React.Component {
             </div>}
             {this.props.view === 'List' &&
             <div className="cf-select flex-fixed">
+              <label className="u-visually-hidden" htmlFor="choose-sort">
+                Choose the order in which the results are displayed
+              </label>
               <select value={this.props.sort} id="choose-sort"
                       onChange={this.props.onSort}>
                 { Object.keys( sorts ).map( x =>
