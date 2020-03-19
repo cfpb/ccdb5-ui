@@ -79,6 +79,9 @@ exports[`initial state renders without crashing 1`] = `
     </h1>
     <p>
       Complaints are published after the company responds, confirming a commercial relationship with the consumer, or after 15 days, whichever comes first.
+      <span>
+         
+      </span>
       <a
         href="#about-the-database"
       >
@@ -87,6 +90,9 @@ exports[`initial state renders without crashing 1`] = `
     </p>
     <p>
       Complaints are not necessarily representative of all consumers’ experiences with a financial product or company.
+      <span>
+         
+      </span>
       <a
         href="#what-you-should-consider"
       >
@@ -95,6 +101,9 @@ exports[`initial state renders without crashing 1`] = `
     </p>
     <p>
       We don’t verify all the allegations in complaint narratives.
+      <span>
+         
+      </span>
       <a
         href="#what-you-should-consider"
       >
