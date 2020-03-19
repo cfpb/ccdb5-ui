@@ -13,7 +13,7 @@ export class PerCapita extends React.Component {
         <select value={this.props.dataNormalization}
                 onChange={this.props.onDataNormalization}>
           <option value={GEO_NORM_NONE}>Complaints</option>
-          <option value={GEO_NORM_PER1000}>Per capita</option>
+          <option value={GEO_NORM_PER1000}>Per 1000 population</option>
         </select>
       </section>
     )
