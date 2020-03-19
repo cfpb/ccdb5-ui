@@ -8,7 +8,7 @@ export const STATE_FILTER_REMOVED = 'STATE_FILTER_REMOVED'
 
 
 /**
- * Indicates data normalization (yes, per capita) value was selected
+ * Indicates data normalization (yes, Per 1000 population) value was selected
  * @param {object} value of the data normalization
  * @returns {object} a packaged payload to be used by Redux reducers
  */
