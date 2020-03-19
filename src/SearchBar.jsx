@@ -69,16 +69,14 @@ export class SearchBar extends React.Component {
                 </select>
               </div>
               <div className="flex-all typeahead-portal">
-                <Typeahead debounceWait={this.props.debounceWait}
+                <Typeahead ariaLabel="Enter the term you want to search for"
+                           debounceWait={this.props.debounceWait}
+                           htmlId="searchText"
                            mode={MODE_OPEN}
                            onInputChange={this._onInputChange}
                            onOptionSelected={this._onTypeaheadSelected}
                            placeholder="Enter your search term(s)"
                            renderOption={this._renderOption}
-                           textBoxProps={( {
-                             'aria-label': 'The term to search for',
-                             'id': 'searchText'
-                           } )}
                            value={this.state.inputValue}
                 />
               </div>

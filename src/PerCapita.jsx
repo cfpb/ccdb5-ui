@@ -10,8 +10,12 @@ export class PerCapita extends React.Component {
     return (
       <section className="per-capita">
         <p>Map Shading</p>
+        <label className="u-visually-hidden" htmlFor="data-normalization">
+          Select the kind of shading to apply to the map
+        </label>
         <select value={this.props.dataNormalization}
-                onChange={this.props.onDataNormalization}>
+                onChange={this.props.onDataNormalization}
+                id="data-normalization">
           <option value={GEO_NORM_NONE}>Complaints</option>
           <option value={GEO_NORM_PER1000}>Per 1000 population</option>
         </select>
