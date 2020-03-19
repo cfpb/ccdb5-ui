@@ -55,6 +55,12 @@ exports[`component:Results renders List print mode without crashing 1`] = `
         <div
           className="cf-select flex-fixed"
         >
+          <label
+            className="u-visually-hidden"
+            htmlFor="choose-size"
+          >
+            Select the number of results to display at a time
+          </label>
           <select
             id="choose-size"
             onChange={[Function]}
@@ -92,6 +98,12 @@ exports[`component:Results renders List print mode without crashing 1`] = `
         <div
           className="cf-select flex-fixed"
         >
+          <label
+            className="u-visually-hidden"
+            htmlFor="choose-sort"
+          >
+            Choose the order in which the results are displayed
+          </label>
           <select
             id="choose-sort"
             onChange={[Function]}
@@ -626,6 +638,12 @@ exports[`component:Results renders list panel without crashing 1`] = `
         <div
           className="cf-select flex-fixed"
         >
+          <label
+            className="u-visually-hidden"
+            htmlFor="choose-size"
+          >
+            Select the number of results to display at a time
+          </label>
           <select
             id="choose-size"
             onChange={[Function]}
@@ -663,6 +681,12 @@ exports[`component:Results renders list panel without crashing 1`] = `
         <div
           className="cf-select flex-fixed"
         >
+          <label
+            className="u-visually-hidden"
+            htmlFor="choose-sort"
+          >
+            Choose the order in which the results are displayed
+          </label>
           <select
             id="choose-sort"
             onChange={[Function]}
