@@ -72,13 +72,16 @@ export class DateFilter extends React.Component {
   }
 
   _renderDateInput( label, field ) {
+    const inputId = `${ this.props.fieldName }-${ field }`
+
     const localProps = {
-      'aria-describedby': 'input-error_message-' + field
+      id: inputId
     }
 
     return (
       <li>
-          <label className="a-label a-label__heading body-copy">
+          <label className="a-label a-label__heading body-copy"
+                 htmlFor={ inputId }>
             { label }
           </label>
           <DateInput min={ this.props.minimumDate }
