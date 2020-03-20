@@ -6,11 +6,11 @@ exports[`component:PillPanel renders without crashing 1`] = `
 <section
   className="pill-panel"
 >
-  <h4
-    className="pill-label flex-fixed"
+  <h3
+    className="h4 pill-label flex-fixed"
   >
     Filters Applied:
-  </h4>
+  </h3>
   <ul
     className="layout-row"
   >

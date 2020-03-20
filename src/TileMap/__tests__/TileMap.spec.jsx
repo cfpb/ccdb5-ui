@@ -239,6 +239,15 @@ describe( 'Tile map', () => {
       '<p class="u-right">Being Broke</p></div>' );
   } );
 
+  it( 'formats a series point for voice-over reading' , () => {
+    const point = {
+      fullName: 'Foo',
+      displayValue: '13'
+    }
+    const actual = sut.pointDescriptionFormatter( point );
+    expect( actual ).toEqual( 'Foo 13' );
+  } );
+
   it( 'Processes the map data', () => {
     const bins = [
       {

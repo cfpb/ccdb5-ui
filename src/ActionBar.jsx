@@ -61,13 +61,13 @@ export class ActionBar extends React.Component {
                   )}
               </select>
             </div>}
-            <h4 className="flex-all">
+            <h3 className="h4 flex-all export-results">
               <button className="a-btn a-btn__link"
                       data-gtm_ignore="true"
                       onClick={this.props.onExportResults}>
                 Export results
               </button>
-            </h4>
+            </h3>
           </div>
         </summary>
     );
