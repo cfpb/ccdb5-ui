@@ -15,7 +15,7 @@ exports[`initial state renders without crashing 1`] = `
        
     </span>
     <a
-      href="#about-the-database"
+      href="../#about-the-database"
     >
       Learn more
     </a>
@@ -26,7 +26,7 @@ exports[`initial state renders without crashing 1`] = `
        
     </span>
     <a
-      href="#what-you-should-consider"
+      href="../#what-you-should-consider"
     >
       Learn more
     </a>
@@ -37,7 +37,7 @@ exports[`initial state renders without crashing 1`] = `
        
     </span>
     <a
-      href="#what-you-should-consider"
+      href="../#what-you-should-consider"
     >
       Learn more
     </a>
