@@ -130,8 +130,8 @@ exports[`component:Results renders List print mode without crashing 1`] = `
             </option>
           </select>
         </div>
-        <h4
-          className="flex-all"
+        <h3
+          className="h4 flex-all export-results"
         >
           <button
             className="a-btn a-btn__link"
@@ -140,7 +140,7 @@ exports[`component:Results renders List print mode without crashing 1`] = `
           >
             Export results
           </button>
-        </h4>
+        </h3>
       </div>
     </summary>
     <div />
@@ -467,8 +467,8 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
       <div
         className="layout-row"
       >
-        <h4
-          className="flex-all"
+        <h3
+          className="h4 flex-all export-results"
         >
           <button
             className="a-btn a-btn__link"
@@ -477,7 +477,7 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
           >
             Export results
           </button>
-        </h4>
+        </h3>
       </div>
     </summary>
     <div
@@ -713,8 +713,8 @@ exports[`component:Results renders list panel without crashing 1`] = `
             </option>
           </select>
         </div>
-        <h4
-          className="flex-all"
+        <h3
+          className="h4 flex-all export-results"
         >
           <button
             className="a-btn a-btn__link"
@@ -723,7 +723,7 @@ exports[`component:Results renders list panel without crashing 1`] = `
           >
             Export results
           </button>
-        </h4>
+        </h3>
       </div>
     </summary>
     <div />
@@ -1013,8 +1013,8 @@ exports[`component:Results renders map panel without crashing 1`] = `
       <div
         className="layout-row"
       >
-        <h4
-          className="flex-all"
+        <h3
+          className="h4 flex-all export-results"
         >
           <button
             className="a-btn a-btn__link"
@@ -1023,7 +1023,7 @@ exports[`component:Results renders map panel without crashing 1`] = `
           >
             Export results
           </button>
-        </h4>
+        </h3>
       </div>
     </summary>
     <div

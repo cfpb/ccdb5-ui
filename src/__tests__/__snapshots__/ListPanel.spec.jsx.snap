@@ -102,8 +102,8 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
           </option>
         </select>
       </div>
-      <h4
-        className="flex-all"
+      <h3
+        className="h4 flex-all export-results"
       >
         <button
           className="a-btn a-btn__link"
@@ -112,7 +112,7 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
         >
           Export results
         </button>
-      </h4>
+      </h3>
     </div>
   </summary>
   <div />
@@ -329,8 +329,8 @@ exports[`component:ListPanel displays a message when only the narratives are sta
           </option>
         </select>
       </div>
-      <h4
-        className="flex-all"
+      <h3
+        className="h4 flex-all export-results"
       >
         <button
           className="a-btn a-btn__link"
@@ -339,7 +339,7 @@ exports[`component:ListPanel displays a message when only the narratives are sta
         >
           Export results
         </button>
-      </h4>
+      </h3>
     </div>
   </summary>
   <div>
@@ -727,8 +727,8 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
           </option>
         </select>
       </div>
-      <h4
-        className="flex-all"
+      <h3
+        className="h4 flex-all export-results"
       >
         <button
           className="a-btn a-btn__link"
@@ -737,7 +737,7 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
         >
           Export results
         </button>
-      </h4>
+      </h3>
     </div>
   </summary>
   <div
@@ -1124,8 +1124,8 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
           </option>
         </select>
       </div>
-      <h4
-        className="flex-all"
+      <h3
+        className="h4 flex-all export-results"
       >
         <button
           className="a-btn a-btn__link"
@@ -1134,7 +1134,7 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
         >
           Export results
         </button>
-      </h4>
+      </h3>
     </div>
   </summary>
   <div>
@@ -1522,8 +1522,8 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
           </option>
         </select>
       </div>
-      <h4
-        className="flex-all"
+      <h3
+        className="h4 flex-all export-results"
       >
         <button
           className="a-btn a-btn__link"
@@ -1532,7 +1532,7 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
         >
           Export results
         </button>
-      </h4>
+      </h3>
     </div>
   </summary>
   <div />
@@ -1730,8 +1730,8 @@ exports[`component:ListPanel only displays data message when both types are stal
           </option>
         </select>
       </div>
-      <h4
-        className="flex-all"
+      <h3
+        className="h4 flex-all export-results"
       >
         <button
           className="a-btn a-btn__link"
@@ -1740,7 +1740,7 @@ exports[`component:ListPanel only displays data message when both types are stal
         >
           Export results
         </button>
-      </h4>
+      </h3>
     </div>
   </summary>
   <div>
@@ -2128,8 +2128,8 @@ exports[`component:ListPanel renders without crashing 1`] = `
           </option>
         </select>
       </div>
-      <h4
-        className="flex-all"
+      <h3
+        className="h4 flex-all export-results"
       >
         <button
           className="a-btn a-btn__link"
@@ -2138,7 +2138,7 @@ exports[`component:ListPanel renders without crashing 1`] = `
         >
           Export results
         </button>
-      </h4>
+      </h3>
     </div>
   </summary>
   <div />

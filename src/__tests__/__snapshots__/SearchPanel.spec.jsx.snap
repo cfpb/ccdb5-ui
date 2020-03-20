@@ -24,9 +24,11 @@ exports[`component:SearchPanel displays last updated date when present 1`] = `
         action=""
         onSubmit={[Function]}
       >
-        <h4>
+        <h3
+          className="h4"
+        >
           Search Within
-        </h4>
+        </h3>
         <div
           className="layout-row"
         >
@@ -140,9 +142,11 @@ exports[`component:SearchPanel renders without crashing 1`] = `
         action=""
         onSubmit={[Function]}
       >
-        <h4>
+        <h3
+          className="h4"
+        >
           Search Within
-        </h4>
+        </h3>
         <div
           className="layout-row"
         >
