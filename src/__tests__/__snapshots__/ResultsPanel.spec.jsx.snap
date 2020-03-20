@@ -55,6 +55,12 @@ exports[`component:Results renders List print mode without crashing 1`] = `
         <div
           className="cf-select flex-fixed"
         >
+          <label
+            className="u-visually-hidden"
+            htmlFor="choose-size"
+          >
+            Select the number of results to display at a time
+          </label>
           <select
             id="choose-size"
             onChange={[Function]}
@@ -92,6 +98,12 @@ exports[`component:Results renders List print mode without crashing 1`] = `
         <div
           className="cf-select flex-fixed"
         >
+          <label
+            className="u-visually-hidden"
+            htmlFor="choose-sort"
+          >
+            Choose the order in which the results are displayed
+          </label>
           <select
             id="choose-sort"
             onChange={[Function]}
@@ -118,8 +130,8 @@ exports[`component:Results renders List print mode without crashing 1`] = `
             </option>
           </select>
         </div>
-        <h4
-          className="flex-all"
+        <h3
+          className="h4 flex-all export-results"
         >
           <button
             className="a-btn a-btn__link"
@@ -128,7 +140,7 @@ exports[`component:Results renders List print mode without crashing 1`] = `
           >
             Export results
           </button>
-        </h4>
+        </h3>
       </div>
     </summary>
     <div />
@@ -455,8 +467,8 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
       <div
         className="layout-row"
       >
-        <h4
-          className="flex-all"
+        <h3
+          className="h4 flex-all export-results"
         >
           <button
             className="a-btn a-btn__link"
@@ -465,7 +477,7 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
           >
             Export results
           </button>
-        </h4>
+        </h3>
       </div>
     </summary>
     <div
@@ -514,7 +526,14 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
         <p>
           Map Shading
         </p>
+        <label
+          className="u-visually-hidden"
+          htmlFor="data-normalization"
+        >
+          Select the kind of shading to apply to the map
+        </label>
         <select
+          id="data-normalization"
           onChange={[Function]}
         >
           <option
@@ -619,6 +638,12 @@ exports[`component:Results renders list panel without crashing 1`] = `
         <div
           className="cf-select flex-fixed"
         >
+          <label
+            className="u-visually-hidden"
+            htmlFor="choose-size"
+          >
+            Select the number of results to display at a time
+          </label>
           <select
             id="choose-size"
             onChange={[Function]}
@@ -656,6 +681,12 @@ exports[`component:Results renders list panel without crashing 1`] = `
         <div
           className="cf-select flex-fixed"
         >
+          <label
+            className="u-visually-hidden"
+            htmlFor="choose-sort"
+          >
+            Choose the order in which the results are displayed
+          </label>
           <select
             id="choose-sort"
             onChange={[Function]}
@@ -682,8 +713,8 @@ exports[`component:Results renders list panel without crashing 1`] = `
             </option>
           </select>
         </div>
-        <h4
-          className="flex-all"
+        <h3
+          className="h4 flex-all export-results"
         >
           <button
             className="a-btn a-btn__link"
@@ -692,7 +723,7 @@ exports[`component:Results renders list panel without crashing 1`] = `
           >
             Export results
           </button>
-        </h4>
+        </h3>
       </div>
     </summary>
     <div />
@@ -982,8 +1013,8 @@ exports[`component:Results renders map panel without crashing 1`] = `
       <div
         className="layout-row"
       >
-        <h4
-          className="flex-all"
+        <h3
+          className="h4 flex-all export-results"
         >
           <button
             className="a-btn a-btn__link"
@@ -992,7 +1023,7 @@ exports[`component:Results renders map panel without crashing 1`] = `
           >
             Export results
           </button>
-        </h4>
+        </h3>
       </div>
     </summary>
     <div
@@ -1041,7 +1072,14 @@ exports[`component:Results renders map panel without crashing 1`] = `
         <p>
           Map Shading
         </p>
+        <label
+          className="u-visually-hidden"
+          htmlFor="data-normalization"
+        >
+          Select the kind of shading to apply to the map
+        </label>
         <select
+          id="data-normalization"
           onChange={[Function]}
         >
           <option

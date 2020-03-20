@@ -52,7 +52,7 @@ export class SearchBar extends React.Component {
       <div>
         <nav className="search-bar">
           <form action="" onSubmit={this._handleSubmit}>
-            <h4>Search Within</h4>
+            <h3 className="h4">Search Within</h3>
             <div className="layout-row">
               <div className="cf-select flex-fixed">
                 <select aria-label="Choose which field will be searched"
@@ -69,16 +69,14 @@ export class SearchBar extends React.Component {
                 </select>
               </div>
               <div className="flex-all typeahead-portal">
-                <Typeahead debounceWait={this.props.debounceWait}
+                <Typeahead ariaLabel="Enter the term you want to search for"
+                           debounceWait={this.props.debounceWait}
+                           htmlId="searchText"
                            mode={MODE_OPEN}
                            onInputChange={this._onInputChange}
                            onOptionSelected={this._onTypeaheadSelected}
                            placeholder="Enter your search term(s)"
                            renderOption={this._renderOption}
-                           textBoxProps={( {
-                             'aria-label': 'The term to search for',
-                             'id': 'searchText'
-                           } )}
                            value={this.state.inputValue}
                 />
               </div>
