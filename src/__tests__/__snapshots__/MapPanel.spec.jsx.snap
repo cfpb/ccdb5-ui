@@ -23,8 +23,8 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
     <div
       className="layout-row"
     >
-      <h4
-        className="flex-all"
+      <h3
+        className="h4 flex-all export-results"
       >
         <button
           className="a-btn a-btn__link"
@@ -33,7 +33,7 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
         >
           Export results
         </button>
-      </h4>
+      </h3>
     </div>
   </summary>
   <div
@@ -82,7 +82,14 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
       <p>
         Map Shading
       </p>
+      <label
+        className="u-visually-hidden"
+        htmlFor="data-normalization"
+      >
+        Select the kind of shading to apply to the map
+      </label>
       <select
+        id="data-normalization"
         onChange={[Function]}
       >
         <option
@@ -169,8 +176,8 @@ exports[`component:MapPanel renders without crashing 1`] = `
     <div
       className="layout-row"
     >
-      <h4
-        className="flex-all"
+      <h3
+        className="h4 flex-all export-results"
       >
         <button
           className="a-btn a-btn__link"
@@ -179,7 +186,7 @@ exports[`component:MapPanel renders without crashing 1`] = `
         >
           Export results
         </button>
-      </h4>
+      </h3>
     </div>
   </summary>
   <div
@@ -228,7 +235,14 @@ exports[`component:MapPanel renders without crashing 1`] = `
       <p>
         Map Shading
       </p>
+      <label
+        className="u-visually-hidden"
+        htmlFor="data-normalization"
+      >
+        Select the kind of shading to apply to the map
+      </label>
       <select
+        id="data-normalization"
         onChange={[Function]}
       >
         <option
