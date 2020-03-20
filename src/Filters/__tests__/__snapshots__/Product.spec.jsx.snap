@@ -68,7 +68,6 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
             <button
               className="flex-all a-btn a-btn__link"
               onClick={[Function]}
-              title="Credit reporting, credit repair services, or other personal consumer reports"
             >
               <span>
                 Credit reporting, credit repair services, or other personal consumer reports
@@ -114,7 +113,6 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
             <button
               className="flex-all a-btn a-btn__link"
               onClick={[Function]}
-              title="Mortgage"
             >
               <span>
                 Mortgage
