@@ -98,7 +98,6 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
             <button
               className="flex-all a-btn a-btn__link"
               onClick={[Function]}
-              title="Incorrect information on credit report"
             >
               <span>
                 Incorrect information on credit report
@@ -144,7 +143,6 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
             <button
               className="flex-all a-btn a-btn__link"
               onClick={[Function]}
-              title="Cont'd attempts collect debt not owed"
             >
               <span>
                 Cont'd attempts collect debt not owed

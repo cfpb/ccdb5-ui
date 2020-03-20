@@ -89,8 +89,7 @@ export class AggregationBranch extends React.Component {
           <label className={this._labelStyle}
                  htmlFor={id}>
             <button className="flex-all a-btn a-btn__link"
-                    onClick={this._toggleChildDisplay}
-                    title={item.key}>
+                    onClick={this._toggleChildDisplay}>
               <span>{item.key}</span>
 
               {chevronIcon}
