@@ -25,6 +25,7 @@
   li {
     display: inline-block;
     margin-top: @gutter-narrow;
+    position: relative;
   }
 
   ul {
@@ -33,5 +34,8 @@
   @media @phone {
     flex-direction: column;
     margin-top: 10px;
+    .layout-row {
+      padding-left: 0;
+    }
   }
 }
