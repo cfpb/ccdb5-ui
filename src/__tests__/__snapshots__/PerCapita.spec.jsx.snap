@@ -7,7 +7,15 @@ exports[`component: PerCapita initial state renders without crashing 1`] = `
   <p>
     Map Shading
   </p>
-  <select>
+  <label
+    className="u-visually-hidden"
+    htmlFor="data-normalization"
+  >
+    Select the kind of shading to apply to the map
+  </label>
+  <select
+    id="data-normalization"
+  >
     <option
       value="None"
     >

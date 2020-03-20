@@ -80,7 +80,7 @@ export function getBins( data, colors ) {
 }
 
 /**
- * helper function to get the Per 1000 population bins for legend and colors, etc.
+ * helper function to get the Per 1000 population bins for legend and colors
  * @param {Array} data all of the states w/ displayValue, complaintCount, raw
  * @param {Array} colors an array of colors
  * @returns {Array} contains bins with bounds, colors, name, and color
@@ -163,6 +163,16 @@ export function getColorByValue( value, bins ) {
 
 /* ----------------------------------------------------------------------------
    Highcharts callbacks */
+
+/**
+* callback function for reporting the series point in a voiceover text
+*
+* @param {Object} p the point in the series
+* @returns {string} the text to speak
+*/
+export function pointDescriptionFormatter( p ) {
+  return `${ p.fullName } ${ p.displayValue }`
+}
 
 /**
  * callback function to format the individual tiles in HTML
@@ -363,7 +373,13 @@ class TileMap {
       series: [ {
         type: 'map',
         clip: false,
-        data: data
+        data: data,
+        accessibility: {
+          description: legendTitle + ' in the United States',
+          exposeAsGroupOnly: false,
+          keyboardNavigation: { enabled: true },
+          pointDescriptionFormatter: pointDescriptionFormatter
+        }
       } ]
     };
 

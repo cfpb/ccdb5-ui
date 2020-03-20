@@ -28,7 +28,9 @@ export class FederalState extends React.Component {
                          desc={desc}
                          showChildren={this.props.showChildren}
                          className="aggregation">
-        <Typeahead placeholder="Enter state name or abbreviation"
+        <Typeahead ariaLabel="Start typing to begin listing US states"
+                   htmlId="state-typeahead"
+                   placeholder="Enter state name or abbreviation"
                    onInputChange={this._onInputChange}
                    onOptionSelected={this._onOptionSelected}
                    renderOption={this._renderOption} />
