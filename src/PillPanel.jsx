@@ -1,9 +1,11 @@
 import './PillPanel.less';
 import { connect } from 'react-redux'
+import iconMap from './iconMap';
 import { knownFilters } from './constants'
 import Pill from './Pill';
 import React from 'react';
-import { removeAllFilters } from './actions/filter'
+import { removeAllFilters } from './actions/filter';
+
 
 export const PillPanel = ( { filters, clearAll } ) => {
   if ( !filters || filters.length === 0 ) {
@@ -20,6 +22,7 @@ export const PillPanel = ( { filters, clearAll } ) => {
         }
         <li className="clear-all">
           <button className="a-btn a-btn__link body-copy" onClick={ clearAll }>
+          { iconMap.getIcon( 'delete' ) }
             Clear all filters
           </button>
         </li>
