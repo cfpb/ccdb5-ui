@@ -14,6 +14,7 @@ exports[`initial state hides the section when there is no narrative 1`] = `
         className="to-detail"
       >
         <a
+          aria-label="Complaint 9 9 9 9 0 9 0 9"
           href="detail/99990909"
         >
           99990909
@@ -169,6 +170,7 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
         className="to-detail"
       >
         <a
+          aria-label="Complaint 9 9 9 9 0 9 0 9"
           href="detail/99990909"
         >
           99990909
@@ -321,6 +323,7 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
         className="to-detail"
       >
         <a
+          aria-label="Complaint 9 9 9 9 0 9 0 9"
           href="detail/99990909"
         >
           99990909
@@ -473,6 +476,7 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
         className="to-detail"
       >
         <a
+          aria-label="Complaint 9 9 9 9 0 9 0 9"
           href="detail/99990909"
         >
           99990909
@@ -650,6 +654,7 @@ exports[`initial state removes <em> highlighting tags effectively from text 1`] 
         className="to-detail"
       >
         <a
+          aria-label="Complaint 9 9 9 9 0 9 0 9"
           href="detail/99990909"
         >
           99990909
@@ -819,6 +824,7 @@ exports[`initial state renders without crashing 1`] = `
         className="to-detail"
       >
         <a
+          aria-label="Complaint 9 9 9 9 0 9 0 9"
           href="detail/99990909"
         >
           99990909
