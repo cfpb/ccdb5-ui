@@ -3,6 +3,7 @@
 exports[`initial state renders without crashing 1`] = `
 <summary
   className="action-bar"
+  id="search-summary"
 >
   <div>
     <h2>

@@ -6,6 +6,7 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
 >
   <summary
     className="action-bar"
+    id="search-summary"
   >
     <div>
       <h2>
@@ -159,6 +160,7 @@ exports[`component:MapPanel renders without crashing 1`] = `
 >
   <summary
     className="action-bar"
+    id="search-summary"
   >
     <div>
       <h2>
