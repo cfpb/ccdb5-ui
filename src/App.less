@@ -12,6 +12,12 @@
 @import (less) "base.less";
 @import (less) "notification.less";
 
+// Fix Webpack not packing "approved.svg"
+
+.m-form-field__checkbox .a-checkbox:checked+.a-label:before {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 742.5 1200" class="cf-icon-svg"%3E%3Cpath d="M710 186c-31.1-18-70.8-7.4-88.8 23.7v.1L275 809.5 114.9 617.3c-23-27.5-64-31.2-91.6-8.1-27.4 23-31.2 63.8-8.3 91.3l219.8 263.8c12.3 14.8 30.6 23.4 49.9 23.4 1.8 0 3.7-.1 5.6-.2 21.2-1.8 40.1-13.9 50.7-32.3l392.8-680.4c17.9-31.1 7.3-70.9-23.8-88.8z"/%3E%3C/svg%3E');
+}
+
 // App-wide definitions
 
 .layout-row {
