@@ -21,45 +21,53 @@ export default class ComplaintCard extends React.Component {
                 { cleanId }
               </a>
             </h3>
-            <h4>Company name</h4>
+            <h4 tabIndex="0">Company name</h4>
             { this._renderPossibleHighlight( row.company ) }
             <br />
-            <h4>Company response to consumer</h4>
+            <h4 tabIndex="0">Company response to consumer</h4>
             { this._renderPossibleHighlight( row.company_response ) }
             <br />
-            <h4>Timely response?</h4>
+            <h4 tabIndex="0">Timely response?</h4>
             { this._renderPossibleHighlight( row.timely ) }
           </div>
           <div className="card-right layout-column">
             <div className="layout-row">
               <div className="layout-row">
-                <h4>Date received:</h4>
+                <h4 tabIndex="0">Date received:</h4>
                 <span className="body-copy">
-                  <FormattedDate value={ row.date_received } />
+                  <FormattedDate tabIndex="0" value={ row.date_received } />
                 </span>
               </div>
               <div className="spacer" />
               <div className="layout-row">
-                <h4>Consumer's state:</h4>
+                <h4 tabIndex="0">Consumer's state:</h4>
                 { this._renderPossibleHighlight( row.state ) }
               </div>
             </div>
             <br />
-            <h4>Product</h4>
-            <h3 dangerouslySetInnerHTML={ { __html: row.product } }></h3>
+            <h4 tabIndex="0">Product</h4>
+            <h3 dangerouslySetInnerHTML={ { __html: row.product } }
+                tabIndex="0"></h3>
             { row.sub_product ?
               <div className="layout-row">
-                <span className="body-copy subitem">Sub-product:</span>
+                <span className="body-copy subitem"
+                      tabIndex="0">
+                      Sub-product:
+                </span>
                 { this._renderPossibleHighlight( row.sub_product ) }
               </div> :
                null
             }
             <br />
-            <h4>Issue</h4>
-            <h3 dangerouslySetInnerHTML={ { __html: row.issue } }></h3>
+            <h4 tabIndex="0">Issue</h4>
+            <h3 dangerouslySetInnerHTML={ { __html: row.issue } }
+                tabIndex="0"></h3>
             { row.sub_issue ?
               <div className="layout-row">
-                <span className="body-copy subitem">Sub-issue:</span>
+                <span className="body-copy subitem"
+                      tabIndex="0">
+                      Sub-issue:
+                </span>
                 { this._renderPossibleHighlight( row.sub_issue ) }
               </div> :
                null
@@ -86,7 +94,8 @@ export default class ComplaintCard extends React.Component {
 
   _renderPossibleHighlight( s ) {
     return <span className="body-copy"
-                 dangerouslySetInnerHTML={ { __html: s } }>
+                 dangerouslySetInnerHTML={ { __html: s } }
+                 tabIndex="0">
            </span>
   }
 
@@ -97,7 +106,7 @@ export default class ComplaintCard extends React.Component {
     return narrative ?
         <div>
           <br />
-          <h4>Consumer Complaint Narrative</h4>
+          <h4 tabIndex="0">Consumer Complaint Narrative</h4>
             { this._renderPossibleHighlight( narrative ) }
             { hasOverflow ? <span> <a href={ url }>[...]</a></span> : null }
         </div> :

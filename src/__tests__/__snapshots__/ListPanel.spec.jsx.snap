@@ -390,7 +390,9 @@ exports[`component:ListPanel displays a message when only the narratives are sta
               1
             </a>
           </h3>
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Company name
           </h4>
           <span
@@ -400,9 +402,12 @@ exports[`component:ListPanel displays a message when only the narratives are sta
                 "__html": "foo",
               }
             }
+            tabIndex="0"
           />
           <br />
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Company response to consumer
           </h4>
           <span
@@ -412,9 +417,12 @@ exports[`component:ListPanel displays a message when only the narratives are sta
                 "__html": "Closed",
               }
             }
+            tabIndex="0"
           />
           <br />
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Timely response?
           </h4>
           <span
@@ -424,6 +432,7 @@ exports[`component:ListPanel displays a message when only the narratives are sta
                 "__html": "yes",
               }
             }
+            tabIndex="0"
           />
         </div>
         <div
@@ -435,7 +444,9 @@ exports[`component:ListPanel displays a message when only the narratives are sta
             <div
               className="layout-row"
             >
-              <h4>
+              <h4
+                tabIndex="0"
+              >
                 Date received:
               </h4>
               <span
@@ -452,7 +463,9 @@ exports[`component:ListPanel displays a message when only the narratives are sta
             <div
               className="layout-row"
             >
-              <h4>
+              <h4
+                tabIndex="0"
+              >
                 Consumer's state:
               </h4>
               <span
@@ -462,11 +475,14 @@ exports[`component:ListPanel displays a message when only the narratives are sta
                     "__html": "DC",
                   }
                 }
+                tabIndex="0"
               />
             </div>
           </div>
           <br />
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Product
           </h4>
           <h3
@@ -475,12 +491,14 @@ exports[`component:ListPanel displays a message when only the narratives are sta
                 "__html": "Bar",
               }
             }
+            tabIndex="0"
           />
           <div
             className="layout-row"
           >
             <span
               className="body-copy subitem"
+              tabIndex="0"
             >
               Sub-product:
             </span>
@@ -491,10 +509,13 @@ exports[`component:ListPanel displays a message when only the narratives are sta
                   "__html": "Qaz",
                 }
               }
+              tabIndex="0"
             />
           </div>
           <br />
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Issue
           </h4>
           <h3
@@ -503,12 +524,14 @@ exports[`component:ListPanel displays a message when only the narratives are sta
                 "__html": "Foo",
               }
             }
+            tabIndex="0"
           />
           <div
             className="layout-row"
           >
             <span
               className="body-copy subitem"
+              tabIndex="0"
             >
               Sub-issue:
             </span>
@@ -519,11 +542,14 @@ exports[`component:ListPanel displays a message when only the narratives are sta
                   "__html": "Baz",
                 }
               }
+              tabIndex="0"
             />
           </div>
           <div>
             <br />
-            <h4>
+            <h4
+              tabIndex="0"
+            >
               Consumer Complaint Narrative
             </h4>
             <span
@@ -533,6 +559,7 @@ exports[`component:ListPanel displays a message when only the narratives are sta
                   "__html": "Lorem Ipsum",
                 }
               }
+              tabIndex="0"
             />
           </div>
         </div>
@@ -789,7 +816,9 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
               1
             </a>
           </h3>
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Company name
           </h4>
           <span
@@ -799,9 +828,12 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
                 "__html": "foo",
               }
             }
+            tabIndex="0"
           />
           <br />
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Company response to consumer
           </h4>
           <span
@@ -811,9 +843,12 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
                 "__html": "Closed",
               }
             }
+            tabIndex="0"
           />
           <br />
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Timely response?
           </h4>
           <span
@@ -823,6 +858,7 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
                 "__html": "yes",
               }
             }
+            tabIndex="0"
           />
         </div>
         <div
@@ -834,7 +870,9 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
             <div
               className="layout-row"
             >
-              <h4>
+              <h4
+                tabIndex="0"
+              >
                 Date received:
               </h4>
               <span
@@ -851,7 +889,9 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
             <div
               className="layout-row"
             >
-              <h4>
+              <h4
+                tabIndex="0"
+              >
                 Consumer's state:
               </h4>
               <span
@@ -861,11 +901,14 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
                     "__html": "DC",
                   }
                 }
+                tabIndex="0"
               />
             </div>
           </div>
           <br />
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Product
           </h4>
           <h3
@@ -874,12 +917,14 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
                 "__html": "Bar",
               }
             }
+            tabIndex="0"
           />
           <div
             className="layout-row"
           >
             <span
               className="body-copy subitem"
+              tabIndex="0"
             >
               Sub-product:
             </span>
@@ -890,10 +935,13 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
                   "__html": "Qaz",
                 }
               }
+              tabIndex="0"
             />
           </div>
           <br />
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Issue
           </h4>
           <h3
@@ -902,12 +950,14 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
                 "__html": "Foo",
               }
             }
+            tabIndex="0"
           />
           <div
             className="layout-row"
           >
             <span
               className="body-copy subitem"
+              tabIndex="0"
             >
               Sub-issue:
             </span>
@@ -918,11 +968,14 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
                   "__html": "Baz",
                 }
               }
+              tabIndex="0"
             />
           </div>
           <div>
             <br />
-            <h4>
+            <h4
+              tabIndex="0"
+            >
               Consumer Complaint Narrative
             </h4>
             <span
@@ -932,6 +985,7 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
                   "__html": "Lorem Ipsum",
                 }
               }
+              tabIndex="0"
             />
           </div>
         </div>
@@ -1189,7 +1243,9 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
               1
             </a>
           </h3>
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Company name
           </h4>
           <span
@@ -1199,9 +1255,12 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
                 "__html": "foo",
               }
             }
+            tabIndex="0"
           />
           <br />
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Company response to consumer
           </h4>
           <span
@@ -1211,9 +1270,12 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
                 "__html": "Closed",
               }
             }
+            tabIndex="0"
           />
           <br />
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Timely response?
           </h4>
           <span
@@ -1223,6 +1285,7 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
                 "__html": "yes",
               }
             }
+            tabIndex="0"
           />
         </div>
         <div
@@ -1234,7 +1297,9 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
             <div
               className="layout-row"
             >
-              <h4>
+              <h4
+                tabIndex="0"
+              >
                 Date received:
               </h4>
               <span
@@ -1251,7 +1316,9 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
             <div
               className="layout-row"
             >
-              <h4>
+              <h4
+                tabIndex="0"
+              >
                 Consumer's state:
               </h4>
               <span
@@ -1261,11 +1328,14 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
                     "__html": "DC",
                   }
                 }
+                tabIndex="0"
               />
             </div>
           </div>
           <br />
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Product
           </h4>
           <h3
@@ -1274,12 +1344,14 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
                 "__html": "Bar",
               }
             }
+            tabIndex="0"
           />
           <div
             className="layout-row"
           >
             <span
               className="body-copy subitem"
+              tabIndex="0"
             >
               Sub-product:
             </span>
@@ -1290,10 +1362,13 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
                   "__html": "Qaz",
                 }
               }
+              tabIndex="0"
             />
           </div>
           <br />
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Issue
           </h4>
           <h3
@@ -1302,12 +1377,14 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
                 "__html": "Foo",
               }
             }
+            tabIndex="0"
           />
           <div
             className="layout-row"
           >
             <span
               className="body-copy subitem"
+              tabIndex="0"
             >
               Sub-issue:
             </span>
@@ -1318,11 +1395,14 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
                   "__html": "Baz",
                 }
               }
+              tabIndex="0"
             />
           </div>
           <div>
             <br />
-            <h4>
+            <h4
+              tabIndex="0"
+            >
               Consumer Complaint Narrative
             </h4>
             <span
@@ -1332,6 +1412,7 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
                   "__html": "Lorem Ipsum",
                 }
               }
+              tabIndex="0"
             />
           </div>
         </div>
@@ -1798,7 +1879,9 @@ exports[`component:ListPanel only displays data message when both types are stal
               1
             </a>
           </h3>
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Company name
           </h4>
           <span
@@ -1808,9 +1891,12 @@ exports[`component:ListPanel only displays data message when both types are stal
                 "__html": "foo",
               }
             }
+            tabIndex="0"
           />
           <br />
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Company response to consumer
           </h4>
           <span
@@ -1820,9 +1906,12 @@ exports[`component:ListPanel only displays data message when both types are stal
                 "__html": "Closed",
               }
             }
+            tabIndex="0"
           />
           <br />
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Timely response?
           </h4>
           <span
@@ -1832,6 +1921,7 @@ exports[`component:ListPanel only displays data message when both types are stal
                 "__html": "yes",
               }
             }
+            tabIndex="0"
           />
         </div>
         <div
@@ -1843,7 +1933,9 @@ exports[`component:ListPanel only displays data message when both types are stal
             <div
               className="layout-row"
             >
-              <h4>
+              <h4
+                tabIndex="0"
+              >
                 Date received:
               </h4>
               <span
@@ -1860,7 +1952,9 @@ exports[`component:ListPanel only displays data message when both types are stal
             <div
               className="layout-row"
             >
-              <h4>
+              <h4
+                tabIndex="0"
+              >
                 Consumer's state:
               </h4>
               <span
@@ -1870,11 +1964,14 @@ exports[`component:ListPanel only displays data message when both types are stal
                     "__html": "DC",
                   }
                 }
+                tabIndex="0"
               />
             </div>
           </div>
           <br />
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Product
           </h4>
           <h3
@@ -1883,12 +1980,14 @@ exports[`component:ListPanel only displays data message when both types are stal
                 "__html": "Bar",
               }
             }
+            tabIndex="0"
           />
           <div
             className="layout-row"
           >
             <span
               className="body-copy subitem"
+              tabIndex="0"
             >
               Sub-product:
             </span>
@@ -1899,10 +1998,13 @@ exports[`component:ListPanel only displays data message when both types are stal
                   "__html": "Qaz",
                 }
               }
+              tabIndex="0"
             />
           </div>
           <br />
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Issue
           </h4>
           <h3
@@ -1911,12 +2013,14 @@ exports[`component:ListPanel only displays data message when both types are stal
                 "__html": "Foo",
               }
             }
+            tabIndex="0"
           />
           <div
             className="layout-row"
           >
             <span
               className="body-copy subitem"
+              tabIndex="0"
             >
               Sub-issue:
             </span>
@@ -1927,11 +2031,14 @@ exports[`component:ListPanel only displays data message when both types are stal
                   "__html": "Baz",
                 }
               }
+              tabIndex="0"
             />
           </div>
           <div>
             <br />
-            <h4>
+            <h4
+              tabIndex="0"
+            >
               Consumer Complaint Narrative
             </h4>
             <span
@@ -1941,6 +2048,7 @@ exports[`component:ListPanel only displays data message when both types are stal
                   "__html": "Lorem Ipsum",
                 }
               }
+              tabIndex="0"
             />
           </div>
         </div>
@@ -2175,7 +2283,9 @@ exports[`component:ListPanel renders without crashing 1`] = `
               1
             </a>
           </h3>
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Company name
           </h4>
           <span
@@ -2185,9 +2295,12 @@ exports[`component:ListPanel renders without crashing 1`] = `
                 "__html": "foo",
               }
             }
+            tabIndex="0"
           />
           <br />
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Company response to consumer
           </h4>
           <span
@@ -2197,9 +2310,12 @@ exports[`component:ListPanel renders without crashing 1`] = `
                 "__html": "Closed",
               }
             }
+            tabIndex="0"
           />
           <br />
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Timely response?
           </h4>
           <span
@@ -2209,6 +2325,7 @@ exports[`component:ListPanel renders without crashing 1`] = `
                 "__html": "yes",
               }
             }
+            tabIndex="0"
           />
         </div>
         <div
@@ -2220,7 +2337,9 @@ exports[`component:ListPanel renders without crashing 1`] = `
             <div
               className="layout-row"
             >
-              <h4>
+              <h4
+                tabIndex="0"
+              >
                 Date received:
               </h4>
               <span
@@ -2237,7 +2356,9 @@ exports[`component:ListPanel renders without crashing 1`] = `
             <div
               className="layout-row"
             >
-              <h4>
+              <h4
+                tabIndex="0"
+              >
                 Consumer's state:
               </h4>
               <span
@@ -2247,11 +2368,14 @@ exports[`component:ListPanel renders without crashing 1`] = `
                     "__html": "DC",
                   }
                 }
+                tabIndex="0"
               />
             </div>
           </div>
           <br />
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Product
           </h4>
           <h3
@@ -2260,12 +2384,14 @@ exports[`component:ListPanel renders without crashing 1`] = `
                 "__html": "Bar",
               }
             }
+            tabIndex="0"
           />
           <div
             className="layout-row"
           >
             <span
               className="body-copy subitem"
+              tabIndex="0"
             >
               Sub-product:
             </span>
@@ -2276,10 +2402,13 @@ exports[`component:ListPanel renders without crashing 1`] = `
                   "__html": "Qaz",
                 }
               }
+              tabIndex="0"
             />
           </div>
           <br />
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Issue
           </h4>
           <h3
@@ -2288,12 +2417,14 @@ exports[`component:ListPanel renders without crashing 1`] = `
                 "__html": "Foo",
               }
             }
+            tabIndex="0"
           />
           <div
             className="layout-row"
           >
             <span
               className="body-copy subitem"
+              tabIndex="0"
             >
               Sub-issue:
             </span>
@@ -2304,11 +2435,14 @@ exports[`component:ListPanel renders without crashing 1`] = `
                   "__html": "Baz",
                 }
               }
+              tabIndex="0"
             />
           </div>
           <div>
             <br />
-            <h4>
+            <h4
+              tabIndex="0"
+            >
               Consumer Complaint Narrative
             </h4>
             <span
@@ -2318,6 +2452,7 @@ exports[`component:ListPanel renders without crashing 1`] = `
                   "__html": "Lorem Ipsum",
                 }
               }
+              tabIndex="0"
             />
           </div>
         </div>
