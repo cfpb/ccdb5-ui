@@ -6,6 +6,7 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
 >
   <summary
     className="action-bar"
+    id="search-summary"
   >
     <div>
       <h2>
@@ -233,6 +234,7 @@ exports[`component:ListPanel displays a message when only the narratives are sta
 >
   <summary
     className="action-bar"
+    id="search-summary"
   >
     <div>
       <h2>
@@ -631,6 +633,7 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
 >
   <summary
     className="action-bar"
+    id="search-summary"
   >
     <div>
       <h2>
@@ -1028,6 +1031,7 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
 >
   <summary
     className="action-bar"
+    id="search-summary"
   >
     <div>
       <h2>
@@ -1426,6 +1430,7 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
 >
   <summary
     className="action-bar"
+    id="search-summary"
   >
     <div>
       <h2>
@@ -1634,6 +1639,7 @@ exports[`component:ListPanel only displays data message when both types are stal
 >
   <summary
     className="action-bar"
+    id="search-summary"
   >
     <div>
       <h2>
@@ -2032,6 +2038,7 @@ exports[`component:ListPanel renders without crashing 1`] = `
 >
   <summary
     className="action-bar"
+    id="search-summary"
   >
     <div>
       <h2>

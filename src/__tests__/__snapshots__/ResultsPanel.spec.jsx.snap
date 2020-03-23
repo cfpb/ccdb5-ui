@@ -35,6 +35,7 @@ exports[`component:Results renders List print mode without crashing 1`] = `
   >
     <summary
       className="action-bar"
+      id="search-summary"
     >
       <div>
         <h2>
@@ -450,6 +451,7 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
   >
     <summary
       className="action-bar"
+      id="search-summary"
     >
       <div>
         <h2>
@@ -618,6 +620,7 @@ exports[`component:Results renders list panel without crashing 1`] = `
   >
     <summary
       className="action-bar"
+      id="search-summary"
     >
       <div>
         <h2>
@@ -996,6 +999,7 @@ exports[`component:Results renders map panel without crashing 1`] = `
   >
     <summary
       className="action-bar"
+      id="search-summary"
     >
       <div>
         <h2>
