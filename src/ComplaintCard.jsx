@@ -1,4 +1,5 @@
 import './ComplaintCard.less'
+import { ariaReadoutNumbers } from './utils'
 import { FormattedDate } from 'react-intl'
 import React from 'react'
 
@@ -8,14 +9,16 @@ export default class ComplaintCard extends React.Component {
   render() {
     const row = this.props.row;
     const complaintIdPath = 'detail/' + row.complaint_id
+    const cleanId = this._stripPossibleHighlight( row.complaint_id )
 
     return (
       <li className="card-container">
         <div className="card">
           <div className="card-left layout-column">
             <h3 className="to-detail">
-              <a href={ this._stripPossibleHighlight( complaintIdPath ) }>
-                { this._stripPossibleHighlight( row.complaint_id ) }
+              <a href={ this._stripPossibleHighlight( complaintIdPath ) }
+                 aria-label={ 'Complaint ' + ariaReadoutNumbers( cleanId ) }>
+                { cleanId }
               </a>
             </h3>
             <h4>Company name</h4>

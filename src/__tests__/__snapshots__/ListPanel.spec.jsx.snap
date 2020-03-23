@@ -384,6 +384,7 @@ exports[`component:ListPanel displays a message when only the narratives are sta
             className="to-detail"
           >
             <a
+              aria-label="Complaint 1"
               href="detail/1"
             >
               1
@@ -782,6 +783,7 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
             className="to-detail"
           >
             <a
+              aria-label="Complaint 1"
               href="detail/1"
             >
               1
@@ -1181,6 +1183,7 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
             className="to-detail"
           >
             <a
+              aria-label="Complaint 1"
               href="detail/1"
             >
               1
@@ -1789,6 +1792,7 @@ exports[`component:ListPanel only displays data message when both types are stal
             className="to-detail"
           >
             <a
+              aria-label="Complaint 1"
               href="detail/1"
             >
               1
@@ -2165,6 +2169,7 @@ exports[`component:ListPanel renders without crashing 1`] = `
             className="to-detail"
           >
             <a
+              aria-label="Complaint 1"
               href="detail/1"
             >
               1

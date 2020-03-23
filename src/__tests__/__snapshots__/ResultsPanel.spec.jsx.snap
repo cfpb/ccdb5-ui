@@ -161,6 +161,7 @@ exports[`component:Results renders List print mode without crashing 1`] = `
               className="to-detail"
             >
               <a
+                aria-label="Complaint 1"
                 href="detail/1"
               >
                 1
@@ -746,6 +747,7 @@ exports[`component:Results renders list panel without crashing 1`] = `
               className="to-detail"
             >
               <a
+                aria-label="Complaint 1"
                 href="detail/1"
               >
                 1
