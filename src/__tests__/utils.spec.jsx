@@ -1,12 +1,29 @@
 import {
-  calculateDateInterval, clamp, coalesce, debounce, getFullUrl, hashCode,
-  shortIsoFormat
+  ariaReadoutNumbers, calculateDateInterval, clamp, coalesce, debounce,
+  getFullUrl, hashCode, shortIsoFormat
 } from '../utils'
 import { DATE_RANGE_MIN } from '../constants'
 import React from 'react'
 import moment from 'moment'
 
 describe('module::utils', () => {
+  describe( 'ariaReadoutNumbers', () => {
+    it( 'breaks a sequence of numbers into an expanded string' , () => {
+      const actual = ariaReadoutNumbers( '123456' )
+      expect(actual).toEqual('1 2 3 4 5 6');
+    } );
+
+    it( 'handles empty strings' , () => {
+      const actual = ariaReadoutNumbers( '' )
+      expect(actual).toEqual('');
+    } );
+
+    it( 'handles undefined' , () => {
+      const actual = ariaReadoutNumbers()
+      expect(actual).toEqual('');
+    } );
+  } );
+
   describe('shortIsoFormat', () => {
     it('handles nulls', () => {
       const actual = shortIsoFormat( null )
