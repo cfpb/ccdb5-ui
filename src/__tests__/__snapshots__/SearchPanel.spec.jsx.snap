@@ -17,8 +17,9 @@ exports[`component:SearchPanel displays last updated date when present 1`] = `
     </span>
   </h2>
   <div>
-    <nav
+    <div
       className="search-bar"
+      role="search"
     >
       <form
         action=""
@@ -110,19 +111,25 @@ exports[`component:SearchPanel displays last updated date when present 1`] = `
           >
             Search
           </button>
+          <a
+            className="u-visually-hidden"
+            href="#search-summary"
+          >
+            Skip to Results
+          </a>
           <div
             className="advanced-container flex-fixed"
           >
-            <a
+            <button
               className="a-btn a-btn__link o-expandable_cue-open"
               onClick={[Function]}
             >
               Show advanced search tips
-            </a>
+            </button>
           </div>
         </div>
       </form>
-    </nav>
+    </div>
   </div>
 </div>
 `;
@@ -135,8 +142,9 @@ exports[`component:SearchPanel renders without crashing 1`] = `
     Search complaint data 
   </h2>
   <div>
-    <nav
+    <div
       className="search-bar"
+      role="search"
     >
       <form
         action=""
@@ -228,19 +236,25 @@ exports[`component:SearchPanel renders without crashing 1`] = `
           >
             Search
           </button>
+          <a
+            className="u-visually-hidden"
+            href="#search-summary"
+          >
+            Skip to Results
+          </a>
           <div
             className="advanced-container flex-fixed"
           >
-            <a
+            <button
               className="a-btn a-btn__link o-expandable_cue-open"
               onClick={[Function]}
             >
               Show advanced search tips
-            </a>
+            </button>
           </div>
         </div>
       </form>
-    </nav>
+    </div>
   </div>
 </div>
 `;

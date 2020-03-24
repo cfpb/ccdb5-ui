@@ -21,7 +21,7 @@ const sorts = {
 export class ActionBar extends React.Component {
   render() {
     return (
-        <summary className="action-bar">
+        <summary className="action-bar" id="search-summary">
           <div>{ this.props.hits === this.props.total ?
              <h2>
                  Showing&nbsp;
