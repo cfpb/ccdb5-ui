@@ -6,19 +6,27 @@
     padding-left: 10px;
     .tab {
       border: none;
-      margin: 0 2px;
-      padding: 13px 30px;
+      margin: 0;
+      padding: 4px 30px 8px 30px;
+
+      font-weight: 500;
+      font-size: larger;
+
       &:not(.active) {
         color: @link-text;
         background: @white;
+        border: 1px solid @gray-20;
+        border-bottom: none;
+
         &:after {
           content: "";
-          border-bottom: dotted 1px;
+          border-top: solid 1px;
           display: block;
         }
       }
       &.active {
-        border: 1px solid @gray-20;
+        padding-top: 8px;
+        border: 1px solid @gray-40;
         border-bottom: none;
         background: @gray-5;
         pointer-events: none;
