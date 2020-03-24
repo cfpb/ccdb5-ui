@@ -9,7 +9,7 @@ import moment from 'moment'
 * @returns {string} an expanded string of digits
 */
 export function ariaReadoutNumbers( s ) {
-  return Array.from( s ).join( ' ' )
+  return Array.from( s || '' ).join( ' ' )
 }
 
 // eslint-disable-next-line complexity
