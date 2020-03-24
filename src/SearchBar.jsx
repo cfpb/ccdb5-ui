@@ -50,7 +50,7 @@ export class SearchBar extends React.Component {
   render() {
     return (
       <div>
-        <nav className="search-bar">
+        <div className="search-bar" role="search">
           <form action="" onSubmit={this._handleSubmit}>
             <h3 className="h4">Search Within</h3>
             <div className="layout-row">
@@ -86,22 +86,28 @@ export class SearchBar extends React.Component {
                       ref={elem => { this.submitButton = elem }}>
                   Search
               </button>
+
+              <a className="u-visually-hidden"
+                 href="#search-summary">
+                 Skip to Results
+              </a>
+
               <div className="advanced-container flex-fixed">
               {
                this.state.advancedShown ?
-                 <a className="a-btn a-btn__link o-expandable_cue-close"
+                 <button className="a-btn a-btn__link o-expandable_cue-close"
                       onClick={ this._onAdvancedClicked }>
                       Hide advanced search tips
-                  </a> :
-                  <a className="a-btn a-btn__link o-expandable_cue-open"
+                  </button> :
+                  <button className="a-btn a-btn__link o-expandable_cue-open"
                       onClick={ this._onAdvancedClicked }>
                       Show advanced search tips
-                  </a>
+                  </button>
               }
               </div>
             </div>
           </form>
-        </nav>
+        </div>
         {
          this.state.advancedShown ?
            <AdvancedTips /> :

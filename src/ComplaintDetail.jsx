@@ -1,5 +1,5 @@
 import './ComplaintDetail.less';
-import { bindAll } from './utils'
+import { ariaReadoutNumbers, bindAll } from './utils'
 import { connect } from 'react-redux'
 import { FormattedDate } from 'react-intl';
 import { getComplaintDetail } from './actions/complaints'
@@ -108,7 +108,7 @@ export class ComplaintDetail extends React.Component {
             ( value.toLowerCase() === 'no' ? ' not-timely' : '' )
           ) }
         </span>
-        <span className="body-copy">{ value }</span>
+        <span className="body-copy" tabIndex="0">{ value }</span>
       </div>
     )
   }
@@ -139,7 +139,7 @@ export class ComplaintDetail extends React.Component {
         <span className="cf-icon__before">
           { consentIcon }
         </span>
-        <span className="body-copy">{ value }</span>
+        <span className="body-copy" tabIndex="0">{ value }</span>
       </div>
     )
   }
@@ -155,48 +155,56 @@ export class ComplaintDetail extends React.Component {
 
     // Process the narrative
     const narrative = row.complaint_what_happened || ''
+    const h1ReadOut = ariaReadoutNumbers( this.props.complaint_id )
 
     return (
       <article>
-        <h1>{ this.props.complaint_id }</h1>
+        <h1 aria-label={ 'Complaint ' + h1ReadOut }
+            tabIndex="0">
+          { this.props.complaint_id }
+        </h1>
         <div className="card">
           <div className="card-left layout-column">
-            <h4>Date CFPB received the complaint</h4>
-            <span className="body-copy">
+            <h4 tabIndex="0">Date CFPB received the complaint</h4>
+            <span className="body-copy" tabIndex="0">
               <FormattedDate value={ row.date_received } />
             </span>
             <br />
-            <h4>Consumer's state</h4>
-            <span className="body-copy">{ row.state }</span>
+            <h4 tabIndex="0">Consumer's state</h4>
+            <span className="body-copy" tabIndex="0">{ row.state }</span>
             <br />
-            <h4>Consumer's zip</h4>
-            <span className="body-copy">{ row.zip_code }</span>
+            <h4 tabIndex="0">Consumer's zip</h4>
+            <span className="body-copy" tabIndex="0">{ row.zip_code }</span>
             <br />
-            <h4>Submitted via</h4>
-            <span className="body-copy">{ row.submitted_via }</span>
+            <h4 tabIndex="0">Submitted via</h4>
+            <span className="body-copy" tabIndex="0">
+              { row.submitted_via }
+            </span>
             <br />
-            <h4>Tags</h4>
-            <span className="body-copy">{ row.tags }</span>
+            <h4 tabIndex="0">Tags</h4>
+            <span className="body-copy" tabIndex="0">{ row.tags }</span>
             <br />
-            <h4>Did consumer dispute the response?</h4>
-            <span className="body-copy">{ row.consumer_disputed }</span>
+            <h4 tabIndex="0">Did consumer dispute the response?</h4>
+            <span className="body-copy" tabIndex="0">
+              { row.consumer_disputed }
+            </span>
           </div>
           <div className="card-right layout-column">
-            <h4>Product</h4>
-            <h3>{ row.product }</h3>
+            <h4 tabIndex="0">Product</h4>
+            <h3 tabIndex="0">{ row.product }</h3>
             { this._renderSub( 'Sub-product:', row.sub_product ) }
             <br />
-            <h4>Issue</h4>
-            <h3>{ row.issue }</h3>
+            <h4 tabIndex="0">Issue</h4>
+            <h3 tabIndex="0">{ row.issue }</h3>
             { this._renderSub( 'Sub-issue:', row.sub_issue ) }
             <br />
-            <h4>Consumer consent to publish narrative</h4>
+            <h4 tabIndex="0">Consumer consent to publish narrative</h4>
             { this._renderConsumerConsent( row.consumer_consent_provided ) }
             <br />
             { narrative ?
               <div>
-                <h4>Consumer complaint narrative</h4>
-                <span className="body-copy">
+                <h4 tabIndex="0">Consumer complaint narrative</h4>
+                <span className="body-copy" tabIndex="0">
                   { narrative }
                 </span>
               </div> :
@@ -205,27 +213,33 @@ export class ComplaintDetail extends React.Component {
           </div>
         </div>
 
-        <h2 className="company-information">Company information</h2>
+        <h2 className="company-information" tabIndex="0">
+          Company information
+        </h2>
         <div className="card">
           <div className="card-left layout-column">
-            <h4>Date complaint sent to company</h4>
-            <span className="body-copy">
+            <h4 tabIndex="0">Date complaint sent to company</h4>
+            <span className="body-copy" tabIndex="0">
               <FormattedDate value={ row.date_sent_to_company } />
             </span>
             <br />
-            <h4>Company name</h4>
-            <span className="body-copy">{ row.company }</span>
+            <h4 tabIndex="0">Company name</h4>
+            <span className="body-copy" tabIndex="0">{ row.company }</span>
             <br />
           </div>
           <div className="card-right layout-column">
-            <h4>Timely response?</h4>
+            <h4 tabIndex="0">Timely response?</h4>
             { this._renderCompanyTimely( row.timely ) }
             <br />
-            <h4>Company response to consumer</h4>
-            <span className="body-copy">{ row.company_response }</span>
+            <h4 tabIndex="0">Company response to consumer</h4>
+            <span className="body-copy" tabIndex="0">
+              { row.company_response }
+            </span>
             <br />
-            <h4>Company public response</h4>
-            <span className="body-copy">{ row.company_public_response }</span>
+            <h4 tabIndex="0">Company public response</h4>
+            <span className="body-copy" tabIndex="0">
+              { row.company_public_response }
+            </span>
           </div>
         </div>
       </article>
@@ -236,8 +250,8 @@ export class ComplaintDetail extends React.Component {
     return (
       value ?
         <div className="layout-row">
-          <span className="body-copy subitem">{ label }</span>
-          <span className="body-copy">{ value }</span>
+          <span className="body-copy subitem" tabIndex="0">{ label }</span>
+          <span className="body-copy" tabIndex="0">{ value }</span>
         </div> :
          null
     )

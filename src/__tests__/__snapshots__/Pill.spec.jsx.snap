@@ -9,9 +9,12 @@ exports[`component:Pill renders without crashing 1`] = `
   >
     bar
   </span>
-  <button
-    title="Remove bar as a filter"
-  >
+  <button>
+    <span
+      className="u-visually-hidden"
+    >
+      Remove bar as a filter
+    </span>
     <svg
       className="cf-icon-svg"
       viewBox="0 0 718.9 1200"

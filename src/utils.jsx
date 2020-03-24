@@ -1,6 +1,17 @@
 import { DATE_RANGE_MIN, SLUG_SEPARATOR } from './constants'
 import moment from 'moment'
 
+/**
+* Breaks up '123' to '1 2 3' to help screen readers read digits individually
+* https://thatdevgirl.com/blog/accessibility-phone-number-formatting
+*
+* @param {string} s the string of digits
+* @returns {string} an expanded string of digits
+*/
+export function ariaReadoutNumbers( s ) {
+  return Array.from( s ).join( ' ' )
+}
+
 // eslint-disable-next-line complexity
 export const calculateDateInterval = ( minDate, maxDate ) => {
   // only check intervals if the end date is today
