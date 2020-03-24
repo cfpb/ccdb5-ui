@@ -24,8 +24,12 @@ exports[`component:PillPanel renders without crashing 1`] = `
       </span>
       <button
         onClick={[Function]}
-        title="Remove Apples as a filter"
       >
+        <span
+          className="u-visually-hidden"
+        >
+          Remove Apples as a filter
+        </span>
         <svg
           className="cf-icon-svg"
           viewBox="0 0 718.9 1200"
@@ -47,8 +51,12 @@ exports[`component:PillPanel renders without crashing 1`] = `
       </span>
       <button
         onClick={[Function]}
-        title="Remove Bananas are great as a filter"
       >
+        <span
+          className="u-visually-hidden"
+        >
+          Remove Bananas are great as a filter
+        </span>
         <svg
           className="cf-icon-svg"
           viewBox="0 0 718.9 1200"
