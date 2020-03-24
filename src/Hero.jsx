@@ -37,7 +37,8 @@ export class Hero extends React.Component {
               </a>
             </p>
             <p>
-              We don’t verify all the allegations in complaint narratives.<span> </span>
+              We don’t verify all the allegations in complaint narratives.
+              <span> </span>
               <a href="../#what-you-should-consider">
                 Learn more
               </a>
