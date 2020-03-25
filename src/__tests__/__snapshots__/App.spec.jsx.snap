@@ -1227,31 +1227,31 @@ exports[`initial state renders without crashing 1`] = `
           <section
             className="per-capita"
           >
-            <p>
-              Map Shading
-            </p>
-            <label
-              className="u-visually-hidden"
-              htmlFor="data-normalization"
+            <div
+              className="per-capita m-btn-group"
             >
-              Select the kind of shading to apply to the map
-            </label>
-            <select
-              id="data-normalization"
-              onChange={[Function]}
-              value="None"
-            >
-              <option
-                value="None"
+              <p>
+                Map Shading
+              </p>
+              <label
+                className="u-visually-hidden"
+                htmlFor="data-normalization"
+              >
+                Select the kind of shading to apply to the map
+              </label>
+              <button
+                className="a-btn raw "
+                onClick={[Function]}
               >
                 Complaints
-              </option>
-              <option
-                value="Per 1000 pop."
+              </button>
+              <button
+                className="a-btn capita deselected"
+                onClick={[Function]}
               >
-                Per 1000 population
-              </option>
-            </select>
+                Complaints per 1,000 population
+              </button>
+            </div>
           </section>
         </div>
         <div>
