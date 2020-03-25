@@ -1,3 +1,5 @@
+import 'core-js/es6/array'
+
 /* eslint-disable global-require */
 
 /**
