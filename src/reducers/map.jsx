@@ -121,6 +121,19 @@ export function processStatesError( state, action ) {
 }
 
 /**
+ * Handler for the update filter data normalization action
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+export function updateFilterDataNormalization( state ) {
+  return {
+    ...state,
+    dataNormalization: GEO_NORM_NONE
+  };
+}
+
+/**
  * Handler for the update data normalization action
  *
  * @param {object} state the current state in the Redux store
@@ -166,6 +179,8 @@ export function _buildHandlerMap() {
   const handlers = {}
 
   handlers[actions.DATA_NORMALIZATION_SELECTED] = updateDataNormalization
+  handlers[actions.FILTER_CHANGED] = updateFilterDataNormalization
+  handlers[actions.FILTER_MULTIPLE_ADDED] = updateFilterDataNormalization
   handlers[actions.STATES_API_CALLED] = statesCallInProcess
   handlers[actions.STATES_RECEIVED] = processStatesResults
   handlers[actions.STATES_FAILED] = processStatesError
