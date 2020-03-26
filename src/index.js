@@ -1,5 +1,4 @@
-import 'react-app-polyfill/ie11'
-import 'react-app-polyfill/stable'
+import 'core-js/es6/array'
 
 /* eslint-disable global-require */
 
