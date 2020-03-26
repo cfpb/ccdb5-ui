@@ -1,7 +1,13 @@
 @import (less) "base.less";
 
 .per-capita {
-  select {
-    height: 34px;
+  button {
+    color: @black;
+    &:not(.a-btn__disabled) {
+      background-color: @pacific-80;
+    }
+    &.deselected {
+      background-color: @pacific-40;
+    }
   }
 }
