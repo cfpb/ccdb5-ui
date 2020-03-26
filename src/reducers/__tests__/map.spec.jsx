@@ -32,6 +32,75 @@ describe( 'reducer:map', () => {
     } )
   })
 
+  describe('DATE_RANGE_CHANGED',()=>{
+
+    it('handles date_received', ()=>{
+      action = {
+        type: actions.DATE_RANGE_CHANGED,
+        filterName: 'date_received',
+        minDate: 'foo',
+        maxDate: 'bar'
+      }
+      expect( target( { dataNormalization: 'FooBar' }, action ) ).toEqual( {
+        dataNormalization: 'FooBar'
+      } )
+    } )
+
+    it('handles company_received', ()=>{
+      action = {
+        type: actions.DATE_RANGE_CHANGED,
+        filterName: 'company_received',
+        minDate: 'foo',
+        maxDate: 'bar'
+      }
+      expect( target( { dataNormalization: 'FooBar' }, action ) ).toEqual( {
+        dataNormalization: GEO_NORM_NONE
+      } )
+    } )
+
+    it('handles company_received null vals', ()=>{
+      action = {
+        type: actions.DATE_RANGE_CHANGED,
+        filterName: 'company_received',
+        minDate: null,
+        maxDate: null
+      }
+      expect( target( { dataNormalization: 'FooBar' }, action ) ).toEqual( {
+        dataNormalization: 'FooBar'
+      } )
+    } )
+  })
+
+  describe('handles FILTER_CHANGED', ()=>{
+    action = {
+      type: actions.FILTER_CHANGED,
+      value: 'FooBar'
+    }
+    expect( target( { dataNormalization: 'FooBar' }, action ) ).toEqual( {
+      dataNormalization: GEO_NORM_NONE
+    } )
+  } )
+
+  describe( 'handles FILTER_MULTIPLE_ADDED', () => {
+    action = {
+      type: actions.FILTER_MULTIPLE_ADDED,
+      value: 'FooBar'
+    }
+    expect( target( { dataNormalization: 'FooBar' }, action ) ).toEqual( {
+      dataNormalization: GEO_NORM_NONE
+    } )
+  })
+
+  describe( 'handles STATE_FILTER_ADDED', () => {
+    action = {
+      type: actions.STATE_FILTER_ADDED,
+      value: 'FooBar'
+    }
+    expect( target( { dataNormalization: 'FooBar' }, action ) ).toEqual( {
+      dataNormalization: GEO_NORM_NONE
+    } )
+  })
+
   describe( 'handles STATES_API_CALLED actions', () => {
     action = {
       type: actions.STATES_API_CALLED,

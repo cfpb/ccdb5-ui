@@ -1,4 +1,6 @@
-import { DATE_RANGE_MIN, SLUG_SEPARATOR } from './constants'
+import {
+  DATE_RANGE_MIN, flagFilters, knownFilters, SLUG_SEPARATOR
+} from './constants'
 import moment from 'moment'
 
 /**
@@ -105,6 +107,36 @@ export function hashCode( someString ) {
     hash |= 0
   }
   return hash
+}
+
+/**
+ * helper function to determine if we have any filters selected so we can
+ * disable the Per 1000 Complaints button
+ * @param {object} query contains values for the filters, etc
+ * @returns {boolean} are we enabling the perCap
+ */
+// eslint-disable-next-line complexity
+export function hasFiltersEnabled( query ) {
+  const keys = []
+  let filter
+  const allFilters = knownFilters.concat( flagFilters )
+
+  for ( let i = 0; i < allFilters.length; i++ ) {
+    filter = allFilters[i]
+    // eslint-disable-next-line no-mixed-operators
+    if ( Array.isArray( query[filter] ) && query[filter].length ||
+      query[filter] === true ) {
+      keys.push( filter )
+    }
+  }
+  const compReceivedFilters = [ 'company_received_max', 'company_received_min' ]
+  for ( let i = 0; i < compReceivedFilters.length; i++ ) {
+    filter = compReceivedFilters[i]
+    if ( query[filter] ) {
+      keys.push( filter )
+    }
+  }
+  return keys.length > 0
 }
 
 /**

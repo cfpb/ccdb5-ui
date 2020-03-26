@@ -1,12 +1,27 @@
 import configureMockStore from 'redux-mock-store'
 import {
-  mapDispatchToProps, mapStateToProps, PerCapita
+  mapDispatchToProps, mapStateToProps, PerCapita, validatePerCapFilters
 } from '../PerCapita'
 import { Provider } from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 import thunk from 'redux-thunk'
+
+function setupEnzyme() {
+  const props = {
+    dataNormalization: true,
+    enablePer1000: true,
+    onDataNormalization: jest.fn()
+  }
+
+  const target = shallow(<PerCapita {...props} />);
+
+  return {
+    props,
+    target
+  }
+}
 
 function setupSnapshot() {
   const middlewares = [ thunk ]
@@ -29,6 +44,23 @@ describe( 'component: PerCapita', () => {
       let tree = target.toJSON()
       expect( tree ).toMatchSnapshot()
     } )
+
+    it('allows the user to trigger Complaints', () => {
+      const { target, props } = setupEnzyme()
+      const button = target.find('.raw');
+
+      button.simulate('click');
+      expect(props.onDataNormalization).toHaveBeenCalled();
+    });
+
+    it('allows the user to trigger Per 1000 Complaints', () => {
+      const { target, props } = setupEnzyme()
+      const button = target.find('.capita');
+
+      button.simulate('click');
+      expect(props.onDataNormalization).toHaveBeenCalled();
+    });
+
   } )
 
   describe('mapDispatchToProps', () => {
@@ -49,12 +81,14 @@ describe( 'component: PerCapita', () => {
       const state = {
         map: {
           dataNormalization: 'foo'
-        }
+        },
+        query: {}
       }
       let actual = mapStateToProps( state )
-      expect( actual ).toEqual( { dataNormalization: 'foo' } )
+      expect( actual ).toEqual( {
+        dataNormalization: 'foo',
+        enablePer1000: true
+      } )
     } )
   } )
-
-
 } )
