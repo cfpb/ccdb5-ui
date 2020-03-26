@@ -20,7 +20,6 @@ export class PerCapita extends React.Component {
     }
     return 'a-btn__disabled'
   }
-
   render() {
     return (
       <section className="per-capita">
