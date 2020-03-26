@@ -1,10 +1,11 @@
 import {
   ariaReadoutNumbers, calculateDateInterval, clamp, coalesce, debounce,
-  getFullUrl, hashCode, shortIsoFormat
+  getFullUrl, hasFiltersEnabled, hashCode, shortIsoFormat
 } from '../utils'
 import { DATE_RANGE_MIN } from '../constants'
 import React from 'react'
 import moment from 'moment'
+import { validatePerCapFilters } from '../PerCapita'
 
 describe('module::utils', () => {
   describe( 'ariaReadoutNumbers', () => {
@@ -149,5 +150,27 @@ describe('module::utils', () => {
       expect( actual ).toEqual( uri )
     } );
   } );
+
+  describe( 'hasFiltersEnabled', () => {
+    it( 'handles no filters', () => {
+      const query = {
+        date: {},
+        bogus: {},
+        product: []
+      }
+
+      expect( hasFiltersEnabled( query ) ).toBeFalsy()
+    } )
+
+    it( 'handles some filters', () => {
+      const query = {
+        date: {},
+        bogus: {},
+        product: [ { name: 'foo', value: 123 } ]
+      }
+
+      expect( hasFiltersEnabled( query ) ).toBeTruthy()
+    } )
+  } )
 })
 

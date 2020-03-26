@@ -1,7 +1,8 @@
 import './PerCapita.less'
-import { GEO_NORM_NONE, GEO_NORM_PER1000, knownFilters } from './constants'
+import { GEO_NORM_NONE, GEO_NORM_PER1000 } from './constants'
 import { connect } from 'react-redux'
 import { dataNormalizationChanged } from './actions/map';
+import { hasFiltersEnabled } from './utils'
 import React from 'react'
 
 
@@ -45,26 +46,9 @@ export class PerCapita extends React.Component {
   }
 }
 
-/**
- * helper function to determine if we have any filters selected so we can
- * disable the Per 1000 Complaints button
- * @param {object} query contains values for the filters, etc
- * @returns {boolean} are we enabling the perCap
- */
-export const validatePerCapFilters = query => {
-  const keys = []
-  for ( let i = 0; i < knownFilters.length; i++ ) {
-    const filter = knownFilters[i]
-    if ( query[filter] && query[filter].length ) {
-      keys.push( filter )
-    }
-  }
-  return keys.length === 0
-}
-
 export const mapStateToProps = state => ( {
   dataNormalization: state.map.dataNormalization,
-  enablePer1000: validatePerCapFilters( state.query )
+  enablePer1000: !hasFiltersEnabled( state.query )
 } );
 
 export const mapDispatchToProps = dispatch => ( {

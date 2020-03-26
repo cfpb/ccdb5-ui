@@ -1,4 +1,4 @@
-import { DATE_RANGE_MIN, SLUG_SEPARATOR } from './constants'
+import { DATE_RANGE_MIN, knownFilters, SLUG_SEPARATOR } from './constants'
 import moment from 'moment'
 
 /**
@@ -105,6 +105,23 @@ export function hashCode( someString ) {
     hash |= 0
   }
   return hash
+}
+
+/**
+ * helper function to determine if we have any filters selected so we can
+ * disable the Per 1000 Complaints button
+ * @param {object} query contains values for the filters, etc
+ * @returns {boolean} are we enabling the perCap
+ */
+export function hasFiltersEnabled( query ) {
+  const keys = []
+  for ( let i = 0; i < knownFilters.length; i++ ) {
+    const filter = knownFilters[i]
+    if ( query[filter] && query[filter].length ) {
+      keys.push( filter )
+    }
+  }
+  return keys.length > 0
 }
 
 /**
