@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store'
 import {
-  mapDispatchToProps, mapStateToProps, PerCapita
+  mapDispatchToProps, mapStateToProps, PerCapita, validatePerCapFilters
 } from '../PerCapita'
 import { Provider } from 'react-redux'
 import React from 'react'
@@ -89,6 +89,28 @@ describe( 'component: PerCapita', () => {
         dataNormalization: 'foo',
         enablePer1000: true
       } )
+    } )
+  } )
+
+  describe( 'validatePerCapFilters', () => {
+    it( 'handles no filters', () => {
+      const query = {
+        date: {},
+        bogus: {},
+        product: []
+      }
+
+      expect( validatePerCapFilters( query ) ).toBeTruthy()
+    } )
+
+    it( 'handles some filters', () => {
+      const query = {
+        date: {},
+        bogus: {},
+        product: [ { name: 'foo', value: 123 } ]
+      }
+
+      expect( validatePerCapFilters( query ) ).toBeFalsy()
     } )
   } )
 
