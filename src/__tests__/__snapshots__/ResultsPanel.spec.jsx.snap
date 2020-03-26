@@ -14,7 +14,7 @@ exports[`component:Results renders List print mode without crashing 1`] = `
        
        - 
     </p>
-    <p>
+    <div>
       <div>
         Showing 
         <span>
@@ -28,7 +28,7 @@ exports[`component:Results renders List print mode without crashing 1`] = `
         </span>
          total complaints 
       </div>
-    </p>
+    </div>
   </section>
   <section
     className="list-panel"
@@ -458,7 +458,7 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
        
        - 
     </p>
-    <p>
+    <div>
       <div>
         Showing 
         <span>
@@ -472,7 +472,7 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
         </span>
          total complaints 
       </div>
-    </p>
+    </div>
   </section>
   <section
     className="map-panel"
