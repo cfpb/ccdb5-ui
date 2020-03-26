@@ -171,6 +171,16 @@ describe('module::utils', () => {
 
       expect( hasFiltersEnabled( query ) ).toBeTruthy()
     } )
+
+    it( 'handles flag filters', () => {
+      const query = {
+        date: {},
+        bogus: {},
+        has_narrative: true
+      }
+
+      expect( hasFiltersEnabled( query ) ).toBeTruthy()
+    } )
   } )
 })
 
