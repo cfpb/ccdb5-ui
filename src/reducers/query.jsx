@@ -1,7 +1,9 @@
 /* eslint complexity: ["error", 7] */
 
 import * as types from '../constants'
-import { calculateDateInterval, clamp, shortIsoFormat } from '../utils'
+import {
+  calculateDateInterval, clamp, shortIsoFormat, startOfToday
+} from '../utils'
 import actions from '../actions'
 import moment from 'moment';
 
@@ -10,7 +12,7 @@ const queryString = require( 'query-string' );
 /* eslint-disable camelcase */
 export const defaultQuery = {
   dateInterval: '3y',
-  date_received_max: new Date(),
+  date_received_max: startOfToday(),
   date_received_min: new Date( moment().subtract( 3, 'years' ).calendar() ),
   from: 0,
   searchText: '',
@@ -58,10 +60,10 @@ export function alignIntervalAndRange( state ) {
   }
 
   const intervalMap = {
+    '3y': new Date( moment( dateMax ).subtract( 3, 'years' ) ),
     '3m': new Date( moment( dateMax ).subtract( 3, 'months' ) ),
     '6m': new Date( moment( dateMax ).subtract( 6, 'months' ) ),
-    '1y': new Date( moment( dateMax ).subtract( 1, 'year' ) ),
-    '3y': new Date( moment( dateMax ).subtract( 3, 'years' ) )
+    '1y': new Date( moment( dateMax ).subtract( 1, 'year' ) )
   }
   const intervals = Object.keys( intervalMap )
   let matched = false
@@ -81,6 +83,22 @@ export function alignIntervalAndRange( state ) {
   }
 
   return state
+}
+
+/**
+* Check for a common case where there is a date interval but no dates
+*
+* @param {Object} params a set of URL parameters
+* @returns {Boolean} true if the params meet this condition
+*/
+export function dateIntervalNoDates( params ) {
+  const keys = Object.keys( params )
+
+  return (
+    keys.includes( 'dateInterval' ) &&
+    !keys.includes( 'date_received_min' ) &&
+    !keys.includes( 'date_received_max' )
+  )
 }
 
 // ----------------------------------------------------------------------------
@@ -120,7 +138,13 @@ export function toDate( value ) {
 */
 function processParams( state, action ) {
   const params = action.params
-  const processed = Object.assign( {}, defaultQuery )
+  let processed = Object.assign( {}, defaultQuery )
+
+  // Apply the date interval
+  if ( dateIntervalNoDates( params ) ) {
+    const innerAction = { dateInterval: params.dateInterval }
+    processed = changeDateInterval( processed, innerAction )
+  }
 
   // Filter for known
   urlParams.forEach( field => {
@@ -198,7 +222,7 @@ export function changeDateInterval( state, action ) {
     newState.date_received_min = new Date( types.DATE_RANGE_MIN )
   }
 
-  newState.date_received_max = new Date( moment().startOf( 'day' ).toString() )
+  newState.date_received_max = startOfToday()
 
   return newState;
 }
