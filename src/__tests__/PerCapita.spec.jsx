@@ -8,6 +8,21 @@ import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 import thunk from 'redux-thunk'
 
+function setupEnzyme() {
+  const props = {
+    dataNormalization: true,
+    enablePer1000: true,
+    onDataNormalization: jest.fn()
+  }
+
+  const target = shallow(<PerCapita {...props} />);
+
+  return {
+    props,
+    target
+  }
+}
+
 function setupSnapshot() {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
@@ -29,6 +44,23 @@ describe( 'component: PerCapita', () => {
       let tree = target.toJSON()
       expect( tree ).toMatchSnapshot()
     } )
+
+    it('allows the user to trigger Complaints', () => {
+      const { target, props } = setupEnzyme()
+      const button = target.find('.raw');
+
+      button.simulate('click');
+      expect(props.onDataNormalization).toHaveBeenCalled();
+    });
+
+    it('allows the user to trigger Per 1000 Complaints', () => {
+      const { target, props } = setupEnzyme()
+      const button = target.find('.capita');
+
+      button.simulate('click');
+      expect(props.onDataNormalization).toHaveBeenCalled();
+    });
+
   } )
 
   describe('mapDispatchToProps', () => {
