@@ -271,6 +271,19 @@ describe( 'reducer:query', () => {
       expect( actual.product ).toEqual( [ 'Debt Collection', 'Mortgage' ] )
     } )
 
+    it( 'handles the "All" button from the landing page' , () => {
+      const dateMin = new Date( types.DATE_RANGE_MIN )
+      const dateMax = new Date( moment().startOf( 'day' ).toString() )
+
+      action.params = { dataNormalization: 'None', dateInterval: 'All' }
+
+      const actual = target( {}, action )
+
+      expect( actual.date_received_min ).toEqual( dateMin )
+      expect( actual.date_received_max ).toEqual( dateMax )
+      expect( actual.dateInterval ).toEqual( 'All' )
+    } );
+
     describe( 'dates', () => {
       let expected;
       beforeEach( () => {
