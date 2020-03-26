@@ -90,29 +90,5 @@ describe( 'component: PerCapita', () => {
         enablePer1000: true
       } )
     } )
-  } )
-
-  describe( 'validatePerCapFilters', () => {
-    it( 'handles no filters', () => {
-      const query = {
-        date: {},
-        bogus: {},
-        product: []
-      }
-
-      expect( validatePerCapFilters( query ) ).toBeTruthy()
-    } )
-
-    it( 'handles some filters', () => {
-      const query = {
-        date: {},
-        bogus: {},
-        product: [ { name: 'foo', value: 123 } ]
-      }
-
-      expect( validatePerCapFilters( query ) ).toBeFalsy()
-    } )
-  } )
-
-
+  }
 } )
