@@ -32,6 +32,33 @@ describe( 'reducer:map', () => {
     } )
   })
 
+  describe('DATE_RANGE_CHANGED',()=>{
+
+    it('handles date_received', ()=>{
+      action = {
+        type: actions.DATE_RANGE_CHANGED,
+        filterName: 'date_received',
+        minDate: 'foo',
+        maxDate: 'bar'
+      }
+      expect( target( { dataNormalization: 'FooBar' }, action ) ).toEqual( {
+        dataNormalization: 'FooBar'
+      } )
+    } )
+
+    it('handles company_received', ()=>{
+      action = {
+        type: actions.DATE_RANGE_CHANGED,
+        filterName: 'company_received',
+        minDate: 'foo',
+        maxDate: 'bar'
+      }
+      expect( target( { dataNormalization: 'FooBar' }, action ) ).toEqual( {
+        dataNormalization: GEO_NORM_NONE
+      } )
+    } )
+  })
+
   describe('handles FILTER_CHANGED', ()=>{
     action = {
       type: actions.FILTER_CHANGED,
@@ -45,6 +72,16 @@ describe( 'reducer:map', () => {
   describe( 'handles FILTER_MULTIPLE_ADDED', () => {
     action = {
       type: actions.FILTER_MULTIPLE_ADDED,
+      value: 'FooBar'
+    }
+    expect( target( { dataNormalization: 'FooBar' }, action ) ).toEqual( {
+      dataNormalization: GEO_NORM_NONE
+    } )
+  })
+
+  describe( 'handles STATE_FILTER_ADDED', () => {
+    action = {
+      type: actions.STATE_FILTER_ADDED,
       value: 'FooBar'
     }
     expect( target( { dataNormalization: 'FooBar' }, action ) ).toEqual( {

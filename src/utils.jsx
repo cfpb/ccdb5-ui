@@ -115,14 +115,24 @@ export function hashCode( someString ) {
  * @param {object} query contains values for the filters, etc
  * @returns {boolean} are we enabling the perCap
  */
+// eslint-disable-next-line complexity
 export function hasFiltersEnabled( query ) {
   const keys = []
+  let filter
   const allFilters = knownFilters.concat( flagFilters )
+
   for ( let i = 0; i < allFilters.length; i++ ) {
-    const filter = allFilters[i]
+    filter = allFilters[i]
     // eslint-disable-next-line no-mixed-operators
     if ( Array.isArray( query[filter] ) && query[filter].length ||
       query[filter] === true ) {
+      keys.push( filter )
+    }
+  }
+  const compReceivedFilters = [ 'company_received_max', 'company_received_min' ]
+  for ( let i = 0; i < compReceivedFilters.length; i++ ) {
+    filter = compReceivedFilters[i]
+    if ( query[filter] ) {
       keys.push( filter )
     }
   }
