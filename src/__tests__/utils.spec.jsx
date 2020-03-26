@@ -181,6 +181,17 @@ describe('module::utils', () => {
 
       expect( hasFiltersEnabled( query ) ).toBeTruthy()
     } )
+
+    it( 'handles company_received filters', () => {
+      const query = {
+        date: {},
+        bogus: {},
+        product: [],
+        company_received_max: 'foo'
+      }
+
+      expect( hasFiltersEnabled( query ) ).toBeTruthy()
+    } )
   } )
 })
 

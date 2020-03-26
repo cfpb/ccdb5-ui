@@ -57,6 +57,18 @@ describe( 'reducer:map', () => {
         dataNormalization: GEO_NORM_NONE
       } )
     } )
+
+    it('handles company_received null vals', ()=>{
+      action = {
+        type: actions.DATE_RANGE_CHANGED,
+        filterName: 'company_received',
+        minDate: null,
+        maxDate: null
+      }
+      expect( target( { dataNormalization: 'FooBar' }, action ) ).toEqual( {
+        dataNormalization: 'FooBar'
+      } )
+    } )
   })
 
   describe('handles FILTER_CHANGED', ()=>{

@@ -108,12 +108,6 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
         <p>
           Map Shading
         </p>
-        <label
-          className="u-visually-hidden"
-          htmlFor="data-normalization"
-        >
-          Select the kind of shading to apply to the map
-        </label>
         <button
           className="a-btn raw deselected"
           onClick={[Function]}
@@ -285,12 +279,6 @@ exports[`component:MapPanel renders without crashing 1`] = `
         <p>
           Map Shading
         </p>
-        <label
-          className="u-visually-hidden"
-          htmlFor="data-normalization"
-        >
-          Select the kind of shading to apply to the map
-        </label>
         <button
           className="a-btn raw deselected"
           onClick={[Function]}
