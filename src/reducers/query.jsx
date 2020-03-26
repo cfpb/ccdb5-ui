@@ -1,3 +1,5 @@
+/* eslint complexity: ["error", 7] */
+
 import * as types from '../constants'
 import { calculateDateInterval, clamp, shortIsoFormat } from '../utils'
 import actions from '../actions'
@@ -32,6 +34,54 @@ const excludeParams = [ 'totalPages' ]
 
 const urlParams = [ 'dateInterval', 'searchText', 'searchField', 'tab' ]
 const urlParamsInt = [ 'from', 'page', 'size' ]
+
+// ----------------------------------------------------------------------------
+// Helper functions
+
+/**
+* Makes sure the date interval reflects the actual date range
+*
+* @param {object} state the raw, unvalidated state
+* @returns {object} the validated state
+*/
+export function alignIntervalAndRange( state ) {
+  // Shorten the input field names
+  const dateMax = state.date_received_max
+  const dateMin = state.date_received_min
+
+  // All
+  if ( moment( dateMax ).isSame( defaultQuery.date_received_max ) &&
+    moment( dateMin ).isSame( types.DATE_RANGE_MIN )
+  ) {
+    state.dateInterval = 'All'
+    return state
+  }
+
+  const intervalMap = {
+    '3m': new Date( moment( dateMax ).subtract( 3, 'months' ) ),
+    '6m': new Date( moment( dateMax ).subtract( 6, 'months' ) ),
+    '1y': new Date( moment( dateMax ).subtract( 1, 'year' ) ),
+    '3y': new Date( moment( dateMax ).subtract( 3, 'years' ) )
+  }
+  const intervals = Object.keys( intervalMap )
+  let matched = false
+
+  for ( let i = 0; i < intervals.length && !matched; i++ ) {
+    const interval = intervals[i]
+
+    if ( moment( dateMin ).isSame( intervalMap[interval], 'day' ) ) {
+      state.dateInterval = interval
+      matched = true
+    }
+  }
+
+  // No matches, clear
+  if ( !matched ) {
+    state.dateInterval = ''
+  }
+
+  return state
+}
 
 // ----------------------------------------------------------------------------
 // Complex reduction logic
@@ -117,7 +167,7 @@ function processParams( state, action ) {
     }
   } )
 
-  return processed
+  return alignIntervalAndRange( processed )
 }
 
 /**
@@ -552,7 +602,6 @@ export function stateToQS( state ) {
   const fields = Object.keys( state )
 
   // Copy over the fields
-  /* eslint complexity: ["error", 6] */
   fields.forEach( field => {
     // Do not include empty fields
     if ( !state[field] ) {
