@@ -26,9 +26,6 @@ export class PerCapita extends React.Component {
       <section className="per-capita">
         <div className="per-capita m-btn-group">
           <p>Map Shading</p>
-          <label className="u-visually-hidden" htmlFor="data-normalization">
-            Select the kind of shading to apply to the map
-          </label>
           <button
             className={ 'a-btn raw ' + this._getRawButtonClass() }
             onClick={ () => this._setNormalization( GEO_NORM_NONE ) }>Complaints

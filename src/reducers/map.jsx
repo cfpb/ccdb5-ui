@@ -120,6 +120,28 @@ export function processStatesError( state, action ) {
   }
 }
 
+
+/**
+ * Handler for the update filter data normalization action
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the command being executed
+ * @returns {object} the new state for the Redux store
+ */
+export function updateDateDataNormalization( state, action ) {
+  let dataNormalization = state.dataNormalization
+  if ( action.filterName === 'company_received' ) {
+    if ( action.minDate || action.maxDate ) {
+      dataNormalization = GEO_NORM_NONE
+    }
+  }
+
+  return {
+    ...state,
+    dataNormalization
+  }
+}
+
 /**
  * Handler for the update filter data normalization action
  *
@@ -130,7 +152,7 @@ export function updateFilterDataNormalization( state ) {
   return {
     ...state,
     dataNormalization: GEO_NORM_NONE
-  };
+  }
 }
 
 /**
@@ -144,7 +166,7 @@ export function updateDataNormalization( state, action ) {
   return {
     ...state,
     dataNormalization: action.value
-  };
+  }
 }
 
 /**
@@ -179,8 +201,10 @@ export function _buildHandlerMap() {
   const handlers = {}
 
   handlers[actions.DATA_NORMALIZATION_SELECTED] = updateDataNormalization
+  handlers[actions.DATE_RANGE_CHANGED] = updateDateDataNormalization
   handlers[actions.FILTER_CHANGED] = updateFilterDataNormalization
   handlers[actions.FILTER_MULTIPLE_ADDED] = updateFilterDataNormalization
+  handlers[actions.STATE_FILTER_ADDED] = updateFilterDataNormalization
   handlers[actions.STATES_API_CALLED] = statesCallInProcess
   handlers[actions.STATES_RECEIVED] = processStatesResults
   handlers[actions.STATES_FAILED] = processStatesError
