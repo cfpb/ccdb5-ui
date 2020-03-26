@@ -14,6 +14,10 @@
     button {
       border-color: @dark-red;
       color: @dark-red;
+      margin-left: @gutter-narrow;
+      svg {
+        margin-right: @gutter-narrow/2;
+      }
     }
   }
 
@@ -24,7 +28,6 @@
 
   li {
     display: inline-block;
-    margin-top: @gutter-narrow;
     position: relative;
   }
 
@@ -36,6 +39,12 @@
     margin-top: 10px;
     .layout-row {
       padding-left: 0;
+    }
+    .clear-all {
+      display: block;
+      button {
+        margin: 0;
+      }
     }
   }
 }
