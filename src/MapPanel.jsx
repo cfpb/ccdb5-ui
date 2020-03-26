@@ -12,8 +12,8 @@ import RowChart from './RowChart'
 import TileChartMap from './TileChartMap'
 import Warning from './Warning'
 
-const WARNING_MESSAGE = 'Due to your filter selections, the "Complaints per ' +
-  '1,000" option has been disabled'
+const WARNING_MESSAGE = 'Due to your filter selections, the “Complaints per' +
+  ' 1,000” option has been disabled'
 
 export class MapPanel extends React.Component {
   render() {
