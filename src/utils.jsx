@@ -1,4 +1,6 @@
-import { DATE_RANGE_MIN, knownFilters, SLUG_SEPARATOR } from './constants'
+import {
+  DATE_RANGE_MIN, flagFilters, knownFilters, SLUG_SEPARATOR
+} from './constants'
 import moment from 'moment'
 
 /**
@@ -115,9 +117,12 @@ export function hashCode( someString ) {
  */
 export function hasFiltersEnabled( query ) {
   const keys = []
-  for ( let i = 0; i < knownFilters.length; i++ ) {
-    const filter = knownFilters[i]
-    if ( query[filter] && query[filter].length ) {
+  const allFilters = knownFilters.concat( flagFilters )
+  for ( let i = 0; i < allFilters.length; i++ ) {
+    const filter = allFilters[i]
+    // eslint-disable-next-line no-mixed-operators
+    if ( Array.isArray( query[filter] ) && query[filter].length ||
+      query[filter] === true ) {
       keys.push( filter )
     }
   }
