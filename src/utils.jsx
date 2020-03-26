@@ -165,6 +165,15 @@ export function shortIsoFormat( date ) {
   return date ? date.toISOString().substring( 0, 10 ) : ''
 }
 
+/**
+* Gets the UTC time for the beginning of the day in the local time zone
+*
+* @returns {Date} midnight today, local
+*/
+export function startOfToday() {
+  return new Date( moment().startOf( 'day' ).toString() )
+}
+
 // ----------------------------------------------------------------------------
 // attribution: underscore.js (MIT License)
 
