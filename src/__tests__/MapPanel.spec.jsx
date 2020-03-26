@@ -21,12 +21,16 @@ function setupSnapshot( printMode ) {
       total: items.length
     },
     map: {
+      product: [],
       state: []
     },
     query: {
       from: 0,
       size: 10,
-      tab: MODE_MAP
+      tab: MODE_MAP,
+      product: [
+        { name: 'foo' }
+      ]
     },
     results: {
       items

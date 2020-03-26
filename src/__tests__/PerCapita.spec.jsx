@@ -90,5 +90,5 @@ describe( 'component: PerCapita', () => {
         enablePer1000: true
       } )
     } )
-  }
+  } )
 } )
