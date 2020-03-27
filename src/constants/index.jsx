@@ -38,7 +38,7 @@ export const knownFilters = [
   'product',
   'state',
   'submitted_via',
-  'tag',
+  'tags',
   'timely',
   'zip_code'
 ]
