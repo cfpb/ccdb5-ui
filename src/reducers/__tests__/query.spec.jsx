@@ -1,5 +1,5 @@
 import target, {
-  defaultQuery, filterArrayAction
+  alignIntervalAndRange, defaultQuery, filterArrayAction
 } from '../query'
 import actions from '../../actions'
 import * as types from '../../constants'
@@ -199,6 +199,7 @@ describe( 'reducer:query', () => {
       } )
     } )
   } )
+
   describe( 'URL_CHANGED actions', () => {
     let action = null
     let state = null
@@ -269,6 +270,85 @@ describe( 'reducer:query', () => {
       const actual = target( {}, action )
       expect( actual.product ).toEqual( [ 'Debt Collection', 'Mortgage' ] )
     } )
+
+    it( 'handles the "All" button from the landing page' , () => {
+      const dateMin = new Date( types.DATE_RANGE_MIN )
+      const dateMax = new Date( moment().startOf( 'day' ).toString() )
+
+      action.params = { dataNormalization: 'None', dateInterval: 'All' }
+
+      const actual = target( {}, action )
+
+      expect( actual.date_received_min ).toEqual( dateMin )
+      expect( actual.date_received_max ).toEqual( dateMax )
+      expect( actual.dateInterval ).toEqual( 'All' )
+    } );
+
+    describe( 'dates', () => {
+      let expected;
+      beforeEach( () => {
+        state.dateInterval = '2y'
+        expected = { ...defaultQuery }
+      } );
+
+      it( 'clears the default interval if the dates are not 3 years apart' , () => {
+        state.date_received_min = new Date(
+          moment().subtract( 2, 'years' ).calendar()
+        )
+        expected.dateInterval = ''
+        expected.date_received_min = state.date_received_min
+
+        const actual = alignIntervalAndRange( state )
+        expect( actual ).toEqual( expected );
+      } );
+
+      it( 'sets the All interval if the dates are right' , () => {
+        state.date_received_min = new Date( types.DATE_RANGE_MIN )
+        expected.dateInterval = 'All'
+        expected.date_received_min = state.date_received_min
+
+        const actual = alignIntervalAndRange( state )
+        expect( actual ).toEqual( expected );
+      } );
+
+      it( 'sets the 3m interval if the dates are right' , () => {
+        state.date_received_min = new Date(
+          moment().subtract( 3, 'months' ).calendar()
+        )
+        expected.dateInterval = '3m'
+        expected.date_received_min = state.date_received_min
+
+        const actual = alignIntervalAndRange( state )
+        expect( actual ).toEqual( expected );
+      } );
+
+      it( 'sets the 6m interval if the dates are right' , () => {
+        state.date_received_min = new Date(
+          moment().subtract( 6, 'months' ).calendar()
+        )
+        expected.dateInterval = '6m'
+        expected.date_received_min = state.date_received_min
+
+        const actual = alignIntervalAndRange( state )
+        expect( actual ).toEqual( expected );
+      } );
+
+      it( 'sets the 1y interval if the dates are right' , () => {
+        state.date_received_min = new Date(
+          moment().subtract( 1, 'year' ).calendar()
+        )
+        expected.dateInterval = '1y'
+        expected.date_received_min = state.date_received_min
+
+        const actual = alignIntervalAndRange( state )
+        expect( actual ).toEqual( expected );
+      } );
+
+      it( 'sets the 3y interval if the dates are right' , () => {
+        const actual = alignIntervalAndRange( state )
+        expect( actual ).toEqual( expected );
+      } );
+    } );
   } )
 
   describe( 'Filters', () => {
@@ -671,7 +751,5 @@ describe( 'reducer:query', () => {
         } )
       } )
     } )
-
-
   } )
 } )

@@ -80,7 +80,7 @@ export function getBins( data, colors ) {
 }
 
 /**
- * helper function to get the per Capita bins for legend and colors, etc.
+ * helper function to get the Per 1000 population bins for legend and colors
  * @param {Array} data all of the states w/ displayValue, complaintCount, raw
  * @param {Array} colors an array of colors
  * @returns {Array} contains bins with bounds, colors, name, and color
@@ -165,6 +165,16 @@ export function getColorByValue( value, bins ) {
    Highcharts callbacks */
 
 /**
+* callback function for reporting the series point in a voiceover text
+*
+* @param {Object} p the point in the series
+* @returns {string} the text to speak
+*/
+export function pointDescriptionFormatter( p ) {
+  return `${ p.fullName } ${ p.displayValue }`
+}
+
+/**
  * callback function to format the individual tiles in HTML
  * @returns {string} html output
  */
@@ -200,7 +210,7 @@ export function tooltipFormatter() {
 
   const value = this.value.toLocaleString();
   const perCapita = this.perCapita ? '<div class="row u-clearfix">' +
-    '<p class="u-float-left">Per capita</p>' +
+    '<p class="u-float-left">Per 1000 population</p>' +
     '<p class="u-right">' + this.perCapita + '</p>' +
     '</div>' : '';
 
@@ -363,7 +373,13 @@ class TileMap {
       series: [ {
         type: 'map',
         clip: false,
-        data: data
+        data: data,
+        accessibility: {
+          description: legendTitle + ' in the United States',
+          exposeAsGroupOnly: false,
+          keyboardNavigation: { enabled: true },
+          pointDescriptionFormatter: pointDescriptionFormatter
+        }
       } ]
     };
 
@@ -372,12 +388,27 @@ class TileMap {
       options.plotOptions.series.events = events;
     }
 
-    // patches to adjust for legend height
-    if ( width < 500 ) {
-      const legendHeight = 70
-      options.chart.marginTop = legendHeight
-      options.chart.height += legendHeight
-    }
+    // to adjust for legend height
+    const mapBreakpoints = [
+      { width: 700, legendHeight: 15 },
+      { width: 580, legendHeight: 20 },
+      { width: 500, legendHeight: 30 },
+      { width: 400, legendHeight: 40 },
+      { width: 370, legendHeight: 55 }
+    ]
+
+    let legendHeight = 10
+
+    mapBreakpoints.forEach( item => {
+      if ( width < item.width ) {
+        legendHeight = item.legendHeight
+      }
+    } )
+
+    options.chart.marginRight = 0
+    options.chart.marginLeft = 0
+    options.chart.marginTop = legendHeight
+    options.chart.height += legendHeight
 
     this.draw( el, options );
   }

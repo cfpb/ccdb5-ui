@@ -14,12 +14,15 @@ exports[`initial state hides the section when there is no narrative 1`] = `
         className="to-detail"
       >
         <a
+          aria-label="Complaint 9 9 9 9 0 9 0 9"
           href="detail/99990909"
         >
           99990909
         </a>
       </h3>
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Company name
       </h4>
       <span
@@ -29,9 +32,12 @@ exports[`initial state hides the section when there is no narrative 1`] = `
             "__html": "ABC Corp",
           }
         }
+        tabIndex="0"
       />
       <br />
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Company response to consumer
       </h4>
       <span
@@ -41,9 +47,12 @@ exports[`initial state hides the section when there is no narrative 1`] = `
             "__html": "Ipsum",
           }
         }
+        tabIndex="0"
       />
       <br />
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Timely response?
       </h4>
       <span
@@ -53,6 +62,7 @@ exports[`initial state hides the section when there is no narrative 1`] = `
             "__html": "Yes",
           }
         }
+        tabIndex="0"
       />
     </div>
     <div
@@ -64,7 +74,9 @@ exports[`initial state hides the section when there is no narrative 1`] = `
         <div
           className="layout-row"
         >
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Date received:
           </h4>
           <span
@@ -81,7 +93,9 @@ exports[`initial state hides the section when there is no narrative 1`] = `
         <div
           className="layout-row"
         >
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Consumer's state:
           </h4>
           <span
@@ -91,11 +105,14 @@ exports[`initial state hides the section when there is no narrative 1`] = `
                 "__html": "DC",
               }
             }
+            tabIndex="0"
           />
         </div>
       </div>
       <br />
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Product
       </h4>
       <h3
@@ -104,12 +121,14 @@ exports[`initial state hides the section when there is no narrative 1`] = `
             "__html": "Beta",
           }
         }
+        tabIndex="0"
       />
       <div
         className="layout-row"
       >
         <span
           className="body-copy subitem"
+          tabIndex="0"
         >
           Sub-product:
         </span>
@@ -120,10 +139,13 @@ exports[`initial state hides the section when there is no narrative 1`] = `
               "__html": "Delta",
             }
           }
+          tabIndex="0"
         />
       </div>
       <br />
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Issue
       </h4>
       <h3
@@ -132,12 +154,14 @@ exports[`initial state hides the section when there is no narrative 1`] = `
             "__html": "Alpha",
           }
         }
+        tabIndex="0"
       />
       <div
         className="layout-row"
       >
         <span
           className="body-copy subitem"
+          tabIndex="0"
         >
           Sub-issue:
         </span>
@@ -148,6 +172,7 @@ exports[`initial state hides the section when there is no narrative 1`] = `
               "__html": "Gamma",
             }
           }
+          tabIndex="0"
         />
       </div>
     </div>
@@ -169,12 +194,15 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
         className="to-detail"
       >
         <a
+          aria-label="Complaint 9 9 9 9 0 9 0 9"
           href="detail/99990909"
         >
           99990909
         </a>
       </h3>
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Company name
       </h4>
       <span
@@ -184,9 +212,12 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
             "__html": "ABC Corp",
           }
         }
+        tabIndex="0"
       />
       <br />
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Company response to consumer
       </h4>
       <span
@@ -196,9 +227,12 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
             "__html": "Ipsum",
           }
         }
+        tabIndex="0"
       />
       <br />
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Timely response?
       </h4>
       <span
@@ -208,6 +242,7 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
             "__html": "Yes",
           }
         }
+        tabIndex="0"
       />
     </div>
     <div
@@ -219,7 +254,9 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
         <div
           className="layout-row"
         >
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Date received:
           </h4>
           <span
@@ -236,7 +273,9 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
         <div
           className="layout-row"
         >
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Consumer's state:
           </h4>
           <span
@@ -246,11 +285,14 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
                 "__html": "DC",
               }
             }
+            tabIndex="0"
           />
         </div>
       </div>
       <br />
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Product
       </h4>
       <h3
@@ -259,12 +301,14 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
             "__html": "Beta",
           }
         }
+        tabIndex="0"
       />
       <div
         className="layout-row"
       >
         <span
           className="body-copy subitem"
+          tabIndex="0"
         >
           Sub-product:
         </span>
@@ -275,10 +319,13 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
               "__html": "Delta",
             }
           }
+          tabIndex="0"
         />
       </div>
       <br />
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Issue
       </h4>
       <h3
@@ -287,10 +334,13 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
             "__html": "Alpha",
           }
         }
+        tabIndex="0"
       />
       <div>
         <br />
-        <h4>
+        <h4
+          tabIndex="0"
+        >
           Consumer Complaint Narrative
         </h4>
         <span
@@ -300,6 +350,7 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
               "__html": "Oh baby you. Got what I need",
             }
           }
+          tabIndex="0"
         />
       </div>
     </div>
@@ -321,12 +372,15 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
         className="to-detail"
       >
         <a
+          aria-label="Complaint 9 9 9 9 0 9 0 9"
           href="detail/99990909"
         >
           99990909
         </a>
       </h3>
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Company name
       </h4>
       <span
@@ -336,9 +390,12 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
             "__html": "ABC Corp",
           }
         }
+        tabIndex="0"
       />
       <br />
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Company response to consumer
       </h4>
       <span
@@ -348,9 +405,12 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
             "__html": "Ipsum",
           }
         }
+        tabIndex="0"
       />
       <br />
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Timely response?
       </h4>
       <span
@@ -360,6 +420,7 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
             "__html": "Yes",
           }
         }
+        tabIndex="0"
       />
     </div>
     <div
@@ -371,7 +432,9 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
         <div
           className="layout-row"
         >
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Date received:
           </h4>
           <span
@@ -388,7 +451,9 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
         <div
           className="layout-row"
         >
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Consumer's state:
           </h4>
           <span
@@ -398,11 +463,14 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
                 "__html": "DC",
               }
             }
+            tabIndex="0"
           />
         </div>
       </div>
       <br />
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Product
       </h4>
       <h3
@@ -411,9 +479,12 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
             "__html": "Beta",
           }
         }
+        tabIndex="0"
       />
       <br />
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Issue
       </h4>
       <h3
@@ -422,12 +493,14 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
             "__html": "Alpha",
           }
         }
+        tabIndex="0"
       />
       <div
         className="layout-row"
       >
         <span
           className="body-copy subitem"
+          tabIndex="0"
         >
           Sub-issue:
         </span>
@@ -438,11 +511,14 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
               "__html": "Gamma",
             }
           }
+          tabIndex="0"
         />
       </div>
       <div>
         <br />
-        <h4>
+        <h4
+          tabIndex="0"
+        >
           Consumer Complaint Narrative
         </h4>
         <span
@@ -452,6 +528,7 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
               "__html": "Oh baby you. Got what I need",
             }
           }
+          tabIndex="0"
         />
       </div>
     </div>
@@ -473,12 +550,15 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
         className="to-detail"
       >
         <a
+          aria-label="Complaint 9 9 9 9 0 9 0 9"
           href="detail/99990909"
         >
           99990909
         </a>
       </h3>
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Company name
       </h4>
       <span
@@ -488,9 +568,12 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
             "__html": "ABC Corp",
           }
         }
+        tabIndex="0"
       />
       <br />
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Company response to consumer
       </h4>
       <span
@@ -500,9 +583,12 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
             "__html": "Ipsum",
           }
         }
+        tabIndex="0"
       />
       <br />
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Timely response?
       </h4>
       <span
@@ -512,6 +598,7 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
             "__html": "Yes",
           }
         }
+        tabIndex="0"
       />
     </div>
     <div
@@ -523,7 +610,9 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
         <div
           className="layout-row"
         >
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Date received:
           </h4>
           <span
@@ -540,7 +629,9 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
         <div
           className="layout-row"
         >
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Consumer's state:
           </h4>
           <span
@@ -550,11 +641,14 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
                 "__html": "DC",
               }
             }
+            tabIndex="0"
           />
         </div>
       </div>
       <br />
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Product
       </h4>
       <h3
@@ -563,12 +657,14 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
             "__html": "Beta",
           }
         }
+        tabIndex="0"
       />
       <div
         className="layout-row"
       >
         <span
           className="body-copy subitem"
+          tabIndex="0"
         >
           Sub-product:
         </span>
@@ -579,10 +675,13 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
               "__html": "Delta",
             }
           }
+          tabIndex="0"
         />
       </div>
       <br />
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Issue
       </h4>
       <h3
@@ -591,12 +690,14 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
             "__html": "Alpha",
           }
         }
+        tabIndex="0"
       />
       <div
         className="layout-row"
       >
         <span
           className="body-copy subitem"
+          tabIndex="0"
         >
           Sub-issue:
         </span>
@@ -607,11 +708,14 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
               "__html": "Gamma",
             }
           }
+          tabIndex="0"
         />
       </div>
       <div>
         <br />
-        <h4>
+        <h4
+          tabIndex="0"
+        >
           Consumer Complaint Narrative
         </h4>
         <span
@@ -621,6 +725,7 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
               "__html": "Call me Ishmael. Some years ago- never mind how long precisely- having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulati",
             }
           }
+          tabIndex="0"
         />
         <span>
            
@@ -650,12 +755,15 @@ exports[`initial state removes <em> highlighting tags effectively from text 1`] 
         className="to-detail"
       >
         <a
+          aria-label="Complaint 9 9 9 9 0 9 0 9"
           href="detail/99990909"
         >
           99990909
         </a>
       </h3>
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Company name
       </h4>
       <span
@@ -665,9 +773,12 @@ exports[`initial state removes <em> highlighting tags effectively from text 1`] 
             "__html": "ABC Corp",
           }
         }
+        tabIndex="0"
       />
       <br />
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Company response to consumer
       </h4>
       <span
@@ -677,9 +788,12 @@ exports[`initial state removes <em> highlighting tags effectively from text 1`] 
             "__html": "Ipsum",
           }
         }
+        tabIndex="0"
       />
       <br />
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Timely response?
       </h4>
       <span
@@ -689,6 +803,7 @@ exports[`initial state removes <em> highlighting tags effectively from text 1`] 
             "__html": "Yes",
           }
         }
+        tabIndex="0"
       />
     </div>
     <div
@@ -700,7 +815,9 @@ exports[`initial state removes <em> highlighting tags effectively from text 1`] 
         <div
           className="layout-row"
         >
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Date received:
           </h4>
           <span
@@ -717,7 +834,9 @@ exports[`initial state removes <em> highlighting tags effectively from text 1`] 
         <div
           className="layout-row"
         >
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Consumer's state:
           </h4>
           <span
@@ -727,11 +846,14 @@ exports[`initial state removes <em> highlighting tags effectively from text 1`] 
                 "__html": "DC",
               }
             }
+            tabIndex="0"
           />
         </div>
       </div>
       <br />
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Product
       </h4>
       <h3
@@ -740,12 +862,14 @@ exports[`initial state removes <em> highlighting tags effectively from text 1`] 
             "__html": "Beta",
           }
         }
+        tabIndex="0"
       />
       <div
         className="layout-row"
       >
         <span
           className="body-copy subitem"
+          tabIndex="0"
         >
           Sub-product:
         </span>
@@ -756,10 +880,13 @@ exports[`initial state removes <em> highlighting tags effectively from text 1`] 
               "__html": "Delta",
             }
           }
+          tabIndex="0"
         />
       </div>
       <br />
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Issue
       </h4>
       <h3
@@ -768,12 +895,14 @@ exports[`initial state removes <em> highlighting tags effectively from text 1`] 
             "__html": "Alpha",
           }
         }
+        tabIndex="0"
       />
       <div
         className="layout-row"
       >
         <span
           className="body-copy subitem"
+          tabIndex="0"
         >
           Sub-issue:
         </span>
@@ -784,11 +913,14 @@ exports[`initial state removes <em> highlighting tags effectively from text 1`] 
               "__html": "Gamma",
             }
           }
+          tabIndex="0"
         />
       </div>
       <div>
         <br />
-        <h4>
+        <h4
+          tabIndex="0"
+        >
           Consumer Complaint Narrative
         </h4>
         <span
@@ -798,6 +930,7 @@ exports[`initial state removes <em> highlighting tags effectively from text 1`] 
               "__html": "Oh baby you. Got what I need",
             }
           }
+          tabIndex="0"
         />
       </div>
     </div>
@@ -819,12 +952,15 @@ exports[`initial state renders without crashing 1`] = `
         className="to-detail"
       >
         <a
+          aria-label="Complaint 9 9 9 9 0 9 0 9"
           href="detail/99990909"
         >
           99990909
         </a>
       </h3>
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Company name
       </h4>
       <span
@@ -834,9 +970,12 @@ exports[`initial state renders without crashing 1`] = `
             "__html": "ABC Corp",
           }
         }
+        tabIndex="0"
       />
       <br />
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Company response to consumer
       </h4>
       <span
@@ -846,9 +985,12 @@ exports[`initial state renders without crashing 1`] = `
             "__html": "Ipsum",
           }
         }
+        tabIndex="0"
       />
       <br />
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Timely response?
       </h4>
       <span
@@ -858,6 +1000,7 @@ exports[`initial state renders without crashing 1`] = `
             "__html": "Yes",
           }
         }
+        tabIndex="0"
       />
     </div>
     <div
@@ -869,7 +1012,9 @@ exports[`initial state renders without crashing 1`] = `
         <div
           className="layout-row"
         >
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Date received:
           </h4>
           <span
@@ -886,7 +1031,9 @@ exports[`initial state renders without crashing 1`] = `
         <div
           className="layout-row"
         >
-          <h4>
+          <h4
+            tabIndex="0"
+          >
             Consumer's state:
           </h4>
           <span
@@ -896,11 +1043,14 @@ exports[`initial state renders without crashing 1`] = `
                 "__html": "DC",
               }
             }
+            tabIndex="0"
           />
         </div>
       </div>
       <br />
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Product
       </h4>
       <h3
@@ -909,12 +1059,14 @@ exports[`initial state renders without crashing 1`] = `
             "__html": "Beta",
           }
         }
+        tabIndex="0"
       />
       <div
         className="layout-row"
       >
         <span
           className="body-copy subitem"
+          tabIndex="0"
         >
           Sub-product:
         </span>
@@ -925,10 +1077,13 @@ exports[`initial state renders without crashing 1`] = `
               "__html": "Delta",
             }
           }
+          tabIndex="0"
         />
       </div>
       <br />
-      <h4>
+      <h4
+        tabIndex="0"
+      >
         Issue
       </h4>
       <h3
@@ -937,12 +1092,14 @@ exports[`initial state renders without crashing 1`] = `
             "__html": "Alpha",
           }
         }
+        tabIndex="0"
       />
       <div
         className="layout-row"
       >
         <span
           className="body-copy subitem"
+          tabIndex="0"
         >
           Sub-issue:
         </span>
@@ -953,11 +1110,14 @@ exports[`initial state renders without crashing 1`] = `
               "__html": "Gamma",
             }
           }
+          tabIndex="0"
         />
       </div>
       <div>
         <br />
-        <h4>
+        <h4
+          tabIndex="0"
+        >
           Consumer Complaint Narrative
         </h4>
         <span
@@ -967,6 +1127,7 @@ exports[`initial state renders without crashing 1`] = `
               "__html": "Oh baby you. Got what I need",
             }
           }
+          tabIndex="0"
         />
       </div>
     </div>

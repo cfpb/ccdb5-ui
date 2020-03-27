@@ -1,5 +1,18 @@
-import { DATE_RANGE_MIN, SLUG_SEPARATOR } from './constants'
+import {
+  DATE_RANGE_MIN, flagFilters, knownFilters, SLUG_SEPARATOR
+} from './constants'
 import moment from 'moment'
+
+/**
+* Breaks up '123' to '1 2 3' to help screen readers read digits individually
+* https://thatdevgirl.com/blog/accessibility-phone-number-formatting
+*
+* @param {string} s the string of digits
+* @returns {string} an expanded string of digits
+*/
+export function ariaReadoutNumbers( s ) {
+  return Array.from( s || '' ).join( ' ' )
+}
 
 // eslint-disable-next-line complexity
 export const calculateDateInterval = ( minDate, maxDate ) => {
@@ -97,6 +110,36 @@ export function hashCode( someString ) {
 }
 
 /**
+ * helper function to determine if we have any filters selected so we can
+ * disable the Per 1000 Complaints button
+ * @param {object} query contains values for the filters, etc
+ * @returns {boolean} are we enabling the perCap
+ */
+// eslint-disable-next-line complexity,require-jsdoc
+export function hasFiltersEnabled( query ) {
+  const keys = []
+  let filter
+  const allFilters = knownFilters.concat( flagFilters )
+
+  for ( let i = 0; i < allFilters.length; i++ ) {
+    filter = allFilters[i]
+    // eslint-disable-next-line no-mixed-operators
+    if ( Array.isArray( query[filter] ) && query[filter].length ||
+      query[filter] === true ) {
+      keys.push( filter )
+    }
+  }
+  const compReceivedFilters = [ 'company_received_max', 'company_received_min' ]
+  for ( let i = 0; i < compReceivedFilters.length; i++ ) {
+    filter = compReceivedFilters[i]
+    if ( query[filter] ) {
+      keys.push( filter )
+    }
+  }
+  return keys.length > 0
+}
+
+/**
  * Creates a hash from an object
  *
  * @param {string} o the object to hash
@@ -152,6 +195,15 @@ export function shortFormat( date ) {
 */
 export function shortIsoFormat( date ) {
   return date ? date.toISOString().substring( 0, 10 ) : ''
+}
+
+/**
+* Gets the UTC time for the beginning of the day in the local time zone
+*
+* @returns {Date} midnight today, local
+*/
+export function startOfToday() {
+  return new Date( moment().startOf( 'day' ).toString() )
 }
 
 // ----------------------------------------------------------------------------

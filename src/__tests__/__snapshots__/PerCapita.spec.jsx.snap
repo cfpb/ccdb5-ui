@@ -4,20 +4,24 @@ exports[`component: PerCapita initial state renders without crashing 1`] = `
 <section
   className="per-capita"
 >
-  <p>
-    Map Shading
-  </p>
-  <select>
-    <option
-      value="None"
+  <div
+    className="per-capita m-btn-group"
+  >
+    <p>
+      Map Shading
+    </p>
+    <button
+      className="a-btn raw deselected"
+      onClick={[Function]}
     >
       Complaints
-    </option>
-    <option
-      value="Per 1000 pop."
+    </button>
+    <button
+      className="a-btn capita a-btn__disabled"
+      onClick={[Function]}
     >
-      Per capita
-    </option>
-  </select>
+      Complaints per 1,000 population
+    </button>
+  </div>
 </section>
 `;

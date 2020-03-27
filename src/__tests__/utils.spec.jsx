@@ -1,12 +1,30 @@
 import {
-  calculateDateInterval, clamp, coalesce, debounce, getFullUrl, hashCode,
-  shortIsoFormat
+  ariaReadoutNumbers, calculateDateInterval, clamp, coalesce, debounce,
+  getFullUrl, hasFiltersEnabled, hashCode, shortIsoFormat
 } from '../utils'
 import { DATE_RANGE_MIN } from '../constants'
 import React from 'react'
 import moment from 'moment'
+import { validatePerCapFilters } from '../PerCapita'
 
 describe('module::utils', () => {
+  describe( 'ariaReadoutNumbers', () => {
+    it( 'breaks a sequence of numbers into an expanded string' , () => {
+      const actual = ariaReadoutNumbers( '123456' )
+      expect(actual).toEqual('1 2 3 4 5 6');
+    } );
+
+    it( 'handles empty strings' , () => {
+      const actual = ariaReadoutNumbers( '' )
+      expect(actual).toEqual('');
+    } );
+
+    it( 'handles undefined' , () => {
+      const actual = ariaReadoutNumbers()
+      expect(actual).toEqual('');
+    } );
+  } );
+
   describe('shortIsoFormat', () => {
     it('handles nulls', () => {
       const actual = shortIsoFormat( null )
@@ -132,5 +150,48 @@ describe('module::utils', () => {
       expect( actual ).toEqual( uri )
     } );
   } );
+
+  describe( 'hasFiltersEnabled', () => {
+    it( 'handles no filters', () => {
+      const query = {
+        date: {},
+        bogus: {},
+        product: []
+      }
+
+      expect( hasFiltersEnabled( query ) ).toBeFalsy()
+    } )
+
+    it( 'handles some filters', () => {
+      const query = {
+        date: {},
+        bogus: {},
+        product: [ { name: 'foo', value: 123 } ]
+      }
+
+      expect( hasFiltersEnabled( query ) ).toBeTruthy()
+    } )
+
+    it( 'handles flag filters', () => {
+      const query = {
+        date: {},
+        bogus: {},
+        has_narrative: true
+      }
+
+      expect( hasFiltersEnabled( query ) ).toBeTruthy()
+    } )
+
+    it( 'handles company_received filters', () => {
+      const query = {
+        date: {},
+        bogus: {},
+        product: [],
+        company_received_max: 'foo'
+      }
+
+      expect( hasFiltersEnabled( query ) ).toBeTruthy()
+    } )
+  } )
 })
 
