@@ -569,7 +569,10 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
             className="a-btn capita "
             onClick={[Function]}
           >
-            Complaints per 1,000
+            Complaints per 1,000 
+            <span>
+              population
+            </span>
           </button>
         </div>
       </section>
@@ -1140,7 +1143,10 @@ exports[`component:Results renders map panel without crashing 1`] = `
             className="a-btn capita "
             onClick={[Function]}
           >
-            Complaints per 1,000
+            Complaints per 1,000 
+            <span>
+              population
+            </span>
           </button>
         </div>
       </section>
