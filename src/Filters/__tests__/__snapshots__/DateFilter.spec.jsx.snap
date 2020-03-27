@@ -16,6 +16,7 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
       className="o-expandable_header-right o-expandable_link"
     >
       <button
+        aria-label="Hide Date CFPB Received the complaint filter"
         className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
         onClick={[Function]}
       >
@@ -40,6 +41,7 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
       <li>
         <label
           className="a-label a-label__heading body-copy"
+          htmlFor="date_received-from"
         >
           From
         </label>
@@ -47,8 +49,8 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
           className="m-btn-inside-input"
         >
           <input
-            aria-describedby="input-error_message-from"
             className="a-text-input"
+            id="date_received-from"
             max={2019-12-31T12:00:00.000Z}
             min={2015-01-01T12:00:00.000Z}
             onChange={[Function]}
@@ -80,6 +82,7 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
       <li>
         <label
           className="a-label a-label__heading body-copy"
+          htmlFor="date_received-through"
         >
           Through
         </label>
@@ -87,8 +90,8 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
           className="m-btn-inside-input"
         >
           <input
-            aria-describedby="input-error_message-through"
             className="a-text-input"
+            id="date_received-through"
             max={2019-12-31T12:00:00.000Z}
             min={2015-01-01T12:00:00.000Z}
             onChange={[Function]}
@@ -160,6 +163,7 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
       className="o-expandable_header-right o-expandable_link"
     >
       <button
+        aria-label="Hide Date CFPB Received the complaint filter"
         className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
         onClick={[Function]}
       >
@@ -184,6 +188,7 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
       <li>
         <label
           className="a-label a-label__heading body-copy"
+          htmlFor="date_received-from"
         >
           From
         </label>
@@ -191,8 +196,8 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
           className="m-btn-inside-input"
         >
           <input
-            aria-describedby="input-error_message-from"
             className="a-text-input"
+            id="date_received-from"
             max={2015-12-31T12:00:00.000Z}
             min={2015-01-01T12:00:00.000Z}
             onChange={[Function]}
@@ -224,6 +229,7 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
       <li>
         <label
           className="a-label a-label__heading body-copy"
+          htmlFor="date_received-through"
         >
           Through
         </label>
@@ -231,8 +237,8 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
           className="m-btn-inside-input"
         >
           <input
-            aria-describedby="input-error_message-through"
             className="a-text-input"
+            id="date_received-through"
             max={2015-12-31T12:00:00.000Z}
             min={2015-01-01T12:00:00.000Z}
             onChange={[Function]}
@@ -326,6 +332,7 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
       className="o-expandable_header-right o-expandable_link"
     >
       <button
+        aria-label="Hide Date CFPB Received the complaint filter"
         className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
         onClick={[Function]}
       >
@@ -350,6 +357,7 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
       <li>
         <label
           className="a-label a-label__heading body-copy"
+          htmlFor="date_received-from"
         >
           From
         </label>
@@ -357,8 +365,8 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
           className="m-btn-inside-input"
         >
           <input
-            aria-describedby="input-error_message-from"
             className="a-text-input"
+            id="date_received-from"
             max={2015-12-31T12:00:00.000Z}
             min={2015-01-01T12:00:00.000Z}
             onChange={[Function]}
@@ -371,6 +379,7 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
       <li>
         <label
           className="a-label a-label__heading body-copy"
+          htmlFor="date_received-through"
         >
           Through
         </label>
@@ -378,8 +387,8 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
           className="m-btn-inside-input"
         >
           <input
-            aria-describedby="input-error_message-through"
             className="a-text-input"
+            id="date_received-through"
             max={2015-12-31T12:00:00.000Z}
             min={2015-01-01T12:00:00.000Z}
             onChange={[Function]}

@@ -3,6 +3,7 @@
 exports[`initial state renders without crashing 1`] = `
 <summary
   className="action-bar"
+  id="search-summary"
 >
   <div>
     <h2>
@@ -20,8 +21,8 @@ exports[`initial state renders without crashing 1`] = `
   <div
     className="layout-row"
   >
-    <h4
-      className="flex-all"
+    <h3
+      className="h4 flex-all export-results"
     >
       <button
         className="a-btn a-btn__link"
@@ -29,7 +30,7 @@ exports[`initial state renders without crashing 1`] = `
       >
         Export results
       </button>
-    </h4>
+    </h3>
   </div>
 </summary>
 `;

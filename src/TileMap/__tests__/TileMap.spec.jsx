@@ -116,12 +116,12 @@ describe( 'Tile map', () => {
         } ] );
   } );
 
-  it( 'gets empty per capita bins', () => {
+  it( 'gets empty Per 1000 population bins', () => {
     const result = sut.getPerCapitaBins( [], colors );
     expect( result ).toEqual( [] );
   } );
 
-  it( 'gets Per Capita bins', () => {
+  it( 'gets Per 1000 population bins', () => {
     const result = sut.getPerCapitaBins( complaints.perCapita, colors );
     expect( result )
       .toEqual( [
@@ -231,12 +231,21 @@ describe( 'Tile map', () => {
     expect( result ).toEqual( '<div class="title">State Name' +
       '</div><div class="row u-clearfix"><p class="u-float-left">Complaints' +
       '</p><p class="u-right">10,000</p></div><div class="row u-clearfix">' +
-      '<p class="u-float-left">Per capita</p><p class="u-right">3.12</p>' +
+      '<p class="u-float-left">Per 1000 population</p><p class="u-right">3.12</p>' +
       '</div><div class="row u-clearfix"><p class="u-float-left">' +
       'Product with highest complaint volume</p><p class="u-right">' +
       'Expensive Item</p></div><div class="row u-clearfix">' +
       '<p class="u-float-left">Issue with highest complaint volume</p>' +
       '<p class="u-right">Being Broke</p></div>' );
+  } );
+
+  it( 'formats a series point for voice-over reading' , () => {
+    const point = {
+      fullName: 'Foo',
+      displayValue: '13'
+    }
+    const actual = sut.pointDescriptionFormatter( point );
+    expect( actual ).toEqual( 'Foo 13' );
   } );
 
   it( 'Processes the map data', () => {
