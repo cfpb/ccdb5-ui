@@ -78,8 +78,39 @@ exports[`initial state renders without crashing 1`] = `
       Consumer Complaint Database
     </h1>
     <p>
-      Consumer complaints are added to this public database after the company has responded to the complaint, confirming a commercial relationship with the consumer, or after they've had the complaint for 15 calendar days, whichever comes first. We don’t verify all the facts alleged in complaints, but we do give companies the opportunity to publicly respond to complaints by selecting responses from a pre-populated list. Company-level information should be considered in the context of company size and/or market share.
+      Complaints are published after the company responds, confirming a commercial relationship with the consumer, or after 15 days, whichever comes first.
+      <span>
+         
+      </span>
+      <a
+        href="../#about-the-database"
+      >
+        Learn more
+      </a>
     </p>
+    <p>
+      Complaints are not necessarily representative of all consumers’ experiences with a financial product or company.
+      <span>
+         
+      </span>
+      <a
+        href="../#what-you-should-consider"
+      >
+        Learn more
+      </a>
+    </p>
+    <p>
+      We don’t verify all the allegations in complaint narratives.
+      <span>
+         
+      </span>
+      <a
+        href="../#what-you-should-consider"
+      >
+        Learn more
+      </a>
+    </p>
+    <p />
     <ul
       className="m-list m-list__horizontal"
     >
@@ -125,16 +156,19 @@ exports[`initial state renders without crashing 1`] = `
         Search complaint data 
       </h2>
       <div>
-        <nav
+        <div
           className="search-bar"
+          role="search"
         >
           <form
             action=""
             onSubmit={[Function]}
           >
-            <h4>
+            <h3
+              className="h4"
+            >
               Search Within
-            </h4>
+            </h3>
             <div
               className="layout-row"
             >
@@ -179,7 +213,7 @@ exports[`initial state renders without crashing 1`] = `
                   <div
                     className="m-btn-inside-input input-contains-label"
                   >
-                    <label
+                    <div
                       className="input-contains-label_before input-contains-label_before__search"
                     >
                       <svg
@@ -191,9 +225,14 @@ exports[`initial state renders without crashing 1`] = `
                           d="M860.1 879.2L645.7 664.8c90.8-136.8 76-323-44.6-443.5-137.5-137.5-360.5-137.5-498 0s-137.5 360.5 0 498c118.5 118.4 303.9 137 443.5 44.6L761 978.3c27.3 27.3 71.7 27.3 99 0s27.4-71.8.1-99.1zm-508-116.9C191.4 762 61.3 631.5 61.6 470.8c.3-160.7 130.8-290.8 291.5-290.5s290.8 130.8 290.5 291.5c-.2 118.2-71.9 224.6-181.5 269.1-34.9 14.2-72.3 21.5-110 21.4z"
                         />
                       </svg>
+                    </div>
+                    <label
+                      className="u-visually-hidden"
+                      htmlFor="searchText"
+                    >
+                      Enter the term you want to search for
                     </label>
                     <input
-                      aria-label="The term to search for"
                       autoComplete="off"
                       className="a-text-input"
                       id="searchText"
@@ -227,19 +266,25 @@ exports[`initial state renders without crashing 1`] = `
               >
                 Search
               </button>
+              <a
+                className="u-visually-hidden"
+                href="#search-summary"
+              >
+                Skip to Results
+              </a>
               <div
                 className="advanced-container flex-fixed"
               >
-                <a
+                <button
                   className="a-btn a-btn__link o-expandable_cue-open"
                   onClick={[Function]}
                 >
                   Show advanced search tips
-                </a>
+                </button>
               </div>
             </div>
           </form>
-        </nav>
+        </div>
       </div>
     </div>
     <div
@@ -284,6 +329,7 @@ exports[`initial state renders without crashing 1`] = `
               className="o-expandable_header-right o-expandable_link"
             >
               <button
+                aria-label="Hide Date CFPB received the complaint filter"
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
                 onClick={[Function]}
               >
@@ -308,6 +354,7 @@ exports[`initial state renders without crashing 1`] = `
               <li>
                 <label
                   className="a-label a-label__heading body-copy"
+                  htmlFor="date_received-from"
                 >
                   From
                 </label>
@@ -315,8 +362,8 @@ exports[`initial state renders without crashing 1`] = `
                   className="m-btn-inside-input"
                 >
                   <input
-                    aria-describedby="input-error_message-from"
                     className="a-text-input"
+                    id="date_received-from"
                     max={null}
                     min={2011-11-30T12:00:00.000Z}
                     onChange={[Function]}
@@ -348,6 +395,7 @@ exports[`initial state renders without crashing 1`] = `
               <li>
                 <label
                   className="a-label a-label__heading body-copy"
+                  htmlFor="date_received-through"
                 >
                   Through
                 </label>
@@ -355,8 +403,8 @@ exports[`initial state renders without crashing 1`] = `
                   className="m-btn-inside-input"
                 >
                   <input
-                    aria-describedby="input-error_message-through"
                     className="a-text-input"
+                    id="date_received-through"
                     max={null}
                     min={2011-11-30T12:00:00.000Z}
                     onChange={[Function]}
@@ -404,6 +452,7 @@ exports[`initial state renders without crashing 1`] = `
               className="o-expandable_header-right o-expandable_link"
             >
               <button
+                aria-label="Hide Product / sub-product filter"
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
                 onClick={[Function]}
               >
@@ -452,6 +501,7 @@ exports[`initial state renders without crashing 1`] = `
               className="o-expandable_header-right o-expandable_link"
             >
               <button
+                aria-label="Hide Issue / sub-issue filter"
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
                 onClick={[Function]}
               >
@@ -479,7 +529,7 @@ exports[`initial state renders without crashing 1`] = `
             <div
               className="m-btn-inside-input input-contains-label"
             >
-              <label
+              <div
                 className="input-contains-label_before input-contains-label_before__search"
               >
                 <svg
@@ -491,10 +541,17 @@ exports[`initial state renders without crashing 1`] = `
                     d="M860.1 879.2L645.7 664.8c90.8-136.8 76-323-44.6-443.5-137.5-137.5-360.5-137.5-498 0s-137.5 360.5 0 498c118.5 118.4 303.9 137 443.5 44.6L761 978.3c27.3 27.3 71.7 27.3 99 0s27.4-71.8.1-99.1zm-508-116.9C191.4 762 61.3 631.5 61.6 470.8c.3-160.7 130.8-290.8 291.5-290.5s290.8 130.8 290.5 291.5c-.2 118.2-71.9 224.6-181.5 269.1-34.9 14.2-72.3 21.5-110 21.4z"
                   />
                 </svg>
+              </div>
+              <label
+                className="u-visually-hidden"
+                htmlFor="issue-typeahead"
+              >
+                Start typing to begin listing issues
               </label>
               <input
                 autoComplete="off"
                 className="a-text-input"
+                id="issue-typeahead"
                 onChange={[Function]}
                 onKeyDown={[Function]}
                 placeholder="Enter name of issue"
@@ -523,6 +580,7 @@ exports[`initial state renders without crashing 1`] = `
               className="o-expandable_header-right o-expandable_link"
             >
               <button
+                aria-label="Hide State filter"
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
                 onClick={[Function]}
               >
@@ -550,7 +608,7 @@ exports[`initial state renders without crashing 1`] = `
             <div
               className="m-btn-inside-input input-contains-label"
             >
-              <label
+              <div
                 className="input-contains-label_before input-contains-label_before__search"
               >
                 <svg
@@ -562,10 +620,17 @@ exports[`initial state renders without crashing 1`] = `
                     d="M860.1 879.2L645.7 664.8c90.8-136.8 76-323-44.6-443.5-137.5-137.5-360.5-137.5-498 0s-137.5 360.5 0 498c118.5 118.4 303.9 137 443.5 44.6L761 978.3c27.3 27.3 71.7 27.3 99 0s27.4-71.8.1-99.1zm-508-116.9C191.4 762 61.3 631.5 61.6 470.8c.3-160.7 130.8-290.8 291.5-290.5s290.8 130.8 290.5 291.5c-.2 118.2-71.9 224.6-181.5 269.1-34.9 14.2-72.3 21.5-110 21.4z"
                   />
                 </svg>
+              </div>
+              <label
+                className="u-visually-hidden"
+                htmlFor="state-typeahead"
+              >
+                Start typing to begin listing US states
               </label>
               <input
                 autoComplete="off"
                 className="a-text-input"
+                id="state-typeahead"
                 onChange={[Function]}
                 onKeyDown={[Function]}
                 placeholder="Enter state name or abbreviation"
@@ -592,6 +657,7 @@ exports[`initial state renders without crashing 1`] = `
               className="o-expandable_header-right o-expandable_link"
             >
               <button
+                aria-label="Hide Zip code filter"
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
                 onClick={[Function]}
               >
@@ -619,7 +685,7 @@ exports[`initial state renders without crashing 1`] = `
             <div
               className="m-btn-inside-input input-contains-label"
             >
-              <label
+              <div
                 className="input-contains-label_before input-contains-label_before__search"
               >
                 <svg
@@ -631,10 +697,17 @@ exports[`initial state renders without crashing 1`] = `
                     d="M860.1 879.2L645.7 664.8c90.8-136.8 76-323-44.6-443.5-137.5-137.5-360.5-137.5-498 0s-137.5 360.5 0 498c118.5 118.4 303.9 137 443.5 44.6L761 978.3c27.3 27.3 71.7 27.3 99 0s27.4-71.8.1-99.1zm-508-116.9C191.4 762 61.3 631.5 61.6 470.8c.3-160.7 130.8-290.8 291.5-290.5s290.8 130.8 290.5 291.5c-.2 118.2-71.9 224.6-181.5 269.1-34.9 14.2-72.3 21.5-110 21.4z"
                   />
                 </svg>
+              </div>
+              <label
+                className="u-visually-hidden"
+                htmlFor="zipcode-typeahead"
+              >
+                Start typing to begin listing zip codes
               </label>
               <input
                 autoComplete="off"
                 className="a-text-input"
+                id="zipcode-typeahead"
                 onChange={[Function]}
                 onKeyDown={[Function]}
                 placeholder="Enter first three digits of ZIP code"
@@ -661,6 +734,7 @@ exports[`initial state renders without crashing 1`] = `
               className="o-expandable_header-right o-expandable_link"
             >
               <button
+                aria-label="Hide Company name filter"
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
                 onClick={[Function]}
               >
@@ -688,7 +762,7 @@ exports[`initial state renders without crashing 1`] = `
             <div
               className="m-btn-inside-input input-contains-label"
             >
-              <label
+              <div
                 className="input-contains-label_before input-contains-label_before__search"
               >
                 <svg
@@ -700,10 +774,17 @@ exports[`initial state renders without crashing 1`] = `
                     d="M860.1 879.2L645.7 664.8c90.8-136.8 76-323-44.6-443.5-137.5-137.5-360.5-137.5-498 0s-137.5 360.5 0 498c118.5 118.4 303.9 137 443.5 44.6L761 978.3c27.3 27.3 71.7 27.3 99 0s27.4-71.8.1-99.1zm-508-116.9C191.4 762 61.3 631.5 61.6 470.8c.3-160.7 130.8-290.8 291.5-290.5s290.8 130.8 290.5 291.5c-.2 118.2-71.9 224.6-181.5 269.1-34.9 14.2-72.3 21.5-110 21.4z"
                   />
                 </svg>
+              </div>
+              <label
+                className="u-visually-hidden"
+                htmlFor="company-typeahead"
+              >
+                Start typing to begin listing companies
               </label>
               <input
                 autoComplete="off"
                 className="a-text-input"
+                id="company-typeahead"
                 onChange={[Function]}
                 onKeyDown={[Function]}
                 placeholder="Enter company name"
@@ -730,6 +811,7 @@ exports[`initial state renders without crashing 1`] = `
               className="o-expandable_header-right o-expandable_link"
             >
               <button
+                aria-label="Show Did company provide a timely response? filter"
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
                 onClick={[Function]}
               >
@@ -764,6 +846,7 @@ exports[`initial state renders without crashing 1`] = `
               className="o-expandable_header-right o-expandable_link"
             >
               <button
+                aria-label="Show Company response filter"
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
                 onClick={[Function]}
               >
@@ -800,6 +883,7 @@ exports[`initial state renders without crashing 1`] = `
               className="o-expandable_header-right o-expandable_link"
             >
               <button
+                aria-label="Show Company public response filter"
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
                 onClick={[Function]}
               >
@@ -836,6 +920,7 @@ exports[`initial state renders without crashing 1`] = `
               className="o-expandable_header-right o-expandable_link"
             >
               <button
+                aria-label="Hide Date complaint sent to company filter"
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
                 onClick={[Function]}
               >
@@ -860,6 +945,7 @@ exports[`initial state renders without crashing 1`] = `
               <li>
                 <label
                   className="a-label a-label__heading body-copy"
+                  htmlFor="company_received-from"
                 >
                   From
                 </label>
@@ -867,8 +953,8 @@ exports[`initial state renders without crashing 1`] = `
                   className="m-btn-inside-input"
                 >
                   <input
-                    aria-describedby="input-error_message-from"
                     className="a-text-input"
+                    id="company_received-from"
                     max={null}
                     min={2011-11-30T12:00:00.000Z}
                     onChange={[Function]}
@@ -881,6 +967,7 @@ exports[`initial state renders without crashing 1`] = `
               <li>
                 <label
                   className="a-label a-label__heading body-copy"
+                  htmlFor="company_received-through"
                 >
                   Through
                 </label>
@@ -888,8 +975,8 @@ exports[`initial state renders without crashing 1`] = `
                   className="m-btn-inside-input"
                 >
                   <input
-                    aria-describedby="input-error_message-through"
                     className="a-text-input"
+                    id="company_received-through"
                     max={null}
                     min={2011-11-30T12:00:00.000Z}
                     onChange={[Function]}
@@ -918,6 +1005,7 @@ exports[`initial state renders without crashing 1`] = `
               className="o-expandable_header-right o-expandable_link"
             >
               <button
+                aria-label="Show Consumer consent filter"
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
                 onClick={[Function]}
               >
@@ -981,6 +1069,7 @@ exports[`initial state renders without crashing 1`] = `
               className="o-expandable_header-right o-expandable_link"
             >
               <button
+                aria-label="Show How did the consumer submit the complaint to the CFPB? filter"
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
                 onClick={[Function]}
               >
@@ -1015,6 +1104,7 @@ exports[`initial state renders without crashing 1`] = `
               className="o-expandable_header-right o-expandable_link"
             >
               <button
+                aria-label="Show Tags filter"
                 className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
                 onClick={[Function]}
               >
@@ -1045,6 +1135,7 @@ exports[`initial state renders without crashing 1`] = `
       >
         <summary
           className="action-bar"
+          id="search-summary"
         >
           <div>
             <h2>
@@ -1058,8 +1149,8 @@ exports[`initial state renders without crashing 1`] = `
           <div
             className="layout-row"
           >
-            <h4
-              className="flex-all"
+            <h3
+              className="h4 flex-all export-results"
             >
               <button
                 className="a-btn a-btn__link"
@@ -1068,7 +1159,7 @@ exports[`initial state renders without crashing 1`] = `
               >
                 Export results
               </button>
-            </h4>
+            </h3>
           </div>
         </summary>
         <div
@@ -1121,13 +1212,13 @@ exports[`initial state renders without crashing 1`] = `
               1y
             </button>
             <button
-              className="date-selector interval-3y selected"
+              className="date-selector interval-3y"
               onClick={[Function]}
             >
               3y
             </button>
             <button
-              className="date-selector interval-All"
+              className="date-selector interval-All selected"
               onClick={[Function]}
             >
               All
@@ -1136,24 +1227,25 @@ exports[`initial state renders without crashing 1`] = `
           <section
             className="per-capita"
           >
-            <p>
-              Map Shading
-            </p>
-            <select
-              onChange={[Function]}
-              value="None"
+            <div
+              className="per-capita m-btn-group"
             >
-              <option
-                value="None"
+              <p>
+                Map Shading
+              </p>
+              <button
+                className="a-btn raw "
+                onClick={[Function]}
               >
                 Complaints
-              </option>
-              <option
-                value="Per 1000 pop."
+              </button>
+              <button
+                className="a-btn capita deselected"
+                onClick={[Function]}
               >
-                Per capita
-              </option>
-            </select>
+                Complaints per 1,000 population
+              </button>
+            </div>
           </section>
         </div>
         <div>

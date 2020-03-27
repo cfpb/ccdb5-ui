@@ -1,5 +1,9 @@
+/* eslint complexity: ["error", 7] */
+
 import * as types from '../constants'
-import { calculateDateInterval, clamp, shortIsoFormat } from '../utils'
+import {
+  calculateDateInterval, clamp, shortIsoFormat, startOfToday
+} from '../utils'
 import actions from '../actions'
 import moment from 'moment';
 
@@ -8,7 +12,7 @@ const queryString = require( 'query-string' );
 /* eslint-disable camelcase */
 export const defaultQuery = {
   dateInterval: '3y',
-  date_received_max: new Date(),
+  date_received_max: startOfToday(),
   date_received_min: new Date( moment().subtract( 3, 'years' ).calendar() ),
   from: 0,
   searchText: '',
@@ -32,6 +36,70 @@ const excludeParams = [ 'totalPages' ]
 
 const urlParams = [ 'dateInterval', 'searchText', 'searchField', 'tab' ]
 const urlParamsInt = [ 'from', 'page', 'size' ]
+
+// ----------------------------------------------------------------------------
+// Helper functions
+
+/**
+* Makes sure the date interval reflects the actual date range
+*
+* @param {object} state the raw, unvalidated state
+* @returns {object} the validated state
+*/
+export function alignIntervalAndRange( state ) {
+  // Shorten the input field names
+  const dateMax = state.date_received_max
+  const dateMin = state.date_received_min
+
+  // All
+  if ( moment( dateMax ).isSame( defaultQuery.date_received_max ) &&
+    moment( dateMin ).isSame( types.DATE_RANGE_MIN )
+  ) {
+    state.dateInterval = 'All'
+    return state
+  }
+
+  const intervalMap = {
+    '3y': new Date( moment( dateMax ).subtract( 3, 'years' ) ),
+    '3m': new Date( moment( dateMax ).subtract( 3, 'months' ) ),
+    '6m': new Date( moment( dateMax ).subtract( 6, 'months' ) ),
+    '1y': new Date( moment( dateMax ).subtract( 1, 'year' ) )
+  }
+  const intervals = Object.keys( intervalMap )
+  let matched = false
+
+  for ( let i = 0; i < intervals.length && !matched; i++ ) {
+    const interval = intervals[i]
+
+    if ( moment( dateMin ).isSame( intervalMap[interval], 'day' ) ) {
+      state.dateInterval = interval
+      matched = true
+    }
+  }
+
+  // No matches, clear
+  if ( !matched ) {
+    state.dateInterval = ''
+  }
+
+  return state
+}
+
+/**
+* Check for a common case where there is a date interval but no dates
+*
+* @param {Object} params a set of URL parameters
+* @returns {Boolean} true if the params meet this condition
+*/
+export function dateIntervalNoDates( params ) {
+  const keys = Object.keys( params )
+
+  return (
+    keys.includes( 'dateInterval' ) &&
+    !keys.includes( 'date_received_min' ) &&
+    !keys.includes( 'date_received_max' )
+  )
+}
 
 // ----------------------------------------------------------------------------
 // Complex reduction logic
@@ -70,7 +138,13 @@ export function toDate( value ) {
 */
 function processParams( state, action ) {
   const params = action.params
-  const processed = Object.assign( {}, defaultQuery )
+  let processed = Object.assign( {}, defaultQuery )
+
+  // Apply the date interval
+  if ( dateIntervalNoDates( params ) ) {
+    const innerAction = { dateInterval: params.dateInterval }
+    processed = changeDateInterval( processed, innerAction )
+  }
 
   // Filter for known
   urlParams.forEach( field => {
@@ -117,7 +191,7 @@ function processParams( state, action ) {
     }
   } )
 
-  return processed
+  return alignIntervalAndRange( processed )
 }
 
 /**
@@ -148,7 +222,7 @@ export function changeDateInterval( state, action ) {
     newState.date_received_min = new Date( types.DATE_RANGE_MIN )
   }
 
-  newState.date_received_max = new Date( moment().startOf( 'day' ).toString() )
+  newState.date_received_max = startOfToday()
 
   return newState;
 }
@@ -552,7 +626,6 @@ export function stateToQS( state ) {
   const fields = Object.keys( state )
 
   // Copy over the fields
-  /* eslint complexity: ["error", 6] */
   fields.forEach( field => {
     // Do not include empty fields
     if ( !state[field] ) {
