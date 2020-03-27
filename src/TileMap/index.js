@@ -388,12 +388,27 @@ class TileMap {
       options.plotOptions.series.events = events;
     }
 
-    // patches to adjust for legend height
-    if ( width < 500 ) {
-      const legendHeight = 70
-      options.chart.marginTop = legendHeight
-      options.chart.height += legendHeight
-    }
+    // to adjust for legend height
+    const mapBreakpoints = [
+      { width: 700, legendHeight: 15 },
+      { width: 580, legendHeight: 20 },
+      { width: 500, legendHeight: 30 },
+      { width: 400, legendHeight: 40 },
+      { width: 370, legendHeight: 55 }
+    ]
+
+    let legendHeight = 10
+
+    mapBreakpoints.forEach( item => {
+      if ( width < item.width ) {
+        legendHeight = item.legendHeight
+      }
+    } )
+
+    options.chart.marginRight = 0
+    options.chart.marginLeft = 0
+    options.chart.marginTop = legendHeight
+    options.chart.height += legendHeight
 
     this.draw( el, options );
   }
