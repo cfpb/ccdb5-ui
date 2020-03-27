@@ -393,7 +393,8 @@ class TileMap {
       { width: 700, legendHeight: 10 },
       { width: 580, legendHeight: 20 },
       { width: 500, legendHeight: 30 },
-      { width: 400, legendHeight: 35 }
+      { width: 400, legendHeight: 35 },
+      { width: 370, legendHeight: 40 }
     ]
 
     let legendHeight = 0
