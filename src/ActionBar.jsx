@@ -21,6 +21,7 @@ const sorts = {
 export class ActionBar extends React.Component {
   render() {
     return (
+      <div>
         <summary className="action-bar">
           <div>{ this.props.hits === this.props.total ?
              <h2>
@@ -64,6 +65,8 @@ export class ActionBar extends React.Component {
             </h4>
           </div>
         </summary>
+        <div className="filter-button"><button class="a-btn" title="Filter results">Filter results</button></div>
+        </div>
     );
   }
 }

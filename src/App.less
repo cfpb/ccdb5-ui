@@ -131,7 +131,9 @@
     }
   }
 }
-
+.filter-button {
+  display: none;
+}
 @media @tablet-lg {
   .content__1-3 {
     .content_sidebar {
@@ -146,36 +148,39 @@
 
 @media @tablet-sm {
   .content__1-3 {
-    .content_sidebar.map {
-      width: 0;
-      display: none;
-    }
-
-    .content_main.map {
+    .content_main {
       width: 100%;
     }
-
-    .content_sidebar.list {
-      width: 280px;
-    }
-
-    .content_main.list {
-      width: ~"calc(100% - 280px)";
+    .content_sidebar {
+        &.map,
+        &.list {
+          width: 100%;
+        }
     }
   }
 }
 
 
 @media @phone {
-  .content__1-3 {
-    margin-bottom: 0;
-
-    .content_sidebar {
+  .filter-button {
+    display: block;
+    margin: 20px 10px;
+    button {
       width: 100%;
     }
-
-    .content_main {
-      width: 100%;
+  }
+  .content__1-3 {
+    margin-bottom: 0;
+    .content {
+      &_sidebar,
+      &_main {
+        width: 100%;
+      }
+      &_sidebar {
+        section {
+          display: none;
+        }
+      }
     }
   }
 }

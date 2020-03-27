@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import FilterPanel from './FilterPanel'
+import iconMap from './iconMap'
 import React from 'react'
 
 export class RefinePanel extends React.Component {
@@ -11,6 +12,8 @@ export class RefinePanel extends React.Component {
   render() {
     return (
       <aside className={ this._getTabClass() }>
+         <div className="filter-button"><button class="a-btn" title="Filter results">
+           Close filters { iconMap.getIcon( 'delete' ) }</button></div>
         <FilterPanel />
       </aside>
     )
