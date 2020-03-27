@@ -115,7 +115,7 @@ export function hashCode( someString ) {
  * @param {object} query contains values for the filters, etc
  * @returns {boolean} are we enabling the perCap
  */
-// eslint-disable-next-line complexity
+// eslint-disable-next-line complexity,require-jsdoc
 export function hasFiltersEnabled( query ) {
   const keys = []
   let filter
