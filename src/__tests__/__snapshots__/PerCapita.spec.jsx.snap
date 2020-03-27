@@ -20,7 +20,7 @@ exports[`component: PerCapita initial state renders without crashing 1`] = `
       className="a-btn capita a-btn__disabled"
       onClick={[Function]}
     >
-      Complaints per 1,000 population
+      Complaints per 1,000
     </button>
   </div>
 </section>
