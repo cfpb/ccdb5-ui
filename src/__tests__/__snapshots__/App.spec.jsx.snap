@@ -1243,7 +1243,7 @@ exports[`initial state renders without crashing 1`] = `
                 className="a-btn capita deselected"
                 onClick={[Function]}
               >
-                Complaints per 1,000 population
+                Complaints per 1,000
               </button>
             </div>
           </section>
