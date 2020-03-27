@@ -35,7 +35,7 @@ export class PerCapita extends React.Component {
             onClick={ () =>
                 this.props.enablePer1000 &&
                 this._setNormalization( GEO_NORM_PER1000 ) }>
-            Complaints per 1,000
+            Complaints per 1,000 <span>population</span>
           </button>
         </div>
       </section>
