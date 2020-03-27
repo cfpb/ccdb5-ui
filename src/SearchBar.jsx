@@ -50,9 +50,9 @@ export class SearchBar extends React.Component {
   render() {
     return (
       <div>
-        <nav className="search-bar">
+        <div className="search-bar" role="search">
           <form action="" onSubmit={this._handleSubmit}>
-            <h4>Search Within</h4>
+            <h3 className="h4">Search Within</h3>
             <div className="layout-row">
               <div className="cf-select flex-fixed">
                 <select aria-label="Choose which field will be searched"
@@ -69,16 +69,14 @@ export class SearchBar extends React.Component {
                 </select>
               </div>
               <div className="flex-all typeahead-portal">
-                <Typeahead debounceWait={this.props.debounceWait}
+                <Typeahead ariaLabel="Enter the term you want to search for"
+                           debounceWait={this.props.debounceWait}
+                           htmlId="searchText"
                            mode={MODE_OPEN}
                            onInputChange={this._onInputChange}
                            onOptionSelected={this._onTypeaheadSelected}
                            placeholder="Enter your search term(s)"
                            renderOption={this._renderOption}
-                           textBoxProps={( {
-                             'aria-label': 'The term to search for',
-                             'id': 'searchText'
-                           } )}
                            value={this.state.inputValue}
                 />
               </div>
@@ -88,22 +86,28 @@ export class SearchBar extends React.Component {
                       ref={elem => { this.submitButton = elem }}>
                   Search
               </button>
+
+              <a className="u-visually-hidden"
+                 href="#search-summary">
+                 Skip to Results
+              </a>
+
               <div className="advanced-container flex-fixed">
               {
                this.state.advancedShown ?
-                 <a className="a-btn a-btn__link o-expandable_cue-close"
+                 <button className="a-btn a-btn__link o-expandable_cue-close"
                       onClick={ this._onAdvancedClicked }>
                       Hide advanced search tips
-                  </a> :
-                  <a className="a-btn a-btn__link o-expandable_cue-open"
+                  </button> :
+                  <button className="a-btn a-btn__link o-expandable_cue-open"
                       onClick={ this._onAdvancedClicked }>
                       Show advanced search tips
-                  </a>
+                  </button>
               }
               </div>
             </div>
           </form>
-        </nav>
+        </div>
         {
          this.state.advancedShown ?
            <AdvancedTips /> :

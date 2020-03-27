@@ -6,6 +6,8 @@ import * as keys from '../../constants'
 
 function setupEnzyme(initalProps={}, removeDebounce=true) {
   const props = Object.assign({
+    ariaLabel: 'Start typing to...',
+    htmlId: 'typeahead-foo',
     onInputChange: jest.fn((x) => ['alpha', 'beta', 'gamma']),
     onOptionSelected: jest.fn(),
     renderOption: jest.fn()
@@ -27,6 +29,8 @@ function setupEnzyme(initalProps={}, removeDebounce=true) {
 
 function setupSnapshot(initialValue='') {
   const target = renderer.create(<Typeahead value={initialValue}
+                                    ariaLabel="Start typing to..."
+                                    htmlId="typeahead-foo"
                                     onInputChange={jest.fn()}
                                     onOptionSelected={jest.fn()}
                                  />)

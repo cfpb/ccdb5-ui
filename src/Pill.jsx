@@ -10,8 +10,10 @@ import { SLUG_SEPARATOR } from './constants'
 export const Pill = ( { fieldName, value, trimmed, remove } ) =>
     <li className="pill flex-fixed">
       <span className="name">{ trimmed }</span>
-      <button onClick={ remove }
-              title={'Remove ' + trimmed + ' as a filter'}>
+      <button onClick={ remove }>
+        <span className="u-visually-hidden">
+          {'Remove ' + trimmed + ' as a filter'}
+        </span>
         { iconMap.getIcon( 'delete' ) }
       </button>
     </li>

@@ -29,7 +29,9 @@ export class Issue extends React.Component {
                          desc={desc}
                          showChildren={this.props.showChildren}
                          className="aggregation">
-        <Typeahead placeholder="Enter name of issue"
+        <Typeahead ariaLabel="Start typing to begin listing issues"
+                   htmlId="issue-typeahead"
+                   placeholder="Enter name of issue"
                    options={this.props.forTypeahead}
                    onOptionSelected={this._onOptionSelected}
         />

@@ -18,8 +18,8 @@ exports[`component: PrintInfo initial state renders without crashing 1`] = `
      
     Got no money
   </p>
-  <p>
+  <div>
     Showing 100 complaints
-  </p>
+  </div>
 </section>
 `;

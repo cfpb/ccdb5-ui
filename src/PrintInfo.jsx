@@ -11,7 +11,7 @@ export class PrintInfo extends React.Component {
       <section className="print-info">
         <p><span>Dates:</span> { dates }</p>
         { searchText && <p><span>Search Term:</span> { searchText }</p> }
-        <p>{ complaintCountText }</p>
+        <div>{ complaintCountText }</div>
       </section>
     )
   }

@@ -5,6 +5,8 @@ import renderer from 'react-test-renderer'
 
 function setupEnzyme() {
   const props = {
+    ariaLabel: 'Start typing to...',
+    htmlId: 'typeahead-foo',
     options: ['Foo', 'Bar', 'Baz', 'Qaz', 'Quux', 'Nuux'],
     onOptionSelected: jest.fn()
   }
