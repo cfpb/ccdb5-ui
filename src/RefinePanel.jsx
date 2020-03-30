@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 import FilterPanel from './FilterPanel'
-import iconMap from './iconMap'
 import React from 'react'
 
 export class RefinePanel extends React.Component {
@@ -12,15 +11,7 @@ export class RefinePanel extends React.Component {
   render() {
     return (
       <aside className={ this._getTabClass() }>
-        { this.props.showFilters &&
-         <div>
-           <div className="filter-button">
-             <button class="a-btn" title="Filter results">
-               Close filters { iconMap.getIcon( 'delete' ) }
-             </button>
-           </div>
-           <FilterPanel/>
-         </div>}
+        { this.props.showDesktopFilters && <FilterPanel/> }
       </aside>
     )
   }
@@ -28,7 +19,7 @@ export class RefinePanel extends React.Component {
 
 const mapStateToProps = state => ( {
   tab: state.query.tab,
-  showFilters: state.view.showFilters
+  showDesktopFilters: state.view.width > 749
 } )
 
 export default connect( mapStateToProps )( RefinePanel )

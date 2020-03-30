@@ -1,9 +1,11 @@
 import './ActionBar.less';
 import { changeSize, changeSort } from './actions/paging'
 import { connect } from 'react-redux'
+import { filterVisiblityToggled } from './actions/view'
 import { FormattedNumber } from 'react-intl'
 import React from 'react';
 import { showExportDialog } from './actions/dataExport'
+
 
 const sizes = [ 10, 25, 50, 100 ]
 
@@ -71,13 +73,22 @@ export class ActionBar extends React.Component {
             </h3>
           </div>
         </summary>
-        <div className="filter-button"><button class="a-btn" title="Filter results">Filter results</button></div>
+        { this.props.showFilterToggle &&
+          <div className="filter-button">
+            <button class="a-btn"
+                    title="Filter results"
+                    onClick={ this.props.onFilterToggle }>
+              Filter results
+            </button>
+          </div>
+        }
         </div>
     );
   }
 }
 
 export const mapStateToProps = state => ( {
+  showFilterToggle: state.view.width < 749 && !state.view.showFilters,
   size: state.query.size,
   sort: state.query.sort,
   hits: state.aggs.total,
@@ -95,6 +106,9 @@ export const mapDispatchToProps = dispatch => ( {
   },
   onExportResults: () => {
     dispatch( showExportDialog() )
+  },
+  onFilterToggle: () => {
+    dispatch( filterVisiblityToggled() )
   }
 } )
 
