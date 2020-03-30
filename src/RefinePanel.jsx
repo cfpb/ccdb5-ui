@@ -12,16 +12,23 @@ export class RefinePanel extends React.Component {
   render() {
     return (
       <aside className={ this._getTabClass() }>
-         <div className="filter-button"><button class="a-btn" title="Filter results">
-           Close filters { iconMap.getIcon( 'delete' ) }</button></div>
-        <FilterPanel />
+        { this.props.showFilters &&
+         <div>
+           <div className="filter-button">
+             <button class="a-btn" title="Filter results">
+               Close filters { iconMap.getIcon( 'delete' ) }
+             </button>
+           </div>
+           <FilterPanel/>
+         </div>}
       </aside>
     )
   }
 }
 
 const mapStateToProps = state => ( {
-  tab: state.query.tab
+  tab: state.query.tab,
+  showFilters: state.view.showFilters
 } )
 
 export default connect( mapStateToProps )( RefinePanel )
