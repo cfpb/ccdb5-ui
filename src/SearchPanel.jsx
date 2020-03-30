@@ -27,7 +27,7 @@ export class SearchPanel extends React.Component {
 }
 
 const mapStateToProps = state => ( {
-  lastIndexed: state.results.lastIndexed
+  lastIndexed: state.aggs.lastIndexed
 } )
 
 export default connect( mapStateToProps )( SearchPanel )
