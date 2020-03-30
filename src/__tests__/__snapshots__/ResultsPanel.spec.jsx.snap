@@ -144,7 +144,6 @@ exports[`component:Results renders List print mode without crashing 1`] = `
         </h3>
       </div>
     </summary>
-    <div />
     <ul
       className="cards-panel"
     >
@@ -755,7 +754,6 @@ exports[`component:Results renders list panel without crashing 1`] = `
         </h3>
       </div>
     </summary>
-    <div />
     <ul
       className="cards-panel"
     >

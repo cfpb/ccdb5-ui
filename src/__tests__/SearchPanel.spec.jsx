@@ -12,8 +12,7 @@ function setupSnapshot(initialStore={}) {
   const middlewares = [thunk]
   const mockStore = configureMockStore(middlewares)
   const store = mockStore({
-    query: {},
-    results
+    query: {}
   })
 
   return renderer.create(

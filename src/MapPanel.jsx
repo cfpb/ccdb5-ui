@@ -10,6 +10,7 @@ import MapToolbar from './MapToolbar'
 import PerCapita from './PerCapita'
 import React from 'react'
 import RowChart from './RowChart'
+import StaleDataWarnings from './StaleDataWarnings'
 import TileChartMap from './TileChartMap'
 import Warning from './Warning'
 
@@ -22,11 +23,12 @@ export class MapPanel extends React.Component {
     return (
       <section className="map-panel">
         <ActionBar/>
-        { this.props.showMobileFilters && <FilterPanel/> }
+        <StaleDataWarnings />
         { this.props.error &&
           <ErrorBlock text="There was a problem executing your search" />
         }
         { this.props.showWarning && <Warning text={ WARNING_MESSAGE } /> }
+        { this.props.showMobileFilters && <FilterPanel/> }
         <div className="layout-row refine">
           <DateIntervals/>
           <PerCapita/>
