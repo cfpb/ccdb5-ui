@@ -22,7 +22,7 @@ export class StaleDataWarnings extends React.Component {
     const { hasDataIssue, isDataStale, isNarrativeStale } = this.props;
     const anything = hasDataIssue || isDataStale || isNarrativeStale;
 
-    if( !anything ) return null;
+    if ( !anything ) return null;
 
     return (
       <div>
