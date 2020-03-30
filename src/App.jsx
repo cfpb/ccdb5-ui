@@ -24,6 +24,7 @@ import SearchPanel from './SearchPanel'
 import TabbedNavigation from './TabbedNavigation'
 import thunkMiddleware from 'redux-thunk'
 import UrlBarSynch from './UrlBarSynch'
+import WindowSize from './WindowSize'
 
 const middleware = [ thunkMiddleware, queryManager ];
 
@@ -45,6 +46,7 @@ export class SearchComponents extends React.Component {
     return (
       <IntlProvider locale="en">
         <main className="content content__1-3" role="main">
+          <WindowSize />
           <UrlBarSynch />
           <Hero />
           <div className="content_wrapper">
