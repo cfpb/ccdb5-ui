@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import DateIntervals from './DateIntervals'
 import ErrorBlock from './Error'
 import FilterPanel from './FilterPanel'
+import FilterPanelToggle from './FilterPanelToggle'
+
 import { hasFiltersEnabled } from './utils'
 import Loading from './Dialogs/Loading'
 import MapToolbar from './MapToolbar'
@@ -30,6 +32,7 @@ export class MapPanel extends React.Component {
         { this.props.showWarning && <Warning text={ WARNING_MESSAGE } /> }
         { this.props.showMobileFilters && <FilterPanel/> }
         <div className="layout-row refine">
+          <FilterPanelToggle/>
           <DateIntervals/>
           <PerCapita/>
         </div>
