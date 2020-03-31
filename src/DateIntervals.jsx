@@ -11,7 +11,7 @@ export class DateIntervals extends React.Component {
   }
 
   _btnClassName( dateInterval ) {
-    const classes = [ 'date-selector', 'interval-' + dateInterval ]
+    const classes = [ 'a-btn', 'date-selector', 'interval-' + dateInterval ]
     if ( dateInterval === this.props.dateInterval ) {
       classes.push( 'selected' )
     }
@@ -20,7 +20,7 @@ export class DateIntervals extends React.Component {
 
   render() {
     return (
-      <section className="date-intervals">
+      <section className="date-intervals m-btn-group">
         <p>Date range (Click to modify range)</p>
         { dateIntervals.map( dateInterval =>
           <button onClick={ () => this._setDateInterval( dateInterval ) }

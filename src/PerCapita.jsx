@@ -12,12 +12,14 @@ export class PerCapita extends React.Component {
   }
 
   _getRawButtonClass() {
-    return this.props.dataNormalization === GEO_NORM_NONE ? '' : 'deselected'
+    return this.props.dataNormalization === GEO_NORM_NONE ? 'selected' :
+      'deselected'
   }
 
   _getPerCapButtonClass() {
     if ( this.props.enablePer1000 ) {
-      return this.props.dataNormalization === GEO_NORM_NONE ? 'deselected' : ''
+      return this.props.dataNormalization === GEO_NORM_PER1000 ? 'selected' :
+        'deselected'
     }
     return 'a-btn__disabled'
   }
