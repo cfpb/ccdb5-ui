@@ -8,7 +8,8 @@ import { removeAllFilters } from './actions/filter';
 
 
 export const PillPanel = ( { filters, clearAll } ) => {
-  if ( !filters || filters.length === 0 ) {
+  const hasFilters = filters && filters.length > 0
+  if ( !hasFilters ) {
     return null
   }
 
@@ -32,17 +33,25 @@ export const PillPanel = ( { filters, clearAll } ) => {
 }
 
 export const mapStateToProps = state => {
-  const subState = state.query
+  const { query } = state
   const filters = knownFilters
-    // Only use the known filters that are in the substate
-    .filter( x => x in subState )
+    // Only use the known filters that are in the query
+    .filter( x => x in query )
     // Create a flattened array of pill objects
     .reduce( ( accum, fieldName ) => {
-      const arr = subState[fieldName].map(
+      const arr = query[fieldName].map(
         value => ( { fieldName, value } )
       )
       return accum.concat( arr )
     }, [] )
+
+  // Add Has Narrative, if it exists
+  if ( query.has_narrative ) {
+    filters.push( {
+      fieldName: 'has_narrative',
+      value: 'Has Narrative'
+    } )
+  }
 
   return {
     filters: filters

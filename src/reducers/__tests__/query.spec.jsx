@@ -432,6 +432,26 @@ describe( 'reducer:query', () => {
           queryString: '?foo=bar&foo=qaz'
         } )
       } )
+
+      describe( 'has_narrative', () => {
+        it( 'handles when present' , () => {
+          action.filterName = 'has_narrative'
+          const state = {
+            has_narrative: true
+          }
+          expect( target( state, action ) ).toEqual( {
+            queryString: ''
+          } )
+        } );
+
+        it( 'handles when absent' , () => {
+          action.filterName = 'has_narrative'
+          const state = {}
+          expect( target( state, action ) ).toEqual( {
+            queryString: ''
+          } )
+        } );
+      } );
     } )
 
     describe( 'FILTER_ALL_REMOVED actions', () => {
