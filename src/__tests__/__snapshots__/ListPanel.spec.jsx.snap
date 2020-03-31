@@ -4,118 +4,120 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
 <section
   className="list-panel"
 >
-  <summary
-    className="action-bar"
-    id="search-summary"
-  >
-    <div>
-      <h2>
-        Showing 
-        <span>
-          0
-        </span>
-         matches out of 
-        <span>
-          100
-        </span>
-         total complaints
-      </h2>
-    </div>
-    <div
-      className="layout-row"
+  <div>
+    <summary
+      className="action-bar"
+      id="search-summary"
     >
+      <div>
+        <h2>
+          Showing 
+          <span>
+            0
+          </span>
+           matches out of 
+          <span>
+            100
+          </span>
+           total complaints
+        </h2>
+      </div>
       <div
-        className="cf-select flex-fixed"
+        className="layout-row"
       >
-        <label
-          className="u-visually-hidden"
-          htmlFor="choose-size"
+        <div
+          className="cf-select flex-fixed"
         >
-          Select the number of results to display at a time
-        </label>
-        <select
-          id="choose-size"
-          onChange={[Function]}
-          value={10}
-        >
-          <option
+          <label
+            className="u-visually-hidden"
+            htmlFor="choose-size"
+          >
+            Select the number of results to display at a time
+          </label>
+          <select
+            id="choose-size"
+            onChange={[Function]}
             value={10}
           >
-            Show 
-            10
-             results
-          </option>
-          <option
-            value={25}
+            <option
+              value={10}
+            >
+              Show 
+              10
+               results
+            </option>
+            <option
+              value={25}
+            >
+              Show 
+              25
+               results
+            </option>
+            <option
+              value={50}
+            >
+              Show 
+              50
+               results
+            </option>
+            <option
+              value={100}
+            >
+              Show 
+              100
+               results
+            </option>
+          </select>
+        </div>
+        <div
+          className="cf-select flex-fixed"
+        >
+          <label
+            className="u-visually-hidden"
+            htmlFor="choose-sort"
           >
-            Show 
-            25
-             results
-          </option>
-          <option
-            value={50}
+            Choose the order in which the results are displayed
+          </label>
+          <select
+            id="choose-sort"
+            onChange={[Function]}
           >
-            Show 
-            50
-             results
-          </option>
-          <option
-            value={100}
+            <option
+              value="created_date_desc"
+            >
+              Sort by newest to oldest
+            </option>
+            <option
+              value="created_date_asc"
+            >
+              Sort by oldest to newest
+            </option>
+            <option
+              value="relevance_desc"
+            >
+              Sort by relevance
+            </option>
+            <option
+              value="relevance_asc"
+            >
+              Sort by relevance (asc)
+            </option>
+          </select>
+        </div>
+        <h3
+          className="h4 flex-all export-results"
+        >
+          <button
+            className="a-btn a-btn__link"
+            data-gtm_ignore="true"
+            onClick={[Function]}
           >
-            Show 
-            100
-             results
-          </option>
-        </select>
+            Export results
+          </button>
+        </h3>
       </div>
-      <div
-        className="cf-select flex-fixed"
-      >
-        <label
-          className="u-visually-hidden"
-          htmlFor="choose-sort"
-        >
-          Choose the order in which the results are displayed
-        </label>
-        <select
-          id="choose-sort"
-          onChange={[Function]}
-        >
-          <option
-            value="created_date_desc"
-          >
-            Sort by newest to oldest
-          </option>
-          <option
-            value="created_date_asc"
-          >
-            Sort by oldest to newest
-          </option>
-          <option
-            value="relevance_desc"
-          >
-            Sort by relevance
-          </option>
-          <option
-            value="relevance_asc"
-          >
-            Sort by relevance (asc)
-          </option>
-        </select>
-      </div>
-      <h3
-        className="h4 flex-all export-results"
-      >
-        <button
-          className="a-btn a-btn__link"
-          data-gtm_ignore="true"
-          onClick={[Function]}
-        >
-          Export results
-        </button>
-      </h3>
-    </div>
-  </summary>
+    </summary>
+  </div>
   <div
     className="m-notification m-notification__visible m-notification__error"
   >
@@ -231,118 +233,120 @@ exports[`component:ListPanel displays a message when only the narratives are sta
 <section
   className="list-panel"
 >
-  <summary
-    className="action-bar"
-    id="search-summary"
-  >
-    <div>
-      <h2>
-        Showing 
-        <span>
-          1
-        </span>
-         matches out of 
-        <span>
-          100
-        </span>
-         total complaints
-      </h2>
-    </div>
-    <div
-      className="layout-row"
+  <div>
+    <summary
+      className="action-bar"
+      id="search-summary"
     >
+      <div>
+        <h2>
+          Showing 
+          <span>
+            1
+          </span>
+           matches out of 
+          <span>
+            100
+          </span>
+           total complaints
+        </h2>
+      </div>
       <div
-        className="cf-select flex-fixed"
+        className="layout-row"
       >
-        <label
-          className="u-visually-hidden"
-          htmlFor="choose-size"
+        <div
+          className="cf-select flex-fixed"
         >
-          Select the number of results to display at a time
-        </label>
-        <select
-          id="choose-size"
-          onChange={[Function]}
-          value={10}
-        >
-          <option
+          <label
+            className="u-visually-hidden"
+            htmlFor="choose-size"
+          >
+            Select the number of results to display at a time
+          </label>
+          <select
+            id="choose-size"
+            onChange={[Function]}
             value={10}
           >
-            Show 
-            10
-             results
-          </option>
-          <option
-            value={25}
+            <option
+              value={10}
+            >
+              Show 
+              10
+               results
+            </option>
+            <option
+              value={25}
+            >
+              Show 
+              25
+               results
+            </option>
+            <option
+              value={50}
+            >
+              Show 
+              50
+               results
+            </option>
+            <option
+              value={100}
+            >
+              Show 
+              100
+               results
+            </option>
+          </select>
+        </div>
+        <div
+          className="cf-select flex-fixed"
+        >
+          <label
+            className="u-visually-hidden"
+            htmlFor="choose-sort"
           >
-            Show 
-            25
-             results
-          </option>
-          <option
-            value={50}
+            Choose the order in which the results are displayed
+          </label>
+          <select
+            id="choose-sort"
+            onChange={[Function]}
           >
-            Show 
-            50
-             results
-          </option>
-          <option
-            value={100}
+            <option
+              value="created_date_desc"
+            >
+              Sort by newest to oldest
+            </option>
+            <option
+              value="created_date_asc"
+            >
+              Sort by oldest to newest
+            </option>
+            <option
+              value="relevance_desc"
+            >
+              Sort by relevance
+            </option>
+            <option
+              value="relevance_asc"
+            >
+              Sort by relevance (asc)
+            </option>
+          </select>
+        </div>
+        <h3
+          className="h4 flex-all export-results"
+        >
+          <button
+            className="a-btn a-btn__link"
+            data-gtm_ignore="true"
+            onClick={[Function]}
           >
-            Show 
-            100
-             results
-          </option>
-        </select>
+            Export results
+          </button>
+        </h3>
       </div>
-      <div
-        className="cf-select flex-fixed"
-      >
-        <label
-          className="u-visually-hidden"
-          htmlFor="choose-sort"
-        >
-          Choose the order in which the results are displayed
-        </label>
-        <select
-          id="choose-sort"
-          onChange={[Function]}
-        >
-          <option
-            value="created_date_desc"
-          >
-            Sort by newest to oldest
-          </option>
-          <option
-            value="created_date_asc"
-          >
-            Sort by oldest to newest
-          </option>
-          <option
-            value="relevance_desc"
-          >
-            Sort by relevance
-          </option>
-          <option
-            value="relevance_asc"
-          >
-            Sort by relevance (asc)
-          </option>
-        </select>
-      </div>
-      <h3
-        className="h4 flex-all export-results"
-      >
-        <button
-          className="a-btn a-btn__link"
-          data-gtm_ignore="true"
-          onClick={[Function]}
-        >
-          Export results
-        </button>
-      </h3>
-    </div>
-  </summary>
+    </summary>
+  </div>
   <div>
     <div
       className="m-notification m-notification__visible m-notification__warning"
@@ -658,118 +662,120 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
 <section
   className="list-panel"
 >
-  <summary
-    className="action-bar"
-    id="search-summary"
-  >
-    <div>
-      <h2>
-        Showing 
-        <span>
-          1
-        </span>
-         matches out of 
-        <span>
-          100
-        </span>
-         total complaints
-      </h2>
-    </div>
-    <div
-      className="layout-row"
+  <div>
+    <summary
+      className="action-bar"
+      id="search-summary"
     >
+      <div>
+        <h2>
+          Showing 
+          <span>
+            1
+          </span>
+           matches out of 
+          <span>
+            100
+          </span>
+           total complaints
+        </h2>
+      </div>
       <div
-        className="cf-select flex-fixed"
+        className="layout-row"
       >
-        <label
-          className="u-visually-hidden"
-          htmlFor="choose-size"
+        <div
+          className="cf-select flex-fixed"
         >
-          Select the number of results to display at a time
-        </label>
-        <select
-          id="choose-size"
-          onChange={[Function]}
-          value={10}
-        >
-          <option
+          <label
+            className="u-visually-hidden"
+            htmlFor="choose-size"
+          >
+            Select the number of results to display at a time
+          </label>
+          <select
+            id="choose-size"
+            onChange={[Function]}
             value={10}
           >
-            Show 
-            10
-             results
-          </option>
-          <option
-            value={25}
+            <option
+              value={10}
+            >
+              Show 
+              10
+               results
+            </option>
+            <option
+              value={25}
+            >
+              Show 
+              25
+               results
+            </option>
+            <option
+              value={50}
+            >
+              Show 
+              50
+               results
+            </option>
+            <option
+              value={100}
+            >
+              Show 
+              100
+               results
+            </option>
+          </select>
+        </div>
+        <div
+          className="cf-select flex-fixed"
+        >
+          <label
+            className="u-visually-hidden"
+            htmlFor="choose-sort"
           >
-            Show 
-            25
-             results
-          </option>
-          <option
-            value={50}
+            Choose the order in which the results are displayed
+          </label>
+          <select
+            id="choose-sort"
+            onChange={[Function]}
           >
-            Show 
-            50
-             results
-          </option>
-          <option
-            value={100}
+            <option
+              value="created_date_desc"
+            >
+              Sort by newest to oldest
+            </option>
+            <option
+              value="created_date_asc"
+            >
+              Sort by oldest to newest
+            </option>
+            <option
+              value="relevance_desc"
+            >
+              Sort by relevance
+            </option>
+            <option
+              value="relevance_asc"
+            >
+              Sort by relevance (asc)
+            </option>
+          </select>
+        </div>
+        <h3
+          className="h4 flex-all export-results"
+        >
+          <button
+            className="a-btn a-btn__link"
+            data-gtm_ignore="true"
+            onClick={[Function]}
           >
-            Show 
-            100
-             results
-          </option>
-        </select>
+            Export results
+          </button>
+        </h3>
       </div>
-      <div
-        className="cf-select flex-fixed"
-      >
-        <label
-          className="u-visually-hidden"
-          htmlFor="choose-sort"
-        >
-          Choose the order in which the results are displayed
-        </label>
-        <select
-          id="choose-sort"
-          onChange={[Function]}
-        >
-          <option
-            value="created_date_desc"
-          >
-            Sort by newest to oldest
-          </option>
-          <option
-            value="created_date_asc"
-          >
-            Sort by oldest to newest
-          </option>
-          <option
-            value="relevance_desc"
-          >
-            Sort by relevance
-          </option>
-          <option
-            value="relevance_asc"
-          >
-            Sort by relevance (asc)
-          </option>
-        </select>
-      </div>
-      <h3
-        className="h4 flex-all export-results"
-      >
-        <button
-          className="a-btn a-btn__link"
-          data-gtm_ignore="true"
-          onClick={[Function]}
-        >
-          Export results
-        </button>
-      </h3>
-    </div>
-  </summary>
+    </summary>
+  </div>
   <div>
     <div
       className="m-notification m-notification__visible m-notification__warning"
@@ -1085,118 +1091,120 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
 <section
   className="list-panel"
 >
-  <summary
-    className="action-bar"
-    id="search-summary"
-  >
-    <div>
-      <h2>
-        Showing 
-        <span>
-          1
-        </span>
-         matches out of 
-        <span>
-          100
-        </span>
-         total complaints
-      </h2>
-    </div>
-    <div
-      className="layout-row"
+  <div>
+    <summary
+      className="action-bar"
+      id="search-summary"
     >
+      <div>
+        <h2>
+          Showing 
+          <span>
+            1
+          </span>
+           matches out of 
+          <span>
+            100
+          </span>
+           total complaints
+        </h2>
+      </div>
       <div
-        className="cf-select flex-fixed"
+        className="layout-row"
       >
-        <label
-          className="u-visually-hidden"
-          htmlFor="choose-size"
+        <div
+          className="cf-select flex-fixed"
         >
-          Select the number of results to display at a time
-        </label>
-        <select
-          id="choose-size"
-          onChange={[Function]}
-          value={10}
-        >
-          <option
+          <label
+            className="u-visually-hidden"
+            htmlFor="choose-size"
+          >
+            Select the number of results to display at a time
+          </label>
+          <select
+            id="choose-size"
+            onChange={[Function]}
             value={10}
           >
-            Show 
-            10
-             results
-          </option>
-          <option
-            value={25}
+            <option
+              value={10}
+            >
+              Show 
+              10
+               results
+            </option>
+            <option
+              value={25}
+            >
+              Show 
+              25
+               results
+            </option>
+            <option
+              value={50}
+            >
+              Show 
+              50
+               results
+            </option>
+            <option
+              value={100}
+            >
+              Show 
+              100
+               results
+            </option>
+          </select>
+        </div>
+        <div
+          className="cf-select flex-fixed"
+        >
+          <label
+            className="u-visually-hidden"
+            htmlFor="choose-sort"
           >
-            Show 
-            25
-             results
-          </option>
-          <option
-            value={50}
+            Choose the order in which the results are displayed
+          </label>
+          <select
+            id="choose-sort"
+            onChange={[Function]}
           >
-            Show 
-            50
-             results
-          </option>
-          <option
-            value={100}
+            <option
+              value="created_date_desc"
+            >
+              Sort by newest to oldest
+            </option>
+            <option
+              value="created_date_asc"
+            >
+              Sort by oldest to newest
+            </option>
+            <option
+              value="relevance_desc"
+            >
+              Sort by relevance
+            </option>
+            <option
+              value="relevance_asc"
+            >
+              Sort by relevance (asc)
+            </option>
+          </select>
+        </div>
+        <h3
+          className="h4 flex-all export-results"
+        >
+          <button
+            className="a-btn a-btn__link"
+            data-gtm_ignore="true"
+            onClick={[Function]}
           >
-            Show 
-            100
-             results
-          </option>
-        </select>
+            Export results
+          </button>
+        </h3>
       </div>
-      <div
-        className="cf-select flex-fixed"
-      >
-        <label
-          className="u-visually-hidden"
-          htmlFor="choose-sort"
-        >
-          Choose the order in which the results are displayed
-        </label>
-        <select
-          id="choose-sort"
-          onChange={[Function]}
-        >
-          <option
-            value="created_date_desc"
-          >
-            Sort by newest to oldest
-          </option>
-          <option
-            value="created_date_asc"
-          >
-            Sort by oldest to newest
-          </option>
-          <option
-            value="relevance_desc"
-          >
-            Sort by relevance
-          </option>
-          <option
-            value="relevance_asc"
-          >
-            Sort by relevance (asc)
-          </option>
-        </select>
-      </div>
-      <h3
-        className="h4 flex-all export-results"
-      >
-        <button
-          className="a-btn a-btn__link"
-          data-gtm_ignore="true"
-          onClick={[Function]}
-        >
-          Export results
-        </button>
-      </h3>
-    </div>
-  </summary>
+    </summary>
+  </div>
   <div>
     <div
       className="m-notification m-notification__visible m-notification__warning"
@@ -1512,118 +1520,120 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
 <section
   className="list-panel"
 >
-  <summary
-    className="action-bar"
-    id="search-summary"
-  >
-    <div>
-      <h2>
-        Showing 
-        <span>
-          0
-        </span>
-         matches out of 
-        <span>
-          100
-        </span>
-         total complaints
-      </h2>
-    </div>
-    <div
-      className="layout-row"
+  <div>
+    <summary
+      className="action-bar"
+      id="search-summary"
     >
+      <div>
+        <h2>
+          Showing 
+          <span>
+            0
+          </span>
+           matches out of 
+          <span>
+            100
+          </span>
+           total complaints
+        </h2>
+      </div>
       <div
-        className="cf-select flex-fixed"
+        className="layout-row"
       >
-        <label
-          className="u-visually-hidden"
-          htmlFor="choose-size"
+        <div
+          className="cf-select flex-fixed"
         >
-          Select the number of results to display at a time
-        </label>
-        <select
-          id="choose-size"
-          onChange={[Function]}
-          value={10}
-        >
-          <option
+          <label
+            className="u-visually-hidden"
+            htmlFor="choose-size"
+          >
+            Select the number of results to display at a time
+          </label>
+          <select
+            id="choose-size"
+            onChange={[Function]}
             value={10}
           >
-            Show 
-            10
-             results
-          </option>
-          <option
-            value={25}
+            <option
+              value={10}
+            >
+              Show 
+              10
+               results
+            </option>
+            <option
+              value={25}
+            >
+              Show 
+              25
+               results
+            </option>
+            <option
+              value={50}
+            >
+              Show 
+              50
+               results
+            </option>
+            <option
+              value={100}
+            >
+              Show 
+              100
+               results
+            </option>
+          </select>
+        </div>
+        <div
+          className="cf-select flex-fixed"
+        >
+          <label
+            className="u-visually-hidden"
+            htmlFor="choose-sort"
           >
-            Show 
-            25
-             results
-          </option>
-          <option
-            value={50}
+            Choose the order in which the results are displayed
+          </label>
+          <select
+            id="choose-sort"
+            onChange={[Function]}
           >
-            Show 
-            50
-             results
-          </option>
-          <option
-            value={100}
+            <option
+              value="created_date_desc"
+            >
+              Sort by newest to oldest
+            </option>
+            <option
+              value="created_date_asc"
+            >
+              Sort by oldest to newest
+            </option>
+            <option
+              value="relevance_desc"
+            >
+              Sort by relevance
+            </option>
+            <option
+              value="relevance_asc"
+            >
+              Sort by relevance (asc)
+            </option>
+          </select>
+        </div>
+        <h3
+          className="h4 flex-all export-results"
+        >
+          <button
+            className="a-btn a-btn__link"
+            data-gtm_ignore="true"
+            onClick={[Function]}
           >
-            Show 
-            100
-             results
-          </option>
-        </select>
+            Export results
+          </button>
+        </h3>
       </div>
-      <div
-        className="cf-select flex-fixed"
-      >
-        <label
-          className="u-visually-hidden"
-          htmlFor="choose-sort"
-        >
-          Choose the order in which the results are displayed
-        </label>
-        <select
-          id="choose-sort"
-          onChange={[Function]}
-        >
-          <option
-            value="created_date_desc"
-          >
-            Sort by newest to oldest
-          </option>
-          <option
-            value="created_date_asc"
-          >
-            Sort by oldest to newest
-          </option>
-          <option
-            value="relevance_desc"
-          >
-            Sort by relevance
-          </option>
-          <option
-            value="relevance_asc"
-          >
-            Sort by relevance (asc)
-          </option>
-        </select>
-      </div>
-      <h3
-        className="h4 flex-all export-results"
-      >
-        <button
-          className="a-btn a-btn__link"
-          data-gtm_ignore="true"
-          onClick={[Function]}
-        >
-          Export results
-        </button>
-      </h3>
-    </div>
-  </summary>
+    </summary>
+  </div>
   <h2>
     No results were found for your search
   </h2>
@@ -1720,118 +1730,120 @@ exports[`component:ListPanel only displays data message when both types are stal
 <section
   className="list-panel"
 >
-  <summary
-    className="action-bar"
-    id="search-summary"
-  >
-    <div>
-      <h2>
-        Showing 
-        <span>
-          1
-        </span>
-         matches out of 
-        <span>
-          100
-        </span>
-         total complaints
-      </h2>
-    </div>
-    <div
-      className="layout-row"
+  <div>
+    <summary
+      className="action-bar"
+      id="search-summary"
     >
+      <div>
+        <h2>
+          Showing 
+          <span>
+            1
+          </span>
+           matches out of 
+          <span>
+            100
+          </span>
+           total complaints
+        </h2>
+      </div>
       <div
-        className="cf-select flex-fixed"
+        className="layout-row"
       >
-        <label
-          className="u-visually-hidden"
-          htmlFor="choose-size"
+        <div
+          className="cf-select flex-fixed"
         >
-          Select the number of results to display at a time
-        </label>
-        <select
-          id="choose-size"
-          onChange={[Function]}
-          value={10}
-        >
-          <option
+          <label
+            className="u-visually-hidden"
+            htmlFor="choose-size"
+          >
+            Select the number of results to display at a time
+          </label>
+          <select
+            id="choose-size"
+            onChange={[Function]}
             value={10}
           >
-            Show 
-            10
-             results
-          </option>
-          <option
-            value={25}
+            <option
+              value={10}
+            >
+              Show 
+              10
+               results
+            </option>
+            <option
+              value={25}
+            >
+              Show 
+              25
+               results
+            </option>
+            <option
+              value={50}
+            >
+              Show 
+              50
+               results
+            </option>
+            <option
+              value={100}
+            >
+              Show 
+              100
+               results
+            </option>
+          </select>
+        </div>
+        <div
+          className="cf-select flex-fixed"
+        >
+          <label
+            className="u-visually-hidden"
+            htmlFor="choose-sort"
           >
-            Show 
-            25
-             results
-          </option>
-          <option
-            value={50}
+            Choose the order in which the results are displayed
+          </label>
+          <select
+            id="choose-sort"
+            onChange={[Function]}
           >
-            Show 
-            50
-             results
-          </option>
-          <option
-            value={100}
+            <option
+              value="created_date_desc"
+            >
+              Sort by newest to oldest
+            </option>
+            <option
+              value="created_date_asc"
+            >
+              Sort by oldest to newest
+            </option>
+            <option
+              value="relevance_desc"
+            >
+              Sort by relevance
+            </option>
+            <option
+              value="relevance_asc"
+            >
+              Sort by relevance (asc)
+            </option>
+          </select>
+        </div>
+        <h3
+          className="h4 flex-all export-results"
+        >
+          <button
+            className="a-btn a-btn__link"
+            data-gtm_ignore="true"
+            onClick={[Function]}
           >
-            Show 
-            100
-             results
-          </option>
-        </select>
+            Export results
+          </button>
+        </h3>
       </div>
-      <div
-        className="cf-select flex-fixed"
-      >
-        <label
-          className="u-visually-hidden"
-          htmlFor="choose-sort"
-        >
-          Choose the order in which the results are displayed
-        </label>
-        <select
-          id="choose-sort"
-          onChange={[Function]}
-        >
-          <option
-            value="created_date_desc"
-          >
-            Sort by newest to oldest
-          </option>
-          <option
-            value="created_date_asc"
-          >
-            Sort by oldest to newest
-          </option>
-          <option
-            value="relevance_desc"
-          >
-            Sort by relevance
-          </option>
-          <option
-            value="relevance_asc"
-          >
-            Sort by relevance (asc)
-          </option>
-        </select>
-      </div>
-      <h3
-        className="h4 flex-all export-results"
-      >
-        <button
-          className="a-btn a-btn__link"
-          data-gtm_ignore="true"
-          onClick={[Function]}
-        >
-          Export results
-        </button>
-      </h3>
-    </div>
-  </summary>
+    </summary>
+  </div>
   <div>
     <div
       className="m-notification m-notification__visible m-notification__warning"
@@ -2147,118 +2159,120 @@ exports[`component:ListPanel renders without crashing 1`] = `
 <section
   className="list-panel"
 >
-  <summary
-    className="action-bar"
-    id="search-summary"
-  >
-    <div>
-      <h2>
-        Showing 
-        <span>
-          1
-        </span>
-         matches out of 
-        <span>
-          100
-        </span>
-         total complaints
-      </h2>
-    </div>
-    <div
-      className="layout-row"
+  <div>
+    <summary
+      className="action-bar"
+      id="search-summary"
     >
+      <div>
+        <h2>
+          Showing 
+          <span>
+            1
+          </span>
+           matches out of 
+          <span>
+            100
+          </span>
+           total complaints
+        </h2>
+      </div>
       <div
-        className="cf-select flex-fixed"
+        className="layout-row"
       >
-        <label
-          className="u-visually-hidden"
-          htmlFor="choose-size"
+        <div
+          className="cf-select flex-fixed"
         >
-          Select the number of results to display at a time
-        </label>
-        <select
-          id="choose-size"
-          onChange={[Function]}
-          value={10}
-        >
-          <option
+          <label
+            className="u-visually-hidden"
+            htmlFor="choose-size"
+          >
+            Select the number of results to display at a time
+          </label>
+          <select
+            id="choose-size"
+            onChange={[Function]}
             value={10}
           >
-            Show 
-            10
-             results
-          </option>
-          <option
-            value={25}
+            <option
+              value={10}
+            >
+              Show 
+              10
+               results
+            </option>
+            <option
+              value={25}
+            >
+              Show 
+              25
+               results
+            </option>
+            <option
+              value={50}
+            >
+              Show 
+              50
+               results
+            </option>
+            <option
+              value={100}
+            >
+              Show 
+              100
+               results
+            </option>
+          </select>
+        </div>
+        <div
+          className="cf-select flex-fixed"
+        >
+          <label
+            className="u-visually-hidden"
+            htmlFor="choose-sort"
           >
-            Show 
-            25
-             results
-          </option>
-          <option
-            value={50}
+            Choose the order in which the results are displayed
+          </label>
+          <select
+            id="choose-sort"
+            onChange={[Function]}
           >
-            Show 
-            50
-             results
-          </option>
-          <option
-            value={100}
+            <option
+              value="created_date_desc"
+            >
+              Sort by newest to oldest
+            </option>
+            <option
+              value="created_date_asc"
+            >
+              Sort by oldest to newest
+            </option>
+            <option
+              value="relevance_desc"
+            >
+              Sort by relevance
+            </option>
+            <option
+              value="relevance_asc"
+            >
+              Sort by relevance (asc)
+            </option>
+          </select>
+        </div>
+        <h3
+          className="h4 flex-all export-results"
+        >
+          <button
+            className="a-btn a-btn__link"
+            data-gtm_ignore="true"
+            onClick={[Function]}
           >
-            Show 
-            100
-             results
-          </option>
-        </select>
+            Export results
+          </button>
+        </h3>
       </div>
-      <div
-        className="cf-select flex-fixed"
-      >
-        <label
-          className="u-visually-hidden"
-          htmlFor="choose-sort"
-        >
-          Choose the order in which the results are displayed
-        </label>
-        <select
-          id="choose-sort"
-          onChange={[Function]}
-        >
-          <option
-            value="created_date_desc"
-          >
-            Sort by newest to oldest
-          </option>
-          <option
-            value="created_date_asc"
-          >
-            Sort by oldest to newest
-          </option>
-          <option
-            value="relevance_desc"
-          >
-            Sort by relevance
-          </option>
-          <option
-            value="relevance_asc"
-          >
-            Sort by relevance (asc)
-          </option>
-        </select>
-      </div>
-      <h3
-        className="h4 flex-all export-results"
-      >
-        <button
-          className="a-btn a-btn__link"
-          data-gtm_ignore="true"
-          onClick={[Function]}
-        >
-          Export results
-        </button>
-      </h3>
-    </div>
-  </summary>
+    </summary>
+  </div>
   <ul
     className="cards-panel"
   >
