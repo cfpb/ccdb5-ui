@@ -23,6 +23,15 @@ export class FilterPanel extends React.Component {
       'servicemembers'
 
     return ( <div>
+        { this.props.showFilterToggle &&
+        <div className="filter-button">
+          <button class="a-btn"
+                  title="Filter results"
+                  onClick={ this.props.onFilterToggle }>
+            Filter results
+          </button>
+        </div>
+        }
         { this.props.showFilters &&
         <section className="filter-panel">
           { this.props.showButton &&
@@ -91,6 +100,7 @@ export class FilterPanel extends React.Component {
 const mapStateToProps = state => ( {
   aggs: state.aggs,
   showButton: state.view.width < 750,
+  showFilterToggle: state.view.width < 600 && !state.view.showFilters,
   showFilters: state.view.showFilters
 } )
 
