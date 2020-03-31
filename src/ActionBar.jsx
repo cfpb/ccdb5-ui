@@ -88,7 +88,7 @@ export class ActionBar extends React.Component {
 }
 
 export const mapStateToProps = state => ( {
-  showFilterToggle: state.view.width < 749 && !state.view.showFilters,
+  showFilterToggle: state.view.width < 600 && !state.view.showFilters,
   size: state.query.size,
   sort: state.query.sort,
   hits: state.aggs.total,
