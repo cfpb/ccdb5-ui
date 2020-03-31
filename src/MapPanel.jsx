@@ -22,7 +22,7 @@ const WARNING_MESSAGE = 'Due to your filter selections, the “Complaints per' +
 
 export class MapPanel extends React.Component {
   render() {
-    /* eslint complexity: ["error", 5] */
+    // eslint-disable-next-line complexity
     return (
       <section className="map-panel">
         <ActionBar/>

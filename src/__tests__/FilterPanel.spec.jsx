@@ -9,8 +9,9 @@ function setupSnapshot() {
   const middlewares = [thunk]
   const mockStore = configureMockStore(middlewares)
   const store = mockStore({
+    aggs: {},
     query: {},
-    aggs: {}
+    view: {}
   })
 
   return renderer.create(
