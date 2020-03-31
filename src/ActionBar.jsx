@@ -1,7 +1,6 @@
 import './ActionBar.less';
 import { changeSize, changeSort } from './actions/paging'
 import { connect } from 'react-redux'
-import { filterVisiblityToggled } from './actions/view'
 import { FormattedNumber } from 'react-intl'
 import React from 'react';
 import { showExportDialog } from './actions/dataExport'
@@ -96,9 +95,6 @@ export const mapDispatchToProps = dispatch => ( {
   },
   onExportResults: () => {
     dispatch( showExportDialog() )
-  },
-  onFilterToggle: () => {
-    dispatch( filterVisiblityToggled() )
   }
 } )
 
