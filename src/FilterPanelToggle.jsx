@@ -1,11 +1,11 @@
 import './FilterPanelToggle.less'
 import { connect } from 'react-redux'
-import { dataNormalizationChanged } from './actions/map';
+import { filterVisiblityToggled } from './actions/view'
 import React from 'react'
 
 export class FilterPanelToggle extends React.Component {
   _setNormalization( val ) {
-    this.props.onDataNormalization( val )
+    this.props.onFilterToggle( val )
   }
 
   render() {
@@ -28,8 +28,8 @@ export const mapStateToProps = state => ( {
 } );
 
 export const mapDispatchToProps = dispatch => ( {
-  onDataNormalization: value => {
-    dispatch( dataNormalizationChanged( value ) )
+  onFilterToggle: () => {
+    dispatch( filterVisiblityToggled() )
   }
 } );
 
