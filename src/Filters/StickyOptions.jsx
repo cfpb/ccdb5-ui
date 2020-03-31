@@ -10,7 +10,6 @@ const mapOfOptions = options => {
     map[x.key] = x;
     return map;
   }, {} )
-
   return result
 }
 
@@ -79,12 +78,11 @@ export default class StickyOptions extends React.Component {
       {
         this.state.tracked.map( x => {
           const bucket = this.state.cache[x]
-          return (
-            <AggregationItem item={bucket}
-                             key={bucket.key}
-                             fieldName={this.props.fieldName}
-            />
-          )
+          return bucket ?
+            <AggregationItem item={ bucket }
+                             key={ bucket.key }
+                             fieldName={ this.props.fieldName }
+            /> : null
         } )
       }
       </ul>
