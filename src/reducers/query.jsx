@@ -473,7 +473,9 @@ export function removeAllFilters( state ) {
 */
 function removeFilter( state, action ) {
   const newState = { ...state }
-  if ( action.filterName in newState ) {
+  if ( action.filterName === 'has_narrative' ) {
+    delete newState.has_narrative
+  } else if ( action.filterName in newState ) {
     const idx = newState[action.filterName].indexOf( action.filterValue )
     if ( idx !== -1 ) {
       newState[action.filterName].splice( idx, 1 )
