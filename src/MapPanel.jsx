@@ -49,7 +49,7 @@ export class MapPanel extends React.Component {
 const mapStateToProps = state => ( {
   error: state.map.error,
   isLoading: state.map.isLoading,
-  showMobileFilters: state.view.width < 749,
+  showMobileFilters: state.view.width < 750,
   showWarning: hasFiltersEnabled( state.query )
 } )
 

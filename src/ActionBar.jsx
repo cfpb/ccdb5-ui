@@ -73,22 +73,12 @@ export class ActionBar extends React.Component {
             </h3>
           </div>
         </summary>
-        { this.props.showFilterToggle &&
-          <div className="filter-button">
-            <button class="a-btn"
-                    title="Filter results"
-                    onClick={ this.props.onFilterToggle }>
-              Filter results
-            </button>
-          </div>
-        }
         </div>
     );
   }
 }
 
 export const mapStateToProps = state => ( {
-  showFilterToggle: state.view.width < 600 && !state.view.showFilters,
   size: state.query.size,
   sort: state.query.sort,
   hits: state.aggs.total,
