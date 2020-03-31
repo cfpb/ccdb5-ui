@@ -49,6 +49,14 @@ describe('component:PillPanel', () => {
     expect(tree).toMatchSnapshot();
   })
 
+  it('adds a has narrative pill', () => {
+    const target = setupSnapshot({
+      has_narrative: true
+    });
+    const tree = target.toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
   it('allows the user to clear all filters', () => {
     const { target, props } = setupEnzyme()
     const button = target.find('.clear-all button');
