@@ -10,9 +10,10 @@ export class RefinePanel extends React.Component {
 
   render() {
     return (
-      <aside className={ this._getTabClass() }>
-        { this.props.showDesktopFilters && <FilterPanel/> }
-      </aside>
+      this.props.showDesktopFilters ?
+        <aside className={ this._getTabClass() }>
+          <FilterPanel/>
+        </aside> : null
     )
   }
 }

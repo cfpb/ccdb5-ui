@@ -5,8 +5,8 @@ import { screenResized } from './actions/view'
 
 
 export class WindowSize extends React.Component {
-  // This will initialize the application with the params in the URL
-  // and then call the API
+  // This will initialize the application with the window size
+  // and then update redux store
   componentDidMount() {
     this.props.updateWindowSize( window.innerWidth )
 
