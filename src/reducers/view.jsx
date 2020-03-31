@@ -10,10 +10,9 @@ export const defaultView = {
  * Handler for the update print mode action
  *
  * @param {object} state the current state in the Redux store
- * @param {object} action the command being executed
  * @returns {object} the new state for the Redux store
  */
-export function updatePrintMode( state, action ) {
+export function updatePrintMode( state ) {
   return {
     ...state,
     printMode: !state.printMode
@@ -39,10 +38,9 @@ export function updateScreenSize( state, action ) {
  * Handler for the update screen size action
  *
  * @param {object} state the current state in the Redux store
- * @param {object} action the command being executed
  * @returns {object} the new state for the Redux store
  */
-export function updateFilterVisibility( state, action ) {
+export function updateFilterVisibility( state ) {
   return {
     ...state,
     showFilters: !state.showFilters

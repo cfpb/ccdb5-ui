@@ -22,7 +22,7 @@ export class FilterPanel extends React.Component {
       'complaints submitted by or on behalf of older Americans and/or ' +
       'servicemembers'
 
-    return ( <div>
+    return (<div>
         { this.props.showFilterToggle &&
         <div className="filter-button">
           <button class="a-btn"
@@ -92,8 +92,7 @@ export class FilterPanel extends React.Component {
                         fieldName="tags"
           />
         </section> }
-      </div>
-    )
+      </div>)
   }
 }
 

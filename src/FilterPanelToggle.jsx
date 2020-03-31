@@ -4,10 +4,6 @@ import { filterVisiblityToggled } from './actions/view'
 import React from 'react'
 
 export class FilterPanelToggle extends React.Component {
-  _setNormalization( val ) {
-    this.props.onFilterToggle( val )
-  }
-
   render() {
     return (
       <section className="filter-panel-toggle">
@@ -15,7 +11,8 @@ export class FilterPanelToggle extends React.Component {
           <p>&nbsp;</p>
           <button
             className={ 'a-btn' }
-            onClick={ () => this._setNormalization( true ) }>Filter results
+            title="Filter results"
+            onClick={ () => this.props.onFilterToggle() }>Filter results
           </button>
         </div>
       </section>
@@ -23,14 +20,10 @@ export class FilterPanelToggle extends React.Component {
   }
 }
 
-export const mapStateToProps = state => ( {
-  showButton: true
-} );
-
 export const mapDispatchToProps = dispatch => ( {
   onFilterToggle: () => {
     dispatch( filterVisiblityToggled() )
   }
 } );
 
-export default connect( mapStateToProps, mapDispatchToProps )( FilterPanelToggle )
+export default connect( null, mapDispatchToProps )( FilterPanelToggle )
