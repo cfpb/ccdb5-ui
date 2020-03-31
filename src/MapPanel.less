@@ -14,9 +14,19 @@
         color: @gray-40;
       }
       button {
-        color: @black;
         &.selected {
           font-weight: 600;
+        }
+      }
+      &:not(.filter-panel-toggle){
+        button {
+          color: @black;
+        }
+      }
+      &.filter-panel-toggle {
+        display: block;
+        @media @desktop, @tablet-lg {
+          display: none;
         }
       }
     }
