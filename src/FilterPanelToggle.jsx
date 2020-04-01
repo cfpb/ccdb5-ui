@@ -1,6 +1,6 @@
 import './FilterPanelToggle.less'
 import { connect } from 'react-redux'
-import { filterVisiblityToggled } from './actions/view'
+import { filterVisibilityToggled } from './actions/view'
 import React from 'react'
 
 export class FilterPanelToggle extends React.Component {
@@ -28,7 +28,7 @@ const mapStateToProps = state => ( {
 
 export const mapDispatchToProps = dispatch => ( {
   onFilterToggle: () => {
-    dispatch( filterVisiblityToggled() )
+    dispatch( filterVisibilityToggled() )
   }
 } );
 

@@ -6,6 +6,17 @@ export const TOGGLE_FILTER_VISIBILITY = 'TOGGLE_FILTER_VISIBILITY'
 
 // ----------------------------------------------------------------------------
 // Simple actions
+/**
+ * Notifies the application that the filter visibility has changed
+ *
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function filterVisibilityToggled() {
+  return {
+    type: TOGGLE_FILTER_VISIBILITY,
+    requery: REQUERY_NEVER
+  }
+}
 
 /**
  * Notifies the application that the print mode has changed
@@ -32,7 +43,6 @@ export function screenResized( width ) {
   }
 }
 
-
 /**
  * Notifies the application that the tab has changed
  *
@@ -44,17 +54,5 @@ export function tabChanged( tab ) {
     type: TAB_CHANGED,
     tab,
     requery: REQUERY_HITS_ONLY
-  }
-}
-
-/**
- * Notifies the application that the filter visibility has changed
- *
- * @returns {string} a packaged payload to be used by Redux reducers
- */
-export function filterVisiblityToggled() {
-  return {
-    type: TOGGLE_FILTER_VISIBILITY,
-    requery: REQUERY_NEVER
   }
 }
