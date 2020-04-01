@@ -97,7 +97,7 @@ exports[`component:Results renders List print mode without crashing 1`] = `
       >
         <label
           className="u-visually-hidden"
-          htmlFor="choose-sort"
+          htmlFor="choose-size"
         >
           Select the number of results to display at a time
         </label>
@@ -759,7 +759,7 @@ exports[`component:Results renders list panel without crashing 1`] = `
       >
         <label
           className="u-visually-hidden"
-          htmlFor="choose-sort"
+          htmlFor="choose-size"
         >
           Select the number of results to display at a time
         </label>
