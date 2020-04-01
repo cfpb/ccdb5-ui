@@ -53,7 +53,7 @@ export class ListPanel extends React.Component {
           <FilterPanelToggle/>
           <Separator />
           <section className="cf-select">
-            <label className="u-visually-hidden" htmlFor="choose-sort">
+            <label className="u-visually-hidden" htmlFor="choose-size">
               Select the number of results to display at a time
             </label>
             <p>

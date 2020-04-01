@@ -68,7 +68,7 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-sort"
+        htmlFor="choose-size"
       >
         Select the number of results to display at a time
       </label>
@@ -346,7 +346,7 @@ exports[`component:ListPanel displays a message when only the narratives are sta
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-sort"
+        htmlFor="choose-size"
       >
         Select the number of results to display at a time
       </label>
@@ -800,7 +800,7 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-sort"
+        htmlFor="choose-size"
       >
         Select the number of results to display at a time
       </label>
@@ -1254,7 +1254,7 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-sort"
+        htmlFor="choose-size"
       >
         Select the number of results to display at a time
       </label>
@@ -1684,7 +1684,7 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-sort"
+        htmlFor="choose-size"
       >
         Select the number of results to display at a time
       </label>
@@ -1943,7 +1943,7 @@ exports[`component:ListPanel only displays data message when both types are stal
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-sort"
+        htmlFor="choose-size"
       >
         Select the number of results to display at a time
       </label>
@@ -2374,7 +2374,7 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-sort"
+        htmlFor="choose-size"
       >
         Select the number of results to display at a time
       </label>
@@ -2804,7 +2804,7 @@ exports[`component:ListPanel renders without crashing 1`] = `
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-sort"
+        htmlFor="choose-size"
       >
         Select the number of results to display at a time
       </label>
