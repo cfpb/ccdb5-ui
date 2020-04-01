@@ -3,7 +3,7 @@ import Company from './Filters/Company'
 import { connect } from 'react-redux'
 import DateFilter from './Filters/DateFilter'
 import FederalState from './Filters/FederalState'
-import { filterVisiblityToggled } from './actions/view'
+import { filterVisibilityToggled } from './actions/view'
 import HasNarrative from './Filters/HasNarrative'
 import iconMap from './iconMap'
 import Issue from './Filters/Issue'
@@ -105,7 +105,7 @@ const mapStateToProps = state => ( {
 
 export const mapDispatchToProps = dispatch => ( {
   onFilterToggle: () => {
-    dispatch( filterVisiblityToggled() )
+    dispatch( filterVisibilityToggled() )
   }
 } )
 
