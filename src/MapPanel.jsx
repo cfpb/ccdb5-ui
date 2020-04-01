@@ -21,8 +21,8 @@ const WARNING_MESSAGE = 'Due to your filter selections, the “Complaints per' +
   ' 1,000” option has been disabled'
 
 export class MapPanel extends React.Component {
+  // eslint-disable-next-line complexity
   render() {
-    // eslint-disable-next-line complexity
     return (
       <section className="map-panel">
         <ActionBar/>
