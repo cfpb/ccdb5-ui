@@ -1,4 +1,5 @@
 import './ListPanel.less'
+import { changeSize, changeSort } from './actions/paging'
 import ActionBar from './ActionBar'
 import ComplaintCard from './ComplaintCard'
 import { connect } from 'react-redux'
@@ -135,4 +136,14 @@ const mapStateToProps = state => ( {
   showMobileFilters: state.view.width < 750
 } )
 
-export default connect( mapStateToProps )( ListPanel )
+export const mapDispatchToProps = dispatch => ( {
+  onSize: ev => {
+    const iSize = parseInt( ev.target.value, 10 )
+    dispatch( changeSize( iSize ) )
+  },
+  onSort: ev => {
+    dispatch( changeSort( ev.target.value ) )
+  }
+} )
+
+export default connect( mapStateToProps, mapDispatchToProps )( ListPanel )

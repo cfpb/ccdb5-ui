@@ -106,6 +106,7 @@ exports[`component:Results renders List print mode without crashing 1`] = `
         </p>
         <select
           id="choose-size"
+          onChange={[Function]}
         >
           <option
             value={10}
@@ -147,6 +148,7 @@ exports[`component:Results renders List print mode without crashing 1`] = `
         </p>
         <select
           id="choose-sort"
+          onChange={[Function]}
         >
           <option
             value="created_date_desc"
@@ -766,6 +768,7 @@ exports[`component:Results renders list panel without crashing 1`] = `
         </p>
         <select
           id="choose-size"
+          onChange={[Function]}
         >
           <option
             value={10}
@@ -807,6 +810,7 @@ exports[`component:Results renders list panel without crashing 1`] = `
         </p>
         <select
           id="choose-sort"
+          onChange={[Function]}
         >
           <option
             value="created_date_desc"

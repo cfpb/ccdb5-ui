@@ -1,5 +1,4 @@
 import './ActionBar.less';
-import { changeSize, changeSort } from './actions/paging'
 import { connect } from 'react-redux'
 import { FormattedNumber } from 'react-intl'
 import React from 'react';
@@ -48,13 +47,6 @@ export const mapStateToProps = state => ( {
 } )
 
 export const mapDispatchToProps = dispatch => ( {
-  onSize: ev => {
-    const iSize = parseInt( ev.target.value, 10 )
-    dispatch( changeSize( iSize ) )
-  },
-  onSort: ev => {
-    dispatch( changeSort( ev.target.value ) )
-  },
   onExportResults: () => {
     dispatch( showExportDialog() )
   }
