@@ -47,6 +47,10 @@ function setupSnapshot(items=[], initialStore={}, queryStore = null) {
     items
   })
 
+  const view = Object.assign({
+    width: 1000
+  })
+
   const middlewares = [thunk]
   const mockStore = configureMockStore(middlewares)
   const store = mockStore({
@@ -56,7 +60,8 @@ function setupSnapshot(items=[], initialStore={}, queryStore = null) {
       size: 10,
       tab: 'List'
     },
-    results
+    results,
+    view
   })
 
   return renderer.create(
