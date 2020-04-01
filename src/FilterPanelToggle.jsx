@@ -11,7 +11,8 @@ export class FilterPanelToggle extends React.Component {
           <p>&nbsp;</p>
           <button
             className={ 'a-btn' }
-            title={ this.props.showFilters ? 'Close Filters' : 'Filter results' }
+            title={ this.props.showFilters ? 'Close Filters' :
+              'Filter results' }
             onClick={ () => this.props.onFilterToggle() }>
             { this.props.showFilters ? 'Close Filters' : 'Filter results' }
           </button>
@@ -31,4 +32,5 @@ export const mapDispatchToProps = dispatch => ( {
   }
 } );
 
-export default connect( mapStateToProps, mapDispatchToProps )( FilterPanelToggle )
+export default connect( mapStateToProps,
+  mapDispatchToProps )( FilterPanelToggle )
