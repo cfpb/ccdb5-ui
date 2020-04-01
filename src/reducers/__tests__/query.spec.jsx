@@ -42,14 +42,14 @@ describe( 'reducer:query', () => {
 
       const state = {
         page: 10,
-        size: 100,
-        totalPages: 1000
+        size: 100
       }
 
       expect( target( state, action ) ).toEqual( {
         page: 10,
         queryString: '?page=10&size=100&totalPages=100',
-        size: 100
+        size: 100,
+        totalPages: 100
       } )
     } )
 
@@ -65,14 +65,14 @@ describe( 'reducer:query', () => {
 
       const state = {
         page: 101,
-        size: 100,
-        totalPages: 1000
+        size: 100
       }
 
       expect( target( state, action ) ).toEqual( {
         page: 100,
         queryString: '?page=100&size=100&totalPages=100',
-        size: 100
+        size: 100,
+        totalPages: 100
       } )
     } )
   } )
