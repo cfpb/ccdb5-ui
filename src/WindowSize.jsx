@@ -22,15 +22,11 @@ export class WindowSize extends React.Component {
   }
 }
 
-export const mapStateToProps = state => ( {
-  showFilters: state.view.showFilters
-} )
-
 export const mapDispatchToProps = dispatch => ( {
   updateWindowSize: size => {
     dispatch( screenResized( size ) )
   }
 } )
 
-export default connect( mapStateToProps, mapDispatchToProps )( WindowSize )
+export default connect( null, mapDispatchToProps )( WindowSize )
 
