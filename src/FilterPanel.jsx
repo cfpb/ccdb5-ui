@@ -17,7 +17,7 @@ export class FilterPanel extends React.Component {
     const descPublicResponse = "The company's optional public-facing " +
       "response to a consumer's complaint"
     const descConsumerConsent = 'Whether a consumer opted to publish their ' +
-      'compaint narrative'
+      'complaint narrative'
     const descTags = 'Data that supports easier searching and sorting of ' +
       'complaints submitted by or on behalf of older Americans and/or ' +
       'servicemembers'
@@ -25,7 +25,7 @@ export class FilterPanel extends React.Component {
     return <div>
         { this.props.showFilterToggle &&
         <div className="filter-button">
-          <button class="a-btn"
+          <button className="a-btn"
                   title="Filter results"
                   onClick={ this.props.onFilterToggle }>
             Filter results

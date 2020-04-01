@@ -82,6 +82,9 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
         </button>
       </div>
     </section>
+    <span
+      className="separator"
+    />
     <section
       className="date-intervals m-btn-group"
     >
@@ -276,6 +279,9 @@ exports[`component:MapPanel renders without crashing 1`] = `
         </button>
       </div>
     </section>
+    <span
+      className="separator"
+    />
     <section
       className="date-intervals m-btn-group"
     >

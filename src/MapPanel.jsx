@@ -5,13 +5,13 @@ import DateIntervals from './DateIntervals'
 import ErrorBlock from './Error'
 import FilterPanel from './FilterPanel'
 import FilterPanelToggle from './FilterPanelToggle'
-
 import { hasFiltersEnabled } from './utils'
 import Loading from './Dialogs/Loading'
 import MapToolbar from './MapToolbar'
 import PerCapita from './PerCapita'
 import React from 'react'
 import RowChart from './RowChart'
+import { Separator } from './Separator'
 import StaleDataWarnings from './StaleDataWarnings'
 import TileChartMap from './TileChartMap'
 import Warning from './Warning'
@@ -34,6 +34,7 @@ export class MapPanel extends React.Component {
         { this.props.showMobileFilters && <FilterPanel/> }
         <div className="layout-row refine">
           <FilterPanelToggle/>
+          <Separator />
           <DateIntervals/>
           <PerCapita/>
         </div>

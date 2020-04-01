@@ -8,6 +8,7 @@ import FilterPanelToggle from './FilterPanelToggle'
 import Loading from './Dialogs/Loading'
 import Pagination from './Pagination'
 import React from 'react'
+import { Separator } from './Separator'
 import StaleDataWarnings from './StaleDataWarnings'
 
 const ERROR = 'ERROR'
@@ -49,6 +50,7 @@ export class ListPanel extends React.Component {
         { this.props.showMobileFilters && <FilterPanel/> }
         <div className="layout-row refine">
           <FilterPanelToggle/>
+          <Separator />
           <section className="cf-select">
             <label className="u-visually-hidden" htmlFor="choose-sort">
               Select the number of results to display at a time

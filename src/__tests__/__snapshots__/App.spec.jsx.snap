@@ -1024,7 +1024,7 @@ exports[`initial state renders without crashing 1`] = `
               </span>
             </div>
             <p>
-              Whether a consumer opted to publish their compaint narrative
+              Whether a consumer opted to publish their complaint narrative
             </p>
           </section>
           <hr />
@@ -1203,12 +1203,15 @@ exports[`initial state renders without crashing 1`] = `
               <button
                 className="a-btn"
                 onClick={[Function]}
-                title="Filter results"
+                title="Close Filters"
               >
-                Filter results
+                Close Filters
               </button>
             </div>
           </section>
+          <span
+            className="separator"
+          />
           <section
             className="date-intervals m-btn-group"
           >
