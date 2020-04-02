@@ -39,8 +39,6 @@ export class ActionBar extends React.Component {
 }
 
 export const mapStateToProps = state => ( {
-  size: state.query.size,
-  sort: state.query.sort,
   hits: state.aggs.total,
   total: state.aggs.doc_count,
   view: state.query.tab
