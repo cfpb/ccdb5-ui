@@ -30,10 +30,6 @@ const fieldMap = {
   from: 'frm'
 }
 
-// exclude from the url
-const excludeParams = [ 'totalPages' ]
-
-
 const urlParams = [ 'dateInterval', 'searchText', 'searchField', 'tab' ]
 const urlParamsInt = [ 'from', 'page', 'size' ]
 
@@ -658,12 +654,6 @@ export function stateToQS( state ) {
     } else {
       params[field] = value
     }
-  } )
-
-  // exclude certain params from the URL since it's a calculated value
-  // coming from db and cant be restored
-  excludeParams.forEach( o => {
-    delete state[o]
   } )
 
   return '?' + queryString.stringify( params )
