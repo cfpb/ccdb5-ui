@@ -1,16 +1,17 @@
 import configureMockStore from 'redux-mock-store'
 import {
-  mapDispatchToProps, mapStateToProps, PerCapita, validatePerCapFilters
+  mapDispatchToProps, mapStateToProps, PerCapita
 } from '../PerCapita'
 import { Provider } from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 import thunk from 'redux-thunk'
+import { GEO_NORM_NONE, GEO_NORM_PER1000 } from '../constants'
 
-function setupEnzyme() {
+function setupEnzyme( normalization = GEO_NORM_NONE ) {
   const props = {
-    dataNormalization: true,
+    dataNormalization: normalization,
     enablePer1000: true,
     onDataNormalization: jest.fn()
   }
@@ -27,7 +28,10 @@ function setupSnapshot() {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
   const store = mockStore( {
-    map: {}
+    map: {},
+    query: {
+      company: [ { name: 'foo', value: 123 } ]
+    }
   } )
 
   return renderer.create(
@@ -57,10 +61,22 @@ describe( 'component: PerCapita', () => {
       const { target, props } = setupEnzyme()
       const button = target.find('.capita');
 
+      expect( button.hasClass( 'capita' ) ).toBeTruthy()
+      expect( button.hasClass( 'selected' ) ).toBeFalsy()
       button.simulate('click');
-      expect(props.onDataNormalization).toHaveBeenCalled();
+      expect(props.onDataNormalization).toHaveBeenCalled()
     });
 
+    it('changes Per 1000 button class', () => {
+      const { target, props } = setupEnzyme( GEO_NORM_PER1000 )
+      const button = target.find('.capita')
+
+      expect( button.hasClass( 'capita' ) ).toBeTruthy()
+      expect( button.hasClass( 'selected' ) ).toBeTruthy()
+
+      button.simulate('click')
+      expect(props.onDataNormalization).toHaveBeenCalled()
+    });
   } )
 
   describe('mapDispatchToProps', () => {

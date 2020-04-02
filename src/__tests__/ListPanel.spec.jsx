@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store'
+import { ListPanel, mapDispatchToProps } from '../ListPanel';
 import { IntlProvider } from 'react-intl';
-import ListPanel from '../ListPanel';
 import { Provider } from 'react-redux'
 import React from 'react';
 import thunk from 'redux-thunk'
@@ -28,7 +28,7 @@ const fixture = [
   }
 ]
 
-function setupSnapshot(items=[], initialStore={}, queryStore = null) {
+function setupSnapshot( items = [], initialStore = {}, queryStore = null, viewStore ) {
   const query = queryStore ? queryStore : {
     page: 1,
     size: 10,
@@ -47,6 +47,10 @@ function setupSnapshot(items=[], initialStore={}, queryStore = null) {
     items
   })
 
+  const view = Object.assign({
+    width: 1000
+  }, viewStore)
+
   const middlewares = [thunk]
   const mockStore = configureMockStore(middlewares)
   const store = mockStore({
@@ -56,13 +60,18 @@ function setupSnapshot(items=[], initialStore={}, queryStore = null) {
       size: 10,
       tab: 'List'
     },
-    results
+    results,
+    view
   })
 
   return renderer.create(
     <Provider store={ store } >
       <IntlProvider locale="en">
-        <ListPanel items={ items } from="0" size="10" />
+        <ListPanel items={ items }
+                   from="0" size="10"
+                   error={ aggs.error }
+                   showMobileFilters={view.showMobileFilters}
+        />
       </IntlProvider>
     </Provider>
   )
@@ -71,6 +80,14 @@ function setupSnapshot(items=[], initialStore={}, queryStore = null) {
 describe('component:ListPanel', () => {
   it('renders without crashing', () => {
     const target = setupSnapshot(fixture)
+    const tree = target.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('renders mobile filters without crashing', () => {
+    const target = setupSnapshot(fixture, null, null, {
+      showMobileFilters: true
+    })
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -119,5 +136,19 @@ describe('component:ListPanel', () => {
     const target = setupSnapshot(fixture, { hasDataIssue: true })
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
+  })
+
+  describe('mapDispatchToProps', () => {
+    it('hooks into onSize', () => {
+      const dispatch = jest.fn();
+      mapDispatchToProps(dispatch).onSize({target: { value: '50' }});
+      expect(dispatch.mock.calls.length).toEqual(1);
+    })
+
+    it('hooks into onSort', () => {
+      const dispatch = jest.fn();
+      mapDispatchToProps(dispatch).onSort({target: { value: 'foo' }});
+      expect(dispatch.mock.calls.length).toEqual(1);
+    })
   })
 })

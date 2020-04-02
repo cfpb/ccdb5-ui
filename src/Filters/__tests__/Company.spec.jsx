@@ -30,7 +30,7 @@ function setupEnzyme() {
   }
 }
 
-function setupSnapshot() {
+function setupSnapshot(initialFixture) {
   const middlewares = [thunk]
   const mockStore = configureMockStore(middlewares)
   const store = mockStore({
@@ -38,7 +38,7 @@ function setupSnapshot() {
       company: ['Monocle Popper Inc']
     },
     aggs: {
-      company: fixture
+      company: initialFixture
     }
   })
 
@@ -53,8 +53,14 @@ function setupSnapshot() {
 
 describe('component::Company', () => {
   describe('snapshots', () => {
-    it('renders without crashing', () => {
+    it('renders empty values without crashing', () => {
       const target = setupSnapshot()
+      let tree = target.toJSON()
+      expect(tree).toMatchSnapshot()
+    })
+
+    it('renders without crashing', () => {
+      const target = setupSnapshot( fixture )
       let tree = target.toJSON()
       expect(tree).toMatchSnapshot()
     })

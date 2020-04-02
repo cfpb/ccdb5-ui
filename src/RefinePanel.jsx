@@ -10,15 +10,17 @@ export class RefinePanel extends React.Component {
 
   render() {
     return (
-      <aside className={ this._getTabClass() }>
-        <FilterPanel />
-      </aside>
+      this.props.showDesktopFilters ?
+        <aside className={ this._getTabClass() }>
+          <FilterPanel/>
+        </aside> : null
     )
   }
 }
 
 const mapStateToProps = state => ( {
-  tab: state.query.tab
+  tab: state.query.tab,
+  showDesktopFilters: state.view.width > 749
 } )
 
 export default connect( mapStateToProps )( RefinePanel )
