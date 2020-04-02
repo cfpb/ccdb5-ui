@@ -1,36 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`initial state renders without crashing 1`] = `
-<summary
-  className="action-bar"
-  id="search-summary"
->
-  <div>
-    <h2>
-      Showing 
-      <span>
-        10
-      </span>
-       matches out of 
-      <span>
-        100
-      </span>
-       total complaints
-    </h2>
-  </div>
-  <div
-    className="layout-row"
+<div>
+  <summary
+    className="action-bar"
+    id="search-summary"
   >
-    <h3
-      className="h4 flex-all export-results"
+    <div>
+      <h2>
+        Showing 
+        <span>
+          10
+        </span>
+         matches out of 
+        <span>
+          100
+        </span>
+         total complaints
+      </h2>
+    </div>
+    <div
+      className="layout-row"
     >
-      <button
-        className="a-btn a-btn__link"
-        data-gtm_ignore="true"
+      <h3
+        className="h4 flex-all export-results"
       >
-        Export results
-      </button>
-    </h3>
-  </div>
-</summary>
+        <button
+          className="a-btn a-btn__link"
+          data-gtm_ignore="true"
+        >
+          Export results
+        </button>
+      </h3>
+    </div>
+  </summary>
+</div>
 `;

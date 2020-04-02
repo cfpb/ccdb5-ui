@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`initial state renders without crashing 1`] = `
+<section
+  className="filter-panel-toggle"
+>
+  <div
+    className="m-btn-group"
+  >
+    <p>
+       
+    </p>
+    <button
+      className="a-btn"
+      onClick={[Function]}
+      title="Filter results"
+    >
+      Filter results
+    </button>
+  </div>
+</section>
+`;

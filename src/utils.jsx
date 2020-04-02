@@ -152,10 +152,15 @@ export const normalize = s => s.toLowerCase()
 
 export const slugify = ( a, b ) => a + SLUG_SEPARATOR + b
 
+/**
+ * Custom sort for array so that selected items appear first, then by doc_count
+ * @param {array} options input array containing values
+ * @param {array} selected values
+ * @returns {T[]} sorted array
+ */
 export const sortSelThenCount = ( options, selected ) => {
   const retVal = ( options || [] ).slice()
 
-  // Sort the array so that selected items appear first, then by doc_count
   /* eslint complexity: ["error", 5] */
   retVal.sort( ( a, b ) => {
     const aSel = selected.indexOf( a.key ) !== -1

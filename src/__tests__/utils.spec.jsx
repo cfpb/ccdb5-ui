@@ -1,11 +1,10 @@
 import {
   ariaReadoutNumbers, calculateDateInterval, clamp, coalesce, debounce,
-  getFullUrl, hasFiltersEnabled, hashCode, shortIsoFormat
+  getFullUrl, hasFiltersEnabled, hashCode, shortIsoFormat, sortSelThenCount
 } from '../utils'
 import { DATE_RANGE_MIN } from '../constants'
 import React from 'react'
 import moment from 'moment'
-import { validatePerCapFilters } from '../PerCapita'
 
 describe('module::utils', () => {
   describe( 'ariaReadoutNumbers', () => {
@@ -193,5 +192,12 @@ describe('module::utils', () => {
       expect( hasFiltersEnabled( query ) ).toBeTruthy()
     } )
   } )
+
+  describe( 'sortSelThenCount', ()=>{
+    it('handles empty options array', ()=>{
+      const actual = sortSelThenCount( null, [ 1, 2, 3 ] )
+      expect(actual).toEqual([]);
+    })
+  })
 })
 

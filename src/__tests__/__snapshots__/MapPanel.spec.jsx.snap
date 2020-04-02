@@ -4,39 +4,41 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
 <section
   className="map-panel"
 >
-  <summary
-    className="action-bar"
-    id="search-summary"
-  >
-    <div>
-      <h2>
-        Showing 
-        <span>
-          2
-        </span>
-         matches out of 
-        <span>
-          100
-        </span>
-         total complaints
-      </h2>
-    </div>
-    <div
-      className="layout-row"
+  <div>
+    <summary
+      className="action-bar"
+      id="search-summary"
     >
-      <h3
-        className="h4 flex-all export-results"
+      <div>
+        <h2>
+          Showing 
+          <span>
+            2
+          </span>
+           matches out of 
+          <span>
+            100
+          </span>
+           total complaints
+        </h2>
+      </div>
+      <div
+        className="layout-row"
       >
-        <button
-          className="a-btn a-btn__link"
-          data-gtm_ignore="true"
-          onClick={[Function]}
+        <h3
+          className="h4 flex-all export-results"
         >
-          Export results
-        </button>
-      </h3>
-    </div>
-  </summary>
+          <button
+            className="a-btn a-btn__link"
+            data-gtm_ignore="true"
+            onClick={[Function]}
+          >
+            Export results
+          </button>
+        </h3>
+      </div>
+    </summary>
+  </div>
   <div
     className="m-notification m-notification__visible m-notification__warning"
   >
@@ -63,37 +65,58 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
     className="layout-row refine"
   >
     <section
-      className="date-intervals"
+      className="filter-panel-toggle"
+    >
+      <div
+        className="m-btn-group"
+      >
+        <p>
+           
+        </p>
+        <button
+          className="a-btn"
+          onClick={[Function]}
+          title="Filter results"
+        >
+          Filter results
+        </button>
+      </div>
+    </section>
+    <span
+      className="separator"
+    />
+    <section
+      className="date-intervals m-btn-group"
     >
       <p>
         Date range (Click to modify range)
       </p>
       <button
-        className="date-selector interval-3m"
+        className="a-btn date-selector interval-3m"
         onClick={[Function]}
       >
         3m
       </button>
       <button
-        className="date-selector interval-6m"
+        className="a-btn date-selector interval-6m"
         onClick={[Function]}
       >
         6m
       </button>
       <button
-        className="date-selector interval-1y"
+        className="a-btn date-selector interval-1y"
         onClick={[Function]}
       >
         1y
       </button>
       <button
-        className="date-selector interval-3y"
+        className="a-btn date-selector interval-3y"
         onClick={[Function]}
       >
         3y
       </button>
       <button
-        className="date-selector interval-All"
+        className="a-btn date-selector interval-All"
         onClick={[Function]}
       >
         All
@@ -178,39 +201,41 @@ exports[`component:MapPanel renders without crashing 1`] = `
 <section
   className="map-panel"
 >
-  <summary
-    className="action-bar"
-    id="search-summary"
-  >
-    <div>
-      <h2>
-        Showing 
-        <span>
-          2
-        </span>
-         matches out of 
-        <span>
-          100
-        </span>
-         total complaints
-      </h2>
-    </div>
-    <div
-      className="layout-row"
+  <div>
+    <summary
+      className="action-bar"
+      id="search-summary"
     >
-      <h3
-        className="h4 flex-all export-results"
+      <div>
+        <h2>
+          Showing 
+          <span>
+            2
+          </span>
+           matches out of 
+          <span>
+            100
+          </span>
+           total complaints
+        </h2>
+      </div>
+      <div
+        className="layout-row"
       >
-        <button
-          className="a-btn a-btn__link"
-          data-gtm_ignore="true"
-          onClick={[Function]}
+        <h3
+          className="h4 flex-all export-results"
         >
-          Export results
-        </button>
-      </h3>
-    </div>
-  </summary>
+          <button
+            className="a-btn a-btn__link"
+            data-gtm_ignore="true"
+            onClick={[Function]}
+          >
+            Export results
+          </button>
+        </h3>
+      </div>
+    </summary>
+  </div>
   <div
     className="m-notification m-notification__visible m-notification__warning"
   >
@@ -237,37 +262,58 @@ exports[`component:MapPanel renders without crashing 1`] = `
     className="layout-row refine"
   >
     <section
-      className="date-intervals"
+      className="filter-panel-toggle"
+    >
+      <div
+        className="m-btn-group"
+      >
+        <p>
+           
+        </p>
+        <button
+          className="a-btn"
+          onClick={[Function]}
+          title="Filter results"
+        >
+          Filter results
+        </button>
+      </div>
+    </section>
+    <span
+      className="separator"
+    />
+    <section
+      className="date-intervals m-btn-group"
     >
       <p>
         Date range (Click to modify range)
       </p>
       <button
-        className="date-selector interval-3m"
+        className="a-btn date-selector interval-3m"
         onClick={[Function]}
       >
         3m
       </button>
       <button
-        className="date-selector interval-6m"
+        className="a-btn date-selector interval-6m"
         onClick={[Function]}
       >
         6m
       </button>
       <button
-        className="date-selector interval-1y"
+        className="a-btn date-selector interval-1y"
         onClick={[Function]}
       >
         1y
       </button>
       <button
-        className="date-selector interval-3y"
+        className="a-btn date-selector interval-3y"
         onClick={[Function]}
       >
         3y
       </button>
       <button
-        className="date-selector interval-All"
+        className="a-btn date-selector interval-All"
         onClick={[Function]}
       >
         All

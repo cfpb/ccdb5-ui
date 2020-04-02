@@ -1,16 +1,33 @@
 import './ListPanel.less'
+import { changeSize, changeSort } from './actions/paging'
 import ActionBar from './ActionBar'
 import ComplaintCard from './ComplaintCard'
 import { connect } from 'react-redux'
 import ErrorBlock from './Error'
+import FilterPanel from './FilterPanel'
+import FilterPanelToggle from './FilterPanelToggle'
 import Loading from './Dialogs/Loading'
 import Pagination from './Pagination'
 import React from 'react'
+import { Separator } from './Separator'
 import StaleDataWarnings from './StaleDataWarnings'
 
 const ERROR = 'ERROR'
 const NO_RESULTS = 'NO_RESULTS'
 const RESULTS = 'RESULTS'
+
+const sizes = [ 10, 25, 50, 100 ]
+
+/* eslint-disable camelcase */
+
+const sorts = {
+  created_date_desc: 'Newest to Oldest',
+  created_date_asc: 'Oldest to Newest',
+  relevance_desc: 'Relevance',
+  relevance_asc: 'Relevance (asc)'
+}
+
+/* eslint-enable camelcase */
 
 export class ListPanel extends React.Component {
   constructor( props ) {
@@ -31,6 +48,39 @@ export class ListPanel extends React.Component {
       <section className="list-panel">
         <ActionBar />
         <StaleDataWarnings />
+        { this.props.showMobileFilters && <FilterPanel/> }
+        <div className="layout-row refine">
+          <FilterPanelToggle/>
+          <Separator />
+          <section className="cf-select">
+            <label className="u-visually-hidden" htmlFor="choose-size">
+              Select the number of results to display at a time
+            </label>
+            <p>
+              Show
+            </p>
+            <select value={ this.props.size } id="choose-size"
+                    onChange={ this.props.onSize }>
+              { sizes.map(
+                x => <option key={ x } value={ x }>{ x } results</option>
+              ) }
+            </select>
+          </section>
+          <section className="cf-select">
+            <label className="u-visually-hidden" htmlFor="choose-sort">
+              Choose the order in which the results are displayed
+            </label>
+            <p>
+              Sort
+            </p>
+            <select value={ this.props.sort } id="choose-sort"
+                    onChange={ this.props.onSort }>
+              { Object.keys( sorts ).map( x =>
+                <option key={ x } value={ x }>{ sorts[x] }</option>
+              ) }
+            </select>
+          </section>
+        </div>
         { this.renderMap[phase]() }
         <Pagination />
         <Loading isLoading={this.props.isLoading || false} />
@@ -82,7 +132,18 @@ export class ListPanel extends React.Component {
 const mapStateToProps = state => ( {
   error: state.aggs.error,
   isLoading: state.results.isLoading,
-  items: state.results.items
+  items: state.results.items,
+  showMobileFilters: state.view.width < 750
 } )
 
-export default connect( mapStateToProps )( ListPanel )
+export const mapDispatchToProps = dispatch => ( {
+  onSize: ev => {
+    const iSize = parseInt( ev.target.value, 10 )
+    dispatch( changeSize( iSize ) )
+  },
+  onSort: ev => {
+    dispatch( changeSort( ev.target.value ) )
+  }
+} )
+
+export default connect( mapStateToProps, mapDispatchToProps )( ListPanel )

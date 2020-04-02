@@ -16,18 +16,6 @@ describe('initial state', () => {
   });
 
   describe('mapDispatchToProps', () => {
-    it('hooks into onSize', () => {
-      const dispatch = jest.fn();
-      mapDispatchToProps(dispatch).onSize({target: { value: '50' }});
-      expect(dispatch.mock.calls.length).toEqual(1);
-    })
-
-    it('hooks into onSort', () => {
-      const dispatch = jest.fn();
-      mapDispatchToProps(dispatch).onSort({target: { value: 'foo' }});
-      expect(dispatch.mock.calls.length).toEqual(1);
-    })
-
     it('hooks into onExportResults', () => {
       const dispatch = jest.fn();
       mapDispatchToProps(dispatch).onExportResults();

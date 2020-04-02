@@ -308,824 +308,826 @@ exports[`initial state renders without crashing 1`] = `
     <aside
       className="content_sidebar map"
     >
-      <section
-        className="filter-panel"
-      >
-        <h3>
-          Filter results by...
-        </h3>
+      <div>
         <section
-          className="o-expandable aggregation date-filter"
+          className="filter-panel"
         >
-          <div
-            className="o-expandable_header o-expandable_target"
+          <h3>
+            Filter results by...
+          </h3>
+          <section
+            className="o-expandable aggregation date-filter"
           >
-            <h4
-              className="o-expandable_header-left o-expandable_label"
+            <div
+              className="o-expandable_header o-expandable_target"
             >
-              Date CFPB received the complaint
-            </h4>
-            <span
-              className="o-expandable_header-right o-expandable_link"
-            >
-              <button
-                aria-label="Hide Date CFPB received the complaint filter"
-                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
-                onClick={[Function]}
+              <h4
+                className="o-expandable_header-left o-expandable_label"
               >
-                Hide
-                <svg
-                  className="cf-icon-svg"
-                  viewBox="0 0 1000 1200"
-                  xmlns="http://www.w3.org/2000/svg"
+                Date CFPB received the complaint
+              </h4>
+              <span
+                className="o-expandable_header-right o-expandable_link"
+              >
+                <button
+                  aria-label="Hide Date CFPB received the complaint filter"
+                  className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
+                  onClick={[Function]}
                 >
-                  <path
-                    d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h527.1c27.6 0 50 22.4 50 50s-22.4 50-50 50z"
-                  />
-                </svg>
-              </button>
-            </span>
-          </div>
-          <p />
-          <div>
-            <ul
-              className="date-inputs"
-            >
-              <li>
-                <label
-                  className="a-label a-label__heading body-copy"
-                  htmlFor="date_received-from"
-                >
-                  From
-                </label>
-                <div
-                  className="m-btn-inside-input"
-                >
-                  <input
-                    className="a-text-input"
-                    id="date_received-from"
-                    max={null}
-                    min={2011-11-30T12:00:00.000Z}
-                    onChange={[Function]}
-                    placeholder="mm/dd/yyyy"
-                    size="15"
-                    value="12/31/2015"
-                  />
-                  <button
-                    className="a-btn a-btn__link"
-                    onClick={[Function]}
+                  Hide
+                  <svg
+                    className="cf-icon-svg"
+                    viewBox="0 0 1000 1200"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <svg
-                      className="cf-icon-svg"
-                      viewBox="0 0 718.9 1200"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M451.4 613.7l248.1-248.1c25.6-25.1 26-66.3.8-91.9s-66.3-26-91.9-.8l-.8.8-248.1 248.1-248.1-248.1c-25.4-25.4-66.5-25.4-91.9 0s-25.4 66.5 0 91.9l248.1 248.1L19.5 861.8c-25.6 25.1-26 66.3-.8 91.9s66.3 26 91.9.8l.8-.8 248.1-248.1 248.1 248.1c25.4 25.4 66.5 25.4 91.9 0s25.4-66.5 0-91.9L451.4 613.7z"
-                      />
-                    </svg>
-                    <span
-                      className="u-visually-hidden"
-                    >
-                      Clear
-                    </span>
-                  </button>
-                </div>
-              </li>
-              <li>
-                <label
-                  className="a-label a-label__heading body-copy"
-                  htmlFor="date_received-through"
-                >
-                  Through
-                </label>
-                <div
-                  className="m-btn-inside-input"
-                >
-                  <input
-                    className="a-text-input"
-                    id="date_received-through"
-                    max={null}
-                    min={2011-11-30T12:00:00.000Z}
-                    onChange={[Function]}
-                    placeholder="mm/dd/yyyy"
-                    size="15"
-                    value="12/31/2015"
-                  />
-                  <button
-                    className="a-btn a-btn__link"
-                    onClick={[Function]}
+                    <path
+                      d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h527.1c27.6 0 50 22.4 50 50s-22.4 50-50 50z"
+                    />
+                  </svg>
+                </button>
+              </span>
+            </div>
+            <p />
+            <div>
+              <ul
+                className="date-inputs"
+              >
+                <li>
+                  <label
+                    className="a-label a-label__heading body-copy"
+                    htmlFor="date_received-from"
                   >
-                    <svg
-                      className="cf-icon-svg"
-                      viewBox="0 0 718.9 1200"
-                      xmlns="http://www.w3.org/2000/svg"
+                    From
+                  </label>
+                  <div
+                    className="m-btn-inside-input"
+                  >
+                    <input
+                      className="a-text-input"
+                      id="date_received-from"
+                      max={null}
+                      min={2011-11-30T12:00:00.000Z}
+                      onChange={[Function]}
+                      placeholder="mm/dd/yyyy"
+                      size="15"
+                      value="12/31/2015"
+                    />
+                    <button
+                      className="a-btn a-btn__link"
+                      onClick={[Function]}
                     >
-                      <path
-                        d="M451.4 613.7l248.1-248.1c25.6-25.1 26-66.3.8-91.9s-66.3-26-91.9-.8l-.8.8-248.1 248.1-248.1-248.1c-25.4-25.4-66.5-25.4-91.9 0s-25.4 66.5 0 91.9l248.1 248.1L19.5 861.8c-25.6 25.1-26 66.3-.8 91.9s66.3 26 91.9.8l.8-.8 248.1-248.1 248.1 248.1c25.4 25.4 66.5 25.4 91.9 0s25.4-66.5 0-91.9L451.4 613.7z"
-                      />
-                    </svg>
-                    <span
-                      className="u-visually-hidden"
+                      <svg
+                        className="cf-icon-svg"
+                        viewBox="0 0 718.9 1200"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M451.4 613.7l248.1-248.1c25.6-25.1 26-66.3.8-91.9s-66.3-26-91.9-.8l-.8.8-248.1 248.1-248.1-248.1c-25.4-25.4-66.5-25.4-91.9 0s-25.4 66.5 0 91.9l248.1 248.1L19.5 861.8c-25.6 25.1-26 66.3-.8 91.9s66.3 26 91.9.8l.8-.8 248.1-248.1 248.1 248.1c25.4 25.4 66.5 25.4 91.9 0s25.4-66.5 0-91.9L451.4 613.7z"
+                        />
+                      </svg>
+                      <span
+                        className="u-visually-hidden"
+                      >
+                        Clear
+                      </span>
+                    </button>
+                  </div>
+                </li>
+                <li>
+                  <label
+                    className="a-label a-label__heading body-copy"
+                    htmlFor="date_received-through"
+                  >
+                    Through
+                  </label>
+                  <div
+                    className="m-btn-inside-input"
+                  >
+                    <input
+                      className="a-text-input"
+                      id="date_received-through"
+                      max={null}
+                      min={2011-11-30T12:00:00.000Z}
+                      onChange={[Function]}
+                      placeholder="mm/dd/yyyy"
+                      size="15"
+                      value="12/31/2015"
+                    />
+                    <button
+                      className="a-btn a-btn__link"
+                      onClick={[Function]}
                     >
-                      Clear
-                    </span>
-                  </button>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </section>
-        <hr />
-        <section
-          className="o-expandable aggregation"
-        >
-          <div
-            className="o-expandable_header o-expandable_target"
-          >
-            <h4
-              className="o-expandable_header-left o-expandable_label"
-            >
-              Product / sub-product
-            </h4>
-            <span
-              className="o-expandable_header-right o-expandable_link"
-            >
-              <button
-                aria-label="Hide Product / sub-product filter"
-                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
-                onClick={[Function]}
-              >
-                Hide
-                <svg
-                  className="cf-icon-svg"
-                  viewBox="0 0 1000 1200"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h527.1c27.6 0 50 22.4 50 50s-22.4 50-50 50z"
-                  />
-                </svg>
-              </button>
-            </span>
-          </div>
-          <p>
-            The type of product and sub-product the consumer identified in the complaint
-          </p>
-          <p>
-            <a
-              className="a-btn__link"
-              href="http://files.consumerfinance.gov/f/documents/201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf"
-              target="_blank"
-            >
-              Recent changes to products and sub-products
-            </a>
-          </p>
-          <div>
-            <ul />
-          </div>
-        </section>
-        <hr />
-        <section
-          className="o-expandable aggregation"
-        >
-          <div
-            className="o-expandable_header o-expandable_target"
-          >
-            <h4
-              className="o-expandable_header-left o-expandable_label"
-            >
-              Issue / sub-issue
-            </h4>
-            <span
-              className="o-expandable_header-right o-expandable_link"
-            >
-              <button
-                aria-label="Hide Issue / sub-issue filter"
-                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
-                onClick={[Function]}
-              >
-                Hide
-                <svg
-                  className="cf-icon-svg"
-                  viewBox="0 0 1000 1200"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h527.1c27.6 0 50 22.4 50 50s-22.4 50-50 50z"
-                  />
-                </svg>
-              </button>
-            </span>
-          </div>
-          <p>
-            The type of issue and sub-issue the consumer identified in the complaint
-          </p>
-          <section
-            className="typeahead "
-            onBlur={[Function]}
-            onFocus={[Function]}
-          >
-            <div
-              className="m-btn-inside-input input-contains-label"
-            >
-              <div
-                className="input-contains-label_before input-contains-label_before__search"
-              >
-                <svg
-                  className="cf-icon-svg"
-                  viewBox="0 0 880.6 1200"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M860.1 879.2L645.7 664.8c90.8-136.8 76-323-44.6-443.5-137.5-137.5-360.5-137.5-498 0s-137.5 360.5 0 498c118.5 118.4 303.9 137 443.5 44.6L761 978.3c27.3 27.3 71.7 27.3 99 0s27.4-71.8.1-99.1zm-508-116.9C191.4 762 61.3 631.5 61.6 470.8c.3-160.7 130.8-290.8 291.5-290.5s290.8 130.8 290.5 291.5c-.2 118.2-71.9 224.6-181.5 269.1-34.9 14.2-72.3 21.5-110 21.4z"
-                  />
-                </svg>
-              </div>
-              <label
-                className="u-visually-hidden"
-                htmlFor="issue-typeahead"
-              >
-                Start typing to begin listing issues
-              </label>
-              <input
-                autoComplete="off"
-                className="a-text-input"
-                id="issue-typeahead"
-                onChange={[Function]}
-                onKeyDown={[Function]}
-                placeholder="Enter name of issue"
-                type="text"
-                value=""
-              />
+                      <svg
+                        className="cf-icon-svg"
+                        viewBox="0 0 718.9 1200"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M451.4 613.7l248.1-248.1c25.6-25.1 26-66.3.8-91.9s-66.3-26-91.9-.8l-.8.8-248.1 248.1-248.1-248.1c-25.4-25.4-66.5-25.4-91.9 0s-25.4 66.5 0 91.9l248.1 248.1L19.5 861.8c-25.6 25.1-26 66.3-.8 91.9s66.3 26 91.9.8l.8-.8 248.1-248.1 248.1 248.1c25.4 25.4 66.5 25.4 91.9 0s25.4-66.5 0-91.9L451.4 613.7z"
+                        />
+                      </svg>
+                      <span
+                        className="u-visually-hidden"
+                      >
+                        Clear
+                      </span>
+                    </button>
+                  </div>
+                </li>
+              </ul>
             </div>
           </section>
-          <div>
-            <ul />
-          </div>
-        </section>
-        <hr />
-        <section
-          className="o-expandable aggregation"
-        >
-          <div
-            className="o-expandable_header o-expandable_target"
-          >
-            <h4
-              className="o-expandable_header-left o-expandable_label"
-            >
-              State
-            </h4>
-            <span
-              className="o-expandable_header-right o-expandable_link"
-            >
-              <button
-                aria-label="Hide State filter"
-                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
-                onClick={[Function]}
-              >
-                Hide
-                <svg
-                  className="cf-icon-svg"
-                  viewBox="0 0 1000 1200"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h527.1c27.6 0 50 22.4 50 50s-22.4 50-50 50z"
-                  />
-                </svg>
-              </button>
-            </span>
-          </div>
-          <p>
-            The state of the mailing address provided by the consumer
-          </p>
+          <hr />
           <section
-            className="typeahead "
-            onBlur={[Function]}
-            onFocus={[Function]}
+            className="o-expandable aggregation"
           >
             <div
-              className="m-btn-inside-input input-contains-label"
+              className="o-expandable_header o-expandable_target"
             >
-              <div
-                className="input-contains-label_before input-contains-label_before__search"
+              <h4
+                className="o-expandable_header-left o-expandable_label"
               >
-                <svg
-                  className="cf-icon-svg"
-                  viewBox="0 0 880.6 1200"
-                  xmlns="http://www.w3.org/2000/svg"
+                Product / sub-product
+              </h4>
+              <span
+                className="o-expandable_header-right o-expandable_link"
+              >
+                <button
+                  aria-label="Hide Product / sub-product filter"
+                  className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
+                  onClick={[Function]}
                 >
-                  <path
-                    d="M860.1 879.2L645.7 664.8c90.8-136.8 76-323-44.6-443.5-137.5-137.5-360.5-137.5-498 0s-137.5 360.5 0 498c118.5 118.4 303.9 137 443.5 44.6L761 978.3c27.3 27.3 71.7 27.3 99 0s27.4-71.8.1-99.1zm-508-116.9C191.4 762 61.3 631.5 61.6 470.8c.3-160.7 130.8-290.8 291.5-290.5s290.8 130.8 290.5 291.5c-.2 118.2-71.9 224.6-181.5 269.1-34.9 14.2-72.3 21.5-110 21.4z"
-                  />
-                </svg>
-              </div>
-              <label
-                className="u-visually-hidden"
-                htmlFor="state-typeahead"
+                  Hide
+                  <svg
+                    className="cf-icon-svg"
+                    viewBox="0 0 1000 1200"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h527.1c27.6 0 50 22.4 50 50s-22.4 50-50 50z"
+                    />
+                  </svg>
+                </button>
+              </span>
+            </div>
+            <p>
+              The type of product and sub-product the consumer identified in the complaint
+            </p>
+            <p>
+              <a
+                className="a-btn__link"
+                href="http://files.consumerfinance.gov/f/documents/201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf"
+                target="_blank"
               >
-                Start typing to begin listing US states
-              </label>
-              <input
-                autoComplete="off"
-                className="a-text-input"
-                id="state-typeahead"
-                onChange={[Function]}
-                onKeyDown={[Function]}
-                placeholder="Enter state name or abbreviation"
-                type="text"
-                value=""
-              />
+                Recent changes to products and sub-products
+              </a>
+            </p>
+            <div>
+              <ul />
             </div>
           </section>
-          <ul />
-        </section>
-        <hr />
-        <section
-          className="o-expandable aggregation"
-        >
-          <div
-            className="o-expandable_header o-expandable_target"
-          >
-            <h4
-              className="o-expandable_header-left o-expandable_label"
-            >
-              Zip code
-            </h4>
-            <span
-              className="o-expandable_header-right o-expandable_link"
-            >
-              <button
-                aria-label="Hide Zip code filter"
-                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
-                onClick={[Function]}
-              >
-                Hide
-                <svg
-                  className="cf-icon-svg"
-                  viewBox="0 0 1000 1200"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h527.1c27.6 0 50 22.4 50 50s-22.4 50-50 50z"
-                  />
-                </svg>
-              </button>
-            </span>
-          </div>
-          <p>
-            The mailing ZIP code provided by the consumer
-          </p>
+          <hr />
           <section
-            className="typeahead "
-            onBlur={[Function]}
-            onFocus={[Function]}
+            className="o-expandable aggregation"
           >
             <div
-              className="m-btn-inside-input input-contains-label"
+              className="o-expandable_header o-expandable_target"
+            >
+              <h4
+                className="o-expandable_header-left o-expandable_label"
+              >
+                Issue / sub-issue
+              </h4>
+              <span
+                className="o-expandable_header-right o-expandable_link"
+              >
+                <button
+                  aria-label="Hide Issue / sub-issue filter"
+                  className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
+                  onClick={[Function]}
+                >
+                  Hide
+                  <svg
+                    className="cf-icon-svg"
+                    viewBox="0 0 1000 1200"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h527.1c27.6 0 50 22.4 50 50s-22.4 50-50 50z"
+                    />
+                  </svg>
+                </button>
+              </span>
+            </div>
+            <p>
+              The type of issue and sub-issue the consumer identified in the complaint
+            </p>
+            <section
+              className="typeahead "
+              onBlur={[Function]}
+              onFocus={[Function]}
             >
               <div
-                className="input-contains-label_before input-contains-label_before__search"
+                className="m-btn-inside-input input-contains-label"
               >
-                <svg
-                  className="cf-icon-svg"
-                  viewBox="0 0 880.6 1200"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M860.1 879.2L645.7 664.8c90.8-136.8 76-323-44.6-443.5-137.5-137.5-360.5-137.5-498 0s-137.5 360.5 0 498c118.5 118.4 303.9 137 443.5 44.6L761 978.3c27.3 27.3 71.7 27.3 99 0s27.4-71.8.1-99.1zm-508-116.9C191.4 762 61.3 631.5 61.6 470.8c.3-160.7 130.8-290.8 291.5-290.5s290.8 130.8 290.5 291.5c-.2 118.2-71.9 224.6-181.5 269.1-34.9 14.2-72.3 21.5-110 21.4z"
-                  />
-                </svg>
-              </div>
-              <label
-                className="u-visually-hidden"
-                htmlFor="zipcode-typeahead"
-              >
-                Start typing to begin listing zip codes
-              </label>
-              <input
-                autoComplete="off"
-                className="a-text-input"
-                id="zipcode-typeahead"
-                onChange={[Function]}
-                onKeyDown={[Function]}
-                placeholder="Enter first three digits of ZIP code"
-                type="text"
-                value=""
-              />
-            </div>
-          </section>
-          <ul />
-        </section>
-        <hr />
-        <section
-          className="o-expandable aggregation"
-        >
-          <div
-            className="o-expandable_header o-expandable_target"
-          >
-            <h4
-              className="o-expandable_header-left o-expandable_label"
-            >
-              Company name
-            </h4>
-            <span
-              className="o-expandable_header-right o-expandable_link"
-            >
-              <button
-                aria-label="Hide Company name filter"
-                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
-                onClick={[Function]}
-              >
-                Hide
-                <svg
-                  className="cf-icon-svg"
-                  viewBox="0 0 1000 1200"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h527.1c27.6 0 50 22.4 50 50s-22.4 50-50 50z"
-                  />
-                </svg>
-              </button>
-            </span>
-          </div>
-          <p>
-            The company name as it appears in our complaint system, which may be different than the name the consumer provided in their complaint
-          </p>
-          <section
-            className="typeahead "
-            onBlur={[Function]}
-            onFocus={[Function]}
-          >
-            <div
-              className="m-btn-inside-input input-contains-label"
-            >
-              <div
-                className="input-contains-label_before input-contains-label_before__search"
-              >
-                <svg
-                  className="cf-icon-svg"
-                  viewBox="0 0 880.6 1200"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M860.1 879.2L645.7 664.8c90.8-136.8 76-323-44.6-443.5-137.5-137.5-360.5-137.5-498 0s-137.5 360.5 0 498c118.5 118.4 303.9 137 443.5 44.6L761 978.3c27.3 27.3 71.7 27.3 99 0s27.4-71.8.1-99.1zm-508-116.9C191.4 762 61.3 631.5 61.6 470.8c.3-160.7 130.8-290.8 291.5-290.5s290.8 130.8 290.5 291.5c-.2 118.2-71.9 224.6-181.5 269.1-34.9 14.2-72.3 21.5-110 21.4z"
-                  />
-                </svg>
-              </div>
-              <label
-                className="u-visually-hidden"
-                htmlFor="company-typeahead"
-              >
-                Start typing to begin listing companies
-              </label>
-              <input
-                autoComplete="off"
-                className="a-text-input"
-                id="company-typeahead"
-                onChange={[Function]}
-                onKeyDown={[Function]}
-                placeholder="Enter company name"
-                type="text"
-                value=""
-              />
-            </div>
-          </section>
-          <ul />
-        </section>
-        <hr />
-        <section
-          className="o-expandable aggregation"
-        >
-          <div
-            className="o-expandable_header o-expandable_target"
-          >
-            <h4
-              className="o-expandable_header-left o-expandable_label"
-            >
-              Did company provide a timely response?
-            </h4>
-            <span
-              className="o-expandable_header-right o-expandable_link"
-            >
-              <button
-                aria-label="Show Did company provide a timely response? filter"
-                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
-                onClick={[Function]}
-              >
-                Show
-                <svg
-                  className="cf-icon-svg"
-                  viewBox="0 0 1000 1200"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H549.6v213.6c0 27.6-22.4 50-50 50s-50-22.4-50-50V655.9H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h213.6V342.3c0-27.6 22.4-50 50-50s50 22.4 50 50v213.6h213.6c27.6 0 50 22.4 50 50s-22.5 50-50.1 50z"
-                  />
-                </svg>
-              </button>
-            </span>
-          </div>
-          <p />
-        </section>
-        <hr />
-        <section
-          className="o-expandable aggregation"
-        >
-          <div
-            className="o-expandable_header o-expandable_target"
-          >
-            <h4
-              className="o-expandable_header-left o-expandable_label"
-            >
-              Company response
-            </h4>
-            <span
-              className="o-expandable_header-right o-expandable_link"
-            >
-              <button
-                aria-label="Show Company response filter"
-                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
-                onClick={[Function]}
-              >
-                Show
-                <svg
-                  className="cf-icon-svg"
-                  viewBox="0 0 1000 1200"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H549.6v213.6c0 27.6-22.4 50-50 50s-50-22.4-50-50V655.9H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h213.6V342.3c0-27.6 22.4-50 50-50s50 22.4 50 50v213.6h213.6c27.6 0 50 22.4 50 50s-22.5 50-50.1 50z"
-                  />
-                </svg>
-              </button>
-            </span>
-          </div>
-          <p>
-            How the company responded to the complaint
-          </p>
-        </section>
-        <hr />
-        <section
-          className="o-expandable aggregation"
-        >
-          <div
-            className="o-expandable_header o-expandable_target"
-          >
-            <h4
-              className="o-expandable_header-left o-expandable_label"
-            >
-              Company public response
-            </h4>
-            <span
-              className="o-expandable_header-right o-expandable_link"
-            >
-              <button
-                aria-label="Show Company public response filter"
-                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
-                onClick={[Function]}
-              >
-                Show
-                <svg
-                  className="cf-icon-svg"
-                  viewBox="0 0 1000 1200"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H549.6v213.6c0 27.6-22.4 50-50 50s-50-22.4-50-50V655.9H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h213.6V342.3c0-27.6 22.4-50 50-50s50 22.4 50 50v213.6h213.6c27.6 0 50 22.4 50 50s-22.5 50-50.1 50z"
-                  />
-                </svg>
-              </button>
-            </span>
-          </div>
-          <p>
-            The company's optional public-facing response to a consumer's complaint
-          </p>
-        </section>
-        <hr />
-        <section
-          className="o-expandable aggregation date-filter"
-        >
-          <div
-            className="o-expandable_header o-expandable_target"
-          >
-            <h4
-              className="o-expandable_header-left o-expandable_label"
-            >
-              Date complaint sent to company
-            </h4>
-            <span
-              className="o-expandable_header-right o-expandable_link"
-            >
-              <button
-                aria-label="Hide Date complaint sent to company filter"
-                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
-                onClick={[Function]}
-              >
-                Hide
-                <svg
-                  className="cf-icon-svg"
-                  viewBox="0 0 1000 1200"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h527.1c27.6 0 50 22.4 50 50s-22.4 50-50 50z"
-                  />
-                </svg>
-              </button>
-            </span>
-          </div>
-          <p />
-          <div>
-            <ul
-              className="date-inputs"
-            >
-              <li>
-                <label
-                  className="a-label a-label__heading body-copy"
-                  htmlFor="company_received-from"
-                >
-                  From
-                </label>
                 <div
-                  className="m-btn-inside-input"
+                  className="input-contains-label_before input-contains-label_before__search"
                 >
-                  <input
-                    className="a-text-input"
-                    id="company_received-from"
-                    max={null}
-                    min={2011-11-30T12:00:00.000Z}
-                    onChange={[Function]}
-                    placeholder="mm/dd/yyyy"
-                    size="15"
-                    value=""
-                  />
+                  <svg
+                    className="cf-icon-svg"
+                    viewBox="0 0 880.6 1200"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M860.1 879.2L645.7 664.8c90.8-136.8 76-323-44.6-443.5-137.5-137.5-360.5-137.5-498 0s-137.5 360.5 0 498c118.5 118.4 303.9 137 443.5 44.6L761 978.3c27.3 27.3 71.7 27.3 99 0s27.4-71.8.1-99.1zm-508-116.9C191.4 762 61.3 631.5 61.6 470.8c.3-160.7 130.8-290.8 291.5-290.5s290.8 130.8 290.5 291.5c-.2 118.2-71.9 224.6-181.5 269.1-34.9 14.2-72.3 21.5-110 21.4z"
+                    />
+                  </svg>
                 </div>
-              </li>
-              <li>
                 <label
-                  className="a-label a-label__heading body-copy"
-                  htmlFor="company_received-through"
+                  className="u-visually-hidden"
+                  htmlFor="issue-typeahead"
                 >
-                  Through
+                  Start typing to begin listing issues
                 </label>
+                <input
+                  autoComplete="off"
+                  className="a-text-input"
+                  id="issue-typeahead"
+                  onChange={[Function]}
+                  onKeyDown={[Function]}
+                  placeholder="Enter name of issue"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </section>
+            <div>
+              <ul />
+            </div>
+          </section>
+          <hr />
+          <section
+            className="o-expandable aggregation"
+          >
+            <div
+              className="o-expandable_header o-expandable_target"
+            >
+              <h4
+                className="o-expandable_header-left o-expandable_label"
+              >
+                State
+              </h4>
+              <span
+                className="o-expandable_header-right o-expandable_link"
+              >
+                <button
+                  aria-label="Hide State filter"
+                  className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
+                  onClick={[Function]}
+                >
+                  Hide
+                  <svg
+                    className="cf-icon-svg"
+                    viewBox="0 0 1000 1200"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h527.1c27.6 0 50 22.4 50 50s-22.4 50-50 50z"
+                    />
+                  </svg>
+                </button>
+              </span>
+            </div>
+            <p>
+              The state of the mailing address provided by the consumer
+            </p>
+            <section
+              className="typeahead "
+              onBlur={[Function]}
+              onFocus={[Function]}
+            >
+              <div
+                className="m-btn-inside-input input-contains-label"
+              >
                 <div
-                  className="m-btn-inside-input"
+                  className="input-contains-label_before input-contains-label_before__search"
                 >
-                  <input
-                    className="a-text-input"
-                    id="company_received-through"
-                    max={null}
-                    min={2011-11-30T12:00:00.000Z}
-                    onChange={[Function]}
-                    placeholder="mm/dd/yyyy"
-                    size="15"
-                    value=""
-                  />
+                  <svg
+                    className="cf-icon-svg"
+                    viewBox="0 0 880.6 1200"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M860.1 879.2L645.7 664.8c90.8-136.8 76-323-44.6-443.5-137.5-137.5-360.5-137.5-498 0s-137.5 360.5 0 498c118.5 118.4 303.9 137 443.5 44.6L761 978.3c27.3 27.3 71.7 27.3 99 0s27.4-71.8.1-99.1zm-508-116.9C191.4 762 61.3 631.5 61.6 470.8c.3-160.7 130.8-290.8 291.5-290.5s290.8 130.8 290.5 291.5c-.2 118.2-71.9 224.6-181.5 269.1-34.9 14.2-72.3 21.5-110 21.4z"
+                    />
+                  </svg>
                 </div>
-              </li>
-            </ul>
-          </div>
-        </section>
-        <hr />
-        <section
-          className="o-expandable aggregation"
-        >
-          <div
-            className="o-expandable_header o-expandable_target"
-          >
-            <h4
-              className="o-expandable_header-left o-expandable_label"
-            >
-              Consumer consent
-            </h4>
-            <span
-              className="o-expandable_header-right o-expandable_link"
-            >
-              <button
-                aria-label="Show Consumer consent filter"
-                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
-                onClick={[Function]}
-              >
-                Show
-                <svg
-                  className="cf-icon-svg"
-                  viewBox="0 0 1000 1200"
-                  xmlns="http://www.w3.org/2000/svg"
+                <label
+                  className="u-visually-hidden"
+                  htmlFor="state-typeahead"
                 >
-                  <path
-                    d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H549.6v213.6c0 27.6-22.4 50-50 50s-50-22.4-50-50V655.9H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h213.6V342.3c0-27.6 22.4-50 50-50s50 22.4 50 50v213.6h213.6c27.6 0 50 22.4 50 50s-22.5 50-50.1 50z"
-                  />
-                </svg>
-              </button>
-            </span>
-          </div>
-          <p>
-            Whether a consumer opted to publish their compaint narrative
-          </p>
-        </section>
-        <hr />
-        <section
-          className="single-checkbox"
-        >
-          <h4>
-            Only show complaints with narratives?
-          </h4>
-          <div
-            className="m-form-field m-form-field__checkbox"
+                  Start typing to begin listing US states
+                </label>
+                <input
+                  autoComplete="off"
+                  className="a-text-input"
+                  id="state-typeahead"
+                  onChange={[Function]}
+                  onKeyDown={[Function]}
+                  placeholder="Enter state name or abbreviation"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </section>
+            <ul />
+          </section>
+          <hr />
+          <section
+            className="o-expandable aggregation"
           >
-            <input
-              checked={false}
-              className="a-checkbox"
-              disabled={false}
-              id="filterHasNarrative"
-              onChange={[Function]}
-              type="checkbox"
-              value="has_narrative"
-            />
-            <label
-              className="a-label"
-              htmlFor="filterHasNarrative"
+            <div
+              className="o-expandable_header o-expandable_target"
             >
-              Yes
-            </label>
-          </div>
-        </section>
-        <hr />
-        <section
-          className="o-expandable aggregation"
-        >
-          <div
-            className="o-expandable_header o-expandable_target"
-          >
-            <h4
-              className="o-expandable_header-left o-expandable_label"
-            >
-              How did the consumer submit the complaint to the CFPB?
-            </h4>
-            <span
-              className="o-expandable_header-right o-expandable_link"
-            >
-              <button
-                aria-label="Show How did the consumer submit the complaint to the CFPB? filter"
-                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
-                onClick={[Function]}
+              <h4
+                className="o-expandable_header-left o-expandable_label"
               >
-                Show
-                <svg
-                  className="cf-icon-svg"
-                  viewBox="0 0 1000 1200"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H549.6v213.6c0 27.6-22.4 50-50 50s-50-22.4-50-50V655.9H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h213.6V342.3c0-27.6 22.4-50 50-50s50 22.4 50 50v213.6h213.6c27.6 0 50 22.4 50 50s-22.5 50-50.1 50z"
-                  />
-                </svg>
-              </button>
-            </span>
-          </div>
-          <p />
-        </section>
-        <hr />
-        <section
-          className="o-expandable aggregation"
-        >
-          <div
-            className="o-expandable_header o-expandable_target"
-          >
-            <h4
-              className="o-expandable_header-left o-expandable_label"
-            >
-              Tags
-            </h4>
-            <span
-              className="o-expandable_header-right o-expandable_link"
-            >
-              <button
-                aria-label="Show Tags filter"
-                className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
-                onClick={[Function]}
+                Zip code
+              </h4>
+              <span
+                className="o-expandable_header-right o-expandable_link"
               >
-                Show
-                <svg
-                  className="cf-icon-svg"
-                  viewBox="0 0 1000 1200"
-                  xmlns="http://www.w3.org/2000/svg"
+                <button
+                  aria-label="Hide Zip code filter"
+                  className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
+                  onClick={[Function]}
                 >
-                  <path
-                    d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H549.6v213.6c0 27.6-22.4 50-50 50s-50-22.4-50-50V655.9H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h213.6V342.3c0-27.6 22.4-50 50-50s50 22.4 50 50v213.6h213.6c27.6 0 50 22.4 50 50s-22.5 50-50.1 50z"
-                  />
-                </svg>
-              </button>
-            </span>
-          </div>
-          <p>
-            Data that supports easier searching and sorting of complaints submitted by or on behalf of older Americans and/or servicemembers
-          </p>
+                  Hide
+                  <svg
+                    className="cf-icon-svg"
+                    viewBox="0 0 1000 1200"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h527.1c27.6 0 50 22.4 50 50s-22.4 50-50 50z"
+                    />
+                  </svg>
+                </button>
+              </span>
+            </div>
+            <p>
+              The mailing ZIP code provided by the consumer
+            </p>
+            <section
+              className="typeahead "
+              onBlur={[Function]}
+              onFocus={[Function]}
+            >
+              <div
+                className="m-btn-inside-input input-contains-label"
+              >
+                <div
+                  className="input-contains-label_before input-contains-label_before__search"
+                >
+                  <svg
+                    className="cf-icon-svg"
+                    viewBox="0 0 880.6 1200"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M860.1 879.2L645.7 664.8c90.8-136.8 76-323-44.6-443.5-137.5-137.5-360.5-137.5-498 0s-137.5 360.5 0 498c118.5 118.4 303.9 137 443.5 44.6L761 978.3c27.3 27.3 71.7 27.3 99 0s27.4-71.8.1-99.1zm-508-116.9C191.4 762 61.3 631.5 61.6 470.8c.3-160.7 130.8-290.8 291.5-290.5s290.8 130.8 290.5 291.5c-.2 118.2-71.9 224.6-181.5 269.1-34.9 14.2-72.3 21.5-110 21.4z"
+                    />
+                  </svg>
+                </div>
+                <label
+                  className="u-visually-hidden"
+                  htmlFor="zipcode-typeahead"
+                >
+                  Start typing to begin listing zip codes
+                </label>
+                <input
+                  autoComplete="off"
+                  className="a-text-input"
+                  id="zipcode-typeahead"
+                  onChange={[Function]}
+                  onKeyDown={[Function]}
+                  placeholder="Enter first three digits of ZIP code"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </section>
+            <ul />
+          </section>
+          <hr />
+          <section
+            className="o-expandable aggregation"
+          >
+            <div
+              className="o-expandable_header o-expandable_target"
+            >
+              <h4
+                className="o-expandable_header-left o-expandable_label"
+              >
+                Company name
+              </h4>
+              <span
+                className="o-expandable_header-right o-expandable_link"
+              >
+                <button
+                  aria-label="Hide Company name filter"
+                  className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
+                  onClick={[Function]}
+                >
+                  Hide
+                  <svg
+                    className="cf-icon-svg"
+                    viewBox="0 0 1000 1200"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h527.1c27.6 0 50 22.4 50 50s-22.4 50-50 50z"
+                    />
+                  </svg>
+                </button>
+              </span>
+            </div>
+            <p>
+              The company name as it appears in our complaint system, which may be different than the name the consumer provided in their complaint
+            </p>
+            <section
+              className="typeahead "
+              onBlur={[Function]}
+              onFocus={[Function]}
+            >
+              <div
+                className="m-btn-inside-input input-contains-label"
+              >
+                <div
+                  className="input-contains-label_before input-contains-label_before__search"
+                >
+                  <svg
+                    className="cf-icon-svg"
+                    viewBox="0 0 880.6 1200"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M860.1 879.2L645.7 664.8c90.8-136.8 76-323-44.6-443.5-137.5-137.5-360.5-137.5-498 0s-137.5 360.5 0 498c118.5 118.4 303.9 137 443.5 44.6L761 978.3c27.3 27.3 71.7 27.3 99 0s27.4-71.8.1-99.1zm-508-116.9C191.4 762 61.3 631.5 61.6 470.8c.3-160.7 130.8-290.8 291.5-290.5s290.8 130.8 290.5 291.5c-.2 118.2-71.9 224.6-181.5 269.1-34.9 14.2-72.3 21.5-110 21.4z"
+                    />
+                  </svg>
+                </div>
+                <label
+                  className="u-visually-hidden"
+                  htmlFor="company-typeahead"
+                >
+                  Start typing to begin listing companies
+                </label>
+                <input
+                  autoComplete="off"
+                  className="a-text-input"
+                  id="company-typeahead"
+                  onChange={[Function]}
+                  onKeyDown={[Function]}
+                  placeholder="Enter company name"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </section>
+            <ul />
+          </section>
+          <hr />
+          <section
+            className="o-expandable aggregation"
+          >
+            <div
+              className="o-expandable_header o-expandable_target"
+            >
+              <h4
+                className="o-expandable_header-left o-expandable_label"
+              >
+                Did company provide a timely response?
+              </h4>
+              <span
+                className="o-expandable_header-right o-expandable_link"
+              >
+                <button
+                  aria-label="Show Did company provide a timely response? filter"
+                  className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
+                  onClick={[Function]}
+                >
+                  Show
+                  <svg
+                    className="cf-icon-svg"
+                    viewBox="0 0 1000 1200"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H549.6v213.6c0 27.6-22.4 50-50 50s-50-22.4-50-50V655.9H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h213.6V342.3c0-27.6 22.4-50 50-50s50 22.4 50 50v213.6h213.6c27.6 0 50 22.4 50 50s-22.5 50-50.1 50z"
+                    />
+                  </svg>
+                </button>
+              </span>
+            </div>
+            <p />
+          </section>
+          <hr />
+          <section
+            className="o-expandable aggregation"
+          >
+            <div
+              className="o-expandable_header o-expandable_target"
+            >
+              <h4
+                className="o-expandable_header-left o-expandable_label"
+              >
+                Company response
+              </h4>
+              <span
+                className="o-expandable_header-right o-expandable_link"
+              >
+                <button
+                  aria-label="Show Company response filter"
+                  className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
+                  onClick={[Function]}
+                >
+                  Show
+                  <svg
+                    className="cf-icon-svg"
+                    viewBox="0 0 1000 1200"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H549.6v213.6c0 27.6-22.4 50-50 50s-50-22.4-50-50V655.9H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h213.6V342.3c0-27.6 22.4-50 50-50s50 22.4 50 50v213.6h213.6c27.6 0 50 22.4 50 50s-22.5 50-50.1 50z"
+                    />
+                  </svg>
+                </button>
+              </span>
+            </div>
+            <p>
+              How the company responded to the complaint
+            </p>
+          </section>
+          <hr />
+          <section
+            className="o-expandable aggregation"
+          >
+            <div
+              className="o-expandable_header o-expandable_target"
+            >
+              <h4
+                className="o-expandable_header-left o-expandable_label"
+              >
+                Company public response
+              </h4>
+              <span
+                className="o-expandable_header-right o-expandable_link"
+              >
+                <button
+                  aria-label="Show Company public response filter"
+                  className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
+                  onClick={[Function]}
+                >
+                  Show
+                  <svg
+                    className="cf-icon-svg"
+                    viewBox="0 0 1000 1200"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H549.6v213.6c0 27.6-22.4 50-50 50s-50-22.4-50-50V655.9H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h213.6V342.3c0-27.6 22.4-50 50-50s50 22.4 50 50v213.6h213.6c27.6 0 50 22.4 50 50s-22.5 50-50.1 50z"
+                    />
+                  </svg>
+                </button>
+              </span>
+            </div>
+            <p>
+              The company's optional public-facing response to a consumer's complaint
+            </p>
+          </section>
+          <hr />
+          <section
+            className="o-expandable aggregation date-filter"
+          >
+            <div
+              className="o-expandable_header o-expandable_target"
+            >
+              <h4
+                className="o-expandable_header-left o-expandable_label"
+              >
+                Date complaint sent to company
+              </h4>
+              <span
+                className="o-expandable_header-right o-expandable_link"
+              >
+                <button
+                  aria-label="Hide Date complaint sent to company filter"
+                  className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
+                  onClick={[Function]}
+                >
+                  Hide
+                  <svg
+                    className="cf-icon-svg"
+                    viewBox="0 0 1000 1200"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h527.1c27.6 0 50 22.4 50 50s-22.4 50-50 50z"
+                    />
+                  </svg>
+                </button>
+              </span>
+            </div>
+            <p />
+            <div>
+              <ul
+                className="date-inputs"
+              >
+                <li>
+                  <label
+                    className="a-label a-label__heading body-copy"
+                    htmlFor="company_received-from"
+                  >
+                    From
+                  </label>
+                  <div
+                    className="m-btn-inside-input"
+                  >
+                    <input
+                      className="a-text-input"
+                      id="company_received-from"
+                      max={null}
+                      min={2011-11-30T12:00:00.000Z}
+                      onChange={[Function]}
+                      placeholder="mm/dd/yyyy"
+                      size="15"
+                      value=""
+                    />
+                  </div>
+                </li>
+                <li>
+                  <label
+                    className="a-label a-label__heading body-copy"
+                    htmlFor="company_received-through"
+                  >
+                    Through
+                  </label>
+                  <div
+                    className="m-btn-inside-input"
+                  >
+                    <input
+                      className="a-text-input"
+                      id="company_received-through"
+                      max={null}
+                      min={2011-11-30T12:00:00.000Z}
+                      onChange={[Function]}
+                      placeholder="mm/dd/yyyy"
+                      size="15"
+                      value=""
+                    />
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+          <hr />
+          <section
+            className="o-expandable aggregation"
+          >
+            <div
+              className="o-expandable_header o-expandable_target"
+            >
+              <h4
+                className="o-expandable_header-left o-expandable_label"
+              >
+                Consumer consent
+              </h4>
+              <span
+                className="o-expandable_header-right o-expandable_link"
+              >
+                <button
+                  aria-label="Show Consumer consent filter"
+                  className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
+                  onClick={[Function]}
+                >
+                  Show
+                  <svg
+                    className="cf-icon-svg"
+                    viewBox="0 0 1000 1200"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H549.6v213.6c0 27.6-22.4 50-50 50s-50-22.4-50-50V655.9H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h213.6V342.3c0-27.6 22.4-50 50-50s50 22.4 50 50v213.6h213.6c27.6 0 50 22.4 50 50s-22.5 50-50.1 50z"
+                    />
+                  </svg>
+                </button>
+              </span>
+            </div>
+            <p>
+              Whether a consumer opted to publish their complaint narrative
+            </p>
+          </section>
+          <hr />
+          <section
+            className="single-checkbox"
+          >
+            <h4>
+              Only show complaints with narratives?
+            </h4>
+            <div
+              className="m-form-field m-form-field__checkbox"
+            >
+              <input
+                checked={false}
+                className="a-checkbox"
+                disabled={false}
+                id="filterHasNarrative"
+                onChange={[Function]}
+                type="checkbox"
+                value="has_narrative"
+              />
+              <label
+                className="a-label"
+                htmlFor="filterHasNarrative"
+              >
+                Yes
+              </label>
+            </div>
+          </section>
+          <hr />
+          <section
+            className="o-expandable aggregation"
+          >
+            <div
+              className="o-expandable_header o-expandable_target"
+            >
+              <h4
+                className="o-expandable_header-left o-expandable_label"
+              >
+                How did the consumer submit the complaint to the CFPB?
+              </h4>
+              <span
+                className="o-expandable_header-right o-expandable_link"
+              >
+                <button
+                  aria-label="Show How did the consumer submit the complaint to the CFPB? filter"
+                  className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
+                  onClick={[Function]}
+                >
+                  Show
+                  <svg
+                    className="cf-icon-svg"
+                    viewBox="0 0 1000 1200"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H549.6v213.6c0 27.6-22.4 50-50 50s-50-22.4-50-50V655.9H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h213.6V342.3c0-27.6 22.4-50 50-50s50 22.4 50 50v213.6h213.6c27.6 0 50 22.4 50 50s-22.5 50-50.1 50z"
+                    />
+                  </svg>
+                </button>
+              </span>
+            </div>
+            <p />
+          </section>
+          <hr />
+          <section
+            className="o-expandable aggregation"
+          >
+            <div
+              className="o-expandable_header o-expandable_target"
+            >
+              <h4
+                className="o-expandable_header-left o-expandable_label"
+              >
+                Tags
+              </h4>
+              <span
+                className="o-expandable_header-right o-expandable_link"
+              >
+                <button
+                  aria-label="Show Tags filter"
+                  className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
+                  onClick={[Function]}
+                >
+                  Show
+                  <svg
+                    className="cf-icon-svg"
+                    viewBox="0 0 1000 1200"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H549.6v213.6c0 27.6-22.4 50-50 50s-50-22.4-50-50V655.9H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h213.6V342.3c0-27.6 22.4-50 50-50s50 22.4 50 50v213.6h213.6c27.6 0 50 22.4 50 50s-22.5 50-50.1 50z"
+                    />
+                  </svg>
+                </button>
+              </span>
+            </div>
+            <p>
+              Data that supports easier searching and sorting of complaints submitted by or on behalf of older Americans and/or servicemembers
+            </p>
+          </section>
         </section>
-      </section>
+      </div>
     </aside>
     <div
       className="content_main map"
@@ -1133,35 +1135,37 @@ exports[`initial state renders without crashing 1`] = `
       <section
         className="map-panel"
       >
-        <summary
-          className="action-bar"
-          id="search-summary"
-        >
-          <div>
-            <h2>
-              Showing 
-              <span>
-                0
-              </span>
-               total complaints
-            </h2>
-          </div>
-          <div
-            className="layout-row"
+        <div>
+          <summary
+            className="action-bar"
+            id="search-summary"
           >
-            <h3
-              className="h4 flex-all export-results"
+            <div>
+              <h2>
+                Showing 
+                <span>
+                  0
+                </span>
+                 total complaints
+              </h2>
+            </div>
+            <div
+              className="layout-row"
             >
-              <button
-                className="a-btn a-btn__link"
-                data-gtm_ignore="true"
-                onClick={[Function]}
+              <h3
+                className="h4 flex-all export-results"
               >
-                Export results
-              </button>
-            </h3>
-          </div>
-        </summary>
+                <button
+                  className="a-btn a-btn__link"
+                  data-gtm_ignore="true"
+                  onClick={[Function]}
+                >
+                  Export results
+                </button>
+              </h3>
+            </div>
+          </summary>
+        </div>
         <div
           className="m-notification m-notification__visible m-notification__error"
         >
@@ -1188,37 +1192,58 @@ exports[`initial state renders without crashing 1`] = `
           className="layout-row refine"
         >
           <section
-            className="date-intervals"
+            className="filter-panel-toggle"
+          >
+            <div
+              className="m-btn-group"
+            >
+              <p>
+                 
+              </p>
+              <button
+                className="a-btn"
+                onClick={[Function]}
+                title="Close Filters"
+              >
+                Close Filters
+              </button>
+            </div>
+          </section>
+          <span
+            className="separator"
+          />
+          <section
+            className="date-intervals m-btn-group"
           >
             <p>
               Date range (Click to modify range)
             </p>
             <button
-              className="date-selector interval-3m"
+              className="a-btn date-selector interval-3m"
               onClick={[Function]}
             >
               3m
             </button>
             <button
-              className="date-selector interval-6m"
+              className="a-btn date-selector interval-6m"
               onClick={[Function]}
             >
               6m
             </button>
             <button
-              className="date-selector interval-1y"
+              className="a-btn date-selector interval-1y"
               onClick={[Function]}
             >
               1y
             </button>
             <button
-              className="date-selector interval-3y"
+              className="a-btn date-selector interval-3y"
               onClick={[Function]}
             >
               3y
             </button>
             <button
-              className="date-selector interval-All selected"
+              className="a-btn date-selector interval-All selected"
               onClick={[Function]}
             >
               All
@@ -1234,7 +1259,7 @@ exports[`initial state renders without crashing 1`] = `
                 Map Shading
               </p>
               <button
-                className="a-btn raw "
+                className="a-btn raw selected"
                 onClick={[Function]}
               >
                 Complaints
