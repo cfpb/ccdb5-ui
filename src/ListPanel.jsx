@@ -133,7 +133,9 @@ const mapStateToProps = state => ( {
   error: state.aggs.error,
   isLoading: state.results.isLoading,
   items: state.results.items,
-  showMobileFilters: state.view.width < 750
+  showMobileFilters: state.view.width < 750,
+  size: state.query.size,
+  sort: state.query.sort
 } )
 
 export const mapDispatchToProps = dispatch => ( {
