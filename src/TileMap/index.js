@@ -1,3 +1,8 @@
+import 'core-js/es6/array'
+import 'core-js/es6/object'
+import 'core-js/es6/set'
+import 'core-js/es7/object'
+
 import * as d3 from 'd3'
 import accessibility from 'highcharts/modules/accessibility';
 import Highcharts from 'highcharts/highmaps';
