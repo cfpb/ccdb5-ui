@@ -49,138 +49,148 @@ describe( 'Tile map', () => {
     delete window.SVGElement.prototype.getBBox;
   } );
 
-  it( 'finds max complaints', () => {
-    const state = { displayValue: 1000, name: 'Foo' };
-    const result = sut.findMaxComplaints( 50, state );
-    expect( result ).toEqual( 1000 );
+  describe( 'makeScale', () => {
+    it( 'creates an evenly-spaced scale for a exponential dataset' , () => {
+      const data = []
+      for ( let i = 1; i <= 50; i++ ) {
+        data.push( { displayValue: i * i } )
+      }
+
+      const actual = sut.makeScale( data, colors )
+      expect( actual( 0 ) ).toEqual( '#ffffff' )
+      expect( actual( 100 ) ).toEqual( colors[0] )
+      expect( actual( 361 ) ).toEqual( colors[1] ) // 19^2
+      expect( actual( 784 ) ).toEqual( colors[2] ) // 28^2
+      expect( actual( 1225 ) ).toEqual( colors[3] ) // 35^2
+      expect( actual( 1681 ) ).toEqual( colors[4] ) // 41^2
+      expect( actual( 2500 ) ).toEqual( colors[5] )
+    } );
+
+    it( 'scales differently if there are few unique values' , () => {
+      const data = []
+      for ( let i = 0; i < 51; i++) {
+        data.push( { displayValue: 0 } )
+      }
+      data[ 3 ].displayValue = 900
+
+      const actual = sut.makeScale( data, colors )
+      expect( actual( 0 ) ).toEqual( '#ffffff' )
+      expect( actual( 300 ) ).toEqual( colors[1] )
+      expect( actual( 450 ) ).toEqual( colors[2] )
+      expect( actual( 790 ) ).toEqual( colors[5] )
+    } );
   } );
 
-  it( 'gets empty raw  bins', () => {
-    const result = sut.getBins( [], colors );
-    expect( result ).toEqual( [] );
-  } );
+  describe( 'generating bins', () => {
+    let scaleFn
+    beforeEach( () => {
+      scaleFn = jest.fn( x => x )
+    } );
 
-  it( 'gets raw complaints bins', () => {
-    const result = sut.getBins( complaints.raw, colors );
-    expect( result )
-      .toEqual( [
-        {
-          color: '#fff',
-          from: 0,
-          name: 'N/A',
-          shortName: 'N/A',
-          to: 1
-        },
-        {
-          color: 'rgba(247, 248, 249, 0.5)',
-          from: 1,
-          name: '≥ 1',
-          shortName: '≥ 1',
-          to: 16435
-        },
-        {
-          color: 'rgba(212, 231, 230, 0.5)',
-          from: 16435,
-          name: '≥ 16,435',
-          shortName: '≥ 16K',
-          to: 32868
-        },
-        {
-          color: 'rgba(180, 210, 209, 0.5)',
-          from: 32868,
-          name: '≥ 32,868',
-          shortName: '≥ 32K',
-          to: 49302
-        },
-        {
-          color: 'rgba(137, 182, 181, 0.5)',
-          from: 49302,
-          name: '≥ 49,302',
-          shortName: '≥ 49K',
-          to: 65735
-        },
-        {
-          color: 'rgba(86, 149, 148, 0.5)',
-          from: 65735,
-          name: '≥ 65,735',
-          shortName: '≥ 65K',
-          to: 82169
-        },
-        {
-          color: 'rgba(37, 116, 115, 0.5)',
-          from: 82169,
-          name: '≥ 82,169',
-          shortName: '≥ 82K',
-          // eslint-disable-next-line no-undefined
-          to: undefined
-        } ] );
-  } );
+    it( 'gets complaints bins - All', () => {
+      const quantiles = [
+        880.2857142857142,
+        1622.5714285714282,
+        3064.9999999999995,
+        6136.714285714284,
+        7788.142857142858,
+        13909.714285714286
+      ]
+      const expected = [
+        { from: 0, color: "#fff", name: "≥ 0", shortName: "≥ 0"},
+        { from: 880, color: 881, name: "> 880", shortName: "> 880"},
+        { from: 1623, color: 1623, name: "≥ 1,623", shortName: "≥ 1.6K"},
+        { from: 3065, color: 3065, name: "≥ 3,065", shortName: "≥ 3.0K"},
+        { from: 6137, color: 6137, name: "≥ 6,137", shortName: "≥ 6.1K"},
+        { from: 7788, color: 7789, name: "> 7,788", shortName: "> 7.7K"},
+        { from: 13910, color: 13910, name: "≥ 13,910", shortName: "≥ 13K"}
+      ]
 
-  it( 'gets empty Per 1000 population bins', () => {
-    const result = sut.getPerCapitaBins( [], colors );
-    expect( result ).toEqual( [] );
-  } );
+      const result = sut.getBins( quantiles, scaleFn );
+      expect( result ).toEqual( expected )
+    } );
 
-  it( 'gets Per 1000 population bins', () => {
-    const result = sut.getPerCapitaBins( complaints.perCapita, colors );
-    expect( result )
-      .toEqual( [
-        {
-          color: 'rgba(247, 248, 249, 0.5)',
-          from: 0,
-          name: '≥ 0',
-          shortName: '≥ 0',
-          to: 0.92
-        },
-        {
-          color: 'rgba(212, 231, 230, 0.5)',
-          from: 0.92,
-          name: '≥ 0.92',
-          shortName: '≥ 0.92',
-          to: 1.84
-        },
-        {
-          color: 'rgba(180, 210, 209, 0.5)',
-          from: 1.84,
-          name: '≥ 1.84',
-          shortName: '≥ 1.84',
-          to: 2.75
-        },
-        {
-          color: 'rgba(137, 182, 181, 0.5)',
-          from: 2.75,
-          name: '≥ 2.75',
-          shortName: '≥ 2.75',
-          to: 3.67
-        },
-        {
-          color: 'rgba(86, 149, 148, 0.5)',
-          from: 3.67,
-          name: '≥ 3.67',
-          shortName: '≥ 3.67',
-          to: 4.59
-        },
-        {
-          color: 'rgba(37, 116, 115, 0.5)',
-          from: 4.59,
-          name: '≥ 4.59',
-          shortName: '≥ 4.59',
-          // eslint-disable-next-line no-undefined
-          to: undefined
-        } ] );
-  } );
+    it( 'gets complaints bins - one zip code', () => {
+      const quantiles = [
+        0.2857142857142857,
+        0.5714285714285714,
+        0.8571428571428571,
+        183.99999999999991,
+        550,
+        915.9999999999999,
+      ]
+      const expected = [
+        { from: 0, color: "#fff", name: "≥ 0", shortName: "≥ 0"},
+        { from: 1, color: 1, name: "≥ 1", shortName: "≥ 1"},
+        { from: 184, color: 184, name: "≥ 184", shortName: "≥ 184"},
+        { from: 550, color: 550, name: "≥ 550", shortName: "≥ 550"},
+        { from: 916, color: 916, name: "≥ 916", shortName: "≥ 916"},
+      ]
 
-  it( 'Gets color of a tile based on bin limits', () => {
-    const bins = [
-      { color: 'white', from: 0 },
-      { color: 'green', from: 10 },
-      { color: 'red', from: 30 }
-    ];
-    let result = sut.getColorByValue( 23, bins );
-    expect( result ).toEqual( 'green' );
-    result = sut.getColorByValue( null, bins );
-    expect( result ).toEqual( '#ffffff' );
-  } );
+      const result = sut.getBins( quantiles, scaleFn );
+      expect( result ).toEqual( expected )
+    } );
+
+    it( 'gets complaints bins - max 2 complaints', () => {
+      const quantiles = [
+        0.2857142857142857,
+        0.5714285714285714,
+        0.8571428571428571,
+        1.1428571428571428,
+        1.4285714285714286,
+        1.7142857142857142
+      ]
+      const expected = [
+        { from: 0, color: "#fff", name: "≥ 0", shortName: "≥ 0"},
+        { from: 1, color: 1, name: "≥ 1", shortName: "≥ 1"},
+        { from: 2, color: 2, name: "≥ 2", shortName: "≥ 2"},
+      ]
+
+      const result = sut.getBins( quantiles, scaleFn );
+      expect( result ).toEqual( expected )
+    } );
+
+    it( 'gets complaints bins - max 1 complaint', () => {
+      const quantiles = [
+        0.14285714285714285,
+        0.2857142857142857,
+        0.42857142857142855,
+        0.5714285714285714,
+        0.7142857142857143,
+        0.8571428571428571
+      ]
+      const expected = [
+        { from: 0, color: "#fff", name: "≥ 0", shortName: "≥ 0"},
+        { from: 1, color: 1, name: "≥ 1", shortName: "≥ 1"}
+      ]
+
+      const result = sut.getBins( quantiles, scaleFn );
+      expect( result ).toEqual( expected )
+    } );
+
+    it( 'gets Per 1000 population bins', () => {
+      const quantiles = [
+        1.1928571428571428,
+        1.4657142857142857,
+        1.81,
+        2.0357142857142856,
+        2.33,
+        2.845714285714285
+      ]
+      const expected = [
+        { from: 0, color: "#fff", name: "≥ 0", shortName: "≥ 0"},
+        { from: 1.19, color: quantiles[0], name: "> 1.19", shortName: "> 1.19"},
+        { from: 1.46, color: quantiles[1], name: "> 1.46", shortName: "> 1.46"},
+        { from: 1.81, color: quantiles[2], name: "≥ 1.81", shortName: "≥ 1.81"},
+        { from: 2.03, color: quantiles[3], name: "> 2.03", shortName: "> 2.03"},
+        { from: 2.33, color: quantiles[4], name: "≥ 2.33", shortName: "≥ 2.33"},
+        { from: 2.84, color: quantiles[5], name: "> 2.84", shortName: "> 2.84"}
+      ]
+
+      const result = sut.getPerCapitaBins( quantiles, scaleFn );
+      expect( result ).toEqual( expected )
+    } );
+  })
 
   it( 'formats a map tile', () => {
     sut.point = {
@@ -249,45 +259,9 @@ describe( 'Tile map', () => {
   } );
 
   it( 'Processes the map data', () => {
-    const bins = [
-      {
-        color: 'rgba(247, 248, 249, 0.5)',
-        from: 1,
-        name: '≥ 0',
-        to: 16435
-      },
-      {
-        color: 'rgba(212, 231, 230, 0.5)',
-        from: 16435,
-        name: '≥ 16K',
-        to: 32868
-      },
-      {
-        color: 'rgba(180, 210, 209, 0.5)',
-        from: 32868,
-        name: '≥ 33K',
-        to: 49302
-      },
-      {
-        color: 'rgba(137, 182, 181, 0.5)',
-        from: 49302,
-        name: '≥ 49K',
-        to: 65735
-      },
-      {
-        color: 'rgba(86, 149, 148, 0.5)',
-        from: 65735,
-        name: '≥ 66K',
-        to: 82169
-      },
-      {
-        color: 'rgba(37, 116, 115, 0.5)',
-        from: 82169,
-        name: '≥ 82K',
-        // eslint-disable-next-line no-undefined
-        to: undefined
-      } ];
-    const result = sut.processMapData( complaints.raw, bins );
+    const scale = jest.fn().mockReturnValue( 'rgba(247, 248, 249, 0.5)' )
+
+    const result = sut.processMapData( complaints.raw, scale );
     // test only the first one just make sure that the path and color are found
     expect( result[0] ).toEqual( {
       name: 'AK',
@@ -300,6 +274,7 @@ describe( 'Tile map', () => {
       color: 'rgba(247, 248, 249, 0.5)',
       path: 'M92,-245L175,-245,175,-162,92,-162,92,-245'
     } );
+    expect( scale ).toHaveBeenCalledTimes( 51 )
   } );
 
   describe( 'legend', () => {
