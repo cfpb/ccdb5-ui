@@ -24,6 +24,7 @@ export function makeScale( data, colors ) {
   const uniques = new Set( allValues )
 
   let scale = d3.scaleQuantile().range( [ WHITE, ...colors ] )
+  // This catches the condition where all the complaints are in one state
   if ( uniques.size < colors.length ) {
     scale = scale.domain( [ ...uniques ] )
   } else {
