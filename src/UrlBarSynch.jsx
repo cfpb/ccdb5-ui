@@ -34,6 +34,10 @@ export function toQS( props ) {
     }
   } )
 
+  delete clone.enablePer1000
+  delete clone.mapWarningEnabled
+  delete clone.totalPages
+
   return '?' + queryString.stringify( clone )
 }
 
