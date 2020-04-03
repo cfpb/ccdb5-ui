@@ -2,7 +2,6 @@ import './PerCapita.less'
 import { GEO_NORM_NONE, GEO_NORM_PER1000 } from './constants'
 import { connect } from 'react-redux'
 import { dataNormalizationChanged } from './actions/map';
-import { hasFiltersEnabled } from './utils'
 import React from 'react'
 
 

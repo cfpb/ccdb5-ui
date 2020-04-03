@@ -704,6 +704,10 @@ export function stateToQS( state ) {
   return '?' + queryString.stringify( params )
 }
 
+/**
+ * helper function to check if per1000 & map warnings should be enabled
+ * @param {object} queryState state we need to validate
+ */
 export function validatePer1000( queryState ) {
   queryState.enablePer1000 = !hasFiltersEnabled( queryState )
   if ( queryState.enablePer1000 ) {
