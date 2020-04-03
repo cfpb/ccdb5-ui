@@ -97,6 +97,23 @@ describe( 'reducer:query', () => {
     } )
   } )
 
+  describe( 'Map Warning', ()=>{
+    it('handles MAP_WARNING_DISMISSED action', ()=>{
+      const action = {
+        type: actions.MAP_WARNING_DISMISSED
+      }
+      const state = {
+        foo: 'bar',
+        mapWarningEnabled: true
+      }
+      expect( target( state, action ) ).toEqual( {
+        foo: 'bar',
+        mapWarningEnabled: false,
+        queryString: '?foo=bar'
+      } )
+    })
+  })
+
   describe( 'Pager', () => {
     it( 'handles PAGE_CHANGED actions', () => {
       const action = {
