@@ -55,7 +55,7 @@ const mapStateToProps = state => ( {
   error: state.map.error,
   isLoading: state.map.isLoading,
   showMobileFilters: state.view.width < 750,
-  showWarning: hasFiltersEnabled( state.query ) && state.query.mapWarningEnabled
+  showWarning: !state.query.enablePer1000 && state.query.mapWarningEnabled
 } )
 
 export const mapDispatchToProps = dispatch => ( {

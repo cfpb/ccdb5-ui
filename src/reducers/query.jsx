@@ -189,6 +189,8 @@ function processParams( state, action ) {
     }
   } )
 
+  validatePer1000( processed )
+
   return alignIntervalAndRange( processed )
 }
 
@@ -295,6 +297,8 @@ export function toggleFlagFilter( state, action ) {
     }
   } )
 
+  validatePer1000( newState )
+
   return newState
 }
 
@@ -334,6 +338,8 @@ export function addMultipleFilters( state, action ) {
   } )
 
   newState[name] = a
+
+  validatePer1000( newState )
   return newState
 }
 
@@ -390,10 +396,14 @@ export function addStateFilter( state, action ) {
     stateFilters.push( abbr )
   }
 
-  return {
+  const newState = {
     ...state,
     state: stateFilters
   }
+
+  validatePer1000( newState )
+
+  return newState
 }
 
 /**
@@ -403,10 +413,14 @@ export function addStateFilter( state, action ) {
  * @returns {object} the new state for the Redux store
  */
 export function clearStateFilter( state ) {
-  return {
+  const newState = {
     ...state,
     state: []
   }
+
+  validatePer1000( newState )
+
+  return newState
 }
 
 /**
@@ -434,10 +448,14 @@ export function removeStateFilter( state, action ) {
   const { abbr } = action.selectedState
   stateFilters = stateFilters.filter( o => o !== abbr )
 
-  return {
+  const newState = {
     ...state,
     state: stateFilters
   }
+
+  validatePer1000( newState )
+
+  return newState
 }
 
 /**
@@ -463,6 +481,9 @@ export function removeAllFilters( state ) {
       delete newState[kf]
     }
   } )
+
+  validatePer1000( newState )
+
   return newState
 }
 
@@ -485,6 +506,7 @@ function removeFilter( state, action ) {
   }
 
   validatePer1000( newState )
+
   return newState
 }
 
@@ -506,6 +528,8 @@ function removeMultipleFilters( state, action ) {
       }
     } )
   }
+
+  validatePer1000( newState )
 
   return newState
 }
