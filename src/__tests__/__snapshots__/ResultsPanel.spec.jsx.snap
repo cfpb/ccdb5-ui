@@ -617,7 +617,7 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
             Complaints
           </button>
           <button
-            className="a-btn capita deselected"
+            className="a-btn capita a-btn__disabled"
             onClick={[Function]}
           >
             Complaints per 1,000 
@@ -1242,7 +1242,7 @@ exports[`component:Results renders map panel without crashing 1`] = `
             Complaints
           </button>
           <button
-            className="a-btn capita deselected"
+            className="a-btn capita a-btn__disabled"
             onClick={[Function]}
           >
             Complaints per 1,000 
