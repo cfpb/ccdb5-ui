@@ -27,5 +27,10 @@ describe( 'component:WindowSize', () => {
       .toEqual( true )
 
     expect( wrapper.find('svg').length ).toEqual( 2 )
+    
+    const button = wrapper.find( '.close' )
+    button.simulate( 'click' )
+    expect( props.closeFn ).toHaveBeenCalled()
+
   } )
 } )
