@@ -701,6 +701,10 @@ export function stateToQS( state ) {
     }
   } )
 
+  types.excludeFields.forEach( f => {
+    delete params[f]
+  } )
+
   return '?' + queryString.stringify( params )
 }
 

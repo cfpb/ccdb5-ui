@@ -1,4 +1,6 @@
-import { dateFilters, flagFilters } from './constants'
+import {
+  dateFilters, excludeFields, flagFilters
+} from './constants'
 import announceUrlChanged from './actions/url'
 import { connect } from 'react-redux'
 import { createBrowserHistory as createHistory } from 'history'
@@ -34,9 +36,15 @@ export function toQS( props ) {
     }
   } )
 
-  delete clone.enablePer1000
-  delete clone.mapWarningEnabled
-  delete clone.totalPages
+  Object.keys( clone ).forEach( k => {
+    if ( clone[k] === '' ) {
+      delete clone[k]
+    }
+  } )
+
+  excludeFields.forEach( f => {
+    delete clone[f]
+  } )
 
   return '?' + queryString.stringify( clone )
 }
