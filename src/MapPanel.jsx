@@ -32,7 +32,7 @@ export class MapPanel extends React.Component {
         }
         { this.props.showWarning &&
           <Warning text={ WARNING_MESSAGE }
-                   closeFn={this.props.dismissWarning}/> }
+                   closeFn={this.props.onDismissWarning}/> }
         { this.props.showMobileFilters && <FilterPanel/> }
         <div className="layout-row refine">
           <FilterPanelToggle/>
@@ -58,7 +58,7 @@ const mapStateToProps = state => ( {
 } )
 
 export const mapDispatchToProps = dispatch => ( {
-  dismissWarning: () => {
+  onDismissWarning: () => {
     dispatch( mapWarningDismissed() )
   }
 } )
