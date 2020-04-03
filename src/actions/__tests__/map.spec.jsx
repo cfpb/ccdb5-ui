@@ -1,6 +1,5 @@
 import * as sut from '../map'
 import { REQUERY_ALWAYS, REQUERY_NEVER } from '../../constants'
-import { DATA_NORMALIZATION_SELECTED } from '../map'
 
 describe('action:map', () => {
   describe('addStateFilter', () => {

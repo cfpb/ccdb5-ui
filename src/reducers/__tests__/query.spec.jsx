@@ -47,7 +47,7 @@ describe( 'reducer:query', () => {
 
       expect( target( state, action ) ).toEqual( {
         page: 10,
-        queryString: '?page=10&size=100&totalPages=100',
+        queryString: '?page=10&size=100',
         size: 100,
         totalPages: 100
       } )
@@ -70,7 +70,7 @@ describe( 'reducer:query', () => {
 
       expect( target( state, action ) ).toEqual( {
         page: 100,
-        queryString: '?page=100&size=100&totalPages=100',
+        queryString: '?page=100&size=100',
         size: 100,
         totalPages: 100
       } )
@@ -370,7 +370,9 @@ describe( 'reducer:query', () => {
       it( 'handles FILTER_CHANGED actions and returns correct object', () => {
         expect( target( state, action ) ).toEqual(
           {
+            enablePer1000: true,
             [filterName]: [ key ],
+            mapWarningEnabled: true,
             queryString: '?filtyMcFilterson=affirmative'
           }
         )
@@ -408,7 +410,9 @@ describe( 'reducer:query', () => {
           foo: [ 'bar', 'baz', 'qaz' ]
         }
         expect( target( state, action ) ).toEqual( {
+          enablePer1000: true,
           foo: [ 'bar', 'qaz' ],
+          mapWarningEnabled: true,
           queryString: '?foo=bar&foo=qaz'
         } )
       } )
@@ -418,7 +422,9 @@ describe( 'reducer:query', () => {
           foobar: [ 'bar', 'baz', 'qaz' ]
         }
         expect( target( state, action ) ).toEqual( {
+          enablePer1000: true,
           foobar: [ 'bar', 'baz', 'qaz' ],
+          mapWarningEnabled: true,
           queryString: '?foobar=bar&foobar=baz&foobar=qaz'
         } )
       } )
@@ -428,7 +434,9 @@ describe( 'reducer:query', () => {
           foo: [ 'bar', 'qaz' ]
         }
         expect( target( state, action ) ).toEqual( {
+          enablePer1000: true,
           foo: [ 'bar', 'qaz' ],
+          mapWarningEnabled: true,
           queryString: '?foo=bar&foo=qaz'
         } )
       } )
@@ -440,6 +448,8 @@ describe( 'reducer:query', () => {
             has_narrative: true
           }
           expect( target( state, action ) ).toEqual( {
+            enablePer1000: true,
+            mapWarningEnabled: true,
             queryString: ''
           } )
         } );
@@ -448,6 +458,8 @@ describe( 'reducer:query', () => {
           action.filterName = 'has_narrative'
           const state = {}
           expect( target( state, action ) ).toEqual( {
+            enablePer1000: true,
+            mapWarningEnabled: true,
             queryString: ''
           } )
         } );
@@ -474,7 +486,9 @@ describe( 'reducer:query', () => {
 
       it( 'clears all filters', () => {
         expect( target( state, action ) ).toEqual( {
+          enablePer1000: true,
           from: 100,
+          mapWarningEnabled: true,
           queryString: '?field=all&frm=100&size=100',
           searchField: 'all',
           size: 100
@@ -488,6 +502,7 @@ describe( 'reducer:query', () => {
 
           state.searchField = types.NARRATIVE_SEARCH_FIELD
           expect( target( state, action ) ).toEqual( {
+            enablePer1000: false,
             from: 100,
             has_narrative: true,
             queryString: qs,
@@ -510,6 +525,7 @@ describe( 'reducer:query', () => {
 
       it( "adds all filters if they didn't exist", () => {
         expect( target( {}, action ) ).toEqual( {
+          enablePer1000: false,
           issue: [ 'Mo Money', 'Mo Problems' ],
           queryString: '?issue=Mo%20Money&issue=Mo%20Problems'
         } )
@@ -522,6 +538,7 @@ describe( 'reducer:query', () => {
         action.values.push( 'foo' )
 
         expect( target( state, action ) ).toEqual( {
+          enablePer1000: false,
           issue: [ 'foo', 'Mo Money', 'Mo Problems' ],
           queryString: '?issue=foo&issue=Mo%20Money&issue=Mo%20Problems'
         } )
@@ -543,6 +560,7 @@ describe( 'reducer:query', () => {
           issue: [ 'foo', 'Mo Money', 'Mo Problems' ]
         }
         expect( target( state, action ) ).toEqual( {
+          enablePer1000: false,
           issue: [ 'foo' ],
           queryString: '?issue=foo'
         } )
@@ -550,6 +568,8 @@ describe( 'reducer:query', () => {
 
       it( "ignores unknown filters", () => {
         expect( target( {}, action ) ).toEqual( {
+          enablePer1000: true,
+          mapWarningEnabled: true,
           queryString: ''
         } )
       } )
@@ -568,6 +588,7 @@ describe( 'reducer:query', () => {
 
       it( 'adds narrative filter to empty state', () => {
         expect( target( state, action ) ).toEqual( {
+          enablePer1000: false,
           has_narrative: true,
           queryString: '?has_narrative=true'
         } )
@@ -576,6 +597,8 @@ describe( 'reducer:query', () => {
       it( 'toggles off narrative filter', () => {
         state.has_narrative = true
         expect( target( state, action ) ).toEqual( {
+          enablePer1000: true,
+          mapWarningEnabled: true,
           queryString: ''
         } )
       } )
@@ -705,6 +728,7 @@ describe( 'reducer:query', () => {
       it( 'adds state filter', () => {
         res = target( {}, action )
         expect( res ).toEqual( {
+          enablePer1000: false,
           queryString: '?state=IL',
           state: [ 'IL' ]
         } )
@@ -712,6 +736,7 @@ describe( 'reducer:query', () => {
       it( 'does not add dupe state filter', () => {
         res = target( { state: [ 'IL', 'TX' ] }, action )
         expect( res ).toEqual( {
+          enablePer1000: false,
           queryString: '?state=IL&state=TX',
           state: [ 'IL', 'TX' ]
         } )
@@ -730,6 +755,8 @@ describe( 'reducer:query', () => {
         }, action )
 
         expect( res ).toEqual( {
+          enablePer1000: true,
+          mapWarningEnabled: true,
           queryString: '',
           state: []
         } )
@@ -743,6 +770,8 @@ describe( 'reducer:query', () => {
         res = target( {}, action )
 
         expect( res ).toEqual( {
+          enablePer1000: true,
+          mapWarningEnabled: true,
           queryString: '',
           state: []
         } )
@@ -759,6 +788,7 @@ describe( 'reducer:query', () => {
       it( 'removes a state filter', () => {
         res = target( { state: ['CA', 'IL'] }, action )
         expect( res ).toEqual( {
+          enablePer1000: false,
           queryString: '?state=CA',
           state: [ 'CA' ]
         } )
@@ -766,6 +796,8 @@ describe( 'reducer:query', () => {
       it( 'handles empty state', () => {
         res = target( {}, action )
         expect( res ).toEqual( {
+          enablePer1000: true,
+          mapWarningEnabled: true,
           queryString: '',
           state: []
         } )

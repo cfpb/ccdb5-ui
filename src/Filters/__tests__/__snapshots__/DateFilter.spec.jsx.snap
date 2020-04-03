@@ -122,7 +122,7 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
       </li>
     </ul>
     <div
-      className="m-notification m-notification__visible m-notification__warning"
+      className="warning m-notification m-notification__visible m-notification__warning"
     >
       <svg
         className="cf-icon-svg"
@@ -142,6 +142,7 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
           In April 2017 we made changes to consumer complaint Product fields. This may result in discrepancies in the display of visualizations
         </div>
       </div>
+      
     </div>
   </div>
 </section>
