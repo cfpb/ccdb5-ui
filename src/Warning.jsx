@@ -12,7 +12,9 @@ export const Warning = ( { text, closeFn } ) =>
             <div className="h4 m-notification_message">{ text }</div>
         </div>
       { closeFn ?
-      <span className="close" onClick={ closeFn }>
+      <span aria-label="Dismiss"
+            className="close"
+            onClick={ closeFn }>
         { iconMap.getIcon( 'delete-round' ) }
       </span> : ''}
     </div>
