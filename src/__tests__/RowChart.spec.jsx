@@ -9,8 +9,8 @@ import thunk from 'redux-thunk'
 // this is how you override and mock an imported constructor
 jest.mock( 'britecharts', () => {
   const props = [
-    'row', 'margin', 'backgroundColor', 'enableLabels', 'labelsSize',
-    'labelsTotalCount', 'labelsNumberFormat', 'outerPadding',
+    'row', 'margin', 'backgroundColor', 'colorSchema', 'enableLabels',
+    'labelsSize', 'labelsTotalCount', 'labelsNumberFormat', 'outerPadding',
     'percentageAxisToMaxRatio', 'yAxisLineWrapLimit',
     'yAxisPaddingBetweenChart', 'width', 'wrapLabels', 'height'
   ]
@@ -41,6 +41,9 @@ jest.mock( 'd3', () => {
       return mock
     } )
   }
+
+  // set narrow width value for 100% test coverage
+  mock.width = 100
 
   return mock
 } )
