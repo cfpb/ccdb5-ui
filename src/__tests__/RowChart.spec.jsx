@@ -42,6 +42,9 @@ jest.mock( 'd3', () => {
     } )
   }
 
+  // set narrow width value for 100% test coverage
+  mock.width = 100
+
   return mock
 } )
 
