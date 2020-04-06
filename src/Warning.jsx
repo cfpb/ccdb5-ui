@@ -15,7 +15,7 @@ export const Warning = ( { text, closeFn } ) =>
       <span aria-label="Dismiss"
             className="close"
             onClick={ closeFn }>
-        { iconMap.getIcon( 'delete-round' ) }
+        { iconMap.getIcon( 'delete' ) }
       </span> : ''}
     </div>
 
