@@ -97,12 +97,15 @@ export class RowChart extends React.Component {
     const height = this._getHeight( rowData.length )
     const chart = row()
     const marginLeft = width / 3
+    const colorScheme = rowData.map( () => '#20aa3f' )
+
     chart.margin( {
       left: marginLeft,
-      right: 0,
+      right: 20,
       top: 20,
       bottom: 10
     } )
+      .colorSchema( colorScheme )
       .backgroundColor( '#f7f8f9' )
       .enableLabels( true )
       .labelsSize( 14 )
