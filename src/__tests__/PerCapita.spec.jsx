@@ -98,7 +98,9 @@ describe( 'component: PerCapita', () => {
         map: {
           dataNormalization: 'foo'
         },
-        query: {}
+        query: {
+          enablePer1000: true
+        }
       }
       let actual = mapStateToProps( state )
       expect( actual ).toEqual( {

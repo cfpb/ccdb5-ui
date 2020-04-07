@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
-import MapPanel from '../MapPanel'
+import { MapPanel, mapDispatchToProps } from '../MapPanel'
 import { MODE_MAP } from '../constants'
 import React from 'react'
 import renderer from 'react-test-renderer'
@@ -25,12 +25,14 @@ function setupSnapshot( printMode ) {
       state: []
     },
     query: {
+      enablePer1000: false,
       from: 0,
-      size: 10,
-      tab: MODE_MAP,
+      mapWarningEnabled: true,
       product: [
         { name: 'foo' }
-      ]
+      ],
+      size: 10,
+      tab: MODE_MAP
     },
     results: {
       items
@@ -43,7 +45,7 @@ function setupSnapshot( printMode ) {
   return renderer.create(
     <Provider store={ store }>
       <IntlProvider locale="en">
-        <MapPanel />
+        <MapPanel showWarning={true}/>
       </IntlProvider>
     </Provider>
   )
@@ -63,4 +65,13 @@ describe( 'component:MapPanel', () => {
     const tree = target.toJSON()
     expect( tree ).toMatchSnapshot()
   } )
+
+  describe('mapDispatchToProps', ()=>{
+    it('hooks into dismissWarning', ()=>{
+      const dispatch = jest.fn()
+      mapDispatchToProps(dispatch).onDismissWarning();
+      expect(dispatch.mock.calls.length).toEqual(1);
+    })
+
+  })
 } )

@@ -295,7 +295,7 @@ exports[`component:ListPanel displays a message when only the narratives are sta
   </div>
   <div>
     <div
-      className="m-notification m-notification__visible m-notification__warning"
+      className="warning m-notification m-notification__visible m-notification__warning"
     >
       <svg
         className="cf-icon-svg"
@@ -315,6 +315,7 @@ exports[`component:ListPanel displays a message when only the narratives are sta
           We’re currently experiencing technical issues that have delayed the refresh of consumer complaint narratives on the Consumer Complaint Database.  We expect to refresh the data in the next few days.
         </div>
       </div>
+      
     </div>
   </div>
   <div
@@ -749,7 +750,7 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
   </div>
   <div>
     <div
-      className="m-notification m-notification__visible m-notification__warning"
+      className="warning m-notification m-notification__visible m-notification__warning"
     >
       <svg
         className="cf-icon-svg"
@@ -769,6 +770,7 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
           We’re currently experiencing technical issues that have delayed the refresh of data on the Consumer Complaint Database.  We expect to refresh the data in the next few days.
         </div>
       </div>
+      
     </div>
   </div>
   <div
@@ -1203,7 +1205,7 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
   </div>
   <div>
     <div
-      className="m-notification m-notification__visible m-notification__warning"
+      className="warning m-notification m-notification__visible m-notification__warning"
     >
       <svg
         className="cf-icon-svg"
@@ -1223,6 +1225,7 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
           We’re currently experiencing technical issues that have delayed the refresh of data in the Consumer Complaint Database.  We expect to refresh the data in the next few days.
         </div>
       </div>
+      
     </div>
   </div>
   <div
@@ -1892,7 +1895,7 @@ exports[`component:ListPanel only displays data message when both types are stal
   </div>
   <div>
     <div
-      className="m-notification m-notification__visible m-notification__warning"
+      className="warning m-notification m-notification__visible m-notification__warning"
     >
       <svg
         className="cf-icon-svg"
@@ -1912,6 +1915,7 @@ exports[`component:ListPanel only displays data message when both types are stal
           We’re currently experiencing technical issues that have delayed the refresh of data in the Consumer Complaint Database.  We expect to refresh the data in the next few days.
         </div>
       </div>
+      
     </div>
   </div>
   <div

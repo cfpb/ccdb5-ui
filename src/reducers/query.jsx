@@ -2,7 +2,7 @@
 
 import * as types from '../constants'
 import {
-  calculateDateInterval, clamp, shortIsoFormat, startOfToday
+  calculateDateInterval, clamp, hasFiltersEnabled, shortIsoFormat, startOfToday
 } from '../utils'
 import actions from '../actions'
 import moment from 'moment';
@@ -14,7 +14,9 @@ export const defaultQuery = {
   dateInterval: '3y',
   date_received_max: startOfToday(),
   date_received_min: new Date( moment().subtract( 3, 'years' ).calendar() ),
+  enablePer1000: true,
   from: 0,
+  mapWarningEnabled: true,
   searchText: '',
   searchField: 'all',
   size: 25,
@@ -332,6 +334,7 @@ export function addMultipleFilters( state, action ) {
   } )
 
   newState[name] = a
+
   return newState
 }
 
@@ -362,12 +365,14 @@ export function filterArrayAction( target = [], val ) {
 * @returns {object} the new state for the Redux store
 */
 export function toggleFilter( state, action ) {
-  return {
+  const newState = {
     ...state,
     [action.filterName]: filterArrayAction(
       state[action.filterName], action.filterValue.key
     )
   }
+
+  return newState
 }
 
 /**
@@ -384,10 +389,12 @@ export function addStateFilter( state, action ) {
     stateFilters.push( abbr )
   }
 
-  return {
+  const newState = {
     ...state,
     state: stateFilters
   }
+
+  return newState
 }
 
 /**
@@ -397,10 +404,12 @@ export function addStateFilter( state, action ) {
  * @returns {object} the new state for the Redux store
  */
 export function clearStateFilter( state ) {
-  return {
+  const newState = {
     ...state,
     state: []
   }
+
+  return newState
 }
 
 /**
@@ -428,10 +437,12 @@ export function removeStateFilter( state, action ) {
   const { abbr } = action.selectedState
   stateFilters = stateFilters.filter( o => o !== abbr )
 
-  return {
+  const newState = {
     ...state,
     state: stateFilters
   }
+
+  return newState
 }
 
 /**
@@ -457,6 +468,7 @@ export function removeAllFilters( state ) {
       delete newState[kf]
     }
   } )
+
   return newState
 }
 
@@ -477,6 +489,7 @@ function removeFilter( state, action ) {
       newState[action.filterName].splice( idx, 1 )
     }
   }
+
   return newState
 }
 
@@ -514,6 +527,19 @@ function changePage( state, action ) {
     ...state,
     from: ( page - 1 ) * state.size,
     page: page
+  }
+}
+
+/**
+ * Handler for the dismiss map warning action
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+export function dismissMapWarning( state ) {
+  return {
+    ...state,
+    mapWarningEnabled: false
   }
 }
 
@@ -656,7 +682,22 @@ export function stateToQS( state ) {
     }
   } )
 
+  types.excludeFields.forEach( f => {
+    delete params[f]
+  } )
+
   return '?' + queryString.stringify( params )
+}
+
+/**
+ * helper function to check if per1000 & map warnings should be enabled
+ * @param {object} queryState state we need to validate
+ */
+export function validatePer1000( queryState ) {
+  queryState.enablePer1000 = !hasFiltersEnabled( queryState )
+  if ( queryState.enablePer1000 ) {
+    queryState.mapWarningEnabled = true
+  }
 }
 
 // ----------------------------------------------------------------------------
@@ -679,6 +720,7 @@ export function _buildHandlerMap() {
   handlers[actions.FILTER_MULTIPLE_REMOVED] = removeMultipleFilters
   handlers[actions.FILTER_REMOVED] = removeFilter
   handlers[actions.PAGE_CHANGED] = changePage
+  handlers[actions.MAP_WARNING_DISMISSED] = dismissMapWarning
   handlers[actions.NEXT_PAGE_SHOWN] = nextPage
   handlers[actions.PREV_PAGE_SHOWN] = prevPage
   handlers[actions.SIZE_CHANGED] = changeSize
@@ -713,6 +755,8 @@ function handleSpecificAction( state, action ) {
 
 export default ( state = defaultQuery, action ) => {
   const newState = handleSpecificAction( state, action )
+
+  validatePer1000( newState )
 
   const qs = stateToQS( newState )
   newState.queryString = qs === '?' ? '' : qs

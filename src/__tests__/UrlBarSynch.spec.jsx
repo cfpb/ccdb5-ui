@@ -24,7 +24,7 @@ describe('component:UrlBarSynch', () =>{
   describe('componentWillReceiveProps', () => {
     it('pushes a change to the url bar when parameters change', () => {
       props.params.from = 99
-      const expected = '?date_received_min=2013-02-03&from=99&has_narrative=true&searchText=&size=10'
+      const expected = '?date_received_min=2013-02-03&from=99&has_narrative=true&size=10'
 
       target.UNSAFE_componentWillReceiveProps(props)
 
@@ -33,7 +33,7 @@ describe('component:UrlBarSynch', () =>{
     })
 
     it('does not push history when parameters are the same', () => {
-      target.currentQS = '?date_received_min=2013-02-03&from=0&has_narrative=true&searchText=&size=10'
+      target.currentQS = '?date_received_min=2013-02-03&from=0&has_narrative=true&size=10'
       target.UNSAFE_componentWillReceiveProps(props)
       expect(target.history.push).not.toHaveBeenCalled()
     })

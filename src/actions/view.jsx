@@ -1,9 +1,10 @@
 import { REQUERY_HITS_ONLY, REQUERY_NEVER } from '../constants'
+
+export const MAP_WARNING_DISMISSED = 'MAP_WARNING_DISMISSED'
 export const PRINT_MODE_CHANGED = 'PRINT_MODE_CHANGED'
 export const SCREEN_RESIZED = 'SCREEN_RESIZED'
 export const TAB_CHANGED = 'TAB_CHANGED'
 export const TOGGLE_FILTER_VISIBILITY = 'TOGGLE_FILTER_VISIBILITY'
-
 // ----------------------------------------------------------------------------
 // Simple actions
 /**
@@ -14,6 +15,18 @@ export const TOGGLE_FILTER_VISIBILITY = 'TOGGLE_FILTER_VISIBILITY'
 export function filterVisibilityToggled() {
   return {
     type: TOGGLE_FILTER_VISIBILITY,
+    requery: REQUERY_NEVER
+  }
+}
+
+/**
+ * Notifies the application that user dismissed map warning
+ *
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function mapWarningDismissed() {
+  return {
+    type: MAP_WARNING_DISMISSED,
     requery: REQUERY_NEVER
   }
 }
