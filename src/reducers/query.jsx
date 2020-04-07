@@ -189,8 +189,6 @@ function processParams( state, action ) {
     }
   } )
 
-  validatePer1000( processed )
-
   return alignIntervalAndRange( processed )
 }
 
@@ -297,8 +295,6 @@ export function toggleFlagFilter( state, action ) {
     }
   } )
 
-  validatePer1000( newState )
-
   return newState
 }
 
@@ -339,7 +335,6 @@ export function addMultipleFilters( state, action ) {
 
   newState[name] = a
 
-  validatePer1000( newState )
   return newState
 }
 
@@ -377,8 +372,6 @@ export function toggleFilter( state, action ) {
     )
   }
 
-  validatePer1000( newState )
-
   return newState
 }
 
@@ -401,8 +394,6 @@ export function addStateFilter( state, action ) {
     state: stateFilters
   }
 
-  validatePer1000( newState )
-
   return newState
 }
 
@@ -417,8 +408,6 @@ export function clearStateFilter( state ) {
     ...state,
     state: []
   }
-
-  validatePer1000( newState )
 
   return newState
 }
@@ -453,8 +442,6 @@ export function removeStateFilter( state, action ) {
     state: stateFilters
   }
 
-  validatePer1000( newState )
-
   return newState
 }
 
@@ -482,8 +469,6 @@ export function removeAllFilters( state ) {
     }
   } )
 
-  validatePer1000( newState )
-
   return newState
 }
 
@@ -504,8 +489,6 @@ function removeFilter( state, action ) {
       newState[action.filterName].splice( idx, 1 )
     }
   }
-
-  validatePer1000( newState )
 
   return newState
 }
@@ -528,8 +511,6 @@ function removeMultipleFilters( state, action ) {
       }
     } )
   }
-
-  validatePer1000( newState )
 
   return newState
 }
@@ -774,6 +755,8 @@ function handleSpecificAction( state, action ) {
 
 export default ( state = defaultQuery, action ) => {
   const newState = handleSpecificAction( state, action )
+
+  validatePer1000( newState )
 
   const qs = stateToQS( newState )
   newState.queryString = qs === '?' ? '' : qs
