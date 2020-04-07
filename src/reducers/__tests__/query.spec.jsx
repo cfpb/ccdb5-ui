@@ -46,6 +46,8 @@ describe( 'reducer:query', () => {
       }
 
       expect( target( state, action ) ).toEqual( {
+        enablePer1000: true,
+        mapWarningEnabled: true,
         page: 10,
         queryString: '?page=10&size=100',
         size: 100,
@@ -69,6 +71,8 @@ describe( 'reducer:query', () => {
       }
 
       expect( target( state, action ) ).toEqual( {
+        enablePer1000: true,
+        mapWarningEnabled: true,
         page: 100,
         queryString: '?page=100&size=100',
         size: 100,
@@ -88,7 +92,9 @@ describe( 'reducer:query', () => {
       size: 100
     }
     expect( target( state, action ) ).toEqual( {
+      enablePer1000: true,
       from: 0,
+      mapWarningEnabled: true,
       page: 1,
       queryString: '?field=bar&page=1&search_term=foo&size=100',
       searchField: 'bar',
@@ -103,13 +109,16 @@ describe( 'reducer:query', () => {
         type: actions.MAP_WARNING_DISMISSED
       }
       const state = {
+        company: [1,2,3],
         foo: 'bar',
         mapWarningEnabled: true
       }
       expect( target( state, action ) ).toEqual( {
+        company: [1,2,3],
+        enablePer1000: false,
         foo: 'bar',
         mapWarningEnabled: false,
-        queryString: '?foo=bar'
+        queryString: '?company=1&company=2&company=3&foo=bar'
       } )
     })
   })
@@ -124,7 +133,9 @@ describe( 'reducer:query', () => {
         size: 100
       }
       expect( target( state, action ) ).toEqual( {
+        enablePer1000: true,
         from: 100,
+        mapWarningEnabled: true,
         page: 2,
         queryString: '?frm=100&page=2&size=100',
         size: 100
@@ -142,7 +153,9 @@ describe( 'reducer:query', () => {
         size: 100
       }
       expect( target( state, action ) ).toEqual( {
+        enablePer1000: true,
         from: 200,
+        mapWarningEnabled: true,
         page: 3,
         queryString: '?frm=200&page=3&size=100',
         size: 100
@@ -160,7 +173,9 @@ describe( 'reducer:query', () => {
         size: 100
       }
       expect( target( state, action ) ).toEqual( {
+        enablePer1000: true,
         from: 0,
+        mapWarningEnabled: true,
         page: 1,
         queryString: '?page=1&size=100',
         size: 100
@@ -178,7 +193,9 @@ describe( 'reducer:query', () => {
         size: 100
       }
       expect( target( state, action ) ).toEqual( {
+        enablePer1000: true,
         from: 0,
+        mapWarningEnabled: true,
         page: 1,
         queryString: '?page=1&size=50',
         size: 50
@@ -195,7 +212,9 @@ describe( 'reducer:query', () => {
         size: 100
       }
       expect( target( state, action ) ).toEqual( {
+        enablePer1000: true,
         from: 100,
+        mapWarningEnabled: true,
         queryString: '?frm=100&size=100&sort=foo',
         sort: 'foo',
         size: 100
@@ -211,6 +230,8 @@ describe( 'reducer:query', () => {
         tab: 'bar'
       }
       expect( target( state, action ) ).toEqual( {
+        enablePer1000: true,
+        mapWarningEnabled: true,
         tab: 'foo',
         queryString: '?tab=foo'
       } )
@@ -637,8 +658,10 @@ describe( 'reducer:query', () => {
 
       it( 'adds the dates', () => {
         expect( target( {}, action ) ).toEqual( {
+          enablePer1000: true,
           date_received_min: new Date( 2001, 0, 30 ),
           date_received_max: new Date( 2013, 1, 3 ),
+          mapWarningEnabled: true,
           queryString: '?date_received_max=2013-02-03&date_received_min=2001-01-30'
         } )
       } )
@@ -660,6 +683,8 @@ describe( 'reducer:query', () => {
         action.maxDate = ''
         action.minDate = ''
         expect( target( {}, action ) ).toEqual( {
+          enablePer1000: true,
+          mapWarningEnabled: true,
           queryString: ''
         } )
       } )
@@ -712,6 +737,8 @@ describe( 'reducer:query', () => {
         }, action )
 
         expect( res ).toEqual( {
+          enablePer1000: true,
+          mapWarningEnabled: true,
           queryString: '?tab=List',
           state: [ ],
           tab: types.MODE_LIST
@@ -728,6 +755,7 @@ describe( 'reducer:query', () => {
         }, action )
 
         expect( res ).toEqual( {
+          enablePer1000: false,
           queryString: '?state=TX&state=MX&state=FO&tab=List',
           state: [ 'TX', 'MX', 'FO' ],
           tab: types.MODE_LIST
