@@ -2,7 +2,6 @@ import './PerCapita.less'
 import { GEO_NORM_NONE, GEO_NORM_PER1000 } from './constants'
 import { connect } from 'react-redux'
 import { dataNormalizationChanged } from './actions/map';
-import { hasFiltersEnabled } from './utils'
 import React from 'react'
 
 
@@ -47,7 +46,7 @@ export class PerCapita extends React.Component {
 
 export const mapStateToProps = state => ( {
   dataNormalization: state.map.dataNormalization,
-  enablePer1000: !hasFiltersEnabled( state.query )
+  enablePer1000: state.query.enablePer1000
 } );
 
 export const mapDispatchToProps = dispatch => ( {

@@ -78,7 +78,7 @@ export class RowChart extends React.Component {
 
   // --------------------------------------------------------------------------
   // Event Handlers
-
+  // eslint-disable-next-line complexity
   _redrawChart() {
     const componentProps = this.props
     const { data, printMode } = componentProps

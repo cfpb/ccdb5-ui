@@ -40,7 +40,7 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
     </summary>
   </div>
   <div
-    className="m-notification m-notification__visible m-notification__warning"
+    className="warning m-notification m-notification__visible m-notification__warning"
   >
     <svg
       className="cf-icon-svg"
@@ -60,6 +60,7 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
         Due to your filter selections, the “Complaints per 1,000” option has been disabled
       </div>
     </div>
+    
   </div>
   <div
     className="layout-row refine"
@@ -237,7 +238,7 @@ exports[`component:MapPanel renders without crashing 1`] = `
     </summary>
   </div>
   <div
-    className="m-notification m-notification__visible m-notification__warning"
+    className="warning m-notification m-notification__visible m-notification__warning"
   >
     <svg
       className="cf-icon-svg"
@@ -257,6 +258,7 @@ exports[`component:MapPanel renders without crashing 1`] = `
         Due to your filter selections, the “Complaints per 1,000” option has been disabled
       </div>
     </div>
+    
   </div>
   <div
     className="layout-row refine"

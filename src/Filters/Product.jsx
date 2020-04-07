@@ -17,9 +17,6 @@ export class Product extends React.Component {
     const desc = 'The type of product and sub-product the consumer ' +
       'identified in the complaint'
 
-    const href = 'http://files.consumerfinance.gov/f/documents/' +
-      '201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf'
-
     const listComponentProps = {
       fieldName: 'product'
     }

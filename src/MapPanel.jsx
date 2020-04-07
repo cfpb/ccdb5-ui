@@ -5,9 +5,9 @@ import DateIntervals from './DateIntervals'
 import ErrorBlock from './Error'
 import FilterPanel from './FilterPanel'
 import FilterPanelToggle from './FilterPanelToggle'
-import { hasFiltersEnabled } from './utils'
 import Loading from './Dialogs/Loading'
 import MapToolbar from './MapToolbar'
+import { mapWarningDismissed } from './actions/view'
 import PerCapita from './PerCapita'
 import React from 'react'
 import RowChart from './RowChart'
@@ -30,7 +30,9 @@ export class MapPanel extends React.Component {
         { this.props.error &&
           <ErrorBlock text="There was a problem executing your search" />
         }
-        { this.props.showWarning && <Warning text={ WARNING_MESSAGE } /> }
+        { this.props.showWarning &&
+          <Warning text={ WARNING_MESSAGE }
+                   closeFn={this.props.onDismissWarning}/> }
         { this.props.showMobileFilters && <FilterPanel/> }
         <div className="layout-row refine">
           <FilterPanelToggle/>
@@ -52,7 +54,14 @@ const mapStateToProps = state => ( {
   error: state.map.error,
   isLoading: state.map.isLoading,
   showMobileFilters: state.view.width < 750,
-  showWarning: hasFiltersEnabled( state.query )
+  showWarning: !state.query.enablePer1000 && state.query.mapWarningEnabled
 } )
 
-export default connect( mapStateToProps )( MapPanel )
+export const mapDispatchToProps = dispatch => ( {
+  onDismissWarning: () => {
+    dispatch( mapWarningDismissed() )
+  }
+} )
+
+
+export default connect( mapStateToProps, mapDispatchToProps )( MapPanel )
