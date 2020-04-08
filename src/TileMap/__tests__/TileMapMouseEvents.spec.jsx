@@ -22,13 +22,17 @@ jest.mock( 'd3', () => {
 } )
 
 describe( 'Tile map: mouse events', () => {
+  afterEach( () => {
+    jest.clearAllMocks()
+  } )
+
   it( 'handles mouseout', () => {
     sut.name = 'fooout'
     const dSpy = jest.spyOn( d3, 'select' )
     const dSpyClassed = jest.spyOn( d3, 'classed' )
     sut.mouseoutPoint()
     expect( dSpy ).toHaveBeenCalledWith( '.tile-fooout' )
-    expect( dSpyClassed ).toHaveBeenCalledWith( [ 'hover', false ] )
+    expect( dSpyClassed ).toHaveBeenCalledWith( 'hover', false )
   } )
 
   it( 'handles mouseover', () => {
@@ -37,6 +41,6 @@ describe( 'Tile map: mouse events', () => {
     const dSpyClassed = jest.spyOn( d3, 'classed' )
     sut.mouseoverPoint()
     expect( dSpy ).toHaveBeenCalledWith( '.tile-fooover' )
-    expect( dSpyClassed ).toHaveBeenCalledWith( [ 'hover', true ] )
+    expect( dSpyClassed ).toHaveBeenCalledWith( 'hover', true )
   } )
 } )
