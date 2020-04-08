@@ -194,7 +194,8 @@ export function tileFormatter() {
   }
 
   const value = this.point.displayValue.toLocaleString();
-  return '<div class="highcharts-data-label-state">' +
+  return '<div class="highcharts-data-label-state tile-' +
+    this.point.name.toLowerCase() + '">' +
     '<span class="abbr">' + this.point.name + '</span>' +
     iePatch +
     '<span class="value">' + value + '</span>' +
@@ -319,12 +320,12 @@ Highcharts.setOptions( {
 } );
 
 const colors = [
-  'rgba(247, 248, 249, 0.5)',
   'rgba(212, 231, 230, 0.5)',
   'rgba(180, 210, 209, 0.5)',
+  'rgba(158, 196, 195, 0.5)',
   'rgba(137, 182, 181, 0.5)',
-  'rgba(86, 149, 148, 0.5)',
-  'rgba(37, 116, 115, 0.5)'
+  'rgba(112, 166, 165, 0.5)',
+  'rgba(87, 150, 149, 0.5)'
 ];
 
 /* ----------------------------------------------------------------------------
@@ -397,6 +398,18 @@ class TileMap {
     // our custom passing of information
     if ( events ) {
       options.plotOptions.series.events = events;
+      options.plotOptions.series.point = {
+        events: {
+          mouseOver: function () {
+            const name = '.tile-' + this.name.toLowerCase()
+            d3.select( name ).classed( 'hover', true )
+          },
+          mouseOut: function () {
+            const name = '.tile-' + this.name.toLowerCase()
+            d3.select( name ).classed( 'hover', false )
+          }
+        }
+      }
     }
 
     // to adjust for legend height

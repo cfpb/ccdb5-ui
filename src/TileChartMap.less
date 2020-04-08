@@ -163,14 +163,17 @@ x/y positioning on the SVG elements.
     .u-point-hover-state, .selected {
         stroke: @black;
         cursor: default;
-        stroke-width: 4px !important;
         stroke-linecap: square;
     }
     .highcharts-map-series {
         .highcharts-point {
             stroke: #75787b;
             &.selected {
-                stroke: @black
+                stroke: rgba(0, 45, 114, 1);
+            }
+            &:hover {
+                stroke: rgba(0, 45, 114, 1);
+                stroke-width: 2px !important;
             }
         }
     }
@@ -261,7 +264,13 @@ x/y positioning on the SVG elements.
             margin-top: 6px;
             font-size: 12px;
         }
+        &.hover {
+            .abbr, .value {
+                text-decoration: underline;
+            }
+        }
     }
+
 }
 
 // This takes over for looking good at the minimum height of 400px
