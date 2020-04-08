@@ -138,16 +138,23 @@ export function processMapData( data, scale ) {
     return Boolean( row.name );
   } );
 
-  data = data.map( function( obj ) {
-    const path = STATE_TILES[obj.name];
+  const isFiltered = data.filter( o => o.className === 'selected' ).length
+  data = data.map( function ( obj ) {
+    const path = STATE_TILES[obj.name]
+    let color = getColorByValue( obj.displayValue, scale )
+    if ( isFiltered && obj.className === 'deselected' ) {
+      // update rgba opacity for selected state
+      color = color.replace( '1)', '0.5)' )
+    }
+
     return {
       ...obj,
-      color: getColorByValue( obj.displayValue, scale ),
+      color,
       path
-    };
-  } );
+    }
+  } )
 
-  return data;
+  return data
 }
 
 /**
@@ -180,6 +187,22 @@ export function getColorByValue( value, scale ) {
 */
 export function pointDescriptionFormatter( p ) {
   return `${ p.fullName } ${ p.displayValue }`
+}
+
+/**
+ * callback function for mouseout a point to remove hover class from tile label
+ */
+export function mouseoutPoint() {
+  const name = '.tile-' + this.name.toLowerCase()
+  d3.select( name ).classed( 'hover', false )
+}
+
+/**
+ * callback function for mouseover point to add hover class to tile label
+ */
+export function mouseoverPoint() {
+  const name = '.tile-' + this.name.toLowerCase()
+  d3.select( name ).classed( 'hover', true )
 }
 
 /**
@@ -320,12 +343,12 @@ Highcharts.setOptions( {
 } );
 
 const colors = [
-  'rgba(212, 231, 230, 0.5)',
-  'rgba(180, 210, 209, 0.5)',
-  'rgba(158, 196, 195, 0.5)',
-  'rgba(137, 182, 181, 0.5)',
-  'rgba(112, 166, 165, 0.5)',
-  'rgba(87, 150, 149, 0.5)'
+  'rgba(212, 231, 230, 1)',
+  'rgba(180, 210, 209, 1)',
+  'rgba(158, 196, 195, 1)',
+  'rgba(137, 182, 181, 1)',
+  'rgba(112, 166, 165, 1)',
+  'rgba(87, 150, 149, 1)'
 ];
 
 /* ----------------------------------------------------------------------------
@@ -354,7 +377,6 @@ class TileMap {
         height,
         width
       },
-      colors,
       colorAxis: {
         dataClasses: bins,
         dataClassColor: 'category'
@@ -400,14 +422,8 @@ class TileMap {
       options.plotOptions.series.events = events;
       options.plotOptions.series.point = {
         events: {
-          mouseOver: function () {
-            const name = '.tile-' + this.name.toLowerCase()
-            d3.select( name ).classed( 'hover', true )
-          },
-          mouseOut: function () {
-            const name = '.tile-' + this.name.toLowerCase()
-            d3.select( name ).classed( 'hover', false )
-          }
+          mouseOver: mouseoverPoint,
+          mouseOut: mouseoutPoint
         }
       }
     }
