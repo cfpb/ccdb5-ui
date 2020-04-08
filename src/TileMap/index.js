@@ -193,7 +193,7 @@ export function pointDescriptionFormatter( p ) {
  * callback function for mouseout a point to remove hover class from tile label
  */
 export function mouseoutPoint() {
-  const name = '.tile-' + this.name.toLowerCase()
+  const name = '.tile-' + this.name
   d3.select( name ).classed( 'hover', false )
 }
 
@@ -201,7 +201,7 @@ export function mouseoutPoint() {
  * callback function for mouseover point to add hover class to tile label
  */
 export function mouseoverPoint() {
-  const name = '.tile-' + this.name.toLowerCase()
+  const name = '.tile-' + this.name
   d3.select( name ).classed( 'hover', true )
 }
 
@@ -217,8 +217,8 @@ export function tileFormatter() {
   }
 
   const value = this.point.displayValue.toLocaleString();
-  return '<div class="highcharts-data-label-state tile-' +
-    this.point.name.toLowerCase() + '">' +
+  return '<div class="highcharts-data-label-state tile-' + this.point.name +
+    ' ' + this.point.className + ' ">' +
     '<span class="abbr">' + this.point.name + '</span>' +
     iePatch +
     '<span class="value">' + value + '</span>' +
