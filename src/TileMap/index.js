@@ -1,3 +1,4 @@
+/* eslint complexity: ["error", 5] */
 import * as d3 from 'd3'
 import accessibility from 'highcharts/modules/accessibility';
 import Highcharts from 'highcharts/highmaps';
@@ -139,7 +140,7 @@ export function processMapData( data, scale ) {
   } );
 
   const isFiltered = data.filter( o => o.className === 'selected' ).length
-  data = data.map( function ( obj ) {
+  data = data.map( function( obj ) {
     const path = STATE_TILES[obj.name]
     let color = getColorByValue( obj.displayValue, scale )
 
@@ -148,8 +149,8 @@ export function processMapData( data, scale ) {
       color = color.replace( '1)', '0.5)' )
     }
 
-    // handle cases where value is empty or no color, so we can set the border
     if ( obj.className !== 'selected' && color === '#ffffff' ) {
+      // handle cases where value is empty or no color, so we can set the border
       obj.className = 'empty'
     }
 
