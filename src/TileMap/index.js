@@ -142,9 +142,15 @@ export function processMapData( data, scale ) {
   data = data.map( function ( obj ) {
     const path = STATE_TILES[obj.name]
     let color = getColorByValue( obj.displayValue, scale )
+
     if ( isFiltered && obj.className === 'deselected' ) {
       // update rgba opacity for selected state
       color = color.replace( '1)', '0.5)' )
+    }
+
+    // handle cases where value is empty or no color, so we can set the border
+    if ( obj.className !== 'selected' && color === '#ffffff' ) {
+      obj.className = 'empty'
     }
 
     return {

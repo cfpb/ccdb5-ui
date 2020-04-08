@@ -167,14 +167,21 @@ x/y positioning on the SVG elements.
     }
     .highcharts-map-series {
         .highcharts-point {
-            stroke: #75787b;
+            stroke: none;
+
+            &.empty {
+                stroke: rgba(231, 232, 233, 1);
+            }
+
             &.selected {
                 stroke: rgba(0, 45, 114, 1);
             }
+
             &:hover {
                 stroke: rgba(0, 45, 114, 1);
                 stroke-width: 2px !important;
             }
+
         }
     }
 
