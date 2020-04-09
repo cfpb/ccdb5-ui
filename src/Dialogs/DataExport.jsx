@@ -241,7 +241,7 @@ export class DataExport extends React.Component {
                   data-gtm_ignore="true"
                   disabled={ Object.keys( this.state.messages ).length > 0 }
                   onClick={this._exportClicked}>
-            Start Export
+            Start export
           </button>
           <button className="a-btn a-btn__link a-btn__warning"
                   data-gtm_ignore="true"
