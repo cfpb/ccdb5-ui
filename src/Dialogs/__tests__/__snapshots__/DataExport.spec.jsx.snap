@@ -144,7 +144,7 @@ exports[`component::DataExport initial state hides the dataset radio buttons whe
       disabled={true}
       onClick={[Function]}
     >
-      Start Export
+      Start export
     </button>
     <button
       className="a-btn a-btn__link a-btn__warning"
@@ -384,7 +384,7 @@ exports[`component::DataExport initial state renders without crashing 1`] = `
       disabled={true}
       onClick={[Function]}
     >
-      Start Export
+      Start export
     </button>
     <button
       className="a-btn a-btn__link a-btn__warning"
@@ -624,7 +624,7 @@ exports[`component::DataExport visual changes switches the button after a copy 1
       disabled={true}
       onClick={[Function]}
     >
-      Start Export
+      Start export
     </button>
     <button
       className="a-btn a-btn__link a-btn__warning"

@@ -8,7 +8,7 @@ exports[`component: PerCapita initial state renders without crashing 1`] = `
     className="per-capita m-btn-group"
   >
     <p>
-      Map Shading
+      Map shading
     </p>
     <button
       className="a-btn raw deselected"
