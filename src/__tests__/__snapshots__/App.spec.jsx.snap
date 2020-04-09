@@ -192,7 +192,7 @@ exports[`initial state renders without crashing 1`] = `
                     <option
                       value="company"
                     >
-                      Company Name
+                      Company name
                     </option>
                     <option
                       value="complaint_what_happened"
@@ -643,13 +643,13 @@ exports[`initial state renders without crashing 1`] = `
               <h4
                 className="o-expandable_header-left o-expandable_label"
               >
-                Zip code
+                ZIP code
               </h4>
               <span
                 className="o-expandable_header-right o-expandable_link"
               >
                 <button
-                  aria-label="Hide Zip code filter"
+                  aria-label="Hide ZIP code filter"
                   className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
                   onClick={[Function]}
                 >
@@ -856,7 +856,7 @@ exports[`initial state renders without crashing 1`] = `
               </span>
             </div>
             <p>
-              How the company responded to the complaint
+              This is how the company responded. For example, 'Closed with explanation'
             </p>
           </section>
           <hr />
@@ -893,7 +893,7 @@ exports[`initial state renders without crashing 1`] = `
               </span>
             </div>
             <p>
-              The company's optional public-facing response to a consumer's complaint
+              The company's optional public-facing response to a consumer's complaint. Companies can choose to select a response from a pre-set list of options that will be posted on the public database.
             </p>
           </section>
           <hr />
@@ -906,13 +906,13 @@ exports[`initial state renders without crashing 1`] = `
               <h4
                 className="o-expandable_header-left o-expandable_label"
               >
-                Date complaint sent to company
+                The date the CFPB sent the complaint to the company
               </h4>
               <span
                 className="o-expandable_header-right o-expandable_link"
               >
                 <button
-                  aria-label="Hide Date complaint sent to company filter"
+                  aria-label="Hide The date the CFPB sent the complaint to the company filter"
                   className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
                   onClick={[Function]}
                 >
@@ -1114,7 +1114,7 @@ exports[`initial state renders without crashing 1`] = `
               </span>
             </div>
             <p>
-              Data that supports easier searching and sorting of complaints submitted by or on behalf of older Americans and/or servicemembers
+              Data that supports easier searching and sorting of complaints submitted by or on behalf of consumers
             </p>
           </section>
         </section>
@@ -1247,7 +1247,7 @@ exports[`initial state renders without crashing 1`] = `
               className="per-capita m-btn-group"
             >
               <p>
-                Map Shading
+                Map shading
               </p>
               <button
                 className="a-btn raw selected"
