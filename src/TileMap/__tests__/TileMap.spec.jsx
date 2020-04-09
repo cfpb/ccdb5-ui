@@ -23,7 +23,7 @@ const makeChartMock = () => {
     chartMock[ propName ] = jest.fn().mockImplementation(() => (chartMock));
   }
 
-  return chartMock;  
+  return chartMock;
 }
 
 describe( 'Tile map', () => {
@@ -194,19 +194,21 @@ describe( 'Tile map', () => {
 
   it( 'formats a map tile', () => {
     sut.point = {
+      className: 'default',
       displayValue: 10000,
       name: 'FA'
     };
 
     const result = sut.tileFormatter();
     expect( result )
-      .toEqual( '<div class="highcharts-data-label-state">' +
+      .toEqual( '<div class="highcharts-data-label-state tile-FA default ">' +
       '<span class="abbr">FA</span>' +
       '<span class="value">10,000</span></div>' );
   } );
 
   it( 'formats a map tile in Internet Explorer', () => {
     sut.point = {
+      className: 'selected',
       displayValue: 10000,
       name: 'FA'
     };
@@ -216,7 +218,7 @@ describe( 'Tile map', () => {
 
     const result = sut.tileFormatter();
     expect( result )
-      .toEqual( '<div class="highcharts-data-label-state">' +
+      .toEqual( '<div class="highcharts-data-label-state tile-FA selected ">' +
         '<span class="abbr">FA</span>' +
         '<br />' +
         '<span class="value">10,000</span></div>' );
@@ -259,11 +261,12 @@ describe( 'Tile map', () => {
   } );
 
   it( 'Processes the map data', () => {
-    const scale = jest.fn().mockReturnValue( 'rgba(247, 248, 249, 0.5)' )
+    const scale = jest.fn().mockReturnValue( 'rgba(247, 248, 249, 1)' )
 
     const result = sut.processMapData( complaints.raw, scale );
     // test only the first one just make sure that the path and color are found
     expect( result[0] ).toEqual( {
+      className: 'default',
       name: 'AK',
       fullName: 'Alaska',
       value: 713,
@@ -271,8 +274,33 @@ describe( 'Tile map', () => {
       product: 'Credit reporting, credit repair services, or other personal consumer reports',
       perCapita: 0.97,
       displayValue: 713,
-      color: 'rgba(247, 248, 249, 0.5)',
+      color: 'rgba(247, 248, 249, 1)',
       path: 'M92,-245L175,-245,175,-162,92,-162,92,-245'
+    } );
+    expect( result[1] ).toEqual( {
+      className: 'deselected',
+      name: 'AL',
+      fullName: 'Alabama',
+      value: 10380,
+      issue: 'Incorrect information on your report',
+      product: 'Credit reporting, credit repair services, or other personal consumer reports',
+      perCapita: 2.14,
+      displayValue: 10380,
+      color: 'rgba(247, 248, 249, 0.5)',
+      path: 'M550,-337L633,-337,633,-253,550,-253,550,-337'
+    } );
+
+    expect( result[2] ).toEqual( {
+      className: 'selected',
+      name: 'AR',
+      fullName: 'Arkansas',
+      value: 4402,
+      issue: 'Incorrect information on your report',
+      product: 'Credit reporting, credit repair services, or other personal consumer reports',
+      perCapita: 1.48,
+      displayValue: 4402,
+      color: 'rgba(247, 248, 249, 1)',
+      path: 'M367,-428L450,-428,450,-345,367,-345,367,-428'
     } );
     expect( scale ).toHaveBeenCalledTimes( 51 )
   } );
