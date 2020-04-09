@@ -14,13 +14,14 @@ import ZipCode from './Filters/ZipCode'
 
 export class FilterPanel extends React.Component {
   render() {
-    const descPublicResponse = "The company's optional public-facing " +
-      "response to a consumer's complaint"
+    const descPublicResponse = 'The company\'s optional public-facing ' +
+      'response to a consumer\'s complaint. Companies can choose to ' +
+      'select a response from a pre-set list of options that will be ' +
+      'posted on the public database.'
     const descConsumerConsent = 'Whether a consumer opted to publish their ' +
       'complaint narrative'
     const descTags = 'Data that supports easier searching and sorting of ' +
-      'complaints submitted by or on behalf of older Americans and/or ' +
-      'servicemembers'
+      'complaints submitted by or on behalf of consumers'
 
     return <div>
         { this.props.showFilterToggle &&
@@ -62,7 +63,7 @@ export class FilterPanel extends React.Component {
           />
           <hr/>
           <SimpleFilter title="Company response"
-                        desc="How the company responded to the complaint"
+                        desc="This is how the company responded. For example, 'Closed with explanation'"
                         fieldName="company_response"
           />
           <hr/>
@@ -71,7 +72,7 @@ export class FilterPanel extends React.Component {
                         fieldName="company_public_response"
           />
           <hr/>
-          <DateFilter title="Date complaint sent to company"
+          <DateFilter title="The date the CFPB sent the complaint to the company"
                       fieldName="company_received"
           />
           <hr/>

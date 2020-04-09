@@ -24,7 +24,7 @@ export class ZipCode extends React.Component {
 
   render() {
     return (
-      <CollapsibleFilter title="Zip code"
+      <CollapsibleFilter title="ZIP code"
                          desc="The mailing ZIP code provided by the consumer"
                          className="aggregation">
         <Typeahead ariaLabel="Start typing to begin listing zip codes"
