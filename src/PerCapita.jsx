@@ -26,7 +26,7 @@ export class PerCapita extends React.Component {
     return (
       <section className="per-capita">
         <div className="per-capita m-btn-group">
-          <p>Map Shading</p>
+          <p>Map shading</p>
           <button
             className={ 'a-btn raw ' + this._getRawButtonClass() }
             onClick={ () => this._setNormalization( GEO_NORM_NONE ) }>Complaints

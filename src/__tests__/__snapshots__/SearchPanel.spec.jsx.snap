@@ -52,7 +52,7 @@ exports[`component:SearchPanel displays last updated date when present 1`] = `
                 <option
                   value="company"
                 >
-                  Company Name
+                  Company name
                 </option>
                 <option
                   value="complaint_what_happened"
@@ -177,7 +177,7 @@ exports[`component:SearchPanel renders without crashing 1`] = `
                 <option
                   value="company"
                 >
-                  Company Name
+                  Company name
                 </option>
                 <option
                   value="complaint_what_happened"

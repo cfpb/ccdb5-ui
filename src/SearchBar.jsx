@@ -9,7 +9,7 @@ import { searchChanged } from './actions/search'
 
 const searchFields = {
   all: 'All data',
-  company: 'Company Name',
+  company: 'Company name',
   // eslint-disable-next-line camelcase
   complaint_what_happened: 'Narratives'
 }

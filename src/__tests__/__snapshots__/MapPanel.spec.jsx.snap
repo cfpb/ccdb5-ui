@@ -130,7 +130,7 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
         className="per-capita m-btn-group"
       >
         <p>
-          Map Shading
+          Map shading
         </p>
         <button
           className="a-btn raw deselected"
@@ -328,7 +328,7 @@ exports[`component:MapPanel renders without crashing 1`] = `
         className="per-capita m-btn-group"
       >
         <p>
-          Map Shading
+          Map shading
         </p>
         <button
           className="a-btn raw deselected"
