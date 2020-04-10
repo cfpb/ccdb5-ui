@@ -125,7 +125,9 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
        
       In April 2017 we made changes to consumer complaint Product fields. This may result in discrepancies in the display of visualizations 
       <a
+        aria-label="Learn more about Product Changes (opens in new window)"
         href="http://files.consumerfinance.gov/f/documents/201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf"
+        target="_blank"
       >
         Learn More
       </a>
