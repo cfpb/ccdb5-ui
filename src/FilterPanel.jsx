@@ -63,7 +63,8 @@ export class FilterPanel extends React.Component {
           />
           <hr/>
           <SimpleFilter title="Company response"
-                        desc="This is how the company responded. For example, 'Closed with explanation'"
+                        desc="This is how the company responded. For
+                         example, 'Closed with explanation'"
                         fieldName="company_response"
           />
           <hr/>
@@ -72,7 +73,8 @@ export class FilterPanel extends React.Component {
                         fieldName="company_public_response"
           />
           <hr/>
-          <DateFilter title="The date the CFPB sent the complaint to the company"
+          <DateFilter title="The date the CFPB sent the complaint
+                             to the company"
                       fieldName="company_received"
           />
           <hr/>
