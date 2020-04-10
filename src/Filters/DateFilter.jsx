@@ -58,7 +58,9 @@ export class DateFilter extends React.Component {
             }
             { showWarning ?
               <p> { WARN_SERIES_BREAK }
-                <a href={ LEARN_SERIES_BREAK } >
+                <a href={ LEARN_SERIES_BREAK }
+                  target="_blank"
+                  aria-label="Learn more about Product Changes (opens in new window)" >
                   Learn More
                 </a>
               </p> :
