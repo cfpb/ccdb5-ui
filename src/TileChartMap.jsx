@@ -39,7 +39,7 @@ export class TileChartMap extends React.Component {
     return (
       <div>
         <div id="tile-chart-map"
-             className="cfpb-chart"
+             className={'cfpb-chart ' + this.props.printClass }
              data-chart-type="tile_map">
         </div>
       </div>
@@ -72,8 +72,9 @@ export class TileChartMap extends React.Component {
     const componentProps = this.props
     const mapElement = document.getElementById( 'tile-chart-map' )
     const { dataNormalization, printMode } = componentProps
-    const elementWidth = mapElement ? mapElement.clientWidth : 700;
-    const width = printMode ? 700 : elementWidth
+//    const elementWidth = mapElement ? mapElement.clientWidth : 700;
+    const elementWidth = mapElement.clientWidth;
+    const width = elementWidth;
     const data = updateData( this.props )
 
     const options = {
@@ -87,7 +88,7 @@ export class TileChartMap extends React.Component {
       width
     }
 
-    options.height = printMode ? 700 : width * 0.75;
+    options.height = width * 0.75;
 
     // eslint-disable-next-line no-unused-vars
     const chart = new TileMap( options )
@@ -152,6 +153,7 @@ export const mapStateToProps = state => {
   return {
     data: processStates( state ),
     dataNormalization: state.map.dataNormalization,
+    printClass: printMode ? 'print' : '',
     printMode,
     stateFilters: [ ...refStateFilters ]
   }
