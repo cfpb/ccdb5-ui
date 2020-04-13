@@ -380,6 +380,17 @@ class TileMap {
     const options = {
       bins,
       chart: {
+        events: {
+          beforePrint: function() {
+            this.oldhasUserSize = this.hasUserSize
+            this.resetParams = [ this.chartWidth, this.chartHeight, false ]
+            this.setSize( 600, 400, false )
+          },
+          afterPrint: function() {
+            this.setSize.apply( this, this.resetParams )
+            this.hasUserSize = this.oldhasUserSize;
+          }
+        },
         styledMode: true,
         height,
         width
@@ -461,8 +472,25 @@ class TileMap {
   }
 
   draw( el, options ) {
+    Highcharts.setOptions({ // Apply to all charts
+      chart: {
+        events: {
+          beforePrint: function () {
+            this.oldhasUserSize = this.hasUserSize;
+            this.resetParams = [this.chartWidth, this.chartHeight, false];
+            this.setSize(600, 400, false);
+          },
+          afterPrint: function () {
+            this.setSize.apply(this, this.resetParams);
+            this.hasUserSize = this.oldhasUserSize;
+          }
+        }
+      }
+    });
     Highcharts.mapChart( el, options, _drawLegend );
   }
 }
+
+
 
 export default TileMap;

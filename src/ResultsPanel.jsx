@@ -8,21 +8,21 @@ import { printModeChanged } from './actions/view'
 import React from 'react'
 
 export class ResultsPanel extends React.Component {
-  constructor( props ) {
-    super( props )
-    // Bindings
-    this._updatePrintStyle = this._togglePrintStyles.bind( this );
-  }
+  // constructor( props ) {
+  //   super( props )
+  //   // Bindings
+  //   // this._updatePrintStyle = this._togglePrintStyles.bind( this );
+  // }
 
-  componentDidMount() {
-    window.addEventListener( 'afterprint', this._updatePrintStyle );
-    window.addEventListener( 'beforeprint', this._updatePrintStyle );
-  }
+  // componentDidMount() {
+  //   window.addEventListener( 'afterprint', this._updatePrintStyle );
+  //   window.addEventListener( 'beforeprint', this._updatePrintStyle );
+  // }
 
-  componentWillUnmount() {
-    window.removeEventListener( 'afterprint', this._updatePrintStyle );
-    window.removeEventListener( 'beforeprint', this._updatePrintStyle );
-  }
+  // componentWillUnmount() {
+  //   window.removeEventListener( 'afterprint', this._updatePrintStyle );
+  //   window.removeEventListener( 'beforeprint', this._updatePrintStyle );
+  // }
 
   _getTabClass() {
     const classes = [ 'content_main', this.props.tab.toLowerCase() ]

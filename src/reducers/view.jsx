@@ -7,6 +7,24 @@ export const defaultView = {
 }
 
 /**
+ * Processes an object of key/value strings into the correct internal format
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the payload containing the key/value pairs
+ * @returns {object} a filtered set of key/value pairs with the values set to
+ * the correct type
+ */
+function processParams( state, action ) {
+  const params = action.params
+
+  if ( params.printMode ) {
+    state.printMode = params.printMode
+  }
+
+  return state
+}
+
+/**
  * Handler for the update print mode action
  *
  * @param {object} state the current state in the Redux store
@@ -62,7 +80,7 @@ export function _buildHandlerMap() {
   handlers[actions.PRINT_MODE_CHANGED] = updatePrintMode
   handlers[actions.SCREEN_RESIZED] = updateScreenSize
   handlers[actions.TOGGLE_FILTER_VISIBILITY] = updateFilterVisibility
-
+  handlers[actions.URL_CHANGED] = processParams
   return handlers
 }
 
