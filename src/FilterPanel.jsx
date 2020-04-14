@@ -18,8 +18,8 @@ export class FilterPanel extends React.Component {
       'response to a consumer\'s complaint. Companies can choose to ' +
       'select a response from a pre-set list of options that will be ' +
       'posted on the public database.'
-    const descConsumerConsent = 'Whether a consumer opted in to publish their ' +
-      'complaint narrative'
+    const descConsumerConsent = 'Whether a consumer opted in to publish' +
+      ' their complaint narrative'
     const descTags = 'Data that supports easier searching and sorting of ' +
       'complaints submitted by or on behalf of consumers'
 
