@@ -20,7 +20,7 @@ export class RefinePanel extends React.Component {
 
 const mapStateToProps = state => ( {
   tab: state.query.tab,
-  showDesktopFilters: state.view.width > 749 && !state.view.printMode
+  showDesktopFilters: state.view.width > 749
 } )
 
 export default connect( mapStateToProps )( RefinePanel )

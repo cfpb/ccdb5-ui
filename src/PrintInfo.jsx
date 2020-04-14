@@ -9,6 +9,9 @@ export class PrintInfo extends React.Component {
     const { complaintCountText, dates, searchText } = this.props
     return (
       <section className="print-info">
+        <button className={'a-btn print-button'}>
+          Temporary Print button Example
+        </button>
         <p><span>Dates:</span> { dates }</p>
         { searchText && <p><span>Search Term:</span> { searchText }</p> }
         <div>{ complaintCountText }</div>
