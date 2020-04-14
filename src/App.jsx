@@ -17,14 +17,8 @@ import React from 'react'
 // eslint-disable-next-line
 import ReactDOM from 'react-dom'
 import reducers from './reducers'
-import RefinePanel from './RefinePanel'
-import ResultsPanel from './ResultsPanel'
-import RootModal from './Dialogs/RootModal'
-import SearchPanel from './SearchPanel'
-import TabbedNavigation from './TabbedNavigation'
+import SearchComponents from './SearchComponents'
 import thunkMiddleware from 'redux-thunk'
-import UrlBarSynch from './UrlBarSynch'
-import WindowSize from './WindowSize'
 
 const middleware = [ thunkMiddleware, queryManager ];
 
@@ -40,27 +34,6 @@ const store = createStore( reducers, composeEnhancers(
   // other store enhancers if any
 ) )
 
-
-export class SearchComponents extends React.Component {
-  render() {
-    return (
-      <IntlProvider locale="en">
-        <main className="content content__1-3" role="main">
-          <WindowSize />
-          <UrlBarSynch />
-          <Hero />
-          <div className="content_wrapper">
-            <SearchPanel />
-            <TabbedNavigation />
-            <RefinePanel />
-            <ResultsPanel />
-          </div>
-          <RootModal />
-        </main>
-      </IntlProvider>
-    )
-  }
-}
 
 /* eslint-disable camelcase */
 
