@@ -1,4 +1,4 @@
-@media print {
+.print {
   .content_main {
     display: block;
     width: 100% !important;
@@ -17,7 +17,6 @@
     margin: 3px;
   }
 
-  .print-button,
   .m-global-eyebrow,
   .m-global-header-cta,
   .action-bar,
@@ -51,5 +50,11 @@
 
   .map-toolbar {
     page-break-before: always;
+  }
+}
+
+@media print {
+  .print-button {
+    display: none;
   }
 }
