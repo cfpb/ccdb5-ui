@@ -4,12 +4,15 @@ import React from 'react';
 import { shortFormat } from './utils'
 
 export class PrintInfo extends React.Component {
-
+  _printIt() {
+    window.print()
+  }
   render() {
     const { complaintCountText, dates, searchText } = this.props
     return (
       <section className="print-info">
-        <button className={'a-btn print-button'}>
+        <button className={'a-btn print-button'}
+        onClick={this._printIt}>
           Temporary Print button Example
         </button>
         <p><span>Dates:</span> { dates }</p>
