@@ -34,7 +34,7 @@ exports[`component::Company snapshots renders empty values without crashing 1`] 
     </span>
   </div>
   <p>
-    The company name as it appears in our complaint system, which may be different than the name the consumer provided in their complaint
+    The complaint is about this company.
   </p>
   <section
     className="typeahead "
@@ -113,7 +113,7 @@ exports[`component::Company snapshots renders without crashing 1`] = `
     </span>
   </div>
   <p>
-    The company name as it appears in our complaint system, which may be different than the name the consumer provided in their complaint
+    The complaint is about this company.
   </p>
   <section
     className="typeahead "

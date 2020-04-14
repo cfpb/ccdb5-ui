@@ -167,7 +167,7 @@ exports[`initial state renders without crashing 1`] = `
             <h3
               className="h4"
             >
-              Search Within
+              Search within
             </h3>
             <div
               className="layout-row"
@@ -744,7 +744,7 @@ exports[`initial state renders without crashing 1`] = `
               </span>
             </div>
             <p>
-              The company name as it appears in our complaint system, which may be different than the name the consumer provided in their complaint
+              The complaint is about this company.
             </p>
             <section
               className="typeahead "
@@ -820,7 +820,9 @@ exports[`initial state renders without crashing 1`] = `
                 </button>
               </span>
             </div>
-            <p />
+            <p>
+              Whether the company gave a timely response
+            </p>
           </section>
           <hr />
           <section
@@ -832,13 +834,13 @@ exports[`initial state renders without crashing 1`] = `
               <h4
                 className="o-expandable_header-left o-expandable_label"
               >
-                Company response
+                Company response to consumer
               </h4>
               <span
                 className="o-expandable_header-right o-expandable_link"
               >
                 <button
-                  aria-label="Show Company response filter"
+                  aria-label="Show Company response to consumer filter"
                   className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
                   onClick={[Function]}
                 >
@@ -1015,7 +1017,7 @@ exports[`initial state renders without crashing 1`] = `
               </span>
             </div>
             <p>
-              Whether a consumer opted to publish their complaint narrative
+              Whether a consumer opted in to publish their complaint narrative
             </p>
           </section>
           <hr />

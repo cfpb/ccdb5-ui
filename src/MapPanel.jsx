@@ -17,8 +17,8 @@ import TileChartMap from './TileChartMap'
 import Warning from './Warning'
 
 
-const WARNING_MESSAGE = 'Due to your filter selections, the “Complaints per' +
-  ' 1,000” option has been disabled'
+const WARNING_MESSAGE = '“Complaints per' +
+  ' 1,000 population” is not available with your filter selections.'
 
 export class MapPanel extends React.Component {
   // eslint-disable-next-line complexity
