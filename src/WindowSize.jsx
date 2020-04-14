@@ -15,11 +15,11 @@ export class WindowSize extends React.Component {
     this._keyHandler = this.keydownHandler.bind( this );
   }
 
-  keydownHandler( e ) {
-    if ( e.keyCode === 80 && ( e.metaKey || e.ctrlKey ) &&
+  keydownHandler( evt ) {
+    if ( evt.keyCode === 80 && ( evt.metaKey || evt.ctrlKey ) &&
       this.props.printMode ) {
       // we're in print mode, disable CMD+P
-      e.preventDefault();
+      evt.preventDefault();
       showMessage();
     }
   }
