@@ -52,7 +52,7 @@ export class SearchBar extends React.Component {
       <div>
         <div className="search-bar" role="search">
           <form action="" onSubmit={this._handleSubmit}>
-            <h3 className="h4">Search Within</h3>
+            <h3 className="h4">Search within</h3>
             <div className="layout-row">
               <div className="cf-select flex-fixed">
                 <select aria-label="Choose which field will be searched"

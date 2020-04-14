@@ -10,9 +10,8 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { shortFormat } from '../utils'
 
-const WARN_SERIES_BREAK = 'In April 2017 we made changes to consumer' +
-  ' complaint Product fields. This may result in discrepancies in the' +
-  ' display of visualizations ';
+const WARN_SERIES_BREAK = 'CFPB updated product and issue options' +
+  ' available to consumers in April 2017 ';
 
 const LEARN_SERIES_BREAK = 'http://files.consumerfinance.gov/f/' +
   'documents/201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf';
@@ -61,8 +60,8 @@ export class DateFilter extends React.Component {
               <p> { WARN_SERIES_BREAK }
                 <a href={ LEARN_SERIES_BREAK }
                   target="_blank"
-                  aria-label="Learn more about Product Changes
-                   (opens in new window)" >
+                  aria-label="Learn more about Product and
+                  Issue changes (opens in new window)" >
                   Learn More
                 </a>
               </p> :

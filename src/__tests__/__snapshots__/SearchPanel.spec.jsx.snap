@@ -28,7 +28,7 @@ exports[`component:SearchPanel displays last updated date when present 1`] = `
         <h3
           className="h4"
         >
-          Search Within
+          Search within
         </h3>
         <div
           className="layout-row"
@@ -153,7 +153,7 @@ exports[`component:SearchPanel renders without crashing 1`] = `
         <h3
           className="h4"
         >
-          Search Within
+          Search within
         </h3>
         <div
           className="layout-row"
