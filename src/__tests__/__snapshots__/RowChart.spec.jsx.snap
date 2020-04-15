@@ -6,7 +6,7 @@ exports[`component: RowChart initial state renders without crashing 1`] = `
 >
   <h3>
     Foo
-     by complaint volume (5 highest counts)
+     by highest complaint volume
   </h3>
   <div
     id="row-chart-foo"
