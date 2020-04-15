@@ -469,6 +469,13 @@ export function removeAllFilters( state ) {
     }
   } )
 
+  // set date interval to All
+  // adjust date filter for max and min ranges
+  newState.dateInterval = 'All'
+  /* eslint-disable camelcase */
+  newState.date_received_min = new Date( types.DATE_RANGE_MIN )
+  newState.date_received_max = startOfToday()
+
   return newState
 }
 

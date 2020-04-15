@@ -523,14 +523,22 @@ describe( 'reducer:query', () => {
       } )
 
       it( 'clears all filters', () => {
-        expect( target( state, action ) ).toEqual( {
-          enablePer1000: true,
-          from: 100,
-          mapWarningEnabled: true,
-          queryString: '?field=all&frm=100&size=100',
-          searchField: 'all',
-          size: 100
-        } )
+        const actual = target( state, action )
+        expect( actual ).toEqual(
+          expect.objectContaining( {
+            dateInterval: 'All',
+            date_received_min: new Date( 2011, 10, 30, 7 ),
+            enablePer1000: true,
+            from: 100,
+            mapWarningEnabled: true,
+            searchField: 'all',
+            size: 100
+          } )
+        )
+
+        expect( actual.queryString ).toContain( 'dateInterval=All' )
+        expect( actual.queryString ).toContain( '&date_received_min=2011-11-30&field=all&frm=100&size=100' )
+        expect( actual.date_received_max ).toBeTruthy()
       } )
 
       describe( 'when searching Narratives', () => {
@@ -539,14 +547,24 @@ describe( 'reducer:query', () => {
             '&frm=100&has_narrative=true&size=100'
 
           state.searchField = types.NARRATIVE_SEARCH_FIELD
-          expect( target( state, action ) ).toEqual( {
-            enablePer1000: false,
-            from: 100,
-            has_narrative: true,
-            queryString: qs,
-            searchField: types.NARRATIVE_SEARCH_FIELD,
-            size: 100
-          } )
+          const actual = target( state, action )
+          expect( actual ).toEqual(
+            expect.objectContaining( {
+              dateInterval: 'All',
+              date_received_min: new Date( 2011, 10, 30, 7 ),
+              enablePer1000: false,
+              from: 100,
+              has_narrative: true,
+              searchField: types.NARRATIVE_SEARCH_FIELD,
+              size: 100
+            } )
+          )
+          expect( actual.queryString ).toContain( 'dateInterval=All' )
+          expect( actual.queryString )
+            .toContain( '&date_received_min=2011-11-30&' +
+              'field=complaint_what_happened&frm=100&has_narrative=true&' +
+              'size=100' )
+          expect( actual.date_received_max ).toBeTruthy()
         } )
       } )
     } )
