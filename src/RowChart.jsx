@@ -64,16 +64,9 @@ export class RowChart extends React.Component {
     } )
   }
 
-  componentDidMount() {
-    window.addEventListener( 'resize', this._throttledRedraw );
-  }
 
   componentDidUpdate() {
     this._redrawChart()
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener( 'resize', this._throttledRedraw );
   }
 
   // --------------------------------------------------------------------------
@@ -138,6 +131,7 @@ export class RowChart extends React.Component {
 }
 
 export const mapStateToProps = ( state, ownProps ) => {
+  const { printMode, width } = state.view
   // use state.query to rip filter out the bars
   const aggtype = ownProps.aggtype
   const filters = state.query[aggtype]
@@ -148,8 +142,9 @@ export const mapStateToProps = ( state, ownProps ) => {
   }
   return {
     data,
-    printMode: state.view.printMode,
-    total: state.aggs.total
+    printMode,
+    total: state.aggs.total,
+    width
   }
 }
 
