@@ -23,9 +23,7 @@ export class Company extends React.Component {
   }
 
   render() {
-    const desc = 'The company name as it appears in our complaint system, ' +
-      'which may be different than the name the consumer provided in their ' +
-      'complaint'
+    const desc = 'The complaint is about this company.'
 
     return (
       <CollapsibleFilter title="Company name"

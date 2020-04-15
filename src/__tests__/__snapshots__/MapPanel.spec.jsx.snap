@@ -57,7 +57,7 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
       <div
         className="h4 m-notification_message"
       >
-        Due to your filter selections, the “Complaints per 1,000” option has been disabled
+        “Complaints per 1,000 population” is not available with your filter selections.
       </div>
     </div>
     
@@ -178,7 +178,7 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
   >
     <h3>
       Product
-       by complaint volume (5 highest counts)
+       by highest complaint volume
     </h3>
     <div
       id="row-chart-product"
@@ -189,7 +189,7 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
   >
     <h3>
       Issue
-       by complaint volume (5 highest counts)
+       by highest complaint volume
     </h3>
     <div
       id="row-chart-issue"
@@ -255,7 +255,7 @@ exports[`component:MapPanel renders without crashing 1`] = `
       <div
         className="h4 m-notification_message"
       >
-        Due to your filter selections, the “Complaints per 1,000” option has been disabled
+        “Complaints per 1,000 population” is not available with your filter selections.
       </div>
     </div>
     
@@ -376,7 +376,7 @@ exports[`component:MapPanel renders without crashing 1`] = `
   >
     <h3>
       Product
-       by complaint volume (5 highest counts)
+       by highest complaint volume
     </h3>
     <div
       id="row-chart-product"
@@ -387,7 +387,7 @@ exports[`component:MapPanel renders without crashing 1`] = `
   >
     <h3>
       Issue
-       by complaint volume (5 highest counts)
+       by highest complaint volume
     </h3>
     <div
       id="row-chart-issue"

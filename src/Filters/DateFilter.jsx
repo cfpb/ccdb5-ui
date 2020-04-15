@@ -9,11 +9,12 @@ import moment from 'moment'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { shortFormat } from '../utils'
-import Warning from '../Warning'
 
-const WARN_SERIES_BREAK = 'In April 2017 we made changes to consumer' +
-  ' complaint Product fields. This may result in discrepancies in the' +
-  ' display of visualizations';
+const WARN_SERIES_BREAK = 'CFPB updated product and issue options' +
+  ' available to consumers in April 2017 ';
+
+const LEARN_SERIES_BREAK = 'http://files.consumerfinance.gov/f/' +
+  'documents/201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf';
 
 export class DateFilter extends React.Component {
   constructor( props ) {
@@ -41,7 +42,7 @@ export class DateFilter extends React.Component {
     const from = moment( this.state.from, 'MM-DD-YYYY' )
     const through = moment( this.state.through, 'MM-DD-YYYY' )
 
-    const showWarning = moment( '2017-04-01' ).isBetween( from, through, 'day' )
+    const showWarning = moment( '2017-04-23' ).isBetween( from, through, 'day' )
 
     return (
       <CollapsibleFilter title={ this.props.title }
@@ -56,7 +57,14 @@ export class DateFilter extends React.Component {
               null
             }
             { showWarning ?
-              <Warning text={ WARN_SERIES_BREAK } /> :
+              <p> { WARN_SERIES_BREAK }
+                <a href={ LEARN_SERIES_BREAK }
+                  target="_blank"
+                  aria-label="Learn more about Product and
+                  Issue changes (opens in new window)" >
+                  Learn More
+                </a>
+              </p> :
               null
             }
           </div>
