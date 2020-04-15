@@ -1,7 +1,6 @@
 import './RowChart.less'
 import * as d3 from 'd3'
 import { connect } from 'react-redux'
-import { debounce } from './utils'
 import { max } from 'd3-array'
 import React from 'react'
 import { row } from 'britecharts'
@@ -13,9 +12,6 @@ export class RowChart extends React.Component {
     this.aggtype = aggType
     // only capitalize first letter
     this.chartTitle = aggType.charAt( 0 ).toUpperCase() + aggType.slice( 1 )
-
-    // Bindings
-    this._throttledRedraw = debounce( this._redrawChart.bind( this ), 200 );
   }
 
   _getHeight( numRows ) {

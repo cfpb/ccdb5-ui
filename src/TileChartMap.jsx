@@ -1,19 +1,12 @@
 import './TileChartMap.less'
 import { addStateFilter, removeStateFilter } from './actions/map'
-import { debounce, hashObject } from './utils'
 import { GEO_NORM_NONE, STATE_DATA } from './constants'
 import { connect } from 'react-redux'
+import { hashObject } from './utils'
 import React from 'react'
 import TileMap from './TileMap'
 
 export class TileChartMap extends React.Component {
-  constructor( props ) {
-    super( props )
-
-    // Bindings
-    this._throttledRedraw = debounce( this._redrawMap.bind( this ), 200 );
-  }
-
   componentDidUpdate( prevProps ) {
     const props = this.props
     if ( !props.data[0].length ) {
