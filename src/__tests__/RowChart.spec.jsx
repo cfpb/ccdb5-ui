@@ -114,29 +114,19 @@ describe( 'component: RowChart', () => {
       target.setProps( { printMode: true } )
       expect( sp ).toHaveBeenCalledTimes( 1 )
     } )
+
+    it( 'trigger a new update when width changes', () => {
+      const target = shallow( <RowChart data={ [ 23, 4, 3 ] }
+                                        aggtype={'foo'} total={1000}
+                                        printMode={'false'}
+                                        width={1000}
+      /> )
+      target._redrawChart = jest.fn()
+      const sp = jest.spyOn(target.instance(), '_redrawChart')
+      target.setProps( { width: 600 } )
+      expect( sp ).toHaveBeenCalledTimes( 1 )
+    } )
   } )
-
-  describe( 'event listeners', () => {
-    beforeEach( () => {
-      window.addEventListener = jest.fn();
-      window.removeEventListener = jest.fn();
-    } );
-
-    it( 'unregisters the same listener on unmount' , () => {
-        const a = window.addEventListener
-        const b = window.removeEventListener
-
-        const target = shallow( <RowChart aggtype={'foo'} /> )
-        expect(a.mock.calls.length).toBe(1)
-        expect(a.mock.calls[0][0]).toBe('resize')
-
-        target.unmount()
-        expect(b.mock.calls.length).toBe(1)
-        expect(b.mock.calls[0][0]).toBe('resize')
-
-        expect(a.mock.calls[0][1]).toBe(b.mock.calls[0][1])
-      } );
-  } );
 
   describe( 'mapStateToProps', () => {
     it( 'maps state and props', () => {
