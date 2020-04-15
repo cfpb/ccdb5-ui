@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom'
 import ComplaintDetail from './ComplaintDetail'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import Hero from './Hero'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
 import queryManager from './middleware/queryManager'
