@@ -32,7 +32,7 @@ export class SearchComponents extends React.Component {
   }
 }
 
-const mapStateToProps = state => ( {
+export const mapStateToProps = state => ( {
   printClass: state.view.printMode ? 'print' : ''
 } )
 
