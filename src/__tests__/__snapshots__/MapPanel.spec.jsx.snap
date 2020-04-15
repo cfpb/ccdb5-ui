@@ -36,7 +36,7 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
             Export data
           </button>
           <button
-            className="a-btn a-btn__link"
+            className="a-btn a-btn__link print-preview"
             data-gtm_ignore="true"
             onClick={[Function]}
           >
@@ -253,7 +253,7 @@ exports[`component:MapPanel renders without crashing 1`] = `
             Export data
           </button>
           <button
-            className="a-btn a-btn__link"
+            className="a-btn a-btn__link print-preview"
             data-gtm_ignore="true"
             onClick={[Function]}
           >

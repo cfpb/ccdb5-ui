@@ -31,9 +31,9 @@ export class ActionBar extends React.Component {
                       onClick={this.props.onExportResults}>
                 Export data
               </button>
-              <button className="a-btn a-btn__link"
+              <button className="a-btn a-btn__link print-preview"
                       data-gtm_ignore="true"
-                      onClick={ this.props.onPrintView }>
+                      onClick={ this._showPrintView }>
                 { iconMap.getIcon( 'printer' ) }
                 Print-friendly page
               </button>
@@ -42,6 +42,10 @@ export class ActionBar extends React.Component {
         </summary>
         </div>
     );
+  }
+
+  _showPrintView() {
+    window.open( window.location.href + '&printMode=true', '_blank' )
   }
 }
 
@@ -55,9 +59,6 @@ export const mapStateToProps = state => ( {
 export const mapDispatchToProps = dispatch => ( {
   onExportResults: () => {
     dispatch( showExportDialog() )
-  },
-  onPrintView: () => {
-    window.open( window.location.href + '&printMode=true', '_blank' )
   }
 } )
 
