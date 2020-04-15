@@ -14,10 +14,6 @@ export class TileChartMap extends React.Component {
     this._throttledRedraw = debounce( this._redrawMap.bind( this ), 200 );
   }
 
-  componentDidMount() {
-    window.addEventListener( 'resize', this._throttledRedraw );
-  }
-
   componentDidUpdate( prevProps ) {
     const props = this.props
     if ( !props.data[0].length ) {
@@ -29,10 +25,6 @@ export class TileChartMap extends React.Component {
       !document.getElementById( 'tile-chart-map' ).children.length ) {
       this._redrawMap()
     }
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener( 'resize', this._throttledRedraw );
   }
 
   render() {
@@ -147,13 +139,14 @@ export const processStates = state => {
 
 export const mapStateToProps = state => {
   const refStateFilters = state.query.state || []
-  const { printMode } = state.view
+  const { printMode, width } = state.view
 
   return {
     data: processStates( state ),
     dataNormalization: state.map.dataNormalization,
     printMode,
-    stateFilters: [ ...refStateFilters ]
+    stateFilters: [ ...refStateFilters ],
+    width
   }
 }
 
