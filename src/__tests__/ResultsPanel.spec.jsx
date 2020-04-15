@@ -116,7 +116,7 @@ describe('component:Results', () => {
     } );
   } );
 
-  xdescribe('print mode', () => {
+  describe('print mode', () => {
     afterEach( () => {
       jest.clearAllMocks()
     } )
@@ -135,7 +135,7 @@ describe('component:Results', () => {
     } )
   } );
 
-  xdescribe( 'mapDispatchToProps', () => {
+  describe( 'mapDispatchToProps', () => {
     afterEach( () => {
       jest.clearAllMocks()
     } )
