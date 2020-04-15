@@ -57,7 +57,7 @@ export class TileChartMap extends React.Component {
     const componentProps = this.props
     const mapElement = document.getElementById( 'tile-chart-map' )
     const { dataNormalization } = componentProps
-    const width = mapElement.clientWidth;
+    const width = mapElement ? mapElement.clientWidth : 700;
     const data = updateData( this.props )
 
     const options = {
