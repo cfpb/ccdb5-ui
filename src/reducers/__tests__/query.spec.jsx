@@ -524,17 +524,15 @@ describe( 'reducer:query', () => {
 
       it( 'clears all filters', () => {
         const actual = target( state, action )
-        expect( actual ).toEqual(
-          expect.objectContaining( {
-            dateInterval: 'All',
-            date_received_min: new Date( 2011, 10, 30, 7 ),
-            enablePer1000: true,
-            from: 100,
-            mapWarningEnabled: true,
-            searchField: 'all',
-            size: 100
-          } )
-        )
+        expect( actual ).toMatchObject( {
+          dateInterval: 'All',
+          date_received_min: new Date( 2011, 10, 30, 7 ),
+          enablePer1000: true,
+          from: 100,
+          mapWarningEnabled: true,
+          searchField: 'all',
+          size: 100
+        } )
 
         expect( actual.queryString ).toContain( 'dateInterval=All' )
         expect( actual.queryString ).toContain( '&date_received_min=2011-11-30&field=all&frm=100&size=100' )
@@ -548,17 +546,15 @@ describe( 'reducer:query', () => {
 
           state.searchField = types.NARRATIVE_SEARCH_FIELD
           const actual = target( state, action )
-          expect( actual ).toEqual(
-            expect.objectContaining( {
-              dateInterval: 'All',
-              date_received_min: new Date( 2011, 10, 30, 7 ),
-              enablePer1000: false,
-              from: 100,
-              has_narrative: true,
-              searchField: types.NARRATIVE_SEARCH_FIELD,
-              size: 100
-            } )
-          )
+          expect( actual ).toMatchObject( {
+            dateInterval: 'All',
+            date_received_min: new Date( 2011, 10, 30, 7 ),
+            enablePer1000: false,
+            from: 100,
+            has_narrative: true,
+            searchField: types.NARRATIVE_SEARCH_FIELD,
+            size: 100
+          } )
           expect( actual.queryString ).toContain( 'dateInterval=All' )
           expect( actual.queryString )
             .toContain( '&date_received_min=2011-11-30&' +
