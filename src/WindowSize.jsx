@@ -8,21 +8,21 @@ function showMessage() {
 }
 
 export class WindowSize extends React.Component {
-  constructor( props ) {
-    super( props )
+  // constructor( props ) {
+  //   super( props )
+  //
+  //   // Bindings
+  //   this._keyHandler = this.keydownHandler.bind( this );
+  // }
 
-    // Bindings
-    this._keyHandler = this.keydownHandler.bind( this );
-  }
-
-  keydownHandler( evt ) {
-    if ( evt.keyCode === 80 && ( evt.metaKey || evt.ctrlKey ) &&
-      this.props.printMode ) {
-      // we're in print mode, disable CMD+P
-      evt.preventDefault();
-      showMessage();
-    }
-  }
+  // keydownHandler( evt ) {
+  //   if ( evt.keyCode === 80 && ( evt.metaKey || evt.ctrlKey ) &&
+  //     this.props.printMode ) {
+  //     // we're in print mode, disable CMD+P
+  //     evt.preventDefault();
+  //     showMessage();
+  //   }
+  // }
 
   // This will initialize the application with the window size
   // and then update redux store
@@ -35,7 +35,7 @@ export class WindowSize extends React.Component {
       }, 200 )
     )
 
-    document.addEventListener( 'keydown', this._keyHandler )
+    // document.addEventListener( 'keydown', this._keyHandler )
   }
 
   render() {
