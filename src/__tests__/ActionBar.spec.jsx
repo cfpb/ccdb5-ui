@@ -17,6 +17,17 @@ describe('initial state', () => {
   });
 
   describe('print-friendly view', ()=>{
+    let jsdomOpen
+    beforeEach(()=>{
+      jsdomOpen = window.open
+      // remember the jsdom alert
+      window.open = () => {}
+      // provide an empty implementation for window.open
+    })
+
+    afterEach(()=>{
+      window.open = jsdomOpen
+    })
     it('clicks the button',()=>{
       const props = {
         hits: 100,
