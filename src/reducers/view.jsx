@@ -25,20 +25,7 @@ function processParams( state, action ) {
 }
 
 /**
- * Handler for the update print mode action
- *
- * @param {object} state the current state in the Redux store
- * @returns {object} the new state for the Redux store
- */
-export function updatePrintMode( state ) {
-  return {
-    ...state,
-    printMode: !state.printMode
-  }
-}
-
-/**
- * Handler for the update print mode action
+ * Handler for the update print mode on action
  *
  * @param {object} state the current state in the Redux store
  * @returns {object} the new state for the Redux store
@@ -51,7 +38,7 @@ export function updatePrintModeOn( state ) {
 }
 
 /**
- * Handler for the update print mode action
+ * Handler for the update print mode off action
  *
  * @param {object} state the current state in the Redux store
  * @returns {object} the new state for the Redux store
@@ -104,7 +91,6 @@ export function updateFilterVisibility( state ) {
 export function _buildHandlerMap() {
   const handlers = {}
 
-  handlers[actions.PRINT_MODE_CHANGED] = updatePrintMode
   handlers[actions.PRINT_MODE_ON] = updatePrintModeOn
   handlers[actions.PRINT_MODE_OFF] = updatePrintModeOff
   handlers[actions.SCREEN_RESIZED] = updateScreenSize
