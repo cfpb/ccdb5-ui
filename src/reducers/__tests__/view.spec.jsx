@@ -62,4 +62,26 @@ describe( 'reducer:map', () => {
     } )
   })
 
+  describe( 'URL_CHANGED actions', () => {
+    let action = null
+    let state = null
+    beforeEach( () => {
+      action = {
+        type: actions.URL_CHANGED,
+        params: {}
+      }
+
+      state = { ...defaultView }
+    } )
+
+    it( 'handles empty params', () => {
+      expect( target( state, action ) ).toEqual( state )
+    } )
+
+    it( 'handles string params', () => {
+      action.params = { printMode: 'true' }
+      const actual = target( state, action )
+      expect( actual.printMode ).toEqual( 'true' )
+    } )
+  } )
 } )
