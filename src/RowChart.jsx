@@ -1,7 +1,6 @@
 import './RowChart.less'
 import * as d3 from 'd3'
 import { connect } from 'react-redux'
-import { debounce } from './utils'
 import { max } from 'd3-array'
 import React from 'react'
 import { row } from 'britecharts'
@@ -13,9 +12,6 @@ export class RowChart extends React.Component {
     this.aggtype = aggType
     // only capitalize first letter
     this.chartTitle = aggType.charAt( 0 ).toUpperCase() + aggType.slice( 1 )
-
-    // Bindings
-    this._throttledRedraw = debounce( this._redrawChart.bind( this ), 200 );
   }
 
   _getHeight( numRows ) {
@@ -64,16 +60,9 @@ export class RowChart extends React.Component {
     } )
   }
 
-  componentDidMount() {
-    window.addEventListener( 'resize', this._throttledRedraw );
-  }
 
   componentDidUpdate() {
     this._redrawChart()
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener( 'resize', this._throttledRedraw );
   }
 
   // --------------------------------------------------------------------------
@@ -138,6 +127,7 @@ export class RowChart extends React.Component {
 }
 
 export const mapStateToProps = ( state, ownProps ) => {
+  const { printMode, width } = state.view
   // use state.query to rip filter out the bars
   const aggtype = ownProps.aggtype
   const filters = state.query[aggtype]
@@ -148,8 +138,9 @@ export const mapStateToProps = ( state, ownProps ) => {
   }
   return {
     data,
-    printMode: state.view.printMode,
-    total: state.aggs.total
+    printMode,
+    total: state.aggs.total,
+    width
   }
 }
 
