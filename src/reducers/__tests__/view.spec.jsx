@@ -12,12 +12,20 @@ describe( 'reducer:map', () => {
     } )
   } )
 
-  describe('handles PRINT_MODE_CHANGED', ()=>{
+  describe('handles PRINT_MODE_ON', ()=>{
     action = {
-      type: actions.PRINT_MODE_CHANGED,
+      type: actions.PRINT_MODE_ON,
     }
     expect( target( {}, action ) ).toEqual( {
       printMode: true
+    } )
+  })
+  describe('handles PRINT_MODE_OFF', ()=>{
+    action = {
+      type: actions.PRINT_MODE_OFF,
+    }
+    expect( target( {}, action ) ).toEqual( {
+      printMode: false
     } )
   })
 
