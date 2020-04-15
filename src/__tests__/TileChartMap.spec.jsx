@@ -118,29 +118,18 @@ describe( 'component: TileChartMap', () => {
       expect( redrawSpy ).toHaveBeenCalledTimes( 1 )
       expect( TileMap ).toHaveBeenCalledTimes( 1 )
     } )
+
+    it( 'trigger a new update when width changes', () => {
+      target = shallow( <TileChartMap
+        data={ [ [ { name: 'TX', value: 100}, { name: 'LA', value: 10 } ] ] }
+        printMode={false} width={1000}
+      /> )
+      redrawSpy = jest.spyOn( target.instance(), '_redrawMap' )
+      target.setProps( { width: 600 } )
+      expect( redrawSpy ).toHaveBeenCalledTimes( 1 )
+      expect( TileMap ).toHaveBeenCalledTimes( 1 )
+    } )
   } )
-
-  describe( 'event listeners', () => {
-    beforeEach( () => {
-      window.addEventListener = jest.fn();
-      window.removeEventListener = jest.fn();
-    } );
-
-    it( 'unregisters the same listener on unmount' , () => {
-        const a = window.addEventListener
-        const b = window.removeEventListener
-
-        target = shallow( <TileChartMap /> )
-        expect(a.mock.calls.length).toBe(1)
-        expect(a.mock.calls[0][0]).toBe('resize')
-
-        target.unmount()
-        expect(b.mock.calls.length).toBe(1)
-        expect(b.mock.calls[0][0]).toBe('resize')
-
-        expect(a.mock.calls[0][1]).toBe(b.mock.calls[0][1])
-      } );
-  } );
 
   describe( 'mapDispatchToProps', () => {
     beforeEach( () => {
