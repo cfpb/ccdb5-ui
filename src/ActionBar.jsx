@@ -1,6 +1,7 @@
 import './ActionBar.less';
 import { connect } from 'react-redux'
 import { FormattedNumber } from 'react-intl'
+import iconMap from './iconMap'
 import React from 'react';
 import { showExportDialog } from './actions/dataExport'
 
@@ -28,7 +29,13 @@ export class ActionBar extends React.Component {
               <button className="a-btn a-btn__link"
                       data-gtm_ignore="true"
                       onClick={this.props.onExportResults}>
-                Export results
+                Export data
+              </button>
+              <button className="a-btn a-btn__link print-preview"
+                      data-gtm_ignore="true"
+                      onClick={ this._showPrintView }>
+                { iconMap.getIcon( 'printer' ) }
+                Print-friendly page
               </button>
             </h3>
           </div>
@@ -36,10 +43,15 @@ export class ActionBar extends React.Component {
         </div>
     );
   }
+
+  _showPrintView() {
+    window.open( window.location.href + '&printMode=true', '_blank' )
+  }
 }
 
 export const mapStateToProps = state => ( {
   hits: state.aggs.total,
+  printMode: state.view.printMode,
   total: state.aggs.doc_count,
   view: state.query.tab
 } )

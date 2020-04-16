@@ -165,7 +165,8 @@ describe( 'component: TileChartMap', () => {
           state: [ 'TX' ]
         },
         view: {
-          printMode: false
+          printMode: false,
+          width: 1000
         }
       }
       let actual = mapStateToProps( state )
@@ -215,8 +216,9 @@ describe( 'component: TileChartMap', () => {
           ]
         ],
         dataNormalization: false,
-        printMode: false,
-        stateFilters: [ 'TX' ]
+        printClass: '',
+        stateFilters: [ 'TX' ],
+        width: 1000
       } )
     } )
   } )

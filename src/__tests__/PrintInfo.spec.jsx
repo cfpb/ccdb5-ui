@@ -4,6 +4,7 @@ import {
 import { IntlProvider } from 'react-intl'
 import React from 'react'
 import renderer from 'react-test-renderer'
+import { shallow } from 'enzyme'
 
 describe( 'component: PrintInfo', () => {
   describe( 'initial state', () => {
@@ -20,6 +21,32 @@ describe( 'component: PrintInfo', () => {
       expect( tree ).toMatchSnapshot()
     } )
   } )
+
+  describe('print-friendly view', ()=>{
+    let jsdomPrint
+    beforeEach(()=>{
+      jsdomPrint = window.print
+      // remember the jsdom alert
+      window.print = () => {}
+      // provide an empty implementation for window.print
+    })
+
+    afterEach(()=>{
+      window.print = jsdomPrint
+    })
+    it('clicks the button',()=>{
+      const props = {
+        complaintCountText: 'Wut?',
+        dates: 'Foo',
+        searchText: 'Bar'
+      }
+      const target = shallow(<PrintInfo {...props} />)
+      const btnSpy = jest.spyOn(window, 'print')
+      const button = target.find('.print-button')
+      button.simulate('click')
+      expect( btnSpy ).toHaveBeenCalled()
+    } )
+  })
 
   describe( 'mapStateToProps', () => {
     it( 'maps state and props', () => {
