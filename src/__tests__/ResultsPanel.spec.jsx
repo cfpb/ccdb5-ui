@@ -117,22 +117,36 @@ describe('component:Results', () => {
   } );
 
   describe('print mode', () => {
-    it( 'toggles print mode', () => {
-      target = shallow( <ResultsPanel togglePrintMode={actionMock} tab={'Foobar'}/> )
+    afterEach( () => {
+      jest.clearAllMocks()
+    } )
+    it( 'toggles print mode on', () => {
+      target = shallow( <ResultsPanel togglePrintModeOn={actionMock} tab={'Foobar'}/> )
       const instance = target.instance()
-      instance._togglePrintStyles()
+      instance._togglePrintStylesOn()
       expect( actionMock ).toHaveBeenCalledTimes( 1 )
     } )
 
+    it( 'toggles print mode off', () => {
+      target = shallow( <ResultsPanel togglePrintModeOff={actionMock} tab={'Foobar'}/> )
+      const instance = target.instance()
+      instance._togglePrintStylesOff()
+      expect( actionMock ).toHaveBeenCalledTimes( 1 )
+    } )
   } );
 
   describe( 'mapDispatchToProps', () => {
-    beforeEach( () => {
+    afterEach( () => {
       jest.clearAllMocks()
     } )
-    it( 'provides a way to call togglePrintMode', () => {
+    it( 'provides a way to call togglePrintModeOn', () => {
       const dispatch = jest.fn()
-      mapDispatchToProps( dispatch ).togglePrintMode()
+      mapDispatchToProps( dispatch ).togglePrintModeOn()
+      expect( dispatch.mock.calls.length ).toEqual( 1 )
+    } )
+    it( 'provides a way to call togglePrintModeOff', () => {
+      const dispatch = jest.fn()
+      mapDispatchToProps( dispatch ).togglePrintModeOff()
       expect( dispatch.mock.calls.length ).toEqual( 1 )
     } )
   } )

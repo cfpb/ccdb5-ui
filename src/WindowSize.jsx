@@ -3,7 +3,6 @@ import { debounce } from './utils'
 import React from 'react'
 import { screenResized } from './actions/view'
 
-
 export class WindowSize extends React.Component {
   // This will initialize the application with the window size
   // and then update redux store
