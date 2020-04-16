@@ -138,12 +138,6 @@ function processParams( state, action ) {
   const params = action.params
   let processed = Object.assign( {}, defaultQuery )
 
-  // Apply the date interval
-  if ( dateIntervalNoDates( params ) ) {
-    const innerAction = { dateInterval: params.dateInterval }
-    processed = changeDateInterval( processed, innerAction )
-  }
-
   // Filter for known
   urlParams.forEach( field => {
     if ( typeof params[field] !== 'undefined' ) {
@@ -188,6 +182,12 @@ function processParams( state, action ) {
       }
     }
   } )
+
+  // Apply the date interval
+  if ( dateIntervalNoDates( params ) || params.dateInterval === 'All' ) {
+    const innerAction = { dateInterval: params.dateInterval }
+    processed = changeDateInterval( processed, innerAction )
+  }
 
   return alignIntervalAndRange( processed )
 }
@@ -468,6 +468,13 @@ export function removeAllFilters( state ) {
       delete newState[kf]
     }
   } )
+
+  // set date interval to All
+  // adjust date filter for max and min ranges
+  newState.dateInterval = 'All'
+  /* eslint-disable camelcase */
+  newState.date_received_min = new Date( types.DATE_RANGE_MIN )
+  newState.date_received_max = startOfToday()
 
   return newState
 }
