@@ -21,15 +21,11 @@ export class WindowSize extends React.Component {
   }
 }
 
-const mapStateToProps = state => ( {
-  printMode: state.view.printMode
-} )
-
 export const mapDispatchToProps = dispatch => ( {
   updateWindowSize: size => {
     dispatch( screenResized( size ) )
   }
 } )
 
-export default connect( mapStateToProps, mapDispatchToProps )( WindowSize )
+export default connect( null, mapDispatchToProps )( WindowSize )
 
