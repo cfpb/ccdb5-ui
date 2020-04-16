@@ -21,8 +21,8 @@ const sizes = [ 10, 25, 50, 100 ]
 /* eslint-disable camelcase */
 
 const sorts = {
-  created_date_desc: 'Newest to Oldest',
-  created_date_asc: 'Oldest to Newest',
+  created_date_desc: 'Newest to oldest',
+  created_date_asc: 'Oldest to newest',
   relevance_desc: 'Relevance',
   relevance_asc: 'Relevance (asc)'
 }
