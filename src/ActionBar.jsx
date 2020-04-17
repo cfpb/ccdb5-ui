@@ -45,7 +45,7 @@ export class ActionBar extends React.Component {
   }
 
   _showPrintView() {
-    window.open( window.location.href + '&printMode=true', '_blank' )
+    window.location.href += '&printMode=true&fromExternal=true'
   }
 }
 

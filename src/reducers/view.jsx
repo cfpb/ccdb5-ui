@@ -1,6 +1,7 @@
 import actions from '../actions'
 
 export const defaultView = {
+  fromExternal: false,
   printMode: false,
   showFilters: true,
   width: 0
@@ -18,7 +19,10 @@ function processParams( state, action ) {
   const params = action.params
 
   if ( params.printMode ) {
-    state.printMode = params.printMode
+    state.printMode = params.printMode === 'true' ? true : false
+  }
+  if ( params.fromExternal ) {
+    state.fromExternal = params.fromExternal === 'true' ? true : false
   }
 
   return state
@@ -46,6 +50,7 @@ export function updatePrintModeOn( state ) {
 export function updatePrintModeOff( state ) {
   return {
     ...state,
+    fromExternal: false,
     printMode: false
   }
 }

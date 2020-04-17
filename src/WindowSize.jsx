@@ -16,10 +16,23 @@ export class WindowSize extends React.Component {
     )
   }
 
+  componentDidUpdate() {
+    if ( this.props.printMode && this.props.fromExternal ) {
+      setTimeout( function () {
+        window.print()
+      }, 3000 )
+    }
+  }
+
   render() {
     return null
   }
 }
+
+const mapStateToProps = state => ( {
+  fromExternal: state.view.fromExternal,
+  printMode: state.view.printMode
+} )
 
 export const mapDispatchToProps = dispatch => ( {
   updateWindowSize: size => {
@@ -27,5 +40,5 @@ export const mapDispatchToProps = dispatch => ( {
   }
 } )
 
-export default connect( null, mapDispatchToProps )( WindowSize )
+export default connect( mapStateToProps, mapDispatchToProps )( WindowSize )
 
