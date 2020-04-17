@@ -142,12 +142,12 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
         <option
           value="created_date_desc"
         >
-          Newest to Oldest
+          Newest to oldest
         </option>
         <option
           value="created_date_asc"
         >
-          Oldest to Newest
+          Oldest to newest
         </option>
         <option
           value="relevance_desc"
@@ -440,12 +440,12 @@ exports[`component:ListPanel displays a message when only the narratives are sta
         <option
           value="created_date_desc"
         >
-          Newest to Oldest
+          Newest to oldest
         </option>
         <option
           value="created_date_asc"
         >
-          Oldest to Newest
+          Oldest to newest
         </option>
         <option
           value="relevance_desc"
@@ -914,12 +914,12 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
         <option
           value="created_date_desc"
         >
-          Newest to Oldest
+          Newest to oldest
         </option>
         <option
           value="created_date_asc"
         >
-          Oldest to Newest
+          Oldest to newest
         </option>
         <option
           value="relevance_desc"
@@ -1388,12 +1388,12 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
         <option
           value="created_date_desc"
         >
-          Newest to Oldest
+          Newest to oldest
         </option>
         <option
           value="created_date_asc"
         >
-          Oldest to Newest
+          Oldest to newest
         </option>
         <option
           value="relevance_desc"
@@ -1837,12 +1837,12 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
         <option
           value="created_date_desc"
         >
-          Newest to Oldest
+          Newest to oldest
         </option>
         <option
           value="created_date_asc"
         >
-          Oldest to Newest
+          Oldest to newest
         </option>
         <option
           value="relevance_desc"
@@ -2116,12 +2116,12 @@ exports[`component:ListPanel only displays data message when both types are stal
         <option
           value="created_date_desc"
         >
-          Newest to Oldest
+          Newest to oldest
         </option>
         <option
           value="created_date_asc"
         >
-          Oldest to Newest
+          Oldest to newest
         </option>
         <option
           value="relevance_desc"
@@ -2566,12 +2566,12 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
         <option
           value="created_date_desc"
         >
-          Newest to Oldest
+          Newest to oldest
         </option>
         <option
           value="created_date_asc"
         >
-          Oldest to Newest
+          Oldest to newest
         </option>
         <option
           value="relevance_desc"
@@ -3015,12 +3015,12 @@ exports[`component:ListPanel renders without crashing 1`] = `
         <option
           value="created_date_desc"
         >
-          Newest to Oldest
+          Newest to oldest
         </option>
         <option
           value="created_date_asc"
         >
-          Oldest to Newest
+          Oldest to newest
         </option>
         <option
           value="relevance_desc"

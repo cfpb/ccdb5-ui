@@ -993,13 +993,13 @@ exports[`initial state renders without crashing 1`] = `
               <h4
                 className="o-expandable_header-left o-expandable_label"
               >
-                Consumer consent
+                Consumer consent provided?
               </h4>
               <span
                 className="o-expandable_header-right o-expandable_link"
               >
                 <button
-                  aria-label="Show Consumer consent filter"
+                  aria-label="Show Consumer consent provided? filter"
                   className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
                   onClick={[Function]}
                 >
