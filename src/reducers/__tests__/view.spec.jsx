@@ -25,6 +25,7 @@ describe( 'reducer:map', () => {
       type: actions.PRINT_MODE_OFF,
     }
     expect( target( {}, action ) ).toEqual( {
+      fromExternal: false,
       printMode: false
     } )
   })
@@ -78,10 +79,15 @@ describe( 'reducer:map', () => {
       expect( target( state, action ) ).toEqual( state )
     } )
 
-    it( 'handles string params', () => {
-      action.params = { printMode: 'true' }
+    it( 'handles PRINT params', () => {
+      action.params = { fromExternal: 'true', printMode: 'true' }
       const actual = target( state, action )
-      expect( actual.printMode ).toEqual( 'true' )
+      expect( actual ).toEqual( {
+        fromExternal: true,
+        printMode: true,
+        showFilters: true,
+        width: 0
+      } )
     } )
   } )
 } )
