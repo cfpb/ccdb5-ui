@@ -4,9 +4,6 @@ import React from 'react';
 import { shortFormat } from './utils'
 
 export class PrintInfo extends React.Component {
-  _printIt() {
-    window.print()
-  }
   render() {
     const { complaintCountText, dates, searchText } = this.props
     return (
