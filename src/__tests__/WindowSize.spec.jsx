@@ -53,27 +53,27 @@ describe( 'component:WindowSize', () => {
   } )
 
   describe( 'componentDidUpdate', ()=>{
+    let target
+    beforeEach(()=>{
+      window.print = jest.fn()
+      target = shallow( <WindowSize updateWindowSize={jest.fn()}
+                                    fromExternal={ false }
+                                    printMode={false} /> )
+    })
     afterEach(()=>{
       jest.clearAllMocks()
+      window.print.mockClear();
     })
     it( 'trigger print when params changes', () => {
-      const target = shallow( <WindowSize updateWindowSize={jest.fn()}
-                                          fromExternal={ false }
-                                          printMode={false} /> )
-      const sp = jest.spyOn(window, 'print')
       target.setProps( { fromExternal: true, printMode: true } )
       jest.advanceTimersByTime( 4000 )
-      expect( sp ).toHaveBeenCalledTimes( 1 )
+      expect( window.print ).toHaveBeenCalledTimes( 1 )
     } )
 
     it( 'does not print when only printMode changes', () => {
-      const target = shallow( <WindowSize updateWindowSize={jest.fn()}
-                                          fromExternal={ false }
-                                          printMode={false} /> )
-      const sp = jest.spyOn(window, 'print')
       target.setProps( { printMode: true } )
       jest.advanceTimersByTime( 4000 )
-      expect( sp ).toHaveBeenCalledTimes( 0 )
+      expect( window.print ).toHaveBeenCalledTimes( 0 )
     } )
   })
   describe( 'mapDispatchToProps', () => {
