@@ -17,16 +17,18 @@ describe('initial state', () => {
   });
 
   describe('print-friendly view', ()=>{
-    let jsdomOpen
+    const { location } = window
     beforeEach(()=>{
-      jsdomOpen = window.open
-      // remember the jsdom alert
-      window.open = () => {}
-      // provide an empty implementation for window.open
+      delete window.location
+      // provide an empty implementation for window.assign
+      window.location = {
+        assign: jest.fn(),
+        href: 'http://ccdb-website.gov'
+      }
     })
 
     afterEach(()=>{
-      window.open = jsdomOpen
+      window.location = location
     })
     it('clicks the button',()=>{
       const props = {
@@ -35,11 +37,11 @@ describe('initial state', () => {
         total: 100
       }
       const target = shallow(<ActionBar {...props} />)
-      const btnSpy = jest.spyOn(window, 'open')
       const button = target.find('.print-preview')
       button.simulate('click')
-      expect( btnSpy )
-        .toHaveBeenCalledWith( 'http://localhost/&printMode=true', '_blank' )
+      expect( window.location.assign )
+        .toHaveBeenCalledWith( 'http://ccdb-website.gov&printMode=true&' +
+          'fromExternal=true' )
     } )
   })
 
