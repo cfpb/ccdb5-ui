@@ -18,7 +18,7 @@ export class WindowSize extends React.Component {
 
   componentDidUpdate() {
     if ( this.props.printMode && this.props.fromExternal ) {
-      setTimeout( function () {
+      setTimeout( function() {
         window.print()
       }, 3000 )
     }

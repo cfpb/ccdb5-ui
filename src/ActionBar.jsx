@@ -35,7 +35,7 @@ export class ActionBar extends React.Component {
                       data-gtm_ignore="true"
                       onClick={ this._showPrintView }>
                 { iconMap.getIcon( 'printer' ) }
-                Print-friendly page
+                Print
               </button>
             </h3>
           </div>
