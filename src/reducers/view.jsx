@@ -18,12 +18,8 @@ export const defaultView = {
 function processParams( state, action ) {
   const params = action.params
 
-  if ( params.printMode ) {
-    state.printMode = params.printMode === 'true' ? true : false
-  }
-  if ( params.fromExternal ) {
-    state.fromExternal = params.fromExternal === 'true' ? true : false
-  }
+  state.printMode = params.printMode === 'true' ? true : false
+  state.fromExternal = params.fromExternal === 'true' ? true : false
 
   return state
 }
