@@ -172,12 +172,12 @@ exports[`component:Results renders List print mode without crashing 1`] = `
           <option
             value="created_date_desc"
           >
-            Newest to Oldest
+            Newest to oldest
           </option>
           <option
             value="created_date_asc"
           >
-            Oldest to Newest
+            Oldest to newest
           </option>
           <option
             value="relevance_desc"
@@ -872,12 +872,12 @@ exports[`component:Results renders list panel without crashing 1`] = `
           <option
             value="created_date_desc"
           >
-            Newest to Oldest
+            Newest to oldest
           </option>
           <option
             value="created_date_asc"
           >
-            Oldest to Newest
+            Oldest to newest
           </option>
           <option
             value="relevance_desc"

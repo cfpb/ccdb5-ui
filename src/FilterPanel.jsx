@@ -79,7 +79,7 @@ export class FilterPanel extends React.Component {
                       fieldName="company_received"
           />
           <hr/>
-          <SimpleFilter title="Consumer consent"
+          <SimpleFilter title="Consumer consent provided?"
                         desc={ descConsumerConsent }
                         fieldName="consumer_consent_provided"
           />
