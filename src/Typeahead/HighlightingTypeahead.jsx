@@ -18,10 +18,12 @@ export default class HighlightingTypeahead extends React.Component {
     this._onInputChange = this._onInputChange.bind( this )
   }
 
-  componentWillReceiveProps( nextProps ) {
-    this.setState( {
-      compiled: compileOptions( nextProps.options )
-    } )
+  componentDidUpdate( prevProps ) {
+    if ( prevProps.options !== this.props.options ) {
+      this.setState( {
+        compiled: compileOptions( this.props.options )
+      } )
+    }
   }
 
   render() {

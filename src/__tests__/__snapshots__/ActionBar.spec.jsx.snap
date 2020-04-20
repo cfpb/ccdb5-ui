@@ -1,104 +1,57 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`initial state renders without crashing 1`] = `
-<summary
-  className="action-bar"
->
-  <div>
-    <h2>
-      Showing 
-      <span>
-        10
-      </span>
-       matches out of 
-      <span>
-        100
-      </span>
-       total complaints
-    </h2>
-  </div>
-  <div
-    className="layout-row"
+<div>
+  <summary
+    className="action-bar"
+    id="search-summary"
   >
-    <div
-      className="cf-select flex-fixed"
-    >
-      <select
-        id="choose-size"
-        onChange={undefined}
-        value={undefined}
-      >
-        <option
-          value={10}
-        >
-          Show 
+    <div>
+      <h2>
+        Showing 
+        <span>
           10
-           results
-        </option>
-        <option
-          value={25}
-        >
-          Show 
-          25
-           results
-        </option>
-        <option
-          value={50}
-        >
-          Show 
-          50
-           results
-        </option>
-        <option
-          value={100}
-        >
-          Show 
+        </span>
+         matches out of 
+        <span>
           100
-           results
-        </option>
-      </select>
+        </span>
+         total complaints
+      </h2>
     </div>
     <div
-      className="cf-select flex-fixed"
+      className="layout-row"
     >
-      <select
-        id="choose-sort"
-        onChange={undefined}
-        value={undefined}
+      <h3
+        className="h4 flex-all export-results"
       >
-        <option
-          value="created_date_desc"
+        <button
+          className="a-btn a-btn__link"
+          data-gtm_ignore="true"
         >
-          Sort by newest to oldest
-        </option>
-        <option
-          value="created_date_asc"
+          Export data
+        </button>
+        <button
+          className="a-btn a-btn__link print-preview"
+          data-gtm_ignore="true"
+          onClick={[Function]}
         >
-          Sort by oldest to newest
-        </option>
-        <option
-          value="relevance_desc"
-        >
-          Sort by relevance
-        </option>
-        <option
-          value="relevance_asc"
-        >
-          Sort by relevance (asc)
-        </option>
-      </select>
+          <svg
+            className="cf-icon-svg"
+            viewBox="0 0 761.9 1200"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M203.7 889.9h355v50h-355zM203.7 788.4h355v50h-355z"
+            />
+            <path
+              d="M670.9 368.4L477.3 174.8H122.1c-16.5 0-30 13.5-30 30V500H70c-38.5 0-70 31.5-70 70v305.5c0 38.5 31.5 70 70 70h22.1v60.5c0 16.5 13.5 30 30 30h518.8c16.5 0 30-13.5 30-30v-60.5h21c38.5 0 70-31.5 70-70V569.9c0-38.5-31.5-70-70-70h-21V368.4zm-60 607.6H152.1V742.7h458.8V976zM425 234.8v146.4c0 21.1 17.3 38.4 38.4 38.4h147.5V500H152.1V234.8H425zm237.9 403.9c-16.6 0-30-13.4-30-30s13.4-30 30-30 30 13.4 30 30-13.4 30-30 30z"
+            />
+          </svg>
+          Print
+        </button>
+      </h3>
     </div>
-    <h4
-      className="flex-all"
-    >
-      <button
-        className="a-btn a-btn__link"
-        data-gtm_ignore="true"
-        onClick={undefined}
-      >
-        Export results
-      </button>
-    </h4>
-  </div>
-</summary>
+  </summary>
+</div>
 `;

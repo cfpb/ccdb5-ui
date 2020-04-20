@@ -16,6 +16,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
       className="o-expandable_header-right o-expandable_link"
     >
       <button
+        aria-label="Hide Issue / sub-issue filter"
         className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
         onClick={[Function]}
       >
@@ -43,7 +44,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
     <div
       className="m-btn-inside-input input-contains-label"
     >
-      <label
+      <div
         className="input-contains-label_before input-contains-label_before__search"
       >
         <svg
@@ -55,10 +56,17 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
             d="M860.1 879.2L645.7 664.8c90.8-136.8 76-323-44.6-443.5-137.5-137.5-360.5-137.5-498 0s-137.5 360.5 0 498c118.5 118.4 303.9 137 443.5 44.6L761 978.3c27.3 27.3 71.7 27.3 99 0s27.4-71.8.1-99.1zm-508-116.9C191.4 762 61.3 631.5 61.6 470.8c.3-160.7 130.8-290.8 291.5-290.5s290.8 130.8 290.5 291.5c-.2 118.2-71.9 224.6-181.5 269.1-34.9 14.2-72.3 21.5-110 21.4z"
           />
         </svg>
+      </div>
+      <label
+        className="u-visually-hidden"
+        htmlFor="issue-typeahead"
+      >
+        Start typing to begin listing issues
       </label>
       <input
         autoComplete="off"
         className="a-text-input"
+        id="issue-typeahead"
         onChange={[Function]}
         onKeyDown={[Function]}
         placeholder="Enter name of issue"
@@ -86,25 +94,25 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
           <label
             className="toggle a-label"
             htmlFor="issueIncorrectinformation on credit report"
-          />
-          <button
-            className="flex-all a-btn a-btn__link"
-            onClick={[Function]}
-            title="Incorrect information on credit report"
           >
-            <span>
-              Incorrect information on credit report
-            </span>
-            <svg
-              className="cf-icon-svg"
-              viewBox="0 0 988.2 1200"
-              xmlns="http://www.w3.org/2000/svg"
+            <button
+              className="flex-all a-btn a-btn__link"
+              onClick={[Function]}
             >
-              <path
-                d="M494.1 967.2c-17.3 0-33.8-6.8-46-19L18.6 518.6c-25.1-25.6-24.8-66.8.8-91.9 25.3-24.8 65.8-24.8 91.1 0l383.6 383.6 383.6-383.6c25.6-25.1 66.8-24.8 91.9.8 24.8 25.3 24.8 65.8 0 91.1L540.1 948.1c-12.2 12.2-28.7 19.1-46 19.1z"
-              />
-            </svg>
-          </button>
+              <span>
+                Incorrect information on credit report
+              </span>
+              <svg
+                className="cf-icon-svg"
+                viewBox="0 0 988.2 1200"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M494.1 967.2c-17.3 0-33.8-6.8-46-19L18.6 518.6c-25.1-25.6-24.8-66.8.8-91.9 25.3-24.8 65.8-24.8 91.1 0l383.6 383.6 383.6-383.6c25.6-25.1 66.8-24.8 91.9.8 24.8 25.3 24.8 65.8 0 91.1L540.1 948.1c-12.2 12.2-28.7 19.1-46 19.1z"
+                />
+              </svg>
+            </button>
+          </label>
           <span
             className="flex-fixed parent-count"
           >
@@ -131,25 +139,25 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
           <label
             className="toggle a-label"
             htmlFor="issueCont'dattempts collect debt not owed"
-          />
-          <button
-            className="flex-all a-btn a-btn__link"
-            onClick={[Function]}
-            title="Cont'd attempts collect debt not owed"
           >
-            <span>
-              Cont'd attempts collect debt not owed
-            </span>
-            <svg
-              className="cf-icon-svg"
-              viewBox="0 0 988.2 1200"
-              xmlns="http://www.w3.org/2000/svg"
+            <button
+              className="flex-all a-btn a-btn__link"
+              onClick={[Function]}
             >
-              <path
-                d="M494.1 967.2c-17.3 0-33.8-6.8-46-19L18.6 518.6c-25.1-25.6-24.8-66.8.8-91.9 25.3-24.8 65.8-24.8 91.1 0l383.6 383.6 383.6-383.6c25.6-25.1 66.8-24.8 91.9.8 24.8 25.3 24.8 65.8 0 91.1L540.1 948.1c-12.2 12.2-28.7 19.1-46 19.1z"
-              />
-            </svg>
-          </button>
+              <span>
+                Cont'd attempts collect debt not owed
+              </span>
+              <svg
+                className="cf-icon-svg"
+                viewBox="0 0 988.2 1200"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M494.1 967.2c-17.3 0-33.8-6.8-46-19L18.6 518.6c-25.1-25.6-24.8-66.8.8-91.9 25.3-24.8 65.8-24.8 91.1 0l383.6 383.6 383.6-383.6c25.6-25.1 66.8-24.8 91.9.8 24.8 25.3 24.8 65.8 0 91.1L540.1 948.1c-12.2 12.2-28.7 19.1-46 19.1z"
+                />
+              </svg>
+            </button>
+          </label>
           <span
             className="flex-fixed parent-count"
           >
@@ -266,6 +274,7 @@ exports[`component:Issue snapshots renders without crashing 1`] = `
       className="o-expandable_header-right o-expandable_link"
     >
       <button
+        aria-label="Hide Issue / sub-issue filter"
         className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
         onClick={[Function]}
       >
@@ -293,7 +302,7 @@ exports[`component:Issue snapshots renders without crashing 1`] = `
     <div
       className="m-btn-inside-input input-contains-label"
     >
-      <label
+      <div
         className="input-contains-label_before input-contains-label_before__search"
       >
         <svg
@@ -305,10 +314,17 @@ exports[`component:Issue snapshots renders without crashing 1`] = `
             d="M860.1 879.2L645.7 664.8c90.8-136.8 76-323-44.6-443.5-137.5-137.5-360.5-137.5-498 0s-137.5 360.5 0 498c118.5 118.4 303.9 137 443.5 44.6L761 978.3c27.3 27.3 71.7 27.3 99 0s27.4-71.8.1-99.1zm-508-116.9C191.4 762 61.3 631.5 61.6 470.8c.3-160.7 130.8-290.8 291.5-290.5s290.8 130.8 290.5 291.5c-.2 118.2-71.9 224.6-181.5 269.1-34.9 14.2-72.3 21.5-110 21.4z"
           />
         </svg>
+      </div>
+      <label
+        className="u-visually-hidden"
+        htmlFor="issue-typeahead"
+      >
+        Start typing to begin listing issues
       </label>
       <input
         autoComplete="off"
         className="a-text-input"
+        id="issue-typeahead"
         onChange={[Function]}
         onKeyDown={[Function]}
         placeholder="Enter name of issue"

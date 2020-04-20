@@ -1,8 +1,8 @@
-import { getComplaints } from './complaints'
-import { URL_CHANGED } from '../constants'
+import { sendQuery } from './complaints'
 
 const queryString = require( 'query-string' );
 
+export const URL_CHANGED = 'URL_CHANGED'
 //-----------------------------------------------------------------------------
 
 /**
@@ -48,6 +48,6 @@ export default function announceUrlChanged( location ) {
   const { pathname, params } = processLocation( location );
   return dispatch => {
     dispatch( urlChanged( pathname, params ) )
-    dispatch( getComplaints() )
+    dispatch( sendQuery() )
   }
 }

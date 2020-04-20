@@ -21,10 +21,13 @@ export default class CollapsibleFilter extends React.Component {
     } );
   }
 
-  componentWillReceiveProps( nextProps ) {
-    this.setState( {
-      showChildren: nextProps.showChildren
-    } );
+  componentDidUpdate( prevProps ) {
+    if ( prevProps.showChildren !== this.props.showChildren ) {
+      // sync local state
+      this.setState( {
+        showChildren: this.props.showChildren
+      } )
+    }
   }
 
   render() {
@@ -36,13 +39,15 @@ export default class CollapsibleFilter extends React.Component {
     const buttonClasses = 'a-btn a-btn__link o-expandable_cue '
 
     const opened =
-      <button className={ buttonClasses + 'o-expandable_cue-close' }
+      <button aria-label={ `Hide ${ this.props.title } filter` }
+              className={ buttonClasses + 'o-expandable_cue-close' }
               onClick={this._toggleChildDisplay}>
         Hide
         { iconMap.getIcon( 'minus-round' ) }
       </button>
     const closed =
-      <button className={ buttonClasses + 'o-expandable_cue-open' }
+      <button aria-label={ `Show ${ this.props.title } filter` }
+              className={ buttonClasses + 'o-expandable_cue-open' }
               onClick={this._toggleChildDisplay}>
         Show
         { iconMap.getIcon( 'plus-round' ) }

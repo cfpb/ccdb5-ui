@@ -1,8 +1,8 @@
-import { changeFlagFilter } from '../actions/filter'
 import { connect } from 'react-redux'
 import { NARRATIVE_SEARCH_FIELD } from '../constants'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { toggleFlagFilter } from '../actions/filter'
 
 const FIELD_NAME = 'has_narrative'
 
@@ -14,24 +14,6 @@ const NOTHING = 'NOTHING'
 // The Class
 
 export class HasNarrative extends React.Component {
-  constructor( props ) {
-    super( props )
-    this.state = { isChecked: props.isChecked }
-  }
-
-  componentWillReceiveProps( nextProps ) {
-    const newState = {
-      isChecked: nextProps.isChecked
-    }
-    this.setState( newState )
-  }
-
-  componentDidUpdate( _, prevState ) {
-    if ( prevState.isChecked !== this.state.isChecked ) {
-      this.props.changeFlagFilter( FIELD_NAME, this.state.isChecked )
-    }
-  }
-
   render() {
     return (
       <section className="single-checkbox">
@@ -41,23 +23,13 @@ export class HasNarrative extends React.Component {
                    checked={ this.props.phase !== NOTHING }
                    disabled={ this.props.phase === SEARCHING }
                    id="filterHasNarrative"
-                   onChange={ this._changeFlag.bind( this ) }
+                   onChange={ () => this.props.toggleFlagFilter() }
                    type="checkbox"
                    value={ FIELD_NAME } />
             <label className="a-label" htmlFor="filterHasNarrative">Yes</label>
         </div>
       </section>
     )
-  }
-
-  // --------------------------------------------------------------------------
-  // Helper Methods
-
-  _changeFlag( ) {
-    const newState = {
-      isChecked: !this.state.isChecked
-    }
-    this.setState( newState )
   }
 }
 
@@ -88,8 +60,8 @@ export const mapStateToProps = state => {
 }
 
 export const mapDispatchToProps = dispatch => ( {
-  changeFlagFilter: ( fieldName, isChecked ) => {
-    dispatch( changeFlagFilter( fieldName, isChecked ) )
+  toggleFlagFilter: () => {
+    dispatch( toggleFlagFilter( FIELD_NAME ) )
   }
 } )
 

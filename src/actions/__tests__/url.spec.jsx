@@ -3,7 +3,7 @@ jest.mock('../complaints');
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import announceUrlChanged, { processLocation, urlChanged } from '../url'
-import * as types from '../../constants'
+import * as sut from '../url'
 
 const locationFixture = {
   hash: "#?from=10&size=100&foo=bar",
@@ -34,38 +34,11 @@ describe('action:url', () => {
         const pathname = '/path/to/resource'
         const params = {from: 10, size: 100}
         const expectedAction = {
-          type: types.URL_CHANGED,
+          type: sut.URL_CHANGED,
           pathname,
           params
         }
         expect(urlChanged(pathname, params)).toEqual(expectedAction)
-    })
-  })
-
-  describe('announceUrlChanged', () => {
-    it('executes a chain of actions', () => {
-      const expectedActions = [
-        {
-          type: types.URL_CHANGED,
-          pathname: '/path/to/resource/',
-          params: {
-            foo: "bar",
-            from: "10",
-            size: "100"
-          }
-        },
-        { type: 'getComplaintsMock' }
-      ]
-
-      const middlewares = [thunk]
-      const mockStore = configureMockStore(middlewares)
-      const store = mockStore({ })
-
-      const location = Object.assign({}, locationFixture);
-      location.hash = "";
-
-      store.dispatch(announceUrlChanged(location))
-      expect(store.getActions()).toEqual(expectedActions)
     })
   })
 })

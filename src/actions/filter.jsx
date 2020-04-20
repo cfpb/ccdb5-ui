@@ -1,9 +1,13 @@
-import {
-  DATE_RANGE_CHANGED,
-  FILTER_ALL_REMOVED, FILTER_CHANGED, FILTER_FLAG_CHANGED,
-  FILTER_MULTIPLE_ADDED, FILTER_MULTIPLE_REMOVED, FILTER_REMOVED
-} from '../constants'
-import { getComplaints } from './complaints'
+import { REQUERY_ALWAYS } from '../constants'
+
+export const DATE_INTERVAL_CHANGED = 'DATE_INTERVAL_CHANGED'
+export const DATE_RANGE_CHANGED = 'DATE_RANGE_CHANGED'
+export const FILTER_ALL_REMOVED = 'FILTER_ALL_REMOVED'
+export const FILTER_CHANGED = 'FILTER_CHANGED'
+export const FILTER_FLAG_CHANGED = 'FILTER_FLAG_CHANGED'
+export const FILTER_MULTIPLE_ADDED = 'FILTER_MULTIPLE_ADDED'
+export const FILTER_MULTIPLE_REMOVED = 'FILTER_MULTIPLE_REMOVED'
+export const FILTER_REMOVED = 'FILTER_REMOVED'
 
 // ----------------------------------------------------------------------------
 // Simple actions
@@ -16,12 +20,27 @@ import { getComplaints } from './complaints'
 * @param {Date} maxDate the maximum date in the range
 * @returns {string} a packaged payload to be used by Redux reducers
 */
-export function dateRangeChanged( filterName, minDate, maxDate ) {
+export function changeDateRange( filterName, minDate, maxDate ) {
   return {
     type: DATE_RANGE_CHANGED,
     filterName,
     minDate,
-    maxDate
+    maxDate,
+    requery: REQUERY_ALWAYS
+  }
+}
+
+/**
+ * Notifies the application that date interval (m, w, yr) was toggled
+ *
+ * @param {string} dateInterval which filter was clicked
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function dateIntervalToggled( dateInterval ) {
+  return {
+    type: DATE_INTERVAL_CHANGED,
+    dateInterval,
+    requery: REQUERY_ALWAYS
   }
 }
 
@@ -32,26 +51,26 @@ export function dateRangeChanged( filterName, minDate, maxDate ) {
 * @param {string} filterValue the value of the filter that was clicked
 * @returns {string} a packaged payload to be used by Redux reducers
 */
-export function filterToggle( filterName, filterValue ) {
+export function toggleFilter( filterName, filterValue ) {
   return {
     type: FILTER_CHANGED,
     filterName,
-    filterValue
+    filterValue,
+    requery: REQUERY_ALWAYS
   }
 }
 
 /**
-* Notifies the application that a flag filter changed
+* Notifies the application that a flag filter toggled
 *
 * @param {string} filterName which filter was clicked
-* @param {bool} filterValue the value of the filter that was clicked
 * @returns {string} a packaged payload to be used by Redux reducers
 */
-export function filterFlagToggle( filterName, filterValue ) {
+export function toggleFlagFilter( filterName ) {
   return {
     type: FILTER_FLAG_CHANGED,
     filterName,
-    filterValue
+    requery: REQUERY_ALWAYS
   }
 }
 
@@ -62,11 +81,12 @@ export function filterFlagToggle( filterName, filterValue ) {
 * @param {string} filterValue the value of the filter that was clicked
 * @returns {string} a packaged payload to be used by Redux reducers
 */
-export function filterRemoved( filterName, filterValue ) {
+export function removeFilter( filterName, filterValue ) {
   return {
     type: FILTER_REMOVED,
     filterName,
-    filterValue
+    filterValue,
+    requery: REQUERY_ALWAYS
   }
 }
 
@@ -75,9 +95,10 @@ export function filterRemoved( filterName, filterValue ) {
 *
 * @returns {string} a packaged payload to be used by Redux reducers
 */
-export function filterAllRemoved() {
+export function removeAllFilters() {
   return {
-    type: FILTER_ALL_REMOVED
+    type: FILTER_ALL_REMOVED,
+    requery: REQUERY_ALWAYS
   }
 }
 
@@ -88,13 +109,14 @@ export function filterAllRemoved() {
 * @param {array} values one or more values to add to the filter set
 * @returns {string} a packaged payload to be used by Redux reducers
 */
-export function filterMultipleAdded( filterName, values ) {
+export function addMultipleFilters( filterName, values ) {
   // eslint-disable-next-line no-console
   console.assert( Array.isArray( values ) )
   return {
     type: FILTER_MULTIPLE_ADDED,
     filterName,
-    values
+    values,
+    requery: REQUERY_ALWAYS
   }
 }
 
@@ -105,112 +127,13 @@ export function filterMultipleAdded( filterName, values ) {
 * @param {array} values one or more values to remove to the filter set
 * @returns {string} a packaged payload to be used by Redux reducers
 */
-export function filterMultipleRemoved( filterName, values ) {
+export function removeMultipleFilters( filterName, values ) {
   // eslint-disable-next-line no-console
   console.assert( Array.isArray( values ) )
   return {
     type: FILTER_MULTIPLE_REMOVED,
     filterName,
-    values
-  }
-}
-
-// ----------------------------------------------------------------------------
-// Compound Actions
-
-/**
-* Adds several filters to the current set
-*
-* @param {string} filterName which filter is being updated
-* @param {array} values one or more values to add to the filter set
-* @returns {function} a series of actions to execute
-*/
-export function addMultipleFilters( filterName, values ) {
-  return dispatch => {
-    dispatch( filterMultipleAdded( filterName, values ) )
-    dispatch( getComplaints() )
-  }
-}
-
-/**
-* Changes the date range of a filter
-*
-* @param {string} filterName which filter is being updated
-* @param {Date} minDate the minimum date in the range
-* @param {Date} maxDate the maximum date in the range
-* @returns {function} a series of actions to execute
-*/
-export function changeDateRange( filterName, minDate, maxDate ) {
-  return dispatch => {
-    dispatch( dateRangeChanged( filterName, minDate, maxDate ) )
-    dispatch( getComplaints() )
-  }
-}
-
-/**
-* Changes one filter in the current set
-*
-* @param {string} filterName which filter is being updated
-* @param {string} filterValue the value being changed
-* @returns {function} a series of actions to execute
-*/
-export function filterChanged( filterName, filterValue ) {
-  return dispatch => {
-    dispatch( filterToggle( filterName, filterValue ) )
-    dispatch( getComplaints() )
-  }
-}
-
-/**
-* Removes one filter from the current set
-*
-* @param {string} filterName which filter is being updated
-* @param {string} filterValue the value being removed
-* @returns {function} a series of actions to execute
-*/
-export function removeFilter( filterName, filterValue ) {
-  return dispatch => {
-    dispatch( filterRemoved( filterName, filterValue ) )
-    dispatch( getComplaints() )
-  }
-}
-
-/**
-* Remove all filters from the current set
-*
-* @returns {function} a series of actions to execute
-*/
-export function removeAllFilters() {
-  return dispatch => {
-    dispatch( filterAllRemoved() )
-    dispatch( getComplaints() )
-  }
-}
-
-/**
-* Removes several filters from the current set
-*
-* @param {string} filterName which filter is being updated
-* @param {array} values one or more values to remove from the filter set
-* @returns {function} a series of actions to execute
-*/
-export function removeMultipleFilters( filterName, values ) {
-  return dispatch => {
-    dispatch( filterMultipleRemoved( filterName, values ) )
-    dispatch( getComplaints() )
-  }
-}
-
-/**
-* Changes the value on a flag filter
-*
-* @param {string} filterName which filter is being updated
-* @param {bool} value the value being changed
-* @returns {function} a series of actions to execute
-*/
-export function changeFlagFilter( filterName, value ) {
-  return dispatch => {
-    dispatch( filterFlagToggle( filterName, value ) )
-    dispatch( getComplaints() )
+    values,
+    requery: REQUERY_ALWAYS
   }
 }

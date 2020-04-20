@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component: PrintInfo initial state renders without crashing 1`] = `
+<section
+  className="print-info"
+>
+  <p>
+    <span>
+      Dates:
+    </span>
+     
+    2013 - 2020
+  </p>
+  <p>
+    <span>
+      Search Term:
+    </span>
+     
+    Got no money
+  </p>
+  <div>
+    Showing 100 complaints
+  </div>
+</section>
+`;

@@ -1,0 +1,3323 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component:ListPanel displays a message when an error has occurred 1`] = `
+<section
+  className="list-panel"
+>
+  <div>
+    <summary
+      className="action-bar"
+      id="search-summary"
+    >
+      <div>
+        <h2>
+          Showing 
+          <span>
+            0
+          </span>
+           matches out of 
+          <span>
+            100
+          </span>
+           total complaints
+        </h2>
+      </div>
+      <div
+        className="layout-row"
+      >
+        <h3
+          className="h4 flex-all export-results"
+        >
+          <button
+            className="a-btn a-btn__link"
+            data-gtm_ignore="true"
+            onClick={[Function]}
+          >
+            Export data
+          </button>
+          <button
+            className="a-btn a-btn__link print-preview"
+            data-gtm_ignore="true"
+            onClick={[Function]}
+          >
+            <svg
+              className="cf-icon-svg"
+              viewBox="0 0 761.9 1200"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M203.7 889.9h355v50h-355zM203.7 788.4h355v50h-355z"
+              />
+              <path
+                d="M670.9 368.4L477.3 174.8H122.1c-16.5 0-30 13.5-30 30V500H70c-38.5 0-70 31.5-70 70v305.5c0 38.5 31.5 70 70 70h22.1v60.5c0 16.5 13.5 30 30 30h518.8c16.5 0 30-13.5 30-30v-60.5h21c38.5 0 70-31.5 70-70V569.9c0-38.5-31.5-70-70-70h-21V368.4zm-60 607.6H152.1V742.7h458.8V976zM425 234.8v146.4c0 21.1 17.3 38.4 38.4 38.4h147.5V500H152.1V234.8H425zm237.9 403.9c-16.6 0-30-13.4-30-30s13.4-30 30-30 30 13.4 30 30-13.4 30-30 30z"
+              />
+            </svg>
+            Print
+          </button>
+        </h3>
+      </div>
+    </summary>
+  </div>
+  <div
+    className="layout-row refine"
+  >
+    <section
+      className="filter-panel-toggle"
+    >
+      <div
+        className="m-btn-group"
+      >
+        <p>
+           
+        </p>
+        <button
+          className="a-btn"
+          onClick={[Function]}
+          title="Filter results"
+        >
+          Filter results
+        </button>
+      </div>
+    </section>
+    <span
+      className="separator"
+    />
+    <section
+      className="cf-select"
+    >
+      <label
+        className="u-visually-hidden"
+        htmlFor="choose-size"
+      >
+        Select the number of results to display at a time
+      </label>
+      <p>
+        Show
+      </p>
+      <select
+        id="choose-size"
+        value="10"
+      >
+        <option
+          value={10}
+        >
+          10
+           results
+        </option>
+        <option
+          value={25}
+        >
+          25
+           results
+        </option>
+        <option
+          value={50}
+        >
+          50
+           results
+        </option>
+        <option
+          value={100}
+        >
+          100
+           results
+        </option>
+      </select>
+    </section>
+    <section
+      className="cf-select"
+    >
+      <label
+        className="u-visually-hidden"
+        htmlFor="choose-sort"
+      >
+        Choose the order in which the results are displayed
+      </label>
+      <p>
+        Sort
+      </p>
+      <select
+        id="choose-sort"
+      >
+        <option
+          value="created_date_desc"
+        >
+          Newest to oldest
+        </option>
+        <option
+          value="created_date_asc"
+        >
+          Oldest to newest
+        </option>
+        <option
+          value="relevance_desc"
+        >
+          Relevance
+        </option>
+        <option
+          value="relevance_asc"
+        >
+          Relevance (asc)
+        </option>
+      </select>
+    </section>
+  </div>
+  <div
+    className="m-notification m-notification__visible m-notification__error"
+  >
+    <svg
+      className="cf-icon-svg"
+      viewBox="0 0 1000 1200"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"
+      />
+    </svg>
+    <div
+      className="m-notification_content"
+    >
+      <div
+        className="h4 m-notification_message"
+      >
+        There was a problem executing your search
+      </div>
+    </div>
+  </div>
+  <nav
+    aria-label="Pagination"
+    className="m-pagination"
+    role="navigation"
+  >
+    <button
+      className="a-btn m-pagination_btn-prev"
+      disabled={false}
+      onClick={[Function]}
+    >
+      <span
+        className="a-btn_icon a-btn_icon__on-left"
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 559.6 1200"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M494.5 1090.7c-17.3 0-33.8-6.8-46-19L19 642.1c-25.4-25.4-25.4-66.5 0-91.9l429.5-429.5c25.6-25.1 66.8-24.8 91.9.8 24.8 25.3 24.8 65.8 0 91.1L156.9 596.2l383.6 383.6c25.4 25.4 25.4 66.5.1 91.9-12.3 12.2-28.8 19-46.1 19z"
+          />
+        </svg>
+      </span>
+      Previous
+    </button>
+    <button
+      className="a-btn m-pagination_btn-next"
+      disabled={false}
+      onClick={[Function]}
+    >
+      Next
+      <span
+        className="a-btn_icon a-btn_icon__on-right"
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 559.6 1200"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M65.1 1090.2c-35.9 0-65-29-65.1-64.9 0-17.3 6.8-33.9 19.1-46.1l383.6-383.5L19.1 212.2c-25.1-25.6-24.8-66.8.9-92 25.3-24.8 65.8-24.8 91.1 0l429.5 429.5c25.4 25.4 25.4 66.5 0 91.9L111 1071.2c-12.1 12.2-28.7 19.1-45.9 19z"
+          />
+        </svg>
+      </span>
+    </button>
+    <form
+      action=""
+      className="m-pagination_form"
+      onSubmit={[Function]}
+    >
+      <label
+        className="m-pagination_label"
+        htmlFor="m-pagination_current-page"
+      >
+        Page
+        <span
+          className="u-visually-hidden"
+        >
+          number 
+           out
+        </span>
+        <input
+          className="m-pagination_current-page"
+          id="m-pagination_current-page"
+          inputMode="numeric"
+          max={1}
+          min="1"
+          name="page"
+          onChange={[Function]}
+          pattern="[0-9]*"
+          type="number"
+        />
+        of 
+        <span>
+          1
+        </span>
+      </label>
+      <button
+        className="a-btn a-btn__link m-pagination_btn-submit"
+        id="m-pagination_btn-submit"
+        type="submit"
+      >
+        Go
+      </button>
+    </form>
+  </nav>
+</section>
+`;
+
+exports[`component:ListPanel displays a message when only the narratives are stale 1`] = `
+<section
+  className="list-panel"
+>
+  <div>
+    <summary
+      className="action-bar"
+      id="search-summary"
+    >
+      <div>
+        <h2>
+          Showing 
+          <span>
+            1
+          </span>
+           matches out of 
+          <span>
+            100
+          </span>
+           total complaints
+        </h2>
+      </div>
+      <div
+        className="layout-row"
+      >
+        <h3
+          className="h4 flex-all export-results"
+        >
+          <button
+            className="a-btn a-btn__link"
+            data-gtm_ignore="true"
+            onClick={[Function]}
+          >
+            Export data
+          </button>
+          <button
+            className="a-btn a-btn__link print-preview"
+            data-gtm_ignore="true"
+            onClick={[Function]}
+          >
+            <svg
+              className="cf-icon-svg"
+              viewBox="0 0 761.9 1200"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M203.7 889.9h355v50h-355zM203.7 788.4h355v50h-355z"
+              />
+              <path
+                d="M670.9 368.4L477.3 174.8H122.1c-16.5 0-30 13.5-30 30V500H70c-38.5 0-70 31.5-70 70v305.5c0 38.5 31.5 70 70 70h22.1v60.5c0 16.5 13.5 30 30 30h518.8c16.5 0 30-13.5 30-30v-60.5h21c38.5 0 70-31.5 70-70V569.9c0-38.5-31.5-70-70-70h-21V368.4zm-60 607.6H152.1V742.7h458.8V976zM425 234.8v146.4c0 21.1 17.3 38.4 38.4 38.4h147.5V500H152.1V234.8H425zm237.9 403.9c-16.6 0-30-13.4-30-30s13.4-30 30-30 30 13.4 30 30-13.4 30-30 30z"
+              />
+            </svg>
+            Print
+          </button>
+        </h3>
+      </div>
+    </summary>
+  </div>
+  <div>
+    <div
+      className="warning m-notification m-notification__visible m-notification__warning"
+    >
+      <svg
+        className="cf-icon-svg"
+        viewBox="0 0 1000 1200"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm-49.7 234.6c0-27.6 22.4-50 50-50s50 22.4 50 50v328.6c0 27.6-22.4 50-50 50s-50-22.4-50-50V339.8zm50 582.5c-39.6 0-71.7-32.1-71.7-71.7s32.1-71.7 71.7-71.7S572 811 572 850.6s-32.1 71.7-71.7 71.7z"
+        />
+      </svg>
+      <div
+        className="m-notification_content"
+      >
+        <div
+          className="h4 m-notification_message"
+        >
+          We’re currently experiencing technical issues that have delayed the refresh of consumer complaint narratives on the Consumer Complaint Database.  We expect to refresh the data in the next few days.
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div
+    className="layout-row refine"
+  >
+    <section
+      className="filter-panel-toggle"
+    >
+      <div
+        className="m-btn-group"
+      >
+        <p>
+           
+        </p>
+        <button
+          className="a-btn"
+          onClick={[Function]}
+          title="Filter results"
+        >
+          Filter results
+        </button>
+      </div>
+    </section>
+    <span
+      className="separator"
+    />
+    <section
+      className="cf-select"
+    >
+      <label
+        className="u-visually-hidden"
+        htmlFor="choose-size"
+      >
+        Select the number of results to display at a time
+      </label>
+      <p>
+        Show
+      </p>
+      <select
+        id="choose-size"
+        value="10"
+      >
+        <option
+          value={10}
+        >
+          10
+           results
+        </option>
+        <option
+          value={25}
+        >
+          25
+           results
+        </option>
+        <option
+          value={50}
+        >
+          50
+           results
+        </option>
+        <option
+          value={100}
+        >
+          100
+           results
+        </option>
+      </select>
+    </section>
+    <section
+      className="cf-select"
+    >
+      <label
+        className="u-visually-hidden"
+        htmlFor="choose-sort"
+      >
+        Choose the order in which the results are displayed
+      </label>
+      <p>
+        Sort
+      </p>
+      <select
+        id="choose-sort"
+      >
+        <option
+          value="created_date_desc"
+        >
+          Newest to oldest
+        </option>
+        <option
+          value="created_date_asc"
+        >
+          Oldest to newest
+        </option>
+        <option
+          value="relevance_desc"
+        >
+          Relevance
+        </option>
+        <option
+          value="relevance_asc"
+        >
+          Relevance (asc)
+        </option>
+      </select>
+    </section>
+  </div>
+  <ul
+    className="cards-panel"
+  >
+    <li
+      className="card-container"
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-left layout-column"
+        >
+          <h3
+            className="to-detail"
+          >
+            <a
+              aria-label="Complaint 1"
+              href="detail/1"
+            >
+              1
+            </a>
+          </h3>
+          <h4
+            tabIndex="0"
+          >
+            Company name
+          </h4>
+          <span
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "foo",
+              }
+            }
+            tabIndex="0"
+          />
+          <br />
+          <h4
+            tabIndex="0"
+          >
+            Company response to consumer
+          </h4>
+          <span
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Closed",
+              }
+            }
+            tabIndex="0"
+          />
+          <br />
+          <h4
+            tabIndex="0"
+          >
+            Timely response?
+          </h4>
+          <span
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "yes",
+              }
+            }
+            tabIndex="0"
+          />
+        </div>
+        <div
+          className="card-right layout-column"
+        >
+          <div
+            className="layout-row"
+          >
+            <div
+              className="layout-row"
+            >
+              <h4
+                tabIndex="0"
+              >
+                Date received:
+              </h4>
+              <span
+                className="body-copy"
+              >
+                <span>
+                  2/3/2013
+                </span>
+              </span>
+            </div>
+            <div
+              className="spacer"
+            />
+            <div
+              className="layout-row"
+            >
+              <h4
+                tabIndex="0"
+              >
+                Consumer's state:
+              </h4>
+              <span
+                className="body-copy"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "DC",
+                  }
+                }
+                tabIndex="0"
+              />
+            </div>
+          </div>
+          <br />
+          <h4
+            tabIndex="0"
+          >
+            Product
+          </h4>
+          <h3
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Bar",
+              }
+            }
+            tabIndex="0"
+          />
+          <div
+            className="layout-row"
+          >
+            <span
+              className="body-copy subitem"
+              tabIndex="0"
+            >
+              Sub-product:
+            </span>
+            <span
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Qaz",
+                }
+              }
+              tabIndex="0"
+            />
+          </div>
+          <br />
+          <h4
+            tabIndex="0"
+          >
+            Issue
+          </h4>
+          <h3
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Foo",
+              }
+            }
+            tabIndex="0"
+          />
+          <div
+            className="layout-row"
+          >
+            <span
+              className="body-copy subitem"
+              tabIndex="0"
+            >
+              Sub-issue:
+            </span>
+            <span
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Baz",
+                }
+              }
+              tabIndex="0"
+            />
+          </div>
+          <div>
+            <br />
+            <h4
+              tabIndex="0"
+            >
+              Consumer Complaint Narrative
+            </h4>
+            <span
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Lorem Ipsum",
+                }
+              }
+              tabIndex="0"
+            />
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <nav
+    aria-label="Pagination"
+    className="m-pagination"
+    role="navigation"
+  >
+    <button
+      className="a-btn m-pagination_btn-prev"
+      disabled={false}
+      onClick={[Function]}
+    >
+      <span
+        className="a-btn_icon a-btn_icon__on-left"
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 559.6 1200"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M494.5 1090.7c-17.3 0-33.8-6.8-46-19L19 642.1c-25.4-25.4-25.4-66.5 0-91.9l429.5-429.5c25.6-25.1 66.8-24.8 91.9.8 24.8 25.3 24.8 65.8 0 91.1L156.9 596.2l383.6 383.6c25.4 25.4 25.4 66.5.1 91.9-12.3 12.2-28.8 19-46.1 19z"
+          />
+        </svg>
+      </span>
+      Previous
+    </button>
+    <button
+      className="a-btn m-pagination_btn-next"
+      disabled={false}
+      onClick={[Function]}
+    >
+      Next
+      <span
+        className="a-btn_icon a-btn_icon__on-right"
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 559.6 1200"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M65.1 1090.2c-35.9 0-65-29-65.1-64.9 0-17.3 6.8-33.9 19.1-46.1l383.6-383.5L19.1 212.2c-25.1-25.6-24.8-66.8.9-92 25.3-24.8 65.8-24.8 91.1 0l429.5 429.5c25.4 25.4 25.4 66.5 0 91.9L111 1071.2c-12.1 12.2-28.7 19.1-45.9 19z"
+          />
+        </svg>
+      </span>
+    </button>
+    <form
+      action=""
+      className="m-pagination_form"
+      onSubmit={[Function]}
+    >
+      <label
+        className="m-pagination_label"
+        htmlFor="m-pagination_current-page"
+      >
+        Page
+        <span
+          className="u-visually-hidden"
+        >
+          number 
+           out
+        </span>
+        <input
+          className="m-pagination_current-page"
+          id="m-pagination_current-page"
+          inputMode="numeric"
+          max={1}
+          min="1"
+          name="page"
+          onChange={[Function]}
+          pattern="[0-9]*"
+          type="number"
+        />
+        of 
+        <span>
+          1
+        </span>
+      </label>
+      <button
+        className="a-btn a-btn__link m-pagination_btn-submit"
+        id="m-pagination_btn-submit"
+        type="submit"
+      >
+        Go
+      </button>
+    </form>
+  </nav>
+</section>
+`;
+
+exports[`component:ListPanel displays a message when the data has issues 1`] = `
+<section
+  className="list-panel"
+>
+  <div>
+    <summary
+      className="action-bar"
+      id="search-summary"
+    >
+      <div>
+        <h2>
+          Showing 
+          <span>
+            1
+          </span>
+           matches out of 
+          <span>
+            100
+          </span>
+           total complaints
+        </h2>
+      </div>
+      <div
+        className="layout-row"
+      >
+        <h3
+          className="h4 flex-all export-results"
+        >
+          <button
+            className="a-btn a-btn__link"
+            data-gtm_ignore="true"
+            onClick={[Function]}
+          >
+            Export data
+          </button>
+          <button
+            className="a-btn a-btn__link print-preview"
+            data-gtm_ignore="true"
+            onClick={[Function]}
+          >
+            <svg
+              className="cf-icon-svg"
+              viewBox="0 0 761.9 1200"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M203.7 889.9h355v50h-355zM203.7 788.4h355v50h-355z"
+              />
+              <path
+                d="M670.9 368.4L477.3 174.8H122.1c-16.5 0-30 13.5-30 30V500H70c-38.5 0-70 31.5-70 70v305.5c0 38.5 31.5 70 70 70h22.1v60.5c0 16.5 13.5 30 30 30h518.8c16.5 0 30-13.5 30-30v-60.5h21c38.5 0 70-31.5 70-70V569.9c0-38.5-31.5-70-70-70h-21V368.4zm-60 607.6H152.1V742.7h458.8V976zM425 234.8v146.4c0 21.1 17.3 38.4 38.4 38.4h147.5V500H152.1V234.8H425zm237.9 403.9c-16.6 0-30-13.4-30-30s13.4-30 30-30 30 13.4 30 30-13.4 30-30 30z"
+              />
+            </svg>
+            Print
+          </button>
+        </h3>
+      </div>
+    </summary>
+  </div>
+  <div>
+    <div
+      className="warning m-notification m-notification__visible m-notification__warning"
+    >
+      <svg
+        className="cf-icon-svg"
+        viewBox="0 0 1000 1200"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm-49.7 234.6c0-27.6 22.4-50 50-50s50 22.4 50 50v328.6c0 27.6-22.4 50-50 50s-50-22.4-50-50V339.8zm50 582.5c-39.6 0-71.7-32.1-71.7-71.7s32.1-71.7 71.7-71.7S572 811 572 850.6s-32.1 71.7-71.7 71.7z"
+        />
+      </svg>
+      <div
+        className="m-notification_content"
+      >
+        <div
+          className="h4 m-notification_message"
+        >
+          We’re currently experiencing technical issues that have delayed the refresh of data on the Consumer Complaint Database.  We expect to refresh the data in the next few days.
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div
+    className="layout-row refine"
+  >
+    <section
+      className="filter-panel-toggle"
+    >
+      <div
+        className="m-btn-group"
+      >
+        <p>
+           
+        </p>
+        <button
+          className="a-btn"
+          onClick={[Function]}
+          title="Filter results"
+        >
+          Filter results
+        </button>
+      </div>
+    </section>
+    <span
+      className="separator"
+    />
+    <section
+      className="cf-select"
+    >
+      <label
+        className="u-visually-hidden"
+        htmlFor="choose-size"
+      >
+        Select the number of results to display at a time
+      </label>
+      <p>
+        Show
+      </p>
+      <select
+        id="choose-size"
+        value="10"
+      >
+        <option
+          value={10}
+        >
+          10
+           results
+        </option>
+        <option
+          value={25}
+        >
+          25
+           results
+        </option>
+        <option
+          value={50}
+        >
+          50
+           results
+        </option>
+        <option
+          value={100}
+        >
+          100
+           results
+        </option>
+      </select>
+    </section>
+    <section
+      className="cf-select"
+    >
+      <label
+        className="u-visually-hidden"
+        htmlFor="choose-sort"
+      >
+        Choose the order in which the results are displayed
+      </label>
+      <p>
+        Sort
+      </p>
+      <select
+        id="choose-sort"
+      >
+        <option
+          value="created_date_desc"
+        >
+          Newest to oldest
+        </option>
+        <option
+          value="created_date_asc"
+        >
+          Oldest to newest
+        </option>
+        <option
+          value="relevance_desc"
+        >
+          Relevance
+        </option>
+        <option
+          value="relevance_asc"
+        >
+          Relevance (asc)
+        </option>
+      </select>
+    </section>
+  </div>
+  <ul
+    className="cards-panel"
+  >
+    <li
+      className="card-container"
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-left layout-column"
+        >
+          <h3
+            className="to-detail"
+          >
+            <a
+              aria-label="Complaint 1"
+              href="detail/1"
+            >
+              1
+            </a>
+          </h3>
+          <h4
+            tabIndex="0"
+          >
+            Company name
+          </h4>
+          <span
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "foo",
+              }
+            }
+            tabIndex="0"
+          />
+          <br />
+          <h4
+            tabIndex="0"
+          >
+            Company response to consumer
+          </h4>
+          <span
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Closed",
+              }
+            }
+            tabIndex="0"
+          />
+          <br />
+          <h4
+            tabIndex="0"
+          >
+            Timely response?
+          </h4>
+          <span
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "yes",
+              }
+            }
+            tabIndex="0"
+          />
+        </div>
+        <div
+          className="card-right layout-column"
+        >
+          <div
+            className="layout-row"
+          >
+            <div
+              className="layout-row"
+            >
+              <h4
+                tabIndex="0"
+              >
+                Date received:
+              </h4>
+              <span
+                className="body-copy"
+              >
+                <span>
+                  2/3/2013
+                </span>
+              </span>
+            </div>
+            <div
+              className="spacer"
+            />
+            <div
+              className="layout-row"
+            >
+              <h4
+                tabIndex="0"
+              >
+                Consumer's state:
+              </h4>
+              <span
+                className="body-copy"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "DC",
+                  }
+                }
+                tabIndex="0"
+              />
+            </div>
+          </div>
+          <br />
+          <h4
+            tabIndex="0"
+          >
+            Product
+          </h4>
+          <h3
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Bar",
+              }
+            }
+            tabIndex="0"
+          />
+          <div
+            className="layout-row"
+          >
+            <span
+              className="body-copy subitem"
+              tabIndex="0"
+            >
+              Sub-product:
+            </span>
+            <span
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Qaz",
+                }
+              }
+              tabIndex="0"
+            />
+          </div>
+          <br />
+          <h4
+            tabIndex="0"
+          >
+            Issue
+          </h4>
+          <h3
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Foo",
+              }
+            }
+            tabIndex="0"
+          />
+          <div
+            className="layout-row"
+          >
+            <span
+              className="body-copy subitem"
+              tabIndex="0"
+            >
+              Sub-issue:
+            </span>
+            <span
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Baz",
+                }
+              }
+              tabIndex="0"
+            />
+          </div>
+          <div>
+            <br />
+            <h4
+              tabIndex="0"
+            >
+              Consumer Complaint Narrative
+            </h4>
+            <span
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Lorem Ipsum",
+                }
+              }
+              tabIndex="0"
+            />
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <nav
+    aria-label="Pagination"
+    className="m-pagination"
+    role="navigation"
+  >
+    <button
+      className="a-btn m-pagination_btn-prev"
+      disabled={false}
+      onClick={[Function]}
+    >
+      <span
+        className="a-btn_icon a-btn_icon__on-left"
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 559.6 1200"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M494.5 1090.7c-17.3 0-33.8-6.8-46-19L19 642.1c-25.4-25.4-25.4-66.5 0-91.9l429.5-429.5c25.6-25.1 66.8-24.8 91.9.8 24.8 25.3 24.8 65.8 0 91.1L156.9 596.2l383.6 383.6c25.4 25.4 25.4 66.5.1 91.9-12.3 12.2-28.8 19-46.1 19z"
+          />
+        </svg>
+      </span>
+      Previous
+    </button>
+    <button
+      className="a-btn m-pagination_btn-next"
+      disabled={false}
+      onClick={[Function]}
+    >
+      Next
+      <span
+        className="a-btn_icon a-btn_icon__on-right"
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 559.6 1200"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M65.1 1090.2c-35.9 0-65-29-65.1-64.9 0-17.3 6.8-33.9 19.1-46.1l383.6-383.5L19.1 212.2c-25.1-25.6-24.8-66.8.9-92 25.3-24.8 65.8-24.8 91.1 0l429.5 429.5c25.4 25.4 25.4 66.5 0 91.9L111 1071.2c-12.1 12.2-28.7 19.1-45.9 19z"
+          />
+        </svg>
+      </span>
+    </button>
+    <form
+      action=""
+      className="m-pagination_form"
+      onSubmit={[Function]}
+    >
+      <label
+        className="m-pagination_label"
+        htmlFor="m-pagination_current-page"
+      >
+        Page
+        <span
+          className="u-visually-hidden"
+        >
+          number 
+           out
+        </span>
+        <input
+          className="m-pagination_current-page"
+          id="m-pagination_current-page"
+          inputMode="numeric"
+          max={1}
+          min="1"
+          name="page"
+          onChange={[Function]}
+          pattern="[0-9]*"
+          type="number"
+        />
+        of 
+        <span>
+          1
+        </span>
+      </label>
+      <button
+        className="a-btn a-btn__link m-pagination_btn-submit"
+        id="m-pagination_btn-submit"
+        type="submit"
+      >
+        Go
+      </button>
+    </form>
+  </nav>
+</section>
+`;
+
+exports[`component:ListPanel displays a message when the data is stale 1`] = `
+<section
+  className="list-panel"
+>
+  <div>
+    <summary
+      className="action-bar"
+      id="search-summary"
+    >
+      <div>
+        <h2>
+          Showing 
+          <span>
+            1
+          </span>
+           matches out of 
+          <span>
+            100
+          </span>
+           total complaints
+        </h2>
+      </div>
+      <div
+        className="layout-row"
+      >
+        <h3
+          className="h4 flex-all export-results"
+        >
+          <button
+            className="a-btn a-btn__link"
+            data-gtm_ignore="true"
+            onClick={[Function]}
+          >
+            Export data
+          </button>
+          <button
+            className="a-btn a-btn__link print-preview"
+            data-gtm_ignore="true"
+            onClick={[Function]}
+          >
+            <svg
+              className="cf-icon-svg"
+              viewBox="0 0 761.9 1200"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M203.7 889.9h355v50h-355zM203.7 788.4h355v50h-355z"
+              />
+              <path
+                d="M670.9 368.4L477.3 174.8H122.1c-16.5 0-30 13.5-30 30V500H70c-38.5 0-70 31.5-70 70v305.5c0 38.5 31.5 70 70 70h22.1v60.5c0 16.5 13.5 30 30 30h518.8c16.5 0 30-13.5 30-30v-60.5h21c38.5 0 70-31.5 70-70V569.9c0-38.5-31.5-70-70-70h-21V368.4zm-60 607.6H152.1V742.7h458.8V976zM425 234.8v146.4c0 21.1 17.3 38.4 38.4 38.4h147.5V500H152.1V234.8H425zm237.9 403.9c-16.6 0-30-13.4-30-30s13.4-30 30-30 30 13.4 30 30-13.4 30-30 30z"
+              />
+            </svg>
+            Print
+          </button>
+        </h3>
+      </div>
+    </summary>
+  </div>
+  <div>
+    <div
+      className="warning m-notification m-notification__visible m-notification__warning"
+    >
+      <svg
+        className="cf-icon-svg"
+        viewBox="0 0 1000 1200"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm-49.7 234.6c0-27.6 22.4-50 50-50s50 22.4 50 50v328.6c0 27.6-22.4 50-50 50s-50-22.4-50-50V339.8zm50 582.5c-39.6 0-71.7-32.1-71.7-71.7s32.1-71.7 71.7-71.7S572 811 572 850.6s-32.1 71.7-71.7 71.7z"
+        />
+      </svg>
+      <div
+        className="m-notification_content"
+      >
+        <div
+          className="h4 m-notification_message"
+        >
+          We’re currently experiencing technical issues that have delayed the refresh of data in the Consumer Complaint Database.  We expect to refresh the data in the next few days.
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div
+    className="layout-row refine"
+  >
+    <section
+      className="filter-panel-toggle"
+    >
+      <div
+        className="m-btn-group"
+      >
+        <p>
+           
+        </p>
+        <button
+          className="a-btn"
+          onClick={[Function]}
+          title="Filter results"
+        >
+          Filter results
+        </button>
+      </div>
+    </section>
+    <span
+      className="separator"
+    />
+    <section
+      className="cf-select"
+    >
+      <label
+        className="u-visually-hidden"
+        htmlFor="choose-size"
+      >
+        Select the number of results to display at a time
+      </label>
+      <p>
+        Show
+      </p>
+      <select
+        id="choose-size"
+        value="10"
+      >
+        <option
+          value={10}
+        >
+          10
+           results
+        </option>
+        <option
+          value={25}
+        >
+          25
+           results
+        </option>
+        <option
+          value={50}
+        >
+          50
+           results
+        </option>
+        <option
+          value={100}
+        >
+          100
+           results
+        </option>
+      </select>
+    </section>
+    <section
+      className="cf-select"
+    >
+      <label
+        className="u-visually-hidden"
+        htmlFor="choose-sort"
+      >
+        Choose the order in which the results are displayed
+      </label>
+      <p>
+        Sort
+      </p>
+      <select
+        id="choose-sort"
+      >
+        <option
+          value="created_date_desc"
+        >
+          Newest to oldest
+        </option>
+        <option
+          value="created_date_asc"
+        >
+          Oldest to newest
+        </option>
+        <option
+          value="relevance_desc"
+        >
+          Relevance
+        </option>
+        <option
+          value="relevance_asc"
+        >
+          Relevance (asc)
+        </option>
+      </select>
+    </section>
+  </div>
+  <ul
+    className="cards-panel"
+  >
+    <li
+      className="card-container"
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-left layout-column"
+        >
+          <h3
+            className="to-detail"
+          >
+            <a
+              aria-label="Complaint 1"
+              href="detail/1"
+            >
+              1
+            </a>
+          </h3>
+          <h4
+            tabIndex="0"
+          >
+            Company name
+          </h4>
+          <span
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "foo",
+              }
+            }
+            tabIndex="0"
+          />
+          <br />
+          <h4
+            tabIndex="0"
+          >
+            Company response to consumer
+          </h4>
+          <span
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Closed",
+              }
+            }
+            tabIndex="0"
+          />
+          <br />
+          <h4
+            tabIndex="0"
+          >
+            Timely response?
+          </h4>
+          <span
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "yes",
+              }
+            }
+            tabIndex="0"
+          />
+        </div>
+        <div
+          className="card-right layout-column"
+        >
+          <div
+            className="layout-row"
+          >
+            <div
+              className="layout-row"
+            >
+              <h4
+                tabIndex="0"
+              >
+                Date received:
+              </h4>
+              <span
+                className="body-copy"
+              >
+                <span>
+                  2/3/2013
+                </span>
+              </span>
+            </div>
+            <div
+              className="spacer"
+            />
+            <div
+              className="layout-row"
+            >
+              <h4
+                tabIndex="0"
+              >
+                Consumer's state:
+              </h4>
+              <span
+                className="body-copy"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "DC",
+                  }
+                }
+                tabIndex="0"
+              />
+            </div>
+          </div>
+          <br />
+          <h4
+            tabIndex="0"
+          >
+            Product
+          </h4>
+          <h3
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Bar",
+              }
+            }
+            tabIndex="0"
+          />
+          <div
+            className="layout-row"
+          >
+            <span
+              className="body-copy subitem"
+              tabIndex="0"
+            >
+              Sub-product:
+            </span>
+            <span
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Qaz",
+                }
+              }
+              tabIndex="0"
+            />
+          </div>
+          <br />
+          <h4
+            tabIndex="0"
+          >
+            Issue
+          </h4>
+          <h3
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Foo",
+              }
+            }
+            tabIndex="0"
+          />
+          <div
+            className="layout-row"
+          >
+            <span
+              className="body-copy subitem"
+              tabIndex="0"
+            >
+              Sub-issue:
+            </span>
+            <span
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Baz",
+                }
+              }
+              tabIndex="0"
+            />
+          </div>
+          <div>
+            <br />
+            <h4
+              tabIndex="0"
+            >
+              Consumer Complaint Narrative
+            </h4>
+            <span
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Lorem Ipsum",
+                }
+              }
+              tabIndex="0"
+            />
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <nav
+    aria-label="Pagination"
+    className="m-pagination"
+    role="navigation"
+  >
+    <button
+      className="a-btn m-pagination_btn-prev"
+      disabled={false}
+      onClick={[Function]}
+    >
+      <span
+        className="a-btn_icon a-btn_icon__on-left"
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 559.6 1200"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M494.5 1090.7c-17.3 0-33.8-6.8-46-19L19 642.1c-25.4-25.4-25.4-66.5 0-91.9l429.5-429.5c25.6-25.1 66.8-24.8 91.9.8 24.8 25.3 24.8 65.8 0 91.1L156.9 596.2l383.6 383.6c25.4 25.4 25.4 66.5.1 91.9-12.3 12.2-28.8 19-46.1 19z"
+          />
+        </svg>
+      </span>
+      Previous
+    </button>
+    <button
+      className="a-btn m-pagination_btn-next"
+      disabled={false}
+      onClick={[Function]}
+    >
+      Next
+      <span
+        className="a-btn_icon a-btn_icon__on-right"
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 559.6 1200"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M65.1 1090.2c-35.9 0-65-29-65.1-64.9 0-17.3 6.8-33.9 19.1-46.1l383.6-383.5L19.1 212.2c-25.1-25.6-24.8-66.8.9-92 25.3-24.8 65.8-24.8 91.1 0l429.5 429.5c25.4 25.4 25.4 66.5 0 91.9L111 1071.2c-12.1 12.2-28.7 19.1-45.9 19z"
+          />
+        </svg>
+      </span>
+    </button>
+    <form
+      action=""
+      className="m-pagination_form"
+      onSubmit={[Function]}
+    >
+      <label
+        className="m-pagination_label"
+        htmlFor="m-pagination_current-page"
+      >
+        Page
+        <span
+          className="u-visually-hidden"
+        >
+          number 
+           out
+        </span>
+        <input
+          className="m-pagination_current-page"
+          id="m-pagination_current-page"
+          inputMode="numeric"
+          max={1}
+          min="1"
+          name="page"
+          onChange={[Function]}
+          pattern="[0-9]*"
+          type="number"
+        />
+        of 
+        <span>
+          1
+        </span>
+      </label>
+      <button
+        className="a-btn a-btn__link m-pagination_btn-submit"
+        id="m-pagination_btn-submit"
+        type="submit"
+      >
+        Go
+      </button>
+    </form>
+  </nav>
+</section>
+`;
+
+exports[`component:ListPanel displays a message when there are no results 1`] = `
+<section
+  className="list-panel"
+>
+  <div>
+    <summary
+      className="action-bar"
+      id="search-summary"
+    >
+      <div>
+        <h2>
+          Showing 
+          <span>
+            0
+          </span>
+           matches out of 
+          <span>
+            100
+          </span>
+           total complaints
+        </h2>
+      </div>
+      <div
+        className="layout-row"
+      >
+        <h3
+          className="h4 flex-all export-results"
+        >
+          <button
+            className="a-btn a-btn__link"
+            data-gtm_ignore="true"
+            onClick={[Function]}
+          >
+            Export data
+          </button>
+          <button
+            className="a-btn a-btn__link print-preview"
+            data-gtm_ignore="true"
+            onClick={[Function]}
+          >
+            <svg
+              className="cf-icon-svg"
+              viewBox="0 0 761.9 1200"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M203.7 889.9h355v50h-355zM203.7 788.4h355v50h-355z"
+              />
+              <path
+                d="M670.9 368.4L477.3 174.8H122.1c-16.5 0-30 13.5-30 30V500H70c-38.5 0-70 31.5-70 70v305.5c0 38.5 31.5 70 70 70h22.1v60.5c0 16.5 13.5 30 30 30h518.8c16.5 0 30-13.5 30-30v-60.5h21c38.5 0 70-31.5 70-70V569.9c0-38.5-31.5-70-70-70h-21V368.4zm-60 607.6H152.1V742.7h458.8V976zM425 234.8v146.4c0 21.1 17.3 38.4 38.4 38.4h147.5V500H152.1V234.8H425zm237.9 403.9c-16.6 0-30-13.4-30-30s13.4-30 30-30 30 13.4 30 30-13.4 30-30 30z"
+              />
+            </svg>
+            Print
+          </button>
+        </h3>
+      </div>
+    </summary>
+  </div>
+  <div
+    className="layout-row refine"
+  >
+    <section
+      className="filter-panel-toggle"
+    >
+      <div
+        className="m-btn-group"
+      >
+        <p>
+           
+        </p>
+        <button
+          className="a-btn"
+          onClick={[Function]}
+          title="Filter results"
+        >
+          Filter results
+        </button>
+      </div>
+    </section>
+    <span
+      className="separator"
+    />
+    <section
+      className="cf-select"
+    >
+      <label
+        className="u-visually-hidden"
+        htmlFor="choose-size"
+      >
+        Select the number of results to display at a time
+      </label>
+      <p>
+        Show
+      </p>
+      <select
+        id="choose-size"
+        value="10"
+      >
+        <option
+          value={10}
+        >
+          10
+           results
+        </option>
+        <option
+          value={25}
+        >
+          25
+           results
+        </option>
+        <option
+          value={50}
+        >
+          50
+           results
+        </option>
+        <option
+          value={100}
+        >
+          100
+           results
+        </option>
+      </select>
+    </section>
+    <section
+      className="cf-select"
+    >
+      <label
+        className="u-visually-hidden"
+        htmlFor="choose-sort"
+      >
+        Choose the order in which the results are displayed
+      </label>
+      <p>
+        Sort
+      </p>
+      <select
+        id="choose-sort"
+      >
+        <option
+          value="created_date_desc"
+        >
+          Newest to oldest
+        </option>
+        <option
+          value="created_date_asc"
+        >
+          Oldest to newest
+        </option>
+        <option
+          value="relevance_desc"
+        >
+          Relevance
+        </option>
+        <option
+          value="relevance_asc"
+        >
+          Relevance (asc)
+        </option>
+      </select>
+    </section>
+  </div>
+  <h2>
+    No results were found for your search
+  </h2>
+  <nav
+    aria-label="Pagination"
+    className="m-pagination"
+    role="navigation"
+  >
+    <button
+      className="a-btn m-pagination_btn-prev"
+      disabled={false}
+      onClick={[Function]}
+    >
+      <span
+        className="a-btn_icon a-btn_icon__on-left"
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 559.6 1200"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M494.5 1090.7c-17.3 0-33.8-6.8-46-19L19 642.1c-25.4-25.4-25.4-66.5 0-91.9l429.5-429.5c25.6-25.1 66.8-24.8 91.9.8 24.8 25.3 24.8 65.8 0 91.1L156.9 596.2l383.6 383.6c25.4 25.4 25.4 66.5.1 91.9-12.3 12.2-28.8 19-46.1 19z"
+          />
+        </svg>
+      </span>
+      Previous
+    </button>
+    <button
+      className="a-btn m-pagination_btn-next"
+      disabled={false}
+      onClick={[Function]}
+    >
+      Next
+      <span
+        className="a-btn_icon a-btn_icon__on-right"
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 559.6 1200"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M65.1 1090.2c-35.9 0-65-29-65.1-64.9 0-17.3 6.8-33.9 19.1-46.1l383.6-383.5L19.1 212.2c-25.1-25.6-24.8-66.8.9-92 25.3-24.8 65.8-24.8 91.1 0l429.5 429.5c25.4 25.4 25.4 66.5 0 91.9L111 1071.2c-12.1 12.2-28.7 19.1-45.9 19z"
+          />
+        </svg>
+      </span>
+    </button>
+    <form
+      action=""
+      className="m-pagination_form"
+      onSubmit={[Function]}
+    >
+      <label
+        className="m-pagination_label"
+        htmlFor="m-pagination_current-page"
+      >
+        Page
+        <span
+          className="u-visually-hidden"
+        >
+          number 
+           out
+        </span>
+        <input
+          className="m-pagination_current-page"
+          id="m-pagination_current-page"
+          inputMode="numeric"
+          max={1}
+          min="1"
+          name="page"
+          onChange={[Function]}
+          pattern="[0-9]*"
+          type="number"
+        />
+        of 
+        <span>
+          1
+        </span>
+      </label>
+      <button
+        className="a-btn a-btn__link m-pagination_btn-submit"
+        id="m-pagination_btn-submit"
+        type="submit"
+      >
+        Go
+      </button>
+    </form>
+  </nav>
+</section>
+`;
+
+exports[`component:ListPanel only displays data message when both types are stale 1`] = `
+<section
+  className="list-panel"
+>
+  <div>
+    <summary
+      className="action-bar"
+      id="search-summary"
+    >
+      <div>
+        <h2>
+          Showing 
+          <span>
+            1
+          </span>
+           matches out of 
+          <span>
+            100
+          </span>
+           total complaints
+        </h2>
+      </div>
+      <div
+        className="layout-row"
+      >
+        <h3
+          className="h4 flex-all export-results"
+        >
+          <button
+            className="a-btn a-btn__link"
+            data-gtm_ignore="true"
+            onClick={[Function]}
+          >
+            Export data
+          </button>
+          <button
+            className="a-btn a-btn__link print-preview"
+            data-gtm_ignore="true"
+            onClick={[Function]}
+          >
+            <svg
+              className="cf-icon-svg"
+              viewBox="0 0 761.9 1200"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M203.7 889.9h355v50h-355zM203.7 788.4h355v50h-355z"
+              />
+              <path
+                d="M670.9 368.4L477.3 174.8H122.1c-16.5 0-30 13.5-30 30V500H70c-38.5 0-70 31.5-70 70v305.5c0 38.5 31.5 70 70 70h22.1v60.5c0 16.5 13.5 30 30 30h518.8c16.5 0 30-13.5 30-30v-60.5h21c38.5 0 70-31.5 70-70V569.9c0-38.5-31.5-70-70-70h-21V368.4zm-60 607.6H152.1V742.7h458.8V976zM425 234.8v146.4c0 21.1 17.3 38.4 38.4 38.4h147.5V500H152.1V234.8H425zm237.9 403.9c-16.6 0-30-13.4-30-30s13.4-30 30-30 30 13.4 30 30-13.4 30-30 30z"
+              />
+            </svg>
+            Print
+          </button>
+        </h3>
+      </div>
+    </summary>
+  </div>
+  <div>
+    <div
+      className="warning m-notification m-notification__visible m-notification__warning"
+    >
+      <svg
+        className="cf-icon-svg"
+        viewBox="0 0 1000 1200"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm-49.7 234.6c0-27.6 22.4-50 50-50s50 22.4 50 50v328.6c0 27.6-22.4 50-50 50s-50-22.4-50-50V339.8zm50 582.5c-39.6 0-71.7-32.1-71.7-71.7s32.1-71.7 71.7-71.7S572 811 572 850.6s-32.1 71.7-71.7 71.7z"
+        />
+      </svg>
+      <div
+        className="m-notification_content"
+      >
+        <div
+          className="h4 m-notification_message"
+        >
+          We’re currently experiencing technical issues that have delayed the refresh of data in the Consumer Complaint Database.  We expect to refresh the data in the next few days.
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div
+    className="layout-row refine"
+  >
+    <section
+      className="filter-panel-toggle"
+    >
+      <div
+        className="m-btn-group"
+      >
+        <p>
+           
+        </p>
+        <button
+          className="a-btn"
+          onClick={[Function]}
+          title="Filter results"
+        >
+          Filter results
+        </button>
+      </div>
+    </section>
+    <span
+      className="separator"
+    />
+    <section
+      className="cf-select"
+    >
+      <label
+        className="u-visually-hidden"
+        htmlFor="choose-size"
+      >
+        Select the number of results to display at a time
+      </label>
+      <p>
+        Show
+      </p>
+      <select
+        id="choose-size"
+        value="10"
+      >
+        <option
+          value={10}
+        >
+          10
+           results
+        </option>
+        <option
+          value={25}
+        >
+          25
+           results
+        </option>
+        <option
+          value={50}
+        >
+          50
+           results
+        </option>
+        <option
+          value={100}
+        >
+          100
+           results
+        </option>
+      </select>
+    </section>
+    <section
+      className="cf-select"
+    >
+      <label
+        className="u-visually-hidden"
+        htmlFor="choose-sort"
+      >
+        Choose the order in which the results are displayed
+      </label>
+      <p>
+        Sort
+      </p>
+      <select
+        id="choose-sort"
+      >
+        <option
+          value="created_date_desc"
+        >
+          Newest to oldest
+        </option>
+        <option
+          value="created_date_asc"
+        >
+          Oldest to newest
+        </option>
+        <option
+          value="relevance_desc"
+        >
+          Relevance
+        </option>
+        <option
+          value="relevance_asc"
+        >
+          Relevance (asc)
+        </option>
+      </select>
+    </section>
+  </div>
+  <ul
+    className="cards-panel"
+  >
+    <li
+      className="card-container"
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-left layout-column"
+        >
+          <h3
+            className="to-detail"
+          >
+            <a
+              aria-label="Complaint 1"
+              href="detail/1"
+            >
+              1
+            </a>
+          </h3>
+          <h4
+            tabIndex="0"
+          >
+            Company name
+          </h4>
+          <span
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "foo",
+              }
+            }
+            tabIndex="0"
+          />
+          <br />
+          <h4
+            tabIndex="0"
+          >
+            Company response to consumer
+          </h4>
+          <span
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Closed",
+              }
+            }
+            tabIndex="0"
+          />
+          <br />
+          <h4
+            tabIndex="0"
+          >
+            Timely response?
+          </h4>
+          <span
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "yes",
+              }
+            }
+            tabIndex="0"
+          />
+        </div>
+        <div
+          className="card-right layout-column"
+        >
+          <div
+            className="layout-row"
+          >
+            <div
+              className="layout-row"
+            >
+              <h4
+                tabIndex="0"
+              >
+                Date received:
+              </h4>
+              <span
+                className="body-copy"
+              >
+                <span>
+                  2/3/2013
+                </span>
+              </span>
+            </div>
+            <div
+              className="spacer"
+            />
+            <div
+              className="layout-row"
+            >
+              <h4
+                tabIndex="0"
+              >
+                Consumer's state:
+              </h4>
+              <span
+                className="body-copy"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "DC",
+                  }
+                }
+                tabIndex="0"
+              />
+            </div>
+          </div>
+          <br />
+          <h4
+            tabIndex="0"
+          >
+            Product
+          </h4>
+          <h3
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Bar",
+              }
+            }
+            tabIndex="0"
+          />
+          <div
+            className="layout-row"
+          >
+            <span
+              className="body-copy subitem"
+              tabIndex="0"
+            >
+              Sub-product:
+            </span>
+            <span
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Qaz",
+                }
+              }
+              tabIndex="0"
+            />
+          </div>
+          <br />
+          <h4
+            tabIndex="0"
+          >
+            Issue
+          </h4>
+          <h3
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Foo",
+              }
+            }
+            tabIndex="0"
+          />
+          <div
+            className="layout-row"
+          >
+            <span
+              className="body-copy subitem"
+              tabIndex="0"
+            >
+              Sub-issue:
+            </span>
+            <span
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Baz",
+                }
+              }
+              tabIndex="0"
+            />
+          </div>
+          <div>
+            <br />
+            <h4
+              tabIndex="0"
+            >
+              Consumer Complaint Narrative
+            </h4>
+            <span
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Lorem Ipsum",
+                }
+              }
+              tabIndex="0"
+            />
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <nav
+    aria-label="Pagination"
+    className="m-pagination"
+    role="navigation"
+  >
+    <button
+      className="a-btn m-pagination_btn-prev"
+      disabled={false}
+      onClick={[Function]}
+    >
+      <span
+        className="a-btn_icon a-btn_icon__on-left"
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 559.6 1200"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M494.5 1090.7c-17.3 0-33.8-6.8-46-19L19 642.1c-25.4-25.4-25.4-66.5 0-91.9l429.5-429.5c25.6-25.1 66.8-24.8 91.9.8 24.8 25.3 24.8 65.8 0 91.1L156.9 596.2l383.6 383.6c25.4 25.4 25.4 66.5.1 91.9-12.3 12.2-28.8 19-46.1 19z"
+          />
+        </svg>
+      </span>
+      Previous
+    </button>
+    <button
+      className="a-btn m-pagination_btn-next"
+      disabled={false}
+      onClick={[Function]}
+    >
+      Next
+      <span
+        className="a-btn_icon a-btn_icon__on-right"
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 559.6 1200"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M65.1 1090.2c-35.9 0-65-29-65.1-64.9 0-17.3 6.8-33.9 19.1-46.1l383.6-383.5L19.1 212.2c-25.1-25.6-24.8-66.8.9-92 25.3-24.8 65.8-24.8 91.1 0l429.5 429.5c25.4 25.4 25.4 66.5 0 91.9L111 1071.2c-12.1 12.2-28.7 19.1-45.9 19z"
+          />
+        </svg>
+      </span>
+    </button>
+    <form
+      action=""
+      className="m-pagination_form"
+      onSubmit={[Function]}
+    >
+      <label
+        className="m-pagination_label"
+        htmlFor="m-pagination_current-page"
+      >
+        Page
+        <span
+          className="u-visually-hidden"
+        >
+          number 
+           out
+        </span>
+        <input
+          className="m-pagination_current-page"
+          id="m-pagination_current-page"
+          inputMode="numeric"
+          max={1}
+          min="1"
+          name="page"
+          onChange={[Function]}
+          pattern="[0-9]*"
+          type="number"
+        />
+        of 
+        <span>
+          1
+        </span>
+      </label>
+      <button
+        className="a-btn a-btn__link m-pagination_btn-submit"
+        id="m-pagination_btn-submit"
+        type="submit"
+      >
+        Go
+      </button>
+    </form>
+  </nav>
+</section>
+`;
+
+exports[`component:ListPanel renders mobile filters without crashing 1`] = `
+<section
+  className="list-panel"
+>
+  <div>
+    <summary
+      className="action-bar"
+      id="search-summary"
+    >
+      <div>
+        <h2>
+          Showing 
+          <span>
+            1
+          </span>
+           matches out of 
+          <span>
+            100
+          </span>
+           total complaints
+        </h2>
+      </div>
+      <div
+        className="layout-row"
+      >
+        <h3
+          className="h4 flex-all export-results"
+        >
+          <button
+            className="a-btn a-btn__link"
+            data-gtm_ignore="true"
+            onClick={[Function]}
+          >
+            Export data
+          </button>
+          <button
+            className="a-btn a-btn__link print-preview"
+            data-gtm_ignore="true"
+            onClick={[Function]}
+          >
+            <svg
+              className="cf-icon-svg"
+              viewBox="0 0 761.9 1200"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M203.7 889.9h355v50h-355zM203.7 788.4h355v50h-355z"
+              />
+              <path
+                d="M670.9 368.4L477.3 174.8H122.1c-16.5 0-30 13.5-30 30V500H70c-38.5 0-70 31.5-70 70v305.5c0 38.5 31.5 70 70 70h22.1v60.5c0 16.5 13.5 30 30 30h518.8c16.5 0 30-13.5 30-30v-60.5h21c38.5 0 70-31.5 70-70V569.9c0-38.5-31.5-70-70-70h-21V368.4zm-60 607.6H152.1V742.7h458.8V976zM425 234.8v146.4c0 21.1 17.3 38.4 38.4 38.4h147.5V500H152.1V234.8H425zm237.9 403.9c-16.6 0-30-13.4-30-30s13.4-30 30-30 30 13.4 30 30-13.4 30-30 30z"
+              />
+            </svg>
+            Print
+          </button>
+        </h3>
+      </div>
+    </summary>
+  </div>
+  <div />
+  <div
+    className="layout-row refine"
+  >
+    <section
+      className="filter-panel-toggle"
+    >
+      <div
+        className="m-btn-group"
+      >
+        <p>
+           
+        </p>
+        <button
+          className="a-btn"
+          onClick={[Function]}
+          title="Filter results"
+        >
+          Filter results
+        </button>
+      </div>
+    </section>
+    <span
+      className="separator"
+    />
+    <section
+      className="cf-select"
+    >
+      <label
+        className="u-visually-hidden"
+        htmlFor="choose-size"
+      >
+        Select the number of results to display at a time
+      </label>
+      <p>
+        Show
+      </p>
+      <select
+        id="choose-size"
+        value="10"
+      >
+        <option
+          value={10}
+        >
+          10
+           results
+        </option>
+        <option
+          value={25}
+        >
+          25
+           results
+        </option>
+        <option
+          value={50}
+        >
+          50
+           results
+        </option>
+        <option
+          value={100}
+        >
+          100
+           results
+        </option>
+      </select>
+    </section>
+    <section
+      className="cf-select"
+    >
+      <label
+        className="u-visually-hidden"
+        htmlFor="choose-sort"
+      >
+        Choose the order in which the results are displayed
+      </label>
+      <p>
+        Sort
+      </p>
+      <select
+        id="choose-sort"
+      >
+        <option
+          value="created_date_desc"
+        >
+          Newest to oldest
+        </option>
+        <option
+          value="created_date_asc"
+        >
+          Oldest to newest
+        </option>
+        <option
+          value="relevance_desc"
+        >
+          Relevance
+        </option>
+        <option
+          value="relevance_asc"
+        >
+          Relevance (asc)
+        </option>
+      </select>
+    </section>
+  </div>
+  <ul
+    className="cards-panel"
+  >
+    <li
+      className="card-container"
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-left layout-column"
+        >
+          <h3
+            className="to-detail"
+          >
+            <a
+              aria-label="Complaint 1"
+              href="detail/1"
+            >
+              1
+            </a>
+          </h3>
+          <h4
+            tabIndex="0"
+          >
+            Company name
+          </h4>
+          <span
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "foo",
+              }
+            }
+            tabIndex="0"
+          />
+          <br />
+          <h4
+            tabIndex="0"
+          >
+            Company response to consumer
+          </h4>
+          <span
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Closed",
+              }
+            }
+            tabIndex="0"
+          />
+          <br />
+          <h4
+            tabIndex="0"
+          >
+            Timely response?
+          </h4>
+          <span
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "yes",
+              }
+            }
+            tabIndex="0"
+          />
+        </div>
+        <div
+          className="card-right layout-column"
+        >
+          <div
+            className="layout-row"
+          >
+            <div
+              className="layout-row"
+            >
+              <h4
+                tabIndex="0"
+              >
+                Date received:
+              </h4>
+              <span
+                className="body-copy"
+              >
+                <span>
+                  2/3/2013
+                </span>
+              </span>
+            </div>
+            <div
+              className="spacer"
+            />
+            <div
+              className="layout-row"
+            >
+              <h4
+                tabIndex="0"
+              >
+                Consumer's state:
+              </h4>
+              <span
+                className="body-copy"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "DC",
+                  }
+                }
+                tabIndex="0"
+              />
+            </div>
+          </div>
+          <br />
+          <h4
+            tabIndex="0"
+          >
+            Product
+          </h4>
+          <h3
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Bar",
+              }
+            }
+            tabIndex="0"
+          />
+          <div
+            className="layout-row"
+          >
+            <span
+              className="body-copy subitem"
+              tabIndex="0"
+            >
+              Sub-product:
+            </span>
+            <span
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Qaz",
+                }
+              }
+              tabIndex="0"
+            />
+          </div>
+          <br />
+          <h4
+            tabIndex="0"
+          >
+            Issue
+          </h4>
+          <h3
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Foo",
+              }
+            }
+            tabIndex="0"
+          />
+          <div
+            className="layout-row"
+          >
+            <span
+              className="body-copy subitem"
+              tabIndex="0"
+            >
+              Sub-issue:
+            </span>
+            <span
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Baz",
+                }
+              }
+              tabIndex="0"
+            />
+          </div>
+          <div>
+            <br />
+            <h4
+              tabIndex="0"
+            >
+              Consumer Complaint Narrative
+            </h4>
+            <span
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Lorem Ipsum",
+                }
+              }
+              tabIndex="0"
+            />
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <nav
+    aria-label="Pagination"
+    className="m-pagination"
+    role="navigation"
+  >
+    <button
+      className="a-btn m-pagination_btn-prev"
+      disabled={false}
+      onClick={[Function]}
+    >
+      <span
+        className="a-btn_icon a-btn_icon__on-left"
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 559.6 1200"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M494.5 1090.7c-17.3 0-33.8-6.8-46-19L19 642.1c-25.4-25.4-25.4-66.5 0-91.9l429.5-429.5c25.6-25.1 66.8-24.8 91.9.8 24.8 25.3 24.8 65.8 0 91.1L156.9 596.2l383.6 383.6c25.4 25.4 25.4 66.5.1 91.9-12.3 12.2-28.8 19-46.1 19z"
+          />
+        </svg>
+      </span>
+      Previous
+    </button>
+    <button
+      className="a-btn m-pagination_btn-next"
+      disabled={false}
+      onClick={[Function]}
+    >
+      Next
+      <span
+        className="a-btn_icon a-btn_icon__on-right"
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 559.6 1200"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M65.1 1090.2c-35.9 0-65-29-65.1-64.9 0-17.3 6.8-33.9 19.1-46.1l383.6-383.5L19.1 212.2c-25.1-25.6-24.8-66.8.9-92 25.3-24.8 65.8-24.8 91.1 0l429.5 429.5c25.4 25.4 25.4 66.5 0 91.9L111 1071.2c-12.1 12.2-28.7 19.1-45.9 19z"
+          />
+        </svg>
+      </span>
+    </button>
+    <form
+      action=""
+      className="m-pagination_form"
+      onSubmit={[Function]}
+    >
+      <label
+        className="m-pagination_label"
+        htmlFor="m-pagination_current-page"
+      >
+        Page
+        <span
+          className="u-visually-hidden"
+        >
+          number 
+           out
+        </span>
+        <input
+          className="m-pagination_current-page"
+          id="m-pagination_current-page"
+          inputMode="numeric"
+          max={1}
+          min="1"
+          name="page"
+          onChange={[Function]}
+          pattern="[0-9]*"
+          type="number"
+        />
+        of 
+        <span>
+          1
+        </span>
+      </label>
+      <button
+        className="a-btn a-btn__link m-pagination_btn-submit"
+        id="m-pagination_btn-submit"
+        type="submit"
+      >
+        Go
+      </button>
+    </form>
+  </nav>
+</section>
+`;
+
+exports[`component:ListPanel renders without crashing 1`] = `
+<section
+  className="list-panel"
+>
+  <div>
+    <summary
+      className="action-bar"
+      id="search-summary"
+    >
+      <div>
+        <h2>
+          Showing 
+          <span>
+            1
+          </span>
+           matches out of 
+          <span>
+            100
+          </span>
+           total complaints
+        </h2>
+      </div>
+      <div
+        className="layout-row"
+      >
+        <h3
+          className="h4 flex-all export-results"
+        >
+          <button
+            className="a-btn a-btn__link"
+            data-gtm_ignore="true"
+            onClick={[Function]}
+          >
+            Export data
+          </button>
+          <button
+            className="a-btn a-btn__link print-preview"
+            data-gtm_ignore="true"
+            onClick={[Function]}
+          >
+            <svg
+              className="cf-icon-svg"
+              viewBox="0 0 761.9 1200"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M203.7 889.9h355v50h-355zM203.7 788.4h355v50h-355z"
+              />
+              <path
+                d="M670.9 368.4L477.3 174.8H122.1c-16.5 0-30 13.5-30 30V500H70c-38.5 0-70 31.5-70 70v305.5c0 38.5 31.5 70 70 70h22.1v60.5c0 16.5 13.5 30 30 30h518.8c16.5 0 30-13.5 30-30v-60.5h21c38.5 0 70-31.5 70-70V569.9c0-38.5-31.5-70-70-70h-21V368.4zm-60 607.6H152.1V742.7h458.8V976zM425 234.8v146.4c0 21.1 17.3 38.4 38.4 38.4h147.5V500H152.1V234.8H425zm237.9 403.9c-16.6 0-30-13.4-30-30s13.4-30 30-30 30 13.4 30 30-13.4 30-30 30z"
+              />
+            </svg>
+            Print
+          </button>
+        </h3>
+      </div>
+    </summary>
+  </div>
+  <div
+    className="layout-row refine"
+  >
+    <section
+      className="filter-panel-toggle"
+    >
+      <div
+        className="m-btn-group"
+      >
+        <p>
+           
+        </p>
+        <button
+          className="a-btn"
+          onClick={[Function]}
+          title="Filter results"
+        >
+          Filter results
+        </button>
+      </div>
+    </section>
+    <span
+      className="separator"
+    />
+    <section
+      className="cf-select"
+    >
+      <label
+        className="u-visually-hidden"
+        htmlFor="choose-size"
+      >
+        Select the number of results to display at a time
+      </label>
+      <p>
+        Show
+      </p>
+      <select
+        id="choose-size"
+        value="10"
+      >
+        <option
+          value={10}
+        >
+          10
+           results
+        </option>
+        <option
+          value={25}
+        >
+          25
+           results
+        </option>
+        <option
+          value={50}
+        >
+          50
+           results
+        </option>
+        <option
+          value={100}
+        >
+          100
+           results
+        </option>
+      </select>
+    </section>
+    <section
+      className="cf-select"
+    >
+      <label
+        className="u-visually-hidden"
+        htmlFor="choose-sort"
+      >
+        Choose the order in which the results are displayed
+      </label>
+      <p>
+        Sort
+      </p>
+      <select
+        id="choose-sort"
+      >
+        <option
+          value="created_date_desc"
+        >
+          Newest to oldest
+        </option>
+        <option
+          value="created_date_asc"
+        >
+          Oldest to newest
+        </option>
+        <option
+          value="relevance_desc"
+        >
+          Relevance
+        </option>
+        <option
+          value="relevance_asc"
+        >
+          Relevance (asc)
+        </option>
+      </select>
+    </section>
+  </div>
+  <ul
+    className="cards-panel"
+  >
+    <li
+      className="card-container"
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-left layout-column"
+        >
+          <h3
+            className="to-detail"
+          >
+            <a
+              aria-label="Complaint 1"
+              href="detail/1"
+            >
+              1
+            </a>
+          </h3>
+          <h4
+            tabIndex="0"
+          >
+            Company name
+          </h4>
+          <span
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "foo",
+              }
+            }
+            tabIndex="0"
+          />
+          <br />
+          <h4
+            tabIndex="0"
+          >
+            Company response to consumer
+          </h4>
+          <span
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Closed",
+              }
+            }
+            tabIndex="0"
+          />
+          <br />
+          <h4
+            tabIndex="0"
+          >
+            Timely response?
+          </h4>
+          <span
+            className="body-copy"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "yes",
+              }
+            }
+            tabIndex="0"
+          />
+        </div>
+        <div
+          className="card-right layout-column"
+        >
+          <div
+            className="layout-row"
+          >
+            <div
+              className="layout-row"
+            >
+              <h4
+                tabIndex="0"
+              >
+                Date received:
+              </h4>
+              <span
+                className="body-copy"
+              >
+                <span>
+                  2/3/2013
+                </span>
+              </span>
+            </div>
+            <div
+              className="spacer"
+            />
+            <div
+              className="layout-row"
+            >
+              <h4
+                tabIndex="0"
+              >
+                Consumer's state:
+              </h4>
+              <span
+                className="body-copy"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "DC",
+                  }
+                }
+                tabIndex="0"
+              />
+            </div>
+          </div>
+          <br />
+          <h4
+            tabIndex="0"
+          >
+            Product
+          </h4>
+          <h3
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Bar",
+              }
+            }
+            tabIndex="0"
+          />
+          <div
+            className="layout-row"
+          >
+            <span
+              className="body-copy subitem"
+              tabIndex="0"
+            >
+              Sub-product:
+            </span>
+            <span
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Qaz",
+                }
+              }
+              tabIndex="0"
+            />
+          </div>
+          <br />
+          <h4
+            tabIndex="0"
+          >
+            Issue
+          </h4>
+          <h3
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Foo",
+              }
+            }
+            tabIndex="0"
+          />
+          <div
+            className="layout-row"
+          >
+            <span
+              className="body-copy subitem"
+              tabIndex="0"
+            >
+              Sub-issue:
+            </span>
+            <span
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Baz",
+                }
+              }
+              tabIndex="0"
+            />
+          </div>
+          <div>
+            <br />
+            <h4
+              tabIndex="0"
+            >
+              Consumer Complaint Narrative
+            </h4>
+            <span
+              className="body-copy"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Lorem Ipsum",
+                }
+              }
+              tabIndex="0"
+            />
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <nav
+    aria-label="Pagination"
+    className="m-pagination"
+    role="navigation"
+  >
+    <button
+      className="a-btn m-pagination_btn-prev"
+      disabled={false}
+      onClick={[Function]}
+    >
+      <span
+        className="a-btn_icon a-btn_icon__on-left"
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 559.6 1200"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M494.5 1090.7c-17.3 0-33.8-6.8-46-19L19 642.1c-25.4-25.4-25.4-66.5 0-91.9l429.5-429.5c25.6-25.1 66.8-24.8 91.9.8 24.8 25.3 24.8 65.8 0 91.1L156.9 596.2l383.6 383.6c25.4 25.4 25.4 66.5.1 91.9-12.3 12.2-28.8 19-46.1 19z"
+          />
+        </svg>
+      </span>
+      Previous
+    </button>
+    <button
+      className="a-btn m-pagination_btn-next"
+      disabled={false}
+      onClick={[Function]}
+    >
+      Next
+      <span
+        className="a-btn_icon a-btn_icon__on-right"
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 559.6 1200"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M65.1 1090.2c-35.9 0-65-29-65.1-64.9 0-17.3 6.8-33.9 19.1-46.1l383.6-383.5L19.1 212.2c-25.1-25.6-24.8-66.8.9-92 25.3-24.8 65.8-24.8 91.1 0l429.5 429.5c25.4 25.4 25.4 66.5 0 91.9L111 1071.2c-12.1 12.2-28.7 19.1-45.9 19z"
+          />
+        </svg>
+      </span>
+    </button>
+    <form
+      action=""
+      className="m-pagination_form"
+      onSubmit={[Function]}
+    >
+      <label
+        className="m-pagination_label"
+        htmlFor="m-pagination_current-page"
+      >
+        Page
+        <span
+          className="u-visually-hidden"
+        >
+          number 
+           out
+        </span>
+        <input
+          className="m-pagination_current-page"
+          id="m-pagination_current-page"
+          inputMode="numeric"
+          max={1}
+          min="1"
+          name="page"
+          onChange={[Function]}
+          pattern="[0-9]*"
+          type="number"
+        />
+        of 
+        <span>
+          1
+        </span>
+      </label>
+      <button
+        className="a-btn a-btn__link m-pagination_btn-submit"
+        id="m-pagination_btn-submit"
+        type="submit"
+      >
+        Go
+      </button>
+    </form>
+  </nav>
+</section>
+`;

@@ -5,12 +5,11 @@ python:
 install:
   - pip install tox-travis
 script:
+  # https://github.com/cfpb/teachers-digital-platform/pull/213/files
+  - npm config set package-lock false
   # The tox tests run the frontend build so no manual npm install is needed.
   - tox
   - npm test
-  # We don't want changes to package-lock.json to show up as local git
-  # changes when the Python wheel tag is determined.
-  - git checkout package-lock.json
   - python setup.py bdist_wheel
 after_script:
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
