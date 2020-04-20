@@ -176,12 +176,6 @@ x/y positioning on the SVG elements.
             &.selected {
                 stroke: rgba(0, 45, 114, 1);
             }
-
-            &:hover {
-                stroke: rgba(0, 45, 114, 1);
-                stroke-width: 2px !important;
-            }
-
         }
     }
 
@@ -220,6 +214,17 @@ x/y positioning on the SVG elements.
                 border-top: solid 1px #43484e;
                 margin-top: 5px;
                 padding-top: 5px;
+            }
+        }
+    }
+}
+
+.cfpb-chart[data-chart-type="tile_map"]:not(.print) {
+    .highcharts-map-series {
+        .highcharts-point {
+            &:hover {
+                stroke: rgba(0, 45, 114, 1);
+                stroke-width: 2px !important;
             }
         }
     }

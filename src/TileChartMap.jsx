@@ -56,7 +56,7 @@ export class TileChartMap extends React.Component {
     const toggleState = this._toggleState
     const componentProps = this.props
     const mapElement = document.getElementById( 'tile-chart-map' )
-    const { dataNormalization } = componentProps
+    const { dataNormalization, hasTip } = componentProps
     const width = mapElement ? mapElement.clientWidth : 700;
     const data = updateData( this.props )
 
@@ -68,6 +68,7 @@ export class TileChartMap extends React.Component {
         // custom event handlers we can pass on
         click: toggleState.bind( componentProps )
       },
+      hasTip,
       width
     }
 
@@ -136,6 +137,7 @@ export const mapStateToProps = state => {
   return {
     data: processStates( state ),
     dataNormalization: state.map.dataNormalization,
+    hasTip: !printMode,
     printClass: printMode ? 'print' : '',
     stateFilters: [ ...refStateFilters ],
     width
