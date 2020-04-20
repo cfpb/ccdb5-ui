@@ -362,7 +362,7 @@ const colors = [
    Tile Map class */
 
 class TileMap {
-  constructor( { el, data, isPerCapita, events, height, width } ) {
+  constructor( { el, data, isPerCapita, events, height, hasTip, width } ) {
     const scale = makeScale( data, colors )
     const quantiles = scale.quantiles()
 
@@ -396,7 +396,7 @@ class TileMap {
       },
       tooltip: {
         className: 'tooltip',
-        enabled: true,
+        enabled: hasTip,
         headerFormat: '',
         pointFormatter: tooltipFormatter,
         useHTML: true
@@ -407,6 +407,11 @@ class TileMap {
             enabled: true,
             formatter: tileFormatter,
             useHTML: true
+          },
+          states: {
+            hover: {
+              enabled: hasTip
+            }
           }
         }
       },
@@ -425,8 +430,8 @@ class TileMap {
     };
 
     // our custom passing of information
-    if ( events ) {
-      options.plotOptions.series.events = events;
+    if ( events && hasTip ) {
+      options.plotOptions.series.events = events
       options.plotOptions.series.point = {
         events: {
           mouseOver: mouseoverPoint,
