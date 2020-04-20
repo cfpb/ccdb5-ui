@@ -216,6 +216,7 @@ describe( 'component: TileChartMap', () => {
           ]
         ],
         dataNormalization: false,
+        hasTip: true,
         printClass: '',
         stateFilters: [ 'TX' ],
         width: 1000
