@@ -1,7 +1,9 @@
-import { dateFilters, flagFilters } from './constants'
+import {
+  dateFilters, excludeFields, flagFilters
+} from './constants'
 import announceUrlChanged from './actions/url'
 import { connect } from 'react-redux'
-import createHistory from 'history/createBrowserHistory'
+import { createBrowserHistory as createHistory } from 'history'
 import React from 'react'
 import { shortIsoFormat } from './utils'
 
@@ -34,6 +36,16 @@ export function toQS( props ) {
     }
   } )
 
+  Object.keys( clone ).forEach( k => {
+    if ( clone[k] === '' ) {
+      delete clone[k]
+    }
+  } )
+
+  excludeFields.forEach( f => {
+    delete clone[f]
+  } )
+
   return '?' + queryString.stringify( clone )
 }
 
@@ -57,7 +69,8 @@ export class UrlBarSynch extends React.Component {
     this.props.onUrlChanged( this.location )
   }
 
-  componentWillReceiveProps( nextProps ) {
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillReceiveProps( nextProps ) {
     const qs = toQS( nextProps );
     if ( qs !== this.currentQS ) {
       this.currentQS = qs
@@ -83,7 +96,10 @@ export class UrlBarSynch extends React.Component {
 }
 
 export const mapStateToProps = state => ( {
-  params: { ...state.query }
+  params: {
+    ...state.query,
+    dataNormalization: state.map.dataNormalization
+  }
 } )
 
 export const mapDispatchToProps = dispatch => ( {

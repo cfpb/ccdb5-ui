@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
-import { filterChanged } from '../actions/filter'
 import { FormattedNumber } from 'react-intl'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { toggleFilter } from '../actions/filter'
 
 export const AggregationItem = ( { item, fieldName, active, onClick } ) => {
   const value = item.value || item.key
@@ -53,7 +53,7 @@ export const mapStateToProps = ( state, ownProps ) => {
 
 export const mapDispatchToProps = ( dispatch, ownProps ) => ( {
   onClick: () => {
-    dispatch( filterChanged( ownProps.fieldName, ownProps.item ) )
+    dispatch( toggleFilter( ownProps.fieldName, ownProps.item ) )
   }
 } )
 

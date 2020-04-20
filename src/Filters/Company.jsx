@@ -23,15 +23,15 @@ export class Company extends React.Component {
   }
 
   render() {
-    const desc = 'The company name as it appears in our complaint system, ' +
-      'which may be different than the name the consumer provided in their ' +
-      'complaint'
+    const desc = 'The complaint is about this company.'
 
     return (
       <CollapsibleFilter title="Company name"
                          desc={desc}
                          className="aggregation">
-        <Typeahead debounceWait={this.props.debounceWait}
+        <Typeahead ariaLabel="Start typing to begin listing companies"
+                   htmlId="company-typeahead"
+                   debounceWait={this.props.debounceWait}
                    onInputChange={this._onInputChange}
                    onOptionSelected={this._onOptionSelected}
                    placeholder="Enter company name"

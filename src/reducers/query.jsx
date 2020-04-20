@@ -1,13 +1,29 @@
+/* eslint complexity: ["error", 7] */
+
 import * as types from '../constants'
-import { shortIsoFormat } from '../utils'
+import {
+  calculateDateInterval, clamp, hasFiltersEnabled, shortIsoFormat, startOfToday
+} from '../utils'
+import actions from '../actions'
+import moment from 'moment';
+
 const queryString = require( 'query-string' );
 
+/* eslint-disable camelcase */
 export const defaultQuery = {
+  dateInterval: '3y',
+  date_received_max: startOfToday(),
+  date_received_min: new Date( moment().subtract( 3, 'years' ).calendar() ),
+  enablePer1000: true,
+  from: 0,
+  mapWarningEnabled: true,
   searchText: '',
   searchField: 'all',
-  from: 0,
   size: 25,
-  sort: 'created_date_desc'
+  sort: 'created_date_desc',
+  page: 1,
+  tab: types.MODE_MAP,
+  totalPages: 0
 }
 
 const fieldMap = {
@@ -16,8 +32,72 @@ const fieldMap = {
   from: 'frm'
 }
 
-const urlParams = [ 'searchText', 'searchField' ]
-const urlParamsInt = [ 'from', 'size' ]
+const urlParams = [ 'dateInterval', 'searchText', 'searchField', 'tab' ]
+const urlParamsInt = [ 'from', 'page', 'size' ]
+
+// ----------------------------------------------------------------------------
+// Helper functions
+
+/**
+* Makes sure the date interval reflects the actual date range
+*
+* @param {object} state the raw, unvalidated state
+* @returns {object} the validated state
+*/
+export function alignIntervalAndRange( state ) {
+  // Shorten the input field names
+  const dateMax = state.date_received_max
+  const dateMin = state.date_received_min
+
+  // All
+  if ( moment( dateMax ).isSame( defaultQuery.date_received_max ) &&
+    moment( dateMin ).isSame( types.DATE_RANGE_MIN )
+  ) {
+    state.dateInterval = 'All'
+    return state
+  }
+
+  const intervalMap = {
+    '3y': new Date( moment( dateMax ).subtract( 3, 'years' ) ),
+    '3m': new Date( moment( dateMax ).subtract( 3, 'months' ) ),
+    '6m': new Date( moment( dateMax ).subtract( 6, 'months' ) ),
+    '1y': new Date( moment( dateMax ).subtract( 1, 'year' ) )
+  }
+  const intervals = Object.keys( intervalMap )
+  let matched = false
+
+  for ( let i = 0; i < intervals.length && !matched; i++ ) {
+    const interval = intervals[i]
+
+    if ( moment( dateMin ).isSame( intervalMap[interval], 'day' ) ) {
+      state.dateInterval = interval
+      matched = true
+    }
+  }
+
+  // No matches, clear
+  if ( !matched ) {
+    state.dateInterval = ''
+  }
+
+  return state
+}
+
+/**
+* Check for a common case where there is a date interval but no dates
+*
+* @param {Object} params a set of URL parameters
+* @returns {Boolean} true if the params meet this condition
+*/
+export function dateIntervalNoDates( params ) {
+  const keys = Object.keys( params )
+
+  return (
+    keys.includes( 'dateInterval' ) &&
+    !keys.includes( 'date_received_min' ) &&
+    !keys.includes( 'date_received_max' )
+  )
+}
 
 // ----------------------------------------------------------------------------
 // Complex reduction logic
@@ -56,7 +136,7 @@ export function toDate( value ) {
 */
 function processParams( state, action ) {
   const params = action.params
-  const processed = Object.assign( {}, defaultQuery )
+  let processed = Object.assign( {}, defaultQuery )
 
   // Filter for known
   urlParams.forEach( field => {
@@ -103,7 +183,46 @@ function processParams( state, action ) {
     }
   } )
 
-  return processed
+  // Apply the date interval
+  if ( dateIntervalNoDates( params ) || params.dateInterval === 'All' ) {
+    const innerAction = { dateInterval: params.dateInterval }
+    processed = changeDateInterval( processed, innerAction )
+  }
+
+  return alignIntervalAndRange( processed )
+}
+
+/**
+ * Change a date range filter according to selected interval
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the payload containing the date interval to change
+ * @returns {object} the new state for the Redux store
+ */
+export function changeDateInterval( state, action ) {
+
+  const dateInterval = action.dateInterval;
+  const newState = {
+    ...state,
+    dateInterval
+  }
+
+  const res = {
+    '3m': new Date( moment().subtract( 3, 'months' ).calendar() ),
+    '6m': new Date( moment().subtract( 6, 'months' ).calendar() ),
+    '1y': new Date( moment().subtract( 1, 'year' ).calendar() ),
+    '3y': new Date( moment().subtract( 3, 'years' ).calendar() )
+  }
+
+  if ( res[dateInterval] ) {
+    newState.date_received_min = res[dateInterval]
+  } else if ( dateInterval === 'All' ) {
+    newState.date_received_min = new Date( types.DATE_RANGE_MIN )
+  }
+
+  newState.date_received_max = startOfToday()
+
+  return newState;
 }
 
 /**
@@ -120,10 +239,18 @@ export function changeDateRange( state, action ) {
     action.filterName + '_max'
   ]
 
+  let { maxDate, minDate } = action
+
+  minDate = moment( minDate ).isValid() ?
+    new Date( moment( minDate ).startOf( 'day' ) ) : null
+  maxDate = moment( maxDate ).isValid() ?
+    new Date( moment( maxDate ).startOf( 'day' ) ) : null
+
+
   const newState = {
     ...state,
-    [fields[0]]: action.minDate,
-    [fields[1]]: action.maxDate
+    [fields[0]]: minDate,
+    [fields[1]]: maxDate
   }
 
   // Remove nulls
@@ -132,6 +259,13 @@ export function changeDateRange( state, action ) {
       delete newState[field]
     }
   } )
+
+  const dateInterval = calculateDateInterval( minDate, maxDate )
+  if ( dateInterval ) {
+    newState.dateInterval = dateInterval
+  } else {
+    delete newState.dateInterval
+  }
 
   return newState
 }
@@ -143,12 +277,12 @@ export function changeDateRange( state, action ) {
 * @param {object} action the payload containing the value to change
 * @returns {object} the new state for the Redux store
 */
-export function changeFlagFilter( state, action ) {
+export function toggleFlagFilter( state, action ) {
 
   /* eslint-disable camelcase */
   const newState = {
     ...state,
-    [action.filterName]: action.filterValue
+    [action.filterName]: Boolean( !state[action.filterName] )
   }
 
   /* eslint-enable camelcase */
@@ -162,6 +296,22 @@ export function changeFlagFilter( state, action ) {
   } )
 
   return newState
+}
+
+/**
+ * updates when search text params are changed
+ * @param {object} state current state in redux
+ * @param {object} action payload with search text and field
+ * @returns {object} updated state for redux
+ */
+export function changeSearch( state, action ) {
+  return {
+    ...state,
+    from: 0,
+    page: 1,
+    searchText: action.searchText,
+    searchField: action.searchField
+  }
 }
 
 /**
@@ -184,6 +334,7 @@ export function addMultipleFilters( state, action ) {
   } )
 
   newState[name] = a
+
   return newState
 }
 
@@ -214,12 +365,84 @@ export function filterArrayAction( target = [], val ) {
 * @returns {object} the new state for the Redux store
 */
 export function toggleFilter( state, action ) {
-  return {
+  const newState = {
     ...state,
     [action.filterName]: filterArrayAction(
       state[action.filterName], action.filterValue.key
     )
   }
+
+  return newState
+}
+
+/**
+ * adds a state filter in the current set
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the payload containing the filters to change
+ * @returns {object} the new state for the Redux store
+ */
+export function addStateFilter( state, action ) {
+  const stateFilters = state.state || []
+  const { abbr } = action.selectedState
+  if ( !stateFilters.includes( abbr ) ) {
+    stateFilters.push( abbr )
+  }
+
+  const newState = {
+    ...state,
+    state: stateFilters
+  }
+
+  return newState
+}
+
+/**
+ * removes all state filters in the current set
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+export function clearStateFilter( state ) {
+  const newState = {
+    ...state,
+    state: []
+  }
+
+  return newState
+}
+
+/**
+ * only applies the single state filter and switches view mode to complaints
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+export function showStateComplaints( state ) {
+  return {
+    ...state,
+    tab: types.MODE_LIST
+  }
+}
+
+/**
+ * removes one state filters in the current set
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the payload containing the filters to change
+ * @returns {object} the new state for the Redux store
+ */
+export function removeStateFilter( state, action ) {
+  let stateFilters = state.state || []
+  const { abbr } = action.selectedState
+  stateFilters = stateFilters.filter( o => o !== abbr )
+
+  const newState = {
+    ...state,
+    state: stateFilters
+  }
+
+  return newState
 }
 
 /**
@@ -245,6 +468,14 @@ export function removeAllFilters( state ) {
       delete newState[kf]
     }
   } )
+
+  // set date interval to All
+  // adjust date filter for max and min ranges
+  newState.dateInterval = 'All'
+  /* eslint-disable camelcase */
+  newState.date_received_min = new Date( types.DATE_RANGE_MIN )
+  newState.date_received_max = startOfToday()
+
   return newState
 }
 
@@ -257,12 +488,15 @@ export function removeAllFilters( state ) {
 */
 function removeFilter( state, action ) {
   const newState = { ...state }
-  if ( action.filterName in newState ) {
+  if ( action.filterName === 'has_narrative' ) {
+    delete newState.has_narrative
+  } else if ( action.filterName in newState ) {
     const idx = newState[action.filterName].indexOf( action.filterValue )
     if ( idx !== -1 ) {
       newState[action.filterName].splice( idx, 1 )
     }
   }
+
   return newState
 }
 
@@ -288,6 +522,127 @@ function removeMultipleFilters( state, action ) {
   return newState
 }
 
+/**
+ * update state based on pageChanged action
+ * @param {object} state current redux state
+ * @param {object} action command executed
+ * @returns {object} new state in redux
+ */
+function changePage( state, action ) {
+  const page = parseInt( action.page, 10 )
+  return {
+    ...state,
+    from: ( page - 1 ) * state.size,
+    page: page
+  }
+}
+
+/**
+ * Handler for the dismiss map warning action
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+export function dismissMapWarning( state ) {
+  return {
+    ...state,
+    mapWarningEnabled: false
+  }
+}
+
+/**
+ * Update state based on the sort order changed action
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the command being executed
+ * @returns {object} the new state for the Redux store
+ */
+function prevPage( state ) {
+  // don't let them go lower than 1
+  const page = clamp( state.page - 1, 1, state.page );
+  return {
+    ...state,
+    from: ( page - 1 ) * state.size,
+    page: page
+  };
+}
+
+/**
+ * Update state based on the sort order changed action
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+function nextPage( state ) {
+  // don't let them go past the total num of pages
+  const page = clamp( state.page + 1, 1, state.totalPages );
+  return {
+    ...state,
+    from: ( page - 1 ) * state.size,
+    page: page
+  };
+}
+
+
+/**
+ * update state based on changeSize action
+ * @param {object} state current redux state
+ * @param {object} action command executed
+ * @returns {object} new state in redux
+ */
+function changeSize( state, action ) {
+  return {
+    ...state,
+    from: 0,
+    page: 1,
+    size: action.size
+  }
+}
+
+/**
+ * update state based on changeSort action
+ * @param {object} state current redux state
+ * @param {object} action command executed
+ * @returns {object} new state in redux
+ */
+function changeSort( state, action ) {
+  return {
+    ...state,
+    sort: action.sort
+  }
+}
+
+/**
+ * update state based on tabChanged action
+ * @param {object} state current redux state
+ * @param {object} action command executed
+ * @returns {object} new state in redux
+ */
+function changeTab( state, action ) {
+  return {
+    ...state,
+    tab: action.tab
+  }
+}
+
+/**
+ * Upon complaint received, we need to make sure to reset the page
+ *
+ * @param  {object} state the current state in the Redux store
+ * @param {object} action the command being executed
+ * @returns {{page: number, totalPages: number}} the new state
+ */
+function updateTotalPages( state, action ) {
+  const totalPages = Math.ceil( action.data.hits.total / state.size );
+  // reset pager to 1 if the number of total pages is less than current page
+  const page = state.page > totalPages ? totalPages : state.page;
+  return {
+    ...state,
+    page,
+    totalPages
+  }
+}
+
 // ----------------------------------------------------------------------------
 // Query String Builder
 
@@ -308,7 +663,12 @@ export function stateToQS( state ) {
       return;
     }
 
-    var value = state[field]
+    // Avoid recursion
+    if ( field === 'queryString' ) {
+      return;
+    }
+
+    let value = state[field]
 
     // Process dates
     if ( types.dateFilters.indexOf( field ) !== -1 ) {
@@ -329,7 +689,22 @@ export function stateToQS( state ) {
     }
   } )
 
+  types.excludeFields.forEach( f => {
+    delete params[f]
+  } )
+
   return '?' + queryString.stringify( params )
+}
+
+/**
+ * helper function to check if per1000 & map warnings should be enabled
+ * @param {object} queryState state we need to validate
+ */
+export function validatePer1000( queryState ) {
+  queryState.enablePer1000 = !hasFiltersEnabled( queryState )
+  if ( queryState.enablePer1000 ) {
+    queryState.mapWarningEnabled = true
+  }
 }
 
 // ----------------------------------------------------------------------------
@@ -342,22 +717,33 @@ export function stateToQS( state ) {
 */
 export function _buildHandlerMap() {
   const handlers = {}
-
-  handlers[types.DATE_RANGE_CHANGED] = changeDateRange
-  handlers[types.FILTER_ALL_REMOVED] = removeAllFilters
-  handlers[types.FILTER_CHANGED] = toggleFilter
-  handlers[types.FILTER_FLAG_CHANGED] = changeFlagFilter
-  handlers[types.FILTER_MULTIPLE_ADDED] = addMultipleFilters
-  handlers[types.FILTER_MULTIPLE_REMOVED] = removeMultipleFilters
-  handlers[types.FILTER_REMOVED] = removeFilter
-  handlers[types.URL_CHANGED] = processParams
+  handlers[actions.COMPLAINTS_RECEIVED] = updateTotalPages;
+  handlers[actions.DATE_INTERVAL_CHANGED] = changeDateInterval
+  handlers[actions.DATE_RANGE_CHANGED] = changeDateRange
+  handlers[actions.FILTER_ALL_REMOVED] = removeAllFilters
+  handlers[actions.FILTER_CHANGED] = toggleFilter
+  handlers[actions.FILTER_FLAG_CHANGED] = toggleFlagFilter
+  handlers[actions.FILTER_MULTIPLE_ADDED] = addMultipleFilters
+  handlers[actions.FILTER_MULTIPLE_REMOVED] = removeMultipleFilters
+  handlers[actions.FILTER_REMOVED] = removeFilter
+  handlers[actions.PAGE_CHANGED] = changePage
+  handlers[actions.MAP_WARNING_DISMISSED] = dismissMapWarning
+  handlers[actions.NEXT_PAGE_SHOWN] = nextPage
+  handlers[actions.PREV_PAGE_SHOWN] = prevPage
+  handlers[actions.SIZE_CHANGED] = changeSize
+  handlers[actions.SORT_CHANGED] = changeSort
+  handlers[actions.STATE_COMPLAINTS_SHOWN] = showStateComplaints
+  handlers[actions.STATE_FILTER_ADDED] = addStateFilter
+  handlers[actions.STATE_FILTER_CLEARED] = clearStateFilter
+  handlers[actions.STATE_FILTER_REMOVED] = removeStateFilter
+  handlers[actions.TAB_CHANGED] = changeTab
+  handlers[actions.URL_CHANGED] = processParams
+  handlers[actions.SEARCH_CHANGED] = changeSearch
 
   return handlers
 }
 
 const _handlers = _buildHandlerMap()
-
-/* eslint complexity: ["error", 6] */
 
 /**
 * Routes an action to an appropriate handler
@@ -371,42 +757,13 @@ function handleSpecificAction( state, action ) {
     return _handlers[action.type]( state, action )
   }
 
-  switch ( action.type ) {
-    case types.SEARCH_CHANGED:
-      return {
-        ...state,
-        searchText: action.searchText,
-        searchField: action.searchField,
-        from: 0
-      }
-
-    case types.PAGE_CHANGED:
-      return {
-        ...state,
-        from: ( action.page - 1 ) * state.size
-      }
-
-    case types.SIZE_CHANGED:
-      return {
-        ...state,
-        from: 0,
-        size: action.size
-      }
-
-    case types.SORT_CHANGED:
-      return {
-        ...state,
-        sort: action.sort
-      }
-
-    default:
-      return state
-  }
+  return state
 }
 
 export default ( state = defaultQuery, action ) => {
   const newState = handleSpecificAction( state, action )
-  delete newState.queryString
+
+  validatePer1000( newState )
 
   const qs = stateToQS( newState )
   newState.queryString = qs === '?' ? '' : qs

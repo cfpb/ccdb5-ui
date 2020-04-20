@@ -6,12 +6,6 @@ import MoreOrLess from './MoreOrLess'
 import React from 'react'
 
 export class SimpleFilter extends React.Component {
-  componentWillReceiveProps( nextProps ) {
-    this.setState( {
-      showChildren: nextProps.showChildren
-    } );
-  }
-
   render() {
     const listComponentProps = {
       fieldName: this.props.fieldName

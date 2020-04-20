@@ -1,6 +1,6 @@
 import './AggregationBranch.less'
 import { addMultipleFilters, removeMultipleFilters } from '../actions/filter'
-import { bindAll, slugify } from '../utils'
+import { bindAll, coalesce, slugify } from '../utils'
 import AggregationItem from './AggregationItem'
 import { connect } from 'react-redux';
 import { FormattedNumber } from 'react-intl'
@@ -88,15 +88,14 @@ export class AggregationBranch extends React.Component {
           />
           <label className={this._labelStyle}
                  htmlFor={id}>
+            <button className="flex-all a-btn a-btn__link"
+                    onClick={this._toggleChildDisplay}>
+              <span>{item.key}</span>
+
+              {chevronIcon}
+
+            </button>
           </label>
-          <button className="flex-all a-btn a-btn__link"
-                  onClick={this._toggleChildDisplay}
-                  title={item.key}>
-            <span>{item.key}</span>
-
-            {chevronIcon}
-
-          </button>
           <span className="flex-fixed parent-count">
             <FormattedNumber value={item.doc_count} />
           </span>
@@ -150,7 +149,7 @@ AggregationBranch.defaultProps = {
 
 export const mapStateToProps = ( state, ownProps ) => {
   // Find all query filters that refer to the field name
-  const candidates = state.query[ownProps.fieldName] || []
+  const candidates = coalesce( state.query, ownProps.fieldName, [] )
 
   // Do any of these values start with the key?
   const hasKey = candidates.filter( x => x.indexOf( ownProps.item.key ) === 0 )

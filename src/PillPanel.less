@@ -3,16 +3,21 @@
 .pill-panel
 {
   padding-right: @gutter-narrow;
-
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: baseline;
-
+  .layout-row {
+    display: block;
+  }
   .clear-all {
     button {
       border-color: @dark-red;
       color: @dark-red;
+      margin-left: @gutter-narrow;
+      svg {
+        margin-right: @gutter-narrow/2;
+      }
     }
   }
 
@@ -23,10 +28,23 @@
 
   li {
     display: inline-block;
-    margin-top: @gutter-narrow;
+    position: relative;
   }
 
   ul {
     padding-top: @gutter-narrow;
+  }
+  @media @phone {
+    flex-direction: column;
+    margin-top: 10px;
+    .layout-row {
+      padding-left: 0;
+    }
+    .clear-all {
+      display: block;
+      button {
+        margin: 0;
+      }
+    }
   }
 }

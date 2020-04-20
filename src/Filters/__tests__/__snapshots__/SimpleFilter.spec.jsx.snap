@@ -14,6 +14,7 @@ exports[`initial state renders without crashing 1`] = `
       className="o-expandable_header-right o-expandable_link"
     >
       <button
+        aria-label="Show undefined filter"
         className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
         onClick={[Function]}
       >

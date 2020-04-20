@@ -1,27 +1,35 @@
 @import (less) "base.less";
 
 .pill {
-    padding: 3px @gutter-minimum;
-    border-radius: 8px;
-    margin-right: @gutter-normal;
-
-    background-color: @gray-20;
+    padding:  @grid_gutter-width/3 30px @grid_gutter-width/3 @grid_gutter-width/3;
+    border: 1px solid @teal-60;
+    margin-right: 4px;
+    border-radius: .28571429em;
+    background-color: @teal-40;
+    font-weight: 500;
     color: @black;
     font-face: webfont-regular();
     font-size: @size-v;
-
+    &:hover {
+      background-color: #c4dddc;
+      border-color: #9ec4c3;
+      cursor: pointer;
+    }
+    // Close button
     button {
-      padding: 0;
-      padding-left: @gutter-minimum;
-      border: 0;
-      border-left: 1px solid @black;
-      margin: 0;
-
-      background-color: @gray-20;
-      border-color: @gray-20;
-      color: @black;
-
-      &:hover, &:active {
+    padding: 0;
+    padding-left: 5px;
+    border: 0;
+    border-left: 1px solid @gray-20;
+    margin: 0;
+    background-color: transparent;
+    color: @teal-80;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+      &:hover,
+      &:active {
         background-color: @gray-40;
       }
     }

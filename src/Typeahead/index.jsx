@@ -47,7 +47,7 @@ export const nextStateFromOptions = ( options, props ) => {
   let phase = RESULTS
   if ( !options || options.length === 0 ) {
     phase = NO_RESULTS
-  } else if ( options && options.length > props.maxVisible ) {
+  } else if ( options.length > props.maxVisible ) {
     phase = TOO_MANY
   }
 
@@ -120,7 +120,8 @@ export default class Typeahead extends React.Component {
       this._callForOptions
   }
 
-  componentWillReceiveProps( nextProps ) {
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillReceiveProps( nextProps ) {
     this.setState( nextStateFromValue( nextProps.value, nextProps ) )
   }
 
@@ -144,14 +145,18 @@ export default class Typeahead extends React.Component {
                onBlur={this._onBlur}
                onFocus={this._onFocus}>
         <div className="m-btn-inside-input input-contains-label">
-            <label className="input-contains-label_before
-                              input-contains-label_before__search">
-                { iconMap.getIcon( 'search' ) }
-            </label>
+          <div className="input-contains-label_before
+                          input-contains-label_before__search">
+            { iconMap.getIcon( 'search' ) }
+          </div>
 
+          <label className="u-visually-hidden" htmlFor={ this.props.htmlId }>
+            { this.props.ariaLabel }
+          </label>
           <input type="text"
                  autoComplete="off"
                  className="a-text-input"
+                 id={ this.props.htmlId }
                  onChange={this._valueUpdated}
                  onKeyDown={this._onKeyDown}
                  placeholder={this.props.placeholder}
@@ -360,8 +365,10 @@ export default class Typeahead extends React.Component {
 }
 
 Typeahead.propTypes = {
+  ariaLabel: PropTypes.string.isRequired,
   className: PropTypes.string,
   debounceWait: PropTypes.number,
+  htmlId: PropTypes.string.isRequired,
   maxVisible: PropTypes.number,
   minLength: PropTypes.number,
   mode: PropTypes.oneOf( [ MODE_OPEN, MODE_CLOSED ] ).isRequired,

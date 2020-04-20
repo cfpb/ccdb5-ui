@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component: PerCapita initial state renders without crashing 1`] = `
+<section
+  className="per-capita"
+>
+  <div
+    className="per-capita m-btn-group"
+  >
+    <p>
+      Map shading
+    </p>
+    <button
+      className="a-btn raw deselected"
+      onClick={[Function]}
+    >
+      Complaints
+    </button>
+    <button
+      className="a-btn capita a-btn__disabled"
+      onClick={[Function]}
+    >
+      Complaints per 1,000 
+      <span>
+        population
+      </span>
+    </button>
+  </div>
+</section>
+`;

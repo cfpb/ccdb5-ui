@@ -5,11 +5,11 @@ import { connect } from 'react-redux'
 import HighlightingOption from './Typeahead/HighlightingOption'
 import PropTypes from 'prop-types'
 import React from 'react'
-import search from './actions/search'
+import { searchChanged } from './actions/search'
 
 const searchFields = {
-  all: 'All Data',
-  company: 'Company Name',
+  all: 'All data',
+  company: 'Company name',
   // eslint-disable-next-line camelcase
   complaint_what_happened: 'Narratives'
 }
@@ -30,26 +30,29 @@ export class SearchBar extends React.Component {
     this._onSelectSearchField = this._onSelectSearchField.bind( this )
     this._onTypeaheadSelected = this._onTypeaheadSelected.bind( this )
     this._onAdvancedClicked = this._onAdvancedClicked.bind( this )
+    this._updateLocalState = this._updateLocalState.bind( this )
   }
 
-  componentWillReceiveProps( nextProps ) {
-    this.setState( {
-      inputValue: nextProps.searchText,
-      searchField: nextProps.searchField
-    } )
+  componentDidUpdate( prevProps ) {
+    const { searchField, searchText } = this.props
+    if ( prevProps.searchText !== searchText ||
+      prevProps.searchField !== searchField ) {
+      // sync local state from redux
+      this._updateLocalState( searchField, searchText )
+    }
   }
 
-  // This prevents a duplicate update that seems to be triggered on page load
   shouldComponentUpdate( nextProps, nextState ) {
-    return JSON.stringify( this.state ) !== JSON.stringify( nextState )
+    return JSON.stringify( this.state ) !== JSON.stringify( nextState ) ||
+      JSON.stringify( this.props ) !== JSON.stringify( nextProps )
   }
 
   render() {
     return (
       <div>
-        <nav className="search-bar">
+        <div className="search-bar" role="search">
           <form action="" onSubmit={this._handleSubmit}>
-            <h4>Search Within</h4>
+            <h3 className="h4">Search within</h3>
             <div className="layout-row">
               <div className="cf-select flex-fixed">
                 <select aria-label="Choose which field will be searched"
@@ -66,16 +69,14 @@ export class SearchBar extends React.Component {
                 </select>
               </div>
               <div className="flex-all typeahead-portal">
-                <Typeahead debounceWait={this.props.debounceWait}
+                <Typeahead ariaLabel="Enter the term you want to search for"
+                           debounceWait={this.props.debounceWait}
+                           htmlId="searchText"
                            mode={MODE_OPEN}
                            onInputChange={this._onInputChange}
                            onOptionSelected={this._onTypeaheadSelected}
                            placeholder="Enter your search term(s)"
                            renderOption={this._renderOption}
-                           textBoxProps={( {
-                             'aria-label': 'The term to search for',
-                             'id': 'searchText'
-                           } )}
                            value={this.state.inputValue}
                 />
               </div>
@@ -85,22 +86,28 @@ export class SearchBar extends React.Component {
                       ref={elem => { this.submitButton = elem }}>
                   Search
               </button>
+
+              <a className="u-visually-hidden"
+                 href="#search-summary">
+                 Skip to Results
+              </a>
+
               <div className="advanced-container flex-fixed">
               {
                this.state.advancedShown ?
-                 <a className="a-btn a-btn__link o-expandable_cue-close"
+                 <button className="a-btn a-btn__link o-expandable_cue-close"
                       onClick={ this._onAdvancedClicked }>
                       Hide advanced search tips
-                  </a> :
-                  <a className="a-btn a-btn__link o-expandable_cue-open"
+                  </button> :
+                  <button className="a-btn a-btn__link o-expandable_cue-open"
                       onClick={ this._onAdvancedClicked }>
                       Show advanced search tips
-                  </a>
+                  </button>
               }
               </div>
             </div>
           </form>
-        </nav>
+        </div>
         {
          this.state.advancedShown ?
            <AdvancedTips /> :
@@ -127,6 +134,13 @@ export class SearchBar extends React.Component {
   _onAdvancedClicked( ) {
     this.setState( {
       advancedShown: !this.state.advancedShown
+    } )
+  }
+
+  _updateLocalState( searchField, searchText ) {
+    this.setState( {
+      inputValue: searchText,
+      searchField: searchField
     } )
   }
 
@@ -186,7 +200,7 @@ export const mapStateToProps = state => ( {
 
 export const mapDispatchToProps = dispatch => ( {
   onSearch: ( text, searchField ) => {
-    dispatch( search( text, searchField ) )
+    dispatch( searchChanged( text, searchField ) )
   }
 } )
 

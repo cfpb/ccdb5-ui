@@ -1,0 +1,34 @@
+@import (less) "base.less";
+
+.map-panel {
+
+  h4 {
+    border: none;
+  }
+  .refine {
+    section {
+      margin: @grid_gutter-width/3 0 @grid_gutter-width/3 @grid_gutter-width/2;
+      p {
+        font-size: @size-vi;
+        font-weight: 600;
+        color: @gray-40;
+      }
+      button {
+        &.selected {
+          font-weight: 600;
+        }
+      }
+      &:not(.filter-panel-toggle){
+        button {
+          color: @black;
+        }
+      }
+    }
+
+    .separator {
+      @media @desktop, @tablet-lg, @phone {
+          display: none;
+      }
+    }
+  }
+}

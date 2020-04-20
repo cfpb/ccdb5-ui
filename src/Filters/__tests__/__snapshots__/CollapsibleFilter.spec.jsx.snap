@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`initial state renders without crashing 1`] = `
+exports[`component:CollapsibleFilter initial state renders without crashing 1`] = `
 <section
   className="o-expandable"
 >
@@ -16,6 +16,7 @@ exports[`initial state renders without crashing 1`] = `
       className="o-expandable_header-right o-expandable_link"
     >
       <button
+        aria-label="Hide foo filter"
         className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
         onClick={[Function]}
       >

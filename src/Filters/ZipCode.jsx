@@ -24,10 +24,12 @@ export class ZipCode extends React.Component {
 
   render() {
     return (
-      <CollapsibleFilter title="Zip code"
+      <CollapsibleFilter title="ZIP code"
                          desc="The mailing ZIP code provided by the consumer"
                          className="aggregation">
-        <Typeahead debounceWait={this.props.debounceWait}
+        <Typeahead ariaLabel="Start typing to begin listing zip codes"
+                   htmlId="zipcode-typeahead"
+                   debounceWait={this.props.debounceWait}
                    onInputChange={this._onInputChange}
                    onOptionSelected={this._onOptionSelected}
                    placeholder="Enter first three digits of ZIP code"

@@ -1,6 +1,5 @@
 // It uses this name rather than 'State' to distinguish from the React state
 // Idea https://en.wikipedia.org/wiki/U.S._state
-
 import { addMultipleFilters } from '../actions/filter'
 import CollapsibleFilter from './CollapsibleFilter'
 import { connect } from 'react-redux'
@@ -29,7 +28,9 @@ export class FederalState extends React.Component {
                          desc={desc}
                          showChildren={this.props.showChildren}
                          className="aggregation">
-        <Typeahead placeholder="Enter state name or abbreviation"
+        <Typeahead ariaLabel="Start typing to begin listing US states"
+                   htmlId="state-typeahead"
+                   placeholder="Enter state name or abbreviation"
                    onInputChange={this._onInputChange}
                    onOptionSelected={this._onOptionSelected}
                    renderOption={this._renderOption} />
@@ -61,6 +62,7 @@ export class FederalState extends React.Component {
       } ) )
 
     // Sort the matches so that:
+    /* eslint complexity: ["error", 5] */
     filtered.sort( ( a, b ) => {
       // 1.) A matching state abbreviation appears first (OR > North Carolina)
       const aMatched = a.key === allUpper

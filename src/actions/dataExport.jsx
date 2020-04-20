@@ -10,6 +10,38 @@ import { stateToQS } from '../reducers/query'
 const DATA_HOST = 'https://files.consumerfinance.gov'
 
 // ----------------------------------------------------------------------------
+// Useful methods
+
+/**
+* Builds the URI for exporting all results
+*
+* @param {string} format CSV or JSON
+* @returns {string} the URI for the specific type of format
+*/
+export function buildAllResultsUri( format ) {
+  return DATA_HOST + '/ccdb/complaints.' + format + '.zip'
+}
+
+/**
+* Builds the URI for exporting some results
+*
+* @param {string} format CSV or JSON
+* @param {number} size the number of results to export
+* @param {Object} queryState the current state of the query reducer
+* @returns {string} the URI for the specific type of format
+*/
+export function buildSomeResultsUri( format, size, queryState ) {
+  const params = { ...queryState }
+
+  params.size = size
+  params.format = format
+  // eslint-disable-next-line camelcase
+  params.no_aggs = true
+
+  return '@@API' + stateToQS( params )
+}
+
+// ----------------------------------------------------------------------------
 // Action Creators
 
 /**
@@ -39,7 +71,7 @@ export function exportAllResults( format ) {
     Analytics.getDataLayerOptions( 'Export All Data', format )
   )
   return () => {
-    const uri = DATA_HOST + '/ccdb/complaints.' + format + '.zip'
+    const uri = buildAllResultsUri( format )
     const link = buildLink( uri, 'download.' + format )
     simulateClick( link )
   }
@@ -57,16 +89,7 @@ export function exportSomeResults( format, size ) {
     Analytics.getDataLayerOptions( 'Export Some Data', format )
   )
   return ( _, getState ) => {
-    // params = {...getState()} only makes a shallow copy
-    // Need to make a deep-copy or this size gets in the store (!)
-    const params = { ...getState().query }
-
-    params.size = size
-    params.format = format
-    // eslint-disable-next-line camelcase
-    params.no_aggs = true
-
-    const uri = '@@API' + stateToQS( params )
+    const uri = buildSomeResultsUri( format, size, getState().query )
     const link = buildLink( uri, 'download.' + format )
     simulateClick( link )
   }

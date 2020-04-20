@@ -2,12 +2,19 @@ import './DateFilter.less'
 import { changeDateRange } from '../actions/filter'
 import CollapsibleFilter from './CollapsibleFilter'
 import { connect } from 'react-redux'
+import { DATE_RANGE_MIN } from '../constants'
 import DateInput from '../DateInput'
 import iconMap from '../iconMap'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { shortFormat } from '../utils'
+
+const WARN_SERIES_BREAK = 'CFPB updated product and issue options' +
+  ' available to consumers in April 2017 ';
+
+const LEARN_SERIES_BREAK = 'http://files.consumerfinance.gov/f/' +
+  'documents/201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf';
 
 export class DateFilter extends React.Component {
   constructor( props ) {
@@ -20,7 +27,8 @@ export class DateFilter extends React.Component {
     } )
   }
 
-  componentWillReceiveProps( nextProps ) {
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillReceiveProps( nextProps ) {
     const newState = {
       from: nextProps.from,
       through: nextProps.through,
@@ -31,6 +39,11 @@ export class DateFilter extends React.Component {
   }
 
   render() {
+    const from = moment( this.state.from, 'MM-DD-YYYY' )
+    const through = moment( this.state.through, 'MM-DD-YYYY' )
+
+    const showWarning = moment( '2017-04-23' ).isBetween( from, through, 'day' )
+
     return (
       <CollapsibleFilter title={ this.props.title }
                          className="aggregation date-filter">
@@ -41,6 +54,17 @@ export class DateFilter extends React.Component {
             </ul>
             { this._hasMessages( this.state.messages ) ?
               this._renderMessages() :
+              null
+            }
+            { showWarning ?
+              <p> { WARN_SERIES_BREAK }
+                <a href={ LEARN_SERIES_BREAK }
+                  target="_blank"
+                  aria-label="Learn more about Product and
+                  Issue changes (opens in new window)" >
+                  Learn More
+                </a>
+              </p> :
               null
             }
           </div>
@@ -56,13 +80,16 @@ export class DateFilter extends React.Component {
   }
 
   _renderDateInput( label, field ) {
+    const inputId = `${ this.props.fieldName }-${ field }`
+
     const localProps = {
-      'aria-describedby': 'input-error_message-' + field
+      id: inputId
     }
 
     return (
       <li>
-          <label className="a-label a-label__heading body-copy">
+          <label className="a-label a-label__heading body-copy"
+                 htmlFor={ inputId }>
             { label }
           </label>
           <DateInput min={ this.props.minimumDate }
@@ -97,6 +124,9 @@ export class DateFilter extends React.Component {
 
   // --------------------------------------------------------------------------
   // Validation methods
+  _isChanged( props, state ) {
+    return props.from !== state.from || props.through !== state.through
+  }
 
   _validate( state ) {
 
@@ -114,7 +144,7 @@ export class DateFilter extends React.Component {
 
   // --------------------------------------------------------------------------
   // DateInput interface methods
-
+  /* eslint complexity: ["error", 5] */
   _onDateEntered( field, date ) {
     let state = {
       from: this.state.from,
@@ -133,11 +163,16 @@ export class DateFilter extends React.Component {
     this.setState( state )
 
     // If it's good, send an update
-    if ( this._hasMessages( state.messages ) === false ) {
+    // only fire off change when there is a mismatch in the dates,
+    // when DateInterval changed vs manually changing the date
+    if ( this._hasMessages( state.messages ) === false &&
+      this._isChanged( this.props, state ) ) {
+
       const from = moment( state.from, 'MM-DD-YYYY' )
       const through = moment( state.through, 'MM-DD-YYYY' )
       const dateFrom = from.isValid() ? from.toDate() : null
       const dateThrough = through.isValid() ? through.toDate() : null
+
       this.props.changeDateRange( dateFrom, dateThrough )
     }
   }
@@ -164,7 +199,7 @@ DateFilter.propTypes = {
 DateFilter.defaultProps = {
   from: '',
   maximumDate: null,
-  minimumDate: new Date( '2011-11-30T12:00:00.000Z' ),
+  minimumDate: new Date( DATE_RANGE_MIN ),
   through: ''
 }
 

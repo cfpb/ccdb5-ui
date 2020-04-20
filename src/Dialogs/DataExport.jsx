@@ -1,8 +1,8 @@
 import './DataExport.less'
+import { bindAll, getFullUrl } from '../utils'
 import {
-  exportAllResults, exportSomeResults
+  buildAllResultsUri, buildSomeResultsUri, exportAllResults, exportSomeResults
 } from '../actions/dataExport'
-import { bindAll } from '../utils'
 import { connect } from 'react-redux'
 import { FormattedNumber } from 'react-intl'
 import iconMap from '../iconMap'
@@ -23,13 +23,27 @@ export class DataExport extends React.Component {
     this.state = this._validate( props )
 
     bindAll( this, [
-      '_chooseDataset', '_chooseFormat', '_exportClicked'
+      '_chooseDataset', '_chooseFormat', '_copyButtonClasses',
+      '_copyToClipboard', '_exportClicked'
     ] )
   }
 
-  componentWillReceiveProps( nextProps ) {
-    const nextState = this._validate( nextProps )
-    this.setState( nextState )
+  static getDerivedStateFromProps( props, state ) {
+    const { someComplaints, queryState } = props
+    const { dataset, format } = state
+
+    let exportUri
+    if ( format ) {
+      if ( dataset === 'full' ) {
+        exportUri = buildAllResultsUri( format )
+      } else if ( dataset === 'filtered' ) {
+        exportUri = buildSomeResultsUri( format, someComplaints, queryState )
+      }
+
+      exportUri = getFullUrl( exportUri )
+    }
+
+    return { exportUri }
   }
 
   render() {
@@ -81,6 +95,7 @@ export class DataExport extends React.Component {
 
   _validate( props ) {
     let nextState = {
+      copied: false,
       messages: {},
       mode: PROMPTING
     }
@@ -97,10 +112,23 @@ export class DataExport extends React.Component {
   }
 
   // --------------------------------------------------------------------------
+  // Copy to Clipboard
+
+  _copyToClipboard( ev ) {
+    const uriControl = document.getElementById( 'exportUri' )
+    uriControl.select();
+    document.execCommand( 'copy' );
+    ev.target.focus()
+
+    this.setState( { copied: true } )
+  }
+
+  // --------------------------------------------------------------------------
   // Form helpers
 
   _chooseDataset( ev ) {
     const nextState = this._validateDataset( {
+      copied: false,
       dataset: ev.target.value,
       messages: this.state.messages
     } )
@@ -109,6 +137,7 @@ export class DataExport extends React.Component {
 
   _chooseFormat( ev ) {
     const nextState = this._validateFormat( {
+      copied: false,
       format: ev.target.value,
       messages: this.state.messages
     } )
@@ -128,6 +157,12 @@ export class DataExport extends React.Component {
   // --------------------------------------------------------------------------
   // Subrender methods
 
+  _copyButtonClasses( copied ) {
+    const styles = [ 'a-btn' ]
+    styles.push( copied ? 'export-url-copied' : 'a-btn__secondary' )
+    return styles.join( ' ' )
+  }
+
   _renderBodyPrompting() {
     return (
         <div className="body">
@@ -139,6 +174,7 @@ export class DataExport extends React.Component {
           { this.props.someComplaints === this.props.allComplaints ? null :
             this._renderDatasetGroup()
           }
+          { this._renderExportUrl() }
           <div className="timeliness-warning">
             The export process could take several minutes if you're downloading
             many complaints
@@ -158,6 +194,46 @@ export class DataExport extends React.Component {
     )
   }
 
+  // https://stackoverflow.com/a/42844911 - Copy via JS
+  _renderExportUrl() {
+    return (
+      <div className="heres-the-url">
+        <h4>Link to your complaint search results for future reference</h4>
+        <div className="layout-row">
+            <input className="flex-all a-text-input"
+                   id="exportUri"
+                   type="text"
+                   value={this.state.exportUri}
+                   readOnly
+            />
+            { document.queryCommandSupported( 'copy' ) &&
+            <button className={ this._copyButtonClasses( this.state.copied ) }
+                    disabled={!this.state.exportUri}
+                    onClick={this._copyToClipboard}
+            >
+              { !this.state.copied &&
+                <div>
+                  <span className="a-btn_icon">
+                     { iconMap.getIcon( 'copy' ) }
+                  </span>
+                  Copy
+                </div>
+              }
+              { this.state.copied &&
+                <div>
+                  <span className="a-btn_icon">
+                     { iconMap.getIcon( 'checkmark-round' ) }
+                  </span>
+                  Copied
+                </div>
+              }
+            </button>
+            }
+        </div>
+      </div>
+    )
+  }
+
   _renderFooterPrompting() {
     return (
         <div className="footer layout-row">
@@ -165,7 +241,7 @@ export class DataExport extends React.Component {
                   data-gtm_ignore="true"
                   disabled={ Object.keys( this.state.messages ).length > 0 }
                   onClick={this._exportClicked}>
-            Start Export
+            Start export
           </button>
           <button className="a-btn a-btn__link a-btn__warning"
                   data-gtm_ignore="true"
@@ -262,12 +338,15 @@ export class DataExport extends React.Component {
 }
 
 export const mapStateToProps = state => {
-  const someComplaints = state.results.total
-  const allComplaints = state.results.doc_count
+  const someComplaints = state.aggs.total
+  const allComplaints = state.aggs.doc_count
 
   return {
     allComplaints,
-    someComplaints
+    someComplaints,
+    queryState: {
+      ...state.query
+    }
   }
 }
 

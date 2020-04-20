@@ -38,13 +38,15 @@ export default class DateInput extends React.Component {
       this._triggerCallbacks
   }
 
-  componentWillMount() {
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillMount() {
     if ( this.state.message ) {
       this.props.onError( this.state.message, this.props.value )
     }
   }
 
-  componentWillReceiveProps( nextProps ) {
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillReceiveProps( nextProps ) {
     const state = this._calculateState( nextProps, nextProps.value )
     this.setState( state )
   }
@@ -159,11 +161,11 @@ export default class DateInput extends React.Component {
       return ERROR
     }
 
-    if ( props.min && d < props.min ) {
+    if ( props.min && moment( d ).isBefore( props.min, 'day' ) ) {
       return TOO_LOW
     }
 
-    if ( props.max && d > props.max ) {
+    if ( props.max && moment( d ).isAfter( props.max, 'day' ) ) {
       return TOO_HIGH
     }
 
