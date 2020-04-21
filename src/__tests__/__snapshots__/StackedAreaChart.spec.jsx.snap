@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component: StackedAreaChart initial state renders without crashing 1`] = `
+<div>
+  Texas complaints by date received
+  <div
+    id="stacked-area-chart"
+  />
+</div>
+`;
