@@ -59,7 +59,7 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
     </summary>
   </div>
   <div
-    className="layout-row refine"
+    className="layout-row refine-bar"
   >
     <section
       className="filter-panel-toggle"
@@ -357,7 +357,7 @@ exports[`component:ListPanel displays a message when only the narratives are sta
     </div>
   </div>
   <div
-    className="layout-row refine"
+    className="layout-row refine-bar"
   >
     <section
       className="filter-panel-toggle"
@@ -831,7 +831,7 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
     </div>
   </div>
   <div
-    className="layout-row refine"
+    className="layout-row refine-bar"
   >
     <section
       className="filter-panel-toggle"
@@ -1305,7 +1305,7 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
     </div>
   </div>
   <div
-    className="layout-row refine"
+    className="layout-row refine-bar"
   >
     <section
       className="filter-panel-toggle"
@@ -1754,7 +1754,7 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
     </summary>
   </div>
   <div
-    className="layout-row refine"
+    className="layout-row refine-bar"
   >
     <section
       className="filter-panel-toggle"
@@ -2033,7 +2033,7 @@ exports[`component:ListPanel only displays data message when both types are stal
     </div>
   </div>
   <div
-    className="layout-row refine"
+    className="layout-row refine-bar"
   >
     <section
       className="filter-panel-toggle"
@@ -2483,7 +2483,7 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
   </div>
   <div />
   <div
-    className="layout-row refine"
+    className="layout-row refine-bar"
   >
     <section
       className="filter-panel-toggle"
@@ -2932,7 +2932,7 @@ exports[`component:ListPanel renders without crashing 1`] = `
     </summary>
   </div>
   <div
-    className="layout-row refine"
+    className="layout-row refine-bar"
   >
     <section
       className="filter-panel-toggle"

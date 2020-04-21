@@ -1201,7 +1201,7 @@ exports[`initial state renders without crashing 1`] = `
           </div>
         </div>
         <div
-          className="layout-row refine"
+          className="layout-row refine-bar"
         >
           <section
             className="filter-panel-toggle"
