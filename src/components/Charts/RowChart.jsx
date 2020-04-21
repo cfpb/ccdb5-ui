@@ -95,18 +95,21 @@ export class RowChart extends React.Component {
     chart.margin( {
       left: marginLeft,
       right: marginRight,
+      // left: 200,
+      // right: 50,
       top: 20,
       bottom: 10
     } )
       .colorSchema( colorScheme )
       .backgroundColor( '#f7f8f9' )
+      // .enableYAxisRight(true) // for trends to show deltas
       .enableLabels( true )
       .labelsTotalCount( total.toLocaleString() )
       .labelsNumberFormat( ',d' )
       .outerPadding( 0.1 )
       .percentageAxisToMaxRatio( ratio )
       .yAxisLineWrapLimit( 2 )
-      .yAxisPaddingBetweenChart( 5 )
+      .yAxisPaddingBetweenChart( 20 )
       .width( width )
       .wrapLabels( true )
       .height( height )
@@ -128,13 +131,96 @@ export class RowChart extends React.Component {
 
 export const mapStateToProps = ( state, ownProps ) => {
   const { printMode, width } = state.view
-  // use state.query to rip filter out the bars
-  const aggtype = ownProps.aggtype
+  // use state.query to filter out the selected bars
+  const { aggtype } = ownProps
+  const tab = state.query.tab.toLowerCase()
   const filters = state.query[aggtype]
-  let data = state.map[aggtype]
+  let data = state[tab] ? state[tab][aggtype] : []
 
   if ( filters && filters.length ) {
     data = data.filter( o => filters.includes( o.name ) )
+  }
+
+  // mock data for dev
+  if ( tab === 'trends' ) {
+    data = [ {
+      hasChildren: true,
+      isParent: true,
+      name: 'Radiating',
+      value: 2024,
+      pctChange: -20,
+      pctOfSet: 5,
+      width: 0.5
+    }, {
+      hasChildren: false,
+      isParent: false,
+      name: 'Radiating Kid',
+      value: 1024,
+      parent: 'Radiating',
+      pctChange: 50,
+      pctOfSet: 55,
+      width: 0.4
+    }, {
+      hasChildren: false,
+      name: 'Opalescent',
+      isParent: true,
+      value: 7000,
+      pctChange: 11,
+      pctOfSet: 100,
+      width: 0.5
+    }, {
+      hasChildren: true,
+      name: 'Shining',
+      isParent: true,
+      value: 213,
+      pctChange: 1,
+      pctOfSet: 12,
+      width: 0.5
+    }, {
+      hasChildren: false,
+      isParent: false,
+      name: 'Brillian Brillian Brillian BrillianBrillian Brillian',
+      value: 6001,
+      parent: 'Shining',
+      pctChange: null,
+      pctOfSet: 70,
+      width: 0.4
+    }, {
+      hasChildren: false,
+      isParent: false,
+      name: 'Vivid',
+      value: 613,
+      parent: 'Shining',
+      pctChange: -9,
+      pctOfSet: 24,
+      width: 0.4
+    }, {
+      hasChildren: true,
+      name: 'Brilliant',
+      isParent: true,
+      value: 1900,
+      pctChange: 1,
+      pctOfSet: 8,
+      width: 0.5
+    }, {
+      hasChildren: false,
+      isParent: false,
+      name: 'Increase',
+      value: 1900,
+      parent: 'Brilliant',
+      pctChange: 999999,
+      pctOfSet: 8,
+      width: 0.4
+    }, {
+      hasChildren: false,
+      isParent: false,
+      name: 'Decrease',
+      value: 1900,
+      parent: 'Brilliant',
+      pctChange: -999999,
+      pctOfSet: 8,
+      width: 0.4
+    } ]
   }
   return {
     data,
