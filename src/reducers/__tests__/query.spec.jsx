@@ -1,5 +1,5 @@
 import target, {
-  alignIntervalAndRange, defaultQuery, filterArrayAction
+  alignDateRange, defaultQuery, filterArrayAction
 } from '../query'
 import actions from '../../actions'
 import * as types from '../../constants'
@@ -313,77 +313,77 @@ describe( 'reducer:query', () => {
       const dateMin = new Date( types.DATE_RANGE_MIN )
       const dateMax = new Date( moment().startOf( 'day' ).toString() )
 
-      action.params = { dataNormalization: 'None', dateInterval: 'All' }
+      action.params = { dataNormalization: 'None', dateRange: 'All' }
 
       const actual = target( {}, action )
 
       expect( actual.date_received_min ).toEqual( dateMin )
       expect( actual.date_received_max ).toEqual( dateMax )
-      expect( actual.dateInterval ).toEqual( 'All' )
+      expect( actual.dateRange ).toEqual( 'All' )
     } );
 
     describe( 'dates', () => {
       let expected;
       beforeEach( () => {
-        state.dateInterval = '2y'
+        state.dateRange = '2y'
         expected = { ...defaultQuery }
       } );
 
-      it( 'clears the default interval if the dates are not 3 years apart' , () => {
+      it( 'clears the default range if the dates are not 3 years apart' , () => {
         state.date_received_min = new Date(
           moment().subtract( 2, 'years' ).calendar()
         )
-        expected.dateInterval = ''
+        expected.dateRange = ''
         expected.date_received_min = state.date_received_min
 
-        const actual = alignIntervalAndRange( state )
+        const actual = alignDateRange( state )
         expect( actual ).toEqual( expected );
       } );
 
-      it( 'sets the All interval if the dates are right' , () => {
+      it( 'sets the All range if the dates are right' , () => {
         state.date_received_min = new Date( types.DATE_RANGE_MIN )
-        expected.dateInterval = 'All'
+        expected.dateRange = 'All'
         expected.date_received_min = state.date_received_min
 
-        const actual = alignIntervalAndRange( state )
+        const actual = alignDateRange( state )
         expect( actual ).toEqual( expected );
       } );
 
-      it( 'sets the 3m interval if the dates are right' , () => {
+      it( 'sets the 3m range if the dates are right' , () => {
         state.date_received_min = new Date(
           moment().subtract( 3, 'months' ).calendar()
         )
-        expected.dateInterval = '3m'
+        expected.dateRange = '3m'
         expected.date_received_min = state.date_received_min
 
-        const actual = alignIntervalAndRange( state )
+        const actual = alignDateRange( state )
         expect( actual ).toEqual( expected );
       } );
 
-      it( 'sets the 6m interval if the dates are right' , () => {
+      it( 'sets the 6m range if the dates are right' , () => {
         state.date_received_min = new Date(
           moment().subtract( 6, 'months' ).calendar()
         )
-        expected.dateInterval = '6m'
+        expected.dateRange = '6m'
         expected.date_received_min = state.date_received_min
 
-        const actual = alignIntervalAndRange( state )
+        const actual = alignDateRange( state )
         expect( actual ).toEqual( expected );
       } );
 
-      it( 'sets the 1y interval if the dates are right' , () => {
+      it( 'sets the 1y range if the dates are right' , () => {
         state.date_received_min = new Date(
           moment().subtract( 1, 'year' ).calendar()
         )
-        expected.dateInterval = '1y'
+        expected.dateRange = '1y'
         expected.date_received_min = state.date_received_min
 
-        const actual = alignIntervalAndRange( state )
+        const actual = alignDateRange( state )
         expect( actual ).toEqual( expected );
       } );
 
-      it( 'sets the 3y interval if the dates are right' , () => {
-        const actual = alignIntervalAndRange( state )
+      it( 'sets the 3y range if the dates are right' , () => {
+        const actual = alignDateRange( state )
         expect( actual ).toEqual( expected );
       } );
     } );
@@ -525,7 +525,7 @@ describe( 'reducer:query', () => {
       it( 'clears all filters', () => {
         const actual = target( state, action )
         expect( actual ).toMatchObject( {
-          dateInterval: 'All',
+          dateRange: 'All',
           enablePer1000: true,
           from: 100,
           mapWarningEnabled: true,
@@ -533,7 +533,7 @@ describe( 'reducer:query', () => {
           size: 100
         } )
 
-        expect( actual.queryString ).toContain( 'dateInterval=All' )
+        expect( actual.queryString ).toContain( 'dateRange=All' )
         expect( actual.queryString ).toContain( '&date_received_min=2011-11-30&field=all&frm=100&size=100' )
         const diffMin = moment( actual.date_received_min ).diff( moment( types.DATE_RANGE_MIN ), 'days' )
         expect( diffMin ).toEqual( 0 )
@@ -550,14 +550,14 @@ describe( 'reducer:query', () => {
           state.searchField = types.NARRATIVE_SEARCH_FIELD
           const actual = target( state, action )
           expect( actual ).toMatchObject( {
-            dateInterval: 'All',
+            dateRange: 'All',
             enablePer1000: false,
             from: 100,
             has_narrative: true,
             searchField: types.NARRATIVE_SEARCH_FIELD,
             size: 100
           } )
-          expect( actual.queryString ).toContain( 'dateInterval=All' )
+          expect( actual.queryString ).toContain( 'dateRange=All' )
           expect( actual.queryString )
             .toContain( '&date_received_min=2011-11-30&' +
               'field=complaint_what_happened&frm=100&has_narrative=true&' +
@@ -665,11 +665,11 @@ describe( 'reducer:query', () => {
   } )
 
   describe( 'Dates', () => {
-    describe( 'DATE_RANGE_CHANGED actions', () => {
+    describe( 'DATES_CHANGED actions', () => {
       let action, result
       beforeEach( () => {
         action = {
-          type: actions.DATE_RANGE_CHANGED,
+          type: actions.DATES_CHANGED,
           filterName: 'date_received',
           minDate: new Date( 2001, 0, 30 ),
           maxDate: new Date( 2013, 1, 3 )
@@ -687,17 +687,17 @@ describe( 'reducer:query', () => {
         } )
       } )
 
-      it( 'clears dateInterval when no match', () => {
-        result = target( { dateInterval: '1y' }, action )
-        expect( result.dateInterval ).toBeFalsy()
+      it( 'clears dateRange when no match', () => {
+        result = target( { dateRange: '1y' }, action )
+        expect( result.dateRange ).toBeFalsy()
       } )
 
-      it( 'adds dateInterval', () => {
+      it( 'adds dateRange', () => {
         const min = new Date( moment().subtract( 3, 'months' ).calendar() )
         action.maxDate = new Date()
         action.minDate = min
         result = target( {}, action )
-        expect( result.dateInterval ).toEqual( '3m' )
+        expect( result.dateRange ).toEqual( '3m' )
       } )
 
       it( 'does not add empty dates', () => {
@@ -711,31 +711,31 @@ describe( 'reducer:query', () => {
       } )
     } )
 
-    describe( 'DATE_INTERVAL_CHANGED actions', () => {
+    describe( 'DATE_RANGE_CHANGED actions', () => {
       let action, result
       beforeEach( () => {
         action = {
-          type: actions.DATE_INTERVAL_CHANGED,
-          dateInterval: ''
+          type: actions.DATE_RANGE_CHANGED,
+          dateRange: ''
         }
       } )
 
-      it( 'handles All interval', () => {
-        action.dateInterval = 'All'
+      it( 'handles All range', () => {
+        action.dateRange = 'All'
         result = target( {}, action )
         expect( result.date_received_min ).toEqual( new Date( types.DATE_RANGE_MIN ) )
       } )
 
-      it( 'handles 3m interval', () => {
-        action.dateInterval = '3m'
+      it( 'handles 3m range', () => {
+        action.dateRange = '3m'
         result = target( {}, action )
         const min = new Date( moment().subtract( 3, 'months' ).calendar() )
         const diffMin = moment( min ).diff( moment( result.date_received_min ), 'months' )
         expect( diffMin ).toEqual( 0 )
       } )
 
-      it( 'default interval handling', () => {
-        action.dateInterval = 'foo'
+      it( 'default range handling', () => {
+        action.dateRange = 'foo'
         result = target( {}, action )
         // only set max to today's date
         const diff = moment( result.date_received_max ).diff( moment( new Date() ), 'days' )

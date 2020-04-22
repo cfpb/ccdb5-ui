@@ -10,7 +10,7 @@ const DEFAULT_MAX = new Date( '2015-12-31T12:00:00.000Z' )
 
 function setupEnzyme(initialProps={}) {
   const props = Object.assign({
-    changeDateRange: jest.fn(),
+    changeDates: jest.fn(),
     fieldName: 'date_received',
     from: '',
     maximumDate: null,
@@ -104,9 +104,9 @@ describe('component::DateFilter', () => {
         )
       })
 
-      it('calls changeDateRange', () => {
+      it('calls changeDates', () => {
         target.instance()._onDateEntered('through', new Date(2012, 11, 31))
-        expect(props.changeDateRange).toHaveBeenCalledWith(
+        expect(props.changeDates).toHaveBeenCalledWith(
           null, new Date(2012, 11, 31)
         )
       })
@@ -130,15 +130,15 @@ describe('component::DateFilter', () => {
     it('does not trigger a new update', () => {
       const {target, props} = setupEnzyme()
       target.setProps({from: '2016-01-01', through: '2015-12-31'})
-      expect(props.changeDateRange).not.toHaveBeenCalled()
+      expect(props.changeDates).not.toHaveBeenCalled()
     })    
   })
 
   describe('mapDispatchToProps', () => {
-    it('hooks into changeDateRange', () => {
+    it('hooks into changeDates', () => {
       const dispatch = jest.fn()
       const props = {fieldName: 'qaz'}
-      mapDispatchToProps(dispatch, props).changeDateRange('foo', 'bar')
+      mapDispatchToProps(dispatch, props).changeDates('foo', 'bar')
       expect(dispatch.mock.calls.length).toEqual(1)
     })
   })
