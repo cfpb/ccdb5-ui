@@ -1,42 +1,6 @@
 @import (less) "base.less";
 
 .list-panel {
-  h4 {
-    border: none;
-  }
-  .refine {
-    section {
-      margin: @grid_gutter-width/3 0 @grid_gutter-width/3 @grid_gutter-width/2;
-      p {
-        font-size: @size-vi;
-        font-weight: 600;
-        color: @gray-40;
-      }
-      button {
-        &.selected {
-          font-weight: 600;
-        }
-      }
-      &:not(.filter-panel-toggle){
-        button {
-          color: @black;
-        }
-      }
-      &.cf-select {
-        border: none;
-        select {
-          background-color: @white;
-          color: @black;
-          border: 1px solid #b4b5b6;
-        }
-        &::after {
-          background-color: @white;
-          transform: translate(-5px, 0px);
-        }
-      }
-    }
-  }
-
   .cards-panel {
     padding: @grid_gutter-width;
     margin: 0;

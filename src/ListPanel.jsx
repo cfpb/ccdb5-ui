@@ -1,4 +1,5 @@
 import './ListPanel.less'
+import './RefineBar.less'
 import { changeSize, changeSort } from './actions/paging'
 import ActionBar from './ActionBar'
 import ComplaintCard from './ComplaintCard'
@@ -49,7 +50,7 @@ export class ListPanel extends React.Component {
         <ActionBar />
         <StaleDataWarnings />
         { this.props.showMobileFilters && <FilterPanel/> }
-        <div className="layout-row refine">
+        <div className="layout-row refine-bar">
           <FilterPanelToggle/>
           <Separator />
           <section className="cf-select">

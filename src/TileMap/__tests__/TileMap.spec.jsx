@@ -97,7 +97,7 @@ describe( 'Tile map', () => {
         13909.714285714286
       ]
       const expected = [
-        { from: 0, color: "#fff", name: "≥ 0", shortName: "≥ 0"},
+        { from: 0, color: "#ffffff", name: "≥ 0", shortName: "≥ 0"},
         { from: 880, color: 881, name: "> 880", shortName: "> 880"},
         { from: 1623, color: 1623, name: "≥ 1,623", shortName: "≥ 1.6K"},
         { from: 3065, color: 3065, name: "≥ 3,065", shortName: "≥ 3.0K"},
@@ -120,7 +120,7 @@ describe( 'Tile map', () => {
         915.9999999999999,
       ]
       const expected = [
-        { from: 0, color: "#fff", name: "≥ 0", shortName: "≥ 0"},
+        { from: 0, color: "#ffffff", name: "≥ 0", shortName: "≥ 0"},
         { from: 1, color: 1, name: "≥ 1", shortName: "≥ 1"},
         { from: 184, color: 184, name: "≥ 184", shortName: "≥ 184"},
         { from: 550, color: 550, name: "≥ 550", shortName: "≥ 550"},
@@ -141,7 +141,7 @@ describe( 'Tile map', () => {
         1.7142857142857142
       ]
       const expected = [
-        { from: 0, color: "#fff", name: "≥ 0", shortName: "≥ 0"},
+        { from: 0, color: "#ffffff", name: "≥ 0", shortName: "≥ 0"},
         { from: 1, color: 1, name: "≥ 1", shortName: "≥ 1"},
         { from: 2, color: 2, name: "≥ 2", shortName: "≥ 2"},
       ]
@@ -160,7 +160,7 @@ describe( 'Tile map', () => {
         0.8571428571428571
       ]
       const expected = [
-        { from: 0, color: "#fff", name: "≥ 0", shortName: "≥ 0"},
+        { from: 0, color: "#ffffff", name: "≥ 0", shortName: "≥ 0"},
         { from: 1, color: 1, name: "≥ 1", shortName: "≥ 1"}
       ]
 
@@ -178,7 +178,7 @@ describe( 'Tile map', () => {
         2.845714285714285
       ]
       const expected = [
-        { from: 0, color: "#fff", name: "≥ 0", shortName: "≥ 0"},
+        { from: 0, color: "#ffffff", name: "≥ 0", shortName: "≥ 0"},
         { from: 1.19, color: quantiles[0], name: "> 1.19", shortName: "> 1.19"},
         { from: 1.46, color: quantiles[1], name: "> 1.46", shortName: "> 1.46"},
         { from: 1.81, color: quantiles[2], name: "≥ 1.81", shortName: "≥ 1.81"},
