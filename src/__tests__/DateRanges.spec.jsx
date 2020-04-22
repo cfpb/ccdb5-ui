@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store'
 import {
-  mapDispatchToProps, mapStateToProps, DateIntervals
-} from '../DateIntervals'
+  mapDispatchToProps, mapStateToProps, DateRanges
+} from '../DateRanges'
 import { Provider } from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'
@@ -17,12 +17,12 @@ function setupSnapshot() {
 
   return renderer.create(
     <Provider store={ store }>
-      <DateIntervals />
+      <DateRanges />
     </Provider>
   )
 }
 
-describe( 'component: DateIntervals', () => {
+describe( 'component: DateRanges', () => {
   describe( 'initial state', () => {
     it( 'renders without crashing', () => {
       const target = setupSnapshot()
@@ -38,11 +38,11 @@ describe( 'component: DateIntervals', () => {
     beforeEach( () => {
       cb = jest.fn()
 
-      target = shallow( <DateIntervals toggleDateInterval={ cb }/> )
+      target = shallow( <DateRanges toggleDateRange={ cb }/> )
     } )
 
-    it( 'toggleDateInterval is called the button is clicked', () => {
-      const prev = target.find( '.date-intervals .interval-3m' )
+    it( 'toggleDateRange is called the button is clicked', () => {
+      const prev = target.find( '.date-ranges .range-3m' )
       prev.simulate( 'click' )
       expect( cb ).toHaveBeenCalledWith('3m')
     } )
@@ -50,9 +50,9 @@ describe( 'component: DateIntervals', () => {
 
 
   describe('mapDispatchToProps', () => {
-    it('provides a way to call toggleDateInterval', () => {
+    it('provides a way to call toggleDateRange', () => {
       const dispatch = jest.fn()
-      mapDispatchToProps(dispatch).toggleDateInterval()
+      mapDispatchToProps(dispatch).toggleDateRange()
       expect(dispatch.mock.calls.length).toEqual(1)
     })
   })
@@ -61,11 +61,11 @@ describe( 'component: DateIntervals', () => {
     it( 'maps state and props', () => {
       const state = {
         query: {
-          dateInterval: 'foo'
+          dateRange: 'foo'
         }
       }
       let actual = mapStateToProps( state )
-      expect( actual ).toEqual( { dateInterval: 'foo' } )
+      expect( actual ).toEqual( { dateRange: 'foo' } )
     } )
   } )
 

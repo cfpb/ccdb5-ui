@@ -2,31 +2,31 @@ import { REQUERY_ALWAYS } from '../../constants'
 import * as sut from '../filter'
 
 describe('action:filterActions', () => {
-  describe('changeDateRange', () => {
+  describe('changeDates', () => {
     it('creates a simple action', () => {
         const filterName = 'date_received'
         const minDate = 'foo'
         const maxDate = 'bar'
         const expectedAction = {
-          type: sut.DATE_RANGE_CHANGED,
+          type: sut.DATES_CHANGED,
           filterName,
           minDate,
           maxDate,
           requery: REQUERY_ALWAYS
         }
-        expect(sut.changeDateRange(filterName, minDate, maxDate))
+        expect(sut.changeDates(filterName, minDate, maxDate))
           .toEqual( expectedAction );
     })
   })
 
-  describe('dateIntervalToggled', () => {
+  describe('dateRangeToggled', () => {
     it('creates a simple action', () => {
       const expectedAction = {
-        type: sut.DATE_INTERVAL_CHANGED,
-        dateInterval: 'foo',
+        type: sut.DATE_RANGE_CHANGED,
+        dateRange: 'foo',
         requery: REQUERY_ALWAYS
       }
-      expect(sut.dateIntervalToggled('foo'))
+      expect(sut.dateRangeToggled('foo'))
         .toEqual( expectedAction );
     })
   })

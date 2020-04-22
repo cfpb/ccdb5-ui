@@ -50,7 +50,7 @@ export const dateFilters = [
   'date_received_min'
 ]
 
-export const dateIntervals = [ '3m', '6m', '1y', '3y', 'All' ]
+export const dateRanges = [ '3m', '6m', '1y', '3y', 'All' ]
 
 // list of fields that we don't include in the URL or Query to keep things tidy
 export const excludeFields = [

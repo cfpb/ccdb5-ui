@@ -1225,37 +1225,37 @@ exports[`initial state renders without crashing 1`] = `
             className="separator"
           />
           <section
-            className="date-intervals m-btn-group"
+            className="date-ranges m-btn-group"
           >
             <p>
               Date range (Click to modify range)
             </p>
             <button
-              className="a-btn date-selector interval-3m"
+              className="a-btn date-selector range-3m"
               onClick={[Function]}
             >
               3m
             </button>
             <button
-              className="a-btn date-selector interval-6m"
+              className="a-btn date-selector range-6m"
               onClick={[Function]}
             >
               6m
             </button>
             <button
-              className="a-btn date-selector interval-1y"
+              className="a-btn date-selector range-1y"
               onClick={[Function]}
             >
               1y
             </button>
             <button
-              className="a-btn date-selector interval-3y"
+              className="a-btn date-selector range-3y"
               onClick={[Function]}
             >
               3y
             </button>
             <button
-              className="a-btn date-selector interval-All selected"
+              className="a-btn date-selector range-All selected"
               onClick={[Function]}
             >
               All

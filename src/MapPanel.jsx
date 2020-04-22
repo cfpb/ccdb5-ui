@@ -1,7 +1,7 @@
 import './RefineBar.less'
 import ActionBar from './ActionBar'
 import { connect } from 'react-redux'
-import DateIntervals from './DateIntervals'
+import DateRanges from './DateRanges'
 import ErrorBlock from './Error'
 import FilterPanel from './FilterPanel'
 import FilterPanelToggle from './FilterPanelToggle'
@@ -37,7 +37,7 @@ export class MapPanel extends React.Component {
         <div className="layout-row refine-bar">
           <FilterPanelToggle/>
           <Separator />
-          <DateIntervals/>
+          <DateRanges/>
           <PerCapita/>
         </div>
         <TileChartMap/>
