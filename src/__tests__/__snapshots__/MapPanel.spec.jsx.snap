@@ -82,7 +82,7 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
     
   </div>
   <div
-    className="layout-row refine"
+    className="layout-row refine-bar"
   >
     <section
       className="filter-panel-toggle"
@@ -299,7 +299,7 @@ exports[`component:MapPanel renders without crashing 1`] = `
     
   </div>
   <div
-    className="layout-row refine"
+    className="layout-row refine-bar"
   >
     <section
       className="filter-panel-toggle"

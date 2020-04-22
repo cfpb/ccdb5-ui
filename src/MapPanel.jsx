@@ -1,4 +1,4 @@
-import './MapPanel.less'
+import './RefineBar.less'
 import ActionBar from './ActionBar'
 import { connect } from 'react-redux'
 import DateIntervals from './DateIntervals'
@@ -34,7 +34,7 @@ export class MapPanel extends React.Component {
           <Warning text={ WARNING_MESSAGE }
                    closeFn={this.props.onDismissWarning}/> }
         { this.props.showMobileFilters && <FilterPanel/> }
-        <div className="layout-row refine">
+        <div className="layout-row refine-bar">
           <FilterPanelToggle/>
           <Separator />
           <DateIntervals/>

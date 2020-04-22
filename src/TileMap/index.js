@@ -69,7 +69,7 @@ export function getBins( quantiles, scale ) {
   const mins = Array.from( new Set( rounds ) ).filter( x => x > 0 )
 
   const bins = [
-    { from: 0, color: '#fff', name: '≥ 0', shortName: '≥ 0' }
+    { from: 0, color: WHITE, name: '≥ 0', shortName: '≥ 0' }
   ];
 
   mins.forEach( minValue => {
@@ -105,7 +105,7 @@ export function getPerCapitaBins( quantiles, scale ) {
   const mins = Array.from( new Set( values ) ).filter( x => x > 0 )
 
   const bins = [
-    { from: 0, color: '#fff', name: '≥ 0', shortName: '≥ 0' }
+    { from: 0, color: WHITE, name: '≥ 0', shortName: '≥ 0' }
   ];
 
   mins.forEach( minValue => {
@@ -149,7 +149,7 @@ export function processMapData( data, scale ) {
       color = color.replace( '1)', '0.5)' )
     }
 
-    if ( obj.className !== 'selected' && color === '#ffffff' ) {
+    if ( obj.className !== 'selected' && color === WHITE ) {
       // handle cases where value is empty or no color, so we can set the border
       obj.className = 'empty'
     }
