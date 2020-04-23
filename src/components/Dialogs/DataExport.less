@@ -1,0 +1,69 @@
+@import (less) "../../base.less";
+
+.export-modal {
+  .body {
+
+    .a-btn_icon {
+      padding-right: @gutter-minimum;
+    }
+
+    .export-url-copied {
+      border: solid 1px @green;
+      border-left: 0;
+
+      background-color: @green-20;
+      color: @black;
+
+      .cf-icon-svg {
+        fill: @green;
+      }
+    }
+
+    .instructions {
+      margin-bottom: @gutter-normal;
+    }
+
+    .group {
+      margin-bottom: @gutter-normal;
+
+      .a-error-message .cf-icon-svg {
+        margin-right: @gutter-minimum;
+      }
+
+      .group__error {
+        padding: @gutter-narrow;
+        padding-bottom: 0;
+        border: solid 1px @red;
+        margin-bottom: @gutter-normal;
+      }
+
+      .group-title {
+        margin: @gutter-normal 0;
+        font-size: @size-iv;
+        font-weight: bold;
+      }
+
+      .m-form-field {
+        margin-bottom: @gutter-normal;
+
+        .multiline-label {
+          display: inline-block;
+        }
+      }
+
+      .other-formats {
+        margin-top: @gutter-normal * 1.5;
+      }
+
+      .required-helper {
+        color: @gray;
+      }
+    }
+
+    .timeliness-warning {
+      margin-bottom: @gutter-normal * 1.5;
+
+      font-size: smaller;
+    }
+  }
+}

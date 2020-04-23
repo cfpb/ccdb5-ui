@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store'
 import {
   mapDispatchToProps, mapStateToProps, TabbedNavigation
-} from '../TabbedNavigation'
+} from '../components/TabbedNavigation'
 import { Provider } from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'
