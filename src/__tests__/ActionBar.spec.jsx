@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
-import { ActionBar, mapDispatchToProps } from '../ActionBar';
+import { ActionBar, mapDispatchToProps } from '../components/ActionBar';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme'
 

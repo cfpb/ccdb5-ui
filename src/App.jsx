@@ -5,7 +5,7 @@ import {
   BrowserRouter as Router,
   Switch
 } from 'react-router-dom'
-import ComplaintDetail from './ComplaintDetail'
+import ComplaintDetail from './components/ComplaintDetail'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
@@ -16,7 +16,7 @@ import React from 'react'
 // eslint-disable-next-line
 import ReactDOM from 'react-dom'
 import reducers from './reducers'
-import SearchComponents from './SearchComponents'
+import SearchComponents from './components/search/SearchComponents'
 import thunkMiddleware from 'redux-thunk'
 
 const middleware = [ thunkMiddleware, queryManager ];

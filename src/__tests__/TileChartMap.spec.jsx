@@ -1,15 +1,15 @@
 import configureMockStore from 'redux-mock-store'
 import {
   mapDispatchToProps, mapStateToProps, TileChartMap
-} from '../TileChartMap'
+} from '../components/Charts/TileChartMap'
 import { Provider } from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 import thunk from 'redux-thunk'
-import TileMap from '../TileMap'
+import TileMap from '../components/Charts/TileMap'
 
-jest.mock( '../TileMap' )
+jest.mock( '../components/Charts/TileMap' )
 
 function setupSnapshot() {
   const middlewares = [ thunk ]

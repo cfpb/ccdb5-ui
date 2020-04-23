@@ -1,0 +1,80 @@
+@import (less) "../../base.less";
+
+.typeahead {
+  input {
+    box-sizing: border-box;
+    width: 100%;
+    &:focus {
+      border: solid 2px @pacific;
+    }
+  }
+  .m-btn-inside-input {
+    .a-btn {
+      position: absolute;
+      right: 1em;
+      top: ~"calc(50% - 8px)";
+    }
+    .cf-icon-svg {
+      padding-right: @gutter-minimum * 0.8;
+    }
+  }
+  &-selector {
+    position: relative;
+
+    z-index: 99;
+
+    ul {
+      padding-left: 0;
+      border: solid 2px @pacific;
+      border-top: 0;
+
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+
+      li.footer {
+        padding: @gutter-normal;
+        border-top: solid 1px @gray-40;
+        margin: 0;
+        background-color: @pacific-20;
+        cursor: default;
+        font-size: @size-vi;
+        font-style: italic;
+        list-style-type: none;
+        text-align: center;
+      }
+    }
+  }
+
+  li.typeahead-option {
+    padding: @gutter-normal;
+    border-top: solid 1px @gray-40;
+    margin: 0;
+    background-color: @white;
+    cursor: default;
+    list-style-type: none;
+    &:hover,
+    &.selected {
+      border-top: solid 2px @pacific;
+      border-bottom: solid 2px @pacific;
+      background-color: @gray-10;
+    }
+  }
+}
+
+.input-contains-label_before {
+  position: absolute;
+  left: 0.85714286em;
+  top: 0.5em;
+  cursor: pointer;
+  font-size: 0.875em;
+  ~ input[type="text"] {
+    padding-left: 1.78571429em;
+    padding-bottom: 0.28em;
+  }
+  &__search .cf-icon-svg {
+    position: relative;
+    top: 2px;
+  }
+}

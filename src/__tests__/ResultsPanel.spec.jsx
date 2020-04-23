@@ -1,4 +1,4 @@
-import { mapDispatchToProps, ResultsPanel } from '../ResultsPanel'
+import { mapDispatchToProps, ResultsPanel } from '../components/ResultsPanel'
 import React from 'react';
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
