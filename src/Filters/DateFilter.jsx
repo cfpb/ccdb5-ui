@@ -1,5 +1,5 @@
 import './DateFilter.less'
-import { changeDateRange } from '../actions/filter'
+import { changeDates } from '../actions/filter'
 import CollapsibleFilter from './CollapsibleFilter'
 import { connect } from 'react-redux'
 import { DATE_RANGE_MIN } from '../constants'
@@ -173,7 +173,7 @@ export class DateFilter extends React.Component {
       const dateFrom = from.isValid() ? from.toDate() : null
       const dateThrough = through.isValid() ? through.toDate() : null
 
-      this.props.changeDateRange( dateFrom, dateThrough )
+      this.props.changeDates( dateFrom, dateThrough )
     }
   }
 
@@ -209,8 +209,8 @@ export const mapStateToProps = ( state, ownProps ) => ( {
 } )
 
 export const mapDispatchToProps = ( dispatch, ownProps ) => ( {
-  changeDateRange: ( from, through ) => {
-    dispatch( changeDateRange( ownProps.fieldName, from, through ) )
+  changeDates: ( from, through ) => {
+    dispatch( changeDates( ownProps.fieldName, from, through ) )
   }
 } )
 

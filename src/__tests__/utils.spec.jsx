@@ -1,5 +1,5 @@
 import {
-  ariaReadoutNumbers, calculateDateInterval, clamp, coalesce, debounce,
+  ariaReadoutNumbers, calculateDateRange, clamp, coalesce, debounce,
   getFullUrl, hasFiltersEnabled, hashCode, shortIsoFormat, sortSelThenCount
 } from '../utils'
 import { DATE_RANGE_MIN } from '../constants'
@@ -104,35 +104,35 @@ describe('module::utils', () => {
     it( 'returns empty when end date is not today', () => {
       start = new Date(2011, 1, 3)
       end = new Date(2013, 1, 3)
-      let actual = calculateDateInterval( start, end )
+      let actual = calculateDateRange( start, end )
       expect( actual ).toEqual( '' )
     } )
 
     it( 'returns empty when start date doesnt match anything ', () => {
       end = new Date(1970, 1, 4)
       end = new Date()
-      let actual = calculateDateInterval( start, end )
+      let actual = calculateDateRange( start, end )
       expect( actual ).toEqual( '' )
     } )
 
     it( 'returns All when dates is full range', () => {
       start = DATE_RANGE_MIN
       end = new Date()
-      let actual = calculateDateInterval( start, end )
+      let actual = calculateDateRange( start, end )
       expect( actual ).toEqual( 'All' );
     } );
 
     it( 'returns 3y', () => {
       start =  new Date( moment().subtract( 3, 'years' ).calendar() )
       end = new Date()
-      let actual = calculateDateInterval( start, end )
+      let actual = calculateDateRange( start, end )
       expect( actual ).toEqual( '3y' )
     } );
 
     it( 'returns 6m', () => {
       start =  new Date( moment().subtract( 6, 'months' ).calendar() )
       end = new Date()
-      let actual = calculateDateInterval( start, end )
+      let actual = calculateDateRange( start, end )
       expect( actual ).toEqual( '6m' )
     } )
   })
