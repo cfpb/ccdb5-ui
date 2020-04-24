@@ -6,7 +6,7 @@ import {
   FilterPanelToggle,
   mapDispatchToProps,
   mapStateToProps
-} from '../FilterPanelToggle'
+} from '../components/Filters/FilterPanelToggle'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 

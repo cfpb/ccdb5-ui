@@ -1,0 +1,213 @@
+@import (less) "~cf-core/src/cf-core.less";
+@import (less) "~cf-icons/src/cf-icons.less";
+@import (less) "~cf-buttons/src/cf-buttons.less";
+@import (less) "~cf-forms/src/cf-forms.less";
+@import (less) "~cf-grid/src/cf-grid.less";
+@import (less) "~cf-layout/src/cf-layout.less";
+@import (less) "~cf-typography/src/cf-typography.less";
+@import (less) "~cf-pagination/src/cf-pagination.less";
+@import (less) "~cf-expandables/src/cf-expandables.less";
+@import (less) "~cf-tables/src/cf-tables.less";
+
+@import (less) "./base.less";
+@import (less) "../css/notification.less";
+
+// Fix Webpack not packing "approved.svg"
+
+.m-form-field__checkbox .a-checkbox:checked+.a-label:before {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 742.5 1200" class="cf-icon-svg"%3E%3Cpath d="M710 186c-31.1-18-70.8-7.4-88.8 23.7v.1L275 809.5 114.9 617.3c-23-27.5-64-31.2-91.6-8.1-27.4 23-31.2 63.8-8.3 91.3l219.8 263.8c12.3 14.8 30.6 23.4 49.9 23.4 1.8 0 3.7-.1 5.6-.2 21.2-1.8 40.1-13.9 50.7-32.3l392.8-680.4c17.9-31.1 7.3-70.9-23.8-88.8z"/%3E%3C/svg%3E');
+}
+
+// App-wide definitions
+
+.layout-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.layout-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-fixed {
+  flex: none;
+}
+
+.flex-all {
+  flex: 1 0 auto;
+}
+
+.lt-ie10 {
+  .layout-row {
+    display: table;
+  }
+
+  .layout-column {
+    display: table;
+  }
+
+  .flex-fixed {
+    float: left;
+  }
+
+  .flex-all {
+    float: left;
+  }
+}
+
+.body-copy {
+  font-size: 16px;
+}
+
+.cols {
+  .grid_nested-col-group();
+}
+
+.col:before {
+  display: block;
+
+  width: 100%;
+  content: "";
+}
+
+.col-1 {
+  .grid_column(1);
+}
+
+.col-2 {
+  .grid_column(2);
+}
+
+.col-3 {
+  .grid_column(3);
+}
+
+.col-4 {
+  .grid_column(4);
+}
+
+.col-6 {
+  .grid_column(6);
+}
+
+.col-8 {
+  .grid_column(8);
+}
+
+.col-9 {
+  .grid_column(9);
+}
+
+.col-10 {
+  .grid_column(10);
+}
+
+.col-12 {
+  .grid_column(12);
+}
+
+// Overrides
+
+.content__1-3 {
+  margin-bottom: @grid_gutter-width * 2;
+
+  .content_wrapper {
+    padding-left: 0;
+    padding-right: 0;
+    border: 1px solid @gray-40;
+    max-width: initial;
+  }
+
+  .content_sidebar {
+    width: 420px;
+    padding: 0;
+    border: 0;
+    margin: 0;
+  }
+
+  .content_main {
+    width: ~"calc(100% - 420px)";
+    padding: 0;
+    border: 0;
+
+    &:after {
+      border-left: 0;
+    }
+  }
+}
+
+@media @tablet-lg {
+  .content__1-3 {
+    .content_sidebar {
+      width: 305px;
+    }
+
+    .content_main {
+      width: ~"calc(100% - 305px)";
+    }
+  }
+}
+
+@media @tablet-sm {
+  .content__1-3 {
+    .content_main {
+      width: 100%;
+    }
+    .content_sidebar {
+        &.map,
+        &.list {
+          width: 100%;
+        }
+    }
+  }
+  .filter-button {
+    display: block;
+    margin: 20px 10px;
+    button {
+      width: 100%;
+    }
+  }
+}
+
+
+@media @phone {
+  .filter-button {
+    display: block;
+    margin: 20px 10px;
+    button {
+      width: 100%;
+    }
+  }
+  .content__1-3 {
+    margin-bottom: 0;
+    .content {
+      &_sidebar,
+      &_main {
+        width: 100%;
+      }
+
+    }
+  }
+}
+
+body {
+  a,
+  .a-btn__link {
+    color: @link-text;
+    &:hover {
+      color: @link-text-hover;
+    }
+  }
+}
+
+::-ms-clear {
+  display: none;
+}
+
+// Icon color in error message when entering an incorrect date.
+.a-error-message .cf-icon-delete-round {
+  color: @red;
+}
+@import (less) "../components/Print/print.less";

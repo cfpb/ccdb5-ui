@@ -1,6 +1,6 @@
 import ReduxComplaintDetail, {
   ComplaintDetail, mapDispatchToProps
-} from '../ComplaintDetail'
+} from '../components/ComplaintDetail'
 import configureMockStore from 'redux-mock-store'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'

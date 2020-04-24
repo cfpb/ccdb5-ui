@@ -1,4 +1,4 @@
-import { mapStateToProps } from '../SearchComponents'
+import { mapStateToProps } from '../components/Search/SearchComponents'
 import React from 'react'
 
 describe( 'component: SearchComponents', () => {

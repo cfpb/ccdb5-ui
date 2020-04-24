@@ -1,5 +1,5 @@
 import React from 'react';
-import { UrlBarSynch, mapDispatchToProps } from '../UrlBarSynch';
+import { UrlBarSynch, mapDispatchToProps } from '../components/UrlBarSynch';
 import * as types from '../constants'
 
 describe('component:UrlBarSynch', () =>{
