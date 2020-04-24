@@ -1,4 +1,4 @@
-import './App.less'
+import './css/App.less'
 import { applyMiddleware, createStore } from 'redux'
 import {
   Route,
@@ -16,7 +16,7 @@ import React from 'react'
 // eslint-disable-next-line
 import ReactDOM from 'react-dom'
 import reducers from './reducers'
-import SearchComponents from './components/search/SearchComponents'
+import SearchComponents from './components/Search/SearchComponents'
 import thunkMiddleware from 'redux-thunk'
 
 const middleware = [ thunkMiddleware, queryManager ];

@@ -1,4 +1,4 @@
-import { Warning } from '../components/warnings/Warning'
+import { Warning } from '../components/Warnings/Warning'
 import React from 'react'
 import { shallow } from 'enzyme'
 
