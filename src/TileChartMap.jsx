@@ -148,14 +148,14 @@ export const mapStateToProps = state => {
 export const mapDispatchToProps = dispatch => ( {
   addState: selectedState => {
     Analytics.sendEvent(
-      Analytics.getDataLayerOptions( 'Tile Map clicked add',
-        selectedState.abbr )
+      Analytics.getDataLayerOptions( 'State Event: add',
+        selectedState.abbr, )
     )
     dispatch( addStateFilter( selectedState ) )
   },
   removeState: selectedState => {
     Analytics.sendEvent(
-      Analytics.getDataLayerOptions( 'Tile Map clicked remove',
+      Analytics.getDataLayerOptions( 'State Event: remove',
         selectedState.abbr )
     )
     dispatch( removeStateFilter( selectedState ) )
