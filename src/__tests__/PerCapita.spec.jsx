@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store'
 import {
   mapDispatchToProps, mapStateToProps, PerCapita
-} from '../PerCapita'
+} from '../components/RefineBar/PerCapita'
 import { Provider } from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'

@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 import { SLUG_SEPARATOR } from '../constants'
-import { Pill, mapStateToProps, mapDispatchToProps } from '../Pill';
+import { Pill, mapStateToProps, mapDispatchToProps } from '../components/Search/Pill';
 
 function setupEnzyme() {
   const props = {

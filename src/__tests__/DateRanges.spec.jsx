@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store'
 import {
   mapDispatchToProps, mapStateToProps, DateRanges
-} from '../DateRanges'
+} from '../components/RefineBar/DateRanges'
 import { Provider } from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'

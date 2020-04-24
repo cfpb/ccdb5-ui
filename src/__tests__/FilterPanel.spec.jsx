@@ -6,7 +6,7 @@ import {
   FilterPanel,
   mapDispatchToProps,
   mapStateToProps
-} from '../FilterPanel'
+} from '../components/Filters/FilterPanel'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 

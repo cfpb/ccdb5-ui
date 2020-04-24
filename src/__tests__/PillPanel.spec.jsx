@@ -3,7 +3,7 @@ import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import { shallow } from 'enzyme';
-import ReduxPillPanel, { PillPanel, mapDispatchToProps } from '../PillPanel'
+import ReduxPillPanel, { PillPanel, mapDispatchToProps } from '../components/Search/PillPanel'
 import renderer from 'react-test-renderer'
 
 function setupEnzyme() {

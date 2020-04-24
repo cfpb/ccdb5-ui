@@ -1,6 +1,6 @@
 import {
   getComplaintCountText, mapStateToProps, PrintInfo
-} from '../PrintInfo'
+} from '../components/Print/PrintInfo'
 import { IntlProvider } from 'react-intl'
 import React from 'react'
 import renderer from 'react-test-renderer'

@@ -2,7 +2,7 @@ import { IntlProvider } from 'react-intl'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { mount, shallow } from 'enzyme'
-import { Pagination, mapStateToProps, mapDispatchToProps } from '../Pagination'
+import { Pagination, mapStateToProps, mapDispatchToProps } from '../components/List/Pagination'
 
 describe('component::Pagination', () => {
   it('renders without crashing', () => {
