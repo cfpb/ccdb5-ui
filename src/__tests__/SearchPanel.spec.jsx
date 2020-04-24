@@ -1,4 +1,4 @@
-import { SearchPanel } from '../components/search/SearchPanel'
+import { SearchPanel } from '../components/Search/SearchPanel'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import thunk from 'redux-thunk'

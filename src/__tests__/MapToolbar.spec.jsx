@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store'
 import {
   mapDispatchToProps, mapStateToProps, MapToolbar
-} from '../components/map/MapToolbar'
+} from '../components/Map/MapToolbar'
 import { Provider } from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'

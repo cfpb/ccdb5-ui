@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
-import { MapPanel, mapDispatchToProps } from '../components/map/MapPanel'
+import { MapPanel, mapDispatchToProps } from '../components/Map/MapPanel'
 import { MODE_MAP } from '../constants'
 import React from 'react'
 import renderer from 'react-test-renderer'

@@ -1,10 +1,10 @@
 import { MODE_LIST, MODE_MAP } from '../constants'
 import { printModeOff, printModeOn } from '../actions/view'
 import { connect } from 'react-redux'
-import ListPanel from './list/ListPanel'
-import MapPanel from './map/MapPanel'
-import PrintInfo from './print/PrintInfo'
-import PrintInfoFooter from './print/PrintInfoFooter'
+import ListPanel from './List/ListPanel'
+import MapPanel from './Map/MapPanel'
+import PrintInfo from './Print/PrintInfo'
+import PrintInfoFooter from './Print/PrintInfoFooter'
 import React from 'react'
 
 export class ResultsPanel extends React.Component {
