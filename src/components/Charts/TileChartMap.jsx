@@ -1,6 +1,7 @@
 import './TileChartMap.less'
 import { addStateFilter, removeStateFilter } from '../../actions/map'
 import { GEO_NORM_NONE, STATE_DATA } from '../../constants'
+import Analytics from '../../actions/analytics'
 import { connect } from 'react-redux'
 import { hashObject } from '../../utils'
 import React from 'react'
@@ -146,9 +147,17 @@ export const mapStateToProps = state => {
 
 export const mapDispatchToProps = dispatch => ( {
   addState: selectedState => {
+    Analytics.sendEvent(
+      Analytics.getDataLayerOptions( 'State Event: add',
+        selectedState.abbr, )
+    )
     dispatch( addStateFilter( selectedState ) )
   },
   removeState: selectedState => {
+    Analytics.sendEvent(
+      Analytics.getDataLayerOptions( 'State Event: remove',
+        selectedState.abbr )
+    )
     dispatch( removeStateFilter( selectedState ) )
   }
 } )
