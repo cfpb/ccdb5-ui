@@ -137,13 +137,15 @@ describe( 'component: TileChartMap', () => {
     } )
     it( 'provides a way to call addState', () => {
       const dispatch = jest.fn()
-      mapDispatchToProps( dispatch ).addState()
+      mapDispatchToProps( dispatch )
+        .addState( { abbr: 'foo', name: 'bar' } )
       expect( dispatch.mock.calls.length ).toEqual( 1 )
     } )
 
     it( 'provides a way to call removeState', () => {
       const dispatch = jest.fn()
-      mapDispatchToProps( dispatch ).removeState()
+      mapDispatchToProps( dispatch )
+        .removeState( { abbr: 'foo', name: 'bar' } )
       expect( dispatch.mock.calls.length ).toEqual( 1 )
     } )
   } )
