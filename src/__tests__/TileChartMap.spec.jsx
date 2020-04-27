@@ -2,6 +2,7 @@ import configureMockStore from 'redux-mock-store'
 import {
   mapDispatchToProps, mapStateToProps, TileChartMap
 } from '../TileChartMap'
+import Analytics from '../actions/analytics'
 import { Provider } from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'
@@ -10,6 +11,7 @@ import thunk from 'redux-thunk'
 import TileMap from '../TileMap'
 
 jest.mock( '../TileMap' )
+jest.mock( '../actions/analytics' )
 
 function setupSnapshot() {
   const middlewares = [ thunk ]
@@ -132,21 +134,30 @@ describe( 'component: TileChartMap', () => {
   } )
 
   describe( 'mapDispatchToProps', () => {
+    let dispatch
     beforeEach( () => {
       jest.clearAllMocks()
+      dispatch = jest.fn()
+      Analytics.getDataLayerOptions = jest.fn()
+      Analytics.sendEvent = jest.fn()
+
     } )
     it( 'provides a way to call addState', () => {
-      const dispatch = jest.fn()
       mapDispatchToProps( dispatch )
         .addState( { abbr: 'foo', name: 'bar' } )
       expect( dispatch.mock.calls.length ).toEqual( 1 )
+      expect( Analytics.getDataLayerOptions )
+        .toHaveBeenCalledWith( 'State Event: add', 'foo' )
+      expect( Analytics.sendEvent ).toHaveBeenCalled()
     } )
 
     it( 'provides a way to call removeState', () => {
-      const dispatch = jest.fn()
       mapDispatchToProps( dispatch )
         .removeState( { abbr: 'foo', name: 'bar' } )
       expect( dispatch.mock.calls.length ).toEqual( 1 )
+      expect( Analytics.getDataLayerOptions )
+        .toHaveBeenCalledWith( 'State Event: remove', 'foo' )
+      expect( Analytics.sendEvent ).toHaveBeenCalled()
     } )
   } )
 
