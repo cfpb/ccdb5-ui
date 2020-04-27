@@ -8,6 +8,7 @@
     list-style-type: none;
 
     .toggle {
+      display: -ms-inline-grid;
       &.a-label:before {
         box-sizing: border-box;
         width: 20px;
@@ -28,9 +29,10 @@
     }
 
     label {
-      max-width: ~"calc(100% - 65px)";  // @max-count-width + @bucket-indent
-
+      max-width: ~"calc(100% - 100px)";  // @max-count-width + @bucket-indent
       button {
+        margin-left: 25px;
+        width: 250px;
         font-size: 16px;
         font-weight: normal;
         text-align: left;
