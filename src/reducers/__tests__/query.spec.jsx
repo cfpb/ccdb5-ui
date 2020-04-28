@@ -534,7 +534,7 @@ describe( 'reducer:query', () => {
         } )
 
         expect( actual.queryString ).toContain( 'dateInterval=All' )
-        expect( actual.queryString ).toContain( '&date_received_min=2011-11-30&field=all&frm=100&size=100' )
+        expect( actual.queryString ).toContain( '&date_received_min=2011-12-01&field=all&frm=100&size=100' )
         const diffMin = moment( actual.date_received_min ).diff( moment( types.DATE_RANGE_MIN ), 'days' )
         expect( diffMin ).toEqual( 0 )
         const diffMax = moment( actual.date_received_max ).diff( moment( new Date() ), 'days' )
@@ -559,7 +559,7 @@ describe( 'reducer:query', () => {
           } )
           expect( actual.queryString ).toContain( 'dateInterval=All' )
           expect( actual.queryString )
-            .toContain( '&date_received_min=2011-11-30&' +
+            .toContain( '&date_received_min=2011-12-01&' +
               'field=complaint_what_happened&frm=100&has_narrative=true&' +
               'size=100' )
 
