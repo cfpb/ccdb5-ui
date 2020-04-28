@@ -56,24 +56,30 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
             className="toggle a-label"
             htmlFor="productCreditreporting, credit repair services, or other personal consumer reports"
           >
-            <button
-              className="flex-all a-btn a-btn__link"
-              onClick={[Function]}
+            <span
+              className="u-visually-hidden"
             >
-              <span>
-                Credit reporting, credit repair services, or other personal consumer reports
-              </span>
-              <svg
-                className="cf-icon-svg"
-                viewBox="0 0 988.2 1200"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M494.1 967.2c-17.3 0-33.8-6.8-46-19L18.6 518.6c-25.1-25.6-24.8-66.8.8-91.9 25.3-24.8 65.8-24.8 91.1 0l383.6 383.6 383.6-383.6c25.6-25.1 66.8-24.8 91.9.8 24.8 25.3 24.8 65.8 0 91.1L540.1 948.1c-12.2 12.2-28.7 19.1-46 19.1z"
-                />
-              </svg>
-            </button>
+              Credit reporting, credit repair services, or other personal consumer reports
+            </span>
           </label>
+          <button
+            className="flex-all a-btn a-btn__link"
+            onClick={[Function]}
+            title="Credit reporting, credit repair services, or other personal consumer reports"
+          >
+            <span>
+              Credit reporting, credit repair services, or other personal consumer reports
+            </span>
+            <svg
+              className="cf-icon-svg"
+              viewBox="0 0 988.2 1200"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M494.1 967.2c-17.3 0-33.8-6.8-46-19L18.6 518.6c-25.1-25.6-24.8-66.8.8-91.9 25.3-24.8 65.8-24.8 91.1 0l383.6 383.6 383.6-383.6c25.6-25.1 66.8-24.8 91.9.8 24.8 25.3 24.8 65.8 0 91.1L540.1 948.1c-12.2 12.2-28.7 19.1-46 19.1z"
+              />
+            </svg>
+          </button>
           <span
             className="flex-fixed parent-count"
           >
@@ -101,24 +107,30 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
             className="toggle a-label"
             htmlFor="productMortgage"
           >
-            <button
-              className="flex-all a-btn a-btn__link"
-              onClick={[Function]}
+            <span
+              className="u-visually-hidden"
             >
-              <span>
-                Mortgage
-              </span>
-              <svg
-                className="cf-icon-svg"
-                viewBox="0 0 988.2 1200"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M494.1 967.2c-17.3 0-33.8-6.8-46-19L18.6 518.6c-25.1-25.6-24.8-66.8.8-91.9 25.3-24.8 65.8-24.8 91.1 0l383.6 383.6 383.6-383.6c25.6-25.1 66.8-24.8 91.9.8 24.8 25.3 24.8 65.8 0 91.1L540.1 948.1c-12.2 12.2-28.7 19.1-46 19.1z"
-                />
-              </svg>
-            </button>
+              Mortgage
+            </span>
           </label>
+          <button
+            className="flex-all a-btn a-btn__link"
+            onClick={[Function]}
+            title="Mortgage"
+          >
+            <span>
+              Mortgage
+            </span>
+            <svg
+              className="cf-icon-svg"
+              viewBox="0 0 988.2 1200"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M494.1 967.2c-17.3 0-33.8-6.8-46-19L18.6 518.6c-25.1-25.6-24.8-66.8.8-91.9 25.3-24.8 65.8-24.8 91.1 0l383.6 383.6 383.6-383.6c25.6-25.1 66.8-24.8 91.9.8 24.8 25.3 24.8 65.8 0 91.1L540.1 948.1c-12.2 12.2-28.7 19.1-46 19.1z"
+              />
+            </svg>
+          </button>
           <span
             className="flex-fixed parent-count"
           >
