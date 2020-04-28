@@ -2,7 +2,7 @@
 export const MODAL_HID = 'MODAL_HID'
 export const MODAL_SHOWN = 'MODAL_SHOWN'
 
-export const DATE_RANGE_MIN = '2011-11-30T12:00:00.000Z'
+export const DATE_RANGE_MIN = '2011-12-01T12:00:00.000Z'
 
 // Modal Dialogs
 export const MODAL_TYPE_DATA_EXPORT = 'MODAL_TYPE_DATA_EXPORT'
