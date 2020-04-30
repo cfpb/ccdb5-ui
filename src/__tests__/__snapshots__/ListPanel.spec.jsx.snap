@@ -99,28 +99,24 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
         value="10"
       >
         <option
-          value={10}
+          value="10"
         >
-          10
-           results
+          10 results
         </option>
         <option
-          value={25}
+          value="25"
         >
-          25
-           results
+          25 results
         </option>
         <option
-          value={50}
+          value="50"
         >
-          50
-           results
+          50 results
         </option>
         <option
-          value={100}
+          value="100"
         >
-          100
-           results
+          100 results
         </option>
       </select>
     </section>
@@ -397,28 +393,24 @@ exports[`component:ListPanel displays a message when only the narratives are sta
         value="10"
       >
         <option
-          value={10}
+          value="10"
         >
-          10
-           results
+          10 results
         </option>
         <option
-          value={25}
+          value="25"
         >
-          25
-           results
+          25 results
         </option>
         <option
-          value={50}
+          value="50"
         >
-          50
-           results
+          50 results
         </option>
         <option
-          value={100}
+          value="100"
         >
-          100
-           results
+          100 results
         </option>
       </select>
     </section>
@@ -871,28 +863,24 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
         value="10"
       >
         <option
-          value={10}
+          value="10"
         >
-          10
-           results
+          10 results
         </option>
         <option
-          value={25}
+          value="25"
         >
-          25
-           results
+          25 results
         </option>
         <option
-          value={50}
+          value="50"
         >
-          50
-           results
+          50 results
         </option>
         <option
-          value={100}
+          value="100"
         >
-          100
-           results
+          100 results
         </option>
       </select>
     </section>
@@ -1345,28 +1333,24 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
         value="10"
       >
         <option
-          value={10}
+          value="10"
         >
-          10
-           results
+          10 results
         </option>
         <option
-          value={25}
+          value="25"
         >
-          25
-           results
+          25 results
         </option>
         <option
-          value={50}
+          value="50"
         >
-          50
-           results
+          50 results
         </option>
         <option
-          value={100}
+          value="100"
         >
-          100
-           results
+          100 results
         </option>
       </select>
     </section>
@@ -1794,28 +1778,24 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
         value="10"
       >
         <option
-          value={10}
+          value="10"
         >
-          10
-           results
+          10 results
         </option>
         <option
-          value={25}
+          value="25"
         >
-          25
-           results
+          25 results
         </option>
         <option
-          value={50}
+          value="50"
         >
-          50
-           results
+          50 results
         </option>
         <option
-          value={100}
+          value="100"
         >
-          100
-           results
+          100 results
         </option>
       </select>
     </section>
@@ -2073,28 +2053,24 @@ exports[`component:ListPanel only displays data message when both types are stal
         value="10"
       >
         <option
-          value={10}
+          value="10"
         >
-          10
-           results
+          10 results
         </option>
         <option
-          value={25}
+          value="25"
         >
-          25
-           results
+          25 results
         </option>
         <option
-          value={50}
+          value="50"
         >
-          50
-           results
+          50 results
         </option>
         <option
-          value={100}
+          value="100"
         >
-          100
-           results
+          100 results
         </option>
       </select>
     </section>
@@ -2523,28 +2499,24 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
         value="10"
       >
         <option
-          value={10}
+          value="10"
         >
-          10
-           results
+          10 results
         </option>
         <option
-          value={25}
+          value="25"
         >
-          25
-           results
+          25 results
         </option>
         <option
-          value={50}
+          value="50"
         >
-          50
-           results
+          50 results
         </option>
         <option
-          value={100}
+          value="100"
         >
-          100
-           results
+          100 results
         </option>
       </select>
     </section>
@@ -2972,28 +2944,24 @@ exports[`component:ListPanel renders without crashing 1`] = `
         value="10"
       >
         <option
-          value={10}
+          value="10"
         >
-          10
-           results
+          10 results
         </option>
         <option
-          value={25}
+          value="25"
         >
-          25
-           results
+          25 results
         </option>
         <option
-          value={50}
+          value="50"
         >
-          50
-           results
+          50 results
         </option>
         <option
-          value={100}
+          value="100"
         >
-          100
-           results
+          100 results
         </option>
       </select>
     </section>
