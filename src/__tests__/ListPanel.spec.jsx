@@ -70,9 +70,9 @@ function setupSnapshot( items = [], initialStore = {}, queryStore = null, viewSt
         <ListPanel items={ items }
                    from="0" size="10"
                    error={ aggs.error }
-                   showMobileFilters={view.showMobileFilters}
-                   onSize={jest.fn()}
-                   onSort={jest.fn()}
+                   showMobileFilters={ view.showMobileFilters }
+                   onSize={ jest.fn() }
+                   onSort={ jest.fn() }
         />
       </IntlProvider>
     </Provider>
