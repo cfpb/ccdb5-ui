@@ -46,8 +46,6 @@ describe( 'reducer:query', () => {
       }
 
       expect( target( state, action ) ).toEqual( {
-        enablePer1000: true,
-        mapWarningEnabled: true,
         page: 10,
         queryString: '?page=10&size=100',
         size: 100,
@@ -71,8 +69,6 @@ describe( 'reducer:query', () => {
       }
 
       expect( target( state, action ) ).toEqual( {
-        enablePer1000: true,
-        mapWarningEnabled: true,
         page: 100,
         queryString: '?page=100&size=100',
         size: 100,
@@ -92,9 +88,7 @@ describe( 'reducer:query', () => {
       size: 100
     }
     expect( target( state, action ) ).toEqual( {
-      enablePer1000: true,
       from: 0,
-      mapWarningEnabled: true,
       page: 1,
       queryString: '?field=bar&page=1&search_term=foo&size=100',
       searchField: 'bar',
@@ -111,14 +105,16 @@ describe( 'reducer:query', () => {
       const state = {
         company: [1,2,3],
         foo: 'bar',
-        mapWarningEnabled: true
+        mapWarningEnabled: true,
+        tab: types.MODE_MAP
       }
       expect( target( state, action ) ).toEqual( {
         company: [1,2,3],
         enablePer1000: false,
         foo: 'bar',
         mapWarningEnabled: false,
-        queryString: '?company=1&company=2&company=3&foo=bar'
+        queryString: '?company=1&company=2&company=3&foo=bar&tab=Map',
+        tab: 'Map'
       } )
     })
   })
@@ -130,15 +126,15 @@ describe( 'reducer:query', () => {
         page: 2
       }
       const state = {
-        size: 100
+        size: 100,
+        tab: types.MODE_LIST
       }
       expect( target( state, action ) ).toEqual( {
-        enablePer1000: true,
         from: 100,
-        mapWarningEnabled: true,
         page: 2,
-        queryString: '?frm=100&page=2&size=100',
-        size: 100
+        queryString: '?frm=100&page=2&size=100&tab=List',
+        size: 100,
+        tab: 'List'
       } )
     } )
 
@@ -150,15 +146,15 @@ describe( 'reducer:query', () => {
         from: 100,
         page: 2,
         queryString: 'foobar',
-        size: 100
+        size: 100,
+        tab: types.MODE_LIST
       }
       expect( target( state, action ) ).toEqual( {
-        enablePer1000: true,
         from: 200,
-        mapWarningEnabled: true,
         page: 3,
-        queryString: '?frm=200&page=3&size=100',
-        size: 100
+        queryString: '?frm=200&page=3&size=100&tab=List',
+        size: 100,
+        tab: 'List'
       } )
     } )
 
@@ -170,15 +166,15 @@ describe( 'reducer:query', () => {
         from: 100,
         page: 2,
         queryString: 'foobar',
-        size: 100
+        size: 100,
+        tab: types.MODE_LIST
       }
       expect( target( state, action ) ).toEqual( {
-        enablePer1000: true,
         from: 0,
-        mapWarningEnabled: true,
         page: 1,
-        queryString: '?page=1&size=100',
-        size: 100
+        queryString: '?page=1&size=100&tab=List',
+        size: 100,
+        tab: 'List'
       } )
     } )
   } )
@@ -190,15 +186,15 @@ describe( 'reducer:query', () => {
         size: 50
       }
       const state = {
-        size: 100
+        size: 100,
+        tab: types.MODE_LIST
       }
       expect( target( state, action ) ).toEqual( {
-        enablePer1000: true,
         from: 0,
-        mapWarningEnabled: true,
         page: 1,
-        queryString: '?page=1&size=50',
-        size: 50
+        queryString: '?page=1&size=50&tab=List',
+        size: 50,
+        tab: 'List'
       } )
     } )
 
@@ -209,31 +205,44 @@ describe( 'reducer:query', () => {
       }
       const state = {
         from: 100,
-        size: 100
+        size: 100,
+        tab: types.MODE_LIST
       }
       expect( target( state, action ) ).toEqual( {
-        enablePer1000: true,
         from: 100,
-        mapWarningEnabled: true,
-        queryString: '?frm=100&size=100&sort=foo',
+        queryString: '?frm=100&size=100&sort=foo&tab=List',
         sort: 'foo',
-        size: 100
+        size: 100,
+        tab: 'List'
+      } )
+    } )
+  } )
+
+  describe( 'Tabs', () => {
+    let action, state
+    beforeEach(()=>{
+      action = {
+        type: actions.TAB_CHANGED
+      }
+      state = {
+        tab: 'bar'
+      }
+    })
+    it( 'handles TAB_CHANGED actions', () => {
+      action.tab = 'foo'
+      expect( target( state, action ) ).toEqual( {
+        tab: 'foo',
+        queryString: '?tab=foo'
       } )
     } )
 
-    it( 'handles TAB_CHANGED actions', () => {
-      const action = {
-        type: actions.TAB_CHANGED,
-        tab: 'foo'
-      }
-      const state = {
-        tab: 'bar'
-      }
+    it( 'handles a Map TAB_CHANGED actions', () => {
+      action.tab = types.MODE_MAP
       expect( target( state, action ) ).toEqual( {
         enablePer1000: true,
         mapWarningEnabled: true,
-        tab: 'foo',
-        queryString: '?tab=foo'
+        tab: 'Map',
+        queryString: '?tab=Map'
       } )
     } )
   } )
@@ -408,13 +417,25 @@ describe( 'reducer:query', () => {
       it( 'handles FILTER_CHANGED actions and returns correct object', () => {
         expect( target( state, action ) ).toEqual(
           {
-            enablePer1000: true,
             [filterName]: [ key ],
-            mapWarningEnabled: true,
             queryString: '?filtyMcFilterson=affirmative'
           }
         )
       } )
+
+      it( 'handles FILTER_CHANGED actions & returns correct object - Map', () => {
+        state.tab = types.MODE_MAP
+        expect( target( state, action ) ).toEqual(
+          {
+            enablePer1000: true,
+            [filterName]: [ key ],
+            mapWarningEnabled: true,
+            queryString: '?filtyMcFilterson=affirmative&tab=Map',
+            tab: 'Map'
+          }
+        )
+      } )
+
 
       it( 'creates a filter array if target is undefined', () => {
         let filterReturn = filterArrayAction( undefined, key )
@@ -448,10 +469,22 @@ describe( 'reducer:query', () => {
           foo: [ 'bar', 'baz', 'qaz' ]
         }
         expect( target( state, action ) ).toEqual( {
+          foo: [ 'bar', 'qaz' ],
+          queryString: '?foo=bar&foo=qaz'
+        } )
+      } )
+
+      it( 'removes a filter on Map tab when one exists', () => {
+        const state = {
+          foo: [ 'bar', 'baz', 'qaz' ],
+          tab: 'Map'
+        }
+        expect( target( state, action ) ).toEqual( {
           enablePer1000: true,
           foo: [ 'bar', 'qaz' ],
           mapWarningEnabled: true,
-          queryString: '?foo=bar&foo=qaz'
+          queryString: '?foo=bar&foo=qaz&tab=Map',
+          tab: 'Map'
         } )
       } )
 
@@ -460,9 +493,7 @@ describe( 'reducer:query', () => {
           foobar: [ 'bar', 'baz', 'qaz' ]
         }
         expect( target( state, action ) ).toEqual( {
-          enablePer1000: true,
           foobar: [ 'bar', 'baz', 'qaz' ],
-          mapWarningEnabled: true,
           queryString: '?foobar=bar&foobar=baz&foobar=qaz'
         } )
       } )
@@ -472,9 +503,7 @@ describe( 'reducer:query', () => {
           foo: [ 'bar', 'qaz' ]
         }
         expect( target( state, action ) ).toEqual( {
-          enablePer1000: true,
           foo: [ 'bar', 'qaz' ],
-          mapWarningEnabled: true,
           queryString: '?foo=bar&foo=qaz'
         } )
       } )
@@ -486,8 +515,6 @@ describe( 'reducer:query', () => {
             has_narrative: true
           }
           expect( target( state, action ) ).toEqual( {
-            enablePer1000: true,
-            mapWarningEnabled: true,
             queryString: ''
           } )
         } );
@@ -496,8 +523,6 @@ describe( 'reducer:query', () => {
           action.filterName = 'has_narrative'
           const state = {}
           expect( target( state, action ) ).toEqual( {
-            enablePer1000: true,
-            mapWarningEnabled: true,
             queryString: ''
           } )
         } );
@@ -526,6 +551,25 @@ describe( 'reducer:query', () => {
         const actual = target( state, action )
         expect( actual ).toMatchObject( {
           dateRange: 'All',
+          from: 100,
+          searchField: 'all',
+          size: 100
+        } )
+
+        expect( actual.queryString ).toContain( 'dateRange=All' )
+        expect( actual.queryString ).toContain( '&date_received_min=2011-11-30&field=all&frm=100&size=100' )
+        const diffMin = moment( actual.date_received_min ).diff( moment( types.DATE_RANGE_MIN ), 'days' )
+        expect( diffMin ).toEqual( 0 )
+        const diffMax = moment( actual.date_received_max ).diff( moment( new Date() ), 'days' )
+        expect( diffMax ).toEqual( 0 )
+        expect( actual.date_received_max ).toBeTruthy()
+      } )
+
+      it( 'clears all filters - Map', () => {
+        state.tab = types.MODE_MAP
+        const actual = target( state, action )
+        expect( actual ).toMatchObject( {
+          dateRange: 'All',
           enablePer1000: true,
           from: 100,
           mapWarningEnabled: true,
@@ -551,7 +595,6 @@ describe( 'reducer:query', () => {
           const actual = target( state, action )
           expect( actual ).toMatchObject( {
             dateRange: 'All',
-            enablePer1000: false,
             from: 100,
             has_narrative: true,
             searchField: types.NARRATIVE_SEARCH_FIELD,
@@ -584,24 +627,52 @@ describe( 'reducer:query', () => {
 
       it( "adds all filters if they didn't exist", () => {
         expect( target( {}, action ) ).toEqual( {
-          enablePer1000: false,
           issue: [ 'Mo Money', 'Mo Problems' ],
           queryString: '?issue=Mo%20Money&issue=Mo%20Problems'
         } )
       } )
 
-      it( "skips filters if they exist already", () => {
+      it( "adds all filters if they didn't exist - Map", () => {
+        expect( target( {
+          enablePer1000: true,
+          mapWarningEnabled: true,
+          tab: types.MODE_MAP
+        }, action ) ).toEqual( {
+          enablePer1000: false,
+          issue: [ 'Mo Money', 'Mo Problems' ],
+          mapWarningEnabled: true,
+          queryString: '?issue=Mo%20Money&issue=Mo%20Problems&tab=Map',
+          tab: 'Map'
+        } )
+      } )
+
+      it( 'skips filters if they exist already', () => {
         const state = {
           issue: [ 'foo' ]
         }
         action.values.push( 'foo' )
 
         expect( target( state, action ) ).toEqual( {
-          enablePer1000: false,
           issue: [ 'foo', 'Mo Money', 'Mo Problems' ],
           queryString: '?issue=foo&issue=Mo%20Money&issue=Mo%20Problems'
         } )
       } )
+
+      it( 'skips filters if they exist already - Map', () => {
+        const state = {
+          issue: [ 'foo' ],
+          tab: 'Map'
+        }
+        action.values.push( 'foo' )
+
+        expect( target( state, action ) ).toEqual( {
+          enablePer1000: false,
+          issue: [ 'foo', 'Mo Money', 'Mo Problems' ],
+          queryString: '?issue=foo&issue=Mo%20Money&issue=Mo%20Problems&tab=Map',
+          tab: 'Map'
+        } )
+      } )
+
     } )
 
     describe( 'FILTER_MULTIPLE_REMOVED actions', () => {
@@ -614,21 +685,31 @@ describe( 'reducer:query', () => {
         }
       } )
 
-      it( "removes filters if they exist", () => {
+      it( 'removes filters if they exist', () => {
         const state = {
           issue: [ 'foo', 'Mo Money', 'Mo Problems' ]
         }
         expect( target( state, action ) ).toEqual( {
-          enablePer1000: false,
           issue: [ 'foo' ],
           queryString: '?issue=foo'
         } )
       } )
 
-      it( "ignores unknown filters", () => {
+      it( 'removes filters if they exist - Map tab', () => {
+        const state = {
+          issue: [ 'foo', 'Mo Money', 'Mo Problems' ],
+          tab: types.MODE_MAP
+        }
+        expect( target( state, action ) ).toEqual( {
+          enablePer1000: false,
+          issue: [ 'foo' ],
+          queryString: '?issue=foo&tab=Map',
+          tab: 'Map'
+        } )
+      } )
+
+      it( 'ignores unknown filters', () => {
         expect( target( {}, action ) ).toEqual( {
-          enablePer1000: true,
-          mapWarningEnabled: true,
           queryString: ''
         } )
       } )
@@ -647,7 +728,6 @@ describe( 'reducer:query', () => {
 
       it( 'adds narrative filter to empty state', () => {
         expect( target( state, action ) ).toEqual( {
-          enablePer1000: false,
           has_narrative: true,
           queryString: '?has_narrative=true'
         } )
@@ -656,8 +736,6 @@ describe( 'reducer:query', () => {
       it( 'toggles off narrative filter', () => {
         state.has_narrative = true
         expect( target( state, action ) ).toEqual( {
-          enablePer1000: true,
-          mapWarningEnabled: true,
           queryString: ''
         } )
       } )
@@ -679,10 +757,8 @@ describe( 'reducer:query', () => {
 
       it( 'adds the dates', () => {
         expect( target( {}, action ) ).toEqual( {
-          enablePer1000: true,
           date_received_min: new Date( 2001, 0, 30 ),
           date_received_max: new Date( 2013, 1, 3 ),
-          mapWarningEnabled: true,
           queryString: '?date_received_max=2013-02-03&date_received_min=2001-01-30'
         } )
       } )
@@ -704,41 +780,7 @@ describe( 'reducer:query', () => {
         action.maxDate = ''
         action.minDate = ''
         expect( target( {}, action ) ).toEqual( {
-          enablePer1000: true,
-          mapWarningEnabled: true,
           queryString: ''
-        } )
-      } )
-    } )
-
-    describe( 'DATA_LENS_CHANGED actions', () => {
-      it( 'changes the dataLens', () => {
-        const action = {
-          type: actions.DATA_LENS_CHANGED,
-          dataLens: 'foo'
-        }
-        const result = target( {}, action )
-        expect( result ).toEqual( {
-          dataLens: 'foo',
-          enablePer1000: true,
-          mapWarningEnabled: true,
-          queryString: '?dataLens=foo'
-        } )
-      } )
-    } )
-
-    describe( 'DATE_INTERVAL_CHANGED', () => {
-      it( 'changes the dateInterval', () => {
-        const action = {
-          type: actions.DATE_INTERVAL_CHANGED,
-          dateInterval: 'Day'
-        }
-        const result = target( {}, action )
-        expect( result ).toEqual( {
-          dateInterval: 'Day',
-          enablePer1000: true,
-          mapWarningEnabled: true,
-          queryString: '?dateInterval=Day'
         } )
       } )
     } )
@@ -786,15 +828,14 @@ describe( 'reducer:query', () => {
         }
 
         res = target( {
-          state: []
+          state: [],
+          tab: types.MODE_MAP
         }, action )
 
         expect( res ).toEqual( {
-          enablePer1000: true,
-          mapWarningEnabled: true,
           queryString: '?tab=List',
           state: [ ],
-          tab: types.MODE_LIST
+          tab: 'List'
         } )
       } )
 
@@ -804,14 +845,18 @@ describe( 'reducer:query', () => {
         }
 
         res = target( {
-          state: [ 'TX', 'MX', 'FO' ]
+          enablePer1000: false,
+          mapWarningEnabled: true,
+          state: [ 'TX', 'MX', 'FO' ],
+          tab: types.MODE_MAP
         }, action )
 
         expect( res ).toEqual( {
           enablePer1000: false,
+          mapWarningEnabled: true,
           queryString: '?state=TX&state=MX&state=FO&tab=List',
           state: [ 'TX', 'MX', 'FO' ],
-          tab: types.MODE_LIST
+          tab: 'List'
         } )
       } )
     } )
@@ -824,19 +869,25 @@ describe( 'reducer:query', () => {
         }
       } )
       it( 'adds state filter', () => {
-        res = target( {}, action )
+        res = target( { tab: types.MODE_MAP }, action )
         expect( res ).toEqual( {
           enablePer1000: false,
-          queryString: '?state=IL',
-          state: [ 'IL' ]
+          queryString: '?state=IL&tab=Map',
+          state: [ 'IL' ],
+          tab: 'Map'
         } )
       } )
       it( 'does not add dupe state filter', () => {
-        res = target( { state: [ 'IL', 'TX' ] }, action )
+        res = target( {
+          state: [ 'IL', 'TX' ],
+          tab: types.MODE_MAP
+        }, action )
+
         expect( res ).toEqual( {
           enablePer1000: false,
-          queryString: '?state=IL&state=TX',
-          state: [ 'IL', 'TX' ]
+          queryString: '?state=IL&state=TX&tab=Map',
+          state: [ 'IL', 'TX' ],
+          tab: 'Map'
         } )
       } )
     } )
@@ -849,14 +900,16 @@ describe( 'reducer:query', () => {
         }
 
         res = target( {
-          state: [ 'FO', 'BA' ]
+          state: [ 'FO', 'BA' ],
+          tab: types.MODE_MAP
         }, action )
 
         expect( res ).toEqual( {
           enablePer1000: true,
           mapWarningEnabled: true,
-          queryString: '',
-          state: []
+          queryString: '?tab=Map',
+          state: [],
+          tab: 'Map'
         } )
       } )
 
@@ -865,13 +918,14 @@ describe( 'reducer:query', () => {
           type: actions.STATE_FILTER_CLEARED
         }
 
-        res = target( {}, action )
+        res = target( { tab: types.MODE_MAP }, action )
 
         expect( res ).toEqual( {
           enablePer1000: true,
           mapWarningEnabled: true,
-          queryString: '',
-          state: []
+          queryString: '?tab=Map',
+          state: [],
+          tab: 'Map'
         } )
       } )
     } )
@@ -884,22 +938,59 @@ describe( 'reducer:query', () => {
         }
       } )
       it( 'removes a state filter', () => {
-        res = target( { state: ['CA', 'IL'] }, action )
+        res = target( {
+          state: [ 'CA', 'IL' ],
+          tab: types.MODE_MAP
+        }, action )
         expect( res ).toEqual( {
           enablePer1000: false,
-          queryString: '?state=CA',
-          state: [ 'CA' ]
+          queryString: '?state=CA&tab=Map',
+          state: [ 'CA' ],
+          tab: 'Map'
         } )
       } )
       it( 'handles empty state', () => {
-        res = target( {}, action )
+        res = target( { tab: types.MODE_MAP }, action )
         expect( res ).toEqual( {
           enablePer1000: true,
           mapWarningEnabled: true,
-          queryString: '',
-          state: []
+          queryString: '?tab=Map',
+          state: [],
+          tab: 'Map'
         } )
       } )
     } )
   } )
+
+  describe('Trends', ()=>{
+    describe( 'DATA_LENS_CHANGED actions', () => {
+      it( 'changes the dataLens', () => {
+        const action = {
+          type: actions.DATA_LENS_CHANGED,
+          dataLens: 'foo'
+        }
+        const result = target( { tab: types.MODE_TRENDS }, action )
+        expect( result ).toEqual( {
+          dataLens: 'foo',
+          queryString: '?dataLens=foo&tab=Trends',
+          tab: 'Trends'
+        } )
+      } )
+    } )
+
+    describe( 'DATE_INTERVAL_CHANGED', () => {
+      it( 'changes the dateInterval', () => {
+        const action = {
+          type: actions.DATE_INTERVAL_CHANGED,
+          dateInterval: 'Day'
+        }
+        const result = target( { tab: types.MODE_TRENDS }, action )
+        expect( result ).toEqual( {
+          dateInterval: 'Day',
+          queryString: '?dateInterval=Day&tab=Trends',
+          tab: 'Trends'
+        } )
+      } )
+    } )
+  })
 } )
