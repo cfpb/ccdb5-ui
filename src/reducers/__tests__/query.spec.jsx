@@ -114,7 +114,7 @@ describe( 'reducer:query', () => {
         foo: 'bar',
         mapWarningEnabled: false,
         queryString: '?company=1&company=2&company=3&foo=bar&tab=Map',
-        tab: 'Map'
+        tab: types.MODE_MAP
       } )
     })
   })
@@ -134,7 +134,7 @@ describe( 'reducer:query', () => {
         page: 2,
         queryString: '?frm=100&page=2&size=100&tab=List',
         size: 100,
-        tab: 'List'
+        tab: types.MODE_LIST
       } )
     } )
 
@@ -154,7 +154,7 @@ describe( 'reducer:query', () => {
         page: 3,
         queryString: '?frm=200&page=3&size=100&tab=List',
         size: 100,
-        tab: 'List'
+        tab: types.MODE_LIST
       } )
     } )
 
@@ -174,7 +174,7 @@ describe( 'reducer:query', () => {
         page: 1,
         queryString: '?page=1&size=100&tab=List',
         size: 100,
-        tab: 'List'
+        tab: types.MODE_LIST
       } )
     } )
   } )
@@ -194,7 +194,7 @@ describe( 'reducer:query', () => {
         page: 1,
         queryString: '?page=1&size=50&tab=List',
         size: 50,
-        tab: 'List'
+        tab: types.MODE_LIST
       } )
     } )
 
@@ -213,7 +213,7 @@ describe( 'reducer:query', () => {
         queryString: '?frm=100&size=100&sort=foo&tab=List',
         sort: 'foo',
         size: 100,
-        tab: 'List'
+        tab: types.MODE_LIST
       } )
     } )
   } )
@@ -241,7 +241,7 @@ describe( 'reducer:query', () => {
       expect( target( state, action ) ).toEqual( {
         enablePer1000: true,
         mapWarningEnabled: true,
-        tab: 'Map',
+        tab: types.MODE_MAP,
         queryString: '?tab=Map'
       } )
     } )
@@ -431,7 +431,7 @@ describe( 'reducer:query', () => {
             [filterName]: [ key ],
             mapWarningEnabled: true,
             queryString: '?filtyMcFilterson=affirmative&tab=Map',
-            tab: 'Map'
+            tab: types.MODE_MAP
           }
         )
       } )
@@ -477,14 +477,14 @@ describe( 'reducer:query', () => {
       it( 'removes a filter on Map tab when one exists', () => {
         const state = {
           foo: [ 'bar', 'baz', 'qaz' ],
-          tab: 'Map'
+          tab: types.MODE_MAP
         }
         expect( target( state, action ) ).toEqual( {
           enablePer1000: true,
           foo: [ 'bar', 'qaz' ],
           mapWarningEnabled: true,
           queryString: '?foo=bar&foo=qaz&tab=Map',
-          tab: 'Map'
+          tab: types.MODE_MAP
         } )
       } )
 
@@ -642,7 +642,7 @@ describe( 'reducer:query', () => {
           issue: [ 'Mo Money', 'Mo Problems' ],
           mapWarningEnabled: true,
           queryString: '?issue=Mo%20Money&issue=Mo%20Problems&tab=Map',
-          tab: 'Map'
+          tab: types.MODE_MAP
         } )
       } )
 
@@ -661,7 +661,7 @@ describe( 'reducer:query', () => {
       it( 'skips filters if they exist already - Map', () => {
         const state = {
           issue: [ 'foo' ],
-          tab: 'Map'
+          tab: types.MODE_MAP
         }
         action.values.push( 'foo' )
 
@@ -669,7 +669,7 @@ describe( 'reducer:query', () => {
           enablePer1000: false,
           issue: [ 'foo', 'Mo Money', 'Mo Problems' ],
           queryString: '?issue=foo&issue=Mo%20Money&issue=Mo%20Problems&tab=Map',
-          tab: 'Map'
+          tab: types.MODE_MAP
         } )
       } )
 
@@ -704,7 +704,7 @@ describe( 'reducer:query', () => {
           enablePer1000: false,
           issue: [ 'foo' ],
           queryString: '?issue=foo&tab=Map',
-          tab: 'Map'
+          tab: types.MODE_MAP
         } )
       } )
 
@@ -835,7 +835,7 @@ describe( 'reducer:query', () => {
         expect( res ).toEqual( {
           queryString: '?tab=List',
           state: [ ],
-          tab: 'List'
+          tab: types.MODE_LIST
         } )
       } )
 
@@ -856,7 +856,7 @@ describe( 'reducer:query', () => {
           mapWarningEnabled: true,
           queryString: '?state=TX&state=MX&state=FO&tab=List',
           state: [ 'TX', 'MX', 'FO' ],
-          tab: 'List'
+          tab: types.MODE_LIST
         } )
       } )
     } )
@@ -874,7 +874,7 @@ describe( 'reducer:query', () => {
           enablePer1000: false,
           queryString: '?state=IL&tab=Map',
           state: [ 'IL' ],
-          tab: 'Map'
+          tab: types.MODE_MAP
         } )
       } )
       it( 'does not add dupe state filter', () => {
@@ -887,7 +887,7 @@ describe( 'reducer:query', () => {
           enablePer1000: false,
           queryString: '?state=IL&state=TX&tab=Map',
           state: [ 'IL', 'TX' ],
-          tab: 'Map'
+          tab: types.MODE_MAP
         } )
       } )
     } )
@@ -909,7 +909,7 @@ describe( 'reducer:query', () => {
           mapWarningEnabled: true,
           queryString: '?tab=Map',
           state: [],
-          tab: 'Map'
+          tab: types.MODE_MAP
         } )
       } )
 
@@ -925,7 +925,7 @@ describe( 'reducer:query', () => {
           mapWarningEnabled: true,
           queryString: '?tab=Map',
           state: [],
-          tab: 'Map'
+          tab: types.MODE_MAP
         } )
       } )
     } )
@@ -946,7 +946,7 @@ describe( 'reducer:query', () => {
           enablePer1000: false,
           queryString: '?state=CA&tab=Map',
           state: [ 'CA' ],
-          tab: 'Map'
+          tab: types.MODE_MAP
         } )
       } )
       it( 'handles empty state', () => {
@@ -956,7 +956,7 @@ describe( 'reducer:query', () => {
           mapWarningEnabled: true,
           queryString: '?tab=Map',
           state: [],
-          tab: 'Map'
+          tab: types.MODE_MAP
         } )
       } )
     } )
