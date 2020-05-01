@@ -795,7 +795,10 @@ function handleSpecificAction( state, action ) {
 export default ( state = defaultQuery, action ) => {
   const newState = handleSpecificAction( state, action )
 
-  validatePer1000( newState )
+  if ( newState.tab === types.MODE_MAP ) {
+    // only update the map warning items when we're on the map tab
+    validatePer1000( newState )
+  }
 
   const qs = stateToQS( newState )
   newState.queryString = qs === '?' ? '' : qs
