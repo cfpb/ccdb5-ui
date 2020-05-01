@@ -128,28 +128,24 @@ exports[`component:Results renders List print mode without crashing 1`] = `
           onChange={[Function]}
         >
           <option
-            value={10}
+            value="10"
           >
-            10
-             results
+            10 results
           </option>
           <option
-            value={25}
+            value="25"
           >
-            25
-             results
+            25 results
           </option>
           <option
-            value={50}
+            value="50"
           >
-            50
-             results
+            50 results
           </option>
           <option
-            value={100}
+            value="100"
           >
-            100
-             results
+            100 results
           </option>
         </select>
       </section>
@@ -828,28 +824,24 @@ exports[`component:Results renders list panel without crashing 1`] = `
           onChange={[Function]}
         >
           <option
-            value={10}
+            value="10"
           >
-            10
-             results
+            10 results
           </option>
           <option
-            value={25}
+            value="25"
           >
-            25
-             results
+            25 results
           </option>
           <option
-            value={50}
+            value="50"
           >
-            50
-             results
+            50 results
           </option>
           <option
-            value={100}
+            value="100"
           >
-            100
-             results
+            100 results
           </option>
         </select>
       </section>

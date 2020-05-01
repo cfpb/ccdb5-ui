@@ -10,6 +10,7 @@ import FilterPanelToggle from '../Filters/FilterPanelToggle'
 import Loading from '../Dialogs/Loading'
 import Pagination from './Pagination'
 import React from 'react'
+import { Select } from '../RefineBar/Select'
 import { Separator } from '../RefineBar/Separator'
 import StaleDataWarnings from '../Warnings/StaleDataWarnings'
 
@@ -17,7 +18,12 @@ const ERROR = 'ERROR'
 const NO_RESULTS = 'NO_RESULTS'
 const RESULTS = 'RESULTS'
 
-const sizes = [ 10, 25, 50, 100 ]
+const sizes = {
+  10: '10 results',
+  25: '25 results',
+  50: '50 results',
+  100: '100 results'
+}
 
 /* eslint-disable camelcase */
 
@@ -53,34 +59,19 @@ export class ListPanel extends React.Component {
         <div className="layout-row refine-bar">
           <FilterPanelToggle/>
           <Separator />
-          <section className="cf-select">
-            <label className="u-visually-hidden" htmlFor="choose-size">
-              Select the number of results to display at a time
-            </label>
-            <p>
-              Show
-            </p>
-            <select value={ this.props.size } id="choose-size"
-                    onChange={ this.props.onSize }>
-              { sizes.map(
-                x => <option key={ x } value={ x }>{ x } results</option>
-              ) }
-            </select>
-          </section>
-          <section className="cf-select">
-            <label className="u-visually-hidden" htmlFor="choose-sort">
-              Choose the order in which the results are displayed
-            </label>
-            <p>
-              Sort
-            </p>
-            <select value={ this.props.sort } id="choose-sort"
-                    onChange={ this.props.onSort }>
-              { Object.keys( sorts ).map( x =>
-                <option key={ x } value={ x }>{ sorts[x] }</option>
-              ) }
-            </select>
-          </section>
+          <Select label={ 'Select the number of results to display at a time' }
+                  title={ 'Show' }
+                  values={ sizes }
+                  id={ 'size' }
+                  value={ this.props.size }
+                  handleChange={ this.props.onSize }/>
+          <Select label={ 'Choose the order in which the results are ' +
+          'displayed' }
+                  title={ 'Sort' }
+                  values={ sorts }
+                  id={ 'sort' }
+                  value={ this.props.sort }
+                  handleChange={ this.props.onSort }/>
         </div>
         { this.renderMap[phase]() }
         <Pagination />
