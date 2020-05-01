@@ -96,6 +96,7 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
       </p>
       <select
         id="choose-size"
+        onChange={[MockFunction]}
         value="10"
       >
         <option
@@ -134,6 +135,7 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
       </p>
       <select
         id="choose-sort"
+        onChange={[MockFunction]}
       >
         <option
           value="created_date_desc"
@@ -390,6 +392,7 @@ exports[`component:ListPanel displays a message when only the narratives are sta
       </p>
       <select
         id="choose-size"
+        onChange={[MockFunction]}
         value="10"
       >
         <option
@@ -428,6 +431,7 @@ exports[`component:ListPanel displays a message when only the narratives are sta
       </p>
       <select
         id="choose-sort"
+        onChange={[MockFunction]}
       >
         <option
           value="created_date_desc"
@@ -860,6 +864,7 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
       </p>
       <select
         id="choose-size"
+        onChange={[MockFunction]}
         value="10"
       >
         <option
@@ -898,6 +903,7 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
       </p>
       <select
         id="choose-sort"
+        onChange={[MockFunction]}
       >
         <option
           value="created_date_desc"
@@ -1330,6 +1336,7 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
       </p>
       <select
         id="choose-size"
+        onChange={[MockFunction]}
         value="10"
       >
         <option
@@ -1368,6 +1375,7 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
       </p>
       <select
         id="choose-sort"
+        onChange={[MockFunction]}
       >
         <option
           value="created_date_desc"
@@ -1775,6 +1783,7 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
       </p>
       <select
         id="choose-size"
+        onChange={[MockFunction]}
         value="10"
       >
         <option
@@ -1813,6 +1822,7 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
       </p>
       <select
         id="choose-sort"
+        onChange={[MockFunction]}
       >
         <option
           value="created_date_desc"
@@ -2050,6 +2060,7 @@ exports[`component:ListPanel only displays data message when both types are stal
       </p>
       <select
         id="choose-size"
+        onChange={[MockFunction]}
         value="10"
       >
         <option
@@ -2088,6 +2099,7 @@ exports[`component:ListPanel only displays data message when both types are stal
       </p>
       <select
         id="choose-sort"
+        onChange={[MockFunction]}
       >
         <option
           value="created_date_desc"
@@ -2496,6 +2508,7 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
       </p>
       <select
         id="choose-size"
+        onChange={[MockFunction]}
         value="10"
       >
         <option
@@ -2534,6 +2547,7 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
       </p>
       <select
         id="choose-sort"
+        onChange={[MockFunction]}
       >
         <option
           value="created_date_desc"
@@ -2941,6 +2955,7 @@ exports[`component:ListPanel renders without crashing 1`] = `
       </p>
       <select
         id="choose-size"
+        onChange={[MockFunction]}
         value="10"
       >
         <option
@@ -2979,6 +2994,7 @@ exports[`component:ListPanel renders without crashing 1`] = `
       </p>
       <select
         id="choose-sort"
+        onChange={[MockFunction]}
       >
         <option
           value="created_date_desc"
