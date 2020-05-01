@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 export class Select extends React.Component {
@@ -32,4 +33,15 @@ export class Select extends React.Component {
   }
 }
 
-export default Select;
+Select.propTypes = {
+  id: PropTypes.string,
+  handleChange: PropTypes.func.isRequired,
+  label: PropTypes.string,
+  title: PropTypes.string,
+  values: PropTypes.oneOfType( [
+    PropTypes.array,
+    PropTypes.object
+  ] ).isRequired
+}
+
+export default Select
