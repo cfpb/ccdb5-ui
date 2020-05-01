@@ -15,7 +15,30 @@ describe('action:filterActions', () => {
           requery: REQUERY_ALWAYS
         }
         expect(sut.changeDates(filterName, minDate, maxDate))
-          .toEqual( expectedAction );
+          .toEqual( expectedAction )
+    })
+  })
+
+  describe('changeDataLens', () => {
+    it('creates a simple action', () => {
+      const expectedAction = {
+        type: sut.DATA_LENS_CHANGED,
+        dataLens: 'bar',
+        requery: REQUERY_ALWAYS
+      }
+      expect(sut.changeDataLens('bar')).toEqual( expectedAction )
+    })
+  })
+
+  describe('changeDateInterval', () => {
+    it('creates a simple action', () => {
+      const expectedAction = {
+        type: sut.DATE_INTERVAL_CHANGED,
+        dateInterval: 'foo',
+        requery: REQUERY_ALWAYS
+      }
+      expect(sut.changeDateInterval('foo'))
+        .toEqual( expectedAction );
     })
   })
 
@@ -26,8 +49,7 @@ describe('action:filterActions', () => {
         dateRange: 'foo',
         requery: REQUERY_ALWAYS
       }
-      expect(sut.dateRangeToggled('foo'))
-        .toEqual( expectedAction );
+      expect(sut.dateRangeToggled('foo')).toEqual( expectedAction )
     })
   })
 

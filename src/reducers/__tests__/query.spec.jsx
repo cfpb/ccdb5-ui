@@ -711,6 +711,38 @@ describe( 'reducer:query', () => {
       } )
     } )
 
+    describe( 'DATA_LENS_CHANGED actions', () => {
+      it( 'changes the dataLens', () => {
+        const action = {
+          type: actions.DATA_LENS_CHANGED,
+          dataLens: 'foo'
+        }
+        const result = target( {}, action )
+        expect( result ).toEqual( {
+          dataLens: 'foo',
+          enablePer1000: true,
+          mapWarningEnabled: true,
+          queryString: '?dataLens=foo'
+        } )
+      } )
+    } )
+
+    describe( 'DATE_INTERVAL_CHANGED', () => {
+      it( 'changes the dateInterval', () => {
+        const action = {
+          type: actions.DATE_INTERVAL_CHANGED,
+          dateInterval: 'Day'
+        }
+        const result = target( {}, action )
+        expect( result ).toEqual( {
+          dateInterval: 'Day',
+          enablePer1000: true,
+          mapWarningEnabled: true,
+          queryString: '?dateInterval=Day'
+        } )
+      } )
+    } )
+
     describe( 'DATE_RANGE_CHANGED actions', () => {
       let action, result
       beforeEach( () => {
