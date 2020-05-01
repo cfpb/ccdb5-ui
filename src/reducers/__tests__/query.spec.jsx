@@ -962,7 +962,7 @@ describe( 'reducer:query', () => {
     } )
   } )
 
-  describe('Trends', ()=>{
+  describe( 'Trends', () => {
     describe( 'DATA_LENS_CHANGED actions', () => {
       it( 'changes the dataLens', () => {
         const action = {
@@ -992,5 +992,5 @@ describe( 'reducer:query', () => {
         } )
       } )
     } )
-  })
+  } )
 } )
