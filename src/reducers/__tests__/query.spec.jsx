@@ -519,6 +519,20 @@ describe( 'reducer:query', () => {
           } )
         } );
 
+        it( 'handles when present - Map', () => {
+          action.filterName = 'has_narrative'
+          const state = {
+            has_narrative: true,
+            tab: types.MODE_MAP
+          }
+          expect( target( state, action ) ).toEqual( {
+            enablePer1000: true,
+            mapWarningEnabled: true,
+            queryString: '?tab=Map',
+            tab: types.MODE_MAP
+          } )
+        } )
+
         it( 'handles when absent' , () => {
           action.filterName = 'has_narrative'
           const state = {}
