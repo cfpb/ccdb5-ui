@@ -3,10 +3,10 @@ import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import {
-  FilterPanelToggle,
+  FilterPanel,
   mapDispatchToProps,
   mapStateToProps
-} from '../components/Filters/FilterPanelToggle'
+} from '../Filters/FilterPanel'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 
@@ -20,7 +20,7 @@ function setupEnzyme() {
     showFilters: false
   }
 
-  const target = shallow(<FilterPanelToggle {...props} />);
+  const target = shallow(<FilterPanel {...props} />);
 
   return {
     props,
@@ -33,14 +33,14 @@ function setupSnapshot() {
   const middlewares = [thunk]
   const mockStore = configureMockStore(middlewares)
   const store = mockStore({
-    view: {
-      showFilters: true
-    }
+    aggs: {},
+    query: {},
+    view: {}
   })
 
   return renderer.create(
     <Provider store={store}>
-      <FilterPanelToggle />
+      <FilterPanel />
     </Provider>
   )
 }
@@ -62,7 +62,7 @@ describe('mapDispatchToProps', () => {
 
   it('allows the user to trigger Filter Panel', () => {
     const { target, props } = setupEnzyme()
-    const button = target.find('button');
+    const button = target.find('.filter-button button');
 
     button.simulate('click');
     expect(props.onFilterToggle).toHaveBeenCalled();
@@ -72,12 +72,17 @@ describe('mapDispatchToProps', () => {
 describe( 'mapStateToProps', () => {
   it( 'maps state and props', () => {
     const state = {
+      aggs: {},
       view:{
-        showFilters: true
+        showFilters: true,
+        width: 1000
       }
     }
     let actual = mapStateToProps( state )
     expect( actual ).toEqual( {
+      aggs: {},
+      showButton: false,
+      showFilterToggle: false,
       showFilters: true
     } )
   } )

@@ -1,5 +1,5 @@
 import configureMockStore from 'redux-mock-store'
-import { ListPanel, mapDispatchToProps } from '../components/List/ListPanel';
+import { ListPanel, mapDispatchToProps } from '../List/ListPanel';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux'
 import React from 'react';

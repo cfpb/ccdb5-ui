@@ -1,4 +1,4 @@
-import iconMap from '../components/iconMap'
+import iconMap from '../iconMap'
 
 describe('getIcon', () => {
   it( 'gets a known icon', () => {
