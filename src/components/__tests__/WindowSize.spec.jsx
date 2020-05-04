@@ -1,4 +1,4 @@
-import { mapDispatchToProps, WindowSize } from '../components/WindowSize'
+import { mapDispatchToProps, WindowSize } from '../WindowSize'
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 

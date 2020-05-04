@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { Select } from '../components/RefineBar/Select';
+import { Select } from '../RefineBar/Select';
 
 describe('component:Select', () => {
   it('renders array values without crashing', () => {

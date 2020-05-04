@@ -1,4 +1,4 @@
-import Hero, { mapDispatchToProps } from '../components/Search/Hero'
+import Hero, { mapDispatchToProps } from '../Search/Hero'
 import configureMockStore from 'redux-mock-store'
 import { Provider } from 'react-redux'
 import React from 'react'
