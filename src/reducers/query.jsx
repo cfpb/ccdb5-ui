@@ -12,6 +12,8 @@ const queryString = require( 'query-string' );
 /* eslint-disable camelcase */
 export const defaultQuery = {
   dateRange: '3y',
+  dataLens: 'Overview',
+  dateInterval: 'Month',
   date_received_max: startOfToday(),
   date_received_min: new Date( moment().subtract( 3, 'years' ).calendar() ),
   enablePer1000: true,
@@ -190,6 +192,19 @@ function processParams( state, action ) {
   }
 
   return alignDateRange( processed )
+}
+
+/**
+ * update state based on changeDateInterval action
+ * @param {object} state current redux state
+ * @param {object} action command executed
+ * @returns {object} new state in redux
+ */
+function changeDateInterval( state, action ) {
+  return {
+    ...state,
+    dateInterval: action.dateInterval
+  }
 }
 
 /**
@@ -643,6 +658,20 @@ function updateTotalPages( state, action ) {
   }
 }
 
+
+/**
+ * update state based on changeDataLens action
+ * @param {object} state current redux state
+ * @param {object} action command executed
+ * @returns {object} new state in redux
+ */
+function changeDataLens( state, action ) {
+  return {
+    ...state,
+    dataLens: action.dataLens
+  }
+}
+
 // ----------------------------------------------------------------------------
 // Query String Builder
 
@@ -715,9 +744,12 @@ export function validatePer1000( queryState ) {
 *
 * @returns {object} a map of types to functions
 */
+// eslint-disable-next-line max-statements, require-jsdoc
 export function _buildHandlerMap() {
   const handlers = {}
   handlers[actions.COMPLAINTS_RECEIVED] = updateTotalPages
+  handlers[actions.DATA_LENS_CHANGED] = changeDataLens
+  handlers[actions.DATE_INTERVAL_CHANGED] = changeDateInterval
   handlers[actions.DATE_RANGE_CHANGED] = changeDateRange
   handlers[actions.DATES_CHANGED] = changeDates
   handlers[actions.FILTER_ALL_REMOVED] = removeAllFilters
@@ -763,7 +795,10 @@ function handleSpecificAction( state, action ) {
 export default ( state = defaultQuery, action ) => {
   const newState = handleSpecificAction( state, action )
 
-  validatePer1000( newState )
+  if ( newState.tab === types.MODE_MAP ) {
+    // only update the map warning items when we're on the map tab
+    validatePer1000( newState )
+  }
 
   const qs = stateToQS( newState )
   newState.queryString = qs === '?' ? '' : qs
