@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store'
 import {
-  mapDispatchToProps, mapStateToProps, DateRanges
-} from '../components/RefineBar/DateRanges'
+  mapDispatchToProps, mapStateToProps, TabbedNavigation
+} from '../TabbedNavigation'
 import { Provider } from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'
@@ -17,12 +17,12 @@ function setupSnapshot() {
 
   return renderer.create(
     <Provider store={ store }>
-      <DateRanges />
+      <TabbedNavigation />
     </Provider>
   )
 }
 
-describe( 'component: DateRanges', () => {
+describe( 'component: TabbedNavigation', () => {
   describe( 'initial state', () => {
     it( 'renders without crashing', () => {
       const target = setupSnapshot()
@@ -37,22 +37,28 @@ describe( 'component: DateRanges', () => {
 
     beforeEach( () => {
       cb = jest.fn()
+      window.scrollTo = jest.fn();
 
-      target = shallow( <DateRanges toggleDateRange={ cb }/> )
+      target = shallow( <TabbedNavigation onTab={ cb }/> )
     } )
 
-    it( 'toggleDateRange is called the button is clicked', () => {
-      const prev = target.find( '.date-ranges .range-3m' )
+    it( 'tabChanged is called with Map when the button is clicked', () => {
+      const prev = target.find( '.tabbed-navigation button.map' )
       prev.simulate( 'click' )
-      expect( cb ).toHaveBeenCalledWith('3m')
+      expect( cb ).toHaveBeenCalledWith('Map')
+    } )
+
+    it( 'tabChanged is called with List when the button is clicked', () => {
+      const prev = target.find( '.tabbed-navigation button.list' )
+      prev.simulate( 'click' )
+      expect( cb ).toHaveBeenCalledWith('List')
     } )
   })
 
-
   describe('mapDispatchToProps', () => {
-    it('provides a way to call toggleDateRange', () => {
+    it('provides a way to call tabChanged', () => {
       const dispatch = jest.fn()
-      mapDispatchToProps(dispatch).toggleDateRange()
+      mapDispatchToProps(dispatch).onTab()
       expect(dispatch.mock.calls.length).toEqual(1)
     })
   })
@@ -61,11 +67,11 @@ describe( 'component: DateRanges', () => {
     it( 'maps state and props', () => {
       const state = {
         query: {
-          dateRange: 'foo'
+          tab: 'foo'
         }
       }
       let actual = mapStateToProps( state )
-      expect( actual ).toEqual( { dateRange: 'foo' } )
+      expect( actual ).toEqual( { tab: 'foo' } )
     } )
   } )
 
