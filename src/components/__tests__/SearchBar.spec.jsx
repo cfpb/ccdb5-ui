@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { mount } from 'enzyme'
-import { SearchBar, mapDispatchToProps } from '../components/Search/SearchBar'
-import * as types from '../constants'
+import { SearchBar, mapDispatchToProps } from '../Search/SearchBar'
+import * as types from '../../constants'
 
 function setup(initialText) {
   const props = {

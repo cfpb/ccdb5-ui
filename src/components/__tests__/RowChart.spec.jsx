@@ -1,5 +1,5 @@
 import configureMockStore from 'redux-mock-store'
-import { mapStateToProps, RowChart } from '../components/Charts/RowChart'
+import { mapStateToProps, RowChart } from '../Charts/RowChart'
 import { mount, shallow } from 'enzyme'
 import { Provider } from 'react-redux'
 import React from 'react'

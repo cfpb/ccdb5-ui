@@ -1,13 +1,13 @@
 import configureMockStore from 'redux-mock-store'
 import {
   mapDispatchToProps, mapStateToProps, PerCapita
-} from '../components/RefineBar/PerCapita'
+} from '../RefineBar/PerCapita'
 import { Provider } from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 import thunk from 'redux-thunk'
-import { GEO_NORM_NONE, GEO_NORM_PER1000 } from '../constants'
+import { GEO_NORM_NONE, GEO_NORM_PER1000 } from '../../constants'
 
 function setupEnzyme( normalization = GEO_NORM_NONE ) {
   const props = {
