@@ -1,17 +1,17 @@
 import './RowChart.less'
 import * as d3 from 'd3'
+import { hashObject, slugify } from '../../utils'
+import { miniTooltip, row } from 'britecharts'
+import Analytics from '../../actions/analytics'
 import { connect } from 'react-redux'
 import { max } from 'd3-array'
 import React from 'react'
-import { row } from 'britecharts'
+import { trendToggled } from '../../actions/trends'
 
 export class RowChart extends React.Component {
   constructor( props ) {
     super( props )
-    const aggType = props.aggtype
-    this.aggtype = aggType
-    // only capitalize first letter
-    this.chartTitle = aggType.charAt( 0 ).toUpperCase() + aggType.slice( 1 )
+    this.aggtype = props.aggtype
   }
 
   _getHeight( numRows ) {
@@ -61,23 +61,31 @@ export class RowChart extends React.Component {
   }
 
 
-  componentDidUpdate() {
-    this._redrawChart()
+  componentDidUpdate( prevProps ) {
+    const props = this.props
+    if( hashObject( prevProps ) !== hashObject( props ) ) {
+      this._redrawChart()
+    }
   }
-
   // --------------------------------------------------------------------------
   // Event Handlers
   // eslint-disable-next-line complexity
   _redrawChart() {
     const componentProps = this.props
-    const { data, printMode } = componentProps
+    const { colorMap, data, lens, printMode, tab } = componentProps
     if ( !data || !data.length ) {
       return
     }
 
-    const rowData = data.slice( 0, 5 )
+    const tooltip = miniTooltip()
+    tooltip.valueFormatter( value => value.toLocaleString() + ' complaints' )
+
+    const rowData = data
     const total = this.props.total
     const ratio = total / max( rowData, o => o.value )
+    // console.log( rowData )
+    // console.log( total, max( rowData, o => o.value ), ratio )
+
     const chartID = '#row-chart-' + this.aggtype
     d3.select( chartID + ' .row-chart' ).remove()
     const rowContainer = d3.select( chartID )
@@ -90,7 +98,21 @@ export class RowChart extends React.Component {
     // tweak to make the chart full width at desktop
     // add space at narrow width
     const marginRight = width < 600 ? 20 : -80
-    const colorScheme = rowData.map( () => '#20aa3f' )
+    // console.log(colorMap)
+    const colorScheme = rowData
+      .map( o => {
+        if ( lens === 'Overview' || tab === 'map' ) {
+          return '#20aa3f'
+        }
+        // console.log( o.name, o.parent, colorMap[o.name] )
+        // bad data. Credit Reporting appears twice in the product data
+        const name = o.name ? o.name.trim() : ''
+        const parent = o.parent ? o.parent.trim() : ''
+        // parent should have priority
+        return colorMap[parent] ? colorMap[parent] : colorMap[name]
+      } )
+
+    // console.log( colorScheme )
 
     chart.margin( {
       left: marginLeft,
@@ -113,15 +135,23 @@ export class RowChart extends React.Component {
       .width( width )
       .wrapLabels( true )
       .height( height )
+      .on( 'customMouseOver', tooltip.show )
+      .on( 'customMouseMove', tooltip.update )
+      .on( 'customMouseOut', tooltip.hide )
 
     rowContainer.datum( rowData ).call( chart )
+    const tooltipContainer = d3.selectAll( chartID + ' .row-chart .metadata-group' )
+    tooltipContainer.datum( [] ).call( tooltip );
     this._wrapText( d3.select( chartID ).selectAll( '.tick text' ), marginLeft )
+
+    rowContainer.selectAll( '.y-axis-group .tick' )
+      .on( 'click', this.props.toggleRow )
   }
 
   render() {
     return (
       <div className="row-chart-section">
-        <h3>{ this.chartTitle } by highest complaint volume</h3>
+        <h3>{ this.props.title }</h3>
         <div id={ 'row-chart-' + this.aggtype }>
         </div>
       </div>
@@ -129,105 +159,45 @@ export class RowChart extends React.Component {
   }
 }
 
+export const mapDispatchToProps = dispatch => ( {
+  toggleRow: selectedState => {
+    // Analytics.sendEvent(
+    //   Analytics.getDataLayerOptions( 'Trend Event: add',
+    //     selectedState.abbr, )
+    // )
+    dispatch( trendToggled( selectedState ) )
+  }
+} )
+
 export const mapStateToProps = ( state, ownProps ) => {
   const { printMode, width } = state.view
   // use state.query to filter out the selected bars
-  const { aggtype } = ownProps
+  const aggtype = ownProps.aggtype.toLowerCase()
   const tab = state.query.tab.toLowerCase()
   const filters = state.query[aggtype]
-  let data = state[tab] ? state[tab][aggtype] : []
-
+  let data = state[tab] && state[tab].results[aggtype] ?
+    state[tab].results[aggtype] : []
   if ( filters && filters.length ) {
-    data = data.filter( o => filters.includes( o.name ) )
+    data = data.filter( o => {
+      if ( o.parent ) {
+        return filters.includes( slugify( o.parent, o.name ) )
+      }
+
+      return filters.includes( o.name )
+    } )
   }
 
-  // mock data for dev
-  if ( tab === 'trends' ) {
-    data = [ {
-      hasChildren: true,
-      isParent: true,
-      name: 'Radiating',
-      value: 2024,
-      pctChange: -20,
-      pctOfSet: 5,
-      width: 0.5
-    }, {
-      hasChildren: false,
-      isParent: false,
-      name: 'Radiating Kid',
-      value: 1024,
-      parent: 'Radiating',
-      pctChange: 50,
-      pctOfSet: 55,
-      width: 0.4
-    }, {
-      hasChildren: false,
-      name: 'Opalescent',
-      isParent: true,
-      value: 7000,
-      pctChange: 11,
-      pctOfSet: 100,
-      width: 0.5
-    }, {
-      hasChildren: true,
-      name: 'Shining',
-      isParent: true,
-      value: 213,
-      pctChange: 1,
-      pctOfSet: 12,
-      width: 0.5
-    }, {
-      hasChildren: false,
-      isParent: false,
-      name: 'Brillian Brillian Brillian BrillianBrillian Brillian',
-      value: 6001,
-      parent: 'Shining',
-      pctChange: null,
-      pctOfSet: 70,
-      width: 0.4
-    }, {
-      hasChildren: false,
-      isParent: false,
-      name: 'Vivid',
-      value: 613,
-      parent: 'Shining',
-      pctChange: -9,
-      pctOfSet: 24,
-      width: 0.4
-    }, {
-      hasChildren: true,
-      name: 'Brilliant',
-      isParent: true,
-      value: 1900,
-      pctChange: 1,
-      pctOfSet: 8,
-      width: 0.5
-    }, {
-      hasChildren: false,
-      isParent: false,
-      name: 'Increase',
-      value: 1900,
-      parent: 'Brilliant',
-      pctChange: 999999,
-      pctOfSet: 8,
-      width: 0.4
-    }, {
-      hasChildren: false,
-      isParent: false,
-      name: 'Decrease',
-      value: 1900,
-      parent: 'Brilliant',
-      pctChange: -999999,
-      pctOfSet: 8,
-      width: 0.4
-    } ]
-  }
+  data = data.filter( o => o.visible )
+
   return {
+    colorMap: state.trends.colorMap,
     data,
+    lens: state.query.lens,
     printMode,
+    tab,
     total: state.aggs.total,
     width
   }
 }
 
-export default connect( mapStateToProps )( RowChart )
+export default connect( mapStateToProps, mapDispatchToProps )( RowChart )

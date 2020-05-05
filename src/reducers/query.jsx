@@ -12,7 +12,8 @@ const queryString = require( 'query-string' );
 /* eslint-disable camelcase */
 export const defaultQuery = {
   dateRange: '3y',
-  dataLens: 'Overview',
+  lens: 'Overview',
+  subLens: '',
   dateInterval: 'Month',
   date_received_max: startOfToday(),
   date_received_min: new Date(
@@ -36,7 +37,16 @@ const fieldMap = {
   from: 'frm'
 }
 
-const urlParams = [ 'dateRange', 'searchText', 'searchField', 'tab' ]
+const trendFieldMap = {
+  dateInterval: 'trend_interval',
+  lens: 'lens',
+  subLens: 'sub_lens'
+}
+
+const urlParams = [
+  'dateRange', 'searchText', 'searchField', 'tab',
+  'lens', 'dateInterval', 'subLens'
+]
 const urlParamsInt = [ 'from', 'page', 'size' ]
 
 // ----------------------------------------------------------------------------
@@ -672,7 +682,22 @@ function updateTotalPages( state, action ) {
 function changeDataLens( state, action ) {
   return {
     ...state,
-    dataLens: action.dataLens
+    lens: action.lens,
+    subLens: 'sub_' + action.lens.toLowerCase()
+  }
+}
+
+/**
+ * update state based on changeDataSubLens action
+ * @param {object} state current redux state
+ * @param {object} action command executed
+ * @returns {object} new state in redux
+ */
+function changeDataSubLens( state, action ) {
+  console.log( 'wtf? ' )
+  return {
+    ...state,
+    subLens: action.subLens.toLowerCase()
   }
 }
 
@@ -717,6 +742,8 @@ export function stateToQS( state ) {
     // Map the internal field names to the API field names
     if ( fieldMap[field] ) {
       params[fieldMap[field]] = value
+    } else if ( trendFieldMap[field] ) {
+      params[trendFieldMap[field]] = value.toLowerCase()
     } else {
       params[field] = value
     }
@@ -753,6 +780,7 @@ export function _buildHandlerMap() {
   const handlers = {}
   handlers[actions.COMPLAINTS_RECEIVED] = updateTotalPages
   handlers[actions.DATA_LENS_CHANGED] = changeDataLens
+  handlers[actions.DATA_SUBLENS_CHANGED] = changeDataSubLens
   handlers[actions.DATE_INTERVAL_CHANGED] = changeDateInterval
   handlers[actions.DATE_RANGE_CHANGED] = changeDateRange
   handlers[actions.DATES_CHANGED] = changeDates

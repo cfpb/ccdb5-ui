@@ -4,10 +4,12 @@ import actions from '../actions'
 
 export const defaultState = {
   isLoading: false,
-  issue: [],
   dataNormalization: GEO_NORM_NONE,
-  product: [],
-  state: []
+  results: {
+    issue: [],
+    product: [],
+    state: []
+  }
 }
 
 export const processAggregations = agg => {
@@ -24,6 +26,7 @@ export const processAggregations = agg => {
           hasChildren: false,
           pctOfSet: Math.round( o.doc_count / total * 100 )
             .toFixed( 2 ),
+          visible: true,
           width: 0.5
         } )
       } )
@@ -82,18 +85,18 @@ export function statesCallInProcess( state, action ) {
  * @returns {object} new state for the Redux store
  */
 export function processStatesResults( state, action ) {
-  const result = { ...state }
+  const newState = { ...state }
 
   const stateData = action.data.aggregations.state
   const issueData = action.data.aggregations.issue
   const productData = action.data.aggregations.product
-  result.activeCall = ''
-  result.isLoading = false
-  result.state = processStateAggregations( stateData )
-  result.issue = processAggregations( issueData )
-  result.product = processAggregations( productData )
+  newState.activeCall = ''
+  newState.isLoading = false
+  newState.results.state = processStateAggregations( stateData )
+  newState.results.issue = processAggregations( issueData )
+  newState.results.product = processAggregations( productData )
 
-  return result
+  return newState
 }
 
 /**

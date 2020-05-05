@@ -1321,8 +1321,7 @@ exports[`initial state renders without crashing 1`] = `
           className="row-chart-section"
         >
           <h3>
-            Product
-             by highest complaint volume
+            Product by highest complaint volume
           </h3>
           <div
             id="row-chart-product"
@@ -1332,8 +1331,7 @@ exports[`initial state renders without crashing 1`] = `
           className="row-chart-section"
         >
           <h3>
-            Issue
-             by highest complaint volume
+            Issue by highest complaint volume
           </h3>
           <div
             id="row-chart-issue"

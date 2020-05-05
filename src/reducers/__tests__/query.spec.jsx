@@ -980,15 +980,15 @@ describe( 'reducer:query', () => {
 
   describe( 'Trends', () => {
     describe( 'DATA_LENS_CHANGED actions', () => {
-      it( 'changes the dataLens', () => {
+      it( 'changes the lens', () => {
         const action = {
           type: actions.DATA_LENS_CHANGED,
-          dataLens: 'foo'
+          lens: 'foo'
         }
         const result = target( { tab: types.MODE_TRENDS }, action )
         expect( result ).toEqual( {
-          dataLens: 'foo',
-          queryString: '?dataLens=foo&tab=Trends',
+          lens: 'foo',
+          queryString: '?lens=foo&tab=Trends',
           tab: 'Trends'
         } )
       } )
