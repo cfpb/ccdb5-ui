@@ -4,10 +4,7 @@ exports[`component: RowChart initial state renders without crashing 1`] = `
 <div
   className="row-chart-section"
 >
-  <h3>
-    Foo
-     by highest complaint volume
-  </h3>
+  <h3 />
   <div
     id="row-chart-foo"
   />

@@ -2,7 +2,7 @@
 
 exports[`component: StackedAreaChart initial state renders without crashing 1`] = `
 <div>
-  Texas complaints by date received
+  <h2 />
   <div
     id="stacked-area-chart"
   />

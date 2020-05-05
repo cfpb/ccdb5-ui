@@ -42,8 +42,10 @@ export class MapPanel extends React.Component {
         </div>
         <TileChartMap/>
         <MapToolbar/>
-        <RowChart aggtype="product" />
-        <RowChart aggtype="issue" />
+        <RowChart aggtype="product"
+                  title="Product by highest complaint volume"/>
+        <RowChart aggtype="issue"
+                  title="Issue by highest complaint volume"/>
         <Loading isLoading={ this.props.isLoading || false }/>
       </section>
     )

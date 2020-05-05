@@ -169,7 +169,8 @@ export function getStates() {
 export function getTrends() {
   return ( dispatch, getState ) => {
     const store = getState()
-    const qs = 'geo/states/' + store.query.queryString
+    // need to have admiral fix this in the api
+    const qs = 'trends/' + store.query.queryString
     const uri = '@@API' + qs + '&no_aggs=true'
 
     // This call is already in process

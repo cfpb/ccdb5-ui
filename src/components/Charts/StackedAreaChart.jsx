@@ -1,14 +1,29 @@
-import './LineChart.less'
+import './StackedAreaChart.less'
 import * as d3 from 'd3'
 import { connect } from 'react-redux'
+import { getLastDate } from '../../utils/chart'
 import React from 'react'
 import { stackedArea } from 'britecharts'
+import { trendsTooltipChanged } from '../../actions/trends'
 
 export class StackedAreaChart extends React.Component {
   componentDidUpdate() {
     this._redrawChart()
   }
 
+  _tipStuff( evt ) {
+    if ( this.props.tooltip.date !== evt.key ) {
+      this.props.tooltipUpdated( {
+        date: evt.key,
+        dateRange: {
+          from: '',
+          to: ''
+        },
+        interval: this.props.interval,
+        values: evt.values
+      } )
+    }
+  }
   _redrawChart() {
     const chartID = '#stacked-area-chart'
     const container = d3.select( chartID )
@@ -18,8 +33,10 @@ export class StackedAreaChart extends React.Component {
         false
     d3.select( chartID + ' .stacked-area' ).remove()
     const stackedAreaChart = stackedArea()
+    const colors = Object.values( this.props.colorMap )
 
     stackedAreaChart.margin( { left:50, right: 10, top: 10, bottom: 40 } )
+      .areaCurve( 'linear' )
       .initializeVerticalMarker( true )
       .isAnimated( false )
       .tooltipThreshold( 1 )
@@ -27,14 +44,40 @@ export class StackedAreaChart extends React.Component {
       .aspectRatio( 0.5 )
       .width( containerWidth )
       .dateLabel( 'date' )
+      .colorSchema( colors )
+      // .on( 'customMouseOver', function ( evt ) {
+      //   console.log( 'I was mouseover' )
+      //   console.log( evt )
+      // } )
+      .on( 'customMouseMove', this._tipStuff.bind( this ) )
+
+      //   function ( evt ) {
+      //   console.log( 'Moved, update tt' )
+      //   tipchanged( evt )
+      //   console.log( evt )
+      // } )
+      // .on( 'customMouseOut', function ( evt ) {
+      //   console.log( 'I was mouseout' )
+      //   console.log( evt )
+      // });
 
     container.datum( this.props.data ).call( stackedAreaChart )
+    if ( this.props.tooltip === false ) {
+      const config = {
+        dateRange: {
+          from: '',
+          to: ''
+        },
+        interval: this.props.interval
+      }
+      this.props.tooltipUpdated( getLastDate( this.props.data, config ) )
+    }
   }
 
   render() {
     return (
       <div>
-        Texas complaints by date received
+        <h2>{ this.props.title }</h2>
         <div id="stacked-area-chart">
         </div>
       </div>
@@ -42,278 +85,23 @@ export class StackedAreaChart extends React.Component {
   }
 }
 
-// tbd: addin correct reducer here
-export const mapStateToProps = state => ( {
-  data: [
-    {
-      name: 'Shining', views: 0,
-      dateUTC: '2011-01-05T00:00:00Z',
-      date: '2011-01-05T00:00:00.000Z',
-      value: 0
-    },
-    {
-      name: 'Shining',
-      views: 1000,
-      dateUTC: '2011-01-06T00:00:00Z',
-      date: '2011-01-06T00:00:00.000Z',
-      value: 1000
-    },
-    {
-      name: 'Shining',
-      views: 1006.34,
-      dateUTC: '2011-01-07T00:00:00Z',
-      date: '2011-01-07T00:00:00.000Z',
-      value: 1006.34
-    },
-    {
-      name: 'Shining',
-      views: 2000,
-      dateUTC: '2011-01-08T00:00:00Z',
-      date: '2011-01-08T00:00:00.000Z',
-      value: 2000
-    },
-    {
-      name: 'Luminous',
-      views: 1003,
-      dateUTC: '2011-01-05T00:00:00Z',
-      date: '2011-01-05T00:00:00.000Z',
-      value: 1003
-    },
-    {
-      name: 'Luminous',
-      views: 1006,
-      dateUTC: '2011-01-06T00:00:00Z',
-      date: '2011-01-06T00:00:00.000Z',
-      value: 1006
-    },
-    {
-      name: 'Luminous',
-      views: 1000,
-      dateUTC: '2011-01-07T00:00:00Z',
-      date: '2011-01-07T00:00:00.000Z',
-      value: 1000
-    },
-    {
-      name: 'Luminous',
-      views: 500,
-      dateUTC: '2011-01-08T00:00:00Z',
-      date: '2011-01-08T00:00:00.000Z',
-      value: 500
-    },
-    {
-      name: 'Vivid',
-      views: 1000,
-      dateUTC: '2011-01-05T00:00:00Z',
-      date: '2011-01-05T00:00:00.000Z',
-      value: 1000
-    },
-    {
-      name: 'Vivid',
-      views: 2000,
-      dateUTC: '2011-01-06T00:00:00Z',
-      date: '2011-01-06T00:00:00.000Z',
-      value: 2000
-    },
-    {
-      name: 'Vivid',
-      views: 2002,
-      dateUTC: '2011-01-07T00:00:00Z',
-      date: '2011-01-07T00:00:00.000Z',
-      value: 2002
-    },
-    {
-      name: 'Vivid',
-      views: 700,
-      dateUTC: '2011-01-08T00:00:00Z',
-      date: '2011-01-08T00:00:00.000Z',
-      value: 700
-    },
-    {
-      name: 'Intense',
-      views: 0,
-      dateUTC: '2011-01-05T00:00:00Z',
-      date: '2011-01-05T00:00:00.000Z',
-      value: 0
-    },
-    {
-      name: 'Intense',
-      views: 1000,
-      dateUTC: '2011-01-06T00:00:00Z',
-      date: '2011-01-06T00:00:00.000Z',
-      value: 1000
-    },
-    {
-      name: 'Intense',
-      views: 1006,
-      dateUTC: '2011-01-07T00:00:00Z',
-      date: '2011-01-07T00:00:00.000Z',
-      value: 1006
-    },
-    {
-      name: 'Intense',
-      views: 300,
-      dateUTC: '2011-01-08T00:00:00Z',
-      date: '2011-01-08T00:00:00.000Z',
-      value: 300
-    },
-    {
-      name: 'Radiant',
-      views: 1008,
-      dateUTC: '2011-01-05T00:00:00Z',
-      date: '2011-01-05T00:00:00.000Z',
-      value: 1008
-    },
-    {
-      name: 'Radiant',
-      views: 1002,
-      dateUTC: '2011-01-06T00:00:00Z',
-      date: '2011-01-06T00:00:00.000Z',
-      value: 1002
-    },
-    {
-      name: 'Radiant',
-      views: 500,
-      dateUTC: '2011-01-07T00:00:00Z',
-      date: '2011-01-07T00:00:00.000Z',
-      value: 500
-    },
-    {
-      name: 'Radiant',
-      views: 300,
-      dateUTC: '2011-01-08T00:00:00Z',
-      date: '2011-01-08T00:00:00.000Z',
-      value: 300
-    },
-    {
-      name: 'Brilliant Long Title Haha Testing 124 Yolo BaBar',
-      views: 400,
-      dateUTC: '2011-01-05T00:00:00Z',
-      date: '2011-01-05T00:00:00.000Z',
-      value: 400
-    },
-    {
-      name: 'Brilliant Long Title Haha Testing 124 Yolo BaBar',
-      views: 900,
-      dateUTC: '2011-01-06T00:00:00Z',
-      date: '2011-01-06T00:00:00.000Z',
-      value: 900
-    },
-    {
-      name: 'Brilliant Long Title Haha Testing 124 Yolo BaBar',
-      views: 600,
-      dateUTC: '2011-01-07T00:00:00Z',
-      date: '2011-01-07T00:00:00.000Z',
-      value: 600
-    },
-    {
-      name: 'Brilliant Long Title Haha Testing 124 Yolo BaBar',
-      views: 300,
-      dateUTC: '2011-01-08T00:00:00Z',
-      date: '2011-01-08T00:00:00.000Z',
-      value: 300
-    }, {
-      name: 'Shing',
-      views: 0,
-      dateUTC: '2011-01-05T00:00:00Z',
-      date: '2011-01-05T00:00:00.000Z',
-      value: 0
-    }, {
-      name: 'Shing',
-      views: 1000,
-      dateUTC: '2011-01-06T00:00:00Z',
-      date: '2011-01-06T00:00:00.000Z',
-      value: 1000
-    }, {
-      name: 'Shing',
-      views: 1006.34,
-      dateUTC: '2011-01-07T00:00:00Z',
-      date: '2011-01-07T00:00:00.000Z',
-      value: 1006.34
-    }, {
-      name: 'Shing',
-      views: 2000,
-      dateUTC: '2011-01-08T00:00:00Z',
-      date: '2011-01-08T00:00:00.000Z',
-      value: 2000
-    }, {
-      name: 'ing',
-      views: 0,
-      dateUTC: '2011-01-05T00:00:00Z',
-      date: '2011-01-05T00:00:00.000Z',
-      value: 0
-    }, {
-      name: 'ing',
-      views: 1000,
-      dateUTC: '2011-01-06T00:00:00Z',
-      date: '2011-01-06T00:00:00.000Z',
-      value: 1000
-    }, {
-      name: 'ing',
-      views: 1006.34,
-      dateUTC: '2011-01-07T00:00:00Z',
-      date: '2011-01-07T00:00:00.000Z',
-      value: 1006.34
-    }, {
-      name: 'ing',
-      views: 2000,
-      dateUTC: '2011-01-08T00:00:00Z',
-      date: '2011-01-08T00:00:00.000Z',
-      value: 2000
-    }, {
-      name: 'bar',
-      views: 0,
-      dateUTC: '2011-01-05T00:00:00Z',
-      date: '2011-01-05T00:00:00.000Z',
-      value: 0
-    }, {
-      name: 'bar',
-      views: 1000,
-      dateUTC: '2011-01-06T00:00:00Z',
-      date: '2011-01-06T00:00:00.000Z',
-      value: 1000
-    },
-    {
-      name: 'bar',
-      views: 1006.34,
-      dateUTC: '2011-01-07T00:00:00Z',
-      date: '2011-01-07T00:00:00.000Z',
-      value: 1006.34
-    },
-    {
-      name: 'bar',
-      views: 2000,
-      dateUTC: '2011-01-08T00:00:00Z',
-      date: '2011-01-08T00:00:00.000Z',
-      value: 2000
-    },
-    {
-      name: 'b1',
-      views: 0,
-      dateUTC: '2011-01-05T00:00:00Z',
-      date: '2011-01-05T00:00:00.000Z',
-      value: 0
-    },
-    {
-      name: 'b1',
-      views: 1000,
-      dateUTC: '2011-01-06T00:00:00Z',
-      date: '2011-01-06T00:00:00.000Z',
-      value: 1000
-    },
-    {
-      name: 'b1',
-      views: 1006.34,
-      dateUTC: '2011-01-07T00:00:00Z',
-      date: '2011-01-07T00:00:00.000Z',
-      value: 1006.34
-    },
-    {
-      name: 'b1',
-      views: 2000,
-      dateUTC: '2011-01-08T00:00:00Z',
-      date: '2011-01-08T00:00:00.000Z',
-      value: 2000
-    } ]
+export const mapDispatchToProps = dispatch => ( {
+  tooltipUpdated: selectedState => {
+    // Analytics.sendEvent(
+    //   Analytics.getDataLayerOptions( 'Trend Event: add',
+    //     selectedState.abbr, )
+    // )
+    dispatch( trendsTooltipChanged( selectedState ) )
+  }
 } )
 
-export default connect( mapStateToProps )( StackedAreaChart )
+export const mapStateToProps = state => ( {
+  colorMap: state.trends.colorMap,
+  data: state.trends.results.dateRangeArea,
+  lens: state.trends.lens,
+  interval: state.query.dateInterval,
+  tooltip: state.trends.tooltip
+} )
+
+export default connect( mapStateToProps,
+  mapDispatchToProps )( StackedAreaChart )

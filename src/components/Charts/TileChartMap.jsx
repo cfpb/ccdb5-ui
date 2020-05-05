@@ -119,7 +119,7 @@ export const getStateClass = ( statesFilter, name ) => {
 
 export const processStates = state => {
   const statesFilter = state.query.state || []
-  const states = state.map.state
+  const states = state.map.results.state
   const stateData = states.map( o => {
     const stateInfo = STATE_DATA[o.name] || { name: '', population: 1 }
     o.abbr = o.name

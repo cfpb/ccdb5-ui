@@ -23,7 +23,7 @@ describe('action:filterActions', () => {
     it('creates a simple action', () => {
       const expectedAction = {
         type: sut.DATA_LENS_CHANGED,
-        dataLens: 'bar',
+        lens: 'bar',
         requery: REQUERY_ALWAYS
       }
       expect(sut.changeDataLens('bar')).toEqual( expectedAction )

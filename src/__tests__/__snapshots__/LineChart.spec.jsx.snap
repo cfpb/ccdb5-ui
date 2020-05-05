@@ -2,7 +2,7 @@
 
 exports[`component: LineChart initial state renders without crashing 1`] = `
 <div>
-  Complaints by date received
+  <h2 />
   <div
     id="line-chart"
   />

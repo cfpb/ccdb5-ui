@@ -1,6 +1,7 @@
 import {
   AGGREGATIONS_API_CALLED, AGGREGATIONS_FAILED, AGGREGATIONS_RECEIVED
 } from '../actions/complaints'
+import { processErrorMessage } from '../utils'
 
 /* eslint-disable camelcase */
 
