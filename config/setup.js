@@ -21,4 +21,4 @@ Object.defineProperty(document, 'referrer', {
 } )
 
 // Date and time (EDT): Tuesday, May 5, 2020 12:00:00 AM
-window.MAX_DATE = new Date( 2020, 4, 5 )
+window.MAX_DATE = Date.UTC( 2020, 4, 5, 4 )
