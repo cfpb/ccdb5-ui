@@ -6,6 +6,9 @@ import * as types from '../../constants'
 
 import { REQUERY_HITS_ONLY } from '../../constants'
 import moment from 'moment'
+import { startOfToday }  from '../../utils'
+
+const maxDate = startOfToday()
 
 describe( 'reducer:query', () => {
   describe( 'default', () => {
@@ -320,14 +323,13 @@ describe( 'reducer:query', () => {
 
     it( 'handles the "All" button from the landing page' , () => {
       const dateMin = new Date( types.DATE_RANGE_MIN )
-      const dateMax = new Date( moment().startOf( 'day' ).toString() )
 
       action.params = { dataNormalization: 'None', dateRange: 'All' }
 
       const actual = target( {}, action )
 
       expect( actual.date_received_min ).toEqual( dateMin )
-      expect( actual.date_received_max ).toEqual( dateMax )
+      expect( actual.date_received_max ).toEqual( maxDate )
       expect( actual.dateRange ).toEqual( 'All' )
     } );
 
@@ -340,7 +342,7 @@ describe( 'reducer:query', () => {
 
       it( 'clears the default range if the dates are not 3 years apart' , () => {
         state.date_received_min = new Date(
-          moment().subtract( 2, 'years' ).calendar()
+          moment( maxDate ).subtract( 2, 'years' )
         )
         expected.dateRange = ''
         expected.date_received_min = state.date_received_min
@@ -360,7 +362,7 @@ describe( 'reducer:query', () => {
 
       it( 'sets the 3m range if the dates are right' , () => {
         state.date_received_min = new Date(
-          moment().subtract( 3, 'months' ).calendar()
+          moment( maxDate ).subtract( 3, 'months' )
         )
         expected.dateRange = '3m'
         expected.date_received_min = state.date_received_min
@@ -371,7 +373,7 @@ describe( 'reducer:query', () => {
 
       it( 'sets the 6m range if the dates are right' , () => {
         state.date_received_min = new Date(
-          moment().subtract( 6, 'months' ).calendar()
+          moment( maxDate ).subtract( 6, 'months' )
         )
         expected.dateRange = '6m'
         expected.date_received_min = state.date_received_min
@@ -382,7 +384,7 @@ describe( 'reducer:query', () => {
 
       it( 'sets the 1y range if the dates are right' , () => {
         state.date_received_min = new Date(
-          moment().subtract( 1, 'year' ).calendar()
+          moment( maxDate ).subtract( 1, 'year' )
         )
         expected.dateRange = '1y'
         expected.date_received_min = state.date_received_min
@@ -574,7 +576,7 @@ describe( 'reducer:query', () => {
         expect( actual.queryString ).toContain( '&date_received_min=2011-11-30&field=all&frm=100&size=100' )
         const diffMin = moment( actual.date_received_min ).diff( moment( types.DATE_RANGE_MIN ), 'days' )
         expect( diffMin ).toEqual( 0 )
-        const diffMax = moment( actual.date_received_max ).diff( moment( new Date() ), 'days' )
+        const diffMax = moment( actual.date_received_max ).diff( moment( maxDate ), 'days' )
         expect( diffMax ).toEqual( 0 )
         expect( actual.date_received_max ).toBeTruthy()
       } )
@@ -595,7 +597,7 @@ describe( 'reducer:query', () => {
         expect( actual.queryString ).toContain( '&date_received_min=2011-11-30&field=all&frm=100&size=100' )
         const diffMin = moment( actual.date_received_min ).diff( moment( types.DATE_RANGE_MIN ), 'days' )
         expect( diffMin ).toEqual( 0 )
-        const diffMax = moment( actual.date_received_max ).diff( moment( new Date() ), 'days' )
+        const diffMax = moment( actual.date_received_max ).diff( moment( maxDate ), 'days' )
         expect( diffMax ).toEqual( 0 )
         expect( actual.date_received_max ).toBeTruthy()
       } )
@@ -622,7 +624,7 @@ describe( 'reducer:query', () => {
 
           const diffMin = moment( actual.date_received_min ).diff( moment( types.DATE_RANGE_MIN ), 'days' )
           expect( diffMin ).toEqual( 0 )
-          const diffMax = moment( actual.date_received_max ).diff( moment( new Date() ), 'days' )
+          const diffMax = moment( actual.date_received_max ).diff( moment( maxDate ), 'days' )
           expect( diffMax ).toEqual( 0 )
           expect( actual.date_received_max ).toBeTruthy()
         } )
@@ -783,8 +785,8 @@ describe( 'reducer:query', () => {
       } )
 
       it( 'adds dateRange', () => {
-        const min = new Date( moment().subtract( 3, 'months' ).calendar() )
-        action.maxDate = new Date()
+        const min = new Date( moment( maxDate ).subtract( 3, 'months' ) )
+        action.maxDate = maxDate
         action.minDate = min
         result = target( {}, action )
         expect( result.dateRange ).toEqual( '3m' )
@@ -826,7 +828,7 @@ describe( 'reducer:query', () => {
         action.dateRange = 'foo'
         result = target( {}, action )
         // only set max to today's date
-        const diff = moment( result.date_received_max ).diff( moment( new Date() ), 'days' )
+        const diff = moment( result.date_received_max ).diff( moment( maxDate ), 'days' )
         // make sure its same day
         expect( diff ).toEqual( 0 )
       } )
