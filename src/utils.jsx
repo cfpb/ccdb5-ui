@@ -18,7 +18,7 @@ export function ariaReadoutNumbers( s ) {
 export const calculateDateRange = ( minDate, maxDate ) => {
   // only check intervals if the end date is today
   // round off the date so the partial times don't mess up calculations
-  const today = moment( new Date() ).startOf( 'day' )
+  const today = startOfToday()
   const end = moment( maxDate ).startOf( 'day' )
   const start = moment( minDate ).startOf( 'day' )
 
