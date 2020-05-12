@@ -365,7 +365,7 @@ exports[`initial state renders without crashing 1`] = `
                     <input
                       className="a-text-input"
                       id="date_received-from"
-                      max={null}
+                      max={2020-05-05T04:00:00.000Z}
                       min={2011-11-30T12:00:00.000Z}
                       onChange={[Function]}
                       placeholder="mm/dd/yyyy"
@@ -406,7 +406,7 @@ exports[`initial state renders without crashing 1`] = `
                     <input
                       className="a-text-input"
                       id="date_received-through"
-                      max={null}
+                      max={2020-05-05T04:00:00.000Z}
                       min={2011-11-30T12:00:00.000Z}
                       onChange={[Function]}
                       placeholder="mm/dd/yyyy"
@@ -949,7 +949,7 @@ exports[`initial state renders without crashing 1`] = `
                     <input
                       className="a-text-input"
                       id="company_received-from"
-                      max={null}
+                      max={2020-05-05T04:00:00.000Z}
                       min={2011-11-30T12:00:00.000Z}
                       onChange={[Function]}
                       placeholder="mm/dd/yyyy"
@@ -971,7 +971,7 @@ exports[`initial state renders without crashing 1`] = `
                     <input
                       className="a-text-input"
                       id="company_received-through"
-                      max={null}
+                      max={2020-05-05T04:00:00.000Z}
                       min={2011-11-30T12:00:00.000Z}
                       onChange={[Function]}
                       placeholder="mm/dd/yyyy"
