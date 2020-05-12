@@ -208,7 +208,19 @@ export function shortIsoFormat( date ) {
 * @returns {Date} midnight today, local
 */
 export function startOfToday() {
-  return new Date( moment().startOf( 'day' ).toString() )
+  if ( !window.hasOwnProperty( 'MAX_DATE' ) ) {
+    if ( window.hasOwnProperty( 'complaint_public_metadata' ) ) {
+      const { metadata_timestamp: stamp } = window.complaint_public_metadata
+      window.MAX_DATE = new Date( moment( stamp ).startOf( 'day' ).toString() )
+    } else {
+      // eslint-disable-next-line no-console
+      console.error( 'complaint_public_metadata is missing' )
+      window.MAX_DATE = new Date( moment().startOf( 'day' ).toString() )
+    }
+  }
+
+  // Always return a clone so the global is not exposed or changed
+  return new Date( window.MAX_DATE.valueOf() )
 }
 
 // ----------------------------------------------------------------------------
