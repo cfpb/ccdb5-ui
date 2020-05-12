@@ -209,6 +209,7 @@ describe('module::utils', () => {
 
     beforeEach( () => {
       delete window.MAX_DATE
+      delete window.complaint_public_metadata
     } );
 
     afterAll( () => {
@@ -223,14 +224,16 @@ describe('module::utils', () => {
       }
 
       const actual = startOfToday();
-      expect( actual.valueOf() ).toEqual( 1588996800000 )
-
-      delete window.complaint_public_metadata
+      expect( actual.getFullYear() ).toEqual( 2020 )
+      expect( actual.getMonth() ).toEqual( 4 )
+      expect( actual.getDate() ).toEqual( 9 )
+      expect( actual.getHours() ).toEqual( 0 )
+      expect( actual.getMinutes() ).toEqual( 0 )
     } );
 
     it( 'defaults MAX_DATE if the metadata is missing' , () => {
       jest.spyOn(global.Date, 'now')
-      .mockImplementationOnce( _ => new Date( 2020, 4, 1) )
+      .mockImplementationOnce( _ => Date.UTC( 2020, 4, 1, 4 ) )
 
       const actual = startOfToday();
       expect( actual.valueOf() ).toEqual( 1588305600000 )
