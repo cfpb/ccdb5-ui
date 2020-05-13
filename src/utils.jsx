@@ -22,6 +22,9 @@ export const calculateDateRange = ( minDate, maxDate ) => {
   const end = moment( maxDate ).startOf( 'day' )
   const start = moment( minDate ).startOf( 'day' )
 
+  // eslint-disable-next-line no-console
+  console.log( 'calculateDateRange', today, start, end )
+
   // make sure end date is the same as today's date
   if ( end.diff( today, 'days', true ) !== 0 ) {
     return ''
@@ -220,7 +223,12 @@ export function startOfToday() {
   }
 
   // Always return a clone so the global is not exposed or changed
-  return new Date( window.MAX_DATE.valueOf() )
+  const d = new Date( window.MAX_DATE.valueOf() )
+
+  // eslint-disable-next-line no-console
+  console.log( 'startOfToday', window.MAX_DATE.valueOf(), 'vs', d.valueOf() )
+
+  return d
 }
 
 // ----------------------------------------------------------------------------
