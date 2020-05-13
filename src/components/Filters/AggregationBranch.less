@@ -1,0 +1,73 @@
+@import (less) "../../css/base.less";
+
+.aggregation-branch {
+  li.parent {
+    position: relative;
+
+    align-items: baseline;
+    list-style-type: none;
+
+    .toggle {
+      &.a-label:before {
+        box-sizing: border-box;
+        width: 20px;
+        height: 20px;
+
+        text-indent: 0;
+      }
+
+      &.indeterminate:before {
+        border: solid 2px @dark-gray;
+
+        background: url('indeterminate.png') no-repeat scroll center center transparent;
+      }
+
+      .a-checkbox:checked + &.a-label:before {
+        border: solid 2px @dark-gray;
+      }
+    }
+
+    button {
+      max-width: ~"calc(100% - 95px)";  // @max-count-width + @bucket-indent
+
+      font-size: 16px;
+      font-weight: normal;
+      text-align: left;
+      vertical-align: top;
+
+      .cf-icon-svg {
+        padding-left: @gutter-minimum;
+      }
+    }
+
+    .a-btn__link {
+      border: 0;
+    }
+
+    .parent-count {
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      color: @dark-gray;
+      font-size: 14px;
+    }
+  }
+
+  ul.children {
+    padding-left: @gutter-normal * 1.5;
+  }
+}
+
+.lt-ie10 {
+  .aggregation-branch {
+    .flex-all {
+      float: none;
+    }
+
+    li.parent {
+      button {
+      }
+    }
+  }
+}

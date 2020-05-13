@@ -1,0 +1,41 @@
+@import (less) "../../css/base.less";
+
+.date-filter {
+  h4 {
+    margin-bottom:0;
+  }
+
+  ul.date-inputs {
+    margin: 0;
+
+    li {
+      display: inline-block;
+      width: ~"calc(50% - 8px)"; // Half @gutter-normal
+
+      list-style: none;
+
+      &:first-of-type {
+        margin-right: @gutter-normal;
+      }
+
+      &:last-of-type {
+      }
+    }
+  }
+
+  ul.messages {
+    padding-top: @gutter-narrow;
+
+    li {
+      margin: 0;
+
+      list-style: none;
+    }
+
+    .a-error-message {
+      .cf-icon-svg {
+        padding-right: @gutter-minimum;
+      }
+    }
+  }
+}
