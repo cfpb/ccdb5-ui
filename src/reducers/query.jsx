@@ -2,7 +2,7 @@
 
 import * as types from '../constants'
 import {
-  calculateDateInterval, clamp, hasFiltersEnabled, shortIsoFormat, startOfToday
+  calculateDateRange, clamp, hasFiltersEnabled, shortIsoFormat, startOfToday
 } from '../utils'
 import actions from '../actions'
 import moment from 'moment';
@@ -11,9 +11,13 @@ const queryString = require( 'query-string' );
 
 /* eslint-disable camelcase */
 export const defaultQuery = {
-  dateInterval: '3y',
+  dateRange: '3y',
+  dataLens: 'Overview',
+  dateInterval: 'Month',
   date_received_max: startOfToday(),
-  date_received_min: new Date( moment().subtract( 3, 'years' ).calendar() ),
+  date_received_min: new Date(
+    moment( startOfToday() ).subtract( 3, 'years' )
+  ),
   enablePer1000: true,
   from: 0,
   mapWarningEnabled: true,
@@ -32,19 +36,19 @@ const fieldMap = {
   from: 'frm'
 }
 
-const urlParams = [ 'dateInterval', 'searchText', 'searchField', 'tab' ]
+const urlParams = [ 'dateRange', 'searchText', 'searchField', 'tab' ]
 const urlParamsInt = [ 'from', 'page', 'size' ]
 
 // ----------------------------------------------------------------------------
 // Helper functions
 
 /**
-* Makes sure the date interval reflects the actual date range
+* Makes sure the date range reflects the actual dates selected
 *
 * @param {object} state the raw, unvalidated state
 * @returns {object} the validated state
 */
-export function alignIntervalAndRange( state ) {
+export function alignDateRange( state ) {
   // Shorten the input field names
   const dateMax = state.date_received_max
   const dateMin = state.date_received_min
@@ -53,47 +57,47 @@ export function alignIntervalAndRange( state ) {
   if ( moment( dateMax ).isSame( defaultQuery.date_received_max ) &&
     moment( dateMin ).isSame( types.DATE_RANGE_MIN )
   ) {
-    state.dateInterval = 'All'
+    state.dateRange = 'All'
     return state
   }
 
-  const intervalMap = {
+  const rangeMap = {
     '3y': new Date( moment( dateMax ).subtract( 3, 'years' ) ),
     '3m': new Date( moment( dateMax ).subtract( 3, 'months' ) ),
     '6m': new Date( moment( dateMax ).subtract( 6, 'months' ) ),
     '1y': new Date( moment( dateMax ).subtract( 1, 'year' ) )
   }
-  const intervals = Object.keys( intervalMap )
+  const ranges = Object.keys( rangeMap )
   let matched = false
 
-  for ( let i = 0; i < intervals.length && !matched; i++ ) {
-    const interval = intervals[i]
+  for ( let i = 0; i < ranges.length && !matched; i++ ) {
+    const range = ranges[i]
 
-    if ( moment( dateMin ).isSame( intervalMap[interval], 'day' ) ) {
-      state.dateInterval = interval
+    if ( moment( dateMin ).isSame( rangeMap[range], 'day' ) ) {
+      state.dateRange = range
       matched = true
     }
   }
 
   // No matches, clear
   if ( !matched ) {
-    state.dateInterval = ''
+    state.dateRange = ''
   }
 
   return state
 }
 
 /**
-* Check for a common case where there is a date interval but no dates
+* Check for a common case where there is a date range but no dates
 *
 * @param {Object} params a set of URL parameters
 * @returns {Boolean} true if the params meet this condition
 */
-export function dateIntervalNoDates( params ) {
+export function dateRangeNoDates( params ) {
   const keys = Object.keys( params )
 
   return (
-    keys.includes( 'dateInterval' ) &&
+    keys.includes( 'dateRange' ) &&
     !keys.includes( 'date_received_min' ) &&
     !keys.includes( 'date_received_max' )
   )
@@ -183,44 +187,59 @@ function processParams( state, action ) {
     }
   } )
 
-  // Apply the date interval
-  if ( dateIntervalNoDates( params ) || params.dateInterval === 'All' ) {
-    const innerAction = { dateInterval: params.dateInterval }
-    processed = changeDateInterval( processed, innerAction )
+  // Apply the date range
+  if ( dateRangeNoDates( params ) || params.dateRange === 'All' ) {
+    const innerAction = { dateRange: params.dateRange }
+    processed = changeDateRange( processed, innerAction )
   }
 
-  return alignIntervalAndRange( processed )
+  return alignDateRange( processed )
 }
 
 /**
- * Change a date range filter according to selected interval
+ * update state based on changeDateInterval action
+ * @param {object} state current redux state
+ * @param {object} action command executed
+ * @returns {object} new state in redux
+ */
+function changeDateInterval( state, action ) {
+  return {
+    ...state,
+    dateInterval: action.dateInterval
+  }
+}
+
+/**
+ * Change a date range filter according to selected range
  *
  * @param {object} state the current state in the Redux store
- * @param {object} action the payload containing the date interval to change
+ * @param {object} action the payload containing the date range
  * @returns {object} the new state for the Redux store
  */
-export function changeDateInterval( state, action ) {
+export function changeDateRange( state, action ) {
 
-  const dateInterval = action.dateInterval;
+  const dateRange = action.dateRange;
   const newState = {
     ...state,
-    dateInterval
+    dateRange
   }
+
+  const maxDate = startOfToday()
 
   const res = {
-    '3m': new Date( moment().subtract( 3, 'months' ).calendar() ),
-    '6m': new Date( moment().subtract( 6, 'months' ).calendar() ),
-    '1y': new Date( moment().subtract( 1, 'year' ).calendar() ),
-    '3y': new Date( moment().subtract( 3, 'years' ).calendar() )
+    '3m': new Date( moment( maxDate ).subtract( 3, 'months' ) ),
+    '6m': new Date( moment( maxDate ).subtract( 6, 'months' ) ),
+    '1y': new Date( moment( maxDate ).subtract( 1, 'year' ) ),
+    '3y': new Date( moment( maxDate ).subtract( 3, 'years' ) )
   }
 
-  if ( res[dateInterval] ) {
-    newState.date_received_min = res[dateInterval]
-  } else if ( dateInterval === 'All' ) {
+  if ( res[dateRange] ) {
+    newState.date_received_min = res[dateRange]
+  } else if ( dateRange === 'All' ) {
     newState.date_received_min = new Date( types.DATE_RANGE_MIN )
   }
 
-  newState.date_received_max = startOfToday()
+  newState.date_received_max = maxDate
 
   return newState;
 }
@@ -232,7 +251,7 @@ export function changeDateInterval( state, action ) {
 * @param {object} action the payload containing the date range to change
 * @returns {object} the new state for the Redux store
 */
-export function changeDateRange( state, action ) {
+export function changeDates( state, action ) {
 
   const fields = [
     action.filterName + '_min',
@@ -260,11 +279,11 @@ export function changeDateRange( state, action ) {
     }
   } )
 
-  const dateInterval = calculateDateInterval( minDate, maxDate )
-  if ( dateInterval ) {
-    newState.dateInterval = dateInterval
+  const dateRange = calculateDateRange( minDate, maxDate )
+  if ( dateRange ) {
+    newState.dateRange = dateRange
   } else {
-    delete newState.dateInterval
+    delete newState.dateRange
   }
 
   return newState
@@ -469,9 +488,9 @@ export function removeAllFilters( state ) {
     }
   } )
 
-  // set date interval to All
+  // set date range to All
   // adjust date filter for max and min ranges
-  newState.dateInterval = 'All'
+  newState.dateRange = 'All'
   /* eslint-disable camelcase */
   newState.date_received_min = new Date( types.DATE_RANGE_MIN )
   newState.date_received_max = startOfToday()
@@ -643,6 +662,20 @@ function updateTotalPages( state, action ) {
   }
 }
 
+
+/**
+ * update state based on changeDataLens action
+ * @param {object} state current redux state
+ * @param {object} action command executed
+ * @returns {object} new state in redux
+ */
+function changeDataLens( state, action ) {
+  return {
+    ...state,
+    dataLens: action.dataLens
+  }
+}
+
 // ----------------------------------------------------------------------------
 // Query String Builder
 
@@ -715,11 +748,14 @@ export function validatePer1000( queryState ) {
 *
 * @returns {object} a map of types to functions
 */
+// eslint-disable-next-line max-statements, require-jsdoc
 export function _buildHandlerMap() {
   const handlers = {}
-  handlers[actions.COMPLAINTS_RECEIVED] = updateTotalPages;
+  handlers[actions.COMPLAINTS_RECEIVED] = updateTotalPages
+  handlers[actions.DATA_LENS_CHANGED] = changeDataLens
   handlers[actions.DATE_INTERVAL_CHANGED] = changeDateInterval
   handlers[actions.DATE_RANGE_CHANGED] = changeDateRange
+  handlers[actions.DATES_CHANGED] = changeDates
   handlers[actions.FILTER_ALL_REMOVED] = removeAllFilters
   handlers[actions.FILTER_CHANGED] = toggleFilter
   handlers[actions.FILTER_FLAG_CHANGED] = toggleFlagFilter
@@ -763,7 +799,10 @@ function handleSpecificAction( state, action ) {
 export default ( state = defaultQuery, action ) => {
   const newState = handleSpecificAction( state, action )
 
-  validatePer1000( newState )
+  if ( newState.tab === types.MODE_MAP ) {
+    // only update the map warning items when we're on the map tab
+    validatePer1000( newState )
+  }
 
   const qs = stateToQS( newState )
   newState.queryString = qs === '?' ? '' : qs

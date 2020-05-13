@@ -1,0 +1,55 @@
+@import (less) "../../css/base.less";
+
+.lt-ie10 {
+  .aggregation {
+    .layout-row {
+      width: 100%;
+    }
+
+    .flex-all {
+      width: ~"calc(100% - 65px)";
+    }
+  }
+}
+
+.aggregation {
+    ul {
+      padding-left: 0;
+      margin-top: @grid_gutter-width/1.5;
+      li {
+        padding: 0;
+        border: 0;
+        margin-bottom: @gutter-normal;
+
+        position: relative;
+
+        align-items: baseline;
+
+        .a-label:before {
+          box-sizing: border-box;
+          width: 20px;
+          height: 20px;
+
+          text-indent: 0;
+        }
+
+        .a-checkbox:checked + .a-label:before {
+          border: solid 2px @dark-gray;
+        }
+
+        .bucket-key {
+          max-width: ~"calc(100% - 65px)";  // @max-count-width + @bucket-indent
+          vertical-align: top;
+        }
+
+        .bucket-count {
+          position: absolute;
+          top: 0;
+          right: 0;
+
+          color: @dark-gray;
+          font-size: 14px;
+        }
+      }
+    }
+}

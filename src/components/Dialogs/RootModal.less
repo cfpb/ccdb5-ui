@@ -1,0 +1,70 @@
+@import (less) "../../css/base.less";
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: fade(@dark-gray, 75%);
+}
+
+.modal-body {
+    max-width: 480px;
+    max-height: 100%;
+    padding: 0;
+    border: 1px solid @dark-gray;
+    border-top: 12px solid @green;
+    border-radius: 4px;
+    margin: @gutter-wide;
+    overflow: auto;
+    background: @white;
+    outline: none;
+
+  .header {
+    padding: @gutter-normal;
+    padding-bottom: 0;
+
+    align-items: flex-start;
+
+    .a-btn__link {
+      border: 0;
+    }
+
+    .cf-icon-svg {
+      padding-left: @gutter-minimum;
+    }
+  }
+
+  .body {
+    padding: 0 @gutter-normal;
+
+    p {
+      margin-bottom: @grid_gutter-width;
+    }
+
+    p:last-of-type {
+      margin-bottom: @gutter-normal;
+    }
+  }
+
+  .footer {
+    padding: @gutter-normal;
+
+    background-color: @gray-5;
+    align-items: baseline;
+
+    button {
+      margin-right: @gutter-normal;
+
+      &.a-btn__link {
+        height: @size-iv;
+      }
+    }
+  }
+}

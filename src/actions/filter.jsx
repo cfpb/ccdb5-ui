@@ -1,7 +1,9 @@
 import { REQUERY_ALWAYS } from '../constants'
 
+export const DATA_LENS_CHANGED = 'DATA_LENS_CHANGED'
 export const DATE_INTERVAL_CHANGED = 'DATE_INTERVAL_CHANGED'
 export const DATE_RANGE_CHANGED = 'DATE_RANGE_CHANGED'
+export const DATES_CHANGED = 'DATES_CHANGED'
 export const FILTER_ALL_REMOVED = 'FILTER_ALL_REMOVED'
 export const FILTER_CHANGED = 'FILTER_CHANGED'
 export const FILTER_FLAG_CHANGED = 'FILTER_FLAG_CHANGED'
@@ -13,16 +15,45 @@ export const FILTER_REMOVED = 'FILTER_REMOVED'
 // Simple actions
 
 /**
-* Notifies the application that a date range has changed
+ * Notifies the application that data lens overview, product, issue was toggled
+ *
+ * @param {string} dataLens which lens was selected
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function changeDataLens( dataLens ) {
+  return {
+    type: DATA_LENS_CHANGED,
+    dataLens,
+    requery: REQUERY_ALWAYS
+  }
+}
+
+/**
+ * Notifies that date interval (day, week, month, quarter, yr) was changed
+ *
+ * @param {string} dateInterval which interval was selected
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function changeDateInterval( dateInterval ) {
+  return {
+    type: DATE_INTERVAL_CHANGED,
+    dateInterval,
+    requery: REQUERY_ALWAYS
+  }
+}
+
+
+/**
+* Notifies the application that the dates have changed
 *
 * @param {string} filterName which filter is being updated
 * @param {Date} minDate the minimum date in the range
 * @param {Date} maxDate the maximum date in the range
 * @returns {string} a packaged payload to be used by Redux reducers
 */
-export function changeDateRange( filterName, minDate, maxDate ) {
+export function changeDates( filterName, minDate, maxDate ) {
   return {
-    type: DATE_RANGE_CHANGED,
+    type: DATES_CHANGED,
     filterName,
     minDate,
     maxDate,
@@ -31,15 +62,15 @@ export function changeDateRange( filterName, minDate, maxDate ) {
 }
 
 /**
- * Notifies the application that date interval (m, w, yr) was toggled
+ * Notifies the application that the filtered dates have changed
  *
- * @param {string} dateInterval which filter was clicked
+ * @param {string} dateRange which filter is being updated
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function dateIntervalToggled( dateInterval ) {
+export function dateRangeToggled( dateRange ) {
   return {
-    type: DATE_INTERVAL_CHANGED,
-    dateInterval,
+    type: DATE_RANGE_CHANGED,
+    dateRange,
     requery: REQUERY_ALWAYS
   }
 }

@@ -1,6 +1,7 @@
 import {
-  ariaReadoutNumbers, calculateDateInterval, clamp, coalesce, debounce,
-  getFullUrl, hasFiltersEnabled, hashCode, shortIsoFormat, sortSelThenCount
+  ariaReadoutNumbers, calculateDateRange, clamp, coalesce, debounce,
+  getFullUrl, hasFiltersEnabled, hashCode, shortIsoFormat, sortSelThenCount,
+  startOfToday
 } from '../utils'
 import { DATE_RANGE_MIN } from '../constants'
 import React from 'react'
@@ -101,38 +102,38 @@ describe('module::utils', () => {
 
   describe('calculateDateInterval', ()=>{
     let start, end
+    beforeEach( () => {
+      end = startOfToday()
+    } );
+
     it( 'returns empty when end date is not today', () => {
       start = new Date(2011, 1, 3)
       end = new Date(2013, 1, 3)
-      let actual = calculateDateInterval( start, end )
+      let actual = calculateDateRange( start, end )
       expect( actual ).toEqual( '' )
     } )
 
     it( 'returns empty when start date doesnt match anything ', () => {
-      end = new Date(1970, 1, 4)
-      end = new Date()
-      let actual = calculateDateInterval( start, end )
+      start = new Date(1970, 1, 4)
+      let actual = calculateDateRange( start, end )
       expect( actual ).toEqual( '' )
     } )
 
     it( 'returns All when dates is full range', () => {
       start = DATE_RANGE_MIN
-      end = new Date()
-      let actual = calculateDateInterval( start, end )
+      let actual = calculateDateRange( start, end )
       expect( actual ).toEqual( 'All' );
     } );
 
     it( 'returns 3y', () => {
-      start =  new Date( moment().subtract( 3, 'years' ).calendar() )
-      end = new Date()
-      let actual = calculateDateInterval( start, end )
+      start =  new Date( moment( end ).subtract( 3, 'years' ).calendar() )
+      let actual = calculateDateRange( start, end )
       expect( actual ).toEqual( '3y' )
     } );
 
     it( 'returns 6m', () => {
-      start =  new Date( moment().subtract( 6, 'months' ).calendar() )
-      end = new Date()
-      let actual = calculateDateInterval( start, end )
+      start =  new Date( moment( end ).subtract( 6, 'months' ).calendar() )
+      let actual = calculateDateRange( start, end )
       expect( actual ).toEqual( '6m' )
     } )
   })
@@ -199,5 +200,48 @@ describe('module::utils', () => {
       expect(actual).toEqual([]);
     })
   })
+
+  describe( 'startOfToday', () => {
+    let origMaxDate
+    beforeAll( () => {
+      origMaxDate = window.MAX_DATE
+    } );
+
+    beforeEach( () => {
+      delete window.MAX_DATE
+      delete window.complaint_public_metadata
+    } );
+
+    afterAll( () => {
+      window.MAX_DATE = origMaxDate
+    } );
+
+    it( 'sets MAX_DATE from the metadata' , () => {
+      window.complaint_public_metadata = {
+        "metadata_timestamp": "2020-05-09 02:39:23",
+        "qas_timestamp": "2020-05-08 23:48:52",
+        "total_count": 2611545
+      }
+
+      const actual = startOfToday();
+      expect( actual.getFullYear() ).toEqual( 2020 )
+      expect( actual.getMonth() ).toEqual( 4 )
+      expect( actual.getDate() ).toEqual( 9 )
+      expect( actual.getHours() ).toEqual( 0 )
+      expect( actual.getMinutes() ).toEqual( 0 )
+    } );
+
+    it( 'defaults MAX_DATE if the metadata is missing' , () => {
+      jest.spyOn(global.Date, 'now')
+      .mockImplementationOnce( _ => Date.UTC( 2020, 4, 1, 4 ) )
+
+      const actual = startOfToday();
+      expect( actual.getFullYear() ).toEqual( 2020 )
+      expect( actual.getMonth() ).toEqual( 4 )
+      expect( actual.getDate() ).toEqual( 1 )
+      expect( actual.getHours() ).toEqual( 0 )
+      expect( actual.getMinutes() ).toEqual( 0 )
+    } );
+  } );
 })
 

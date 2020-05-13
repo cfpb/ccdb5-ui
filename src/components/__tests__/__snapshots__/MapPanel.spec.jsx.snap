@@ -1,0 +1,435 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component:MapPanel renders Print without crashing 1`] = `
+<section
+  className="map-panel"
+>
+  <div>
+    <summary
+      className="action-bar"
+      id="search-summary"
+    >
+      <div>
+        <h2>
+          Showing 
+          <span>
+            2
+          </span>
+           matches out of 
+          <span>
+            100
+          </span>
+           total complaints
+        </h2>
+      </div>
+      <div
+        className="layout-row"
+      >
+        <h3
+          className="h4 flex-all export-results"
+        >
+          <button
+            className="a-btn a-btn__link"
+            data-gtm_ignore="true"
+            onClick={[Function]}
+          >
+            Export data
+          </button>
+          <button
+            className="a-btn a-btn__link print-preview"
+            data-gtm_ignore="true"
+            onClick={[Function]}
+          >
+            <svg
+              className="cf-icon-svg"
+              viewBox="0 0 761.9 1200"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M203.7 889.9h355v50h-355zM203.7 788.4h355v50h-355z"
+              />
+              <path
+                d="M670.9 368.4L477.3 174.8H122.1c-16.5 0-30 13.5-30 30V500H70c-38.5 0-70 31.5-70 70v305.5c0 38.5 31.5 70 70 70h22.1v60.5c0 16.5 13.5 30 30 30h518.8c16.5 0 30-13.5 30-30v-60.5h21c38.5 0 70-31.5 70-70V569.9c0-38.5-31.5-70-70-70h-21V368.4zm-60 607.6H152.1V742.7h458.8V976zM425 234.8v146.4c0 21.1 17.3 38.4 38.4 38.4h147.5V500H152.1V234.8H425zm237.9 403.9c-16.6 0-30-13.4-30-30s13.4-30 30-30 30 13.4 30 30-13.4 30-30 30z"
+              />
+            </svg>
+            Print
+          </button>
+        </h3>
+      </div>
+    </summary>
+  </div>
+  <div
+    className="warning m-notification m-notification__visible m-notification__warning"
+  >
+    <svg
+      className="cf-icon-svg"
+      viewBox="0 0 1000 1200"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm-49.7 234.6c0-27.6 22.4-50 50-50s50 22.4 50 50v328.6c0 27.6-22.4 50-50 50s-50-22.4-50-50V339.8zm50 582.5c-39.6 0-71.7-32.1-71.7-71.7s32.1-71.7 71.7-71.7S572 811 572 850.6s-32.1 71.7-71.7 71.7z"
+      />
+    </svg>
+    <div
+      className="m-notification_content"
+    >
+      <div
+        className="h4 m-notification_message"
+      >
+        “Complaints per 1,000 population” is not available with your filter selections.
+      </div>
+    </div>
+    
+  </div>
+  <div
+    className="layout-row refine-bar"
+  >
+    <section
+      className="filter-panel-toggle"
+    >
+      <div
+        className="m-btn-group"
+      >
+        <p>
+           
+        </p>
+        <button
+          className="a-btn"
+          onClick={[Function]}
+          title="Filter results"
+        >
+          Filter results
+        </button>
+      </div>
+    </section>
+    <span
+      className="separator"
+    />
+    <section
+      className="date-ranges m-btn-group"
+    >
+      <p>
+        Date range (Click to modify range)
+      </p>
+      <button
+        className="a-btn date-selector range-3m"
+        onClick={[Function]}
+      >
+        3m
+      </button>
+      <button
+        className="a-btn date-selector range-6m"
+        onClick={[Function]}
+      >
+        6m
+      </button>
+      <button
+        className="a-btn date-selector range-1y"
+        onClick={[Function]}
+      >
+        1y
+      </button>
+      <button
+        className="a-btn date-selector range-3y"
+        onClick={[Function]}
+      >
+        3y
+      </button>
+      <button
+        className="a-btn date-selector range-All"
+        onClick={[Function]}
+      >
+        All
+      </button>
+    </section>
+    <section
+      className="per-capita"
+    >
+      <div
+        className="per-capita m-btn-group"
+      >
+        <p>
+          Map shading
+        </p>
+        <button
+          className="a-btn raw deselected"
+          onClick={[Function]}
+        >
+          Complaints
+        </button>
+        <button
+          className="a-btn capita a-btn__disabled"
+          onClick={[Function]}
+        >
+          Complaints per 1,000 
+          <span>
+            population
+          </span>
+        </button>
+      </div>
+    </section>
+  </div>
+  <div>
+    <div
+      className="cfpb-chart print"
+      data-chart-type="tile_map"
+      id="tile-chart-map"
+    />
+  </div>
+  <div
+    className="map-toolbar"
+  >
+    <section
+      className="state-heading"
+    >
+      <span>
+        United States of America
+      </span>
+      <span>
+        
+      </span>
+      
+    </section>
+    
+  </div>
+  <div
+    className="row-chart-section"
+  >
+    <h3>
+      Product
+       by highest complaint volume
+    </h3>
+    <div
+      id="row-chart-product"
+    />
+  </div>
+  <div
+    className="row-chart-section"
+  >
+    <h3>
+      Issue
+       by highest complaint volume
+    </h3>
+    <div
+      id="row-chart-issue"
+    />
+  </div>
+</section>
+`;
+
+exports[`component:MapPanel renders without crashing 1`] = `
+<section
+  className="map-panel"
+>
+  <div>
+    <summary
+      className="action-bar"
+      id="search-summary"
+    >
+      <div>
+        <h2>
+          Showing 
+          <span>
+            2
+          </span>
+           matches out of 
+          <span>
+            100
+          </span>
+           total complaints
+        </h2>
+      </div>
+      <div
+        className="layout-row"
+      >
+        <h3
+          className="h4 flex-all export-results"
+        >
+          <button
+            className="a-btn a-btn__link"
+            data-gtm_ignore="true"
+            onClick={[Function]}
+          >
+            Export data
+          </button>
+          <button
+            className="a-btn a-btn__link print-preview"
+            data-gtm_ignore="true"
+            onClick={[Function]}
+          >
+            <svg
+              className="cf-icon-svg"
+              viewBox="0 0 761.9 1200"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M203.7 889.9h355v50h-355zM203.7 788.4h355v50h-355z"
+              />
+              <path
+                d="M670.9 368.4L477.3 174.8H122.1c-16.5 0-30 13.5-30 30V500H70c-38.5 0-70 31.5-70 70v305.5c0 38.5 31.5 70 70 70h22.1v60.5c0 16.5 13.5 30 30 30h518.8c16.5 0 30-13.5 30-30v-60.5h21c38.5 0 70-31.5 70-70V569.9c0-38.5-31.5-70-70-70h-21V368.4zm-60 607.6H152.1V742.7h458.8V976zM425 234.8v146.4c0 21.1 17.3 38.4 38.4 38.4h147.5V500H152.1V234.8H425zm237.9 403.9c-16.6 0-30-13.4-30-30s13.4-30 30-30 30 13.4 30 30-13.4 30-30 30z"
+              />
+            </svg>
+            Print
+          </button>
+        </h3>
+      </div>
+    </summary>
+  </div>
+  <div
+    className="warning m-notification m-notification__visible m-notification__warning"
+  >
+    <svg
+      className="cf-icon-svg"
+      viewBox="0 0 1000 1200"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm-49.7 234.6c0-27.6 22.4-50 50-50s50 22.4 50 50v328.6c0 27.6-22.4 50-50 50s-50-22.4-50-50V339.8zm50 582.5c-39.6 0-71.7-32.1-71.7-71.7s32.1-71.7 71.7-71.7S572 811 572 850.6s-32.1 71.7-71.7 71.7z"
+      />
+    </svg>
+    <div
+      className="m-notification_content"
+    >
+      <div
+        className="h4 m-notification_message"
+      >
+        “Complaints per 1,000 population” is not available with your filter selections.
+      </div>
+    </div>
+    
+  </div>
+  <div
+    className="layout-row refine-bar"
+  >
+    <section
+      className="filter-panel-toggle"
+    >
+      <div
+        className="m-btn-group"
+      >
+        <p>
+           
+        </p>
+        <button
+          className="a-btn"
+          onClick={[Function]}
+          title="Filter results"
+        >
+          Filter results
+        </button>
+      </div>
+    </section>
+    <span
+      className="separator"
+    />
+    <section
+      className="date-ranges m-btn-group"
+    >
+      <p>
+        Date range (Click to modify range)
+      </p>
+      <button
+        className="a-btn date-selector range-3m"
+        onClick={[Function]}
+      >
+        3m
+      </button>
+      <button
+        className="a-btn date-selector range-6m"
+        onClick={[Function]}
+      >
+        6m
+      </button>
+      <button
+        className="a-btn date-selector range-1y"
+        onClick={[Function]}
+      >
+        1y
+      </button>
+      <button
+        className="a-btn date-selector range-3y"
+        onClick={[Function]}
+      >
+        3y
+      </button>
+      <button
+        className="a-btn date-selector range-All"
+        onClick={[Function]}
+      >
+        All
+      </button>
+    </section>
+    <section
+      className="per-capita"
+    >
+      <div
+        className="per-capita m-btn-group"
+      >
+        <p>
+          Map shading
+        </p>
+        <button
+          className="a-btn raw deselected"
+          onClick={[Function]}
+        >
+          Complaints
+        </button>
+        <button
+          className="a-btn capita a-btn__disabled"
+          onClick={[Function]}
+        >
+          Complaints per 1,000 
+          <span>
+            population
+          </span>
+        </button>
+      </div>
+    </section>
+  </div>
+  <div>
+    <div
+      className="cfpb-chart "
+      data-chart-type="tile_map"
+      id="tile-chart-map"
+    />
+  </div>
+  <div
+    className="map-toolbar"
+  >
+    <section
+      className="state-heading"
+    >
+      <span>
+        United States of America
+      </span>
+      <span>
+        
+      </span>
+      
+    </section>
+    
+  </div>
+  <div
+    className="row-chart-section"
+  >
+    <h3>
+      Product
+       by highest complaint volume
+    </h3>
+    <div
+      id="row-chart-product"
+    />
+  </div>
+  <div
+    className="row-chart-section"
+  >
+    <h3>
+      Issue
+       by highest complaint volume
+    </h3>
+    <div
+      id="row-chart-issue"
+    />
+  </div>
+</section>
+`;
