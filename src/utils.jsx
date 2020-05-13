@@ -29,14 +29,14 @@ export const calculateDateRange = ( minDate, maxDate ) => {
 
   console.log(
     'calculateDateRange', '\n  ',
-    today, '\n  ', 
-    start, '\n  ', 
-    end, '\n  ', 
-    yrDiff, '\n  ', 
+    today, '\n  ',
+    start, '\n  ',
+    end, '\n  ',
+    yrDiff, '\n  ',
     moDiff, '\n  ',
     'moment( minDate ).isSame( DATE_RANGE_MIN, day):',
     moment( minDate ).isSame( DATE_RANGE_MIN, 'day' ), '\n  ',
-    'end.diff( today, days, true ):', 
+    'end.diff( today, days, true ):',
     end.diff( today, 'days', true )
   )
 
