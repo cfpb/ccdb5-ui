@@ -236,7 +236,11 @@ describe('module::utils', () => {
       .mockImplementationOnce( _ => Date.UTC( 2020, 4, 1, 4 ) )
 
       const actual = startOfToday();
-      expect( actual.valueOf() ).toEqual( 1588305600000 )
+      expect( actual.getFullYear() ).toEqual( 2020 )
+      expect( actual.getMonth() ).toEqual( 4 )
+      expect( actual.getDate() ).toEqual( 1 )
+      expect( actual.getHours() ).toEqual( 0 )
+      expect( actual.getMinutes() ).toEqual( 0 )
     } );
   } );
 })
