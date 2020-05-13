@@ -14,6 +14,8 @@ export function ariaReadoutNumbers( s ) {
   return Array.from( s || '' ).join( ' ' )
 }
 
+/* eslint-disable no-console */
+
 // eslint-disable-next-line complexity
 export const calculateDateRange = ( minDate, maxDate ) => {
   // only check intervals if the end date is today
@@ -22,11 +24,25 @@ export const calculateDateRange = ( minDate, maxDate ) => {
   const end = moment( maxDate ).startOf( 'day' )
   const start = moment( minDate ).startOf( 'day' )
 
-  // eslint-disable-next-line no-console
-  console.log( 'calculateDateRange', today, start, end )
+  const yrDiff = end.diff( start, 'years', true )
+  const moDiff = end.diff( start, 'months', true )
+
+  console.log(
+    'calculateDateRange', '\n  ',
+    today, '\n  ', 
+    start, '\n  ', 
+    end, '\n  ', 
+    yrDiff, '\n  ', 
+    moDiff, '\n  ',
+    'moment( minDate ).isSame( DATE_RANGE_MIN, day):',
+    moment( minDate ).isSame( DATE_RANGE_MIN, 'day' ), '\n  ',
+    'end.diff( today, days, true ):', 
+    end.diff( today, 'days', true )
+  )
 
   // make sure end date is the same as today's date
   if ( end.diff( today, 'days', true ) !== 0 ) {
+    console.log( 'end is not today' );
     return ''
   }
 
@@ -36,14 +52,11 @@ export const calculateDateRange = ( minDate, maxDate ) => {
   }
 
   // verify if it's 3 or 1 years
-  const yrDiff = end.diff( start, 'years', true )
-
   if ( yrDiff === 3 || yrDiff === 1 ) {
     return yrDiff + 'y'
   }
 
   // verify if it's 6 or 3 months
-  const moDiff = end.diff( start, 'months', true )
   if ( moDiff === 6 || moDiff === 3 ) {
     return moDiff + 'm'
   }
@@ -223,12 +236,7 @@ export function startOfToday() {
   }
 
   // Always return a clone so the global is not exposed or changed
-  const d = new Date( window.MAX_DATE.valueOf() )
-
-  // eslint-disable-next-line no-console
-  console.log( 'startOfToday', window.MAX_DATE.valueOf(), 'vs', d.valueOf() )
-
-  return d
+  return new Date( window.MAX_DATE.valueOf() )
 }
 
 // ----------------------------------------------------------------------------
