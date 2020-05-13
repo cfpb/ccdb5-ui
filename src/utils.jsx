@@ -24,25 +24,8 @@ export const calculateDateRange = ( minDate, maxDate ) => {
   const end = moment( maxDate ).startOf( 'day' )
   const start = moment( minDate ).startOf( 'day' )
 
-  const yrDiff = end.diff( start, 'years', true )
-  const moDiff = end.diff( start, 'months', true )
-
-  console.log(
-    'calculateDateRange', '\n  ',
-    today, '\n  ',
-    start, '\n  ',
-    end, '\n  ',
-    yrDiff, '\n  ',
-    moDiff, '\n  ',
-    'moment( minDate ).isSame( DATE_RANGE_MIN, day):',
-    moment( minDate ).isSame( DATE_RANGE_MIN, 'day' ), '\n  ',
-    'end.diff( today, days, true ):',
-    end.diff( today, 'days', true )
-  )
-
   // make sure end date is the same as today's date
-  if ( end.diff( today, 'days', true ) !== 0 ) {
-    console.log( 'end is not today' );
+  if ( end.diff( today, 'days' ) !== 0 ) {
     return ''
   }
 
@@ -52,11 +35,13 @@ export const calculateDateRange = ( minDate, maxDate ) => {
   }
 
   // verify if it's 3 or 1 years
+  const yrDiff = end.diff( start, 'years', true )
   if ( yrDiff === 3 || yrDiff === 1 ) {
     return yrDiff + 'y'
   }
 
   // verify if it's 6 or 3 months
+  const moDiff = end.diff( start, 'months', true )
   if ( moDiff === 6 || moDiff === 3 ) {
     return moDiff + 'm'
   }
