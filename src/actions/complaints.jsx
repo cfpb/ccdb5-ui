@@ -174,7 +174,7 @@ export function getTrends() {
     const uri = '@@API' + qs + '&no_aggs=true'
 
     // This call is already in process
-    if ( uri === store.map.activeCall ) {
+    if ( uri === store.trends.activeCall ) {
       return null
     }
 
