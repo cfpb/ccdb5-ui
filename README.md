@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/cfpb/ccdb5-ui/badge.svg?branch=master)](https://coveralls.io/github/cfpb/ccdb5-ui?branch=master)
 
 **Description**:
-This application allows consumers to search complaints submitted to the CFPB by other consumers
+This application allows consumers to search complaints submitted to the CFPB by other consumers.
 
 #### Technology Stack
 This application is written in JavaScript and [Less](http://lesscss.org) within
