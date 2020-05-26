@@ -14,16 +14,18 @@ export function ariaReadoutNumbers( s ) {
   return Array.from( s || '' ).join( ' ' )
 }
 
+/* eslint-disable no-console */
+
 // eslint-disable-next-line complexity
 export const calculateDateRange = ( minDate, maxDate ) => {
   // only check intervals if the end date is today
   // round off the date so the partial times don't mess up calculations
-  const today = moment( new Date() ).startOf( 'day' )
+  const today = startOfToday()
   const end = moment( maxDate ).startOf( 'day' )
   const start = moment( minDate ).startOf( 'day' )
 
   // make sure end date is the same as today's date
-  if ( end.diff( today, 'days', true ) !== 0 ) {
+  if ( end.diff( today, 'days' ) !== 0 ) {
     return ''
   }
 
@@ -34,7 +36,6 @@ export const calculateDateRange = ( minDate, maxDate ) => {
 
   // verify if it's 3 or 1 years
   const yrDiff = end.diff( start, 'years', true )
-
   if ( yrDiff === 3 || yrDiff === 1 ) {
     return yrDiff + 'y'
   }
@@ -208,7 +209,19 @@ export function shortIsoFormat( date ) {
 * @returns {Date} midnight today, local
 */
 export function startOfToday() {
-  return new Date( moment().startOf( 'day' ).toString() )
+  if ( !window.hasOwnProperty( 'MAX_DATE' ) ) {
+    if ( window.hasOwnProperty( 'complaint_public_metadata' ) ) {
+      const { metadata_timestamp: stamp } = window.complaint_public_metadata
+      window.MAX_DATE = new Date( moment( stamp ).startOf( 'day' ).toString() )
+    } else {
+      // eslint-disable-next-line no-console
+      console.error( 'complaint_public_metadata is missing' )
+      window.MAX_DATE = new Date( moment().startOf( 'day' ).toString() )
+    }
+  }
+
+  // Always return a clone so the global is not exposed or changed
+  return new Date( window.MAX_DATE.valueOf() )
 }
 
 // ----------------------------------------------------------------------------
