@@ -25,6 +25,9 @@ jobs:
 
       - name: Run front-end unit tests
         run: npm test
+      
+      - name: Update coveralls
+        run: cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 
   backend:
     runs-on: ubuntu-latest
