@@ -68,7 +68,8 @@ export class StackedAreaChart extends React.Component {
           from: '',
           to: ''
         },
-        interval: this.props.interval
+        interval: this.props.interval,
+        lastDate: this.props.lastDate
       }
       this.props.tooltipUpdated( getLastDate( this.props.data, config ) )
     }
@@ -98,6 +99,7 @@ export const mapDispatchToProps = dispatch => ( {
 export const mapStateToProps = state => ( {
   colorMap: state.trends.colorMap,
   data: state.trends.results.dateRangeArea,
+  lastDate: state.trends.lastDate,
   lens: state.trends.lens,
   interval: state.query.dateInterval,
   tooltip: state.trends.tooltip

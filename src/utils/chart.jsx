@@ -12,20 +12,19 @@ import moment from 'moment'
 export const getLastDate = ( dataSet, config ) => {
   // take in array of data points
   // early exit
-  if ( !dataSet || dataSet.length === 0 || !dataSet[dataSet.length - 1].date ) {
+  if ( !dataSet || dataSet.length === 0 ) {
     return null
   }
 
-  const lastDate = dataSet[dataSet.length - 1].date
+  const lastDate = config.lastDate
   const lastPointValues = dataSet.filter( o => isDateEqual( o.date, lastDate ) )
-  const lastPoint = {
+  return {
     key: lastDate,
     date: lastDate,
     dateRange: config.dateRange,
     interval: config.interval,
     values: lastPointValues
   }
-  return lastPoint
 }
 
 export const getTooltipDate = ( inputDate, dateRange ) => {
