@@ -31,6 +31,7 @@ export const defaultState = {
   focus: false,
   expandedTrends: [],
   isLoading: false,
+  lastDate: false,
   lens: 'Overview',
   subLens: '',
   dataNormalization: GEO_NORM_NONE,
@@ -159,6 +160,10 @@ function getD3Names( obj, nameMap, expandedTrends ) {
   }
 }
 
+function getLastDateForTooltip( buckets ) {
+  return buckets[buckets.length - 1].key_as_string
+}
+
 /**
  * processes the stuff for the area chart, combining them if necessary
  * @param {object} state redux state
@@ -212,7 +217,7 @@ function processAreaData( state, aggregations, buckets ) {
 
     // we're missing a bucket, so fill it in.
     if ( o.trend_period.buckets.length !== Object.keys( refBuckets ).length ) {
-      console.log( refBuckets )
+      // console.log( refBuckets )
       for ( const k in refBuckets ) {
         const obj = refBuckets[k]
         const datePoint = compBuckets
@@ -229,21 +234,6 @@ function processAreaData( state, aggregations, buckets ) {
       }
     }
   }
-  // strip "Other" from if it's zero values
-  //
-  // https://stackoverflow.com/questions/5732043/javascript-reduce-on-array-of-objects
-  const sumOther = compBuckets
-    .filter( o => o.name === 'Other' )
-    .map( a => a.value )
-    .reduce( ( a, b ) => a + b )
-
-  if ( sumOther === 0 ) {
-    compBuckets = compBuckets.filter( o => o.name !== 'Other' )
-  }
-
-  // sort comp buckets by date
-  compBuckets
-    .sort( ( a, b ) => compareDates( a.date, b.date ) )
 
   return compBuckets
 }
@@ -338,12 +328,13 @@ export function processTrends( state, action ) {
   const lens = state.lens
   const aggregations = action.data.aggregations
   const tooltip = false
+  let lastDate = state.lastDate
 
   for ( const k in aggregations ) {
-    const v = aggregations
-
-    console.log( k )
-    console.log( aggregations )
+    // const v = aggregations
+    //
+    // console.log( k )
+    // console.log( aggregations )
 
     // agg[drb][drb]
     /* istanbul ignore else */
@@ -352,7 +343,7 @@ export function processTrends( state, action ) {
       const buckets = aggregations[k][k].buckets
       for ( let i = 0; i < buckets.length; i++ ) {
         const docCount = aggregations[k].doc_count
-        console.log(docCount)
+        // console.log(docCount)
         processTrendPeriod( buckets[i], k, docCount )
       }
 
@@ -364,13 +355,15 @@ export function processTrends( state, action ) {
           } )
         )
       } else if ( k === 'dateRangeArea' ) {
+        lastDate = getLastDateForTooltip( buckets )
+
         if ( lens === 'Overview' ) {
           results.dateRangeLine = processLineData( aggregations )
         } else {
           results[k] = processAreaData( state, aggregations, buckets )
           // initialize tooltip too
-          const tip = getLastDate( results[k], state )
-          console.log( tip )
+          // const tip = getLastDate( results[k], state )
+          // console.log( tip )
         }
       } else {
         results[k] = processBucket( state, buckets )
@@ -393,6 +386,7 @@ export function processTrends( state, action ) {
     ...state,
     colorMap,
     isLoading: false,
+    lastDate,
     results,
     tooltip
   }
