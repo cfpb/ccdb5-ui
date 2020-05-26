@@ -92,7 +92,10 @@ describe( 'component: StackedAreaChart', () => {
     } )
 
     it( 'does nothing when no data', () => {
-      const target = shallow( <StackedAreaChart data={ [] } aggtype={'foo'}/> )
+      const target = shallow( <StackedAreaChart
+        colorMap={ {foo:'bar'} }
+        data={ [] } aggtype={'foo'}
+      /> )
       target._redrawChart = jest.fn()
       target.setProps( { data: [] } )
       expect(  target._redrawChart ).toHaveBeenCalledTimes( 0 )

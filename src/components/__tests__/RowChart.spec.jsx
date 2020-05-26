@@ -11,8 +11,9 @@ jest.mock( 'britecharts', () => {
   const props = [
     'row', 'margin', 'backgroundColor', 'colorSchema', 'enableLabels',
     'labelsSize', 'labelsTotalCount', 'labelsNumberFormat', 'outerPadding',
-    'percentageAxisToMaxRatio', 'yAxisLineWrapLimit',
-    'yAxisPaddingBetweenChart', 'width', 'wrapLabels', 'height'
+    'percentageAxisToMaxRatio', 'yAxisLineWrapLimit', 'miniTooltip',
+    'yAxisPaddingBetweenChart', 'width', 'wrapLabels', 'height',
+    'valueFormatter'
   ]
 
   const mock = {}
