@@ -9,7 +9,7 @@ import thunk from 'redux-thunk'
 // this is how you override and mock an imported constructor
 jest.mock( 'britecharts', () => {
   const props = [
-    'row', 'margin', 'backgroundColor', 'colorSchema', 'enableLabels',
+    'row', 'margin', 'backgroundColor', 'colorSchema', 'enableLabels', 'on',
     'labelsSize', 'labelsTotalCount', 'labelsNumberFormat', 'outerPadding',
     'percentageAxisToMaxRatio', 'yAxisLineWrapLimit', 'miniTooltip',
     'yAxisPaddingBetweenChart', 'width', 'wrapLabels', 'height',
@@ -31,7 +31,7 @@ jest.mock( 'britecharts', () => {
 jest.mock( 'd3', () => {
   const props = [
     'select', 'each', 'node', 'getBoundingClientRect', 'width', 'datum', 'call',
-    'remove', 'selectAll'
+    'remove', 'selectAll', 'on'
   ]
 
   const mock = {}
@@ -91,14 +91,19 @@ describe( 'component: RowChart', () => {
     } )
 
     it( 'does nothing when no data', () => {
-      const target = shallow( <RowChart data={ [] } aggtype={'foo'}/> )
+      const target = shallow( <RowChart
+        colorMap={ { foo: 'bar', shi: 'oio' } }
+        data={ [] } aggtype={'foo'}
+      /> )
       target._redrawChart = jest.fn()
       target.setProps( { data: [] } )
       expect(  target._redrawChart ).toHaveBeenCalledTimes( 0 )
     } )
 
     it( 'trigger a new update when data changes', () => {
-      const target = shallow( <RowChart data={ [ 23, 4, 3 ] } aggtype={'foo'} total={1000}/> )
+      const target = shallow( <RowChart colorMap={ { foo: 'bar', shi: 'oio' } }
+                                        data={ [ 23, 4, 3 ] }
+                                        aggtype={'foo'} total={1000}/> )
       target._redrawChart = jest.fn()
       const sp = jest.spyOn(target.instance(), '_redrawChart')
       target.setProps( { data: [ 2, 5 ] } )
@@ -106,7 +111,8 @@ describe( 'component: RowChart', () => {
     } )
 
     it( 'trigger a new update when printMode changes', () => {
-      const target = shallow( <RowChart data={ [ 23, 4, 3 ] }
+      const target = shallow( <RowChart colorMap={ { foo: 'bar', shi: 'oio' } }
+                                        data={ [ 23, 4, 3 ] }
                                         aggtype={'foo'} total={1000}
                                         printMode={'false'}
       /> )
@@ -117,7 +123,8 @@ describe( 'component: RowChart', () => {
     } )
 
     it( 'trigger a new update when width changes', () => {
-      const target = shallow( <RowChart data={ [ 23, 4, 3 ] }
+      const target = shallow( <RowChart colorMap={ { foo: 'bar', shi: 'oio' } }
+                                        data={ [ 23, 4, 3 ] }
                                         aggtype={'foo'} total={1000}
                                         printMode={'false'}
                                         width={1000}

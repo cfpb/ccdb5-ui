@@ -11,9 +11,11 @@ jest.mock( 'britecharts', () => {
   const props = [
     'line', 'margin', 'backgroundColor', 'colorSchema', 'enableLabels',
     'labelsSize', 'labelsTotalCount', 'labelsNumberFormat', 'outerPadding',
-    'percentageAxisToMaxRatio', 'yAxisLineWrapLimit',
-    'initializeVerticalMarker', 'yAxisPaddingBetweenChart', 'width',
-    'wrapLabels', 'height', 'isAnimated'
+    'percentageAxisToMaxRatio', 'yAxisLineWrapLimit', 'grid', 'dateLabel',
+    'initializeVerticalMarker', 'yAxisPaddingBetweenChart', 'width', 'on',
+    'wrapLabels', 'height', 'isAnimated', 'tooltipThreshold', 'aspectRatio',
+    // tooltip specifics
+    'tooltip', 'title', 'update'
   ]
 
   const mock = {}
