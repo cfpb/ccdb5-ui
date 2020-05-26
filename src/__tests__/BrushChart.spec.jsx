@@ -51,13 +51,13 @@ jest.mock( 'd3', () => {
 function setupSnapshot() {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
-  const store = mockStore( {
-    map: {}
-  } )
+  const store = mockStore( {} )
 
   return renderer.create(
     <Provider store={ store }>
-      <BrushChart aggtype={'foo'}/>
+      <BrushChart aggtype={'foo'}
+                  brushDateData={[]}
+                  dateRange={[]}/>
     </Provider>
   )
 }
@@ -135,10 +135,18 @@ describe( 'component: BrushChart', () => {
           total: 100
         },
         map: {
-          baz: [ 1, 2, 3 ]
+          results: {
+            baz: [ 1, 2, 3 ]
+          }
         },
         query: {
           baz: [ 1, 2, 3 ]
+        },
+        trends: {
+          results: {
+            baz: [ 1, 2, 3 ]
+            // tbd add dateRangeBrush
+          }
         },
         view: {
           printMode: false
@@ -149,9 +157,8 @@ describe( 'component: BrushChart', () => {
       }
       let actual = mapStateToProps( state, ownProps )
       expect( actual ).toEqual( {
-        data: [],
-        printMode: false,
-        total: 100
+        brushDateData: undefined,
+        dateRange: [ undefined, undefined ]
       } )
     } )
   } )

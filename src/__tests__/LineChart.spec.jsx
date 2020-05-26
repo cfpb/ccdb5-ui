@@ -136,10 +136,18 @@ describe( 'component: LineChart', () => {
           total: 100
         },
         map: {
-          baz: [ 1, 2, 3 ]
+          results: {
+            baz: [ 1, 2, 3 ]
+          }
         },
         query: {
-          baz: [ 1, 2, 3 ]
+          baz: [ 1, 2, 3 ],
+          dateInterval: 'Month'
+        },
+        trends: {
+          results: {
+            dateRangeLine: []
+          }
         },
         view: {
           printMode: false
@@ -151,8 +159,7 @@ describe( 'component: LineChart', () => {
       let actual = mapStateToProps( state, ownProps )
       expect( actual ).toEqual( {
         data: [],
-        printMode: false,
-        total: 100
+        dateInterval: 'Month'
       } )
     } )
   } )
