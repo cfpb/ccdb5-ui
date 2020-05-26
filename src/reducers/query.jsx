@@ -15,7 +15,9 @@ export const defaultQuery = {
   dataLens: 'Overview',
   dateInterval: 'Month',
   date_received_max: startOfToday(),
-  date_received_min: new Date( moment().subtract( 3, 'years' ).calendar() ),
+  date_received_min: new Date(
+    moment( startOfToday() ).subtract( 3, 'years' )
+  ),
   enablePer1000: true,
   from: 0,
   mapWarningEnabled: true,
@@ -222,11 +224,13 @@ export function changeDateRange( state, action ) {
     dateRange
   }
 
+  const maxDate = startOfToday()
+
   const res = {
-    '3m': new Date( moment().subtract( 3, 'months' ).calendar() ),
-    '6m': new Date( moment().subtract( 6, 'months' ).calendar() ),
-    '1y': new Date( moment().subtract( 1, 'year' ).calendar() ),
-    '3y': new Date( moment().subtract( 3, 'years' ).calendar() )
+    '3m': new Date( moment( maxDate ).subtract( 3, 'months' ) ),
+    '6m': new Date( moment( maxDate ).subtract( 6, 'months' ) ),
+    '1y': new Date( moment( maxDate ).subtract( 1, 'year' ) ),
+    '3y': new Date( moment( maxDate ).subtract( 3, 'years' ) )
   }
 
   if ( res[dateRange] ) {
@@ -235,7 +239,7 @@ export function changeDateRange( state, action ) {
     newState.date_received_min = new Date( types.DATE_RANGE_MIN )
   }
 
-  newState.date_received_max = startOfToday()
+  newState.date_received_max = maxDate
 
   return newState;
 }

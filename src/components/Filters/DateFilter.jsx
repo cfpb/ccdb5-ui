@@ -1,4 +1,5 @@
 import './DateFilter.less'
+import { shortFormat, startOfToday } from '../../utils'
 import { changeDates } from '../../actions/filter'
 import CollapsibleFilter from './CollapsibleFilter'
 import { connect } from 'react-redux'
@@ -8,7 +9,6 @@ import iconMap from '../iconMap'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { shortFormat } from '../../utils'
 
 const WARN_SERIES_BREAK = 'CFPB updated product and issue options' +
   ' available to consumers in April 2017 ';
@@ -198,7 +198,7 @@ DateFilter.propTypes = {
 
 DateFilter.defaultProps = {
   from: '',
-  maximumDate: null,
+  maximumDate: startOfToday(),
   minimumDate: new Date( DATE_RANGE_MIN ),
   through: ''
 }
