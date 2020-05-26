@@ -114,9 +114,11 @@ describe( 'component: StackedAreaChart', () => {
     } )
 
     it( 'trigger a new update when printMode changes', () => {
-      const target = shallow( <StackedAreaChart data={ [ 23, 4, 3 ] }
-                                        aggtype={'foo'} total={1000}
-                                        printMode={'false'}
+      const target = shallow( <StackedAreaChart
+        colorMap={ { foo: 'bar', shi: 'oio' } }
+        data={ [ 23, 4, 3 ] }
+        aggtype={ 'foo' } total={ 1000 }
+        printMode={ 'false' }
       /> )
       target._redrawChart = jest.fn()
       const sp = jest.spyOn(target.instance(), '_redrawChart')
@@ -125,10 +127,12 @@ describe( 'component: StackedAreaChart', () => {
     } )
 
     it( 'trigger a new update when width changes', () => {
-      const target = shallow( <StackedAreaChart data={ [ 23, 4, 3 ] }
-                                        aggtype={'foo'} total={1000}
-                                        printMode={'false'}
-                                        width={1000}
+      const target = shallow( <StackedAreaChart
+        colorMap={ { foo: 'bar', shi: 'oio' } }
+        data={ [ 23, 4, 3 ] }
+        aggtype={ 'foo' } total={ 1000 }
+        printMode={ 'false' }
+        width={ 1000 }
       /> )
       target._redrawChart = jest.fn()
       const sp = jest.spyOn(target.instance(), '_redrawChart')
