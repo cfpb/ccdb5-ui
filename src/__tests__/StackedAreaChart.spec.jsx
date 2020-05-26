@@ -1,5 +1,8 @@
 import configureMockStore from 'redux-mock-store'
-import { mapStateToProps, StackedAreaChart } from '../components/Charts/StackedAreaChart'
+import {
+  mapStateToProps,
+  StackedAreaChart
+} from '../components/Charts/StackedAreaChart'
 import { mount, shallow } from 'enzyme'
 import { Provider } from 'react-redux'
 import React from 'react'
@@ -9,9 +12,9 @@ import thunk from 'redux-thunk'
 // this is how you override and mock an imported constructor
 jest.mock( 'britecharts', () => {
   const props = [
-    'stackedArea', 'margin', 'initializeVerticalMarker', 'colorSchema', 'dateLabel',
-    'tooltipThreshold', 'grid', 'aspectRatio', 'isAnimated',
-    'yAxisPaddingBetweenChart', 'width', 'height'
+    'stackedArea', 'margin', 'initializeVerticalMarker', 'colorSchema',
+    'dateLabel', 'tooltipThreshold', 'grid', 'aspectRatio', 'isAnimated', 'on',
+    'yAxisPaddingBetweenChart', 'width', 'height', 'areaCurve'
   ]
 
   const mock = {}
@@ -96,7 +99,11 @@ describe( 'component: StackedAreaChart', () => {
     } )
 
     it( 'trigger a new update when data changes', () => {
-      const target = shallow( <StackedAreaChart data={ [ 23, 4, 3 ] } aggtype={'foo'} total={1000}/> )
+      const target = shallow( <StackedAreaChart
+        aggtype={'foo'}
+        colorMap={ { foo: 'bar', shi: 'oio' } }
+        data={ [ 23, 4, 3 ] }
+        total={1000}/> )
       target._redrawChart = jest.fn()
       const sp = jest.spyOn(target.instance(), '_redrawChart')
       target.setProps( { data: [ 2, 5 ] } )
@@ -137,7 +144,16 @@ describe( 'component: StackedAreaChart', () => {
           baz: [ 1, 2, 3 ]
         },
         query: {
-          baz: [ 1, 2, 3 ]
+          baz: [ 1, 2, 3 ],
+          dateInterval: 'Month'
+        },
+        trends: {
+          colorMap: {},
+          lens: 'Overview',
+          results: {
+            dateRangeArea: []
+          },
+          tooltip: {}
         },
         view: {
           printMode: false
@@ -148,9 +164,11 @@ describe( 'component: StackedAreaChart', () => {
       }
       let actual = mapStateToProps( state, ownProps )
       expect( actual ).toEqual( {
+        colorMap: {},
         data: [],
-        printMode: false,
-        total: 100
+        interval: 'Month',
+        lens: 'Overview',
+        tooltip: {}
       } )
     } )
   } )
