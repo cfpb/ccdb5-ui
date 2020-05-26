@@ -57,7 +57,7 @@ export function sendHitsQuery() {
       case MODE_MAP:
         dispatch( getStates() )
         break
-      case 'Trends':
+      case MODE_TRENDS:
         dispatch( getTrends() )
         break
       case MODE_LIST:

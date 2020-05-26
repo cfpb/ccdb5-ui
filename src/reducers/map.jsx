@@ -1,6 +1,7 @@
 // reducer for the Map Tab
 import { GEO_NORM_NONE, TILE_MAP_STATES } from '../constants'
 import actions from '../actions'
+import { coalesce } from '../utils'
 
 export const defaultState = {
   isLoading: false,
@@ -92,6 +93,7 @@ export function processStatesResults( state, action ) {
   const productData = action.data.aggregations.product
   newState.activeCall = ''
   newState.isLoading = false
+  newState.results = coalesce( newState, 'results', {} )
   newState.results.state = processStateAggregations( stateData )
   newState.results.issue = processAggregations( issueData )
   newState.results.product = processAggregations( productData )

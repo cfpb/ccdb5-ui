@@ -174,6 +174,7 @@ export const mapStateToProps = ( state, ownProps ) => {
   // use state.query to filter out the selected bars
   const aggtype = ownProps.aggtype.toLowerCase()
   const tab = state.query.tab.toLowerCase()
+  const colorMap = tab === 'trends' ? state.trends.colorMap : {}
   const filters = state.query[aggtype]
   let data = state[tab] && state[tab].results[aggtype] ?
     state[tab].results[aggtype] : []
@@ -190,7 +191,7 @@ export const mapStateToProps = ( state, ownProps ) => {
   data = data.filter( o => o.visible )
 
   return {
-    colorMap: state.trends.colorMap,
+    colorMap,
     data,
     lens: state.query.lens,
     printMode,

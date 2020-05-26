@@ -166,13 +166,20 @@ describe( 'component: TileChartMap', () => {
       const state = {
         map: {
           dataNormalization: false,
-          state: [
-            // name comes from agg api
-            { name: 'TX', issue: 'something', product: 'a prod', value: 100000 },
-            { name: 'LA', issue: 'something', product: 'b prod', value: 2 },
-            { name: 'CA', issue: 'something', product: 'c prod', value: 3 },
-            { name: 'MH', issue: 'real data', product: 'is messy', value: 9 },
-          ]
+          results: {
+            state: [
+              // name comes from agg api
+              {
+                name: 'TX',
+                issue: 'something',
+                product: 'a prod',
+                value: 100000
+              },
+              { name: 'LA', issue: 'something', product: 'b prod', value: 2 },
+              { name: 'CA', issue: 'something', product: 'c prod', value: 3 },
+              { name: 'MH', issue: 'real data', product: 'is messy', value: 9 },
+            ]
+          }
         },
         query: {
           state: [ 'TX' ]
