@@ -27,8 +27,8 @@ describe( 'reducer:query', () => {
       expect( res ).toHaveProperty( 'date_received_min' )
       expect( res.queryString ).toContain( 'date_received_max' )
       expect( res.queryString ).toContain( 'date_received_min' )
-      expect( res.queryString ).toContain( 'field=all&page=1&size=25' +
-        '&sort=created_date_desc' )
+      expect( res.queryString ).toContain( 'field=all&lens=overview' +
+        '&page=1&size=25&sort=created_date_desc' )
     } )
   } )
 
@@ -983,12 +983,13 @@ describe( 'reducer:query', () => {
       it( 'changes the lens', () => {
         const action = {
           type: actions.DATA_LENS_CHANGED,
-          lens: 'foo'
+          lens: 'Foo'
         }
         const result = target( { tab: types.MODE_TRENDS }, action )
         expect( result ).toEqual( {
-          lens: 'foo',
-          queryString: '?lens=foo&tab=Trends',
+          lens: 'Foo',
+          subLens: 'sub_foo',
+          queryString: '?lens=foo&sub_lens=sub_foo&tab=Trends',
           tab: 'Trends'
         } )
       } )
@@ -1003,7 +1004,7 @@ describe( 'reducer:query', () => {
         const result = target( { tab: types.MODE_TRENDS }, action )
         expect( result ).toEqual( {
           dateInterval: 'Day',
-          queryString: '?dateInterval=Day&tab=Trends',
+          queryString: '?tab=Trends&trend_interval=day',
           tab: 'Trends'
         } )
       } )

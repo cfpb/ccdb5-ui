@@ -135,10 +135,14 @@ describe( 'component: RowChart', () => {
           total: 100
         },
         map: {
-          baz: [ 1, 2, 3 ]
+          results: {
+            baz: [ 1, 2, 3 ]
+          }
         },
         query: {
-          baz: [ 1, 2, 3 ]
+          baz: [ 1, 2, 3 ],
+          lens: 'Overview',
+          tab: 'Map'
         },
         view: {
           printMode: false
@@ -149,8 +153,11 @@ describe( 'component: RowChart', () => {
       }
       let actual = mapStateToProps( state, ownProps )
       expect( actual ).toEqual( {
+        colorMap: {},
         data: [],
+        lens: 'Overview',
         printMode: false,
+        tab: 'map',
         total: 100
       } )
     } )
