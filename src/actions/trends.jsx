@@ -37,7 +37,7 @@ export function changeDataSubLens( subLens ) {
 /**
  * Notifies the application that focus is being changed
  *
- * @param {string} value the text to search for
+ * @param {string} focus the text to search for
  * @returns {string} a packaged payload to be used by Redux reducers
  */
 export function changeFocus( focus ) {

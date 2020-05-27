@@ -1,3 +1,5 @@
+/* eslint complexity: ["error", 5] */
+
 import './RowChart.less'
 import * as d3 from 'd3'
 import { hashObject, slugify } from '../../utils'
