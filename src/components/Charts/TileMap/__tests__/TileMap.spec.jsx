@@ -192,6 +192,18 @@ describe( 'Tile map', () => {
     } );
   })
 
+  describe( 'getColorByValue', () => {
+    let scaleFn
+    beforeEach( () => {
+      scaleFn = jest.fn( x => x )
+    } )
+
+    it( 'returns WHITE when no value', () => {
+      const res = sut.getColorByValue( false, scaleFn )
+      expect( res ).toEqual( '#ffffff' )
+    } )
+  } )
+
   it( 'formats a map tile', () => {
     sut.point = {
       className: 'default',
@@ -305,6 +317,39 @@ describe( 'Tile map', () => {
     expect( scale ).toHaveBeenCalledTimes( 51 )
   } );
 
+  it( 'Processes the map data - empty shading', () => {
+    const scale = jest.fn().mockReturnValue( '#ffffff' )
+
+    const result = sut.processMapData( complaints.raw, scale );
+    // test only the first one & 3rd for path, className, color are found
+    expect( result[0] ).toEqual( {
+      className: 'empty',
+      name: 'AK',
+      fullName: 'Alaska',
+      value: 713,
+      issue: 'Incorrect information on your report',
+      product: 'Credit reporting, credit repair services, or other personal consumer reports',
+      perCapita: 0.97,
+      displayValue: 713,
+      color: '#ffffff',
+      path: 'M92,-245L175,-245,175,-162,92,-162,92,-245'
+    } );
+
+    expect( result[2] ).toEqual( {
+      className: 'selected',
+      name: 'AR',
+      fullName: 'Arkansas',
+      value: 4402,
+      issue: 'Incorrect information on your report',
+      product: 'Credit reporting, credit repair services, or other personal consumer reports',
+      perCapita: 1.48,
+      displayValue: 4402,
+      color: '#ffffff',
+      path: 'M367,-428L450,-428,450,-345,367,-345,367,-428'
+    } );
+    expect( scale ).toHaveBeenCalledTimes( 51 )
+  } );
+
   describe( 'legend', () => {
     let chart;
     beforeEach( () => {
@@ -399,6 +444,22 @@ describe( 'Tile map', () => {
     const options = {
       el: document.createElement( 'div' ),
       data: [],
+      isPerCapita: false,
+      width: 400
+    };
+
+    const drawSpy = jest.spyOn( TileMap.prototype, 'draw' );
+    // eslint-disable-next-line no-unused-vars
+    const map = new TileMap( options );
+    expect( drawSpy ).toHaveBeenCalled();
+  } );
+
+  it( 'can construct a map with events', () => {
+    const options = {
+      el: document.createElement( 'div' ),
+      data: [],
+      events: { foo: jest.fn() },
+      hasTip: true,
       isPerCapita: false,
       width: 400
     };

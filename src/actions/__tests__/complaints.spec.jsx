@@ -5,7 +5,55 @@ import * as sut from '../complaints'
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
 
+function setupStore(tab){
+  return mockStore( {
+    map: {
+    },
+    query: {
+      tab
+    },
+    trends: {
+      activeCall: '',
+    },
+    results: {
+      activeCall: ''
+    }
+  } )
+}
+
 describe('action::complaints', () => {
+  describe('sendHitsQuery', () => {
+    it( 'calls the Complaints API', () => {
+      const store = setupStore( 'List' )
+      store.dispatch( sut.sendHitsQuery() )
+      const expectedActions = [
+        { type: sut.COMPLAINTS_API_CALLED, url: expect.any(String) }
+      ]
+
+      expect(store.getActions()).toEqual(expectedActions)
+    } )
+
+    it( 'calls the Map API', () => {
+      const store = setupStore( 'Map' )
+      store.dispatch( sut.sendHitsQuery() )
+      const expectedActions = [
+        { type: sut.STATES_API_CALLED, url: expect.any(String) }
+      ]
+
+      expect(store.getActions()).toEqual(expectedActions)
+    } )
+
+    it( 'calls the Trends API', () => {
+      const store = setupStore( 'Trends' )
+      store.dispatch( sut.sendHitsQuery() )
+      const expectedActions = [
+        { type: sut.TRENDS_API_CALLED, url: expect.any(String) }
+      ]
+
+      expect(store.getActions()).toEqual(expectedActions)
+    } )
+  } )
+
   describe('getAggregations', () => {
     let onSuccess, onFail, store
 
@@ -289,4 +337,81 @@ describe('action::complaints', () => {
       })
     })
   })
+
+  describe('getTrends', () => {
+    let onSuccess, onFail, store
+
+    beforeEach(() => {
+      global.fetch = jest.fn().mockImplementation((url) => {
+        expect(url).toContain(
+          '@@APItrends/?foo&no_aggs=true'
+        )
+
+        return {
+          then: (x) => {
+            x({ json: () => ({})})
+            return {
+              then: (x) => {
+                onSuccess = (data) => x(data)
+                return {
+                  catch: (y) => {onFail = y}
+                }
+              }
+            }
+          }
+        }
+      })
+
+      store = mockStore({
+        query: {
+          date_received_min: new Date(2013, 1, 3),
+          from: 0,
+          has_narrative: true,
+          queryString: '?foo',
+          searchText: '',
+          size: 10,
+        },
+        trends: {
+          activeCall: ''
+        }
+      })
+    })
+
+    it('calls the API', () => {
+      store.dispatch(sut.getTrends())
+      expect(global.fetch).toHaveBeenCalled()
+    })
+
+    it('discards duplicate API calls', () => {
+      const s = store.getState()
+      s.trends.activeCall = '@@APItrends/' + s.query.queryString + '&no_aggs=true'
+      store = mockStore(s)
+
+      store.dispatch(sut.getTrends())
+      expect(global.fetch).not.toHaveBeenCalled()
+    })
+
+    describe('when the API call is finished', () => {
+      it('sends a simple action when data is received', () => {
+        store.dispatch(sut.getTrends())
+        const expectedActions = [
+          { type: sut.TRENDS_API_CALLED, url: expect.any(String) },
+          { type: sut.TRENDS_RECEIVED, data: ['123']}
+        ]
+        onSuccess(['123'])
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+
+      it('sends a different simple action when an error occurs', () => {
+        store.dispatch(sut.getTrends())
+        const expectedActions = [
+          { type: sut.TRENDS_API_CALLED, url: expect.any(String) },
+          { type: sut.TRENDS_FAILED, error: 'oops' }
+        ]
+        onFail('oops')
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+    })
+  })
+
 })
