@@ -5,7 +5,55 @@ import * as sut from '../complaints'
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
 
+function setupStore(tab){
+  return mockStore( {
+    map: {
+    },
+    query: {
+      tab
+    },
+    trends: {
+      activeCall: '',
+    },
+    results: {
+      activeCall: ''
+    }
+  } )
+}
+
 describe('action::complaints', () => {
+  describe('sendHitsQuery', () => {
+    it( 'calls the Complaints API', () => {
+      const store = setupStore( 'List' )
+      store.dispatch( sut.sendHitsQuery() )
+      const expectedActions = [
+        { type: sut.COMPLAINTS_API_CALLED, url: expect.any(String) }
+      ]
+
+      expect(store.getActions()).toEqual(expectedActions)
+    } )
+
+    it( 'calls the Map API', () => {
+      const store = setupStore( 'Map' )
+      store.dispatch( sut.sendHitsQuery() )
+      const expectedActions = [
+        { type: sut.STATES_API_CALLED, url: expect.any(String) }
+      ]
+
+      expect(store.getActions()).toEqual(expectedActions)
+    } )
+
+    it( 'calls the Trends API', () => {
+      const store = setupStore( 'Trends' )
+      store.dispatch( sut.sendHitsQuery() )
+      const expectedActions = [
+        { type: sut.TRENDS_API_CALLED, url: expect.any(String) }
+      ]
+
+      expect(store.getActions()).toEqual(expectedActions)
+    } )
+  } )
+
   describe('getAggregations', () => {
     let onSuccess, onFail, store
 

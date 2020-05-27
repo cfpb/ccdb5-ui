@@ -995,6 +995,21 @@ describe( 'reducer:query', () => {
       } )
     } )
 
+    describe( 'DATA_SUBLENS_CHANGED actions', () => {
+      it( 'changes the sub lens', () => {
+        const action = {
+          type: actions.DATA_SUBLENS_CHANGED,
+          subLens: 'Issue'
+        }
+        const result = target( { tab: types.MODE_TRENDS }, action )
+        expect( result ).toEqual( {
+          subLens: 'issue',
+          queryString: '?sub_lens=issue&tab=Trends',
+          tab: 'Trends'
+        } )
+      } )
+    } )
+
     describe( 'DATE_INTERVAL_CHANGED', () => {
       it( 'changes the dateInterval', () => {
         const action = {
