@@ -58,7 +58,7 @@ export class TileChartMap extends React.Component {
     const componentProps = this.props
     const mapElement = document.getElementById( 'tile-chart-map' )
     const { dataNormalization, hasTip } = componentProps
-    const width = mapElement ? mapElement.clientWidth : 700;
+    const width = mapElement.clientWidth || 700
     const data = updateData( this.props )
 
     const options = {
@@ -119,7 +119,7 @@ export const getStateClass = ( statesFilter, name ) => {
 
 export const processStates = state => {
   const statesFilter = state.query.state || []
-  const states = state.map.state
+  const states = state.map.results.state
   const stateData = states.map( o => {
     const stateInfo = STATE_DATA[o.name] || { name: '', population: 1 }
     o.abbr = o.name

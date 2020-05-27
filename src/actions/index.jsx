@@ -4,6 +4,7 @@ import * as filter from './filter'
 import * as map from './map'
 import * as paging from './paging'
 import * as search from './search'
+import * as trends from './trends'
 import * as url from './url'
 import * as view from './view'
 
@@ -20,6 +21,7 @@ function combineActions() {
     ...map,
     ...paging,
     ...search,
+    ...trends,
     ...url,
     ...view
   }
