@@ -21,12 +21,12 @@ export function changeDataLens( lens ) {
 }
 
 /**
- * Indicates the data sub lens selected
+ * Indicates the data subLens selected
  *
  * @param {string} subLens the tab selected for row charts
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function dataSubLensChanged( subLens ) {
+export function changeDataSubLens( subLens ) {
   return {
     type: DATA_SUBLENS_CHANGED,
     requery: REQUERY_ALWAYS,
@@ -35,30 +35,30 @@ export function dataSubLensChanged( subLens ) {
 }
 
 /**
- * Notifies the application that a new search is being executed
+ * Notifies the application that focus is being changed
  *
  * @param {string} value the text to search for
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function focusChanged( value ) {
+export function changeFocus( focus ) {
   return {
     type: FOCUS_CHANGED,
     requery: REQUERY_ALWAYS,
-    value
+    focus
   }
 }
 
 /**
  * Notifies the application that the toolTip for stacked area chart has changed
  *
- * @param {string} value the new interval payload
- * @param {string} interval the current payload
+ * @param {string} value the new payload from the tooltip
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function trendsTooltipChanged( value, interval ) {
+export function updateTrendsTooltip( value ) {
   return {
     type: TRENDS_TOOLTIP_CHANGED,
-    value
+    value,
+    requery: REQUERY_NEVER
   }
 }
 
@@ -68,7 +68,7 @@ export function trendsTooltipChanged( value, interval ) {
  * @param {string} value of trend agg that was toggled
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function trendToggled( value ) {
+export function toggleTrend( value ) {
   return {
     type: TREND_TOGGLED,
     requery: REQUERY_NEVER,

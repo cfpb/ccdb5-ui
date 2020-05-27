@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { getLastDate } from '../../utils/chart'
 import React from 'react'
 import { stackedArea } from 'britecharts'
-import { trendsTooltipChanged } from '../../actions/trends'
+import { updateTrendsTooltip } from '../../actions/trends'
 
 export class StackedAreaChart extends React.Component {
   componentDidUpdate() {
@@ -92,7 +92,7 @@ export const mapDispatchToProps = dispatch => ( {
     //   Analytics.getDataLayerOptions( 'Trend Event: add',
     //     selectedState.abbr, )
     // )
-    dispatch( trendsTooltipChanged( selectedState ) )
+    dispatch( updateTrendsTooltip( selectedState ) )
   }
 } )
 
