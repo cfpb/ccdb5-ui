@@ -694,7 +694,6 @@ function changeDataLens( state, action ) {
  * @returns {object} new state in redux
  */
 function changeDataSubLens( state, action ) {
-  console.log( 'wtf? ' )
   return {
     ...state,
     subLens: action.subLens.toLowerCase()

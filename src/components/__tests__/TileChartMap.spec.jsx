@@ -242,5 +242,85 @@ describe( 'component: TileChartMap', () => {
         width: 1000
       } )
     } )
+
+    it( 'maps state and props - no filters', () => {
+      const state = {
+        map: {
+          dataNormalization: false,
+          results: {
+            state: [
+              // name comes from agg api
+              {
+                name: 'TX',
+                issue: 'something',
+                product: 'a prod',
+                value: 100000
+              },
+              { name: 'LA', issue: 'something', product: 'b prod', value: 2 },
+              { name: 'CA', issue: 'something', product: 'c prod', value: 3 },
+              { name: 'MH', issue: 'real data', product: 'is messy', value: 9 },
+            ]
+          }
+        },
+        query: {
+        },
+        view: {
+          printMode: false,
+          width: 1000
+        }
+      }
+      let actual = mapStateToProps( state )
+      expect( actual ).toEqual( {
+        data: [
+          [
+            {
+              abbr: 'TX',
+              name: 'TX',
+              fullName: 'Texas',
+              className: '',
+              issue: 'something',
+              perCapita: '3.65',
+              product: 'a prod',
+              value: 100000
+            },
+            {
+              abbr: 'LA',
+              name: 'LA',
+              fullName: 'Louisiana',
+              className: '',
+              issue: 'something',
+              perCapita: '0.00',
+              product: 'b prod',
+              value: 2
+            },
+            {
+              abbr: 'CA',
+              name: 'CA',
+              fullName: 'California',
+              className: '',
+              issue: 'something',
+              perCapita: '0.00',
+              product: 'c prod',
+              value: 3
+            },
+            {
+              abbr: 'MH',
+              name: 'MH',
+              fullName: '',
+              className: '',
+              issue: 'real data',
+              perCapita: '9000.00',
+              product: 'is messy',
+              value: 9
+            }
+          ]
+        ],
+        dataNormalization: false,
+        hasTip: true,
+        printClass: '',
+        stateFilters: [],
+        width: 1000
+      } )
+    } )
   } )
 } )
