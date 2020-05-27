@@ -73,5 +73,5 @@ export function toggleTrend( value ) {
     type: TREND_TOGGLED,
     requery: REQUERY_NEVER,
     value
-  };
+  }
 }
