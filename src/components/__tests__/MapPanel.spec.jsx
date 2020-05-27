@@ -21,8 +21,10 @@ function setupSnapshot( printMode ) {
       total: items.length
     },
     map: {
-      product: [],
-      state: []
+      results: {
+        product: [],
+        state: []
+      }
     },
     query: {
       enablePer1000: false,

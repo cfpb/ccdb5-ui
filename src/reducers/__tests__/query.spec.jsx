@@ -27,8 +27,8 @@ describe( 'reducer:query', () => {
       expect( res ).toHaveProperty( 'date_received_min' )
       expect( res.queryString ).toContain( 'date_received_max' )
       expect( res.queryString ).toContain( 'date_received_min' )
-      expect( res.queryString ).toContain( 'field=all&page=1&size=25' +
-        '&sort=created_date_desc' )
+      expect( res.queryString ).toContain( 'field=all&lens=overview' +
+        '&page=1&size=25&sort=created_date_desc' )
     } )
   } )
 
@@ -980,15 +980,31 @@ describe( 'reducer:query', () => {
 
   describe( 'Trends', () => {
     describe( 'DATA_LENS_CHANGED actions', () => {
-      it( 'changes the dataLens', () => {
+      it( 'changes the lens', () => {
         const action = {
           type: actions.DATA_LENS_CHANGED,
-          dataLens: 'foo'
+          lens: 'Foo'
         }
         const result = target( { tab: types.MODE_TRENDS }, action )
         expect( result ).toEqual( {
-          dataLens: 'foo',
-          queryString: '?dataLens=foo&tab=Trends',
+          lens: 'Foo',
+          subLens: 'sub_foo',
+          queryString: '?lens=foo&sub_lens=sub_foo&tab=Trends',
+          tab: 'Trends'
+        } )
+      } )
+    } )
+
+    describe( 'DATA_SUBLENS_CHANGED actions', () => {
+      it( 'changes the sub lens', () => {
+        const action = {
+          type: actions.DATA_SUBLENS_CHANGED,
+          subLens: 'Issue'
+        }
+        const result = target( { tab: types.MODE_TRENDS }, action )
+        expect( result ).toEqual( {
+          subLens: 'issue',
+          queryString: '?sub_lens=issue&tab=Trends',
           tab: 'Trends'
         } )
       } )
@@ -1003,7 +1019,7 @@ describe( 'reducer:query', () => {
         const result = target( { tab: types.MODE_TRENDS }, action )
         expect( result ).toEqual( {
           dateInterval: 'Day',
-          queryString: '?dateInterval=Day&tab=Trends',
+          queryString: '?tab=Trends&trend_interval=day',
           tab: 'Trends'
         } )
       } )
