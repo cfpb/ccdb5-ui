@@ -58,7 +58,7 @@ function setupSnapshot() {
 
   return renderer.create(
     <Provider store={ store }>
-      <RowChart aggtype={'foo'}/>
+      <RowChart aggtype={'foo'} title={'Foo title we want'}/>
     </Provider>
   )
 }
