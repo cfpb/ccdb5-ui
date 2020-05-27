@@ -6,7 +6,7 @@ import Analytics from '../../actions/analytics'
 import { connect } from 'react-redux'
 import { max } from 'd3-array'
 import React from 'react'
-import { trendToggled } from '../../actions/trends'
+import { toggleTrend } from '../../actions/trends'
 
 export class RowChart extends React.Component {
   constructor( props ) {
@@ -165,7 +165,7 @@ export const mapDispatchToProps = dispatch => ( {
     //   Analytics.getDataLayerOptions( 'Trend Event: add',
     //     selectedState.abbr, )
     // )
-    dispatch( trendToggled( selectedState ) )
+    dispatch( toggleTrend( selectedState ) )
   }
 } )
 
