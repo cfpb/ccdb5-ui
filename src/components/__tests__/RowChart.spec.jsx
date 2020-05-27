@@ -57,7 +57,7 @@ function setupSnapshot() {
 
   return renderer.create(
     <Provider store={ store }>
-      <RowChart aggtype={'foo'}/>
+      <RowChart aggtype={'foo'} title={'Foo title we want'}/>
     </Provider>
   )
 }
@@ -135,10 +135,13 @@ describe( 'component: RowChart', () => {
           total: 100
         },
         map: {
-          baz: [ 1, 2, 3 ]
+          results: {
+            baz: [ 1, 2, 3 ]
+          }
         },
         query: {
-          baz: [ 1, 2, 3 ]
+          baz: [ 1, 2, 3 ],
+          tab: 'Map'
         },
         view: {
           printMode: false

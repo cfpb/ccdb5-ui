@@ -1,3 +1,5 @@
+/* eslint complexity: ["error", 5] */
+
 import './RowChart.less'
 import * as d3 from 'd3'
 import { connect } from 'react-redux'
@@ -8,10 +10,7 @@ import { row } from 'britecharts'
 export class RowChart extends React.Component {
   constructor( props ) {
     super( props )
-    const aggType = props.aggtype
-    this.aggtype = aggType
-    // only capitalize first letter
-    this.chartTitle = aggType.charAt( 0 ).toUpperCase() + aggType.slice( 1 )
+    this.aggtype = props.aggtype
   }
 
   _getHeight( numRows ) {
@@ -118,7 +117,7 @@ export class RowChart extends React.Component {
   render() {
     return (
       <div className="row-chart-section">
-        <h3>{ this.chartTitle } by highest complaint volume</h3>
+        <h3>{ this.props.title }</h3>
         <div id={ 'row-chart-' + this.aggtype }>
         </div>
       </div>
@@ -128,11 +127,12 @@ export class RowChart extends React.Component {
 
 export const mapStateToProps = ( state, ownProps ) => {
   const { printMode, width } = state.view
-  // use state.query to rip filter out the bars
-  const aggtype = ownProps.aggtype
+  // use state.query to filter out the selected bars
+  const aggtype = ownProps.aggtype.toLowerCase()
+  const tab = state.query.tab.toLowerCase()
   const filters = state.query[aggtype]
-  let data = state.map[aggtype]
-
+  let data = state[tab] && state[tab].results[aggtype] ?
+    state[tab].results[aggtype] : []
   if ( filters && filters.length ) {
     data = data.filter( o => filters.includes( o.name ) )
   }

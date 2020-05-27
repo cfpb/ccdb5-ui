@@ -196,8 +196,7 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
     className="row-chart-section"
   >
     <h3>
-      Product
-       by highest complaint volume
+      Product by highest complaint volume
     </h3>
     <div
       id="row-chart-product"
@@ -207,8 +206,7 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
     className="row-chart-section"
   >
     <h3>
-      Issue
-       by highest complaint volume
+      Issue by highest complaint volume
     </h3>
     <div
       id="row-chart-issue"
@@ -413,8 +411,7 @@ exports[`component:MapPanel renders without crashing 1`] = `
     className="row-chart-section"
   >
     <h3>
-      Product
-       by highest complaint volume
+      Product by highest complaint volume
     </h3>
     <div
       id="row-chart-product"
@@ -424,8 +421,7 @@ exports[`component:MapPanel renders without crashing 1`] = `
     className="row-chart-section"
   >
     <h3>
-      Issue
-       by highest complaint volume
+      Issue by highest complaint volume
     </h3>
     <div
       id="row-chart-issue"
