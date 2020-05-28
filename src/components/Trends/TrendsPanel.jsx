@@ -12,6 +12,7 @@ import FilterPanelToggle from '../Filters/FilterPanelToggle'
 import LensTabs from './LensTabs'
 import LineChart from '../Charts/LineChart'
 import Loading from '../Dialogs/Loading'
+import { processBars } from '../../utils/chart'
 import React from 'react'
 import RowChart from '../Charts/RowChart'
 import { Select } from '../RefineBar/Select'
@@ -62,14 +63,20 @@ export class TrendsPanel extends React.Component {
           { !this.props.overview && <ExternalTooltip/> }
         </div>
         { this.props.overview &&
-        <RowChart aggtype="product"
+        <RowChart id="product"
+                  colorScheme={this.props.productData.colorScheme}
+                  data={this.props.productData.data}
                   title="Product by highest complaint volume"/> }
         { this.props.overview &&
-        <RowChart aggtype="issue"
+        <RowChart id="issue"
+                  colorScheme={this.props.issueData.colorScheme}
+                  data={this.props.issueData.data}
                   title="Issue by highest complaint volume"/> }
         { !this.props.overview && <LensTabs /> }
         { !this.props.overview &&
-          <RowChart aggtype={ this.props.lens }
+          <RowChart id={ this.props.lens }
+                    colorScheme={this.props.dataLensData.colorScheme}
+                    data={this.props.dataLensData.data}
                     title={ this.props.subLensTitle }/> }
         <Loading isLoading={this.props.isLoading || false} />
       </section>
@@ -78,23 +85,39 @@ export class TrendsPanel extends React.Component {
 }
 
 const subLensMap = {
-  'sub_product': 'Sub-products',
-  'sub_issue': 'Sub-issues',
-  'issue': 'Issues',
-  'product': 'Products'
+  sub_product: 'Sub-products',
+  sub_issue: 'Sub-issues',
+  issue: 'Issues',
+  product: 'Products'
 }
 
-const mapStateToProps = state => ( {
-  dateInterval: state.query.dateInterval,
-  isLoading: state.trends.isLoading,
-  items: state.results.items,
-  lens: state.query.lens,
-  overview: state.query.lens === 'Overview',
-  showMobileFilters: state.view.width < 750,
-  subLens: state.query.subLens,
-  subLensTitle: subLensMap[state.query.subLens] + ' by ' +
-    state.query.lens.toLowerCase()
-} )
+const mapStateToProps = state => {
+  const { query, trends } = state
+  const {
+    dateInterval,
+    issue: issueFilters,
+    product: productFilters,
+    lens,
+    subLens
+  } = query
+
+  const lensKey = lens.toLowerCase()
+  const dataLensFilters = query[lensKey]
+  const { colorMap, isLoading, results } = trends
+
+  return {
+    dateInterval,
+    isLoading,
+    issueData: processBars( issueFilters, results.issue, false ),
+    productData: processBars( productFilters, results.product, false ),
+    dataLensData: processBars( dataLensFilters, results[lensKey], colorMap ),
+    lens,
+    overview: lens === 'Overview',
+    showMobileFilters: state.view.width < 750,
+    subLens,
+    subLensTitle: subLensMap[subLens] + ' by ' + lens.toLowerCase()
+  }
+}
 
 export const mapDispatchToProps = dispatch => ( {
   onInterval: ev => {

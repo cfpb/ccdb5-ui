@@ -7,15 +7,11 @@ import { miniTooltip, row } from 'britecharts'
 import Analytics from '../../actions/analytics'
 import { connect } from 'react-redux'
 import { max } from 'd3-array'
+import PropTypes from 'prop-types'
 import React from 'react'
 import { toggleTrend } from '../../actions/trends'
 
 export class RowChart extends React.Component {
-  constructor( props ) {
-    super( props )
-    this.aggtype = props.aggtype
-  }
-
   _getHeight( numRows ) {
     return numRows === 1 ? 100 : numRows * 60
   }
@@ -74,7 +70,7 @@ export class RowChart extends React.Component {
   // eslint-disable-next-line complexity
   _redrawChart() {
     const componentProps = this.props
-    const { colorMap, data, lens, printMode, tab } = componentProps
+    const { colorScheme, data, printMode } = componentProps
     if ( !data || !data.length ) {
       return
     }
@@ -82,40 +78,21 @@ export class RowChart extends React.Component {
     const tooltip = miniTooltip()
     tooltip.valueFormatter( value => value.toLocaleString() + ' complaints' )
 
-    const rowData = data
+    const rows = data
     const total = this.props.total
-    const ratio = total / max( rowData, o => o.value )
-    // console.log( rowData )
-    // console.log( total, max( rowData, o => o.value ), ratio )
-
-    const chartID = '#row-chart-' + this.aggtype
-    d3.select( chartID + ' .row-chart' ).remove()
+    const ratio = total / max( rows, o => o.value )
+    const chartID = '#row-chart-' + this.props.id
+    d3.selectAll( chartID + ' .row-chart' ).remove()
     const rowContainer = d3.select( chartID )
     const width = printMode ? 750 :
       rowContainer.node().getBoundingClientRect().width
-    const height = this._getHeight( rowData.length )
+    const height = this._getHeight( rows.length )
     const chart = row()
     const marginLeft = width / 3
 
     // tweak to make the chart full width at desktop
     // add space at narrow width
     const marginRight = width < 600 ? 20 : -80
-    // console.log(colorMap)
-    const colorScheme = rowData
-      .map( o => {
-        if ( lens === 'Overview' || tab === 'map' ) {
-          return '#20aa3f'
-        }
-        // console.log( o.name, o.parent, colorMap[o.name] )
-        // bad data. Credit Reporting appears twice in the product data
-        const name = o.name ? o.name.trim() : ''
-        const parent = o.parent ? o.parent.trim() : ''
-        // parent should have priority
-        return colorMap[parent] ? colorMap[parent] : colorMap[name]
-      } )
-
-    // console.log( colorScheme )
-
     chart.margin( {
       left: marginLeft,
       right: marginRight,
@@ -141,7 +118,7 @@ export class RowChart extends React.Component {
       .on( 'customMouseMove', tooltip.update )
       .on( 'customMouseOut', tooltip.hide )
 
-    rowContainer.datum( rowData ).call( chart )
+    rowContainer.datum( rows ).call( chart )
     const tooltipContainer = d3.selectAll( chartID + ' .row-chart .metadata-group' )
     tooltipContainer.datum( [] ).call( tooltip );
     this._wrapText( d3.select( chartID ).selectAll( '.tick text' ), marginLeft )
@@ -154,7 +131,7 @@ export class RowChart extends React.Component {
     return (
       <div className="row-chart-section">
         <h3>{ this.props.title }</h3>
-        <div id={ 'row-chart-' + this.aggtype }>
+        <div id={ 'row-chart-' + this.props.id }>
         </div>
       </div>
     )
@@ -173,34 +150,17 @@ export const mapDispatchToProps = dispatch => ( {
 
 export const mapStateToProps = ( state, ownProps ) => {
   const { printMode, width } = state.view
-  // use state.query to filter out the selected bars
-  const aggtype = ownProps.aggtype.toLowerCase()
-  const tab = state.query.tab.toLowerCase()
-  const colorMap = tab === 'trends' ? state.trends.colorMap : {}
-  const filters = state.query[aggtype]
-  let data = state[tab] && state[tab].results[aggtype] ?
-    state[tab].results[aggtype] : []
-  if ( filters && filters.length ) {
-    data = data.filter( o => {
-      if ( o.parent ) {
-        return filters.includes( slugify( o.parent, o.name ) )
-      }
-
-      return filters.includes( o.name )
-    } )
-  }
-
-  data = data.filter( o => o.visible )
-
   return {
-    colorMap,
-    data,
-    lens: state.query.lens,
     printMode,
-    tab,
     total: state.aggs.total,
     width
   }
+}
+
+RowChart.propTypes = {
+  id: PropTypes.string.isRequired,
+  rowData: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired
 }
 
 export default connect( mapStateToProps, mapDispatchToProps )( RowChart )
