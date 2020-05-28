@@ -26,6 +26,7 @@ const defaultSubLens = {
 }
 
 export const defaultState = {
+  chartType: 'line',
   colorMap: {},
   filterNames: [],
   focus: false,
@@ -190,10 +191,10 @@ function processAreaData( state, aggregations, buckets ) {
     .buckets.slice( 0, 10 )
   for ( let i = 0; i < trendResults.length; i++ ) {
     const o = trendResults[i]
-    console.log( o )
+    // console.log( o )
     // only take first 10 of the buckets for processing
     const reverseBuckets = o.trend_period.buckets.reverse()
-    console.log( reverseBuckets )
+    // console.log( reverseBuckets )
     for ( let j = 0; j < reverseBuckets.length; j++ ) {
       const p = reverseBuckets[j]
       compBuckets.push( {
@@ -238,21 +239,39 @@ function processAreaData( state, aggregations, buckets ) {
   return compBuckets
 }
 
-function processLineData( aggregations ) {
-  const buckets = aggregations.dateRangeArea.dateRangeArea.buckets
-  return {
-    dataByTopic: [
-      {
-        topic: 'Complaints',
+function processLineData( lens, aggregations ) {
+  const areaBuckets = aggregations.dateRangeArea.dateRangeArea.buckets
+  const dataByTopic = [
+    {
+      topic: 'Complaints',
+      topicName: 'Complaints',
+      dashed: false,
+      show: true,
+      dates: areaBuckets.map( o => ( {
+        date: o.key_as_string,
+        value: o.doc_count
+      } ) )
+    }
+  ]
+
+  if(lens !== 'Overview') {
+    const lensKey = lens.toLowerCase()
+    const issueBuckets = aggregations[lensKey][lensKey].buckets
+    for ( let i = 0; i < issueBuckets.length; i++ ) {
+      dataByTopic.push( {
+        topic: issueBuckets[i].key,
+        topicName: issueBuckets[i].key,
         dashed: false,
         show: true,
-        dates: buckets.map( o => ( {
+        dates: issueBuckets[i].trend_period.buckets.reverse().map( o => ( {
           date: o.key_as_string,
           value: o.doc_count
-        } ) ),
-        topicName: 'Complaints'
-      }
-    ]
+        } ) )
+      } )
+    }
+  }
+  return {
+    dataByTopic
   }
 }
 
@@ -306,10 +325,7 @@ export const getColorScheme = ( lens, rowNames ) => {
     colScheme[n] = i < 10 ? colorScheme[i] : colorScheme[10]
   }
 
-  if ( lens === 'Overview' ) {
-    colScheme.Complaints = colors.BriteCharts.medium
-  }
-
+  colScheme.Complaints = colors.BriteCharts.medium
   colScheme.Other = colors.DataLens[10]
   return colScheme
 }
@@ -356,14 +372,10 @@ export function processTrends( state, action ) {
         )
       } else if ( k === 'dateRangeArea' ) {
         lastDate = getLastDateForTooltip( buckets )
+        results.dateRangeLine = processLineData(lens, aggregations )
 
-        if ( lens === 'Overview' ) {
-          results.dateRangeLine = processLineData( aggregations )
-        } else {
+        if ( lens !== 'Overview' ) {
           results[k] = processAreaData( state, aggregations, buckets )
-          // initialize tooltip too
-          // const tip = getLastDate( results[k], state )
-          // console.log( tip )
         }
       } else {
         results[k] = processBucket( state, buckets )
@@ -522,7 +534,21 @@ export function updateDateDataNormalization( state, action ) {
 }
 
 /**
- * Handler for the update data normalization action
+ * Handler for the update chart type action
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the command being executed
+ * @returns {object} the new state for the Redux store
+ */
+export function updateChartType( state, action ) {
+  return {
+    ...state,
+    chartType: action.chartType
+  }
+}
+
+/**
+ * Handler for the update data lens action
  *
  * @param {object} state the current state in the Redux store
  * @param {object} action the command being executed
@@ -601,6 +627,7 @@ function updateTooltip( state, action ) {
 export function _buildHandlerMap() {
   const handlers = {}
 
+  handlers[actions.CHART_TYPE_CHANGED] = updateChartType
   handlers[actions.DATA_LENS_CHANGED] = updateDataLens
   handlers[actions.TAB_CHANGED] = handleTabChanged
   handlers[actions.TRENDS_API_CALLED] = trendsCallInProcess
