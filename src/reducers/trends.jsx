@@ -35,7 +35,6 @@ export const defaultState = {
   lastDate: false,
   lens: 'Overview',
   subLens: '',
-  dataNormalization: GEO_NORM_NONE,
   results: {
     dateRangeArea: [],
     dateRangeLine: [],
@@ -500,38 +499,16 @@ export function trendsCallInProcess( state, action ) {
  * @returns {object} new state for the Redux store
  */
 export function processTrendsError( state, action ) {
-  console.log( action )
   return {
     ...state,
     activeCall: '',
-    issue: [],
     error: processErrorMessage( action.error ),
     isLoading: false,
+    issue: [],
     product: []
   }
 }
 
-
-/**
- * Handler for the update filter data normalization action
- *
- * @param {object} state the current state in the Redux store
- * @param {object} action the command being executed
- * @returns {object} the new state for the Redux store
- */
-export function updateDateDataNormalization( state, action ) {
-  let dataNormalization = state.dataNormalization
-  if ( action.filterName === 'company_received' ) {
-    if ( action.minDate || action.maxDate ) {
-      dataNormalization = GEO_NORM_NONE
-    }
-  }
-
-  return {
-    ...state,
-    dataNormalization
-  }
-}
 
 /**
  * Handler for the update chart type action

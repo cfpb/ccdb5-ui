@@ -1,8 +1,9 @@
 import './LineChart.less'
 import * as d3 from 'd3'
+
+import { getLastLineDate, getTipDate } from '../../utils/chart'
 import { line, tooltip } from 'britecharts'
 import { connect } from 'react-redux'
-import { getTipDate } from '../../utils/chart'
 import { hashObject } from '../../utils'
 import React from 'react'
 import { updateTrendsTooltip } from '../../actions/trends'
@@ -75,13 +76,27 @@ export class LineChart extends React.Component {
       lineChart.on( 'customMouseMove', this._tipStuff.bind( this ) )
     }
 
-
-
-    console.log( this.props.data )
     container.datum( this.props.data ).call( lineChart )
     const tooltipContainer =
       d3.select( chartID + ' .metadata-group .vertical-marker-container' )
     tooltipContainer.datum( [] ).call( tip )
+
+    const config = {
+      dateRange: this.props.dateRange,
+      interval: this.props.interval,
+      lastDate: this.props.lastDate
+    }
+
+    const payload = {
+      date: this.props.lastDate,
+      dateRange: this.props.dateRange,
+      interval: this.props.interval,
+      values: this.props.data.topics
+    }
+    // get the last date and fire it off to redux
+    console.log( getLastLineDate( this.props.data, config ) )
+
+    this.props.tooltipUpdated( getLastLineDate( this.props.data, config ) )
   }
 
   render() {
@@ -109,6 +124,10 @@ export const mapStateToProps = state => ( {
   chartType: state.trends.chartType,
   colorMap: state.trends.colorMap,
   data: state.trends.results.dateRangeLine,
+  dateRange: {
+    from: state.query.date_received_min,
+    to: state.query.date_received_max
+  },
   interval: state.query.dateInterval,
   lens: state.query.lens,
   tooltip: state.trends.tooltip
