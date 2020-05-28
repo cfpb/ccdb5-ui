@@ -119,8 +119,6 @@ export const processBars = ( filters = [], rows = [], colorMap = false ) => {
       return colorMap[parent] ? colorMap[parent] : colorMap[name]
     } )
 
-  console.log( data, colorMap, colorScheme )
-
   return {
     colorScheme,
     data: data.filter( o => o.visible )

@@ -57,15 +57,31 @@ export class MapPanel extends React.Component {
   }
 }
 
-const mapStateToProps = state => ( {
-  error: state.map.error,
-  isLoading: state.map.isLoading,
-  issueData: processBars( state.query.issue, state.map.results.issue, false ),
-  productData: processBars( state.query.product, state.map.results.product,
-    false ),
-  showMobileFilters: state.view.width < 750,
-  showWarning: !state.query.enablePer1000 && state.query.mapWarningEnabled
-} )
+const mapStateToProps = state => {
+  const { map, query } = state
+
+  const {
+    error,
+    isLoading,
+    results
+  } = map
+
+  const {
+    enablePer1000,
+    issue: issueFilters,
+    mapWarningEnabled,
+    product: productFilters
+  } = query
+
+  return {
+    error,
+    isLoading,
+    issueData: processBars( issueFilters, results.issue, false ),
+    productData: processBars( productFilters, results.product, false ),
+    showMobileFilters: state.view.width < 750,
+    showWarning: !enablePer1000 && mapWarningEnabled
+  }
+}
 
 export const mapDispatchToProps = dispatch => ( {
   onDismissWarning: () => {
