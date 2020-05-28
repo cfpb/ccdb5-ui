@@ -384,6 +384,7 @@ export function processTrends( state, action ) {
 
   return {
     ...state,
+    activeCall: '',
     colorMap,
     isLoading: false,
     lastDate,
@@ -471,7 +472,7 @@ export function handleTabChanged( state, action ) {
  * @param {object} action the payload containing the key/value pairs
  * @returns {object} the new state for the Redux store
  */
-export function statesCallInProcess( state, action ) {
+export function trendsCallInProcess( state, action ) {
   return {
     ...state,
     activeCall: action.url,
@@ -602,7 +603,7 @@ export function _buildHandlerMap() {
 
   handlers[actions.DATA_LENS_CHANGED] = updateDataLens
   handlers[actions.TAB_CHANGED] = handleTabChanged
-  handlers[actions.TRENDS_API_CALLED] = statesCallInProcess
+  handlers[actions.TRENDS_API_CALLED] = trendsCallInProcess
   handlers[actions.TRENDS_FAILED] = processTrendsError
   handlers[actions.TRENDS_RECEIVED] = processTrends
   handlers[actions.TREND_TOGGLED] = toggleTrend

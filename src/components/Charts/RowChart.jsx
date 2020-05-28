@@ -116,7 +116,8 @@ export class RowChart extends React.Component {
       .on( 'customMouseOut', tooltip.hide )
 
     rowContainer.datum( rows ).call( chart )
-    const tooltipContainer = d3.selectAll( chartID + ' .row-chart .metadata-group' )
+    const tooltipContainer =
+      d3.selectAll( chartID + ' .row-chart .metadata-group' )
     tooltipContainer.datum( [] ).call( tooltip );
     this._wrapText( d3.select( chartID ).selectAll( '.tick text' ), marginLeft )
 
@@ -142,7 +143,7 @@ export const mapDispatchToProps = dispatch => ( {
   }
 } )
 
-export const mapStateToProps = ( state, ownProps ) => {
+export const mapStateToProps = state => {
   const { printMode, width } = state.view
   return {
     printMode,
