@@ -2,13 +2,23 @@ import './StackedAreaChart.less'
 import * as d3 from 'd3'
 import { connect } from 'react-redux'
 import { getLastDate } from '../../utils/chart'
+import { hashObject } from '../../utils'
 import React from 'react'
 import { stackedArea } from 'britecharts'
 import { updateTrendsTooltip } from '../../actions/trends'
 
 export class StackedAreaChart extends React.Component {
-  componentDidUpdate() {
+  componentDidMount() {
     this._redrawChart()
+  }
+
+  componentDidUpdate( prevProps ) {
+    const props = this.props
+    console.log( prevProps, props )
+    if ( hashObject( prevProps ) !== hashObject( props ) ) {
+      console.log( props, prevProps )
+      this._redrawChart()
+    }
   }
 
   _tipStuff( evt ) {
@@ -25,6 +35,7 @@ export class StackedAreaChart extends React.Component {
     }
   }
   _redrawChart() {
+    console.log('draw?')
     const chartID = '#stacked-area-chart'
     const container = d3.select( chartID )
     const containerWidth =

@@ -1,8 +1,9 @@
 import '../RefineBar/RefineBar.less'
 import './TrendsPanel.less'
+
+import { changeChartType, changeDataLens } from '../../actions/trends'
 import ActionBar from '../ActionBar'
 import BrushChart from '../Charts/BrushChart'
-import { changeDataLens } from '../../actions/trends'
 import { changeDateInterval } from '../../actions/filter'
 import { connect } from 'react-redux'
 import DateRanges from '../RefineBar/DateRanges'
@@ -51,13 +52,23 @@ export class TrendsPanel extends React.Component {
                   id={ 'interval' }
                   value={ this.props.dateInterval }
                   handleChange={ this.props.onInterval }/>
+          { !this.props.overview && <Select label={ 'Chart Type' }
+                                            title={ 'Chart Type' }
+                                            values={ [ 'line', 'area' ] }
+                                            id={ 'chart-type' }
+                                            value={ this.props.chartType }
+                                            handleChange={ this.props.onChartType }/>
+          }
           <DateRanges />
         </div>
         <div className="layout-row">
           <section className="chart">
-            { this.props.overview ?
-              <LineChart title="Complaints by date received"/> :
-              <StackedAreaChart title="Complaints by date received"/> }
+            { this.props.chartType === 'line' &&
+              <LineChart chartType={ this.props.chartType }
+                         title="Complaints by date received"/> }
+            { this.props.chartType === 'area' &&
+              <StackedAreaChart chartType={ this.props.chartType }
+                                title="Complaints by date received"/> }
             <BrushChart/>
           </section>
           { !this.props.overview && <ExternalTooltip/> }
@@ -103,9 +114,10 @@ const mapStateToProps = state => {
 
   const lensKey = lens.toLowerCase()
   const dataLensFilters = query[lensKey]
-  const { colorMap, isLoading, results } = trends
+  const { chartType, colorMap, isLoading, results } = trends
 
   return {
+    chartType,
     dateInterval,
     isLoading,
     issueData: processBars( issueFilters, results.issue, false ),
@@ -120,6 +132,9 @@ const mapStateToProps = state => {
 }
 
 export const mapDispatchToProps = dispatch => ( {
+  onChartType: ev => {
+    dispatch( changeChartType( ev.target.value ) )
+  },
   onInterval: ev => {
     dispatch( changeDateInterval( ev.target.value ) )
   },
