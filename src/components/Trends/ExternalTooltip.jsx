@@ -5,7 +5,7 @@ import React from 'react'
 export class ExternalTooltip extends React.Component {
   render() {
     const { tooltip } = this.props
-    if ( tooltip.values ) {
+    if ( tooltip && tooltip.values ) {
       return (
         <section className="tooltip-container u-clearfix">
           <p className="a-micro-copy">
@@ -35,7 +35,7 @@ export class ExternalTooltip extends React.Component {
   }
 }
 
-const mapStateToProps = state => ( {
+export const mapStateToProps = state => ( {
   tooltip: state.trends.tooltip
 } )
 
