@@ -111,7 +111,6 @@ export const processBars = ( filters = [], rows = [], colorMap = false ) => {
       if ( !colorMap ) {
         return '#20aa3f'
       }
-      // console.log( o.name, o.parent, colorMap[o.name] )
       // bad data. Credit Reporting appears twice in the product data
       const name = o.name ? o.name.trim() : ''
       const parent = o.parent ? o.parent.trim() : ''
