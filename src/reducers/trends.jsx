@@ -241,7 +241,7 @@ function processAreaData( state, aggregations, buckets ) {
 
 function processLineData( lens, aggregations ) {
   const areaBuckets = aggregations.dateRangeArea.dateRangeArea.buckets
-  const dataByTopic = [
+  const dataByTopic = lens === 'Overview' ? [
     {
       topic: 'Complaints',
       topicName: 'Complaints',
@@ -252,9 +252,9 @@ function processLineData( lens, aggregations ) {
         value: o.doc_count
       } ) )
     }
-  ]
+  ] : []
 
-  if(lens !== 'Overview') {
+  if ( lens !== 'Overview' ) {
     const lensKey = lens.toLowerCase()
     const issueBuckets = aggregations[lensKey][lensKey].buckets
     for ( let i = 0; i < issueBuckets.length; i++ ) {

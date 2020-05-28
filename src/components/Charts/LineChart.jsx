@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { getTipDate } from '../../utils/chart'
 import { hashObject } from '../../utils'
 import React from 'react'
+import { updateTrendsTooltip } from '../../actions/trends'
 
 export class LineChart extends React.Component {
   componentDidMount() {
@@ -13,10 +14,23 @@ export class LineChart extends React.Component {
 
   componentDidUpdate( prevProps ) {
     const props = this.props
-    console.log( prevProps, props )
     if ( hashObject( prevProps ) !== hashObject( props ) ) {
-      console.log( props, prevProps )
       this._redrawChart()
+    }
+  }
+
+  _tipStuff( evt ) {
+    console.log( evt )
+    if ( this.props.tooltip.date !== evt.date ) {
+      this.props.tooltipUpdated( {
+        date: evt.date,
+        dateRange: {
+          from: '',
+          to: ''
+        },
+        interval: this.props.interval,
+        values: evt.topics
+      } )
     }
   }
 
@@ -35,7 +49,7 @@ export class LineChart extends React.Component {
     const lineChart = line()
     const tip = tooltip()
 
-    const dateInterval = this.props.dateInterval
+    const interval = this.props.interval
     // will be Start Date - Date...
     const colorMap = this.props.colorMap
     const colorScheme = this.props.data.dataByTopic.map( o => colorMap[ o.topic ] )
@@ -49,12 +63,13 @@ export class LineChart extends React.Component {
       .width( containerWidth )
       .dateLabel( 'date' )
       .colorSchema( colorScheme )
-      .on( 'customMouseOver', tip.show )
-      .on( 'customMouseMove', function(dataPoint, topicColorMap, dataPointXPosition) {
-        tip.title( getTipDate( dataPoint.date, dateInterval ) )
-        tip.update( dataPoint, topicColorMap, dataPointXPosition )
-      } )
-      .on( 'customMouseOut', tip.hide )
+      // .on( 'customMouseOver', tip.show )
+      .on( 'customMouseMove', this._tipStuff.bind( this ) )
+      // .on( 'customMouseMove', function(dataPoint, topicColorMap, dataPointXPosition) {
+      //   tip.title( getTipDate( dataPoint.date, interval ) )
+      //   tip.update( dataPoint, topicColorMap, dataPointXPosition )
+      // } )
+      // .on( 'customMouseOut', tip.hide )
 
     console.log( this.props.data )
     container.datum( this.props.data ).call( lineChart )
@@ -74,11 +89,22 @@ export class LineChart extends React.Component {
   }
 }
 
+export const mapDispatchToProps = dispatch => ( {
+  tooltipUpdated: selectedState => {
+    // Analytics.sendEvent(
+    //   Analytics.getDataLayerOptions( 'Trend Event: add',
+    //     selectedState.abbr, )
+    // )
+    dispatch( updateTrendsTooltip( selectedState ) )
+  }
+} )
+
 export const mapStateToProps = state => ( {
   chartType: state.trends.chartType,
   colorMap: state.trends.colorMap,
   data: state.trends.results.dateRangeLine,
-  dateInterval: state.query.dateInterval
+  interval: state.query.dateInterval,
+  tooltip: state.trends.tooltip
 } )
 
-export default connect( mapStateToProps )( LineChart )
+export default connect( mapStateToProps, mapDispatchToProps )( LineChart )

@@ -36,7 +36,6 @@ export class ExternalTooltip extends React.Component {
 }
 
 const mapStateToProps = state => ( {
-  data: [],
   tooltip: state.trends.tooltip
 } )
 
