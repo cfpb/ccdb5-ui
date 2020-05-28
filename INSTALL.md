@@ -13,7 +13,7 @@ pip install -e .
 ```
 
 ## Configuring
-_TODO: Define how the API URL is injected into the codebase_
+_TODO: Define how the API URL is injected into the codebase because they are hardcoded in the config files_
 
 ## Verifying the build
 
