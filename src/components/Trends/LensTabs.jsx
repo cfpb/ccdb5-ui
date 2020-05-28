@@ -1,6 +1,6 @@
 import './LensTabs.less'
+import { changeDataSubLens } from '../../actions/trends'
 import { connect } from 'react-redux'
-import { dataSubLensChanged } from '../../actions/trends'
 import React from 'react'
 
 const lensMaps = {
@@ -57,7 +57,7 @@ export const mapStateToProps = state => ( {
 
 export const mapDispatchToProps = dispatch => ( {
   onTab: tab => {
-    dispatch( dataSubLensChanged( tab.toLowerCase() ) )
+    dispatch( changeDataSubLens( tab.toLowerCase() ) )
   }
 } )
 

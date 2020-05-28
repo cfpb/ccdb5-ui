@@ -1,11 +1,12 @@
 // ----------------------------------------------------------------------------
 /* eslint-disable no-mixed-operators */
+import { clampDate, slugify } from '../utils'
 import {
   formatDateLocaleShort,
   formatDateView,
   isDateEqual
 } from './formatDate'
-import { clampDate } from '../utils'
+
 import moment from 'moment'
 
 
@@ -89,4 +90,39 @@ export const getTooltipTitle = ( inputDate, interval, dateRange ) => {
   endDate = getTooltipDate( endDate, dateRange )
 
   return interval === 'day' ? endDate : `${ startDate } - ${ endDate }`
+}
+
+export const processBars = ( filters = [], rows = [], colorMap = false ) => {
+  let data = rows
+  if ( filters && filters.length ) {
+    data = data.filter( o => {
+      if ( o.parent ) {
+        return filters.includes( slugify( o.parent, o.name ) )
+      }
+
+      return filters.includes( o.name )
+    } )
+  }
+
+  data = data.filter( o => o.visible )
+
+  const colorScheme = data
+    .map( o => {
+      if ( !colorMap ) {
+        return '#20aa3f'
+      }
+      // console.log( o.name, o.parent, colorMap[o.name] )
+      // bad data. Credit Reporting appears twice in the product data
+      const name = o.name ? o.name.trim() : ''
+      const parent = o.parent ? o.parent.trim() : ''
+      // parent should have priority
+      return colorMap[parent] ? colorMap[parent] : colorMap[name]
+    } )
+
+  console.log( data, colorMap, colorScheme )
+
+  return {
+    colorScheme,
+    data: data.filter( o => o.visible )
+  }
 }
