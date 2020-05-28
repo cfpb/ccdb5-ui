@@ -110,9 +110,9 @@ export const mapDispatchToProps = dispatch => ( {
 export const mapStateToProps = state => ( {
   colorMap: state.trends.colorMap,
   data: state.trends.results.dateRangeArea,
+  interval: state.query.dateInterval,
   lastDate: state.trends.lastDate,
   lens: state.trends.lens,
-  interval: state.query.dateInterval,
   tooltip: state.trends.tooltip
 } )
 
