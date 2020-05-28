@@ -35,7 +35,7 @@ export class LineChart extends React.Component {
   }
 
   _redrawChart() {
-    if ( !this.props.data.dataByTopic || !this.props.data.dataByTopic.length ) {
+    if ( !this.props.data.data || !this.props.data.data.length ) {
       return
     }
 
@@ -52,7 +52,13 @@ export class LineChart extends React.Component {
     const interval = this.props.interval
     // will be Start Date - Date...
     const colorMap = this.props.colorMap
-    const colorScheme = this.props.data.dataByTopic.map( o => colorMap[ o.topic ] )
+    // const colorScheme = this.props.data.data.map( o => colorMap[ o.topic ] )
+
+    const uniqueSet = new Set(this.props.data.data.map( o => o.name ));
+    console.log(uniqueSet)
+
+    const colorScheme = [...uniqueSet].map( o => colorMap[ o ] )
+    console.log(colorScheme)
 
     lineChart.margin( { left: 50, right: 10, top: 10, bottom: 40 } )
       .initializeVerticalMarker( true )
@@ -71,7 +77,9 @@ export class LineChart extends React.Component {
       // } )
       // .on( 'customMouseOut', tip.hide )
 
+
     console.log( this.props.data )
+
     container.datum( this.props.data ).call( lineChart )
     const tooltipContainer =
       d3.select( chartID + ' .metadata-group .vertical-marker-container' )
@@ -99,12 +107,17 @@ export const mapDispatchToProps = dispatch => ( {
   }
 } )
 
-export const mapStateToProps = state => ( {
-  chartType: state.trends.chartType,
-  colorMap: state.trends.colorMap,
-  data: state.trends.results.dateRangeLine,
-  interval: state.query.dateInterval,
-  tooltip: state.trends.tooltip
-} )
+export const mapStateToProps = state => {
+  const { chartType, colorMap, results, tooltip } = state.trends
+  return {
+    chartType,
+    colorMap,
+    data: {
+      data: results.dateRangeArea
+    },
+    interval: state.query.dateInterval,
+    tooltip
+  }
+}
 
 export default connect( mapStateToProps, mapDispatchToProps )( LineChart )
