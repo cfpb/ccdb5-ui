@@ -148,7 +148,7 @@ describe( 'component: LineChart', () => {
         },
         trends: {
           results: {
-            dateRangeArea: []
+            dateRangeLine: []
           }
         },
         view: {
