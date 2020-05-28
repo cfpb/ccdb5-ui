@@ -158,7 +158,7 @@ RowChart.propTypes = {
     PropTypes.array,
     PropTypes.bool
   ] ).isRequired,
-  data: PropTypes.object.isRequired,
+  data: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired
 }
 
