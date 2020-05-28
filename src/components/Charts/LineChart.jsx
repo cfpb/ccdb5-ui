@@ -20,7 +20,6 @@ export class LineChart extends React.Component {
   }
 
   _tipStuff( evt ) {
-    console.log( evt )
     if ( this.props.tooltip.date !== evt.date ) {
       this.props.tooltipUpdated( {
         date: evt.date,
@@ -63,13 +62,20 @@ export class LineChart extends React.Component {
       .width( containerWidth )
       .dateLabel( 'date' )
       .colorSchema( colorScheme )
-      // .on( 'customMouseOver', tip.show )
-      .on( 'customMouseMove', this._tipStuff.bind( this ) )
-      // .on( 'customMouseMove', function(dataPoint, topicColorMap, dataPointXPosition) {
-      //   tip.title( getTipDate( dataPoint.date, interval ) )
-      //   tip.update( dataPoint, topicColorMap, dataPointXPosition )
-      // } )
-      // .on( 'customMouseOut', tip.hide )
+
+    if ( this.props.lens === 'Overview' ) {
+      lineChart
+        .on( 'customMouseOver', tip.show )
+        .on( 'customMouseMove', function ( dataPoint, topicColorMap, dataPointXPosition ) {
+          tip.title( getTipDate( dataPoint.date, interval ) )
+          tip.update( dataPoint, topicColorMap, dataPointXPosition )
+        } )
+        .on( 'customMouseOut', tip.hide )
+    } else {
+      lineChart.on( 'customMouseMove', this._tipStuff.bind( this ) )
+    }
+
+
 
     console.log( this.props.data )
     container.datum( this.props.data ).call( lineChart )
@@ -104,6 +110,7 @@ export const mapStateToProps = state => ( {
   colorMap: state.trends.colorMap,
   data: state.trends.results.dateRangeLine,
   interval: state.query.dateInterval,
+  lens: state.query.lens,
   tooltip: state.trends.tooltip
 } )
 
