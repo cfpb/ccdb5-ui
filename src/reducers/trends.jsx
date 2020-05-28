@@ -178,6 +178,7 @@ function processAreaData( state, aggregations, buckets ) {
   let compBuckets = buckets.map(
     obj => ( {
       name: mainName,
+      topicName: mainName,
       value: obj.doc_count,
       date: new Date( obj.key_as_string )
     } )
@@ -186,51 +187,56 @@ function processAreaData( state, aggregations, buckets ) {
   // reference buckets to backfill zero values
   const refBuckets = Object.assign( {}, compBuckets )
   const lens = state.focus ? state.subLens : state.lens
-  const filter = filterMap[lens].toLowerCase()
-  const trendResults = aggregations[filter][filter]
-    .buckets.slice( 0, 10 )
-  for ( let i = 0; i < trendResults.length; i++ ) {
-    const o = trendResults[i]
-    // console.log( o )
-    // only take first 10 of the buckets for processing
-    const reverseBuckets = o.trend_period.buckets.reverse()
-    // console.log( reverseBuckets )
-    for ( let j = 0; j < reverseBuckets.length; j++ ) {
-      const p = reverseBuckets[j]
-      compBuckets.push( {
-        name: o.key,
-        value: p.doc_count,
-        date: new Date( p.key_as_string )
-      } )
 
-      // delete total from that date
-      /* eslint max-nested-callbacks: ["error", 4] */
-      const pos = compBuckets
-        .findIndex( i => i.name === mainName &&
-          isDateEqual( i.date, p.key_as_string ) )
+  if ( lens !== 'Overview' ) {
+    const filter = filterMap[lens].toLowerCase()
+    const trendResults = aggregations[filter][filter]
+      .buckets.slice( 0, 10 )
+    for ( let i = 0; i < trendResults.length; i++ ) {
+      const o = trendResults[i]
+      // console.log( o )
+      // only take first 10 of the buckets for processing
+      const reverseBuckets = o.trend_period.buckets
+      // console.log( reverseBuckets )
+      for ( let j = 0; j < reverseBuckets.length; j++ ) {
+        const p = reverseBuckets[j]
+        compBuckets.push( {
+          name: o.key,
+          topicName: o.key,
+          value: p.doc_count,
+          date: new Date( p.key_as_string )
+        } )
 
-      /* istanbul ignore else */
-      if ( pos > -1 ) {
-        // subtract the value from total, so we calculate the "Other" bin
-        compBuckets[pos].value -= p.doc_count
+        // delete total from that date
+        /* eslint max-nested-callbacks: ["error", 4] */
+        const pos = compBuckets
+          .findIndex( i => i.name === mainName &&
+            isDateEqual( i.date, p.key_as_string ) )
+
+        /* istanbul ignore else */
+        if ( pos > -1 ) {
+          // subtract the value from total, so we calculate the "Other" bin
+          compBuckets[pos].value -= p.doc_count
+        }
       }
-    }
 
-    // we're missing a bucket, so fill it in.
-    if ( o.trend_period.buckets.length !== Object.keys( refBuckets ).length ) {
-      // console.log( refBuckets )
-      for ( const k in refBuckets ) {
-        const obj = refBuckets[k]
-        const datePoint = compBuckets
-          .filter( f => f.name === o.key )
-          .find( f => isDateEqual( f.date, obj.date ) )
+      // we're missing a bucket, so fill it in.
+      if ( o.trend_period.buckets.length !== Object.keys( refBuckets ).length ) {
+        // console.log( refBuckets )
+        for ( const k in refBuckets ) {
+          const obj = refBuckets[k]
+          const datePoint = compBuckets
+            .filter( f => f.name === o.key )
+            .find( f => isDateEqual( f.date, obj.date ) )
 
-        if ( !datePoint ) {
-          compBuckets.push( {
-            name: o.key,
-            value: 0,
-            date: new Date( obj.date )
-          } )
+          if ( !datePoint ) {
+            compBuckets.push( {
+              name: o.key,
+              topicName: o.key,
+              value: 0,
+              date: new Date( obj.date )
+            } )
+          }
         }
       }
     }
@@ -241,6 +247,9 @@ function processAreaData( state, aggregations, buckets ) {
 
 function processLineData( lens, aggregations ) {
   const areaBuckets = aggregations.dateRangeArea.dateRangeArea.buckets
+
+  // make this a flat structure
+
   const dataByTopic = lens === 'Overview' ? [
     {
       topic: 'Complaints',
@@ -372,11 +381,10 @@ export function processTrends( state, action ) {
         )
       } else if ( k === 'dateRangeArea' ) {
         lastDate = getLastDateForTooltip( buckets )
-        results.dateRangeLine = processLineData(lens, aggregations )
-
-        if ( lens !== 'Overview' ) {
-          results[k] = processAreaData( state, aggregations, buckets )
-        }
+        // results.dateRangeLine = processLineData( lens, aggregations )
+        // if ( lens !== 'Overview' ) {
+        results[k] = processAreaData( state, aggregations, buckets )
+        // }
       } else {
         results[k] = processBucket( state, buckets )
       }
