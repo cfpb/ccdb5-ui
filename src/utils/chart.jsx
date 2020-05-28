@@ -28,6 +28,36 @@ export const getLastDate = ( dataSet, config ) => {
   }
 }
 
+export const getLastLineDate = ( dataSet, config ) => {
+  // take in array of data points
+  if ( !dataSet || dataSet.dataByTopic.length === 0 ) { return null; }
+
+  const dates = dataSet.dataByTopic[0].dates;
+  const lastDatePos = dates.length - 1;
+  const lastDate = dates[lastDatePos].date;
+
+  const values = dataSet.dataByTopic.map( o => {
+    const lastPoint = o.dates.find( o => o.date === lastDate )
+    const value = lastPoint ? lastPoint.value : 0
+    return {
+      ...o,
+      name: o.topic,
+      date: lastDate,
+      value
+    }
+  });
+
+  const lastPoint = {
+    key: lastDate,
+    date: lastDate,
+    dateRange: config.dateRange,
+    interval: config.interval,
+    values
+  };
+  return lastPoint;
+}
+
+
 export const getTooltipDate = ( inputDate, dateRange ) => {
   const returnDate = clampDate( inputDate, dateRange.from, dateRange.to )
   return formatDateView( returnDate )
