@@ -21,7 +21,7 @@ jobs:
           npm install
       
       - name: Lint the source code
-        run: ./node_modules/eslint/bin/eslint.js --ext .jsx --quiet src/
+        run: npm run lint
 
       - name: Run front-end unit tests
         run: npm test
