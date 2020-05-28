@@ -2,10 +2,9 @@
 
 import './RowChart.less'
 import * as d3 from 'd3'
-import { hashObject, slugify } from '../../utils'
 import { miniTooltip, row } from 'britecharts'
-import Analytics from '../../actions/analytics'
 import { connect } from 'react-redux'
+import { hashObject } from '../../utils'
 import { max } from 'd3-array'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -69,8 +68,7 @@ export class RowChart extends React.Component {
   // Event Handlers
   // eslint-disable-next-line complexity
   _redrawChart() {
-    const componentProps = this.props
-    const { colorScheme, data, printMode } = componentProps
+    const { colorScheme, data, id, printMode, toggleRow, total } = this.props
     if ( !data || !data.length ) {
       return
     }
@@ -79,9 +77,8 @@ export class RowChart extends React.Component {
     tooltip.valueFormatter( value => value.toLocaleString() + ' complaints' )
 
     const rows = data
-    const total = this.props.total
     const ratio = total / max( rows, o => o.value )
-    const chartID = '#row-chart-' + this.props.id
+    const chartID = '#row-chart-' + id
     d3.selectAll( chartID + ' .row-chart' ).remove()
     const rowContainer = d3.select( chartID )
     const width = printMode ? 750 :
@@ -123,8 +120,9 @@ export class RowChart extends React.Component {
     tooltipContainer.datum( [] ).call( tooltip );
     this._wrapText( d3.select( chartID ).selectAll( '.tick text' ), marginLeft )
 
-    rowContainer.selectAll( '.y-axis-group .tick' )
-      .on( 'click', this.props.toggleRow )
+    rowContainer
+      .selectAll( '.y-axis-group .tick' )
+      .on( 'click', toggleRow )
   }
 
   render() {
@@ -140,10 +138,6 @@ export class RowChart extends React.Component {
 
 export const mapDispatchToProps = dispatch => ( {
   toggleRow: selectedState => {
-    // Analytics.sendEvent(
-    //   Analytics.getDataLayerOptions( 'Trend Event: add',
-    //     selectedState.abbr, )
-    // )
     dispatch( toggleTrend( selectedState ) )
   }
 } )
@@ -159,7 +153,11 @@ export const mapStateToProps = ( state, ownProps ) => {
 
 RowChart.propTypes = {
   id: PropTypes.string.isRequired,
-  rowData: PropTypes.object.isRequired,
+  colorScheme: PropTypes.oneOfType( [
+    PropTypes.array,
+    PropTypes.bool
+  ] ).isRequired,
+  data: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired
 }
 
