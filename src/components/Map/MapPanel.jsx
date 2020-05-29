@@ -9,7 +9,7 @@ import Loading from '../Dialogs/Loading'
 import MapToolbar from './MapToolbar'
 import { mapWarningDismissed } from '../../actions/view'
 import PerCapita from '../RefineBar/PerCapita'
-import { processBars } from '../../utils/chart'
+import { processRows } from '../../utils/chart'
 import React from 'react'
 import RowChart from '../Charts/RowChart'
 import { Separator } from '../RefineBar/Separator'
@@ -76,8 +76,8 @@ const mapStateToProps = state => {
   return {
     error,
     isLoading,
-    issueData: processBars( issueFilters, results.issue, false ),
-    productData: processBars( productFilters, results.product, false ),
+    issueData: processRows( issueFilters, results.issue, false ),
+    productData: processRows( productFilters, results.product, false ),
     showMobileFilters: state.view.width < 750,
     showWarning: !enablePer1000 && mapWarningEnabled
   }

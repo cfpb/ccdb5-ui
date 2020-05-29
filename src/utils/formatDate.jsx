@@ -41,7 +41,7 @@ export const formatDateLocaleShort = dateIn =>
  * @returns {boolean} lets us know if date is equal
  */
 export const isDateEqual = ( a, b ) =>
-  moment( a ).isSame( b, 'day' );
+  moment( new Date( a ) ).isSame( new Date( b ), 'day' );
 
 /**
  * function to convert and compare 2 strings as dates
