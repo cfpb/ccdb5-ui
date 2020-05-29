@@ -10,8 +10,7 @@ exports[`initial state renders without crashing 1`] = `
     className="a-micro-copy"
   >
     <span>
-      Date interval: 
-      ext tip title
+      Ext tip title
     </span>
   </p>
   <div>

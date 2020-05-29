@@ -34,15 +34,6 @@ export const formatDateModel = dateIn =>
 export const formatDateLocaleShort = dateIn =>
   moment( new Date( dateIn ) ).utc().add( 5.5, 'hours' ).format( 'll' );
 
-
-/**
- * Function to format/convert a string to format we want for the model
- * @param {(string | object)} dateIn the input string to convert
- * @returns {string} the cleaned up string in July 4, 2010
- */
-export const formatDateLocale = dateIn =>
-  moment( new Date( dateIn ) ).format( 'LL' );
-
 /**
  * function to convert and compare 2 strings as dates
  * @param {string} a input date string to compare MM/DD/YYYY or YYYY-MM-DD
@@ -50,16 +41,7 @@ export const formatDateLocale = dateIn =>
  * @returns {boolean} lets us know if date is equal
  */
 export const isDateEqual = ( a, b ) =>
-  new Date( a ).getTime() === new Date( b ).getTime();
-
-/**
- * function to convert and compare 2 strings/objects as dates
- * @param {string} a input date string to compare MM/DD/YYYY or YYYY-MM-DD
- * @param {string} b input date string to compare MM/DD/YYYY or YYYY-MM-DD
- * @returns {boolean} lets us know if date is equal
- */
-export const isDateGreater = ( a, b ) =>
-  new Date( a ).getTime() > new Date( b ).getTime();
+  moment( new Date( a ) ).isSame( new Date( b ), 'day' );
 
 /**
  * function to convert and compare 2 strings as dates

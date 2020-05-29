@@ -11,6 +11,11 @@ import React from 'react'
 import { toggleTrend } from '../../actions/trends'
 
 export class RowChart extends React.Component {
+
+  _formatTip( value ) {
+    return value.toLocaleString() + ' complaints'
+  }
+
   _getHeight( numRows ) {
     return numRows === 1 ? 100 : numRows * 60
   }
@@ -60,7 +65,7 @@ export class RowChart extends React.Component {
 
   componentDidUpdate( prevProps ) {
     const props = this.props
-    if( hashObject( prevProps ) !== hashObject( props ) ) {
+    if ( hashObject( prevProps ) !== hashObject( props ) ) {
       this._redrawChart()
     }
   }
@@ -68,15 +73,16 @@ export class RowChart extends React.Component {
   // Event Handlers
   // eslint-disable-next-line complexity
   _redrawChart() {
-    const { colorScheme, data, id, printMode, toggleRow, total } = this.props
-    if ( !data || !data.length ) {
+    const {
+      colorScheme, data: rows, id, printMode, toggleRow, total
+    } = this.props
+    if ( !rows || !rows.length ) {
       return
     }
 
     const tooltip = miniTooltip()
-    tooltip.valueFormatter( value => value.toLocaleString() + ' complaints' )
+    tooltip.valueFormatter( this._formatTip )
 
-    const rows = data
     const ratio = total / max( rows, o => o.value )
     const chartID = '#row-chart-' + id
     d3.selectAll( chartID + ' .row-chart' ).remove()
@@ -93,14 +99,11 @@ export class RowChart extends React.Component {
     chart.margin( {
       left: marginLeft,
       right: marginRight,
-      // left: 200,
-      // right: 50,
       top: 20,
       bottom: 10
     } )
       .colorSchema( colorScheme )
       .backgroundColor( '#f7f8f9' )
-      // .enableYAxisRight(true) // for trends to show deltas
       .enableLabels( true )
       .labelsTotalCount( total.toLocaleString() )
       .labelsNumberFormat( ',d' )

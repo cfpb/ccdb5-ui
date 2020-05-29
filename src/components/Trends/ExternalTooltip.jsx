@@ -9,8 +9,8 @@ export class ExternalTooltip extends React.Component {
       return (
         <section className="tooltip-container u-clearfix">
           <p className="a-micro-copy">
-            <span>Date interval: { tooltip.title }</span>
-            </p>
+            <span>{ tooltip.title }</span>
+          </p>
           <div>
             <ul className="tooltip-ul">
               { tooltip.values.map( ( v, k ) =>

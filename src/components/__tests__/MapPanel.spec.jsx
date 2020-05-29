@@ -47,7 +47,10 @@ function setupSnapshot( printMode ) {
   return renderer.create(
     <Provider store={ store }>
       <IntlProvider locale="en">
-        <MapPanel showWarning={true}/>
+        <MapPanel showWarning={ true }
+                  issueData={ { data: [], colorScheme: [] } }
+                  productData={ { data: [], colorScheme: [] } }
+        />
       </IntlProvider>
     </Provider>
   )

@@ -13,6 +13,7 @@ describe( 'reducer:map', () => {
   describe( 'reducer', () => {
     it( 'has a default state', () => {
       expect( target( undefined, {} ) ).toEqual( {
+        activeCall: '',
         dataNormalization: GEO_NORM_NONE,
         isLoading: false,
         results: {
