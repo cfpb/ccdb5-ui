@@ -22,7 +22,7 @@ function setupSnapshot( tooltip ) {
 describe( 'initial state', () => {
   it( 'renders without crashing', () => {
     const tooltip = {
-      title: 'ext tip title',
+      title: 'Ext tip title',
       total: 2000,
       values: [
         { colorIndex: 1, name: 'foo', value: 1000 },
@@ -47,7 +47,7 @@ describe( 'mapStateToProps', () => {
     const state = {
       trends: {
         tooltip: {
-          title: 'A tooltip',
+          title: 'Date: A tooltip',
           total: 100,
           values: []
         }
@@ -56,7 +56,7 @@ describe( 'mapStateToProps', () => {
     let actual = mapStateToProps( state )
     expect( actual ).toEqual( {
       tooltip: {
-        title: 'A tooltip',
+        title: 'Date: A tooltip',
         total: 100,
         values: []
       }
