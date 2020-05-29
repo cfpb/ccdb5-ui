@@ -113,7 +113,8 @@ export const mapStateToProps = state => ( {
   interval: state.query.dateInterval,
   lastDate: state.trends.lastDate,
   lens: state.trends.lens,
-  tooltip: state.trends.tooltip
+  tooltip: state.trends.tooltip,
+  width: state.view.width
 } )
 
 export default connect( mapStateToProps,

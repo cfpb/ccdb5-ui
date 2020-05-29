@@ -3,10 +3,9 @@ import * as colors from '../constants/colors'
 import {
   formatPercentage, getSubKeyName, processErrorMessage
 } from '../utils'
-import { getLastDate, getTooltipTitle } from '../utils/chart'
 import actions from '../actions'
-import { compareDates, isDateEqual } from '../utils/formatDate'
-import { GEO_NORM_NONE } from '../constants'
+import { getTooltipTitle } from '../utils/chart'
+import { isDateEqual } from '../utils/formatDate'
 
 const filterMap = {
   'Collection': 'Collections',

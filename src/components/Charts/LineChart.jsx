@@ -1,7 +1,7 @@
 import './LineChart.less'
 import * as d3 from 'd3'
 
-import { getLastLineDate, getTipDate } from '../../utils/chart'
+import { getLastLineDate, getTooltipTitle } from '../../utils/chart'
 import { line, tooltip } from 'britecharts'
 import { connect } from 'react-redux'
 import { hashObject } from '../../utils'
@@ -68,10 +68,11 @@ export class LineChart extends React.Component {
       .colorSchema( colorScheme )
 
     if ( this.props.lens === 'Overview' ) {
+      const dateRange = this.props.dateRange
       lineChart
         .on( 'customMouseOver', tip.show )
         .on( 'customMouseMove', function ( dataPoint, topicColorMap, dataPointXPosition ) {
-          tip.title( getTipDate( dataPoint.date, interval ) )
+          tip.title( getTooltipTitle( dataPoint.date, interval, dateRange ) )
           tip.update( dataPoint, topicColorMap, dataPointXPosition )
         } )
         .on( 'customMouseOut', tip.hide )
@@ -130,10 +131,10 @@ export const mapStateToProps = state => ( {
   chartType: state.trends.chartType,
   colorMap: state.trends.colorMap,
   data: state.trends.results.dateRangeLine,
-  // dateRange: {
-  //   from: state.query.date_received_min,
-  //   to: state.query.date_received_max
-  // },
+  dateRange: {
+    from: state.query.date_received_min,
+    to: state.query.date_received_max
+  },
   interval: state.query.dateInterval,
   lens: state.query.lens,
   tooltip: state.trends.tooltip

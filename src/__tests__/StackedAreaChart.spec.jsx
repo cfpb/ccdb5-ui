@@ -54,12 +54,14 @@ function setupSnapshot() {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
   const store = mockStore( {
-    map: {}
+    trends: {
+      colorMap: [ { 'red': '#eee' }, { 'yellow': '#fff' } ]
+    }
   } )
 
   return renderer.create(
     <Provider store={ store }>
-      <StackedAreaChart aggtype={'foo'}/>
+      <StackedAreaChart/>
     </Provider>
   )
 }
@@ -92,23 +94,21 @@ describe( 'component: StackedAreaChart', () => {
     } )
 
     it( 'does nothing when no data', () => {
-      const target = shallow( <StackedAreaChart
-        colorMap={ {foo:'bar'} }
-        data={ [] } aggtype={'foo'}
+      const target = shallow( <StackedAreaChart colorMap={ { foo: 'bar' } }
+                                                data={ [] }
       /> )
       target._redrawChart = jest.fn()
       target.setProps( { data: [] } )
-      expect(  target._redrawChart ).toHaveBeenCalledTimes( 0 )
+      expect( target._redrawChart ).toHaveBeenCalledTimes( 0 )
     } )
 
     it( 'trigger a new update when data changes', () => {
       const target = shallow( <StackedAreaChart
-        aggtype={'foo'}
         colorMap={ { foo: 'bar', shi: 'oio' } }
         data={ [ 23, 4, 3 ] }
-        total={1000}/> )
+        total={ 1000 }/> )
       target._redrawChart = jest.fn()
-      const sp = jest.spyOn(target.instance(), '_redrawChart')
+      const sp = jest.spyOn( target.instance(), '_redrawChart' )
       target.setProps( { data: [ 2, 5 ] } )
       expect( sp ).toHaveBeenCalledTimes( 1 )
     } )
@@ -117,11 +117,11 @@ describe( 'component: StackedAreaChart', () => {
       const target = shallow( <StackedAreaChart
         colorMap={ { foo: 'bar', shi: 'oio' } }
         data={ [ 23, 4, 3 ] }
-        aggtype={ 'foo' } total={ 1000 }
+        total={ 1000 }
         printMode={ 'false' }
       /> )
       target._redrawChart = jest.fn()
-      const sp = jest.spyOn(target.instance(), '_redrawChart')
+      const sp = jest.spyOn( target.instance(), '_redrawChart' )
       target.setProps( { printMode: true } )
       expect( sp ).toHaveBeenCalledTimes( 1 )
     } )
@@ -130,12 +130,11 @@ describe( 'component: StackedAreaChart', () => {
       const target = shallow( <StackedAreaChart
         colorMap={ { foo: 'bar', shi: 'oio' } }
         data={ [ 23, 4, 3 ] }
-        aggtype={ 'foo' } total={ 1000 }
         printMode={ 'false' }
         width={ 1000 }
       /> )
       target._redrawChart = jest.fn()
-      const sp = jest.spyOn(target.instance(), '_redrawChart')
+      const sp = jest.spyOn( target.instance(), '_redrawChart' )
       target.setProps( { width: 600 } )
       expect( sp ).toHaveBeenCalledTimes( 1 )
     } )
@@ -166,10 +165,8 @@ describe( 'component: StackedAreaChart', () => {
           printMode: false
         }
       }
-      const ownProps = {
-        aggtype: 'baz'
-      }
-      let actual = mapStateToProps( state, ownProps )
+
+      let actual = mapStateToProps( state )
       expect( actual ).toEqual( {
         colorMap: {},
         data: [],
