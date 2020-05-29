@@ -15,7 +15,7 @@ export class StackedAreaChart extends React.Component {
   componentDidUpdate( prevProps ) {
     const props = this.props
     console.log( prevProps, props )
-    if ( hashObject( prevProps ) !== hashObject( props ) ) {
+    if ( hashObject( prevProps.data ) !== hashObject( props.data ) ) {
       console.log( props, prevProps )
       this._redrawChart()
     }

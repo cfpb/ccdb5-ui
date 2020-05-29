@@ -5,6 +5,7 @@ import { getLastLineDate, getTipDate } from '../../utils/chart'
 import { line, tooltip } from 'britecharts'
 import { connect } from 'react-redux'
 import { hashObject } from '../../utils'
+import { isDateEqual } from '../../utils/formatDate'
 import React from 'react'
 import { updateTrendsTooltip } from '../../actions/trends'
 
@@ -15,13 +16,15 @@ export class LineChart extends React.Component {
 
   componentDidUpdate( prevProps ) {
     const props = this.props
-    if ( hashObject( prevProps ) !== hashObject( props ) ) {
+    if ( hashObject( prevProps.data ) !== hashObject( props.data ) ) {
       this._redrawChart()
     }
   }
 
   _tipStuff( evt ) {
-    if ( this.props.tooltip.date !== evt.date ) {
+    console.log( this.props.tooltip.date + evt.date )
+
+    if ( !isDateEqual( this.props.tooltip.date, evt.key ) ) {
       this.props.tooltipUpdated( {
         date: evt.date,
         dateRange: {
@@ -82,7 +85,10 @@ export class LineChart extends React.Component {
     tooltipContainer.datum( [] ).call( tip )
 
     const config = {
-      dateRange: this.props.dateRange,
+      dateRange: {
+        from: '',
+        to: ''
+      },
       interval: this.props.interval,
       lastDate: this.props.lastDate
     }
@@ -124,10 +130,10 @@ export const mapStateToProps = state => ( {
   chartType: state.trends.chartType,
   colorMap: state.trends.colorMap,
   data: state.trends.results.dateRangeLine,
-  dateRange: {
-    from: state.query.date_received_min,
-    to: state.query.date_received_max
-  },
+  // dateRange: {
+  //   from: state.query.date_received_min,
+  //   to: state.query.date_received_max
+  // },
   interval: state.query.dateInterval,
   lens: state.query.lens,
   tooltip: state.trends.tooltip
