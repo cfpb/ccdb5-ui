@@ -1,5 +1,9 @@
 import configureMockStore from 'redux-mock-store'
-import { mapStateToProps, RowChart } from '../Charts/RowChart'
+import {
+  mapDispatchToProps,
+  mapStateToProps,
+  RowChart
+} from '../Charts/RowChart'
 import { mount, shallow } from 'enzyme'
 import { Provider } from 'react-redux'
 import React from 'react'
@@ -11,8 +15,9 @@ jest.mock( 'britecharts', () => {
   const props = [
     'row', 'margin', 'backgroundColor', 'colorSchema', 'enableLabels',
     'labelsSize', 'labelsTotalCount', 'labelsNumberFormat', 'outerPadding',
-    'percentageAxisToMaxRatio', 'yAxisLineWrapLimit',
-    'yAxisPaddingBetweenChart', 'width', 'wrapLabels', 'height'
+    'percentageAxisToMaxRatio', 'yAxisLineWrapLimit', 'miniTooltip',
+    'yAxisPaddingBetweenChart', 'width', 'wrapLabels', 'height', 'on',
+    'valueFormatter'
   ]
 
   const mock = {}
@@ -30,7 +35,7 @@ jest.mock( 'britecharts', () => {
 jest.mock( 'd3', () => {
   const props = [
     'select', 'each', 'node', 'getBoundingClientRect', 'width', 'datum', 'call',
-    'remove', 'selectAll'
+    'remove', 'selectAll', 'on'
   ]
 
   const mock = {}
@@ -57,7 +62,10 @@ function setupSnapshot() {
 
   return renderer.create(
     <Provider store={ store }>
-      <RowChart aggtype={'foo'} title={'Foo title we want'}/>
+      <RowChart id={'foo'}
+                title={'Foo title we want'}
+                colorScheme={ [] }
+                data={ [] }/>
     </Provider>
   )
 }
@@ -90,14 +98,25 @@ describe( 'component: RowChart', () => {
     } )
 
     it( 'does nothing when no data', () => {
-      const target = shallow( <RowChart data={ [] } aggtype={'foo'}/> )
+      const target = shallow( <RowChart
+        colorScheme={ [] }
+        data={ [] }
+        id={'foo'}
+        title={'test'}
+      /> )
       target._redrawChart = jest.fn()
       target.setProps( { data: [] } )
       expect(  target._redrawChart ).toHaveBeenCalledTimes( 0 )
     } )
 
     it( 'trigger a new update when data changes', () => {
-      const target = shallow( <RowChart data={ [ 23, 4, 3 ] } aggtype={'foo'} total={1000}/> )
+      const target = shallow( <RowChart
+        colorScheme={ [] }
+        title={'test'}
+        data={ [ 23, 4, 3 ] }
+        id={'foo'}
+        total={1000}
+      /> )
       target._redrawChart = jest.fn()
       const sp = jest.spyOn(target.instance(), '_redrawChart')
       target.setProps( { data: [ 2, 5 ] } )
@@ -105,9 +124,12 @@ describe( 'component: RowChart', () => {
     } )
 
     it( 'trigger a new update when printMode changes', () => {
-      const target = shallow( <RowChart data={ [ 23, 4, 3 ] }
-                                        aggtype={'foo'} total={1000}
-                                        printMode={'false'}
+      const target = shallow( <RowChart colorScheme={ [] }
+                                        title={'test'}
+                                        data={ [ 23, 4, 3 ] }
+                                        id={ 'foo' }
+                                        total={ 1000 }
+                                        printMode={ 'false' }
       /> )
       target._redrawChart = jest.fn()
       const sp = jest.spyOn(target.instance(), '_redrawChart')
@@ -116,10 +138,13 @@ describe( 'component: RowChart', () => {
     } )
 
     it( 'trigger a new update when width changes', () => {
-      const target = shallow( <RowChart data={ [ 23, 4, 3 ] }
-                                        aggtype={'foo'} total={1000}
-                                        printMode={'false'}
-                                        width={1000}
+      const target = shallow( <RowChart colorScheme={ [] }
+                                        title={'test'}
+                                        data={ [ 23, 4, 3 ] }
+                                        id={ 'foo' }
+                                        total={ 1000 }
+                                        printMode={ 'false' }
+                                        width={ 1000 }
       /> )
       target._redrawChart = jest.fn()
       const sp = jest.spyOn(target.instance(), '_redrawChart')
@@ -128,45 +153,58 @@ describe( 'component: RowChart', () => {
     } )
   } )
 
+  describe('mapDispatchToProps', ()=>{
+    it('hooks into toggleTrend', ()=>{
+      const dispatch = jest.fn()
+      mapDispatchToProps(dispatch).toggleRow();
+      expect(dispatch.mock.calls.length).toEqual(1);
+    })
+  })
+
   describe( 'mapStateToProps', () => {
     it( 'maps state and props', () => {
       const state = {
         aggs: {
           total: 100
         },
-        map: {
-          results: {
-            baz: [ 1, 2, 3 ]
-          }
-        },
-        query: {
-          baz: [ 1, 2, 3 ],
-          tab: 'Map'
-        },
         view: {
-          printMode: false
+          printMode: false,
+          width: 1000
         }
       }
       const ownProps = {
-        aggtype: 'baz'
+        id: 'baz'
       }
       let actual = mapStateToProps( state, ownProps )
       expect( actual ).toEqual( {
-        data: [],
         printMode: false,
-        total: 100
+        total: 100,
+        width: 1000
       } )
     } )
   } )
 
   describe('helper functions', ()=>{
     it('gets height based on number of rows', ()=>{
-      const target = mount(<RowChart aggtype={'foo bar'}/>)
+      const target = mount(<RowChart colorScheme={ [] }
+                                     title={'test'}
+                                     data={ [ 23, 4, 3 ] }
+                                     id={ 'foo' }/>)
       let res = target.instance()._getHeight(1)
       expect(res).toEqual(100)
       res = target.instance()._getHeight(5)
       expect(res).toEqual(300)
     })
+
+    it( 'formats text of the tooltip', () => {
+      const target = mount( <RowChart colorScheme={ [] }
+                                      title={'test'}
+                                      data={ [ 23, 4, 3 ] }
+                                      id={ 'foo' }/> )
+      let res = target.instance()._formatTip( 100000 )
+      expect( res ).toEqual( '100,000 complaints' )
+    })
+
   })
 
 } )
