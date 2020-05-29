@@ -13,7 +13,7 @@ import FilterPanelToggle from '../Filters/FilterPanelToggle'
 import LensTabs from './LensTabs'
 import LineChart from '../Charts/LineChart'
 import Loading from '../Dialogs/Loading'
-import { processBars } from '../../utils/chart'
+import { processRows } from '../../utils/chart'
 import React from 'react'
 import RowChart from '../Charts/RowChart'
 import { Select } from '../RefineBar/Select'
@@ -120,9 +120,9 @@ const mapStateToProps = state => {
     chartType,
     dateInterval,
     isLoading,
-    issueData: processBars( issueFilters, results.issue, false ),
-    productData: processBars( productFilters, results.product, false ),
-    dataLensData: processBars( dataLensFilters, results[lensKey], colorMap ),
+    issueData: processRows( issueFilters, results.issue, false ),
+    productData: processRows( productFilters, results.product, false ),
+    dataLensData: processRows( dataLensFilters, results[lensKey], colorMap ),
     lens,
     overview: lens === 'Overview',
     showMobileFilters: state.view.width < 750,

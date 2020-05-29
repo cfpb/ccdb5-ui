@@ -118,9 +118,9 @@ export const getColorScheme = ( rowNames, colorMap ) =>
   } )
 
 export const processRows = ( filters, rows, colorMap ) => {
-  let data = rows
+  let data = rows ? rows : []
   // only include the bars that are explicitly listed in the filters
-  if ( filters && filters.length ) {
+  if ( filters && filters.length && data ) {
     data = data.filter( o => {
       if ( o.parent ) {
         return filters.includes( slugify( o.parent, o.name ) )
@@ -129,8 +129,6 @@ export const processRows = ( filters, rows, colorMap ) => {
       return filters.includes( o.name )
     } )
   }
-
-  data = data.filter( o => o.visible )
 
   const colorScheme = getColorScheme( data, colorMap )
 
