@@ -49,8 +49,8 @@ export const getTooltipTitle = ( inputDate, interval, dateRange ) => {
  * @param {object} colorMap of the chart for display
  * @returns {array} the color scheme [blue, red, yellow, etc]
  */
-export const getColorScheme = ( rowNames, colorMap ) => {
-  return rowNames.map( o => {
+export const getColorScheme = ( rowNames, colorMap ) =>
+  rowNames.map( o => {
     if ( !colorMap ) {
       return '#20aa3f'
     }
@@ -66,7 +66,6 @@ export const getColorScheme = ( rowNames, colorMap ) => {
 
     return '#20aa3f'
   } )
-}
 
 export const processRows = ( filters, rows, colorMap ) => {
   let data = rows
