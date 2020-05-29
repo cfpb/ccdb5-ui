@@ -4,6 +4,7 @@ import actions from '../actions'
 import { coalesce } from '../utils'
 
 export const defaultState = {
+  activeCall: '',
   isLoading: false,
   dataNormalization: GEO_NORM_NONE,
   results: {
@@ -88,9 +89,12 @@ export function statesCallInProcess( state, action ) {
 export function processStatesResults( state, action ) {
   const newState = { ...state }
 
-  const stateData = action.data.aggregations.state
-  const issueData = action.data.aggregations.issue
-  const productData = action.data.aggregations.product
+  const {
+    issue: issueData,
+    product: productData,
+    state: stateData
+  } = action.data.aggregations
+
   newState.activeCall = ''
   newState.isLoading = false
   newState.results = coalesce( newState, 'results', {} )
