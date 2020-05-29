@@ -66,6 +66,26 @@ export const clamp = ( x, min, max ) => {
 }
 
 /**
+ * Function to set the limit of the range of a set of dates
+ * @param {string} x value we are checking
+ * @param {string} min smallest number it can be
+ * @param {string} max biggest number it can be
+ * @returns {*} the limited value
+ */
+export const clampDate = ( x, min, max ) => {
+  let xDate = new Date( x );
+  const minDate = new Date( min );
+  const maxDate = new Date( max );
+
+  if ( xDate < minDate ) {
+    xDate = minDate;
+  } else if ( xDate > maxDate ) {
+    xDate = maxDate;
+  }
+  return xDate;
+}
+
+/**
  * Replacement for the common pattern:
  * if( o.field )
  *    x = o.field

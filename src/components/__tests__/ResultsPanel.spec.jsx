@@ -46,6 +46,8 @@ function setupSnapshot(items=[], initialStore={}, tab = 'List', printMode) {
     },
     map: {
       results: {
+        issue: [],
+        product: [],
         state: []
       }
     },
