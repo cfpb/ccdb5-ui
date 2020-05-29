@@ -11,6 +11,11 @@ import React from 'react'
 import { toggleTrend } from '../../actions/trends'
 
 export class RowChart extends React.Component {
+
+  _formatTip( value ) {
+    return value.toLocaleString() + ' complaints'
+  }
+
   _getHeight( numRows ) {
     return numRows === 1 ? 100 : numRows * 60
   }
@@ -76,7 +81,7 @@ export class RowChart extends React.Component {
     }
 
     const tooltip = miniTooltip()
-    tooltip.valueFormatter( value => value.toLocaleString() + ' complaints' )
+    tooltip.valueFormatter( this._formatTip )
 
     const ratio = total / max( rows, o => o.value )
     const chartID = '#row-chart-' + id
