@@ -322,16 +322,6 @@ export function processErrorMessage( err ) {
 }
 
 /**
- * function to convert and compare 2 strings as dates
- * @param {string} a input date string to compare MM/DD/YYYY or YYYY-MM-DD
- * @param {string} b input date string to compare MM/DD/YYYY or YYYY-MM-DD
- * @returns {boolean} lets us know if date is equal
- */
-export function isDateEqual( a, b ) {
-  return new Date( a ).getTime() === new Date( b ).getTime()
-}
-
-/**
  * Takes in a number and outputs to percentage
  * @param {number} num value we convert .9999
  * @returns {number} 99.99
@@ -355,25 +345,3 @@ export const getSubKeyName = bucket => {
   }
   return ''
 }
-
-/**
- * Function to set the limit of the range of a set of numbers
- * @param {string} x value we are checking
- * @param {string} min smallest number it can be
- * @param {string} max biggest number it can be
- * @returns {*} the limited value
- */
-export function clampDate( x, min, max ) {
-  let xDate = new Date( x );
-  const minDate = new Date( min );
-  const maxDate = new Date( max );
-
-  if ( xDate < minDate ) {
-    xDate = minDate;
-  } else if ( xDate > maxDate ) {
-    xDate = maxDate;
-  }
-  return xDate;
-}
-
-
