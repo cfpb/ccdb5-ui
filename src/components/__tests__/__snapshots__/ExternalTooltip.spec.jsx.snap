@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`initial state renders nothing without crashing 1`] = `null`;
+
+exports[`initial state renders without crashing 1`] = `
+<section
+  className="tooltip-container u-clearfix"
+>
+  <p
+    className="a-micro-copy"
+  >
+    <span>
+      Ext tip title
+    </span>
+  </p>
+  <div>
+    <ul
+      className="tooltip-ul"
+    >
+      <li
+        className="color__1"
+      >
+        <span
+          className="u-left"
+        >
+          foo
+        </span>
+        <span
+          className="u-right"
+        >
+          1,000
+        </span>
+      </li>
+      <li
+        className="color__2"
+      >
+        <span
+          className="u-left"
+        >
+          foo
+        </span>
+        <span
+          className="u-right"
+        >
+          1,000
+        </span>
+      </li>
+    </ul>
+    <ul
+      className="m-list__unstyled tooltip-ul total"
+    >
+      <li>
+        <span
+          className="u-left"
+        >
+          Total
+        </span>
+        <span
+          className="u-right"
+        >
+          2,000
+        </span>
+      </li>
+    </ul>
+  </div>
+</section>
+`;
