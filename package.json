@@ -127,7 +127,7 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom --coverage",
     "dev-flow": "node scripts/test.js --env=jsdom --coverage --watch",
-    "lint": "node scripts/lint.js"
+    "lint": "./node_modules/eslint/bin/eslint.js --ext .jsx --quiet src/"
   },
   "jest": {
     "collectCoverageFrom": [
