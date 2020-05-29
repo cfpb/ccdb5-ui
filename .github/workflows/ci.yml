@@ -26,6 +26,11 @@ jobs:
       - name: Run front-end unit tests
         run: npm test
 
+      - name: Update Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
   backend:
     runs-on: ubuntu-latest
 
