@@ -2,10 +2,60 @@
 /* eslint-disable no-mixed-operators */
 import { clampDate, slugify } from '../utils'
 import {
-  formatDateView
+  formatDateLocaleShort,
+  formatDateView,
+  isDateEqual
 } from './formatDate'
 
 import moment from 'moment'
+
+export const getLastDate = ( dataSet, config ) => {
+  // take in array of data points
+  // early exit
+  if ( !dataSet || dataSet.length === 0 ) {
+    return null
+  }
+
+  const lastDate = config.lastDate
+  const lastPointValues = dataSet.filter( o => isDateEqual( o.date, lastDate ) )
+  return {
+    key: lastDate,
+    date: lastDate,
+    dateRange: config.dateRange,
+    interval: config.interval,
+    values: lastPointValues
+  }
+}
+
+export const getLastLineDate = ( dataSet, config ) => {
+  // take in array of data points
+  if ( !dataSet || dataSet.dataByTopic.length === 0 ) { return null; }
+
+  const dates = dataSet.dataByTopic[0].dates;
+  const lastDatePos = dates.length - 1;
+  const lastDate = dates[lastDatePos].date;
+
+  const values = dataSet.dataByTopic.map( o => {
+    const lastPoint = o.dates.find( o => o.date === lastDate )
+    const value = lastPoint ? lastPoint.value : 0
+    return {
+      ...o,
+      name: o.topic,
+      date: lastDate,
+      value
+    }
+  });
+
+  const lastPoint = {
+    key: lastDate,
+    date: lastDate,
+    dateRange: config.dateRange,
+    interval: config.interval,
+    values
+  };
+  return lastPoint;
+}
+
 
 export const getTooltipDate = ( inputDate, dateRange ) => {
   const returnDate = clampDate( inputDate, dateRange.from, dateRange.to )

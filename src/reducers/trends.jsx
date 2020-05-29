@@ -1,11 +1,11 @@
 // reducer for the Map Tab
 import * as colors from '../constants/colors'
 import {
-  formatPercentage, getSubKeyName, isDateEqual, processErrorMessage
+  formatPercentage, getSubKeyName, processErrorMessage
 } from '../utils'
 import { getLastDate, getTooltipTitle } from '../utils/chart'
 import actions from '../actions'
-import { compareDates } from '../utils/formatDate'
+import { compareDates, isDateEqual } from '../utils/formatDate'
 import { GEO_NORM_NONE } from '../constants'
 
 const filterMap = {

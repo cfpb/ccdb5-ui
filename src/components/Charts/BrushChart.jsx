@@ -39,19 +39,6 @@ export class BrushChart extends React.Component {
     from = moment( from, 'MM-DD-YYYY' )
     through = moment( through, 'MM-DD-YYYY' )
 
-    // let dateRange;
-
-    // if ( !brushExtent[0] || !brushExtent[1] ) {
-    //   dateRange = {
-    //     from: defaultDateRange.min,
-    //     to: defaultDateRange.max
-    //   };
-    // } else {
-    //   dateRange = {
-    //     from: formatDateModel( brushExtent[0] ),
-    //     to: formatDateModel( brushExtent[1] )
-    //   }
-    // }
     this.props.changeDates( from, through )
   }
 
@@ -80,21 +67,6 @@ export class BrushChart extends React.Component {
       container.datum( this.props.brushDateData ).call( brushChart )
       brushChart.dateRange( this.props.dateRange )
     }
-
-
-  }
-
-  _getDateRange() {
-    // const dr = $scope.dateRange
-    // const min = isDateGreater( defaultDateRange.min, dr.from ) ?
-    //   defaultDateRange.min : dr.from
-    //
-    // const max = isDateGreater( defaultDateRange.max, dr.to ) ?
-    //   dr.to : defaultDateRange.max
-
-    // return [
-    //   this.props,
-    // ]
   }
 
   render() {

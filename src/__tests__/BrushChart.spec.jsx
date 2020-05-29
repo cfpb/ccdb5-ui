@@ -55,8 +55,7 @@ function setupSnapshot() {
 
   return renderer.create(
     <Provider store={ store }>
-      <BrushChart aggtype={ 'foo' }
-                  brushDateData={ [] }
+      <BrushChart brushDateData={ [] }
                   dateRange={ [] }/>
     </Provider>
   )
@@ -137,34 +136,20 @@ describe( 'component: BrushChart', () => {
   describe( 'mapStateToProps', () => {
     it( 'maps state and props', () => {
       const state = {
-        aggs: {
-          total: 100
-        },
-        map: {
-          results: {
-            baz: [ 1, 2, 3 ]
-          }
-        },
         query: {
-          baz: [ 1, 2, 3 ]
+          date_received_min: '2012',
+          date_received_max: '2017'
         },
         trends: {
           results: {
-            baz: [ 1, 2, 3 ]
-            // tbd add dateRangeBrush
+            dateRangeBrush: [ 'foo', 'bar' ]
           }
-        },
-        view: {
-          printMode: false
         }
       }
-      const ownProps = {
-        aggtype: 'baz'
-      }
-      let actual = mapStateToProps( state, ownProps )
+      let actual = mapStateToProps( state )
       expect( actual ).toEqual( {
-        brushDateData: undefined,
-        dateRange: [ undefined, undefined ]
+        brushDateData: [ 'foo', 'bar' ],
+        dateRange: [ '2012', '2017' ]
       } )
     } )
   } )
