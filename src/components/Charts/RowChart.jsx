@@ -2,17 +2,15 @@
 
 import './RowChart.less'
 import * as d3 from 'd3'
+import { miniTooltip, row } from 'britecharts'
 import { connect } from 'react-redux'
+import { hashObject } from '../../utils'
 import { max } from 'd3-array'
+import PropTypes from 'prop-types'
 import React from 'react'
-import { row } from 'britecharts'
+import { toggleTrend } from '../../actions/trends'
 
 export class RowChart extends React.Component {
-  constructor( props ) {
-    super( props )
-    this.aggtype = props.aggtype
-  }
-
   _getHeight( numRows ) {
     return numRows === 1 ? 100 : numRows * 60
   }
@@ -60,37 +58,39 @@ export class RowChart extends React.Component {
   }
 
 
-  componentDidUpdate() {
-    this._redrawChart()
+  componentDidUpdate( prevProps ) {
+    const props = this.props
+    if ( hashObject( prevProps ) !== hashObject( props ) ) {
+      this._redrawChart()
+    }
   }
-
   // --------------------------------------------------------------------------
   // Event Handlers
   // eslint-disable-next-line complexity
   _redrawChart() {
-    const componentProps = this.props
-    const { data, printMode } = componentProps
-    if ( !data || !data.length ) {
+    const {
+      colorScheme, data: rows, id, printMode, toggleRow, total
+    } = this.props
+    if ( !rows || !rows.length ) {
       return
     }
 
-    const rowData = data.slice( 0, 5 )
-    const total = this.props.total
-    const ratio = total / max( rowData, o => o.value )
-    const chartID = '#row-chart-' + this.aggtype
-    d3.select( chartID + ' .row-chart' ).remove()
+    const tooltip = miniTooltip()
+    tooltip.valueFormatter( value => value.toLocaleString() + ' complaints' )
+
+    const ratio = total / max( rows, o => o.value )
+    const chartID = '#row-chart-' + id
+    d3.selectAll( chartID + ' .row-chart' ).remove()
     const rowContainer = d3.select( chartID )
     const width = printMode ? 750 :
       rowContainer.node().getBoundingClientRect().width
-    const height = this._getHeight( rowData.length )
+    const height = this._getHeight( rows.length )
     const chart = row()
     const marginLeft = width / 3
 
     // tweak to make the chart full width at desktop
     // add space at narrow width
     const marginRight = width < 600 ? 20 : -80
-    const colorScheme = rowData.map( () => '#20aa3f' )
-
     chart.margin( {
       left: marginLeft,
       right: marginRight,
@@ -105,43 +105,59 @@ export class RowChart extends React.Component {
       .outerPadding( 0.1 )
       .percentageAxisToMaxRatio( ratio )
       .yAxisLineWrapLimit( 2 )
-      .yAxisPaddingBetweenChart( 5 )
+      .yAxisPaddingBetweenChart( 20 )
       .width( width )
       .wrapLabels( true )
       .height( height )
+      .on( 'customMouseOver', tooltip.show )
+      .on( 'customMouseMove', tooltip.update )
+      .on( 'customMouseOut', tooltip.hide )
 
-    rowContainer.datum( rowData ).call( chart )
+    rowContainer.datum( rows ).call( chart )
+    const tooltipContainer =
+      d3.selectAll( chartID + ' .row-chart .metadata-group' )
+    tooltipContainer.datum( [] ).call( tooltip );
     this._wrapText( d3.select( chartID ).selectAll( '.tick text' ), marginLeft )
+
+    rowContainer
+      .selectAll( '.y-axis-group .tick' )
+      .on( 'click', toggleRow )
   }
 
   render() {
     return (
       <div className="row-chart-section">
         <h3>{ this.props.title }</h3>
-        <div id={ 'row-chart-' + this.aggtype }>
+        <div id={ 'row-chart-' + this.props.id }>
         </div>
       </div>
     )
   }
 }
 
-export const mapStateToProps = ( state, ownProps ) => {
-  const { printMode, width } = state.view
-  // use state.query to filter out the selected bars
-  const aggtype = ownProps.aggtype.toLowerCase()
-  const tab = state.query.tab.toLowerCase()
-  const filters = state.query[aggtype]
-  let data = state[tab] && state[tab].results[aggtype] ?
-    state[tab].results[aggtype] : []
-  if ( filters && filters.length ) {
-    data = data.filter( o => filters.includes( o.name ) )
+export const mapDispatchToProps = dispatch => ( {
+  toggleRow: selectedState => {
+    dispatch( toggleTrend( selectedState ) )
   }
+} )
+
+export const mapStateToProps = state => {
+  const { printMode, width } = state.view
   return {
-    data,
     printMode,
     total: state.aggs.total,
     width
   }
 }
 
-export default connect( mapStateToProps )( RowChart )
+RowChart.propTypes = {
+  id: PropTypes.string.isRequired,
+  colorScheme: PropTypes.oneOfType( [
+    PropTypes.array,
+    PropTypes.bool
+  ] ).isRequired,
+  data: PropTypes.array.isRequired,
+  title: PropTypes.string.isRequired
+}
+
+export default connect( mapStateToProps, mapDispatchToProps )( RowChart )

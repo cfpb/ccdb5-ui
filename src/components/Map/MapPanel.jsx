@@ -9,6 +9,7 @@ import Loading from '../Dialogs/Loading'
 import MapToolbar from './MapToolbar'
 import { mapWarningDismissed } from '../../actions/view'
 import PerCapita from '../RefineBar/PerCapita'
+import { processBars } from '../../utils/chart'
 import React from 'react'
 import RowChart from '../Charts/RowChart'
 import { Separator } from '../RefineBar/Separator'
@@ -42,9 +43,13 @@ export class MapPanel extends React.Component {
         </div>
         <TileChartMap/>
         <MapToolbar/>
-        <RowChart aggtype="product"
+        <RowChart id="product"
+                  colorScheme={this.props.productData.colorScheme}
+                  data={this.props.productData.data}
                   title="Product by highest complaint volume"/>
-        <RowChart aggtype="issue"
+        <RowChart id="issue"
+                  colorScheme={this.props.issueData.colorScheme}
+                  data={this.props.issueData.data}
                   title="Issue by highest complaint volume"/>
         <Loading isLoading={ this.props.isLoading || false }/>
       </section>
@@ -52,12 +57,31 @@ export class MapPanel extends React.Component {
   }
 }
 
-const mapStateToProps = state => ( {
-  error: state.map.error,
-  isLoading: state.map.isLoading,
-  showMobileFilters: state.view.width < 750,
-  showWarning: !state.query.enablePer1000 && state.query.mapWarningEnabled
-} )
+const mapStateToProps = state => {
+  const { map, query } = state
+
+  const {
+    error,
+    isLoading,
+    results
+  } = map
+
+  const {
+    enablePer1000,
+    issue: issueFilters,
+    mapWarningEnabled,
+    product: productFilters
+  } = query
+
+  return {
+    error,
+    isLoading,
+    issueData: processBars( issueFilters, results.issue, false ),
+    productData: processBars( productFilters, results.product, false ),
+    showMobileFilters: state.view.width < 750,
+    showWarning: !enablePer1000 && mapWarningEnabled
+  }
+}
 
 export const mapDispatchToProps = dispatch => ( {
   onDismissWarning: () => {
