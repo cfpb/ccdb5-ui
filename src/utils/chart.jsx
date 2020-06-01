@@ -130,10 +130,11 @@ export const processRows = ( filters, rows, colorMap ) => {
     } )
   }
 
+  data = data.filter( o => o.visible )
   const colorScheme = getColorScheme( data, colorMap )
 
   return {
     colorScheme,
-    data: data.filter( o => o.visible )
+    data
   }
 }
