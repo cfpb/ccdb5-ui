@@ -61,7 +61,7 @@ function setupSnapshot() {
 
   return renderer.create(
     <Provider store={ store }>
-      <StackedAreaChart colorMap />
+      <StackedAreaChart title={ 'foo' } colorMap={ colorMap }/>
     </Provider>
   )
 }
@@ -96,6 +96,7 @@ describe( 'component: StackedAreaChart', () => {
     it( 'does nothing when no data', () => {
       const target = shallow( <StackedAreaChart colorMap={ { foo: 'bar' } }
                                                 data={ [] }
+                                                title={'foo'}
       /> )
       target._redrawChart = jest.fn()
       target.setProps( { data: [] } )
@@ -105,6 +106,7 @@ describe( 'component: StackedAreaChart', () => {
     it( 'trigger a new update when data changes', () => {
       const target = shallow( <StackedAreaChart
         colorMap={ { foo: 'bar', shi: 'oio' } }
+        title={'foo'}
         data={ [ 23, 4, 3 ] }
         total={ 1000 }/> )
       target._redrawChart = jest.fn()
@@ -115,6 +117,7 @@ describe( 'component: StackedAreaChart', () => {
 
     it( 'trigger a new update when printMode changes', () => {
       const target = shallow( <StackedAreaChart
+        title={'foo'}
         colorMap={ { foo: 'bar', shi: 'oio' } }
         data={ [ 23, 4, 3 ] }
         total={ 1000 }
@@ -128,6 +131,7 @@ describe( 'component: StackedAreaChart', () => {
 
     it( 'trigger a new update when width changes', () => {
       const target = shallow( <StackedAreaChart
+        title={'foo'}
         colorMap={ { foo: 'bar', shi: 'oio' } }
         data={ [ 23, 4, 3 ] }
         printMode={ 'false' }
