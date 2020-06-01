@@ -49,41 +49,6 @@ export const defaultState = {
 // Helpers
 /* eslint-disable complexity */
 /**
- * helper function to get under eslint limit
- * @param {object} b bucket containing interval_diff value
- * @returns {float} the formatted percentage we need
- */
-export function getPctChange( b ) {
-  // ( interval_diff / (doc_count + ( - interval_diff)) )*100
-  const interval_diff = Number( b.interval_diff.value )
-  const change = b.doc_count - interval_diff
-
-  if ( interval_diff === 0 ) {
-    return interval_diff
-  }
-
-  if ( change === 0 ) {
-    // for some reason its changing to NaN
-    return interval_diff > 0 ? 999999 : -999999
-  }
-
-  const delta = interval_diff / change
-  return formatPercentage( delta )
-}
-
-/**
- * helper function to get sum of the Other category to hide if zero
- * @param {array} buckets the buckets for each data point
- * @param {string} name the buckets for each data point
- * @returns {number} sum of the other buckets
- */
-function sumBucket( buckets, name ) {
-  return buckets.filter( o => o.name === name )
-    .reduce( ( accumulator, currentValue ) =>
-      accumulator + currentValue.value, 0 )
-}
-
-/**
  * helper function to drill down a bucket and generate special names for D3
  * @param {object} state the state in redux
  * @param {array} agg list of aggregations to go through
@@ -148,7 +113,6 @@ function getD3Names( obj, nameMap, expandedTrends ) {
     hasChildren: Boolean( obj.hasChildren ),
     isNotFilter: false,
     isParent: Boolean( obj.isParent ),
-    pctChange: Number( obj.pctChange ),
     pctOfSet: Number( obj.pctOfSet ),
     name: name,
     value: Number( obj.doc_count ),
@@ -287,14 +251,8 @@ export function processTrendPeriod( bucket, k, docCount ) {
   /* istanbul ignore else */
   if ( trend_period ) {
     const bucketDC = bucket.doc_count
-    const subBucket = trend_period.buckets[1] || trend_period.buckets[0]
-
     bucket.pctOfSet = formatPercentage( bucketDC / docCount )
     bucket.num_results = docCount
-
-    if ( subBucket && subBucket.interval_diff ) {
-      bucket.pctChange = getPctChange( subBucket )
-    }
   }
 
   const subKeyName = getSubKeyName( bucket )
