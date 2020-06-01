@@ -89,22 +89,13 @@ export class LineChart extends React.Component {
     tooltipContainer.datum( [] ).call( tip )
 
     const config = {
-      dateRange: {
-        from: '',
-        to: ''
-      },
+      dateRange: this.props.dateRange,
       interval: this.props.interval,
       lastDate: this.props.lastDate
     }
 
-    const payload = {
-      date: this.props.lastDate,
-      dateRange: this.props.dateRange,
-      interval: this.props.interval,
-      values: this.props.data.topics
-    }
     // get the last date and fire it off to redux
-    console.log( getLastLineDate( this.props.data, config ) )
+    // console.log( getLastLineDate( this.props.data, config ) )
 
     this.props.tooltipUpdated( getLastLineDate( this.props.data, config ) )
   }
@@ -138,6 +129,7 @@ export const mapStateToProps = state => ( {
     to: state.query.date_received_max
   },
   interval: state.query.dateInterval,
+  lastDate: state.trends.lastDate,
   lens: state.query.lens,
   printMode: state.view.printMode,
   tooltip: state.trends.tooltip,

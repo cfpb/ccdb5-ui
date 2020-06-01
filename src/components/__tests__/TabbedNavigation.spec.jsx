@@ -37,8 +37,6 @@ describe( 'component: TabbedNavigation', () => {
 
     beforeEach( () => {
       cb = jest.fn()
-      window.scrollTo = jest.fn();
-
       target = shallow( <TabbedNavigation onTab={ cb }/> )
     } )
 
@@ -46,6 +44,12 @@ describe( 'component: TabbedNavigation', () => {
       const prev = target.find( '.tabbed-navigation button.map' )
       prev.simulate( 'click' )
       expect( cb ).toHaveBeenCalledWith('Map')
+    } )
+
+    it( 'tabChanged is called with Trends when the button is clicked', () => {
+      const prev = target.find( '.tabbed-navigation button.trends' )
+      prev.simulate( 'click' )
+      expect( cb ).toHaveBeenCalledWith('Trends')
     } )
 
     it( 'tabChanged is called with List when the button is clicked', () => {

@@ -1,11 +1,16 @@
 import target, {
   defaultState,
-  processAggregations
+  processTrends
 } from '../trends'
 import actions from '../../actions'
+import {
+  trendsLensIssueResults,
+  trendsResults
+} from '../__fixtures__/trendsResults'
+import trendsAggs from '../__fixtures__/trendsAggs'
 
 describe( 'reducer:trends', () => {
-  let action
+  let action, result
 
   describe( 'reducer', () => {
     it( 'has a default state', () => {
@@ -14,6 +19,7 @@ describe( 'reducer:trends', () => {
         chartType: 'line',
         colorMap: {},
         expandedTrends: [],
+        filterNames: [],
         focus: false,
         isLoading: false,
         lastDate: false,
@@ -31,17 +37,63 @@ describe( 'reducer:trends', () => {
     } )
   } )
 
-  describe( 'CHART_TYPE_CHANGED action', ()=>{
+  describe( 'CHART_TYPE_CHANGED action', () => {
+    it( 'changes the chart type', () => {
+      action = {
+        type: actions.CHART_TYPE_CHANGED,
+        chartType: 'FooBar'
+      }
 
-  })
+      expect( target( { tooltip: true }, action ) ).toEqual( {
+        chartType: 'FooBar',
+        tooltip: false
+      } )
+    } )
+  } )
 
-  describe( 'DATA_LENS_CHANGED action', ()=>{
+  describe( 'DATA_LENS_CHANGED action', () => {
+    it( 'updates the data lens', () => {
+      action = {
+        type: actions.DATA_LENS_CHANGED,
+        lens: 'Foo'
+      }
 
-  })
+      expect( target( {}, action ) ).toEqual( {
+        lens: 'Foo'
+      } )
+    } )
+  } )
 
-  describe( 'TAB_CHANGED action', ()=>{
+  describe( 'TAB_CHANGED action', () => {
+    it( 'handles trends tabs', () => {
+      action = {
+        type: actions.TAB_CHANGED,
+        tab: 'Trends'
+      }
 
-  })
+      expect( target( { results: [ 1, 2, 3 ] }, action ) ).toEqual( {
+        results: [ 1, 2, 3 ]
+      } )
+    } )
+
+    it( 'clears results when its Other tabs', () => {
+      action = {
+        type: actions.TAB_CHANGED,
+        tab: 'Foo'
+      }
+
+      expect( target( { results: [ 1, 2, 3 ] }, action ) ).toEqual( {
+        results: {
+          dateRangeArea: [],
+          dateRangeBrush: [],
+          dateRangeLine: [],
+          issue: [],
+          product: []
+        }
+      } )
+    } )
+
+  } )
 
   describe( 'TRENDS_API_CALLED actions', () => {
     action = {
@@ -58,52 +110,135 @@ describe( 'reducer:trends', () => {
     it( 'handles failed error messages', () => {
       action = {
         type: actions.TRENDS_FAILED,
-        error: 'foo bar'
+        error: { message: 'foo bar', name: 'ErrorTypeName' }
       }
       expect( target( {
         activeCall: 'someurl',
-        issue: [ 1, 2, 3 ],
-        product: [ 1, 2, 3 ],
-        state: [ 1, 2, 3 ]
+        results: {
+          dateRangeArea: [ 1, 2, 3 ],
+          dateRangeBrush: [ 4, 5, 6 ],
+          dateRangeLine: [ 7, 8, 9 ],
+          issue: [ 10, 11, 12 ],
+          product: [ 13, 25 ]
+        }
       }, action ) ).toEqual( {
         activeCall: '',
-        error: 'foo bar',
+        error: { message: 'foo bar', name: 'ErrorTypeName' },
         isLoading: false,
-        issue: [],
-        product: []
+        results: {
+          dateRangeArea: [],
+          dateRangeBrush: [],
+          dateRangeLine: [],
+          issue: [],
+          product: []
+        }
       } )
     } )
   } )
 
   describe( 'TRENDS_RECEIVED actions', () => {
+    let state
     beforeEach( () => {
       action = {
         type: actions.TRENDS_RECEIVED,
         data: {
-          aggregations: []
+          aggregations: trendsAggs
         }
       }
+      state = Object.assign( {}, defaultState )
     } )
 
-
-    it( 'maps data to object state', () => {
-      const result = target( null, action )
-      expect( result ).toEqual( {
-        activeCall: '',
-        isLoading: false,
-        results: {}
-      } )
+    it( 'maps data to object state - Overview', () => {
+      result = target( state, action )
+      expect( result ).toEqual( trendsResults )
     } )
+
+    it( 'maps data to object state - Issue Lens', () => {
+      state.lens = 'Issue'
+      result = target( state, action )
+      expect( result ).toEqual( trendsLensIssueResults )
+    } )
+
   } )
 
-  describe( 'TREND_TOGGLED action', ()=>{
+  describe( 'TREND_TOGGLED', () => {
+    let state, action;
+    beforeEach( () => {
+      state = {
+        expandedTrends: [ 'bar' ],
+        filterNames: [ 'bar', 'foo' ],
+        results: {
+          issue: [
+            { name: 'bar', visible: true },
+            { name: 'bar1', visible: true, parent: 'bar' },
+            { name: 'bar2', visible: true, parent: 'bar' },
+            { name: 'foo', visible: true },
+            { name: 'foo1', visible: false, parent: 'foo' },
+            { name: 'foo2', visible: false, parent: 'foo' }
+          ]
+        }
+      };
 
-  })
+    } );
 
-  describe( 'TRENDS_TOOLTIP_CHANGED action', ()=>{
+    it( 'makes bars visible', () => {
+      action = { type: actions.TREND_TOGGLED, value: 'foo' };
+      expect( target( state, action ) ).toEqual( {
+        expandedTrends: [ 'bar', 'foo' ],
+        filterNames: [ 'bar', 'foo' ],
+        results: {
+          issue: [
+            { name: 'bar', visible: true },
+            { name: 'bar1', visible: true, parent: 'bar' },
+            { name: 'bar2', visible: true, parent: 'bar' },
+            { name: 'foo', visible: true },
+            { name: 'foo1', visible: true, parent: 'foo' },
+            { name: 'foo2', visible: true, parent: 'foo' }
+          ]
+        }
+      } );
+    } );
 
-  })
+    it( 'hides bars', () => {
+      action = { type: actions.TREND_TOGGLED, value: 'bar' };
+      expect( target( state, action ) ).toEqual( {
+        expandedTrends: [],
+        filterNames: [ 'bar', 'foo' ],
+        results: {
+          issue: [
+            { name: 'bar', visible: true },
+            { name: 'bar1', visible: false, parent: 'bar' },
+            { name: 'bar2', visible: false, parent: 'bar' },
+            { name: 'foo', visible: true },
+            { name: 'foo1', visible: false, parent: 'foo' },
+            { name: 'foo2', visible: false, parent: 'foo' }
+          ]
+        }
+      } );
+    } );
 
+    it( 'ignores bogus values not in filterNames', () => {
+      action = { type: actions.TREND_TOGGLED, value: 'haha' };
+      expect( target( state, action ) ).toEqual( {
+        expandedTrends: [ 'bar' ],
+        filterNames: [ 'bar', 'foo' ],
+        results: {
+          issue: [
+            { name: 'bar', visible: true },
+            { name: 'bar1', visible: true, parent: 'bar' },
+            { name: 'bar2', visible: true, parent: 'bar' },
+            { name: 'foo', visible: true },
+            { name: 'foo1', visible: false, parent: 'foo' },
+            { name: 'foo2', visible: false, parent: 'foo' }
+          ]
+        }
+      } );
+    } );
+  } );
+
+  describe( 'TRENDS_TOOLTIP_CHANGED action', () => {
+
+  } )
 
   describe( 'URL_CHANGED actions', () => {
     let action
@@ -129,74 +264,5 @@ describe( 'reducer:trends', () => {
       expect( actual.subLens ).toEqual( 'mom' )
       expect( actual.nope ).toBeFalsy()
     } )
-  } )
-
-  describe( 'helper functions', () => {
-    describe( 'processAggregations', () => {
-      it( 'calculates percentages properly', () => {
-        const aggData = {
-          doc_count: 1000,
-          issue: {
-            buckets: [
-              { key: 'alpha', doc_count: 600 },
-              { key: 'bar', doc_count: 150 },
-              { key: 'car', doc_count: 125 },
-              { key: 'delta', doc_count: 75 },
-              { key: 'elephant', doc_count: 50 }
-            ]
-          }
-        }
-
-        const res = processAggregations( aggData )
-        expect( res ).toEqual( [
-          {
-            hasChildren: false,
-            isParent: true,
-            name: "alpha",
-            pctChange: 1,
-            pctOfSet: "60.00",
-            value: 600,
-            visible: true,
-            width: 0.5
-          }, {
-            hasChildren: false,
-            isParent: true,
-            name: "bar",
-            pctChange: 1,
-            pctOfSet: "15.00",
-            value: 150,
-            visible: true,
-            width: 0.5
-          }, {
-            hasChildren: false,
-            isParent: true,
-            name: "car",
-            pctChange: 1,
-            pctOfSet: "13.00",
-            value: 125,
-            visible: true,
-            width: 0.5
-          }, {
-            hasChildren: false,
-            isParent: true,
-            name: "delta",
-            pctChange: 1,
-            pctOfSet: "8.00",
-            value: 75,
-            visible: true,
-            width: 0.5
-          }, {
-            hasChildren: false,
-            isParent: true,
-            name: "elephant",
-            pctChange: 1,
-            pctOfSet: "5.00",
-            value: 50,
-            visible: true,
-            width: 0.5
-          } ] )
-      } )
-    } )
-
   } )
 } )

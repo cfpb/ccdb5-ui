@@ -33,10 +33,9 @@ export const getLastLineDate = ( dataSet, config ) => {
 
   const lastDate = config.lastDate
   const values = dataSet.dataByTopic.map( o => {
-    const lastPoint = o.dates.find( o => o.date === lastDate )
+    const lastPoint = o.dates.find( o => isDateEqual( o.date, lastDate ) )
     const value = lastPoint ? lastPoint.value : 0
     return {
-      ...o,
       name: o.topic,
       date: lastDate,
       value
