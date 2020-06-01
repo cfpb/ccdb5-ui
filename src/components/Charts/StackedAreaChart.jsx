@@ -3,11 +3,10 @@ import * as d3 from 'd3'
 import { connect } from 'react-redux'
 import { getLastDate } from '../../utils/chart'
 import { hashObject } from '../../utils'
+import PropTypes from 'prop-types'
 import React from 'react'
 import { stackedArea } from 'britecharts'
 import { updateTrendsTooltip } from '../../actions/trends'
-import PropTypes from 'prop-types'
-import { LineChart } from './LineChart'
 
 export class StackedAreaChart extends React.Component {
   componentDidMount() {

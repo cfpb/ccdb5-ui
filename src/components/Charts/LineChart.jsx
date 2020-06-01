@@ -6,10 +6,9 @@ import { line, tooltip } from 'britecharts'
 import { connect } from 'react-redux'
 import { hashObject } from '../../utils'
 import { isDateEqual } from '../../utils/formatDate'
+import PropTypes from 'prop-types'
 import React from 'react'
 import { updateTrendsTooltip } from '../../actions/trends'
-import PropTypes from 'prop-types'
-import { RowChart } from './RowChart'
 
 export class LineChart extends React.Component {
   componentDidMount() {

@@ -60,8 +60,8 @@ function setupSnapshot() {
     dataByTopic: []
   }
   return renderer.create(
-    <Provider store>
-      <LineChart data />
+    <Provider store={ store }>
+      <LineChart data/>
     </Provider>
   )
 }
@@ -77,7 +77,72 @@ describe( 'component: LineChart', () => {
 
   describe( 'componentDidUpdate', () => {
     let mapDiv
-
+    const lastDate = '2020-05-01T00:00:00.000Z'
+    const colorMap = {
+      "Credit reporting": "#2cb34a",
+      "Debt collection": "#addc91",
+      "Credit card or prepaid card": "#257675",
+      "Mortgage": "#9ec4c3",
+      "Checking or savings account": "#0072ce",
+      "Complaints": "#ADDC91",
+      "Other": "#a2a3a4"
+    }
+    const data = {
+      dataByTopic: [
+        {
+          topic: "Credit reporting",
+          topicName: "Credit reporting",
+          dashed: false,
+          show: true,
+          dates: [
+            { date: "2020-03-01T00:00:00.000Z", value: 17231 },
+            { date: "2020-04-01T00:00:00.000Z", value: 21179 },
+            { date: "2020-05-01T00:00:00.000Z", value: 6868 }
+          ]
+        },
+        {
+          topic: "Debt collection",
+          topicName: "Debt collection",
+          dashed: false,
+          show: true,
+          dates: [
+            { date: "2020-03-01T00:00:00.000Z", value: 4206 },
+            { date: "2020-04-01T00:00:00.000Z", value: 4508 },
+            { date: "2020-05-01T00:00:00.000Z", value: 1068 }
+          ]
+        },
+        {
+          topic: "Credit card or prepaid card",
+          topicName: "Credit card or prepaid card",
+          dashed: false,
+          show: true,
+          dates: [
+            { date: "2020-03-01T00:00:00.000Z", value: 2435 },
+            { date: "2020-04-01T00:00:00.000Z", value: 3137 },
+            { date: "2020-05-01T00:00:00.000Z", value: 712 }
+          ]
+        },
+        {
+          topic: "Mortgage",
+          topicName: "Mortgage",
+          dashed: false,
+          show: true,
+          dates: [
+            { date: "2020-03-01T00:00:00.000Z", value: 2132 },
+            { date: "2020-04-01T00:00:00.000Z", value: 2179 },
+            { date: "2020-05-01T00:00:00.000Z", value: 365 } ]
+        },
+        {
+          topic: "Checking or savings account",
+          topicName: "Checking or savings account",
+          dashed: false,
+          show: true,
+          dates: [
+            { date: "2020-03-01T00:00:00.000Z", value: 1688 },
+            { date: "2020-04-01T00:00:00.000Z", value: 2030 },
+            { date: "2020-05-01T00:00:00.000Z", value: 383 } ]
+        } ]
+    }
     beforeEach( () => {
       mapDiv = document.createElement( 'div' )
       mapDiv.setAttribute( 'id', 'line-chart-foo' )
@@ -101,18 +166,47 @@ describe( 'component: LineChart', () => {
     } )
 
     it( 'trigger a new update when data changes', () => {
-      const target = shallow( <LineChart data={ [ 23, 4, 3 ] }
-                                         total={ 1000 }/> )
+      const target = shallow( <LineChart tooltipUpdated={ jest.fn() }
+                                         colorMap={ colorMap }
+                                         data={ data }
+                                         lastDate={ lastDate }
+      /> )
       target._redrawChart = jest.fn()
       const sp = jest.spyOn( target.instance(), '_redrawChart' )
-      target.setProps( { data: [ 2, 5 ] } )
+      const newData = {
+        dataByTopic: [
+          {
+            topic: "Mortgage",
+            topicName: "Mortgage",
+            dashed: false,
+            show: true,
+            dates: [
+              { date: "2020-03-01T00:00:00.000Z", value: 2132 },
+              { date: "2020-04-01T00:00:00.000Z", value: 2179 },
+              { date: "2020-05-01T00:00:00.000Z", value: 365 } ]
+          },
+          {
+            topic: "Checking or savings account",
+            topicName: "Checking or savings account",
+            dashed: false,
+            show: true,
+            dates: [
+              { date: "2020-03-01T00:00:00.000Z", value: 1688 },
+              { date: "2020-04-01T00:00:00.000Z", value: 2030 },
+              { date: "2020-05-01T00:00:00.000Z", value: 383 } ]
+          } ]
+      }
+
+      target.setProps( { data: newData } )
       expect( sp ).toHaveBeenCalledTimes( 1 )
     } )
 
     it( 'trigger a new update when printMode changes', () => {
-      const target = shallow( <LineChart data={ [ 23, 4, 3 ] }
-                                         total={ 1000 }
+      const target = shallow( <LineChart data={ data }
+                                         tooltipUpdated={ jest.fn() }
+                                         colorMap={ colorMap }
                                          printMode={ 'false' }
+                                         lastDate={ lastDate }
       /> )
       target._redrawChart = jest.fn()
       const sp = jest.spyOn( target.instance(), '_redrawChart' )
@@ -121,10 +215,12 @@ describe( 'component: LineChart', () => {
     } )
 
     it( 'trigger a new update when width changes', () => {
-      const target = shallow( <LineChart data={ [ 23, 4, 3 ] }
-                                         total={ 1000 }
+      const target = shallow( <LineChart colorMap={ colorMap }
+                                         data={ data }
+                                         tooltipUpdated={ jest.fn() }
                                          printMode={ 'false' }
                                          width={ 1000 }
+                                         lastDate={ lastDate }
       /> )
       target._redrawChart = jest.fn()
       const sp = jest.spyOn( target.instance(), '_redrawChart' )
@@ -136,9 +232,6 @@ describe( 'component: LineChart', () => {
   describe( 'mapStateToProps', () => {
     it( 'maps state and props', () => {
       const state = {
-        aggs: {
-          total: 100
-        },
         query: {
           dateInterval: 'Month',
           date_received_min: '',

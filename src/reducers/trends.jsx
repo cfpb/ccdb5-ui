@@ -519,7 +519,8 @@ export function processTrendsError( state, action ) {
 export function updateChartType( state, action ) {
   return {
     ...state,
-    chartType: action.chartType
+    chartType: action.chartType,
+    tooltip: false
   }
 }
 
