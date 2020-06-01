@@ -1,10 +1,8 @@
 import target, {
   defaultState,
-  processAggregations,
-  processStateAggregations
-} from '../map'
+  processAggregations
+} from '../trends'
 import actions from '../../actions'
-import stateAggs from '../__fixtures__/stateAggs'
 
 describe( 'reducer:trends', () => {
   let action
@@ -33,7 +31,19 @@ describe( 'reducer:trends', () => {
     } )
   } )
 
-  describe( 'handles TRENDS_API_CALLED actions', () => {
+  describe( 'CHART_TYPE_CHANGED action', ()=>{
+
+  })
+
+  describe( 'DATA_LENS_CHANGED action', ()=>{
+
+  })
+
+  describe( 'TAB_CHANGED action', ()=>{
+
+  })
+
+  describe( 'TRENDS_API_CALLED actions', () => {
     action = {
       type: actions.TRENDS_API_CALLED,
       url: 'http://www.example.org'
@@ -41,180 +51,6 @@ describe( 'reducer:trends', () => {
     expect( target( {}, action ) ).toEqual( {
       activeCall: 'http://www.example.org',
       isLoading: true
-    } )
-  } )
-
-  describe( 'TRENDS_RECEIVED actions', () => {
-    beforeEach( () => {
-      action = {
-        type: actions.TRENDS_RECEIVED,
-        data: {
-          aggregations: stateAggs
-        }
-      }
-    } )
-
-
-    it( 'maps data to object state', () => {
-      const result = target( null, action )
-      expect( result ).toEqual( {
-        activeCall: '',
-        isLoading: false,
-        results: {
-          state: [
-            { name: "CA", value: 62519, issue: "issue o", product: "fo prod" },
-            { name: "FL", value: 47358, issue: "issue o", product: "fo" },
-            { name: "TX", value: 44469, issue: "issue o", product: "fo rod" },
-            { name: "GA", value: 28395, issue: "issue o", product: "fo prod" },
-            { name: "NY", value: 26846, issue: "issue o", product: "fo prod" },
-            { name: "IL", value: 18172, issue: "issue o", product: "fo prd" },
-            { name: "PA", value: 16054, issue: "issue o", product: "fo prod" },
-            { name: "NC", value: 15217, issue: "issue o", product: "fo prod" },
-            { name: "NJ", value: 15130, issue: "issue o", product: "fo prod" },
-            { name: "OH", value: 14365, issue: "issue o", product: "fo prod" },
-            { name: "VA", value: 12901, issue: "issue o", product: "fo prod" },
-            { name: "MD", value: 12231, issue: "issue o", product: "fo prod" },
-            { name: "MI", value: 10472, issue: "issue o", product: "fo prod" },
-            { name: "AZ", value: 10372, issue: "issue o", product: "fo prod" },
-            { name: "TN", value: 9011, issue: "issue o", product: "fo prod" },
-            { name: "WA", value: 8542, issue: "issue o", product: "fo prod" },
-            { name: "MA", value: 8254, issue: "issue o", product: "fo prod" },
-            { name: "MO", value: 7832, issue: "issue o", product: "fo prod" },
-            { name: "SC", value: 7496, issue: "issue o", product: "fo prod" },
-            { name: "CO", value: 7461, issue: "issue o", product: "fo prod" },
-            { name: "NV", value: 7095, issue: "issue o", product: "fo prod" },
-            { name: "LA", value: 6369, issue: "issue o", product: "fo prod" },
-            { name: "AL", value: 6178, issue: "issue o", product: "fo prod" },
-            { name: "IN", value: 5659, issue: "issue o", product: "fo prod" },
-            { name: "MN", value: 4957, issue: "issue o", product: "fo prod" },
-            { name: "CT", value: 4685, issue: "issue o", product: "fo prod" },
-            { name: "WI", value: 4443, issue: "issue o", product: "fo prod" },
-            { name: "OR", value: 4261, issue: "issue o", product: "fo prod" },
-            { name: "UT", value: 3693, issue: "issue o", product: "fo prod" },
-            { name: "KY", value: 3392, issue: "issue o", product: "fo prod" },
-            { name: "MS", value: 3237, issue: "issue o", product: "fo prod" },
-            { name: "OK", value: 2989, issue: "issue o", product: "fo prod" },
-            { name: "AR", value: 2691, issue: "issue o", product: "fo prod" },
-            { name: "DC", value: 2493, issue: "issue o", product: "fo prod" },
-            { name: "KS", value: 2307, issue: "issue o", product: "fo prod" },
-            { name: "NM", value: 2176, issue: "issue o", product: "fo prod" },
-            { name: "DE", value: 2160, issue: "issue o", product: "fo prod" },
-            { name: "IA", value: 1751, issue: "issue o", product: "fo prod" },
-            { name: "ID", value: 1436, issue: "issue o", product: "fo prod" },
-            { name: "NH", value: 1408, issue: "issue o", product: "fo prod" },
-            { name: "NE", value: 1343, issue: "issue o", product: "fo prod" },
-            { name: "RI", value: 1166, issue: "issue o", product: "fo prod" },
-            { name: "ME", value: 1155, issue: "issue o", product: "fo prod" },
-            { name: "WV", value: 1075, issue: "issue o", product: "fo prod" },
-            { name: "MT", value: 788, issue: "issue o", product: "fo prod" },
-            { name: "ND", value: 637, issue: "issue o", product: "fo prod" },
-            { name: "SD", value: 535, issue: "issue o", product: "fo prod" },
-            { name: "AK", value: 524, issue: "issue o", product: "fo prod" },
-            { name: "WY", value: 450, issue: "issue o", product: "fo prod" },
-            { name: "VT", value: 446, issue: "issue o", product: "fo prod" },
-            { name: "HI", value: 0, issue: "", product: "" } ],
-          issue: [
-            {
-              name: "alpha",
-              value: 600,
-              pctChange: 1,
-              isParent: true,
-              hasChildren: false,
-              pctOfSet: "60.00",
-              visible: true,
-              width: 0.5
-            },
-            {
-              name: "bar",
-              value: 150,
-              pctChange: 1,
-              isParent: true,
-              hasChildren: false,
-              pctOfSet: "15.00",
-              visible: true,
-              width: 0.5
-            },
-            {
-              name: "car",
-              value: 125,
-              pctChange: 1,
-              isParent: true,
-              hasChildren: false,
-              pctOfSet: "13.00",
-              visible: true,
-              width: 0.5
-            },
-            {
-              name: "delta",
-              value: 75,
-              pctChange: 1,
-              isParent: true,
-              hasChildren: false,
-              pctOfSet: "8.00",
-              visible: true,
-              width: 0.5
-            },
-            {
-              name: "elephant",
-              value: 50,
-              pctChange: 1,
-              isParent: true,
-              hasChildren: false,
-              pctOfSet: "5.00",
-              visible: true,
-              width: 0.5
-            }
-          ],
-          product: [
-            {
-              name: "foo",
-              value: 600,
-              pctChange: 1,
-              isParent: true,
-              hasChildren: false,
-              pctOfSet: "60.00",
-              visible: true,
-              width: 0.5
-            }, {
-              name: "goo",
-              value: 150,
-              pctChange: 1,
-              isParent: true,
-              hasChildren: false,
-              pctOfSet: "15.00",
-              visible: true,
-              width: 0.5
-            }, {
-              name: "hi",
-              value: 125,
-              pctChange: 1,
-              isParent: true,
-              hasChildren: false,
-              pctOfSet: "13.00",
-              visible: true,
-              width: 0.5
-            }, {
-              name: "indigo",
-              value: 75,
-              pctChange: 1,
-              isParent: true,
-              hasChildren: false,
-              pctOfSet: "8.00",
-              visible: true,
-              width: 0.5
-            }, {
-              name: "joker",
-              value: 50,
-              pctChange: 1,
-              isParent: true,
-              hasChildren: false,
-              pctOfSet: "5.00",
-              visible: true,
-              width: 0.5
-            }
-          ]
-        }
-      } )
     } )
   } )
 
@@ -234,16 +70,40 @@ describe( 'reducer:trends', () => {
         error: 'foo bar',
         isLoading: false,
         issue: [],
-        product: [],
-        state: TILE_MAP_STATES.map( o => ( {
-          name: o,
-          value: 0,
-          issue: '',
-          product: ''
-        } ) )
+        product: []
       } )
     } )
   } )
+
+  describe( 'TRENDS_RECEIVED actions', () => {
+    beforeEach( () => {
+      action = {
+        type: actions.TRENDS_RECEIVED,
+        data: {
+          aggregations: []
+        }
+      }
+    } )
+
+
+    it( 'maps data to object state', () => {
+      const result = target( null, action )
+      expect( result ).toEqual( {
+        activeCall: '',
+        isLoading: false,
+        results: {}
+      } )
+    } )
+  } )
+
+  describe( 'TREND_TOGGLED action', ()=>{
+
+  })
+
+  describe( 'TRENDS_TOOLTIP_CHANGED action', ()=>{
+
+  })
+
 
   describe( 'URL_CHANGED actions', () => {
     let action
@@ -261,10 +121,13 @@ describe( 'reducer:trends', () => {
       expect( target( state, action ) ).toEqual( state )
     } )
 
-    it( 'handles dataNormalization params', () => {
-      action.params = { dataNormalization: 'hello' }
+    it( 'handles lens params', () => {
+      action.params = { lens: 'hello', subLens: 'mom', nope: 'hi' }
+
       const actual = target( state, action )
-      expect( actual.dataNormalization ).toEqual( 'hello' )
+      expect( actual.lens ).toEqual( 'hello' )
+      expect( actual.subLens ).toEqual( 'mom' )
+      expect( actual.nope ).toBeFalsy()
     } )
   } )
 
@@ -335,73 +198,5 @@ describe( 'reducer:trends', () => {
       } )
     } )
 
-    describe( 'processStateAggregations', () => {
-      it( 'handles empty buckets', () => {
-        const stateData = {
-          doc_count: 0,
-          state: {
-            buckets: []
-          }
-        }
-        const res = processStateAggregations( stateData )
-        expect( res ).toEqual( [] )
-      } )
-      it( 'calculates the data correctly', () => {
-        const res = processStateAggregations( stateAggs.state )
-        expect( res ).toEqual( [
-          { name: "CA", value: 62519, issue: "issue o", product: "fo prod" },
-          { name: "FL", value: 47358, issue: "issue o", product: "fo" },
-          { name: "TX", value: 44469, issue: "issue o", product: "fo rod" },
-          { name: "GA", value: 28395, issue: "issue o", product: "fo prod" },
-          { name: "NY", value: 26846, issue: "issue o", product: "fo prod" },
-          { name: "IL", value: 18172, issue: "issue o", product: "fo prd" },
-          { name: "PA", value: 16054, issue: "issue o", product: "fo prod" },
-          { name: "NC", value: 15217, issue: "issue o", product: "fo prod" },
-          { name: "NJ", value: 15130, issue: "issue o", product: "fo prod" },
-          { name: "OH", value: 14365, issue: "issue o", product: "fo prod" },
-          { name: "VA", value: 12901, issue: "issue o", product: "fo prod" },
-          { name: "MD", value: 12231, issue: "issue o", product: "fo prod" },
-          { name: "MI", value: 10472, issue: "issue o", product: "fo prod" },
-          { name: "AZ", value: 10372, issue: "issue o", product: "fo prod" },
-          { name: "TN", value: 9011, issue: "issue o", product: "fo prod" },
-          { name: "WA", value: 8542, issue: "issue o", product: "fo prod" },
-          { name: "MA", value: 8254, issue: "issue o", product: "fo prod" },
-          { name: "MO", value: 7832, issue: "issue o", product: "fo prod" },
-          { name: "SC", value: 7496, issue: "issue o", product: "fo prod" },
-          { name: "CO", value: 7461, issue: "issue o", product: "fo prod" },
-          { name: "NV", value: 7095, issue: "issue o", product: "fo prod" },
-          { name: "LA", value: 6369, issue: "issue o", product: "fo prod" },
-          { name: "AL", value: 6178, issue: "issue o", product: "fo prod" },
-          { name: "IN", value: 5659, issue: "issue o", product: "fo prod" },
-          { name: "MN", value: 4957, issue: "issue o", product: "fo prod" },
-          { name: "CT", value: 4685, issue: "issue o", product: "fo prod" },
-          { name: "WI", value: 4443, issue: "issue o", product: "fo prod" },
-          { name: "OR", value: 4261, issue: "issue o", product: "fo prod" },
-          { name: "UT", value: 3693, issue: "issue o", product: "fo prod" },
-          { name: "KY", value: 3392, issue: "issue o", product: "fo prod" },
-          { name: "MS", value: 3237, issue: "issue o", product: "fo prod" },
-          { name: "OK", value: 2989, issue: "issue o", product: "fo prod" },
-          { name: "AR", value: 2691, issue: "issue o", product: "fo prod" },
-          { name: "DC", value: 2493, issue: "issue o", product: "fo prod" },
-          { name: "KS", value: 2307, issue: "issue o", product: "fo prod" },
-          { name: "NM", value: 2176, issue: "issue o", product: "fo prod" },
-          { name: "DE", value: 2160, issue: "issue o", product: "fo prod" },
-          { name: "IA", value: 1751, issue: "issue o", product: "fo prod" },
-          { name: "ID", value: 1436, issue: "issue o", product: "fo prod" },
-          { name: "NH", value: 1408, issue: "issue o", product: "fo prod" },
-          { name: "NE", value: 1343, issue: "issue o", product: "fo prod" },
-          { name: "RI", value: 1166, issue: "issue o", product: "fo prod" },
-          { name: "ME", value: 1155, issue: "issue o", product: "fo prod" },
-          { name: "WV", value: 1075, issue: "issue o", product: "fo prod" },
-          { name: "MT", value: 788, issue: "issue o", product: "fo prod" },
-          { name: "ND", value: 637, issue: "issue o", product: "fo prod" },
-          { name: "SD", value: 535, issue: "issue o", product: "fo prod" },
-          { name: "AK", value: 524, issue: "issue o", product: "fo prod" },
-          { name: "WY", value: 450, issue: "issue o", product: "fo prod" },
-          { name: "VT", value: 446, issue: "issue o", product: "fo prod" },
-          { name: "HI", value: 0, issue: "", product: "" }
-        ] )
-      } )
-    } )
   } )
 } )
