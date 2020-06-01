@@ -552,8 +552,11 @@ function processParams( state, action ) {
   const processed = Object.assign( {}, defaultState )
 
   // Handle flag filters
-  if ( params.lens ) {
-    processed.lens = params.lens
+  const filters = ['lens', 'subLens']
+  for ( let val of filters ) {
+    if ( params[val] ) {
+      processed[val] = params[val]
+    }
   }
 
   return processed
