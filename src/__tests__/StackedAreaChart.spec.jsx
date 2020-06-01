@@ -143,12 +143,6 @@ describe( 'component: StackedAreaChart', () => {
   describe( 'mapStateToProps', () => {
     it( 'maps state and props', () => {
       const state = {
-        aggs: {
-          total: 100
-        },
-        map: {
-          baz: [ 1, 2, 3 ]
-        },
         query: {
           baz: [ 1, 2, 3 ],
           dateInterval: 'Month'
@@ -173,6 +167,7 @@ describe( 'component: StackedAreaChart', () => {
         data: [],
         interval: 'Month',
         lens: 'Overview',
+        printMode: false,
         tooltip: {},
         width: 1000
       } )
