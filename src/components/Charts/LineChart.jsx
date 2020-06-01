@@ -8,6 +8,8 @@ import { hashObject } from '../../utils'
 import { isDateEqual } from '../../utils/formatDate'
 import React from 'react'
 import { updateTrendsTooltip } from '../../actions/trends'
+import PropTypes from 'prop-types'
+import { RowChart } from './RowChart'
 
 export class LineChart extends React.Component {
   componentDidMount() {
@@ -16,7 +18,9 @@ export class LineChart extends React.Component {
 
   componentDidUpdate( prevProps ) {
     const props = this.props
-    if ( hashObject( prevProps.data ) !== hashObject( props.data ) ) {
+    if ( hashObject( prevProps.data ) !== hashObject( props.data ) ||
+      hashObject( prevProps.width ) !== hashObject( props.width ) ||
+      hashObject( prevProps.printMode ) !== hashObject( props.printMode ) ) {
       this._redrawChart()
     }
   }
@@ -128,7 +132,6 @@ export const mapDispatchToProps = dispatch => ( {
 } )
 
 export const mapStateToProps = state => ( {
-  chartType: state.trends.chartType,
   colorMap: state.trends.colorMap,
   data: state.trends.results.dateRangeLine,
   dateRange: {
@@ -137,7 +140,13 @@ export const mapStateToProps = state => ( {
   },
   interval: state.query.dateInterval,
   lens: state.query.lens,
-  tooltip: state.trends.tooltip
+  printMode: state.view.printMode,
+  tooltip: state.trends.tooltip,
+  width: state.view.width
 } )
+
+LineChart.propTypes = {
+  title: PropTypes.string.isRequired
+}
 
 export default connect( mapStateToProps, mapDispatchToProps )( LineChart )

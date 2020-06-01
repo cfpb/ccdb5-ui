@@ -64,11 +64,9 @@ export class TrendsPanel extends React.Component {
         <div className="layout-row">
           <section className="chart">
             { this.props.chartType === 'line' &&
-              <LineChart chartType={ this.props.chartType }
-                         title="Complaints by date received"/> }
+              <LineChart title="Complaints by date received"/> }
             { this.props.chartType === 'area' &&
-              <StackedAreaChart chartType={ this.props.chartType }
-                                title="Complaints by date received"/> }
+              <StackedAreaChart title="Complaints by date received"/> }
             <BrushChart/>
           </section>
           { !this.props.overview && <ExternalTooltip/> }

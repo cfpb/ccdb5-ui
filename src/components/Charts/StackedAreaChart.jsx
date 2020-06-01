@@ -6,6 +6,8 @@ import { hashObject } from '../../utils'
 import React from 'react'
 import { stackedArea } from 'britecharts'
 import { updateTrendsTooltip } from '../../actions/trends'
+import PropTypes from 'prop-types'
+import { LineChart } from './LineChart'
 
 export class StackedAreaChart extends React.Component {
   componentDidMount() {
@@ -14,9 +16,9 @@ export class StackedAreaChart extends React.Component {
 
   componentDidUpdate( prevProps ) {
     const props = this.props
-    console.log( prevProps, props )
-    if ( hashObject( prevProps.data ) !== hashObject( props.data ) ) {
-      console.log( props, prevProps )
+    if ( hashObject( prevProps.data ) !== hashObject( props.data ) ||
+      hashObject( prevProps.width ) !== hashObject( props.width ) ||
+      hashObject( prevProps.printMode ) !== hashObject( props.printMode ) ) {
       this._redrawChart()
     }
   }
@@ -35,7 +37,6 @@ export class StackedAreaChart extends React.Component {
     }
   }
   _redrawChart() {
-    console.log('draw?')
     const chartID = '#stacked-area-chart'
     const container = d3.select( chartID )
     const containerWidth =
@@ -113,9 +114,14 @@ export const mapStateToProps = state => ( {
   interval: state.query.dateInterval,
   lastDate: state.trends.lastDate,
   lens: state.trends.lens,
+  printMode: state.view.printMode,
   tooltip: state.trends.tooltip,
   width: state.view.width
 } )
+
+StackedAreaChart.propTypes = {
+  title: PropTypes.string.isRequired
+}
 
 export default connect( mapStateToProps,
   mapDispatchToProps )( StackedAreaChart )

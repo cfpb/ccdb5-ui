@@ -53,15 +53,15 @@ jest.mock( 'd3', () => {
 function setupSnapshot() {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
-  const store = mockStore( {
-    trends: {
-      colorMap: [ { 'red': '#eee' }, { 'yellow': '#fff' } ]
-    }
-  } )
+  const store = mockStore( {} )
+  const colorMap = {
+    foo: '#fff',
+    bar: '#eee'
+  }
 
   return renderer.create(
     <Provider store={ store }>
-      <StackedAreaChart/>
+      <StackedAreaChart colorMap />
     </Provider>
   )
 }
@@ -162,7 +162,8 @@ describe( 'component: StackedAreaChart', () => {
           tooltip: {}
         },
         view: {
-          printMode: false
+          printMode: false,
+          width: 1000
         }
       }
 
@@ -172,7 +173,8 @@ describe( 'component: StackedAreaChart', () => {
         data: [],
         interval: 'Month',
         lens: 'Overview',
-        tooltip: {}
+        tooltip: {},
+        width: 1000
       } )
     } )
   } )
