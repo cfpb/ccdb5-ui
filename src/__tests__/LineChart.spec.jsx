@@ -54,13 +54,14 @@ jest.mock( 'd3', () => {
 function setupSnapshot() {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
-  const store = mockStore( {
-    map: {}
-  } )
+  const store = mockStore( {} )
 
+  const data = {
+    dataByTopic: []
+  }
   return renderer.create(
-    <Provider store={ store }>
-      <LineChart aggtype={'foo'}/>
+    <Provider store>
+      <LineChart data />
     </Provider>
   )
 }
@@ -93,39 +94,40 @@ describe( 'component: LineChart', () => {
     } )
 
     it( 'does nothing when no data', () => {
-      const target = shallow( <LineChart data={ [] } aggtype={'foo'}/> )
+      const target = shallow( <LineChart data={ [] }/> )
       target._redrawChart = jest.fn()
       target.setProps( { data: [] } )
-      expect(  target._redrawChart ).toHaveBeenCalledTimes( 0 )
+      expect( target._redrawChart ).toHaveBeenCalledTimes( 0 )
     } )
 
     it( 'trigger a new update when data changes', () => {
-      const target = shallow( <LineChart data={ [ 23, 4, 3 ] } aggtype={'foo'} total={1000}/> )
+      const target = shallow( <LineChart data={ [ 23, 4, 3 ] }
+                                         total={ 1000 }/> )
       target._redrawChart = jest.fn()
-      const sp = jest.spyOn(target.instance(), '_redrawChart')
+      const sp = jest.spyOn( target.instance(), '_redrawChart' )
       target.setProps( { data: [ 2, 5 ] } )
       expect( sp ).toHaveBeenCalledTimes( 1 )
     } )
 
     it( 'trigger a new update when printMode changes', () => {
       const target = shallow( <LineChart data={ [ 23, 4, 3 ] }
-                                        aggtype={'foo'} total={1000}
-                                        printMode={'false'}
+                                         total={ 1000 }
+                                         printMode={ 'false' }
       /> )
       target._redrawChart = jest.fn()
-      const sp = jest.spyOn(target.instance(), '_redrawChart')
+      const sp = jest.spyOn( target.instance(), '_redrawChart' )
       target.setProps( { printMode: true } )
       expect( sp ).toHaveBeenCalledTimes( 1 )
     } )
 
     it( 'trigger a new update when width changes', () => {
       const target = shallow( <LineChart data={ [ 23, 4, 3 ] }
-                                        aggtype={'foo'} total={1000}
-                                        printMode={'false'}
-                                        width={1000}
+                                         total={ 1000 }
+                                         printMode={ 'false' }
+                                         width={ 1000 }
       /> )
       target._redrawChart = jest.fn()
-      const sp = jest.spyOn(target.instance(), '_redrawChart')
+      const sp = jest.spyOn( target.instance(), '_redrawChart' )
       target.setProps( { width: 600 } )
       expect( sp ).toHaveBeenCalledTimes( 1 )
     } )
@@ -137,31 +139,37 @@ describe( 'component: LineChart', () => {
         aggs: {
           total: 100
         },
-        map: {
-          results: {
-            baz: [ 1, 2, 3 ]
-          }
-        },
         query: {
-          baz: [ 1, 2, 3 ],
-          dateInterval: 'Month'
+          dateInterval: 'Month',
+          date_received_min: '',
+          date_received_max: '',
+          lens: 'Overview'
         },
         trends: {
+          colorMap: {},
           results: {
             dateRangeLine: []
-          }
+          },
+          tooltip: false
         },
         view: {
-          printMode: false
+          printMode: false,
+          width: 1000
         }
       }
-      const ownProps = {
-        aggtype: 'baz'
-      }
-      let actual = mapStateToProps( state, ownProps )
+      let actual = mapStateToProps( state )
       expect( actual ).toEqual( {
+        colorMap: {},
         data: [],
-        dateInterval: 'Month'
+        interval: 'Month',
+        dateRange: {
+          from: '',
+          to: ''
+        },
+        lens: 'Overview',
+        printMode: false,
+        tooltip: false,
+        width: 1000
       } )
     } )
   } )
