@@ -1,7 +1,7 @@
 // reducer for the Map Tab
 import * as colors from '../constants/colors'
 import {
-  formatPercentage, getSubKeyName, processErrorMessage
+  coalesce, formatPercentage, getSubKeyName, processErrorMessage
 } from '../utils'
 import actions from '../actions'
 import { getTooltipTitle } from '../utils/chart'
@@ -315,9 +315,9 @@ export function processTrendPeriod( bucket, k, docCount ) {
  */
 export const getColorScheme = ( lens, rowNames ) => {
   const colScheme = {},
-        colorScheme = colors.DataLens,
-        uniqueNames = [ ...new Set( rowNames.map( item => item.name ) ) ]
-          .filter( o => o !== 'Other' )
+    colorScheme = colors.DataLens,
+    uniqueNames = [ ...new Set( rowNames.map( item => item.name ) ) ]
+      .filter( o => o !== 'Other' )
 
   for ( let i = 0; i < uniqueNames.length; i++ ) {
     const n = uniqueNames[i]
@@ -338,20 +338,12 @@ export const getColorScheme = ( lens, rowNames ) => {
  * @returns {object} the new state for the Redux store
  */
 export function processTrends( state, action ) {
-  // If only date updates, don't wipe out the collection
-  const results = { ...state.results }
-  const lens = state.lens
+  const { lens, results } = state
   const aggregations = action.data.aggregations
-  const tooltip = false
-  let lastDate = state.lastDate
+
+  let lastDate
 
   for ( const k in aggregations ) {
-    // const v = aggregations
-    //
-    // console.log( k )
-    // console.log( aggregations )
-
-    // agg[drb][drb]
     /* istanbul ignore else */
     if ( aggregations[k] && aggregations[k][k] && aggregations[k][k].buckets ) {
       // set to zero when we are not using focus Lens
@@ -371,7 +363,7 @@ export function processTrends( state, action ) {
         )
       } else if ( k === 'dateRangeArea' ) {
         lastDate = getLastDateForTooltip( buckets )
-        results.dateRangeLine = processLineData(lens, aggregations )
+        results.dateRangeLine = processLineData( lens, aggregations )
 
         if ( lens !== 'Overview' ) {
           results[k] = processAreaData( state, aggregations, buckets )
@@ -391,7 +383,7 @@ export function processTrends( state, action ) {
     }
   }
 
-  const colorMap = getColorScheme( state.lens, results.dateRangeArea )
+  const colorMap = getColorScheme( lens, results.dateRangeArea )
 
   return {
     ...state,
@@ -400,7 +392,7 @@ export function processTrends( state, action ) {
     isLoading: false,
     lastDate,
     results,
-    tooltip
+    tooltip: false
   }
 }
 
@@ -420,7 +412,7 @@ function toggleTrend( state, action ) {
     // rip through results and expand the ones, or collapse
     /* istanbul ignore else */
     if ( results.hasOwnProperty( k ) && Array.isArray( results[k] ) ) {
-      console.log( k )
+      // console.log( k )
       results[k]
         .filter( o => o.parent === item )
         .forEach( o => {
@@ -504,8 +496,13 @@ export function processTrendsError( state, action ) {
     activeCall: '',
     error: processErrorMessage( action.error ),
     isLoading: false,
-    issue: [],
-    product: []
+    results: {
+      dateRangeArea: [],
+      dateRangeBrush: [],
+      dateRangeLine: [],
+      issue: [],
+      product: []
+    }
   }
 }
 
@@ -552,7 +549,7 @@ function processParams( state, action ) {
   const processed = Object.assign( {}, defaultState )
 
   // Handle flag filters
-  const filters = ['lens', 'subLens']
+  const filters = [ 'lens', 'subLens' ]
   for ( let val of filters ) {
     if ( params[val] ) {
       processed[val] = params[val]

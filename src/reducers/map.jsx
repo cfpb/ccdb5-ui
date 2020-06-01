@@ -1,7 +1,7 @@
 // reducer for the Map Tab
+import { coalesce, processErrorMessage } from '../utils'
 import { GEO_NORM_NONE, TILE_MAP_STATES } from '../constants'
 import actions from '../actions'
-import { coalesce } from '../utils'
 
 export const defaultState = {
   activeCall: '',
@@ -116,16 +116,18 @@ export function processStatesError( state, action ) {
   return {
     ...state,
     activeCall: '',
-    issue: [],
-    error: action.error,
+    error: processErrorMessage( action.error ),
     isLoading: false,
-    product: [],
-    state: TILE_MAP_STATES.map( o => ( {
-      name: o,
-      value: 0,
-      issue: '',
-      product: ''
-    } ) )
+    results: {
+      issue: [],
+      product: [],
+      state: TILE_MAP_STATES.map( o => ( {
+        name: o,
+        value: 0,
+        issue: '',
+        product: ''
+      } ) )
+    }
   }
 }
 
