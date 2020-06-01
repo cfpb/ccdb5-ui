@@ -89,7 +89,9 @@ function processBucket( state, agg ) {
   const nameMap = []
 
   // return list
-  return list.flat().map( obj => getD3Names( obj, nameMap, expandedTrends ) )
+  // flat example
+  return list
+    /// [].concat( ...list ).map( obj => getD3Names( obj, nameMap, expandedTrends ) )
 }
 
 /**
@@ -272,9 +274,9 @@ export function processTrendPeriod( bucket, k, docCount ) {
  * @returns {object} contains Name:Color map
  */
 export const getColorScheme = ( lens, rowNames ) => {
-  const colScheme = {},
-    colorScheme = colors.DataLens,
-    uniqueNames = [ ...new Set( rowNames.map( item => item.name ) ) ]
+  const colScheme = {}
+  const colorScheme = colors.DataLens
+  const uniqueNames = [ ...new Set( rowNames.map( item => item.name ) ) ]
       .filter( o => o !== 'Other' )
 
   for ( let i = 0; i < uniqueNames.length; i++ ) {
@@ -572,7 +574,6 @@ export function _buildHandlerMap() {
   handlers[actions.TREND_TOGGLED] = toggleTrend
   handlers[actions.TRENDS_TOOLTIP_CHANGED] = updateTooltip
   handlers[actions.URL_CHANGED] = processParams
-
 
   return handlers
 }
