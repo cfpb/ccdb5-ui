@@ -293,25 +293,29 @@ describe( 'reducer:map', () => {
     it( 'handles failed error messages', () => {
       action = {
         type: actions.STATES_FAILED,
-        error: 'foo bar'
+        error: { message: 'foo bar', name: 'ErrorTypeName' }
       }
       expect( target( {
         activeCall: 'someurl',
-        issue: [ 1, 2, 3 ],
-        product: [ 1, 2, 3 ],
-        state: [ 1, 2, 3 ]
+        results: {
+          issue: [ 1, 2, 3 ],
+          product: [ 1, 2, 3 ],
+          state: [ 1, 2, 3 ]
+        }
       }, action ) ).toEqual( {
         activeCall: '',
-        error: 'foo bar',
+        error: { message: 'foo bar', name: 'ErrorTypeName' },
         isLoading: false,
-        issue: [],
-        product: [],
-        state: TILE_MAP_STATES.map( o => ( {
-          name: o,
-          value: 0,
-          issue: '',
-          product: ''
-        } ) )
+        results: {
+          issue: [],
+          product: [],
+          state: TILE_MAP_STATES.map( o => ( {
+            name: o,
+            value: 0,
+            issue: '',
+            product: ''
+          } ) )
+        }
       } )
     } )
   } )

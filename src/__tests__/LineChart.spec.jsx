@@ -61,7 +61,7 @@ function setupSnapshot() {
   }
   return renderer.create(
     <Provider store={ store }>
-      <LineChart data/>
+      <LineChart data={ data } title={ 'foo' }/>
     </Provider>
   )
 }
