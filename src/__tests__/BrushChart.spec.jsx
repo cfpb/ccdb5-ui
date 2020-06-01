@@ -144,12 +144,16 @@ describe( 'component: BrushChart', () => {
           results: {
             dateRangeBrush: [ 'foo', 'bar' ]
           }
+        },
+        view: {
+          width: 1000
         }
       }
       let actual = mapStateToProps( state )
       expect( actual ).toEqual( {
         brushDateData: [ 'foo', 'bar' ],
-        dateRange: [ '2012', '2017' ]
+        dateRange: [ '2012', '2017' ],
+        width: 1000
       } )
     } )
   } )

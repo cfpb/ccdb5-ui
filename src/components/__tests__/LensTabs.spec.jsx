@@ -2,30 +2,20 @@ import configureMockStore from 'redux-mock-store'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
 import { LensTabs, mapDispatchToProps } from '../Trends/LensTabs'
-import { MODE_MAP } from '../../constants'
+import { MODE_MAP, REQUERY_ALWAYS } from '../../constants'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import thunk from 'redux-thunk'
 
 function setupSnapshot( printMode ) {
-  const items = [
-    { key: 'CA', doc_count: 62519 },
-    { key: 'FL', doc_count: 47358 }
-  ]
-
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
-  const store = mockStore( {
-    query: {
-      lens: 'Foo',
-      subLens: 'issue'
-    }
-  } )
+  const store = mockStore( {} )
 
   return renderer.create(
     <Provider store={ store }>
       <IntlProvider locale="en">
-        <LensTabs />
+        <LensTabs lens={ 'Product' }/>
       </IntlProvider>
     </Provider>
   )
@@ -38,12 +28,17 @@ describe( 'component:LensTabs', () => {
     expect( tree ).toMatchSnapshot()
   } )
 
-  describe('mapDispatchToProps', ()=>{
-    it('hooks into changeDataSubLens', ()=>{
+  describe( 'mapDispatchToProps', () => {
+    it( 'hooks into changeDataSubLens', () => {
       const dispatch = jest.fn()
-      mapDispatchToProps(dispatch).onTab();
-      expect(dispatch.mock.calls.length).toEqual(1);
-    })
-
+      mapDispatchToProps( dispatch ).onTab( 'What' )
+      expect( dispatch.mock.calls ).toEqual( [
+        [ {
+          requery: REQUERY_ALWAYS,
+          subLens: 'what',
+          type: 'DATA_SUBLENS_CHANGED'
+        } ]
+      ] )
+    } )
   })
 } )
