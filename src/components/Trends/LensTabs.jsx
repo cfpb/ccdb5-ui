@@ -9,15 +9,7 @@ const lensMaps = {
 }
 
 export class LensTabs extends React.Component {
-  constructor( props ) {
-    super( props )
-    this.state = {
-      tab: props.tab
-    }
-  }
-
   _setTab( tab ) {
-    window.scrollTo( 0, 0 )
     this.props.onTab( tab )
   }
 
