@@ -25,22 +25,23 @@ const defaultSubLens = {
 }
 
 export const defaultState = {
+  activeCall: '',
   chartType: 'line',
   colorMap: {},
+  expandedTrends: [],
   filterNames: [],
   focus: false,
-  expandedTrends: [],
   isLoading: false,
   lastDate: false,
   lens: 'Overview',
-  subLens: '',
   results: {
     dateRangeArea: [],
-    dateRangeLine: [],
     dateRangeBrush: [],
+    dateRangeLine: [],
     issue: [],
     product: []
   },
+  subLens: '',
   tooltip: false
 }
 
