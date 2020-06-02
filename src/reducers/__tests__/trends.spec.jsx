@@ -3,7 +3,7 @@ import target, {
   processTrends
 } from '../trends'
 import actions from '../../actions'
-import { resultsOverview } from '../__fixtures__/trendsResults'
+import { trendsResults } from '../__fixtures__/trendsResults'
 import trendsAggs from '../__fixtures__/trendsAggs'
 
 describe( 'reducer:trends', () => {
@@ -35,14 +35,60 @@ describe( 'reducer:trends', () => {
   } )
 
   describe( 'CHART_TYPE_CHANGED action', () => {
+    it( 'changes the chart type', () => {
+      action = {
+        type: actions.CHART_TYPE_CHANGED,
+        chartType: 'FooBar'
+      }
 
+      expect( target( { tooltip: true }, action ) ).toEqual( {
+        chartType: 'FooBar',
+        tooltip: false
+      } )
+    } )
   } )
 
   describe( 'DATA_LENS_CHANGED action', () => {
+    it( 'updates the data lens', () => {
+      action = {
+        type: actions.DATA_LENS_CHANGED,
+        lens: 'Foo'
+      }
 
+      expect( target( {}, action ) ).toEqual( {
+        lens: 'Foo'
+      } )
+    } )
   } )
 
   describe( 'TAB_CHANGED action', () => {
+    it( 'handles trends tabs', () => {
+      action = {
+        type: actions.TAB_CHANGED,
+        tab: 'Trends'
+      }
+
+      expect( target( { results: [ 1, 2, 3 ] }, action ) ).toEqual( {
+        results: [ 1, 2, 3 ]
+      } )
+    } )
+
+    it( 'clears results when its Other tabs', () => {
+      action = {
+        type: actions.TAB_CHANGED,
+        tab: 'Foo'
+      }
+
+      expect( target( { results: [ 1, 2, 3 ] }, action ) ).toEqual( {
+        results: {
+          dateRangeArea: [],
+          dateRangeBrush: [],
+          dateRangeLine: [],
+          issue: [],
+          product: []
+        }
+      } )
+    } )
 
   } )
 
@@ -99,13 +145,84 @@ describe( 'reducer:trends', () => {
 
     it( 'maps data to object state - Overview', () => {
       const result = target( defaultState, action )
-      expect( result ).toEqual( resultsOverview )
+      expect( result ).toEqual( trendsResults )
     } )
   } )
 
-  describe( 'TREND_TOGGLED action', () => {
+  describe( 'TREND_TOGGLED', () => {
+    let state, action;
+    beforeEach( () => {
+      state = {
+        expandedTrends: [ 'bar' ],
+        filterNames: [ 'bar', 'foo' ],
+        results: {
+          issue: [
+            { name: 'bar', visible: true },
+            { name: 'bar1', visible: true, parent: 'bar' },
+            { name: 'bar2', visible: true, parent: 'bar' },
+            { name: 'foo', visible: true },
+            { name: 'foo1', visible: false, parent: 'foo' },
+            { name: 'foo2', visible: false, parent: 'foo' }
+          ]
+        }
+      };
 
-  } )
+    } );
+
+    it( 'makes bars visible', () => {
+      action = { type: actions.TREND_TOGGLED, value: 'foo' };
+      expect( target( state, action ) ).toEqual( {
+        expandedTrends: [ 'bar', 'foo' ],
+        filterNames: [ 'bar', 'foo' ],
+        results: {
+          issue: [
+            { name: 'bar', visible: true },
+            { name: 'bar1', visible: true, parent: 'bar' },
+            { name: 'bar2', visible: true, parent: 'bar' },
+            { name: 'foo', visible: true },
+            { name: 'foo1', visible: true, parent: 'foo' },
+            { name: 'foo2', visible: true, parent: 'foo' }
+          ]
+        }
+      } );
+    } );
+
+    it( 'hides bars', () => {
+      action = { type: actions.TREND_TOGGLED, value: 'bar' };
+      expect( target( state, action ) ).toEqual( {
+        expandedTrends: [],
+        filterNames: [ 'bar', 'foo' ],
+        results: {
+          issue: [
+            { name: 'bar', visible: true },
+            { name: 'bar1', visible: false, parent: 'bar' },
+            { name: 'bar2', visible: false, parent: 'bar' },
+            { name: 'foo', visible: true },
+            { name: 'foo1', visible: false, parent: 'foo' },
+            { name: 'foo2', visible: false, parent: 'foo' }
+          ]
+        }
+      } );
+    } );
+
+    it( 'ignores bogus values not in filterNames', () => {
+      action = { type: actions.TREND_TOGGLED, value: 'haha' };
+      expect( target( state, action ) ).toEqual( {
+        expandedTrends: [ 'bar' ],
+        filterNames: [ 'bar', 'foo' ],
+        results: {
+          issue: [
+            { name: 'bar', visible: true },
+            { name: 'bar1', visible: true, parent: 'bar' },
+            { name: 'bar2', visible: true, parent: 'bar' },
+            { name: 'foo', visible: true },
+            { name: 'foo1', visible: false, parent: 'foo' },
+            { name: 'foo2', visible: false, parent: 'foo' }
+          ]
+        }
+      } );
+    } );
+  } );
 
   describe( 'TRENDS_TOOLTIP_CHANGED action', () => {
 

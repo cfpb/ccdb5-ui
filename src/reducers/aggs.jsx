@@ -95,7 +95,7 @@ export function processAggregationError( state, action ) {
   return {
     ...defaultAggs,
     isLoading: false,
-    error: action.error
+    error: processErrorMessage( action.error )
   }
 }
 
