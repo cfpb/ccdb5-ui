@@ -1,5 +1,8 @@
 import configureMockStore from 'redux-mock-store'
-import { mapStateToProps, BrushChart } from '../components/Charts/BrushChart'
+import {
+  mapStateToProps,
+  StackedAreaChart
+} from '../Charts/StackedAreaChart'
 import { mount, shallow } from 'enzyme'
 import { Provider } from 'react-redux'
 import React from 'react'
@@ -9,10 +12,9 @@ import thunk from 'redux-thunk'
 // this is how you override and mock an imported constructor
 jest.mock( 'britecharts', () => {
   const props = [
-    'brush', 'margin', 'backgroundColor', 'colorSchema', 'enableLabels',
-    'labelsSize', 'labelsTotalCount', 'labelsNumberFormat', 'outerPadding',
-    'percentageAxisToMaxRatio', 'yAxisLineWrapLimit', 'dateRange',
-    'yAxisPaddingBetweenChart', 'width', 'wrapLabels', 'height', 'on'
+    'stackedArea', 'margin', 'initializeVerticalMarker', 'colorSchema',
+    'dateLabel', 'tooltipThreshold', 'grid', 'aspectRatio', 'isAnimated', 'on',
+    'yAxisPaddingBetweenChart', 'width', 'height', 'areaCurve'
   ]
 
   const mock = {}
@@ -52,16 +54,19 @@ function setupSnapshot() {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
   const store = mockStore( {} )
+  const colorMap = {
+    foo: '#fff',
+    bar: '#eee'
+  }
 
   return renderer.create(
     <Provider store={ store }>
-      <BrushChart brushDateData={ [] }
-                  dateRange={ [] }/>
+      <StackedAreaChart title={ 'foo' } colorMap={ colorMap }/>
     </Provider>
   )
 }
 
-describe( 'component: BrushChart', () => {
+describe( 'component: StackedAreaChart', () => {
   describe( 'initial state', () => {
     it( 'renders without crashing', () => {
       const target = setupSnapshot()
@@ -75,13 +80,13 @@ describe( 'component: BrushChart', () => {
 
     beforeEach( () => {
       mapDiv = document.createElement( 'div' )
-      mapDiv.setAttribute( 'id', 'brush-chart-foo' )
+      mapDiv.setAttribute( 'id', 'stacked-area-chart-foo' )
       window.domNode = mapDiv
       document.body.appendChild( mapDiv )
     } )
 
     afterEach( () => {
-      const div = document.getElementById( 'brush-chart-foo' )
+      const div = document.getElementById( 'stacked-area-chart-foo' )
       if ( div ) {
         document.body.removeChild( div )
       }
@@ -89,19 +94,21 @@ describe( 'component: BrushChart', () => {
     } )
 
     it( 'does nothing when no data', () => {
-      const target = shallow( <BrushChart
-        brushDateData={ [] }
-        aggtype={ 'foo' }/> )
+      const target = shallow( <StackedAreaChart colorMap={ { foo: 'bar' } }
+                                                data={ [] }
+                                                title={'foo'}
+      /> )
       target._redrawChart = jest.fn()
       target.setProps( { data: [] } )
       expect( target._redrawChart ).toHaveBeenCalledTimes( 0 )
     } )
 
     it( 'trigger a new update when data changes', () => {
-      const target = shallow( <BrushChart
-        brushDateData={ [ 23, 4, 3 ] }
-        aggtype={ 'foo' }
-      /> )
+      const target = shallow( <StackedAreaChart
+        colorMap={ { foo: 'bar', shi: 'oio' } }
+        title={'foo'}
+        data={ [ 23, 4, 3 ] }
+        total={ 1000 }/> )
       target._redrawChart = jest.fn()
       const sp = jest.spyOn( target.instance(), '_redrawChart' )
       target.setProps( { data: [ 2, 5 ] } )
@@ -109,9 +116,11 @@ describe( 'component: BrushChart', () => {
     } )
 
     it( 'trigger a new update when printMode changes', () => {
-      const target = shallow( <BrushChart
-        brushDateData={ [ 23, 4, 3 ] }
-        aggtype={ 'foo' } total={ 1000 }
+      const target = shallow( <StackedAreaChart
+        title={'foo'}
+        colorMap={ { foo: 'bar', shi: 'oio' } }
+        data={ [ 23, 4, 3 ] }
+        total={ 1000 }
         printMode={ 'false' }
       /> )
       target._redrawChart = jest.fn()
@@ -121,10 +130,12 @@ describe( 'component: BrushChart', () => {
     } )
 
     it( 'trigger a new update when width changes', () => {
-      const target = shallow( <BrushChart brushDateData={ [ 23, 4, 3 ] }
-                                          aggtype={ 'foo' } total={ 1000 }
-                                          printMode={ 'false' }
-                                          width={ 1000 }
+      const target = shallow( <StackedAreaChart
+        title={'foo'}
+        colorMap={ { foo: 'bar', shi: 'oio' } }
+        data={ [ 23, 4, 3 ] }
+        printMode={ 'false' }
+        width={ 1000 }
       /> )
       target._redrawChart = jest.fn()
       const sp = jest.spyOn( target.instance(), '_redrawChart' )
@@ -137,22 +148,31 @@ describe( 'component: BrushChart', () => {
     it( 'maps state and props', () => {
       const state = {
         query: {
-          date_received_min: '2012',
-          date_received_max: '2017'
+          baz: [ 1, 2, 3 ],
+          dateInterval: 'Month'
         },
         trends: {
+          colorMap: {},
+          lens: 'Overview',
           results: {
-            dateRangeBrush: [ 'foo', 'bar' ]
-          }
+            dateRangeArea: []
+          },
+          tooltip: {}
         },
         view: {
+          printMode: false,
           width: 1000
         }
       }
+
       let actual = mapStateToProps( state )
       expect( actual ).toEqual( {
-        brushDateData: [ 'foo', 'bar' ],
-        dateRange: [ '2012', '2017' ],
+        colorMap: {},
+        data: [],
+        interval: 'Month',
+        lens: 'Overview',
+        printMode: false,
+        tooltip: {},
         width: 1000
       } )
     } )
