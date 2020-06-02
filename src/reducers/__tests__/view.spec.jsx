@@ -86,6 +86,7 @@ describe( 'reducer:map', () => {
         fromExternal: true,
         printMode: true,
         showFilters: true,
+        showTrends: false,
         width: 0
       } )
     } )
