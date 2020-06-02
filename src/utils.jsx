@@ -154,6 +154,22 @@ export const normalize = s => s.toLowerCase()
 export const slugify = ( a, b ) => a + SLUG_SEPARATOR + b
 
 /**
+* Processes the cookie string into key-value pairs
+*
+* @param {string} cookies the unprocessed cookie string
+* @returns {Object} a dictionary of cookie keys and values
+*/
+export function parseCookies( cookies = document.cookie ) {
+  return cookies.split( ';' ).reduce( ( accum, x ) => {
+    const [ k, v ] = x.trim().split( '=' )
+    if ( k ) {
+      accum[k] = v
+    }
+    return accum
+  }, {} )
+}
+
+/**
  * Custom sort for array so that selected items appear first, then by doc_count
  * @param {array} options input array containing values
  * @param {array} selected values
