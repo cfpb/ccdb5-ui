@@ -10,7 +10,6 @@ module.exports = {
   'setupFiles': [
     '<rootDir>/config/polyfills.js',
     '<rootDir>/config/setup.js',
-    'core-js'
   ],
   'testMatch': [
     '<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}',
