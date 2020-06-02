@@ -88,9 +88,10 @@ function processBucket( state, agg ) {
 
   const nameMap = []
 
-  // return list
-  // flat example
-  return [].concat( ...list ).map( obj => getD3Names( obj, nameMap, expandedTrends ) )
+  // return flattened list
+  return []
+    .concat( ...list )
+    .map( obj => getD3Names( obj, nameMap, expandedTrends ) )
 }
 
 /**
@@ -183,8 +184,8 @@ function processAreaData( state, aggregations, buckets ) {
     // we're missing a bucket, so fill it in.
     if ( o.trend_period.buckets.length !== Object.keys( refBuckets ).length ) {
       // console.log( refBuckets )
-      for ( const k in refBuckets ) {
-        const obj = refBuckets[k]
+      for ( const refBucket of refBuckets ) {
+        const obj = refBucket
         const datePoint = compBuckets
           .filter( f => f.name === o.key )
           .find( f => isDateEqual( f.date, obj.date ) )
