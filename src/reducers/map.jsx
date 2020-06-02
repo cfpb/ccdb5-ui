@@ -121,12 +121,7 @@ export function processStatesError( state, action ) {
     results: {
       issue: [],
       product: [],
-      state: TILE_MAP_STATES.map( o => ( {
-        name: o,
-        value: 0,
-        issue: '',
-        product: ''
-      } ) )
+      state: []
     }
   }
 }

@@ -159,7 +159,7 @@ describe( 'component: LineChart', () => {
     } )
 
     it( 'does nothing when no data', () => {
-      const target = shallow( <LineChart data={ [] }/> )
+      const target = shallow( <LineChart data={ [] } title={ 'foo' }/> )
       target._redrawChart = jest.fn()
       target.setProps( { data: [] } )
       expect( target._redrawChart ).toHaveBeenCalledTimes( 0 )
@@ -169,6 +169,7 @@ describe( 'component: LineChart', () => {
       const target = shallow( <LineChart tooltipUpdated={ jest.fn() }
                                          colorMap={ colorMap }
                                          data={ data }
+                                         title={ 'foo' }
                                          lastDate={ lastDate }
       /> )
       target._redrawChart = jest.fn()
@@ -206,6 +207,7 @@ describe( 'component: LineChart', () => {
                                          tooltipUpdated={ jest.fn() }
                                          colorMap={ colorMap }
                                          printMode={ 'false' }
+                                         title={ 'foo' }
                                          lastDate={ lastDate }
       /> )
       target._redrawChart = jest.fn()
@@ -220,6 +222,7 @@ describe( 'component: LineChart', () => {
                                          tooltipUpdated={ jest.fn() }
                                          printMode={ 'false' }
                                          width={ 1000 }
+                                         title={ 'foo' }
                                          lastDate={ lastDate }
       /> )
       target._redrawChart = jest.fn()

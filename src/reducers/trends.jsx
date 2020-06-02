@@ -90,8 +90,7 @@ function processBucket( state, agg ) {
 
   // return list
   // flat example
-  return list
-    /// [].concat( ...list ).map( obj => getD3Names( obj, nameMap, expandedTrends ) )
+  return [].concat( ...list ).map( obj => getD3Names( obj, nameMap, expandedTrends ) )
 }
 
 /**
