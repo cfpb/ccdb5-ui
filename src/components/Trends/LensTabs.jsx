@@ -43,8 +43,7 @@ export class LensTabs extends React.Component {
 
 export const mapStateToProps = state => ( {
   lens: state.query.lens,
-  subLens: state.query.subLens,
-  tab: state.query.tab
+  subLens: state.query.subLens
 } )
 
 export const mapDispatchToProps = dispatch => ( {

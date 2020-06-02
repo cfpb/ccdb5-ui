@@ -29,22 +29,20 @@ export const getLastDate = ( dataSet, config ) => {
 
 export const getLastLineDate = ( dataSet, config ) => {
   // take in array of data points
-  if ( !dataSet || dataSet.dataByTopic.length === 0 ) { return null; }
+  if ( !dataSet || dataSet.dataByTopic.length === 0 ) {
+    return null
+  }
 
   const lastDate = config.lastDate
-  console.log( lastDate )
-
   const values = dataSet.dataByTopic.map( o => {
-    console.log(o.dates)
     const lastPoint = o.dates.find( o => isDateEqual( o.date, lastDate ) )
-    console.log(lastPoint)
     const value = lastPoint ? lastPoint.value : 0
     return {
       name: o.topic,
       date: lastDate,
       value
     }
-  });
+  } )
 
   const lastPoint = {
     key: lastDate,
@@ -52,8 +50,8 @@ export const getLastLineDate = ( dataSet, config ) => {
     dateRange: config.dateRange,
     interval: config.interval,
     values
-  };
-  return lastPoint;
+  }
+  return lastPoint
 }
 
 

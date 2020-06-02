@@ -1,5 +1,5 @@
 import configureMockStore from 'redux-mock-store'
-import { mapStateToProps, LineChart } from '../components/Charts/LineChart'
+import { mapStateToProps, LineChart } from '../Charts/LineChart'
 import { mount, shallow } from 'enzyme'
 import { Provider } from 'react-redux'
 import React from 'react'
