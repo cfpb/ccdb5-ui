@@ -3,11 +3,14 @@ import target, {
   processTrends
 } from '../trends'
 import actions from '../../actions'
-import { trendsResults } from '../__fixtures__/trendsResults'
+import {
+  trendsLensIssueResults,
+  trendsResults
+} from '../__fixtures__/trendsResults'
 import trendsAggs from '../__fixtures__/trendsAggs'
 
 describe( 'reducer:trends', () => {
-  let action
+  let action, result
 
   describe( 'reducer', () => {
     it( 'has a default state', () => {
@@ -134,6 +137,7 @@ describe( 'reducer:trends', () => {
   } )
 
   describe( 'TRENDS_RECEIVED actions', () => {
+    let state
     beforeEach( () => {
       action = {
         type: actions.TRENDS_RECEIVED,
@@ -141,12 +145,20 @@ describe( 'reducer:trends', () => {
           aggregations: trendsAggs
         }
       }
+      state = Object.assign( {}, defaultState )
     } )
 
     it( 'maps data to object state - Overview', () => {
-      const result = target( defaultState, action )
+      result = target( state, action )
       expect( result ).toEqual( trendsResults )
     } )
+
+    it( 'maps data to object state - Issue Lens', () => {
+      state.lens = 'Issue'
+      result = target( state, action )
+      expect( result ).toEqual( trendsLensIssueResults )
+    } )
+
   } )
 
   describe( 'TREND_TOGGLED', () => {
