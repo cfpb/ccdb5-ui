@@ -334,15 +334,6 @@ export function processTrends( state, action ) {
     }
   }
 
-  // prune off the results that aren't being returned in aggregations
-  const aggKeys = Object.keys( aggregations )
-  for ( const k in results ) {
-    // temp placeholder...
-    if ( !aggKeys.includes( k ) && k !== 'dateRangeLine' ) {
-      delete results[k]
-    }
-  }
-
   const colorMap = getColorScheme( lens, results.dateRangeArea )
 
   return {
@@ -351,8 +342,7 @@ export function processTrends( state, action ) {
     colorMap,
     isLoading: false,
     lastDate,
-    results,
-    tooltip: false
+    results
   }
 }
 
