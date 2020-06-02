@@ -104,7 +104,7 @@ export class LineChart extends React.Component {
       values: this.props.data.topics
     }
     // get the last date and fire it off to redux
-    console.log( getLastLineDate( this.props.data, config ) )
+    // console.log( getLastLineDate( this.props.data, config ) )
 
     this.props.tooltipUpdated( getLastLineDate( this.props.data, config ) )
   }

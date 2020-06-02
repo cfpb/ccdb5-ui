@@ -5,7 +5,7 @@ import target, {
 } from '../map'
 import actions from '../../actions'
 import stateAggs from '../__fixtures__/stateAggs'
-import { GEO_NORM_NONE, TILE_MAP_STATES } from '../../constants'
+import { GEO_NORM_NONE } from '../../constants'
 
 describe( 'reducer:map', () => {
   let action
@@ -25,7 +25,7 @@ describe( 'reducer:map', () => {
     } )
   } )
 
-  describe('handles DATA_NORMALIZATION_SELECTED', ()=>{
+  describe( 'handles DATA_NORMALIZATION_SELECTED', () => {
     action = {
       type: actions.DATA_NORMALIZATION_SELECTED,
       value: 'FooBar'
@@ -33,11 +33,11 @@ describe( 'reducer:map', () => {
     expect( target( {}, action ) ).toEqual( {
       dataNormalization: 'FooBar'
     } )
-  })
+  } )
 
-  describe('DATE_RANGE_CHANGED',()=>{
+  describe( 'DATE_RANGE_CHANGED', () => {
 
-    it('handles date_received', ()=>{
+    it( 'handles date_received', () => {
       action = {
         type: actions.DATE_RANGE_CHANGED,
         filterName: 'date_received',
@@ -49,7 +49,7 @@ describe( 'reducer:map', () => {
       } )
     } )
 
-    it('handles company_received', ()=>{
+    it( 'handles company_received', () => {
       action = {
         type: actions.DATE_RANGE_CHANGED,
         filterName: 'company_received',
@@ -61,7 +61,7 @@ describe( 'reducer:map', () => {
       } )
     } )
 
-    it('handles company_received null vals', ()=>{
+    it( 'handles company_received null vals', () => {
       action = {
         type: actions.DATE_RANGE_CHANGED,
         filterName: 'company_received',
@@ -72,9 +72,9 @@ describe( 'reducer:map', () => {
         dataNormalization: 'FooBar'
       } )
     } )
-  })
+  } )
 
-  describe('handles FILTER_CHANGED', ()=>{
+  describe( 'handles FILTER_CHANGED', () => {
     action = {
       type: actions.FILTER_CHANGED,
       value: 'FooBar'
@@ -92,7 +92,7 @@ describe( 'reducer:map', () => {
     expect( target( { dataNormalization: 'FooBar' }, action ) ).toEqual( {
       dataNormalization: GEO_NORM_NONE
     } )
-  })
+  } )
 
   describe( 'handles STATE_FILTER_ADDED', () => {
     action = {
@@ -102,7 +102,7 @@ describe( 'reducer:map', () => {
     expect( target( { dataNormalization: 'FooBar' }, action ) ).toEqual( {
       dataNormalization: GEO_NORM_NONE
     } )
-  })
+  } )
 
   describe( 'handles STATES_API_CALLED actions', () => {
     action = {
@@ -295,6 +295,7 @@ describe( 'reducer:map', () => {
         type: actions.STATES_FAILED,
         error: { message: 'foo bar', name: 'ErrorTypeName' }
       }
+
       expect( target( {
         activeCall: 'someurl',
         results: {
@@ -309,12 +310,7 @@ describe( 'reducer:map', () => {
         results: {
           issue: [],
           product: [],
-          state: TILE_MAP_STATES.map( o => ( {
-            name: o,
-            value: 0,
-            issue: '',
-            product: ''
-          } ) )
+          state: []
         }
       } )
     } )
