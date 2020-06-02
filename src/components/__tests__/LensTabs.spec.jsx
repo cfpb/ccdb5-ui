@@ -20,7 +20,7 @@ function setupSnapshot() {
   return renderer.create(
     <Provider store={ store }>
       <IntlProvider locale="en">
-        <LensTabs lens={ 'Product' }/>
+        <LensTabs lens={ 'Product' } subLens={ 'Product' }/>
       </IntlProvider>
     </Provider>
   )

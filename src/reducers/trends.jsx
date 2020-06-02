@@ -1,9 +1,10 @@
 /* eslint max-nested-callbacks: ["error", 4] */
+/* eslint-disable camelcase */
 
 // reducer for the Map Tab
 import * as colors from '../constants/colors'
 import {
-  coalesce, formatPercentage, getSubKeyName, processErrorMessage
+  formatPercentage, getSubKeyName, processErrorMessage
 } from '../utils'
 import actions from '../actions'
 import { getTooltipTitle } from '../utils/chart'
@@ -16,14 +17,6 @@ const filterMap = {
   'Sub-issue': 'Sub-Issue',
   'Product': 'Product',
   'Sub-product': 'Sub-Product'
-}
-
-const defaultSubLens = {
-  Overview: '',
-  Product: 'Sub-product',
-  Issue: 'Sub-issue',
-  Company: 'Product',
-  Collection: 'Product'
 }
 
 export const defaultState = {
@@ -128,9 +121,6 @@ function getD3Names( obj, nameMap, expandedTrends ) {
   }
 }
 
-function getLastDateForTooltip( buckets ) {
-  return buckets[buckets.length - 1].key_as_string
-}
 
 /**
  * processes the stuff for the area chart, combining them if necessary
@@ -142,7 +132,7 @@ function getLastDateForTooltip( buckets ) {
 function processAreaData( state, aggregations, buckets ) {
   const mainName = state.lens === 'Overview' ? 'Complaints' : 'Other'
   // overall buckets
-  let compBuckets = buckets.map(
+  const compBuckets = buckets.map(
     obj => ( {
       name: mainName,
       value: obj.doc_count,
@@ -172,8 +162,8 @@ function processAreaData( state, aggregations, buckets ) {
 
       // delete total from that date
       const pos = compBuckets
-        .findIndex( i => i.name === mainName &&
-          isDateEqual( i.date, p.key_as_string ) )
+        .findIndex( k => k.name === mainName &&
+          isDateEqual( k.date, p.key_as_string ) )
 
       /* istanbul ignore else */
       if ( pos > -1 ) {
@@ -184,9 +174,8 @@ function processAreaData( state, aggregations, buckets ) {
 
     // we're missing a bucket, so fill it in.
     if ( o.trend_period.buckets.length !== Object.keys( refBuckets ).length ) {
-      // console.log( refBuckets )
-      for ( const refBucket of refBuckets ) {
-        const obj = refBucket
+      for ( let k = 0; k < refBuckets.length; k++ ) {
+        const obj = refBuckets[i]
         const datePoint = compBuckets
           .filter( f => f.name === o.key )
           .find( f => isDateEqual( f.date, obj.date ) )
@@ -205,6 +194,13 @@ function processAreaData( state, aggregations, buckets ) {
   return compBuckets
 }
 
+/**
+ * Process aggs and convert them into a format for Line Charts
+ * @param {string} lens Overview, Issue, Product, etc
+ * @param {object} aggregations comes from the API
+ * @returns {{dataByTopic: ([{dashed: boolean, show: boolean, topic: string,
+ * topicName: string, dates: *}]|[])}} theformatted object containing line info
+ */
 function processLineData( lens, aggregations ) {
   const areaBuckets = aggregations.dateRangeArea.dateRangeArea.buckets
   const dataByTopic = lens === 'Overview' ? [
@@ -245,7 +241,7 @@ function processLineData( lens, aggregations ) {
  * processes the aggregation buckets to get the deltas for rows
  * @param {object} bucket subagg bucket with difference intervals
  * @param {string} k key, issue, product etc
- * @param {integer} docCount overall agg count of the results being returned
+ * @param {number} docCount overall agg count of the results being returned
  */
 export function processTrendPeriod( bucket, k, docCount ) {
   // v[k].buckets[i] = bucket
@@ -323,7 +319,8 @@ export function processTrends( state, action ) {
           } )
         )
       } else if ( k === 'dateRangeArea' ) {
-        lastDate = getLastDateForTooltip( buckets )
+        // get the last date now to save time
+        lastDate = buckets[buckets.length - 1].key_as_string
         results.dateRangeLine = processLineData( lens, aggregations )
 
         if ( lens !== 'Overview' ) {
@@ -501,7 +498,7 @@ function processParams( state, action ) {
 
   // Handle flag filters
   const filters = [ 'lens', 'subLens' ]
-  for ( let val of filters ) {
+  for ( const val of filters ) {
     if ( params[val] ) {
       processed[val] = params[val]
     }

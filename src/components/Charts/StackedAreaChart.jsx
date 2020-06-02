@@ -35,6 +35,7 @@ export class StackedAreaChart extends React.Component {
       } )
     }
   }
+
   _redrawChart() {
     if ( !this.props.data ) {
       return
@@ -50,7 +51,7 @@ export class StackedAreaChart extends React.Component {
     const stackedAreaChart = stackedArea()
     const colors = Object.values( this.props.colorMap )
 
-    stackedAreaChart.margin( { left:50, right: 10, top: 10, bottom: 40 } )
+    stackedAreaChart.margin( { left: 50, right: 10, top: 10, bottom: 40 } )
       .areaCurve( 'linear' )
       .initializeVerticalMarker( true )
       .isAnimated( false )
@@ -66,15 +67,15 @@ export class StackedAreaChart extends React.Component {
       // } )
       .on( 'customMouseMove', this._tipStuff.bind( this ) )
 
-      //   function ( evt ) {
-      //   console.log( 'Moved, update tt' )
-      //   tipchanged( evt )
-      //   console.log( evt )
-      // } )
-      // .on( 'customMouseOut', function ( evt ) {
-      //   console.log( 'I was mouseout' )
-      //   console.log( evt )
-      // });
+    //   function ( evt ) {
+    //   console.log( 'Moved, update tt' )
+    //   tipchanged( evt )
+    //   console.log( evt )
+    // } )
+    // .on( 'customMouseOut', function ( evt ) {
+    //   console.log( 'I was mouseout' )
+    //   console.log( evt )
+    // });
 
     container.datum( this.props.data ).call( stackedAreaChart )
     if ( this.props.tooltip === false ) {

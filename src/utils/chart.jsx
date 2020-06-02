@@ -35,7 +35,7 @@ export const getLastLineDate = ( dataSet, config ) => {
 
   const lastDate = config.lastDate
   const values = dataSet.dataByTopic.map( o => {
-    const lastPoint = o.dates.find( o => isDateEqual( o.date, lastDate ) )
+    const lastPoint = o.dates.find( v => isDateEqual( v.date, lastDate ) )
     const value = lastPoint ? lastPoint.value : 0
     return {
       name: o.topic,
@@ -88,7 +88,8 @@ export const getTooltipTitle = ( inputDate, interval, dateRange ) => {
 
   endDate = getTooltipDate( endDate, dateRange )
 
-  return interval === 'day' ? endDate : `${ startDate } - ${ endDate }`
+  return interval === 'day' ? `Date: ${ endDate }` :
+    `Date Interval: ${ startDate } - ${ endDate }`
 }
 
 /**

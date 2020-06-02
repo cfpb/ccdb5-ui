@@ -15,8 +15,12 @@ export class LensTabs extends React.Component {
 
   _getTabClass( tab ) {
     tab = tab.toLowerCase()
-    const tabName = tab + ' tab'
-    return this.props.subLens === tab ? tabName + ' active' : tabName
+    const classes = [ 'tab', tab ]
+
+    if ( this.props.subLens.toLowerCase() === tab ) {
+      classes.push( 'active' )
+    }
+    return classes.join( ' ' )
   }
 
   render() {
