@@ -23,11 +23,14 @@ export class TabbedNavigation extends React.Component {
             Map
           </button>
 
-          <button
-            className={ this._getTabClass( 'Trends' ) }
-            onClick={() => this._setTab( 'Trends' )}>
-            Trends
-          </button>
+          {
+            this.props.showTrends &&
+            <button
+              className={ this._getTabClass( 'Trends' ) }
+              onClick={() => this._setTab( 'Trends' )}>
+              Trends
+            </button>
+          }
 
           <button className={ this._getTabClass( 'List' ) }
                   onClick={() => this._setTab( 'List' )}>
@@ -40,6 +43,7 @@ export class TabbedNavigation extends React.Component {
 }
 
 export const mapStateToProps = state => ( {
+  showTrends: state.view.showTrends,
   tab: state.query.tab
 } )
 

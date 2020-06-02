@@ -298,12 +298,6 @@ exports[`initial state renders without crashing 1`] = `
           Map
         </button>
         <button
-          className="trends tab"
-          onClick={[Function]}
-        >
-          Trends
-        </button>
-        <button
           className="list tab"
           onClick={[Function]}
         >
