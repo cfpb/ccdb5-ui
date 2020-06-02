@@ -53,6 +53,7 @@ function setupSnapshot(items=[], initialStore={}, tab = 'List', printMode) {
     },
     results,
     query: {
+      lens: 'Overview',
       tab: tab
     },
     trends: {
@@ -77,6 +78,12 @@ describe('component:Results', () => {
   let actionMock = jest.fn()
   it('renders map panel without crashing', () => {
     const target = setupSnapshot( fixture, null, 'Map' );
+    const tree = target.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('renders trends panel without crashing', () => {
+    const target = setupSnapshot( fixture, null, 'Trends' );
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   });

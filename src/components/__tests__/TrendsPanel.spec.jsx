@@ -51,7 +51,7 @@ jest.mock( 'd3', () => {
 } )
 
 
-function setupSnapshot( printMode ) {
+function setupSnapshot( printMode, overview ) {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
   const store = mockStore( {
@@ -62,7 +62,7 @@ function setupSnapshot( printMode ) {
     query: {
       date_received_min: "2018-01-01T00:00:00.000Z",
       date_received_max: "2020-01-01T00:00:00.000Z",
-      lens: 'Overview',
+      lens: overview ? 'Overview' : 'Product',
       subLens: ''
     },
     trends: {
@@ -119,7 +119,7 @@ function setupSnapshot( printMode ) {
           dataLensData={ { data: [], colorScheme: [] } }
           issueData={ { data: [], colorScheme: [] } }
           productData={ { data: [], colorScheme: [] } }
-          overview={ true }
+          overview={ overview }
         />
       </IntlProvider>
     </Provider>
@@ -128,17 +128,22 @@ function setupSnapshot( printMode ) {
 
 describe( 'component:TrendsPanel', () => {
   it( 'renders without crashing', () => {
-    const target = setupSnapshot( false )
+    const target = setupSnapshot( false, true )
     const tree = target.toJSON()
     expect( tree ).toMatchSnapshot()
   } )
 
   it( 'renders print mode without crashing', () => {
-    const target = setupSnapshot( true )
+    const target = setupSnapshot( true, true )
     const tree = target.toJSON()
     expect( tree ).toMatchSnapshot()
   } )
 
+  it( 'renders external Tooltip without crashing', () => {
+    const target = setupSnapshot( true, false )
+    const tree = target.toJSON()
+    expect( tree ).toMatchSnapshot()
+  } )
 
   describe( 'mapDispatchToProps', () => {
     it( 'hooks into changeChartType', () => {

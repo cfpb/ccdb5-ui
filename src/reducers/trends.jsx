@@ -1,3 +1,5 @@
+/* eslint max-nested-callbacks: ["error", 4] */
+
 // reducer for the Map Tab
 import * as colors from '../constants/colors'
 import {
@@ -169,7 +171,6 @@ function processAreaData( state, aggregations, buckets ) {
       } )
 
       // delete total from that date
-      /* eslint max-nested-callbacks: ["error", 4] */
       const pos = compBuckets
         .findIndex( i => i.name === mainName &&
           isDateEqual( i.date, p.key_as_string ) )

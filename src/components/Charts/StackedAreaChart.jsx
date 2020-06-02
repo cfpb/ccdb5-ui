@@ -36,6 +36,10 @@ export class StackedAreaChart extends React.Component {
     }
   }
   _redrawChart() {
+    if ( !this.props.data ) {
+      return
+    }
+
     const chartID = '#stacked-area-chart'
     const container = d3.select( chartID )
     const containerWidth =
