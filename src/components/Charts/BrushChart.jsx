@@ -42,6 +42,11 @@ export class BrushChart extends React.Component {
   }
 
   _redrawChart() {
+    // early exit if no data
+    if ( !this.props.brushDateData || this.props.brushDateData.length ) {
+      return
+    }
+
     const chartID = '#brush-chart'
     const container = d3.select( chartID )
     d3.select( chartID + ' .brush-chart' ).remove()
