@@ -2,7 +2,6 @@ import configureMockStore from 'redux-mock-store'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
 import { TrendsPanel, mapDispatchToProps } from '../Trends/TrendsPanel'
-import { MODE_MAP } from '../../constants'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import thunk from 'redux-thunk'
@@ -14,7 +13,7 @@ jest.mock( 'britecharts', () => {
     'outerPadding', 'percentageAxisToMaxRatio', 'yAxisLineWrapLimit',
     'dateRange', 'yAxisPaddingBetweenChart', 'width', 'wrapLabels', 'height',
     'on', 'initializeVerticalMarker', 'isAnimated', 'tooltipThreshold', 'grid',
-    'aspectRatio', 'dateLabel'
+    'aspectRatio', 'dateLabel', 'shouldShowDateInTitle', 'topicLabel', 'title'
   ]
 
   const mock = {}
@@ -51,7 +50,7 @@ jest.mock( 'd3', () => {
 } )
 
 
-function setupSnapshot( printMode, overview ) {
+function setupSnapshot( printMode, chartType, overview, showMobileFilters ) {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
   const store = mockStore( {
@@ -63,7 +62,7 @@ function setupSnapshot( printMode, overview ) {
       date_received_min: "2018-01-01T00:00:00.000Z",
       date_received_max: "2020-01-01T00:00:00.000Z",
       lens: overview ? 'Overview' : 'Product',
-      subLens: ''
+      subLens: 'Issue'
     },
     trends: {
       colorMap: { "Complaints": "#ADDC91", "Other": "#a2a3a4" },
@@ -91,20 +90,17 @@ function setupSnapshot( printMode, overview ) {
             "topicName": "Complaints",
             "dashed": false,
             "show": true,
-            "dates": [ {
-              "date": "2020-03-01T00:00:00.000Z",
-              "value": 29506
-            }, {
-              "date": "2020-04-01T00:00:00.000Z",
-              "value": 35112
-            }, { "date": "2020-05-01T00:00:00.000Z", "value": 9821 } ]
+            "dates": [
+              { "date": "2020-03-01T00:00:00.000Z", "value": 29506 },
+              { "date": "2020-04-01T00:00:00.000Z", "value": 35112 },
+              { "date": "2020-05-01T00:00:00.000Z", "value": 9821 }
+            ]
           } ]
         }
       }
     },
     view: {
-      printMode,
-      width: 900
+      printMode
     }
   } )
 
@@ -115,11 +111,14 @@ function setupSnapshot( printMode, overview ) {
           onChartType={ jest.fn() }
           onInterval={ jest.fn() }
           onLens={ jest.fn() }
-          chartType={ 'line' }
+          chartType={ chartType }
           dataLensData={ { data: [], colorScheme: [] } }
           issueData={ { data: [], colorScheme: [] } }
           productData={ { data: [], colorScheme: [] } }
           overview={ overview }
+          lens={ overview ? 'Overview' : 'Product' }
+          subLensTitle={ 'Some title SubLens' }
+          showMobileFilters={ showMobileFilters }
         />
       </IntlProvider>
     </Provider>
@@ -127,20 +126,37 @@ function setupSnapshot( printMode, overview ) {
 }
 
 describe( 'component:TrendsPanel', () => {
-  it( 'renders without crashing', () => {
-    const target = setupSnapshot( false, true )
+  it( 'renders line without crashing', () => {
+    const target = setupSnapshot( false, 'line', true,
+      false )
+    const tree = target.toJSON()
+    expect( tree ).toMatchSnapshot()
+  } )
+
+  it( 'renders area without crashing', () => {
+    const target = setupSnapshot( false, 'area', true,
+      false )
     const tree = target.toJSON()
     expect( tree ).toMatchSnapshot()
   } )
 
   it( 'renders print mode without crashing', () => {
-    const target = setupSnapshot( true, true )
+    const target = setupSnapshot( true, 'line', true,
+      false )
+    const tree = target.toJSON()
+    expect( tree ).toMatchSnapshot()
+  } )
+
+  it( 'renders mobile filters without crashing', () => {
+    const target = setupSnapshot( true, 'line', true,
+      true )
     const tree = target.toJSON()
     expect( tree ).toMatchSnapshot()
   } )
 
   it( 'renders external Tooltip without crashing', () => {
-    const target = setupSnapshot( true, false )
+    const target = setupSnapshot( true, 'line', false,
+      false )
     const tree = target.toJSON()
     expect( tree ).toMatchSnapshot()
   } )

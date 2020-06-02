@@ -25,8 +25,6 @@ export class LineChart extends React.Component {
   }
 
   _tipStuff( evt ) {
-    console.log( this.props.tooltip.date + evt.date )
-
     if ( !isDateEqual( this.props.tooltip.date, evt.key ) ) {
       this.props.tooltipUpdated( {
         date: evt.date,
@@ -54,11 +52,15 @@ export class LineChart extends React.Component {
     d3.select( chartID + ' .line-chart' ).remove()
     const lineChart = line()
     const tip = tooltip()
+      .shouldShowDateInTitle( false )
+      .topicLabel( 'topics' )
+      .title( 'Complaints' )
 
     const interval = this.props.interval
     // will be Start Date - Date...
     const colorMap = this.props.colorMap
-    const colorScheme = this.props.data.dataByTopic.map( o => colorMap[ o.topic ] )
+    const colorScheme = this.props.data.dataByTopic
+      .map( o => colorMap[o.topic] )
 
     lineChart.margin( { left: 50, right: 10, top: 10, bottom: 40 } )
       .initializeVerticalMarker( true )
@@ -74,7 +76,8 @@ export class LineChart extends React.Component {
       const dateRange = this.props.dateRange
       lineChart
         .on( 'customMouseOver', tip.show )
-        .on( 'customMouseMove', function ( dataPoint, topicColorMap, dataPointXPosition ) {
+        .on( 'customMouseMove', function( dataPoint, topicColorMap,
+                                           dataPointXPosition ) {
           tip.title( getTooltipTitle( dataPoint.date, interval, dateRange ) )
           tip.update( dataPoint, topicColorMap, dataPointXPosition )
         } )
@@ -95,8 +98,6 @@ export class LineChart extends React.Component {
     }
 
     // get the last date and fire it off to redux
-    // console.log( getLastLineDate( this.props.data, config ) )
-
     this.props.tooltipUpdated( getLastLineDate( this.props.data, config ) )
   }
 

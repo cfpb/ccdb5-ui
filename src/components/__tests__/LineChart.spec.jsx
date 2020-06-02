@@ -15,7 +15,7 @@ jest.mock( 'britecharts', () => {
     'initializeVerticalMarker', 'yAxisPaddingBetweenChart', 'width', 'on',
     'wrapLabels', 'height', 'isAnimated', 'tooltipThreshold', 'aspectRatio',
     // tooltip specifics
-    'tooltip', 'title', 'update'
+    'tooltip', 'title', 'update', 'shouldShowDateInTitle', 'topicLabel'
   ]
 
   const mock = {}

@@ -16,8 +16,8 @@ import Loading from '../Dialogs/Loading'
 import { processRows } from '../../utils/chart'
 import React from 'react'
 import RowChart from '../Charts/RowChart'
-import { Select } from '../RefineBar/Select'
-import { Separator } from '../RefineBar/Separator'
+import Select from '../RefineBar/Select'
+import Separator from '../RefineBar/Separator'
 import StackedAreaChart from '../Charts/StackedAreaChart'
 
 const intervals = [ 'Day', 'Week', 'Month', 'Quarter', 'Year' ]
@@ -52,12 +52,13 @@ export class TrendsPanel extends React.Component {
                   id={ 'interval' }
                   value={ this.props.dateInterval }
                   handleChange={ this.props.onInterval }/>
-          { !this.props.overview && <Select label={ 'Chart Type' }
-                                            title={ 'Chart Type' }
-                                            values={ [ 'line', 'area' ] }
-                                            id={ 'chart-type' }
-                                            value={ this.props.chartType }
-                                            handleChange={ this.props.onChartType }/>
+          { !this.props.overview &&
+          <Select label={ 'Chart Type' }
+                  title={ 'Chart Type' }
+                  values={ [ 'line', 'area' ] }
+                  id={ 'chart-type' }
+                  value={ this.props.chartType }
+                  handleChange={ this.props.onChartType }/>
           }
           <DateRanges />
         </div>
@@ -75,12 +76,12 @@ export class TrendsPanel extends React.Component {
         <RowChart id="product"
                   colorScheme={this.props.productData.colorScheme}
                   data={this.props.productData.data}
-                  title="Product by highest complaint volume"/> }
+                  title={ 'Product by highest complaint volume' }/> }
         { this.props.overview &&
         <RowChart id="issue"
                   colorScheme={this.props.issueData.colorScheme}
                   data={this.props.issueData.data}
-                  title="Issue by highest complaint volume"/> }
+                  title={ 'Issue by highest complaint volume' }/> }
         { !this.props.overview && <LensTabs /> }
         { !this.props.overview &&
           <RowChart id={ this.props.lens }
