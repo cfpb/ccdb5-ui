@@ -1,7 +1,7 @@
 import {
   ariaReadoutNumbers, calculateDateRange, clamp, coalesce, debounce,
   getFullUrl, hasFiltersEnabled, hashCode, shortIsoFormat, sortSelThenCount,
-  startOfToday
+  startOfToday, parseCookies
 } from '../utils'
 import { DATE_RANGE_MIN } from '../constants'
 import React from 'react'
@@ -241,6 +241,30 @@ describe('module::utils', () => {
       expect( actual.getDate() ).toEqual( 1 )
       expect( actual.getHours() ).toEqual( 0 )
       expect( actual.getMinutes() ).toEqual( 0 )
+    } );
+  } );
+
+  describe( 'parseCookies', () => {
+    it( 'handles an empty string' , () => {
+      const actual = parseCookies( '' )
+      expect( actual ).toEqual( {} )
+    } );
+
+    it( 'handles undefined' , () => {
+      const actual = parseCookies( undefined )
+      expect( actual ).toEqual( {} )
+    } );
+
+    it( 'creates a dictionary from a cookie string' , () => {
+      const actual = parseCookies(
+        '_ga=fooo; _gid=baaar; csrftoken=baz; showTrends=hide;'
+      )
+      expect( actual ).toEqual( {
+        _ga: 'fooo',
+        _gid: 'baaar',
+        csrftoken: 'baz',
+        showTrends: 'hide'
+      } )
     } );
   } );
 })
