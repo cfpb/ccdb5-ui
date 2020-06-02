@@ -26,12 +26,10 @@ export class BrushChart extends React.Component {
   }
 
   _brushEnd( brushExtent ) {
-    const format = d3.timeFormat( '%m/%d/%Y' )
-
-    let from = brushExtent[0]
-    let through = brushExtent[1]
-    d3.select( '.js-start-date' ).text( format( from ) )
-    d3.select( '.js-end-date' ).text( format( through ) )
+    let from = moment( brushExtent[0], '%m/%d/%Y' )
+    let through = moment( brushExtent[1], '%m/%d/%Y' )
+    d3.select( '.js-start-date' ).text( from )
+    d3.select( '.js-end-date' ).text( through )
     d3.select( '.js-date-range' ).classed( 'is-hidden', false )
     d3.select( 'rect.handle.handle--e, rect.handle.handle--w' )
       .attr( 'y', '1' )
@@ -67,7 +65,6 @@ export class BrushChart extends React.Component {
       .on( 'customBrushEnd', this._brushEnd )
 
     if ( this.props.brushDateData.length ) {
-      // console.log( this.props.brushDateData )
       container.datum( this.props.brushDateData ).call( brushChart )
       brushChart.dateRange( this.props.dateRange )
     }

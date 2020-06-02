@@ -1,5 +1,9 @@
 import configureMockStore from 'redux-mock-store'
-import { mapStateToProps, BrushChart } from '../Charts/BrushChart'
+import {
+  mapDispatchToProps,
+  mapStateToProps,
+  BrushChart
+} from '../Charts/BrushChart'
 import { mount, shallow } from 'enzyme'
 import { Provider } from 'react-redux'
 import React from 'react'
@@ -30,7 +34,7 @@ jest.mock( 'britecharts', () => {
 jest.mock( 'd3', () => {
   const props = [
     'select', 'each', 'node', 'getBoundingClientRect', 'width', 'datum', 'call',
-    'remove', 'selectAll'
+    'remove', 'selectAll', 'text', 'classed', 'attr'
   ]
 
   const mock = {}
@@ -69,6 +73,24 @@ describe( 'component: BrushChart', () => {
       expect( tree ).toMatchSnapshot()
     } )
   } )
+
+  describe('brush events', () => {
+    let target, cb
+
+    beforeEach(()=>{
+      cb = jest.fn()
+    })
+
+    it( 'adds a map filter when it is not currently a filter', () => {
+      target = shallow( <BrushChart changeDates={ cb }
+                                    brushDateData={ [ 1, 2, 3 ] }
+                                    dateRange={ [] }/> )
+      const brushExtent = [ '2010', '2013' ]
+      const instance = target.instance()
+      instance._brushEnd( brushExtent )
+      expect( cb ).toHaveBeenCalledTimes( 1 )
+    } )
+  } );
 
   describe( 'componentDidUpdate', () => {
     let mapDiv
@@ -132,6 +154,14 @@ describe( 'component: BrushChart', () => {
       expect( sp ).toHaveBeenCalledTimes( 1 )
     } )
   } )
+
+  describe('mapDispatchToProps', () => {
+    it('provides a way to call changeDates', () => {
+      const dispatch = jest.fn()
+      mapDispatchToProps( dispatch ).changeDates( '2012', '2020' )
+      expect( dispatch.mock.calls.length ).toEqual( 1 )
+    })
+  })
 
   describe( 'mapStateToProps', () => {
     it( 'maps state and props', () => {
