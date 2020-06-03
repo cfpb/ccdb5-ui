@@ -1,6 +1,5 @@
 import target, {
-  defaultState,
-  processTrends
+  defaultState
 } from '../trends'
 import actions from '../../actions'
 import {
@@ -8,6 +7,8 @@ import {
   trendsResults
 } from '../__fixtures__/trendsResults'
 import trendsAggs from '../__fixtures__/trendsAggs'
+import trendsAggsDupes from '../__fixtures__/trendsAggsDupes'
+import trendsAggsDupeResults from '../__fixtures__/trendsAggsDupeResults'
 
 describe( 'reducer:trends', () => {
   let action, result
@@ -157,6 +158,14 @@ describe( 'reducer:trends', () => {
       state.lens = 'Issue'
       result = target( state, action )
       expect( result ).toEqual( trendsLensIssueResults )
+    } )
+
+    it( 'maps data to object state - dupe rows', () => {
+      state.lens = 'Overview'
+      action.data.aggregations = trendsAggsDupes
+      result = target( state, action )
+      console.log(JSON.stringify(result))
+      expect( result ).toEqual( trendsAggsDupeResults )
     } )
 
   } )
