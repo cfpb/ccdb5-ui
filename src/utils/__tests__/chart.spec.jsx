@@ -171,6 +171,15 @@ describe( 'getColorScheme', function () {
 } )
 
 describe( 'processRows', () => {
+  it( 'handles empty rows / bad data', () => {
+    const filters = []
+    const res = sut.processRows( filters, false, false )
+    expect( res ).toEqual( {
+      colorScheme: [],
+      data: []
+    } )
+  } )
+
   it( 'returns only visible rows', () => {
     const filters = []
     const rows = [
