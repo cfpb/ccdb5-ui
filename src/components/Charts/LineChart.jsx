@@ -11,6 +11,13 @@ import React from 'react'
 import { updateTrendsTooltip } from '../../actions/trends'
 
 export class LineChart extends React.Component {
+  tip = null
+  constructor( props ) {
+    super( props )
+    this._updateTooltip = this._updateTooltip.bind( this )
+    this._updateInternalTooltip = this._updateInternalTooltip.bind( this )
+  }
+
   componentDidMount() {
     this._redrawChart()
   }
@@ -38,6 +45,13 @@ export class LineChart extends React.Component {
     }
   }
 
+  _updateInternalTooltip( dataPoint, topicColorMap, dataPointXPosition ) {
+    const { dateRange, interval } = this.props
+    this.tip.title( getTooltipTitle( dataPoint.date, interval, dateRange,
+      false ) )
+    this.tip.update( dataPoint, topicColorMap, dataPointXPosition )
+  }
+
   _redrawChart() {
     if ( !this.props.data.dataByTopic || !this.props.data.dataByTopic.length ) {
       return
@@ -51,12 +65,12 @@ export class LineChart extends React.Component {
         false
     d3.select( chartID + ' .line-chart' ).remove()
     const lineChart = line()
-    const tip = tooltip()
+    this.tip = tooltip()
       .shouldShowDateInTitle( false )
       .topicLabel( 'topics' )
       .title( 'Complaints' )
 
-    const interval = this.props.interval
+    const tip = this.tip
     // will be Start Date - Date...
     const colorMap = this.props.colorMap
     const colorScheme = this.props.data.dataByTopic
@@ -73,17 +87,12 @@ export class LineChart extends React.Component {
       .colorSchema( colorScheme )
 
     if ( this.props.lens === 'Overview' ) {
-      const dateRange = this.props.dateRange
       lineChart
         .on( 'customMouseOver', tip.show )
-        .on( 'customMouseMove', function( dataPoint, topicColorMap,
-                                           dataPointXPosition ) {
-          tip.title( getTooltipTitle( dataPoint.date, interval, dateRange, false ) )
-          tip.update( dataPoint, topicColorMap, dataPointXPosition )
-        } )
+        .on( 'customMouseMove', this._updateInternalTooltip )
         .on( 'customMouseOut', tip.hide )
     } else {
-      lineChart.on( 'customMouseMove', this._updateTooltip.bind( this ) )
+      lineChart.on( 'customMouseMove', this._updateTooltip )
     }
 
     container.datum( this.props.data ).call( lineChart )
