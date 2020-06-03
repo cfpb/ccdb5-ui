@@ -9,6 +9,9 @@ import {
 import trendsAggs from '../__fixtures__/trendsAggs'
 import trendsAggsDupes from '../__fixtures__/trendsAggsDupes'
 import trendsAggsDupeResults from '../__fixtures__/trendsAggsDupeResults'
+import trendsAggsMissingBuckets from '../__fixtures__/trendsAggsMissingBuckets'
+import trendsAggsMissingBucketsResults
+  from '../__fixtures__/trendsAggsMissingBucketsResults'
 
 describe( 'reducer:trends', () => {
   let action, result
@@ -167,6 +170,12 @@ describe( 'reducer:trends', () => {
       expect( result ).toEqual( trendsAggsDupeResults )
     } )
 
+    it( 'maps data to object state - Missing Bucket', () => {
+      state.lens = 'Product'
+      action.data.aggregations = trendsAggsMissingBuckets
+      result = target( state, action )
+      expect( result ).toEqual( trendsAggsMissingBucketsResults )
+    } )
   } )
 
   describe( 'TREND_TOGGLED', () => {
