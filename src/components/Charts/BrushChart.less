@@ -1,0 +1,57 @@
+@import (less) "../../css/base.less";
+
+#brush-chart {
+  .brush-chart {
+    .x-axis-group {
+      display: none;
+    }
+
+    .chart-group {
+      path {
+        //fill: @green-60;
+        opacity: 0.5;
+      }
+    }
+
+    .brush-group {
+      rect {
+        &.selection.brush-rect {
+          //fill-opacity: 0.2;
+          stroke: none;
+        }
+
+        &.handle.brush-rect {
+          fill: @gray-10;
+          fill-opacity: .3;
+          stroke: @gray-40;
+          stroke-opacity: 1;
+          stroke-width: 1px;
+          width: 10px;
+        }
+      }
+    }
+  }
+
+  &.overview-brush-chart {
+    .chart-group {
+      path {
+        fill: @green-60;
+      }
+    }
+  }
+
+  .brush-group {
+    rect {
+      &.selection.brush-rect {
+        fill-opacity: 0.2;
+        stroke: none;
+      }
+    }
+  }
+
+  .chart-group {
+    path {
+      fill: #c3c4c4;
+    }
+  }
+}

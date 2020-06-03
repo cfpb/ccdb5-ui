@@ -6,3 +6,5 @@ export class Separator extends React.Component {
     return <span className={ 'separator' }/>
   }
 }
+
+export default Separator
