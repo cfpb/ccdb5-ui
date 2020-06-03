@@ -3,12 +3,19 @@ import * as d3 from 'd3'
 import { connect } from 'react-redux'
 import { getLastDate } from '../../utils/chart'
 import { hashObject } from '../../utils'
+import { isDateEqual } from '../../utils/formatDate'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { stackedArea } from 'britecharts'
 import { updateTrendsTooltip } from '../../actions/trends'
 
+
 export class StackedAreaChart extends React.Component {
+  constructor( props ) {
+    super( props )
+    this._updateTooltip = this._updateTooltip.bind( this )
+  }
+
   componentDidMount() {
     this._redrawChart()
   }
@@ -22,34 +29,29 @@ export class StackedAreaChart extends React.Component {
     }
   }
 
-  _tipStuff( evt ) {
-    if ( this.props.tooltip.date !== evt.key ) {
+  _updateTooltip( point ) {
+    if ( !isDateEqual( this.props.tooltip.date, point.date ) ) {
       this.props.tooltipUpdated( {
-        date: evt.key,
-        dateRange: {
-          from: '',
-          to: ''
-        },
+        date: point.date,
+        dateRange: this.props.dateRange,
         interval: this.props.interval,
-        values: evt.values
+        values: point.values
       } )
     }
   }
 
   _redrawChart() {
-    if ( !this.props.data ) {
+    const { colorMap, data, dateRange, interval, lastDate } = this.props
+    if ( !data || !data.length ) {
       return
     }
 
     const chartID = '#stacked-area-chart'
     const container = d3.select( chartID )
-    const containerWidth =
-      container.node() ?
-        container.node().getBoundingClientRect().width :
-        false
+    const containerWidth = container.node().getBoundingClientRect().width
     d3.select( chartID + ' .stacked-area' ).remove()
     const stackedAreaChart = stackedArea()
-    const colors = Object.values( this.props.colorMap )
+    const colors = Object.values( colorMap )
 
     stackedAreaChart.margin( { left: 50, right: 10, top: 10, bottom: 40 } )
       .areaCurve( 'linear' )
@@ -61,34 +63,17 @@ export class StackedAreaChart extends React.Component {
       .width( containerWidth )
       .dateLabel( 'date' )
       .colorSchema( colors )
-      // .on( 'customMouseOver', function ( evt ) {
-      //   console.log( 'I was mouseover' )
-      //   console.log( evt )
-      // } )
-      .on( 'customMouseMove', this._tipStuff.bind( this ) )
+      .on( 'customMouseMove', this._updateTooltip )
 
-    //   function ( evt ) {
-    //   console.log( 'Moved, update tt' )
-    //   tipchanged( evt )
-    //   console.log( evt )
-    // } )
-    // .on( 'customMouseOut', function ( evt ) {
-    //   console.log( 'I was mouseout' )
-    //   console.log( evt )
-    // });
+    container.datum( data ).call( stackedAreaChart )
 
-    container.datum( this.props.data ).call( stackedAreaChart )
-    if ( this.props.tooltip === false ) {
-      const config = {
-        dateRange: {
-          from: '',
-          to: ''
-        },
-        interval: this.props.interval,
-        lastDate: this.props.lastDate
-      }
-      this.props.tooltipUpdated( getLastDate( this.props.data, config ) )
+    const config = {
+      dateRange,
+      interval,
+      lastDate
     }
+
+    this.props.tooltipUpdated( getLastDate( data, config ) )
   }
 
   render() {
@@ -115,6 +100,10 @@ export const mapDispatchToProps = dispatch => ( {
 export const mapStateToProps = state => ( {
   colorMap: state.trends.colorMap,
   data: state.trends.results.dateRangeArea,
+  dateRange:  {
+    from: state.query.date_received_min,
+    to: state.query.date_received_max
+  },
   interval: state.query.dateInterval,
   lastDate: state.trends.lastDate,
   lens: state.trends.lens,
