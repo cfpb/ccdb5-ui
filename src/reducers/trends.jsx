@@ -4,7 +4,7 @@
 // reducer for the Map Tab
 import * as colors from '../constants/colors'
 import {
-  formatPercentage, getSubKeyName, processErrorMessage
+  clamp, formatPercentage, getSubKeyName, processErrorMessage
 } from '../utils'
 import actions from '../actions'
 import { getTooltipTitle } from '../utils/chart'
@@ -139,7 +139,8 @@ function processAreaData( state, aggregations, buckets ) {
 
   // reference buckets to backfill zero values
   const refBuckets = Object.assign( {}, compBuckets )
-  const lens = state.focus ? state.subLens : state.lens
+  // const lens = state.focus ? state.subLens : state.lens
+  const lens = state.lens
   const filter = filterMap[lens].toLowerCase()
   const trendResults = aggregations[filter][filter]
     .buckets.slice( 0, 10 )
@@ -273,7 +274,8 @@ export const getColorScheme = ( lens, rowNames ) => {
 
   for ( let i = 0; i < uniqueNames.length; i++ ) {
     const n = uniqueNames[i]
-    colScheme[n] = i < 10 ? colorScheme[i] : colorScheme[10]
+    const index = clamp( i, 0, 10 )
+    colScheme[n] = colorScheme[index]
   }
 
   colScheme.Complaints = colors.BriteCharts.medium
