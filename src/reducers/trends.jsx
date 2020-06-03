@@ -51,7 +51,6 @@ export const defaultState = {
  */
 function processBucket( state, agg ) {
   const list = []
-  // console.log( agg )
   const { expandedTrends, filterNames } = state
   for ( let i = 0; i < agg.length; i++ ) {
     const item = agg[i]
@@ -128,7 +127,7 @@ function getD3Names( obj, nameMap, expandedTrends ) {
  * @returns {object} the data areas for the stacked area chart
  */
 function processAreaData( state, aggregations, buckets ) {
-  const mainName = state.lens === 'Overview' ? 'Complaints' : 'Other'
+  const mainName = 'Other'
   // overall buckets
   const compBuckets = buckets.map(
     obj => ( {
@@ -146,10 +145,8 @@ function processAreaData( state, aggregations, buckets ) {
     .buckets.slice( 0, 10 )
   for ( let i = 0; i < trendResults.length; i++ ) {
     const o = trendResults[i]
-    // console.log( o )
     // only take first 10 of the buckets for processing
     const reverseBuckets = o.trend_period.buckets.reverse()
-    // console.log( reverseBuckets )
     for ( let j = 0; j < reverseBuckets.length; j++ ) {
       const p = reverseBuckets[j]
       compBuckets.push( {
@@ -171,13 +168,13 @@ function processAreaData( state, aggregations, buckets ) {
     }
 
     // we're missing a bucket, so fill it in.
-    if ( o.trend_period.buckets.length !== Object.keys( refBuckets ).length ) {
-      for ( let k = 0; k < refBuckets.length; k++ ) {
-        const obj = refBuckets[i]
+    const referenceBuckets = Object.values( refBuckets )
+    if ( o.trend_period.buckets.length !== referenceBuckets.length ) {
+      for ( let k = 0; k < referenceBuckets.length; k++ ) {
+        const obj = referenceBuckets[k]
         const datePoint = compBuckets
           .filter( f => f.name === o.key )
           .find( f => isDateEqual( f.date, obj.date ) )
-
         if ( !datePoint ) {
           compBuckets.push( {
             name: o.key,
@@ -272,7 +269,7 @@ export const getColorScheme = ( lens, rowNames ) => {
   const colScheme = {}
   const colorScheme = colors.DataLens
   const uniqueNames = [ ...new Set( rowNames.map( item => item.name ) ) ]
-      .filter( o => o !== 'Other' )
+    .filter( o => o !== 'Other' )
 
   for ( let i = 0; i < uniqueNames.length; i++ ) {
     const n = uniqueNames[i]
@@ -295,7 +292,6 @@ export const getColorScheme = ( lens, rowNames ) => {
 export function processTrends( state, action ) {
   const { lens, results } = state
   const aggregations = action.data.aggregations
-
   let lastDate
 
   for ( const k in aggregations ) {
@@ -305,7 +301,6 @@ export function processTrends( state, action ) {
       const buckets = aggregations[k][k].buckets
       for ( let i = 0; i < buckets.length; i++ ) {
         const docCount = aggregations[k].doc_count
-        // console.log(docCount)
         processTrendPeriod( buckets[i], k, docCount )
       }
 
@@ -358,7 +353,6 @@ function toggleTrend( state, action ) {
     // rip through results and expand the ones, or collapse
     /* istanbul ignore else */
     if ( results.hasOwnProperty( k ) && Array.isArray( results[k] ) ) {
-      // console.log( k )
       results[k]
         .filter( o => o.parent === item )
         .forEach( o => {
