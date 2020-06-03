@@ -325,3 +325,14 @@ export function getFullUrl( uri ) {
   return parser.href
 }
 
+/**
+ * processes error messages so we can see them in redux
+ * @param {error} err the error object from api
+ * @returns {{name: string, message: string}} processed error object we can see
+ */
+export function processErrorMessage( err ) {
+  return {
+    name: err.name,
+    message: err.message
+  }
+}

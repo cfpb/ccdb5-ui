@@ -1,10 +1,25 @@
 import { REQUERY_ALWAYS, REQUERY_NEVER } from '../constants'
 
+export const CHART_TYPE_CHANGED = 'CHART_TYPE_CHANGED'
 export const DATA_LENS_CHANGED = 'DATA_LENS_CHANGED'
 export const DATA_SUBLENS_CHANGED = 'DATA_SUBLENS_CHANGED'
 export const FOCUS_CHANGED = 'FOCUS_CHANGED'
 export const TREND_TOGGLED = 'TREND_TOGGLED'
 export const TRENDS_TOOLTIP_CHANGED = 'TRENDS_TOOLTIP_CHANGED'
+
+/**
+ * Notifies the application that chart type toggled
+ *
+ * @param {string} chartType which chartType was selected, line or stacked area
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function changeChartType( chartType ) {
+  return {
+    type: CHART_TYPE_CHANGED,
+    chartType,
+    requery: REQUERY_NEVER
+  }
+}
 
 /**
  * Notifies the application that data lens overview, product, issue was toggled

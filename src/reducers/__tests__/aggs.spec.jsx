@@ -25,12 +25,12 @@ describe( 'reducer:aggs', () => {
   it( 'handles AGGREGATIONS_FAILED actions', () => {
     const action = {
       type: AGGREGATIONS_FAILED,
-      error: 'error message'
+      error: { message: 'error message', name: 'messageTypeName' }
     }
 
     const expected = {
       ...defaultAggs,
-      error: 'error message'
+      error: { message: 'error message', name: 'messageTypeName' }
     }
     expect( target( {
       company: ['ab', 'cd'],

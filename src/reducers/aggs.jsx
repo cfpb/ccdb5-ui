@@ -1,6 +1,7 @@
 import {
   AGGREGATIONS_API_CALLED, AGGREGATIONS_FAILED, AGGREGATIONS_RECEIVED
 } from '../actions/complaints'
+import { processErrorMessage } from '../utils'
 
 /* eslint-disable camelcase */
 
@@ -94,7 +95,7 @@ export function processAggregationError( state, action ) {
   return {
     ...defaultAggs,
     isLoading: false,
-    error: action.error
+    error: processErrorMessage( action.error )
   }
 }
 
