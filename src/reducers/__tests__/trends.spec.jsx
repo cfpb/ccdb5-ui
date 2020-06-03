@@ -164,14 +164,13 @@ describe( 'reducer:trends', () => {
       state.lens = 'Overview'
       action.data.aggregations = trendsAggsDupes
       result = target( state, action )
-      console.log(JSON.stringify(result))
       expect( result ).toEqual( trendsAggsDupeResults )
     } )
 
   } )
 
   describe( 'TREND_TOGGLED', () => {
-    let state, action;
+    let state, action
     beforeEach( () => {
       state = {
         expandedTrends: [ 'bar' ],
@@ -186,12 +185,12 @@ describe( 'reducer:trends', () => {
             { name: 'foo2', visible: false, parent: 'foo' }
           ]
         }
-      };
+      }
 
-    } );
+    } )
 
     it( 'makes bars visible', () => {
-      action = { type: actions.TREND_TOGGLED, value: 'foo' };
+      action = { type: actions.TREND_TOGGLED, value: 'foo' }
       expect( target( state, action ) ).toEqual( {
         expandedTrends: [ 'bar', 'foo' ],
         filterNames: [ 'bar', 'foo' ],
@@ -205,11 +204,11 @@ describe( 'reducer:trends', () => {
             { name: 'foo2', visible: true, parent: 'foo' }
           ]
         }
-      } );
-    } );
+      } )
+    } )
 
     it( 'hides bars', () => {
-      action = { type: actions.TREND_TOGGLED, value: 'bar' };
+      action = { type: actions.TREND_TOGGLED, value: 'bar' }
       expect( target( state, action ) ).toEqual( {
         expandedTrends: [],
         filterNames: [ 'bar', 'foo' ],
@@ -223,11 +222,11 @@ describe( 'reducer:trends', () => {
             { name: 'foo2', visible: false, parent: 'foo' }
           ]
         }
-      } );
-    } );
+      } )
+    } )
 
     it( 'ignores bogus values not in filterNames', () => {
-      action = { type: actions.TREND_TOGGLED, value: 'haha' };
+      action = { type: actions.TREND_TOGGLED, value: 'haha' }
       expect( target( state, action ) ).toEqual( {
         expandedTrends: [ 'bar' ],
         filterNames: [ 'bar', 'foo' ],
@@ -241,13 +240,92 @@ describe( 'reducer:trends', () => {
             { name: 'foo2', visible: false, parent: 'foo' }
           ]
         }
-      } );
-    } );
-  } );
-
-  describe( 'TRENDS_TOOLTIP_CHANGED action', () => {
-
+      } )
+    } )
   } )
+
+  describe( 'TRENDS_TOOLTIP_CHANGED', () => {
+    it( 'handles no value', () => {
+      const action = { type: actions.TRENDS_TOOLTIP_CHANGED }
+      const state = { results: {} }
+      const res = target( state, action )
+
+      expect( res.tooltip ).toBeFalsy()
+    } )
+
+    it( 'calculates total and sets the title', () => {
+      const action = {
+        type: actions.TRENDS_TOOLTIP_CHANGED,
+        value: {
+          interval: 'Month',
+          key: '2018-04-01T00:00:00.000Z',
+          date: '2018-04-01T00:00:00.000Z',
+          dateRange: {
+            from: '2011-07-21',
+            to: '2018-11-30'
+          },
+          values: [
+            {
+              name: 'Alpha',
+              value: 17,
+              date: '2018-04-01T00:00:00.000Z'
+            },
+            {
+              name: 'Beta',
+              value: 28,
+              date: '2018-04-01T00:00:00.000Z'
+            },
+            {
+              name: 'Cooo',
+              value: 8,
+              date: '2018-04-01T00:00:00.000Z'
+            }
+          ]
+        }
+      }
+      const state = {
+        colorMap: {
+          Alpha: '#2cb34a',
+          Beta: '#addc91',
+          Cooo: '#257675'
+        }
+      }
+      const res = target( state, action )
+
+      expect( res.tooltip ).toEqual( {
+        date: '2018-04-01T00:00:00.000Z',
+        dateRange: {
+          from: '2011-07-21',
+          to: '2018-11-30'
+        },
+        interval: 'Month',
+        key: '2018-04-01T00:00:00.000Z',
+        title: 'Date Interval: 04/01/2018 - 04/30/2018',
+        total: 53,
+        values: [
+          {
+            colorIndex: 0,
+            date: '2018-04-01T00:00:00.000Z',
+            name: 'Alpha',
+            value: 17
+          },
+          {
+            colorIndex: 1,
+            date: '2018-04-01T00:00:00.000Z',
+            name: 'Beta',
+            value: 28
+          },
+          {
+            colorIndex: 2,
+            date: '2018-04-01T00:00:00.000Z',
+            name: 'Cooo',
+            value: 8
+          }
+        ]
+      } )
+    } )
+  } )
+
 
   describe( 'URL_CHANGED actions', () => {
     let action
