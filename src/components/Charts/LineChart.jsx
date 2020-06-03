@@ -116,12 +116,12 @@ export class LineChart extends React.Component {
 }
 
 export const mapDispatchToProps = dispatch => ( {
-  tooltipUpdated: selectedState => {
+  tooltipUpdated: tipEvent => {
     // Analytics.sendEvent(
     //   Analytics.getDataLayerOptions( 'Trend Event: add',
     //     selectedState.abbr, )
     // )
-    dispatch( updateTrendsTooltip( selectedState ) )
+    dispatch( updateTrendsTooltip( tipEvent ) )
   }
 } )
 

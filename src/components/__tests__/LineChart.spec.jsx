@@ -1,11 +1,14 @@
 import configureMockStore from 'redux-mock-store'
-import { mapStateToProps, LineChart } from '../Charts/LineChart'
+import {
+  mapDispatchToProps,
+  mapStateToProps,
+  LineChart
+} from '../Charts/LineChart'
 import { mount, shallow } from 'enzyme'
 import { Provider } from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import thunk from 'redux-thunk'
-import { BrushChart } from '../Charts/BrushChart'
 
 // this is how you override and mock an imported constructor
 jest.mock( 'britecharts', () => {
@@ -52,17 +55,34 @@ jest.mock( 'd3', () => {
   return mock
 } )
 
-function setupSnapshot() {
+function setupSnapshot(lens) {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
   const store = mockStore( {} )
 
   const data = {
-    dataByTopic: []
+    dataByTopic: [ {
+      topic: 'Complaints',
+      topicName: 'Complaints',
+      dashed: false,
+      show: true,
+      dates: [
+        { date: '2020-03-01T00:00:00.000Z', value: 29068 },
+        { date: '2020-04-01T00:00:00.000Z', value: 35112 },
+        { date: '2020-05-01T00:00:00.000Z', value: 9821 }
+      ]
+    } ]
   }
+  const colorMap = { Complaints: '#ADDC91', Other: '#a2a3a4' }
+
   return renderer.create(
     <Provider store={ store }>
-      <LineChart data={ data } title={ 'foo' }/>
+      <LineChart
+        tooltipUpdated={ jest.fn() }
+        colorMap={ colorMap }
+        data={ data }
+        title={ 'foo' }
+        lens={ lens }/>
     </Provider>
   )
 }
@@ -70,7 +90,13 @@ function setupSnapshot() {
 describe( 'component: LineChart', () => {
   describe( 'initial state', () => {
     it( 'renders without crashing', () => {
-      const target = setupSnapshot()
+      const target = setupSnapshot( 'Overview' )
+      let tree = target.toJSON()
+      expect( tree ).toMatchSnapshot()
+    } )
+
+    it( 'renders data lens without crashing', () => {
+      const target = setupSnapshot( 'Issue' )
       let tree = target.toJSON()
       expect( tree ).toMatchSnapshot()
     } )
@@ -80,68 +106,68 @@ describe( 'component: LineChart', () => {
     let mapDiv
     const lastDate = '2020-05-01T00:00:00.000Z'
     const colorMap = {
-      "Credit reporting": "#2cb34a",
-      "Debt collection": "#addc91",
-      "Credit card or prepaid card": "#257675",
-      "Mortgage": "#9ec4c3",
-      "Checking or savings account": "#0072ce",
-      "Complaints": "#ADDC91",
-      "Other": "#a2a3a4"
+      'Credit reporting': '#2cb34a',
+      'Debt collection': '#addc91',
+      'Credit card or prepaid card': '#257675',
+      Mortgage: '#9ec4c3',
+      'Checking or savings account': '#0072ce',
+      Complaints: '#ADDC91',
+      Other: '#a2a3a4'
     }
     const data = {
       dataByTopic: [
         {
-          topic: "Credit reporting",
-          topicName: "Credit reporting",
+          topic: 'Credit reporting',
+          topicName: 'Credit reporting',
           dashed: false,
           show: true,
           dates: [
-            { date: "2020-03-01T00:00:00.000Z", value: 17231 },
-            { date: "2020-04-01T00:00:00.000Z", value: 21179 },
-            { date: "2020-05-01T00:00:00.000Z", value: 6868 }
+            { date: '2020-03-01T00:00:00.000Z', value: 17231 },
+            { date: '2020-04-01T00:00:00.000Z', value: 21179 },
+            { date: '2020-05-01T00:00:00.000Z', value: 6868 }
           ]
         },
         {
-          topic: "Debt collection",
-          topicName: "Debt collection",
+          topic: 'Debt collection',
+          topicName: 'Debt collection',
           dashed: false,
           show: true,
           dates: [
-            { date: "2020-03-01T00:00:00.000Z", value: 4206 },
-            { date: "2020-04-01T00:00:00.000Z", value: 4508 },
-            { date: "2020-05-01T00:00:00.000Z", value: 1068 }
+            { date: '2020-03-01T00:00:00.000Z', value: 4206 },
+            { date: '2020-04-01T00:00:00.000Z', value: 4508 },
+            { date: '2020-05-01T00:00:00.000Z', value: 1068 }
           ]
         },
         {
-          topic: "Credit card or prepaid card",
-          topicName: "Credit card or prepaid card",
+          topic: 'Credit card or prepaid card',
+          topicName: 'Credit card or prepaid card',
           dashed: false,
           show: true,
           dates: [
-            { date: "2020-03-01T00:00:00.000Z", value: 2435 },
-            { date: "2020-04-01T00:00:00.000Z", value: 3137 },
-            { date: "2020-05-01T00:00:00.000Z", value: 712 }
+            { date: '2020-03-01T00:00:00.000Z', value: 2435 },
+            { date: '2020-04-01T00:00:00.000Z', value: 3137 },
+            { date: '2020-05-01T00:00:00.000Z', value: 712 }
           ]
         },
         {
-          topic: "Mortgage",
-          topicName: "Mortgage",
+          topic: 'Mortgage',
+          topicName: 'Mortgage',
           dashed: false,
           show: true,
           dates: [
-            { date: "2020-03-01T00:00:00.000Z", value: 2132 },
-            { date: "2020-04-01T00:00:00.000Z", value: 2179 },
-            { date: "2020-05-01T00:00:00.000Z", value: 365 } ]
+            { date: '2020-03-01T00:00:00.000Z', value: 2132 },
+            { date: '2020-04-01T00:00:00.000Z', value: 2179 },
+            { date: '2020-05-01T00:00:00.000Z', value: 365 } ]
         },
         {
-          topic: "Checking or savings account",
-          topicName: "Checking or savings account",
+          topic: 'Checking or savings account',
+          topicName: 'Checking or savings account',
           dashed: false,
           show: true,
           dates: [
-            { date: "2020-03-01T00:00:00.000Z", value: 1688 },
-            { date: "2020-04-01T00:00:00.000Z", value: 2030 },
-            { date: "2020-05-01T00:00:00.000Z", value: 383 } ]
+            { date: '2020-03-01T00:00:00.000Z', value: 1688 },
+            { date: '2020-04-01T00:00:00.000Z', value: 2030 },
+            { date: '2020-05-01T00:00:00.000Z', value: 383 } ]
         } ]
     }
     beforeEach( () => {
@@ -178,24 +204,24 @@ describe( 'component: LineChart', () => {
       const newData = {
         dataByTopic: [
           {
-            topic: "Mortgage",
-            topicName: "Mortgage",
+            topic: 'Mortgage',
+            topicName: 'Mortgage',
             dashed: false,
             show: true,
             dates: [
-              { date: "2020-03-01T00:00:00.000Z", value: 2132 },
-              { date: "2020-04-01T00:00:00.000Z", value: 2179 },
-              { date: "2020-05-01T00:00:00.000Z", value: 365 } ]
+              { date: '2020-03-01T00:00:00.000Z', value: 2132 },
+              { date: '2020-04-01T00:00:00.000Z', value: 2179 },
+              { date: '2020-05-01T00:00:00.000Z', value: 365 } ]
           },
           {
-            topic: "Checking or savings account",
-            topicName: "Checking or savings account",
+            topic: 'Checking or savings account',
+            topicName: 'Checking or savings account',
             dashed: false,
             show: true,
             dates: [
-              { date: "2020-03-01T00:00:00.000Z", value: 1688 },
-              { date: "2020-04-01T00:00:00.000Z", value: 2030 },
-              { date: "2020-05-01T00:00:00.000Z", value: 383 } ]
+              { date: '2020-03-01T00:00:00.000Z', value: 1688 },
+              { date: '2020-04-01T00:00:00.000Z', value: 2030 },
+              { date: '2020-05-01T00:00:00.000Z', value: 383 } ]
           } ]
       }
 
@@ -230,6 +256,20 @@ describe( 'component: LineChart', () => {
       const sp = jest.spyOn( target.instance(), '_redrawChart' )
       target.setProps( { width: 600 } )
       expect( sp ).toHaveBeenCalledTimes( 1 )
+    } )
+  } )
+
+  describe( 'mapDispatchToProps', () => {
+    it( 'provides a way to call updateTrendsTooltip', () => {
+      const dispatch = jest.fn()
+      mapDispatchToProps( dispatch ).tooltipUpdated( 'foo' )
+      expect( dispatch.mock.calls ).toEqual( [
+        [ {
+          requery: 'REQUERY_NEVER',
+          type: 'TRENDS_TOOLTIP_CHANGED',
+          value: 'foo'
+        } ]
+      ] )
     } )
   } )
 
