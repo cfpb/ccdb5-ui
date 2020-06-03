@@ -330,7 +330,7 @@ describe( 'component: LineChart', () => {
                                    tooltipUpdated={ cb }
       /> )
       const instance = target.instance()
-      instance._updateTooltip( { key: '2012', value: 200 }  )
+      instance._updateTooltip( { date: '2012', value: 2000 }  )
       expect( cb ).toHaveBeenCalledTimes( 1 )
     } )
 
@@ -346,7 +346,7 @@ describe( 'component: LineChart', () => {
                                    tooltipUpdated={ cb }
       /> )
       const instance = target.instance()
-      instance._updateTooltip( { key: '2000', value: 200 }  )
+      instance._updateTooltip( { date: '2000', value: 100 }  )
       expect( cb ).toHaveBeenCalledTimes( 0 )
     } )
 

@@ -1,5 +1,6 @@
 import configureMockStore from 'redux-mock-store'
 import {
+  mapDispatchToProps,
   mapStateToProps,
   StackedAreaChart
 } from '../Charts/StackedAreaChart'
@@ -96,7 +97,7 @@ describe( 'component: StackedAreaChart', () => {
     it( 'does nothing when no data', () => {
       const target = shallow( <StackedAreaChart colorMap={ { foo: 'bar' } }
                                                 data={ [] }
-                                                title={'foo'}
+                                                title={ 'foo' }
       /> )
       target._redrawChart = jest.fn()
       target.setProps( { data: [] } )
@@ -105,10 +106,11 @@ describe( 'component: StackedAreaChart', () => {
 
     it( 'trigger a new update when data changes', () => {
       const target = shallow( <StackedAreaChart
+        tooltipUpdated={ jest.fn() }
         colorMap={ { foo: 'bar', shi: 'oio' } }
-        title={'foo'}
+        title={ 'foo' }
         data={ [ 23, 4, 3 ] }
-        total={ 1000 }/> )
+      /> )
       target._redrawChart = jest.fn()
       const sp = jest.spyOn( target.instance(), '_redrawChart' )
       target.setProps( { data: [ 2, 5 ] } )
@@ -117,10 +119,10 @@ describe( 'component: StackedAreaChart', () => {
 
     it( 'trigger a new update when printMode changes', () => {
       const target = shallow( <StackedAreaChart
-        title={'foo'}
+        tooltipUpdated={ jest.fn() }
+        title={ 'foo' }
         colorMap={ { foo: 'bar', shi: 'oio' } }
         data={ [ 23, 4, 3 ] }
-        total={ 1000 }
         printMode={ 'false' }
       /> )
       target._redrawChart = jest.fn()
@@ -131,7 +133,8 @@ describe( 'component: StackedAreaChart', () => {
 
     it( 'trigger a new update when width changes', () => {
       const target = shallow( <StackedAreaChart
-        title={'foo'}
+        tooltipUpdated={ jest.fn() }
+        title={ 'foo' }
         colorMap={ { foo: 'bar', shi: 'oio' } }
         data={ [ 23, 4, 3 ] }
         printMode={ 'false' }
@@ -144,12 +147,27 @@ describe( 'component: StackedAreaChart', () => {
     } )
   } )
 
+  describe( 'mapDispatchToProps', () => {
+    it( 'provides a way to call updateTrendsTooltip', () => {
+      const dispatch = jest.fn()
+      mapDispatchToProps( dispatch ).tooltipUpdated( 'foo' )
+      expect( dispatch.mock.calls ).toEqual( [
+        [ {
+          requery: 'REQUERY_NEVER',
+          type: 'TRENDS_TOOLTIP_CHANGED',
+          value: 'foo'
+        } ]
+      ] )
+    } )
+  } )
+
   describe( 'mapStateToProps', () => {
     it( 'maps state and props', () => {
       const state = {
         query: {
-          baz: [ 1, 2, 3 ],
-          dateInterval: 'Month'
+          dateInterval: 'Month',
+          date_received_min: '',
+          date_received_max: ''
         },
         trends: {
           colorMap: {},
@@ -169,12 +187,58 @@ describe( 'component: StackedAreaChart', () => {
       expect( actual ).toEqual( {
         colorMap: {},
         data: [],
+        dateRange:  {
+          from: '',
+          to: ''
+        },
         interval: 'Month',
         lens: 'Overview',
         printMode: false,
         tooltip: {},
         width: 1000
       } )
+    } )
+  } )
+
+  describe( 'tooltip events', () => {
+    let target, cb
+
+    beforeEach( () => {
+      cb = jest.fn()
+    } )
+
+    it( 'updates external tooltip with different data', () => {
+      target = shallow( <StackedAreaChart colorMap={ { a: '#eee', b: '#444' } }
+                                          data={ [ 2, 3, 4 ] }
+                                          interval={ 'Month' }
+                                          dateRange={ {
+                                            from: '2012',
+                                            to: '2020'
+                                          } }
+                                          title={ 'foo' }
+                                          tooltip={ { date: '2000' } }
+                                          tooltipUpdated={ cb }
+      /> )
+      const instance = target.instance()
+      instance._updateTooltip( { date: '2012', values: [ 1, 2, 3 ] } )
+      expect( cb ).toHaveBeenCalledTimes( 2 )
+    } )
+
+    it( 'Only updates external tooltip on init', () => {
+      target = shallow( <StackedAreaChart colorMap={ { a: '#eee', b: '#444' } }
+                                          data={ [ 3, 5, 6 ] }
+                                          interval={ 'Month' }
+                                          dateRange={ {
+                                            from: '2012',
+                                            to: '2020'
+                                          } }
+                                          title={ 'foo' }
+                                          tooltip={ { date: '2000' } }
+                                          tooltipUpdated={ cb }
+      /> )
+      const instance = target.instance()
+      instance._updateTooltip( { date: '2000', value: 200 } )
+      expect( cb ).toHaveBeenCalledTimes( 1 )
     } )
   } )
 } )
