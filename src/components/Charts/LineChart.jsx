@@ -32,7 +32,7 @@ export class LineChart extends React.Component {
   }
 
   _updateTooltip( point ) {
-    if ( !isDateEqual( this.props.tooltip.date, point.key ) ) {
+    if ( !isDateEqual( this.props.tooltip.date, point.date ) ) {
       this.props.tooltipUpdated( {
         date: point.date,
         dateRange: this.props.dateRange,
@@ -50,7 +50,8 @@ export class LineChart extends React.Component {
   }
 
   _redrawChart() {
-    if ( !this.props.data.dataByTopic || !this.props.data.dataByTopic.length ) {
+    const { colorMap, data, dateRange, interval, lastDate, lens } = this.props
+    if ( !data.dataByTopic || !data.dataByTopic.length ) {
       return
     }
 
@@ -65,9 +66,7 @@ export class LineChart extends React.Component {
       .title( 'Complaints' )
 
     const tip = this.tip
-    // will be Start Date - Date...
-    const colorMap = this.props.colorMap
-    const colorScheme = this.props.data.dataByTopic
+    const colorScheme = data.dataByTopic
       .map( o => colorMap[o.topic] )
 
     lineChart.margin( { left: 50, right: 10, top: 10, bottom: 40 } )
@@ -80,7 +79,7 @@ export class LineChart extends React.Component {
       .dateLabel( 'date' )
       .colorSchema( colorScheme )
 
-    if ( this.props.lens === 'Overview' ) {
+    if ( lens === 'Overview' ) {
       lineChart
         .on( 'customMouseOver', tip.show )
         .on( 'customMouseMove', this._updateInternalTooltip )
@@ -89,19 +88,21 @@ export class LineChart extends React.Component {
       lineChart.on( 'customMouseMove', this._updateTooltip )
     }
 
-    container.datum( this.props.data ).call( lineChart )
+    container.datum( data ).call( lineChart )
     const tooltipContainer =
       d3.select( chartID + ' .metadata-group .vertical-marker-container' )
     tooltipContainer.datum( [] ).call( tip )
 
     const config = {
-      dateRange: this.props.dateRange,
-      interval: this.props.interval,
-      lastDate: this.props.lastDate
+      dateRange,
+      interval,
+      lastDate
     }
 
-    // get the last date and fire it off to redux
-    this.props.tooltipUpdated( getLastLineDate( this.props.data, config ) )
+    if ( lens !== 'Overview' ) {
+      // get the last date and fire it off to redux
+      this.props.tooltipUpdated( getLastLineDate( data, config ) )
+    }
   }
 
   render() {
