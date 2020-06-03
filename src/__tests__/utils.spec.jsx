@@ -1,7 +1,7 @@
 import {
   ariaReadoutNumbers, calculateDateRange, clamp, coalesce, debounce,
-  getFullUrl, hasFiltersEnabled, hashCode, shortIsoFormat, sortSelThenCount,
-  startOfToday, parseCookies
+  formatPercentage, getFullUrl, hasFiltersEnabled, hashCode, shortIsoFormat,
+  sortSelThenCount, startOfToday, parseCookies
 } from '../utils'
 import { DATE_RANGE_MIN } from '../constants'
 import React from 'react'
@@ -136,6 +136,13 @@ describe('module::utils', () => {
       let actual = calculateDateRange( start, end )
       expect( actual ).toEqual( '6m' )
     } )
+  })
+
+  describe('formatPercentage', ()=>{
+    it('handles null values', ()=>{
+      let actual = formatPercentage(false)
+      expect(actual).toEqual(0.0)
+    })
   })
 
   describe( 'getFullUrl', () => {
