@@ -74,12 +74,12 @@ describe( 'component: BrushChart', () => {
     } )
   } )
 
-  describe('brush events', () => {
+  describe( 'brush events', () => {
     let target, cb
 
-    beforeEach(()=>{
+    beforeEach( () => {
       cb = jest.fn()
-    })
+    } )
 
     it( 'adds a map filter when it is not currently a filter', () => {
       target = shallow( <BrushChart changeDates={ cb }
@@ -90,7 +90,7 @@ describe( 'component: BrushChart', () => {
       instance._brushEnd( brushExtent )
       expect( cb ).toHaveBeenCalledTimes( 1 )
     } )
-  } );
+  } )
 
   describe( 'componentDidUpdate', () => {
     let mapDiv
@@ -113,7 +113,7 @@ describe( 'component: BrushChart', () => {
     it( 'does nothing when no data', () => {
       const target = shallow( <BrushChart
         brushDateData={ [] }
-        aggtype={ 'foo' }/> )
+      /> )
       target._redrawChart = jest.fn()
       target.setProps( { data: [] } )
       expect( target._redrawChart ).toHaveBeenCalledTimes( 0 )
@@ -122,29 +122,25 @@ describe( 'component: BrushChart', () => {
     it( 'trigger a new update when data changes', () => {
       const target = shallow( <BrushChart
         brushDateData={ [ 23, 4, 3 ] }
-        aggtype={ 'foo' }
       /> )
       target._redrawChart = jest.fn()
       const sp = jest.spyOn( target.instance(), '_redrawChart' )
-      target.setProps( { data: [ 2, 5 ] } )
+      target.setProps( { brushDateData: [ 2, 5 ] } )
       expect( sp ).toHaveBeenCalledTimes( 1 )
     } )
 
-    it( 'trigger a new update when printMode changes', () => {
+    it( 'does nothing when data is the same', () => {
       const target = shallow( <BrushChart
         brushDateData={ [ 23, 4, 3 ] }
-        aggtype={ 'foo' } total={ 1000 }
-        printMode={ 'false' }
       /> )
       target._redrawChart = jest.fn()
       const sp = jest.spyOn( target.instance(), '_redrawChart' )
-      target.setProps( { printMode: true } )
-      expect( sp ).toHaveBeenCalledTimes( 1 )
+      target.setProps( { brushDateData: [ 23, 4, 3 ] } )
+      expect( sp ).toHaveBeenCalledTimes( 0 )
     } )
 
     it( 'trigger a new update when width changes', () => {
       const target = shallow( <BrushChart brushDateData={ [ 23, 4, 3 ] }
-                                          aggtype={ 'foo' } total={ 1000 }
                                           printMode={ 'false' }
                                           width={ 1000 }
       /> )
@@ -155,13 +151,13 @@ describe( 'component: BrushChart', () => {
     } )
   } )
 
-  describe('mapDispatchToProps', () => {
-    it('provides a way to call changeDates', () => {
+  describe( 'mapDispatchToProps', () => {
+    it( 'provides a way to call changeDates', () => {
       const dispatch = jest.fn()
       mapDispatchToProps( dispatch ).changeDates( '2012', '2020' )
       expect( dispatch.mock.calls.length ).toEqual( 1 )
-    })
-  })
+    } )
+  } )
 
   describe( 'mapStateToProps', () => {
     it( 'maps state and props', () => {

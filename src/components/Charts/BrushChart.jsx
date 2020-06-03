@@ -41,17 +41,15 @@ export class BrushChart extends React.Component {
 
   _redrawChart() {
     // early exit if no data
-    if ( !this.props.brushDateData || !this.props.brushDateData.length ) {
+    const brushDateData = this.props.brushDateData
+    if ( !brushDateData || !brushDateData.length ) {
       return
     }
 
     const chartID = '#brush-chart'
     const container = d3.select( chartID )
     d3.select( chartID + ' .brush-chart' ).remove()
-    const containerWidth =
-      container.node() ?
-        container.node().getBoundingClientRect().width :
-        false
+    const containerWidth = container.node().getBoundingClientRect().width
     const brushChart = brush()
 
     brushChart.margin( {
@@ -64,10 +62,8 @@ export class BrushChart extends React.Component {
       .height( 70 )
       .on( 'customBrushEnd', this._brushEnd )
 
-    if ( this.props.brushDateData.length ) {
-      container.datum( this.props.brushDateData ).call( brushChart )
-      brushChart.dateRange( this.props.dateRange )
-    }
+    container.datum( brushDateData ).call( brushChart )
+    brushChart.dateRange( this.props.dateRange )
   }
 
   render() {
