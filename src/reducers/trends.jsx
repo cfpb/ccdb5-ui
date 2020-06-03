@@ -66,8 +66,6 @@ function processBucket( state, agg ) {
       }
     }
 
-    // console.log( item )
-    // console.log( subKeyName )
     // https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_omit
     // Create a parent row.
     // remove the lodash omit since it is deprecated in lodash5
