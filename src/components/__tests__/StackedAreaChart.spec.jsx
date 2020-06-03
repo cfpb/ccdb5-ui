@@ -220,7 +220,7 @@ describe( 'component: StackedAreaChart', () => {
                                           tooltipUpdated={ cb }
       /> )
       const instance = target.instance()
-      instance._updateTooltip( { key: '2012', values: [ 1, 2, 3 ] } )
+      instance._updateTooltip( { date: '2012', values: [ 1, 2, 3 ] } )
       expect( cb ).toHaveBeenCalledTimes( 2 )
     } )
 
@@ -237,7 +237,7 @@ describe( 'component: StackedAreaChart', () => {
                                           tooltipUpdated={ cb }
       /> )
       const instance = target.instance()
-      instance._updateTooltip( { key: '2000', value: 200 } )
+      instance._updateTooltip( { date: '2000', value: 200 } )
       expect( cb ).toHaveBeenCalledTimes( 1 )
     } )
   } )

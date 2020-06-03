@@ -3,10 +3,12 @@ import * as d3 from 'd3'
 import { connect } from 'react-redux'
 import { getLastDate } from '../../utils/chart'
 import { hashObject } from '../../utils'
+import { isDateEqual } from '../../utils/formatDate'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { stackedArea } from 'britecharts'
 import { updateTrendsTooltip } from '../../actions/trends'
+
 
 export class StackedAreaChart extends React.Component {
   constructor( props ) {
@@ -28,9 +30,9 @@ export class StackedAreaChart extends React.Component {
   }
 
   _updateTooltip( point ) {
-    if ( this.props.tooltip.date !== point.key ) {
+    if ( !isDateEqual( this.props.tooltip.date, point.date ) ) {
       this.props.tooltipUpdated( {
-        date: point.key,
+        date: point.date,
         dateRange: this.props.dateRange,
         interval: this.props.interval,
         values: point.values
@@ -61,7 +63,7 @@ export class StackedAreaChart extends React.Component {
       .width( containerWidth )
       .dateLabel( 'date' )
       .colorSchema( colors )
-      .on( 'customMouseMove', this._updateTooltip.bind( this ) )
+      .on( 'customMouseMove', this._updateTooltip )
 
     container.datum( data ).call( stackedAreaChart )
 
