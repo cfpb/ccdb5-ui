@@ -1,3 +1,4 @@
+/* eslint complexity: ["error", 5] */
 import './LineChart.less'
 import * as d3 from 'd3'
 
