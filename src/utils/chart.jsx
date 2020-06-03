@@ -1,11 +1,7 @@
 // ----------------------------------------------------------------------------
 /* eslint-disable no-mixed-operators */
 import { clampDate, slugify } from '../utils'
-import {
-  formatDateLocaleShort,
-  formatDateView,
-  isDateEqual
-} from './formatDate'
+import { formatDateView, isDateEqual } from './formatDate'
 
 import moment from 'moment'
 
@@ -29,7 +25,7 @@ export const getLastDate = ( dataSet, config ) => {
 
 export const getLastLineDate = ( dataSet, config ) => {
   // take in array of data points
-  if ( !dataSet || dataSet.dataByTopic.length === 0 ) {
+  if ( !dataSet || !dataSet.dataByTopic || dataSet.dataByTopic.length === 0 ) {
     return null
   }
 
@@ -60,7 +56,7 @@ export const getTooltipDate = ( inputDate, dateRange ) => {
   return formatDateView( returnDate )
 }
 
-export const getTooltipTitle = ( inputDate, interval, dateRange ) => {
+export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
   /* eslint complexity: ["error", 6] */
   interval = interval.toLowerCase()
   const startDate = getTooltipDate( inputDate, dateRange )
@@ -88,8 +84,12 @@ export const getTooltipTitle = ( inputDate, interval, dateRange ) => {
 
   endDate = getTooltipDate( endDate, dateRange )
 
-  return interval === 'day' ? `Date: ${ endDate }` :
-    `Date Interval: ${ startDate } - ${ endDate }`
+  if ( interval === 'day' ) {
+    return `Date: ${ endDate }`
+  }
+
+  return external ? `Date Interval: ${ startDate } - ${ endDate }` :
+    `${ startDate } - ${ endDate }`
 }
 
 /**
