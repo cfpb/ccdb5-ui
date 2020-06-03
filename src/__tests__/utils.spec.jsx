@@ -139,8 +139,8 @@ describe('module::utils', () => {
   })
 
   describe('formatPercentage', ()=>{
-    it('handles null values', ()=>{
-      let actual = formatPercentage(false)
+    it('handles NaN values', ()=>{
+      let actual = formatPercentage( NaN )
       expect(actual).toEqual(0.0)
     })
   })
