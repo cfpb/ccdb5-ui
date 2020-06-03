@@ -1,0 +1,18 @@
+@import (less) "../../css/base.less";
+@import (less) "../TabbedNavigation.less";
+
+.tabbed-navigation {
+  &.lens {
+    background: none;
+    border-bottom: 1px solid @gray-40;
+    .tab {
+      font-size: medium;
+      &.active {
+        background: @white;
+      }
+      &:not(.active) {
+        background: @pacific-20;
+      }
+    }
+  }
+}

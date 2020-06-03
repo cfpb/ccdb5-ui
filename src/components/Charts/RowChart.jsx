@@ -23,8 +23,9 @@ export class RowChart extends React.Component {
   _wrapText( text, width ) {
     // ignore test coverage since this is code borrowed from d3 mbostock
     // text wrapping functions
+
+    /* eslint-disable complexity */
     /* istanbul ignore next */
-    // eslint-disable-next-line complexity
     text.each( function() {
       const innerText = d3.select( this )
       if ( innerText.node().children && innerText.node().children.length > 0 ) {
@@ -60,6 +61,8 @@ export class RowChart extends React.Component {
         }
       }
     } )
+    /* eslint-enable complexity */
+
   }
 
 

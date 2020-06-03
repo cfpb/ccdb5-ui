@@ -24,7 +24,9 @@ export class ExternalTooltip extends React.Component {
             <ul className="m-list__unstyled tooltip-ul total">
               <li>
                 <span className="u-left">Total</span>
-                <span className="u-right">{ tooltip.total.toLocaleString() }</span>
+                <span className="u-right">
+                  { tooltip.total.toLocaleString() }
+                </span>
               </li>
             </ul>
           </div>

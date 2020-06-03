@@ -2,6 +2,17 @@ import { REQUERY_ALWAYS, REQUERY_NEVER } from '../../constants'
 import * as sut from '../trends'
 
 describe( 'action:trendsActions', () => {
+  describe( 'changeChartType', () => {
+    it( 'creates a simple action', () => {
+      const expectedAction = {
+        type: sut.CHART_TYPE_CHANGED,
+        chartType: 'bar',
+        requery: REQUERY_NEVER
+      }
+      expect( sut.changeChartType( 'bar' ) ).toEqual( expectedAction )
+    } )
+  } )
+
   describe( 'changeDataLens', () => {
     it( 'creates a simple action', () => {
       const expectedAction = {

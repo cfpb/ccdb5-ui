@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component:LensTabs renders without crashing 1`] = `
+<div
+  className="tabbed-navigation lens"
+>
+  <h2>
+    Product trends for selected criteria
+  </h2>
+  <section>
+    <button
+      className="tab sub_product"
+      onClick={[Function]}
+    >
+      Sub-products
+    </button>
+    <button
+      className="tab issue"
+      onClick={[Function]}
+    >
+      Issues
+    </button>
+  </section>
+</div>
+`;
