@@ -24,16 +24,16 @@ export class LineChart extends React.Component {
     }
   }
 
-  _tipStuff( evt ) {
-    if ( !isDateEqual( this.props.tooltip.date, evt.key ) ) {
+  _updateTooltip( point ) {
+    if ( !isDateEqual( this.props.tooltip.date, point.key ) ) {
       this.props.tooltipUpdated( {
-        date: evt.date,
+        date: point.date,
         dateRange: {
           from: '',
           to: ''
         },
         interval: this.props.interval,
-        values: evt.topics
+        values: point.topics
       } )
     }
   }
@@ -78,12 +78,12 @@ export class LineChart extends React.Component {
         .on( 'customMouseOver', tip.show )
         .on( 'customMouseMove', function( dataPoint, topicColorMap,
                                            dataPointXPosition ) {
-          tip.title( getTooltipTitle( dataPoint.date, interval, dateRange ) )
+          tip.title( getTooltipTitle( dataPoint.date, interval, dateRange, false ) )
           tip.update( dataPoint, topicColorMap, dataPointXPosition )
         } )
         .on( 'customMouseOut', tip.hide )
     } else {
-      lineChart.on( 'customMouseMove', this._tipStuff.bind( this ) )
+      lineChart.on( 'customMouseMove', this._updateTooltip.bind( this ) )
     }
 
     container.datum( this.props.data ).call( lineChart )

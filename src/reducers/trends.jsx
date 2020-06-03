@@ -520,7 +520,7 @@ function updateTooltip( state, action ) {
   // need to merge in the actual viewed state
   if ( tooltip ) {
     tooltip.title = getTooltipTitle( tooltip.date, tooltip.interval,
-      tooltip.dateRange )
+      tooltip.dateRange, true )
 
     /* istanbul ignore else */
     if ( tooltip.values ) {
