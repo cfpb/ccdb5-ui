@@ -35,10 +35,7 @@ export class LineChart extends React.Component {
     if ( !isDateEqual( this.props.tooltip.date, point.key ) ) {
       this.props.tooltipUpdated( {
         date: point.date,
-        dateRange: {
-          from: '',
-          to: ''
-        },
+        dateRange: this.props.dateRange,
         interval: this.props.interval,
         values: point.topics
       } )
@@ -59,10 +56,7 @@ export class LineChart extends React.Component {
 
     const chartID = '#line-chart'
     const container = d3.select( chartID )
-    const containerWidth =
-      container.node() ?
-        container.node().getBoundingClientRect().width :
-        false
+    const containerWidth = container.node().getBoundingClientRect().width
     d3.select( chartID + ' .line-chart' ).remove()
     const lineChart = line()
     this.tip = tooltip()

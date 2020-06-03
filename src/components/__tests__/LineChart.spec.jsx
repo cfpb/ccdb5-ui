@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import thunk from 'redux-thunk'
+import { BrushChart } from '../Charts/BrushChart'
 
 // this is how you override and mock an imported constructor
 jest.mock( 'britecharts', () => {
@@ -269,4 +270,61 @@ describe( 'component: LineChart', () => {
       } )
     } )
   } )
+
+  describe( 'tooltip events', () => {
+    let target, cb
+
+    beforeEach( () => {
+      cb = jest.fn()
+    } )
+
+    it( 'updates external tooltip with different data', () => {
+      const data = {
+        dataByTopic: []
+      }
+      target = shallow( <LineChart data={ data }
+                                   interval={ 'Month' }
+                                   dateRange={ { from: '2012', to: '2020' } }
+                                   title={ 'foo' }
+                                   tooltip={ { date: '2000' } }
+                                   tooltipUpdated={ cb }
+      /> )
+      const instance = target.instance()
+      instance._updateTooltip( { key: '2012', value: 200 }  )
+      expect( cb ).toHaveBeenCalledTimes( 1 )
+    } )
+
+    it( 'does not external tooltip with same data', () => {
+      const data = {
+        dataByTopic: []
+      }
+      target = shallow( <LineChart data={ data }
+                                   interval={ 'Month' }
+                                   dateRange={ { from: '2012', to: '2020' } }
+                                   title={ 'foo' }
+                                   tooltip={ { date: '2000' } }
+                                   tooltipUpdated={ cb }
+      /> )
+      const instance = target.instance()
+      instance._updateTooltip( { key: '2000', value: 200 }  )
+      expect( cb ).toHaveBeenCalledTimes( 0 )
+    } )
+
+    it( 'internal tooltip', () => {
+      const data = {
+        dataByTopic: []
+      }
+      target = shallow( <LineChart data={ data } interval={ 'Month' }
+                                   dateRange={ { from: '2012', to: '2020' } }
+                                   title={ 'foo' }/> )
+      const instance = target.instance()
+      instance.tip = {
+        title: jest.fn(),
+        update: jest.fn()
+      }
+      instance._updateInternalTooltip( { date: '2012', value: 200 }, {}, 0 )
+      expect( instance.tip.title ).toHaveBeenCalledTimes( 1 )
+    } )
+  } )
+
 } )
