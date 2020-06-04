@@ -1,0 +1,41 @@
+@import (less) "../../css/base.less";
+
+.chart-toggles {
+  .toggle {
+    background-color: @pacific-40;
+    padding: 3px;
+    &.selected {
+      background-color: @pacific-80;
+      font-weight: 600;
+    }
+    svg {
+      height: 25px;
+
+      &#line-chart-icon{
+        .cls-1 {
+          opacity: 0.4;
+        }
+
+        .cls-2 {
+          fill: none;
+          stroke: #101820;
+          stroke-miterlimit: 10;
+          stroke-width: 2px;
+        }
+
+        .cls-3 {
+          fill: #101820;
+        }
+      }
+      &#area-chart-icon {
+        .cls-1 {
+          fill: #101820;
+        }
+
+        .cls-2 {
+          opacity: 0.4;
+        }
+      }
+    }
+  }
+}
