@@ -22,13 +22,11 @@ export class ChartToggles extends React.Component {
       <section className="chart-toggles m-btn-group">
         <p>Chart Type</p>
         <button onClick={ () => this._toggleChartType( 'line' ) }
-                className={ this._btnClassName( 'line' ) }
-        key={'line'}>
+                className={ this._btnClassName( 'line' ) }>
           { iconMap.getIcon( 'line-chart' ) }
         </button>
         <button onClick={ () => this._toggleChartType( 'area' ) }
-                className={ this._btnClassName( 'area' ) }
-        key={'area'}>
+                className={ this._btnClassName( 'area' ) }>
           { iconMap.getIcon( 'area-chart' ) }
         </button>
       </section>
