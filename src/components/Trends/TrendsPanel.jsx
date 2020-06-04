@@ -1,3 +1,4 @@
+/* eslint-disable complexity, camelcase */
 import '../RefineBar/RefineBar.less'
 import './TrendsPanel.less'
 
@@ -5,6 +6,7 @@ import { changeChartType, changeDataLens } from '../../actions/trends'
 import ActionBar from '../ActionBar'
 import BrushChart from '../Charts/BrushChart'
 import { changeDateInterval } from '../../actions/filter'
+import ChartToggles from '../RefineBar/ChartToggles'
 import { connect } from 'react-redux'
 import DateRanges from '../RefineBar/DateRanges'
 import ExternalTooltip from './ExternalTooltip'
@@ -34,8 +36,8 @@ export class TrendsPanel extends React.Component {
 
   render() {
     return (
-      <section className={this._className()}>
-        <ActionBar />
+      <section className={ this._className() }>
+        <ActionBar/>
         { this.props.showMobileFilters && <FilterPanel/> }
         <div className="layout-row refine-bar">
           <FilterPanelToggle/>
@@ -45,50 +47,51 @@ export class TrendsPanel extends React.Component {
                   id={ 'lens' }
                   value={ this.props.lens }
                   handleChange={ this.props.onLens }/>
-          <Separator />
+          <Separator/>
           <Select label={ 'Choose the Date Interval' }
                   title={ 'Date Interval' }
                   values={ intervals }
                   id={ 'interval' }
                   value={ this.props.dateInterval }
                   handleChange={ this.props.onInterval }/>
-          { !this.props.overview &&
-          <Select label={ 'Chart Type' }
-                  title={ 'Chart Type' }
-                  values={ [ 'line', 'area' ] }
-                  id={ 'chart-type' }
-                  value={ this.props.chartType }
-                  handleChange={ this.props.onChartType }/>
-          }
-          <DateRanges />
+          <DateRanges/>
+          { !this.props.overview && [
+            <Separator key={ 'separator' }/>,
+            <ChartToggles key={ 'chart-toggles' }/>
+          ] }
         </div>
         <div className="layout-row">
           <section className="chart">
             { this.props.chartType === 'line' &&
-              <LineChart title="Complaints by date received"/> }
+            <LineChart title="Complaints by date received"/> }
             { this.props.chartType === 'area' &&
-              <StackedAreaChart title="Complaints by date received"/> }
+            <StackedAreaChart title="Complaints by date received"/> }
             <BrushChart/>
           </section>
           { !this.props.overview && <ExternalTooltip/> }
         </div>
-        { this.props.overview &&
-        <RowChart id="product"
-                  colorScheme={this.props.productData.colorScheme}
-                  data={this.props.productData.data}
-                  title={ 'Product by highest complaint volume' }/> }
-        { this.props.overview &&
-        <RowChart id="issue"
-                  colorScheme={this.props.issueData.colorScheme}
-                  data={this.props.issueData.data}
-                  title={ 'Issue by highest complaint volume' }/> }
-        { !this.props.overview && <LensTabs /> }
-        { !this.props.overview &&
+
+        { this.props.overview ? [
+          <RowChart id="product"
+                    colorScheme={ this.props.productData.colorScheme }
+                    data={ this.props.productData.data }
+                    title={ 'Product by highest complaint volume' }
+                    key={ 'product-row' }/>,
+          <RowChart id="issue"
+                    colorScheme={ this.props.issueData.colorScheme }
+                    data={ this.props.issueData.data }
+                    title={ 'Issue by highest complaint volume' }
+                    key={ 'issue-row' }/>
+        ] : [
+          <LensTabs key={ 'lens-tab' }/>,
           <RowChart id={ this.props.lens }
-                    colorScheme={this.props.dataLensData.colorScheme}
-                    data={this.props.dataLensData.data}
-                    title={ this.props.subLensTitle }/> }
-        <Loading isLoading={this.props.isLoading || false} />
+                    colorScheme={ this.props.dataLensData.colorScheme }
+                    data={ this.props.dataLensData.data }
+                    title={ this.props.subLensTitle }
+                    key={ this.props.lens + 'row' }/>
+        ] }
+
+        <Loading isLoading={ this.props.isLoading || false }/>
       </section>
     )
   }
