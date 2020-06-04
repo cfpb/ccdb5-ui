@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component: ChartToggles initial state renders without crashing 1`] = `
+<section
+  className="chart-toggles m-btn-group"
+>
+  <p>
+    Chart Type
+  </p>
+  <button
+    className="a-btn toggle line selected"
+    onClick={[Function]}
+  >
+    <svg
+      data-name="line chart"
+      id="line-chart-icon"
+      viewBox="0 0 27 21"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <title>
+        line chart icon
+      </title>
+      <g
+        className="cls-1"
+      >
+        <line
+          className="cls-2"
+          x1="12"
+          x2="2"
+          y1="6.27"
+          y2="19"
+        />
+        <line
+          className="cls-2"
+          x1="22.9"
+          x2="14.1"
+          y1="14"
+          y2="6"
+        />
+        <path
+          className="cls-3"
+          d="M13,4a1,1,0,1,1-1,1,1,1,0,0,1,1-1m0-1a2,2,0,1,0,2,2,2,2,0,0,0-2-2Z"
+        />
+        <path
+          className="cls-3"
+          d="M24,14a1,1,0,1,1-1,1,1,1,0,0,1,1-1m0-1a2,2,0,1,0,2,2,2,2,0,0,0-2-2Z"
+        />
+      </g>
+      <line
+        className="cls-2"
+        x1="12"
+        x2="2"
+        y1="16.45"
+        y2="11"
+      />
+      <line
+        className="cls-2"
+        x1="23"
+        x2="14"
+        y1="6"
+        y2="16"
+      />
+      <path
+        className="cls-3"
+        d="M13,16a1,1,0,1,1-1,1,1,1,0,0,1,1-1m0-1a2,2,0,1,0,2,2,2,2,0,0,0-2-2Z"
+      />
+      <path
+        className="cls-3"
+        d="M24,4a1,1,0,1,1-1,1,1,1,0,0,1,1-1m0-1a2,2,0,1,0,2,2,2,2,0,0,0-2-2Z"
+      />
+    </svg>
+  </button>
+  <button
+    className="a-btn toggle area"
+    onClick={[Function]}
+  >
+    <svg
+      data-name="area chart"
+      id="area-chart-icon"
+      viewBox="0 0 27 21"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <title>
+        area chart icon
+      </title>
+      <polygon
+        className="cls-1"
+        points="27 11 23.48 14 15.26 9 7.04 17 0 15 0 21 27 21 27 11"
+      />
+      <g
+        className="cls-2"
+      >
+        <polygon
+          className="cls-1"
+          points="6.32 14.79 14.92 6.46 23.36 11.58 27 8.5 27 1 23.48 4 15.26 1 7.04 7 0 9 0 12.94 6.32 14.79"
+        />
+      </g>
+    </svg>
+  </button>
+</section>
+`;
