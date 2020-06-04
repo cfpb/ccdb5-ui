@@ -336,3 +336,28 @@ export function processErrorMessage( err ) {
     message: err.message
   }
 }
+
+/**
+ * Takes in a number and outputs to percentage
+ * @param {number} num value we convert .9999
+ * @returns {number} 99.99
+ */
+export function formatPercentage( num ) {
+  // we have to do this so it is a float and not a string
+  const val = parseFloat( parseFloat( num * 100 ).toFixed( 2 ) );
+  return isNaN( val ) ? 0.00 : val;
+}
+
+/**
+ * helper function
+ * @param {object} bucket contains key value pairs
+ * @returns {string} name of the key that has the buckets
+ */
+export const getSubKeyName = bucket => {
+  for ( const k in bucket ) {
+    if ( k !== 'trend_period' && bucket[k].buckets ) {
+      return k;
+    }
+  }
+  return ''
+}
