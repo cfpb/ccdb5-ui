@@ -1,4 +1,5 @@
 import './StackedAreaChart.less'
+import * as colors from '../../constants/colors'
 import * as d3 from 'd3'
 import { connect } from 'react-redux'
 import { getLastDate } from '../../utils/chart'
@@ -51,7 +52,10 @@ export class StackedAreaChart extends React.Component {
     const containerWidth = container.node().getBoundingClientRect().width
     d3.select( chartID + ' .stacked-area' ).remove()
     const stackedAreaChart = stackedArea()
-    const colors = Object.values( colorMap )
+    const colorScheme = [ ...new Set( data.map( item => item.name ) ) ]
+      .filter( o => o !== 'Other' )
+      .map( o => colorMap[o] )
+    colorScheme.push( colors.DataLens[10] )
 
     stackedAreaChart.margin( { left: 50, right: 10, top: 10, bottom: 40 } )
       .areaCurve( 'linear' )
@@ -62,7 +66,7 @@ export class StackedAreaChart extends React.Component {
       .aspectRatio( 0.5 )
       .width( containerWidth )
       .dateLabel( 'date' )
-      .colorSchema( colors )
+      .colorSchema( colorScheme )
       .on( 'customMouseMove', this._updateTooltip )
 
     container.datum( data ).call( stackedAreaChart )
