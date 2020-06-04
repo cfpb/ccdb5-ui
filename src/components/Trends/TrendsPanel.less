@@ -218,4 +218,30 @@
   h2 {
     padding: @gutter-normal;
   }
+
+
+  @media @phone {
+    .refine-bar {
+      .cf-select {
+        width: 40%;
+      }
+    }
+  }
+
+  @media @phone, @tablet {
+    .chart {
+      width: 100%;
+    }
+    &.external-tooltip {
+      section {
+        &.chart {
+          width: 100%;
+        }
+
+        &.tooltip-container {
+          width: 100%;
+        }
+      }
+    }
+  }
 } 
