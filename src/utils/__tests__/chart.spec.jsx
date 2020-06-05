@@ -199,21 +199,4 @@ describe( 'processRows', () => {
     } )
   } )
 
-  it( 'returns only filtered visible rows', () => {
-    const filters = [ 'abc' ]
-    const colorMap = { Complaint: '#124', abc: '#aaa', def: '#bbb' }
-    const rows = [
-      { name: 'abc', visible: true, value: 123 },
-      { name: 'def', visible: true, value: 123 },
-      { name: 'Complaint', visible: true, value: 123 },
-      { name: 'Compla', parent: 'Complaint', visible: false, value: 123 },
-      { name: 'de11f', parent: 'def', visible: false, value: 123 } ]
-    const res = sut.processRows( filters, rows, colorMap )
-    expect( res ).toEqual( {
-      colorScheme: [ '#aaa' ],
-      data: [
-        { name: 'abc', visible: true, value: 123 }
-      ]
-    } )
-  } )
 } )

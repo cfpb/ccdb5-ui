@@ -1,7 +1,7 @@
 // ----------------------------------------------------------------------------
-/* eslint-disable no-mixed-operators */
-import { clampDate, slugify } from '../utils'
+/* eslint-disable no-mixed-operators, camelcase */
 import { formatDateView, isDateEqual } from './formatDate'
+import { clampDate } from '../utils'
 
 import moment from 'moment'
 
@@ -118,17 +118,6 @@ export const getColorScheme = ( rowNames, colorMap ) =>
 
 export const processRows = ( filters, rows, colorMap ) => {
   let data = rows ? rows : []
-  // only include the bars that are explicitly listed in the filters
-  if ( filters && filters.length && data ) {
-    data = data.filter( o => {
-      if ( o.parent ) {
-        return filters.includes( slugify( o.parent, o.name ) )
-      }
-
-      return filters.includes( o.name )
-    } )
-  }
-
   data = data.filter( o => o.visible )
   const colorScheme = getColorScheme( data, colorMap )
 
@@ -136,4 +125,35 @@ export const processRows = ( filters, rows, colorMap ) => {
     colorScheme,
     data
   }
+}
+
+/**
+ * The api sends us the date buckets in older -> new order
+ * however, in data lens / company aggregation it's reversed
+ * we also need to fill any empty area buckets when dates are missing
+ * @param {string} name bucket name
+ * @param {array} buckets contains dates and value paired objects
+ * @param {array} areaBuckets the reference dates we check against
+ * @returns {array} the sorted array in old-> newest
+ */
+export const updateDateBuckets = ( name, buckets, areaBuckets ) => {
+  // fill in empty zero values
+  areaBuckets.forEach( o => {
+    if ( !buckets.find( b => b.key_as_string === o.key_as_string ) ) {
+      buckets.push( {
+        name: name,
+        doc_count: 0,
+        key_as_string: o.key_as_string
+      } )
+    }
+  } )
+
+  return buckets
+    // eslint-disable-next-line no-confusing-arrow, no-extra-parens
+    .sort( ( a, b ) => ( a.key_as_string > b.key_as_string ) ? 1 : -1 )
+    .map( o => ( {
+      name: name,
+      date: o.key_as_string,
+      value: o.doc_count
+    } ) )
 }

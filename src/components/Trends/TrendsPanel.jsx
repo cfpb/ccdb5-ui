@@ -7,6 +7,7 @@ import ActionBar from '../ActionBar'
 import BrushChart from '../Charts/BrushChart'
 import { changeDateInterval } from '../../actions/filter'
 import ChartToggles from '../RefineBar/ChartToggles'
+import CompanyTypeahead from '../Filters/CompanyTypeahead'
 import { connect } from 'react-redux'
 import DateRanges from '../RefineBar/DateRanges'
 import ExternalTooltip from './ExternalTooltip'
@@ -20,6 +21,7 @@ import React from 'react'
 import RowChart from '../Charts/RowChart'
 import Select from '../RefineBar/Select'
 import Separator from '../RefineBar/Separator'
+import { showCompanyOverLay } from '../../utils/trends'
 import StackedAreaChart from '../Charts/StackedAreaChart'
 
 const intervals = [ 'Day', 'Week', 'Month', 'Quarter', 'Year' ]
@@ -60,6 +62,21 @@ export class TrendsPanel extends React.Component {
             <ChartToggles key={ 'chart-toggles' }/>
           ] }
         </div>
+
+        { this.props.companyOverlay &&
+        <div className="layout-row company-overlay">
+          <section className="company-search">
+            <h1>Search for and add companies to visualize data </h1>
+            <p>Monocle ipsum dolor sit amet shinkansen delightful tote bag
+              handsome, elegant joy ryokan conversation. Sunspel lovely
+              signature vibrant boutique the best elegant Airbus A380 concierge
+              Baggu izakaya
+            </p>
+            <CompanyTypeahead />
+          </section>
+        </div>
+        }
+
         <div className="layout-row">
           <section className="chart">
             { this.props.chartType === 'line' &&
@@ -70,7 +87,6 @@ export class TrendsPanel extends React.Component {
           </section>
           { !this.props.overview && <ExternalTooltip/> }
         </div>
-
         { this.props.overview ? [
           <RowChart id="product"
                     colorScheme={ this.props.productData.colorScheme }
@@ -107,6 +123,7 @@ const subLensMap = {
 const mapStateToProps = state => {
   const { query, trends } = state
   const {
+    company: companyFilters,
     dateInterval,
     issue: issueFilters,
     product: productFilters,
@@ -120,6 +137,8 @@ const mapStateToProps = state => {
 
   return {
     chartType,
+    companyData: processRows( companyFilters, results.company, false ),
+    companyOverlay: showCompanyOverLay( lens, companyFilters, isLoading ),
     dateInterval,
     isLoading,
     issueData: processRows( issueFilters, results.issue, false ),

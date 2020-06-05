@@ -9,7 +9,7 @@ exports[`component:LensTabs renders without crashing 1`] = `
   </h2>
   <section>
     <button
-      className="tab sub_product"
+      className="tab sub_product active"
       onClick={[Function]}
     >
       Sub-products
