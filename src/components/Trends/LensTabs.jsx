@@ -4,8 +4,18 @@ import { connect } from 'react-redux'
 import React from 'react'
 
 const lensMaps = {
-  Product: 'Issue',
-  Issue: 'Product'
+  Company: {
+    tab1: { displayName: 'Products', filterName: 'product' },
+    tab2: { displayName: 'Issues', filterName: 'issue' }
+  },
+  Issue: {
+    tab1: { displayName: 'Sub-issues', filterName: 'sub_issue' },
+    tab2: { displayName: 'Products', filterName: 'product' }
+  },
+  Product: {
+    tab1: { displayName: 'Sub-products', filterName: 'sub_product' },
+    tab2: { displayName: 'Issues', filterName: 'issue' }
+  }
 }
 
 export class LensTabs extends React.Component {
@@ -16,28 +26,30 @@ export class LensTabs extends React.Component {
   _getTabClass( tab ) {
     tab = tab.toLowerCase()
     const classes = [ 'tab', tab ]
-
-    if ( this.props.subLens.toLowerCase() === tab ) {
+    const regex = new RegExp( this.props.subLens.toLowerCase(), 'g' )
+    if ( tab.replace( '-', '_' ).match( regex ) ) {
       classes.push( 'active' )
     }
     return classes.join( ' ' )
   }
 
   render() {
+    const { lens } = this.props
+
     return (
       <div className="tabbed-navigation lens">
-        <h2>{ this.props.lens + ' trends for selected criteria' }</h2>
+        <h2>{ lens + ' trends for selected criteria' }</h2>
         <section>
           <button
-            className={ this._getTabClass( 'sub_' + this.props.lens ) }
-            onClick={ () => this._setTab( 'sub_' + this.props.lens ) }>
-            { 'Sub-' + this.props.lens.toLowerCase() + 's' }
+            className={ this._getTabClass( lensMaps[lens].tab1.filterName ) }
+            onClick={ () => this._setTab( lensMaps[lens].tab1.filterName ) }>
+            { lensMaps[lens].tab1.displayName }
           </button>
 
           <button
-            className={ this._getTabClass( lensMaps[this.props.lens] ) }
-            onClick={ () => this._setTab( lensMaps[this.props.lens] ) }>
-            { lensMaps[this.props.lens] + 's' }
+            className={ this._getTabClass( lensMaps[lens].tab2.filterName ) }
+            onClick={ () => this._setTab( lensMaps[lens].tab2.filterName ) }>
+            { lensMaps[lens].tab2.displayName }
           </button>
         </section>
       </div>

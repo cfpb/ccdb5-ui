@@ -77,6 +77,7 @@ export class BrushChart extends React.Component {
 export const mapStateToProps = state => ( {
   brushDateData: state.trends.results.dateRangeBrush,
   dateRange: [ state.query.date_received_min, state.query.date_received_max ],
+  lens: state.query.lens,
   width: state.view.width
 } )
 
