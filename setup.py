@@ -1,5 +1,25 @@
 import os
 from setuptools import setup, find_packages
+from subprocess import check_output
+
+
+command = 'git describe --tags --long --dirty --always'
+fmt = '{tag}.dev{commitcount}+{gitsha}'
+
+
+def format_version(version, fmt=fmt):
+    parts = version.split('-')
+    assert len(parts) in (3, 4)
+    dirty = len(parts) == 4
+    tag, count, sha = parts[:3]
+    if count == '0' and not dirty:
+        return tag
+    return fmt.format(tag=tag, commitcount=count, gitsha=sha.lstrip('g'))
+
+
+def get_git_version():
+    git_version = check_output(command.split()).decode('utf-8').strip()
+    return format_version(version=git_version)
 
 
 def read_file(filename):
@@ -14,7 +34,7 @@ def read_file(filename):
 
 setup(
     name='ccdb5_ui',
-    version_format='{tag}.dev{commitcount}+{gitsha}',
+    version=get_git_version(),
     author='CFPB',
     author_email='tech@cfpb.gov',
     maintainer='cfpb',
@@ -38,9 +58,10 @@ setup(
     ],
     long_description=read_file('README.md'),
     zip_safe=False,
-    setup_requires=['cfgov_setup==1.2', 'setuptools-git-version==1.0.3'],
+    setup_requires=['cfgov_setup==1.2'],
     install_requires=[
         'Django>=1.11,<2.3',
+        'django-flags>=4.0.1,<5',
     ],
     frontend_build_script='frontendbuild.sh'
 )

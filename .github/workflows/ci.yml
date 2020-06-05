@@ -37,14 +37,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Fetch tags and commits needed for setuptools-git-version
-        run: |
-          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-          git fetch origin ${{ github.head_ref }} && git checkout ${{ github.head_ref }}
-          git describe --tags --long --dirty
-        # If the above git describe command doesn't work,
-        # then setuptools-git-version will also fail.
-
       - name: Set up Python
         uses: actions/setup-python@v1
         with:
