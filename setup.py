@@ -9,10 +9,8 @@ fmt = '{tag}.dev{commitcount}+{gitsha}'
 
 def format_version(version, fmt=fmt):
     parts = version.split('-')
-    print('version', version)
-    print('parts', parts)
 
-    # This is a unknown fork/branch being run in the CI
+    # This is an unknown fork/branch being run in the CI
     if len(parts) == 1:
         return fmt.format(tag='ci', commitcount=0, gitsha=version)
 
