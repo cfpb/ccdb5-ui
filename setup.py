@@ -9,6 +9,8 @@ fmt = '{tag}.dev{commitcount}+{gitsha}'
 
 def format_version(version, fmt=fmt):
     parts = version.split('-')
+    print('version', version)
+    print('parts', parts)
     assert len(parts) in (3, 4)
     dirty = len(parts) == 4
     tag, count, sha = parts[:3]
