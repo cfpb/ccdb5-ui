@@ -32,7 +32,6 @@ export class ActionBar extends React.Component {
                 Export data
               </button>
               <button className="a-btn a-btn__link print-preview"
-                      data-gtm_ignore="true"
                       onClick={ this._showPrintView }>
                 { iconMap.getIcon( 'printer' ) }
                 Print
