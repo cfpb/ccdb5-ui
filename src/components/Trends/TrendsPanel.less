@@ -6,17 +6,35 @@
       display: inline-block;
     }
   }
+
+  .company-overlay {
+    background: fade(@white, 85%);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+
+    .company-search {
+      margin: @gutter-wide;
+      .typeahead {
+        width: 100%;
+      }
+    }
+  }
+
   .chart {
     width: 100%;
   }
   &.external-tooltip {
+
     section {
       &.chart {
         width: 70%;
       }
       &.tooltip-container {
         width: 25%;
-
         &.legend {
           margin-top:20px;
           .tooltip-ul {
@@ -82,9 +100,16 @@
 
           li {
             span {
+              border: none;
               &.u-left {
                 display: inline-block;
+                text-align: left;
                 width: 70%;
+              }
+              &.u-right {
+                &.close {
+                  padding-left: 10px;
+                }
               }
             }
             margin-bottom: 0;
@@ -209,6 +234,14 @@
                 transform: rotate(135deg);
               }
             }
+          }
+        }
+      }
+
+      &.tooltip-container.Company {
+        ul.tooltip-ul:not(.total) {
+          .u-left {
+            text-decoration: underline;
           }
         }
       }

@@ -4,20 +4,12 @@
 // reducer for the Map Tab
 import * as colors from '../constants/colors'
 import {
-  clamp, formatPercentage, getSubKeyName, processErrorMessage
+  clamp, coalesce, formatPercentage, getSubKeyName, processErrorMessage
 } from '../utils'
+import { getTooltipTitle, updateDateBuckets } from '../utils/chart'
 import actions from '../actions'
-import { getTooltipTitle } from '../utils/chart'
 import { isDateEqual } from '../utils/formatDate'
-
-const filterMap = {
-  'Collection': 'Collections',
-  'Company': 'Matched Company',
-  'Issue': 'Issue',
-  'Sub-issue': 'Sub-Issue',
-  'Product': 'Product',
-  'Sub-product': 'Sub-Product'
-}
+import { pruneOther } from '../utils/trends'
 
 export const defaultState = {
   activeCall: '',
@@ -36,7 +28,6 @@ export const defaultState = {
     issue: [],
     product: []
   },
-  subLens: '',
   tooltip: false
 }
 
@@ -140,8 +131,7 @@ function processAreaData( state, aggregations, buckets ) {
   // reference buckets to backfill zero values
   const refBuckets = Object.assign( {}, compBuckets )
   // const lens = state.focus ? state.subLens : state.lens
-  const lens = state.lens
-  const filter = filterMap[lens].toLowerCase()
+  const filter = state.lens.toLowerCase()
   const trendResults = aggregations[filter][filter]
     .buckets.slice( 0, 10 )
   for ( let i = 0; i < trendResults.length; i++ ) {
@@ -187,7 +177,8 @@ function processAreaData( state, aggregations, buckets ) {
     }
   }
 
-  return compBuckets
+  // we should prune 'Other' if all of the values are zero
+  return pruneOther( compBuckets )
 }
 
 /**
@@ -214,17 +205,17 @@ function processLineData( lens, aggregations ) {
 
   if ( lens !== 'Overview' ) {
     const lensKey = lens.toLowerCase()
-    const issueBuckets = aggregations[lensKey][lensKey].buckets
-    for ( let i = 0; i < issueBuckets.length; i++ ) {
+    const aggBuckets = aggregations[lensKey][lensKey].buckets
+    for ( let i = 0; i < aggBuckets.length; i++ ) {
+      const name = aggBuckets[i].key
+      const dateBuckets = updateDateBuckets( name,
+        aggBuckets[i].trend_period.buckets, areaBuckets )
       dataByTopic.push( {
-        topic: issueBuckets[i].key,
-        topicName: issueBuckets[i].key,
+        topic: name,
+        topicName: name,
         dashed: false,
         show: true,
-        dates: issueBuckets[i].trend_period.buckets.reverse().map( o => ( {
-          date: o.key_as_string,
-          value: o.doc_count
-        } ) )
+        dates: dateBuckets
       } )
     }
   }
@@ -240,7 +231,6 @@ function processLineData( lens, aggregations ) {
  * @param {number} docCount overall agg count of the results being returned
  */
 export function processTrendPeriod( bucket, k, docCount ) {
-  // v[k].buckets[i] = bucket
   const trend_period = bucket.trend_period
 
   /* istanbul ignore else */
@@ -316,11 +306,12 @@ export function processTrends( state, action ) {
       } else if ( k === 'dateRangeArea' ) {
         // get the last date now to save time
         lastDate = buckets[buckets.length - 1].key_as_string
-        results.dateRangeLine = processLineData( lens, aggregations )
 
         if ( lens !== 'Overview' ) {
           results[k] = processAreaData( state, aggregations, buckets )
         }
+
+        results.dateRangeLine = processLineData( lens, aggregations )
       } else {
         results[k] = processBucket( state, buckets )
       }
@@ -474,7 +465,8 @@ export function updateChartType( state, action ) {
 export function updateDataLens( state, action ) {
   return {
     ...state,
-    lens: action.lens
+    lens: action.lens,
+    tooltip: false
   }
 }
 
@@ -491,7 +483,7 @@ function processParams( state, action ) {
   const processed = Object.assign( {}, defaultState )
 
   // Handle flag filters
-  const filters = [ 'lens', 'subLens' ]
+  const filters = [ 'lens' ]
   for ( const val of filters ) {
     if ( params[val] ) {
       processed[val] = params[val]
@@ -521,6 +513,8 @@ function updateTooltip( state, action ) {
       tooltip.values.forEach( o => {
         o.colorIndex = Object.values( colors.DataLens )
           .indexOf( state.colorMap[o.name] ) || 0
+        // make sure all values have a value
+        o.value = coalesce( o, 'value', 0 )
       } )
 
       let total = 0
