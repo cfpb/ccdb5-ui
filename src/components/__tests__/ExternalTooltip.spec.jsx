@@ -23,6 +23,7 @@ function setupSnapshot( tooltip, showCompanyTypeahead ) {
   return renderer.create(
     <Provider store={ store }>
       <ExternalTooltip tooltip={ tooltip }
+                       lens={'foobar'}
                        showCompanyTypeahead={ showCompanyTypeahead }/>
     </Provider>
   )
@@ -128,6 +129,7 @@ describe( 'mapStateToProps', () => {
     }
     let actual = mapStateToProps( state )
     expect( actual ).toEqual( {
+      lens: 'Overview',
       showCompanyTypeahead: false,
       tooltip: {
         title: 'Date: A tooltip',
