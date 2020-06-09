@@ -3,7 +3,7 @@ import React from 'react'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
 import renderer from 'react-test-renderer'
-import { Company } from '../Company'
+import ReduxCompany, { Company } from '../Company'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
@@ -29,7 +29,7 @@ function setupSnapshot(initialFixture) {
   return renderer.create(
     <Provider store={store}>
       <IntlProvider locale="en">
-        <Company options={[]}/>
+        <ReduxCompany />
       </IntlProvider>
     </Provider>
   )

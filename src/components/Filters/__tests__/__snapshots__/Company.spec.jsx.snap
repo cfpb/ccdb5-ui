@@ -75,6 +75,32 @@ exports[`component::Company snapshots renders without crashing 1`] = `
       />
     </div>
   </section>
-  <ul />
+  <ul>
+    <li
+      className="layout-row m-form-field m-form-field__checkbox"
+    >
+      <input
+        aria-label="Monocle Popper Inc"
+        checked={true}
+        className="flex-fixed a-checkbox"
+        id="companyMonoclePopper Inc"
+        onChange={[Function]}
+        type="checkbox"
+      />
+      <label
+        className="a-label flex-all bucket-key body-copy"
+        htmlFor="companyMonoclePopper Inc"
+      >
+        Monocle Popper Inc
+      </label>
+      <span
+        className="flex-fixed bucket-count"
+      >
+        <span>
+          9,999
+        </span>
+      </span>
+    </li>
+  </ul>
 </section>
 `;
