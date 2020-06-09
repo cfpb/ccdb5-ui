@@ -816,11 +816,11 @@ describe( 'reducer:query', () => {
         expect( result.date_received_min ).toEqual( new Date( types.DATE_RANGE_MIN ) )
       } )
 
-      it( 'handles 3m range', () => {
-        action.dateRange = '3m'
+      it( 'handles 1y range', () => {
+        action.dateRange = '1y'
         result = target( {}, action )
-        const min = new Date( moment().subtract( 3, 'months' ).calendar() )
-        const diffMin = moment( min ).diff( moment( result.date_received_min ), 'months' )
+        const min = new Date( moment().subtract( 1, 'year' ).calendar() )
+        const diffMin = moment( min ).diff( moment( result.date_received_min ), 'years' )
         expect( diffMin ).toEqual( 0 )
       } )
 
