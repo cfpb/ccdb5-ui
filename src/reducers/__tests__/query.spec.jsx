@@ -816,21 +816,26 @@ describe( 'reducer:query', () => {
         expect( result.date_received_min ).toEqual( new Date( types.DATE_RANGE_MIN ) )
       } )
 
-      it( 'handles 3m range', () => {
-        action.dateRange = '3m'
+      it( 'handles 1y range', () => {
+        action.dateRange = '1y'
         result = target( {}, action )
-        const min = new Date( moment().subtract( 3, 'months' ).calendar() )
-        const diffMin = moment( min ).diff( moment( result.date_received_min ), 'months' )
-        expect( diffMin ).toEqual( 0 )
+        expect( result ).toEqual( {
+          dateRange: '1y',
+          date_received_max: new Date( '2020-05-05T04:00:00.000Z' ),
+          date_received_min: new Date( '2019-05-05T04:00:00.000Z' ),
+          queryString: '?dateRange=1y&date_received_max=2020-05-05&date_received_min=2019-05-05'
+        } )
       } )
 
       it( 'default range handling', () => {
         action.dateRange = 'foo'
         result = target( {}, action )
-        // only set max to today's date
-        const diff = moment( result.date_received_max ).diff( moment( maxDate ), 'days' )
-        // make sure its same day
-        expect( diff ).toEqual( 0 )
+        // only set max date
+        expect( result ).toEqual( {
+          dateRange: 'foo',
+          date_received_max: new Date( '2020-05-05T04:00:00.000Z' ),
+          queryString: '?dateRange=foo&date_received_max=2020-05-05'
+        } )
       } )
     } )
   } )

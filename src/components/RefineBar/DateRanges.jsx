@@ -1,13 +1,13 @@
 import './DateRanges.less'
 import { connect } from 'react-redux'
-import { dateRanges } from '../../constants';
-import { dateRangeToggled } from '../../actions/filter';
+import { dateRanges } from '../../constants'
+import { dateRangeToggled } from '../../actions/filter'
 import React from 'react'
 
 
 export class DateRanges extends React.Component {
   _setDateRange( page ) {
-    this.props.toggleDateRange( page );
+    this.props.toggleDateRange( page )
   }
 
   _btnClassName( dateRange ) {
@@ -25,8 +25,8 @@ export class DateRanges extends React.Component {
         { dateRanges.map( dateRange =>
           <button onClick={ () => this._setDateRange( dateRange ) }
                   className={ this._btnClassName( dateRange ) }
-                  key={dateRange}>
-            {dateRange}
+                  key={ dateRange }>
+            { dateRange }
           </button>
         ) }
       </section>
@@ -36,12 +36,12 @@ export class DateRanges extends React.Component {
 
 export const mapStateToProps = state => ( {
   dateRange: state.query.dateRange
-} );
+} )
 
 export const mapDispatchToProps = dispatch => ( {
   toggleDateRange: range => {
     dispatch( dateRangeToggled( range ) )
   }
-} );
+} )
 
 export default connect( mapStateToProps, mapDispatchToProps )( DateRanges )

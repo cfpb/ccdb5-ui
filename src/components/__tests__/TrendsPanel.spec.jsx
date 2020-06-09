@@ -5,6 +5,7 @@ import { TrendsPanel, mapDispatchToProps } from '../Trends/TrendsPanel'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import thunk from 'redux-thunk'
+import { mapStateToProps } from '../Trends/ExternalTooltip'
 
 jest.mock( 'britecharts', () => {
   const props = [
@@ -50,7 +51,7 @@ jest.mock( 'd3', () => {
 } )
 
 
-function setupSnapshot( printMode, chartType, overview, showMobileFilters ) {
+function setupSnapshot( printMode, chartType, lens, showMobileFilters, companyOverlay ) {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
   const store = mockStore( {
@@ -61,7 +62,7 @@ function setupSnapshot( printMode, chartType, overview, showMobileFilters ) {
     query: {
       date_received_min: "2018-01-01T00:00:00.000Z",
       date_received_max: "2020-01-01T00:00:00.000Z",
-      lens: overview ? 'Overview' : 'Product',
+      lens,
       subLens: 'Issue'
     },
     trends: {
@@ -108,6 +109,7 @@ function setupSnapshot( printMode, chartType, overview, showMobileFilters ) {
     <Provider store={ store }>
       <IntlProvider locale="en">
         <TrendsPanel
+          companyOverlay={ companyOverlay }
           onChartType={ jest.fn() }
           onInterval={ jest.fn() }
           onLens={ jest.fn() }
@@ -115,8 +117,8 @@ function setupSnapshot( printMode, chartType, overview, showMobileFilters ) {
           dataLensData={ { data: [], colorScheme: [] } }
           issueData={ { data: [], colorScheme: [] } }
           productData={ { data: [], colorScheme: [] } }
-          overview={ overview }
-          lens={ overview ? 'Overview' : 'Product' }
+          overview={ lens === 'Overview' }
+          lens={ lens }
           subLensTitle={ 'Some title SubLens' }
           showMobileFilters={ showMobileFilters }
         />
@@ -126,37 +128,44 @@ function setupSnapshot( printMode, chartType, overview, showMobileFilters ) {
 }
 
 describe( 'component:TrendsPanel', () => {
+  it( 'renders company Overlay without crashing', () => {
+    const target = setupSnapshot( false, 'line', 'Company',
+      false, true )
+    const tree = target.toJSON()
+    expect( tree ).toMatchSnapshot()
+  } )
+
   it( 'renders line without crashing', () => {
-    const target = setupSnapshot( false, 'line', true,
-      false )
+    const target = setupSnapshot( false, 'line', 'Overview',
+      false, false )
     const tree = target.toJSON()
     expect( tree ).toMatchSnapshot()
   } )
 
   it( 'renders area without crashing', () => {
-    const target = setupSnapshot( false, 'area', true,
-      false )
+    const target = setupSnapshot( false, 'area', 'Product',
+      false, false )
     const tree = target.toJSON()
     expect( tree ).toMatchSnapshot()
   } )
 
   it( 'renders print mode without crashing', () => {
-    const target = setupSnapshot( true, 'line', true,
-      false )
+    const target = setupSnapshot( true, 'line', 'Product',
+      false, false )
     const tree = target.toJSON()
     expect( tree ).toMatchSnapshot()
   } )
 
   it( 'renders mobile filters without crashing', () => {
-    const target = setupSnapshot( true, 'line', true,
-      true )
+    const target = setupSnapshot( true, 'line', 'Overview',
+      true, false )
     const tree = target.toJSON()
     expect( tree ).toMatchSnapshot()
   } )
 
   it( 'renders external Tooltip without crashing', () => {
-    const target = setupSnapshot( true, 'line', false,
-      false )
+    const target = setupSnapshot( true, 'line', 'Product',
+      false, false )
     const tree = target.toJSON()
     expect( tree ).toMatchSnapshot()
   } )

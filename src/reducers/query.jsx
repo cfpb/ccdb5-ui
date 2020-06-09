@@ -5,6 +5,7 @@ import {
   calculateDateRange, clamp, hasFiltersEnabled, shortIsoFormat, startOfToday
 } from '../utils'
 import actions from '../actions'
+import { getSubLens } from '../utils/trends'
 import moment from 'moment';
 
 const queryString = require( 'query-string' );
@@ -683,7 +684,7 @@ function changeDataLens( state, action ) {
   return {
     ...state,
     lens: action.lens,
-    subLens: 'sub_' + action.lens.toLowerCase()
+    subLens: getSubLens( action.lens )
   }
 }
 

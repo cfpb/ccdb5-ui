@@ -47,13 +47,13 @@ describe( 'component:LensTabs', () => {
     it( 'tabChanged is called with Product when the button is clicked', () => {
       const prev = target.find( '.tabbed-navigation button.sub_product' )
       prev.simulate( 'click' )
-      expect( cb ).toHaveBeenCalledWith( 'sub_Product' )
+      expect( cb ).toHaveBeenCalledWith( 'sub_product' )
     } )
 
     it( 'tabChanged is called with Issue when the button is clicked', () => {
       const prev = target.find( '.tabbed-navigation button.issue' )
       prev.simulate( 'click' )
-      expect( cb ).toHaveBeenCalledWith( 'Issue' )
+      expect( cb ).toHaveBeenCalledWith( 'issue' )
     } )
   } )
 

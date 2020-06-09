@@ -35,7 +35,6 @@ describe( 'reducer:trends', () => {
           issue: [],
           product: []
         },
-        subLens: '',
         tooltip: false
       } )
     } )
@@ -62,8 +61,9 @@ describe( 'reducer:trends', () => {
         lens: 'Foo'
       }
 
-      expect( target( {}, action ) ).toEqual( {
-        lens: 'Foo'
+      expect( target( { tooltip: 'foo' }, action ) ).toEqual( {
+        lens: 'Foo',
+        tooltip: false
       } )
     } )
   } )
@@ -357,8 +357,8 @@ describe( 'reducer:trends', () => {
 
       const actual = target( state, action )
       expect( actual.lens ).toEqual( 'hello' )
-      expect( actual.subLens ).toEqual( 'mom' )
-      expect( actual.nope ).toBeFalsy()
+      // we don't care about subLens for trends reducer
+      expect( actual.subLens ).toBeFalsy()
     } )
   } )
 } )
