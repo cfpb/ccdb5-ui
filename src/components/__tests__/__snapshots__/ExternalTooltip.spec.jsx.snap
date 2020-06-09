@@ -2,7 +2,7 @@
 
 exports[`initial state renders Company typehead without crashing 1`] = `
 <section
-  className="tooltip-container u-clearfix"
+  className="tooltip-container u-clearfix foobar"
 >
   <section
     className="typeahead "
@@ -135,7 +135,7 @@ exports[`initial state renders nothing without crashing 1`] = `null`;
 
 exports[`initial state renders without crashing 1`] = `
 <section
-  className="tooltip-container u-clearfix"
+  className="tooltip-container u-clearfix foobar"
 >
   <p
     className="a-micro-copy"
