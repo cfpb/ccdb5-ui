@@ -37,6 +37,12 @@ function setupSnapshot(initialFixture) {
 
 describe('component::Company', () => {
   describe('snapshots', () => {
+    it('renders empty values without crashing', () => {
+      const target = setupSnapshot()
+      let tree = target.toJSON()
+      expect(tree).toMatchSnapshot()
+    })
+
     it('renders without crashing', () => {
       const target = setupSnapshot( fixture )
       let tree = target.toJSON()
