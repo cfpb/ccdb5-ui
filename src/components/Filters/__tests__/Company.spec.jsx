@@ -1,10 +1,9 @@
-import { shallow } from 'enzyme';
-import React from 'react'
+import configureMockStore from 'redux-mock-store'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
+import React from 'react'
+import ReduxCompany from '../Company'
 import renderer from 'react-test-renderer'
-import ReduxCompany, { Company } from '../Company'
-import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
 const fixture = [
