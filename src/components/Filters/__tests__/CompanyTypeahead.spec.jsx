@@ -1,23 +1,14 @@
-import { shallow } from 'enzyme';
-import React from 'react'
+import { CompanyTypeahead, mapDispatchToProps } from '../CompanyTypeahead'
+import configureMockStore from 'redux-mock-store'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
+import React from 'react'
 import renderer from 'react-test-renderer'
-import configureMockStore from 'redux-mock-store'
+import { shallow } from 'enzyme'
 import thunk from 'redux-thunk'
-import { mapDispatchToProps, CompanyTypeahead } from '../CompanyTypeahead'
-
-const fixture = [
-  { key: "Monocle Popper Inc", doc_count: 9999 },
-  { key: "Safe-T Deposits LLC", doc_count: 999 },
-  { key: "Securitized Collateral Risk Obligations Credit Co", doc_count: 99 },
-  { key: "EZ Credit", doc_count: 9 }
-]
 
 function setupEnzyme() {
   const props = {
-    forTypeahead: [],
-    options: [],
     queryString: '?foo=bar&baz=qaz',
     typeaheadSelect: jest.fn()
   }
@@ -33,14 +24,7 @@ function setupEnzyme() {
 function setupSnapshot(initialFixture) {
   const middlewares = [thunk]
   const mockStore = configureMockStore(middlewares)
-  const store = mockStore({
-    query: {
-      company: ['Monocle Popper Inc']
-    },
-    aggs: {
-      company: initialFixture
-    }
-  })
+  const store = mockStore({})
 
   return renderer.create(
     <Provider store={store}>
@@ -51,16 +35,10 @@ function setupSnapshot(initialFixture) {
   )
 }
 
-describe('component::Company', () => {
+describe('component::CompanyTypeahead', () => {
   describe('snapshots', () => {
-    it('renders empty values without crashing', () => {
-      const target = setupSnapshot()
-      let tree = target.toJSON()
-      expect(tree).toMatchSnapshot()
-    })
-
     it('renders without crashing', () => {
-      const target = setupSnapshot( fixture )
+      const target = setupSnapshot()
       let tree = target.toJSON()
       expect(tree).toMatchSnapshot()
     })
@@ -109,7 +87,7 @@ describe('component::Company', () => {
         })
       })
     })
-  
+
     describe('_onOptionSelected', () => {
       it('checks the filter associated with the option', () => {
         const {target, props} = setupEnzyme()
