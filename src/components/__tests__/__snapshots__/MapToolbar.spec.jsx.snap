@@ -31,6 +31,7 @@ exports[`component: MapToolbar initial state renders without crashing 1`] = `
   >
     <a
       className="list"
+      href="#"
       onClick={[Function]}
     >
       View complaints for filtered states

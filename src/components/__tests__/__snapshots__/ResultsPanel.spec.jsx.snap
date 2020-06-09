@@ -66,7 +66,6 @@ exports[`component:Results renders List print mode without crashing 1`] = `
             </button>
             <button
               className="a-btn a-btn__link print-preview"
-              data-gtm_ignore="true"
               onClick={[Function]}
             >
               <svg
@@ -553,7 +552,6 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
             </button>
             <button
               className="a-btn a-btn__link print-preview"
-              data-gtm_ignore="true"
               onClick={[Function]}
             >
               <svg
@@ -762,7 +760,6 @@ exports[`component:Results renders list panel without crashing 1`] = `
             </button>
             <button
               className="a-btn a-btn__link print-preview"
-              data-gtm_ignore="true"
               onClick={[Function]}
             >
               <svg
@@ -1212,7 +1209,6 @@ exports[`component:Results renders map panel without crashing 1`] = `
             </button>
             <button
               className="a-btn a-btn__link print-preview"
-              data-gtm_ignore="true"
               onClick={[Function]}
             >
               <svg
