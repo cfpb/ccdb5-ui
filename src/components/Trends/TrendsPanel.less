@@ -61,11 +61,22 @@
           }
         }
         p.a-micro-copy {
+          display: inline-block;
+          width: 100%;
           border-bottom: solid 1px @block__border-bottom;
           padding-top: 5px;
           margin-bottom: 0;
+          font-weight: 600;
+          font-size: 12px;
+
           span {
-            padding: @gutter-normal;
+            &.heading {
+              color: @gray-80;
+            }
+            &.date {
+              float: right;
+            }
+
           }
         }
 
