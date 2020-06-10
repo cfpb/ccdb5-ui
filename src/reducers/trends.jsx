@@ -6,18 +6,19 @@ import * as colors from '../constants/colors'
 import {
   clamp, coalesce, formatPercentage, getSubKeyName, processErrorMessage
 } from '../utils'
+import { getSubLens, pruneOther } from '../utils/trends'
 import { getTooltipTitle, updateDateBuckets } from '../utils/chart'
 import actions from '../actions'
 import { isDateEqual } from '../utils/formatDate'
-import { pruneOther } from '../utils/trends'
 
 export const defaultState = {
   activeCall: '',
   chartType: 'line',
   colorMap: {},
+  error: false,
   expandedTrends: [],
   filterNames: [],
-  focus: false,
+  focus: '',
   isLoading: false,
   lastDate: false,
   lens: 'Overview',
@@ -28,7 +29,9 @@ export const defaultState = {
     issue: [],
     product: []
   },
-  tooltip: false
+  subLens: '',
+  tooltip: false,
+  total: 0
 }
 
 // ----------------------------------------------------------------------------
@@ -130,8 +133,10 @@ function processAreaData( state, aggregations, buckets ) {
 
   // reference buckets to backfill zero values
   const refBuckets = Object.assign( {}, compBuckets )
-  // const lens = state.focus ? state.subLens : state.lens
-  const filter = state.lens.toLowerCase()
+  const { subLens } = state
+  const lens = state.focus ? subLens.replace( '_', '-' ) : state.lens
+
+  const filter = lens.toLowerCase()
   const trendResults = aggregations[filter][filter]
     .buckets.slice( 0, 10 )
   for ( let i = 0; i < trendResults.length; i++ ) {
@@ -185,10 +190,12 @@ function processAreaData( state, aggregations, buckets ) {
  * Process aggs and convert them into a format for Line Charts
  * @param {string} lens Overview, Issue, Product, etc
  * @param {object} aggregations comes from the API
+ * @param {string} focus if a focus item was selected
+ * @param {string} subLens current subLens
  * @returns {{dataByTopic: ([{dashed: boolean, show: boolean, topic: string,
  * topicName: string, dates: *}]|[])}} theformatted object containing line info
  */
-function processLineData( lens, aggregations ) {
+function processLineData( lens, aggregations, focus, subLens ) {
   const areaBuckets = aggregations.dateRangeArea.dateRangeArea.buckets
   const dataByTopic = lens === 'Overview' ? [
     {
@@ -204,7 +211,9 @@ function processLineData( lens, aggregations ) {
   ] : []
 
   if ( lens !== 'Overview' ) {
-    const lensKey = lens.toLowerCase()
+    // handle Focus Case
+    const lensKey = focus ? subLens.replace( '_', '-' ) :
+      lens.toLowerCase()
     const aggBuckets = aggregations[lensKey][lensKey].buckets
     for ( let i = 0; i < aggBuckets.length; i++ ) {
       const name = aggBuckets[i].key
@@ -282,51 +291,57 @@ export const getColorScheme = ( lens, rowNames ) => {
  * @returns {object} the new state for the Redux store
  */
 export function processTrends( state, action ) {
-  const { lens, results } = state
   const aggregations = action.data.aggregations
-  let lastDate
+  const { focus, lens, results, subLens } = state
+  let total = 0,
+      lastDate
 
   for ( const k in aggregations ) {
     /* istanbul ignore else */
-    if ( aggregations[k] && aggregations[k][k] && aggregations[k][k].buckets ) {
+    if ( aggregations[k] && aggregations[k].doc_count &&
+      aggregations[k][k] && aggregations[k][k].buckets ) {
       // set to zero when we are not using focus Lens
       const buckets = aggregations[k][k].buckets
       for ( let i = 0; i < buckets.length; i++ ) {
         const docCount = aggregations[k].doc_count
         processTrendPeriod( buckets[i], k, docCount )
       }
+      if ( k === 'dateRangeArea' ) {
+        // get the last date now to save time
+        lastDate = buckets[buckets.length - 1].key_as_string
+        total = aggregations[k].doc_count
+        if ( lens !== 'Overview' ) {
+          results[k] = processAreaData( state, aggregations, buckets )
+        }
 
-      if ( k === 'dateRangeBrush' ) {
+        results.dateRangeLine =
+          processLineData( lens, aggregations, focus, subLens )
+      } else if ( k === 'dateRangeBrush' ) {
         results[k] = buckets.map(
           obj => ( {
             date: new Date( obj.key_as_string ),
             value: obj.doc_count
           } )
         )
-      } else if ( k === 'dateRangeArea' ) {
-        // get the last date now to save time
-        lastDate = buckets[buckets.length - 1].key_as_string
-
-        if ( lens !== 'Overview' ) {
-          results[k] = processAreaData( state, aggregations, buckets )
-        }
-
-        results.dateRangeLine = processLineData( lens, aggregations )
       } else {
         results[k] = processBucket( state, buckets )
       }
+    } else if ( defaultState.results.hasOwnProperty( k ) ) {
+      // no value, so we clear out the results
+      results[k] = []
     }
   }
-
   const colorMap = getColorScheme( lens, results.dateRangeArea )
 
   return {
     ...state,
     activeCall: '',
     colorMap,
+    error: false,
     isLoading: false,
     lastDate,
-    results
+    results,
+    total
   }
 }
 
@@ -465,7 +480,37 @@ export function updateChartType( state, action ) {
 export function updateDataLens( state, action ) {
   return {
     ...state,
+    focus: '',
     lens: action.lens,
+    subLens: getSubLens( action.lens ),
+    tooltip: false
+  }
+}
+
+/**
+ * Handler for the update sub lens action
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the command being executed
+ * @returns {object} the new state for the Redux store
+ */
+export function updateDataSubLens( state, action ) {
+  return {
+    ...state,
+    subLens: action.subLens
+  }
+}
+
+/** Handler for the focus selected action
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the command being executed
+ * @returns {object} the new state for the Redux store
+ */
+function changeFocus( state, action ) {
+  return {
+    ...state,
+    focus: action.focus,
     tooltip: false
   }
 }
@@ -483,7 +528,7 @@ function processParams( state, action ) {
   const processed = Object.assign( {}, defaultState )
 
   // Handle flag filters
-  const filters = [ 'lens' ]
+  const filters = [ 'focus', 'lens', 'subLens' ]
   for ( const val of filters ) {
     if ( params[val] ) {
       processed[val] = params[val]
@@ -530,6 +575,18 @@ function updateTooltip( state, action ) {
   }
 }
 
+/**
+ * reset the filters selected for the focus too
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+export function removeAllFilters( state ) {
+  return {
+    ...state,
+    focus: ''
+  }
+}
 // ----------------------------------------------------------------------------
 // Action Handlers
 
@@ -543,6 +600,9 @@ export function _buildHandlerMap() {
 
   handlers[actions.CHART_TYPE_CHANGED] = updateChartType
   handlers[actions.DATA_LENS_CHANGED] = updateDataLens
+  handlers[actions.DATA_SUBLENS_CHANGED] = updateDataSubLens
+  handlers[actions.FILTER_ALL_REMOVED] = removeAllFilters
+  handlers[actions.FOCUS_CHANGED] = changeFocus
   handlers[actions.TAB_CHANGED] = handleTabChanged
   handlers[actions.TRENDS_API_CALLED] = trendsCallInProcess
   handlers[actions.TRENDS_FAILED] = processTrendsError

@@ -1571,37 +1571,6 @@ exports[`component:Results renders trends panel without crashing 1`] = `
         </button>
       </section>
     </div>
-    <div
-      className="layout-row"
-    >
-      <section
-        className="chart"
-      >
-        <div
-          id="brush-chart"
-        />
-      </section>
-    </div>
-    <div
-      className="row-chart-section"
-    >
-      <h3>
-        Product by highest complaint volume
-      </h3>
-      <div
-        id="row-chart-product"
-      />
-    </div>
-    <div
-      className="row-chart-section"
-    >
-      <h3>
-        Issue by highest complaint volume
-      </h3>
-      <div
-        id="row-chart-issue"
-      />
-    </div>
   </section>
 </div>
 `;
