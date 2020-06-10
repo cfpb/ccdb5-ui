@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component:FocusHeader renders without crashing 1`] = `
+<div
+  className="focus-header"
+>
+  <button
+    className="a-btn a-btn__link clear-focus"
+    id="clear-focus"
+    onClick={[Function]}
+  >
+    <svg
+      className="cf-icon-svg"
+      viewBox="0 0 559.6 1200"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M494.5 1090.7c-17.3 0-33.8-6.8-46-19L19 642.1c-25.4-25.4-25.4-66.5 0-91.9l429.5-429.5c25.6-25.1 66.8-24.8 91.9.8 24.8 25.3 24.8 65.8 0 91.1L156.9 596.2l383.6 383.6c25.4 25.4 25.4 66.5.1 91.9-12.3 12.2-28.8 19-46.1 19z"
+      />
+    </svg>
+    Back to trends
+  </button>
+  <div>
+    <section
+      className="focus"
+    >
+      <h1>
+        Foo Bar
+      </h1>
+      <span
+        className="divider"
+      />
+      <h2>
+        90,120
+         Complaints
+      </h2>
+    </section>
+  </div>
+  <div
+    className="tabbed-navigation lens"
+  >
+    <section>
+      <button
+        className="tab sub_product active"
+        onClick={[Function]}
+      >
+        Sub-products
+      </button>
+      <button
+        className="tab issue"
+        onClick={[Function]}
+      >
+        Issues
+      </button>
+    </section>
+  </div>
+</div>
+`;

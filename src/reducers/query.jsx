@@ -21,6 +21,7 @@ export const defaultQuery = {
     moment( startOfToday() ).subtract( 3, 'years' )
   ),
   enablePer1000: true,
+  focus: '',
   from: 0,
   mapWarningEnabled: true,
   searchText: '',
@@ -46,7 +47,7 @@ const trendFieldMap = {
 
 const urlParams = [
   'dateRange', 'searchText', 'searchField', 'tab',
-  'lens', 'dateInterval', 'subLens'
+  'lens', 'dateInterval', 'subLens', 'focus'
 ]
 const urlParamsInt = [ 'from', 'page', 'size' ]
 
@@ -673,6 +674,19 @@ function updateTotalPages( state, action ) {
   }
 }
 
+/** Handler for the focus selected action
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the command being executed
+ * @returns {object} the new state for the Redux store
+ */
+function changeFocus( state, action ) {
+  return {
+    ...state,
+    focus: action.focus
+  }
+}
+
 
 /**
  * update state based on changeDataLens action
@@ -683,6 +697,7 @@ function updateTotalPages( state, action ) {
 function changeDataLens( state, action ) {
   return {
     ...state,
+    focus: '',
     lens: action.lens,
     subLens: getSubLens( action.lens )
   }
@@ -778,6 +793,7 @@ export function validatePer1000( queryState ) {
 // eslint-disable-next-line max-statements, require-jsdoc
 export function _buildHandlerMap() {
   const handlers = {}
+  handlers[actions.FOCUS_CHANGED] = changeFocus
   handlers[actions.COMPLAINTS_RECEIVED] = updateTotalPages
   handlers[actions.DATA_LENS_CHANGED] = changeDataLens
   handlers[actions.DATA_SUBLENS_CHANGED] = changeDataSubLens

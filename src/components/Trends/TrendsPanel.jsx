@@ -13,6 +13,7 @@ import DateRanges from '../RefineBar/DateRanges'
 import ExternalTooltip from './ExternalTooltip'
 import FilterPanel from '../Filters/FilterPanel'
 import FilterPanelToggle from '../Filters/FilterPanelToggle'
+import FocusHeader from './FocusHeader'
 import LensTabs from './LensTabs'
 import LineChart from '../Charts/LineChart'
 import Loading from '../Dialogs/Loading'
@@ -26,8 +27,25 @@ import StackedAreaChart from '../Charts/StackedAreaChart'
 
 const intervals = [ 'Day', 'Week', 'Month', 'Quarter', 'Year' ]
 const lenses = [ 'Overview', 'Company', 'Product', 'Issue' ]
+const subLensMap = {
+  sub_product: 'Sub-products',
+  sub_issue: 'Sub-issues',
+  issue: 'Issues',
+  product: 'Products'
+}
 
 export class TrendsPanel extends React.Component {
+  _areaChartTitle() {
+    const { focus, overview, lens, subLens } = this.props
+    if ( overview ) {
+      return 'Complaints by date received'
+    } else if ( focus ) {
+      return 'Complaints by ' + subLensMap[subLens].toLowerCase() +
+        ' by date received'
+    }
+    return `Complaints by ${ lens.toLowerCase() } by date received`
+  }
+
   _className() {
     const classes = [ 'trends-panel' ]
     if ( !this.props.overview ) {
@@ -36,34 +54,76 @@ export class TrendsPanel extends React.Component {
     return classes.join( ' ' )
   }
 
+  _phaseMap() {
+    if ( this.props.overview ) {
+      return [
+        <RowChart id="product"
+                  colorScheme={ this.props.productData.colorScheme }
+                  data={ this.props.productData.data }
+                  title={ 'Product by highest complaint volume' }
+                  total={ this.props.total }
+                  key={ 'product-row' }/>,
+        <RowChart id="issue"
+                  colorScheme={ this.props.issueData.colorScheme }
+                  data={ this.props.issueData.data }
+                  title={ 'Issue by highest complaint volume' }
+                  total={ this.props.total }
+                  key={ 'issue-row' }/>
+      ]
+    }
+
+    if ( this.props.focus ) {
+      return <RowChart id={ this.props.lens }
+                       colorScheme={ this.props.focusData.colorScheme }
+                       data={ this.props.focusData.data }
+                       title={ this.props.subLensTitle }
+                       total={ this.props.total }
+                       key={ this.props.lens + 'row' }/>
+    }
+
+    return [
+      <LensTabs key={ 'lens-tab' } showTitle={ true }/>,
+      <RowChart id={ this.props.lens }
+                colorScheme={ this.props.dataLensData.colorScheme }
+                data={ this.props.dataLensData.data }
+                title={ this.props.subLensTitle }
+                total={ this.props.total }
+                key={ this.props.lens + 'row' }/>
+    ]
+  }
+
   render() {
+    const {
+      chartType, companyOverlay, dateInterval, focus, isLoading, lens,
+      onInterval, onLens, overview, showMobileFilters, total
+    } = this.props
     return (
       <section className={ this._className() }>
         <ActionBar/>
-        { this.props.showMobileFilters && <FilterPanel/> }
+        { showMobileFilters && <FilterPanel/> }
         <div className="layout-row refine-bar">
           <FilterPanelToggle/>
           <Select label={ 'Aggregate complaints by' }
                   title={ 'Aggregate by' }
                   values={ lenses }
                   id={ 'lens' }
-                  value={ this.props.lens }
-                  handleChange={ this.props.onLens }/>
+                  value={ lens }
+                  handleChange={ onLens }/>
           <Separator/>
           <Select label={ 'Choose the Date Interval' }
                   title={ 'Date Interval' }
                   values={ intervals }
                   id={ 'interval' }
-                  value={ this.props.dateInterval }
-                  handleChange={ this.props.onInterval }/>
+                  value={ dateInterval }
+                  handleChange={ onInterval }/>
           <DateRanges/>
-          { !this.props.overview && [
+          { !overview && [
             <Separator key={ 'separator' }/>,
             <ChartToggles key={ 'chart-toggles' }/>
           ] }
         </div>
 
-        { this.props.companyOverlay &&
+        { companyOverlay &&
         <div className="layout-row company-overlay">
           <section className="company-search">
             <h1>Search for and add companies to visualize data </h1>
@@ -72,52 +132,31 @@ export class TrendsPanel extends React.Component {
               signature vibrant boutique the best elegant Airbus A380 concierge
               Baggu izakaya
             </p>
-            <CompanyTypeahead />
+            <CompanyTypeahead/>
           </section>
         </div>
         }
 
+        { focus && <FocusHeader /> }
+
+        { total > 0 &&
         <div className="layout-row">
           <section className="chart">
-            { this.props.chartType === 'line' &&
-            <LineChart title="Complaints by date received"/> }
-            { this.props.chartType === 'area' &&
-            <StackedAreaChart title="Complaints by date received"/> }
+            { chartType === 'line' &&
+            <LineChart title={this._areaChartTitle()}/> }
+            { chartType === 'area' &&
+            <StackedAreaChart title={this._areaChartTitle()}/> }
             <BrushChart/>
           </section>
-          { !this.props.overview && <ExternalTooltip/> }
+          { !overview && <ExternalTooltip/> }
         </div>
-        { this.props.overview ? [
-          <RowChart id="product"
-                    colorScheme={ this.props.productData.colorScheme }
-                    data={ this.props.productData.data }
-                    title={ 'Product by highest complaint volume' }
-                    key={ 'product-row' }/>,
-          <RowChart id="issue"
-                    colorScheme={ this.props.issueData.colorScheme }
-                    data={ this.props.issueData.data }
-                    title={ 'Issue by highest complaint volume' }
-                    key={ 'issue-row' }/>
-        ] : [
-          <LensTabs key={ 'lens-tab' }/>,
-          <RowChart id={ this.props.lens }
-                    colorScheme={ this.props.dataLensData.colorScheme }
-                    data={ this.props.dataLensData.data }
-                    title={ this.props.subLensTitle }
-                    key={ this.props.lens + 'row' }/>
-        ] }
+        }
+        { total > 0 && this._phaseMap() }
 
-        <Loading isLoading={ this.props.isLoading || false }/>
+        <Loading isLoading={ isLoading || false }/>
       </section>
     )
   }
-}
-
-const subLensMap = {
-  sub_product: 'Sub-products',
-  sub_issue: 'Sub-issues',
-  issue: 'Issues',
-  product: 'Products'
 }
 
 const mapStateToProps = state => {
@@ -131,15 +170,20 @@ const mapStateToProps = state => {
     subLens
   } = query
 
+  const {
+    chartType, colorMap, focus, isLoading, results, total
+  } = trends
+
   const lensKey = lens.toLowerCase()
   const dataLensFilters = query[lensKey]
-  const { chartType, colorMap, isLoading, results } = trends
-
+  const focusKey = subLens.replace( '_', '-' )
   return {
     chartType,
     companyData: processRows( companyFilters, results.company, false ),
     companyOverlay: showCompanyOverLay( lens, companyFilters, isLoading ),
     dateInterval,
+    focus,
+    focusData: processRows( issueFilters, results[focusKey], colorMap ),
     isLoading,
     issueData: processRows( issueFilters, results.issue, false ),
     productData: processRows( productFilters, results.product, false ),
@@ -148,7 +192,8 @@ const mapStateToProps = state => {
     overview: lens === 'Overview',
     showMobileFilters: state.view.width < 750,
     subLens,
-    subLensTitle: subLensMap[subLens] + ' by ' + lens.toLowerCase()
+    subLensTitle: subLensMap[subLens] + ' by ' + lens.toLowerCase(),
+    total
   }
 }
 

@@ -3,6 +3,10 @@ import target, {
 } from '../trends'
 import actions from '../../actions'
 import {
+  trendsFocusAggs,
+  trendsFocusAggsResults
+} from '../__fixtures__/trendsFocusAggs'
+import {
   trendsLensIssueResults,
   trendsResults
 } from '../__fixtures__/trendsResults'
@@ -22,9 +26,10 @@ describe( 'reducer:trends', () => {
         activeCall: '',
         chartType: 'line',
         colorMap: {},
+        error: false,
         expandedTrends: [],
         filterNames: [],
-        focus: false,
+        focus: '',
         isLoading: false,
         lastDate: false,
         lens: 'Overview',
@@ -35,7 +40,9 @@ describe( 'reducer:trends', () => {
           issue: [],
           product: []
         },
-        tooltip: false
+        subLens: '',
+        tooltip: false,
+        total: 0
       } )
     } )
   } )
@@ -55,16 +62,73 @@ describe( 'reducer:trends', () => {
   } )
 
   describe( 'DATA_LENS_CHANGED action', () => {
+    it( 'updates the data lens overview', () => {
+      action = {
+        type: actions.DATA_LENS_CHANGED,
+        lens: 'Overview'
+      }
+
+      expect( target( { focus: 'gg', tooltip: 'foo' }, action ) ).toEqual( {
+        focus: '',
+        lens: 'Overview',
+        subLens: '',
+        tooltip: false
+      } )
+    } )
+
     it( 'updates the data lens', () => {
       action = {
         type: actions.DATA_LENS_CHANGED,
         lens: 'Foo'
       }
 
-      expect( target( { tooltip: 'foo' }, action ) ).toEqual( {
+      expect( target( { focus: 'gg', tooltip: 'foo' }, action ) ).toEqual( {
+        focus: '',
         lens: 'Foo',
+        subLens: 'sub_foo',
         tooltip: false
       } )
+    } )
+  } )
+
+  describe( 'DATA_SUBLENS_CHANGED action', () => {
+    it( 'updates the data sublens', () => {
+      action = {
+        type: actions.DATA_SUBLENS_CHANGED,
+        subLens: 'sub_something'
+      }
+
+      expect( target( { subLens: 'gg' }, action ) ).toEqual( {
+        subLens: 'sub_something'
+      } )
+    } )
+  } )
+
+  describe( 'FOCUS_CHANGED action', () => {
+    it( 'updates the FOCUS and clears the tooltip', () => {
+      action = {
+        type: actions.FOCUS_CHANGED,
+        focus: 'Some Rando Text'
+      }
+
+      expect( target( {
+        focus: 'gg',
+        tooltip: { wut: 'isthis' }
+      }, action ) ).toEqual( {
+        focus: 'Some Rando Text',
+        tooltip: false
+      } )
+    } )
+  } )
+
+  describe( 'FILTER_ALL_REMOVED action', () => {
+    it( 'resets the FOCUS', () => {
+      action = {
+        type: actions.FILTER_ALL_REMOVED
+      }
+
+      expect( target( { focus: 'gg', }, action ) )
+        .toEqual( { focus: '' } )
     } )
   } )
 
@@ -176,6 +240,16 @@ describe( 'reducer:trends', () => {
       result = target( state, action )
       expect( result ).toEqual( trendsAggsMissingBucketsResults )
     } )
+
+    it( 'maps data to object state - Focus', () => {
+      state.lens = 'Issue'
+      state.subLens = 'sub_issue'
+      state.focus = 'Incorrect information on your report'
+      action.data.aggregations = trendsFocusAggs
+      result = target( state, action )
+      expect( result ).toEqual( trendsFocusAggsResults )
+    } )
+
   } )
 
   describe( 'TREND_TOGGLED', () => {
@@ -357,8 +431,8 @@ describe( 'reducer:trends', () => {
 
       const actual = target( state, action )
       expect( actual.lens ).toEqual( 'hello' )
-      // we don't care about subLens for trends reducer
-      expect( actual.subLens ).toBeFalsy()
+      expect( actual.subLens ).toEqual( 'mom' )
+      expect( actual.nope ).toBeFalsy()
     } )
   } )
 } )

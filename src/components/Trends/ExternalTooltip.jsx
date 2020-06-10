@@ -1,31 +1,52 @@
+import { changeFocus } from '../../actions/trends'
 import CompanyTypeahead from '../Filters/CompanyTypeahead'
 import { connect } from 'react-redux'
 import iconMap from '../iconMap'
 import React from 'react'
 import { removeFilter } from '../../actions/filter'
+import { sanitizeHtmlId } from '../../utils'
 
 export class ExternalTooltip extends React.Component {
   _spanFormatter( value ) {
-    return this.props.showCompanyTypeahead ? [
-      <span className="u-left a-btn a-btn__link" key={value.name}>
+    const elements = []
+    // Other should never be a selectable focus item
+    if ( this.props.focus || value.name === 'Other' ) {
+      elements.push(
+        <span className="u-left" key={ value.name }>
+          { value.name }
+        </span>
+      )
+    } else {
+      elements.push( <span className="u-left a-btn a-btn__link"
+                           id={ 'focus-' + sanitizeHtmlId( value.name ) }
+                           key={ value.name }
+             onClick={ () => {
+               this.props.add( value.name )
+             } }>
         { value.name }
-      </span>,
-      <span className="u-right a-btn a-btn__link close"
-            key={ 'close_' + value.name }
-            onClick={ () => {
-              this.props.remove( value.name )
-            } }>
+      </span> )
+    }
+
+    // add in the close button for Company and there's no focus yet
+    if ( this.props.showCompanyTypeahead ) {
+      elements.push( <span className="u-right a-btn a-btn__link close"
+                           key={ 'close_' + value.name }
+                           onClick={ () => {
+                             this.props.remove( value.name )
+                           } }>
         { iconMap.getIcon( 'delete' ) }
-      </span>
-    ] : <span className="u-left">{ value.name }</span>
+      </span> )
+    }
+
+    return elements
   }
 
   render() {
-    const { tooltip } = this.props
+    const { focus, tooltip } = this.props
     if ( tooltip && tooltip.values ) {
       return (
         <section
-          className={ 'tooltip-container u-clearfix ' + this.props.lens }>
+          className={ 'tooltip-container u-clearfix ' + focus }>
           { this.props.showCompanyTypeahead && <CompanyTypeahead/> }
           <p className="a-micro-copy">
             <span>{ tooltip.title }</span>
@@ -58,16 +79,22 @@ export class ExternalTooltip extends React.Component {
 
 
 export const mapDispatchToProps = dispatch => ( {
+  add: value => {
+    dispatch( changeFocus( value ) )
+  },
   remove: value => {
     dispatch( removeFilter( 'company', value ) )
   }
 } )
 
-export const mapStateToProps = state => ( {
-  lens: state.query.lens,
-  showCompanyTypeahead: state.query.lens === 'Company',
-  tooltip: state.trends.tooltip
-} )
-
+export const mapStateToProps = state => {
+  const { focus, lens } = state.query
+  return {
+    focus: focus ? 'focus' : '',
+    lens,
+    showCompanyTypeahead: lens === 'Company' && !focus,
+    tooltip: state.trends.tooltip
+  }
+}
 
 export default connect( mapStateToProps, mapDispatchToProps )( ExternalTooltip )
