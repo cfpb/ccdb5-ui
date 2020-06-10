@@ -28,7 +28,8 @@ export class ExternalTooltip extends React.Component {
           className={ 'tooltip-container u-clearfix ' + this.props.lens }>
           { this.props.showCompanyTypeahead && <CompanyTypeahead/> }
           <p className="a-micro-copy">
-            <span>{ tooltip.title }</span>
+            <span>{ this.props.tooltip.heading }</span>
+            <span>{ this.props.tooltip.date }</span>
           </p>
           <div>
             <ul className="tooltip-ul">
@@ -66,7 +67,11 @@ export const mapDispatchToProps = dispatch => ( {
 export const mapStateToProps = state => ( {
   lens: state.query.lens,
   showCompanyTypeahead: state.query.lens === 'Company',
-  tooltip: state.trends.tooltip
+  tooltip: state.trends.tooltip ? {
+    ...state.trends.tooltip,
+    heading: state.trends.tooltip.title.split(':')[0],
+    date: state.trends.tooltip.title.split(':')[1]
+  } : state.trends.tooltip
 } )
 
 
