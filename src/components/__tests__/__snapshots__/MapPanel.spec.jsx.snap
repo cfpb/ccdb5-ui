@@ -179,16 +179,6 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
       id="row-chart-product"
     />
   </div>
-  <div
-    className="row-chart-section"
-  >
-    <h3>
-      Issue by highest complaint volume
-    </h3>
-    <div
-      id="row-chart-issue"
-    />
-  </div>
 </section>
 `;
 
@@ -408,16 +398,6 @@ exports[`component:MapPanel renders warning without crashing 1`] = `
       id="row-chart-product"
     />
   </div>
-  <div
-    className="row-chart-section"
-  >
-    <h3>
-      Issue by highest complaint volume
-    </h3>
-    <div
-      id="row-chart-issue"
-    />
-  </div>
 </section>
 `;
 
@@ -598,16 +578,6 @@ exports[`component:MapPanel renders without crashing 1`] = `
     </h3>
     <div
       id="row-chart-product"
-    />
-  </div>
-  <div
-    className="row-chart-section"
-  >
-    <h3>
-      Issue by highest complaint volume
-    </h3>
-    <div
-      id="row-chart-issue"
     />
   </div>
 </section>

@@ -6,12 +6,7 @@ import React from 'react'
 
 const lensMaps = {
   Company: {
-    tab1: { displayName: 'Products', filterName: 'product' },
-    tab2: { displayName: 'Issues', filterName: 'issue' }
-  },
-  Issue: {
-    tab1: { displayName: 'Sub-issues', filterName: 'sub_issue' },
-    tab2: { displayName: 'Products', filterName: 'product' }
+    tab1: { displayName: 'Products', filterName: 'product' }
   },
   Product: {
     tab1: { displayName: 'Sub-products', filterName: 'sub_product' },
@@ -49,12 +44,13 @@ export class LensTabs extends React.Component {
             onClick={ () => this._setTab( lensMaps[lens].tab1.filterName ) }>
             { lensMaps[lens].tab1.displayName }
           </button>
-
+          { lensMaps[lens].tab2 &&
           <button
             className={ this._getTabClass( lensMaps[lens].tab2.filterName ) }
             onClick={ () => this._setTab( lensMaps[lens].tab2.filterName ) }>
             { lensMaps[lens].tab2.displayName }
           </button>
+          }
         </section>
       </div>
     )
