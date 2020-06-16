@@ -695,16 +695,6 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
         id="row-chart-product"
       />
     </div>
-    <div
-      className="row-chart-section"
-    >
-      <h3>
-        Issue by highest complaint volume
-      </h3>
-      <div
-        id="row-chart-issue"
-      />
-    </div>
   </section>
   <section
     className="print-info-footer"
@@ -1352,16 +1342,6 @@ exports[`component:Results renders map panel without crashing 1`] = `
         id="row-chart-product"
       />
     </div>
-    <div
-      className="row-chart-section"
-    >
-      <h3>
-        Issue by highest complaint volume
-      </h3>
-      <div
-        id="row-chart-issue"
-      />
-    </div>
   </section>
 </div>
 `;
@@ -1479,11 +1459,6 @@ exports[`component:Results renders trends panel without crashing 1`] = `
             value="Product"
           >
             Product
-          </option>
-          <option
-            value="Issue"
-          >
-            Issue
           </option>
         </select>
       </section>

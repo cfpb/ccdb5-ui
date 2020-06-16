@@ -172,8 +172,7 @@ describe( 'getColorScheme', function () {
 
 describe( 'processRows', () => {
   it( 'handles empty rows / bad data', () => {
-    const filters = []
-    const res = sut.processRows( filters, false, false )
+    const res = sut.processRows( false, false )
     expect( res ).toEqual( {
       colorScheme: [],
       data: []
@@ -181,14 +180,13 @@ describe( 'processRows', () => {
   } )
 
   it( 'returns only visible rows', () => {
-    const filters = []
     const rows = [
       { name: 'abc', visible: true, value: 123 },
       { name: 'def', visible: true, value: 123 },
       { name: 'Complaint', visible: true, value: 123 },
       { name: 'Compla', parent: 'Complaint', visible: false, value: 123 },
       { name: 'de11f', parent: 'def', visible: false, value: 123 } ]
-    const res = sut.processRows( filters, rows, false )
+    const res = sut.processRows( rows, false )
     expect( res ).toEqual( {
       colorScheme: [ '#20aa3f', '#20aa3f', '#20aa3f' ],
       data: [
