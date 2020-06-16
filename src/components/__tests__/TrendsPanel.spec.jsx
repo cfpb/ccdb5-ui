@@ -1,11 +1,14 @@
 import configureMockStore from 'redux-mock-store'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
-import { TrendsPanel, mapDispatchToProps } from '../Trends/TrendsPanel'
+import ReduxTrendsPanel, {
+  TrendsPanel,
+  mapDispatchToProps
+} from '../Trends/TrendsPanel'
 import React from 'react'
 import renderer from 'react-test-renderer'
+import { shallow } from 'enzyme'
 import thunk from 'redux-thunk'
-import { mapStateToProps } from '../Trends/ExternalTooltip'
 
 jest.mock( 'britecharts', () => {
   const props = [
@@ -50,8 +53,26 @@ jest.mock( 'd3', () => {
   return mock
 } )
 
+function setupEnzyme( { focus, overview, lens, subLens } ) {
+  const props = {
+    focus,
+    overview,
+    lens,
+    subLens,
+    onChartType: jest.fn(),
+    onInterval: jest.fn(),
+    onLens: jest.fn()
+  }
+  const target = shallow( <TrendsPanel { ...props }/> )
+  return target
+}
 
-function setupSnapshot( printMode, chartType, lens, showMobileFilters, companyOverlay ) {
+function setupSnapshot( { chartType,
+                          company,
+                          lens,
+                          subLens,
+                          focus,
+                          width }) {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
   const store = mockStore( {
@@ -60,13 +81,17 @@ function setupSnapshot( printMode, chartType, lens, showMobileFilters, companyOv
       total: 1000
     },
     query: {
+      company,
       date_received_min: "2018-01-01T00:00:00.000Z",
       date_received_max: "2020-01-01T00:00:00.000Z",
       lens,
-      subLens: 'Issue'
+      subLens
     },
     trends: {
+      chartType,
       colorMap: { "Complaints": "#ADDC91", "Other": "#a2a3a4" },
+      focus,
+      lens,
       results: {
         "dateRangeBrush": [
           {
@@ -97,90 +122,132 @@ function setupSnapshot( printMode, chartType, lens, showMobileFilters, companyOv
               { "date": "2020-05-01T00:00:00.000Z", "value": 9821 }
             ]
           } ]
-        }
-      }
+        },
+        issue: [ { name: 'adg', value: 123 } ],
+        product: [ { name: 'adg', value: 123 } ],
+        company: [ { name: 'adg', value: 123 } ]
+      },
+      total: 10000
     },
     view: {
-      printMode
+      width
     }
   } )
 
   return renderer.create(
     <Provider store={ store }>
       <IntlProvider locale="en">
-        <TrendsPanel
-          companyOverlay={ companyOverlay }
-          onChartType={ jest.fn() }
-          onInterval={ jest.fn() }
-          onLens={ jest.fn() }
-          chartType={ chartType }
-          dataLensData={ { data: [], colorScheme: [] } }
-          issueData={ { data: [], colorScheme: [] } }
-          productData={ { data: [], colorScheme: [] } }
-          overview={ lens === 'Overview' }
-          lens={ lens }
-          subLensTitle={ 'Some title SubLens' }
-          showMobileFilters={ showMobileFilters }
-        />
+        <ReduxTrendsPanel/>
       </IntlProvider>
     </Provider>
   )
 }
 
 describe( 'component:TrendsPanel', () => {
-  it( 'renders company Overlay without crashing', () => {
-    const target = setupSnapshot( false, 'line', 'Company',
-      false, true )
-    const tree = target.toJSON()
-    expect( tree ).toMatchSnapshot()
+  describe( 'Snapshots', () => {
+    let params
+    beforeEach(()=>{
+      params = {
+        printMode: false,
+        chartType: 'line',
+        company: false,
+        lens: 'Company',
+        subLens: 'sub_product',
+        showMobileFilters: false,
+        focus: '',
+        width: 1000
+      }
+    })
+
+    it( 'renders company Overlay without crashing', () => {
+      params.company = []
+      const target = setupSnapshot( params )
+      const tree = target.toJSON()
+      expect( tree ).toMatchSnapshot()
+    } )
+
+    it( 'renders lineChart Overview without crashing', () => {
+      params.lens = 'Overview'
+      const target = setupSnapshot( params )
+      const tree = target.toJSON()
+      expect( tree ).toMatchSnapshot()
+    } )
+
+    it( 'renders area without crashing', () => {
+      params.chartType = 'area'
+      params.lens = 'Product'
+      params.subLens = 'sub_product'
+      const target = setupSnapshot( params )
+      const tree = target.toJSON()
+      expect( tree ).toMatchSnapshot()
+    } )
+
+    it( 'renders Focus without crashing', () => {
+      params.focus = 'Yippe'
+      params.lens = 'Product'
+      const target = setupSnapshot( params )
+      const tree = target.toJSON()
+      expect( tree ).toMatchSnapshot()
+    } )
+
+    it( 'renders print mode without crashing', () => {
+      params.printMode = true
+      const target = setupSnapshot( params )
+      const tree = target.toJSON()
+      expect( tree ).toMatchSnapshot()
+    } )
+
+    it( 'renders mobile filters without crashing', () => {
+      params.width = 600
+      const target = setupSnapshot( params )
+      const tree = target.toJSON()
+      expect( tree ).toMatchSnapshot()
+    } )
+
+    it( 'renders external Tooltip without crashing', () => {
+      params.lens = 'Product'
+      const target = setupSnapshot( params )
+      const tree = target.toJSON()
+      expect( tree ).toMatchSnapshot()
+    } )
   } )
 
-  it( 'renders line without crashing', () => {
-    const target = setupSnapshot( false, 'line', 'Overview',
-      false, false )
-    const tree = target.toJSON()
-    expect( tree ).toMatchSnapshot()
-  } )
+  describe( 'helpers', () => {
+    describe( 'areaChartTitle', () => {
+      let params
+      beforeEach( () => {
+        params = {
+          focus: '',
+          overview: false,
+          lens: 'Overview',
+          subLens: 'sub_product'
+        }
+      } )
+      it( 'gets area chart title - Overview', () => {
+        params.overview = true
+        const target = setupEnzyme( params )
+        expect( target.instance()._areaChartTitle() )
+          .toEqual( 'Complaints by date received' )
+      } )
 
-  it( 'renders area without crashing', () => {
-    const target = setupSnapshot( false, 'area', 'Product',
-      false, false )
-    const tree = target.toJSON()
-    expect( tree ).toMatchSnapshot()
-  } )
+      it( 'gets area chart title - Data Lens', () => {
+        params.lens = 'Something'
+        const target = setupEnzyme( params )
+        expect( target.instance()._areaChartTitle() )
+          .toEqual( 'Complaints by something by date received' )
+      } )
 
-  it( 'renders print mode without crashing', () => {
-    const target = setupSnapshot( true, 'line', 'Product',
-      false, false )
-    const tree = target.toJSON()
-    expect( tree ).toMatchSnapshot()
-  } )
-
-  it( 'renders mobile filters without crashing', () => {
-    const target = setupSnapshot( true, 'line', 'Overview',
-      true, false )
-    const tree = target.toJSON()
-    expect( tree ).toMatchSnapshot()
-  } )
-
-  it( 'renders external Tooltip without crashing', () => {
-    const target = setupSnapshot( true, 'line', 'Product',
-      false, false )
-    const tree = target.toJSON()
-    expect( tree ).toMatchSnapshot()
+      it( 'gets area chart title - Focus', () => {
+        params.focus = 'Hello'
+        params.lens = 'Product'
+        const target = setupEnzyme( params )
+        expect( target.instance()._areaChartTitle() )
+          .toEqual( 'Complaints by sub-products by date received' )
+      } )
+    } )
   } )
 
   describe( 'mapDispatchToProps', () => {
-    it( 'hooks into changeChartType', () => {
-      const dispatch = jest.fn()
-      mapDispatchToProps( dispatch )
-        .onChartType( {
-          target: {
-            value: 'foo'
-          }
-        } )
-      expect( dispatch.mock.calls.length ).toEqual( 1 )
-    } )
     it( 'hooks into changeChartType', () => {
       const dispatch = jest.fn()
       mapDispatchToProps( dispatch )

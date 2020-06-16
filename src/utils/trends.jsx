@@ -14,8 +14,16 @@ export const showCompanyOverLay = ( lens, companyFilters, isLoading ) => {
 }
 
 /* eslint-disable-next-line no-extra-parens */
-export const getSubLens = lens => ( lens === 'Company' ? 'product' :
-  'sub_' + lens.toLowerCase() )
+export const getSubLens = lens => {
+  switch ( lens ) {
+    case 'Overview':
+      return ''
+    case 'Company':
+      return 'product'
+    default:
+      return 'sub_' + lens.toLowerCase()
+  }
+}
 
 /**
  * helper function to strip out the "Other" data points from stacked area if

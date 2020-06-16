@@ -990,8 +990,10 @@ describe( 'reducer:query', () => {
           type: actions.DATA_LENS_CHANGED,
           lens: 'Foo'
         }
-        const result = target( { tab: types.MODE_TRENDS }, action )
+        const result = target( { tab: types.MODE_TRENDS, focus: 'ahha' },
+          action )
         expect( result ).toEqual( {
+          focus: '',
           lens: 'Foo',
           subLens: 'sub_foo',
           queryString: '?lens=foo&sub_lens=sub_foo&tab=Trends',
@@ -1026,6 +1028,20 @@ describe( 'reducer:query', () => {
           dateInterval: 'Day',
           queryString: '?tab=Trends&trend_interval=day',
           tab: 'Trends'
+        } )
+      } )
+    } )
+
+    describe( 'FOCUS_CHANGED actions', () => {
+      it( 'changes the focus', () => {
+        const action = {
+          type: actions.FOCUS_CHANGED,
+          focus: 'Something'
+        }
+        const result = target( { focus: 'Else' }, action )
+        expect( result ).toEqual( {
+          focus: 'Something',
+          queryString: '?focus=Something'
         } )
       } )
     } )
