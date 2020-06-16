@@ -1,10 +1,10 @@
 import target, {
   alignDateRange, defaultQuery, filterArrayAction
 } from '../query'
+import { MODE_TRENDS, REQUERY_HITS_ONLY } from '../../constants'
 import actions from '../../actions'
 import * as types from '../../constants'
 
-import { REQUERY_HITS_ONLY } from '../../constants'
 import moment from 'moment'
 import { startOfToday }  from '../../utils'
 
@@ -99,28 +99,6 @@ describe( 'reducer:query', () => {
       size: 100
     } )
   } )
-
-  describe( 'Map Warning', ()=>{
-    it('handles MAP_WARNING_DISMISSED action', ()=>{
-      const action = {
-        type: actions.MAP_WARNING_DISMISSED
-      }
-      const state = {
-        company: [1,2,3],
-        foo: 'bar',
-        mapWarningEnabled: true,
-        tab: types.MODE_MAP
-      }
-      expect( target( state, action ) ).toEqual( {
-        company: [1,2,3],
-        enablePer1000: false,
-        foo: 'bar',
-        mapWarningEnabled: false,
-        queryString: '?company=1&company=2&company=3&foo=bar&tab=Map',
-        tab: types.MODE_MAP
-      } )
-    })
-  })
 
   describe( 'Pager', () => {
     it( 'handles PAGE_CHANGED actions', () => {
@@ -837,10 +815,42 @@ describe( 'reducer:query', () => {
           queryString: '?dateRange=foo&date_received_max=2020-05-05'
         } )
       } )
+
+      it( 'On Trends Tab handles All range', () => {
+        action.dateRange = 'All'
+        const state = { dateInterval: 'Day', tab: MODE_TRENDS }
+        result = target( state, action )
+        expect( result.dateInterval ).toEqual( 'Week' )
+        expect( result.trendsDateWarningEnabled ).toEqual( true )
+      } )
+
     } )
   } )
 
   describe( 'Map', () => {
+
+    describe( 'Map Warning', () => {
+      it( 'handles MAP_WARNING_DISMISSED action', () => {
+        const action = {
+          type: actions.MAP_WARNING_DISMISSED
+        }
+        const state = {
+          company: [ 1, 2, 3 ],
+          foo: 'bar',
+          mapWarningEnabled: true,
+          tab: types.MODE_MAP
+        }
+        expect( target( state, action ) ).toEqual( {
+          company: [ 1, 2, 3 ],
+          enablePer1000: false,
+          foo: 'bar',
+          mapWarningEnabled: false,
+          queryString: '?company=1&company=2&company=3&foo=bar&tab=Map',
+          tab: types.MODE_MAP
+        } )
+      } )
+    } )
+
     let action, res
     describe( 'STATE_COMPLAINTS_SHOWN', () => {
       it( 'switches to List View', () => {
@@ -984,6 +994,21 @@ describe( 'reducer:query', () => {
   } )
 
   describe( 'Trends', () => {
+    describe( 'Trends Date Warning', () => {
+      it( 'handles TRENDS_DATE_WARNING_DISMISSED action', () => {
+        const action = {
+          type: actions.TRENDS_DATE_WARNING_DISMISSED
+        }
+        const state = {
+          trendsDateWarningEnabled: true
+        }
+        expect( target( state, action ) ).toEqual( {
+          queryString: '',
+          trendsDateWarningEnabled: false
+        } )
+      } )
+    } )
+
     describe( 'DATA_LENS_CHANGED actions', () => {
       it( 'changes the lens', () => {
         const action = {
@@ -997,7 +1022,8 @@ describe( 'reducer:query', () => {
           lens: 'Foo',
           subLens: 'sub_foo',
           queryString: '?lens=foo&sub_lens=sub_foo&tab=Trends',
-          tab: 'Trends'
+          tab: 'Trends',
+          trendsDateWarningEnabled: false
         } )
       } )
     } )
@@ -1012,7 +1038,8 @@ describe( 'reducer:query', () => {
         expect( result ).toEqual( {
           subLens: 'issue',
           queryString: '?sub_lens=issue&tab=Trends',
-          tab: 'Trends'
+          tab: 'Trends',
+          trendsDateWarningEnabled: false
         } )
       } )
     } )
@@ -1027,7 +1054,8 @@ describe( 'reducer:query', () => {
         expect( result ).toEqual( {
           dateInterval: 'Day',
           queryString: '?tab=Trends&trend_interval=day',
-          tab: 'Trends'
+          tab: 'Trends',
+          trendsDateWarningEnabled: false
         } )
       } )
     } )
