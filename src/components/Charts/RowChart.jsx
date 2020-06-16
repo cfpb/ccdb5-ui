@@ -65,6 +65,9 @@ export class RowChart extends React.Component {
 
   }
 
+  componentDidMount() {
+    this._redrawChart()
+  }
 
   componentDidUpdate( prevProps ) {
     const props = this.props
@@ -72,6 +75,7 @@ export class RowChart extends React.Component {
       this._redrawChart()
     }
   }
+
   // --------------------------------------------------------------------------
   // Event Handlers
   // eslint-disable-next-line complexity
@@ -79,7 +83,7 @@ export class RowChart extends React.Component {
     const {
       colorScheme, data: rows, id, printMode, toggleRow, total
     } = this.props
-    if ( !rows || !rows.length ) {
+    if ( !rows || !rows.length || !total ) {
       return
     }
 
@@ -124,7 +128,7 @@ export class RowChart extends React.Component {
     rowContainer.datum( rows ).call( chart )
     const tooltipContainer =
       d3.selectAll( chartID + ' .row-chart .metadata-group' )
-    tooltipContainer.datum( [] ).call( tooltip );
+    tooltipContainer.datum( [] ).call( tooltip )
     this._wrapText( d3.select( chartID ).selectAll( '.tick text' ), marginLeft )
 
     rowContainer
@@ -134,6 +138,7 @@ export class RowChart extends React.Component {
 
   render() {
     return (
+      this.props.total > 0 &&
       <div className="row-chart-section">
         <h3>{ this.props.title }</h3>
         <div id={ 'row-chart-' + this.props.id }>
@@ -153,7 +158,6 @@ export const mapStateToProps = state => {
   const { printMode, width } = state.view
   return {
     printMode,
-    total: state.aggs.total,
     width
   }
 }
@@ -165,7 +169,8 @@ RowChart.propTypes = {
     PropTypes.bool
   ] ).isRequired,
   data: PropTypes.array.isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  total: PropTypes.number.isRequired
 }
 
 export default connect( mapStateToProps, mapDispatchToProps )( RowChart )

@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
-import {
+import ReduxLensTabs, {
   LensTabs,
   mapDispatchToProps,
   mapStateToProps
@@ -12,23 +12,34 @@ import { REQUERY_ALWAYS } from '../../constants'
 import thunk from 'redux-thunk'
 import { shallow } from 'enzyme'
 
-function setupSnapshot() {
+function setupSnapshot( lens ) {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
-  const store = mockStore( {} )
+  const store = mockStore( {
+    query: {
+      lens,
+      subLens: 'sub_product'
+    }
+  } )
 
   return renderer.create(
     <Provider store={ store }>
       <IntlProvider locale="en">
-        <LensTabs lens={ 'Product' } subLens={ 'Product' }/>
+        <ReduxLensTabs showTitle={true}/>
       </IntlProvider>
     </Provider>
   )
 }
 
 describe( 'component:LensTabs', () => {
-  it( 'renders without crashing', () => {
-    const target = setupSnapshot()
+  it( 'does not render when Overview', () => {
+    const target = setupSnapshot( 'Overview' )
+    const tree = target.toJSON()
+    expect( tree ).toBeNull()
+  } )
+
+  it( 'renders Product without crashing', () => {
+    const target = setupSnapshot( 'Product' )
     const tree = target.toJSON()
     expect( tree ).toMatchSnapshot()
   } )
@@ -41,7 +52,8 @@ describe( 'component:LensTabs', () => {
       cb = jest.fn()
       target = shallow( <LensTabs onTab={ cb }
                                   lens={ 'Product' }
-                                  subLens={ 'Issue' }/> )
+                                  subLens={ 'Issue' }
+                                  showTitle={ true }/> )
     } )
 
     it( 'tabChanged is called with Product when the button is clicked', () => {

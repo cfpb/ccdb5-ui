@@ -57,15 +57,18 @@ function setupSnapshot() {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
   const store = mockStore( {
-    map: {}
+    printMode: false,
+    width: 1000
   } )
 
   return renderer.create(
     <Provider store={ store }>
       <RowChart id={'foo'}
+                data={ [ 1, 2, 3 ] }
                 title={'Foo title we want'}
                 colorScheme={ [] }
-                data={ [] }/>
+                total={1000}
+                />
     </Provider>
   )
 }
@@ -103,6 +106,7 @@ describe( 'component: RowChart', () => {
         data={ [] }
         id={'foo'}
         title={'test'}
+        total={0}
       /> )
       target._redrawChart = jest.fn()
       target.setProps( { data: [] } )
@@ -164,9 +168,6 @@ describe( 'component: RowChart', () => {
   describe( 'mapStateToProps', () => {
     it( 'maps state and props', () => {
       const state = {
-        aggs: {
-          total: 100
-        },
         view: {
           printMode: false,
           width: 1000
@@ -178,7 +179,6 @@ describe( 'component: RowChart', () => {
       let actual = mapStateToProps( state, ownProps )
       expect( actual ).toEqual( {
         printMode: false,
-        total: 100,
         width: 1000
       } )
     } )
@@ -188,6 +188,7 @@ describe( 'component: RowChart', () => {
     it('gets height based on number of rows', ()=>{
       const target = mount(<RowChart colorScheme={ [] }
                                      title={'test'}
+                                     total={10}
                                      data={ [ 23, 4, 3 ] }
                                      id={ 'foo' }/>)
       let res = target.instance()._getHeight(1)
@@ -199,6 +200,7 @@ describe( 'component: RowChart', () => {
     it( 'formats text of the tooltip', () => {
       const target = mount( <RowChart colorScheme={ [] }
                                       title={'test'}
+                                      total={1000}
                                       data={ [ 23, 4, 3 ] }
                                       id={ 'foo' }/> )
       let res = target.instance()._formatTip( 100000 )

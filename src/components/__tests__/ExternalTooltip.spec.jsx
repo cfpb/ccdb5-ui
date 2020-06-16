@@ -1,4 +1,4 @@
-import {
+import ReduxExternalTooltip, {
   ExternalTooltip,
   mapDispatchToProps,
   mapStateToProps
@@ -10,56 +10,57 @@ import thunk from 'redux-thunk'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 
-function setupSnapshot( tooltip, showCompanyTypeahead ) {
+function setupSnapshot( query, tooltip ) {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
+
   const store = mockStore( {
-    query: {
-      queryString: 'foo'
-    },
-    trends: {}
+    query,
+    trends: {
+      tooltip
+    }
   } )
 
   return renderer.create(
     <Provider store={ store }>
-      <ExternalTooltip tooltip={ tooltip }
-                       lens={'foobar'}
-                       showCompanyTypeahead={ showCompanyTypeahead }/>
+      <ReduxExternalTooltip />
     </Provider>
   )
 }
 
 describe( 'initial state', () => {
-  it( 'renders without crashing', () => {
-    const tooltip = {
+  let query, tooltip
+  beforeEach(()=>{
+    query = {
+      focus: '',
+      lens: ''
+    }
+    tooltip = {
       title: 'Ext tip title',
-      total: 2000,
+      total: 2900,
       values: [
         { colorIndex: 1, name: 'foo', value: 1000 },
-        { colorIndex: 2, name: 'foo', value: 1000 }
+        { colorIndex: 2, name: 'bar', value: 1000 },
+        { colorIndex: 3, name: 'Other', value: 900 },
+        { colorIndex: 4, name: "Eat at Joe's", value: 1000 }
       ]
     }
-    const target = setupSnapshot( tooltip, false )
+  })
+  it( 'renders without crashing', () => {
+    const target = setupSnapshot( query, tooltip )
     const tree = target.toJSON()
     expect( tree ).toMatchSnapshot()
   } )
 
   it( 'renders nothing without crashing', () => {
-    const target = setupSnapshot( null, false )
+    const target = setupSnapshot( query, false )
     const tree = target.toJSON()
     expect( tree ).toMatchSnapshot()
   } )
 
   it( 'renders Company typehead without crashing', () => {
-    const tooltip = {
-      title: 'Ext tip title',
-      total: 2000,
-      values: [
-        { colorIndex: 1, name: 'foo', value: 1000 },
-        { colorIndex: 2, name: 'foo', value: 1000 }
-      ]
-    }
-    const target = setupSnapshot( tooltip, true )
+    query.lens = 'Company'
+    const target = setupSnapshot( query, tooltip )
     const tree = target.toJSON()
     expect( tree ).toMatchSnapshot()
   } )
@@ -67,12 +68,14 @@ describe( 'initial state', () => {
 
 describe( 'buttons', () => {
   let cb = null
+  let cbFocus
   let target = null
 
   beforeEach( () => {
     cb = jest.fn()
-
+    cbFocus = jest.fn()
     target = shallow( <ExternalTooltip remove={ cb }
+                                       add={ cbFocus }
                                        showCompanyTypeahead={ true }
                                        tooltip={ {
                                          title: 'foo title',
@@ -97,9 +100,25 @@ describe( 'buttons', () => {
     prev.simulate( 'click' )
     expect( cb ).toHaveBeenCalledWith( 'foo' )
   } )
+
+  it( 'triggers Focus when the link is clicked', () => {
+    const prev = target.find( '#focus-bar' )
+    prev.simulate( 'click' )
+    expect( cbFocus ).toHaveBeenCalledWith( 'bar' )
+  } )
 } )
 
 describe( 'mapDispatchToProps', () => {
+  it( 'provides a way to call add', () => {
+    const dispatch = jest.fn()
+    mapDispatchToProps( dispatch ).add( 'Baz' )
+    expect( dispatch.mock.calls ).toEqual( [ [ {
+      focus: 'Baz',
+      requery: 'REQUERY_ALWAYS',
+      type: 'FOCUS_CHANGED'
+    } ] ] )
+  } )
+
   it( 'provides a way to call remove', () => {
     const dispatch = jest.fn()
     mapDispatchToProps( dispatch ).remove( 'Foo' )
@@ -114,9 +133,11 @@ describe( 'mapDispatchToProps', () => {
 
 
 describe( 'mapStateToProps', () => {
-  it( 'maps state and props', () => {
-    const state = {
+  let state
+  beforeEach(()=>{
+    state = {
       query: {
+        focus: '',
         lens: 'Overview'
       },
       trends: {
@@ -127,8 +148,11 @@ describe( 'mapStateToProps', () => {
         }
       }
     }
+  })
+  it( 'maps state and props', () => {
     let actual = mapStateToProps( state )
     expect( actual ).toEqual( {
+      focus: '',
       lens: 'Overview',
       showCompanyTypeahead: false,
       tooltip: {
@@ -137,5 +161,11 @@ describe( 'mapStateToProps', () => {
         values: []
       }
     } )
+  } )
+
+  it( 'maps state and props - focus', () => {
+    state.query.focus = 'something else'
+    let actual = mapStateToProps( state )
+    expect( actual.focus ).toEqual( 'focus' )
   } )
 } )

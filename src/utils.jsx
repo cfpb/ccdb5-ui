@@ -171,6 +171,14 @@ export function hashObject( o ) {
 }
 export const normalize = s => s.toLowerCase()
 
+/**
+ * takes a string and formats it into proper text for an htmd ID
+ * Eat at Joe's => eatatjoes
+ * @param {string} a the dirty string Eat at Joe's
+ * @returns {string} sanitized string eatatjoes
+ */
+export const sanitizeHtmlId = a => a.replace( /\s+|\W/g, '' ).toLowerCase()
+
 export const slugify = ( a, b ) => a + SLUG_SEPARATOR + b
 
 /**

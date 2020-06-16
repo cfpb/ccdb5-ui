@@ -1,6 +1,7 @@
 import './LensTabs.less'
 import { changeDataSubLens } from '../../actions/trends'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import React from 'react'
 
 const lensMaps = {
@@ -34,11 +35,14 @@ export class LensTabs extends React.Component {
   }
 
   render() {
-    const { lens } = this.props
+    const { lens, showTitle } = this.props
+    if ( lens === 'Overview' ) {
+      return null
+    }
 
     return (
       <div className="tabbed-navigation lens">
-        <h2>{ lens + ' trends for selected criteria' }</h2>
+        { showTitle && <h2>{ lens + ' trends for selected criteria' }</h2> }
         <section>
           <button
             className={ this._getTabClass( lensMaps[lens].tab1.filterName ) }
@@ -67,5 +71,10 @@ export const mapDispatchToProps = dispatch => ( {
     dispatch( changeDataSubLens( tab.toLowerCase() ) )
   }
 } )
+
+LensTabs.propTypes = {
+  showTitle: PropTypes.bool.isRequired
+}
+
 
 export default connect( mapStateToProps, mapDispatchToProps )( LensTabs )
