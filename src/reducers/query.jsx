@@ -4,18 +4,16 @@ import * as types from '../constants'
 import {
   calculateDateRange, clamp, hasFiltersEnabled, shortIsoFormat, startOfToday
 } from '../utils'
+import { getSubLens, isGreaterThanYear } from '../utils/trends'
 import actions from '../actions'
-import { getSubLens } from '../utils/trends'
 import moment from 'moment';
 
 const queryString = require( 'query-string' );
 
 /* eslint-disable camelcase */
 export const defaultQuery = {
-  dateRange: '3y',
-  lens: 'Overview',
-  subLens: '',
   dateInterval: 'Month',
+  dateRange: '3y',
   date_received_max: startOfToday(),
   date_received_min: new Date(
     moment( startOfToday() ).subtract( 3, 'years' )
@@ -24,13 +22,16 @@ export const defaultQuery = {
   focus: '',
   from: 0,
   mapWarningEnabled: true,
-  searchText: '',
+  lens: 'Overview',
+  page: 1,
   searchField: 'all',
+  searchText: '',
   size: 25,
   sort: 'created_date_desc',
-  page: 1,
+  subLens: '',
   tab: types.MODE_MAP,
-  totalPages: 0
+  totalPages: 0,
+  trendsDateWarningEnabled: false
 }
 
 const fieldMap = {
@@ -253,7 +254,7 @@ export function changeDateRange( state, action ) {
 
   newState.date_received_max = maxDate
 
-  return newState;
+  return newState
 }
 
 /**
@@ -264,7 +265,6 @@ export function changeDateRange( state, action ) {
 * @returns {object} the new state for the Redux store
 */
 export function changeDates( state, action ) {
-
   const fields = [
     action.filterName + '_min',
     action.filterName + '_max'
@@ -299,6 +299,27 @@ export function changeDates( state, action ) {
   }
 
   return newState
+}
+
+/**
+ * Makes sure that we have a valid dateInterval is selected, or moves to week
+ * when the date range > 1yr
+ *
+ * @param {object} queryState the current state of query reducer
+ */
+export function validateDateInterval( queryState ) {
+  const { date_received_min, date_received_max, dateInterval } = queryState
+  // determine if we need to update date Interval if range > 1 yr
+  if ( isGreaterThanYear( date_received_min, date_received_max ) &&
+    dateInterval === 'Day' ) {
+    queryState.dateInterval = 'Week'
+    queryState.trendsDateWarningEnabled = true
+  }
+
+  // > 1yr, so we can go ahead and disable the warning
+  if ( !isGreaterThanYear( date_received_min, date_received_max ) ) {
+    queryState.trendsDateWarningEnabled = false
+  }
 }
 
 /**
@@ -582,6 +603,19 @@ export function dismissMapWarning( state ) {
 }
 
 /**
+ * Handler for the dismiss trends warning action
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+export function dismissTrendsDateWarning( state ) {
+  return {
+    ...state,
+    trendsDateWarningEnabled: false
+  }
+}
+
+/**
  * Update state based on the sort order changed action
  *
  * @param {object} state the current state in the Redux store
@@ -817,6 +851,7 @@ export function _buildHandlerMap() {
   handlers[actions.STATE_FILTER_CLEARED] = clearStateFilter
   handlers[actions.STATE_FILTER_REMOVED] = removeStateFilter
   handlers[actions.TAB_CHANGED] = changeTab
+  handlers[actions.TRENDS_DATE_WARNING_DISMISSED] = dismissTrendsDateWarning
   handlers[actions.URL_CHANGED] = processParams
   handlers[actions.SEARCH_CHANGED] = changeSearch
 
@@ -847,6 +882,12 @@ export default ( state = defaultQuery, action ) => {
     // only update the map warning items when we're on the map tab
     validatePer1000( newState )
   }
+
+  if ( newState.tab === types.MODE_TRENDS ) {
+    // swap date interval in cases where the date range is > 1yr
+    validateDateInterval( newState )
+  }
+
 
   const qs = stateToQS( newState )
   newState.queryString = qs === '?' ? '' : qs
