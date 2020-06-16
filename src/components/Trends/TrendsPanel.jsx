@@ -26,7 +26,7 @@ import { showCompanyOverLay } from '../../utils/trends'
 import StackedAreaChart from '../Charts/StackedAreaChart'
 
 const intervals = [ 'Day', 'Week', 'Month', 'Quarter', 'Year' ]
-const lenses = [ 'Overview', 'Company', 'Product', 'Issue' ]
+const lenses = [ 'Overview', 'Company', 'Product' ]
 const subLensMap = {
   sub_product: 'Sub-products',
   sub_issue: 'Sub-issues',
@@ -56,20 +56,12 @@ export class TrendsPanel extends React.Component {
 
   _phaseMap() {
     if ( this.props.overview ) {
-      return [
-        <RowChart id="product"
-                  colorScheme={ this.props.productData.colorScheme }
-                  data={ this.props.productData.data }
-                  title={ 'Product by highest complaint volume' }
-                  total={ this.props.total }
-                  key={ 'product-row' }/>,
-        <RowChart id="issue"
-                  colorScheme={ this.props.issueData.colorScheme }
-                  data={ this.props.issueData.data }
-                  title={ 'Issue by highest complaint volume' }
-                  total={ this.props.total }
-                  key={ 'issue-row' }/>
-      ]
+      return <RowChart id="product"
+                       colorScheme={ this.props.productData.colorScheme }
+                       data={ this.props.productData.data }
+                       title={ 'Product by highest complaint volume' }
+                       total={ this.props.total }
+                       key={ 'product-row' }/>
     }
 
     if ( this.props.focus ) {
@@ -164,8 +156,6 @@ const mapStateToProps = state => {
   const {
     company: companyFilters,
     dateInterval,
-    issue: issueFilters,
-    product: productFilters,
     lens,
     subLens
   } = query
@@ -175,19 +165,17 @@ const mapStateToProps = state => {
   } = trends
 
   const lensKey = lens.toLowerCase()
-  const dataLensFilters = query[lensKey]
   const focusKey = subLens.replace( '_', '-' )
   return {
     chartType,
-    companyData: processRows( companyFilters, results.company, false ),
+    companyData: processRows( results.company, false ),
     companyOverlay: showCompanyOverLay( lens, companyFilters, isLoading ),
     dateInterval,
     focus,
-    focusData: processRows( issueFilters, results[focusKey], colorMap ),
+    focusData: processRows( results[focusKey], colorMap ),
     isLoading,
-    issueData: processRows( issueFilters, results.issue, false ),
-    productData: processRows( productFilters, results.product, false ),
-    dataLensData: processRows( dataLensFilters, results[lensKey], colorMap ),
+    productData: processRows( results.product, false ),
+    dataLensData: processRows( results[lensKey], colorMap ),
     lens,
     overview: lens === 'Overview',
     showMobileFilters: state.view.width < 750,

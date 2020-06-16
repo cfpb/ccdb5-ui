@@ -116,7 +116,7 @@ export const getColorScheme = ( rowNames, colorMap ) =>
     return '#20aa3f'
   } )
 
-export const processRows = ( filters, rows, colorMap ) => {
+export const processRows = ( rows, colorMap ) => {
   let data = rows ? rows : []
   data = data.filter( o => o.visible )
   const colorScheme = getColorScheme( data, colorMap )

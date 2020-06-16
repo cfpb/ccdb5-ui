@@ -111,11 +111,6 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
         >
           Product
         </option>
-        <option
-          value="Issue"
-        >
-          Issue
-        </option>
       </select>
     </section>
     <span
@@ -497,11 +492,6 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
         >
           Product
         </option>
-        <option
-          value="Issue"
-        >
-          Issue
-        </option>
       </select>
     </section>
     <span
@@ -853,11 +843,6 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
         >
           Product
         </option>
-        <option
-          value="Issue"
-        >
-          Issue
-        </option>
       </select>
     </section>
     <span
@@ -1130,12 +1115,6 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
       >
         Products
       </button>
-      <button
-        className="tab issue"
-        onClick={[Function]}
-      >
-        Issues
-      </button>
     </section>
   </div>
   <div
@@ -1261,11 +1240,6 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
           value="Product"
         >
           Product
-        </option>
-        <option
-          value="Issue"
-        >
-          Issue
         </option>
       </select>
     </section>
@@ -1618,11 +1592,6 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
         >
           Product
         </option>
-        <option
-          value="Issue"
-        >
-          Issue
-        </option>
       </select>
     </section>
     <span
@@ -1739,16 +1708,6 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
       id="row-chart-product"
     />
   </div>
-  <div
-    className="row-chart-section"
-  >
-    <h3>
-      Issue by highest complaint volume
-    </h3>
-    <div
-      id="row-chart-issue"
-    />
-  </div>
 </section>
 `;
 
@@ -1863,11 +1822,6 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
           value="Product"
         >
           Product
-        </option>
-        <option
-          value="Issue"
-        >
-          Issue
         </option>
       </select>
     </section>
@@ -2140,12 +2094,6 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
         onClick={[Function]}
       >
         Products
-      </button>
-      <button
-        className="tab issue"
-        onClick={[Function]}
-      >
-        Issues
       </button>
     </section>
   </div>
@@ -2273,11 +2221,6 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
         >
           Product
         </option>
-        <option
-          value="Issue"
-        >
-          Issue
-        </option>
       </select>
     </section>
     <span
@@ -2549,12 +2492,6 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
         onClick={[Function]}
       >
         Products
-      </button>
-      <button
-        className="tab issue"
-        onClick={[Function]}
-      >
-        Issues
       </button>
     </section>
   </div>
