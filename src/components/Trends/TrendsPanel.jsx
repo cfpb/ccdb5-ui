@@ -27,8 +27,8 @@ import StackedAreaChart from '../Charts/StackedAreaChart'
 import { trendsDateWarningDismissed } from '../../actions/view'
 import Warning from '../Warnings/Warning'
 
-const WARNING_MESSAGE = '“Day” date interval is disabled when date range >' +
-  ' 365 days'
+const WARNING_MESSAGE = '“Day” interval is disabled when the date range is' +
+  ' longer than one year'
 
 const lenses = [ 'Overview', 'Company', 'Product' ]
 const subLensMap = {
