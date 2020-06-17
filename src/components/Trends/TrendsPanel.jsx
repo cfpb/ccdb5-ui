@@ -3,6 +3,7 @@ import '../RefineBar/RefineBar.less'
 import './TrendsPanel.less'
 
 import { changeChartType, changeDataLens } from '../../actions/trends'
+import { getIntervals, showCompanyOverLay } from '../../utils/trends'
 import ActionBar from '../ActionBar'
 import BrushChart from '../Charts/BrushChart'
 import { changeDateInterval } from '../../actions/filter'
@@ -22,10 +23,13 @@ import React from 'react'
 import RowChart from '../Charts/RowChart'
 import Select from '../RefineBar/Select'
 import Separator from '../RefineBar/Separator'
-import { showCompanyOverLay } from '../../utils/trends'
 import StackedAreaChart from '../Charts/StackedAreaChart'
+import { trendsDateWarningDismissed } from '../../actions/view'
+import Warning from '../Warnings/Warning'
 
-const intervals = [ 'Day', 'Week', 'Month', 'Quarter', 'Year' ]
+const WARNING_MESSAGE = '“Day” interval is disabled when the date range is' +
+  ' longer than one year'
+
 const lenses = [ 'Overview', 'Company', 'Product' ]
 const subLensMap = {
   sub_product: 'Sub-products',
@@ -60,8 +64,7 @@ export class TrendsPanel extends React.Component {
                        colorScheme={ this.props.productData.colorScheme }
                        data={ this.props.productData.data }
                        title={ 'Product by highest complaint volume' }
-                       total={ this.props.total }
-                       key={ 'product-row' }/>
+                       total={ this.props.total }/>
     }
 
     if ( this.props.focus ) {
@@ -69,8 +72,7 @@ export class TrendsPanel extends React.Component {
                        colorScheme={ this.props.focusData.colorScheme }
                        data={ this.props.focusData.data }
                        title={ this.props.subLensTitle }
-                       total={ this.props.total }
-                       key={ this.props.lens + 'row' }/>
+                       total={ this.props.total }/>
     }
 
     return [
@@ -86,12 +88,17 @@ export class TrendsPanel extends React.Component {
 
   render() {
     const {
-      chartType, companyOverlay, dateInterval, focus, isLoading, lens,
-      onInterval, onLens, overview, showMobileFilters, total
+      chartType, companyOverlay, dateInterval, focus, intervals,
+      isLoading, lens,
+      onInterval, onLens, overview, showMobileFilters, total,
+      trendsDateWarningEnabled
     } = this.props
     return (
       <section className={ this._className() }>
         <ActionBar/>
+        { trendsDateWarningEnabled &&
+            <Warning text={ WARNING_MESSAGE }
+                     closeFn={ this.props.onDismissWarning }/> }
         { showMobileFilters && <FilterPanel/> }
         <div className="layout-row refine-bar">
           <FilterPanelToggle/>
@@ -156,8 +163,11 @@ const mapStateToProps = state => {
   const {
     company: companyFilters,
     dateInterval,
+    date_received_max,
+    date_received_min,
     lens,
-    subLens
+    subLens,
+    trendsDateWarningEnabled
   } = query
 
   const {
@@ -173,6 +183,7 @@ const mapStateToProps = state => {
     dateInterval,
     focus,
     focusData: processRows( results[focusKey], colorMap ),
+    intervals: getIntervals( date_received_min, date_received_max ),
     isLoading,
     productData: processRows( results.product, false ),
     dataLensData: processRows( results[lensKey], colorMap ),
@@ -181,13 +192,17 @@ const mapStateToProps = state => {
     showMobileFilters: state.view.width < 750,
     subLens,
     subLensTitle: subLensMap[subLens] + ' by ' + lens.toLowerCase(),
-    total
+    total,
+    trendsDateWarningEnabled
   }
 }
 
 export const mapDispatchToProps = dispatch => ( {
   onChartType: ev => {
     dispatch( changeChartType( ev.target.value ) )
+  },
+  onDismissWarning: () => {
+    dispatch( trendsDateWarningDismissed() )
   },
   onInterval: ev => {
     dispatch( changeDateInterval( ev.target.value ) )

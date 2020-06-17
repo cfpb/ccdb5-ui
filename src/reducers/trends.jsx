@@ -478,11 +478,15 @@ export function updateChartType( state, action ) {
  * @returns {object} the new state for the Redux store
  */
 export function updateDataLens( state, action ) {
+  const { lens } = action
+  const chartType = lens === 'Overview' ? 'line' : state.chartType
+  // make sure it's a line chart if it's overview
   return {
     ...state,
+    chartType,
     focus: '',
-    lens: action.lens,
-    subLens: getSubLens( action.lens ),
+    lens,
+    subLens: getSubLens( lens ),
     tooltip: false
   }
 }

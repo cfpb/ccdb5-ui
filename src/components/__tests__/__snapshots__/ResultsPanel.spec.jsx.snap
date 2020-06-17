@@ -128,22 +128,26 @@ exports[`component:Results renders List print mode without crashing 1`] = `
           onChange={[Function]}
         >
           <option
-            value="10"
+            disabled={false}
+            value="10 results"
           >
             10 results
           </option>
           <option
-            value="25"
+            disabled={false}
+            value="25 results"
           >
             25 results
           </option>
           <option
-            value="50"
+            disabled={false}
+            value="50 results"
           >
             50 results
           </option>
           <option
-            value="100"
+            disabled={false}
+            value="100 results"
           >
             100 results
           </option>
@@ -166,22 +170,26 @@ exports[`component:Results renders List print mode without crashing 1`] = `
           onChange={[Function]}
         >
           <option
-            value="created_date_desc"
+            disabled={false}
+            value="Newest to oldest"
           >
             Newest to oldest
           </option>
           <option
-            value="created_date_asc"
+            disabled={false}
+            value="Oldest to newest"
           >
             Oldest to newest
           </option>
           <option
-            value="relevance_desc"
+            disabled={false}
+            value="Relevance"
           >
             Relevance
           </option>
           <option
-            value="relevance_asc"
+            disabled={false}
+            value="Relevance (asc)"
           >
             Relevance (asc)
           </option>
@@ -812,22 +820,26 @@ exports[`component:Results renders list panel without crashing 1`] = `
           onChange={[Function]}
         >
           <option
-            value="10"
+            disabled={false}
+            value="10 results"
           >
             10 results
           </option>
           <option
-            value="25"
+            disabled={false}
+            value="25 results"
           >
             25 results
           </option>
           <option
-            value="50"
+            disabled={false}
+            value="50 results"
           >
             50 results
           </option>
           <option
-            value="100"
+            disabled={false}
+            value="100 results"
           >
             100 results
           </option>
@@ -850,22 +862,26 @@ exports[`component:Results renders list panel without crashing 1`] = `
           onChange={[Function]}
         >
           <option
-            value="created_date_desc"
+            disabled={false}
+            value="Newest to oldest"
           >
             Newest to oldest
           </option>
           <option
-            value="created_date_asc"
+            disabled={false}
+            value="Oldest to newest"
           >
             Oldest to newest
           </option>
           <option
-            value="relevance_desc"
+            disabled={false}
+            value="Relevance"
           >
             Relevance
           </option>
           <option
-            value="relevance_asc"
+            disabled={false}
+            value="Relevance (asc)"
           >
             Relevance (asc)
           </option>
@@ -1446,16 +1462,19 @@ exports[`component:Results renders trends panel without crashing 1`] = `
           value="Overview"
         >
           <option
+            disabled={false}
             value="Overview"
           >
             Overview
           </option>
           <option
+            disabled={false}
             value="Company"
           >
             Company
           </option>
           <option
+            disabled={false}
             value="Product"
           >
             Product
@@ -1482,26 +1501,31 @@ exports[`component:Results renders trends panel without crashing 1`] = `
           onChange={[Function]}
         >
           <option
+            disabled={false}
             value="Day"
           >
             Day
           </option>
           <option
+            disabled={false}
             value="Week"
           >
             Week
           </option>
           <option
+            disabled={false}
             value="Month"
           >
             Month
           </option>
           <option
+            disabled={false}
             value="Quarter"
           >
             Quarter
           </option>
           <option
+            disabled={false}
             value="Year"
           >
             Year

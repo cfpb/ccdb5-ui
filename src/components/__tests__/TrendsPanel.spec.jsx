@@ -56,6 +56,8 @@ jest.mock( 'd3', () => {
 function setupEnzyme( { focus, overview, lens, subLens } ) {
   const props = {
     focus,
+    lenses: [ 'Foo', 'Baz', 'Bar' ],
+    intervals: [ 'Month', 'Quarter', 'Nickel', 'Day' ],
     overview,
     lens,
     subLens,
@@ -69,9 +71,10 @@ function setupEnzyme( { focus, overview, lens, subLens } ) {
 
 function setupSnapshot( { chartType,
                           company,
+                          focus,
                           lens,
                           subLens,
-                          focus,
+                          trendsDateWarningEnabled,
                           width }) {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
@@ -85,7 +88,8 @@ function setupSnapshot( { chartType,
       date_received_min: "2018-01-01T00:00:00.000Z",
       date_received_max: "2020-01-01T00:00:00.000Z",
       lens,
-      subLens
+      subLens,
+      trendsDateWarningEnabled
     },
     trends: {
       chartType,
@@ -148,13 +152,14 @@ describe( 'component:TrendsPanel', () => {
     let params
     beforeEach(()=>{
       params = {
-        printMode: false,
         chartType: 'line',
         company: false,
-        lens: 'Company',
-        subLens: 'sub_product',
-        showMobileFilters: false,
         focus: '',
+        lens: 'Company',
+        printMode: false,
+        showMobileFilters: false,
+        subLens: 'sub_product',
+        trendsDateWarningEnabled: false,
         width: 1000
       }
     })
@@ -177,6 +182,13 @@ describe( 'component:TrendsPanel', () => {
       params.chartType = 'area'
       params.lens = 'Product'
       params.subLens = 'sub_product'
+      const target = setupSnapshot( params )
+      const tree = target.toJSON()
+      expect( tree ).toMatchSnapshot()
+    } )
+
+    it( 'renders date warning without crashing', () => {
+      params.trendsDateWarningEnabled = true
       const target = setupSnapshot( params )
       const tree = target.toJSON()
       expect( tree ).toMatchSnapshot()
@@ -279,5 +291,15 @@ describe( 'component:TrendsPanel', () => {
       expect( dispatch.mock.calls.length ).toEqual( 1 )
     } )
 
+    it( 'hooks into dismissWarning', () => {
+      const dispatch = jest.fn()
+      mapDispatchToProps( dispatch ).onDismissWarning()
+      expect( dispatch.mock.calls ).toEqual( [
+        [ {
+          requery: 'REQUERY_NEVER',
+          type: 'TRENDS_DATE_WARNING_DISMISSED'
+        } ]
+      ] )
+    } )
   } )
 } )

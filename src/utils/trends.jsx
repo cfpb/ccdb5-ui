@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 // ----------------------------------------------------------------------------
 export const showCompanyOverLay = ( lens, companyFilters, isLoading ) => {
   if ( isLoading ) {
@@ -36,4 +38,26 @@ export const pruneOther = buckets => {
     .filter( o => o.name === 'Other' )
     .reduce( ( prev, cur ) => prev + cur.value, 0 )
   return sumOther > 0 ? buckets : buckets.filter( o => o.name !== 'Other' )
+}
+
+export const isGreaterThanYear = ( from, to ) => {
+  const a = moment( from )
+  const b = moment( to )
+  return b.diff( a, 'days' ) > 366
+}
+
+/**
+ * gets the valid intervals based on dates selected.
+ * get rid of Day if range > 1yr
+ * @param {object} from date
+ * @param {object} to date
+ * @returns {array} array of date intervals
+ */
+export const getIntervals = ( from, to ) => {
+  const intervals = [ 'Day', 'Week', 'Month', 'Quarter', 'Year' ]
+
+  return intervals.map( o => ( {
+    name: o,
+    disabled: isGreaterThanYear( from, to ) && o === 'Day'
+  } ) )
 }

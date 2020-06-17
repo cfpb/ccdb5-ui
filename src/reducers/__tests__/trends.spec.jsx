@@ -69,6 +69,7 @@ describe( 'reducer:trends', () => {
       }
 
       expect( target( { focus: 'gg', tooltip: 'foo' }, action ) ).toEqual( {
+        chartType: 'line',
         focus: '',
         lens: 'Overview',
         subLens: '',
