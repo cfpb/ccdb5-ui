@@ -97,16 +97,19 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
         value="Product"
       >
         <option
+          disabled={false}
           value="Overview"
         >
           Overview
         </option>
         <option
+          disabled={false}
           value="Company"
         >
           Company
         </option>
         <option
+          disabled={false}
           value="Product"
         >
           Product
@@ -133,26 +136,31 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
         onChange={[Function]}
       >
         <option
+          disabled={true}
           value="Day"
         >
           Day
         </option>
         <option
+          disabled={false}
           value="Week"
         >
           Week
         </option>
         <option
+          disabled={false}
           value="Month"
         >
           Month
         </option>
         <option
+          disabled={false}
           value="Quarter"
         >
           Quarter
         </option>
         <option
+          disabled={false}
           value="Year"
         >
           Year
@@ -478,16 +486,19 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
         value="Product"
       >
         <option
+          disabled={false}
           value="Overview"
         >
           Overview
         </option>
         <option
+          disabled={false}
           value="Company"
         >
           Company
         </option>
         <option
+          disabled={false}
           value="Product"
         >
           Product
@@ -514,26 +525,31 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
         onChange={[Function]}
       >
         <option
+          disabled={true}
           value="Day"
         >
           Day
         </option>
         <option
+          disabled={false}
           value="Week"
         >
           Week
         </option>
         <option
+          disabled={false}
           value="Month"
         >
           Month
         </option>
         <option
+          disabled={false}
           value="Quarter"
         >
           Quarter
         </option>
         <option
+          disabled={false}
           value="Year"
         >
           Year
@@ -829,16 +845,19 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
         value="Company"
       >
         <option
+          disabled={false}
           value="Overview"
         >
           Overview
         </option>
         <option
+          disabled={false}
           value="Company"
         >
           Company
         </option>
         <option
+          disabled={false}
           value="Product"
         >
           Product
@@ -865,26 +884,474 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
         onChange={[Function]}
       >
         <option
+          disabled={true}
           value="Day"
         >
           Day
         </option>
         <option
+          disabled={false}
           value="Week"
         >
           Week
         </option>
         <option
+          disabled={false}
           value="Month"
         >
           Month
         </option>
         <option
+          disabled={false}
           value="Quarter"
         >
           Quarter
         </option>
         <option
+          disabled={false}
+          value="Year"
+        >
+          Year
+        </option>
+      </select>
+    </section>
+    <section
+      className="date-ranges m-btn-group"
+    >
+      <p>
+        Date range (Click to modify range)
+      </p>
+      <button
+        className="a-btn date-selector range-3m"
+        onClick={[Function]}
+      >
+        3m
+      </button>
+      <button
+        className="a-btn date-selector range-6m"
+        onClick={[Function]}
+      >
+        6m
+      </button>
+      <button
+        className="a-btn date-selector range-1y"
+        onClick={[Function]}
+      >
+        1y
+      </button>
+      <button
+        className="a-btn date-selector range-3y"
+        onClick={[Function]}
+      >
+        3y
+      </button>
+      <button
+        className="a-btn date-selector range-All"
+        onClick={[Function]}
+      >
+        All
+      </button>
+    </section>
+    <span
+      className="separator"
+    />
+    <section
+      className="chart-toggles m-btn-group"
+    >
+      <p>
+        Chart Type
+      </p>
+      <button
+        className="a-btn toggle line selected"
+        onClick={[Function]}
+      >
+        <svg
+          data-name="line chart"
+          id="line-chart-icon"
+          viewBox="0 0 27 21"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <title>
+            line chart icon
+          </title>
+          <g
+            className="cls-1"
+          >
+            <line
+              className="cls-2"
+              x1="12"
+              x2="2"
+              y1="6.27"
+              y2="19"
+            />
+            <line
+              className="cls-2"
+              x1="22.9"
+              x2="14.1"
+              y1="14"
+              y2="6"
+            />
+            <path
+              className="cls-3"
+              d="M13,4a1,1,0,1,1-1,1,1,1,0,0,1,1-1m0-1a2,2,0,1,0,2,2,2,2,0,0,0-2-2Z"
+            />
+            <path
+              className="cls-3"
+              d="M24,14a1,1,0,1,1-1,1,1,1,0,0,1,1-1m0-1a2,2,0,1,0,2,2,2,2,0,0,0-2-2Z"
+            />
+          </g>
+          <line
+            className="cls-2"
+            x1="12"
+            x2="2"
+            y1="16.45"
+            y2="11"
+          />
+          <line
+            className="cls-2"
+            x1="23"
+            x2="14"
+            y1="6"
+            y2="16"
+          />
+          <path
+            className="cls-3"
+            d="M13,16a1,1,0,1,1-1,1,1,1,0,0,1,1-1m0-1a2,2,0,1,0,2,2,2,2,0,0,0-2-2Z"
+          />
+          <path
+            className="cls-3"
+            d="M24,4a1,1,0,1,1-1,1,1,1,0,0,1,1-1m0-1a2,2,0,1,0,2,2,2,2,0,0,0-2-2Z"
+          />
+        </svg>
+      </button>
+      <button
+        className="a-btn toggle area"
+        onClick={[Function]}
+      >
+        <svg
+          data-name="area chart"
+          id="area-chart-icon"
+          viewBox="0 0 27 21"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <title>
+            area chart icon
+          </title>
+          <polygon
+            className="cls-1"
+            points="27 11 23.48 14 15.26 9 7.04 17 0 15 0 21 27 21 27 11"
+          />
+          <g
+            className="cls-2"
+          >
+            <polygon
+              className="cls-1"
+              points="6.32 14.79 14.92 6.46 23.36 11.58 27 8.5 27 1 23.48 4 15.26 1 7.04 7 0 9 0 12.94 6.32 14.79"
+            />
+          </g>
+        </svg>
+      </button>
+    </section>
+  </div>
+  <div
+    className="layout-row company-overlay"
+  >
+    <section
+      className="company-search"
+    >
+      <h1>
+        Search for and add companies to visualize data 
+      </h1>
+      <p>
+        Monocle ipsum dolor sit amet shinkansen delightful tote bag handsome, elegant joy ryokan conversation. Sunspel lovely signature vibrant boutique the best elegant Airbus A380 concierge Baggu izakaya
+      </p>
+      <section
+        className="typeahead "
+        onBlur={[Function]}
+        onFocus={[Function]}
+      >
+        <div
+          className="m-btn-inside-input input-contains-label"
+        >
+          <div
+            className="input-contains-label_before input-contains-label_before__search"
+          >
+            <svg
+              className="cf-icon-svg"
+              viewBox="0 0 880.6 1200"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M860.1 879.2L645.7 664.8c90.8-136.8 76-323-44.6-443.5-137.5-137.5-360.5-137.5-498 0s-137.5 360.5 0 498c118.5 118.4 303.9 137 443.5 44.6L761 978.3c27.3 27.3 71.7 27.3 99 0s27.4-71.8.1-99.1zm-508-116.9C191.4 762 61.3 631.5 61.6 470.8c.3-160.7 130.8-290.8 291.5-290.5s290.8 130.8 290.5 291.5c-.2 118.2-71.9 224.6-181.5 269.1-34.9 14.2-72.3 21.5-110 21.4z"
+              />
+            </svg>
+          </div>
+          <label
+            className="u-visually-hidden"
+            htmlFor="company-typeahead"
+          >
+            Start typing to begin listing companies
+          </label>
+          <input
+            autoComplete="off"
+            className="a-text-input"
+            id="company-typeahead"
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            placeholder="Enter company name"
+            type="text"
+            value=""
+          />
+        </div>
+      </section>
+    </section>
+  </div>
+  
+  <div
+    className="layout-row"
+  >
+    <section
+      className="chart"
+    >
+      <div>
+        <h2>
+          Complaints by company by date received
+        </h2>
+        <div
+          id="line-chart"
+        />
+      </div>
+      <div
+        id="brush-chart"
+      />
+    </section>
+  </div>
+  <div
+    className="tabbed-navigation lens"
+  >
+    <h2>
+      Company trends for selected criteria
+    </h2>
+    <section>
+      <button
+        className="tab product"
+        onClick={[Function]}
+      >
+        Products
+      </button>
+    </section>
+  </div>
+  <div
+    className="row-chart-section"
+  >
+    <h3>
+      Sub-products by company
+    </h3>
+    <div
+      id="row-chart-Company"
+    />
+  </div>
+</section>
+`;
+
+exports[`component:TrendsPanel Snapshots renders date warning without crashing 1`] = `
+<section
+  className="trends-panel external-tooltip"
+>
+  <div>
+    <summary
+      className="action-bar"
+      id="search-summary"
+    >
+      <div>
+        <h2>
+          Showing 
+          <span>
+            1,000
+          </span>
+           matches out of 
+          <span>
+            10,000
+          </span>
+           total complaints
+        </h2>
+      </div>
+      <div
+        className="layout-row"
+      >
+        <h3
+          className="h4 flex-all export-results"
+        >
+          <button
+            className="a-btn a-btn__link"
+            data-gtm_ignore="true"
+            onClick={[Function]}
+          >
+            Export data
+          </button>
+          <button
+            className="a-btn a-btn__link print-preview"
+            data-gtm_ignore="true"
+            onClick={[Function]}
+          >
+            <svg
+              className="cf-icon-svg"
+              viewBox="0 0 761.9 1200"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M203.7 889.9h355v50h-355zM203.7 788.4h355v50h-355z"
+              />
+              <path
+                d="M670.9 368.4L477.3 174.8H122.1c-16.5 0-30 13.5-30 30V500H70c-38.5 0-70 31.5-70 70v305.5c0 38.5 31.5 70 70 70h22.1v60.5c0 16.5 13.5 30 30 30h518.8c16.5 0 30-13.5 30-30v-60.5h21c38.5 0 70-31.5 70-70V569.9c0-38.5-31.5-70-70-70h-21V368.4zm-60 607.6H152.1V742.7h458.8V976zM425 234.8v146.4c0 21.1 17.3 38.4 38.4 38.4h147.5V500H152.1V234.8H425zm237.9 403.9c-16.6 0-30-13.4-30-30s13.4-30 30-30 30 13.4 30 30-13.4 30-30 30z"
+              />
+            </svg>
+            Print
+          </button>
+        </h3>
+      </div>
+    </summary>
+  </div>
+  <div
+    className="warning m-notification m-notification__visible m-notification__warning"
+  >
+    <svg
+      className="cf-icon-svg"
+      viewBox="0 0 1000 1200"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm-49.7 234.6c0-27.6 22.4-50 50-50s50 22.4 50 50v328.6c0 27.6-22.4 50-50 50s-50-22.4-50-50V339.8zm50 582.5c-39.6 0-71.7-32.1-71.7-71.7s32.1-71.7 71.7-71.7S572 811 572 850.6s-32.1 71.7-71.7 71.7z"
+      />
+    </svg>
+    <div
+      className="m-notification_content"
+    >
+      <div
+        className="h4 m-notification_message"
+      >
+        “Day” interval is disabled when the date range is longer than one year
+      </div>
+    </div>
+    <span
+      aria-label="Dismiss"
+      className="close"
+      onClick={[Function]}
+    >
+      <svg
+        className="cf-icon-svg"
+        viewBox="0 0 718.9 1200"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M451.4 613.7l248.1-248.1c25.6-25.1 26-66.3.8-91.9s-66.3-26-91.9-.8l-.8.8-248.1 248.1-248.1-248.1c-25.4-25.4-66.5-25.4-91.9 0s-25.4 66.5 0 91.9l248.1 248.1L19.5 861.8c-25.6 25.1-26 66.3-.8 91.9s66.3 26 91.9.8l.8-.8 248.1-248.1 248.1 248.1c25.4 25.4 66.5 25.4 91.9 0s25.4-66.5 0-91.9L451.4 613.7z"
+        />
+      </svg>
+    </span>
+  </div>
+  <div
+    className="layout-row refine-bar"
+  >
+    <section
+      className="filter-panel-toggle"
+    >
+      <div
+        className="m-btn-group"
+      >
+        <p>
+           
+        </p>
+        <button
+          className="a-btn"
+          onClick={[Function]}
+          title="Filter results"
+        >
+          Filter results
+        </button>
+      </div>
+    </section>
+    <section
+      className="cf-select"
+    >
+      <label
+        className="u-visually-hidden"
+        htmlFor="choose-lens"
+      >
+        Aggregate complaints by
+      </label>
+      <p>
+        Aggregate by
+      </p>
+      <select
+        id="choose-lens"
+        onChange={[Function]}
+        value="Company"
+      >
+        <option
+          disabled={false}
+          value="Overview"
+        >
+          Overview
+        </option>
+        <option
+          disabled={false}
+          value="Company"
+        >
+          Company
+        </option>
+        <option
+          disabled={false}
+          value="Product"
+        >
+          Product
+        </option>
+      </select>
+    </section>
+    <span
+      className="separator"
+    />
+    <section
+      className="cf-select"
+    >
+      <label
+        className="u-visually-hidden"
+        htmlFor="choose-interval"
+      >
+        Choose the Date Interval
+      </label>
+      <p>
+        Date Interval
+      </p>
+      <select
+        id="choose-interval"
+        onChange={[Function]}
+      >
+        <option
+          disabled={true}
+          value="Day"
+        >
+          Day
+        </option>
+        <option
+          disabled={false}
+          value="Week"
+        >
+          Week
+        </option>
+        <option
+          disabled={false}
+          value="Month"
+        >
+          Month
+        </option>
+        <option
+          disabled={false}
+          value="Quarter"
+        >
+          Quarter
+        </option>
+        <option
+          disabled={false}
           value="Year"
         >
           Year
@@ -1227,16 +1694,19 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
         value="Product"
       >
         <option
+          disabled={false}
           value="Overview"
         >
           Overview
         </option>
         <option
+          disabled={false}
           value="Company"
         >
           Company
         </option>
         <option
+          disabled={false}
           value="Product"
         >
           Product
@@ -1263,26 +1733,31 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
         onChange={[Function]}
       >
         <option
+          disabled={true}
           value="Day"
         >
           Day
         </option>
         <option
+          disabled={false}
           value="Week"
         >
           Week
         </option>
         <option
+          disabled={false}
           value="Month"
         >
           Month
         </option>
         <option
+          disabled={false}
           value="Quarter"
         >
           Quarter
         </option>
         <option
+          disabled={false}
           value="Year"
         >
           Year
@@ -1578,16 +2053,19 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
         value="Overview"
       >
         <option
+          disabled={false}
           value="Overview"
         >
           Overview
         </option>
         <option
+          disabled={false}
           value="Company"
         >
           Company
         </option>
         <option
+          disabled={false}
           value="Product"
         >
           Product
@@ -1614,26 +2092,31 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
         onChange={[Function]}
       >
         <option
+          disabled={true}
           value="Day"
         >
           Day
         </option>
         <option
+          disabled={false}
           value="Week"
         >
           Week
         </option>
         <option
+          disabled={false}
           value="Month"
         >
           Month
         </option>
         <option
+          disabled={false}
           value="Quarter"
         >
           Quarter
         </option>
         <option
+          disabled={false}
           value="Year"
         >
           Year
@@ -1809,16 +2292,19 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
         value="Company"
       >
         <option
+          disabled={false}
           value="Overview"
         >
           Overview
         </option>
         <option
+          disabled={false}
           value="Company"
         >
           Company
         </option>
         <option
+          disabled={false}
           value="Product"
         >
           Product
@@ -1845,26 +2331,31 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
         onChange={[Function]}
       >
         <option
+          disabled={true}
           value="Day"
         >
           Day
         </option>
         <option
+          disabled={false}
           value="Week"
         >
           Week
         </option>
         <option
+          disabled={false}
           value="Month"
         >
           Month
         </option>
         <option
+          disabled={false}
           value="Quarter"
         >
           Quarter
         </option>
         <option
+          disabled={false}
           value="Year"
         >
           Year
@@ -2207,16 +2698,19 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
         value="Company"
       >
         <option
+          disabled={false}
           value="Overview"
         >
           Overview
         </option>
         <option
+          disabled={false}
           value="Company"
         >
           Company
         </option>
         <option
+          disabled={false}
           value="Product"
         >
           Product
@@ -2243,26 +2737,31 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
         onChange={[Function]}
       >
         <option
+          disabled={true}
           value="Day"
         >
           Day
         </option>
         <option
+          disabled={false}
           value="Week"
         >
           Week
         </option>
         <option
+          disabled={false}
           value="Month"
         >
           Month
         </option>
         <option
+          disabled={false}
           value="Quarter"
         >
           Quarter
         </option>
         <option
+          disabled={false}
           value="Year"
         >
           Year
