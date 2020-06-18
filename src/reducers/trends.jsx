@@ -68,7 +68,25 @@ function processBucket( state, agg ) {
 
     /* istanbul ignore else */
     if ( item[subKeyName] && item[subKeyName].buckets ) {
-      list.push( item[subKeyName].buckets )
+      console.log( item )
+      console.log( item[subKeyName].buckets )
+      const expandableBuckets = item[subKeyName].buckets
+      expandableBuckets.push( {
+        hasChildren: false,
+        isParent: false,
+        key: `More Information about ${ item.key }`,
+        name: `More Information about ${ item.key }`,
+        splitterText: `More Information about ${ item.key }`,
+        value: '',
+        parent: item.key,
+        pctChange: '',
+        pctOfSet: '',
+        width: 0.3,
+        isTextSeparator: true
+      } )
+
+      list.push( expandableBuckets )
+      // if there's buckets we need to add a separator for rendering
     }
   }
 
@@ -97,7 +115,10 @@ function getD3Names( obj, nameMap, expandedTrends ) {
 
   nameMap[name] = true
 
-  return {
+  return obj.splitterText ? {
+    ...obj,
+    visible: expandedTrends.indexOf( obj.parent ) > -1
+  } : {
     hasChildren: Boolean( obj.hasChildren ),
     isNotFilter: false,
     isParent: Boolean( obj.isParent ),

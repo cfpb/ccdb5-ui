@@ -371,9 +371,6 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
           id="line-chart"
         />
       </div>
-      <div
-        id="brush-chart"
-      />
     </section>
   </div>
   <div
@@ -709,9 +706,6 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
           id="stacked-area-chart"
         />
       </div>
-      <div
-        id="brush-chart"
-      />
     </section>
   </div>
   <div
@@ -1121,9 +1115,6 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
           id="line-chart"
         />
       </div>
-      <div
-        id="brush-chart"
-      />
     </section>
   </div>
   <div
@@ -1564,9 +1555,6 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
           id="line-chart"
         />
       </div>
-      <div
-        id="brush-chart"
-      />
     </section>
   </div>
   <div
@@ -1917,9 +1905,6 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
           id="line-chart"
         />
       </div>
-      <div
-        id="brush-chart"
-      />
     </section>
   </div>
   <div
@@ -2176,9 +2161,6 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
           id="line-chart"
         />
       </div>
-      <div
-        id="brush-chart"
-      />
     </section>
   </div>
   <div
@@ -2568,9 +2550,6 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
           id="line-chart"
         />
       </div>
-      <div
-        id="brush-chart"
-      />
     </section>
   </div>
   <div
@@ -2974,9 +2953,6 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
           id="line-chart"
         />
       </div>
-      <div
-        id="brush-chart"
-      />
     </section>
   </div>
   <div

@@ -70,7 +70,7 @@ export class LineChart extends React.Component {
     const colorScheme = data.dataByTopic
       .map( o => colorMap[o.topic] )
 
-    lineChart.margin( { left: 50, right: 10, top: 10, bottom: 40 } )
+    lineChart.margin( { left: 70, right: 10, top: 10, bottom: 40 } )
       .initializeVerticalMarker( true )
       .isAnimated( true )
       .tooltipThreshold( 1 )

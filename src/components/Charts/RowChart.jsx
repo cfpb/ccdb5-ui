@@ -2,13 +2,14 @@
 
 import './RowChart.less'
 import * as d3 from 'd3'
+import { changeFocus, toggleTrend } from '../../actions/trends'
 import { miniTooltip, row } from 'britecharts'
 import { connect } from 'react-redux'
 import { hashObject } from '../../utils'
 import { max } from 'd3-array'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { toggleTrend } from '../../actions/trends'
+
 
 export class RowChart extends React.Component {
 
@@ -81,7 +82,7 @@ export class RowChart extends React.Component {
   // eslint-disable-next-line complexity
   _redrawChart() {
     const {
-      colorScheme, data: rows, id, printMode, toggleRow, total
+      colorScheme, data: rows, id, printMode, selectFocus, toggleRow, total
     } = this.props
     if ( !rows || !rows.length || !total ) {
       return
@@ -98,7 +99,7 @@ export class RowChart extends React.Component {
       rowContainer.node().getBoundingClientRect().width
     const height = this._getHeight( rows.length )
     const chart = row()
-    const marginLeft = width / 3
+    const marginLeft = width / 4
 
     // tweak to make the chart full width at desktop
     // add space at narrow width
@@ -111,6 +112,7 @@ export class RowChart extends React.Component {
     } )
       .colorSchema( colorScheme )
       .backgroundColor( '#f7f8f9' )
+      .paddingBetweenGroups( 25 )
       .enableLabels( true )
       .labelsTotalCount( total.toLocaleString() )
       .labelsNumberFormat( ',d' )
@@ -134,6 +136,11 @@ export class RowChart extends React.Component {
     rowContainer
       .selectAll( '.y-axis-group .tick' )
       .on( 'click', toggleRow )
+
+    rowContainer
+      .selectAll( '.view-more-label' )
+      .on( 'click', selectFocus )
+
   }
 
   render() {
@@ -149,6 +156,9 @@ export class RowChart extends React.Component {
 }
 
 export const mapDispatchToProps = dispatch => ( {
+  selectFocus: element => {
+    dispatch( changeFocus( element.parent ) )
+  },
   toggleRow: selectedState => {
     dispatch( toggleTrend( selectedState ) )
   }
