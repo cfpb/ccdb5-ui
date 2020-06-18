@@ -100,7 +100,6 @@ export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
  */
 export const getColorScheme = ( rowNames, colorMap ) =>
   rowNames.map( o => {
-    console.log(o)
     if ( !colorMap ) {
       return '#20aa3f'
     }

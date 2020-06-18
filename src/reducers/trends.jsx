@@ -45,7 +45,7 @@ export const defaultState = {
  */
 function processBucket( state, agg ) {
   const list = []
-  const { expandedTrends, filterNames } = state
+  const { expandedTrends, filterNames, lens } = state
   for ( let i = 0; i < agg.length; i++ ) {
     const item = agg[i]
     const subKeyName = getSubKeyName( item )
@@ -68,25 +68,27 @@ function processBucket( state, agg ) {
 
     /* istanbul ignore else */
     if ( item[subKeyName] && item[subKeyName].buckets ) {
-      console.log( item )
-      console.log( item[subKeyName].buckets )
       const expandableBuckets = item[subKeyName].buckets
-      expandableBuckets.push( {
-        hasChildren: false,
-        isParent: false,
-        key: `More Information about ${ item.key }`,
-        name: `More Information about ${ item.key }`,
-        splitterText: `More Information about ${ item.key }`,
-        value: '',
-        parent: item.key,
-        pctChange: '',
-        pctOfSet: '',
-        width: 0.3,
-        isTextSeparator: true
-      } )
+
+      // only push expand text when a data lens is selected
+      if ( lens !== 'Overview' ) {
+        // if there's buckets we need to add a separator for rendering
+        const labelText = `More Information about ${ item.key }`
+        expandableBuckets.push( {
+          hasChildren: false,
+          isParent: false,
+          key: labelText,
+          name: labelText,
+          splitterText: labelText,
+          value: '',
+          parent: item.key,
+          pctChange: '',
+          pctOfSet: '',
+          width: 0.3
+        } )
+      }
 
       list.push( expandableBuckets )
-      // if there's buckets we need to add a separator for rendering
     }
   }
 
