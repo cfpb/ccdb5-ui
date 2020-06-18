@@ -133,6 +133,9 @@ export class RowChart extends React.Component {
     tooltipContainer.datum( [] ).call( tooltip )
     this._wrapText( d3.select( chartID ).selectAll( '.tick text' ), marginLeft )
 
+    this._wrapText( d3.select( chartID )
+      .selectAll( '.view-more-label' ), width / 2 )
+
     rowContainer
       .selectAll( '.y-axis-group .tick' )
       .on( 'click', toggleRow )
