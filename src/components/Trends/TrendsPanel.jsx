@@ -5,7 +5,6 @@ import './TrendsPanel.less'
 import { changeChartType, changeDataLens } from '../../actions/trends'
 import { getIntervals, showCompanyOverLay } from '../../utils/trends'
 import ActionBar from '../ActionBar'
-import BrushChart from '../Charts/BrushChart'
 import { changeDateInterval } from '../../actions/filter'
 import ChartToggles from '../RefineBar/ChartToggles'
 import CompanyTypeahead from '../Filters/CompanyTypeahead'
@@ -145,7 +144,6 @@ export class TrendsPanel extends React.Component {
             <LineChart title={this._areaChartTitle()}/> }
             { chartType === 'area' &&
             <StackedAreaChart title={this._areaChartTitle()}/> }
-            <BrushChart/>
           </section>
           { !overview && <ExternalTooltip/> }
         </div>
