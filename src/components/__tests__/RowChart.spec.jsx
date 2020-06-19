@@ -17,7 +17,7 @@ jest.mock( 'britecharts', () => {
     'labelsSize', 'labelsTotalCount', 'labelsNumberFormat', 'outerPadding',
     'percentageAxisToMaxRatio', 'yAxisLineWrapLimit', 'miniTooltip',
     'yAxisPaddingBetweenChart', 'width', 'wrapLabels', 'height', 'on',
-    'valueFormatter'
+    'valueFormatter', 'paddingBetweenGroups'
   ]
 
   const mock = {}
@@ -157,13 +157,24 @@ describe( 'component: RowChart', () => {
     } )
   } )
 
-  describe('mapDispatchToProps', ()=>{
-    it('hooks into toggleTrend', ()=>{
+  describe( 'mapDispatchToProps', () => {
+    it( 'hooks into changeFocus', () => {
       const dispatch = jest.fn()
-      mapDispatchToProps(dispatch).toggleRow();
-      expect(dispatch.mock.calls.length).toEqual(1);
-    })
-  })
+      mapDispatchToProps( dispatch )
+        .selectFocus( { parent: 'mom', name: 'dad' } )
+      expect( dispatch.mock.calls ).toEqual( [ [ {
+        focus: 'mom',
+        requery: 'REQUERY_ALWAYS',
+        type: 'FOCUS_CHANGED'
+      } ] ] )
+    } )
+
+    it( 'hooks into toggleTrend', () => {
+      const dispatch = jest.fn()
+      mapDispatchToProps( dispatch ).toggleRow()
+      expect( dispatch.mock.calls.length ).toEqual( 1 )
+    } )
+  } )
 
   describe( 'mapStateToProps', () => {
     it( 'maps state and props', () => {

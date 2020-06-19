@@ -57,7 +57,7 @@ export class StackedAreaChart extends React.Component {
       .map( o => colorMap[o] )
     colorScheme.push( colors.DataLens[10] )
 
-    stackedAreaChart.margin( { left: 50, right: 10, top: 10, bottom: 40 } )
+    stackedAreaChart.margin( { left: 70, right: 10, top: 10, bottom: 40 } )
       .areaCurve( 'linear' )
       .initializeVerticalMarker( true )
       .isAnimated( false )
