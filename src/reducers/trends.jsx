@@ -45,7 +45,7 @@ export const defaultState = {
  */
 function processBucket( state, agg ) {
   const list = []
-  const { expandedTrends, filterNames } = state
+  const { expandedTrends, filterNames, lens } = state
   for ( let i = 0; i < agg.length; i++ ) {
     const item = agg[i]
     const subKeyName = getSubKeyName( item )
@@ -68,7 +68,27 @@ function processBucket( state, agg ) {
 
     /* istanbul ignore else */
     if ( item[subKeyName] && item[subKeyName].buckets ) {
-      list.push( item[subKeyName].buckets )
+      const expandableBuckets = item[subKeyName].buckets
+
+      // only push expand text when a data lens is selected
+      if ( lens !== 'Overview' ) {
+        // if there's buckets we need to add a separator for rendering
+        const labelText = `More Information about ${ item.key }`
+        expandableBuckets.push( {
+          hasChildren: false,
+          isParent: false,
+          key: labelText,
+          name: labelText,
+          splitterText: labelText,
+          value: '',
+          parent: item.key,
+          pctChange: '',
+          pctOfSet: '',
+          width: 0.3
+        } )
+      }
+
+      list.push( expandableBuckets )
     }
   }
 
@@ -97,7 +117,10 @@ function getD3Names( obj, nameMap, expandedTrends ) {
 
   nameMap[name] = true
 
-  return {
+  return obj.splitterText ? {
+    ...obj,
+    visible: expandedTrends.indexOf( obj.parent ) > -1
+  } : {
     hasChildren: Boolean( obj.hasChildren ),
     isNotFilter: false,
     isParent: Boolean( obj.isParent ),
