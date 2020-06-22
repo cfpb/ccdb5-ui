@@ -31,6 +31,7 @@ export const defaultQuery = {
   subLens: '',
   tab: types.MODE_MAP,
   totalPages: 0,
+  trend_depth: 5,
   trendsDateWarningEnabled: false
 }
 
@@ -48,7 +49,7 @@ const trendFieldMap = {
 
 const urlParams = [
   'dateRange', 'searchText', 'searchField', 'tab',
-  'lens', 'dateInterval', 'subLens', 'focus'
+  'lens', 'dateInterval', 'subLens', 'focus', 'trend_depth'
 ]
 const urlParamsInt = [ 'from', 'page', 'size' ]
 
@@ -708,6 +709,31 @@ function updateTotalPages( state, action ) {
   }
 }
 
+/** Handler for the depth changed action
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the command being executed
+ * @returns {object} the new state for the Redux store
+ */
+function changeDepth( state, action ) {
+  return {
+    ...state,
+    trend_depth: action.depth
+  }
+}
+
+/** Handler for the depth reset action
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+function resetDepth( state ) {
+  return {
+    ...state,
+    trend_depth: 5
+  }
+}
+
 /** Handler for the focus selected action
  *
  * @param {object} state the current state in the Redux store
@@ -827,19 +853,21 @@ export function validatePer1000( queryState ) {
 // eslint-disable-next-line max-statements, require-jsdoc
 export function _buildHandlerMap() {
   const handlers = {}
-  handlers[actions.FOCUS_CHANGED] = changeFocus
   handlers[actions.COMPLAINTS_RECEIVED] = updateTotalPages
   handlers[actions.DATA_LENS_CHANGED] = changeDataLens
   handlers[actions.DATA_SUBLENS_CHANGED] = changeDataSubLens
   handlers[actions.DATE_INTERVAL_CHANGED] = changeDateInterval
   handlers[actions.DATE_RANGE_CHANGED] = changeDateRange
   handlers[actions.DATES_CHANGED] = changeDates
+  handlers[actions.DEPTH_CHANGED] = changeDepth
+  handlers[actions.DEPTH_RESET] = resetDepth
   handlers[actions.FILTER_ALL_REMOVED] = removeAllFilters
   handlers[actions.FILTER_CHANGED] = toggleFilter
   handlers[actions.FILTER_FLAG_CHANGED] = toggleFlagFilter
   handlers[actions.FILTER_MULTIPLE_ADDED] = addMultipleFilters
   handlers[actions.FILTER_MULTIPLE_REMOVED] = removeMultipleFilters
   handlers[actions.FILTER_REMOVED] = removeFilter
+  handlers[actions.FOCUS_CHANGED] = changeFocus
   handlers[actions.PAGE_CHANGED] = changePage
   handlers[actions.MAP_WARNING_DISMISSED] = dismissMapWarning
   handlers[actions.NEXT_PAGE_SHOWN] = nextPage
