@@ -1,6 +1,5 @@
 import { REQUERY_ALWAYS, REQUERY_NEVER } from '../../constants'
 import * as sut from '../trends'
-import { DEPTH_CHANGED, DEPTH_RESET } from '../trends'
 
 describe( 'action:trendsActions', () => {
   describe( 'changeChartType', () => {
