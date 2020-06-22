@@ -1,5 +1,6 @@
 import { REQUERY_ALWAYS, REQUERY_NEVER } from '../../constants'
 import * as sut from '../trends'
+import { DEPTH_CHANGED, DEPTH_RESET } from '../trends'
 
 describe( 'action:trendsActions', () => {
   describe( 'changeChartType', () => {
@@ -32,6 +33,27 @@ describe( 'action:trendsActions', () => {
         requery: REQUERY_ALWAYS
       }
       expect( sut.changeDataSubLens( 'bar' ) ).toEqual( expectedAction )
+    } )
+  } )
+
+  describe( 'changeDepth', () => {
+    it( 'creates a simple action', () => {
+      const expectedAction = {
+        type: sut.DEPTH_CHANGED,
+        depth: 1000,
+        requery: REQUERY_ALWAYS
+      }
+      expect( sut.changeDepth( 1000 ) ).toEqual( expectedAction )
+    } )
+  } )
+
+  describe( 'resetDepth', () => {
+    it( 'creates a simple action', () => {
+      const expectedAction = {
+        type: sut.DEPTH_RESET,
+        requery: REQUERY_ALWAYS
+      }
+      expect( sut.resetDepth() ).toEqual( expectedAction )
     } )
   } )
 
