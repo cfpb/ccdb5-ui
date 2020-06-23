@@ -96,9 +96,10 @@ export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
  * helper to generate chart name for row chart based on trends
  * @param {array} rowNames passed from trends.results reducer
  * @param {object} colorMap of the chart for display
+ * @param {string} lens determines which colors to use for defaults
  * @returns {array} the color scheme [blue, red, yellow, etc]
  */
-export const getColorScheme = ( rowNames, colorMap ) =>
+export const getColorScheme = ( rowNames, colorMap, lens ) =>
   rowNames.map( o => {
     if ( !colorMap ) {
       return '#20aa3f'
@@ -113,13 +114,15 @@ export const getColorScheme = ( rowNames, colorMap ) =>
       return colorMap[name]
     }
 
-    return '#20aa3f'
+    // return default grey when it's data lens  and not in area/line chart
+    // #a2a3a4
+    return lens === 'Overview' ? '#20aa3f' : '#a2a3a4'
   } )
 
-export const processRows = ( rows, colorMap ) => {
+export const processRows = ( rows, colorMap, lens ) => {
   let data = rows ? rows : []
   data = data.filter( o => o.visible )
-  const colorScheme = getColorScheme( data, colorMap )
+  const colorScheme = getColorScheme( data, colorMap, lens )
 
   return {
     colorScheme,
