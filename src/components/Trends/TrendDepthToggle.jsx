@@ -16,7 +16,7 @@ export class TrendDepthToggle extends React.Component {
                     this.props.increaseDepth( diff )
                   } }>
             <span className={ 'plus' }></span>
-            View more
+            Show more
           </button>
         </div>
       }
@@ -27,7 +27,7 @@ export class TrendDepthToggle extends React.Component {
                   this.props.resetDepth()
                 } }>
           <span className={ 'minus' }></span>
-          View fewer
+          Show less
         </button>
       </div>
     }
