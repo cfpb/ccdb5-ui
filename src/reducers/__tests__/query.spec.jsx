@@ -107,11 +107,11 @@ describe( 'reducer:query', () => {
         depth: 13
       }
       const state = {
-        trend_depth: 5
+        trendDepth: 5
       }
       expect( target( state, action ) ).toEqual( {
         queryString: '?trend_depth=13',
-        trend_depth: 13
+        trendDepth: 13
       } )
     } )
     it( 'handles DEPTH_RESET', () => {
@@ -119,11 +119,11 @@ describe( 'reducer:query', () => {
         type: actions.DEPTH_RESET
       }
       const state = {
-        trend_depth: 10000
+        trendDepth: 10000
       }
       expect( target( state, action ) ).toEqual( {
         queryString: '?trend_depth=5',
-        trend_depth: 5
+        trendDepth: '5'
       } )
     } )
   } )
@@ -327,11 +327,11 @@ describe( 'reducer:query', () => {
       expect( actual.product ).toEqual( [ 'Debt Collection', 'Mortgage' ] )
     } )
 
-    it( 'handles a trend_depth param', () => {
-      action.params = { lens: 'Product', trend_depth: 1000 }
+    it( 'handles a trendDepth param', () => {
+      action.params = { lens: 'Product', trendDepth: 1000 }
       const actual = target( {}, action )
       expect( actual.lens ).toEqual( 'Product' )
-      expect( actual.trend_depth ).toEqual( 1000 )
+      expect( actual.trendDepth ).toEqual( 1000 )
     } )
 
 

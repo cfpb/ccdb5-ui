@@ -61,7 +61,7 @@ export function changeDepth( depth ) {
   return {
     type: DEPTH_CHANGED,
     requery: REQUERY_ALWAYS,
-    depth
+    depth: depth.toString()
   }
 }
 

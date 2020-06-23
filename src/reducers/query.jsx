@@ -31,7 +31,7 @@ export const defaultQuery = {
   subLens: '',
   tab: types.MODE_MAP,
   totalPages: 0,
-  trend_depth: 5,
+  trendDepth: '5',
   trendsDateWarningEnabled: false
 }
 
@@ -44,12 +44,13 @@ const fieldMap = {
 const trendFieldMap = {
   dateInterval: 'trend_interval',
   lens: 'lens',
-  subLens: 'sub_lens'
+  subLens: 'sub_lens',
+  trendDepth: 'trend_depth'
 }
 
 const urlParams = [
   'dateRange', 'searchText', 'searchField', 'tab',
-  'lens', 'dateInterval', 'subLens', 'focus', 'trend_depth'
+  'lens', 'dateInterval', 'subLens', 'focus', 'trendDepth'
 ]
 const urlParamsInt = [ 'from', 'page', 'size' ]
 
@@ -718,7 +719,7 @@ function updateTotalPages( state, action ) {
 function changeDepth( state, action ) {
   return {
     ...state,
-    trend_depth: action.depth
+    trendDepth: action.depth
   }
 }
 
@@ -730,7 +731,7 @@ function changeDepth( state, action ) {
 function resetDepth( state ) {
   return {
     ...state,
-    trend_depth: 5
+    trendDepth: '5'
   }
 }
 
@@ -818,7 +819,7 @@ export function stateToQS( state ) {
     if ( fieldMap[field] ) {
       params[fieldMap[field]] = value
     } else if ( trendFieldMap[field] ) {
-      params[trendFieldMap[field]] = value.toLowerCase()
+      params[trendFieldMap[field]] = value.toString().toLowerCase()
     } else {
       params[field] = value
     }

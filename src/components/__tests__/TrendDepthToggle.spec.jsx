@@ -125,7 +125,7 @@ describe( 'component:TrendDepthToggle', () => {
       expect( dispatch.mock.calls ).toEqual( [
         [ {
           requery: REQUERY_ALWAYS,
-          depth: 18,
+          depth: '18',
           type: 'DEPTH_CHANGED'
         } ]
       ] )
@@ -133,7 +133,7 @@ describe( 'component:TrendDepthToggle', () => {
 
     it( 'hooks into resetDepth', () => {
       const dispatch = jest.fn()
-      mapDispatchToProps( dispatch ).resetDepth( 13 )
+      mapDispatchToProps( dispatch ).resetDepth()
       expect( dispatch.mock.calls ).toEqual( [
         [ {
           requery: REQUERY_ALWAYS,
