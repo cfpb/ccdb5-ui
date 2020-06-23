@@ -100,6 +100,34 @@ describe( 'reducer:query', () => {
     } )
   } )
 
+  describe( 'trend depth', () => {
+    it( 'handles DEPTH_CHANGED', () => {
+      const action = {
+        type: actions.DEPTH_CHANGED,
+        depth: 13
+      }
+      const state = {
+        trendDepth: 5
+      }
+      expect( target( state, action ) ).toEqual( {
+        queryString: '?trend_depth=13',
+        trendDepth: 13
+      } )
+    } )
+    it( 'handles DEPTH_RESET', () => {
+      const action = {
+        type: actions.DEPTH_RESET
+      }
+      const state = {
+        trendDepth: 10000
+      }
+      expect( target( state, action ) ).toEqual( {
+        queryString: '?trend_depth=5',
+        trendDepth: '5'
+      } )
+    } )
+  } )
+
   describe( 'Pager', () => {
     it( 'handles PAGE_CHANGED actions', () => {
       const action = {
@@ -298,6 +326,14 @@ describe( 'reducer:query', () => {
       const actual = target( {}, action )
       expect( actual.product ).toEqual( [ 'Debt Collection', 'Mortgage' ] )
     } )
+
+    it( 'handles a trendDepth param', () => {
+      action.params = { lens: 'Product', trendDepth: 1000 }
+      const actual = target( {}, action )
+      expect( actual.lens ).toEqual( 'Product' )
+      expect( actual.trendDepth ).toEqual( 1000 )
+    } )
+
 
     it( 'handles the "All" button from the landing page' , () => {
       const dateMin = new Date( types.DATE_RANGE_MIN )

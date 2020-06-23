@@ -23,6 +23,7 @@ import RowChart from '../Charts/RowChart'
 import Select from '../RefineBar/Select'
 import Separator from '../RefineBar/Separator'
 import StackedAreaChart from '../Charts/StackedAreaChart'
+import TrendDepthToggle from './TrendDepthToggle'
 import { trendsDateWarningDismissed } from '../../actions/view'
 import Warning from '../Warnings/Warning'
 
@@ -149,7 +150,7 @@ export class TrendsPanel extends React.Component {
         </div>
         }
         { total > 0 && this._phaseMap() }
-
+        <TrendDepthToggle />
         <Loading isLoading={ isLoading || false }/>
       </section>
     )
@@ -176,15 +177,15 @@ const mapStateToProps = state => {
   const focusKey = subLens.replace( '_', '-' )
   return {
     chartType,
-    companyData: processRows( results.company, false ),
+    companyData: processRows( results.company, false, lens ),
     companyOverlay: showCompanyOverLay( lens, companyFilters, isLoading ),
     dateInterval,
     focus,
-    focusData: processRows( results[focusKey], colorMap ),
+    focusData: processRows( results[focusKey], colorMap, lens ),
     intervals: getIntervals( date_received_min, date_received_max ),
     isLoading,
-    productData: processRows( results.product, false ),
-    dataLensData: processRows( results[lensKey], colorMap ),
+    productData: processRows( results.product, false, lens ),
+    dataLensData: processRows( results[lensKey], colorMap, lens ),
     lens,
     overview: lens === 'Overview',
     showMobileFilters: state.view.width < 750,

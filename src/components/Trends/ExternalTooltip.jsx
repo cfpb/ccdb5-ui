@@ -1,3 +1,4 @@
+/* eslint complexity: ["error", 5] */
 import { changeFocus } from '../../actions/trends'
 import CompanyTypeahead from '../Filters/CompanyTypeahead'
 import { connect } from 'react-redux'
@@ -42,7 +43,7 @@ export class ExternalTooltip extends React.Component {
   }
 
   render() {
-    const { focus, tooltip } = this.props
+    const { focus, showTotal, tooltip } = this.props
     if ( tooltip && tooltip.values ) {
       return (
         <section
@@ -61,14 +62,14 @@ export class ExternalTooltip extends React.Component {
               ) }
             </ul>
 
-            <ul className="m-list__unstyled tooltip-ul total">
+            { showTotal && <ul className="m-list__unstyled tooltip-ul total">
               <li>
                 <span className="u-left">Total</span>
                 <span className="u-right">
                   { tooltip.total.toLocaleString() }
                 </span>
               </li>
-            </ul>
+            </ul> }
           </div>
         </section>
       )
@@ -93,6 +94,7 @@ export const mapStateToProps = state => {
     focus: focus ? 'focus' : '',
     lens,
     showCompanyTypeahead: lens === 'Company' && !focus,
+    showTotal: state.trends.chartType === 'area',
     tooltip: state.trends.tooltip
   }
 }
