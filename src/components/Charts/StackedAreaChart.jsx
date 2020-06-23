@@ -41,15 +41,29 @@ export class StackedAreaChart extends React.Component {
     }
   }
 
+  _chartWidth( chartID ) {
+    const {
+      lens, printMode
+    } = this.props
+    if ( printMode ) {
+      return lens === 'Overview' ? 750 : 540
+    }
+    const container = d3.select( chartID )
+    return container.node().getBoundingClientRect().width
+  }
+
+
   _redrawChart() {
-    const { colorMap, data, dateRange, interval, lastDate } = this.props
+    const {
+      colorMap, data, dateRange, interval, lastDate
+    } = this.props
     if ( !data || !data.length ) {
       return
     }
 
     const chartID = '#stacked-area-chart'
     const container = d3.select( chartID )
-    const containerWidth = container.node().getBoundingClientRect().width
+    const width = this._chartWidth( chartID )
     d3.select( chartID + ' .stacked-area' ).remove()
     const stackedAreaChart = stackedArea()
     const colorScheme = [ ...new Set( data.map( item => item.name ) ) ]
@@ -64,7 +78,7 @@ export class StackedAreaChart extends React.Component {
       .tooltipThreshold( 1 )
       .grid( 'horizontal' )
       .aspectRatio( 0.5 )
-      .width( containerWidth )
+      .width( width )
       .dateLabel( 'date' )
       .colorSchema( colorScheme )
       .on( 'customMouseMove', this._updateTooltip )
