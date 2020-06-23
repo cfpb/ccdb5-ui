@@ -3,6 +3,8 @@ import { REQUERY_ALWAYS, REQUERY_NEVER } from '../constants'
 export const CHART_TYPE_CHANGED = 'CHART_TYPE_CHANGED'
 export const DATA_LENS_CHANGED = 'DATA_LENS_CHANGED'
 export const DATA_SUBLENS_CHANGED = 'DATA_SUBLENS_CHANGED'
+export const DEPTH_CHANGED = 'DEPTH_CHANGED'
+export const DEPTH_RESET = 'DEPTH_RESET'
 export const FOCUS_CHANGED = 'FOCUS_CHANGED'
 export const TREND_TOGGLED = 'TREND_TOGGLED'
 export const TRENDS_TOOLTIP_CHANGED = 'TRENDS_TOOLTIP_CHANGED'
@@ -46,6 +48,32 @@ export function changeDataSubLens( subLens ) {
     type: DATA_SUBLENS_CHANGED,
     requery: REQUERY_ALWAYS,
     subLens
+  }
+}
+
+/**
+ * Notifies the application that depth is being changed
+ *
+ * @param {string} depth the max number of aggregations returned
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function changeDepth( depth ) {
+  return {
+    type: DEPTH_CHANGED,
+    requery: REQUERY_ALWAYS,
+    depth: depth.toString()
+  }
+}
+
+/**
+ * Notifies the application that depth is being reset
+ *
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function resetDepth() {
+  return {
+    type: DEPTH_RESET,
+    requery: REQUERY_ALWAYS
   }
 }
 

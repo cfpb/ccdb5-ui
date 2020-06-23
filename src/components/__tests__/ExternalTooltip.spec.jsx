@@ -17,6 +17,7 @@ function setupSnapshot( query, tooltip ) {
   const store = mockStore( {
     query,
     trends: {
+      chartType: 'area',
       tooltip
     }
   } )
@@ -155,6 +156,7 @@ describe( 'mapStateToProps', () => {
       focus: '',
       lens: 'Overview',
       showCompanyTypeahead: false,
+      showTotal: false,
       tooltip: {
         title: 'Date: A tooltip',
         total: 100,

@@ -252,7 +252,7 @@ function processLineData( lens, aggregations, focus, subLens ) {
     }
   }
   return {
-    dataByTopic
+    dataByTopic: dataByTopic.slice( 0, 10 )
   }
 }
 
