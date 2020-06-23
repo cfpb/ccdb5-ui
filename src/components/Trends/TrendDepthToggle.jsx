@@ -6,7 +6,7 @@ import React from 'react'
 
 export class TrendDepthToggle extends React.Component {
   render() {
-    const { diff, lens, resetCount, showToggle } = this.props
+    const { diff, showToggle } = this.props
     if ( showToggle ) {
       if ( diff > 0 ) {
         return <div className={ 'trend-depth-toggle' }>
@@ -16,7 +16,7 @@ export class TrendDepthToggle extends React.Component {
                     this.props.increaseDepth( diff )
                   } }>
             <span className={ 'plus' }></span>
-            { `View ${ diff } more ${ lens.toLowerCase() }s` }
+            View more
           </button>
         </div>
       }
@@ -27,7 +27,7 @@ export class TrendDepthToggle extends React.Component {
                   this.props.resetDepth()
                 } }>
           <span className={ 'minus' }></span>
-          { `View ${ resetCount } fewer ${ lens.toLowerCase() }s` }
+          View fewer
         </button>
       </div>
     }
@@ -55,9 +55,6 @@ export const mapStateToProps = state => {
 
   return {
     diff,
-    focus,
-    lens,
-    resetCount: prodLength - 5,
     showToggle: prodLength > 0 && !focus && lens === 'Product'
   }
 }

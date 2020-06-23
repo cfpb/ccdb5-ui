@@ -170,9 +170,6 @@ describe( 'component:TrendDepthToggle', () => {
       let actual = mapStateToProps( state )
       expect( actual ).toEqual( {
         diff: 3,
-        focus: '',
-        lens: 'Product',
-        resetCount: 3,
         showToggle: true
       } )
     } )
