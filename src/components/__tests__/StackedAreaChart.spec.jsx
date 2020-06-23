@@ -241,4 +241,26 @@ describe( 'component: StackedAreaChart', () => {
       expect( cb ).toHaveBeenCalledTimes( 1 )
     } )
   } )
+  describe( 'helpers', () => {
+    describe( '_chartWidth', () => {
+      it( 'gets print width', () => {
+        const target = shallow( <StackedAreaChart
+          printMode={ true }
+          colorMap={ { a: '#eee', b: '#444' } }
+          lens={ 'Overview' }
+          data={ [ 3, 5, 6 ] }
+          interval={ 'Month' }
+          dateRange={ {
+            from: '2012',
+            to: '2020'
+          } }
+          title={ 'foo' }
+          tooltipUpdated={ jest.fn() }
+        /> )
+        expect( target.instance()._chartWidth( '#foo' ) )
+          .toEqual( 540 )
+      } )
+    } )
+  } )
+
 } )

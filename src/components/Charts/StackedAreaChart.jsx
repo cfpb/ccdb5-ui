@@ -42,11 +42,9 @@ export class StackedAreaChart extends React.Component {
   }
 
   _chartWidth( chartID ) {
-    const {
-      lens, printMode
-    } = this.props
+    const { printMode } = this.props
     if ( printMode ) {
-      return lens === 'Overview' ? 750 : 540
+      return 540
     }
     const container = d3.select( chartID )
     return container.node().getBoundingClientRect().width
