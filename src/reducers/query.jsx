@@ -12,6 +12,7 @@ const queryString = require( 'query-string' );
 
 /* eslint-disable camelcase */
 export const defaultQuery = {
+  chartType: 'line',
   dateInterval: 'Month',
   dateRange: '3y',
   date_received_max: startOfToday(),
@@ -50,7 +51,7 @@ const trendFieldMap = {
 
 const urlParams = [
   'dateRange', 'searchText', 'searchField', 'tab',
-  'lens', 'dateInterval', 'subLens', 'focus', 'trendDepth'
+  'lens', 'dateInterval', 'subLens', 'focus', 'chartType', 'trendDepth'
 ]
 const urlParamsInt = [ 'from', 'page', 'size' ]
 
@@ -777,6 +778,20 @@ function changeDataSubLens( state, action ) {
   }
 }
 
+/**
+ * Handler for the update chart type action
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the command being executed
+ * @returns {object} the new state for the Redux store
+ */
+export function updateChartType( state, action ) {
+  return {
+    ...state,
+    chartType: action.chartType
+  }
+}
+
 // ----------------------------------------------------------------------------
 // Query String Builder
 
@@ -854,6 +869,7 @@ export function validatePer1000( queryState ) {
 // eslint-disable-next-line max-statements, require-jsdoc
 export function _buildHandlerMap() {
   const handlers = {}
+  handlers[actions.CHART_TYPE_CHANGED] = updateChartType
   handlers[actions.COMPLAINTS_RECEIVED] = updateTotalPages
   handlers[actions.DATA_LENS_CHANGED] = changeDataLens
   handlers[actions.DATA_SUBLENS_CHANGED] = changeDataSubLens

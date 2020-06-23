@@ -1045,6 +1045,21 @@ describe( 'reducer:query', () => {
       } )
     } )
 
+    describe( 'CHART_TYPE_CHANGED actions', () => {
+      it( 'changes the chartType', () => {
+        const action = {
+          type: actions.CHART_TYPE_CHANGED,
+          chartType: 'Foo'
+        }
+        const result = target( { chartType: 'ahha' },
+          action )
+        expect( result ).toEqual( {
+          chartType: 'Foo',
+          queryString: '?chartType=Foo',
+        } )
+      } )
+    } )
+
     describe( 'DATA_LENS_CHANGED actions', () => {
       it( 'changes the lens', () => {
         const action = {
