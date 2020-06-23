@@ -1,4 +1,4 @@
-/* eslint complexity: ["error", 5] */
+/* eslint complexity: ["error", 6] */
 import './LineChart.less'
 import * as d3 from 'd3'
 
@@ -50,15 +50,28 @@ export class LineChart extends React.Component {
     this.tip.update( dataPoint, topicColorMap, dataPointXPosition )
   }
 
+  _chartWidth( chartID ) {
+    const {
+      lens, printMode
+    } = this.props
+    if ( printMode ) {
+      return lens === 'Overview' ? 750 : 540
+    }
+    const container = d3.select( chartID )
+    return container.node().getBoundingClientRect().width
+  }
+
   _redrawChart() {
-    const { colorMap, data, dateRange, interval, lastDate, lens } = this.props
+    const {
+      colorMap, data, dateRange, interval, lastDate, lens
+    } = this.props
     if ( !data.dataByTopic || !data.dataByTopic.length ) {
       return
     }
 
     const chartID = '#line-chart'
     const container = d3.select( chartID )
-    const containerWidth = container.node().getBoundingClientRect().width
+    const width = this._chartWidth( chartID )
     d3.select( chartID + ' .line-chart' ).remove()
     const lineChart = line()
     this.tip = tooltip()
@@ -76,7 +89,7 @@ export class LineChart extends React.Component {
       .tooltipThreshold( 1 )
       .grid( 'horizontal' )
       .aspectRatio( 0.5 )
-      .width( containerWidth )
+      .width( width )
       .dateLabel( 'date' )
       .colorSchema( colorScheme )
 
