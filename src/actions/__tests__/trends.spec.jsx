@@ -39,7 +39,7 @@ describe( 'action:trendsActions', () => {
     it( 'creates a simple action', () => {
       const expectedAction = {
         type: sut.DEPTH_CHANGED,
-        depth: 1000,
+        depth: '1000',
         requery: REQUERY_ALWAYS
       }
       expect( sut.changeDepth( 1000 ) ).toEqual( expectedAction )
