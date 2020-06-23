@@ -12,7 +12,7 @@ exports[`component:TrendDepthToggle renders Product view fewer without crashing 
     <span
       className="minus"
     />
-    View fewer
+    Show less
   </button>
 </div>
 `;
@@ -29,7 +29,7 @@ exports[`component:TrendDepthToggle renders Product view more without crashing 1
     <span
       className="plus"
     />
-    View more
+    Show more
   </button>
 </div>
 `;
