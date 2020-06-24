@@ -43,4 +43,4 @@ export const mapStateToProps = state => {
   }
 }
 
-export default connect( mapStateToProps, )( PrintInfo );
+export default connect( mapStateToProps )( PrintInfo );

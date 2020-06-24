@@ -1,3 +1,4 @@
+/* eslint complexity: ["error", 5] */
 import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../constants'
 
 export const AGGREGATIONS_API_CALLED = 'AGGREGATIONS_API_CALLED'
@@ -169,13 +170,21 @@ export function getStates() {
 export function getTrends() {
   return ( dispatch, getState ) => {
     const store = getState()
-    const qs = 'trends/' + store.query.queryString
+    const { query, trends } = store
+    const qs = 'trends/' + query.queryString
     const uri = '@@API' + qs + '&no_aggs=true'
 
     // This call is already in process
-    if ( uri === store.trends.activeCall ) {
+    if ( uri === trends.activeCall ) {
       return null
     }
+
+    // kill query if Company param criteria aren't met
+    if ( trends.lens === 'Company' &&
+      ( !query.company || !query.company.length ) ) {
+      return null
+    }
+
 
     dispatch( callingApi( TRENDS_API_CALLED, uri ) )
     return fetch( uri )
