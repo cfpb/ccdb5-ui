@@ -59,6 +59,10 @@ export class TrendsPanel extends React.Component {
   }
 
   _phaseMap() {
+    if ( this.props.companyOverlay ) {
+      return null
+    }
+
     if ( this.props.overview ) {
       return <RowChart id="product"
                        colorScheme={ this.props.productData.colorScheme }
@@ -138,7 +142,7 @@ export class TrendsPanel extends React.Component {
 
         { focus && <FocusHeader /> }
 
-        { total > 0 &&
+        { !companyOverlay && total > 0 &&
         <div className="layout-row">
           <section className="chart">
             { chartType === 'line' &&

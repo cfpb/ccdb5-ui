@@ -155,7 +155,7 @@ describe( 'component:TrendsPanel', () => {
         chartType: 'line',
         company: false,
         focus: '',
-        lens: 'Company',
+        lens: 'Overview',
         printMode: false,
         showMobileFilters: false,
         subLens: 'sub_product',
@@ -166,6 +166,8 @@ describe( 'component:TrendsPanel', () => {
 
     it( 'renders company Overlay without crashing', () => {
       params.company = []
+      params.lens = 'Company'
+
       const target = setupSnapshot( params )
       const tree = target.toJSON()
       expect( tree ).toMatchSnapshot()
