@@ -1,40 +1,22 @@
 // reducer for the Map Tab
 import { coalesce, processErrorMessage } from '../utils'
 import { GEO_NORM_NONE, TILE_MAP_STATES } from '../constants'
+import {
+  processBucket, processTrendPeriod, toggleTrend, validateBucket
+} from './trends'
 import actions from '../actions'
 
 export const defaultState = {
   activeCall: '',
   isLoading: false,
   dataNormalization: GEO_NORM_NONE,
+  expandedTrends: [],
+  filterNames: [],
   results: {
     issue: [],
     product: [],
     state: []
   }
-}
-
-export const processAggregations = agg => {
-  const total = agg.doc_count
-  const chartResults = []
-  for ( const k in agg ) {
-    if ( agg[k].buckets ) {
-      agg[k].buckets.forEach( o => {
-        chartResults.push( {
-          name: o.key,
-          value: o.doc_count,
-          pctChange: 1,
-          isParent: true,
-          hasChildren: false,
-          pctOfSet: Math.round( o.doc_count / total * 100 )
-            .toFixed( 2 ),
-          visible: true,
-          width: 0.5
-        } )
-      } )
-    }
-  }
-  return chartResults
 }
 
 
@@ -88,19 +70,30 @@ export function statesCallInProcess( state, action ) {
  */
 export function processStatesResults( state, action ) {
   const newState = { ...state }
-
-  const {
-    issue: issueData,
-    product: productData,
-    state: stateData
-  } = action.data.aggregations
+  const aggregations = action.data.aggregations
+  const { state: stateData } = aggregations
 
   newState.activeCall = ''
   newState.isLoading = false
   newState.results = coalesce( newState, 'results', {} )
+
+  const validAggs = [ 'issue', 'product' ]
+  validAggs.forEach( k => {
+    // validate response coming from API
+    /* istanbul ignore else */
+    if ( validateBucket( aggregations, k ) ) {
+      // set to zero when we are not using focus Lens
+      const buckets = aggregations[k][k].buckets
+      for ( let i = 0; i < buckets.length; i++ ) {
+        const docCount = aggregations[k].doc_count
+        processTrendPeriod( buckets[i], k, docCount )
+      }
+
+      newState.results[k] = processBucket( state, buckets )
+    }
+  } )
+
   newState.results.state = processStateAggregations( stateData )
-  newState.results.issue = processAggregations( issueData )
-  newState.results.product = processAggregations( productData )
 
   return newState
 }
@@ -125,7 +118,6 @@ export function processStatesError( state, action ) {
     }
   }
 }
-
 
 /**
  * Handler for the update filter data normalization action
@@ -214,6 +206,7 @@ export function _buildHandlerMap() {
   handlers[actions.STATES_API_CALLED] = statesCallInProcess
   handlers[actions.STATES_RECEIVED] = processStatesResults
   handlers[actions.STATES_FAILED] = processStatesError
+  handlers[actions.TREND_TOGGLED] = toggleTrend
   handlers[actions.URL_CHANGED] = processParams
 
 

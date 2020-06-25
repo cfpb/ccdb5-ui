@@ -50,6 +50,7 @@ describe( 'component:FocusHeader', () => {
       cb = jest.fn()
       target = shallow( <FocusHeader clearFocus={ cb }
                                      focus={ 'Focus item' }
+                                     lens={ 'Foo' }
                                      total={ '9,123' }
       /> )
     } )
@@ -80,14 +81,19 @@ describe( 'component:FocusHeader', () => {
     it( 'maps state and props', () => {
       const state = {
         query: {
-          focus: 'Foo'
+          focus: 'Foo',
+          lens: 'Bar'
         },
         trends: {
           total: 1000
         }
       }
       let actual = mapStateToProps( state )
-      expect( actual ).toEqual( { focus: 'Foo', total: '1,000' } )
+      expect( actual ).toEqual( {
+        focus: 'Foo',
+        lens: 'Bar',
+        total: '1,000'
+      } )
     } )
   } )
 
