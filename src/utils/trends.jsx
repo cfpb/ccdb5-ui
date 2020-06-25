@@ -17,6 +17,10 @@ export const showCompanyOverLay = ( lens, companyFilters, isLoading ) => {
 
 /* eslint-disable-next-line no-extra-parens */
 export const getSubLens = lens => {
+  if ( !lens ) {
+    return ''
+  }
+
   switch ( lens ) {
     case 'Overview':
       return ''

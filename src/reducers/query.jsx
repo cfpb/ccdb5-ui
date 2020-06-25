@@ -746,9 +746,13 @@ function resetDepth( state ) {
  * @returns {object} the new state for the Redux store
  */
 function changeFocus( state, action ) {
+  const { focus, lens } = action
   return {
     ...state,
-    focus: action.focus
+    focus,
+    lens,
+    subLens: getSubLens( lens ),
+    tab: types.MODE_TRENDS
   }
 }
 

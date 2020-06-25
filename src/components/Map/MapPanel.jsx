@@ -72,7 +72,7 @@ const mapStateToProps = state => {
   return {
     error,
     isLoading,
-    productData: processRows( results.product, false ),
+    productData: processRows( results.product, false, 'Product' ),
     showMobileFilters: state.view.width < 750,
     showWarning: !enablePer1000 && mapWarningEnabled,
     total: state.aggs.total
