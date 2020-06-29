@@ -37,7 +37,6 @@ export class LensTabs extends React.Component {
 
     return (
       <div className="tabbed-navigation lens">
-        { showTitle && <h2>{ lens + ' trends for selected criteria' }</h2> }
         <section>
           <button
             className={ this._getTabClass( lensMaps[lens].tab1.filterName ) }
