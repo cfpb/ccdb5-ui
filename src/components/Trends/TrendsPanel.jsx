@@ -38,6 +38,13 @@ const subLensMap = {
   product: 'Products'
 }
 
+const lensHelperTextMap = {
+  'company': 'Product the consumer identified in the complaint. Click on' +
+  ' a company name to expand products.',
+  'product': 'Product and sub-product the consumer identified in the ' +
+  ' complaint. Click on a product to expand sub-products.'
+}
+
 export class TrendsPanel extends React.Component {
   _areaChartTitle() {
     const { focus, overview, lens, subLens } = this.props
@@ -75,6 +82,7 @@ export class TrendsPanel extends React.Component {
                        colorScheme={ this.props.focusData.colorScheme }
                        data={ this.props.focusData.data }
                        title={ this.props.subLensTitle }
+                       helperText={ this.props.subLensHelperText }
                        total={ this.props.total }/>
     }
 
@@ -84,6 +92,7 @@ export class TrendsPanel extends React.Component {
                 colorScheme={ this.props.dataLensData.colorScheme }
                 data={ this.props.dataLensData.data }
                 title={ this.props.subLensTitle }
+                helperText={ this.props.subLensHelperText}
                 total={ this.props.total }
                 key={ this.props.lens + 'row' }/>
     ]
@@ -203,6 +212,7 @@ const mapStateToProps = state => {
     showMobileFilters: state.view.width < 750,
     subLens,
     subLensTitle: subLensMap[subLens] + ' by ' + lens.toLowerCase(),
+    subLensHelperText: lensHelperTextMap[lens.toLowerCase()],
     total,
     trendsDateWarningEnabled
   }
