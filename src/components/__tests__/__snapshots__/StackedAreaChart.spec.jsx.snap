@@ -2,9 +2,6 @@
 
 exports[`component: StackedAreaChart initial state renders without crashing 1`] = `
 <div>
-  <h2>
-    foo
-  </h2>
   <div
     id="stacked-area-chart"
   />
