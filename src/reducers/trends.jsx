@@ -144,7 +144,20 @@ function getD3Names( obj, nameMap, expandedTrends ) {
  * @returns {object} the data areas for the stacked area chart
  */
 function processAreaData( state, aggregations, buckets ) {
-  const mainName = 'Other'
+  // map subLens / focus values to state
+  const { subLens } = state
+  const lens = state.focus ? subLens.replace( '_', '-' ) : state.lens
+
+  const mainNameLens = ( ) => {
+    if( lens === 'Product' ) {
+      return 'products'
+    } else if ( lens === 'Company') {
+      return 'companies'
+    }
+    return 'values'
+  }
+
+  const mainName = 'All other ' + mainNameLens(lens)
   // overall buckets
   const compBuckets = buckets.map(
     obj => ( {
@@ -156,8 +169,7 @@ function processAreaData( state, aggregations, buckets ) {
 
   // reference buckets to backfill zero values
   const refBuckets = Object.assign( {}, compBuckets )
-  const { subLens } = state
-  const lens = state.focus ? subLens.replace( '_', '-' ) : state.lens
+
 
   const filter = lens.toLowerCase()
   const trendResults = aggregations[filter][filter]
