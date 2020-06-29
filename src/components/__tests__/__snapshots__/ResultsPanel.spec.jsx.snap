@@ -1491,10 +1491,10 @@ exports[`component:Results renders trends panel without crashing 1`] = `
           className="u-visually-hidden"
           htmlFor="choose-interval"
         >
-          Choose the Date Interval
+          Choose the Date interval
         </label>
         <p>
-          Date Interval
+          Date interval
         </p>
         <select
           id="choose-interval"

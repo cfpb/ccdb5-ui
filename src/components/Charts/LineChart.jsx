@@ -122,10 +122,6 @@ export class LineChart extends React.Component {
   render() {
     return (
       <div>
-        <h2>{ this.props.title }</h2>
-        <p>A time series graph of complaint counts for the selected date range.
-         Hover on the chart to see the count for each date interval.
-          Your filter selections will update what you see on the graph.</p>
         <div id="line-chart">
         </div>
       </div>
@@ -157,9 +153,5 @@ export const mapStateToProps = state => ( {
   tooltip: state.trends.tooltip,
   width: state.view.width
 } )
-
-LineChart.propTypes = {
-  title: PropTypes.string.isRequired
-}
 
 export default connect( mapStateToProps, mapDispatchToProps )( LineChart )

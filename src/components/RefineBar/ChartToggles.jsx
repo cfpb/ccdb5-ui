@@ -20,7 +20,7 @@ export class ChartToggles extends React.Component {
   render() {
     return (
       <section className="chart-toggles m-btn-group">
-        <p>Chart Type</p>
+        <p>Chart type</p>
         <button onClick={ () => this._toggleChartType( 'line' ) }
                 className={ this._btnClassName( 'line' ) }>
           { iconMap.getIcon( 'line-chart' ) }

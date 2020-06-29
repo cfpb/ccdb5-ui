@@ -44,10 +44,9 @@ export class TrendsPanel extends React.Component {
     if ( overview ) {
       return 'Complaints by date CFPB received'
     } else if ( focus ) {
-      return 'Complaints by ' + subLensMap[subLens].toLowerCase() +
-        ' by date CFPB received'
+      return subLensMap[subLens] + ' complaints by date CFPB received'
     }
-    return `Complaints by ${ lens.toLowerCase() } by date CFPB received`
+    return `${ lens } complaints by date CFPB received`
   }
 
   _className() {
@@ -113,8 +112,8 @@ export class TrendsPanel extends React.Component {
                   value={ lens }
                   handleChange={ onLens }/>
           <Separator/>
-          <Select label={ 'Choose the Date Interval' }
-                  title={ 'Date Interval' }
+          <Select label={ 'Choose the Date interval' }
+                  title={ 'Date interval' }
                   values={ intervals }
                   id={ 'interval' }
                   value={ dateInterval }
@@ -127,31 +126,40 @@ export class TrendsPanel extends React.Component {
         </div>
 
         { companyOverlay &&
-        <div className="layout-row company-overlay">
-          <section className="company-search">
-            <h1>Search for and add companies to visualize data </h1>
-            <p>Monocle ipsum dolor sit amet shinkansen delightful tote bag
-              handsome, elegant joy ryokan conversation. Sunspel lovely
-              signature vibrant boutique the best elegant Airbus A380 concierge
-              Baggu izakaya
-            </p>
-            <CompanyTypeahead/>
-          </section>
-        </div>
+          <div className="layout-row company-overlay">
+            <section className="company-search">
+              <p>Choose a company to start your visualization
+               using the type-ahead menu below. You can add more than
+                one company to your view
+              </p>
+              <CompanyTypeahead/>
+            </section>
+          </div>
         }
 
         { focus && <FocusHeader /> }
 
         { !companyOverlay && total > 0 &&
-        <div className="layout-row">
-          <section className="chart">
-            { chartType === 'line' &&
-            <LineChart title={this._areaChartTitle()}/> }
-            { chartType === 'area' &&
-            <StackedAreaChart title={this._areaChartTitle()}/> }
-          </section>
-          { !overview && <ExternalTooltip/> }
-        </div>
+          <div className="layout-row">
+            <section className="chart">
+              <h2>{this._areaChartTitle()}</h2>
+              <p>A time series graph of complaint counts for the selected date range.
+                Hover on the chart to see the count for each date interval.
+                  Your filter selections will update what you see on the graph.</p>
+            </section>
+          </div>
+        }
+
+        { !companyOverlay && total > 0 &&
+          <div className="layout-row">
+            <section className="chart">
+              { chartType === 'line' &&
+              <LineChart /> }
+              { chartType === 'area' &&
+              <StackedAreaChart /> }
+            </section>
+            { !overview && <ExternalTooltip/> }
+          </div>
         }
         { total > 0 && this._phaseMap() }
         <TrendDepthToggle />

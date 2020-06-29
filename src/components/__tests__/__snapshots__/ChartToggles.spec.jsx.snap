@@ -5,7 +5,7 @@ exports[`component: ChartToggles initial state renders without crashing 1`] = `
   className="chart-toggles m-btn-group"
 >
   <p>
-    Chart Type
+    Chart type
   </p>
   <button
     className="a-btn toggle line selected"
