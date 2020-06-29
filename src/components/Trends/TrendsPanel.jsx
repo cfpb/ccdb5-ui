@@ -42,12 +42,12 @@ export class TrendsPanel extends React.Component {
   _areaChartTitle() {
     const { focus, overview, lens, subLens } = this.props
     if ( overview ) {
-      return 'Complaints by date received'
+      return 'Complaints by date CFPB received'
     } else if ( focus ) {
       return 'Complaints by ' + subLensMap[subLens].toLowerCase() +
-        ' by date received'
+        ' by date CFPB received'
     }
-    return `Complaints by ${ lens.toLowerCase() } by date received`
+    return `Complaints by ${ lens.toLowerCase() } by date CFPB received`
   }
 
   _className() {
