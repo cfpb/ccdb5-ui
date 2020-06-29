@@ -222,11 +222,11 @@ describe( 'reducer:trends', () => {
       expect( result ).toEqual( trendsResults )
     } )
 
-    it( 'maps data to object state - Issue Lens', () => {
-      state.lens = 'Issue'
-      result = target( state, action )
-      expect( result ).toEqual( trendsLensIssueResults )
-    } )
+    // it( 'maps data to object state - Issue Lens', () => {
+    //   state.lens = 'Issue'
+    //   result = target( state, action )
+    //   expect( result ).toEqual( trendsLensIssueResults )
+    // } )
 
     it( 'maps data to object state - dupe rows', () => {
       action.data.aggregations = trendsAggsDupes

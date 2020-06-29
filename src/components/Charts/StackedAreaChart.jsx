@@ -65,7 +65,7 @@ export class StackedAreaChart extends React.Component {
     d3.select( chartID + ' .stacked-area' ).remove()
     const stackedAreaChart = stackedArea()
     const colorScheme = [ ...new Set( data.map( item => item.name ) ) ]
-      .filter( o => o !== 'Other' )
+      .filter( o => o !== 'All other' )
       .map( o => colorMap[o] )
     colorScheme.push( colors.DataLens[10] )
 
@@ -95,7 +95,6 @@ export class StackedAreaChart extends React.Component {
   render() {
     return (
       <div>
-        <h2>{ this.props.title }</h2>
         <div id="stacked-area-chart">
         </div>
       </div>
@@ -127,10 +126,6 @@ export const mapStateToProps = state => ( {
   tooltip: state.trends.tooltip,
   width: state.view.width
 } )
-
-StackedAreaChart.propTypes = {
-  title: PropTypes.string.isRequired
-}
 
 export default connect( mapStateToProps,
   mapDispatchToProps )( StackedAreaChart )

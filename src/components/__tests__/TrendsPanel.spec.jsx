@@ -248,7 +248,7 @@ describe( 'component:TrendsPanel', () => {
         params.lens = 'Something'
         const target = setupEnzyme( params )
         expect( target.instance()._areaChartTitle() )
-          .toEqual( 'Complaints by something by date CFPB received' )
+          .toEqual( 'Something complaints by date CFPB received' )
       } )
 
       it( 'gets area chart title - Focus', () => {
@@ -256,7 +256,7 @@ describe( 'component:TrendsPanel', () => {
         params.lens = 'Product'
         const target = setupEnzyme( params )
         expect( target.instance()._areaChartTitle() )
-          .toEqual( 'Complaints by sub-products by date CFPB received' )
+          .toEqual( 'Sub-products complaints by date CFPB received' )
       } )
     } )
   } )

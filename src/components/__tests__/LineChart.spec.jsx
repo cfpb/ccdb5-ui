@@ -73,7 +73,7 @@ function setupSnapshot(lens) {
       ]
     } ]
   }
-  const colorMap = { Complaints: '#ADDC91', Other: '#a2a3a4' }
+  const colorMap = { Complaints: '#ADDC91', 'All other values': '#a2a3a4' }
 
   return renderer.create(
     <Provider store={ store }>
@@ -112,7 +112,7 @@ describe( 'component: LineChart', () => {
       Mortgage: '#9ec4c3',
       'Checking or savings account': '#0072ce',
       Complaints: '#ADDC91',
-      Other: '#a2a3a4'
+      'All other products': '#a2a3a4'
     }
     const data = {
       dataByTopic: [
