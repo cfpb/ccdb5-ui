@@ -26,19 +26,23 @@ export class AggregationBranch extends React.Component {
   }
 
   _decideClickAction() {
-    const { item, subitems, fieldName, checkedState } = this.props
+    const {
+      activeChildren, item, subitems, fieldName, checkedState
+    } = this.props
 
-    // List all the filters
-    const values = [ item.key ]
-    subitems.forEach( sub => {
-      values.push( slugify( item.key, sub.key ) )
-    } )
+    const values = new Set()
+    // Add the parent
+    values.add( item.key )
+    // Add the shown subitems
+    subitems.forEach( sub => { values.add( slugify( item.key, sub.key ) ) } )
+    // Add the active filters (that might be hidden)
+    activeChildren.forEach( child => values.add( child ) )
 
     const action = checkedState === CHECKED ?
       this.props.uncheckParent :
       this.props.checkParent
 
-    action( fieldName, values )
+    action( fieldName, [ ...values ] )
   }
 
   _toggleChildDisplay() {
@@ -128,6 +132,7 @@ export class AggregationBranch extends React.Component {
 }
 
 AggregationBranch.propTypes = {
+  activeChildren: PropTypes.array,
   checkParent: PropTypes.func.isRequired,
   checkedState: PropTypes.string,
   fieldName: PropTypes.string.isRequired,
@@ -155,19 +160,22 @@ export const mapStateToProps = ( state, ownProps ) => {
   const hasKey = candidates.filter( x => x.indexOf( ownProps.item.key ) === 0 )
 
   // Does the key contain the separator?
-  const activeChild = hasKey.filter( x => x.indexOf( SLUG_SEPARATOR ) !== -1 )
+  const activeChildren = hasKey.filter(
+    x => x.indexOf( SLUG_SEPARATOR ) !== -1
+  )
   const activeParent = hasKey.filter( x => x === ownProps.item.key )
 
   let checkedState = UNCHECKED
-  if ( activeParent.length === 0 && activeChild.length > 0 ) {
+  if ( activeParent.length === 0 && activeChildren.length > 0 ) {
     checkedState = INDETERMINATE
   } else if ( activeParent.length > 0 ) {
     checkedState = CHECKED
   }
 
   return {
+    activeChildren,
     checkedState,
-    showChildren: activeChild.length > 0
+    showChildren: activeChildren.length > 0
   }
 }
 
