@@ -37,7 +37,7 @@ export class LensTabs extends React.Component {
 
     return (
       <div className="tabbed-navigation lens">
-        <section>
+         <section>
           <button
             className={ this._getTabClass( lensMaps[lens].tab1.filterName ) }
             onClick={ () => this._setTab( lensMaps[lens].tab1.filterName ) }>

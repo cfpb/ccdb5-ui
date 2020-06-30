@@ -135,6 +135,20 @@ function getD3Names( obj, nameMap, expandedTrends ) {
   }
 }
 
+/**
+ * helper function to pluralize field values
+ * @param {string} field name we are processing
+ * @returns {string} for consumption by AreaData function
+ */
+export function mainNameLens( lens ) {
+  if( lens === 'Product' ) {
+    return 'products'
+  } else if ( lens === 'Company') {
+    return 'companies'
+  }
+  return 'values'
+}
+
 
 /**
  * processes the stuff for the area chart, combining them if necessary
@@ -147,15 +161,6 @@ function processAreaData( state, aggregations, buckets ) {
   // map subLens / focus values to state
   const { subLens } = state
   const lens = state.focus ? subLens.replace( '_', '-' ) : state.lens
-
-  const mainNameLens = ( ) => {
-    if( lens === 'Product' ) {
-      return 'products'
-    } else if ( lens === 'Company') {
-      return 'companies'
-    }
-    return 'values'
-  }
 
   const mainName = 'All other ' + mainNameLens(lens)
   // overall buckets
