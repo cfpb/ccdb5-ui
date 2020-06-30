@@ -47,6 +47,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install tox
 
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10.x
+
+      - name: Install Node dependencies
+        run: |
+          npm config set package-lock false
+      
       - name: Run back-end tests
         run: |
           tox
