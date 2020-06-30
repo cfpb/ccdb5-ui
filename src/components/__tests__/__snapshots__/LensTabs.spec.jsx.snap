@@ -4,9 +4,6 @@ exports[`component:LensTabs renders Product without crashing 1`] = `
 <div
   className="tabbed-navigation lens"
 >
-  <h2>
-    Product trends for selected criteria
-  </h2>
   <section>
     <button
       className="tab sub_product active"
