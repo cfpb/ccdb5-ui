@@ -390,6 +390,9 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
     <h3>
       Sub-products by product
     </h3>
+    <p>
+      Product and sub-product the consumer identified in the  complaint. Click on a product to expand sub-products.
+    </p>
     <div
       id="row-chart-Product"
     />
@@ -733,9 +736,6 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
   <div
     className="tabbed-navigation lens"
   >
-    <h2>
-      Product trends for selected criteria
-    </h2>
     <section>
       <button
         className="tab sub_product active"
@@ -757,6 +757,9 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
     <h3>
       Sub-products by product
     </h3>
+    <p>
+      Product and sub-product the consumer identified in the  complaint. Click on a product to expand sub-products.
+    </p>
     <div
       id="row-chart-Product"
     />
@@ -1399,6 +1402,7 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
     <h3>
       Product by highest complaint volume
     </h3>
+    <p />
     <div
       id="row-chart-product"
     />
@@ -1742,9 +1746,6 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
   <div
     className="tabbed-navigation lens"
   >
-    <h2>
-      Product trends for selected criteria
-    </h2>
     <section>
       <button
         className="tab sub_product active"
@@ -1766,6 +1767,9 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
     <h3>
       Sub-products by product
     </h3>
+    <p>
+      Product and sub-product the consumer identified in the  complaint. Click on a product to expand sub-products.
+    </p>
     <div
       id="row-chart-Product"
     />
@@ -2012,6 +2016,7 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
     <h3>
       Product by highest complaint volume
     </h3>
+    <p />
     <div
       id="row-chart-product"
     />
@@ -2259,6 +2264,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
     <h3>
       Product by highest complaint volume
     </h3>
+    <p />
     <div
       id="row-chart-product"
     />
@@ -2505,6 +2511,7 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
     <h3>
       Product by highest complaint volume
     </h3>
+    <p />
     <div
       id="row-chart-product"
     />
