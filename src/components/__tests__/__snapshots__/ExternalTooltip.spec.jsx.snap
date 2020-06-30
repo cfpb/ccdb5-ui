@@ -118,11 +118,9 @@ exports[`initial state renders Company typehead without crashing 1`] = `
         className="color__3"
       >
         <span
-          className="u-left a-btn a-btn__link"
-          id="focus-other"
-          onClick={[Function]}
+          className="u-left"
         >
-          Other
+          All other
         </span>
         <span
           className="u-right a-btn a-btn__link close"
@@ -248,11 +246,9 @@ exports[`initial state renders without crashing 1`] = `
         className="color__3"
       >
         <span
-          className="u-left a-btn a-btn__link"
-          id="focus-other"
-          onClick={[Function]}
+          className="u-left"
         >
-          Other
+          All other
         </span>
         <span
           className="u-right"
