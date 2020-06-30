@@ -26,6 +26,12 @@ const subitems = [
 
 function setupEnzyme(checkedState=UNCHECKED) {
   const props = {
+    activeChildren: [
+      // not hidden
+      slugify( 'foo', 'bar' ),
+      // hidden
+      slugify( 'foo', 'quux' )
+    ],
     checkedState,
     checkParent: jest.fn(),
     fieldName: "issue",
@@ -111,7 +117,7 @@ describe('component::AggregationBranch', () => {
       const checkbox = target.find('li.parent input[type="checkbox"]')
       checkbox.simulate('change')
       expect(props.uncheckParent).toHaveBeenCalledWith(
-        'issue', ['foo', 'foo•bar', 'foo•baz', 'foo•qaz']
+        'issue', ['foo', 'foo•bar', 'foo•baz', 'foo•qaz', 'foo•quux']
       )
       expect(props.checkParent).not.toHaveBeenCalled()
     })
@@ -122,7 +128,7 @@ describe('component::AggregationBranch', () => {
       checkbox.simulate('change')
       expect(props.uncheckParent).not.toHaveBeenCalled()
       expect(props.checkParent).toHaveBeenCalledWith(
-        'issue', ['foo', 'foo•bar', 'foo•baz', 'foo•qaz']
+        'issue', ['foo', 'foo•bar', 'foo•baz', 'foo•qaz', 'foo•quux']
       )
     })
   })
