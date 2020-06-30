@@ -366,7 +366,9 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
       <h2>
         Sub-products complaints by date CFPB received
       </h2>
-      <p>
+      <p
+        className="chart-helper-text"
+      >
         A time series graph of complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
       </p>
     </section>
@@ -715,7 +717,9 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
       <h2>
         Product complaints by date CFPB received
       </h2>
-      <p>
+      <p
+        className="chart-helper-text"
+      >
         A time series graph of complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
       </p>
     </section>
@@ -1378,7 +1382,9 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
       <h2>
         Complaints by date CFPB received
       </h2>
-      <p>
+      <p
+        className="chart-helper-text"
+      >
         A time series graph of complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
       </p>
     </section>
@@ -1725,7 +1731,9 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
       <h2>
         Product complaints by date CFPB received
       </h2>
-      <p>
+      <p
+        className="chart-helper-text"
+      >
         A time series graph of complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
       </p>
     </section>
@@ -1992,7 +2000,9 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
       <h2>
         Complaints by date CFPB received
       </h2>
-      <p>
+      <p
+        className="chart-helper-text"
+      >
         A time series graph of complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
       </p>
     </section>
@@ -2240,7 +2250,9 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
       <h2>
         Complaints by date CFPB received
       </h2>
-      <p>
+      <p
+        className="chart-helper-text"
+      >
         A time series graph of complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
       </p>
     </section>
@@ -2487,7 +2499,9 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
       <h2>
         Complaints by date CFPB received
       </h2>
-      <p>
+      <p
+        className="chart-helper-text"
+      >
         A time series graph of complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
       </p>
     </section>

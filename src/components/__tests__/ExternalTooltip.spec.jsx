@@ -42,7 +42,7 @@ describe( 'initial state', () => {
       values: [
         { colorIndex: 1, name: 'foo', value: 1000 },
         { colorIndex: 2, name: 'bar', value: 1000 },
-        { colorIndex: 3, name: 'Other', value: 900 },
+        { colorIndex: 3, name: 'All other', value: 900 },
         { colorIndex: 4, name: "Eat at Joe's", value: 1000 }
       ]
     }
