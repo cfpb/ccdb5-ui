@@ -175,6 +175,7 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
     <h3>
       Product by highest complaint volume
     </h3>
+    <p />
     <div
       id="row-chart-product"
     />
@@ -394,6 +395,7 @@ exports[`component:MapPanel renders warning without crashing 1`] = `
     <h3>
       Product by highest complaint volume
     </h3>
+    <p />
     <div
       id="row-chart-product"
     />
@@ -576,6 +578,7 @@ exports[`component:MapPanel renders without crashing 1`] = `
     <h3>
       Product by highest complaint volume
     </h3>
+    <p />
     <div
       id="row-chart-product"
     />
