@@ -152,7 +152,7 @@ export class TrendsPanel extends React.Component {
           <div className="layout-row">
             <section className="chart">
               <h2>{this._areaChartTitle()}</h2>
-              <p>A time series graph of complaint counts for the selected date range.
+              <p className="chart-helper-text">A time series graph of complaint counts for the selected date range.
                 Hover on the chart to see the count for each date interval.
                   Your filter selections will update what you see on the graph.</p>
             </section>
