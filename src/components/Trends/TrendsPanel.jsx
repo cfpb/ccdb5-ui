@@ -39,10 +39,14 @@ const subLensMap = {
 }
 
 const lensHelperTextMap = {
-  company: 'Product the consumer identified in the complaint. Click on' +
+  'products': 'Product the consumer identified in the complaint.' +
+  ' Click on a company name to expand products.',
+  'companies': 'Product the consumer identified in the complaint. Click on' +
   ' a company name to expand products.',
-  product: 'Product and sub-product the consumer identified in the ' +
-  ' complaint. Click on a product to expand sub-products.'
+  'sub-products': 'Product and sub-product the consumer identified in the ' +
+  ' complaint. Click on a product to expand sub-products.',
+  'issues': 'Product and issue the consumer identified in the complaint.' +
+  ' Click on a product to expand issue.'
 }
 
 export class TrendsPanel extends React.Component {
@@ -214,7 +218,7 @@ const mapStateToProps = state => {
     showMobileFilters: state.view.width < 750,
     subLens,
     subLensTitle: subLensMap[subLens] + ' by ' + lens.toLowerCase(),
-    subLensHelperText: lensHelperTextMap[lens.toLowerCase()],
+    subLensHelperText: lensHelperTextMap[subLensMap[subLens].toLowerCase()],
     total,
     trendsDateWarningEnabled
   }
