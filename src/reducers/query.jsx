@@ -760,11 +760,14 @@ function changeFocus( state, action ) {
  * @returns {object} new state in redux
  */
 function changeDataLens( state, action ) {
+  const { lens } = action
+
   return {
     ...state,
     focus: '',
-    lens: action.lens,
-    subLens: getSubLens( action.lens )
+    lens,
+    subLens: getSubLens( lens ),
+    trendDepth: lens === 'Company' ? 10 : 5
   }
 }
 
