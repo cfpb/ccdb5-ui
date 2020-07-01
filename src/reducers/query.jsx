@@ -1,5 +1,3 @@
-/* eslint complexity: ["error", 7] */
-
 import * as types from '../constants'
 import {
   calculateDateRange, clamp, hasFiltersEnabled, shortIsoFormat, startOfToday
@@ -58,6 +56,8 @@ const urlParamsInt = [ 'from', 'page', 'size', 'trendDepth' ]
 // ----------------------------------------------------------------------------
 // Helper functions
 
+/* eslint-disable complexity */
+
 /**
 * Makes sure the date range reflects the actual dates selected
 *
@@ -102,6 +102,9 @@ export function alignDateRange( state ) {
 
   return state
 }
+
+
+/* eslint-enable complexity */
 
 /**
 * Check for a common case where there is a date range but no dates
@@ -806,6 +809,7 @@ export function stateToQS( state ) {
   const fields = Object.keys( state )
 
   // Copy over the fields
+  // eslint-disable-next-line complexity
   fields.forEach( field => {
     // Do not include empty fields
     if ( !state[field] ) {
