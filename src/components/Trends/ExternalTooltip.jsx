@@ -11,7 +11,7 @@ export class ExternalTooltip extends React.Component {
   _spanFormatter( value ) {
     const elements = []
     // Other should never be a selectable focus item
-    if ( this.props.focus || value.name.indexOf('All other') >= 0 ) {
+    if ( this.props.focus || value.name.indexOf( 'All other' ) >= 0 ) {
       elements.push(
         <span className="u-left" key={ value.name }>
           { value.name }
