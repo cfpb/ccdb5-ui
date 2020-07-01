@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import { getLastDate } from '../../utils/chart'
 import { hashObject } from '../../utils'
 import { isDateEqual } from '../../utils/formatDate'
-import PropTypes from 'prop-types'
 import React from 'react'
 import { stackedArea } from 'britecharts'
 import { updateTrendsTooltip } from '../../actions/trends'
@@ -64,7 +63,10 @@ export class StackedAreaChart extends React.Component {
     const width = this._chartWidth( chartID )
     d3.select( chartID + ' .stacked-area' ).remove()
     const stackedAreaChart = stackedArea()
-    const colorScheme = [ ...new Set( data.map( item => item.name ) ) ]
+    const colorData = data.filter(
+      item => item.name.indexOf( 'All other' ) === -1
+    )
+    const colorScheme = [ ...new Set( colorData.map( item => item.name ) ) ]
       .map( o => colorMap[o] )
     colorScheme.push( colors.DataLens[10] )
 

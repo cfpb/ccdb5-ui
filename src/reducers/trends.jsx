@@ -141,9 +141,9 @@ function getD3Names( obj, nameMap, expandedTrends ) {
  * @returns {string} for consumption by AreaData function
  */
 export function mainNameLens( lens ) {
-  if( lens === 'Product' ) {
+  if ( lens === 'Product' ) {
     return 'products'
-  } else if ( lens === 'Company') {
+  } else if ( lens === 'Company' ) {
     return 'companies'
   }
   return 'values'
@@ -162,7 +162,7 @@ function processAreaData( state, aggregations, buckets ) {
   const { subLens } = state
   const lens = state.focus ? subLens.replace( '_', '-' ) : state.lens
 
-  const mainName = 'All other ' + mainNameLens(lens)
+  const mainName = 'All other ' + mainNameLens( lens )
   // overall buckets
   const compBuckets = buckets.map(
     obj => ( {
@@ -196,9 +196,7 @@ function processAreaData( state, aggregations, buckets ) {
         .findIndex( k => k.name === mainName &&
           isDateEqual( k.date, p.key_as_string ) )
 
-        // POSSIBLE TODO
       /* istanbul ignore else */
-      console.log('POS: ', pos);
       if ( pos > -1 ) {
         // subtract the value from total, so we calculate the "Other" bin
         compBuckets[pos].value -= p.doc_count
@@ -311,7 +309,7 @@ export const getColorScheme = ( lens, rowNames ) => {
   const colScheme = {}
   const colorScheme = colors.DataLens
   const uniqueNames = [ ...new Set( rowNames.map( item => item.name ) ) ]
-    .filter( o => o !== 'All other products' )
+
 
   for ( let i = 0; i < uniqueNames.length; i++ ) {
     const n = uniqueNames[i]
@@ -320,7 +318,12 @@ export const getColorScheme = ( lens, rowNames ) => {
   }
 
   colScheme.Complaints = colors.BriteCharts.medium
+
+  // Set constant grey colors for our "other" buckets"
+  // TODO: Set these as constants / consolidate colors across charts
   colScheme['All other products'] = colors.DataLens[10]
+  colScheme['All other companies'] = colors.DataLens[10]
+  colScheme['All other values'] = colors.DataLens[10]
   return colScheme
 }
 
