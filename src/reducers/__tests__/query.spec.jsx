@@ -123,7 +123,7 @@ describe( 'reducer:query', () => {
       }
       expect( target( state, action ) ).toEqual( {
         queryString: '?trend_depth=5',
-        trendDepth: '5'
+        trendDepth: 5
       } )
     } )
   } )

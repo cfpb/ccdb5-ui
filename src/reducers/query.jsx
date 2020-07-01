@@ -32,7 +32,7 @@ export const defaultQuery = {
   subLens: '',
   tab: types.MODE_MAP,
   totalPages: 0,
-  trendDepth: '5',
+  trendDepth: 5,
   trendsDateWarningEnabled: false
 }
 
@@ -51,9 +51,9 @@ const trendFieldMap = {
 
 const urlParams = [
   'dateRange', 'searchText', 'searchField', 'tab',
-  'lens', 'dateInterval', 'subLens', 'focus', 'chartType', 'trendDepth'
+  'lens', 'dateInterval', 'subLens', 'focus', 'chartType'
 ]
-const urlParamsInt = [ 'from', 'page', 'size' ]
+const urlParamsInt = [ 'from', 'page', 'size', 'trendDepth' ]
 
 // ----------------------------------------------------------------------------
 // Helper functions
@@ -732,7 +732,7 @@ function changeDepth( state, action ) {
 function resetDepth( state ) {
   return {
     ...state,
-    trendDepth: '5'
+    trendDepth: 5
   }
 }
 
