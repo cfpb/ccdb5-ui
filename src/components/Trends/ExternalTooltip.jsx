@@ -17,8 +17,10 @@ export class ExternalTooltip extends React.Component {
           { value.name }
         </span>
       )
-    } else {
-      elements.push( <span className="u-left a-btn a-btn__link"
+      return elements
+    }
+
+    elements.push( <span className="u-left a-btn a-btn__link"
                            id={ 'focus-' + sanitizeHtmlId( value.name ) }
                            key={ value.name }
              onClick={ () => {
@@ -26,7 +28,6 @@ export class ExternalTooltip extends React.Component {
              } }>
         { value.name }
       </span> )
-    }
 
     // add in the close button for Company and there's no focus yet
     if ( this.props.showCompanyTypeahead ) {

@@ -137,7 +137,7 @@ function getD3Names( obj, nameMap, expandedTrends ) {
 
 /**
  * helper function to pluralize field values
- * @param {string} field name we are processing
+ * @param {lens} lens value we are processing
  * @returns {string} for consumption by AreaData function
  */
 export function mainNameLens( lens ) {
@@ -196,7 +196,9 @@ function processAreaData( state, aggregations, buckets ) {
         .findIndex( k => k.name === mainName &&
           isDateEqual( k.date, p.key_as_string ) )
 
+        // POSSIBLE TODO
       /* istanbul ignore else */
+      console.log('POS: ', pos);
       if ( pos > -1 ) {
         // subtract the value from total, so we calculate the "Other" bin
         compBuckets[pos].value -= p.doc_count
@@ -308,7 +310,7 @@ export const getColorScheme = ( lens, rowNames ) => {
   const colScheme = {}
   const colorScheme = colors.DataLens
   const uniqueNames = [ ...new Set( rowNames.map( item => item.name ) ) ]
-    .filter( o => o !== 'Other' )
+    .filter( o => o !== 'All other products' )
 
   for ( let i = 0; i < uniqueNames.length; i++ ) {
     const n = uniqueNames[i]
@@ -317,7 +319,7 @@ export const getColorScheme = ( lens, rowNames ) => {
   }
 
   colScheme.Complaints = colors.BriteCharts.medium
-  colScheme.Other = colors.DataLens[10]
+  colScheme['All other products'] = colors.DataLens[10]
   return colScheme
 }
 

@@ -35,9 +35,9 @@ export const getSubLens = lens => {
  */
 export const pruneOther = buckets => {
   const sumOther = buckets
-    .filter( o => o.name === 'Other' )
+    .filter( o => o.name.indexOf( 'Other' ) >= 0 )
     .reduce( ( prev, cur ) => prev + cur.value, 0 )
-  return sumOther > 0 ? buckets : buckets.filter( o => o.name !== 'Other' )
+  return sumOther > 0 ? buckets : buckets.filter( o => o.name.indexOf( 'Other' ) === -1 )
 }
 
 export const isGreaterThanYear = ( from, to ) => {
