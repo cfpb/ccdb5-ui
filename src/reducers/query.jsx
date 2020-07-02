@@ -1,5 +1,3 @@
-/* eslint complexity: ["error", 7] */
-
 import * as types from '../constants'
 import {
   calculateDateRange, clamp, hasFiltersEnabled, shortIsoFormat, startOfToday
@@ -32,7 +30,7 @@ export const defaultQuery = {
   subLens: '',
   tab: types.MODE_MAP,
   totalPages: 0,
-  trendDepth: '5',
+  trendDepth: 5,
   trendsDateWarningEnabled: false
 }
 
@@ -51,12 +49,14 @@ const trendFieldMap = {
 
 const urlParams = [
   'dateRange', 'searchText', 'searchField', 'tab',
-  'lens', 'dateInterval', 'subLens', 'focus', 'chartType', 'trendDepth'
+  'lens', 'dateInterval', 'subLens', 'focus', 'chartType'
 ]
-const urlParamsInt = [ 'from', 'page', 'size' ]
+const urlParamsInt = [ 'from', 'page', 'size', 'trendDepth' ]
 
 // ----------------------------------------------------------------------------
 // Helper functions
+
+/* eslint-disable complexity */
 
 /**
 * Makes sure the date range reflects the actual dates selected
@@ -102,6 +102,9 @@ export function alignDateRange( state ) {
 
   return state
 }
+
+
+/* eslint-enable complexity */
 
 /**
 * Check for a common case where there is a date range but no dates
@@ -732,7 +735,7 @@ function changeDepth( state, action ) {
 function resetDepth( state ) {
   return {
     ...state,
-    trendDepth: '5'
+    trendDepth: 5
   }
 }
 
@@ -757,11 +760,14 @@ function changeFocus( state, action ) {
  * @returns {object} new state in redux
  */
 function changeDataLens( state, action ) {
+  const { lens } = action
+
   return {
     ...state,
     focus: '',
-    lens: action.lens,
-    subLens: getSubLens( action.lens )
+    lens,
+    subLens: getSubLens( lens ),
+    trendDepth: lens === 'Company' ? 10 : 5
   }
 }
 
@@ -806,6 +812,7 @@ export function stateToQS( state ) {
   const fields = Object.keys( state )
 
   // Copy over the fields
+  // eslint-disable-next-line complexity
   fields.forEach( field => {
     // Do not include empty fields
     if ( !state[field] ) {

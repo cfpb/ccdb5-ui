@@ -125,7 +125,7 @@ describe( 'component:TrendDepthToggle', () => {
       expect( dispatch.mock.calls ).toEqual( [
         [ {
           requery: REQUERY_ALWAYS,
-          depth: '18',
+          depth: 18,
           type: 'DEPTH_CHANGED'
         } ]
       ] )
@@ -173,6 +173,50 @@ describe( 'component:TrendDepthToggle', () => {
         showToggle: true
       } )
     } )
-  } )
 
+    describe( 'when lens = Company', () => {
+      let state
+      beforeEach( () => {
+        state = {
+          aggs: {},
+          query: {
+            focus: '',
+            lens: 'Company',
+            company: [
+              'I', 'I', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI'
+            ]
+          },
+          trends: {
+            results: {
+              company: [ 
+                { name: 'a', visible: true }, { name: 'b', visible: true },
+                { name: 'c', visible: true }, { name: 'd', visible: true },
+                { name: 'e', visible: true }, { name: 'f', visible: true },
+                { name: 'g', visible: true }, { name: 'h', visible: true },
+                { name: 'i', visible: true }, { name: 'j', visible: true }
+              ]
+            }
+          }
+        }
+      } )
+
+      it( 'caps the maximum number of companies at 10' , () => {
+        const actual = mapStateToProps( state )
+        expect( actual ).toEqual( {
+          diff: 0,
+          showToggle: true
+        } )
+      } )
+
+      it( 'shows the toggle when results < 10' , () => {
+        state.trends.results.company.splice(4, 5)
+
+        const actual = mapStateToProps( state )
+        expect( actual ).toEqual( {
+          diff: 5,
+          showToggle: true
+        } )
+      } )
+    } )
+  } )
 } )

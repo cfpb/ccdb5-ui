@@ -1,6 +1,6 @@
 import './TrendDepthToggle.less'
 import { changeDepth, resetDepth } from '../../actions/trends'
-import { coalesce } from '../../utils'
+import { clamp, coalesce } from '../../utils'
 import { connect } from 'react-redux'
 import React from 'react'
 
@@ -49,13 +49,21 @@ export const mapStateToProps = state => {
   const { aggs, query, trends } = state
   const { focus, lens } = query
   const lensKey = lens.toLowerCase()
-  const prodLength = coalesce( trends.results, lensKey, [] )
+
+  const lensResultLength = coalesce( trends.results, lensKey, [] )
     .filter( o => o.visible ).length
-  const diff = coalesce( aggs, lensKey, [] ).length - prodLength
+
+  // The total source depends on the lens.  There are no aggs for companies
+  let totalResultsLength = 0
+  if ( lensKey === 'product' ) {
+    totalResultsLength = coalesce( aggs, lensKey, [] ).length
+  } else {
+    totalResultsLength = clamp( coalesce( query, lensKey, [] ).length, 0, 10 )
+  }
 
   return {
-    diff,
-    showToggle: prodLength > 0 && !focus && lens === 'Product'
+    diff: totalResultsLength - lensResultLength,
+    showToggle: lensResultLength > 0 && !focus
   }
 }
 
