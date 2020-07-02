@@ -123,7 +123,7 @@ describe( 'reducer:query', () => {
       }
       expect( target( state, action ) ).toEqual( {
         queryString: '?trend_depth=5',
-        trendDepth: '5'
+        trendDepth: 5
       } )
     } )
   } )
@@ -1072,8 +1072,27 @@ describe( 'reducer:query', () => {
           focus: '',
           lens: 'Foo',
           subLens: 'sub_foo',
-          queryString: '?lens=foo&sub_lens=sub_foo&tab=Trends',
+          queryString: '?lens=foo&sub_lens=sub_foo&tab=Trends&trend_depth=5',
           tab: 'Trends',
+          trendDepth: 5,
+          trendsDateWarningEnabled: false
+        } )
+      } )
+
+      it( 'has special values when lens = Company', () => {
+        const action = {
+          type: actions.DATA_LENS_CHANGED,
+          lens: 'Company'
+        }
+        const result = target( { tab: types.MODE_TRENDS, focus: 'ahha' },
+          action )
+        expect( result ).toEqual( {
+          focus: '',
+          lens: 'Company',
+          subLens: 'product',
+          queryString: '?lens=company&sub_lens=product&tab=Trends&trend_depth=10',
+          tab: 'Trends',
+          trendDepth: 10,
           trendsDateWarningEnabled: false
         } )
       } )
