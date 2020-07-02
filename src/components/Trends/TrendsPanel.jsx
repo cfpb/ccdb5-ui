@@ -17,6 +17,7 @@ import FocusHeader from './FocusHeader'
 import LensTabs from './LensTabs'
 import LineChart from '../Charts/LineChart'
 import Loading from '../Dialogs/Loading'
+import moment from 'moment'
 import { processRows } from '../../utils/chart'
 import React from 'react'
 import RowChart from '../Charts/RowChart'
@@ -39,25 +40,33 @@ const subLensMap = {
 }
 
 const lensHelperTextMap = {
-  'products': 'Product the consumer identified in the complaint.' +
+  'product': 'Product the consumer identified in the complaint.' +
   ' Click on a company name to expand products.',
-  'companies': 'Product the consumer identified in the complaint. Click on' +
+  'company': 'Product the consumer identified in the complaint. Click on' +
   ' a company name to expand products.',
-  'sub-products': 'Product and sub-product the consumer identified in the ' +
+  'sub_product': 'Product and sub-product the consumer identified in the ' +
   ' complaint. Click on a product to expand sub-products.',
-  'issues': 'Product and issue the consumer identified in the complaint.' +
-  ' Click on a product to expand issue.'
+  'issue': 'Product and issue the consumer identified in the complaint.' +
+  ' Click on a product to expand issue.',
+  'overview': 'Product the consumer identified in the complaint. Click on a ' +
+  ' product to expand sub-products'
+}
+
+const focusHelperTextMap = {
+  sub_product: 'Sub-products the consumer identified in the complaint',
+  product: 'Product the consumer identified in the complaint',
+  issue: 'Issues the consumer identified in the complaint'
 }
 
 export class TrendsPanel extends React.Component {
   _areaChartTitle() {
     const { focus, overview, lens, subLens } = this.props
     if ( overview ) {
-      return 'Complaints by date CFPB received'
+      return 'Complaints by date received by the CFPB'
     } else if ( focus ) {
-      return subLensMap[subLens] + ' complaints by date CFPB received'
+      return subLensMap[subLens] + ' complaints by date received by the CFPB'
     }
-    return `${ lens } complaints by date CFPB received`
+    return `${ lens } complaints by date received by the CFPB`
   }
 
   _className() {
@@ -69,6 +78,9 @@ export class TrendsPanel extends React.Component {
   }
 
   _phaseMap() {
+    const minDate = moment(this.props.date_received_min).format('MM/DD/YYYY')
+    const maxDate = moment(this.props.date_received_max).format('MM/DD/YYYY')
+
     if ( this.props.companyOverlay ) {
       return null
     }
@@ -77,7 +89,9 @@ export class TrendsPanel extends React.Component {
       return <RowChart id="product"
                        colorScheme={ this.props.productData.colorScheme }
                        data={ this.props.productData.data }
-                       title={ 'Product by highest complaint volume' }
+                       title={ 'Product by highest complaint volume '
+                        + minDate + ' to ' + maxDate}
+                       helperText={ this.props.lensHelperText }
                        total={ this.props.total }/>
     }
 
@@ -85,8 +99,9 @@ export class TrendsPanel extends React.Component {
       return <RowChart id={ this.props.lens }
                        colorScheme={ this.props.focusData.colorScheme }
                        data={ this.props.focusData.data }
-                       title={ this.props.subLensTitle }
-                       helperText={ this.props.subLensHelperText }
+                       title={ this.props.subLensTitle + ' '
+                        + minDate + ' to ' + maxDate }
+                       helperText={ this.props.focusHelperText }
                        total={ this.props.total }/>
     }
 
@@ -95,8 +110,9 @@ export class TrendsPanel extends React.Component {
       <RowChart id={ this.props.lens }
                 colorScheme={ this.props.dataLensData.colorScheme }
                 data={ this.props.dataLensData.data }
-                title={ this.props.subLensTitle }
-                helperText={ this.props.subLensHelperText}
+                title={ this.props.subLensTitle + ' '
+                        + minDate + ' to ' + maxDate }
+                helperText={ this.props.lensHelperText}
                 total={ this.props.total }
                 key={ this.props.lens + 'row' }/>
     ]
@@ -202,6 +218,9 @@ const mapStateToProps = state => {
 
   const lensKey = lens.toLowerCase()
   const focusKey = subLens.replace( '_', '-' )
+  const lensHelperText = (subLens === '') ? lensHelperTextMap[lensKey] : lensHelperTextMap[subLens]
+  const focusHelperText = (subLens === '') ? focusHelperTextMap[lensKey] : focusHelperTextMap[subLens]
+
   return {
     chartType,
     companyData: processRows( results.company, false, lens ),
@@ -217,10 +236,13 @@ const mapStateToProps = state => {
     overview: lens === 'Overview',
     showMobileFilters: state.view.width < 750,
     subLens,
-    subLensTitle: subLensMap[subLens] + ' by ' + lens.toLowerCase(),
-    subLensHelperText: lensHelperTextMap[subLensMap[subLens].toLowerCase()],
+    subLensTitle: subLensMap[subLens] + ', by ' + lens.toLowerCase() + ' from',
+    lensHelperText: lensHelperText,
+    focusHelperText: focusHelperText,
     total,
-    trendsDateWarningEnabled
+    trendsDateWarningEnabled,
+    date_received_max,
+    date_received_min
   }
 }
 

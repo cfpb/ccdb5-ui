@@ -49,7 +49,6 @@ describe( 'reducer:trends', () => {
 
   describe( 'Lens Name Pluralization Helper', () => {
     it( 'pluralizes things properly', () => {
-      console.log('MAIN NAME LENS TEST');
       expect( mainNameLens('Company') ).toEqual('companies')
       expect( mainNameLens('Product') ).toEqual('products')
       expect( mainNameLens('baz') ).toEqual('values')
