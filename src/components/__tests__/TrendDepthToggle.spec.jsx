@@ -125,7 +125,7 @@ describe( 'component:TrendDepthToggle', () => {
       expect( dispatch.mock.calls ).toEqual( [
         [ {
           requery: REQUERY_ALWAYS,
-          depth: '18',
+          depth: 18,
           type: 'DEPTH_CHANGED'
         } ]
       ] )
