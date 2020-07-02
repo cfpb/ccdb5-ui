@@ -4,7 +4,7 @@
 // reducer for the Map Tab
 import * as colors from '../constants/colors'
 import {
-  clamp, coalesce, formatPercentage, getSubKeyName, processErrorMessage
+  clamp, coalesce, getSubKeyName, processErrorMessage
 } from '../utils'
 import { getSubLens, pruneOther } from '../utils/trends'
 import { getTooltipTitle, updateDateBuckets } from '../utils/chart'
@@ -267,8 +267,7 @@ export function processTrendPeriod( bucket, k, docCount ) {
 
   /* istanbul ignore else */
   if ( trend_period ) {
-    const bucketDC = bucket.doc_count
-    bucket.pctOfSet = formatPercentage( bucketDC / docCount )
+    bucket.pctOfSet = ''
     bucket.num_results = docCount
   }
 
