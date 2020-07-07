@@ -10,11 +10,34 @@ import { sanitizeHtmlId } from '../../utils'
 export class ExternalTooltip extends React.Component {
   _spanFormatter( value ) {
     const elements = []
+    console.log('SUBLENS: ', this.props.subLens)
+    console.log('LENS: ', this.props.lens)
+    const lensToUse = this.props.focus ? this.props.subLens
+     : this.props.lens
+    console.log('Lens to use: ', lensToUse);
+    const plurals = {
+      'Product': 'products',
+      'product': 'products',
+      'issue': 'issues',
+      'Sub-Issue': 'sub-issues',
+      'sub_product': 'sub-products',
+      'Company': 'companies'
+    }
+
     // Other should never be a selectable focus item
-    if ( this.props.focus || value.name === 'Other' ) {
+    if ( value.name === 'Other' ) {
       elements.push(
         <span className="u-left" key={ value.name }>
-          All { value.name.toLowerCase() } { this.props.lens }
+          All other { plurals[lensToUse] }
+        </span>
+      )
+      return elements
+    }
+
+    if ( this.props.focus ) {
+      elements.push(
+        <span className="u-left" key={ value.name }>
+          { value.name }
         </span>
       )
       return elements
