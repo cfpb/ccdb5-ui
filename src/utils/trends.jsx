@@ -38,11 +38,8 @@ export const pruneOther = buckets => {
     .filter( o => o.name === 'Other' )
     .reduce( ( prev, cur ) => prev + cur.value, 0 )
 
-  console.log('BUCKETS: ', buckets)
-  console.log('SUM OTHER: ', sumOther)
-
   return sumOther > 0 ? buckets :
-   buckets.filter( o => o.name !== 'Other')
+   buckets.filter( o => o.name !== 'Other' )
 }
 
 export const isGreaterThanYear = ( from, to ) => {

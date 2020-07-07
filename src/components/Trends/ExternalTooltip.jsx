@@ -10,11 +10,8 @@ import { sanitizeHtmlId } from '../../utils'
 export class ExternalTooltip extends React.Component {
   _spanFormatter( value ) {
     const elements = []
-    console.log('SUBLENS: ', this.props.subLens)
-    console.log('LENS: ', this.props.lens)
-    const lensToUse = this.props.focus ? this.props.subLens
-     : this.props.lens
-    console.log('Lens to use: ', lensToUse);
+    const lensToUse = this.props.focus ? this.props.subLens :
+     this.props.lens
     const plurals = {
       'Product': 'products',
       'product': 'products',
