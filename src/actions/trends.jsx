@@ -81,13 +81,15 @@ export function resetDepth() {
  * Notifies the application that focus is being changed
  *
  * @param {string} focus the text to search for
+ * @param {string} lens the lens we're focusing on
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function changeFocus( focus ) {
+export function changeFocus( focus, lens ) {
   return {
     type: FOCUS_CHANGED,
     requery: REQUERY_ALWAYS,
-    focus
+    focus,
+    lens
   }
 }
 

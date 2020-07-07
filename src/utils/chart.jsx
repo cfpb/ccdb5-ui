@@ -119,6 +119,43 @@ export const getColorScheme = ( rowNames, colorMap, lens ) =>
     return lens === 'Overview' ? '#20aa3f' : '#a2a3a4'
   } )
 
+
+/**
+ * helper function to get d3 bar chart data
+ * @param {object} obj rowdata we are processing
+ * @param {array} nameMap list of names we are keeping track of
+ * @param {array} expandedTrends list of trends that are open in view
+ * @returns {object} the rowdata for row chart
+ */
+export const getD3Names = ( obj, nameMap, expandedTrends ) => {
+  let name = obj.key
+  // D3 doesnt allow dupe keys, so we have to to append
+  // spaces so we have unique keys
+  while ( nameMap[name] ) {
+    name += ' '
+  }
+
+  nameMap[name] = true
+
+  return obj.splitterText ? {
+    ...obj,
+    visible: expandedTrends.indexOf( obj.parent ) > -1
+  } : {
+    hasChildren: Boolean( obj.hasChildren ),
+    isNotFilter: false,
+    isParent: Boolean( obj.isParent ),
+    pctOfSet: Number( obj.pctOfSet ),
+    name: name,
+    value: Number( obj.doc_count ),
+    parent: obj.parent || false,
+    // visible if no parent, or it is in expanded trends
+    visible: !obj.parent || expandedTrends.indexOf( obj.parent ) > -1,
+    // this adjusts the thickness of the parent or child bars
+    width: obj.parent ? 0.4 : 0.5
+  }
+}
+
+
 export const processRows = ( rows, colorMap, lens ) => {
   let data = rows ? rows : []
   data = data.filter( o => o.visible )

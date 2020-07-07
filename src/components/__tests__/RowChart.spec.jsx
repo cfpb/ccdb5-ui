@@ -110,7 +110,7 @@ describe( 'component: RowChart', () => {
       /> )
       target._redrawChart = jest.fn()
       target.setProps( { data: [] } )
-      expect(  target._redrawChart ).toHaveBeenCalledTimes( 0 )
+      expect( target._redrawChart ).toHaveBeenCalledTimes( 0 )
     } )
 
     it( 'trigger a new update when data changes', () => {
@@ -155,6 +155,20 @@ describe( 'component: RowChart', () => {
       target.setProps( { width: 600 } )
       expect( sp ).toHaveBeenCalledTimes( 1 )
     } )
+
+    it( 'calls select Focus', () => {
+      const cb = jest.fn()
+      const target = shallow( <RowChart
+        selectFocus={cb}
+        colorScheme={ [] }
+        title={'test'}
+        data={ [ 23, 4, 3 ] }
+        id={'foo'}
+        total={1000}
+      /> )
+      target.instance()._selectFocus( { name: 'foo' } )
+      expect( cb ).toHaveBeenCalledTimes( 1 )
+    } )
   } )
 
   describe( 'mapDispatchToProps', () => {
@@ -177,18 +191,41 @@ describe( 'component: RowChart', () => {
   } )
 
   describe( 'mapStateToProps', () => {
-    it( 'maps state and props', () => {
-      const state = {
+    let state
+    beforeEach(()=>{
+      state = {
+        query: {
+          lens: 'Foo',
+          tab: 'Map'
+        },
         view: {
           printMode: false,
           width: 1000
         }
       }
+    })
+    it( 'maps state and props - Map', () => {
       const ownProps = {
         id: 'baz'
       }
       let actual = mapStateToProps( state, ownProps )
       expect( actual ).toEqual( {
+        lens: 'Product',
+        printMode: false,
+        width: 1000
+      } )
+    } )
+
+    it( 'maps state and props - Other', () => {
+      const ownProps = {
+        id: 'baz'
+      }
+
+      state.query.tab = 'Bar'
+
+      let actual = mapStateToProps( state, ownProps )
+      expect( actual ).toEqual( {
+        lens: 'Foo',
         printMode: false,
         width: 1000
       } )

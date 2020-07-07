@@ -1134,12 +1134,17 @@ describe( 'reducer:query', () => {
       it( 'changes the focus', () => {
         const action = {
           type: actions.FOCUS_CHANGED,
-          focus: 'Something'
+          focus: 'Something',
+          lens: 'Product'
         }
         const result = target( { focus: 'Else' }, action )
         expect( result ).toEqual( {
           focus: 'Something',
-          queryString: '?focus=Something'
+          lens: 'Product',
+          queryString: '?focus=Something&lens=product&sub_lens=sub_product&tab=Trends',
+          subLens: 'sub_product',
+          tab: 'Trends',
+          trendsDateWarningEnabled: false
         } )
       } )
     } )
