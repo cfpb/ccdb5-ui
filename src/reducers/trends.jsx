@@ -184,7 +184,6 @@ function processAreaData( state, aggregations, buckets ) {
     const reverseBuckets = o.trend_period.buckets.reverse()
     for ( let j = 0; j < reverseBuckets.length; j++ ) {
       const p = reverseBuckets[j]
-      console.log( 'DATE THING from PROCESS AREA DATA: ', p.key_as_string )
       compBuckets.push( {
         name: o.key,
         value: p.doc_count,
@@ -221,6 +220,10 @@ function processAreaData( state, aggregations, buckets ) {
       }
     }
   }
+
+  // compBuckets.sort( function( a, b ) {
+  //   return a.date > b.date
+  // } )
 
   // we should prune 'Other' if all of the values are zero
   return pruneOther( compBuckets )
