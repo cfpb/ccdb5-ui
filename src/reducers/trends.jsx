@@ -161,7 +161,7 @@ function processAreaData( state, aggregations, buckets ) {
   const { subLens } = state
   const lens = state.focus ? subLens.replace( '_', '-' ) : state.lens
 
-  const mainName = 'All other ' + mainNameLens( lens )
+  const mainName = 'Other'
   // overall buckets
   const compBuckets = buckets.map(
     obj => ( {
@@ -320,6 +320,7 @@ export const getColorScheme = ( lens, rowNames ) => {
 
   // Set constant grey colors for our "other" buckets"
   // TODO: Set these as constants / consolidate colors across charts
+  colScheme.Other = colors.DataLens[10]
   colScheme['All other products'] = colors.DataLens[10]
   colScheme['All other companies'] = colors.DataLens[10]
   colScheme['All other values'] = colors.DataLens[10]

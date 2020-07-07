@@ -64,7 +64,7 @@ export class StackedAreaChart extends React.Component {
     d3.select( chartID + ' .stacked-area' ).remove()
     const stackedAreaChart = stackedArea()
     const colorData = data.filter(
-      item => item.name.indexOf( 'All other' ) === -1
+      item => item.name !== 'Other'
     )
     const colorScheme = [ ...new Set( colorData.map( item => item.name ) ) ]
       .map( o => colorMap[o] )
