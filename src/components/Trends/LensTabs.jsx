@@ -30,7 +30,7 @@ export class LensTabs extends React.Component {
   }
 
   render() {
-    const { lens, showTitle } = this.props
+    const { lens } = this.props
     if ( lens === 'Overview' ) {
       return null
     }
