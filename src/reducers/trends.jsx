@@ -321,8 +321,7 @@ export const getColorScheme = ( lens, rowNames ) => {
 
   colScheme.Complaints = colors.BriteCharts.medium
 
-  // Set constant grey colors for our "other" buckets"
-  // TODO: Set these as constants / consolidate colors across charts
+  // Set constant grey colors for all possible "other" buckets"
   colScheme.Other = colors.DataLens[10]
   colScheme['All other products'] = colors.DataLens[10]
   colScheme['All other companies'] = colors.DataLens[10]
