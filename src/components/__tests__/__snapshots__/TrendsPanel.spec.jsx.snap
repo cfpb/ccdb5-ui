@@ -363,8 +363,11 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
     <section
       className="chart"
     >
-      <h2>
-        Sub-products complaints by date CFPB received
+      <h2
+        className="area-chart-title"
+      >
+        Complaints by Sub-products
+       by date received by the CFPB
       </h2>
       <p
         className="chart-helper-text"
@@ -390,10 +393,10 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
     className="row-chart-section"
   >
     <h3>
-      Sub-products by product
+      Sub-products, by product from 12/31/2017 to 12/31/2019
     </h3>
     <p>
-      Product and sub-product the consumer identified in the  complaint. Click on a product to expand sub-products.
+      Sub-products the consumer identified in the complaint
     </p>
     <div
       id="row-chart-Product"
@@ -714,8 +717,10 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
     <section
       className="chart"
     >
-      <h2>
-        Product complaints by date CFPB received
+      <h2
+        className="area-chart-title"
+      >
+        Complaints by date received by the CFPB
       </h2>
       <p
         className="chart-helper-text"
@@ -759,7 +764,7 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
     className="row-chart-section"
   >
     <h3>
-      Sub-products by product
+      Sub-products, by product from 12/31/2017 to 12/31/2019
     </h3>
     <p>
       Product and sub-product the consumer identified in the  complaint. Click on a product to expand sub-products.
@@ -1379,8 +1384,10 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
     <section
       className="chart"
     >
-      <h2>
-        Complaints by date CFPB received
+      <h2
+        className="area-chart-title"
+      >
+        Complaints by date received by the CFPB
       </h2>
       <p
         className="chart-helper-text"
@@ -1406,9 +1413,11 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
     className="row-chart-section"
   >
     <h3>
-      Product by highest complaint volume
+      Product by highest complaint volume 12/31/2017 to 12/31/2019
     </h3>
-    <p />
+    <p>
+      Product and sub-product the consumer identified in the  complaint. Click on a product to expand sub-products.
+    </p>
     <div
       id="row-chart-product"
     />
@@ -1728,8 +1737,10 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
     <section
       className="chart"
     >
-      <h2>
-        Product complaints by date CFPB received
+      <h2
+        className="area-chart-title"
+      >
+        Complaints by date received by the CFPB
       </h2>
       <p
         className="chart-helper-text"
@@ -1773,7 +1784,7 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
     className="row-chart-section"
   >
     <h3>
-      Sub-products by product
+      Sub-products, by product from 12/31/2017 to 12/31/2019
     </h3>
     <p>
       Product and sub-product the consumer identified in the  complaint. Click on a product to expand sub-products.
@@ -1997,8 +2008,10 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
     <section
       className="chart"
     >
-      <h2>
-        Complaints by date CFPB received
+      <h2
+        className="area-chart-title"
+      >
+        Complaints by date received by the CFPB
       </h2>
       <p
         className="chart-helper-text"
@@ -2024,9 +2037,11 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
     className="row-chart-section"
   >
     <h3>
-      Product by highest complaint volume
+      Product by highest complaint volume 12/31/2017 to 12/31/2019
     </h3>
-    <p />
+    <p>
+      Product and sub-product the consumer identified in the  complaint. Click on a product to expand sub-products.
+    </p>
     <div
       id="row-chart-product"
     />
@@ -2247,8 +2262,10 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
     <section
       className="chart"
     >
-      <h2>
-        Complaints by date CFPB received
+      <h2
+        className="area-chart-title"
+      >
+        Complaints by date received by the CFPB
       </h2>
       <p
         className="chart-helper-text"
@@ -2274,9 +2291,11 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
     className="row-chart-section"
   >
     <h3>
-      Product by highest complaint volume
+      Product by highest complaint volume 12/31/2017 to 12/31/2019
     </h3>
-    <p />
+    <p>
+      Product and sub-product the consumer identified in the  complaint. Click on a product to expand sub-products.
+    </p>
     <div
       id="row-chart-product"
     />
@@ -2496,8 +2515,10 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
     <section
       className="chart"
     >
-      <h2>
-        Complaints by date CFPB received
+      <h2
+        className="area-chart-title"
+      >
+        Complaints by date received by the CFPB
       </h2>
       <p
         className="chart-helper-text"
@@ -2523,9 +2544,11 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
     className="row-chart-section"
   >
     <h3>
-      Product by highest complaint volume
+      Product by highest complaint volume 12/31/2017 to 12/31/2019
     </h3>
-    <p />
+    <p>
+      Product and sub-product the consumer identified in the  complaint. Click on a product to expand sub-products.
+    </p>
     <div
       id="row-chart-product"
     />

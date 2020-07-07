@@ -37,6 +37,10 @@ export const pruneOther = buckets => {
   const sumOther = buckets
     .filter( o => o.name.indexOf( 'All other' ) >= 0 )
     .reduce( ( prev, cur ) => prev + cur.value, 0 )
+
+  console.log('BUCKETS: ', buckets)
+  console.log('SUM OTHER: ', sumOther)
+
   return sumOther > 0 ? buckets :
    buckets.filter( o => o.name.indexOf( 'All other' ) === -1 )
 }

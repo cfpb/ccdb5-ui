@@ -230,6 +230,8 @@ describe( 'reducer:trends', () => {
       expect( result ).toEqual( trendsResults )
     } )
 
+    // Issue was removed from the aggregations. Retaining test
+    // in case the feature is enabled JRC 7-6-20
     // it( 'maps data to object state - Issue Lens', () => {
     //   state.lens = 'Issue'
     //   result = target( state, action )
@@ -250,9 +252,9 @@ describe( 'reducer:trends', () => {
     } )
 
     it( 'maps data to object state - Focus', () => {
-      state.lens = 'Issue'
-      state.subLens = 'sub_issue'
-      state.focus = 'Incorrect information on your report'
+      state.lens = 'Product'
+      state.subLens = 'sub_product'
+      state.focus = 'Debt collection'
       action.data.aggregations = trendsFocusAggs
       result = target( state, action )
       expect( result ).toEqual( trendsFocusAggsResults )

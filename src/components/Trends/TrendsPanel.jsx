@@ -40,15 +40,15 @@ const subLensMap = {
 }
 
 const lensHelperTextMap = {
-  'product': 'Product the consumer identified in the complaint.' +
+  product: 'Product the consumer identified in the complaint.' +
   ' Click on a company name to expand products.',
-  'company': 'Product the consumer identified in the complaint. Click on' +
+  company: 'Product the consumer identified in the complaint. Click on' +
   ' a company name to expand products.',
-  'sub_product': 'Product and sub-product the consumer identified in the ' +
+  sub_product: 'Product and sub-product the consumer identified in the ' +
   ' complaint. Click on a product to expand sub-products.',
-  'issue': 'Product and issue the consumer identified in the complaint.' +
+  issue: 'Product and issue the consumer identified in the complaint.' +
   ' Click on a product to expand issue.',
-  'overview': 'Product the consumer identified in the complaint. Click on a ' +
+  overview: 'Product the consumer identified in the complaint. Click on a ' +
   ' product to expand sub-products'
 }
 
@@ -60,13 +60,14 @@ const focusHelperTextMap = {
 
 export class TrendsPanel extends React.Component {
   _areaChartTitle() {
-    const { focus, overview, lens, subLens } = this.props
+    const { focus, overview, subLens } = this.props
     if ( overview ) {
       return 'Complaints by date received by the CFPB'
     } else if ( focus ) {
-      return subLensMap[subLens] + ' complaints by date received by the CFPB'
+      return `Complaints by ${ subLensMap[subLens] }
+       by date received by the CFPB`
     }
-    return `${ lens } complaints by date received by the CFPB`
+    return 'Complaints by date received by the CFPB'
   }
 
   _className() {
@@ -78,9 +79,6 @@ export class TrendsPanel extends React.Component {
   }
 
   _phaseMap() {
-    const minDate = moment(this.props.date_received_min).format('MM/DD/YYYY')
-    const maxDate = moment(this.props.date_received_max).format('MM/DD/YYYY')
-
     if ( this.props.companyOverlay ) {
       return null
     }
@@ -89,8 +87,8 @@ export class TrendsPanel extends React.Component {
       return <RowChart id="product"
                        colorScheme={ this.props.productData.colorScheme }
                        data={ this.props.productData.data }
-                       title={ 'Product by highest complaint volume '
-                        + minDate + ' to ' + maxDate}
+                       title={ 'Product by highest complaint volume ' +
+                        this.props.minDate + ' to ' + this.props.maxDate}
                        helperText={ this.props.lensHelperText }
                        total={ this.props.total }/>
     }
@@ -99,8 +97,8 @@ export class TrendsPanel extends React.Component {
       return <RowChart id={ this.props.lens }
                        colorScheme={ this.props.focusData.colorScheme }
                        data={ this.props.focusData.data }
-                       title={ this.props.subLensTitle + ' '
-                        + minDate + ' to ' + maxDate }
+                       title={ this.props.subLensTitle + ' ' +
+                        this.props.minDate + ' to ' + this.props.maxDate }
                        helperText={ this.props.focusHelperText }
                        total={ this.props.total }/>
     }
@@ -110,8 +108,8 @@ export class TrendsPanel extends React.Component {
       <RowChart id={ this.props.lens }
                 colorScheme={ this.props.dataLensData.colorScheme }
                 data={ this.props.dataLensData.data }
-                title={ this.props.subLensTitle + ' '
-                        + minDate + ' to ' + maxDate }
+                title={ this.props.subLensTitle + ' ' +
+                 this.props.minDate + ' to ' + this.props.maxDate }
                 helperText={ this.props.lensHelperText}
                 total={ this.props.total }
                 key={ this.props.lens + 'row' }/>
@@ -171,7 +169,7 @@ export class TrendsPanel extends React.Component {
         { !companyOverlay && total > 0 &&
           <div className="layout-row">
             <section className="chart">
-              <h2>{this._areaChartTitle()}</h2>
+              <h2 className="area-chart-title">{this._areaChartTitle()}</h2>
               <p className="chart-helper-text">A time series graph of
                complaint counts for the selected date range.
                 Hover on the chart to see the count for each date interval.
@@ -218,8 +216,15 @@ const mapStateToProps = state => {
 
   const lensKey = lens.toLowerCase()
   const focusKey = subLens.replace( '_', '-' )
-  const lensHelperText = (subLens === '') ? lensHelperTextMap[lensKey] : lensHelperTextMap[subLens]
-  const focusHelperText = (subLens === '') ? focusHelperTextMap[lensKey] : focusHelperTextMap[subLens]
+  const lensHelperText = subLens === '' ?
+   lensHelperTextMap[lensKey] : lensHelperTextMap[subLens]
+  const focusHelperText = subLens === '' ?
+   focusHelperTextMap[lensKey] : focusHelperTextMap[subLens]
+
+  const minDate = moment( date_received_min )
+                      .format( 'MM/DD/YYYY' )
+  const maxDate = moment( date_received_max )
+                      .format( 'MM/DD/YYYY' )
 
   return {
     chartType,
@@ -241,8 +246,8 @@ const mapStateToProps = state => {
     focusHelperText: focusHelperText,
     total,
     trendsDateWarningEnabled,
-    date_received_max,
-    date_received_min
+    minDate,
+    maxDate
   }
 }
 

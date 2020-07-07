@@ -82,7 +82,6 @@ function processBucket( state, agg ) {
           splitterText: labelText,
           value: '',
           parent: item.key,
-          pctChange: '',
           pctOfSet: '',
           width: 0.3
         } )
@@ -168,7 +167,7 @@ function processAreaData( state, aggregations, buckets ) {
     obj => ( {
       name: mainName,
       value: obj.doc_count,
-      date: new Date( obj.key_as_string )
+      date: obj.key_as_string
     } )
   )
 
@@ -178,17 +177,18 @@ function processAreaData( state, aggregations, buckets ) {
 
   const filter = lens.toLowerCase()
   const trendResults = aggregations[filter][filter]
-    .buckets.slice( 0, 10 )
+    .buckets.slice( 0, 5 )
   for ( let i = 0; i < trendResults.length; i++ ) {
     const o = trendResults[i]
     // only take first 10 of the buckets for processing
     const reverseBuckets = o.trend_period.buckets.reverse()
     for ( let j = 0; j < reverseBuckets.length; j++ ) {
       const p = reverseBuckets[j]
+      console.log( 'DATE THING from PROCESS AREA DATA: ', p.key_as_string )
       compBuckets.push( {
         name: o.key,
         value: p.doc_count,
-        date: new Date( p.key_as_string )
+        date: p.key_as_string
       } )
 
       // delete total from that date
@@ -215,7 +215,7 @@ function processAreaData( state, aggregations, buckets ) {
           compBuckets.push( {
             name: o.key,
             value: 0,
-            date: new Date( obj.date )
+            date: obj.date
           } )
         }
       }
@@ -269,7 +269,7 @@ function processLineData( lens, aggregations, focus, subLens ) {
     }
   }
   return {
-    dataByTopic: dataByTopic.slice( 0, 10 )
+    dataByTopic: dataByTopic.slice( 0, 5 )
   }
 }
 
@@ -363,7 +363,7 @@ export function processTrends( state, action ) {
       } else if ( k === 'dateRangeBrush' ) {
         results[k] = buckets.map(
           obj => ( {
-            date: new Date( obj.key_as_string ),
+            date: obj.key_as_string,
             value: obj.doc_count
           } )
         )
