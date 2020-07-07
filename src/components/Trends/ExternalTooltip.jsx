@@ -14,7 +14,7 @@ export class ExternalTooltip extends React.Component {
     if ( this.props.focus || value.name === 'Other' ) {
       elements.push(
         <span className="u-left" key={ value.name }>
-          { value.name }
+          All { value.name.toLowerCase() } { this.props.lens }
         </span>
       )
       return elements
@@ -90,10 +90,11 @@ export const mapDispatchToProps = dispatch => ( {
 } )
 
 export const mapStateToProps = state => {
-  const { focus, lens } = state.query
+  const { focus, lens, subLens } = state.query
   return {
     focus: focus ? 'focus' : '',
     lens,
+    subLens,
     showCompanyTypeahead: lens === 'Company' && !focus,
     showTotal: state.trends.chartType === 'area',
     tooltip: state.trends.tooltip
