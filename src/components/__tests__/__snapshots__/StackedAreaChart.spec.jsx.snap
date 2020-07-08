@@ -1,9 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`component: StackedAreaChart initial state renders without crashing 1`] = `
-<div>
+<div
+  className="chart-wrapper"
+>
+  <p
+    className="y-axis-label"
+  >
+    Complaints
+  </p>
   <div
     id="stacked-area-chart"
   />
+  <p
+    className="x-axis-label"
+  >
+    Date Received by the CFPB
+  </p>
 </div>
 `;

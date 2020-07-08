@@ -46,8 +46,15 @@ exports[`initial state renders Company typehead without crashing 1`] = `
   <p
     className="a-micro-copy"
   >
-    <span>
-      Ext tip title
+    <span
+      className="heading"
+    >
+      Date Range:
+    </span>
+    <span
+      className="date"
+    >
+      1/1/1900 - 1/1/2000
     </span>
   </p>
   <div>
@@ -204,8 +211,15 @@ exports[`initial state renders without crashing 1`] = `
   <p
     className="a-micro-copy"
   >
-    <span>
-      Ext tip title
+    <span
+      className="heading"
+    >
+      Date Range:
+    </span>
+    <span
+      className="date"
+    >
+      1/1/1900 - 1/1/2000
     </span>
   </p>
   <div>

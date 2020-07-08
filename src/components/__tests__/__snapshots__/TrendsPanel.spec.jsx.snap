@@ -381,10 +381,22 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
     <section
       className="chart"
     >
-      <div>
+      <div
+        className="chart-wrapper"
+      >
+        <p
+          className="y-axis-label"
+        >
+          Complaints
+        </p>
         <div
           id="line-chart"
         />
+        <p
+          className="x-axis-label"
+        >
+          Date Received by the CFPB
+        </p>
       </div>
     </section>
   </div>
@@ -734,10 +746,22 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
     <section
       className="chart"
     >
-      <div>
+      <div
+        className="chart-wrapper"
+      >
+        <p
+          className="y-axis-label"
+        >
+          Complaints
+        </p>
         <div
           id="stacked-area-chart"
         />
+        <p
+          className="x-axis-label"
+        >
+          Date Received by the CFPB
+        </p>
       </div>
     </section>
   </div>
@@ -1401,10 +1425,22 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
     <section
       className="chart"
     >
-      <div>
+      <div
+        className="chart-wrapper"
+      >
+        <p
+          className="y-axis-label"
+        >
+          Complaints
+        </p>
         <div
           id="line-chart"
         />
+        <p
+          className="x-axis-label"
+        >
+          Date Received by the CFPB
+        </p>
       </div>
     </section>
   </div>
@@ -1754,10 +1790,22 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
     <section
       className="chart"
     >
-      <div>
+      <div
+        className="chart-wrapper"
+      >
+        <p
+          className="y-axis-label"
+        >
+          Complaints
+        </p>
         <div
           id="line-chart"
         />
+        <p
+          className="x-axis-label"
+        >
+          Date Received by the CFPB
+        </p>
       </div>
     </section>
   </div>
@@ -2025,10 +2073,22 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
     <section
       className="chart"
     >
-      <div>
+      <div
+        className="chart-wrapper"
+      >
+        <p
+          className="y-axis-label"
+        >
+          Complaints
+        </p>
         <div
           id="line-chart"
         />
+        <p
+          className="x-axis-label"
+        >
+          Date Received by the CFPB
+        </p>
       </div>
     </section>
   </div>
@@ -2279,10 +2339,22 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
     <section
       className="chart"
     >
-      <div>
+      <div
+        className="chart-wrapper"
+      >
+        <p
+          className="y-axis-label"
+        >
+          Complaints
+        </p>
         <div
           id="line-chart"
         />
+        <p
+          className="x-axis-label"
+        >
+          Date Received by the CFPB
+        </p>
       </div>
     </section>
   </div>
@@ -2532,10 +2604,22 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
     <section
       className="chart"
     >
-      <div>
+      <div
+        className="chart-wrapper"
+      >
+        <p
+          className="y-axis-label"
+        >
+          Complaints
+        </p>
         <div
           id="line-chart"
         />
+        <p
+          className="x-axis-label"
+        >
+          Date Received by the CFPB
+        </p>
       </div>
     </section>
   </div>

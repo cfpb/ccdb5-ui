@@ -120,9 +120,11 @@ export class LineChart extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={'chart-wrapper'}>
+        <p className={ 'y-axis-label' }>Complaints</p>
         <div id="line-chart">
         </div>
+        <p className={ 'x-axis-label' }>Date Received by the CFPB</p>
       </div>
     )
   }

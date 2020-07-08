@@ -197,3 +197,15 @@ export const updateDateBuckets = ( name, buckets, areaBuckets ) => {
       value: o.doc_count
     } ) )
 }
+
+export const externalTooltipFormatter = tooltip => {
+  if ( !tooltip ) {
+    return tooltip
+  }
+  const parts = tooltip.title.split( ':' )
+  return {
+    ...tooltip,
+    heading: parts[0] + ':',
+    date: parts[1] ? parts[1].trim() : ''
+  }
+}
