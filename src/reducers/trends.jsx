@@ -100,41 +100,6 @@ export function processBucket( state, agg ) {
 }
 
 /**
- * helper function to get d3 bar chart data
- * @param {object} obj rowdata we are processing
- * @param {array} nameMap list of names we are keeping track of
- * @param {array} expandedTrends list of trends that are open in view
- * @returns {object} the rowdata for row chart
- */
-function getD3Names( obj, nameMap, expandedTrends ) {
-  let name = obj.key
-  // D3 doesnt allow dupe keys, so we have to to append
-  // spaces so we have unique keys
-  while ( nameMap[name] ) {
-    name += ' '
-  }
-
-  nameMap[name] = true
-
-  return obj.splitterText ? {
-    ...obj,
-    visible: expandedTrends.indexOf( obj.parent ) > -1
-  } : {
-    hasChildren: Boolean( obj.hasChildren ),
-    isNotFilter: false,
-    isParent: Boolean( obj.isParent ),
-    pctOfSet: Number( obj.pctOfSet ),
-    name: name,
-    value: Number( obj.doc_count ),
-    parent: obj.parent || false,
-    // visible if no parent, or it is in expanded trends
-    visible: !obj.parent || expandedTrends.indexOf( obj.parent ) > -1,
-    // this adjusts the thickness of the parent or child bars
-    width: obj.parent ? 0.4 : 0.5
-  }
-}
-
-/**
  * helper function to pluralize field values
  * @param {lens} lens value we are processing
  * @returns {string} for consumption by AreaData function

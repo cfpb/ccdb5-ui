@@ -9,7 +9,7 @@ import { sanitizeHtmlId } from '../../utils'
 
 export class ExternalTooltip extends React.Component {
   _spanFormatter( value ) {
-    const { focus, lens } = this.props
+    const { lens } = this.props
     const elements = []
     const lensToUse = this.props.focus ? this.props.subLens :
      this.props.lens
