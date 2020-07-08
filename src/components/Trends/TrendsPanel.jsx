@@ -64,8 +64,8 @@ export class TrendsPanel extends React.Component {
     if ( overview ) {
       return 'Complaints by date received by the CFPB'
     } else if ( focus ) {
-      return `Complaints by ${ subLensMap[subLens] }
-       by date received by the CFPB`
+      return 'Complaints by ' + subLensMap[subLens].toLowerCase() +
+       ', by date received by the CFPB'
     }
     return 'Complaints by date received by the CFPB'
   }

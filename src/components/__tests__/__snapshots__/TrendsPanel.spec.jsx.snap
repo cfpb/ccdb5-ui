@@ -366,8 +366,7 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
       <h2
         className="area-chart-title"
       >
-        Complaints by Sub-products
-       by date received by the CFPB
+        Complaints by sub-products, by date received by the CFPB
       </h2>
       <p
         className="chart-helper-text"

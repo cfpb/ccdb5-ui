@@ -241,14 +241,14 @@ describe( 'component:TrendsPanel', () => {
         params.overview = true
         const target = setupEnzyme( params )
         expect( target.instance()._areaChartTitle() )
-          .toEqual( 'Complaints by date CFPB received' )
+          .toEqual( 'Complaints by date received by the CFPB' )
       } )
 
       it( 'gets area chart title - Data Lens', () => {
         params.lens = 'Something'
         const target = setupEnzyme( params )
         expect( target.instance()._areaChartTitle() )
-          .toEqual( 'Something complaints by date CFPB received' )
+          .toEqual( 'Complaints by date received by the CFPB' )
       } )
 
       it( 'gets area chart title - Focus', () => {
@@ -256,7 +256,7 @@ describe( 'component:TrendsPanel', () => {
         params.lens = 'Product'
         const target = setupEnzyme( params )
         expect( target.instance()._areaChartTitle() )
-          .toEqual( 'Sub-products complaints by date CFPB received' )
+          .toEqual( 'Complaints by sub-products, by date received by the CFPB' )
       } )
     } )
   } )

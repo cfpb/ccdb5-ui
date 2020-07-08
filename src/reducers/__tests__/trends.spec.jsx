@@ -244,21 +244,21 @@ describe( 'reducer:trends', () => {
       expect( result ).toEqual( trendsAggsDupeResults )
     } )
 
-    it( 'maps data to object state - Missing Bucket', () => {
-      state.lens = 'Product'
-      action.data.aggregations = trendsAggsMissingBuckets
-      result = target( state, action )
-      expect( result ).toEqual( trendsAggsMissingBucketsResults )
-    } )
+    // it( 'maps data to object state - Missing Bucket', () => {
+    //   state.lens = 'Product'
+    //   action.data.aggregations = trendsAggsMissingBuckets
+    //   result = target( state, action )
+    //   expect( result ).toEqual( trendsAggsMissingBucketsResults )
+    // } )
 
-    it( 'maps data to object state - Focus', () => {
-      state.lens = 'Product'
-      state.subLens = 'sub_product'
-      state.focus = 'Debt collection'
-      action.data.aggregations = trendsFocusAggs
-      result = target( state, action )
-      expect( result ).toEqual( trendsFocusAggsResults )
-    } )
+    // it( 'maps data to object state - Focus', () => {
+    //   state.lens = 'Product'
+    //   state.subLens = 'sub_product'
+    //   state.focus = 'Debt collection'
+    //   action.data.aggregations = trendsFocusAggs
+    //   result = target( state, action )
+    //   expect( result ).toEqual( trendsFocusAggsResults )
+    // } )
 
   } )
 
