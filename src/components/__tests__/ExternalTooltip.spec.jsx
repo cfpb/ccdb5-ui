@@ -37,7 +37,7 @@ describe( 'initial state', () => {
       lens: ''
     }
     tooltip = {
-      title: 'Ext tip title',
+      title: 'Date Range: 1/1/1900 - 1/1/2000',
       total: 2900,
       values: [
         { colorIndex: 1, name: 'foo', value: 1000 },
@@ -144,7 +144,7 @@ describe( 'mapStateToProps', () => {
       },
       trends: {
         tooltip: {
-          title: 'Date: A tooltip',
+          title: 'Date: 1/1/2015',
           total: 100,
           values: []
         }
@@ -159,7 +159,9 @@ describe( 'mapStateToProps', () => {
       showCompanyTypeahead: false,
       showTotal: false,
       tooltip: {
-        title: 'Date: A tooltip',
+        date: '1/1/2015',
+        heading: 'Date:',
+        title: 'Date: 1/1/2015',
         total: 100,
         values: []
       }
@@ -170,5 +172,23 @@ describe( 'mapStateToProps', () => {
     state.query.focus = 'something else'
     let actual = mapStateToProps( state )
     expect( actual.focus ).toEqual( 'focus' )
+  } )
+
+  it( 'handles broken tooltip title', () => {
+    state.trends.tooltip.title = 'something else'
+    let actual = mapStateToProps( state )
+    expect( actual ).toEqual( {
+      focus: '',
+      lens: 'Overview',
+      showCompanyTypeahead: false,
+      showTotal: false,
+      tooltip: {
+        date: '',
+        heading: 'something else:',
+        title: 'something else',
+        total: 100,
+        values: []
+      }
+    } )
   } )
 } )
