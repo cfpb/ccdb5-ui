@@ -90,7 +90,8 @@ export class RowChart extends React.Component {
       colorScheme, data, id, printMode, toggleRow, total
     } = this.props
 
-    const rows = data.filter( o => {
+    // doing this so britecharts doesn't mutate redux
+    const rows = [ ...data ].filter( o => {
       if ( this.props.showTrends ) {
         return true
       }
