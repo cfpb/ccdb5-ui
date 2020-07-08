@@ -16,7 +16,7 @@ function setupEnzyme( { cbIncrease, cbReset, diff, queryCount, resultCount } ) {
   return shallow( <TrendDepthToggle diff={ diff }
                                     increaseDepth={ cbIncrease }
                                     lens={ 'Product' }
-                                    resetDepth={ cbReset }
+                                    depthReset={ cbReset }
                                     queryCount={ queryCount }
                                     resultCount={ resultCount }
                                     showToggle={ true }/> )
@@ -152,7 +152,7 @@ describe( 'component:TrendDepthToggle', () => {
 
     it( 'hooks into resetDepth', () => {
       const dispatch = jest.fn()
-      mapDispatchToProps( dispatch ).resetDepth()
+      mapDispatchToProps( dispatch ).depthReset()
       expect( dispatch.mock.calls ).toEqual( [
         [ {
           requery: REQUERY_ALWAYS,
