@@ -10,17 +10,39 @@ import { sanitizeHtmlId } from '../../utils'
 
 export class ExternalTooltip extends React.Component {
   _spanFormatter( value ) {
-    const { focus, lens } = this.props
+    const { lens } = this.props
     const elements = []
+    const lensToUse = this.props.focus ? this.props.subLens :
+     this.props.lens
+    const plurals = {
+      'Product': 'products',
+      'product': 'products',
+      'issue': 'issues',
+      'Sub-Issue': 'sub-issues',
+      'sub_product': 'sub-products',
+      'Company': 'companies'
+    }
+
     // Other should never be a selectable focus item
-    if ( focus || value.name === 'Other' ) {
+    if ( value.name === 'Other' ) {
+      elements.push(
+        <span className="u-left" key={ value.name }>
+          All other { plurals[lensToUse] }
+        </span>
+      )
+      return elements
+    }
+
+    if ( this.props.focus ) {
       elements.push(
         <span className="u-left" key={ value.name }>
           { value.name }
         </span>
       )
-    } else {
-      elements.push( <span className="u-left a-btn a-btn__link"
+      return elements
+    }
+
+    elements.push( <span className="u-left a-btn a-btn__link"
                            id={ 'focus-' + sanitizeHtmlId( value.name ) }
                            key={ value.name }
              onClick={ () => {
@@ -28,7 +50,6 @@ export class ExternalTooltip extends React.Component {
              } }>
         { value.name }
       </span> )
-    }
 
     // add in the close button for Company and there's no focus yet
     if ( this.props.showCompanyTypeahead ) {
@@ -92,11 +113,12 @@ export const mapDispatchToProps = dispatch => ( {
 } )
 
 export const mapStateToProps = state => {
+  const { focus, lens, subLens } = state.query
   const { chartType, tooltip } = state.trends
-  const { focus, lens } = state.query
   return {
     focus: focus ? 'focus' : '',
     lens,
+    subLens,
     showCompanyTypeahead: lens === 'Company' && !focus,
     showTotal: chartType === 'area',
     tooltip: externalTooltipFormatter( tooltip )

@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import { getLastDate } from '../../utils/chart'
 import { hashObject } from '../../utils'
 import { isDateEqual } from '../../utils/formatDate'
-import PropTypes from 'prop-types'
 import React from 'react'
 import { stackedArea } from 'britecharts'
 import { updateTrendsTooltip } from '../../actions/trends'
@@ -64,8 +63,10 @@ export class StackedAreaChart extends React.Component {
     const width = this._chartWidth( chartID )
     d3.select( chartID + ' .stacked-area' ).remove()
     const stackedAreaChart = stackedArea()
-    const colorScheme = [ ...new Set( data.map( item => item.name ) ) ]
-      .filter( o => o !== 'Other' )
+    const colorData = data.filter(
+      item => item.name !== 'Other'
+    )
+    const colorScheme = [ ...new Set( colorData.map( item => item.name ) ) ]
       .map( o => colorMap[o] )
     colorScheme.push( colors.DataLens[10] )
 
@@ -95,7 +96,6 @@ export class StackedAreaChart extends React.Component {
   render() {
     return (
       <div className={'chart-wrapper'}>
-        <h2>{ this.props.title }</h2>
         <p className={ 'y-axis-label' }>Complaints</p>
         <div id="stacked-area-chart">
         </div>
@@ -129,10 +129,6 @@ export const mapStateToProps = state => ( {
   tooltip: state.trends.tooltip,
   width: state.view.width
 } )
-
-StackedAreaChart.propTypes = {
-  title: PropTypes.string.isRequired
-}
 
 export default connect( mapStateToProps,
   mapDispatchToProps )( StackedAreaChart )

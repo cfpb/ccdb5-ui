@@ -1,5 +1,5 @@
 import target, {
-  defaultState
+  defaultState, mainNameLens
 } from '../trends'
 import actions from '../../actions'
 import {
@@ -46,6 +46,14 @@ describe( 'reducer:trends', () => {
       } )
     } )
   } )
+
+  describe( 'Lens Name Pluralization Helper', () => {
+    it( 'pluralizes things properly', () => {
+      expect( mainNameLens('Company') ).toEqual('companies')
+      expect( mainNameLens('Product') ).toEqual('products')
+      expect( mainNameLens('baz') ).toEqual('values')
+    })
+  })
 
   describe( 'CHART_TYPE_CHANGED action', () => {
     it( 'changes the chart type', () => {
@@ -225,12 +233,17 @@ describe( 'reducer:trends', () => {
       expect( result ).toEqual( trendsResults )
     } )
 
+    // Issue was removed from the aggregations. Retaining test
+    // in case the feature is enabled JRC 7-6-20
     it( 'maps data to object state - Issue Lens', () => {
       state.lens = 'Issue'
       result = target( state, action )
       expect( result ).toEqual( trendsLensIssueResults )
     } )
 
+    // This test is causing a pctChange = 'null' error, but otherwise passing
+    // JRC 7-7
+    // pctChange comes from briteCharts rowcharts in the browser
     it( 'maps data to object state - dupe rows', () => {
       action.data.aggregations = trendsAggsDupes
       result = target( state, action )
@@ -245,9 +258,9 @@ describe( 'reducer:trends', () => {
     } )
 
     it( 'maps data to object state - Focus', () => {
-      state.lens = 'Issue'
-      state.subLens = 'sub_issue'
-      state.focus = 'Incorrect information on your report'
+      state.lens = 'Product'
+      state.subLens = 'sub_product'
+      state.focus = 'Debt collection'
       action.data.aggregations = trendsFocusAggs
       result = target( state, action )
       expect( result ).toEqual( trendsFocusAggsResults )
@@ -386,7 +399,7 @@ describe( 'reducer:trends', () => {
         },
         interval: 'Month',
         key: '2018-04-01T00:00:00.000Z',
-        title: 'Date Interval: 04/01/2018 - 04/30/2018',
+        title: 'Date range: 04/01/2018 - 04/30/2018',
         total: 53,
         values: [
           {

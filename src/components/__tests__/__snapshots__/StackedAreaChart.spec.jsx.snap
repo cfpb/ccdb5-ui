@@ -4,9 +4,6 @@ exports[`component: StackedAreaChart initial state renders without crashing 1`] 
 <div
   className="chart-wrapper"
 >
-  <h2>
-    foo
-  </h2>
   <p
     className="y-axis-label"
   >

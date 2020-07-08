@@ -699,6 +699,7 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
       <h3>
         Product by highest complaint volume
       </h3>
+      <p />
       <div
         id="row-chart-product"
       />
@@ -1354,6 +1355,7 @@ exports[`component:Results renders map panel without crashing 1`] = `
       <h3>
         Product by highest complaint volume
       </h3>
+      <p />
       <div
         id="row-chart-product"
       />
@@ -1491,10 +1493,10 @@ exports[`component:Results renders trends panel without crashing 1`] = `
           className="u-visually-hidden"
           htmlFor="choose-interval"
         >
-          Choose the Date Interval
+          Choose the Date interval
         </label>
         <p>
-          Date Interval
+          Date interval
         </p>
         <select
           id="choose-interval"

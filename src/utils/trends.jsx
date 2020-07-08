@@ -41,6 +41,7 @@ export const pruneOther = buckets => {
   const sumOther = buckets
     .filter( o => o.name === 'Other' )
     .reduce( ( prev, cur ) => prev + cur.value, 0 )
+
   return sumOther > 0 ? buckets : buckets.filter( o => o.name !== 'Other' )
 }
 
