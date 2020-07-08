@@ -7,11 +7,16 @@ import { miniTooltip, row } from 'britecharts'
 import { connect } from 'react-redux'
 import { hashObject } from '../../utils'
 import { max } from 'd3-array'
+import { MODE_MAP } from '../../constants'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 
 export class RowChart extends React.Component {
+  constructor( props ) {
+    super( props )
+    this._selectFocus = this._selectFocus.bind( this )
+  }
 
   _formatTip( value ) {
     return value.toLocaleString() + ' complaints'
@@ -82,7 +87,7 @@ export class RowChart extends React.Component {
   // eslint-disable-next-line complexity
   _redrawChart() {
     const {
-      colorScheme, data: rows, id, printMode, selectFocus, toggleRow, total
+      colorScheme, data: rows, id, printMode, toggleRow, total
     } = this.props
     if ( !rows || !rows.length || !total ) {
       return
@@ -142,8 +147,12 @@ export class RowChart extends React.Component {
 
     rowContainer
       .selectAll( '.view-more-label' )
-      .on( 'click', selectFocus )
+      .on( 'click', this._selectFocus )
 
+  }
+
+  _selectFocus( element ) {
+    this.props.selectFocus( element, this.props.lens )
   }
 
   render() {
@@ -160,8 +169,8 @@ export class RowChart extends React.Component {
 }
 
 export const mapDispatchToProps = dispatch => ( {
-  selectFocus: element => {
-    dispatch( changeFocus( element.parent ) )
+  selectFocus: ( element, lens ) => {
+    dispatch( changeFocus( element.parent, lens ) )
   },
   toggleRow: selectedState => {
     dispatch( toggleTrend( selectedState ) )
@@ -169,8 +178,10 @@ export const mapDispatchToProps = dispatch => ( {
 } )
 
 export const mapStateToProps = state => {
+  const lens = state.query.tab === MODE_MAP ? 'Product' : state.query.lens
   const { printMode, width } = state.view
   return {
+    lens,
     printMode,
     width
   }

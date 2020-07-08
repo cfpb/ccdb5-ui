@@ -9,6 +9,7 @@ import { sanitizeHtmlId } from '../../utils'
 
 export class ExternalTooltip extends React.Component {
   _spanFormatter( value ) {
+    const { focus, lens } = this.props
     const elements = []
     const lensToUse = this.props.focus ? this.props.subLens :
      this.props.lens
@@ -44,7 +45,7 @@ export class ExternalTooltip extends React.Component {
                            id={ 'focus-' + sanitizeHtmlId( value.name ) }
                            key={ value.name }
              onClick={ () => {
-               this.props.add( value.name )
+               this.props.add( value.name, lens )
              } }>
         { value.name }
       </span> )
@@ -101,8 +102,8 @@ export class ExternalTooltip extends React.Component {
 
 
 export const mapDispatchToProps = dispatch => ( {
-  add: value => {
-    dispatch( changeFocus( value ) )
+  add: ( value, lens ) => {
+    dispatch( changeFocus( value, lens ) )
   },
   remove: value => {
     dispatch( removeFilter( 'company', value ) )

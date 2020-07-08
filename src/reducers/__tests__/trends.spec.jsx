@@ -117,7 +117,8 @@ describe( 'reducer:trends', () => {
     it( 'updates the FOCUS and clears the tooltip', () => {
       action = {
         type: actions.FOCUS_CHANGED,
-        focus: 'Some Rando Text'
+        focus: 'Some Rando Text',
+        lens: 'Product'
       }
 
       expect( target( {
@@ -125,6 +126,8 @@ describe( 'reducer:trends', () => {
         tooltip: { wut: 'isthis' }
       }, action ) ).toEqual( {
         focus: 'Some Rando Text',
+        lens: 'Product',
+        subLens: 'sub_product',
         tooltip: false
       } )
     } )

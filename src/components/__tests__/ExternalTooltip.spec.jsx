@@ -76,6 +76,7 @@ describe( 'buttons', () => {
     cb = jest.fn()
     cbFocus = jest.fn()
     target = shallow( <ExternalTooltip remove={ cb }
+                                       lens={ 'Foo' }
                                        add={ cbFocus }
                                        showCompanyTypeahead={ true }
                                        tooltip={ {
@@ -105,7 +106,7 @@ describe( 'buttons', () => {
   it( 'triggers Focus when the link is clicked', () => {
     const prev = target.find( '#focus-bar' )
     prev.simulate( 'click' )
-    expect( cbFocus ).toHaveBeenCalledWith( 'bar' )
+    expect( cbFocus ).toHaveBeenCalledWith( 'bar', 'Foo' )
   } )
 } )
 

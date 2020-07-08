@@ -6,8 +6,8 @@ import * as colors from '../constants/colors'
 import {
   clamp, coalesce, getSubKeyName, processErrorMessage
 } from '../utils'
+import { getD3Names, getTooltipTitle, updateDateBuckets } from '../utils/chart'
 import { getSubLens, pruneOther } from '../utils/trends'
-import { getTooltipTitle, updateDateBuckets } from '../utils/chart'
 import actions from '../actions'
 import { isDateEqual } from '../utils/formatDate'
 
@@ -43,7 +43,7 @@ export const defaultState = {
  * @param {array} agg list of aggregations to go through
  * @returns {object} the representative bar in a d3 row chart
  */
-function processBucket( state, agg ) {
+export function processBucket( state, agg ) {
   const list = []
   const { expandedTrends, filterNames, lens } = state
   for ( let i = 0; i < agg.length; i++ ) {
@@ -329,6 +329,16 @@ export const getColorScheme = ( lens, rowNames ) => {
   return colScheme
 }
 
+/**
+ * helper function validate payload and also get under eslint limit
+ * @param {object} aggregations payload from api
+ * @param {string} k the key we need to validate against
+ * @returns {boolean} whether the bucket is valid
+ */
+export function validateBucket( aggregations, k ) {
+  return aggregations[k] && aggregations[k].doc_count &&
+    aggregations[k][k] && aggregations[k][k].buckets
+}
 
 /**
  * Copies the results locally
@@ -345,8 +355,7 @@ export function processTrends( state, action ) {
 
   for ( const k in aggregations ) {
     /* istanbul ignore else */
-    if ( aggregations[k] && aggregations[k].doc_count &&
-      aggregations[k][k] && aggregations[k][k].buckets ) {
+    if ( validateBucket( aggregations, k ) ) {
       // set to zero when we are not using focus Lens
       const buckets = aggregations[k][k].buckets
       for ( let i = 0; i < buckets.length; i++ ) {
@@ -400,7 +409,7 @@ export function processTrends( state, action ) {
  * @param {object} action the command being executed
  * @returns {object} the new state for the Redux store
  */
-function toggleTrend( state, action ) {
+export function toggleTrend( state, action ) {
   const { expandedTrends, filterNames, results } = state
   const item = action.value
   const toggled = updateExpandedTrends( item, filterNames, expandedTrends )
@@ -559,9 +568,12 @@ export function updateDataSubLens( state, action ) {
  * @returns {object} the new state for the Redux store
  */
 function changeFocus( state, action ) {
+  const { focus, lens } = action
   return {
     ...state,
-    focus: action.focus,
+    focus,
+    lens,
+    subLens: getSubLens( lens ),
     tooltip: false
   }
 }

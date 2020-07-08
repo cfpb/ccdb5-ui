@@ -4,10 +4,16 @@ import * as sut from '../trends'
 // ----------------------------------------------------------------------------
 // Tests
 describe( 'getSubLens', () => {
+  it( 'returns empty string for no lens selected', () => {
+    const res = sut.getSubLens( '' )
+    expect( res ).toEqual( '' )
+  } )
+
   it( 'returns sublens for Company select', () => {
     const res = sut.getSubLens( 'Company' )
     expect( res ).toEqual( 'product' )
   } )
+
   it( 'returns sublens for anything else select', () => {
     const res = sut.getSubLens( 'Foo' )
     expect( res ).toEqual( 'sub_foo' )
