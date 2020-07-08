@@ -3,6 +3,7 @@ export default {
     chartType: 'line',
     colorMap: {
       Complaints: '#ADDC91',
+      Other: '#a2a3a4',
       'All other products': '#a2a3a4',
       'All other companies': '#a2a3a4',
       'All other values': '#a2a3a4'
@@ -11,11 +12,16 @@ export default {
     expandedTrends: [],
     filterNames: [
       'Credit reporting, credit repair services, or other personal consumer reports',
-      'Mortgage',
       'Debt collection',
+      'Credit card or prepaid card',
+      'Mortgage',
+      'Checking or savings account',
       'Incorrect information on your report',
-      'Incorrect information on credit report',
-      'Problem with a credit reporting company\'s investigation into an existing problem'
+      'Problem with a credit reporting company\'s investigation into an existing problem',
+      'Attempts to collect debt not owed',
+      'Improper use of your report',
+      'Managing an account',
+      'Incorrect information on credit report'
     ],
     focus: '',
     isLoading: false,
@@ -1167,7 +1173,8 @@ export default {
           value: 436241,
           parent: false,
           visible: true,
-          width: 0.5
+          width: 0.5,
+          pctChange: null
         },
         {
           hasChildren: false,
@@ -1222,7 +1229,8 @@ export default {
           value: 304721,
           parent: false,
           visible: true,
-          width: 0.5
+          width: 0.5,
+          pctChange: null
         },
         {
           hasChildren: false,
@@ -1354,7 +1362,8 @@ export default {
           value: 300401,
           parent: false,
           visible: true,
-          width: 0.5
+          width: 0.5,
+          pctChange: null
         },
         {
           hasChildren: false,
@@ -1552,7 +1561,8 @@ export default {
           value: 140432,
           parent: false,
           visible: true,
-          width: 0.5
+          width: 0.5,
+          pctChange: null
         },
         {
           hasChildren: false,
@@ -1563,7 +1573,8 @@ export default {
           value: 89190,
           parent: false,
           visible: true,
-          width: 0.5
+          width: 0.5,
+          pctChange: null
         }
       ],
       tags: [
