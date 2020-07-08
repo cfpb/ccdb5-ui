@@ -367,4 +367,24 @@ describe( 'component: LineChart', () => {
     } )
   } )
 
+  describe( 'helpers', () => {
+    describe( '_chartWidth', () => {
+      it( 'gets print width - Overview', () => {
+        const data = {
+          dataByTopic: []
+        }
+        const target = shallow( <LineChart printMode={ true }
+                                           lens={ 'Overview' }
+                                           data={ data } interval={ 'Month' }
+                                           dateRange={ {
+                                             from: '2012',
+                                             to: '2020'
+                                           } }
+                                           title={ 'foo' }/> )
+        expect( target.instance()._chartWidth( '#foo' ) )
+          .toEqual( 750 )
+      } )
+    } )
+  } )
+
 } )

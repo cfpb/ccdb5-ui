@@ -1,31 +1,54 @@
+/* eslint complexity: ["error", 5] */
+import { changeFocus } from '../../actions/trends'
 import CompanyTypeahead from '../Filters/CompanyTypeahead'
 import { connect } from 'react-redux'
 import iconMap from '../iconMap'
 import React from 'react'
 import { removeFilter } from '../../actions/filter'
+import { sanitizeHtmlId } from '../../utils'
 
 export class ExternalTooltip extends React.Component {
   _spanFormatter( value ) {
-    return this.props.showCompanyTypeahead ? [
-      <span className="u-left a-btn a-btn__link" key={value.name}>
+    const { focus, lens } = this.props
+    const elements = []
+    // Other should never be a selectable focus item
+    if ( focus || value.name === 'Other' ) {
+      elements.push(
+        <span className="u-left" key={ value.name }>
+          { value.name }
+        </span>
+      )
+    } else {
+      elements.push( <span className="u-left a-btn a-btn__link"
+                           id={ 'focus-' + sanitizeHtmlId( value.name ) }
+                           key={ value.name }
+             onClick={ () => {
+               this.props.add( value.name, lens )
+             } }>
         { value.name }
-      </span>,
-      <span className="u-right a-btn a-btn__link close"
-            key={ 'close_' + value.name }
-            onClick={ () => {
-              this.props.remove( value.name )
-            } }>
+      </span> )
+    }
+
+    // add in the close button for Company and there's no focus yet
+    if ( this.props.showCompanyTypeahead ) {
+      elements.push( <span className="u-right a-btn a-btn__link close"
+                           key={ 'close_' + value.name }
+                           onClick={ () => {
+                             this.props.remove( value.name )
+                           } }>
         { iconMap.getIcon( 'delete' ) }
-      </span>
-    ] : <span className="u-left">{ value.name }</span>
+      </span> )
+    }
+
+    return elements
   }
 
   render() {
-    const { tooltip } = this.props
+    const { focus, showTotal, tooltip } = this.props
     if ( tooltip && tooltip.values ) {
       return (
         <section
-          className={ 'tooltip-container u-clearfix ' + this.props.lens }>
+          className={ 'tooltip-container u-clearfix ' + focus }>
           { this.props.showCompanyTypeahead && <CompanyTypeahead/> }
           <p className="a-micro-copy">
             <span className={'heading'}>{ this.props.tooltip.heading }</span>
@@ -41,14 +64,14 @@ export class ExternalTooltip extends React.Component {
               ) }
             </ul>
 
-            <ul className="m-list__unstyled tooltip-ul total">
+            { showTotal && <ul className="m-list__unstyled tooltip-ul total">
               <li>
                 <span className="u-left">Total</span>
                 <span className="u-right">
                   { tooltip.total.toLocaleString() }
                 </span>
               </li>
-            </ul>
+            </ul> }
           </div>
         </section>
       )
@@ -59,20 +82,28 @@ export class ExternalTooltip extends React.Component {
 
 
 export const mapDispatchToProps = dispatch => ( {
+  add: ( value, lens ) => {
+    dispatch( changeFocus( value, lens ) )
+  },
   remove: value => {
     dispatch( removeFilter( 'company', value ) )
   }
 } )
 
-export const mapStateToProps = state => ( {
-  lens: state.query.lens,
-  showCompanyTypeahead: state.query.lens === 'Company',
-  tooltip: state.trends.tooltip ? {
-    ...state.trends.tooltip,
-    heading: state.trends.tooltip.title.split( ':' )[0] + ':',
-    date: state.trends.tooltip.title.split( ':' )[1].trim()
-  } : state.trends.tooltip
-} )
 
+export const mapStateToProps = state => {
+  const { focus, lens } = state.query
+  return {
+    focus: focus ? 'focus' : '',
+    lens,
+    showCompanyTypeahead: lens === 'Company' && !focus,
+    showTotal: state.trends.chartType === 'area',
+      tooltip: state.trends.tooltip ? {
+      ...state.trends.tooltip,
+      heading: state.trends.tooltip.title.split( ':' )[0] + ':',
+      date: state.trends.tooltip.title.split( ':' )[1].trim()
+    } : state.trends.tooltip
+  }
+}
 
 export default connect( mapStateToProps, mapDispatchToProps )( ExternalTooltip )

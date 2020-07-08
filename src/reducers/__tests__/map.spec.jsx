@@ -1,6 +1,5 @@
 import target, {
   defaultState,
-  processAggregations,
   processStateAggregations
 } from '../map'
 import actions from '../../actions'
@@ -15,6 +14,8 @@ describe( 'reducer:map', () => {
       expect( target( undefined, {} ) ).toEqual( {
         activeCall: '',
         dataNormalization: GEO_NORM_NONE,
+        expandedTrends: [],
+        filterNames: [],
         isLoading: false,
         results: {
           issue: [],
@@ -127,7 +128,7 @@ describe( 'reducer:map', () => {
 
 
     it( 'maps data to object state', () => {
-      const result = target( null, action )
+      const result = target( {}, action )
       expect( result ).toEqual( {
         activeCall: '',
         isLoading: false,
@@ -186,100 +187,110 @@ describe( 'reducer:map', () => {
             { name: "HI", value: 0, issue: "", product: "" } ],
           issue: [
             {
+              hasChildren: false,
+              isNotFilter: false,
+              isParent: true,
               name: "alpha",
+              parent: false,
+              pctOfSet: NaN,
               value: 600,
-              pctChange: 1,
-              isParent: true,
-              hasChildren: false,
-              pctOfSet: "60.00",
               visible: true,
               width: 0.5
             },
             {
+              hasChildren: false,
+              isNotFilter: false,
+              isParent: true,
               name: "bar",
+              parent: false,
+              pctOfSet: NaN,
               value: 150,
-              pctChange: 1,
-              isParent: true,
-              hasChildren: false,
-              pctOfSet: "15.00",
               visible: true,
               width: 0.5
             },
             {
+              hasChildren: false,
+              isNotFilter: false,
+              isParent: true,
               name: "car",
+              parent: false,
+              pctOfSet: NaN,
               value: 125,
-              pctChange: 1,
-              isParent: true,
-              hasChildren: false,
-              pctOfSet: "13.00",
               visible: true,
               width: 0.5
             },
             {
+              hasChildren: false,
+              isNotFilter: false,
+              isParent: true,
               name: "delta",
+              parent: false,
+              pctOfSet: NaN,
               value: 75,
-              pctChange: 1,
-              isParent: true,
-              hasChildren: false,
-              pctOfSet: "8.00",
               visible: true,
               width: 0.5
             },
             {
-              name: "elephant",
-              value: 50,
-              pctChange: 1,
-              isParent: true,
               hasChildren: false,
-              pctOfSet: "5.00",
+              isNotFilter: false,
+              isParent: true,
+              name: "elephant",
+              parent: false,
+              pctOfSet: NaN,
+              value: 50,
               visible: true,
               width: 0.5
             }
           ],
           product: [
             {
+              hasChildren: false,
+              isNotFilter: false,
+              isParent: true,
               name: "foo",
+              parent: false,
+              pctOfSet: NaN,
               value: 600,
-              pctChange: 1,
-              isParent: true,
-              hasChildren: false,
-              pctOfSet: "60.00",
               visible: true,
               width: 0.5
             }, {
+              hasChildren: false,
+              isNotFilter: false,
+              isParent: true,
               name: "goo",
+              parent: false,
+              pctOfSet: NaN,
               value: 150,
-              pctChange: 1,
-              isParent: true,
-              hasChildren: false,
-              pctOfSet: "15.00",
               visible: true,
               width: 0.5
             }, {
+              hasChildren: false,
+              isNotFilter: false,
+              isParent: true,
               name: "hi",
+              parent: false,
+              pctOfSet: NaN,
               value: 125,
-              pctChange: 1,
-              isParent: true,
-              hasChildren: false,
-              pctOfSet: "13.00",
               visible: true,
               width: 0.5
             }, {
+              hasChildren: false,
+              isNotFilter: false,
+              isParent: true,
               name: "indigo",
+              parent: false,
+              pctOfSet: NaN,
               value: 75,
-              pctChange: 1,
-              isParent: true,
-              hasChildren: false,
-              pctOfSet: "8.00",
               visible: true,
               width: 0.5
             }, {
-              name: "joker",
-              value: 50,
-              pctChange: 1,
-              isParent: true,
               hasChildren: false,
-              pctOfSet: "5.00",
+              isNotFilter: false,
+              isParent: true,
+              name: "joker",
+              parent: false,
+              pctOfSet: NaN,
+              value: 50,
               visible: true,
               width: 0.5
             }
@@ -340,72 +351,6 @@ describe( 'reducer:map', () => {
   } )
 
   describe( 'helper functions', () => {
-    describe( 'processAggregations', () => {
-      it( 'calculates percentages properly', () => {
-        const aggData = {
-          doc_count: 1000,
-          issue: {
-            buckets: [
-              { key: 'alpha', doc_count: 600 },
-              { key: 'bar', doc_count: 150 },
-              { key: 'car', doc_count: 125 },
-              { key: 'delta', doc_count: 75 },
-              { key: 'elephant', doc_count: 50 }
-            ]
-          }
-        }
-
-        const res = processAggregations( aggData )
-        expect( res ).toEqual( [
-          {
-            hasChildren: false,
-            isParent: true,
-            name: "alpha",
-            pctChange: 1,
-            pctOfSet: "60.00",
-            value: 600,
-            visible: true,
-            width: 0.5
-          }, {
-            hasChildren: false,
-            isParent: true,
-            name: "bar",
-            pctChange: 1,
-            pctOfSet: "15.00",
-            value: 150,
-            visible: true,
-            width: 0.5
-          }, {
-            hasChildren: false,
-            isParent: true,
-            name: "car",
-            pctChange: 1,
-            pctOfSet: "13.00",
-            value: 125,
-            visible: true,
-            width: 0.5
-          }, {
-            hasChildren: false,
-            isParent: true,
-            name: "delta",
-            pctChange: 1,
-            pctOfSet: "8.00",
-            value: 75,
-            visible: true,
-            width: 0.5
-          }, {
-            hasChildren: false,
-            isParent: true,
-            name: "elephant",
-            pctChange: 1,
-            pctOfSet: "5.00",
-            value: 50,
-            visible: true,
-            width: 0.5
-          } ] )
-      } )
-    } )
-
     describe( 'processStateAggregations', () => {
       it( 'handles empty buckets', () => {
         const stateData = {

@@ -46,11 +46,9 @@ export class MapPanel extends React.Component {
         <RowChart id="product"
                   colorScheme={this.props.productData.colorScheme}
                   data={this.props.productData.data}
-                  title="Product by highest complaint volume"/>
-        <RowChart id="issue"
-                  colorScheme={this.props.issueData.colorScheme}
-                  data={this.props.issueData.data}
-                  title="Issue by highest complaint volume"/>
+                  title="Product by highest complaint volume"
+                  total={ this.props.total }/>
+
         <Loading isLoading={ this.props.isLoading || false }/>
       </section>
     )
@@ -68,18 +66,16 @@ const mapStateToProps = state => {
 
   const {
     enablePer1000,
-    issue: issueFilters,
-    mapWarningEnabled,
-    product: productFilters
+    mapWarningEnabled
   } = query
 
   return {
     error,
     isLoading,
-    issueData: processRows( issueFilters, results.issue, false ),
-    productData: processRows( productFilters, results.product, false ),
+    productData: processRows( results.product, false, 'Product' ),
     showMobileFilters: state.view.width < 750,
-    showWarning: !enablePer1000 && mapWarningEnabled
+    showWarning: !enablePer1000 && mapWarningEnabled,
+    total: state.aggs.total
   }
 }
 

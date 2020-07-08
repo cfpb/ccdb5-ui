@@ -3,6 +3,8 @@ import { REQUERY_ALWAYS, REQUERY_NEVER } from '../constants'
 export const CHART_TYPE_CHANGED = 'CHART_TYPE_CHANGED'
 export const DATA_LENS_CHANGED = 'DATA_LENS_CHANGED'
 export const DATA_SUBLENS_CHANGED = 'DATA_SUBLENS_CHANGED'
+export const DEPTH_CHANGED = 'DEPTH_CHANGED'
+export const DEPTH_RESET = 'DEPTH_RESET'
 export const FOCUS_CHANGED = 'FOCUS_CHANGED'
 export const TREND_TOGGLED = 'TREND_TOGGLED'
 export const TRENDS_TOOLTIP_CHANGED = 'TRENDS_TOOLTIP_CHANGED'
@@ -50,16 +52,44 @@ export function changeDataSubLens( subLens ) {
 }
 
 /**
+ * Notifies the application that depth is being changed
+ *
+ * @param {string} depth the max number of aggregations returned
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function changeDepth( depth ) {
+  return {
+    type: DEPTH_CHANGED,
+    requery: REQUERY_ALWAYS,
+    depth
+  }
+}
+
+/**
+ * Notifies the application that depth is being reset
+ *
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function resetDepth() {
+  return {
+    type: DEPTH_RESET,
+    requery: REQUERY_ALWAYS
+  }
+}
+
+/**
  * Notifies the application that focus is being changed
  *
  * @param {string} focus the text to search for
+ * @param {string} lens the lens we're focusing on
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function changeFocus( focus ) {
+export function changeFocus( focus, lens ) {
   return {
     type: FOCUS_CHANGED,
     requery: REQUERY_ALWAYS,
-    focus
+    focus,
+    lens
   }
 }
 

@@ -17,7 +17,7 @@ jest.mock( 'britecharts', () => {
     'labelsSize', 'labelsTotalCount', 'labelsNumberFormat', 'outerPadding',
     'percentageAxisToMaxRatio', 'yAxisLineWrapLimit', 'miniTooltip',
     'yAxisPaddingBetweenChart', 'width', 'wrapLabels', 'height', 'on',
-    'valueFormatter'
+    'valueFormatter', 'paddingBetweenGroups'
   ]
 
   const mock = {}
@@ -57,15 +57,18 @@ function setupSnapshot() {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
   const store = mockStore( {
-    map: {}
+    printMode: false,
+    width: 1000
   } )
 
   return renderer.create(
     <Provider store={ store }>
       <RowChart id={'foo'}
+                data={ [ 1, 2, 3 ] }
                 title={'Foo title we want'}
                 colorScheme={ [] }
-                data={ [] }/>
+                total={1000}
+                />
     </Provider>
   )
 }
@@ -103,10 +106,11 @@ describe( 'component: RowChart', () => {
         data={ [] }
         id={'foo'}
         title={'test'}
+        total={0}
       /> )
       target._redrawChart = jest.fn()
       target.setProps( { data: [] } )
-      expect(  target._redrawChart ).toHaveBeenCalledTimes( 0 )
+      expect( target._redrawChart ).toHaveBeenCalledTimes( 0 )
     } )
 
     it( 'trigger a new update when data changes', () => {
@@ -151,34 +155,78 @@ describe( 'component: RowChart', () => {
       target.setProps( { width: 600 } )
       expect( sp ).toHaveBeenCalledTimes( 1 )
     } )
+
+    it( 'calls select Focus', () => {
+      const cb = jest.fn()
+      const target = shallow( <RowChart
+        selectFocus={cb}
+        colorScheme={ [] }
+        title={'test'}
+        data={ [ 23, 4, 3 ] }
+        id={'foo'}
+        total={1000}
+      /> )
+      target.instance()._selectFocus( { name: 'foo' } )
+      expect( cb ).toHaveBeenCalledTimes( 1 )
+    } )
   } )
 
-  describe('mapDispatchToProps', ()=>{
-    it('hooks into toggleTrend', ()=>{
+  describe( 'mapDispatchToProps', () => {
+    it( 'hooks into changeFocus', () => {
       const dispatch = jest.fn()
-      mapDispatchToProps(dispatch).toggleRow();
-      expect(dispatch.mock.calls.length).toEqual(1);
-    })
-  })
+      mapDispatchToProps( dispatch )
+        .selectFocus( { parent: 'mom', name: 'dad' } )
+      expect( dispatch.mock.calls ).toEqual( [ [ {
+        focus: 'mom',
+        requery: 'REQUERY_ALWAYS',
+        type: 'FOCUS_CHANGED'
+      } ] ] )
+    } )
+
+    it( 'hooks into toggleTrend', () => {
+      const dispatch = jest.fn()
+      mapDispatchToProps( dispatch ).toggleRow()
+      expect( dispatch.mock.calls.length ).toEqual( 1 )
+    } )
+  } )
 
   describe( 'mapStateToProps', () => {
-    it( 'maps state and props', () => {
-      const state = {
-        aggs: {
-          total: 100
+    let state
+    beforeEach(()=>{
+      state = {
+        query: {
+          lens: 'Foo',
+          tab: 'Map'
         },
         view: {
           printMode: false,
           width: 1000
         }
       }
+    })
+    it( 'maps state and props - Map', () => {
       const ownProps = {
         id: 'baz'
       }
       let actual = mapStateToProps( state, ownProps )
       expect( actual ).toEqual( {
+        lens: 'Product',
         printMode: false,
-        total: 100,
+        width: 1000
+      } )
+    } )
+
+    it( 'maps state and props - Other', () => {
+      const ownProps = {
+        id: 'baz'
+      }
+
+      state.query.tab = 'Bar'
+
+      let actual = mapStateToProps( state, ownProps )
+      expect( actual ).toEqual( {
+        lens: 'Foo',
+        printMode: false,
         width: 1000
       } )
     } )
@@ -188,6 +236,7 @@ describe( 'component: RowChart', () => {
     it('gets height based on number of rows', ()=>{
       const target = mount(<RowChart colorScheme={ [] }
                                      title={'test'}
+                                     total={10}
                                      data={ [ 23, 4, 3 ] }
                                      id={ 'foo' }/>)
       let res = target.instance()._getHeight(1)
@@ -199,6 +248,7 @@ describe( 'component: RowChart', () => {
     it( 'formats text of the tooltip', () => {
       const target = mount( <RowChart colorScheme={ [] }
                                       title={'test'}
+                                      total={1000}
                                       data={ [ 23, 4, 3 ] }
                                       id={ 'foo' }/> )
       let res = target.instance()._formatTip( 100000 )

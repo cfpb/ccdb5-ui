@@ -100,22 +100,26 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
         value="10"
       >
         <option
-          value="10"
+          disabled={false}
+          value="10 results"
         >
           10 results
         </option>
         <option
-          value="25"
+          disabled={false}
+          value="25 results"
         >
           25 results
         </option>
         <option
-          value="50"
+          disabled={false}
+          value="50 results"
         >
           50 results
         </option>
         <option
-          value="100"
+          disabled={false}
+          value="100 results"
         >
           100 results
         </option>
@@ -138,22 +142,26 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
         onChange={[MockFunction]}
       >
         <option
-          value="created_date_desc"
+          disabled={false}
+          value="Newest to oldest"
         >
           Newest to oldest
         </option>
         <option
-          value="created_date_asc"
+          disabled={false}
+          value="Oldest to newest"
         >
           Oldest to newest
         </option>
         <option
-          value="relevance_desc"
+          disabled={false}
+          value="Relevance"
         >
           Relevance
         </option>
         <option
-          value="relevance_asc"
+          disabled={false}
+          value="Relevance (asc)"
         >
           Relevance (asc)
         </option>
@@ -396,22 +404,26 @@ exports[`component:ListPanel displays a message when only the narratives are sta
         value="10"
       >
         <option
-          value="10"
+          disabled={false}
+          value="10 results"
         >
           10 results
         </option>
         <option
-          value="25"
+          disabled={false}
+          value="25 results"
         >
           25 results
         </option>
         <option
-          value="50"
+          disabled={false}
+          value="50 results"
         >
           50 results
         </option>
         <option
-          value="100"
+          disabled={false}
+          value="100 results"
         >
           100 results
         </option>
@@ -434,22 +446,26 @@ exports[`component:ListPanel displays a message when only the narratives are sta
         onChange={[MockFunction]}
       >
         <option
-          value="created_date_desc"
+          disabled={false}
+          value="Newest to oldest"
         >
           Newest to oldest
         </option>
         <option
-          value="created_date_asc"
+          disabled={false}
+          value="Oldest to newest"
         >
           Oldest to newest
         </option>
         <option
-          value="relevance_desc"
+          disabled={false}
+          value="Relevance"
         >
           Relevance
         </option>
         <option
-          value="relevance_asc"
+          disabled={false}
+          value="Relevance (asc)"
         >
           Relevance (asc)
         </option>
@@ -868,22 +884,26 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
         value="10"
       >
         <option
-          value="10"
+          disabled={false}
+          value="10 results"
         >
           10 results
         </option>
         <option
-          value="25"
+          disabled={false}
+          value="25 results"
         >
           25 results
         </option>
         <option
-          value="50"
+          disabled={false}
+          value="50 results"
         >
           50 results
         </option>
         <option
-          value="100"
+          disabled={false}
+          value="100 results"
         >
           100 results
         </option>
@@ -906,22 +926,26 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
         onChange={[MockFunction]}
       >
         <option
-          value="created_date_desc"
+          disabled={false}
+          value="Newest to oldest"
         >
           Newest to oldest
         </option>
         <option
-          value="created_date_asc"
+          disabled={false}
+          value="Oldest to newest"
         >
           Oldest to newest
         </option>
         <option
-          value="relevance_desc"
+          disabled={false}
+          value="Relevance"
         >
           Relevance
         </option>
         <option
-          value="relevance_asc"
+          disabled={false}
+          value="Relevance (asc)"
         >
           Relevance (asc)
         </option>
@@ -1340,22 +1364,26 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
         value="10"
       >
         <option
-          value="10"
+          disabled={false}
+          value="10 results"
         >
           10 results
         </option>
         <option
-          value="25"
+          disabled={false}
+          value="25 results"
         >
           25 results
         </option>
         <option
-          value="50"
+          disabled={false}
+          value="50 results"
         >
           50 results
         </option>
         <option
-          value="100"
+          disabled={false}
+          value="100 results"
         >
           100 results
         </option>
@@ -1378,22 +1406,26 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
         onChange={[MockFunction]}
       >
         <option
-          value="created_date_desc"
+          disabled={false}
+          value="Newest to oldest"
         >
           Newest to oldest
         </option>
         <option
-          value="created_date_asc"
+          disabled={false}
+          value="Oldest to newest"
         >
           Oldest to newest
         </option>
         <option
-          value="relevance_desc"
+          disabled={false}
+          value="Relevance"
         >
           Relevance
         </option>
         <option
-          value="relevance_asc"
+          disabled={false}
+          value="Relevance (asc)"
         >
           Relevance (asc)
         </option>
@@ -1787,22 +1819,26 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
         value="10"
       >
         <option
-          value="10"
+          disabled={false}
+          value="10 results"
         >
           10 results
         </option>
         <option
-          value="25"
+          disabled={false}
+          value="25 results"
         >
           25 results
         </option>
         <option
-          value="50"
+          disabled={false}
+          value="50 results"
         >
           50 results
         </option>
         <option
-          value="100"
+          disabled={false}
+          value="100 results"
         >
           100 results
         </option>
@@ -1825,22 +1861,26 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
         onChange={[MockFunction]}
       >
         <option
-          value="created_date_desc"
+          disabled={false}
+          value="Newest to oldest"
         >
           Newest to oldest
         </option>
         <option
-          value="created_date_asc"
+          disabled={false}
+          value="Oldest to newest"
         >
           Oldest to newest
         </option>
         <option
-          value="relevance_desc"
+          disabled={false}
+          value="Relevance"
         >
           Relevance
         </option>
         <option
-          value="relevance_asc"
+          disabled={false}
+          value="Relevance (asc)"
         >
           Relevance (asc)
         </option>
@@ -2064,22 +2104,26 @@ exports[`component:ListPanel only displays data message when both types are stal
         value="10"
       >
         <option
-          value="10"
+          disabled={false}
+          value="10 results"
         >
           10 results
         </option>
         <option
-          value="25"
+          disabled={false}
+          value="25 results"
         >
           25 results
         </option>
         <option
-          value="50"
+          disabled={false}
+          value="50 results"
         >
           50 results
         </option>
         <option
-          value="100"
+          disabled={false}
+          value="100 results"
         >
           100 results
         </option>
@@ -2102,22 +2146,26 @@ exports[`component:ListPanel only displays data message when both types are stal
         onChange={[MockFunction]}
       >
         <option
-          value="created_date_desc"
+          disabled={false}
+          value="Newest to oldest"
         >
           Newest to oldest
         </option>
         <option
-          value="created_date_asc"
+          disabled={false}
+          value="Oldest to newest"
         >
           Oldest to newest
         </option>
         <option
-          value="relevance_desc"
+          disabled={false}
+          value="Relevance"
         >
           Relevance
         </option>
         <option
-          value="relevance_asc"
+          disabled={false}
+          value="Relevance (asc)"
         >
           Relevance (asc)
         </option>
@@ -2512,22 +2560,26 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
         value="10"
       >
         <option
-          value="10"
+          disabled={false}
+          value="10 results"
         >
           10 results
         </option>
         <option
-          value="25"
+          disabled={false}
+          value="25 results"
         >
           25 results
         </option>
         <option
-          value="50"
+          disabled={false}
+          value="50 results"
         >
           50 results
         </option>
         <option
-          value="100"
+          disabled={false}
+          value="100 results"
         >
           100 results
         </option>
@@ -2550,22 +2602,26 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
         onChange={[MockFunction]}
       >
         <option
-          value="created_date_desc"
+          disabled={false}
+          value="Newest to oldest"
         >
           Newest to oldest
         </option>
         <option
-          value="created_date_asc"
+          disabled={false}
+          value="Oldest to newest"
         >
           Oldest to newest
         </option>
         <option
-          value="relevance_desc"
+          disabled={false}
+          value="Relevance"
         >
           Relevance
         </option>
         <option
-          value="relevance_asc"
+          disabled={false}
+          value="Relevance (asc)"
         >
           Relevance (asc)
         </option>
@@ -2959,22 +3015,26 @@ exports[`component:ListPanel renders without crashing 1`] = `
         value="10"
       >
         <option
-          value="10"
+          disabled={false}
+          value="10 results"
         >
           10 results
         </option>
         <option
-          value="25"
+          disabled={false}
+          value="25 results"
         >
           25 results
         </option>
         <option
-          value="50"
+          disabled={false}
+          value="50 results"
         >
           50 results
         </option>
         <option
-          value="100"
+          disabled={false}
+          value="100 results"
         >
           100 results
         </option>
@@ -2997,22 +3057,26 @@ exports[`component:ListPanel renders without crashing 1`] = `
         onChange={[MockFunction]}
       >
         <option
-          value="created_date_desc"
+          disabled={false}
+          value="Newest to oldest"
         >
           Newest to oldest
         </option>
         <option
-          value="created_date_asc"
+          disabled={false}
+          value="Oldest to newest"
         >
           Oldest to newest
         </option>
         <option
-          value="relevance_desc"
+          disabled={false}
+          value="Relevance"
         >
           Relevance
         </option>
         <option
-          value="relevance_asc"
+          disabled={false}
+          value="Relevance (asc)"
         >
           Relevance (asc)
         </option>
