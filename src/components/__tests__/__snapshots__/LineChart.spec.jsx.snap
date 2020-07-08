@@ -1,23 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`component: LineChart initial state renders data lens without crashing 1`] = `
-<div>
+<div
+  className="chart-wrapper"
+>
   <h2>
     foo
   </h2>
+  <p
+    className="y-axis-label"
+  >
+    Complaints
+  </p>
   <div
     id="line-chart"
   />
+  <p
+    className="x-axis-label"
+  >
+    Date Received by the CFPB
+  </p>
 </div>
 `;
 
 exports[`component: LineChart initial state renders without crashing 1`] = `
-<div>
+<div
+  className="chart-wrapper"
+>
   <h2>
     foo
   </h2>
+  <p
+    className="y-axis-label"
+  >
+    Complaints
+  </p>
   <div
     id="line-chart"
   />
+  <p
+    className="x-axis-label"
+  >
+    Date Received by the CFPB
+  </p>
 </div>
 `;
