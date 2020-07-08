@@ -2,6 +2,7 @@
 import { changeFocus } from '../../actions/trends'
 import CompanyTypeahead from '../Filters/CompanyTypeahead'
 import { connect } from 'react-redux'
+import { externalTooltipFormatter } from '../../utils/chart'
 import iconMap from '../iconMap'
 import React from 'react'
 import { removeFilter } from '../../actions/filter'
@@ -90,19 +91,15 @@ export const mapDispatchToProps = dispatch => ( {
   }
 } )
 
-
 export const mapStateToProps = state => {
+  const { chartType, tooltip } = state.trends
   const { focus, lens } = state.query
   return {
     focus: focus ? 'focus' : '',
     lens,
     showCompanyTypeahead: lens === 'Company' && !focus,
-    showTotal: state.trends.chartType === 'area',
-      tooltip: state.trends.tooltip ? {
-      ...state.trends.tooltip,
-      heading: state.trends.tooltip.title.split( ':' )[0] + ':',
-      date: state.trends.tooltip.title.split( ':' )[1].trim()
-    } : state.trends.tooltip
+    showTotal: chartType === 'area',
+    tooltip: externalTooltipFormatter( tooltip )
   }
 }
 
