@@ -144,7 +144,6 @@ export const getD3Names = ( obj, nameMap, expandedTrends ) => {
     hasChildren: Boolean( obj.hasChildren ),
     isNotFilter: false,
     isParent: Boolean( obj.isParent ),
-    pctOfSet: Number( obj.pctOfSet ),
     name: name,
     value: Number( obj.doc_count ),
     parent: obj.parent || false,

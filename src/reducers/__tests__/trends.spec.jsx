@@ -3,19 +3,24 @@ import target, {
 } from '../trends'
 import actions from '../../actions'
 import {
+  trendsBackfill,
+  trendsBackfillResults
+} from '../__fixtures__/trendsBackfill'
+import {
   trendsFocusAggs,
   trendsFocusAggsResults
 } from '../__fixtures__/trendsFocusAggs'
 import {
-  trendsLensIssueResults,
   trendsResults
 } from '../__fixtures__/trendsResults'
 import trendsAggs from '../__fixtures__/trendsAggs'
-import trendsAggsDupes from '../__fixtures__/trendsAggsDupes'
-import trendsAggsDupeResults from '../__fixtures__/trendsAggsDupeResults'
-import trendsAggsMissingBuckets from '../__fixtures__/trendsAggsMissingBuckets'
-import trendsAggsMissingBucketsResults
-  from '../__fixtures__/trendsAggsMissingBucketsResults'
+import {
+  trendsAggsDupes, trendsAggsDupeResults
+} from '../__fixtures__/trendsAggsDupes'
+import {
+  trendsAggsMissingBuckets,
+  trendsAggsMissingBucketsResults
+} from '../__fixtures__/trendsAggsMissingBuckets'
 
 describe( 'reducer:trends', () => {
   let action, result
@@ -34,10 +39,9 @@ describe( 'reducer:trends', () => {
         lastDate: false,
         lens: 'Overview',
         results: {
+          company: [],
           dateRangeArea: [],
           dateRangeLine: [],
-          dateRangeBrush: [],
-          issue: [],
           product: []
         },
         subLens: '',
@@ -164,10 +168,9 @@ describe( 'reducer:trends', () => {
 
       expect( target( { results: [ 1, 2, 3 ] }, action ) ).toEqual( {
         results: {
+          company: [],
           dateRangeArea: [],
-          dateRangeBrush: [],
           dateRangeLine: [],
-          issue: [],
           product: []
         }
       } )
@@ -196,7 +199,6 @@ describe( 'reducer:trends', () => {
         activeCall: 'someurl',
         results: {
           dateRangeArea: [ 1, 2, 3 ],
-          dateRangeBrush: [ 4, 5, 6 ],
           dateRangeLine: [ 7, 8, 9 ],
           issue: [ 10, 11, 12 ],
           product: [ 13, 25 ]
@@ -207,7 +209,6 @@ describe( 'reducer:trends', () => {
         isLoading: false,
         results: {
           dateRangeArea: [],
-          dateRangeBrush: [],
           dateRangeLine: [],
           issue: [],
           product: []
@@ -229,21 +230,12 @@ describe( 'reducer:trends', () => {
     } )
 
     it( 'maps data to object state - Overview', () => {
+      // to replicate
+      // just choose All date range and overview
       result = target( state, action )
       expect( result ).toEqual( trendsResults )
     } )
 
-    // Issue was removed from the aggregations. Retaining test
-    // in case the feature is enabled JRC 7-6-20
-    it( 'maps data to object state - Issue Lens', () => {
-      state.lens = 'Issue'
-      result = target( state, action )
-      expect( result ).toEqual( trendsLensIssueResults )
-    } )
-
-    // This test is causing a pctChange = 'null' error, but otherwise passing
-    // JRC 7-7
-    // pctChange comes from briteCharts rowcharts in the browser
     it( 'maps data to object state - dupe rows', () => {
       action.data.aggregations = trendsAggsDupes
       result = target( state, action )
@@ -251,6 +243,11 @@ describe( 'reducer:trends', () => {
     } )
 
     it( 'maps data to object state - Missing Bucket', () => {
+      // to replicate this
+      // ?date_received_max=2017-07-08
+      // &date_received_min=2017-03-08
+      // &from=0&lens=Product&tab=Trends
+      // you'll get broken buckets since the product recategorization in apr
       state.lens = 'Product'
       action.data.aggregations = trendsAggsMissingBuckets
       result = target( state, action )
@@ -265,6 +262,15 @@ describe( 'reducer:trends', () => {
       result = target( state, action )
       expect( result ).toEqual( trendsFocusAggsResults )
     } )
+
+    it('backfills periods based on dateRangeBuckets ', () =>{
+      state.chartType = 'area'
+      state.lens = 'Product'
+      state.subLens = 'sub-product'
+      action.data.aggregations = trendsBackfill
+      result = target( state, action )
+      expect( result ).toEqual( trendsBackfillResults )
+    })
 
   } )
 

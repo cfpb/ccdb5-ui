@@ -192,7 +192,7 @@ describe( 'reducer:map', () => {
               isParent: true,
               name: "alpha",
               parent: false,
-              pctOfSet: NaN,
+
               value: 600,
               visible: true,
               width: 0.5
@@ -203,7 +203,6 @@ describe( 'reducer:map', () => {
               isParent: true,
               name: "bar",
               parent: false,
-              pctOfSet: NaN,
               value: 150,
               visible: true,
               width: 0.5
@@ -214,7 +213,7 @@ describe( 'reducer:map', () => {
               isParent: true,
               name: "car",
               parent: false,
-              pctOfSet: NaN,
+
               value: 125,
               visible: true,
               width: 0.5
@@ -225,7 +224,6 @@ describe( 'reducer:map', () => {
               isParent: true,
               name: "delta",
               parent: false,
-              pctOfSet: NaN,
               value: 75,
               visible: true,
               width: 0.5
@@ -236,7 +234,7 @@ describe( 'reducer:map', () => {
               isParent: true,
               name: "elephant",
               parent: false,
-              pctOfSet: NaN,
+
               value: 50,
               visible: true,
               width: 0.5
@@ -249,7 +247,6 @@ describe( 'reducer:map', () => {
               isParent: true,
               name: "foo",
               parent: false,
-              pctOfSet: NaN,
               value: 600,
               visible: true,
               width: 0.5
@@ -259,7 +256,6 @@ describe( 'reducer:map', () => {
               isParent: true,
               name: "goo",
               parent: false,
-              pctOfSet: NaN,
               value: 150,
               visible: true,
               width: 0.5
@@ -269,7 +265,6 @@ describe( 'reducer:map', () => {
               isParent: true,
               name: "hi",
               parent: false,
-              pctOfSet: NaN,
               value: 125,
               visible: true,
               width: 0.5
@@ -279,7 +274,6 @@ describe( 'reducer:map', () => {
               isParent: true,
               name: "indigo",
               parent: false,
-              pctOfSet: NaN,
               value: 75,
               visible: true,
               width: 0.5
@@ -289,7 +283,6 @@ describe( 'reducer:map', () => {
               isParent: true,
               name: "joker",
               parent: false,
-              pctOfSet: NaN,
               value: 50,
               visible: true,
               width: 0.5
