@@ -7,14 +7,15 @@ import React from 'react'
 
 export class FocusHeader extends React.Component {
   render() {
-    const { focus, total } = this.props
+    const { focus, lens, total } = this.props
     return <div className={ 'focus-header' }>
       <button className={ 'a-btn a-btn__link clear-focus' }
               id={ 'clear-focus' }
               onClick={ () => {
-                this.props.clearFocus()
+                this.props.clearFocus( lens )
               } }>
-        { iconMap.getIcon( 'left' ) }Back to trends
+        { iconMap.getIcon( 'left' ) }
+        { 'View ' + lens.toLowerCase() + ' trends' }
       </button>
       <div>
         <section className="focus">
@@ -30,13 +31,14 @@ export class FocusHeader extends React.Component {
 
 
 export const mapDispatchToProps = dispatch => ( {
-  clearFocus: () => {
-    dispatch( changeFocus( '' ) )
+  clearFocus: lens => {
+    dispatch( changeFocus( '', lens ) )
   }
 } )
 
 export const mapStateToProps = state => ( {
   focus: state.query.focus,
+  lens: state.query.lens,
   total: state.trends.total.toLocaleString()
 } )
 
