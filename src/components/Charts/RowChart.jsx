@@ -89,8 +89,9 @@ export class RowChart extends React.Component {
     const {
       colorScheme, data, id, printMode, toggleRow, total
     } = this.props
-
-    const rows = data.filter( o => {
+    // deep copy
+    // do this to prevent REDUX pollution
+    const rows = JSON.parse( JSON.stringify( data ) ).filter( o => {
       if ( this.props.showTrends ) {
         return true
       }
