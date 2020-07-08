@@ -22,7 +22,7 @@ export class TrendDepthToggle extends React.Component {
   }
 
   render() {
-    const { diff, increaseDepth, resetDepth, showToggle } = this.props
+    const { diff, increaseDepth, depthReset, showToggle } = this.props
     if ( showToggle ) {
       if ( this._showMore() ) {
         return <div className={ 'trend-depth-toggle' }>
@@ -40,7 +40,7 @@ export class TrendDepthToggle extends React.Component {
         <button className={ 'a-btn a-btn__link' }
                 id={ 'trend-depth-button' }
                 onClick={ () => {
-                  resetDepth()
+                  depthReset()
                 } }>
           <span className={ 'minus' }></span>
           Show less
@@ -56,7 +56,7 @@ export const mapDispatchToProps = dispatch => ( {
   increaseDepth: diff => {
     dispatch( changeDepth( diff + 5 ) )
   },
-  resetDepth: () => {
+  depthReset: () => {
     dispatch( resetDepth() )
   }
 } )
