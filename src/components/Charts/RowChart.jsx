@@ -87,8 +87,17 @@ export class RowChart extends React.Component {
   // eslint-disable-next-line complexity
   _redrawChart() {
     const {
-      colorScheme, data: rows, id, printMode, toggleRow, total
+      colorScheme, data, id, printMode, toggleRow, total
     } = this.props
+
+    const rows = data.filter( o => {
+      if ( this.props.showTrends ) {
+        return true
+      }
+
+      return o.name ? o.name.indexOf( 'More Information about' ) === -1 : true
+    } )
+
     if ( !rows || !rows.length || !total ) {
       return
     }
@@ -179,10 +188,11 @@ export const mapDispatchToProps = dispatch => ( {
 
 export const mapStateToProps = state => {
   const lens = state.query.tab === MODE_MAP ? 'Product' : state.query.lens
-  const { printMode, width } = state.view
+  const { printMode, showTrends, width } = state.view
   return {
     lens,
     printMode,
+    showTrends,
     width
   }
 }
