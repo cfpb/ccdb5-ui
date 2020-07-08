@@ -235,14 +235,15 @@ describe( 'reducer:trends', () => {
 
     // Issue was removed from the aggregations. Retaining test
     // in case the feature is enabled JRC 7-6-20
-    // it( 'maps data to object state - Issue Lens', () => {
-    //   state.lens = 'Issue'
-    //   result = target( state, action )
-    //   expect( result ).toEqual( trendsLensIssueResults )
-    // } )
+    it( 'maps data to object state - Issue Lens', () => {
+      state.lens = 'Issue'
+      result = target( state, action )
+      expect( result ).toEqual( trendsLensIssueResults )
+    } )
 
     // This test is causing a pctChange = 'null' error, but otherwise passing
     // JRC 7-7
+    // pctChange comes from briteCharts rowcharts in the browser
     it( 'maps data to object state - dupe rows', () => {
       action.data.aggregations = trendsAggsDupes
       result = target( state, action )
