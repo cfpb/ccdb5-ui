@@ -12,15 +12,17 @@ import { REQUERY_ALWAYS } from '../../constants'
 import { shallow } from 'enzyme'
 import thunk from 'redux-thunk'
 
-function setupEnzyme( { cbIncrease, cbReset, diff } ) {
+function setupEnzyme( { cbIncrease, cbReset, diff, queryCount, resultCount } ) {
   return shallow( <TrendDepthToggle diff={ diff }
                                     increaseDepth={ cbIncrease }
                                     lens={ 'Product' }
-                                    resetDepth={ cbReset }
+                                    depthReset={ cbReset }
+                                    queryCount={ queryCount }
+                                    resultCount={ resultCount }
                                     showToggle={ true }/> )
 }
 
-function setupSnapshot( { focus, lens, productAggs } ) {
+function setupSnapshot( { focus, lens, productAggs, productResults } ) {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
   const store = mockStore( {
@@ -33,11 +35,7 @@ function setupSnapshot( { focus, lens, productAggs } ) {
     },
     trends: {
       results: {
-        product: [ { name: 'a', visible: true }, { name: 'b', visible: true },
-          { name: 'c', visible: true }, { name: 'd', visible: true },
-          { name: 'e', visible: true }, { name: 'f', visible: true },
-          { name: 'g', visible: true }, { name: 'h', visible: true }
-        ]
+        product: productResults
       }
     }
   } )
@@ -58,7 +56,12 @@ describe( 'component:TrendDepthToggle', () => {
     params = {
       focus: '',
       lens: '',
-      productAggs: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]
+      productAggs: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ],
+      productResults: [ { name: 'a', visible: true }, { name: 'b', visible: true },
+        { name: 'c', visible: true }, { name: 'd', visible: true },
+        { name: 'e', visible: true }, { name: 'f', visible: true },
+        { name: 'g', visible: true }, { name: 'h', visible: true }
+      ]
     }
   } )
 
@@ -84,9 +87,19 @@ describe( 'component:TrendDepthToggle', () => {
     expect( tree ).toMatchSnapshot()
   } )
 
-  it( 'renders Product view fewer without crashing', () => {
+  it( 'renders Product view less without crashing', () => {
     params.lens = 'Product'
     params.productAggs = [ 1, 2, 3, 4, 5 ]
+    params.productResults = [
+      { name: 'a', visible: true, isParent: true },
+      { name: 'b', visible: true, isParent: true },
+      { name: 'c', visible: true, isParent: true },
+      { name: 'd', visible: true, isParent: true },
+      { name: 'e', visible: true, isParent: true },
+      { name: 'f', visible: true, isParent: true },
+      { name: 'g', visible: true, isParent: true },
+      { name: 'h', visible: true, isParent: true }
+    ]
     const target = setupSnapshot( params )
     const tree = target.toJSON()
     expect( tree ).toMatchSnapshot()
@@ -104,14 +117,20 @@ describe( 'component:TrendDepthToggle', () => {
     } )
 
     it( 'increaseDepth is called when the increase button is clicked', () => {
-      target = setupEnzyme( { cbIncrease, cbReset, diff: 1000 } )
+      target = setupEnzyme( { cbIncrease, cbReset, diff: 1000, resultCount: 5 } )
       const prev = target.find( '#trend-depth-button' )
       prev.simulate( 'click' )
       expect( cbIncrease ).toHaveBeenCalledWith( 1000 )
     } )
 
     it( 'reset depth is called when the reset button is clicked', () => {
-      target = setupEnzyme( { cbIncrease, cbReset, diff: 0 } )
+      target = setupEnzyme( {
+        cbIncrease,
+        cbReset,
+        diff: 0,
+        queryCount: 10,
+        resultCount: 10
+      } )
       const prev = target.find( '#trend-depth-button' )
       prev.simulate( 'click' )
       expect( cbReset ).toHaveBeenCalled()
@@ -133,7 +152,7 @@ describe( 'component:TrendDepthToggle', () => {
 
     it( 'hooks into resetDepth', () => {
       const dispatch = jest.fn()
-      mapDispatchToProps( dispatch ).resetDepth()
+      mapDispatchToProps( dispatch ).depthReset()
       expect( dispatch.mock.calls ).toEqual( [
         [ {
           requery: REQUERY_ALWAYS,
@@ -170,6 +189,8 @@ describe( 'component:TrendDepthToggle', () => {
       let actual = mapStateToProps( state )
       expect( actual ).toEqual( {
         diff: 3,
+        queryCount: 11,
+        resultCount: 0,
         showToggle: true
       } )
     } )
@@ -204,6 +225,8 @@ describe( 'component:TrendDepthToggle', () => {
         const actual = mapStateToProps( state )
         expect( actual ).toEqual( {
           diff: 0,
+          queryCount: 11,
+          resultCount: 0,
           showToggle: true
         } )
       } )
@@ -214,6 +237,8 @@ describe( 'component:TrendDepthToggle', () => {
         const actual = mapStateToProps( state )
         expect( actual ).toEqual( {
           diff: 5,
+          queryCount: 11,
+          resultCount: 0,
           showToggle: true
         } )
       } )
