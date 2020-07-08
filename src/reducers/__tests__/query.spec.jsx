@@ -1,10 +1,10 @@
 import target, {
   alignDateRange, defaultQuery, filterArrayAction
 } from '../query'
+import { MODE_TRENDS, REQUERY_HITS_ONLY } from '../../constants'
 import actions from '../../actions'
 import * as types from '../../constants'
 
-import { REQUERY_HITS_ONLY } from '../../constants'
 import moment from 'moment'
 import { startOfToday }  from '../../utils'
 
@@ -100,27 +100,33 @@ describe( 'reducer:query', () => {
     } )
   } )
 
-  describe( 'Map Warning', ()=>{
-    it('handles MAP_WARNING_DISMISSED action', ()=>{
+  describe( 'trend depth', () => {
+    it( 'handles DEPTH_CHANGED', () => {
       const action = {
-        type: actions.MAP_WARNING_DISMISSED
+        type: actions.DEPTH_CHANGED,
+        depth: 13
       }
       const state = {
-        company: [1,2,3],
-        foo: 'bar',
-        mapWarningEnabled: true,
-        tab: types.MODE_MAP
+        trendDepth: 5
       }
       expect( target( state, action ) ).toEqual( {
-        company: [1,2,3],
-        enablePer1000: false,
-        foo: 'bar',
-        mapWarningEnabled: false,
-        queryString: '?company=1&company=2&company=3&foo=bar&tab=Map',
-        tab: types.MODE_MAP
+        queryString: '?trend_depth=13',
+        trendDepth: 13
       } )
-    })
-  })
+    } )
+    it( 'handles DEPTH_RESET', () => {
+      const action = {
+        type: actions.DEPTH_RESET
+      }
+      const state = {
+        trendDepth: 10000
+      }
+      expect( target( state, action ) ).toEqual( {
+        queryString: '?trend_depth=5',
+        trendDepth: 5
+      } )
+    } )
+  } )
 
   describe( 'Pager', () => {
     it( 'handles PAGE_CHANGED actions', () => {
@@ -320,6 +326,14 @@ describe( 'reducer:query', () => {
       const actual = target( {}, action )
       expect( actual.product ).toEqual( [ 'Debt Collection', 'Mortgage' ] )
     } )
+
+    it( 'handles a trendDepth param', () => {
+      action.params = { lens: 'Product', trendDepth: 1000 }
+      const actual = target( {}, action )
+      expect( actual.lens ).toEqual( 'Product' )
+      expect( actual.trendDepth ).toEqual( 1000 )
+    } )
+
 
     it( 'handles the "All" button from the landing page' , () => {
       const dateMin = new Date( types.DATE_RANGE_MIN )
@@ -837,10 +851,42 @@ describe( 'reducer:query', () => {
           queryString: '?dateRange=foo&date_received_max=2020-05-05'
         } )
       } )
+
+      it( 'On Trends Tab handles All range', () => {
+        action.dateRange = 'All'
+        const state = { dateInterval: 'Day', tab: MODE_TRENDS }
+        result = target( state, action )
+        expect( result.dateInterval ).toEqual( 'Week' )
+        expect( result.trendsDateWarningEnabled ).toEqual( true )
+      } )
+
     } )
   } )
 
   describe( 'Map', () => {
+
+    describe( 'Map Warning', () => {
+      it( 'handles MAP_WARNING_DISMISSED action', () => {
+        const action = {
+          type: actions.MAP_WARNING_DISMISSED
+        }
+        const state = {
+          company: [ 1, 2, 3 ],
+          foo: 'bar',
+          mapWarningEnabled: true,
+          tab: types.MODE_MAP
+        }
+        expect( target( state, action ) ).toEqual( {
+          company: [ 1, 2, 3 ],
+          enablePer1000: false,
+          foo: 'bar',
+          mapWarningEnabled: false,
+          queryString: '?company=1&company=2&company=3&foo=bar&tab=Map',
+          tab: types.MODE_MAP
+        } )
+      } )
+    } )
+
     let action, res
     describe( 'STATE_COMPLAINTS_SHOWN', () => {
       it( 'switches to List View', () => {
@@ -984,18 +1030,70 @@ describe( 'reducer:query', () => {
   } )
 
   describe( 'Trends', () => {
+    describe( 'Trends Date Warning', () => {
+      it( 'handles TRENDS_DATE_WARNING_DISMISSED action', () => {
+        const action = {
+          type: actions.TRENDS_DATE_WARNING_DISMISSED
+        }
+        const state = {
+          trendsDateWarningEnabled: true
+        }
+        expect( target( state, action ) ).toEqual( {
+          queryString: '',
+          trendsDateWarningEnabled: false
+        } )
+      } )
+    } )
+
+    describe( 'CHART_TYPE_CHANGED actions', () => {
+      it( 'changes the chartType', () => {
+        const action = {
+          type: actions.CHART_TYPE_CHANGED,
+          chartType: 'Foo'
+        }
+        const result = target( { chartType: 'ahha' },
+          action )
+        expect( result ).toEqual( {
+          chartType: 'Foo',
+          queryString: '?chartType=Foo',
+        } )
+      } )
+    } )
+
     describe( 'DATA_LENS_CHANGED actions', () => {
       it( 'changes the lens', () => {
         const action = {
           type: actions.DATA_LENS_CHANGED,
           lens: 'Foo'
         }
-        const result = target( { tab: types.MODE_TRENDS }, action )
+        const result = target( { tab: types.MODE_TRENDS, focus: 'ahha' },
+          action )
         expect( result ).toEqual( {
+          focus: '',
           lens: 'Foo',
           subLens: 'sub_foo',
-          queryString: '?lens=foo&sub_lens=sub_foo&tab=Trends',
-          tab: 'Trends'
+          queryString: '?lens=foo&sub_lens=sub_foo&tab=Trends&trend_depth=5',
+          tab: 'Trends',
+          trendDepth: 5,
+          trendsDateWarningEnabled: false
+        } )
+      } )
+
+      it( 'has special values when lens = Company', () => {
+        const action = {
+          type: actions.DATA_LENS_CHANGED,
+          lens: 'Company'
+        }
+        const result = target( { tab: types.MODE_TRENDS, focus: 'ahha' },
+          action )
+        expect( result ).toEqual( {
+          focus: '',
+          lens: 'Company',
+          subLens: 'product',
+          queryString: '?lens=company&sub_lens=product&tab=Trends&trend_depth=10',
+          tab: 'Trends',
+          trendDepth: 10,
+          trendsDateWarningEnabled: false
         } )
       } )
     } )
@@ -1010,7 +1108,8 @@ describe( 'reducer:query', () => {
         expect( result ).toEqual( {
           subLens: 'issue',
           queryString: '?sub_lens=issue&tab=Trends',
-          tab: 'Trends'
+          tab: 'Trends',
+          trendsDateWarningEnabled: false
         } )
       } )
     } )
@@ -1025,7 +1124,27 @@ describe( 'reducer:query', () => {
         expect( result ).toEqual( {
           dateInterval: 'Day',
           queryString: '?tab=Trends&trend_interval=day',
-          tab: 'Trends'
+          tab: 'Trends',
+          trendsDateWarningEnabled: false
+        } )
+      } )
+    } )
+
+    describe( 'FOCUS_CHANGED actions', () => {
+      it( 'changes the focus', () => {
+        const action = {
+          type: actions.FOCUS_CHANGED,
+          focus: 'Something',
+          lens: 'Product'
+        }
+        const result = target( { focus: 'Else' }, action )
+        expect( result ).toEqual( {
+          focus: 'Something',
+          lens: 'Product',
+          queryString: '?focus=Something&lens=product&sub_lens=sub_product&tab=Trends',
+          subLens: 'sub_product',
+          tab: 'Trends',
+          trendsDateWarningEnabled: false
         } )
       } )
     } )

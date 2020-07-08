@@ -341,6 +341,25 @@ describe('action::complaints', () => {
   describe('getTrends', () => {
     let onSuccess, onFail, store
 
+    function setupStore( company, lens ) {
+      const mockState = {
+        query: {
+          company,
+          date_received_min: new Date(2013, 1, 3),
+          from: 0,
+          has_narrative: true,
+          queryString: '?foo',
+          searchText: '',
+          size: 10,
+        },
+        trends: {
+          activeCall: '',
+          lens
+        }
+      }
+      return mockStore(mockState)
+    }
+
     beforeEach(() => {
       global.fetch = jest.fn().mockImplementation((url) => {
         expect(url).toContain(
@@ -362,27 +381,25 @@ describe('action::complaints', () => {
         }
       })
 
-      store = mockStore({
-        query: {
-          date_received_min: new Date(2013, 1, 3),
-          from: 0,
-          has_narrative: true,
-          queryString: '?foo',
-          searchText: '',
-          size: 10,
-        },
-        trends: {
-          activeCall: ''
-        }
-      })
     })
 
     it('calls the API', () => {
+      store = setupStore()
       store.dispatch(sut.getTrends())
       expect(global.fetch).toHaveBeenCalled()
     })
 
+    it('discards invalid API calls', () => {
+      store = setupStore( [], 'Company' )
+      const s = store.getState()
+      store = mockStore(s)
+
+      store.dispatch(sut.getTrends())
+      expect(global.fetch).not.toHaveBeenCalled()
+    })
+
     it('discards duplicate API calls', () => {
+      store = setupStore()
       const s = store.getState()
       s.trends.activeCall = '@@APItrends/' + s.query.queryString + '&no_aggs=true'
       store = mockStore(s)
@@ -393,6 +410,7 @@ describe('action::complaints', () => {
 
     describe('when the API call is finished', () => {
       it('sends a simple action when data is received', () => {
+        store = setupStore()
         store.dispatch(sut.getTrends())
         const expectedActions = [
           { type: sut.TRENDS_API_CALLED, url: expect.any(String) },
@@ -403,6 +421,7 @@ describe('action::complaints', () => {
       })
 
       it('sends a different simple action when an error occurs', () => {
+        store = setupStore()
         store.dispatch(sut.getTrends())
         const expectedActions = [
           { type: sut.TRENDS_API_CALLED, url: expect.any(String) },

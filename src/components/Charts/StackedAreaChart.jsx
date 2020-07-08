@@ -41,15 +41,27 @@ export class StackedAreaChart extends React.Component {
     }
   }
 
+  _chartWidth( chartID ) {
+    const { printMode } = this.props
+    if ( printMode ) {
+      return 540
+    }
+    const container = d3.select( chartID )
+    return container.node().getBoundingClientRect().width
+  }
+
+
   _redrawChart() {
-    const { colorMap, data, dateRange, interval, lastDate } = this.props
+    const {
+      colorMap, data, dateRange, interval, lastDate
+    } = this.props
     if ( !data || !data.length ) {
       return
     }
 
     const chartID = '#stacked-area-chart'
     const container = d3.select( chartID )
-    const containerWidth = container.node().getBoundingClientRect().width
+    const width = this._chartWidth( chartID )
     d3.select( chartID + ' .stacked-area' ).remove()
     const stackedAreaChart = stackedArea()
     const colorScheme = [ ...new Set( data.map( item => item.name ) ) ]
@@ -57,14 +69,14 @@ export class StackedAreaChart extends React.Component {
       .map( o => colorMap[o] )
     colorScheme.push( colors.DataLens[10] )
 
-    stackedAreaChart.margin( { left: 50, right: 10, top: 10, bottom: 40 } )
+    stackedAreaChart.margin( { left: 70, right: 10, top: 10, bottom: 40 } )
       .areaCurve( 'linear' )
       .initializeVerticalMarker( true )
       .isAnimated( false )
       .tooltipThreshold( 1 )
       .grid( 'horizontal' )
       .aspectRatio( 0.5 )
-      .width( containerWidth )
+      .width( width )
       .dateLabel( 'date' )
       .colorSchema( colorScheme )
       .on( 'customMouseMove', this._updateTooltip )

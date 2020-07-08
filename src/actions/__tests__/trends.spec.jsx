@@ -35,6 +35,27 @@ describe( 'action:trendsActions', () => {
     } )
   } )
 
+  describe( 'changeDepth', () => {
+    it( 'creates a simple action', () => {
+      const expectedAction = {
+        type: sut.DEPTH_CHANGED,
+        depth: 1000,
+        requery: REQUERY_ALWAYS
+      }
+      expect( sut.changeDepth( 1000 ) ).toEqual( expectedAction )
+    } )
+  } )
+
+  describe( 'resetDepth', () => {
+    it( 'creates a simple action', () => {
+      const expectedAction = {
+        type: sut.DEPTH_RESET,
+        requery: REQUERY_ALWAYS
+      }
+      expect( sut.resetDepth() ).toEqual( expectedAction )
+    } )
+  } )
+
   describe( 'changeFocus', () => {
     it( 'creates a simple action', () => {
       const expectedAction = {

@@ -1,35 +1,37 @@
-/* eslint complexity: ["error", 7] */
-
 import * as types from '../constants'
 import {
   calculateDateRange, clamp, hasFiltersEnabled, shortIsoFormat, startOfToday
 } from '../utils'
+import { getSubLens, isGreaterThanYear } from '../utils/trends'
 import actions from '../actions'
-import { getSubLens } from '../utils/trends'
 import moment from 'moment';
 
 const queryString = require( 'query-string' );
 
 /* eslint-disable camelcase */
 export const defaultQuery = {
-  dateRange: '3y',
-  lens: 'Overview',
-  subLens: '',
+  chartType: 'line',
   dateInterval: 'Month',
+  dateRange: '3y',
   date_received_max: startOfToday(),
   date_received_min: new Date(
     moment( startOfToday() ).subtract( 3, 'years' )
   ),
   enablePer1000: true,
+  focus: '',
   from: 0,
   mapWarningEnabled: true,
-  searchText: '',
+  lens: 'Overview',
+  page: 1,
   searchField: 'all',
+  searchText: '',
   size: 25,
   sort: 'created_date_desc',
-  page: 1,
+  subLens: '',
   tab: types.MODE_MAP,
-  totalPages: 0
+  totalPages: 0,
+  trendDepth: 5,
+  trendsDateWarningEnabled: false
 }
 
 const fieldMap = {
@@ -41,17 +43,20 @@ const fieldMap = {
 const trendFieldMap = {
   dateInterval: 'trend_interval',
   lens: 'lens',
-  subLens: 'sub_lens'
+  subLens: 'sub_lens',
+  trendDepth: 'trend_depth'
 }
 
 const urlParams = [
   'dateRange', 'searchText', 'searchField', 'tab',
-  'lens', 'dateInterval', 'subLens'
+  'lens', 'dateInterval', 'subLens', 'focus', 'chartType'
 ]
-const urlParamsInt = [ 'from', 'page', 'size' ]
+const urlParamsInt = [ 'from', 'page', 'size', 'trendDepth' ]
 
 // ----------------------------------------------------------------------------
 // Helper functions
+
+/* eslint-disable complexity */
 
 /**
 * Makes sure the date range reflects the actual dates selected
@@ -97,6 +102,9 @@ export function alignDateRange( state ) {
 
   return state
 }
+
+
+/* eslint-enable complexity */
 
 /**
 * Check for a common case where there is a date range but no dates
@@ -252,7 +260,7 @@ export function changeDateRange( state, action ) {
 
   newState.date_received_max = maxDate
 
-  return newState;
+  return newState
 }
 
 /**
@@ -263,7 +271,6 @@ export function changeDateRange( state, action ) {
 * @returns {object} the new state for the Redux store
 */
 export function changeDates( state, action ) {
-
   const fields = [
     action.filterName + '_min',
     action.filterName + '_max'
@@ -298,6 +305,27 @@ export function changeDates( state, action ) {
   }
 
   return newState
+}
+
+/**
+ * Makes sure that we have a valid dateInterval is selected, or moves to week
+ * when the date range > 1yr
+ *
+ * @param {object} queryState the current state of query reducer
+ */
+export function validateDateInterval( queryState ) {
+  const { date_received_min, date_received_max, dateInterval } = queryState
+  // determine if we need to update date Interval if range > 1 yr
+  if ( isGreaterThanYear( date_received_min, date_received_max ) &&
+    dateInterval === 'Day' ) {
+    queryState.dateInterval = 'Week'
+    queryState.trendsDateWarningEnabled = true
+  }
+
+  // > 1yr, so we can go ahead and disable the warning
+  if ( !isGreaterThanYear( date_received_min, date_received_max ) ) {
+    queryState.trendsDateWarningEnabled = false
+  }
 }
 
 /**
@@ -581,6 +609,19 @@ export function dismissMapWarning( state ) {
 }
 
 /**
+ * Handler for the dismiss trends warning action
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+export function dismissTrendsDateWarning( state ) {
+  return {
+    ...state,
+    trendsDateWarningEnabled: false
+  }
+}
+
+/**
  * Update state based on the sort order changed action
  *
  * @param {object} state the current state in the Redux store
@@ -673,6 +714,48 @@ function updateTotalPages( state, action ) {
   }
 }
 
+/** Handler for the depth changed action
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the command being executed
+ * @returns {object} the new state for the Redux store
+ */
+function changeDepth( state, action ) {
+  return {
+    ...state,
+    trendDepth: action.depth
+  }
+}
+
+/** Handler for the depth reset action
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+function resetDepth( state ) {
+  return {
+    ...state,
+    trendDepth: 5
+  }
+}
+
+/** Handler for the focus selected action
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the command being executed
+ * @returns {object} the new state for the Redux store
+ */
+function changeFocus( state, action ) {
+  const { focus, lens } = action
+  return {
+    ...state,
+    focus,
+    lens,
+    subLens: getSubLens( lens ),
+    tab: types.MODE_TRENDS
+  }
+}
+
 
 /**
  * update state based on changeDataLens action
@@ -681,10 +764,14 @@ function updateTotalPages( state, action ) {
  * @returns {object} new state in redux
  */
 function changeDataLens( state, action ) {
+  const { lens } = action
+
   return {
     ...state,
-    lens: action.lens,
-    subLens: getSubLens( action.lens )
+    focus: '',
+    lens,
+    subLens: getSubLens( lens ),
+    trendDepth: lens === 'Company' ? 10 : 5
   }
 }
 
@@ -698,6 +785,20 @@ function changeDataSubLens( state, action ) {
   return {
     ...state,
     subLens: action.subLens.toLowerCase()
+  }
+}
+
+/**
+ * Handler for the update chart type action
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the command being executed
+ * @returns {object} the new state for the Redux store
+ */
+export function updateChartType( state, action ) {
+  return {
+    ...state,
+    chartType: action.chartType
   }
 }
 
@@ -715,6 +816,7 @@ export function stateToQS( state ) {
   const fields = Object.keys( state )
 
   // Copy over the fields
+  // eslint-disable-next-line complexity
   fields.forEach( field => {
     // Do not include empty fields
     if ( !state[field] ) {
@@ -743,7 +845,7 @@ export function stateToQS( state ) {
     if ( fieldMap[field] ) {
       params[fieldMap[field]] = value
     } else if ( trendFieldMap[field] ) {
-      params[trendFieldMap[field]] = value.toLowerCase()
+      params[trendFieldMap[field]] = value.toString().toLowerCase()
     } else {
       params[field] = value
     }
@@ -778,18 +880,22 @@ export function validatePer1000( queryState ) {
 // eslint-disable-next-line max-statements, require-jsdoc
 export function _buildHandlerMap() {
   const handlers = {}
+  handlers[actions.CHART_TYPE_CHANGED] = updateChartType
   handlers[actions.COMPLAINTS_RECEIVED] = updateTotalPages
   handlers[actions.DATA_LENS_CHANGED] = changeDataLens
   handlers[actions.DATA_SUBLENS_CHANGED] = changeDataSubLens
   handlers[actions.DATE_INTERVAL_CHANGED] = changeDateInterval
   handlers[actions.DATE_RANGE_CHANGED] = changeDateRange
   handlers[actions.DATES_CHANGED] = changeDates
+  handlers[actions.DEPTH_CHANGED] = changeDepth
+  handlers[actions.DEPTH_RESET] = resetDepth
   handlers[actions.FILTER_ALL_REMOVED] = removeAllFilters
   handlers[actions.FILTER_CHANGED] = toggleFilter
   handlers[actions.FILTER_FLAG_CHANGED] = toggleFlagFilter
   handlers[actions.FILTER_MULTIPLE_ADDED] = addMultipleFilters
   handlers[actions.FILTER_MULTIPLE_REMOVED] = removeMultipleFilters
   handlers[actions.FILTER_REMOVED] = removeFilter
+  handlers[actions.FOCUS_CHANGED] = changeFocus
   handlers[actions.PAGE_CHANGED] = changePage
   handlers[actions.MAP_WARNING_DISMISSED] = dismissMapWarning
   handlers[actions.NEXT_PAGE_SHOWN] = nextPage
@@ -801,6 +907,7 @@ export function _buildHandlerMap() {
   handlers[actions.STATE_FILTER_CLEARED] = clearStateFilter
   handlers[actions.STATE_FILTER_REMOVED] = removeStateFilter
   handlers[actions.TAB_CHANGED] = changeTab
+  handlers[actions.TRENDS_DATE_WARNING_DISMISSED] = dismissTrendsDateWarning
   handlers[actions.URL_CHANGED] = processParams
   handlers[actions.SEARCH_CHANGED] = changeSearch
 
@@ -831,6 +938,12 @@ export default ( state = defaultQuery, action ) => {
     // only update the map warning items when we're on the map tab
     validatePer1000( newState )
   }
+
+  if ( newState.tab === types.MODE_TRENDS ) {
+    // swap date interval in cases where the date range is > 1yr
+    validateDateInterval( newState )
+  }
+
 
   const qs = stateToQS( newState )
   newState.queryString = qs === '?' ? '' : qs

@@ -2,15 +2,21 @@
 
 import './RowChart.less'
 import * as d3 from 'd3'
+import { changeFocus, toggleTrend } from '../../actions/trends'
 import { miniTooltip, row } from 'britecharts'
 import { connect } from 'react-redux'
 import { hashObject } from '../../utils'
 import { max } from 'd3-array'
+import { MODE_MAP } from '../../constants'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { toggleTrend } from '../../actions/trends'
+
 
 export class RowChart extends React.Component {
+  constructor( props ) {
+    super( props )
+    this._selectFocus = this._selectFocus.bind( this )
+  }
 
   _formatTip( value ) {
     return value.toLocaleString() + ' complaints'
@@ -65,6 +71,9 @@ export class RowChart extends React.Component {
 
   }
 
+  componentDidMount() {
+    this._redrawChart()
+  }
 
   componentDidUpdate( prevProps ) {
     const props = this.props
@@ -72,6 +81,7 @@ export class RowChart extends React.Component {
       this._redrawChart()
     }
   }
+
   // --------------------------------------------------------------------------
   // Event Handlers
   // eslint-disable-next-line complexity
@@ -79,7 +89,7 @@ export class RowChart extends React.Component {
     const {
       colorScheme, data: rows, id, printMode, toggleRow, total
     } = this.props
-    if ( !rows || !rows.length ) {
+    if ( !rows || !rows.length || !total ) {
       return
     }
 
@@ -94,7 +104,7 @@ export class RowChart extends React.Component {
       rowContainer.node().getBoundingClientRect().width
     const height = this._getHeight( rows.length )
     const chart = row()
-    const marginLeft = width / 3
+    const marginLeft = width / 4
 
     // tweak to make the chart full width at desktop
     // add space at narrow width
@@ -107,6 +117,7 @@ export class RowChart extends React.Component {
     } )
       .colorSchema( colorScheme )
       .backgroundColor( '#f7f8f9' )
+      .paddingBetweenGroups( 25 )
       .enableLabels( true )
       .labelsTotalCount( total.toLocaleString() )
       .labelsNumberFormat( ',d' )
@@ -124,16 +135,29 @@ export class RowChart extends React.Component {
     rowContainer.datum( rows ).call( chart )
     const tooltipContainer =
       d3.selectAll( chartID + ' .row-chart .metadata-group' )
-    tooltipContainer.datum( [] ).call( tooltip );
+    tooltipContainer.datum( [] ).call( tooltip )
     this._wrapText( d3.select( chartID ).selectAll( '.tick text' ), marginLeft )
+
+    this._wrapText( d3.select( chartID )
+      .selectAll( '.view-more-label' ), width / 2 )
 
     rowContainer
       .selectAll( '.y-axis-group .tick' )
       .on( 'click', toggleRow )
+
+    rowContainer
+      .selectAll( '.view-more-label' )
+      .on( 'click', this._selectFocus )
+
+  }
+
+  _selectFocus( element ) {
+    this.props.selectFocus( element, this.props.lens )
   }
 
   render() {
     return (
+      this.props.total > 0 &&
       <div className="row-chart-section">
         <h3>{ this.props.title }</h3>
         <div id={ 'row-chart-' + this.props.id }>
@@ -144,16 +168,20 @@ export class RowChart extends React.Component {
 }
 
 export const mapDispatchToProps = dispatch => ( {
+  selectFocus: ( element, lens ) => {
+    dispatch( changeFocus( element.parent, lens ) )
+  },
   toggleRow: selectedState => {
     dispatch( toggleTrend( selectedState ) )
   }
 } )
 
 export const mapStateToProps = state => {
+  const lens = state.query.tab === MODE_MAP ? 'Product' : state.query.lens
   const { printMode, width } = state.view
   return {
+    lens,
     printMode,
-    total: state.aggs.total,
     width
   }
 }
@@ -165,7 +193,8 @@ RowChart.propTypes = {
     PropTypes.bool
   ] ).isRequired,
   data: PropTypes.array.isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  total: PropTypes.number.isRequired
 }
 
 export default connect( mapStateToProps, mapDispatchToProps )( RowChart )

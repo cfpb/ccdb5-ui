@@ -96,9 +96,10 @@ export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
  * helper to generate chart name for row chart based on trends
  * @param {array} rowNames passed from trends.results reducer
  * @param {object} colorMap of the chart for display
+ * @param {string} lens determines which colors to use for defaults
  * @returns {array} the color scheme [blue, red, yellow, etc]
  */
-export const getColorScheme = ( rowNames, colorMap ) =>
+export const getColorScheme = ( rowNames, colorMap, lens ) =>
   rowNames.map( o => {
     if ( !colorMap ) {
       return '#20aa3f'
@@ -113,13 +114,52 @@ export const getColorScheme = ( rowNames, colorMap ) =>
       return colorMap[name]
     }
 
-    return '#20aa3f'
+    // return default grey when it's data lens  and not in area/line chart
+    // #a2a3a4
+    return lens === 'Overview' ? '#20aa3f' : '#a2a3a4'
   } )
 
-export const processRows = ( filters, rows, colorMap ) => {
+
+/**
+ * helper function to get d3 bar chart data
+ * @param {object} obj rowdata we are processing
+ * @param {array} nameMap list of names we are keeping track of
+ * @param {array} expandedTrends list of trends that are open in view
+ * @returns {object} the rowdata for row chart
+ */
+export const getD3Names = ( obj, nameMap, expandedTrends ) => {
+  let name = obj.key
+  // D3 doesnt allow dupe keys, so we have to to append
+  // spaces so we have unique keys
+  while ( nameMap[name] ) {
+    name += ' '
+  }
+
+  nameMap[name] = true
+
+  return obj.splitterText ? {
+    ...obj,
+    visible: expandedTrends.indexOf( obj.parent ) > -1
+  } : {
+    hasChildren: Boolean( obj.hasChildren ),
+    isNotFilter: false,
+    isParent: Boolean( obj.isParent ),
+    pctOfSet: Number( obj.pctOfSet ),
+    name: name,
+    value: Number( obj.doc_count ),
+    parent: obj.parent || false,
+    // visible if no parent, or it is in expanded trends
+    visible: !obj.parent || expandedTrends.indexOf( obj.parent ) > -1,
+    // this adjusts the thickness of the parent or child bars
+    width: obj.parent ? 0.4 : 0.5
+  }
+}
+
+
+export const processRows = ( rows, colorMap, lens ) => {
   let data = rows ? rows : []
   data = data.filter( o => o.visible )
-  const colorScheme = getColorScheme( data, colorMap )
+  const colorScheme = getColorScheme( data, colorMap, lens )
 
   return {
     colorScheme,

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`component:Select renders array values without crashing 1`] = `
+exports[`component:Select renders array of objects without crashing 1`] = `
 <section
   className="cf-select"
 >
@@ -37,6 +37,46 @@ exports[`component:Select renders array values without crashing 1`] = `
 </section>
 `;
 
+exports[`component:Select renders array values without crashing 1`] = `
+<section
+  className="cf-select"
+>
+  <label
+    className="u-visually-hidden"
+    htmlFor="choose-txt"
+  >
+    Select something
+  </label>
+  <p>
+    Show sumthing
+  </p>
+  <select
+    id="choose-txt"
+    onChange={[MockFunction]}
+    value="Dos"
+  >
+    <option
+      disabled={false}
+      value="Uno"
+    >
+      Uno
+    </option>
+    <option
+      disabled={false}
+      value="Dos"
+    >
+      Dos
+    </option>
+    <option
+      disabled={false}
+      value="Tres"
+    >
+      Tres
+    </option>
+  </select>
+</section>
+`;
+
 exports[`component:Select renders object values without crashing 1`] = `
 <section
   className="cf-select"
@@ -56,22 +96,26 @@ exports[`component:Select renders object values without crashing 1`] = `
     value={10}
   >
     <option
-      value="10"
+      disabled={false}
+      value="10 results"
     >
       10 results
     </option>
     <option
-      value="25"
+      disabled={false}
+      value="25 results"
     >
       25 results
     </option>
     <option
-      value="50"
+      disabled={false}
+      value="50 results"
     >
       50 results
     </option>
     <option
-      value="100"
+      disabled={false}
+      value="100 results"
     >
       100 results
     </option>
