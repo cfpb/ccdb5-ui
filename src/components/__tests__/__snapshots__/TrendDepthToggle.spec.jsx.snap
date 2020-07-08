@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`component:TrendDepthToggle renders Product view fewer without crashing 1`] = `
+exports[`component:TrendDepthToggle renders Product view less without crashing 1`] = `
 <div
   className="trend-depth-toggle"
 >
