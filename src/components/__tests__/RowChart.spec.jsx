@@ -113,11 +113,35 @@ describe( 'component: RowChart', () => {
       expect( target._redrawChart ).toHaveBeenCalledTimes( 0 )
     } )
 
+    it( 'handles Trend cookie flag', () => {
+      const target = shallow( <RowChart
+        colorScheme={ [] }
+        showTrends={true}
+        title={'test'}
+        data={ [ 23, 4, 3 ] }
+        id={'foo'}
+        total={1000}
+      /> )
+      target._redrawChart = jest.fn()
+      const sp = jest.spyOn( target.instance(), '_redrawChart' )
+      target.setProps( {
+        data: [
+          { name: 'More Information about xy', value: 10 },
+          { name: 'More Information about z', value: 10 },
+          { name: 'Something else nformation abou', value: 10 }
+        ]
+      } )
+      expect( sp ).toHaveBeenCalledTimes( 1 )
+    } )
+
     it( 'trigger a new update when data changes', () => {
       const target = shallow( <RowChart
         colorScheme={ [] }
-        title={'test'}
-        data={ [ 23, 4, 3 ] }
+        title={ 'test' }
+        data={ [ 23, 4, 3,
+          { name: 'More Information about xy', value: 10 },
+          { name: 'Athing about xy', value: 10 }
+        ] }
         id={'foo'}
         total={1000}
       /> )
