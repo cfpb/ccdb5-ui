@@ -2,6 +2,7 @@
 import { changeFocus } from '../../actions/trends'
 import CompanyTypeahead from '../Filters/CompanyTypeahead'
 import { connect } from 'react-redux'
+import { externalTooltipFormatter } from '../../utils/chart'
 import iconMap from '../iconMap'
 import React from 'react'
 import { removeFilter } from '../../actions/filter'
@@ -72,7 +73,8 @@ export class ExternalTooltip extends React.Component {
           className={ 'tooltip-container u-clearfix ' + focus }>
           { this.props.showCompanyTypeahead && <CompanyTypeahead/> }
           <p className="a-micro-copy">
-            <span>{ tooltip.title }</span>
+            <span className={'heading'}>{ this.props.tooltip.heading }</span>
+            <span className={'date'}>{ this.props.tooltip.date }</span>
           </p>
           <div>
             <ul className="tooltip-ul">
@@ -112,13 +114,14 @@ export const mapDispatchToProps = dispatch => ( {
 
 export const mapStateToProps = state => {
   const { focus, lens, subLens } = state.query
+  const { chartType, tooltip } = state.trends
   return {
     focus: focus ? 'focus' : '',
     lens,
     subLens,
     showCompanyTypeahead: lens === 'Company' && !focus,
-    showTotal: state.trends.chartType === 'area',
-    tooltip: state.trends.tooltip
+    showTotal: chartType === 'area',
+    tooltip: externalTooltipFormatter( tooltip )
   }
 }
 

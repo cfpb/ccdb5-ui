@@ -95,9 +95,11 @@ export class StackedAreaChart extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={'chart-wrapper'}>
+        <p className={ 'y-axis-label' }>Complaints</p>
         <div id="stacked-area-chart">
         </div>
+        <p className={ 'x-axis-label' }>Date Received by the CFPB</p>
       </div>
     )
   }
