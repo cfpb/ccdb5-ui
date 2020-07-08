@@ -404,7 +404,7 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
     className="row-chart-section"
   >
     <h3>
-      Sub-products, by product from 12/31/2017 to 12/31/2019
+      Sub-products, by product from 01/01/2018 to 01/01/2020
     </h3>
     <p>
       Sub-products the consumer identified in the complaint
@@ -787,7 +787,7 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
     className="row-chart-section"
   >
     <h3>
-      Sub-products, by product from 12/31/2017 to 12/31/2019
+      Sub-products, by product from 01/01/2018 to 01/01/2020
     </h3>
     <p>
       Product and sub-product the consumer identified in the  complaint. Click on a product to expand sub-products.
@@ -1448,7 +1448,7 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
     className="row-chart-section"
   >
     <h3>
-      Product by highest complaint volume 12/31/2017 to 12/31/2019
+      Product by highest complaint volume 01/01/2018 to 01/01/2020
     </h3>
     <p>
       Product and sub-product the consumer identified in the  complaint. Click on a product to expand sub-products.
@@ -1831,7 +1831,7 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
     className="row-chart-section"
   >
     <h3>
-      Sub-products, by product from 12/31/2017 to 12/31/2019
+      Sub-products, by product from 01/01/2018 to 01/01/2020
     </h3>
     <p>
       Product and sub-product the consumer identified in the  complaint. Click on a product to expand sub-products.
@@ -2096,7 +2096,7 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
     className="row-chart-section"
   >
     <h3>
-      Product by highest complaint volume 12/31/2017 to 12/31/2019
+      Product by highest complaint volume 01/01/2018 to 01/01/2020
     </h3>
     <p>
       Product and sub-product the consumer identified in the  complaint. Click on a product to expand sub-products.
@@ -2362,7 +2362,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
     className="row-chart-section"
   >
     <h3>
-      Product by highest complaint volume 12/31/2017 to 12/31/2019
+      Product by highest complaint volume 01/01/2018 to 01/01/2020
     </h3>
     <p>
       Product and sub-product the consumer identified in the  complaint. Click on a product to expand sub-products.
@@ -2627,7 +2627,7 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
     className="row-chart-section"
   >
     <h3>
-      Product by highest complaint volume 12/31/2017 to 12/31/2019
+      Product by highest complaint volume 01/01/2018 to 01/01/2020
     </h3>
     <p>
       Product and sub-product the consumer identified in the  complaint. Click on a product to expand sub-products.

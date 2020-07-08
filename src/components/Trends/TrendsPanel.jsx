@@ -14,10 +14,10 @@ import ExternalTooltip from './ExternalTooltip'
 import FilterPanel from '../Filters/FilterPanel'
 import FilterPanelToggle from '../Filters/FilterPanelToggle'
 import FocusHeader from './FocusHeader'
+import { formatDateView } from '../../utils/formatDate'
 import LensTabs from './LensTabs'
 import LineChart from '../Charts/LineChart'
 import Loading from '../Dialogs/Loading'
-import moment from 'moment'
 import { processRows } from '../../utils/chart'
 import React from 'react'
 import RowChart from '../Charts/RowChart'
@@ -79,40 +79,44 @@ export class TrendsPanel extends React.Component {
   }
 
   _phaseMap() {
-    if ( this.props.companyOverlay ) {
+    const {
+      companyOverlay, dataLensData, focusData, focusHelperText, overview, lens,
+      lensHelperText, minDate, maxDate, productData, subLensTitle, total
+    } = this.props
+
+    if ( companyOverlay ) {
       return null
     }
 
-    if ( this.props.overview ) {
+    if ( overview ) {
       return <RowChart id="product"
-                       colorScheme={ this.props.productData.colorScheme }
-                       data={ this.props.productData.data }
+                       colorScheme={ productData.colorScheme }
+                       data={ productData.data }
                        title={ 'Product by highest complaint volume ' +
-                        this.props.minDate + ' to ' + this.props.maxDate}
-                       helperText={ this.props.lensHelperText }
-                       total={ this.props.total }/>
+                        minDate + ' to ' + maxDate}
+                       helperText={ lensHelperText }
+                       total={ total }/>
     }
 
     if ( this.props.focus ) {
-      return <RowChart id={ this.props.lens }
-                       colorScheme={ this.props.focusData.colorScheme }
-                       data={ this.props.focusData.data }
-                       title={ this.props.subLensTitle + ' ' +
-                        this.props.minDate + ' to ' + this.props.maxDate }
-                       helperText={ this.props.focusHelperText }
-                       total={ this.props.total }/>
+      return <RowChart id={ lens }
+                       colorScheme={ focusData.colorScheme }
+                       data={ focusData.data }
+                       title={ subLensTitle + ' ' + minDate + ' to ' + maxDate }
+                       helperText={ focusHelperText }
+                       total={ total }/>
     }
 
     return [
       <LensTabs key={ 'lens-tab' } showTitle={ true }/>,
-      <RowChart id={ this.props.lens }
-                colorScheme={ this.props.dataLensData.colorScheme }
-                data={ this.props.dataLensData.data }
-                title={ this.props.subLensTitle + ' ' +
-                 this.props.minDate + ' to ' + this.props.maxDate }
-                helperText={ this.props.lensHelperText}
-                total={ this.props.total }
-                key={ this.props.lens + 'row' }/>
+      <RowChart id={ lens }
+                colorScheme={ dataLensData.colorScheme }
+                data={ dataLensData.data }
+                title={ subLensTitle + ' ' +
+                 minDate + ' to ' + maxDate }
+                helperText={ lensHelperText}
+                total={ total }
+                key={ lens + 'row' }/>
     ]
   }
 
@@ -221,10 +225,8 @@ const mapStateToProps = state => {
   const focusHelperText = subLens === '' ?
    focusHelperTextMap[lensKey] : focusHelperTextMap[subLens]
 
-  const minDate = moment( date_received_min )
-                      .format( 'MM/DD/YYYY' )
-  const maxDate = moment( date_received_max )
-                      .format( 'MM/DD/YYYY' )
+  const minDate = formatDateView( date_received_min )
+  const maxDate = formatDateView( date_received_max )
 
   return {
     chartType,
@@ -238,6 +240,8 @@ const mapStateToProps = state => {
     productData: processRows( results.product, false, lens ),
     dataLensData: processRows( results[lensKey], colorMap, lens ),
     lens,
+    maxDate,
+    minDate,
     overview: lens === 'Overview',
     showMobileFilters: state.view.width < 750,
     subLens,
@@ -245,9 +249,7 @@ const mapStateToProps = state => {
     lensHelperText: lensHelperText,
     focusHelperText: focusHelperText,
     total,
-    trendsDateWarningEnabled,
-    minDate,
-    maxDate
+    trendsDateWarningEnabled
   }
 }
 
