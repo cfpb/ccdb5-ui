@@ -30,15 +30,14 @@ export class LensTabs extends React.Component {
   }
 
   render() {
-    const { lens, showTitle } = this.props
+    const { lens } = this.props
     if ( lens === 'Overview' ) {
       return null
     }
 
     return (
       <div className="tabbed-navigation lens">
-        { showTitle && <h2>{ lens + ' trends for selected criteria' }</h2> }
-        <section>
+         <section>
           <button
             className={ this._getTabClass( lensMaps[lens].tab1.filterName ) }
             onClick={ () => this._setTab( lensMaps[lens].tab1.filterName ) }>

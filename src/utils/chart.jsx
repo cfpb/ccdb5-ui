@@ -88,7 +88,7 @@ export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
     return `Date: ${ endDate }`
   }
 
-  return external ? `Date Interval: ${ startDate } - ${ endDate }` :
+  return external ? `Date range: ${ startDate } - ${ endDate }` :
     `${ startDate } - ${ endDate }`
 }
 

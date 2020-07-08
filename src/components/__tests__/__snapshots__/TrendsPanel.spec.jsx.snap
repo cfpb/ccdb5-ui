@@ -126,10 +126,10 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
         className="u-visually-hidden"
         htmlFor="choose-interval"
       >
-        Choose the Date Interval
+        Choose the Date interval
       </label>
       <p>
-        Date Interval
+        Date interval
       </p>
       <select
         id="choose-interval"
@@ -211,7 +211,7 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
       className="chart-toggles m-btn-group"
     >
       <p>
-        Chart Type
+        Chart type
       </p>
       <button
         className="a-btn toggle line selected"
@@ -363,12 +363,27 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
     <section
       className="chart"
     >
+      <h2
+        className="area-chart-title"
+      >
+        Complaints by sub-products, by date received by the CFPB
+      </h2>
+      <p
+        className="chart-helper-text"
+      >
+        A time series graph of complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
+      </p>
+    </section>
+  </div>
+  <div
+    className="layout-row"
+  >
+    <section
+      className="chart"
+    >
       <div
         className="chart-wrapper"
       >
-        <h2>
-          Complaints by sub-products by date received
-        </h2>
         <p
           className="y-axis-label"
         >
@@ -389,8 +404,11 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
     className="row-chart-section"
   >
     <h3>
-      Sub-products by product
+      Sub-products, by product from 01/01/2018 to 01/01/2020
     </h3>
+    <p>
+      Sub-products the consumer identified in the complaint
+    </p>
     <div
       id="row-chart-Product"
     />
@@ -524,10 +542,10 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
         className="u-visually-hidden"
         htmlFor="choose-interval"
       >
-        Choose the Date Interval
+        Choose the Date interval
       </label>
       <p>
-        Date Interval
+        Date interval
       </p>
       <select
         id="choose-interval"
@@ -609,7 +627,7 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
       className="chart-toggles m-btn-group"
     >
       <p>
-        Chart Type
+        Chart type
       </p>
       <button
         className="a-btn toggle line"
@@ -710,12 +728,27 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
     <section
       className="chart"
     >
+      <h2
+        className="area-chart-title"
+      >
+        Complaints by date received by the CFPB
+      </h2>
+      <p
+        className="chart-helper-text"
+      >
+        A time series graph of complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
+      </p>
+    </section>
+  </div>
+  <div
+    className="layout-row"
+  >
+    <section
+      className="chart"
+    >
       <div
         className="chart-wrapper"
       >
-        <h2>
-          Complaints by product by date received
-        </h2>
         <p
           className="y-axis-label"
         >
@@ -735,9 +768,6 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
   <div
     className="tabbed-navigation lens"
   >
-    <h2>
-      Product trends for selected criteria
-    </h2>
     <section>
       <button
         className="tab sub_product active"
@@ -757,8 +787,11 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
     className="row-chart-section"
   >
     <h3>
-      Sub-products by product
+      Sub-products, by product from 01/01/2018 to 01/01/2020
     </h3>
+    <p>
+      Product and sub-product the consumer identified in the  complaint. Click on a product to expand sub-products.
+    </p>
     <div
       id="row-chart-Product"
     />
@@ -892,10 +925,10 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
         className="u-visually-hidden"
         htmlFor="choose-interval"
       >
-        Choose the Date Interval
+        Choose the Date interval
       </label>
       <p>
-        Date Interval
+        Date interval
       </p>
       <select
         id="choose-interval"
@@ -977,7 +1010,7 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
       className="chart-toggles m-btn-group"
     >
       <p>
-        Chart Type
+        Chart type
       </p>
       <button
         className="a-btn toggle line selected"
@@ -1077,11 +1110,8 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
     <section
       className="company-search"
     >
-      <h1>
-        Search for and add companies to visualize data 
-      </h1>
       <p>
-        Monocle ipsum dolor sit amet shinkansen delightful tote bag handsome, elegant joy ryokan conversation. Sunspel lovely signature vibrant boutique the best elegant Airbus A380 concierge Baggu izakaya
+        Choose a company to start your visualization using the type-ahead menu below. You can add more than one company to your view
       </p>
       <section
         className="typeahead "
@@ -1291,10 +1321,10 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
         className="u-visually-hidden"
         htmlFor="choose-interval"
       >
-        Choose the Date Interval
+        Choose the Date interval
       </label>
       <p>
-        Date Interval
+        Date interval
       </p>
       <select
         id="choose-interval"
@@ -1377,12 +1407,27 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
     <section
       className="chart"
     >
+      <h2
+        className="area-chart-title"
+      >
+        Complaints by date received by the CFPB
+      </h2>
+      <p
+        className="chart-helper-text"
+      >
+        A time series graph of complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
+      </p>
+    </section>
+  </div>
+  <div
+    className="layout-row"
+  >
+    <section
+      className="chart"
+    >
       <div
         className="chart-wrapper"
       >
-        <h2>
-          Complaints by date received
-        </h2>
         <p
           className="y-axis-label"
         >
@@ -1403,8 +1448,11 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
     className="row-chart-section"
   >
     <h3>
-      Product by highest complaint volume
+      Product by highest complaint volume 01/01/2018 to 01/01/2020
     </h3>
+    <p>
+      Product and sub-product the consumer identified in the  complaint. Click on a product to expand sub-products.
+    </p>
     <div
       id="row-chart-product"
     />
@@ -1538,10 +1586,10 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
         className="u-visually-hidden"
         htmlFor="choose-interval"
       >
-        Choose the Date Interval
+        Choose the Date interval
       </label>
       <p>
-        Date Interval
+        Date interval
       </p>
       <select
         id="choose-interval"
@@ -1623,7 +1671,7 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
       className="chart-toggles m-btn-group"
     >
       <p>
-        Chart Type
+        Chart type
       </p>
       <button
         className="a-btn toggle line selected"
@@ -1724,12 +1772,27 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
     <section
       className="chart"
     >
+      <h2
+        className="area-chart-title"
+      >
+        Complaints by date received by the CFPB
+      </h2>
+      <p
+        className="chart-helper-text"
+      >
+        A time series graph of complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
+      </p>
+    </section>
+  </div>
+  <div
+    className="layout-row"
+  >
+    <section
+      className="chart"
+    >
       <div
         className="chart-wrapper"
       >
-        <h2>
-          Complaints by product by date received
-        </h2>
         <p
           className="y-axis-label"
         >
@@ -1749,9 +1812,6 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
   <div
     className="tabbed-navigation lens"
   >
-    <h2>
-      Product trends for selected criteria
-    </h2>
     <section>
       <button
         className="tab sub_product active"
@@ -1771,8 +1831,11 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
     className="row-chart-section"
   >
     <h3>
-      Sub-products by product
+      Sub-products, by product from 01/01/2018 to 01/01/2020
     </h3>
+    <p>
+      Product and sub-product the consumer identified in the  complaint. Click on a product to expand sub-products.
+    </p>
     <div
       id="row-chart-Product"
     />
@@ -1906,10 +1969,10 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
         className="u-visually-hidden"
         htmlFor="choose-interval"
       >
-        Choose the Date Interval
+        Choose the Date interval
       </label>
       <p>
-        Date Interval
+        Date interval
       </p>
       <select
         id="choose-interval"
@@ -1992,12 +2055,27 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
     <section
       className="chart"
     >
+      <h2
+        className="area-chart-title"
+      >
+        Complaints by date received by the CFPB
+      </h2>
+      <p
+        className="chart-helper-text"
+      >
+        A time series graph of complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
+      </p>
+    </section>
+  </div>
+  <div
+    className="layout-row"
+  >
+    <section
+      className="chart"
+    >
       <div
         className="chart-wrapper"
       >
-        <h2>
-          Complaints by date received
-        </h2>
         <p
           className="y-axis-label"
         >
@@ -2018,8 +2096,11 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
     className="row-chart-section"
   >
     <h3>
-      Product by highest complaint volume
+      Product by highest complaint volume 01/01/2018 to 01/01/2020
     </h3>
+    <p>
+      Product and sub-product the consumer identified in the  complaint. Click on a product to expand sub-products.
+    </p>
     <div
       id="row-chart-product"
     />
@@ -2154,10 +2235,10 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
         className="u-visually-hidden"
         htmlFor="choose-interval"
       >
-        Choose the Date Interval
+        Choose the Date interval
       </label>
       <p>
-        Date Interval
+        Date interval
       </p>
       <select
         id="choose-interval"
@@ -2240,12 +2321,27 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
     <section
       className="chart"
     >
+      <h2
+        className="area-chart-title"
+      >
+        Complaints by date received by the CFPB
+      </h2>
+      <p
+        className="chart-helper-text"
+      >
+        A time series graph of complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
+      </p>
+    </section>
+  </div>
+  <div
+    className="layout-row"
+  >
+    <section
+      className="chart"
+    >
       <div
         className="chart-wrapper"
       >
-        <h2>
-          Complaints by date received
-        </h2>
         <p
           className="y-axis-label"
         >
@@ -2266,8 +2362,11 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
     className="row-chart-section"
   >
     <h3>
-      Product by highest complaint volume
+      Product by highest complaint volume 01/01/2018 to 01/01/2020
     </h3>
+    <p>
+      Product and sub-product the consumer identified in the  complaint. Click on a product to expand sub-products.
+    </p>
     <div
       id="row-chart-product"
     />
@@ -2401,10 +2500,10 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
         className="u-visually-hidden"
         htmlFor="choose-interval"
       >
-        Choose the Date Interval
+        Choose the Date interval
       </label>
       <p>
-        Date Interval
+        Date interval
       </p>
       <select
         id="choose-interval"
@@ -2487,12 +2586,27 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
     <section
       className="chart"
     >
+      <h2
+        className="area-chart-title"
+      >
+        Complaints by date received by the CFPB
+      </h2>
+      <p
+        className="chart-helper-text"
+      >
+        A time series graph of complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
+      </p>
+    </section>
+  </div>
+  <div
+    className="layout-row"
+  >
+    <section
+      className="chart"
+    >
       <div
         className="chart-wrapper"
       >
-        <h2>
-          Complaints by date received
-        </h2>
         <p
           className="y-axis-label"
         >
@@ -2513,8 +2627,11 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
     className="row-chart-section"
   >
     <h3>
-      Product by highest complaint volume
+      Product by highest complaint volume 01/01/2018 to 01/01/2020
     </h3>
+    <p>
+      Product and sub-product the consumer identified in the  complaint. Click on a product to expand sub-products.
+    </p>
     <div
       id="row-chart-product"
     />

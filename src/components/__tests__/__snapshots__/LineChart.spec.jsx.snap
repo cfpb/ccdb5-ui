@@ -4,9 +4,6 @@ exports[`component: LineChart initial state renders data lens without crashing 1
 <div
   className="chart-wrapper"
 >
-  <h2>
-    foo
-  </h2>
   <p
     className="y-axis-label"
   >
@@ -27,9 +24,6 @@ exports[`component: LineChart initial state renders without crashing 1`] = `
 <div
   className="chart-wrapper"
 >
-  <h2>
-    foo
-  </h2>
   <p
     className="y-axis-label"
   >

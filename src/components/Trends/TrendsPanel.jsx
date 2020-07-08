@@ -14,6 +14,7 @@ import ExternalTooltip from './ExternalTooltip'
 import FilterPanel from '../Filters/FilterPanel'
 import FilterPanelToggle from '../Filters/FilterPanelToggle'
 import FocusHeader from './FocusHeader'
+import { formatDateView } from '../../utils/formatDate'
 import LensTabs from './LensTabs'
 import LineChart from '../Charts/LineChart'
 import Loading from '../Dialogs/Loading'
@@ -38,16 +39,35 @@ const subLensMap = {
   product: 'Products'
 }
 
+const lensHelperTextMap = {
+  product: 'Product the consumer identified in the complaint.' +
+  ' Click on a company name to expand products.',
+  company: 'Product the consumer identified in the complaint. Click on' +
+  ' a company name to expand products.',
+  sub_product: 'Product and sub-product the consumer identified in the ' +
+  ' complaint. Click on a product to expand sub-products.',
+  issue: 'Product and issue the consumer identified in the complaint.' +
+  ' Click on a product to expand issue.',
+  overview: 'Product the consumer identified in the complaint. Click on a ' +
+  ' product to expand sub-products'
+}
+
+const focusHelperTextMap = {
+  sub_product: 'Sub-products the consumer identified in the complaint',
+  product: 'Product the consumer identified in the complaint',
+  issue: 'Issues the consumer identified in the complaint'
+}
+
 export class TrendsPanel extends React.Component {
   _areaChartTitle() {
-    const { focus, overview, lens, subLens } = this.props
+    const { focus, overview, subLens } = this.props
     if ( overview ) {
-      return 'Complaints by date received'
+      return 'Complaints by date received by the CFPB'
     } else if ( focus ) {
       return 'Complaints by ' + subLensMap[subLens].toLowerCase() +
-        ' by date received'
+       ', by date received by the CFPB'
     }
-    return `Complaints by ${ lens.toLowerCase() } by date received`
+    return 'Complaints by date received by the CFPB'
   }
 
   _className() {
@@ -59,34 +79,44 @@ export class TrendsPanel extends React.Component {
   }
 
   _phaseMap() {
-    if ( this.props.companyOverlay ) {
+    const {
+      companyOverlay, dataLensData, focusData, focusHelperText, overview, lens,
+      lensHelperText, minDate, maxDate, productData, subLensTitle, total
+    } = this.props
+
+    if ( companyOverlay ) {
       return null
     }
 
-    if ( this.props.overview ) {
+    if ( overview ) {
       return <RowChart id="product"
-                       colorScheme={ this.props.productData.colorScheme }
-                       data={ this.props.productData.data }
-                       title={ 'Product by highest complaint volume' }
-                       total={ this.props.total }/>
+                       colorScheme={ productData.colorScheme }
+                       data={ productData.data }
+                       title={ 'Product by highest complaint volume ' +
+                        minDate + ' to ' + maxDate}
+                       helperText={ lensHelperText }
+                       total={ total }/>
     }
 
     if ( this.props.focus ) {
-      return <RowChart id={ this.props.lens }
-                       colorScheme={ this.props.focusData.colorScheme }
-                       data={ this.props.focusData.data }
-                       title={ this.props.subLensTitle }
-                       total={ this.props.total }/>
+      return <RowChart id={ lens }
+                       colorScheme={ focusData.colorScheme }
+                       data={ focusData.data }
+                       title={ subLensTitle + ' ' + minDate + ' to ' + maxDate }
+                       helperText={ focusHelperText }
+                       total={ total }/>
     }
 
     return [
       <LensTabs key={ 'lens-tab' } showTitle={ true }/>,
-      <RowChart id={ this.props.lens }
-                colorScheme={ this.props.dataLensData.colorScheme }
-                data={ this.props.dataLensData.data }
-                title={ this.props.subLensTitle }
-                total={ this.props.total }
-                key={ this.props.lens + 'row' }/>
+      <RowChart id={ lens }
+                colorScheme={ dataLensData.colorScheme }
+                data={ dataLensData.data }
+                title={ subLensTitle + ' ' +
+                 minDate + ' to ' + maxDate }
+                helperText={ lensHelperText}
+                total={ total }
+                key={ lens + 'row' }/>
     ]
   }
 
@@ -113,8 +143,8 @@ export class TrendsPanel extends React.Component {
                   value={ lens }
                   handleChange={ onLens }/>
           <Separator/>
-          <Select label={ 'Choose the Date Interval' }
-                  title={ 'Date Interval' }
+          <Select label={ 'Choose the Date interval' }
+                  title={ 'Date interval' }
                   values={ intervals }
                   id={ 'interval' }
                   value={ dateInterval }
@@ -127,31 +157,42 @@ export class TrendsPanel extends React.Component {
         </div>
 
         { companyOverlay &&
-        <div className="layout-row company-overlay">
-          <section className="company-search">
-            <h1>Search for and add companies to visualize data </h1>
-            <p>Monocle ipsum dolor sit amet shinkansen delightful tote bag
-              handsome, elegant joy ryokan conversation. Sunspel lovely
-              signature vibrant boutique the best elegant Airbus A380 concierge
-              Baggu izakaya
-            </p>
-            <CompanyTypeahead/>
-          </section>
-        </div>
+          <div className="layout-row company-overlay">
+            <section className="company-search">
+              <p>Choose a company to start your visualization
+               using the type-ahead menu below. You can add more than
+                one company to your view
+              </p>
+              <CompanyTypeahead/>
+            </section>
+          </div>
         }
 
         { focus && <FocusHeader /> }
 
         { !companyOverlay && total > 0 &&
-        <div className="layout-row">
-          <section className="chart">
-            { chartType === 'line' &&
-            <LineChart title={this._areaChartTitle()}/> }
-            { chartType === 'area' &&
-            <StackedAreaChart title={this._areaChartTitle()}/> }
-          </section>
-          { !overview && <ExternalTooltip/> }
-        </div>
+          <div className="layout-row">
+            <section className="chart">
+              <h2 className="area-chart-title">{this._areaChartTitle()}</h2>
+              <p className="chart-helper-text">A time series graph of
+               complaint counts for the selected date range.
+                Hover on the chart to see the count for each date interval.
+                  Your filter selections will update what you see on the
+                   graph.</p>
+            </section>
+          </div>
+        }
+
+        { !companyOverlay && total > 0 &&
+          <div className="layout-row">
+            <section className="chart">
+              { chartType === 'line' &&
+              <LineChart /> }
+              { chartType === 'area' &&
+              <StackedAreaChart /> }
+            </section>
+            { !overview && <ExternalTooltip/> }
+          </div>
         }
         { total > 0 && this._phaseMap() }
         <TrendDepthToggle />
@@ -179,6 +220,14 @@ const mapStateToProps = state => {
 
   const lensKey = lens.toLowerCase()
   const focusKey = subLens.replace( '_', '-' )
+  const lensHelperText = subLens === '' ?
+   lensHelperTextMap[lensKey] : lensHelperTextMap[subLens]
+  const focusHelperText = subLens === '' ?
+   focusHelperTextMap[lensKey] : focusHelperTextMap[subLens]
+
+  const minDate = formatDateView( date_received_min )
+  const maxDate = formatDateView( date_received_max )
+
   return {
     chartType,
     companyData: processRows( results.company, false, lens ),
@@ -191,10 +240,14 @@ const mapStateToProps = state => {
     productData: processRows( results.product, false, lens ),
     dataLensData: processRows( results[lensKey], colorMap, lens ),
     lens,
+    maxDate,
+    minDate,
     overview: lens === 'Overview',
     showMobileFilters: state.view.width < 750,
     subLens,
-    subLensTitle: subLensMap[subLens] + ' by ' + lens.toLowerCase(),
+    subLensTitle: subLensMap[subLens] + ', by ' + lens.toLowerCase() + ' from',
+    lensHelperText: lensHelperText,
+    focusHelperText: focusHelperText,
     total,
     trendsDateWarningEnabled
   }

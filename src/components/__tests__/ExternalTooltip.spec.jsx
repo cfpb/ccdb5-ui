@@ -42,7 +42,7 @@ describe( 'initial state', () => {
       values: [
         { colorIndex: 1, name: 'foo', value: 1000 },
         { colorIndex: 2, name: 'bar', value: 1000 },
-        { colorIndex: 3, name: 'Other', value: 900 },
+        { colorIndex: 3, name: 'All other', value: 900 },
         { colorIndex: 4, name: "Eat at Joe's", value: 1000 }
       ]
     }
@@ -65,6 +65,21 @@ describe( 'initial state', () => {
     const tree = target.toJSON()
     expect( tree ).toMatchSnapshot()
   } )
+
+  it( 'renders "Other" without crashing', () => {
+    tooltip.values.push( { colorIndex: 5, name: 'Other', value: 900 } )
+    const target = setupSnapshot( query, tooltip )
+    const tree = target.toJSON()
+    expect( tree ).toMatchSnapshot()
+  } )
+
+  it( 'renders focus without crashing', () => {
+    query.focus = 'foobar'
+    const target = setupSnapshot( query, tooltip )
+    const tree = target.toJSON()
+    expect( tree ).toMatchSnapshot()
+  } )
+
 } )
 
 describe( 'buttons', () => {

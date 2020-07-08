@@ -82,7 +82,6 @@ export function processBucket( state, agg ) {
           splitterText: labelText,
           value: '',
           parent: item.key,
-          pctChange: '',
           pctOfSet: '',
           width: 0.3
         } )
@@ -100,6 +99,20 @@ export function processBucket( state, agg ) {
     .map( obj => getD3Names( obj, nameMap, expandedTrends ) )
 }
 
+/**
+ * helper function to pluralize field values
+ * @param {lens} lens value we are processing
+ * @returns {string} for consumption by AreaData function
+ */
+export function mainNameLens( lens ) {
+  if ( lens === 'Product' ) {
+    return 'products'
+  } else if ( lens === 'Company' ) {
+    return 'companies'
+  }
+  return 'values'
+}
+
 
 /**
  * processes the stuff for the area chart, combining them if necessary
@@ -109,24 +122,27 @@ export function processBucket( state, agg ) {
  * @returns {object} the data areas for the stacked area chart
  */
 function processAreaData( state, aggregations, buckets ) {
+  // map subLens / focus values to state
+  const { subLens } = state
+  const lens = state.focus ? subLens.replace( '_', '-' ) : state.lens
+
   const mainName = 'Other'
   // overall buckets
   const compBuckets = buckets.map(
     obj => ( {
       name: mainName,
       value: obj.doc_count,
-      date: new Date( obj.key_as_string )
+      date: obj.key_as_string
     } )
   )
 
   // reference buckets to backfill zero values
   const refBuckets = Object.assign( {}, compBuckets )
-  const { subLens } = state
-  const lens = state.focus ? subLens.replace( '_', '-' ) : state.lens
+
 
   const filter = lens.toLowerCase()
   const trendResults = aggregations[filter][filter]
-    .buckets.slice( 0, 10 )
+    .buckets.slice( 0, 5 )
   for ( let i = 0; i < trendResults.length; i++ ) {
     const o = trendResults[i]
     // only take first 10 of the buckets for processing
@@ -136,7 +152,7 @@ function processAreaData( state, aggregations, buckets ) {
       compBuckets.push( {
         name: o.key,
         value: p.doc_count,
-        date: new Date( p.key_as_string )
+        date: p.key_as_string
       } )
 
       // delete total from that date
@@ -163,12 +179,16 @@ function processAreaData( state, aggregations, buckets ) {
           compBuckets.push( {
             name: o.key,
             value: 0,
-            date: new Date( obj.date )
+            date: obj.date
           } )
         }
       }
     }
   }
+
+  // compBuckets.sort( function( a, b ) {
+  //   return a.date > b.date
+  // } )
 
   // we should prune 'Other' if all of the values are zero
   return pruneOther( compBuckets )
@@ -217,7 +237,7 @@ function processLineData( lens, aggregations, focus, subLens ) {
     }
   }
   return {
-    dataByTopic: dataByTopic.slice( 0, 10 )
+    dataByTopic: dataByTopic.slice( 0, 5 )
   }
 }
 
@@ -256,7 +276,7 @@ export const getColorScheme = ( lens, rowNames ) => {
   const colScheme = {}
   const colorScheme = colors.DataLens
   const uniqueNames = [ ...new Set( rowNames.map( item => item.name ) ) ]
-    .filter( o => o !== 'Other' )
+
 
   for ( let i = 0; i < uniqueNames.length; i++ ) {
     const n = uniqueNames[i]
@@ -265,7 +285,12 @@ export const getColorScheme = ( lens, rowNames ) => {
   }
 
   colScheme.Complaints = colors.BriteCharts.medium
+
+  // Set constant grey colors for all possible "other" buckets"
   colScheme.Other = colors.DataLens[10]
+  colScheme['All other products'] = colors.DataLens[10]
+  colScheme['All other companies'] = colors.DataLens[10]
+  colScheme['All other values'] = colors.DataLens[10]
   return colScheme
 }
 
@@ -315,7 +340,7 @@ export function processTrends( state, action ) {
       } else if ( k === 'dateRangeBrush' ) {
         results[k] = buckets.map(
           obj => ( {
-            date: new Date( obj.key_as_string ),
+            date: obj.key_as_string,
             value: obj.doc_count
           } )
         )

@@ -7,7 +7,6 @@ import { line, tooltip } from 'britecharts'
 import { connect } from 'react-redux'
 import { hashObject } from '../../utils'
 import { isDateEqual } from '../../utils/formatDate'
-import PropTypes from 'prop-types'
 import React from 'react'
 import { updateTrendsTooltip } from '../../actions/trends'
 
@@ -122,7 +121,6 @@ export class LineChart extends React.Component {
   render() {
     return (
       <div className={'chart-wrapper'}>
-        <h2>{ this.props.title }</h2>
         <p className={ 'y-axis-label' }>Complaints</p>
         <div id="line-chart">
         </div>
@@ -156,9 +154,5 @@ export const mapStateToProps = state => ( {
   tooltip: state.trends.tooltip,
   width: state.view.width
 } )
-
-LineChart.propTypes = {
-  title: PropTypes.string.isRequired
-}
 
 export default connect( mapStateToProps, mapDispatchToProps )( LineChart )
