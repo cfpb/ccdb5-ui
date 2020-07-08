@@ -23,10 +23,9 @@ export const defaultState = {
   lastDate: false,
   lens: 'Overview',
   results: {
+    company: [],
     dateRangeArea: [],
-    dateRangeBrush: [],
     dateRangeLine: [],
-    issue: [],
     product: []
   },
   subLens: '',
@@ -47,6 +46,8 @@ export function processBucket( state, agg ) {
   const list = []
   const { expandedTrends, filterNames, lens } = state
   for ( let i = 0; i < agg.length; i++ ) {
+    processTrendPeriod( agg[i] )
+
     const item = agg[i]
     const subKeyName = getSubKeyName( item )
 
@@ -82,7 +83,6 @@ export function processBucket( state, agg ) {
           splitterText: labelText,
           value: '',
           parent: item.key,
-          pctOfSet: '',
           width: 0.3
         } )
       }
@@ -118,17 +118,15 @@ export function mainNameLens( lens ) {
  * processes the stuff for the area chart, combining them if necessary
  * @param {object} state redux state
  * @param {object} aggregations coming from the trends api
- * @param {Array} buckets contains trend_period data
  * @returns {object} the data areas for the stacked area chart
  */
-function processAreaData( state, aggregations, buckets ) {
+function processAreaData( state, aggregations ) {
   // map subLens / focus values to state
-  const { subLens } = state
-  const lens = state.focus ? subLens.replace( '_', '-' ) : state.lens
-
+  const { focus, lens, subLens } = state
+  const filter = focus ? subLens.replace( '_', '-' ).toLowerCase() :
+    lens.toLowerCase()
   const mainName = 'Other'
-  // overall buckets
-  const compBuckets = buckets.map(
+  const compBuckets = aggregations.dateRangeArea.dateRangeArea.buckets.map(
     obj => ( {
       name: mainName,
       value: obj.doc_count,
@@ -136,13 +134,21 @@ function processAreaData( state, aggregations, buckets ) {
     } )
   )
 
+  // overall buckets
+  aggregations.dateRangeBuckets.dateRangeBuckets.buckets.forEach( o => {
+    if ( !compBuckets.find( v => o.key_as_string === v.date ) ) {
+      compBuckets.push( {
+        name: mainName,
+        value: 0,
+        date: o.key_as_string
+      } )
+    }
+  } )
+
   // reference buckets to backfill zero values
   const refBuckets = Object.assign( {}, compBuckets )
+  const trendResults = aggregations[filter][filter].buckets.slice( 0, 5 )
 
-
-  const filter = lens.toLowerCase()
-  const trendResults = aggregations[filter][filter]
-    .buckets.slice( 0, 5 )
   for ( let i = 0; i < trendResults.length; i++ ) {
     const o = trendResults[i]
     // only take first 10 of the buckets for processing
@@ -186,10 +192,6 @@ function processAreaData( state, aggregations, buckets ) {
     }
   }
 
-  // compBuckets.sort( function( a, b ) {
-  //   return a.date > b.date
-  // } )
-
   // we should prune 'Other' if all of the values are zero
   return pruneOther( compBuckets )
 }
@@ -205,8 +207,10 @@ function processAreaData( state, aggregations, buckets ) {
  */
 function processLineData( lens, aggregations, focus, subLens ) {
   const areaBuckets = aggregations.dateRangeArea.dateRangeArea.buckets
-  const dataByTopic = lens === 'Overview' ? [
-    {
+  const rangeBuckets = aggregations.dateRangeBuckets.dateRangeBuckets.buckets
+  const dataByTopic = []
+  if ( lens === 'Overview' ) {
+    dataByTopic.push( {
       topic: 'Complaints',
       topicName: 'Complaints',
       dashed: false,
@@ -215,8 +219,22 @@ function processLineData( lens, aggregations, focus, subLens ) {
         date: o.key_as_string,
         value: o.doc_count
       } ) )
-    }
-  ] : []
+    } )
+
+    // backfill empties
+    rangeBuckets.forEach( o => {
+      if ( !dataByTopic[0].dates.find( v => o.key_as_string === v.date ) ) {
+        dataByTopic[0].dates.push( {
+          date: o.key_as_string,
+          value: 0
+        } )
+      }
+    } )
+
+    // sort dates so it doesn't break line chart
+    dataByTopic[0].dates
+      .sort( ( a, b ) => new Date( a.date ) - new Date( b.date ) )
+  }
 
   if ( lens !== 'Overview' ) {
     // handle Focus Case
@@ -226,7 +244,7 @@ function processLineData( lens, aggregations, focus, subLens ) {
     for ( let i = 0; i < aggBuckets.length; i++ ) {
       const name = aggBuckets[i].key
       const dateBuckets = updateDateBuckets( name,
-        aggBuckets[i].trend_period.buckets, areaBuckets )
+        aggBuckets[i].trend_period.buckets, rangeBuckets )
       dataByTopic.push( {
         topic: name,
         topicName: name,
@@ -242,26 +260,16 @@ function processLineData( lens, aggregations, focus, subLens ) {
 }
 
 /**
- * processes the aggregation buckets to get the deltas for rows
+ * processes the aggregation buckets set the parent rows for expandable chart
  * @param {object} bucket subagg bucket with difference intervals
- * @param {string} k key, issue, product etc
- * @param {number} docCount overall agg count of the results being returned
  */
-export function processTrendPeriod( bucket, k, docCount ) {
-  const trend_period = bucket.trend_period
-
-  /* istanbul ignore else */
-  if ( trend_period ) {
-    bucket.pctOfSet = ''
-    bucket.num_results = docCount
-  }
-
+export function processTrendPeriod( bucket ) {
   const subKeyName = getSubKeyName( bucket )
   if ( bucket[subKeyName] ) {
     const subaggBuckets = bucket[subKeyName].buckets
     for ( let j = 0; j < subaggBuckets.length; j++ ) {
       subaggBuckets[j].parent = bucket.key
-      processTrendPeriod( subaggBuckets[j], subKeyName, docCount )
+      processTrendPeriod( subaggBuckets[j] )
     }
   }
 }
@@ -315,43 +323,26 @@ export function validateBucket( aggregations, k ) {
 export function processTrends( state, action ) {
   const aggregations = action.data.aggregations
   const { focus, lens, results, subLens } = state
-  let total = 0,
-      lastDate
 
-  for ( const k in aggregations ) {
-    /* istanbul ignore else */
-    if ( validateBucket( aggregations, k ) ) {
-      // set to zero when we are not using focus Lens
-      const buckets = aggregations[k][k].buckets
-      for ( let i = 0; i < buckets.length; i++ ) {
-        const docCount = aggregations[k].doc_count
-        processTrendPeriod( buckets[i], k, docCount )
-      }
-      if ( k === 'dateRangeArea' ) {
-        // get the last date now to save time
-        lastDate = buckets[buckets.length - 1].key_as_string
-        total = aggregations[k].doc_count
-        if ( lens !== 'Overview' ) {
-          results[k] = processAreaData( state, aggregations, buckets )
-        }
+  const kR = 'dateRangeArea'
+  // get the last date now to save time
+  const buckets = aggregations[kR][kR].buckets
+  const lastDate = buckets[buckets.length - 1].key_as_string
+  const total = aggregations[kR].doc_count
 
-        results.dateRangeLine =
-          processLineData( lens, aggregations, focus, subLens )
-      } else if ( k === 'dateRangeBrush' ) {
-        results[k] = buckets.map(
-          obj => ( {
-            date: obj.key_as_string,
-            value: obj.doc_count
-          } )
-        )
-      } else {
-        results[k] = processBucket( state, buckets )
-      }
-    } else if ( defaultState.results.hasOwnProperty( k ) ) {
-      // no value, so we clear out the results
-      results[k] = []
-    }
+  if ( lens !== 'Overview' ) {
+    results[kR] = processAreaData( state, aggregations )
   }
+
+  results.dateRangeLine = processLineData( lens, aggregations, focus, subLens )
+
+  // add issue or whatever key you need in if there's more
+  const keys = [ 'company', 'product' ]
+  keys.forEach( k => {
+    results[k] = aggregations[k] ?
+      processBucket( state, aggregations[k][k].buckets ) : []
+  } )
+
   const colorMap = getColorScheme( lens, results.dateRangeArea )
 
   return {
@@ -467,7 +458,6 @@ export function processTrendsError( state, action ) {
     isLoading: false,
     results: {
       dateRangeArea: [],
-      dateRangeBrush: [],
       dateRangeLine: [],
       issue: [],
       product: []
