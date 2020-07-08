@@ -65,6 +65,21 @@ describe( 'initial state', () => {
     const tree = target.toJSON()
     expect( tree ).toMatchSnapshot()
   } )
+
+  it( 'renders "Other" without crashing', () => {
+    tooltip.values.push( { colorIndex: 5, name: 'Other', value: 900 } )
+    const target = setupSnapshot( query, tooltip )
+    const tree = target.toJSON()
+    expect( tree ).toMatchSnapshot()
+  } )
+
+  it( 'renders focus without crashing', () => {
+    query.focus = 'foobar'
+    const target = setupSnapshot( query, tooltip )
+    const tree = target.toJSON()
+    expect( tree ).toMatchSnapshot()
+  } )
+
 } )
 
 describe( 'buttons', () => {

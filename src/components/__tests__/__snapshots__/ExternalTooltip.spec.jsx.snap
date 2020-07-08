@@ -1,5 +1,126 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`initial state renders "Other" without crashing 1`] = `
+<section
+  className="tooltip-container u-clearfix "
+>
+  <p
+    className="a-micro-copy"
+  >
+    <span
+      className="heading"
+    >
+      Date Range:
+    </span>
+    <span
+      className="date"
+    >
+      1/1/1900 - 1/1/2000
+    </span>
+  </p>
+  <div>
+    <ul
+      className="tooltip-ul"
+    >
+      <li
+        className="color__1"
+      >
+        <span
+          className="u-left a-btn a-btn__link"
+          id="focus-foo"
+          onClick={[Function]}
+        >
+          foo
+        </span>
+        <span
+          className="u-right"
+        >
+          1,000
+        </span>
+      </li>
+      <li
+        className="color__2"
+      >
+        <span
+          className="u-left a-btn a-btn__link"
+          id="focus-bar"
+          onClick={[Function]}
+        >
+          bar
+        </span>
+        <span
+          className="u-right"
+        >
+          1,000
+        </span>
+      </li>
+      <li
+        className="color__3"
+      >
+        <span
+          className="u-left a-btn a-btn__link"
+          id="focus-allother"
+          onClick={[Function]}
+        >
+          All other
+        </span>
+        <span
+          className="u-right"
+        >
+          900
+        </span>
+      </li>
+      <li
+        className="color__4"
+      >
+        <span
+          className="u-left a-btn a-btn__link"
+          id="focus-eatatjoes"
+          onClick={[Function]}
+        >
+          Eat at Joe's
+        </span>
+        <span
+          className="u-right"
+        >
+          1,000
+        </span>
+      </li>
+      <li
+        className="color__5"
+      >
+        <span
+          className="u-left"
+        >
+          All other 
+        </span>
+        <span
+          className="u-right"
+        >
+          900
+        </span>
+      </li>
+    </ul>
+    <ul
+      className="m-list__unstyled tooltip-ul total"
+    >
+      <li>
+        <span
+          className="u-left"
+        >
+          Total
+        </span>
+        <span
+          className="u-right"
+        >
+          2,900
+        </span>
+      </li>
+    </ul>
+  </div>
+</section>
+`;
+
 exports[`initial state renders Company typehead without crashing 1`] = `
 <section
   className="tooltip-container u-clearfix "
@@ -174,6 +295,105 @@ exports[`initial state renders Company typehead without crashing 1`] = `
               d="M451.4 613.7l248.1-248.1c25.6-25.1 26-66.3.8-91.9s-66.3-26-91.9-.8l-.8.8-248.1 248.1-248.1-248.1c-25.4-25.4-66.5-25.4-91.9 0s-25.4 66.5 0 91.9l248.1 248.1L19.5 861.8c-25.6 25.1-26 66.3-.8 91.9s66.3 26 91.9.8l.8-.8 248.1-248.1 248.1 248.1c25.4 25.4 66.5 25.4 91.9 0s25.4-66.5 0-91.9L451.4 613.7z"
             />
           </svg>
+        </span>
+        <span
+          className="u-right"
+        >
+          1,000
+        </span>
+      </li>
+    </ul>
+    <ul
+      className="m-list__unstyled tooltip-ul total"
+    >
+      <li>
+        <span
+          className="u-left"
+        >
+          Total
+        </span>
+        <span
+          className="u-right"
+        >
+          2,900
+        </span>
+      </li>
+    </ul>
+  </div>
+</section>
+`;
+
+exports[`initial state renders focus without crashing 1`] = `
+<section
+  className="tooltip-container u-clearfix focus"
+>
+  <p
+    className="a-micro-copy"
+  >
+    <span
+      className="heading"
+    >
+      Date Range:
+    </span>
+    <span
+      className="date"
+    >
+      1/1/1900 - 1/1/2000
+    </span>
+  </p>
+  <div>
+    <ul
+      className="tooltip-ul"
+    >
+      <li
+        className="color__1"
+      >
+        <span
+          className="u-left"
+        >
+          foo
+        </span>
+        <span
+          className="u-right"
+        >
+          1,000
+        </span>
+      </li>
+      <li
+        className="color__2"
+      >
+        <span
+          className="u-left"
+        >
+          bar
+        </span>
+        <span
+          className="u-right"
+        >
+          1,000
+        </span>
+      </li>
+      <li
+        className="color__3"
+      >
+        <span
+          className="u-left"
+        >
+          All other
+        </span>
+        <span
+          className="u-right"
+        >
+          900
+        </span>
+      </li>
+      <li
+        className="color__4"
+      >
+        <span
+          className="u-left"
+        >
+          Eat at Joe's
         </span>
         <span
           className="u-right"
