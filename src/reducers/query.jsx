@@ -1,6 +1,11 @@
 import * as types from '../constants'
 import {
-  calculateDateRange, clamp, hasFiltersEnabled, shortIsoFormat, startOfToday
+  calculateDateRange,
+  clamp,
+  hasFiltersEnabled,
+  processUrlArrayParams,
+  shortIsoFormat,
+  startOfToday
 } from '../utils'
 import { getSubLens, isGreaterThanYear } from '../utils/trends'
 import actions from '../actions'
@@ -169,15 +174,7 @@ function processParams( state, action ) {
   } )
 
   // Handle the aggregation filters
-  types.knownFilters.forEach( field => {
-    if ( typeof params[field] !== 'undefined' ) {
-      if ( typeof params[field] === 'string' ) {
-        processed[field] = [ params[field] ];
-      } else {
-        processed[field] = params[field];
-      }
-    }
-  } )
+  processUrlArrayParams( params, processed, types.knownFilters )
 
   // Handle date filters
   types.dateFilters.forEach( field => {
