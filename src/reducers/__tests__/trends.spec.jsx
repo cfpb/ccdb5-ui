@@ -261,12 +261,15 @@ describe( 'reducer:trends', () => {
       action.data.aggregations = trendsFocusAggs
       result = target( state, action )
       expect( result ).toEqual( trendsFocusAggsResults )
+      expect( result.results.issue.length ).toBeTruthy()
+      expect( result.results['sub-product'].length ).toBeTruthy()
     } )
 
     it('backfills periods based on dateRangeBuckets ', () =>{
+      // aka: the "covid" search
       state.chartType = 'area'
       state.lens = 'Product'
-      state.subLens = 'sub-product'
+      state.subLens = 'sub_product'
       action.data.aggregations = trendsBackfill
       result = target( state, action )
       expect( result ).toEqual( trendsBackfillResults )

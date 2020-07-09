@@ -336,8 +336,12 @@ export function processTrends( state, action ) {
 
   results.dateRangeLine = processLineData( lens, aggregations, focus, subLens )
 
-  // add issue or whatever key you need in if there's more
   const keys = [ 'company', 'product' ]
+
+  if ( focus ) {
+    keys.push( 'issue', 'sub-product' )
+  }
+
   keys.forEach( k => {
     results[k] = aggregations[k] ?
       processBucket( state, aggregations[k][k].buckets ) : []
