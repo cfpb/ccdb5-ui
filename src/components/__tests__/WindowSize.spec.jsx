@@ -66,13 +66,13 @@ describe( 'component:WindowSize', () => {
     })
     it( 'trigger print when params changes', () => {
       target.setProps( { fromExternal: true, printMode: true } )
-      jest.advanceTimersByTime( 4000 )
+      jest.advanceTimersByTime( 6000 )
       expect( window.print ).toHaveBeenCalledTimes( 1 )
     } )
 
     it( 'does not print when only printMode changes', () => {
       target.setProps( { printMode: true } )
-      jest.advanceTimersByTime( 4000 )
+      jest.advanceTimersByTime( 6000 )
       expect( window.print ).toHaveBeenCalledTimes( 0 )
     } )
   })

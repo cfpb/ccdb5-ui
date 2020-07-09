@@ -95,12 +95,24 @@ export class UrlBarSynch extends React.Component {
   }
 }
 
-export const mapStateToProps = state => ( {
-  params: {
-    ...state.query,
-    dataNormalization: state.map.dataNormalization
+export const mapStateToProps = state => {
+  const { map, query, trends } = state
+
+  const expandedTrends = [
+    ...new Set( [
+      ...map.expandedTrends,
+      ...trends.expandedTrends
+    ] )
+  ]
+
+  return {
+    params: {
+      ...query,
+      expandedTrends,
+      dataNormalization: map.dataNormalization
+    }
   }
-} )
+}
 
 export const mapDispatchToProps = dispatch => ( {
   onUrlChanged: location => {
