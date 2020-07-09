@@ -188,7 +188,7 @@ describe( 'component:TrendDepthToggle', () => {
       }
       let actual = mapStateToProps( state )
       expect( actual ).toEqual( {
-        diff: 3,
+        diff: 11,
         queryCount: 11,
         resultCount: 0,
         showToggle: true
@@ -224,7 +224,7 @@ describe( 'component:TrendDepthToggle', () => {
       it( 'caps the maximum number of companies at 10' , () => {
         const actual = mapStateToProps( state )
         expect( actual ).toEqual( {
-          diff: 0,
+          diff: 10,
           queryCount: 11,
           resultCount: 0,
           showToggle: true
@@ -236,10 +236,34 @@ describe( 'component:TrendDepthToggle', () => {
 
         const actual = mapStateToProps( state )
         expect( actual ).toEqual( {
-          diff: 5,
+          diff: 10,
           queryCount: 11,
           resultCount: 0,
           showToggle: true
+        } )
+      } )
+
+      it( 'hides the toggle when only parent count < 5 item' , () => {
+        state.query.company = [ 'a' ]
+        state.trends.results.company =  [
+          { name: 'a', visible: true, isParent: true},
+          { name: 'b', visible: true, isParent: false },
+          { name: 'c', visible: true, isParent: false },
+          { name: 'd', visible: true, isParent: false },
+          { name: 'e', visible: true, isParent: false  },
+          { name: 'f', visible: true, isParent: false  },
+          { name: 'g', visible: true, isParent: false  },
+          { name: 'h', visible: true, isParent: false  },
+          { name: 'i', visible: true, isParent: false },
+          { name: 'j', visible: true, isParent: false }
+        ]
+
+        const actual = mapStateToProps( state )
+        expect( actual ).toEqual( {
+          diff: 0,
+          queryCount: 1,
+          resultCount: 1,
+          showToggle: false
         } )
       } )
     } )

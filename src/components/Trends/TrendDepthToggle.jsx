@@ -66,9 +66,7 @@ export const mapStateToProps = state => {
   const { focus, lens } = query
   const lensKey = lens.toLowerCase()
   const resultCount = coalesce( trends.results, lensKey, [] )
-    .filter( o => o.isParent ).length
-  const lensResultLength = coalesce( trends.results, lensKey, [] )
-    .filter( o => o.visible ).length
+    .filter( o => o.visible && o.isParent ).length
 
   // The total source depends on the lens.  There are no aggs for companies
   let totalResultsLength = 0
@@ -84,10 +82,10 @@ export const mapStateToProps = state => {
     totalResultsLength
 
   return {
-    diff: totalResultsLength - lensResultLength,
+    diff: totalResultsLength - resultCount,
     resultCount,
     queryCount,
-    showToggle: !focus && ( lensResultLength > 5 || queryCount > 5 )
+    showToggle: !focus && ( resultCount > 5 || queryCount > 5 )
   }
 }
 
