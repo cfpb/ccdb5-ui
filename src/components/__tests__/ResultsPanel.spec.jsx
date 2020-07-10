@@ -55,7 +55,9 @@ function setupSnapshot(items=[], initialStore={}, tab = 'List', printMode) {
     query: {
       lens: 'Overview',
       subLens: '',
-      tab: tab
+      tab: tab,
+      date_received_min: new Date('7/10/2017'),
+      date_received_max: new Date('7/10/2020')
     },
     trends: {
       results: {}
