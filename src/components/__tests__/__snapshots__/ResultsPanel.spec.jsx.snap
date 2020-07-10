@@ -102,7 +102,6 @@ exports[`component:Results renders List print mode without crashing 1`] = `
           <button
             className="a-btn"
             onClick={[Function]}
-            title="Filter results"
           >
             Filter results
           </button>
@@ -597,7 +596,6 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
           <button
             className="a-btn"
             onClick={[Function]}
-            title="Filter results"
           >
             Filter results
           </button>
@@ -797,7 +795,6 @@ exports[`component:Results renders list panel without crashing 1`] = `
           <button
             className="a-btn"
             onClick={[Function]}
-            title="Filter results"
           >
             Filter results
           </button>
@@ -1255,7 +1252,6 @@ exports[`component:Results renders map panel without crashing 1`] = `
           <button
             className="a-btn"
             onClick={[Function]}
-            title="Filter results"
           >
             Filter results
           </button>
@@ -1444,7 +1440,6 @@ exports[`component:Results renders trends panel without crashing 1`] = `
           <button
             className="a-btn"
             onClick={[Function]}
-            title="Filter results"
           >
             Filter results
           </button>

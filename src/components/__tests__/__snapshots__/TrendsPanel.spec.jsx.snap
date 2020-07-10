@@ -73,7 +73,6 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
@@ -489,7 +488,6 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
@@ -872,7 +870,6 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
@@ -1268,7 +1265,6 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
@@ -1533,7 +1529,6 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
@@ -1916,7 +1911,6 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
@@ -2182,7 +2176,6 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
@@ -2447,7 +2440,6 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>

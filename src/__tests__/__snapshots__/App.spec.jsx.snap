@@ -1215,7 +1215,6 @@ exports[`initial state renders without crashing 1`] = `
               <button
                 className="a-btn"
                 onClick={[Function]}
-                title="Close Filters"
               >
                 Close Filters
               </button>
