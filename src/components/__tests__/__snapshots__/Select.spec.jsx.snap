@@ -97,25 +97,25 @@ exports[`component:Select renders object values without crashing 1`] = `
   >
     <option
       disabled={false}
-      value="10 results"
+      value="10"
     >
       10 results
     </option>
     <option
       disabled={false}
-      value="25 results"
+      value="25"
     >
       25 results
     </option>
     <option
       disabled={false}
-      value="50 results"
+      value="50"
     >
       50 results
     </option>
     <option
       disabled={false}
-      value="100 results"
+      value="100"
     >
       100 results
     </option>
