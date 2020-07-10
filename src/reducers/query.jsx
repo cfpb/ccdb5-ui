@@ -164,7 +164,7 @@ function processParams( state, action ) {
   // Filter for known
   urlParams.forEach( field => {
     if ( typeof params[field] !== 'undefined' ) {
-      processed[field] = params[field]
+      processed[field] = enforceValues( params[field], field )
     }
   } )
 
@@ -201,7 +201,7 @@ function processParams( state, action ) {
     if ( typeof params[field] !== 'undefined' ) {
       const n = parseInt( params[field], 10 )
       if ( isNaN( n ) === false ) {
-        processed[field] = n
+        processed[field] = enforceValues( n, field )
       }
     }
   } )
@@ -213,6 +213,28 @@ function processParams( state, action ) {
   }
 
   return alignDateRange( processed )
+}
+
+/**
+ * helper function to enforce valid values when someone pastes in a url
+ * @param {string | int} value input val to check
+ * @param {string} field key of the query object we need to validate
+ * @returns {string|int|*} valid value
+ */
+function enforceValues( value, field ) {
+  const valMap = {
+    size: Object.keys( types.sizes ).map( o => parseInt( o, 10 ) ),
+    sort: Object.keys( types.sorts )
+  }
+  if ( valMap[field] ) {
+    const validValues = valMap[field]
+    if ( validValues.includes( value ) ) {
+      return value
+    }
+    return validValues[0]
+  }
+
+  return value
 }
 
 /**
