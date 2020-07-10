@@ -697,9 +697,11 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
       className="row-chart-section"
     >
       <h3>
-        Product by highest complaint volume
+        Sub-products, by product from Invalid date to Invalid date
       </h3>
-      <p />
+      <p>
+        Product and sub-product the consumer identified in the complaint. Click on a product to expand sub-products.
+      </p>
       <div
         id="row-chart-product"
       />
@@ -1353,9 +1355,11 @@ exports[`component:Results renders map panel without crashing 1`] = `
       className="row-chart-section"
     >
       <h3>
-        Product by highest complaint volume
+        Sub-products, by product from Invalid date to Invalid date
       </h3>
-      <p />
+      <p>
+        Product and sub-product the consumer identified in the complaint. Click on a product to expand sub-products.
+      </p>
       <div
         id="row-chart-product"
       />
