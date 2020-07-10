@@ -1,6 +1,7 @@
 import './ListPanel.less'
 import '../RefineBar/RefineBar.less'
 import { changeSize, changeSort } from '../../actions/paging'
+import { sizes, sorts } from '../../constants'
 import ActionBar from '../ActionBar'
 import ComplaintCard from './ComplaintCard'
 import { connect } from 'react-redux'
@@ -17,24 +18,6 @@ import StaleDataWarnings from '../Warnings/StaleDataWarnings'
 const ERROR = 'ERROR'
 const NO_RESULTS = 'NO_RESULTS'
 const RESULTS = 'RESULTS'
-
-const sizes = {
-  10: '10 results',
-  25: '25 results',
-  50: '50 results',
-  100: '100 results'
-}
-
-/* eslint-disable camelcase */
-
-const sorts = {
-  created_date_desc: 'Newest to oldest',
-  created_date_asc: 'Oldest to newest',
-  relevance_desc: 'Relevance',
-  relevance_asc: 'Relevance (asc)'
-}
-
-/* eslint-enable camelcase */
 
 export class ListPanel extends React.Component {
   constructor( props ) {
