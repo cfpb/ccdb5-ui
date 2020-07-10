@@ -11,7 +11,12 @@ export class Select extends React.Component {
     // { name:'bar', disabled: true }
     // ]
     // object key val pair
-    // case 3: values = { 0: 'Foo', 1:'bar' }
+    // case 3: values = {
+    //   created_date_desc: 'Newest to oldest',
+    //   created_date_asc: 'Oldest to newest',
+    //   relevance_desc: 'Relevance',
+    //   relevance_asc: 'Relevance (asc)'
+    // }
     // array of objects
     let values
 
@@ -23,13 +28,15 @@ export class Select extends React.Component {
         // case 1
         values = this.props.values.map( o => ( {
           name: o,
+          value: o,
           disabled: false
         } ) )
       }
     } else {
       // case 3
-      values = Object.values( this.props.values ).map( o => ( {
-        name: o,
+      values = Object.keys( this.props.values ).map( o => ( {
+        name: this.props.values[o],
+        value: o,
         disabled: false
       } ) )
     }
@@ -55,7 +62,7 @@ export class Select extends React.Component {
           { values.map( x =>
               <option disabled={ x.disabled }
                       key={ x.name }
-                      value={ x.name }>
+                      value={ x.value || x.name }>
                 { x.name }
               </option>
             ) }
