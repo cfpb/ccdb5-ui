@@ -370,7 +370,7 @@ exports[`initial state renders without crashing 1`] = `
                       onChange={[Function]}
                       placeholder="mm/dd/yyyy"
                       size="15"
-                      value="12/31/2015"
+                      value="1/2/2016"
                     />
                     <button
                       className="a-btn a-btn__link"
@@ -411,7 +411,7 @@ exports[`initial state renders without crashing 1`] = `
                       onChange={[Function]}
                       placeholder="mm/dd/yyyy"
                       size="15"
-                      value="12/31/2015"
+                      value="1/2/2016"
                     />
                     <button
                       className="a-btn a-btn__link"
@@ -590,7 +590,7 @@ exports[`initial state renders without crashing 1`] = `
               </span>
             </div>
             <p>
-              The state of the mailing address provided by the consumer
+              The state in the mailing address provided by the consumer
             </p>
             <section
               className="typeahead "
@@ -858,7 +858,7 @@ exports[`initial state renders without crashing 1`] = `
               </span>
             </div>
             <p>
-              This is how the company responded. For example, 'Closed with explanation'
+              This is how the company responded. For example, 'Closed with explanation'.
             </p>
           </section>
           <hr />

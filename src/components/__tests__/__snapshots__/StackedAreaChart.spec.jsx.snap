@@ -15,7 +15,7 @@ exports[`component: StackedAreaChart initial state renders without crashing 1`] 
   <p
     className="x-axis-label"
   >
-    Date Received by the CFPB
+    Date received by the CFPB
   </p>
 </div>
 `;

@@ -34,7 +34,7 @@ exports[`component::FederalState initial state renders empty values without cras
     </span>
   </div>
   <p>
-    The state of the mailing address provided by the consumer
+    The state in the mailing address provided by the consumer
   </p>
   <section
     className="typeahead "
@@ -113,7 +113,7 @@ exports[`component::FederalState initial state renders without crashing 1`] = `
     </span>
   </div>
   <p>
-    The state of the mailing address provided by the consumer
+    The state in the mailing address provided by the consumer
   </p>
   <section
     className="typeahead "

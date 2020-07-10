@@ -21,7 +21,7 @@ export class FederalState extends React.Component {
   }
 
   render() {
-    const desc = 'The state of the mailing address provided by the consumer'
+    const desc = 'The state in the mailing address provided by the consumer'
 
     return (
       <CollapsibleFilter title="State"

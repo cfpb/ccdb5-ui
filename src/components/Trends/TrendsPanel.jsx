@@ -47,7 +47,7 @@ const lensHelperTextMap = {
   sub_product: 'Product and sub-product the consumer identified in the ' +
   ' complaint. Click on a product to expand sub-products.',
   issue: 'Product and issue the consumer identified in the complaint.' +
-  ' Click on a product to expand issue.',
+  ' Click on a product to expand issues.',
   overview: 'Product the consumer identified in the complaint. Click on a ' +
   ' product to expand sub-products'
 }
@@ -174,9 +174,9 @@ export class TrendsPanel extends React.Component {
           <div className="layout-row">
             <section className="chart">
               <h2 className="area-chart-title">{this._areaChartTitle()}</h2>
-              <p className="chart-helper-text">A time series graph of
-               complaint counts for the selected date range.
-                Hover on the chart to see the count for each date interval.
+              <p className="chart-helper-text">A time series graph of the
+              (up to) five highest volume complaint counts for the selected
+               date range. Hover on the chart to see the count for each date interval.
                   Your filter selections will update what you see on the
                    graph.</p>
             </section>

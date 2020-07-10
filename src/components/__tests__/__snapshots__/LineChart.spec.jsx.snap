@@ -15,7 +15,7 @@ exports[`component: LineChart initial state renders data lens without crashing 1
   <p
     className="x-axis-label"
   >
-    Date Received by the CFPB
+    Date received by the CFPB
   </p>
 </div>
 `;
@@ -35,7 +35,7 @@ exports[`component: LineChart initial state renders without crashing 1`] = `
   <p
     className="x-axis-label"
   >
-    Date Received by the CFPB
+    Date received by the CFPB
   </p>
 </div>
 `;
