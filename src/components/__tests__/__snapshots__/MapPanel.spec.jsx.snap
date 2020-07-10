@@ -73,7 +73,6 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
@@ -295,7 +294,6 @@ exports[`component:MapPanel renders warning without crashing 1`] = `
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
@@ -480,7 +478,6 @@ exports[`component:MapPanel renders without crashing 1`] = `
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
