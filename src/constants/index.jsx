@@ -56,7 +56,8 @@ export const dateRanges = [ '3m', '6m', '1y', '3y', 'All' ]
 export const excludeFields = [
   'enablePer1000',
   'mapWarningEnabled',
-  'totalPages'
+  'totalPages',
+  'trendsDateWarningEnabled'
 ]
 
 export const flagFilters = [
