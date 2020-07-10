@@ -129,25 +129,25 @@ exports[`component:Results renders List print mode without crashing 1`] = `
         >
           <option
             disabled={false}
-            value="10 results"
+            value="10"
           >
             10 results
           </option>
           <option
             disabled={false}
-            value="25 results"
+            value="25"
           >
             25 results
           </option>
           <option
             disabled={false}
-            value="50 results"
+            value="50"
           >
             50 results
           </option>
           <option
             disabled={false}
-            value="100 results"
+            value="100"
           >
             100 results
           </option>
@@ -171,25 +171,25 @@ exports[`component:Results renders List print mode without crashing 1`] = `
         >
           <option
             disabled={false}
-            value="Newest to oldest"
+            value="created_date_desc"
           >
             Newest to oldest
           </option>
           <option
             disabled={false}
-            value="Oldest to newest"
+            value="created_date_asc"
           >
             Oldest to newest
           </option>
           <option
             disabled={false}
-            value="Relevance"
+            value="relevance_desc"
           >
             Relevance
           </option>
           <option
             disabled={false}
-            value="Relevance (asc)"
+            value="relevance_asc"
           >
             Relevance (asc)
           </option>
@@ -822,25 +822,25 @@ exports[`component:Results renders list panel without crashing 1`] = `
         >
           <option
             disabled={false}
-            value="10 results"
+            value="10"
           >
             10 results
           </option>
           <option
             disabled={false}
-            value="25 results"
+            value="25"
           >
             25 results
           </option>
           <option
             disabled={false}
-            value="50 results"
+            value="50"
           >
             50 results
           </option>
           <option
             disabled={false}
-            value="100 results"
+            value="100"
           >
             100 results
           </option>
@@ -864,25 +864,25 @@ exports[`component:Results renders list panel without crashing 1`] = `
         >
           <option
             disabled={false}
-            value="Newest to oldest"
+            value="created_date_desc"
           >
             Newest to oldest
           </option>
           <option
             disabled={false}
-            value="Oldest to newest"
+            value="created_date_asc"
           >
             Oldest to newest
           </option>
           <option
             disabled={false}
-            value="Relevance"
+            value="relevance_desc"
           >
             Relevance
           </option>
           <option
             disabled={false}
-            value="Relevance (asc)"
+            value="relevance_asc"
           >
             Relevance (asc)
           </option>
