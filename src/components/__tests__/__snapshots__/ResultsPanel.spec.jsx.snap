@@ -12,7 +12,7 @@ exports[`component:Results renders List print mode without crashing 1`] = `
         Dates:
       </span>
        
-       - 
+      7/10/2017 - 7/10/2020
     </p>
     <div>
       <div>
@@ -507,7 +507,7 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
         Dates:
       </span>
        
-       - 
+      7/10/2017 - 7/10/2020
     </p>
     <div>
       <div>
@@ -697,9 +697,11 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
       className="row-chart-section"
     >
       <h3>
-        Product by highest complaint volume
+        Sub-products, by product from 07/10/2017 to 07/10/2020
       </h3>
-      <p />
+      <p>
+        Product and sub-product the consumer identified in the complaint. Click on a product to expand sub-products.
+      </p>
       <div
         id="row-chart-product"
       />
@@ -1353,9 +1355,11 @@ exports[`component:Results renders map panel without crashing 1`] = `
       className="row-chart-section"
     >
       <h3>
-        Product by highest complaint volume
+        Sub-products, by product from 07/10/2017 to 07/10/2020
       </h3>
-      <p />
+      <p>
+        Product and sub-product the consumer identified in the complaint. Click on a product to expand sub-products.
+      </p>
       <div
         id="row-chart-product"
       />
@@ -1503,7 +1507,7 @@ exports[`component:Results renders trends panel without crashing 1`] = `
           onChange={[Function]}
         >
           <option
-            disabled={false}
+            disabled={true}
             value="Day"
           >
             Day

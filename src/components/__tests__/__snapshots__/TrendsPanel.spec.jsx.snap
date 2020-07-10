@@ -371,7 +371,7 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
       <p
         className="chart-helper-text"
       >
-        A time series graph of complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
+        A time series graph of the (up to) five highest volume complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
       </p>
     </section>
   </div>
@@ -395,7 +395,7 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
         <p
           className="x-axis-label"
         >
-          Date Received by the CFPB
+          Date received by the CFPB
         </p>
       </div>
     </section>
@@ -736,7 +736,7 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
       <p
         className="chart-helper-text"
       >
-        A time series graph of complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
+        A time series graph of the (up to) five highest volume complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
       </p>
     </section>
   </div>
@@ -760,7 +760,7 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
         <p
           className="x-axis-label"
         >
-          Date Received by the CFPB
+          Date received by the CFPB
         </p>
       </div>
     </section>
@@ -1415,7 +1415,7 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
       <p
         className="chart-helper-text"
       >
-        A time series graph of complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
+        A time series graph of the (up to) five highest volume complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
       </p>
     </section>
   </div>
@@ -1439,7 +1439,7 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
         <p
           className="x-axis-label"
         >
-          Date Received by the CFPB
+          Date received by the CFPB
         </p>
       </div>
     </section>
@@ -1780,7 +1780,7 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
       <p
         className="chart-helper-text"
       >
-        A time series graph of complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
+        A time series graph of the (up to) five highest volume complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
       </p>
     </section>
   </div>
@@ -1804,7 +1804,7 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
         <p
           className="x-axis-label"
         >
-          Date Received by the CFPB
+          Date received by the CFPB
         </p>
       </div>
     </section>
@@ -2063,7 +2063,7 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
       <p
         className="chart-helper-text"
       >
-        A time series graph of complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
+        A time series graph of the (up to) five highest volume complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
       </p>
     </section>
   </div>
@@ -2087,7 +2087,7 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
         <p
           className="x-axis-label"
         >
-          Date Received by the CFPB
+          Date received by the CFPB
         </p>
       </div>
     </section>
@@ -2329,7 +2329,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
       <p
         className="chart-helper-text"
       >
-        A time series graph of complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
+        A time series graph of the (up to) five highest volume complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
       </p>
     </section>
   </div>
@@ -2353,7 +2353,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
         <p
           className="x-axis-label"
         >
-          Date Received by the CFPB
+          Date received by the CFPB
         </p>
       </div>
     </section>
@@ -2594,7 +2594,7 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
       <p
         className="chart-helper-text"
       >
-        A time series graph of complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
+        A time series graph of the (up to) five highest volume complaint counts for the selected date range. Hover on the chart to see the count for each date interval. Your filter selections will update what you see on the graph.
       </p>
     </section>
   </div>
@@ -2618,7 +2618,7 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
         <p
           className="x-axis-label"
         >
-          Date Received by the CFPB
+          Date received by the CFPB
         </p>
       </div>
     </section>

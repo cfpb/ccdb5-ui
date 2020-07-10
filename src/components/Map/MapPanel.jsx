@@ -5,6 +5,7 @@ import DateRanges from '../RefineBar/DateRanges'
 import ErrorBlock from '../Warnings/Error'
 import FilterPanel from '../Filters/FilterPanel'
 import FilterPanelToggle from '../Filters/FilterPanelToggle'
+import { formatDateView } from '../../utils/formatDate'
 import Loading from '../Dialogs/Loading'
 import MapToolbar from './MapToolbar'
 import { mapWarningDismissed } from '../../actions/view'
@@ -21,9 +22,15 @@ import Warning from '../Warnings/Warning'
 const WARNING_MESSAGE = '“Complaints per' +
   ' 1,000 population” is not available with your filter selections.'
 
+const MAP_ROWCHART_HELPERTEXT = 'Product and sub-product the consumer' +
+' identified in the complaint. Click on a product to expand sub-products.'
+
 export class MapPanel extends React.Component {
   // eslint-disable-next-line complexity
   render() {
+    const MAP_ROWCHART_TITLE = 'Sub-products, by product from' +
+      ' ' + this.props.minDate + ' to ' + this.props.maxDate
+
     return (
       <section className="map-panel">
         <ActionBar/>
@@ -46,7 +53,8 @@ export class MapPanel extends React.Component {
         <RowChart id="product"
                   colorScheme={this.props.productData.colorScheme}
                   data={this.props.productData.data}
-                  title="Product by highest complaint volume"
+                  title={ MAP_ROWCHART_TITLE }
+                  helperText={ MAP_ROWCHART_HELPERTEXT }
                   total={ this.props.total }/>
 
         <Loading isLoading={ this.props.isLoading || false }/>
@@ -75,6 +83,8 @@ const mapStateToProps = state => {
     productData: processRows( results.product, false, 'Product' ),
     showMobileFilters: state.view.width < 750,
     showWarning: !enablePer1000 && mapWarningEnabled,
+    minDate: formatDateView( state.query.date_received_min ),
+    maxDate: formatDateView( state.query.date_received_max ),
     total: state.aggs.total
   }
 }
