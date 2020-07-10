@@ -31,7 +31,9 @@ function setupSnapshot( { enablePer1000, printMode } ) {
       enablePer1000,
       mapWarningEnabled: true,
       issue: [],
-      product: []
+      product: [],
+      date_received_min: new Date('7/10/2017'),
+      date_received_max: new Date('7/10/2020')
     },
     view: {
       printMode,
