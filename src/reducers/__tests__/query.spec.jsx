@@ -284,6 +284,13 @@ describe( 'reducer:query', () => {
       expect( actual.size ).toEqual( 100 )
     } )
 
+    it( 'handles bogus size & sort parameters', () => {
+      action.params = { size: '9999', sort: 'tables' }
+      const actual = target( state, action )
+      expect( actual.size ).toEqual( 10 )
+      expect( actual.sort ).toEqual( 'created_date_desc' )
+    } )
+
     it( 'ignores bad integer parameters', () => {
       action.params = { size: 'foo' }
       const actual = target( state, action )
