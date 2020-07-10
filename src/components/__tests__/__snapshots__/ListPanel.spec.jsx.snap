@@ -73,7 +73,6 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
@@ -377,7 +376,6 @@ exports[`component:ListPanel displays a message when only the narratives are sta
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
@@ -857,7 +855,6 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
@@ -1337,7 +1334,6 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
@@ -1792,7 +1788,6 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
@@ -2077,7 +2072,6 @@ exports[`component:ListPanel only displays data message when both types are stal
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
@@ -2533,7 +2527,6 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
@@ -2988,7 +2981,6 @@ exports[`component:ListPanel renders without crashing 1`] = `
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
