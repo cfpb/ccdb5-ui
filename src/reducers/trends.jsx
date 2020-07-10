@@ -4,7 +4,7 @@
 // reducer for the Map Tab
 import * as colors from '../constants/colors'
 import {
-  clamp, coalesce, getSubKeyName, processErrorMessage
+  clamp, coalesce, getSubKeyName, processErrorMessage, processUrlArrayParams
 } from '../utils'
 import { getD3Names, getTooltipTitle, updateDateBuckets } from '../utils/chart'
 import { getSubLens, pruneOther } from '../utils/trends'
@@ -556,6 +556,9 @@ function processParams( state, action ) {
       processed[val] = params[val]
     }
   }
+
+  const arrayParams = [ 'expandedTrends' ]
+  processUrlArrayParams( params, processed, arrayParams )
 
   return processed
 }

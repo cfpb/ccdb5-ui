@@ -1,5 +1,5 @@
 // reducer for the Map Tab
-import { coalesce, processErrorMessage } from '../utils'
+import { coalesce, processErrorMessage, processUrlArrayParams } from '../utils'
 import { GEO_NORM_NONE, TILE_MAP_STATES } from '../constants'
 import {
   processBucket, processTrendPeriod, toggleTrend, validateBucket
@@ -183,6 +183,9 @@ function processParams( state, action ) {
   if ( params.dataNormalization ) {
     processed.dataNormalization = params.dataNormalization
   }
+
+  const arrayParams = [ 'expandedTrends' ]
+  processUrlArrayParams( params, processed, arrayParams )
 
   return processed
 }

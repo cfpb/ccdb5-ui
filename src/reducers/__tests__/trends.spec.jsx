@@ -459,5 +459,17 @@ describe( 'reducer:trends', () => {
       expect( actual.subLens ).toEqual( 'mom' )
       expect( actual.nope ).toBeFalsy()
     } )
+
+    it( 'handles single expandedTrends param', () => {
+      action.params = { expandedTrends: 'hello' }
+      const actual = target( state, action )
+      expect( actual.expandedTrends ).toEqual( [ 'hello' ] )
+    } )
+
+    it( 'handles multiple expandedTrends param', () => {
+      action.params = { expandedTrends: [ 'hello', 'ma' ] }
+      const actual = target( state, action )
+      expect( actual.expandedTrends ).toEqual( [ 'hello', 'ma' ] )
+    } )
   } )
 } )
