@@ -95,8 +95,7 @@ export class AggregationBranch extends React.Component {
             <span className="u-visually-hidden">{item.key}</span>
           </label>
           <button className="flex-all a-btn a-btn__link"
-                  onClick={this._toggleChildDisplay}
-                  title={item.key}>
+                  onClick={this._toggleChildDisplay}>
             <span>{item.key}</span>
             {chevronIcon}
           </button>
