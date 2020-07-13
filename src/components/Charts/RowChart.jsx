@@ -169,9 +169,7 @@ export class RowChart extends React.Component {
   }
 
   _toggleRow( rowName ) {
-    // make sure to assign a valid lens when a row is clicked
     // fire off different action depending on if the row is expanded or not
-    // this.props.selectFocus( element, lens )
     const { expandableRows, expandedTrends } = this.props
     if ( expandableRows.includes( rowName ) ) {
       if ( expandedTrends.includes( rowName ) ) {
