@@ -239,7 +239,6 @@ describe( 'reducer:trends', () => {
     it( 'maps data to object state - dupe rows', () => {
       action.data.aggregations = trendsAggsDupes
       result = target( state, action )
-
       expect( result ).toEqual( trendsAggsDupeResults )
     } )
 
