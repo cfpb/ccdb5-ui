@@ -332,8 +332,8 @@ describe( 'reducer:map', () => {
         expandableRows: [ 2, 24 ],
         results: [ 1, 2, 3 ]
       }, action ) ).toEqual( {
-        expandedTrends: [],
-        expandableRows: [],
+        expandedTrends: [ 1, 2 ],
+        expandableRows: [ 2, 24 ],
         results: {
           issue: [],
           product: [],
