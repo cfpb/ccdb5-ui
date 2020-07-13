@@ -11,7 +11,7 @@ export const defaultState = {
   isLoading: false,
   dataNormalization: GEO_NORM_NONE,
   expandedTrends: [],
-  filterNames: [],
+  expandableRows: [],
   results: {
     issue: [],
     product: [],
@@ -56,7 +56,7 @@ export function handleTabChanged( state ) {
   return {
     ...state,
     expandedTrends: [],
-    filterNames: [],
+    expandableRows: [],
     results: defaultState.results
   }
 }

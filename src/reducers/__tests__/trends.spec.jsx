@@ -33,7 +33,7 @@ describe( 'reducer:trends', () => {
         colorMap: {},
         error: false,
         expandedTrends: [],
-        filterNames: [],
+        expandableRows: [],
         focus: '',
         isLoading: false,
         lastDate: false,
@@ -157,11 +157,11 @@ describe( 'reducer:trends', () => {
 
       expect( target( {
         expandedTrends: [ 1, 2 ],
-        filterNames: [ 2, 24 ],
+        expandableRows: [ 2, 24 ],
         results: [ 1, 2, 3 ]
       }, action ) ).toEqual( {
         expandedTrends: [],
-        filterNames: [],
+        expandableRows: [],
         results: {
           company: [],
           dateRangeArea: [],
@@ -277,7 +277,7 @@ describe( 'reducer:trends', () => {
     beforeEach( () => {
       state = {
         expandedTrends: [ 'bar' ],
-        filterNames: [ 'bar', 'foo' ],
+        expandableRows: [ 'bar', 'foo' ],
         results: {
           issue: [
             { name: 'bar', visible: true },
@@ -296,7 +296,7 @@ describe( 'reducer:trends', () => {
       action = { type: actions.TREND_TOGGLED, value: 'foo' }
       expect( target( state, action ) ).toEqual( {
         expandedTrends: [ 'bar', 'foo' ],
-        filterNames: [ 'bar', 'foo' ],
+        expandableRows: [ 'bar', 'foo' ],
         results: {
           issue: [
             { name: 'bar', visible: true },
@@ -314,7 +314,7 @@ describe( 'reducer:trends', () => {
       action = { type: actions.TREND_TOGGLED, value: 'bar' }
       expect( target( state, action ) ).toEqual( {
         expandedTrends: [],
-        filterNames: [ 'bar', 'foo' ],
+        expandableRows: [ 'bar', 'foo' ],
         results: {
           issue: [
             { name: 'bar', visible: true },
@@ -328,11 +328,11 @@ describe( 'reducer:trends', () => {
       } )
     } )
 
-    it( 'ignores bogus values not in filterNames', () => {
+    it( 'ignores bogus values not in expandableRows', () => {
       action = { type: actions.TREND_TOGGLED, value: 'haha' }
       expect( target( state, action ) ).toEqual( {
         expandedTrends: [ 'bar' ],
-        filterNames: [ 'bar', 'foo' ],
+        expandableRows: [ 'bar', 'foo' ],
         results: {
           issue: [
             { name: 'bar', visible: true },
