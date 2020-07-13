@@ -2,7 +2,7 @@
 
 import './RowChart.less'
 import * as d3 from 'd3'
-import { changeFocus, toggleTrend } from '../../actions/trends'
+import { changeFocus, collapseTrend, expandTrend } from '../../actions/trends'
 import { miniTooltip, row } from 'britecharts'
 import { connect } from 'react-redux'
 import { hashObject } from '../../utils'
@@ -16,6 +16,7 @@ export class RowChart extends React.Component {
   constructor( props ) {
     super( props )
     this._selectFocus = this._selectFocus.bind( this )
+    this._toggleRow = this._toggleRow.bind( this )
   }
 
   _formatTip( value ) {
@@ -87,7 +88,7 @@ export class RowChart extends React.Component {
   // eslint-disable-next-line complexity
   _redrawChart() {
     const {
-      colorScheme, data, id, printMode, toggleRow, total
+      colorScheme, data, id, printMode, total
     } = this.props
     // deep copy
     // do this to prevent REDUX pollution
@@ -153,7 +154,7 @@ export class RowChart extends React.Component {
 
     rowContainer
       .selectAll( '.y-axis-group .tick' )
-      .on( 'click', toggleRow )
+      .on( 'click', this._toggleRow )
 
     rowContainer
       .selectAll( '.view-more-label' )
@@ -166,6 +167,21 @@ export class RowChart extends React.Component {
     const lens = this.props.lens === 'Overview' ? 'Product' : this.props.lens
     this.props.selectFocus( element, lens )
   }
+
+  _toggleRow( rowName ) {
+    // make sure to assign a valid lens when a row is clicked
+    // fire off different action depending on if the row is expanded or not
+    // this.props.selectFocus( element, lens )
+    const { expandableRows, expandedTrends } = this.props
+    if ( expandableRows.includes( rowName ) ) {
+      if ( expandedTrends.includes( rowName ) ) {
+        this.props.collapseRow( rowName )
+      } else {
+        this.props.expandRow( rowName )
+      }
+    }
+  }
+
 
   render() {
     return (
@@ -185,18 +201,26 @@ export const mapDispatchToProps = dispatch => ( {
     scrollToFocus()
     dispatch( changeFocus( element.parent, lens ) )
   },
-  toggleRow: selectedState => {
-    dispatch( toggleTrend( selectedState.trim() ) )
+  collapseRow: rowName => {
+    dispatch( collapseTrend( rowName.trim() ) )
+  },
+  expandRow: rowName => {
+    dispatch( expandTrend( rowName.trim() ) )
   }
 } )
 
 export const mapStateToProps = state => {
-  const lens = state.query.tab === MODE_MAP ? 'Product' : state.query.lens
+  const { tab } = state.query
+  const lens = tab === MODE_MAP ? 'Product' : state.query.lens
+  const { expandableRows, expandedTrends } = state[tab.toLowerCase()]
   const { printMode, showTrends, width } = state.view
   return {
+    expandableRows,
+    expandedTrends,
     lens,
     printMode,
     showTrends,
+    tab,
     width
   }
 }
