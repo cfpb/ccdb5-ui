@@ -1,3 +1,4 @@
+import * as trendsUtils  from '../../utils/trends'
 import ReduxExternalTooltip, {
   ExternalTooltip,
   mapDispatchToProps,
@@ -9,6 +10,7 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
+
 
 function setupSnapshot( query, tooltip ) {
   const middlewares = [ thunk ]
@@ -128,15 +130,18 @@ describe( 'buttons', () => {
 describe( 'mapDispatchToProps', () => {
   it( 'provides a way to call add', () => {
     const dispatch = jest.fn()
+    spyOn( trendsUtils, 'scrollToFocus' )
     mapDispatchToProps( dispatch ).add( 'Baz' )
     expect( dispatch.mock.calls ).toEqual( [ [ {
       focus: 'Baz',
       requery: 'REQUERY_ALWAYS',
       type: 'FOCUS_CHANGED'
     } ] ] )
+    expect( trendsUtils.scrollToFocus ).toHaveBeenCalled()
   } )
 
   it( 'provides a way to call remove', () => {
+    spyOn( trendsUtils, 'scrollToFocus' )
     const dispatch = jest.fn()
     mapDispatchToProps( dispatch ).remove( 'Foo' )
     expect( dispatch.mock.calls ).toEqual( [ [ {
@@ -145,6 +150,7 @@ describe( 'mapDispatchToProps', () => {
       requery: 'REQUERY_ALWAYS',
       type: 'FILTER_REMOVED'
     } ] ] )
+    expect( trendsUtils.scrollToFocus ).not.toHaveBeenCalled()
   } )
 } )
 
