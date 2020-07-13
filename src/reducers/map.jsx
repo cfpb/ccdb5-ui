@@ -1,9 +1,9 @@
 // reducer for the Map Tab
 import { coalesce, processErrorMessage, processUrlArrayParams } from '../utils'
-import { GEO_NORM_NONE, TILE_MAP_STATES } from '../constants'
 import {
-  processBucket, processTrendPeriod, toggleTrend, validateBucket
+  collapseTrend, expandTrend, processBucket, processTrendPeriod, validateBucket
 } from './trends'
+import { GEO_NORM_NONE, TILE_MAP_STATES } from '../constants'
 import actions from '../actions'
 
 export const defaultState = {
@@ -55,8 +55,6 @@ export const processStateAggregations = agg => {
 export function handleTabChanged( state ) {
   return {
     ...state,
-    expandedTrends: [],
-    expandableRows: [],
     results: defaultState.results
   }
 }
@@ -225,7 +223,8 @@ export function _buildHandlerMap() {
   handlers[actions.STATES_RECEIVED] = processStatesResults
   handlers[actions.STATES_FAILED] = processStatesError
   handlers[actions.TAB_CHANGED] = handleTabChanged
-  handlers[actions.TREND_TOGGLED] = toggleTrend
+  handlers[actions.TREND_COLLAPSED] = collapseTrend
+  handlers[actions.TREND_EXPANDED] = expandTrend
   handlers[actions.URL_CHANGED] = processParams
 
 
