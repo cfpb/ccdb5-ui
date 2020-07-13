@@ -44,7 +44,7 @@ export const defaultState = {
  */
 export function processBucket( state, agg ) {
   const list = []
-  const { expandedTrends, filterNames, lens } = state
+  const { expandedTrends, filterNames } = state
   for ( let i = 0; i < agg.length; i++ ) {
     processTrendPeriod( agg[i] )
 
@@ -70,22 +70,18 @@ export function processBucket( state, agg ) {
     /* istanbul ignore else */
     if ( item[subKeyName] && item[subKeyName].buckets ) {
       const expandableBuckets = item[subKeyName].buckets
-
-      // only push expand text when a data lens is selected
-      if ( lens !== 'Overview' ) {
-        // if there's buckets we need to add a separator for rendering
-        const labelText = `More Information about ${ item.key }`
-        expandableBuckets.push( {
-          hasChildren: false,
-          isParent: false,
-          key: labelText,
-          name: labelText,
-          splitterText: labelText,
-          value: '',
-          parent: item.key,
-          width: 0.3
-        } )
-      }
+      // if there's buckets we need to add a separator for rendering
+      const labelText = `More Information about ${ item.key }`
+      expandableBuckets.push( {
+        hasChildren: false,
+        isParent: false,
+        key: labelText,
+        name: labelText,
+        splitterText: labelText,
+        value: '',
+        parent: item.key,
+        width: 0.3
+      } )
 
       list.push( expandableBuckets )
     }
