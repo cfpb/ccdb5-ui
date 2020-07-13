@@ -76,3 +76,29 @@ describe( 'pruneOther', () => {
     ] )
   } )
 } )
+
+describe( 'scrollToFocus', () => {
+  it( 'scrolls to the search summary', () => {
+    let selectElement
+    selectElement = document.createElement( 'div' )
+    selectElement.setAttribute( 'id', 'search-summary' )
+    selectElement.scrollIntoView = jest.fn()
+    window.domNode = selectElement
+    document.body.appendChild( selectElement )
+
+    sut.scrollToFocus()
+    expect( selectElement.scrollIntoView ).toHaveBeenCalled()
+    document.body.removeChild( selectElement )
+    jest.clearAllMocks()
+  } )
+
+  it( 'does nothing if no element found', () => {
+    let selectElement
+    selectElement = document.createElement( 'div' )
+    selectElement.setAttribute( 'id', 'not-search-summary' )
+    selectElement.scrollIntoView = jest.fn()
+    sut.scrollToFocus()
+    expect( selectElement.scrollIntoView ).not.toHaveBeenCalled()
+
+  } )
+} )

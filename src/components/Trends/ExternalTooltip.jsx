@@ -7,6 +7,7 @@ import iconMap from '../iconMap'
 import React from 'react'
 import { removeFilter } from '../../actions/filter'
 import { sanitizeHtmlId } from '../../utils'
+import { scrollToFocus } from '../../utils/trends'
 
 export class ExternalTooltip extends React.Component {
   _spanFormatter( value ) {
@@ -105,6 +106,7 @@ export class ExternalTooltip extends React.Component {
 
 export const mapDispatchToProps = dispatch => ( {
   add: ( value, lens ) => {
+    scrollToFocus()
     dispatch( changeFocus( value, lens ) )
   },
   remove: value => {

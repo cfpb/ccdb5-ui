@@ -1,3 +1,4 @@
+import * as trendsUtils from '../../utils/trends'
 import configureMockStore from 'redux-mock-store'
 import {
   mapDispatchToProps,
@@ -63,12 +64,12 @@ function setupSnapshot() {
 
   return renderer.create(
     <Provider store={ store }>
-      <RowChart id={'foo'}
+      <RowChart id={ 'foo' }
                 data={ [ 1, 2, 3 ] }
-                title={'Foo title we want'}
+                title={ 'Foo title we want' }
                 colorScheme={ [] }
-                total={1000}
-                />
+                total={ 1000 }
+      />
     </Provider>
   )
 }
@@ -104,9 +105,9 @@ describe( 'component: RowChart', () => {
       const target = shallow( <RowChart
         colorScheme={ [] }
         data={ [] }
-        id={'foo'}
-        title={'test'}
-        total={0}
+        id={ 'foo' }
+        title={ 'test' }
+        total={ 0 }
       /> )
       target._redrawChart = jest.fn()
       target.setProps( { data: [] } )
@@ -116,11 +117,11 @@ describe( 'component: RowChart', () => {
     it( 'handles Trend cookie flag', () => {
       const target = shallow( <RowChart
         colorScheme={ [] }
-        showTrends={true}
-        title={'test'}
+        showTrends={ true }
+        title={ 'test' }
         data={ [ 23, 4, 3 ] }
-        id={'foo'}
-        total={1000}
+        id={ 'foo' }
+        total={ 1000 }
       /> )
       target._redrawChart = jest.fn()
       const sp = jest.spyOn( target.instance(), '_redrawChart' )
@@ -142,32 +143,32 @@ describe( 'component: RowChart', () => {
           { name: 'More Information about xy', value: 10 },
           { name: 'Athing about xy', value: 10 }
         ] }
-        id={'foo'}
-        total={1000}
+        id={ 'foo' }
+        total={ 1000 }
       /> )
       target._redrawChart = jest.fn()
-      const sp = jest.spyOn(target.instance(), '_redrawChart')
+      const sp = jest.spyOn( target.instance(), '_redrawChart' )
       target.setProps( { data: [ 2, 5 ] } )
       expect( sp ).toHaveBeenCalledTimes( 1 )
     } )
 
     it( 'trigger a new update when printMode changes', () => {
       const target = shallow( <RowChart colorScheme={ [] }
-                                        title={'test'}
+                                        title={ 'test' }
                                         data={ [ 23, 4, 3 ] }
                                         id={ 'foo' }
                                         total={ 1000 }
                                         printMode={ 'false' }
       /> )
       target._redrawChart = jest.fn()
-      const sp = jest.spyOn(target.instance(), '_redrawChart')
+      const sp = jest.spyOn( target.instance(), '_redrawChart' )
       target.setProps( { printMode: true } )
       expect( sp ).toHaveBeenCalledTimes( 1 )
     } )
 
     it( 'trigger a new update when width changes', () => {
       const target = shallow( <RowChart colorScheme={ [] }
-                                        title={'test'}
+                                        title={ 'test' }
                                         data={ [ 23, 4, 3 ] }
                                         id={ 'foo' }
                                         total={ 1000 }
@@ -175,7 +176,7 @@ describe( 'component: RowChart', () => {
                                         width={ 1000 }
       /> )
       target._redrawChart = jest.fn()
-      const sp = jest.spyOn(target.instance(), '_redrawChart')
+      const sp = jest.spyOn( target.instance(), '_redrawChart' )
       target.setProps( { width: 600 } )
       expect( sp ).toHaveBeenCalledTimes( 1 )
     } )
@@ -183,12 +184,12 @@ describe( 'component: RowChart', () => {
     it( 'calls select Focus', () => {
       const cb = jest.fn()
       const target = shallow( <RowChart
-        selectFocus={cb}
+        selectFocus={ cb }
         colorScheme={ [] }
-        title={'test'}
+        title={ 'test' }
         data={ [ 23, 4, 3 ] }
-        id={'foo'}
-        total={1000}
+        id={ 'foo' }
+        total={ 1000 }
       /> )
       target.instance()._selectFocus( { name: 'foo' } )
       expect( cb ).toHaveBeenCalledTimes( 1 )
@@ -196,8 +197,17 @@ describe( 'component: RowChart', () => {
   } )
 
   describe( 'mapDispatchToProps', () => {
+    let dispatch
+    beforeEach( () => {
+      dispatch = jest.fn()
+    } )
+
+    afterEach( () => {
+      jest.clearAllMocks()
+    } )
+
     it( 'hooks into changeFocus', () => {
-      const dispatch = jest.fn()
+      spyOn( trendsUtils, 'scrollToFocus' )
       mapDispatchToProps( dispatch )
         .selectFocus( { parent: 'mom', name: 'dad' } )
       expect( dispatch.mock.calls ).toEqual( [ [ {
@@ -205,18 +215,20 @@ describe( 'component: RowChart', () => {
         requery: 'REQUERY_ALWAYS',
         type: 'FOCUS_CHANGED'
       } ] ] )
+      expect( trendsUtils.scrollToFocus ).toHaveBeenCalled()
     } )
 
     it( 'hooks into toggleTrend', () => {
-      const dispatch = jest.fn()
+      spyOn( trendsUtils, 'scrollToFocus' )
       mapDispatchToProps( dispatch ).toggleRow()
       expect( dispatch.mock.calls.length ).toEqual( 1 )
+      expect( trendsUtils.scrollToFocus ).not.toHaveBeenCalled()
     } )
   } )
 
   describe( 'mapStateToProps', () => {
     let state
-    beforeEach(()=>{
+    beforeEach( () => {
       state = {
         query: {
           lens: 'Foo',
@@ -227,7 +239,7 @@ describe( 'component: RowChart', () => {
           width: 1000
         }
       }
-    })
+    } )
     it( 'maps state and props - Map', () => {
       const ownProps = {
         id: 'baz'
@@ -256,29 +268,29 @@ describe( 'component: RowChart', () => {
     } )
   } )
 
-  describe('helper functions', ()=>{
-    it('gets height based on number of rows', ()=>{
-      const target = mount(<RowChart colorScheme={ [] }
-                                     title={'test'}
-                                     total={10}
-                                     data={ [ 23, 4, 3 ] }
-                                     id={ 'foo' }/>)
-      let res = target.instance()._getHeight(1)
-      expect(res).toEqual(100)
-      res = target.instance()._getHeight(5)
-      expect(res).toEqual(300)
-    })
+  describe( 'helper functions', () => {
+    it( 'gets height based on number of rows', () => {
+      const target = mount( <RowChart colorScheme={ [] }
+                                      title={ 'test' }
+                                      total={ 10 }
+                                      data={ [ 23, 4, 3 ] }
+                                      id={ 'foo' }/> )
+      let res = target.instance()._getHeight( 1 )
+      expect( res ).toEqual( 100 )
+      res = target.instance()._getHeight( 5 )
+      expect( res ).toEqual( 300 )
+    } )
 
     it( 'formats text of the tooltip', () => {
       const target = mount( <RowChart colorScheme={ [] }
-                                      title={'test'}
-                                      total={1000}
+                                      title={ 'test' }
+                                      total={ 1000 }
                                       data={ [ 23, 4, 3 ] }
                                       id={ 'foo' }/> )
       let res = target.instance()._formatTip( 100000 )
       expect( res ).toEqual( '100,000 complaints' )
-    })
+    } )
 
-  })
+  } )
 
 } )
