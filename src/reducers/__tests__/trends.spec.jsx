@@ -149,24 +149,19 @@ describe( 'reducer:trends', () => {
   } )
 
   describe( 'TAB_CHANGED action', () => {
-    it( 'handles trends tabs', () => {
-      action = {
-        type: actions.TAB_CHANGED,
-        tab: 'Trends'
-      }
-
-      expect( target( { results: [ 1, 2, 3 ] }, action ) ).toEqual( {
-        results: [ 1, 2, 3 ]
-      } )
-    } )
-
-    it( 'clears results when its Other tabs', () => {
+    it( 'clears results and resets values', () => {
       action = {
         type: actions.TAB_CHANGED,
         tab: 'Foo'
       }
 
-      expect( target( { results: [ 1, 2, 3 ] }, action ) ).toEqual( {
+      expect( target( {
+        expandedTrends: [ 1, 2 ],
+        filterNames: [ 2, 24 ],
+        results: [ 1, 2, 3 ]
+      }, action ) ).toEqual( {
+        expandedTrends: [],
+        filterNames: [],
         results: {
           company: [],
           dateRangeArea: [],

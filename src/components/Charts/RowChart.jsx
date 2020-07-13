@@ -186,7 +186,7 @@ export const mapDispatchToProps = dispatch => ( {
     dispatch( changeFocus( element.parent, lens ) )
   },
   toggleRow: selectedState => {
-    dispatch( toggleTrend( selectedState ) )
+    dispatch( toggleTrend( selectedState.trim() ) )
   }
 } )
 
