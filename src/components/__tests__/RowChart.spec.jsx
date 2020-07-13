@@ -303,9 +303,9 @@ describe( 'component: RowChart', () => {
       spyOn( trendsUtils, 'scrollToFocus' )
       mapDispatchToProps( dispatch ).collapseRow( 'Some Expanded row' )
       expect( dispatch.mock.calls ).toEqual( [ [ {
-        requery: "REQUERY_NEVER",
-        type: "TREND_COLLAPSED",
-        value: "Some Expanded row"
+        requery: 'REQUERY_NEVER',
+        type: 'TREND_COLLAPSED',
+        value: 'Some Expanded row'
       } ] ] )
       expect( trendsUtils.scrollToFocus ).not.toHaveBeenCalled()
     } )
@@ -314,9 +314,9 @@ describe( 'component: RowChart', () => {
       spyOn( trendsUtils, 'scrollToFocus' )
       mapDispatchToProps( dispatch ).expandRow( 'collapse row name' )
       expect( dispatch.mock.calls ).toEqual( [ [ {
-        requery: "REQUERY_NEVER",
-        type: "TREND_EXPANDED",
-        value: "collapse row name"
+        requery: 'REQUERY_NEVER',
+        type: 'TREND_EXPANDED',
+        value: 'collapse row name'
       } ] ] )
       expect( trendsUtils.scrollToFocus ).not.toHaveBeenCalled()
     } )
