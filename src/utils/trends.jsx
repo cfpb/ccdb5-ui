@@ -66,3 +66,14 @@ export const getIntervals = ( from, to ) => {
     disabled: isGreaterThanYear( from, to ) && o === 'Day'
   } ) )
 }
+
+/**
+ * trigger this after a user clicks a focus.  we scroll to the select box
+ * so that users don't get a blank wall of content
+ */
+export const scrollToFocus = () => {
+  const lensSelect = document.getElementById( 'search-summary' )
+  if ( lensSelect ) {
+    lensSelect.scrollIntoView()
+  }
+}
