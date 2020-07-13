@@ -213,48 +213,67 @@ describe( 'component: RowChart', () => {
       expect( cb ).toHaveBeenCalledWith( { name: 'foo' }, 'Product' )
     } )
 
-    it( 'collapses a row', () => {
-      const collapseCb = jest.fn()
-      const expandCb = jest.fn()
+    describe( 'row toggles', () => {
+      let expandCb, collapseCb
+      beforeEach( () => {
+        collapseCb = jest.fn()
+        expandCb = jest.fn()
+      } )
+      it( 'ignores values not in expandable rows', () => {
+        const target = shallow( <RowChart
+          lens={ 'Overview' }
+          collapseRow={ collapseCb }
+          expandRow={ expandCb }
+          colorScheme={ [] }
+          title={ 'test' }
+          data={ [ 23, 4, 3 ] }
+          expandableRows={ [ 'foo', 'bar' ] }
+          expandedTrends={ [ 'foo' ] }
+          id={ 'foo' }
+          total={ 1000 }
+        /> )
+        target.instance()._toggleRow( 'not a expandable row' )
+        expect( collapseCb ).toHaveBeenCalledTimes( 0 )
+        expect( expandCb ).toHaveBeenCalledTimes( 0 )
+      } )
 
-      const target = shallow( <RowChart
-        lens={ 'Overview' }
-        collapseRow={ collapseCb }
-        expandRow={ expandCb }
-        colorScheme={ [] }
-        title={ 'test' }
-        data={ [ 23, 4, 3 ] }
-        expandableRows={ [ 'foo', 'bar' ] }
-        expandedTrends={ [ 'foo' ] }
-        id={ 'foo' }
-        total={ 1000 }
-      /> )
-      target.instance()._toggleRow( 'foo' )
-      expect( collapseCb ).toHaveBeenCalledTimes( 1 )
-      expect( collapseCb ).toHaveBeenCalledWith( 'foo' )
-      expect( expandCb ).toHaveBeenCalledTimes( 0 )
-    } )
+      it( 'collapses a row', () => {
+        const target = shallow( <RowChart
+          lens={ 'Overview' }
+          collapseRow={ collapseCb }
+          expandRow={ expandCb }
+          colorScheme={ [] }
+          title={ 'test' }
+          data={ [ 23, 4, 3 ] }
+          expandableRows={ [ 'foo', 'bar' ] }
+          expandedTrends={ [ 'foo' ] }
+          id={ 'foo' }
+          total={ 1000 }
+        /> )
+        target.instance()._toggleRow( 'foo' )
+        expect( collapseCb ).toHaveBeenCalledTimes( 1 )
+        expect( collapseCb ).toHaveBeenCalledWith( 'foo' )
+        expect( expandCb ).toHaveBeenCalledTimes( 0 )
+      } )
 
-    it( 'expands a row', () => {
-      const collapseCb = jest.fn()
-      const expandCb = jest.fn()
-
-      const target = shallow( <RowChart
-        lens={ 'Overview' }
-        collapseRow={ collapseCb }
-        expandRow={ expandCb }
-        colorScheme={ [] }
-        title={ 'test' }
-        data={ [ 23, 4, 3 ] }
-        expandableRows={ [ 'foo', 'bar' ] }
-        expandedTrends={ [] }
-        id={ 'foo' }
-        total={ 1000 }
-      /> )
-      target.instance()._toggleRow( 'foo' )
-      expect( expandCb ).toHaveBeenCalledTimes( 1 )
-      expect( expandCb ).toHaveBeenCalledWith( 'foo' )
-      expect( collapseCb ).toHaveBeenCalledTimes( 0 )
+      it( 'expands a row', () => {
+        const target = shallow( <RowChart
+          lens={ 'Overview' }
+          collapseRow={ collapseCb }
+          expandRow={ expandCb }
+          colorScheme={ [] }
+          title={ 'test' }
+          data={ [ 23, 4, 3 ] }
+          expandableRows={ [ 'foo', 'bar' ] }
+          expandedTrends={ [] }
+          id={ 'foo' }
+          total={ 1000 }
+        /> )
+        target.instance()._toggleRow( 'foo' )
+        expect( expandCb ).toHaveBeenCalledTimes( 1 )
+        expect( expandCb ).toHaveBeenCalledWith( 'foo' )
+        expect( collapseCb ).toHaveBeenCalledTimes( 0 )
+      } )
     } )
   } )
 
