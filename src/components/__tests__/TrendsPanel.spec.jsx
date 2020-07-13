@@ -5,6 +5,7 @@ import ReduxTrendsPanel, {
   TrendsPanel,
   mapDispatchToProps
 } from '../Trends/TrendsPanel'
+import { MODE_TRENDS } from '../../constants'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
@@ -89,6 +90,7 @@ function setupSnapshot( { chartType,
       date_received_max: "2020-01-01T00:00:00.000Z",
       lens,
       subLens,
+      tab: MODE_TRENDS,
       trendsDateWarningEnabled
     },
     trends: {

@@ -5,6 +5,7 @@ import ReduxMapPanel, { MapPanel, mapDispatchToProps } from '../Map/MapPanel'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import thunk from 'redux-thunk'
+import { MODE_MAP } from '../../constants'
 
 function setupSnapshot( { enablePer1000, printMode } ) {
   const items = [
@@ -28,12 +29,13 @@ function setupSnapshot( { enablePer1000, printMode } ) {
       }
     },
     query: {
+      date_received_min: new Date('7/10/2017'),
+      date_received_max: new Date('7/10/2020'),
       enablePer1000,
       mapWarningEnabled: true,
       issue: [],
       product: [],
-      date_received_min: new Date('7/10/2017'),
-      date_received_max: new Date('7/10/2020')
+      tab: MODE_MAP
     },
     view: {
       printMode,

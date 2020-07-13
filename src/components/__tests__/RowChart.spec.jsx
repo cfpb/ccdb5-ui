@@ -236,10 +236,25 @@ describe( 'component: RowChart', () => {
       expect( trendsUtils.scrollToFocus ).toHaveBeenCalled()
     } )
 
-    it( 'hooks into toggleTrend', () => {
+    it( 'hooks into collapseTrend', () => {
       spyOn( trendsUtils, 'scrollToFocus' )
-      mapDispatchToProps( dispatch ).toggleRow( 'Some row name' )
-      expect( dispatch.mock.calls.length ).toEqual( 1 )
+      mapDispatchToProps( dispatch ).collapseRow( 'Some Expanded row' )
+      expect( dispatch.mock.calls ).toEqual( [ [ {
+        requery: "REQUERY_NEVER",
+        type: "TREND_COLLAPSED",
+        value: "Some Expanded row"
+      } ] ] )
+      expect( trendsUtils.scrollToFocus ).not.toHaveBeenCalled()
+    } )
+
+    it( 'hooks into expandTrend', () => {
+      spyOn( trendsUtils, 'scrollToFocus' )
+      mapDispatchToProps( dispatch ).expandRow( 'collapse row name' )
+      expect( dispatch.mock.calls ).toEqual( [ [ {
+        requery: "REQUERY_NEVER",
+        type: "TREND_EXPANDED",
+        value: "collapse row name"
+      } ] ] )
       expect( trendsUtils.scrollToFocus ).not.toHaveBeenCalled()
     } )
   } )
@@ -248,12 +263,21 @@ describe( 'component: RowChart', () => {
     let state
     beforeEach( () => {
       state = {
+        map: {
+          expandableRows: [],
+          expandedTrends: []
+        },
         query: {
           lens: 'Foo',
           tab: 'Map'
         },
+        trends: {
+          expandableRows: [],
+          expandedTrends: []
+        },
         view: {
           printMode: false,
+          showTrends: true,
           width: 1000
         }
       }
@@ -264,8 +288,12 @@ describe( 'component: RowChart', () => {
       }
       let actual = mapStateToProps( state, ownProps )
       expect( actual ).toEqual( {
+        expandableRows: [],
+        expandedTrends: [],
         lens: 'Product',
         printMode: false,
+        showTrends: true,
+        tab: 'Map',
         width: 1000
       } )
     } )
@@ -275,12 +303,16 @@ describe( 'component: RowChart', () => {
         id: 'baz'
       }
 
-      state.query.tab = 'Bar'
+      state.query.tab = 'Trends'
 
       let actual = mapStateToProps( state, ownProps )
       expect( actual ).toEqual( {
+        expandableRows: [],
+        expandedTrends: [],
         lens: 'Foo',
         printMode: false,
+        tab: 'Trends',
+        showTrends: true,
         width: 1000
       } )
     } )
