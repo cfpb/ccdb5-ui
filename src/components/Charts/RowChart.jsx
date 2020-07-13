@@ -10,7 +10,7 @@ import { max } from 'd3-array'
 import { MODE_MAP } from '../../constants'
 import PropTypes from 'prop-types'
 import React from 'react'
-
+import { scrollToFocus } from '../../utils/trends'
 
 export class RowChart extends React.Component {
   constructor( props ) {
@@ -180,6 +180,7 @@ export class RowChart extends React.Component {
 
 export const mapDispatchToProps = dispatch => ( {
   selectFocus: ( element, lens ) => {
+    scrollToFocus()
     dispatch( changeFocus( element.parent, lens ) )
   },
   toggleRow: selectedState => {
