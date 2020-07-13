@@ -47,6 +47,21 @@ export const processStateAggregations = agg => {
 // Action Handlers
 
 /**
+ * Updates the state when an tab changed occurs, reset values to start clean
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+export function handleTabChanged( state ) {
+  return {
+    ...state,
+    expandedTrends: [],
+    filterNames: [],
+    results: defaultState.results
+  }
+}
+
+/**
  * Updates the state when an aggregations call is in progress
  *
  * @param {object} state the current state in the Redux store
@@ -209,6 +224,7 @@ export function _buildHandlerMap() {
   handlers[actions.STATES_API_CALLED] = statesCallInProcess
   handlers[actions.STATES_RECEIVED] = processStatesResults
   handlers[actions.STATES_FAILED] = processStatesError
+  handlers[actions.TAB_CHANGED] = handleTabChanged
   handlers[actions.TREND_TOGGLED] = toggleTrend
   handlers[actions.URL_CHANGED] = processParams
 

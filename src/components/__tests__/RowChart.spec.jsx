@@ -238,7 +238,7 @@ describe( 'component: RowChart', () => {
 
     it( 'hooks into toggleTrend', () => {
       spyOn( trendsUtils, 'scrollToFocus' )
-      mapDispatchToProps( dispatch ).toggleRow()
+      mapDispatchToProps( dispatch ).toggleRow( 'Some row name' )
       expect( dispatch.mock.calls.length ).toEqual( 1 )
       expect( trendsUtils.scrollToFocus ).not.toHaveBeenCalled()
     } )

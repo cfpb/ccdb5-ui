@@ -320,6 +320,30 @@ describe( 'reducer:map', () => {
     } )
   } )
 
+  describe( 'TAB_CHANGED action', () => {
+    it( 'clears results and resets values', () => {
+      action = {
+        type: actions.TAB_CHANGED,
+        tab: 'Foo'
+      }
+
+      expect( target( {
+        expandedTrends: [ 1, 2 ],
+        filterNames: [ 2, 24 ],
+        results: [ 1, 2, 3 ]
+      }, action ) ).toEqual( {
+        expandedTrends: [],
+        filterNames: [],
+        results: {
+          issue: [],
+          product: [],
+          state: []
+        }
+      } )
+    } )
+
+  } )
+
   describe( 'URL_CHANGED actions', () => {
     let action
     let state

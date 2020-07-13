@@ -414,17 +414,17 @@ function updateExpandedTrends( item, filterNames, expandedTrends ) {
 // ----------------------------------------------------------------------------
 // Action Handlers
 /**
- * Updates the state when an tab changed occurs
+ * Updates the state when an tab changed occurs, reset values to start clean
  *
  * @param {object} state the current state in the Redux store
- * @param {object} action the payload containing the key/value pairs
  * @returns {object} the new state for the Redux store
  */
-export function handleTabChanged( state, action ) {
-  const results = action.tab === 'Trends' ? state.results : defaultState.results
+export function handleTabChanged( state ) {
   return {
     ...state,
-    results
+    expandedTrends: [],
+    filterNames: [],
+    results: defaultState.results
   }
 }
 
