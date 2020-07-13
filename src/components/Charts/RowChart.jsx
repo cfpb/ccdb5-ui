@@ -162,7 +162,9 @@ export class RowChart extends React.Component {
   }
 
   _selectFocus( element ) {
-    this.props.selectFocus( element, this.props.lens )
+    // make sure to assign a valid lens when a row is clicked
+    const lens = this.props.lens === 'Overview' ? 'Product' : this.props.lens
+    this.props.selectFocus( element, lens )
   }
 
   render() {

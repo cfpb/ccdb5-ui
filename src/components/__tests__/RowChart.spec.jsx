@@ -181,9 +181,26 @@ describe( 'component: RowChart', () => {
       expect( sp ).toHaveBeenCalledTimes( 1 )
     } )
 
-    it( 'calls select Focus', () => {
+    it( 'calls select Focus with a lens', () => {
       const cb = jest.fn()
       const target = shallow( <RowChart
+        selectFocus={ cb }
+        colorScheme={ [] }
+        title={ 'test' }
+        lens={ 'Boo' }
+        data={ [ 23, 4, 3 ] }
+        id={ 'foo' }
+        total={ 1000 }
+      /> )
+      target.instance()._selectFocus( { name: 'foo' } )
+      expect( cb ).toHaveBeenCalledTimes( 1 )
+      expect( cb ).toHaveBeenCalledWith( { name: 'foo' }, 'Boo' )
+    } )
+
+    it( 'calls select Focus with product lens - Overview', () => {
+      const cb = jest.fn()
+      const target = shallow( <RowChart
+        lens={ 'Overview' }
         selectFocus={ cb }
         colorScheme={ [] }
         title={ 'test' }
@@ -193,6 +210,7 @@ describe( 'component: RowChart', () => {
       /> )
       target.instance()._selectFocus( { name: 'foo' } )
       expect( cb ).toHaveBeenCalledTimes( 1 )
+      expect( cb ).toHaveBeenCalledWith( { name: 'foo' }, 'Product' )
     } )
   } )
 
