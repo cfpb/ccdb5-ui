@@ -15,7 +15,7 @@ describe( 'reducer:map', () => {
         activeCall: '',
         dataNormalization: GEO_NORM_NONE,
         expandedTrends: [],
-        filterNames: [],
+        expandableRows: [],
         isLoading: false,
         results: {
           issue: [],
@@ -329,11 +329,11 @@ describe( 'reducer:map', () => {
 
       expect( target( {
         expandedTrends: [ 1, 2 ],
-        filterNames: [ 2, 24 ],
+        expandableRows: [ 2, 24 ],
         results: [ 1, 2, 3 ]
       }, action ) ).toEqual( {
         expandedTrends: [],
-        filterNames: [],
+        expandableRows: [],
         results: {
           issue: [],
           product: [],

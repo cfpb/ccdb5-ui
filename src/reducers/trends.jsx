@@ -17,7 +17,7 @@ export const defaultState = {
   colorMap: {},
   error: false,
   expandedTrends: [],
-  filterNames: [],
+  expandableRows: [],
   focus: '',
   isLoading: false,
   lastDate: false,
@@ -44,7 +44,7 @@ export const defaultState = {
  */
 export function processBucket( state, agg ) {
   const list = []
-  const { expandedTrends, filterNames } = state
+  const { expandedTrends, expandableRows } = state
   for ( let i = 0; i < agg.length; i++ ) {
     processTrendPeriod( agg[i] )
 
@@ -55,8 +55,8 @@ export function processBucket( state, agg ) {
     if ( item[subKeyName] && item[subKeyName].buckets.length ) {
       item.hasChildren = true
       /* istanbul ignore else */
-      if ( !filterNames.includes( item.key ) ) {
-        filterNames.push( item.key )
+      if ( !expandableRows.includes( item.key ) ) {
+        expandableRows.push( item.key )
       }
     }
 
@@ -366,9 +366,9 @@ export function processTrends( state, action ) {
  * @returns {object} the new state for the Redux store
  */
 export function toggleTrend( state, action ) {
-  const { expandedTrends, filterNames, results } = state
+  const { expandedTrends, expandableRows, results } = state
   const item = action.value
-  const toggled = updateExpandedTrends( item, filterNames, expandedTrends )
+  const toggled = updateExpandedTrends( item, expandableRows, expandedTrends )
   for ( const k in results ) {
     // rip through results and expand the ones, or collapse
     /* istanbul ignore else */
@@ -390,16 +390,16 @@ export function toggleTrend( state, action ) {
 /**
  * Helper function to get under eslint complexity limits
  * @param {string} item the trend that was toggled
- * @param {array} filterNames list of available filters we can toggle
+ * @param {array} expandableRows list of available rows we can toggle
  * @param {array} expandedTrends list of the trends that are expanded
  * @returns {boolean} the trend should be visible or not
  */
-function updateExpandedTrends( item, filterNames, expandedTrends ) {
+function updateExpandedTrends( item, expandableRows, expandedTrends ) {
   let toggled = false
   const pos = expandedTrends.indexOf( item )
 
   // if it's an available filter
-  if ( filterNames.indexOf( item ) > -1 ) {
+  if ( expandableRows.indexOf( item ) > -1 ) {
     if ( pos === -1 ) {
       toggled = true
       expandedTrends.push( item )
@@ -423,7 +423,7 @@ export function handleTabChanged( state ) {
   return {
     ...state,
     expandedTrends: [],
-    filterNames: [],
+    expandableRows: [],
     results: defaultState.results
   }
 }
