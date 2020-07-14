@@ -3,11 +3,12 @@
 import './RowChart.less'
 import * as d3 from 'd3'
 import { changeFocus, collapseTrend, expandTrend } from '../../actions/trends'
+import { coalesce, getAllFilters, hashObject } from '../../utils'
 import { miniTooltip, row } from 'britecharts'
+import { MODE_MAP, SLUG_SEPARATOR } from '../../constants'
+import { addMultipleFilters } from '../../actions/filter'
 import { connect } from 'react-redux'
-import { hashObject } from '../../utils'
 import { max } from 'd3-array'
-import { MODE_MAP } from '../../constants'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { scrollToFocus } from '../../utils/trends'
@@ -165,7 +166,8 @@ export class RowChart extends React.Component {
   _selectFocus( element ) {
     // make sure to assign a valid lens when a row is clicked
     const lens = this.props.lens === 'Overview' ? 'Product' : this.props.lens
-    this.props.selectFocus( element, lens )
+    const filters = coalesce( this.props.aggs, lens.toLowerCase(), [] )
+    this.props.selectFocus( element, lens, filters )
   }
 
   _toggleRow( rowName ) {
@@ -195,9 +197,19 @@ export class RowChart extends React.Component {
 }
 
 export const mapDispatchToProps = dispatch => ( {
-  selectFocus: ( element, lens ) => {
+  selectFocus: ( element, lens, filters ) => {
     scrollToFocus()
-    dispatch( changeFocus( element.parent, lens ) )
+    console.log( filters )
+    // const selectedFilters = filters.filter( o => o === element.parent || o.indexOf( element.parent + SLUG_SEPARATOR ) )
+    const filterGroup = filters.find(o => o.key === element.parent )
+    // console.log( filterGroup['sub_' + lens.toLowerCase() + '.raw'] )
+    console.log(filterGroup)
+    const values = filterGroup ? getAllFilters( element.parent, filterGroup['sub_' + lens.toLowerCase() + '.raw'].buckets ) : []
+    console.log( values )
+    if(values.length) {
+      dispatch( addMultipleFilters( lens, [ ...values ] ) )
+    }
+    dispatch( changeFocus( element.parent, lens, [ ...values ]) )
   },
   collapseRow: rowName => {
     dispatch( collapseTrend( rowName.trim() ) )
@@ -210,9 +222,11 @@ export const mapDispatchToProps = dispatch => ( {
 export const mapStateToProps = state => {
   const { tab } = state.query
   const lens = tab === MODE_MAP ? 'Product' : state.query.lens
+  const { aggs } = state
   const { expandableRows, expandedTrends } = state[tab.toLowerCase()]
   const { printMode, showTrends, width } = state.view
   return {
+    aggs,
     expandableRows,
     expandedTrends,
     lens,

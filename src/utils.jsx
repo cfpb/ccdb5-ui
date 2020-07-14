@@ -389,3 +389,20 @@ export const processUrlArrayParams = ( params, processed, arrayParams ) => {
     }
   } )
 }
+
+/**
+ * gets a filter and its subagg filters
+ * @param {string} filterKey the filter 'Debt'
+ * @param {array} subitems the buckets to process to generate slug
+ * @returns {Set<any>} returns a set of uniques Debt, Debt*Foo
+ */
+export const getAllFilters = ( filterKey, subitems ) => {
+  const values = new Set()
+  // Add the parent
+  values.add( filterKey )
+  // Add the shown subitems
+  subitems.forEach( sub => {
+    values.add( slugify( filterKey, sub.key ) )
+  } )
+  return values
+}

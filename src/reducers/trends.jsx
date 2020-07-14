@@ -52,7 +52,8 @@ export function processBucket( state, agg ) {
     const subKeyName = getSubKeyName( item )
 
     item.isParent = true
-    if ( item[subKeyName] && item[subKeyName].buckets.length ) {
+    const subItem = item[subKeyName]
+    if ( subItem && subItem.buckets.length ) {
       item.hasChildren = true
       /* istanbul ignore else */
       if ( !expandableRows.includes( item.key ) ) {
@@ -68,8 +69,8 @@ export function processBucket( state, agg ) {
     list.push( tempItem )
 
     /* istanbul ignore else */
-    if ( item[subKeyName] && item[subKeyName].buckets ) {
-      const expandableBuckets = item[subKeyName].buckets
+    if ( subItem && subItem.buckets && subItem.buckets.length ) {
+      const expandableBuckets = subItem.buckets
       // if there's buckets we need to add a separator for rendering
       const labelText = `More Information about ${ item.key }`
       expandableBuckets.push( {
@@ -367,13 +368,10 @@ export function processTrends( state, action ) {
  * @returns {object} the new state for the Redux store
  */
 export function collapseTrend( state, action ) {
-  const { expandedTrends, expandableRows } = state
+  const { expandedTrends } = state
   const item = action.value
   // if it's an available filter
-  let expanded = expandedTrends
-  if ( expandableRows.includes( item ) ) {
-    expanded = expandedTrends.filter( o => o !== item )
-  }
+  const expanded = expandedTrends.filter( o => o !== item )
 
   const results = updateRowVisibility( state, expanded )
 
@@ -548,10 +546,25 @@ function changeFocus( state, action ) {
     ...state,
     focus,
     lens,
-    subLens: getSubLens( lens ),
     tooltip: false
   }
 }
+
+/** Handler for the focus removed action
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+function removeFocus( state ) {
+  return {
+    ...state,
+    expandableRows: [],
+    expandedTrends: [],
+    focus: '',
+    tooltip: false
+  }
+}
+
 
 /**
  * Processes an object of key/value strings into the correct internal format
@@ -628,6 +641,24 @@ export function removeAllFilters( state ) {
     focus: ''
   }
 }
+
+/**
+ * Removes multiple filters from the current set
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the payload containing the filters to remove
+ * @returns {object} the new state for the Redux store
+ */
+function removeMultipleFilters( state, action ) {
+  console.log( action.values )
+  console.log( state.focus )
+  const focus = action.values.includes( state.focus ) ? '' : state.focus
+  return {
+    ...state,
+    focus
+  }
+}
+
 // ----------------------------------------------------------------------------
 // Action Handlers
 
@@ -643,7 +674,9 @@ export function _buildHandlerMap() {
   handlers[actions.DATA_LENS_CHANGED] = updateDataLens
   handlers[actions.DATA_SUBLENS_CHANGED] = updateDataSubLens
   handlers[actions.FILTER_ALL_REMOVED] = removeAllFilters
+  handlers[actions.FILTER_MULTIPLE_REMOVED] = removeMultipleFilters
   handlers[actions.FOCUS_CHANGED] = changeFocus
+  handlers[actions.FOCUS_REMOVED] = removeFocus
   handlers[actions.TAB_CHANGED] = handleTabChanged
   handlers[actions.TRENDS_API_CALLED] = trendsCallInProcess
   handlers[actions.TRENDS_FAILED] = processTrendsError

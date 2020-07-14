@@ -1,9 +1,9 @@
 import './FocusHeader.less'
-import { changeFocus } from '../../actions/trends'
 import { connect } from 'react-redux'
 import iconMap from '../iconMap'
 import LensTabs from './LensTabs'
 import React from 'react'
+import { removeFocus } from '../../actions/trends'
 
 export class FocusHeader extends React.Component {
   render() {
@@ -32,7 +32,7 @@ export class FocusHeader extends React.Component {
 
 export const mapDispatchToProps = dispatch => ( {
   clearFocus: lens => {
-    dispatch( changeFocus( '', lens ) )
+    dispatch( removeFocus() )
   }
 } )
 

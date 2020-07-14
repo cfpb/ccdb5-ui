@@ -7,7 +7,6 @@ import iconMap from '../iconMap'
 import React from 'react'
 import { removeFilter } from '../../actions/filter'
 import { sanitizeHtmlId } from '../../utils'
-import { scrollToFocus } from '../../utils/trends'
 
 export class ExternalTooltip extends React.Component {
   _spanFormatter( value ) {
@@ -43,12 +42,10 @@ export class ExternalTooltip extends React.Component {
       return elements
     }
 
-    elements.push( <span className="u-left a-btn a-btn__link"
-                           id={ 'focus-' + sanitizeHtmlId( value.name ) }
-                           key={ value.name }
-             onClick={ () => {
-               this.props.add( value.name, lens )
-             } }>
+    elements.push(
+      <span className="u-left"
+            id={ 'focus-' + sanitizeHtmlId( value.name ) }
+            key={ value.name }>
         { value.name }
       </span> )
 
@@ -105,10 +102,6 @@ export class ExternalTooltip extends React.Component {
 
 
 export const mapDispatchToProps = dispatch => ( {
-  add: ( value, lens ) => {
-    scrollToFocus()
-    dispatch( changeFocus( value, lens ) )
-  },
   remove: value => {
     dispatch( removeFilter( 'company', value ) )
   }
