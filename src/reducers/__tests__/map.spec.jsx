@@ -15,7 +15,7 @@ describe( 'reducer:map', () => {
         activeCall: '',
         dataNormalization: GEO_NORM_NONE,
         expandedTrends: [],
-        filterNames: [],
+        expandableRows: [],
         isLoading: false,
         results: {
           issue: [],
@@ -318,6 +318,30 @@ describe( 'reducer:map', () => {
         }
       } )
     } )
+  } )
+
+  describe( 'TAB_CHANGED action', () => {
+    it( 'clears results and resets values', () => {
+      action = {
+        type: actions.TAB_CHANGED,
+        tab: 'Foo'
+      }
+
+      expect( target( {
+        expandedTrends: [ 1, 2 ],
+        expandableRows: [ 2, 24 ],
+        results: [ 1, 2, 3 ]
+      }, action ) ).toEqual( {
+        expandedTrends: [ 1, 2 ],
+        expandableRows: [ 2, 24 ],
+        results: {
+          issue: [],
+          product: [],
+          state: []
+        }
+      } )
+    } )
+
   } )
 
   describe( 'URL_CHANGED actions', () => {

@@ -1,9 +1,9 @@
 // reducer for the Map Tab
 import { coalesce, processErrorMessage, processUrlArrayParams } from '../utils'
-import { GEO_NORM_NONE, TILE_MAP_STATES } from '../constants'
 import {
-  processBucket, processTrendPeriod, toggleTrend, validateBucket
+  collapseTrend, expandTrend, processBucket, processTrendPeriod, validateBucket
 } from './trends'
+import { GEO_NORM_NONE, TILE_MAP_STATES } from '../constants'
 import actions from '../actions'
 
 export const defaultState = {
@@ -11,7 +11,7 @@ export const defaultState = {
   isLoading: false,
   dataNormalization: GEO_NORM_NONE,
   expandedTrends: [],
-  filterNames: [],
+  expandableRows: [],
   results: {
     issue: [],
     product: [],
@@ -45,6 +45,19 @@ export const processStateAggregations = agg => {
 
 // ----------------------------------------------------------------------------
 // Action Handlers
+
+/**
+ * Updates the state when an tab changed occurs, reset values to start clean
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+export function handleTabChanged( state ) {
+  return {
+    ...state,
+    results: defaultState.results
+  }
+}
 
 /**
  * Updates the state when an aggregations call is in progress
@@ -209,7 +222,9 @@ export function _buildHandlerMap() {
   handlers[actions.STATES_API_CALLED] = statesCallInProcess
   handlers[actions.STATES_RECEIVED] = processStatesResults
   handlers[actions.STATES_FAILED] = processStatesError
-  handlers[actions.TREND_TOGGLED] = toggleTrend
+  handlers[actions.TAB_CHANGED] = handleTabChanged
+  handlers[actions.TREND_COLLAPSED] = collapseTrend
+  handlers[actions.TREND_EXPANDED] = expandTrend
   handlers[actions.URL_CHANGED] = processParams
 
 
