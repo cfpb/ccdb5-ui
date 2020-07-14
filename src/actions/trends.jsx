@@ -6,6 +6,7 @@ export const DATA_SUBLENS_CHANGED = 'DATA_SUBLENS_CHANGED'
 export const DEPTH_CHANGED = 'DEPTH_CHANGED'
 export const DEPTH_RESET = 'DEPTH_RESET'
 export const FOCUS_CHANGED = 'FOCUS_CHANGED'
+export const FOCUS_REMOVED = 'FOCUS_REMOVED'
 export const TREND_COLLAPSED = 'TREND_COLLAPSED'
 export const TREND_EXPANDED = 'TREND_EXPANDED'
 export const TRENDS_TOOLTIP_CHANGED = 'TRENDS_TOOLTIP_CHANGED'
@@ -83,17 +84,30 @@ export function resetDepth() {
  *
  * @param {string} focus the text to search for
  * @param {string} lens the lens we're focusing on
+ * @param {array} filterValues the parent/child focus sub-aggs to apply
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function changeFocus( focus, lens ) {
+export function changeFocus( focus, lens, filterValues ) {
   return {
     type: FOCUS_CHANGED,
     requery: REQUERY_ALWAYS,
+    filterValues,
     focus,
     lens
   }
 }
 
+/**
+ * Notifies the application that focus is being removed
+ *
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function removeFocus() {
+  return {
+    type: FOCUS_REMOVED,
+    requery: REQUERY_ALWAYS
+  }
+}
 /**
  * Notifies the application that the toolTip for stacked area chart has changed
  *

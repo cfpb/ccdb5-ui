@@ -47,6 +47,7 @@ export class Product extends React.Component {
 export const mapStateToProps = state => {
   // See if there are an active product filters
   const allProducts = state.query.product || []
+  const focus = state.query.focus
   const selections = []
 
   // Reduce the products to the parent keys (and dedup)
@@ -60,6 +61,17 @@ export const mapStateToProps = state => {
 
   // Make a cloned, sorted version of the aggs
   const options = sortSelThenCount( state.aggs.product, selections )
+  if ( focus ) {
+    options.forEach( o => {
+      o.disabled = o.key !== focus
+      o['sub_product.raw'].buckets.forEach( v => {
+        v.disabled = o.disabled
+      } )
+    } )
+  }
+
+  console.log(options)
+
 
   return {
     options
