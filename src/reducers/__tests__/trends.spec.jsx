@@ -33,7 +33,7 @@ describe( 'reducer:trends', () => {
         colorMap: {},
         error: false,
         expandedTrends: [],
-        filterNames: [],
+        expandableRows: [],
         focus: '',
         isLoading: false,
         lastDate: false,
@@ -149,24 +149,19 @@ describe( 'reducer:trends', () => {
   } )
 
   describe( 'TAB_CHANGED action', () => {
-    it( 'handles trends tabs', () => {
-      action = {
-        type: actions.TAB_CHANGED,
-        tab: 'Trends'
-      }
-
-      expect( target( { results: [ 1, 2, 3 ] }, action ) ).toEqual( {
-        results: [ 1, 2, 3 ]
-      } )
-    } )
-
-    it( 'clears results when its Other tabs', () => {
+    it( 'clears results and resets values', () => {
       action = {
         type: actions.TAB_CHANGED,
         tab: 'Foo'
       }
 
-      expect( target( { results: [ 1, 2, 3 ] }, action ) ).toEqual( {
+      expect( target( {
+        expandedTrends: [ 1, 2 ],
+        expandableRows: [ 2, 24 ],
+        results: [ 1, 2, 3 ]
+      }, action ) ).toEqual( {
+        expandedTrends: [ 1, 2 ],
+        expandableRows: [ 2, 24 ],
         results: {
           company: [],
           dateRangeArea: [],
@@ -277,37 +272,133 @@ describe( 'reducer:trends', () => {
 
   } )
 
-  describe( 'TREND_TOGGLED', () => {
+  describe( 'TREND_COLLAPSED', () => {
     let state, action
-    beforeEach( () => {
+    it( 'hides bars', () => {
+      action = { type: actions.TREND_COLLAPSED, value: 'bar' }
       state = {
         expandedTrends: [ 'bar' ],
-        filterNames: [ 'bar', 'foo' ],
+        expandableRows: [ 'bar', 'foo' ],
         results: {
           issue: [
-            { name: 'bar', visible: true },
+            { name: 'bar', visible: true, isParent: true },
             { name: 'bar1', visible: true, parent: 'bar' },
             { name: 'bar2', visible: true, parent: 'bar' },
-            { name: 'foo', visible: true },
+            { name: 'foo', visible: true, isParent: true },
             { name: 'foo1', visible: false, parent: 'foo' },
             { name: 'foo2', visible: false, parent: 'foo' }
           ]
         }
       }
-
-    } )
-
-    it( 'makes bars visible', () => {
-      action = { type: actions.TREND_TOGGLED, value: 'foo' }
       expect( target( state, action ) ).toEqual( {
-        expandedTrends: [ 'bar', 'foo' ],
-        filterNames: [ 'bar', 'foo' ],
+        expandedTrends: [],
+        expandableRows: [ 'bar', 'foo' ],
         results: {
           issue: [
-            { name: 'bar', visible: true },
+            { name: 'bar', visible: true, isParent: true },
+            { name: 'bar1', visible: false, parent: 'bar' },
+            { name: 'bar2', visible: false, parent: 'bar' },
+            { name: 'foo', visible: true, isParent: true },
+            { name: 'foo1', visible: false, parent: 'foo' },
+            { name: 'foo2', visible: false, parent: 'foo' }
+          ]
+        }
+      } )
+    } )
+
+    it( 'does not affect hidden bars', () => {
+      action = { type: actions.TREND_COLLAPSED, value: 'bar' }
+      state = {
+        expandedTrends: [],
+        expandableRows: [ 'bar', 'foo' ],
+        results: {
+          issue: [
+            { name: 'bar', visible: true, isParent: true },
+            { name: 'bar1', visible: false, parent: 'bar' },
+            { name: 'bar2', visible: false, parent: 'bar' },
+            { name: 'foo', visible: true, isParent: true },
+            { name: 'foo1', visible: false, parent: 'foo' },
+            { name: 'foo2', visible: false, parent: 'foo' }
+          ]
+        }
+      }
+      expect( target( state, action ) ).toEqual( {
+        expandedTrends: [],
+        expandableRows: [ 'bar', 'foo' ],
+        results: {
+          issue: [
+            { name: 'bar', visible: true, isParent: true },
+            { name: 'bar1', visible: false, parent: 'bar' },
+            { name: 'bar2', visible: false, parent: 'bar' },
+            { name: 'foo', visible: true, isParent: true },
+            { name: 'foo1', visible: false, parent: 'foo' },
+            { name: 'foo2', visible: false, parent: 'foo' }
+          ]
+        }
+      } )
+    } )
+
+
+    it( 'ignores bogus values not in expandableRows', () => {
+      action = { type: actions.TREND_COLLAPSED, value: 'haha' }
+      state = {
+        expandedTrends: [ 'bar' ],
+        expandableRows: [ 'bar', 'foo' ],
+        results: {
+          issue: [
+            { name: 'bar', visible: true, isParent: true },
             { name: 'bar1', visible: true, parent: 'bar' },
             { name: 'bar2', visible: true, parent: 'bar' },
-            { name: 'foo', visible: true },
+            { name: 'foo', visible: true, isParent: true },
+            { name: 'foo1', visible: false, parent: 'foo' },
+            { name: 'foo2', visible: false, parent: 'foo' }
+          ]
+        }
+      }
+      expect( target( state, action ) ).toEqual( {
+        expandedTrends: [ 'bar' ],
+        expandableRows: [ 'bar', 'foo' ],
+        results: {
+          issue: [
+            { name: 'bar', visible: true, isParent: true },
+            { name: 'bar1', visible: true, parent: 'bar' },
+            { name: 'bar2', visible: true, parent: 'bar' },
+            { name: 'foo', visible: true, isParent: true },
+            { name: 'foo1', visible: false, parent: 'foo' },
+            { name: 'foo2', visible: false, parent: 'foo' }
+          ]
+        }
+      } )
+    } )
+  } )
+
+  describe( 'TREND_EXPANDED', () => {
+    let state, action
+    it( 'makes bars visible', () => {
+      action = { type: actions.TREND_EXPANDED, value: 'foo' }
+      state = {
+        expandedTrends: [ 'bar' ],
+        expandableRows: [ 'bar', 'foo' ],
+        results: {
+          issue: [
+            { name: 'bar', visible: true, isParent: true },
+            { name: 'bar1', visible: true, parent: 'bar' },
+            { name: 'bar2', visible: true, parent: 'bar' },
+            { name: 'foo', visible: true, isParent: true },
+            { name: 'foo1', visible: false, parent: 'foo' },
+            { name: 'foo2', visible: false, parent: 'foo' }
+          ]
+        }
+      }
+      expect( target( state, action ) ).toEqual( {
+        expandedTrends: [ 'bar', 'foo' ],
+        expandableRows: [ 'bar', 'foo' ],
+        results: {
+          issue: [
+            { name: 'bar', visible: true, isParent: true },
+            { name: 'bar1', visible: true, parent: 'bar' },
+            { name: 'bar2', visible: true, parent: 'bar' },
+            { name: 'foo', visible: true, isParent: true },
             { name: 'foo1', visible: true, parent: 'foo' },
             { name: 'foo2', visible: true, parent: 'foo' }
           ]
@@ -315,17 +406,31 @@ describe( 'reducer:trends', () => {
       } )
     } )
 
-    it( 'hides bars', () => {
-      action = { type: actions.TREND_TOGGLED, value: 'bar' }
-      expect( target( state, action ) ).toEqual( {
-        expandedTrends: [],
-        filterNames: [ 'bar', 'foo' ],
+    it( 'does not affect visible bars', () => {
+      action = { type: actions.TREND_EXPANDED, value: 'bar' }
+      state = {
+        expandedTrends: [ 'bar' ],
+        expandableRows: [ 'bar', 'foo' ],
         results: {
           issue: [
-            { name: 'bar', visible: true },
-            { name: 'bar1', visible: false, parent: 'bar' },
-            { name: 'bar2', visible: false, parent: 'bar' },
-            { name: 'foo', visible: true },
+            { name: 'bar', visible: true, isParent: true },
+            { name: 'bar1', visible: true, parent: 'bar' },
+            { name: 'bar2', visible: true, parent: 'bar' },
+            { name: 'foo', visible: true, isParent: true },
+            { name: 'foo1', visible: false, parent: 'foo' },
+            { name: 'foo2', visible: false, parent: 'foo' }
+          ]
+        }
+      }
+      expect( target( state, action ) ).toEqual( {
+        expandedTrends: [ 'bar' ],
+        expandableRows: [ 'bar', 'foo' ],
+        results: {
+          issue: [
+            { name: 'bar', visible: true, isParent: true },
+            { name: 'bar1', visible: true, parent: 'bar' },
+            { name: 'bar2', visible: true, parent: 'bar' },
+            { name: 'foo', visible: true, isParent: true },
             { name: 'foo1', visible: false, parent: 'foo' },
             { name: 'foo2', visible: false, parent: 'foo' }
           ]
@@ -333,17 +438,32 @@ describe( 'reducer:trends', () => {
       } )
     } )
 
-    it( 'ignores bogus values not in filterNames', () => {
-      action = { type: actions.TREND_TOGGLED, value: 'haha' }
-      expect( target( state, action ) ).toEqual( {
-        expandedTrends: [ 'bar' ],
-        filterNames: [ 'bar', 'foo' ],
+    it( 'ignores bogus values', () => {
+      action = { type: actions.TREND_EXPANDED, value: 'wutf' }
+      state = {
+        expandedTrends: [],
+        expandableRows: [ 'bar', 'foo' ],
         results: {
           issue: [
-            { name: 'bar', visible: true },
-            { name: 'bar1', visible: true, parent: 'bar' },
-            { name: 'bar2', visible: true, parent: 'bar' },
-            { name: 'foo', visible: true },
+            { name: 'bar', visible: true, isParent: true },
+            { name: 'bar1', visible: false, parent: 'bar' },
+            { name: 'bar2', visible: false, parent: 'bar' },
+            { name: 'foo', visible: true, isParent: true },
+            { name: 'foo1', visible: false, parent: 'foo' },
+            { name: 'foo2', visible: false, parent: 'foo' }
+          ]
+        }
+      }
+
+      expect( target( state, action ) ).toEqual( {
+        expandedTrends: [],
+        expandableRows: [ 'bar', 'foo' ],
+        results: {
+          issue: [
+            { name: 'bar', visible: true, isParent: true },
+            { name: 'bar1', visible: false, parent: 'bar' },
+            { name: 'bar2', visible: false, parent: 'bar' },
+            { name: 'foo', visible: true, isParent: true },
             { name: 'foo1', visible: false, parent: 'foo' },
             { name: 'foo2', visible: false, parent: 'foo' }
           ]

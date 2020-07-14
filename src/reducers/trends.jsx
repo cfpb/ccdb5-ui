@@ -17,7 +17,7 @@ export const defaultState = {
   colorMap: {},
   error: false,
   expandedTrends: [],
-  filterNames: [],
+  expandableRows: [],
   focus: '',
   isLoading: false,
   lastDate: false,
@@ -44,7 +44,7 @@ export const defaultState = {
  */
 export function processBucket( state, agg ) {
   const list = []
-  const { expandedTrends, filterNames } = state
+  const { expandedTrends, expandableRows } = state
   for ( let i = 0; i < agg.length; i++ ) {
     processTrendPeriod( agg[i] )
 
@@ -55,8 +55,8 @@ export function processBucket( state, agg ) {
     if ( item[subKeyName] && item[subKeyName].buckets.length ) {
       item.hasChildren = true
       /* istanbul ignore else */
-      if ( !filterNames.includes( item.key ) ) {
-        filterNames.push( item.key )
+      if ( !expandableRows.includes( item.key ) ) {
+        expandableRows.push( item.key )
       }
     }
 
@@ -358,73 +358,93 @@ export function processTrends( state, action ) {
 }
 
 /* eslint-enable complexity */
+
 /**
- * Handler for the trend toggle action
+ * Handler for the trend collapse action
  *
  * @param {object} state the current state in the Redux store
  * @param {object} action the command being executed
  * @returns {object} the new state for the Redux store
  */
-export function toggleTrend( state, action ) {
-  const { expandedTrends, filterNames, results } = state
+export function collapseTrend( state, action ) {
+  const { expandedTrends, expandableRows } = state
   const item = action.value
-  const toggled = updateExpandedTrends( item, filterNames, expandedTrends )
+  // if it's an available filter
+  let expanded = expandedTrends
+  if ( expandableRows.includes( item ) ) {
+    expanded = expandedTrends.filter( o => o !== item )
+  }
+
+  const results = updateRowVisibility( state, expanded )
+
+  return {
+    ...state,
+    expandedTrends: expanded,
+    results
+  }
+}
+
+/**
+ * Handler for the trend expand action
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the command being executed
+ * @returns {object} the new state for the Redux store
+ */
+export function expandTrend( state, action ) {
+  const { expandedTrends, expandableRows } = state
+  const item = action.value
+
+  // if it's an available filter
+  if ( expandableRows.indexOf( item ) > -1 &&
+    expandedTrends.indexOf( item ) === -1 ) {
+    expandedTrends.push( item )
+  }
+
+  const results = updateRowVisibility( state, expandedTrends )
+  return {
+    ...state,
+    expandedTrends,
+    results
+  }
+}
+
+/**
+ * helper function to make rows visible when its parent is in expandedTrends
+ * or it is a parent row
+ * @param {object} state reducer state
+ * @param {array} expandedTrends contains a list of the expanded trends
+ * @returns {object} the results array in the reducer state
+ */
+function updateRowVisibility( state, expandedTrends ) {
+  const { results } = state
   for ( const k in results ) {
     // rip through results and expand the ones, or collapse
     /* istanbul ignore else */
     if ( results.hasOwnProperty( k ) && Array.isArray( results[k] ) ) {
       results[k]
-        .filter( o => o.parent === item )
         .forEach( o => {
-          o.visible = toggled
+          o.visible =
+            Boolean( expandedTrends.includes( o.parent ) || o.isParent )
         } )
     }
   }
 
-  return {
-    ...state,
-    expandedTrends
-  }
-}
-
-/**
- * Helper function to get under eslint complexity limits
- * @param {string} item the trend that was toggled
- * @param {array} filterNames list of available filters we can toggle
- * @param {array} expandedTrends list of the trends that are expanded
- * @returns {boolean} the trend should be visible or not
- */
-function updateExpandedTrends( item, filterNames, expandedTrends ) {
-  let toggled = false
-  const pos = expandedTrends.indexOf( item )
-
-  // if it's an available filter
-  if ( filterNames.indexOf( item ) > -1 ) {
-    if ( pos === -1 ) {
-      toggled = true
-      expandedTrends.push( item )
-    } else {
-      expandedTrends.splice( pos, 1 )
-    }
-  }
-
-  return toggled
+  return results
 }
 
 // ----------------------------------------------------------------------------
 // Action Handlers
 /**
- * Updates the state when an tab changed occurs
+ * Updates the state when an tab changed occurs, reset values to start clean
  *
  * @param {object} state the current state in the Redux store
- * @param {object} action the payload containing the key/value pairs
  * @returns {object} the new state for the Redux store
  */
-export function handleTabChanged( state, action ) {
-  const results = action.tab === 'Trends' ? state.results : defaultState.results
+export function handleTabChanged( state ) {
   return {
     ...state,
-    results
+    results: defaultState.results
   }
 }
 
@@ -628,7 +648,8 @@ export function _buildHandlerMap() {
   handlers[actions.TRENDS_API_CALLED] = trendsCallInProcess
   handlers[actions.TRENDS_FAILED] = processTrendsError
   handlers[actions.TRENDS_RECEIVED] = processTrends
-  handlers[actions.TREND_TOGGLED] = toggleTrend
+  handlers[actions.TREND_COLLAPSED] = collapseTrend
+  handlers[actions.TREND_EXPANDED] = expandTrend
   handlers[actions.TRENDS_TOOLTIP_CHANGED] = updateTooltip
   handlers[actions.URL_CHANGED] = processParams
 
