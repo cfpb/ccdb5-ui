@@ -424,7 +424,8 @@ function updateRowVisibility( state, expandedTrends ) {
     if ( results.hasOwnProperty( k ) && Array.isArray( results[k] ) ) {
       results[k]
         .forEach( o => {
-          o.visible = Boolean( expandedTrends.includes( o.parent ) || o.isParent )
+          o.visible =
+            Boolean( expandedTrends.includes( o.parent ) || o.isParent )
         } )
     }
   }
