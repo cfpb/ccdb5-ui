@@ -98,7 +98,7 @@ export class RowChart extends React.Component {
         return true
       }
 
-      return o.name ? o.name.indexOf( 'More Information about' ) === -1 : true
+      return o.name ? o.name.indexOf( 'Visualize trends for' ) === -1 : true
     } )
 
     if ( !rows || !rows.length || !total ) {
