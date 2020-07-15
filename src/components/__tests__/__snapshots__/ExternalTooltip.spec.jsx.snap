@@ -26,9 +26,8 @@ exports[`initial state renders "Other" without crashing 1`] = `
         className="color__1"
       >
         <span
-          className="u-left a-btn a-btn__link"
+          className="u-left"
           id="focus-foo"
-          onClick={[Function]}
         >
           foo
         </span>
@@ -42,9 +41,8 @@ exports[`initial state renders "Other" without crashing 1`] = `
         className="color__2"
       >
         <span
-          className="u-left a-btn a-btn__link"
+          className="u-left"
           id="focus-bar"
-          onClick={[Function]}
         >
           bar
         </span>
@@ -58,9 +56,8 @@ exports[`initial state renders "Other" without crashing 1`] = `
         className="color__3"
       >
         <span
-          className="u-left a-btn a-btn__link"
+          className="u-left"
           id="focus-allother"
-          onClick={[Function]}
         >
           All other
         </span>
@@ -74,9 +71,8 @@ exports[`initial state renders "Other" without crashing 1`] = `
         className="color__4"
       >
         <span
-          className="u-left a-btn a-btn__link"
+          className="u-left"
           id="focus-eatatjoes"
-          onClick={[Function]}
         >
           Eat at Joe's
         </span>
@@ -186,9 +182,8 @@ exports[`initial state renders Company typehead without crashing 1`] = `
         className="color__1"
       >
         <span
-          className="u-left a-btn a-btn__link"
+          className="u-left"
           id="focus-foo"
-          onClick={[Function]}
         >
           foo
         </span>
@@ -216,9 +211,8 @@ exports[`initial state renders Company typehead without crashing 1`] = `
         className="color__2"
       >
         <span
-          className="u-left a-btn a-btn__link"
+          className="u-left"
           id="focus-bar"
-          onClick={[Function]}
         >
           bar
         </span>
@@ -246,9 +240,8 @@ exports[`initial state renders Company typehead without crashing 1`] = `
         className="color__3"
       >
         <span
-          className="u-left a-btn a-btn__link"
+          className="u-left"
           id="focus-allother"
-          onClick={[Function]}
         >
           All other
         </span>
@@ -276,9 +269,8 @@ exports[`initial state renders Company typehead without crashing 1`] = `
         className="color__4"
       >
         <span
-          className="u-left a-btn a-btn__link"
+          className="u-left"
           id="focus-eatatjoes"
-          onClick={[Function]}
         >
           Eat at Joe's
         </span>
@@ -450,9 +442,8 @@ exports[`initial state renders without crashing 1`] = `
         className="color__1"
       >
         <span
-          className="u-left a-btn a-btn__link"
+          className="u-left"
           id="focus-foo"
-          onClick={[Function]}
         >
           foo
         </span>
@@ -466,9 +457,8 @@ exports[`initial state renders without crashing 1`] = `
         className="color__2"
       >
         <span
-          className="u-left a-btn a-btn__link"
+          className="u-left"
           id="focus-bar"
-          onClick={[Function]}
         >
           bar
         </span>
@@ -482,9 +472,8 @@ exports[`initial state renders without crashing 1`] = `
         className="color__3"
       >
         <span
-          className="u-left a-btn a-btn__link"
+          className="u-left"
           id="focus-allother"
-          onClick={[Function]}
         >
           All other
         </span>
@@ -498,9 +487,8 @@ exports[`initial state renders without crashing 1`] = `
         className="color__4"
       >
         <span
-          className="u-left a-btn a-btn__link"
+          className="u-left"
           id="focus-eatatjoes"
-          onClick={[Function]}
         >
           Eat at Joe's
         </span>
