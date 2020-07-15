@@ -10,6 +10,7 @@ import { Provider } from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import thunk from 'redux-thunk'
+import { SLUG_SEPARATOR } from '../../constants'
 
 // this is how you override and mock an imported constructor
 jest.mock( 'britecharts', () => {
@@ -184,22 +185,25 @@ describe( 'component: RowChart', () => {
     it( 'calls select Focus with a lens', () => {
       const cb = jest.fn()
       const target = shallow( <RowChart
+        aggs={ { product: [ 1, 2, 3 ] } }
         selectFocus={ cb }
         colorScheme={ [] }
         title={ 'test' }
-        lens={ 'Boo' }
+        lens={ 'Product' }
         data={ [ 23, 4, 3 ] }
         id={ 'foo' }
         total={ 1000 }
       /> )
       target.instance()._selectFocus( { name: 'foo' } )
       expect( cb ).toHaveBeenCalledTimes( 1 )
-      expect( cb ).toHaveBeenCalledWith( { name: 'foo' }, 'Boo' )
+      expect( cb ).toHaveBeenCalledWith( { name: 'foo' }, 'Product',
+        [ 1, 2, 3 ] )
     } )
 
     it( 'calls select Focus with product lens - Overview', () => {
       const cb = jest.fn()
       const target = shallow( <RowChart
+        aggs={ { product: [ 1, 2, 3 ] } }
         lens={ 'Overview' }
         selectFocus={ cb }
         colorScheme={ [] }
@@ -210,7 +214,8 @@ describe( 'component: RowChart', () => {
       /> )
       target.instance()._selectFocus( { name: 'foo' } )
       expect( cb ).toHaveBeenCalledTimes( 1 )
-      expect( cb ).toHaveBeenCalledWith( { name: 'foo' }, 'Product' )
+      expect( cb ).toHaveBeenCalledWith( { name: 'foo' }, 'Product',
+        [ 1, 2, 3 ] )
     } )
 
     describe( 'row toggles', () => {
@@ -289,10 +294,97 @@ describe( 'component: RowChart', () => {
 
     it( 'hooks into changeFocus', () => {
       spyOn( trendsUtils, 'scrollToFocus' )
+      const filters = [
+        {
+          key: 'A',
+          'sub_product.raw': {
+            buckets: [
+              { key: 'B' },
+              { key: 'C' },
+              { key: 'D' },
+              { key: 'E' } ]
+          }
+        },
+        {
+          key: 'Debt collection',
+          'sub_product.raw': {
+            buckets: [
+              { key: 'Other debt' },
+              { key: 'Credit card debt' },
+              { key: 'I do not know' },
+              { key: 'Medical debt' },
+              { key: 'Auto debt' },
+              { key: 'Payday loan debt' }
+            ]
+          }
+        } ]
+
+      const element = {
+        name: 'Visualize trends for A',
+        parent: 'A'
+      }
       mapDispatchToProps( dispatch )
-        .selectFocus( { parent: 'mom', name: 'dad' } )
+        .selectFocus( element, 'Product', filters )
       expect( dispatch.mock.calls ).toEqual( [ [ {
-        focus: 'mom',
+        filterValues: [ 'A', 'A•B', 'A•C', 'A•D', 'A•E' ],
+        focus: 'A',
+        lens: 'Product',
+        requery: 'REQUERY_ALWAYS',
+        type: 'FOCUS_CHANGED'
+      } ] ] )
+      expect( trendsUtils.scrollToFocus ).toHaveBeenCalled()
+    } )
+
+    it( 'hooks into changeFocus - no filter found', () => {
+      spyOn( trendsUtils, 'scrollToFocus' )
+      const filters = [
+        {
+          key: 'Debt collection',
+          'sub_product.raw': {
+            buckets: [
+              { key: 'Other debt' },
+              { key: 'Credit card debt' },
+              { key: 'I do not know' },
+              { key: 'Medical debt' },
+              { key: 'Auto debt' },
+              { key: 'Payday loan debt' }
+            ]
+          }
+        } ]
+
+      const element = {
+        name: 'Visualize trends for A',
+        parent: 'A'
+      }
+      mapDispatchToProps( dispatch )
+        .selectFocus( element, 'Product', filters )
+      expect( dispatch.mock.calls ).toEqual( [ [ {
+        filterValues: [],
+        focus: 'A',
+        lens: 'Product',
+        requery: 'REQUERY_ALWAYS',
+        type: 'FOCUS_CHANGED'
+      } ] ] )
+      expect( trendsUtils.scrollToFocus ).toHaveBeenCalled()
+    } )
+
+    it( 'hooks into changeFocus - Company', () => {
+      spyOn( trendsUtils, 'scrollToFocus' )
+      const filters = [
+        { key: 'Acme' },
+        { key: 'Beta' }
+      ]
+
+      const element = {
+        name: 'Visualize trends for Acme',
+        parent: 'Acme'
+      }
+      mapDispatchToProps( dispatch )
+        .selectFocus( element, 'Company', filters )
+      expect( dispatch.mock.calls ).toEqual( [ [ {
+        filterValues: [ 'Acme' ],
+        focus: 'Acme',
+        lens: 'Company',
         requery: 'REQUERY_ALWAYS',
         type: 'FOCUS_CHANGED'
       } ] ] )

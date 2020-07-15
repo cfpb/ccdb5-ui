@@ -8,7 +8,6 @@ export const AggregationItem = ( { item, fieldName, active, onClick } ) => {
   const value = item.value || item.key
   const liStyle = 'layout-row m-form-field m-form-field__checkbox'
   const id = fieldName + item.key.replace( ' ', '' )
-  console.log(item)
   return (
         <li className={liStyle}>
             <input type="checkbox" className="flex-fixed a-checkbox"
