@@ -174,11 +174,12 @@ export class TrendsPanel extends React.Component {
           <div className="layout-row">
             <section className="chart">
               <h2 className="area-chart-title">{this._areaChartTitle()}</h2>
-              <p className="chart-helper-text">A time series graph of the (up
-                to) five highest volume complaint counts for the selected date
-                range. Hover on the chart to see the count for each date
-                interval.
-                Your filter selections will update what you see on the graph.
+              <p className="chart-helper-text">A time series graph of the
+               (up to five) highest volume complaints for the selected date
+                range. However, you can view all of your selections in the
+                 bar chart, below. Hover on the chart to see the count for
+                  each date interval. Your filter selections will update
+                   what you see on the graph.
               </p>
             </section>
           </div>
