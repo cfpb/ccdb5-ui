@@ -1,7 +1,7 @@
 import * as types from '../constants'
 import {
   calculateDateRange,
-  clamp, coalesce,
+  clamp,
   hasFiltersEnabled,
   processUrlArrayParams,
   shortIsoFormat,
@@ -553,6 +553,8 @@ export function removeAllFilters( state ) {
   newState.date_received_min = new Date( types.DATE_RANGE_MIN )
   newState.date_received_max = startOfToday()
 
+  newState.focus = ''
+
   return newState
 }
 
@@ -714,6 +716,7 @@ function changeSort( state, action ) {
 function changeTab( state, action ) {
   return {
     ...state,
+    focus: action.tab === types.MODE_TRENDS ? state.focus : '',
     tab: action.tab
   }
 }
@@ -770,12 +773,11 @@ function resetDepth( state ) {
 function changeFocus( state, action ) {
   const { focus, filterValues, lens } = action
   const filterKey = lens.toLowerCase()
-  let activeFilters
+  const activeFilters = []
 
   if ( filterKey === 'company' ) {
-    activeFilters = [ focus ]
+    activeFilters.push( focus )
   } else {
-    activeFilters = coalesce( state, filterKey, [] )
     filterValues.forEach( o => {
       activeFilters.push( o )
     } )
@@ -786,6 +788,7 @@ function changeFocus( state, action ) {
     [filterKey]: activeFilters,
     focus,
     lens,
+    subLens: state.subLens || getSubLens( lens ),
     tab: types.MODE_TRENDS
   }
 }
@@ -794,11 +797,10 @@ function changeFocus( state, action ) {
 /** Handler for the focus selected action
  *
  * @param {object} state the current state in the Redux store
- * @param {object} action the command being executed
  * @returns {object} the new state for the Redux store
  */
-function removeFocus( state, action ) {
-  const { focus, lens } = state
+function removeFocus( state ) {
+  const { lens } = state
   const filterKey = lens.toLowerCase()
   return {
     ...state,

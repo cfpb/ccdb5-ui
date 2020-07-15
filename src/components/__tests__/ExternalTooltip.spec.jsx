@@ -123,18 +123,6 @@ describe( 'buttons', () => {
 } )
 
 describe( 'mapDispatchToProps', () => {
-  it( 'provides a way to call add', () => {
-    const dispatch = jest.fn()
-    spyOn( trendsUtils, 'scrollToFocus' )
-    mapDispatchToProps( dispatch ).add( 'Baz' )
-    expect( dispatch.mock.calls ).toEqual( [ [ {
-      focus: 'Baz',
-      requery: 'REQUERY_ALWAYS',
-      type: 'FOCUS_CHANGED'
-    } ] ] )
-    expect( trendsUtils.scrollToFocus ).toHaveBeenCalled()
-  } )
-
   it( 'provides a way to call remove', () => {
     spyOn( trendsUtils, 'scrollToFocus' )
     const dispatch = jest.fn()

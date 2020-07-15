@@ -10,6 +10,7 @@ import { getD3Names, getTooltipTitle, updateDateBuckets } from '../utils/chart'
 import { getSubLens, pruneOther } from '../utils/trends'
 import actions from '../actions'
 import { isDateEqual } from '../utils/formatDate'
+import { MODE_TRENDS } from '../constants'
 
 export const defaultState = {
   activeCall: '',
@@ -437,11 +438,13 @@ function updateRowVisibility( state, expandedTrends ) {
  * Updates the state when an tab changed occurs, reset values to start clean
  *
  * @param {object} state the current state in the Redux store
+ * @param {object} action the payload containing the tab we are changing to
  * @returns {object} the new state for the Redux store
  */
-export function handleTabChanged( state ) {
+export function handleTabChanged( state, action ) {
   return {
     ...state,
+    focus: action.tab === MODE_TRENDS ? state.focus : '',
     results: defaultState.results
   }
 }
@@ -546,6 +549,7 @@ function changeFocus( state, action ) {
     ...state,
     focus,
     lens,
+    subLens: state.subLens || getSubLens( lens ),
     tooltip: false
   }
 }
@@ -650,8 +654,6 @@ export function removeAllFilters( state ) {
  * @returns {object} the new state for the Redux store
  */
 function removeMultipleFilters( state, action ) {
-  console.log( action.values )
-  console.log( state.focus )
   const focus = action.values.includes( state.focus ) ? '' : state.focus
   return {
     ...state,

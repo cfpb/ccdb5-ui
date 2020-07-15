@@ -144,14 +144,15 @@ exports[`initial state renders Company typehead without crashing 1`] = `
       </div>
       <label
         className="u-visually-hidden"
-        htmlFor="company-typeahead"
+        htmlFor="company-typeahead-external-tooltip"
       >
         Start typing to begin listing companies
       </label>
       <input
         autoComplete="off"
         className="a-text-input"
-        id="company-typeahead"
+        disabled=""
+        id="company-typeahead-external-tooltip"
         onChange={[Function]}
         onKeyDown={[Function]}
         placeholder="Enter company name"

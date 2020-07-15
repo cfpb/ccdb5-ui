@@ -59,14 +59,14 @@ exports[`component::Company snapshots renders empty values without crashing 1`] 
       </div>
       <label
         className="u-visually-hidden"
-        htmlFor="company-typeahead"
+        htmlFor="company-typeahead-filter"
       >
         Start typing to begin listing companies
       </label>
       <input
         autoComplete="off"
         className="a-text-input"
-        id="company-typeahead"
+        id="company-typeahead-filter"
         onChange={[Function]}
         onKeyDown={[Function]}
         placeholder="Enter company name"
@@ -138,14 +138,14 @@ exports[`component::Company snapshots renders without crashing 1`] = `
       </div>
       <label
         className="u-visually-hidden"
-        htmlFor="company-typeahead"
+        htmlFor="company-typeahead-filter"
       >
         Start typing to begin listing companies
       </label>
       <input
         autoComplete="off"
         className="a-text-input"
-        id="company-typeahead"
+        id="company-typeahead-filter"
         onChange={[Function]}
         onKeyDown={[Function]}
         placeholder="Enter company name"
@@ -162,6 +162,7 @@ exports[`component::Company snapshots renders without crashing 1`] = `
         aria-label="Monocle Popper Inc"
         checked={true}
         className="flex-fixed a-checkbox"
+        disabled={false}
         id="companyMonoclePopper Inc"
         onChange={[Function]}
         type="checkbox"

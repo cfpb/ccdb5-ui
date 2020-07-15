@@ -7,7 +7,6 @@ import { FormattedNumber } from 'react-intl'
 import iconMap from '../iconMap'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { removeFocus } from '../../actions/trends'
 import { SLUG_SEPARATOR } from '../../constants'
 
 export const UNCHECKED = 'UNCHECKED'
@@ -28,7 +27,7 @@ export class AggregationBranch extends React.Component {
 
   _decideClickAction() {
     const {
-      activeChildren, focus, item, subitems, fieldName, checkedState
+      activeChildren, item, subitems, fieldName, checkedState
     } = this.props
 
     const values = getAllFilters( item.key, subitems )

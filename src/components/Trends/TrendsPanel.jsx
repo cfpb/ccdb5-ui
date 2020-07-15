@@ -163,7 +163,7 @@ export class TrendsPanel extends React.Component {
                using the type-ahead menu below. You can add more than
                 one company to your view
               </p>
-              <CompanyTypeahead/>
+              <CompanyTypeahead id={'modal-search'}/>
             </section>
           </div>
         }

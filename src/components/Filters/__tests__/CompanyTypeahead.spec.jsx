@@ -1,4 +1,4 @@
-import { CompanyTypeahead, mapDispatchToProps } from '../CompanyTypeahead'
+import ReduxCompanyTypeahead, { CompanyTypeahead, mapDispatchToProps } from '../CompanyTypeahead'
 import configureMockStore from 'redux-mock-store'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
@@ -21,15 +21,21 @@ function setupEnzyme() {
   }
 }
 
-function setupSnapshot(initialFixture) {
+function setupSnapshot( { focus, lens, queryString } ) {
   const middlewares = [thunk]
   const mockStore = configureMockStore(middlewares)
-  const store = mockStore({})
+  const store = mockStore( {
+    query: {
+      focus,
+      lens,
+      queryString
+    }
+  })
 
   return renderer.create(
     <Provider store={store}>
       <IntlProvider locale="en">
-        <CompanyTypeahead />
+        <ReduxCompanyTypeahead />
       </IntlProvider>
     </Provider>
   )
@@ -38,7 +44,17 @@ function setupSnapshot(initialFixture) {
 describe('component::CompanyTypeahead', () => {
   describe('snapshots', () => {
     it('renders without crashing', () => {
-      const target = setupSnapshot()
+      const target = setupSnapshot({})
+      let tree = target.toJSON()
+      expect(tree).toMatchSnapshot()
+    })
+
+    it( 'renders disabled without crashing', () => {
+      const target = setupSnapshot( {
+        lens: 'Company',
+        focus: 'Acme'
+      } )
+
       let tree = target.toJSON()
       expect(tree).toMatchSnapshot()
     })

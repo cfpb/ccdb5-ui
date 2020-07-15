@@ -108,6 +108,7 @@ export function removeFocus() {
     requery: REQUERY_ALWAYS
   }
 }
+
 /**
  * Notifies the application that the toolTip for stacked area chart has changed
  *

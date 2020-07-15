@@ -31,7 +31,7 @@ export class FocusHeader extends React.Component {
 
 
 export const mapDispatchToProps = dispatch => ( {
-  clearFocus: lens => {
+  clearFocus: () => {
     dispatch( removeFocus() )
   }
 } )

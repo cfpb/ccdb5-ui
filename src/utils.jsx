@@ -198,13 +198,23 @@ export function parseCookies( cookies = document.cookie ) {
 }
 
 /**
+ * take in an array or object and clone it as completely new object to remove
+ * pointers.  If you .slice() an array of objects, the array is new, but
+ * copied objects still point to original objects, you will still have mutations
+ *
+ * @param {object|array} input the thing to copy
+ * @returns {object|array} the copied new thing
+ */
+export const cloneDeep = input => JSON.parse( JSON.stringify( input ) )
+
+/**
  * Custom sort for array so that selected items appear first, then by doc_count
  * @param {array} options input array containing values
  * @param {array} selected values
  * @returns {T[]} sorted array
  */
 export const sortSelThenCount = ( options, selected ) => {
-  const retVal = ( options || [] ).slice()
+  const retVal = ( cloneDeep( options ) || [] ).slice()
 
   /* eslint complexity: ["error", 5] */
   retVal.sort( ( a, b ) => {
