@@ -120,11 +120,6 @@ describe( 'buttons', () => {
     expect( cb ).toHaveBeenCalledWith( 'foo' )
   } )
 
-  it( 'triggers Focus when the link is clicked', () => {
-    const prev = target.find( '#focus-bar' )
-    prev.simulate( 'click' )
-    expect( cbFocus ).toHaveBeenCalledWith( 'bar', 'Foo' )
-  } )
 } )
 
 describe( 'mapDispatchToProps', () => {
