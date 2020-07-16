@@ -789,7 +789,8 @@ function changeFocus( state, action ) {
     focus,
     lens,
     subLens: state.subLens || getSubLens( lens ),
-    tab: types.MODE_TRENDS
+    tab: types.MODE_TRENDS,
+    trendDepth: 25
   }
 }
 
@@ -806,7 +807,8 @@ function removeFocus( state ) {
     ...state,
     [filterKey]: [],
     focus: '',
-    tab: types.MODE_TRENDS
+    tab: types.MODE_TRENDS,
+    trendDepth: 5
   }
 }
 
@@ -853,6 +855,19 @@ export function updateChartType( state, action ) {
     ...state,
     chartType: action.chartType
   }
+}
+
+/**
+ * helper function to remove any empty arrays from known filter sets
+ * @param {object} state we need to clean up
+ */
+export function pruneEmptyFilters( state ) {
+  // go through the object and delete any filter keys that have no values in it
+  types.knownFilters.forEach( o => {
+    if ( Array.isArray( state[o] ) && state[o].length === 0 ) {
+      delete state[o]
+    }
+  } )
 }
 
 // ----------------------------------------------------------------------------
@@ -998,6 +1013,8 @@ export default ( state = defaultQuery, action ) => {
     validateDateInterval( newState )
   }
 
+  // remove any filter keys with empty array
+  pruneEmptyFilters( newState )
 
   const qs = stateToQS( newState )
   newState.queryString = qs === '?' ? '' : qs
