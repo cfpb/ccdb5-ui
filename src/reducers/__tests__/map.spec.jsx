@@ -320,6 +320,22 @@ describe( 'reducer:map', () => {
     } )
   } )
 
+  describe( 'FOCUS_REMOVED action', () => {
+    it( 'resets row values', () => {
+      action = {
+        type: actions.FOCUS_REMOVED
+      }
+
+      expect( target( {
+        expandableRows: [ 1, 3 ],
+        expandedTrends: [ 1, 3 ]
+      }, action ) ).toEqual( {
+        expandableRows: [],
+        expandedTrends: []
+      } )
+    } )
+  } )
+
   describe( 'TAB_CHANGED action', () => {
     it( 'clears results and resets values', () => {
       action = {

@@ -64,14 +64,13 @@ describe( 'component:FocusHeader', () => {
   } )
 
   describe( 'mapDispatchToProps', () => {
-    it( 'hooks into changeFocus', () => {
+    it( 'hooks into removeFocus', () => {
       const dispatch = jest.fn()
       mapDispatchToProps( dispatch ).clearFocus()
       expect( dispatch.mock.calls ).toEqual( [
         [ {
           requery: REQUERY_ALWAYS,
-          type: 'FOCUS_CHANGED',
-          focus: ''
+          type: 'FOCUS_REMOVED'
         } ]
       ] )
     } )

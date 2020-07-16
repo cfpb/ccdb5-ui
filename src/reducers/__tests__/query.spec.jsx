@@ -1,7 +1,7 @@
 import target, {
   alignDateRange, defaultQuery, filterArrayAction
 } from '../query'
-import { MODE_TRENDS, REQUERY_HITS_ONLY } from '../../constants'
+import { MODE_TRENDS, REQUERY_HITS_ONLY, SLUG_SEPARATOR } from '../../constants'
 import actions from '../../actions'
 import * as types from '../../constants'
 
@@ -234,20 +234,34 @@ describe( 'reducer:query', () => {
         type: actions.TAB_CHANGED
       }
       state = {
+        focus: 'Yoyo',
         tab: 'bar'
       }
     })
     it( 'handles TAB_CHANGED actions', () => {
       action.tab = 'foo'
       expect( target( state, action ) ).toEqual( {
+        focus: '',
         tab: 'foo',
         queryString: '?tab=foo'
       } )
     } )
 
+    it( 'handles Trends TAB_CHANGED actions', () => {
+      action.tab = 'Trends'
+      expect( target( state, action ) ).toEqual( {
+        focus: 'Yoyo',
+        tab: 'Trends',
+        queryString: '?focus=Yoyo&tab=Trends',
+        trendsDateWarningEnabled: false
+      } )
+    } )
+
+
     it( 'handles a Map TAB_CHANGED actions', () => {
       action.tab = types.MODE_MAP
       expect( target( state, action ) ).toEqual( {
+        focus: '',
         enablePer1000: true,
         mapWarningEnabled: true,
         tab: types.MODE_MAP,
@@ -331,6 +345,13 @@ describe( 'reducer:query', () => {
     it( 'handles a multiple filters', () => {
       action.params = { product: [ 'Debt Collection', 'Mortgage' ] }
       const actual = target( {}, action )
+      expect( actual.product ).toEqual( [ 'Debt Collection', 'Mortgage' ] )
+    } )
+
+    it( 'handles a multiple filters & focus', () => {
+      action.params = { product: [ 'Debt Collection', 'Mortgage' ] }
+      const actual = target( { focus: 'Something' }, action )
+      expect( actual.focus ).toEqual( '' )
       expect( actual.product ).toEqual( [ 'Debt Collection', 'Mortgage' ] )
     } )
 
@@ -724,9 +745,11 @@ describe( 'reducer:query', () => {
 
       it( 'removes filters if they exist', () => {
         const state = {
+          focus: 'Mo Money',
           issue: [ 'foo', 'Mo Money', 'Mo Problems' ]
         }
         expect( target( state, action ) ).toEqual( {
+          focus: '',
           issue: [ 'foo' ],
           queryString: '?issue=foo'
         } )
@@ -1141,19 +1164,57 @@ describe( 'reducer:query', () => {
       it( 'changes the focus', () => {
         const action = {
           type: actions.FOCUS_CHANGED,
-          focus: 'Something',
+          filterValues: [ 'A', 'A' + SLUG_SEPARATOR + 'B' ],
+          focus: 'A',
           lens: 'Product'
         }
         const result = target( { focus: 'Else' }, action )
         expect( result ).toEqual( {
-          focus: 'Something',
+          focus: 'A',
           lens: 'Product',
-          queryString: '?focus=Something&lens=product&sub_lens=sub_product&tab=Trends',
+          product: [ 'A', 'A' + SLUG_SEPARATOR + 'B'],
+          queryString: '?focus=A&lens=product&product=A&product=A%E2%80%A2B&sub_lens=sub_product&tab=Trends',
           subLens: 'sub_product',
           tab: 'Trends',
           trendsDateWarningEnabled: false
         } )
       } )
+
+      it( 'changes the Company Focus', () => {
+        const action = {
+          type: actions.FOCUS_CHANGED,
+          filterValues: [ 'A' ],
+          focus: 'A',
+          lens: 'Company'
+        }
+        const result = target( { focus: 'Else' }, action )
+        expect( result ).toEqual( {
+          focus: 'A',
+          lens: 'Company',
+          company: [ 'A' ],
+          queryString: '?company=A&focus=A&lens=company&sub_lens=product&tab=Trends',
+          subLens: 'product',
+          tab: 'Trends',
+          trendsDateWarningEnabled: false
+        } )
+      } )
     } )
+
+    describe( 'FOCUS_REMOVED actions', () => {
+      it( 'clears the focus & resets values', () => {
+        const action = {
+          type: actions.FOCUS_REMOVED
+        }
+        const result = target( { lens: 'Product' }, action )
+        expect( result ).toEqual( {
+          focus: '',
+          lens: 'Product',
+          product: [],
+          queryString: '?lens=product&tab=Trends',
+          tab: 'Trends',
+          trendsDateWarningEnabled: false
+        } )
+      } )
+    })
   } )
 } )

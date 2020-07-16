@@ -553,6 +553,8 @@ export function removeAllFilters( state ) {
   newState.date_received_min = new Date( types.DATE_RANGE_MIN )
   newState.date_received_max = startOfToday()
 
+  newState.focus = ''
+
   return newState
 }
 
@@ -587,6 +589,9 @@ function removeFilter( state, action ) {
 function removeMultipleFilters( state, action ) {
   const newState = { ...state }
   const a = newState[action.filterName]
+  // remove the focus if it exists in one of the filter values we are removing
+  newState.focus = action.values.includes( state.focus ) ? '' : state.focus
+
   if ( a ) {
     action.values.forEach( x => {
       const idx = a.indexOf( x )
@@ -711,6 +716,7 @@ function changeSort( state, action ) {
 function changeTab( state, action ) {
   return {
     ...state,
+    focus: action.tab === types.MODE_TRENDS ? state.focus : '',
     tab: action.tab
   }
 }
@@ -765,16 +771,44 @@ function resetDepth( state ) {
  * @returns {object} the new state for the Redux store
  */
 function changeFocus( state, action ) {
-  const { focus, lens } = action
+  const { focus, filterValues, lens } = action
+  const filterKey = lens.toLowerCase()
+  const activeFilters = []
+
+  if ( filterKey === 'company' ) {
+    activeFilters.push( focus )
+  } else {
+    filterValues.forEach( o => {
+      activeFilters.push( o )
+    } )
+  }
+
   return {
     ...state,
+    [filterKey]: activeFilters,
     focus,
     lens,
-    subLens: getSubLens( lens ),
+    subLens: state.subLens || getSubLens( lens ),
     tab: types.MODE_TRENDS
   }
 }
 
+
+/** Handler for the focus selected action
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+function removeFocus( state ) {
+  const { lens } = state
+  const filterKey = lens.toLowerCase()
+  return {
+    ...state,
+    [filterKey]: [],
+    focus: '',
+    tab: types.MODE_TRENDS
+  }
+}
 
 /**
  * update state based on changeDataLens action
@@ -915,6 +949,7 @@ export function _buildHandlerMap() {
   handlers[actions.FILTER_MULTIPLE_REMOVED] = removeMultipleFilters
   handlers[actions.FILTER_REMOVED] = removeFilter
   handlers[actions.FOCUS_CHANGED] = changeFocus
+  handlers[actions.FOCUS_REMOVED] = removeFocus
   handlers[actions.PAGE_CHANGED] = changePage
   handlers[actions.MAP_WARNING_DISMISSED] = dismissMapWarning
   handlers[actions.NEXT_PAGE_SHOWN] = nextPage
