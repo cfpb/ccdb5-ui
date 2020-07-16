@@ -1,0 +1,28 @@
+@import (less) "../../css/base.less";
+
+#stacked-area-chart {
+  .stacked-area {
+    .y-axis-group {
+      .domain {
+        display: none;
+      }
+    }
+  }
+
+}
+
+.chart-wrapper {
+  p {
+    font-size: 12px;
+    font-weight: 600;
+    color: @gray;
+
+    &.y-axis-label {
+      margin-left: @gutter-normal;
+    }
+
+    &.x-axis-label {
+      margin-left: 45%;
+    }
+  }
+}

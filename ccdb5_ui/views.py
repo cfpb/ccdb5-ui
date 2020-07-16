@@ -1,9 +1,10 @@
 from django.views.generic.base import TemplateView
 from django.conf import settings
+from flags.state import flag_enabled
 
 try:
     STANDALONE = settings.STANDALONE
-except:  # pragma: no cover
+except Exception:  # pragma: no cover
     STANDALONE = False
 
 
@@ -18,6 +19,7 @@ no_support = [
     'MSIE 7.0b;',
     'MSIE 7.0;',
 ]
+
 
 class CCDB5MainView(TemplateView):
     template_name = 'ccdb5_ui/ccdb-main.html'
@@ -41,3 +43,12 @@ class CCDB5MainView(TemplateView):
         context['ccdb5_base_template'] = self.base_template
         context['unsupported_browser'] = unsupported
         return context
+
+    def render_to_response(self, context, **response_kwargs):
+        response = super(CCDB5MainView, self).render_to_response(
+            context, **response_kwargs)
+
+        show_trends = flag_enabled('CCDB5_TRENDS')
+
+        response.set_cookie('showTrends', 'show' if show_trends else 'hide')
+        return response

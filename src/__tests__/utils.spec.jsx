@@ -1,7 +1,7 @@
 import {
   ariaReadoutNumbers, calculateDateRange, clamp, coalesce, debounce,
-  getFullUrl, hasFiltersEnabled, hashCode, shortIsoFormat, sortSelThenCount,
-  startOfToday
+  formatPercentage, getFullUrl, hasFiltersEnabled, hashCode, shortIsoFormat,
+  sortSelThenCount, startOfToday, parseCookies
 } from '../utils'
 import { DATE_RANGE_MIN } from '../constants'
 import React from 'react'
@@ -138,6 +138,17 @@ describe('module::utils', () => {
     } )
   })
 
+  describe('formatPercentage', ()=>{
+    it( 'handles regular values' , () => {
+      let actual = formatPercentage( 0.5 )
+      expect(actual).toEqual(50.00)
+    } );
+    it('handles NaN values', ()=>{
+      let actual = formatPercentage( NaN )
+      expect(actual).toEqual(0.0)
+    })
+  })
+
   describe( 'getFullUrl', () => {
     it( 'adds a host if needed' , () => {
       const actual = getFullUrl( '/foo/bar#baz?qaz=a&b=c' )
@@ -241,6 +252,30 @@ describe('module::utils', () => {
       expect( actual.getDate() ).toEqual( 1 )
       expect( actual.getHours() ).toEqual( 0 )
       expect( actual.getMinutes() ).toEqual( 0 )
+    } );
+  } );
+
+  describe( 'parseCookies', () => {
+    it( 'handles an empty string' , () => {
+      const actual = parseCookies( '' )
+      expect( actual ).toEqual( {} )
+    } );
+
+    it( 'handles undefined' , () => {
+      const actual = parseCookies( undefined )
+      expect( actual ).toEqual( {} )
+    } );
+
+    it( 'creates a dictionary from a cookie string' , () => {
+      const actual = parseCookies(
+        '_ga=fooo; _gid=baaar; csrftoken=baz; showTrends=hide;'
+      )
+      expect( actual ).toEqual( {
+        _ga: 'fooo',
+        _gid: 'baaar',
+        csrftoken: 'baz',
+        showTrends: 'hide'
+      } )
     } );
   } );
 })

@@ -1,10 +1,10 @@
 import target, {
   alignDateRange, defaultQuery, filterArrayAction
 } from '../query'
+import { MODE_TRENDS, REQUERY_HITS_ONLY, SLUG_SEPARATOR } from '../../constants'
 import actions from '../../actions'
 import * as types from '../../constants'
 
-import { REQUERY_HITS_ONLY } from '../../constants'
 import moment from 'moment'
 import { startOfToday }  from '../../utils'
 
@@ -27,8 +27,8 @@ describe( 'reducer:query', () => {
       expect( res ).toHaveProperty( 'date_received_min' )
       expect( res.queryString ).toContain( 'date_received_max' )
       expect( res.queryString ).toContain( 'date_received_min' )
-      expect( res.queryString ).toContain( 'field=all&page=1&size=25' +
-        '&sort=created_date_desc' )
+      expect( res.queryString ).toContain( 'field=all&lens=overview' +
+        '&page=1&size=25&sort=created_date_desc' )
     } )
   } )
 
@@ -100,27 +100,33 @@ describe( 'reducer:query', () => {
     } )
   } )
 
-  describe( 'Map Warning', ()=>{
-    it('handles MAP_WARNING_DISMISSED action', ()=>{
+  describe( 'trend depth', () => {
+    it( 'handles DEPTH_CHANGED', () => {
       const action = {
-        type: actions.MAP_WARNING_DISMISSED
+        type: actions.DEPTH_CHANGED,
+        depth: 13
       }
       const state = {
-        company: [1,2,3],
-        foo: 'bar',
-        mapWarningEnabled: true,
-        tab: types.MODE_MAP
+        trendDepth: 5
       }
       expect( target( state, action ) ).toEqual( {
-        company: [1,2,3],
-        enablePer1000: false,
-        foo: 'bar',
-        mapWarningEnabled: false,
-        queryString: '?company=1&company=2&company=3&foo=bar&tab=Map',
-        tab: types.MODE_MAP
+        queryString: '?trend_depth=13',
+        trendDepth: 13
       } )
-    })
-  })
+    } )
+    it( 'handles DEPTH_RESET', () => {
+      const action = {
+        type: actions.DEPTH_RESET
+      }
+      const state = {
+        trendDepth: 10000
+      }
+      expect( target( state, action ) ).toEqual( {
+        queryString: '?trend_depth=5',
+        trendDepth: 5
+      } )
+    } )
+  } )
 
   describe( 'Pager', () => {
     it( 'handles PAGE_CHANGED actions', () => {
@@ -228,20 +234,34 @@ describe( 'reducer:query', () => {
         type: actions.TAB_CHANGED
       }
       state = {
+        focus: 'Yoyo',
         tab: 'bar'
       }
     })
     it( 'handles TAB_CHANGED actions', () => {
       action.tab = 'foo'
       expect( target( state, action ) ).toEqual( {
+        focus: '',
         tab: 'foo',
         queryString: '?tab=foo'
       } )
     } )
 
+    it( 'handles Trends TAB_CHANGED actions', () => {
+      action.tab = 'Trends'
+      expect( target( state, action ) ).toEqual( {
+        focus: 'Yoyo',
+        tab: 'Trends',
+        queryString: '?focus=Yoyo&tab=Trends',
+        trendsDateWarningEnabled: false
+      } )
+    } )
+
+
     it( 'handles a Map TAB_CHANGED actions', () => {
       action.tab = types.MODE_MAP
       expect( target( state, action ) ).toEqual( {
+        focus: '',
         enablePer1000: true,
         mapWarningEnabled: true,
         tab: types.MODE_MAP,
@@ -276,6 +296,13 @@ describe( 'reducer:query', () => {
       action.params = { size: '100' }
       const actual = target( state, action )
       expect( actual.size ).toEqual( 100 )
+    } )
+
+    it( 'handles bogus size & sort parameters', () => {
+      action.params = { size: '9999', sort: 'tables' }
+      const actual = target( state, action )
+      expect( actual.size ).toEqual( 10 )
+      expect( actual.sort ).toEqual( 'created_date_desc' )
     } )
 
     it( 'ignores bad integer parameters', () => {
@@ -320,6 +347,21 @@ describe( 'reducer:query', () => {
       const actual = target( {}, action )
       expect( actual.product ).toEqual( [ 'Debt Collection', 'Mortgage' ] )
     } )
+
+    it( 'handles a multiple filters & focus', () => {
+      action.params = { product: [ 'Debt Collection', 'Mortgage' ] }
+      const actual = target( { focus: 'Something' }, action )
+      expect( actual.focus ).toEqual( '' )
+      expect( actual.product ).toEqual( [ 'Debt Collection', 'Mortgage' ] )
+    } )
+
+    it( 'handles a trendDepth param', () => {
+      action.params = { lens: 'Product', trendDepth: 1000 }
+      const actual = target( {}, action )
+      expect( actual.lens ).toEqual( 'Product' )
+      expect( actual.trendDepth ).toEqual( 1000 )
+    } )
+
 
     it( 'handles the "All" button from the landing page' , () => {
       const dateMin = new Date( types.DATE_RANGE_MIN )
@@ -703,9 +745,11 @@ describe( 'reducer:query', () => {
 
       it( 'removes filters if they exist', () => {
         const state = {
+          focus: 'Mo Money',
           issue: [ 'foo', 'Mo Money', 'Mo Problems' ]
         }
         expect( target( state, action ) ).toEqual( {
+          focus: '',
           issue: [ 'foo' ],
           queryString: '?issue=foo'
         } )
@@ -819,23 +863,60 @@ describe( 'reducer:query', () => {
       it( 'handles 1y range', () => {
         action.dateRange = '1y'
         result = target( {}, action )
-        const min = new Date( moment().subtract( 1, 'year' ).calendar() )
-        const diffMin = moment( min ).diff( moment( result.date_received_min ), 'years' )
-        expect( diffMin ).toEqual( 0 )
+        expect( result ).toEqual( {
+          dateRange: '1y',
+          date_received_max: new Date( '2020-05-05T04:00:00.000Z' ),
+          date_received_min: new Date( '2019-05-05T04:00:00.000Z' ),
+          queryString: '?dateRange=1y&date_received_max=2020-05-05&date_received_min=2019-05-05'
+        } )
       } )
 
       it( 'default range handling', () => {
         action.dateRange = 'foo'
         result = target( {}, action )
-        // only set max to today's date
-        const diff = moment( result.date_received_max ).diff( moment( maxDate ), 'days' )
-        // make sure its same day
-        expect( diff ).toEqual( 0 )
+        // only set max date
+        expect( result ).toEqual( {
+          dateRange: 'foo',
+          date_received_max: new Date( '2020-05-05T04:00:00.000Z' ),
+          queryString: '?dateRange=foo&date_received_max=2020-05-05'
+        } )
       } )
+
+      it( 'On Trends Tab handles All range', () => {
+        action.dateRange = 'All'
+        const state = { dateInterval: 'Day', tab: MODE_TRENDS }
+        result = target( state, action )
+        expect( result.dateInterval ).toEqual( 'Week' )
+        expect( result.trendsDateWarningEnabled ).toEqual( true )
+      } )
+
     } )
   } )
 
   describe( 'Map', () => {
+
+    describe( 'Map Warning', () => {
+      it( 'handles MAP_WARNING_DISMISSED action', () => {
+        const action = {
+          type: actions.MAP_WARNING_DISMISSED
+        }
+        const state = {
+          company: [ 1, 2, 3 ],
+          foo: 'bar',
+          mapWarningEnabled: true,
+          tab: types.MODE_MAP
+        }
+        expect( target( state, action ) ).toEqual( {
+          company: [ 1, 2, 3 ],
+          enablePer1000: false,
+          foo: 'bar',
+          mapWarningEnabled: false,
+          queryString: '?company=1&company=2&company=3&foo=bar&tab=Map',
+          tab: types.MODE_MAP
+        } )
+      } )
+    } )
+
     let action, res
     describe( 'STATE_COMPLAINTS_SHOWN', () => {
       it( 'switches to List View', () => {
@@ -979,17 +1060,86 @@ describe( 'reducer:query', () => {
   } )
 
   describe( 'Trends', () => {
+    describe( 'Trends Date Warning', () => {
+      it( 'handles TRENDS_DATE_WARNING_DISMISSED action', () => {
+        const action = {
+          type: actions.TRENDS_DATE_WARNING_DISMISSED
+        }
+        const state = {
+          trendsDateWarningEnabled: true
+        }
+        expect( target( state, action ) ).toEqual( {
+          queryString: '',
+          trendsDateWarningEnabled: false
+        } )
+      } )
+    } )
+
+    describe( 'CHART_TYPE_CHANGED actions', () => {
+      it( 'changes the chartType', () => {
+        const action = {
+          type: actions.CHART_TYPE_CHANGED,
+          chartType: 'Foo'
+        }
+        const result = target( { chartType: 'ahha' },
+          action )
+        expect( result ).toEqual( {
+          chartType: 'Foo',
+          queryString: '?chartType=Foo',
+        } )
+      } )
+    } )
+
     describe( 'DATA_LENS_CHANGED actions', () => {
-      it( 'changes the dataLens', () => {
+      it( 'changes the lens', () => {
         const action = {
           type: actions.DATA_LENS_CHANGED,
-          dataLens: 'foo'
+          lens: 'Foo'
+        }
+        const result = target( { tab: types.MODE_TRENDS, focus: 'ahha' },
+          action )
+        expect( result ).toEqual( {
+          focus: '',
+          lens: 'Foo',
+          subLens: 'sub_foo',
+          queryString: '?lens=foo&sub_lens=sub_foo&tab=Trends&trend_depth=5',
+          tab: 'Trends',
+          trendDepth: 5,
+          trendsDateWarningEnabled: false
+        } )
+      } )
+
+      it( 'has special values when lens = Company', () => {
+        const action = {
+          type: actions.DATA_LENS_CHANGED,
+          lens: 'Company'
+        }
+        const result = target( { tab: types.MODE_TRENDS, focus: 'ahha' },
+          action )
+        expect( result ).toEqual( {
+          focus: '',
+          lens: 'Company',
+          subLens: 'product',
+          queryString: '?lens=company&sub_lens=product&tab=Trends&trend_depth=10',
+          tab: 'Trends',
+          trendDepth: 10,
+          trendsDateWarningEnabled: false
+        } )
+      } )
+    } )
+
+    describe( 'DATA_SUBLENS_CHANGED actions', () => {
+      it( 'changes the sub lens', () => {
+        const action = {
+          type: actions.DATA_SUBLENS_CHANGED,
+          subLens: 'Issue'
         }
         const result = target( { tab: types.MODE_TRENDS }, action )
         expect( result ).toEqual( {
-          dataLens: 'foo',
-          queryString: '?dataLens=foo&tab=Trends',
-          tab: 'Trends'
+          subLens: 'issue',
+          queryString: '?sub_lens=issue&tab=Trends',
+          tab: 'Trends',
+          trendsDateWarningEnabled: false
         } )
       } )
     } )
@@ -1003,10 +1153,68 @@ describe( 'reducer:query', () => {
         const result = target( { tab: types.MODE_TRENDS }, action )
         expect( result ).toEqual( {
           dateInterval: 'Day',
-          queryString: '?dateInterval=Day&tab=Trends',
-          tab: 'Trends'
+          queryString: '?tab=Trends&trend_interval=day',
+          tab: 'Trends',
+          trendsDateWarningEnabled: false
         } )
       } )
     } )
+
+    describe( 'FOCUS_CHANGED actions', () => {
+      it( 'changes the focus', () => {
+        const action = {
+          type: actions.FOCUS_CHANGED,
+          filterValues: [ 'A', 'A' + SLUG_SEPARATOR + 'B' ],
+          focus: 'A',
+          lens: 'Product'
+        }
+        const result = target( { focus: 'Else' }, action )
+        expect( result ).toEqual( {
+          focus: 'A',
+          lens: 'Product',
+          product: [ 'A', 'A' + SLUG_SEPARATOR + 'B'],
+          queryString: '?focus=A&lens=product&product=A&product=A%E2%80%A2B&sub_lens=sub_product&tab=Trends',
+          subLens: 'sub_product',
+          tab: 'Trends',
+          trendsDateWarningEnabled: false
+        } )
+      } )
+
+      it( 'changes the Company Focus', () => {
+        const action = {
+          type: actions.FOCUS_CHANGED,
+          filterValues: [ 'A' ],
+          focus: 'A',
+          lens: 'Company'
+        }
+        const result = target( { focus: 'Else' }, action )
+        expect( result ).toEqual( {
+          focus: 'A',
+          lens: 'Company',
+          company: [ 'A' ],
+          queryString: '?company=A&focus=A&lens=company&sub_lens=product&tab=Trends',
+          subLens: 'product',
+          tab: 'Trends',
+          trendsDateWarningEnabled: false
+        } )
+      } )
+    } )
+
+    describe( 'FOCUS_REMOVED actions', () => {
+      it( 'clears the focus & resets values', () => {
+        const action = {
+          type: actions.FOCUS_REMOVED
+        }
+        const result = target( { lens: 'Product' }, action )
+        expect( result ).toEqual( {
+          focus: '',
+          lens: 'Product',
+          product: [],
+          queryString: '?lens=product&tab=Trends',
+          tab: 'Trends',
+          trendsDateWarningEnabled: false
+        } )
+      } )
+    })
   } )
 } )

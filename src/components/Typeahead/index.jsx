@@ -156,6 +156,7 @@ export default class Typeahead extends React.Component {
           <input type="text"
                  autoComplete="off"
                  className="a-text-input"
+                 disabled={this.props.disabled}
                  id={ this.props.htmlId }
                  onChange={this._valueUpdated}
                  onKeyDown={this._onKeyDown}

@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component:TrendDepthToggle renders Product view less without crashing 1`] = `
+<div
+  className="trend-depth-toggle"
+>
+  <button
+    className="a-btn a-btn__link"
+    id="trend-depth-button"
+    onClick={[Function]}
+  >
+    <span
+      className="minus"
+    />
+    Show less
+  </button>
+</div>
+`;
+
+exports[`component:TrendDepthToggle renders Product view more without crashing 1`] = `
+<div
+  className="trend-depth-toggle"
+>
+  <button
+    className="a-btn a-btn__link"
+    id="trend-depth-button"
+    onClick={[Function]}
+  >
+    <span
+      className="plus"
+    />
+    Show more
+  </button>
+</div>
+`;

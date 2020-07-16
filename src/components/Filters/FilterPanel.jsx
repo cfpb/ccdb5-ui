@@ -65,7 +65,7 @@ export class FilterPanel extends React.Component {
           <hr/>
           <SimpleFilter title="Company response to consumer"
                         desc="This is how the company responded. For
-                         example, 'Closed with explanation'"
+                         example, 'Closed with explanation'."
                         fieldName="company_response"
           />
           <hr/>

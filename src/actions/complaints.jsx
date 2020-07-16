@@ -1,3 +1,4 @@
+/* eslint complexity: ["error", 5] */
 import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../constants'
 
 export const AGGREGATIONS_API_CALLED = 'AGGREGATIONS_API_CALLED'
@@ -11,6 +12,9 @@ export const COMPLAINT_DETAIL_FAILED = 'COMPLAINT_DETAIL_FAILED'
 export const STATES_API_CALLED = 'STATES_API_CALLED'
 export const STATES_RECEIVED = 'STATES_RECEIVED'
 export const STATES_FAILED = 'STATES_FAILED'
+export const TRENDS_API_CALLED = 'TRENDS_API_CALLED'
+export const TRENDS_RECEIVED = 'TRENDS_RECEIVED'
+export const TRENDS_FAILED = 'TRENDS_FAILED'
 
 // ----------------------------------------------------------------------------
 // Routing action
@@ -54,9 +58,9 @@ export function sendHitsQuery() {
       case MODE_MAP:
         dispatch( getStates() )
         break
-      // case 'Trends':
-      //   dispatch( getTrends() )
-      //   break
+      case MODE_TRENDS:
+        dispatch( getTrends() )
+        break
       case MODE_LIST:
         dispatch( getComplaints() )
         break
@@ -155,6 +159,38 @@ export function getStates() {
       .then( result => result.json() )
       .then( items => dispatch( statesReceived( items ) ) )
       .catch( error => dispatch( statesFailed( error ) ) )
+  }
+}
+
+/**
+ * Calls the trends endpoint of the API
+ *
+ * @returns {Promise} a chain of promises that will update the Redux store
+ */
+export function getTrends() {
+  return ( dispatch, getState ) => {
+    const store = getState()
+    const { query, trends } = store
+    const qs = 'trends/' + query.queryString
+    const uri = '@@API' + qs + '&no_aggs=true'
+
+    // This call is already in process
+    if ( uri === trends.activeCall ) {
+      return null
+    }
+
+    // kill query if Company param criteria aren't met
+    if ( trends.lens === 'Company' &&
+      ( !query.company || !query.company.length ) ) {
+      return null
+    }
+
+
+    dispatch( callingApi( TRENDS_API_CALLED, uri ) )
+    return fetch( uri )
+      .then( result => result.json() )
+      .then( items => dispatch( trendsReceived( items ) ) )
+      .catch( error => dispatch( trendsFailed( error ) ) )
   }
 }
 
@@ -272,6 +308,32 @@ export function statesReceived( data ) {
 export function statesFailed( error ) {
   return {
     type: STATES_FAILED,
+    error
+  }
+}
+
+/**
+ * Creates an action in response to trends results being received from the API
+ *
+ * @param {string} data the raw data returned from the API
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function trendsReceived( data ) {
+  return {
+    type: TRENDS_RECEIVED,
+    data
+  }
+}
+
+/**
+ * Creates an action in response after trends results fails
+ *
+ * @param {string} error the error returned from `fetch`, not the API
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function trendsFailed( error ) {
+  return {
+    type: TRENDS_FAILED,
     error
   }
 }

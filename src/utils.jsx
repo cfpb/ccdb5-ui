@@ -66,6 +66,26 @@ export const clamp = ( x, min, max ) => {
 }
 
 /**
+ * Function to set the limit of the range of a set of dates
+ * @param {string} x value we are checking
+ * @param {string} min smallest number it can be
+ * @param {string} max biggest number it can be
+ * @returns {*} the limited value
+ */
+export const clampDate = ( x, min, max ) => {
+  let xDate = new Date( x );
+  const minDate = new Date( min );
+  const maxDate = new Date( max );
+
+  if ( xDate < minDate ) {
+    xDate = minDate;
+  } else if ( xDate > maxDate ) {
+    xDate = maxDate;
+  }
+  return xDate;
+}
+
+/**
  * Replacement for the common pattern:
  * if( o.field )
  *    x = o.field
@@ -151,7 +171,41 @@ export function hashObject( o ) {
 }
 export const normalize = s => s.toLowerCase()
 
+/**
+ * takes a string and formats it into proper text for an htmd ID
+ * Eat at Joe's => eatatjoes
+ * @param {string} a the dirty string Eat at Joe's
+ * @returns {string} sanitized string eatatjoes
+ */
+export const sanitizeHtmlId = a => a.replace( /\s+|\W/g, '' ).toLowerCase()
+
 export const slugify = ( a, b ) => a + SLUG_SEPARATOR + b
+
+/**
+* Processes the cookie string into key-value pairs
+*
+* @param {string} cookies the unprocessed cookie string
+* @returns {Object} a dictionary of cookie keys and values
+*/
+export function parseCookies( cookies = document.cookie ) {
+  return cookies.split( ';' ).reduce( ( accum, x ) => {
+    const [ k, v ] = x.trim().split( '=' )
+    if ( k ) {
+      accum[k] = v
+    }
+    return accum
+  }, {} )
+}
+
+/**
+ * take in an array or object and clone it as completely new object to remove
+ * pointers.  If you .slice() an array of objects, the array is new, but
+ * copied objects still point to original objects, you will still have mutations
+ *
+ * @param {object|array} input the thing to copy
+ * @returns {object|array} the copied new thing
+ */
+export const cloneDeep = input => JSON.parse( JSON.stringify( input ) )
 
 /**
  * Custom sort for array so that selected items appear first, then by doc_count
@@ -160,7 +214,7 @@ export const slugify = ( a, b ) => a + SLUG_SEPARATOR + b
  * @returns {T[]} sorted array
  */
 export const sortSelThenCount = ( options, selected ) => {
-  const retVal = ( options || [] ).slice()
+  const retVal = ( cloneDeep( options ) || [] ).slice()
 
   /* eslint complexity: ["error", 5] */
   retVal.sort( ( a, b ) => {
@@ -289,3 +343,76 @@ export function getFullUrl( uri ) {
   return parser.href
 }
 
+/**
+ * processes error messages so we can see them in redux
+ * @param {error} err the error object from api
+ * @returns {{name: string, message: string}} processed error object we can see
+ */
+export function processErrorMessage( err ) {
+  return {
+    name: err.name,
+    message: err.message
+  }
+}
+
+/**
+ * Takes in a number and outputs to percentage
+ * @param {number} num value we convert .9999
+ * @returns {number} 99.99
+ */
+export function formatPercentage( num ) {
+  // we have to do this so it is a float and not a string
+  const val = parseFloat( parseFloat( num * 100 ).toFixed( 2 ) );
+  return isNaN( val ) ? 0.00 : val;
+}
+
+/**
+ * helper function
+ * @param {object} bucket contains key value pairs
+ * @returns {string} name of the key that has the buckets
+ */
+export const getSubKeyName = bucket => {
+  for ( const k in bucket ) {
+    if ( k !== 'trend_period' && bucket[k].buckets ) {
+      return k;
+    }
+  }
+  return ''
+}
+
+
+/**
+ * helper function to take in array parameters from the url, filters, etc and
+ * set the values in the processed object
+ * @param {object} params the object from the URL_CHANGED action
+ * @param {object} processed the state we will update with a single value or arr
+ * @param {object} arrayParams the array of strings that we will check against
+ */
+export const processUrlArrayParams = ( params, processed, arrayParams ) => {
+  arrayParams.forEach( field => {
+    if ( typeof params[field] !== 'undefined' ) {
+      if ( typeof params[field] === 'string' ) {
+        processed[field] = [ params[field] ]
+      } else {
+        processed[field] = params[field]
+      }
+    }
+  } )
+}
+
+/**
+ * gets a filter and its subagg filters
+ * @param {string} filterKey the filter 'Debt'
+ * @param {array} subitems the buckets to process to generate slug
+ * @returns {Set<any>} returns a set of uniques Debt, Debt*Foo
+ */
+export const getAllFilters = ( filterKey, subitems ) => {
+  const values = new Set()
+  // Add the parent
+  values.add( filterKey )
+  // Add the shown subitems
+  subitems.forEach( sub => {
+    values.add( slugify( filterKey, sub.key ) )
+  } )
+  return values
+}
