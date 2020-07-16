@@ -1,35 +1,22 @@
 // reducer for the Map Tab
+import { coalesce, processErrorMessage, processUrlArrayParams } from '../utils'
+import {
+  collapseTrend, expandTrend, processBucket, processTrendPeriod, validateBucket
+} from './trends'
 import { GEO_NORM_NONE, TILE_MAP_STATES } from '../constants'
 import actions from '../actions'
 
 export const defaultState = {
+  activeCall: '',
   isLoading: false,
-  issue: [],
   dataNormalization: GEO_NORM_NONE,
-  product: [],
-  state: []
-}
-
-export const processAggregations = agg => {
-  const total = agg.doc_count
-  const chartResults = []
-  for ( const k in agg ) {
-    if ( agg[k].buckets ) {
-      agg[k].buckets.forEach( o => {
-        chartResults.push( {
-          name: o.key,
-          value: o.doc_count,
-          pctChange: 1,
-          isParent: true,
-          hasChildren: false,
-          pctOfSet: Math.round( o.doc_count / total * 100 )
-            .toFixed( 2 ),
-          width: 0.5
-        } )
-      } )
-    }
+  expandedTrends: [],
+  expandableRows: [],
+  results: {
+    issue: [],
+    product: [],
+    state: []
   }
-  return chartResults
 }
 
 
@@ -60,6 +47,32 @@ export const processStateAggregations = agg => {
 // Action Handlers
 
 /**
+ * Updates the state when an tab changed occurs, reset values to start clean
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+export function handleTabChanged( state ) {
+  return {
+    ...state,
+    results: defaultState.results
+  }
+}
+
+/** Handler for the focus removed action
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+function removeFocus( state ) {
+  return {
+    ...state,
+    expandableRows: [],
+    expandedTrends: []
+  }
+}
+
+/**
  * Updates the state when an aggregations call is in progress
  *
  * @param {object} state the current state in the Redux store
@@ -82,18 +95,33 @@ export function statesCallInProcess( state, action ) {
  * @returns {object} new state for the Redux store
  */
 export function processStatesResults( state, action ) {
-  const result = { ...state }
+  const newState = { ...state }
+  const aggregations = action.data.aggregations
+  const { state: stateData } = aggregations
 
-  const stateData = action.data.aggregations.state
-  const issueData = action.data.aggregations.issue
-  const productData = action.data.aggregations.product
-  result.activeCall = ''
-  result.isLoading = false
-  result.state = processStateAggregations( stateData )
-  result.issue = processAggregations( issueData )
-  result.product = processAggregations( productData )
+  newState.activeCall = ''
+  newState.isLoading = false
+  newState.results = coalesce( newState, 'results', {} )
 
-  return result
+  const validAggs = [ 'issue', 'product' ]
+  validAggs.forEach( k => {
+    // validate response coming from API
+    /* istanbul ignore else */
+    if ( validateBucket( aggregations, k ) ) {
+      // set to zero when we are not using focus Lens
+      const buckets = aggregations[k][k].buckets
+      for ( let i = 0; i < buckets.length; i++ ) {
+        const docCount = aggregations[k].doc_count
+        processTrendPeriod( buckets[i], k, docCount )
+      }
+
+      newState.results[k] = processBucket( state, buckets )
+    }
+  } )
+
+  newState.results.state = processStateAggregations( stateData )
+
+  return newState
 }
 
 /**
@@ -107,19 +135,15 @@ export function processStatesError( state, action ) {
   return {
     ...state,
     activeCall: '',
-    issue: [],
-    error: action.error,
+    error: processErrorMessage( action.error ),
     isLoading: false,
-    product: [],
-    state: TILE_MAP_STATES.map( o => ( {
-      name: o,
-      value: 0,
-      issue: '',
-      product: ''
-    } ) )
+    results: {
+      issue: [],
+      product: [],
+      state: []
+    }
   }
 }
-
 
 /**
  * Handler for the update filter data normalization action
@@ -186,6 +210,9 @@ function processParams( state, action ) {
     processed.dataNormalization = params.dataNormalization
   }
 
+  const arrayParams = [ 'expandedTrends' ]
+  processUrlArrayParams( params, processed, arrayParams )
+
   return processed
 }
 
@@ -204,10 +231,14 @@ export function _buildHandlerMap() {
   handlers[actions.DATE_RANGE_CHANGED] = updateDateDataNormalization
   handlers[actions.FILTER_CHANGED] = updateFilterDataNormalization
   handlers[actions.FILTER_MULTIPLE_ADDED] = updateFilterDataNormalization
+  handlers[actions.FOCUS_REMOVED] = removeFocus
   handlers[actions.STATE_FILTER_ADDED] = updateFilterDataNormalization
   handlers[actions.STATES_API_CALLED] = statesCallInProcess
   handlers[actions.STATES_RECEIVED] = processStatesResults
   handlers[actions.STATES_FAILED] = processStatesError
+  handlers[actions.TAB_CHANGED] = handleTabChanged
+  handlers[actions.TREND_COLLAPSED] = collapseTrend
+  handlers[actions.TREND_EXPANDED] = expandTrend
   handlers[actions.URL_CHANGED] = processParams
 
 

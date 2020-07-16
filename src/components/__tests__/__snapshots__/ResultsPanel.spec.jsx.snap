@@ -12,7 +12,7 @@ exports[`component:Results renders List print mode without crashing 1`] = `
         Dates:
       </span>
        
-       - 
+      7/10/2017 - 7/10/2020
     </p>
     <div>
       <div>
@@ -101,7 +101,6 @@ exports[`component:Results renders List print mode without crashing 1`] = `
           <button
             className="a-btn"
             onClick={[Function]}
-            title="Filter results"
           >
             Filter results
           </button>
@@ -127,21 +126,25 @@ exports[`component:Results renders List print mode without crashing 1`] = `
           onChange={[Function]}
         >
           <option
+            disabled={false}
             value="10"
           >
             10 results
           </option>
           <option
+            disabled={false}
             value="25"
           >
             25 results
           </option>
           <option
+            disabled={false}
             value="50"
           >
             50 results
           </option>
           <option
+            disabled={false}
             value="100"
           >
             100 results
@@ -165,21 +168,25 @@ exports[`component:Results renders List print mode without crashing 1`] = `
           onChange={[Function]}
         >
           <option
+            disabled={false}
             value="created_date_desc"
           >
             Newest to oldest
           </option>
           <option
+            disabled={false}
             value="created_date_asc"
           >
             Oldest to newest
           </option>
           <option
+            disabled={false}
             value="relevance_desc"
           >
             Relevance
           </option>
           <option
+            disabled={false}
             value="relevance_asc"
           >
             Relevance (asc)
@@ -498,7 +505,7 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
         Dates:
       </span>
        
-       - 
+      7/10/2017 - 7/10/2020
     </p>
     <div>
       <div>
@@ -587,7 +594,6 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
           <button
             className="a-btn"
             onClick={[Function]}
-            title="Filter results"
           >
             Filter results
           </button>
@@ -687,22 +693,13 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
       className="row-chart-section"
     >
       <h3>
-        Product
-         by highest complaint volume
+        Sub-products, by product from 07/10/2017 to 07/10/2020
       </h3>
+      <p>
+        Product and sub-product the consumer identified in the complaint. Click on a product to expand sub-products.
+      </p>
       <div
         id="row-chart-product"
-      />
-    </div>
-    <div
-      className="row-chart-section"
-    >
-      <h3>
-        Issue
-         by highest complaint volume
-      </h3>
-      <div
-        id="row-chart-issue"
       />
     </div>
   </section>
@@ -795,7 +792,6 @@ exports[`component:Results renders list panel without crashing 1`] = `
           <button
             className="a-btn"
             onClick={[Function]}
-            title="Filter results"
           >
             Filter results
           </button>
@@ -821,21 +817,25 @@ exports[`component:Results renders list panel without crashing 1`] = `
           onChange={[Function]}
         >
           <option
+            disabled={false}
             value="10"
           >
             10 results
           </option>
           <option
+            disabled={false}
             value="25"
           >
             25 results
           </option>
           <option
+            disabled={false}
             value="50"
           >
             50 results
           </option>
           <option
+            disabled={false}
             value="100"
           >
             100 results
@@ -859,21 +859,25 @@ exports[`component:Results renders list panel without crashing 1`] = `
           onChange={[Function]}
         >
           <option
+            disabled={false}
             value="created_date_desc"
           >
             Newest to oldest
           </option>
           <option
+            disabled={false}
             value="created_date_asc"
           >
             Oldest to newest
           </option>
           <option
+            disabled={false}
             value="relevance_desc"
           >
             Relevance
           </option>
           <option
+            disabled={false}
             value="relevance_asc"
           >
             Relevance (asc)
@@ -1244,7 +1248,6 @@ exports[`component:Results renders map panel without crashing 1`] = `
           <button
             className="a-btn"
             onClick={[Function]}
-            title="Filter results"
           >
             Filter results
           </button>
@@ -1344,23 +1347,224 @@ exports[`component:Results renders map panel without crashing 1`] = `
       className="row-chart-section"
     >
       <h3>
-        Product
-         by highest complaint volume
+        Sub-products, by product from 07/10/2017 to 07/10/2020
       </h3>
+      <p>
+        Product and sub-product the consumer identified in the complaint. Click on a product to expand sub-products.
+      </p>
       <div
         id="row-chart-product"
       />
     </div>
+  </section>
+</div>
+`;
+
+exports[`component:Results renders trends panel without crashing 1`] = `
+<div
+  className="content_main trends"
+>
+  <section
+    className="trends-panel"
+  >
+    <div>
+      <summary
+        className="action-bar"
+        id="search-summary"
+      >
+        <div>
+          <h2>
+            Showing 
+            <span>
+              1
+            </span>
+             matches out of 
+            <span>
+              100
+            </span>
+             total complaints
+          </h2>
+        </div>
+        <div
+          className="layout-row"
+        >
+          <h3
+            className="h4 flex-all export-results"
+          >
+            <button
+              className="a-btn a-btn__link"
+              data-gtm_ignore="true"
+              onClick={[Function]}
+            >
+              Export data
+            </button>
+            <button
+              className="a-btn a-btn__link print-preview"
+              onClick={[Function]}
+            >
+              <svg
+                className="cf-icon-svg"
+                viewBox="0 0 761.9 1200"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M203.7 889.9h355v50h-355zM203.7 788.4h355v50h-355z"
+                />
+                <path
+                  d="M670.9 368.4L477.3 174.8H122.1c-16.5 0-30 13.5-30 30V500H70c-38.5 0-70 31.5-70 70v305.5c0 38.5 31.5 70 70 70h22.1v60.5c0 16.5 13.5 30 30 30h518.8c16.5 0 30-13.5 30-30v-60.5h21c38.5 0 70-31.5 70-70V569.9c0-38.5-31.5-70-70-70h-21V368.4zm-60 607.6H152.1V742.7h458.8V976zM425 234.8v146.4c0 21.1 17.3 38.4 38.4 38.4h147.5V500H152.1V234.8H425zm237.9 403.9c-16.6 0-30-13.4-30-30s13.4-30 30-30 30 13.4 30 30-13.4 30-30 30z"
+                />
+              </svg>
+              Print
+            </button>
+          </h3>
+        </div>
+      </summary>
+    </div>
     <div
-      className="row-chart-section"
+      className="layout-row refine-bar"
     >
-      <h3>
-        Issue
-         by highest complaint volume
-      </h3>
-      <div
-        id="row-chart-issue"
+      <section
+        className="filter-panel-toggle"
+      >
+        <div
+          className="m-btn-group"
+        >
+          <p>
+             
+          </p>
+          <button
+            className="a-btn"
+            onClick={[Function]}
+          >
+            Filter results
+          </button>
+        </div>
+      </section>
+      <section
+        className="cf-select"
+      >
+        <label
+          className="u-visually-hidden"
+          htmlFor="choose-lens"
+        >
+          Aggregate complaints by
+        </label>
+        <p>
+          Aggregate by
+        </p>
+        <select
+          id="choose-lens"
+          onChange={[Function]}
+          value="Overview"
+        >
+          <option
+            disabled={false}
+            value="Overview"
+          >
+            Overview
+          </option>
+          <option
+            disabled={false}
+            value="Company"
+          >
+            Company
+          </option>
+          <option
+            disabled={false}
+            value="Product"
+          >
+            Product
+          </option>
+        </select>
+      </section>
+      <span
+        className="separator"
       />
+      <section
+        className="cf-select"
+      >
+        <label
+          className="u-visually-hidden"
+          htmlFor="choose-interval"
+        >
+          Choose the Date interval
+        </label>
+        <p>
+          Date interval
+        </p>
+        <select
+          id="choose-interval"
+          onChange={[Function]}
+        >
+          <option
+            disabled={true}
+            value="Day"
+          >
+            Day
+          </option>
+          <option
+            disabled={false}
+            value="Week"
+          >
+            Week
+          </option>
+          <option
+            disabled={false}
+            value="Month"
+          >
+            Month
+          </option>
+          <option
+            disabled={false}
+            value="Quarter"
+          >
+            Quarter
+          </option>
+          <option
+            disabled={false}
+            value="Year"
+          >
+            Year
+          </option>
+        </select>
+      </section>
+      <section
+        className="date-ranges m-btn-group"
+      >
+        <p>
+          Date range (Click to modify range)
+        </p>
+        <button
+          className="a-btn date-selector range-3m"
+          onClick={[Function]}
+        >
+          3m
+        </button>
+        <button
+          className="a-btn date-selector range-6m"
+          onClick={[Function]}
+        >
+          6m
+        </button>
+        <button
+          className="a-btn date-selector range-1y"
+          onClick={[Function]}
+        >
+          1y
+        </button>
+        <button
+          className="a-btn date-selector range-3y"
+          onClick={[Function]}
+        >
+          3y
+        </button>
+        <button
+          className="a-btn date-selector range-All"
+          onClick={[Function]}
+        >
+          All
+        </button>
+      </section>
     </div>
   </section>
 </div>

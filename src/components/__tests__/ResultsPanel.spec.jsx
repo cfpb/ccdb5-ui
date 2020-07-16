@@ -1,4 +1,4 @@
-import { mapDispatchToProps, ResultsPanel } from '../ResultsPanel'
+import ReduxResultsPanel, { mapDispatchToProps, ResultsPanel } from '../ResultsPanel'
 import React from 'react';
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
@@ -6,7 +6,7 @@ import thunk from 'redux-thunk'
 import { IntlProvider } from 'react-intl';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme'
-
+import { trendsResults } from '../../reducers/__fixtures__/trendsResults'
 const fixture = [
   {
     company: 'foo',
@@ -45,11 +45,22 @@ function setupSnapshot(items=[], initialStore={}, tab = 'List', printMode) {
       total: items.length
     },
     map: {
-      state: []
+      results: {
+        issue: [],
+        product: [],
+        state: []
+      }
     },
     results,
     query: {
-      tab: tab
+      lens: 'Overview',
+      subLens: '',
+      tab: tab,
+      date_received_min: new Date('7/10/2017'),
+      date_received_max: new Date('7/10/2020')
+    },
+    trends: {
+      results: {}
     },
     view: {
       printMode
@@ -59,7 +70,7 @@ function setupSnapshot(items=[], initialStore={}, tab = 'List', printMode) {
   return renderer.create(
     <Provider store={ store } >
       <IntlProvider locale="en">
-        <ResultsPanel tab={tab} printMode={printMode}/>
+        <ReduxResultsPanel />
       </IntlProvider>
     </Provider>
   )
@@ -70,6 +81,12 @@ describe('component:Results', () => {
   let actionMock = jest.fn()
   it('renders map panel without crashing', () => {
     const target = setupSnapshot( fixture, null, 'Map' );
+    const tree = target.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('renders trends panel without crashing', () => {
+    const target = setupSnapshot( fixture, trendsResults, 'Trends' );
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   });

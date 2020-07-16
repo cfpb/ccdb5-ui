@@ -1,11 +1,10 @@
-import { shallow } from 'enzyme';
-import React from 'react'
+import configureMockStore from 'redux-mock-store'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
+import React from 'react'
+import ReduxCompany, { mapStateToProps } from '../Company'
 import renderer from 'react-test-renderer'
-import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import ReduxCompany, { mapDispatchToProps, Company } from '../Company'
 
 const fixture = [
   { key: "Monocle Popper Inc", doc_count: 9999 },
@@ -13,22 +12,6 @@ const fixture = [
   { key: "Securitized Collateral Risk Obligations Credit Co", doc_count: 99 },
   { key: "EZ Credit", doc_count: 9 }
 ]
-
-function setupEnzyme() {
-  const props = {
-    forTypeahead: [],
-    options: [],
-    queryString: '?foo=bar&baz=qaz',
-    typeaheadSelect: jest.fn()
-  }
-
-  const target = shallow(<Company {...props} />);
-
-  return {
-    props,
-    target
-  }
-}
 
 function setupSnapshot(initialFixture) {
   const middlewares = [thunk]
@@ -66,64 +49,62 @@ describe('component::Company', () => {
     })
   })
 
-  describe('Typeahead interface', () => {
-    beforeEach(() => {
-      global.fetch = jest.fn().mockImplementation((url) => {
-        expect(url).toContain('@@API_suggest_company/?foo=bar&baz=qaz&text=')
-
-        return new Promise((resolve) => {
-          resolve({
-            json: function() {
-              return ['foo', 'bar', 'baz', 'qaz']
-            }
-          })
-        })
-      })
-    })
-
-    describe('_onInputChange', () => {
-      it('provides a promise', () => {
-        const {target} = setupEnzyme()
-        const actual = target.instance()._onInputChange('mo')
-        expect(actual.then).toBeInstanceOf(Function)
-      })
-    })
-
-    describe('_renderOption', () => {
-      it('produces a custom component', () => {
-        const {target, props} = setupEnzyme()
-        const option = {
-          key: 'Foo',
-          label: 'foo',
-          position: 0,
-          value: 'FOO'
+  describe('mapStateToProps', () => {
+    it( 'maps state and props', () => {
+      const state = {
+        aggs: {
+          company: [
+            { key: 'a' },
+            { key: 'b' },
+            { key: 'c' }
+          ]
+        },
+        query: {
+          company: [ { key: 'a' } ],
+          focus: '',
+          lens: '',
+          queryString: '?dsaf=fdas'
         }
-        const actual = target.instance()._renderOption(option)
-        expect(actual.value).toEqual('Foo')
-        expect(actual.component).toMatchObject({
-          props: {
-            label: 'foo',
-            position: 0,
-            value: 'FOO'
-          }
-        })
-      })
-    })
-  
-    describe('_onOptionSelected', () => {
-      it('checks the filter associated with the option', () => {
-        const {target, props} = setupEnzyme()
-        target.instance()._onOptionSelected({key: 'foo'})
-        expect(props.typeaheadSelect).toHaveBeenCalledWith('foo')
-      })
-    })
-  })
+      }
+      let actual = mapStateToProps( state )
+      expect( actual ).toEqual( {
+        options: [
+          { disabled: false, key: 'a' },
+          { disabled: false, key: 'b' },
+          { disabled: false, key: 'c' }
+        ],
+        queryString: '?dsaf=fdas',
+        selections: [ { key: 'a' } ]
+      } )
+    } )
 
-  describe('mapDispatchToProps', () => {
-    it('hooks into addMultipleFilters', () => {
-      const dispatch = jest.fn()
-      mapDispatchToProps(dispatch).typeaheadSelect('foo')
-      expect(dispatch.mock.calls.length).toEqual(1)
-    })
+    it( 'disables some options on Focus page', () => {
+      const state = {
+        aggs: {
+          company: [
+            { key: 'a' },
+            { key: 'b' },
+            { key: 'c' }
+          ]
+        },
+        query: {
+          company: [ { key: 'a' } ],
+          focus: 'a',
+          lens: 'Company',
+          queryString: '?dsaf=fdas'
+        }
+      }
+      let actual = mapStateToProps( state )
+      expect( actual ).toEqual( {
+        options: [
+          { disabled: false, key: 'a' },
+          { disabled: true, key: 'b' },
+          { disabled: true, key: 'c' }
+        ],
+        queryString: '?dsaf=fdas',
+        selections: [ { key: 'a' } ]
+      } )
+    } )
+
   })
 })

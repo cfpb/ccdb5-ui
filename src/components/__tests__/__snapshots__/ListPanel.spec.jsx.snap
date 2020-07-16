@@ -72,7 +72,6 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
@@ -99,21 +98,25 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
         value="10"
       >
         <option
+          disabled={false}
           value="10"
         >
           10 results
         </option>
         <option
+          disabled={false}
           value="25"
         >
           25 results
         </option>
         <option
+          disabled={false}
           value="50"
         >
           50 results
         </option>
         <option
+          disabled={false}
           value="100"
         >
           100 results
@@ -137,21 +140,25 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
         onChange={[MockFunction]}
       >
         <option
+          disabled={false}
           value="created_date_desc"
         >
           Newest to oldest
         </option>
         <option
+          disabled={false}
           value="created_date_asc"
         >
           Oldest to newest
         </option>
         <option
+          disabled={false}
           value="relevance_desc"
         >
           Relevance
         </option>
         <option
+          disabled={false}
           value="relevance_asc"
         >
           Relevance (asc)
@@ -367,7 +374,6 @@ exports[`component:ListPanel displays a message when only the narratives are sta
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
@@ -394,21 +400,25 @@ exports[`component:ListPanel displays a message when only the narratives are sta
         value="10"
       >
         <option
+          disabled={false}
           value="10"
         >
           10 results
         </option>
         <option
+          disabled={false}
           value="25"
         >
           25 results
         </option>
         <option
+          disabled={false}
           value="50"
         >
           50 results
         </option>
         <option
+          disabled={false}
           value="100"
         >
           100 results
@@ -432,21 +442,25 @@ exports[`component:ListPanel displays a message when only the narratives are sta
         onChange={[MockFunction]}
       >
         <option
+          disabled={false}
           value="created_date_desc"
         >
           Newest to oldest
         </option>
         <option
+          disabled={false}
           value="created_date_asc"
         >
           Oldest to newest
         </option>
         <option
+          disabled={false}
           value="relevance_desc"
         >
           Relevance
         </option>
         <option
+          disabled={false}
           value="relevance_asc"
         >
           Relevance (asc)
@@ -838,7 +852,6 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
@@ -865,21 +878,25 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
         value="10"
       >
         <option
+          disabled={false}
           value="10"
         >
           10 results
         </option>
         <option
+          disabled={false}
           value="25"
         >
           25 results
         </option>
         <option
+          disabled={false}
           value="50"
         >
           50 results
         </option>
         <option
+          disabled={false}
           value="100"
         >
           100 results
@@ -903,21 +920,25 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
         onChange={[MockFunction]}
       >
         <option
+          disabled={false}
           value="created_date_desc"
         >
           Newest to oldest
         </option>
         <option
+          disabled={false}
           value="created_date_asc"
         >
           Oldest to newest
         </option>
         <option
+          disabled={false}
           value="relevance_desc"
         >
           Relevance
         </option>
         <option
+          disabled={false}
           value="relevance_asc"
         >
           Relevance (asc)
@@ -1309,7 +1330,6 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
@@ -1336,21 +1356,25 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
         value="10"
       >
         <option
+          disabled={false}
           value="10"
         >
           10 results
         </option>
         <option
+          disabled={false}
           value="25"
         >
           25 results
         </option>
         <option
+          disabled={false}
           value="50"
         >
           50 results
         </option>
         <option
+          disabled={false}
           value="100"
         >
           100 results
@@ -1374,21 +1398,25 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
         onChange={[MockFunction]}
       >
         <option
+          disabled={false}
           value="created_date_desc"
         >
           Newest to oldest
         </option>
         <option
+          disabled={false}
           value="created_date_asc"
         >
           Oldest to newest
         </option>
         <option
+          disabled={false}
           value="relevance_desc"
         >
           Relevance
         </option>
         <option
+          disabled={false}
           value="relevance_asc"
         >
           Relevance (asc)
@@ -1755,7 +1783,6 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
@@ -1782,21 +1809,25 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
         value="10"
       >
         <option
+          disabled={false}
           value="10"
         >
           10 results
         </option>
         <option
+          disabled={false}
           value="25"
         >
           25 results
         </option>
         <option
+          disabled={false}
           value="50"
         >
           50 results
         </option>
         <option
+          disabled={false}
           value="100"
         >
           100 results
@@ -1820,21 +1851,25 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
         onChange={[MockFunction]}
       >
         <option
+          disabled={false}
           value="created_date_desc"
         >
           Newest to oldest
         </option>
         <option
+          disabled={false}
           value="created_date_asc"
         >
           Oldest to newest
         </option>
         <option
+          disabled={false}
           value="relevance_desc"
         >
           Relevance
         </option>
         <option
+          disabled={false}
           value="relevance_asc"
         >
           Relevance (asc)
@@ -2031,7 +2066,6 @@ exports[`component:ListPanel only displays data message when both types are stal
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
@@ -2058,21 +2092,25 @@ exports[`component:ListPanel only displays data message when both types are stal
         value="10"
       >
         <option
+          disabled={false}
           value="10"
         >
           10 results
         </option>
         <option
+          disabled={false}
           value="25"
         >
           25 results
         </option>
         <option
+          disabled={false}
           value="50"
         >
           50 results
         </option>
         <option
+          disabled={false}
           value="100"
         >
           100 results
@@ -2096,21 +2134,25 @@ exports[`component:ListPanel only displays data message when both types are stal
         onChange={[MockFunction]}
       >
         <option
+          disabled={false}
           value="created_date_desc"
         >
           Newest to oldest
         </option>
         <option
+          disabled={false}
           value="created_date_asc"
         >
           Oldest to newest
         </option>
         <option
+          disabled={false}
           value="relevance_desc"
         >
           Relevance
         </option>
         <option
+          disabled={false}
           value="relevance_asc"
         >
           Relevance (asc)
@@ -2478,7 +2520,6 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
@@ -2505,21 +2546,25 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
         value="10"
       >
         <option
+          disabled={false}
           value="10"
         >
           10 results
         </option>
         <option
+          disabled={false}
           value="25"
         >
           25 results
         </option>
         <option
+          disabled={false}
           value="50"
         >
           50 results
         </option>
         <option
+          disabled={false}
           value="100"
         >
           100 results
@@ -2543,21 +2588,25 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
         onChange={[MockFunction]}
       >
         <option
+          disabled={false}
           value="created_date_desc"
         >
           Newest to oldest
         </option>
         <option
+          disabled={false}
           value="created_date_asc"
         >
           Oldest to newest
         </option>
         <option
+          disabled={false}
           value="relevance_desc"
         >
           Relevance
         </option>
         <option
+          disabled={false}
           value="relevance_asc"
         >
           Relevance (asc)
@@ -2924,7 +2973,6 @@ exports[`component:ListPanel renders without crashing 1`] = `
         <button
           className="a-btn"
           onClick={[Function]}
-          title="Filter results"
         >
           Filter results
         </button>
@@ -2951,21 +2999,25 @@ exports[`component:ListPanel renders without crashing 1`] = `
         value="10"
       >
         <option
+          disabled={false}
           value="10"
         >
           10 results
         </option>
         <option
+          disabled={false}
           value="25"
         >
           25 results
         </option>
         <option
+          disabled={false}
           value="50"
         >
           50 results
         </option>
         <option
+          disabled={false}
           value="100"
         >
           100 results
@@ -2989,21 +3041,25 @@ exports[`component:ListPanel renders without crashing 1`] = `
         onChange={[MockFunction]}
       >
         <option
+          disabled={false}
           value="created_date_desc"
         >
           Newest to oldest
         </option>
         <option
+          disabled={false}
           value="created_date_asc"
         >
           Oldest to newest
         </option>
         <option
+          disabled={false}
           value="relevance_desc"
         >
           Relevance
         </option>
         <option
+          disabled={false}
           value="relevance_asc"
         >
           Relevance (asc)

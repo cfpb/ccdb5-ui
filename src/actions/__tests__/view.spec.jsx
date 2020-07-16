@@ -12,13 +12,33 @@ describe( 'action:view', () => {
     } )
   } )
 
-  describe( 'printModeChanged', () => {
+  describe( 'mapWarningDismissed', () => {
     it( 'creates a simple action', () => {
       const expectedAction = {
-        type: sut.PRINT_MODE_CHANGED,
+        type: sut.MAP_WARNING_DISMISSED,
         requery: REQUERY_NEVER
       }
-      expect( sut.printModeChanged() ).toEqual( expectedAction )
+      expect( sut.mapWarningDismissed() ).toEqual( expectedAction )
+    } )
+  } )
+
+  describe( 'printModeOn', () => {
+    it( 'creates a simple action', () => {
+      const expectedAction = {
+        type: sut.PRINT_MODE_ON,
+        requery: REQUERY_NEVER
+      }
+      expect( sut.printModeOn() ).toEqual( expectedAction )
+    } )
+  } )
+
+  describe( 'printModeOff', () => {
+    it( 'creates a simple action', () => {
+      const expectedAction = {
+        type: sut.PRINT_MODE_OFF,
+        requery: REQUERY_NEVER
+      }
+      expect( sut.printModeOff() ).toEqual( expectedAction )
     } )
   } )
 
@@ -43,4 +63,15 @@ describe( 'action:view', () => {
       expect( sut.tabChanged( 'Foo' ) ).toEqual( expectedAction )
     } )
   } )
+
+  describe( 'trendsDateWarningDismissed', () => {
+    it( 'creates a simple action', () => {
+      const expectedAction = {
+        type: sut.TRENDS_DATE_WARNING_DISMISSED,
+        requery: REQUERY_NEVER
+      }
+      expect( sut.trendsDateWarningDismissed() ).toEqual( expectedAction )
+    } )
+  } )
+
 } )

@@ -19,17 +19,6 @@ describe('action:filterActions', () => {
     })
   })
 
-  describe('changeDataLens', () => {
-    it('creates a simple action', () => {
-      const expectedAction = {
-        type: sut.DATA_LENS_CHANGED,
-        dataLens: 'bar',
-        requery: REQUERY_ALWAYS
-      }
-      expect(sut.changeDataLens('bar')).toEqual( expectedAction )
-    })
-  })
-
   describe('changeDateInterval', () => {
     it('creates a simple action', () => {
       const expectedAction = {

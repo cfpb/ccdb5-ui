@@ -2,17 +2,51 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 export class Select extends React.Component {
+  getValues() {
+    // different cases Array
+    // handle cases where an array of single entries
+    // case 1: values = [1,2,4]
+    // case 2: values = [
+    // { name: 'Foo', disabled: false},
+    // { name:'bar', disabled: true }
+    // ]
+    // object key val pair
+    // case 3: values = {
+    //   created_date_desc: 'Newest to oldest',
+    //   created_date_asc: 'Oldest to newest',
+    //   relevance_desc: 'Relevance',
+    //   relevance_asc: 'Relevance (asc)'
+    // }
+    // array of objects
+    let values
+
+    if ( Array.isArray( this.props.values ) ) {
+      // do nothing, case 2
+      if ( this.props.values[0].hasOwnProperty( 'name' ) ) {
+        values = this.props.values
+      } else {
+        // case 1
+        values = this.props.values.map( o => ( {
+          name: o,
+          value: o,
+          disabled: false
+        } ) )
+      }
+    } else {
+      // case 3
+      values = Object.keys( this.props.values ).map( o => ( {
+        name: this.props.values[o],
+        value: o,
+        disabled: false
+      } ) )
+    }
+    return values
+  }
+
   render() {
     const id = 'choose-' + this.props.id
+    const values = this.getValues()
 
-    // handle cases where an array is passed in
-    const values = Array.isArray( this.props.values ) ?
-      Object.assign(
-        {},
-        ...this.props.values.map( value => ( {
-          [value]: value
-        } ) ) ) :
-      this.props.values
     return (
       <section className="cf-select">
         <label className="u-visually-hidden"
@@ -24,8 +58,13 @@ export class Select extends React.Component {
         </p>
         <select value={ this.props.value } id={ id }
                 onChange={ this.props.handleChange }>
-          { Object.keys( values ).map( x =>
-              <option key={ x } value={ x }>{ values[x] }</option>
+
+          { values.map( x =>
+              <option disabled={ x.disabled }
+                      key={ x.name }
+                      value={ x.value || x.name }>
+                { x.name }
+              </option>
             ) }
         </select>
       </section>

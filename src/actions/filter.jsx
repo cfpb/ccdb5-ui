@@ -1,6 +1,5 @@
 import { REQUERY_ALWAYS } from '../constants'
 
-export const DATA_LENS_CHANGED = 'DATA_LENS_CHANGED'
 export const DATE_INTERVAL_CHANGED = 'DATE_INTERVAL_CHANGED'
 export const DATE_RANGE_CHANGED = 'DATE_RANGE_CHANGED'
 export const DATES_CHANGED = 'DATES_CHANGED'
@@ -14,19 +13,6 @@ export const FILTER_REMOVED = 'FILTER_REMOVED'
 // ----------------------------------------------------------------------------
 // Simple actions
 
-/**
- * Notifies the application that data lens overview, product, issue was toggled
- *
- * @param {string} dataLens which lens was selected
- * @returns {string} a packaged payload to be used by Redux reducers
- */
-export function changeDataLens( dataLens ) {
-  return {
-    type: DATA_LENS_CHANGED,
-    dataLens,
-    requery: REQUERY_ALWAYS
-  }
-}
 
 /**
  * Notifies that date interval (day, week, month, quarter, yr) was changed

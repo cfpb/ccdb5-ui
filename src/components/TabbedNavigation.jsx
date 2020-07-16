@@ -4,15 +4,7 @@ import React from 'react'
 import { tabChanged } from '../actions/view'
 
 export class TabbedNavigation extends React.Component {
-  constructor( props ) {
-    super( props );
-    this.state = {
-      tab: props.tab
-    };
-  }
-
   _setTab( tab ) {
-    window.scrollTo( 0, 0 )
     this.props.onTab( tab );
   }
 
@@ -31,6 +23,15 @@ export class TabbedNavigation extends React.Component {
             Map
           </button>
 
+          {
+            this.props.showTrends &&
+            <button
+              className={ this._getTabClass( 'Trends' ) }
+              onClick={() => this._setTab( 'Trends' )}>
+              Trends
+            </button>
+          }
+
           <button className={ this._getTabClass( 'List' ) }
                   onClick={() => this._setTab( 'List' )}>
             List
@@ -42,6 +43,7 @@ export class TabbedNavigation extends React.Component {
 }
 
 export const mapStateToProps = state => ( {
+  showTrends: state.view.showTrends,
   tab: state.query.tab
 } )
 
@@ -49,7 +51,7 @@ export const mapDispatchToProps = dispatch => ( {
   onTab: tab => {
     dispatch( tabChanged( tab ) )
   }
-} );
+} )
 
 export default connect( mapStateToProps,
   mapDispatchToProps )( TabbedNavigation )

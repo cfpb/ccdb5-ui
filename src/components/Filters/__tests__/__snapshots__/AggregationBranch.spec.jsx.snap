@@ -28,7 +28,6 @@ exports[`component::AggregationBranch snapshots renders with all checked 1`] = `
     <button
       className="flex-all a-btn a-btn__link"
       onClick={[Function]}
-      title="foo"
     >
       <span>
         foo
@@ -161,7 +160,6 @@ exports[`component::AggregationBranch snapshots renders with indeterminate 1`] =
     <button
       className="flex-all a-btn a-btn__link"
       onClick={[Function]}
-      title="foo"
     >
       <span>
         foo
@@ -294,7 +292,6 @@ exports[`component::AggregationBranch snapshots renders with none checked 1`] = 
     <button
       className="flex-all a-btn a-btn__link"
       onClick={[Function]}
-      title="foo"
     >
       <span>
         foo

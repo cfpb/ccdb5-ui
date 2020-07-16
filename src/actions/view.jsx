@@ -1,13 +1,14 @@
 import { REQUERY_HITS_ONLY, REQUERY_NEVER } from '../constants'
 
 export const MAP_WARNING_DISMISSED = 'MAP_WARNING_DISMISSED'
-export const PRINT_MODE_CHANGED = 'PRINT_MODE_CHANGED'
 export const PRINT_MODE_ON = 'PRINT_MODE_ON'
 export const PRINT_MODE_OFF = 'PRINT_MODE_OFF'
 
 export const SCREEN_RESIZED = 'SCREEN_RESIZED'
 export const TAB_CHANGED = 'TAB_CHANGED'
 export const TOGGLE_FILTER_VISIBILITY = 'TOGGLE_FILTER_VISIBILITY'
+export const TRENDS_DATE_WARNING_DISMISSED = 'TRENDS_DATE_WARNING_DISMISSED'
+
 // ----------------------------------------------------------------------------
 // Simple actions
 /**
@@ -30,18 +31,6 @@ export function filterVisibilityToggled() {
 export function mapWarningDismissed() {
   return {
     type: MAP_WARNING_DISMISSED,
-    requery: REQUERY_NEVER
-  }
-}
-
-/**
- * Notifies the application that the print mode has changed
- *
- * @returns {string} a packaged payload to be used by Redux reducers
- */
-export function printModeChanged() {
-  return {
-    type: PRINT_MODE_CHANGED,
     requery: REQUERY_NEVER
   }
 }
@@ -94,5 +83,17 @@ export function tabChanged( tab ) {
     type: TAB_CHANGED,
     tab,
     requery: REQUERY_HITS_ONLY
+  }
+}
+
+/**
+ * Notifies the application that user dismissed trends date warning
+ *
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function trendsDateWarningDismissed() {
+  return {
+    type: TRENDS_DATE_WARNING_DISMISSED,
+    requery: REQUERY_NEVER
   }
 }

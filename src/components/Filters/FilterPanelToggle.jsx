@@ -11,8 +11,6 @@ export class FilterPanelToggle extends React.Component {
           <p>&nbsp;</p>
           <button
             className={ 'a-btn' }
-            title={ this.props.showFilters ? 'Close Filters' :
-              'Filter results' }
             onClick={ () => this.props.onFilterToggle() }>
             { this.props.showFilters ? 'Close Filters' : 'Filter results' }
           </button>

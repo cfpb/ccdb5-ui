@@ -1,4 +1,4 @@
-import { MODE_LIST, MODE_MAP } from '../constants'
+import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../constants'
 import { printModeOff, printModeOn } from '../actions/view'
 import { connect } from 'react-redux'
 import ListPanel from './List/ListPanel'
@@ -6,6 +6,7 @@ import MapPanel from './Map/MapPanel'
 import PrintInfo from './Print/PrintInfo'
 import PrintInfoFooter from './Print/PrintInfoFooter'
 import React from 'react'
+import TrendsPanel from './Trends/TrendsPanel'
 
 export class ResultsPanel extends React.Component {
   constructor( props ) {
@@ -29,14 +30,17 @@ export class ResultsPanel extends React.Component {
     const classes = [ 'content_main', this.props.tab.toLowerCase() ]
     return classes.join( ' ' )
   }
-  /* eslint complexity: ["error", 5] */
+  /* eslint complexity: ["error", 6] */
   render() {
     let currentPanel
 
     switch ( this.props.tab ) {
       case MODE_LIST:
         currentPanel = <ListPanel/>
-        break;
+        break
+      case MODE_TRENDS:
+        currentPanel = <TrendsPanel/>
+        break
       case MODE_MAP:
       default:
         currentPanel = <MapPanel/>

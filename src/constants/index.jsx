@@ -56,12 +56,31 @@ export const dateRanges = [ '3m', '6m', '1y', '3y', 'All' ]
 export const excludeFields = [
   'enablePer1000',
   'mapWarningEnabled',
-  'totalPages'
+  'totalPages',
+  'trendsDateWarningEnabled'
 ]
 
 export const flagFilters = [
   'has_narrative'
 ]
+
+export const sizes = {
+  10: '10 results',
+  25: '25 results',
+  50: '50 results',
+  100: '100 results'
+}
+
+/* eslint-disable camelcase */
+
+export const sorts = {
+  created_date_desc: 'Newest to oldest',
+  created_date_asc: 'Oldest to newest',
+  relevance_desc: 'Relevance',
+  relevance_asc: 'Relevance (asc)'
+}
+
+/* eslint-enable camelcase */
 
 export const SLUG_SEPARATOR = '•'
 

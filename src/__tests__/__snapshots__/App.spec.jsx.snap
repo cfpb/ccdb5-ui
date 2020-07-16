@@ -370,7 +370,7 @@ exports[`initial state renders without crashing 1`] = `
                       onChange={[Function]}
                       placeholder="mm/dd/yyyy"
                       size="15"
-                      value="12/31/2015"
+                      value="1/2/2016"
                     />
                     <button
                       className="a-btn a-btn__link"
@@ -411,7 +411,7 @@ exports[`initial state renders without crashing 1`] = `
                       onChange={[Function]}
                       placeholder="mm/dd/yyyy"
                       size="15"
-                      value="12/31/2015"
+                      value="1/2/2016"
                     />
                     <button
                       className="a-btn a-btn__link"
@@ -543,6 +543,7 @@ exports[`initial state renders without crashing 1`] = `
                 <input
                   autoComplete="off"
                   className="a-text-input"
+                  disabled={false}
                   id="issue-typeahead"
                   onChange={[Function]}
                   onKeyDown={[Function]}
@@ -590,7 +591,7 @@ exports[`initial state renders without crashing 1`] = `
               </span>
             </div>
             <p>
-              The state of the mailing address provided by the consumer
+              The state in the mailing address provided by the consumer
             </p>
             <section
               className="typeahead "
@@ -769,14 +770,15 @@ exports[`initial state renders without crashing 1`] = `
                 </div>
                 <label
                   className="u-visually-hidden"
-                  htmlFor="company-typeahead"
+                  htmlFor="company-typeahead-filter"
                 >
                   Start typing to begin listing companies
                 </label>
                 <input
                   autoComplete="off"
                   className="a-text-input"
-                  id="company-typeahead"
+                  disabled=""
+                  id="company-typeahead-filter"
                   onChange={[Function]}
                   onKeyDown={[Function]}
                   placeholder="Enter company name"
@@ -858,7 +860,7 @@ exports[`initial state renders without crashing 1`] = `
               </span>
             </div>
             <p>
-              This is how the company responded. For example, 'Closed with explanation'
+              This is how the company responded. For example, 'Closed with explanation'.
             </p>
           </section>
           <hr />
@@ -1214,7 +1216,6 @@ exports[`initial state renders without crashing 1`] = `
               <button
                 className="a-btn"
                 onClick={[Function]}
-                title="Close Filters"
               >
                 Close Filters
               </button>
@@ -1309,28 +1310,6 @@ exports[`initial state renders without crashing 1`] = `
             
           </section>
           
-        </div>
-        <div
-          className="row-chart-section"
-        >
-          <h3>
-            Product
-             by highest complaint volume
-          </h3>
-          <div
-            id="row-chart-product"
-          />
-        </div>
-        <div
-          className="row-chart-section"
-        >
-          <h3>
-            Issue
-             by highest complaint volume
-          </h3>
-          <div
-            id="row-chart-issue"
-          />
         </div>
       </section>
     </div>
