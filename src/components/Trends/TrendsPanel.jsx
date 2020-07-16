@@ -170,7 +170,20 @@ export class TrendsPanel extends React.Component {
 
         { focus && <FocusHeader /> }
 
-        { !companyOverlay && total > 0 &&
+        { !companyOverlay && overview && total > 0 &&
+          <div className="layout-row">
+            <section className="chart">
+              <h2 className="area-chart-title">{this._areaChartTitle()}</h2>
+              <p className="chart-helper-text">A time series graph of
+               complaints for the selected date range. Hover on the
+                chart to see the count for each date interval. Your filter
+                 selections will update what you see on the graph.
+              </p>
+            </section>
+          </div>
+        }
+
+        { !companyOverlay && !overview && total > 0 &&
           <div className="layout-row">
             <section className="chart">
               <h2 className="area-chart-title">{this._areaChartTitle()}</h2>
@@ -184,6 +197,7 @@ export class TrendsPanel extends React.Component {
             </section>
           </div>
         }
+
 
         { !companyOverlay && total > 0 &&
           <div className="layout-row">
