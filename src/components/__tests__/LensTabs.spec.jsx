@@ -12,13 +12,17 @@ import { REQUERY_ALWAYS } from '../../constants'
 import thunk from 'redux-thunk'
 import { shallow } from 'enzyme'
 
-function setupSnapshot( lens ) {
+function setupSnapshot( { focus, lens, results } ) {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
   const store = mockStore( {
     query: {
+      focus,
       lens,
       subLens: 'sub_product'
+    },
+    trends: {
+      results
     }
   } )
 
@@ -32,17 +36,53 @@ function setupSnapshot( lens ) {
 }
 
 describe( 'component:LensTabs', () => {
+  let fixture
+  beforeEach( () => {
+    fixture = {
+      focus: '',
+      lens: 'Overview',
+      results: {}
+    }
+  } )
+
   it( 'does not render when Overview', () => {
-    const target = setupSnapshot( 'Overview' )
+    const target = setupSnapshot( fixture )
     const tree = target.toJSON()
     expect( tree ).toBeNull()
   } )
 
   it( 'renders Product without crashing', () => {
-    const target = setupSnapshot( 'Product' )
+    fixture.lens = 'Product'
+    const target = setupSnapshot( fixture )
     const tree = target.toJSON()
     expect( tree ).toMatchSnapshot()
   } )
+
+  it( 'renders focus Product tab without crashing', () => {
+    fixture.focus = 'fooBar'
+    fixture.lens = 'Product'
+    fixture.results = {
+      'sub-product': [ 1, 2, 3 ]
+    }
+
+    const target = setupSnapshot( fixture )
+    const tree = target.toJSON()
+    expect( tree ).toMatchSnapshot()
+  } )
+
+  it( 'hides focus Product tab without crashing', () => {
+    fixture.focus = 'fooBar'
+    fixture.lens = 'Product'
+    fixture.results = {
+      'issue': [ 1, 2, 3 ],
+      'sub-product': []
+    }
+
+    const target = setupSnapshot( fixture )
+    const tree = target.toJSON()
+    expect( tree ).toMatchSnapshot()
+  } )
+
 
   describe( 'buttons', () => {
     let cb = null
@@ -52,6 +92,7 @@ describe( 'component:LensTabs', () => {
       cb = jest.fn()
       target = shallow( <LensTabs onTab={ cb }
                                   lens={ 'Product' }
+                                  showProductTab={ true }
                                   subLens={ 'Issue' }
                                   showTitle={ true }/> )
     } )
@@ -87,12 +128,23 @@ describe( 'component:LensTabs', () => {
     it( 'maps state and props', () => {
       const state = {
         query: {
+          focus: '',
           lens: 'foo',
           subLens: 'bar'
+        },
+        trends: {
+          results: {
+            foo: []
+          }
         }
       }
       let actual = mapStateToProps( state )
-      expect( actual ).toEqual( { lens: 'foo', subLens: 'bar' } )
+      expect( actual ).toEqual( {
+        focus: '',
+        lens: 'foo',
+        showProductTab: true,
+        subLens: 'bar'
+      } )
     } )
   } )
 
