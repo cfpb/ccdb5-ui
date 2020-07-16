@@ -23,7 +23,7 @@ export class MapToolbar extends React.Component {
         </section>
         { filteredStates &&
         <section className="state-navigation">
-          <a className="list"
+          <a href="#" className="list"
              onClick={ () => this.props.showComplaints() }>
             View complaints for filtered states
           </a>
