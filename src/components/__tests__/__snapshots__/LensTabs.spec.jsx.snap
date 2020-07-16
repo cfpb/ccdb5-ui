@@ -1,6 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`component:LensTabs hides focus Product tab without crashing 1`] = `
+<div
+  className="tabbed-navigation lens"
+>
+  <section>
+    <button
+      className="tab issue"
+      onClick={[Function]}
+    >
+      Issues
+    </button>
+  </section>
+</div>
+`;
+
 exports[`component:LensTabs renders Product without crashing 1`] = `
+<div
+  className="tabbed-navigation lens"
+>
+  <section>
+    <button
+      className="tab sub_product active"
+      onClick={[Function]}
+    >
+      Sub-products
+    </button>
+    <button
+      className="tab issue"
+      onClick={[Function]}
+    >
+      Issues
+    </button>
+  </section>
+</div>
+`;
+
+exports[`component:LensTabs renders focus Product tab without crashing 1`] = `
 <div
   className="tabbed-navigation lens"
 >

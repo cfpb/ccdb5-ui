@@ -12,17 +12,18 @@ import { REQUERY_ALWAYS } from '../../constants'
 import thunk from 'redux-thunk'
 import { shallow } from 'enzyme'
 
-function setupSnapshot() {
+function setupSnapshot( { focus, results } ) {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
   const store = mockStore( {
     query: {
-      focus: 'Foo Bar',
+      focus,
       lens: 'Product',
       subLens: 'sub_product'
     },
     trends: {
-      total: 90120
+      total: 90120,
+      results
     }
   } )
 
@@ -36,8 +37,8 @@ function setupSnapshot() {
 }
 
 describe( 'component:FocusHeader', () => {
-  it( 'renders without crashing', () => {
-    const target = setupSnapshot()
+  it( 'renders both tabs without crashing', () => {
+    const target = setupSnapshot( { focus: '', results: {} } )
     const tree = target.toJSON()
     expect( tree ).toMatchSnapshot()
   } )

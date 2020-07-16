@@ -30,24 +30,27 @@ export class LensTabs extends React.Component {
   }
 
   render() {
-    const { lens } = this.props
+    const { lens, showProductTab } = this.props
     if ( lens === 'Overview' ) {
       return null
     }
 
+    const currentLens = lensMaps[lens]
     return (
       <div className="tabbed-navigation lens">
-         <section>
+        <section>
+          { showProductTab &&
           <button
-            className={ this._getTabClass( lensMaps[lens].tab1.filterName ) }
-            onClick={ () => this._setTab( lensMaps[lens].tab1.filterName ) }>
-            { lensMaps[lens].tab1.displayName }
+            className={ this._getTabClass( currentLens.tab1.filterName ) }
+            onClick={ () => this._setTab( currentLens.tab1.filterName ) }>
+            { currentLens.tab1.displayName }
           </button>
+          }
           { lensMaps[lens].tab2 &&
           <button
-            className={ this._getTabClass( lensMaps[lens].tab2.filterName ) }
-            onClick={ () => this._setTab( lensMaps[lens].tab2.filterName ) }>
-            { lensMaps[lens].tab2.displayName }
+            className={ this._getTabClass( currentLens.tab2.filterName ) }
+            onClick={ () => this._setTab( currentLens.tab2.filterName ) }>
+            { currentLens.tab2.displayName }
           </button>
           }
         </section>
@@ -56,10 +59,25 @@ export class LensTabs extends React.Component {
   }
 }
 
-export const mapStateToProps = state => ( {
-  lens: state.query.lens,
-  subLens: state.query.subLens
-} )
+const displayProductTab = ( lens, focus, results ) => {
+  if ( !focus ) {
+    return true
+  } else if ( results['sub-product'] && results['sub-product'].length ) {
+    return true
+  }
+  return false
+}
+
+export const mapStateToProps = state => {
+  const { focus, lens, subLens } = state.query
+  const { results } = state.trends
+  return {
+    focus,
+    lens,
+    showProductTab: displayProductTab( lens, focus, results ),
+    subLens
+  }
+}
 
 export const mapDispatchToProps = dispatch => ( {
   onTab: tab => {
