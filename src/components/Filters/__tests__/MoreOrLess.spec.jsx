@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import Aggregationitem from '../AggregationItem'
+import AggregationItem from '../AggregationItem'
 import MoreOrLess from '../MoreOrLess'
 
 const fixture = [
@@ -16,7 +16,7 @@ const fixture = [
 
 function setupEnzyme(initial) {
   const props = {
-    listComponent: Aggregationitem,
+    listComponent: AggregationItem,
     options: initial
   }
 
