@@ -171,10 +171,10 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
     className="row-chart-section"
   >
     <h3>
-      Sub-products, by product from 07/10/2017 to 07/10/2020
+      Product by highest complaint volume 07/10/2017 to 07/10/2020
     </h3>
     <p>
-      Product and sub-product the consumer identified in the complaint. Click on a product to expand sub-products.
+      Product the consumer identified in the complaint. Click on a product to expand sub-products
     </p>
     <div
       id="row-chart-product"
@@ -391,10 +391,10 @@ exports[`component:MapPanel renders warning without crashing 1`] = `
     className="row-chart-section"
   >
     <h3>
-      Sub-products, by product from 07/10/2017 to 07/10/2020
+      Product by highest complaint volume 07/10/2017 to 07/10/2020
     </h3>
     <p>
-      Product and sub-product the consumer identified in the complaint. Click on a product to expand sub-products.
+      Product the consumer identified in the complaint. Click on a product to expand sub-products
     </p>
     <div
       id="row-chart-product"
@@ -574,10 +574,10 @@ exports[`component:MapPanel renders without crashing 1`] = `
     className="row-chart-section"
   >
     <h3>
-      Sub-products, by product from 07/10/2017 to 07/10/2020
+      Product by highest complaint volume 07/10/2017 to 07/10/2020
     </h3>
     <p>
-      Product and sub-product the consumer identified in the complaint. Click on a product to expand sub-products.
+      Product the consumer identified in the complaint. Click on a product to expand sub-products
     </p>
     <div
       id="row-chart-product"
