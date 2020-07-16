@@ -148,9 +148,17 @@ describe( 'reducer:trends', () => {
         focus: 'gg',
         tooltip: { wut: 'isthis' }
       }, action ) ).toEqual( {
+
         expandableRows: [],
         expandedTrends: [],
         focus: '',
+        results: {
+          company: [],
+          issue: [],
+          product: [],
+          'sub-issue': [],
+          'sub-product': []
+        },
         tooltip: false
       } )
     } )

@@ -931,7 +931,6 @@ describe( 'reducer:query', () => {
 
         expect( res ).toEqual( {
           queryString: '?tab=List',
-          state: [ ],
           tab: types.MODE_LIST
         } )
       } )
@@ -1005,7 +1004,6 @@ describe( 'reducer:query', () => {
           enablePer1000: true,
           mapWarningEnabled: true,
           queryString: '?tab=Map',
-          state: [],
           tab: types.MODE_MAP
         } )
       } )
@@ -1021,7 +1019,6 @@ describe( 'reducer:query', () => {
           enablePer1000: true,
           mapWarningEnabled: true,
           queryString: '?tab=Map',
-          state: [],
           tab: types.MODE_MAP
         } )
       } )
@@ -1052,7 +1049,6 @@ describe( 'reducer:query', () => {
           enablePer1000: true,
           mapWarningEnabled: true,
           queryString: '?tab=Map',
-          state: [],
           tab: types.MODE_MAP
         } )
       } )
@@ -1173,9 +1169,10 @@ describe( 'reducer:query', () => {
           focus: 'A',
           lens: 'Product',
           product: [ 'A', 'A' + SLUG_SEPARATOR + 'B'],
-          queryString: '?focus=A&lens=product&product=A&product=A%E2%80%A2B&sub_lens=sub_product&tab=Trends',
+          queryString: '?focus=A&lens=product&product=A&product=A%E2%80%A2B&sub_lens=sub_product&tab=Trends&trend_depth=25',
           subLens: 'sub_product',
           tab: 'Trends',
+          trendDepth: 25,
           trendsDateWarningEnabled: false
         } )
       } )
@@ -1192,9 +1189,10 @@ describe( 'reducer:query', () => {
           focus: 'A',
           lens: 'Company',
           company: [ 'A' ],
-          queryString: '?company=A&focus=A&lens=company&sub_lens=product&tab=Trends',
+          queryString: '?company=A&focus=A&lens=company&sub_lens=product&tab=Trends&trend_depth=25',
           subLens: 'product',
           tab: 'Trends',
+          trendDepth: 25,
           trendsDateWarningEnabled: false
         } )
       } )
@@ -1209,9 +1207,9 @@ describe( 'reducer:query', () => {
         expect( result ).toEqual( {
           focus: '',
           lens: 'Product',
-          product: [],
-          queryString: '?lens=product&tab=Trends',
+          queryString: '?lens=product&tab=Trends&trend_depth=5',
           tab: 'Trends',
+          trendDepth: 5,
           trendsDateWarningEnabled: false
         } )
       } )
