@@ -37,7 +37,6 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
           </button>
           <button
             className="a-btn a-btn__link print-preview"
-            data-gtm_ignore="true"
             onClick={[Function]}
           >
             <svg
@@ -452,7 +451,6 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
           </button>
           <button
             className="a-btn a-btn__link print-preview"
-            data-gtm_ignore="true"
             onClick={[Function]}
           >
             <svg
@@ -834,7 +832,6 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
           </button>
           <button
             className="a-btn a-btn__link print-preview"
-            data-gtm_ignore="true"
             onClick={[Function]}
           >
             <svg
@@ -1192,7 +1189,6 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
           </button>
           <button
             className="a-btn a-btn__link print-preview"
-            data-gtm_ignore="true"
             onClick={[Function]}
           >
             <svg
@@ -1493,7 +1489,6 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
           </button>
           <button
             className="a-btn a-btn__link print-preview"
-            data-gtm_ignore="true"
             onClick={[Function]}
           >
             <svg
@@ -1875,7 +1870,6 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
           </button>
           <button
             className="a-btn a-btn__link print-preview"
-            data-gtm_ignore="true"
             onClick={[Function]}
           >
             <svg
@@ -2139,7 +2133,6 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
           </button>
           <button
             className="a-btn a-btn__link print-preview"
-            data-gtm_ignore="true"
             onClick={[Function]}
           >
             <svg
@@ -2404,7 +2397,6 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
           </button>
           <button
             className="a-btn a-btn__link print-preview"
-            data-gtm_ignore="true"
             onClick={[Function]}
           >
             <svg
