@@ -22,13 +22,13 @@ import Warning from '../Warnings/Warning'
 const WARNING_MESSAGE = '“Complaints per' +
   ' 1,000 population” is not available with your filter selections.'
 
-const MAP_ROWCHART_HELPERTEXT = 'Product and sub-product the consumer' +
-' identified in the complaint. Click on a product to expand sub-products.'
+const MAP_ROWCHART_HELPERTEXT = 'Product the consumer identified in the' +
+' complaint. Click on a product to expand sub-products'
 
 export class MapPanel extends React.Component {
   // eslint-disable-next-line complexity
   render() {
-    const MAP_ROWCHART_TITLE = 'Sub-products, by product from' +
+    const MAP_ROWCHART_TITLE = 'Product by highest complaint volume' +
       ' ' + this.props.minDate + ' to ' + this.props.maxDate
 
     return (
