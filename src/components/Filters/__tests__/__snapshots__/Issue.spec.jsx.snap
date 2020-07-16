@@ -259,10 +259,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
         className="a-btn a-btn__link more"
         onClick={[Function]}
       >
-        + Show 
-        1
-         
-        more
+        + Show 1 more
       </button>
     </div>
   </div>
