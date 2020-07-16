@@ -565,6 +565,17 @@ function removeFocus( state ) {
     expandableRows: [],
     expandedTrends: [],
     focus: '',
+    results: {
+      ...state.results,
+      /* eslint-disable quote-props */
+      company: [],
+      product: [],
+      issue: [],
+      'sub-product': [],
+      'sub-issue': []
+      /* eslint-enable quote-props */
+
+    },
     tooltip: false
   }
 }

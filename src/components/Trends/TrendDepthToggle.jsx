@@ -7,6 +7,11 @@ import React from 'react'
 import { SLUG_SEPARATOR } from '../../constants'
 
 const maxRows = 5
+const lensMap = {
+  Overview: 'product',
+  Product: 'product',
+  Company: 'company'
+}
 
 export class TrendDepthToggle extends React.Component {
 
@@ -51,6 +56,22 @@ export class TrendDepthToggle extends React.Component {
   }
 }
 
+/**
+ * helper containing logic to determine when to show the toggle
+ * @param {string} lens selected value
+ * @param {string} focus which focus we are on
+ * @param {number} resultCount count coming from trends results
+ * @param {number} queryCount count froming from aggs
+ * @returns {boolean} whether to display the toggle
+ */
+export const showToggle = ( lens, focus, resultCount, queryCount ) => {
+  // hide on Overview and Focus pages
+  if ( lens === 'Overview' || focus ) {
+    return false
+  }
+
+  return resultCount > 5 || queryCount > 5
+}
 
 export const mapDispatchToProps = dispatch => ( {
   increaseDepth: diff => {
@@ -64,7 +85,7 @@ export const mapDispatchToProps = dispatch => ( {
 export const mapStateToProps = state => {
   const { aggs, query, trends } = state
   const { focus, lens } = query
-  const lensKey = lens.toLowerCase()
+  const lensKey = lensMap[lens]
   const resultCount = coalesce( trends.results, lensKey, [] )
     .filter( o => o.visible && o.isParent ).length
 
@@ -85,7 +106,7 @@ export const mapStateToProps = state => {
     diff: totalResultsLength - resultCount,
     resultCount,
     queryCount,
-    showToggle: !focus && ( resultCount > 5 || queryCount > 5 )
+    showToggle: showToggle( lens, focus, resultCount, queryCount )
   }
 }
 
