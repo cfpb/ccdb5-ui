@@ -137,6 +137,25 @@ describe( 'reducer:trends', () => {
     } )
   } )
 
+
+  describe( 'FOCUS_REMOVED action', () => {
+    it( 'removes the FOCUS and resets the row info', () => {
+      action = {
+        type: actions.FOCUS_REMOVED,
+      }
+
+      expect( target( {
+        focus: 'gg',
+        tooltip: { wut: 'isthis' }
+      }, action ) ).toEqual( {
+        expandableRows: [],
+        expandedTrends: [],
+        focus: '',
+        tooltip: false
+      } )
+    } )
+  } )
+
   describe( 'FILTER_ALL_REMOVED action', () => {
     it( 'resets the FOCUS', () => {
       action = {
@@ -148,6 +167,27 @@ describe( 'reducer:trends', () => {
     } )
   } )
 
+  describe( 'FILTER_MULTIPLE_REMOVED action', () => {
+    it( 'resets the FOCUS if it matches one of the filters', () => {
+      action = {
+        type: actions.FILTER_MULTIPLE_REMOVED,
+        values: [ 'A', 'B' ]
+      }
+
+      expect( target( { focus: 'A' }, action ) ).toEqual( { focus: '' } )
+    } )
+
+    it( 'leaves the FOCUS alone if no match any filters', () => {
+      action = {
+        type: actions.FILTER_MULTIPLE_REMOVED,
+        values: [ 'A', 'B' ]
+      }
+
+      expect( target( { focus: 'C' }, action ) ).toEqual( { focus: 'C' } )
+    } )
+  } )
+
+
   describe( 'TAB_CHANGED action', () => {
     it( 'clears results and resets values', () => {
       action = {
@@ -156,12 +196,14 @@ describe( 'reducer:trends', () => {
       }
 
       expect( target( {
+        focus: 'Your',
         expandedTrends: [ 1, 2 ],
         expandableRows: [ 2, 24 ],
         results: [ 1, 2, 3 ]
       }, action ) ).toEqual( {
         expandedTrends: [ 1, 2 ],
         expandableRows: [ 2, 24 ],
+        focus: '',
         results: {
           company: [],
           dateRangeArea: [],
@@ -170,6 +212,31 @@ describe( 'reducer:trends', () => {
         }
       } )
     } )
+
+    it( 'leaves Focus alone when tab is Trend', () => {
+      action = {
+        type: actions.TAB_CHANGED,
+        tab: 'Trends'
+      }
+
+      expect( target( {
+        focus: 'Your',
+        expandedTrends: [ 1, 2 ],
+        expandableRows: [ 2, 24 ],
+        results: [ 1, 2, 3 ]
+      }, action ) ).toEqual( {
+        expandedTrends: [ 1, 2 ],
+        expandableRows: [ 2, 24 ],
+        focus: 'Your',
+        results: {
+          company: [],
+          dateRangeArea: [],
+          dateRangeLine: [],
+          product: []
+        }
+      } )
+    } )
+
 
   } )
 

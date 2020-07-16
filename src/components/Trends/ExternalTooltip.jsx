@@ -1,5 +1,4 @@
 /* eslint complexity: ["error", 5] */
-import { changeFocus } from '../../actions/trends'
 import CompanyTypeahead from '../Filters/CompanyTypeahead'
 import { connect } from 'react-redux'
 import { externalTooltipFormatter } from '../../utils/chart'
@@ -7,14 +6,12 @@ import iconMap from '../iconMap'
 import React from 'react'
 import { removeFilter } from '../../actions/filter'
 import { sanitizeHtmlId } from '../../utils'
-import { scrollToFocus } from '../../utils/trends'
 
 export class ExternalTooltip extends React.Component {
   _spanFormatter( value ) {
-    const { lens } = this.props
+    const { focus, lens, showCompanyTypeahead, subLens } = this.props
     const elements = []
-    const lensToUse = this.props.focus ? this.props.subLens :
-     this.props.lens
+    const lensToUse = focus ? subLens : lens
     const plurals = {
       'Product': 'products',
       'product': 'products',
@@ -34,7 +31,7 @@ export class ExternalTooltip extends React.Component {
       return elements
     }
 
-    if ( this.props.focus ) {
+    if ( focus ) {
       elements.push(
         <span className="u-left" key={ value.name }>
           { value.name }
@@ -50,7 +47,7 @@ export class ExternalTooltip extends React.Component {
       </span> )
 
     // add in the close button for Company and there's no focus yet
-    if ( this.props.showCompanyTypeahead ) {
+    if ( showCompanyTypeahead ) {
       elements.push( <span className="u-right a-btn a-btn__link close"
                            key={ 'close_' + value.name }
                            onClick={ () => {
@@ -69,7 +66,8 @@ export class ExternalTooltip extends React.Component {
       return (
         <section
           className={ 'tooltip-container u-clearfix ' + focus }>
-          { this.props.showCompanyTypeahead && <CompanyTypeahead/> }
+          { this.props.showCompanyTypeahead &&
+          <CompanyTypeahead id={ 'external-tooltip' }/> }
           <p className="a-micro-copy">
             <span className={'heading'}>{ this.props.tooltip.heading }</span>
             <span className={'date'}>{ this.props.tooltip.date }</span>
@@ -102,10 +100,6 @@ export class ExternalTooltip extends React.Component {
 
 
 export const mapDispatchToProps = dispatch => ( {
-  add: ( value, lens ) => {
-    scrollToFocus()
-    dispatch( changeFocus( value, lens ) )
-  },
   remove: value => {
     dispatch( removeFilter( 'company', value ) )
   }

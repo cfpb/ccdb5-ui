@@ -59,6 +59,19 @@ export function handleTabChanged( state ) {
   }
 }
 
+/** Handler for the focus removed action
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+function removeFocus( state ) {
+  return {
+    ...state,
+    expandableRows: [],
+    expandedTrends: []
+  }
+}
+
 /**
  * Updates the state when an aggregations call is in progress
  *
@@ -218,6 +231,7 @@ export function _buildHandlerMap() {
   handlers[actions.DATE_RANGE_CHANGED] = updateDateDataNormalization
   handlers[actions.FILTER_CHANGED] = updateFilterDataNormalization
   handlers[actions.FILTER_MULTIPLE_ADDED] = updateFilterDataNormalization
+  handlers[actions.FOCUS_REMOVED] = removeFocus
   handlers[actions.STATE_FILTER_ADDED] = updateFilterDataNormalization
   handlers[actions.STATES_API_CALLED] = statesCallInProcess
   handlers[actions.STATES_RECEIVED] = processStatesResults

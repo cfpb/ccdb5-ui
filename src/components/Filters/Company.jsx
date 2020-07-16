@@ -1,4 +1,4 @@
-import { coalesce } from '../../utils'
+import { cloneDeep, coalesce } from '../../utils'
 import CollapsibleFilter from './CollapsibleFilter'
 import CompanyTypeahead from './CompanyTypeahead'
 import { connect } from 'react-redux'
@@ -15,7 +15,7 @@ export class Company extends React.Component {
       <CollapsibleFilter title="Company name"
                          desc={desc}
                          className="aggregation">
-        <CompanyTypeahead/>
+        <CompanyTypeahead id={'filter'}/>
         <StickyOptions fieldName={FIELD_NAME}
                        options={this.props.options}
                        selections={this.props.selections}
@@ -27,8 +27,15 @@ export class Company extends React.Component {
 
 
 export const mapStateToProps = state => {
-  const options = coalesce( state.aggs, FIELD_NAME, [] )
+  const options = cloneDeep( coalesce( state.aggs, FIELD_NAME, [] ) )
   const selections = coalesce( state.query, FIELD_NAME, [] )
+  const { focus } = state.query
+  const isFocusPage = focus && state.query.lens === 'Company'
+
+  options.forEach( o => {
+    o.disabled = Boolean( isFocusPage && o.key !== focus )
+  } )
+
   return {
     options,
     queryString: state.query.queryString,

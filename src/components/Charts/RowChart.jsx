@@ -3,9 +3,9 @@
 import './RowChart.less'
 import * as d3 from 'd3'
 import { changeFocus, collapseTrend, expandTrend } from '../../actions/trends'
+import { cloneDeep, coalesce, getAllFilters, hashObject } from '../../utils'
 import { miniTooltip, row } from 'britecharts'
 import { connect } from 'react-redux'
-import { hashObject } from '../../utils'
 import { max } from 'd3-array'
 import { MODE_MAP } from '../../constants'
 import PropTypes from 'prop-types'
@@ -92,7 +92,7 @@ export class RowChart extends React.Component {
     } = this.props
     // deep copy
     // do this to prevent REDUX pollution
-    const rows = JSON.parse( JSON.stringify( data ) ).filter( o => {
+    const rows = cloneDeep( data ).filter( o => {
       if ( this.props.showTrends ) {
         return true
       }
@@ -165,7 +165,8 @@ export class RowChart extends React.Component {
   _selectFocus( element ) {
     // make sure to assign a valid lens when a row is clicked
     const lens = this.props.lens === 'Overview' ? 'Product' : this.props.lens
-    this.props.selectFocus( element, lens )
+    const filters = coalesce( this.props.aggs, lens.toLowerCase(), [] )
+    this.props.selectFocus( element, lens, filters )
   }
 
   _toggleRow( rowName ) {
@@ -195,9 +196,19 @@ export class RowChart extends React.Component {
 }
 
 export const mapDispatchToProps = dispatch => ( {
-  selectFocus: ( element, lens ) => {
+  selectFocus: ( element, lens, filters ) => {
     scrollToFocus()
-    dispatch( changeFocus( element.parent, lens ) )
+    let values = []
+    if ( lens === 'Company' ) {
+      values.push( element.parent )
+    } else {
+      const filterGroup = filters.find( o => o.key === element.parent )
+      const keyName = 'sub_' + lens.toLowerCase() + '.raw'
+      values = filterGroup ?
+        getAllFilters( element.parent, filterGroup[keyName].buckets ) : []
+    }
+
+    dispatch( changeFocus( element.parent, lens, [ ...values ] ) )
   },
   collapseRow: rowName => {
     dispatch( collapseTrend( rowName.trim() ) )
@@ -210,9 +221,12 @@ export const mapDispatchToProps = dispatch => ( {
 export const mapStateToProps = state => {
   const { tab } = state.query
   const lens = tab === MODE_MAP ? 'Product' : state.query.lens
-  const { expandableRows, expandedTrends } = state[tab.toLowerCase()]
+  const { aggs } = state
+  const { expandableRows, expandedTrends } =
+    coalesce( state, tab.toLowerCase(), {} )
   const { printMode, showTrends, width } = state.view
   return {
+    aggs,
     expandableRows,
     expandedTrends,
     lens,

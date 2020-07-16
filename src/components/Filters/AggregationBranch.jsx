@@ -1,6 +1,6 @@
 import './AggregationBranch.less'
 import { addMultipleFilters, removeMultipleFilters } from '../../actions/filter'
-import { bindAll, coalesce, slugify } from '../../utils'
+import { bindAll, coalesce, getAllFilters, slugify } from '../../utils'
 import AggregationItem from './AggregationItem'
 import { connect } from 'react-redux';
 import { FormattedNumber } from 'react-intl'
@@ -30,11 +30,7 @@ export class AggregationBranch extends React.Component {
       activeChildren, item, subitems, fieldName, checkedState
     } = this.props
 
-    const values = new Set()
-    // Add the parent
-    values.add( item.key )
-    // Add the shown subitems
-    subitems.forEach( sub => { values.add( slugify( item.key, sub.key ) ) } )
+    const values = getAllFilters( item.key, subitems )
     // Add the active filters (that might be hidden)
     activeChildren.forEach( child => values.add( child ) )
 
@@ -56,6 +52,7 @@ export class AggregationBranch extends React.Component {
 
     // Fix up the subitems to prepend the current item key
     const buckets = subitems.map( sub => ( {
+      disabled: item.disabled,
       key: slugify( item.key, sub.key ),
       value: sub.key,
       // eslint-disable-next-line camelcase
@@ -85,6 +82,7 @@ export class AggregationBranch extends React.Component {
         <li className={liStyle}>
           <input type="checkbox"
                  aria-label={item.key}
+                 disabled={item.disabled}
                  checked={checkedState === CHECKED}
                  className="flex-fixed a-checkbox"
                  id={id}
@@ -174,6 +172,7 @@ export const mapStateToProps = ( state, ownProps ) => {
   return {
     activeChildren,
     checkedState,
+    focus: state.query.focus,
     showChildren: activeChildren.length > 0
   }
 }

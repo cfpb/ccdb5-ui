@@ -1,9 +1,9 @@
+import { MODE_TRENDS, SLUG_SEPARATOR } from '../../constants'
 import AggregationBranch from './AggregationBranch'
 import CollapsibleFilter from './CollapsibleFilter'
 import { connect } from 'react-redux'
 import MoreOrLess from './MoreOrLess'
 import React from 'react'
-import { SLUG_SEPARATOR } from '../../constants'
 import { sortSelThenCount } from '../../utils'
 
 export class Product extends React.Component {
@@ -46,7 +46,8 @@ export class Product extends React.Component {
 
 export const mapStateToProps = state => {
   // See if there are an active product filters
-  const allProducts = state.query.product || []
+  const { focus, lens, product, tab } = state.query
+  const allProducts = product || []
   const selections = []
 
   // Reduce the products to the parent keys (and dedup)
@@ -60,6 +61,15 @@ export const mapStateToProps = state => {
 
   // Make a cloned, sorted version of the aggs
   const options = sortSelThenCount( state.aggs.product, selections )
+  if ( focus ) {
+    const isProductFocus = tab === MODE_TRENDS && lens === 'Product'
+    options.forEach( o => {
+      o.disabled = isProductFocus ? o.key !== focus : false
+      o['sub_product.raw'].buckets.forEach( v => {
+        v.disabled = isProductFocus ? o.disabled : false
+      } )
+    } )
+  }
 
   return {
     options

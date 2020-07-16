@@ -198,13 +198,23 @@ export function parseCookies( cookies = document.cookie ) {
 }
 
 /**
+ * take in an array or object and clone it as completely new object to remove
+ * pointers.  If you .slice() an array of objects, the array is new, but
+ * copied objects still point to original objects, you will still have mutations
+ *
+ * @param {object|array} input the thing to copy
+ * @returns {object|array} the copied new thing
+ */
+export const cloneDeep = input => JSON.parse( JSON.stringify( input ) )
+
+/**
  * Custom sort for array so that selected items appear first, then by doc_count
  * @param {array} options input array containing values
  * @param {array} selected values
  * @returns {T[]} sorted array
  */
 export const sortSelThenCount = ( options, selected ) => {
-  const retVal = ( options || [] ).slice()
+  const retVal = ( cloneDeep( options ) || [] ).slice()
 
   /* eslint complexity: ["error", 5] */
   retVal.sort( ( a, b ) => {
@@ -388,4 +398,21 @@ export const processUrlArrayParams = ( params, processed, arrayParams ) => {
       }
     }
   } )
+}
+
+/**
+ * gets a filter and its subagg filters
+ * @param {string} filterKey the filter 'Debt'
+ * @param {array} subitems the buckets to process to generate slug
+ * @returns {Set<any>} returns a set of uniques Debt, Debt*Foo
+ */
+export const getAllFilters = ( filterKey, subitems ) => {
+  const values = new Set()
+  // Add the parent
+  values.add( filterKey )
+  // Add the shown subitems
+  subitems.forEach( sub => {
+    values.add( slugify( filterKey, sub.key ) )
+  } )
+  return values
 }
