@@ -37,7 +37,6 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
           </button>
           <button
             className="a-btn a-btn__link print-preview"
-            data-gtm_ignore="true"
             onClick={[Function]}
           >
             <svg
@@ -315,7 +314,6 @@ exports[`component:ListPanel displays a message when only the narratives are sta
           </button>
           <button
             className="a-btn a-btn__link print-preview"
-            data-gtm_ignore="true"
             onClick={[Function]}
           >
             <svg
@@ -794,7 +792,6 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
           </button>
           <button
             className="a-btn a-btn__link print-preview"
-            data-gtm_ignore="true"
             onClick={[Function]}
           >
             <svg
@@ -1273,7 +1270,6 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
           </button>
           <button
             className="a-btn a-btn__link print-preview"
-            data-gtm_ignore="true"
             onClick={[Function]}
           >
             <svg
@@ -1752,7 +1748,6 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
           </button>
           <button
             className="a-btn a-btn__link print-preview"
-            data-gtm_ignore="true"
             onClick={[Function]}
           >
             <svg
@@ -2011,7 +2006,6 @@ exports[`component:ListPanel only displays data message when both types are stal
           </button>
           <button
             className="a-btn a-btn__link print-preview"
-            data-gtm_ignore="true"
             onClick={[Function]}
           >
             <svg
@@ -2490,7 +2484,6 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
           </button>
           <button
             className="a-btn a-btn__link print-preview"
-            data-gtm_ignore="true"
             onClick={[Function]}
           >
             <svg
@@ -2945,7 +2938,6 @@ exports[`component:ListPanel renders without crashing 1`] = `
           </button>
           <button
             className="a-btn a-btn__link print-preview"
-            data-gtm_ignore="true"
             onClick={[Function]}
           >
             <svg

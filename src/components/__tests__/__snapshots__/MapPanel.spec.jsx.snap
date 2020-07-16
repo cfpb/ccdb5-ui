@@ -37,7 +37,6 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
           </button>
           <button
             className="a-btn a-btn__link print-preview"
-            data-gtm_ignore="true"
             onClick={[Function]}
           >
             <svg
@@ -221,7 +220,6 @@ exports[`component:MapPanel renders warning without crashing 1`] = `
           </button>
           <button
             className="a-btn a-btn__link print-preview"
-            data-gtm_ignore="true"
             onClick={[Function]}
           >
             <svg
