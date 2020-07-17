@@ -93,7 +93,10 @@ export class RowChart extends React.Component {
     // deep copy
     // do this to prevent REDUX pollution
     const rows = cloneDeep( data ).filter( o => {
-      return o.name ? o.name.indexOf( 'Visualize trends for' ) === -1 : true
+      if ( o.name ) {
+        return o.name.indexOf( 'Visualize trends for' ) === -1
+      }
+      return true
     } )
 
     if ( !rows || !rows.length || !total ) {
