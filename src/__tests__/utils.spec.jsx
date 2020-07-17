@@ -268,13 +268,12 @@ describe('module::utils', () => {
 
     it( 'creates a dictionary from a cookie string' , () => {
       const actual = parseCookies(
-        '_ga=fooo; _gid=baaar; csrftoken=baz; showTrends=hide;'
+        '_ga=fooo; _gid=baaar; csrftoken=baz;'
       )
       expect( actual ).toEqual( {
         _ga: 'fooo',
         _gid: 'baaar',
-        csrftoken: 'baz',
-        showTrends: 'hide'
+        csrftoken: 'baz'
       } )
     } );
   } );
