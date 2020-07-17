@@ -8,14 +8,14 @@ import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 import thunk from 'redux-thunk'
 
-function setupSnapshot(showTrends) {
+function setupSnapshot() {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
   const store = mockStore()
 
   return renderer.create(
     <Provider store={ store }>
-      <TabbedNavigation showTrends={ showTrends } />
+      <TabbedNavigation />
     </Provider>
   )
 }
@@ -41,7 +41,7 @@ describe( 'component: TabbedNavigation', () => {
 
     beforeEach( () => {
       cb = jest.fn()
-      target = shallow( <TabbedNavigation onTab={ cb } showTrends={true}/> )
+      target = shallow( <TabbedNavigation onTab={ cb } /> )
     } )
 
     it( 'tabChanged is called with Map when the button is clicked', () => {
@@ -76,13 +76,10 @@ describe( 'component: TabbedNavigation', () => {
       const state = {
         query: {
           tab: 'foo'
-        },
-        view: {
-          showTrends: true
         }
       }
       let actual = mapStateToProps( state )
-      expect( actual ).toEqual( { tab: 'foo', showTrends: true } )
+      expect( actual ).toEqual( { tab: 'foo' } )
     } )
   } )
 
