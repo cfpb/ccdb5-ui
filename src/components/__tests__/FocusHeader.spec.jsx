@@ -22,7 +22,11 @@ function setupSnapshot() {
       subLens: 'sub_product'
     },
     trends: {
-      total: 90120
+      total: 90120,
+      results: {
+        issue: [ 2, 3, 4 ],
+        'sub-product': [ 1, 2, 3 ]
+      }
     }
   } )
 
@@ -36,7 +40,7 @@ function setupSnapshot() {
 }
 
 describe( 'component:FocusHeader', () => {
-  it( 'renders without crashing', () => {
+  it( 'renders both tabs without crashing', () => {
     const target = setupSnapshot()
     const tree = target.toJSON()
     expect( tree ).toMatchSnapshot()
