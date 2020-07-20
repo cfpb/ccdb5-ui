@@ -1,3 +1,4 @@
+import { dateIntervals } from '../constants'
 import moment from 'moment'
 
 // ----------------------------------------------------------------------------
@@ -58,14 +59,11 @@ export const isGreaterThanYear = ( from, to ) => {
  * @param {object} to date
  * @returns {array} array of date intervals
  */
-export const getIntervals = ( from, to ) => {
-  const intervals = [ 'Day', 'Week', 'Month', 'Quarter', 'Year' ]
-
-  return intervals.map( o => ( {
+export const getIntervals = ( from, to ) =>
+  dateIntervals.map( o => ( {
     name: o,
     disabled: isGreaterThanYear( from, to ) && o === 'Day'
   } ) )
-}
 
 /**
  * trigger this after a user clicks a focus.  we scroll to the select box

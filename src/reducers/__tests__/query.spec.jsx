@@ -298,6 +298,13 @@ describe( 'reducer:query', () => {
       expect( actual.size ).toEqual( 100 )
     } )
 
+    it( 'handles bogus date parameters', () => {
+      action.params = { dateInterval: '3y', dateRange: 'Week' }
+      const actual = target( state, action )
+      expect( actual.dateInterval ).toEqual( 'Month' )
+      expect( actual.dateRange ).toEqual( '3y' )
+    } )
+
     it( 'handles bogus size & sort parameters', () => {
       action.params = { size: '9999', sort: 'tables' }
       const actual = target( state, action )
