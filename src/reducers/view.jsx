@@ -1,13 +1,9 @@
 import actions from '../actions'
-import { parseCookies } from '../utils'
-
-const cookies = parseCookies()
 
 export const defaultView = {
   fromExternal: false,
   printMode: false,
   showFilters: true,
-  showTrends: cookies.showTrends === 'show',
   width: 0
 }
 

@@ -93,11 +93,10 @@ export class RowChart extends React.Component {
     // deep copy
     // do this to prevent REDUX pollution
     const rows = cloneDeep( data ).filter( o => {
-      if ( this.props.showTrends ) {
-        return true
+      if ( o.name ) {
+        return o.name.indexOf( 'Visualize trends for' ) === -1
       }
-
-      return o.name ? o.name.indexOf( 'Visualize trends for' ) === -1 : true
+      return true
     } )
 
     if ( !rows || !rows.length || !total ) {
@@ -224,14 +223,13 @@ export const mapStateToProps = state => {
   const { aggs } = state
   const { expandableRows, expandedTrends } =
     coalesce( state, tab.toLowerCase(), {} )
-  const { printMode, showTrends, width } = state.view
+  const { printMode, width } = state.view
   return {
     aggs,
     expandableRows,
     expandedTrends,
     lens,
     printMode,
-    showTrends,
     tab,
     width
   }
