@@ -56,6 +56,7 @@ const urlParams = [
   'dateRange', 'searchText', 'searchField', 'tab',
   'lens', 'dateInterval', 'subLens', 'focus', 'chartType'
 ]
+
 const urlParamsInt = [ 'from', 'page', 'size', 'trendDepth' ]
 
 // ----------------------------------------------------------------------------
@@ -220,15 +221,29 @@ function processParams( state, action ) {
  */
 function enforceValues( value, field ) {
   const valMap = {
-    size: Object.keys( types.sizes ).map( o => parseInt( o, 10 ) ),
-    sort: Object.keys( types.sorts )
+    dateInterval: {
+      defaultVal: 'Month',
+      values: types.dateIntervals
+    },
+    dateRange: {
+      defaultVal: '3y',
+      values: types.dateRanges
+    },
+    size: {
+      defaultVal: 10,
+      values: Object.keys( types.sizes ).map( o => parseInt( o, 10 ) )
+    },
+    sort: {
+      defaultVal: 'created_date_desc',
+      values: Object.keys( types.sorts )
+    }
   }
   if ( valMap[field] ) {
     const validValues = valMap[field]
-    if ( validValues.includes( value ) ) {
+    if ( validValues.values.includes( value ) ) {
       return value
     }
-    return validValues[0]
+    return validValues.defaultVal
   }
 
   return value
