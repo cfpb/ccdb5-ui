@@ -45,7 +45,9 @@ export class MoreOrLess extends React.Component {
           <div>
                <button className="a-btn a-btn__link more"
                        onClick={ this._toggleShowMore }>
-                  + Show {remain} {this.state.showMore ? 'less' : 'more'}
+                 { this.state.showMore ? `- Show ${ remain } less` :
+                   `+ Show ${ remain } more`
+                 }
                 </button>
           </div> :
          null}
