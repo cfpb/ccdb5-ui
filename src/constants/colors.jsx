@@ -1,17 +1,18 @@
 /* eslint-disable no-inline-comments, camelcase */
 module.exports = Object.freeze( {
   BriteCharts: {
+    dark: '#118935',
     regular: '#20aa3f',
     medium: '#ADDC91',
     light: '#C7E5B3'
   },
   DataLens: {
-    0: '#2cb34a',
-    1: '#addc91',
-    2: '#257675',
-    3: '#9ec4c3',
-    4: '#0072ce',
-    5: '#96c4ed',
+    0: '#2cb34a', // 0
+    1: '#addc91', // 1
+    2: '#0072ce', // 4
+    3: '#96c4ed', // 5
+    4: '#257675', // 2
+    5: '#9ec4c3', // 3
     6: '#254b87',
     7: '#9daecc',
     8: '#b4267a',

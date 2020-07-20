@@ -281,8 +281,11 @@ export function processTrendPeriod( bucket ) {
 export const getColorScheme = ( lens, rowNames ) => {
   const colScheme = {}
   const colorScheme = colors.DataLens
-  const uniqueNames = [ ...new Set( rowNames.map( item => item.name ) ) ]
-
+  // remove other so we can shove that color in later
+  const uniqueNames = [ ...new Set( rowNames
+    .filter( item => item.name !== 'Other' )
+    .map( item => item.name ) )
+  ]
 
   for ( let i = 0; i < uniqueNames.length; i++ ) {
     const n = uniqueNames[i]
@@ -290,7 +293,7 @@ export const getColorScheme = ( lens, rowNames ) => {
     colScheme[n] = colorScheme[index]
   }
 
-  colScheme.Complaints = colors.BriteCharts.medium
+  colScheme.Complaints = colors.BriteCharts.regular
 
   // Set constant grey colors for all possible "other" buckets"
   colScheme.Other = colors.DataLens[10]

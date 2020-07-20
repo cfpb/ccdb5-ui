@@ -619,7 +619,7 @@ describe( 'reducer:trends', () => {
             value: 28
           },
           {
-            colorIndex: 2,
+            colorIndex: 4,
             date: '2018-04-01T00:00:00.000Z',
             name: 'Cooo',
             value: 8
