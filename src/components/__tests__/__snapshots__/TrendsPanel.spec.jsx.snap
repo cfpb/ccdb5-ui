@@ -22,9 +22,7 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
            total complaints
         </h2>
       </div>
-      <div
-        className="layout-row"
-      >
+      <div>
         <h3
           className="h4 flex-all export-results"
         >
@@ -436,9 +434,7 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
            total complaints
         </h2>
       </div>
-      <div
-        className="layout-row"
-      >
+      <div>
         <h3
           className="h4 flex-all export-results"
         >
@@ -817,9 +813,7 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
            total complaints
         </h2>
       </div>
-      <div
-        className="layout-row"
-      >
+      <div>
         <h3
           className="h4 flex-all export-results"
         >
@@ -1174,9 +1168,7 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
            total complaints
         </h2>
       </div>
-      <div
-        className="layout-row"
-      >
+      <div>
         <h3
           className="h4 flex-all export-results"
         >
@@ -1474,9 +1466,7 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
            total complaints
         </h2>
       </div>
-      <div
-        className="layout-row"
-      >
+      <div>
         <h3
           className="h4 flex-all export-results"
         >
@@ -1855,9 +1845,7 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
            total complaints
         </h2>
       </div>
-      <div
-        className="layout-row"
-      >
+      <div>
         <h3
           className="h4 flex-all export-results"
         >
@@ -2118,9 +2106,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
            total complaints
         </h2>
       </div>
-      <div
-        className="layout-row"
-      >
+      <div>
         <h3
           className="h4 flex-all export-results"
         >
@@ -2382,9 +2368,7 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
            total complaints
         </h2>
       </div>
-      <div
-        className="layout-row"
-      >
+      <div>
         <h3
           className="h4 flex-all export-results"
         >

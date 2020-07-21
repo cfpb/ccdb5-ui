@@ -2,6 +2,9 @@
 
 .trends-panel {
   .refine-bar {
+    section:nth-of-type(2) {
+      margin-left: 0;
+    }
     .separator {
       display: inline-block;
     }
@@ -21,7 +24,6 @@
     width: 100%;
   }
   &.external-tooltip {
-
     section {
       &.chart {
         width: 70%;
@@ -131,6 +133,7 @@
               display: block;
             }
 
+            // if you modify anything here, make sure to update colors constants file
             &.color__0:before {
               background-color: #2cb34a;
             }
@@ -140,19 +143,19 @@
             }
 
             &.color__2:before {
-              background-color: #257675;
-            }
-
-            &.color__3:before {
-              background-color: #9ec4c3;
-            }
-
-            &.color__4:before {
               background-color: #0072ce;
             }
 
-            &.color__5:before {
+            &.color__3:before {
               background-color: #96c4ed;
+            }
+
+            &.color__4:before {
+              background-color: #257675;
+            }
+
+            &.color__5:before {
+              background-color: #9ec4c3;
             }
 
             &.color__6:before {
@@ -258,22 +261,26 @@
   }
 
   h2.area-chart-title {
-    padding: @gutter-normal;
+    padding-top: @gutter-normal;
     margin-bottom: 0;
   }
 
   .chart-helper-text {
-    padding-left: @gutter-normal;
-    padding-right: @gutter-normal;
     padding-bottom: @gutter-normal;
-    margin-bottom: @gutter-normal;
   }
 
 
   @media @phone {
     .refine-bar {
       .cf-select {
-        width: 40%;
+        flex-grow: 1;
+        width: 46%;
+      }
+      .date-ranges {
+        margin: 10px 0 10px 0;
+      }
+      .chart-toggles {
+        margin-left: 0;
       }
     }
   }
@@ -294,4 +301,19 @@
       }
     }
   }
+
+
+  .layout-row {
+    @media @tablet {
+      padding-left: 20px;
+    }
+    @media @desktop {
+      padding-left: 30px;
+    }
+    @media @superwide {
+      padding-left: 40px;
+    }
+  }
+
+
 }

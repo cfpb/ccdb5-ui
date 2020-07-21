@@ -135,7 +135,14 @@ describe( 'component: RowChart', () => {
     it( 'trigger a new update when printMode changes', () => {
       const target = shallow( <RowChart colorScheme={ [] }
                                         title={ 'test' }
-                                        data={ [ 23, 4, 3 ] }
+                                        data={ [
+                                          { name: 'fOO', value: 1 },
+                                          { name: 'fO1', value: 1 },
+                                          {
+                                            name: 'Visualize trends for fOO',
+                                            value: 1
+                                          }
+                                        ] }
                                         id={ 'foo' }
                                         total={ 1000 }
                                         printMode={ 'false' }

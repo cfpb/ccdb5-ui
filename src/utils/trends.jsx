@@ -75,3 +75,17 @@ export const scrollToFocus = () => {
     lensSelect.scrollIntoView()
   }
 }
+
+/**
+ * helper function to make sure the proper chartType is selected
+ * we can't have Overview and area chart at the same time
+ * @param {object} state in redux to check against
+ * @returns {object} state modified state
+ */
+export const validateChartType = state => {
+  if ( state.chartType && state.lens ) {
+    // reset chart
+    state.chartType = state.lens === 'Overview' ? 'line' : state.chartType
+  }
+  return state
+}

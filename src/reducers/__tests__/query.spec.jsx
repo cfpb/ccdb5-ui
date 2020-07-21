@@ -369,6 +369,18 @@ describe( 'reducer:query', () => {
       expect( actual.trendDepth ).toEqual( 1000 )
     } )
 
+    it( 'handles invalid lens and chartType combo', () => {
+      action.params = { chartType: 'area', lens: 'Overview' }
+      const actual = target( state, action )
+      expect( actual.chartType ).toEqual( 'line' )
+    } )
+
+    it( 'handles valid lens and chartType combo', () => {
+      action.params = { chartType: 'area', lens: 'Product' }
+      const actual = target( state, action )
+      expect( actual.chartType ).toEqual( 'area' )
+      expect( actual.lens ).toEqual( 'Product' )
+    } )
 
     it( 'handles the "All" button from the landing page' , () => {
       const dateMin = new Date( types.DATE_RANGE_MIN )

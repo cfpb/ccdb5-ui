@@ -93,7 +93,8 @@ export class RowChart extends React.Component {
     // deep copy
     // do this to prevent REDUX pollution
     const rows = cloneDeep( data ).filter( o => {
-      if ( o.name ) {
+      if ( o.name && printMode ) {
+        // remove spacer text if we are in print mode
         return o.name.indexOf( 'Visualize trends for' ) === -1
       }
       return true
@@ -110,15 +111,18 @@ export class RowChart extends React.Component {
     const chartID = '#row-chart-' + id
     d3.selectAll( chartID + ' .row-chart' ).remove()
     const rowContainer = d3.select( chartID )
-    const width = printMode ? 750 :
-      rowContainer.node().getBoundingClientRect().width
+
+    // added padding to make up for margin
+    const width = printMode ? 750 : rowContainer.node()
+      .getBoundingClientRect().width + 30
+
     const height = this._getHeight( rows.length )
     const chart = row()
     const marginLeft = width / 4
 
     // tweak to make the chart full width at desktop
     // add space at narrow width
-    const marginRight = width < 600 ? 20 : -80
+    const marginRight = width < 600 ? 40 : -65
     chart.margin( {
       left: marginLeft,
       right: marginRight,
