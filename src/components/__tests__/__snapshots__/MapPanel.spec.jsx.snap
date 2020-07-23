@@ -22,9 +22,7 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
            total complaints
         </h2>
       </div>
-      <div
-        className="layout-row"
-      >
+      <div>
         <h3
           className="h4 flex-all export-results"
         >
@@ -205,9 +203,7 @@ exports[`component:MapPanel renders warning without crashing 1`] = `
            total complaints
         </h2>
       </div>
-      <div
-        className="layout-row"
-      >
+      <div>
         <h3
           className="h4 flex-all export-results"
         >
@@ -425,9 +421,7 @@ exports[`component:MapPanel renders without crashing 1`] = `
            total complaints
         </h2>
       </div>
-      <div
-        className="layout-row"
-      >
+      <div>
         <h3
           className="h4 flex-all export-results"
         >

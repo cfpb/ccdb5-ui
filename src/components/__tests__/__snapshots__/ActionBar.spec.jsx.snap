@@ -19,9 +19,7 @@ exports[`initial state renders without crashing 1`] = `
          total complaints
       </h2>
     </div>
-    <div
-      className="layout-row"
-    >
+    <div>
       <h3
         className="h4 flex-all export-results"
       >

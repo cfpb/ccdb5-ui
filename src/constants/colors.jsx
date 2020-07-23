@@ -6,6 +6,12 @@ module.exports = Object.freeze( {
     medium: '#ADDC91',
     light: '#C7E5B3'
   },
+  // if you modify anything here,
+  // make sure that the following colors are in sync
+  // Line Chart
+  // Area Chart
+  // Stacked Area Chart
+  // External Tooltip/Legend
   DataLens: {
     0: '#2cb34a', // 0
     1: '#addc91', // 1

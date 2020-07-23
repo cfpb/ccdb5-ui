@@ -7,7 +7,7 @@ import {
   clamp, coalesce, getSubKeyName, processErrorMessage, processUrlArrayParams
 } from '../utils'
 import { getD3Names, getTooltipTitle, updateDateBuckets } from '../utils/chart'
-import { getSubLens, pruneOther } from '../utils/trends'
+import { getSubLens, pruneOther, validateChartType } from '../utils/trends'
 import actions from '../actions'
 import { isDateEqual } from '../utils/formatDate'
 import { MODE_TRENDS } from '../constants'
@@ -603,6 +603,9 @@ function processParams( state, action ) {
       processed[val] = params[val]
     }
   }
+
+  // validate lens & chartType
+  validateChartType( processed )
 
   const arrayParams = [ 'expandedTrends' ]
   processUrlArrayParams( params, processed, arrayParams )

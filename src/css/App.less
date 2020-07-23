@@ -120,7 +120,11 @@
     padding-left: 0;
     padding-right: 0;
     border: 1px solid @gray-40;
+    border-right: none;
     max-width: initial;
+    @media @phone {
+      border: none;
+    }
   }
 
   .content_sidebar {
@@ -138,6 +142,22 @@
     &:after {
       border-left: 0;
     }
+  }
+}
+
+// gutters
+.wrapper__match-content {
+  @media @tablet {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  @media @desktop {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  @media @superwide {
+    padding-left: 80px;
+    padding-right: 80px;
   }
 }
 
@@ -178,7 +198,7 @@
 @media @phone {
   .filter-button {
     display: block;
-    margin: 20px 10px;
+    margin: 20px 0px;
     button {
       width: 100%;
     }

@@ -24,7 +24,7 @@ export class ActionBar extends React.Component {
                 &nbsp;total complaints</h2>
           }
           </div>
-          <div className="layout-row">
+          <div>
             <h3 className="h4 flex-all export-results">
               <button className="a-btn a-btn__link"
                       data-gtm_ignore="true"

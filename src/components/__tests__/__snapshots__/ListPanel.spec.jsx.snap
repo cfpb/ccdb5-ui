@@ -22,9 +22,7 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
            total complaints
         </h2>
       </div>
-      <div
-        className="layout-row"
-      >
+      <div>
         <h3
           className="h4 flex-all export-results"
         >
@@ -299,9 +297,7 @@ exports[`component:ListPanel displays a message when only the narratives are sta
            total complaints
         </h2>
       </div>
-      <div
-        className="layout-row"
-      >
+      <div>
         <h3
           className="h4 flex-all export-results"
         >
@@ -777,9 +773,7 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
            total complaints
         </h2>
       </div>
-      <div
-        className="layout-row"
-      >
+      <div>
         <h3
           className="h4 flex-all export-results"
         >
@@ -1255,9 +1249,7 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
            total complaints
         </h2>
       </div>
-      <div
-        className="layout-row"
-      >
+      <div>
         <h3
           className="h4 flex-all export-results"
         >
@@ -1733,9 +1725,7 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
            total complaints
         </h2>
       </div>
-      <div
-        className="layout-row"
-      >
+      <div>
         <h3
           className="h4 flex-all export-results"
         >
@@ -1991,9 +1981,7 @@ exports[`component:ListPanel only displays data message when both types are stal
            total complaints
         </h2>
       </div>
-      <div
-        className="layout-row"
-      >
+      <div>
         <h3
           className="h4 flex-all export-results"
         >
@@ -2469,9 +2457,7 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
            total complaints
         </h2>
       </div>
-      <div
-        className="layout-row"
-      >
+      <div>
         <h3
           className="h4 flex-all export-results"
         >
@@ -2923,9 +2909,7 @@ exports[`component:ListPanel renders without crashing 1`] = `
            total complaints
         </h2>
       </div>
-      <div
-        className="layout-row"
-      >
+      <div>
         <h3
           className="h4 flex-all export-results"
         >

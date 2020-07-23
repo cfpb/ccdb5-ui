@@ -7,7 +7,9 @@ import {
   shortIsoFormat,
   startOfToday
 } from '../utils'
-import { getSubLens, isGreaterThanYear } from '../utils/trends'
+import {
+  getSubLens, isGreaterThanYear, validateChartType
+} from '../utils/trends'
 import actions from '../actions'
 import moment from 'moment';
 
@@ -1028,6 +1030,7 @@ export default ( state = defaultQuery, action ) => {
     validateDateInterval( newState )
   }
 
+  validateChartType( newState )
   // remove any filter keys with empty array
   pruneEmptyFilters( newState )
 
