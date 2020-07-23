@@ -3,6 +3,7 @@ import { changeDataSubLens } from '../../actions/trends'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { sendAnalyticsEvent } from '../../utils'
 
 const lensMaps = {
   Company: {
@@ -15,10 +16,6 @@ const lensMaps = {
 }
 
 export class LensTabs extends React.Component {
-  _setTab( tab ) {
-    this.props.onTab( tab )
-  }
-
   _getTabClass( tab ) {
     tab = tab.toLowerCase()
     const classes = [ 'tab', tab ]
@@ -42,14 +39,18 @@ export class LensTabs extends React.Component {
           { showProductTab &&
           <button
             className={ this._getTabClass( currentLens.tab1.filterName ) }
-            onClick={ () => this._setTab( currentLens.tab1.filterName ) }>
+            onClick={ () => {
+              this.props.onTab( lens, currentLens.tab1.filterName )
+            } }>
             { currentLens.tab1.displayName }
           </button>
           }
           { lensMaps[lens].tab2 &&
           <button
             className={ this._getTabClass( currentLens.tab2.filterName ) }
-            onClick={ () => this._setTab( currentLens.tab2.filterName ) }>
+            onClick={ () => {
+              this.props.onTab( lens, currentLens.tab2.filterName )
+            } }>
             { currentLens.tab2.displayName }
           </button>
           }
@@ -80,7 +81,15 @@ export const mapStateToProps = state => {
 }
 
 export const mapDispatchToProps = dispatch => ( {
-  onTab: tab => {
+  onTab: ( lens, tab ) => {
+    const labelMap = {
+      // eslint-disable-next-line camelcase
+      sub_product: 'Sub-products',
+      issue: 'Issues',
+      product: 'Products'
+    }
+
+    sendAnalyticsEvent( 'Button', lens + ':' + labelMap[tab] )
     dispatch( changeDataSubLens( tab.toLowerCase() ) )
   }
 } )

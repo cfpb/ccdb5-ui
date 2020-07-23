@@ -2,9 +2,9 @@
 import '../RefineBar/RefineBar.less'
 import './TrendsPanel.less'
 
-import { changeChartType, changeDataLens } from '../../actions/trends'
 import { getIntervals, showCompanyOverLay } from '../../utils/trends'
 import ActionBar from '../ActionBar'
+import { changeDataLens } from '../../actions/trends'
 import { changeDateInterval } from '../../actions/filter'
 import ChartToggles from '../RefineBar/ChartToggles'
 import CompanyTypeahead from '../Filters/CompanyTypeahead'
@@ -22,6 +22,7 @@ import { processRows } from '../../utils/chart'
 import React from 'react'
 import RowChart from '../Charts/RowChart'
 import Select from '../RefineBar/Select'
+import { sendAnalyticsEvent } from '../../utils'
 import Separator from '../RefineBar/Separator'
 import StackedAreaChart from '../Charts/StackedAreaChart'
 import TrendDepthToggle from './TrendDepthToggle'
@@ -270,19 +271,19 @@ const mapStateToProps = state => {
 }
 
 export const mapDispatchToProps = dispatch => ( {
-  onChartType: ev => {
-    dispatch( changeChartType( ev.target.value ) )
-  },
   onDismissWarning: () => {
     dispatch( trendsDateWarningDismissed() )
   },
   onInterval: ev => {
-    dispatch( changeDateInterval( ev.target.value ) )
+    const { value } = ev.target
+    sendAnalyticsEvent( 'Dropdown', 'Trends:' + value )
+    dispatch( changeDateInterval( value ) )
   },
   onLens: ev => {
-    dispatch( changeDataLens( ev.target.value ) )
+    const { value } = ev.target
+    sendAnalyticsEvent( 'Dropdown', 'Trends:' + value )
+    dispatch( changeDataLens( value ) )
   }
-
 } )
 
 export default connect( mapStateToProps, mapDispatchToProps )( TrendsPanel )

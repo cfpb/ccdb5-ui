@@ -27,7 +27,7 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
           className="h4 flex-all export-results"
         >
           <button
-            className="a-btn a-btn__link"
+            className="a-btn a-btn__link export-btn"
             data-gtm_ignore="true"
             onClick={[Function]}
           >
@@ -439,7 +439,7 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
           className="h4 flex-all export-results"
         >
           <button
-            className="a-btn a-btn__link"
+            className="a-btn a-btn__link export-btn"
             data-gtm_ignore="true"
             onClick={[Function]}
           >
@@ -818,7 +818,7 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
           className="h4 flex-all export-results"
         >
           <button
-            className="a-btn a-btn__link"
+            className="a-btn a-btn__link export-btn"
             data-gtm_ignore="true"
             onClick={[Function]}
           >
@@ -1173,7 +1173,7 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
           className="h4 flex-all export-results"
         >
           <button
-            className="a-btn a-btn__link"
+            className="a-btn a-btn__link export-btn"
             data-gtm_ignore="true"
             onClick={[Function]}
           >
@@ -1471,7 +1471,7 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
           className="h4 flex-all export-results"
         >
           <button
-            className="a-btn a-btn__link"
+            className="a-btn a-btn__link export-btn"
             data-gtm_ignore="true"
             onClick={[Function]}
           >
@@ -1850,7 +1850,7 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
           className="h4 flex-all export-results"
         >
           <button
-            className="a-btn a-btn__link"
+            className="a-btn a-btn__link export-btn"
             data-gtm_ignore="true"
             onClick={[Function]}
           >
@@ -2111,7 +2111,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
           className="h4 flex-all export-results"
         >
           <button
-            className="a-btn a-btn__link"
+            className="a-btn a-btn__link export-btn"
             data-gtm_ignore="true"
             onClick={[Function]}
           >
@@ -2373,7 +2373,7 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
           className="h4 flex-all export-results"
         >
           <button
-            className="a-btn a-btn__link"
+            className="a-btn a-btn__link export-btn"
             data-gtm_ignore="true"
             onClick={[Function]}
           >

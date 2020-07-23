@@ -4,7 +4,6 @@
 
 import { buildLink, simulateClick } from './domUtils'
 import { MODAL_SHOWN, MODAL_TYPE_DATA_EXPORT } from '../constants'
-import Analytics from './analytics'
 import { stateToQS } from '../reducers/query'
 
 const DATA_HOST = 'https://files.consumerfinance.gov'
@@ -50,9 +49,6 @@ export function buildSomeResultsUri( format, size, queryState ) {
 * @returns {string} a packaged payload to be used by Redux reducers
 */
 export function showExportDialog() {
-  Analytics.sendEvent(
-    Analytics.getDataLayerOptions( 'Export', 'User Opens Export Modal' )
-  )
   return {
     type: MODAL_SHOWN,
     modalType: MODAL_TYPE_DATA_EXPORT,
@@ -67,9 +63,6 @@ export function showExportDialog() {
 * @returns {function} a set of steps to execute
 */
 export function exportAllResults( format ) {
-  Analytics.sendEvent(
-    Analytics.getDataLayerOptions( 'Export All Data', format )
-  )
   return () => {
     const uri = buildAllResultsUri( format )
     const link = buildLink( uri, 'download.' + format )
@@ -85,9 +78,6 @@ export function exportAllResults( format ) {
 * @returns {function} a set of steps to execute
 */
 export function exportSomeResults( format, size ) {
-  Analytics.sendEvent(
-    Analytics.getDataLayerOptions( 'Export Some Data', format )
-  )
   return ( _, getState ) => {
     const uri = buildSomeResultsUri( format, size, getState().query )
     const link = buildLink( uri, 'download.' + format )

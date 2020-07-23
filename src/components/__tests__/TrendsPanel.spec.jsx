@@ -10,6 +10,7 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 import thunk from 'redux-thunk'
+import * as utils from '../../utils'
 
 jest.mock( 'britecharts', () => {
   const props = [
@@ -264,39 +265,38 @@ describe( 'component:TrendsPanel', () => {
   } )
 
   describe( 'mapDispatchToProps', () => {
-    it( 'hooks into changeChartType', () => {
-      const dispatch = jest.fn()
-      mapDispatchToProps( dispatch )
-        .onChartType( {
-          target: {
-            value: 'foo'
-          }
-        } )
-      expect( dispatch.mock.calls.length ).toEqual( 1 )
+    let dispatch, gaSpy
+    beforeEach(()=>{
+      dispatch = jest.fn()
+      gaSpy = spyOn( utils, 'sendAnalyticsEvent' )
+    })
+
+    afterEach( () => {
+      jest.clearAllMocks()
     } )
+
     it( 'hooks into changeDateInterval', () => {
-      const dispatch = jest.fn()
       mapDispatchToProps( dispatch )
         .onInterval( {
           target: {
-            value: 'foo'
+            value: 'foo date'
           }
         } )
       expect( dispatch.mock.calls.length ).toEqual( 1 )
+      expect( gaSpy ).toHaveBeenCalledWith( 'Dropdown', 'Trends:foo date' )
     } )
     it( 'hooks into changeDataLens', () => {
-      const dispatch = jest.fn()
       mapDispatchToProps( dispatch )
         .onLens( {
           target: {
-            value: 'foo'
+            value: 'foo lens'
           }
         } )
       expect( dispatch.mock.calls.length ).toEqual( 1 )
+      expect( gaSpy ).toHaveBeenCalledWith( 'Dropdown', 'Trends:foo lens' )
     } )
 
     it( 'hooks into dismissWarning', () => {
-      const dispatch = jest.fn()
       mapDispatchToProps( dispatch ).onDismissWarning()
       expect( dispatch.mock.calls ).toEqual( [
         [ {

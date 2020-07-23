@@ -5,6 +5,7 @@ import {
 import { Provider } from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'
+import * as utils from '../../utils'
 import { shallow } from 'enzyme'
 import thunk from 'redux-thunk'
 
@@ -38,23 +39,28 @@ describe( 'component: DateRanges', () => {
     beforeEach( () => {
       cb = jest.fn()
 
-      target = shallow( <DateRanges toggleDateRange={ cb }/> )
+      target = shallow( <DateRanges toggleDateRange={ cb } tab={'foo'}/> )
     } )
 
     it( 'toggleDateRange is called the button is clicked', () => {
       const prev = target.find( '.date-ranges .range-3m' )
       prev.simulate( 'click' )
-      expect( cb ).toHaveBeenCalledWith('3m')
+      expect( cb ).toHaveBeenCalledWith( '3m', 'foo' )
     } )
   })
 
 
   describe('mapDispatchToProps', () => {
-    it('provides a way to call toggleDateRange', () => {
+    let gaSpy
+    beforeEach( () => {
+      gaSpy = jest.spyOn( utils, 'sendAnalyticsEvent' )
+    } )
+    it( 'provides a way to call toggleDateRange', () => {
       const dispatch = jest.fn()
-      mapDispatchToProps(dispatch).toggleDateRange()
-      expect(dispatch.mock.calls.length).toEqual(1)
-    })
+      mapDispatchToProps( dispatch ).toggleDateRange( 'Foo', 'Bar' )
+      expect( dispatch.mock.calls.length ).toEqual( 1 )
+      expect( gaSpy ).toHaveBeenCalledWith( 'Button', 'Bar:Foo' )
+    } )
   })
 
   describe( 'mapStateToProps', () => {

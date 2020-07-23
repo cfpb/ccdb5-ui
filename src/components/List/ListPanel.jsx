@@ -12,6 +12,7 @@ import Loading from '../Dialogs/Loading'
 import Pagination from './Pagination'
 import React from 'react'
 import { Select } from '../RefineBar/Select'
+import { sendAnalyticsEvent } from '../../utils'
 import { Separator } from '../RefineBar/Separator'
 import StaleDataWarnings from '../Warnings/StaleDataWarnings'
 
@@ -116,10 +117,13 @@ const mapStateToProps = state => ( {
 export const mapDispatchToProps = dispatch => ( {
   onSize: ev => {
     const iSize = parseInt( ev.target.value, 10 )
+    sendAnalyticsEvent( 'Dropdown', iSize + ' results' )
     dispatch( changeSize( iSize ) )
   },
   onSort: ev => {
-    dispatch( changeSort( ev.target.value ) )
+    const { value } = ev.target
+    sendAnalyticsEvent( 'Dropdown', sorts[value] )
+    dispatch( changeSort( value ) )
   }
 } )
 

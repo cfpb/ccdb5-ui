@@ -1,5 +1,5 @@
 import './DataExport.less'
-import { bindAll, getFullUrl } from '../../utils'
+import { bindAll, getFullUrl, sendAnalyticsEvent } from '../../utils'
 import {
   buildAllResultsUri, buildSomeResultsUri, exportAllResults, exportSomeResults
 } from '../../actions/dataExport'
@@ -146,9 +146,10 @@ export class DataExport extends React.Component {
 
   _exportClicked() {
     if ( this.state.dataset === 'full' ) {
-      this.props.exportAll( this.state.format )
+      this.props.exportAll( this.state.format, this.props.tab )
     } else {
-      this.props.exportSome( this.state.format, this.props.someComplaints )
+      this.props.exportSome( this.state.format, this.props.someComplaints,
+        this.props.tab )
     }
 
     this.setState( { mode: NOTIFYING } )
@@ -343,16 +344,23 @@ export const mapStateToProps = state => {
 
   return {
     allComplaints,
-    someComplaints,
     queryState: {
       ...state.query
-    }
+    },
+    someComplaints,
+    tab: state.query.tab
   }
 }
 
 export const mapDispatchToProps = dispatch => ( {
-  exportAll: format => dispatch( exportAllResults( format ) ),
-  exportSome: ( format, size ) => dispatch( exportSomeResults( format, size ) )
+  exportAll: ( format, tab ) => {
+    sendAnalyticsEvent( 'Export All Data', tab + ':' + format )
+    dispatch( exportAllResults( format ) )
+  },
+  exportSome: ( format, size, tab ) => {
+    sendAnalyticsEvent( 'Export Some Data', tab + ':' + format )
+    dispatch( exportSomeResults( format, size ) )
+  }
 } )
 
 export default connect( mapStateToProps, mapDispatchToProps )( DataExport )
