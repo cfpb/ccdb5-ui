@@ -64,27 +64,29 @@ export class MapPanel extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const { map, query } = state
-
   const {
     error,
     isLoading,
     results
-  } = map
+  } = state.map
 
   const {
+    date_received_max: maxDate,
+    date_received_min: minDate,
     enablePer1000,
     mapWarningEnabled
-  } = query
+  } = state.query
+
+  const { expandedRows, width } = state.view
 
   return {
     error,
     isLoading,
-    productData: processRows( results.product, false, 'Product' ),
-    showMobileFilters: state.view.width < 750,
+    productData: processRows( results.product, false, 'Product', expandedRows ),
+    showMobileFilters: width < 750,
     showWarning: !enablePer1000 && mapWarningEnabled,
-    minDate: formatDateView( state.query.date_received_min ),
-    maxDate: formatDateView( state.query.date_received_max ),
+    minDate: formatDateView( minDate ),
+    maxDate: formatDateView( maxDate ),
     total: state.aggs.total
   }
 }

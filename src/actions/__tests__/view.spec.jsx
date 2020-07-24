@@ -1,5 +1,6 @@
 import { REQUERY_HITS_ONLY, REQUERY_NEVER } from '../../constants'
 import * as sut from '../view'
+import { ROW_COLLAPSED, ROW_EXPANDED } from '../view'
 
 describe( 'action:view', () => {
   describe( 'filterVisibilityToggled', () => {
@@ -39,6 +40,30 @@ describe( 'action:view', () => {
         requery: REQUERY_NEVER
       }
       expect( sut.printModeOff() ).toEqual( expectedAction )
+    } )
+  } )
+
+  describe( 'Row Chart toggles', () => {
+    describe( 'collapseRow', () => {
+      it( 'creates a simple action', () => {
+        const expectedAction = {
+          type: sut.ROW_COLLAPSED,
+          value: 'bar',
+          requery: REQUERY_NEVER
+        }
+        expect( sut.collapseRow( 'bar' ) ).toEqual( expectedAction )
+      } )
+    } )
+
+    describe( 'expandRow', () => {
+      it( 'creates a simple action', () => {
+        const expectedAction = {
+          type: sut.ROW_EXPANDED,
+          value: 'bar',
+          requery: REQUERY_NEVER
+        }
+        expect( sut.expandRow( 'bar' ) ).toEqual( expectedAction )
+      } )
     } )
   } )
 

@@ -4,7 +4,7 @@
 // reducer for the Map Tab
 import * as colors from '../constants/colors'
 import {
-  clamp, coalesce, getSubKeyName, processErrorMessage, processUrlArrayParams
+  clamp, coalesce, getSubKeyName, processErrorMessage
 } from '../utils'
 import { getD3Names, getTooltipTitle, updateDateBuckets } from '../utils/chart'
 import { getSubLens, pruneOther, validateChartType } from '../utils/trends'
@@ -12,30 +12,53 @@ import actions from '../actions'
 import { isDateEqual } from '../utils/formatDate'
 import { MODE_TRENDS } from '../constants'
 
-export const defaultState = {
+export const emptyResults = () => ( {
+  dateRangeArea: [],
+  dateRangeLine: []
+} )
+
+// the minimal State to reset to when things break
+export const getResetState = () => ( {
   activeCall: '',
-  chartType: 'line',
   colorMap: {},
   error: false,
-  expandedTrends: [],
-  expandableRows: [],
-  focus: '',
   isLoading: false,
   lastDate: false,
-  lens: 'Overview',
-  results: {
-    company: [],
-    dateRangeArea: [],
-    dateRangeLine: [],
-    product: []
-  },
-  subLens: '',
+  results: emptyResults(),
   tooltip: false,
   total: 0
-}
+} )
+
+export const getDefaultState = () => Object.assign( {},
+  {
+    chartType: 'line',
+    focus: '',
+    lens: 'Overview',
+    subLens: ''
+  },
+  { ...getResetState() }
+)
+
+export const defaultState = getDefaultState()
 
 // ----------------------------------------------------------------------------
 // Helpers
+/**
+ * helper function to process all of the aggregations and fill out results
+ * @param {array} keys list of aggs we check product, issue, company, etc
+ * @param {object} state redux state
+ * @param {object} aggregations coming from the APIO
+ * @param {object} results object we are processing and filling out
+ */
+export function processAggregations( keys, state, aggregations, results ) {
+  keys.forEach( k => {
+    /* istanbul ignore else */
+    if ( aggregations[k] ) {
+      results[k] = processBucket( state, aggregations[k][k].buckets )
+    }
+  } )
+}
+
 /* eslint-disable complexity */
 /**
  * helper function to drill down a bucket and generate special names for D3
@@ -45,7 +68,6 @@ export const defaultState = {
  */
 export function processBucket( state, agg ) {
   const list = []
-  const { expandedTrends, expandableRows } = state
   for ( let i = 0; i < agg.length; i++ ) {
     processTrendPeriod( agg[i] )
 
@@ -54,13 +76,7 @@ export function processBucket( state, agg ) {
 
     item.isParent = true
     const subItem = item[subKeyName]
-    if ( subItem && subItem.buckets.length ) {
-      item.hasChildren = true
-      /* istanbul ignore else */
-      if ( !expandableRows.includes( item.key ) ) {
-        expandableRows.push( item.key )
-      }
-    }
+    item.hasChildren = Boolean( subItem && subItem.buckets.length )
 
     // https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_omit
     // Create a parent row.
@@ -94,7 +110,7 @@ export function processBucket( state, agg ) {
   // return flattened list
   return []
     .concat( ...list )
-    .map( obj => getD3Names( obj, nameMap, expandedTrends ) )
+    .map( obj => getD3Names( obj, nameMap ) )
 }
 
 /**
@@ -304,17 +320,6 @@ export const getColorScheme = ( lens, rowNames ) => {
 }
 
 /**
- * helper function validate payload and also get under eslint limit
- * @param {object} aggregations payload from api
- * @param {string} k the key we need to validate against
- * @returns {boolean} whether the bucket is valid
- */
-export function validateBucket( aggregations, k ) {
-  return aggregations[k] && aggregations[k].doc_count &&
-    aggregations[k][k] && aggregations[k][k].buckets
-}
-
-/**
  * Copies the results locally
  *
  * @param {object} state the current state in the Redux store
@@ -323,11 +328,23 @@ export function validateBucket( aggregations, k ) {
  */
 export function processTrends( state, action ) {
   const aggregations = action.data.aggregations
-  const { focus, lens, results, subLens } = state
-
+  const { focus, lens, subLens } = state
+  const results = emptyResults()
   const kR = 'dateRangeArea'
-  // get the last date now to save time
+  const hits = aggregations[kR].doc_count
+
+  // if hits > 0
+  // no hits, so reset defaults
+  if ( hits === 0 ) {
+    const resetState = getResetState()
+    return {
+      ...state,
+      ...resetState
+    }
+  }
+
   const buckets = aggregations[kR][kR].buckets
+  // get the last date now to save time
   const lastDate = buckets[buckets.length - 1].key_as_string
   const total = aggregations[kR].doc_count
 
@@ -337,16 +354,23 @@ export function processTrends( state, action ) {
 
   results.dateRangeLine = processLineData( lens, aggregations, focus, subLens )
 
-  const keys = [ 'company', 'product' ]
+  // based on these criteria, the following aggs should only exist
+  const keyMap = {
+    'Overview': [ 'product' ],
+    'Company': [ 'company' ],
+    'Product': [ 'product' ],
+    'Product-focus': [ 'sub-product', 'issue' ],
+    'Company-focus': [ 'product' ]
+  }
+  let keyFilter = lens
 
   if ( focus ) {
-    keys.push( 'issue', 'sub-product' )
+    keyFilter += '-focus'
   }
 
-  keys.forEach( k => {
-    results[k] = aggregations[k] ?
-      processBucket( state, aggregations[k][k].buckets ) : []
-  } )
+  const keys = keyMap[keyFilter]
+
+  processAggregations( keys, state, aggregations, results )
 
   const colorMap = getColorScheme( lens, results.dateRangeArea )
 
@@ -364,77 +388,6 @@ export function processTrends( state, action ) {
 
 /* eslint-enable complexity */
 
-/**
- * Handler for the trend collapse action
- *
- * @param {object} state the current state in the Redux store
- * @param {object} action the command being executed
- * @returns {object} the new state for the Redux store
- */
-export function collapseTrend( state, action ) {
-  const { expandedTrends } = state
-  const item = action.value
-  // if it's an available filter
-  const expanded = expandedTrends.filter( o => o !== item )
-
-  const results = updateRowVisibility( state, expanded )
-
-  return {
-    ...state,
-    expandedTrends: expanded,
-    results
-  }
-}
-
-/**
- * Handler for the trend expand action
- *
- * @param {object} state the current state in the Redux store
- * @param {object} action the command being executed
- * @returns {object} the new state for the Redux store
- */
-export function expandTrend( state, action ) {
-  const { expandedTrends, expandableRows } = state
-  const item = action.value
-
-  // if it's an available filter
-  if ( expandableRows.indexOf( item ) > -1 &&
-    expandedTrends.indexOf( item ) === -1 ) {
-    expandedTrends.push( item )
-  }
-
-  const results = updateRowVisibility( state, expandedTrends )
-  return {
-    ...state,
-    expandedTrends,
-    results
-  }
-}
-
-/**
- * helper function to make rows visible when its parent is in expandedTrends
- * or it is a parent row
- * @param {object} state reducer state
- * @param {array} expandedTrends contains a list of the expanded trends
- * @returns {object} the results array in the reducer state
- */
-function updateRowVisibility( state, expandedTrends ) {
-  const { results } = state
-  for ( const k in results ) {
-    // rip through results and expand the ones, or collapse
-    /* istanbul ignore else */
-    if ( results.hasOwnProperty( k ) && Array.isArray( results[k] ) ) {
-      results[k]
-        .forEach( o => {
-          o.visible =
-            Boolean( expandedTrends.includes( o.parent ) || o.isParent )
-        } )
-    }
-  }
-
-  return results
-}
-
 // ----------------------------------------------------------------------------
 // Action Handlers
 /**
@@ -448,7 +401,7 @@ export function handleTabChanged( state, action ) {
   return {
     ...state,
     focus: action.tab === MODE_TRENDS ? state.focus : '',
-    results: defaultState.results
+    results: emptyResults()
   }
 }
 
@@ -475,23 +428,17 @@ export function trendsCallInProcess( state, action ) {
  * @returns {object} new state for the Redux store
  */
 export function processTrendsError( state, action ) {
+  const emptyState = getResetState()
   return {
     ...state,
-    activeCall: '',
-    error: processErrorMessage( action.error ),
-    isLoading: false,
-    results: {
-      dateRangeArea: [],
-      dateRangeLine: [],
-      issue: [],
-      product: []
-    }
+    ...emptyState,
+    error: processErrorMessage( action.error )
   }
 }
 
 
 /**
- * Handler for the update chart type action
+ * Handler for the update chart type action, dont allow area when Overview
  *
  * @param {object} state the current state in the Redux store
  * @param {object} action the command being executed
@@ -500,7 +447,7 @@ export function processTrendsError( state, action ) {
 export function updateChartType( state, action ) {
   return {
     ...state,
-    chartType: action.chartType,
+    chartType: state.lens === 'Overview' ? 'line' : action.chartType,
     tooltip: false
   }
 }
@@ -513,7 +460,7 @@ export function updateChartType( state, action ) {
  * @returns {object} the new state for the Redux store
  */
 export function updateDataLens( state, action ) {
-  const { lens } = action
+  const lens = action.lens
   const chartType = lens === 'Overview' ? 'line' : state.chartType
   // make sure it's a line chart if it's overview
   return {
@@ -521,8 +468,8 @@ export function updateDataLens( state, action ) {
     chartType,
     focus: '',
     lens,
-    subLens: getSubLens( lens ),
-    tooltip: false
+    results: emptyResults(),
+    subLens: getSubLens( lens )
   }
 }
 
@@ -565,20 +512,8 @@ function changeFocus( state, action ) {
 function removeFocus( state ) {
   return {
     ...state,
-    expandableRows: [],
-    expandedTrends: [],
     focus: '',
-    results: {
-      ...state.results,
-      /* eslint-disable quote-props */
-      company: [],
-      product: [],
-      issue: [],
-      'sub-product': [],
-      'sub-issue': []
-      /* eslint-enable quote-props */
-
-    },
+    results: emptyResults(),
     tooltip: false
   }
 }
@@ -606,9 +541,6 @@ function processParams( state, action ) {
 
   // validate lens & chartType
   validateChartType( processed )
-
-  const arrayParams = [ 'expandedTrends' ]
-  processUrlArrayParams( params, processed, arrayParams )
 
   return processed
 }
@@ -700,8 +632,6 @@ export function _buildHandlerMap() {
   handlers[actions.TRENDS_API_CALLED] = trendsCallInProcess
   handlers[actions.TRENDS_FAILED] = processTrendsError
   handlers[actions.TRENDS_RECEIVED] = processTrends
-  handlers[actions.TREND_COLLAPSED] = collapseTrend
-  handlers[actions.TREND_EXPANDED] = expandTrend
   handlers[actions.TRENDS_TOOLTIP_CHANGED] = updateTooltip
   handlers[actions.URL_CHANGED] = processParams
 

@@ -137,6 +137,7 @@ function setupSnapshot( { chartType,
       total: 10000
     },
     view: {
+      expandedRows: [],
       width
     }
   } )
@@ -157,6 +158,7 @@ describe( 'component:TrendsPanel', () => {
       params = {
         chartType: 'line',
         company: false,
+        expandedRows: [],
         focus: '',
         lens: 'Overview',
         printMode: false,

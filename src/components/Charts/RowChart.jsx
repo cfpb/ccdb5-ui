@@ -2,11 +2,12 @@
 
 import './RowChart.less'
 import * as d3 from 'd3'
-import { changeFocus, collapseTrend, expandTrend } from '../../actions/trends'
 import {
   cloneDeep, coalesce, getAllFilters, hashObject, sendAnalyticsEvent
 } from '../../utils'
+import { collapseRow, expandRow } from '../../actions/view'
 import { miniTooltip, row } from 'britecharts'
+import { changeFocus } from '../../actions/trends'
 import { connect } from 'react-redux'
 import { max } from 'd3-array'
 import { MODE_MAP } from '../../constants'
@@ -176,13 +177,20 @@ export class RowChart extends React.Component {
 
   _toggleRow( rowName ) {
     // fire off different action depending on if the row is expanded or not
-    const { expandableRows, expandedTrends } = this.props
-    if ( expandableRows.includes( rowName ) ) {
-      if ( expandedTrends.includes( rowName ) ) {
-        this.props.collapseRow( rowName )
-      } else {
-        this.props.expandRow( rowName )
-      }
+    const { data, expandedRows } = this.props
+    const expandableRows = data
+      .filter( o => o.isParent )
+      .map( o => o.name )
+
+    if ( !expandableRows.includes( rowName ) ) {
+      // early exit
+      return
+    }
+
+    if ( expandedRows.includes( rowName ) ) {
+      this.props.collapseRow( rowName )
+    } else {
+      this.props.expandRow( rowName )
     }
   }
 
@@ -216,12 +224,12 @@ export const mapDispatchToProps = dispatch => ( {
     dispatch( changeFocus( element.parent, lens, [ ...values ] ) )
   },
   collapseRow: rowName => {
-    sendAnalyticsEvent( 'Bar chart collapsed', rowName.trim() )
-    dispatch( collapseTrend( rowName.trim() ) )
+    sendAnalyticsEvent( 'Bar chart collapsed', rowName )
+    dispatch( collapseRow( rowName ) )
   },
   expandRow: rowName => {
-    sendAnalyticsEvent( 'Bar chart expanded', rowName.trim() )
-    dispatch( expandTrend( rowName.trim() ) )
+    sendAnalyticsEvent( 'Bar chart expanded', rowName )
+    dispatch( expandRow( rowName ) )
   }
 } )
 
@@ -229,13 +237,10 @@ export const mapStateToProps = state => {
   const { tab } = state.query
   const lens = tab === MODE_MAP ? 'Product' : state.query.lens
   const { aggs } = state
-  const { expandableRows, expandedTrends } =
-    coalesce( state, tab.toLowerCase(), {} )
-  const { printMode, width } = state.view
+  const { expandedRows, printMode, width } = state.view
   return {
     aggs,
-    expandableRows,
-    expandedTrends,
+    expandedRows,
     lens,
     printMode,
     tab,

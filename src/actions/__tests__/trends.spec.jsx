@@ -1,6 +1,5 @@
 import { REQUERY_ALWAYS, REQUERY_NEVER } from '../../constants'
 import * as sut from '../trends'
-import { TREND_COLLAPSED, TREND_EXPANDED } from '../trends'
 
 describe( 'action:trendsActions', () => {
   describe( 'changeChartType', () => {
@@ -76,28 +75,6 @@ describe( 'action:trendsActions', () => {
         requery: REQUERY_NEVER
       }
       expect( sut.updateTrendsTooltip( 'bar' ) ).toEqual( expectedAction )
-    } )
-  } )
-
-  describe( 'collapseTrend', () => {
-    it( 'creates a simple action', () => {
-      const expectedAction = {
-        type: sut.TREND_COLLAPSED,
-        value: 'bar',
-        requery: REQUERY_NEVER
-      }
-      expect( sut.collapseTrend( 'bar' ) ).toEqual( expectedAction )
-    } )
-  } )
-
-  describe( 'expandTrend', () => {
-    it( 'creates a simple action', () => {
-      const expectedAction = {
-        type: sut.TREND_EXPANDED,
-        value: 'bar',
-        requery: REQUERY_NEVER
-      }
-      expect( sut.expandTrend( 'bar' ) ).toEqual( expectedAction )
     } )
   } )
 

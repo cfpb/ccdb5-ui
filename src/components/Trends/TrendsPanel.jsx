@@ -220,7 +220,6 @@ export class TrendsPanel extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const { query, trends } = state
   const {
     company: companyFilters,
     dateInterval,
@@ -229,11 +228,13 @@ const mapStateToProps = state => {
     lens,
     subLens,
     trendsDateWarningEnabled
-  } = query
+  } = state.query
 
   const {
     chartType, colorMap, focus, isLoading, results, total
-  } = trends
+  } = state.trends
+
+  const { expandedRows } = state.view
 
   const lensKey = lens.toLowerCase()
   const focusKey = subLens.replace( '_', '-' )
@@ -247,15 +248,15 @@ const mapStateToProps = state => {
 
   return {
     chartType,
-    companyData: processRows( results.company, false, lens ),
+    companyData: processRows( results.company, false, lens, expandedRows ),
     companyOverlay: showCompanyOverLay( lens, companyFilters, isLoading ),
     dateInterval,
     focus,
-    focusData: processRows( results[focusKey], colorMap, lens ),
+    focusData: processRows( results[focusKey], colorMap, lens, expandedRows ),
     intervals: getIntervals( date_received_min, date_received_max ),
     isLoading,
-    productData: processRows( results.product, false, lens ),
-    dataLensData: processRows( results[lensKey], colorMap, lens ),
+    productData: processRows( results.product, false, lens, expandedRows ),
+    dataLensData: processRows( results[lensKey], colorMap, lens, expandedRows ),
     lens,
     maxDate,
     minDate,

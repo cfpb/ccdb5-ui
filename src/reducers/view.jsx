@@ -1,6 +1,8 @@
 import actions from '../actions'
+import { processUrlArrayParams } from '../utils'
 
 export const defaultView = {
+  expandedRows: [],
   fromExternal: false,
   printMode: false,
   showFilters: true,
@@ -18,8 +20,11 @@ export const defaultView = {
 function processParams( state, action ) {
   const params = action.params
 
-  state.printMode = params.printMode === 'true' ? true : false
-  state.fromExternal = params.fromExternal === 'true' ? true : false
+  state.printMode = params.printMode === 'true'
+  state.fromExternal = params.fromExternal === 'true'
+
+  const arrayParams = [ 'expandedRows' ]
+  processUrlArrayParams( params, state, arrayParams )
 
   return state
 }
@@ -80,6 +85,43 @@ export function updateFilterVisibility( state ) {
   }
 }
 
+/**
+ * Handler for the Row collapse action
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the command being executed
+ * @returns {object} the new state for the Redux store
+ */
+export function collapseRow( state, action ) {
+  const { expandedRows } = state
+  const item = action.value
+
+  return {
+    ...state,
+    expandedRows: expandedRows.filter( o => o !== item )
+  }
+}
+
+/**
+ * Handler for the Row expand action
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the command being executed
+ * @returns {object} the new state for the Redux store
+ */
+export function expandRow( state, action ) {
+  const { expandedRows } = state
+  const item = action.value
+
+  if ( !expandedRows.includes( item ) ) {
+    expandedRows.push( item )
+  }
+
+  return {
+    ...state,
+    expandedRows
+  }
+}
 
 // ----------------------------------------------------------------------------
 // Action Handlers
@@ -96,6 +138,8 @@ export function _buildHandlerMap() {
   handlers[actions.PRINT_MODE_OFF] = updatePrintModeOff
   handlers[actions.SCREEN_RESIZED] = updateScreenSize
   handlers[actions.TOGGLE_FILTER_VISIBILITY] = updateFilterVisibility
+  handlers[actions.ROW_COLLAPSED] = collapseRow
+  handlers[actions.ROW_EXPANDED] = expandRow
   handlers[actions.URL_CHANGED] = processParams
   return handlers
 }
