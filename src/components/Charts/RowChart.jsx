@@ -3,7 +3,9 @@
 import './RowChart.less'
 import * as d3 from 'd3'
 import { changeFocus, collapseTrend, expandTrend } from '../../actions/trends'
-import { cloneDeep, coalesce, getAllFilters, hashObject } from '../../utils'
+import {
+  cloneDeep, coalesce, getAllFilters, hashObject, sendAnalyticsEvent
+} from '../../utils'
 import { miniTooltip, row } from 'britecharts'
 import { connect } from 'react-redux'
 import { max } from 'd3-array'
@@ -210,13 +212,15 @@ export const mapDispatchToProps = dispatch => ( {
       values = filterGroup ?
         getAllFilters( element.parent, filterGroup[keyName].buckets ) : []
     }
-
+    sendAnalyticsEvent( 'Trends click', element.parent )
     dispatch( changeFocus( element.parent, lens, [ ...values ] ) )
   },
   collapseRow: rowName => {
+    sendAnalyticsEvent( 'Bar chart collapsed', rowName.trim() )
     dispatch( collapseTrend( rowName.trim() ) )
   },
   expandRow: rowName => {
+    sendAnalyticsEvent( 'Bar chart expanded', rowName.trim() )
     dispatch( expandTrend( rowName.trim() ) )
   }
 } )

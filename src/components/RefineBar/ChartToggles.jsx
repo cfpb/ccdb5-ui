@@ -3,6 +3,7 @@ import { changeChartType } from '../../actions/trends'
 import { connect } from 'react-redux'
 import iconMap from '../iconMap'
 import React from 'react'
+import { sendAnalyticsEvent } from '../../utils'
 
 export class ChartToggles extends React.Component {
   _toggleChartType( chartType ) {
@@ -40,6 +41,7 @@ export const mapStateToProps = state => ( {
 
 export const mapDispatchToProps = dispatch => ( {
   toggleChartType: chartType => {
+    sendAnalyticsEvent( 'Button', 'Trends:' + chartType )
     dispatch( changeChartType( chartType ) )
   }
 } )

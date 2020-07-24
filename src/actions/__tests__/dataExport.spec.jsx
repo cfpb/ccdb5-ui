@@ -21,7 +21,6 @@ describe('action:dataExport', () => {
 
   describe('compound actions', () => {
     let middlewares, mockStore, store
-
     beforeEach(() => {
       middlewares = [thunk]
       mockStore = configureMockStore(middlewares)

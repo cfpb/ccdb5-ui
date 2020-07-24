@@ -27,7 +27,7 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
           className="h4 flex-all export-results"
         >
           <button
-            className="a-btn a-btn__link"
+            className="a-btn a-btn__link export-btn"
             data-gtm_ignore="true"
             onClick={[Function]}
           >
@@ -208,7 +208,7 @@ exports[`component:MapPanel renders warning without crashing 1`] = `
           className="h4 flex-all export-results"
         >
           <button
-            className="a-btn a-btn__link"
+            className="a-btn a-btn__link export-btn"
             data-gtm_ignore="true"
             onClick={[Function]}
           >
@@ -426,7 +426,7 @@ exports[`component:MapPanel renders without crashing 1`] = `
           className="h4 flex-all export-results"
         >
           <button
-            className="a-btn a-btn__link"
+            className="a-btn a-btn__link export-btn"
             data-gtm_ignore="true"
             onClick={[Function]}
           >

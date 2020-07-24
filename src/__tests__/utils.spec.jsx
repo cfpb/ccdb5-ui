@@ -1,8 +1,9 @@
 import {
   ariaReadoutNumbers, calculateDateRange, clamp, coalesce, debounce,
-  formatPercentage, getFullUrl, hasFiltersEnabled, hashCode, shortIsoFormat,
-  sortSelThenCount, startOfToday, parseCookies
+  formatPercentage, getFullUrl, hasFiltersEnabled, hashCode, sendAnalyticsEvent,
+  shortIsoFormat, sortSelThenCount, startOfToday, parseCookies
 } from '../utils'
+import Analytics from '../actions/analytics'
 import { DATE_RANGE_MIN } from '../constants'
 import React from 'react'
 import moment from 'moment'
@@ -277,5 +278,16 @@ describe('module::utils', () => {
       } )
     } );
   } );
+
+  describe( 'sendAnalyticsEvent', () => {
+    it( 'calls the analytics library', () => {
+      Analytics.getDataLayerOptions = jest.fn()
+      Analytics.sendEvent = jest.fn()
+      sendAnalyticsEvent( 'myAction Name', 'some label')
+      expect( Analytics.getDataLayerOptions )
+        .toHaveBeenCalledWith( 'myAction Name', 'some label' )
+      expect( Analytics.sendEvent ).toHaveBeenCalled()
+    } )
+  } )
 })
 

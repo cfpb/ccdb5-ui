@@ -8,6 +8,7 @@ import renderer from 'react-test-renderer'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import ReduxDataExport, { DataExport, mapDispatchToProps } from '../DataExport'
+import * as utils from '../../../utils'
 
 const mockDataExportActions = require('../../../actions/dataExport')
 
@@ -36,6 +37,9 @@ function setupSnapshot(total=1001) {
       doc_count: 9999,
       total
     },
+    query: {
+      tab: 'foo'
+    }
   })
 
   return renderer.create(
@@ -196,18 +200,26 @@ describe('component::DataExport', () => {
     } );
   } );
 
-  describe('mapDispatchToProps', () => {
+  describe( 'mapDispatchToProps', () => {
+    let dispatch, gaSpy
+    beforeEach( () => {
+      dispatch = jest.fn()
+      gaSpy = jest.spyOn( utils, 'sendAnalyticsEvent' )
+    } )
 
-    it('provides a way to call exportAllResults', () => {
-      const dispatch = jest.fn()
-      mapDispatchToProps(dispatch).exportAll('json')
-      expect(dispatch.mock.calls.length).toEqual(1)
-    })
+    afterEach( () => {
+      jest.clearAllMocks()
+    } )
+    it( 'provides a way to call exportAllResults', () => {
+      mapDispatchToProps( dispatch ).exportAll( 'json', 'mytab' )
+      expect( dispatch.mock.calls.length ).toEqual( 1 )
+      expect( gaSpy ).toHaveBeenCalledWith( 'Export All Data', 'mytab:json' )
+    } )
 
-    it('provides a way to call exportSomeResults', () => {
-      const dispatch = jest.fn()
-      mapDispatchToProps(dispatch).exportSome('csv', 1300)
-      expect(dispatch.mock.calls.length).toEqual(1)
-    })
-  })
+    it( 'provides a way to call exportSomeResults', () => {
+      mapDispatchToProps( dispatch ).exportSome( 'csv', 1300, 'atab' )
+      expect( dispatch.mock.calls.length ).toEqual( 1 )
+      expect( gaSpy ).toHaveBeenCalledWith( 'Export Some Data', 'atab:csv' )
+    } )
+  } )
 })

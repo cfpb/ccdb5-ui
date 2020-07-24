@@ -22,7 +22,8 @@ export const RootModal = ( { modalType, modalProps, onClose } ) => {
     const SpecificModal = MODAL_COMPONENTS[modalType]
 
     return (
-      <ReactModal isOpen={true}
+      <ReactModal appElement={ document.querySelector( '#root' ) }
+                  isOpen={true}
                   contentLabel="CFPB Modal Dialog"
                   className="modal-body"
                   overlayClassName="modal-overlay"
@@ -32,7 +33,9 @@ export const RootModal = ( { modalType, modalProps, onClose } ) => {
     )
   }
 
-  return <ReactModal isOpen={false}></ReactModal>
+  return <ReactModal appElement={ document.querySelector( '#root' ) }
+                     isOpen={ false }>
+  </ReactModal>
 }
 
 export const mapDispatchToProps = dispatch => ( {

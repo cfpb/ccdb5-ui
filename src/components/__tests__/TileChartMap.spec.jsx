@@ -2,15 +2,14 @@ import configureMockStore from 'redux-mock-store'
 import {
   mapDispatchToProps, mapStateToProps, TileChartMap
 } from '../Charts/TileChartMap'
-import Analytics from '../../actions/analytics'
 import { Provider } from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 import thunk from 'redux-thunk'
 import TileMap from '../Charts/TileMap'
+import * as utils from '../../utils'
 
-jest.mock( '../../actions/analytics' )
 jest.mock( '../Charts/TileMap' )
 
 function setupSnapshot() {
@@ -29,7 +28,6 @@ function setupSnapshot() {
 
 describe( 'component: TileChartMap', () => {
   let mapDiv, redrawSpy, target
-  let actionMock = jest.fn()
   describe( 'initial state', () => {
     beforeEach( () => {
       jest.clearAllMocks()
@@ -134,30 +132,24 @@ describe( 'component: TileChartMap', () => {
   } )
 
   describe( 'mapDispatchToProps', () => {
-    let dispatch
+    let dispatch, gaSpy
     beforeEach( () => {
       jest.clearAllMocks()
       dispatch = jest.fn()
-      Analytics.getDataLayerOptions = jest.fn()
-      Analytics.sendEvent = jest.fn()
-
+      gaSpy = jest.spyOn( utils, 'sendAnalyticsEvent' )
     } )
     it( 'provides a way to call addState', () => {
       mapDispatchToProps( dispatch )
         .addState( { abbr: 'foo', name: 'bar' } )
       expect( dispatch.mock.calls.length ).toEqual( 1 )
-      expect( Analytics.getDataLayerOptions )
-        .toHaveBeenCalledWith( 'State Event: add', 'foo' )
-      expect( Analytics.sendEvent ).toHaveBeenCalled()
+      expect( gaSpy ).toHaveBeenCalledWith( 'State Event: add', 'foo' )
     } )
 
     it( 'provides a way to call removeState', () => {
       mapDispatchToProps( dispatch )
         .removeState( { abbr: 'foo', name: 'bar' } )
       expect( dispatch.mock.calls.length ).toEqual( 1 )
-      expect( Analytics.getDataLayerOptions )
-        .toHaveBeenCalledWith( 'State Event: remove', 'foo' )
-      expect( Analytics.sendEvent ).toHaveBeenCalled()
+      expect( gaSpy ).toHaveBeenCalledWith( 'State Event: remove', 'foo' )
     } )
   } )
 

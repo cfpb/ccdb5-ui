@@ -10,7 +10,7 @@ import { Provider } from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import thunk from 'redux-thunk'
-import { SLUG_SEPARATOR } from '../../constants'
+import * as utils from '../../utils'
 
 // this is how you override and mock an imported constructor
 jest.mock( 'britecharts', () => {
@@ -269,9 +269,10 @@ describe( 'component: RowChart', () => {
   } )
 
   describe( 'mapDispatchToProps', () => {
-    let dispatch
+    let dispatch, gaSpy
     beforeEach( () => {
       dispatch = jest.fn()
+      gaSpy = spyOn( utils, 'sendAnalyticsEvent' )
     } )
 
     afterEach( () => {
@@ -319,6 +320,7 @@ describe( 'component: RowChart', () => {
         type: 'FOCUS_CHANGED'
       } ] ] )
       expect( trendsUtils.scrollToFocus ).toHaveBeenCalled()
+      expect( gaSpy ).toHaveBeenCalledWith( 'Trends click', 'A' )
     } )
 
     it( 'hooks into changeFocus - no filter found', () => {
@@ -352,6 +354,7 @@ describe( 'component: RowChart', () => {
         type: 'FOCUS_CHANGED'
       } ] ] )
       expect( trendsUtils.scrollToFocus ).toHaveBeenCalled()
+      expect( gaSpy ).toHaveBeenCalledWith( 'Trends click', 'A' )
     } )
 
     it( 'hooks into changeFocus - Company', () => {
@@ -375,6 +378,7 @@ describe( 'component: RowChart', () => {
         type: 'FOCUS_CHANGED'
       } ] ] )
       expect( trendsUtils.scrollToFocus ).toHaveBeenCalled()
+      expect( gaSpy ).toHaveBeenCalledWith( 'Trends click', 'Acme' )
     } )
 
     it( 'hooks into collapseTrend', () => {
@@ -386,6 +390,8 @@ describe( 'component: RowChart', () => {
         value: 'Some Expanded row'
       } ] ] )
       expect( trendsUtils.scrollToFocus ).not.toHaveBeenCalled()
+      expect( gaSpy ).toHaveBeenCalledWith( 'Bar chart collapsed',
+        'Some Expanded row' )
     } )
 
     it( 'hooks into expandTrend', () => {
@@ -397,6 +403,8 @@ describe( 'component: RowChart', () => {
         value: 'collapse row name'
       } ] ] )
       expect( trendsUtils.scrollToFocus ).not.toHaveBeenCalled()
+      expect( gaSpy ).toHaveBeenCalledWith( 'Bar chart expanded',
+        'collapse row name' )
     } )
   } )
 

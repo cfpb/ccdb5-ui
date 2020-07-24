@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import React from 'react';
 import thunk from 'redux-thunk'
 import renderer from 'react-test-renderer';
+import * as utils from '../../utils'
 
 const fixture = [
   {
@@ -140,17 +141,27 @@ describe('component:ListPanel', () => {
     expect(tree).toMatchSnapshot();
   })
 
-  describe('mapDispatchToProps', () => {
-    it('hooks into onSize', () => {
-      const dispatch = jest.fn();
-      mapDispatchToProps(dispatch).onSize({target: { value: '50' }});
-      expect(dispatch.mock.calls.length).toEqual(1);
-    })
+  describe( 'mapDispatchToProps', () => {
+    let dispatch, gaSpy
+    beforeEach( () => {
+      dispatch = jest.fn()
+      gaSpy = jest.spyOn( utils, 'sendAnalyticsEvent' )
+    } )
 
-    it('hooks into onSort', () => {
-      const dispatch = jest.fn();
-      mapDispatchToProps(dispatch).onSort({target: { value: 'foo' }});
-      expect(dispatch.mock.calls.length).toEqual(1);
-    })
-  })
-})
+    afterEach( () => {
+      jest.clearAllMocks()
+    } )
+
+    it( 'hooks into onSize', () => {
+      mapDispatchToProps( dispatch ).onSize( { target: { value: '50' } } )
+      expect( dispatch.mock.calls.length ).toEqual( 1 )
+      expect( gaSpy ).toHaveBeenCalledWith( 'Dropdown', '50 results' )
+    } )
+
+    it( 'hooks into onSort', () => {
+      mapDispatchToProps( dispatch ).onSort( { target: { value: 'created_date_desc' } } )
+      expect( dispatch.mock.calls.length ).toEqual( 1 )
+      expect( gaSpy ).toHaveBeenCalledWith( 'Dropdown', 'Newest to oldest' )
+    } )
+  } )
+} )

@@ -1,6 +1,7 @@
 import {
   DATE_RANGE_MIN, flagFilters, knownFilters, SLUG_SEPARATOR
 } from './constants'
+import Analytics from './actions/analytics'
 import moment from 'moment'
 
 /**
@@ -415,4 +416,15 @@ export const getAllFilters = ( filterKey, subitems ) => {
     values.add( slugify( filterKey, sub.key ) )
   } )
   return values
+}
+
+/**
+ * Wrapper around analytics event action creator to minimize the copypasta
+ * @param {string} action GA Action (not redux action)
+ * @param {string} label param used by GA
+ */
+export const sendAnalyticsEvent = ( action, label ) => {
+  Analytics.sendEvent(
+    Analytics.getDataLayerOptions( action, label )
+  )
 }
