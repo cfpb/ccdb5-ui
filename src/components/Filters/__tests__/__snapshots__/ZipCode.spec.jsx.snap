@@ -162,13 +162,13 @@ exports[`component::ZipCode snapshots renders without crashing 1`] = `
         aria-label="300XX"
         checked={true}
         className="flex-fixed a-checkbox"
-        id="zip_code300XX"
+        id="zip_code-300xx"
         onChange={[Function]}
         type="checkbox"
       />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="zip_code300XX"
+        htmlFor="zip_code-300xx"
       >
         300XX
       </label>

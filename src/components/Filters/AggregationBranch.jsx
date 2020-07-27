@@ -1,6 +1,12 @@
 import './AggregationBranch.less'
 import { addMultipleFilters, removeMultipleFilters } from '../../actions/filter'
-import { bindAll, coalesce, getAllFilters, slugify } from '../../utils'
+import {
+  bindAll,
+  coalesce,
+  getAllFilters,
+  sanitizeHtmlId,
+  slugify
+} from '../../utils'
 import AggregationItem from './AggregationItem'
 import { connect } from 'react-redux';
 import { FormattedNumber } from 'react-intl'
@@ -68,7 +74,7 @@ export class AggregationBranch extends React.Component {
     }
 
     const liStyle = 'parent m-form-field m-form-field__checkbox body-copy'
-    const id = fieldName + item.key.replace( ' ', '' )
+    const id = sanitizeHtmlId( fieldName + '-' + item.key )
 
     let chevronIcon;
     if ( this.state.showChildren ) {
@@ -85,7 +91,7 @@ export class AggregationBranch extends React.Component {
                  disabled={item.disabled}
                  checked={checkedState === CHECKED}
                  className="flex-fixed a-checkbox"
-                 id={id}
+                 id={ sanitizeHtmlId( id ) }
                  onChange={this._decideClickAction}
           />
           <label className={this._labelStyle}

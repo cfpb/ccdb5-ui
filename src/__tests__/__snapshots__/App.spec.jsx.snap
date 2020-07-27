@@ -776,7 +776,7 @@ exports[`initial state renders without crashing 1`] = `
                 </div>
                 <label
                   className="u-visually-hidden"
-                  htmlFor="company-typeahead-filter"
+                  htmlFor="company-typeahead-filter-company"
                 >
                   Start typing to begin listing companies
                 </label>
@@ -784,7 +784,7 @@ exports[`initial state renders without crashing 1`] = `
                   autoComplete="off"
                   className="a-text-input"
                   disabled=""
-                  id="company-typeahead-filter"
+                  id="company-typeahead-filter-company"
                   onChange={[Function]}
                   onKeyDown={[Function]}
                   placeholder="Enter company name"

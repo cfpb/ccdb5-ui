@@ -57,7 +57,7 @@ exports[`initial state renders "Other" without crashing 1`] = `
       >
         <span
           className="u-left"
-          id="focus-allother"
+          id="focus-all-other"
         >
           All other
         </span>
@@ -72,7 +72,7 @@ exports[`initial state renders "Other" without crashing 1`] = `
       >
         <span
           className="u-left"
-          id="focus-eatatjoes"
+          id="focus-eat-at-joe-s"
         >
           Eat at Joe's
         </span>
@@ -242,7 +242,7 @@ exports[`initial state renders Company typehead without crashing 1`] = `
       >
         <span
           className="u-left"
-          id="focus-allother"
+          id="focus-all-other"
         >
           All other
         </span>
@@ -271,7 +271,7 @@ exports[`initial state renders Company typehead without crashing 1`] = `
       >
         <span
           className="u-left"
-          id="focus-eatatjoes"
+          id="focus-eat-at-joe-s"
         >
           Eat at Joe's
         </span>
@@ -474,7 +474,7 @@ exports[`initial state renders without crashing 1`] = `
       >
         <span
           className="u-left"
-          id="focus-allother"
+          id="focus-all-other"
         >
           All other
         </span>
@@ -489,7 +489,7 @@ exports[`initial state renders without crashing 1`] = `
       >
         <span
           className="u-left"
-          id="focus-eatatjoes"
+          id="focus-eat-at-joe-s"
         >
           Eat at Joe's
         </span>

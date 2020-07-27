@@ -1,9 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`component: TileChartMap initial state renders print mode without crashing 1`] = `
+<div>
+  <div
+    className="cfpb-chart print"
+    data-chart-type="tile_map"
+    id="tile-chart-map"
+  />
+</div>
+`;
+
 exports[`component: TileChartMap initial state renders without crashing 1`] = `
 <div>
   <div
-    className="cfpb-chart undefined"
+    className="cfpb-chart "
     data-chart-type="tile_map"
     id="tile-chart-map"
   />

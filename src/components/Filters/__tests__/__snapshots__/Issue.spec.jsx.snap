@@ -88,13 +88,13 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
             aria-label="Incorrect information on credit report"
             checked={false}
             className="flex-fixed a-checkbox"
-            id="issueIncorrectinformation on credit report"
+            id="issue-incorrect-information-on-credit-report"
             onChange={[Function]}
             type="checkbox"
           />
           <label
             className="toggle a-label"
-            htmlFor="issueIncorrectinformation on credit report"
+            htmlFor="issue-incorrect-information-on-credit-report"
           >
             <span
               className="u-visually-hidden"
@@ -138,13 +138,13 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
             aria-label="Cont'd attempts collect debt not owed"
             checked={false}
             className="flex-fixed a-checkbox"
-            id="issueCont'dattempts collect debt not owed"
+            id="issue-cont-d-attempts-collect-debt-not-owed"
             onChange={[Function]}
             type="checkbox"
           />
           <label
             className="toggle a-label"
-            htmlFor="issueCont'dattempts collect debt not owed"
+            htmlFor="issue-cont-d-attempts-collect-debt-not-owed"
           >
             <span
               className="u-visually-hidden"
@@ -185,13 +185,13 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
           aria-label="Loan servicing, payments, escrow account"
           checked={false}
           className="flex-fixed a-checkbox"
-          id="issueLoanservicing, payments, escrow account"
+          id="issue-loan-servicing--payments--escrow-account"
           onChange={[Function]}
           type="checkbox"
         />
         <label
           className="a-label flex-all bucket-key body-copy"
-          htmlFor="issueLoanservicing, payments, escrow account"
+          htmlFor="issue-loan-servicing--payments--escrow-account"
         >
           Loan servicing, payments, escrow account
         </label>
@@ -210,13 +210,13 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
           aria-label="Loan modification,collection,foreclosure"
           checked={false}
           className="flex-fixed a-checkbox"
-          id="issueLoanmodification,collection,foreclosure"
+          id="issue-loan-modification-collection-foreclosure"
           onChange={[Function]}
           type="checkbox"
         />
         <label
           className="a-label flex-all bucket-key body-copy"
-          htmlFor="issueLoanmodification,collection,foreclosure"
+          htmlFor="issue-loan-modification-collection-foreclosure"
         >
           Loan modification,collection,foreclosure
         </label>
@@ -235,13 +235,13 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
           aria-label="Dealing with my lender or servicer"
           checked={false}
           className="flex-fixed a-checkbox"
-          id="issueDealingwith my lender or servicer"
+          id="issue-dealing-with-my-lender-or-servicer"
           onChange={[Function]}
           type="checkbox"
         />
         <label
           className="a-label flex-all bucket-key body-copy"
-          htmlFor="issueDealingwith my lender or servicer"
+          htmlFor="issue-dealing-with-my-lender-or-servicer"
         >
           Dealing with my lender or servicer
         </label>

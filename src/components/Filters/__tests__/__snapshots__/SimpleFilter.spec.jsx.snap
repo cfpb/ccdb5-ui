@@ -9,12 +9,14 @@ exports[`initial state renders without crashing 1`] = `
   >
     <h4
       className="o-expandable_header-left o-expandable_label"
-    />
+    >
+      nana
+    </h4>
     <span
       className="o-expandable_header-right o-expandable_link"
     >
       <button
-        aria-label="Show undefined filter"
+        aria-label="Show nana filter"
         className="a-btn a-btn__link o-expandable_cue o-expandable_cue-open"
         onClick={[Function]}
       >
