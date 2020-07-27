@@ -193,20 +193,23 @@ describe( 'processRows', () => {
     } )
   } )
 
-  it( 'returns only visible rows', () => {
+  it( 'returns only expandedRows rows', () => {
     const rows = [
-      { name: 'abc', visible: true, value: 123 },
-      { name: 'def', visible: true, value: 123 },
-      { name: 'Complaint', visible: true, value: 123 },
-      { name: 'Compla', parent: 'Complaint', visible: false, value: 123 },
-      { name: 'de11f', parent: 'def', visible: false, value: 123 } ]
-    const res = sut.processRows( rows, false )
+      { name: 'abc', value: 123, isParent: true  },
+      { name: 'def', value: 123, isParent: true },
+      { name: 'Complaint', value: 123, isParent: true },
+      { name: 'Compla', parent: 'Complaint', value: 123 },
+      { name: 'de11f', parent: 'def', value: 123 } ]
+
+    const expandedRows = []
+
+    const res = sut.processRows( rows, false, 'Overview', expandedRows )
     expect( res ).toEqual( {
       colorScheme: [ '#20aa3f', '#20aa3f', '#20aa3f' ],
       data: [
-        { name: 'abc', visible: true, value: 123 },
-        { name: 'def', visible: true, value: 123 },
-        { name: 'Complaint', visible: true, value: 123 }
+        { name: 'abc', value: 123, isParent: true  },
+        { name: 'def', value: 123, isParent: true },
+        { name: 'Complaint', value: 123, isParent: true }
       ]
     } )
   } )

@@ -96,19 +96,18 @@ export class UrlBarSynch extends React.Component {
 }
 
 export const mapStateToProps = state => {
-  const { map, query, trends } = state
+  const { map, query, view } = state
 
-  const expandedTrends = [
+  const expandedRows = [
     ...new Set( [
-      ...map.expandedTrends,
-      ...trends.expandedTrends
+      ...view.expandedRows
     ] )
   ]
 
   return {
     params: {
       ...query,
-      expandedTrends,
+      expandedRows,
       dataNormalization: map.dataNormalization
     }
   }

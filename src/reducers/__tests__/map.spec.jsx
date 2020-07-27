@@ -14,11 +14,8 @@ describe( 'reducer:map', () => {
       expect( target( undefined, {} ) ).toEqual( {
         activeCall: '',
         dataNormalization: GEO_NORM_NONE,
-        expandedTrends: [],
-        expandableRows: [],
         isLoading: false,
         results: {
-          issue: [],
           product: [],
           state: []
         }
@@ -185,61 +182,6 @@ describe( 'reducer:map', () => {
             { name: "WY", value: 450, issue: "issue o", product: "fo prod" },
             { name: "VT", value: 446, issue: "issue o", product: "fo prod" },
             { name: "HI", value: 0, issue: "", product: "" } ],
-          issue: [
-            {
-              hasChildren: false,
-              isNotFilter: false,
-              isParent: true,
-              name: "alpha",
-              parent: false,
-
-              value: 600,
-              visible: true,
-              width: 0.5
-            },
-            {
-              hasChildren: false,
-              isNotFilter: false,
-              isParent: true,
-              name: "bar",
-              parent: false,
-              value: 150,
-              visible: true,
-              width: 0.5
-            },
-            {
-              hasChildren: false,
-              isNotFilter: false,
-              isParent: true,
-              name: "car",
-              parent: false,
-
-              value: 125,
-              visible: true,
-              width: 0.5
-            },
-            {
-              hasChildren: false,
-              isNotFilter: false,
-              isParent: true,
-              name: "delta",
-              parent: false,
-              value: 75,
-              visible: true,
-              width: 0.5
-            },
-            {
-              hasChildren: false,
-              isNotFilter: false,
-              isParent: true,
-              name: "elephant",
-              parent: false,
-
-              value: 50,
-              visible: true,
-              width: 0.5
-            }
-          ],
           product: [
             {
               hasChildren: false,
@@ -248,7 +190,6 @@ describe( 'reducer:map', () => {
               name: "foo",
               parent: false,
               value: 600,
-              visible: true,
               width: 0.5
             }, {
               hasChildren: false,
@@ -257,7 +198,6 @@ describe( 'reducer:map', () => {
               name: "goo",
               parent: false,
               value: 150,
-              visible: true,
               width: 0.5
             }, {
               hasChildren: false,
@@ -266,7 +206,6 @@ describe( 'reducer:map', () => {
               name: "hi",
               parent: false,
               value: 125,
-              visible: true,
               width: 0.5
             }, {
               hasChildren: false,
@@ -275,7 +214,6 @@ describe( 'reducer:map', () => {
               name: "indigo",
               parent: false,
               value: 75,
-              visible: true,
               width: 0.5
             }, {
               hasChildren: false,
@@ -284,7 +222,6 @@ describe( 'reducer:map', () => {
               name: "joker",
               parent: false,
               value: 50,
-              visible: true,
               width: 0.5
             }
           ]
@@ -297,41 +234,23 @@ describe( 'reducer:map', () => {
     it( 'handles failed error messages', () => {
       action = {
         type: actions.STATES_FAILED,
-        error: { message: 'foo bar', name: 'ErrorTypeName' }
+        error: { message: 'foo bar', name: 'ErrorTypeName', stack: 'trace' }
       }
 
       expect( target( {
         activeCall: 'someurl',
         results: {
-          issue: [ 1, 2, 3 ],
           product: [ 1, 2, 3 ],
           state: [ 1, 2, 3 ]
         }
       }, action ) ).toEqual( {
         activeCall: '',
-        error: { message: 'foo bar', name: 'ErrorTypeName' },
+        error: { message: 'foo bar', name: 'ErrorTypeName', stack: 'trace' },
         isLoading: false,
         results: {
-          issue: [],
           product: [],
           state: []
         }
-      } )
-    } )
-  } )
-
-  describe( 'FOCUS_REMOVED action', () => {
-    it( 'resets row values', () => {
-      action = {
-        type: actions.FOCUS_REMOVED
-      }
-
-      expect( target( {
-        expandableRows: [ 1, 3 ],
-        expandedTrends: [ 1, 3 ]
-      }, action ) ).toEqual( {
-        expandableRows: [],
-        expandedTrends: []
       } )
     } )
   } )
@@ -344,14 +263,9 @@ describe( 'reducer:map', () => {
       }
 
       expect( target( {
-        expandedTrends: [ 1, 2 ],
-        expandableRows: [ 2, 24 ],
         results: [ 1, 2, 3 ]
       }, action ) ).toEqual( {
-        expandedTrends: [ 1, 2 ],
-        expandableRows: [ 2, 24 ],
         results: {
-          issue: [],
           product: [],
           state: []
         }
@@ -381,19 +295,6 @@ describe( 'reducer:map', () => {
       const actual = target( state, action )
       expect( actual.dataNormalization ).toEqual( 'hello' )
     } )
-
-    it( 'handles single expandedTrends param', () => {
-      action.params = { expandedTrends: 'hello' }
-      const actual = target( state, action )
-      expect( actual.expandedTrends ).toEqual( [ 'hello' ] )
-    } )
-
-    it( 'handles multiple expandedTrends param', () => {
-      action.params = { expandedTrends: [ 'hello', 'ma' ] }
-      const actual = target( state, action )
-      expect( actual.expandedTrends ).toEqual( [ 'hello', 'ma' ] )
-    } )
-
   } )
 
   describe( 'helper functions', () => {

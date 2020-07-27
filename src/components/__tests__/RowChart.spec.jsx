@@ -210,23 +210,6 @@ describe( 'component: RowChart', () => {
         collapseCb = jest.fn()
         expandCb = jest.fn()
       } )
-      it( 'ignores values not in expandable rows', () => {
-        const target = shallow( <RowChart
-          lens={ 'Overview' }
-          collapseRow={ collapseCb }
-          expandRow={ expandCb }
-          colorScheme={ [] }
-          title={ 'test' }
-          data={ [ 23, 4, 3 ] }
-          expandableRows={ [ 'foo', 'bar' ] }
-          expandedTrends={ [ 'foo' ] }
-          id={ 'foo' }
-          total={ 1000 }
-        /> )
-        target.instance()._toggleRow( 'not a expandable row' )
-        expect( collapseCb ).toHaveBeenCalledTimes( 0 )
-        expect( expandCb ).toHaveBeenCalledTimes( 0 )
-      } )
 
       it( 'collapses a row', () => {
         const target = shallow( <RowChart
@@ -235,15 +218,14 @@ describe( 'component: RowChart', () => {
           expandRow={ expandCb }
           colorScheme={ [] }
           title={ 'test' }
-          data={ [ 23, 4, 3 ] }
-          expandableRows={ [ 'foo', 'bar' ] }
-          expandedTrends={ [ 'foo' ] }
+          data={ [ { name: 'a', isParent: true } ] }
+          expandedRows={ [ 'a' ] }
           id={ 'foo' }
           total={ 1000 }
         /> )
-        target.instance()._toggleRow( 'foo' )
+        target.instance()._toggleRow( 'a' )
         expect( collapseCb ).toHaveBeenCalledTimes( 1 )
-        expect( collapseCb ).toHaveBeenCalledWith( 'foo' )
+        expect( collapseCb ).toHaveBeenCalledWith( 'a' )
         expect( expandCb ).toHaveBeenCalledTimes( 0 )
       } )
 
@@ -254,17 +236,34 @@ describe( 'component: RowChart', () => {
           expandRow={ expandCb }
           colorScheme={ [] }
           title={ 'test' }
-          data={ [ 23, 4, 3 ] }
-          expandableRows={ [ 'foo', 'bar' ] }
-          expandedTrends={ [] }
+          data={ [ { name: 'a', isParent: true } ] }
+          expandedRows={ [] }
           id={ 'foo' }
           total={ 1000 }
         /> )
-        target.instance()._toggleRow( 'foo' )
+        target.instance()._toggleRow( 'a' )
         expect( expandCb ).toHaveBeenCalledTimes( 1 )
-        expect( expandCb ).toHaveBeenCalledWith( 'foo' )
+        expect( expandCb ).toHaveBeenCalledWith( 'a' )
         expect( collapseCb ).toHaveBeenCalledTimes( 0 )
       } )
+
+      it( 'ignores non-parent rows', () => {
+        const target = shallow( <RowChart
+          lens={ 'Overview' }
+          collapseRow={ collapseCb }
+          expandRow={ expandCb }
+          colorScheme={ [] }
+          title={ 'test' }
+          data={ [ { name: 'a', isParent: false } ] }
+          expandedRows={ [] }
+          id={ 'foo' }
+          total={ 1000 }
+        /> )
+        target.instance()._toggleRow( 'a' )
+        expect( expandCb ).toHaveBeenCalledTimes( 0 )
+        expect( collapseCb ).toHaveBeenCalledTimes( 0 )
+      } )
+
     } )
   } )
 
@@ -386,7 +385,7 @@ describe( 'component: RowChart', () => {
       mapDispatchToProps( dispatch ).collapseRow( 'Some Expanded row' )
       expect( dispatch.mock.calls ).toEqual( [ [ {
         requery: 'REQUERY_NEVER',
-        type: 'TREND_COLLAPSED',
+      type: 'ROW_COLLAPSED',
         value: 'Some Expanded row'
       } ] ] )
       expect( trendsUtils.scrollToFocus ).not.toHaveBeenCalled()
@@ -399,7 +398,7 @@ describe( 'component: RowChart', () => {
       mapDispatchToProps( dispatch ).expandRow( 'collapse row name' )
       expect( dispatch.mock.calls ).toEqual( [ [ {
         requery: 'REQUERY_NEVER',
-        type: 'TREND_EXPANDED',
+        type: 'ROW_EXPANDED',
         value: 'collapse row name'
       } ] ] )
       expect( trendsUtils.scrollToFocus ).not.toHaveBeenCalled()
@@ -412,19 +411,14 @@ describe( 'component: RowChart', () => {
     let state
     beforeEach( () => {
       state = {
-        map: {
-          expandableRows: [],
-          expandedTrends: []
-        },
+        map: {},
         query: {
           lens: 'Foo',
           tab: 'Map'
         },
-        trends: {
-          expandableRows: [],
-          expandedTrends: []
-        },
+        trends: {},
         view: {
+          expandedRows: [],
           printMode: false,
           width: 1000
         }
@@ -436,8 +430,7 @@ describe( 'component: RowChart', () => {
       }
       let actual = mapStateToProps( state, ownProps )
       expect( actual ).toEqual( {
-        expandableRows: [],
-        expandedTrends: [],
+        expandedRows: [],
         lens: 'Product',
         printMode: false,
         tab: 'Map',
@@ -454,8 +447,7 @@ describe( 'component: RowChart', () => {
 
       let actual = mapStateToProps( state, ownProps )
       expect( actual ).toEqual( {
-        expandableRows: [],
-        expandedTrends: [],
+        expandedRows: [],
         lens: 'Foo',
         printMode: false,
         tab: 'Trends',

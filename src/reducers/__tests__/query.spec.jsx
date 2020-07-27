@@ -627,26 +627,22 @@ describe( 'reducer:query', () => {
       it( 'clears all filters', () => {
         const actual = target( state, action )
         expect( actual ).toMatchObject( {
-          dateRange: 'All',
+          dateRange: '3y',
           from: 100,
           searchField: 'all',
           size: 100
         } )
 
-        expect( actual.queryString ).toContain( 'dateRange=All' )
-        expect( actual.queryString ).toContain( '&date_received_min=2011-12-01&field=all&frm=100&size=100' )
-        const diffMin = moment( actual.date_received_min ).diff( moment( types.DATE_RANGE_MIN ), 'days' )
-        expect( diffMin ).toEqual( 0 )
-        const diffMax = moment( actual.date_received_max ).diff( moment( maxDate ), 'days' )
-        expect( diffMax ).toEqual( 0 )
-        expect( actual.date_received_max ).toBeTruthy()
+        expect( actual.queryString ).toEqual( '?dateRange=3y&' +
+          'date_received_max=2020-05-05&date_received_min=2017-05-05&' +
+          'field=all&frm=100&size=100' )
       } )
 
       it( 'clears all filters - Map', () => {
         state.tab = types.MODE_MAP
         const actual = target( state, action )
         expect( actual ).toMatchObject( {
-          dateRange: 'All',
+          dateRange: '3y',
           enablePer1000: true,
           from: 100,
           mapWarningEnabled: true,
@@ -654,40 +650,26 @@ describe( 'reducer:query', () => {
           size: 100
         } )
 
-        expect( actual.queryString ).toContain( 'dateRange=All' )
-        expect( actual.queryString ).toContain( '&date_received_min=2011-12-01&field=all&frm=100&size=100' )
-        const diffMin = moment( actual.date_received_min ).diff( moment( types.DATE_RANGE_MIN ), 'days' )
-        expect( diffMin ).toEqual( 0 )
-        const diffMax = moment( actual.date_received_max ).diff( moment( maxDate ), 'days' )
-        expect( diffMax ).toEqual( 0 )
-        expect( actual.date_received_max ).toBeTruthy()
+        expect( actual.queryString ).toEqual( '?dateRange=3y&' +
+          'date_received_max=2020-05-05&date_received_min=2017-05-05&' +
+          'field=all&frm=100&size=100&tab=Map' )
       } )
 
       describe( 'when searching Narratives', () => {
         it( 'does not clear the hasNarrative filter', () => {
-          const qs = '?field=' + types.NARRATIVE_SEARCH_FIELD +
-            '&frm=100&has_narrative=true&size=100'
-
           state.searchField = types.NARRATIVE_SEARCH_FIELD
           const actual = target( state, action )
           expect( actual ).toMatchObject( {
-            dateRange: 'All',
+            dateRange: '3y',
             from: 100,
             has_narrative: true,
             searchField: types.NARRATIVE_SEARCH_FIELD,
             size: 100
           } )
-          expect( actual.queryString ).toContain( 'dateRange=All' )
           expect( actual.queryString )
-            .toContain( '&date_received_min=2011-12-01&' +
-              'field=complaint_what_happened&frm=100&has_narrative=true&' +
-              'size=100' )
-
-          const diffMin = moment( actual.date_received_min ).diff( moment( types.DATE_RANGE_MIN ), 'days' )
-          expect( diffMin ).toEqual( 0 )
-          const diffMax = moment( actual.date_received_max ).diff( moment( maxDate ), 'days' )
-          expect( diffMax ).toEqual( 0 )
-          expect( actual.date_received_max ).toBeTruthy()
+            .toEqual( '?dateRange=3y&date_received_max=2020-05-05&' +
+              'date_received_min=2017-05-05&field=complaint_what_happened&' +
+              'frm=100&has_narrative=true&size=100' )
         } )
       } )
     } )

@@ -352,7 +352,8 @@ export function getFullUrl( uri ) {
 export function processErrorMessage( err ) {
   return {
     name: err.name,
-    message: err.message
+    message: err.message,
+    stack: err.stack
   }
 }
 

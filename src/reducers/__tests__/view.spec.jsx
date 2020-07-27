@@ -63,6 +63,37 @@ describe( 'reducer:map', () => {
     } )
   })
 
+  describe('Row Chart actions', ()=>{
+    let action, result
+
+    it( 'handles ROW_COLLAPSED actions', () => {
+      action = {
+        type: actions.ROW_COLLAPSED,
+        value: 'foo'
+      }
+      result = target( { expandedRows: [ 'foo' ] }, action )
+      expect( result ).toEqual( { expandedRows: [] } )
+    } )
+
+    it( 'handles ROW_EXPANDED actions', () => {
+      action = {
+        type: actions.ROW_EXPANDED,
+        value: 'foo'
+      }
+      result = target( { expandedRows: [ 'what' ] }, action )
+      expect( result ).toEqual( { expandedRows: [ 'what', 'foo' ] } )
+    } )
+
+    it( 'handles ROW_EXPANDED dupe value', () => {
+      action = {
+        type: actions.ROW_EXPANDED,
+        value: 'foo'
+      }
+      result = target( { expandedRows: [ 'foo' ] }, action )
+      expect( result ).toEqual( { expandedRows: [ 'foo' ] } )
+    } )
+  })
+
   describe( 'URL_CHANGED actions', () => {
     let action = null
     let state = null
@@ -83,11 +114,24 @@ describe( 'reducer:map', () => {
       action.params = { fromExternal: 'true', printMode: 'true' }
       const actual = target( state, action )
       expect( actual ).toEqual( {
+        expandedRows: [],
         fromExternal: true,
         printMode: true,
         showFilters: true,
         width: 0
       } )
+    } )
+
+    it( 'handles single expandedRows param', () => {
+      action.params = { expandedRows: 'hello' }
+      const actual = target( state, action )
+      expect( actual.expandedRows ).toEqual( [ 'hello' ] )
+    } )
+
+    it( 'handles multiple expandedRows param', () => {
+      action.params = { expandedRows: [ 'hello', 'ma' ] }
+      const actual = target( state, action )
+      expect( actual.expandedRows ).toEqual( [ 'hello', 'ma' ] )
     } )
   } )
 } )

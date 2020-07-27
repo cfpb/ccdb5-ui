@@ -1,19 +1,14 @@
 // reducer for the Map Tab
-import { coalesce, processErrorMessage, processUrlArrayParams } from '../utils'
-import {
-  collapseTrend, expandTrend, processBucket, processTrendPeriod, validateBucket
-} from './trends'
 import { GEO_NORM_NONE, TILE_MAP_STATES } from '../constants'
 import actions from '../actions'
+import { processAggregations } from './trends'
+import { processErrorMessage } from '../utils'
 
 export const defaultState = {
   activeCall: '',
   isLoading: false,
   dataNormalization: GEO_NORM_NONE,
-  expandedTrends: [],
-  expandableRows: [],
   results: {
-    issue: [],
     product: [],
     state: []
   }
@@ -55,20 +50,10 @@ export const processStateAggregations = agg => {
 export function handleTabChanged( state ) {
   return {
     ...state,
-    results: defaultState.results
-  }
-}
-
-/** Handler for the focus removed action
- *
- * @param {object} state the current state in the Redux store
- * @returns {object} the new state for the Redux store
- */
-function removeFocus( state ) {
-  return {
-    ...state,
-    expandableRows: [],
-    expandedTrends: []
+    results: {
+      product: [],
+      state: []
+    }
   }
 }
 
@@ -95,33 +80,20 @@ export function statesCallInProcess( state, action ) {
  * @returns {object} new state for the Redux store
  */
 export function processStatesResults( state, action ) {
-  const newState = { ...state }
   const aggregations = action.data.aggregations
   const { state: stateData } = aggregations
+  // add in "issue" if we ever need issue row chart again
+  const keys = [ 'product' ]
+  const results = {}
+  processAggregations( keys, state, aggregations, results )
+  results.state = processStateAggregations( stateData )
 
-  newState.activeCall = ''
-  newState.isLoading = false
-  newState.results = coalesce( newState, 'results', {} )
-
-  const validAggs = [ 'issue', 'product' ]
-  validAggs.forEach( k => {
-    // validate response coming from API
-    /* istanbul ignore else */
-    if ( validateBucket( aggregations, k ) ) {
-      // set to zero when we are not using focus Lens
-      const buckets = aggregations[k][k].buckets
-      for ( let i = 0; i < buckets.length; i++ ) {
-        const docCount = aggregations[k].doc_count
-        processTrendPeriod( buckets[i], k, docCount )
-      }
-
-      newState.results[k] = processBucket( state, buckets )
-    }
-  } )
-
-  newState.results.state = processStateAggregations( stateData )
-
-  return newState
+  return {
+    ...state,
+    activeCall: '',
+    isLoading: false,
+    results
+  }
 }
 
 /**
@@ -138,7 +110,6 @@ export function processStatesError( state, action ) {
     error: processErrorMessage( action.error ),
     isLoading: false,
     results: {
-      issue: [],
       product: [],
       state: []
     }
@@ -210,9 +181,6 @@ function processParams( state, action ) {
     processed.dataNormalization = params.dataNormalization
   }
 
-  const arrayParams = [ 'expandedTrends' ]
-  processUrlArrayParams( params, processed, arrayParams )
-
   return processed
 }
 
@@ -231,16 +199,12 @@ export function _buildHandlerMap() {
   handlers[actions.DATE_RANGE_CHANGED] = updateDateDataNormalization
   handlers[actions.FILTER_CHANGED] = updateFilterDataNormalization
   handlers[actions.FILTER_MULTIPLE_ADDED] = updateFilterDataNormalization
-  handlers[actions.FOCUS_REMOVED] = removeFocus
   handlers[actions.STATE_FILTER_ADDED] = updateFilterDataNormalization
   handlers[actions.STATES_API_CALLED] = statesCallInProcess
   handlers[actions.STATES_RECEIVED] = processStatesResults
   handlers[actions.STATES_FAILED] = processStatesError
   handlers[actions.TAB_CHANGED] = handleTabChanged
-  handlers[actions.TREND_COLLAPSED] = collapseTrend
-  handlers[actions.TREND_EXPANDED] = expandTrend
   handlers[actions.URL_CHANGED] = processParams
-
 
   return handlers
 }

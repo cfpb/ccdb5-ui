@@ -7,8 +7,6 @@ export const DEPTH_CHANGED = 'DEPTH_CHANGED'
 export const DEPTH_RESET = 'DEPTH_RESET'
 export const FOCUS_CHANGED = 'FOCUS_CHANGED'
 export const FOCUS_REMOVED = 'FOCUS_REMOVED'
-export const TREND_COLLAPSED = 'TREND_COLLAPSED'
-export const TREND_EXPANDED = 'TREND_EXPANDED'
 export const TRENDS_TOOLTIP_CHANGED = 'TRENDS_TOOLTIP_CHANGED'
 
 /**
@@ -122,32 +120,3 @@ export function updateTrendsTooltip( value ) {
     requery: REQUERY_NEVER
   }
 }
-
-/**
- * Indicates a bar in row chart has been collapsed
- *
- * @param {string} value of trend agg that was toggled
- * @returns {string} a packaged payload to be used by Redux reducers
- */
-export function collapseTrend( value ) {
-  return {
-    type: TREND_COLLAPSED,
-    requery: REQUERY_NEVER,
-    value
-  }
-}
-
-/**
- * Indicates a bar in row chart has been expanded
- *
- * @param {string} value of trend agg that was toggled
- * @returns {string} a packaged payload to be used by Redux reducers
- */
-export function expandTrend( value ) {
-  return {
-    type: TREND_EXPANDED,
-    requery: REQUERY_NEVER,
-    value
-  }
-}
-

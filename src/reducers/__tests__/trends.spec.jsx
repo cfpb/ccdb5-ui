@@ -1,5 +1,5 @@
 import target, {
-  defaultState, mainNameLens
+  defaultState, getDefaultState, mainNameLens
 } from '../trends'
 import actions from '../../actions'
 import {
@@ -11,9 +11,9 @@ import {
   trendsFocusAggsResults
 } from '../__fixtures__/trendsFocusAggs'
 import {
+  trendsAggs,
   trendsResults
 } from '../__fixtures__/trendsResults'
-import trendsAggs from '../__fixtures__/trendsAggs'
 import {
   trendsAggsDupes, trendsAggsDupeResults
 } from '../__fixtures__/trendsAggsDupes'
@@ -32,17 +32,13 @@ describe( 'reducer:trends', () => {
         chartType: 'line',
         colorMap: {},
         error: false,
-        expandedTrends: [],
-        expandableRows: [],
         focus: '',
         isLoading: false,
         lastDate: false,
         lens: 'Overview',
         results: {
-          company: [],
           dateRangeArea: [],
-          dateRangeLine: [],
-          product: []
+          dateRangeLine: []
         },
         subLens: '',
         tooltip: false,
@@ -71,35 +67,49 @@ describe( 'reducer:trends', () => {
         tooltip: false
       } )
     } )
+
+    it( 'changes the chart type to line when lens is Overview', () => {
+      action = {
+        type: actions.CHART_TYPE_CHANGED,
+        chartType: 'FooBar'
+      }
+
+      expect( target( { lens: 'Overview' }, action ) ).toEqual( {
+        chartType: 'line',
+        lens: 'Overview',
+        tooltip: false
+      } )
+    } )
   } )
 
   describe( 'DATA_LENS_CHANGED action', () => {
-    it( 'updates the data lens overview', () => {
+    let action, state
+    beforeEach( () => {
       action = {
         type: actions.DATA_LENS_CHANGED,
         lens: 'Overview'
       }
 
-      expect( target( { focus: 'gg', tooltip: 'foo' }, action ) ).toEqual( {
+      state = { focus: 'gg', tooltip: 'foo', chartType: 'area' }
+    } )
+    it( 'updates the data lens overview', () => {
+      const result = target( state, action )
+      expect( result ).toMatchObject( {
         chartType: 'line',
         focus: '',
         lens: 'Overview',
-        subLens: '',
-        tooltip: false
+        subLens: ''
       } )
     } )
 
     it( 'updates the data lens', () => {
-      action = {
-        type: actions.DATA_LENS_CHANGED,
-        lens: 'Foo'
-      }
-
-      expect( target( { focus: 'gg', tooltip: 'foo' }, action ) ).toEqual( {
+      action.lens = 'Foo'
+      const result = target( state, action )
+      expect( result ).toMatchObject( {
+        chartType: 'area',
         focus: '',
         lens: 'Foo',
-        subLens: 'sub_foo',
-        tooltip: false
+        subLens: 'sub_foo'
       } )
     } )
   } )
@@ -148,16 +158,10 @@ describe( 'reducer:trends', () => {
         focus: 'gg',
         tooltip: { wut: 'isthis' }
       }, action ) ).toEqual( {
-
-        expandableRows: [],
-        expandedTrends: [],
         focus: '',
         results: {
-          company: [],
-          issue: [],
-          product: [],
-          'sub-issue': [],
-          'sub-product': []
+          dateRangeArea: [],
+          dateRangeLine: []
         },
         tooltip: false
       } )
@@ -205,18 +209,12 @@ describe( 'reducer:trends', () => {
 
       expect( target( {
         focus: 'Your',
-        expandedTrends: [ 1, 2 ],
-        expandableRows: [ 2, 24 ],
         results: [ 1, 2, 3 ]
       }, action ) ).toEqual( {
-        expandedTrends: [ 1, 2 ],
-        expandableRows: [ 2, 24 ],
         focus: '',
         results: {
-          company: [],
           dateRangeArea: [],
-          dateRangeLine: [],
-          product: []
+          dateRangeLine: []
         }
       } )
     } )
@@ -229,18 +227,12 @@ describe( 'reducer:trends', () => {
 
       expect( target( {
         focus: 'Your',
-        expandedTrends: [ 1, 2 ],
-        expandableRows: [ 2, 24 ],
         results: [ 1, 2, 3 ]
       }, action ) ).toEqual( {
-        expandedTrends: [ 1, 2 ],
-        expandableRows: [ 2, 24 ],
         focus: 'Your',
         results: {
-          company: [],
           dateRangeArea: [],
-          dateRangeLine: [],
-          product: []
+          dateRangeLine: []
         }
       } )
     } )
@@ -263,26 +255,27 @@ describe( 'reducer:trends', () => {
     it( 'handles failed error messages', () => {
       action = {
         type: actions.TRENDS_FAILED,
-        error: { message: 'foo bar', name: 'ErrorTypeName' }
+        error: { message: 'foo bar', name: 'ErrorTypeName', stack: 'trace' }
       }
       expect( target( {
         activeCall: 'someurl',
         results: {
           dateRangeArea: [ 1, 2, 3 ],
           dateRangeLine: [ 7, 8, 9 ],
-          issue: [ 10, 11, 12 ],
           product: [ 13, 25 ]
         }
       }, action ) ).toEqual( {
         activeCall: '',
-        error: { message: 'foo bar', name: 'ErrorTypeName' },
+        colorMap: {},
+        error: { message: 'foo bar', name: 'ErrorTypeName',  stack: 'trace' },
         isLoading: false,
+        lastDate: false,
         results: {
           dateRangeArea: [],
-          dateRangeLine: [],
-          issue: [],
-          product: []
-        }
+          dateRangeLine: []
+        },
+        tooltip: false,
+        total: 0
       } )
     } )
   } )
@@ -293,15 +286,16 @@ describe( 'reducer:trends', () => {
       action = {
         type: actions.TRENDS_RECEIVED,
         data: {
-          aggregations: trendsAggs
+          aggregations: false
         }
       }
-      state = Object.assign( {}, defaultState )
+      state = getDefaultState()
     } )
 
     it( 'maps data to object state - Overview', () => {
       // to replicate
       // just choose All date range and overview
+      action.data.aggregations = trendsAggs
       result = target( state, action )
       expect( result ).toEqual( trendsResults )
     } )
@@ -335,7 +329,7 @@ describe( 'reducer:trends', () => {
       expect( result.results['sub-product'].length ).toBeTruthy()
     } )
 
-    it('backfills periods based on dateRangeBuckets ', () =>{
+    it( 'backfills periods based on dateRangeBuckets ', () => {
       // aka: the "covid" search
       state.chartType = 'area'
       state.lens = 'Product'
@@ -343,206 +337,40 @@ describe( 'reducer:trends', () => {
       action.data.aggregations = trendsBackfill
       result = target( state, action )
       expect( result ).toEqual( trendsBackfillResults )
-    })
-
-  } )
-
-  describe( 'TREND_COLLAPSED', () => {
-    let state, action
-    it( 'hides bars', () => {
-      action = { type: actions.TREND_COLLAPSED, value: 'bar' }
-      state = {
-        expandedTrends: [ 'bar' ],
-        expandableRows: [ 'bar', 'foo' ],
-        results: {
-          issue: [
-            { name: 'bar', visible: true, isParent: true },
-            { name: 'bar1', visible: true, parent: 'bar' },
-            { name: 'bar2', visible: true, parent: 'bar' },
-            { name: 'foo', visible: true, isParent: true },
-            { name: 'foo1', visible: false, parent: 'foo' },
-            { name: 'foo2', visible: false, parent: 'foo' }
-          ]
-        }
-      }
-      expect( target( state, action ) ).toEqual( {
-        expandedTrends: [],
-        expandableRows: [ 'bar', 'foo' ],
-        results: {
-          issue: [
-            { name: 'bar', visible: true, isParent: true },
-            { name: 'bar1', visible: false, parent: 'bar' },
-            { name: 'bar2', visible: false, parent: 'bar' },
-            { name: 'foo', visible: true, isParent: true },
-            { name: 'foo1', visible: false, parent: 'foo' },
-            { name: 'foo2', visible: false, parent: 'foo' }
-          ]
-        }
-      } )
     } )
 
-    it( 'does not affect hidden bars', () => {
-      action = { type: actions.TREND_COLLAPSED, value: 'bar' }
-      state = {
-        expandedTrends: [],
-        expandableRows: [ 'bar', 'foo' ],
-        results: {
-          issue: [
-            { name: 'bar', visible: true, isParent: true },
-            { name: 'bar1', visible: false, parent: 'bar' },
-            { name: 'bar2', visible: false, parent: 'bar' },
-            { name: 'foo', visible: true, isParent: true },
-            { name: 'foo1', visible: false, parent: 'foo' },
-            { name: 'foo2', visible: false, parent: 'foo' }
-          ]
+    it( 'handles zero results', () => {
+      action.data.aggregations = {
+        dateRangeArea: {
+          doc_count: 0
         }
       }
-      expect( target( state, action ) ).toEqual( {
-        expandedTrends: [],
-        expandableRows: [ 'bar', 'foo' ],
-        results: {
-          issue: [
-            { name: 'bar', visible: true, isParent: true },
-            { name: 'bar1', visible: false, parent: 'bar' },
-            { name: 'bar2', visible: false, parent: 'bar' },
-            { name: 'foo', visible: true, isParent: true },
-            { name: 'foo1', visible: false, parent: 'foo' },
-            { name: 'foo2', visible: false, parent: 'foo' }
-          ]
-        }
-      } )
-    } )
-
-
-    it( 'ignores bogus values not in expandableRows', () => {
-      action = { type: actions.TREND_COLLAPSED, value: 'haha' }
-      state = {
-        expandedTrends: [ 'bar' ],
-        expandableRows: [ 'bar', 'foo' ],
-        results: {
-          issue: [
-            { name: 'bar', visible: true, isParent: true },
-            { name: 'bar1', visible: true, parent: 'bar' },
-            { name: 'bar2', visible: true, parent: 'bar' },
-            { name: 'foo', visible: true, isParent: true },
-            { name: 'foo1', visible: false, parent: 'foo' },
-            { name: 'foo2', visible: false, parent: 'foo' }
-          ]
-        }
+      state.chartType = 'area'
+      state.lens = 'Product'
+      state.subLens = 'sub_product'
+      state.results = {
+        company: [ 1, 2, 3 ],
+        dateRangeArea: [ 4, 5, 6 ],
+        dateRangeLine: [ 7, 8, 9 ],
+        product: [ 1, 2, 3 ]
       }
-      expect( target( state, action ) ).toEqual( {
-        expandedTrends: [ 'bar' ],
-        expandableRows: [ 'bar', 'foo' ],
+      result = target( state, action )
+      expect( result ).toEqual( {
+        activeCall: '',
+        chartType: 'area',
+        colorMap: {},
+        error: false,
+        focus: '',
+        isLoading: false,
+        lastDate: false,
+        lens: 'Product',
         results: {
-          issue: [
-            { name: 'bar', visible: true, isParent: true },
-            { name: 'bar1', visible: true, parent: 'bar' },
-            { name: 'bar2', visible: true, parent: 'bar' },
-            { name: 'foo', visible: true, isParent: true },
-            { name: 'foo1', visible: false, parent: 'foo' },
-            { name: 'foo2', visible: false, parent: 'foo' }
-          ]
-        }
-      } )
-    } )
-  } )
-
-  describe( 'TREND_EXPANDED', () => {
-    let state, action
-    it( 'makes bars visible', () => {
-      action = { type: actions.TREND_EXPANDED, value: 'foo' }
-      state = {
-        expandedTrends: [ 'bar' ],
-        expandableRows: [ 'bar', 'foo' ],
-        results: {
-          issue: [
-            { name: 'bar', visible: true, isParent: true },
-            { name: 'bar1', visible: true, parent: 'bar' },
-            { name: 'bar2', visible: true, parent: 'bar' },
-            { name: 'foo', visible: true, isParent: true },
-            { name: 'foo1', visible: false, parent: 'foo' },
-            { name: 'foo2', visible: false, parent: 'foo' }
-          ]
-        }
-      }
-      expect( target( state, action ) ).toEqual( {
-        expandedTrends: [ 'bar', 'foo' ],
-        expandableRows: [ 'bar', 'foo' ],
-        results: {
-          issue: [
-            { name: 'bar', visible: true, isParent: true },
-            { name: 'bar1', visible: true, parent: 'bar' },
-            { name: 'bar2', visible: true, parent: 'bar' },
-            { name: 'foo', visible: true, isParent: true },
-            { name: 'foo1', visible: true, parent: 'foo' },
-            { name: 'foo2', visible: true, parent: 'foo' }
-          ]
-        }
-      } )
-    } )
-
-    it( 'does not affect visible bars', () => {
-      action = { type: actions.TREND_EXPANDED, value: 'bar' }
-      state = {
-        expandedTrends: [ 'bar' ],
-        expandableRows: [ 'bar', 'foo' ],
-        results: {
-          issue: [
-            { name: 'bar', visible: true, isParent: true },
-            { name: 'bar1', visible: true, parent: 'bar' },
-            { name: 'bar2', visible: true, parent: 'bar' },
-            { name: 'foo', visible: true, isParent: true },
-            { name: 'foo1', visible: false, parent: 'foo' },
-            { name: 'foo2', visible: false, parent: 'foo' }
-          ]
-        }
-      }
-      expect( target( state, action ) ).toEqual( {
-        expandedTrends: [ 'bar' ],
-        expandableRows: [ 'bar', 'foo' ],
-        results: {
-          issue: [
-            { name: 'bar', visible: true, isParent: true },
-            { name: 'bar1', visible: true, parent: 'bar' },
-            { name: 'bar2', visible: true, parent: 'bar' },
-            { name: 'foo', visible: true, isParent: true },
-            { name: 'foo1', visible: false, parent: 'foo' },
-            { name: 'foo2', visible: false, parent: 'foo' }
-          ]
-        }
-      } )
-    } )
-
-    it( 'ignores bogus values', () => {
-      action = { type: actions.TREND_EXPANDED, value: 'wutf' }
-      state = {
-        expandedTrends: [],
-        expandableRows: [ 'bar', 'foo' ],
-        results: {
-          issue: [
-            { name: 'bar', visible: true, isParent: true },
-            { name: 'bar1', visible: false, parent: 'bar' },
-            { name: 'bar2', visible: false, parent: 'bar' },
-            { name: 'foo', visible: true, isParent: true },
-            { name: 'foo1', visible: false, parent: 'foo' },
-            { name: 'foo2', visible: false, parent: 'foo' }
-          ]
-        }
-      }
-
-      expect( target( state, action ) ).toEqual( {
-        expandedTrends: [],
-        expandableRows: [ 'bar', 'foo' ],
-        results: {
-          issue: [
-            { name: 'bar', visible: true, isParent: true },
-            { name: 'bar1', visible: false, parent: 'bar' },
-            { name: 'bar2', visible: false, parent: 'bar' },
-            { name: 'foo', visible: true, isParent: true },
-            { name: 'foo1', visible: false, parent: 'foo' },
-            { name: 'foo2', visible: false, parent: 'foo' }
-          ]
-        }
+          dateRangeArea: [],
+          dateRangeLine: []
+        },
+        subLens: 'sub_product',
+        tooltip: false,
+        total: 0
       } )
     } )
   } )
@@ -639,7 +467,7 @@ describe( 'reducer:trends', () => {
         params: {}
       }
 
-      state = { ...defaultState }
+      state = getDefaultState()
     } )
 
     it( 'handles empty params', () => {
@@ -653,18 +481,6 @@ describe( 'reducer:trends', () => {
       expect( actual.lens ).toEqual( 'hello' )
       expect( actual.subLens ).toEqual( 'mom' )
       expect( actual.nope ).toBeFalsy()
-    } )
-
-    it( 'handles single expandedTrends param', () => {
-      action.params = { expandedTrends: 'hello' }
-      const actual = target( state, action )
-      expect( actual.expandedTrends ).toEqual( [ 'hello' ] )
-    } )
-
-    it( 'handles multiple expandedTrends param', () => {
-      action.params = { expandedTrends: [ 'hello', 'ma' ] }
-      const actual = target( state, action )
-      expect( actual.expandedTrends ).toEqual( [ 'hello', 'ma' ] )
     } )
   } )
 } )

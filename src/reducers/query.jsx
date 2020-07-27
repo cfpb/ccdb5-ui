@@ -565,9 +565,10 @@ export function removeAllFilters( state ) {
 
   // set date range to All
   // adjust date filter for max and min ranges
-  newState.dateRange = 'All'
+  newState.dateRange = '3y'
   /* eslint-disable camelcase */
-  newState.date_received_min = new Date( types.DATE_RANGE_MIN )
+  newState.date_received_min =
+    new Date( moment( startOfToday() ).subtract( 3, 'years' ) )
   newState.date_received_max = startOfToday()
 
   newState.focus = ''

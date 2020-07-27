@@ -1,7 +1,8 @@
 import {
   ariaReadoutNumbers, calculateDateRange, clamp, coalesce, debounce,
   formatPercentage, getFullUrl, hasFiltersEnabled, hashCode, sendAnalyticsEvent,
-  shortIsoFormat, sortSelThenCount, startOfToday, parseCookies
+  shortIsoFormat, sortSelThenCount, startOfToday, parseCookies,
+  processErrorMessage
 } from '../utils'
 import Analytics from '../actions/analytics'
 import { DATE_RANGE_MIN } from '../constants'
@@ -278,6 +279,21 @@ describe('module::utils', () => {
       } )
     } );
   } );
+
+  describe('processErrorMessage', ()=>{
+    it('parses out an error', ()=>{
+      const actual = processErrorMessage({
+        name: 'foo',
+        message: 'bar',
+        stack: 'some stack trace thing'
+      })
+      expect( actual ).toEqual( {
+        name: 'foo',
+        message: 'bar',
+        stack: 'some stack trace thing'
+      } )
+    } )
+  })
 
   describe( 'sendAnalyticsEvent', () => {
     it( 'calls the analytics library', () => {
