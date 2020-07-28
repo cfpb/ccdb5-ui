@@ -16,11 +16,6 @@ describe( 'formatDate', function () {
     expect( actual ).toEqual( '1980-01-12' )
   } )
 
-  it( 'converts string to view model ', function () {
-    const actual = sut.formatDateView( new Date( 'January 12, 1980' ) )
-    expect( actual ).toEqual( '01/12/1980' )
-  } )
-
   it( 'converts string to data model ', function () {
     const actual = sut.formatDateModel( new Date( 'January 12, 1980' ) )
     expect( actual ).toEqual( '1980-01-12' )

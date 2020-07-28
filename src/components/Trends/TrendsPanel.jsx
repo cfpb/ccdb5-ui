@@ -3,6 +3,7 @@ import '../RefineBar/RefineBar.less'
 import './TrendsPanel.less'
 
 import { getIntervals, showCompanyOverLay } from '../../utils/trends'
+import { sendAnalyticsEvent, shortFormat } from '../../utils'
 import ActionBar from '../ActionBar'
 import { changeDataLens } from '../../actions/trends'
 import { changeDateInterval } from '../../actions/filter'
@@ -14,7 +15,6 @@ import ExternalTooltip from './ExternalTooltip'
 import FilterPanel from '../Filters/FilterPanel'
 import FilterPanelToggle from '../Filters/FilterPanelToggle'
 import FocusHeader from './FocusHeader'
-import { formatDateView } from '../../utils/formatDate'
 import LensTabs from './LensTabs'
 import LineChart from '../Charts/LineChart'
 import Loading from '../Dialogs/Loading'
@@ -22,7 +22,6 @@ import { processRows } from '../../utils/chart'
 import React from 'react'
 import RowChart from '../Charts/RowChart'
 import Select from '../RefineBar/Select'
-import { sendAnalyticsEvent } from '../../utils'
 import Separator from '../RefineBar/Separator'
 import StackedAreaChart from '../Charts/StackedAreaChart'
 import TrendDepthToggle from './TrendDepthToggle'
@@ -113,8 +112,7 @@ export class TrendsPanel extends React.Component {
       <RowChart id={ lens }
                 colorScheme={ dataLensData.colorScheme }
                 data={ dataLensData.data }
-                title={ subLensTitle + ' ' +
-                 minDate + ' to ' + maxDate }
+                title={ subLensTitle + ' ' + minDate + ' to ' + maxDate }
                 helperText={ lensHelperText}
                 total={ total }
                 key={ lens + 'row' }/>
@@ -223,8 +221,8 @@ const mapStateToProps = state => {
   const {
     company: companyFilters,
     dateInterval,
-    date_received_max,
-    date_received_min,
+    date_received_max: maxDate,
+    date_received_min: minDate,
     lens,
     subLens,
     trendsDateWarningEnabled
@@ -243,9 +241,6 @@ const mapStateToProps = state => {
   const focusHelperText = subLens === '' ?
    focusHelperTextMap[lensKey] : focusHelperTextMap[subLens]
 
-  const minDate = formatDateView( date_received_min )
-  const maxDate = formatDateView( date_received_max )
-
   return {
     chartType,
     companyData: processRows( results.company, false, lens, expandedRows ),
@@ -253,13 +248,13 @@ const mapStateToProps = state => {
     dateInterval,
     focus,
     focusData: processRows( results[focusKey], colorMap, lens, expandedRows ),
-    intervals: getIntervals( date_received_min, date_received_max ),
+    intervals: getIntervals( minDate, maxDate ),
     isLoading,
     productData: processRows( results.product, false, lens, expandedRows ),
     dataLensData: processRows( results[lensKey], colorMap, lens, expandedRows ),
     lens,
-    maxDate,
-    minDate,
+    minDate: shortFormat( minDate ),
+    maxDate: shortFormat( maxDate ),
     overview: lens === 'Overview',
     showMobileFilters: state.view.width < 750,
     subLens,

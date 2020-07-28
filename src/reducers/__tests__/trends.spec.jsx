@@ -431,7 +431,7 @@ describe( 'reducer:trends', () => {
         },
         interval: 'Month',
         key: '2018-04-01T00:00:00.000Z',
-        title: 'Date range: 04/01/2018 - 04/30/2018',
+        title: 'Date range: 4/1/2018 - 4/30/2018',
         total: 53,
         values: [
           {

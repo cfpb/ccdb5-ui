@@ -16,7 +16,7 @@ describe('initial state', () => {
   it('renders without crashing', async () => {
 
     // set the date so snapshot will always be the same.
-    const DATE_TO_USE = new Date('2016');
+    const DATE_TO_USE = new Date('1/1/2016');
     const _Date = Date;
     global.Date = jest.fn(() => DATE_TO_USE);
     global.Date.UTC = _Date.UTC;

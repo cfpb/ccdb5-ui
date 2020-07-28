@@ -1,7 +1,7 @@
 // ----------------------------------------------------------------------------
 /* eslint-disable no-mixed-operators, camelcase */
-import { formatDateView, isDateEqual } from './formatDate'
-import { clampDate } from '../utils'
+import { adjustDate, isDateEqual } from './formatDate'
+import { clampDate, shortFormat } from '../utils'
 
 import moment from 'moment'
 
@@ -52,8 +52,9 @@ export const getLastLineDate = ( dataSet, config ) => {
 
 
 export const getTooltipDate = ( inputDate, dateRange ) => {
-  const returnDate = clampDate( inputDate, dateRange.from, dateRange.to )
-  return formatDateView( returnDate )
+  const adjustedDate = adjustDate( inputDate )
+  const returnDate = clampDate( adjustedDate, dateRange.from, dateRange.to )
+  return shortFormat( returnDate )
 }
 
 export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {

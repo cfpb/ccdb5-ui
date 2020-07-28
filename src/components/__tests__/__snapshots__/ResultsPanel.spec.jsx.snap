@@ -689,7 +689,7 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
       className="row-chart-section"
     >
       <h3>
-        Product by highest complaint volume 07/10/2017 to 07/10/2020
+        Product by highest complaint volume 7/10/2017 to 7/10/2020
       </h3>
       <p>
         Product the consumer identified in the complaint. Click on a product to expand sub-products
@@ -1339,7 +1339,7 @@ exports[`component:Results renders map panel without crashing 1`] = `
       className="row-chart-section"
     >
       <h3>
-        Product by highest complaint volume 07/10/2017 to 07/10/2020
+        Product by highest complaint volume 7/10/2017 to 7/10/2020
       </h3>
       <p>
         Product the consumer identified in the complaint. Click on a product to expand sub-products

@@ -68,64 +68,64 @@ describe( 'getTooltipTitle', () => {
   it( 'sets tooltip title - month', () => {
     interval = 'Month'
     res = sut.getTooltipTitle( '09/1/1980', interval, dateRange, true )
-    expect( res ).toEqual( 'Date range: 09/01/1980 - 09/30/1980' )
+    expect( res ).toEqual( 'Date range: 9/1/1980 - 9/30/1980' )
     res = sut.getTooltipTitle( '09/1/1980', interval, dateRange, false )
-    expect( res ).toEqual( '09/01/1980 - 09/30/1980' )
+    expect( res ).toEqual( '9/1/1980 - 9/30/1980' )
   } )
 
   it( 'sets tooltip title - week', () => {
     interval = 'Week'
     res = sut.getTooltipTitle( '09/1/1980', interval, dateRange, true )
-    expect( res ).toEqual( 'Date range: 09/01/1980 - 09/07/1980' )
+    expect( res ).toEqual( 'Date range: 9/1/1980 - 9/7/1980' )
     res = sut.getTooltipTitle( '09/1/1980', interval, dateRange, false )
-    expect( res ).toEqual( '09/01/1980 - 09/07/1980' )
+    expect( res ).toEqual( '9/1/1980 - 9/7/1980' )
   } )
 
   it( 'sets tooltip title - day', () => {
     interval = 'Day'
     res = sut.getTooltipTitle( '09/23/1980', interval, dateRange, true )
-    expect( res ).toEqual( 'Date: 09/23/1980' )
+    expect( res ).toEqual( 'Date: 9/23/1980' )
     res = sut.getTooltipTitle( '09/23/1980', interval, dateRange, false )
-    expect( res ).toEqual( 'Date: 09/23/1980' )
+    expect( res ).toEqual( 'Date: 9/23/1980' )
   } )
 
   it( 'sets tooltip title - year', () => {
     interval = 'Year'
     res = sut.getTooltipTitle( '01/01/1980', interval, dateRange, true )
-    expect( res ).toEqual( 'Date range: 01/01/1980 - 12/31/1980' )
+    expect( res ).toEqual( 'Date range: 1/1/1980 - 12/31/1980' )
   } )
 
   it( 'sets tooltip title - year, odd start offset', () => {
     interval = 'Year'
     dateRange.from = '03/22/1980'
     res = sut.getTooltipTitle( '01/01/1980', interval, dateRange, true )
-    expect( res ).toEqual( 'Date range: 03/22/1980 - 12/31/1980' )
+    expect( res ).toEqual( 'Date range: 3/22/1980 - 12/31/1980' )
   } )
 
   it( 'sets tooltip title - year, odd end offset', () => {
     interval = 'Year'
     dateRange.to = '03/22/1980'
     res = sut.getTooltipTitle( '01/01/1980', interval, dateRange, true )
-    expect( res ).toEqual( 'Date range: 01/01/1980 - 03/22/1980' )
+    expect( res ).toEqual( 'Date range: 1/1/1980 - 3/22/1980' )
   } )
 
   it( 'sets tooltip title - quarter', () => {
     interval = 'quarter'
     res = sut.getTooltipTitle( '07/01/1980', interval, dateRange, true )
-    expect( res ).toEqual( 'Date range: 07/01/1980 - 12/31/1980' )
+    expect( res ).toEqual( 'Date range: 7/1/1980 - 12/31/1980' )
   } )
 
   it( 'sets tooltip title - quarter, odd start offset', () => {
     interval = 'quarter'
     res = sut.getTooltipTitle( '07/15/1980', interval, dateRange, true )
-    expect( res ).toEqual( 'Date range: 07/15/1980 - 12/31/1980' )
+    expect( res ).toEqual( 'Date range: 7/15/1980 - 12/31/1980' )
   } )
 
   it( 'sets tooltip title - quarter, odd end offset', () => {
     interval = 'quarter'
     dateRange.to = '11/10/1980'
     res = sut.getTooltipTitle( '07/01/1980', interval, dateRange, true )
-    expect( res ).toEqual( 'Date range: 07/01/1980 - 11/10/1980' )
+    expect( res ).toEqual( 'Date range: 7/1/1980 - 11/10/1980' )
   } )
 } )
 
