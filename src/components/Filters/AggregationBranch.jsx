@@ -91,7 +91,7 @@ export class AggregationBranch extends React.Component {
                  disabled={item.disabled}
                  checked={checkedState === CHECKED}
                  className="flex-fixed a-checkbox"
-                 id={ sanitizeHtmlId( id ) }
+                 id={ id }
                  onChange={this._decideClickAction}
           />
           <label className={this._labelStyle}
