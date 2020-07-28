@@ -11,12 +11,12 @@ export const formatDate = uglyDate =>
   moment( new Date( uglyDate ) ).format( 'YYYY-MM-DD' );
 
 /**
- * Function to format/convert a string to view format we want for datePicker
+ * adjusting dates coming from the charts so the dates are correct
  * @param {(string | object)} dateIn the input string to convert
  * @returns {string} the cleaned up string in MM/DD/YYYY
  */
-export const formatDateView = dateIn =>
-  moment( new Date( dateIn ) ).utc().add( 5.5, 'hours' ).format( 'MM/DD/YYYY' );
+export const adjustDate = dateIn =>
+  moment( new Date( dateIn ) ).utc().add( 5.5, 'hours' )
 
 /**
  * Function to format/convert a string to format we want for the model

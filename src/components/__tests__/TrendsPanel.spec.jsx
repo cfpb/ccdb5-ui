@@ -87,8 +87,8 @@ function setupSnapshot( { chartType,
     },
     query: {
       company,
-      date_received_min: "2018-01-01T00:00:00.000Z",
-      date_received_max: "2020-01-01T00:00:00.000Z",
+      date_received_min: new Date( '1/1/2018' ),
+      date_received_max: new Date( '1/1/2020' ),
       lens,
       subLens,
       tab: MODE_TRENDS,
@@ -100,23 +100,6 @@ function setupSnapshot( { chartType,
       focus,
       lens,
       results: {
-        "dateRangeBrush": [
-          {
-            "date": new Date( "2020-01-01T00:00:00.000Z" ),
-            "value": 26413
-          }, {
-            "date": new Date( "2020-02-01T00:00:00.000Z" ),
-            "value": 25096
-          }, {
-            "date": new Date( "2020-03-01T00:00:00.000Z" ),
-            "value": 29506
-          }, {
-            "date": new Date( "2020-04-01T00:00:00.000Z" ),
-            "value": 35112
-          }, {
-            "date": new Date( "2020-05-01T00:00:00.000Z" ),
-            "value": 9821
-          } ],
         "dateRangeLine": {
           "dataByTopic": [ {
             "topic": "Complaints",

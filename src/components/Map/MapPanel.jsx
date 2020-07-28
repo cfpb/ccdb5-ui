@@ -5,7 +5,6 @@ import DateRanges from '../RefineBar/DateRanges'
 import ErrorBlock from '../Warnings/Error'
 import FilterPanel from '../Filters/FilterPanel'
 import FilterPanelToggle from '../Filters/FilterPanelToggle'
-import { formatDateView } from '../../utils/formatDate'
 import Loading from '../Dialogs/Loading'
 import MapToolbar from './MapToolbar'
 import { mapWarningDismissed } from '../../actions/view'
@@ -14,6 +13,7 @@ import { processRows } from '../../utils/chart'
 import React from 'react'
 import RowChart from '../Charts/RowChart'
 import { Separator } from '../RefineBar/Separator'
+import { shortFormat } from '../../utils'
 import StaleDataWarnings from '../Warnings/StaleDataWarnings'
 import TileChartMap from '../Charts/TileChartMap'
 import Warning from '../Warnings/Warning'
@@ -82,11 +82,11 @@ const mapStateToProps = state => {
   return {
     error,
     isLoading,
+    minDate: shortFormat( minDate ),
+    maxDate: shortFormat( maxDate ),
     productData: processRows( results.product, false, 'Product', expandedRows ),
     showMobileFilters: width < 750,
     showWarning: !enablePer1000 && mapWarningEnabled,
-    minDate: formatDateView( minDate ),
-    maxDate: formatDateView( maxDate ),
     total: state.aggs.total
   }
 }

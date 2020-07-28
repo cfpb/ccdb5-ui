@@ -376,7 +376,7 @@ exports[`initial state renders without crashing 1`] = `
                       onChange={[Function]}
                       placeholder="mm/dd/yyyy"
                       size="15"
-                      value="1/2/2016"
+                      value="12/31/2015"
                     />
                     <button
                       className="a-btn a-btn__link"
@@ -417,7 +417,7 @@ exports[`initial state renders without crashing 1`] = `
                       onChange={[Function]}
                       placeholder="mm/dd/yyyy"
                       size="15"
-                      value="1/2/2016"
+                      value="12/31/2015"
                     />
                     <button
                       className="a-btn a-btn__link"
