@@ -1,4 +1,5 @@
-import { dateIntervals } from '../constants'
+import * as types from '../constants'
+import { enforceValues } from './reducers'
 import moment from 'moment'
 
 // ----------------------------------------------------------------------------
@@ -60,7 +61,7 @@ export const isGreaterThanYear = ( from, to ) => {
  * @returns {array} array of date intervals
  */
 export const getIntervals = ( from, to ) =>
-  dateIntervals.map( o => ( {
+  types.dateIntervals.map( o => ( {
     name: o,
     disabled: isGreaterThanYear( from, to ) && o === 'Day'
   } ) )
@@ -77,15 +78,26 @@ export const scrollToFocus = () => {
 }
 
 /**
- * helper function to make sure the proper chartType is selected
+ * helper function to make sure the proper chartType is selected for trends
+ * also validate lens/subLens combos
  * we can't have Overview and area chart at the same time
  * @param {object} state in redux to check against
  * @returns {object} state modified state
  */
 export const validateChartType = state => {
-  if ( state.chartType && state.lens ) {
-    // reset chart
-    state.chartType = state.lens === 'Overview' ? 'line' : state.chartType
+  state.chartType = enforceValues( state.chartType, 'chartType' )
+  state.chartType = state.lens === 'Overview' ? 'line' : state.chartType
+
+  const validLens = {
+    Overview: [ '' ],
+    Company: [ 'product' ],
+    Product: [ 'sub_product', 'issue' ]
   }
+
+  if ( validLens[state.lens] &&
+    !validLens[state.lens].includes( state.subLens ) ) {
+    state.subLens = getSubLens( state.lens )
+  }
+
   return state
 }

@@ -11,10 +11,11 @@ import { startOfToday }  from '../../utils'
 const maxDate = startOfToday()
 
 describe( 'reducer:query', () => {
+  let action, result, state
   describe( 'default', () => {
     it( 'has a default state', () => {
-      const res = target( undefined, {} )
-      expect( res ).toMatchObject( {
+      result = target( undefined, {} )
+      expect( result ).toMatchObject( {
         searchText: '',
         searchField: 'all',
         page: 1,
@@ -23,18 +24,18 @@ describe( 'reducer:query', () => {
       } )
       // doing this because I can't seem to mock the date since
       // defaultQuery is imported
-      expect( res ).toHaveProperty( 'date_received_max' )
-      expect( res ).toHaveProperty( 'date_received_min' )
-      expect( res.queryString ).toContain( 'date_received_max' )
-      expect( res.queryString ).toContain( 'date_received_min' )
-      expect( res.queryString ).toContain( 'field=all&lens=overview' +
+      expect( result ).toHaveProperty( 'date_received_max' )
+      expect( result ).toHaveProperty( 'date_received_min' )
+      expect( result.queryString ).toContain( 'date_received_max' )
+      expect( result.queryString ).toContain( 'date_received_min' )
+      expect( result.queryString ).toContain( 'field=all&lens=overview' +
         '&page=1&size=25&sort=created_date_desc' )
     } )
   } )
 
   describe( 'COMPLAINTS_RECEIVED actions', () => {
     it( 'updates total number of pages', () => {
-      const action = {
+      action = {
         type: actions.COMPLAINTS_RECEIVED,
         data: {
           hits: {
@@ -43,7 +44,7 @@ describe( 'reducer:query', () => {
         }
       }
 
-      const state = {
+      state = {
         page: 10,
         size: 100
       }
@@ -57,7 +58,7 @@ describe( 'reducer:query', () => {
     } )
 
     it( 'limits the current page correctly', () => {
-      const action = {
+      action = {
         type: actions.COMPLAINTS_RECEIVED,
         data: {
           hits: {
@@ -66,7 +67,7 @@ describe( 'reducer:query', () => {
         }
       }
 
-      const state = {
+      state = {
         page: 101,
         size: 100
       }
@@ -81,12 +82,12 @@ describe( 'reducer:query', () => {
   } )
 
   it( 'handles SEARCH_CHANGED actions', () => {
-    const action = {
+    action = {
       type: actions.SEARCH_CHANGED,
       searchText: 'foo',
       searchField: 'bar'
     }
-    const state = {
+    state = {
       from: 80,
       size: 100
     }
@@ -102,11 +103,11 @@ describe( 'reducer:query', () => {
 
   describe( 'trend depth', () => {
     it( 'handles DEPTH_CHANGED', () => {
-      const action = {
+      action = {
         type: actions.DEPTH_CHANGED,
         depth: 13
       }
-      const state = {
+      state = {
         trendDepth: 5
       }
       expect( target( state, action ) ).toEqual( {
@@ -115,10 +116,10 @@ describe( 'reducer:query', () => {
       } )
     } )
     it( 'handles DEPTH_RESET', () => {
-      const action = {
+      action = {
         type: actions.DEPTH_RESET
       }
-      const state = {
+      state = {
         trendDepth: 10000
       }
       expect( target( state, action ) ).toEqual( {
@@ -130,11 +131,11 @@ describe( 'reducer:query', () => {
 
   describe( 'Pager', () => {
     it( 'handles PAGE_CHANGED actions', () => {
-      const action = {
+      action = {
         type: actions.PAGE_CHANGED,
         page: 2
       }
-      const state = {
+      state = {
         size: 100,
         tab: types.MODE_LIST
       }
@@ -148,10 +149,10 @@ describe( 'reducer:query', () => {
     } )
 
     it( 'handles NEXT_PAGE_SHOWN actions', () => {
-      const action = {
+      action = {
         type: actions.NEXT_PAGE_SHOWN
       }
-      const state = {
+      state = {
         from: 100,
         page: 2,
         queryString: 'foobar',
@@ -168,10 +169,10 @@ describe( 'reducer:query', () => {
     } )
 
     it( 'handles PREV_PAGE_SHOWN actions', () => {
-      const action = {
+      action = {
         type: actions.PREV_PAGE_SHOWN
       }
-      const state = {
+      state = {
         from: 100,
         page: 2,
         queryString: 'foobar',
@@ -190,11 +191,11 @@ describe( 'reducer:query', () => {
 
   describe( 'Action Bar', () => {
     it( 'handles SIZE_CHANGED actions', () => {
-      const action = {
+      action = {
         type: actions.SIZE_CHANGED,
         size: 50
       }
-      const state = {
+      state = {
         size: 100,
         tab: types.MODE_LIST
       }
@@ -207,20 +208,39 @@ describe( 'reducer:query', () => {
       } )
     } )
 
-    it( 'handles SORT_CHANGED actions', () => {
-      const action = {
+    it( 'handles SORT_CHANGED actions - default', () => {
+      action = {
         type: actions.SORT_CHANGED,
         sort: 'foo'
       }
-      const state = {
+      state = {
         from: 100,
         size: 100,
         tab: types.MODE_LIST
       }
       expect( target( state, action ) ).toEqual( {
         from: 100,
-        queryString: '?frm=100&size=100&sort=foo&tab=List',
-        sort: 'foo',
+        queryString: '?frm=100&size=100&sort=created_date_desc&tab=List',
+        sort: 'created_date_desc',
+        size: 100,
+        tab: types.MODE_LIST
+      } )
+    } )
+
+    it( 'handles SORT_CHANGED actions - valid value', () => {
+      action = {
+        type: actions.SORT_CHANGED,
+        sort: 'relevance_asc'
+      }
+      state = {
+        from: 100,
+        size: 100,
+        tab: types.MODE_LIST
+      }
+      expect( target( state, action ) ).toEqual( {
+        from: 100,
+        queryString: '?frm=100&size=100&sort=relevance_asc&tab=List',
+        sort: 'relevance_asc',
         size: 100,
         tab: types.MODE_LIST
       } )
@@ -228,7 +248,6 @@ describe( 'reducer:query', () => {
   } )
 
   describe( 'Tabs', () => {
-    let action, state
     beforeEach(()=>{
       action = {
         type: actions.TAB_CHANGED
@@ -238,25 +257,28 @@ describe( 'reducer:query', () => {
         tab: 'bar'
       }
     })
-    it( 'handles TAB_CHANGED actions', () => {
+
+    it( 'handles TAB_CHANGED actions - default', () => {
       action.tab = 'foo'
       expect( target( state, action ) ).toEqual( {
+        enablePer1000: true,
         focus: '',
-        tab: 'foo',
-        queryString: '?tab=foo'
+        mapWarningEnabled: true,
+        tab: 'Map',
+        queryString: '?tab=Map'
       } )
     } )
 
     it( 'handles Trends TAB_CHANGED actions', () => {
       action.tab = 'Trends'
       expect( target( state, action ) ).toEqual( {
+        chartType: 'line',
         focus: 'Yoyo',
         tab: 'Trends',
-        queryString: '?focus=Yoyo&tab=Trends',
+        queryString: '?chartType=line&focus=Yoyo&tab=Trends',
         trendsDateWarningEnabled: false
       } )
     } )
-
 
     it( 'handles a Map TAB_CHANGED actions', () => {
       action.tab = types.MODE_MAP
@@ -268,11 +290,20 @@ describe( 'reducer:query', () => {
         queryString: '?tab=Map'
       } )
     } )
+
+    it( 'handles a List TAB_CHANGED actions', () => {
+      action.tab = types.MODE_LIST
+      expect( target( state, action ) ).toEqual( {
+        focus: '',
+        tab: types.MODE_LIST,
+        queryString: '?tab=List'
+      } )
+    } )
   } )
 
   describe( 'URL_CHANGED actions', () => {
-    let action = null
-    let state = null
+    let action, actual, state
+
     beforeEach( () => {
       action = {
         type: actions.URL_CHANGED,
@@ -288,40 +319,40 @@ describe( 'reducer:query', () => {
 
     it( 'handles string params', () => {
       action.params = { searchText: 'hello' }
-      const actual = target( state, action )
+      actual = target( state, action )
       expect( actual.searchText ).toEqual( 'hello' )
     } )
 
     it( 'converts some parameters to integers', () => {
       action.params = { size: '100' }
-      const actual = target( state, action )
+      actual = target( state, action )
       expect( actual.size ).toEqual( 100 )
     } )
 
     it( 'handles bogus date parameters', () => {
       action.params = { dateInterval: '3y', dateRange: 'Week' }
-      const actual = target( state, action )
+      actual = target( state, action )
       expect( actual.dateInterval ).toEqual( 'Month' )
       expect( actual.dateRange ).toEqual( '3y' )
     } )
 
     it( 'handles bogus size & sort parameters', () => {
       action.params = { size: '9999', sort: 'tables' }
-      const actual = target( state, action )
+      actual = target( state, action )
       expect( actual.size ).toEqual( 10 )
       expect( actual.sort ).toEqual( 'created_date_desc' )
     } )
 
     it( 'ignores bad integer parameters', () => {
       action.params = { size: 'foo' }
-      const actual = target( state, action )
+      actual = target( state, action )
       expect( actual.size ).toEqual( 25 )
     } )
 
     it( 'converts some parameters to dates', () => {
       const expected = new Date( 2013, 1, 3 )
       action.params = { date_received_min: '2013-02-03' }
-      const actual = target( {}, action ).date_received_min
+      actual = target( {}, action ).date_received_min
       expect( actual.getFullYear() ).toEqual( expected.getFullYear() )
       expect( actual.getMonth() ).toEqual( expected.getMonth() )
     } )
@@ -329,7 +360,7 @@ describe( 'reducer:query', () => {
     it( 'converts flag parameters to strings', () => {
       const expected = 'true'
       action.params = { has_narrative: true }
-      const actual = target( {}, action ).has_narrative
+      actual = target( {}, action ).has_narrative
       expect( actual ).toEqual( expected )
     } )
 
@@ -345,39 +376,42 @@ describe( 'reducer:query', () => {
 
     it( 'handles a single filter', () => {
       action.params = { product: 'Debt Collection' }
-      const actual = target( {}, action )
+      actual = target( {}, action )
       expect( actual.product ).toEqual( [ 'Debt Collection' ] )
     } )
 
     it( 'handles a multiple filters', () => {
       action.params = { product: [ 'Debt Collection', 'Mortgage' ] }
-      const actual = target( {}, action )
+      actual = target( {}, action )
       expect( actual.product ).toEqual( [ 'Debt Collection', 'Mortgage' ] )
     } )
 
     it( 'handles a multiple filters & focus', () => {
       action.params = { product: [ 'Debt Collection', 'Mortgage' ] }
-      const actual = target( { focus: 'Something' }, action )
+      actual = target( { focus: 'Something' }, action )
       expect( actual.focus ).toEqual( '' )
       expect( actual.product ).toEqual( [ 'Debt Collection', 'Mortgage' ] )
     } )
 
     it( 'handles a trendDepth param', () => {
       action.params = { lens: 'Product', trendDepth: 1000 }
-      const actual = target( {}, action )
+      actual = target( {}, action )
       expect( actual.lens ).toEqual( 'Product' )
       expect( actual.trendDepth ).toEqual( 1000 )
     } )
 
     it( 'handles invalid lens and chartType combo', () => {
-      action.params = { chartType: 'area', lens: 'Overview' }
-      const actual = target( state, action )
+      action.params = { chartType: 'area', lens: 'Overview', tab: 'Trends' }
+      state.tab = types.MODE_TRENDS
+      actual = target( state, action )
       expect( actual.chartType ).toEqual( 'line' )
+      expect( actual.lens ).toEqual( 'Overview' )
+      expect( actual.tab ).toEqual( 'Trends' )
     } )
 
     it( 'handles valid lens and chartType combo', () => {
-      action.params = { chartType: 'area', lens: 'Product' }
-      const actual = target( state, action )
+      action.params = { chartType: 'area', lens: 'Product', tab: 'Trends' }
+      actual = target( state, action )
       expect( actual.chartType ).toEqual( 'area' )
       expect( actual.lens ).toEqual( 'Product' )
     } )
@@ -387,7 +421,7 @@ describe( 'reducer:query', () => {
 
       action.params = { dataNormalization: 'None', dateRange: 'All' }
 
-      const actual = target( {}, action )
+      actual = target( {}, action )
 
       expect( actual.date_received_min ).toEqual( dateMin )
       expect( actual.date_received_max ).toEqual( maxDate )
@@ -528,7 +562,7 @@ describe( 'reducer:query', () => {
       } )
 
       it( 'removes a filter when one exists', () => {
-        const state = {
+        state = {
           foo: [ 'bar', 'baz', 'qaz' ]
         }
         expect( target( state, action ) ).toEqual( {
@@ -538,7 +572,7 @@ describe( 'reducer:query', () => {
       } )
 
       it( 'removes a filter on Map tab when one exists', () => {
-        const state = {
+        state = {
           foo: [ 'bar', 'baz', 'qaz' ],
           tab: types.MODE_MAP
         }
@@ -552,7 +586,7 @@ describe( 'reducer:query', () => {
       } )
 
       it( 'handles a missing filter', () => {
-        const state = {
+        state = {
           foobar: [ 'bar', 'baz', 'qaz' ]
         }
         expect( target( state, action ) ).toEqual( {
@@ -562,7 +596,7 @@ describe( 'reducer:query', () => {
       } )
 
       it( 'handles a missing filter value', () => {
-        const state = {
+        state = {
           foo: [ 'bar', 'qaz' ]
         }
         expect( target( state, action ) ).toEqual( {
@@ -574,7 +608,7 @@ describe( 'reducer:query', () => {
       describe( 'has_narrative', () => {
         it( 'handles when present' , () => {
           action.filterName = 'has_narrative'
-          const state = {
+          state = {
             has_narrative: true
           }
           expect( target( state, action ) ).toEqual( {
@@ -584,7 +618,7 @@ describe( 'reducer:query', () => {
 
         it( 'handles when present - Map', () => {
           action.filterName = 'has_narrative'
-          const state = {
+          state = {
             has_narrative: true,
             tab: types.MODE_MAP
           }
@@ -598,7 +632,7 @@ describe( 'reducer:query', () => {
 
         it( 'handles when absent' , () => {
           action.filterName = 'has_narrative'
-          const state = {}
+          state = {}
           expect( target( state, action ) ).toEqual( {
             queryString: ''
           } )
@@ -706,7 +740,7 @@ describe( 'reducer:query', () => {
       } )
 
       it( 'skips filters if they exist already', () => {
-        const state = {
+        state = {
           issue: [ 'foo' ]
         }
         action.values.push( 'foo' )
@@ -718,7 +752,7 @@ describe( 'reducer:query', () => {
       } )
 
       it( 'skips filters if they exist already - Map', () => {
-        const state = {
+        state = {
           issue: [ 'foo' ],
           tab: types.MODE_MAP
         }
@@ -727,7 +761,8 @@ describe( 'reducer:query', () => {
         expect( target( state, action ) ).toEqual( {
           enablePer1000: false,
           issue: [ 'foo', 'Mo Money', 'Mo Problems' ],
-          queryString: '?issue=foo&issue=Mo%20Money&issue=Mo%20Problems&tab=Map',
+          queryString: '?issue=foo&issue=Mo%20Money&issue=Mo%20Problems' +
+            '&tab=Map',
           tab: types.MODE_MAP
         } )
       } )
@@ -745,7 +780,7 @@ describe( 'reducer:query', () => {
       } )
 
       it( 'removes filters if they exist', () => {
-        const state = {
+        state = {
           focus: 'Mo Money',
           issue: [ 'foo', 'Mo Money', 'Mo Problems' ]
         }
@@ -757,7 +792,7 @@ describe( 'reducer:query', () => {
       } )
 
       it( 'removes filters if they exist - Map tab', () => {
-        const state = {
+        state = {
           issue: [ 'foo', 'Mo Money', 'Mo Problems' ],
           tab: types.MODE_MAP
         }
@@ -820,7 +855,8 @@ describe( 'reducer:query', () => {
         expect( target( {}, action ) ).toEqual( {
           date_received_min: new Date( 2001, 0, 30 ),
           date_received_max: new Date( 2013, 1, 3 ),
-          queryString: '?date_received_max=2013-02-03&date_received_min=2001-01-30'
+          queryString: '?date_received_max=2013-02-03' +
+            '&date_received_min=2001-01-30'
         } )
       } )
 
@@ -868,7 +904,8 @@ describe( 'reducer:query', () => {
           dateRange: '1y',
           date_received_max: new Date( '2020-05-05T04:00:00.000Z' ),
           date_received_min: new Date( '2019-05-05T04:00:00.000Z' ),
-          queryString: '?dateRange=1y&date_received_max=2020-05-05&date_received_min=2019-05-05'
+          queryString: '?dateRange=1y&date_received_max=2020-05-05' +
+            '&date_received_min=2019-05-05'
         } )
       } )
 
@@ -877,15 +914,17 @@ describe( 'reducer:query', () => {
         result = target( {}, action )
         // only set max date
         expect( result ).toEqual( {
-          dateRange: 'foo',
+          dateRange: '3y',
+          date_received_min: new Date( '2017-05-05T04:00:00.000Z' ),
           date_received_max: new Date( '2020-05-05T04:00:00.000Z' ),
-          queryString: '?dateRange=foo&date_received_max=2020-05-05'
+          queryString: '?dateRange=3y&date_received_max=2020-05-05' +
+            '&date_received_min=2017-05-05'
         } )
       } )
 
       it( 'On Trends Tab handles All range', () => {
         action.dateRange = 'All'
-        const state = { dateInterval: 'Day', tab: MODE_TRENDS }
+        state = { dateInterval: 'Day', tab: MODE_TRENDS }
         result = target( state, action )
         expect( result.dateInterval ).toEqual( 'Week' )
         expect( result.trendsDateWarningEnabled ).toEqual( true )
@@ -898,10 +937,10 @@ describe( 'reducer:query', () => {
 
     describe( 'Map Warning', () => {
       it( 'handles MAP_WARNING_DISMISSED action', () => {
-        const action = {
+        action = {
           type: actions.MAP_WARNING_DISMISSED
         }
-        const state = {
+        state = {
           company: [ 1, 2, 3 ],
           foo: 'bar',
           mapWarningEnabled: true,
@@ -917,20 +956,19 @@ describe( 'reducer:query', () => {
         } )
       } )
     } )
-
-    let action, res
+    
     describe( 'STATE_COMPLAINTS_SHOWN', () => {
       it( 'switches to List View', () => {
         action = {
           type: actions.STATE_COMPLAINTS_SHOWN
         }
 
-        res = target( {
+        result = target( {
           state: [],
           tab: types.MODE_MAP
         }, action )
 
-        expect( res ).toEqual( {
+        expect( result ).toEqual( {
           queryString: '?tab=List',
           tab: types.MODE_LIST
         } )
@@ -941,14 +979,14 @@ describe( 'reducer:query', () => {
           type: actions.STATE_COMPLAINTS_SHOWN
         }
 
-        res = target( {
+        result = target( {
           enablePer1000: false,
           mapWarningEnabled: true,
           state: [ 'TX', 'MX', 'FO' ],
           tab: types.MODE_MAP
         }, action )
 
-        expect( res ).toEqual( {
+        expect( result ).toEqual( {
           enablePer1000: false,
           mapWarningEnabled: true,
           queryString: '?state=TX&state=MX&state=FO&tab=List',
@@ -966,8 +1004,8 @@ describe( 'reducer:query', () => {
         }
       } )
       it( 'adds state filter', () => {
-        res = target( { tab: types.MODE_MAP }, action )
-        expect( res ).toEqual( {
+        result = target( { tab: types.MODE_MAP }, action )
+        expect( result ).toEqual( {
           enablePer1000: false,
           queryString: '?state=IL&tab=Map',
           state: [ 'IL' ],
@@ -975,12 +1013,12 @@ describe( 'reducer:query', () => {
         } )
       } )
       it( 'does not add dupe state filter', () => {
-        res = target( {
+        result = target( {
           state: [ 'IL', 'TX' ],
           tab: types.MODE_MAP
         }, action )
 
-        expect( res ).toEqual( {
+        expect( result ).toEqual( {
           enablePer1000: false,
           queryString: '?state=IL&state=TX&tab=Map',
           state: [ 'IL', 'TX' ],
@@ -996,12 +1034,12 @@ describe( 'reducer:query', () => {
           type: actions.STATE_FILTER_CLEARED
         }
 
-        res = target( {
+        result = target( {
           state: [ 'FO', 'BA' ],
           tab: types.MODE_MAP
         }, action )
 
-        expect( res ).toEqual( {
+        expect( result ).toEqual( {
           enablePer1000: true,
           mapWarningEnabled: true,
           queryString: '?tab=Map',
@@ -1014,9 +1052,9 @@ describe( 'reducer:query', () => {
           type: actions.STATE_FILTER_CLEARED
         }
 
-        res = target( { tab: types.MODE_MAP }, action )
+        result = target( { tab: types.MODE_MAP }, action )
 
-        expect( res ).toEqual( {
+        expect( result ).toEqual( {
           enablePer1000: true,
           mapWarningEnabled: true,
           queryString: '?tab=Map',
@@ -1033,11 +1071,11 @@ describe( 'reducer:query', () => {
         }
       } )
       it( 'removes a state filter', () => {
-        res = target( {
+        result = target( {
           state: [ 'CA', 'IL' ],
           tab: types.MODE_MAP
         }, action )
-        expect( res ).toEqual( {
+        expect( result ).toEqual( {
           enablePer1000: false,
           queryString: '?state=CA&tab=Map',
           state: [ 'CA' ],
@@ -1045,8 +1083,8 @@ describe( 'reducer:query', () => {
         } )
       } )
       it( 'handles empty state', () => {
-        res = target( { tab: types.MODE_MAP }, action )
-        expect( res ).toEqual( {
+        result = target( { tab: types.MODE_MAP }, action )
+        expect( result ).toEqual( {
           enablePer1000: true,
           mapWarningEnabled: true,
           queryString: '?tab=Map',
@@ -1059,10 +1097,10 @@ describe( 'reducer:query', () => {
   describe( 'Trends', () => {
     describe( 'Trends Date Warning', () => {
       it( 'handles TRENDS_DATE_WARNING_DISMISSED action', () => {
-        const action = {
+        action = {
           type: actions.TRENDS_DATE_WARNING_DISMISSED
         }
-        const state = {
+        state = {
           trendsDateWarningEnabled: true
         }
         expect( target( state, action ) ).toEqual( {
@@ -1074,11 +1112,11 @@ describe( 'reducer:query', () => {
 
     describe( 'CHART_TYPE_CHANGED actions', () => {
       it( 'changes the chartType', () => {
-        const action = {
+        action = {
           type: actions.CHART_TYPE_CHANGED,
           chartType: 'Foo'
         }
-        const result = target( { chartType: 'ahha' },
+        result = target( { chartType: 'ahha' },
           action )
         expect( result ).toEqual( {
           chartType: 'Foo',
@@ -1088,18 +1126,19 @@ describe( 'reducer:query', () => {
     } )
 
     describe( 'DATA_LENS_CHANGED actions', () => {
-      it( 'changes the lens', () => {
-        const action = {
+      it( 'changes the lens - default', () => {
+        action = {
           type: actions.DATA_LENS_CHANGED,
           lens: 'Foo'
         }
-        const result = target( { tab: types.MODE_TRENDS, focus: 'ahha' },
+        result = target( { tab: types.MODE_TRENDS, focus: 'ahha' },
           action )
         expect( result ).toEqual( {
+          chartType: 'line',
           focus: '',
-          lens: 'Foo',
-          subLens: 'sub_foo',
-          queryString: '?lens=foo&sub_lens=sub_foo&tab=Trends&trend_depth=5',
+          lens: 'Overview',
+          subLens: '',
+          queryString: '?chartType=line&lens=overview&tab=Trends&trend_depth=5',
           tab: 'Trends',
           trendDepth: 5,
           trendsDateWarningEnabled: false
@@ -1107,19 +1146,41 @@ describe( 'reducer:query', () => {
       } )
 
       it( 'has special values when lens = Company', () => {
-        const action = {
+        action = {
           type: actions.DATA_LENS_CHANGED,
           lens: 'Company'
         }
-        const result = target( { tab: types.MODE_TRENDS, focus: 'ahha' },
+        result = target( { tab: types.MODE_TRENDS, focus: 'ahha' },
           action )
         expect( result ).toEqual( {
+          chartType: 'line',
           focus: '',
           lens: 'Company',
           subLens: 'product',
-          queryString: '?lens=company&sub_lens=product&tab=Trends&trend_depth=10',
+          queryString: '?chartType=line&lens=company&sub_lens=product' +
+            '&tab=Trends&trend_depth=10',
           tab: 'Trends',
           trendDepth: 10,
+          trendsDateWarningEnabled: false
+        } )
+      } )
+
+      it( 'changes the lens - Product', () => {
+        action = {
+          type: actions.DATA_LENS_CHANGED,
+          lens: 'Product'
+        }
+        result = target( { tab: types.MODE_TRENDS, focus: 'ahha' },
+          action )
+        expect( result ).toEqual( {
+          chartType: 'line',
+          focus: '',
+          lens: 'Product',
+          queryString: '?chartType=line&lens=product&sub_lens=sub_product' +
+            '&tab=Trends&trend_depth=5',
+          subLens: 'sub_product',
+          tab: 'Trends',
+          trendDepth: 5,
           trendsDateWarningEnabled: false
         } )
       } )
@@ -1127,14 +1188,15 @@ describe( 'reducer:query', () => {
 
     describe( 'DATA_SUBLENS_CHANGED actions', () => {
       it( 'changes the sub lens', () => {
-        const action = {
+        action = {
           type: actions.DATA_SUBLENS_CHANGED,
           subLens: 'Issue'
         }
-        const result = target( { tab: types.MODE_TRENDS }, action )
+        result = target( { tab: types.MODE_TRENDS }, action )
         expect( result ).toEqual( {
+          chartType: 'line',
           subLens: 'issue',
-          queryString: '?sub_lens=issue&tab=Trends',
+          queryString: '?chartType=line&sub_lens=issue&tab=Trends',
           tab: 'Trends',
           trendsDateWarningEnabled: false
         } )
@@ -1143,14 +1205,15 @@ describe( 'reducer:query', () => {
 
     describe( 'DATE_INTERVAL_CHANGED', () => {
       it( 'changes the dateInterval', () => {
-        const action = {
+        action = {
           type: actions.DATE_INTERVAL_CHANGED,
           dateInterval: 'Day'
         }
-        const result = target( { tab: types.MODE_TRENDS }, action )
+        result = target( { tab: types.MODE_TRENDS }, action )
         expect( result ).toEqual( {
+          chartType: 'line',
           dateInterval: 'Day',
-          queryString: '?tab=Trends&trend_interval=day',
+          queryString: '?chartType=line&tab=Trends&trend_interval=day',
           tab: 'Trends',
           trendsDateWarningEnabled: false
         } )
@@ -1159,18 +1222,21 @@ describe( 'reducer:query', () => {
 
     describe( 'FOCUS_CHANGED actions', () => {
       it( 'changes the focus', () => {
-        const action = {
+        action = {
           type: actions.FOCUS_CHANGED,
           filterValues: [ 'A', 'A' + SLUG_SEPARATOR + 'B' ],
           focus: 'A',
           lens: 'Product'
         }
-        const result = target( { focus: 'Else' }, action )
+        result = target( { focus: 'Else' }, action )
         expect( result ).toEqual( {
+          chartType: 'line',
           focus: 'A',
           lens: 'Product',
           product: [ 'A', 'A' + SLUG_SEPARATOR + 'B'],
-          queryString: '?focus=A&lens=product&product=A&product=A%E2%80%A2B&sub_lens=sub_product&tab=Trends&trend_depth=25',
+          queryString: '?chartType=line&focus=A&lens=product&product=A' +
+            '&product=A%E2%80%A2B&sub_lens=sub_product&tab=Trends' +
+            '&trend_depth=25',
           subLens: 'sub_product',
           tab: 'Trends',
           trendDepth: 25,
@@ -1179,18 +1245,20 @@ describe( 'reducer:query', () => {
       } )
 
       it( 'changes the Company Focus', () => {
-        const action = {
+        action = {
           type: actions.FOCUS_CHANGED,
           filterValues: [ 'A' ],
           focus: 'A',
           lens: 'Company'
         }
-        const result = target( { focus: 'Else' }, action )
+        result = target( { focus: 'Else' }, action )
         expect( result ).toEqual( {
+          chartType: 'line',
           focus: 'A',
           lens: 'Company',
           company: [ 'A' ],
-          queryString: '?company=A&focus=A&lens=company&sub_lens=product&tab=Trends&trend_depth=25',
+          queryString: '?chartType=line&company=A&focus=A&lens=company' +
+            '&sub_lens=product&tab=Trends&trend_depth=25',
           subLens: 'product',
           tab: 'Trends',
           trendDepth: 25,
@@ -1201,14 +1269,17 @@ describe( 'reducer:query', () => {
 
     describe( 'FOCUS_REMOVED actions', () => {
       it( 'clears the focus & resets values', () => {
-        const action = {
+        action = {
           type: actions.FOCUS_REMOVED
         }
-        const result = target( { lens: 'Product' }, action )
+        result = target( { lens: 'Product' }, action )
         expect( result ).toEqual( {
+          chartType: 'line',
           focus: '',
           lens: 'Product',
-          queryString: '?lens=product&tab=Trends&trend_depth=5',
+          queryString: '?chartType=line&lens=product&sub_lens=sub_product' +
+            '&tab=Trends&trend_depth=5',
+          subLens: 'sub_product',
           tab: 'Trends',
           trendDepth: 5,
           trendsDateWarningEnabled: false

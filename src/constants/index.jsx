@@ -65,6 +65,8 @@ export const flagFilters = [
   'has_narrative'
 ]
 
+export const lenses = [ 'Overview', 'Company', 'Product' ]
+
 export const sizes = {
   10: '10 results',
   25: '25 results',
