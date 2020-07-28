@@ -35,7 +35,7 @@ function setupSnapshot( { focus, lens, queryString } ) {
   return renderer.create(
     <Provider store={store}>
       <IntlProvider locale="en">
-        <ReduxCompanyTypeahead />
+        <ReduxCompanyTypeahead id="foobar"/>
       </IntlProvider>
     </Provider>
   )

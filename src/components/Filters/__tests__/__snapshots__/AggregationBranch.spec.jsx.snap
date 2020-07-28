@@ -11,13 +11,13 @@ exports[`component::AggregationBranch snapshots renders with all checked 1`] = `
       aria-label="foo"
       checked={true}
       className="flex-fixed a-checkbox"
-      id="issuefoo"
+      id="issue-foo"
       onChange={[Function]}
       type="checkbox"
     />
     <label
       className="toggle a-label"
-      htmlFor="issuefoo"
+      htmlFor="issue-foo"
     >
       <span
         className="u-visually-hidden"
@@ -60,13 +60,13 @@ exports[`component::AggregationBranch snapshots renders with all checked 1`] = `
         aria-label="foo•bar"
         checked={true}
         className="flex-fixed a-checkbox"
-        id="issuefoo•bar"
+        id="issue-foo-bar"
         onChange={[Function]}
         type="checkbox"
       />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="issuefoo•bar"
+        htmlFor="issue-foo-bar"
       >
         bar
       </label>
@@ -85,13 +85,13 @@ exports[`component::AggregationBranch snapshots renders with all checked 1`] = `
         aria-label="foo•baz"
         checked={true}
         className="flex-fixed a-checkbox"
-        id="issuefoo•baz"
+        id="issue-foo-baz"
         onChange={[Function]}
         type="checkbox"
       />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="issuefoo•baz"
+        htmlFor="issue-foo-baz"
       >
         baz
       </label>
@@ -110,13 +110,13 @@ exports[`component::AggregationBranch snapshots renders with all checked 1`] = `
         aria-label="foo•qaz"
         checked={true}
         className="flex-fixed a-checkbox"
-        id="issuefoo•qaz"
+        id="issue-foo-qaz"
         onChange={[Function]}
         type="checkbox"
       />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="issuefoo•qaz"
+        htmlFor="issue-foo-qaz"
       >
         qaz
       </label>
@@ -143,13 +143,13 @@ exports[`component::AggregationBranch snapshots renders with indeterminate 1`] =
       aria-label="foo"
       checked={false}
       className="flex-fixed a-checkbox"
-      id="issuefoo"
+      id="issue-foo"
       onChange={[Function]}
       type="checkbox"
     />
     <label
       className="toggle a-label indeterminate"
-      htmlFor="issuefoo"
+      htmlFor="issue-foo"
     >
       <span
         className="u-visually-hidden"
@@ -192,13 +192,13 @@ exports[`component::AggregationBranch snapshots renders with indeterminate 1`] =
         aria-label="foo•bar"
         checked={true}
         className="flex-fixed a-checkbox"
-        id="issuefoo•bar"
+        id="issue-foo-bar"
         onChange={[Function]}
         type="checkbox"
       />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="issuefoo•bar"
+        htmlFor="issue-foo-bar"
       >
         bar
       </label>
@@ -217,13 +217,13 @@ exports[`component::AggregationBranch snapshots renders with indeterminate 1`] =
         aria-label="foo•baz"
         checked={false}
         className="flex-fixed a-checkbox"
-        id="issuefoo•baz"
+        id="issue-foo-baz"
         onChange={[Function]}
         type="checkbox"
       />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="issuefoo•baz"
+        htmlFor="issue-foo-baz"
       >
         baz
       </label>
@@ -242,13 +242,13 @@ exports[`component::AggregationBranch snapshots renders with indeterminate 1`] =
         aria-label="foo•qaz"
         checked={false}
         className="flex-fixed a-checkbox"
-        id="issuefoo•qaz"
+        id="issue-foo-qaz"
         onChange={[Function]}
         type="checkbox"
       />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="issuefoo•qaz"
+        htmlFor="issue-foo-qaz"
       >
         qaz
       </label>
@@ -275,13 +275,13 @@ exports[`component::AggregationBranch snapshots renders with none checked 1`] = 
       aria-label="foo"
       checked={false}
       className="flex-fixed a-checkbox"
-      id="issuefoo"
+      id="issue-foo"
       onChange={[Function]}
       type="checkbox"
     />
     <label
       className="toggle a-label"
-      htmlFor="issuefoo"
+      htmlFor="issue-foo"
     >
       <span
         className="u-visually-hidden"

@@ -2,27 +2,11 @@ import React from 'react';
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import { shallow } from 'enzyme';
 import { IntlProvider } from 'react-intl';
 import { mapStateToProps, SimpleFilter } from '../SimpleFilter';
 import ReduxSimpleFilter from '../SimpleFilter';
 
 import renderer from 'react-test-renderer';
-
-function setupEnzyme() {
-  const props = {
-    fieldName: 'timely',
-    showChildren: false,
-    options: []
-  }
-
-  const target = shallow(<SimpleFilter {...props} />);
-
-  return {
-    props,
-    target
-  }
-}
 
 function setupSnapshot(initialAggs) {
   const middlewares = [thunk]
@@ -38,7 +22,7 @@ function setupSnapshot(initialAggs) {
   return renderer.create(
     <Provider store={store}>
       <IntlProvider locale="en">
-        <ReduxSimpleFilter fieldName="company_response"/>
+        <ReduxSimpleFilter fieldName="company_response" title="nana"/>
       </IntlProvider>
     </Provider>
   )

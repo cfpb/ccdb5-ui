@@ -10,13 +10,13 @@ exports[`component:MoreOrLess matches + Show NN more 1`] = `
         aria-label="alpha"
         checked={false}
         className="flex-fixed a-checkbox"
-        id="myfieldalpha"
+        id="myfield-alpha"
         onChange={[Function]}
         type="checkbox"
       />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="myfieldalpha"
+        htmlFor="myfield-alpha"
       >
         alpha
       </label>
@@ -35,13 +35,13 @@ exports[`component:MoreOrLess matches + Show NN more 1`] = `
         aria-label="beta"
         checked={false}
         className="flex-fixed a-checkbox"
-        id="myfieldbeta"
+        id="myfield-beta"
         onChange={[Function]}
         type="checkbox"
       />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="myfieldbeta"
+        htmlFor="myfield-beta"
       >
         beta
       </label>
@@ -60,13 +60,13 @@ exports[`component:MoreOrLess matches + Show NN more 1`] = `
         aria-label="gamma"
         checked={false}
         className="flex-fixed a-checkbox"
-        id="myfieldgamma"
+        id="myfield-gamma"
         onChange={[Function]}
         type="checkbox"
       />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="myfieldgamma"
+        htmlFor="myfield-gamma"
       >
         gamma
       </label>
@@ -85,13 +85,13 @@ exports[`component:MoreOrLess matches + Show NN more 1`] = `
         aria-label="delta"
         checked={false}
         className="flex-fixed a-checkbox"
-        id="myfielddelta"
+        id="myfield-delta"
         onChange={[Function]}
         type="checkbox"
       />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="myfielddelta"
+        htmlFor="myfield-delta"
       >
         delta
       </label>
@@ -110,13 +110,13 @@ exports[`component:MoreOrLess matches + Show NN more 1`] = `
         aria-label="epsilon"
         checked={false}
         className="flex-fixed a-checkbox"
-        id="myfieldepsilon"
+        id="myfield-epsilon"
         onChange={[Function]}
         type="checkbox"
       />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="myfieldepsilon"
+        htmlFor="myfield-epsilon"
       >
         epsilon
       </label>
@@ -150,13 +150,13 @@ exports[`component:MoreOrLess matches - Show NN less 1`] = `
         aria-label="alpha"
         checked={false}
         className="flex-fixed a-checkbox"
-        id="myfieldalpha"
+        id="myfield-alpha"
         onChange={[Function]}
         type="checkbox"
       />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="myfieldalpha"
+        htmlFor="myfield-alpha"
       >
         alpha
       </label>
@@ -175,13 +175,13 @@ exports[`component:MoreOrLess matches - Show NN less 1`] = `
         aria-label="beta"
         checked={false}
         className="flex-fixed a-checkbox"
-        id="myfieldbeta"
+        id="myfield-beta"
         onChange={[Function]}
         type="checkbox"
       />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="myfieldbeta"
+        htmlFor="myfield-beta"
       >
         beta
       </label>
@@ -200,13 +200,13 @@ exports[`component:MoreOrLess matches - Show NN less 1`] = `
         aria-label="gamma"
         checked={false}
         className="flex-fixed a-checkbox"
-        id="myfieldgamma"
+        id="myfield-gamma"
         onChange={[Function]}
         type="checkbox"
       />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="myfieldgamma"
+        htmlFor="myfield-gamma"
       >
         gamma
       </label>
@@ -225,13 +225,13 @@ exports[`component:MoreOrLess matches - Show NN less 1`] = `
         aria-label="delta"
         checked={false}
         className="flex-fixed a-checkbox"
-        id="myfielddelta"
+        id="myfield-delta"
         onChange={[Function]}
         type="checkbox"
       />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="myfielddelta"
+        htmlFor="myfield-delta"
       >
         delta
       </label>
@@ -250,13 +250,13 @@ exports[`component:MoreOrLess matches - Show NN less 1`] = `
         aria-label="epsilon"
         checked={false}
         className="flex-fixed a-checkbox"
-        id="myfieldepsilon"
+        id="myfield-epsilon"
         onChange={[Function]}
         type="checkbox"
       />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="myfieldepsilon"
+        htmlFor="myfield-epsilon"
       >
         epsilon
       </label>
@@ -275,13 +275,13 @@ exports[`component:MoreOrLess matches - Show NN less 1`] = `
         aria-label="zeta"
         checked={false}
         className="flex-fixed a-checkbox"
-        id="myfieldzeta"
+        id="myfield-zeta"
         onChange={[Function]}
         type="checkbox"
       />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="myfieldzeta"
+        htmlFor="myfield-zeta"
       >
         zeta
       </label>
@@ -300,13 +300,13 @@ exports[`component:MoreOrLess matches - Show NN less 1`] = `
         aria-label="eta"
         checked={false}
         className="flex-fixed a-checkbox"
-        id="myfieldeta"
+        id="myfield-eta"
         onChange={[Function]}
         type="checkbox"
       />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="myfieldeta"
+        htmlFor="myfield-eta"
       >
         eta
       </label>
@@ -325,13 +325,13 @@ exports[`component:MoreOrLess matches - Show NN less 1`] = `
         aria-label="theta"
         checked={false}
         className="flex-fixed a-checkbox"
-        id="myfieldtheta"
+        id="myfield-theta"
         onChange={[Function]}
         type="checkbox"
       />
       <label
         className="a-label flex-all bucket-key body-copy"
-        htmlFor="myfieldtheta"
+        htmlFor="myfield-theta"
       >
         theta
       </label>

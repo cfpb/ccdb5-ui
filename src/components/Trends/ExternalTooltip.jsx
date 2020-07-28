@@ -41,8 +41,8 @@ export class ExternalTooltip extends React.Component {
     }
 
     elements.push( <span className="u-left"
-                           id={ 'focus-' + sanitizeHtmlId( value.name ) }
-                           key={ value.name }>
+                         id={ sanitizeHtmlId( 'focus-' + value.name ) }
+                         key={ value.name }>
         { value.name }
       </span> )
 

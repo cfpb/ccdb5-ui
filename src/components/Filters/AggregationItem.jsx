@@ -2,19 +2,20 @@ import { connect } from 'react-redux'
 import { FormattedNumber } from 'react-intl'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { sanitizeHtmlId } from '../../utils'
 import { toggleFilter } from '../../actions/filter'
 
 export const AggregationItem = ( { item, fieldName, active, onClick } ) => {
   const value = item.value || item.key
   const liStyle = 'layout-row m-form-field m-form-field__checkbox'
-  const id = fieldName + item.key.replace( ' ', '' )
+  const id = sanitizeHtmlId( fieldName + '-' + item.key )
   return (
         <li className={liStyle}>
             <input type="checkbox" className="flex-fixed a-checkbox"
                    aria-label={item.key}
                    disabled={item.disabled}
                    checked={active}
-                   id={id}
+                   id={ id }
                    onChange={onClick}
             />
             <label className="a-label flex-all bucket-key body-copy"

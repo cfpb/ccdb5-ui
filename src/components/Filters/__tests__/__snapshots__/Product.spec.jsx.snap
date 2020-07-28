@@ -48,13 +48,13 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
             aria-label="Credit reporting, credit repair services, or other personal consumer reports"
             checked={false}
             className="flex-fixed a-checkbox"
-            id="productCreditreporting, credit repair services, or other personal consumer reports"
+            id="product-credit-reporting--credit-repair-services--or-other-personal-consumer-reports"
             onChange={[Function]}
             type="checkbox"
           />
           <label
             className="toggle a-label"
-            htmlFor="productCreditreporting, credit repair services, or other personal consumer reports"
+            htmlFor="product-credit-reporting--credit-repair-services--or-other-personal-consumer-reports"
           >
             <span
               className="u-visually-hidden"
@@ -98,13 +98,13 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
             aria-label="Mortgage"
             checked={false}
             className="flex-fixed a-checkbox"
-            id="productMortgage"
+            id="product-mortgage"
             onChange={[Function]}
             type="checkbox"
           />
           <label
             className="toggle a-label"
-            htmlFor="productMortgage"
+            htmlFor="product-mortgage"
           >
             <span
               className="u-visually-hidden"
@@ -145,13 +145,13 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
           aria-label="Credit reporting"
           checked={false}
           className="flex-fixed a-checkbox"
-          id="productCreditreporting"
+          id="product-credit-reporting"
           onChange={[Function]}
           type="checkbox"
         />
         <label
           className="a-label flex-all bucket-key body-copy"
-          htmlFor="productCreditreporting"
+          htmlFor="product-credit-reporting"
         >
           Credit reporting
         </label>
@@ -170,13 +170,13 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
           aria-label="Student loan"
           checked={false}
           className="flex-fixed a-checkbox"
-          id="productStudentloan"
+          id="product-student-loan"
           onChange={[Function]}
           type="checkbox"
         />
         <label
           className="a-label flex-all bucket-key body-copy"
-          htmlFor="productStudentloan"
+          htmlFor="product-student-loan"
         >
           Student loan
         </label>
@@ -195,13 +195,13 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
           aria-label="Credit card or prepaid card"
           checked={false}
           className="flex-fixed a-checkbox"
-          id="productCreditcard or prepaid card"
+          id="product-credit-card-or-prepaid-card"
           onChange={[Function]}
           type="checkbox"
         />
         <label
           className="a-label flex-all bucket-key body-copy"
-          htmlFor="productCreditcard or prepaid card"
+          htmlFor="product-credit-card-or-prepaid-card"
         >
           Credit card or prepaid card
         </label>

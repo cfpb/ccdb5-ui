@@ -8,13 +8,13 @@ exports[`component:AggregationItemFilter renders without crashing 1`] = `
     aria-label="foo"
     checked={false}
     className="flex-fixed a-checkbox"
-    id="fieldNamefoo"
+    id="fieldname-foo"
     onChange={[MockFunction]}
     type="checkbox"
   />
   <label
     className="a-label flex-all bucket-key body-copy"
-    htmlFor="fieldNamefoo"
+    htmlFor="fieldname-foo"
   >
     foo
   </label>

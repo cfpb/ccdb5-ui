@@ -1,5 +1,5 @@
 import configureMockStore from 'redux-mock-store'
-import {
+import ReduxTileChartMap, {
   mapDispatchToProps, mapStateToProps, TileChartMap
 } from '../Charts/TileChartMap'
 import { Provider } from 'react-redux'
@@ -12,16 +12,26 @@ import * as utils from '../../utils'
 
 jest.mock( '../Charts/TileMap' )
 
-function setupSnapshot() {
+function setupSnapshot(printMode) {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
   const store = mockStore( {
-    map: {}
+    map: {
+      results: {
+        state: []
+      }
+    },
+    query: {
+      state: []
+    },
+    view: {
+      printMode
+    }
   } )
 
   return renderer.create(
     <Provider store={ store }>
-      <TileChartMap/>
+      <ReduxTileChartMap/>
     </Provider>
   )
 }
@@ -32,8 +42,15 @@ describe( 'component: TileChartMap', () => {
     beforeEach( () => {
       jest.clearAllMocks()
     } )
+
     it( 'renders without crashing', () => {
-      const target = setupSnapshot()
+      const target = setupSnapshot( false )
+      let tree = target.toJSON()
+      expect( tree ).toMatchSnapshot()
+    } )
+
+    it( 'renders print mode without crashing', () => {
+      const target = setupSnapshot( true )
       let tree = target.toJSON()
       expect( tree ).toMatchSnapshot()
     } )
