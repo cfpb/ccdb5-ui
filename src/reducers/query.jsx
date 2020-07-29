@@ -7,13 +7,12 @@ import {
   shortIsoFormat,
   startOfToday
 } from '../utils'
-import {
-  getSubLens, isGreaterThanYear, validateChartType
-} from '../utils/trends'
+import { enforceValues, validateTrendsReducer } from '../utils/reducers'
 import actions from '../actions'
-import moment from 'moment';
+import { isGreaterThanYear } from '../utils/trends'
+import moment from 'moment'
 
-const queryString = require( 'query-string' );
+const queryString = require( 'query-string' )
 
 /* eslint-disable camelcase */
 export const defaultQuery = {
@@ -216,51 +215,16 @@ function processParams( state, action ) {
 }
 
 /**
- * helper function to enforce valid values when someone pastes in a url
- * @param {string | int} value input val to check
- * @param {string} field key of the query object we need to validate
- * @returns {string|int|*} valid value
- */
-function enforceValues( value, field ) {
-  const valMap = {
-    dateInterval: {
-      defaultVal: 'Month',
-      values: types.dateIntervals
-    },
-    dateRange: {
-      defaultVal: '3y',
-      values: types.dateRanges
-    },
-    size: {
-      defaultVal: 10,
-      values: Object.keys( types.sizes ).map( o => parseInt( o, 10 ) )
-    },
-    sort: {
-      defaultVal: 'created_date_desc',
-      values: Object.keys( types.sorts )
-    }
-  }
-  if ( valMap[field] ) {
-    const validValues = valMap[field]
-    if ( validValues.values.includes( value ) ) {
-      return value
-    }
-    return validValues.defaultVal
-  }
-
-  return value
-}
-
-/**
  * update state based on changeDateInterval action
  * @param {object} state current redux state
  * @param {object} action command executed
  * @returns {object} new state in redux
  */
 function changeDateInterval( state, action ) {
+  const dateInterval = enforceValues( action.dateInterval, 'dateInterval' )
   return {
     ...state,
-    dateInterval: action.dateInterval
+    dateInterval
   }
 }
 
@@ -272,8 +236,7 @@ function changeDateInterval( state, action ) {
  * @returns {object} the new state for the Redux store
  */
 export function changeDateRange( state, action ) {
-
-  const dateRange = action.dateRange;
+  const dateRange = enforceValues( action.dateRange, 'dateRange' )
   const newState = {
     ...state,
     dateRange
@@ -282,16 +245,16 @@ export function changeDateRange( state, action ) {
   const maxDate = startOfToday()
 
   const res = {
+    'All': new Date( types.DATE_RANGE_MIN ),
     '3m': new Date( moment( maxDate ).subtract( 3, 'months' ) ),
     '6m': new Date( moment( maxDate ).subtract( 6, 'months' ) ),
     '1y': new Date( moment( maxDate ).subtract( 1, 'year' ) ),
     '3y': new Date( moment( maxDate ).subtract( 3, 'years' ) )
   }
 
+  /* istanbul ignore else */
   if ( res[dateRange] ) {
     newState.date_received_min = res[dateRange]
-  } else if ( dateRange === 'All' ) {
-    newState.date_received_min = new Date( types.DATE_RANGE_MIN )
   }
 
   newState.date_received_max = maxDate
@@ -719,9 +682,10 @@ function changeSize( state, action ) {
  * @returns {object} new state in redux
  */
 function changeSort( state, action ) {
+  const sort = enforceValues( action.sort, 'sort' )
   return {
     ...state,
-    sort: action.sort
+    sort
   }
 }
 
@@ -732,10 +696,11 @@ function changeSort( state, action ) {
  * @returns {object} new state in redux
  */
 function changeTab( state, action ) {
+  const tab = enforceValues( action.tab, 'tab' )
   return {
     ...state,
-    focus: action.tab === types.MODE_TRENDS ? state.focus : '',
-    tab: action.tab
+    focus: tab === types.MODE_TRENDS ? state.focus : '',
+    tab
   }
 }
 
@@ -806,7 +771,6 @@ function changeFocus( state, action ) {
     [filterKey]: activeFilters,
     focus,
     lens,
-    subLens: state.subLens || getSubLens( lens ),
     tab: types.MODE_TRENDS,
     trendDepth: 25
   }
@@ -837,13 +801,12 @@ function removeFocus( state ) {
  * @returns {object} new state in redux
  */
 function changeDataLens( state, action ) {
-  const { lens } = action
+  const lens = enforceValues( action.lens, 'lens' )
 
   return {
     ...state,
     focus: '',
     lens,
-    subLens: getSubLens( lens ),
     trendDepth: lens === 'Company' ? 10 : 5
   }
 }
@@ -1029,9 +992,10 @@ export default ( state = defaultQuery, action ) => {
   if ( newState.tab === types.MODE_TRENDS ) {
     // swap date interval in cases where the date range is > 1yr
     validateDateInterval( newState )
+    validateTrendsReducer( newState )
   }
 
-  validateChartType( newState )
+
   // remove any filter keys with empty array
   pruneEmptyFilters( newState )
 

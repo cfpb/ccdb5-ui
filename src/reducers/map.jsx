@@ -1,6 +1,7 @@
 // reducer for the Map Tab
 import { GEO_NORM_NONE, TILE_MAP_STATES } from '../constants'
 import actions from '../actions'
+import { enforceValues } from '../utils/reducers'
 import { processAggregations } from './trends'
 import { processErrorMessage } from '../utils'
 
@@ -158,9 +159,10 @@ export function updateFilterDataNormalization( state ) {
  * @returns {object} the new state for the Redux store
  */
 export function updateDataNormalization( state, action ) {
+  const dataNormalization = enforceValues( action.value, 'dataNormalization' )
   return {
     ...state,
-    dataNormalization: action.value
+    dataNormalization
   }
 }
 
@@ -178,7 +180,8 @@ function processParams( state, action ) {
 
   // Handle flag filters
   if ( params.dataNormalization ) {
-    processed.dataNormalization = params.dataNormalization
+    processed.dataNormalization =
+      enforceValues( params.dataNormalization, 'dataNormalization' )
   }
 
   return processed

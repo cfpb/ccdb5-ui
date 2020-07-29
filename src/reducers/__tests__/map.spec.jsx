@@ -2,9 +2,9 @@ import target, {
   defaultState,
   processStateAggregations
 } from '../map'
+import { GEO_NORM_NONE, GEO_NORM_PER1000 } from '../../constants'
 import actions from '../../actions'
 import stateAggs from '../__fixtures__/stateAggs'
-import { GEO_NORM_NONE } from '../../constants'
 
 describe( 'reducer:map', () => {
   let action
@@ -24,36 +24,43 @@ describe( 'reducer:map', () => {
   } )
 
   describe( 'handles DATA_NORMALIZATION_SELECTED', () => {
-    action = {
-      type: actions.DATA_NORMALIZATION_SELECTED,
-      value: 'FooBar'
-    }
-    expect( target( {}, action ) ).toEqual( {
-      dataNormalization: 'FooBar'
+    beforeEach(()=>{
+      action = {
+        type: actions.DATA_NORMALIZATION_SELECTED,
+        value: 'FooBar'
+      }
+    })
+    it( 'handles default value', () => {
+      expect( target( {}, action ) ).toEqual( {
+        dataNormalization: 'None'
+      } )
+    } )
+
+    it( 'handles per 1000 value', () => {
+      action.value = GEO_NORM_PER1000
+      expect( target( {}, action ) ).toEqual( {
+        dataNormalization: 'Per 1000 pop.'
+      } )
     } )
   } )
 
   describe( 'DATE_RANGE_CHANGED', () => {
-
-    it( 'handles date_received', () => {
+    beforeEach( () => {
       action = {
         type: actions.DATE_RANGE_CHANGED,
         filterName: 'date_received',
         minDate: 'foo',
         maxDate: 'bar'
       }
+    } )
+    it( 'handles date_received', () => {
       expect( target( { dataNormalization: 'FooBar' }, action ) ).toEqual( {
         dataNormalization: 'FooBar'
       } )
     } )
 
     it( 'handles company_received', () => {
-      action = {
-        type: actions.DATE_RANGE_CHANGED,
-        filterName: 'company_received',
-        minDate: 'foo',
-        maxDate: 'bar'
-      }
+      action.filterName = 'company_received'
       expect( target( { dataNormalization: 'FooBar' }, action ) ).toEqual( {
         dataNormalization: GEO_NORM_NONE
       } )
@@ -293,7 +300,7 @@ describe( 'reducer:map', () => {
     it( 'handles dataNormalization params', () => {
       action.params = { dataNormalization: 'hello' }
       const actual = target( state, action )
-      expect( actual.dataNormalization ).toEqual( 'hello' )
+      expect( actual.dataNormalization ).toEqual( 'None' )
     } )
   } )
 

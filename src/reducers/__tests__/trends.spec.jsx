@@ -23,7 +23,7 @@ import {
 } from '../__fixtures__/trendsAggsMissingBuckets'
 
 describe( 'reducer:trends', () => {
-  let action, result
+  let action, result, state
 
   describe( 'reducer', () => {
     it( 'has a default state', () => {
@@ -56,14 +56,26 @@ describe( 'reducer:trends', () => {
   })
 
   describe( 'CHART_TYPE_CHANGED action', () => {
-    it( 'changes the chart type', () => {
+    it( 'changes the chart type - default', () => {
       action = {
         type: actions.CHART_TYPE_CHANGED,
         chartType: 'FooBar'
       }
 
       expect( target( { tooltip: true }, action ) ).toEqual( {
-        chartType: 'FooBar',
+        chartType: 'line',
+        tooltip: false
+      } )
+    } )
+
+    it( 'changes the chart type - area', () => {
+      action = {
+        type: actions.CHART_TYPE_CHANGED,
+        chartType: 'area'
+      }
+
+      expect( target( { tooltip: true }, action ) ).toEqual( {
+        chartType: 'area',
         tooltip: false
       } )
     } )
@@ -77,13 +89,13 @@ describe( 'reducer:trends', () => {
       expect( target( { lens: 'Overview' }, action ) ).toEqual( {
         chartType: 'line',
         lens: 'Overview',
+        subLens: '',
         tooltip: false
       } )
     } )
   } )
 
   describe( 'DATA_LENS_CHANGED action', () => {
-    let action, state
     beforeEach( () => {
       action = {
         type: actions.DATA_LENS_CHANGED,
@@ -92,24 +104,38 @@ describe( 'reducer:trends', () => {
 
       state = { focus: 'gg', tooltip: 'foo', chartType: 'area' }
     } )
-    it( 'updates the data lens overview', () => {
-      const result = target( state, action )
+    it( 'updates the data lens default', () => {
+      result = target( state, action )
       expect( result ).toMatchObject( {
         chartType: 'line',
         focus: '',
         lens: 'Overview',
-        subLens: ''
+        subLens: '',
+        tooltip: false
       } )
     } )
 
-    it( 'updates the data lens', () => {
-      action.lens = 'Foo'
-      const result = target( state, action )
+    it( 'updates the data lens - Company', () => {
+      action.lens = 'Company'
+      result = target( state, action )
       expect( result ).toMatchObject( {
         chartType: 'area',
         focus: '',
-        lens: 'Foo',
-        subLens: 'sub_foo'
+        lens: 'Company',
+        subLens: 'product',
+        tooltip: false
+      } )
+    } )
+
+    it( 'updates the data lens - product', () => {
+      action.lens = 'Product'
+      result = target( state, action )
+      expect( result ).toMatchObject( {
+        chartType: 'area',
+        focus: '',
+        lens: 'Product',
+        subLens: 'sub_product',
+        tooltip: false
       } )
     } )
   } )
@@ -122,6 +148,7 @@ describe( 'reducer:trends', () => {
       }
 
       expect( target( { subLens: 'gg' }, action ) ).toEqual( {
+        chartType: 'line',
         subLens: 'sub_something'
       } )
     } )
@@ -139,6 +166,7 @@ describe( 'reducer:trends', () => {
         focus: 'gg',
         tooltip: { wut: 'isthis' }
       }, action ) ).toEqual( {
+        chartType: 'line',
         focus: 'Some Rando Text',
         lens: 'Product',
         subLens: 'sub_product',
@@ -158,6 +186,7 @@ describe( 'reducer:trends', () => {
         focus: 'gg',
         tooltip: { wut: 'isthis' }
       }, action ) ).toEqual( {
+        chartType: 'line',
         focus: '',
         results: {
           dateRangeArea: [],
@@ -173,9 +202,11 @@ describe( 'reducer:trends', () => {
       action = {
         type: actions.FILTER_ALL_REMOVED
       }
-
-      expect( target( { focus: 'gg', }, action ) )
-        .toEqual( { focus: '' } )
+      result = target( { focus: 'gg' }, action )
+      expect( result ).toEqual( {
+        chartType: 'line',
+        focus: ''
+      } )
     } )
   } )
 
@@ -185,8 +216,11 @@ describe( 'reducer:trends', () => {
         type: actions.FILTER_MULTIPLE_REMOVED,
         values: [ 'A', 'B' ]
       }
-
-      expect( target( { focus: 'A' }, action ) ).toEqual( { focus: '' } )
+      result = target( { focus: 'A' }, action )
+      expect( result ).toEqual( {
+        chartType: 'line',
+        focus: ''
+      } )
     } )
 
     it( 'leaves the FOCUS alone if no match any filters', () => {
@@ -195,7 +229,11 @@ describe( 'reducer:trends', () => {
         values: [ 'A', 'B' ]
       }
 
-      expect( target( { focus: 'C' }, action ) ).toEqual( { focus: 'C' } )
+      expect( target( { focus: 'C' }, action ) )
+        .toEqual( {
+          chartType: 'line',
+          focus: 'C'
+        } )
     } )
   } )
 
@@ -211,6 +249,7 @@ describe( 'reducer:trends', () => {
         focus: 'Your',
         results: [ 1, 2, 3 ]
       }, action ) ).toEqual( {
+        chartType: 'line',
         focus: '',
         results: {
           dateRangeArea: [],
@@ -229,6 +268,7 @@ describe( 'reducer:trends', () => {
         focus: 'Your',
         results: [ 1, 2, 3 ]
       }, action ) ).toEqual( {
+        chartType: 'line',
         focus: 'Your',
         results: {
           dateRangeArea: [],
@@ -247,6 +287,7 @@ describe( 'reducer:trends', () => {
     }
     expect( target( {}, action ) ).toEqual( {
       activeCall: 'http://www.example.org',
+      chartType: 'line',
       isLoading: true
     } )
   } )
@@ -266,6 +307,7 @@ describe( 'reducer:trends', () => {
         }
       }, action ) ).toEqual( {
         activeCall: '',
+        chartType: 'line',
         colorMap: {},
         error: { message: 'foo bar', name: 'ErrorTypeName',  stack: 'trace' },
         isLoading: false,
@@ -281,7 +323,6 @@ describe( 'reducer:trends', () => {
   } )
 
   describe( 'TRENDS_RECEIVED actions', () => {
-    let state
     beforeEach( () => {
       action = {
         type: actions.TRENDS_RECEIVED,
@@ -385,7 +426,7 @@ describe( 'reducer:trends', () => {
     } )
 
     it( 'calculates total and sets the title', () => {
-      const action = {
+      action = {
         type: actions.TRENDS_TOOLTIP_CHANGED,
         value: {
           interval: 'Month',
@@ -414,16 +455,16 @@ describe( 'reducer:trends', () => {
           ]
         }
       }
-      const state = {
+      state = {
         colorMap: {
           Alpha: '#2cb34a',
           Beta: '#addc91',
           Cooo: '#257675'
         }
       }
-      const res = target( state, action )
+      result = target( state, action )
 
-      expect( res.tooltip ).toEqual( {
+      expect( result.tooltip ).toEqual( {
         date: '2018-04-01T00:00:00.000Z',
         dateRange: {
           from: '2011-07-21',
@@ -459,8 +500,6 @@ describe( 'reducer:trends', () => {
 
 
   describe( 'URL_CHANGED actions', () => {
-    let action
-    let state
     beforeEach( () => {
       action = {
         type: actions.URL_CHANGED,
@@ -477,10 +516,10 @@ describe( 'reducer:trends', () => {
     it( 'handles lens params', () => {
       action.params = { lens: 'hello', subLens: 'mom', nope: 'hi' }
 
-      const actual = target( state, action )
-      expect( actual.lens ).toEqual( 'hello' )
-      expect( actual.subLens ).toEqual( 'mom' )
-      expect( actual.nope ).toBeFalsy()
+      result = target( state, action )
+      expect( result.lens ).toEqual( 'Overview' )
+      expect( result.subLens ).toEqual( '' )
+      expect( result.nope ).toBeFalsy()
     } )
   } )
 } )

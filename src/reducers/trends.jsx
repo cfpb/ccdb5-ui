@@ -3,14 +3,13 @@
 
 // reducer for the Map Tab
 import * as colors from '../constants/colors'
-import {
-  clamp, coalesce, getSubKeyName, processErrorMessage
-} from '../utils'
+import { clamp, coalesce, getSubKeyName, processErrorMessage } from '../utils'
+import { enforceValues, validateTrendsReducer } from '../utils/reducers'
 import { getD3Names, getTooltipTitle, updateDateBuckets } from '../utils/chart'
-import { getSubLens, pruneOther, validateChartType } from '../utils/trends'
 import actions from '../actions'
 import { isDateEqual } from '../utils/formatDate'
 import { MODE_TRENDS } from '../constants'
+import { pruneOther } from '../utils/trends'
 
 export const emptyResults = () => ( {
   dateRangeArea: [],
@@ -447,7 +446,7 @@ export function processTrendsError( state, action ) {
 export function updateChartType( state, action ) {
   return {
     ...state,
-    chartType: state.lens === 'Overview' ? 'line' : action.chartType,
+    chartType: action.chartType,
     tooltip: false
   }
 }
@@ -460,16 +459,14 @@ export function updateChartType( state, action ) {
  * @returns {object} the new state for the Redux store
  */
 export function updateDataLens( state, action ) {
-  const lens = action.lens
-  const chartType = lens === 'Overview' ? 'line' : state.chartType
-  // make sure it's a line chart if it's overview
+  const lens = enforceValues( action.lens, 'lens' )
+
   return {
     ...state,
-    chartType,
     focus: '',
     lens,
     results: emptyResults(),
-    subLens: getSubLens( lens )
+    tooltip: false
   }
 }
 
@@ -499,7 +496,6 @@ function changeFocus( state, action ) {
     ...state,
     focus,
     lens,
-    subLens: state.subLens || getSubLens( lens ),
     tooltip: false
   }
 }
@@ -535,12 +531,9 @@ function processParams( state, action ) {
   const filters = [ 'chartType', 'focus', 'lens', 'subLens' ]
   for ( const val of filters ) {
     if ( params[val] ) {
-      processed[val] = params[val]
+      processed[val] = enforceValues( params[val], val )
     }
   }
-
-  // validate lens & chartType
-  validateChartType( processed )
 
   return processed
 }
@@ -657,5 +650,6 @@ function handleSpecificAction( state, action ) {
 
 export default ( state = defaultState, action ) => {
   const newState = handleSpecificAction( state, action )
+  validateTrendsReducer( newState )
   return newState
 }
