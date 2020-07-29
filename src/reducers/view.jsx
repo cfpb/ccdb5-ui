@@ -123,6 +123,21 @@ export function expandRow( state, action ) {
   }
 }
 
+/**
+ * reset the expanded rows when the data lens changes so we don't have
+ * remnants of rows showing across company/
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+export function resetExpandedRows( state ) {
+  return {
+    ...state,
+    expandedRows: []
+  }
+}
+
+
 // ----------------------------------------------------------------------------
 // Action Handlers
 
@@ -134,6 +149,7 @@ export function expandRow( state, action ) {
 export function _buildHandlerMap() {
   const handlers = {}
 
+  handlers[actions.DATA_LENS_CHANGED] = resetExpandedRows
   handlers[actions.PRINT_MODE_ON] = updatePrintModeOn
   handlers[actions.PRINT_MODE_OFF] = updatePrintModeOff
   handlers[actions.SCREEN_RESIZED] = updateScreenSize

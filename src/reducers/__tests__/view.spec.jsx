@@ -66,6 +66,14 @@ describe( 'reducer:map', () => {
   describe('Row Chart actions', ()=>{
     let action, result
 
+    it( 'handles DATA_LENS_CHANGED actions', () =>{
+      action = {
+        type: actions.DATA_LENS_CHANGED
+      }
+      result = target( { expandedRows: [ 'foo' ] }, action )
+      expect( result ).toEqual( { expandedRows: [] } )
+    })
+
     it( 'handles ROW_COLLAPSED actions', () => {
       action = {
         type: actions.ROW_COLLAPSED,
