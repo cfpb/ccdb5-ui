@@ -4,12 +4,12 @@
 // reducer for the Map Tab
 import * as colors from '../constants/colors'
 import { clamp, coalesce, getSubKeyName, processErrorMessage } from '../utils'
+import { enforceValues, validateTrendsReducer } from '../utils/reducers'
 import { getD3Names, getTooltipTitle, updateDateBuckets } from '../utils/chart'
-import { getSubLens, pruneOther, validateChartType } from '../utils/trends'
 import actions from '../actions'
-import { enforceValues } from '../utils/reducers'
 import { isDateEqual } from '../utils/formatDate'
 import { MODE_TRENDS } from '../constants'
+import { pruneOther } from '../utils/trends'
 
 export const emptyResults = () => ( {
   dateRangeArea: [],
@@ -650,6 +650,6 @@ function handleSpecificAction( state, action ) {
 
 export default ( state = defaultState, action ) => {
   const newState = handleSpecificAction( state, action )
-  validateChartType( newState )
+  validateTrendsReducer( newState )
   return newState
 }

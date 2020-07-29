@@ -7,9 +7,9 @@ import {
   shortIsoFormat,
   startOfToday
 } from '../utils'
-import { isGreaterThanYear, validateChartType } from '../utils/trends'
+import { enforceValues, validateTrendsReducer } from '../utils/reducers'
 import actions from '../actions'
-import { enforceValues } from '../utils/reducers'
+import { isGreaterThanYear } from '../utils/trends'
 import moment from 'moment'
 
 const queryString = require( 'query-string' )
@@ -992,7 +992,7 @@ export default ( state = defaultQuery, action ) => {
   if ( newState.tab === types.MODE_TRENDS ) {
     // swap date interval in cases where the date range is > 1yr
     validateDateInterval( newState )
-    validateChartType( newState )
+    validateTrendsReducer( newState )
   }
 
 
