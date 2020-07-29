@@ -1,6 +1,6 @@
 import {
   ariaReadoutNumbers, calculateDateRange, clamp, coalesce, debounce,
-  formatPercentage, getFullUrl, hasFiltersEnabled, hashCode, sendAnalyticsEvent,
+  formatPercentage, getFullUrl, enablePer1000, hashCode, sendAnalyticsEvent,
   shortIsoFormat, sortSelThenCount, startOfToday, parseCookies,
   processErrorMessage
 } from '../utils'
@@ -164,7 +164,7 @@ describe('module::utils', () => {
     } );
   } );
 
-  describe( 'hasFiltersEnabled', () => {
+  describe( 'enablePer1000', () => {
     it( 'handles no filters', () => {
       const query = {
         date: {},
@@ -172,7 +172,7 @@ describe('module::utils', () => {
         product: []
       }
 
-      expect( hasFiltersEnabled( query ) ).toBeFalsy()
+      expect( enablePer1000( query ) ).toBeTruthy()
     } )
 
     it( 'handles some filters', () => {
@@ -182,7 +182,7 @@ describe('module::utils', () => {
         product: [ { name: 'foo', value: 123 } ]
       }
 
-      expect( hasFiltersEnabled( query ) ).toBeTruthy()
+      expect( enablePer1000( query ) ).toBeFalsy()
     } )
 
     it( 'handles flag filters', () => {
@@ -192,7 +192,7 @@ describe('module::utils', () => {
         has_narrative: true
       }
 
-      expect( hasFiltersEnabled( query ) ).toBeTruthy()
+      expect( enablePer1000( query ) ).toBeFalsy()
     } )
 
     it( 'handles company_received filters', () => {
@@ -203,8 +203,31 @@ describe('module::utils', () => {
         company_received_max: 'foo'
       }
 
-      expect( hasFiltersEnabled( query ) ).toBeTruthy()
+      expect( enablePer1000( query ) ).toBeFalsy()
     } )
+
+    it( 'allows state filter', () => {
+      const query = {
+        date: {},
+        bogus: {},
+        product: [],
+        state: [ 'FL', 'OR' ]
+      }
+
+      expect( enablePer1000( query ) ).toBeTruthy()
+    } )
+
+    it( 'disallows state filter when others valid', () => {
+      const query = {
+        date: {},
+        bogus: {},
+        product: ['BA'],
+        state: [ 'FL', 'OR' ]
+      }
+
+      expect( enablePer1000( query ) ).toBeFalsy()
+    } )
+
   } )
 
   describe( 'sortSelThenCount', ()=>{

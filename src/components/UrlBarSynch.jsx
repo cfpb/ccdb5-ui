@@ -1,6 +1,4 @@
-import {
-  dateFilters, excludeFields, flagFilters
-} from '../constants'
+import * as types from '../constants'
 import announceUrlChanged from '../actions/url'
 import { connect } from 'react-redux'
 import { createBrowserHistory as createHistory } from 'history'
@@ -23,14 +21,14 @@ export function toQS( props ) {
   const { queryString: apiQS, ...clone } = { ...props.params }
 
   // Process the dates differently
-  dateFilters.forEach( field => {
+  types.dateFilters.forEach( field => {
     if ( typeof clone[field] !== 'undefined' ) {
       clone[field] = shortIsoFormat( clone[field] )
     }
   } )
 
   // Process the flags differently
-  flagFilters.forEach( field => {
+  types.flagFilters.forEach( field => {
     if ( typeof clone[field] !== 'undefined' ) {
       clone[field] = clone[field].toString()
     }
@@ -40,10 +38,6 @@ export function toQS( props ) {
     if ( clone[k] === '' ) {
       delete clone[k]
     }
-  } )
-
-  excludeFields.forEach( f => {
-    delete clone[f]
   } )
 
   return '?' + queryString.stringify( clone )
@@ -96,20 +90,38 @@ export class UrlBarSynch extends React.Component {
 }
 
 export const mapStateToProps = state => {
-  const { map, query, view } = state
+  const { map, query, trends, view } = state
 
-  const expandedRows = [
-    ...new Set( [
-      ...view.expandedRows
-    ] )
-  ]
+  const params = {
+    ...map,
+    ...query,
+    ...trends,
+    ...view
+  }
+
+  const commonParams = [].concat( [ 'searchText', 'searchField', 'tab' ],
+    types.dateFilters, types.knownFilters, types.flagFilters )
+
+  const paramMap = {
+    List: [ 'sort', 'size', 'page' ],
+    Map: [ 'dataNormalization', 'dateRange', 'expandedRows' ],
+    Trends: [ 'chartType', 'dateRange', 'dateInterval', 'expandedRows', 'lens',
+      'focus', 'subLens' ]
+  }
+
+  const filterKeys = [].concat( commonParams, paramMap[query.tab] )
+
+  // where we only filter out the params required for each of the tabs
+  const filteredParams = Object.keys( params )
+    .filter( key => filterKeys.includes( key ) )
+    .reduce( ( obj, key ) => {
+      obj[key] = params[key]
+      return obj
+    }, {} )
+
 
   return {
-    params: {
-      ...query,
-      expandedRows,
-      dataNormalization: map.dataNormalization
-    }
+    params: filteredParams
   }
 }
 

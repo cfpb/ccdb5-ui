@@ -95,10 +95,8 @@ describe( 'component: PerCapita', () => {
   describe( 'mapStateToProps', () => {
     it( 'maps state and props', () => {
       const state = {
-        map: {
-          dataNormalization: 'foo'
-        },
         query: {
+          dataNormalization: 'foo',
           enablePer1000: true
         }
       }
