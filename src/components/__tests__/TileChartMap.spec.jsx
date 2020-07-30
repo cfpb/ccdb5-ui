@@ -9,6 +9,7 @@ import { shallow } from 'enzyme'
 import thunk from 'redux-thunk'
 import TileMap from '../Charts/TileMap'
 import * as utils from '../../utils'
+import * as types from '../../constants'
 
 jest.mock( '../Charts/TileMap' )
 
@@ -174,7 +175,6 @@ describe( 'component: TileChartMap', () => {
     it( 'maps state and props', () => {
       const state = {
         map: {
-          dataNormalization: false,
           results: {
             state: [
               // name comes from agg api
@@ -191,6 +191,7 @@ describe( 'component: TileChartMap', () => {
           }
         },
         query: {
+          dataNormalization: false,
           state: [ 'TX' ]
         },
         view: {
@@ -255,7 +256,6 @@ describe( 'component: TileChartMap', () => {
     it( 'maps state and props - no filters', () => {
       const state = {
         map: {
-          dataNormalization: false,
           results: {
             state: [
               // name comes from agg api
@@ -272,6 +272,7 @@ describe( 'component: TileChartMap', () => {
           }
         },
         query: {
+          dataNormalization: types.GEO_NORM_NONE
         },
         view: {
           printMode: false,
@@ -324,7 +325,7 @@ describe( 'component: TileChartMap', () => {
             }
           ]
         ],
-        dataNormalization: false,
+        dataNormalization: types.GEO_NORM_NONE,
         hasTip: true,
         printClass: '',
         stateFilters: [],

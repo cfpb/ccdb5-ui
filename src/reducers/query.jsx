@@ -1,8 +1,9 @@
+/* eslint complexity: ["error", 5] */
 import * as types from '../constants'
 import {
   calculateDateRange,
   clamp,
-  hasFiltersEnabled,
+  enablePer1000,
   processUrlArrayParams,
   shortIsoFormat,
   startOfToday
@@ -17,6 +18,7 @@ const queryString = require( 'query-string' )
 /* eslint-disable camelcase */
 export const defaultQuery = {
   chartType: 'line',
+  dataNormalization: types.GEO_NORM_NONE,
   dateInterval: 'Month',
   dateRange: '3y',
   date_received_max: startOfToday(),
@@ -54,7 +56,7 @@ const trendFieldMap = {
 }
 
 const urlParams = [
-  'dateRange', 'searchText', 'searchField', 'tab',
+  'dataNormalization', 'dateRange', 'searchText', 'searchField', 'tab',
   'lens', 'dateInterval', 'subLens', 'focus', 'chartType'
 ]
 
@@ -136,7 +138,7 @@ export function dateRangeNoDates( params ) {
 * Safely converts a string to a local date
 *
 * @param {string} value Hopefully, an ISO-8601 formatted string
-* @returns {string} The parsed and validated date, or null
+* @returns {Date} The parsed and validated date, or null
 */
 export function toDate( value ) {
   if ( isNaN( Date.parse( value ) ) ) {
@@ -146,8 +148,8 @@ export function toDate( value ) {
   // Adjust UTC to local timezone
   // This code adjusts for daylight saving time
   // but does not work for locations east of Greenwich
-  var utcDate = new Date( value )
-  var localTimeThen = new Date(
+  const utcDate = new Date( value )
+  const localTimeThen = new Date(
     utcDate.getFullYear(),
     utcDate.getMonth(),
     utcDate.getDate() + 1
@@ -839,6 +841,21 @@ export function updateChartType( state, action ) {
 }
 
 /**
+ * Handler for the update data normalization action
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the command being executed
+ * @returns {object} the new state for the Redux store
+ */
+export function updateDataNormalization( state, action ) {
+  const dataNormalization = enforceValues( action.value, 'dataNormalization' )
+  return {
+    ...state,
+    dataNormalization
+  }
+}
+
+/**
  * helper function to remove any empty arrays from known filter sets
  * @param {object} state we need to clean up
  */
@@ -900,11 +917,41 @@ export function stateToQS( state ) {
     }
   } )
 
-  types.excludeFields.forEach( f => {
-    delete params[f]
-  } )
+  // list of API params
+  // https://cfpb.github.io/api/ccdb/api/index.html#/
+  const commonParams =
+    [].concat( [ 'search_term', 'field' ],
+      types.dateFilters, types.knownFilters, types.flagFilters )
 
-  return '?' + queryString.stringify( params )
+  const paramMap = {
+    List: [ 'frm', 'size', 'sort', 'format', 'no_aggs', 'no_highlight' ],
+    // nothing unique to states endpoint
+    Map: [],
+    Trends: [ 'lens', 'focus', 'sub_lens', 'sub_lens_depth', 'trend_interval',
+      'trend_depth' ]
+  }
+
+  const filterKeys = [].concat( commonParams, paramMap[params.tab] )
+  // if format exists it means we're exporting, so add it to allowable params
+  if ( Object.keys( params ).includes( 'format' ) ) {
+    const exportParams = [ 'size', 'format', 'no_aggs' ]
+    exportParams.forEach( p => {
+      /* istanbul ignore else */
+      if ( !filterKeys.includes( p ) ) {
+        filterKeys.push( p )
+      }
+    } )
+  }
+
+  // where we only filter out the params required for each of the tabs
+  const filteredParams = Object.keys( params )
+    .filter( key => filterKeys.includes( key ) )
+    .reduce( ( obj, key ) => {
+      obj[key] = params[key]
+      return obj
+    }, {} )
+
+  return '?' + queryString.stringify( filteredParams )
 }
 
 /**
@@ -912,10 +959,13 @@ export function stateToQS( state ) {
  * @param {object} queryState state we need to validate
  */
 export function validatePer1000( queryState ) {
-  queryState.enablePer1000 = !hasFiltersEnabled( queryState )
+  queryState.enablePer1000 = enablePer1000( queryState )
   if ( queryState.enablePer1000 ) {
     queryState.mapWarningEnabled = true
   }
+  // if we enable per1k then don't reset it
+  queryState.dataNormalization = queryState.enablePer1000 ?
+    queryState.dataNormalization : types.GEO_NORM_NONE
 }
 
 // ----------------------------------------------------------------------------
@@ -932,6 +982,7 @@ export function _buildHandlerMap() {
   handlers[actions.CHART_TYPE_CHANGED] = updateChartType
   handlers[actions.COMPLAINTS_RECEIVED] = updateTotalPages
   handlers[actions.DATA_LENS_CHANGED] = changeDataLens
+  handlers[actions.DATA_NORMALIZATION_SELECTED] = updateDataNormalization
   handlers[actions.DATA_SUBLENS_CHANGED] = changeDataSubLens
   handlers[actions.DATE_INTERVAL_CHANGED] = changeDateInterval
   handlers[actions.DATE_RANGE_CHANGED] = changeDateRange

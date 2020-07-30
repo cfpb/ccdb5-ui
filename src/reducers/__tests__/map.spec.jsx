@@ -13,99 +13,12 @@ describe( 'reducer:map', () => {
     it( 'has a default state', () => {
       expect( target( undefined, {} ) ).toEqual( {
         activeCall: '',
-        dataNormalization: GEO_NORM_NONE,
         isLoading: false,
         results: {
           product: [],
           state: []
         }
       } )
-    } )
-  } )
-
-  describe( 'handles DATA_NORMALIZATION_SELECTED', () => {
-    beforeEach(()=>{
-      action = {
-        type: actions.DATA_NORMALIZATION_SELECTED,
-        value: 'FooBar'
-      }
-    })
-    it( 'handles default value', () => {
-      expect( target( {}, action ) ).toEqual( {
-        dataNormalization: 'None'
-      } )
-    } )
-
-    it( 'handles per 1000 value', () => {
-      action.value = GEO_NORM_PER1000
-      expect( target( {}, action ) ).toEqual( {
-        dataNormalization: 'Per 1000 pop.'
-      } )
-    } )
-  } )
-
-  describe( 'DATE_RANGE_CHANGED', () => {
-    beforeEach( () => {
-      action = {
-        type: actions.DATE_RANGE_CHANGED,
-        filterName: 'date_received',
-        minDate: 'foo',
-        maxDate: 'bar'
-      }
-    } )
-    it( 'handles date_received', () => {
-      expect( target( { dataNormalization: 'FooBar' }, action ) ).toEqual( {
-        dataNormalization: 'FooBar'
-      } )
-    } )
-
-    it( 'handles company_received', () => {
-      action.filterName = 'company_received'
-      expect( target( { dataNormalization: 'FooBar' }, action ) ).toEqual( {
-        dataNormalization: GEO_NORM_NONE
-      } )
-    } )
-
-    it( 'handles company_received null vals', () => {
-      action = {
-        type: actions.DATE_RANGE_CHANGED,
-        filterName: 'company_received',
-        minDate: null,
-        maxDate: null
-      }
-      expect( target( { dataNormalization: 'FooBar' }, action ) ).toEqual( {
-        dataNormalization: 'FooBar'
-      } )
-    } )
-  } )
-
-  describe( 'handles FILTER_CHANGED', () => {
-    action = {
-      type: actions.FILTER_CHANGED,
-      value: 'FooBar'
-    }
-    expect( target( { dataNormalization: 'FooBar' }, action ) ).toEqual( {
-      dataNormalization: GEO_NORM_NONE
-    } )
-  } )
-
-  describe( 'handles FILTER_MULTIPLE_ADDED', () => {
-    action = {
-      type: actions.FILTER_MULTIPLE_ADDED,
-      value: 'FooBar'
-    }
-    expect( target( { dataNormalization: 'FooBar' }, action ) ).toEqual( {
-      dataNormalization: GEO_NORM_NONE
-    } )
-  } )
-
-  describe( 'handles STATE_FILTER_ADDED', () => {
-    action = {
-      type: actions.STATE_FILTER_ADDED,
-      value: 'FooBar'
-    }
-    expect( target( { dataNormalization: 'FooBar' }, action ) ).toEqual( {
-      dataNormalization: GEO_NORM_NONE
     } )
   } )
 
@@ -277,30 +190,6 @@ describe( 'reducer:map', () => {
           state: []
         }
       } )
-    } )
-
-  } )
-
-  describe( 'URL_CHANGED actions', () => {
-    let action
-    let state
-    beforeEach( () => {
-      action = {
-        type: actions.URL_CHANGED,
-        params: {}
-      }
-
-      state = { ...defaultState }
-    } )
-
-    it( 'handles empty params', () => {
-      expect( target( state, action ) ).toEqual( state )
-    } )
-
-    it( 'handles dataNormalization params', () => {
-      action.params = { dataNormalization: 'hello' }
-      const actual = target( state, action )
-      expect( actual.dataNormalization ).toEqual( 'None' )
     } )
   } )
 

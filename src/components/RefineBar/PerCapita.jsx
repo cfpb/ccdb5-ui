@@ -45,7 +45,7 @@ export class PerCapita extends React.Component {
 }
 
 export const mapStateToProps = state => ( {
-  dataNormalization: state.map.dataNormalization,
+  dataNormalization: state.query.dataNormalization,
   enablePer1000: state.query.enablePer1000
 } );
 
