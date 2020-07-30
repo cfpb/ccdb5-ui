@@ -171,7 +171,7 @@ export class TrendsPanel extends React.Component {
 
         { !companyOverlay && overview && total > 0 &&
           <div className="layout-row">
-            <section className="chart">
+            <section className="chart-description">
               <h2 className="area-chart-title">{this._areaChartTitle()}</h2>
               <p className="chart-helper-text">A time series graph of
                complaints for the selected date range. Hover on the
@@ -184,7 +184,7 @@ export class TrendsPanel extends React.Component {
 
         { !companyOverlay && !overview && total > 0 &&
           <div className="layout-row">
-            <section className="chart">
+            <section className="chart-description">
               <h2 className="area-chart-title">{this._areaChartTitle()}</h2>
               <p className="chart-helper-text">A time series graph of the
                (up to five) highest volume complaints for the selected date
