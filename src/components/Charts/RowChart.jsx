@@ -30,14 +30,14 @@ export class RowChart extends React.Component {
     return numRows === 1 ? 100 : numRows * 60
   }
 
-  _wrapText( text, width ) {
+  _wrapText( text, width, viewMore ) {
     // ignore test coverage since this is code borrowed from d3 mbostock
     // text wrapping functions
-
     /* eslint-disable complexity */
     /* istanbul ignore next */
     text.each( function() {
       const innerText = d3.select( this )
+      const spanWidth = viewMore ? innerText.attr( 'x' ) : 0
       if ( innerText.node().children && innerText.node().children.length > 0 ) {
         // assuming its already split up
         return
@@ -51,8 +51,12 @@ export class RowChart extends React.Component {
       let word,
           line = [],
           lineNumber = 0,
-          tspan = innerText.text( null ).append( 'tspan' ).attr( 'x', 0 )
-            .attr( 'y', y ).attr( 'dy', dy + 'em' )
+          wrapCount = 0,
+          tspan = innerText.text( null )
+            .append( 'tspan' )
+            .attr( 'x', spanWidth )
+            .attr( 'y', y )
+            .attr( 'dy', dy + 'em' )
 
       // eslint-disable-next-line no-cond-assign
       while ( word = words.pop() ) {
@@ -63,12 +67,23 @@ export class RowChart extends React.Component {
           tspan.text( line.join( ' ' ) )
           line = [ word ]
           tspan = innerText.append( 'tspan' )
-            .attr( 'x', 0 )
+            .attr( 'x', spanWidth )
             .attr( 'y', y )
             // eslint-disable-next-line no-mixed-operators
             .attr( 'dy', ++lineNumber * lineHeight + dy + 'em' )
             .text( word )
+          wrapCount++
         }
+      }
+
+      if ( wrapCount ) {
+        const viewMoreBackground = d3.select( innerText.node().parentNode )
+          .select( '.view-more-background' )
+        const oldHeight = viewMoreBackground.attr( 'height' )
+        // eslint-disable-next-line no-mixed-operators
+        const newHeight = parseFloat( oldHeight ) + wrapCount * 12
+        viewMoreBackground.attr( 'height', newHeight )
+
       }
     } )
     /* eslint-enable complexity */
@@ -156,7 +171,7 @@ export class RowChart extends React.Component {
     this._wrapText( d3.select( chartID ).selectAll( '.tick text' ), marginLeft )
 
     this._wrapText( d3.select( chartID )
-      .selectAll( '.view-more-label' ), width / 2 )
+      .selectAll( '.view-more-label' ), width / 2, true )
 
     rowContainer
       .selectAll( '.y-axis-group .tick' )

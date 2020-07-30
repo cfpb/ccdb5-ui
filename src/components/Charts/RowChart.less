@@ -17,6 +17,9 @@
   .bg-hover, .visibility, line, path.domain, .x-axis-group {
     display: none;
   }
+  .expandable {
+    color: @pacific;
+  }
   text {
     font-size: 16px;
     &.adjust-upwards {
@@ -26,9 +29,18 @@
       display:none;
     }
   }
-  .view-more-label {
-    font-size: 12px;
-    text-decoration: underline;
-    fill: @pacific;
+
+  .view-more-group {
+    .view-more-background {
+      fill: @pacific-20;
+    }
+
+    .view-more-label {
+      font-size: 14px;
+      font-weight: bold;
+      text-decoration: underline;
+      fill: @pacific;
+      text-anchor: end;
+    }
   }
 }
