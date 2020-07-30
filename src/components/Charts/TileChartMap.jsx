@@ -136,7 +136,7 @@ export const mapStateToProps = state => {
 
   return {
     data: processStates( state ),
-    dataNormalization: state.map.dataNormalization,
+    dataNormalization: state.query.dataNormalization,
     hasTip: !printMode,
     printClass: printMode ? 'print' : '',
     stateFilters: [ ...refStateFilters ],

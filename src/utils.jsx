@@ -134,11 +134,12 @@ export function hashCode( someString ) {
 /**
  * helper function to determine if we have any filters selected so we can
  * disable the Per 1000 Complaints button
+ * enable per1000 if the only filter selected is state
  * @param {object} query contains values for the filters, etc
  * @returns {boolean} are we enabling the perCap
  */
 // eslint-disable-next-line complexity,require-jsdoc
-export function hasFiltersEnabled( query ) {
+export function enablePer1000( query ) {
   const keys = []
   let filter
   const allFilters = knownFilters.concat( flagFilters )
@@ -158,7 +159,12 @@ export function hasFiltersEnabled( query ) {
       keys.push( filter )
     }
   }
-  return keys.length > 0
+
+  if ( keys.length ) {
+    return keys.length === 1 && keys[0] === 'state'
+  }
+
+  return true
 }
 
 /**

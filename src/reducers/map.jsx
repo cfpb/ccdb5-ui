@@ -1,20 +1,17 @@
 // reducer for the Map Tab
-import { GEO_NORM_NONE, TILE_MAP_STATES } from '../constants'
 import actions from '../actions'
-import { enforceValues } from '../utils/reducers'
 import { processAggregations } from './trends'
 import { processErrorMessage } from '../utils'
+import { TILE_MAP_STATES } from '../constants'
 
 export const defaultState = {
   activeCall: '',
   isLoading: false,
-  dataNormalization: GEO_NORM_NONE,
   results: {
     product: [],
     state: []
   }
 }
-
 
 export const processStateAggregations = agg => {
   const states = Object.values( agg.state.buckets )
@@ -117,76 +114,6 @@ export function processStatesError( state, action ) {
   }
 }
 
-/**
- * Handler for the update filter data normalization action
- *
- * @param {object} state the current state in the Redux store
- * @param {object} action the command being executed
- * @returns {object} the new state for the Redux store
- */
-export function updateDateDataNormalization( state, action ) {
-  let dataNormalization = state.dataNormalization
-  if ( action.filterName === 'company_received' ) {
-    if ( action.minDate || action.maxDate ) {
-      dataNormalization = GEO_NORM_NONE
-    }
-  }
-
-  return {
-    ...state,
-    dataNormalization
-  }
-}
-
-/**
- * Handler for the update filter data normalization action
- *
- * @param {object} state the current state in the Redux store
- * @returns {object} the new state for the Redux store
- */
-export function updateFilterDataNormalization( state ) {
-  return {
-    ...state,
-    dataNormalization: GEO_NORM_NONE
-  }
-}
-
-/**
- * Handler for the update data normalization action
- *
- * @param {object} state the current state in the Redux store
- * @param {object} action the command being executed
- * @returns {object} the new state for the Redux store
- */
-export function updateDataNormalization( state, action ) {
-  const dataNormalization = enforceValues( action.value, 'dataNormalization' )
-  return {
-    ...state,
-    dataNormalization
-  }
-}
-
-/**
- * Processes an object of key/value strings into the correct internal format
- *
- * @param {object} state the current state in the Redux store
- * @param {object} action the payload containing the key/value pairs
- * @returns {object} a filtered set of key/value pairs with the values set to
- * the correct type
- */
-function processParams( state, action ) {
-  const params = action.params
-  const processed = Object.assign( {}, defaultState )
-
-  // Handle flag filters
-  if ( params.dataNormalization ) {
-    processed.dataNormalization =
-      enforceValues( params.dataNormalization, 'dataNormalization' )
-  }
-
-  return processed
-}
-
 // ----------------------------------------------------------------------------
 // Action Handlers
 
@@ -198,16 +125,10 @@ function processParams( state, action ) {
 export function _buildHandlerMap() {
   const handlers = {}
 
-  handlers[actions.DATA_NORMALIZATION_SELECTED] = updateDataNormalization
-  handlers[actions.DATE_RANGE_CHANGED] = updateDateDataNormalization
-  handlers[actions.FILTER_CHANGED] = updateFilterDataNormalization
-  handlers[actions.FILTER_MULTIPLE_ADDED] = updateFilterDataNormalization
-  handlers[actions.STATE_FILTER_ADDED] = updateFilterDataNormalization
   handlers[actions.STATES_API_CALLED] = statesCallInProcess
   handlers[actions.STATES_RECEIVED] = processStatesResults
   handlers[actions.STATES_FAILED] = processStatesError
   handlers[actions.TAB_CHANGED] = handleTabChanged
-  handlers[actions.URL_CHANGED] = processParams
 
   return handlers
 }
