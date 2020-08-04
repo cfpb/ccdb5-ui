@@ -1,16 +1,33 @@
-import React from 'react';
-import { IntlProvider } from 'react-intl';
-import { ActionBar, mapDispatchToProps } from '../ActionBar';
-import renderer from 'react-test-renderer';
+import React from 'react'
+import { IntlProvider } from 'react-intl'
+import ReduxActionBar, { ActionBar, mapDispatchToProps } from '../ActionBar'
+import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 import * as utils from '../../utils'
+import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
+import configureMockStore from 'redux-mock-store'
 
 describe('initial state', () => {
   it('renders without crashing', () => {
+    const middlewares = [thunk]
+    const mockStore = configureMockStore(middlewares)
+    const store = mockStore({
+      aggs: {
+        doc_count: 100,
+        total: 10
+      },
+      query: { tab: 'Map' },
+      view: {
+        printMode: false
+      }
+    } )
     const target = renderer.create(
-      <IntlProvider locale="en">
-        <ActionBar total="100" hits="10" />
-      </IntlProvider>
+      <Provider store={ store }>
+        <IntlProvider locale="en">
+          <ReduxActionBar/>
+        </IntlProvider>
+      </Provider>
     );
 
     let tree = target.toJSON();
