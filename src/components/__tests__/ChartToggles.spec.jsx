@@ -1,5 +1,5 @@
 import configureMockStore from 'redux-mock-store'
-import {
+import ReduxChartToggles, {
   mapDispatchToProps, mapStateToProps, ChartToggles
 } from '../RefineBar/ChartToggles'
 import { Provider } from 'react-redux'
@@ -7,16 +7,24 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 import thunk from 'redux-thunk'
-import { changeChartType } from '../../actions/trends'
+import * as utils from '../../utils'
 
+function setupEnzyme( cb, chartType ) {
+  return shallow( <ChartToggles toggleChartType={ cb }
+                                chartType={ chartType }/> )
+}
 function setupSnapshot() {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
-  const store = mockStore( {} )
+  const store = mockStore( {
+    trends: {
+      chartType: 'line'
+    }
+  } )
 
   return renderer.create(
     <Provider store={ store }>
-      <ChartToggles chartType={'line'}/>
+      <ReduxChartToggles />
     </Provider>
   )
 }
@@ -36,20 +44,27 @@ describe( 'component: ChartToggles', () => {
 
     beforeEach( () => {
       cb = jest.fn()
-
-      target = shallow( <ChartToggles toggleChartType={ cb }/> )
     } )
 
     it( 'Line - changeChartType is called the button is clicked', () => {
+      target = setupEnzyme( cb, 'foo' )
       const prev = target.find( '.chart-toggles .line' )
       prev.simulate( 'click' )
       expect( cb ).toHaveBeenCalledWith( 'line' )
     } )
 
     it( 'Area - changeChartType is called the button is clicked', () => {
+      target = setupEnzyme( cb, 'foo' )
       const prev = target.find( '.chart-toggles .area' )
       prev.simulate( 'click' )
       expect( cb ).toHaveBeenCalledWith( 'area' )
+    } )
+
+    it( 'changeChartType is NOT called when chartType is the same', () => {
+      target = setupEnzyme( cb, 'line' )
+      const prev = target.find( '.chart-toggles .line' )
+      prev.simulate( 'click' )
+      expect( cb ).not.toHaveBeenCalled()
     } )
   } )
 
@@ -57,8 +72,16 @@ describe( 'component: ChartToggles', () => {
   describe( 'mapDispatchToProps', () => {
     it( 'provides a way to call changeChartType', () => {
       const dispatch = jest.fn()
-      mapDispatchToProps( dispatch ).toggleChartType()
-      expect( dispatch.mock.calls.length ).toEqual( 1 )
+      const gaSpy = spyOn( utils, 'sendAnalyticsEvent' )
+      mapDispatchToProps( dispatch ).toggleChartType( 'my-chart' )
+      expect( dispatch.mock.calls ).toEqual( [
+        [ {
+          chartType: 'my-chart',
+          requery: 'REQUERY_NEVER',
+          type: 'CHART_TYPE_CHANGED'
+        } ]
+      ] )
+      expect( gaSpy ).toHaveBeenCalledWith( 'Button', 'Trends:my-chart' )
     } )
   } )
 

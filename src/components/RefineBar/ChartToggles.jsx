@@ -7,7 +7,9 @@ import { sendAnalyticsEvent } from '../../utils'
 
 export class ChartToggles extends React.Component {
   _toggleChartType( chartType ) {
-    this.props.toggleChartType( chartType )
+    if ( this.props.chartType !== chartType ) {
+      this.props.toggleChartType( chartType )
+    }
   }
 
   _btnClassName( chartType ) {

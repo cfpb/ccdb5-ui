@@ -14,13 +14,19 @@ export class DateRanges extends React.Component {
     return classes.join( ' ' )
   }
 
+  _toggleDateRange( dateRange ) {
+    if ( this.props.dateRange !== dateRange ) {
+      this.props.toggleDateRange( dateRange, this.props.tab )
+    }
+  }
+
   render() {
     return (
       <section className="date-ranges m-btn-group">
         <p>Date range (Click to modify range)</p>
         { dateRanges.map( dateRange =>
           <button onClick={ () => {
-            this.props.toggleDateRange( dateRange, this.props.tab )
+            this._toggleDateRange( dateRange )
           } }
                   className={ this._btnClassName( dateRange ) }
                   key={ dateRange }>
