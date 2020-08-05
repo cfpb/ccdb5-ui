@@ -14,7 +14,6 @@ import React from 'react'
 import RowChart from '../Charts/RowChart'
 import { Separator } from '../RefineBar/Separator'
 import { shortFormat } from '../../utils'
-import StaleDataWarnings from '../Warnings/StaleDataWarnings'
 import TileChartMap from '../Charts/TileChartMap'
 import Warning from '../Warnings/Warning'
 
@@ -34,7 +33,6 @@ export class MapPanel extends React.Component {
     return (
       <section className="map-panel">
         <ActionBar/>
-        <StaleDataWarnings />
         { this.props.error &&
           <ErrorBlock text="There was a problem executing your search" />
         }

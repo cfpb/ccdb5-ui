@@ -5,6 +5,7 @@ import iconMap from './iconMap'
 import React from 'react';
 import { sendAnalyticsEvent } from '../utils'
 import { showExportDialog } from '../actions/dataExport'
+import StaleDataWarnings from './Warnings/StaleDataWarnings'
 
 export class ActionBar extends React.Component {
   render() {
@@ -45,6 +46,7 @@ export class ActionBar extends React.Component {
             </h3>
           </div>
         </summary>
+        <StaleDataWarnings />
         </div>
     );
   }

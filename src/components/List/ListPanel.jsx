@@ -14,7 +14,6 @@ import React from 'react'
 import { Select } from '../RefineBar/Select'
 import { sendAnalyticsEvent } from '../../utils'
 import { Separator } from '../RefineBar/Separator'
-import StaleDataWarnings from '../Warnings/StaleDataWarnings'
 
 const ERROR = 'ERROR'
 const NO_RESULTS = 'NO_RESULTS'
@@ -38,7 +37,6 @@ export class ListPanel extends React.Component {
     return (
       <section className="list-panel">
         <ActionBar />
-        <StaleDataWarnings />
         { this.props.showMobileFilters && <FilterPanel/> }
         <div className="layout-row refine-bar">
           <FilterPanelToggle/>
