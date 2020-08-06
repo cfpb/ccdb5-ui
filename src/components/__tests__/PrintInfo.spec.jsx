@@ -1,22 +1,46 @@
-import {
-  getComplaintCountText, mapStateToProps, PrintInfo
+import ReduxPrintInfo, {
+  getComplaintCountText, mapStateToProps
 } from '../Print/PrintInfo'
 import { IntlProvider } from 'react-intl'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { shallow } from 'enzyme'
+import thunk from 'redux-thunk'
+import configureMockStore from 'redux-mock-store'
+import { Provider } from 'react-redux'
+
+function setupSnapshot(){
+  const middlewares = [ thunk ]
+  const mockStore = configureMockStore( middlewares )
+  const store = mockStore( {
+    aggs: {
+      doc_count: 1000,
+      total: 100
+    },
+    query: {
+      date_received_min: '2017-03-05T05:00:00.000Z',
+      date_received_max: '2020-03-05T05:00:00.000Z',
+      searchText: 'Got no money'
+    },
+    view: {
+      expandedRows: [],
+      printMode: false,
+      width: 1000
+    }
+  } )
+
+  return renderer.create(
+    <IntlProvider locale="en">
+      <Provider store={ store }>
+        <ReduxPrintInfo/>
+      </Provider>
+    </IntlProvider>
+  )
+}
 
 describe( 'component: PrintInfo', () => {
   describe( 'initial state', () => {
     it( 'renders without crashing', () => {
-      const target = renderer.create(
-        <IntlProvider locale="en">
-          <PrintInfo
-            complaintCountText={'Showing 100 complaints'}
-            dates={'2013 - 2020'}
-            searchText={'Got no money'}/>
-        </IntlProvider>
-      )
+      const target = setupSnapshot()
       let tree = target.toJSON()
       expect( tree ).toMatchSnapshot()
     } )
