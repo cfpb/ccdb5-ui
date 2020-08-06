@@ -9,8 +9,7 @@ import { SLUG_SEPARATOR } from '../../constants'
 export class Pill extends React.Component {
   render() {
     const { value, remove } = this.props
-    const parts = value.split( SLUG_SEPARATOR )
-    const trimmed = parts.length > 1 ? parts.pop() : parts[0]
+    const trimmed = value.split( SLUG_SEPARATOR ).pop()
     return (
       <li className="pill flex-fixed">
         <span className="name">{ trimmed }</span>
