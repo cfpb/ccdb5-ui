@@ -26,7 +26,7 @@ exports[`component: DateRanges initial state renders without crashing 1`] = `
     1y
   </button>
   <button
-    className="a-btn date-selector range-3y"
+    className="a-btn date-selector range-3y selected"
     onClick={[Function]}
   >
     3y

@@ -11,7 +11,7 @@ import renderer from 'react-test-renderer'
 import { REQUERY_ALWAYS } from '../../constants'
 import thunk from 'redux-thunk'
 import { shallow } from 'enzyme'
-import * as utils from  '../../utils'
+import * as utils from '../../utils'
 
 function setupSnapshot( { focus, lens, results } ) {
   const middlewares = [ thunk ]
