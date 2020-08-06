@@ -1,7 +1,7 @@
 import './TileChartMap.less'
 import { addStateFilter, removeStateFilter } from '../../actions/map'
+import { coalesce, hashObject, sendAnalyticsEvent } from '../../utils'
 import { GEO_NORM_NONE, STATE_DATA } from '../../constants'
-import { hashObject, sendAnalyticsEvent } from '../../utils'
 import { connect } from 'react-redux'
 import React from 'react'
 import TileMap from './TileMap'
@@ -117,10 +117,12 @@ export const getStateClass = ( statesFilter, name ) => {
 }
 
 export const processStates = state => {
-  const statesFilter = state.query.state || []
+  const statesFilter = coalesce( state.query, 'state', [] )
   const states = state.map.results.state
   const stateData = states.map( o => {
-    const stateInfo = STATE_DATA[o.name] || { name: '', population: 1 }
+    const stateInfo = coalesce(
+      STATE_DATA, o.name, { name: '', population: 1 }
+    )
     o.abbr = o.name
     o.fullName = stateInfo.name
     o.perCapita = getPerCapita( o, stateInfo )
@@ -131,7 +133,7 @@ export const processStates = state => {
 }
 
 export const mapStateToProps = state => {
-  const refStateFilters = state.query.state || []
+  const refStateFilters = coalesce( state.query, 'state', [] )
   const { printMode, width } = state.view
 
   return {

@@ -212,7 +212,12 @@ export function parseCookies( cookies = document.cookie ) {
  * @param {object|array} input the thing to copy
  * @returns {object|array} the copied new thing
  */
-export const cloneDeep = input => JSON.parse( JSON.stringify( input ) )
+export const cloneDeep = input => {
+  if ( typeof input !== 'undefined' ) {
+    JSON.parse( JSON.stringify( input ) )
+  }
+  return input
+}
 
 /**
  * Custom sort for array so that selected items appear first, then by doc_count

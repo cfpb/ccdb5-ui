@@ -1,10 +1,10 @@
 // It uses this name rather than 'State' to distinguish from the React state
 // Idea https://en.wikipedia.org/wiki/U.S._state
+import { coalesce, normalize } from '../../utils'
 import { addMultipleFilters } from '../../actions/filter'
 import CollapsibleFilter from './CollapsibleFilter'
 import { connect } from 'react-redux'
 import HighlightingOption from '../Typeahead/HighlightingOption'
-import { normalize } from '../../utils'
 import React from 'react'
 import StickyOptions from './StickyOptions'
 import { THESE_UNITED_STATES } from '../../constants'
@@ -108,8 +108,8 @@ export class FederalState extends React.Component {
 
 export const mapStateToProps = state => {
   // See if there are an active Federal State filters
-  const selections = state.query.state || []
-  const options = ( state.aggs.state || [] )
+  const selections = coalesce( state.query, 'state', [] )
+  const options = coalesce( state.aggs, 'state', [] )
     .map( x => ( {
       ...x,
       value: buildLabel( x.key )

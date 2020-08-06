@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import {
+import ReduxFilterPanelToggle, {
   FilterPanelToggle,
   mapDispatchToProps,
   mapStateToProps
@@ -29,29 +29,35 @@ function setupEnzyme() {
 }
 
 
-function setupSnapshot() {
+function setupSnapshot(showFilters) {
   const middlewares = [thunk]
   const mockStore = configureMockStore(middlewares)
   const store = mockStore({
     view: {
-      showFilters: true
+      showFilters
     }
   })
 
   return renderer.create(
     <Provider store={store}>
-      <FilterPanelToggle />
+      <ReduxFilterPanelToggle />
     </Provider>
   )
 }
 
-describe('initial state', () => {
-  it('renders without crashing', () => {
-    const target = setupSnapshot()
+describe( 'initial state', () => {
+  it( 'renders Close filters without crashing', () => {
+    const target = setupSnapshot( true )
     const tree = target.toJSON()
-    expect(tree).toMatchSnapshot()
-  });
-});
+    expect( tree ).toMatchSnapshot()
+  } )
+
+  it( 'renders Filter Results without crashing', () => {
+    const target = setupSnapshot( false )
+    const tree = target.toJSON()
+    expect( tree ).toMatchSnapshot()
+  } )
+} )
 
 describe('mapDispatchToProps', () => {
   it('hooks into onFilterToggle', () => {

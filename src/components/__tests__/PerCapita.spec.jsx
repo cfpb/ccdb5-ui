@@ -1,5 +1,5 @@
 import configureMockStore from 'redux-mock-store'
-import {
+import ReduxPerCapita, {
   mapDispatchToProps, mapStateToProps, PerCapita
 } from '../RefineBar/PerCapita'
 import { Provider } from 'react-redux'
@@ -24,30 +24,37 @@ function setupEnzyme( normalization = GEO_NORM_NONE ) {
   }
 }
 
-function setupSnapshot() {
+function setupSnapshot(enablePer1000) {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
   const store = mockStore( {
-    map: {},
     query: {
-      company: [ { name: 'foo', value: 123 } ]
+      dataNormalization: GEO_NORM_NONE,
+      enablePer1000
     }
   } )
 
   return renderer.create(
     <Provider store={ store }>
-      <PerCapita />
+      <ReduxPerCapita />
     </Provider>
   )
 }
 
 describe( 'component: PerCapita', () => {
   describe( 'initial state', () => {
-    it( 'renders without crashing', () => {
-      const target = setupSnapshot()
+    it( 'renders enablePer1000 without crashing', () => {
+      const target = setupSnapshot( true )
       let tree = target.toJSON()
       expect( tree ).toMatchSnapshot()
     } )
+
+    it( 'renders disabled enablePer1000 without crashing', () => {
+      const target = setupSnapshot( false )
+      let tree = target.toJSON()
+      expect( tree ).toMatchSnapshot()
+    } )
+
 
     it('allows the user to trigger Complaints', () => {
       const { target, props } = setupEnzyme()

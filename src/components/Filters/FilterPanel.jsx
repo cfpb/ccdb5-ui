@@ -101,7 +101,6 @@ export class FilterPanel extends React.Component {
 }
 
 export const mapStateToProps = state => ( {
-  aggs: state.aggs,
   showButton: state.view.width < 750,
   showFilterToggle: state.view.width < 600 && !state.view.showFilters,
   showFilters: state.view.showFilters

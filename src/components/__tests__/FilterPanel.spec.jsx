@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import {
+import ReduxFilterPanel, {
   FilterPanel,
   mapDispatchToProps,
   mapStateToProps
@@ -13,7 +13,6 @@ import { shallow } from 'enzyme'
 
 function setupEnzyme() {
   const props = {
-    aggs: {},
     onFilterToggle: jest.fn(),
     showButton: true,
     showFilterToggle: true,
@@ -29,29 +28,52 @@ function setupEnzyme() {
 }
 
 
-function setupSnapshot() {
-  const middlewares = [thunk]
-  const mockStore = configureMockStore(middlewares)
-  const store = mockStore({
+function setupSnapshot( view ) {
+  const middlewares = [ thunk ]
+  const mockStore = configureMockStore( middlewares )
+  const store = mockStore( {
     aggs: {},
     query: {},
-    view: {}
-  })
+    view
+  } )
 
   return renderer.create(
     <Provider store={store}>
-      <FilterPanel />
+      <ReduxFilterPanel />
     </Provider>
   )
 }
 
-describe('initial state', () => {
-  it('renders without crashing', () => {
-    const target = setupSnapshot()
+describe( 'initial state', () => {
+  let viewStore
+  beforeEach( () => {
+    viewStore = {
+      showFilters: true,
+      width: 1000
+    }
+  } )
+  it( 'renders without crashing', () => {
+    const target = setupSnapshot( viewStore )
     const tree = target.toJSON()
-    expect(tree).toMatchSnapshot()
-  });
-});
+    expect( tree ).toMatchSnapshot()
+  } )
+
+  it( 'renders button at mobile width', () => {
+    viewStore.width = 600
+    viewStore.showFilters = true
+    const target = setupSnapshot( viewStore )
+    const tree = target.toJSON()
+    expect( tree ).toMatchSnapshot()
+  } )
+
+  it( 'renders filter toggle at mobile width', () => {
+    viewStore.width = 600
+    viewStore.showFilters = false
+    const target = setupSnapshot( viewStore )
+    const tree = target.toJSON()
+    expect( tree ).toMatchSnapshot()
+  } )
+} )
 
 describe('mapDispatchToProps', () => {
   it('hooks into onFilterToggle', () => {
@@ -72,7 +94,6 @@ describe('mapDispatchToProps', () => {
 describe( 'mapStateToProps', () => {
   it( 'maps state and props', () => {
     const state = {
-      aggs: {},
       view:{
         showFilters: true,
         width: 1000
@@ -80,7 +101,6 @@ describe( 'mapStateToProps', () => {
     }
     let actual = mapStateToProps( state )
     expect( actual ).toEqual( {
-      aggs: {},
       showButton: false,
       showFilterToggle: false,
       showFilters: true

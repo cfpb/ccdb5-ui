@@ -93,10 +93,7 @@ function setupSnapshot(lens) {
 
   return renderer.create(
     <Provider store={ store }>
-      <ReduxLineChart
-        tooltipUpdated={ jest.fn() }
-        title={ 'foo' }
-        />
+      <ReduxLineChart title={ 'foo' }/>
     </Provider>
   )
 }
