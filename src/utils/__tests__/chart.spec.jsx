@@ -195,7 +195,7 @@ describe( 'processRows', () => {
 
   it( 'returns only expandedRows rows', () => {
     const rows = [
-      { name: 'abc', value: 123, isParent: true  },
+      { name: 'abc', value: 123, isParent: true },
       { name: 'def', value: 123, isParent: true },
       { name: 'Complaint', value: 123, isParent: true },
       { name: 'Compla', parent: 'Complaint', value: 123 },
@@ -207,7 +207,7 @@ describe( 'processRows', () => {
     expect( res ).toEqual( {
       colorScheme: [ '#20aa3f', '#20aa3f', '#20aa3f' ],
       data: [
-        { name: 'abc', value: 123, isParent: true  },
+        { name: 'abc', value: 123, isParent: true },
         { name: 'def', value: 123, isParent: true },
         { name: 'Complaint', value: 123, isParent: true }
       ]

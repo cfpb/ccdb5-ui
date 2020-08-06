@@ -27,6 +27,33 @@ exports[`component: TabbedNavigation initial state renders without crashing 1`] 
 </div>
 `;
 
+exports[`component: TabbedNavigation initial state shows the Map tab 1`] = `
+<div
+  className="tabbed-navigation"
+>
+  <section>
+    <button
+      className="map tab active"
+      onClick={[Function]}
+    >
+      Map
+    </button>
+    <button
+      className="trends tab"
+      onClick={[Function]}
+    >
+      Trends
+    </button>
+    <button
+      className="list tab"
+      onClick={[Function]}
+    >
+      List
+    </button>
+  </section>
+</div>
+`;
+
 exports[`component: TabbedNavigation initial state shows the Trends tab 1`] = `
 <div
   className="tabbed-navigation"
@@ -40,6 +67,33 @@ exports[`component: TabbedNavigation initial state shows the Trends tab 1`] = `
     </button>
     <button
       className="trends tab"
+      onClick={[Function]}
+    >
+      Trends
+    </button>
+    <button
+      className="list tab active"
+      onClick={[Function]}
+    >
+      List
+    </button>
+  </section>
+</div>
+`;
+
+exports[`component: TabbedNavigation initial state shows the Trends tab 2`] = `
+<div
+  className="tabbed-navigation"
+>
+  <section>
+    <button
+      className="map tab"
+      onClick={[Function]}
+    >
+      Map
+    </button>
+    <button
+      className="trends tab active"
       onClick={[Function]}
     >
       Trends

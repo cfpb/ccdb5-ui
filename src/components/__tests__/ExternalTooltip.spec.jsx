@@ -1,4 +1,4 @@
-import * as trendsUtils  from '../../utils/trends'
+import * as trendsUtils from '../../utils/trends'
 import ReduxExternalTooltip, {
   ExternalTooltip,
   mapDispatchToProps,

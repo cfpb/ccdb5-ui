@@ -7,7 +7,9 @@ exports[`component: RowChart initial state renders without crashing 1`] = `
   <h3>
     Foo title we want
   </h3>
-  <p />
+  <p>
+    sub title under title
+  </p>
   <div
     id="row-chart-foo"
   />

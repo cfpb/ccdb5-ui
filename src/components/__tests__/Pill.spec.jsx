@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 import { SLUG_SEPARATOR } from '../../constants'
-import { Pill, mapStateToProps, mapDispatchToProps } from '../Search/Pill';
+import { Pill, mapDispatchToProps } from '../Search/Pill';
 
 function setupEnzyme() {
   const props = {
@@ -23,17 +23,13 @@ function setupEnzyme() {
 describe('component:Pill', () => {
   it('renders without crashing', () => {
     const target = renderer.create(
-      <Pill fieldName="foo" trimmed="bar" />
+      <Pill fieldName="somefield"
+            value={ "foo" + SLUG_SEPARATOR + 'bar' }
+      />
     );
 
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
-  });
-
-  it('uses the last element of a hierarchy filter slug', () => {
-    const { props } = setupEnzyme()
-    const actual = mapStateToProps({}, props)
-    expect(actual.trimmed).toEqual('qaz')
   });
 
   it('allows the user to remove this filter', () => {
