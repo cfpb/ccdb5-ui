@@ -21,7 +21,7 @@ describe( 'formatDate', function () {
     expect( actual ).toEqual( '1980-01-12' )
   } )
 
-  it( 'converts string to short  ', function () {
+  it( 'converts string to short', function () {
     const actual = sut.formatDateLocaleShort( new Date( 'January 12, 1980' ) )
     expect( actual ).toEqual( 'Jan 12, 1980' )
   } )

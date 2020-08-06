@@ -115,7 +115,7 @@ export const getColorScheme = ( rowNames, colorMap, lens ) =>
       return colorMap[name]
     }
 
-    // return default grey when it's data lens  and not in area/line chart
+    // return default grey when it's data lens and not in area/line chart
     // #a2a3a4
     return lens === 'Overview' ? '#20aa3f' : '#a2a3a4'
   } )

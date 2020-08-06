@@ -1,5 +1,5 @@
 import configureMockStore from 'redux-mock-store'
-import {
+import ReduxLineChart, {
   mapDispatchToProps,
   mapStateToProps,
   LineChart
@@ -58,31 +58,45 @@ jest.mock( 'd3', () => {
 function setupSnapshot(lens) {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
-  const store = mockStore( {} )
-
-  const data = {
-    dataByTopic: [ {
-      topic: 'Complaints',
-      topicName: 'Complaints',
-      dashed: false,
-      show: true,
-      dates: [
-        { date: '2020-03-01T00:00:00.000Z', value: 29068 },
-        { date: '2020-04-01T00:00:00.000Z', value: 35112 },
-        { date: '2020-05-01T00:00:00.000Z', value: 9821 }
-      ]
-    } ]
-  }
-  const colorMap = { Complaints: '#ADDC91', 'Other': '#a2a3a4' }
+  const store = mockStore( {
+    query: {
+      dateInterval: 'Month',
+      date_received_min: '2012',
+      date_received_max: '2016',
+      lens: 'Overview'
+    },
+    trends: {
+      colorMap: { Complaints: '#ADDC91', 'Other': '#a2a3a4' },
+      lastDate: '2015-01-01',
+      results: {
+        dateRangeLine: {
+          dataByTopic: [ {
+            topic: 'Complaints',
+            topicName: 'Complaints',
+            dashed: false,
+            show: true,
+            dates: [
+              { date: '2020-03-01T00:00:00.000Z', value: 29068 },
+              { date: '2020-04-01T00:00:00.000Z', value: 35112 },
+              { date: '2020-05-01T00:00:00.000Z', value: 9821 }
+            ]
+          } ]
+        }
+      },
+      tooltip: false
+    },
+    view: {
+      printMode: false,
+      width: 1000
+    }
+  } )
 
   return renderer.create(
     <Provider store={ store }>
-      <LineChart
+      <ReduxLineChart
         tooltipUpdated={ jest.fn() }
-        colorMap={ colorMap }
-        data={ data }
         title={ 'foo' }
-        lens={ lens }/>
+        />
     </Provider>
   )
 }

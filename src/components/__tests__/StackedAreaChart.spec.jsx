@@ -1,5 +1,5 @@
 import configureMockStore from 'redux-mock-store'
-import {
+import ReduxStackedAreaChart, {
   mapDispatchToProps,
   mapStateToProps,
   StackedAreaChart
@@ -54,15 +54,33 @@ jest.mock( 'd3', () => {
 function setupSnapshot() {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
-  const store = mockStore( {} )
-  const colorMap = {
-    foo: '#fff',
-    bar: '#eee'
+  const state = {
+    query: {
+      dateInterval: 'Month',
+      date_received_min: '2012',
+      date_received_max: '2014'
+    },
+    trends: {
+      colorMap: {
+        foo: '#fff',
+        bar: '#eee'
+      },
+      lastDate: '2014-01-01',
+      lens: 'Overview',
+      results: {
+        dateRangeArea: [1,2,3]
+      },
+      tooltip: false
+    },
+    view: {
+      printMode: false,
+      width: 1000
+    }
   }
-
+  const store = mockStore( state )
   return renderer.create(
     <Provider store={ store }>
-      <StackedAreaChart title={ 'foo' } colorMap={ colorMap }/>
+      <ReduxStackedAreaChart />
     </Provider>
   )
 }
@@ -97,7 +115,6 @@ describe( 'component: StackedAreaChart', () => {
     it( 'does nothing when no data', () => {
       const target = shallow( <StackedAreaChart colorMap={ { foo: 'bar' } }
                                                 data={ [] }
-                                                title={ 'foo' }
       /> )
       target._redrawChart = jest.fn()
       target.setProps( { data: [] } )
@@ -108,7 +125,6 @@ describe( 'component: StackedAreaChart', () => {
       const target = shallow( <StackedAreaChart
         tooltipUpdated={ jest.fn() }
         colorMap={ { foo: 'bar', shi: 'oio' } }
-        title={ 'foo' }
         data={ [ 23, 4, 3 ] }
       /> )
       target._redrawChart = jest.fn()
@@ -120,7 +136,6 @@ describe( 'component: StackedAreaChart', () => {
     it( 'trigger a new update when printMode changes', () => {
       const target = shallow( <StackedAreaChart
         tooltipUpdated={ jest.fn() }
-        title={ 'foo' }
         colorMap={ { foo: 'bar', shi: 'oio' } }
         data={ [ 23, 4, 3 ] }
         printMode={ 'false' }
@@ -134,7 +149,6 @@ describe( 'component: StackedAreaChart', () => {
     it( 'trigger a new update when width changes', () => {
       const target = shallow( <StackedAreaChart
         tooltipUpdated={ jest.fn() }
-        title={ 'foo' }
         colorMap={ { foo: 'bar', shi: 'oio' } }
         data={ [ 23, 4, 3 ] }
         printMode={ 'false' }
@@ -215,7 +229,6 @@ describe( 'component: StackedAreaChart', () => {
                                             from: '2012',
                                             to: '2020'
                                           } }
-                                          title={ 'foo' }
                                           tooltip={ { date: '2000' } }
                                           tooltipUpdated={ cb }
       /> )
@@ -232,7 +245,6 @@ describe( 'component: StackedAreaChart', () => {
                                             from: '2012',
                                             to: '2020'
                                           } }
-                                          title={ 'foo' }
                                           tooltip={ { date: '2000' } }
                                           tooltipUpdated={ cb }
       /> )
@@ -254,7 +266,6 @@ describe( 'component: StackedAreaChart', () => {
             from: '2012',
             to: '2020'
           } }
-          title={ 'foo' }
           tooltipUpdated={ jest.fn() }
         /> )
         expect( target.instance()._chartWidth( '#foo' ) )

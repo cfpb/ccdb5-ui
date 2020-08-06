@@ -1,6 +1,6 @@
 import * as trendsUtils from '../../utils/trends'
 import configureMockStore from 'redux-mock-store'
-import {
+import ReduxRowChart, {
   mapDispatchToProps,
   mapStateToProps,
   RowChart
@@ -59,15 +59,24 @@ function setupSnapshot() {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
   const store = mockStore( {
-    printMode: false,
-    width: 1000
+    aggs: {},
+    query: {
+      lens: 'bar',
+      tab: 'foo'
+    },
+    view: {
+      expandedRows: [],
+      printMode: false,
+      width: 1000
+    }
   } )
 
   return renderer.create(
     <Provider store={ store }>
-      <RowChart id={ 'foo' }
+      <ReduxRowChart id={ 'foo' }
                 data={ [ 1, 2, 3 ] }
                 title={ 'Foo title we want' }
+                helperText={'sub title under title'}
                 colorScheme={ [] }
                 total={ 1000 }
       />

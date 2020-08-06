@@ -1,31 +1,26 @@
 import './Pill.less'
 import { connect } from 'react-redux'
 import iconMap from '../iconMap'
+import PropTypes from 'prop-types'
 import React from 'react'
 import { removeFilter } from '../../actions/filter'
 import { SLUG_SEPARATOR } from '../../constants'
 
-// The linter does not detect the use of 'fieldName' which _is_ used.
-// eslint-disable-next-line no-unused-vars
-export const Pill = ( { fieldName, value, trimmed, remove } ) =>
-    <li className="pill flex-fixed">
-      <span className="name">{ trimmed }</span>
-      <button onClick={ remove }>
-        <span className="u-visually-hidden">
-          {'Remove ' + trimmed + ' as a filter'}
-        </span>
-        { iconMap.getIcon( 'delete' ) }
-      </button>
-    </li>
-
-
-export const mapStateToProps = ( state, ownProps ) => {
-  const parts = ownProps.value.split( SLUG_SEPARATOR )
-  const trimmed = parts.length > 1 ? parts.pop() : parts[0];
-
-  return {
-    ...ownProps,
-    trimmed
+export class Pill extends React.Component {
+  render() {
+    const { value, remove } = this.props
+    const trimmed = value.split( SLUG_SEPARATOR ).pop()
+    return (
+      <li className="pill flex-fixed">
+        <span className="name">{ trimmed }</span>
+        <button onClick={ remove }>
+          <span className="u-visually-hidden">
+            { `Remove ${ trimmed } as a filter` }
+          </span>
+          { iconMap.getIcon( 'delete' ) }
+        </button>
+      </li>
+    )
   }
 }
 
@@ -33,4 +28,9 @@ export const mapDispatchToProps = ( dispatch, props ) => ( {
   remove: () => { dispatch( removeFilter( props.fieldName, props.value ) ) }
 } )
 
-export default connect( mapStateToProps, mapDispatchToProps )( Pill );
+export default connect( null, mapDispatchToProps )( Pill );
+
+Pill.propTypes = {
+  fieldName: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired
+}

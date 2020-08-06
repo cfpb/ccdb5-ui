@@ -250,10 +250,10 @@ describe( 'component:TrendDepthToggle', () => {
           { name: 'b', visible: true, isParent: false },
           { name: 'c', visible: true, isParent: false },
           { name: 'd', visible: true, isParent: false },
-          { name: 'e', visible: true, isParent: false  },
-          { name: 'f', visible: true, isParent: false  },
-          { name: 'g', visible: true, isParent: false  },
-          { name: 'h', visible: true, isParent: false  },
+          { name: 'e', visible: true, isParent: false },
+          { name: 'f', visible: true, isParent: false },
+          { name: 'g', visible: true, isParent: false },
+          { name: 'h', visible: true, isParent: false },
           { name: 'i', visible: true, isParent: false },
           { name: 'j', visible: true, isParent: false }
         ]

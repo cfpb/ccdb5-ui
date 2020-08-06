@@ -709,7 +709,7 @@ function changeTab( state, action ) {
 /**
  * Upon complaint received, we need to make sure to reset the page
  *
- * @param  {object} state the current state in the Redux store
+ * @param {object} state the current state in the Redux store
  * @param {object} action the command being executed
  * @returns {{page: number, totalPages: number}} the new state
  */

@@ -68,13 +68,10 @@ export class Hero extends React.Component {
   }
 }
 
-export const mapStateToProps = () => ( {
-} )
-
 export const mapDispatchToProps = dispatch => ( {
   onMoreAbout: () => {
     dispatch( showMoreAboutDialog() )
   }
 } )
 
-export default connect( mapStateToProps, mapDispatchToProps )( Hero )
+export default connect( null, mapDispatchToProps )( Hero )
