@@ -1,11 +1,15 @@
 import target, {
-  defaultState, getDefaultState, mainNameLens
+  getDefaultState, mainNameLens
 } from '../trends'
 import actions from '../../actions'
 import {
   trendsBackfill,
   trendsBackfillResults
 } from '../__fixtures__/trendsBackfill'
+import {
+  trendsCompanyAggs,
+  trendsCompanyResults
+} from '../__fixtures__/trendsCompanyResults'
 import {
   trendsFocusAggs,
   trendsFocusAggsResults
@@ -339,6 +343,14 @@ describe( 'reducer:trends', () => {
       action.data.aggregations = trendsAggs
       result = target( state, action )
       expect( result ).toEqual( trendsResults )
+    } )
+
+    it( 'maps data to object state - Company', () => {
+      // just changing
+      state.lens = 'Company'
+      action.data.aggregations = trendsCompanyAggs
+      result = target( state, action )
+      expect( result ).toEqual( trendsCompanyResults )
     } )
 
     it( 'maps data to object state - dupe rows', () => {

@@ -67,6 +67,10 @@ export function processAggregations( keys, state, aggregations, results ) {
  */
 export function processBucket( state, agg ) {
   const list = []
+  // default is either Overview / Product
+  const tabLabels = state.lens === 'Company' ? 'product' :
+    'sub-product and issue'
+
   for ( let i = 0; i < agg.length; i++ ) {
     processTrendPeriod( agg[i] )
 
@@ -88,7 +92,7 @@ export function processBucket( state, agg ) {
     if ( subItem && subItem.buckets && subItem.buckets.length ) {
       const expandableBuckets = subItem.buckets
       // if there's buckets we need to add a separator for rendering
-      const labelText = `Visualize trends for ${ item.key } >`
+      const labelText = `Visualize ${ tabLabels } trends for ${ item.key } >`
       expandableBuckets.push( {
         hasChildren: false,
         isParent: false,
