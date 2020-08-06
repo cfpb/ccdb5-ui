@@ -1,19 +1,39 @@
+import { mount, shallow } from 'enzyme'
+import ReduxPagination,
+  { Pagination, mapStateToProps, mapDispatchToProps } from '../List/Pagination'
+import configureMockStore from 'redux-mock-store'
 import { IntlProvider } from 'react-intl'
+import { Provider } from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { mount, shallow } from 'enzyme'
-import { Pagination, mapStateToProps, mapDispatchToProps } from '../List/Pagination'
+import thunk from 'redux-thunk'
+
+function setupSnapshot() {
+  const middlewares = [ thunk ]
+  const mockStore = configureMockStore( middlewares )
+  const store = mockStore( {
+    query: {
+      page: 1,
+      size: 25,
+      totalPages: 100
+    }
+  } )
+
+  return renderer.create(
+    <IntlProvider locale="en">
+      <Provider store={ store }>
+        <ReduxPagination />
+      </Provider>
+    </IntlProvider>
+  )
+}
 
 describe('component::Pagination', () => {
-  it('renders without crashing', () => {
-    const target = renderer.create(
-      <IntlProvider locale="en">
-        <Pagination page={1} total={100} />
-      </IntlProvider>
-    )
+  it( 'renders without crashing', () => {
+    const target = setupSnapshot()
     let tree = target.toJSON()
-    expect(tree).toMatchSnapshot()
-  })
+    expect( tree ).toMatchSnapshot()
+  } )
 
   describe('buttons', () => {
     let onCb = null
