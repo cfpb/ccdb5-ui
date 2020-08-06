@@ -88,7 +88,7 @@ export function processBucket( state, agg ) {
     if ( subItem && subItem.buckets && subItem.buckets.length ) {
       const expandableBuckets = subItem.buckets
       // if there's buckets we need to add a separator for rendering
-      const labelText = `Visualize trends for ${ item.key }`
+      const labelText = `Visualize trends for ${ item.key } >`
       expandableBuckets.push( {
         hasChildren: false,
         isParent: false,
@@ -97,7 +97,7 @@ export function processBucket( state, agg ) {
         splitterText: labelText,
         value: '',
         parent: item.key,
-        width: 0.3
+        width: 0.5
       } )
 
       list.push( expandableBuckets )

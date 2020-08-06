@@ -27,7 +27,7 @@
     "babel-loader": "8.0.6",
     "babel-plugin-named-asset-import": "^0.3.6",
     "babel-runtime": "^6.20.0",
-    "britecharts": "git+https://github.com/cfpb/britecharts.git#2.3.8",
+    "britecharts": "git+https://github.com/cfpb/britecharts.git#v2.3.9",
     "camelcase": "^5.2.0",
     "case-sensitive-paths-webpack-plugin": "2.2.0",
     "cf-buttons": "^4.3.0",
