@@ -9,7 +9,7 @@ import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 import thunk from 'redux-thunk'
 
-function setupSnapshot(tab) {
+function setupSnapshot( tab ) {
   const middlewares = [ thunk ]
   const mockStore = configureMockStore( middlewares )
   const store = mockStore({
@@ -33,7 +33,7 @@ describe( 'component: TabbedNavigation', () => {
       expect( tree ).toMatchSnapshot()
     } )
 
-    it( 'shows the Trends tab', () => {
+    it( 'shows the List tab', () => {
       const target = setupSnapshot( MODE_LIST )
       let tree = target.toJSON()
       expect( tree ).toMatchSnapshot()

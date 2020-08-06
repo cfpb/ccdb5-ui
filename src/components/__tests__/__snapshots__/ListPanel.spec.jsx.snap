@@ -92,8 +92,8 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
       </p>
       <select
         id="choose-size"
-        onChange={[MockFunction]}
-        value="10"
+        onChange={[Function]}
+        value={10}
       >
         <option
           disabled={false}
@@ -135,7 +135,7 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
       </p>
       <select
         id="choose-sort"
-        onChange={[MockFunction]}
+        onChange={[Function]}
       >
         <option
           disabled={false}
@@ -193,7 +193,7 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
   >
     <button
       className="a-btn m-pagination_btn-prev"
-      disabled={false}
+      disabled={true}
       onClick={[Function]}
     >
       <span
@@ -213,7 +213,7 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
     </button>
     <button
       className="a-btn m-pagination_btn-next"
-      disabled={false}
+      disabled={true}
       onClick={[Function]}
     >
       Next
@@ -245,22 +245,24 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
           className="u-visually-hidden"
         >
           number 
+          1
            out
         </span>
         <input
           className="m-pagination_current-page"
           id="m-pagination_current-page"
           inputMode="numeric"
-          max={1}
+          max={0}
           min="1"
           name="page"
           onChange={[Function]}
           pattern="[0-9]*"
           type="number"
+          value={1}
         />
         of 
         <span>
-          1
+          0
         </span>
       </label>
       <button
@@ -392,8 +394,8 @@ exports[`component:ListPanel displays a message when only the narratives are sta
       </p>
       <select
         id="choose-size"
-        onChange={[MockFunction]}
-        value="10"
+        onChange={[Function]}
+        value={10}
       >
         <option
           disabled={false}
@@ -435,7 +437,7 @@ exports[`component:ListPanel displays a message when only the narratives are sta
       </p>
       <select
         id="choose-sort"
-        onChange={[MockFunction]}
+        onChange={[Function]}
       >
         <option
           disabled={false}
@@ -669,7 +671,7 @@ exports[`component:ListPanel displays a message when only the narratives are sta
   >
     <button
       className="a-btn m-pagination_btn-prev"
-      disabled={false}
+      disabled={true}
       onClick={[Function]}
     >
       <span
@@ -721,22 +723,24 @@ exports[`component:ListPanel displays a message when only the narratives are sta
           className="u-visually-hidden"
         >
           number 
+          1
            out
         </span>
         <input
           className="m-pagination_current-page"
           id="m-pagination_current-page"
           inputMode="numeric"
-          max={1}
+          max={100}
           min="1"
           name="page"
           onChange={[Function]}
           pattern="[0-9]*"
           type="number"
+          value={1}
         />
         of 
         <span>
-          1
+          100
         </span>
       </label>
       <button
@@ -868,8 +872,8 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
       </p>
       <select
         id="choose-size"
-        onChange={[MockFunction]}
-        value="10"
+        onChange={[Function]}
+        value={10}
       >
         <option
           disabled={false}
@@ -911,7 +915,7 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
       </p>
       <select
         id="choose-sort"
-        onChange={[MockFunction]}
+        onChange={[Function]}
       >
         <option
           disabled={false}
@@ -1145,7 +1149,7 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
   >
     <button
       className="a-btn m-pagination_btn-prev"
-      disabled={false}
+      disabled={true}
       onClick={[Function]}
     >
       <span
@@ -1197,22 +1201,24 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
           className="u-visually-hidden"
         >
           number 
+          1
            out
         </span>
         <input
           className="m-pagination_current-page"
           id="m-pagination_current-page"
           inputMode="numeric"
-          max={1}
+          max={100}
           min="1"
           name="page"
           onChange={[Function]}
           pattern="[0-9]*"
           type="number"
+          value={1}
         />
         of 
         <span>
-          1
+          100
         </span>
       </label>
       <button
@@ -1344,8 +1350,8 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
       </p>
       <select
         id="choose-size"
-        onChange={[MockFunction]}
-        value="10"
+        onChange={[Function]}
+        value={10}
       >
         <option
           disabled={false}
@@ -1387,7 +1393,7 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
       </p>
       <select
         id="choose-sort"
-        onChange={[MockFunction]}
+        onChange={[Function]}
       >
         <option
           disabled={false}
@@ -1621,7 +1627,7 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
   >
     <button
       className="a-btn m-pagination_btn-prev"
-      disabled={false}
+      disabled={true}
       onClick={[Function]}
     >
       <span
@@ -1673,22 +1679,24 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
           className="u-visually-hidden"
         >
           number 
+          1
            out
         </span>
         <input
           className="m-pagination_current-page"
           id="m-pagination_current-page"
           inputMode="numeric"
-          max={1}
+          max={100}
           min="1"
           name="page"
           onChange={[Function]}
           pattern="[0-9]*"
           type="number"
+          value={1}
         />
         of 
         <span>
-          1
+          100
         </span>
       </label>
       <button
@@ -1795,8 +1803,8 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
       </p>
       <select
         id="choose-size"
-        onChange={[MockFunction]}
-        value="10"
+        onChange={[Function]}
+        value={10}
       >
         <option
           disabled={false}
@@ -1838,7 +1846,7 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
       </p>
       <select
         id="choose-sort"
-        onChange={[MockFunction]}
+        onChange={[Function]}
       >
         <option
           disabled={false}
@@ -1877,7 +1885,7 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
   >
     <button
       className="a-btn m-pagination_btn-prev"
-      disabled={false}
+      disabled={true}
       onClick={[Function]}
     >
       <span
@@ -1897,7 +1905,7 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
     </button>
     <button
       className="a-btn m-pagination_btn-next"
-      disabled={false}
+      disabled={true}
       onClick={[Function]}
     >
       Next
@@ -1929,22 +1937,24 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
           className="u-visually-hidden"
         >
           number 
+          1
            out
         </span>
         <input
           className="m-pagination_current-page"
           id="m-pagination_current-page"
           inputMode="numeric"
-          max={1}
+          max={0}
           min="1"
           name="page"
           onChange={[Function]}
           pattern="[0-9]*"
           type="number"
+          value={1}
         />
         of 
         <span>
-          1
+          0
         </span>
       </label>
       <button
@@ -2076,8 +2086,8 @@ exports[`component:ListPanel only displays data message when both types are stal
       </p>
       <select
         id="choose-size"
-        onChange={[MockFunction]}
-        value="10"
+        onChange={[Function]}
+        value={10}
       >
         <option
           disabled={false}
@@ -2119,7 +2129,7 @@ exports[`component:ListPanel only displays data message when both types are stal
       </p>
       <select
         id="choose-sort"
-        onChange={[MockFunction]}
+        onChange={[Function]}
       >
         <option
           disabled={false}
@@ -2353,7 +2363,7 @@ exports[`component:ListPanel only displays data message when both types are stal
   >
     <button
       className="a-btn m-pagination_btn-prev"
-      disabled={false}
+      disabled={true}
       onClick={[Function]}
     >
       <span
@@ -2405,22 +2415,24 @@ exports[`component:ListPanel only displays data message when both types are stal
           className="u-visually-hidden"
         >
           number 
+          1
            out
         </span>
         <input
           className="m-pagination_current-page"
           id="m-pagination_current-page"
           inputMode="numeric"
-          max={1}
+          max={100}
           min="1"
           name="page"
           onChange={[Function]}
           pattern="[0-9]*"
           type="number"
+          value={1}
         />
         of 
         <span>
-          1
+          100
         </span>
       </label>
       <button
@@ -2528,8 +2540,8 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
       </p>
       <select
         id="choose-size"
-        onChange={[MockFunction]}
-        value="10"
+        onChange={[Function]}
+        value={10}
       >
         <option
           disabled={false}
@@ -2571,7 +2583,7 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
       </p>
       <select
         id="choose-sort"
-        onChange={[MockFunction]}
+        onChange={[Function]}
       >
         <option
           disabled={false}
@@ -2805,7 +2817,7 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
   >
     <button
       className="a-btn m-pagination_btn-prev"
-      disabled={false}
+      disabled={true}
       onClick={[Function]}
     >
       <span
@@ -2857,22 +2869,24 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
           className="u-visually-hidden"
         >
           number 
+          1
            out
         </span>
         <input
           className="m-pagination_current-page"
           id="m-pagination_current-page"
           inputMode="numeric"
-          max={1}
+          max={100}
           min="1"
           name="page"
           onChange={[Function]}
           pattern="[0-9]*"
           type="number"
+          value={1}
         />
         of 
         <span>
-          1
+          100
         </span>
       </label>
       <button
@@ -2979,8 +2993,8 @@ exports[`component:ListPanel renders without crashing 1`] = `
       </p>
       <select
         id="choose-size"
-        onChange={[MockFunction]}
-        value="10"
+        onChange={[Function]}
+        value={10}
       >
         <option
           disabled={false}
@@ -3022,7 +3036,7 @@ exports[`component:ListPanel renders without crashing 1`] = `
       </p>
       <select
         id="choose-sort"
-        onChange={[MockFunction]}
+        onChange={[Function]}
       >
         <option
           disabled={false}
@@ -3256,7 +3270,7 @@ exports[`component:ListPanel renders without crashing 1`] = `
   >
     <button
       className="a-btn m-pagination_btn-prev"
-      disabled={false}
+      disabled={true}
       onClick={[Function]}
     >
       <span
@@ -3308,22 +3322,24 @@ exports[`component:ListPanel renders without crashing 1`] = `
           className="u-visually-hidden"
         >
           number 
+          1
            out
         </span>
         <input
           className="m-pagination_current-page"
           id="m-pagination_current-page"
           inputMode="numeric"
-          max={1}
+          max={100}
           min="1"
           name="page"
           onChange={[Function]}
           pattern="[0-9]*"
           type="number"
+          value={1}
         />
         of 
         <span>
-          1
+          100
         </span>
       </label>
       <button

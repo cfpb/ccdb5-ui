@@ -1,5 +1,5 @@
 import configureMockStore from 'redux-mock-store'
-import { ListPanel, mapDispatchToProps } from '../List/ListPanel';
+import ReduxListPanel, { ListPanel, mapDispatchToProps } from '../List/ListPanel';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux'
 import React from 'react';
@@ -43,38 +43,26 @@ function setupSnapshot( items = [], initialStore = {}, queryStore = null, viewSt
     total: items.length,
   }, initialStore)
 
-  const results = Object.assign({
-    error: '',
-    items
-  })
-
   const view = Object.assign({
     width: 1000
   }, viewStore)
 
   const middlewares = [thunk]
   const mockStore = configureMockStore(middlewares)
-  const store = mockStore({
+  const store = mockStore( {
     aggs,
-    query: {
-      from: 0,
-      size: 10,
-      tab: 'List'
+    query,
+    results: {
+      error: '',
+      items
     },
-    results,
     view
-  })
+  } )
 
   return renderer.create(
     <Provider store={ store } >
       <IntlProvider locale="en">
-        <ListPanel items={ items }
-                   from="0" size="10"
-                   error={ aggs.error }
-                   showMobileFilters={ view.showMobileFilters }
-                   onSize={ jest.fn() }
-                   onSort={ jest.fn() }
-        />
+        <ReduxListPanel/>
       </IntlProvider>
     </Provider>
   )
@@ -89,7 +77,7 @@ describe('component:ListPanel', () => {
 
   it('renders mobile filters without crashing', () => {
     const target = setupSnapshot(fixture, null, null, {
-      showMobileFilters: true
+      width: 700
     })
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
