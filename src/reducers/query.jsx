@@ -2,7 +2,7 @@
 import * as types from '../constants'
 import {
   calculateDateRange,
-  clamp,
+  clamp, coalesce,
   enablePer1000,
   processUrlArrayParams,
   shortIsoFormat,
@@ -383,7 +383,7 @@ export function changeSearch( state, action ) {
 export function addMultipleFilters( state, action ) {
   const newState = { ...state }
   const name = action.filterName
-  const a = newState[name] || []
+  const a = coalesce( newState, name, [] )
 
   // Add the filters
   action.values.forEach( x => {
@@ -442,7 +442,7 @@ export function toggleFilter( state, action ) {
  * @returns {object} the new state for the Redux store
  */
 export function addStateFilter( state, action ) {
-  const stateFilters = state.state || []
+  const stateFilters = coalesce( state, 'state', [] )
   const { abbr } = action.selectedState
   if ( !stateFilters.includes( abbr ) ) {
     stateFilters.push( abbr )
@@ -492,13 +492,12 @@ export function showStateComplaints( state ) {
  * @returns {object} the new state for the Redux store
  */
 export function removeStateFilter( state, action ) {
-  let stateFilters = state.state || []
+  const stateFilters = coalesce( state, 'state', [] )
   const { abbr } = action.selectedState
-  stateFilters = stateFilters.filter( o => o !== abbr )
 
   const newState = {
     ...state,
-    state: stateFilters
+    state: stateFilters.filter( o => o !== abbr )
   }
 
   return newState

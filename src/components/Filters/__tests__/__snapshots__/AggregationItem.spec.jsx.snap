@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`component:AggregationItemFilter renders without crashing 1`] = `
+exports[`component:AggregationItem renders without crashing 1`] = `
 <li
   className="layout-row m-form-field m-form-field__checkbox"
 >
@@ -9,7 +9,7 @@ exports[`component:AggregationItemFilter renders without crashing 1`] = `
     checked={false}
     className="flex-fixed a-checkbox"
     id="fieldname-foo"
-    onChange={[MockFunction]}
+    onChange={[Function]}
     type="checkbox"
   />
   <label

@@ -1,4 +1,4 @@
-import { slugify, sortSelThenCount } from '../../utils'
+import { coalesce, slugify, sortSelThenCount } from '../../utils'
 import { addMultipleFilters } from '../../actions/filter'
 import AggregationBranch from './AggregationBranch'
 import CollapsibleFilter from './CollapsibleFilter'
@@ -77,7 +77,7 @@ export class Issue extends React.Component {
 
 export const mapStateToProps = state => {
   // See if there are an active issue filters
-  const allIssues = state.query.issue || []
+  const allIssues = coalesce( state.query, 'issue', [] )
   const selections = []
 
   // Reduce the issues to the parent keys (and dedup)
@@ -90,7 +90,9 @@ export const mapStateToProps = state => {
   } )
 
   // Make a cloned, sorted version of the aggs
-  const options = sortSelThenCount( state.aggs.issue, selections )
+  const options = sortSelThenCount(
+    coalesce( state.aggs, 'issue', [] ), selections
+  )
 
   // create an array optimized for typeahead
   const forTypeahead = options.map( x => x.key )

@@ -1,5 +1,6 @@
 import './MapToolbar.less'
 import { clearStateFilter, showStateComplaints } from '../../actions/map'
+import { coalesce } from '../../utils'
 import { connect } from 'react-redux'
 import iconMap from '../iconMap'
 import React from 'react'
@@ -35,7 +36,7 @@ export class MapToolbar extends React.Component {
 }
 
 export const mapStateToProps = state => {
-  const abbrs = state.query.state || [];
+  const abbrs = coalesce( state.query, 'state', [] )
 
   return {
     filteredStates: abbrs

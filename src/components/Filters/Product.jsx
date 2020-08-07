@@ -1,10 +1,10 @@
+import { coalesce, sortSelThenCount } from '../../utils'
 import { MODE_TRENDS, SLUG_SEPARATOR } from '../../constants'
 import AggregationBranch from './AggregationBranch'
 import CollapsibleFilter from './CollapsibleFilter'
 import { connect } from 'react-redux'
 import MoreOrLess from './MoreOrLess'
 import React from 'react'
-import { sortSelThenCount } from '../../utils'
 
 export class Product extends React.Component {
   constructor( props ) {
@@ -46,8 +46,8 @@ export class Product extends React.Component {
 
 export const mapStateToProps = state => {
   // See if there are an active product filters
-  const { focus, lens, product, tab } = state.query
-  const allProducts = product || []
+  const { focus, lens, tab } = state.query
+  const allProducts = coalesce( state.query, 'product', [] )
   const selections = []
 
   // Reduce the products to the parent keys (and dedup)

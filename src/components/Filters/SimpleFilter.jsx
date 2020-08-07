@@ -1,5 +1,6 @@
 import './Aggregation.less'
 import AggregationItem from './AggregationItem'
+import { coalesce } from '../../utils'
 import CollapsibleFilter from './CollapsibleFilter'
 import { connect } from 'react-redux'
 import MoreOrLess from './MoreOrLess'
@@ -27,10 +28,10 @@ export class SimpleFilter extends React.Component {
 
 export const mapStateToProps = ( state, ownProps ) => {
   // Find all query filters that refer to the field name
-  const activeChildren = state.query[ownProps.fieldName] || []
+  const activeChildren = coalesce( state.query, ownProps.fieldName, [] )
 
   return {
-    options: state.aggs[ownProps.fieldName] || [],
+    options: coalesce( state.aggs, ownProps.fieldName, [] ),
     showChildren: activeChildren.length > 0
   }
 }

@@ -5,28 +5,31 @@ import React from 'react'
 import { sanitizeHtmlId } from '../../utils'
 import { toggleFilter } from '../../actions/filter'
 
-export const AggregationItem = ( { item, fieldName, active, onClick } ) => {
-  const value = item.value || item.key
-  const liStyle = 'layout-row m-form-field m-form-field__checkbox'
-  const id = sanitizeHtmlId( fieldName + '-' + item.key )
-  return (
-        <li className={liStyle}>
-            <input type="checkbox" className="flex-fixed a-checkbox"
-                   aria-label={item.key}
-                   disabled={item.disabled}
-                   checked={active}
-                   id={ id }
-                   onChange={onClick}
-            />
-            <label className="a-label flex-all bucket-key body-copy"
-                   htmlFor={id}>
-              {value}
-            </label>
-            <span className="flex-fixed bucket-count">
-              <FormattedNumber value={item.doc_count} />
-            </span>
-        </li>
-  )
+export class AggregationItem extends React.Component {
+  render() {
+    const { item, fieldName, active, onClick } = this.props
+    const value = item.value || item.key
+    const liStyle = 'layout-row m-form-field m-form-field__checkbox'
+    const id = sanitizeHtmlId( fieldName + '-' + item.key )
+    return (
+      <li className={ liStyle }>
+        <input type="checkbox" className="flex-fixed a-checkbox"
+               aria-label={ item.key }
+               disabled={ item.disabled }
+               checked={ active }
+               id={ id }
+               onChange={ onClick }
+        />
+        <label className="a-label flex-all bucket-key body-copy"
+               htmlFor={ id }>
+          { value }
+        </label>
+        <span className="flex-fixed bucket-count">
+              <FormattedNumber value={ item.doc_count }/>
+        </span>
+      </li>
+    )
+  }
 }
 
 AggregationItem.propTypes = {
@@ -58,9 +61,5 @@ export const mapDispatchToProps = ( dispatch, ownProps ) => ( {
   }
 } )
 
-const AggregationItemFilter = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)( AggregationItem )
+export default connect( mapStateToProps, mapDispatchToProps )( AggregationItem )
 
-export default AggregationItemFilter

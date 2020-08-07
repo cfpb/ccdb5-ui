@@ -1,4 +1,5 @@
 import './PillPanel.less';
+import { coalesce } from '../../utils'
 import { connect } from 'react-redux'
 import iconMap from '../iconMap';
 import { knownFilters } from '../../constants'
@@ -33,7 +34,7 @@ export const PillPanel = ( { filters, clearAll } ) => {
 }
 
 export const mapStateToProps = state => {
-  const { query } = state
+  const query = coalesce( state, 'query', {} )
   const filters = knownFilters
     // Only use the known filters that are in the query
     .filter( x => x in query )

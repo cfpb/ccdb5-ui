@@ -1,5 +1,5 @@
+import { bindAll, coalesce } from '../../utils'
 import { addMultipleFilters } from '../../actions/filter'
-import { bindAll } from '../../utils'
 import CollapsibleFilter from './CollapsibleFilter'
 import { connect } from 'react-redux'
 import HighlightingOption from '../Typeahead/HighlightingOption'
@@ -84,12 +84,12 @@ ZipCode.defaultProps = {
 }
 
 export const mapStateToProps = state => {
-  const options = state.aggs[FIELD_NAME] || []
+  const options = coalesce( state.aggs, FIELD_NAME, [] )
 
   return {
     options,
     queryString: state.query.queryString,
-    selections: state.query[FIELD_NAME] || []
+    selections: coalesce( state.query, FIELD_NAME, [] )
   }
 }
 
