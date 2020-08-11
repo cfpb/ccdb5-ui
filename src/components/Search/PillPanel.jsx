@@ -1,11 +1,11 @@
-import './PillPanel.less';
-import { coalesce } from '../../utils'
+import './PillPanel.less'
+import { coalesce, slugify } from '../../utils'
+import { filterPatch, knownFilters } from '../../constants'
 import { connect } from 'react-redux'
-import iconMap from '../iconMap';
-import { knownFilters } from '../../constants'
-import Pill from './Pill';
-import React from 'react';
-import { removeAllFilters } from '../../actions/filter';
+import iconMap from '../iconMap'
+import Pill from './Pill'
+import React from 'react'
+import { removeAllFilters } from '../../actions/filter'
 
 
 export const PillPanel = ( { filters, clearAll } ) => {
@@ -18,23 +18,25 @@ export const PillPanel = ( { filters, clearAll } ) => {
     <section className="pill-panel">
       <h3 className="h4 pill-label flex-fixed">Filters applied:</h3>
       <ul className="layout-row">
-        { filters.map( x => <Pill key={x.fieldName + x.value}
-                                 fieldName={x.fieldName}
-                                 value={x.value} /> )
+        { filters.map( x => <Pill key={ x.fieldName + x.value }
+                                  fieldName={ x.fieldName }
+                                  value={ x.value }/> )
         }
         <li className="clear-all">
           <button className="a-btn a-btn__link body-copy" onClick={ clearAll }>
-          { iconMap.getIcon( 'delete' ) }
+            { iconMap.getIcon( 'delete' ) }
             Clear all filters
           </button>
         </li>
       </ul>
     </section>
-  );
+  )
 }
 
 export const mapStateToProps = state => {
+  const aggs = coalesce( state, 'aggs', {} )
   const query = coalesce( state, 'query', {} )
+  // we need to join the Query and Aggs, so we can add fake filters
   const filters = knownFilters
     // Only use the known filters that are in the query
     .filter( x => x in query )
@@ -45,6 +47,22 @@ export const mapStateToProps = state => {
       )
       return accum.concat( arr )
     }, [] )
+
+  // only 2 filter subItems we have to fill are Issue and Product
+  filters.forEach( f => {
+    const { fieldName } = f
+    if ( filterPatch.includes( fieldName ) && aggs[fieldName] ) {
+      const subItems = aggs[fieldName].find( a => a.key === f.value )
+      if ( subItems ) {
+        subItems['sub_' + fieldName + '.raw'].buckets.forEach( b => {
+          filters.push( {
+            fieldName,
+            value: slugify( f.value, b.key )
+          } )
+        } )
+      }
+    }
+  } )
 
   // Add Has Narrative, if it exists
   if ( query.has_narrative ) {
@@ -60,7 +78,9 @@ export const mapStateToProps = state => {
 }
 
 export const mapDispatchToProps = dispatch => ( {
-  clearAll: () => { dispatch( removeAllFilters() ) }
+  clearAll: () => {
+    dispatch( removeAllFilters() )
+  }
 } )
 
-export default connect( mapStateToProps, mapDispatchToProps )( PillPanel );
+export default connect( mapStateToProps, mapDispatchToProps )( PillPanel )

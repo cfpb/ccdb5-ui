@@ -1,5 +1,4 @@
 import './AggregationBranch.less'
-import { addMultipleFilters, removeMultipleFilters } from '../../actions/filter'
 import {
   bindAll,
   coalesce,
@@ -7,6 +6,7 @@ import {
   sanitizeHtmlId,
   slugify
 } from '../../utils'
+import { removeMultipleFilters, replaceFilters } from '../../actions/filter'
 import AggregationItem from './AggregationItem'
 import { connect } from 'react-redux';
 import { FormattedNumber } from 'react-intl'
@@ -40,11 +40,11 @@ export class AggregationBranch extends React.Component {
     // Add the active filters (that might be hidden)
     activeChildren.forEach( child => values.add( child ) )
 
-    const action = checkedState === CHECKED ?
-      this.props.uncheckParent :
-      this.props.checkParent
-
-    action( fieldName, [ ...values ] )
+    if ( checkedState === CHECKED ) {
+      this.props.uncheckParent( fieldName, [ ...values ] )
+    } else {
+      this.props.checkParent( this.props )
+    }
   }
 
   _toggleChildDisplay() {
@@ -178,6 +178,7 @@ export const mapStateToProps = ( state, ownProps ) => {
   return {
     activeChildren,
     checkedState,
+    filters: candidates,
     focus: state.query.focus,
     showChildren: activeChildren.length > 0
   }
@@ -187,8 +188,14 @@ export const mapDispatchToProps = dispatch => ( {
   uncheckParent: ( fieldName, values ) => {
     dispatch( removeMultipleFilters( fieldName, values ) )
   },
-  checkParent: ( fieldName, values ) => {
-    dispatch( addMultipleFilters( fieldName, values ) )
+  checkParent: props => {
+    const { fieldName, filters, item } = props
+    // remove all of the child filters
+    const replacementFilters = filters
+      .filter( o => o.indexOf( item.key + SLUG_SEPARATOR ) === -1 )
+    // add self/ parent filter
+    replacementFilters.push( item.key )
+    dispatch( replaceFilters( fieldName, replacementFilters ) )
   }
 } )
 

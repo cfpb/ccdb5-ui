@@ -20,10 +20,11 @@ function setupEnzyme() {
   }
 }
 
-function setupSnapshot(initialQueryState={}) {
+function setupSnapshot( initialQueryState = {}, initialAggState = {} ) {
   const middlewares = [thunk]
   const mockStore = configureMockStore(middlewares)
   const store = mockStore({
+    aggs: initialAggState,
     query: initialQueryState
   })
 
@@ -42,6 +43,24 @@ describe('component:PillPanel', () => {
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   })
+
+  it( 'renders patched filters without crashing', () => {
+    const aggs = {
+      issue: [
+        {
+          key: 'a',
+          'sub_issue.raw': {
+            buckets: [ { key: 'b' }, { key: 'c' }, { key: 'd' } ]
+          }
+        }
+      ]
+    }
+    const target = setupSnapshot( {
+      issue: [ 'a', 'Bananas are great' ]
+    }, aggs )
+    const tree = target.toJSON()
+    expect( tree ).toMatchSnapshot()
+  } )
 
   it('does not render when there are no filters', () => {
     const target = setupSnapshot();

@@ -60,7 +60,7 @@ function setupSnapshot(selections) {
   return renderer.create(
     <Provider store={store}>
       <IntlProvider locale="en">
-        <ReduxAggregationBranch item={item} 
+        <ReduxAggregationBranch item={item}
                                 subitems={subitems}
                                 fieldName="issue" />
       </IntlProvider>
@@ -127,21 +127,32 @@ describe('component::AggregationBranch', () => {
       const checkbox = target.find('li.parent input[type="checkbox"]')
       checkbox.simulate('change')
       expect(props.uncheckParent).not.toHaveBeenCalled()
-      expect(props.checkParent).toHaveBeenCalledWith(
-        'issue', ['foo', 'foo•bar', 'foo•baz', 'foo•qaz', 'foo•quux']
-      )
+      expect(props.checkParent).toHaveBeenCalled()
     })
   })
 
   describe('mapDispatchToProps', () => {
-    it('hooks into addMultipleFilters', () => {
+    it( 'hooks into replaceFilters', () => {
       const dispatch = jest.fn()
-      mapDispatchToProps(dispatch).checkParent({
+      mapDispatchToProps( dispatch ).checkParent( {
         fieldName: 'foo',
-        values: ['bar', 'baz']
-      })
-      expect(dispatch.mock.calls.length).toEqual(1)
-    })
+        filters: [
+          slugify( 'bay', 'bee' ),
+          slugify( 'bay', 'ah' ),
+          'another filter'
+        ],
+        item: { key: 'bay' },
+        values: [ 'bar', 'baz' ]
+      } )
+      expect( dispatch.mock.calls ).toEqual( [ [
+        {
+          filterName: 'foo',
+          requery: 'REQUERY_ALWAYS',
+          type: 'FILTER_REPLACED',
+          values: [ 'another filter', 'bay' ]
+        }
+      ] ] )
+    } )
 
     it('hooks into removeMultipleFilters', () => {
       const dispatch = jest.fn()
