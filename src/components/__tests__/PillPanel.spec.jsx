@@ -44,7 +44,7 @@ describe('component:PillPanel', () => {
     expect(tree).toMatchSnapshot();
   })
 
-  it( 'renders patched filters without crashing', () => {
+  it( 'does not renders patched filters', () => {
     const aggs = {
       issue: [
         {

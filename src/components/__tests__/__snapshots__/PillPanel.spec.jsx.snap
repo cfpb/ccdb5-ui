@@ -64,7 +64,7 @@ exports[`component:PillPanel adds a has narrative pill 1`] = `
 
 exports[`component:PillPanel does not render when there are no filters 1`] = `null`;
 
-exports[`component:PillPanel renders patched filters without crashing 1`] = `
+exports[`component:PillPanel does not renders patched filters 1`] = `
 <section
   className="pill-panel"
 >
@@ -118,87 +118,6 @@ exports[`component:PillPanel renders patched filters without crashing 1`] = `
           className="u-visually-hidden"
         >
           Remove Bananas are great as a filter
-        </span>
-        <svg
-          className="cf-icon-svg"
-          viewBox="0 0 718.9 1200"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M451.4 613.7l248.1-248.1c25.6-25.1 26-66.3.8-91.9s-66.3-26-91.9-.8l-.8.8-248.1 248.1-248.1-248.1c-25.4-25.4-66.5-25.4-91.9 0s-25.4 66.5 0 91.9l248.1 248.1L19.5 861.8c-25.6 25.1-26 66.3-.8 91.9s66.3 26 91.9.8l.8-.8 248.1-248.1 248.1 248.1c25.4 25.4 66.5 25.4 91.9 0s25.4-66.5 0-91.9L451.4 613.7z"
-          />
-        </svg>
-      </button>
-    </li>
-    <li
-      className="pill flex-fixed"
-    >
-      <span
-        className="name"
-      >
-        b
-      </span>
-      <button
-        onClick={[Function]}
-      >
-        <span
-          className="u-visually-hidden"
-        >
-          Remove b as a filter
-        </span>
-        <svg
-          className="cf-icon-svg"
-          viewBox="0 0 718.9 1200"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M451.4 613.7l248.1-248.1c25.6-25.1 26-66.3.8-91.9s-66.3-26-91.9-.8l-.8.8-248.1 248.1-248.1-248.1c-25.4-25.4-66.5-25.4-91.9 0s-25.4 66.5 0 91.9l248.1 248.1L19.5 861.8c-25.6 25.1-26 66.3-.8 91.9s66.3 26 91.9.8l.8-.8 248.1-248.1 248.1 248.1c25.4 25.4 66.5 25.4 91.9 0s25.4-66.5 0-91.9L451.4 613.7z"
-          />
-        </svg>
-      </button>
-    </li>
-    <li
-      className="pill flex-fixed"
-    >
-      <span
-        className="name"
-      >
-        c
-      </span>
-      <button
-        onClick={[Function]}
-      >
-        <span
-          className="u-visually-hidden"
-        >
-          Remove c as a filter
-        </span>
-        <svg
-          className="cf-icon-svg"
-          viewBox="0 0 718.9 1200"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M451.4 613.7l248.1-248.1c25.6-25.1 26-66.3.8-91.9s-66.3-26-91.9-.8l-.8.8-248.1 248.1-248.1-248.1c-25.4-25.4-66.5-25.4-91.9 0s-25.4 66.5 0 91.9l248.1 248.1L19.5 861.8c-25.6 25.1-26 66.3-.8 91.9s66.3 26 91.9.8l.8-.8 248.1-248.1 248.1 248.1c25.4 25.4 66.5 25.4 91.9 0s25.4-66.5 0-91.9L451.4 613.7z"
-          />
-        </svg>
-      </button>
-    </li>
-    <li
-      className="pill flex-fixed"
-    >
-      <span
-        className="name"
-      >
-        d
-      </span>
-      <button
-        onClick={[Function]}
-      >
-        <span
-          className="u-visually-hidden"
-        >
-          Remove d as a filter
         </span>
         <svg
           className="cf-icon-svg"
