@@ -33,7 +33,7 @@ export class AggregationBranch extends React.Component {
 
   _decideClickAction() {
     const {
-      activeChildren, item, subitems, fieldName, checkedState
+      activeChildren, item, subitems, filters, fieldName, checkedState
     } = this.props
 
     const values = getAllFilters( item.key, subitems )
@@ -43,7 +43,6 @@ export class AggregationBranch extends React.Component {
     if ( checkedState === CHECKED ) {
       this.props.uncheckParent( fieldName, [ ...values ] )
     } else {
-      const { fieldName, filters, item } = this.props
       this.props.checkParent( { fieldName, filters, item } )
     }
   }

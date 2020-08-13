@@ -123,17 +123,16 @@ describe('component::AggregationBranch', () => {
       expect(props.checkParent).not.toHaveBeenCalled()
     })
 
-    it('calls another action when the checkbox is not selected', () => {
+    it( 'calls another action when the checkbox is not selected', () => {
       const { target, props } = setupEnzyme()
-      const checkbox = target.find('li.parent input[type="checkbox"]')
-      checkbox.simulate('change')
+      const checkbox = target.find( 'li.parent input[type="checkbox"]' )
+      checkbox.simulate( 'change' )
       expect( props.uncheckParent ).not.toHaveBeenCalled()
       expect( props.checkParent ).toHaveBeenCalledWith( {
         fieldName: 'issue',
         filters: [],
-        item: {
-          doc_count: 99, key: 'foo }
-        } )
+        item: { doc_count: 99, key: 'foo' }
+      } )
     } )
   })
 
