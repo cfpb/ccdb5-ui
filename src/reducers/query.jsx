@@ -570,7 +570,8 @@ function removeFilter( state, action ) {
  */
 function replaceFilters( state, action ) {
   const newState = { ...state }
-  newState[action.filterName] = action.values
+  // de-dupe the filters in case we messed up somewhere
+  newState[action.filterName] = [ ...new Set( action.values ) ]
   return newState
 }
 

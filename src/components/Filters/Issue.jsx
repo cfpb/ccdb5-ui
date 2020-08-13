@@ -1,10 +1,10 @@
-import { coalesce, slugify, sortSelThenCount } from '../../utils'
-import { addMultipleFilters } from '../../actions/filter'
+import { coalesce, sortSelThenCount } from '../../utils'
 import AggregationBranch from './AggregationBranch'
 import CollapsibleFilter from './CollapsibleFilter'
 import { connect } from 'react-redux'
 import MoreOrLess from './MoreOrLess'
 import React from 'react'
+import { replaceFilters } from '../../actions/filter'
 import { SLUG_SEPARATOR } from '../../constants'
 import Typeahead from '../Typeahead/HighlightingTypeahead'
 
@@ -47,23 +47,13 @@ export class Issue extends React.Component {
   // Typeahead Helpers
 
   _onOptionSelected( item ) {
-    // Find this option in the list
-    let idx = -1
-    for ( let i = 0; i < this.props.options.length && idx === -1; i++ ) {
-      if ( this.props.options[i].key === item.key ) {
-        idx = i
-      }
-    }
-    // eslint-disable-next-line
-    console.assert( idx !== -1 )
-
-    // Build a list of all the keys
-    const values = [ item.key ]
-    this.props.options[idx]['sub_issue.raw'].buckets.forEach( sub => {
-      values.push( slugify( item.key, sub.key ) )
-    } )
-
-    this.props.typeaheadSelect( values )
+    const { filters } = this.props
+    const replacementFilters = filters
+      // remove child items
+      .filter( o => o.indexOf( item.key + SLUG_SEPARATOR ) === -1 )
+      // add parent item
+      .concat( item.key )
+    this.props.typeaheadSelect( replacementFilters )
   }
 
   // --------------------------------------------------------------------------
@@ -98,6 +88,7 @@ export const mapStateToProps = state => {
   const forTypeahead = options.map( x => x.key )
 
   return {
+    filters: allIssues,
     options,
     forTypeahead
   }
@@ -105,7 +96,7 @@ export const mapStateToProps = state => {
 
 export const mapDispatchToProps = dispatch => ( {
   typeaheadSelect: values => {
-    dispatch( addMultipleFilters( 'issue', values ) )
+    dispatch( replaceFilters( 'issue', values ) )
   }
 } )
 
