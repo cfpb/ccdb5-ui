@@ -43,7 +43,8 @@ export class AggregationBranch extends React.Component {
     if ( checkedState === CHECKED ) {
       this.props.uncheckParent( fieldName, [ ...values ] )
     } else {
-      this.props.checkParent( this.props )
+      const { fieldName, filters, item } = this.props
+      this.props.checkParent( { fieldName, filters, item } )
     }
   }
 

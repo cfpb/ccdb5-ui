@@ -35,6 +35,7 @@ function setupEnzyme(checkedState=UNCHECKED) {
     checkedState,
     checkParent: jest.fn(),
     fieldName: "issue",
+    filters: [],
     item: item,
     subitems: subitems,
     uncheckParent: jest.fn()
@@ -126,9 +127,14 @@ describe('component::AggregationBranch', () => {
       const { target, props } = setupEnzyme()
       const checkbox = target.find('li.parent input[type="checkbox"]')
       checkbox.simulate('change')
-      expect(props.uncheckParent).not.toHaveBeenCalled()
-      expect(props.checkParent).toHaveBeenCalled()
-    })
+      expect( props.uncheckParent ).not.toHaveBeenCalled()
+      expect( props.checkParent ).toHaveBeenCalledWith( {
+        fieldName: 'issue',
+        filters: [],
+        item: {
+          doc_count: 99, key: 'foo }
+        } )
+    } )
   })
 
   describe('mapDispatchToProps', () => {
