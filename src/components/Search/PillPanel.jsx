@@ -34,7 +34,6 @@ export const PillPanel = ( { filters, clearAll } ) => {
 }
 
 export const mapStateToProps = state => {
-  const aggs = coalesce( state, 'aggs', {} )
   const query = coalesce( state, 'query', {} )
   // we need to join the Query and Aggs, so we can add fake filters
   const filters = knownFilters
@@ -47,22 +46,6 @@ export const mapStateToProps = state => {
       )
       return accum.concat( arr )
     }, [] )
-
-  // only 2 filter subItems we have to fill are Issue and Product
-  filters.forEach( f => {
-    const { fieldName } = f
-    if ( filterPatch.includes( fieldName ) && aggs[fieldName] ) {
-      const subItems = aggs[fieldName].find( a => a.key === f.value )
-      if ( subItems ) {
-        subItems['sub_' + fieldName + '.raw'].buckets.forEach( b => {
-          filters.push( {
-            fieldName,
-            value: slugify( f.value, b.key )
-          } )
-        } )
-      }
-    }
-  } )
 
   // Add Has Narrative, if it exists
   if ( query.has_narrative ) {
