@@ -13,6 +13,11 @@ describe( 'arrayEquals', () => {
     expect( res ).toBeTruthy()
   } )
 
+  it( 'compares unsorted arrays', () => {
+    const res = sut.arrayEquals( [ 2, 1 ], [ 1, 2 ] )
+    expect( res ).toBeFalsy()
+  } )
+
   it( 'compares arrays with different values', () => {
     const res = sut.arrayEquals( [ 2, 2 ], [ 1, 2 ] )
     expect( res ).toBeFalsy()
