@@ -65,6 +65,9 @@ export const flagFilters = [
   'has_narrative'
 ]
 
+// these filters we need to shim subItems when a parent is selected
+export const filterPatch = [ 'issue', 'product' ]
+
 export const lenses = [ 'Overview', 'Company', 'Product' ]
 
 export const sizes = {

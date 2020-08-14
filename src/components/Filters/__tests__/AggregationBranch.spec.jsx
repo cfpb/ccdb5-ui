@@ -35,6 +35,7 @@ function setupEnzyme(checkedState=UNCHECKED) {
     checkedState,
     checkParent: jest.fn(),
     fieldName: "issue",
+    filters: [],
     item: item,
     subitems: subitems,
     uncheckParent: jest.fn()
@@ -60,7 +61,7 @@ function setupSnapshot(selections) {
   return renderer.create(
     <Provider store={store}>
       <IntlProvider locale="en">
-        <ReduxAggregationBranch item={item} 
+        <ReduxAggregationBranch item={item}
                                 subitems={subitems}
                                 fieldName="issue" />
       </IntlProvider>
@@ -122,26 +123,41 @@ describe('component::AggregationBranch', () => {
       expect(props.checkParent).not.toHaveBeenCalled()
     })
 
-    it('calls another action when the checkbox is not selected', () => {
+    it( 'calls another action when the checkbox is not selected', () => {
       const { target, props } = setupEnzyme()
-      const checkbox = target.find('li.parent input[type="checkbox"]')
-      checkbox.simulate('change')
-      expect(props.uncheckParent).not.toHaveBeenCalled()
-      expect(props.checkParent).toHaveBeenCalledWith(
-        'issue', ['foo', 'foo•bar', 'foo•baz', 'foo•qaz', 'foo•quux']
-      )
-    })
+      const checkbox = target.find( 'li.parent input[type="checkbox"]' )
+      checkbox.simulate( 'change' )
+      expect( props.uncheckParent ).not.toHaveBeenCalled()
+      expect( props.checkParent ).toHaveBeenCalledWith( {
+        fieldName: 'issue',
+        filters: [],
+        item: { doc_count: 99, key: 'foo' }
+      } )
+    } )
   })
 
   describe('mapDispatchToProps', () => {
-    it('hooks into addMultipleFilters', () => {
+    it( 'hooks into replaceFilters', () => {
       const dispatch = jest.fn()
-      mapDispatchToProps(dispatch).checkParent({
+      mapDispatchToProps( dispatch ).checkParent( {
         fieldName: 'foo',
-        values: ['bar', 'baz']
-      })
-      expect(dispatch.mock.calls.length).toEqual(1)
-    })
+        filters: [
+          slugify( 'bay', 'bee' ),
+          slugify( 'bay', 'ah' ),
+          'another filter'
+        ],
+        item: { key: 'bay' },
+        values: [ 'bar', 'baz' ]
+      } )
+      expect( dispatch.mock.calls ).toEqual( [ [
+        {
+          filterName: 'foo',
+          requery: 'REQUERY_ALWAYS',
+          type: 'FILTER_REPLACED',
+          values: [ 'another filter', 'bay' ]
+        }
+      ] ] )
+    } )
 
     it('hooks into removeMultipleFilters', () => {
       const dispatch = jest.fn()

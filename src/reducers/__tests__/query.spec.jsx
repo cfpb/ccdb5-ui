@@ -866,6 +866,26 @@ describe( 'reducer:query', () => {
         } )
       } )
     } )
+
+    describe( 'FILTER_REPLACED actions', () => {
+      it( 'replaces existing filter set', () => {
+        action = {
+          type: actions.FILTER_REPLACED,
+          filterName: 'foobar',
+          requery: types.REQUERY_HITS_ONLY,
+          values: [ 3, 4, 5 ]
+        }
+
+        state = {
+          foobar: [ 1, 23, 2 ]
+        }
+
+        expect( target( state, action ) ).toEqual( {
+          foobar: [ 3, 4, 5 ],
+          queryString: ''
+        } )
+      } )
+    } )
   } )
 
   describe( 'Dates', () => {

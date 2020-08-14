@@ -59,9 +59,10 @@ const fixture = [
   }
 ]
 
-function setupEnzyme(initial) {
+function setupEnzyme(options, filters) {
   const props = {
-    options: initial,
+    filters,
+    options,
     forTypeahead: ['Foo', 'Bar', 'Baz'],
     typeaheadSelect: jest.fn()
   }
@@ -108,27 +109,37 @@ describe('component:Issue', () => {
     })
   })
 
-  describe('Typeahead interface', () => {
-    let target, props
-    beforeEach(() => {
-      ({target, props} = setupEnzyme(fixture))
-    })
-
-    describe('_onOptionSelected', () => {
-      it('checks all the filters associated with the option', () => {
-        const key = "Cont'd attempts collect debt not owed"
-        target.instance()._onOptionSelected({
+  describe( 'Typeahead interface', () => {
+    describe( '_onOptionSelected', () => {
+      it( 'checks all the filters associated with the option', () => {
+        const key = 'a'
+        const { target, props } = setupEnzyme( fixture,
+          [ 'a', 'b', slugify( 'a', 'b' ) ] )
+        target.instance()._onOptionSelected( {
           key
-        })
+        } )
 
-        expect(props.typeaheadSelect).toHaveBeenCalledWith([
-          key,
-          slugify(key, 'Debt is not mine'),
-          slugify(key, 'Debt was paid')
-        ])
-      })
-    })
-  })
+        expect( props.typeaheadSelect ).toHaveBeenCalledWith( [
+          'a', 'b', 'a'
+        ] )
+      } )
+      describe( 'mapDispatchToProps', () => {
+        it( 'hooks into replaceFilters', () => {
+          const dispatch = jest.fn()
+          mapDispatchToProps( dispatch ).typeaheadSelect( [ 'bar', 'baz' ] )
+          expect( dispatch.mock.calls ).toEqual( [ [
+            {
+              filterName: 'issue',
+              requery: 'REQUERY_ALWAYS',
+              type: 'FILTER_REPLACED',
+              values: [ 'bar', 'baz' ]
+            }
+          ] ] )
+        } )
+      } )
+    } )
+    } )
+  } )
 
   describe('sorting', () => {
     it('places selections ahead of unselected', () => {
@@ -156,11 +167,3 @@ describe('component:Issue', () => {
     })
   })
 
-  describe('mapDispatchToProps', () => {
-    it('hooks into addMultipleFilters', () => {
-      const dispatch = jest.fn()
-      mapDispatchToProps(dispatch).typeaheadSelect(['bar', 'baz'])
-      expect(dispatch.mock.calls.length).toEqual(1)
-    })
-  })
-})

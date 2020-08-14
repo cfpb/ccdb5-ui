@@ -562,6 +562,20 @@ function removeFilter( state, action ) {
 }
 
 /**
+ * replaces filters with whatever we want
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the payload containing the filter to remove
+ * @returns {object} the new state for the Redux store
+ */
+function replaceFilters( state, action ) {
+  const newState = { ...state }
+  // de-dupe the filters in case we messed up somewhere
+  newState[action.filterName] = [ ...new Set( action.values ) ]
+  return newState
+}
+
+/**
 * Removes multiple filters from the current set
 *
 * @param {object} state the current state in the Redux store
@@ -994,6 +1008,7 @@ export function _buildHandlerMap() {
   handlers[actions.FILTER_MULTIPLE_ADDED] = addMultipleFilters
   handlers[actions.FILTER_MULTIPLE_REMOVED] = removeMultipleFilters
   handlers[actions.FILTER_REMOVED] = removeFilter
+  handlers[actions.FILTER_REPLACED] = replaceFilters
   handlers[actions.FOCUS_CHANGED] = changeFocus
   handlers[actions.FOCUS_REMOVED] = removeFocus
   handlers[actions.PAGE_CHANGED] = changePage

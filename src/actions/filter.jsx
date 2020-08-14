@@ -9,6 +9,8 @@ export const FILTER_FLAG_CHANGED = 'FILTER_FLAG_CHANGED'
 export const FILTER_MULTIPLE_ADDED = 'FILTER_MULTIPLE_ADDED'
 export const FILTER_MULTIPLE_REMOVED = 'FILTER_MULTIPLE_REMOVED'
 export const FILTER_REMOVED = 'FILTER_REMOVED'
+export const FILTER_REPLACED = 'FILTER_REPLACED'
+
 
 // ----------------------------------------------------------------------------
 // Simple actions
@@ -149,6 +151,24 @@ export function removeMultipleFilters( filterName, values ) {
   console.assert( Array.isArray( values ) )
   return {
     type: FILTER_MULTIPLE_REMOVED,
+    filterName,
+    values,
+    requery: REQUERY_ALWAYS
+  }
+}
+
+/**
+ * Notifies the application that filters will be replaced
+ *
+ * @param {string} filterName which filter is being updated
+ * @param {array} values one or more values to replace in the filter set
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function replaceFilters( filterName, values ) {
+  // eslint-disable-next-line no-console
+  console.assert( Array.isArray( values ) )
+  return {
+    type: FILTER_REPLACED,
     filterName,
     values,
     requery: REQUERY_ALWAYS
