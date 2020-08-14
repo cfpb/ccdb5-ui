@@ -5,11 +5,7 @@
   background-color: @gray-20;
 
   //override parent padding
-  margin-left: -15px;
-  margin-right: -15px;
-  margin-bottom: -15px;
-  margin-top: 15px;
-
+  margin: 15px -15px -15px -15px;
   padding: 15px;
 
   .tips {
@@ -25,7 +21,7 @@
     .example-input {
       box-sizing: border-box;
       width: 48%;
-      color: @gray-80;
+      color: @gray;
       display:inline-block;
       &.first {
         margin-right: 1%
@@ -33,11 +29,15 @@
     }
     .example-input_full {
       box-sizing: border-box;
-      color: @gray-80;
+      color: @gray;
       width: 100%;
     }
     .tip-description {
       padding-top: 10px;
+
+      p {
+        color: @black;
+      }
     }
   }
 
