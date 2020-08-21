@@ -1,7 +1,7 @@
 # Consumer Complaint Database - 5.0
 
-[![Build Status](https://travis-ci.org/cfpb/ccdb5-ui.svg?branch=master)](https://travis-ci.org/cfpb/ccdb5-ui)
-[![Coverage Status](https://coveralls.io/repos/github/cfpb/ccdb5-ui/badge.svg?branch=master)](https://coveralls.io/github/cfpb/ccdb5-ui?branch=master)
+[![Build Status](https://travis-ci.org/cfpb/ccdb5-ui.svg?branch=main)](https://travis-ci.org/cfpb/ccdb5-ui)
+[![Coverage Status](https://coveralls.io/repos/github/cfpb/ccdb5-ui/badge.svg?branch=main)](https://coveralls.io/github/cfpb/ccdb5-ui?branch=main)
 
 **Description**:
 This application allows consumers to search complaints submitted to the CFPB by other consumers.
@@ -130,7 +130,7 @@ repository's [Issue Tracker](https://github.com/cfpb/ccdb5-ui/issues).
 * https://egghead.io/lessons/javascript-redux-the-single-immutable-state-tree
 * https://medium.com/lexical-labs-engineering/redux-best-practices-64d59775802e
 * https://medium.com/@kylpo/redux-best-practices-eef55a20cc72
-* https://github.com/markerikson/react-redux-links/blob/master/tips-and-best-practices.md
+* https://github.com/markerikson/react-redux-links/blob/main/tips-and-best-practices.md
 * https://getstream.io/blog/react-redux-best-practices-gotchas/
 * https://tech.affirm.com/redux-patterns-and-anti-patterns-7d80ef3d53bc
 * https://github.com/gaearon/redux-devtools
