@@ -24,7 +24,7 @@ Unit testing of the application is performed within
 
 The `ccdb5_ui` (note the underscore) directory contains a thin [Django](https://www.djangoproject.com/)
 implementation that allows it to be used as a plugin for
-[CFPB's public website](https://github.com/cfpb/cfgov-refresh).
+[CFPB's public website](https://github.com/cfpb/consumerfinance.gov).
 
 #### Status
 Pre-release
@@ -62,10 +62,10 @@ This application depends on the [Public Complaints API](https://github.com/cfpb/
 to be available.
 
 For local development, you will need to the following:
-* [Get a local version of consumerfinance.gov running](https://github.com/cfpb/cfgov-refresh#quickstart)
+* [Get a local version of consumerfinance.gov running](https://github.com/cfpb/consumerfinance.gov#quickstart)
 * [Fill the local Elasticsearch with data](https://github.com/cfpb/ccdb-data-pipeline)
 * _(optional)_ [Install the API](https://github.com/cfpb/ccdb5-api)
-  * Once it is cloned, make sure the website knows the plugin is available. Look under "Loading Sibling Projects, option 2" [here](https://cfpb.github.io/cfgov-refresh/development-tips/)
+  * Once it is cloned, make sure the website knows the plugin is available. Look under "Loading Sibling Projects, option 2" [here](https://cfpb.github.io/consumerfinance.gov/development-tips/)
 
 ###### Code-Build cycle
 
