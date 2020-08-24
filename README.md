@@ -1,7 +1,7 @@
 # Consumer Complaint Database - 5.0
 
-[![Build Status](https://travis-ci.org/cfpb/ccdb5-ui.svg?branch=master)](https://travis-ci.org/cfpb/ccdb5-ui)
-[![Coverage Status](https://coveralls.io/repos/github/cfpb/ccdb5-ui/badge.svg?branch=master)](https://coveralls.io/github/cfpb/ccdb5-ui?branch=master)
+[![Build Status](https://travis-ci.org/cfpb/ccdb5-ui.svg?branch=main)](https://travis-ci.org/cfpb/ccdb5-ui)
+[![Coverage Status](https://coveralls.io/repos/github/cfpb/ccdb5-ui/badge.svg?branch=main)](https://coveralls.io/github/cfpb/ccdb5-ui?branch=main)
 
 **Description**:
 This application allows consumers to search complaints submitted to the CFPB by other consumers.
@@ -24,7 +24,7 @@ Unit testing of the application is performed within
 
 The `ccdb5_ui` (note the underscore) directory contains a thin [Django](https://www.djangoproject.com/)
 implementation that allows it to be used as a plugin for
-[CFPB's public website](https://github.com/cfpb/cfgov-refresh).
+[CFPB's public website](https://github.com/cfpb/consumerfinance.gov).
 
 #### Status
 Pre-release
@@ -62,10 +62,10 @@ This application depends on the [Public Complaints API](https://github.com/cfpb/
 to be available.
 
 For local development, you will need to the following:
-* [Get a local version of consumerfinance.gov running](https://github.com/cfpb/cfgov-refresh#quickstart)
+* [Get a local version of consumerfinance.gov running](https://github.com/cfpb/consumerfinance.gov#quickstart)
 * [Fill the local Elasticsearch with data](https://github.com/cfpb/ccdb-data-pipeline)
 * _(optional)_ [Install the API](https://github.com/cfpb/ccdb5-api)
-  * Once it is cloned, make sure the website knows the plugin is available. Look under "Loading Sibling Projects, option 2" [here](https://cfpb.github.io/cfgov-refresh/development-tips/)
+  * Once it is cloned, make sure the website knows the plugin is available. Look under "Loading Sibling Projects, option 2" [here](https://cfpb.github.io/consumerfinance.gov/development-tips/)
 
 ###### Code-Build cycle
 
@@ -130,7 +130,7 @@ repository's [Issue Tracker](https://github.com/cfpb/ccdb5-ui/issues).
 * https://egghead.io/lessons/javascript-redux-the-single-immutable-state-tree
 * https://medium.com/lexical-labs-engineering/redux-best-practices-64d59775802e
 * https://medium.com/@kylpo/redux-best-practices-eef55a20cc72
-* https://github.com/markerikson/react-redux-links/blob/master/tips-and-best-practices.md
+* https://github.com/markerikson/react-redux-links/blob/main/tips-and-best-practices.md
 * https://getstream.io/blog/react-redux-best-practices-gotchas/
 * https://tech.affirm.com/redux-patterns-and-anti-patterns-7d80ef3d53bc
 * https://github.com/gaearon/redux-devtools
