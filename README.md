@@ -1,6 +1,6 @@
 # Consumer Complaint Database - 5.0
 
-[![Build Status](https://travis-ci.org/cfpb/ccdb5-ui.svg?branch=main)](https://travis-ci.org/cfpb/ccdb5-ui)
+![ci](https://github.com/cfpb/ccdb5-ui/workflows/ci/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/cfpb/ccdb5-ui/badge.svg?branch=main)](https://coveralls.io/github/cfpb/ccdb5-ui?branch=main)
 
 **Description**:
