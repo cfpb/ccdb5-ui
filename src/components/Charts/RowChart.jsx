@@ -76,14 +76,14 @@ export class RowChart extends React.Component {
         }
       }
 
-      if ( wrapCount ) {
+      // only allow this to go through if not IE
+      if ( wrapCount && !window.document.documentMode ) {
         const viewMoreBackground = d3.select( innerText.node().parentNode )
           .select( '.view-more-background' )
         const oldHeight = viewMoreBackground.attr( 'height' )
         // eslint-disable-next-line no-mixed-operators
         const newHeight = parseFloat( oldHeight ) + wrapCount * 12
         viewMoreBackground.attr( 'height', newHeight )
-
       }
     } )
     /* eslint-enable complexity */
