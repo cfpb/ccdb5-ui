@@ -1,6 +1,15 @@
 import { filterPatch, SLUG_SEPARATOR } from '../constants'
 import { slugify } from '../utils'
 
+export const formatPillPrefix = fieldName => {
+  if ( fieldName ) {
+    const rep = /_/g
+    const prefix = fieldName.replace( rep, ' ' );
+    return prefix[0].toUpperCase() + prefix.slice( 1 );
+  }
+  return '';
+}
+
 export const getUpdatedFilters = ( filterName, filters, aggs, fieldName ) => {
   // early exit if its not issue or product
   if ( !filterPatch.includes( fieldName ) ) {

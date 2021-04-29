@@ -7,6 +7,8 @@ exports[`component:Pill renders without crashing 1`] = `
   <span
     className="name"
   >
+    Somefield
+    : 
     bar
   </span>
   <button
