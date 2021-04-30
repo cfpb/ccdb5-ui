@@ -3,6 +3,24 @@ import { slugify } from '../../utils'
 
 // ----------------------------------------------------------------------------
 // Tests
+describe('formatPillPrefix', ()=>{
+  it('handles empty value', ()=>{
+    expect( sut.formatPillPrefix() ).toEqual('');
+    expect( sut.formatPillPrefix( null ) ).toEqual( '' );
+    expect( sut.formatPillPrefix( false ) ).toEqual( '' );
+  })
+
+  it( 'formats filter names', ()=>{
+    let res;
+    res = sut.formatPillPrefix('zip_code')
+    expect( res ).toEqual('Zip code');
+    res = sut.formatPillPrefix('Zip code')
+    expect( res ).toEqual('Zip code');
+
+    res = sut.formatPillPrefix('Consumer_provided_code')
+    expect( res ).toEqual('Consumer provided code');
+  })
+})
 describe( 'getUpdatedFilters', () => {
   it( 'skips filters not in filterPatch list', () => {
     const aggs = []

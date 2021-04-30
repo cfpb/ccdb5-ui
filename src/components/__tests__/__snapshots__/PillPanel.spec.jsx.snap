@@ -18,6 +18,8 @@ exports[`component:PillPanel adds a has narrative pill 1`] = `
       <span
         className="name"
       >
+        Has narrative
+        : 
         Has Narrative
       </span>
       <button
@@ -82,6 +84,8 @@ exports[`component:PillPanel does not renders patched filters 1`] = `
       <span
         className="name"
       >
+        Issue
+        : 
         a
       </span>
       <button
@@ -109,6 +113,8 @@ exports[`component:PillPanel does not renders patched filters 1`] = `
       <span
         className="name"
       >
+        Issue
+        : 
         Bananas are great
       </span>
       <button
@@ -171,6 +177,8 @@ exports[`component:PillPanel renders without crashing 1`] = `
       <span
         className="name"
       >
+        Company
+        : 
         Apples
       </span>
       <button
@@ -198,6 +206,8 @@ exports[`component:PillPanel renders without crashing 1`] = `
       <span
         className="name"
       >
+        Company
+        : 
         Bananas are great
       </span>
       <button
