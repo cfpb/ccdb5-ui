@@ -2,10 +2,11 @@ import { filterPatch, SLUG_SEPARATOR } from '../constants'
 import { slugify } from '../utils'
 
 export const formatPillPrefix = fieldName => {
-  if ( fieldName ) {
+  // update this if they want the pill prefixes in other fields.
+  if ( fieldName === 'timely' ) {
     const rep = /_/g
     const prefix = fieldName.replace( rep, ' ' );
-    return prefix[0].toUpperCase() + prefix.slice( 1 );
+    return prefix[0].toUpperCase() + prefix.slice( 1 ) + ': ';
   }
   return '';
 }

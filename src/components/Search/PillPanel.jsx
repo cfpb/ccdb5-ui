@@ -50,7 +50,7 @@ export const mapStateToProps = state => {
   if ( query.has_narrative ) {
     filters.push( {
       fieldName: 'has_narrative',
-      value: 'Has Narrative'
+      value: 'Has narrative'
     } )
   }
 

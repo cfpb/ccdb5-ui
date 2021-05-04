@@ -114,7 +114,7 @@ exports[`initial state renders button at mobile width 1`] = `
     </section>
     <hr />
     <section
-      className="o-expandable aggregation"
+      className="o-expandable aggregation product"
     >
       <div
         className="o-expandable_header o-expandable_target"
@@ -154,7 +154,7 @@ exports[`initial state renders button at mobile width 1`] = `
     </section>
     <hr />
     <section
-      className="o-expandable aggregation"
+      className="o-expandable aggregation issue"
     >
       <div
         className="o-expandable_header o-expandable_target"
@@ -234,7 +234,7 @@ exports[`initial state renders button at mobile width 1`] = `
     </section>
     <hr />
     <section
-      className="o-expandable aggregation"
+      className="o-expandable aggregation state"
     >
       <div
         className="o-expandable_header o-expandable_target"
@@ -388,7 +388,7 @@ exports[`initial state renders button at mobile width 1`] = `
     </section>
     <hr />
     <section
-      className="o-expandable aggregation"
+      className="o-expandable aggregation company"
     >
       <div
         className="o-expandable_header o-expandable_target"
@@ -465,7 +465,7 @@ exports[`initial state renders button at mobile width 1`] = `
     </section>
     <hr />
     <section
-      className="o-expandable aggregation"
+      className="o-expandable aggregation simple timely"
     >
       <div
         className="o-expandable_header o-expandable_target"
@@ -502,7 +502,7 @@ exports[`initial state renders button at mobile width 1`] = `
     </section>
     <hr />
     <section
-      className="o-expandable aggregation"
+      className="o-expandable aggregation simple company_response"
     >
       <div
         className="o-expandable_header o-expandable_target"
@@ -539,7 +539,7 @@ exports[`initial state renders button at mobile width 1`] = `
     </section>
     <hr />
     <section
-      className="o-expandable aggregation"
+      className="o-expandable aggregation simple company_public_response"
     >
       <div
         className="o-expandable_header o-expandable_target"
@@ -661,7 +661,7 @@ exports[`initial state renders button at mobile width 1`] = `
     </section>
     <hr />
     <section
-      className="o-expandable aggregation"
+      className="o-expandable aggregation simple consumer_consent_provided"
     >
       <div
         className="o-expandable_header o-expandable_target"
@@ -725,7 +725,7 @@ exports[`initial state renders button at mobile width 1`] = `
     </section>
     <hr />
     <section
-      className="o-expandable aggregation"
+      className="o-expandable aggregation simple submitted_via"
     >
       <div
         className="o-expandable_header o-expandable_target"
@@ -760,7 +760,7 @@ exports[`initial state renders button at mobile width 1`] = `
     </section>
     <hr />
     <section
-      className="o-expandable aggregation"
+      className="o-expandable aggregation simple tags"
     >
       <div
         className="o-expandable_header o-expandable_target"
@@ -895,7 +895,7 @@ exports[`initial state renders without crashing 1`] = `
     </section>
     <hr />
     <section
-      className="o-expandable aggregation"
+      className="o-expandable aggregation product"
     >
       <div
         className="o-expandable_header o-expandable_target"
@@ -935,7 +935,7 @@ exports[`initial state renders without crashing 1`] = `
     </section>
     <hr />
     <section
-      className="o-expandable aggregation"
+      className="o-expandable aggregation issue"
     >
       <div
         className="o-expandable_header o-expandable_target"
@@ -1015,7 +1015,7 @@ exports[`initial state renders without crashing 1`] = `
     </section>
     <hr />
     <section
-      className="o-expandable aggregation"
+      className="o-expandable aggregation state"
     >
       <div
         className="o-expandable_header o-expandable_target"
@@ -1169,7 +1169,7 @@ exports[`initial state renders without crashing 1`] = `
     </section>
     <hr />
     <section
-      className="o-expandable aggregation"
+      className="o-expandable aggregation company"
     >
       <div
         className="o-expandable_header o-expandable_target"
@@ -1246,7 +1246,7 @@ exports[`initial state renders without crashing 1`] = `
     </section>
     <hr />
     <section
-      className="o-expandable aggregation"
+      className="o-expandable aggregation simple timely"
     >
       <div
         className="o-expandable_header o-expandable_target"
@@ -1283,7 +1283,7 @@ exports[`initial state renders without crashing 1`] = `
     </section>
     <hr />
     <section
-      className="o-expandable aggregation"
+      className="o-expandable aggregation simple company_response"
     >
       <div
         className="o-expandable_header o-expandable_target"
@@ -1320,7 +1320,7 @@ exports[`initial state renders without crashing 1`] = `
     </section>
     <hr />
     <section
-      className="o-expandable aggregation"
+      className="o-expandable aggregation simple company_public_response"
     >
       <div
         className="o-expandable_header o-expandable_target"
@@ -1442,7 +1442,7 @@ exports[`initial state renders without crashing 1`] = `
     </section>
     <hr />
     <section
-      className="o-expandable aggregation"
+      className="o-expandable aggregation simple consumer_consent_provided"
     >
       <div
         className="o-expandable_header o-expandable_target"
@@ -1506,7 +1506,7 @@ exports[`initial state renders without crashing 1`] = `
     </section>
     <hr />
     <section
-      className="o-expandable aggregation"
+      className="o-expandable aggregation simple submitted_via"
     >
       <div
         className="o-expandable_header o-expandable_target"
@@ -1541,7 +1541,7 @@ exports[`initial state renders without crashing 1`] = `
     </section>
     <hr />
     <section
-      className="o-expandable aggregation"
+      className="o-expandable aggregation simple tags"
     >
       <div
         className="o-expandable_header o-expandable_target"

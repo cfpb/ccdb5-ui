@@ -10,15 +10,16 @@ describe('formatPillPrefix', ()=>{
     expect( sut.formatPillPrefix( false ) ).toEqual( '' );
   })
 
-  it( 'formats filter names', ()=>{
+  it( 'formats Timely filter names', ()=>{
+    let res;
+    res = sut.formatPillPrefix('timely')
+    expect( res ).toEqual('Timely: ');
+  })
+
+  it( 'ignores other filter names', ()=>{
     let res;
     res = sut.formatPillPrefix('zip_code')
-    expect( res ).toEqual('Zip code');
-    res = sut.formatPillPrefix('Zip code')
-    expect( res ).toEqual('Zip code');
-
-    res = sut.formatPillPrefix('Consumer_provided_code')
-    expect( res ).toEqual('Consumer provided code');
+    expect( res ).toEqual('');
   })
 })
 describe( 'getUpdatedFilters', () => {

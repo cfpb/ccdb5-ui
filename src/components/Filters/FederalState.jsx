@@ -27,7 +27,7 @@ export class FederalState extends React.Component {
       <CollapsibleFilter title="State"
                          desc={desc}
                          showChildren={this.props.showChildren}
-                         className="aggregation">
+                         className="aggregation state">
         <Typeahead ariaLabel="Start typing to begin listing US states"
                    htmlId="state-typeahead"
                    placeholder="Enter state name or abbreviation"

@@ -2,7 +2,7 @@
 
 exports[`component:Issue snapshots only shows the first five items 1`] = `
 <section
-  className="o-expandable aggregation"
+  className="o-expandable aggregation issue"
 >
   <div
     className="o-expandable_header o-expandable_target"
@@ -79,7 +79,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
   <div>
     <ul>
       <div
-        className="aggregation-branch"
+        className="aggregation-branch incorrect-information-on-credit-report"
       >
         <li
           className="parent m-form-field m-form-field__checkbox body-copy"
@@ -129,7 +129,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
         </li>
       </div>
       <div
-        className="aggregation-branch"
+        className="aggregation-branch cont-d-attempts-collect-debt-not-owed"
       >
         <li
           className="parent m-form-field m-form-field__checkbox body-copy"
@@ -268,7 +268,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
 
 exports[`component:Issue snapshots renders without crashing 1`] = `
 <section
-  className="o-expandable aggregation"
+  className="o-expandable aggregation issue"
 >
   <div
     className="o-expandable_header o-expandable_target"

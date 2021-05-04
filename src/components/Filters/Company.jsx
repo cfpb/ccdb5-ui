@@ -14,7 +14,7 @@ export class Company extends React.Component {
     return (
       <CollapsibleFilter title="Company name"
                          desc={desc}
-                         className="aggregation">
+                         className="aggregation company">
         <CompanyTypeahead id={ 'filter-' + FIELD_NAME }/>
         <StickyOptions fieldName={FIELD_NAME}
                        options={this.props.options}

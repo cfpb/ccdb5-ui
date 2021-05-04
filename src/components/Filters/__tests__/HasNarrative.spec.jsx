@@ -8,8 +8,11 @@ import thunk from 'redux-thunk'
 
 function setupEnzyme(initialProps={}) {
   const props = Object.assign({
-    toggleFlagFilter: jest.fn(),
-    isChecked: true
+    toggleFlag: jest.fn(),
+    options: {
+      isChecked: true,
+      phase: ''
+    }
   }, initialProps)
 
   const target = mount(<HasNarrative {...props} />);
@@ -64,14 +67,14 @@ describe('component::HasNarrative', () => {
       const { target, props } = setupEnzyme()
       const input = target.find('#filterHasNarrative')
       input.simulate('change')
-      expect(props.toggleFlagFilter).toHaveBeenCalled()
+      expect(props.toggleFlag).toHaveBeenCalled()
     })
   })
 
   describe('mapDispatchToProps', () => {
-    it('hooks into toggleFlagFilter', () => {
+    it('hooks into toggleFlag', () => {
       const dispatch = jest.fn()
-      mapDispatchToProps(dispatch).toggleFlagFilter('foo')
+      mapDispatchToProps(dispatch).toggleFlag()
       expect(dispatch.mock.calls.length).toEqual(1)
     })
   })
