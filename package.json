@@ -95,7 +95,7 @@
     "query-string": "^5.0.0",
     "react": "^16.13.0",
     "react-app-polyfill": "^1.0.6",
-    "react-dev-utils": "^10.2.0",
+    "react-dev-utils": "^11.0.4",
     "react-dom": "^16.13.0",
     "react-intl": "^2.4.0",
     "react-modal": "^3.11.2",
