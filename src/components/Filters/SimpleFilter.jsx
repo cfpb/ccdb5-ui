@@ -11,15 +11,16 @@ export class SimpleFilter extends React.Component {
     const listComponentProps = {
       fieldName: this.props.fieldName
     }
+    const { desc, fieldName, options, showChildren, title } = this.props;
 
     return (
-      <CollapsibleFilter title={this.props.title}
-                               desc={this.props.desc}
-                               showChildren={this.props.showChildren}
-                               className="aggregation">
+      <CollapsibleFilter title={title}
+                         desc={desc}
+                         showChildren={showChildren}
+                         className={'aggregation simple ' + fieldName}>
          <MoreOrLess listComponent={AggregationItem}
                      listComponentProps={listComponentProps}
-                     options={this.props.options}
+                     options={options}
          />
       </CollapsibleFilter>
     )

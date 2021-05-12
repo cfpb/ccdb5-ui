@@ -2,7 +2,7 @@
 
 exports[`component:Product snapshots only shows the first five items 1`] = `
 <section
-  className="o-expandable aggregation"
+  className="o-expandable aggregation product"
 >
   <div
     className="o-expandable_header o-expandable_target"
@@ -39,7 +39,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
   <div>
     <ul>
       <div
-        className="aggregation-branch"
+        className="aggregation-branch credit-reporting--credit-repair-services--or-other-personal-consumer-reports"
       >
         <li
           className="parent m-form-field m-form-field__checkbox body-copy"
@@ -89,7 +89,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
         </li>
       </div>
       <div
-        className="aggregation-branch"
+        className="aggregation-branch mortgage"
       >
         <li
           className="parent m-form-field m-form-field__checkbox body-copy"
@@ -228,7 +228,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
 
 exports[`component:Product snapshots renders without crashing 1`] = `
 <section
-  className="o-expandable aggregation"
+  className="o-expandable aggregation product"
 >
   <div
     className="o-expandable_header o-expandable_target"

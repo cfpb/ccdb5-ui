@@ -25,7 +25,7 @@ export class Product extends React.Component {
       <CollapsibleFilter title="Product / sub-product"
                          desc={desc}
                          showChildren={this.props.showChildren}
-                         className="aggregation">
+                         className="aggregation product">
 
         <MoreOrLess listComponent={AggregationBranch}
                     listComponentProps={listComponentProps}

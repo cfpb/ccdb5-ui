@@ -2,7 +2,7 @@
 
 exports[`component::Company snapshots renders empty values without crashing 1`] = `
 <section
-  className="o-expandable aggregation"
+  className="o-expandable aggregation company"
 >
   <div
     className="o-expandable_header o-expandable_target"
@@ -81,7 +81,7 @@ exports[`component::Company snapshots renders empty values without crashing 1`] 
 
 exports[`component::Company snapshots renders without crashing 1`] = `
 <section
-  className="o-expandable aggregation"
+  className="o-expandable aggregation company"
 >
   <div
     className="o-expandable_header o-expandable_target"

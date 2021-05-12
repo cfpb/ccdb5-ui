@@ -373,11 +373,10 @@ describe( 'reducer:query', () => {
       expect( actual.getMonth() ).toEqual( expected.getMonth() )
     } )
 
-    it( 'converts flag parameters to strings', () => {
-      const expected = 'true'
-      action.params = { has_narrative: true }
+    it( 'converts flag parameters to booleans', () => {
+      action.params = { has_narrative: 'true' }
       actual = target( {}, action ).has_narrative
-      expect( actual ).toEqual( expected )
+      expect( actual ).toEqual( true )
     } )
 
     it( 'ignores incorrect dates', () => {

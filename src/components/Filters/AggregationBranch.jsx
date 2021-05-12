@@ -8,7 +8,7 @@ import {
 } from '../../utils'
 import { removeMultipleFilters, replaceFilters } from '../../actions/filter'
 import AggregationItem from './AggregationItem'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 import { FormattedNumber } from 'react-intl'
 import iconMap from '../iconMap'
 import PropTypes from 'prop-types'
@@ -84,7 +84,7 @@ export class AggregationBranch extends React.Component {
     }
 
     return (
-      <div className="aggregation-branch">
+      <div className={ 'aggregation-branch ' + sanitizeHtmlId( item.key ) }>
         <li className={liStyle}>
           <input type="checkbox"
                  aria-label={item.key}

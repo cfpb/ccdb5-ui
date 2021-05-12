@@ -39,6 +39,7 @@ describe('component:PillPanel', () => {
   it('renders without crashing', () => {
     const target = setupSnapshot({
       company: ['Apples', 'Bananas are great'],
+      timely: ['Yes']
     });
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();

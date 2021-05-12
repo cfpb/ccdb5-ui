@@ -2,7 +2,8 @@
 import * as types from '../constants'
 import {
   calculateDateRange,
-  clamp, coalesce,
+  clamp,
+  coalesce,
   enablePer1000,
   processUrlArrayParams,
   shortIsoFormat,
@@ -56,8 +57,8 @@ const trendFieldMap = {
 }
 
 const urlParams = [
-  'dataNormalization', 'dateRange', 'searchText', 'searchField', 'tab',
-  'lens', 'dateInterval', 'subLens', 'focus', 'chartType'
+  'chartType', 'dataNormalization', 'dateInterval', 'dateRange', 'focus',
+  'lens', 'searchText', 'searchField', 'sort', 'subLens', 'tab'
 ]
 
 const urlParamsInt = [ 'from', 'page', 'size', 'trendDepth' ]
@@ -193,7 +194,7 @@ function processParams( state, action ) {
   // Handle flag filters
   types.flagFilters.forEach( field => {
     if ( typeof params[field] !== 'undefined' ) {
-      processed[field] = params[field].toString()
+      processed[field] = params[field] === 'true'
     }
   } )
 

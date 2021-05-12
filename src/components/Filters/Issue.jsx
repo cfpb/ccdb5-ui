@@ -28,7 +28,7 @@ export class Issue extends React.Component {
       <CollapsibleFilter title="Issue / sub-issue"
                          desc={desc}
                          showChildren={this.props.showChildren}
-                         className="aggregation">
+                         className="aggregation issue">
         <Typeahead ariaLabel="Start typing to begin listing issues"
                    htmlId="issue-typeahead"
                    placeholder="Enter name of issue"

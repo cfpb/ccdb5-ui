@@ -15,7 +15,7 @@ export class Pill extends React.Component {
     const trimmed = value.split( SLUG_SEPARATOR ).pop()
     return (
       <li className="pill flex-fixed">
-        <span className="name">{ prefix }: { trimmed }</span>
+        <span className="name">{ prefix }{ trimmed }</span>
         <button onClick={ () => remove( this.props ) }>
           <span className="u-visually-hidden">
             { `Remove ${ trimmed } as a filter` }
