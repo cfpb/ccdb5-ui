@@ -728,7 +728,7 @@ function changeTab( state, action ) {
  * @returns {{page: number, totalPages: number}} the new state
  */
 function updateTotalPages( state, action ) {
-  const totalPages = Math.ceil( action.data.hits.total / state.size );
+  const totalPages = Math.ceil( action.data.hits.total.value / state.size );
   // reset pager to 1 if the number of total pages is less than current page
   const page = state.page > totalPages ? totalPages : state.page;
   return {
