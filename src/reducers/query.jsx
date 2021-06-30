@@ -678,7 +678,7 @@ function nextPage( state ) {
     ...state,
     from: ( page - 1 ) * state.size,
     page: page,
-    searchAfter: breakPoints[page].join('_')
+    searchAfter: breakPoints[page] ? breakPoints[page].join('_') : ''
   };
 }
 
