@@ -655,10 +655,12 @@ export function dismissTrendsDateWarning( state ) {
 function prevPage( state ) {
   // don't let them go lower than 1
   const page = clamp( state.page - 1, 1, state.page );
+  const { breakPoints } = state;
   return {
     ...state,
     from: ( page - 1 ) * state.size,
-    page: page
+    page: page,
+    searchAfter: breakPoints[page].join('_')
   };
 }
 
@@ -676,7 +678,7 @@ function nextPage( state ) {
     ...state,
     from: ( page - 1 ) * state.size,
     page: page,
-    searchAfter: breakPoints[page].join(',')
+    searchAfter: breakPoints[page].join('_')
   };
 }
 
