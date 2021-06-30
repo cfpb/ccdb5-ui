@@ -18,6 +18,7 @@ const queryString = require( 'query-string' )
 
 /* eslint-disable camelcase */
 export const defaultQuery = {
+  breakPoints: {},
   chartType: 'line',
   dataNormalization: types.GEO_NORM_NONE,
   dateInterval: 'Month',
@@ -32,6 +33,7 @@ export const defaultQuery = {
   mapWarningEnabled: true,
   lens: 'Overview',
   page: 1,
+  searchAfter: '',
   searchField: 'all',
   searchText: '',
   size: 25,
@@ -44,6 +46,7 @@ export const defaultQuery = {
 }
 
 const fieldMap = {
+  searchAfter: 'search_after',
   searchText: 'search_term',
   searchField: 'field',
   from: 'frm'
@@ -668,10 +671,12 @@ function prevPage( state ) {
 function nextPage( state ) {
   // don't let them go past the total num of pages
   const page = clamp( state.page + 1, 1, state.totalPages );
+  const { breakPoints } = state;
   return {
     ...state,
     from: ( page - 1 ) * state.size,
-    page: page
+    page: page,
+    searchAfter: breakPoints[page].join(',')
   };
 }
 
@@ -733,6 +738,7 @@ function updateTotalPages( state, action ) {
   const page = state.page > totalPages ? totalPages : state.page;
   return {
     ...state,
+    breakPoints: action.data._meta.break_points,
     page,
     totalPages
   }
@@ -938,7 +944,7 @@ export function stateToQS( state ) {
       types.dateFilters, types.knownFilters, types.flagFilters )
 
   const paramMap = {
-    List: [ 'frm', 'size', 'sort', 'format', 'no_aggs', 'no_highlight' ],
+    List: [ 'frm', 'search_after', 'size', 'sort', 'format', 'no_aggs', 'no_highlight' ],
     // nothing unique to states endpoint
     Map: [],
     Trends: [ 'lens', 'focus', 'sub_lens', 'sub_lens_depth', 'trend_interval',
