@@ -370,8 +370,10 @@ export function toggleFlagFilter( state, action ) {
 export function changeSearch( state, action ) {
   return {
     ...state,
+    breakPoints: {},
     from: 0,
     page: 1,
+    searchAfter: '',
     searchText: action.searchText,
     searchField: action.searchField
   }
@@ -615,7 +617,8 @@ function changePage( state, action ) {
   return {
     ...state,
     from: ( page - 1 ) * state.size,
-    page: page
+    page: page,
+    searchAfter: getSearchAfter(state, page)
   }
 }
 
@@ -649,18 +652,17 @@ export function dismissTrendsDateWarning( state ) {
  * Update state based on the sort order changed action
  *
  * @param {object} state the current state in the Redux store
- * @param {object} action the command being executed
  * @returns {object} the new state for the Redux store
  */
 function prevPage( state ) {
   // don't let them go lower than 1
   const page = clamp( state.page - 1, 1, state.page );
-  const { breakPoints } = state;
+
   return {
     ...state,
     from: ( page - 1 ) * state.size,
     page: page,
-    searchAfter: breakPoints[page].join('_')
+    searchAfter: getSearchAfter(state, page)
   };
 }
 
@@ -673,15 +675,18 @@ function prevPage( state ) {
 function nextPage( state ) {
   // don't let them go past the total num of pages
   const page = clamp( state.page + 1, 1, state.totalPages );
-  const { breakPoints } = state;
   return {
     ...state,
     from: ( page - 1 ) * state.size,
     page: page,
-    searchAfter: breakPoints[page] ? breakPoints[page].join('_') : ''
+    searchAfter: getSearchAfter( state, page )
   };
 }
 
+function getSearchAfter( state, page ) {
+  const { breakPoints } = state;
+  return breakPoints[page] ? breakPoints[page].join('_') : ''
+}
 
 /**
  * update state based on changeSize action
@@ -692,9 +697,11 @@ function nextPage( state ) {
 function changeSize( state, action ) {
   return {
     ...state,
+    breakPoints: {},
     from: 0,
     page: 1,
-    size: action.size
+    size: action.size,
+    searchAfter: ''
   }
 }
 
@@ -708,7 +715,11 @@ function changeSort( state, action ) {
   const sort = enforceValues( action.sort, 'sort' )
   return {
     ...state,
-    sort
+    breakPoints: {},
+    from: 0,
+    page: 1,
+    sort,
+    searchAfter: ''
   }
 }
 
@@ -735,14 +746,16 @@ function changeTab( state, action ) {
  * @returns {{page: number, totalPages: number}} the new state
  */
 function updateTotalPages( state, action ) {
-  const totalPages = Math.ceil( action.data.hits.total.value / state.size );
+  const { _meta, hits } = action.data;
+  const totalPages = Math.ceil( hits.total.value / state.size );
   // reset pager to 1 if the number of total pages is less than current page
+  const {break_points: breakPoints} = _meta;
   const page = state.page > totalPages ? totalPages : state.page;
   return {
     ...state,
-    breakPoints: action.data._meta.break_points,
+    breakPoints,
     page,
-    totalPages
+    totalPages: Object.keys(breakPoints).length + 1
   }
 }
 
