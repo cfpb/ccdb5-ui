@@ -39,7 +39,7 @@ def read_file(filename):
 
 setup(
     name='ccdb5_ui',
-    version=get_git_version(),
+    version='2.3.3-dev5',
     author='CFPB',
     author_email='tech@cfpb.gov',
     maintainer='cfpb',
