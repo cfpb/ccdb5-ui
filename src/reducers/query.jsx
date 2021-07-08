@@ -618,7 +618,7 @@ function changePage( state, action ) {
     ...state,
     from: ( page - 1 ) * state.size,
     page: page,
-    searchAfter: getSearchAfter(state, page)
+    searchAfter: getSearchAfter( state, page )
   }
 }
 
@@ -662,7 +662,7 @@ function prevPage( state ) {
     ...state,
     from: ( page - 1 ) * state.size,
     page: page,
-    searchAfter: getSearchAfter(state, page)
+    searchAfter: getSearchAfter( state, page )
   };
 }
 
@@ -683,9 +683,16 @@ function nextPage( state ) {
   };
 }
 
+/**
+ * Get search results after specified page
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {int} page page number
+ * @returns {array} array containing complaint's received date and id
+ */
 function getSearchAfter( state, page ) {
   const { breakPoints } = state;
-  return breakPoints[page] ? breakPoints[page].join('_') : ''
+  return breakPoints[page] ? breakPoints[page].join( '_' ) : ''
 }
 
 /**
@@ -749,13 +756,13 @@ function updateTotalPages( state, action ) {
   const { _meta, hits } = action.data;
   const totalPages = Math.ceil( hits.total.value / state.size );
   // reset pager to 1 if the number of total pages is less than current page
-  const {break_points: breakPoints} = _meta;
+  const { break_points: breakPoints } = _meta;
   const page = state.page > totalPages ? totalPages : state.page;
   return {
     ...state,
     breakPoints,
     page,
-    totalPages: Object.keys(breakPoints).length + 1
+    totalPages: Object.keys( breakPoints ).length + 1
   }
 }
 
@@ -959,7 +966,9 @@ export function stateToQS( state ) {
       types.dateFilters, types.knownFilters, types.flagFilters )
 
   const paramMap = {
-    List: [ 'frm', 'search_after', 'size', 'sort', 'format', 'no_aggs', 'no_highlight' ],
+    List: [
+      'frm', 'search_after', 'size', 'sort', 'format', 'no_aggs', 'no_highlight'
+    ],
     // nothing unique to states endpoint
     Map: [],
     Trends: [ 'lens', 'focus', 'sub_lens', 'sub_lens_depth', 'trend_interval',
