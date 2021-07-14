@@ -65,7 +65,7 @@ setup(
     zip_safe=False,
     setup_requires=['cfgov_setup==1.2'],
     install_requires=[
-        'Django>=2.2,<3.2',
+        'Django>=2.2,<3.3',
         'django-flags>=4.0.1,<5.1',
     ],
     frontend_build_script='frontendbuild.sh'
