@@ -606,21 +606,6 @@ function removeMultipleFilters( state, action ) {
   return newState
 }
 
-/**
- * update state based on pageChanged action
- * @param {object} state current redux state
- * @param {object} action command executed
- * @returns {object} new state in redux
- */
-function changePage( state, action ) {
-  const page = parseInt( action.page, 10 )
-  return {
-    ...state,
-    from: ( page - 1 ) * state.size,
-    page: page,
-    searchAfter: getSearchAfter( state, page )
-  }
-}
 
 /**
  * Handler for the dismiss map warning action
@@ -649,6 +634,36 @@ export function dismissTrendsDateWarning( state ) {
 }
 
 /**
+ * update state based on pageChanged action
+ * @param {object} state current redux state
+ * @param {object} action command executed
+ * @returns {object} new state in redux
+ */
+function changePage( state, action ) {
+  const page = parseInt( action.page, 10 )
+  const pagination = getPagination( page, state );
+
+  return {
+    ...state,
+    ...pagination
+  }
+}
+
+/**
+ * gets the pagination state
+ * @param {int} page the page we are on
+ * @param {object} state the redux state
+ * @returns {object} contains the from and searchAfter params
+ */
+function getPagination( page, state ) {
+  return {
+    from: ( page - 1 ) * state.size,
+    page,
+    searchAfter: getSearchAfter( state, page )
+  }
+}
+
+/**
  * Update state based on the sort order changed action
  *
  * @param {object} state the current state in the Redux store
@@ -657,12 +672,10 @@ export function dismissTrendsDateWarning( state ) {
 function prevPage( state ) {
   // don't let them go lower than 1
   const page = clamp( state.page - 1, 1, state.page );
-
+  const pagination = getPagination( page, state );
   return {
     ...state,
-    from: ( page - 1 ) * state.size,
-    page: page,
-    searchAfter: getSearchAfter( state, page )
+    ...pagination
   };
 }
 
@@ -675,11 +688,10 @@ function prevPage( state ) {
 function nextPage( state ) {
   // don't let them go past the total num of pages
   const page = clamp( state.page + 1, 1, state.totalPages );
+  const pagination = getPagination( page, state );
   return {
     ...state,
-    from: ( page - 1 ) * state.size,
-    page: page,
-    searchAfter: getSearchAfter( state, page )
+    ...pagination
   };
 }
 

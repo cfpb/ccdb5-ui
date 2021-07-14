@@ -262,6 +262,35 @@ describe( 'reducer:query', () => {
         tab: types.MODE_LIST
       } )
     } )
+
+    it( 'handles missing breakPoints actions', () => {
+      action = {
+        type: actions.PREV_PAGE_SHOWN
+      }
+      state = {
+        breakPoints: {
+          2: [ 99, 22131 ],
+          3: [ 909, 131 ]
+        },
+        from: 100,
+        page: 2,
+        queryString: 'foobar',
+        size: 100,
+        tab: types.MODE_LIST
+      }
+      expect( target( state, action ) ).toEqual( {
+        breakPoints: {
+          2: [ 99, 22131 ],
+          3: [ 909, 131 ]
+        },
+        from: 0,
+        page: 1,
+        queryString: '?size=100',
+        searchAfter: '',
+        size: 100,
+        tab: types.MODE_LIST
+      } )
+    } )
   } )
 
   describe( 'Action Bar', () => {
