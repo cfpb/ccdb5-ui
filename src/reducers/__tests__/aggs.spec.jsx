@@ -53,7 +53,7 @@ describe( 'reducer:aggs', () => {
           }
         },
         hits: {
-          total: 99
+          total: { value: 99 }
         },
         '_meta': {
           total_record_count: 162576,

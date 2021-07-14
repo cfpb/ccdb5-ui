@@ -15,6 +15,7 @@ describe( 'reducer:query', () => {
     it( 'has a default state', () => {
       result = target( undefined, {} )
       expect( result ).toEqual( {
+        breakPoints: {},
         chartType: 'line',
         dataNormalization: types.GEO_NORM_NONE,
         dateInterval: 'Month',
@@ -31,6 +32,7 @@ describe( 'reducer:query', () => {
         searchText: '',
         searchField: 'all',
         page: 1,
+        searchAfter: '',
         size: 25,
         sort: 'created_date_desc',
         subLens: '',
@@ -47,8 +49,16 @@ describe( 'reducer:query', () => {
       action = {
         type: actions.COMPLAINTS_RECEIVED,
         data: {
+          _meta: {
+            break_points: {
+              2: [2,2],
+              3: [3,2],
+              4: [4,2],
+              5: [5,2]
+            }
+          },
           hits: {
-            total: 10000
+            total: { value: 10000 }
           }
         }
       }
@@ -59,10 +69,16 @@ describe( 'reducer:query', () => {
       }
 
       expect( target( state, action ) ).toEqual( {
+        breakPoints: {
+          2: [2,2],
+          3: [3,2],
+          4: [4,2],
+          5: [5,2]
+        },
         page: 10,
         queryString: '',
         size: 100,
-        totalPages: 100
+        totalPages: 5
       } )
     } )
 
@@ -70,8 +86,16 @@ describe( 'reducer:query', () => {
       action = {
         type: actions.COMPLAINTS_RECEIVED,
         data: {
+          _meta: {
+            break_points: {
+              2: [2,2],
+              3: [3,2],
+              4: [4,2],
+              5: [5,2]
+            }
+          },
           hits: {
-            total: 10000
+            total: { value: 10000 }
           }
         }
       }
@@ -82,10 +106,16 @@ describe( 'reducer:query', () => {
       }
 
       expect( target( state, action ) ).toEqual( {
+        breakPoints: {
+          2: [2,2],
+          3: [3,2],
+          4: [4,2],
+          5: [5,2]
+        },
         page: 100,
         queryString: '',
         size: 100,
-        totalPages: 100
+        totalPages: 5
       } )
     } )
   } )
@@ -101,9 +131,11 @@ describe( 'reducer:query', () => {
       size: 100
     }
     expect( target( state, action ) ).toEqual( {
+      breakPoints: {},
       from: 0,
       page: 1,
       queryString: '?field=bar&search_term=foo',
+      searchAfter: '',
       searchField: 'bar',
       searchText: 'foo',
       size: 100
@@ -149,16 +181,25 @@ describe( 'reducer:query', () => {
     it( 'handles PAGE_CHANGED actions', () => {
       action = {
         type: actions.PAGE_CHANGED,
-        page: 2
+        page: 3
       }
       state = {
+        breakPoints: {
+          2: [ 99, 22131 ],
+          3: [ 909, 131 ]
+        },
         size: 100,
         tab: types.MODE_LIST
       }
       expect( target( state, action ) ).toEqual( {
-        from: 100,
-        page: 2,
-        queryString: '?frm=100&size=100',
+        breakPoints: {
+          2: [ 99, 22131 ],
+          3: [ 909, 131 ]
+        },
+        from: 200,
+        page: 3,
+        queryString: '?frm=200&search_after=909_131&size=100',
+        searchAfter: '909_131',
         size: 100,
         tab: types.MODE_LIST
       } )
@@ -169,6 +210,10 @@ describe( 'reducer:query', () => {
         type: actions.NEXT_PAGE_SHOWN
       }
       state = {
+        breakPoints: {
+          2: [ 99, 22131 ],
+          3: [ 909, 131 ]
+        },
         from: 100,
         page: 2,
         queryString: 'foobar',
@@ -176,9 +221,14 @@ describe( 'reducer:query', () => {
         tab: types.MODE_LIST
       }
       expect( target( state, action ) ).toEqual( {
+        breakPoints: {
+          2: [ 99, 22131 ],
+          3: [ 909, 131 ]
+        },
         from: 200,
         page: 3,
-        queryString: '?frm=200&size=100',
+        queryString: '?frm=200&search_after=909_131&size=100',
+        searchAfter: '909_131',
         size: 100,
         tab: types.MODE_LIST
       } )
@@ -189,16 +239,25 @@ describe( 'reducer:query', () => {
         type: actions.PREV_PAGE_SHOWN
       }
       state = {
+        breakPoints: {
+          2: [ 99, 22131 ],
+          3: [ 909, 131 ]
+        },
         from: 100,
-        page: 2,
+        page: 3,
         queryString: 'foobar',
         size: 100,
         tab: types.MODE_LIST
       }
       expect( target( state, action ) ).toEqual( {
-        from: 0,
-        page: 1,
-        queryString: '?size=100',
+        breakPoints: {
+          2: [ 99, 22131 ],
+          3: [ 909, 131 ]
+        },
+        from: 100,
+        page: 2,
+        queryString: '?frm=100&search_after=99_22131&size=100',
+        searchAfter: '99_22131',
         size: 100,
         tab: types.MODE_LIST
       } )
@@ -216,9 +275,11 @@ describe( 'reducer:query', () => {
         tab: types.MODE_LIST
       }
       expect( target( state, action ) ).toEqual( {
+        breakPoints: {},
         from: 0,
         page: 1,
         queryString: '?size=50',
+        searchAfter: '',
         size: 50,
         tab: types.MODE_LIST
       } )
@@ -235,8 +296,11 @@ describe( 'reducer:query', () => {
         tab: types.MODE_LIST
       }
       expect( target( state, action ) ).toEqual( {
-        from: 100,
-        queryString: '?frm=100&size=100&sort=created_date_desc',
+        breakPoints: {},
+        from: 0,
+        page: 1,
+        queryString: '?size=100&sort=created_date_desc',
+        searchAfter: '',
         sort: 'created_date_desc',
         size: 100,
         tab: types.MODE_LIST
@@ -254,8 +318,11 @@ describe( 'reducer:query', () => {
         tab: types.MODE_LIST
       }
       expect( target( state, action ) ).toEqual( {
-        from: 100,
-        queryString: '?frm=100&size=100&sort=relevance_asc',
+        breakPoints: {},
+        from: 0,
+        page: 1,
+        queryString: '?size=100&sort=relevance_asc',
+        searchAfter: '',
         sort: 'relevance_asc',
         size: 100,
         tab: types.MODE_LIST
