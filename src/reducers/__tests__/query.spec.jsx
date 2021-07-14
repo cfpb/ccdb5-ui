@@ -441,6 +441,12 @@ describe( 'reducer:query', () => {
       expect( actual.size ).toEqual( 100 )
     } )
 
+    it( 'handles page number', () => {
+      action.params = { page: '100' }
+      actual = target( state, action )
+      expect( actual.page ).toEqual( 1 )
+    } )
+
     it( 'handles bogus date parameters', () => {
       action.params = { dateInterval: '3y', dateRange: 'Week' }
       actual = target( state, action )

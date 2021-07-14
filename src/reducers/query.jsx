@@ -217,6 +217,9 @@ function processParams( state, action ) {
     processed = changeDateRange( processed, innerAction )
   }
 
+  // this is always page 1 since we don't know breakPoints
+  processed.page = 1;
+
   return alignDateRange( processed )
 }
 
