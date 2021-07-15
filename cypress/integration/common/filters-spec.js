@@ -5,9 +5,9 @@ import moment from 'moment';
 describe( 'Filter Panel', () => {
   beforeEach( () => {
 
-    cy.intercept( 'GET', '/data-research/consumer-complaints/search/api/v1/?**&size=0' )
-        .as( 'getAggs' );
-    cy.intercept( 'GET', '/data-research/consumer-complaints/search/api/v1/?**&no_aggs=true' )
+    cy.intercept( 'GET', '**/api/v1/?**&size=0' )
+      .as( 'getAggs' );
+    cy.intercept( 'GET', '**/api/v1/?**&sort=created_date_desc' )
       .as( 'getComplaints' );
     cy.visit( Cypress.env( 'HOST' ) + '?tab=List' );
     cy.wait( '@getAggs' );
@@ -20,30 +20,38 @@ describe( 'Filter Panel', () => {
   } );
 
   describe( 'Date Received Filter', () => {
-    it( 'is expanded by default', () => {
+    it( 'has basic functionality', () => {
+      cy.log( 'is expanded' )
+
       cy.get( '#date_received-from' )
         .should( 'be.visible' );
-    } );
 
-    it( 'can collapse a filter', () => {
+      cy.log( 'collapse it' )
       cy.get( '.date-filter button.a-btn__link:first' )
         .click( { force: true } );
+
       cy.get( '#date-received-agg #start_date' )
         .should( 'not.exist' );
-    } );
 
-    it( 'can apply a from date', () => {
+      cy.log( 'open it' )
+      cy.get( '.date-filter button.a-btn__link:first' )
+          .click( { force: true } );
+      cy.log( 'apply dates' )
+
       cy.get( '#date_received-from' )
         .clear()
         .type( '09/11/2015' )
         .blur();
+
+      cy.wait( '@getComplaints' );
+
       cy.url()
         .should( 'include', 'date_received_min=2015-09-11' );
-    } );
 
-    it( 'can apply a through date', () => {
+      cy.log( 'apply a through date' )
+
       cy.get( '#date_received-through' )
-      .clear()
+        .clear()
         .type( '10/31/2020' )
         .blur();
       cy.url()
@@ -51,11 +59,11 @@ describe( 'Filter Panel', () => {
     } );
 
     it( 'can trigger a pre-selected date range', () => {
-      cy.intercept( 'GET', '/data-research/consumer-complaints/search/api/v1/geo/states/?**' )
+      cy.intercept( 'GET', '**/api/v1/geo/states/?**' )
         .as( 'getGeo' );
       cy.get( 'button.map' )
         .click();
-      cy.wait('@getGeo');
+      cy.wait( '@getGeo' );
 
       const maxDate = moment( new Date() ).format( 'YYYY-MM-DD' );
       let minDate = moment( new Date() ).subtract( 3, 'years' ).format( 'YYYY-MM-DD' );
@@ -106,7 +114,7 @@ describe( 'Filter Panel', () => {
         .should( 'include', 'timely=Yes' );
       // Filter pill
       cy.get( '.pill-panel .pill' )
-        .contains('Timely: Yes')
+        .contains( 'Timely: Yes' )
         .should( 'exist' );
       // Filter clear button
       cy.get( 'li.clear-all' )
@@ -118,50 +126,50 @@ describe( 'Filter Panel', () => {
     // Product/Sub-product
     it( 'can collapse a filter', () => {
       cy.get( '.filter-panel .product .aggregation-branch' )
-        .should('have.length.gt', 1)
+        .should( 'have.length.gt', 1 )
 
       // close it
-      cy.get('.filter-panel .product .o-expandable_cue-close')
+      cy.get( '.filter-panel .product .o-expandable_cue-close' )
         .click();
       cy.get( '.filter-panel .product .aggregation-branch' )
-        .should('have.length', 0)
+        .should( 'have.length', 0 )
 
       // open it
-      cy.get('.filter-panel .product .o-expandable_cue-open')
+      cy.get( '.filter-panel .product .o-expandable_cue-open' )
         .click();
 
       cy.get( '.filter-panel .product .aggregation-branch' )
-        .should('have.length.gt', 1)
+        .should( 'have.length.gt', 1 )
 
     } );
 
     it( 'can expand sub-filters', () => {
       cy.get( '.filter-panel .product .children' )
-        .should('not.exist');
+        .should( 'not.exist' );
       // Open sub-filter
       cy.get( '.filter-panel .product .aggregation-branch:first .a-btn__link' )
         .click();
       cy.get( '.filter-panel .product .children' )
-        .should('exist');
+        .should( 'exist' );
       cy.get( '.filter-panel .product .aggregation-branch:first .a-btn__link' )
         .click();
       cy.get( '.filter-panel .product .children' )
-        .should('not.exist');
+        .should( 'not.exist' );
     } );
     //
     it( 'toggles a filter by clicking checkbox input', () => {
-      cy.log('add filter')
+      cy.log( 'add filter' )
       cy.get( 'input#product-mortgage' )
-        .click({force:true});
+        .click( { force: true } );
       // Filter pill
       cy.get( '.pill-panel .pill' )
-        .contains('Mortgage')
+        .contains( 'Mortgage' )
         .should( 'exist' );
       cy.url()
         .should( 'include', 'product=Mortgage' );
-      cy.log('remove filter')
+      cy.log( 'remove filter' )
       cy.get( 'input#product-mortgage' )
-        .click({force:true});
+        .click( { force: true } );
       // Filter pill
       cy.get( '.pill-panel .pill' )
         .should( 'not.exist' );
@@ -171,28 +179,28 @@ describe( 'Filter Panel', () => {
 
     it( 'applies sub-filter by clicking', () => {
       cy.get( '.filter-panel .product .children' )
-        .should('not.exist');
+        .should( 'not.exist' );
       // Open sub-filter
       cy.get( '.filter-panel .product .aggregation-branch.mortgage button' )
         .click();
       cy.get( '.filter-panel .product .aggregation-branch.mortgage .children' )
-        .should('exist');
+        .should( 'exist' );
       cy.get( '.filter-panel .product input#product-mortgage-fha-mortgage' )
-        .click({force:true});
+        .click( { force: true } );
 
       cy.url()
         .should( 'include', '&product=Mortgage%E2%80%A2FHA%20mortgage' );
 
       cy.get( '.pill-panel .pill' )
-        .contains('FHA mortgage')
+        .contains( 'FHA mortgage' )
         .should( 'exist' );
 
-      cy.log('remove sub-filter when applying parent filter');
+      cy.log( 'remove sub-filter when applying parent filter' );
       cy.get( 'input#product-mortgage' )
-        .click({force:true});
+        .click( { force: true } );
 
       cy.get( '.pill-panel .pill' )
-        .contains('FHA mortgage')
+        .contains( 'FHA mortgage' )
         .should( 'not.exist' );
 
       cy.url()
@@ -204,11 +212,12 @@ describe( 'Filter Panel', () => {
 
     it( 'shows more results', () => {
       cy.get( '.list-panel .card-container' )
-        .should( 'have.length', 25);
+        .should( 'have.length', 25 );
       cy.get( '#choose-size' )
         .select( '10 results' )
+      cy.wait( '@getComplaints' )
       cy.get( '.list-panel .card-container' )
-        .should( 'have.length', 10);
+        .should( 'have.length', 10 );
     } );
   } );
 
@@ -235,11 +244,11 @@ describe( 'Filter Panel', () => {
         .should( 'exist' );
 
       cy.get( '.state .typeahead-selector li' )
-        .contains('Texas')
+        .contains( 'Texas' )
         .click();
 
       cy.get( '.pill-panel .pill' )
-        .contains('TX')
+        .contains( 'TX' )
         .should( 'exist' );
     } );
   } );

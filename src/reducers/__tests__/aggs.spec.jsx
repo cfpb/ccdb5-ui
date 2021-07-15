@@ -74,8 +74,7 @@ describe( 'reducer:aggs', () => {
       lastUpdated: '2017-07-10T00:00:00.000Z',
       lastIndexed: '2017-07-11T00:00:00.000Z',
       hasDataIssue: undefined,
-      isDataStale: undefined,
-      isNarrativeStale: undefined
+      isDataStale: undefined
     }
 
     expect( target( { doc_count: 100 }, action ) ).toEqual( expected )

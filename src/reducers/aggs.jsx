@@ -16,7 +16,6 @@ export const defaultAggs = {
   loadingAggregations: false,
   hasDataIssue: false,
   isDataStale: false,
-  isNarrativeStale: false,
   company: [],
   company_public_response: [],
   company_response: [],
@@ -73,7 +72,6 @@ export function processAggregationResults( state, action ) {
     lastIndexed: action.data._meta.last_indexed,
     hasDataIssue: action.data._meta.has_data_issue,
     isDataStale: action.data._meta.is_data_stale,
-    isNarrativeStale: action.data._meta.is_narrative_stale,
     total: action.data.hits.total.value
   }
 

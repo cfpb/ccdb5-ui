@@ -1,11 +1,11 @@
 import './SearchBar.less'
+import { searchFieldChanged, searchTextChanged } from '../../actions/search'
 import Typeahead, { MODE_OPEN } from '../Typeahead'
 import AdvancedTips from '../Dialogs/AdvancedTips'
 import { connect } from 'react-redux'
 import HighlightingOption from '../Typeahead/HighlightingOption'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { searchChanged } from '../../actions/search'
 
 const searchFields = {
   all: 'All data',
@@ -122,13 +122,11 @@ export class SearchBar extends React.Component {
 
   _handleSubmit( event ) {
     event.preventDefault()
-    this.props.onSearch( this.state.inputValue, this.state.searchField )
+    this.props.onSearchText( this.state.inputValue )
   }
 
   _onSelectSearchField( event ) {
-    this.setState( {
-      searchField: event.target.value
-    } )
+    this.props.onSearchField( event.target.value )
   }
 
   _onAdvancedClicked( ) {
@@ -178,7 +176,7 @@ export class SearchBar extends React.Component {
 
   _onTypeaheadSelected( obj ) {
     const inputValue = typeof obj === 'object' ? obj.key : obj
-    this.props.onSearch( inputValue, this.state.searchField )
+    this.props.onSearchText( inputValue )
   }
 }
 
@@ -199,8 +197,11 @@ export const mapStateToProps = state => ( {
 } )
 
 export const mapDispatchToProps = dispatch => ( {
-  onSearch: ( text, searchField ) => {
-    dispatch( searchChanged( text, searchField ) )
+  onSearchField: field => {
+    dispatch( searchFieldChanged( field ) )
+  },
+  onSearchText: text => {
+    dispatch( searchTextChanged( text ) )
   }
 } )
 

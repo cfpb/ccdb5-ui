@@ -370,17 +370,30 @@ export function toggleFlagFilter( state, action ) {
  * @param {object} action payload with search text and field
  * @returns {object} updated state for redux
  */
-export function changeSearch( state, action ) {
+export function changeSearchField( state, action ) {
+  const pagination = getPagination( 1, state );
   return {
     ...state,
-    breakPoints: {},
-    from: 0,
-    page: 1,
-    searchAfter: '',
-    searchText: action.searchText,
+    ...pagination,
     searchField: action.searchField
   }
 }
+
+/**
+ * updates when search text params are changed
+ * @param {object} state current state in redux
+ * @param {object} action payload with search text and field
+ * @returns {object} updated state for redux
+ */
+export function changeSearchText( state, action ) {
+  const pagination = getPagination( 1, state );
+  return {
+    ...state,
+    ...pagination,
+    searchText: action.searchText
+  }
+}
+
 
 /**
 * Adds new filters to the current set
@@ -707,7 +720,7 @@ function nextPage( state ) {
  */
 function getSearchAfter( state, page ) {
   const { breakPoints } = state;
-  return breakPoints[page] ? breakPoints[page].join( '_' ) : ''
+  return breakPoints && breakPoints[page] ? breakPoints[page].join( '_' ) : ''
 }
 
 /**
@@ -717,13 +730,11 @@ function getSearchAfter( state, page ) {
  * @returns {object} new state in redux
  */
 function changeSize( state, action ) {
+  const pagination = getPagination( 1, state );
   return {
     ...state,
-    breakPoints: {},
-    from: 0,
-    page: 1,
-    size: action.size,
-    searchAfter: ''
+    ...pagination,
+    size: action.size
   }
 }
 
@@ -734,14 +745,12 @@ function changeSize( state, action ) {
  * @returns {object} new state in redux
  */
 function changeSort( state, action ) {
+  const pagination = getPagination( 1, state );
   const sort = enforceValues( action.sort, 'sort' )
   return {
     ...state,
-    breakPoints: {},
-    from: 0,
-    page: 1,
-    sort,
-    searchAfter: ''
+    ...pagination,
+    sort
   }
 }
 
@@ -1070,7 +1079,8 @@ export function _buildHandlerMap() {
   handlers[actions.TAB_CHANGED] = changeTab
   handlers[actions.TRENDS_DATE_WARNING_DISMISSED] = dismissTrendsDateWarning
   handlers[actions.URL_CHANGED] = processParams
-  handlers[actions.SEARCH_CHANGED] = changeSearch
+  handlers[actions.SEARCH_TEXT_CHANGED] = changeSearchText
+  handlers[actions.SEARCH_FIELD_CHANGED] = changeSearchField
 
   return handlers
 }
