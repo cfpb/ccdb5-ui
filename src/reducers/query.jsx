@@ -18,6 +18,7 @@ const queryString = require( 'query-string' )
 
 /* eslint-disable camelcase */
 export const defaultQuery = {
+  breakPoints: {},
   chartType: 'line',
   dataNormalization: types.GEO_NORM_NONE,
   dateInterval: 'Month',
@@ -32,6 +33,7 @@ export const defaultQuery = {
   mapWarningEnabled: true,
   lens: 'Overview',
   page: 1,
+  searchAfter: '',
   searchField: 'all',
   searchText: '',
   size: 25,
@@ -44,6 +46,7 @@ export const defaultQuery = {
 }
 
 const fieldMap = {
+  searchAfter: 'search_after',
   searchText: 'search_term',
   searchField: 'field',
   from: 'frm'
@@ -214,6 +217,9 @@ function processParams( state, action ) {
     processed = changeDateRange( processed, innerAction )
   }
 
+  // this is always page 1 since we don't know breakPoints
+  processed.page = 1;
+
   return alignDateRange( processed )
 }
 
@@ -364,15 +370,30 @@ export function toggleFlagFilter( state, action ) {
  * @param {object} action payload with search text and field
  * @returns {object} updated state for redux
  */
-export function changeSearch( state, action ) {
+export function changeSearchField( state, action ) {
+  const pagination = getPagination( 1, state );
   return {
     ...state,
-    from: 0,
-    page: 1,
-    searchText: action.searchText,
+    ...pagination,
     searchField: action.searchField
   }
 }
+
+/**
+ * updates when search text params are changed
+ * @param {object} state current state in redux
+ * @param {object} action payload with search text and field
+ * @returns {object} updated state for redux
+ */
+export function changeSearchText( state, action ) {
+  const pagination = getPagination( 1, state );
+  return {
+    ...state,
+    ...pagination,
+    searchText: action.searchText
+  }
+}
+
 
 /**
 * Adds new filters to the current set
@@ -601,20 +622,6 @@ function removeMultipleFilters( state, action ) {
   return newState
 }
 
-/**
- * update state based on pageChanged action
- * @param {object} state current redux state
- * @param {object} action command executed
- * @returns {object} new state in redux
- */
-function changePage( state, action ) {
-  const page = parseInt( action.page, 10 )
-  return {
-    ...state,
-    from: ( page - 1 ) * state.size,
-    page: page
-  }
-}
 
 /**
  * Handler for the dismiss map warning action
@@ -643,19 +650,48 @@ export function dismissTrendsDateWarning( state ) {
 }
 
 /**
+ * update state based on pageChanged action
+ * @param {object} state current redux state
+ * @param {object} action command executed
+ * @returns {object} new state in redux
+ */
+function changePage( state, action ) {
+  const page = parseInt( action.page, 10 )
+  const pagination = getPagination( page, state );
+
+  return {
+    ...state,
+    ...pagination
+  }
+}
+
+/**
+ * gets the pagination state
+ * @param {int} page the page we are on
+ * @param {object} state the redux state
+ * @returns {object} contains the from and searchAfter params
+ */
+function getPagination( page, state ) {
+  return {
+    from: ( page - 1 ) * state.size,
+    page,
+    searchAfter: getSearchAfter( state, page )
+  }
+}
+
+/**
  * Update state based on the sort order changed action
  *
  * @param {object} state the current state in the Redux store
- * @param {object} action the command being executed
  * @returns {object} the new state for the Redux store
  */
 function prevPage( state ) {
   // don't let them go lower than 1
   const page = clamp( state.page - 1, 1, state.page );
+  const pagination = getPagination( page, state );
   return {
     ...state,
-    from: ( page - 1 ) * state.size,
-    page: page
+    ...pagination
   };
 }
 
@@ -668,13 +704,24 @@ function prevPage( state ) {
 function nextPage( state ) {
   // don't let them go past the total num of pages
   const page = clamp( state.page + 1, 1, state.totalPages );
+  const pagination = getPagination( page, state );
   return {
     ...state,
-    from: ( page - 1 ) * state.size,
-    page: page
+    ...pagination
   };
 }
 
+/**
+ * Get search results after specified page
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {int} page page number
+ * @returns {array} array containing complaint's received date and id
+ */
+function getSearchAfter( state, page ) {
+  const { breakPoints } = state;
+  return breakPoints && breakPoints[page] ? breakPoints[page].join( '_' ) : ''
+}
 
 /**
  * update state based on changeSize action
@@ -683,10 +730,10 @@ function nextPage( state ) {
  * @returns {object} new state in redux
  */
 function changeSize( state, action ) {
+  const pagination = getPagination( 1, state );
   return {
     ...state,
-    from: 0,
-    page: 1,
+    ...pagination,
     size: action.size
   }
 }
@@ -698,9 +745,11 @@ function changeSize( state, action ) {
  * @returns {object} new state in redux
  */
 function changeSort( state, action ) {
+  const pagination = getPagination( 1, state );
   const sort = enforceValues( action.sort, 'sort' )
   return {
     ...state,
+    ...pagination,
     sort
   }
 }
@@ -728,13 +777,16 @@ function changeTab( state, action ) {
  * @returns {{page: number, totalPages: number}} the new state
  */
 function updateTotalPages( state, action ) {
-  const totalPages = Math.ceil( action.data.hits.total / state.size );
+  const { _meta, hits } = action.data;
+  const totalPages = Math.ceil( hits.total.value / state.size );
   // reset pager to 1 if the number of total pages is less than current page
+  const { break_points: breakPoints } = _meta;
   const page = state.page > totalPages ? totalPages : state.page;
   return {
     ...state,
+    breakPoints,
     page,
-    totalPages
+    totalPages: Object.keys( breakPoints ).length + 1
   }
 }
 
@@ -938,7 +990,9 @@ export function stateToQS( state ) {
       types.dateFilters, types.knownFilters, types.flagFilters )
 
   const paramMap = {
-    List: [ 'frm', 'size', 'sort', 'format', 'no_aggs', 'no_highlight' ],
+    List: [
+      'frm', 'search_after', 'size', 'sort', 'format', 'no_aggs', 'no_highlight'
+    ],
     // nothing unique to states endpoint
     Map: [],
     Trends: [ 'lens', 'focus', 'sub_lens', 'sub_lens_depth', 'trend_interval',
@@ -1025,7 +1079,8 @@ export function _buildHandlerMap() {
   handlers[actions.TAB_CHANGED] = changeTab
   handlers[actions.TRENDS_DATE_WARNING_DISMISSED] = dismissTrendsDateWarning
   handlers[actions.URL_CHANGED] = processParams
-  handlers[actions.SEARCH_CHANGED] = changeSearch
+  handlers[actions.SEARCH_TEXT_CHANGED] = changeSearchText
+  handlers[actions.SEARCH_FIELD_CHANGED] = changeSearchField
 
   return handlers
 }

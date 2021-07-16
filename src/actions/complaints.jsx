@@ -105,7 +105,7 @@ export function getAggregations() {
 export function getComplaints() {
   return ( dispatch, getState ) => {
     const store = getState()
-    const qs = store.query.queryString + '&no_aggs=true'
+    const qs = store.query.queryString
     const uri = '@@API' + qs
 
     // This call is already in process

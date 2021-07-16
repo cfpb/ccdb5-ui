@@ -9,7 +9,8 @@ function setup(initialText) {
     debounceWait: 0,
     searchText: initialText,
     searchField: 'all',
-    onSearch: jest.fn()
+    onSearchField: jest.fn(),
+    onSearchText: jest.fn()
   }
 
   const target = mount(<SearchBar {...props} />)
@@ -19,6 +20,34 @@ function setup(initialText) {
     target
   }
 }
+describe('component:SearchBar', () =>{
+  beforeEach(() => {
+    global.fetch = jest.fn().mockImplementation((url) => {
+      expect(url).toContain('@@API_suggest_company')
+      expect(url).toContain('/?text=')
+
+      return new Promise((resolve) => {
+        resolve({
+          json: function() {
+            return ['foo', 'bar', 'baz', 'qaz']
+          }
+        })
+      })
+    })
+  })
+
+  it('receives updates when the parent state changes', () => {
+    const node = document.createElement('div')
+    const {props} = setup('foo')
+    props.searchField = 'company';
+
+    const target = ReactDOM.render(<SearchBar {...props} />, node)
+
+    props.searchText = 'bar'
+    ReactDOM.render(<SearchBar {...props} />, node)
+    expect(target.state.inputValue).toEqual('bar')
+  })
+})
 
 describe('component:SearchBar', () =>{
   beforeEach(() => {
@@ -51,15 +80,7 @@ describe('component:SearchBar', () =>{
     const theForm = target.find('form')
 
     theForm.simulate('submit', { preventDefault: () => {} })
-    expect(props.onSearch).toHaveBeenCalledWith('bar', 'all')
-  })
-
-  it('allows the user to select the field to search within', () => {
-    const { target } = setup('foo')
-    const dropDown = target.find('#searchField')
-
-    dropDown.simulate('change', {target: { value: 'company'}})
-    expect(target.state('searchField')).toEqual('company')
+    expect(props.onSearchText).toHaveBeenCalledWith('bar')
   })
 
   it('changes AdvancedShown state from initial false, to true and back', () => {
@@ -93,7 +114,7 @@ describe('component:SearchBar', () =>{
 
     describe('_renderOption', () => {
       it('produces a custom component', () => {
-        const {target, props} = setup()
+        const { target } = setup()
         const option = {
           key: 'Foo',
           label: 'foo',
@@ -116,22 +137,36 @@ describe('component:SearchBar', () =>{
       it('handles objects', () => {
         const key = 'Bank'
         target.instance()._onTypeaheadSelected({key})
-        expect(props.onSearch).toHaveBeenCalledWith('Bank', 'all')
+        expect(props.onSearchText).toHaveBeenCalledWith('Bank')
       })
 
       it('handles strings', () => {
         const key = 'Bank'
         target.instance()._onTypeaheadSelected(key)
-        expect(props.onSearch).toHaveBeenCalledWith('Bank', 'all')
+        expect(props.onSearchText).toHaveBeenCalledWith('Bank')
+      })
+    })
+
+    describe('_onSelectSearchField', () => {
+      it('calls action', () => {
+        target.instance()._onSelectSearchField({target: { value: 'company'}})
+        expect(props.onSearchField).toHaveBeenCalledWith('company')
       })
     })
   })
 
   describe('mapDispatchToProps', () => {
-    it('hooks into onSearch', () => {
+    it('hooks into onSearchField', () => {
       const dispatch = jest.fn()
-      mapDispatchToProps(dispatch).onSearch('foo', 'bar')
+      mapDispatchToProps(dispatch).onSearchField( 'bar')
       expect(dispatch.mock.calls.length).toEqual(1)
     })
+
+    it('hooks into onSearchText', () => {
+      const dispatch = jest.fn()
+      mapDispatchToProps(dispatch).onSearchText('foo')
+      expect(dispatch.mock.calls.length).toEqual(1)
+    })
+
   })
 })

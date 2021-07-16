@@ -12,7 +12,15 @@ describe( 'Document View', () => {
 
   describe( 'document detail view', () => {
     beforeEach( () => {
+      cy.intercept( 'GET', '**/api/v1/?**&size=0' )
+          .as( 'getAggs' );
+      cy.intercept( 'GET', '**/api/v1/?**&sort=created_date_desc' )
+          .as( 'getComplaints' );
+
       cy.visit( Cypress.env( 'HOST' ) + '?tab=List' )
+
+      cy.wait( '@getAggs' );
+      cy.wait( '@getComplaints' );
     } )
     it( 'navigates to document detail', () => {
       cy.get( '.cards-panel .card-container a' )
@@ -30,18 +38,17 @@ describe( 'Document View', () => {
       cy.url()
         .should( 'not.contain', '/detail' )
     } )
-
-    it( 'preserves selected filters', () => {
-      // copied from list-spec
-    } )
   } )
 
   describe( 'preserve page state', () => {
     it( 'restores filters after visiting document detail', () => {
-      cy.intercept( 'GET', 'api/v1**no_aggs=true' )
+      cy.intercept( 'GET', '**/api/v1/?**&field=all&has_narrative=true&search_term=pizza&size=10&sort=relevance_desc' )
         .as( 'getResults' )
+
       cy.visit( Cypress.env( 'HOST' ) +
-        '?has_narrative=true&sort=relevance_desc&tab=List' )
+        '?searchText=pizza&has_narrative=true&size=10&sort=relevance_desc&tab=List' )
+
+      cy.wait( '@getResults' )
 
       cy.get( '#choose-sort' )
         .should( 'have.value', 'relevance_desc' )
@@ -62,6 +69,8 @@ describe( 'Document View', () => {
       cy.get( '.back-to-search button' )
         .contains( 'Back to search results' )
         .click()
+
+      cy.wait( '@getResults' )
 
       cy.get( '#choose-sort' )
         .should( 'have.value', 'relevance_desc' )

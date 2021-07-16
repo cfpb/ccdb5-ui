@@ -136,7 +136,7 @@ describe('action::complaints', () => {
     beforeEach(() => {
       global.fetch = jest.fn().mockImplementation((url) => {
         expect(url).toContain(
-          '@@API?foo&no_aggs=true'
+          '@@API?foo'
         )
 
         return {
@@ -176,7 +176,7 @@ describe('action::complaints', () => {
 
     it('discards duplicate API calls', () => {
       const s = store.getState()
-      s.results.activeCall = '@@API' + s.query.queryString + '&no_aggs=true'
+      s.results.activeCall = '@@API' + s.query.queryString
       store = mockStore(s)
 
       store.dispatch(sut.getComplaints())

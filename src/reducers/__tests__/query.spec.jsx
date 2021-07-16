@@ -5,7 +5,7 @@ import actions from '../../actions'
 import * as types from '../../constants'
 
 import moment from 'moment'
-import { startOfToday }  from '../../utils'
+import { startOfToday } from '../../utils'
 
 const maxDate = startOfToday()
 
@@ -15,6 +15,7 @@ describe( 'reducer:query', () => {
     it( 'has a default state', () => {
       result = target( undefined, {} )
       expect( result ).toEqual( {
+        breakPoints: {},
         chartType: 'line',
         dataNormalization: types.GEO_NORM_NONE,
         dateInterval: 'Month',
@@ -31,6 +32,7 @@ describe( 'reducer:query', () => {
         searchText: '',
         searchField: 'all',
         page: 1,
+        searchAfter: '',
         size: 25,
         sort: 'created_date_desc',
         subLens: '',
@@ -47,8 +49,16 @@ describe( 'reducer:query', () => {
       action = {
         type: actions.COMPLAINTS_RECEIVED,
         data: {
+          _meta: {
+            break_points: {
+              2: [ 2, 2 ],
+              3: [ 3, 2 ],
+              4: [ 4, 2 ],
+              5: [ 5, 2 ]
+            }
+          },
           hits: {
-            total: 10000
+            total: { value: 10000 }
           }
         }
       }
@@ -59,10 +69,16 @@ describe( 'reducer:query', () => {
       }
 
       expect( target( state, action ) ).toEqual( {
+        breakPoints: {
+          2: [ 2, 2 ],
+          3: [ 3, 2 ],
+          4: [ 4, 2 ],
+          5: [ 5, 2 ]
+        },
         page: 10,
         queryString: '',
         size: 100,
-        totalPages: 100
+        totalPages: 5
       } )
     } )
 
@@ -70,8 +86,16 @@ describe( 'reducer:query', () => {
       action = {
         type: actions.COMPLAINTS_RECEIVED,
         data: {
+          _meta: {
+            break_points: {
+              2: [ 2, 2 ],
+              3: [ 3, 2 ],
+              4: [ 4, 2 ],
+              5: [ 5, 2 ]
+            }
+          },
           hits: {
-            total: 10000
+            total: { value: 10000 }
           }
         }
       }
@@ -82,30 +106,58 @@ describe( 'reducer:query', () => {
       }
 
       expect( target( state, action ) ).toEqual( {
+        breakPoints: {
+          2: [ 2, 2 ],
+          3: [ 3, 2 ],
+          4: [ 4, 2 ],
+          5: [ 5, 2 ]
+        },
         page: 100,
         queryString: '',
         size: 100,
-        totalPages: 100
+        totalPages: 5
       } )
     } )
   } )
 
-  it( 'handles SEARCH_CHANGED actions', () => {
+
+  it( 'handles SEARCH_FIELD_CHANGED actions', () => {
     action = {
-      type: actions.SEARCH_CHANGED,
-      searchText: 'foo',
+      type: actions.SEARCH_FIELD_CHANGED,
       searchField: 'bar'
     }
     state = {
       from: 80,
+      searchText: 'foo',
       size: 100
     }
     expect( target( state, action ) ).toEqual( {
       from: 0,
       page: 1,
       queryString: '?field=bar&search_term=foo',
+      searchAfter: '',
       searchField: 'bar',
       searchText: 'foo',
+      size: 100
+    } )
+  } )
+
+  it( 'handles SEARCH_TEXT_CHANGED actions', () => {
+    action = {
+      type: actions.SEARCH_TEXT_CHANGED,
+      searchText: 'bar'
+    }
+    state = {
+      from: 80,
+      searchText: 'foo',
+      size: 100
+    }
+    expect( target( state, action ) ).toEqual( {
+      from: 0,
+      page: 1,
+      queryString: '?search_term=bar',
+      searchAfter: '',
+      searchText: 'bar',
       size: 100
     } )
   } )
@@ -149,16 +201,25 @@ describe( 'reducer:query', () => {
     it( 'handles PAGE_CHANGED actions', () => {
       action = {
         type: actions.PAGE_CHANGED,
-        page: 2
+        page: 3
       }
       state = {
+        breakPoints: {
+          2: [ 99, 22131 ],
+          3: [ 909, 131 ]
+        },
         size: 100,
         tab: types.MODE_LIST
       }
       expect( target( state, action ) ).toEqual( {
-        from: 100,
-        page: 2,
-        queryString: '?frm=100&size=100',
+        breakPoints: {
+          2: [ 99, 22131 ],
+          3: [ 909, 131 ]
+        },
+        from: 200,
+        page: 3,
+        queryString: '?frm=200&search_after=909_131&size=100',
+        searchAfter: '909_131',
         size: 100,
         tab: types.MODE_LIST
       } )
@@ -169,6 +230,10 @@ describe( 'reducer:query', () => {
         type: actions.NEXT_PAGE_SHOWN
       }
       state = {
+        breakPoints: {
+          2: [ 99, 22131 ],
+          3: [ 909, 131 ]
+        },
         from: 100,
         page: 2,
         queryString: 'foobar',
@@ -176,9 +241,14 @@ describe( 'reducer:query', () => {
         tab: types.MODE_LIST
       }
       expect( target( state, action ) ).toEqual( {
+        breakPoints: {
+          2: [ 99, 22131 ],
+          3: [ 909, 131 ]
+        },
         from: 200,
         page: 3,
-        queryString: '?frm=200&size=100',
+        queryString: '?frm=200&search_after=909_131&size=100',
+        searchAfter: '909_131',
         size: 100,
         tab: types.MODE_LIST
       } )
@@ -189,6 +259,39 @@ describe( 'reducer:query', () => {
         type: actions.PREV_PAGE_SHOWN
       }
       state = {
+        breakPoints: {
+          2: [ 99, 22131 ],
+          3: [ 909, 131 ]
+        },
+        from: 100,
+        page: 3,
+        queryString: 'foobar',
+        size: 100,
+        tab: types.MODE_LIST
+      }
+      expect( target( state, action ) ).toEqual( {
+        breakPoints: {
+          2: [ 99, 22131 ],
+          3: [ 909, 131 ]
+        },
+        from: 100,
+        page: 2,
+        queryString: '?frm=100&search_after=99_22131&size=100',
+        searchAfter: '99_22131',
+        size: 100,
+        tab: types.MODE_LIST
+      } )
+    } )
+
+    it( 'handles missing breakPoints actions', () => {
+      action = {
+        type: actions.PREV_PAGE_SHOWN
+      }
+      state = {
+        breakPoints: {
+          2: [ 99, 22131 ],
+          3: [ 909, 131 ]
+        },
         from: 100,
         page: 2,
         queryString: 'foobar',
@@ -196,9 +299,14 @@ describe( 'reducer:query', () => {
         tab: types.MODE_LIST
       }
       expect( target( state, action ) ).toEqual( {
+        breakPoints: {
+          2: [ 99, 22131 ],
+          3: [ 909, 131 ]
+        },
         from: 0,
         page: 1,
         queryString: '?size=100',
+        searchAfter: '',
         size: 100,
         tab: types.MODE_LIST
       } )
@@ -219,6 +327,7 @@ describe( 'reducer:query', () => {
         from: 0,
         page: 1,
         queryString: '?size=50',
+        searchAfter: '',
         size: 50,
         tab: types.MODE_LIST
       } )
@@ -235,8 +344,10 @@ describe( 'reducer:query', () => {
         tab: types.MODE_LIST
       }
       expect( target( state, action ) ).toEqual( {
-        from: 100,
-        queryString: '?frm=100&size=100&sort=created_date_desc',
+        from: 0,
+        page: 1,
+        queryString: '?size=100&sort=created_date_desc',
+        searchAfter: '',
         sort: 'created_date_desc',
         size: 100,
         tab: types.MODE_LIST
@@ -254,8 +365,10 @@ describe( 'reducer:query', () => {
         tab: types.MODE_LIST
       }
       expect( target( state, action ) ).toEqual( {
-        from: 100,
-        queryString: '?frm=100&size=100&sort=relevance_asc',
+        from: 0,
+        page: 1,
+        queryString: '?size=100&sort=relevance_asc',
+        searchAfter: '',
         sort: 'relevance_asc',
         size: 100,
         tab: types.MODE_LIST
@@ -264,7 +377,7 @@ describe( 'reducer:query', () => {
   } )
 
   describe( 'Tabs', () => {
-    beforeEach(()=>{
+    beforeEach( () => {
       action = {
         type: actions.TAB_CHANGED
       }
@@ -272,7 +385,7 @@ describe( 'reducer:query', () => {
         focus: 'Yoyo',
         tab: 'bar'
       }
-    })
+    } )
 
     it( 'handles TAB_CHANGED actions - default', () => {
       action.tab = 'foo'
@@ -345,6 +458,12 @@ describe( 'reducer:query', () => {
       expect( actual.size ).toEqual( 100 )
     } )
 
+    it( 'handles page number', () => {
+      action.params = { page: '100' }
+      actual = target( state, action )
+      expect( actual.page ).toEqual( 1 )
+    } )
+
     it( 'handles bogus date parameters', () => {
       action.params = { dateInterval: '3y', dateRange: 'Week' }
       actual = target( state, action )
@@ -396,13 +515,13 @@ describe( 'reducer:query', () => {
     } )
 
     it( 'handles a multiple filters', () => {
-      action.params = { product: [ 'Debt Collection', 'Mortgage' ] }
+      action.params = { product: [ 'Debt Collection', 'Mortgage' ]}
       actual = target( {}, action )
       expect( actual.product ).toEqual( [ 'Debt Collection', 'Mortgage' ] )
     } )
 
     it( 'handles a multiple filters & focus', () => {
-      action.params = { product: [ 'Debt Collection', 'Mortgage' ] }
+      action.params = { product: [ 'Debt Collection', 'Mortgage' ]}
       actual = target( { focus: 'Something' }, action )
       expect( actual.focus ).toEqual( '' )
       expect( actual.product ).toEqual( [ 'Debt Collection', 'Mortgage' ] )
@@ -431,7 +550,7 @@ describe( 'reducer:query', () => {
       expect( actual.lens ).toEqual( 'Product' )
     } )
 
-    it( 'handles the "All" button from the landing page' , () => {
+    it( 'handles the "All" button from the landing page', () => {
       const dateMin = new Date( types.DATE_RANGE_MIN )
 
       action.params = { dataNormalization: 'None', dateRange: 'All' }
@@ -450,7 +569,7 @@ describe( 'reducer:query', () => {
         expected = { ...defaultQuery }
       } );
 
-      it( 'clears the default range if the dates are not 3 years apart' , () => {
+      it( 'clears the default range if the dates are not 3 years apart', () => {
         state.date_received_min = new Date(
           moment( maxDate ).subtract( 2, 'years' )
         )
@@ -461,7 +580,7 @@ describe( 'reducer:query', () => {
         expect( actual ).toEqual( expected );
       } );
 
-      it( 'sets the All range if the dates are right' , () => {
+      it( 'sets the All range if the dates are right', () => {
         state.date_received_min = new Date( types.DATE_RANGE_MIN )
         expected.dateRange = 'All'
         expected.date_received_min = state.date_received_min
@@ -470,7 +589,7 @@ describe( 'reducer:query', () => {
         expect( actual ).toEqual( expected );
       } );
 
-      it( 'sets the 3m range if the dates are right' , () => {
+      it( 'sets the 3m range if the dates are right', () => {
         state.date_received_min = new Date(
           moment( maxDate ).subtract( 3, 'months' )
         )
@@ -481,7 +600,7 @@ describe( 'reducer:query', () => {
         expect( actual ).toEqual( expected );
       } );
 
-      it( 'sets the 6m range if the dates are right' , () => {
+      it( 'sets the 6m range if the dates are right', () => {
         state.date_received_min = new Date(
           moment( maxDate ).subtract( 6, 'months' )
         )
@@ -492,7 +611,7 @@ describe( 'reducer:query', () => {
         expect( actual ).toEqual( expected );
       } );
 
-      it( 'sets the 1y range if the dates are right' , () => {
+      it( 'sets the 1y range if the dates are right', () => {
         state.date_received_min = new Date(
           moment( maxDate ).subtract( 1, 'year' )
         )
@@ -503,7 +622,7 @@ describe( 'reducer:query', () => {
         expect( actual ).toEqual( expected );
       } );
 
-      it( 'sets the 3y range if the dates are right' , () => {
+      it( 'sets the 3y range if the dates are right', () => {
         const actual = alignDateRange( state )
         expect( actual ).toEqual( expected );
       } );
@@ -560,17 +679,17 @@ describe( 'reducer:query', () => {
 
 
       it( 'creates a filter array if target is undefined', () => {
-        let filterReturn = filterArrayAction( undefined, key )
+        const filterReturn = filterArrayAction( undefined, key )
         expect( filterReturn ).toEqual( [ key ] )
       } )
 
       it( 'adds additional filters when passed', () => {
-        let filterReturn = filterArrayAction( [ key ], 'bye' )
+        const filterReturn = filterArrayAction( [ key ], 'bye' )
         expect( filterReturn ).toEqual( [ key, 'bye' ] )
       } )
 
       it( 'removes filters when already present', () => {
-        let filterReturn = filterArrayAction( [ key, 'bye' ], key )
+        const filterReturn = filterArrayAction( [ key, 'bye' ], key )
         expect( filterReturn ).toEqual( [ 'bye' ] )
       } )
 
@@ -633,7 +752,7 @@ describe( 'reducer:query', () => {
       } )
 
       describe( 'has_narrative', () => {
-        it( 'handles when present' , () => {
+        it( 'handles when present', () => {
           action.filterName = 'has_narrative'
           state = {
             has_narrative: true
@@ -657,7 +776,7 @@ describe( 'reducer:query', () => {
           } )
         } )
 
-        it( 'handles when absent' , () => {
+        it( 'handles when absent', () => {
           action.filterName = 'has_narrative'
           state = {}
           expect( target( state, action ) ).toEqual( {
@@ -983,7 +1102,7 @@ describe( 'reducer:query', () => {
 
   describe( 'Map', () => {
     describe( 'Data normalization', () => {
-      beforeEach(()=>{
+      beforeEach( () => {
         action = {
           type: actions.DATA_NORMALIZATION_SELECTED,
           value: 'FooBar'
@@ -991,7 +1110,7 @@ describe( 'reducer:query', () => {
         state = {
           tab: types.MODE_MAP
         }
-      })
+      } )
       it( 'handles default value', () => {
         expect( target( state, action ) ).toEqual( {
           dataNormalization: 'None',
@@ -1036,7 +1155,7 @@ describe( 'reducer:query', () => {
         } )
       } )
     } )
-    
+
     describe( 'STATE_COMPLAINTS_SHOWN', () => {
       it( 'switches to List View', () => {
         action = {
@@ -1322,7 +1441,7 @@ describe( 'reducer:query', () => {
           chartType: 'line',
           focus: 'A',
           lens: 'Product',
-          product: [ 'A', 'A' + types.SLUG_SEPARATOR + 'B'],
+          product: [ 'A', 'A' + types.SLUG_SEPARATOR + 'B' ],
           queryString: '?focus=A&lens=product&product=A&product=A%E2%80%A2B' +
             '&sub_lens=sub_product&trend_depth=25',
           subLens: 'sub_product',
@@ -1372,6 +1491,6 @@ describe( 'reducer:query', () => {
           trendsDateWarningEnabled: false
         } )
       } )
-    })
+    } )
   } )
 } )

@@ -16,7 +16,6 @@ export const defaultAggs = {
   loadingAggregations: false,
   hasDataIssue: false,
   isDataStale: false,
-  isNarrativeStale: false,
   company: [],
   company_public_response: [],
   company_response: [],
@@ -61,7 +60,7 @@ export function processAggregationResults( state, action ) {
 
   const doc_count = Math.max(
     state.doc_count,
-    action.data.hits.total,
+    action.data.hits.total.value,
     action.data._meta.total_record_count
   )
 
@@ -73,8 +72,7 @@ export function processAggregationResults( state, action ) {
     lastIndexed: action.data._meta.last_indexed,
     hasDataIssue: action.data._meta.has_data_issue,
     isDataStale: action.data._meta.is_data_stale,
-    isNarrativeStale: action.data._meta.is_narrative_stale,
-    total: action.data.hits.total
+    total: action.data.hits.total.value
   }
 
   keys.forEach( key => {
