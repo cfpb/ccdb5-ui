@@ -36,7 +36,10 @@ export class AggregationItem extends React.Component {
           { value }
         </label>
         <span className="flex-fixed bucket-count">
-              <FormattedNumber value={ item.doc_count }/>
+          {
+            ![ 'company', 'zip_code' ].includes( fieldName ) &&
+            <FormattedNumber value={item.doc_count}/>
+          }
         </span>
       </li>
     )
