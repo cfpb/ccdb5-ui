@@ -119,7 +119,7 @@ To run local tests and just see results:
 yarn run cypress run --browser chrome --headless
 ```
 
-This will run Cypress against a local version of consumerfinance.gov running on port 8000. To use a different port, such as the port 3000 used by `yarn run start`, pass a `--baseaUrl` parameter:
+This will run Cypress against a local version of consumerfinance.gov running on port 8000. To use a different port, such as the port 3000 used by `yarn run start`, pass a `--baseUrl` parameter:
 
 ```bash
 yarn run cypress run --browser chrome --headless --baseUrl http://localhost:3000/data-research/consumer-complaints/search/
