@@ -122,7 +122,7 @@ yarn run cypress run --browser chrome --headless
 This will run Cypress against a local version of consumerfinance.gov running on port 8000. To use a different port, such as the port 3000 used by `yarn run start`, pass a `--baseUrl` parameter:
 
 ```bash
-yarn run cypress run --browser chrome --headless --baseUrl http://localhost:3000/data-research/consumer-complaints/search/
+yarn run cypress run --browser chrome --headless --config baseUrl=http://localhost:3000/data-research/consumer-complaints/search/
 ```
 
 To open a local Cypress test-runner to choose which tests to run and see the browser interactions:
