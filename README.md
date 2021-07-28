@@ -96,7 +96,7 @@ tox
 
 ## Cypress integration tests
 
-Our broswer-based tests check base-line user operations for [consumer complaint search](https://www.consumerfinance.gov/data-research/consumer-complaints/search/). The tests are meant to be run 
+Our browser-based tests check base-line user operations for [consumer complaint search](https://www.consumerfinance.gov/data-research/consumer-complaints/search/). The tests are meant to be run 
 against a consumerfinance.gov website that has access to an Elasticsearch index of consumer complaints. 
 Tests can be run in a local environment, or they can be run against an external server.
 
