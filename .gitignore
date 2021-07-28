@@ -68,6 +68,8 @@ coverage/
 
 # Cypress testing
 cypress/videos/
+cypress/downloads/
+cypress/screenshots/
 
 # Front-End #
 #############
