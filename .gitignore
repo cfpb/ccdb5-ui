@@ -66,6 +66,9 @@ nosetests.xml
 coverage.xml
 coverage/
 
+# Cypress testing
+cypress/videos/
+
 # Front-End #
 #############
 node_modules/
