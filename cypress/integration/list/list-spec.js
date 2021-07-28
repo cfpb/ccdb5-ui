@@ -1,14 +1,3 @@
-/// <reference types="cypress" />
-/**
- * to run this in local developent, set  env variables as so:
- * export NODE_ENV=development;
- * export CYPRESS_HOST=http://localhost:8000/data-research/consumer-complaints/search/;
- * // could also be export CYPRESS_HOST=http://localhost:3000;
- * // if you are running it using npm run start
- * ./node_modules/.bin/cypress open;
- */
-
-
 describe( 'List View', () => {
   const cardContainers = '.cards-panel .card-container'
   const currentPage = '#m-pagination_current-page'
@@ -17,8 +6,11 @@ describe( 'List View', () => {
   beforeEach( () => {
     cy.intercept( '**/api/v1/**&field=all**sort=created_date_desc' )
         .as( 'getComplaints' )
+    cy.intercept( 'GET', '**/api/v1/?**&size=0' )
+      .as( 'getAggs' );
     cy.visit( Cypress.env( 'HOST' ) + '?size=10&searchText=bank&tab=List' )
     cy.wait( '@getComplaints' );
+    cy.wait( '@getAggs' );
   } )
 
   describe( 'initial rendering', () => {
@@ -106,10 +98,7 @@ describe( 'List View', () => {
 
 
     it( 'resets', () => {
-      const fields = [ 'Company name', 'All data', 'Narratives' ];
-
-      cy.intercept( '**/api/v1/**&field=**&size=10&sort=created_date_desc' )
-          .as( 'getComplaints' )
+      const fields = [ 'Company name', 'Narratives', 'All data' ];
 
       fields.forEach( field => {
         cy.log( `reset paging when search field changes to ${ field }` )
@@ -120,8 +109,6 @@ describe( 'List View', () => {
 
         cy.get( currentPage ).should( 'have.value', '1' )
 
-        cy.wait( '@getComplaints' )
-
         cy.get( nextButton )
             .should( 'be.visible' )
             .should( 'not.have.class', 'a-btn__disabled' )
@@ -129,20 +116,31 @@ describe( 'List View', () => {
 
         cy.get( currentPage ).should( 'have.value', '2' );
       } )
-
     } )
 
     it( 'accepts typing page number', () => {
+
+      cy.intercept( '**/api/v1/**search_after**' )
+        .as( 'getNextComplaints' )
+
       cy.get( currentPage )
           .clear()
           .type( 3 )
 
       cy.get( '.m-pagination_btn-submit' ).click()
 
-      cy.wait( '@getComplaints' )
-
       cy.url().should( 'contain', 'page=3' )
     } )
 
+
+    it( 'accepts typing last possible paginated page', () => {
+      cy.get( currentPage )
+          .clear()
+          .type( 999 )
+
+      cy.get( '.m-pagination_btn-submit' ).click()
+
+      cy.url().should( 'contain', 'page=999' )
+    } )
   } )
 } )

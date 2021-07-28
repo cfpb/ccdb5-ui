@@ -161,7 +161,8 @@ describe( 'Filter Panel', () => {
       cy.log( 'add filter' )
       cy.get( 'input#product-mortgage' )
         .click( { force: true } );
-      // Filter pill
+      cy.wait( '@getAggs' );
+      cy.wait( '@getComplaints' );
       cy.get( '.pill-panel .pill' )
         .contains( 'Mortgage' )
         .should( 'exist' );
@@ -170,6 +171,8 @@ describe( 'Filter Panel', () => {
       cy.log( 'remove filter' )
       cy.get( 'input#product-mortgage' )
         .click( { force: true } );
+      cy.wait( '@getAggs' );
+      cy.wait( '@getComplaints' );
       // Filter pill
       cy.get( '.pill-panel .pill' )
         .should( 'not.exist' );
@@ -198,6 +201,7 @@ describe( 'Filter Panel', () => {
       cy.log( 'remove sub-filter when applying parent filter' );
       cy.get( 'input#product-mortgage' )
         .click( { force: true } );
+      cy.wait( '@getComplaints' );
 
       cy.get( '.pill-panel .pill' )
         .contains( 'FHA mortgage' )

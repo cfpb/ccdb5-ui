@@ -1,8 +1,5 @@
 # Consumer Complaint Database - 5.0
 
-![ci](https://github.com/cfpb/ccdb5-ui/workflows/ci/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/cfpb/ccdb5-ui/badge.svg?branch=main)](https://coveralls.io/github/cfpb/ccdb5-ui?branch=main)
-
 **Description**:
 This application allows consumers to search complaints submitted to the CFPB by other consumers.
 
@@ -26,9 +23,6 @@ The `ccdb5_ui` (note the underscore) directory contains a thin [Django](https://
 implementation that allows it to be used as a plugin for
 [CFPB's public website](https://github.com/cfpb/consumerfinance.gov).
 
-#### Status
-Pre-release
-
 #### Screenshot
 ![screen August 17, 2017](documentation/screenshot.png)
 
@@ -46,7 +40,7 @@ It also contains portions adapted from:
 
 ## Installation
 
-Detailed instructions on how to install, configure, and get the project running
+Instructions on how to install, configure, and get the project running
 are in the [INSTALL](INSTALL.md) document.
 
 ## Configuration
@@ -100,10 +94,52 @@ and then run:
 tox
 ```
 
-## Known issues
+## Cypress integration tests
 
-The [Issue Tracker](https://github.com/cfpb/ccdb5-ui/issues) contains the most
-up to date status of issues or bugs with this repository.
+Our browser-based tests check base-line user operations for [consumer complaint search](https://www.consumerfinance.gov/data-research/consumer-complaints/search/). The tests are meant to be run 
+against a consumerfinance.gov website that has access to an Elasticsearch index of consumer complaints. 
+Tests can be run in a local environment, or they can be run against an external server.
+
+Using a Chrome browser helps avoid some inconsistencies with Cypress's default Electron browser, which currently isn't on the latest 
+version of Chrome.
+
+Timeouts and the local `baseUrl` are set in cypress.json
+
+### To run Cypress tests locally
+
+- Set your node env to development:
+```bash
+export NODE_ENV=development
+```
+You can run the tests in headless mode and just see results, or you can open the Cypress test-runner, which lets you choose tests and watch them run in a Chrome browser. Having the live browser allows you to see page state during tests, and you can open Chrome dev tools to check console errors and network requests.
+
+To run local tests and just see results:
+
+```bash
+yarn run cypress run --browser chrome --headless
+```
+
+This will run Cypress against a local version of consumerfinance.gov running on port 8000. To use a different port, such as the port 3000 used by `yarn run start`, pass a `--baseUrl` parameter:
+
+```bash
+yarn run cypress run --browser chrome --headless --config baseUrl=http://localhost:3000/data-research/consumer-complaints/search/
+```
+
+To open a local Cypress test-runner to choose which tests to run and see the browser interactions:
+
+```bash
+yarn run cypress open --browser chrome
+```
+
+### To run against a server
+You can also run Cypress tests against a server by passing a `baseUrl` config with the path to the server's consumer complaints search page.  
+
+**Note**: If you run against a server that has Django's `DEBUG=False` setting, the tests will probably run into API throttling, which will make tests fail. 
+Our internal DEV servers can be deployed with `DEBUG=True` for running Cypress tests.
+
+```bash
+yarn run cypress run --browser chrome --headless --config baseUrl=https://[DEV SERVER URL]/data-research/consumer-complaints/search/
+```
 
 ## Getting help
 
@@ -134,9 +170,3 @@ repository's [Issue Tracker](https://github.com/cfpb/ccdb5-ui/issues).
 * https://getstream.io/blog/react-redux-best-practices-gotchas/
 * https://tech.affirm.com/redux-patterns-and-anti-patterns-7d80ef3d53bc
 * https://github.com/gaearon/redux-devtools
-
-#### Travis building assets
-
-* https://gist.github.com/willprice/e07efd73fb7f13f917ea
-* https://github.com/JemsFramework/di/blob/release-current/.travis.yml
-
