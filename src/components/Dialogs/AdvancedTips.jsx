@@ -116,7 +116,7 @@ export default class AdvancedTips extends React.Component {
                          htmlFor="example-fuzzy">
                     Use ~ to search for terms that are similar to your
                     keyword term to catch spelling errors. Note that this
-                    only works with single words (not phrases).
+                    only works with single words (not phrases)
                   </label>
                   <input className="a-text-input example-input_full"
                          id="example-fuzzy"
@@ -125,7 +125,7 @@ export default class AdvancedTips extends React.Component {
                     <p>
                       Use ~ to search for terms that are similar to your
                       keyword term to catch spelling errors. Note that this
-                      only works with single words (not phrases).
+                      only works with single words (not phrases)
                     </p>
                   </div>
                 </div>
