@@ -114,18 +114,18 @@ export default class AdvancedTips extends React.Component {
                   <h4>Fuzzy Search</h4>
                   <label className="u-visually-hidden"
                          htmlFor="example-fuzzy">
-                    Use ~[#] to search for terms that are similar to your
-                    keyword terms within a certain margin of error
-                    (~1 catches 80% of spelling errors)
+                    Use ~ to search for terms that are similar to your
+                    keyword term to catch spelling errors. Note that this
+                    only works with single words (not phrases)
                   </label>
                   <input className="a-text-input example-input_full"
                          id="example-fuzzy"
-                         type="text" readOnly value="Mortgage~2"/>
+                         type="text" readOnly value="Mortgage~"/>
                   <div className="tip-description">
                     <p>
-                      Use ~[#] to search for terms that are similar to your
-                      keyword terms within a certain margin of error
-                      (~1 catches 80% of spelling errors)
+                      Use ~ to search for terms that are similar to your
+                      keyword term to catch spelling errors. Note that this
+                      only works with single words (not phrases)
                     </p>
                   </div>
                 </div>
@@ -133,7 +133,7 @@ export default class AdvancedTips extends React.Component {
                   <h4>Boost Search</h4>
                   <label className="u-visually-hidden"
                          htmlFor="example-boost">
-                    Use ~2 after a term to boost its relevance above the
+                    Use ^2 after a term to boost its relevance above the
                     other term
                   </label>
                   <input className="a-text-input example-input_full"
@@ -141,7 +141,7 @@ export default class AdvancedTips extends React.Component {
                          type="text" readOnly value="pay^2 bill"/>
                   <div className="tip-description">
                     <p>
-                      Use ~2 after a term to boost its relevance above the
+                      Use ^2 after a term to boost its relevance above the
                       other term
                     </p>
                   </div>

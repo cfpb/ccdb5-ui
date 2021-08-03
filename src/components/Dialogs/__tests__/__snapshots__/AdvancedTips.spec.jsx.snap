@@ -182,20 +182,20 @@ exports[`component::AdvancedTips initial state renders HTML 1`] = `
             className="u-visually-hidden"
             htmlFor="example-fuzzy"
           >
-            Use ~[#] to search for terms that are similar to your keyword terms within a certain margin of error (~1 catches 80% of spelling errors)
+            Use ~ to search for terms that are similar to your keyword term to catch spelling errors. Note that this only works with single words (not phrases)
           </label>
           <input
             className="a-text-input example-input_full"
             id="example-fuzzy"
             readOnly={true}
             type="text"
-            value="Mortgage~2"
+            value="Mortgage~"
           />
           <div
             className="tip-description"
           >
             <p>
-              Use ~[#] to search for terms that are similar to your keyword terms within a certain margin of error (~1 catches 80% of spelling errors)
+              Use ~ to search for terms that are similar to your keyword term to catch spelling errors. Note that this only works with single words (not phrases)
             </p>
           </div>
         </div>
@@ -209,7 +209,7 @@ exports[`component::AdvancedTips initial state renders HTML 1`] = `
             className="u-visually-hidden"
             htmlFor="example-boost"
           >
-            Use ~2 after a term to boost its relevance above the other term
+            Use ^2 after a term to boost its relevance above the other term
           </label>
           <input
             className="a-text-input example-input_full"
@@ -222,7 +222,7 @@ exports[`component::AdvancedTips initial state renders HTML 1`] = `
             className="tip-description"
           >
             <p>
-              Use ~2 after a term to boost its relevance above the other term
+              Use ^2 after a term to boost its relevance above the other term
             </p>
           </div>
         </div>
