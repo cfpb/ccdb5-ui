@@ -1,6 +1,6 @@
 describe( 'List View', () => {
   const cardContainers = '.cards-panel .card-container'
-  const currentPage = '#m-pagination_current-page'
+  const currentPage = '.m-pagination_label'
   const nextButton = '.m-pagination .m-pagination_btn-next'
   const prevButton = '.m-pagination .m-pagination_btn-prev'
   beforeEach( () => {
@@ -8,7 +8,7 @@ describe( 'List View', () => {
         .as( 'getComplaints' )
     cy.intercept( 'GET', '**/api/v1/?**&size=0' )
       .as( 'getAggs' );
-    cy.visit( Cypress.env( 'HOST' ) + '?size=10&searchText=bank&tab=List' )
+    cy.visit( Cypress.env( 'HOST' ) + '?size=10&searchText=debt%20recovery&tab=List' )
     cy.wait( '@getComplaints' );
     cy.wait( '@getAggs' );
   } )
@@ -93,7 +93,7 @@ describe( 'List View', () => {
         .should( 'be.visible' )
         .should( 'not.have.class', 'a-btn__disabled' )
 
-      cy.get( currentPage ).should( 'have.value', '2' )
+      cy.get( currentPage ).should( 'have.text', 'Page 2' )
     } )
 
 
@@ -107,40 +107,16 @@ describe( 'List View', () => {
           .should( 'be.visible' )
           .select( field, { force: true } )
 
-        cy.get( currentPage ).should( 'have.value', '1' )
+        cy.get( currentPage ).should( 'have.text', 'Page 1' )
 
         cy.get( nextButton )
             .should( 'be.visible' )
             .should( 'not.have.class', 'a-btn__disabled' )
             .click();
 
-        cy.get( currentPage ).should( 'have.value', '2' );
+        cy.get( currentPage ).should( 'have.text', 'Page 2' );
       } )
     } )
 
-    it( 'accepts typing page number', () => {
-
-      cy.intercept( '**/api/v1/**search_after**' )
-        .as( 'getNextComplaints' )
-
-      cy.get( currentPage )
-          .clear()
-          .type( 3 )
-
-      cy.get( '.m-pagination_btn-submit' ).click()
-
-      cy.url().should( 'contain', 'page=3' )
-    } )
-
-
-    it( 'accepts typing last possible paginated page', () => {
-      cy.get( currentPage )
-          .clear()
-          .type( 999 )
-
-      cy.get( '.m-pagination_btn-submit' ).click()
-
-      cy.url().should( 'contain', 'page=999' )
-    } )
   } )
 } )

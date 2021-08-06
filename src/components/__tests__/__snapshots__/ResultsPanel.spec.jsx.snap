@@ -435,46 +435,15 @@ exports[`component:Results renders List print mode without crashing 1`] = `
           </svg>
         </span>
       </button>
-      <form
-        action=""
+      <div
         className="m-pagination_form"
-        onSubmit={[Function]}
       >
         <label
           className="m-pagination_label"
-          htmlFor="m-pagination_current-page"
         >
-          Page
-          <span
-            className="u-visually-hidden"
-          >
-            number 
-             out
-          </span>
-          <input
-            className="m-pagination_current-page"
-            id="m-pagination_current-page"
-            inputMode="numeric"
-            max={1}
-            min="1"
-            name="page"
-            onChange={[Function]}
-            pattern="[0-9]*"
-            type="number"
-          />
-          of 
-          <span>
-            1
-          </span>
+          Page 
         </label>
-        <button
-          className="a-btn a-btn__link m-pagination_btn-submit"
-          id="m-pagination_btn-submit"
-          type="submit"
-        >
-          Go
-        </button>
-      </form>
+      </div>
     </nav>
   </section>
   <section
@@ -1122,46 +1091,15 @@ exports[`component:Results renders list panel without crashing 1`] = `
           </svg>
         </span>
       </button>
-      <form
-        action=""
+      <div
         className="m-pagination_form"
-        onSubmit={[Function]}
       >
         <label
           className="m-pagination_label"
-          htmlFor="m-pagination_current-page"
         >
-          Page
-          <span
-            className="u-visually-hidden"
-          >
-            number 
-             out
-          </span>
-          <input
-            className="m-pagination_current-page"
-            id="m-pagination_current-page"
-            inputMode="numeric"
-            max={1}
-            min="1"
-            name="page"
-            onChange={[Function]}
-            pattern="[0-9]*"
-            type="number"
-          />
-          of 
-          <span>
-            1
-          </span>
+          Page 
         </label>
-        <button
-          className="a-btn a-btn__link m-pagination_btn-submit"
-          id="m-pagination_btn-submit"
-          type="submit"
-        >
-          Go
-        </button>
-      </form>
+      </div>
     </nav>
   </section>
 </div>
