@@ -650,22 +650,6 @@ export function dismissTrendsDateWarning( state ) {
 }
 
 /**
- * update state based on pageChanged action
- * @param {object} state current redux state
- * @param {object} action command executed
- * @returns {object} new state in redux
- */
-function changePage( state, action ) {
-  const page = parseInt( action.page, 10 )
-  const pagination = getPagination( page, state );
-
-  return {
-    ...state,
-    ...pagination
-  }
-}
-
-/**
  * gets the pagination state
  * @param {int} page the page we are on
  * @param {object} state the redux state
@@ -1066,7 +1050,6 @@ export function _buildHandlerMap() {
   handlers[actions.FILTER_REPLACED] = replaceFilters
   handlers[actions.FOCUS_CHANGED] = changeFocus
   handlers[actions.FOCUS_REMOVED] = removeFocus
-  handlers[actions.PAGE_CHANGED] = changePage
   handlers[actions.MAP_WARNING_DISMISSED] = dismissMapWarning
   handlers[actions.NEXT_PAGE_SHOWN] = nextPage
   handlers[actions.PREV_PAGE_SHOWN] = prevPage

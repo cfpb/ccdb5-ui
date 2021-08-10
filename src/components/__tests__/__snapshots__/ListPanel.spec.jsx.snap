@@ -231,48 +231,16 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
         </svg>
       </span>
     </button>
-    <form
-      action=""
+    <div
       className="m-pagination_form"
-      onSubmit={[Function]}
     >
       <label
         className="m-pagination_label"
-        htmlFor="m-pagination_current-page"
       >
-        Page
-        <span
-          className="u-visually-hidden"
-        >
-          number 
-          1
-           out
-        </span>
-        <input
-          className="m-pagination_current-page"
-          id="m-pagination_current-page"
-          inputMode="numeric"
-          max={0}
-          min="1"
-          name="page"
-          onChange={[Function]}
-          pattern="[0-9]*"
-          type="number"
-          value={1}
-        />
-        of 
-        <span>
-          0
-        </span>
+        Page 
+        1
       </label>
-      <button
-        className="a-btn a-btn__link m-pagination_btn-submit"
-        id="m-pagination_btn-submit"
-        type="submit"
-      >
-        Go
-      </button>
-    </form>
+    </div>
   </nav>
 </section>
 `;
@@ -709,48 +677,16 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
         </svg>
       </span>
     </button>
-    <form
-      action=""
+    <div
       className="m-pagination_form"
-      onSubmit={[Function]}
     >
       <label
         className="m-pagination_label"
-        htmlFor="m-pagination_current-page"
       >
-        Page
-        <span
-          className="u-visually-hidden"
-        >
-          number 
-          1
-           out
-        </span>
-        <input
-          className="m-pagination_current-page"
-          id="m-pagination_current-page"
-          inputMode="numeric"
-          max={100}
-          min="1"
-          name="page"
-          onChange={[Function]}
-          pattern="[0-9]*"
-          type="number"
-          value={1}
-        />
-        of 
-        <span>
-          100
-        </span>
+        Page 
+        1
       </label>
-      <button
-        className="a-btn a-btn__link m-pagination_btn-submit"
-        id="m-pagination_btn-submit"
-        type="submit"
-      >
-        Go
-      </button>
-    </form>
+    </div>
   </nav>
 </section>
 `;
@@ -1187,48 +1123,16 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
         </svg>
       </span>
     </button>
-    <form
-      action=""
+    <div
       className="m-pagination_form"
-      onSubmit={[Function]}
     >
       <label
         className="m-pagination_label"
-        htmlFor="m-pagination_current-page"
       >
-        Page
-        <span
-          className="u-visually-hidden"
-        >
-          number 
-          1
-           out
-        </span>
-        <input
-          className="m-pagination_current-page"
-          id="m-pagination_current-page"
-          inputMode="numeric"
-          max={100}
-          min="1"
-          name="page"
-          onChange={[Function]}
-          pattern="[0-9]*"
-          type="number"
-          value={1}
-        />
-        of 
-        <span>
-          100
-        </span>
+        Page 
+        1
       </label>
-      <button
-        className="a-btn a-btn__link m-pagination_btn-submit"
-        id="m-pagination_btn-submit"
-        type="submit"
-      >
-        Go
-      </button>
-    </form>
+    </div>
   </nav>
 </section>
 `;
@@ -1445,48 +1349,16 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
         </svg>
       </span>
     </button>
-    <form
-      action=""
+    <div
       className="m-pagination_form"
-      onSubmit={[Function]}
     >
       <label
         className="m-pagination_label"
-        htmlFor="m-pagination_current-page"
       >
-        Page
-        <span
-          className="u-visually-hidden"
-        >
-          number 
-          1
-           out
-        </span>
-        <input
-          className="m-pagination_current-page"
-          id="m-pagination_current-page"
-          inputMode="numeric"
-          max={0}
-          min="1"
-          name="page"
-          onChange={[Function]}
-          pattern="[0-9]*"
-          type="number"
-          value={1}
-        />
-        of 
-        <span>
-          0
-        </span>
+        Page 
+        1
       </label>
-      <button
-        className="a-btn a-btn__link m-pagination_btn-submit"
-        id="m-pagination_btn-submit"
-        type="submit"
-      >
-        Go
-      </button>
-    </form>
+    </div>
   </nav>
 </section>
 `;
@@ -1899,48 +1771,16 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
         </svg>
       </span>
     </button>
-    <form
-      action=""
+    <div
       className="m-pagination_form"
-      onSubmit={[Function]}
     >
       <label
         className="m-pagination_label"
-        htmlFor="m-pagination_current-page"
       >
-        Page
-        <span
-          className="u-visually-hidden"
-        >
-          number 
-          1
-           out
-        </span>
-        <input
-          className="m-pagination_current-page"
-          id="m-pagination_current-page"
-          inputMode="numeric"
-          max={100}
-          min="1"
-          name="page"
-          onChange={[Function]}
-          pattern="[0-9]*"
-          type="number"
-          value={1}
-        />
-        of 
-        <span>
-          100
-        </span>
+        Page 
+        1
       </label>
-      <button
-        className="a-btn a-btn__link m-pagination_btn-submit"
-        id="m-pagination_btn-submit"
-        type="submit"
-      >
-        Go
-      </button>
-    </form>
+    </div>
   </nav>
 </section>
 `;
@@ -2352,48 +2192,16 @@ exports[`component:ListPanel renders without crashing 1`] = `
         </svg>
       </span>
     </button>
-    <form
-      action=""
+    <div
       className="m-pagination_form"
-      onSubmit={[Function]}
     >
       <label
         className="m-pagination_label"
-        htmlFor="m-pagination_current-page"
       >
-        Page
-        <span
-          className="u-visually-hidden"
-        >
-          number 
-          1
-           out
-        </span>
-        <input
-          className="m-pagination_current-page"
-          id="m-pagination_current-page"
-          inputMode="numeric"
-          max={100}
-          min="1"
-          name="page"
-          onChange={[Function]}
-          pattern="[0-9]*"
-          type="number"
-          value={1}
-        />
-        of 
-        <span>
-          100
-        </span>
+        Page 
+        1
       </label>
-      <button
-        className="a-btn a-btn__link m-pagination_btn-submit"
-        id="m-pagination_btn-submit"
-        type="submit"
-      >
-        Go
-      </button>
-    </form>
+    </div>
   </nav>
 </section>
 `;

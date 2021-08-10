@@ -198,33 +198,6 @@ describe( 'reducer:query', () => {
   } )
 
   describe( 'Pager', () => {
-    it( 'handles PAGE_CHANGED actions', () => {
-      action = {
-        type: actions.PAGE_CHANGED,
-        page: 3
-      }
-      state = {
-        breakPoints: {
-          2: [ 99, 22131 ],
-          3: [ 909, 131 ]
-        },
-        size: 100,
-        tab: types.MODE_LIST
-      }
-      expect( target( state, action ) ).toEqual( {
-        breakPoints: {
-          2: [ 99, 22131 ],
-          3: [ 909, 131 ]
-        },
-        from: 200,
-        page: 3,
-        queryString: '?frm=200&search_after=909_131&size=100',
-        searchAfter: '909_131',
-        size: 100,
-        tab: types.MODE_LIST
-      } )
-    } )
-
     it( 'handles NEXT_PAGE_SHOWN actions', () => {
       action = {
         type: actions.NEXT_PAGE_SHOWN

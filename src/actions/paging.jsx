@@ -2,27 +2,11 @@ import { REQUERY_HITS_ONLY } from '../constants'
 
 export const NEXT_PAGE_SHOWN = 'NEXT_PAGE_SHOWN'
 export const PREV_PAGE_SHOWN = 'PREV_PAGE_SHOWN'
-export const PAGE_CHANGED = 'PAGE_CHANGED'
 export const SIZE_CHANGED = 'SIZE_CHANGED'
 export const SORT_CHANGED = 'SORT_CHANGED'
 
 // ----------------------------------------------------------------------------
 // Simple actions
-
-/**
-* Notifies the application that the page has changed
-*
-* @param {int} page the new page number
-* @returns {string} a packaged payload to be used by Redux reducers
-*/
-export function changePage( page ) {
-  return {
-    type: PAGE_CHANGED,
-    page,
-    requery: REQUERY_HITS_ONLY
-  }
-}
-
 /**
  * Notifies the application that the page has changed
  *
