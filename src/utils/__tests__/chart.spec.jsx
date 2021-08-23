@@ -67,45 +67,51 @@ describe( 'getTooltipTitle', () => {
 
   it( 'sets tooltip title - month', () => {
     interval = 'Month'
-    res = sut.getTooltipTitle( '09/1/1980', interval, dateRange, true )
+    const inDate = '1980-09-01T00:00:00.000Z'
+    res = sut.getTooltipTitle( inDate, interval, dateRange, true )
     expect( res ).toEqual( 'Date range: 9/1/1980 - 9/30/1980' )
-    res = sut.getTooltipTitle( '09/1/1980', interval, dateRange, false )
+    res = sut.getTooltipTitle( inDate, interval, dateRange, false )
     expect( res ).toEqual( '9/1/1980 - 9/30/1980' )
   } )
 
   it( 'sets tooltip title - week', () => {
     interval = 'Week'
-    res = sut.getTooltipTitle( '09/1/1980', interval, dateRange, true )
+    const inDate = '1980-09-01T00:00:00.000Z'
+    res = sut.getTooltipTitle( inDate, interval, dateRange, true )
     expect( res ).toEqual( 'Date range: 9/1/1980 - 9/7/1980' )
-    res = sut.getTooltipTitle( '09/1/1980', interval, dateRange, false )
+    res = sut.getTooltipTitle( inDate, interval, dateRange, false )
     expect( res ).toEqual( '9/1/1980 - 9/7/1980' )
   } )
 
   it( 'sets tooltip title - day', () => {
     interval = 'Day'
-    res = sut.getTooltipTitle( '09/23/1980', interval, dateRange, true )
+    const inDate = '1980-09-23T00:00:00.000Z'
+    res = sut.getTooltipTitle( inDate, interval, dateRange, true )
     expect( res ).toEqual( 'Date: 9/23/1980' )
-    res = sut.getTooltipTitle( '09/23/1980', interval, dateRange, false )
+    res = sut.getTooltipTitle( inDate, interval, dateRange, false )
     expect( res ).toEqual( 'Date: 9/23/1980' )
   } )
 
   it( 'sets tooltip title - year', () => {
     interval = 'Year'
-    res = sut.getTooltipTitle( '01/01/1980', interval, dateRange, true )
+    const inDate = '1980-01-01T00:00:00.000Z'
+    res = sut.getTooltipTitle( inDate, interval, dateRange, true )
     expect( res ).toEqual( 'Date range: 1/1/1980 - 12/31/1980' )
   } )
 
   it( 'sets tooltip title - year, odd start offset', () => {
     interval = 'Year'
-    dateRange.from = '03/22/1980'
-    res = sut.getTooltipTitle( '01/01/1980', interval, dateRange, true )
+    dateRange.from = '1980-03-22T12:00:00.000Z'
+    const inDate = '1980-01-01T00:00:00.000Z'
+    res = sut.getTooltipTitle( inDate, interval, dateRange, true )
     expect( res ).toEqual( 'Date range: 3/22/1980 - 12/31/1980' )
   } )
 
   it( 'sets tooltip title - year, odd end offset', () => {
     interval = 'Year'
-    dateRange.to = '03/22/1980'
-    res = sut.getTooltipTitle( '01/01/1980', interval, dateRange, true )
+    dateRange.to = '1980-03-22T12:00:00.000Z'
+    const inDate = '1980-01-01T00:00:00.000Z'
+    res = sut.getTooltipTitle( inDate, interval, dateRange, true )
     expect( res ).toEqual( 'Date range: 1/1/1980 - 3/22/1980' )
   } )
 

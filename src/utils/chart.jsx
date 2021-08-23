@@ -79,6 +79,7 @@ export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
     default:
       endDate = moment( new Date( inputDate ) )
         .add( 1, interval )
+        .endOf( interval )
         .subtract( 1, 'day' )
       break
   }
