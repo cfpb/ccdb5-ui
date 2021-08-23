@@ -441,72 +441,95 @@ describe( 'reducer:trends', () => {
       action = {
         type: actions.TRENDS_TOOLTIP_CHANGED,
         value: {
-          interval: 'Month',
-          key: '2018-04-01T00:00:00.000Z',
-          date: '2018-04-01T00:00:00.000Z',
+          date: '2021-06-01T00:00:00.000Z',
           dateRange: {
-            from: '2011-07-21',
-            to: '2018-11-30'
+            from: '2021-05-23T04:00:00.000Z',
+            to: '2021-08-23T04:00:00.000Z'
           },
+          interval: 'Month',
           values: [
             {
+              topicName: 'Alpha',
               name: 'Alpha',
-              value: 17,
-              date: '2018-04-01T00:00:00.000Z'
-            },
-            {
+              date: '2021-06-01T00:00:00.000Z',
+              value: 29769
+            }, {
+              topicName: 'Beta',
               name: 'Beta',
-              value: 28,
-              date: '2018-04-01T00:00:00.000Z'
-            },
-            {
-              name: 'Cooo',
-              value: 8,
-              date: '2018-04-01T00:00:00.000Z'
-            }
-          ]
+              date: '2021-06-01T00:00:00.000Z',
+              value: 6610
+            }, {
+              topicName: 'Charlie',
+              name: 'Charlie',
+              date: '2021-06-01T00:00:00.000Z',
+              value: 2317
+            }, {
+              topicName: 'Delta',
+              name: 'Delta',
+              date: '2021-06-01T00:00:00.000Z',
+              value: 2322
+            }, {
+              topicName: 'Echo',
+              name: 'Echo',
+              date: '2021-06-01T00:00:00.000Z',
+              value: 2174
+            }]
         }
       }
       state = {
         colorMap: {
           Alpha: '#2cb34a',
           Beta: '#addc91',
-          Cooo: '#257675'
+          Charlie: '#257675',
+          Delta: '#345534',
+          Echo: '#532423',
         }
       }
-      result = target( state, action )
+      result = target(state, action)
 
-      expect( result.tooltip ).toEqual( {
-        date: '2018-04-01T00:00:00.000Z',
+      expect(result.tooltip).toEqual({
+        date: '2021-06-01T00:00:00.000Z',
         dateRange: {
-          from: '2011-07-21',
-          to: '2018-11-30'
+          from: '2021-05-23T04:00:00.000Z',
+          to: '2021-08-23T04:00:00.000Z'
         },
         interval: 'Month',
-        key: '2018-04-01T00:00:00.000Z',
-        title: 'Date range: 4/1/2018 - 4/30/2018',
-        total: 53,
         values: [
+            {
+          topicName: 'Alpha',
+          name: 'Alpha',
+          date: '2021-06-01T00:00:00.000Z',
+          value: 29769,
+          colorIndex: 0
+        },
           {
-            colorIndex: 0,
-            date: '2018-04-01T00:00:00.000Z',
-            name: 'Alpha',
-            value: 17
-          },
-          {
-            colorIndex: 1,
-            date: '2018-04-01T00:00:00.000Z',
-            name: 'Beta',
-            value: 28
-          },
-          {
-            colorIndex: 4,
-            date: '2018-04-01T00:00:00.000Z',
-            name: 'Cooo',
-            value: 8
-          }
-        ]
-      } )
+          topicName: 'Beta',
+          name: 'Beta',
+          date: '2021-06-01T00:00:00.000Z',
+          value: 6610,
+          colorIndex: 1
+        }, {
+          topicName: 'Charlie',
+          name: 'Charlie',
+          date: '2021-06-01T00:00:00.000Z',
+          value: 2317,
+          colorIndex: 4
+        }, {
+          topicName: 'Delta',
+          name: 'Delta',
+          date: '2021-06-01T00:00:00.000Z',
+          value: 2322,
+          colorIndex: -1
+        }, {
+          topicName: 'Echo',
+          name: 'Echo',
+          date: '2021-06-01T00:00:00.000Z',
+          value: 2174,
+          colorIndex: -1
+        }],
+        title: 'Date range: 6/1/2021 - 6/30/2021',
+        total: 43192
+      })
     } )
   } )
 
