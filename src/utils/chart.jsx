@@ -1,5 +1,5 @@
 // ----------------------------------------------------------------------------
-/* eslint-disable no-mixed-operators, camelcase */
+/* eslint-disable no-mixed-operators, camelcase, complexity */
 import { adjustDate, isDateEqual } from './formatDate'
 import { clampDate, shortFormat } from '../utils'
 
@@ -65,22 +65,26 @@ export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
   let endDate
 
   switch ( interval ) {
+    case 'day':
+      endDate = moment( inputDate )
+      break;
+
     case 'week':
-      endDate = moment( new Date( inputDate ) )
-        .add( 1, interval ).startOf( interval )
-      break
+    case 'year':
+      endDate = moment( inputDate )
+          .add( 1, interval )
+          .subtract( 1, 'day' )
+      break;
+
     case 'quarter':
-      endDate = moment( new Date( inputDate ) )
-        .add( 1, interval )
-        .endOf( interval )
-        .subtract( 1, 'day' )
-      break
     case 'month':
     default:
-      endDate = moment( new Date( inputDate ) )
-        .add( 1, interval )
-        .subtract( 1, 'day' )
-      break
+      endDate = moment( inputDate )
+          .startOf( interval )
+          .add( 1, interval )
+          .endOf( interval )
+          .subtract( 1, 'day' )
+      break;
   }
 
   endDate = getTooltipDate( endDate, dateRange )
