@@ -125,7 +125,7 @@ describe( 'getTooltipTitle', () => {
 
   it( 'sets tooltip title - quarter, odd start offset', () => {
     interval = 'quarter'
-    dateRange.from = '2020-07-15T00:00:00.000Z'
+    dateRange.from = '2020-07-14T00:00:00.000Z'
     const inDate = '2020-07-01T00:00:00.000Z'
     res = sut.getTooltipTitle( inDate, interval, dateRange, true )
     expect( res ).toEqual( 'Date range: 7/14/2020 - 9/30/2020' )
@@ -133,7 +133,7 @@ describe( 'getTooltipTitle', () => {
 
   it( 'sets tooltip title - quarter, odd end offset', () => {
     interval = 'quarter'
-    dateRange.to = '2020-08-24T04:00:00.000Z'
+    dateRange.to = '2020-08-24T00:00:00.000Z'
     const inDate = '2020-07-01T00:00:00.000Z'
     res = sut.getTooltipTitle( inDate, interval, dateRange, true )
     expect( res ).toEqual( 'Date range: 7/1/2020 - 8/24/2020' )

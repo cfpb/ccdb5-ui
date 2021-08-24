@@ -1,5 +1,5 @@
 // ----------------------------------------------------------------------------
-/* eslint-disable no-mixed-operators, camelcase */
+/* eslint-disable no-mixed-operators, camelcase, complexity */
 import { adjustDate, isDateEqual } from './formatDate'
 import { clampDate, shortFormat } from '../utils'
 
@@ -58,6 +58,11 @@ export const getTooltipDate = ( inputDate, dateRange ) => {
 }
 
 export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
+
+  console.log( JSON.stringify( inputDate ) )
+  console.log( interval )
+  console.log( JSON.stringify( dateRange ) )
+
   /* eslint complexity: ["error", 6] */
   interval = interval.toLowerCase()
   const startDate = getTooltipDate( inputDate, dateRange )
@@ -65,23 +70,34 @@ export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
   let endDate
 
   switch ( interval ) {
-    case 'week':
+    case 'day':
       endDate = moment( new Date( inputDate ) )
-        .add( 1, interval ).startOf( interval )
-      break
+      break;
+
+    case 'week':
+    case 'month':
+    case 'year':
     case 'quarter':
       endDate = moment( new Date( inputDate ) )
-        .add( 1, interval )
-        .endOf( interval )
-        .subtract( 1, 'day' )
-      break
-    case 'month':
+          .add( 1, interval )
+          .subtract( 1, 'day' )
+      break;
+    // case 'quarter':
+    // case 'month':
+    //   case 'year':
     default:
       endDate = moment( new Date( inputDate ) )
-        .add( 1, interval )
-        .endOf( interval )
-        .subtract( 1, 'day' )
-      break
+          .startOf( interval )
+          .add( 1, interval )
+          .endOf( interval )
+          .subtract( 1, 'day' )
+      break;
+
+    //   endDate = moment( new Date( inputDate ) )
+    //     .add( 1, interval )
+    //     .startOf( interval )
+    //     .subtract( 1, 'day' )
+    //   break
   }
 
   endDate = getTooltipDate( endDate, dateRange )
