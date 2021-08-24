@@ -443,8 +443,8 @@ describe( 'reducer:trends', () => {
         value: {
           date: '2021-06-01T00:00:00.000Z',
           dateRange: {
-            from: '2021-05-23T04:00:00.000Z',
-            to: '2021-08-23T04:00:00.000Z'
+            from: '2021-05-23T00:00:00.000Z',
+            to: '2021-08-23T00:00:00.000Z'
           },
           interval: 'Month',
           values: [
@@ -490,8 +490,8 @@ describe( 'reducer:trends', () => {
       expect(result.tooltip).toEqual({
         date: '2021-06-01T00:00:00.000Z',
         dateRange: {
-          from: '2021-05-23T04:00:00.000Z',
-          to: '2021-08-23T04:00:00.000Z'
+          from: '2021-05-23T00:00:00.000Z',
+          to: '2021-08-23T00:00:00.000Z'
         },
         interval: 'Month',
         values: [
