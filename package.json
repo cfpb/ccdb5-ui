@@ -142,6 +142,7 @@
       "<rootDir>/config/polyfills.js",
       "<rootDir>/config/setup.js"
     ],
+    "setupTestFrameworkScriptFile": "<rootDir>/config/momentMock.js",
     "testPathIgnorePatterns": [
       "<rootDir>[/\\\\](build|docs|node_modules|scripts)[/\\\\]"
     ],
