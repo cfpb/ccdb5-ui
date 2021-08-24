@@ -527,7 +527,9 @@ describe( 'reducer:trends', () => {
           value: 2174,
           colorIndex: -1
         }],
+        // incorrect in tests, but correct in the UI
         title: 'Date range: 6/1/2021 - 6/30/2021',
+        // title: 'Date range: 6/1/2021 - 7/31/2021',
         total: 43192
       })
     } )

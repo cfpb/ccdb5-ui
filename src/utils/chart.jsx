@@ -58,11 +58,6 @@ export const getTooltipDate = ( inputDate, dateRange ) => {
 }
 
 export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
-
-  console.log( JSON.stringify( inputDate ) )
-  console.log( interval )
-  console.log( JSON.stringify( dateRange ) )
-
   /* eslint complexity: ["error", 6] */
   interval = interval.toLowerCase()
   const startDate = getTooltipDate( inputDate, dateRange )
@@ -71,33 +66,25 @@ export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
 
   switch ( interval ) {
     case 'day':
-      endDate = moment( new Date( inputDate ) )
+      endDate = moment( inputDate )
       break;
 
     case 'week':
-    case 'month':
     case 'year':
-    case 'quarter':
-      endDate = moment( new Date( inputDate ) )
+      endDate = moment( inputDate )
           .add( 1, interval )
           .subtract( 1, 'day' )
       break;
-    // case 'quarter':
-    // case 'month':
-    //   case 'year':
+
+    case 'quarter':
+    case 'month':
     default:
-      endDate = moment( new Date( inputDate ) )
+      endDate = moment( inputDate )
           .startOf( interval )
           .add( 1, interval )
           .endOf( interval )
           .subtract( 1, 'day' )
       break;
-
-    //   endDate = moment( new Date( inputDate ) )
-    //     .add( 1, interval )
-    //     .startOf( interval )
-    //     .subtract( 1, 'day' )
-    //   break
   }
 
   endDate = getTooltipDate( endDate, dateRange )
