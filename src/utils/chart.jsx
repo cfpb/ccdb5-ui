@@ -62,6 +62,8 @@ export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
   interval = interval.toLowerCase()
   const startDate = getTooltipDate( inputDate, dateRange )
 
+  console.log( 'LOCALE ===>>>>' + moment.locale() );
+
   let endDate
 
   switch ( interval ) {
