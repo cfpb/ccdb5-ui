@@ -3,7 +3,7 @@
 import { adjustDate, isDateEqual } from './formatDate'
 import { clampDate, shortFormat } from '../utils'
 
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 export const getLastDate = ( dataSet, config ) => {
   // take in array of data points
@@ -60,6 +60,11 @@ export const getTooltipDate = ( inputDate, dateRange ) => {
 export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
   /* eslint complexity: ["error", 6] */
   interval = interval.toLowerCase()
+
+  // this is how we enforce standard tooltip.
+  // ci has Africa/Abidjan
+  moment.tz.setDefault( 'America/New_York' );
+
   const startDate = getTooltipDate( inputDate, dateRange )
 
   let endDate
