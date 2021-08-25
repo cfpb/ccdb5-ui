@@ -61,14 +61,12 @@ export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
   /* eslint complexity: ["error", 6] */
   interval = interval.toLowerCase()
 
+  // this is how we enforce standard tooltip.
+  // ci has Africa/Abidjan
   moment.tz.setDefault( 'America/New_York' );
 
   const startDate = getTooltipDate( inputDate, dateRange )
-  console.log( interval, JSON.stringify( inputDate ) )
-  console.log( 'LOCALE ===>>>>' + moment.locale() );
-  const tz = moment.tz.guess();
 
-  console.log( tz )
   let endDate
 
   switch ( interval ) {

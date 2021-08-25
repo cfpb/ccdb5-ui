@@ -122,9 +122,7 @@ describe( 'getTooltipTitle', () => {
     const inDate = '2020-07-01T00:00:00.000Z'
     res = sut.getTooltipTitle( inDate, interval, dateRange, true )
     // this is the correct value, but in CI, the value is incorrect
-    expect( res ).toMatch( 'Date range: 7/1/2020 - ' )
     expect( res ).toEqual( 'Date range: 7/1/2020 - 9/30/2020' )
-    // expect( res ).toEqual( 'Date range: 7/1/2020 - 12/31/2020' )
   } )
 
   it( 'sets tooltip title - quarter, odd start offset', () => {
@@ -133,8 +131,7 @@ describe( 'getTooltipTitle', () => {
     const inDate = '2020-07-01T00:00:00.000Z'
     res = sut.getTooltipTitle( inDate, interval, dateRange, true )
     expect( res ).toContain( 'Date range: 7/14/2020 - ' )
-    // expect( res ).toEqual( 'Date range: 7/14/2020 - 9/30/2020' )
-    // expect( res ).toEqual( 'Date range: 7/14/2020 - 12/31/2020' )
+    expect( res ).toEqual( 'Date range: 7/14/2020 - 9/30/2020' )
   } )
 
   it( 'sets tooltip title - quarter, odd end offset', () => {
@@ -142,8 +139,7 @@ describe( 'getTooltipTitle', () => {
     dateRange.to = '2020-08-24T04:00:00.000Z'
     const inDate = '2020-07-01T00:00:00.000Z'
     res = sut.getTooltipTitle( inDate, interval, dateRange, true )
-    expect( res ).toContain( 'Date range: 7/1/2020 - ' )
-    // expect( res ).toEqual( 'Date range: 7/1/2020 - 8/24/2020' )
+    expect( res ).toEqual( 'Date range: 7/1/2020 - 8/24/2020' )
   } )
 } )
 
