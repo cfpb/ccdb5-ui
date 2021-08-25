@@ -60,6 +60,9 @@ export const getTooltipDate = ( inputDate, dateRange ) => {
 export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
   /* eslint complexity: ["error", 6] */
   interval = interval.toLowerCase()
+
+  moment.tz.setDefault( 'America/New_York' );
+
   const startDate = getTooltipDate( inputDate, dateRange )
   console.log( interval, JSON.stringify( inputDate ) )
   console.log( 'LOCALE ===>>>>' + moment.locale() );
