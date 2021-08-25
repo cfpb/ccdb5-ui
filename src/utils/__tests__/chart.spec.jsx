@@ -123,7 +123,7 @@ describe( 'getTooltipTitle', () => {
     res = sut.getTooltipTitle( inDate, interval, dateRange, true )
     // this is the correct value, but in CI, the value is incorrect
     expect( res ).toMatch( 'Date range: 7/1/2020 - ' )
-    // expect( res ).toEqual( 'Date range: 7/1/2020 - 9/30/2020' )
+    expect( res ).toEqual( 'Date range: 7/1/2020 - 9/30/2020' )
     // expect( res ).toEqual( 'Date range: 7/1/2020 - 12/31/2020' )
   } )
 

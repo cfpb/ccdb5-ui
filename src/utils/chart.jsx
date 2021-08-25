@@ -3,7 +3,7 @@
 import { adjustDate, isDateEqual } from './formatDate'
 import { clampDate, shortFormat } from '../utils'
 
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 export const getLastDate = ( dataSet, config ) => {
   // take in array of data points
@@ -61,9 +61,11 @@ export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
   /* eslint complexity: ["error", 6] */
   interval = interval.toLowerCase()
   const startDate = getTooltipDate( inputDate, dateRange )
-
+  console.log( interval, JSON.stringify( inputDate ) )
   console.log( 'LOCALE ===>>>>' + moment.locale() );
+  const tz = moment.tz.guess();
 
+  console.log( tz )
   let endDate
 
   switch ( interval ) {
@@ -89,7 +91,12 @@ export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
       break;
   }
 
+  console.log( interval, JSON.stringify( endDate ) )
+
+
   endDate = getTooltipDate( endDate, dateRange )
+
+  console.log( 'after', interval, JSON.stringify( endDate ) )
 
   if ( interval === 'day' ) {
     return `Date: ${ endDate }`
