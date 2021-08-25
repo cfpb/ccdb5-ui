@@ -92,12 +92,7 @@ export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
       break;
   }
 
-  console.log( interval, JSON.stringify( endDate ) )
-
-
   endDate = getTooltipDate( endDate, dateRange )
-
-  console.log( 'after', interval, JSON.stringify( endDate ) )
 
   if ( interval === 'day' ) {
     return `Date: ${ endDate }`
