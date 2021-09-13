@@ -96,6 +96,30 @@ describe( 'List View', () => {
       cy.get( currentPage ).should( 'have.text', 'Page 2' )
     } )
 
+    it( 'resets after applying filter', () => {
+      cy.get( nextButton ).click()
+
+      cy.url().should( 'include', 'page=2' )
+      cy.get( cardContainers ).should( 'have.length', 10 )
+
+      cy.get( prevButton )
+          .should( 'be.visible' )
+          .should( 'not.have.class', 'a-btn__disabled' )
+
+      cy.get( currentPage ).should( 'have.text', 'Page 2' )
+
+      cy.get( '.aggregation-branch label.a-label:first' ).click()
+      cy.get( currentPage ).should( 'have.text', 'Page 1' )
+
+      cy.log( 'reset after applying date filter' )
+      cy.get( nextButton ).click()
+      cy.get( currentPage ).should( 'have.text', 'Page 2' )
+
+      cy.get( '#date_received-from' ).clear().type( '9/23/2018' ).blur()
+      cy.get( currentPage ).should( 'have.text', 'Page 1' )
+
+    } )
+
 
     it( 'resets', () => {
       const fields = [ 'Company name', 'Narratives', 'All data' ];
