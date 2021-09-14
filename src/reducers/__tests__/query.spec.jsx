@@ -132,6 +132,7 @@ describe( 'reducer:query', () => {
       size: 100
     }
     expect( target( state, action ) ).toEqual( {
+      breakPoints: {},
       from: 0,
       page: 1,
       queryString: '?field=bar&search_term=foo',
@@ -153,6 +154,7 @@ describe( 'reducer:query', () => {
       size: 100
     }
     expect( target( state, action ) ).toEqual( {
+      breakPoints: {},
       from: 0,
       page: 1,
       queryString: '?search_term=bar',
@@ -297,6 +299,7 @@ describe( 'reducer:query', () => {
         tab: types.MODE_LIST
       }
       expect( target( state, action ) ).toEqual( {
+        breakPoints: {},
         from: 0,
         page: 1,
         queryString: '?size=50',
@@ -317,6 +320,7 @@ describe( 'reducer:query', () => {
         tab: types.MODE_LIST
       }
       expect( target( state, action ) ).toEqual( {
+        breakPoints: {},
         from: 0,
         page: 1,
         queryString: '?size=100&sort=created_date_desc',
@@ -338,6 +342,7 @@ describe( 'reducer:query', () => {
         tab: types.MODE_LIST
       }
       expect( target( state, action ) ).toEqual( {
+        breakPoints: {},
         from: 0,
         page: 1,
         queryString: '?size=100&sort=relevance_asc',
@@ -363,6 +368,10 @@ describe( 'reducer:query', () => {
     it( 'handles TAB_CHANGED actions - default', () => {
       action.tab = 'foo'
       expect( target( state, action ) ).toEqual( {
+        breakPoints: {},
+        from: 0,
+        page: 1,
+        searchAfter: '',
         enablePer1000: true,
         focus: '',
         mapWarningEnabled: true,
@@ -374,6 +383,10 @@ describe( 'reducer:query', () => {
     it( 'handles Trends TAB_CHANGED actions', () => {
       action.tab = 'Trends'
       expect( target( state, action ) ).toEqual( {
+        breakPoints: {},
+        from: 0,
+        page: 1,
+        searchAfter: '',
         chartType: 'line',
         focus: 'Yoyo',
         tab: 'Trends',
@@ -385,6 +398,10 @@ describe( 'reducer:query', () => {
     it( 'handles a Map TAB_CHANGED actions', () => {
       action.tab = types.MODE_MAP
       expect( target( state, action ) ).toEqual( {
+        breakPoints: {},
+        from: 0,
+        page: 1,
+        searchAfter: '',
         focus: '',
         enablePer1000: true,
         mapWarningEnabled: true,
@@ -396,6 +413,10 @@ describe( 'reducer:query', () => {
     it( 'handles a List TAB_CHANGED actions', () => {
       action.tab = types.MODE_LIST
       expect( target( state, action ) ).toEqual( {
+        breakPoints: {},
+        from: 0,
+        page: 1,
+        searchAfter: '',
         focus: '',
         tab: types.MODE_LIST,
         queryString: ''
@@ -621,8 +642,12 @@ describe( 'reducer:query', () => {
       it( 'handles FILTER_CHANGED actions and returns correct object', () => {
         expect( target( state, action ) ).toEqual(
           {
+            breakPoints: {},
+            from: 0,
+            page: 1,
             [filterName]: [ key ],
-            queryString: '?issue=affirmative'
+            queryString: '?issue=affirmative',
+            searchAfter: ''
           }
         )
       } )
@@ -631,8 +656,12 @@ describe( 'reducer:query', () => {
         action.filterName = 'foobar'
         expect( target( state, action ) ).toEqual(
           {
+            breakPoints: {},
             foobar: [ 'affirmative' ],
-            queryString: ''
+            from: 0,
+            page: 1,
+            queryString: '',
+            searchAfter: ''
           }
         )
       } )
@@ -641,10 +670,14 @@ describe( 'reducer:query', () => {
         state.tab = types.MODE_MAP
         expect( target( state, action ) ).toEqual(
           {
+            breakPoints: {},
             dataNormalization: types.GEO_NORM_NONE,
             enablePer1000: false,
+            from: 0,
             [filterName]: [ key ],
+            page: 1,
             queryString: '?issue=affirmative',
+            searchAfter: '',
             tab: types.MODE_MAP
           }
         )
@@ -683,8 +716,12 @@ describe( 'reducer:query', () => {
           product: [ 'bar', 'baz', 'qaz' ]
         }
         expect( target( state, action ) ).toEqual( {
+          breakPoints: {},
+          from: 0,
+          page: 1,
           product: [ 'bar', 'qaz' ],
-          queryString: '?product=bar&product=qaz'
+          queryString: '?product=bar&product=qaz',
+          searchAfter: ''
         } )
       } )
 
@@ -695,11 +732,15 @@ describe( 'reducer:query', () => {
           tab: types.MODE_MAP
         }
         expect( target( state, action ) ).toEqual( {
+          breakPoints: {},
           dataNormalization: types.GEO_NORM_NONE,
+          from: 0,
           enablePer1000: false,
+          page: 1,
           product: [ 'bar', 'qaz' ],
           mapWarningEnabled: true,
           queryString: '?product=bar&product=qaz',
+          searchAfter: '',
           tab: types.MODE_MAP
         } )
       } )
@@ -709,8 +750,12 @@ describe( 'reducer:query', () => {
           issue: [ 'bar', 'baz', 'qaz' ]
         }
         expect( target( state, action ) ).toEqual( {
+          breakPoints: {},
+          from: 0,
           issue: [ 'bar', 'baz', 'qaz' ],
-          queryString: '?issue=bar&issue=baz&issue=qaz'
+          page: 1,
+          queryString: '?issue=bar&issue=baz&issue=qaz',
+          searchAfter: ''
         } )
       } )
 
@@ -719,8 +764,12 @@ describe( 'reducer:query', () => {
           product: [ 'bar', 'qaz' ]
         }
         expect( target( state, action ) ).toEqual( {
+          breakPoints: {},
+          from: 0,
+          page: 1,
           product: [ 'bar', 'qaz' ],
-          queryString: '?product=bar&product=qaz'
+          queryString: '?product=bar&product=qaz',
+          searchAfter: ''
         } )
       } )
 
@@ -731,20 +780,30 @@ describe( 'reducer:query', () => {
             has_narrative: true
           }
           expect( target( state, action ) ).toEqual( {
-            queryString: ''
+            breakPoints: {},
+            from: 0,
+            page: 1,
+            queryString: '',
+            searchAfter: ''
           } )
         } );
 
         it( 'handles when present - Map', () => {
           action.filterName = 'has_narrative'
           state = {
+            dataNormalization: 'None',
             has_narrative: true,
             tab: types.MODE_MAP
           }
           expect( target( state, action ) ).toEqual( {
+            breakPoints: {},
+            dataNormalization: 'None',
             enablePer1000: true,
+            from: 0,
             mapWarningEnabled: true,
+            page: 1,
             queryString: '',
+            searchAfter: '',
             tab: types.MODE_MAP
           } )
         } )
@@ -753,7 +812,11 @@ describe( 'reducer:query', () => {
           action.filterName = 'has_narrative'
           state = {}
           expect( target( state, action ) ).toEqual( {
-            queryString: ''
+            breakPoints: {},
+            from: 0,
+            page: 1,
+            queryString: '',
+            searchAfter: '',
           } )
         } );
       } );
@@ -782,13 +845,13 @@ describe( 'reducer:query', () => {
         const actual = target( state, action )
         expect( actual ).toMatchObject( {
           dateRange: '3y',
-          from: 100,
+          from: 0,
           searchField: 'all',
           size: 100
         } )
 
         expect( actual.queryString ).toEqual( '?date_received_max=' +
-          '2020-05-05&date_received_min=2017-05-05&field=all&frm=100&size=100' )
+          '2020-05-05&date_received_min=2017-05-05&field=all&size=100' )
       } )
 
       it( 'clears all filters - Map', () => {
@@ -797,7 +860,7 @@ describe( 'reducer:query', () => {
         expect( actual ).toMatchObject( {
           dateRange: '3y',
           enablePer1000: true,
-          from: 100,
+          from: 0,
           mapWarningEnabled: true,
           searchField: 'all',
           size: 100
@@ -813,7 +876,7 @@ describe( 'reducer:query', () => {
           const actual = target( state, action )
           expect( actual ).toMatchObject( {
             dateRange: '3y',
-            from: 100,
+            from: 0,
             has_narrative: true,
             searchField: types.NARRATIVE_SEARCH_FIELD,
             size: 100
@@ -821,7 +884,7 @@ describe( 'reducer:query', () => {
           expect( actual.queryString )
             .toEqual( '?date_received_max=2020-05-05&' +
               'date_received_min=2017-05-05&field=complaint_what_happened&' +
-              'frm=100&has_narrative=true&size=100' )
+              'has_narrative=true&size=100' )
         } )
       } )
     } )
@@ -838,8 +901,12 @@ describe( 'reducer:query', () => {
 
       it( "adds all filters if they didn't exist", () => {
         expect( target( {}, action ) ).toEqual( {
+          breakPoints: {},
+          from: 0,
           issue: [ 'Mo Money', 'Mo Problems' ],
-          queryString: '?issue=Mo%20Money&issue=Mo%20Problems'
+          page: 1,
+          queryString: '?issue=Mo%20Money&issue=Mo%20Problems',
+          searchAfter: ''
         } )
       } )
 
@@ -849,11 +916,15 @@ describe( 'reducer:query', () => {
           mapWarningEnabled: true,
           tab: types.MODE_MAP
         }, action ) ).toEqual( {
+          breakPoints: {},
           dataNormalization: types.GEO_NORM_NONE,
           enablePer1000: false,
+          from: 0,
           issue: [ 'Mo Money', 'Mo Problems' ],
           mapWarningEnabled: true,
+          page: 1,
           queryString: '?issue=Mo%20Money&issue=Mo%20Problems',
+          searchAfter: '',
           tab: types.MODE_MAP
         } )
       } )
@@ -865,8 +936,12 @@ describe( 'reducer:query', () => {
         action.values.push( 'foo' )
 
         expect( target( state, action ) ).toEqual( {
+          breakPoints: {},
+          from: 0,
           issue: [ 'foo', 'Mo Money', 'Mo Problems' ],
-          queryString: '?issue=foo&issue=Mo%20Money&issue=Mo%20Problems'
+          page: 1,
+          queryString: '?issue=foo&issue=Mo%20Money&issue=Mo%20Problems',
+          searchAfter: ''
         } )
       } )
 
@@ -878,11 +953,15 @@ describe( 'reducer:query', () => {
         action.values.push( 'foo' )
 
         expect( target( state, action ) ).toEqual( {
+          breakPoints: {},
           dataNormalization: types.GEO_NORM_NONE,
           enablePer1000: false,
+          from: 0,
           issue: [ 'foo', 'Mo Money', 'Mo Problems' ],
+          page: 1,
           queryString: '?issue=foo&issue=Mo%20Money&issue=Mo%20Problems' +
             '',
+          searchAfter: '',
           tab: types.MODE_MAP
         } )
       } )
@@ -905,29 +984,43 @@ describe( 'reducer:query', () => {
           issue: [ 'foo', 'Mo Money', 'Mo Problems' ]
         }
         expect( target( state, action ) ).toEqual( {
+          breakPoints: {},
           focus: '',
+          from: 0,
           issue: [ 'foo' ],
-          queryString: '?issue=foo'
+          page: 1,
+          queryString: '?issue=foo',
+          searchAfter: ''
         } )
       } )
 
       it( 'removes filters if they exist - Map tab', () => {
         state = {
+          focus: '',
           issue: [ 'foo', 'Mo Money', 'Mo Problems' ],
           tab: types.MODE_MAP
         }
         expect( target( state, action ) ).toEqual( {
+          breakPoints: {},
           dataNormalization: types.GEO_NORM_NONE,
           enablePer1000: false,
+          focus: '',
+          from: 0,
           issue: [ 'foo' ],
+          page: 1,
           queryString: '?issue=foo',
+          searchAfter: '',
           tab: types.MODE_MAP
         } )
       } )
 
       it( 'ignores unknown filters', () => {
         expect( target( {}, action ) ).toEqual( {
-          queryString: ''
+          breakPoints: {},
+          from: 0,
+          page: 1,
+          queryString: '',
+          searchAfter: ''
         } )
       } )
     } )
@@ -945,15 +1038,23 @@ describe( 'reducer:query', () => {
 
       it( 'adds narrative filter to empty state', () => {
         expect( target( state, action ) ).toEqual( {
+          breakPoints: {},
+          from: 0,
+          page: 1,
           has_narrative: true,
-          queryString: '?has_narrative=true'
+          queryString: '?has_narrative=true',
+          searchAfter: ''
         } )
       } )
 
       it( 'toggles off narrative filter', () => {
         state.has_narrative = true
         expect( target( state, action ) ).toEqual( {
-          queryString: ''
+          breakPoints: {},
+          from: 0,
+          page: 1,
+          queryString: '',
+          searchAfter: ''
         } )
       } )
     } )
@@ -972,8 +1073,12 @@ describe( 'reducer:query', () => {
         }
 
         expect( target( state, action ) ).toEqual( {
+          breakPoints: {},
+          from: 0,
           foobar: [ 3, 4, 5 ],
-          queryString: ''
+          page: 1,
+          queryString: '',
+          searchAfter: ''
         } )
       } )
     } )
@@ -994,10 +1099,14 @@ describe( 'reducer:query', () => {
 
       it( 'adds the dates', () => {
         expect( target( {}, action ) ).toEqual( {
+          breakPoints: {},
           date_received_min: new Date( 2001, 0, 30 ),
           date_received_max: new Date( 2013, 1, 3 ),
+          from: 0,
+          page: 1,
           queryString: '?date_received_max=2013-02-03' +
-            '&date_received_min=2001-01-30'
+            '&date_received_min=2001-01-30',
+          searchAfter: ''
         } )
       } )
 
@@ -1018,7 +1127,11 @@ describe( 'reducer:query', () => {
         action.maxDate = ''
         action.minDate = ''
         expect( target( {}, action ) ).toEqual( {
-          queryString: ''
+          breakPoints: {},
+          from: 0,
+          page: 1,
+          queryString: '',
+          searchAfter: ''
         } )
       } )
     } )
@@ -1042,11 +1155,15 @@ describe( 'reducer:query', () => {
         action.dateRange = '1y'
         result = target( {}, action )
         expect( result ).toEqual( {
+          breakPoints: {},
           dateRange: '1y',
           date_received_max: new Date( '2020-05-05T04:00:00.000Z' ),
           date_received_min: new Date( '2019-05-05T04:00:00.000Z' ),
+          from: 0,
+          page: 1,
           queryString: '?date_received_max=2020-05-05' +
-            '&date_received_min=2019-05-05'
+            '&date_received_min=2019-05-05',
+          searchAfter: ''
         } )
       } )
 
@@ -1055,11 +1172,15 @@ describe( 'reducer:query', () => {
         result = target( {}, action )
         // only set max date
         expect( result ).toEqual( {
+          breakPoints: {},
           dateRange: '3y',
           date_received_min: new Date( '2017-05-05T04:00:00.000Z' ),
           date_received_max: new Date( '2020-05-05T04:00:00.000Z' ),
+          from: 0,
+          page: 1,
           queryString: '?date_received_max=2020-05-05' +
-            '&date_received_min=2017-05-05'
+            '&date_received_min=2017-05-05',
+          searchAfter: ''
         } )
       } )
 
@@ -1392,9 +1513,13 @@ describe( 'reducer:query', () => {
         }
         result = target( { tab: types.MODE_TRENDS }, action )
         expect( result ).toEqual( {
+          breakPoints: {},
           chartType: 'line',
           dateInterval: 'Day',
+          from: 0,
+          page: 1,
           queryString: '?trend_interval=day',
+          searchAfter: '',
           tab: 'Trends',
           trendsDateWarningEnabled: false
         } )

@@ -1020,6 +1020,18 @@ export function validatePer1000( queryState ) {
     queryState.dataNormalization : types.GEO_NORM_NONE
 }
 
+/**
+ * helper function to clear out breakpoints, reset page to 1 when any sort
+ * or filter changes the query
+ * @param {object} state redux state
+ */
+export function resetBreakpoints( state ) {
+  state.breakPoints = {};
+  state.from = 0;
+  state.page = 1;
+  state.searchAfter = '';
+}
+
 // ----------------------------------------------------------------------------
 // Action Handlers
 
@@ -1088,6 +1100,28 @@ function handleSpecificAction( state, action ) {
 export default ( state = defaultQuery, action ) => {
   const newState = handleSpecificAction( state, action )
 
+  const breakPointActions = [
+    actions.DATE_INTERVAL_CHANGED,
+    actions.DATE_RANGE_CHANGED,
+    actions.DATES_CHANGED,
+    actions.FILTER_ALL_REMOVED,
+    actions.FILTER_CHANGED,
+    actions.FILTER_FLAG_CHANGED,
+    actions.FILTER_MULTIPLE_ADDED,
+    actions.FILTER_MULTIPLE_REMOVED,
+    actions.FILTER_REMOVED,
+    actions.FILTER_REPLACED,
+    actions.SEARCH_FIELD_CHANGED,
+    actions.SEARCH_TEXT_CHANGED,
+    actions.SIZE_CHANGED,
+    actions.SORT_CHANGED,
+    actions.TAB_CHANGED
+  ];
+  // these actions cause the page to reset to 1 and also clear out breakpts
+  if ( breakPointActions.includes( action.type ) ) {
+    resetBreakpoints( newState )
+  }
+
   if ( newState.tab === types.MODE_MAP ) {
     // only update the map warning items when we're on the map tab
     validatePer1000( newState )
@@ -1098,7 +1132,6 @@ export default ( state = defaultQuery, action ) => {
     validateDateInterval( newState )
     validateTrendsReducer( newState )
   }
-
 
   // remove any filter keys with empty array
   pruneEmptyFilters( newState )
