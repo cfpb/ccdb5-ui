@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import HighlightingOption from '../Typeahead/HighlightingOption'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { stateToQS } from '../../reducers/query'
 import StickyOptions from './StickyOptions'
 import Typeahead from '../Typeahead'
 
@@ -86,9 +87,13 @@ ZipCode.defaultProps = {
 export const mapStateToProps = state => {
   const options = coalesce( state.aggs, FIELD_NAME, [] )
 
+  const queryState = Object.assign( {}, state.query )
+  // make sure searchAfter doesn't appear, it'll mess up your search endpoint
+  queryState.searchAfter = ''
+
   return {
     options,
-    queryString: state.query.queryString,
+    queryString: stateToQS( queryState ),
     selections: coalesce( state.query, FIELD_NAME, [] )
   }
 }
