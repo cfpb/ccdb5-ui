@@ -1,4 +1,6 @@
-import ReduxCompanyTypeahead, { CompanyTypeahead, mapDispatchToProps } from '../CompanyTypeahead'
+import ReduxCompanyTypeahead,
+  { CompanyTypeahead, mapDispatchToProps, mapStateToProps }
+  from '../CompanyTypeahead'
 import configureMockStore from 'redux-mock-store'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
@@ -52,7 +54,8 @@ describe('component::CompanyTypeahead', () => {
     it( 'renders disabled without crashing', () => {
       const target = setupSnapshot( {
         lens: 'Company',
-        focus: 'Acme'
+        focus: 'Acme',
+        queryString: '?fdsfds=fds'
       } )
 
       let tree = target.toJSON()
@@ -119,5 +122,28 @@ describe('component::CompanyTypeahead', () => {
       mapDispatchToProps(dispatch).typeaheadSelect('foo')
       expect(dispatch.mock.calls.length).toEqual(1)
     })
+  })
+
+  describe( 'mapStateToProps', ()=>{
+    it( 'maps state and props', () => {
+      const state = {
+        aggs: {
+          zip_code: [ 123,456,789 ]
+        },
+        query: {
+          focus: false,
+          lens: '',
+          queryString: '?dsfds=2232',
+          searchAfter: '12344_1233',
+          state: ['TX', 'FL'],
+          zip_code: ''
+        }
+      };
+      let actual = mapStateToProps( state )
+      expect(actual).toEqual({
+        disabled: false,
+        queryString: '?state=TX&state=FL',
+      })
+    } )
   })
 })

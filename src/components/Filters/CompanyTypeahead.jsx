@@ -4,7 +4,9 @@ import { connect } from 'react-redux'
 import HighlightingOption from '../Typeahead/HighlightingOption'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { stateToQS } from '../../reducers/query'
 import Typeahead from '../Typeahead'
+
 
 const FIELD_NAME = 'company'
 
@@ -75,10 +77,15 @@ CompanyTypeahead.defaultProps = {
   debounceWait: 250
 }
 
-export const mapStateToProps = state => ( {
-  disabled: state.query.focus && state.query.lens === 'Company',
-  queryString: state.query.queryString
-} )
+export const mapStateToProps = state => {
+  const queryState = Object.assign( {}, state.query )
+  // make sure searchAfter doesn't appear, it'll mess up your search endpoint
+  queryState.searchAfter = ''
+  return {
+    disabled: state.query.focus && state.query.lens === 'Company',
+    queryString: stateToQS( queryState )
+  }
+}
 
 export const mapDispatchToProps = dispatch => ( {
   typeaheadSelect: value => {

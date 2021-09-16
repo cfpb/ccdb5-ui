@@ -5,7 +5,8 @@ import { Provider } from 'react-redux'
 import renderer from 'react-test-renderer'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import ReduxZipCode, { mapDispatchToProps, ZipCode } from '../ZipCode'
+import ReduxZipCode,
+ { mapDispatchToProps, mapStateToProps, ZipCode } from '../ZipCode'
 
 const fixture = [
   { key: "200XX", doc_count: 9999 },
@@ -125,5 +126,27 @@ describe('component::ZipCode', () => {
       mapDispatchToProps(dispatch).typeaheadSelect('foo')
       expect(dispatch.mock.calls.length).toEqual(1)
     })
+  })
+
+  describe( 'mapStateToProps', ()=>{
+    it( 'maps state and props', () => {
+      const state = {
+        aggs: {
+          zip_code: [ 123,456,789 ]
+        },
+        query: {
+          queryString: '?dsfds=2232',
+          searchAfter: '12344_1233',
+          state: ['TX', 'FL'],
+          zip_code: ''
+        }
+      };
+      let actual = mapStateToProps( state )
+      expect(actual).toEqual({
+        options: [ 123, 456, 789 ],
+        queryString: '?state=TX&state=FL',
+        selections: [],
+      })
+    } )
   })
 })
