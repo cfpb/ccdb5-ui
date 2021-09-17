@@ -1,6 +1,5 @@
 from django.views.generic.base import TemplateView
 from django.conf import settings
-from flags.state import flag_enabled
 
 try:
     STANDALONE = settings.STANDALONE
