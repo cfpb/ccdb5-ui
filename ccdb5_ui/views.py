@@ -48,7 +48,4 @@ class CCDB5MainView(TemplateView):
         response = super(CCDB5MainView, self).render_to_response(
             context, **response_kwargs)
 
-        show_trends = flag_enabled('CCDB5_TRENDS')
-
-        response.set_cookie('showTrends', 'show' if show_trends else 'hide')
         return response
