@@ -253,7 +253,7 @@ describe( 'component:TrendsPanel', () => {
     let dispatch, gaSpy
     beforeEach(()=>{
       dispatch = jest.fn()
-      gaSpy = spyOn( utils, 'sendAnalyticsEvent' )
+      gaSpy = jest.spyOn( utils, 'sendAnalyticsEvent' )
     })
 
     afterEach( () => {

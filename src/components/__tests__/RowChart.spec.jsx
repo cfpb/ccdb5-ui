@@ -280,7 +280,7 @@ describe( 'component: RowChart', () => {
     let dispatch, gaSpy
     beforeEach( () => {
       dispatch = jest.fn()
-      gaSpy = spyOn( utils, 'sendAnalyticsEvent' )
+      gaSpy = jest.spyOn( utils, 'sendAnalyticsEvent' )
     } )
 
     afterEach( () => {
@@ -288,7 +288,7 @@ describe( 'component: RowChart', () => {
     } )
 
     it( 'hooks into changeFocus', () => {
-      spyOn( trendsUtils, 'scrollToFocus' )
+      jest.spyOn( trendsUtils, 'scrollToFocus' )
       const filters = [
         {
           key: 'A',
@@ -332,7 +332,7 @@ describe( 'component: RowChart', () => {
     } )
 
     it( 'hooks into changeFocus - no filter found', () => {
-      spyOn( trendsUtils, 'scrollToFocus' )
+      jest.spyOn( trendsUtils, 'scrollToFocus' )
       const filters = [
         {
           key: 'Debt collection',
@@ -366,7 +366,7 @@ describe( 'component: RowChart', () => {
     } )
 
     it( 'hooks into changeFocus - Company', () => {
-      spyOn( trendsUtils, 'scrollToFocus' )
+      jest.spyOn( trendsUtils, 'scrollToFocus' )
       const filters = [
         { key: 'Acme' },
         { key: 'Beta' }
@@ -390,7 +390,7 @@ describe( 'component: RowChart', () => {
     } )
 
     it( 'hooks into collapseTrend', () => {
-      spyOn( trendsUtils, 'scrollToFocus' )
+      jest.spyOn( trendsUtils, 'scrollToFocus' )
       mapDispatchToProps( dispatch ).collapseRow( 'Some Expanded row' )
       expect( dispatch.mock.calls ).toEqual( [ [ {
         requery: 'REQUERY_NEVER',
@@ -403,7 +403,7 @@ describe( 'component: RowChart', () => {
     } )
 
     it( 'hooks into expandTrend', () => {
-      spyOn( trendsUtils, 'scrollToFocus' )
+      jest.spyOn( trendsUtils, 'scrollToFocus' )
       mapDispatchToProps( dispatch ).expandRow( 'collapse row name' )
       expect( dispatch.mock.calls ).toEqual( [ [ {
         requery: 'REQUERY_NEVER',

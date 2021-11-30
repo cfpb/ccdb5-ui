@@ -53,7 +53,7 @@ describe('initial state', () => {
     const { location } = window
     let gaSpy
     beforeEach(()=>{
-      gaSpy = spyOn( utils, 'sendAnalyticsEvent' )
+      gaSpy = jest.spyOn( utils, 'sendAnalyticsEvent' )
       delete window.location
       // provide an empty implementation for window.assign
       window.location = {
@@ -85,7 +85,7 @@ describe('initial state', () => {
   describe( 'mapDispatchToProps', () => {
     it( 'hooks into onExportResults', () => {
       const dispatch = jest.fn()
-      const gaSpy = spyOn( utils, 'sendAnalyticsEvent' )
+      const gaSpy = jest.spyOn( utils, 'sendAnalyticsEvent' )
       mapDispatchToProps( dispatch ).onExportResults( 'foo-bar' )
       expect( dispatch.mock.calls.length ).toEqual( 1 )
       expect( gaSpy )
@@ -93,4 +93,3 @@ describe('initial state', () => {
     } )
   } )
 });
-

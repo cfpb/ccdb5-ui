@@ -44,7 +44,7 @@ describe('module::utils', () => {
       const target = debounce(spy, 200)
       target()
       expect(spy).not.toHaveBeenCalled()
-      jest.runTimersToTime(200)
+      jest.advanceTimersByTime(200)
       expect(spy).toHaveBeenCalled()
     })
 
@@ -329,4 +329,3 @@ describe('module::utils', () => {
     } )
   } )
 })
-

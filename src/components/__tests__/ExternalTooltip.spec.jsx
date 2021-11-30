@@ -124,7 +124,7 @@ describe( 'buttons', () => {
 
 describe( 'mapDispatchToProps', () => {
   it( 'provides a way to call remove', () => {
-    spyOn( trendsUtils, 'scrollToFocus' )
+    jest.spyOn( trendsUtils, 'scrollToFocus' )
     const dispatch = jest.fn()
     mapDispatchToProps( dispatch ).remove( 'Foo' )
     expect( dispatch.mock.calls ).toEqual( [ [ {
