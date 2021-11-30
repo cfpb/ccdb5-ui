@@ -1,6 +1,6 @@
-name: Publish 
+name: Publish
 
-on: 
+on:
   release:
     types: [published]
 
@@ -8,20 +8,19 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2.4.0
 
       - name: Set up Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2.5.0
         with:
           node-version: 14.x
 
       - name: Install Node dependencies
         run: |
-          npm config set package-lock false
-          npm install
+          yarn install
 
       - name: Set up Python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2.3.1
         with:
           python-version: 3.6
 
@@ -32,12 +31,12 @@ jobs:
         id: build
         run: |
             python setup.py bdist_wheel
-            # Get the name of the .whl file and set them as 
+            # Get the name of the .whl file and set them as
             # "outputs" of this step so we can upload them
             echo "::set-output name=bdist_wheel::$(cd dist && ls *.whl)"
 
       - name: Upload the wheel
-        uses: actions/upload-release-asset@v1
+        uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
