@@ -72,7 +72,7 @@ describe( 'component: ChartToggles', () => {
   describe( 'mapDispatchToProps', () => {
     it( 'provides a way to call changeChartType', () => {
       const dispatch = jest.fn()
-      const gaSpy = spyOn( utils, 'sendAnalyticsEvent' )
+      const gaSpy = jest.spyOn( utils, 'sendAnalyticsEvent' )
       mapDispatchToProps( dispatch ).toggleChartType( 'my-chart' )
       expect( dispatch.mock.calls ).toEqual( [
         [ {

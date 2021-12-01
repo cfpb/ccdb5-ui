@@ -8,6 +8,7 @@ import { MemoryRouter } from 'react-router';
 import { Provider } from 'react-redux'
 import React from 'react';
 import thunk from 'redux-thunk'
+import 'regenerator-runtime/runtime';
 
 jest.mock( 'highcharts/modules/accessibility' )
 jest.mock( 'highcharts/highmaps' )

@@ -8,23 +8,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.4.0
 
       - name: Set up Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2.5.0
         with:
           node-version: 14.x
 
       - name: Install Node dependencies
         run: |
-          npm config set package-lock false
-          npm install
-      
+          yarn install
+
       - name: Lint the source code
-        run: npm run lint
+        run: yarn run lint
 
       - name: Run front-end unit tests
-        run: npm test
+        run: yarn run test
 
       - name: Update Coveralls
         uses: coverallsapp/github-action@master
@@ -35,10 +34,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.4.0
 
       - name: Set up Python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2.3.1
         with:
           python-version: 3.6
 
@@ -48,14 +47,14 @@ jobs:
           pip install tox
 
       - name: Set up Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2.5.0
         with:
-          node-version: 10.x
+          node-version: 14.x
 
       - name: Install Node dependencies
         run: |
-          npm config set package-lock false
-      
+          yarn install
+
       - name: Run back-end tests
         run: |
           tox

@@ -5,8 +5,8 @@ This application allows consumers to search complaints submitted to the CFPB by 
 
 #### Technology Stack
 This application is written in JavaScript and [Less](http://lesscss.org) within
-the [React](https://facebook.github.io/react/) + [Redux](http://redux.js.org/) 
-framework.  It uses [Webpack](http://webpack.github.io/docs/) at runtime to 
+the [React](https://facebook.github.io/react/) + [Redux](http://redux.js.org/)
+framework.  It uses [Webpack](http://webpack.github.io/docs/) at runtime to
 manage module loading.
 
 The code is written with the [ES6](http://es6-features.org/) feature set
@@ -17,7 +17,7 @@ Unit testing of the application is performed within
 [Jest](https://facebook.github.io/jest/) with
 [Enzyme](http://airbnb.io/enzyme/index.html) providing support for event testing.
 
-[npm](https://www.npmjs.com/) is used to manage the build/test/deploy cycle.
+[yarn](https://yarnpkg.com/) is used to manage the build/test/deploy cycle.
 
 The `ccdb5_ui` (note the underscore) directory contains a thin [Django](https://www.djangoproject.com/)
 implementation that allows it to be used as a plugin for
@@ -66,7 +66,7 @@ For local development, you will need to the following:
 To run the app in development mode:
 
 ```bash
-npm start
+yarn run start
 ```
 
 Open http://localhost:3000 to view it in the browser.
@@ -82,7 +82,7 @@ Enter `Control-C` to exit development mode
 To launch the JavaScript test runner in interactive watch/test mode:
 
 ```bash
-npm test
+yarn run test
 ```
 
 Enter `Control-C` to exit interactive watch mode
@@ -96,11 +96,11 @@ tox
 
 ## Cypress integration tests
 
-Our browser-based tests check base-line user operations for [consumer complaint search](https://www.consumerfinance.gov/data-research/consumer-complaints/search/). The tests are meant to be run 
-against a consumerfinance.gov website that has access to an Elasticsearch index of consumer complaints. 
+Our browser-based tests check base-line user operations for [consumer complaint search](https://www.consumerfinance.gov/data-research/consumer-complaints/search/). The tests are meant to be run
+against a consumerfinance.gov website that has access to an Elasticsearch index of consumer complaints.
 Tests can be run in a local environment, or they can be run against an external server.
 
-Using a Chrome browser helps avoid some inconsistencies with Cypress's default Electron browser, which currently isn't on the latest 
+Using a Chrome browser helps avoid some inconsistencies with Cypress's default Electron browser, which currently isn't on the latest
 version of Chrome.
 
 Timeouts and the local `baseUrl` are set in cypress.json
@@ -132,9 +132,9 @@ yarn run cypress open --browser chrome
 ```
 
 ### To run against a server
-You can also run Cypress tests against a server by passing a `baseUrl` config with the path to the server's consumer complaints search page.  
+You can also run Cypress tests against a server by passing a `baseUrl` config with the path to the server's consumer complaints search page.
 
-**Note**: If you run against a server that has Django's `DEBUG=False` setting, the tests will probably run into API throttling, which will make tests fail. 
+**Note**: If you run against a server that has Django's `DEBUG=False` setting, the tests will probably run into API throttling, which will make tests fail.
 Our internal DEV servers can be deployed with `DEBUG=True` for running Cypress tests.
 
 ```bash

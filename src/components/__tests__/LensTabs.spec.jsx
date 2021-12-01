@@ -114,7 +114,7 @@ describe( 'component:LensTabs', () => {
   describe( 'mapDispatchToProps', () => {
     it( 'hooks into changeDataSubLens', () => {
       const dispatch = jest.fn()
-      const gaSpy = spyOn( utils, 'sendAnalyticsEvent' )
+      const gaSpy = jest.spyOn( utils, 'sendAnalyticsEvent' )
       mapDispatchToProps( dispatch ).onTab( 'Some Lens', 'product' )
       expect( dispatch.mock.calls ).toEqual( [
         [ {
