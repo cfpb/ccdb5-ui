@@ -6,7 +6,6 @@ module.exports = {
   'coveragePathIgnorePatterns': [
     'src/index.js'
   ],
-  'resolver': 'jest-pnp-resolver',
   'setupFiles': [
     '<rootDir>/config/polyfills.js',
     '<rootDir>/config/setup.js',
