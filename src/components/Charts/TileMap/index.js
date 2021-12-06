@@ -192,7 +192,7 @@ export function getColorByValue( value, scale ) {
 * @param {Object} p the point in the series
 * @returns {string} the text to speak
 */
-export function pointDescriptionFormatter( p ) {
+export function descriptionFormatter( p ) {
   return `${ p.fullName } ${ p.displayValue }`
 }
 
@@ -424,7 +424,7 @@ class TileMap {
           description: legendTitle + ' in the United States',
           exposeAsGroupOnly: false,
           keyboardNavigation: { enabled: true },
-          pointDescriptionFormatter: pointDescriptionFormatter
+          descriptionFormatter: descriptionFormatter
         }
       } ]
     };
