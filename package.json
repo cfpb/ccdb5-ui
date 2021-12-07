@@ -123,7 +123,6 @@
     "cypress": "^8.4.0",
     "jest": "27.4.3",
     "jest-cli": "27.4.3",
-    "jest-environment-jsdom-fourteen": "1.0.1",
     "jest-resolve": "27.4.2",
     "jest-watch-typeahead": "1.0.0"
   },
