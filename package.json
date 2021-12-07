@@ -94,7 +94,7 @@
     "react-redux": "^7.2.0",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "^3.4.3",
+    "react-scripts": "4.0.3",
     "react-test-renderer": "^16.13.0",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.2",
@@ -118,14 +118,13 @@
   },
   "devDependencies": {
     "babel-eslint": "10.0.3",
-    "babel-jest": "^25.1.0",
+    "babel-jest": "27.4.2",
     "coveralls": "^3.0.9",
     "cypress": "^8.4.0",
-    "jest": "^25.1.0",
-    "jest-cli": "^25.1.0",
-    "jest-environment-jsdom-fourteen": "0.1.0",
-    "jest-resolve": "24.8.0",
-    "jest-watch-typeahead": "0.3.1"
+    "jest": "27.4.3",
+    "jest-cli": "27.4.3",
+    "jest-resolve": "27.4.2",
+    "jest-watch-typeahead": "1.0.0"
   },
   "scripts": {
     "start": "node scripts/start.js",

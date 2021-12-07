@@ -268,7 +268,7 @@ describe( 'Tile map', () => {
       fullName: 'Foo',
       displayValue: '13'
     }
-    const actual = sut.pointDescriptionFormatter( point );
+    const actual = sut.descriptionFormatter( point );
     expect( actual ).toEqual( 'Foo 13' );
   } );
 
