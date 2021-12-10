@@ -1,6 +1,5 @@
 import Analytics from '../analytics'
 
-
 describe( 'action:analytics', () => {
 
   describe( '.init()', () => {
@@ -35,7 +34,7 @@ describe( 'action:analytics', () => {
       'Consumer Complaint Search', mockCallback ) )
           .toEqual( expectedEvent )
   } )
-  
+
   it( 'sends an event and runs the callback when !isLoaded', () => {
 
     let callbackConfirm = ''

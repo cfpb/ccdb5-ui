@@ -1,6 +1,4 @@
-import ReduxComplaintDetail, {
-  ComplaintDetail, mapDispatchToProps
-} from '../ComplaintDetail'
+import ReduxComplaintDetail, { ComplaintDetail } from '../ComplaintDetail'
 import configureMockStore from 'redux-mock-store'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
@@ -29,12 +27,6 @@ const fixture = {
   tags: 'Older American',
   timely: 'Yes',
   zip_code: '423XX'
-}
-
-function _buildJson(row) {
-  return {
-    hits: { hits: [{ _source: row }] } 
-  }
 }
 
 function setupEnzyme() {
@@ -90,7 +82,7 @@ describe('component::ComplaintDetail', () => {
         'N/A',
         'FOO'
       ]
-      
+
       values.forEach(v => {
         const target = setupSnapshot({consumer_consent_provided: v})
         const tree = target.toJSON()
@@ -100,7 +92,7 @@ describe('component::ComplaintDetail', () => {
 
     it('supports "Timely Response" icons', () => {
       const values = ['Yes', 'No']
-      
+
       values.forEach(v => {
         const target = setupSnapshot({timely: v})
         const tree = target.toJSON()

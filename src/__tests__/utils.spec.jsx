@@ -6,7 +6,6 @@ import {
 } from '../utils'
 import Analytics from '../actions/analytics'
 import { DATE_RANGE_MIN } from '../constants'
-import React from 'react'
 import moment from 'moment'
 
 describe('module::utils', () => {

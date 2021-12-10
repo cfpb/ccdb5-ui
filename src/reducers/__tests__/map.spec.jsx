@@ -1,8 +1,4 @@
-import target, {
-  defaultState,
-  processStateAggregations
-} from '../map'
-import { GEO_NORM_NONE, GEO_NORM_PER1000 } from '../../constants'
+import target, { processStateAggregations } from '../map'
 import actions from '../../actions'
 import stateAggs from '../__fixtures__/stateAggs'
 

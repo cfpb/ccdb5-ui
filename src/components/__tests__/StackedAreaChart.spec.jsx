@@ -4,7 +4,7 @@ import ReduxStackedAreaChart, {
   mapStateToProps,
   StackedAreaChart
 } from '../Charts/StackedAreaChart'
-import { mount, shallow } from 'enzyme'
+import { shallow } from 'enzyme'
 import { Provider } from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'
