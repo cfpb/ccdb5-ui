@@ -1,6 +1,5 @@
 import { REQUERY_HITS_ONLY, REQUERY_NEVER } from '../../constants'
 import * as sut from '../view'
-import { ROW_COLLAPSED, ROW_EXPANDED } from '../view'
 
 describe( 'action:view', () => {
   describe( 'filterVisibilityToggled', () => {

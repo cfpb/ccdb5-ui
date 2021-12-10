@@ -1,8 +1,5 @@
 jest.mock('../complaints');
-
-import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
-import announceUrlChanged, { processLocation, urlChanged } from '../url'
+import { processLocation, urlChanged } from '../url'
 import * as sut from '../url'
 
 const locationFixture = {

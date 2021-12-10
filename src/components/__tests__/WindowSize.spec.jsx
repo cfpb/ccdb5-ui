@@ -1,6 +1,6 @@
 import { mapDispatchToProps, WindowSize } from '../WindowSize'
 import React from 'react'
-import { mount, shallow } from 'enzyme'
+import { shallow } from 'enzyme'
 
 // tell jest to mock all timeout functions
 jest.useFakeTimers()

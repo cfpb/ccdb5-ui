@@ -1,5 +1,5 @@
 import configureMockStore from 'redux-mock-store'
-import ReduxListPanel, { ListPanel, mapDispatchToProps } from '../List/ListPanel';
+import ReduxListPanel, { mapDispatchToProps } from '../List/ListPanel';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux'
 import React from 'react';
@@ -25,7 +25,7 @@ const fixture = [
     sub_product: 'Qaz',
     submitted_via: 'email',
     timely: 'yes',
-    zip_code: '200XX' 
+    zip_code: '200XX'
   }
 ]
 

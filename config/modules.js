@@ -4,7 +4,6 @@ const fs = require('fs');
 const path = require('path');
 const paths = require('./paths');
 const chalk = require('react-dev-utils/chalk');
-const resolve = require('resolve');
 
 /**
  * Get the baseUrl of a compilerOptions object.
@@ -133,7 +132,7 @@ function getModules() {
   return {
     additionalModulePaths: additionalModulePaths,
     webpackAliases: getWebpackAliases(options),
-    jestAliases: getJestAliases(options),    
+    jestAliases: getJestAliases(options),
     hasTsConfig,
   };
 }

@@ -4,7 +4,7 @@ import ReduxLineChart, {
   mapStateToProps,
   LineChart
 } from '../Charts/LineChart'
-import { mount, shallow } from 'enzyme'
+import { shallow } from 'enzyme'
 import { Provider } from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'

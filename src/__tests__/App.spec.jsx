@@ -1,9 +1,7 @@
 import { act, create } from 'react-test-renderer';
 import { App, DetailComponents } from '../App';
-import accessibility from 'highcharts/modules/accessibility';
 import configureMockStore from 'redux-mock-store'
 import { defaultQuery } from '../reducers/query'
-import Highcharts from 'highcharts/highmaps';
 import { MemoryRouter } from 'react-router';
 import { Provider } from 'react-redux'
 import React from 'react';
