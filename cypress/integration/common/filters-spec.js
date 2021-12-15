@@ -5,11 +5,11 @@ import moment from 'moment';
 describe( 'Filter Panel', () => {
   beforeEach( () => {
 
-    cy.intercept( 'GET', '**/api/v1/?**&size=0' )
+    cy.intercept( 'GET', Cypress.env( 'ccdbApiUrl' ) + '?**&size=0' )
       .as( 'getAggs' );
-    cy.intercept( 'GET', '**/api/v1/?**&sort=created_date_desc' )
+    cy.intercept( 'GET', Cypress.env( 'ccdbApiUrl' ) + '?**&sort=created_date_desc' )
       .as( 'getComplaints' );
-    cy.visit( Cypress.env( 'HOST' ) + '?tab=List' );
+    cy.visit( '?tab=List' );
     cy.wait( '@getAggs' );
     cy.wait( '@getComplaints' );
   } );
@@ -59,7 +59,7 @@ describe( 'Filter Panel', () => {
     } );
 
     it( 'can trigger a pre-selected date range', () => {
-      cy.intercept( 'GET', '**/api/v1/geo/states/?**' )
+      cy.intercept( 'GET', Cypress.env( 'ccdbApiUrl' ) + 'geo/states/?**' )
         .as( 'getGeo' );
       cy.get( 'button.map' )
         .click();

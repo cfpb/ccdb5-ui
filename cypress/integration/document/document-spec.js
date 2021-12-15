@@ -3,7 +3,7 @@
 describe( 'Document View', () => {
   describe( 'error handling', () => {
     it( 'handles bogus id', () => {
-      cy.visit( Cypress.env( 'HOST' ) + '/detail/ThisIsNotAValidId' )
+      cy.visit( '/detail/ThisIsNotAValidId' )
       cy.get( 'h1' )
         .contains( 'There was a problem retrieving ThisIsNotAValidId' )
         .should( 'be.visible' )
@@ -12,12 +12,12 @@ describe( 'Document View', () => {
 
   describe( 'document detail view', () => {
     beforeEach( () => {
-      cy.intercept( 'GET', '**/api/v1/?**&size=0' )
+      cy.intercept( 'GET', Cypress.env( 'ccdbApiUrl' ) + '?**&size=0' )
           .as( 'getAggs' );
-      cy.intercept( 'GET', '**/api/v1/?**&sort=created_date_desc' )
+      cy.intercept( 'GET', Cypress.env( 'ccdbApiUrl' ) + '?**&sort=created_date_desc' )
           .as( 'getComplaints' );
 
-      cy.visit( Cypress.env( 'HOST' ) + '?tab=List' )
+      cy.visit( '?tab=List' )
 
       cy.wait( '@getAggs' );
       cy.wait( '@getComplaints' );
@@ -42,11 +42,12 @@ describe( 'Document View', () => {
 
   describe( 'preserve page state', () => {
     it( 'restores filters after visiting document detail', () => {
-      cy.intercept( 'GET', '**/api/v1/?**&field=all&has_narrative=true&search_term=pizza&size=10&sort=relevance_desc' )
+      cy.intercept( 'GET', Cypress.env( 'ccdbApiUrl' ) + '?**&field=all&has_narrative=true&search_term=pizza&size=10&sort=relevance_desc' )
         .as( 'getResults' )
 
-      cy.visit( Cypress.env( 'HOST' ) +
-        '?searchText=pizza&has_narrative=true&size=10&sort=relevance_desc&tab=List' )
+      cy.visit(
+        '?searchText=pizza&has_narrative=true&size=10&sort=relevance_desc&tab=List'
+      )
 
       cy.wait( '@getResults' )
 

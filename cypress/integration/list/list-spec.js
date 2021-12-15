@@ -4,17 +4,18 @@ describe( 'List View', () => {
   const nextButton = '.m-pagination .m-pagination_btn-next'
   const prevButton = '.m-pagination .m-pagination_btn-prev'
   beforeEach( () => {
-    cy.intercept( '**/api/v1/**&field=all**sort=created_date_desc' )
+    cy.intercept( Cypress.env( 'ccdbApiUrl' ) + '?**&field=all**sort=created_date_desc' )
         .as( 'getComplaints' )
-    cy.intercept( 'GET', '**/api/v1/?**&size=0' )
+    cy.intercept( 'GET', Cypress.env( 'ccdbApiUrl' ) + '?**&size=0' )
       .as( 'getAggs' );
-    cy.visit( Cypress.env( 'HOST' ) + '?size=10&searchText=debt%20recovery&tab=List' )
+    cy.visit( '?size=10&searchText=debt%20recovery&tab=List' )
     cy.wait( '@getComplaints' );
     cy.wait( '@getAggs' );
   } )
 
   describe( 'initial rendering', () => {
     it( 'contains a list view', () => {
+
       cy.get( '.cards-panel' )
           .should( 'be.visible' )
       cy.get( cardContainers )
@@ -27,7 +28,8 @@ describe( 'List View', () => {
       cy.get( cardContainers ).should( 'have.length', 10 )
       cy.url().should( 'contain', 'size=10' )
 
-      cy.intercept( '**/api/v1/**search_after**' ).as( 'getNextComplaints' )
+      cy.intercept( Cypress.env( 'ccdbApiUrl' ) + '?**search_after**' )
+        .as( 'getNextComplaints' )
 
       cy.get( nextButton ).click()
 
@@ -37,7 +39,7 @@ describe( 'List View', () => {
 
       cy.log( 'reset the pager after sort' )
 
-      cy.intercept( '**/api/v1/**size=10&sort=created_date_desc' )
+      cy.intercept( Cypress.env( 'ccdbApiUrl' ) + '?**size=10&sort=created_date_desc' )
         .as( 'get10Complaints' )
 
       cy.get( '#choose-size' ).select( '10 results' )
@@ -53,10 +55,10 @@ describe( 'List View', () => {
     it( 'changes the sort order', () => {
       cy.url().should( 'contain', 'sort=created_date_desc' )
 
-      cy.intercept( '**/api/v1/**&field=all**&size=10&sort=relevance_desc' )
+      cy.intercept( Cypress.env( 'ccdbApiUrl' ) + '?**&field=all**&size=10&sort=relevance_desc' )
         .as( 'getRelevanceComplaints' )
 
-      cy.intercept( '**/api/v1/**search_after**' )
+      cy.intercept( Cypress.env( 'ccdbApiUrl' ) + '?**search_after**' )
         .as( 'getNextComplaints' )
 
       cy.get( nextButton ).click()

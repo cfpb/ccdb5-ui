@@ -16,7 +16,9 @@ const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
 const paths = require('./paths');
 const modules = require('./modules');
-const getClientEnvironment = require('./env');
+const env = require('./env');
+const getClientEnvironment = env.getClientEnvironment;
+const ccdbApiUrl = env.ccdbApiUrl;
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 
 const postcssNormalize = require('postcss-normalize');
@@ -53,7 +55,7 @@ const shouldUseRelativeAssetPaths = publicPath === './';
 // Omit trailing slash as %PUBLIC_URL%/xyz looks better than %PUBLIC_URL%xyz.
 const publicUrl = paths.publicUrlOrPath;
 // Get environment variables to inject into our app.
-const env = getClientEnvironment(publicUrl);
+const envConfig = getClientEnvironment(publicUrl);
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
 
@@ -327,7 +329,7 @@ module.exports = {
                   loader: require.resolve('string-replace-loader'),
                   options: {
                     search: '@@API',
-                    replace: '/data-research/consumer-complaints/search/api/v1/',
+                    replace: ccdbApiUrl,
                     flags: 'g'
                   }
                 }
@@ -483,7 +485,7 @@ module.exports = {
       // In production, it will be an empty string unless you specify "homepage"
       // in `package.json`, in which case it will be the pathname of that URL.
       // In development, this will be an empty string.
-      new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
+      new InterpolateHtmlPlugin(HtmlWebpackPlugin, envConfig.raw),
       // This gives some necessary context to module not found errors, such as
       // the requesting resource.
       new ModuleNotFoundPlugin(paths.appPath),
@@ -492,7 +494,7 @@ module.exports = {
       // It is absolutely essential that NODE_ENV is set to production
       // during a production build.
       // Otherwise React will be compiled in the very slow development mode.
-      new webpack.DefinePlugin(env.stringified),
+      new webpack.DefinePlugin(envConfig.stringified),
       new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output
         // both options are optional

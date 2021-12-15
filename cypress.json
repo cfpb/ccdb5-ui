@@ -6,5 +6,8 @@
     "requestTimeout": 20000,
     "screenshotOnRunFailure": false,
     "video": false,
-    "baseUrl": "http://localhost:8000/data-research/consumer-complaints/search/"
+    "baseUrl": "http://localhost:3000/",
+    "env": {
+        "ccdbApiUrl": "http://localhost:8000/"
+    }
 }
