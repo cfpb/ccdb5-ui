@@ -12,10 +12,13 @@ describe( 'Document View', () => {
 
   describe( 'document detail view', () => {
     beforeEach( () => {
-      cy.intercept( 'GET', Cypress.env( 'ccdbApiUrl' ) + '?**&size=0' )
-          .as( 'getAggs' );
-      cy.intercept( 'GET', Cypress.env( 'ccdbApiUrl' ) + '?**&sort=created_date_desc' )
-          .as( 'getComplaints' );
+      let request = '/?**&sort=created_date_desc';
+      let fixture = { fixture: 'document/get-complaints.json' };
+      cy.intercept( request, fixture ).as( 'getComplaints' );
+
+      request = '/?**&size=0';
+      fixture = { fixture: 'document/get-aggs.json' };
+      cy.intercept( 'GET', request, fixture ).as( 'getAggs' );
 
       cy.visit( '?tab=List' )
 
@@ -42,14 +45,23 @@ describe( 'Document View', () => {
 
   describe( 'preserve page state', () => {
     it( 'restores filters after visiting document detail', () => {
-      cy.intercept( 'GET', Cypress.env( 'ccdbApiUrl' ) + '?**&field=all&has_narrative=true&search_term=pizza&size=10&sort=relevance_desc' )
-        .as( 'getResults' )
+      let request = '/?**&search_term=pizza**&size=0';
+      let fixture = { fixture: 'document/get-aggs-results.json' };
+      cy.intercept( request, fixture ).as( 'getAggsResults' );
+
+      request = '/?**&field=all&has_narrative=true&search_term=pizza&size=10&sort=relevance_desc';
+      fixture = { fixture: 'document/get-results.json' };
+      cy.intercept( request, fixture ).as( 'getResults' );
+
+      request = '/3146099';
+      fixture = { fixture: 'document/get-detail.json' };
+      cy.intercept( request, fixture ).as( 'getDetail' );
+
+      cy.intercept( 'GET', '/_suggest/?text=pizza', [] );
 
       cy.visit(
         '?searchText=pizza&has_narrative=true&size=10&sort=relevance_desc&tab=List'
       )
-
-      cy.wait( '@getResults' )
 
       cy.get( '#choose-sort' )
         .should( 'have.value', 'relevance_desc' )
@@ -64,6 +76,8 @@ describe( 'Document View', () => {
         .first()
         .click()
 
+      cy.wait( '@getDetail' )
+
       cy.url()
         .should( 'contain', '/detail' )
 
@@ -71,6 +85,7 @@ describe( 'Document View', () => {
         .contains( 'Back to search results' )
         .click()
 
+      cy.wait( '@getAggsResults' )
       cy.wait( '@getResults' )
 
       cy.get( '#choose-sort' )

@@ -4,11 +4,14 @@ import moment from 'moment';
 
 describe( 'Filter Panel', () => {
   beforeEach( () => {
+    let request = '?**&size=0';
+    let fixture = { fixture: 'common/get-aggs.json' };
+    cy.intercept( 'GET', request, fixture ).as( 'getAggs' );
 
-    cy.intercept( 'GET', Cypress.env( 'ccdbApiUrl' ) + '?**&size=0' )
-      .as( 'getAggs' );
-    cy.intercept( 'GET', Cypress.env( 'ccdbApiUrl' ) + '?**&sort=created_date_desc' )
-      .as( 'getComplaints' );
+    request = '?**&sort=created_date_desc';
+    fixture = { fixture: 'common/get-complaints.json' };
+    cy.intercept( request, fixture ).as( 'getComplaints' );
+
     cy.visit( '?tab=List' );
     cy.wait( '@getAggs' );
     cy.wait( '@getComplaints' );
@@ -21,6 +24,14 @@ describe( 'Filter Panel', () => {
 
   describe( 'Date Received Filter', () => {
     it( 'has basic functionality', () => {
+      let request = '?**&date_received_min=2015-09-11**';
+      let fixture = { fixture: 'common/get-complaints-date-from.json' };
+      cy.intercept( request, fixture ).as( 'getComplaintsDateFrom' );
+
+      request = '?date_received_max=2020-10-31**';
+      fixture = { fixture: 'common/get-complaints-date-to.json' };
+      cy.intercept( request, fixture ).as( 'getComplaintsDateTo' );
+
       cy.log( 'is expanded' )
 
       cy.get( '#date_received-from' )
@@ -43,29 +54,40 @@ describe( 'Filter Panel', () => {
         .type( '09/11/2015' )
         .blur();
 
-      cy.wait( '@getComplaints' );
+      cy.wait( '@getComplaintsDateFrom' );
 
       cy.url()
         .should( 'include', 'date_received_min=2015-09-11' );
 
       cy.log( 'apply a through date' )
 
+      // For some infuriating reason the input won't clear, so we add this hack.
+      cy.get( '#date_received-through' )
+        .click()
+        .invoke('val', '');
+      cy.wait( 500 );
+
       cy.get( '#date_received-through' )
         .clear()
         .type( '10/31/2020' )
         .blur();
+
       cy.url()
         .should( 'include', 'date_received_max=2020-10-31' );
+
+      cy.wait( '@getComplaintsDateTo' );
     } );
 
     it( 'can trigger a pre-selected date range', () => {
-      cy.intercept( 'GET', Cypress.env( 'ccdbApiUrl' ) + 'geo/states/?**' )
-        .as( 'getGeo' );
+      let request = 'geo/states/?**';
+      let fixture = { fixture: 'common/get-geo.json' };
+      cy.intercept( request, fixture ).as( 'getGeo' );
+
       cy.get( 'button.map' )
         .click();
       cy.wait( '@getGeo' );
 
-      const maxDate = moment( new Date() ).format( 'YYYY-MM-DD' );
+      const maxDate = moment( new Date( '2021-12-15T06:00:00' ) ).format( 'YYYY-MM-DD' );
       let minDate = moment( new Date() ).subtract( 3, 'years' ).format( 'YYYY-MM-DD' );
       cy.get( '.date-ranges .a-btn.range-3y' )
         .contains( '3y' )
@@ -215,11 +237,15 @@ describe( 'Filter Panel', () => {
     } );
 
     it( 'shows more results', () => {
+      let request = '?**&size=10**';
+      let fixture = { fixture: 'common/get-10-complaints.json' };
+      cy.intercept( 'GET', request, fixture ).as( 'get10Complaints' );
+
       cy.get( '.list-panel .card-container' )
         .should( 'have.length', 25 );
       cy.get( '#choose-size' )
         .select( '10 results' )
-      cy.wait( '@getComplaints' )
+      cy.wait( '@get10Complaints' )
       cy.get( '.list-panel .card-container' )
         .should( 'have.length', 10 );
     } );

@@ -7,7 +7,5 @@
     "screenshotOnRunFailure": false,
     "video": false,
     "baseUrl": "http://localhost:3000/",
-    "env": {
-        "ccdbApiUrl": "http://localhost:8000/"
-    }
+    "experimentalFetchPolyfill": true
 }
