@@ -1,6 +1,6 @@
 {
-  "name": "ccdb5-ui",
-  "private": false,
+  "name": "@cfpb/ccdb5-ui",
+  "version": "0.0.1",
   "description": "Consumer Complaint Database UI",
   "homepage": "https://www.consumerfinance.gov/",
   "author": {
@@ -12,6 +12,9 @@
     "type": "git",
     "url": "http://github.com/cfpb/ccdb5-ui.git"
   },
+  "files": [
+    "dist/*"
+  ],
   "license": "CC0-1.0",
   "dependencies": {
     "@babel/core": "^7.9.0",
@@ -129,7 +132,8 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom --coverage",
     "dev-flow": "node scripts/test.js --env=jsdom --coverage --watch",
-    "lint": "./node_modules/eslint/bin/eslint.js --ext .jsx --quiet src/"
+    "lint": "./node_modules/eslint/bin/eslint.js --ext .jsx --quiet src/",
+    "prepack": "yarn run build && cp ccdb5_ui/static/*.js dist/"
   },
   "eslintConfig": {
     "extends": "react-app"
