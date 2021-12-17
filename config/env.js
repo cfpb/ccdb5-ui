@@ -100,7 +100,8 @@ function getClientEnvironment(publicUrl) {
 
 module.exports = {
   getClientEnvironment,
-  /* If testing from within consumerfinance.gov,
-     set `ccdbApiUrl` to '/data-research/consumer-complaints/search/api/v1/' */
-  ccdbApiUrl: 'http://localhost:8000/'
+  ccdbApiUrl: {
+    dev: 'http://localhost:8000/',
+    prod: '/data-research/consumer-complaints/search/api/v1/'
+  }
 };

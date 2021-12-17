@@ -18,7 +18,7 @@ const paths = require('./paths');
 const modules = require('./modules');
 const env = require('./env');
 const getClientEnvironment = env.getClientEnvironment;
-const ccdbApiUrl = env.ccdbApiUrl;
+const ccdbApiUrl = env.ccdbApiUrl.prod;
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 
 const postcssNormalize = require('postcss-normalize');

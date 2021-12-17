@@ -11,7 +11,7 @@ const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const env = require('./env');
 const getClientEnvironment = env.getClientEnvironment;
-const ccdbApiUrl = env.ccdbApiUrl;
+const ccdbApiUrl = env.ccdbApiUrl.dev;
 const paths = require('./paths');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
