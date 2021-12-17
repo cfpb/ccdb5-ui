@@ -87,7 +87,7 @@ describe( 'Filter Panel', () => {
         .click();
       cy.wait( '@getGeo' );
 
-      const maxDate = moment( new Date( '2021-12-15T06:00:00' ) ).format( 'YYYY-MM-DD' );
+      const maxDate = moment( new Date() ).format( 'YYYY-MM-DD' );
       let minDate = moment( new Date() ).subtract( 3, 'years' ).format( 'YYYY-MM-DD' );
       cy.get( '.date-ranges .a-btn.range-3y' )
         .contains( '3y' )
