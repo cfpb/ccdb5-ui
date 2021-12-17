@@ -30,3 +30,11 @@ tests that validate implemented features and the presence or lack of defects.
 Additionally, the code should follow any stylistic and architectural guidelines
 prescribed by the project. In the absence of such guidelines, mimic the styles
 and patterns in the existing code-base.
+
+## Release management
+
+Ready to publish changes to npm?
+
+1. Ensure you're on `main` and `git pull` to confirm you're up-to-date.
+1. Run `yarn run prepack` to copy the latest JS into the `dist` directory.
+1. Run `yarn run release` to start the release.
