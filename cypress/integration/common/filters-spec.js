@@ -61,14 +61,10 @@ describe( 'Filter Panel', () => {
 
       cy.log( 'apply a through date' )
 
-      // For some infuriating reason the input won't clear, so we add this hack.
-      cy.get( '#date_received-through' )
-        .click()
-        .invoke('val', '');
-      cy.wait( 500 );
-
       cy.get( '#date_received-through' )
         .clear()
+        // This is a hack to clear the input which was not clearing with clear()
+        .type( '{selectall}{backspace}{selectall}{backspace}' )
         .type( '10/31/2020' )
         .blur();
 
