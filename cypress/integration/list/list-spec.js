@@ -5,7 +5,7 @@ describe( 'List View', () => {
   const prevButton = '.m-pagination .m-pagination_btn-prev'
 
   beforeEach( () => {
-    let request = '/?**&field=all**sort=created_date_desc';
+    let request = '?**&field=all**sort=created_date_desc';
     let fixture = { fixture: 'list/get-complaints.json' };
     cy.intercept( request, fixture ).as( 'getComplaints' );
 

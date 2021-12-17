@@ -12,11 +12,11 @@ describe( 'Document View', () => {
 
   describe( 'document detail view', () => {
     beforeEach( () => {
-      let request = '/?**&sort=created_date_desc';
+      let request = '?**&sort=created_date_desc';
       let fixture = { fixture: 'document/get-complaints.json' };
       cy.intercept( request, fixture ).as( 'getComplaints' );
 
-      request = '/?**&size=0';
+      request = '?**&size=0';
       fixture = { fixture: 'document/get-aggs.json' };
       cy.intercept( 'GET', request, fixture ).as( 'getAggs' );
 
@@ -45,7 +45,7 @@ describe( 'Document View', () => {
 
   describe( 'preserve page state', () => {
     it( 'restores filters after visiting document detail', () => {
-      let request = '/?**&search_term=pizza**&size=0';
+      let request = '?**&search_term=pizza**&size=0';
       let fixture = { fixture: 'document/get-aggs-results.json' };
       cy.intercept( request, fixture ).as( 'getAggsResults' );
 
