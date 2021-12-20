@@ -125,7 +125,8 @@
     "jest": "27.4.3",
     "jest-cli": "27.4.3",
     "jest-resolve": "27.4.2",
-    "jest-watch-typeahead": "1.0.0"
+    "jest-watch-typeahead": "1.0.0",
+    "release-it": "^14.11.8"
   },
   "scripts": {
     "start": "node scripts/start.js",
@@ -133,7 +134,8 @@
     "test": "node scripts/test.js --env=jsdom --coverage",
     "dev-flow": "node scripts/test.js --env=jsdom --coverage --watch",
     "lint": "./node_modules/eslint/bin/eslint.js --ext .jsx --quiet src/",
-    "prepack": "yarn run build && cp ccdb5_ui/static/*.js dist/"
+    "prepack": "yarn run build && cp ccdb5_ui/static/*.js dist/",
+    "release": "./node_modules/release-it/bin/release-it.js --ci --dry-run --npm.skipChecks"
   },
   "eslintConfig": {
     "extends": "react-app"
