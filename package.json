@@ -15,6 +15,10 @@
   "files": [
     "dist/*"
   ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
   "license": "CC0-1.0",
   "dependencies": {
     "@babel/core": "^7.9.0",
