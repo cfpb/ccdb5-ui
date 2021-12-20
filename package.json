@@ -135,7 +135,7 @@
     "dev-flow": "node scripts/test.js --env=jsdom --coverage --watch",
     "lint": "./node_modules/eslint/bin/eslint.js --ext .jsx --quiet src/",
     "prepack": "yarn run build && cp ccdb5_ui/static/*.js dist/",
-    "release": "yarn run prepack && ./node_modules/release-it/bin/release-it.js --only-version --npm.skipChecks"
+    "release": "yarn run prepack && release-it --only-version --npm.skipChecks"
   },
   "eslintConfig": {
     "extends": "react-app"
