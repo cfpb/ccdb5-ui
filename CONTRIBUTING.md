@@ -36,7 +36,11 @@ and patterns in the existing code-base.
 Ready to publish changes to npm?
 
 1. Ensure you're on `main` and `git pull` to confirm you're up-to-date.
-2. Log into npm with `npm login`.
+2. If not done already, set a `GITHUB_TOKEN` in your `.env` file (see
+   https://github.com/settings/tokens/new?scopes=repo&description=release-it
+   to create the token value).
+3. Source your `.env` with `source ./.env` (if `GITHUB_TOKEN` in unset).
+2. Log into npm with `npm login` (if not already logged in).
 3. Run `yarn run release` to start the release.
    This'll run the build and prepack scripts to copy the latest JS into
    the `dist` directory. It then uses
