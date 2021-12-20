@@ -36,8 +36,9 @@ and patterns in the existing code-base.
 Ready to publish changes to npm?
 
 1. Ensure you're on `main` and `git pull` to confirm you're up-to-date.
-1. Run `yarn run release` to start the release.
+2. Log into npm with `npm login`.
+3. Run `yarn run release` to start the release.
    This'll run the build and prepack scripts to copy the latest JS into
    the `dist` directory. It then uses
    [release-it](https://github.com/release-it/release-it/) to publish to
-   npm (must be logged in) and GitHub.
+   npm and manual create a GitHub tag and release.
