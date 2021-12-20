@@ -65,7 +65,7 @@ describe( 'Filter Panel', () => {
         .clear()
         // This is a hack to clear the input which was not clearing with clear()
         .type( '{selectall}{backspace}{selectall}{backspace}' )
-        .type( '10/31/2020' )
+        .type( '{selectall}10/31/2020' )
         .blur();
 
       cy.url()

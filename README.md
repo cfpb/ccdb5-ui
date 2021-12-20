@@ -96,9 +96,7 @@ tox
 
 ## Cypress integration tests
 
-Our browser-based tests check base-line user operations for [consumer complaint search](https://www.consumerfinance.gov/data-research/consumer-complaints/search/). The tests are meant to be run
-against a consumerfinance.gov website that has access to an Elasticsearch index of consumer complaints.
-Tests can be run in a local environment, or they can be run against an external server.
+Our browser-based tests check base-line user operations for [consumer complaint search](https://www.consumerfinance.gov/data-research/consumer-complaints/search/). The tests are run against JSON fixtures from the [ccdb5-api](https://github.com/cfpb/ccdb5-api).
 
 Using a Chrome browser helps avoid some inconsistencies with Cypress's default Electron browser, which currently isn't on the latest
 version of Chrome.
