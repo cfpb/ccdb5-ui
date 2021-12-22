@@ -42,7 +42,7 @@ Ready to publish changes to npm?
 3. Source your `.env` with `source ./.env` (if `GITHUB_TOKEN` in unset).
 2. Log into npm with `npm login` (if not already logged in).
 3. Run `yarn run release` to start the release.
-   This'll run the build and prepack scripts to copy the latest JS into
+   This'll run the build scripts to copy the latest JS into
    the `dist` directory. It then uses
    [release-it](https://github.com/release-it/release-it/) to publish to
    npm and manual create a GitHub tag and release.

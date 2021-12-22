@@ -19,10 +19,6 @@ Unit testing of the application is performed within
 
 [yarn](https://yarnpkg.com/) is used to manage the build/test/deploy cycle.
 
-The `ccdb5_ui` (note the underscore) directory contains a thin [Django](https://www.djangoproject.com/)
-implementation that allows it to be used as a plugin for
-[CFPB's public website](https://github.com/cfpb/consumerfinance.gov).
-
 #### Screenshot
 ![screen August 17, 2017](documentation/screenshot.png)
 
@@ -132,7 +128,8 @@ yarn run cypress open --browser chrome
 ### To run against a server
 You can also run Cypress tests against a server by passing a `baseUrl` config with the path to the server's consumer complaints search page.
 
-**Note**: If you run against a server that has Django's `DEBUG=False` setting, the tests will probably run into API throttling, which will make tests fail.
+**Note**: If you run against a server that has Django's `DEBUG=False` setting,
+the tests will probably run into API throttling, which will make tests fail.
 Our internal DEV servers can be deployed with `DEBUG=True` for running Cypress tests.
 
 ```bash
