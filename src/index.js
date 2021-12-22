@@ -43,7 +43,7 @@ function main( err ) {
     var ReactDOM = require( 'react-dom' )
     var React = require( 'react' )
 
-    ReactDOM.render( <App />, document.getElementById( 'root' ) )
+    ReactDOM.render( <App />, document.getElementById( 'ccdb-ui-root' ) )
   }
 }
 

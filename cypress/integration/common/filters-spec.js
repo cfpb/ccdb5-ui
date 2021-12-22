@@ -4,12 +4,15 @@ import moment from 'moment';
 
 describe( 'Filter Panel', () => {
   beforeEach( () => {
+    let request = '?**&size=0';
+    let fixture = { fixture: 'common/get-aggs.json' };
+    cy.intercept( 'GET', request, fixture ).as( 'getAggs' );
 
-    cy.intercept( 'GET', '**/api/v1/?**&size=0' )
-      .as( 'getAggs' );
-    cy.intercept( 'GET', '**/api/v1/?**&sort=created_date_desc' )
-      .as( 'getComplaints' );
-    cy.visit( Cypress.env( 'HOST' ) + '?tab=List' );
+    request = '?**&sort=created_date_desc';
+    fixture = { fixture: 'common/get-complaints.json' };
+    cy.intercept( request, fixture ).as( 'getComplaints' );
+
+    cy.visit( '?tab=List' );
     cy.wait( '@getAggs' );
     cy.wait( '@getComplaints' );
   } );
@@ -21,6 +24,14 @@ describe( 'Filter Panel', () => {
 
   describe( 'Date Received Filter', () => {
     it( 'has basic functionality', () => {
+      let request = '?**&date_received_min=2015-09-11**';
+      let fixture = { fixture: 'common/get-complaints-date-from.json' };
+      cy.intercept( request, fixture ).as( 'getComplaintsDateFrom' );
+
+      request = '?date_received_max=2020-10-31**';
+      fixture = { fixture: 'common/get-complaints-date-to.json' };
+      cy.intercept( request, fixture ).as( 'getComplaintsDateTo' );
+
       cy.log( 'is expanded' )
 
       cy.get( '#date_received-from' )
@@ -43,7 +54,7 @@ describe( 'Filter Panel', () => {
         .type( '09/11/2015' )
         .blur();
 
-      cy.wait( '@getComplaints' );
+      cy.wait( '@getComplaintsDateFrom' );
 
       cy.url()
         .should( 'include', 'date_received_min=2015-09-11' );
@@ -52,15 +63,22 @@ describe( 'Filter Panel', () => {
 
       cy.get( '#date_received-through' )
         .clear()
-        .type( '10/31/2020' )
+        // This is a hack to clear the input which was not clearing with clear()
+        .type( '{selectall}{backspace}{selectall}{backspace}' )
+        .type( '{selectall}10/31/2020' )
         .blur();
+
       cy.url()
         .should( 'include', 'date_received_max=2020-10-31' );
+
+      cy.wait( '@getComplaintsDateTo' );
     } );
 
     it( 'can trigger a pre-selected date range', () => {
-      cy.intercept( 'GET', '**/api/v1/geo/states/?**' )
-        .as( 'getGeo' );
+      let request = 'geo/states/?**';
+      let fixture = { fixture: 'common/get-geo.json' };
+      cy.intercept( request, fixture ).as( 'getGeo' );
+
       cy.get( 'button.map' )
         .click();
       cy.wait( '@getGeo' );
@@ -215,11 +233,15 @@ describe( 'Filter Panel', () => {
     } );
 
     it( 'shows more results', () => {
+      let request = '?**&size=10**';
+      let fixture = { fixture: 'common/get-10-complaints.json' };
+      cy.intercept( 'GET', request, fixture ).as( 'get10Complaints' );
+
       cy.get( '.list-panel .card-container' )
         .should( 'have.length', 25 );
       cy.get( '#choose-size' )
         .select( '10 results' )
-      cy.wait( '@getComplaints' )
+      cy.wait( '@get10Complaints' )
       cy.get( '.list-panel .card-container' )
         .should( 'have.length', 10 );
     } );

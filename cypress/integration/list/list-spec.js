@@ -3,22 +3,27 @@ describe( 'List View', () => {
   const currentPage = '.m-pagination_label'
   const nextButton = '.m-pagination .m-pagination_btn-next'
   const prevButton = '.m-pagination .m-pagination_btn-prev'
+
   beforeEach( () => {
-    cy.intercept( '**/api/v1/**&field=all**sort=created_date_desc' )
-        .as( 'getComplaints' )
-    cy.intercept( 'GET', '**/api/v1/?**&size=0' )
-      .as( 'getAggs' );
-    cy.visit( Cypress.env( 'HOST' ) + '?size=10&searchText=debt%20recovery&tab=List' )
+    let request = '?**&field=all**sort=created_date_desc';
+    let fixture = { fixture: 'list/get-complaints.json' };
+    cy.intercept( request, fixture ).as( 'getComplaints' );
+
+    request = '?**&size=0';
+    fixture = { fixture: 'list/get-aggs.json' };
+    cy.intercept( 'GET', request, fixture ).as( 'getAggs' );
+
+    cy.intercept( 'GET', '_suggest/?text=debt%20recovery', [] );
+
+    cy.visit( '?size=10&searchText=debt%20recovery&tab=List' )
     cy.wait( '@getComplaints' );
     cy.wait( '@getAggs' );
   } )
 
   describe( 'initial rendering', () => {
     it( 'contains a list view', () => {
-      cy.get( '.cards-panel' )
-          .should( 'be.visible' )
-      cy.get( cardContainers )
-          .should( 'have.length', 10 )
+      cy.get( '.cards-panel' ).should( 'be.visible' )
+      cy.get( cardContainers ).should( 'have.length', 10 )
     } )
   } )
 
@@ -27,7 +32,9 @@ describe( 'List View', () => {
       cy.get( cardContainers ).should( 'have.length', 10 )
       cy.url().should( 'contain', 'size=10' )
 
-      cy.intercept( '**/api/v1/**search_after**' ).as( 'getNextComplaints' )
+      let request = '?**search_after**';
+      let fixture = { fixture: 'list/get-next-complaints.json' };
+      cy.intercept( 'GET', request, fixture ).as( 'getNextComplaints' );
 
       cy.get( nextButton ).click()
 
@@ -37,8 +44,9 @@ describe( 'List View', () => {
 
       cy.log( 'reset the pager after sort' )
 
-      cy.intercept( '**/api/v1/**size=10&sort=created_date_desc' )
-        .as( 'get10Complaints' )
+      request = '?**size=10&sort=created_date_desc';
+      fixture = { fixture: 'list/get-10-complaints.json' };
+      cy.intercept( 'GET', request, fixture ).as( 'get10Complaints' );
 
       cy.get( '#choose-size' ).select( '10 results' )
 
@@ -47,17 +55,18 @@ describe( 'List View', () => {
       cy.get( cardContainers ).should( 'have.length', 10 )
       cy.url().should( 'contain', 'size=10' )
       cy.url().should( 'contain', 'page=1' )
-
     } )
 
     it( 'changes the sort order', () => {
       cy.url().should( 'contain', 'sort=created_date_desc' )
 
-      cy.intercept( '**/api/v1/**&field=all**&size=10&sort=relevance_desc' )
-        .as( 'getRelevanceComplaints' )
+      let request = '?**&field=all**&size=10&sort=relevance_desc';
+      let fixture = { fixture: 'list/get-relevance-complaints.json' };
+      cy.intercept( 'GET', request, fixture ).as( 'getRelevanceComplaints' );
 
-      cy.intercept( '**/api/v1/**search_after**' )
-        .as( 'getNextComplaints' )
+      request = '?**search_after**';
+      fixture = { fixture: 'list/get-next-complaints.json' };
+      cy.intercept( 'GET', request, fixture ).as( 'getNextComplaints' );
 
       cy.get( nextButton ).click()
       cy.wait( '@getNextComplaints' )

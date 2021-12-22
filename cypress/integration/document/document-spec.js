@@ -3,7 +3,7 @@
 describe( 'Document View', () => {
   describe( 'error handling', () => {
     it( 'handles bogus id', () => {
-      cy.visit( Cypress.env( 'HOST' ) + '/detail/ThisIsNotAValidId' )
+      cy.visit( '/detail/ThisIsNotAValidId' )
       cy.get( 'h1' )
         .contains( 'There was a problem retrieving ThisIsNotAValidId' )
         .should( 'be.visible' )
@@ -12,12 +12,15 @@ describe( 'Document View', () => {
 
   describe( 'document detail view', () => {
     beforeEach( () => {
-      cy.intercept( 'GET', '**/api/v1/?**&size=0' )
-          .as( 'getAggs' );
-      cy.intercept( 'GET', '**/api/v1/?**&sort=created_date_desc' )
-          .as( 'getComplaints' );
+      let request = '?**&sort=created_date_desc';
+      let fixture = { fixture: 'document/get-complaints.json' };
+      cy.intercept( request, fixture ).as( 'getComplaints' );
 
-      cy.visit( Cypress.env( 'HOST' ) + '?tab=List' )
+      request = '?**&size=0';
+      fixture = { fixture: 'document/get-aggs.json' };
+      cy.intercept( 'GET', request, fixture ).as( 'getAggs' );
+
+      cy.visit( '?tab=List' )
 
       cy.wait( '@getAggs' );
       cy.wait( '@getComplaints' );
@@ -42,13 +45,23 @@ describe( 'Document View', () => {
 
   describe( 'preserve page state', () => {
     it( 'restores filters after visiting document detail', () => {
-      cy.intercept( 'GET', '**/api/v1/?**&field=all&has_narrative=true&search_term=pizza&size=10&sort=relevance_desc' )
-        .as( 'getResults' )
+      let request = '?**&search_term=pizza**&size=0';
+      let fixture = { fixture: 'document/get-aggs-results.json' };
+      cy.intercept( request, fixture ).as( 'getAggsResults' );
 
-      cy.visit( Cypress.env( 'HOST' ) +
-        '?searchText=pizza&has_narrative=true&size=10&sort=relevance_desc&tab=List' )
+      request = '/?**&field=all&has_narrative=true&search_term=pizza&size=10&sort=relevance_desc';
+      fixture = { fixture: 'document/get-results.json' };
+      cy.intercept( request, fixture ).as( 'getResults' );
 
-      cy.wait( '@getResults' )
+      request = '/3146099';
+      fixture = { fixture: 'document/get-detail.json' };
+      cy.intercept( request, fixture ).as( 'getDetail' );
+
+      cy.intercept( 'GET', '/_suggest/?text=pizza', [] );
+
+      cy.visit(
+        '?searchText=pizza&has_narrative=true&size=10&sort=relevance_desc&tab=List'
+      )
 
       cy.get( '#choose-sort' )
         .should( 'have.value', 'relevance_desc' )
@@ -63,6 +76,8 @@ describe( 'Document View', () => {
         .first()
         .click()
 
+      cy.wait( '@getDetail' )
+
       cy.url()
         .should( 'contain', '/detail' )
 
@@ -70,6 +85,7 @@ describe( 'Document View', () => {
         .contains( 'Back to search results' )
         .click()
 
+      cy.wait( '@getAggsResults' )
       cy.wait( '@getResults' )
 
       cy.get( '#choose-sort' )

@@ -22,7 +22,7 @@ export const RootModal = ( { modalType, modalProps, onClose } ) => {
     const SpecificModal = MODAL_COMPONENTS[modalType]
 
     return (
-      <ReactModal appElement={ document.querySelector( '#root' ) }
+      <ReactModal appElement={ document.querySelector( '#ccdb-ui-root' ) }
                   isOpen={true}
                   contentLabel="CFPB Modal Dialog"
                   className="modal-body"
@@ -33,7 +33,7 @@ export const RootModal = ( { modalType, modalProps, onClose } ) => {
     )
   }
 
-  return <ReactModal appElement={ document.querySelector( '#root' ) }
+  return <ReactModal appElement={ document.querySelector( '#ccdb-ui-root' ) }
                      isOpen={ false }>
   </ReactModal>
 }

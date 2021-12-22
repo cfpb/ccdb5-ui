@@ -98,4 +98,10 @@ function getClientEnvironment(publicUrl) {
   return { raw, stringified };
 }
 
-module.exports = getClientEnvironment;
+module.exports = {
+  getClientEnvironment,
+  ccdbApiUrl: {
+    dev: 'http://localhost:8000/',
+    prod: '/data-research/consumer-complaints/search/api/v1/'
+  }
+};

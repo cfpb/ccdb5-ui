@@ -49,6 +49,9 @@ Thumbs.db
 __pycache__/
 *.py[cod]
 .eggs/
+
+# Environment vars #
+####################
 .env
 
 # Django #
