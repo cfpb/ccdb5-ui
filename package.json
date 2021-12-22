@@ -3,24 +3,43 @@
   "version": "2.4.5",
   "description": "Consumer Complaint Database UI",
   "homepage": "https://www.consumerfinance.gov/",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/cfpb/ccdb5-ui.git"
+  },
+  "license": "CC0-1.0",
   "author": {
     "name": "Consumer Financial Protection Bureau",
     "email": "tech@cfpb.gov",
     "url": "https://cfpb.github.io/"
   },
-  "repository": {
-    "type": "git",
-    "url": "http://github.com/cfpb/ccdb5-ui.git"
-  },
   "files": [
     "dist/*"
   ],
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
-    "access": "public"
+  "scripts": {
+    "build": "node scripts/build.js",
+    "dev-flow": "node scripts/test.js --env=jsdom --coverage --watch",
+    "lint": "./node_modules/eslint/bin/eslint.js --ext .jsx --quiet src/",
+    "release": "yarn run build && release-it --only-version --npm.skipChecks",
+    "start": "node scripts/start.js",
+    "test": "node scripts/test.js --env=jsdom --coverage"
   },
-  "license": "CC0-1.0",
-  "dependencies": {
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/plugin-proposal-class-properties": "^7.10.1",
     "@babel/preset-env": "^7.9.5",
@@ -29,6 +48,8 @@
     "@typescript-eslint/eslint-plugin": "1.13.0",
     "@typescript-eslint/parser": "1.13.0",
     "autoprefixer": "7.1.5",
+    "babel-eslint": "10.0.3",
+    "babel-jest": "^27.4.5",
     "babel-loader": "8.0.6",
     "babel-plugin-named-asset-import": "^0.3.6",
     "babel-runtime": "^6.20.0",
@@ -48,8 +69,10 @@
     "chalk": "2.2.0",
     "connect-history-api-fallback": "1.4.0",
     "core-js": "^2.6.11",
+    "coveralls": "^3.0.9",
     "cross-spawn": "5.1.0",
     "css-loader": "2.1.1",
+    "cypress": "9.1.1",
     "d3": "^5.12.0",
     "d3-selection": "^1.4.0",
     "detect-port": "1.2.1",
@@ -74,6 +97,10 @@
     "identity-obj-proxy": "3.0.0",
     "ignore-loader": "^0.1.2",
     "is-wsl": "^1.1.0",
+    "jest": "27.4.3",
+    "jest-cli": "27.4.3",
+    "jest-resolve": "27.4.2",
+    "jest-watch-typeahead": "1.0.0",
     "json-loader": "0.5.7",
     "less": "^3.11.1",
     "less-loader": "^4.0.5",
@@ -107,6 +134,7 @@
     "redux-devtools-extension": "^2.13.2",
     "redux-mock-store": "^1.5.4",
     "redux-thunk": "^2.2.0",
+    "release-it": "^14.11.8",
     "resolve": "1.12.0",
     "resolve-url-loader": "3.1.0",
     "sass-loader": "7.2.0",
@@ -121,39 +149,8 @@
     "webpack-merge": "^4.2.2",
     "whatwg-fetch": "2.0.3"
   },
-  "devDependencies": {
-    "babel-eslint": "10.0.3",
-    "babel-jest": "^27.4.5",
-    "coveralls": "^3.0.9",
-    "cypress": "9.1.1",
-    "jest": "27.4.3",
-    "jest-cli": "27.4.3",
-    "jest-resolve": "27.4.2",
-    "jest-watch-typeahead": "1.0.0",
-    "release-it": "^14.11.8"
-  },
-  "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom --coverage",
-    "dev-flow": "node scripts/test.js --env=jsdom --coverage --watch",
-    "lint": "./node_modules/eslint/bin/eslint.js --ext .jsx --quiet src/",
-    "prepack": "yarn run build && cp ccdb5_ui/static/*.js dist/",
-    "release": "yarn run prepack && release-it --only-version --npm.skipChecks"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }

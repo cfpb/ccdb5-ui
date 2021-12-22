@@ -54,11 +54,6 @@ __pycache__/
 ####################
 .env
 
-# Django #
-#################
-*.egg-info
-.installed.cfg
-
 # Unit test / coverage reports
 #################
 htmlcov/
@@ -77,12 +72,9 @@ cypress/screenshots/
 # Front-End #
 #############
 node_modules/
-bower_components/
-.grunt/
 src/vendor/
 
 # Build artifacts #
 ###################
 build
 dist
-ccdb5_ui/static
