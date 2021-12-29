@@ -53,12 +53,15 @@ export class Hero extends React.Component {
             </li>
             <li className="m-list_item">
               <a href="https://www.consumerfinance.gov/complaint/data-use/"
-                 target="_blank">
+                 target="_blank"
+                 rel="noopener noreferrer">
                 How we use complaint data
               </a>
             </li>
             <li className="m-list_item">
-              <a href="https://cfpb.github.io/api/ccdb/" target="_blank">
+              <a href="https://cfpb.github.io/api/ccdb/" 
+                 target="_blank"
+                 rel="noopener noreferrer">
                 Technical documentation
               </a>
             </li>

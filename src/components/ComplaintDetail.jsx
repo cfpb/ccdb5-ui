@@ -45,7 +45,8 @@ export class ComplaintDetail extends React.Component {
           </div>
           <div className="meaning flex-fixed">
             <a href="https://www.consumerfinance.gov/complaint/data-use/"
-               target="_blank">
+               target="_blank"
+               rel="noopener noreferrer">
               What do all these data points mean?
             </a>
           </div>

@@ -62,6 +62,7 @@ exports[`initial state renders without crashing 1`] = `
       <a
         href="https://www.consumerfinance.gov/complaint/data-use/"
         target="_blank"
+        rel="noopener noreferrer"
       >
         How we use complaint data
       </a>
@@ -72,6 +73,7 @@ exports[`initial state renders without crashing 1`] = `
       <a
         href="https://cfpb.github.io/api/ccdb/"
         target="_blank"
+        rel="noopener noreferrer"
       >
         Technical documentation
       </a>

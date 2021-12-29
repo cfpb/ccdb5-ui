@@ -24,13 +24,17 @@ export default class MoreAbout extends React.Component {
           <p className="body-copy">
             We only publish the description of what happened if the consumer
             agrees to share it and after we take steps to&nbsp;
-            <a href={urlScrubbing} target="_blank">
+            <a href={urlScrubbing} 
+               target="_blank" 
+               rel="noopener noreferrer">
               remove personal information.
             </a>
           </p>
           <p className="body-copy">
             We don’t publish complaints if they don't meet our&nbsp;
-            <a href={urlCriteria} target="_blank">
+            <a href={urlCriteria} 
+               target="_blank" 
+               rel="noopener noreferrer">
               publication criteria.
             </a>
             &nbsp;Data is generally updated daily.
