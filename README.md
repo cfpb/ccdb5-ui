@@ -83,13 +83,6 @@ yarn run test
 
 Enter `Control-C` to exit interactive watch mode
 
-To run the Python unit tests, first install [Tox](https://tox.readthedocs.io/en/latest/),
-and then run:
-
-```bash
-tox
-```
-
 ## Cypress integration tests
 
 Our browser-based tests check base-line user operations for [consumer complaint search](https://www.consumerfinance.gov/data-research/consumer-complaints/search/). The tests are run against JSON fixtures from the [ccdb5-api](https://github.com/cfpb/ccdb5-api).

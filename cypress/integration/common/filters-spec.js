@@ -79,8 +79,7 @@ describe( 'Filter Panel', () => {
       let fixture = { fixture: 'common/get-geo.json' };
       cy.intercept( request, fixture ).as( 'getGeo' );
 
-      cy.get( 'button.map' )
-        .click();
+      cy.get( 'button.map' ).click();
       cy.wait( '@getGeo' );
 
       const maxDate = moment( new Date() ).format( 'YYYY-MM-DD' );
