@@ -127,8 +127,8 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
       <a
         aria-label="Learn more about Product and Issue changes (opens in new window)"
         href="http://files.consumerfinance.gov/f/documents/201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf"
-        target="_blank"
         rel="noopener noreferrer"
+        target="_blank"
       >
         Learn More
       </a>
