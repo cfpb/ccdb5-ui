@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+import { ccdbApiUrl } from '../../../config/env.js'
+
 describe( 'Document View', () => {
   describe( 'error handling', () => {
     it( 'handles bogus id', () => {
@@ -49,13 +51,9 @@ describe( 'Document View', () => {
       let fixture = { fixture: 'document/get-aggs-results.json' };
       cy.intercept( request, fixture ).as( 'getAggsResults' );
 
-      request = '/?**&field=all&has_narrative=true&search_term=pizza&size=10&sort=relevance_desc';
+      request = '?**&field=all&has_narrative=true&search_term=pizza&size=10&sort=relevance_desc';
       fixture = { fixture: 'document/get-results.json' };
       cy.intercept( request, fixture ).as( 'getResults' );
-
-      request = '/3146099';
-      fixture = { fixture: 'document/get-detail.json' };
-      cy.intercept( request, fixture ).as( 'getDetail' );
 
       cy.intercept( 'GET', '/_suggest/?text=pizza', [] );
 
@@ -72,6 +70,10 @@ describe( 'Document View', () => {
       cy.get( '#filterHasNarrative' )
         .should( 'be.checked' )
 
+      request = `${ccdbApiUrl.dev}3146099`;
+      fixture = { fixture: 'document/get-detail.json' };
+      cy.intercept( request, fixture ).as( 'getDetail' );
+  
       cy.get( '.cards-panel .card-container a' )
         .first()
         .click()
