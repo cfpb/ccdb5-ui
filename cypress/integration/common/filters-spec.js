@@ -12,7 +12,12 @@ describe( 'Filter Panel', () => {
     fixture = { fixture: 'common/get-complaints.json' };
     cy.intercept( request, fixture ).as( 'getComplaints' );
 
+    request = `**/ccdb/metadata.js`;
+    fixture = { fixture: 'metadata.js' };
+    cy.intercept( request, fixture ).as( 'metadata' );
+
     cy.visit( '?tab=List' );
+    cy.wait( '@metadata' );
     cy.wait( '@getAggs' );
     cy.wait( '@getComplaints' );
   } );
@@ -75,12 +80,11 @@ describe( 'Filter Panel', () => {
     } );
 
     it( 'can trigger a pre-selected date range', () => {
-      let request = 'geo/states/?**';
+      let request = '**/geo/states/**';
       let fixture = { fixture: 'common/get-geo.json' };
       cy.intercept( request, fixture ).as( 'getGeo' );
 
-      cy.get( 'button.map' )
-        .click();
+      cy.get( 'button.map' ).click();
       cy.wait( '@getGeo' );
 
       const maxDate = dayjs( new Date() ).format( 'YYYY-MM-DD' );
