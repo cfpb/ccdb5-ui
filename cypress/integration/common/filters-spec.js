@@ -80,7 +80,7 @@ describe( 'Filter Panel', () => {
     } );
 
     it( 'can trigger a pre-selected date range', () => {
-      let request = `**/geo/states/**`;
+      let request = '**/geo/states/**';
       let fixture = { fixture: 'common/get-geo.json' };
       cy.intercept( request, fixture ).as( 'getGeo' );
 

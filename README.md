@@ -52,10 +52,15 @@ This application depends on the [Public Complaints API](https://github.com/cfpb/
 to be available.
 
 For local development, you will need to the following:
-* [Get a local version of consumerfinance.gov running](https://github.com/cfpb/consumerfinance.gov#quickstart)
-* [Fill the local Elasticsearch with data](https://github.com/cfpb/ccdb-data-pipeline)
-* _(optional)_ [Install the API](https://github.com/cfpb/ccdb5-api)
-  * Once it is cloned, make sure the website knows the plugin is available. Look under "Loading Sibling Projects, option 2" [here](https://cfpb.github.io/consumerfinance.gov/development-tips/)
+
+* [Run consumerfinance.gov locally (which includes the API)](https://github.com/cfpb/consumerfinance.gov#quickstart).
+* [Fill the local Elasticsearch with data](https://github.com/cfpb/ccdb-data-pipeline/blob/main/INSTALL.md).
+
+***Note:*** The Public Complaints API runs as part of consumerfinance.gov, but you can run the API as an independent app: 
+
+* Ensure the consumerfinance.gov python container is stopped with `docker-compose stop python`.
+* [Install the API](https://github.com/cfpb/ccdb5-api#setup--running) and run it with `python manage.py runserver`.
+* Edit [`env.js`](https://github.com/cfpb/ccdb5-ui/blob/main/config/env.js#L104) to point  `ccdbApiUrl.dev` to the locally running API (likely at `http://localhost:8000/`).
 
 ###### Code-Build cycle
 
