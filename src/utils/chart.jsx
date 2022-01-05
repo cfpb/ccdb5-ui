@@ -3,7 +3,12 @@
 import { adjustDate, isDateEqual } from './formatDate'
 import { clampDate, shortFormat } from '../utils'
 
-import moment from 'moment-timezone'
+import dayjs from 'dayjs'
+import dayjsTimezone from 'dayjs/plugin/timezone'
+import dayjsUtc from 'dayjs/plugin/utc'
+
+dayjs.extend( dayjsUtc )
+dayjs.extend( dayjsTimezone )
 
 export const getLastDate = ( dataSet, config ) => {
   // take in array of data points
@@ -63,7 +68,7 @@ export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
 
   // this is how we enforce standard tooltip.
   // ci has Africa/Abidjan
-  moment.tz.setDefault( 'America/New_York' );
+  dayjs.tz.setDefault( 'America/New_York' );
 
   const startDate = getTooltipDate( inputDate, dateRange )
 
@@ -71,12 +76,12 @@ export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
 
   switch ( interval ) {
     case 'day':
-      endDate = moment( inputDate )
+      endDate = dayjs( inputDate )
       break;
 
     case 'week':
     case 'year':
-      endDate = moment( inputDate )
+      endDate = dayjs( inputDate )
           .add( 1, interval )
           .subtract( 1, 'day' )
       break;
@@ -84,7 +89,7 @@ export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
     case 'quarter':
     case 'month':
     default:
-      endDate = moment( inputDate )
+      endDate = dayjs( inputDate )
           .startOf( interval )
           .add( 1, interval )
           .endOf( interval )

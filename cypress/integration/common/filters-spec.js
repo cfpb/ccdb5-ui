@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 describe( 'Filter Panel', () => {
   beforeEach( () => {
@@ -83,14 +83,14 @@ describe( 'Filter Panel', () => {
         .click();
       cy.wait( '@getGeo' );
 
-      const maxDate = moment( new Date() ).format( 'YYYY-MM-DD' );
-      let minDate = moment( new Date() ).subtract( 3, 'years' ).format( 'YYYY-MM-DD' );
+      const maxDate = dayjs( new Date() ).format( 'YYYY-MM-DD' );
+      let minDate = dayjs( new Date() ).subtract( 3, 'years' ).format( 'YYYY-MM-DD' );
       cy.get( '.date-ranges .a-btn.range-3y' )
         .contains( '3y' )
         .click();
       cy.url()
         .should( 'include', `date_received_max=${ maxDate }&date_received_min=${ minDate }` );
-      minDate = moment( new Date() ).subtract( 6, 'months' ).format( 'YYYY-MM-DD' );
+      minDate = dayjs( new Date() ).subtract( 6, 'months' ).format( 'YYYY-MM-DD' );
       cy.get( '.date-ranges .a-btn.range-6m' )
         .contains( '6m' )
         .click();

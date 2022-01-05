@@ -4,7 +4,7 @@ import target, {
 import actions from '../../actions'
 import * as types from '../../constants'
 
-import moment from 'moment'
+import dayjs from 'dayjs'
 import { startOfToday } from '../../utils'
 
 const maxDate = startOfToday()
@@ -565,7 +565,7 @@ describe( 'reducer:query', () => {
 
       it( 'clears the default range if the dates are not 3 years apart', () => {
         state.date_received_min = new Date(
-          moment( maxDate ).subtract( 2, 'years' )
+          dayjs( maxDate ).subtract( 2, 'years' )
         )
         expected.dateRange = ''
         expected.date_received_min = state.date_received_min
@@ -585,7 +585,7 @@ describe( 'reducer:query', () => {
 
       it( 'sets the 3m range if the dates are right', () => {
         state.date_received_min = new Date(
-          moment( maxDate ).subtract( 3, 'months' )
+          dayjs( maxDate ).subtract( 3, 'months' )
         )
         expected.dateRange = '3m'
         expected.date_received_min = state.date_received_min
@@ -596,7 +596,7 @@ describe( 'reducer:query', () => {
 
       it( 'sets the 6m range if the dates are right', () => {
         state.date_received_min = new Date(
-          moment( maxDate ).subtract( 6, 'months' )
+          dayjs( maxDate ).subtract( 6, 'months' )
         )
         expected.dateRange = '6m'
         expected.date_received_min = state.date_received_min
@@ -607,7 +607,7 @@ describe( 'reducer:query', () => {
 
       it( 'sets the 1y range if the dates are right', () => {
         state.date_received_min = new Date(
-          moment( maxDate ).subtract( 1, 'year' )
+          dayjs( maxDate ).subtract( 1, 'year' )
         )
         expected.dateRange = '1y'
         expected.date_received_min = state.date_received_min
@@ -1116,7 +1116,7 @@ describe( 'reducer:query', () => {
       } )
 
       it( 'adds dateRange', () => {
-        const min = new Date( moment( maxDate ).subtract( 3, 'months' ) )
+        const min = new Date( dayjs( maxDate ).subtract( 3, 'months' ) )
         action.maxDate = maxDate
         action.minDate = min
         result = target( {}, action )

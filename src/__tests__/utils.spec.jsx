@@ -6,7 +6,7 @@ import {
 } from '../utils'
 import Analytics from '../actions/analytics'
 import { DATE_RANGE_MIN } from '../constants'
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 describe('module::utils', () => {
   describe( 'ariaReadoutNumbers', () => {
@@ -127,13 +127,13 @@ describe('module::utils', () => {
     } );
 
     it( 'returns 3y', () => {
-      start =  new Date( moment( end ).subtract( 3, 'years' ).calendar() )
+      start =  new Date( dayjs( end ).subtract( 3, 'years' ).calendar() )
       let actual = calculateDateRange( start, end )
       expect( actual ).toEqual( '3y' )
     } );
 
     it( 'returns 6m', () => {
-      start =  new Date( moment( end ).subtract( 6, 'months' ).calendar() )
+      start =  new Date( dayjs( end ).subtract( 6, 'months' ).calendar() )
       let actual = calculateDateRange( start, end )
       expect( actual ).toEqual( '6m' )
     } )

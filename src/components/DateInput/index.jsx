@@ -2,8 +2,8 @@
 
 import './DateInput.less'
 import { bindAll, debounce, shortFormat } from '../../utils'
+import dayjs from 'dayjs'
 import iconMap from '../iconMap';
-import moment from 'moment'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -161,11 +161,11 @@ export default class DateInput extends React.Component {
       return ERROR
     }
 
-    if ( props.min && moment( d ).isBefore( props.min, 'day' ) ) {
+    if ( props.min && dayjs( d ).isBefore( props.min, 'day' ) ) {
       return TOO_LOW
     }
 
-    if ( props.max && moment( d ).isAfter( props.max, 'day' ) ) {
+    if ( props.max && dayjs( d ).isAfter( props.max, 'day' ) ) {
       return TOO_HIGH
     }
 
@@ -180,7 +180,7 @@ export default class DateInput extends React.Component {
     }
 
     if ( state.phase === READY ) {
-      state.asDate = moment( v, FORMAT )
+      state.asDate = dayjs( v, FORMAT )
       state.phase = this._validateAsDate( props, state.asDate )
     }
 
