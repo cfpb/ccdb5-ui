@@ -5,11 +5,14 @@ import {
   processErrorMessage
 } from '../utils'
 import Analytics from '../actions/analytics'
+import MockDate from 'mockdate'
 import { DATE_RANGE_MIN } from '../constants'
 import dayjs from 'dayjs'
 import dayjsCalendar from 'dayjs/plugin/calendar'
+import dayjsUtc from 'dayjs/plugin/utc'
 
 dayjs.extend( dayjsCalendar )
+dayjs.extend( dayjsUtc )
 
 describe('module::utils', () => {
   describe( 'ariaReadoutNumbers', () => {
@@ -270,8 +273,7 @@ describe('module::utils', () => {
     } );
 
     it( 'defaults MAX_DATE if the metadata is missing' , () => {
-      jest.spyOn(global.Date, 'now')
-        .mockImplementationOnce( _ => Date.UTC( 2020, 4, 1, 4 ) )
+      MockDate.set( dayjs( '5/1/2020' ).utc() );
 
       const actual = startOfToday();
       expect( actual.getFullYear() ).toEqual( 2020 )
