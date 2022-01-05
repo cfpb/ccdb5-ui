@@ -1,8 +1,10 @@
 // ----------------------------------------------------------------------------
 // Exports
 import dayjs from 'dayjs'
+import dayjsLocalizedFormat from 'dayjs/plugin/localizedFormat'
 import dayjsUtc from 'dayjs/plugin/utc'
 
+dayjs.extend( dayjsLocalizedFormat )
 dayjs.extend( dayjsUtc )
 
 /**

@@ -7,6 +7,9 @@ import {
 import Analytics from '../actions/analytics'
 import { DATE_RANGE_MIN } from '../constants'
 import dayjs from 'dayjs'
+import dayjsCalendar from 'dayjs/plugin/calendar'
+
+dayjs.extend( dayjsCalendar )
 
 describe('module::utils', () => {
   describe( 'ariaReadoutNumbers', () => {
@@ -268,7 +271,7 @@ describe('module::utils', () => {
 
     it( 'defaults MAX_DATE if the metadata is missing' , () => {
       jest.spyOn(global.Date, 'now')
-      .mockImplementationOnce( _ => Date.UTC( 2020, 4, 1, 4 ) )
+        .mockImplementationOnce( _ => Date.UTC( 2020, 4, 1, 4 ) )
 
       const actual = startOfToday();
       expect( actual.getFullYear() ).toEqual( 2020 )
