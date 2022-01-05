@@ -1,6 +1,9 @@
 // ----------------------------------------------------------------------------
 // Exports
 import dayjs from 'dayjs'
+import dayjsUtc from 'dayjs/plugin/utc'
+
+dayjs.extend( dayjsUtc )
 
 /**
  * Function to format/convert a string to format we want
