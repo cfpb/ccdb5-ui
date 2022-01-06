@@ -1,11 +1,14 @@
 /* eslint complexity: ["error", 7] */
 
 import './DateInput.less'
-import { bindAll, debounce, shortFormat } from '../../utils'
+import { bindAll, debounce, shortFormat, validateDate } from '../../utils'
 import dayjs from 'dayjs'
-import iconMap from '../iconMap';
+import dayjsCustomParseFormat from 'dayjs/plugin/customParseFormat'
+import iconMap from '../iconMap'
 import PropTypes from 'prop-types'
 import React from 'react'
+
+dayjs.extend( dayjsCustomParseFormat )
 
 const FORMAT = 'MM-DD-YYYY'
 const ONLY_VALID_SYMBOLS = /^[0-9/-]{1,10}$/
@@ -157,7 +160,7 @@ export default class DateInput extends React.Component {
   }
 
   _validateAsDate( props, d ) {
-    if ( d.isValid() === false ) {
+    if ( dayjs( d, FORMAT, true ).isValid() === false ) {
       return ERROR
     }
 

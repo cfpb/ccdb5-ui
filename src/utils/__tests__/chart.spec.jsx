@@ -143,7 +143,23 @@ describe( 'getTooltipTitle', () => {
   } )
 } )
 
-describe( 'getColorScheme', function () {
+describe( 'getTooltipDate', () => {
+  it( 'returns a short format of a date string', () => {
+    const shortDate = sut.getTooltipDate( 
+      '2021-01-01T00:00:00.000Z', 
+      { from: '2020-12-31T00:00:00.000Z', to: '2021-08-23T00:00:00.000Z' } )
+    expect( shortDate ).toEqual( '1/1/2021' );
+  } )
+
+  it( 'returns a short format of a date string', () => {
+    const shortDate = sut.getTooltipDate( 
+      '2021-01-01T00:00:00.000Z', 
+      { to: '2021-08-23T00:00:00.000Z' } )
+    expect( shortDate ).toEqual( '1/1/2021' );
+  } )
+} )
+
+describe( 'getColorScheme', () => {
   it( 'gets color scheme - default', () => {
     const rowNames = [ { name: 'abc' }, { name: 'alnb' }, { name: 'Complaints' } ]
     const actual = sut.getColorScheme( rowNames, false, 'Overview' )

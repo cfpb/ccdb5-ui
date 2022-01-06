@@ -4,9 +4,11 @@ import { adjustDate, isDateEqual } from './formatDate'
 import { clampDate, shortFormat } from '../utils'
 
 import dayjs from 'dayjs'
+import dayjsQuarterOfYear from 'dayjs/plugin/quarterOfYear'
 import dayjsTimezone from 'dayjs/plugin/timezone'
 import dayjsUtc from 'dayjs/plugin/utc'
 
+dayjs.extend( dayjsQuarterOfYear )
 dayjs.extend( dayjsUtc )
 dayjs.extend( dayjsTimezone )
 
@@ -76,7 +78,7 @@ export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
 
   switch ( interval ) {
     case 'day':
-      endDate = dayjs( inputDate )
+      endDate = dayjs( inputDate ).format()
       break;
 
     case 'week':
@@ -84,6 +86,7 @@ export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
       endDate = dayjs( inputDate )
           .add( 1, interval )
           .subtract( 1, 'day' )
+          .format()
       break;
 
     case 'quarter':
@@ -94,6 +97,7 @@ export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
           .add( 1, interval )
           .endOf( interval )
           .subtract( 1, 'day' )
+          .format()
       break;
   }
 

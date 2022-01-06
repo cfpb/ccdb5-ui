@@ -7,10 +7,12 @@ import { DATE_RANGE_MIN } from '../../constants'
 import DateInput from '../DateInput'
 import dayjs from 'dayjs'
 import dayjsIsBetween from 'dayjs/plugin/isBetween'
+import dayjsCustomParseFormat from 'dayjs/plugin/customParseFormat'
 import iconMap from '../iconMap'
 import PropTypes from 'prop-types'
 import React from 'react'
 
+dayjs.extend( dayjsCustomParseFormat )
 dayjs.extend( dayjsIsBetween )
 
 const WARN_SERIES_BREAK = 'CFPB updated product and issue options' +
