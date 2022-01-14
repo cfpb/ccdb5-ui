@@ -12,7 +12,8 @@ describe('module::domUtils', () => {
       const actual = sut.buildLink('http://example.com')
       expect(actual).toEqual({
         href: 'http://example.com',
-        target: '_blank'
+        target: '_blank',
+        rel: 'noopener noreferrer'
       })
     })
 
@@ -21,6 +22,7 @@ describe('module::domUtils', () => {
       expect(actual).toEqual({
         href: 'http://example.com',
         target: '_blank',
+        rel: 'noopener noreferrer',
         download: 'foo.txt'
       })
     })

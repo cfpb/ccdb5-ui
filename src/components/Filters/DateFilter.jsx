@@ -60,6 +60,7 @@ export class DateFilter extends React.Component {
               <p> { WARN_SERIES_BREAK }
                 <a href={ LEARN_SERIES_BREAK }
                   target="_blank"
+                  rel="noopener noreferrer"
                   aria-label="Learn more about Product and
                   Issue changes (opens in new window)" >
                   Learn More
