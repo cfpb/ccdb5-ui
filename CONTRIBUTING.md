@@ -37,7 +37,7 @@ Ready to publish changes to npm?
 
 1. Ensure you're on `main` and `git pull` to confirm you're up-to-date.
 2. If not done already, set a `GITHUB_TOKEN` in your `.env` file (see
-   https://github.com/settings/tokens/new?scopes=repo&description=release-it
+   https://github.com/settings/tokens/new?scopes=repo&description=ccdb-release-it
    to create the token value).
 3. Source your `.env` with `source ./.env` (if `GITHUB_TOKEN` in unset).
 2. Log into npm with `npm login` (if not already logged in).
