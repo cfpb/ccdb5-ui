@@ -2,10 +2,10 @@ import React from 'react'
 
 export default class MoreAbout extends React.Component {
   render() {
-    const urlScrubbing = 'http://files.consumerfinance.gov/a/assets/' +
+    const urlScrubbing = 'https://files.consumerfinance.gov/a/assets/' +
       '201503_cfpb_Narrative-Scrubbing-Standard.pdf'
 
-    const urlCriteria = 'http://files.consumerfinance.gov/f/' +
+    const urlCriteria = 'https://files.consumerfinance.gov/f/' +
       '201303_cfpb_Final-Policy-Statement-Disclosure-of-Consumer-Complaint-' +
       'Data.pdf'
 
