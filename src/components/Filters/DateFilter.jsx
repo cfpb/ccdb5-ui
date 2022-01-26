@@ -13,7 +13,7 @@ import React from 'react'
 const WARN_SERIES_BREAK = 'CFPB updated product and issue options' +
   ' available to consumers in April 2017 ';
 
-const LEARN_SERIES_BREAK = 'http://files.consumerfinance.gov/f/' +
+const LEARN_SERIES_BREAK = 'https://files.consumerfinance.gov/f/' +
   'documents/201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf';
 
 export class DateFilter extends React.Component {
