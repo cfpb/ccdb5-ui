@@ -95,11 +95,11 @@ export class SearchBar extends React.Component {
               <div className="advanced-container flex-fixed">
               {
                this.state.advancedShown ?
-                 <button className="a-btn a-btn__link o-expandable_cue-close"
+                  <button className="a-btn a-btn__link"
                       onClick={ this._onAdvancedClicked }>
                       Hide advanced search tips
                   </button> :
-                  <button className="a-btn a-btn__link o-expandable_cue-open"
+                  <button className="a-btn a-btn__link"
                       onClick={ this._onAdvancedClicked }>
                       Show advanced search tips
                   </button>
@@ -129,7 +129,8 @@ export class SearchBar extends React.Component {
     this.props.onSearchField( event.target.value )
   }
 
-  _onAdvancedClicked( ) {
+  _onAdvancedClicked( event ) {
+    event.preventDefault()
     this.setState( {
       advancedShown: !this.state.advancedShown
     } )
