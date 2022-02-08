@@ -93,17 +93,9 @@ export class SearchBar extends React.Component {
               </a>
 
               <div className="advanced-container flex-fixed">
-              {
-               this.state.advancedShown ?
-                  <button className="a-btn a-btn__link"
-                      onClick={ this._onAdvancedClicked }>
-                      Hide advanced search tips
-                  </button> :
-                  <button className="a-btn a-btn__link"
-                      onClick={ this._onAdvancedClicked }>
-                      Show advanced search tips
-                  </button>
-              }
+                <button className="a-btn a-btn__link" onClick={ this._onAdvancedClicked }>
+                  { this.state.advancedShown ? 'Hide' : 'Show' } advanced search tips
+                </button>
               </div>
             </div>
           </form>
