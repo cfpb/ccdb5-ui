@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { mount } from 'enzyme'
 import { SearchBar, mapDispatchToProps } from '../Search/SearchBar'
-import * as types from '../../constants'
 
 function setup(initialText) {
   const props = {
@@ -86,9 +85,9 @@ describe('component:SearchBar', () =>{
   it('changes AdvancedShown state from initial false, to true and back', () => {
     const { target } = setup('foo')
     expect(target.state('advancedShown')).toEqual(false);
-    target.instance()._onAdvancedClicked();
+    target.instance()._onAdvancedClicked({ preventDefault: () => {} });
     expect(target.state('advancedShown')).toEqual(true);
-    target.instance()._onAdvancedClicked();
+    target.instance()._onAdvancedClicked({ preventDefault: () => {} });
     expect(target.state('advancedShown')).toEqual(false);
   })
 
