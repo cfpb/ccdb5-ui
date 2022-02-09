@@ -282,7 +282,7 @@ exports[`initial state renders without crashing 1`] = `
                   className="a-btn a-btn__link"
                   onClick={[Function]}
                 >
-                  Show
+                  Show\x20
                   advanced search tips
                 </button>
               </div>
