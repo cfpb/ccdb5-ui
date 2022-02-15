@@ -28,7 +28,8 @@ describe( 'reducer:query', () => {
         lens: 'Overview',
         mapWarningEnabled: true,
         queryString: '?date_received_max=2020-05-05' +
-          '&date_received_min=2017-05-05&field=all',
+          '&date_received_min=2017-05-05&field=all' + 
+          '&lens=overview&trend_depth=5&trend_interval=month',
         searchText: '',
         searchField: 'all',
         page: 1,
@@ -36,7 +37,7 @@ describe( 'reducer:query', () => {
         size: 25,
         sort: 'created_date_desc',
         subLens: '',
-        tab: types.MODE_MAP,
+        tab: 'Trends',
         totalPages: 0,
         trendDepth: 5,
         trendsDateWarningEnabled: false
@@ -372,6 +373,7 @@ describe( 'reducer:query', () => {
         from: 0,
         page: 1,
         searchAfter: '',
+        dataNormalization: undefined,
         enablePer1000: true,
         focus: '',
         mapWarningEnabled: true,
