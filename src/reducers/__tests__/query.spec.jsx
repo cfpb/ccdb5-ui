@@ -373,12 +373,11 @@ describe( 'reducer:query', () => {
         from: 0,
         page: 1,
         searchAfter: '',
-        dataNormalization: undefined,
-        enablePer1000: true,
-        focus: '',
-        mapWarningEnabled: true,
-        tab: 'Map',
-        queryString: ''
+        chartType: "line",
+        focus: 'Yoyo',
+        tab: 'Trends',
+        queryString: '?focus=Yoyo',
+        trendsDateWarningEnabled: false
       } )
     } )
 
