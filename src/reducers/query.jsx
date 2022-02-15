@@ -39,7 +39,7 @@ export const defaultQuery = {
   size: 25,
   sort: 'created_date_desc',
   subLens: '',
-  tab: types.MODE_MAP,
+  tab: types.MODE_TRENDS,
   totalPages: 0,
   trendDepth: 5,
   trendsDateWarningEnabled: false

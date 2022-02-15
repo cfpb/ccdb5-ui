@@ -25,6 +25,7 @@ import RowChart from '../Charts/RowChart'
 import Select from '../RefineBar/Select'
 import Separator from '../RefineBar/Separator'
 import StackedAreaChart from '../Charts/StackedAreaChart'
+import TabbedNavigation from '../TabbedNavigation'
 import TrendDepthToggle from './TrendDepthToggle'
 import { trendsDateWarningDismissed } from '../../actions/view'
 import Warning from '../Warnings/Warning'
@@ -129,6 +130,7 @@ export class TrendsPanel extends React.Component {
     return (
       <section className={ this._className() }>
         <ActionBar/>
+        <TabbedNavigation />
         { trendsDateWarningEnabled &&
             <Warning text={ WARNING_MESSAGE }
                      closeFn={ this.props.onDismissWarning }/> }
