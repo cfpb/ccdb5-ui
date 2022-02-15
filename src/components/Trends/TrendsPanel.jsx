@@ -200,17 +200,24 @@ export class TrendsPanel extends React.Component {
         }
 
 
-        { !companyOverlay && total > 0 &&
+        {!companyOverlay && total > 0 &&
+        <>
           <div className="layout-row">
             <section className="chart">
-              { chartType === 'line' &&
-              <LineChart /> }
-              { chartType === 'area' &&
-              <StackedAreaChart /> }
+              {chartType === 'line' &&
+              <LineChart/>}
+              {chartType === 'area' &&
+              <StackedAreaChart/>}
             </section>
-            { !overview && <ExternalTooltip/> }
+            {!overview && <ExternalTooltip/>}
           </div>
+          <div className="layout-row disclaimer">
+            <strong>Note:&nbsp;</strong>
+            Data from incomplete time intervals are not shown
+          </div>
+        </>
         }
+
         { total > 0 && this._phaseMap() }
         <TrendDepthToggle />
         <Loading isLoading={ isLoading || false }/>

@@ -22,7 +22,6 @@ export const getResetState = () => ( {
   colorMap: {},
   error: false,
   isLoading: false,
-  lastDate: false,
   results: emptyResults(),
   tooltip: false,
   total: 0
@@ -346,9 +345,6 @@ export function processTrends( state, action ) {
     }
   }
 
-  const buckets = aggregations[kR][kR].buckets
-  // get the last date now to save time
-  const lastDate = buckets[buckets.length - 1].key_as_string
   const total = aggregations[kR].doc_count
 
   if ( lens !== 'Overview' ) {
@@ -383,7 +379,6 @@ export function processTrends( state, action ) {
     colorMap,
     error: false,
     isLoading: false,
-    lastDate,
     results,
     total
   }
@@ -419,7 +414,8 @@ export function trendsCallInProcess( state, action ) {
   return {
     ...state,
     activeCall: action.url,
-    isLoading: true
+    isLoading: true,
+    tooltip: false
   }
 }
 

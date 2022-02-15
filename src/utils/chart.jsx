@@ -2,8 +2,12 @@
 /* eslint-disable no-mixed-operators, camelcase, complexity */
 import { adjustDate, isDateEqual } from './formatDate'
 import { clampDate, shortFormat } from '../utils'
-
+import cloneDeep from 'lodash/cloneDeep';
+import dayjs from 'dayjs';
 import moment from 'moment-timezone'
+import utc from 'dayjs/plugin/utc';
+
+dayjs.extend( utc )
 
 export const getLastDate = ( dataSet, config ) => {
   // take in array of data points
@@ -12,7 +16,11 @@ export const getLastDate = ( dataSet, config ) => {
     return null
   }
 
-  const lastDate = config.lastDate
+  const deDuped = [ ...new Set(
+      dataSet.map( o => dayjs( o.date ).toISOString() )
+    )
+  ].sort()
+  const lastDate = deDuped.pop()
   const lastPointValues = dataSet.filter( o => isDateEqual( o.date, lastDate ) )
   return {
     key: lastDate,
@@ -29,7 +37,13 @@ export const getLastLineDate = ( dataSet, config ) => {
     return null
   }
 
-  const lastDate = config.lastDate
+  let dates = []
+  dataSet.dataByTopic.forEach( d => {
+    dates = dates.concat( d.dates )
+  } )
+
+  const deDuped = [ ...new Set( dates.map( o => o.date ) ) ].sort()
+  const lastDate = deDuped.pop()
   const values = dataSet.dataByTopic.map( o => {
     const lastPoint = o.dates.find( v => isDateEqual( v.date, lastDate ) )
     const value = lastPoint ? lastPoint.value : 0
@@ -218,4 +232,69 @@ export const externalTooltipFormatter = tooltip => {
     heading: parts[0] + ':',
     date: parts[1] ? parts[1].trim() : ''
   }
+}
+
+export const pruneIncompleteLineInterval = ( data, dateRange, interval ) => {
+  const { from: dateFrom, to: dateTo } = dateRange;
+  if ( !data.dataByTopic ) {
+    return;
+  }
+
+  const dates = data.dataByTopic[0].dates;
+  // date from chart
+  const startFromChart = data.dataByTopic[0].dates[0].date;
+  const lastFromChart = data.dataByTopic[0].dates[dates.length - 1].date;
+  const completeStartPeriod =
+      dayjs( startFromChart ).utc().startOf( interval.toLowerCase() );
+  const dateRangeFrom = dayjs( dateFrom ).utc();
+  const isSameFrom = dateRangeFrom.isSame( completeStartPeriod, 'day' );
+  // start date from chart same as date range from, then go ahead keep it
+  if ( !isSameFrom ) {
+    data.dataByTopic.forEach( o => {
+      o.dates = o.dates.filter( d => d.date !== startFromChart );
+    } )
+  }
+
+  const completeEndPeriod =
+      dayjs( lastFromChart ).utc().endOf( interval.toLowerCase() );
+  const dateRangeTo = dayjs( dateTo ).utc();
+
+  const isSameTo = dateRangeTo.isSame( completeEndPeriod, 'day' );
+  // last date from chart same as date range to, then go ahead keep it
+  if ( !isSameTo ) {
+    data.dataByTopic.forEach( o => {
+      o.dates = o.dates.filter( d => d.date !== lastFromChart );
+    } )
+  }
+}
+
+export const pruneIncompleteStackedAreaInterval = (
+    data, dateRange, interval ) => {
+  const { from: dateFrom, to: dateTo } = dateRange;
+
+  let filteredData = cloneDeep( data )
+  //  need to rebuild and sort dates in memory
+  const dates = [ ...new Set( filteredData.map( o => o.date ) ) ];
+  dates.sort();
+
+  const startFromChart = dates[0];
+  const lastFromChart = dates[dates.length - 1];
+  const completeStartPeriod =
+      dayjs( startFromChart ).utc().startOf( interval.toLowerCase() );
+  const dateRangeFrom = dayjs( dateFrom ).utc();
+  const isSameFrom = dateRangeFrom.isSame( completeStartPeriod, 'day' );
+  // start date from chart same as date range from, then go ahead keep it
+  if ( !isSameFrom ) {
+    filteredData = filteredData.filter( o => o.date !== startFromChart )
+  }
+
+  const completeEndPeriod =
+      dayjs( lastFromChart ).utc().endOf( interval.toLowerCase() );
+  const dateRangeTo = dayjs( dateTo ).utc();
+  const isSameTo = dateRangeTo.isSame( completeEndPeriod, 'day' );
+  if ( !isSameTo ) {
+    filteredData = filteredData.filter( o => o.date !== lastFromChart )
+  }
+
+  return filteredData;
 }

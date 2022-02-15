@@ -126,6 +126,8 @@ describe( 'component: StackedAreaChart', () => {
         tooltipUpdated={ jest.fn() }
         colorMap={ { foo: 'bar', shi: 'oio' } }
         data={ [ 23, 4, 3 ] }
+        dateRange={{from: '1/1/2021', to:'1/1/2022'}}
+        interval={'Month'}
       /> )
       target._redrawChart = jest.fn()
       const sp = jest.spyOn( target.instance(), '_redrawChart' )
@@ -138,6 +140,8 @@ describe( 'component: StackedAreaChart', () => {
         tooltipUpdated={ jest.fn() }
         colorMap={ { foo: 'bar', shi: 'oio' } }
         data={ [ 23, 4, 3 ] }
+        dateRange={{from: '1/1/2021', to:'1/1/2022'}}
+        interval={'Month'}
         printMode={ 'false' }
       /> )
       target._redrawChart = jest.fn()
@@ -151,6 +155,8 @@ describe( 'component: StackedAreaChart', () => {
         tooltipUpdated={ jest.fn() }
         colorMap={ { foo: 'bar', shi: 'oio' } }
         data={ [ 23, 4, 3 ] }
+        dateRange={{from: '1/1/2021', to:'1/1/2022'}}
+        interval={'Month'}
         printMode={ 'false' }
         width={ 1000 }
       /> )
@@ -205,9 +211,11 @@ describe( 'component: StackedAreaChart', () => {
           from: '',
           to: ''
         },
+        filteredData: [],
         interval: 'Month',
         lens: 'Overview',
         printMode: false,
+        showChart: false,
         tooltip: {},
         width: 1000
       } )
@@ -229,8 +237,10 @@ describe( 'component: StackedAreaChart', () => {
                                             from: '2012',
                                             to: '2020'
                                           } }
+                                          filteredData={ [ 2, 3, 4 ] }
                                           tooltip={ { date: '2000' } }
                                           tooltipUpdated={ cb }
+                                          showChart={true}
       /> )
       const instance = target.instance()
       instance._updateTooltip( { date: '2012', values: [ 1, 2, 3 ] } )
@@ -245,8 +255,10 @@ describe( 'component: StackedAreaChart', () => {
                                             from: '2012',
                                             to: '2020'
                                           } }
+                                          filteredData={ [ 2, 3, 4 ] }
                                           tooltip={ { date: '2000' } }
                                           tooltipUpdated={ cb }
+                                          showChart={true}
       /> )
       const instance = target.instance()
       instance._updateTooltip( { date: '2000', value: 200 } )
