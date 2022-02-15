@@ -1,12 +1,19 @@
 @import (less) "../css/base.less";
 
 .tabbed-navigation {
-  background: @gray-5;
+  margin-top: 30px;
+  border-bottom: 1px solid @gray-20;
   section {
     padding-left: 10px;
     .tab {
       &:focus {
         outline: none;
+      }
+
+      .cf-icon-svg {
+        margin-right: 5px;
+        margin-top: 4px;
+        font-size: 0.8em;
       }
 
       border: none;
@@ -18,12 +25,12 @@
 
       &:not(.active) {
         color: @dark-pacific;
-        background: @white;
+        background: @gray-5;
         border: 1px solid @gray-20;
         border-bottom: none;
 
         &:after {
-          content: "";
+          content: '';
           border-top: solid 1px;
           display: block;
         }
@@ -32,7 +39,7 @@
         padding-top: 8px;
         border: 1px solid @gray-40;
         border-bottom: none;
-        background: @gray-5;
+        background: @white;
         pointer-events: none;
         position: relative;
         top: 1px;

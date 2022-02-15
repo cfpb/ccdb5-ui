@@ -35,15 +35,15 @@ export class ResultsPanel extends React.Component {
     let currentPanel
 
     switch ( this.props.tab ) {
+      case MODE_MAP:
+        currentPanel = <MapPanel/>
+        break
       case MODE_LIST:
         currentPanel = <ListPanel/>
         break
       case MODE_TRENDS:
-        currentPanel = <TrendsPanel/>
-        break
-      case MODE_MAP:
       default:
-        currentPanel = <MapPanel/>
+        currentPanel = <TrendsPanel/>
         break;
     }
 
