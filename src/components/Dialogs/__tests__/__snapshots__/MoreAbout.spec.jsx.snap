@@ -5,12 +5,10 @@ exports[`component::MoreAbout initial state renders without crashing 1`] = `
   className="more-about-modal"
 >
   <div
-    className="header layout-row"
+    className="header"
   >
-    <h3
-      className="flex-all"
-    >
-      More about the complaint database
+    <h3>
+      Things you should know before you use this database
     </h3>
   </div>
   <div
@@ -19,37 +17,38 @@ exports[`component::MoreAbout initial state renders without crashing 1`] = `
     <p
       className="body-copy"
     >
-      We don’t verify all the facts alleged in these complaints, but we do give companies the opportunity to confirm they have a commercial relationship with the consumer before we publish the complaint in this database.
+      This database only includes complaints the CFPB sent to companies and complaints are only published after the company responds, confirming a commercial relationship or after 15 days, whichever comes first. This database does not include complaints referred to other regulators, such as complaints about depository institutions with less than $10 billion in assets.
     </p>
     <p
       className="body-copy"
     >
-      We only publish the description of what happened if the consumer agrees to share it and after we take steps to 
+      This database is not a statistical sample of consumers’ experiences in the marketplace. Complaints are not necessarily representative of all consumers’ experiences with a financial product or company. Company-specific information should be considered in the context of that company’s size and/or market share.
+    </p>
+    <p
+      className="body-copy"
+    >
+      This database only includes a consumer’s description of what happened in their own words if the consumer agrees to share it and after we take steps to 
       <a
-        href="https://files.consumerfinance.gov/a/assets/201503_cfpb_Narrative-Scrubbing-Standard.pdf"
+        href="https://files.consumerfinance.gov/f/documents/201503_cfpb_Narrative-Scrubbing-Standard.pdf"
         rel="noopener noreferrer"
         target="_blank"
       >
-        remove personal information.
+        remove personal information
       </a>
+      .  One consumer’s experience is not necessarily representative of all consumers’ experiences and narratives are not verified before publication.
     </p>
     <p
       className="body-copy"
     >
-      We don’t publish complaints if they don't meet our 
+      This database generally updates daily and doesn’t include complaints that don’t meet our 
       <a
-        href="https://files.consumerfinance.gov/f/201303_cfpb_Final-Policy-Statement-Disclosure-of-Consumer-Complaint-Data.pdf"
+        href="https://files.consumerfinance.gov/f/documents/201503_cfpb_disclosure-of-consumer-complaint-narrative-data.pdf"
         rel="noopener noreferrer"
         target="_blank"
       >
-        publication criteria.
+        publication criteria
       </a>
-       Data is generally updated daily.
-    </p>
-    <p
-      className="body-copy"
-    >
-      Company specific information should be considered in the context of that company's size and/or market share.
+      .
     </p>
   </div>
   <div
