@@ -32,7 +32,7 @@ describe('NarrativesButtons', () => {
   it('should dispatch filter add action', () => {
     spyOnUseSelector.mockReturnValue(false);
     const wrapper = mount(<NarrativesButtons/>);
-    wrapper.find('#refineToggleNarrativesButton').simulate('click');
+    wrapper.find('#refineAddNarrativesButton').simulate('click');
     expect(mockDispatch.mock.calls).toEqual([
       [
         {
@@ -47,7 +47,7 @@ describe('NarrativesButtons', () => {
   it('should dispatch filter remove action', () => {
     spyOnUseSelector.mockReturnValue(true);
     const wrapper = mount(<NarrativesButtons/>);
-    wrapper.find('#refineToggleNoNarrativesButton').simulate('click')
+    wrapper.find('#refineRemoveNarrativesButton').simulate('click')
     expect(mockDispatch.mock.calls).toEqual([
       [
         {
@@ -70,7 +70,7 @@ describe('NarrativesButtons', () => {
   it('skips dispatch when checked', () => {
     spyOnUseSelector.mockReturnValue(true);
     const wrapper = mount(<NarrativesButtons/>);
-    wrapper.find('#refineToggleNarrativesButton').simulate('click');
+    wrapper.find('#refineAddNarrativesButton').simulate('click');
 
     expect(mockDispatch.mock.calls).toEqual([]);
   });

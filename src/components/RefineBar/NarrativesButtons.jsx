@@ -23,14 +23,14 @@ export const NarrativesButtons = () => {
       <section className="m-btn-group">
         <p>Read</p>
         <button
-          id="refineToggleNarrativesButton"
+          id="refineAddNarrativesButton"
           className={ `a-btn toggle-button ${
             isChecked ? 'selected' : 'deselected' }` }
           onClick={ () => _handleAddNarrative() }>
             Only complaints with narratives
         </button>
         <button
-          id="refineToggleNoNarrativesButton"
+          id="refineRemoveNarrativesButton"
           className={ `a-btn toggle-button ${
             isChecked ? 'deselected' : 'selected' }` }
           onClick={ () => _handleRemoveNarrative() }>

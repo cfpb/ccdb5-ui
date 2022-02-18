@@ -3,6 +3,9 @@ describe( 'List View', () => {
   const currentPage = '.m-pagination_label'
   const nextButton = '.m-pagination .m-pagination_btn-next'
   const prevButton = '.m-pagination .m-pagination_btn-prev'
+  const addNarrativesButton = '#refineAddNarrativesButton'
+  const removeNarrativesButton = '#refineRemoveNarrativesButton'
+  const filterHasNarrative = '#filterHasNarrative'
 
   beforeEach( () => {
     let request = '?**&field=all**sort=created_date_desc';
@@ -79,6 +82,40 @@ describe( 'List View', () => {
       cy.url().should( 'contain', 'sort=relevance_desc' )
 
       cy.url().should( 'contain', 'page=1' )
+    } )
+  } )
+
+  describe( 'Narration buttons', () => {
+    it( 'should filter the results to narrative-only results and back', () => {
+      // Initially all is checked.
+      cy.get( addNarrativesButton ).should( 'have.class', 'deselected')
+      cy.get( removeNarrativesButton )
+        .should( 'have.class', 'selected')
+      cy.get( filterHasNarrative ).should('not.be.checked')
+
+      // Click the narrative-only button.
+      cy.get( addNarrativesButton ).click()
+        .should( 'have.class', 'selected')
+      cy.get( removeNarrativesButton )
+        .should( 'have.class', 'deselected')
+
+      cy.get( filterHasNarrative ).should('be.checked')
+
+      // Click the narrative-only button again. There should be no change.
+      cy.get( addNarrativesButton ).click()
+        .should( 'have.class', 'selected')
+      cy.get( removeNarrativesButton )
+        .should( 'have.class', 'deselected')
+
+      cy.get( filterHasNarrative ).should('be.checked')
+
+      // Click the all results button. The narratives should be removed.
+      cy.get( removeNarrativesButton ).click()
+        .should( 'have.class', 'selected')
+      cy.get( addNarrativesButton )
+        .should( 'have.class', 'deselected')
+
+      cy.get( filterHasNarrative ).should('not.be.checked')
     } )
   } )
 
