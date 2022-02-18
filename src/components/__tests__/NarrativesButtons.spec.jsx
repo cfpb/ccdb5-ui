@@ -62,7 +62,7 @@ describe('NarrativesButtons', () => {
   it('skips dispatch when not checked', () => {
     spyOnUseSelector.mockReturnValue(false);
     const wrapper = mount(<NarrativesButtons/>);
-    wrapper.find('#refineToggleNoNarrativesButton').simulate('click');
+    wrapper.find('#refineRemoveNarrativesButton').simulate('click');
 
     expect(mockDispatch.mock.calls).toEqual([]);
   });

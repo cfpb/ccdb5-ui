@@ -250,14 +250,14 @@ exports[`component:Results renders List print mode without crashing 1`] = `
         </p>
         <button
           className="a-btn toggle-button deselected"
-          id="refineToggleNarrativesButton"
+          id="refineAddNarrativesButton"
           onClick={[Function]}
         >
           Only complaints with narratives
         </button>
         <button
           className="a-btn toggle-button selected"
-          id="refineToggleNoNarrativesButton"
+          id="refineRemoveNarrativesButton"
           onClick={[Function]}
         >
           All complaints
@@ -1025,14 +1025,14 @@ exports[`component:Results renders list panel without crashing 1`] = `
         </p>
         <button
           className="a-btn toggle-button deselected"
-          id="refineToggleNarrativesButton"
+          id="refineAddNarrativesButton"
           onClick={[Function]}
         >
           Only complaints with narratives
         </button>
         <button
           className="a-btn toggle-button selected"
-          id="refineToggleNoNarrativesButton"
+          id="refineRemoveNarrativesButton"
           onClick={[Function]}
         >
           All complaints

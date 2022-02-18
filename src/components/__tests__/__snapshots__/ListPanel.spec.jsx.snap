@@ -222,14 +222,14 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
       </p>
       <button
         className="a-btn toggle-button deselected"
-        id="refineToggleNarrativesButton"
+        id="refineAddNarrativesButton"
         onClick={[Function]}
       >
         Only complaints with narratives
       </button>
       <button
         className="a-btn toggle-button selected"
-        id="refineToggleNoNarrativesButton"
+        id="refineRemoveNarrativesButton"
         onClick={[Function]}
       >
         All complaints
@@ -564,14 +564,14 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
       </p>
       <button
         className="a-btn toggle-button deselected"
-        id="refineToggleNarrativesButton"
+        id="refineAddNarrativesButton"
         onClick={[Function]}
       >
         Only complaints with narratives
       </button>
       <button
         className="a-btn toggle-button selected"
-        id="refineToggleNoNarrativesButton"
+        id="refineRemoveNarrativesButton"
         onClick={[Function]}
       >
         All complaints
@@ -1082,14 +1082,14 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
       </p>
       <button
         className="a-btn toggle-button deselected"
-        id="refineToggleNarrativesButton"
+        id="refineAddNarrativesButton"
         onClick={[Function]}
       >
         Only complaints with narratives
       </button>
       <button
         className="a-btn toggle-button selected"
-        id="refineToggleNoNarrativesButton"
+        id="refineRemoveNarrativesButton"
         onClick={[Function]}
       >
         All complaints
@@ -1575,14 +1575,14 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
       </p>
       <button
         className="a-btn toggle-button deselected"
-        id="refineToggleNarrativesButton"
+        id="refineAddNarrativesButton"
         onClick={[Function]}
       >
         Only complaints with narratives
       </button>
       <button
         className="a-btn toggle-button selected"
-        id="refineToggleNoNarrativesButton"
+        id="refineRemoveNarrativesButton"
         onClick={[Function]}
       >
         All complaints
@@ -1874,14 +1874,14 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
       </p>
       <button
         className="a-btn toggle-button deselected"
-        id="refineToggleNarrativesButton"
+        id="refineAddNarrativesButton"
         onClick={[Function]}
       >
         Only complaints with narratives
       </button>
       <button
         className="a-btn toggle-button selected"
-        id="refineToggleNoNarrativesButton"
+        id="refineRemoveNarrativesButton"
         onClick={[Function]}
       >
         All complaints
@@ -2367,14 +2367,14 @@ exports[`component:ListPanel renders without crashing 1`] = `
       </p>
       <button
         className="a-btn toggle-button deselected"
-        id="refineToggleNarrativesButton"
+        id="refineAddNarrativesButton"
         onClick={[Function]}
       >
         Only complaints with narratives
       </button>
       <button
         className="a-btn toggle-button selected"
-        id="refineToggleNoNarrativesButton"
+        id="refineRemoveNarrativesButton"
         onClick={[Function]}
       >
         All complaints
