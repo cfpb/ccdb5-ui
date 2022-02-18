@@ -563,6 +563,29 @@ export function removeAllFilters( state ) {
 }
 
 /**
+* Adds a filter to the current set
+*
+* @param {object} state the current state in the Redux store
+* @param {object} action the payload containing the filter to add
+* @returns {object} the new state for the Redux store
+*/
+function addFilter( state, action ) {
+  const newState = { ...state }
+  if ( action.filterName === 'has_narrative' ) {
+    newState.has_narrative = true;
+  } else if ( action.filterName in newState ) {
+    const idx = newState[action.filterName].indexOf( action.filterValue )
+    if ( idx === -1 ) {
+      newState[action.filterName].push( idx )
+    }
+  } else {
+    newState[action.filterName] = [ action.filterValue ]
+  }
+
+  return newState
+}
+
+/**
 * Removes a filter from the current set
 *
 * @param {object} state the current state in the Redux store
@@ -1058,6 +1081,7 @@ export function _buildHandlerMap() {
   handlers[actions.FILTER_FLAG_CHANGED] = toggleFlagFilter
   handlers[actions.FILTER_MULTIPLE_ADDED] = addMultipleFilters
   handlers[actions.FILTER_MULTIPLE_REMOVED] = removeMultipleFilters
+  handlers[actions.FILTER_ADDED] = addFilter
   handlers[actions.FILTER_REMOVED] = removeFilter
   handlers[actions.FILTER_REPLACED] = replaceFilters
   handlers[actions.FOCUS_CHANGED] = changeFocus

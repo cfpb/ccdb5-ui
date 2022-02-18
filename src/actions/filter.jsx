@@ -8,6 +8,7 @@ export const FILTER_CHANGED = 'FILTER_CHANGED'
 export const FILTER_FLAG_CHANGED = 'FILTER_FLAG_CHANGED'
 export const FILTER_MULTIPLE_ADDED = 'FILTER_MULTIPLE_ADDED'
 export const FILTER_MULTIPLE_REMOVED = 'FILTER_MULTIPLE_REMOVED'
+export const FILTER_ADDED = 'FILTER_ADDED'
 export const FILTER_REMOVED = 'FILTER_REMOVED'
 export const FILTER_REPLACED = 'FILTER_REPLACED'
 
@@ -89,6 +90,22 @@ export function toggleFlagFilter( filterName ) {
   return {
     type: FILTER_FLAG_CHANGED,
     filterName,
+    requery: REQUERY_ALWAYS
+  }
+}
+
+/**
+* Notifies the application that a filter was added
+*
+* @param {string} filterName which filter was clicked
+* @param {string} filterValue the value of the filter that was clicked
+* @returns {string} a packaged payload to be used by Redux reducers
+*/
+export function addFilter( filterName, filterValue ) {
+  return {
+    type: FILTER_ADDED,
+    filterName,
+    filterValue,
     requery: REQUERY_ALWAYS
   }
 }
