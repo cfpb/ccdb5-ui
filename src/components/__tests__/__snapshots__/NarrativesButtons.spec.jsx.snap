@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NarrativesButtons matches snapshot 1`] = `
+<section
+  className="m-btn-group"
+>
+  <p>
+    Read
+  </p>
+  <button
+    className="a-btn toggle-button deselected"
+    id="refineAddNarrativesButton"
+    onClick={[Function]}
+  >
+    Only complaints with narratives
+  </button>
+  <button
+    className="a-btn toggle-button selected"
+    id="refineRemoveNarrativesButton"
+    onClick={[Function]}
+  >
+    All complaints
+  </button>
+</section>
+`;
+
+exports[`NarrativesButtons matches snapshot when false 1`] = `
+<section
+  className="m-btn-group"
+>
+  <p>
+    Read
+  </p>
+  <button
+    className="a-btn toggle-button deselected"
+    id="refineAddNarrativesButton"
+    onClick={[Function]}
+  >
+    Only complaints with narratives
+  </button>
+  <button
+    className="a-btn toggle-button selected"
+    id="refineRemoveNarrativesButton"
+    onClick={[Function]}
+  >
+    All complaints
+  </button>
+</section>
+`;
+
+exports[`NarrativesButtons matches snapshot when true 1`] = `
+<section
+  className="m-btn-group"
+>
+  <p>
+    Read
+  </p>
+  <button
+    className="a-btn toggle-button selected"
+    id="refineAddNarrativesButton"
+    onClick={[Function]}
+  >
+    Only complaints with narratives
+  </button>
+  <button
+    className="a-btn toggle-button deselected"
+    id="refineRemoveNarrativesButton"
+    onClick={[Function]}
+  >
+    All complaints
+  </button>
+</section>
+`;
+
+exports[`NarrativesButtons should render 1`] = `
+<section
+  className="m-btn-group"
+>
+  <p>
+    Read
+  </p>
+  <button
+    className="a-btn toggle-button deselected"
+    id="refineToggleNarrativesButton"
+    onClick={[Function]}
+  >
+    Only complaints with narratives
+  </button>
+  <button
+    className="a-btn toggle-button selected"
+    id="refineToggleNoNarrativesButton"
+    onClick={[Function]}
+  >
+    All complaints
+  </button>
+</section>
+`;
