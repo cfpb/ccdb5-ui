@@ -30,7 +30,8 @@ export class PerCapita extends React.Component {
           onClick={ () => this._setNormalization( GEO_NORM_NONE ) }>Complaints
         </button>
         <button
-          className={ 'a-btn toggle-button capita ' + this._getPerCapButtonClass() }
+          className={ 'a-btn toggle-button capita ' +
+            this._getPerCapButtonClass() }
           onClick={ () =>
               this.props.enablePer1000 &&
               this._setNormalization( GEO_NORM_PER1000 ) }>
