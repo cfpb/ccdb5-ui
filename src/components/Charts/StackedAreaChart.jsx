@@ -1,8 +1,13 @@
 import './StackedAreaChart.less'
 import * as colors from '../../constants/colors'
 import * as d3 from 'd3'
-import { connect } from 'react-redux'
-import { getLastDate } from '../../utils/chart'
+import {
+  getLastDate,
+  pruneIncompleteStackedAreaInterval
+} from '../../utils/chart'
+import cloneDeep from 'lodash/cloneDeep';
+import { connect } from 'react-redux';
+import ErrorBlock from '../Warnings/Error';
 import { hashObject } from '../../utils'
 import { isDateEqual } from '../../utils/formatDate'
 import React from 'react'
@@ -23,8 +28,8 @@ export class StackedAreaChart extends React.Component {
   componentDidUpdate( prevProps ) {
     const props = this.props
     if ( hashObject( prevProps.data ) !== hashObject( props.data ) ||
-      hashObject( prevProps.width ) !== hashObject( props.width ) ||
-      hashObject( prevProps.printMode ) !== hashObject( props.printMode ) ) {
+       prevProps.width !== props.width ||
+       prevProps.printMode !== props.printMode ) {
       this._redrawChart()
     }
   }
@@ -51,10 +56,9 @@ export class StackedAreaChart extends React.Component {
 
 
   _redrawChart() {
-    const {
-      colorMap, data, dateRange, interval, lastDate
-    } = this.props
-    if ( !data || !data.length ) {
+    const { colorMap, dateRange, filteredData, interval, showChart
+      } = this.props;
+    if ( !showChart ) {
       return
     }
 
@@ -62,8 +66,9 @@ export class StackedAreaChart extends React.Component {
     const container = d3.select( chartID )
     const width = this._chartWidth( chartID )
     d3.select( chartID + ' .stacked-area' ).remove()
+
     const stackedAreaChart = stackedArea()
-    const colorData = data.filter(
+    const colorData = filteredData.filter(
       item => item.name !== 'Other'
     )
     const colorScheme = [ ...new Set( colorData.map( item => item.name ) ) ]
@@ -82,25 +87,26 @@ export class StackedAreaChart extends React.Component {
       .colorSchema( colorScheme )
       .on( 'customMouseMove', this._updateTooltip )
 
-    container.datum( data ).call( stackedAreaChart )
+    container.datum( cloneDeep( filteredData ) ).call( stackedAreaChart )
 
     const config = {
       dateRange,
-      interval,
-      lastDate
+      interval
     }
 
-    this.props.tooltipUpdated( getLastDate( data, config ) )
+    this.props.tooltipUpdated( getLastDate( filteredData, config ) );
   }
 
   render() {
     return (
+        this.props.showChart ?
       <div className={'chart-wrapper'}>
         <p className={ 'y-axis-label' }>Complaints</p>
         <div id="stacked-area-chart">
         </div>
         <p className={ 'x-axis-label' }>Date received by the CFPB</p>
-      </div>
+      </div> : <ErrorBlock text={'Insufficient data to display chart of your ' +
+            'selected date range'} />
     )
   }
 }
@@ -115,20 +121,31 @@ export const mapDispatchToProps = dispatch => ( {
   }
 } )
 
-export const mapStateToProps = state => ( {
-  colorMap: state.trends.colorMap,
-  data: state.trends.results.dateRangeArea,
-  dateRange:  {
+export const mapStateToProps = state => {
+  const data = state.trends.results.dateRangeArea;
+  const dateRange = {
     from: state.query.date_received_min,
     to: state.query.date_received_max
-  },
-  interval: state.query.dateInterval,
-  lastDate: state.trends.lastDate,
-  lens: state.trends.lens,
-  printMode: state.view.printMode,
-  tooltip: state.trends.tooltip,
-  width: state.view.width
-} )
+  };
+  const interval = state.query.dateInterval;
+  const processData = cloneDeep( data )
+  const filteredData = pruneIncompleteStackedAreaInterval(
+      processData, dateRange, interval );
+  const showChart = filteredData.length > 2
+
+  return {
+    colorMap: state.trends.colorMap,
+    data,
+    dateRange,
+    filteredData,
+    interval,
+    lens: state.trends.lens,
+    printMode: state.view.printMode,
+    tooltip: state.trends.tooltip,
+    showChart,
+    width: state.view.width
+  }
+}
 
 export default connect( mapStateToProps,
   mapDispatchToProps )( StackedAreaChart )

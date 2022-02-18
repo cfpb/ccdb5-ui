@@ -38,7 +38,6 @@ describe( 'reducer:trends', () => {
         error: false,
         focus: '',
         isLoading: false,
-        lastDate: false,
         lens: 'Overview',
         results: {
           dateRangeArea: [],
@@ -292,7 +291,8 @@ describe( 'reducer:trends', () => {
     expect( target( {}, action ) ).toEqual( {
       activeCall: 'http://www.example.org',
       chartType: 'line',
-      isLoading: true
+      isLoading: true,
+      tooltip: false
     } )
   } )
 
@@ -315,7 +315,6 @@ describe( 'reducer:trends', () => {
         colorMap: {},
         error: { message: 'foo bar', name: 'ErrorTypeName',  stack: 'trace' },
         isLoading: false,
-        lastDate: false,
         results: {
           dateRangeArea: [],
           dateRangeLine: []
@@ -415,7 +414,6 @@ describe( 'reducer:trends', () => {
         error: false,
         focus: '',
         isLoading: false,
-        lastDate: false,
         lens: 'Product',
         results: {
           dateRangeArea: [],
