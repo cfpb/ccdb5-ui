@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`initial state checks and disables the filter when searching narratives 1`] = `
+<section
+  className="m-btn-group"
+>
+  <p>
+    Read
+  </p>
+  <button
+    className="a-btn toggle-button selected"
+    id="refineToggleNarrativesButton"
+    onClick={[Function]}
+  >
+    Only complaints with narratives
+  </button>
+  <button
+    className="a-btn toggle-button deselected"
+    id="refineToggleNoNarrativesButton"
+    onClick={[Function]}
+  >
+    All complaints
+  </button>
+</section>
+`;
+
+exports[`initial state pre-check filter based on query 1`] = `
+<section
+  className="m-btn-group"
+>
+  <p>
+    Read
+  </p>
+  <button
+    className="a-btn toggle-button selected"
+    id="refineToggleNarrativesButton"
+    onClick={[Function]}
+  >
+    Only complaints with narratives
+  </button>
+  <button
+    className="a-btn toggle-button deselected"
+    id="refineToggleNoNarrativesButton"
+    onClick={[Function]}
+  >
+    All complaints
+  </button>
+</section>
+`;
+
+exports[`initial state renders without crashing 1`] = `
+<section
+  className="m-btn-group"
+>
+  <p>
+    Read
+  </p>
+  <button
+    className="a-btn toggle-button deselected"
+    id="refineToggleNarrativesButton"
+    onClick={[Function]}
+  >
+    Only complaints with narratives
+  </button>
+  <button
+    className="a-btn toggle-button selected"
+    id="refineToggleNoNarrativesButton"
+    onClick={[Function]}
+  >
+    All complaints
+  </button>
+</section>
+`;
