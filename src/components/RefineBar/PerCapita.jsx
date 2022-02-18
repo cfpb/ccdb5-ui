@@ -1,4 +1,3 @@
-import './PerCapita.less'
 import { GEO_NORM_NONE, GEO_NORM_PER1000 } from '../../constants'
 import { connect } from 'react-redux'
 import { dataNormalizationChanged } from '../../actions/map';
@@ -24,21 +23,19 @@ export class PerCapita extends React.Component {
   }
   render() {
     return (
-      <section className="per-capita">
-        <div className="per-capita m-btn-group">
-          <p>Map shading</p>
-          <button
-            className={ 'a-btn raw ' + this._getRawButtonClass() }
-            onClick={ () => this._setNormalization( GEO_NORM_NONE ) }>Complaints
-          </button>
-          <button
-            className={ 'a-btn capita ' + this._getPerCapButtonClass() }
-            onClick={ () =>
-                this.props.enablePer1000 &&
-                this._setNormalization( GEO_NORM_PER1000 ) }>
-            Complaints per 1,000 <span>population</span>
-          </button>
-        </div>
+      <section className="m-btn-group">
+        <p>Map shading</p>
+        <button
+          className={ 'a-btn toggle-button raw ' + this._getRawButtonClass() }
+          onClick={ () => this._setNormalization( GEO_NORM_NONE ) }>Complaints
+        </button>
+        <button
+          className={ 'a-btn toggle-button capita ' + this._getPerCapButtonClass() }
+          onClick={ () =>
+              this.props.enablePer1000 &&
+              this._setNormalization( GEO_NORM_PER1000 ) }>
+          Complaints per 1,000 <span>population</span>
+        </button>
       </section>
     )
   }
