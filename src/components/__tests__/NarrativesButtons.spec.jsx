@@ -1,88 +1,77 @@
-import ReduxNarrativesButtons, { NarrativesButtons, mapDispatchToProps } from '../RefineBar/NarrativesButtons'
-import configureMockStore from 'redux-mock-store'
-import { mount } from 'enzyme'
-import { Provider } from 'react-redux'
-import React from 'react'
-import renderer from 'react-test-renderer'
-import thunk from 'redux-thunk'
+import React from 'react';
+import {mount} from 'enzyme';
+import * as redux from 'react-redux';
+import {NarrativesButtons} from '../RefineBar/NarrativesButtons';
 
-function setupEnzyme(initialProps={}) {
-  const props = Object.assign({
-    toggleFlag: jest.fn(),
-    options: {
-      isChecked: true,
-      phase: ''
-    }
-  }, initialProps)
+describe('NarrativesButtons', () => {
+  let spyOnUseSelector;
+  let spyOnUseDispatch;
+  let mockDispatch;
 
-  const target = mount(<NarrativesButtons {...props} />);
+  beforeEach(() => {
+    // Mock useSelector hook
+    spyOnUseSelector = jest.spyOn(redux, 'useSelector');
 
-  return {
-    props,
-    target
-  }
-}
-
-function setupSnapshot(query={}) {
-  const middlewares = [thunk]
-  const mockStore = configureMockStore(middlewares)
-  const store = mockStore({
-    query
-  })
-
-  return renderer.create(
-    <Provider store={store}>
-      <ReduxNarrativesButtons />
-    </Provider>
-  )
-}
-
-describe('initial state', () => {
-  it('renders without crashing', () => {
-    const target = setupSnapshot()
-    const tree = target.toJSON()
-    expect(tree).toMatchSnapshot()
+    // Mock useDispatch hook
+    spyOnUseDispatch = jest.spyOn(redux, 'useDispatch');
+    // Mock dispatch function returned from useDispatch
+    mockDispatch = jest.fn();
+    spyOnUseDispatch.mockReturnValue(mockDispatch);
   });
 
-  it('pre-check filter based on query', () => {
-    const target = setupSnapshot({
-      has_narrative: true
-    })
-    const tree = target.toJSON()
-    expect(tree).toMatchSnapshot()
-  })
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
 
-  it('checks and disables the filter when searching narratives', () => {
-    const target = setupSnapshot({
-      searchField: 'complaint_what_happened'
-    })
-    const tree = target.toJSON()
-    expect(tree).toMatchSnapshot()
-  })
+  it('should render', () => {
+    spyOnUseSelector.mockReturnValue(false);
+    const wrapper = mount(<NarrativesButtons />);
+    expect(wrapper.exists()).toBe(true);
+  });
+
+  it('should dispatch filter add action', () => {
+    spyOnUseSelector.mockReturnValue(false);
+    const wrapper = mount(<NarrativesButtons/>);
+    wrapper.find('#refineToggleNarrativesButton').simulate('click');
+    expect(mockDispatch.mock.calls).toEqual([
+      [
+        {
+          "filterName": "has_narrative",
+          "filterValue": "",
+          "requery": "REQUERY_ALWAYS",
+          "type": "FILTER_ADDED"
+        }]
+    ]);
+  });
+
+  it('should dispatch filter remove action', () => {
+    spyOnUseSelector.mockReturnValue(true);
+    const wrapper = mount(<NarrativesButtons/>);
+    wrapper.find('#refineToggleNoNarrativesButton').simulate('click')
+    expect(mockDispatch.mock.calls).toEqual([
+      [
+        {
+          "filterName": "has_narrative",
+          "filterValue": "",
+          "requery": "REQUERY_ALWAYS",
+          "type": "FILTER_REMOVED"
+        }]
+    ]);
+  });
+
+  it('skips dispatch when not checked', () => {
+    spyOnUseSelector.mockReturnValue(false);
+    const wrapper = mount(<NarrativesButtons/>);
+    wrapper.find('#refineToggleNoNarrativesButton').simulate('click');
+
+    expect(mockDispatch.mock.calls).toEqual([]);
+  });
+
+  it('skips dispatch when checked', () => {
+    spyOnUseSelector.mockReturnValue(true);
+    const wrapper = mount(<NarrativesButtons/>);
+    wrapper.find('#refineToggleNarrativesButton').simulate('click');
+
+    expect(mockDispatch.mock.calls).toEqual([]);
+  });
 });
-
-describe('component::NarrativesButtons', () => {
-  describe('flag filter toggled', () => {
-    it('triggers an update when narratives button is clicked', () => {
-      const { target, props } = setupEnzyme()
-      const narratives = target.find('#refineToggleNarrativesButton')
-      narratives.simulate('click')
-      expect(props.toggleFlag).toHaveBeenCalled()
-    })
-
-    it('triggers an update when all complaints button is clicked', () => {
-      const { target, props } = setupEnzyme()
-      const noNarratives = target.find('#refineToggleNoNarrativesButton')
-      noNarratives.simulate('click')
-      expect(props.toggleFlag).toHaveBeenCalled()
-    })
-  })
-
-  describe('mapDispatchToProps', () => {
-    it('hooks into toggleFlag', () => {
-      const dispatch = jest.fn()
-      mapDispatchToProps(dispatch).toggleFlag()
-      expect(dispatch.mock.calls.length).toEqual(1)
-    })
-  })
-})
