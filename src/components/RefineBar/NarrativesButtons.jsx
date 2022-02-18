@@ -1,72 +1,41 @@
 import { addFilter, removeFilter } from '../../actions/filter'
-import { coalesce } from '../../utils'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
+import { useDispatch, useSelector } from 'react-redux'
 import React from 'react'
 
 const FIELD_NAME = 'has_narrative'
 
-export class NarrativesButtons extends React.Component {
-
-  _handleAddNarrative() {
-    if ( !this.props.isChecked ) {
-      this.props.addNarrativeFilter()
+export const NarrativesButtons = () => {
+  const isChecked = useSelector( state => state.query[FIELD_NAME] || false );
+  const dispatch = useDispatch();
+  const _handleAddNarrative = () => {
+    if ( !isChecked ) {
+      dispatch( addFilter( FIELD_NAME, '' ) );
     }
   }
 
-  _handleRemoveNarrative() {
-    if ( this.props.isChecked ) {
-      this.props.removeNarrativeFilter()
+  const _handleRemoveNarrative = () => {
+    if ( isChecked ) {
+      dispatch( removeFilter( FIELD_NAME, '' ) )
     }
   }
 
-  render() {
-    const { isChecked } = this.props;
-    return (
+  return (
       <section className="m-btn-group">
         <p>Read</p>
         <button
           id="refineToggleNarrativesButton"
           className={ `a-btn toggle-button ${
             isChecked ? 'selected' : 'deselected' }` }
-          onClick={ () => this._handleAddNarrative() }>
+          onClick={ () => _handleAddNarrative() }>
             Only complaints with narratives
         </button>
         <button
           id="refineToggleNoNarrativesButton"
           className={ `a-btn toggle-button ${
             isChecked ? 'deselected' : 'selected' }` }
-          onClick={ () => this._handleRemoveNarrative() }>
+          onClick={ () => _handleRemoveNarrative() }>
           All complaints
         </button>
       </section>
-    )
-  }
+  )
 }
-
-// ----------------------------------------------------------------------------
-// Meta
-
-NarrativesButtons.propTypes = {
-  isChecked: PropTypes.bool
-}
-
-export const mapStateToProps = state => {
-  const isChecked = coalesce( state.query, FIELD_NAME, false );
-
-  return {
-    isChecked
-  }
-}
-
-export const mapDispatchToProps = dispatch => ( {
-  addNarrativeFilter: () => {
-    dispatch( addFilter( FIELD_NAME ) )
-  },
-  removeNarrativeFilter: () => {
-    dispatch( removeFilter( FIELD_NAME ) )
-  }
-} )
-
-export default connect(
-  mapStateToProps, mapDispatchToProps )( NarrativesButtons )
