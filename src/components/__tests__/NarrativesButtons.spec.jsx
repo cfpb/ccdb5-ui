@@ -1,4 +1,5 @@
 import React from 'react';
+import renderer from 'react-test-renderer';
 import {mount} from 'enzyme';
 import * as redux from 'react-redux';
 import {NarrativesButtons} from '../RefineBar/NarrativesButtons';
@@ -28,6 +29,23 @@ describe('NarrativesButtons', () => {
     const wrapper = mount(<NarrativesButtons />);
     expect(wrapper.exists()).toBe(true);
   });
+
+  it('matches snapshot when false', ()=>{
+    spyOnUseSelector.mockReturnValue(false);
+    const tree = renderer
+        .create(<NarrativesButtons/>)
+        .toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
+  it('matches snapshot when true', ()=>{
+    spyOnUseSelector.mockReturnValue(true);
+    const tree = renderer
+        .create(<NarrativesButtons/>)
+        .toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
 
   it('should dispatch filter add action', () => {
     spyOnUseSelector.mockReturnValue(false);

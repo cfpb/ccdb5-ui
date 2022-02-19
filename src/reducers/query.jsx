@@ -576,7 +576,7 @@ function addFilter( state, action ) {
   } else if ( action.filterName in newState ) {
     const idx = newState[action.filterName].indexOf( action.filterValue )
     if ( idx === -1 ) {
-      newState[action.filterName].push( idx )
+      newState[action.filterName].push( action.filterValue )
     }
   } else {
     newState[action.filterName] = [ action.filterValue ]
@@ -1133,6 +1133,7 @@ export default ( state = defaultQuery, action ) => {
     actions.FILTER_FLAG_CHANGED,
     actions.FILTER_MULTIPLE_ADDED,
     actions.FILTER_MULTIPLE_REMOVED,
+    actions.FILTER_ADDED,
     actions.FILTER_REMOVED,
     actions.FILTER_REPLACED,
     actions.SEARCH_FIELD_CHANGED,
