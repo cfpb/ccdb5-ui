@@ -105,8 +105,8 @@ export class StackedAreaChart extends React.Component {
         <div id="stacked-area-chart">
         </div>
         <p className={ 'x-axis-label' }>Date received by the CFPB</p>
-      </div> : <ErrorBlock text={'Insufficient data to display chart of your ' +
-            'selected date range'} />
+      </div> : <ErrorBlock text={'Cannot display chart. Adjust your date ' +
+            'range or date interval.'} />
     )
   }
 }
