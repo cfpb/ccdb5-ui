@@ -447,7 +447,7 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
           <div
             className="h4 m-notification_message"
           >
-            Insufficient data to display chart of your selected date range
+            Cannot display chart. Adjust your date range or date interval.
           </div>
         </div>
       </div>
@@ -873,7 +873,7 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
           <div
             className="h4 m-notification_message"
           >
-            Insufficient data to display chart of your selected date range
+            Cannot display chart. Adjust your date range or date interval.
           </div>
         </div>
       </div>
@@ -1661,7 +1661,7 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
           <div
             className="h4 m-notification_message"
           >
-            Insufficient data to display chart of your selected date range
+            Cannot display chart. Adjust your date range or date interval.
           </div>
         </div>
       </div>
@@ -2087,7 +2087,7 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
           <div
             className="h4 m-notification_message"
           >
-            Insufficient data to display chart of your selected date range
+            Cannot display chart. Adjust your date range or date interval.
           </div>
         </div>
       </div>
@@ -2431,7 +2431,7 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
           <div
             className="h4 m-notification_message"
           >
-            Insufficient data to display chart of your selected date range
+            Cannot display chart. Adjust your date range or date interval.
           </div>
         </div>
       </div>
@@ -2758,7 +2758,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
           <div
             className="h4 m-notification_message"
           >
-            Insufficient data to display chart of your selected date range
+            Cannot display chart. Adjust your date range or date interval.
           </div>
         </div>
       </div>
@@ -3084,7 +3084,7 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
           <div
             className="h4 m-notification_message"
           >
-            Insufficient data to display chart of your selected date range
+            Cannot display chart. Adjust your date range or date interval.
           </div>
         </div>
       </div>

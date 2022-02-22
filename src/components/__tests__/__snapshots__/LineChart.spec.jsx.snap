@@ -19,7 +19,7 @@ exports[`component: LineChart initial state renders data lens without crashing 1
     <div
       className="h4 m-notification_message"
     >
-      Insufficient data to display chart of your selected date range
+      Cannot display chart. Adjust your date range or date interval.
     </div>
   </div>
 </div>
@@ -44,7 +44,7 @@ exports[`component: LineChart initial state renders without crashing 1`] = `
     <div
       className="h4 m-notification_message"
     >
-      Insufficient data to display chart of your selected date range
+      Cannot display chart. Adjust your date range or date interval.
     </div>
   </div>
 </div>
