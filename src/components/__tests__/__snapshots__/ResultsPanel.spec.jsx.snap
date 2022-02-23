@@ -242,6 +242,27 @@ exports[`component:Results renders List print mode without crashing 1`] = `
           </option>
         </select>
       </section>
+      <section
+        className="m-btn-group"
+      >
+        <p>
+          Read
+        </p>
+        <button
+          className="a-btn toggle-button deselected"
+          id="refineAddNarrativesButton"
+          onClick={[Function]}
+        >
+          Only complaints with narratives
+        </button>
+        <button
+          className="a-btn toggle-button selected"
+          id="refineRemoveNarrativesButton"
+          onClick={[Function]}
+        >
+          All complaints
+        </button>
+      </section>
     </div>
     <ul
       className="cards-panel"
@@ -707,30 +728,26 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
         </button>
       </section>
       <section
-        className="per-capita"
+        className="m-btn-group"
       >
-        <div
-          className="per-capita m-btn-group"
+        <p>
+          Map shading
+        </p>
+        <button
+          className="a-btn toggle-button raw deselected"
+          onClick={[Function]}
         >
-          <p>
-            Map shading
-          </p>
-          <button
-            className="a-btn raw deselected"
-            onClick={[Function]}
-          >
-            Complaints
-          </button>
-          <button
-            className="a-btn capita a-btn__disabled"
-            onClick={[Function]}
-          >
-            Complaints per 1,000 
-            <span>
-              population
-            </span>
-          </button>
-        </div>
+          Complaints
+        </button>
+        <button
+          className="a-btn toggle-button capita a-btn__disabled"
+          onClick={[Function]}
+        >
+          Complaints per 1,000 
+          <span>
+            population
+          </span>
+        </button>
       </section>
     </div>
     <div>
@@ -999,6 +1016,27 @@ exports[`component:Results renders list panel without crashing 1`] = `
             Relevance (asc)
           </option>
         </select>
+      </section>
+      <section
+        className="m-btn-group"
+      >
+        <p>
+          Read
+        </p>
+        <button
+          className="a-btn toggle-button deselected"
+          id="refineAddNarrativesButton"
+          onClick={[Function]}
+        >
+          Only complaints with narratives
+        </button>
+        <button
+          className="a-btn toggle-button selected"
+          id="refineRemoveNarrativesButton"
+          onClick={[Function]}
+        >
+          All complaints
+        </button>
       </section>
     </div>
     <ul
@@ -1428,30 +1466,26 @@ exports[`component:Results renders map panel without crashing 1`] = `
         </button>
       </section>
       <section
-        className="per-capita"
+        className="m-btn-group"
       >
-        <div
-          className="per-capita m-btn-group"
+        <p>
+          Map shading
+        </p>
+        <button
+          className="a-btn toggle-button raw deselected"
+          onClick={[Function]}
         >
-          <p>
-            Map shading
-          </p>
-          <button
-            className="a-btn raw deselected"
-            onClick={[Function]}
-          >
-            Complaints
-          </button>
-          <button
-            className="a-btn capita a-btn__disabled"
-            onClick={[Function]}
-          >
-            Complaints per 1,000 
-            <span>
-              population
-            </span>
-          </button>
-        </div>
+          Complaints
+        </button>
+        <button
+          className="a-btn toggle-button capita a-btn__disabled"
+          onClick={[Function]}
+        >
+          Complaints per 1,000 
+          <span>
+            population
+          </span>
+        </button>
       </section>
     </div>
     <div>

@@ -167,30 +167,26 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
       </button>
     </section>
     <section
-      className="per-capita"
+      className="m-btn-group"
     >
-      <div
-        className="per-capita m-btn-group"
+      <p>
+        Map shading
+      </p>
+      <button
+        className="a-btn toggle-button raw deselected"
+        onClick={[Function]}
       >
-        <p>
-          Map shading
-        </p>
-        <button
-          className="a-btn raw deselected"
-          onClick={[Function]}
-        >
-          Complaints
-        </button>
-        <button
-          className="a-btn capita deselected"
-          onClick={[Function]}
-        >
-          Complaints per 1,000 
-          <span>
-            population
-          </span>
-        </button>
-      </div>
+        Complaints
+      </button>
+      <button
+        className="a-btn toggle-button capita deselected"
+        onClick={[Function]}
+      >
+        Complaints per 1,000 
+        <span>
+          population
+        </span>
+      </button>
     </section>
   </div>
   <div>
@@ -436,30 +432,26 @@ exports[`component:MapPanel renders warning without crashing 1`] = `
       </button>
     </section>
     <section
-      className="per-capita"
+      className="m-btn-group"
     >
-      <div
-        className="per-capita m-btn-group"
+      <p>
+        Map shading
+      </p>
+      <button
+        className="a-btn toggle-button raw deselected"
+        onClick={[Function]}
       >
-        <p>
-          Map shading
-        </p>
-        <button
-          className="a-btn raw deselected"
-          onClick={[Function]}
-        >
-          Complaints
-        </button>
-        <button
-          className="a-btn capita a-btn__disabled"
-          onClick={[Function]}
-        >
-          Complaints per 1,000 
-          <span>
-            population
-          </span>
-        </button>
-      </div>
+        Complaints
+      </button>
+      <button
+        className="a-btn toggle-button capita a-btn__disabled"
+        onClick={[Function]}
+      >
+        Complaints per 1,000 
+        <span>
+          population
+        </span>
+      </button>
     </section>
   </div>
   <div>
@@ -668,30 +660,26 @@ exports[`component:MapPanel renders without crashing 1`] = `
       </button>
     </section>
     <section
-      className="per-capita"
+      className="m-btn-group"
     >
-      <div
-        className="per-capita m-btn-group"
+      <p>
+        Map shading
+      </p>
+      <button
+        className="a-btn toggle-button raw deselected"
+        onClick={[Function]}
       >
-        <p>
-          Map shading
-        </p>
-        <button
-          className="a-btn raw deselected"
-          onClick={[Function]}
-        >
-          Complaints
-        </button>
-        <button
-          className="a-btn capita deselected"
-          onClick={[Function]}
-        >
-          Complaints per 1,000 
-          <span>
-            population
-          </span>
-        </button>
-      </div>
+        Complaints
+      </button>
+      <button
+        className="a-btn toggle-button capita deselected"
+        onClick={[Function]}
+      >
+        Complaints per 1,000 
+        <span>
+          population
+        </span>
+      </button>
     </section>
   </div>
   <div>

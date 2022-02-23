@@ -69,6 +69,20 @@ describe('action:filterActions', () => {
     })
   })
 
+  describe('addFilter', () => {
+    it('creates a simple action', () => {
+        const filterName = 'timely'
+        const filterValue = 'Yes'
+        const expectedAction = {
+          type: sut.FILTER_ADDED,
+          filterName,
+          filterValue,
+          requery: REQUERY_ALWAYS
+        }
+        expect(sut.addFilter(filterName, filterValue)).toEqual( expectedAction );
+    })
+  })
+
   describe('removeFilter', () => {
     it('creates a simple action', () => {
         const filterName = 'timely'
