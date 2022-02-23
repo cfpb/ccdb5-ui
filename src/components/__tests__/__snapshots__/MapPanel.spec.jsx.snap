@@ -173,7 +173,7 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
         Map shading
       </p>
       <button
-        className="a-btn toggle-button raw deselected"
+        className="a-btn toggle-button raw selected"
         onClick={[Function]}
       >
         Complaints
@@ -438,7 +438,7 @@ exports[`component:MapPanel renders warning without crashing 1`] = `
         Map shading
       </p>
       <button
-        className="a-btn toggle-button raw deselected"
+        className="a-btn toggle-button raw selected"
         onClick={[Function]}
       >
         Complaints
@@ -666,7 +666,7 @@ exports[`component:MapPanel renders without crashing 1`] = `
         Map shading
       </p>
       <button
-        className="a-btn toggle-button raw deselected"
+        className="a-btn toggle-button raw selected"
         onClick={[Function]}
       >
         Complaints

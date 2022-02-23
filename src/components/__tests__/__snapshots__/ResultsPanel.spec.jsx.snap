@@ -734,7 +734,7 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
           Map shading
         </p>
         <button
-          className="a-btn toggle-button raw deselected"
+          className="a-btn toggle-button raw selected"
           onClick={[Function]}
         >
           Complaints
@@ -1472,7 +1472,7 @@ exports[`component:Results renders map panel without crashing 1`] = `
           Map shading
         </p>
         <button
-          className="a-btn toggle-button raw deselected"
+          className="a-btn toggle-button raw selected"
           onClick={[Function]}
         >
           Complaints
