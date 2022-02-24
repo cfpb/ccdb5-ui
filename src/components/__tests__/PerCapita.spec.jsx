@@ -29,7 +29,7 @@ describe('NarrativesButtons', () => {
   });
 
   it('should dispatch dataNormalizationChanged GEO_NORM_NONE action', () => {
-    spyOnUseSelector.mockReturnValue(false);
+    spyOnUseSelector.mockReturnValue('None');
     const wrapper = mount(<PerCapita />);
     const button = wrapper.find('.raw');
     expect( button.hasClass( 'selected' ) ).toBeTruthy();
