@@ -3,7 +3,7 @@ import {mount} from 'enzyme';
 import * as redux from 'react-redux';
 import {PerCapita} from '../RefineBar/PerCapita';
 
-describe('NarrativesButtons', () => {
+describe('PerCapita', () => {
   let spyOnUseSelector;
   let spyOnUseDispatch;
   let mockDispatch;
@@ -29,10 +29,14 @@ describe('NarrativesButtons', () => {
   });
 
   it('should dispatch dataNormalizationChanged GEO_NORM_NONE action', () => {
-    spyOnUseSelector.mockReturnValue('None');
+    spyOnUseSelector.mockReturnValue('Per 1000 pop.');
     const wrapper = mount(<PerCapita />);
-    const button = wrapper.find('.raw');
+    let button = wrapper.find('.capita');
     expect( button.hasClass( 'selected' ) ).toBeTruthy();
+
+    button = wrapper.find('.raw');
+    expect( button.hasClass( 'selected' ) ).toBeFalsy();
+
     button.simulate('click');
     expect(mockDispatch.mock.calls).toEqual([
       [{
@@ -44,10 +48,14 @@ describe('NarrativesButtons', () => {
   });
 
   it('should dispatch dataNormalizationChanged GEO_NORM_PER1000 action', () => {
-    spyOnUseSelector.mockReturnValue(false);
+    spyOnUseSelector.mockReturnValue('None');
     const wrapper = mount(<PerCapita />);
-    const button = wrapper.find('.capita');
+    let button = wrapper.find('.raw');
+    expect( button.hasClass( 'selected' ) ).toBeTruthy();
+
+    button = wrapper.find('.capita');
     expect( button.hasClass( 'selected' ) ).toBeFalsy();
+
     button.simulate('click');
     expect(mockDispatch.mock.calls).toEqual([
       [{
