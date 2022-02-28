@@ -1,6 +1,10 @@
 /// <reference types="cypress" />
 
 describe( 'Search Bar', () => {
+  const searchBar = '.search-bar';
+  const searchFieldDropDown = '#searchField';
+  const searchInput = '#searchText';
+
   beforeEach( () => {
     let request = '?**&size=0';
     let fixture = { fixture: 'common/get-aggs.json' };
@@ -24,20 +28,20 @@ describe( 'Search Bar', () => {
   } );
 
   it( 'has a search bar', () => {
-    cy.get( '.search-bar' )
+    cy.get( searchBar )
       .should( 'be.visible' );
 
-    cy.get( '#searchField' ).select( 'company' );
+    cy.get( searchFieldDropDown ).select( 'company' );
     cy.wait( '@getComplaints' );
 
-    cy.get( '#searchField' ).select( 'complaint_what_happened' );
+    cy.get( searchFieldDropDown ).select( 'complaint_what_happened' );
     cy.wait( '@getComplaints' );
   } );
 
   describe( 'Typeaheads', () => {
 
     it( 'has no typeahead functionality in All Data', () => {
-      cy.get( '#searchText' ).clear()
+      cy.get( searchInput ).clear()
           .wait( 400 )
           .type( 'bank', { delay: 200 } );
       cy.get( '@typeahead.all' )
@@ -45,21 +49,21 @@ describe( 'Search Bar', () => {
     } );
 
     it( 'has no typeahead functionality in Narratives', () => {
-      cy.get( '#searchField' ).select( 'complaint_what_happened' );
+      cy.get( searchFieldDropDown ).select( 'complaint_what_happened' );
       cy.wait( '@getComplaints' );
 
-      cy.get( '#searchText' ).clear()
+      cy.get( searchInput ).clear()
           .wait( 400 )
           .type( 'bank', { delay: 200 } );
       cy.get( '@typeahead.all' )
           .should( 'have.length', 0 );
     } );
 
-    it( 'has typeahead functionality in Comp  any', () => {
-      cy.get( '#searchField' ).select( 'company' );
+    it( 'has typeahead functionality in Company', () => {
+      cy.get( searchFieldDropDown ).select( 'company' );
       cy.wait( '@getComplaints' );
 
-      cy.get( '#searchText' ).clear()
+      cy.get( searchInput ).clear()
           .wait( 400 )
           .type( 'bank', { delay: 200 } );
 
