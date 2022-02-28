@@ -16,7 +16,7 @@ describe( 'Search Bar', () => {
 
     const typeAheadRequest = '**/data-research/consumer-complaints/search/' +
         'api/v1/_suggest_company/**';
-    cy.intercept( typeAheadRequest, cy.spy().as( 'typeahead' ) )
+    cy.intercept( typeAheadRequest, {} ).as( 'typeahead' )
     cy.visit( '?tab=List' );
     cy.wait( '@metadata' );
     cy.wait( '@getAggs' );
@@ -40,9 +40,8 @@ describe( 'Search Bar', () => {
       cy.get( '#searchText' ).clear()
           .wait( 400 )
           .type( 'bank', { delay: 200 } );
-      cy.get( '@typeahead' )
-          .its( 'callCount' )
-          .should( 'equal', 0 );
+      cy.get( '@typeahead.all' )
+          .should( 'have.length', 0 );
     } );
 
     it( 'has no typeahead functionality in Narratives', () => {
@@ -52,12 +51,11 @@ describe( 'Search Bar', () => {
       cy.get( '#searchText' ).clear()
           .wait( 400 )
           .type( 'bank', { delay: 200 } );
-      cy.get( '@typeahead' )
-          .its( 'callCount' )
-          .should( 'equal', 0 );
+      cy.get( '@typeahead.all' )
+          .should( 'have.length', 0 );
     } );
 
-    it( 'has typeahead functionality in Company', () => {
+    it( 'has typeahead functionality in Comp  any', () => {
       cy.get( '#searchField' ).select( 'company' );
       cy.wait( '@getComplaints' );
 
@@ -65,9 +63,12 @@ describe( 'Search Bar', () => {
           .wait( 400 )
           .type( 'bank', { delay: 200 } );
 
-      cy.get( '@typeahead' )
-          .its( 'callCount' )
-          .should( 'equal', 3 );
+      cy.wait( '@typeahead' )
+          .wait( '@typeahead' )
+          .wait( '@typeahead' );
+
+      cy.get( '@typeahead.all' )
+          .should( 'have.length', 3 );
     } );
   } );
 
