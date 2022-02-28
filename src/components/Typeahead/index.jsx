@@ -335,7 +335,8 @@ export default class Typeahead extends React.Component {
   }
 
   _renderWaiting() {
-    return <span className="waiting">waiting...</span>
+    return this.props.disableTypeahead ?
+        null : <span className="waiting">waiting...</span>
   }
 
   _renderNoResults() {
@@ -369,6 +370,7 @@ Typeahead.propTypes = {
   ariaLabel: PropTypes.string.isRequired,
   className: PropTypes.string,
   debounceWait: PropTypes.number,
+  disableTypeahead: PropTypes.bool,
   htmlId: PropTypes.string.isRequired,
   maxVisible: PropTypes.number,
   minLength: PropTypes.number,

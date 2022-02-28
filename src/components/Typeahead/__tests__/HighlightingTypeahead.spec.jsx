@@ -3,9 +3,10 @@ import React from 'react'
 import HighlightingTypeahead from '../HighlightingTypeahead'
 import renderer from 'react-test-renderer'
 
-function setupEnzyme() {
+function setupEnzyme(disableTypeahead= false) {
   const props = {
     ariaLabel: 'Start typing to...',
+    disableTypeahead,
     htmlId: 'typeahead-foo',
     options: ['Foo', 'Bar', 'Baz', 'Qaz', 'Quux', 'Nuux'],
     onOptionSelected: jest.fn()
@@ -23,6 +24,12 @@ describe('component::HighlightingTypeahead', () => {
   describe('_onInputChange', () => {
     it('produces a custom array of matches', () => {
       const {target} = setupEnzyme()
+      const actual = target.instance()._onInputChange('BA')
+      expect(actual.length).toEqual(2)
+    })
+
+    it('produces no matches', () => {
+      const {target} = setupEnzyme(true)
       const actual = target.instance()._onInputChange('BA')
       expect(actual.length).toEqual(2)
     })
