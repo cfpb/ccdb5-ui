@@ -1,13 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { mount } from 'enzyme'
-import { SearchBar, mapDispatchToProps } from '../Search/SearchBar'
+import {mount} from 'enzyme'
+import {mapDispatchToProps, SearchBar} from '../Search/SearchBar'
 
-function setup(initialText) {
+function setup(initialText, searchField = 'all') {
   const props = {
     debounceWait: 0,
     searchText: initialText,
-    searchField: 'all',
+    searchField,
     onSearchField: jest.fn(),
     onSearchText: jest.fn()
   }
@@ -19,7 +19,7 @@ function setup(initialText) {
     target
   }
 }
-describe('component:SearchBar', () =>{
+describe('component:SearchBar - Company', () =>{
   beforeEach(() => {
     global.fetch = jest.fn().mockImplementation((url) => {
       expect(url).toContain('@@API_suggest_company')
@@ -37,8 +37,7 @@ describe('component:SearchBar', () =>{
 
   it('receives updates when the parent state changes', () => {
     const node = document.createElement('div')
-    const {props} = setup('foo')
-    props.searchField = 'company';
+    const {props} = setup('foo', 'company')
 
     const target = ReactDOM.render(<SearchBar {...props} />, node)
 
@@ -48,27 +47,12 @@ describe('component:SearchBar', () =>{
   })
 })
 
-describe('component:SearchBar', () =>{
-  beforeEach(() => {
-    global.fetch = jest.fn().mockImplementation((url) => {
-      expect(url).toContain('@@API_suggest')
-      expect(url).toContain('/?text=')
-
-      return new Promise((resolve) => {
-        resolve({
-          json: function() {
-            return ['foo', 'bar', 'baz', 'qaz']
-          }
-        })
-      })
-    })
-  })
-
+describe('component:SearchBar - All data', () =>{
   it('receives updates when the parent state changes', () => {
     const node = document.createElement('div')
-    const {props} = setup('foo')
+    const {props} = setup('foo', 'all')
     const target = ReactDOM.render(<SearchBar {...props} />, node)
-
+    props.searchField = 'all'
     props.searchText = 'bar'
     ReactDOM.render(<SearchBar {...props} />, node)
     expect(target.state.inputValue).toEqual('bar')
@@ -103,6 +87,13 @@ describe('component:SearchBar', () =>{
         const actual = target.instance()._onInputChange('BA')
         expect(actual.then).toBeInstanceOf(Function)
       })
+
+      it('provides empty promise when not Company', () => {
+        const {target} = setup('foo', 'all')
+        const actual = target.instance()._onInputChange('BA')
+        expect(actual.then).toBeInstanceOf(Function)
+      })
+
 
       it('sets the state', () => {
         const {target} = setup()
