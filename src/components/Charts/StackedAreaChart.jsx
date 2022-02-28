@@ -98,16 +98,15 @@ export class StackedAreaChart extends React.Component {
   }
 
   render() {
-    return (
-        this.props.showChart ?
+    return this.props.showChart ?
       <div className={'chart-wrapper'}>
         <p className={ 'y-axis-label' }>Complaints</p>
         <div id="stacked-area-chart">
         </div>
         <p className={ 'x-axis-label' }>Date received by the CFPB</p>
-      </div> : <ErrorBlock text={'Cannot display chart. Adjust your date ' +
-            'range or date interval.'} />
-    )
+      </div> :
+      <ErrorBlock text={'Cannot display chart. Adjust your date ' +
+        'range or date interval.'} />
   }
 }
 
@@ -128,10 +127,11 @@ export const mapStateToProps = state => {
     to: state.query.date_received_max
   };
   const interval = state.query.dateInterval;
+  // clone the data so this doesn't mutate redux store
   const processData = cloneDeep( data )
   const filteredData = pruneIncompleteStackedAreaInterval(
-      processData, dateRange, interval );
-  const showChart = filteredData.length > 2
+    processData, dateRange, interval );
+  const showChart = filteredData.length > 1
 
   return {
     colorMap: state.trends.colorMap,
