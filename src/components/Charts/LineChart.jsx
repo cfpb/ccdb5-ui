@@ -133,9 +133,9 @@ export class LineChart extends React.Component {
         <div id="line-chart">
         </div>
         <p className={ 'x-axis-label' }>Date received by the CFPB</p>
-      </div> : <ErrorBlock text={'Cannot display chart. Adjust your date ' +
+      </div> :
+      <ErrorBlock text={'Cannot display chart. Adjust your date ' +
         'range or date interval.'} />
-
   }
 }
 
@@ -160,7 +160,7 @@ export const mapStateToProps = state => {
   const processData = cloneDeep( data );
   pruneIncompleteLineInterval( processData, dateRange, interval )
   const showChart = Boolean( processData.dataByTopic &&
-      processData.dataByTopic[0].dates.length > 1 );
+    processData.dataByTopic[0].dates.length > 1 );
 
   return {
     colorMap: state.trends.colorMap,
