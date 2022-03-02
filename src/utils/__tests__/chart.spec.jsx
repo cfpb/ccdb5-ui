@@ -228,6 +228,36 @@ describe( 'processRows', () => {
 
 } )
 
+describe('dateOutOfStartBounds', ()=>{
+
+  let actual;
+  it('handles date before date', () => {
+    actual = sut.dateOutOfStartBounds('01/15/2011', '02/01/2011', 'Month')
+    expect(actual).toBe(true)
+  })
+  it('handles same date', () => {
+    actual = sut.dateOutOfStartBounds('02/01/2011', '02/01/2011', 'Month')
+    expect(actual).toBe(false)
+  })
+})
+
+describe('dateOutOfEndBounds', ()=>{
+  let actual;
+  it('handles date inside end date', () => {
+    actual = sut.dateOutOfEndBounds('02/15/2011', '02/01/2011', 'Month')
+    expect(actual).toBe(true)
+  })
+  it('handles same date', () => {
+    actual = sut.dateOutOfEndBounds('02/01/2011', '02/01/2011', 'Month')
+    expect(actual).toBe(true)
+  })
+  it('handles same date as last', () => {
+    actual = sut.dateOutOfEndBounds('01/31/2011', '01/01/2011', 'Month')
+    expect(actual).toBe(false)
+  })
+})
+
+
 describe('pruneIncompleteLineInterval', ()=>{
   let data, dateRange;
   beforeEach(()=>{
@@ -304,7 +334,7 @@ describe('pruneIncompleteLineInterval', ()=>{
 
 describe('pruneIncompleteStackedAreaInterval', ()=>{
   it('returns data set if to date and last dates line up', ()=>{
-    const data= [
+    const data = [
       {date: '01/01/2011'},
       {date: '01/01/2012'},
       {date: '01/01/2013'},
@@ -316,5 +346,24 @@ describe('pruneIncompleteStackedAreaInterval', ()=>{
         data, dateRange, 'Year'
     );
     expect(res).toEqual(data)
+  })
+
+  it('removes data if to date inside of last interval', ()=>{
+    const data = [
+      {date: '01/01/2011'},
+      {date: '02/01/2011'},
+      {date: '03/01/2011'},
+      {date: '04/01/2011'}
+    ]
+
+    const dateRange = {from: '01/01/2011', to: '04/15/2011'};
+    const res = sut.pruneIncompleteStackedAreaInterval(
+        data, dateRange, 'Month'
+    );
+    expect(res).toEqual([
+      {date: '01/01/2011'},
+      {date: '02/01/2011'},
+      {date: '03/01/2011'}
+    ]);
   })
 })
