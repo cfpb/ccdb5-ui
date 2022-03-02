@@ -258,10 +258,12 @@ export const pruneIncompleteLineInterval = ( data, dateRange, interval ) => {
   const completeEndPeriod =
       dayjs( lastFromChart ).utc().endOf( interval.toLowerCase() );
   const dateRangeTo = dayjs( dateTo ).utc();
-
   const isSameTo = dateRangeTo.isSame( completeEndPeriod, 'day' );
-  // last date from chart same as date range to, then go ahead keep it
-  if ( !isSameTo ) {
+  const afterEnd = completeEndPeriod.isAfter( dateRangeTo );
+
+  // we only eliminate the last incomplete interval
+  // this is if the end date of the interval comes after To Date
+  if ( afterEnd && !isSameTo ) {
     data.dataByTopic.forEach( o => {
       o.dates = o.dates.filter( d => d.date !== lastFromChart );
     } )
