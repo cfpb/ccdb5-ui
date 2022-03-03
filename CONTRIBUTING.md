@@ -43,7 +43,7 @@ Ready to publish changes to npm?
    to create the token value).
    Set the desired token expiry length and click generate.
 3. You need to be part of the collaborators for
-   https://www.npmjs.com/package/@cfpb/ccdb5-ui
+   https://www.npmjs.com/package/@cfpb/ccdb5-ui.
    Ask a member of the [consumerfinance.gov](https://github.com/cfpb/consumerfinance.gov) team if you are not.
 
 
