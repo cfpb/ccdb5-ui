@@ -5,7 +5,7 @@
   "homepage": "https://www.consumerfinance.gov/",
   "repository": {
     "type": "git",
-    "url": "http://github.com/cfpb/ccdb5-ui.git"
+    "url": "git+https://github.com/cfpb/ccdb5-ui.git"
   },
   "license": "CC0-1.0",
   "author": {
