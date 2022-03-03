@@ -71,6 +71,9 @@ export class SearchBar extends React.Component {
               <div className="flex-all typeahead-portal">
                 <Typeahead ariaLabel="Enter the term you want to search for"
                            debounceWait={this.props.debounceWait}
+                           disableTypeahead={
+                             this.props.searchField !== 'company'
+                           }
                            htmlId="searchText"
                            mode={MODE_OPEN}
                            onInputChange={this._onInputChange}
@@ -145,21 +148,25 @@ export class SearchBar extends React.Component {
       inputValue: value
     } )
 
-    const n = value.toLowerCase()
+    if ( this.state.searchField === 'company' ) {
+      const n = value.toLowerCase()
+      const uriCompany = '@@API_suggest_company/?text=' + value
 
-    const uriCompany = '@@API_suggest_company/?text=' + value
-    const uriDefault = '@@API_suggest/?text=' + value
+      return fetch( uriCompany )
+          .then( result => result.json() )
+          .then( items => items.map( x => ( {
+            key: x,
+            label: x,
+            position: x.toLowerCase().indexOf( n ),
+            value
+          } ) ) )
+    }
 
-    const uri = this.state.searchField === 'company' ? uriCompany : uriDefault
+    const emptyPromise = Promise.resolve( {
+      then: function() { return; }
+    } );
 
-    return fetch( uri )
-    .then( result => result.json() )
-    .then( items => items.map( x => ( {
-      key: x,
-      label: x,
-      position: x.toLowerCase().indexOf( n ),
-      value
-    } ) ) )
+    return emptyPromise.then( () => [] );
   }
 
   _renderOption( obj ) {

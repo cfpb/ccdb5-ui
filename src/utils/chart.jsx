@@ -234,6 +234,24 @@ export const externalTooltipFormatter = tooltip => {
   }
 }
 
+export const dateOutOfStartBounds = ( dateFrom, startFromChart, interval ) => {
+  const completeStartPeriod =
+      dayjs( startFromChart ).utc().startOf( interval.toLowerCase() );
+  const dateRangeFrom = dayjs( dateFrom ).utc();
+  const isSameFrom = dateRangeFrom.isSame( completeStartPeriod, 'day' );
+  return !isSameFrom;
+}
+
+export const dateOutOfEndBounds = ( dateTo, lastFromChart, interval ) => {
+  const completeEndPeriod =
+      dayjs( lastFromChart ).utc().endOf( interval.toLowerCase() );
+  const dateRangeTo = dayjs( dateTo ).utc();
+  const isSameTo = dateRangeTo.isSame( completeEndPeriod, 'day' );
+  const afterEnd = completeEndPeriod.isAfter( dateRangeTo );
+
+  return afterEnd && !isSameTo;
+}
+
 export const pruneIncompleteLineInterval = ( data, dateRange, interval ) => {
   const { from: dateFrom, to: dateTo } = dateRange;
   if ( !data.dataByTopic ) {
@@ -244,24 +262,17 @@ export const pruneIncompleteLineInterval = ( data, dateRange, interval ) => {
   // date from chart
   const startFromChart = data.dataByTopic[0].dates[0].date;
   const lastFromChart = data.dataByTopic[0].dates[dates.length - 1].date;
-  const completeStartPeriod =
-      dayjs( startFromChart ).utc().startOf( interval.toLowerCase() );
-  const dateRangeFrom = dayjs( dateFrom ).utc();
-  const isSameFrom = dateRangeFrom.isSame( completeStartPeriod, 'day' );
+
   // start date from chart same as date range from, then go ahead keep it
-  if ( !isSameFrom ) {
+  if ( dateOutOfStartBounds( dateFrom, startFromChart, interval ) ) {
     data.dataByTopic.forEach( o => {
       o.dates = o.dates.filter( d => d.date !== startFromChart );
     } )
   }
 
-  const completeEndPeriod =
-      dayjs( lastFromChart ).utc().endOf( interval.toLowerCase() );
-  const dateRangeTo = dayjs( dateTo ).utc();
-
-  const isSameTo = dateRangeTo.isSame( completeEndPeriod, 'day' );
-  // last date from chart same as date range to, then go ahead keep it
-  if ( !isSameTo ) {
+  // we only eliminate the last incomplete interval
+  // this is if the end date of the interval comes after To Date
+  if ( dateOutOfEndBounds( dateTo, lastFromChart, interval ) ) {
     data.dataByTopic.forEach( o => {
       o.dates = o.dates.filter( d => d.date !== lastFromChart );
     } )
@@ -279,20 +290,13 @@ export const pruneIncompleteStackedAreaInterval = (
 
   const startFromChart = dates[0];
   const lastFromChart = dates[dates.length - 1];
-  const completeStartPeriod =
-      dayjs( startFromChart ).utc().startOf( interval.toLowerCase() );
-  const dateRangeFrom = dayjs( dateFrom ).utc();
-  const isSameFrom = dateRangeFrom.isSame( completeStartPeriod, 'day' );
+
   // start date from chart same as date range from, then go ahead keep it
-  if ( !isSameFrom ) {
+  if ( dateOutOfStartBounds( dateFrom, startFromChart, interval ) ) {
     filteredData = filteredData.filter( o => o.date !== startFromChart )
   }
 
-  const completeEndPeriod =
-      dayjs( lastFromChart ).utc().endOf( interval.toLowerCase() );
-  const dateRangeTo = dayjs( dateTo ).utc();
-  const isSameTo = dateRangeTo.isSame( completeEndPeriod, 'day' );
-  if ( !isSameTo ) {
+  if ( dateOutOfEndBounds( dateTo, lastFromChart, interval ) ) {
     filteredData = filteredData.filter( o => o.date !== lastFromChart )
   }
 
