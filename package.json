@@ -20,7 +20,7 @@
     "build": "node scripts/build.js",
     "dev-flow": "node scripts/test.js --env=jsdom --coverage --watch",
     "lint": "./node_modules/eslint/bin/eslint.js --ext .jsx --quiet src/",
-    "release": "yarn run build && release-it --only-version --npm.skipChecks",
+    "release": "yarn run build && release-it --only-version --npm.skipChecks --verbose",
     "start": "node scripts/start.js",
     "test": "node scripts/test.js --env=jsdom --coverage"
   },
