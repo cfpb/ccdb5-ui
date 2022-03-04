@@ -1,3 +1,4 @@
+// Scope CSS to app.
 @import (less) "~cf-core/src/cf-core.less";
 @import (less) "~cf-icons/src/cf-icons.less";
 @import (less) "~cf-buttons/src/cf-buttons.less";
@@ -11,8 +12,16 @@
 
 @import (less) "./base.less";
 @import (less) "../css/notification.less";
-.wrapper {
-  max-width: none;
+
+// Override for Capital Framework. TODO: remove when migrating to Design System.
+// Fix to avoid bleeding into the mega menu.
+.o-mega-menu_content-2-list__featured ul {
+  margin-bottom: 1.875em;
+}
+
+// Fix for incorrect header width.
+.o-header .wrapper {
+  max-width: 1170px !important;
 }
 
 // Fix Webpack not packing "approved.svg"
