@@ -6,6 +6,7 @@ import RefinePanel from '../RefinePanel'
 import ResultsPanel from '../ResultsPanel'
 import RootModal from '../Dialogs/RootModal'
 import SearchPanel from './SearchPanel'
+import { Tour } from '../Tour/Tour';
 import UrlBarSynch from '../UrlBarSynch'
 import WindowSize from '../WindowSize'
 
@@ -23,6 +24,7 @@ export class SearchComponents extends React.Component {
             <RefinePanel />
             <ResultsPanel />
           </div>
+          <Tour />
           <RootModal />
         </main>
       </IntlProvider>

@@ -6,6 +6,7 @@ export const defaultView = {
   fromExternal: false,
   printMode: false,
   showFilters: true,
+  tour: false,
   width: 0
 }
 
@@ -86,6 +87,20 @@ export function updateFilterVisibility( state ) {
 }
 
 /**
+ * Handler for the update screen size action
+ *
+ * @param {object} state the current state in the Redux store
+ * @param {object} action the command being executed
+ * @returns {object} the new state for the Redux store
+ */
+export function toggleTour( state, action ) {
+  return {
+    ...state,
+    tour: action.value
+  }
+}
+
+/**
  * Handler for the Row collapse action
  *
  * @param {object} state the current state in the Redux store
@@ -154,6 +169,7 @@ export function _buildHandlerMap() {
   handlers[actions.PRINT_MODE_OFF] = updatePrintModeOff
   handlers[actions.SCREEN_RESIZED] = updateScreenSize
   handlers[actions.TOGGLE_FILTER_VISIBILITY] = updateFilterVisibility
+  handlers[actions.TOUR_TOGGLED] = toggleTour
   handlers[actions.ROW_COLLAPSED] = collapseRow
   handlers[actions.ROW_EXPANDED] = expandRow
   handlers[actions.URL_CHANGED] = processParams
