@@ -6,7 +6,7 @@ export const defaultView = {
   fromExternal: false,
   printMode: false,
   showFilters: true,
-  tour: false,
+  isTourEnabled: false,
   width: 0
 }
 
@@ -96,7 +96,7 @@ export function updateFilterVisibility( state ) {
 export function toggleTour( state, action ) {
   return {
     ...state,
-    tour: action.value
+    isTourEnabled: action.value
   }
 }
 

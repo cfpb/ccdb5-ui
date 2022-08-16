@@ -1,19 +1,18 @@
 import './Tour.less';
+import * as d3 from 'd3'
 import React, { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
 import { selectQueryTab } from '../../reducers/query/selectors';
+import { selectViewIsTourEnabled } from '../../reducers/view/selectors';
 import { Steps } from 'intro.js-react';
 import { TOUR_STEPS } from './constants/tourStepsConstants';
-import { useSelector } from 'react-redux';
-// import { useDispatch } from 'react-redux'
+import { TourButton } from './TourButton';
+import { tourToggled } from '../../actions/trends';
 
 export const Tour = () => {
-  // const dispatch = useDispatch();
-  // const tour = useSelector( selectViewModelTour );
+  const dispatch = useDispatch();
+  const isTourEnabled = useSelector( selectViewIsTourEnabled );
   const tab = useSelector( selectQueryTab );
-  // const query = useSelector( selectQueryQueryText );
-  // const indexPath = useSelector( selectViewModelIndexPath );
-
-  console.log( tab )
   const steps = TOUR_STEPS[tab]
   const stepRef = useRef();
 
@@ -50,6 +49,24 @@ export const Tour = () => {
    * @param {object} ref - React component reference.
    */
   function handleBeforeChange( ref ) {
+    const expand = ref.current.introJs.currentStep() + 1;
+
+    if ( expand === 9 ) {
+      document.querySelector( '.advanced-container button' ).click()
+    }
+
+    if ( expand === 16 ) {
+      // figure out how many expandables there are
+      // figure out how many ticks there are.
+      // if not equal, it means one is open so we don't need to expand a tick
+      const expandables = document.querySelectorAll( '#row-chart-product .y-axis-group .tick.expandable' );
+      const ticks = document.querySelectorAll( '#row-chart-product .y-axis-group .tick' );
+      if ( ticks.length === expandables.length ) {
+        const ee = d3.select( '#row-chart-product .tick.expandable' );
+        ee.dispatch( 'click' );
+      }
+    }
+
     const callBack = () => {
       steps.forEach( ( step, i ) => {
         if ( ref.current !== null ) {
@@ -75,22 +92,24 @@ export const Tour = () => {
       // eslint-disable-next-line no-alert
       return window.confirm( 'Are you sure you want to exit the tour?' );
     }
-
-    return false;
+    return true;
   }
 
   return (
       // eslint-disable-next-line react/react-in-jsx-scope
+      <>
+        <TourButton />
         <Steps
-            enabled={true}
+            enabled={isTourEnabled}
             initialStep={0}
             steps={steps}
             onStart={handleOnStart}
-            onExit={() => { console.log( 'exiting' ) }}
+            onExit={() => dispatch( tourToggled( false ) )}
             options={options}
             onBeforeChange={() => handleBeforeChange( stepRef )}
             onBeforeExit={() => handleBeforeExit( stepRef )}
             ref={stepRef}
         />
+      </>
   );
 };
