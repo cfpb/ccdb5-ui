@@ -93,13 +93,11 @@ export const TOUR_STEPS = {
     {
       element: GEO.STEP_3.selector,
       intro:
-        'You can change how to view complaint data by selecting the 3 views we have available—Trends, List, and Map.\n' +
+        'You can change how to view complaint data by selecting the 3 views we have available — Trends, List, and Map.' +
         '<br /><br />' +
-        'You are currently on the Trends view, which visualizes complaint data using a trend line with product and issue breakdowns.\n' +
+        'You are currently on the Map view, which displays complaints by state.' +
         '<br /><br />' +
-        'To read individual complaints, select List view.' +
-        '<br /><br />' +
-        'To view complaints by state, select Map view.',
+        'To visualize complaint data with product and issue breakdowns, select Trends view',
       position: 'top'
     },
     {
@@ -192,13 +190,11 @@ export const TOUR_STEPS = {
     {
       element: LIST.STEP_3.selector,
       intro:
-        'You can change how to view complaint data by selecting the 3 views we have available—Trends, List, and Map.\n' +
+        'You can change how to view complaint data by selecting the 3 views we have available — Trends, List, and Map.' +
         '<br /><br />' +
-        'You are currently on the Trends view, which visualizes complaint data using a trend line with product and issue breakdowns.\n' +
+        'You are currently on the List view, which shows individual complaints.' +
         '<br /><br />' +
-        'To read individual complaints, select List view.' +
-        '<br /><br />' +
-        'To view complaints by state, select Map view.'
+        'To visualize complaint data with product and issue breakdowns , select Trends view.'
     },
     {
       element: LIST.STEP_4.selector,
@@ -304,9 +300,9 @@ export const TOUR_STEPS = {
     {
       element: TRENDS.STEP_3.selector,
       intro:
-        'You can change how to view complaint data by selecting the 3 views we have available—Trends, List, and Map.\n' +
+        'You can change how to view complaint data by selecting the 3 views we have available—Trends, List, and Map.' +
         '<br /><br />' +
-        'You are currently on the List view, which visualizes complaint data using a trend line with product and issue breakdowns.\n' +
+        'You are currently on the List view, which visualizes complaint data using a trend line with product and issue breakdowns.' +
         '<br /><br />' +
         'To read individual complaints, select List view.' +
         '<br /><br />' +
