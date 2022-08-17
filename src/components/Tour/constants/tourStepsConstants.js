@@ -38,11 +38,31 @@ export const TOUR_STEPS = {
     {
       element: GEO.STEP_1,
       intro:
+         '<div>' +
+        '<div class="left">' +
         'Welcome to the Consumer Complaint Database!' +
         '<br /><br />' +
         'Complaints the CFPB sends to companies for response are published in the Consumer Complaint Database after the company responds, confirming a commercial relationship with the consumer, or after 15 days, whichever comes first.' +
         '<br /><br />' +
-        'Complaints the CFPB refers to other regulators, such as complaints about depository institutions with less than $10 billion in assets, are not published in the database. This database is not a statistical sample of consumers’ experiences in the marketplace. ',
+        'Complaints the CFPB refers to other regulators, such as complaints about depository institutions with less than $10 billion in assets, are not published in the database. This database is not a statistical sample of consumers’ experiences in the marketplace.' +
+        '</div>' +
+        '<div class="right">' +
+        '<ul>' +
+        '<li><a onclick="document.querySelectorAll(\'.introjs-bullets li a\')[1].click()">Help Links</a></li>' +
+        '<li><a onclick="document.querySelectorAll(\'.introjs-bullets li a\')[2].click()">Views</a></li>' +
+        '<li><a onclick="document.querySelectorAll(\'.introjs-bullets li a\')[3].click()">Filters</a></li>' +
+        '<li><a onclick="document.querySelectorAll(\'.introjs-bullets li a\')[4].click()">Date Received</a></li>' +
+        '<li><a onclick="document.querySelectorAll(\'.introjs-bullets li a\')[5].click()">Product/Issue</a></li>' +
+        '<li><a onclick="document.querySelectorAll(\'.introjs-bullets li a\')[6].click()">Show/Hide</a></li>' +
+        '<li><a onclick="document.querySelectorAll(\'.introjs-bullets li a\')[7].click()">Search Bar</a></li>' +
+        '<li><a onclick="document.querySelectorAll(\'.introjs-bullets li a\')[8].click()">Search Tips</a></li>' +
+        '<li><a onclick="document.querySelectorAll(\'.introjs-bullets li a\')[9].click()">Export Data</a></li>' +
+        '<li><a onclick="document.querySelectorAll(\'.introjs-bullets li a\')[10].click()">Print Page</a></li>' +
+        '<li><a onclick="document.querySelectorAll(\'.introjs-bullets li a\')[11].click()">Aggregate By</a></li>' +
+        '<li><a onclick="document.querySelectorAll(\'.introjs-bullets li a\')[12].click()">Date Interval</a></li>' +
+        '<li><a onclick="document.querySelectorAll(\'.introjs-bullets li a\')[13].click()">Date Range Pills</a></li>' +
+        '</ul></div>' +
+        '</div>',
       tooltipClass: 'wide'
     },
     {
