@@ -1,6 +1,7 @@
 import './Tour.less';
 import * as d3 from 'd3'
-import React, { useRef } from 'react';
+import * as tourSelectors from './constants/tourStepSelectors';
+import React, { useMemo, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { selectQueryTab } from '../../reducers/query/selectors';
 import { selectViewIsTourEnabled } from '../../reducers/view/selectors';
@@ -13,7 +14,12 @@ export const Tour = () => {
   const dispatch = useDispatch();
   const isTourEnabled = useSelector( selectViewIsTourEnabled );
   const tab = useSelector( selectQueryTab );
-  const steps = TOUR_STEPS[tab]
+  const steps = useMemo( () => {
+    // we should patch in the first step with the index
+    console.log( tourSelectors, tab );
+    console.log( TOUR_STEPS[tab][0].intro )
+    return TOUR_STEPS[tab];
+  }, [ TOUR_STEPS, tab ] );
   const stepRef = useRef();
 
     // INTRODUCTION / TUTORIAL OPTIONS:
@@ -51,14 +57,21 @@ export const Tour = () => {
   function handleBeforeChange( ref ) {
     const expand = ref.current.introJs.currentStep() + 1;
 
+    // hacks to setup the page. we should figure out if we should
+    // have this in redux instead
     if ( expand === 9 ) {
+      // search tips open/closed state should be moved to redux
+      // and when the tour start we should "reset" the page
       document.querySelector( '.advanced-container button' ).click()
     }
 
     if ( expand === 16 ) {
+      // this is a hacky solution. we need to
       // figure out how many expandables there are
       // figure out how many ticks there are.
       // if not equal, it means one is open so we don't need to expand a tick
+      // i would prefer to collapse all of the bars and expand only the first one.
+      // this way you can actually highlight the "View more about XYZ Product"
       const expandables = document.querySelectorAll( '#row-chart-product .y-axis-group .tick.expandable' );
       const ticks = document.querySelectorAll( '#row-chart-product .y-axis-group .tick' );
       if ( ticks.length === expandables.length ) {

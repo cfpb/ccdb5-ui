@@ -6,62 +6,62 @@ export const DOCUMENT_STEP_SELECTORS = {
 };
 
 export const GEO_STEP_SELECTORS = {
-  STEP_1: '#step1',
-  STEP_2: 'header .m-list__horizontal',
-  STEP_3: '.tabbed-navigation',
-  STEP_4: '.filter-panel',
-  STEP_5: '.date-inputs',
-  STEP_6: '.filter-panel .aggregation.product',
-  STEP_7: '.filter-panel .aggregation button', // show/hide filters
-  STEP_8: '.search-bar',
-  STEP_9: '.search-bar .advanced-container button',
-  STEP_10: '#search-summary h2',
-  STEP_11: '.export-results button.export-btn',
-  STEP_12: '.export-results button.print-preview', // print button
-  STEP_13: '.date-ranges',
-  STEP_14: '.map-shading',
-  STEP_15: '#tile-chart-map',
-  STEP_16: '.tabbed-navigation'
+  STEP_1: { selector: '#step1', label: 'Index' },
+  STEP_2: { selector: 'header .m-list__horizontal', label: 'Help Links' },
+  STEP_3: { selector: '.tabbed-navigation', label: 'Views' },
+  STEP_4: { selector: '.filter-panel', label: 'Filters' },
+  STEP_5: { selector: '.date-inputs', label: 'Date Received' },
+  STEP_6: { selector: '.filter-panel .aggregation.product', label: 'Product/Issue' },
+  STEP_7: { selector: '.filter-panel .aggregation button', label: 'Show/Hide' }, // show/hide filters
+  STEP_8: { selector: '.search-bar', label: 'Search Bar' },
+  STEP_9: { selector: '.search-bar .advanced-container button', label: 'Search Tips' },
+  STEP_10: { selector: '#search-summary h2', label: 'Search Summary' },
+  STEP_11: { selector: '.export-results button.export-btn', label: 'Export Data' },
+  STEP_12: { selector: '.export-results button.print-preview', label: 'Print Page' }, // print button
+  STEP_13: { selector: '.date-ranges', label: 'Date Interval' },
+  STEP_14: { selector: '.map-shading', label: 'Map Shading' },
+  STEP_15: { selector: '#tile-chart-map', label: 'Tile Map' },
+  STEP_16: { selector: '.tabbed-navigation', label: 'Tabbed Navigation' }
 
 };
 
 export const LIST_COMPLAINTS_SELECTORS = {
-  STEP_1: '#step1',
-  STEP_2: 'header .m-list__horizontal',
-  STEP_3: '.tabbed-navigation',
-  STEP_4: '.filter-panel',
-  STEP_5: '.date-inputs',
-  STEP_6: '.filter-panel .aggregation.product',
-  STEP_7: '.filter-panel .aggregation button', // show/hide filters
-  STEP_8: '.search-bar',
-  STEP_9: '.search-bar .advanced-container button',
-  STEP_10: '#search-summary h2',
-  STEP_11: '.export-results button.export-btn',
-  STEP_12: '.export-results button.print-preview', // print button
-  STEP_13: '.refine-bar .size',
-  STEP_14: '.refine-bar .sort',
-  STEP_15: '.refine-bar section.m-btn-group', // read complaints
-  STEP_16: '.cards-panel',
-  STEP_17: '.to-detail', // complaint id
-  STEP_18: '.tabbed-navigation'
+  STEP_1: { selector: '#step1', label: 'Index' },
+  STEP_2: { selector: 'header .m-list__horizontal', label: 'Help Links' },
+  STEP_3: { selector: '.tabbed-navigation', label: 'Views' },
+  STEP_4: { selector: '.filter-panel', label: 'Filters' },
+  STEP_5: { selector: '.date-inputs', label: 'Date Received' },
+  STEP_6: { selector: '.filter-panel .aggregation.product', label: 'Product/Issue' },
+  STEP_7: { selector: '.filter-panel .aggregation button', label: 'Show/Hide' }, // show/hide filters
+  STEP_8: { selector: '.search-bar', label: 'Search Bar' },
+  STEP_9: { selector: '.search-bar .advanced-container button', label: 'Search Tips' },
+  STEP_10: { selector: '#search-summary h2', label: 'Search Summary' },
+  STEP_11: { selector: '.export-results button.export-btn', label: 'Export Data' },
+  STEP_12: { selector: '.export-results button.print-preview', label: 'Print Page' }, // print button
+  STEP_13: { selector: '.refine-bar .size', label: 'Show Number' },
+  STEP_14: { selector: '.refine-bar .sort', label: 'Sort Results' },
+  STEP_15: { selector: '.refine-bar section.m-btn-group', label: 'Show Narratives' }, // read complaints
+  STEP_16: { selector: '.cards-panel', label: 'Results' },
+  STEP_17: { selector: '.to-detail', label: 'View Detailed Complaints' }, // complaint id
+  STEP_18: { selector: '.tabbed-navigation', label: 'Tabbed Navigation' }
 };
 
 export const TRENDS_SELECTORS = {
-  STEP_1: '#step1',
-  STEP_2: 'header .m-list__horizontal',
-  STEP_3: '.tabbed-navigation',
-  STEP_4: '.filter-panel',
-  STEP_5: '.date-inputs',
-  STEP_6: '.filter-panel .aggregation.product',
-  STEP_7: '.filter-panel .aggregation button', // show/hide filters
-  STEP_8: '.search-bar',
-  STEP_9: '.search-bar .advanced-container button',
-  STEP_10: '#search-summary h2',
-  STEP_11: '.export-results button.export-btn',
-  STEP_12: '.export-results button.print-preview', // print button
-  STEP_13: '.refine-bar .cf-select.lens',
-  STEP_14: '.refine-bar .cf-select.interval',
-  STEP_15: '.date-ranges',
-  STEP_16: '.row-chart-section',
-  STEP_17: '.tabbed-navigation'
+  STEP_1: { selector: '#step1', label: 'Index' },
+  STEP_2: { selector: 'header .m-list__horizontal', label: 'Help Links' },
+  STEP_3: { selector: '.tabbed-navigation', label: 'Views' },
+  STEP_4: { selector: '.filter-panel', label: 'Filters' },
+  STEP_5: { selector: '.date-inputs', label: 'Date Received' },
+  STEP_6: { selector: '.filter-panel .aggregation.product', label: 'Product/Issue' },
+  STEP_7: { selector: '.filter-panel .aggregation button', label: 'Show/Hide' }, // show/hide filters
+  STEP_8: { selector: '.search-bar', label: 'Search Bar' },
+  STEP_9: { selector: '.search-bar .advanced-container button', label: 'Search Tips' },
+  STEP_10: { selector: '#search-summary h2', label: 'Search Summary' },
+  STEP_11: { selector: '.export-results button.export-btn', label: 'Export Data' },
+  STEP_12: { selector: '.export-results button.print-preview', label: 'Print Page' }, // print button
+  STEP_13: { selector: '.refine-bar .cf-select.lens', label: 'Aggregate By' },
+  STEP_14: { selector: '.refine-bar .cf-select.interval', label: 'Date Interval' },
+  STEP_15: { selector: '.date-ranges', label: 'Date Ranges' },
+  STEP_16: { selector: '.row-chart-section', label: 'Row Charts' },
+  STEP_17: { selector: '.tabbed-navigation', label: 'Tabbed Navigation' }
 };
