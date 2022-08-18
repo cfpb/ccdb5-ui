@@ -2,7 +2,7 @@
 
 exports[`component:Select renders array of objects without crashing 1`] = `
 <section
-  className="cf-select"
+  className="cf-select txt"
 >
   <label
     className="u-visually-hidden"
@@ -39,7 +39,7 @@ exports[`component:Select renders array of objects without crashing 1`] = `
 
 exports[`component:Select renders array values without crashing 1`] = `
 <section
-  className="cf-select"
+  className="cf-select txt"
 >
   <label
     className="u-visually-hidden"
@@ -79,7 +79,7 @@ exports[`component:Select renders array values without crashing 1`] = `
 
 exports[`component:Select renders object values without crashing 1`] = `
 <section
-  className="cf-select"
+  className="cf-select size"
 >
   <label
     className="u-visually-hidden"
