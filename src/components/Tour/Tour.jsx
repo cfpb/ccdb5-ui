@@ -14,12 +14,10 @@ export const Tour = () => {
   const dispatch = useDispatch();
   const isTourEnabled = useSelector( selectViewIsTourEnabled );
   const tab = useSelector( selectQueryTab );
-  const steps = useMemo( () => {
+  const steps = useMemo( () =>
     // we should patch in the first step with the index
-    console.log( tourSelectors, tab );
-    console.log( TOUR_STEPS[tab][0].intro )
-    return TOUR_STEPS[tab];
-  }, [ TOUR_STEPS, tab ] );
+     TOUR_STEPS[tab]
+  , [ TOUR_STEPS, tab ] );
   const stepRef = useRef();
 
     // INTRODUCTION / TUTORIAL OPTIONS:
