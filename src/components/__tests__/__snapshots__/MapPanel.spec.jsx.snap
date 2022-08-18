@@ -167,7 +167,7 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
       </button>
     </section>
     <section
-      className="m-btn-group"
+      className="m-btn-group map-shading"
     >
       <p>
         Map shading
@@ -432,7 +432,7 @@ exports[`component:MapPanel renders warning without crashing 1`] = `
       </button>
     </section>
     <section
-      className="m-btn-group"
+      className="m-btn-group map-shading"
     >
       <p>
         Map shading
@@ -660,7 +660,7 @@ exports[`component:MapPanel renders without crashing 1`] = `
       </button>
     </section>
     <section
-      className="m-btn-group"
+      className="m-btn-group map-shading"
     >
       <p>
         Map shading

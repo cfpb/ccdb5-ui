@@ -159,7 +159,7 @@ exports[`component:Results renders List print mode without crashing 1`] = `
         className="separator"
       />
       <section
-        className="cf-select"
+        className="cf-select size"
       >
         <label
           className="u-visually-hidden"
@@ -201,7 +201,7 @@ exports[`component:Results renders List print mode without crashing 1`] = `
         </select>
       </section>
       <section
-        className="cf-select"
+        className="cf-select sort"
       >
         <label
           className="u-visually-hidden"
@@ -728,7 +728,7 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
         </button>
       </section>
       <section
-        className="m-btn-group"
+        className="m-btn-group map-shading"
       >
         <p>
           Map shading
@@ -934,7 +934,7 @@ exports[`component:Results renders list panel without crashing 1`] = `
         className="separator"
       />
       <section
-        className="cf-select"
+        className="cf-select size"
       >
         <label
           className="u-visually-hidden"
@@ -976,7 +976,7 @@ exports[`component:Results renders list panel without crashing 1`] = `
         </select>
       </section>
       <section
-        className="cf-select"
+        className="cf-select sort"
       >
         <label
           className="u-visually-hidden"
@@ -1466,7 +1466,7 @@ exports[`component:Results renders map panel without crashing 1`] = `
         </button>
       </section>
       <section
-        className="m-btn-group"
+        className="m-btn-group map-shading"
       >
         <p>
           Map shading
@@ -1658,7 +1658,7 @@ exports[`component:Results renders trends panel without crashing 1`] = `
         </div>
       </section>
       <section
-        className="cf-select"
+        className="cf-select lens"
       >
         <label
           className="u-visually-hidden"
@@ -1698,7 +1698,7 @@ exports[`component:Results renders trends panel without crashing 1`] = `
         className="separator"
       />
       <section
-        className="cf-select"
+        className="cf-select interval"
       >
         <label
           className="u-visually-hidden"
