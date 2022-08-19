@@ -1,6 +1,5 @@
 import './Tour.less';
 import * as d3 from 'd3'
-import * as tourSelectors from './constants/tourStepSelectors';
 import React, { useMemo, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { selectQueryTab } from '../../reducers/query/selectors';
@@ -15,7 +14,6 @@ export const Tour = () => {
   const isTourEnabled = useSelector( selectViewIsTourEnabled );
   const tab = useSelector( selectQueryTab );
   const steps = useMemo( () =>
-    // we should patch in the first step with the index
      TOUR_STEPS[tab]
   , [ TOUR_STEPS, tab ] );
   const stepRef = useRef();
@@ -33,18 +31,6 @@ export const Tour = () => {
     doneLabel: 'End Tour',
     steps: steps
   };
-
-    /**
-     * On Start handler
-     *
-     */
-  function handleOnStart() {
-    if (
-            [ 'MODE_HISTORY' ].includes( tab )
-        ) {
-      // dispatch( changeRoute( '/' + indexPath + '/q', query ) );
-    }
-  }
 
 
   /**
@@ -64,11 +50,11 @@ export const Tour = () => {
     }
 
     if ( expand === 16 ) {
-      // this is a hacky solution. we need to
-      // figure out how many expandables there are
+      // this is a hacky solution for the Trends Row chart.
+      // we need to figure out how many expandables there are
       // figure out how many ticks there are.
       // if not equal, it means one is open so we don't need to expand a tick
-      // i would prefer to collapse all of the bars and expand only the first one.
+      // i would prefer to collapse all of the bars and expand only the first.
       // this way you can actually highlight the "View more about XYZ Product"
       const expandables = document.querySelectorAll( '#row-chart-product .y-axis-group .tick.expandable' );
       const ticks = document.querySelectorAll( '#row-chart-product .y-axis-group .tick' );
@@ -114,7 +100,6 @@ export const Tour = () => {
             enabled={isTourEnabled}
             initialStep={0}
             steps={steps}
-            onStart={handleOnStart}
             onExit={() => dispatch( tourToggled( false ) )}
             options={options}
             onBeforeChange={() => handleBeforeChange( stepRef )}
