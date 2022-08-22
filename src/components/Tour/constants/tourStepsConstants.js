@@ -162,6 +162,12 @@ export const TOUR_STEPS = {
     {
       element: GEO.STEP_16.selector,
       intro:
+        'View complaint volume by product in the bar chart. Use the blue arrow by each product to view breakdowns by sub-products.' +
+        '<br><br>Once the product is expanded, select the “Visualize” link as shown below, to view trends on sub-products and issues:'
+    },
+    {
+      element: GEO.STEP_17.selector,
+      intro:
         'To learn how to use Trends and List views, select the view and then start the tour.'
     }
   ],

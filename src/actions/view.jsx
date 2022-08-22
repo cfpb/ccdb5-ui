@@ -6,6 +6,10 @@ export const PRINT_MODE_OFF = 'PRINT_MODE_OFF'
 export const ROW_COLLAPSED = 'ROW_COLLAPSED'
 export const ROW_EXPANDED = 'ROW_EXPANDED'
 export const SCREEN_RESIZED = 'SCREEN_RESIZED'
+export const HIDE_ADVANCED_SEARCH_TIPS = 'HIDE_ADVANCED_SEARCH_TIPS'
+export const SHOW_ADVANCED_SEARCH_TIPS = 'SHOW_ADVANCED_SEARCH_TIPS'
+export const HIDE_TOUR = 'HIDE_TOUR'
+export const SHOW_TOUR = 'SHOW_TOUR'
 export const TAB_CHANGED = 'TAB_CHANGED'
 export const TOGGLE_FILTER_VISIBILITY = 'TOGGLE_FILTER_VISIBILITY'
 export const TRENDS_DATE_WARNING_DISMISSED = 'TRENDS_DATE_WARNING_DISMISSED'
@@ -56,6 +60,31 @@ export function printModeOn() {
 export function printModeOff() {
   return {
     type: PRINT_MODE_OFF,
+    requery: REQUERY_NEVER
+  }
+}
+
+
+/**
+ * Notifies the application that advanced tips shown
+ *
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function showAdvancedTips() {
+  return {
+    type: SHOW_ADVANCED_SEARCH_TIPS,
+    requery: REQUERY_NEVER
+  }
+}
+
+/**
+ * Notifies the application that advanced tips hidden
+ *
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function hideAdvancedTips() {
+  return {
+    type: HIDE_ADVANCED_SEARCH_TIPS,
     requery: REQUERY_NEVER
   }
 }
@@ -112,6 +141,30 @@ export function tabChanged( tab ) {
     type: TAB_CHANGED,
     tab,
     requery: REQUERY_HITS_ONLY
+  }
+}
+
+/**
+ * Notifies the application that the tour was toggled OFF
+ *
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function tourHidden() {
+  return {
+    type: HIDE_TOUR,
+    requery: REQUERY_NEVER
+  }
+}
+
+/**
+ * Notifies the application that the tour was toggled on
+ *
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function tourShown() {
+  return {
+    type: SHOW_TOUR,
+    requery: REQUERY_NEVER
   }
 }
 

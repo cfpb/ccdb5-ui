@@ -21,7 +21,8 @@ export const GEO_STEP_SELECTORS = {
   STEP_13: { selector: '.date-ranges', label: 'Date Interval' },
   STEP_14: { selector: '.map-shading', label: 'Map Shading' },
   STEP_15: { selector: '#tile-chart-map', label: 'Tile Map' },
-  STEP_16: { selector: '.tabbed-navigation', label: 'Tabbed Navigation' }
+  STEP_16: { selector: '.row-chart-section', label: 'Row Charts' },
+  STEP_17: { selector: '.tabbed-navigation', label: 'Tabbed Navigation' }
 
 };
 

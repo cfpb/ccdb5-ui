@@ -7,7 +7,6 @@ export const DEPTH_CHANGED = 'DEPTH_CHANGED'
 export const DEPTH_RESET = 'DEPTH_RESET'
 export const FOCUS_CHANGED = 'FOCUS_CHANGED'
 export const FOCUS_REMOVED = 'FOCUS_REMOVED'
-export const TOUR_TOGGLED = 'TOUR_TOGGLED'
 export const TRENDS_TOOLTIP_CHANGED = 'TRENDS_TOOLTIP_CHANGED'
 
 /**
@@ -105,20 +104,6 @@ export function removeFocus() {
   return {
     type: FOCUS_REMOVED,
     requery: REQUERY_ALWAYS
-  }
-}
-
-/**
- * Notifies the application that the tour was toggled
- *
- * @param {string} value the new payload from the tooltip
- * @returns {string} a packaged payload to be used by Redux reducers
- */
-export function tourToggled( value ) {
-  return {
-    type: TOUR_TOGGLED,
-    value,
-    requery: REQUERY_NEVER
   }
 }
 
