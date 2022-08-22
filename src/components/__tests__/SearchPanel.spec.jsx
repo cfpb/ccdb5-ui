@@ -16,6 +16,9 @@ function setupSnapshot() {
     query: {
       searchField: 'all',
       searchText: 'something searching',
+    },
+    view: {
+      showAdvancedSearchTips: false
     }
   })
 

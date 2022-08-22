@@ -124,6 +124,7 @@ describe( 'reducer:map', () => {
       expect( actual ).toEqual( {
         expandedRows: [],
         fromExternal: true,
+        showAdvancedSearchTips: false,
         showTour: false,
         printMode: true,
         showFilters: true,

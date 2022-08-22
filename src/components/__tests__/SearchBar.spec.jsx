@@ -66,15 +66,6 @@ describe('component:SearchBar - All data', () =>{
     expect(props.onSearchText).toHaveBeenCalledWith('bar')
   })
 
-  it('changes AdvancedShown state from initial false, to true and back', () => {
-    const { target } = setup('foo')
-    expect(target.state('advancedShown')).toEqual(false);
-    target.instance()._onAdvancedClicked({ preventDefault: () => {} });
-    expect(target.state('advancedShown')).toEqual(true);
-    target.instance()._onAdvancedClicked({ preventDefault: () => {} });
-    expect(target.state('advancedShown')).toEqual(false);
-  })
-
   describe('Typeahead interface', () => {
     let target, props
     beforeEach(() => {
@@ -155,6 +146,12 @@ describe('component:SearchBar - All data', () =>{
     it('hooks into onSearchText', () => {
       const dispatch = jest.fn()
       mapDispatchToProps(dispatch).onSearchText('foo')
+      expect(dispatch.mock.calls.length).toEqual(1)
+    })
+
+    it('hooks into onSearchTipToggle', ()=>{
+      const dispatch = jest.fn()
+      mapDispatchToProps(dispatch).onSearchTipToggle(true)
       expect(dispatch.mock.calls.length).toEqual(1)
     })
 
