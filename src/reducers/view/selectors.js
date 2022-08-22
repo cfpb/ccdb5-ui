@@ -1,1 +1,1 @@
-export const selectViewIsTourEnabled = state => state.view.isTourEnabled;
+export const selectViewShowTour = state => state.view.showTour;

@@ -1,4 +1,5 @@
 import './SearchBar.less'
+import { hideAdvancedTips, showAdvancedTips } from '../../actions/view';
 import { searchFieldChanged, searchTextChanged } from '../../actions/search'
 import Typeahead, { MODE_OPEN } from '../Typeahead'
 import AdvancedTips from '../Dialogs/AdvancedTips'
@@ -6,6 +7,7 @@ import { connect } from 'react-redux'
 import HighlightingOption from '../Typeahead/HighlightingOption'
 import PropTypes from 'prop-types'
 import React from 'react'
+
 
 const searchFields = {
   all: 'All data',
@@ -19,8 +21,7 @@ export class SearchBar extends React.Component {
     super( props )
     this.state = {
       inputValue: props.searchText,
-      searchField: props.searchField,
-      advancedShown: false
+      searchField: props.searchField
     }
 
     // This binding is necessary to make `this` work in the callback
@@ -98,7 +99,7 @@ export class SearchBar extends React.Component {
               <div className="advanced-container flex-fixed">
                 <button className="a-btn a-btn__link"
                         onClick={ this._onAdvancedClicked }>
-                  {this.state.advancedShown ? 'Hide ' : 'Show '}
+                  {this.props.showAdvancedSearchTips ? 'Hide ' : 'Show '}
                   advanced search tips
                 </button>
               </div>
@@ -106,7 +107,7 @@ export class SearchBar extends React.Component {
           </form>
         </div>
         {
-         this.state.advancedShown ?
+         this.props.showAdvancedSearchTips ?
            <AdvancedTips /> :
            null
          }
@@ -128,9 +129,7 @@ export class SearchBar extends React.Component {
 
   _onAdvancedClicked( event ) {
     event.preventDefault()
-    this.setState( {
-      advancedShown: !this.state.advancedShown
-    } )
+    this.props.onSearchTipToggle( this.props.showAdvancedSearchTips )
   }
 
   _updateLocalState( searchField, searchText ) {
@@ -195,7 +194,8 @@ SearchBar.defaultProps = {
 
 export const mapStateToProps = state => ( {
   searchText: state.query.searchText,
-  searchField: state.query.searchField
+  searchField: state.query.searchField,
+  showAdvancedSearchTips: state.view.showAdvancedSearchTips
 } )
 
 export const mapDispatchToProps = dispatch => ( {
@@ -204,7 +204,15 @@ export const mapDispatchToProps = dispatch => ( {
   },
   onSearchText: text => {
     dispatch( searchTextChanged( text ) )
+  },
+  onSearchTipToggle: isOn => {
+    if ( isOn ) {
+      dispatch( hideAdvancedTips() )
+    } else {
+      dispatch( showAdvancedTips() );
+    }
   }
+
 } )
 
 export default connect( mapStateToProps, mapDispatchToProps )( SearchBar )
