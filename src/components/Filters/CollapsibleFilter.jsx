@@ -63,8 +63,10 @@ export default class CollapsibleFilter extends React.Component {
             { this.state.showChildren ? opened : closed }
           </span>
         </div>
-        <p>{this.props.desc}</p>
-        { this.state.showChildren ? this.props.children : null }
+        { this.state.showChildren ? <>
+          <p>{this.props.desc}</p>
+          {this.props.children}
+        </> : null }
       </section>
     );
   }
