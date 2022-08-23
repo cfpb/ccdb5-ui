@@ -11,6 +11,9 @@ import dayjsUtc from 'dayjs/plugin/utc'
 dayjs.extend( dayjsQuarterOfYear )
 dayjs.extend( dayjsUtc )
 dayjs.extend( dayjsTimezone )
+// this is how we enforce standard tooltip.
+// ci has Africa/Abidjan
+dayjs.tz.setDefault( 'America/New_York' );
 
 export const getLastDate = ( dataSet, config ) => {
   // take in array of data points
@@ -77,11 +80,6 @@ export const getTooltipDate = ( inputDate, dateRange ) => {
 export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
   /* eslint complexity: ["error", 6] */
   interval = interval.toLowerCase()
-
-  // this is how we enforce standard tooltip.
-  // ci has Africa/Abidjan
-  dayjs.tz.setDefault( 'America/New_York' );
-
   const startDate = getTooltipDate( inputDate, dateRange )
 
   let endDate
