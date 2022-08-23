@@ -496,9 +496,6 @@ exports[`initial state renders button at mobile width 1`] = `
           </button>
         </span>
       </div>
-      <p>
-        Whether the company gave a timely response
-      </p>
     </section>
     <hr />
     <section
@@ -533,9 +530,6 @@ exports[`initial state renders button at mobile width 1`] = `
           </button>
         </span>
       </div>
-      <p>
-        This is how the company responded. For example, 'Closed with explanation'.
-      </p>
     </section>
     <hr />
     <section
@@ -570,9 +564,6 @@ exports[`initial state renders button at mobile width 1`] = `
           </button>
         </span>
       </div>
-      <p>
-        The company's optional public-facing response to a consumer's complaint. Companies can choose to select a response from a pre-set list of options that will be posted on the public database.
-      </p>
     </section>
     <hr />
     <section
@@ -692,9 +683,6 @@ exports[`initial state renders button at mobile width 1`] = `
           </button>
         </span>
       </div>
-      <p>
-        Whether a consumer opted in to publish their complaint narrative
-      </p>
     </section>
     <hr />
     <section
@@ -756,7 +744,6 @@ exports[`initial state renders button at mobile width 1`] = `
           </button>
         </span>
       </div>
-      <p />
     </section>
     <hr />
     <section
@@ -791,9 +778,6 @@ exports[`initial state renders button at mobile width 1`] = `
           </button>
         </span>
       </div>
-      <p>
-        Data that supports easier searching and sorting of complaints submitted by or on behalf of consumers
-      </p>
     </section>
   </section>
 </div>
@@ -1277,9 +1261,6 @@ exports[`initial state renders without crashing 1`] = `
           </button>
         </span>
       </div>
-      <p>
-        Whether the company gave a timely response
-      </p>
     </section>
     <hr />
     <section
@@ -1314,9 +1295,6 @@ exports[`initial state renders without crashing 1`] = `
           </button>
         </span>
       </div>
-      <p>
-        This is how the company responded. For example, 'Closed with explanation'.
-      </p>
     </section>
     <hr />
     <section
@@ -1351,9 +1329,6 @@ exports[`initial state renders without crashing 1`] = `
           </button>
         </span>
       </div>
-      <p>
-        The company's optional public-facing response to a consumer's complaint. Companies can choose to select a response from a pre-set list of options that will be posted on the public database.
-      </p>
     </section>
     <hr />
     <section
@@ -1473,9 +1448,6 @@ exports[`initial state renders without crashing 1`] = `
           </button>
         </span>
       </div>
-      <p>
-        Whether a consumer opted in to publish their complaint narrative
-      </p>
     </section>
     <hr />
     <section
@@ -1537,7 +1509,6 @@ exports[`initial state renders without crashing 1`] = `
           </button>
         </span>
       </div>
-      <p />
     </section>
     <hr />
     <section
@@ -1572,9 +1543,6 @@ exports[`initial state renders without crashing 1`] = `
           </button>
         </span>
       </div>
-      <p>
-        Data that supports easier searching and sorting of complaints submitted by or on behalf of consumers
-      </p>
     </section>
   </section>
 </div>
