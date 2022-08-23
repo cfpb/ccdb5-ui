@@ -1,11 +1,11 @@
 import configureMockStore from 'redux-mock-store'
 import ReduxLineChart, {
+  LineChart,
   mapDispatchToProps,
-  mapStateToProps,
-  LineChart
+  mapStateToProps
 } from '../Charts/LineChart'
-import { shallow } from 'enzyme'
-import { Provider } from 'react-redux'
+import {shallow} from 'enzyme'
+import {Provider} from 'react-redux'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import thunk from 'redux-thunk'
@@ -207,8 +207,16 @@ describe( 'component: LineChart', () => {
       const target = shallow( <LineChart tooltipUpdated={ jest.fn() }
                                          colorMap={ colorMap }
                                          data={ data }
+                                         dateRange={{
+                                           from: '1/1/2020',
+                                           to: '5/30/2021'
+                                         }}
+                                         interval={'Month'}
+                                         processData={ data }
                                          title={ 'foo' }
+                                         tooltip={{date: '5/30/2021'}}
                                          lastDate={ lastDate }
+                                         showChart={true}
       /> )
       target._redrawChart = jest.fn()
       const sp = jest.spyOn( target.instance(), '_redrawChart' )
@@ -245,8 +253,16 @@ describe( 'component: LineChart', () => {
                                          tooltipUpdated={ jest.fn() }
                                          colorMap={ colorMap }
                                          printMode={ 'false' }
+                                         dateRange={{
+                                           from: '1/1/2020',
+                                           to: '5/30/2021'
+                                         }}
+                                         interval={'Month'}
+                                         processData={ data }
                                          title={ 'foo' }
+                                         tooltip={{date: '5/30/2021'}}
                                          lastDate={ lastDate }
+                                         showChart={true}
       /> )
       target._redrawChart = jest.fn()
       const sp = jest.spyOn( target.instance(), '_redrawChart' )
@@ -257,11 +273,19 @@ describe( 'component: LineChart', () => {
     it( 'trigger a new update when width changes', () => {
       const target = shallow( <LineChart colorMap={ colorMap }
                                          data={ data }
+                                         dateRange={{
+                                           from: '1/1/2020',
+                                           to: '1/1/2021'
+                                         }}
+                                         interval={'Month'}
                                          tooltipUpdated={ jest.fn() }
                                          printMode={ 'false' }
+                                         processData={ data }
                                          width={ 1000 }
                                          title={ 'foo' }
+                                         tooltip={{date: '5/30/2021'}}
                                          lastDate={ lastDate }
+                                         showChart={true}
       /> )
       target._redrawChart = jest.fn()
       const sp = jest.spyOn( target.instance(), '_redrawChart' )
@@ -316,7 +340,9 @@ describe( 'component: LineChart', () => {
         },
         lens: 'Overview',
         printMode: false,
+        processData: [],
         tooltip: false,
+        showChart: false,
         width: 1000
       } )
     } )

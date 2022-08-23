@@ -9,11 +9,13 @@ import ErrorBlock from '../Warnings/Error'
 import FilterPanel from '../Filters/FilterPanel'
 import FilterPanelToggle from '../Filters/FilterPanelToggle'
 import Loading from '../Dialogs/Loading'
+import { NarrativesButtons } from '../RefineBar/NarrativesButtons'
 import Pagination from './Pagination'
 import React from 'react'
 import { Select } from '../RefineBar/Select'
 import { sendAnalyticsEvent } from '../../utils'
 import { Separator } from '../RefineBar/Separator'
+import TabbedNavigation from '../TabbedNavigation'
 
 const ERROR = 'ERROR'
 const NO_RESULTS = 'NO_RESULTS'
@@ -37,6 +39,7 @@ export class ListPanel extends React.Component {
     return (
       <section className="list-panel">
         <ActionBar />
+        <TabbedNavigation />
         { this.props.showMobileFilters && <FilterPanel/> }
         <div className="layout-row refine-bar">
           <FilterPanelToggle/>
@@ -54,6 +57,7 @@ export class ListPanel extends React.Component {
                   id={ 'sort' }
                   value={ this.props.sort }
                   handleChange={ this.props.onSort }/>
+          <NarrativesButtons />
         </div>
         { this.renderMap[phase]() }
         <Pagination />

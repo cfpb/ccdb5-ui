@@ -19,7 +19,11 @@ export const getLastDate = ( dataSet, config ) => {
     return null
   }
 
-  const lastDate = config.lastDate
+  const deDuped = [ ...new Set(
+      dataSet.map( o => dayjs( o.date ).toISOString() )
+    )
+  ].sort()
+  const lastDate = deDuped.pop()
   const lastPointValues = dataSet.filter( o => isDateEqual( o.date, lastDate ) )
   return {
     key: lastDate,
@@ -36,7 +40,13 @@ export const getLastLineDate = ( dataSet, config ) => {
     return null
   }
 
-  const lastDate = config.lastDate
+  let dates = []
+  dataSet.dataByTopic.forEach( d => {
+    dates = dates.concat( d.dates )
+  } )
+
+  const deDuped = [ ...new Set( dates.map( o => o.date ) ) ].sort()
+  const lastDate = deDuped.pop()
   const values = dataSet.dataByTopic.map( o => {
     const lastPoint = o.dates.find( v => isDateEqual( v.date, lastDate ) )
     const value = lastPoint ? lastPoint.value : 0
@@ -227,4 +237,76 @@ export const externalTooltipFormatter = tooltip => {
     heading: parts[0] + ':',
     date: parts[1] ? parts[1].trim() : ''
   }
+}
+
+export const dateOutOfStartBounds = ( dateFrom, startFromChart, interval ) => {
+  const completeStartPeriod =
+      dayjs( startFromChart ).utc().startOf( interval.toLowerCase() );
+  const dateRangeFrom = dayjs( dateFrom ).utc();
+  const isSameFrom = dateRangeFrom.isSame( completeStartPeriod, 'day' );
+  return !isSameFrom;
+}
+
+export const dateOutOfEndBounds = ( dateTo, lastFromChart, interval ) => {
+  const completeEndPeriod =
+      dayjs( lastFromChart ).utc().endOf( interval.toLowerCase() );
+  const dateRangeTo = dayjs( dateTo ).utc();
+  const isSameTo = dateRangeTo.isSame( completeEndPeriod, 'day' );
+  const afterEnd = completeEndPeriod.isAfter( dateRangeTo );
+
+  return afterEnd && !isSameTo;
+}
+
+export const pruneIncompleteLineInterval = ( data, dateRange, interval ) => {
+  const { from: dateFrom, to: dateTo } = dateRange;
+  if ( !data.dataByTopic ) {
+    return;
+  }
+
+  const dates = data.dataByTopic[0].dates;
+  // date from chart
+  const startFromChart = data.dataByTopic[0].dates[0].date;
+  const lastFromChart = data.dataByTopic[0].dates[dates.length - 1].date;
+
+  // start date from chart same as date range from, then go ahead keep it
+  if ( dateOutOfStartBounds( dateFrom, startFromChart, interval ) ) {
+    data.dataByTopic.forEach( o => {
+      o.dates = o.dates.filter( d => d.date !== startFromChart );
+    } )
+  }
+
+  // we only eliminate the last incomplete interval
+  // this is if the end date of the interval comes after To Date
+  if ( dateOutOfEndBounds( dateTo, lastFromChart, interval ) ) {
+    data.dataByTopic.forEach( o => {
+      o.dates = o.dates.filter( d => d.date !== lastFromChart );
+    } )
+  }
+}
+
+export const pruneIncompleteStackedAreaInterval = (
+    data, dateRange, interval ) => {
+  const { from: dateFrom, to: dateTo } = dateRange;
+
+  // eslint-disable-next-line no-warning-comments
+  // TODO: switch this to structuredClone when JSDOM fixes the issue
+  // https://github.com/jsdom/jsdom/issues/3363
+  let filteredData = JSON.parse( JSON.stringify( data ) )
+  //  need to rebuild and sort dates in memory
+  const dates = [ ...new Set( filteredData.map( o => o.date ) ) ];
+  dates.sort();
+
+  const startFromChart = dates[0];
+  const lastFromChart = dates[dates.length - 1];
+
+  // start date from chart same as date range from, then go ahead keep it
+  if ( dateOutOfStartBounds( dateFrom, startFromChart, interval ) ) {
+    filteredData = filteredData.filter( o => o.date !== startFromChart )
+  }
+
+  if ( dateOutOfEndBounds( dateTo, lastFromChart, interval ) ) {
+    filteredData = filteredData.filter( o => o.date !== lastFromChart )
+  }
+
+  return filteredData;
 }

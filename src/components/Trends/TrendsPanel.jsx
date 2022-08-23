@@ -25,6 +25,7 @@ import RowChart from '../Charts/RowChart'
 import Select from '../RefineBar/Select'
 import Separator from '../RefineBar/Separator'
 import StackedAreaChart from '../Charts/StackedAreaChart'
+import TabbedNavigation from '../TabbedNavigation'
 import TrendDepthToggle from './TrendDepthToggle'
 import { trendsDateWarningDismissed } from '../../actions/view'
 import Warning from '../Warnings/Warning'
@@ -129,6 +130,7 @@ export class TrendsPanel extends React.Component {
     return (
       <section className={ this._className() }>
         <ActionBar/>
+        <TabbedNavigation />
         { trendsDateWarningEnabled &&
             <Warning text={ WARNING_MESSAGE }
                      closeFn={ this.props.onDismissWarning }/> }
@@ -198,17 +200,25 @@ export class TrendsPanel extends React.Component {
         }
 
 
-        { !companyOverlay && total > 0 &&
+        {!companyOverlay && total > 0 &&
+        <>
+          <div className="layout-row date-range-disclaimer">
+            <strong>Note:&nbsp;
+            Data from incomplete time intervals are not shown
+            </strong>
+          </div>
           <div className="layout-row">
             <section className="chart">
-              { chartType === 'line' &&
-              <LineChart /> }
-              { chartType === 'area' &&
-              <StackedAreaChart /> }
+              {chartType === 'line' &&
+              <LineChart/>}
+              {chartType === 'area' &&
+              <StackedAreaChart/>}
             </section>
-            { !overview && <ExternalTooltip/> }
+            {!overview && <ExternalTooltip/>}
           </div>
+        </>
         }
+
         { total > 0 && this._phaseMap() }
         <TrendDepthToggle />
         <Loading isLoading={ isLoading || false }/>

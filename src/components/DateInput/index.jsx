@@ -1,7 +1,8 @@
 /* eslint complexity: ["error", 7] */
 
 import './DateInput.less'
-import { bindAll, debounce, shortFormat, validateDate } from '../../utils'
+import { bindAll, debounce, shortFormat } from '../../utils'
+import { DATE_VALIDATION_FORMAT } from '../../constants';
 import dayjs from 'dayjs'
 import dayjsCustomParseFormat from 'dayjs/plugin/customParseFormat'
 import iconMap from '../iconMap'
@@ -10,8 +11,7 @@ import React from 'react'
 
 dayjs.extend( dayjsCustomParseFormat )
 
-const FORMAT = 'MM-DD-YYYY'
-const ONLY_VALID_SYMBOLS = /^[0-9/-]{1,10}$/
+const ONLY_VALID_SYMBOLS = /^[0-9/]{1,10}$/
 const HAS_4_DIGIT_YEAR = /^(\d{1,2})[-/](\d{1,2})[-/](\d{4})$/
 
 // ----------------------------------------------------------------------------
@@ -63,7 +63,7 @@ export default class DateInput extends React.Component {
   }
 
   render() {
-    const placeholder = this.props.placeholder || 'mm/dd/yyyy'
+    const placeholder = this.props.placeholder || DATE_VALIDATION_FORMAT
 
     return (
       <div className="m-btn-inside-input">
@@ -109,7 +109,7 @@ export default class DateInput extends React.Component {
   }
 
   _onChange( event ) {
-    const v = event.target.value
+    const v = event.target.value.replace( '-', '/' )
     const newState = this._calculateState( this.props, v )
     this.setState( newState )
   }
@@ -160,7 +160,7 @@ export default class DateInput extends React.Component {
   }
 
   _validateAsDate( props, d ) {
-    if ( dayjs( d, FORMAT, true ).isValid() === false ) {
+    if ( dayjs( d, DATE_VALIDATION_FORMAT, true ).isValid() === false ) {
       return ERROR
     }
 
@@ -183,7 +183,7 @@ export default class DateInput extends React.Component {
     }
 
     if ( state.phase === READY ) {
-      state.asDate = dayjs( v, FORMAT )
+      state.asDate = dayjs( v, DATE_VALIDATION_FORMAT, true )
       state.phase = this._validateAsDate( props, state.asDate )
     }
 

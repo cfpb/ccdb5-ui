@@ -56,6 +56,57 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
     </summary>
   </div>
   <div
+    className="tabbed-navigation"
+  >
+    <section>
+      <button
+        className="trends tab active"
+        onClick={[Function]}
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 15 19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M13.55 15.256H1.45a.554.554 0 0 1-.553-.554V3.168a.554.554 0 1 1 1.108 0v10.98h11.544a.554.554 0 0 1 0 1.108zM3.121 13.02V6.888a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v6.132zm2.785 0V3.507a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v9.513zm2.785 0V6.888a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v6.132zm2.786 0v-2.753a.476.476 0 0 1 .475-.475h.785a.476.476 0 0 1 .475.475v2.753z"
+          />
+        </svg>
+        Trends
+      </button>
+      <button
+        className="list tab"
+        onClick={[Function]}
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 14 19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M2.85 4.836a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm0 4.346a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm0 4.346a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm1.13-8.692a1.03 1.03 0 0 1 1.029-1.029h7.173a1.03 1.03 0 1 1 0 2.058H5.009a1.03 1.03 0 0 1-1.03-1.029zm9.231 4.347a1.03 1.03 0 0 1-1.029 1.029H5.009a1.03 1.03 0 1 1 0-2.059h7.173a1.03 1.03 0 0 1 1.03 1.03zm0 4.345a1.03 1.03 0 0 1-1.029 1.03H5.009a1.03 1.03 0 1 1 0-2.059h7.173a1.03 1.03 0 0 1 1.03 1.03z"
+          />
+        </svg>
+        List
+      </button>
+      <button
+        className="map tab"
+        onClick={[Function]}
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 16 19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M15.084 15.2H.916a.264.264 0 0 1-.254-.42l2.36-4.492a.865.865 0 0 1 .696-.42h.827a9.51 9.51 0 0 0 .943 1.108H3.912l-1.637 3.116h11.45l-1.637-3.116h-1.34a9.481 9.481 0 0 0 .943-1.109h.591a.866.866 0 0 1 .696.421l2.36 4.492a.264.264 0 0 1-.254.42zM11.4 7.189c0 2.64-2.176 2.888-3.103 5.46a.182.182 0 0 1-.356 0c-.928-2.572-3.104-2.82-3.104-5.46a3.282 3.282 0 0 1 6.563 0zm-1.86-.005a1.425 1.425 0 1 0-1.425 1.425A1.425 1.425 0 0 0 9.54 7.184z"
+          />
+        </svg>
+        Map
+      </button>
+    </section>
+  </div>
+  <div
     className="layout-row refine-bar"
   >
     <section
@@ -130,6 +181,7 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
       <select
         id="choose-interval"
         onChange={[Function]}
+        value="Month"
       >
         <option
           disabled={true}
@@ -372,27 +424,39 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
     </section>
   </div>
   <div
+    className="layout-row date-range-disclaimer"
+  >
+    <strong>
+      Note:  Data from incomplete time intervals are not shown
+    </strong>
+  </div>
+  <div
     className="layout-row"
   >
     <section
       className="chart"
     >
       <div
-        className="chart-wrapper"
+        className="m-notification m-notification__visible m-notification__error"
       >
-        <p
-          className="y-axis-label"
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 1000 1200"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          Complaints
-        </p>
+          <path
+            d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"
+          />
+        </svg>
         <div
-          id="line-chart"
-        />
-        <p
-          className="x-axis-label"
+          className="m-notification_content"
         >
-          Date received by the CFPB
-        </p>
+          <div
+            className="h4 m-notification_message"
+          >
+            Cannot display chart. Adjust your date range or date interval.
+          </div>
+        </div>
       </div>
     </section>
   </div>
@@ -466,6 +530,57 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
         </h3>
       </div>
     </summary>
+  </div>
+  <div
+    className="tabbed-navigation"
+  >
+    <section>
+      <button
+        className="trends tab active"
+        onClick={[Function]}
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 15 19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M13.55 15.256H1.45a.554.554 0 0 1-.553-.554V3.168a.554.554 0 1 1 1.108 0v10.98h11.544a.554.554 0 0 1 0 1.108zM3.121 13.02V6.888a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v6.132zm2.785 0V3.507a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v9.513zm2.785 0V6.888a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v6.132zm2.786 0v-2.753a.476.476 0 0 1 .475-.475h.785a.476.476 0 0 1 .475.475v2.753z"
+          />
+        </svg>
+        Trends
+      </button>
+      <button
+        className="list tab"
+        onClick={[Function]}
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 14 19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M2.85 4.836a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm0 4.346a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm0 4.346a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm1.13-8.692a1.03 1.03 0 0 1 1.029-1.029h7.173a1.03 1.03 0 1 1 0 2.058H5.009a1.03 1.03 0 0 1-1.03-1.029zm9.231 4.347a1.03 1.03 0 0 1-1.029 1.029H5.009a1.03 1.03 0 1 1 0-2.059h7.173a1.03 1.03 0 0 1 1.03 1.03zm0 4.345a1.03 1.03 0 0 1-1.029 1.03H5.009a1.03 1.03 0 1 1 0-2.059h7.173a1.03 1.03 0 0 1 1.03 1.03z"
+          />
+        </svg>
+        List
+      </button>
+      <button
+        className="map tab"
+        onClick={[Function]}
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 16 19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M15.084 15.2H.916a.264.264 0 0 1-.254-.42l2.36-4.492a.865.865 0 0 1 .696-.42h.827a9.51 9.51 0 0 0 .943 1.108H3.912l-1.637 3.116h11.45l-1.637-3.116h-1.34a9.481 9.481 0 0 0 .943-1.109h.591a.866.866 0 0 1 .696.421l2.36 4.492a.264.264 0 0 1-.254.42zM11.4 7.189c0 2.64-2.176 2.888-3.103 5.46a.182.182 0 0 1-.356 0c-.928-2.572-3.104-2.82-3.104-5.46a3.282 3.282 0 0 1 6.563 0zm-1.86-.005a1.425 1.425 0 1 0-1.425 1.425A1.425 1.425 0 0 0 9.54 7.184z"
+          />
+        </svg>
+        Map
+      </button>
+    </section>
   </div>
   <div
     className="layout-row refine-bar"
@@ -542,6 +657,7 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
       <select
         id="choose-interval"
         onChange={[Function]}
+        value="Month"
       >
         <option
           disabled={true}
@@ -733,27 +849,39 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
     </section>
   </div>
   <div
+    className="layout-row date-range-disclaimer"
+  >
+    <strong>
+      Note:  Data from incomplete time intervals are not shown
+    </strong>
+  </div>
+  <div
     className="layout-row"
   >
     <section
       className="chart"
     >
       <div
-        className="chart-wrapper"
+        className="m-notification m-notification__visible m-notification__error"
       >
-        <p
-          className="y-axis-label"
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 1000 1200"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          Complaints
-        </p>
+          <path
+            d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"
+          />
+        </svg>
         <div
-          id="stacked-area-chart"
-        />
-        <p
-          className="x-axis-label"
+          className="m-notification_content"
         >
-          Date received by the CFPB
-        </p>
+          <div
+            className="h4 m-notification_message"
+          >
+            Cannot display chart. Adjust your date range or date interval.
+          </div>
+        </div>
       </div>
     </section>
   </div>
@@ -847,6 +975,57 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
     </summary>
   </div>
   <div
+    className="tabbed-navigation"
+  >
+    <section>
+      <button
+        className="trends tab active"
+        onClick={[Function]}
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 15 19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M13.55 15.256H1.45a.554.554 0 0 1-.553-.554V3.168a.554.554 0 1 1 1.108 0v10.98h11.544a.554.554 0 0 1 0 1.108zM3.121 13.02V6.888a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v6.132zm2.785 0V3.507a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v9.513zm2.785 0V6.888a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v6.132zm2.786 0v-2.753a.476.476 0 0 1 .475-.475h.785a.476.476 0 0 1 .475.475v2.753z"
+          />
+        </svg>
+        Trends
+      </button>
+      <button
+        className="list tab"
+        onClick={[Function]}
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 14 19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M2.85 4.836a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm0 4.346a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm0 4.346a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm1.13-8.692a1.03 1.03 0 0 1 1.029-1.029h7.173a1.03 1.03 0 1 1 0 2.058H5.009a1.03 1.03 0 0 1-1.03-1.029zm9.231 4.347a1.03 1.03 0 0 1-1.029 1.029H5.009a1.03 1.03 0 1 1 0-2.059h7.173a1.03 1.03 0 0 1 1.03 1.03zm0 4.345a1.03 1.03 0 0 1-1.029 1.03H5.009a1.03 1.03 0 1 1 0-2.059h7.173a1.03 1.03 0 0 1 1.03 1.03z"
+          />
+        </svg>
+        List
+      </button>
+      <button
+        className="map tab"
+        onClick={[Function]}
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 16 19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M15.084 15.2H.916a.264.264 0 0 1-.254-.42l2.36-4.492a.865.865 0 0 1 .696-.42h.827a9.51 9.51 0 0 0 .943 1.108H3.912l-1.637 3.116h11.45l-1.637-3.116h-1.34a9.481 9.481 0 0 0 .943-1.109h.591a.866.866 0 0 1 .696.421l2.36 4.492a.264.264 0 0 1-.254.42zM11.4 7.189c0 2.64-2.176 2.888-3.103 5.46a.182.182 0 0 1-.356 0c-.928-2.572-3.104-2.82-3.104-5.46a3.282 3.282 0 0 1 6.563 0zm-1.86-.005a1.425 1.425 0 1 0-1.425 1.425A1.425 1.425 0 0 0 9.54 7.184z"
+          />
+        </svg>
+        Map
+      </button>
+    </section>
+  </div>
+  <div
     className="layout-row refine-bar"
   >
     <section
@@ -921,6 +1100,7 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
       <select
         id="choose-interval"
         onChange={[Function]}
+        value="Month"
       >
         <option
           disabled={true}
@@ -1202,6 +1382,57 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
     </summary>
   </div>
   <div
+    className="tabbed-navigation"
+  >
+    <section>
+      <button
+        className="trends tab active"
+        onClick={[Function]}
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 15 19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M13.55 15.256H1.45a.554.554 0 0 1-.553-.554V3.168a.554.554 0 1 1 1.108 0v10.98h11.544a.554.554 0 0 1 0 1.108zM3.121 13.02V6.888a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v6.132zm2.785 0V3.507a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v9.513zm2.785 0V6.888a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v6.132zm2.786 0v-2.753a.476.476 0 0 1 .475-.475h.785a.476.476 0 0 1 .475.475v2.753z"
+          />
+        </svg>
+        Trends
+      </button>
+      <button
+        className="list tab"
+        onClick={[Function]}
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 14 19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M2.85 4.836a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm0 4.346a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm0 4.346a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm1.13-8.692a1.03 1.03 0 0 1 1.029-1.029h7.173a1.03 1.03 0 1 1 0 2.058H5.009a1.03 1.03 0 0 1-1.03-1.029zm9.231 4.347a1.03 1.03 0 0 1-1.029 1.029H5.009a1.03 1.03 0 1 1 0-2.059h7.173a1.03 1.03 0 0 1 1.03 1.03zm0 4.345a1.03 1.03 0 0 1-1.029 1.03H5.009a1.03 1.03 0 1 1 0-2.059h7.173a1.03 1.03 0 0 1 1.03 1.03z"
+          />
+        </svg>
+        List
+      </button>
+      <button
+        className="map tab"
+        onClick={[Function]}
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 16 19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M15.084 15.2H.916a.264.264 0 0 1-.254-.42l2.36-4.492a.865.865 0 0 1 .696-.42h.827a9.51 9.51 0 0 0 .943 1.108H3.912l-1.637 3.116h11.45l-1.637-3.116h-1.34a9.481 9.481 0 0 0 .943-1.109h.591a.866.866 0 0 1 .696.421l2.36 4.492a.264.264 0 0 1-.254.42zM11.4 7.189c0 2.64-2.176 2.888-3.103 5.46a.182.182 0 0 1-.356 0c-.928-2.572-3.104-2.82-3.104-5.46a3.282 3.282 0 0 1 6.563 0zm-1.86-.005a1.425 1.425 0 1 0-1.425 1.425A1.425 1.425 0 0 0 9.54 7.184z"
+          />
+        </svg>
+        Map
+      </button>
+    </section>
+  </div>
+  <div
     className="warning m-notification m-notification__visible m-notification__warning"
   >
     <svg
@@ -1313,6 +1544,7 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
       <select
         id="choose-interval"
         onChange={[Function]}
+        value="Month"
       >
         <option
           disabled={true}
@@ -1404,27 +1636,39 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
     </section>
   </div>
   <div
+    className="layout-row date-range-disclaimer"
+  >
+    <strong>
+      Note:  Data from incomplete time intervals are not shown
+    </strong>
+  </div>
+  <div
     className="layout-row"
   >
     <section
       className="chart"
     >
       <div
-        className="chart-wrapper"
+        className="m-notification m-notification__visible m-notification__error"
       >
-        <p
-          className="y-axis-label"
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 1000 1200"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          Complaints
-        </p>
+          <path
+            d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"
+          />
+        </svg>
         <div
-          id="line-chart"
-        />
-        <p
-          className="x-axis-label"
+          className="m-notification_content"
         >
-          Date received by the CFPB
-        </p>
+          <div
+            className="h4 m-notification_message"
+          >
+            Cannot display chart. Adjust your date range or date interval.
+          </div>
+        </div>
       </div>
     </section>
   </div>
@@ -1498,6 +1742,57 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
         </h3>
       </div>
     </summary>
+  </div>
+  <div
+    className="tabbed-navigation"
+  >
+    <section>
+      <button
+        className="trends tab active"
+        onClick={[Function]}
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 15 19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M13.55 15.256H1.45a.554.554 0 0 1-.553-.554V3.168a.554.554 0 1 1 1.108 0v10.98h11.544a.554.554 0 0 1 0 1.108zM3.121 13.02V6.888a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v6.132zm2.785 0V3.507a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v9.513zm2.785 0V6.888a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v6.132zm2.786 0v-2.753a.476.476 0 0 1 .475-.475h.785a.476.476 0 0 1 .475.475v2.753z"
+          />
+        </svg>
+        Trends
+      </button>
+      <button
+        className="list tab"
+        onClick={[Function]}
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 14 19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M2.85 4.836a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm0 4.346a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm0 4.346a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm1.13-8.692a1.03 1.03 0 0 1 1.029-1.029h7.173a1.03 1.03 0 1 1 0 2.058H5.009a1.03 1.03 0 0 1-1.03-1.029zm9.231 4.347a1.03 1.03 0 0 1-1.029 1.029H5.009a1.03 1.03 0 1 1 0-2.059h7.173a1.03 1.03 0 0 1 1.03 1.03zm0 4.345a1.03 1.03 0 0 1-1.029 1.03H5.009a1.03 1.03 0 1 1 0-2.059h7.173a1.03 1.03 0 0 1 1.03 1.03z"
+          />
+        </svg>
+        List
+      </button>
+      <button
+        className="map tab"
+        onClick={[Function]}
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 16 19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M15.084 15.2H.916a.264.264 0 0 1-.254-.42l2.36-4.492a.865.865 0 0 1 .696-.42h.827a9.51 9.51 0 0 0 .943 1.108H3.912l-1.637 3.116h11.45l-1.637-3.116h-1.34a9.481 9.481 0 0 0 .943-1.109h.591a.866.866 0 0 1 .696.421l2.36 4.492a.264.264 0 0 1-.254.42zM11.4 7.189c0 2.64-2.176 2.888-3.103 5.46a.182.182 0 0 1-.356 0c-.928-2.572-3.104-2.82-3.104-5.46a3.282 3.282 0 0 1 6.563 0zm-1.86-.005a1.425 1.425 0 1 0-1.425 1.425A1.425 1.425 0 0 0 9.54 7.184z"
+          />
+        </svg>
+        Map
+      </button>
+    </section>
   </div>
   <div
     className="layout-row refine-bar"
@@ -1574,6 +1869,7 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
       <select
         id="choose-interval"
         onChange={[Function]}
+        value="Month"
       >
         <option
           disabled={true}
@@ -1765,27 +2061,39 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
     </section>
   </div>
   <div
+    className="layout-row date-range-disclaimer"
+  >
+    <strong>
+      Note:  Data from incomplete time intervals are not shown
+    </strong>
+  </div>
+  <div
     className="layout-row"
   >
     <section
       className="chart"
     >
       <div
-        className="chart-wrapper"
+        className="m-notification m-notification__visible m-notification__error"
       >
-        <p
-          className="y-axis-label"
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 1000 1200"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          Complaints
-        </p>
+          <path
+            d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"
+          />
+        </svg>
         <div
-          id="line-chart"
-        />
-        <p
-          className="x-axis-label"
+          className="m-notification_content"
         >
-          Date received by the CFPB
-        </p>
+          <div
+            className="h4 m-notification_message"
+          >
+            Cannot display chart. Adjust your date range or date interval.
+          </div>
+        </div>
       </div>
     </section>
   </div>
@@ -1879,6 +2187,57 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
     </summary>
   </div>
   <div
+    className="tabbed-navigation"
+  >
+    <section>
+      <button
+        className="trends tab active"
+        onClick={[Function]}
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 15 19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M13.55 15.256H1.45a.554.554 0 0 1-.553-.554V3.168a.554.554 0 1 1 1.108 0v10.98h11.544a.554.554 0 0 1 0 1.108zM3.121 13.02V6.888a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v6.132zm2.785 0V3.507a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v9.513zm2.785 0V6.888a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v6.132zm2.786 0v-2.753a.476.476 0 0 1 .475-.475h.785a.476.476 0 0 1 .475.475v2.753z"
+          />
+        </svg>
+        Trends
+      </button>
+      <button
+        className="list tab"
+        onClick={[Function]}
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 14 19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M2.85 4.836a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm0 4.346a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm0 4.346a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm1.13-8.692a1.03 1.03 0 0 1 1.029-1.029h7.173a1.03 1.03 0 1 1 0 2.058H5.009a1.03 1.03 0 0 1-1.03-1.029zm9.231 4.347a1.03 1.03 0 0 1-1.029 1.029H5.009a1.03 1.03 0 1 1 0-2.059h7.173a1.03 1.03 0 0 1 1.03 1.03zm0 4.345a1.03 1.03 0 0 1-1.029 1.03H5.009a1.03 1.03 0 1 1 0-2.059h7.173a1.03 1.03 0 0 1 1.03 1.03z"
+          />
+        </svg>
+        List
+      </button>
+      <button
+        className="map tab"
+        onClick={[Function]}
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 16 19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M15.084 15.2H.916a.264.264 0 0 1-.254-.42l2.36-4.492a.865.865 0 0 1 .696-.42h.827a9.51 9.51 0 0 0 .943 1.108H3.912l-1.637 3.116h11.45l-1.637-3.116h-1.34a9.481 9.481 0 0 0 .943-1.109h.591a.866.866 0 0 1 .696.421l2.36 4.492a.264.264 0 0 1-.254.42zM11.4 7.189c0 2.64-2.176 2.888-3.103 5.46a.182.182 0 0 1-.356 0c-.928-2.572-3.104-2.82-3.104-5.46a3.282 3.282 0 0 1 6.563 0zm-1.86-.005a1.425 1.425 0 1 0-1.425 1.425A1.425 1.425 0 0 0 9.54 7.184z"
+          />
+        </svg>
+        Map
+      </button>
+    </section>
+  </div>
+  <div
     className="layout-row refine-bar"
   >
     <section
@@ -1953,6 +2312,7 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
       <select
         id="choose-interval"
         onChange={[Function]}
+        value="Month"
       >
         <option
           disabled={true}
@@ -2044,27 +2404,39 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
     </section>
   </div>
   <div
+    className="layout-row date-range-disclaimer"
+  >
+    <strong>
+      Note:  Data from incomplete time intervals are not shown
+    </strong>
+  </div>
+  <div
     className="layout-row"
   >
     <section
       className="chart"
     >
       <div
-        className="chart-wrapper"
+        className="m-notification m-notification__visible m-notification__error"
       >
-        <p
-          className="y-axis-label"
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 1000 1200"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          Complaints
-        </p>
+          <path
+            d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"
+          />
+        </svg>
         <div
-          id="line-chart"
-        />
-        <p
-          className="x-axis-label"
+          className="m-notification_content"
         >
-          Date received by the CFPB
-        </p>
+          <div
+            className="h4 m-notification_message"
+          >
+            Cannot display chart. Adjust your date range or date interval.
+          </div>
+        </div>
       </div>
     </section>
   </div>
@@ -2138,6 +2510,57 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
         </h3>
       </div>
     </summary>
+  </div>
+  <div
+    className="tabbed-navigation"
+  >
+    <section>
+      <button
+        className="trends tab active"
+        onClick={[Function]}
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 15 19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M13.55 15.256H1.45a.554.554 0 0 1-.553-.554V3.168a.554.554 0 1 1 1.108 0v10.98h11.544a.554.554 0 0 1 0 1.108zM3.121 13.02V6.888a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v6.132zm2.785 0V3.507a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v9.513zm2.785 0V6.888a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v6.132zm2.786 0v-2.753a.476.476 0 0 1 .475-.475h.785a.476.476 0 0 1 .475.475v2.753z"
+          />
+        </svg>
+        Trends
+      </button>
+      <button
+        className="list tab"
+        onClick={[Function]}
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 14 19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M2.85 4.836a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm0 4.346a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm0 4.346a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm1.13-8.692a1.03 1.03 0 0 1 1.029-1.029h7.173a1.03 1.03 0 1 1 0 2.058H5.009a1.03 1.03 0 0 1-1.03-1.029zm9.231 4.347a1.03 1.03 0 0 1-1.029 1.029H5.009a1.03 1.03 0 1 1 0-2.059h7.173a1.03 1.03 0 0 1 1.03 1.03zm0 4.345a1.03 1.03 0 0 1-1.029 1.03H5.009a1.03 1.03 0 1 1 0-2.059h7.173a1.03 1.03 0 0 1 1.03 1.03z"
+          />
+        </svg>
+        List
+      </button>
+      <button
+        className="map tab"
+        onClick={[Function]}
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 16 19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M15.084 15.2H.916a.264.264 0 0 1-.254-.42l2.36-4.492a.865.865 0 0 1 .696-.42h.827a9.51 9.51 0 0 0 .943 1.108H3.912l-1.637 3.116h11.45l-1.637-3.116h-1.34a9.481 9.481 0 0 0 .943-1.109h.591a.866.866 0 0 1 .696.421l2.36 4.492a.264.264 0 0 1-.254.42zM11.4 7.189c0 2.64-2.176 2.888-3.103 5.46a.182.182 0 0 1-.356 0c-.928-2.572-3.104-2.82-3.104-5.46a3.282 3.282 0 0 1 6.563 0zm-1.86-.005a1.425 1.425 0 1 0-1.425 1.425A1.425 1.425 0 0 0 9.54 7.184z"
+          />
+        </svg>
+        Map
+      </button>
+    </section>
   </div>
   <div />
   <div
@@ -2215,6 +2638,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
       <select
         id="choose-interval"
         onChange={[Function]}
+        value="Month"
       >
         <option
           disabled={true}
@@ -2306,27 +2730,39 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
     </section>
   </div>
   <div
+    className="layout-row date-range-disclaimer"
+  >
+    <strong>
+      Note:  Data from incomplete time intervals are not shown
+    </strong>
+  </div>
+  <div
     className="layout-row"
   >
     <section
       className="chart"
     >
       <div
-        className="chart-wrapper"
+        className="m-notification m-notification__visible m-notification__error"
       >
-        <p
-          className="y-axis-label"
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 1000 1200"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          Complaints
-        </p>
+          <path
+            d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"
+          />
+        </svg>
         <div
-          id="line-chart"
-        />
-        <p
-          className="x-axis-label"
+          className="m-notification_content"
         >
-          Date received by the CFPB
-        </p>
+          <div
+            className="h4 m-notification_message"
+          >
+            Cannot display chart. Adjust your date range or date interval.
+          </div>
+        </div>
       </div>
     </section>
   </div>
@@ -2400,6 +2836,57 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
         </h3>
       </div>
     </summary>
+  </div>
+  <div
+    className="tabbed-navigation"
+  >
+    <section>
+      <button
+        className="trends tab active"
+        onClick={[Function]}
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 15 19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M13.55 15.256H1.45a.554.554 0 0 1-.553-.554V3.168a.554.554 0 1 1 1.108 0v10.98h11.544a.554.554 0 0 1 0 1.108zM3.121 13.02V6.888a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v6.132zm2.785 0V3.507a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v9.513zm2.785 0V6.888a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v6.132zm2.786 0v-2.753a.476.476 0 0 1 .475-.475h.785a.476.476 0 0 1 .475.475v2.753z"
+          />
+        </svg>
+        Trends
+      </button>
+      <button
+        className="list tab"
+        onClick={[Function]}
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 14 19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M2.85 4.836a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm0 4.346a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm0 4.346a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm1.13-8.692a1.03 1.03 0 0 1 1.029-1.029h7.173a1.03 1.03 0 1 1 0 2.058H5.009a1.03 1.03 0 0 1-1.03-1.029zm9.231 4.347a1.03 1.03 0 0 1-1.029 1.029H5.009a1.03 1.03 0 1 1 0-2.059h7.173a1.03 1.03 0 0 1 1.03 1.03zm0 4.345a1.03 1.03 0 0 1-1.029 1.03H5.009a1.03 1.03 0 1 1 0-2.059h7.173a1.03 1.03 0 0 1 1.03 1.03z"
+          />
+        </svg>
+        List
+      </button>
+      <button
+        className="map tab"
+        onClick={[Function]}
+      >
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 16 19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M15.084 15.2H.916a.264.264 0 0 1-.254-.42l2.36-4.492a.865.865 0 0 1 .696-.42h.827a9.51 9.51 0 0 0 .943 1.108H3.912l-1.637 3.116h11.45l-1.637-3.116h-1.34a9.481 9.481 0 0 0 .943-1.109h.591a.866.866 0 0 1 .696.421l2.36 4.492a.264.264 0 0 1-.254.42zM11.4 7.189c0 2.64-2.176 2.888-3.103 5.46a.182.182 0 0 1-.356 0c-.928-2.572-3.104-2.82-3.104-5.46a3.282 3.282 0 0 1 6.563 0zm-1.86-.005a1.425 1.425 0 1 0-1.425 1.425A1.425 1.425 0 0 0 9.54 7.184z"
+          />
+        </svg>
+        Map
+      </button>
+    </section>
   </div>
   <div
     className="layout-row refine-bar"
@@ -2476,6 +2963,7 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
       <select
         id="choose-interval"
         onChange={[Function]}
+        value="Month"
       >
         <option
           disabled={true}
@@ -2567,27 +3055,39 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
     </section>
   </div>
   <div
+    className="layout-row date-range-disclaimer"
+  >
+    <strong>
+      Note:  Data from incomplete time intervals are not shown
+    </strong>
+  </div>
+  <div
     className="layout-row"
   >
     <section
       className="chart"
     >
       <div
-        className="chart-wrapper"
+        className="m-notification m-notification__visible m-notification__error"
       >
-        <p
-          className="y-axis-label"
+        <svg
+          className="cf-icon-svg"
+          viewBox="0 0 1000 1200"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          Complaints
-        </p>
+          <path
+            d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"
+          />
+        </svg>
         <div
-          id="line-chart"
-        />
-        <p
-          className="x-axis-label"
+          className="m-notification_content"
         >
-          Date received by the CFPB
-        </p>
+          <div
+            className="h4 m-notification_message"
+          >
+            Cannot display chart. Adjust your date range or date interval.
+          </div>
+        </div>
       </div>
     </section>
   </div>

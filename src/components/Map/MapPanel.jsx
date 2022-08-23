@@ -8,12 +8,13 @@ import FilterPanelToggle from '../Filters/FilterPanelToggle'
 import Loading from '../Dialogs/Loading'
 import MapToolbar from './MapToolbar'
 import { mapWarningDismissed } from '../../actions/view'
-import PerCapita from '../RefineBar/PerCapita'
+import { PerCapita } from '../RefineBar/PerCapita'
 import { processRows } from '../../utils/chart'
 import React from 'react'
 import RowChart from '../Charts/RowChart'
 import { Separator } from '../RefineBar/Separator'
 import { shortFormat } from '../../utils'
+import TabbedNavigation from '../TabbedNavigation'
 import TileChartMap from '../Charts/TileChartMap'
 import Warning from '../Warnings/Warning'
 
@@ -33,6 +34,7 @@ export class MapPanel extends React.Component {
     return (
       <section className="map-panel">
         <ActionBar/>
+        <TabbedNavigation />
         { this.props.error &&
           <ErrorBlock text="There was a problem executing your search" />
         }

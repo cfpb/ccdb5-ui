@@ -9,7 +9,7 @@ exports[`component::DateInput snapshots renders an error state 1`] = `
     max={null}
     min={null}
     onChange={[Function]}
-    placeholder="mm/dd/yyyy"
+    placeholder="M/D/YYYY"
     size="15"
     value="foo"
   />
@@ -44,7 +44,7 @@ exports[`component::DateInput snapshots renders without crashing 1`] = `
     max={null}
     min={null}
     onChange={[Function]}
-    placeholder="mm/dd/yyyy"
+    placeholder="M/D/YYYY"
     size="15"
     value=""
   />
@@ -60,7 +60,7 @@ exports[`component::DateInput snapshots shows the clear button after text is ent
     max={null}
     min={null}
     onChange={[Function]}
-    placeholder="mm/dd/yyyy"
+    placeholder="M/D/YYYY"
     size="15"
     value="12"
   />

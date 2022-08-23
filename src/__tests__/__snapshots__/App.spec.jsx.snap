@@ -34,6 +34,7 @@ exports[`initial state renders the detail route 1`] = `
       >
         <a
           href="https://www.consumerfinance.gov/complaint/data-use/"
+          rel="noopener noreferrer"
           target="_blank"
         >
           What do all these data points mean?
@@ -77,40 +78,6 @@ exports[`initial state renders without crashing 1`] = `
     >
       Consumer Complaint Database
     </h1>
-    <p>
-      Complaints are published after the company responds, confirming a commercial relationship with the consumer, or after 15 days, whichever comes first.
-      <span>
-         
-      </span>
-      <a
-        href="../#about-the-database"
-      >
-        Learn more
-      </a>
-    </p>
-    <p>
-      Complaints are not necessarily representative of all consumers’ experiences with a financial product or company.
-      <span>
-         
-      </span>
-      <a
-        href="../#what-you-should-consider"
-      >
-        Learn more
-      </a>
-    </p>
-    <p>
-      We don’t verify all the allegations in complaint narratives.
-      <span>
-         
-      </span>
-      <a
-        href="../#what-you-should-consider"
-      >
-        Learn more
-      </a>
-    </p>
-    <p />
     <ul
       className="m-list m-list__horizontal"
     >
@@ -121,7 +88,7 @@ exports[`initial state renders without crashing 1`] = `
           className="a-btn a-btn__link"
           onClick={[Function]}
         >
-          More about the complaint database
+          Things to know before you use this database
         </button>
       </li>
       <li
@@ -129,6 +96,7 @@ exports[`initial state renders without crashing 1`] = `
       >
         <a
           href="https://www.consumerfinance.gov/complaint/data-use/"
+          rel="noopener noreferrer"
           target="_blank"
         >
           How we use complaint data
@@ -139,6 +107,7 @@ exports[`initial state renders without crashing 1`] = `
       >
         <a
           href="https://cfpb.github.io/api/ccdb/"
+          rel="noopener noreferrer"
           target="_blank"
         >
           Technical documentation
@@ -276,10 +245,11 @@ exports[`initial state renders without crashing 1`] = `
                 className="advanced-container flex-fixed"
               >
                 <button
-                  className="a-btn a-btn__link o-expandable_cue-open"
+                  className="a-btn a-btn__link"
                   onClick={[Function]}
                 >
-                  Show advanced search tips
+                  Show 
+                  advanced search tips
                 </button>
               </div>
             </div>
@@ -287,32 +257,8 @@ exports[`initial state renders without crashing 1`] = `
         </div>
       </div>
     </div>
-    <div
-      className="tabbed-navigation"
-    >
-      <section>
-        <button
-          className="map tab active"
-          onClick={[Function]}
-        >
-          Map
-        </button>
-        <button
-          className="trends tab"
-          onClick={[Function]}
-        >
-          Trends
-        </button>
-        <button
-          className="list tab"
-          onClick={[Function]}
-        >
-          List
-        </button>
-      </section>
-    </div>
     <aside
-      className="content_sidebar map"
+      className="content_sidebar trends"
     >
       <div>
         <section
@@ -374,9 +320,9 @@ exports[`initial state renders without crashing 1`] = `
                       max={2020-05-05T04:00:00.000Z}
                       min={2011-12-01T12:00:00.000Z}
                       onChange={[Function]}
-                      placeholder="mm/dd/yyyy"
+                      placeholder="M/D/YYYY"
                       size="15"
-                      value="12/31/2015"
+                      value="6/1/2018"
                     />
                     <button
                       className="a-btn a-btn__link"
@@ -415,9 +361,9 @@ exports[`initial state renders without crashing 1`] = `
                       max={2020-05-05T04:00:00.000Z}
                       min={2011-12-01T12:00:00.000Z}
                       onChange={[Function]}
-                      placeholder="mm/dd/yyyy"
+                      placeholder="M/D/YYYY"
                       size="15"
-                      value="12/31/2015"
+                      value="6/1/2018"
                     />
                     <button
                       className="a-btn a-btn__link"
@@ -828,9 +774,6 @@ exports[`initial state renders without crashing 1`] = `
                 </button>
               </span>
             </div>
-            <p>
-              Whether the company gave a timely response
-            </p>
           </section>
           <hr />
           <section
@@ -865,9 +808,6 @@ exports[`initial state renders without crashing 1`] = `
                 </button>
               </span>
             </div>
-            <p>
-              This is how the company responded. For example, 'Closed with explanation'.
-            </p>
           </section>
           <hr />
           <section
@@ -902,9 +842,6 @@ exports[`initial state renders without crashing 1`] = `
                 </button>
               </span>
             </div>
-            <p>
-              The company's optional public-facing response to a consumer's complaint. Companies can choose to select a response from a pre-set list of options that will be posted on the public database.
-            </p>
           </section>
           <hr />
           <section
@@ -960,7 +897,7 @@ exports[`initial state renders without crashing 1`] = `
                       max={2020-05-05T04:00:00.000Z}
                       min={2011-12-01T12:00:00.000Z}
                       onChange={[Function]}
-                      placeholder="mm/dd/yyyy"
+                      placeholder="M/D/YYYY"
                       size="15"
                       value=""
                     />
@@ -982,7 +919,7 @@ exports[`initial state renders without crashing 1`] = `
                       max={2020-05-05T04:00:00.000Z}
                       min={2011-12-01T12:00:00.000Z}
                       onChange={[Function]}
-                      placeholder="mm/dd/yyyy"
+                      placeholder="M/D/YYYY"
                       size="15"
                       value=""
                     />
@@ -1024,9 +961,6 @@ exports[`initial state renders without crashing 1`] = `
                 </button>
               </span>
             </div>
-            <p>
-              Whether a consumer opted in to publish their complaint narrative
-            </p>
           </section>
           <hr />
           <section
@@ -1088,7 +1022,6 @@ exports[`initial state renders without crashing 1`] = `
                 </button>
               </span>
             </div>
-            <p />
           </section>
           <hr />
           <section
@@ -1123,18 +1056,15 @@ exports[`initial state renders without crashing 1`] = `
                 </button>
               </span>
             </div>
-            <p>
-              Data that supports easier searching and sorting of complaints submitted by or on behalf of consumers
-            </p>
           </section>
         </section>
       </div>
     </aside>
     <div
-      className="content_main map"
+      className="content_main trends"
     >
       <section
-        className="map-panel"
+        className="trends-panel"
       >
         <div>
           <summary
@@ -1184,26 +1114,55 @@ exports[`initial state renders without crashing 1`] = `
           </summary>
         </div>
         <div
-          className="m-notification m-notification__visible m-notification__error"
+          className="tabbed-navigation"
         >
-          <svg
-            className="cf-icon-svg"
-            viewBox="0 0 1000 1200"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"
-            />
-          </svg>
-          <div
-            className="m-notification_content"
-          >
-            <div
-              className="h4 m-notification_message"
+          <section>
+            <button
+              className="trends tab active"
+              onClick={[Function]}
             >
-              There was a problem executing your search
-            </div>
-          </div>
+              <svg
+                className="cf-icon-svg"
+                viewBox="0 0 15 19"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M13.55 15.256H1.45a.554.554 0 0 1-.553-.554V3.168a.554.554 0 1 1 1.108 0v10.98h11.544a.554.554 0 0 1 0 1.108zM3.121 13.02V6.888a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v6.132zm2.785 0V3.507a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v9.513zm2.785 0V6.888a.476.476 0 0 1 .475-.475h.786a.476.476 0 0 1 .475.475v6.132zm2.786 0v-2.753a.476.476 0 0 1 .475-.475h.785a.476.476 0 0 1 .475.475v2.753z"
+                />
+              </svg>
+              Trends
+            </button>
+            <button
+              className="list tab"
+              onClick={[Function]}
+            >
+              <svg
+                className="cf-icon-svg"
+                viewBox="0 0 14 19"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2.85 4.836a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm0 4.346a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm0 4.346a1.03 1.03 0 0 1-1.029 1.03h-.003a1.03 1.03 0 1 1 0-2.059h.003a1.03 1.03 0 0 1 1.03 1.03zm1.13-8.692a1.03 1.03 0 0 1 1.029-1.029h7.173a1.03 1.03 0 1 1 0 2.058H5.009a1.03 1.03 0 0 1-1.03-1.029zm9.231 4.347a1.03 1.03 0 0 1-1.029 1.029H5.009a1.03 1.03 0 1 1 0-2.059h7.173a1.03 1.03 0 0 1 1.03 1.03zm0 4.345a1.03 1.03 0 0 1-1.029 1.03H5.009a1.03 1.03 0 1 1 0-2.059h7.173a1.03 1.03 0 0 1 1.03 1.03z"
+                />
+              </svg>
+              List
+            </button>
+            <button
+              className="map tab"
+              onClick={[Function]}
+            >
+              <svg
+                className="cf-icon-svg"
+                viewBox="0 0 16 19"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M15.084 15.2H.916a.264.264 0 0 1-.254-.42l2.36-4.492a.865.865 0 0 1 .696-.42h.827a9.51 9.51 0 0 0 .943 1.108H3.912l-1.637 3.116h11.45l-1.637-3.116h-1.34a9.481 9.481 0 0 0 .943-1.109h.591a.866.866 0 0 1 .696.421l2.36 4.492a.264.264 0 0 1-.254.42zM11.4 7.189c0 2.64-2.176 2.888-3.103 5.46a.182.182 0 0 1-.356 0c-.928-2.572-3.104-2.82-3.104-5.46a3.282 3.282 0 0 1 6.563 0zm-1.86-.005a1.425 1.425 0 1 0-1.425 1.425A1.425 1.425 0 0 0 9.54 7.184z"
+                />
+              </svg>
+              Map
+            </button>
+          </section>
         </div>
         <div
           className="layout-row refine-bar"
@@ -1225,9 +1184,95 @@ exports[`initial state renders without crashing 1`] = `
               </button>
             </div>
           </section>
+          <section
+            className="cf-select"
+          >
+            <label
+              className="u-visually-hidden"
+              htmlFor="choose-lens"
+            >
+              Aggregate complaints by
+            </label>
+            <p>
+              Aggregate by
+            </p>
+            <select
+              id="choose-lens"
+              onChange={[Function]}
+              value="Overview"
+            >
+              <option
+                disabled={false}
+                value="Overview"
+              >
+                Overview
+              </option>
+              <option
+                disabled={false}
+                value="Company"
+              >
+                Company
+              </option>
+              <option
+                disabled={false}
+                value="Product"
+              >
+                Product
+              </option>
+            </select>
+          </section>
           <span
             className="separator"
           />
+          <section
+            className="cf-select"
+          >
+            <label
+              className="u-visually-hidden"
+              htmlFor="choose-interval"
+            >
+              Choose the Date interval
+            </label>
+            <p>
+              Date interval
+            </p>
+            <select
+              id="choose-interval"
+              onChange={[Function]}
+              value="Month"
+            >
+              <option
+                disabled={false}
+                value="Day"
+              >
+                Day
+              </option>
+              <option
+                disabled={false}
+                value="Week"
+              >
+                Week
+              </option>
+              <option
+                disabled={false}
+                value="Month"
+              >
+                Month
+              </option>
+              <option
+                disabled={false}
+                value="Quarter"
+              >
+                Quarter
+              </option>
+              <option
+                disabled={false}
+                value="Year"
+              >
+                Year
+              </option>
+            </select>
+          </section>
           <section
             className="date-ranges m-btn-group"
           >
@@ -1265,56 +1310,8 @@ exports[`initial state renders without crashing 1`] = `
               All
             </button>
           </section>
-          <section
-            className="per-capita"
-          >
-            <div
-              className="per-capita m-btn-group"
-            >
-              <p>
-                Map shading
-              </p>
-              <button
-                className="a-btn raw selected"
-                onClick={[Function]}
-              >
-                Complaints
-              </button>
-              <button
-                className="a-btn capita deselected"
-                onClick={[Function]}
-              >
-                Complaints per 1,000 
-                <span>
-                  population
-                </span>
-              </button>
-            </div>
-          </section>
         </div>
-        <div>
-          <div
-            className="cfpb-chart "
-            data-chart-type="tile_map"
-            id="tile-chart-map"
-          />
-        </div>
-        <div
-          className="map-toolbar"
-        >
-          <section
-            className="state-heading"
-          >
-            <span>
-              United States of America
-            </span>
-            <span>
-              
-            </span>
-            
-          </section>
-          
-        </div>
+        
       </section>
     </div>
   </div>

@@ -1,58 +1,50 @@
-import './PerCapita.less'
 import { GEO_NORM_NONE, GEO_NORM_PER1000 } from '../../constants'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { dataNormalizationChanged } from '../../actions/map';
 import React from 'react'
 
 
-export class PerCapita extends React.Component {
-  _setNormalization( val ) {
-    this.props.onDataNormalization( val )
+export const PerCapita = () => {
+  const dataNormalization = useSelector(
+    state => state.query.dataNormalization || GEO_NORM_NONE );
+  const enablePer1000 = useSelector(
+    state => state.query.enablePer1000 || false );
+  const dispatch = useDispatch();
+
+  const _setNormalization = val => {
+    if ( dataNormalization !== val ) {
+      dispatch( dataNormalizationChanged( val ) )
+    }
   }
 
-  _getRawButtonClass() {
-    return this.props.dataNormalization === GEO_NORM_NONE ? 'selected' :
-      'deselected'
+  const _getRawButtonClass = () => {
+    if ( dataNormalization === GEO_NORM_NONE ) {
+      return 'selected';
+    }
+    return 'deselected';
   }
 
-  _getPerCapButtonClass() {
-    if ( this.props.enablePer1000 ) {
-      return this.props.dataNormalization === GEO_NORM_PER1000 ? 'selected' :
-        'deselected'
+  const _getPerCapButtonClass = () => {
+    if ( enablePer1000 ) {
+      return dataNormalization === GEO_NORM_PER1000 ? 'selected' : 'deselected';
     }
     return 'a-btn__disabled'
   }
-  render() {
-    return (
-      <section className="per-capita">
-        <div className="per-capita m-btn-group">
-          <p>Map shading</p>
-          <button
-            className={ 'a-btn raw ' + this._getRawButtonClass() }
-            onClick={ () => this._setNormalization( GEO_NORM_NONE ) }>Complaints
-          </button>
-          <button
-            className={ 'a-btn capita ' + this._getPerCapButtonClass() }
-            onClick={ () =>
-                this.props.enablePer1000 &&
-                this._setNormalization( GEO_NORM_PER1000 ) }>
-            Complaints per 1,000 <span>population</span>
-          </button>
-        </div>
-      </section>
-    )
-  }
+
+  return (
+    <section className="m-btn-group">
+      <p>Map shading</p>
+      <button
+        className={ 'a-btn toggle-button raw ' + _getRawButtonClass() }
+        onClick={ () => _setNormalization( GEO_NORM_NONE ) }>
+        Complaints
+      </button>
+      <button
+        className={ 'a-btn toggle-button capita ' + _getPerCapButtonClass() }
+        onClick={ () => enablePer1000 && _setNormalization( GEO_NORM_PER1000 )
+        }>
+        Complaints per 1,000 <span>population</span>
+      </button>
+    </section>
+  )
 }
-
-export const mapStateToProps = state => ( {
-  dataNormalization: state.query.dataNormalization,
-  enablePer1000: state.query.enablePer1000
-} );
-
-export const mapDispatchToProps = dispatch => ( {
-  onDataNormalization: value => {
-    dispatch( dataNormalizationChanged( value ) )
-  }
-} );
-
-export default connect( mapStateToProps, mapDispatchToProps )( PerCapita )

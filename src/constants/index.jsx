@@ -4,6 +4,9 @@ export const MODAL_SHOWN = 'MODAL_SHOWN'
 
 export const DATE_RANGE_MIN = '2011-12-01T12:00:00.000Z'
 
+export const DATE_VALIDATION_FORMAT = 'M/D/YYYY';
+
+
 // Modal Dialogs
 export const MODAL_TYPE_DATA_EXPORT = 'MODAL_TYPE_DATA_EXPORT'
 export const MODAL_TYPE_MORE_ABOUT = 'MODAL_TYPE_MORE_ABOUT'

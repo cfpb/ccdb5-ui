@@ -129,10 +129,6 @@ describe('component::DateInput', () => {
       ['e', 'ERROR'],
       ['12', 'ACCUM'],
       ['12/', 'ACCUM'],
-      ['12-', 'ACCUM'],
-      ['12-1', 'ACCUM'],
-      ['12-12', 'ACCUM'],
-      ['12-12/20', 'ACCUM'],
       ['12/12/201', 'ACCUM'],
       ['12/12/2012', 'READY'],
       ['2/12/e', 'ERROR']
@@ -160,7 +156,7 @@ describe('component::DateInput', () => {
       expect(target.instance()._calculateState).toHaveBeenCalledWith(
         expect.anything(), '2016-01-01'
       )
-    })    
+    })
   })
 })
 

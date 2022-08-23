@@ -137,10 +137,11 @@ exports[`component:SearchPanel renders without crashing 1`] = `
             className="advanced-container flex-fixed"
           >
             <button
-              className="a-btn a-btn__link o-expandable_cue-open"
+              className="a-btn a-btn__link"
               onClick={[Function]}
             >
-              Show advanced search tips
+              Show\x20
+              advanced search tips
             </button>
           </div>
         </div>

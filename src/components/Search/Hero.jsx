@@ -21,44 +21,24 @@ export class Hero extends React.Component {
     return (
         <header className="content_hero">
           <h1 className="content-header">Consumer Complaint Database</h1>
-          <p>
-              Complaints are published after the company responds,
-               confirming a commercial relationship with the consumer,
-               or after 15 days, whichever comes first.<span> </span>
-              <a href="../#about-the-database">
-                Learn more
-              </a>
-            </p>
-            <p>
-              Complaints are not necessarily representative of all consumers’
-               experiences with a financial product or company.<span> </span>
-              <a href="../#what-you-should-consider">
-              Learn more
-              </a>
-            </p>
-            <p>
-              We don’t verify all the allegations in complaint narratives.
-              <span> </span>
-              <a href="../#what-you-should-consider">
-                Learn more
-              </a>
-            </p>
-            <p></p>
           <ul className="m-list m-list__horizontal">
             <li className="m-list_item">
               <button className="a-btn a-btn__link"
                       onClick={this.props.onMoreAbout}>
-                More about the complaint database
+                Things to know before you use this database
               </button>
             </li>
             <li className="m-list_item">
               <a href="https://www.consumerfinance.gov/complaint/data-use/"
-                 target="_blank">
+                 target="_blank"
+                 rel="noopener noreferrer">
                 How we use complaint data
               </a>
             </li>
             <li className="m-list_item">
-              <a href="https://cfpb.github.io/api/ccdb/" target="_blank">
+              <a href="https://cfpb.github.io/api/ccdb/"
+                 target="_blank"
+                 rel="noopener noreferrer">
                 Technical documentation
               </a>
             </li>

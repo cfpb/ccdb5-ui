@@ -1,5 +1,6 @@
 import './TabbedNavigation.less'
 import { connect } from 'react-redux'
+import iconMap from './iconMap'
 import React from 'react'
 import { tabChanged } from '../actions/view'
 
@@ -14,20 +15,23 @@ export class TabbedNavigation extends React.Component {
       <div className="tabbed-navigation">
         <section>
           <button
-            className={ this._getTabClass( 'Map' ) }
-            onClick={ () => this.props.onTab( 'Map' ) }>
-            Map
-          </button>
-
-          <button
             className={ this._getTabClass( 'Trends' ) }
             onClick={ () => this.props.onTab( 'Trends' ) }>
+            { iconMap.getIcon( 'chart' ) }
             Trends
           </button>
 
           <button className={ this._getTabClass( 'List' ) }
                   onClick={ () => this.props.onTab( 'List' ) }>
+            { iconMap.getIcon( 'list' ) }
             List
+          </button>
+
+          <button
+            className={ this._getTabClass( 'Map' ) }
+            onClick={ () => this.props.onTab( 'Map' ) }>
+            { iconMap.getIcon( 'map' ) }
+            Map
           </button>
         </section>
       </div>

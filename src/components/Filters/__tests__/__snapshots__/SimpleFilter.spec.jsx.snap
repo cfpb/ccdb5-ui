@@ -33,6 +33,5 @@ exports[`initial state renders without crashing 1`] = `
       </button>
     </span>
   </div>
-  <p />
 </section>
 `;

@@ -49,8 +49,7 @@ describe( 'getLastLineDate', () => {
       from: '2012',
       to: '2016'
     },
-    interval: 'Month',
-    lastDate: '2020-03-01T12:00:00.000Z'
+    interval: 'Month'
   }
 
   it( 'does nothing when data is empty', () => {
@@ -145,15 +144,15 @@ describe( 'getTooltipTitle', () => {
 
 describe( 'getTooltipDate', () => {
   it( 'returns a short format of a date string', () => {
-    const shortDate = sut.getTooltipDate( 
-      '2021-01-01T00:00:00.000Z', 
+    const shortDate = sut.getTooltipDate(
+      '2021-01-01T00:00:00.000Z',
       { from: '2020-12-31T00:00:00.000Z', to: '2021-08-23T00:00:00.000Z' } )
     expect( shortDate ).toEqual( '1/1/2021' );
   } )
 
   it( 'returns a short format of a date string', () => {
-    const shortDate = sut.getTooltipDate( 
-      '2021-01-01T00:00:00.000Z', 
+    const shortDate = sut.getTooltipDate(
+      '2021-01-01T00:00:00.000Z',
       { to: '2021-08-23T00:00:00.000Z' } )
     expect( shortDate ).toEqual( '1/1/2021' );
   } )
@@ -245,3 +244,143 @@ describe( 'processRows', () => {
   } )
 
 } )
+
+describe('dateOutOfStartBounds', ()=>{
+
+  let actual;
+  it('handles date before date', () => {
+    actual = sut.dateOutOfStartBounds('01/15/2011', '02/01/2011', 'Month')
+    expect(actual).toBe(true)
+  })
+  it('handles same date', () => {
+    actual = sut.dateOutOfStartBounds('02/01/2011', '02/01/2011', 'Month')
+    expect(actual).toBe(false)
+  })
+})
+
+describe('dateOutOfEndBounds', ()=>{
+  let actual;
+  it('handles date inside end date', () => {
+    actual = sut.dateOutOfEndBounds('02/15/2011', '02/01/2011', 'Month')
+    expect(actual).toBe(true)
+  })
+  it('handles same date', () => {
+    actual = sut.dateOutOfEndBounds('02/01/2011', '02/01/2011', 'Month')
+    expect(actual).toBe(true)
+  })
+  it('handles same date as last', () => {
+    actual = sut.dateOutOfEndBounds('01/31/2011', '01/01/2011', 'Month')
+    expect(actual).toBe(false)
+  })
+})
+
+
+describe('pruneIncompleteLineInterval', ()=>{
+  let data, dateRange;
+  beforeEach(()=>{
+    data = {
+      dataByTopic: [
+        {
+          name: 'Foo',
+          dates: [
+            {date: '01/01/2011'},
+            {date: '01/01/2012'},
+            {date: '01/01/2013'},
+            {date: '01/01/2014'}
+          ]
+        }
+      ]
+    };
+
+    dateRange = {from: '01/01/2011', to: '12/31/2014'};
+  })
+
+  it('returns full set if last interval complete', ()=>{
+    sut.pruneIncompleteLineInterval(
+        data, dateRange, 'Year'
+    );
+    expect(data).toEqual({
+      dataByTopic: [
+        {
+          name: 'Foo',
+          dates: [
+            {date: '01/01/2011'},
+            {date: '01/01/2012'},
+            {date: '01/01/2013'},
+            {date: '01/01/2014'}
+          ]
+        }
+      ]
+    })
+  })
+
+  it('removes start date if start interval incomplete', ()=>{
+    dateRange.from = '12/23/2011'
+    sut.pruneIncompleteLineInterval(data, dateRange, 'Year');
+    expect(data).toEqual({
+      dataByTopic: [
+        {
+          name: 'Foo',
+          dates: [
+            {date: '01/01/2012'},
+            {date: '01/01/2013'},
+            {date: '01/01/2014'}
+          ]
+        }
+      ]
+    })
+  })
+
+  it('removes last date if last interval incomplete', ()=>{
+    dateRange.to = '12/23/2014'
+    sut.pruneIncompleteLineInterval(data, dateRange, 'Year');
+    expect(data).toEqual({
+      dataByTopic: [
+        {
+          name: 'Foo',
+          dates: [
+            {date: '01/01/2011'},
+            {date: '01/01/2012'},
+            {date: '01/01/2013'}
+          ]
+        }
+      ]
+    })
+  })
+})
+
+describe('pruneIncompleteStackedAreaInterval', ()=>{
+  it('returns data set if to date and last dates line up', ()=>{
+    const data = [
+      {date: '01/01/2011'},
+      {date: '01/01/2012'},
+      {date: '01/01/2013'},
+      {date: '01/01/2014'}
+    ]
+
+    const dateRange = {from: '01/01/2011', to: '12/31/2014'};
+    const res = sut.pruneIncompleteStackedAreaInterval(
+        data, dateRange, 'Year'
+    );
+    expect(res).toEqual(data)
+  })
+
+  it('removes data if to date inside of last interval', ()=>{
+    const data = [
+      {date: '01/01/2011'},
+      {date: '02/01/2011'},
+      {date: '03/01/2011'},
+      {date: '04/01/2011'}
+    ]
+
+    const dateRange = {from: '01/01/2011', to: '04/15/2011'};
+    const res = sut.pruneIncompleteStackedAreaInterval(
+        data, dateRange, 'Month'
+    );
+    expect(res).toEqual([
+      {date: '01/01/2011'},
+      {date: '02/01/2011'},
+      {date: '03/01/2011'}
+    ]);
+  })
+})

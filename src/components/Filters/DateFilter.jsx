@@ -1,13 +1,13 @@
 import './DateFilter.less'
+import { DATE_RANGE_MIN, DATE_VALIDATION_FORMAT } from '../../constants'
 import { shortFormat, startOfToday } from '../../utils'
 import { changeDates } from '../../actions/filter'
 import CollapsibleFilter from './CollapsibleFilter'
 import { connect } from 'react-redux'
-import { DATE_RANGE_MIN } from '../../constants'
 import DateInput from '../DateInput'
 import dayjs from 'dayjs'
-import dayjsIsBetween from 'dayjs/plugin/isBetween'
 import dayjsCustomParseFormat from 'dayjs/plugin/customParseFormat'
+import dayjsIsBetween from 'dayjs/plugin/isBetween'
 import iconMap from '../iconMap'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -18,7 +18,7 @@ dayjs.extend( dayjsIsBetween )
 const WARN_SERIES_BREAK = 'CFPB updated product and issue options' +
   ' available to consumers in April 2017 ';
 
-const LEARN_SERIES_BREAK = 'http://files.consumerfinance.gov/f/' +
+const LEARN_SERIES_BREAK = 'https://files.consumerfinance.gov/f/' +
   'documents/201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf';
 
 export class DateFilter extends React.Component {
@@ -44,8 +44,8 @@ export class DateFilter extends React.Component {
   }
 
   render() {
-    const from = dayjs( this.state.from, 'MM-DD-YYYY' )
-    const through = dayjs( this.state.through, 'MM-DD-YYYY' )
+    const from = dayjs( this.state.from, DATE_VALIDATION_FORMAT )
+    const through = dayjs( this.state.through, DATE_VALIDATION_FORMAT )
 
     const showWarning = dayjs( '2017-04-23' ).isBetween( from, through, 'day' )
 
@@ -65,6 +65,7 @@ export class DateFilter extends React.Component {
               <p> { WARN_SERIES_BREAK }
                 <a href={ LEARN_SERIES_BREAK }
                   target="_blank"
+                  rel="noopener noreferrer"
                   aria-label="Learn more about Product and
                   Issue changes (opens in new window)" >
                   Learn More
@@ -136,8 +137,8 @@ export class DateFilter extends React.Component {
   _validate( state ) {
 
     // Check for range errors
-    const from = dayjs( state.from, 'MM-DD-YYYY' )
-    const through = dayjs( state.through, 'MM-DD-YYYY' )
+    const from = dayjs( state.from, DATE_VALIDATION_FORMAT )
+    const through = dayjs( state.through, DATE_VALIDATION_FORMAT )
     if ( from && through && from > through ) {
       state.messages.ordered = "'From' must be less than 'Through'"
     } else {
@@ -173,8 +174,8 @@ export class DateFilter extends React.Component {
     if ( this._hasMessages( state.messages ) === false &&
       this._isChanged( this.props, state ) ) {
 
-      const from = dayjs( state.from, 'MM-DD-YYYY' )
-      const through = dayjs( state.through, 'MM-DD-YYYY' )
+      const from = dayjs( state.from, 'M/D/YYYY' )
+      const through = dayjs( state.through, 'M/D/YYYY' )
       const dateFrom = from.isValid() ? from.toDate() : null
       const dateThrough = through.isValid() ? through.toDate() : null
 
@@ -183,6 +184,7 @@ export class DateFilter extends React.Component {
   }
 
   _onError( field, error, value ) {
+    console.log( field, error, value )
     const messages = { ...this.state.messages }
     messages[field] = error
     this.setState( { messages, [field]: value } )

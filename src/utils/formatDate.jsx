@@ -18,7 +18,7 @@ export const formatDate = uglyDate =>
 /**
  * adjusting dates coming from the charts so the dates are correct
  * @param {(string | object)} dateIn the input string to convert
- * @returns {string} the cleaned up string in MM/DD/YYYY
+ * @returns {string} the cleaned up string in M/D/YYYY
  */
 export const adjustDate = dateIn =>
   dayjs( new Date( dateIn ) ).utc().add( 5.5, 'hours' ).format()

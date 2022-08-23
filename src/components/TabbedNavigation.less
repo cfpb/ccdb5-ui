@@ -1,29 +1,35 @@
 @import (less) "../css/base.less";
 
 .tabbed-navigation {
-  background: @gray-5;
+  margin-top: 30px;
+  border-bottom: 1px solid @gray-20;
   section {
     padding-left: 10px;
     .tab {
+      margin: 0;
+      padding: 4px 30px 8px 30px;
+
+      font-size: unit( 19px / @base-font-size-px, em );
+      font-weight: 500;
+
       &:focus {
         outline: none;
       }
 
-      border: none;
-      margin: 0;
-      padding: 4px 30px 8px 30px;
-
-      font-weight: 500;
-      font-size: larger;
+      .cf-icon-svg {
+        margin-right: 5px;
+        margin-top: 4px;
+        font-size: unit( 13px / @base-font-size-px, em );
+      }
 
       &:not(.active) {
         color: @dark-pacific;
-        background: @white;
+        background: @gray-5;
         border: 1px solid @gray-20;
         border-bottom: none;
 
         &:after {
-          content: "";
+          content: '';
           border-top: solid 1px;
           display: block;
         }
@@ -31,12 +37,19 @@
       &.active {
         padding-top: 8px;
         border: 1px solid @gray-40;
-        border-bottom: none;
-        background: @gray-5;
+        background: @white;
         pointer-events: none;
         position: relative;
-        top: 1px;
-        line-height: 1.5;
+
+        &:after {
+          content: '';
+          display: block;
+          width: calc( 100% - 2px);
+          outline: 1px solid @white;
+          position: absolute;
+          bottom: -1px;
+          left: 1px;
+        }
       }
     }
   }

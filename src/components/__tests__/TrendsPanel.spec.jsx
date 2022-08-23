@@ -74,8 +74,10 @@ function setupEnzyme( { focus, overview, lens, subLens } ) {
 function setupSnapshot( { chartType,
                           company,
                           focus,
+                          dateInterval,
                           lens,
                           subLens,
+                          tooltip,
                           trendsDateWarningEnabled,
                           width }) {
   const middlewares = [ thunk ]
@@ -89,6 +91,7 @@ function setupSnapshot( { chartType,
       company,
       date_received_min: new Date( '1/1/2018' ),
       date_received_max: new Date( '1/1/2020' ),
+      dateInterval,
       lens,
       subLens,
       tab: MODE_TRENDS,
@@ -100,6 +103,7 @@ function setupSnapshot( { chartType,
       focus,
       lens,
       results: {
+        "dateRangeArea": [],
         "dateRangeLine": {
           "dataByTopic": [ {
             "topic": "Complaints",
@@ -117,6 +121,7 @@ function setupSnapshot( { chartType,
         product: [ { name: 'adg', value: 123 } ],
         company: [ { name: 'adg', value: 123 } ]
       },
+      tooltip,
       total: 10000
     },
     view: {
@@ -141,12 +146,14 @@ describe( 'component:TrendsPanel', () => {
       params = {
         chartType: 'line',
         company: false,
+        dateInterval: 'Month',
         expandedRows: [],
         focus: '',
         lens: 'Overview',
         printMode: false,
         showMobileFilters: false,
         subLens: 'sub_product',
+        tooltip: { date: '1/1/2020', title: 'Foo Bar'},
         trendsDateWarningEnabled: false,
         width: 1000
       }

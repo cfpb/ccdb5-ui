@@ -1,117 +1,79 @@
-import configureMockStore from 'redux-mock-store'
-import ReduxPerCapita, {
-  mapDispatchToProps, mapStateToProps, PerCapita
-} from '../RefineBar/PerCapita'
-import { Provider } from 'react-redux'
-import React from 'react'
-import renderer from 'react-test-renderer'
-import { shallow } from 'enzyme'
-import thunk from 'redux-thunk'
-import { GEO_NORM_NONE, GEO_NORM_PER1000 } from '../../constants'
+import React from 'react';
+import {mount} from 'enzyme';
+import * as redux from 'react-redux';
+import {PerCapita} from '../RefineBar/PerCapita';
 
-function setupEnzyme( normalization = GEO_NORM_NONE ) {
-  const props = {
-    dataNormalization: normalization,
-    enablePer1000: true,
-    onDataNormalization: jest.fn()
-  }
+describe('PerCapita', () => {
+  let spyOnUseSelector;
+  let spyOnUseDispatch;
+  let mockDispatch;
 
-  const target = shallow(<PerCapita {...props} />);
+  beforeEach(() => {
+    // Mock useSelector hook
+    spyOnUseSelector = jest.spyOn(redux, 'useSelector');
+    // Mock useDispatch hook
+    spyOnUseDispatch = jest.spyOn(redux, 'useDispatch');
+    // Mock dispatch function returned from useDispatch
+    mockDispatch = jest.fn();
+    spyOnUseDispatch.mockReturnValue(mockDispatch);
+  });
 
-  return {
-    props,
-    target
-  }
-}
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
 
-function setupSnapshot(enablePer1000) {
-  const middlewares = [ thunk ]
-  const mockStore = configureMockStore( middlewares )
-  const store = mockStore( {
-    query: {
-      dataNormalization: GEO_NORM_NONE,
-      enablePer1000
-    }
-  } )
+  it('should render', () => {
+    spyOnUseSelector.mockReturnValue(false);
+    const wrapper = mount(<PerCapita />);
+    expect(wrapper.exists()).toBe(true);
+  });
 
-  return renderer.create(
-    <Provider store={ store }>
-      <ReduxPerCapita />
-    </Provider>
-  )
-}
+  it('should dispatch dataNormalizationChanged GEO_NORM_NONE action', () => {
+    spyOnUseSelector.mockReturnValue('Per 1000 pop.');
+    const wrapper = mount(<PerCapita />);
+    let button = wrapper.find('.capita');
+    expect( button.hasClass( 'selected' ) ).toBeTruthy();
 
-describe( 'component: PerCapita', () => {
-  describe( 'initial state', () => {
-    it( 'renders enablePer1000 without crashing', () => {
-      const target = setupSnapshot( true )
-      let tree = target.toJSON()
-      expect( tree ).toMatchSnapshot()
-    } )
+    button = wrapper.find('.raw');
+    expect( button.hasClass( 'selected' ) ).toBeFalsy();
 
-    it( 'renders disabled enablePer1000 without crashing', () => {
-      const target = setupSnapshot( false )
-      let tree = target.toJSON()
-      expect( tree ).toMatchSnapshot()
-    } )
+    button.simulate('click');
+    expect(mockDispatch.mock.calls).toEqual([
+      [{
+        "type": "DATA_NORMALIZATION_SELECTED",
+        "requery": "REQUERY_NEVER",
+        "value": "None"
+      }]
+    ]);
+  });
 
+  it('should dispatch dataNormalizationChanged GEO_NORM_PER1000 action', () => {
+    spyOnUseSelector.mockReturnValue('None');
+    const wrapper = mount(<PerCapita />);
+    let button = wrapper.find('.raw');
+    expect( button.hasClass( 'selected' ) ).toBeTruthy();
 
-    it('allows the user to trigger Complaints', () => {
-      const { target, props } = setupEnzyme()
-      const button = target.find('.raw');
+    button = wrapper.find('.capita');
+    expect( button.hasClass( 'selected' ) ).toBeFalsy();
 
-      button.simulate('click');
-      expect(props.onDataNormalization).toHaveBeenCalled();
-    });
+    button.simulate('click');
+    expect(mockDispatch.mock.calls).toEqual([
+      [{
+        "type": "DATA_NORMALIZATION_SELECTED",
+        "requery": "REQUERY_NEVER",
+        "value": "Per 1000 pop."
+      }]
+    ]);
+  });
 
-    it('allows the user to trigger Per 1000 Complaints', () => {
-      const { target, props } = setupEnzyme()
-      const button = target.find('.capita');
+  it('should skip dataNormalizationChanged action when same', () => {
+    spyOnUseSelector.mockReturnValue('None');
+    const wrapper = mount(<PerCapita />);
+    let button = wrapper.find('.raw');
+    expect( button.hasClass( 'selected' ) ).toBeTruthy();
 
-      expect( button.hasClass( 'capita' ) ).toBeTruthy()
-      expect( button.hasClass( 'selected' ) ).toBeFalsy()
-      button.simulate('click');
-      expect(props.onDataNormalization).toHaveBeenCalled()
-    });
+    button.simulate('click');
+    expect(mockDispatch.mock.calls).toEqual([]);
+  });
 
-    it('changes Per 1000 button class', () => {
-      const { target, props } = setupEnzyme( GEO_NORM_PER1000 )
-      const button = target.find('.capita')
-
-      expect( button.hasClass( 'capita' ) ).toBeTruthy()
-      expect( button.hasClass( 'selected' ) ).toBeTruthy()
-
-      button.simulate('click')
-      expect(props.onDataNormalization).toHaveBeenCalled()
-    });
-  } )
-
-  describe('mapDispatchToProps', () => {
-    it('hooks into onDataNormalization', () => {
-      const dispatch = jest.fn();
-      const ev = {
-        target: {
-          value: 123
-        }
-      }
-      mapDispatchToProps(dispatch).onDataNormalization( ev );
-      expect(dispatch.mock.calls.length).toEqual(1);
-    })
-  })
-
-  describe( 'mapStateToProps', () => {
-    it( 'maps state and props', () => {
-      const state = {
-        query: {
-          dataNormalization: 'foo',
-          enablePer1000: true
-        }
-      }
-      let actual = mapStateToProps( state )
-      expect( actual ).toEqual( {
-        dataNormalization: 'foo',
-        enablePer1000: true
-      } )
-    } )
-  } )
-} )
+} );

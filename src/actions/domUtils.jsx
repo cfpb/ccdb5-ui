@@ -8,6 +8,7 @@ export function buildLink( uri, download = null ) {
   const link = document.createElement( 'a' )
   link.href = uri
   link.target = '_blank'
+  link.rel = 'noopener noreferrer'
   if ( download ) {
     link.download = download
   }

@@ -1,9 +1,6 @@
-import target, {
-  alignDateRange, defaultQuery, filterArrayAction
-} from '../query'
+import target, {alignDateRange, defaultQuery, filterArrayAction} from '../query'
 import actions from '../../actions'
 import * as types from '../../constants'
-
 import dayjs from 'dayjs'
 import { startOfToday } from '../../utils'
 
@@ -28,7 +25,8 @@ describe( 'reducer:query', () => {
         lens: 'Overview',
         mapWarningEnabled: true,
         queryString: '?date_received_max=2020-05-05' +
-          '&date_received_min=2017-05-05&field=all',
+          '&date_received_min=2017-05-05&field=all' +
+          '&lens=overview&trend_depth=5&trend_interval=month',
         searchText: '',
         searchField: 'all',
         page: 1,
@@ -36,7 +34,7 @@ describe( 'reducer:query', () => {
         size: 25,
         sort: 'created_date_desc',
         subLens: '',
-        tab: types.MODE_MAP,
+        tab: 'Trends',
         totalPages: 0,
         trendDepth: 5,
         trendsDateWarningEnabled: false
@@ -372,11 +370,11 @@ describe( 'reducer:query', () => {
         from: 0,
         page: 1,
         searchAfter: '',
-        enablePer1000: true,
-        focus: '',
-        mapWarningEnabled: true,
-        tab: 'Map',
-        queryString: ''
+        chartType: "line",
+        focus: 'Yoyo',
+        tab: 'Trends',
+        queryString: '?focus=Yoyo',
+        trendsDateWarningEnabled: false
       } )
     } )
 
@@ -699,6 +697,124 @@ describe( 'reducer:query', () => {
         expect( filterReturn ).toEqual( [ 'bye' ] )
       } )
 
+    } )
+
+    describe( 'FILTER_ADDED actions', () => {
+      let action
+      beforeEach( () => {
+        action = {
+          type: actions.FILTER_ADDED,
+          filterName: 'product',
+          filterValue: 'baz'
+        }
+      } )
+
+      it( 'adds a filter when one exists', () => {
+        state = {
+          product: [ 'bar', 'qaz' ]
+        }
+        expect( target( state, action ) ).toEqual( {
+          breakPoints: {},
+          from: 0,
+          page: 1,
+          product: [ 'bar', 'qaz', 'baz' ],
+          queryString: '?product=bar&product=qaz&product=baz',
+          searchAfter: ''
+        } )
+      } )
+
+      it( 'ignores a filter when it exists', () => {
+        state = {
+          product: [ 'bar', 'qaz', 'baz' ]
+        }
+        expect( target( state, action ) ).toEqual( {
+          breakPoints: {},
+          from: 0,
+          page: 1,
+          product: [ 'bar', 'qaz', 'baz' ],
+          queryString: '?product=bar&product=qaz&product=baz',
+          searchAfter: ''
+        } )
+      } )
+
+      it( 'handles a missing filter', () => {
+        state = {
+          issue: [ 'bar', 'baz', 'qaz' ]
+        }
+        expect( target( state, action ) ).toEqual( {
+          breakPoints: {},
+          from: 0,
+          product: ['baz'],
+          issue: ['bar', 'baz', 'qaz'],
+          page: 1,
+          queryString: '?issue=bar&issue=baz&issue=qaz&product=baz',
+          searchAfter: ''
+        } )
+      } )
+
+      it( 'handles a missing filter value', () => {
+        state = {
+          product: [ 'bar', 'qaz' ]
+        }
+        expect( target( state, action ) ).toEqual( {
+          breakPoints: {},
+          from: 0,
+          page: 1,
+          product: [ 'bar', 'qaz', 'baz' ],
+          queryString: '?product=bar&product=qaz&product=baz',
+          searchAfter: ''
+        } )
+      } )
+
+      describe( 'has_narrative', () => {
+        it( 'handles when present', () => {
+          action.filterName = 'has_narrative'
+          state = {
+            has_narrative: true
+          }
+          expect( target( state, action ) ).toEqual( {
+            breakPoints: {},
+            from: 0,
+            has_narrative: true,
+            page: 1,
+            queryString: '?has_narrative=true',
+            searchAfter: ''
+          } )
+        } );
+
+        it( 'handles when present - Map', () => {
+          action.filterName = 'has_narrative'
+          state = {
+            dataNormalization: 'None',
+            has_narrative: true,
+            tab: types.MODE_MAP
+          }
+          expect( target( state, action ) ).toEqual( {
+            breakPoints: {},
+            dataNormalization: 'None',
+            enablePer1000: false,
+            from: 0,
+            has_narrative: true,
+            page: 1,
+            queryString: '?has_narrative=true',
+            searchAfter: '',
+            tab: types.MODE_MAP
+          } )
+        } )
+
+        it( 'handles when absent', () => {
+          action.filterName = 'has_narrative'
+          state = {}
+          expect( target( state, action ) ).toEqual( {
+            breakPoints: {},
+            from: 0,
+            has_narrative:true,
+            page: 1,
+            queryString: '?has_narrative=true',
+            searchAfter: '',
+          } )
+        } );
+      } );
     } )
 
     describe( 'FILTER_REMOVED actions', () => {
