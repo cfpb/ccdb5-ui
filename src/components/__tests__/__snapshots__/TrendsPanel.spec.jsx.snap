@@ -424,6 +424,13 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
     </section>
   </div>
   <div
+    className="layout-row disclaimer"
+  >
+    <strong>
+      Note:  Data from incomplete time intervals are not shown
+    </strong>
+  </div>
+  <div
     className="layout-row"
   >
     <section
@@ -452,14 +459,6 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
         </div>
       </div>
     </section>
-  </div>
-  <div
-    className="layout-row disclaimer"
-  >
-    <strong>
-      Note: 
-    </strong>
-    Data from incomplete time intervals are not shown
   </div>
   <div
     className="row-chart-section"
@@ -850,6 +849,13 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
     </section>
   </div>
   <div
+    className="layout-row disclaimer"
+  >
+    <strong>
+      Note:  Data from incomplete time intervals are not shown
+    </strong>
+  </div>
+  <div
     className="layout-row"
   >
     <section
@@ -878,14 +884,6 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
         </div>
       </div>
     </section>
-  </div>
-  <div
-    className="layout-row disclaimer"
-  >
-    <strong>
-      Note: 
-    </strong>
-    Data from incomplete time intervals are not shown
   </div>
   <div
     className="tabbed-navigation lens"
@@ -1638,6 +1636,13 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
     </section>
   </div>
   <div
+    className="layout-row disclaimer"
+  >
+    <strong>
+      Note:  Data from incomplete time intervals are not shown
+    </strong>
+  </div>
+  <div
     className="layout-row"
   >
     <section
@@ -1666,14 +1671,6 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
         </div>
       </div>
     </section>
-  </div>
-  <div
-    className="layout-row disclaimer"
-  >
-    <strong>
-      Note: 
-    </strong>
-    Data from incomplete time intervals are not shown
   </div>
   <div
     className="row-chart-section"
@@ -2064,6 +2061,13 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
     </section>
   </div>
   <div
+    className="layout-row disclaimer"
+  >
+    <strong>
+      Note:  Data from incomplete time intervals are not shown
+    </strong>
+  </div>
+  <div
     className="layout-row"
   >
     <section
@@ -2092,14 +2096,6 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
         </div>
       </div>
     </section>
-  </div>
-  <div
-    className="layout-row disclaimer"
-  >
-    <strong>
-      Note: 
-    </strong>
-    Data from incomplete time intervals are not shown
   </div>
   <div
     className="tabbed-navigation lens"
@@ -2408,6 +2404,13 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
     </section>
   </div>
   <div
+    className="layout-row disclaimer"
+  >
+    <strong>
+      Note:  Data from incomplete time intervals are not shown
+    </strong>
+  </div>
+  <div
     className="layout-row"
   >
     <section
@@ -2436,14 +2439,6 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
         </div>
       </div>
     </section>
-  </div>
-  <div
-    className="layout-row disclaimer"
-  >
-    <strong>
-      Note: 
-    </strong>
-    Data from incomplete time intervals are not shown
   </div>
   <div
     className="row-chart-section"
@@ -2735,6 +2730,13 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
     </section>
   </div>
   <div
+    className="layout-row disclaimer"
+  >
+    <strong>
+      Note:  Data from incomplete time intervals are not shown
+    </strong>
+  </div>
+  <div
     className="layout-row"
   >
     <section
@@ -2763,14 +2765,6 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
         </div>
       </div>
     </section>
-  </div>
-  <div
-    className="layout-row disclaimer"
-  >
-    <strong>
-      Note: 
-    </strong>
-    Data from incomplete time intervals are not shown
   </div>
   <div
     className="row-chart-section"
@@ -3061,6 +3055,13 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
     </section>
   </div>
   <div
+    className="layout-row disclaimer"
+  >
+    <strong>
+      Note:  Data from incomplete time intervals are not shown
+    </strong>
+  </div>
+  <div
     className="layout-row"
   >
     <section
@@ -3089,14 +3090,6 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
         </div>
       </div>
     </section>
-  </div>
-  <div
-    className="layout-row disclaimer"
-  >
-    <strong>
-      Note: 
-    </strong>
-    Data from incomplete time intervals are not shown
   </div>
   <div
     className="row-chart-section"

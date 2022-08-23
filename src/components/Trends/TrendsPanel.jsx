@@ -202,6 +202,11 @@ export class TrendsPanel extends React.Component {
 
         {!companyOverlay && total > 0 &&
         <>
+          <div className="layout-row disclaimer">
+            <strong>Note:&nbsp;
+            Data from incomplete time intervals are not shown
+            </strong>
+          </div>
           <div className="layout-row">
             <section className="chart">
               {chartType === 'line' &&
@@ -210,10 +215,6 @@ export class TrendsPanel extends React.Component {
               <StackedAreaChart/>}
             </section>
             {!overview && <ExternalTooltip/>}
-          </div>
-          <div className="layout-row disclaimer">
-            <strong>Note:&nbsp;</strong>
-            Data from incomplete time intervals are not shown
           </div>
         </>
         }
