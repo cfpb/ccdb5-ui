@@ -31,8 +31,8 @@ export const getDefaultState = () => Object.assign( {},
   {
     chartType: 'line',
     focus: '',
-    lens: 'Overview',
-    subLens: ''
+    lens: 'Product',
+    subLens: 'sub_product'
   },
   { ...getResetState() }
 )

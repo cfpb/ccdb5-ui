@@ -38,12 +38,12 @@ describe( 'reducer:trends', () => {
         error: false,
         focus: '',
         isLoading: false,
-        lens: 'Overview',
+        lens: 'Product',
         results: {
           dateRangeArea: [],
           dateRangeLine: []
         },
-        subLens: '',
+        subLens: 'sub_product',
         tooltip: false,
         total: 0
       } )
@@ -340,6 +340,8 @@ describe( 'reducer:trends', () => {
       // to replicate
       // just choose All date range and overview
       action.data.aggregations = trendsAggs
+      state.lens = 'Overview';
+      state.subLens = '';
       result = target( state, action )
       expect( result ).toEqual( trendsResults )
     } )
@@ -347,6 +349,7 @@ describe( 'reducer:trends', () => {
     it( 'maps data to object state - Company', () => {
       // just changing
       state.lens = 'Company'
+      state.subLens = '';
       action.data.aggregations = trendsCompanyAggs
       result = target( state, action )
       expect( result ).toEqual( trendsCompanyResults )
@@ -354,6 +357,8 @@ describe( 'reducer:trends', () => {
 
     it( 'maps data to object state - dupe rows', () => {
       action.data.aggregations = trendsAggsDupes
+      state.lens = 'Overview';
+      state.subLens = '';
       result = target( state, action )
       expect( result ).toEqual( trendsAggsDupeResults )
     } )
@@ -365,6 +370,7 @@ describe( 'reducer:trends', () => {
       // &from=0&lens=Product&tab=Trends
       // you'll get broken buckets since the product recategorization in apr
       state.lens = 'Product'
+      state.subLens = 'sub_product'
       action.data.aggregations = trendsAggsMissingBuckets
       result = target( state, action )
       expect( result ).toEqual( trendsAggsMissingBucketsResults )

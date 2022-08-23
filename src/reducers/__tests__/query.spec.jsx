@@ -23,18 +23,18 @@ describe( 'reducer:query', () => {
         enablePer1000: true,
         focus: '',
         from: 0,
-        lens: 'Overview',
+        lens: 'Product',
         mapWarningEnabled: true,
-        queryString: '?date_received_max=2020-05-05' +
-          '&date_received_min=2017-05-05&field=all' + 
-          '&lens=overview&trend_depth=5&trend_interval=month',
+        queryString: '?date_received_max=2020-05-05&date_received_min=' +
+            '2017-05-05&field=all&lens=product&sub_lens=sub_product&' +
+            'trend_depth=5&trend_interval=month',
         searchText: '',
         searchField: 'all',
         page: 1,
         searchAfter: '',
         size: 25,
         sort: 'created_date_desc',
-        subLens: '',
+        subLens: 'sub_product',
         tab: 'Trends',
         totalPages: 0,
         trendDepth: 5,
