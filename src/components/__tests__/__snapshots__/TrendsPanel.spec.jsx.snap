@@ -424,7 +424,7 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
     </section>
   </div>
   <div
-    className="layout-row disclaimer"
+    className="layout-row date-range-disclaimer"
   >
     <strong>
       Note:  Data from incomplete time intervals are not shown
@@ -849,7 +849,7 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
     </section>
   </div>
   <div
-    className="layout-row disclaimer"
+    className="layout-row date-range-disclaimer"
   >
     <strong>
       Note:  Data from incomplete time intervals are not shown
@@ -1636,7 +1636,7 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
     </section>
   </div>
   <div
-    className="layout-row disclaimer"
+    className="layout-row date-range-disclaimer"
   >
     <strong>
       Note:  Data from incomplete time intervals are not shown
@@ -2061,7 +2061,7 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
     </section>
   </div>
   <div
-    className="layout-row disclaimer"
+    className="layout-row date-range-disclaimer"
   >
     <strong>
       Note:  Data from incomplete time intervals are not shown
@@ -2404,7 +2404,7 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
     </section>
   </div>
   <div
-    className="layout-row disclaimer"
+    className="layout-row date-range-disclaimer"
   >
     <strong>
       Note:  Data from incomplete time intervals are not shown
@@ -2730,7 +2730,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
     </section>
   </div>
   <div
-    className="layout-row disclaimer"
+    className="layout-row date-range-disclaimer"
   >
     <strong>
       Note:  Data from incomplete time intervals are not shown
@@ -3055,7 +3055,7 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
     </section>
   </div>
   <div
-    className="layout-row disclaimer"
+    className="layout-row date-range-disclaimer"
   >
     <strong>
       Note:  Data from incomplete time intervals are not shown

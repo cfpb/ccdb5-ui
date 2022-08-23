@@ -202,7 +202,7 @@ export class TrendsPanel extends React.Component {
 
         {!companyOverlay && total > 0 &&
         <>
-          <div className="layout-row disclaimer">
+          <div className="layout-row date-range-disclaimer">
             <strong>Note:&nbsp;
             Data from incomplete time intervals are not shown
             </strong>
