@@ -1,8 +1,7 @@
 import {
   ariaReadoutNumbers, calculateDateRange, clamp, coalesce, debounce,
-  formatPercentage, getFullUrl, enablePer1000, hashCode, sendAnalyticsEvent,
-  shortIsoFormat, sortSelThenCount, startOfToday,
-  processErrorMessage
+  formatPercentage, getFullUrl, enablePer1000, hashCode, processErrorMessage,
+  sendAnalyticsEvent, shortIsoFormat, sortSelThenCount, startOfToday
 } from '../utils'
 import Analytics from '../actions/analytics'
 import { DATE_RANGE_MIN } from '../constants'
