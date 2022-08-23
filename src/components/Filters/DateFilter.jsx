@@ -184,7 +184,6 @@ export class DateFilter extends React.Component {
   }
 
   _onError( field, error, value ) {
-    console.log( field, error, value )
     const messages = { ...this.state.messages }
     messages[field] = error
     this.setState( { messages, [field]: value } )
