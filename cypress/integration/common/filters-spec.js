@@ -12,7 +12,7 @@ describe( 'Filter Panel', () => {
     fixture = { fixture: 'common/get-complaints.json' };
     cy.intercept( request, fixture ).as( 'getComplaints' );
 
-    request = `**/ccdb/metadata.js`;
+    request = '**/ccdb/metadata.js';
     fixture = { fixture: 'metadata.js' };
     cy.intercept( request, fixture ).as( 'metadata' );
 
@@ -56,7 +56,7 @@ describe( 'Filter Panel', () => {
 
       cy.get( '#date_received-from' )
         .clear()
-        .type( '09/11/2015' )
+        .type( '9/11/2015' )
         .blur();
 
       cy.wait( '@getComplaintsDateFrom' );
@@ -80,8 +80,8 @@ describe( 'Filter Panel', () => {
     } );
 
     it( 'can trigger a pre-selected date range', () => {
-      let request = '**/geo/states/**';
-      let fixture = { fixture: 'common/get-geo.json' };
+      const request = '**/geo/states/**';
+      const fixture = { fixture: 'common/get-geo.json' };
       cy.intercept( request, fixture ).as( 'getGeo' );
 
       cy.get( 'button.map' ).click();
@@ -237,8 +237,8 @@ describe( 'Filter Panel', () => {
     } );
 
     it( 'shows more results', () => {
-      let request = '?**&size=10**';
-      let fixture = { fixture: 'common/get-10-complaints.json' };
+      const request = '?**&size=10**';
+      const fixture = { fixture: 'common/get-10-complaints.json' };
       cy.intercept( 'GET', request, fixture ).as( 'get10Complaints' );
 
       cy.get( '.list-panel .card-container' )
