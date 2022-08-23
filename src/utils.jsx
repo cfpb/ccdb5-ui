@@ -189,22 +189,6 @@ export const sanitizeHtmlId = a => a.replace( /\s+|\W/g, '-' ).toLowerCase()
 export const slugify = ( a, b ) => a + SLUG_SEPARATOR + b
 
 /**
-* Processes the cookie string into key-value pairs
-*
-* @param {string} cookies the unprocessed cookie string
-* @returns {Object} a dictionary of cookie keys and values
-*/
-export function parseCookies( cookies = document.cookie ) {
-  return cookies.split( ';' ).reduce( ( accum, x ) => {
-    const [ k, v ] = x.trim().split( '=' )
-    if ( k ) {
-      accum[k] = v
-    }
-    return accum
-  }, {} )
-}
-
-/**
  * take in an array or object and clone it as completely new object to remove
  * pointers.  If you .slice() an array of objects, the array is new, but
  * copied objects still point to original objects, you will still have mutations
