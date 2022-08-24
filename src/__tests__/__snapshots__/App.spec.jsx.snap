@@ -320,9 +320,9 @@ exports[`initial state renders without crashing 1`] = `
                       max={2020-05-05T04:00:00.000Z}
                       min={2011-12-01T12:00:00.000Z}
                       onChange={[Function]}
-                      placeholder="mm/dd/yyyy"
+                      placeholder="M/D/YYYY"
                       size="15"
-                      value="12/31/2015"
+                      value="6/1/2018"
                     />
                     <button
                       className="a-btn a-btn__link"
@@ -361,9 +361,9 @@ exports[`initial state renders without crashing 1`] = `
                       max={2020-05-05T04:00:00.000Z}
                       min={2011-12-01T12:00:00.000Z}
                       onChange={[Function]}
-                      placeholder="mm/dd/yyyy"
+                      placeholder="M/D/YYYY"
                       size="15"
-                      value="12/31/2015"
+                      value="6/1/2018"
                     />
                     <button
                       className="a-btn a-btn__link"
@@ -897,7 +897,7 @@ exports[`initial state renders without crashing 1`] = `
                       max={2020-05-05T04:00:00.000Z}
                       min={2011-12-01T12:00:00.000Z}
                       onChange={[Function]}
-                      placeholder="mm/dd/yyyy"
+                      placeholder="M/D/YYYY"
                       size="15"
                       value=""
                     />
@@ -919,7 +919,7 @@ exports[`initial state renders without crashing 1`] = `
                       max={2020-05-05T04:00:00.000Z}
                       min={2011-12-01T12:00:00.000Z}
                       onChange={[Function]}
-                      placeholder="mm/dd/yyyy"
+                      placeholder="M/D/YYYY"
                       size="15"
                       value=""
                     />

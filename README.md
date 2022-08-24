@@ -28,7 +28,7 @@ This application depends on the following third-party components:
 
 1. [Capital Framework](https://cfpb.github.io/capital-framework/) - CFPB standard styling and controls
 1. [History](https://github.com/reacttraining/history) - Integrating the address bar with the application
-1. [moment](https://momentjs.com/) - Better date handling than native JavaScript
+1. [dayjs](https://day.js.org/) - Better date handling than native JavaScript
 
 It also contains portions adapted from:
 

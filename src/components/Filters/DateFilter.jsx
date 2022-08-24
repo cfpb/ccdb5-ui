@@ -1,14 +1,19 @@
 import './DateFilter.less'
+import { DATE_RANGE_MIN, DATE_VALIDATION_FORMAT } from '../../constants'
 import { shortFormat, startOfToday } from '../../utils'
 import { changeDates } from '../../actions/filter'
 import CollapsibleFilter from './CollapsibleFilter'
 import { connect } from 'react-redux'
-import { DATE_RANGE_MIN } from '../../constants'
 import DateInput from '../DateInput'
+import dayjs from 'dayjs'
+import dayjsCustomParseFormat from 'dayjs/plugin/customParseFormat'
+import dayjsIsBetween from 'dayjs/plugin/isBetween'
 import iconMap from '../iconMap'
-import moment from 'moment'
 import PropTypes from 'prop-types'
 import React from 'react'
+
+dayjs.extend( dayjsCustomParseFormat )
+dayjs.extend( dayjsIsBetween )
 
 const WARN_SERIES_BREAK = 'CFPB updated product and issue options' +
   ' available to consumers in April 2017 ';
@@ -39,10 +44,10 @@ export class DateFilter extends React.Component {
   }
 
   render() {
-    const from = moment( this.state.from, 'MM-DD-YYYY' )
-    const through = moment( this.state.through, 'MM-DD-YYYY' )
+    const from = dayjs( this.state.from, DATE_VALIDATION_FORMAT )
+    const through = dayjs( this.state.through, DATE_VALIDATION_FORMAT )
 
-    const showWarning = moment( '2017-04-23' ).isBetween( from, through, 'day' )
+    const showWarning = dayjs( '2017-04-23' ).isBetween( from, through, 'day' )
 
     return (
       <CollapsibleFilter title={ this.props.title }
@@ -132,8 +137,8 @@ export class DateFilter extends React.Component {
   _validate( state ) {
 
     // Check for range errors
-    const from = moment( state.from, 'MM-DD-YYYY' )
-    const through = moment( state.through, 'MM-DD-YYYY' )
+    const from = dayjs( state.from, DATE_VALIDATION_FORMAT )
+    const through = dayjs( state.through, DATE_VALIDATION_FORMAT )
     if ( from && through && from > through ) {
       state.messages.ordered = "'From' must be less than 'Through'"
     } else {
@@ -169,8 +174,8 @@ export class DateFilter extends React.Component {
     if ( this._hasMessages( state.messages ) === false &&
       this._isChanged( this.props, state ) ) {
 
-      const from = moment( state.from, 'MM-DD-YYYY' )
-      const through = moment( state.through, 'MM-DD-YYYY' )
+      const from = dayjs( state.from, 'M/D/YYYY' )
+      const through = dayjs( state.through, 'M/D/YYYY' )
       const dateFrom = from.isValid() ? from.toDate() : null
       const dateThrough = through.isValid() ? through.toDate() : null
 

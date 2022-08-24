@@ -525,7 +525,7 @@ describe( 'reducer:trends', () => {
           value: 2174,
           colorIndex: -1
         }],
-        title: 'Date range: 6/1/2021 - 6/30/2021',
+        title: expect.stringContaining('Date range: 6/1/2021 -'),
         total: 43192
       })
     } )

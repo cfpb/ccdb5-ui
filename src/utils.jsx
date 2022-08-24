@@ -2,7 +2,7 @@ import {
   DATE_RANGE_MIN, flagFilters, knownFilters, SLUG_SEPARATOR
 } from './constants'
 import Analytics from './actions/analytics'
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 /**
 * Breaks up '123' to '1 2 3' to help screen readers read digits individually
@@ -22,8 +22,8 @@ export const calculateDateRange = ( minDate, maxDate ) => {
   // only check intervals if the end date is today
   // round off the date so the partial times don't mess up calculations
   const today = startOfToday()
-  const end = moment( maxDate ).startOf( 'day' )
-  const start = moment( minDate ).startOf( 'day' )
+  const end = dayjs( maxDate ).startOf( 'day' )
+  const start = dayjs( minDate ).startOf( 'day' )
 
   // make sure end date is the same as today's date
   if ( end.diff( today, 'days' ) !== 0 ) {
@@ -31,7 +31,7 @@ export const calculateDateRange = ( minDate, maxDate ) => {
   }
 
   // is the start date the same as the oldest document?
-  if ( moment( minDate ).isSame( DATE_RANGE_MIN, 'day' ) ) {
+  if ( dayjs( minDate ).isSame( DATE_RANGE_MIN, 'day' ) ) {
     return 'All'
   }
 
@@ -239,7 +239,7 @@ export const sortSelThenCount = ( options, selected ) => {
 * @returns {string} the date formatted for the current locale
 */
 export function shortFormat( date ) {
-  const wrapped = moment( date )
+  const wrapped = dayjs( date )
   return date ? wrapped.format( 'M/D/YYYY' ) : ''
 }
 
@@ -262,11 +262,11 @@ export function startOfToday() {
   if ( !window.hasOwnProperty( 'MAX_DATE' ) ) {
     if ( window.hasOwnProperty( 'complaint_public_metadata' ) ) {
       const { metadata_timestamp: stamp } = window.complaint_public_metadata
-      window.MAX_DATE = new Date( moment( stamp ).startOf( 'day' ).toString() )
+      window.MAX_DATE = new Date( dayjs( stamp ).startOf( 'day' ).toString() )
     } else {
       // eslint-disable-next-line no-console
       console.error( 'complaint_public_metadata is missing' )
-      window.MAX_DATE = new Date( moment().startOf( 'day' ).toString() )
+      window.MAX_DATE = new Date( dayjs().startOf( 'day' ).toString() )
     }
   }
 
