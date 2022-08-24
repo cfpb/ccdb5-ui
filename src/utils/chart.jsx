@@ -2,12 +2,18 @@
 /* eslint-disable no-mixed-operators, camelcase, complexity */
 import { adjustDate, isDateEqual } from './formatDate'
 import { clampDate, shortFormat } from '../utils'
-import cloneDeep from 'lodash/cloneDeep';
-import dayjs from 'dayjs';
-import moment from 'moment-timezone'
-import utc from 'dayjs/plugin/utc';
 
-dayjs.extend( utc )
+import dayjs from 'dayjs'
+import dayjsQuarterOfYear from 'dayjs/plugin/quarterOfYear'
+import dayjsTimezone from 'dayjs/plugin/timezone'
+import dayjsUtc from 'dayjs/plugin/utc'
+
+dayjs.extend( dayjsQuarterOfYear )
+dayjs.extend( dayjsUtc )
+dayjs.extend( dayjsTimezone )
+// this is how we enforce standard tooltip.
+// ci has Africa/Abidjan
+dayjs.tz.setDefault( 'America/New_York' );
 
 export const getLastDate = ( dataSet, config ) => {
   // take in array of data points
@@ -74,35 +80,36 @@ export const getTooltipDate = ( inputDate, dateRange ) => {
 export const getTooltipTitle = ( inputDate, interval, dateRange, external ) => {
   /* eslint complexity: ["error", 6] */
   interval = interval.toLowerCase()
-
-  // this is how we enforce standard tooltip.
-  // ci has Africa/Abidjan
-  moment.tz.setDefault( 'America/New_York' );
-
   const startDate = getTooltipDate( inputDate, dateRange )
 
   let endDate
 
   switch ( interval ) {
     case 'day':
-      endDate = moment( inputDate )
+      endDate = dayjs( inputDate ).format()
       break;
 
     case 'week':
     case 'year':
-      endDate = moment( inputDate )
+      endDate = dayjs( inputDate )
           .add( 1, interval )
           .subtract( 1, 'day' )
+          .format()
       break;
 
     case 'quarter':
-    case 'month':
-    default:
-      endDate = moment( inputDate )
-          .startOf( interval )
-          .add( 1, interval )
+      endDate = dayjs( inputDate )
+          .utc()
           .endOf( interval )
           .subtract( 1, 'day' )
+          .format()
+      break;
+    case 'month':
+    default:
+      endDate = dayjs( inputDate )
+          .endOf( interval )
+          .subtract( 1, 'day' )
+          .format()
       break;
   }
 
@@ -283,7 +290,10 @@ export const pruneIncompleteStackedAreaInterval = (
     data, dateRange, interval ) => {
   const { from: dateFrom, to: dateTo } = dateRange;
 
-  let filteredData = cloneDeep( data )
+  // eslint-disable-next-line no-warning-comments
+  // TODO: switch this to structuredClone when JSDOM fixes the issue
+  // https://github.com/jsdom/jsdom/issues/3363
+  let filteredData = JSON.parse( JSON.stringify( data ) )
   //  need to rebuild and sort dates in memory
   const dates = [ ...new Set( filteredData.map( o => o.date ) ) ];
   dates.sort();

@@ -1,5 +1,5 @@
 import * as types from '../constants'
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 // ----------------------------------------------------------------------------
 export const showCompanyOverLay = ( lens, companyFilters, isLoading ) => {
@@ -47,8 +47,8 @@ export const pruneOther = buckets => {
 }
 
 export const isGreaterThanYear = ( from, to ) => {
-  const a = moment( from )
-  const b = moment( to )
+  const a = dayjs( from )
+  const b = dayjs( to )
   return b.diff( a, 'days' ) > 366
 }
 

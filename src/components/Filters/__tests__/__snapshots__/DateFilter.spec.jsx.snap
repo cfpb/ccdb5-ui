@@ -54,7 +54,7 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
             max={2019-12-31T12:00:00.000Z}
             min={2015-01-01T12:00:00.000Z}
             onChange={[Function]}
-            placeholder="mm/dd/yyyy"
+            placeholder="M/D/YYYY"
             size="15"
             value="1/1/2016"
           />
@@ -95,7 +95,7 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
             max={2019-12-31T12:00:00.000Z}
             min={2015-01-01T12:00:00.000Z}
             onChange={[Function]}
-            placeholder="mm/dd/yyyy"
+            placeholder="M/D/YYYY"
             size="15"
             value="1/1/2018"
           />
@@ -191,7 +191,7 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
             max={2015-12-31T12:00:00.000Z}
             min={2015-01-01T12:00:00.000Z}
             onChange={[Function]}
-            placeholder="mm/dd/yyyy"
+            placeholder="M/D/YYYY"
             size="15"
             value="1/1/2016"
           />
@@ -232,7 +232,7 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
             max={2015-12-31T12:00:00.000Z}
             min={2015-01-01T12:00:00.000Z}
             onChange={[Function]}
-            placeholder="mm/dd/yyyy"
+            placeholder="M/D/YYYY"
             size="15"
             value="1/1/2000"
           />
@@ -360,7 +360,7 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
             max={2015-12-31T12:00:00.000Z}
             min={2015-01-01T12:00:00.000Z}
             onChange={[Function]}
-            placeholder="mm/dd/yyyy"
+            placeholder="M/D/YYYY"
             size="15"
             value=""
           />
@@ -382,7 +382,7 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
             max={2015-12-31T12:00:00.000Z}
             min={2015-01-01T12:00:00.000Z}
             onChange={[Function]}
-            placeholder="mm/dd/yyyy"
+            placeholder="M/D/YYYY"
             size="15"
             value=""
           />
