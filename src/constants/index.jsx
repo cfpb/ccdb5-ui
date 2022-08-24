@@ -4,6 +4,8 @@ export const MODAL_SHOWN = 'MODAL_SHOWN'
 
 export const DATE_RANGE_MIN = '2011-12-01T12:00:00.000Z'
 
+// dayjs formatter to uses for custom validation
+// https://day.js.org/docs/en/parse/string-format
 export const DATE_VALIDATION_FORMAT = 'M/D/YYYY';
 
 
