@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 describe( 'Filter Panel', () => {
   beforeEach( () => {
@@ -12,7 +12,7 @@ describe( 'Filter Panel', () => {
     fixture = { fixture: 'common/get-complaints.json' };
     cy.intercept( request, fixture ).as( 'getComplaints' );
 
-    request = `**/ccdb/metadata.js`;
+    request = '**/ccdb/metadata.js';
     fixture = { fixture: 'metadata.js' };
     cy.intercept( request, fixture ).as( 'metadata' );
 
@@ -56,7 +56,7 @@ describe( 'Filter Panel', () => {
 
       cy.get( '#date_received-from' )
         .clear()
-        .type( '09/11/2015' )
+        .type( '9/11/2015' )
         .blur();
 
       cy.wait( '@getComplaintsDateFrom' );
@@ -80,22 +80,21 @@ describe( 'Filter Panel', () => {
     } );
 
     it( 'can trigger a pre-selected date range', () => {
-      let request = '**/geo/states/**';
-      let fixture = { fixture: 'common/get-geo.json' };
+      const request = '**/geo/states/**';
+      const fixture = { fixture: 'common/get-geo.json' };
       cy.intercept( request, fixture ).as( 'getGeo' );
 
       cy.get( 'button.map' ).click();
       cy.wait( '@getGeo' );
 
-      const maxDate = moment( new Date() ).format( 'YYYY-MM-DD' );
-      let minDate = moment( new Date() ).subtract( 3, 'years' ).format( 'YYYY-MM-DD' );
-
+      const maxDate = dayjs( new Date() ).format( 'YYYY-MM-DD' );
+      let minDate = dayjs( new Date() ).subtract( 3, 'years' ).format( 'YYYY-MM-DD' );
       cy.get( '.date-ranges .a-btn.range-3y' )
         .contains( '3y' )
         .click();
       cy.url()
         .should( 'include', `date_received_max=${ maxDate }&date_received_min=${ minDate }` );
-      minDate = moment( new Date() ).subtract( 6, 'months' ).format( 'YYYY-MM-DD' );
+      minDate = dayjs( new Date() ).subtract( 6, 'months' ).format( 'YYYY-MM-DD' );
       cy.get( '.date-ranges .a-btn.range-6m' )
         .contains( '6m' )
         .click();
@@ -238,8 +237,8 @@ describe( 'Filter Panel', () => {
     } );
 
     it( 'shows more results', () => {
-      let request = '?**&size=10**';
-      let fixture = { fixture: 'common/get-10-complaints.json' };
+      const request = '?**&size=10**';
+      const fixture = { fixture: 'common/get-10-complaints.json' };
       cy.intercept( 'GET', request, fixture ).as( 'get10Complaints' );
 
       cy.get( '.list-panel .card-container' )

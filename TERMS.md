@@ -48,4 +48,4 @@ author or the affirmer.
 ## Exceptions
 
 1. [History](https://github.com/reacttraining/history)
-1. [moment](https://momentjs.com/)
+1. [dayjs](https://day.js.org/)

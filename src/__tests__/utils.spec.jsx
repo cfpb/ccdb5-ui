@@ -4,8 +4,14 @@ import {
   sendAnalyticsEvent, shortIsoFormat, sortSelThenCount, startOfToday
 } from '../utils'
 import Analytics from '../actions/analytics'
+import MockDate from 'mockdate'
 import { DATE_RANGE_MIN } from '../constants'
-import moment from 'moment'
+import dayjs from 'dayjs'
+import dayjsCalendar from 'dayjs/plugin/calendar'
+import dayjsUtc from 'dayjs/plugin/utc'
+
+dayjs.extend( dayjsCalendar )
+dayjs.extend( dayjsUtc )
 
 describe('module::utils', () => {
   describe( 'ariaReadoutNumbers', () => {
@@ -126,13 +132,13 @@ describe('module::utils', () => {
     } );
 
     it( 'returns 3y', () => {
-      start =  new Date( moment( end ).subtract( 3, 'years' ).calendar() )
+      start =  new Date( dayjs( end ).subtract( 3, 'years' ).calendar() )
       let actual = calculateDateRange( start, end )
       expect( actual ).toEqual( '3y' )
     } );
 
     it( 'returns 6m', () => {
-      start =  new Date( moment( end ).subtract( 6, 'months' ).calendar() )
+      start =  new Date( dayjs( end ).subtract( 6, 'months' ).calendar() )
       let actual = calculateDateRange( start, end )
       expect( actual ).toEqual( '6m' )
     } )
@@ -266,8 +272,7 @@ describe('module::utils', () => {
     } );
 
     it( 'defaults MAX_DATE if the metadata is missing' , () => {
-      jest.spyOn(global.Date, 'now')
-      .mockImplementationOnce( _ => Date.UTC( 2020, 4, 1, 4 ) )
+      MockDate.set( dayjs( '5/1/2020' ).utc() );
 
       const actual = startOfToday();
       expect( actual.getFullYear() ).toEqual( 2020 )

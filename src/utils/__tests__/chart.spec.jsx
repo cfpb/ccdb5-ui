@@ -9,7 +9,8 @@ describe( 'getLastDate', () => {
       from: '2012',
       to: '2016'
     },
-    interval: 'Month'
+    interval: 'Month',
+    lastDate: '2020-03-01T12:00:00.000Z'
   }
 
   const dataSet = [
@@ -70,10 +71,9 @@ describe( 'getTooltipTitle', () => {
     interval = 'Month'
     const inDate = '2015-09-01T10:00:00.000Z'
     res = sut.getTooltipTitle( inDate, interval, dateRange, true )
-    // this is wrong in tests, but correct in the UI.
-    expect( res ).toEqual( 'Date range: 9/1/2015 - 10/31/2015' )
+    expect( res ).toEqual( 'Date range: 9/1/2015 - 9/30/2015' )
     res = sut.getTooltipTitle( inDate, interval, dateRange, false )
-    expect( res ).toEqual( '9/1/2015 - 10/31/2015' )
+    expect( res ).toEqual( '9/1/2015 - 9/30/2015' )
   } )
 
   it( 'sets tooltip title - week', () => {
@@ -119,7 +119,6 @@ describe( 'getTooltipTitle', () => {
     interval = 'quarter'
     const inDate = '2020-07-01T00:00:00.000Z'
     res = sut.getTooltipTitle( inDate, interval, dateRange, true )
-    // this is the correct value, but in CI, the value is incorrect
     expect( res ).toEqual( 'Date range: 7/1/2020 - 9/30/2020' )
   } )
 
@@ -128,7 +127,6 @@ describe( 'getTooltipTitle', () => {
     dateRange.from = '2020-07-14T04:00:00.000Z'
     const inDate = '2020-07-01T00:00:00.000Z'
     res = sut.getTooltipTitle( inDate, interval, dateRange, true )
-    expect( res ).toContain( 'Date range: 7/14/2020 - ' )
     expect( res ).toEqual( 'Date range: 7/14/2020 - 9/30/2020' )
   } )
 
@@ -141,7 +139,23 @@ describe( 'getTooltipTitle', () => {
   } )
 } )
 
-describe( 'getColorScheme', function () {
+describe( 'getTooltipDate', () => {
+  it( 'returns a short format of a date string', () => {
+    const shortDate = sut.getTooltipDate(
+      '2021-01-01T00:00:00.000Z',
+      { from: '2020-12-31T00:00:00.000Z', to: '2021-08-23T00:00:00.000Z' } )
+    expect( shortDate ).toEqual( '1/1/2021' );
+  } )
+
+  it( 'returns a short format of a date string', () => {
+    const shortDate = sut.getTooltipDate(
+      '2021-01-01T00:00:00.000Z',
+      { to: '2021-08-23T00:00:00.000Z' } )
+    expect( shortDate ).toEqual( '1/1/2021' );
+  } )
+} )
+
+describe( 'getColorScheme', () => {
   it( 'gets color scheme - default', () => {
     const rowNames = [ { name: 'abc' }, { name: 'alnb' }, { name: 'Complaints' } ]
     const actual = sut.getColorScheme( rowNames, false, 'Overview' )

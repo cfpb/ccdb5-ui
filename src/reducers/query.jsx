@@ -11,8 +11,8 @@ import {
 } from '../utils'
 import { enforceValues, validateTrendsReducer } from '../utils/reducers'
 import actions from '../actions'
+import dayjs from 'dayjs'
 import { isGreaterThanYear } from '../utils/trends'
-import moment from 'moment'
 
 const queryString = require( 'query-string' )
 
@@ -25,7 +25,7 @@ export const defaultQuery = {
   dateRange: '3y',
   date_received_max: startOfToday(),
   date_received_min: new Date(
-    moment( startOfToday() ).subtract( 3, 'years' )
+    dayjs( startOfToday() ).subtract( 3, 'years' )
   ),
   enablePer1000: true,
   focus: '',
@@ -83,18 +83,18 @@ export function alignDateRange( state ) {
   const dateMin = state.date_received_min
 
   // All
-  if ( moment( dateMax ).isSame( defaultQuery.date_received_max ) &&
-    moment( dateMin ).isSame( types.DATE_RANGE_MIN )
+  if ( dayjs( dateMax ).isSame( defaultQuery.date_received_max ) &&
+    dayjs( dateMin ).isSame( types.DATE_RANGE_MIN )
   ) {
     state.dateRange = 'All'
     return state
   }
 
   const rangeMap = {
-    '3y': new Date( moment( dateMax ).subtract( 3, 'years' ) ),
-    '3m': new Date( moment( dateMax ).subtract( 3, 'months' ) ),
-    '6m': new Date( moment( dateMax ).subtract( 6, 'months' ) ),
-    '1y': new Date( moment( dateMax ).subtract( 1, 'year' ) )
+    '3y': new Date( dayjs( dateMax ).subtract( 3, 'years' ) ),
+    '3m': new Date( dayjs( dateMax ).subtract( 3, 'months' ) ),
+    '6m': new Date( dayjs( dateMax ).subtract( 6, 'months' ) ),
+    '1y': new Date( dayjs( dateMax ).subtract( 1, 'year' ) )
   }
   const ranges = Object.keys( rangeMap )
   let matched = false
@@ -102,7 +102,7 @@ export function alignDateRange( state ) {
   for ( let i = 0; i < ranges.length && !matched; i++ ) {
     const range = ranges[i]
 
-    if ( moment( dateMin ).isSame( rangeMap[range], 'day' ) ) {
+    if ( dayjs( dateMin ).isSame( rangeMap[range], 'day' ) ) {
       state.dateRange = range
       matched = true
     }
@@ -255,10 +255,10 @@ export function changeDateRange( state, action ) {
 
   const res = {
     'All': new Date( types.DATE_RANGE_MIN ),
-    '3m': new Date( moment( maxDate ).subtract( 3, 'months' ) ),
-    '6m': new Date( moment( maxDate ).subtract( 6, 'months' ) ),
-    '1y': new Date( moment( maxDate ).subtract( 1, 'year' ) ),
-    '3y': new Date( moment( maxDate ).subtract( 3, 'years' ) )
+    '3m': new Date( dayjs( maxDate ).subtract( 3, 'months' ) ),
+    '6m': new Date( dayjs( maxDate ).subtract( 6, 'months' ) ),
+    '1y': new Date( dayjs( maxDate ).subtract( 1, 'year' ) ),
+    '3y': new Date( dayjs( maxDate ).subtract( 3, 'years' ) )
   }
 
   /* istanbul ignore else */
@@ -286,10 +286,10 @@ export function changeDates( state, action ) {
 
   let { maxDate, minDate } = action
 
-  minDate = moment( minDate ).isValid() ?
-    new Date( moment( minDate ).startOf( 'day' ) ) : null
-  maxDate = moment( maxDate ).isValid() ?
-    new Date( moment( maxDate ).startOf( 'day' ) ) : null
+  minDate = dayjs( minDate ).isValid() ?
+    new Date( dayjs( minDate ).startOf( 'day' ) ) : null
+  maxDate = dayjs( maxDate ).isValid() ?
+    new Date( dayjs( maxDate ).startOf( 'day' ) ) : null
 
 
   const newState = {
@@ -554,7 +554,7 @@ export function removeAllFilters( state ) {
   newState.dateRange = '3y'
   /* eslint-disable camelcase */
   newState.date_received_min =
-    new Date( moment( startOfToday() ).subtract( 3, 'years' ) )
+    new Date( dayjs( startOfToday() ).subtract( 3, 'years' ) )
   newState.date_received_max = startOfToday()
 
   newState.focus = ''

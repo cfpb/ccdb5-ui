@@ -1,6 +1,11 @@
 // ----------------------------------------------------------------------------
 // Exports
-import moment from 'moment'
+import dayjs from 'dayjs'
+import dayjsLocalizedFormat from 'dayjs/plugin/localizedFormat'
+import dayjsUtc from 'dayjs/plugin/utc'
+
+dayjs.extend( dayjsLocalizedFormat )
+dayjs.extend( dayjsUtc )
 
 /**
  * Function to format/convert a string to format we want
@@ -8,15 +13,15 @@ import moment from 'moment'
  * @returns {string} the cleaned up string in YYYY-MM-DD
  */
 export const formatDate = uglyDate =>
-  moment( new Date( uglyDate ) ).format( 'YYYY-MM-DD' );
+  dayjs( new Date( uglyDate ) ).format( 'YYYY-MM-DD' )
 
 /**
  * adjusting dates coming from the charts so the dates are correct
  * @param {(string | object)} dateIn the input string to convert
- * @returns {string} the cleaned up string in MM/DD/YYYY
+ * @returns {string} the cleaned up string in M/D/YYYY
  */
 export const adjustDate = dateIn =>
-  moment( new Date( dateIn ) ).utc().add( 5.5, 'hours' )
+  dayjs( new Date( dateIn ) ).utc().add( 5.5, 'hours' ).format()
 
 /**
  * Function to format/convert a string to format we want for the model
@@ -24,7 +29,7 @@ export const adjustDate = dateIn =>
  * @returns {string} the cleaned up string in YYYY-MM-DD
  */
 export const formatDateModel = dateIn =>
-  moment( new Date( dateIn ) ).utc().add( 5.5, 'hours' ).format( 'YYYY-MM-DD' );
+  dayjs( new Date( dateIn ) ).utc().add( 5.5, 'hours' ).format( 'YYYY-MM-DD' )
 
 /**
  * Function to format/convert a string to format we want for the model
@@ -32,7 +37,7 @@ export const formatDateModel = dateIn =>
  * @returns {string} the cleaned up string in Jul 4, 2010
  */
 export const formatDateLocaleShort = dateIn =>
-  moment( new Date( dateIn ) ).utc().add( 5.5, 'hours' ).format( 'll' );
+  dayjs( new Date( dateIn ) ).utc().add( 5.5, 'hours' ).format( 'll' )
 
 /**
  * function to convert and compare 2 strings as dates
@@ -41,7 +46,7 @@ export const formatDateLocaleShort = dateIn =>
  * @returns {boolean} lets us know if date is equal
  */
 export const isDateEqual = ( a, b ) =>
-  moment( new Date( a ) ).isSame( new Date( b ), 'day' );
+  dayjs( new Date( a ) ).isSame( new Date( b ), 'day' )
 
 /**
  * function to convert and compare 2 strings as dates
