@@ -7,12 +7,12 @@ import {
 } from '../../constants'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import {
-    selectQueryDateReceivedMax, selectQueryDateReceivedMin
+    selectQueryCompanyReceivedMax,
+    selectQueryCompanyReceivedMin
 } from '../../reducers/query/selectors';
 import { useDispatch, useSelector } from 'react-redux'
 import { changeDates } from '../../actions/filter'
 import CollapsibleFilter from './CollapsibleFilter'
-import { DateRanges } from './DateRanges';
 import dayjs from 'dayjs'
 import dayjsCustomParseFormat from 'dayjs/plugin/customParseFormat'
 import dayjsIsBetween from 'dayjs/plugin/isBetween'
@@ -22,24 +22,14 @@ import iconMap from '../iconMap'
 dayjs.extend( dayjsCustomParseFormat )
 dayjs.extend( dayjsIsBetween )
 
-const WARN_SERIES_BREAK = 'CFPB updated product and issue options' +
-    ' available to consumers in April 2017 ';
-
-const LEARN_SERIES_BREAK = 'https://files.consumerfinance.gov/f/' +
-    'documents/201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf';
-
-
-export const DateFilter = () => {
-  const fieldName = 'date_received'
-  const title = 'Date CFPB received the complaint'
-  const dateFrom = useSelector( selectQueryDateReceivedMin );
-  const dateThrough = useSelector( selectQueryDateReceivedMax );
-  const from = dayjs( dateFrom ).format( DATE_VALIDATION_FORMAT )
-  const through = dayjs( dateThrough ).format( DATE_VALIDATION_FORMAT )
+export const CompanyReceivedFilter = () => {
+  const fieldName = 'company_received'
+  const title = 'The date the CFPB sent the complaint to the company';
+  const dateFrom = useSelector( selectQueryCompanyReceivedMin );
+  const dateThrough = useSelector( selectQueryCompanyReceivedMax );
   const [ fromDate, setFromDate ] = useState( formatDate( dateFrom ) );
   const [ throughDate, setThroughDate ] = useState( formatDate( dateThrough ) );
   const dispatch = useDispatch();
-  const showWarning = dayjs( '2017-04-23' ).isBetween( from, through, 'day' )
   const errorMessageText = "'From' date must be less than 'through' date";
 
   const fromRef = useRef();
@@ -47,8 +37,16 @@ export const DateFilter = () => {
 
   useEffect( () => {
     // put it in YYYY-MM-DD format
-    setFromDate( formatDate( dateFrom ) );
-    setThroughDate( formatDate( dateThrough ) );
+    if ( dayjs( dateFrom ).isValid() ) {
+      setFromDate( formatDate( dateFrom ) );
+    } else {
+      setFromDate( '' )
+    }
+    if ( dayjs( dateThrough ).isValid() ) {
+      setThroughDate( formatDate( dateThrough ) );
+    } else {
+      setThroughDate( '' )
+    }
   }, [ dateFrom, dateThrough ] );
 
   const handleClear = period => {
@@ -80,22 +78,20 @@ export const DateFilter = () => {
   }, [ fromDate, throughDate ] )
 
   const handleDateChange = () => {
-    // setFromDate and setThroughDate do not update the state quick enough
-    // to be used here
-    let _startDate = fromDate;
-    let _endDate = throughDate;
-    if ( _startDate < minDate ) {
-      fromRef.current.value = minDate;
-      _startDate = minDate;
+    let _throughDate = throughDate;
+    let _fromDate = fromDate
+    if ( !dayjs( fromDate ).isValid() ) {
+      fromRef.current.value = '';
+      _fromDate = ''
     }
-    if ( _endDate > maxDate ) {
-      throughRef.current.value = maxDate;
-      _endDate = maxDate;
+    if ( !dayjs( throughDate ).isValid() ) {
+      throughRef.current.value = '';
+      _throughDate = ''
     }
-
-    const isDateDifferent = dateFrom !== _startDate || dateThrough !== _endDate;
-    if ( dayjs( _endDate ).isAfter( _startDate ) && isDateDifferent ) {
-      dispatch( changeDates( fieldName, _startDate, _endDate ) )
+    const isDateDifferent = dateFrom !== _fromDate ||
+        dateThrough !== _throughDate;
+    if ( isDateDifferent ) {
+      dispatch( changeDates( fieldName, _fromDate, _throughDate ) )
     }
   };
 
@@ -174,7 +170,7 @@ export const DateFilter = () => {
                     </div>
                 </li>
             </ul>
-            <DateRanges/>
+
             {errors ?
                 <>{errors + ' '}
                 <span aria-hidden="true">
@@ -185,19 +181,8 @@ export const DateFilter = () => {
                 </> :
                 null
             }
-            {showWarning ?
-                <p> {WARN_SERIES_BREAK}
-                    <a href={LEARN_SERIES_BREAK}
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       aria-label="Learn more about Product and
-                  Issue changes (opens in new window)">
-                        Learn More
-                    </a>
-                </p> :
-                null
-            }
         </div>
+
     </CollapsibleFilter>
 }
 

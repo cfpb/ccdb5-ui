@@ -1,5 +1,6 @@
 import './FilterPanel.less'
 import Company from './Company'
+import { CompanyReceivedFilter } from './CompanyReceivedFilter';
 import { connect } from 'react-redux'
 import { DateFilter } from './DateFilter'
 import FederalState from './FederalState'
@@ -45,8 +46,7 @@ export class FilterPanel extends React.Component {
           </div>
           }
           <h3>Filter results by...</h3>
-          <DateFilter fieldName="date_received"
-                      title="Date CFPB received the complaint"/>
+          <DateFilter />
           <hr/>
           <Product/>
           <hr/>
@@ -74,10 +74,7 @@ export class FilterPanel extends React.Component {
                         fieldName="company_public_response"
           />
           <hr/>
-          <DateFilter title="The date the CFPB sent the complaint
-                             to the company"
-                      fieldName="company_received"
-          />
+          <CompanyReceivedFilter />
           <hr/>
           <SimpleFilter title="Consumer consent provided?"
                         desc={ descConsumerConsent }
