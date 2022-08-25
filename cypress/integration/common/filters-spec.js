@@ -22,13 +22,11 @@ describe( 'Filter Panel', () => {
     cy.wait( '@getComplaints' );
   } );
 
-  it( 'has a filter', () => {
-    cy.get( '.filter-panel' )
-      .should( 'be.visible' );
-  } );
-
   describe( 'Date Received Filter', () => {
     it( 'has basic functionality', () => {
+      cy.log( 'it has filter panel' )
+      cy.get( '.filter-panel' )
+        .should( 'be.visible' );
       let request = '?**&date_received_min=2015-09-11**';
       let fixture = { fixture: 'common/get-complaints-date-from.json' };
       cy.intercept( request, fixture ).as( 'getComplaintsDateFrom' );
@@ -56,7 +54,7 @@ describe( 'Filter Panel', () => {
 
       cy.get( '#date_received-from' )
         .clear()
-        .type( '9/11/2015' )
+        .type( '2015-09-11' )
         .blur();
 
       cy.wait( '@getComplaintsDateFrom' );
@@ -68,9 +66,7 @@ describe( 'Filter Panel', () => {
 
       cy.get( '#date_received-through' )
         .clear()
-        // This is a hack to clear the input which was not clearing with clear()
-        .type( '{selectall}{backspace}{selectall}{backspace}' )
-        .type( '{selectall}10/31/2020' )
+        .type( '2020-10-31' )
         .blur();
 
       cy.url()
@@ -103,31 +99,29 @@ describe( 'Filter Panel', () => {
     } );
   } );
 
-  describe( 'Simple Filter', () => {
-    it( 'can expand a filter group', () => {
+  describe( 'Filter Groups', () => {
+    it( 'can expand/collapse/apply filter group', () => {
+      cy.log( 'open simple filter' )
       cy.get( '.timely > .o-expandable_header > .o-expandable_header-right > .a-btn' )
         .click();
       cy.get( '.timely > :nth-child(3) > ul > :nth-child(1) > .a-label' )
         .should( 'be.visible' );
-    } );
 
-    it( 'can collapse a filter group', () => {
-      cy.get( '.timely > .o-expandable_header > .o-expandable_header-right > .a-btn' )
-        .click();
-      cy.get( '.timely > :nth-child(3) > ul > :nth-child(1) > .a-label' )
-        .should( 'be.visible' );
+      cy.log( 'close it' )
+
       // Close it after opening it
       cy.get( '.timely > .o-expandable_header > .o-expandable_header-right > .a-btn' )
         .click();
       cy.get( '.timely > :nth-child(3) > ul > :nth-child(1) > .a-label' )
         .should( 'not.exist' );
-    } );
 
-    it( 'applies a filter by clicking', () => {
+      cy.log( 'open it again' )
       cy.get( '.timely > .o-expandable_header > .o-expandable_header-right > .a-btn' )
         .click();
       cy.get( '.timely > :nth-child(3) > ul > :nth-child(1) > .a-label' )
         .should( 'be.visible' );
+
+      cy.log( 'apply filter' );
 
       cy.get( '.timely > :nth-child(3) > ul > :nth-child(1) > .a-label' )
         .click();
@@ -138,15 +132,17 @@ describe( 'Filter Panel', () => {
       cy.get( '.pill-panel .pill' )
         .contains( 'Timely: Yes' )
         .should( 'exist' );
+
       // Filter clear button
       cy.get( 'li.clear-all' )
-        .should( 'exist' );
-    } );
-  } );
+        .should( 'exist' )
+        .click();
 
-  describe( 'Complex Filters', () => {
-    // Product/Sub-product
-    it( 'can collapse a filter', () => {
+      cy.get( '.pill-panel .pill' )
+        .should( 'not.exist' );
+
+      // Product/Sub-product
+      cy.log( 'can collapse/expand a complex filter' )
       cy.get( '.filter-panel .product .aggregation-branch' )
         .should( 'have.length.gt', 1 )
 
@@ -163,9 +159,8 @@ describe( 'Filter Panel', () => {
       cy.get( '.filter-panel .product .aggregation-branch' )
         .should( 'have.length.gt', 1 )
 
-    } );
+      cy.log( 'can expand sub-filters' )
 
-    it( 'can expand sub-filters', () => {
       cy.get( '.filter-panel .product .children' )
         .should( 'not.exist' );
       // Open sub-filter
@@ -177,14 +172,14 @@ describe( 'Filter Panel', () => {
         .click();
       cy.get( '.filter-panel .product .children' )
         .should( 'not.exist' );
-    } );
-    //
-    it( 'toggles a filter by clicking checkbox input', () => {
+
+      cy.log( 'toggles a filter by clicking checkbox input' )
       cy.log( 'add filter' )
       cy.get( 'input#product-mortgage' )
         .click( { force: true } );
+
       cy.wait( '@getAggs' );
-      cy.wait( '@getComplaints' );
+
       cy.get( '.pill-panel .pill' )
         .contains( 'Mortgage' )
         .should( 'exist' );
@@ -194,15 +189,14 @@ describe( 'Filter Panel', () => {
       cy.get( 'input#product-mortgage' )
         .click( { force: true } );
       cy.wait( '@getAggs' );
-      cy.wait( '@getComplaints' );
+
       // Filter pill
       cy.get( '.pill-panel .pill' )
         .should( 'not.exist' );
       cy.url()
         .should( 'not.include', 'product=Mortgage' );
-    } );
 
-    it( 'applies sub-filter by clicking', () => {
+      cy.log( 'applies sub-filter by clicking' )
       cy.get( '.filter-panel .product .children' )
         .should( 'not.exist' );
       // Open sub-filter
@@ -234,9 +228,7 @@ describe( 'Filter Panel', () => {
       cy.url()
         .should( 'include', 'product=Mortgage' );
 
-    } );
-
-    it( 'shows more results', () => {
+      cy.log( 'shows more results' )
       const request = '?**&size=10**';
       const fixture = { fixture: 'common/get-10-complaints.json' };
       cy.intercept( 'GET', request, fixture ).as( 'get10Complaints' );
@@ -248,23 +240,24 @@ describe( 'Filter Panel', () => {
       cy.wait( '@get10Complaints' )
       cy.get( '.list-panel .card-container' )
         .should( 'have.length', 10 );
-    } );
-  } );
 
-  describe( 'Typeahead Filters', () => {
-    // state
-    it( 'can collapse a filter', () => {
+      cy.log( 'Typeahead Filters' )
+      // state
+      cy.log( 'can collapse/expand and search a filter' )
       cy.get( '.state input' )
         .should( 'be.visible' );
 
+      cy.log( 'close it' )
       cy.get( '.state .o-expandable_link' )
         .click();
 
       cy.get( '.state input' )
         .should( 'not.exist' );
-    } );
 
-    it( 'searches a typeahead filter', () => {
+      cy.log( 'open again' )
+      cy.get( '.state .o-expandable_link' )
+        .click();
+      cy.log( 'searches a typeahead filter' )
       cy.get( '.state input' )
         .clear()
         .wait( 400 )

@@ -1,7 +1,6 @@
 import '../RefineBar/RefineBar.less'
 import ActionBar from '../ActionBar'
 import { connect } from 'react-redux'
-import DateRanges from '../RefineBar/DateRanges'
 import ErrorBlock from '../Warnings/Error'
 import FilterPanel from '../Filters/FilterPanel'
 import FilterPanelToggle from '../Filters/FilterPanelToggle'
@@ -14,7 +13,7 @@ import React from 'react'
 import RowChart from '../Charts/RowChart'
 import { Separator } from '../RefineBar/Separator'
 import { shortFormat } from '../../utils'
-import TabbedNavigation from '../TabbedNavigation'
+import { TabbedNavigation } from '../TabbedNavigation'
 import TileChartMap from '../Charts/TileChartMap'
 import Warning from '../Warnings/Warning'
 
@@ -45,7 +44,6 @@ export class MapPanel extends React.Component {
         <div className="layout-row refine-bar">
           <FilterPanelToggle/>
           <Separator />
-          <DateRanges/>
           <PerCapita/>
         </div>
         <TileChartMap/>

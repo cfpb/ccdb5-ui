@@ -1,7 +1,7 @@
 import './FilterPanel.less'
 import Company from './Company'
 import { connect } from 'react-redux'
-import DateFilter from './DateFilter'
+import { DateFilter } from './DateFilter'
 import FederalState from './FederalState'
 import { filterVisibilityToggled } from '../../actions/view'
 import HasNarrative from './HasNarrative'

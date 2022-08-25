@@ -10,7 +10,6 @@ import { changeDateInterval } from '../../actions/filter'
 import ChartToggles from '../RefineBar/ChartToggles'
 import CompanyTypeahead from '../Filters/CompanyTypeahead'
 import { connect } from 'react-redux'
-import DateRanges from '../RefineBar/DateRanges'
 import ExternalTooltip from './ExternalTooltip'
 import FilterPanel from '../Filters/FilterPanel'
 import FilterPanelToggle from '../Filters/FilterPanelToggle'
@@ -25,7 +24,7 @@ import RowChart from '../Charts/RowChart'
 import Select from '../RefineBar/Select'
 import Separator from '../RefineBar/Separator'
 import StackedAreaChart from '../Charts/StackedAreaChart'
-import TabbedNavigation from '../TabbedNavigation'
+import { TabbedNavigation } from '../TabbedNavigation'
 import TrendDepthToggle from './TrendDepthToggle'
 import { trendsDateWarningDismissed } from '../../actions/view'
 import Warning from '../Warnings/Warning'
@@ -150,7 +149,6 @@ export class TrendsPanel extends React.Component {
                   id={ 'interval' }
                   value={ dateInterval }
                   handleChange={ onInterval }/>
-          <DateRanges/>
           { !overview && [
             <Separator key={ 'separator' }/>,
             <ChartToggles key={ 'chart-toggles' }/>
