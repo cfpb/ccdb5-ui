@@ -101,7 +101,7 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
             onKeyDown={[Function]}
             placeholder="M/D/YYYY"
             type="date"
-            value="2018-01-01"
+            value="2017-12-31"
           />
           <button
             className="a-btn a-btn__link"

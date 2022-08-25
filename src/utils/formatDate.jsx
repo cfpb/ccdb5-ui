@@ -2,10 +2,15 @@
 // Exports
 import dayjs from 'dayjs'
 import dayjsLocalizedFormat from 'dayjs/plugin/localizedFormat'
+import dayjsTimezone from 'dayjs/plugin/timezone'
 import dayjsUtc from 'dayjs/plugin/utc'
 
 dayjs.extend( dayjsLocalizedFormat )
+dayjs.extend( dayjsTimezone )
 dayjs.extend( dayjsUtc )
+// this is how we enforce standard tooltip.
+// ci has Africa/Abidjan
+dayjs.tz.setDefault( 'America/New_York' );
 
 /**
  * Function to format/convert a string to format we want

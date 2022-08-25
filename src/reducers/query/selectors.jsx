@@ -1,3 +1,4 @@
+export const selectQueryState = state => state.query;
 export const selectQueryCompanyReceivedMax =
         state => state.query.company_received_max
 export const selectQueryCompanyReceivedMin =

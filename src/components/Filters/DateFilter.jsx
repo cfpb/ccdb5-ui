@@ -16,12 +16,16 @@ import { DateRanges } from './DateRanges';
 import dayjs from 'dayjs'
 import dayjsCustomParseFormat from 'dayjs/plugin/customParseFormat'
 import dayjsIsBetween from 'dayjs/plugin/isBetween'
+import dayjsTimezone from 'dayjs/plugin/timezone'
+import dayjsUtc from 'dayjs/plugin/utc'
 import { formatDate } from '../../utils/formatDate';
 import iconMap from '../iconMap'
 
 dayjs.extend( dayjsCustomParseFormat )
 dayjs.extend( dayjsIsBetween )
-
+dayjs.extend( dayjsUtc )
+dayjs.extend( dayjsTimezone )
+dayjs.tz.setDefault( 'America/New_York' );
 const WARN_SERIES_BREAK = 'CFPB updated product and issue options' +
     ' available to consumers in April 2017 ';
 
@@ -36,10 +40,16 @@ export const DateFilter = () => {
   const dateThrough = useSelector( selectQueryDateReceivedMax );
   const from = dayjs( dateFrom ).format( DATE_VALIDATION_FORMAT )
   const through = dayjs( dateThrough ).format( DATE_VALIDATION_FORMAT )
-  const [ fromDate, setFromDate ] = useState( formatDate( dateFrom ) );
-  const [ throughDate, setThroughDate ] = useState( formatDate( dateThrough ) );
+  const initialFromDate = dayjs( dateFrom ).isValid() ?
+      formatDate( dateFrom ) : '';
+  const initialThroughDate = dayjs( dateThrough ).isValid() ?
+      formatDate( dateThrough ) : '';
+  const [ fromDate, setFromDate ] = useState( initialFromDate );
+  const [ throughDate, setThroughDate ] =
+      useState( formatDate( initialThroughDate ) );
   const dispatch = useDispatch();
-  const showWarning = dayjs( '2017-04-23' ).isBetween( from, through, 'day' )
+  const showWarning =
+      dayjs( '2017-04-23' ).isBetween( from, through, 'day' )
   const errorMessageText = "'From' date must be less than 'through' date";
 
   const fromRef = useRef();
@@ -47,9 +57,15 @@ export const DateFilter = () => {
 
   useEffect( () => {
     // put it in YYYY-MM-DD format
-    setFromDate( formatDate( dateFrom ) );
-    setThroughDate( formatDate( dateThrough ) );
-  }, [ dateFrom, dateThrough ] );
+    // validate to make sure it's not invalid
+    const validFromDate = dateFrom ? formatDate( dateFrom ) : '';
+    setFromDate( validFromDate );
+  }, [ dateFrom ] );
+
+  useEffect( () => {
+    const validThroughDate = dateThrough ? formatDate( dateThrough ) : '';
+    setThroughDate( validThroughDate );
+  }, [ dateThrough ] );
 
   const handleClear = period => {
     if ( period === 'from' ) {
