@@ -215,43 +215,6 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
         </option>
       </select>
     </section>
-    <section
-      className="date-ranges m-btn-group"
-    >
-      <p>
-        Date range (Click to modify range)
-      </p>
-      <button
-        className="a-btn date-selector range-3m"
-        onClick={[Function]}
-      >
-        3m
-      </button>
-      <button
-        className="a-btn date-selector range-6m"
-        onClick={[Function]}
-      >
-        6m
-      </button>
-      <button
-        className="a-btn date-selector range-1y"
-        onClick={[Function]}
-      >
-        1y
-      </button>
-      <button
-        className="a-btn date-selector range-3y"
-        onClick={[Function]}
-      >
-        3y
-      </button>
-      <button
-        className="a-btn date-selector range-All"
-        onClick={[Function]}
-      >
-        All
-      </button>
-    </section>
     <span
       className="separator"
     />
@@ -691,43 +654,6 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
         </option>
       </select>
     </section>
-    <section
-      className="date-ranges m-btn-group"
-    >
-      <p>
-        Date range (Click to modify range)
-      </p>
-      <button
-        className="a-btn date-selector range-3m"
-        onClick={[Function]}
-      >
-        3m
-      </button>
-      <button
-        className="a-btn date-selector range-6m"
-        onClick={[Function]}
-      >
-        6m
-      </button>
-      <button
-        className="a-btn date-selector range-1y"
-        onClick={[Function]}
-      >
-        1y
-      </button>
-      <button
-        className="a-btn date-selector range-3y"
-        onClick={[Function]}
-      >
-        3y
-      </button>
-      <button
-        className="a-btn date-selector range-All"
-        onClick={[Function]}
-      >
-        All
-      </button>
-    </section>
     <span
       className="separator"
     />
@@ -1133,43 +1059,6 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
           Year
         </option>
       </select>
-    </section>
-    <section
-      className="date-ranges m-btn-group"
-    >
-      <p>
-        Date range (Click to modify range)
-      </p>
-      <button
-        className="a-btn date-selector range-3m"
-        onClick={[Function]}
-      >
-        3m
-      </button>
-      <button
-        className="a-btn date-selector range-6m"
-        onClick={[Function]}
-      >
-        6m
-      </button>
-      <button
-        className="a-btn date-selector range-1y"
-        onClick={[Function]}
-      >
-        1y
-      </button>
-      <button
-        className="a-btn date-selector range-3y"
-        onClick={[Function]}
-      >
-        3y
-      </button>
-      <button
-        className="a-btn date-selector range-All"
-        onClick={[Function]}
-      >
-        All
-      </button>
     </section>
     <span
       className="separator"
@@ -1578,43 +1467,6 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
         </option>
       </select>
     </section>
-    <section
-      className="date-ranges m-btn-group"
-    >
-      <p>
-        Date range (Click to modify range)
-      </p>
-      <button
-        className="a-btn date-selector range-3m"
-        onClick={[Function]}
-      >
-        3m
-      </button>
-      <button
-        className="a-btn date-selector range-6m"
-        onClick={[Function]}
-      >
-        6m
-      </button>
-      <button
-        className="a-btn date-selector range-1y"
-        onClick={[Function]}
-      >
-        1y
-      </button>
-      <button
-        className="a-btn date-selector range-3y"
-        onClick={[Function]}
-      >
-        3y
-      </button>
-      <button
-        className="a-btn date-selector range-All"
-        onClick={[Function]}
-      >
-        All
-      </button>
-    </section>
   </div>
   
   <div
@@ -1902,43 +1754,6 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
           Year
         </option>
       </select>
-    </section>
-    <section
-      className="date-ranges m-btn-group"
-    >
-      <p>
-        Date range (Click to modify range)
-      </p>
-      <button
-        className="a-btn date-selector range-3m"
-        onClick={[Function]}
-      >
-        3m
-      </button>
-      <button
-        className="a-btn date-selector range-6m"
-        onClick={[Function]}
-      >
-        6m
-      </button>
-      <button
-        className="a-btn date-selector range-1y"
-        onClick={[Function]}
-      >
-        1y
-      </button>
-      <button
-        className="a-btn date-selector range-3y"
-        onClick={[Function]}
-      >
-        3y
-      </button>
-      <button
-        className="a-btn date-selector range-All"
-        onClick={[Function]}
-      >
-        All
-      </button>
     </section>
     <span
       className="separator"
@@ -2346,43 +2161,6 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
         </option>
       </select>
     </section>
-    <section
-      className="date-ranges m-btn-group"
-    >
-      <p>
-        Date range (Click to modify range)
-      </p>
-      <button
-        className="a-btn date-selector range-3m"
-        onClick={[Function]}
-      >
-        3m
-      </button>
-      <button
-        className="a-btn date-selector range-6m"
-        onClick={[Function]}
-      >
-        6m
-      </button>
-      <button
-        className="a-btn date-selector range-1y"
-        onClick={[Function]}
-      >
-        1y
-      </button>
-      <button
-        className="a-btn date-selector range-3y"
-        onClick={[Function]}
-      >
-        3y
-      </button>
-      <button
-        className="a-btn date-selector range-All"
-        onClick={[Function]}
-      >
-        All
-      </button>
-    </section>
   </div>
   
   <div
@@ -2672,43 +2450,6 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
         </option>
       </select>
     </section>
-    <section
-      className="date-ranges m-btn-group"
-    >
-      <p>
-        Date range (Click to modify range)
-      </p>
-      <button
-        className="a-btn date-selector range-3m"
-        onClick={[Function]}
-      >
-        3m
-      </button>
-      <button
-        className="a-btn date-selector range-6m"
-        onClick={[Function]}
-      >
-        6m
-      </button>
-      <button
-        className="a-btn date-selector range-1y"
-        onClick={[Function]}
-      >
-        1y
-      </button>
-      <button
-        className="a-btn date-selector range-3y"
-        onClick={[Function]}
-      >
-        3y
-      </button>
-      <button
-        className="a-btn date-selector range-All"
-        onClick={[Function]}
-      >
-        All
-      </button>
-    </section>
   </div>
   
   <div
@@ -2996,43 +2737,6 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
           Year
         </option>
       </select>
-    </section>
-    <section
-      className="date-ranges m-btn-group"
-    >
-      <p>
-        Date range (Click to modify range)
-      </p>
-      <button
-        className="a-btn date-selector range-3m"
-        onClick={[Function]}
-      >
-        3m
-      </button>
-      <button
-        className="a-btn date-selector range-6m"
-        onClick={[Function]}
-      >
-        6m
-      </button>
-      <button
-        className="a-btn date-selector range-1y"
-        onClick={[Function]}
-      >
-        1y
-      </button>
-      <button
-        className="a-btn date-selector range-3y"
-        onClick={[Function]}
-      >
-        3y
-      </button>
-      <button
-        className="a-btn date-selector range-All"
-        onClick={[Function]}
-      >
-        All
-      </button>
     </section>
   </div>
   

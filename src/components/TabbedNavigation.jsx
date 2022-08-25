@@ -1,53 +1,41 @@
 import './TabbedNavigation.less'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import iconMap from './iconMap'
 import React from 'react'
+import { selectQueryTab } from '../reducers/query/selectors';
 import { tabChanged } from '../actions/view'
 
-export class TabbedNavigation extends React.Component {
-  _getTabClass( tab ) {
-    const tabName = tab.toLowerCase() + ' tab'
-    return this.props.tab === tab ? tabName + ' active' : tabName
+export const TabbedNavigation = () => {
+  const dispatch = useDispatch()
+  const tab = useSelector( selectQueryTab );
+
+  const getTabClass = selectedTab => {
+    const tabName = selectedTab.toLowerCase() + ' tab'
+    return tab === selectedTab ? tabName + ' active' : tabName
   }
 
-  render() {
-    return (
+  return (
       <div className="tabbed-navigation">
         <section>
           <button
-            className={ this._getTabClass( 'Trends' ) }
-            onClick={ () => this.props.onTab( 'Trends' ) }>
+            className={ getTabClass( 'Trends' ) }
+            onClick={ () => dispatch( tabChanged( 'Trends' ) )}>
             { iconMap.getIcon( 'chart' ) }
             Trends
           </button>
 
-          <button className={ this._getTabClass( 'List' ) }
-                  onClick={ () => this.props.onTab( 'List' ) }>
+          <button className={ getTabClass( 'List' ) }
+                  onClick={ () => dispatch( tabChanged( 'List' ) ) }>
             { iconMap.getIcon( 'list' ) }
             List
           </button>
 
-          <button
-            className={ this._getTabClass( 'Map' ) }
-            onClick={ () => this.props.onTab( 'Map' ) }>
+          <button className={ getTabClass( 'Map' ) }
+                  onClick={ () => dispatch( tabChanged( 'Map' ) ) }>
             { iconMap.getIcon( 'map' ) }
             Map
           </button>
         </section>
       </div>
-    );
-  }
+  );
 }
-
-export const mapStateToProps = state => ( {
-  tab: state.query.tab
-} )
-
-export const mapDispatchToProps = dispatch => ( {
-  onTab: tab => {
-    dispatch( tabChanged( tab ) )
-  }
-} )
-
-export default connect( mapStateToProps,
-  mapDispatchToProps )( TabbedNavigation )

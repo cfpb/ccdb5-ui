@@ -1,55 +1,61 @@
 import './Pill.less'
+import { changeDates, removeFilter, replaceFilters } from '../../actions/filter'
 import { filterPatch, SLUG_SEPARATOR } from '../../constants'
 import { formatPillPrefix, getUpdatedFilters } from '../../utils/filters'
-import { removeFilter, replaceFilters } from '../../actions/filter'
+import {
+  selectQueryDateReceivedMax, selectQueryDateReceivedMin,
+  selectQueryState
+} from '../../reducers/query/selectors';
+import { useDispatch, useSelector } from 'react-redux'
 import { coalesce } from '../../utils'
-import { connect } from 'react-redux'
 import iconMap from '../iconMap'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { selectAggsState } from '../../reducers/aggs/selectors';
 
-export class Pill extends React.Component {
-  render() {
-    const { fieldName, value, remove } = this.props
-    const prefix = formatPillPrefix( fieldName );
-    const trimmed = value.split( SLUG_SEPARATOR ).pop()
-    return (
+export const Pill = ( { fieldName, value } ) => {
+  const aggsState = useSelector( selectAggsState )
+  const queryState = useSelector( selectQueryState )
+  const dateReceivedMax = useSelector( selectQueryDateReceivedMax )
+  const dateReceivedMin = useSelector( selectQueryDateReceivedMin )
+  const aggs = coalesce( aggsState, fieldName, [] )
+  const filters = coalesce( queryState, fieldName, [] )
+  const prefix = formatPillPrefix( fieldName );
+  const trimmed = value.split( SLUG_SEPARATOR ).pop()
+  const dispatch = useDispatch()
+
+  /* eslint complexity: ["error", 6] */
+  const remove = () => {
+    if ( fieldName === 'date_received_max' ) {
+      const minDate = dateReceivedMin ? dateReceivedMin : null;
+      dispatch( changeDates( 'date_received', minDate, null ) )
+    } else if ( fieldName === 'date_received_min' ) {
+      const maxDate = dateReceivedMax ? dateReceivedMax : null;
+      dispatch( changeDates( 'date_received', null, maxDate ) )
+    } else {
+      const filterName = value
+      if ( filterPatch.includes( fieldName ) ) {
+        const updatedFilters =
+            getUpdatedFilters( filterName, filters, aggs, fieldName )
+        dispatch( replaceFilters( fieldName, updatedFilters ) )
+      } else {
+        dispatch( removeFilter( fieldName, filterName ) )
+      }
+    }
+  }
+
+  return (
       <li className="pill flex-fixed">
         <span className="name">{ prefix }{ trimmed }</span>
-        <button onClick={ () => remove( this.props ) }>
+        <button onClick={remove}>
           <span className="u-visually-hidden">
             { `Remove ${ trimmed } as a filter` }
           </span>
           { iconMap.getIcon( 'delete' ) }
         </button>
       </li>
-    )
-  }
+  )
 }
-export const mapStateToProps = ( state, ownProps ) => {
-  const aggs = coalesce( state.aggs, ownProps.fieldName, [] )
-  const filters = coalesce( state.query, ownProps.fieldName, [] )
-  return {
-    aggs,
-    filters
-  }
-}
-
-export const mapDispatchToProps = ( dispatch, ownProps ) => ( {
-  remove: props => {
-    const filterName = props.value
-    const { fieldName } = ownProps
-    if ( filterPatch.includes( fieldName ) ) {
-      const updatedFilters = getUpdatedFilters( filterName, props.filters,
-        props.aggs, fieldName )
-      dispatch( replaceFilters( fieldName, updatedFilters ) )
-    } else {
-      dispatch( removeFilter( fieldName, filterName ) )
-    }
-  }
-} )
-
-export default connect( mapStateToProps, mapDispatchToProps )( Pill );
 
 Pill.propTypes = {
   fieldName: PropTypes.string.isRequired,

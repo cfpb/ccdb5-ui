@@ -15,7 +15,7 @@ import React from 'react'
 import { Select } from '../RefineBar/Select'
 import { sendAnalyticsEvent } from '../../utils'
 import { Separator } from '../RefineBar/Separator'
-import TabbedNavigation from '../TabbedNavigation'
+import { TabbedNavigation } from '../TabbedNavigation'
 
 const ERROR = 'ERROR'
 const NO_RESULTS = 'NO_RESULTS'
