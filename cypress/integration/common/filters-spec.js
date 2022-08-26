@@ -138,8 +138,9 @@ describe( 'Filter Panel', () => {
         .should( 'exist' )
         .click();
 
+      // default date Filter pills
       cy.get( '.pill-panel .pill' )
-        .should( 'not.exist' );
+        .should( 'have.length', 2 );
 
       // Product/Sub-product
       cy.log( 'can collapse/expand a complex filter' )
@@ -190,9 +191,10 @@ describe( 'Filter Panel', () => {
         .click( { force: true } );
       cy.wait( '@getAggs' );
 
-      // Filter pill
+      // default date Filter pills
       cy.get( '.pill-panel .pill' )
-        .should( 'not.exist' );
+        .should( 'have.length', 2 );
+
       cy.url()
         .should( 'not.include', 'product=Mortgage' );
 
