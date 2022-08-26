@@ -41,7 +41,9 @@ export const Tour = () => {
   function handleBeforeChange( ref ) {
     const currentStep = ref.current.introJs.currentStep();
 
-    if ( steps[currentStep].element === '.search-bar .advanced-container button' ) {
+    if (
+        steps[currentStep].element === '.search-bar .advanced-container button'
+    ) {
       // when the tour is initiated, we reset the advanced search tips state
       // to closed. we open it here.
       document.querySelector( '.advanced-container button' ).click()
