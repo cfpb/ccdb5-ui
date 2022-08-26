@@ -1,4 +1,4 @@
-/* eslint complexity: ["error", 6] */
+/* eslint complexity: ["error", 7] */
 import './DateFilter.less'
 import {
     DATE_VALIDATION_FORMAT,
@@ -27,8 +27,14 @@ export const CompanyReceivedFilter = () => {
   const title = 'The date the CFPB sent the complaint to the company';
   const dateFrom = useSelector( selectQueryCompanyReceivedMin );
   const dateThrough = useSelector( selectQueryCompanyReceivedMax );
-  const [ fromDate, setFromDate ] = useState( formatDate( dateFrom ) );
-  const [ throughDate, setThroughDate ] = useState( formatDate( dateThrough ) );
+
+  const initialFromDate = dayjs( dateFrom ).isValid() ?
+        formatDate( dateFrom ) : '';
+  const initialThroughDate = dayjs( dateThrough ).isValid() ?
+        formatDate( dateThrough ) : '';
+
+  const [ fromDate, setFromDate ] = useState( initialFromDate );
+  const [ throughDate, setThroughDate ] = useState( initialThroughDate );
   const dispatch = useDispatch();
   const errorMessageText = "'From' date must be less than 'through' date";
 
@@ -37,17 +43,16 @@ export const CompanyReceivedFilter = () => {
 
   useEffect( () => {
     // put it in YYYY-MM-DD format
-    if ( dayjs( dateFrom ).isValid() ) {
-      setFromDate( formatDate( dateFrom ) );
-    } else {
-      setFromDate( '' )
-    }
-    if ( dayjs( dateThrough ).isValid() ) {
-      setThroughDate( formatDate( dateThrough ) );
-    } else {
-      setThroughDate( '' )
-    }
-  }, [ dateFrom, dateThrough ] );
+    // validate to make sure it's not invalid
+    const validFromDate = dateFrom ? formatDate( dateFrom ) : '';
+    setFromDate( validFromDate );
+  }, [ dateFrom ] );
+
+  useEffect( () => {
+    const validThroughDate = dateThrough ? formatDate( dateThrough ) : '';
+    setThroughDate( validThroughDate );
+  }, [ dateThrough ] );
+
 
   const handleClear = period => {
     if ( period === 'from' ) {
@@ -71,20 +76,30 @@ export const CompanyReceivedFilter = () => {
   }
 
   const errors = useMemo( () => {
+    const errs = [];
     if ( dayjs( fromDate ).isAfter( throughDate ) ) {
-      return errorMessageText;
+      errs.push( errorMessageText );
     }
-    return false;
+    if ( dayjs( fromDate ).isBefore( minDate ) ) {
+      errs.push( "'From' date must be after " +
+          dayjs( minDate ).format( DATE_VALIDATION_FORMAT ) )
+    }
+    if ( dayjs( throughDate ).isAfter( maxDate ) ) {
+      errs.push( "'Through' date must be before " +
+          dayjs( maxDate ).format( DATE_VALIDATION_FORMAT ) )
+    }
+
+    return errs;
   }, [ fromDate, throughDate ] )
 
   const handleDateChange = () => {
     let _throughDate = throughDate;
     let _fromDate = fromDate
-    if ( !dayjs( fromDate ).isValid() ) {
+    if ( _fromDate && !dayjs( fromDate ).isValid() ) {
       fromRef.current.value = '';
       _fromDate = ''
     }
-    if ( !dayjs( throughDate ).isValid() ) {
+    if ( _throughDate && !dayjs( throughDate ).isValid() ) {
       throughRef.current.value = '';
       _throughDate = ''
     }
@@ -95,7 +110,7 @@ export const CompanyReceivedFilter = () => {
     }
   };
 
-  const inputStartClassName = useMemo( () => {
+  const inputFromClassName = useMemo( () => {
     const style = [ 'a-text-input' ]
     if ( dayjs( fromDate ).isBefore( minDate ) ||
         dayjs( fromDate ).isAfter( throughDate ) ) {
@@ -104,7 +119,7 @@ export const CompanyReceivedFilter = () => {
     return style.join( ' ' )
   }, [ fromDate, throughDate ] );
 
-  const inputEndClassName = useMemo( () => {
+  const inputThroughClassName = useMemo( () => {
     const style = [ 'a-text-input' ]
     if ( dayjs( throughDate ).isAfter( maxDate ) ||
         dayjs( throughDate ).isBefore( fromDate ) ) {
@@ -124,7 +139,7 @@ export const CompanyReceivedFilter = () => {
                     </label>
                     <div className="m-btn-inside-input">
                         <input id={`${ fieldName }-from`}
-                               className={inputStartClassName}
+                               className={inputFromClassName}
                                onBlur={handleDateChange}
                                onChange={evt => setFromDate( evt.target.value )}
                                onKeyDown={handleKeyDownFromDate}
@@ -149,7 +164,7 @@ export const CompanyReceivedFilter = () => {
                     </label>
                     <div className="m-btn-inside-input">
                         <input id={`${ fieldName }-through`}
-                               className={inputEndClassName}
+                               className={inputThroughClassName}
                                onBlur={handleDateChange}
                                onChange={
                                    evt => setThroughDate( evt.target.value )
@@ -171,15 +186,17 @@ export const CompanyReceivedFilter = () => {
                 </li>
             </ul>
 
-            {errors ?
-                <>{errors + ' '}
-                <span aria-hidden="true">
-                    {
-                    iconMap.getIcon( 'delete-round', 'cf-icon-delete-round' )
-                    }
-                </span>
-                </> :
-                null
+            {
+                errors.length ?
+                    errors.map( ( message, key ) => <div key={key}>
+                        {message}
+                        <span aria-hidden="true">
+                            {
+                                iconMap.getIcon( 'delete-round',
+                                    'cf-icon-delete-round' )
+                            }
+                        </span>
+                    </div> ) : null
             }
         </div>
 

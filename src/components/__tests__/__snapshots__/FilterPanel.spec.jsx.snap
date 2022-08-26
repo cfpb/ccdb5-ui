@@ -714,7 +714,7 @@ exports[`initial state renders button at mobile width 1`] = `
                 onKeyDown={[Function]}
                 placeholder="M/D/YYYY"
                 type="date"
-                value="Invalid Date"
+                value=""
               />
               <button
                 className="a-btn a-btn__link"
@@ -757,7 +757,7 @@ exports[`initial state renders button at mobile width 1`] = `
                 onKeyDown={[Function]}
                 placeholder="M/D/YYYY"
                 type="date"
-                value="Invalid Date"
+                value=""
               />
               <button
                 className="a-btn a-btn__link"

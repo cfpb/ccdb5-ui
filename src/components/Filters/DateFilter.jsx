@@ -97,25 +97,26 @@ export const DateFilter = () => {
   const handleDateChange = () => {
     // setFromDate and setThroughDate do not update the state quick enough
     // to be used here
-    let _startDate = fromDate;
-    let _endDate = throughDate;
+    let _fromDate = fromDate;
+    let _throughDate = throughDate;
     // don't do anything if its empty
-    if ( _startDate < minDate && _startDate ) {
+    if ( _fromDate < minDate && _fromDate ) {
       fromRef.current.value = minDate;
-      _startDate = minDate;
+      _fromDate = minDate;
     }
-    if ( _endDate > maxDate && _endDate ) {
+    if ( _throughDate > maxDate && _throughDate ) {
       throughRef.current.value = maxDate;
-      _endDate = maxDate;
+      _throughDate = maxDate;
     }
 
-    const isDateDifferent = dateFrom !== _startDate || dateThrough !== _endDate;
-    if ( dayjs( _endDate ).isAfter( _startDate ) && isDateDifferent ) {
-      dispatch( changeDates( fieldName, _startDate, _endDate ) )
+    const isDateDifferent = dateFrom !== _fromDate ||
+        dateThrough !== _throughDate;
+    if ( dayjs( _throughDate ).isAfter( _fromDate ) && isDateDifferent ) {
+      dispatch( changeDates( fieldName, _fromDate, _throughDate ) )
     }
   };
 
-  const inputStartClassName = useMemo( () => {
+  const inputFromClassName = useMemo( () => {
     const style = [ 'a-text-input' ]
     if ( dayjs( fromDate ).isBefore( minDate ) ||
         dayjs( fromDate ).isAfter( throughDate ) ) {
@@ -124,7 +125,7 @@ export const DateFilter = () => {
     return style.join( ' ' )
   }, [ fromDate, throughDate ] );
 
-  const inputEndClassName = useMemo( () => {
+  const inputThroughClassName = useMemo( () => {
     const style = [ 'a-text-input' ]
     if ( dayjs( throughDate ).isAfter( maxDate ) ||
         dayjs( throughDate ).isBefore( fromDate ) ) {
@@ -144,7 +145,7 @@ export const DateFilter = () => {
                     </label>
                     <div className="m-btn-inside-input">
                         <input id={`${ fieldName }-from`}
-                               className={inputStartClassName}
+                               className={inputFromClassName}
                                onBlur={handleDateChange}
                                onChange={evt => setFromDate( evt.target.value )}
                                onKeyDown={handleKeyDownFromDate}
@@ -169,7 +170,7 @@ export const DateFilter = () => {
                     </label>
                     <div className="m-btn-inside-input">
                         <input id={`${ fieldName }-through`}
-                               className={inputEndClassName}
+                               className={inputThroughClassName}
                                onBlur={handleDateChange}
                                onChange={
                                    evt => setThroughDate( evt.target.value )
