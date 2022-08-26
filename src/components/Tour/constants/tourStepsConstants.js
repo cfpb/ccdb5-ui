@@ -1,3 +1,4 @@
+/* eslint-disable max-len, no-inline-comments */
 import {
   MODE_DOCUMENT,
   MODE_LIST,
