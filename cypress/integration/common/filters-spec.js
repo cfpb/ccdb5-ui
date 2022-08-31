@@ -101,6 +101,11 @@ describe( 'Filter Panel', () => {
 
   describe( 'Filter Groups', () => {
     it( 'can expand/collapse/apply filter group', () => {
+
+      // default date Filter pills
+      cy.get( '.pill-panel .pill' )
+        .should( 'have.length', 1 );
+
       cy.log( 'open simple filter' )
       cy.get( '.timely > .o-expandable_header > .o-expandable_header-right > .a-btn' )
         .click();
@@ -138,9 +143,8 @@ describe( 'Filter Panel', () => {
         .should( 'exist' )
         .click();
 
-      // default date Filter pills
       cy.get( '.pill-panel .pill' )
-        .should( 'have.length', 2 );
+        .should( 'not.exist' );
 
       // Product/Sub-product
       cy.log( 'can collapse/expand a complex filter' )
@@ -190,10 +194,6 @@ describe( 'Filter Panel', () => {
       cy.get( 'input#product-mortgage' )
         .click( { force: true } );
       cy.wait( '@getAggs' );
-
-      // default date Filter pills
-      cy.get( '.pill-panel .pill' )
-        .should( 'have.length', 2 );
 
       cy.url()
         .should( 'not.include', 'product=Mortgage' );

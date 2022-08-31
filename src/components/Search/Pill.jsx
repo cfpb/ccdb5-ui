@@ -1,37 +1,32 @@
 import './Pill.less'
-import { changeDates, removeFilter, replaceFilters } from '../../actions/filter'
+import {
+  dateRangeToggled,
+  removeFilter,
+  replaceFilters
+} from '../../actions/filter'
 import { filterPatch, SLUG_SEPARATOR } from '../../constants'
 import { formatPillPrefix, getUpdatedFilters } from '../../utils/filters'
-import {
-  selectQueryDateReceivedMax, selectQueryDateReceivedMin,
-  selectQueryState
-} from '../../reducers/query/selectors';
 import { useDispatch, useSelector } from 'react-redux'
 import { coalesce } from '../../utils'
 import iconMap from '../iconMap'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { selectAggsState } from '../../reducers/aggs/selectors';
+import { selectQueryState } from '../../reducers/query/selectors';
 
 export const Pill = ( { fieldName, value } ) => {
   const aggsState = useSelector( selectAggsState )
   const queryState = useSelector( selectQueryState )
-  const dateReceivedMax = useSelector( selectQueryDateReceivedMax )
-  const dateReceivedMin = useSelector( selectQueryDateReceivedMin )
   const aggs = coalesce( aggsState, fieldName, [] )
   const filters = coalesce( queryState, fieldName, [] )
   const prefix = formatPillPrefix( fieldName );
   const trimmed = value.split( SLUG_SEPARATOR ).pop()
   const dispatch = useDispatch()
 
-  /* eslint complexity: ["error", 6] */
   const remove = () => {
-    if ( fieldName === 'date_received_max' ) {
-      const minDate = dateReceivedMin ? dateReceivedMin : null;
-      dispatch( changeDates( 'date_received', minDate, null ) )
-    } else if ( fieldName === 'date_received_min' ) {
-      const maxDate = dateReceivedMax ? dateReceivedMax : null;
-      dispatch( changeDates( 'date_received', null, maxDate ) )
+    if ( fieldName === 'date_received' ) {
+      // reset date range
+      dispatch( dateRangeToggled( 'All' ) )
     } else {
       const filterName = value
       if ( filterPatch.includes( fieldName ) ) {

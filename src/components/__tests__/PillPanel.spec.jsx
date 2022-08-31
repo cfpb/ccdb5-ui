@@ -4,6 +4,8 @@ import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import renderer from 'react-test-renderer'
+// import MockDate from "mockdate";
+// import dayjs from "dayjs";
 
 
 function setupSnapshot( initialQueryState = {}, initialAggState = {} ) {
@@ -24,6 +26,8 @@ function setupSnapshot( initialQueryState = {}, initialAggState = {} ) {
 describe('component:PillPanel', () => {
   it('renders without crashing', () => {
     const target = setupSnapshot({
+      date_received_max: '2019-12-01T12:00:00.000Z',
+      date_received_min: '2011-12-01T12:00:00.000Z',
       company: ['Apples', 'Bananas are great'],
       timely: ['Yes']
     });
@@ -43,6 +47,8 @@ describe('component:PillPanel', () => {
       ]
     }
     const target = setupSnapshot( {
+      date_received_max: '2020-05-05T12:00:00.000Z',
+      date_received_min: '2011-12-01T12:00:00.000Z',
       issue: [ 'a', 'Bananas are great' ]
     }, aggs )
     const tree = target.toJSON()
@@ -50,13 +56,18 @@ describe('component:PillPanel', () => {
   } )
 
   it('does not render when there are no filters', () => {
-    const target = setupSnapshot();
+    const target = setupSnapshot({
+      date_received_max: '2020-05-05T12:00:00.000Z',
+      date_received_min: '2011-12-01T12:00:00.000Z',
+    });
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   })
 
   it('adds a has narrative pill', () => {
     const target = setupSnapshot({
+      date_received_max: '2020-05-05T12:00:00.000Z',
+      date_received_min: '2011-12-01T12:00:00.000Z',
       has_narrative: true
     });
     const tree = target.toJSON();

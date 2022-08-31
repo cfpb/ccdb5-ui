@@ -68,10 +68,10 @@ export const DateFilter = () => {
 
   const handleClear = period => {
     if ( period === 'from' ) {
-      dispatch( changeDates( fieldName, '', throughDate ) )
+      dispatch( changeDates( fieldName, minDate, throughDate ) )
     }
     if ( period === 'through' ) {
-      dispatch( changeDates( fieldName, fromDate, '' ) )
+      dispatch( changeDates( fieldName, fromDate, maxDate ) )
     }
   }
 
