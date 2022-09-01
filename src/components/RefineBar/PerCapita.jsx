@@ -32,7 +32,7 @@ export const PerCapita = () => {
   };
 
   return (
-    <section className='m-btn-group'>
+    <section className="m-btn-group">
       <p>Map shading</p>
       <button
         className={ 'a-btn toggle-button raw ' + _getRawButtonClass() }

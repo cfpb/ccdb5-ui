@@ -214,7 +214,7 @@ export class RowChart extends React.Component {
   render() {
     return (
       this.props.total > 0 &&
-      <div className='row-chart-section'>
+      <div className="row-chart-section">
         <h3>{ this.props.title }</h3>
         <p>{ this.props.helperText }</p>
         <div id={ 'row-chart-' + this.props.id }>

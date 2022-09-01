@@ -51,9 +51,9 @@ export class DateFilter extends React.Component {
 
     return (
       <CollapsibleFilter title={ this.props.title }
-        className='aggregation date-filter'>
+        className="aggregation date-filter">
         <div>
-          <ul className='date-inputs'>
+          <ul className="date-inputs">
             { this._renderDateInput( 'From', 'from' ) }
             { this._renderDateInput( 'Through', 'through' ) }
           </ul>
@@ -64,10 +64,10 @@ export class DateFilter extends React.Component {
           { showWarning ?
             <p> { WARN_SERIES_BREAK }
               <a href={ LEARN_SERIES_BREAK }
-                target='_blank'
-                rel='noopener noreferrer'
-                aria-label='Learn more about Product and
-                  Issue changes (opens in new window)' >
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Learn more about Product and
+                  Issue changes (opens in new window)" >
                   Learn More
               </a>
             </p> :
@@ -94,7 +94,7 @@ export class DateFilter extends React.Component {
 
     return (
       <li>
-        <label className='a-label a-label__heading body-copy'
+        <label className="a-label a-label__heading body-copy"
           htmlFor={ inputId }>
           { label }
         </label>
@@ -111,12 +111,12 @@ export class DateFilter extends React.Component {
 
   _renderMessages() {
     return (
-      <ul className='messages'>
-        { Object.keys( this.state.messages ).map( field => <li className='a-error-message'
+      <ul className="messages">
+        { Object.keys( this.state.messages ).map( field => <li className="a-error-message"
           key={'input-error_message-' + field}
           id={'input-error_message-' + field}
-          role='alert'>
-          <span aria-hidden='true'>
+          role="alert">
+          <span aria-hidden="true">
             { iconMap.getIcon( 'delete-round', 'cf-icon-delete-round' ) }
           </span>
 

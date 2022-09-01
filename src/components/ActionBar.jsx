@@ -12,7 +12,7 @@ export class ActionBar extends React.Component {
     const { hits, tab, total } = this.props;
     return (
       <div>
-        <summary className='action-bar' id='search-summary'>
+        <summary className="action-bar" id="search-summary">
           <div>{ hits === total ?
             <h2>
               Showing&nbsp;
@@ -28,15 +28,15 @@ export class ActionBar extends React.Component {
           }
           </div>
           <div>
-            <h3 className='h4 flex-all export-results'>
-              <button className='a-btn a-btn__link export-btn'
-                data-gtm_ignore='true'
+            <h3 className="h4 flex-all export-results">
+              <button className="a-btn a-btn__link export-btn"
+                data-gtm_ignore="true"
                 onClick={ () => {
                   this.props.onExportResults( tab );
                 } }>
                 Export data
               </button>
-              <button className='a-btn a-btn__link print-preview'
+              <button className="a-btn a-btn__link print-preview"
                 onClick={ () => {
                   this._showPrintView( tab );
                 } }>

@@ -12,9 +12,9 @@ export class Company extends React.Component {
     const desc = 'The complaint is about this company.';
 
     return (
-      <CollapsibleFilter title='Company name'
+      <CollapsibleFilter title="Company name"
         desc={desc}
-        className='aggregation company'>
+        className="aggregation company">
         <CompanyTypeahead id={ 'filter-' + FIELD_NAME }/>
         <StickyOptions fieldName={FIELD_NAME}
           options={this.props.options}

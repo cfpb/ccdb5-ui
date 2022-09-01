@@ -50,16 +50,16 @@ export class SearchBar extends React.Component {
   render() {
     return (
       <div>
-        <div className='search-bar' role='search'>
-          <form action='' onSubmit={this._handleSubmit}>
-            <h3 className='h4'>Search within</h3>
-            <div className='layout-row'>
-              <div className='cf-select flex-fixed'>
-                <select aria-label='Choose which field will be searched'
-                  id='searchField'
+        <div className="search-bar" role="search">
+          <form action="" onSubmit={this._handleSubmit}>
+            <h3 className="h4">Search within</h3>
+            <div className="layout-row">
+              <div className="cf-select flex-fixed">
+                <select aria-label="Choose which field will be searched"
+                  id="searchField"
                   onChange={this._onSelectSearchField}
                   value={this.state.searchField}>
-                  <optgroup label='Search Within'>
+                  <optgroup label="Search Within">
                     {
                       Object.keys( searchFields ).map( x => <option key={x} value={x}>{searchFields[x]}</option>
                       )
@@ -67,35 +67,35 @@ export class SearchBar extends React.Component {
                   </optgroup>
                 </select>
               </div>
-              <div className='flex-all typeahead-portal'>
-                <Typeahead ariaLabel='Enter the term you want to search for'
+              <div className="flex-all typeahead-portal">
+                <Typeahead ariaLabel="Enter the term you want to search for"
                   debounceWait={this.props.debounceWait}
                   disableTypeahead={
                     this.props.searchField !== 'company'
                   }
-                  htmlId='searchText'
+                  htmlId="searchText"
                   mode={MODE_OPEN}
                   onInputChange={this._onInputChange}
                   onOptionSelected={this._onTypeaheadSelected}
-                  placeholder='Enter your search term(s)'
+                  placeholder="Enter your search term(s)"
                   renderOption={this._renderOption}
                   value={this.state.inputValue}
                 />
               </div>
 
-              <button type='submit'
-                className='a-btn flex-fixed'
+              <button type="submit"
+                className="a-btn flex-fixed"
                 ref={elem => { this.submitButton = elem; }}>
                   Search
               </button>
 
-              <a className='u-visually-hidden'
-                href='#search-summary'>
+              <a className="u-visually-hidden"
+                href="#search-summary">
                  Skip to Results
               </a>
 
-              <div className='advanced-container flex-fixed'>
-                <button className='a-btn a-btn__link'
+              <div className="advanced-container flex-fixed">
+                <button className="a-btn a-btn__link"
                   onClick={ this._onAdvancedClicked }>
                   {this.state.advancedShown ? 'Hide ' : 'Show '}
                   advanced search tips

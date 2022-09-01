@@ -7,7 +7,7 @@ export class PrintInfo extends React.Component {
   render() {
     const { complaintCountText, dates, searchText } = this.props;
     return (
-      <section className='print-info'>
+      <section className="print-info">
         <p><span>Dates:</span> { dates }</p>
         { searchText && <p><span>Search Term:</span> { searchText }</p> }
         <div>{ complaintCountText }</div>

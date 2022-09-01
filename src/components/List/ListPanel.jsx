@@ -37,11 +37,11 @@ export class ListPanel extends React.Component {
     const phase = this._determinePhase();
 
     return (
-      <section className='list-panel'>
+      <section className="list-panel">
         <ActionBar />
         <TabbedNavigation />
         { this.props.showMobileFilters && <FilterPanel/> }
-        <div className='layout-row refine-bar'>
+        <div className="layout-row refine-bar">
           <FilterPanelToggle/>
           <Separator />
           <Select label={ 'Select the number of results to display at a time' }
@@ -86,7 +86,7 @@ export class ListPanel extends React.Component {
 
   _renderError() {
     return (
-      <ErrorBlock text='There was a problem executing your search' />
+      <ErrorBlock text="There was a problem executing your search" />
     );
   }
 
@@ -98,7 +98,7 @@ export class ListPanel extends React.Component {
 
   _renderResults() {
     return (
-      <ul className='cards-panel'>
+      <ul className="cards-panel">
         { this.props.items.map(
           item => <ComplaintCard key={item.complaint_id} row={item} />
         )}

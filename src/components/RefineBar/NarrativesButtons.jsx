@@ -20,17 +20,17 @@ export const NarrativesButtons = () => {
   };
 
   return (
-    <section className='m-btn-group'>
+    <section className="m-btn-group">
       <p>Read</p>
       <button
-        id='refineAddNarrativesButton'
+        id="refineAddNarrativesButton"
         className={ `a-btn toggle-button ${
           isChecked ? 'selected' : 'deselected' }` }
         onClick={ () => _handleAddNarrative() }>
             Only complaints with narratives
       </button>
       <button
-        id='refineRemoveNarrativesButton'
+        id="refineRemoveNarrativesButton"
         className={ `a-btn toggle-button ${
           isChecked ? 'deselected' : 'selected' }` }
         onClick={ () => _handleRemoveNarrative() }>

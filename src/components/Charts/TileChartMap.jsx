@@ -23,9 +23,9 @@ export class TileChartMap extends React.Component {
   render() {
     return (
       <div>
-        <div id='tile-chart-map'
+        <div id="tile-chart-map"
           className={'cfpb-chart ' + this.props.printClass }
-          data-chart-type='tile_map'>
+          data-chart-type="tile_map">
         </div>
       </div>
     );

@@ -8,29 +8,29 @@ import React from 'react';
 export class Pagination extends React.Component {
   render() {
     return (
-      <IntlProvider locale='en'>
-        <nav className='m-pagination'
-          role='navigation'
-          aria-label='Pagination'>
-          <button className='a-btn m-pagination_btn-prev'
+      <IntlProvider locale="en">
+        <nav className="m-pagination"
+          role="navigation"
+          aria-label="Pagination">
+          <button className="a-btn m-pagination_btn-prev"
             onClick={() => this.props.prevPage()}
             disabled={this.props.page <= 1}>
-            <span className='a-btn_icon a-btn_icon__on-left'>
+            <span className="a-btn_icon a-btn_icon__on-left">
               { iconMap.getIcon( 'left' ) }
             </span>
               Previous
           </button>
-          <button className='a-btn m-pagination_btn-next'
+          <button className="a-btn m-pagination_btn-next"
             onClick={() => this.props.nextPage()}
             disabled={this.props.page >= this.props.total}>
               Next
-            <span className='a-btn_icon
-                               a-btn_icon__on-right'>
+            <span className="a-btn_icon
+                               a-btn_icon__on-right">
               { iconMap.getIcon( 'right' ) }
             </span>
           </button>
-          <div className='m-pagination_form'>
-            <label className='m-pagination_label'>
+          <div className="m-pagination_form">
+            <label className="m-pagination_label">
                   Page {this.props.page}
             </label>
           </div>

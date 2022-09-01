@@ -11,13 +11,13 @@ export class SearchPanel extends React.Component {
 
     if ( this.props.lastIndexed ) {
       lastIndexedMessage =
-        <span className='date-subscript'>
+        <span className="date-subscript">
           (last updated: <FormattedDate value={ this.props.lastIndexed } />)
         </span>;
     }
 
     return (
-      <div className='search-panel'>
+      <div className="search-panel">
         <h2>Search complaint data { lastIndexedMessage }</h2>
         <SearchBar />
         <PillPanel />

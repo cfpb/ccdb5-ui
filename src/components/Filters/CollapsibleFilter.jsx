@@ -55,11 +55,11 @@ export default class CollapsibleFilter extends React.Component {
 
     return (
       <section className={composeClasses}>
-        <div className='o-expandable_header o-expandable_target'>
-          <h4 className='o-expandable_header-left o-expandable_label'>
+        <div className="o-expandable_header o-expandable_target">
+          <h4 className="o-expandable_header-left o-expandable_label">
             {this.props.title}
           </h4>
-          <span className='o-expandable_header-right o-expandable_link'>
+          <span className="o-expandable_header-right o-expandable_link">
             { this.state.showChildren ? opened : closed }
           </span>
         </div>

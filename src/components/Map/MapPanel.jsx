@@ -32,17 +32,17 @@ export class MapPanel extends React.Component {
       ' ' + this.props.minDate + ' to ' + this.props.maxDate;
 
     return (
-      <section className='map-panel'>
+      <section className="map-panel">
         <ActionBar/>
         <TabbedNavigation />
         { this.props.error &&
-          <ErrorBlock text='There was a problem executing your search' />
+          <ErrorBlock text="There was a problem executing your search" />
         }
         { this.props.showWarning &&
           <Warning text={ WARNING_MESSAGE }
             closeFn={this.props.onDismissWarning}/> }
         { this.props.showMobileFilters && <FilterPanel/> }
-        <div className='layout-row refine-bar'>
+        <div className="layout-row refine-bar">
           <FilterPanelToggle/>
           <Separator />
           <DateRanges/>
@@ -50,7 +50,7 @@ export class MapPanel extends React.Component {
         </div>
         <TileChartMap/>
         <MapToolbar/>
-        <RowChart id='product'
+        <RowChart id="product"
           colorScheme={this.props.productData.colorScheme}
           data={this.props.productData.data}
           title={ MAP_ROWCHART_TITLE }

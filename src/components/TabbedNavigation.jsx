@@ -12,7 +12,7 @@ export class TabbedNavigation extends React.Component {
 
   render() {
     return (
-      <div className='tabbed-navigation'>
+      <div className="tabbed-navigation">
         <section>
           <button
             className={ this._getTabClass( 'Trends' ) }

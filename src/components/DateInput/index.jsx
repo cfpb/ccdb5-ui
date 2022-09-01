@@ -66,21 +66,21 @@ export default class DateInput extends React.Component {
     const placeholder = this.props.placeholder || DATE_VALIDATION_FORMAT;
 
     return (
-      <div className='m-btn-inside-input'>
+      <div className="m-btn-inside-input">
         <input className={ this._inputClassName }
           onChange={ this._onChange }
           min={ this.props.min }
           max={ this.props.max }
           placeholder={ placeholder }
-          size='15'
+          size="15"
           value={ this.state.asText }
           {...this.props.textBoxProps}
         />
         { this.state.asText ?
-          <button className='a-btn a-btn__link'
+          <button className="a-btn a-btn__link"
             onClick={ this._onClear }>
             { iconMap.getIcon( 'delete' ) }
-            <span className='u-visually-hidden'>Clear</span>
+            <span className="u-visually-hidden">Clear</span>
           </button> :
           null
         }

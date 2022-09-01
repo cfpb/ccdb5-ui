@@ -12,46 +12,46 @@ export default class ComplaintCard extends React.Component {
     const cleanId = this._stripPossibleHighlight( row.complaint_id );
 
     return (
-      <li className='card-container'>
-        <div className='card'>
-          <div className='card-left layout-column'>
-            <h3 className='to-detail'>
+      <li className="card-container">
+        <div className="card">
+          <div className="card-left layout-column">
+            <h3 className="to-detail">
               <a href={ this._stripPossibleHighlight( complaintIdPath ) }
                 aria-label={ 'Complaint ' + ariaReadoutNumbers( cleanId ) }>
                 { cleanId }
               </a>
             </h3>
-            <h4 tabIndex='0'>Company name</h4>
+            <h4 tabIndex="0">Company name</h4>
             { this._renderPossibleHighlight( row.company ) }
             <br />
-            <h4 tabIndex='0'>Company response to consumer</h4>
+            <h4 tabIndex="0">Company response to consumer</h4>
             { this._renderPossibleHighlight( row.company_response ) }
             <br />
-            <h4 tabIndex='0'>Timely response?</h4>
+            <h4 tabIndex="0">Timely response?</h4>
             { this._renderPossibleHighlight( row.timely ) }
           </div>
-          <div className='card-right layout-column'>
-            <div className='layout-row'>
-              <div className='layout-row'>
-                <h4 tabIndex='0'>Date received:</h4>
-                <span className='body-copy'>
-                  <FormattedDate tabIndex='0' value={ row.date_received } />
+          <div className="card-right layout-column">
+            <div className="layout-row">
+              <div className="layout-row">
+                <h4 tabIndex="0">Date received:</h4>
+                <span className="body-copy">
+                  <FormattedDate tabIndex="0" value={ row.date_received } />
                 </span>
               </div>
-              <div className='spacer' />
-              <div className='layout-row'>
-                <h4 tabIndex='0'>Consumer's state:</h4>
+              <div className="spacer" />
+              <div className="layout-row">
+                <h4 tabIndex="0">Consumer's state:</h4>
                 { this._renderPossibleHighlight( row.state ) }
               </div>
             </div>
             <br />
-            <h4 tabIndex='0'>Product</h4>
+            <h4 tabIndex="0">Product</h4>
             <h3 dangerouslySetInnerHTML={ { __html: row.product } }
-              tabIndex='0'></h3>
+              tabIndex="0"></h3>
             { row.sub_product ?
-              <div className='layout-row'>
-                <span className='body-copy subitem'
-                  tabIndex='0'>
+              <div className="layout-row">
+                <span className="body-copy subitem"
+                  tabIndex="0">
                       Sub-product:
                 </span>
                 { this._renderPossibleHighlight( row.sub_product ) }
@@ -59,13 +59,13 @@ export default class ComplaintCard extends React.Component {
               null
             }
             <br />
-            <h4 tabIndex='0'>Issue</h4>
+            <h4 tabIndex="0">Issue</h4>
             <h3 dangerouslySetInnerHTML={ { __html: row.issue } }
-              tabIndex='0'></h3>
+              tabIndex="0"></h3>
             { row.sub_issue ?
-              <div className='layout-row'>
-                <span className='body-copy subitem'
-                  tabIndex='0'>
+              <div className="layout-row">
+                <span className="body-copy subitem"
+                  tabIndex="0">
                       Sub-issue:
                 </span>
                 { this._renderPossibleHighlight( row.sub_issue ) }
@@ -93,9 +93,9 @@ export default class ComplaintCard extends React.Component {
      Subrender methods */
 
   _renderPossibleHighlight( s ) {
-    return <span className='body-copy'
+    return <span className="body-copy"
       dangerouslySetInnerHTML={ { __html: s } }
-      tabIndex='0'>
+      tabIndex="0">
     </span>;
   }
 
@@ -106,7 +106,7 @@ export default class ComplaintCard extends React.Component {
     return narrative ?
       <div>
         <br />
-        <h4 tabIndex='0'>Consumer Complaint Narrative</h4>
+        <h4 tabIndex="0">Consumer Complaint Narrative</h4>
         { this._renderPossibleHighlight( narrative ) }
         { hasOverflow ? <span> <a href={ url }>[...]</a></span> : null }
       </div> :

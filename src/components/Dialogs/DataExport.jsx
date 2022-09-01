@@ -48,11 +48,11 @@ export class DataExport extends React.Component {
 
   render() {
     return (
-      <section className='export-modal'>
-        <div className='header layout-row'>
-          <h3 className='flex-all'>Export complaints</h3>
-          <button className='a-btn a-btn__link'
-            data-gtm_ignore='true'
+      <section className="export-modal">
+        <div className="header layout-row">
+          <h3 className="flex-all">Export complaints</h3>
+          <button className="a-btn a-btn__link"
+            data-gtm_ignore="true"
             onClick={this.props.onClose}>
             Close
             { iconMap.getIcon( 'delete-round' ) }
@@ -166,8 +166,8 @@ export class DataExport extends React.Component {
 
   _renderBodyPrompting() {
     return (
-      <div className='body'>
-        <div className='body-copy instructions'>
+      <div className="body">
+        <div className="body-copy instructions">
             To download a copy of this dataset, choose the file format and
             which complaints you want to export below.
         </div>
@@ -176,7 +176,7 @@ export class DataExport extends React.Component {
           this._renderDatasetGroup()
         }
         { this._renderExportUrl() }
-        <div className='timeliness-warning'>
+        <div className="timeliness-warning">
             The export process could take several minutes if you're downloading
             many complaints
         </div>
@@ -186,8 +186,8 @@ export class DataExport extends React.Component {
 
   _renderBodyNotifying() {
     return (
-      <div className='body'>
-        <div className='body-copy instructions'>
+      <div className="body">
+        <div className="body-copy instructions">
             It may take a few minutes for your file to download.
             You can keep working while it processes.
         </div>
@@ -198,12 +198,12 @@ export class DataExport extends React.Component {
   // https://stackoverflow.com/a/42844911 - Copy via JS
   _renderExportUrl() {
     return (
-      <div className='heres-the-url'>
+      <div className="heres-the-url">
         <h4>Link to your complaint search results for future reference</h4>
-        <div className='layout-row'>
-          <input className='flex-all a-text-input'
-            id='exportUri'
-            type='text'
+        <div className="layout-row">
+          <input className="flex-all a-text-input"
+            id="exportUri"
+            type="text"
             value={this.state.exportUri}
             readOnly
           />
@@ -214,7 +214,7 @@ export class DataExport extends React.Component {
             >
               { !this.state.copied &&
                 <div>
-                  <span className='a-btn_icon'>
+                  <span className="a-btn_icon">
                     { iconMap.getIcon( 'copy' ) }
                   </span>
                   Copy
@@ -222,7 +222,7 @@ export class DataExport extends React.Component {
               }
               { this.state.copied &&
                 <div>
-                  <span className='a-btn_icon'>
+                  <span className="a-btn_icon">
                     { iconMap.getIcon( 'checkmark-round' ) }
                   </span>
                   Copied
@@ -237,15 +237,15 @@ export class DataExport extends React.Component {
 
   _renderFooterPrompting() {
     return (
-      <div className='footer layout-row'>
-        <button className='a-btn'
-          data-gtm_ignore='true'
+      <div className="footer layout-row">
+        <button className="a-btn"
+          data-gtm_ignore="true"
           disabled={ Object.keys( this.state.messages ).length > 0 }
           onClick={this._exportClicked}>
             Start export
         </button>
-        <button className='a-btn a-btn__link a-btn__warning'
-          data-gtm_ignore='true'
+        <button className="a-btn a-btn__link a-btn__warning"
+          data-gtm_ignore="true"
           onClick={this.props.onClose}>
             Cancel
         </button>
@@ -254,80 +254,80 @@ export class DataExport extends React.Component {
   }
 
   _renderFormatGroup() {
-    return <div className='group'>
-      <div className='group-title'>
+    return <div className="group">
+      <div className="group-title">
               Select a format for the exported file
-        <span className='required-helper'> (required)</span>
+        <span className="required-helper"> (required)</span>
       </div>
-      <div className='body-copy'>
-        <div className='m-form-field m-form-field__radio
-                              m-form-field__lg-target'>
+      <div className="body-copy">
+        <div className="m-form-field m-form-field__radio
+                              m-form-field__lg-target">
           <input checked={this.state.format === 'csv'}
-            className='a-radio'
-            id='format_csv'
+            className="a-radio"
+            id="format_csv"
             onChange={this._chooseFormat}
-            type='radio'
-            value='csv' />
-          <label className='a-label' htmlFor='format_csv'>CSV</label>
+            type="radio"
+            value="csv" />
+          <label className="a-label" htmlFor="format_csv">CSV</label>
         </div>
-        <div className='m-form-field m-form-field__radio
-                              m-form-field__lg-target'>
+        <div className="m-form-field m-form-field__radio
+                              m-form-field__lg-target">
           <input checked={this.state.format === 'json'}
-            className='a-radio'
-            id='format_json'
+            className="a-radio"
+            id="format_json"
             onChange={this._chooseFormat}
-            type='radio'
-            value='json' />
-          <label className='a-label' htmlFor='format_json'>JSON</label>
+            type="radio"
+            value="json" />
+          <label className="a-label" htmlFor="format_json">JSON</label>
         </div>
       </div>
     </div>;
   }
 
   _renderDatasetGroup() {
-    return <div className='group'>
-      <div className='group-title'>
+    return <div className="group">
+      <div className="group-title">
               Select which complaints you'd like to export
-        <span className='required-helper'> (required)</span>
+        <span className="required-helper"> (required)</span>
       </div>
-      <div className='body-copy'>
-        <div className='m-form-field m-form-field__radio
-                              m-form-field__lg-target'>
+      <div className="body-copy">
+        <div className="m-form-field m-form-field__radio
+                              m-form-field__lg-target">
           <input checked={this.state.dataset === 'filtered'}
-            className='a-radio'
-            id='dataset_filtered'
+            className="a-radio"
+            id="dataset_filtered"
             onChange={this._chooseDataset}
-            type='radio'
-            value='filtered' />
-          <label className='a-label' htmlFor='dataset_filtered'>
-            <div className='multiline-label'>
+            type="radio"
+            value="filtered" />
+          <label className="a-label" htmlFor="dataset_filtered">
+            <div className="multiline-label">
               <div>
                       Filtered dataset (
                 <FormattedNumber value={this.props.someComplaints} />
                       &nbsp;complaints)
               </div>
-              <div className='body-copy'>
+              <div className="body-copy">
                     (only the results of the last search and/or filter)
               </div>
             </div>
           </label>
         </div>
-        <div className='m-form-field m-form-field__radio
-                              m-form-field__lg-target'>
+        <div className="m-form-field m-form-field__radio
+                              m-form-field__lg-target">
           <input checked={this.state.dataset === 'full'}
-            className='a-radio'
-            id='dataset_full'
+            className="a-radio"
+            id="dataset_full"
             onChange={this._chooseDataset}
-            type='radio'
-            value='full' />
-          <label className='a-label' htmlFor='dataset_full'>
-            <div className='multiline-label'>
+            type="radio"
+            value="full" />
+          <label className="a-label" htmlFor="dataset_full">
+            <div className="multiline-label">
               <div>
                       Full dataset (
                 <FormattedNumber value={this.props.allComplaints} />
                       &nbsp;complaints)
               </div>
-              <div className='body-copy'>
+              <div className="body-copy">
                     (not recommended due to very large file size)
               </div>
             </div>

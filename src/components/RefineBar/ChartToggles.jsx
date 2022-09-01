@@ -22,7 +22,7 @@ export class ChartToggles extends React.Component {
 
   render() {
     return (
-      <section className='chart-toggles m-btn-group'>
+      <section className="chart-toggles m-btn-group">
         <p>Chart type</p>
         <button onClick={ () => this._toggleChartType( 'line' ) }
           className={ this._btnClassName( 'line' ) }>

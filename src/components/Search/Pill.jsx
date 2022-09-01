@@ -14,10 +14,10 @@ export class Pill extends React.Component {
     const prefix = formatPillPrefix( fieldName );
     const trimmed = value.split( SLUG_SEPARATOR ).pop();
     return (
-      <li className='pill flex-fixed'>
-        <span className='name'>{ prefix }{ trimmed }</span>
+      <li className="pill flex-fixed">
+        <span className="name">{ prefix }{ trimmed }</span>
         <button onClick={ () => remove( this.props ) }>
-          <span className='u-visually-hidden'>
+          <span className="u-visually-hidden">
             { `Remove ${ trimmed } as a filter` }
           </span>
           { iconMap.getIcon( 'delete' ) }

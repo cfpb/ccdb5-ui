@@ -34,7 +34,7 @@ export class LensTabs extends React.Component {
 
     const currentLens = lensMaps[lens];
     return (
-      <div className='tabbed-navigation lens'>
+      <div className="tabbed-navigation lens">
         <section>
           { showProductTab &&
           <button

@@ -18,7 +18,7 @@ export class FocusHeader extends React.Component {
         { 'View ' + lens.toLowerCase() + ' trends' }
       </button>
       <div>
-        <section className='focus'>
+        <section className="focus">
           <h1>{ focus }</h1>
           <span className={ 'divider' }></span>
           <h2>{ total } Complaints</h2>

@@ -86,29 +86,29 @@ export class AggregationBranch extends React.Component {
     return (
       <div className={ 'aggregation-branch ' + sanitizeHtmlId( item.key ) }>
         <li className={liStyle}>
-          <input type='checkbox'
+          <input type="checkbox"
             aria-label={item.key}
             disabled={item.disabled}
             checked={checkedState === CHECKED}
-            className='flex-fixed a-checkbox'
+            className="flex-fixed a-checkbox"
             id={ id }
             onChange={this._decideClickAction}
           />
           <label className={this._labelStyle}
             htmlFor={id}>
-            <span className='u-visually-hidden'>{item.key}</span>
+            <span className="u-visually-hidden">{item.key}</span>
           </label>
-          <button className='flex-all a-btn a-btn__link'
+          <button className="flex-all a-btn a-btn__link"
             onClick={this._toggleChildDisplay}>
             <span>{item.key}</span>
             {chevronIcon}
           </button>
-          <span className='flex-fixed parent-count'>
+          <span className="flex-fixed parent-count">
             <FormattedNumber value={item.doc_count} />
           </span>
         </li>
         { this.state.showChildren === false ? null :
-          <ul className='children'>{
+          <ul className="children">{
             buckets.map( bucket => <AggregationItem item={bucket}
               key={bucket.key}
               fieldName={fieldName}

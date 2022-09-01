@@ -22,7 +22,7 @@ export class DateRanges extends React.Component {
 
   render() {
     return (
-      <section className='date-ranges m-btn-group'>
+      <section className="date-ranges m-btn-group">
         <p>Date range (Click to modify range)</p>
         { dateRanges.map( dateRange => <button onClick={ () => {
           this._toggleDateRange( dateRange );

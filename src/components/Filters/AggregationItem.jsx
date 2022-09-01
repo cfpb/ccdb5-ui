@@ -24,18 +24,18 @@ export class AggregationItem extends React.Component {
     const id = sanitizeHtmlId( fieldName + '-' + item.key );
     return (
       <li className={ liStyle }>
-        <input type='checkbox' className='flex-fixed a-checkbox'
+        <input type="checkbox" className="flex-fixed a-checkbox"
           aria-label={ item.key }
           disabled={ item.disabled }
           checked={ active }
           id={ id }
           onChange={ () => this._onChange() }
         />
-        <label className='a-label flex-all bucket-key body-copy'
+        <label className="a-label flex-all bucket-key body-copy"
           htmlFor={ id }>
           { value }
         </label>
-        <span className='flex-fixed bucket-count'>
+        <span className="flex-fixed bucket-count">
           <FormattedNumber value={ item.doc_count }/>
         </span>
       </li>

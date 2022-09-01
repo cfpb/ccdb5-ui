@@ -25,13 +25,13 @@ export class Issue extends React.Component {
     };
 
     return (
-      <CollapsibleFilter title='Issue / sub-issue'
+      <CollapsibleFilter title="Issue / sub-issue"
         desc={desc}
         showChildren={this.props.showChildren}
-        className='aggregation issue'>
-        <Typeahead ariaLabel='Start typing to begin listing issues'
-          htmlId='issue-typeahead'
-          placeholder='Enter name of issue'
+        className="aggregation issue">
+        <Typeahead ariaLabel="Start typing to begin listing issues"
+          htmlId="issue-typeahead"
+          placeholder="Enter name of issue"
           options={this.props.forTypeahead}
           onOptionSelected={this._onOptionSelected}
         />

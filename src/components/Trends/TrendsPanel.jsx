@@ -90,7 +90,7 @@ export class TrendsPanel extends React.Component {
     }
 
     if ( overview ) {
-      return <RowChart id='product'
+      return <RowChart id="product"
         colorScheme={ productData.colorScheme }
         data={ productData.data }
         title={ 'Product by highest complaint volume ' +
@@ -135,7 +135,7 @@ export class TrendsPanel extends React.Component {
             <Warning text={ WARNING_MESSAGE }
               closeFn={ this.props.onDismissWarning }/> }
         { showMobileFilters && <FilterPanel/> }
-        <div className='layout-row refine-bar'>
+        <div className="layout-row refine-bar">
           <FilterPanelToggle/>
           <Select label={ 'Aggregate complaints by' }
             title={ 'Aggregate by' }
@@ -158,8 +158,8 @@ export class TrendsPanel extends React.Component {
         </div>
 
         { companyOverlay &&
-          <div className='layout-row company-overlay'>
-            <section className='company-search'>
+          <div className="layout-row company-overlay">
+            <section className="company-search">
               <p>Choose a company to start your visualization
                using the type-ahead menu below. You can add more than
                 one company to your view
@@ -172,10 +172,10 @@ export class TrendsPanel extends React.Component {
         { focus && <FocusHeader /> }
 
         { !companyOverlay && overview && total > 0 &&
-          <div className='layout-row'>
-            <section className='chart-description'>
-              <h2 className='area-chart-title'>{this._areaChartTitle()}</h2>
-              <p className='chart-helper-text'>A time series graph of
+          <div className="layout-row">
+            <section className="chart-description">
+              <h2 className="area-chart-title">{this._areaChartTitle()}</h2>
+              <p className="chart-helper-text">A time series graph of
                complaints for the selected date range. Hover on the
                 chart to see the count for each date interval. Your filter
                  selections will update what you see on the graph.
@@ -185,10 +185,10 @@ export class TrendsPanel extends React.Component {
         }
 
         { !companyOverlay && !overview && total > 0 &&
-          <div className='layout-row'>
-            <section className='chart-description'>
-              <h2 className='area-chart-title'>{this._areaChartTitle()}</h2>
-              <p className='chart-helper-text'>A time series graph of the
+          <div className="layout-row">
+            <section className="chart-description">
+              <h2 className="area-chart-title">{this._areaChartTitle()}</h2>
+              <p className="chart-helper-text">A time series graph of the
                (up to five) highest volume complaints for the selected date
                 range. However, you can view all of your selections in the
                  bar chart, below. Hover on the chart to see the count for
@@ -202,13 +202,13 @@ export class TrendsPanel extends React.Component {
 
         {!companyOverlay && total > 0 &&
         <>
-          <div className='layout-row date-range-disclaimer'>
+          <div className="layout-row date-range-disclaimer">
             <strong>Note:&nbsp;
             Data from incomplete time intervals are not shown
             </strong>
           </div>
-          <div className='layout-row'>
-            <section className='chart'>
+          <div className="layout-row">
+            <section className="chart">
               {chartType === 'line' &&
               <LineChart/>}
               {chartType === 'area' &&

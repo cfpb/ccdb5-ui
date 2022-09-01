@@ -101,7 +101,7 @@ export class StackedAreaChart extends React.Component {
     return this.props.showChart ?
       <div className={'chart-wrapper'}>
         <p className={ 'y-axis-label' }>Complaints</p>
-        <div id='stacked-area-chart'>
+        <div id="stacked-area-chart">
         </div>
         <p className={ 'x-axis-label' }>Date received by the CFPB</p>
       </div> :

@@ -44,10 +44,18 @@ env:
 # globals:
 # No globals outside of env settings
 
+plugins:
+  - react
+
 # Linting rules for ESLint.
 # 0's ignore a rule, 1's produce a warning, and 2's throw an error.
 # See https://eslint.org/docs/rules/ for full documentation.
 rules:
+
+  # React rules
+  react/jsx-uses-react: 2
+  react/jsx-uses-vars: 2
+  react/react-in-jsx-scope: 2
 
   # Rules for flagging POSSIBLE ERRORS.
 
@@ -744,7 +752,7 @@ rules:
   # Enforce whether double or single quotes should be used in JSX attributes.
   jsx-quotes:
     - 2
-    - prefer-single
+    - prefer-double
 
   # Enforce spacing between keys and values in object literal properties.
   key-spacing:

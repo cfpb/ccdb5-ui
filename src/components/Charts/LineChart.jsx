@@ -130,7 +130,7 @@ export class LineChart extends React.Component {
     return this.props.showChart ?
       <div className={'chart-wrapper'}>
         <p className={ 'y-axis-label' }>Complaints</p>
-        <div id='line-chart'>
+        <div id="line-chart">
         </div>
         <p className={ 'x-axis-label' }>Date received by the CFPB</p>
       </div> :

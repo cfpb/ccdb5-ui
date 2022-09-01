@@ -24,7 +24,7 @@ export class ExternalTooltip extends React.Component {
     // Other should never be a selectable focus item
     if ( value.name === 'Other' ) {
       elements.push(
-        <span className='u-left' key={ value.name }>
+        <span className="u-left" key={ value.name }>
           All other { plurals[lensToUse] }
         </span>
       );
@@ -33,14 +33,14 @@ export class ExternalTooltip extends React.Component {
 
     if ( focus ) {
       elements.push(
-        <span className='u-left' key={ value.name }>
+        <span className="u-left" key={ value.name }>
           { value.name }
         </span>
       );
       return elements;
     }
 
-    elements.push( <span className='u-left'
+    elements.push( <span className="u-left"
       id={ sanitizeHtmlId( 'focus-' + value.name ) }
       key={ value.name }>
       { value.name }
@@ -48,7 +48,7 @@ export class ExternalTooltip extends React.Component {
 
     // add in the close button for Company and there's no focus yet
     if ( showCompanyTypeahead ) {
-      elements.push( <span className='u-right a-btn a-btn__link close'
+      elements.push( <span className="u-right a-btn a-btn__link close"
         key={ 'close_' + value.name }
         onClick={ () => {
           this.props.remove( value.name );
@@ -68,23 +68,23 @@ export class ExternalTooltip extends React.Component {
           className={ 'tooltip-container u-clearfix ' + focus }>
           { this.props.showCompanyTypeahead &&
           <CompanyTypeahead id={ 'external-tooltip' }/> }
-          <p className='a-micro-copy'>
+          <p className="a-micro-copy">
             <span className={'heading'}>{ this.props.tooltip.heading }</span>
             <span className={'date'}>{ this.props.tooltip.date }</span>
           </p>
           <div>
-            <ul className='tooltip-ul'>
+            <ul className="tooltip-ul">
               { tooltip.values.map( ( v, k ) => <li className={ 'color__' + v.colorIndex } key={ k + '-id' }>
                 { this._spanFormatter( v ) }
-                <span className='u-right'>{ v.value.toLocaleString() }</span>
+                <span className="u-right">{ v.value.toLocaleString() }</span>
               </li>
               ) }
             </ul>
 
-            { showTotal && <ul className='m-list__unstyled tooltip-ul total'>
+            { showTotal && <ul className="m-list__unstyled tooltip-ul total">
               <li>
-                <span className='u-left'>Total</span>
-                <span className='u-right'>
+                <span className="u-left">Total</span>
+                <span className="u-right">
                   { tooltip.total.toLocaleString() }
                 </span>
               </li>

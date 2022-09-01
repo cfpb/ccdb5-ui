@@ -19,26 +19,26 @@ export function showMoreAboutDialog() {
 export class Hero extends React.Component {
   render() {
     return (
-      <header className='content_hero'>
-        <h1 className='content-header'>Consumer Complaint Database</h1>
-        <ul className='m-list m-list__horizontal'>
-          <li className='m-list_item'>
-            <button className='a-btn a-btn__link'
+      <header className="content_hero">
+        <h1 className="content-header">Consumer Complaint Database</h1>
+        <ul className="m-list m-list__horizontal">
+          <li className="m-list_item">
+            <button className="a-btn a-btn__link"
               onClick={this.props.onMoreAbout}>
                 Things to know before you use this database
             </button>
           </li>
-          <li className='m-list_item'>
-            <a href='https://www.consumerfinance.gov/complaint/data-use/'
-              target='_blank'
-              rel='noopener noreferrer'>
+          <li className="m-list_item">
+            <a href="https://www.consumerfinance.gov/complaint/data-use/"
+              target="_blank"
+              rel="noopener noreferrer">
                 How we use complaint data
             </a>
           </li>
-          <li className='m-list_item'>
-            <a href='https://cfpb.github.io/api/ccdb/'
-              target='_blank'
-              rel='noopener noreferrer'>
+          <li className="m-list_item">
+            <a href="https://cfpb.github.io/api/ccdb/"
+              target="_blank"
+              rel="noopener noreferrer">
                 Technical documentation
             </a>
           </li>

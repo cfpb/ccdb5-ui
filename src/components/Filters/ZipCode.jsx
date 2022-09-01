@@ -25,15 +25,15 @@ export class ZipCode extends React.Component {
 
   render() {
     return (
-      <CollapsibleFilter title='ZIP code'
-        desc='The mailing ZIP code provided by the consumer'
-        className='aggregation'>
-        <Typeahead ariaLabel='Start typing to begin listing zip codes'
-          htmlId='zipcode-typeahead'
+      <CollapsibleFilter title="ZIP code"
+        desc="The mailing ZIP code provided by the consumer"
+        className="aggregation">
+        <Typeahead ariaLabel="Start typing to begin listing zip codes"
+          htmlId="zipcode-typeahead"
           debounceWait={this.props.debounceWait}
           onInputChange={this._onInputChange}
           onOptionSelected={this._onOptionSelected}
-          placeholder='Enter first three digits of ZIP code'
+          placeholder="Enter first three digits of ZIP code"
           renderOption={this._renderOption}
         />
         <StickyOptions fieldName={FIELD_NAME}

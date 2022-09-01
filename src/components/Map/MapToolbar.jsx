@@ -10,12 +10,12 @@ export class MapToolbar extends React.Component {
   render() {
     const filteredStates = this.props.filteredStates;
     return (
-      <div className='map-toolbar'>
-        <section className='state-heading'>
+      <div className="map-toolbar">
+        <section className="state-heading">
           {!filteredStates && <span>United States of America</span> }
           <span>{ filteredStates }</span>
           { filteredStates &&
-            <a className='clear'
+            <a className="clear"
               onClick={ () => this.props.clearStates() }>
               { iconMap.getIcon( 'delete-round' ) }
               Clear
@@ -23,8 +23,8 @@ export class MapToolbar extends React.Component {
           }
         </section>
         { filteredStates &&
-        <section className='state-navigation'>
-          <a href='#' className='list'
+        <section className="state-navigation">
+          <a href="#" className="list"
             onClick={ () => this.props.showComplaints() }>
             View complaints for filtered states
           </a>

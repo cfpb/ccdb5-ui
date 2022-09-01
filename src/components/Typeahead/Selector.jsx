@@ -23,11 +23,11 @@ export default class Selector extends React.Component {
     } );
 
     return (
-      <div className='typeahead-selector'>
+      <div className="typeahead-selector">
         <ul>
           {results}
           { this.props.footer ?
-            <li className='footer'>{this.props.footer}</li> :
+            <li className="footer">{this.props.footer}</li> :
             null
           }
         </ul>

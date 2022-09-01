@@ -19,17 +19,17 @@ export class HasNarrative extends React.Component {
   render() {
     const { options, toggleFlag } = this.props;
     return (
-      <section className='single-checkbox'>
+      <section className="single-checkbox">
         <h4>Only show complaints with narratives?</h4>
-        <div className='m-form-field m-form-field__checkbox'>
-          <input className='a-checkbox'
+        <div className="m-form-field m-form-field__checkbox">
+          <input className="a-checkbox"
             checked={ options.phase !== NOTHING }
             disabled={ options.phase === SEARCHING }
-            id='filterHasNarrative'
+            id="filterHasNarrative"
             onChange={ () => toggleFlag() }
-            type='checkbox'
+            type="checkbox"
             value={ FIELD_NAME } />
-          <label className='a-label' htmlFor='filterHasNarrative'>Yes</label>
+          <label className="a-label" htmlFor="filterHasNarrative">Yes</label>
         </div>
       </section>
     );

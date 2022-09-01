@@ -12,13 +12,13 @@ import WindowSize from '../WindowSize';
 export class SearchComponents extends React.Component {
   render() {
     return (
-      <IntlProvider locale='en'>
+      <IntlProvider locale="en">
         <main className={ 'content content__1-3 ' + this.props.printClass }
-          role='main'>
+          role="main">
           <WindowSize />
           <UrlBarSynch />
           <Hero />
-          <div className='content_wrapper'>
+          <div className="content_wrapper">
             <SearchPanel />
             <RefinePanel />
             <ResultsPanel />

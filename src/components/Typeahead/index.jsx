@@ -134,7 +134,7 @@ export default class Typeahead extends React.Component {
       this._openClear :
       this._closedKeyCancel;
 
-    const clear = <button className='a-btn a-btn__link'
+    const clear = <button className="a-btn a-btn__link"
       onClick={ clearAction }>
       { iconMap.getIcon( 'delete' ) }
                       Clear
@@ -144,18 +144,18 @@ export default class Typeahead extends React.Component {
       <section className={`typeahead ${ this.props.className }`}
         onBlur={this._onBlur}
         onFocus={this._onFocus}>
-        <div className='m-btn-inside-input input-contains-label'>
-          <div className='input-contains-label_before
-                          input-contains-label_before__search'>
+        <div className="m-btn-inside-input input-contains-label">
+          <div className="input-contains-label_before
+                          input-contains-label_before__search">
             { iconMap.getIcon( 'search' ) }
           </div>
 
-          <label className='u-visually-hidden' htmlFor={ this.props.htmlId }>
+          <label className="u-visually-hidden" htmlFor={ this.props.htmlId }>
             { this.props.ariaLabel }
           </label>
-          <input type='text'
-            autoComplete='off'
-            className='a-text-input'
+          <input type="text"
+            autoComplete="off"
+            className="a-text-input"
             disabled={this.props.disabled}
             id={ this.props.htmlId }
             onChange={this._valueUpdated}
@@ -325,7 +325,7 @@ export default class Typeahead extends React.Component {
      Render Helpers */
 
   _renderError() {
-    return <span className='error'>
+    return <span className="error">
       There was a problem retrieving the options
     </span>;
   }
@@ -336,11 +336,11 @@ export default class Typeahead extends React.Component {
 
   _renderWaiting() {
     return this.props.disableTypeahead ?
-      null : <span className='waiting'>waiting...</span>;
+      null : <span className="waiting">waiting...</span>;
   }
 
   _renderNoResults() {
-    return <span className='no-results'>No results found</span>;
+    return <span className="no-results">No results found</span>;
   }
 
   _renderResults() {
@@ -360,7 +360,7 @@ export default class Typeahead extends React.Component {
         onOptionSelected={this._selectOption}
         renderOption={this.props.renderOption}
         selectedIndex={this.state.selectedIndex}
-        footer='Continue typing for more results'
+        footer="Continue typing for more results"
       />
     );
   }

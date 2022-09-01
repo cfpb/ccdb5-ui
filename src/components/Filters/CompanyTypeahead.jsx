@@ -24,13 +24,13 @@ export class CompanyTypeahead extends React.Component {
 
   render() {
     return (
-      <Typeahead ariaLabel='Start typing to begin listing companies'
+      <Typeahead ariaLabel="Start typing to begin listing companies"
         htmlId={ sanitizeHtmlId( 'company-typeahead-' +
                    this.props.id ) }
         debounceWait={ this.props.debounceWait }
         onInputChange={ this._onInputChange }
         onOptionSelected={ this._onOptionSelected }
-        placeholder='Enter company name'
+        placeholder="Enter company name"
         renderOption={ this._renderOption }
         disabled={ this.props.disabled }
       />

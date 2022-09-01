@@ -22,10 +22,10 @@ export class Product extends React.Component {
     };
 
     return (
-      <CollapsibleFilter title='Product / sub-product'
+      <CollapsibleFilter title="Product / sub-product"
         desc={desc}
         showChildren={this.props.showChildren}
-        className='aggregation product'>
+        className="aggregation product">
 
         <MoreOrLess listComponent={AggregationBranch}
           listComponentProps={listComponentProps}
