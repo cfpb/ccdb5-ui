@@ -1,17 +1,17 @@
-import { REQUERY_HITS_ONLY, REQUERY_NEVER } from '../constants'
+import { REQUERY_HITS_ONLY, REQUERY_NEVER } from '../constants';
 
-export const MAP_WARNING_DISMISSED = 'MAP_WARNING_DISMISSED'
-export const PRINT_MODE_ON = 'PRINT_MODE_ON'
-export const PRINT_MODE_OFF = 'PRINT_MODE_OFF'
-export const ROW_COLLAPSED = 'ROW_COLLAPSED'
-export const ROW_EXPANDED = 'ROW_EXPANDED'
-export const SCREEN_RESIZED = 'SCREEN_RESIZED'
-export const TAB_CHANGED = 'TAB_CHANGED'
-export const TOGGLE_FILTER_VISIBILITY = 'TOGGLE_FILTER_VISIBILITY'
-export const TRENDS_DATE_WARNING_DISMISSED = 'TRENDS_DATE_WARNING_DISMISSED'
+export const MAP_WARNING_DISMISSED = 'MAP_WARNING_DISMISSED';
+export const PRINT_MODE_ON = 'PRINT_MODE_ON';
+export const PRINT_MODE_OFF = 'PRINT_MODE_OFF';
+export const ROW_COLLAPSED = 'ROW_COLLAPSED';
+export const ROW_EXPANDED = 'ROW_EXPANDED';
+export const SCREEN_RESIZED = 'SCREEN_RESIZED';
+export const TAB_CHANGED = 'TAB_CHANGED';
+export const TOGGLE_FILTER_VISIBILITY = 'TOGGLE_FILTER_VISIBILITY';
+export const TRENDS_DATE_WARNING_DISMISSED = 'TRENDS_DATE_WARNING_DISMISSED';
 
-// ----------------------------------------------------------------------------
-// Simple actions
+/* ----------------------------------------------------------------------------
+   Simple actions */
 /**
  * Notifies the application that the filter visibility has changed
  *
@@ -21,7 +21,7 @@ export function filterVisibilityToggled() {
   return {
     type: TOGGLE_FILTER_VISIBILITY,
     requery: REQUERY_NEVER
-  }
+  };
 }
 
 /**
@@ -33,7 +33,7 @@ export function mapWarningDismissed() {
   return {
     type: MAP_WARNING_DISMISSED,
     requery: REQUERY_NEVER
-  }
+  };
 }
 
 /**
@@ -45,7 +45,7 @@ export function printModeOn() {
   return {
     type: PRINT_MODE_ON,
     requery: REQUERY_NEVER
-  }
+  };
 }
 
 /**
@@ -57,7 +57,7 @@ export function printModeOff() {
   return {
     type: PRINT_MODE_OFF,
     requery: REQUERY_NEVER
-  }
+  };
 }
 
 /**
@@ -71,7 +71,7 @@ export function collapseRow( value ) {
     type: ROW_COLLAPSED,
     requery: REQUERY_NEVER,
     value
-  }
+  };
 }
 
 /**
@@ -85,7 +85,7 @@ export function expandRow( value ) {
     type: ROW_EXPANDED,
     requery: REQUERY_NEVER,
     value
-  }
+  };
 }
 
 /**
@@ -98,7 +98,7 @@ export function screenResized( width ) {
     type: SCREEN_RESIZED,
     screenWidth: width,
     requery: REQUERY_NEVER
-  }
+  };
 }
 
 /**
@@ -112,7 +112,7 @@ export function tabChanged( tab ) {
     type: TAB_CHANGED,
     tab,
     requery: REQUERY_HITS_ONLY
-  }
+  };
 }
 
 /**
@@ -124,5 +124,5 @@ export function trendsDateWarningDismissed() {
   return {
     type: TRENDS_DATE_WARNING_DISMISSED,
     requery: REQUERY_NEVER
-  }
+  };
 }

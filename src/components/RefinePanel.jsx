@@ -1,11 +1,11 @@
-import { connect } from 'react-redux'
-import FilterPanel from './Filters/FilterPanel'
-import React from 'react'
+import { connect } from 'react-redux';
+import FilterPanel from './Filters/FilterPanel';
+import React from 'react';
 
 export class RefinePanel extends React.Component {
   _getTabClass() {
-    const classes = [ 'content_sidebar', this.props.tab.toLowerCase() ]
-    return classes.join( ' ' )
+    const classes = [ 'content_sidebar', this.props.tab.toLowerCase() ];
+    return classes.join( ' ' );
   }
 
   render() {
@@ -14,13 +14,13 @@ export class RefinePanel extends React.Component {
         <aside className={ this._getTabClass() }>
           <FilterPanel/>
         </aside> : null
-    )
+    );
   }
 }
 
 const mapStateToProps = state => ( {
   tab: state.query.tab,
   showDesktopFilters: state.view.width > 749
-} )
+} );
 
-export default connect( mapStateToProps )( RefinePanel )
+export default connect( mapStateToProps )( RefinePanel );

@@ -1,29 +1,29 @@
 /* eslint-disable camelcase */
 import {
   COMPLAINTS_API_CALLED, COMPLAINTS_FAILED, COMPLAINTS_RECEIVED
-} from '../actions/complaints'
+} from '../actions/complaints';
 
 const defaultResults = {
   activeCall: '',
   error: '',
   isLoading: false,
   items: []
-}
+};
 
 export const _processHits = data => data.hits.hits.map( x => {
-  const item = { ...x._source }
+  const item = { ...x._source };
 
   if ( x.highlight ) {
     Object.keys( x.highlight ).forEach( field => {
-      item[field] = x.highlight[field][0]
-    } )
+      item[field] = x.highlight[field][0];
+    } );
   }
 
-  return item
-} )
+  return item;
+} );
 
-// ----------------------------------------------------------------------------
-// Action Handlers
+/* ----------------------------------------------------------------------------
+   Action Handlers */
 /**
  * handles complaint api call in progress
  *
@@ -36,7 +36,7 @@ export function hitsCallInProcess( state, action ) {
     ...state,
     activeCall: action.url,
     isLoading: true
-  }
+  };
 }
 
 /**
@@ -47,7 +47,7 @@ export function hitsCallInProcess( state, action ) {
  * @returns {object} new state for the Redux store
  */
 export function processHitsResults( state, action ) {
-  const items = _processHits( action.data )
+  const items = _processHits( action.data );
 
   return {
     ...state,
@@ -55,7 +55,7 @@ export function processHitsResults( state, action ) {
     error: '',
     isLoading: false,
     items: items
-  }
+  };
 }
 
 /**
@@ -69,11 +69,11 @@ export function processHitsError( state, action ) {
   return {
     ...defaultResults,
     error: action.error
-  }
+  };
 }
 
-// ----------------------------------------------------------------------------
-// Action Handlers
+/* ----------------------------------------------------------------------------
+   Action Handlers */
 
 /**
  * Creates a hash table of action types to handlers
@@ -81,15 +81,15 @@ export function processHitsError( state, action ) {
  * @returns {object} a map of types to functions
  */
 export function _buildHandlerMap() {
-  const handlers = {}
-  handlers[COMPLAINTS_API_CALLED] = hitsCallInProcess
-  handlers[COMPLAINTS_RECEIVED] = processHitsResults
-  handlers[COMPLAINTS_FAILED] = processHitsError
+  const handlers = {};
+  handlers[COMPLAINTS_API_CALLED] = hitsCallInProcess;
+  handlers[COMPLAINTS_RECEIVED] = processHitsResults;
+  handlers[COMPLAINTS_FAILED] = processHitsError;
 
-  return handlers
+  return handlers;
 }
 
-const _handlers = _buildHandlerMap()
+const _handlers = _buildHandlerMap();
 
 /**
  * Routes an action to an appropriate handler
@@ -100,13 +100,13 @@ const _handlers = _buildHandlerMap()
  */
 function handleSpecificAction( state, action ) {
   if ( action.type in _handlers ) {
-    return _handlers[action.type]( state, action )
+    return _handlers[action.type]( state, action );
   }
 
-  return state
+  return state;
 }
 
 export default ( state = defaultResults, action ) => {
-  const newState = handleSpecificAction( state, action )
-  return newState
-}
+  const newState = handleSpecificAction( state, action );
+  return newState;
+};

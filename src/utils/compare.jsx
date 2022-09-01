@@ -1,8 +1,8 @@
 export const arrayEquals = ( a, b ) => {
-  let i = a.length
-  if ( i !== b.length ) return false
+  let i = a.length;
+  if ( i !== b.length ) return false;
   while ( i-- ) {
-    if ( a[i] !== b[i] ) return false
+    if ( a[i] !== b[i] ) return false;
   }
-  return true
-}
+  return true;
+};

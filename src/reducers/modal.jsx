@@ -1,15 +1,15 @@
 // Tip of the hat to: https://stackoverflow.com/questions/35623656
 
-import { MODAL_HID, MODAL_SHOWN } from '../constants'
+import { MODAL_HID, MODAL_SHOWN } from '../constants';
 
 const initialState = {
   modalType: null,
   modalProps: {}
-}
+};
 
 
-// ----------------------------------------------------------------------------
-// Action Handler
+/* ----------------------------------------------------------------------------
+   Action Handler */
 
 export default ( state = initialState, action ) => {
   switch ( action.type ) {
@@ -17,10 +17,10 @@ export default ( state = initialState, action ) => {
       return {
         modalType: action.modalType,
         modalProps: action.modalProps
-      }
+      };
     case MODAL_HID:
-      return initialState
+      return initialState;
     default:
-      return state
+      return state;
   }
-}
+};

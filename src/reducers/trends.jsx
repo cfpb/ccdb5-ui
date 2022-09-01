@@ -2,19 +2,19 @@
 /* eslint-disable camelcase */
 
 // reducer for the Map Tab
-import * as colors from '../constants/colors'
-import { clamp, coalesce, getSubKeyName, processErrorMessage } from '../utils'
-import { enforceValues, validateTrendsReducer } from '../utils/reducers'
-import { getD3Names, getTooltipTitle, updateDateBuckets } from '../utils/chart'
-import actions from '../actions'
-import { isDateEqual } from '../utils/formatDate'
-import { MODE_TRENDS } from '../constants'
-import { pruneOther } from '../utils/trends'
+import * as colors from '../constants/colors';
+import { clamp, coalesce, getSubKeyName, processErrorMessage } from '../utils';
+import { enforceValues, validateTrendsReducer } from '../utils/reducers';
+import { getD3Names, getTooltipTitle, updateDateBuckets } from '../utils/chart';
+import actions from '../actions';
+import { isDateEqual } from '../utils/formatDate';
+import { MODE_TRENDS } from '../constants';
+import { pruneOther } from '../utils/trends';
 
 export const emptyResults = () => ( {
   dateRangeArea: [],
   dateRangeLine: []
-} )
+} );
 
 // the minimal State to reset to when things break
 export const getResetState = () => ( {
@@ -25,22 +25,20 @@ export const getResetState = () => ( {
   results: emptyResults(),
   tooltip: false,
   total: 0
-} )
+} );
 
-export const getDefaultState = () => Object.assign( {},
-  {
-    chartType: 'line',
-    focus: '',
-    lens: 'Overview',
-    subLens: ''
-  },
-  { ...getResetState() }
-)
+export const getDefaultState = () => ( {
+  chartType: 'line',
+  focus: '',
+  lens: 'Overview',
+  subLens: '',
+  ...getResetState()
+} );
 
-export const defaultState = getDefaultState()
+export const defaultState = getDefaultState();
 
-// ----------------------------------------------------------------------------
-// Helpers
+/* ----------------------------------------------------------------------------
+   Helpers */
 /**
  * helper function to process all of the aggregations and fill out results
  * @param {array} keys list of aggs we check product, issue, company, etc
@@ -52,9 +50,9 @@ export function processAggregations( keys, state, aggregations, results ) {
   keys.forEach( k => {
     /* istanbul ignore else */
     if ( aggregations[k] ) {
-      results[k] = processBucket( state, aggregations[k][k].buckets )
+      results[k] = processBucket( state, aggregations[k][k].buckets );
     }
-  } )
+  } );
 }
 
 /* eslint-disable complexity */
@@ -65,33 +63,33 @@ export function processAggregations( keys, state, aggregations, results ) {
  * @returns {object} the representative bar in a d3 row chart
  */
 export function processBucket( state, agg ) {
-  const list = []
+  const list = [];
   // default is either Overview / Product
   const tabLabels = state.lens === 'Company' ? 'product' :
-    'sub-product and issue'
+    'sub-product and issue';
 
   for ( let i = 0; i < agg.length; i++ ) {
-    processTrendPeriod( agg[i] )
+    processTrendPeriod( agg[i] );
 
-    const item = agg[i]
-    const subKeyName = getSubKeyName( item )
+    const item = agg[i];
+    const subKeyName = getSubKeyName( item );
 
-    item.isParent = true
-    const subItem = item[subKeyName]
-    item.hasChildren = Boolean( subItem && subItem.buckets.length )
+    item.isParent = true;
+    const subItem = item[subKeyName];
+    item.hasChildren = Boolean( subItem && subItem.buckets.length );
 
-    // https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_omit
-    // Create a parent row.
-    // remove the lodash omit since it is deprecated in lodash5
-    const tempItem = Object.assign( {}, item )
-    delete tempItem[subKeyName]
-    list.push( tempItem )
+    /* https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_omit
+       Create a parent row.
+       remove the lodash omit since it is deprecated in lodash5 */
+    const tempItem = { ...item };
+    delete tempItem[subKeyName];
+    list.push( tempItem );
 
     /* istanbul ignore else */
     if ( subItem && subItem.buckets && subItem.buckets.length ) {
-      const expandableBuckets = subItem.buckets
+      const expandableBuckets = subItem.buckets;
       // if there's buckets we need to add a separator for rendering
-      const labelText = `Visualize ${ tabLabels } trends for ${ item.key } >`
+      const labelText = `Visualize ${ tabLabels } trends for ${ item.key } >`;
       expandableBuckets.push( {
         hasChildren: false,
         isParent: false,
@@ -101,18 +99,18 @@ export function processBucket( state, agg ) {
         value: '',
         parent: item.key,
         width: 0.5
-      } )
+      } );
 
-      list.push( expandableBuckets )
+      list.push( expandableBuckets );
     }
   }
 
-  const nameMap = []
+  const nameMap = [];
 
   // return flattened list
   return []
     .concat( ...list )
-    .map( obj => getD3Names( obj, nameMap ) )
+    .map( obj => getD3Names( obj, nameMap ) );
 }
 
 /**
@@ -122,11 +120,11 @@ export function processBucket( state, agg ) {
  */
 export function mainNameLens( lens ) {
   if ( lens === 'Product' ) {
-    return 'products'
+    return 'products';
   } else if ( lens === 'Company' ) {
-    return 'companies'
+    return 'companies';
   }
-  return 'values'
+  return 'values';
 }
 
 
@@ -138,17 +136,17 @@ export function mainNameLens( lens ) {
  */
 function processAreaData( state, aggregations ) {
   // map subLens / focus values to state
-  const { focus, lens, subLens } = state
+  const { focus, lens, subLens } = state;
   const filter = focus ? subLens.replace( '_', '-' ).toLowerCase() :
-    lens.toLowerCase()
-  const mainName = 'Other'
+    lens.toLowerCase();
+  const mainName = 'Other';
   const compBuckets = aggregations.dateRangeArea.dateRangeArea.buckets.map(
     obj => ( {
       name: mainName,
       value: obj.doc_count,
       date: obj.key_as_string
     } )
-  )
+  );
 
   // overall buckets
   aggregations.dateRangeBuckets.dateRangeBuckets.buckets.forEach( o => {
@@ -157,59 +155,59 @@ function processAreaData( state, aggregations ) {
         name: mainName,
         value: 0,
         date: o.key_as_string
-      } )
+      } );
     }
-  } )
+  } );
 
   // reference buckets to backfill zero values
-  const refBuckets = Object.assign( {}, compBuckets )
-  const trendResults = aggregations[filter][filter].buckets.slice( 0, 5 )
+  const refBuckets = { ...compBuckets };
+  const trendResults = aggregations[filter][filter].buckets.slice( 0, 5 );
 
   for ( let i = 0; i < trendResults.length; i++ ) {
-    const o = trendResults[i]
+    const o = trendResults[i];
     // only take first 10 of the buckets for processing
-    const reverseBuckets = o.trend_period.buckets.reverse()
+    const reverseBuckets = o.trend_period.buckets.reverse();
     for ( let j = 0; j < reverseBuckets.length; j++ ) {
-      const p = reverseBuckets[j]
+      const p = reverseBuckets[j];
       compBuckets.push( {
         name: o.key,
         value: p.doc_count,
         date: p.key_as_string
-      } )
+      } );
 
       // delete total from that date
       const pos = compBuckets
         .findIndex( k => k.name === mainName &&
-          isDateEqual( k.date, p.key_as_string ) )
+          isDateEqual( k.date, p.key_as_string ) );
 
       /* istanbul ignore else */
       if ( pos > -1 ) {
         // subtract the value from total, so we calculate the "Other" bin
-        compBuckets[pos].value -= p.doc_count
+        compBuckets[pos].value -= p.doc_count;
       }
     }
 
     // we're missing a bucket, so fill it in.
-    const referenceBuckets = Object.values( refBuckets )
+    const referenceBuckets = Object.values( refBuckets );
     if ( o.trend_period.buckets.length !== referenceBuckets.length ) {
       for ( let k = 0; k < referenceBuckets.length; k++ ) {
-        const obj = referenceBuckets[k]
+        const obj = referenceBuckets[k];
         const datePoint = compBuckets
           .filter( f => f.name === o.key )
-          .find( f => isDateEqual( f.date, obj.date ) )
+          .find( f => isDateEqual( f.date, obj.date ) );
         if ( !datePoint ) {
           compBuckets.push( {
             name: o.key,
             value: 0,
             date: obj.date
-          } )
+          } );
         }
       }
     }
   }
 
   // we should prune 'Other' if all of the values are zero
-  return pruneOther( compBuckets )
+  return pruneOther( compBuckets );
 }
 
 /**
@@ -222,9 +220,9 @@ function processAreaData( state, aggregations ) {
  * topicName: string, dates: *}]|[])}} theformatted object containing line info
  */
 function processLineData( lens, aggregations, focus, subLens ) {
-  const areaBuckets = aggregations.dateRangeArea.dateRangeArea.buckets
-  const rangeBuckets = aggregations.dateRangeBuckets.dateRangeBuckets.buckets
-  const dataByTopic = []
+  const areaBuckets = aggregations.dateRangeArea.dateRangeArea.buckets;
+  const rangeBuckets = aggregations.dateRangeBuckets.dateRangeBuckets.buckets;
+  const dataByTopic = [];
   if ( lens === 'Overview' ) {
     dataByTopic.push( {
       topic: 'Complaints',
@@ -235,7 +233,7 @@ function processLineData( lens, aggregations, focus, subLens ) {
         date: o.key_as_string,
         value: o.doc_count
       } ) )
-    } )
+    } );
 
     // backfill empties
     rangeBuckets.forEach( o => {
@@ -243,36 +241,36 @@ function processLineData( lens, aggregations, focus, subLens ) {
         dataByTopic[0].dates.push( {
           date: o.key_as_string,
           value: 0
-        } )
+        } );
       }
-    } )
+    } );
 
     // sort dates so it doesn't break line chart
     dataByTopic[0].dates
-      .sort( ( a, b ) => new Date( a.date ) - new Date( b.date ) )
+      .sort( ( a, b ) => new Date( a.date ) - new Date( b.date ) );
   }
 
   if ( lens !== 'Overview' ) {
     // handle Focus Case
     const lensKey = focus ? subLens.replace( '_', '-' ) :
-      lens.toLowerCase()
-    const aggBuckets = aggregations[lensKey][lensKey].buckets
+      lens.toLowerCase();
+    const aggBuckets = aggregations[lensKey][lensKey].buckets;
     for ( let i = 0; i < aggBuckets.length; i++ ) {
-      const name = aggBuckets[i].key
+      const name = aggBuckets[i].key;
       const dateBuckets = updateDateBuckets( name,
-        aggBuckets[i].trend_period.buckets, rangeBuckets )
+        aggBuckets[i].trend_period.buckets, rangeBuckets );
       dataByTopic.push( {
         topic: name,
         topicName: name,
         dashed: false,
         show: true,
         dates: dateBuckets
-      } )
+      } );
     }
   }
   return {
     dataByTopic: dataByTopic.slice( 0, 5 )
-  }
+  };
 }
 
 /**
@@ -280,12 +278,12 @@ function processLineData( lens, aggregations, focus, subLens ) {
  * @param {object} bucket subagg bucket with difference intervals
  */
 export function processTrendPeriod( bucket ) {
-  const subKeyName = getSubKeyName( bucket )
+  const subKeyName = getSubKeyName( bucket );
   if ( bucket[subKeyName] ) {
-    const subaggBuckets = bucket[subKeyName].buckets
+    const subaggBuckets = bucket[subKeyName].buckets;
     for ( let j = 0; j < subaggBuckets.length; j++ ) {
-      subaggBuckets[j].parent = bucket.key
-      processTrendPeriod( subaggBuckets[j] )
+      subaggBuckets[j].parent = bucket.key;
+      processTrendPeriod( subaggBuckets[j] );
     }
   }
 }
@@ -297,29 +295,29 @@ export function processTrendPeriod( bucket ) {
  * @returns {object} contains Name:Color map
  */
 export const getColorScheme = ( lens, rowNames ) => {
-  const colScheme = {}
-  const colorScheme = colors.DataLens
+  const colScheme = {};
+  const colorScheme = colors.DataLens;
   // remove other so we can shove that color in later
   const uniqueNames = [ ...new Set( rowNames
     .filter( item => item.name !== 'Other' )
     .map( item => item.name ) )
-  ]
+  ];
 
   for ( let i = 0; i < uniqueNames.length; i++ ) {
-    const n = uniqueNames[i]
-    const index = clamp( i, 0, 10 )
-    colScheme[n] = colorScheme[index]
+    const n = uniqueNames[i];
+    const index = clamp( i, 0, 10 );
+    colScheme[n] = colorScheme[index];
   }
 
-  colScheme.Complaints = colors.BriteCharts.regular
+  colScheme.Complaints = colors.BriteCharts.regular;
 
   // Set constant grey colors for all possible "other" buckets"
-  colScheme.Other = colors.DataLens[10]
-  colScheme['All other products'] = colors.DataLens[10]
-  colScheme['All other companies'] = colors.DataLens[10]
-  colScheme['All other values'] = colors.DataLens[10]
-  return colScheme
-}
+  colScheme.Other = colors.DataLens[10];
+  colScheme['All other products'] = colors.DataLens[10];
+  colScheme['All other companies'] = colors.DataLens[10];
+  colScheme['All other values'] = colors.DataLens[10];
+  return colScheme;
+};
 
 /**
  * Copies the results locally
@@ -329,29 +327,29 @@ export const getColorScheme = ( lens, rowNames ) => {
  * @returns {object} the new state for the Redux store
  */
 export function processTrends( state, action ) {
-  const aggregations = action.data.aggregations
-  const { focus, lens, subLens } = state
-  const results = emptyResults()
-  const kR = 'dateRangeArea'
-  const hits = aggregations[kR].doc_count
+  const aggregations = action.data.aggregations;
+  const { focus, lens, subLens } = state;
+  const results = emptyResults();
+  const kR = 'dateRangeArea';
+  const hits = aggregations[kR].doc_count;
 
-  // if hits > 0
-  // no hits, so reset defaults
+  /* if hits > 0
+     no hits, so reset defaults */
   if ( hits === 0 ) {
-    const resetState = getResetState()
+    const resetState = getResetState();
     return {
       ...state,
       ...resetState
-    }
+    };
   }
 
-  const total = aggregations[kR].doc_count
+  const total = aggregations[kR].doc_count;
 
   if ( lens !== 'Overview' ) {
-    results[kR] = processAreaData( state, aggregations )
+    results[kR] = processAreaData( state, aggregations );
   }
 
-  results.dateRangeLine = processLineData( lens, aggregations, focus, subLens )
+  results.dateRangeLine = processLineData( lens, aggregations, focus, subLens );
 
   // based on these criteria, the following aggs should only exist
   const keyMap = {
@@ -360,18 +358,18 @@ export function processTrends( state, action ) {
     'Product': [ 'product' ],
     'Product-focus': [ 'sub-product', 'issue' ],
     'Company-focus': [ 'product' ]
-  }
-  let keyFilter = lens
+  };
+  let keyFilter = lens;
 
   if ( focus ) {
-    keyFilter += '-focus'
+    keyFilter += '-focus';
   }
 
-  const keys = keyMap[keyFilter]
+  const keys = keyMap[keyFilter];
 
-  processAggregations( keys, state, aggregations, results )
+  processAggregations( keys, state, aggregations, results );
 
-  const colorMap = getColorScheme( lens, results.dateRangeArea )
+  const colorMap = getColorScheme( lens, results.dateRangeArea );
 
   return {
     ...state,
@@ -381,13 +379,13 @@ export function processTrends( state, action ) {
     isLoading: false,
     results,
     total
-  }
+  };
 }
 
 /* eslint-enable complexity */
 
-// ----------------------------------------------------------------------------
-// Action Handlers
+/* ----------------------------------------------------------------------------
+   Action Handlers */
 /**
  * Updates the state when an tab changed occurs, reset values to start clean
  *
@@ -400,7 +398,7 @@ export function handleTabChanged( state, action ) {
     ...state,
     focus: action.tab === MODE_TRENDS ? state.focus : '',
     results: emptyResults()
-  }
+  };
 }
 
 /**
@@ -416,7 +414,7 @@ export function trendsCallInProcess( state, action ) {
     activeCall: action.url,
     isLoading: true,
     tooltip: false
-  }
+  };
 }
 
 /**
@@ -427,12 +425,12 @@ export function trendsCallInProcess( state, action ) {
  * @returns {object} new state for the Redux store
  */
 export function processTrendsError( state, action ) {
-  const emptyState = getResetState()
+  const emptyState = getResetState();
   return {
     ...state,
     ...emptyState,
     error: processErrorMessage( action.error )
-  }
+  };
 }
 
 
@@ -448,7 +446,7 @@ export function updateChartType( state, action ) {
     ...state,
     chartType: action.chartType,
     tooltip: false
-  }
+  };
 }
 
 /**
@@ -459,7 +457,7 @@ export function updateChartType( state, action ) {
  * @returns {object} the new state for the Redux store
  */
 export function updateDataLens( state, action ) {
-  const lens = enforceValues( action.lens, 'lens' )
+  const lens = enforceValues( action.lens, 'lens' );
 
   return {
     ...state,
@@ -467,7 +465,7 @@ export function updateDataLens( state, action ) {
     lens,
     results: emptyResults(),
     tooltip: false
-  }
+  };
 }
 
 /**
@@ -481,7 +479,7 @@ export function updateDataSubLens( state, action ) {
   return {
     ...state,
     subLens: action.subLens
-  }
+  };
 }
 
 /** Handler for the focus selected action
@@ -491,13 +489,13 @@ export function updateDataSubLens( state, action ) {
  * @returns {object} the new state for the Redux store
  */
 function changeFocus( state, action ) {
-  const { focus, lens } = action
+  const { focus, lens } = action;
   return {
     ...state,
     focus,
     lens,
     tooltip: false
-  }
+  };
 }
 
 /** Handler for the focus removed action
@@ -511,7 +509,7 @@ function removeFocus( state ) {
     focus: '',
     results: emptyResults(),
     tooltip: false
-  }
+  };
 }
 
 
@@ -524,18 +522,18 @@ function removeFocus( state ) {
  * the correct type
  */
 function processParams( state, action ) {
-  const params = action.params
-  const processed = Object.assign( {}, defaultState )
+  const params = action.params;
+  const processed = { ...defaultState };
 
   // Handle flag filters
-  const filters = [ 'chartType', 'focus', 'lens', 'subLens' ]
+  const filters = [ 'chartType', 'focus', 'lens', 'subLens' ];
   for ( const val of filters ) {
     if ( params[val] ) {
-      processed[val] = enforceValues( params[val], val )
+      processed[val] = enforceValues( params[val], val );
     }
   }
 
-  return processed
+  return processed;
 }
 
 /**
@@ -546,33 +544,32 @@ function processParams( state, action ) {
  * @returns {object} the new state for the Redux store
  */
 function updateTooltip( state, action ) {
-  const tooltip = action.value || false
+  const tooltip = action.value || false;
 
   // need to merge in the actual viewed state
   if ( tooltip ) {
     tooltip.title = getTooltipTitle( tooltip.date, tooltip.interval,
-      tooltip.dateRange, true )
+      tooltip.dateRange, true );
 
     /* istanbul ignore else */
     if ( tooltip.values ) {
       tooltip.values.forEach( o => {
         o.colorIndex = Object.values( colors.DataLens )
-          .indexOf( state.colorMap[o.name] ) || 0
+          .indexOf( state.colorMap[o.name] ) || 0;
         // make sure all values have a value
-        o.value = coalesce( o, 'value', 0 )
-      } )
+        o.value = coalesce( o, 'value', 0 );
+      } );
 
-      let total = 0
-      total = tooltip.values.reduce( ( accumulator, currentValue ) =>
-        accumulator + currentValue.value, total )
-      tooltip.total = total
+      let total = 0;
+      total = tooltip.values.reduce( ( accumulator, currentValue ) => accumulator + currentValue.value, total );
+      tooltip.total = total;
     }
   }
 
   return {
     ...state,
     tooltip
-  }
+  };
 }
 
 /**
@@ -585,7 +582,7 @@ export function removeAllFilters( state ) {
   return {
     ...state,
     focus: ''
-  }
+  };
 }
 
 /**
@@ -596,15 +593,15 @@ export function removeAllFilters( state ) {
  * @returns {object} the new state for the Redux store
  */
 function removeMultipleFilters( state, action ) {
-  const focus = action.values.includes( state.focus ) ? '' : state.focus
+  const focus = action.values.includes( state.focus ) ? '' : state.focus;
   return {
     ...state,
     focus
-  }
+  };
 }
 
-// ----------------------------------------------------------------------------
-// Action Handlers
+/* ----------------------------------------------------------------------------
+   Action Handlers */
 
 /**
  * Creates a hash table of action types to handlers
@@ -612,26 +609,26 @@ function removeMultipleFilters( state, action ) {
  * @returns {object} a map of types to functions
  */
 export function _buildHandlerMap() {
-  const handlers = {}
+  const handlers = {};
 
-  handlers[actions.CHART_TYPE_CHANGED] = updateChartType
-  handlers[actions.DATA_LENS_CHANGED] = updateDataLens
-  handlers[actions.DATA_SUBLENS_CHANGED] = updateDataSubLens
-  handlers[actions.FILTER_ALL_REMOVED] = removeAllFilters
-  handlers[actions.FILTER_MULTIPLE_REMOVED] = removeMultipleFilters
-  handlers[actions.FOCUS_CHANGED] = changeFocus
-  handlers[actions.FOCUS_REMOVED] = removeFocus
-  handlers[actions.TAB_CHANGED] = handleTabChanged
-  handlers[actions.TRENDS_API_CALLED] = trendsCallInProcess
-  handlers[actions.TRENDS_FAILED] = processTrendsError
-  handlers[actions.TRENDS_RECEIVED] = processTrends
-  handlers[actions.TRENDS_TOOLTIP_CHANGED] = updateTooltip
-  handlers[actions.URL_CHANGED] = processParams
+  handlers[actions.CHART_TYPE_CHANGED] = updateChartType;
+  handlers[actions.DATA_LENS_CHANGED] = updateDataLens;
+  handlers[actions.DATA_SUBLENS_CHANGED] = updateDataSubLens;
+  handlers[actions.FILTER_ALL_REMOVED] = removeAllFilters;
+  handlers[actions.FILTER_MULTIPLE_REMOVED] = removeMultipleFilters;
+  handlers[actions.FOCUS_CHANGED] = changeFocus;
+  handlers[actions.FOCUS_REMOVED] = removeFocus;
+  handlers[actions.TAB_CHANGED] = handleTabChanged;
+  handlers[actions.TRENDS_API_CALLED] = trendsCallInProcess;
+  handlers[actions.TRENDS_FAILED] = processTrendsError;
+  handlers[actions.TRENDS_RECEIVED] = processTrends;
+  handlers[actions.TRENDS_TOOLTIP_CHANGED] = updateTooltip;
+  handlers[actions.URL_CHANGED] = processParams;
 
-  return handlers
+  return handlers;
 }
 
-const _handlers = _buildHandlerMap()
+const _handlers = _buildHandlerMap();
 
 /**
  * Routes an action to an appropriate handler
@@ -642,14 +639,14 @@ const _handlers = _buildHandlerMap()
  */
 function handleSpecificAction( state, action ) {
   if ( action.type in _handlers ) {
-    return _handlers[action.type]( state, action )
+    return _handlers[action.type]( state, action );
   }
 
-  return state
+  return state;
 }
 
 export default ( state = defaultState, action ) => {
-  const newState = handleSpecificAction( state, action )
-  validateTrendsReducer( newState )
-  return newState
-}
+  const newState = handleSpecificAction( state, action );
+  validateTrendsReducer( newState );
+  return newState;
+};

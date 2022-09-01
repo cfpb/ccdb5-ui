@@ -1,52 +1,52 @@
 /* eslint complexity: ["error", 5] */
 
-import './RowChart.less'
-import * as d3 from 'd3'
+import './RowChart.less';
+import * as d3 from 'd3';
 import {
   cloneDeep, coalesce, getAllFilters, hashObject, sendAnalyticsEvent
-} from '../../utils'
-import { collapseRow, expandRow } from '../../actions/view'
-import { miniTooltip, row } from 'britecharts'
-import { changeFocus } from '../../actions/trends'
-import { connect } from 'react-redux'
-import { max } from 'd3-array'
-import { MODE_MAP } from '../../constants'
-import PropTypes from 'prop-types'
-import React from 'react'
-import { scrollToFocus } from '../../utils/trends'
+} from '../../utils';
+import { collapseRow, expandRow } from '../../actions/view';
+import { miniTooltip, row } from 'britecharts';
+import { changeFocus } from '../../actions/trends';
+import { connect } from 'react-redux';
+import { max } from 'd3-array';
+import { MODE_MAP } from '../../constants';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { scrollToFocus } from '../../utils/trends';
 
 export class RowChart extends React.Component {
   constructor( props ) {
-    super( props )
-    this._selectFocus = this._selectFocus.bind( this )
-    this._toggleRow = this._toggleRow.bind( this )
+    super( props );
+    this._selectFocus = this._selectFocus.bind( this );
+    this._toggleRow = this._toggleRow.bind( this );
   }
 
   _formatTip( value ) {
-    return value.toLocaleString() + ' complaints'
+    return value.toLocaleString() + ' complaints';
   }
 
   _getHeight( numRows ) {
-    return numRows === 1 ? 100 : numRows * 60
+    return numRows === 1 ? 100 : numRows * 60;
   }
 
   _wrapText( text, width, viewMore ) {
-    // ignore test coverage since this is code borrowed from d3 mbostock
-    // text wrapping functions
+    /* ignore test coverage since this is code borrowed from d3 mbostock
+       text wrapping functions */
     /* eslint-disable complexity */
     /* istanbul ignore next */
     text.each( function() {
-      const innerText = d3.select( this )
-      const spanWidth = viewMore ? innerText.attr( 'x' ) : 0
+      const innerText = d3.select( this );
+      const spanWidth = viewMore ? innerText.attr( 'x' ) : 0;
       if ( innerText.node().children && innerText.node().children.length > 0 ) {
         // assuming its already split up
-        return
+        return;
       }
       const words = innerText.text().split( /\s+/ ).reverse(),
             // ems
             lineHeight = 1.1,
             y = innerText.attr( 'y' ) || 0,
-            dy = parseFloat( innerText.attr( 'dy' ) || 0 )
+            dy = parseFloat( innerText.attr( 'dy' ) || 0 );
 
       let word,
           line = [],
@@ -56,91 +56,92 @@ export class RowChart extends React.Component {
             .append( 'tspan' )
             .attr( 'x', spanWidth )
             .attr( 'y', y )
-            .attr( 'dy', dy + 'em' )
+            .attr( 'dy', dy + 'em' );
 
       // eslint-disable-next-line no-cond-assign
       while ( word = words.pop() ) {
-        line.push( word )
-        tspan.text( line.join( ' ' ) )
+        line.push( word );
+        tspan.text( line.join( ' ' ) );
         if ( tspan.node().getComputedTextLength() > width ) {
-          line.pop()
-          tspan.text( line.join( ' ' ) )
-          line = [ word ]
+          line.pop();
+          tspan.text( line.join( ' ' ) );
+          line = [ word ];
           tspan = innerText.append( 'tspan' )
             .attr( 'x', spanWidth )
             .attr( 'y', y )
             // eslint-disable-next-line no-mixed-operators
             .attr( 'dy', ++lineNumber * lineHeight + dy + 'em' )
-            .text( word )
-          wrapCount++
+            .text( word );
+          wrapCount++;
         }
       }
 
       // only allow this to go through if not IE
       if ( wrapCount && !window.document.documentMode ) {
         const viewMoreBackground = d3.select( innerText.node().parentNode )
-          .select( '.view-more-background' )
-        const oldHeight = viewMoreBackground.attr( 'height' )
+          .select( '.view-more-background' );
+        const oldHeight = viewMoreBackground.attr( 'height' );
         // eslint-disable-next-line no-mixed-operators
-        const newHeight = parseFloat( oldHeight ) + wrapCount * 12
-        viewMoreBackground.attr( 'height', newHeight )
+        const newHeight = parseFloat( oldHeight ) + wrapCount * 12;
+        viewMoreBackground.attr( 'height', newHeight );
       }
-    } )
+    } );
     /* eslint-enable complexity */
 
   }
 
   componentDidMount() {
-    this._redrawChart()
+    this._redrawChart();
   }
 
   componentDidUpdate( prevProps ) {
-    const props = this.props
+    const props = this.props;
     if ( hashObject( prevProps ) !== hashObject( props ) ) {
-      this._redrawChart()
+      this._redrawChart();
     }
   }
 
-  // --------------------------------------------------------------------------
-  // Event Handlers
+  /* --------------------------------------------------------------------------
+     Event Handlers */
   // eslint-disable-next-line complexity
   _redrawChart() {
     const {
       colorScheme, data, id, printMode, total
-    } = this.props
-    // deep copy
-    // do this to prevent REDUX pollution
+    } = this.props;
+
+    /* deep copy
+       do this to prevent REDUX pollution */
     const rows = cloneDeep( data ).filter( o => {
       if ( o.name && printMode ) {
         // remove spacer text if we are in print mode
-        return o.name.indexOf( 'Visualize trends for' ) === -1
+        return o.name.indexOf( 'Visualize trends for' ) === -1;
       }
-      return true
-    } )
+      return true;
+    } );
 
     if ( !rows || !rows.length || !total ) {
-      return
+      return;
     }
 
-    const tooltip = miniTooltip()
-    tooltip.valueFormatter( this._formatTip )
+    const tooltip = miniTooltip();
+    tooltip.valueFormatter( this._formatTip );
 
-    const ratio = total / max( rows, o => o.value )
-    const chartID = '#row-chart-' + id
-    d3.selectAll( chartID + ' .row-chart' ).remove()
-    const rowContainer = d3.select( chartID )
+    const ratio = total / max( rows, o => o.value );
+    const chartID = '#row-chart-' + id;
+    d3.selectAll( chartID + ' .row-chart' ).remove();
+    const rowContainer = d3.select( chartID );
 
     // added padding to make up for margin
     const width = printMode ? 750 : rowContainer.node()
-      .getBoundingClientRect().width + 30
+      .getBoundingClientRect().width + 30;
 
-    const height = this._getHeight( rows.length )
-    const chart = row()
-    const marginLeft = width / 4
+    const height = this._getHeight( rows.length );
+    const chart = row();
+    const marginLeft = width / 4;
 
-    // tweak to make the chart full width at desktop
-    // add space at narrow width
-    const marginRight = width < 600 ? 40 : -65
+    /* tweak to make the chart full width at desktop
+       add space at narrow width */
+    const marginRight = width < 600 ? 40 : -65;
     chart.margin( {
       left: marginLeft,
       right: marginRight,
@@ -162,50 +163,50 @@ export class RowChart extends React.Component {
       .height( height )
       .on( 'customMouseOver', tooltip.show )
       .on( 'customMouseMove', tooltip.update )
-      .on( 'customMouseOut', tooltip.hide )
+      .on( 'customMouseOut', tooltip.hide );
 
-    rowContainer.datum( rows ).call( chart )
+    rowContainer.datum( rows ).call( chart );
     const tooltipContainer =
-      d3.selectAll( chartID + ' .row-chart .metadata-group' )
-    tooltipContainer.datum( [] ).call( tooltip )
-    this._wrapText( d3.select( chartID ).selectAll( '.tick text' ), marginLeft )
+      d3.selectAll( chartID + ' .row-chart .metadata-group' );
+    tooltipContainer.datum( [] ).call( tooltip );
+    this._wrapText( d3.select( chartID ).selectAll( '.tick text' ), marginLeft );
 
     this._wrapText( d3.select( chartID )
-      .selectAll( '.view-more-label' ), width / 2, true )
+      .selectAll( '.view-more-label' ), width / 2, true );
 
     rowContainer
       .selectAll( '.y-axis-group .tick' )
-      .on( 'click', this._toggleRow )
+      .on( 'click', this._toggleRow );
 
     rowContainer
       .selectAll( '.view-more-label' )
-      .on( 'click', this._selectFocus )
+      .on( 'click', this._selectFocus );
 
   }
 
   _selectFocus( element ) {
     // make sure to assign a valid lens when a row is clicked
-    const lens = this.props.lens === 'Overview' ? 'Product' : this.props.lens
-    const filters = coalesce( this.props.aggs, lens.toLowerCase(), [] )
-    this.props.selectFocus( element, lens, filters )
+    const lens = this.props.lens === 'Overview' ? 'Product' : this.props.lens;
+    const filters = coalesce( this.props.aggs, lens.toLowerCase(), [] );
+    this.props.selectFocus( element, lens, filters );
   }
 
   _toggleRow( rowName ) {
     // fire off different action depending on if the row is expanded or not
-    const { data, expandedRows } = this.props
+    const { data, expandedRows } = this.props;
     const expandableRows = data
       .filter( o => o.isParent )
-      .map( o => o.name )
+      .map( o => o.name );
 
     if ( !expandableRows.includes( rowName ) ) {
       // early exit
-      return
+      return;
     }
 
     if ( expandedRows.includes( rowName ) ) {
-      this.props.collapseRow( rowName )
+      this.props.collapseRow( rowName );
     } else {
-      this.props.expandRow( rowName )
+      this.props.expandRow( rowName );
     }
   }
 
@@ -213,46 +214,46 @@ export class RowChart extends React.Component {
   render() {
     return (
       this.props.total > 0 &&
-      <div className="row-chart-section">
+      <div className='row-chart-section'>
         <h3>{ this.props.title }</h3>
         <p>{ this.props.helperText }</p>
         <div id={ 'row-chart-' + this.props.id }>
         </div>
       </div>
-    )
+    );
   }
 }
 
 export const mapDispatchToProps = dispatch => ( {
   selectFocus: ( element, lens, filters ) => {
-    scrollToFocus()
-    let values = []
+    scrollToFocus();
+    let values = [];
     if ( lens === 'Company' ) {
-      values.push( element.parent )
+      values.push( element.parent );
     } else {
-      const filterGroup = filters.find( o => o.key === element.parent )
-      const keyName = 'sub_' + lens.toLowerCase() + '.raw'
+      const filterGroup = filters.find( o => o.key === element.parent );
+      const keyName = 'sub_' + lens.toLowerCase() + '.raw';
       values = filterGroup ?
-        getAllFilters( element.parent, filterGroup[keyName].buckets ) : []
+        getAllFilters( element.parent, filterGroup[keyName].buckets ) : [];
     }
-    sendAnalyticsEvent( 'Trends click', element.parent )
-    dispatch( changeFocus( element.parent, lens, [ ...values ] ) )
+    sendAnalyticsEvent( 'Trends click', element.parent );
+    dispatch( changeFocus( element.parent, lens, [ ...values ] ) );
   },
   collapseRow: rowName => {
-    sendAnalyticsEvent( 'Bar chart collapsed', rowName )
-    dispatch( collapseRow( rowName ) )
+    sendAnalyticsEvent( 'Bar chart collapsed', rowName );
+    dispatch( collapseRow( rowName ) );
   },
   expandRow: rowName => {
-    sendAnalyticsEvent( 'Bar chart expanded', rowName )
-    dispatch( expandRow( rowName ) )
+    sendAnalyticsEvent( 'Bar chart expanded', rowName );
+    dispatch( expandRow( rowName ) );
   }
-} )
+} );
 
 export const mapStateToProps = state => {
-  const { tab } = state.query
-  const lens = tab === MODE_MAP ? 'Product' : state.query.lens
-  const { aggs } = state
-  const { expandedRows, printMode, width } = state.view
+  const { tab } = state.query;
+  const lens = tab === MODE_MAP ? 'Product' : state.query.lens;
+  const { aggs } = state;
+  const { expandedRows, printMode, width } = state.view;
   return {
     aggs,
     expandedRows,
@@ -260,8 +261,8 @@ export const mapStateToProps = state => {
     printMode,
     tab,
     width
-  }
-}
+  };
+};
 
 RowChart.propTypes = {
   id: PropTypes.string.isRequired,
@@ -272,6 +273,6 @@ RowChart.propTypes = {
   data: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
   total: PropTypes.number.isRequired
-}
+};
 
-export default connect( mapStateToProps, mapDispatchToProps )( RowChart )
+export default connect( mapStateToProps, mapDispatchToProps )( RowChart );

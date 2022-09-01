@@ -1,7 +1,7 @@
-import { GEO_NORM_NONE, GEO_NORM_PER1000 } from '../../constants'
-import { useDispatch, useSelector } from 'react-redux'
+import { GEO_NORM_NONE, GEO_NORM_PER1000 } from '../../constants';
+import { useDispatch, useSelector } from 'react-redux';
 import { dataNormalizationChanged } from '../../actions/map';
-import React from 'react'
+import React from 'react';
 
 
 export const PerCapita = () => {
@@ -13,26 +13,26 @@ export const PerCapita = () => {
 
   const _setNormalization = val => {
     if ( dataNormalization !== val ) {
-      dispatch( dataNormalizationChanged( val ) )
+      dispatch( dataNormalizationChanged( val ) );
     }
-  }
+  };
 
   const _getRawButtonClass = () => {
     if ( dataNormalization === GEO_NORM_NONE ) {
       return 'selected';
     }
     return 'deselected';
-  }
+  };
 
   const _getPerCapButtonClass = () => {
     if ( enablePer1000 ) {
       return dataNormalization === GEO_NORM_PER1000 ? 'selected' : 'deselected';
     }
-    return 'a-btn__disabled'
-  }
+    return 'a-btn__disabled';
+  };
 
   return (
-    <section className="m-btn-group">
+    <section className='m-btn-group'>
       <p>Map shading</p>
       <button
         className={ 'a-btn toggle-button raw ' + _getRawButtonClass() }
@@ -46,5 +46,5 @@ export const PerCapita = () => {
         Complaints per 1,000 <span>population</span>
       </button>
     </section>
-  )
-}
+  );
+};

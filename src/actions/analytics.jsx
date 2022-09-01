@@ -20,7 +20,7 @@ const Analytics = {
       label:         label || '',
       eventCallback: callback,
       eventTimeout:  timeout || 500
-    }
+    };
   },
 
   /**
@@ -31,18 +31,18 @@ const Analytics = {
     if ( window.hasOwnProperty( 'google_tag_manager' ) ) {
       Analytics.tagManagerIsLoaded = true;
     } else {
-      var _tagManager;
+      let _tagManager;
       Object.defineProperty( window, 'google_tag_manager', {
         enumerable: true,
         configurable: true,
         get: function() {
-          return _tagManager
+          return _tagManager;
         },
         set: function( value ) {
           _tagManager = value;
           Analytics.tagManagerIsLoaded = true;
         }
-      } )
+      } );
     }
   },
 
@@ -55,7 +55,7 @@ const Analytics = {
    * @param {object} dataLayerOptions Type of event.
    */
   sendEvent: function( dataLayerOptions ) {
-    var callback = dataLayerOptions.eventCallback;
+    const callback = dataLayerOptions.eventCallback;
     if ( Analytics.tagManagerIsLoaded ) {
       window.dataLayer.push( dataLayerOptions );
     } else if ( callback && typeof callback === 'function' ) {
@@ -63,11 +63,11 @@ const Analytics = {
     }
   }
 
-  // sendEvents(array) for multiple events is here is required in future:
-  // https://github.com/cfpb/college-costs/blob/master/src/disclosures/js/utils/Analytics.js#L77
+  /* sendEvents(array) for multiple events is here is required in future:
+     https://github.com/cfpb/college-costs/blob/master/src/disclosures/js/utils/Analytics.js#L77 */
 
-}
+};
 
-Analytics.init()
+Analytics.init();
 
-export default Analytics
+export default Analytics;

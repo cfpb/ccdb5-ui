@@ -1,20 +1,20 @@
-import { REQUERY_ALWAYS } from '../constants'
+import { REQUERY_ALWAYS } from '../constants';
 
-export const DATE_INTERVAL_CHANGED = 'DATE_INTERVAL_CHANGED'
-export const DATE_RANGE_CHANGED = 'DATE_RANGE_CHANGED'
-export const DATES_CHANGED = 'DATES_CHANGED'
-export const FILTER_ALL_REMOVED = 'FILTER_ALL_REMOVED'
-export const FILTER_CHANGED = 'FILTER_CHANGED'
-export const FILTER_FLAG_CHANGED = 'FILTER_FLAG_CHANGED'
-export const FILTER_MULTIPLE_ADDED = 'FILTER_MULTIPLE_ADDED'
-export const FILTER_MULTIPLE_REMOVED = 'FILTER_MULTIPLE_REMOVED'
-export const FILTER_ADDED = 'FILTER_ADDED'
-export const FILTER_REMOVED = 'FILTER_REMOVED'
-export const FILTER_REPLACED = 'FILTER_REPLACED'
+export const DATE_INTERVAL_CHANGED = 'DATE_INTERVAL_CHANGED';
+export const DATE_RANGE_CHANGED = 'DATE_RANGE_CHANGED';
+export const DATES_CHANGED = 'DATES_CHANGED';
+export const FILTER_ALL_REMOVED = 'FILTER_ALL_REMOVED';
+export const FILTER_CHANGED = 'FILTER_CHANGED';
+export const FILTER_FLAG_CHANGED = 'FILTER_FLAG_CHANGED';
+export const FILTER_MULTIPLE_ADDED = 'FILTER_MULTIPLE_ADDED';
+export const FILTER_MULTIPLE_REMOVED = 'FILTER_MULTIPLE_REMOVED';
+export const FILTER_ADDED = 'FILTER_ADDED';
+export const FILTER_REMOVED = 'FILTER_REMOVED';
+export const FILTER_REPLACED = 'FILTER_REPLACED';
 
 
-// ----------------------------------------------------------------------------
-// Simple actions
+/* ----------------------------------------------------------------------------
+   Simple actions */
 
 
 /**
@@ -28,7 +28,7 @@ export function changeDateInterval( dateInterval ) {
     type: DATE_INTERVAL_CHANGED,
     dateInterval,
     requery: REQUERY_ALWAYS
-  }
+  };
 }
 
 
@@ -47,7 +47,7 @@ export function changeDates( filterName, minDate, maxDate ) {
     minDate,
     maxDate,
     requery: REQUERY_ALWAYS
-  }
+  };
 }
 
 /**
@@ -61,7 +61,7 @@ export function dateRangeToggled( dateRange ) {
     type: DATE_RANGE_CHANGED,
     dateRange,
     requery: REQUERY_ALWAYS
-  }
+  };
 }
 
 /**
@@ -77,7 +77,7 @@ export function toggleFilter( filterName, filterValue ) {
     filterName,
     filterValue,
     requery: REQUERY_ALWAYS
-  }
+  };
 }
 
 /**
@@ -91,7 +91,7 @@ export function toggleFlagFilter( filterName ) {
     type: FILTER_FLAG_CHANGED,
     filterName,
     requery: REQUERY_ALWAYS
-  }
+  };
 }
 
 /**
@@ -107,7 +107,7 @@ export function addFilter( filterName, filterValue ) {
     filterName,
     filterValue,
     requery: REQUERY_ALWAYS
-  }
+  };
 }
 
 /**
@@ -123,7 +123,7 @@ export function removeFilter( filterName, filterValue ) {
     filterName,
     filterValue,
     requery: REQUERY_ALWAYS
-  }
+  };
 }
 
 /**
@@ -135,7 +135,7 @@ export function removeAllFilters() {
   return {
     type: FILTER_ALL_REMOVED,
     requery: REQUERY_ALWAYS
-  }
+  };
 }
 
 /**
@@ -147,13 +147,13 @@ export function removeAllFilters() {
 */
 export function addMultipleFilters( filterName, values ) {
   // eslint-disable-next-line no-console
-  console.assert( Array.isArray( values ) )
+  console.assert( Array.isArray( values ) );
   return {
     type: FILTER_MULTIPLE_ADDED,
     filterName,
     values,
     requery: REQUERY_ALWAYS
-  }
+  };
 }
 
 /**
@@ -165,13 +165,13 @@ export function addMultipleFilters( filterName, values ) {
 */
 export function removeMultipleFilters( filterName, values ) {
   // eslint-disable-next-line no-console
-  console.assert( Array.isArray( values ) )
+  console.assert( Array.isArray( values ) );
   return {
     type: FILTER_MULTIPLE_REMOVED,
     filterName,
     values,
     requery: REQUERY_ALWAYS
-  }
+  };
 }
 
 /**
@@ -183,11 +183,11 @@ export function removeMultipleFilters( filterName, values ) {
  */
 export function replaceFilters( filterName, values ) {
   // eslint-disable-next-line no-console
-  console.assert( Array.isArray( values ) )
+  console.assert( Array.isArray( values ) );
   return {
     type: FILTER_REPLACED,
     filterName,
     values,
     requery: REQUERY_ALWAYS
-  }
+  };
 }

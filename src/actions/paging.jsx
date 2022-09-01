@@ -1,12 +1,12 @@
-import { REQUERY_HITS_ONLY } from '../constants'
+import { REQUERY_HITS_ONLY } from '../constants';
 
-export const NEXT_PAGE_SHOWN = 'NEXT_PAGE_SHOWN'
-export const PREV_PAGE_SHOWN = 'PREV_PAGE_SHOWN'
-export const SIZE_CHANGED = 'SIZE_CHANGED'
-export const SORT_CHANGED = 'SORT_CHANGED'
+export const NEXT_PAGE_SHOWN = 'NEXT_PAGE_SHOWN';
+export const PREV_PAGE_SHOWN = 'PREV_PAGE_SHOWN';
+export const SIZE_CHANGED = 'SIZE_CHANGED';
+export const SORT_CHANGED = 'SORT_CHANGED';
 
-// ----------------------------------------------------------------------------
-// Simple actions
+/* ----------------------------------------------------------------------------
+   Simple actions */
 /**
  * Notifies the application that the page has changed
  *
@@ -16,7 +16,7 @@ export function nextPageShown() {
   return {
     type: NEXT_PAGE_SHOWN,
     requery: REQUERY_HITS_ONLY
-  }
+  };
 }
 
 /**
@@ -28,7 +28,7 @@ export function prevPageShown() {
   return {
     type: PREV_PAGE_SHOWN,
     requery: REQUERY_HITS_ONLY
-  }
+  };
 }
 
 /**
@@ -39,12 +39,12 @@ export function prevPageShown() {
 */
 export function changeSize( size ) {
   // eslint-disable-next-line no-console
-  console.assert( typeof size === 'number' )
+  console.assert( typeof size === 'number' );
   return {
     type: SIZE_CHANGED,
     size,
     requery: REQUERY_HITS_ONLY
-  }
+  };
 }
 
 /**
@@ -58,5 +58,5 @@ export function changeSort( sort ) {
     type: SORT_CHANGED,
     sort,
     requery: REQUERY_HITS_ONLY
-  }
+  };
 }

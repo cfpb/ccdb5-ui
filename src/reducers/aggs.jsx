@@ -1,7 +1,7 @@
 import {
   AGGREGATIONS_API_CALLED, AGGREGATIONS_FAILED, AGGREGATIONS_RECEIVED
-} from '../actions/complaints'
-import { processErrorMessage } from '../utils'
+} from '../actions/complaints';
+import { processErrorMessage } from '../utils';
 
 /* eslint-disable camelcase */
 
@@ -28,10 +28,10 @@ export const defaultAggs = {
   tag: [],
   timely: [],
   zip_code: []
-}
+};
 
-// ----------------------------------------------------------------------------
-// Action Handlers
+/* ----------------------------------------------------------------------------
+   Action Handlers */
 /**
  * handles complaint api call in progress
  *
@@ -44,7 +44,7 @@ export function aggregationsCallInProcess( state, action ) {
     ...state,
     activeCall: action.url,
     isLoading: true
-  }
+  };
 }
 
 /**
@@ -55,14 +55,14 @@ export function aggregationsCallInProcess( state, action ) {
  * @returns {object} new state for the Redux store
  */
 export function processAggregationResults( state, action ) {
-  const aggs = action.data.aggregations
-  const keys = Object.keys( aggs )
+  const aggs = action.data.aggregations;
+  const keys = Object.keys( aggs );
 
   const doc_count = Math.max(
     state.doc_count,
     action.data.hits.total.value,
     action.data._meta.total_record_count
-  )
+  );
 
   const result = { ...state,
     doc_count,
@@ -73,13 +73,13 @@ export function processAggregationResults( state, action ) {
     hasDataIssue: action.data._meta.has_data_issue,
     isDataStale: action.data._meta.is_data_stale,
     total: action.data.hits.total.value
-  }
+  };
 
   keys.forEach( key => {
-    result[key] = aggs[key][key].buckets
-  } )
+    result[key] = aggs[key][key].buckets;
+  } );
 
-  return result
+  return result;
 }
 
 /**
@@ -94,7 +94,7 @@ export function processAggregationError( state, action ) {
     ...defaultAggs,
     isLoading: false,
     error: processErrorMessage( action.error )
-  }
+  };
 }
 
 /**
@@ -103,15 +103,15 @@ export function processAggregationError( state, action ) {
  * @returns {object} a map of types to functions
  */
 export function _buildHandlerMap() {
-  const handlers = {}
-  handlers[AGGREGATIONS_API_CALLED] = aggregationsCallInProcess
-  handlers[AGGREGATIONS_RECEIVED] = processAggregationResults
-  handlers[AGGREGATIONS_FAILED] = processAggregationError
+  const handlers = {};
+  handlers[AGGREGATIONS_API_CALLED] = aggregationsCallInProcess;
+  handlers[AGGREGATIONS_RECEIVED] = processAggregationResults;
+  handlers[AGGREGATIONS_FAILED] = processAggregationError;
 
-  return handlers
+  return handlers;
 }
 
-const _handlers = _buildHandlerMap()
+const _handlers = _buildHandlerMap();
 
 /**
  * Routes an action to an appropriate handler
@@ -122,15 +122,15 @@ const _handlers = _buildHandlerMap()
  */
 function handleSpecificAction( state, action ) {
   if ( action.type in _handlers ) {
-    return _handlers[action.type]( state, action )
+    return _handlers[action.type]( state, action );
   }
 
-  return state
+  return state;
 }
 
 
 export default ( state = defaultAggs, action ) => {
-  const newState = handleSpecificAction( state, action )
-  return newState
-}
+  const newState = handleSpecificAction( state, action );
+  return newState;
+};
 

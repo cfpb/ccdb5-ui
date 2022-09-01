@@ -1,8 +1,8 @@
 import {
   DATE_RANGE_MIN, flagFilters, knownFilters, SLUG_SEPARATOR
-} from './constants'
-import Analytics from './actions/analytics'
-import dayjs from 'dayjs'
+} from './constants';
+import Analytics from './actions/analytics';
+import dayjs from 'dayjs';
 
 /**
 * Breaks up '123' to '1 2 3' to help screen readers read digits individually
@@ -12,43 +12,43 @@ import dayjs from 'dayjs'
 * @returns {string} an expanded string of digits
 */
 export function ariaReadoutNumbers( s ) {
-  return Array.from( s || '' ).join( ' ' )
+  return Array.from( s || '' ).join( ' ' );
 }
 
 /* eslint-disable no-console */
 
 // eslint-disable-next-line complexity
 export const calculateDateRange = ( minDate, maxDate ) => {
-  // only check intervals if the end date is today
-  // round off the date so the partial times don't mess up calculations
-  const today = startOfToday()
-  const end = dayjs( maxDate ).startOf( 'day' )
-  const start = dayjs( minDate ).startOf( 'day' )
+  /* only check intervals if the end date is today
+     round off the date so the partial times don't mess up calculations */
+  const today = startOfToday();
+  const end = dayjs( maxDate ).startOf( 'day' );
+  const start = dayjs( minDate ).startOf( 'day' );
 
   // make sure end date is the same as today's date
   if ( end.diff( today, 'days' ) !== 0 ) {
-    return ''
+    return '';
   }
 
   // is the start date the same as the oldest document?
   if ( dayjs( minDate ).isSame( DATE_RANGE_MIN, 'day' ) ) {
-    return 'All'
+    return 'All';
   }
 
   // verify if it's 3 or 1 years
-  const yrDiff = end.diff( start, 'years', true )
+  const yrDiff = end.diff( start, 'years', true );
   if ( yrDiff === 3 || yrDiff === 1 ) {
-    return yrDiff + 'y'
+    return yrDiff + 'y';
   }
 
   // verify if it's 6 or 3 months
-  const moDiff = end.diff( start, 'months', true )
+  const moDiff = end.diff( start, 'months', true );
   if ( moDiff === 6 || moDiff === 3 ) {
-    return moDiff + 'm'
+    return moDiff + 'm';
   }
 
-  return ''
-}
+  return '';
+};
 
 /**
  * Function to set the limit of the range of a set of numbers
@@ -64,7 +64,7 @@ export const clamp = ( x, min, max ) => {
     x = max;
   }
   return x;
-}
+};
 
 /**
  * Function to set the limit of the range of a set of dates
@@ -84,7 +84,7 @@ export const clampDate = ( x, min, max ) => {
     xDate = maxDate;
   }
   return xDate;
-}
+};
 
 /**
  * Replacement for the common pattern:
@@ -115,20 +115,20 @@ export const coalesce = ( o, field, alternateValue ) => {
  * @returns {int} a hashing of the string
  */
 export function hashCode( someString ) {
-  const s = String( someString )
-  let hash = 0
-  let i, chr
+  const s = String( someString );
+  let hash = 0;
+  let i, chr;
   if ( s.length === 0 ) {
-    return hash
+    return hash;
   }
   for ( i = 0; i < s.length; i++ ) {
-    chr = s.charCodeAt( i )
-    hash = ( hash << 5 ) - hash + chr
+    chr = s.charCodeAt( i );
+    hash = ( hash << 5 ) - hash + chr;
 
     // Convert to 32bit integer
-    hash |= 0
+    hash |= 0;
   }
-  return hash
+  return hash;
 }
 
 /**
@@ -140,31 +140,31 @@ export function hashCode( someString ) {
  */
 // eslint-disable-next-line complexity,require-jsdoc
 export function enablePer1000( query ) {
-  const keys = []
-  let filter
-  const allFilters = knownFilters.concat( flagFilters )
+  const keys = [];
+  let filter;
+  const allFilters = knownFilters.concat( flagFilters );
 
   for ( let i = 0; i < allFilters.length; i++ ) {
-    filter = allFilters[i]
+    filter = allFilters[i];
     // eslint-disable-next-line no-mixed-operators
     if ( Array.isArray( query[filter] ) && query[filter].length ||
       query[filter] === true ) {
-      keys.push( filter )
+      keys.push( filter );
     }
   }
-  const compReceivedFilters = [ 'company_received_max', 'company_received_min' ]
+  const compReceivedFilters = [ 'company_received_max', 'company_received_min' ];
   for ( let i = 0; i < compReceivedFilters.length; i++ ) {
-    filter = compReceivedFilters[i]
+    filter = compReceivedFilters[i];
     if ( query[filter] ) {
-      keys.push( filter )
+      keys.push( filter );
     }
   }
 
   if ( keys.length ) {
-    return keys.length === 1 && keys[0] === 'state'
+    return keys.length === 1 && keys[0] === 'state';
   }
 
-  return true
+  return true;
 }
 
 /**
@@ -174,9 +174,9 @@ export function enablePer1000( query ) {
  * @returns {string} a hashing of the object
  */
 export function hashObject( o ) {
-  return hashCode( JSON.stringify( o ) )
+  return hashCode( JSON.stringify( o ) );
 }
-export const normalize = s => s.toLowerCase()
+export const normalize = s => s.toLowerCase();
 
 /**
  * takes a string and formats it into proper text for an htmd ID
@@ -184,9 +184,9 @@ export const normalize = s => s.toLowerCase()
  * @param {string} a the dirty string Eat at Joe's
  * @returns {string} sanitized string eat-at-joe-s
  */
-export const sanitizeHtmlId = a => a.replace( /\s+|\W/g, '-' ).toLowerCase()
+export const sanitizeHtmlId = a => a.replace( /\s+|\W/g, '-' ).toLowerCase();
 
-export const slugify = ( a, b ) => a + SLUG_SEPARATOR + b
+export const slugify = ( a, b ) => a + SLUG_SEPARATOR + b;
 
 /**
  * take in an array or object and clone it as completely new object to remove
@@ -198,10 +198,10 @@ export const slugify = ( a, b ) => a + SLUG_SEPARATOR + b
  */
 export const cloneDeep = input => {
   if ( typeof input !== 'undefined' ) {
-    JSON.parse( JSON.stringify( input ) )
+    JSON.parse( JSON.stringify( input ) );
   }
-  return input
-}
+  return input;
+};
 
 /**
  * Custom sort for array so that selected items appear first, then by doc_count
@@ -210,12 +210,12 @@ export const cloneDeep = input => {
  * @returns {T[]} sorted array
  */
 export const sortSelThenCount = ( options, selected ) => {
-  const retVal = ( cloneDeep( options ) || [] ).slice()
+  const retVal = ( cloneDeep( options ) || [] ).slice();
 
   /* eslint complexity: ["error", 5] */
   retVal.sort( ( a, b ) => {
-    const aSel = selected.indexOf( a.key ) !== -1
-    const bSel = selected.indexOf( b.key ) !== -1
+    const aSel = selected.indexOf( a.key ) !== -1;
+    const bSel = selected.indexOf( b.key ) !== -1;
 
     if ( aSel && !bSel ) {
       return -1;
@@ -224,13 +224,13 @@ export const sortSelThenCount = ( options, selected ) => {
       return 1;
     }
 
-    // Both are selected or not selected
-    // Sort by descending doc_count
-    return b.doc_count - a.doc_count
-  } )
+    /* Both are selected or not selected
+       Sort by descending doc_count */
+    return b.doc_count - a.doc_count;
+  } );
 
-  return retVal
-}
+  return retVal;
+};
 
 /**
 * Safely format a date
@@ -239,8 +239,8 @@ export const sortSelThenCount = ( options, selected ) => {
 * @returns {string} the date formatted for the current locale
 */
 export function shortFormat( date ) {
-  const wrapped = dayjs( date )
-  return date ? wrapped.format( 'M/D/YYYY' ) : ''
+  const wrapped = dayjs( date );
+  return date ? wrapped.format( 'M/D/YYYY' ) : '';
 }
 
 /**
@@ -250,7 +250,7 @@ export function shortFormat( date ) {
 * @returns {string} the date formatted as yyyy-mm-ddd
 */
 export function shortIsoFormat( date ) {
-  return date ? date.toISOString().substring( 0, 10 ) : ''
+  return date ? date.toISOString().substring( 0, 10 ) : '';
 }
 
 /**
@@ -261,21 +261,21 @@ export function shortIsoFormat( date ) {
 export function startOfToday() {
   if ( !window.hasOwnProperty( 'MAX_DATE' ) ) {
     if ( window.hasOwnProperty( 'complaint_public_metadata' ) ) {
-      const { metadata_timestamp: stamp } = window.complaint_public_metadata
-      window.MAX_DATE = new Date( dayjs( stamp ).startOf( 'day' ).toString() )
+      const { metadata_timestamp: stamp } = window.complaint_public_metadata;
+      window.MAX_DATE = new Date( dayjs( stamp ).startOf( 'day' ).toString() );
     } else {
       // eslint-disable-next-line no-console
-      console.error( 'complaint_public_metadata is missing' )
-      window.MAX_DATE = new Date( dayjs().startOf( 'day' ).toString() )
+      console.error( 'complaint_public_metadata is missing' );
+      window.MAX_DATE = new Date( dayjs().startOf( 'day' ).toString() );
     }
   }
 
   // Always return a clone so the global is not exposed or changed
-  return new Date( window.MAX_DATE.valueOf() )
+  return new Date( window.MAX_DATE.valueOf() );
 }
 
-// ----------------------------------------------------------------------------
-// attribution: underscore.js (MIT License)
+/* ----------------------------------------------------------------------------
+   attribution: underscore.js (MIT License) */
 
 /**
 * Delay the implementation of a function until after a period of time
@@ -287,22 +287,22 @@ export function startOfToday() {
 * @returns {function} a replacement function to use in place of the original
 */
 export function debounce( func, wait ) {
-  var timer = null;
+  let timer = null;
 
-  var later = ( context, args ) => {
+  const later = ( context, args ) => {
     timer = null;
     func.apply( context, args );
-  }
+  };
 
   return ( ...theArgs ) => {
     if ( !timer ) {
-      timer = setTimeout( later, wait, this, theArgs )
+      timer = setTimeout( later, wait, this, theArgs );
     }
-  }
+  };
 }
 
-// ----------------------------------------------------------------------------
-// attribution: lodash.js (Creative Commons License)
+/* ----------------------------------------------------------------------------
+   attribution: lodash.js (Creative Commons License) */
 
 /**
 * Binds methods of an object to the object itself, overwriting the existing
@@ -314,10 +314,10 @@ export function debounce( func, wait ) {
 * @returns {Object} the updated object
 */
 export function bindAll( obj, methodNames ) {
-  const length = methodNames.length
+  const length = methodNames.length;
   for ( let i = 0; i < length; i++ ) {
-    const key = methodNames[i]
-    obj[key] = obj[key].bind( obj )
+    const key = methodNames[i];
+    obj[key] = obj[key].bind( obj );
   }
   return obj;
 }
@@ -336,7 +336,7 @@ export function getFullUrl( uri ) {
   // https://gist.github.com/jlong/2428561
   const parser = document.createElement( 'a' );
   parser.href = uri;
-  return parser.href
+  return parser.href;
 }
 
 /**
@@ -349,7 +349,7 @@ export function processErrorMessage( err ) {
     name: err.name,
     message: err.message,
     stack: err.stack
-  }
+  };
 }
 
 /**
@@ -374,8 +374,8 @@ export const getSubKeyName = bucket => {
       return k;
     }
   }
-  return ''
-}
+  return '';
+};
 
 
 /**
@@ -389,13 +389,13 @@ export const processUrlArrayParams = ( params, processed, arrayParams ) => {
   arrayParams.forEach( field => {
     if ( typeof params[field] !== 'undefined' ) {
       if ( typeof params[field] === 'string' ) {
-        processed[field] = [ params[field] ]
+        processed[field] = [ params[field] ];
       } else {
-        processed[field] = params[field]
+        processed[field] = params[field];
       }
     }
-  } )
-}
+  } );
+};
 
 /**
  * gets a filter and its subagg filters
@@ -404,15 +404,15 @@ export const processUrlArrayParams = ( params, processed, arrayParams ) => {
  * @returns {Set<any>} returns a set of uniques Debt, Debt*Foo
  */
 export const getAllFilters = ( filterKey, subitems ) => {
-  const values = new Set()
+  const values = new Set();
   // Add the parent
-  values.add( filterKey )
+  values.add( filterKey );
   // Add the shown subitems
   subitems.forEach( sub => {
-    values.add( slugify( filterKey, sub.key ) )
-  } )
-  return values
-}
+    values.add( slugify( filterKey, sub.key ) );
+  } );
+  return values;
+};
 
 /**
  * Wrapper around analytics event action creator to minimize the copypasta
@@ -422,5 +422,5 @@ export const getAllFilters = ( filterKey, subitems ) => {
 export const sendAnalyticsEvent = ( action, label ) => {
   Analytics.sendEvent(
     Analytics.getDataLayerOptions( action, label )
-  )
-}
+  );
+};

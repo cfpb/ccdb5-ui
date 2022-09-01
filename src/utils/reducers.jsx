@@ -2,8 +2,8 @@
  * contains common utility functions we use in the reducers
  */
 
-import * as types from '../constants'
-import { getSubLens } from './trends'
+import * as types from '../constants';
+import { getSubLens } from './trends';
 
 /**
  * helper function to enforce valid values when someone pastes in a url
@@ -49,17 +49,17 @@ export const enforceValues = ( value, field ) => {
       defaultVal: types.MODE_TRENDS,
       values: [ types.MODE_TRENDS, types.MODE_LIST, types.MODE_MAP ]
     }
-  }
+  };
   if ( valMap[field] ) {
-    const validValues = valMap[field]
+    const validValues = valMap[field];
     if ( validValues.values.includes( value ) ) {
-      return value
+      return value;
     }
-    return validValues.defaultVal
+    return validValues.defaultVal;
   }
 
-  return value
-}
+  return value;
+};
 
 /**
  * helper function to make sure the proper chartType is selected for trends
@@ -69,19 +69,19 @@ export const enforceValues = ( value, field ) => {
  * @returns {object} state modified state
  */
 export const validateTrendsReducer = state => {
-  state.chartType = enforceValues( state.chartType, 'chartType' )
-  state.chartType = state.lens === 'Overview' ? 'line' : state.chartType
+  state.chartType = enforceValues( state.chartType, 'chartType' );
+  state.chartType = state.lens === 'Overview' ? 'line' : state.chartType;
 
   const validLens = {
     Overview: [ '' ],
     Company: [ 'product' ],
     Product: [ 'sub_product', 'issue' ]
-  }
+  };
 
   if ( validLens[state.lens] &&
     !validLens[state.lens].includes( state.subLens ) ) {
-    state.subLens = getSubLens( state.lens )
+    state.subLens = getSubLens( state.lens );
   }
 
-  return state
-}
+  return state;
+};

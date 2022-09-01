@@ -1,13 +1,13 @@
-import { REQUERY_ALWAYS, REQUERY_NEVER } from '../constants'
+import { REQUERY_ALWAYS, REQUERY_NEVER } from '../constants';
 
-export const CHART_TYPE_CHANGED = 'CHART_TYPE_CHANGED'
-export const DATA_LENS_CHANGED = 'DATA_LENS_CHANGED'
-export const DATA_SUBLENS_CHANGED = 'DATA_SUBLENS_CHANGED'
-export const DEPTH_CHANGED = 'DEPTH_CHANGED'
-export const DEPTH_RESET = 'DEPTH_RESET'
-export const FOCUS_CHANGED = 'FOCUS_CHANGED'
-export const FOCUS_REMOVED = 'FOCUS_REMOVED'
-export const TRENDS_TOOLTIP_CHANGED = 'TRENDS_TOOLTIP_CHANGED'
+export const CHART_TYPE_CHANGED = 'CHART_TYPE_CHANGED';
+export const DATA_LENS_CHANGED = 'DATA_LENS_CHANGED';
+export const DATA_SUBLENS_CHANGED = 'DATA_SUBLENS_CHANGED';
+export const DEPTH_CHANGED = 'DEPTH_CHANGED';
+export const DEPTH_RESET = 'DEPTH_RESET';
+export const FOCUS_CHANGED = 'FOCUS_CHANGED';
+export const FOCUS_REMOVED = 'FOCUS_REMOVED';
+export const TRENDS_TOOLTIP_CHANGED = 'TRENDS_TOOLTIP_CHANGED';
 
 /**
  * Notifies the application that chart type toggled
@@ -20,7 +20,7 @@ export function changeChartType( chartType ) {
     type: CHART_TYPE_CHANGED,
     chartType,
     requery: REQUERY_NEVER
-  }
+  };
 }
 
 /**
@@ -34,7 +34,7 @@ export function changeDataLens( lens ) {
     type: DATA_LENS_CHANGED,
     lens,
     requery: REQUERY_ALWAYS
-  }
+  };
 }
 
 /**
@@ -48,7 +48,7 @@ export function changeDataSubLens( subLens ) {
     type: DATA_SUBLENS_CHANGED,
     requery: REQUERY_ALWAYS,
     subLens
-  }
+  };
 }
 
 /**
@@ -62,7 +62,7 @@ export function changeDepth( depth ) {
     type: DEPTH_CHANGED,
     requery: REQUERY_ALWAYS,
     depth
-  }
+  };
 }
 
 /**
@@ -74,7 +74,7 @@ export function resetDepth() {
   return {
     type: DEPTH_RESET,
     requery: REQUERY_ALWAYS
-  }
+  };
 }
 
 /**
@@ -92,7 +92,7 @@ export function changeFocus( focus, lens, filterValues ) {
     filterValues,
     focus,
     lens
-  }
+  };
 }
 
 /**
@@ -104,7 +104,7 @@ export function removeFocus() {
   return {
     type: FOCUS_REMOVED,
     requery: REQUERY_ALWAYS
-  }
+  };
 }
 
 /**
@@ -118,5 +118,5 @@ export function updateTrendsTooltip( value ) {
     type: TRENDS_TOOLTIP_CHANGED,
     value,
     requery: REQUERY_NEVER
-  }
+  };
 }

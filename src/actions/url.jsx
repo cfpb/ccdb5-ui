@@ -1,8 +1,8 @@
-import { sendQuery } from './complaints'
+import { sendQuery } from './complaints';
 
 const queryString = require( 'query-string' );
 
-export const URL_CHANGED = 'URL_CHANGED'
+export const URL_CHANGED = 'URL_CHANGED';
 //-----------------------------------------------------------------------------
 
 /**
@@ -18,7 +18,7 @@ export function processLocation( location ) {
   return {
     pathname: location.pathname,
     params
-  }
+  };
 }
 
 //-----------------------------------------------------------------------------
@@ -35,7 +35,7 @@ export function urlChanged( pathname, params ) {
     type: URL_CHANGED,
     pathname,
     params
-  }
+  };
 }
 
 /**
@@ -47,7 +47,7 @@ export function urlChanged( pathname, params ) {
 export default function announceUrlChanged( location ) {
   const { pathname, params } = processLocation( location );
   return dispatch => {
-    dispatch( urlChanged( pathname, params ) )
-    dispatch( sendQuery() )
-  }
+    dispatch( urlChanged( pathname, params ) );
+    dispatch( sendQuery() );
+  };
 }

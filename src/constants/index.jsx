@@ -1,37 +1,37 @@
 // Internal triggers
-export const MODAL_HID = 'MODAL_HID'
-export const MODAL_SHOWN = 'MODAL_SHOWN'
+export const MODAL_HID = 'MODAL_HID';
+export const MODAL_SHOWN = 'MODAL_SHOWN';
 
-export const DATE_RANGE_MIN = '2011-12-01T12:00:00.000Z'
+export const DATE_RANGE_MIN = '2011-12-01T12:00:00.000Z';
 
-// dayjs formatter to uses for custom validation
-// https://day.js.org/docs/en/parse/string-format
+/* dayjs formatter to uses for custom validation
+   https://day.js.org/docs/en/parse/string-format */
 export const DATE_VALIDATION_FORMAT = 'M/D/YYYY';
 
 
 // Modal Dialogs
-export const MODAL_TYPE_DATA_EXPORT = 'MODAL_TYPE_DATA_EXPORT'
-export const MODAL_TYPE_MORE_ABOUT = 'MODAL_TYPE_MORE_ABOUT'
+export const MODAL_TYPE_DATA_EXPORT = 'MODAL_TYPE_DATA_EXPORT';
+export const MODAL_TYPE_MORE_ABOUT = 'MODAL_TYPE_MORE_ABOUT';
 
 
 // view modes
-export const MODE_MAP = 'Map'
-export const MODE_LIST = 'List'
-export const MODE_TRENDS = 'Trends'
+export const MODE_MAP = 'Map';
+export const MODE_LIST = 'List';
+export const MODE_TRENDS = 'Trends';
 
 // map normalization modes
-export const GEO_NORM_NONE = 'None'
-export const GEO_NORM_PER1000 = 'Per 1000 pop.'
+export const GEO_NORM_NONE = 'None';
+export const GEO_NORM_PER1000 = 'Per 1000 pop.';
 
 // Useful constants
-export const NARRATIVE_SEARCH_FIELD = 'complaint_what_happened'
+export const NARRATIVE_SEARCH_FIELD = 'complaint_what_happened';
 
-// query manager flags
-// These constants control how the query manager works
-export const REQUERY_ALWAYS = 'REQUERY_ALWAYS'
-export const REQUERY_HITS_ONLY = 'REQUERY_HITS_ONLY'
+/* query manager flags
+   These constants control how the query manager works */
+export const REQUERY_ALWAYS = 'REQUERY_ALWAYS';
+export const REQUERY_HITS_ONLY = 'REQUERY_HITS_ONLY';
 // default if not specified
-export const REQUERY_NEVER = 'REQUERY_NEVER'
+export const REQUERY_NEVER = 'REQUERY_NEVER';
 
 export const knownFilters = [
   'company',
@@ -46,17 +46,17 @@ export const knownFilters = [
   'tags',
   'timely',
   'zip_code'
-]
+];
 
 export const dateFilters = [
   'company_received_max',
   'company_received_min',
   'date_received_max',
   'date_received_min'
-]
+];
 
-export const dateIntervals = [ 'Day', 'Week', 'Month', 'Quarter', 'Year' ]
-export const dateRanges = [ '3m', '6m', '1y', '3y', 'All' ]
+export const dateIntervals = [ 'Day', 'Week', 'Month', 'Quarter', 'Year' ];
+export const dateRanges = [ '3m', '6m', '1y', '3y', 'All' ];
 
 // list of fields that we don't include in the URL or Query to keep things tidy
 export const excludeFields = [
@@ -64,23 +64,23 @@ export const excludeFields = [
   'mapWarningEnabled',
   'totalPages',
   'trendsDateWarningEnabled'
-]
+];
 
 export const flagFilters = [
   'has_narrative'
-]
+];
 
 // these filters we need to shim subItems when a parent is selected
-export const filterPatch = [ 'issue', 'product' ]
+export const filterPatch = [ 'issue', 'product' ];
 
-export const lenses = [ 'Overview', 'Company', 'Product' ]
+export const lenses = [ 'Overview', 'Company', 'Product' ];
 
 export const sizes = {
   10: '10 results',
   25: '25 results',
   50: '50 results',
   100: '100 results'
-}
+};
 
 /* eslint-disable camelcase */
 
@@ -89,22 +89,22 @@ export const sorts = {
   created_date_asc: 'Oldest to newest',
   relevance_desc: 'Relevance',
   relevance_asc: 'Relevance (asc)'
-}
+};
 
 /* eslint-enable camelcase */
 
-export const SLUG_SEPARATOR = '•'
+export const SLUG_SEPARATOR = '•';
 
 // Keyboard
-export const VK_DOWN = 40
-export const VK_ENTER = 14
-export const VK_ESCAPE = 27
-export const VK_RETURN = 13
-export const VK_TAB = 9
-export const VK_UP = 38
+export const VK_DOWN = 40;
+export const VK_ENTER = 14;
+export const VK_ESCAPE = 27;
+export const VK_RETURN = 13;
+export const VK_TAB = 9;
+export const VK_UP = 38;
 
-/// ////////////////////////////////////////////////////////////////////////////
-// JSON Objects
+/* / ////////////////////////////////////////////////////////////////////////////
+    JSON Objects */
 
 export const THESE_UNITED_STATES = {
   AA: 'Armed Forces Americas',
@@ -169,7 +169,7 @@ export const THESE_UNITED_STATES = {
   WV: 'West Virginia',
   WI: 'Wisconsin',
   WY: 'Wyoming'
-}
+};
 
 export const TILE_MAP_STATES = [
   'AK',
@@ -223,13 +223,13 @@ export const TILE_MAP_STATES = [
   'WI',
   'WV',
   'WY'
-]
+];
 
-// 2017 ACS census via the census API:
-// https://api.census.gov/data/2017/acs/acs5?get=B01003_001E,NAME&for=state
-//
-// B01003_001E is defined as TOTAL POPULATION
-// (detailed here: https://api.census.gov/data/2016/acs/acs5/variables.html)
+/* 2017 ACS census via the census API:
+   https://api.census.gov/data/2017/acs/acs5?get=B01003_001E,NAME&for=state
+
+   B01003_001E is defined as TOTAL POPULATION
+   (detailed here: https://api.census.gov/data/2016/acs/acs5/variables.html) */
 export const STATE_DATA = {
   AL: {
     abbr: 'AL',
@@ -543,4 +543,4 @@ export const STATE_DATA = {
     population: '583200',
     id: '56'
   }
-}
+};

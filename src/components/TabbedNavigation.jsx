@@ -1,18 +1,18 @@
-import './TabbedNavigation.less'
-import { connect } from 'react-redux'
-import iconMap from './iconMap'
-import React from 'react'
-import { tabChanged } from '../actions/view'
+import './TabbedNavigation.less';
+import { connect } from 'react-redux';
+import iconMap from './iconMap';
+import React from 'react';
+import { tabChanged } from '../actions/view';
 
 export class TabbedNavigation extends React.Component {
   _getTabClass( tab ) {
-    const tabName = tab.toLowerCase() + ' tab'
-    return this.props.tab === tab ? tabName + ' active' : tabName
+    const tabName = tab.toLowerCase() + ' tab';
+    return this.props.tab === tab ? tabName + ' active' : tabName;
   }
 
   render() {
     return (
-      <div className="tabbed-navigation">
+      <div className='tabbed-navigation'>
         <section>
           <button
             className={ this._getTabClass( 'Trends' ) }
@@ -22,7 +22,7 @@ export class TabbedNavigation extends React.Component {
           </button>
 
           <button className={ this._getTabClass( 'List' ) }
-                  onClick={ () => this.props.onTab( 'List' ) }>
+            onClick={ () => this.props.onTab( 'List' ) }>
             { iconMap.getIcon( 'list' ) }
             List
           </button>
@@ -41,13 +41,13 @@ export class TabbedNavigation extends React.Component {
 
 export const mapStateToProps = state => ( {
   tab: state.query.tab
-} )
+} );
 
 export const mapDispatchToProps = dispatch => ( {
   onTab: tab => {
-    dispatch( tabChanged( tab ) )
+    dispatch( tabChanged( tab ) );
   }
-} )
+} );
 
 export default connect( mapStateToProps,
-  mapDispatchToProps )( TabbedNavigation )
+  mapDispatchToProps )( TabbedNavigation );

@@ -1,13 +1,13 @@
-import './FilterPanelToggle.less'
-import { connect } from 'react-redux'
-import { filterVisibilityToggled } from '../../actions/view'
-import React from 'react'
+import './FilterPanelToggle.less';
+import { connect } from 'react-redux';
+import { filterVisibilityToggled } from '../../actions/view';
+import React from 'react';
 
 export class FilterPanelToggle extends React.Component {
   render() {
     return (
-      <section className="filter-panel-toggle">
-        <div className="m-btn-group">
+      <section className='filter-panel-toggle'>
+        <div className='m-btn-group'>
           <p>&nbsp;</p>
           <button
             className={ 'a-btn' }
@@ -16,19 +16,19 @@ export class FilterPanelToggle extends React.Component {
           </button>
         </div>
       </section>
-    )
+    );
   }
 }
 
 export const mapStateToProps = state => ( {
   showFilters: state.view.showFilters
-} )
+} );
 
 export const mapDispatchToProps = dispatch => ( {
   onFilterToggle: () => {
-    dispatch( filterVisibilityToggled() )
+    dispatch( filterVisibilityToggled() );
   }
 } );
 
 export default connect( mapStateToProps,
-  mapDispatchToProps )( FilterPanelToggle )
+  mapDispatchToProps )( FilterPanelToggle );

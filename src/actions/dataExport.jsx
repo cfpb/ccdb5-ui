@@ -1,15 +1,15 @@
-// Tip of the hat to:
-// https://stackoverflow.com/questions/35623656
-// https://stackoverflow.com/questions/3916191
+/* Tip of the hat to:
+   https://stackoverflow.com/questions/35623656
+   https://stackoverflow.com/questions/3916191 */
 
-import { buildLink, simulateClick } from './domUtils'
-import { MODAL_SHOWN, MODAL_TYPE_DATA_EXPORT } from '../constants'
-import { stateToQS } from '../reducers/query'
+import { buildLink, simulateClick } from './domUtils';
+import { MODAL_SHOWN, MODAL_TYPE_DATA_EXPORT } from '../constants';
+import { stateToQS } from '../reducers/query';
 
-const DATA_HOST = 'https://files.consumerfinance.gov'
+const DATA_HOST = 'https://files.consumerfinance.gov';
 
-// ----------------------------------------------------------------------------
-// Useful methods
+/* ----------------------------------------------------------------------------
+   Useful methods */
 
 /**
 * Builds the URI for exporting all results
@@ -18,7 +18,7 @@ const DATA_HOST = 'https://files.consumerfinance.gov'
 * @returns {string} the URI for the specific type of format
 */
 export function buildAllResultsUri( format ) {
-  return DATA_HOST + '/ccdb/complaints.' + format + '.zip'
+  return DATA_HOST + '/ccdb/complaints.' + format + '.zip';
 }
 
 /**
@@ -30,18 +30,18 @@ export function buildAllResultsUri( format ) {
 * @returns {string} the URI for the specific type of format
 */
 export function buildSomeResultsUri( format, size, queryState ) {
-  const params = { ...queryState }
+  const params = { ...queryState };
 
-  params.size = size
-  params.format = format
+  params.size = size;
+  params.format = format;
   // eslint-disable-next-line camelcase
-  params.no_aggs = true
+  params.no_aggs = true;
 
-  return '@@API' + stateToQS( params )
+  return '@@API' + stateToQS( params );
 }
 
-// ----------------------------------------------------------------------------
-// Action Creators
+/* ----------------------------------------------------------------------------
+   Action Creators */
 
 /**
 * Notifies the application that the export dialog box should appear
@@ -53,7 +53,7 @@ export function showExportDialog() {
     type: MODAL_SHOWN,
     modalType: MODAL_TYPE_DATA_EXPORT,
     modalProps: {}
-  }
+  };
 }
 
 /**
@@ -64,10 +64,10 @@ export function showExportDialog() {
 */
 export function exportAllResults( format ) {
   return () => {
-    const uri = buildAllResultsUri( format )
-    const link = buildLink( uri, 'download.' + format )
-    simulateClick( link )
-  }
+    const uri = buildAllResultsUri( format );
+    const link = buildLink( uri, 'download.' + format );
+    simulateClick( link );
+  };
 }
 
 /**
@@ -79,8 +79,8 @@ export function exportAllResults( format ) {
 */
 export function exportSomeResults( format, size ) {
   return ( _, getState ) => {
-    const uri = buildSomeResultsUri( format, size, getState().query )
-    const link = buildLink( uri, 'download.' + format )
-    simulateClick( link )
-  }
+    const uri = buildSomeResultsUri( format, size, getState().query );
+    const link = buildLink( uri, 'download.' + format );
+    simulateClick( link );
+  };
 }

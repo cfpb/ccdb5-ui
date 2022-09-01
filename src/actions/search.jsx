@@ -1,7 +1,7 @@
-import { REQUERY_ALWAYS } from '../constants'
+import { REQUERY_ALWAYS } from '../constants';
 
-export const SEARCH_FIELD_CHANGED = 'SEARCH_FIELD_CHANGED'
-export const SEARCH_TEXT_CHANGED = 'SEARCH_TEXT_CHANGED'
+export const SEARCH_FIELD_CHANGED = 'SEARCH_FIELD_CHANGED';
+export const SEARCH_TEXT_CHANGED = 'SEARCH_TEXT_CHANGED';
 
 /**
 * Notifies the application that a new search field is being executed
@@ -14,7 +14,7 @@ export function searchFieldChanged( searchField ) {
     type: SEARCH_FIELD_CHANGED,
     searchField,
     requery: REQUERY_ALWAYS
-  }
+  };
 }
 
 /**
@@ -28,5 +28,5 @@ export function searchTextChanged( searchText ) {
     type: SEARCH_TEXT_CHANGED,
     searchText,
     requery: REQUERY_ALWAYS
-  }
+  };
 }

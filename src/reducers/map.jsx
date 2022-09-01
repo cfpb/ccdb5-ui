@@ -1,8 +1,8 @@
 // reducer for the Map Tab
-import actions from '../actions'
-import { processAggregations } from './trends'
-import { processErrorMessage } from '../utils'
-import { TILE_MAP_STATES } from '../constants'
+import actions from '../actions';
+import { processAggregations } from './trends';
+import { processErrorMessage } from '../utils';
+import { TILE_MAP_STATES } from '../constants';
 
 export const defaultState = {
   activeCall: '',
@@ -11,7 +11,7 @@ export const defaultState = {
     product: [],
     state: []
   }
-}
+};
 
 export const processStateAggregations = agg => {
   const states = Object.values( agg.state.buckets )
@@ -21,23 +21,23 @@ export const processStateAggregations = agg => {
       value: o.doc_count,
       issue: o.issue.buckets[0].key,
       product: o.product.buckets[0].key
-    } ) )
+    } ) );
 
-  const stateNames = states.map( o => o.name )
+  const stateNames = states.map( o => o.name );
 
   // patch any missing data
   if ( stateNames.length > 0 ) {
     TILE_MAP_STATES.forEach( o => {
       if ( !stateNames.includes( o ) ) {
-        states.push( { name: o, value: 0, issue: '', product: '' } )
+        states.push( { name: o, value: 0, issue: '', product: '' } );
       }
-    } )
+    } );
   }
-  return states
-}
+  return states;
+};
 
-// ----------------------------------------------------------------------------
-// Action Handlers
+/* ----------------------------------------------------------------------------
+   Action Handlers */
 
 /**
  * Updates the state when an tab changed occurs, reset values to start clean
@@ -52,7 +52,7 @@ export function handleTabChanged( state ) {
       product: [],
       state: []
     }
-  }
+  };
 }
 
 /**
@@ -67,7 +67,7 @@ export function statesCallInProcess( state, action ) {
     ...state,
     activeCall: action.url,
     isLoading: true
-  }
+  };
 }
 
 /**
@@ -78,20 +78,20 @@ export function statesCallInProcess( state, action ) {
  * @returns {object} new state for the Redux store
  */
 export function processStatesResults( state, action ) {
-  const aggregations = action.data.aggregations
-  const { state: stateData } = aggregations
+  const aggregations = action.data.aggregations;
+  const { state: stateData } = aggregations;
   // add in "issue" if we ever need issue row chart again
-  const keys = [ 'product' ]
-  const results = {}
-  processAggregations( keys, state, aggregations, results )
-  results.state = processStateAggregations( stateData )
+  const keys = [ 'product' ];
+  const results = {};
+  processAggregations( keys, state, aggregations, results );
+  results.state = processStateAggregations( stateData );
 
   return {
     ...state,
     activeCall: '',
     isLoading: false,
     results
-  }
+  };
 }
 
 /**
@@ -111,11 +111,11 @@ export function processStatesError( state, action ) {
       product: [],
       state: []
     }
-  }
+  };
 }
 
-// ----------------------------------------------------------------------------
-// Action Handlers
+/* ----------------------------------------------------------------------------
+   Action Handlers */
 
 /**
  * Creates a hash table of action types to handlers
@@ -123,17 +123,17 @@ export function processStatesError( state, action ) {
  * @returns {object} a map of types to functions
  */
 export function _buildHandlerMap() {
-  const handlers = {}
+  const handlers = {};
 
-  handlers[actions.STATES_API_CALLED] = statesCallInProcess
-  handlers[actions.STATES_RECEIVED] = processStatesResults
-  handlers[actions.STATES_FAILED] = processStatesError
-  handlers[actions.TAB_CHANGED] = handleTabChanged
+  handlers[actions.STATES_API_CALLED] = statesCallInProcess;
+  handlers[actions.STATES_RECEIVED] = processStatesResults;
+  handlers[actions.STATES_FAILED] = processStatesError;
+  handlers[actions.TAB_CHANGED] = handleTabChanged;
 
-  return handlers
+  return handlers;
 }
 
-const _handlers = _buildHandlerMap()
+const _handlers = _buildHandlerMap();
 
 /**
  * Routes an action to an appropriate handler
@@ -144,13 +144,13 @@ const _handlers = _buildHandlerMap()
  */
 function handleSpecificAction( state, action ) {
   if ( action.type in _handlers ) {
-    return _handlers[action.type]( state, action )
+    return _handlers[action.type]( state, action );
   }
 
-  return state
+  return state;
 }
 
 export default ( state = defaultState, action ) => {
-  const newState = handleSpecificAction( state, action )
-  return newState
-}
+  const newState = handleSpecificAction( state, action );
+  return newState;
+};

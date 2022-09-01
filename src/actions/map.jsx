@@ -1,10 +1,10 @@
-import { REQUERY_ALWAYS, REQUERY_NEVER } from '../constants'
+import { REQUERY_ALWAYS, REQUERY_NEVER } from '../constants';
 
-export const DATA_NORMALIZATION_SELECTED = 'DATA_NORMALIZATION_SELECTED'
-export const STATE_COMPLAINTS_SHOWN = 'STATE_COMPLAINTS_SHOWN'
-export const STATE_FILTER_ADDED = 'STATE_FILTER_ADDED'
-export const STATE_FILTER_CLEARED = 'STATE_FILTER_CLEARED'
-export const STATE_FILTER_REMOVED = 'STATE_FILTER_REMOVED'
+export const DATA_NORMALIZATION_SELECTED = 'DATA_NORMALIZATION_SELECTED';
+export const STATE_COMPLAINTS_SHOWN = 'STATE_COMPLAINTS_SHOWN';
+export const STATE_FILTER_ADDED = 'STATE_FILTER_ADDED';
+export const STATE_FILTER_CLEARED = 'STATE_FILTER_CLEARED';
+export const STATE_FILTER_REMOVED = 'STATE_FILTER_REMOVED';
 
 
 /**
@@ -31,7 +31,7 @@ export function addStateFilter( selectedState ) {
     type: STATE_FILTER_ADDED,
     selectedState,
     requery: REQUERY_ALWAYS
-  }
+  };
 }
 
 /**
@@ -43,7 +43,7 @@ export function clearStateFilter( ) {
   return {
     type: STATE_FILTER_CLEARED,
     requery: REQUERY_ALWAYS
-  }
+  };
 }
 
 /**
@@ -55,7 +55,7 @@ export function showStateComplaints() {
   return {
     type: STATE_COMPLAINTS_SHOWN,
     requery: REQUERY_ALWAYS
-  }
+  };
 }
 
 /**
@@ -69,5 +69,5 @@ export function removeStateFilter( selectedState ) {
     type: STATE_FILTER_REMOVED,
     selectedState,
     requery: REQUERY_ALWAYS
-  }
+  };
 }

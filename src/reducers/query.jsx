@@ -1,5 +1,5 @@
 /* eslint complexity: ["error", 5] */
-import * as types from '../constants'
+import * as types from '../constants';
 import {
   calculateDateRange,
   clamp,
@@ -8,13 +8,13 @@ import {
   processUrlArrayParams,
   shortIsoFormat,
   startOfToday
-} from '../utils'
-import { enforceValues, validateTrendsReducer } from '../utils/reducers'
-import actions from '../actions'
-import dayjs from 'dayjs'
-import { isGreaterThanYear } from '../utils/trends'
+} from '../utils';
+import { enforceValues, validateTrendsReducer } from '../utils/reducers';
+import actions from '../actions';
+import dayjs from 'dayjs';
+import { isGreaterThanYear } from '../utils/trends';
 
-const queryString = require( 'query-string' )
+const queryString = require( 'query-string' );
 
 /* eslint-disable camelcase */
 export const defaultQuery = {
@@ -43,31 +43,31 @@ export const defaultQuery = {
   totalPages: 0,
   trendDepth: 5,
   trendsDateWarningEnabled: false
-}
+};
 
 const fieldMap = {
   searchAfter: 'search_after',
   searchText: 'search_term',
   searchField: 'field',
   from: 'frm'
-}
+};
 
 const trendFieldMap = {
   dateInterval: 'trend_interval',
   lens: 'lens',
   subLens: 'sub_lens',
   trendDepth: 'trend_depth'
-}
+};
 
 const urlParams = [
   'chartType', 'dataNormalization', 'dateInterval', 'dateRange', 'focus',
   'lens', 'searchText', 'searchField', 'sort', 'subLens', 'tab'
-]
+];
 
-const urlParamsInt = [ 'from', 'page', 'size', 'trendDepth' ]
+const urlParamsInt = [ 'from', 'page', 'size', 'trendDepth' ];
 
-// ----------------------------------------------------------------------------
-// Helper functions
+/* ----------------------------------------------------------------------------
+   Helper functions */
 
 /* eslint-disable complexity */
 
@@ -79,15 +79,15 @@ const urlParamsInt = [ 'from', 'page', 'size', 'trendDepth' ]
 */
 export function alignDateRange( state ) {
   // Shorten the input field names
-  const dateMax = state.date_received_max
-  const dateMin = state.date_received_min
+  const dateMax = state.date_received_max;
+  const dateMin = state.date_received_min;
 
   // All
   if ( dayjs( dateMax ).isSame( defaultQuery.date_received_max ) &&
     dayjs( dateMin ).isSame( types.DATE_RANGE_MIN )
   ) {
-    state.dateRange = 'All'
-    return state
+    state.dateRange = 'All';
+    return state;
   }
 
   const rangeMap = {
@@ -95,25 +95,25 @@ export function alignDateRange( state ) {
     '3m': new Date( dayjs( dateMax ).subtract( 3, 'months' ) ),
     '6m': new Date( dayjs( dateMax ).subtract( 6, 'months' ) ),
     '1y': new Date( dayjs( dateMax ).subtract( 1, 'year' ) )
-  }
-  const ranges = Object.keys( rangeMap )
-  let matched = false
+  };
+  const ranges = Object.keys( rangeMap );
+  let matched = false;
 
   for ( let i = 0; i < ranges.length && !matched; i++ ) {
-    const range = ranges[i]
+    const range = ranges[i];
 
     if ( dayjs( dateMin ).isSame( rangeMap[range], 'day' ) ) {
-      state.dateRange = range
-      matched = true
+      state.dateRange = range;
+      matched = true;
     }
   }
 
   // No matches, clear
   if ( !matched ) {
-    state.dateRange = ''
+    state.dateRange = '';
   }
 
-  return state
+  return state;
 }
 
 
@@ -126,17 +126,17 @@ export function alignDateRange( state ) {
 * @returns {Boolean} true if the params meet this condition
 */
 export function dateRangeNoDates( params ) {
-  const keys = Object.keys( params )
+  const keys = Object.keys( params );
 
   return (
     keys.includes( 'dateRange' ) &&
     !keys.includes( 'date_received_min' ) &&
     !keys.includes( 'date_received_max' )
-  )
+  );
 }
 
-// ----------------------------------------------------------------------------
-// Complex reduction logic
+/* ----------------------------------------------------------------------------
+   Complex reduction logic */
 
 /**
 * Safely converts a string to a local date
@@ -146,20 +146,20 @@ export function dateRangeNoDates( params ) {
 */
 export function toDate( value ) {
   if ( isNaN( Date.parse( value ) ) ) {
-    return null
+    return null;
   }
 
-  // Adjust UTC to local timezone
-  // This code adjusts for daylight saving time
-  // but does not work for locations east of Greenwich
-  const utcDate = new Date( value )
+  /* Adjust UTC to local timezone
+     This code adjusts for daylight saving time
+     but does not work for locations east of Greenwich */
+  const utcDate = new Date( value );
   const localTimeThen = new Date(
     utcDate.getFullYear(),
     utcDate.getMonth(),
     utcDate.getDate() + 1
-  )
+  );
 
-  return localTimeThen
+  return localTimeThen;
 }
 
 /**
@@ -171,56 +171,56 @@ export function toDate( value ) {
 * the correct type
 */
 function processParams( state, action ) {
-  const params = action.params
-  let processed = Object.assign( {}, defaultQuery )
+  const params = action.params;
+  let processed = { ...defaultQuery };
 
   // Filter for known
   urlParams.forEach( field => {
     if ( typeof params[field] !== 'undefined' ) {
-      processed[field] = enforceValues( params[field], field )
+      processed[field] = enforceValues( params[field], field );
     }
-  } )
+  } );
 
   // Handle the aggregation filters
-  processUrlArrayParams( params, processed, types.knownFilters )
+  processUrlArrayParams( params, processed, types.knownFilters );
 
   // Handle date filters
   types.dateFilters.forEach( field => {
     if ( typeof params[field] !== 'undefined' ) {
-      const d = toDate( params[field] )
+      const d = toDate( params[field] );
       if ( d ) {
-        processed[field] = d
+        processed[field] = d;
       }
     }
-  } )
+  } );
 
   // Handle flag filters
   types.flagFilters.forEach( field => {
     if ( typeof params[field] !== 'undefined' ) {
-      processed[field] = params[field] === 'true'
+      processed[field] = params[field] === 'true';
     }
-  } )
+  } );
 
   // Handle numeric params
   urlParamsInt.forEach( field => {
     if ( typeof params[field] !== 'undefined' ) {
-      const n = parseInt( params[field], 10 )
+      const n = parseInt( params[field], 10 );
       if ( isNaN( n ) === false ) {
-        processed[field] = enforceValues( n, field )
+        processed[field] = enforceValues( n, field );
       }
     }
-  } )
+  } );
 
   // Apply the date range
   if ( dateRangeNoDates( params ) || params.dateRange === 'All' ) {
-    const innerAction = { dateRange: params.dateRange }
-    processed = changeDateRange( processed, innerAction )
+    const innerAction = { dateRange: params.dateRange };
+    processed = changeDateRange( processed, innerAction );
   }
 
   // this is always page 1 since we don't know breakPoints
   processed.page = 1;
 
-  return alignDateRange( processed )
+  return alignDateRange( processed );
 }
 
 /**
@@ -230,11 +230,11 @@ function processParams( state, action ) {
  * @returns {object} new state in redux
  */
 function changeDateInterval( state, action ) {
-  const dateInterval = enforceValues( action.dateInterval, 'dateInterval' )
+  const dateInterval = enforceValues( action.dateInterval, 'dateInterval' );
   return {
     ...state,
     dateInterval
-  }
+  };
 }
 
 /**
@@ -245,13 +245,13 @@ function changeDateInterval( state, action ) {
  * @returns {object} the new state for the Redux store
  */
 export function changeDateRange( state, action ) {
-  const dateRange = enforceValues( action.dateRange, 'dateRange' )
+  const dateRange = enforceValues( action.dateRange, 'dateRange' );
   const newState = {
     ...state,
     dateRange
-  }
+  };
 
-  const maxDate = startOfToday()
+  const maxDate = startOfToday();
 
   const res = {
     'All': new Date( types.DATE_RANGE_MIN ),
@@ -259,16 +259,16 @@ export function changeDateRange( state, action ) {
     '6m': new Date( dayjs( maxDate ).subtract( 6, 'months' ) ),
     '1y': new Date( dayjs( maxDate ).subtract( 1, 'year' ) ),
     '3y': new Date( dayjs( maxDate ).subtract( 3, 'years' ) )
-  }
+  };
 
   /* istanbul ignore else */
   if ( res[dateRange] ) {
-    newState.date_received_min = res[dateRange]
+    newState.date_received_min = res[dateRange];
   }
 
-  newState.date_received_max = maxDate
+  newState.date_received_max = maxDate;
 
-  return newState
+  return newState;
 }
 
 /**
@@ -282,37 +282,37 @@ export function changeDates( state, action ) {
   const fields = [
     action.filterName + '_min',
     action.filterName + '_max'
-  ]
+  ];
 
-  let { maxDate, minDate } = action
+  let { maxDate, minDate } = action;
 
   minDate = dayjs( minDate ).isValid() ?
-    new Date( dayjs( minDate ).startOf( 'day' ) ) : null
+    new Date( dayjs( minDate ).startOf( 'day' ) ) : null;
   maxDate = dayjs( maxDate ).isValid() ?
-    new Date( dayjs( maxDate ).startOf( 'day' ) ) : null
+    new Date( dayjs( maxDate ).startOf( 'day' ) ) : null;
 
 
   const newState = {
     ...state,
     [fields[0]]: minDate,
     [fields[1]]: maxDate
-  }
+  };
 
   // Remove nulls
   fields.forEach( field => {
     if ( newState[field] === null ) {
-      delete newState[field]
+      delete newState[field];
     }
-  } )
+  } );
 
-  const dateRange = calculateDateRange( minDate, maxDate )
+  const dateRange = calculateDateRange( minDate, maxDate );
   if ( dateRange ) {
-    newState.dateRange = dateRange
+    newState.dateRange = dateRange;
   } else {
-    delete newState.dateRange
+    delete newState.dateRange;
   }
 
-  return newState
+  return newState;
 }
 
 /**
@@ -322,17 +322,17 @@ export function changeDates( state, action ) {
  * @param {object} queryState the current state of query reducer
  */
 export function validateDateInterval( queryState ) {
-  const { date_received_min, date_received_max, dateInterval } = queryState
+  const { date_received_min, date_received_max, dateInterval } = queryState;
   // determine if we need to update date Interval if range > 1 yr
   if ( isGreaterThanYear( date_received_min, date_received_max ) &&
     dateInterval === 'Day' ) {
-    queryState.dateInterval = 'Week'
-    queryState.trendsDateWarningEnabled = true
+    queryState.dateInterval = 'Week';
+    queryState.trendsDateWarningEnabled = true;
   }
 
   // > 1yr, so we can go ahead and disable the warning
   if ( !isGreaterThanYear( date_received_min, date_received_max ) ) {
-    queryState.trendsDateWarningEnabled = false
+    queryState.trendsDateWarningEnabled = false;
   }
 }
 
@@ -349,19 +349,19 @@ export function toggleFlagFilter( state, action ) {
   const newState = {
     ...state,
     [action.filterName]: Boolean( !state[action.filterName] )
-  }
+  };
 
   /* eslint-enable camelcase */
 
   // Remove nulls
-  const fields = [ 'has_narrative' ]
+  const fields = [ 'has_narrative' ];
   fields.forEach( field => {
     if ( !newState[field] ) {
-      delete newState[field]
+      delete newState[field];
     }
-  } )
+  } );
 
-  return newState
+  return newState;
 }
 
 /**
@@ -376,7 +376,7 @@ export function changeSearchField( state, action ) {
     ...state,
     ...pagination,
     searchField: action.searchField
-  }
+  };
 }
 
 /**
@@ -391,7 +391,7 @@ export function changeSearchText( state, action ) {
     ...state,
     ...pagination,
     searchText: action.searchText
-  }
+  };
 }
 
 
@@ -403,20 +403,20 @@ export function changeSearchText( state, action ) {
 * @returns {object} the new state for the Redux store
 */
 export function addMultipleFilters( state, action ) {
-  const newState = { ...state }
-  const name = action.filterName
-  const a = coalesce( newState, name, [] )
+  const newState = { ...state };
+  const name = action.filterName;
+  const a = coalesce( newState, name, [] );
 
   // Add the filters
   action.values.forEach( x => {
     if ( a.indexOf( x ) === -1 ) {
-      a.push( x )
+      a.push( x );
     }
-  } )
+  } );
 
-  newState[name] = a
+  newState[name] = a;
 
-  return newState
+  return newState;
 }
 
 /**
@@ -451,9 +451,9 @@ export function toggleFilter( state, action ) {
     [action.filterName]: filterArrayAction(
       state[action.filterName], action.filterValue.key
     )
-  }
+  };
 
-  return newState
+  return newState;
 }
 
 /**
@@ -464,18 +464,18 @@ export function toggleFilter( state, action ) {
  * @returns {object} the new state for the Redux store
  */
 export function addStateFilter( state, action ) {
-  const stateFilters = coalesce( state, 'state', [] )
-  const { abbr } = action.selectedState
+  const stateFilters = coalesce( state, 'state', [] );
+  const { abbr } = action.selectedState;
   if ( !stateFilters.includes( abbr ) ) {
-    stateFilters.push( abbr )
+    stateFilters.push( abbr );
   }
 
   const newState = {
     ...state,
     state: stateFilters
-  }
+  };
 
-  return newState
+  return newState;
 }
 
 /**
@@ -488,9 +488,9 @@ export function clearStateFilter( state ) {
   const newState = {
     ...state,
     state: []
-  }
+  };
 
-  return newState
+  return newState;
 }
 
 /**
@@ -503,7 +503,7 @@ export function showStateComplaints( state ) {
   return {
     ...state,
     tab: types.MODE_LIST
-  }
+  };
 }
 
 /**
@@ -514,15 +514,15 @@ export function showStateComplaints( state ) {
  * @returns {object} the new state for the Redux store
  */
 export function removeStateFilter( state, action ) {
-  const stateFilters = coalesce( state, 'state', [] )
-  const { abbr } = action.selectedState
+  const stateFilters = coalesce( state, 'state', [] );
+  const { abbr } = action.selectedState;
 
   const newState = {
     ...state,
     state: stateFilters.filter( o => o !== abbr )
-  }
+  };
 
-  return newState
+  return newState;
 }
 
 /**
@@ -532,34 +532,34 @@ export function removeStateFilter( state, action ) {
 * @returns {object} the new state for the Redux store
 */
 export function removeAllFilters( state ) {
-  const newState = { ...state }
+  const newState = { ...state };
 
   const allFilters = types.knownFilters.concat(
     types.dateFilters, types.flagFilters
-  )
+  );
 
   if ( state.searchField === types.NARRATIVE_SEARCH_FIELD ) {
-    const idx = allFilters.indexOf( 'has_narrative' )
-    allFilters.splice( idx, 1 )
+    const idx = allFilters.indexOf( 'has_narrative' );
+    allFilters.splice( idx, 1 );
   }
 
   allFilters.forEach( kf => {
     if ( kf in newState ) {
-      delete newState[kf]
+      delete newState[kf];
     }
-  } )
+  } );
 
-  // set date range to All
-  // adjust date filter for max and min ranges
-  newState.dateRange = '3y'
+  /* set date range to All
+     adjust date filter for max and min ranges */
+  newState.dateRange = '3y';
   /* eslint-disable camelcase */
   newState.date_received_min =
-    new Date( dayjs( startOfToday() ).subtract( 3, 'years' ) )
-  newState.date_received_max = startOfToday()
+    new Date( dayjs( startOfToday() ).subtract( 3, 'years' ) );
+  newState.date_received_max = startOfToday();
 
-  newState.focus = ''
+  newState.focus = '';
 
-  return newState
+  return newState;
 }
 
 /**
@@ -570,19 +570,19 @@ export function removeAllFilters( state ) {
 * @returns {object} the new state for the Redux store
 */
 function addFilter( state, action ) {
-  const newState = { ...state }
+  const newState = { ...state };
   if ( action.filterName === 'has_narrative' ) {
     newState.has_narrative = true;
   } else if ( action.filterName in newState ) {
-    const idx = newState[action.filterName].indexOf( action.filterValue )
+    const idx = newState[action.filterName].indexOf( action.filterValue );
     if ( idx === -1 ) {
-      newState[action.filterName].push( action.filterValue )
+      newState[action.filterName].push( action.filterValue );
     }
   } else {
-    newState[action.filterName] = [ action.filterValue ]
+    newState[action.filterName] = [ action.filterValue ];
   }
 
-  return newState
+  return newState;
 }
 
 /**
@@ -593,17 +593,17 @@ function addFilter( state, action ) {
 * @returns {object} the new state for the Redux store
 */
 function removeFilter( state, action ) {
-  const newState = { ...state }
+  const newState = { ...state };
   if ( action.filterName === 'has_narrative' ) {
-    delete newState.has_narrative
+    delete newState.has_narrative;
   } else if ( action.filterName in newState ) {
-    const idx = newState[action.filterName].indexOf( action.filterValue )
+    const idx = newState[action.filterName].indexOf( action.filterValue );
     if ( idx !== -1 ) {
-      newState[action.filterName].splice( idx, 1 )
+      newState[action.filterName].splice( idx, 1 );
     }
   }
 
-  return newState
+  return newState;
 }
 
 /**
@@ -614,10 +614,10 @@ function removeFilter( state, action ) {
  * @returns {object} the new state for the Redux store
  */
 function replaceFilters( state, action ) {
-  const newState = { ...state }
+  const newState = { ...state };
   // de-dupe the filters in case we messed up somewhere
-  newState[action.filterName] = [ ...new Set( action.values ) ]
-  return newState
+  newState[action.filterName] = [ ...new Set( action.values ) ];
+  return newState;
 }
 
 /**
@@ -628,21 +628,21 @@ function replaceFilters( state, action ) {
 * @returns {object} the new state for the Redux store
 */
 function removeMultipleFilters( state, action ) {
-  const newState = { ...state }
-  const a = newState[action.filterName]
+  const newState = { ...state };
+  const a = newState[action.filterName];
   // remove the focus if it exists in one of the filter values we are removing
-  newState.focus = action.values.includes( state.focus ) ? '' : state.focus
+  newState.focus = action.values.includes( state.focus ) ? '' : state.focus;
 
   if ( a ) {
     action.values.forEach( x => {
-      const idx = a.indexOf( x )
+      const idx = a.indexOf( x );
       if ( idx !== -1 ) {
-        a.splice( idx, 1 )
+        a.splice( idx, 1 );
       }
-    } )
+    } );
   }
 
-  return newState
+  return newState;
 }
 
 
@@ -656,7 +656,7 @@ export function dismissMapWarning( state ) {
   return {
     ...state,
     mapWarningEnabled: false
-  }
+  };
 }
 
 /**
@@ -669,7 +669,7 @@ export function dismissTrendsDateWarning( state ) {
   return {
     ...state,
     trendsDateWarningEnabled: false
-  }
+  };
 }
 
 /**
@@ -683,7 +683,7 @@ function getPagination( page, state ) {
     from: ( page - 1 ) * state.size,
     page,
     searchAfter: getSearchAfter( state, page )
-  }
+  };
 }
 
 /**
@@ -727,7 +727,7 @@ function nextPage( state ) {
  */
 function getSearchAfter( state, page ) {
   const { breakPoints } = state;
-  return breakPoints && breakPoints[page] ? breakPoints[page].join( '_' ) : ''
+  return breakPoints && breakPoints[page] ? breakPoints[page].join( '_' ) : '';
 }
 
 /**
@@ -742,7 +742,7 @@ function changeSize( state, action ) {
     ...state,
     ...pagination,
     size: action.size
-  }
+  };
 }
 
 /**
@@ -753,12 +753,12 @@ function changeSize( state, action ) {
  */
 function changeSort( state, action ) {
   const pagination = getPagination( 1, state );
-  const sort = enforceValues( action.sort, 'sort' )
+  const sort = enforceValues( action.sort, 'sort' );
   return {
     ...state,
     ...pagination,
     sort
-  }
+  };
 }
 
 /**
@@ -768,12 +768,12 @@ function changeSort( state, action ) {
  * @returns {object} new state in redux
  */
 function changeTab( state, action ) {
-  const tab = enforceValues( action.tab, 'tab' )
+  const tab = enforceValues( action.tab, 'tab' );
   return {
     ...state,
     focus: tab === types.MODE_TRENDS ? state.focus : '',
     tab
-  }
+  };
 }
 
 /**
@@ -794,7 +794,7 @@ function updateTotalPages( state, action ) {
     breakPoints,
     page,
     totalPages: Object.keys( breakPoints ).length + 1
-  }
+  };
 }
 
 /** Handler for the depth changed action
@@ -807,7 +807,7 @@ function changeDepth( state, action ) {
   return {
     ...state,
     trendDepth: action.depth
-  }
+  };
 }
 
 /** Handler for the depth reset action
@@ -819,7 +819,7 @@ function resetDepth( state ) {
   return {
     ...state,
     trendDepth: 5
-  }
+  };
 }
 
 /** Handler for the focus selected action
@@ -829,16 +829,16 @@ function resetDepth( state ) {
  * @returns {object} the new state for the Redux store
  */
 function changeFocus( state, action ) {
-  const { focus, filterValues, lens } = action
-  const filterKey = lens.toLowerCase()
-  const activeFilters = []
+  const { focus, filterValues, lens } = action;
+  const filterKey = lens.toLowerCase();
+  const activeFilters = [];
 
   if ( filterKey === 'company' ) {
-    activeFilters.push( focus )
+    activeFilters.push( focus );
   } else {
     filterValues.forEach( o => {
-      activeFilters.push( o )
-    } )
+      activeFilters.push( o );
+    } );
   }
 
   return {
@@ -848,7 +848,7 @@ function changeFocus( state, action ) {
     lens,
     tab: types.MODE_TRENDS,
     trendDepth: 25
-  }
+  };
 }
 
 
@@ -858,15 +858,15 @@ function changeFocus( state, action ) {
  * @returns {object} the new state for the Redux store
  */
 function removeFocus( state ) {
-  const { lens } = state
-  const filterKey = lens.toLowerCase()
+  const { lens } = state;
+  const filterKey = lens.toLowerCase();
   return {
     ...state,
     [filterKey]: [],
     focus: '',
     tab: types.MODE_TRENDS,
     trendDepth: 5
-  }
+  };
 }
 
 /**
@@ -876,14 +876,14 @@ function removeFocus( state ) {
  * @returns {object} new state in redux
  */
 function changeDataLens( state, action ) {
-  const lens = enforceValues( action.lens, 'lens' )
+  const lens = enforceValues( action.lens, 'lens' );
 
   return {
     ...state,
     focus: '',
     lens,
     trendDepth: lens === 'Company' ? 10 : 5
-  }
+  };
 }
 
 /**
@@ -896,7 +896,7 @@ function changeDataSubLens( state, action ) {
   return {
     ...state,
     subLens: action.subLens.toLowerCase()
-  }
+  };
 }
 
 /**
@@ -910,7 +910,7 @@ export function updateChartType( state, action ) {
   return {
     ...state,
     chartType: action.chartType
-  }
+  };
 }
 
 /**
@@ -921,11 +921,11 @@ export function updateChartType( state, action ) {
  * @returns {object} the new state for the Redux store
  */
 export function updateDataNormalization( state, action ) {
-  const dataNormalization = enforceValues( action.value, 'dataNormalization' )
+  const dataNormalization = enforceValues( action.value, 'dataNormalization' );
   return {
     ...state,
     dataNormalization
-  }
+  };
 }
 
 /**
@@ -936,13 +936,13 @@ export function pruneEmptyFilters( state ) {
   // go through the object and delete any filter keys that have no values in it
   types.knownFilters.forEach( o => {
     if ( Array.isArray( state[o] ) && state[o].length === 0 ) {
-      delete state[o]
+      delete state[o];
     }
-  } )
+  } );
 }
 
-// ----------------------------------------------------------------------------
-// Query String Builder
+/* ----------------------------------------------------------------------------
+   Query String Builder */
 
 /**
 * Converts a set of key/value pairs into a query string for API calls
@@ -951,8 +951,8 @@ export function pruneEmptyFilters( state ) {
 * @returns {string} a formatted query string
 */
 export function stateToQS( state ) {
-  const params = {}
-  const fields = Object.keys( state )
+  const params = {};
+  const fields = Object.keys( state );
 
   // Copy over the fields
   // eslint-disable-next-line complexity
@@ -967,34 +967,34 @@ export function stateToQS( state ) {
       return;
     }
 
-    let value = state[field]
+    let value = state[field];
 
     // Process dates
     if ( types.dateFilters.indexOf( field ) !== -1 ) {
-      value = shortIsoFormat( value )
+      value = shortIsoFormat( value );
     }
 
     // Process boolean flags
-    const positives = [ 'yes', 'true' ]
+    const positives = [ 'yes', 'true' ];
     if ( types.flagFilters.indexOf( field ) !== -1 ) {
-      value = positives.includes( String( value ).toLowerCase() )
+      value = positives.includes( String( value ).toLowerCase() );
     }
 
     // Map the internal field names to the API field names
     if ( fieldMap[field] ) {
-      params[fieldMap[field]] = value
+      params[fieldMap[field]] = value;
     } else if ( trendFieldMap[field] ) {
-      params[trendFieldMap[field]] = value.toString().toLowerCase()
+      params[trendFieldMap[field]] = value.toString().toLowerCase();
     } else {
-      params[field] = value
+      params[field] = value;
     }
-  } )
+  } );
 
-  // list of API params
-  // https://cfpb.github.io/api/ccdb/api/index.html#/
+  /* list of API params
+     https://cfpb.github.io/api/ccdb/api/index.html#/ */
   const commonParams =
     [].concat( [ 'search_term', 'field' ],
-      types.dateFilters, types.knownFilters, types.flagFilters )
+      types.dateFilters, types.knownFilters, types.flagFilters );
 
   const paramMap = {
     List: [
@@ -1004,29 +1004,29 @@ export function stateToQS( state ) {
     Map: [],
     Trends: [ 'lens', 'focus', 'sub_lens', 'sub_lens_depth', 'trend_interval',
       'trend_depth' ]
-  }
+  };
 
-  const filterKeys = [].concat( commonParams, paramMap[params.tab] )
+  const filterKeys = [].concat( commonParams, paramMap[params.tab] );
   // if format exists it means we're exporting, so add it to allowable params
   if ( Object.keys( params ).includes( 'format' ) ) {
-    const exportParams = [ 'size', 'format', 'no_aggs' ]
+    const exportParams = [ 'size', 'format', 'no_aggs' ];
     exportParams.forEach( p => {
       /* istanbul ignore else */
       if ( !filterKeys.includes( p ) ) {
-        filterKeys.push( p )
+        filterKeys.push( p );
       }
-    } )
+    } );
   }
 
   // where we only filter out the params required for each of the tabs
   const filteredParams = Object.keys( params )
     .filter( key => filterKeys.includes( key ) )
     .reduce( ( obj, key ) => {
-      obj[key] = params[key]
-      return obj
-    }, {} )
+      obj[key] = params[key];
+      return obj;
+    }, {} );
 
-  return '?' + queryString.stringify( filteredParams )
+  return '?' + queryString.stringify( filteredParams );
 }
 
 /**
@@ -1034,13 +1034,13 @@ export function stateToQS( state ) {
  * @param {object} queryState state we need to validate
  */
 export function validatePer1000( queryState ) {
-  queryState.enablePer1000 = enablePer1000( queryState )
+  queryState.enablePer1000 = enablePer1000( queryState );
   if ( queryState.enablePer1000 ) {
-    queryState.mapWarningEnabled = true
+    queryState.mapWarningEnabled = true;
   }
   // if we enable per1k then don't reset it
   queryState.dataNormalization = queryState.enablePer1000 ?
-    queryState.dataNormalization : types.GEO_NORM_NONE
+    queryState.dataNormalization : types.GEO_NORM_NONE;
 }
 
 /**
@@ -1055,8 +1055,8 @@ export function resetBreakpoints( state ) {
   state.searchAfter = '';
 }
 
-// ----------------------------------------------------------------------------
-// Action Handlers
+/* ----------------------------------------------------------------------------
+   Action Handlers */
 
 /**
 * Creates a hash table of action types to handlers
@@ -1065,46 +1065,46 @@ export function resetBreakpoints( state ) {
 */
 // eslint-disable-next-line max-statements, require-jsdoc
 export function _buildHandlerMap() {
-  const handlers = {}
-  handlers[actions.CHART_TYPE_CHANGED] = updateChartType
-  handlers[actions.COMPLAINTS_RECEIVED] = updateTotalPages
-  handlers[actions.DATA_LENS_CHANGED] = changeDataLens
-  handlers[actions.DATA_NORMALIZATION_SELECTED] = updateDataNormalization
-  handlers[actions.DATA_SUBLENS_CHANGED] = changeDataSubLens
-  handlers[actions.DATE_INTERVAL_CHANGED] = changeDateInterval
-  handlers[actions.DATE_RANGE_CHANGED] = changeDateRange
-  handlers[actions.DATES_CHANGED] = changeDates
-  handlers[actions.DEPTH_CHANGED] = changeDepth
-  handlers[actions.DEPTH_RESET] = resetDepth
-  handlers[actions.FILTER_ALL_REMOVED] = removeAllFilters
-  handlers[actions.FILTER_CHANGED] = toggleFilter
-  handlers[actions.FILTER_FLAG_CHANGED] = toggleFlagFilter
-  handlers[actions.FILTER_MULTIPLE_ADDED] = addMultipleFilters
-  handlers[actions.FILTER_MULTIPLE_REMOVED] = removeMultipleFilters
-  handlers[actions.FILTER_ADDED] = addFilter
-  handlers[actions.FILTER_REMOVED] = removeFilter
-  handlers[actions.FILTER_REPLACED] = replaceFilters
-  handlers[actions.FOCUS_CHANGED] = changeFocus
-  handlers[actions.FOCUS_REMOVED] = removeFocus
-  handlers[actions.MAP_WARNING_DISMISSED] = dismissMapWarning
-  handlers[actions.NEXT_PAGE_SHOWN] = nextPage
-  handlers[actions.PREV_PAGE_SHOWN] = prevPage
-  handlers[actions.SIZE_CHANGED] = changeSize
-  handlers[actions.SORT_CHANGED] = changeSort
-  handlers[actions.STATE_COMPLAINTS_SHOWN] = showStateComplaints
-  handlers[actions.STATE_FILTER_ADDED] = addStateFilter
-  handlers[actions.STATE_FILTER_CLEARED] = clearStateFilter
-  handlers[actions.STATE_FILTER_REMOVED] = removeStateFilter
-  handlers[actions.TAB_CHANGED] = changeTab
-  handlers[actions.TRENDS_DATE_WARNING_DISMISSED] = dismissTrendsDateWarning
-  handlers[actions.URL_CHANGED] = processParams
-  handlers[actions.SEARCH_TEXT_CHANGED] = changeSearchText
-  handlers[actions.SEARCH_FIELD_CHANGED] = changeSearchField
+  const handlers = {};
+  handlers[actions.CHART_TYPE_CHANGED] = updateChartType;
+  handlers[actions.COMPLAINTS_RECEIVED] = updateTotalPages;
+  handlers[actions.DATA_LENS_CHANGED] = changeDataLens;
+  handlers[actions.DATA_NORMALIZATION_SELECTED] = updateDataNormalization;
+  handlers[actions.DATA_SUBLENS_CHANGED] = changeDataSubLens;
+  handlers[actions.DATE_INTERVAL_CHANGED] = changeDateInterval;
+  handlers[actions.DATE_RANGE_CHANGED] = changeDateRange;
+  handlers[actions.DATES_CHANGED] = changeDates;
+  handlers[actions.DEPTH_CHANGED] = changeDepth;
+  handlers[actions.DEPTH_RESET] = resetDepth;
+  handlers[actions.FILTER_ALL_REMOVED] = removeAllFilters;
+  handlers[actions.FILTER_CHANGED] = toggleFilter;
+  handlers[actions.FILTER_FLAG_CHANGED] = toggleFlagFilter;
+  handlers[actions.FILTER_MULTIPLE_ADDED] = addMultipleFilters;
+  handlers[actions.FILTER_MULTIPLE_REMOVED] = removeMultipleFilters;
+  handlers[actions.FILTER_ADDED] = addFilter;
+  handlers[actions.FILTER_REMOVED] = removeFilter;
+  handlers[actions.FILTER_REPLACED] = replaceFilters;
+  handlers[actions.FOCUS_CHANGED] = changeFocus;
+  handlers[actions.FOCUS_REMOVED] = removeFocus;
+  handlers[actions.MAP_WARNING_DISMISSED] = dismissMapWarning;
+  handlers[actions.NEXT_PAGE_SHOWN] = nextPage;
+  handlers[actions.PREV_PAGE_SHOWN] = prevPage;
+  handlers[actions.SIZE_CHANGED] = changeSize;
+  handlers[actions.SORT_CHANGED] = changeSort;
+  handlers[actions.STATE_COMPLAINTS_SHOWN] = showStateComplaints;
+  handlers[actions.STATE_FILTER_ADDED] = addStateFilter;
+  handlers[actions.STATE_FILTER_CLEARED] = clearStateFilter;
+  handlers[actions.STATE_FILTER_REMOVED] = removeStateFilter;
+  handlers[actions.TAB_CHANGED] = changeTab;
+  handlers[actions.TRENDS_DATE_WARNING_DISMISSED] = dismissTrendsDateWarning;
+  handlers[actions.URL_CHANGED] = processParams;
+  handlers[actions.SEARCH_TEXT_CHANGED] = changeSearchText;
+  handlers[actions.SEARCH_FIELD_CHANGED] = changeSearchField;
 
-  return handlers
+  return handlers;
 }
 
-const _handlers = _buildHandlerMap()
+const _handlers = _buildHandlerMap();
 
 /**
 * Routes an action to an appropriate handler
@@ -1115,14 +1115,14 @@ const _handlers = _buildHandlerMap()
 */
 function handleSpecificAction( state, action ) {
   if ( action.type in _handlers ) {
-    return _handlers[action.type]( state, action )
+    return _handlers[action.type]( state, action );
   }
 
-  return state
+  return state;
 }
 
 export default ( state = defaultQuery, action ) => {
-  const newState = handleSpecificAction( state, action )
+  const newState = handleSpecificAction( state, action );
 
   const breakPointActions = [
     actions.DATE_INTERVAL_CHANGED,
@@ -1144,25 +1144,25 @@ export default ( state = defaultQuery, action ) => {
   ];
   // these actions cause the page to reset to 1 and also clear out breakpts
   if ( breakPointActions.includes( action.type ) ) {
-    resetBreakpoints( newState )
+    resetBreakpoints( newState );
   }
 
   if ( newState.tab === types.MODE_MAP ) {
     // only update the map warning items when we're on the map tab
-    validatePer1000( newState )
+    validatePer1000( newState );
   }
 
   if ( newState.tab === types.MODE_TRENDS ) {
     // swap date interval in cases where the date range is > 1yr
-    validateDateInterval( newState )
-    validateTrendsReducer( newState )
+    validateDateInterval( newState );
+    validateTrendsReducer( newState );
   }
 
   // remove any filter keys with empty array
-  pruneEmptyFilters( newState )
+  pruneEmptyFilters( newState );
 
-  const qs = stateToQS( newState )
-  newState.queryString = qs === '?' ? '' : qs
+  const qs = stateToQS( newState );
+  newState.queryString = qs === '?' ? '' : qs;
 
-  return newState
-}
+  return newState;
+};

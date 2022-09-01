@@ -1,9 +1,9 @@
-import './LensTabs.less'
-import { changeDataSubLens } from '../../actions/trends'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import React from 'react'
-import { sendAnalyticsEvent } from '../../utils'
+import './LensTabs.less';
+import { changeDataSubLens } from '../../actions/trends';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { sendAnalyticsEvent } from '../../utils';
 
 const lensMaps = {
   Company: {
@@ -13,34 +13,34 @@ const lensMaps = {
     tab1: { displayName: 'Sub-products', filterName: 'sub_product' },
     tab2: { displayName: 'Issues', filterName: 'issue' }
   }
-}
+};
 
 export class LensTabs extends React.Component {
   _getTabClass( tab ) {
-    tab = tab.toLowerCase()
-    const classes = [ 'tab', tab ]
-    const regex = new RegExp( this.props.subLens.toLowerCase(), 'g' )
+    tab = tab.toLowerCase();
+    const classes = [ 'tab', tab ];
+    const regex = new RegExp( this.props.subLens.toLowerCase(), 'g' );
     if ( tab.replace( '-', '_' ).match( regex ) ) {
-      classes.push( 'active' )
+      classes.push( 'active' );
     }
-    return classes.join( ' ' )
+    return classes.join( ' ' );
   }
 
   render() {
-    const { lens, showProductTab } = this.props
+    const { lens, showProductTab } = this.props;
     if ( lens === 'Overview' ) {
-      return null
+      return null;
     }
 
-    const currentLens = lensMaps[lens]
+    const currentLens = lensMaps[lens];
     return (
-      <div className="tabbed-navigation lens">
+      <div className='tabbed-navigation lens'>
         <section>
           { showProductTab &&
           <button
             className={ this._getTabClass( currentLens.tab1.filterName ) }
             onClick={ () => {
-              this.props.onTab( lens, currentLens.tab1.filterName )
+              this.props.onTab( lens, currentLens.tab1.filterName );
             } }>
             { currentLens.tab1.displayName }
           </button>
@@ -49,36 +49,36 @@ export class LensTabs extends React.Component {
           <button
             className={ this._getTabClass( currentLens.tab2.filterName ) }
             onClick={ () => {
-              this.props.onTab( lens, currentLens.tab2.filterName )
+              this.props.onTab( lens, currentLens.tab2.filterName );
             } }>
             { currentLens.tab2.displayName }
           </button>
           }
         </section>
       </div>
-    )
+    );
   }
 }
 
 const displayProductTab = ( lens, focus, results ) => {
   if ( !focus ) {
-    return true
+    return true;
   } else if ( results['sub-product'] && results['sub-product'].length ) {
-    return true
+    return true;
   }
-  return false
-}
+  return false;
+};
 
 export const mapStateToProps = state => {
-  const { focus, lens, subLens } = state.query
-  const { results } = state.trends
+  const { focus, lens, subLens } = state.query;
+  const { results } = state.trends;
   return {
     focus,
     lens,
     showProductTab: displayProductTab( lens, focus, results ),
     subLens
-  }
-}
+  };
+};
 
 export const mapDispatchToProps = dispatch => ( {
   onTab: ( lens, tab ) => {
@@ -87,16 +87,16 @@ export const mapDispatchToProps = dispatch => ( {
       sub_product: 'Sub-products',
       issue: 'Issues',
       product: 'Products'
-    }
+    };
 
-    sendAnalyticsEvent( 'Button', lens + ':' + labelMap[tab] )
-    dispatch( changeDataSubLens( tab.toLowerCase() ) )
+    sendAnalyticsEvent( 'Button', lens + ':' + labelMap[tab] );
+    dispatch( changeDataSubLens( tab.toLowerCase() ) );
   }
-} )
+} );
 
 LensTabs.propTypes = {
   showTitle: PropTypes.bool.isRequired
-}
+};
 
 
-export default connect( mapStateToProps, mapDispatchToProps )( LensTabs )
+export default connect( mapStateToProps, mapDispatchToProps )( LensTabs );
