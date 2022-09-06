@@ -960,21 +960,21 @@ describe( 'reducer:query', () => {
       it( 'clears all filters', () => {
         const actual = target( state, action )
         expect( actual ).toMatchObject( {
-          dateRange: '3y',
+          dateRange: 'All',
           from: 0,
           searchField: 'all',
           size: 100
         } )
 
         expect( actual.queryString ).toEqual( '?date_received_max=' +
-          '2020-05-05&date_received_min=2017-05-05&field=all&size=100' )
+          '2020-05-05&date_received_min=2011-12-01&field=all&size=100' )
       } )
 
       it( 'clears all filters - Map', () => {
         state.tab = types.MODE_MAP
         const actual = target( state, action )
         expect( actual ).toMatchObject( {
-          dateRange: '3y',
+          dateRange: 'All',
           enablePer1000: true,
           from: 0,
           mapWarningEnabled: true,
@@ -983,7 +983,7 @@ describe( 'reducer:query', () => {
         } )
 
         expect( actual.queryString ).toEqual( '?date_received_max=' +
-          '2020-05-05&date_received_min=2017-05-05&field=all' )
+          '2020-05-05&date_received_min=2011-12-01&field=all' )
       } )
 
       describe( 'when searching Narratives', () => {
@@ -991,7 +991,7 @@ describe( 'reducer:query', () => {
           state.searchField = types.NARRATIVE_SEARCH_FIELD
           const actual = target( state, action )
           expect( actual ).toMatchObject( {
-            dateRange: '3y',
+            dateRange: 'All',
             from: 0,
             has_narrative: true,
             searchField: types.NARRATIVE_SEARCH_FIELD,
@@ -999,7 +999,7 @@ describe( 'reducer:query', () => {
           } )
           expect( actual.queryString )
             .toEqual( '?date_received_max=2020-05-05&' +
-              'date_received_min=2017-05-05&field=complaint_what_happened&' +
+              'date_received_min=2011-12-01&field=complaint_what_happened&' +
               'has_narrative=true&size=100' )
         } )
       } )

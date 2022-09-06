@@ -14,6 +14,8 @@ function setupSnapshot() {
       lastIndexed: new Date( '2016-02-01T05:00:00.000Z' )
     },
     query: {
+      date_received_max: '2020-04-05T12:00:00.000Z',
+      date_received_min: '2011-12-31T12:00:00.000Z',
       searchField: 'all',
       searchText: 'something searching',
     },

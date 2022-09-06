@@ -691,43 +691,6 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
         className="separator"
       />
       <section
-        className="date-ranges m-btn-group"
-      >
-        <p>
-          Date range (Click to modify range)
-        </p>
-        <button
-          className="a-btn date-selector range-3m"
-          onClick={[Function]}
-        >
-          3m
-        </button>
-        <button
-          className="a-btn date-selector range-6m"
-          onClick={[Function]}
-        >
-          6m
-        </button>
-        <button
-          className="a-btn date-selector range-1y"
-          onClick={[Function]}
-        >
-          1y
-        </button>
-        <button
-          className="a-btn date-selector range-3y"
-          onClick={[Function]}
-        >
-          3y
-        </button>
-        <button
-          className="a-btn date-selector range-All"
-          onClick={[Function]}
-        >
-          All
-        </button>
-      </section>
-      <section
         className="m-btn-group map-shading"
       >
         <p>
@@ -1429,43 +1392,6 @@ exports[`component:Results renders map panel without crashing 1`] = `
         className="separator"
       />
       <section
-        className="date-ranges m-btn-group"
-      >
-        <p>
-          Date range (Click to modify range)
-        </p>
-        <button
-          className="a-btn date-selector range-3m"
-          onClick={[Function]}
-        >
-          3m
-        </button>
-        <button
-          className="a-btn date-selector range-6m"
-          onClick={[Function]}
-        >
-          6m
-        </button>
-        <button
-          className="a-btn date-selector range-1y"
-          onClick={[Function]}
-        >
-          1y
-        </button>
-        <button
-          className="a-btn date-selector range-3y"
-          onClick={[Function]}
-        >
-          3y
-        </button>
-        <button
-          className="a-btn date-selector range-All"
-          onClick={[Function]}
-        >
-          All
-        </button>
-      </section>
-      <section
         className="m-btn-group map-shading"
       >
         <p>
@@ -1744,43 +1670,6 @@ exports[`component:Results renders trends panel without crashing 1`] = `
             Year
           </option>
         </select>
-      </section>
-      <section
-        className="date-ranges m-btn-group"
-      >
-        <p>
-          Date range (Click to modify range)
-        </p>
-        <button
-          className="a-btn date-selector range-3m"
-          onClick={[Function]}
-        >
-          3m
-        </button>
-        <button
-          className="a-btn date-selector range-6m"
-          onClick={[Function]}
-        >
-          6m
-        </button>
-        <button
-          className="a-btn date-selector range-1y"
-          onClick={[Function]}
-        >
-          1y
-        </button>
-        <button
-          className="a-btn date-selector range-3y"
-          onClick={[Function]}
-        >
-          3y
-        </button>
-        <button
-          className="a-btn date-selector range-All"
-          onClick={[Function]}
-        >
-          All
-        </button>
       </section>
     </div>
   </section>

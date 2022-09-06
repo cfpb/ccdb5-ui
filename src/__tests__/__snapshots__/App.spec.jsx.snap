@@ -317,12 +317,14 @@ exports[`initial state renders without crashing 1`] = `
                     <input
                       className="a-text-input"
                       id="date_received-from"
-                      max={2020-05-05T04:00:00.000Z}
-                      min={2011-12-01T12:00:00.000Z}
+                      max="2020-05-05"
+                      min="2011-12-01"
+                      onBlur={[Function]}
                       onChange={[Function]}
+                      onKeyDown={[Function]}
                       placeholder="M/D/YYYY"
-                      size="15"
-                      value="6/1/2018"
+                      type="date"
+                      value="2017-09-01"
                     />
                     <button
                       className="a-btn a-btn__link"
@@ -340,7 +342,7 @@ exports[`initial state renders without crashing 1`] = `
                       <span
                         className="u-visually-hidden"
                       >
-                        Clear
+                        Clear date received from filter
                       </span>
                     </button>
                   </div>
@@ -358,12 +360,14 @@ exports[`initial state renders without crashing 1`] = `
                     <input
                       className="a-text-input"
                       id="date_received-through"
-                      max={2020-05-05T04:00:00.000Z}
-                      min={2011-12-01T12:00:00.000Z}
+                      max="2020-05-05"
+                      min="2011-12-01"
+                      onBlur={[Function]}
                       onChange={[Function]}
+                      onKeyDown={[Function]}
                       placeholder="M/D/YYYY"
-                      size="15"
-                      value="6/1/2018"
+                      type="date"
+                      value="2017-09-01"
                     />
                     <button
                       className="a-btn a-btn__link"
@@ -381,12 +385,49 @@ exports[`initial state renders without crashing 1`] = `
                       <span
                         className="u-visually-hidden"
                       >
-                        Clear
+                        Clear date received through filter
                       </span>
                     </button>
                   </div>
                 </li>
               </ul>
+              <section
+                className="date-ranges m-btn-group"
+              >
+                <p>
+                  Date range (Click to modify range)
+                </p>
+                <button
+                  className="a-btn date-selector range-3m"
+                  onClick={[Function]}
+                >
+                  3m
+                </button>
+                <button
+                  className="a-btn date-selector range-6m"
+                  onClick={[Function]}
+                >
+                  6m
+                </button>
+                <button
+                  className="a-btn date-selector range-1y"
+                  onClick={[Function]}
+                >
+                  1y
+                </button>
+                <button
+                  className="a-btn date-selector range-3y"
+                  onClick={[Function]}
+                >
+                  3y
+                </button>
+                <button
+                  className="a-btn date-selector range-all selected"
+                  onClick={[Function]}
+                >
+                  All
+                </button>
+              </section>
             </div>
           </section>
           <hr />
@@ -894,13 +935,34 @@ exports[`initial state renders without crashing 1`] = `
                     <input
                       className="a-text-input"
                       id="company_received-from"
-                      max={2020-05-05T04:00:00.000Z}
-                      min={2011-12-01T12:00:00.000Z}
+                      max="2020-05-05"
+                      min="2011-12-01"
+                      onBlur={[Function]}
                       onChange={[Function]}
+                      onKeyDown={[Function]}
                       placeholder="M/D/YYYY"
-                      size="15"
+                      type="date"
                       value=""
                     />
+                    <button
+                      className="a-btn a-btn__link"
+                      onClick={[Function]}
+                    >
+                      <svg
+                        className="cf-icon-svg"
+                        viewBox="0 0 718.9 1200"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M451.4 613.7l248.1-248.1c25.6-25.1 26-66.3.8-91.9s-66.3-26-91.9-.8l-.8.8-248.1 248.1-248.1-248.1c-25.4-25.4-66.5-25.4-91.9 0s-25.4 66.5 0 91.9l248.1 248.1L19.5 861.8c-25.6 25.1-26 66.3-.8 91.9s66.3 26 91.9.8l.8-.8 248.1-248.1 248.1 248.1c25.4 25.4 66.5 25.4 91.9 0s25.4-66.5 0-91.9L451.4 613.7z"
+                        />
+                      </svg>
+                      <span
+                        className="u-visually-hidden"
+                      >
+                        Clear company received from date filter
+                      </span>
+                    </button>
                   </div>
                 </li>
                 <li>
@@ -916,13 +978,34 @@ exports[`initial state renders without crashing 1`] = `
                     <input
                       className="a-text-input"
                       id="company_received-through"
-                      max={2020-05-05T04:00:00.000Z}
-                      min={2011-12-01T12:00:00.000Z}
+                      max="2020-05-05"
+                      min="2011-12-01"
+                      onBlur={[Function]}
                       onChange={[Function]}
+                      onKeyDown={[Function]}
                       placeholder="M/D/YYYY"
-                      size="15"
+                      type="date"
                       value=""
                     />
+                    <button
+                      className="a-btn a-btn__link"
+                      onClick={[Function]}
+                    >
+                      <svg
+                        className="cf-icon-svg"
+                        viewBox="0 0 718.9 1200"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M451.4 613.7l248.1-248.1c25.6-25.1 26-66.3.8-91.9s-66.3-26-91.9-.8l-.8.8-248.1 248.1-248.1-248.1c-25.4-25.4-66.5-25.4-91.9 0s-25.4 66.5 0 91.9l248.1 248.1L19.5 861.8c-25.6 25.1-26 66.3-.8 91.9s66.3 26 91.9.8l.8-.8 248.1-248.1 248.1 248.1c25.4 25.4 66.5 25.4 91.9 0s25.4-66.5 0-91.9L451.4 613.7z"
+                        />
+                      </svg>
+                      <span
+                        className="u-visually-hidden"
+                      >
+                        Clear company received through date filter
+                      </span>
+                    </button>
                   </div>
                 </li>
               </ul>
@@ -1272,43 +1355,6 @@ exports[`initial state renders without crashing 1`] = `
                 Year
               </option>
             </select>
-          </section>
-          <section
-            className="date-ranges m-btn-group"
-          >
-            <p>
-              Date range (Click to modify range)
-            </p>
-            <button
-              className="a-btn date-selector range-3m"
-              onClick={[Function]}
-            >
-              3m
-            </button>
-            <button
-              className="a-btn date-selector range-6m"
-              onClick={[Function]}
-            >
-              6m
-            </button>
-            <button
-              className="a-btn date-selector range-1y"
-              onClick={[Function]}
-            >
-              1y
-            </button>
-            <button
-              className="a-btn date-selector range-3y"
-              onClick={[Function]}
-            >
-              3y
-            </button>
-            <button
-              className="a-btn date-selector range-All selected"
-              onClick={[Function]}
-            >
-              All
-            </button>
           </section>
           <span
             className="separator"

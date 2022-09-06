@@ -10,13 +10,13 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
     <h4
       className="o-expandable_header-left o-expandable_label"
     >
-      Date CFPB Received the complaint
+      Date CFPB received the complaint
     </h4>
     <span
       className="o-expandable_header-right o-expandable_link"
     >
       <button
-        aria-label="Hide Date CFPB Received the complaint filter"
+        aria-label="Hide Date CFPB received the complaint filter"
         className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
         onClick={[Function]}
       >
@@ -51,12 +51,14 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
           <input
             className="a-text-input"
             id="date_received-from"
-            max={2019-12-31T12:00:00.000Z}
-            min={2015-01-01T12:00:00.000Z}
+            max="2020-05-05"
+            min="2011-12-01"
+            onBlur={[Function]}
             onChange={[Function]}
+            onKeyDown={[Function]}
             placeholder="M/D/YYYY"
-            size="15"
-            value="1/1/2016"
+            type="date"
+            value="2016-01-01"
           />
           <button
             className="a-btn a-btn__link"
@@ -74,7 +76,7 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
             <span
               className="u-visually-hidden"
             >
-              Clear
+              Clear date received from filter
             </span>
           </button>
         </div>
@@ -92,12 +94,14 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
           <input
             className="a-text-input"
             id="date_received-through"
-            max={2019-12-31T12:00:00.000Z}
-            min={2015-01-01T12:00:00.000Z}
+            max="2020-05-05"
+            min="2011-12-01"
+            onBlur={[Function]}
             onChange={[Function]}
+            onKeyDown={[Function]}
             placeholder="M/D/YYYY"
-            size="15"
-            value="1/1/2018"
+            type="date"
+            value="2018-01-01"
           />
           <button
             className="a-btn a-btn__link"
@@ -115,12 +119,49 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
             <span
               className="u-visually-hidden"
             >
-              Clear
+              Clear date received through filter
             </span>
           </button>
         </div>
       </li>
     </ul>
+    <section
+      className="date-ranges m-btn-group"
+    >
+      <p>
+        Date range (Click to modify range)
+      </p>
+      <button
+        className="a-btn date-selector range-3m"
+        onClick={[Function]}
+      >
+        3m
+      </button>
+      <button
+        className="a-btn date-selector range-6m"
+        onClick={[Function]}
+      >
+        6m
+      </button>
+      <button
+        className="a-btn date-selector range-1y"
+        onClick={[Function]}
+      >
+        1y
+      </button>
+      <button
+        className="a-btn date-selector range-3y"
+        onClick={[Function]}
+      >
+        3y
+      </button>
+      <button
+        className="a-btn date-selector range-all"
+        onClick={[Function]}
+      >
+        All
+      </button>
+    </section>
     <p>
        
       CFPB updated product and issue options available to consumers in April 2017 
@@ -147,13 +188,13 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
     <h4
       className="o-expandable_header-left o-expandable_label"
     >
-      Date CFPB Received the complaint
+      Date CFPB received the complaint
     </h4>
     <span
       className="o-expandable_header-right o-expandable_link"
     >
       <button
-        aria-label="Hide Date CFPB Received the complaint filter"
+        aria-label="Hide Date CFPB received the complaint filter"
         className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
         onClick={[Function]}
       >
@@ -186,14 +227,16 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
           className="m-btn-inside-input"
         >
           <input
-            className="a-text-input"
+            className="a-text-input a-text-input__error"
             id="date_received-from"
-            max={2015-12-31T12:00:00.000Z}
-            min={2015-01-01T12:00:00.000Z}
+            max="2020-05-05"
+            min="2011-12-01"
+            onBlur={[Function]}
             onChange={[Function]}
+            onKeyDown={[Function]}
             placeholder="M/D/YYYY"
-            size="15"
-            value="1/1/2016"
+            type="date"
+            value="2016-01-01"
           />
           <button
             className="a-btn a-btn__link"
@@ -211,7 +254,7 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
             <span
               className="u-visually-hidden"
             >
-              Clear
+              Clear date received from filter
             </span>
           </button>
         </div>
@@ -227,14 +270,16 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
           className="m-btn-inside-input"
         >
           <input
-            className="a-text-input"
+            className="a-text-input a-text-input__error"
             id="date_received-through"
-            max={2015-12-31T12:00:00.000Z}
-            min={2015-01-01T12:00:00.000Z}
+            max="2020-05-05"
+            min="2011-12-01"
+            onBlur={[Function]}
             onChange={[Function]}
+            onKeyDown={[Function]}
             placeholder="M/D/YYYY"
-            size="15"
-            value="1/1/2000"
+            type="date"
+            value="2000-01-01"
           />
           <button
             className="a-btn a-btn__link"
@@ -252,56 +297,63 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
             <span
               className="u-visually-hidden"
             >
-              Clear
+              Clear date received through filter
             </span>
           </button>
         </div>
       </li>
     </ul>
-    <ul
-      className="messages"
+    <section
+      className="date-ranges m-btn-group"
     >
-      <li
-        className="a-error-message"
-        id="input-error_message-ordered"
-        role="alert"
+      <p>
+        Date range (Click to modify range)
+      </p>
+      <button
+        className="a-btn date-selector range-3m"
+        onClick={[Function]}
       >
-        <span
-          aria-hidden="true"
-        >
-          <svg
-            className="cf-icon-svg cf-icon-delete-round"
-            viewBox="0 0 1000 1200"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"
-            />
-          </svg>
-        </span>
-        'From' must be less than 'Through'
-      </li>
-      <li
-        className="a-error-message"
-        id="input-error_message-through"
-        role="alert"
+        3m
+      </button>
+      <button
+        className="a-btn date-selector range-6m"
+        onClick={[Function]}
       >
-        <span
-          aria-hidden="true"
-        >
-          <svg
-            className="cf-icon-svg cf-icon-delete-round"
-            viewBox="0 0 1000 1200"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"
-            />
-          </svg>
-        </span>
-        '1/1/2000' must be greater than 1/1/2015
-      </li>
-    </ul>
+        6m
+      </button>
+      <button
+        className="a-btn date-selector range-1y"
+        onClick={[Function]}
+      >
+        1y
+      </button>
+      <button
+        className="a-btn date-selector range-3y"
+        onClick={[Function]}
+      >
+        3y
+      </button>
+      <button
+        className="a-btn date-selector range-all"
+        onClick={[Function]}
+      >
+        All
+      </button>
+    </section>
+    'From' date must be less than 'through' date 
+    <span
+      aria-hidden="true"
+    >
+      <svg
+        className="cf-icon-svg cf-icon-delete-round"
+        viewBox="0 0 1000 1200"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"
+        />
+      </svg>
+    </span>
   </div>
 </section>
 `;
@@ -316,13 +368,13 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
     <h4
       className="o-expandable_header-left o-expandable_label"
     >
-      Date CFPB Received the complaint
+      Date CFPB received the complaint
     </h4>
     <span
       className="o-expandable_header-right o-expandable_link"
     >
       <button
-        aria-label="Hide Date CFPB Received the complaint filter"
+        aria-label="Hide Date CFPB received the complaint filter"
         className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
         onClick={[Function]}
       >
@@ -357,13 +409,34 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
           <input
             className="a-text-input"
             id="date_received-from"
-            max={2015-12-31T12:00:00.000Z}
-            min={2015-01-01T12:00:00.000Z}
+            max="2020-05-05"
+            min="2011-12-01"
+            onBlur={[Function]}
             onChange={[Function]}
+            onKeyDown={[Function]}
             placeholder="M/D/YYYY"
-            size="15"
-            value=""
+            type="date"
+            value="Invalid Date"
           />
+          <button
+            className="a-btn a-btn__link"
+            onClick={[Function]}
+          >
+            <svg
+              className="cf-icon-svg"
+              viewBox="0 0 718.9 1200"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M451.4 613.7l248.1-248.1c25.6-25.1 26-66.3.8-91.9s-66.3-26-91.9-.8l-.8.8-248.1 248.1-248.1-248.1c-25.4-25.4-66.5-25.4-91.9 0s-25.4 66.5 0 91.9l248.1 248.1L19.5 861.8c-25.6 25.1-26 66.3-.8 91.9s66.3 26 91.9.8l.8-.8 248.1-248.1 248.1 248.1c25.4 25.4 66.5 25.4 91.9 0s25.4-66.5 0-91.9L451.4 613.7z"
+              />
+            </svg>
+            <span
+              className="u-visually-hidden"
+            >
+              Clear date received from filter
+            </span>
+          </button>
         </div>
       </li>
       <li>
@@ -379,16 +452,74 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
           <input
             className="a-text-input"
             id="date_received-through"
-            max={2015-12-31T12:00:00.000Z}
-            min={2015-01-01T12:00:00.000Z}
+            max="2020-05-05"
+            min="2011-12-01"
+            onBlur={[Function]}
             onChange={[Function]}
+            onKeyDown={[Function]}
             placeholder="M/D/YYYY"
-            size="15"
-            value=""
+            type="date"
+            value="Invalid Date"
           />
+          <button
+            className="a-btn a-btn__link"
+            onClick={[Function]}
+          >
+            <svg
+              className="cf-icon-svg"
+              viewBox="0 0 718.9 1200"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M451.4 613.7l248.1-248.1c25.6-25.1 26-66.3.8-91.9s-66.3-26-91.9-.8l-.8.8-248.1 248.1-248.1-248.1c-25.4-25.4-66.5-25.4-91.9 0s-25.4 66.5 0 91.9l248.1 248.1L19.5 861.8c-25.6 25.1-26 66.3-.8 91.9s66.3 26 91.9.8l.8-.8 248.1-248.1 248.1 248.1c25.4 25.4 66.5 25.4 91.9 0s25.4-66.5 0-91.9L451.4 613.7z"
+              />
+            </svg>
+            <span
+              className="u-visually-hidden"
+            >
+              Clear date received through filter
+            </span>
+          </button>
         </div>
       </li>
     </ul>
+    <section
+      className="date-ranges m-btn-group"
+    >
+      <p>
+        Date range (Click to modify range)
+      </p>
+      <button
+        className="a-btn date-selector range-3m"
+        onClick={[Function]}
+      >
+        3m
+      </button>
+      <button
+        className="a-btn date-selector range-6m"
+        onClick={[Function]}
+      >
+        6m
+      </button>
+      <button
+        className="a-btn date-selector range-1y"
+        onClick={[Function]}
+      >
+        1y
+      </button>
+      <button
+        className="a-btn date-selector range-3y"
+        onClick={[Function]}
+      >
+        3y
+      </button>
+      <button
+        className="a-btn date-selector range-all"
+        onClick={[Function]}
+      >
+        All
+      </button>
+    </section>
   </div>
 </section>
 `;
