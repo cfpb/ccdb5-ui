@@ -19,11 +19,11 @@ import dayjsIsBetween from 'dayjs/plugin/isBetween'
 import { formatDate } from '../../utils/formatDate';
 import iconMap from '../iconMap'
 
-dayjs.extend( dayjsCustomParseFormat )
-dayjs.extend( dayjsIsBetween )
+dayjs.extend( dayjsCustomParseFormat );
+dayjs.extend( dayjsIsBetween );
 
 export const CompanyReceivedFilter = () => {
-  const fieldName = 'company_received'
+  const fieldName = 'company_received';
   const title = 'The date the CFPB sent the complaint to the company';
   const dateFrom = useSelector( selectQueryCompanyReceivedMin );
   const dateThrough = useSelector( selectQueryCompanyReceivedMax );
