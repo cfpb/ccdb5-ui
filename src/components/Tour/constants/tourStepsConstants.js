@@ -16,35 +16,20 @@ import {
 
 let geoIndex = '';
 Object.entries( GEO )
-  .forEach( ( v, key ) => {
-    const ind = key;
-    geoIndex += '<li>' +
-      `<a onclick="document.querySelectorAll('.introjs-bullets li a')[${ ind }].click()">` +
-      v[1].label +
-      '</a>' +
-      '</li>';
+  .forEach( v => {
+    geoIndex += '<li>' + v[1].label + '</li>';
   } );
 
 let listIndex = '';
 Object.entries( LIST )
-  .forEach( ( v, key ) => {
-    const ind = key;
-    listIndex += '<li>' +
-      `<a onclick="document.querySelectorAll('.introjs-bullets li a')[${ ind }].click()">` +
-      v[1].label +
-      '</a>' +
-      '</li>';
+  .forEach( v => {
+    listIndex += '<li>' + v[1].label + '</li>';
   } );
 
 let trendsIndex = '';
 Object.entries( TRENDS )
-  .forEach( ( v, key ) => {
-    const ind = key;
-    trendsIndex += '<li>' +
-      `<a onclick="document.querySelectorAll('.introjs-bullets li a')[${ ind }].click()">` +
-      v[1].label +
-      '</a>' +
-      '</li>';
+  .forEach( v => {
+    trendsIndex += '<li>' + v[1].label + '</li>';
   } );
 
 

@@ -53,8 +53,8 @@ export const Tour = () => {
       // when the tour is initiated, we reset the chart so that the
       // rows are collapsed. This way we can click the first row to expand it
       // to guarantee a consistent tour.
-      const ee = d3.select( '#row-chart-product .tick.expandable' );
-      ee.dispatch( 'click' );
+      const expandable = d3.select( '#row-chart-product .tick.expandable' );
+      expandable.dispatch( 'click' );
     }
 
     const callBack = () => {
