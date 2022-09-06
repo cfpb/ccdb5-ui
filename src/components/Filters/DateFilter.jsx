@@ -1,223 +1,224 @@
+/* eslint complexity: ["error", 8] */
 import './DateFilter.less'
-import { DATE_RANGE_MIN, DATE_VALIDATION_FORMAT } from '../../constants'
-import { shortFormat, startOfToday } from '../../utils'
+import {
+    DATE_VALIDATION_FORMAT,
+    maxDate,
+    minDate
+} from '../../constants'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
+import {
+    selectQueryDateReceivedMax, selectQueryDateReceivedMin
+} from '../../reducers/query/selectors';
+import { useDispatch, useSelector } from 'react-redux'
 import { changeDates } from '../../actions/filter'
 import CollapsibleFilter from './CollapsibleFilter'
-import { connect } from 'react-redux'
-import DateInput from '../DateInput'
+import { DateRanges } from './DateRanges';
 import dayjs from 'dayjs'
 import dayjsCustomParseFormat from 'dayjs/plugin/customParseFormat'
 import dayjsIsBetween from 'dayjs/plugin/isBetween'
+import dayjsUtc from 'dayjs/plugin/utc'
+import { formatDate } from '../../utils/formatDate';
 import iconMap from '../iconMap'
-import PropTypes from 'prop-types'
-import React from 'react'
 
 dayjs.extend( dayjsCustomParseFormat )
 dayjs.extend( dayjsIsBetween )
+dayjs.extend( dayjsUtc )
 
 const WARN_SERIES_BREAK = 'CFPB updated product and issue options' +
-  ' available to consumers in April 2017 ';
+    ' available to consumers in April 2017 ';
 
 const LEARN_SERIES_BREAK = 'https://files.consumerfinance.gov/f/' +
-  'documents/201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf';
+    'documents/201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf';
 
-export class DateFilter extends React.Component {
-  constructor( props ) {
-    super( props )
 
-    this.state = this._validate( {
-      from: props.from,
-      through: props.through,
-      messages: {}
-    } )
+export const DateFilter = () => {
+  const fieldName = 'date_received'
+  const title = 'Date CFPB received the complaint'
+  const dateFrom = useSelector( selectQueryDateReceivedMin );
+  const dateThrough = useSelector( selectQueryDateReceivedMax );
+  const initialFromDate = dayjs( dateFrom ).isValid() ?
+      formatDate( dateFrom ) : '';
+  const initialThroughDate = dayjs( dateThrough ).isValid() ?
+      formatDate( dateThrough ) : '';
+  const [ fromDate, setFromDate ] = useState( initialFromDate );
+  const [ throughDate, setThroughDate ] = useState( initialThroughDate );
+  const dispatch = useDispatch();
+
+  const from = fromDate || minDate;
+  const through = throughDate || maxDate;
+
+  const showWarning =
+      dayjs( '2017-04-23' ).isBetween( from, through, 'day' )
+  const errorMessageText = "'From' date must be less than 'through' date";
+
+  const fromRef = useRef();
+  const throughRef = useRef();
+
+  useEffect( () => {
+    // put it in YYYY-MM-DD format
+    // validate to make sure it's not invalid
+    const validFromDate = dateFrom ? formatDate( dateFrom ) : '';
+    setFromDate( validFromDate );
+  }, [ dateFrom ] );
+
+  useEffect( () => {
+    const validThroughDate = dateThrough ? formatDate( dateThrough ) : '';
+    setThroughDate( validThroughDate );
+  }, [ dateThrough ] );
+
+  const handleClear = period => {
+    if ( period === 'from' ) {
+      dispatch( changeDates( fieldName, minDate, throughDate ) )
+    }
+    if ( period === 'through' ) {
+      dispatch( changeDates( fieldName, fromDate, maxDate ) )
+    }
   }
 
-  // eslint-disable-next-line camelcase
-  UNSAFE_componentWillReceiveProps( nextProps ) {
-    const newState = {
-      from: nextProps.from,
-      through: nextProps.through,
-      messages: {}
+  const handleKeyDownFromDate = event => {
+    if ( event.key === 'Enter' ) {
+      fromRef.current.blur();
+    }
+  }
+
+  const handleKeyDownThroughDate = event => {
+    if ( event.key === 'Enter' ) {
+      throughRef.current.blur();
+    }
+  }
+
+  const errors = useMemo( () => {
+    if ( dayjs( fromDate ).isAfter( throughDate ) ) {
+      return errorMessageText;
+    }
+    return false;
+  }, [ fromDate, throughDate ] )
+
+  const handleDateChange = () => {
+    // setFromDate and setThroughDate do not update the state quick enough
+    // to be used here
+    let _fromDate = fromDate;
+    let _throughDate = throughDate;
+    // don't do anything if its empty
+    if ( _fromDate < minDate && _fromDate ) {
+      fromRef.current.value = minDate;
+      _fromDate = minDate;
+    }
+    if ( _throughDate > maxDate && _throughDate ) {
+      throughRef.current.value = maxDate;
+      _throughDate = maxDate;
     }
 
-    this.setState( this._validate( newState ) )
-  }
+    const isDateDifferent = dateFrom !== _fromDate ||
+        dateThrough !== _throughDate;
+    if ( dayjs( _throughDate ).isAfter( _fromDate ) && isDateDifferent ) {
+      dispatch( changeDates( fieldName, _fromDate, _throughDate ) )
+    }
+  };
 
-  render() {
-    const from = dayjs( this.state.from, DATE_VALIDATION_FORMAT )
-    const through = dayjs( this.state.through, DATE_VALIDATION_FORMAT )
+  const inputFromClassName = useMemo( () => {
+    const style = [ 'a-text-input' ]
+    if ( dayjs( fromDate ).isBefore( minDate ) ||
+        dayjs( fromDate ).isAfter( throughDate ) ) {
+      style.push( 'a-text-input__error' )
+    }
+    return style.join( ' ' )
+  }, [ fromDate, throughDate ] );
 
-    const showWarning = dayjs( '2017-04-23' ).isBetween( from, through, 'day' )
+  const inputThroughClassName = useMemo( () => {
+    const style = [ 'a-text-input' ]
+    if ( dayjs( throughDate ).isAfter( maxDate ) ||
+        dayjs( throughDate ).isBefore( fromDate ) ) {
+      style.push( 'a-text-input__error' )
+    }
+    return style.join( ' ' )
+  }, [ fromDate, throughDate ] );
 
-    return (
-      <CollapsibleFilter title={ this.props.title }
-                         className="aggregation date-filter">
-          <div>
+  return <CollapsibleFilter title={title}
+                            className="aggregation date-filter">
+        <div>
             <ul className="date-inputs">
-            { this._renderDateInput( 'From', 'from' ) }
-            { this._renderDateInput( 'Through', 'through' ) }
+                <li>
+                    <label className="a-label a-label__heading body-copy"
+                           htmlFor={`${ fieldName }-from`}>
+                        From
+                    </label>
+                    <div className="m-btn-inside-input">
+                        <input id={`${ fieldName }-from`}
+                               className={inputFromClassName}
+                               onBlur={handleDateChange}
+                               onChange={evt => setFromDate( evt.target.value )}
+                               onKeyDown={handleKeyDownFromDate}
+                               min={minDate}
+                               max={maxDate}
+                               ref={fromRef}
+                               placeholder={DATE_VALIDATION_FORMAT}
+                               type="date"
+                               value={fromDate}
+                        />
+                        <button className="a-btn a-btn__link"
+                                onClick={() => handleClear( 'from' )}>
+                            {iconMap.getIcon( 'delete' )}
+                            <span className="u-visually-hidden">
+                                Clear date received from filter
+                            </span>
+                        </button>
+                    </div>
+                </li>
+                <li>
+                    <label className="a-label a-label__heading body-copy"
+                           htmlFor={`${ fieldName }-through`}>
+                        Through
+                    </label>
+                    <div className="m-btn-inside-input">
+                        <input id={`${ fieldName }-through`}
+                               className={inputThroughClassName}
+                               onBlur={handleDateChange}
+                               onChange={
+                                   evt => setThroughDate( evt.target.value )
+                               }
+                               onKeyDown={handleKeyDownThroughDate}
+                               min={minDate}
+                               max={maxDate}
+                               placeholder={DATE_VALIDATION_FORMAT}
+                               ref={throughRef}
+                               type="date"
+                               value={throughDate}
+                        />
+                        <button className="a-btn a-btn__link"
+                                onClick={() => handleClear( 'through' )}>
+                            {iconMap.getIcon( 'delete' )}
+                            <span className="u-visually-hidden">
+                                Clear date received through filter
+                            </span>
+                        </button>
+                    </div>
+                </li>
             </ul>
-            { this._hasMessages( this.state.messages ) ?
-              this._renderMessages() :
-              null
+            <DateRanges/>
+            {errors ?
+                <>{errors + ' '}
+                <span aria-hidden="true">
+                    {
+                    iconMap.getIcon( 'delete-round', 'cf-icon-delete-round' )
+                    }
+                </span>
+                </> :
+                null
             }
-            { showWarning ?
-              <p> { WARN_SERIES_BREAK }
-                <a href={ LEARN_SERIES_BREAK }
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Learn more about Product and
-                  Issue changes (opens in new window)" >
-                  Learn More
-                </a>
-              </p> :
-              null
+            {showWarning ?
+                <p> {WARN_SERIES_BREAK}
+                    <a href={LEARN_SERIES_BREAK}
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       aria-label="Learn more about Product and
+                  Issue changes (opens in new window)">
+                        Learn More
+                    </a>
+                </p> :
+                null
             }
-          </div>
-        </CollapsibleFilter>
-    )
-  }
-
-  // --------------------------------------------------------------------------
-  // Subrender Methods
-
-  _hasMessages( messages ) {
-    return Object.keys( messages ).length > 0
-  }
-
-  _renderDateInput( label, field ) {
-    const inputId = `${ this.props.fieldName }-${ field }`
-
-    const localProps = {
-      id: inputId
-    }
-
-    return (
-      <li>
-          <label className="a-label a-label__heading body-copy"
-                 htmlFor={ inputId }>
-            { label }
-          </label>
-          <DateInput min={ this.props.minimumDate }
-                     max={ this.props.maximumDate }
-                     onDateEntered={ this._onDateEntered.bind( this, field ) }
-                     onError={ this._onError.bind( this, field ) }
-                     textBoxProps={ localProps }
-                     value={ this.state[field] }
-          />
-      </li>
-    )
-  }
-
-  _renderMessages() {
-    return (
-      <ul className="messages">
-      { Object.keys( this.state.messages ).map( field =>
-          <li className="a-error-message"
-              key={'input-error_message-' + field}
-              id={'input-error_message-' + field}
-              role="alert">
-            <span aria-hidden="true">
-              { iconMap.getIcon( 'delete-round', 'cf-icon-delete-round' ) }
-            </span>
-
-            { this.state.messages[field] }
-          </li>
-         ) }
-      </ul>
-    )
-  }
-
-  // --------------------------------------------------------------------------
-  // Validation methods
-  _isChanged( props, state ) {
-    return props.from !== state.from || props.through !== state.through
-  }
-
-  _validate( state ) {
-
-    // Check for range errors
-    const from = dayjs( state.from, DATE_VALIDATION_FORMAT )
-    const through = dayjs( state.through, DATE_VALIDATION_FORMAT )
-    if ( from && through && from > through ) {
-      state.messages.ordered = "'From' must be less than 'Through'"
-    } else {
-      delete state.messages.ordered
-    }
-
-    return state
-  }
-
-  // --------------------------------------------------------------------------
-  // DateInput interface methods
-  /* eslint complexity: ["error", 5] */
-  _onDateEntered( field, date ) {
-    let state = {
-      from: this.state.from,
-      through: this.state.through,
-      messages: { ...this.state.messages }
-    }
-
-    // Update the correct field
-    state[field] = shortFormat( date )
-
-    // Clear any messages for that field
-    delete state.messages[field]
-
-    state = this._validate( state )
-
-    this.setState( state )
-
-    // If it's good, send an update
-    // only fire off change when there is a mismatch in the dates,
-    // when DateInterval changed vs manually changing the date
-    if ( this._hasMessages( state.messages ) === false &&
-      this._isChanged( this.props, state ) ) {
-
-      const from = dayjs( state.from, 'M/D/YYYY' )
-      const through = dayjs( state.through, 'M/D/YYYY' )
-      const dateFrom = from.isValid() ? from.toDate() : null
-      const dateThrough = through.isValid() ? through.toDate() : null
-
-      this.props.changeDates( dateFrom, dateThrough )
-    }
-  }
-
-  _onError( field, error, value ) {
-    const messages = { ...this.state.messages }
-    messages[field] = error
-    this.setState( { messages, [field]: value } )
-  }
+        </div>
+    </CollapsibleFilter>
 }
 
-// ----------------------------------------------------------------------------
-// Meta
-
-DateFilter.propTypes = {
-  fieldName: PropTypes.string.isRequired,
-  from: PropTypes.string,
-  maximumDate: PropTypes.instanceOf( Date ),
-  minimumDate: PropTypes.instanceOf( Date ),
-  through: PropTypes.string,
-  title: PropTypes.string.isRequired
-}
-
-DateFilter.defaultProps = {
-  from: '',
-  maximumDate: startOfToday(),
-  minimumDate: new Date( DATE_RANGE_MIN ),
-  through: ''
-}
-
-export const mapStateToProps = ( state, ownProps ) => ( {
-  from: shortFormat( state.query[ownProps.fieldName + '_min'] ),
-  through: shortFormat( state.query[ownProps.fieldName + '_max'] )
-} )
-
-export const mapDispatchToProps = ( dispatch, ownProps ) => ( {
-  changeDates: ( from, through ) => {
-    dispatch( changeDates( ownProps.fieldName, from, through ) )
-  }
-} )
-
-export default connect( mapStateToProps, mapDispatchToProps )( DateFilter )

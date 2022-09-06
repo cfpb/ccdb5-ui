@@ -161,7 +161,7 @@ describe( 'List View', () => {
       cy.get( nextButton ).click()
       cy.get( currentPage ).should( 'have.text', 'Page 2' )
 
-      cy.get( '#date_received-from' ).clear().type( '9/23/2018' ).blur()
+      cy.get( '#date_received-from' ).clear().type( '2018-09-23' ).blur()
       cy.get( currentPage ).should( 'have.text', 'Page 1' )
 
     } )

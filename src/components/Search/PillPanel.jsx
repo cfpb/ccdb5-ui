@@ -1,16 +1,62 @@
 import './PillPanel.less'
-import { coalesce } from '../../utils'
-import { connect } from 'react-redux'
+import { DATE_RANGE_MIN, knownFilters } from '../../constants'
+
+import {
+    selectQueryDateReceivedMax,
+    selectQueryDateReceivedMin,
+    selectQueryHasNarrative,
+    selectQueryState
+} from '../../reducers/query/selectors';
+
+import { useDispatch, useSelector } from 'react-redux'
+
+import dayjs from 'dayjs';
 import iconMap from '../iconMap'
-import { knownFilters } from '../../constants'
-import Pill from './Pill'
+import { Pill } from './Pill'
 import React from 'react'
 import { removeAllFilters } from '../../actions/filter'
+import { startOfToday } from '../../utils';
 
 
-export const PillPanel = ( { filters, clearAll } ) => {
-  const hasFilters = filters && filters.length > 0
-  if ( !hasFilters ) {
+/* eslint complexity: ["error", 5] */
+export const PillPanel = () => {
+  const dispatch = useDispatch()
+  const query = useSelector( selectQueryState );
+  const dateReceivedMin = useSelector( selectQueryDateReceivedMin );
+  const dateReceivedMax = useSelector( selectQueryDateReceivedMax );
+  const hasNarrative = useSelector( selectQueryHasNarrative );
+  const filters = knownFilters
+      // Only use the known filters that are in the query
+      .filter( x => x in query )
+      // Create a flattened array of pill objects
+      .reduce( ( accum, fieldName ) => {
+        const arr = query[fieldName].map(
+            value => ( { fieldName, value } )
+        )
+        return accum.concat( arr )
+      }, [] )
+
+  // Add Has Narrative, if it exists
+  if ( hasNarrative ) {
+    filters.push( {
+      fieldName: 'has_narrative',
+      value: 'Has narrative'
+    } )
+  }
+
+  // only add the filter the date is NOT the "All"
+  if ( !dayjs( dateReceivedMin ).isSame( dayjs( DATE_RANGE_MIN ), 'day' ) ||
+      !dayjs( dateReceivedMax ).isSame( dayjs( startOfToday() ), 'day' ) ) {
+    filters.unshift( {
+      fieldName: 'date_received',
+      value: 'Date Received: ' +
+          dayjs( dateReceivedMin ).format( 'M/D/YYYY' ) + ' - ' +
+          dayjs( dateReceivedMax ).format( 'M/D/YYYY' )
+
+    } )
+  }
+
+  if ( !filters.length ) {
     return null
   }
 
@@ -23,7 +69,8 @@ export const PillPanel = ( { filters, clearAll } ) => {
                                   value={ x.value }/> )
         }
         <li className="clear-all">
-          <button className="a-btn a-btn__link body-copy" onClick={ clearAll }>
+          <button className="a-btn a-btn__link body-copy"
+                  onClick={ () => dispatch( removeAllFilters() ) }>
             { iconMap.getIcon( 'delete' ) }
             Clear all filters
           </button>
@@ -32,37 +79,3 @@ export const PillPanel = ( { filters, clearAll } ) => {
     </section>
   )
 }
-
-export const mapStateToProps = state => {
-  const query = coalesce( state, 'query', {} )
-  const filters = knownFilters
-    // Only use the known filters that are in the query
-    .filter( x => x in query )
-    // Create a flattened array of pill objects
-    .reduce( ( accum, fieldName ) => {
-      const arr = query[fieldName].map(
-        value => ( { fieldName, value } )
-      )
-      return accum.concat( arr )
-    }, [] )
-
-  // Add Has Narrative, if it exists
-  if ( query.has_narrative ) {
-    filters.push( {
-      fieldName: 'has_narrative',
-      value: 'Has narrative'
-    } )
-  }
-
-  return {
-    filters: filters
-  }
-}
-
-export const mapDispatchToProps = dispatch => ( {
-  clearAll: () => {
-    dispatch( removeAllFilters() )
-  }
-} )
-
-export default connect( mapStateToProps, mapDispatchToProps )( PillPanel )
