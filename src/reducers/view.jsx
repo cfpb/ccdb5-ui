@@ -36,7 +36,6 @@ function processParams( state, action ) {
  * Handler hide advanced tips
  *
  * @param {object} state the current state in the Redux store
- * @param {object} action the command being executed
  * @returns {object} the new state for the Redux store
  */
 export function hideAdvancedSearchTips( state ) {
@@ -51,7 +50,6 @@ export function hideAdvancedSearchTips( state ) {
  * Handler show advanced tips
  *
  * @param {object} state the current state in the Redux store
- * @param {object} action the command being executed
  * @returns {object} the new state for the Redux store
  */
 export function showAdvancedSearchTips( state ) {
