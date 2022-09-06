@@ -128,8 +128,9 @@ export const CompanyReceivedFilter = () => {
     return style.join( ' ' )
   }, [ fromDate, throughDate ] );
 
-  return <CollapsibleFilter title={title}
-                            className="aggregation date-filter">
+  return <CollapsibleFilter
+            title={title}
+            className="aggregation date-filter">
         <div>
             <ul className="date-inputs">
                 <li>
@@ -153,7 +154,9 @@ export const CompanyReceivedFilter = () => {
                         <button className="a-btn a-btn__link"
                                 onClick={() => handleClear( 'from' )}>
                             {iconMap.getIcon( 'delete' )}
-                            <span className="u-visually-hidden">Clear</span>
+                            <span className="u-visually-hidden">
+                                Clear company received from date filter
+                            </span>
                         </button>
                     </div>
                 </li>
@@ -180,7 +183,9 @@ export const CompanyReceivedFilter = () => {
                         <button className="a-btn a-btn__link"
                                 onClick={() => handleClear( 'through' )}>
                             {iconMap.getIcon( 'delete' )}
-                            <span className="u-visually-hidden">Clear</span>
+                            <span className="u-visually-hidden">
+                                Clear company received through date filter
+                            </span>
                         </button>
                     </div>
                 </li>

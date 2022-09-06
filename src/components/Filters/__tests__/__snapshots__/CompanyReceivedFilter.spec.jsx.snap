@@ -76,7 +76,7 @@ exports[`component::CompanyReceivedFilter snapshot shows errors 1`] = `
             <span
               className="u-visually-hidden"
             >
-              Clear
+              Clear company received from date filter
             </span>
           </button>
         </div>
@@ -119,7 +119,7 @@ exports[`component::CompanyReceivedFilter snapshot shows errors 1`] = `
             <span
               className="u-visually-hidden"
             >
-              Clear
+              Clear company received through date filter
             </span>
           </button>
         </div>
@@ -221,7 +221,7 @@ exports[`component::CompanyReceivedFilter snapshot supports no dates in the Redu
             <span
               className="u-visually-hidden"
             >
-              Clear
+              Clear company received from date filter
             </span>
           </button>
         </div>
@@ -264,7 +264,7 @@ exports[`component::CompanyReceivedFilter snapshot supports no dates in the Redu
             <span
               className="u-visually-hidden"
             >
-              Clear
+              Clear company received through date filter
             </span>
           </button>
         </div>

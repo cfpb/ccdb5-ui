@@ -18,7 +18,7 @@ export const DateRanges = () => {
     if ( selectedDateRange === dateRange ) {
       classes.push( 'selected' )
     }
-    return classes.join( ' ' )
+    return classes.join( ' ' ).toLowerCase();
   }
 
   const toggleDateRange = selectedDateRange => {

@@ -103,7 +103,7 @@ exports[`initial state renders button at mobile width 1`] = `
                 <span
                   className="u-visually-hidden"
                 >
-                  Clear
+                  Clear date received from filter
                 </span>
               </button>
             </div>
@@ -146,7 +146,7 @@ exports[`initial state renders button at mobile width 1`] = `
                 <span
                   className="u-visually-hidden"
                 >
-                  Clear
+                  Clear date received through filter
                 </span>
               </button>
             </div>
@@ -183,7 +183,7 @@ exports[`initial state renders button at mobile width 1`] = `
             3y
           </button>
           <button
-            className="a-btn date-selector range-All"
+            className="a-btn date-selector range-all"
             onClick={[Function]}
           >
             All
@@ -732,7 +732,7 @@ exports[`initial state renders button at mobile width 1`] = `
                 <span
                   className="u-visually-hidden"
                 >
-                  Clear
+                  Clear company received from date filter
                 </span>
               </button>
             </div>
@@ -775,7 +775,7 @@ exports[`initial state renders button at mobile width 1`] = `
                 <span
                   className="u-visually-hidden"
                 >
-                  Clear
+                  Clear company received through date filter
                 </span>
               </button>
             </div>
@@ -1001,7 +1001,7 @@ exports[`initial state renders without crashing 1`] = `
                 <span
                   className="u-visually-hidden"
                 >
-                  Clear
+                  Clear date received from filter
                 </span>
               </button>
             </div>
@@ -1044,7 +1044,7 @@ exports[`initial state renders without crashing 1`] = `
                 <span
                   className="u-visually-hidden"
                 >
-                  Clear
+                  Clear date received through filter
                 </span>
               </button>
             </div>
@@ -1081,7 +1081,7 @@ exports[`initial state renders without crashing 1`] = `
             3y
           </button>
           <button
-            className="a-btn date-selector range-All"
+            className="a-btn date-selector range-all"
             onClick={[Function]}
           >
             All
@@ -1618,7 +1618,7 @@ exports[`initial state renders without crashing 1`] = `
                 <span
                   className="u-visually-hidden"
                 >
-                  Clear
+                  Clear company received from date filter
                 </span>
               </button>
             </div>
@@ -1661,7 +1661,7 @@ exports[`initial state renders without crashing 1`] = `
                 <span
                   className="u-visually-hidden"
                 >
-                  Clear
+                  Clear company received through date filter
                 </span>
               </button>
             </div>

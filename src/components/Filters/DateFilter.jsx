@@ -159,7 +159,9 @@ export const DateFilter = () => {
                         <button className="a-btn a-btn__link"
                                 onClick={() => handleClear( 'from' )}>
                             {iconMap.getIcon( 'delete' )}
-                            <span className="u-visually-hidden">Clear</span>
+                            <span className="u-visually-hidden">
+                                Clear date received from filter
+                            </span>
                         </button>
                     </div>
                 </li>
@@ -186,7 +188,9 @@ export const DateFilter = () => {
                         <button className="a-btn a-btn__link"
                                 onClick={() => handleClear( 'through' )}>
                             {iconMap.getIcon( 'delete' )}
-                            <span className="u-visually-hidden">Clear</span>
+                            <span className="u-visually-hidden">
+                                Clear date received through filter
+                            </span>
                         </button>
                     </div>
                 </li>
