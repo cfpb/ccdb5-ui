@@ -14,22 +14,30 @@ import {
   TRENDS_SELECTORS as TRENDS
 } from './tourStepSelectors';
 
+const generateLinkText = ( index, linkObject ) => `<li><a onclick="document.querySelectorAll('.introjs-bullets li a')[${ index + 1 }].click()">` +
+    linkObject[1].label +
+  '</a></li>'
 let geoIndex = '';
+
+// we exclude the first entry so we can have Index appear as the title
 Object.entries( GEO )
-  .forEach( v => {
-    geoIndex += '<li>' + v[1].label + '</li>';
+  .slice( 1 )
+  .forEach( ( value, key ) => {
+    geoIndex += generateLinkText( key, value );
   } );
 
 let listIndex = '';
 Object.entries( LIST )
-  .forEach( v => {
-    listIndex += '<li>' + v[1].label + '</li>';
+  .slice( 1 )
+  .forEach( ( value, key ) => {
+    listIndex += generateLinkText( key, value );
   } );
 
 let trendsIndex = '';
 Object.entries( TRENDS )
-  .forEach( v => {
-    trendsIndex += '<li>' + v[1].label + '</li>';
+  .slice( 1 )
+  .forEach( ( value, key ) => {
+    trendsIndex += generateLinkText( key, value );
   } );
 
 
@@ -67,6 +75,7 @@ export const TOUR_STEPS = {
         'Complaints the CFPB refers to other regulators, such as complaints about depository institutions with less than $10 billion in assets, are not published in the database. This database is not a statistical sample of consumers’ experiences in the marketplace.' +
         '</div>' +
         '<div class="right">' +
+        '<h4>Index</h4>' +
         '<ul>' + geoIndex + '</ul></div>' +
         '</div>',
       tooltipClass: 'wide'
@@ -95,13 +104,13 @@ export const TOUR_STEPS = {
     },
     {
       element: GEO.STEP_5.selector,
-      intro: 'You can adjust the date range of the complaint data showed using the “Date CFPB received the complaint” filter. <br> The default date range is three years from today’s date.'
+      intro: 'You can adjust the date range of the complaint data showed using the “Date CFPB received the complaint” filter. <br /> The default date range is three years from today’s date.'
     },
     {
       element: GEO.STEP_6.selector,
       intro:
         'You can filter complaints by the product and issue the consumer selected when they submitted their complaint.' +
-        '<br><br>' +
+        '<br /><br />' +
         'Expand a product or issue to see its sub-products or sub-issues, where available. '
     },
     {
@@ -143,7 +152,7 @@ export const TOUR_STEPS = {
       element: GEO.STEP_14.selector,
       intro:
         'View complaint volume by product in the bar chart. Use the blue arrow by each product to view breakdowns by sub-products.' +
-        '<br><br>Once the product is expanded, select the “Visualize” link as shown below, to view trends on sub-products and issues:'
+        '<br /><br />Once the product is expanded, select the “Visualize” link as shown below, to view trends on sub-products and issues:'
     },
     {
       element: GEO.STEP_15.selector,
@@ -164,6 +173,7 @@ export const TOUR_STEPS = {
         'Complaints the CFPB refers to other regulators, such as complaints about depository institutions with less than $10 billion in assets, are not published in the database. This database is not a statistical sample of consumers’ experiences in the marketplace.' +
         '</div>' +
         '<div class="right">' +
+        '<h4>Index</h4>' +
         '<ul>' + listIndex + '</ul></div>' +
         '</div>',
       tooltipClass: 'wide'
@@ -191,13 +201,13 @@ export const TOUR_STEPS = {
     },
     {
       element: LIST.STEP_5.selector,
-      intro: 'You can adjust the date range of the complaint data showed using the “Date CFPB received the complaint” filter. <br> The default date range is three years from today’s date.'
+      intro: 'You can adjust the date range of the complaint data showed using the “Date CFPB received the complaint” filter. <br /> The default date range is three years from today’s date.'
     },
     {
       element: LIST.STEP_6.selector,
       intro:
         'You can filter complaints by the product and issue the consumer selected when they submitted their complaint.' +
-        '<br><br>' +
+        '<br /><br />' +
         'Expand a product or issue to see its sub-products or sub-issues, where available. '
     },
     {
@@ -233,14 +243,14 @@ export const TOUR_STEPS = {
       element: LIST.STEP_13.selector,
       intro:
         'Sort complaints in the list view by “Newest to oldest,” “Oldest to newest,” “Relevance,” and “Relevance (asc).”' +
-        '<br><br>' +
+        '<br /><br />' +
         'Relevancy are based on any applied search terms.'
     },
     {
       element: LIST.STEP_14.selector,
       intro:
         'You can see all complaints or focus on those with consumer complaint narratives.' +
-        '<br><br>' +
+        '<br /><br />' +
         'We publish the consumer’s narrative description of what happened from their complaint if the consumer opts to share it publicly and after taking steps to remove personal information.'
     },
     {
@@ -272,6 +282,7 @@ export const TOUR_STEPS = {
         'Complaints the CFPB refers to other regulators, such as complaints about depository institutions with less than $10 billion in assets, are not published in the database. This database is not a statistical sample of consumers’ experiences in the marketplace.' +
         '</div>' +
         '<div class="right">' +
+        '<h4>Index</h4>' +
         '<ul>' + trendsIndex + '</ul></div>' +
         '</div>',
       tooltipClass: 'wide'
@@ -300,13 +311,13 @@ export const TOUR_STEPS = {
     },
     {
       element: TRENDS.STEP_5.selector,
-      intro: 'You can adjust the date range of the complaint data showed using the “Date CFPB received the complaint” filter. <br> The default date range is three years from today’s date.'
+      intro: 'You can adjust the date range of the complaint data showed using the “Date CFPB received the complaint” filter. <br /> The default date range is three years from today’s date.'
     },
     {
       element: TRENDS.STEP_6.selector,
       intro:
         'You can filter complaints by the product and issue the consumer selected when they submitted their complaint.' +
-        '<br><br>' +
+        '<br /><br />' +
         'Expand a product or issue to see its sub-products or sub-issues, where available. '
     },
     {
@@ -347,7 +358,7 @@ export const TOUR_STEPS = {
       element: TRENDS.STEP_14.selector,
       intro:
         'View complaint volume by product in the bar chart. Use the blue arrow by each product to view breakdowns by sub-products.' +
-        '<br><br>Once the product is expanded, select the “Visualize” link as shown below, to view trends on sub-products and issues:'
+        '<br /><br />Once the product is expanded, select the “Visualize” link as shown below, to view trends on sub-products and issues:'
     },
     {
       element: TRENDS.STEP_15.selector,
