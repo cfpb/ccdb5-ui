@@ -132,26 +132,21 @@ export const TOUR_STEPS = {
     {
       element: GEO.STEP_12.selector,
       intro:
-        'Modify the data range of the complaint data shown on the map here or in the filter panel.'
+        'Map shading defaults to total complaints, but you can change this to show complaints per 1,000 population in that state.'
     },
     {
       element: GEO.STEP_13.selector,
       intro:
-        'Map shading defaults to total complaints, but you can change this to show complaints per 1,000 population in that state.'
-    },
-    {
-      element: GEO.STEP_14.selector,
-      intro:
         'Hover over a tile on the map to view complaint information specific to that state. You can filter to see data specific to a state by selecting the state or using the filter panel.'
     },
     {
-      element: GEO.STEP_15.selector,
+      element: GEO.STEP_14.selector,
       intro:
         'View complaint volume by product in the bar chart. Use the blue arrow by each product to view breakdowns by sub-products.' +
         '<br><br>Once the product is expanded, select the “Visualize” link as shown below, to view trends on sub-products and issues:'
     },
     {
-      element: GEO.STEP_16.selector,
+      element: GEO.STEP_15.selector,
       intro:
         'To learn how to use Trends and List views, select the view and then start the tour.'
     }
@@ -351,16 +346,11 @@ export const TOUR_STEPS = {
     {
       element: TRENDS.STEP_14.selector,
       intro:
-        'Modify date range shown in trends chart here or in the filter panel.'
-    },
-    {
-      element: TRENDS.STEP_15.selector,
-      intro:
         'View complaint volume by product in the bar chart. Use the blue arrow by each product to view breakdowns by sub-products.' +
         '<br><br>Once the product is expanded, select the “Visualize” link as shown below, to view trends on sub-products and issues:'
     },
     {
-      element: TRENDS.STEP_16.selector,
+      element: TRENDS.STEP_15.selector,
       intro:
         'To learn how to use List and Map views, select the view and then start the tour.',
       position: 'top'

@@ -18,11 +18,10 @@ export const GEO_STEP_SELECTORS = {
   STEP_9: { selector: '#search-summary h2', label: 'Search Summary' },
   STEP_10: { selector: '.export-results button.export-btn', label: 'Export Data' },
   STEP_11: { selector: '.export-results button.print-preview', label: 'Print Page' }, // print button
-  STEP_12: { selector: '.date-ranges', label: 'Date Interval' },
-  STEP_13: { selector: '.map-shading', label: 'Map Shading' },
-  STEP_14: { selector: '#tile-chart-map', label: 'Tile Map' },
-  STEP_15: { selector: '.row-chart-section', label: 'Row Charts' },
-  STEP_16: { selector: '.tabbed-navigation', label: 'Tabbed Navigation' }
+  STEP_12: { selector: '.map-shading', label: 'Map Shading' },
+  STEP_13: { selector: '#tile-chart-map', label: 'Tile Map' },
+  STEP_14: { selector: '.row-chart-section', label: 'Row Charts' },
+  STEP_15: { selector: '.tabbed-navigation', label: 'Tabbed Navigation' }
 
 };
 
@@ -60,7 +59,6 @@ export const TRENDS_SELECTORS = {
   STEP_11: { selector: '.export-results button.print-preview', label: 'Print Page' }, // print button
   STEP_12: { selector: '.refine-bar .cf-select.lens', label: 'Aggregate By' },
   STEP_13: { selector: '.refine-bar .cf-select.interval', label: 'Date Interval' },
-  STEP_14: { selector: '.date-ranges', label: 'Date Ranges' },
-  STEP_15: { selector: '.row-chart-section', label: 'Row Charts' },
-  STEP_16: { selector: '.tabbed-navigation', label: 'Tabbed Navigation' }
+  STEP_14: { selector: '.row-chart-section', label: 'Row Charts' },
+  STEP_15: { selector: '.tabbed-navigation', label: 'Tabbed Navigation' }
 };
