@@ -297,7 +297,7 @@ export const TOUR_STEPS = {
       intro:
         'You can change how to view complaint data by selecting the three views we have available—Trends, List, and Map.' +
         '<br /><br />' +
-        'You are currently on the List view, which visualizes complaint data using a trend line with product and issue breakdowns.' +
+        'You are currently on the Trends view, which visualizes complaint data using a trend line with product and issue breakdowns.' +
         '<br /><br />' +
         'To read individual complaints, select List view.' +
         '<br /><br />' +
