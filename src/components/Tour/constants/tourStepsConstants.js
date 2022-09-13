@@ -14,9 +14,9 @@ import {
   TRENDS_SELECTORS as TRENDS
 } from './tourStepSelectors';
 
-const generateLinkText = ( index, linkObject ) => `<li><a onclick="document.querySelectorAll('.introjs-bullets li a')[${ index + 1 }].click()">` +
-    linkObject[1].label +
-  '</a></li>'
+const generateLinkText = ( index, linkObject ) => `<li><button class="a-btn a-btn__link" onclick="document.querySelectorAll('.introjs-bullets li a')[${ index + 1 }].click()">` +
+    linkObject[1].label + '</button></li>'
+
 let geoIndex = '';
 
 // we exclude the first entry so we can have Index appear as the title
