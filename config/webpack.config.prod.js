@@ -20,6 +20,7 @@ const env = require('./env');
 const getClientEnvironment = env.getClientEnvironment;
 const ccdbApiUrl = env.ccdbApiUrl.prod;
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 const postcssNormalize = require('postcss-normalize');
 
@@ -128,8 +129,6 @@ module.exports = {
       // served by WebpackDevServer in development. This is the JS bundle
       // containing code from all our entry points, and the Webpack runtime.
       filename: 'ccdb5.min.js',
-      // TODO: remove this when upgrading to webpack 5
-      futureEmitAssets: true,
       // There are also additional JS chunk files if you use code splitting.
       // chunkFilename: isEnvProduction
       //     ? 'static/js/[name].[contenthash:8].chunk.js'
@@ -182,15 +181,13 @@ module.exports = {
               // https://github.com/facebook/create-react-app/issues/2488
               ascii_only: true,
             },
+            sourceMap: shouldUseSourceMap,
           },
           // Use multi-process parallel running to improve the build speed
           // Default number of concurrent runs: os.cpus().length - 1
           // Disabled on WSL (Windows Subsystem for Linux) due to an issue with Terser
           // https://github.com/webpack-contrib/terser-webpack-plugin/issues/21
           parallel: !isWsl,
-          // Enable file caching
-          cache: true,
-          sourceMap: shouldUseSourceMap,
         }),
         // This is only used in production mode
         new OptimizeCSSAssetsPlugin({
@@ -243,6 +240,18 @@ module.exports = {
         // Make sure your source files are compiled, as they will not be processed in any way.
         new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
       ],
+
+      // Some libraries import Node modules but don't use them in the browser.
+      // Tell Webpack to provide empty mocks for them so importing them works.
+      fallback: {
+        module: false,
+        dgram: false,
+        fs: false,
+        http2: false,
+        net: false,
+        tls: false,
+        child_process: false,
+      }
     },
     resolveLoader: {
       plugins: [
@@ -261,18 +270,6 @@ module.exports = {
         // It's important to do this before Babel processes the JS.
         {
           test: /\.(js|mjs|jsx|ts|tsx)$/,
-          enforce: 'pre',
-          use: [
-            {
-              options: {
-                formatter: require.resolve('react-dev-utils/eslintFormatter'),
-                eslintPath: require.resolve('eslint'),
-                resolvePluginsRelativeTo: __dirname,
-
-              },
-              loader: require.resolve('eslint-loader'),
-            },
-          ],
           include: paths.appSrc,
         },
         {
@@ -298,8 +295,16 @@ module.exports = {
               include: paths.appSrc,
               use: [
                 {
-                  loader: require.resolve('babel-loader'),
+                  loader: 'babel-loader',
                   options: {
+                    presets: [ [ '@babel/preset-env', {
+
+                      /* Use useBuiltIns: 'usage' and set `debug: true` to see what
+                         scripts require polyfilling. */
+                      useBuiltIns: false,
+                      debug: false
+                    } ] ],
+
                     customize: require.resolve(
                         'babel-preset-react-app/webpack-overrides'
                     ),
@@ -340,17 +345,18 @@ module.exports = {
             {
               test: /\.(js|mjs)$/,
               exclude: /@babel(?:\/|\\{1,2})runtime/,
-              loader: require.resolve('babel-loader'),
+              loader: 'babel-loader',
               options: {
                 babelrc: false,
                 configFile: false,
                 compact: false,
-                presets: [
-                  [
-                    require.resolve('babel-preset-react-app/dependencies'),
-                    { helpers: true },
-                  ],
-                ],
+                presets: [ [ '@babel/preset-env', {
+
+                  /* Use useBuiltIns: 'usage' and set `debug: true` to see what
+                     scripts require polyfilling. */
+                  useBuiltIns: false,
+                  debug: false
+                } ] ],
                 cacheDirectory: true,
                 cacheCompression: isEnvProduction,
 
@@ -495,24 +501,19 @@ module.exports = {
       // during a production build.
       // Otherwise React will be compiled in the very slow development mode.
       new webpack.DefinePlugin(envConfig.stringified),
+      new ESLintPlugin({
+        formatter: require.resolve('react-dev-utils/eslintFormatter'),
+        eslintPath: require.resolve('eslint'),
+        resolvePluginsRelativeTo: __dirname,
+
+      }),
       new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output
         // both options are optional
         filename: 'main.css',
       }),
     ].filter(Boolean),
-    // Some libraries import Node modules but don't use them in the browser.
-    // Tell Webpack to provide empty mocks for them so importing them works.
-    node: {
-      module: 'empty',
-      dgram: 'empty',
-      dns: 'mock',
-      fs: 'empty',
-      http2: 'empty',
-      net: 'empty',
-      tls: 'empty',
-      child_process: 'empty',
-    },
+
     // Turn off performance processing because we utilize
     // our own hints via the FileSizeReporter
     performance: false,
