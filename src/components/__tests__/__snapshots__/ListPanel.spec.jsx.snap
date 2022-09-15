@@ -130,7 +130,7 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
       className="separator"
     />
     <section
-      className="cf-select size"
+      className="cf-select cf-select__size"
     >
       <label
         className="u-visually-hidden"
@@ -173,7 +173,7 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
       </select>
     </section>
     <section
-      className="cf-select sort"
+      className="cf-select cf-select__sort"
     >
       <label
         className="u-visually-hidden"
@@ -472,7 +472,7 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
       className="separator"
     />
     <section
-      className="cf-select size"
+      className="cf-select cf-select__size"
     >
       <label
         className="u-visually-hidden"
@@ -515,7 +515,7 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
       </select>
     </section>
     <section
-      className="cf-select sort"
+      className="cf-select cf-select__sort"
     >
       <label
         className="u-visually-hidden"
@@ -990,7 +990,7 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
       className="separator"
     />
     <section
-      className="cf-select size"
+      className="cf-select cf-select__size"
     >
       <label
         className="u-visually-hidden"
@@ -1033,7 +1033,7 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
       </select>
     </section>
     <section
-      className="cf-select sort"
+      className="cf-select cf-select__sort"
     >
       <label
         className="u-visually-hidden"
@@ -1483,7 +1483,7 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
       className="separator"
     />
     <section
-      className="cf-select size"
+      className="cf-select cf-select__size"
     >
       <label
         className="u-visually-hidden"
@@ -1526,7 +1526,7 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
       </select>
     </section>
     <section
-      className="cf-select sort"
+      className="cf-select cf-select__sort"
     >
       <label
         className="u-visually-hidden"
@@ -1782,7 +1782,7 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
       className="separator"
     />
     <section
-      className="cf-select size"
+      className="cf-select cf-select__size"
     >
       <label
         className="u-visually-hidden"
@@ -1825,7 +1825,7 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
       </select>
     </section>
     <section
-      className="cf-select sort"
+      className="cf-select cf-select__sort"
     >
       <label
         className="u-visually-hidden"
@@ -2275,7 +2275,7 @@ exports[`component:ListPanel renders without crashing 1`] = `
       className="separator"
     />
     <section
-      className="cf-select size"
+      className="cf-select cf-select__size"
     >
       <label
         className="u-visually-hidden"
@@ -2318,7 +2318,7 @@ exports[`component:ListPanel renders without crashing 1`] = `
       </select>
     </section>
     <section
-      className="cf-select sort"
+      className="cf-select cf-select__sort"
     >
       <label
         className="u-visually-hidden"

@@ -127,7 +127,7 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
       </div>
     </section>
     <section
-      className="cf-select lens"
+      className="cf-select cf-select__lens"
     >
       <label
         className="u-visually-hidden"
@@ -167,7 +167,7 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
       className="separator"
     />
     <section
-      className="cf-select interval"
+      className="cf-select cf-select__interval"
     >
       <label
         className="u-visually-hidden"
@@ -566,7 +566,7 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
       </div>
     </section>
     <section
-      className="cf-select lens"
+      className="cf-select cf-select__lens"
     >
       <label
         className="u-visually-hidden"
@@ -606,7 +606,7 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
       className="separator"
     />
     <section
-      className="cf-select interval"
+      className="cf-select cf-select__interval"
     >
       <label
         className="u-visually-hidden"
@@ -972,7 +972,7 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
       </div>
     </section>
     <section
-      className="cf-select lens"
+      className="cf-select cf-select__lens"
     >
       <label
         className="u-visually-hidden"
@@ -1012,7 +1012,7 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
       className="separator"
     />
     <section
-      className="cf-select interval"
+      className="cf-select cf-select__interval"
     >
       <label
         className="u-visually-hidden"
@@ -1379,7 +1379,7 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
       </div>
     </section>
     <section
-      className="cf-select lens"
+      className="cf-select cf-select__lens"
     >
       <label
         className="u-visually-hidden"
@@ -1419,7 +1419,7 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
       className="separator"
     />
     <section
-      className="cf-select interval"
+      className="cf-select cf-select__interval"
     >
       <label
         className="u-visually-hidden"
@@ -1667,7 +1667,7 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
       </div>
     </section>
     <section
-      className="cf-select lens"
+      className="cf-select cf-select__lens"
     >
       <label
         className="u-visually-hidden"
@@ -1707,7 +1707,7 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
       className="separator"
     />
     <section
-      className="cf-select interval"
+      className="cf-select cf-select__interval"
     >
       <label
         className="u-visually-hidden"
@@ -2073,7 +2073,7 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
       </div>
     </section>
     <section
-      className="cf-select lens"
+      className="cf-select cf-select__lens"
     >
       <label
         className="u-visually-hidden"
@@ -2113,7 +2113,7 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
       className="separator"
     />
     <section
-      className="cf-select interval"
+      className="cf-select cf-select__interval"
     >
       <label
         className="u-visually-hidden"
@@ -2362,7 +2362,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
       </div>
     </section>
     <section
-      className="cf-select lens"
+      className="cf-select cf-select__lens"
     >
       <label
         className="u-visually-hidden"
@@ -2402,7 +2402,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
       className="separator"
     />
     <section
-      className="cf-select interval"
+      className="cf-select cf-select__interval"
     >
       <label
         className="u-visually-hidden"
@@ -2650,7 +2650,7 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
       </div>
     </section>
     <section
-      className="cf-select lens"
+      className="cf-select cf-select__lens"
     >
       <label
         className="u-visually-hidden"
@@ -2690,7 +2690,7 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
       className="separator"
     />
     <section
-      className="cf-select interval"
+      className="cf-select cf-select__interval"
     >
       <label
         className="u-visually-hidden"

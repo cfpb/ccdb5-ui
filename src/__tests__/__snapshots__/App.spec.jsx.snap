@@ -1268,7 +1268,7 @@ exports[`initial state renders without crashing 1`] = `
             </div>
           </section>
           <section
-            className="cf-select lens"
+            className="cf-select cf-select__lens"
           >
             <label
               className="u-visually-hidden"
@@ -1308,7 +1308,7 @@ exports[`initial state renders without crashing 1`] = `
             className="separator"
           />
           <section
-            className="cf-select interval"
+            className="cf-select cf-select__interval"
           >
             <label
               className="u-visually-hidden"

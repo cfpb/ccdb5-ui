@@ -95,6 +95,8 @@
     "http-proxy-middleware": "^0.20.0",
     "identity-obj-proxy": "3.0.0",
     "ignore-loader": "^0.1.2",
+    "intro.js": "^6.0.0",
+    "intro.js-react": "0.6.0",
     "is-wsl": "^1.1.0",
     "jest": "27.4.5",
     "jest-cli": "27.4.5",
@@ -149,9 +151,5 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
-  },
-  "dependencies": {
-    "intro.js": "^6.0.0",
-    "intro.js-react": "0.6.0"
   }
 }

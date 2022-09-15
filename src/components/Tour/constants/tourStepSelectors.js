@@ -37,8 +37,8 @@ export const LIST_COMPLAINTS_SELECTORS = {
   STEP_9: { selector: '#search-summary h2', label: 'Search Summary' },
   STEP_10: { selector: '.export-results button.export-btn', label: 'Export Data' },
   STEP_11: { selector: '.export-results button.print-preview', label: 'Print Page' }, // print button
-  STEP_12: { selector: '.refine-bar .size', label: 'Show Number' },
-  STEP_13: { selector: '.refine-bar .sort', label: 'Sort Results' },
+  STEP_12: { selector: '.refine-bar .cf-select__size', label: 'Show Number' },
+  STEP_13: { selector: '.refine-bar .cf-select__sort', label: 'Sort Results' },
   STEP_14: { selector: '.refine-bar section.m-btn-group', label: 'Show Narratives' }, // read complaints
   STEP_15: { selector: '.cards-panel', label: 'Results' },
   STEP_16: { selector: '.to-detail', label: 'View Detailed Complaints' }, // complaint id
@@ -57,8 +57,8 @@ export const TRENDS_SELECTORS = {
   STEP_9: { selector: '#search-summary h2', label: 'Search Summary' },
   STEP_10: { selector: '.export-results button.export-btn', label: 'Export Data' },
   STEP_11: { selector: '.export-results button.print-preview', label: 'Print Page' }, // print button
-  STEP_12: { selector: '.refine-bar .cf-select.lens', label: 'Aggregate By' },
-  STEP_13: { selector: '.refine-bar .cf-select.interval', label: 'Date Interval' },
+  STEP_12: { selector: '.refine-bar .cf-select__lens', label: 'Aggregate By' },
+  STEP_13: { selector: '.refine-bar .cf-select__interval', label: 'Date Interval' },
   STEP_14: { selector: '.row-chart-section', label: 'Row Charts' },
   STEP_15: { selector: '.tabbed-navigation', label: 'Tabbed Navigation' }
 };
