@@ -9,8 +9,8 @@ if (typeof Promise === 'undefined') {
 }
 
 if (typeof Set === 'undefined') {
-  window.Set = require("core-js/es6/set");
-  window.Map = require("core-js/es6/map");
+  window.Set = require('core-js/es6/set');
+  window.Map = require('core-js/es6/map');
 }
 
 // fetch() polyfill for making API calls.
