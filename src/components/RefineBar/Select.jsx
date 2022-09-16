@@ -48,8 +48,8 @@ export class Select extends React.Component {
     const values = this.getValues()
 
     return (
-      <section className={'cf-select'}
-               data-tour={id}>
+      <section className={ 'cf-select' }
+               data-tour={ id }>
         <label className="u-visually-hidden"
                htmlFor={ id }>
           { this.props.label }
