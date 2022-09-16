@@ -57,6 +57,7 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
   </div>
   <div
     className="tabbed-navigation"
+    data-tour="tabbed-navigation"
   >
     <section>
       <button
@@ -128,10 +129,11 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
     </section>
     <section
       className="cf-select"
+      data-tour="select-lens"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-lens"
+        htmlFor="select-lens"
       >
         Aggregate complaints by
       </label>
@@ -139,7 +141,7 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
         Aggregate by
       </p>
       <select
-        id="choose-lens"
+        id="select-lens"
         onChange={[Function]}
         value="Product"
       >
@@ -168,10 +170,11 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
     />
     <section
       className="cf-select"
+      data-tour="select-interval"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-interval"
+        htmlFor="select-interval"
       >
         Choose the Date interval
       </label>
@@ -179,7 +182,7 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
         Date interval
       </p>
       <select
-        id="choose-interval"
+        id="select-interval"
         onChange={[Function]}
         value="Month"
       >
@@ -496,6 +499,7 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
   </div>
   <div
     className="tabbed-navigation"
+    data-tour="tabbed-navigation"
   >
     <section>
       <button
@@ -567,10 +571,11 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
     </section>
     <section
       className="cf-select"
+      data-tour="select-lens"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-lens"
+        htmlFor="select-lens"
       >
         Aggregate complaints by
       </label>
@@ -578,7 +583,7 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
         Aggregate by
       </p>
       <select
-        id="choose-lens"
+        id="select-lens"
         onChange={[Function]}
         value="Product"
       >
@@ -607,10 +612,11 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
     />
     <section
       className="cf-select"
+      data-tour="select-interval"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-interval"
+        htmlFor="select-interval"
       >
         Choose the Date interval
       </label>
@@ -618,7 +624,7 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
         Date interval
       </p>
       <select
-        id="choose-interval"
+        id="select-interval"
         onChange={[Function]}
         value="Month"
       >
@@ -902,6 +908,7 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
   </div>
   <div
     className="tabbed-navigation"
+    data-tour="tabbed-navigation"
   >
     <section>
       <button
@@ -973,10 +980,11 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
     </section>
     <section
       className="cf-select"
+      data-tour="select-lens"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-lens"
+        htmlFor="select-lens"
       >
         Aggregate complaints by
       </label>
@@ -984,7 +992,7 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
         Aggregate by
       </p>
       <select
-        id="choose-lens"
+        id="select-lens"
         onChange={[Function]}
         value="Company"
       >
@@ -1013,10 +1021,11 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
     />
     <section
       className="cf-select"
+      data-tour="select-interval"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-interval"
+        htmlFor="select-interval"
       >
         Choose the Date interval
       </label>
@@ -1024,7 +1033,7 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
         Date interval
       </p>
       <select
-        id="choose-interval"
+        id="select-interval"
         onChange={[Function]}
         value="Month"
       >
@@ -1272,6 +1281,7 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
   </div>
   <div
     className="tabbed-navigation"
+    data-tour="tabbed-navigation"
   >
     <section>
       <button
@@ -1380,10 +1390,11 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
     </section>
     <section
       className="cf-select"
+      data-tour="select-lens"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-lens"
+        htmlFor="select-lens"
       >
         Aggregate complaints by
       </label>
@@ -1391,7 +1402,7 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
         Aggregate by
       </p>
       <select
-        id="choose-lens"
+        id="select-lens"
         onChange={[Function]}
         value="Overview"
       >
@@ -1420,10 +1431,11 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
     />
     <section
       className="cf-select"
+      data-tour="select-interval"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-interval"
+        htmlFor="select-interval"
       >
         Choose the Date interval
       </label>
@@ -1431,7 +1443,7 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
         Date interval
       </p>
       <select
-        id="choose-interval"
+        id="select-interval"
         onChange={[Function]}
         value="Month"
       >
@@ -1597,6 +1609,7 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
   </div>
   <div
     className="tabbed-navigation"
+    data-tour="tabbed-navigation"
   >
     <section>
       <button
@@ -1668,10 +1681,11 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
     </section>
     <section
       className="cf-select"
+      data-tour="select-lens"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-lens"
+        htmlFor="select-lens"
       >
         Aggregate complaints by
       </label>
@@ -1679,7 +1693,7 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
         Aggregate by
       </p>
       <select
-        id="choose-lens"
+        id="select-lens"
         onChange={[Function]}
         value="Product"
       >
@@ -1708,10 +1722,11 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
     />
     <section
       className="cf-select"
+      data-tour="select-interval"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-interval"
+        htmlFor="select-interval"
       >
         Choose the Date interval
       </label>
@@ -1719,7 +1734,7 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
         Date interval
       </p>
       <select
-        id="choose-interval"
+        id="select-interval"
         onChange={[Function]}
         value="Month"
       >
@@ -2003,6 +2018,7 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
   </div>
   <div
     className="tabbed-navigation"
+    data-tour="tabbed-navigation"
   >
     <section>
       <button
@@ -2074,10 +2090,11 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
     </section>
     <section
       className="cf-select"
+      data-tour="select-lens"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-lens"
+        htmlFor="select-lens"
       >
         Aggregate complaints by
       </label>
@@ -2085,7 +2102,7 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
         Aggregate by
       </p>
       <select
-        id="choose-lens"
+        id="select-lens"
         onChange={[Function]}
         value="Overview"
       >
@@ -2114,10 +2131,11 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
     />
     <section
       className="cf-select"
+      data-tour="select-interval"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-interval"
+        htmlFor="select-interval"
       >
         Choose the Date interval
       </label>
@@ -2125,7 +2143,7 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
         Date interval
       </p>
       <select
-        id="choose-interval"
+        id="select-interval"
         onChange={[Function]}
         value="Month"
       >
@@ -2291,6 +2309,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
   </div>
   <div
     className="tabbed-navigation"
+    data-tour="tabbed-navigation"
   >
     <section>
       <button
@@ -2363,10 +2382,11 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
     </section>
     <section
       className="cf-select"
+      data-tour="select-lens"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-lens"
+        htmlFor="select-lens"
       >
         Aggregate complaints by
       </label>
@@ -2374,7 +2394,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
         Aggregate by
       </p>
       <select
-        id="choose-lens"
+        id="select-lens"
         onChange={[Function]}
         value="Overview"
       >
@@ -2403,10 +2423,11 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
     />
     <section
       className="cf-select"
+      data-tour="select-interval"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-interval"
+        htmlFor="select-interval"
       >
         Choose the Date interval
       </label>
@@ -2414,7 +2435,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
         Date interval
       </p>
       <select
-        id="choose-interval"
+        id="select-interval"
         onChange={[Function]}
         value="Month"
       >
@@ -2580,6 +2601,7 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
   </div>
   <div
     className="tabbed-navigation"
+    data-tour="tabbed-navigation"
   >
     <section>
       <button
@@ -2651,10 +2673,11 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
     </section>
     <section
       className="cf-select"
+      data-tour="select-lens"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-lens"
+        htmlFor="select-lens"
       >
         Aggregate complaints by
       </label>
@@ -2662,7 +2685,7 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
         Aggregate by
       </p>
       <select
-        id="choose-lens"
+        id="select-lens"
         onChange={[Function]}
         value="Overview"
       >
@@ -2691,10 +2714,11 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
     />
     <section
       className="cf-select"
+      data-tour="select-interval"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-interval"
+        htmlFor="select-interval"
       >
         Choose the Date interval
       </label>
@@ -2702,7 +2726,7 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
         Date interval
       </p>
       <select
-        id="choose-interval"
+        id="select-interval"
         onChange={[Function]}
         value="Month"
       >

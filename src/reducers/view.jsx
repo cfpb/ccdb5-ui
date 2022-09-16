@@ -5,7 +5,9 @@ export const defaultView = {
   expandedRows: [],
   fromExternal: false,
   printMode: false,
+  showAdvancedSearchTips: false,
   showFilters: true,
+  showTour: false,
   width: 0
 }
 
@@ -27,6 +29,34 @@ function processParams( state, action ) {
   processUrlArrayParams( params, state, arrayParams )
 
   return state
+}
+
+
+/**
+ * Handler hide advanced tips
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+export function hideAdvancedSearchTips( state ) {
+  return {
+    ...state,
+    showAdvancedSearchTips: false
+  }
+}
+
+
+/**
+ * Handler show advanced tips
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+export function showAdvancedSearchTips( state ) {
+  return {
+    ...state,
+    showAdvancedSearchTips: true
+  }
 }
 
 /**
@@ -82,6 +112,35 @@ export function updateFilterVisibility( state ) {
   return {
     ...state,
     showFilters: !state.showFilters
+  }
+}
+
+/**
+ * Handler for the update hide tour
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+export function tourHidden( state ) {
+  return {
+    ...state,
+    showTour: false
+  }
+}
+
+/**
+ * Handler for the update show tour action.
+ * Reset page state so we can highlight things consistently.
+ *
+ * @param {object} state the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+export function tourShown( state ) {
+  return {
+    ...state,
+    expandedRows: [],
+    showAdvancedSearchTips: false,
+    showTour: true
   }
 }
 
@@ -153,7 +212,11 @@ export function _buildHandlerMap() {
   handlers[actions.PRINT_MODE_ON] = updatePrintModeOn
   handlers[actions.PRINT_MODE_OFF] = updatePrintModeOff
   handlers[actions.SCREEN_RESIZED] = updateScreenSize
+  handlers[actions.HIDE_ADVANCED_SEARCH_TIPS] = hideAdvancedSearchTips
+  handlers[actions.SHOW_ADVANCED_SEARCH_TIPS] = showAdvancedSearchTips
   handlers[actions.TOGGLE_FILTER_VISIBILITY] = updateFilterVisibility
+  handlers[actions.HIDE_TOUR] = tourHidden
+  handlers[actions.SHOW_TOUR] = tourShown
   handlers[actions.ROW_COLLAPSED] = collapseRow
   handlers[actions.ROW_EXPANDED] = expandRow
   handlers[actions.URL_CHANGED] = processParams

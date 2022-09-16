@@ -18,6 +18,9 @@ function setupSnapshot() {
       date_received_min: '2011-12-31T12:00:00.000Z',
       searchField: 'all',
       searchText: 'something searching',
+    },
+    view: {
+      showAdvancedSearchTips: false
     }
   })
 

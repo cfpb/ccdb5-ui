@@ -57,6 +57,7 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
   </div>
   <div
     className="tabbed-navigation"
+    data-tour="tabbed-navigation"
   >
     <section>
       <button
@@ -131,10 +132,11 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
     />
     <section
       className="cf-select"
+      data-tour="select-size"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-size"
+        htmlFor="select-size"
       >
         Select the number of results to display at a time
       </label>
@@ -142,7 +144,7 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
         Show
       </p>
       <select
-        id="choose-size"
+        id="select-size"
         onChange={[Function]}
         value={10}
       >
@@ -174,10 +176,11 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
     </section>
     <section
       className="cf-select"
+      data-tour="select-sort"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-sort"
+        htmlFor="select-sort"
       >
         Choose the order in which the results are displayed
       </label>
@@ -185,7 +188,7 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
         Sort
       </p>
       <select
-        id="choose-sort"
+        id="select-sort"
         onChange={[Function]}
       >
         <option
@@ -399,6 +402,7 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
   </div>
   <div
     className="tabbed-navigation"
+    data-tour="tabbed-navigation"
   >
     <section>
       <button
@@ -473,10 +477,11 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
     />
     <section
       className="cf-select"
+      data-tour="select-size"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-size"
+        htmlFor="select-size"
       >
         Select the number of results to display at a time
       </label>
@@ -484,7 +489,7 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
         Show
       </p>
       <select
-        id="choose-size"
+        id="select-size"
         onChange={[Function]}
         value={10}
       >
@@ -516,10 +521,11 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
     </section>
     <section
       className="cf-select"
+      data-tour="select-sort"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-sort"
+        htmlFor="select-sort"
       >
         Choose the order in which the results are displayed
       </label>
@@ -527,7 +533,7 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
         Sort
       </p>
       <select
-        id="choose-sort"
+        id="select-sort"
         onChange={[Function]}
       >
         <option
@@ -917,6 +923,7 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
   </div>
   <div
     className="tabbed-navigation"
+    data-tour="tabbed-navigation"
   >
     <section>
       <button
@@ -991,10 +998,11 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
     />
     <section
       className="cf-select"
+      data-tour="select-size"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-size"
+        htmlFor="select-size"
       >
         Select the number of results to display at a time
       </label>
@@ -1002,7 +1010,7 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
         Show
       </p>
       <select
-        id="choose-size"
+        id="select-size"
         onChange={[Function]}
         value={10}
       >
@@ -1034,10 +1042,11 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
     </section>
     <section
       className="cf-select"
+      data-tour="select-sort"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-sort"
+        htmlFor="select-sort"
       >
         Choose the order in which the results are displayed
       </label>
@@ -1045,7 +1054,7 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
         Sort
       </p>
       <select
-        id="choose-sort"
+        id="select-sort"
         onChange={[Function]}
       >
         <option
@@ -1410,6 +1419,7 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
   </div>
   <div
     className="tabbed-navigation"
+    data-tour="tabbed-navigation"
   >
     <section>
       <button
@@ -1484,10 +1494,11 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
     />
     <section
       className="cf-select"
+      data-tour="select-size"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-size"
+        htmlFor="select-size"
       >
         Select the number of results to display at a time
       </label>
@@ -1495,7 +1506,7 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
         Show
       </p>
       <select
-        id="choose-size"
+        id="select-size"
         onChange={[Function]}
         value={10}
       >
@@ -1527,10 +1538,11 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
     </section>
     <section
       className="cf-select"
+      data-tour="select-sort"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-sort"
+        htmlFor="select-sort"
       >
         Choose the order in which the results are displayed
       </label>
@@ -1538,7 +1550,7 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
         Sort
       </p>
       <select
-        id="choose-sort"
+        id="select-sort"
         onChange={[Function]}
       >
         <option
@@ -1708,6 +1720,7 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
   </div>
   <div
     className="tabbed-navigation"
+    data-tour="tabbed-navigation"
   >
     <section>
       <button
@@ -1783,10 +1796,11 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
     />
     <section
       className="cf-select"
+      data-tour="select-size"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-size"
+        htmlFor="select-size"
       >
         Select the number of results to display at a time
       </label>
@@ -1794,7 +1808,7 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
         Show
       </p>
       <select
-        id="choose-size"
+        id="select-size"
         onChange={[Function]}
         value={10}
       >
@@ -1826,10 +1840,11 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
     </section>
     <section
       className="cf-select"
+      data-tour="select-sort"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-sort"
+        htmlFor="select-sort"
       >
         Choose the order in which the results are displayed
       </label>
@@ -1837,7 +1852,7 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
         Sort
       </p>
       <select
-        id="choose-sort"
+        id="select-sort"
         onChange={[Function]}
       >
         <option
@@ -2202,6 +2217,7 @@ exports[`component:ListPanel renders without crashing 1`] = `
   </div>
   <div
     className="tabbed-navigation"
+    data-tour="tabbed-navigation"
   >
     <section>
       <button
@@ -2276,10 +2292,11 @@ exports[`component:ListPanel renders without crashing 1`] = `
     />
     <section
       className="cf-select"
+      data-tour="select-size"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-size"
+        htmlFor="select-size"
       >
         Select the number of results to display at a time
       </label>
@@ -2287,7 +2304,7 @@ exports[`component:ListPanel renders without crashing 1`] = `
         Show
       </p>
       <select
-        id="choose-size"
+        id="select-size"
         onChange={[Function]}
         value={10}
       >
@@ -2319,10 +2336,11 @@ exports[`component:ListPanel renders without crashing 1`] = `
     </section>
     <section
       className="cf-select"
+      data-tour="select-sort"
     >
       <label
         className="u-visually-hidden"
-        htmlFor="choose-sort"
+        htmlFor="select-sort"
       >
         Choose the order in which the results are displayed
       </label>
@@ -2330,7 +2348,7 @@ exports[`component:ListPanel renders without crashing 1`] = `
         Sort
       </p>
       <select
-        id="choose-sort"
+        id="select-sort"
         onChange={[Function]}
       >
         <option

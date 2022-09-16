@@ -217,17 +217,10 @@ export function mouseoverPoint() {
  * @returns {string} html output
  */
 export function tileFormatter() {
-  let iePatch = ''
-  if ( navigator.userAgent.indexOf( 'MSIE' ) !== -1 ||
-    navigator.appVersion.indexOf( 'Trident/' ) > -1 ) {
-    iePatch = '<br />'
-  }
-
   const value = this.point.displayValue.toLocaleString();
   return '<div class="highcharts-data-label-state tile-' + this.point.name +
     ' ' + this.point.className + ' ">' +
     '<span class="abbr">' + this.point.name + '</span>' +
-    iePatch +
     '<span class="value">' + value + '</span>' +
     '</div>';
 }

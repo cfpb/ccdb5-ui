@@ -107,6 +107,7 @@ export function removeFocus() {
   }
 }
 
+
 /**
  * Notifies the application that the toolTip for stacked area chart has changed
  *

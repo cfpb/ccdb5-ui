@@ -20,6 +20,7 @@ export const MODAL_TYPE_MORE_ABOUT = 'MODAL_TYPE_MORE_ABOUT'
 
 
 // view modes
+export const MODE_DOCUMENT = 'Document'
 export const MODE_MAP = 'Map'
 export const MODE_LIST = 'List'
 export const MODE_TRENDS = 'Trends'
