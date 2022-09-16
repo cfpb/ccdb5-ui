@@ -1,21 +1,23 @@
-import { connect } from 'react-redux'
-import Hero from './Hero'
-import { IntlProvider } from 'react-intl'
+import { connect } from 'react-redux';
+import Hero from './Hero';
+import { IntlProvider } from 'react-intl';
 import React from 'react';
-import RefinePanel from '../RefinePanel'
-import ResultsPanel from '../ResultsPanel'
-import RootModal from '../Dialogs/RootModal'
-import SearchPanel from './SearchPanel'
+import RefinePanel from '../RefinePanel';
+import ResultsPanel from '../ResultsPanel';
+import RootModal from '../Dialogs/RootModal';
+import SearchPanel from './SearchPanel';
 import { Tour } from '../Tour/Tour';
-import UrlBarSynch from '../UrlBarSynch'
-import WindowSize from '../WindowSize'
+import UrlBarSynch from '../UrlBarSynch';
+import WindowSize from '../WindowSize';
 
 export class SearchComponents extends React.Component {
   render() {
     return (
       <IntlProvider locale="en">
-        <main className={ 'content content__1-3 ' + this.props.printClass }
-              role="main">
+        <main
+          className={'content content__1-3 ' + this.props.printClass}
+          role="main"
+        >
           <WindowSize />
           <UrlBarSynch />
           <Hero />
@@ -28,12 +30,12 @@ export class SearchComponents extends React.Component {
           <RootModal />
         </main>
       </IntlProvider>
-    )
+    );
   }
 }
 
-export const mapStateToProps = state => ( {
-  printClass: state.view.printMode ? 'print' : ''
-} )
+export const mapStateToProps = (state) => ({
+  printClass: state.view.printMode ? 'print' : '',
+});
 
-export default connect( mapStateToProps )( SearchComponents )
+export default connect(mapStateToProps)(SearchComponents);

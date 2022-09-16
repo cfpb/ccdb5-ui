@@ -25,9 +25,9 @@ describe('initial state', () => {
       submitted_via: 'Email',
       timely: 'Yes',
       zip_code: '20008',
-      foo: 'do not show this'
+      foo: 'do not show this',
     };
-  })
+  });
 
   it('renders without crashing', () => {
     const target = renderer.create(
@@ -59,7 +59,8 @@ describe('initial state', () => {
   });
 
   it('includes an overflow link when the narrative is long', () => {
-    item.complaint_what_happened = "Call me Ishmael. Some years ago- never \
+    item.complaint_what_happened =
+      "Call me Ishmael. Some years ago- never \
 mind how long precisely- having little or no money in my purse, and \
 nothing particular to interest me on shore, I thought I would sail about \
 a little and see the watery part of the world. It is a way I have of \
@@ -130,6 +131,8 @@ ocean with me.";
     );
     let tree = target.toJSON();
     expect(tree).toMatchSnapshot();
-    expect(tree).not.toContain('<a href="detail/<em>99990909</em>"><em>99990909</em></a>');
-  })
+    expect(tree).not.toContain(
+      '<a href="detail/<em>99990909</em>"><em>99990909</em></a>'
+    );
+  });
 });

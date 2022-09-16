@@ -1,83 +1,83 @@
-@import (less) "../../css/base.less";
+@import (less) '../../css/base.less';
 
 #line-chart {
-    .y-axis-group {
-        path {
-            display: none;
-        }
+  .y-axis-group {
+    path {
+      display: none;
     }
+  }
 
-    .x-axis-group {
-        .month-axis {
-            .domain {
-                display: none;
-            }
-        }
-    }
-    .masking-rectangle {
+  .x-axis-group {
+    .month-axis {
+      .domain {
         display: none;
+      }
     }
+  }
+  .masking-rectangle {
+    display: none;
+  }
 }
 
 #stacked-area-chart,
 #line-chart {
-    svg {
-        overflow: visible;
-    }
+  svg {
+    overflow: visible;
+  }
 
-    .topic .line {
-        fill: none;
-        stroke-width: 3px;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-    }
+  .topic .line {
+    fill: none;
+    stroke-width: 3px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
 
-    .circle-container {
-        circle {
-            fill: @white;
-        }
+  .circle-container {
+    circle {
+      fill: @white;
     }
-    .grid-lines-group {
-        stroke: @gray-20;
-        stroke-width: 0.1%;
+  }
+  .grid-lines-group {
+    stroke: @gray-20;
+    stroke-width: 0.1%;
+  }
+  .x-axis-group {
+    line {
+      display: none;
     }
-    .x-axis-group {
-        line {
-            display: none;
-        }
+  }
+  //line on hover for the tooltip.
+  .vertical-marker {
+    stroke: @gray-20;
+    stroke-width: 2px;
+    stroke-dasharray: 4, 4;
+  }
+  .chart-group {
+    .area {
+      path.area {
+        fill: @gray-10;
+        opacity: .4;
+      }
     }
-    //line on hover for the tooltip.
-    .vertical-marker {
-        stroke: @gray-20;
-        stroke-width: 2px;
-        stroke-dasharray: 4, 4;
+    .area-outline {
+      fill: none;
     }
-    .chart-group {
-        .area {
-            path.area {
-                fill: @gray-10;
-                opacity: .4;
-            }
-        }
-        .area-outline {
-            fill: none;
-        }
-    }
+  }
 
-    .extended-x-line {
-        stroke: @black;
-        stroke-width: 0.2%;
-    }
+  .extended-x-line {
+    stroke: @black;
+    stroke-width: 0.2%;
+  }
 }
 
 .chart-wrapper {
-    p {
-        font-size: 12px;
-        font-weight: 600;
-        color: @gray;
+  p {
+    font-size: 12px;
+    font-weight: 600;
+    color: @gray;
 
-        &.x-axis-label {
-            margin-left: 45%;
-        }
+    &.x-axis-label {
+      margin-left: 45%;
     }
+  }
 }

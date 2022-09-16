@@ -1,36 +1,34 @@
 import { Pill } from '../Search/Pill';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { slugify } from '../../utils'
-import { Provider } from 'react-redux'
-import thunk from 'redux-thunk'
-import configureMockStore from 'redux-mock-store'
+import { slugify } from '../../utils';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import configureMockStore from 'redux-mock-store';
 
 function setupSnapshot() {
-  const middlewares = [ thunk ]
-  const mockStore = configureMockStore( middlewares )
-  const store = mockStore( {
+  const middlewares = [thunk];
+  const mockStore = configureMockStore(middlewares);
+  const store = mockStore({
     query: {
       date_received_max: '9/1/2020',
-      date_received_min: '9/1/2017'
-    }
-  } )
+      date_received_min: '9/1/2017',
+    },
+  });
 
   return renderer.create(
-    <Provider store={ store }>
-        <Pill fieldName="somefield"
-              value={ slugify( 'foo', 'bar' ) }
-        />
+    <Provider store={store}>
+      <Pill fieldName="somefield" value={slugify('foo', 'bar')} />
     </Provider>
-  )
+  );
 }
 
 describe('component:Pill', () => {
-  it( 'renders without crashing', () => {
-    const target = setupSnapshot()
-    const tree = target.toJSON()
-    expect( tree ).toMatchSnapshot()
-  } )
+  it('renders without crashing', () => {
+    const target = setupSnapshot();
+    const tree = target.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 
   // TODO: rewrite these tests with testing library
   // it('allows the user to remove this filter', () => {
@@ -87,4 +85,4 @@ describe('component:Pill', () => {
   //     ] ] )
   //   } )
   // } )
-} );
+});

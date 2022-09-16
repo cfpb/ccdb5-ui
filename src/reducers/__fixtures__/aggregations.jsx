@@ -8,9 +8,9 @@ export default {
         { key: 'bar', doc_count: 150 },
         { key: 'car', doc_count: 125 },
         { key: 'delta', doc_count: 75 },
-        { key: 'elephant', doc_count: 50 }
-      ]
-    }
+        { key: 'elephant', doc_count: 50 },
+      ],
+    },
   },
   product: {
     doc_count: 1000,
@@ -22,9 +22,9 @@ export default {
         { key: 'goo', doc_count: 150 },
         { key: 'hi', doc_count: 125 },
         { key: 'indigo', doc_count: 75 },
-        { key: 'joker', doc_count: 50 }
-      ]
-    }
+        { key: 'joker', doc_count: 50 },
+      ],
+    },
   },
   state: {
     doc_count: 469472,
@@ -94,8 +94,8 @@ export default {
         { key: 'MP', doc_count: 7 },
         { key: 'AS', doc_count: 6 },
         { key: 'MH', doc_count: 3 },
-        { key: 'PW', doc_count: 1 }
-      ]
-    }
-  }
-}
+        { key: 'PW', doc_count: 1 },
+      ],
+    },
+  },
+};

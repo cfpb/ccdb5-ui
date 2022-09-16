@@ -1,11 +1,11 @@
-import configureMockStore from 'redux-mock-store'
+import configureMockStore from 'redux-mock-store';
 import ReduxListPanel, { mapDispatchToProps } from '../List/ListPanel';
 import { IntlProvider } from 'react-intl';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 import React from 'react';
-import thunk from 'redux-thunk'
+import thunk from 'redux-thunk';
 import renderer from 'react-test-renderer';
-import * as utils from '../../utils'
+import * as utils from '../../utils';
 
 const fixture = [
   {
@@ -25,60 +25,73 @@ const fixture = [
     sub_product: 'Qaz',
     submitted_via: 'email',
     timely: 'yes',
-    zip_code: '200XX'
-  }
-]
+    zip_code: '200XX',
+  },
+];
 
-function setupSnapshot( items = [], initialStore = {}, queryStore = null, viewStore ) {
-  const query = queryStore ? queryStore : {
-    page: 1,
-    size: 10,
-    totalPages: 100
-  }
+function setupSnapshot(
+  items = [],
+  initialStore = {},
+  queryStore = null,
+  viewStore
+) {
+  const query = queryStore
+    ? queryStore
+    : {
+        page: 1,
+        size: 10,
+        totalPages: 100,
+      };
 
-  const aggs = Object.assign({
-    hasDataIssue: false,
-    isDataStale: false,
-    doc_count: 100,
-    total: items.length,
-  }, initialStore)
+  const aggs = Object.assign(
+    {
+      hasDataIssue: false,
+      isDataStale: false,
+      doc_count: 100,
+      total: items.length,
+    },
+    initialStore
+  );
 
-  const view = Object.assign({
-    width: 1000
-  }, viewStore)
+  const view = Object.assign(
+    {
+      width: 1000,
+    },
+    viewStore
+  );
 
-  const middlewares = [thunk]
-  const mockStore = configureMockStore(middlewares)
-  const store = mockStore( {
+  const middlewares = [thunk];
+  const mockStore = configureMockStore(middlewares);
+  const store = mockStore({
     aggs,
     query,
     results: {
       error: '',
-      items
+      items,
     },
-    view
-  } )
+    view,
+  });
 
   return renderer.create(
-    <Provider store={ store } >
+    <Provider store={store}>
       <IntlProvider locale="en">
-        <ReduxListPanel/>
+        <ReduxListPanel />
       </IntlProvider>
     </Provider>
-  )
+  );
 }
 
 describe('component:ListPanel', () => {
   it('renders without crashing', () => {
-    const target = setupSnapshot(fixture)
+    const target = setupSnapshot(fixture);
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('renders mobile filters without crashing', () => {
     const target = setupSnapshot(fixture, null, null, {
-      width: 700
-    })
+      width: 700,
+    });
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -87,56 +100,61 @@ describe('component:ListPanel', () => {
     const target = setupSnapshot([], null, {
       page: 1,
       size: 10,
-      totalPages: 0
-    } )
+      totalPages: 0,
+    });
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
-  })
+  });
 
   it('displays a message when an error has occurred', () => {
-    const target = setupSnapshot( [], { error: 'oops!' },
+    const target = setupSnapshot(
+      [],
+      { error: 'oops!' },
       {
         page: 1,
         size: 10,
-        totalPages: 0
-      } )
+        totalPages: 0,
+      }
+    );
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
-  })
+  });
 
   it('displays a message when the data is stale', () => {
-    const target = setupSnapshot(fixture, { isDataStale: true })
+    const target = setupSnapshot(fixture, { isDataStale: true });
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
-  })
+  });
 
   it('displays a message when the data has issues', () => {
-    const target = setupSnapshot(fixture, { hasDataIssue: true })
+    const target = setupSnapshot(fixture, { hasDataIssue: true });
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
-  })
+  });
 
-  describe( 'mapDispatchToProps', () => {
-    let dispatch, gaSpy
-    beforeEach( () => {
-      dispatch = jest.fn()
-      gaSpy = jest.spyOn( utils, 'sendAnalyticsEvent' )
-    } )
+  describe('mapDispatchToProps', () => {
+    let dispatch, gaSpy;
+    beforeEach(() => {
+      dispatch = jest.fn();
+      gaSpy = jest.spyOn(utils, 'sendAnalyticsEvent');
+    });
 
-    afterEach( () => {
-      jest.clearAllMocks()
-    } )
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
 
-    it( 'hooks into onSize', () => {
-      mapDispatchToProps( dispatch ).onSize( { target: { value: '50' } } )
-      expect( dispatch.mock.calls.length ).toEqual( 1 )
-      expect( gaSpy ).toHaveBeenCalledWith( 'Dropdown', '50 results' )
-    } )
+    it('hooks into onSize', () => {
+      mapDispatchToProps(dispatch).onSize({ target: { value: '50' } });
+      expect(dispatch.mock.calls.length).toEqual(1);
+      expect(gaSpy).toHaveBeenCalledWith('Dropdown', '50 results');
+    });
 
-    it( 'hooks into onSort', () => {
-      mapDispatchToProps( dispatch ).onSort( { target: { value: 'created_date_desc' } } )
-      expect( dispatch.mock.calls.length ).toEqual( 1 )
-      expect( gaSpy ).toHaveBeenCalledWith( 'Dropdown', 'Newest to oldest' )
-    } )
-  } )
-} )
+    it('hooks into onSort', () => {
+      mapDispatchToProps(dispatch).onSort({
+        target: { value: 'created_date_desc' },
+      });
+      expect(dispatch.mock.calls.length).toEqual(1);
+      expect(gaSpy).toHaveBeenCalledWith('Dropdown', 'Newest to oldest');
+    });
+  });
+});

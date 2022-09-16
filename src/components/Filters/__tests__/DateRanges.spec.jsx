@@ -1,36 +1,36 @@
-import configureMockStore from 'redux-mock-store'
-import { DateRanges } from '../DateRanges'
-import { Provider } from 'react-redux'
-import React from 'react'
-import renderer from 'react-test-renderer'
-import * as types from '../../../constants'
-import thunk from 'redux-thunk'
+import configureMockStore from 'redux-mock-store';
+import { DateRanges } from '../DateRanges';
+import { Provider } from 'react-redux';
+import React from 'react';
+import renderer from 'react-test-renderer';
+import * as types from '../../../constants';
+import thunk from 'redux-thunk';
 
 function setupSnapshot() {
-  const middlewares = [ thunk ]
-  const mockStore = configureMockStore( middlewares )
-  const store = mockStore( {
+  const middlewares = [thunk];
+  const mockStore = configureMockStore(middlewares);
+  const store = mockStore({
     query: {
       dateRange: '3y',
-      tab: types.MODE_MAP
-    }
-  } )
+      tab: types.MODE_MAP,
+    },
+  });
 
   return renderer.create(
-    <Provider store={ store }>
+    <Provider store={store}>
       <DateRanges />
     </Provider>
-  )
+  );
 }
 
-describe( 'component: DateRanges', () => {
-  describe( 'initial state', () => {
-    it( 'renders without crashing', () => {
-      const target = setupSnapshot()
-      let tree = target.toJSON()
-      expect( tree ).toMatchSnapshot()
-    } )
-  } )
+describe('component: DateRanges', () => {
+  describe('initial state', () => {
+    it('renders without crashing', () => {
+      const target = setupSnapshot();
+      let tree = target.toJSON();
+      expect(tree).toMatchSnapshot();
+    });
+  });
 
   // TODO: reimplement when we replace enzyme with testing-library
   // describe('buttons', () => {
@@ -55,4 +55,4 @@ describe( 'component: DateRanges', () => {
   //     expect( cb ).not.toHaveBeenCalled()
   //   } )
   // })
-} )
+});

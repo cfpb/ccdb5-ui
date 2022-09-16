@@ -1,215 +1,241 @@
-import configureMockStore from 'redux-mock-store'
+import configureMockStore from 'redux-mock-store';
 import ReduxStackedAreaChart, {
   mapDispatchToProps,
   mapStateToProps,
-  StackedAreaChart
-} from '../Charts/StackedAreaChart'
-import { shallow } from 'enzyme'
-import { Provider } from 'react-redux'
-import React from 'react'
-import renderer from 'react-test-renderer'
-import thunk from 'redux-thunk'
+  StackedAreaChart,
+} from '../Charts/StackedAreaChart';
+import { shallow } from 'enzyme';
+import { Provider } from 'react-redux';
+import React from 'react';
+import renderer from 'react-test-renderer';
+import thunk from 'redux-thunk';
 
 // this is how you override and mock an imported constructor
-jest.mock( 'britecharts', () => {
+jest.mock('britecharts', () => {
   const props = [
-    'stackedArea', 'margin', 'initializeVerticalMarker', 'colorSchema',
-    'dateLabel', 'tooltipThreshold', 'grid', 'aspectRatio', 'isAnimated', 'on',
-    'yAxisPaddingBetweenChart', 'width', 'height', 'areaCurve'
-  ]
+    'stackedArea',
+    'margin',
+    'initializeVerticalMarker',
+    'colorSchema',
+    'dateLabel',
+    'tooltipThreshold',
+    'grid',
+    'aspectRatio',
+    'isAnimated',
+    'on',
+    'yAxisPaddingBetweenChart',
+    'width',
+    'height',
+    'areaCurve',
+  ];
 
-  const mock = {}
+  const mock = {};
 
-  for ( let i = 0; i < props.length; i++ ) {
-    const propName = props[i]
-    mock[propName] = jest.fn().mockImplementation( () => {
-      return mock
-    } )
+  for (let i = 0; i < props.length; i++) {
+    const propName = props[i];
+    mock[propName] = jest.fn().mockImplementation(() => {
+      return mock;
+    });
   }
 
-  return mock
-} )
+  return mock;
+});
 
-jest.mock( 'd3', () => {
+jest.mock('d3', () => {
   const props = [
-    'select', 'each', 'node', 'getBoundingClientRect', 'width', 'datum', 'call',
-    'remove', 'selectAll'
-  ]
+    'select',
+    'each',
+    'node',
+    'getBoundingClientRect',
+    'width',
+    'datum',
+    'call',
+    'remove',
+    'selectAll',
+  ];
 
-  const mock = {}
+  const mock = {};
 
-  for ( let i = 0; i < props.length; i++ ) {
-    const propName = props[i]
-    mock[propName] = jest.fn().mockImplementation( () => {
-      return mock
-    } )
+  for (let i = 0; i < props.length; i++) {
+    const propName = props[i];
+    mock[propName] = jest.fn().mockImplementation(() => {
+      return mock;
+    });
   }
 
   // set narrow width value for 100% test coverage
-  mock.width = 100
+  mock.width = 100;
 
-  return mock
-} )
+  return mock;
+});
 
 function setupSnapshot() {
-  const middlewares = [ thunk ]
-  const mockStore = configureMockStore( middlewares )
+  const middlewares = [thunk];
+  const mockStore = configureMockStore(middlewares);
   const state = {
     query: {
       dateInterval: 'Month',
       date_received_min: '2012',
-      date_received_max: '2014'
+      date_received_max: '2014',
     },
     trends: {
       colorMap: {
         foo: '#fff',
-        bar: '#eee'
+        bar: '#eee',
       },
       lastDate: '2014-01-01',
       lens: 'Overview',
       results: {
-        dateRangeArea: [1,2,3]
+        dateRangeArea: [1, 2, 3],
       },
-      tooltip: false
+      tooltip: false,
     },
     view: {
       printMode: false,
-      width: 1000
-    }
-  }
-  const store = mockStore( state )
+      width: 1000,
+    },
+  };
+  const store = mockStore(state);
   return renderer.create(
-    <Provider store={ store }>
+    <Provider store={store}>
       <ReduxStackedAreaChart />
     </Provider>
-  )
+  );
 }
 
-describe( 'component: StackedAreaChart', () => {
-  describe( 'initial state', () => {
-    it( 'renders without crashing', () => {
-      const target = setupSnapshot()
-      let tree = target.toJSON()
-      expect( tree ).toMatchSnapshot()
-    } )
-  } )
+describe('component: StackedAreaChart', () => {
+  describe('initial state', () => {
+    it('renders without crashing', () => {
+      const target = setupSnapshot();
+      let tree = target.toJSON();
+      expect(tree).toMatchSnapshot();
+    });
+  });
 
-  describe( 'componentDidUpdate', () => {
-    let mapDiv
+  describe('componentDidUpdate', () => {
+    let mapDiv;
 
-    beforeEach( () => {
-      mapDiv = document.createElement( 'div' )
-      mapDiv.setAttribute( 'id', 'stacked-area-chart-foo' )
-      window.domNode = mapDiv
-      document.body.appendChild( mapDiv )
-    } )
+    beforeEach(() => {
+      mapDiv = document.createElement('div');
+      mapDiv.setAttribute('id', 'stacked-area-chart-foo');
+      window.domNode = mapDiv;
+      document.body.appendChild(mapDiv);
+    });
 
-    afterEach( () => {
-      const div = document.getElementById( 'stacked-area-chart-foo' )
-      if ( div ) {
-        document.body.removeChild( div )
+    afterEach(() => {
+      const div = document.getElementById('stacked-area-chart-foo');
+      if (div) {
+        document.body.removeChild(div);
       }
-      jest.clearAllMocks()
-    } )
+      jest.clearAllMocks();
+    });
 
-    it( 'does nothing when no data', () => {
-      const target = shallow( <StackedAreaChart colorMap={ { foo: 'bar' } }
-                                                data={ [] }
-      /> )
-      target._redrawChart = jest.fn()
-      target.setProps( { data: [] } )
-      expect( target._redrawChart ).toHaveBeenCalledTimes( 0 )
-    } )
+    it('does nothing when no data', () => {
+      const target = shallow(
+        <StackedAreaChart colorMap={{ foo: 'bar' }} data={[]} />
+      );
+      target._redrawChart = jest.fn();
+      target.setProps({ data: [] });
+      expect(target._redrawChart).toHaveBeenCalledTimes(0);
+    });
 
-    it( 'trigger a new update when data changes', () => {
-      const target = shallow( <StackedAreaChart
-        tooltipUpdated={ jest.fn() }
-        colorMap={ { foo: 'bar', shi: 'oio' } }
-        data={ [ 23, 4, 3 ] }
-        dateRange={{from: '1/1/2021', to:'1/1/2022'}}
-        interval={'Month'}
-      /> )
-      target._redrawChart = jest.fn()
-      const sp = jest.spyOn( target.instance(), '_redrawChart' )
-      target.setProps( { data: [ 2, 5 ] } )
-      expect( sp ).toHaveBeenCalledTimes( 1 )
-    } )
+    it('trigger a new update when data changes', () => {
+      const target = shallow(
+        <StackedAreaChart
+          tooltipUpdated={jest.fn()}
+          colorMap={{ foo: 'bar', shi: 'oio' }}
+          data={[23, 4, 3]}
+          dateRange={{ from: '1/1/2021', to: '1/1/2022' }}
+          interval={'Month'}
+        />
+      );
+      target._redrawChart = jest.fn();
+      const sp = jest.spyOn(target.instance(), '_redrawChart');
+      target.setProps({ data: [2, 5] });
+      expect(sp).toHaveBeenCalledTimes(1);
+    });
 
-    it( 'trigger a new update when printMode changes', () => {
-      const target = shallow( <StackedAreaChart
-        tooltipUpdated={ jest.fn() }
-        colorMap={ { foo: 'bar', shi: 'oio' } }
-        data={ [ 23, 4, 3 ] }
-        dateRange={{from: '1/1/2021', to:'1/1/2022'}}
-        interval={'Month'}
-        printMode={ 'false' }
-      /> )
-      target._redrawChart = jest.fn()
-      const sp = jest.spyOn( target.instance(), '_redrawChart' )
-      target.setProps( { printMode: true } )
-      expect( sp ).toHaveBeenCalledTimes( 1 )
-    } )
+    it('trigger a new update when printMode changes', () => {
+      const target = shallow(
+        <StackedAreaChart
+          tooltipUpdated={jest.fn()}
+          colorMap={{ foo: 'bar', shi: 'oio' }}
+          data={[23, 4, 3]}
+          dateRange={{ from: '1/1/2021', to: '1/1/2022' }}
+          interval={'Month'}
+          printMode={'false'}
+        />
+      );
+      target._redrawChart = jest.fn();
+      const sp = jest.spyOn(target.instance(), '_redrawChart');
+      target.setProps({ printMode: true });
+      expect(sp).toHaveBeenCalledTimes(1);
+    });
 
-    it( 'trigger a new update when width changes', () => {
-      const target = shallow( <StackedAreaChart
-        tooltipUpdated={ jest.fn() }
-        colorMap={ { foo: 'bar', shi: 'oio' } }
-        data={ [ 23, 4, 3 ] }
-        dateRange={{from: '1/1/2021', to:'1/1/2022'}}
-        interval={'Month'}
-        printMode={ 'false' }
-        width={ 1000 }
-      /> )
-      target._redrawChart = jest.fn()
-      const sp = jest.spyOn( target.instance(), '_redrawChart' )
-      target.setProps( { width: 600 } )
-      expect( sp ).toHaveBeenCalledTimes( 1 )
-    } )
-  } )
+    it('trigger a new update when width changes', () => {
+      const target = shallow(
+        <StackedAreaChart
+          tooltipUpdated={jest.fn()}
+          colorMap={{ foo: 'bar', shi: 'oio' }}
+          data={[23, 4, 3]}
+          dateRange={{ from: '1/1/2021', to: '1/1/2022' }}
+          interval={'Month'}
+          printMode={'false'}
+          width={1000}
+        />
+      );
+      target._redrawChart = jest.fn();
+      const sp = jest.spyOn(target.instance(), '_redrawChart');
+      target.setProps({ width: 600 });
+      expect(sp).toHaveBeenCalledTimes(1);
+    });
+  });
 
-  describe( 'mapDispatchToProps', () => {
-    it( 'provides a way to call updateTrendsTooltip', () => {
-      const dispatch = jest.fn()
-      mapDispatchToProps( dispatch ).tooltipUpdated( 'foo' )
-      expect( dispatch.mock.calls ).toEqual( [
-        [ {
-          requery: 'REQUERY_NEVER',
-          type: 'TRENDS_TOOLTIP_CHANGED',
-          value: 'foo'
-        } ]
-      ] )
-    } )
-  } )
+  describe('mapDispatchToProps', () => {
+    it('provides a way to call updateTrendsTooltip', () => {
+      const dispatch = jest.fn();
+      mapDispatchToProps(dispatch).tooltipUpdated('foo');
+      expect(dispatch.mock.calls).toEqual([
+        [
+          {
+            requery: 'REQUERY_NEVER',
+            type: 'TRENDS_TOOLTIP_CHANGED',
+            value: 'foo',
+          },
+        ],
+      ]);
+    });
+  });
 
-  describe( 'mapStateToProps', () => {
-    it( 'maps state and props', () => {
+  describe('mapStateToProps', () => {
+    it('maps state and props', () => {
       const state = {
         query: {
           dateInterval: 'Month',
           date_received_min: '',
-          date_received_max: ''
+          date_received_max: '',
         },
         trends: {
           colorMap: {},
           lens: 'Overview',
           results: {
-            dateRangeArea: []
+            dateRangeArea: [],
           },
-          tooltip: {}
+          tooltip: {},
         },
         view: {
           printMode: false,
-          width: 1000
-        }
-      }
+          width: 1000,
+        },
+      };
 
-      let actual = mapStateToProps( state )
-      expect( actual ).toEqual( {
+      let actual = mapStateToProps(state);
+      expect(actual).toEqual({
         colorMap: {},
         data: [],
-        dateRange:  {
+        dateRange: {
           from: '',
-          to: ''
+          to: '',
         },
         filteredData: [],
         interval: 'Month',
@@ -217,73 +243,79 @@ describe( 'component: StackedAreaChart', () => {
         printMode: false,
         showChart: false,
         tooltip: {},
-        width: 1000
-      } )
-    } )
-  } )
+        width: 1000,
+      });
+    });
+  });
 
-  describe( 'tooltip events', () => {
-    let target, cb
+  describe('tooltip events', () => {
+    let target, cb;
 
-    beforeEach( () => {
-      cb = jest.fn()
-    } )
+    beforeEach(() => {
+      cb = jest.fn();
+    });
 
-    it( 'updates external tooltip with different data', () => {
-      target = shallow( <StackedAreaChart colorMap={ { a: '#eee', b: '#444' } }
-                                          data={ [ 2, 3, 4 ] }
-                                          interval={ 'Month' }
-                                          dateRange={ {
-                                            from: '2012',
-                                            to: '2020'
-                                          } }
-                                          filteredData={ [ 2, 3, 4 ] }
-                                          tooltip={ { date: '2000' } }
-                                          tooltipUpdated={ cb }
-                                          showChart={true}
-      /> )
-      const instance = target.instance()
-      instance._updateTooltip( { date: '2012', values: [ 1, 2, 3 ] } )
-      expect( cb ).toHaveBeenCalledTimes( 2 )
-    } )
-
-    it( 'Only updates external tooltip on init', () => {
-      target = shallow( <StackedAreaChart colorMap={ { a: '#eee', b: '#444' } }
-                                          data={ [ 3, 5, 6 ] }
-                                          interval={ 'Month' }
-                                          dateRange={ {
-                                            from: '2012',
-                                            to: '2020'
-                                          } }
-                                          filteredData={ [ 2, 3, 4 ] }
-                                          tooltip={ { date: '2000' } }
-                                          tooltipUpdated={ cb }
-                                          showChart={true}
-      /> )
-      const instance = target.instance()
-      instance._updateTooltip( { date: '2000', value: 200 } )
-      expect( cb ).toHaveBeenCalledTimes( 1 )
-    } )
-  } )
-  describe( 'helpers', () => {
-    describe( '_chartWidth', () => {
-      it( 'gets print width', () => {
-        const target = shallow( <StackedAreaChart
-          printMode={ true }
-          colorMap={ { a: '#eee', b: '#444' } }
-          lens={ 'Overview' }
-          data={ [ 3, 5, 6 ] }
-          interval={ 'Month' }
-          dateRange={ {
+    it('updates external tooltip with different data', () => {
+      target = shallow(
+        <StackedAreaChart
+          colorMap={{ a: '#eee', b: '#444' }}
+          data={[2, 3, 4]}
+          interval={'Month'}
+          dateRange={{
             from: '2012',
-            to: '2020'
-          } }
-          tooltipUpdated={ jest.fn() }
-        /> )
-        expect( target.instance()._chartWidth( '#foo' ) )
-          .toEqual( 540 )
-      } )
-    } )
-  } )
+            to: '2020',
+          }}
+          filteredData={[2, 3, 4]}
+          tooltip={{ date: '2000' }}
+          tooltipUpdated={cb}
+          showChart={true}
+        />
+      );
+      const instance = target.instance();
+      instance._updateTooltip({ date: '2012', values: [1, 2, 3] });
+      expect(cb).toHaveBeenCalledTimes(2);
+    });
 
-} )
+    it('Only updates external tooltip on init', () => {
+      target = shallow(
+        <StackedAreaChart
+          colorMap={{ a: '#eee', b: '#444' }}
+          data={[3, 5, 6]}
+          interval={'Month'}
+          dateRange={{
+            from: '2012',
+            to: '2020',
+          }}
+          filteredData={[2, 3, 4]}
+          tooltip={{ date: '2000' }}
+          tooltipUpdated={cb}
+          showChart={true}
+        />
+      );
+      const instance = target.instance();
+      instance._updateTooltip({ date: '2000', value: 200 });
+      expect(cb).toHaveBeenCalledTimes(1);
+    });
+  });
+  describe('helpers', () => {
+    describe('_chartWidth', () => {
+      it('gets print width', () => {
+        const target = shallow(
+          <StackedAreaChart
+            printMode={true}
+            colorMap={{ a: '#eee', b: '#444' }}
+            lens={'Overview'}
+            data={[3, 5, 6]}
+            interval={'Month'}
+            dateRange={{
+              from: '2012',
+              to: '2020',
+            }}
+            tooltipUpdated={jest.fn()}
+          />
+        );
+        expect(target.instance()._chartWidth('#foo')).toEqual(540);
+      });
+    });
+  });
+});

@@ -26,7 +26,8 @@ exports[`component:Results renders List print mode without crashing 1`] = `
           100
            
         </span>
-         total complaints 
+         total complaints
+         
       </div>
     </div>
   </section>
@@ -561,7 +562,8 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
           100
            
         </span>
-         total complaints 
+         total complaints
+         
       </div>
     </div>
   </section>

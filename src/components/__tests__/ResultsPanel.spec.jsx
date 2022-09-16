@@ -1,12 +1,15 @@
-import ReduxResultsPanel, { mapDispatchToProps, ResultsPanel } from '../ResultsPanel'
+import ReduxResultsPanel, {
+  mapDispatchToProps,
+  ResultsPanel,
+} from '../ResultsPanel';
 import React from 'react';
-import { Provider } from 'react-redux'
-import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
+import { Provider } from 'react-redux';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 import { IntlProvider } from 'react-intl';
 import renderer from 'react-test-renderer';
-import { shallow } from 'enzyme'
-import { trendsResults } from '../../reducers/__fixtures__/trendsResults'
+import { shallow } from 'enzyme';
+import { trendsResults } from '../../reducers/__fixtures__/trendsResults';
 const fixture = [
   {
     company: 'foo',
@@ -25,31 +28,34 @@ const fixture = [
     sub_product: 'Qaz',
     submitted_via: 'email',
     timely: 'yes',
-    zip_code: '200XX'
-  }
-]
+    zip_code: '200XX',
+  },
+];
 
-function setupSnapshot(items=[], initialStore={}, tab = 'List', printMode) {
-  const results = Object.assign({
-    error: '',
-    hasDataIssue: false,
-    isDataStale: false,
-    items
-  }, initialStore)
+function setupSnapshot(items = [], initialStore = {}, tab = 'List', printMode) {
+  const results = Object.assign(
+    {
+      error: '',
+      hasDataIssue: false,
+      isDataStale: false,
+      items,
+    },
+    initialStore
+  );
 
-  const middlewares = [thunk]
-  const mockStore = configureMockStore(middlewares)
+  const middlewares = [thunk];
+  const mockStore = configureMockStore(middlewares);
   const store = mockStore({
     aggs: {
       doc_count: 100,
-      total: items.length
+      total: items.length,
     },
     map: {
       results: {
         issue: [],
         product: [],
-        state: []
-      }
+        state: [],
+      },
     },
     results,
     query: {
@@ -57,114 +63,118 @@ function setupSnapshot(items=[], initialStore={}, tab = 'List', printMode) {
       subLens: '',
       tab: tab,
       date_received_min: new Date('7/10/2017'),
-      date_received_max: new Date('7/10/2020')
+      date_received_max: new Date('7/10/2020'),
     },
     trends: {
-      results: {}
+      results: {},
     },
     view: {
-      printMode
-    }
+      printMode,
+    },
   });
 
   return renderer.create(
-    <Provider store={ store } >
+    <Provider store={store}>
       <IntlProvider locale="en">
         <ReduxResultsPanel />
       </IntlProvider>
     </Provider>
-  )
+  );
 }
 
 describe('component:Results', () => {
-  let target
-  let actionMock = jest.fn()
+  let target;
+  let actionMock = jest.fn();
   it('renders map panel without crashing', () => {
-    const target = setupSnapshot( fixture, null, 'Map' );
+    const target = setupSnapshot(fixture, null, 'Map');
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('renders trends panel without crashing', () => {
-    const target = setupSnapshot( fixture, trendsResults, 'Trends' );
+    const target = setupSnapshot(fixture, trendsResults, 'Trends');
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('renders list panel without crashing', () => {
-    const target = setupSnapshot( fixture, null, 'List' );
+    const target = setupSnapshot(fixture, null, 'List');
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('renders Map print mode without crashing', () => {
-    const target = setupSnapshot( fixture, null, 'Map', true );
+    const target = setupSnapshot(fixture, null, 'Map', true);
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('renders List print mode without crashing', () => {
-    const target = setupSnapshot( fixture, null, 'List', true );
+    const target = setupSnapshot(fixture, null, 'List', true);
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
-  describe( 'event listeners', () => {
-    beforeEach( () => {
+  describe('event listeners', () => {
+    beforeEach(() => {
       window.addEventListener = jest.fn();
       window.removeEventListener = jest.fn();
-    } );
+    });
 
-    it( 'unregisters the same listener on unmount' , () => {
-      const a = window.addEventListener
-      const b = window.removeEventListener
+    it('unregisters the same listener on unmount', () => {
+      const a = window.addEventListener;
+      const b = window.removeEventListener;
 
-      target = shallow( <ResultsPanel tab={'foo'} /> )
-      expect(a.mock.calls.length).toBe(2)
-      expect(a.mock.calls[0][0]).toBe('afterprint')
-      expect(a.mock.calls[1][0]).toBe('beforeprint')
+      target = shallow(<ResultsPanel tab={'foo'} />);
+      expect(a.mock.calls.length).toBe(2);
+      expect(a.mock.calls[0][0]).toBe('afterprint');
+      expect(a.mock.calls[1][0]).toBe('beforeprint');
 
-      target.unmount()
-      expect(b.mock.calls.length).toBe(2)
-      expect(b.mock.calls[0][0]).toBe('afterprint')
-      expect(b.mock.calls[1][0]).toBe('beforeprint')
+      target.unmount();
+      expect(b.mock.calls.length).toBe(2);
+      expect(b.mock.calls[0][0]).toBe('afterprint');
+      expect(b.mock.calls[1][0]).toBe('beforeprint');
 
-      expect(a.mock.calls[0][1]).toBe(b.mock.calls[0][1])
-    } );
-  } );
+      expect(a.mock.calls[0][1]).toBe(b.mock.calls[0][1]);
+    });
+  });
 
   describe('print mode', () => {
-    afterEach( () => {
-      jest.clearAllMocks()
-    } )
-    it( 'toggles print mode on', () => {
-      target = shallow( <ResultsPanel togglePrintModeOn={actionMock} tab={'Foobar'}/> )
-      const instance = target.instance()
-      instance._togglePrintStylesOn()
-      expect( actionMock ).toHaveBeenCalledTimes( 1 )
-    } )
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+    it('toggles print mode on', () => {
+      target = shallow(
+        <ResultsPanel togglePrintModeOn={actionMock} tab={'Foobar'} />
+      );
+      const instance = target.instance();
+      instance._togglePrintStylesOn();
+      expect(actionMock).toHaveBeenCalledTimes(1);
+    });
 
-    it( 'toggles print mode off', () => {
-      target = shallow( <ResultsPanel togglePrintModeOff={actionMock} tab={'Foobar'}/> )
-      const instance = target.instance()
-      instance._togglePrintStylesOff()
-      expect( actionMock ).toHaveBeenCalledTimes( 1 )
-    } )
-  } );
+    it('toggles print mode off', () => {
+      target = shallow(
+        <ResultsPanel togglePrintModeOff={actionMock} tab={'Foobar'} />
+      );
+      const instance = target.instance();
+      instance._togglePrintStylesOff();
+      expect(actionMock).toHaveBeenCalledTimes(1);
+    });
+  });
 
-  describe( 'mapDispatchToProps', () => {
-    afterEach( () => {
-      jest.clearAllMocks()
-    } )
-    it( 'provides a way to call togglePrintModeOn', () => {
-      const dispatch = jest.fn()
-      mapDispatchToProps( dispatch ).togglePrintModeOn()
-      expect( dispatch.mock.calls.length ).toEqual( 1 )
-    } )
-    it( 'provides a way to call togglePrintModeOff', () => {
-      const dispatch = jest.fn()
-      mapDispatchToProps( dispatch ).togglePrintModeOff()
-      expect( dispatch.mock.calls.length ).toEqual( 1 )
-    } )
-  } )
-})
+  describe('mapDispatchToProps', () => {
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+    it('provides a way to call togglePrintModeOn', () => {
+      const dispatch = jest.fn();
+      mapDispatchToProps(dispatch).togglePrintModeOn();
+      expect(dispatch.mock.calls.length).toEqual(1);
+    });
+    it('provides a way to call togglePrintModeOff', () => {
+      const dispatch = jest.fn();
+      mapDispatchToProps(dispatch).togglePrintModeOff();
+      expect(dispatch.mock.calls.length).toEqual(1);
+    });
+  });
+});

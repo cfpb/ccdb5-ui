@@ -1,5 +1,5 @@
-import actions from '../actions'
-import { processUrlArrayParams } from '../utils'
+import actions from '../actions';
+import { processUrlArrayParams } from '../utils';
 
 export const defaultView = {
   expandedRows: [],
@@ -8,8 +8,8 @@ export const defaultView = {
   showAdvancedSearchTips: false,
   showFilters: true,
   showTour: false,
-  width: 0
-}
+  width: 0,
+};
 
 /**
  * Processes an object of key/value strings into the correct internal format
@@ -19,18 +19,17 @@ export const defaultView = {
  * @returns {object} a filtered set of key/value pairs with the values set to
  * the correct type
  */
-function processParams( state, action ) {
-  const params = action.params
+function processParams(state, action) {
+  const params = action.params;
 
-  state.printMode = params.printMode === 'true'
-  state.fromExternal = params.fromExternal === 'true'
+  state.printMode = params.printMode === 'true';
+  state.fromExternal = params.fromExternal === 'true';
 
-  const arrayParams = [ 'expandedRows' ]
-  processUrlArrayParams( params, state, arrayParams )
+  const arrayParams = ['expandedRows'];
+  processUrlArrayParams(params, state, arrayParams);
 
-  return state
+  return state;
 }
-
 
 /**
  * Handler hide advanced tips
@@ -38,13 +37,12 @@ function processParams( state, action ) {
  * @param {object} state the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
-export function hideAdvancedSearchTips( state ) {
+export function hideAdvancedSearchTips(state) {
   return {
     ...state,
-    showAdvancedSearchTips: false
-  }
+    showAdvancedSearchTips: false,
+  };
 }
-
 
 /**
  * Handler show advanced tips
@@ -52,11 +50,11 @@ export function hideAdvancedSearchTips( state ) {
  * @param {object} state the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
-export function showAdvancedSearchTips( state ) {
+export function showAdvancedSearchTips(state) {
   return {
     ...state,
-    showAdvancedSearchTips: true
-  }
+    showAdvancedSearchTips: true,
+  };
 }
 
 /**
@@ -65,11 +63,11 @@ export function showAdvancedSearchTips( state ) {
  * @param {object} state the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
-export function updatePrintModeOn( state ) {
+export function updatePrintModeOn(state) {
   return {
     ...state,
-    printMode: true
-  }
+    printMode: true,
+  };
 }
 
 /**
@@ -78,14 +76,13 @@ export function updatePrintModeOn( state ) {
  * @param {object} state the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
-export function updatePrintModeOff( state ) {
+export function updatePrintModeOff(state) {
   return {
     ...state,
     fromExternal: false,
-    printMode: false
-  }
+    printMode: false,
+  };
 }
-
 
 /**
  * Handler for the update screen size action
@@ -94,12 +91,12 @@ export function updatePrintModeOff( state ) {
  * @param {object} action the command being executed
  * @returns {object} the new state for the Redux store
  */
-export function updateScreenSize( state, action ) {
+export function updateScreenSize(state, action) {
   return {
     ...state,
     showFilters: action.screenWidth > 749,
-    width: action.screenWidth
-  }
+    width: action.screenWidth,
+  };
 }
 
 /**
@@ -108,11 +105,11 @@ export function updateScreenSize( state, action ) {
  * @param {object} state the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
-export function updateFilterVisibility( state ) {
+export function updateFilterVisibility(state) {
   return {
     ...state,
-    showFilters: !state.showFilters
-  }
+    showFilters: !state.showFilters,
+  };
 }
 
 /**
@@ -121,11 +118,11 @@ export function updateFilterVisibility( state ) {
  * @param {object} state the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
-export function tourHidden( state ) {
+export function tourHidden(state) {
   return {
     ...state,
-    showTour: false
-  }
+    showTour: false,
+  };
 }
 
 /**
@@ -135,13 +132,13 @@ export function tourHidden( state ) {
  * @param {object} state the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
-export function tourShown( state ) {
+export function tourShown(state) {
   return {
     ...state,
     expandedRows: [],
     showAdvancedSearchTips: false,
-    showTour: true
-  }
+    showTour: true,
+  };
 }
 
 /**
@@ -151,14 +148,14 @@ export function tourShown( state ) {
  * @param {object} action the command being executed
  * @returns {object} the new state for the Redux store
  */
-export function collapseRow( state, action ) {
-  const { expandedRows } = state
-  const item = action.value
+export function collapseRow(state, action) {
+  const { expandedRows } = state;
+  const item = action.value;
 
   return {
     ...state,
-    expandedRows: expandedRows.filter( o => o !== item )
-  }
+    expandedRows: expandedRows.filter((o) => o !== item),
+  };
 }
 
 /**
@@ -168,18 +165,18 @@ export function collapseRow( state, action ) {
  * @param {object} action the command being executed
  * @returns {object} the new state for the Redux store
  */
-export function expandRow( state, action ) {
-  const { expandedRows } = state
-  const item = action.value
+export function expandRow(state, action) {
+  const { expandedRows } = state;
+  const item = action.value;
 
-  if ( !expandedRows.includes( item ) ) {
-    expandedRows.push( item )
+  if (!expandedRows.includes(item)) {
+    expandedRows.push(item);
   }
 
   return {
     ...state,
-    expandedRows
-  }
+    expandedRows,
+  };
 }
 
 /**
@@ -189,13 +186,12 @@ export function expandRow( state, action ) {
  * @param {object} state the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
-export function resetExpandedRows( state ) {
+export function resetExpandedRows(state) {
   return {
     ...state,
-    expandedRows: []
-  }
+    expandedRows: [],
+  };
 }
-
 
 // ----------------------------------------------------------------------------
 // Action Handlers
@@ -206,24 +202,24 @@ export function resetExpandedRows( state ) {
  * @returns {object} a map of types to functions
  */
 export function _buildHandlerMap() {
-  const handlers = {}
+  const handlers = {};
 
-  handlers[actions.DATA_LENS_CHANGED] = resetExpandedRows
-  handlers[actions.PRINT_MODE_ON] = updatePrintModeOn
-  handlers[actions.PRINT_MODE_OFF] = updatePrintModeOff
-  handlers[actions.SCREEN_RESIZED] = updateScreenSize
-  handlers[actions.HIDE_ADVANCED_SEARCH_TIPS] = hideAdvancedSearchTips
-  handlers[actions.SHOW_ADVANCED_SEARCH_TIPS] = showAdvancedSearchTips
-  handlers[actions.TOGGLE_FILTER_VISIBILITY] = updateFilterVisibility
-  handlers[actions.HIDE_TOUR] = tourHidden
-  handlers[actions.SHOW_TOUR] = tourShown
-  handlers[actions.ROW_COLLAPSED] = collapseRow
-  handlers[actions.ROW_EXPANDED] = expandRow
-  handlers[actions.URL_CHANGED] = processParams
-  return handlers
+  handlers[actions.DATA_LENS_CHANGED] = resetExpandedRows;
+  handlers[actions.PRINT_MODE_ON] = updatePrintModeOn;
+  handlers[actions.PRINT_MODE_OFF] = updatePrintModeOff;
+  handlers[actions.SCREEN_RESIZED] = updateScreenSize;
+  handlers[actions.HIDE_ADVANCED_SEARCH_TIPS] = hideAdvancedSearchTips;
+  handlers[actions.SHOW_ADVANCED_SEARCH_TIPS] = showAdvancedSearchTips;
+  handlers[actions.TOGGLE_FILTER_VISIBILITY] = updateFilterVisibility;
+  handlers[actions.HIDE_TOUR] = tourHidden;
+  handlers[actions.SHOW_TOUR] = tourShown;
+  handlers[actions.ROW_COLLAPSED] = collapseRow;
+  handlers[actions.ROW_EXPANDED] = expandRow;
+  handlers[actions.URL_CHANGED] = processParams;
+  return handlers;
 }
 
-const _handlers = _buildHandlerMap()
+const _handlers = _buildHandlerMap();
 
 /**
  * Routes an action to an appropriate handler
@@ -232,15 +228,15 @@ const _handlers = _buildHandlerMap()
  * @param {object} action the command being executed
  * @returns {object} the new state for the Redux store
  */
-function handleSpecificAction( state, action ) {
-  if ( action.type in _handlers ) {
-    return _handlers[action.type]( state, action )
+function handleSpecificAction(state, action) {
+  if (action.type in _handlers) {
+    return _handlers[action.type](state, action);
   }
 
-  return state
+  return state;
 }
 
-export default ( state = defaultView, action ) => {
-  const newState = handleSpecificAction( state, action )
-  return newState
-}
+export default (state = defaultView, action) => {
+  const newState = handleSpecificAction(state, action);
+  return newState;
+};

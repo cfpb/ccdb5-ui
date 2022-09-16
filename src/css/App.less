@@ -1,16 +1,18 @@
-@import (less) "~cf-core/src/cf-core.less";
-@import (less) "~cf-icons/src/cf-icons.less";
-@import (less) "~cf-buttons/src/cf-buttons.less";
-@import (less) "~cf-forms/src/cf-forms.less";
-@import (less) "~cf-grid/src/cf-grid.less";
-@import (less) "~cf-layout/src/cf-layout.less";
-@import (less) "~cf-typography/src/cf-typography.less";
-@import (less) "~cf-pagination/src/cf-pagination.less";
-@import (less) "~cf-expandables/src/cf-expandables.less";
-@import (less) "~cf-tables/src/cf-tables.less";
+@import (less) '~cf-core/src/cf-core.less';
+@import (less) '~cf-icons/src/cf-icons.less';
+@import (less) '~cf-buttons/src/cf-buttons.less';
+@import (less) '~cf-forms/src/cf-forms.less';
+@import (less) '~cf-grid/src/cf-grid.less';
+@import (less) '~cf-layout/src/cf-layout.less';
+@import (less) '~cf-typography/src/cf-typography.less';
+@import (less) '~cf-pagination/src/cf-pagination.less';
+@import (less) '~cf-expandables/src/cf-expandables.less';
+@import (less) '~cf-tables/src/cf-tables.less';
 
-@import (less) "./base.less";
-@import (less) "../css/notification.less";
+@import (less) './base.less';
+@import (less) '../css/notification.less';
+
+@import (less) '../components/Print/print.less';
 
 // Override for Capital Framework. TODO: remove when migrating to Design System.
 // Fix to avoid bleeding into the mega menu.
@@ -68,7 +70,7 @@
   display: block;
 
   width: 100%;
-  content: "";
+  content: '';
 }
 
 .col-1 {
@@ -131,7 +133,7 @@
   }
 
   .content_main {
-    width: ~"calc(100% - 420px)";
+    width: ~'calc(100% - 420px)';
     padding: 0;
     border: 0;
 
@@ -164,7 +166,7 @@
     }
 
     .content_main {
-      width: ~"calc(100% - 305px)";
+      width: ~'calc(100% - 305px)';
     }
   }
 }
@@ -175,10 +177,10 @@
       width: 100%;
     }
     .content_sidebar {
-        &.map,
-        &.list {
-          width: 100%;
-        }
+      &.map,
+      &.list {
+        width: 100%;
+      }
     }
   }
   .filter-button {
@@ -194,7 +196,7 @@
 @media @phone {
   .filter-button {
     display: block;
-    margin: 20px 0px;
+    margin: 20px 0;
     button {
       width: 100%;
     }
@@ -229,4 +231,3 @@ body {
 .a-error-message .cf-icon-delete-round {
   color: @red;
 }
-@import (less) "../components/Print/print.less";

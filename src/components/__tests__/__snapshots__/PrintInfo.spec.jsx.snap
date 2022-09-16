@@ -30,7 +30,8 @@ exports[`component: PrintInfo initial state renders without crashing 1`] = `
         1,000
          
       </span>
-       total complaints 
+       total complaints
+       
     </div>
   </div>
 </section>
