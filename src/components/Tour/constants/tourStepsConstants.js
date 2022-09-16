@@ -14,8 +14,12 @@ import {
   TRENDS_SELECTORS as TRENDS
 } from './tourStepSelectors';
 
-const generateLinkText = ( index, linkObject ) => `<li><button class="a-btn a-btn__link" onclick="document.querySelectorAll('.introjs-bullets li a')[${ index + 1 }].click()">` +
-    linkObject[1].label + '</button></li>'
+const generateLinkText = ( index, linkObject ) =>
+  `<li><button class="a-btn a-btn__link" onclick="document.querySelectorAll('.introjs-bullets li a')[${
+    index + 1
+  }].click()">` +
+  linkObject[1].label +
+  '</button></li>';
 
 let geoIndex = '';
 
@@ -39,7 +43,6 @@ Object.entries( TRENDS )
   .forEach( ( value, key ) => {
     trendsIndex += generateLinkText( key, value );
   } );
-
 
 export const TOUR_STEPS = {
   [MODE_DOCUMENT]: [
@@ -76,14 +79,15 @@ export const TOUR_STEPS = {
         '</div>' +
         '<div class="right">' +
         '<h4>Index</h4>' +
-        '<ul>' + geoIndex + '</ul></div>' +
+        '<ul>' +
+        geoIndex +
+        '</ul></div>' +
         '</div>',
       tooltipClass: 'wide'
     },
     {
       element: GEO.STEP_2.selector,
-      intro:
-        'These links provide more information about this database.'
+      intro: 'These links provide more information about this database.'
     },
     {
       element: GEO.STEP_3.selector,
@@ -104,7 +108,8 @@ export const TOUR_STEPS = {
     },
     {
       element: GEO.STEP_5.selector,
-      intro: 'You can adjust the date range of the complaint data showed using the “Date CFPB received the complaint” filter. <br /> The default date range is three years from today’s date.'
+      intro:
+        'You can adjust the date range of the complaint data showed using the “Date CFPB received the complaint” filter. <br /> The default date range is three years from today’s date.'
     },
     {
       element: GEO.STEP_6.selector,
@@ -115,7 +120,8 @@ export const TOUR_STEPS = {
     },
     {
       element: GEO.STEP_7.selector,
-      intro: 'The blue show/hide icon allows you to expand or collapse specific filters.'
+      intro:
+        'The blue show/hide icon allows you to expand or collapse specific filters.'
     },
     {
       element: GEO.STEP_8.selector,
@@ -131,12 +137,12 @@ export const TOUR_STEPS = {
     },
     {
       element: GEO.STEP_10.selector,
-      intro: 'You can export full or filtered results to CSV or JSON by selecting “Export data”.'
+      intro:
+        'You can export full or filtered results to CSV or JSON by selecting “Export data”.'
     },
     {
       element: GEO.STEP_11.selector,
-      intro:
-        'Select “Print” to generate a pdf of the current page.'
+      intro: 'Select “Print” to generate a pdf of the current page.'
     },
     {
       element: GEO.STEP_12.selector,
@@ -174,14 +180,15 @@ export const TOUR_STEPS = {
         '</div>' +
         '<div class="right">' +
         '<h4>Index</h4>' +
-        '<ul>' + listIndex + '</ul></div>' +
+        '<ul>' +
+        listIndex +
+        '</ul></div>' +
         '</div>',
       tooltipClass: 'wide'
     },
     {
       element: LIST.STEP_2.selector,
-      intro:
-        'These links provide more information about this database.'
+      intro: 'These links provide more information about this database.'
     },
     {
       element: LIST.STEP_3.selector,
@@ -201,7 +208,8 @@ export const TOUR_STEPS = {
     },
     {
       element: LIST.STEP_5.selector,
-      intro: 'You can adjust the date range of the complaint data showed using the “Date CFPB received the complaint” filter. <br /> The default date range is three years from today’s date.'
+      intro:
+        'You can adjust the date range of the complaint data showed using the “Date CFPB received the complaint” filter. <br /> The default date range is three years from today’s date.'
     },
     {
       element: LIST.STEP_6.selector,
@@ -212,11 +220,13 @@ export const TOUR_STEPS = {
     },
     {
       element: LIST.STEP_7.selector,
-      intro: 'The blue show/hide icon allows you to expand or collapse specific filters.'
+      intro:
+        'The blue show/hide icon allows you to expand or collapse specific filters.'
     },
     {
       element: LIST.STEP_8.selector,
-      intro: 'Use the “Search within” bar to find specific words or phrases in complaints. By default, this will search “All data”, but you can change this using the gray dropdown menu.' +
+      intro:
+        'Use the “Search within” bar to find specific words or phrases in complaints. By default, this will search “All data”, but you can change this using the gray dropdown menu.' +
         '<br /> <br />' +
         'Click “Show advanced search tips” to see some advanced ways to refine your word search.'
     },
@@ -227,17 +237,16 @@ export const TOUR_STEPS = {
     },
     {
       element: LIST.STEP_10.selector,
-      intro: 'You can export full or filtered results to CSV or JSON by selecting “Export data”.'
+      intro:
+        'You can export full or filtered results to CSV or JSON by selecting “Export data”.'
     },
     {
       element: LIST.STEP_11.selector,
-      intro:
-        'Select “Print” to generate a pdf of the current page.'
+      intro: 'Select “Print” to generate a pdf of the current page.'
     },
     {
       element: LIST.STEP_12.selector,
-      intro:
-        'Select the number of complaints to view per page here.'
+      intro: 'Select the number of complaints to view per page here.'
     },
     {
       element: LIST.STEP_13.selector,
@@ -283,14 +292,15 @@ export const TOUR_STEPS = {
         '</div>' +
         '<div class="right">' +
         '<h4>Index</h4>' +
-        '<ul>' + trendsIndex + '</ul></div>' +
+        '<ul>' +
+        trendsIndex +
+        '</ul></div>' +
         '</div>',
       tooltipClass: 'wide'
     },
     {
       element: TRENDS.STEP_2.selector,
-      intro:
-        'These links provide more information about this database.'
+      intro: 'These links provide more information about this database.'
     },
     {
       element: TRENDS.STEP_3.selector,
@@ -311,7 +321,8 @@ export const TOUR_STEPS = {
     },
     {
       element: TRENDS.STEP_5.selector,
-      intro: 'You can adjust the date range of the complaint data showed using the “Date CFPB received the complaint” filter. <br /> The default date range is three years from today’s date.'
+      intro:
+        'You can adjust the date range of the complaint data showed using the “Date CFPB received the complaint” filter. <br /> The default date range is three years from today’s date.'
     },
     {
       element: TRENDS.STEP_6.selector,
@@ -322,11 +333,13 @@ export const TOUR_STEPS = {
     },
     {
       element: TRENDS.STEP_7.selector,
-      intro: 'The blue show/hide icon allows you to expand or collapse specific filters.'
+      intro:
+        'The blue show/hide icon allows you to expand or collapse specific filters.'
     },
     {
       element: TRENDS.STEP_8.selector,
-      intro: 'Use the “Search within” bar to find specific words or phrases in complaints. By default, this will search “All data”, but you can change this using the gray dropdown menu.' +
+      intro:
+        'Use the “Search within” bar to find specific words or phrases in complaints. By default, this will search “All data”, but you can change this using the gray dropdown menu.' +
         '<br /> <br />' +
         'Click “Show advanced search tips” to see some advanced ways to refine your word search.'
     },
@@ -337,12 +350,12 @@ export const TOUR_STEPS = {
     },
     {
       element: TRENDS.STEP_10.selector,
-      intro: 'You can export full or filtered results to CSV or JSON by selecting “Export data”.'
+      intro:
+        'You can export full or filtered results to CSV or JSON by selecting “Export data”.'
     },
     {
       element: TRENDS.STEP_11.selector,
-      intro:
-        'Select “Print” to generate a pdf of the current page.'
+      intro: 'Select “Print” to generate a pdf of the current page.'
     },
     {
       element: TRENDS.STEP_12.selector,

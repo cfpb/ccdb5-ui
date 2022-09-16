@@ -1,7 +1,7 @@
 import React from 'react';
-import {mount} from 'enzyme';
+import { mount } from 'enzyme';
 import * as redux from 'react-redux';
-import {PerCapita} from '../RefineBar/PerCapita';
+import { PerCapita } from '../RefineBar/PerCapita';
 
 describe('PerCapita', () => {
   let spyOnUseSelector;
@@ -32,18 +32,20 @@ describe('PerCapita', () => {
     spyOnUseSelector.mockReturnValue('Per 1000 pop.');
     const wrapper = mount(<PerCapita />);
     let button = wrapper.find('.capita');
-    expect( button.hasClass( 'selected' ) ).toBeTruthy();
+    expect(button.hasClass('selected')).toBeTruthy();
 
     button = wrapper.find('.raw');
-    expect( button.hasClass( 'selected' ) ).toBeFalsy();
+    expect(button.hasClass('selected')).toBeFalsy();
 
     button.simulate('click');
     expect(mockDispatch.mock.calls).toEqual([
-      [{
-        "type": "DATA_NORMALIZATION_SELECTED",
-        "requery": "REQUERY_NEVER",
-        "value": "None"
-      }]
+      [
+        {
+          type: 'DATA_NORMALIZATION_SELECTED',
+          requery: 'REQUERY_NEVER',
+          value: 'None',
+        },
+      ],
     ]);
   });
 
@@ -51,18 +53,20 @@ describe('PerCapita', () => {
     spyOnUseSelector.mockReturnValue('None');
     const wrapper = mount(<PerCapita />);
     let button = wrapper.find('.raw');
-    expect( button.hasClass( 'selected' ) ).toBeTruthy();
+    expect(button.hasClass('selected')).toBeTruthy();
 
     button = wrapper.find('.capita');
-    expect( button.hasClass( 'selected' ) ).toBeFalsy();
+    expect(button.hasClass('selected')).toBeFalsy();
 
     button.simulate('click');
     expect(mockDispatch.mock.calls).toEqual([
-      [{
-        "type": "DATA_NORMALIZATION_SELECTED",
-        "requery": "REQUERY_NEVER",
-        "value": "Per 1000 pop."
-      }]
+      [
+        {
+          type: 'DATA_NORMALIZATION_SELECTED',
+          requery: 'REQUERY_NEVER',
+          value: 'Per 1000 pop.',
+        },
+      ],
     ]);
   });
 
@@ -70,10 +74,9 @@ describe('PerCapita', () => {
     spyOnUseSelector.mockReturnValue('None');
     const wrapper = mount(<PerCapita />);
     let button = wrapper.find('.raw');
-    expect( button.hasClass( 'selected' ) ).toBeTruthy();
+    expect(button.hasClass('selected')).toBeTruthy();
 
     button.simulate('click');
     expect(mockDispatch.mock.calls).toEqual([]);
   });
-
-} );
+});

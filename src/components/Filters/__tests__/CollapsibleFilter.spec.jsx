@@ -22,18 +22,18 @@ describe('component:CollapsibleFilter', () => {
     expect(target.state('showChildren')).toEqual(true);
     theButton.simulate('click');
     expect(target.state('showChildren')).toEqual(false);
-  })
+  });
 
   describe('componentDidUpdate', () => {
-    it( 'triggers a new state update when props change', () => {
+    it('triggers a new state update when props change', () => {
       const props = {
-        showChildren: false
-      }
+        showChildren: false,
+      };
 
-      const target = mount( <CollapsibleFilter { ...props } /> )
-      target.setProps( { showChildren: true } )
-      const sv = target.state( 'showChildren' )
-      expect( sv ).toEqual( true )
-    } )
-  })
-})
+      const target = mount(<CollapsibleFilter {...props} />);
+      target.setProps({ showChildren: true });
+      const sv = target.state('showChildren');
+      expect(sv).toEqual(true);
+    });
+  });
+});

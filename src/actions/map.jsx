@@ -1,22 +1,21 @@
-import { REQUERY_ALWAYS, REQUERY_NEVER } from '../constants'
+import { REQUERY_ALWAYS, REQUERY_NEVER } from '../constants';
 
-export const DATA_NORMALIZATION_SELECTED = 'DATA_NORMALIZATION_SELECTED'
-export const STATE_COMPLAINTS_SHOWN = 'STATE_COMPLAINTS_SHOWN'
-export const STATE_FILTER_ADDED = 'STATE_FILTER_ADDED'
-export const STATE_FILTER_CLEARED = 'STATE_FILTER_CLEARED'
-export const STATE_FILTER_REMOVED = 'STATE_FILTER_REMOVED'
-
+export const DATA_NORMALIZATION_SELECTED = 'DATA_NORMALIZATION_SELECTED';
+export const STATE_COMPLAINTS_SHOWN = 'STATE_COMPLAINTS_SHOWN';
+export const STATE_FILTER_ADDED = 'STATE_FILTER_ADDED';
+export const STATE_FILTER_CLEARED = 'STATE_FILTER_CLEARED';
+export const STATE_FILTER_REMOVED = 'STATE_FILTER_REMOVED';
 
 /**
  * Indicates data normalization (yes, Per 1000 population) value was selected
  * @param {object} value of the data normalization
  * @returns {object} a packaged payload to be used by Redux reducers
  */
-export function dataNormalizationChanged( value ) {
+export function dataNormalizationChanged(value) {
   return {
     type: DATA_NORMALIZATION_SELECTED,
     requery: REQUERY_NEVER,
-    value
+    value,
   };
 }
 
@@ -26,12 +25,12 @@ export function dataNormalizationChanged( value ) {
  * @param {object} selectedState the tile map state that is toggled
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function addStateFilter( selectedState ) {
+export function addStateFilter(selectedState) {
   return {
     type: STATE_FILTER_ADDED,
     selectedState,
-    requery: REQUERY_ALWAYS
-  }
+    requery: REQUERY_ALWAYS,
+  };
 }
 
 /**
@@ -39,11 +38,11 @@ export function addStateFilter( selectedState ) {
  *
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function clearStateFilter( ) {
+export function clearStateFilter() {
   return {
     type: STATE_FILTER_CLEARED,
-    requery: REQUERY_ALWAYS
-  }
+    requery: REQUERY_ALWAYS,
+  };
 }
 
 /**
@@ -54,8 +53,8 @@ export function clearStateFilter( ) {
 export function showStateComplaints() {
   return {
     type: STATE_COMPLAINTS_SHOWN,
-    requery: REQUERY_ALWAYS
-  }
+    requery: REQUERY_ALWAYS,
+  };
 }
 
 /**
@@ -64,10 +63,10 @@ export function showStateComplaints() {
  * @param {object} selectedState the tile map state that is toggled
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function removeStateFilter( selectedState ) {
+export function removeStateFilter(selectedState) {
   return {
     type: STATE_FILTER_REMOVED,
     selectedState,
-    requery: REQUERY_ALWAYS
-  }
+    requery: REQUERY_ALWAYS,
+  };
 }

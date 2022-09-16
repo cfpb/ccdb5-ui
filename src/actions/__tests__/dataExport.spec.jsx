@@ -1,66 +1,65 @@
 jest.mock('../domUtils');
 
-import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
-import * as sut from '../dataExport'
-import * as types from '../../constants'
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import * as sut from '../dataExport';
+import * as types from '../../constants';
 
-const mockDomUtils = require('../domUtils')
+const mockDomUtils = require('../domUtils');
 
 describe('action:dataExport', () => {
   describe('showExportDialog', () => {
     it('creates a simple action', () => {
-        const expectedAction = {
-          type: types.MODAL_SHOWN,
-          modalType: types.MODAL_TYPE_DATA_EXPORT,
-          modalProps: {}
-        }
-        expect(sut.showExportDialog()).toEqual(expectedAction)
-    })
-  })
+      const expectedAction = {
+        type: types.MODAL_SHOWN,
+        modalType: types.MODAL_TYPE_DATA_EXPORT,
+        modalProps: {},
+      };
+      expect(sut.showExportDialog()).toEqual(expectedAction);
+    });
+  });
 
   describe('compound actions', () => {
-    let middlewares, mockStore, store
+    let middlewares, mockStore, store;
     beforeEach(() => {
-      middlewares = [thunk]
-      mockStore = configureMockStore(middlewares)
+      middlewares = [thunk];
+      mockStore = configureMockStore(middlewares);
       store = mockStore({
         query: {
-          size: 10
-        }
-      })
+          size: 10,
+        },
+      });
 
-      mockDomUtils.buildLink.mockReset()
-      mockDomUtils.simulateClick.mockReset()
-    })
+      mockDomUtils.buildLink.mockReset();
+      mockDomUtils.simulateClick.mockReset();
+    });
 
     describe('exportAllResults', () => {
       it('executes a chain of actions', () => {
-        const expectedActions = []
+        const expectedActions = [];
 
-        store.dispatch(sut.exportAllResults('json'))
-        expect(store.getActions()).toEqual(expectedActions)
+        store.dispatch(sut.exportAllResults('json'));
+        expect(store.getActions()).toEqual(expectedActions);
         expect(mockDomUtils.buildLink).toHaveBeenCalledWith(
           expect.stringMatching(/.*files.consumerfinance.gov.*/),
           'download.json'
-        )
-        expect(mockDomUtils.simulateClick).toHaveBeenCalled()
-      })
-    })
+        );
+        expect(mockDomUtils.simulateClick).toHaveBeenCalled();
+      });
+    });
 
     describe('exportSomeResults', () => {
       it('executes a chain of actions', () => {
-        const expectedActions = []
+        const expectedActions = [];
 
-        store.dispatch(sut.exportSomeResults('csv', 11111))
-        expect(store.getActions()).toEqual(expectedActions)
+        store.dispatch(sut.exportSomeResults('csv', 11111));
+        expect(store.getActions()).toEqual(expectedActions);
         expect(mockDomUtils.buildLink).toHaveBeenCalledWith(
           '@@API?format=csv&no_aggs=true&size=11111',
           'download.csv'
-        )
-        expect(mockDomUtils.simulateClick).toHaveBeenCalled()
-      })
-    })
-
-  })
-})
+        );
+        expect(mockDomUtils.simulateClick).toHaveBeenCalled();
+      });
+    });
+  });
+});

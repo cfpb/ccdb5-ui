@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types'
-import React from 'react'
+import PropTypes from 'prop-types';
+import React from 'react';
 
 export class Select extends React.Component {
   getValues() {
@@ -18,59 +18,58 @@ export class Select extends React.Component {
     //   relevance_asc: 'Relevance (asc)'
     // }
     // array of objects
-    let values
+    let values;
 
-    if ( Array.isArray( this.props.values ) ) {
+    if (Array.isArray(this.props.values)) {
       // do nothing, case 2
-      if ( this.props.values[0].hasOwnProperty( 'name' ) ) {
-        values = this.props.values
+      if (this.props.values[0].hasOwnProperty('name')) {
+        values = this.props.values;
       } else {
         // case 1
-        values = this.props.values.map( o => ( {
+        values = this.props.values.map((o) => ({
           name: o,
           value: o,
-          disabled: false
-        } ) )
+          disabled: false,
+        }));
       }
     } else {
       // case 3
-      values = Object.keys( this.props.values ).map( o => ( {
+      values = Object.keys(this.props.values).map((o) => ({
         name: this.props.values[o],
         value: o,
-        disabled: false
-      } ) )
+        disabled: false,
+      }));
     }
-    return values
+    return values;
   }
 
   render() {
-    const id = 'select-' + this.props.id
-    const values = this.getValues()
+    const id = 'select-' + this.props.id;
+    const values = this.getValues();
 
     return (
-      <section className={ 'cf-select' }
-               data-tour={ id }>
-        <label className="u-visually-hidden"
-               htmlFor={ id }>
-          { this.props.label }
+      <section className={'cf-select'} data-tour={id}>
+        <label className="u-visually-hidden" htmlFor={id}>
+          {this.props.label}
         </label>
-        <p>
-          { this.props.title }
-        </p>
-        <select value={ this.props.value }
-                id={ id }
-                onChange={ this.props.handleChange }>
-
-          { values.map( x =>
-              <option disabled={ x.disabled }
-                      key={ x.name }
-                      value={ x.value || x.name }>
-                { x.name }
-              </option>
-            ) }
+        <p>{this.props.title}</p>
+        <select
+          value={this.props.value}
+          id={id}
+          onChange={this.props.handleChange}
+        >
+          {values.map((x) => (
+            <option
+              disabled={x.disabled}
+              key={x.name}
+              value={x.value || x.name}
+            >
+              {x.name}
+            </option>
+          ))}
         </select>
       </section>
-    )
+    );
   }
 }
 
@@ -79,10 +78,7 @@ Select.propTypes = {
   handleChange: PropTypes.func.isRequired,
   label: PropTypes.string,
   title: PropTypes.string,
-  values: PropTypes.oneOfType( [
-    PropTypes.array,
-    PropTypes.object
-  ] ).isRequired
-}
+  values: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
+};
 
-export default Select
+export default Select;

@@ -1,4 +1,4 @@
-@import (less) "../../css/base.less";
+@import (less) '../../css/base.less';
 
 /**
  * @license Highcharts
@@ -8,73 +8,80 @@
  * License: www.highcharts.com/license
  */
 .highcharts-container {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-    text-align: left;
-    line-height: normal;
-    z-index: 0;
-    /* #1072 */
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
-    font-size: 12px;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  line-height: normal;
+  z-index: 0;
+  /* #1072 */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Arial, Helvetica, sans-serif;
+  font-size: 12px;
 }
 // legend
 .highcharts-root {
-    display: block;
-    text {
-        stroke-width: 0;
-        font-weight: 500;
-    }
+  display: block;
+  text {
+    stroke-width: 0;
+    font-weight: 500;
+  }
 }
 
 .highcharts-strong {
-    font-weight: bold;
+  font-weight: bold;
 }
+
 .highcharts-emphasized {
-    font-style: italic;
+  font-style: italic;
 }
+
 .highcharts-anchor {
-    cursor: pointer;
+  cursor: pointer;
 }
+
 .highcharts-background {
-    fill: @white;
+  fill: @white;
 }
+
 .highcharts-plot-border,
 .highcharts-plot-background {
-    fill: none;
+  fill: none;
 }
+
 .highcharts-label-box {
-    fill: none;
+  fill: none;
 }
+
 .highcharts-button-box {
-    fill: inherit;
+  fill: inherit;
 }
 /* Titles */
 .highcharts-title {
-    fill: #333333;
-    font-size: 1.5em;
+  fill: #333333;
+  font-size: 1.5em;
 }
+
 .highcharts-subtitle {
-    fill: #666666;
+  fill: #666666;
 }
 
 /* Highmaps */
 .highcharts-map-series {
-    .highcharts-point {
-        -webkit-transition: fill 500ms, fill-opacity 500ms, stroke-width 250ms;
-        transition: fill 500ms, fill-opacity 500ms, stroke-width 250ms;
-        stroke: #cccccc;
-    }
+  .highcharts-point {
+    -webkit-transition: fill 500ms, fill-opacity 500ms, stroke-width 250ms;
+    transition: fill 500ms, fill-opacity 500ms, stroke-width 250ms;
+    stroke: #cccccc;
+  }
 
-    .highcharts-point-hover {
-        -webkit-transition: fill 0ms, fill-opacity 0ms;
-        transition: fill 0ms, fill-opacity 0ms;
-        cursor: default;
-        fill: @pacific !important;
-        fill-opacity: 0.5;
-    }
+  .highcharts-point-hover {
+    -webkit-transition: fill 0ms, fill-opacity 0ms;
+    transition: fill 0ms, fill-opacity 0ms;
+    cursor: default;
+    fill: @pacific !important;
+    fill-opacity: 0.5;
+  }
 }
 
 /*
@@ -85,165 +92,165 @@ This appears to handle responsive changes the best, since the JS sets
 x/y positioning on the SVG elements.
 */
 .u-chart-label {
-    font-size: 16px;
-    font-family: inherit;
-    color: @gray;
+  font-size: 16px;
+  font-family: inherit;
+  color: @gray;
 }
 
 .cfpb-chart {
-    position: relative;
-    width: ~"calc(100% - 60px)";
-    min-height: 400px;
-    margin-bottom: 25px;
-    margin-left: @grid_gutter-width;
-    .highcharts-root,
-    .highcharts-container,
-    .highcharts-legend-box,
-    .highcharts-axis-labels,
-    .highcharts-tooltip text {
-        font-size: 16px;
-        font-family: inherit;
-        color: @gray;
-    }
+  position: relative;
+  width: ~'calc(100% - 60px)';
+  min-height: 400px;
+  margin-bottom: 25px;
+  margin-left: @grid_gutter-width;
+  .highcharts-root,
+  .highcharts-container,
+  .highcharts-legend-box,
+  .highcharts-axis-labels,
+  .highcharts-tooltip text {
+    font-size: 16px;
+    font-family: inherit;
+    color: @gray;
+  }
 }
 
 /* TODO: Investigate whether responsive styles can be remove here and handled
          via class set in JS, like how the other chart types work. */
-.cfpb-chart[data-chart-type="tile_map"] {
-    .highcharts-data-label {
+.cfpb-chart[data-chart-type='tile_map'] {
+  .highcharts-data-label {
+    font-weight: 500;
+    color: @black;
+
+    .highcharts-data-label-state {
+      text-align: center;
+      cursor: default;
+      &.deselected {
+        color: @gray
+      }
+    }
+  }
+
+  .highcharts-label {
+    pointer-events: none;
+  }
+
+  .highcharts-legend-title {
+    .highcharts-legend-key {
+      font-weight: 500;
+    }
+    .highcharts-legend-description {
+      font-size: 12px;
+      .type {
         font-weight: 500;
         color: @black;
+      }
+    }
+  }
 
-        .highcharts-data-label-state {
-            text-align: center;
-            cursor: default;
-            &.deselected {
-                color: @gray
-            }
+  .highcharts-legend__tile-map {
+    font-size: 12px;
+
+    .legend-box {
+      stroke: @gray;
+    }
+  }
+
+  .highcharts-label__tile-map {
+    font-size: 16px;
+    font-family: inherit;
+    color: @gray;
+    font-weight: 500;
+
+    span {
+      position: relative !important;
+      white-space: normal !important;
+    }
+  }
+
+  .u-point-hover-state, .selected {
+    stroke: @black;
+    cursor: default;
+    stroke-linecap: square;
+  }
+  .highcharts-map-series {
+    .highcharts-point {
+      stroke: none;
+
+      &.empty {
+        stroke: rgba(231, 232, 233, 1);
+      }
+
+      &.selected {
+        stroke: rgba(0, 45, 114, 1);
+      }
+    }
+  }
+
+  .highcharts-label-box {
+    display: none;
+  }
+
+  .highcharts-tooltip {
+    min-width: 200px;
+
+    span {
+      color: @white;
+      background-color: @black;
+      padding: 5px;
+      width: 320px;
+
+      div p {
+        margin: 5px;
+        white-space: normal;
+
+        &.u-float-left {
+          width: 150px;
+          float: left;
         }
-    }
 
-    .highcharts-label {
-        pointer-events: none;
-    }
-
-    .highcharts-legend-title {
-        .highcharts-legend-key {
-            font-weight: 500;
+        &.u-right {
+          width: 150px;
         }
-        .highcharts-legend-description {
-            font-size: 12px;
-            .type {
-                font-weight: 500;
-                color: @black;
-            }
-        }
+      }
+
+      .title {
+        text-align: center;
+      }
+
+      .row {
+        border-top: solid 1px #43484e;
+        margin-top: 5px;
+        padding-top: 5px;
+      }
     }
-
-    .highcharts-legend__tile-map {
-        font-size: 12px;
-
-        .legend-box {
-            stroke: @gray;
-        }
-    }
-
-    .highcharts-label__tile-map {
-        font-size: 16px;
-        font-family: inherit;
-        color: @gray;
-        font-weight: 500;
-
-        span {
-            position: relative !important;
-            white-space: normal !important;
-        }
-    }
-
-    .u-point-hover-state, .selected {
-        stroke: @black;
-        cursor: default;
-        stroke-linecap: square;
-    }
-    .highcharts-map-series {
-        .highcharts-point {
-            stroke: none;
-
-            &.empty {
-                stroke: rgba(231, 232, 233, 1);
-            }
-
-            &.selected {
-                stroke: rgba(0, 45, 114, 1);
-            }
-        }
-    }
-
-    .highcharts-label-box {
-        display: none;
-    }
-
-    .highcharts-tooltip {
-        min-width: 200px;
-
-        span {
-            color: @white;
-            background-color: @black;
-            padding: 5px;
-            width: 320px;
-
-            div p {
-                margin: 5px;
-                white-space: normal;
-
-                &.u-float-left {
-                    width: 150px;
-                    float: left;
-                }
-
-                &.u-right {
-                    width: 150px;
-                }
-            }
-
-            .title {
-                text-align: center;
-            }
-
-            .row {
-                border-top: solid 1px #43484e;
-                margin-top: 5px;
-                padding-top: 5px;
-            }
-        }
-    }
+  }
 }
 
-.cfpb-chart[data-chart-type="tile_map"]:not(.print) {
-    .highcharts-map-series {
-        .highcharts-point {
-            &:hover {
-                stroke: rgba(0, 45, 114, 1);
-                stroke-width: 2px !important;
-            }
-        }
+.cfpb-chart[data-chart-type='tile_map']:not(.print) {
+  .highcharts-map-series {
+    .highcharts-point {
+      &:hover {
+        stroke: rgba(0, 45, 114, 1);
+        stroke-width: 2px !important;
+      }
     }
+  }
 }
 
 @media @tablet-sm {
-    .cfpb-chart[data-chart-type="tile_map"] {
-        width: ~"calc(100% - 20px)";
-        margin-bottom: 10px;
-        margin-left: 10px;
-    }
+  .cfpb-chart[data-chart-type='tile_map'] {
+    width: ~'calc(100% - 20px)';
+    margin-bottom: 10px;
+    margin-left: 10px;
+  }
 }
 
 @media @phone {
-    .cfpb-chart[data-chart-type="tile_map"] {
-        width: ~"calc(100% - 20px)";
-        margin-bottom: 10px;
-        margin-left: 10px;
-    }
+  .cfpb-chart[data-chart-type='tile_map'] {
+    width: ~'calc(100% - 20px)';
+    margin-bottom: 10px;
+    margin-left: 10px;
+  }
 }
 
 // -----------------------------------------------------------------------------
@@ -253,110 +260,111 @@ x/y positioning on the SVG elements.
 @mobile-xs-tiles:  ~"only screen and (max-width:400px)";
 
 .highcharts-data-label {
-    font-size: 14px;
-    line-height: 1.3;
+  font-size: 14px;
+  line-height: 1.3;
 
-    .highcharts-data-label-state {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        // IE 11 fixes
-        @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-            display: inline-block;
-            float: left;
-        }
-
-        .abbr {
-            flex: 1 0 auto;
-            font-size: 16px;
-        }
-
-        .value {
-            flex: 1 0 auto;
-            margin-top: 6px;
-            font-size: 12px;
-        }
-        &.hover {
-            .abbr, .value {
-                text-decoration: underline;
-            }
-        }
-        &.deselected {
-            color: rgba(90, 93, 97, 1);
-        }
+  .highcharts-data-label-state {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    // IE 11 fixes
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      display: inline-block;
+      float: left;
     }
+
+    .abbr {
+      flex: 1 0 auto;
+      font-size: 16px;
+    }
+
+    .value {
+      flex: 1 0 auto;
+      margin-top: 6px;
+      font-size: 12px;
+    }
+    &.hover {
+      .abbr, .value {
+        text-decoration: underline;
+      }
+    }
+    &.deselected {
+      color: rgba(90, 93, 97, 1);
+    }
+  }
 
 }
 
 // This takes over for looking good at the minimum height of 400px
 @media @mobile-tiles {
-    .highcharts-data-label {
-        line-height: 1;
+  .highcharts-data-label {
+    line-height: 1;
 
-        .highcharts-data-label-state {
-            .abbr {
-                font-size: 12px;
-            }
-            .value {
-                margin-top: 3px;
-                font-size: 9px;
-            }
-        }
+    .highcharts-data-label-state {
+      .abbr {
+        font-size: 12px;
+      }
+      .value {
+        margin-top: 3px;
+        font-size: 9px;
+      }
     }
+  }
 }
 
 @media @mobile-xs-tiles {
-    .highcharts-data-label {
-        line-height: 1;
+  .highcharts-data-label {
+    line-height: 1;
 
-        .highcharts-data-label-state {
-            // IE 11 shift tile labels up
-            @media (-ms-high-contrast: none), (-ms-high-contrast: active) {
-                transform: translateY(-10px);
-            }
-            .abbr {
-                font-size: 12px;
-            }
-            .value {
-                display: none;
-            }
-        }
+    .highcharts-data-label-state {
+      // IE 11 shift tile labels up
+      @media (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        transform: translateY(-10px);
+      }
+      .abbr {
+        font-size: 12px;
+      }
+      .value {
+        display: none;
+      }
     }
+  }
 }
 
 // -----------------------------------------------------------------------------
 // Make the map & legend play nice
 
 @media @tablet-sm {
-    .highcharts-series-group {
-        transform: translate(0, 15px);
-    }
+  .highcharts-series-group {
+    transform: translate(0, 15px);
+  }
 
-    .highcharts-data-labels.highcharts-map-series {
-        margin-top: 15px;
-    }
+  .highcharts-data-labels.highcharts-map-series {
+    margin-top: 15px;
+  }
 
-    .highcharts-data-label-state {
-        // IE 11 shift tile labels up
-        @media (-ms-high-contrast: none), (-ms-high-contrast: active) {
-            transform: translateY(-10px);
-        }
+  .highcharts-data-label-state {
+    // IE 11 shift tile labels up
+    @media (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      transform: translateY(-10px);
     }
+  }
 }
 
 @media @phone{
-    .highcharts-series-group {
-        transform: translate(0, 15px);
-    }
+  .highcharts-series-group {
+    transform: translate(0, 15px);
+  }
 
-    .highcharts-data-labels.highcharts-map-series {
-        margin-top: 15px;
-    }
+  .highcharts-data-labels.highcharts-map-series {
+    margin-top: 15px;
+  }
 }
 
 .no-js .cfpb-chart {
-    height: inherit;
+  height: inherit;
 }
+
 .no-js .cfpb-chart:after {
-    border: 0;
+  border: 0;
 }

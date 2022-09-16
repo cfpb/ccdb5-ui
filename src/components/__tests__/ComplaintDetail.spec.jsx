@@ -1,11 +1,11 @@
-import ReduxComplaintDetail, { ComplaintDetail } from '../ComplaintDetail'
-import configureMockStore from 'redux-mock-store'
-import { IntlProvider } from 'react-intl'
-import { Provider } from 'react-redux'
-import React from 'react'
-import renderer from 'react-test-renderer'
-import { shallow } from 'enzyme'
-import thunk from 'redux-thunk'
+import ReduxComplaintDetail, { ComplaintDetail } from '../ComplaintDetail';
+import configureMockStore from 'redux-mock-store';
+import { IntlProvider } from 'react-intl';
+import { Provider } from 'react-redux';
+import React from 'react';
+import renderer from 'react-test-renderer';
+import { shallow } from 'enzyme';
+import thunk from 'redux-thunk';
 
 const fixture = {
   company: 'JPMORGAN CHASE & CO.',
@@ -26,53 +26,53 @@ const fixture = {
   submitted_via: 'Web',
   tags: 'Older American',
   timely: 'Yes',
-  zip_code: '423XX'
-}
+  zip_code: '423XX',
+};
 
 function setupEnzyme() {
   const props = {
     complaint_id: '123456789',
-    loadDetail: jest.fn()
-  }
+    loadDetail: jest.fn(),
+  };
 
-  const target = shallow(<ComplaintDetail {...props} />)
+  const target = shallow(<ComplaintDetail {...props} />);
 
   return {
     props,
-    target
-  }
+    target,
+  };
 }
 
-function setupSnapshot(overrides={}, error='') {
-  let data = Object.assign({}, fixture, overrides)
+function setupSnapshot(overrides = {}, error = '') {
+  let data = Object.assign({}, fixture, overrides);
   if (error) {
-    data = {}
+    data = {};
   }
 
-  const middlewares = [thunk]
-  const mockStore = configureMockStore(middlewares)
+  const middlewares = [thunk];
+  const mockStore = configureMockStore(middlewares);
   const store = mockStore({
-    detail: {data, error}
-  })
+    detail: { data, error },
+  });
 
   const target = renderer.create(
     <Provider store={store}>
       <IntlProvider locale="en">
-        <ReduxComplaintDetail complaint_id='123456789' />
+        <ReduxComplaintDetail complaint_id="123456789" />
       </IntlProvider>
     </Provider>
-  )
+  );
 
-  return target
+  return target;
 }
 
 describe('component::ComplaintDetail', () => {
   describe('snapshots', () => {
     it('renders without crashing', () => {
-      const target = setupSnapshot()
-      const tree = target.toJSON()
-      expect(tree).toMatchSnapshot()
-    })
+      const target = setupSnapshot();
+      const tree = target.toJSON();
+      expect(tree).toMatchSnapshot();
+    });
 
     it('supports "Consumer Consent Provided" icons', () => {
       const values = [
@@ -80,89 +80,89 @@ describe('component::ComplaintDetail', () => {
         'Consent not provided',
         'Consent withdrawn',
         'N/A',
-        'FOO'
-      ]
+        'FOO',
+      ];
 
-      values.forEach(v => {
-        const target = setupSnapshot({consumer_consent_provided: v})
-        const tree = target.toJSON()
-        expect(tree).toMatchSnapshot()
-      })
-    })
+      values.forEach((v) => {
+        const target = setupSnapshot({ consumer_consent_provided: v });
+        const tree = target.toJSON();
+        expect(tree).toMatchSnapshot();
+      });
+    });
 
     it('supports "Timely Response" icons', () => {
-      const values = ['Yes', 'No']
+      const values = ['Yes', 'No'];
 
-      values.forEach(v => {
-        const target = setupSnapshot({timely: v})
-        const tree = target.toJSON()
-        expect(tree).toMatchSnapshot()
-      })
-    })
+      values.forEach((v) => {
+        const target = setupSnapshot({ timely: v });
+        const tree = target.toJSON();
+        expect(tree).toMatchSnapshot();
+      });
+    });
 
     it('renders without a narrative', () => {
-      const target = setupSnapshot({complaint_what_happened: ''})
-      const tree = target.toJSON()
-      expect(tree).toMatchSnapshot()
-    })
+      const target = setupSnapshot({ complaint_what_happened: '' });
+      const tree = target.toJSON();
+      expect(tree).toMatchSnapshot();
+    });
 
     it('renders without a sub-issue', () => {
-      const target = setupSnapshot({sub_issue: ''})
-      const tree = target.toJSON()
-      expect(tree).toMatchSnapshot()
-    })
+      const target = setupSnapshot({ sub_issue: '' });
+      const tree = target.toJSON();
+      expect(tree).toMatchSnapshot();
+    });
 
     it('renders without a sub-product', () => {
-      const target = setupSnapshot({sub_product: ''})
-      const tree = target.toJSON()
-      expect(tree).toMatchSnapshot()
-    })
+      const target = setupSnapshot({ sub_product: '' });
+      const tree = target.toJSON();
+      expect(tree).toMatchSnapshot();
+    });
 
     it('renders WAITING phase', () => {
-      const middlewares = [thunk]
-      const mockStore = configureMockStore(middlewares)
+      const middlewares = [thunk];
+      const mockStore = configureMockStore(middlewares);
       const store = mockStore({
-        detail: {data: {}, error: ''}
-      })
+        detail: { data: {}, error: '' },
+      });
 
       const target = renderer.create(
         <Provider store={store}>
           <IntlProvider locale="en">
-            <ReduxComplaintDetail complaint_id='123456789' />
+            <ReduxComplaintDetail complaint_id="123456789" />
           </IntlProvider>
         </Provider>
-      )
+      );
 
-      const tree = target.toJSON()
-      expect(tree).toMatchSnapshot()
-    })
+      const tree = target.toJSON();
+      expect(tree).toMatchSnapshot();
+    });
 
     it('renders ERROR phase', () => {
-      const target = setupSnapshot({}, 'Error fetching data')
-      const tree = target.toJSON()
-      expect(tree).toMatchSnapshot()
-    })
-  })
+      const target = setupSnapshot({}, 'Error fetching data');
+      const tree = target.toJSON();
+      expect(tree).toMatchSnapshot();
+    });
+  });
 
   describe('navigation', () => {
     it('takes the user back to the previous page', () => {
-      global.history.go = jest.fn()
+      global.history.go = jest.fn();
 
-      const {target} = setupEnzyme()
-      const back = target.find('.back-to-search button')
-      back.simulate('click')
-      expect(global.history.go).toHaveBeenCalledWith(-1)
-    })
+      const { target } = setupEnzyme();
+      const back = target.find('.back-to-search button');
+      back.simulate('click');
+      expect(global.history.go).toHaveBeenCalledWith(-1);
+    });
 
     it('takes the user back to the home page', () => {
-      const orig = document.referrer
-      Object.defineProperty(document, 'referrer', {value: ''})
-      const {target} = setupEnzyme()
-      Object.defineProperty(document, 'referrer', {value: orig})
+      const orig = document.referrer;
+      Object.defineProperty(document, 'referrer', { value: '' });
+      const { target } = setupEnzyme();
+      Object.defineProperty(document, 'referrer', { value: orig });
 
-      const back = target.find('.back-to-search button')
-      back.simulate('click')
-      expect(document.URL).toEqual('http://localhost/')
-    })
-  })
-})
+      const back = target.find('.back-to-search button');
+      back.simulate('click');
+      expect(document.URL).toEqual('http://localhost/');
+    });
+  });
+});

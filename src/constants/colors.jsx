@@ -1,10 +1,10 @@
 /* eslint-disable no-inline-comments, camelcase */
-module.exports = Object.freeze( {
+module.exports = Object.freeze({
   BriteCharts: {
     dark: '#118935',
     regular: '#20aa3f',
     medium: '#ADDC91',
-    light: '#C7E5B3'
+    light: '#C7E5B3',
   },
   // if you modify anything here,
   // make sure that the following colors are in sync
@@ -23,6 +23,6 @@ module.exports = Object.freeze( {
     7: '#9daecc',
     8: '#b4267a',
     9: '#dc9cbf',
-    10: '#a2a3a4'
-  }
-} )
+    10: '#a2a3a4',
+  },
+});

@@ -1,14 +1,14 @@
-import aggs from './aggs'
-import { combineReducers } from 'redux'
-import detail from './detail'
-import map from './map'
-import modal from './modal'
-import query from './query'
-import results from './results'
-import trends from './trends'
-import view from './view'
+import aggs from './aggs';
+import { combineReducers } from 'redux';
+import detail from './detail';
+import map from './map';
+import modal from './modal';
+import query from './query';
+import results from './results';
+import trends from './trends';
+import view from './view';
 
-export default combineReducers( {
+export default combineReducers({
   aggs,
   detail,
   map,
@@ -16,5 +16,5 @@ export default combineReducers( {
   query,
   results,
   trends,
-  view
-} )
+  view,
+});

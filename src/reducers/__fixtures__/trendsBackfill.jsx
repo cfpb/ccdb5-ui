@@ -1,3 +1,1093 @@
 // for the "Covid" test where values don't appear outside of the search range
-export const trendsBackfill = {"dateRangeBrush":{"doc_count":532,"dateRangeBrush":{"buckets":[{"key_as_string":"2020-01-01T00:00:00.000Z","key":1577836800000,"doc_count":532}]}},"product":{"doc_count":532,"product":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"Mortgage","doc_count":185,"product":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"Conventional home mortgage","doc_count":108,"trend_period":{"buckets":[]}},{"key":"FHA mortgage","doc_count":44,"trend_period":{"buckets":[]}},{"key":"VA mortgage","doc_count":19,"trend_period":{"buckets":[]}},{"key":"Other type of mortgage","doc_count":9,"trend_period":{"buckets":[]}},{"key":"Home equity loan or line of credit (HELOC)","doc_count":5,"trend_period":{"buckets":[]}}]},"trend_period":{"buckets":[{"key_as_string":"2020-01-01T00:00:00.000Z","key":1577836800000,"doc_count":185}]}},{"key":"Credit card or prepaid card","doc_count":129,"product":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"General-purpose credit card or charge card","doc_count":98,"trend_period":{"buckets":[]}},{"key":"Store credit card","doc_count":23,"trend_period":{"buckets":[]}},{"key":"Government benefit card","doc_count":6,"trend_period":{"buckets":[]}},{"key":"General-purpose prepaid card","doc_count":2,"trend_period":{"buckets":[]}}]},"trend_period":{"buckets":[{"key_as_string":"2020-01-01T00:00:00.000Z","key":1577836800000,"doc_count":129}]}},{"key":"Credit reporting, credit repair services, or other personal consumer reports","doc_count":87,"product":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"Credit reporting","doc_count":84,"trend_period":{"buckets":[]}},{"key":"Credit repair services","doc_count":2,"trend_period":{"buckets":[]}},{"key":"Other personal consumer report","doc_count":1,"trend_period":{"buckets":[]}}]},"trend_period":{"buckets":[{"key_as_string":"2020-01-01T00:00:00.000Z","key":1577836800000,"doc_count":87}]}},{"key":"Checking or savings account","doc_count":43,"product":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"Checking account","doc_count":34,"trend_period":{"buckets":[]}},{"key":"Savings account","doc_count":5,"trend_period":{"buckets":[]}},{"key":"Other banking product or service","doc_count":3,"trend_period":{"buckets":[]}},{"key":"CD (Certificate of Deposit)","doc_count":1,"trend_period":{"buckets":[]}}]},"trend_period":{"buckets":[{"key_as_string":"2020-01-01T00:00:00.000Z","key":1577836800000,"doc_count":43}]}},{"key":"Debt collection","doc_count":38,"product":{"doc_count_error_upper_bound":0,"sum_other_doc_count":2,"buckets":[{"key":"Other debt","doc_count":12,"trend_period":{"buckets":[]}},{"key":"I do not know","doc_count":8,"trend_period":{"buckets":[]}},{"key":"Medical debt","doc_count":8,"trend_period":{"buckets":[]}},{"key":"Auto debt","doc_count":4,"trend_period":{"buckets":[]}},{"key":"Credit card debt","doc_count":4,"trend_period":{"buckets":[]}}]},"trend_period":{"buckets":[{"key_as_string":"2020-01-01T00:00:00.000Z","key":1577836800000,"doc_count":38}]}},{"key":"Vehicle loan or lease","doc_count":18,"product":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"Loan","doc_count":16,"trend_period":{"buckets":[]}},{"key":"Lease","doc_count":2,"trend_period":{"buckets":[]}}]},"trend_period":{"buckets":[{"key_as_string":"2020-01-01T00:00:00.000Z","key":1577836800000,"doc_count":18}]}},{"key":"Payday loan, title loan, or personal loan","doc_count":17,"product":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"Installment loan","doc_count":8,"trend_period":{"buckets":[]}},{"key":"Personal line of credit","doc_count":6,"trend_period":{"buckets":[]}},{"key":"Payday loan","doc_count":2,"trend_period":{"buckets":[]}},{"key":"Title loan","doc_count":1,"trend_period":{"buckets":[]}}]},"trend_period":{"buckets":[{"key_as_string":"2020-01-01T00:00:00.000Z","key":1577836800000,"doc_count":17}]}},{"key":"Student loan","doc_count":9,"product":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"Private student loan","doc_count":5,"trend_period":{"buckets":[]}},{"key":"Federal student loan servicing","doc_count":4,"trend_period":{"buckets":[]}}]},"trend_period":{"buckets":[{"key_as_string":"2020-01-01T00:00:00.000Z","key":1577836800000,"doc_count":9}]}},{"key":"Money transfer, virtual currency, or money service","doc_count":6,"product":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"Mobile or digital wallet","doc_count":3,"trend_period":{"buckets":[]}},{"key":"Domestic (US) money transfer","doc_count":2,"trend_period":{"buckets":[]}},{"key":"Traveler's check or cashier's check","doc_count":1,"trend_period":{"buckets":[]}}]},"trend_period":{"buckets":[{"key_as_string":"2020-01-01T00:00:00.000Z","key":1577836800000,"doc_count":6}]}}]}},"max_date":{"value":1589216400000,"value_as_string":"2020-05-11T12:00:00-05:00"},"min_date":{"value":1584032400000,"value_as_string":"2020-03-12T12:00:00-05:00"},"dateRangeArea":{"doc_count":532,"dateRangeArea":{"buckets":[{"key_as_string":"2020-01-01T00:00:00.000Z","key":1577836800000,"doc_count":532}]}},"dateRangeBuckets":{"doc_count":784113,"dateRangeBuckets":{"buckets":[{"key_as_string":"2017-01-01T00:00:00.000Z","key":1483228800000,"doc_count":123458},{"key_as_string":"2018-01-01T00:00:00.000Z","key":1514764800000,"doc_count":257315},{"key_as_string":"2019-01-01T00:00:00.000Z","key":1546300800000,"doc_count":277392},{"key_as_string":"2020-01-01T00:00:00.000Z","key":1577836800000,"doc_count":125948}]}}}
-export const trendsBackfillResults = { "activeCall": "", "chartType": "area", "colorMap": { "Other": "#a2a3a4", "Mortgage": "#2cb34a", "Credit card or prepaid card": "#addc91", "Credit reporting, credit repair services, or other personal consumer reports": "#0072ce", "Checking or savings account": "#96c4ed", "Debt collection": "#257675", "Complaints": "#20aa3f", "All other products": "#a2a3a4", "All other companies": "#a2a3a4", "All other values": "#a2a3a4" }, "error": false, "focus": "", "isLoading": false, "lens": "Product", "results": { "dateRangeArea": [ { "name": "Other", "value": 50, "date": "2020-01-01T00:00:00.000Z" }, { "name": "Other", "value": 0, "date": "2017-01-01T00:00:00.000Z" }, { "name": "Other", "value": 0, "date": "2018-01-01T00:00:00.000Z" }, { "name": "Other", "value": 0, "date": "2019-01-01T00:00:00.000Z" }, { "name": "Mortgage", "value": 185, "date": "2020-01-01T00:00:00.000Z" }, { "name": "Mortgage", "value": 0, "date": "2017-01-01T00:00:00.000Z" }, { "name": "Mortgage", "value": 0, "date": "2018-01-01T00:00:00.000Z" }, { "name": "Mortgage", "value": 0, "date": "2019-01-01T00:00:00.000Z" }, { "name": "Credit card or prepaid card", "value": 129, "date": "2020-01-01T00:00:00.000Z" }, { "name": "Credit card or prepaid card", "value": 0, "date": "2017-01-01T00:00:00.000Z" }, { "name": "Credit card or prepaid card", "value": 0, "date": "2018-01-01T00:00:00.000Z" }, { "name": "Credit card or prepaid card", "value": 0, "date": "2019-01-01T00:00:00.000Z" }, { "name": "Credit reporting, credit repair services, or other personal consumer reports", "value": 87, "date": "2020-01-01T00:00:00.000Z" }, { "name": "Credit reporting, credit repair services, or other personal consumer reports", "value": 0, "date": "2017-01-01T00:00:00.000Z" }, { "name": "Credit reporting, credit repair services, or other personal consumer reports", "value": 0, "date": "2018-01-01T00:00:00.000Z" }, { "name": "Credit reporting, credit repair services, or other personal consumer reports", "value": 0, "date": "2019-01-01T00:00:00.000Z" }, { "name": "Checking or savings account", "value": 43, "date": "2020-01-01T00:00:00.000Z" }, { "name": "Checking or savings account", "value": 0, "date": "2017-01-01T00:00:00.000Z" }, { "name": "Checking or savings account", "value": 0, "date": "2018-01-01T00:00:00.000Z" }, { "name": "Checking or savings account", "value": 0, "date": "2019-01-01T00:00:00.000Z" }, { "name": "Debt collection", "value": 38, "date": "2020-01-01T00:00:00.000Z" }, { "name": "Debt collection", "value": 0, "date": "2017-01-01T00:00:00.000Z" }, { "name": "Debt collection", "value": 0, "date": "2018-01-01T00:00:00.000Z" }, { "name": "Debt collection", "value": 0, "date": "2019-01-01T00:00:00.000Z" } ], "dateRangeLine": { "dataByTopic": [ { "topic": "Mortgage", "topicName": "Mortgage", "dashed": false, "show": true, "dates": [ { "name": "Mortgage", "date": "2017-01-01T00:00:00.000Z", "value": 0 }, { "name": "Mortgage", "date": "2018-01-01T00:00:00.000Z", "value": 0 }, { "name": "Mortgage", "date": "2019-01-01T00:00:00.000Z", "value": 0 }, { "name": "Mortgage", "date": "2020-01-01T00:00:00.000Z", "value": 185 } ] }, { "topic": "Credit card or prepaid card", "topicName": "Credit card or prepaid card", "dashed": false, "show": true, "dates": [ { "name": "Credit card or prepaid card", "date": "2017-01-01T00:00:00.000Z", "value": 0 }, { "name": "Credit card or prepaid card", "date": "2018-01-01T00:00:00.000Z", "value": 0 }, { "name": "Credit card or prepaid card", "date": "2019-01-01T00:00:00.000Z", "value": 0 }, { "name": "Credit card or prepaid card", "date": "2020-01-01T00:00:00.000Z", "value": 129 } ] }, { "topic": "Credit reporting, credit repair services, or other personal consumer reports", "topicName": "Credit reporting, credit repair services, or other personal consumer reports", "dashed": false, "show": true, "dates": [ { "name": "Credit reporting, credit repair services, or other personal consumer reports", "date": "2017-01-01T00:00:00.000Z", "value": 0 }, { "name": "Credit reporting, credit repair services, or other personal consumer reports", "date": "2018-01-01T00:00:00.000Z", "value": 0 }, { "name": "Credit reporting, credit repair services, or other personal consumer reports", "date": "2019-01-01T00:00:00.000Z", "value": 0 }, { "name": "Credit reporting, credit repair services, or other personal consumer reports", "date": "2020-01-01T00:00:00.000Z", "value": 87 } ] }, { "topic": "Checking or savings account", "topicName": "Checking or savings account", "dashed": false, "show": true, "dates": [ { "name": "Checking or savings account", "date": "2017-01-01T00:00:00.000Z", "value": 0 }, { "name": "Checking or savings account", "date": "2018-01-01T00:00:00.000Z", "value": 0 }, { "name": "Checking or savings account", "date": "2019-01-01T00:00:00.000Z", "value": 0 }, { "name": "Checking or savings account", "date": "2020-01-01T00:00:00.000Z", "value": 43 } ] }, { "topic": "Debt collection", "topicName": "Debt collection", "dashed": false, "show": true, "dates": [ { "name": "Debt collection", "date": "2017-01-01T00:00:00.000Z", "value": 0 }, { "name": "Debt collection", "date": "2018-01-01T00:00:00.000Z", "value": 0 }, { "name": "Debt collection", "date": "2019-01-01T00:00:00.000Z", "value": 0 }, { "name": "Debt collection", "date": "2020-01-01T00:00:00.000Z", "value": 38 } ] } ] }, "product": [ { "hasChildren": true, "isNotFilter": false, "isParent": true, "name": "Mortgage", "value": 185, "parent": false, "width": 0.5 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Conventional home mortgage", "value": 108, "parent": "Mortgage", "width": 0.4 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "FHA mortgage", "value": 44, "parent": "Mortgage", "width": 0.4 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "VA mortgage", "value": 19, "parent": "Mortgage", "width": 0.4 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Other type of mortgage", "value": 9, "parent": "Mortgage", "width": 0.4 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Home equity loan or line of credit (HELOC)", "value": 5, "parent": "Mortgage", "width": 0.4 }, { "hasChildren": false, "isParent": false, "key": "Visualize sub-product and issue trends for Mortgage >", "name": "Visualize sub-product and issue trends for Mortgage >", "splitterText": "Visualize sub-product and issue trends for Mortgage >", "value": "", "parent": "Mortgage", "width": 0.5, }, { "hasChildren": true, "isNotFilter": false, "isParent": true, "name": "Credit card or prepaid card", "value": 129, "parent": false, "width": 0.5 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "General-purpose credit card or charge card", "value": 98, "parent": "Credit card or prepaid card", "width": 0.4 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Store credit card", "value": 23, "parent": "Credit card or prepaid card", "width": 0.4 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Government benefit card", "value": 6, "parent": "Credit card or prepaid card", "width": 0.4 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "General-purpose prepaid card", "value": 2, "parent": "Credit card or prepaid card", "width": 0.4 }, { "hasChildren": false, "isParent": false, "key": "Visualize sub-product and issue trends for Credit card or prepaid card >", "name": "Visualize sub-product and issue trends for Credit card or prepaid card >", "splitterText": "Visualize sub-product and issue trends for Credit card or prepaid card >", "value": "", "parent": "Credit card or prepaid card", "width": 0.5, }, { "hasChildren": true, "isNotFilter": false, "isParent": true, "name": "Credit reporting, credit repair services, or other personal consumer reports", "value": 87, "parent": false, "width": 0.5 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Credit reporting", "value": 84, "parent": "Credit reporting, credit repair services, or other personal consumer reports", "width": 0.4 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Credit repair services", "value": 2, "parent": "Credit reporting, credit repair services, or other personal consumer reports", "width": 0.4 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Other personal consumer report", "value": 1, "parent": "Credit reporting, credit repair services, or other personal consumer reports", "width": 0.4 }, { "hasChildren": false, "isParent": false, "key": "Visualize sub-product and issue trends for Credit reporting, credit repair services, or other personal consumer reports >", "name": "Visualize sub-product and issue trends for Credit reporting, credit repair services, or other personal consumer reports >", "splitterText": "Visualize sub-product and issue trends for Credit reporting, credit repair services, or other personal consumer reports >", "value": "", "parent": "Credit reporting, credit repair services, or other personal consumer reports", "width": 0.5, }, { "hasChildren": true, "isNotFilter": false, "isParent": true, "name": "Checking or savings account", "value": 43, "parent": false, "width": 0.5 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Checking account", "value": 34, "parent": "Checking or savings account", "width": 0.4 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Savings account", "value": 5, "parent": "Checking or savings account", "width": 0.4 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Other banking product or service", "value": 3, "parent": "Checking or savings account", "width": 0.4 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "CD (Certificate of Deposit)", "value": 1, "parent": "Checking or savings account", "width": 0.4 }, { "hasChildren": false, "isParent": false, "key": "Visualize sub-product and issue trends for Checking or savings account >", "name": "Visualize sub-product and issue trends for Checking or savings account >", "splitterText": "Visualize sub-product and issue trends for Checking or savings account >", "value": "", "parent": "Checking or savings account", "width": 0.5, }, { "hasChildren": true, "isNotFilter": false, "isParent": true, "name": "Debt collection", "value": 38, "parent": false, "width": 0.5 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Other debt", "value": 12, "parent": "Debt collection", "width": 0.4 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "I do not know", "value": 8, "parent": "Debt collection", "width": 0.4 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Medical debt", "value": 8, "parent": "Debt collection", "width": 0.4 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Auto debt", "value": 4, "parent": "Debt collection", "width": 0.4 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Credit card debt", "value": 4, "parent": "Debt collection", "width": 0.4 }, { "hasChildren": false, "isParent": false, "key": "Visualize sub-product and issue trends for Debt collection >", "name": "Visualize sub-product and issue trends for Debt collection >", "splitterText": "Visualize sub-product and issue trends for Debt collection >", "value": "", "parent": "Debt collection", "width": 0.5, }, { "hasChildren": true, "isNotFilter": false, "isParent": true, "name": "Vehicle loan or lease", "value": 18, "parent": false, "width": 0.5 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Loan", "value": 16, "parent": "Vehicle loan or lease", "width": 0.4 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Lease", "value": 2, "parent": "Vehicle loan or lease", "width": 0.4 }, { "hasChildren": false, "isParent": false, "key": "Visualize sub-product and issue trends for Vehicle loan or lease >", "name": "Visualize sub-product and issue trends for Vehicle loan or lease >", "splitterText": "Visualize sub-product and issue trends for Vehicle loan or lease >", "value": "", "parent": "Vehicle loan or lease", "width": 0.5, }, { "hasChildren": true, "isNotFilter": false, "isParent": true, "name": "Payday loan, title loan, or personal loan", "value": 17, "parent": false, "width": 0.5 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Installment loan", "value": 8, "parent": "Payday loan, title loan, or personal loan", "width": 0.4 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Personal line of credit", "value": 6, "parent": "Payday loan, title loan, or personal loan", "width": 0.4 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Payday loan", "value": 2, "parent": "Payday loan, title loan, or personal loan", "width": 0.4 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Title loan", "value": 1, "parent": "Payday loan, title loan, or personal loan", "width": 0.4 }, { "hasChildren": false, "isParent": false, "key": "Visualize sub-product and issue trends for Payday loan, title loan, or personal loan >", "name": "Visualize sub-product and issue trends for Payday loan, title loan, or personal loan >", "splitterText": "Visualize sub-product and issue trends for Payday loan, title loan, or personal loan >", "value": "", "parent": "Payday loan, title loan, or personal loan", "width": 0.5, }, { "hasChildren": true, "isNotFilter": false, "isParent": true, "name": "Student loan", "value": 9, "parent": false, "width": 0.5 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Private student loan", "value": 5, "parent": "Student loan", "width": 0.4 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Federal student loan servicing", "value": 4, "parent": "Student loan", "width": 0.4 }, { "hasChildren": false, "isParent": false, "key": "Visualize sub-product and issue trends for Student loan >", "name": "Visualize sub-product and issue trends for Student loan >", "splitterText": "Visualize sub-product and issue trends for Student loan >", "value": "", "parent": "Student loan", "width": 0.5, }, { "hasChildren": true, "isNotFilter": false, "isParent": true, "name": "Money transfer, virtual currency, or money service", "value": 6, "parent": false, "width": 0.5 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Mobile or digital wallet", "value": 3, "parent": "Money transfer, virtual currency, or money service", "width": 0.4 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Domestic (US) money transfer", "value": 2, "parent": "Money transfer, virtual currency, or money service", "width": 0.4 }, { "hasChildren": false, "isNotFilter": false, "isParent": false, "name": "Traveler's check or cashier's check", "value": 1, "parent": "Money transfer, virtual currency, or money service", "width": 0.4 }, { "hasChildren": false, "isParent": false, "key": "Visualize sub-product and issue trends for Money transfer, virtual currency, or money service >", "name": "Visualize sub-product and issue trends for Money transfer, virtual currency, or money service >", "splitterText": "Visualize sub-product and issue trends for Money transfer, virtual currency, or money service >", "value": "", "parent": "Money transfer, virtual currency, or money service", "width": 0.5, } ] }, "subLens": "sub_product", "tooltip": false, "total": 532 }
+export const trendsBackfill = {
+  dateRangeBrush: {
+    doc_count: 532,
+    dateRangeBrush: {
+      buckets: [
+        {
+          key_as_string: '2020-01-01T00:00:00.000Z',
+          key: 1577836800000,
+          doc_count: 532,
+        },
+      ],
+    },
+  },
+  product: {
+    doc_count: 532,
+    product: {
+      doc_count_error_upper_bound: 0,
+      sum_other_doc_count: 0,
+      buckets: [
+        {
+          key: 'Mortgage',
+          doc_count: 185,
+          product: {
+            doc_count_error_upper_bound: 0,
+            sum_other_doc_count: 0,
+            buckets: [
+              {
+                key: 'Conventional home mortgage',
+                doc_count: 108,
+                trend_period: { buckets: [] },
+              },
+              {
+                key: 'FHA mortgage',
+                doc_count: 44,
+                trend_period: { buckets: [] },
+              },
+              {
+                key: 'VA mortgage',
+                doc_count: 19,
+                trend_period: { buckets: [] },
+              },
+              {
+                key: 'Other type of mortgage',
+                doc_count: 9,
+                trend_period: { buckets: [] },
+              },
+              {
+                key: 'Home equity loan or line of credit (HELOC)',
+                doc_count: 5,
+                trend_period: { buckets: [] },
+              },
+            ],
+          },
+          trend_period: {
+            buckets: [
+              {
+                key_as_string: '2020-01-01T00:00:00.000Z',
+                key: 1577836800000,
+                doc_count: 185,
+              },
+            ],
+          },
+        },
+        {
+          key: 'Credit card or prepaid card',
+          doc_count: 129,
+          product: {
+            doc_count_error_upper_bound: 0,
+            sum_other_doc_count: 0,
+            buckets: [
+              {
+                key: 'General-purpose credit card or charge card',
+                doc_count: 98,
+                trend_period: { buckets: [] },
+              },
+              {
+                key: 'Store credit card',
+                doc_count: 23,
+                trend_period: { buckets: [] },
+              },
+              {
+                key: 'Government benefit card',
+                doc_count: 6,
+                trend_period: { buckets: [] },
+              },
+              {
+                key: 'General-purpose prepaid card',
+                doc_count: 2,
+                trend_period: { buckets: [] },
+              },
+            ],
+          },
+          trend_period: {
+            buckets: [
+              {
+                key_as_string: '2020-01-01T00:00:00.000Z',
+                key: 1577836800000,
+                doc_count: 129,
+              },
+            ],
+          },
+        },
+        {
+          key: 'Credit reporting, credit repair services, or other personal consumer reports',
+          doc_count: 87,
+          product: {
+            doc_count_error_upper_bound: 0,
+            sum_other_doc_count: 0,
+            buckets: [
+              {
+                key: 'Credit reporting',
+                doc_count: 84,
+                trend_period: { buckets: [] },
+              },
+              {
+                key: 'Credit repair services',
+                doc_count: 2,
+                trend_period: { buckets: [] },
+              },
+              {
+                key: 'Other personal consumer report',
+                doc_count: 1,
+                trend_period: { buckets: [] },
+              },
+            ],
+          },
+          trend_period: {
+            buckets: [
+              {
+                key_as_string: '2020-01-01T00:00:00.000Z',
+                key: 1577836800000,
+                doc_count: 87,
+              },
+            ],
+          },
+        },
+        {
+          key: 'Checking or savings account',
+          doc_count: 43,
+          product: {
+            doc_count_error_upper_bound: 0,
+            sum_other_doc_count: 0,
+            buckets: [
+              {
+                key: 'Checking account',
+                doc_count: 34,
+                trend_period: { buckets: [] },
+              },
+              {
+                key: 'Savings account',
+                doc_count: 5,
+                trend_period: { buckets: [] },
+              },
+              {
+                key: 'Other banking product or service',
+                doc_count: 3,
+                trend_period: { buckets: [] },
+              },
+              {
+                key: 'CD (Certificate of Deposit)',
+                doc_count: 1,
+                trend_period: { buckets: [] },
+              },
+            ],
+          },
+          trend_period: {
+            buckets: [
+              {
+                key_as_string: '2020-01-01T00:00:00.000Z',
+                key: 1577836800000,
+                doc_count: 43,
+              },
+            ],
+          },
+        },
+        {
+          key: 'Debt collection',
+          doc_count: 38,
+          product: {
+            doc_count_error_upper_bound: 0,
+            sum_other_doc_count: 2,
+            buckets: [
+              {
+                key: 'Other debt',
+                doc_count: 12,
+                trend_period: { buckets: [] },
+              },
+              {
+                key: 'I do not know',
+                doc_count: 8,
+                trend_period: { buckets: [] },
+              },
+              {
+                key: 'Medical debt',
+                doc_count: 8,
+                trend_period: { buckets: [] },
+              },
+              { key: 'Auto debt', doc_count: 4, trend_period: { buckets: [] } },
+              {
+                key: 'Credit card debt',
+                doc_count: 4,
+                trend_period: { buckets: [] },
+              },
+            ],
+          },
+          trend_period: {
+            buckets: [
+              {
+                key_as_string: '2020-01-01T00:00:00.000Z',
+                key: 1577836800000,
+                doc_count: 38,
+              },
+            ],
+          },
+        },
+        {
+          key: 'Vehicle loan or lease',
+          doc_count: 18,
+          product: {
+            doc_count_error_upper_bound: 0,
+            sum_other_doc_count: 0,
+            buckets: [
+              { key: 'Loan', doc_count: 16, trend_period: { buckets: [] } },
+              { key: 'Lease', doc_count: 2, trend_period: { buckets: [] } },
+            ],
+          },
+          trend_period: {
+            buckets: [
+              {
+                key_as_string: '2020-01-01T00:00:00.000Z',
+                key: 1577836800000,
+                doc_count: 18,
+              },
+            ],
+          },
+        },
+        {
+          key: 'Payday loan, title loan, or personal loan',
+          doc_count: 17,
+          product: {
+            doc_count_error_upper_bound: 0,
+            sum_other_doc_count: 0,
+            buckets: [
+              {
+                key: 'Installment loan',
+                doc_count: 8,
+                trend_period: { buckets: [] },
+              },
+              {
+                key: 'Personal line of credit',
+                doc_count: 6,
+                trend_period: { buckets: [] },
+              },
+              {
+                key: 'Payday loan',
+                doc_count: 2,
+                trend_period: { buckets: [] },
+              },
+              {
+                key: 'Title loan',
+                doc_count: 1,
+                trend_period: { buckets: [] },
+              },
+            ],
+          },
+          trend_period: {
+            buckets: [
+              {
+                key_as_string: '2020-01-01T00:00:00.000Z',
+                key: 1577836800000,
+                doc_count: 17,
+              },
+            ],
+          },
+        },
+        {
+          key: 'Student loan',
+          doc_count: 9,
+          product: {
+            doc_count_error_upper_bound: 0,
+            sum_other_doc_count: 0,
+            buckets: [
+              {
+                key: 'Private student loan',
+                doc_count: 5,
+                trend_period: { buckets: [] },
+              },
+              {
+                key: 'Federal student loan servicing',
+                doc_count: 4,
+                trend_period: { buckets: [] },
+              },
+            ],
+          },
+          trend_period: {
+            buckets: [
+              {
+                key_as_string: '2020-01-01T00:00:00.000Z',
+                key: 1577836800000,
+                doc_count: 9,
+              },
+            ],
+          },
+        },
+        {
+          key: 'Money transfer, virtual currency, or money service',
+          doc_count: 6,
+          product: {
+            doc_count_error_upper_bound: 0,
+            sum_other_doc_count: 0,
+            buckets: [
+              {
+                key: 'Mobile or digital wallet',
+                doc_count: 3,
+                trend_period: { buckets: [] },
+              },
+              {
+                key: 'Domestic (US) money transfer',
+                doc_count: 2,
+                trend_period: { buckets: [] },
+              },
+              {
+                key: "Traveler's check or cashier's check",
+                doc_count: 1,
+                trend_period: { buckets: [] },
+              },
+            ],
+          },
+          trend_period: {
+            buckets: [
+              {
+                key_as_string: '2020-01-01T00:00:00.000Z',
+                key: 1577836800000,
+                doc_count: 6,
+              },
+            ],
+          },
+        },
+      ],
+    },
+  },
+  max_date: {
+    value: 1589216400000,
+    value_as_string: '2020-05-11T12:00:00-05:00',
+  },
+  min_date: {
+    value: 1584032400000,
+    value_as_string: '2020-03-12T12:00:00-05:00',
+  },
+  dateRangeArea: {
+    doc_count: 532,
+    dateRangeArea: {
+      buckets: [
+        {
+          key_as_string: '2020-01-01T00:00:00.000Z',
+          key: 1577836800000,
+          doc_count: 532,
+        },
+      ],
+    },
+  },
+  dateRangeBuckets: {
+    doc_count: 784113,
+    dateRangeBuckets: {
+      buckets: [
+        {
+          key_as_string: '2017-01-01T00:00:00.000Z',
+          key: 1483228800000,
+          doc_count: 123458,
+        },
+        {
+          key_as_string: '2018-01-01T00:00:00.000Z',
+          key: 1514764800000,
+          doc_count: 257315,
+        },
+        {
+          key_as_string: '2019-01-01T00:00:00.000Z',
+          key: 1546300800000,
+          doc_count: 277392,
+        },
+        {
+          key_as_string: '2020-01-01T00:00:00.000Z',
+          key: 1577836800000,
+          doc_count: 125948,
+        },
+      ],
+    },
+  },
+};
+export const trendsBackfillResults = {
+  activeCall: '',
+  chartType: 'area',
+  colorMap: {
+    Other: '#a2a3a4',
+    Mortgage: '#2cb34a',
+    'Credit card or prepaid card': '#addc91',
+    'Credit reporting, credit repair services, or other personal consumer reports':
+      '#0072ce',
+    'Checking or savings account': '#96c4ed',
+    'Debt collection': '#257675',
+    Complaints: '#20aa3f',
+    'All other products': '#a2a3a4',
+    'All other companies': '#a2a3a4',
+    'All other values': '#a2a3a4',
+  },
+  error: false,
+  focus: '',
+  isLoading: false,
+  lens: 'Product',
+  results: {
+    dateRangeArea: [
+      { name: 'Other', value: 50, date: '2020-01-01T00:00:00.000Z' },
+      { name: 'Other', value: 0, date: '2017-01-01T00:00:00.000Z' },
+      { name: 'Other', value: 0, date: '2018-01-01T00:00:00.000Z' },
+      { name: 'Other', value: 0, date: '2019-01-01T00:00:00.000Z' },
+      { name: 'Mortgage', value: 185, date: '2020-01-01T00:00:00.000Z' },
+      { name: 'Mortgage', value: 0, date: '2017-01-01T00:00:00.000Z' },
+      { name: 'Mortgage', value: 0, date: '2018-01-01T00:00:00.000Z' },
+      { name: 'Mortgage', value: 0, date: '2019-01-01T00:00:00.000Z' },
+      {
+        name: 'Credit card or prepaid card',
+        value: 129,
+        date: '2020-01-01T00:00:00.000Z',
+      },
+      {
+        name: 'Credit card or prepaid card',
+        value: 0,
+        date: '2017-01-01T00:00:00.000Z',
+      },
+      {
+        name: 'Credit card or prepaid card',
+        value: 0,
+        date: '2018-01-01T00:00:00.000Z',
+      },
+      {
+        name: 'Credit card or prepaid card',
+        value: 0,
+        date: '2019-01-01T00:00:00.000Z',
+      },
+      {
+        name: 'Credit reporting, credit repair services, or other personal consumer reports',
+        value: 87,
+        date: '2020-01-01T00:00:00.000Z',
+      },
+      {
+        name: 'Credit reporting, credit repair services, or other personal consumer reports',
+        value: 0,
+        date: '2017-01-01T00:00:00.000Z',
+      },
+      {
+        name: 'Credit reporting, credit repair services, or other personal consumer reports',
+        value: 0,
+        date: '2018-01-01T00:00:00.000Z',
+      },
+      {
+        name: 'Credit reporting, credit repair services, or other personal consumer reports',
+        value: 0,
+        date: '2019-01-01T00:00:00.000Z',
+      },
+      {
+        name: 'Checking or savings account',
+        value: 43,
+        date: '2020-01-01T00:00:00.000Z',
+      },
+      {
+        name: 'Checking or savings account',
+        value: 0,
+        date: '2017-01-01T00:00:00.000Z',
+      },
+      {
+        name: 'Checking or savings account',
+        value: 0,
+        date: '2018-01-01T00:00:00.000Z',
+      },
+      {
+        name: 'Checking or savings account',
+        value: 0,
+        date: '2019-01-01T00:00:00.000Z',
+      },
+      { name: 'Debt collection', value: 38, date: '2020-01-01T00:00:00.000Z' },
+      { name: 'Debt collection', value: 0, date: '2017-01-01T00:00:00.000Z' },
+      { name: 'Debt collection', value: 0, date: '2018-01-01T00:00:00.000Z' },
+      { name: 'Debt collection', value: 0, date: '2019-01-01T00:00:00.000Z' },
+    ],
+    dateRangeLine: {
+      dataByTopic: [
+        {
+          topic: 'Mortgage',
+          topicName: 'Mortgage',
+          dashed: false,
+          show: true,
+          dates: [
+            { name: 'Mortgage', date: '2017-01-01T00:00:00.000Z', value: 0 },
+            { name: 'Mortgage', date: '2018-01-01T00:00:00.000Z', value: 0 },
+            { name: 'Mortgage', date: '2019-01-01T00:00:00.000Z', value: 0 },
+            { name: 'Mortgage', date: '2020-01-01T00:00:00.000Z', value: 185 },
+          ],
+        },
+        {
+          topic: 'Credit card or prepaid card',
+          topicName: 'Credit card or prepaid card',
+          dashed: false,
+          show: true,
+          dates: [
+            {
+              name: 'Credit card or prepaid card',
+              date: '2017-01-01T00:00:00.000Z',
+              value: 0,
+            },
+            {
+              name: 'Credit card or prepaid card',
+              date: '2018-01-01T00:00:00.000Z',
+              value: 0,
+            },
+            {
+              name: 'Credit card or prepaid card',
+              date: '2019-01-01T00:00:00.000Z',
+              value: 0,
+            },
+            {
+              name: 'Credit card or prepaid card',
+              date: '2020-01-01T00:00:00.000Z',
+              value: 129,
+            },
+          ],
+        },
+        {
+          topic:
+            'Credit reporting, credit repair services, or other personal consumer reports',
+          topicName:
+            'Credit reporting, credit repair services, or other personal consumer reports',
+          dashed: false,
+          show: true,
+          dates: [
+            {
+              name: 'Credit reporting, credit repair services, or other personal consumer reports',
+              date: '2017-01-01T00:00:00.000Z',
+              value: 0,
+            },
+            {
+              name: 'Credit reporting, credit repair services, or other personal consumer reports',
+              date: '2018-01-01T00:00:00.000Z',
+              value: 0,
+            },
+            {
+              name: 'Credit reporting, credit repair services, or other personal consumer reports',
+              date: '2019-01-01T00:00:00.000Z',
+              value: 0,
+            },
+            {
+              name: 'Credit reporting, credit repair services, or other personal consumer reports',
+              date: '2020-01-01T00:00:00.000Z',
+              value: 87,
+            },
+          ],
+        },
+        {
+          topic: 'Checking or savings account',
+          topicName: 'Checking or savings account',
+          dashed: false,
+          show: true,
+          dates: [
+            {
+              name: 'Checking or savings account',
+              date: '2017-01-01T00:00:00.000Z',
+              value: 0,
+            },
+            {
+              name: 'Checking or savings account',
+              date: '2018-01-01T00:00:00.000Z',
+              value: 0,
+            },
+            {
+              name: 'Checking or savings account',
+              date: '2019-01-01T00:00:00.000Z',
+              value: 0,
+            },
+            {
+              name: 'Checking or savings account',
+              date: '2020-01-01T00:00:00.000Z',
+              value: 43,
+            },
+          ],
+        },
+        {
+          topic: 'Debt collection',
+          topicName: 'Debt collection',
+          dashed: false,
+          show: true,
+          dates: [
+            {
+              name: 'Debt collection',
+              date: '2017-01-01T00:00:00.000Z',
+              value: 0,
+            },
+            {
+              name: 'Debt collection',
+              date: '2018-01-01T00:00:00.000Z',
+              value: 0,
+            },
+            {
+              name: 'Debt collection',
+              date: '2019-01-01T00:00:00.000Z',
+              value: 0,
+            },
+            {
+              name: 'Debt collection',
+              date: '2020-01-01T00:00:00.000Z',
+              value: 38,
+            },
+          ],
+        },
+      ],
+    },
+    product: [
+      {
+        hasChildren: true,
+        isNotFilter: false,
+        isParent: true,
+        name: 'Mortgage',
+        value: 185,
+        parent: false,
+        width: 0.5,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'Conventional home mortgage',
+        value: 108,
+        parent: 'Mortgage',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'FHA mortgage',
+        value: 44,
+        parent: 'Mortgage',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'VA mortgage',
+        value: 19,
+        parent: 'Mortgage',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'Other type of mortgage',
+        value: 9,
+        parent: 'Mortgage',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'Home equity loan or line of credit (HELOC)',
+        value: 5,
+        parent: 'Mortgage',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isParent: false,
+        key: 'Visualize sub-product and issue trends for Mortgage >',
+        name: 'Visualize sub-product and issue trends for Mortgage >',
+        splitterText: 'Visualize sub-product and issue trends for Mortgage >',
+        value: '',
+        parent: 'Mortgage',
+        width: 0.5,
+      },
+      {
+        hasChildren: true,
+        isNotFilter: false,
+        isParent: true,
+        name: 'Credit card or prepaid card',
+        value: 129,
+        parent: false,
+        width: 0.5,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'General-purpose credit card or charge card',
+        value: 98,
+        parent: 'Credit card or prepaid card',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'Store credit card',
+        value: 23,
+        parent: 'Credit card or prepaid card',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'Government benefit card',
+        value: 6,
+        parent: 'Credit card or prepaid card',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'General-purpose prepaid card',
+        value: 2,
+        parent: 'Credit card or prepaid card',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isParent: false,
+        key: 'Visualize sub-product and issue trends for Credit card or prepaid card >',
+        name: 'Visualize sub-product and issue trends for Credit card or prepaid card >',
+        splitterText:
+          'Visualize sub-product and issue trends for Credit card or prepaid card >',
+        value: '',
+        parent: 'Credit card or prepaid card',
+        width: 0.5,
+      },
+      {
+        hasChildren: true,
+        isNotFilter: false,
+        isParent: true,
+        name: 'Credit reporting, credit repair services, or other personal consumer reports',
+        value: 87,
+        parent: false,
+        width: 0.5,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'Credit reporting',
+        value: 84,
+        parent:
+          'Credit reporting, credit repair services, or other personal consumer reports',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'Credit repair services',
+        value: 2,
+        parent:
+          'Credit reporting, credit repair services, or other personal consumer reports',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'Other personal consumer report',
+        value: 1,
+        parent:
+          'Credit reporting, credit repair services, or other personal consumer reports',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isParent: false,
+        key: 'Visualize sub-product and issue trends for Credit reporting, credit repair services, or other personal consumer reports >',
+        name: 'Visualize sub-product and issue trends for Credit reporting, credit repair services, or other personal consumer reports >',
+        splitterText:
+          'Visualize sub-product and issue trends for Credit reporting, credit repair services, or other personal consumer reports >',
+        value: '',
+        parent:
+          'Credit reporting, credit repair services, or other personal consumer reports',
+        width: 0.5,
+      },
+      {
+        hasChildren: true,
+        isNotFilter: false,
+        isParent: true,
+        name: 'Checking or savings account',
+        value: 43,
+        parent: false,
+        width: 0.5,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'Checking account',
+        value: 34,
+        parent: 'Checking or savings account',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'Savings account',
+        value: 5,
+        parent: 'Checking or savings account',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'Other banking product or service',
+        value: 3,
+        parent: 'Checking or savings account',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'CD (Certificate of Deposit)',
+        value: 1,
+        parent: 'Checking or savings account',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isParent: false,
+        key: 'Visualize sub-product and issue trends for Checking or savings account >',
+        name: 'Visualize sub-product and issue trends for Checking or savings account >',
+        splitterText:
+          'Visualize sub-product and issue trends for Checking or savings account >',
+        value: '',
+        parent: 'Checking or savings account',
+        width: 0.5,
+      },
+      {
+        hasChildren: true,
+        isNotFilter: false,
+        isParent: true,
+        name: 'Debt collection',
+        value: 38,
+        parent: false,
+        width: 0.5,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'Other debt',
+        value: 12,
+        parent: 'Debt collection',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'I do not know',
+        value: 8,
+        parent: 'Debt collection',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'Medical debt',
+        value: 8,
+        parent: 'Debt collection',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'Auto debt',
+        value: 4,
+        parent: 'Debt collection',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'Credit card debt',
+        value: 4,
+        parent: 'Debt collection',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isParent: false,
+        key: 'Visualize sub-product and issue trends for Debt collection >',
+        name: 'Visualize sub-product and issue trends for Debt collection >',
+        splitterText:
+          'Visualize sub-product and issue trends for Debt collection >',
+        value: '',
+        parent: 'Debt collection',
+        width: 0.5,
+      },
+      {
+        hasChildren: true,
+        isNotFilter: false,
+        isParent: true,
+        name: 'Vehicle loan or lease',
+        value: 18,
+        parent: false,
+        width: 0.5,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'Loan',
+        value: 16,
+        parent: 'Vehicle loan or lease',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'Lease',
+        value: 2,
+        parent: 'Vehicle loan or lease',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isParent: false,
+        key: 'Visualize sub-product and issue trends for Vehicle loan or lease >',
+        name: 'Visualize sub-product and issue trends for Vehicle loan or lease >',
+        splitterText:
+          'Visualize sub-product and issue trends for Vehicle loan or lease >',
+        value: '',
+        parent: 'Vehicle loan or lease',
+        width: 0.5,
+      },
+      {
+        hasChildren: true,
+        isNotFilter: false,
+        isParent: true,
+        name: 'Payday loan, title loan, or personal loan',
+        value: 17,
+        parent: false,
+        width: 0.5,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'Installment loan',
+        value: 8,
+        parent: 'Payday loan, title loan, or personal loan',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'Personal line of credit',
+        value: 6,
+        parent: 'Payday loan, title loan, or personal loan',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'Payday loan',
+        value: 2,
+        parent: 'Payday loan, title loan, or personal loan',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'Title loan',
+        value: 1,
+        parent: 'Payday loan, title loan, or personal loan',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isParent: false,
+        key: 'Visualize sub-product and issue trends for Payday loan, title loan, or personal loan >',
+        name: 'Visualize sub-product and issue trends for Payday loan, title loan, or personal loan >',
+        splitterText:
+          'Visualize sub-product and issue trends for Payday loan, title loan, or personal loan >',
+        value: '',
+        parent: 'Payday loan, title loan, or personal loan',
+        width: 0.5,
+      },
+      {
+        hasChildren: true,
+        isNotFilter: false,
+        isParent: true,
+        name: 'Student loan',
+        value: 9,
+        parent: false,
+        width: 0.5,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'Private student loan',
+        value: 5,
+        parent: 'Student loan',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'Federal student loan servicing',
+        value: 4,
+        parent: 'Student loan',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isParent: false,
+        key: 'Visualize sub-product and issue trends for Student loan >',
+        name: 'Visualize sub-product and issue trends for Student loan >',
+        splitterText:
+          'Visualize sub-product and issue trends for Student loan >',
+        value: '',
+        parent: 'Student loan',
+        width: 0.5,
+      },
+      {
+        hasChildren: true,
+        isNotFilter: false,
+        isParent: true,
+        name: 'Money transfer, virtual currency, or money service',
+        value: 6,
+        parent: false,
+        width: 0.5,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'Mobile or digital wallet',
+        value: 3,
+        parent: 'Money transfer, virtual currency, or money service',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: 'Domestic (US) money transfer',
+        value: 2,
+        parent: 'Money transfer, virtual currency, or money service',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isNotFilter: false,
+        isParent: false,
+        name: "Traveler's check or cashier's check",
+        value: 1,
+        parent: 'Money transfer, virtual currency, or money service',
+        width: 0.4,
+      },
+      {
+        hasChildren: false,
+        isParent: false,
+        key: 'Visualize sub-product and issue trends for Money transfer, virtual currency, or money service >',
+        name: 'Visualize sub-product and issue trends for Money transfer, virtual currency, or money service >',
+        splitterText:
+          'Visualize sub-product and issue trends for Money transfer, virtual currency, or money service >',
+        value: '',
+        parent: 'Money transfer, virtual currency, or money service',
+        width: 0.5,
+      },
+    ],
+  },
+  subLens: 'sub_product',
+  tooltip: false,
+  total: 532,
+};

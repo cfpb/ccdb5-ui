@@ -1,19 +1,18 @@
 import { act, create } from 'react-test-renderer';
 import { App, DetailComponents } from '../App';
-import configureMockStore from 'redux-mock-store'
-import { defaultQuery } from '../reducers/query'
+import configureMockStore from 'redux-mock-store';
+import { defaultQuery } from '../reducers/query';
 import { MemoryRouter } from 'react-router';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 import React from 'react';
-import thunk from 'redux-thunk'
+import thunk from 'redux-thunk';
 import 'regenerator-runtime/runtime';
 
-jest.mock( 'highcharts/modules/accessibility' )
-jest.mock( 'highcharts/highmaps' )
+jest.mock('highcharts/modules/accessibility');
+jest.mock('highcharts/highmaps');
 
 describe('initial state', () => {
   it('renders without crashing', async () => {
-
     // set the date so snapshot will always be the same.
     const DATE_TO_USE = new Date('1/1/2016');
     const _Date = Date;
@@ -23,32 +22,31 @@ describe('initial state', () => {
     global.Date.now = _Date.now;
     defaultQuery.searchText = 'foo';
 
-    let target
-    await act( async () => {
+    let target;
+    await act(async () => {
       target = create(
-        <MemoryRouter initialEntries={[ '/' ]}>
+        <MemoryRouter initialEntries={['/']}>
           <App />
         </MemoryRouter>
-      )
-    } )
+      );
+    });
 
     let tree = target.toJSON();
     expect(tree).toMatchSnapshot();
-
   });
 
   it('renders the detail route', () => {
-    const middlewares = [thunk]
-    const mockStore = configureMockStore(middlewares)
+    const middlewares = [thunk];
+    const mockStore = configureMockStore(middlewares);
     const store = mockStore({
-      detail: { data: {}, error: '' }
-    })
+      detail: { data: {}, error: '' },
+    });
 
     const match = { params: { id: '1234' } };
     const detailTarget = create(
-      <MemoryRouter initialEntries={[ '/detail/1234' ]}>
+      <MemoryRouter initialEntries={['/detail/1234']}>
         <Provider store={store}>
-          <DetailComponents match={ match }/>
+          <DetailComponents match={match} />
         </Provider>
       </MemoryRouter>
     );
