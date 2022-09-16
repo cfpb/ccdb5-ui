@@ -86,6 +86,7 @@ exports[`component:Results renders List print mode without crashing 1`] = `
     </div>
     <div
       className="tabbed-navigation"
+      data-tour="tabbed-navigation"
     >
       <section>
         <button
@@ -159,11 +160,12 @@ exports[`component:Results renders List print mode without crashing 1`] = `
         className="separator"
       />
       <section
-        className="cf-select cf-select__size"
+        className="cf-select"
+        data-tour="select-size"
       >
         <label
           className="u-visually-hidden"
-          htmlFor="choose-size"
+          htmlFor="select-size"
         >
           Select the number of results to display at a time
         </label>
@@ -171,7 +173,7 @@ exports[`component:Results renders List print mode without crashing 1`] = `
           Show
         </p>
         <select
-          id="choose-size"
+          id="select-size"
           onChange={[Function]}
         >
           <option
@@ -201,11 +203,12 @@ exports[`component:Results renders List print mode without crashing 1`] = `
         </select>
       </section>
       <section
-        className="cf-select cf-select__sort"
+        className="cf-select"
+        data-tour="select-sort"
       >
         <label
           className="u-visually-hidden"
-          htmlFor="choose-sort"
+          htmlFor="select-sort"
         >
           Choose the order in which the results are displayed
         </label>
@@ -213,7 +216,7 @@ exports[`component:Results renders List print mode without crashing 1`] = `
           Sort
         </p>
         <select
-          id="choose-sort"
+          id="select-sort"
           onChange={[Function]}
         >
           <option
@@ -618,6 +621,7 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
     </div>
     <div
       className="tabbed-navigation"
+      data-tour="tabbed-navigation"
     >
       <section>
         <button
@@ -824,6 +828,7 @@ exports[`component:Results renders list panel without crashing 1`] = `
     </div>
     <div
       className="tabbed-navigation"
+      data-tour="tabbed-navigation"
     >
       <section>
         <button
@@ -897,11 +902,12 @@ exports[`component:Results renders list panel without crashing 1`] = `
         className="separator"
       />
       <section
-        className="cf-select cf-select__size"
+        className="cf-select"
+        data-tour="select-size"
       >
         <label
           className="u-visually-hidden"
-          htmlFor="choose-size"
+          htmlFor="select-size"
         >
           Select the number of results to display at a time
         </label>
@@ -909,7 +915,7 @@ exports[`component:Results renders list panel without crashing 1`] = `
           Show
         </p>
         <select
-          id="choose-size"
+          id="select-size"
           onChange={[Function]}
         >
           <option
@@ -939,11 +945,12 @@ exports[`component:Results renders list panel without crashing 1`] = `
         </select>
       </section>
       <section
-        className="cf-select cf-select__sort"
+        className="cf-select"
+        data-tour="select-sort"
       >
         <label
           className="u-visually-hidden"
-          htmlFor="choose-sort"
+          htmlFor="select-sort"
         >
           Choose the order in which the results are displayed
         </label>
@@ -951,7 +958,7 @@ exports[`component:Results renders list panel without crashing 1`] = `
           Sort
         </p>
         <select
-          id="choose-sort"
+          id="select-sort"
           onChange={[Function]}
         >
           <option
@@ -1319,6 +1326,7 @@ exports[`component:Results renders map panel without crashing 1`] = `
     </div>
     <div
       className="tabbed-navigation"
+      data-tour="tabbed-navigation"
     >
       <section>
         <button
@@ -1514,6 +1522,7 @@ exports[`component:Results renders trends panel without crashing 1`] = `
     </div>
     <div
       className="tabbed-navigation"
+      data-tour="tabbed-navigation"
     >
       <section>
         <button
@@ -1584,11 +1593,12 @@ exports[`component:Results renders trends panel without crashing 1`] = `
         </div>
       </section>
       <section
-        className="cf-select cf-select__lens"
+        className="cf-select"
+        data-tour="select-lens"
       >
         <label
           className="u-visually-hidden"
-          htmlFor="choose-lens"
+          htmlFor="select-lens"
         >
           Aggregate complaints by
         </label>
@@ -1596,7 +1606,7 @@ exports[`component:Results renders trends panel without crashing 1`] = `
           Aggregate by
         </p>
         <select
-          id="choose-lens"
+          id="select-lens"
           onChange={[Function]}
           value="Overview"
         >
@@ -1624,11 +1634,12 @@ exports[`component:Results renders trends panel without crashing 1`] = `
         className="separator"
       />
       <section
-        className="cf-select cf-select__interval"
+        className="cf-select"
+        data-tour="select-interval"
       >
         <label
           className="u-visually-hidden"
-          htmlFor="choose-interval"
+          htmlFor="select-interval"
         >
           Choose the Date interval
         </label>
@@ -1636,7 +1647,7 @@ exports[`component:Results renders trends panel without crashing 1`] = `
           Date interval
         </p>
         <select
-          id="choose-interval"
+          id="select-interval"
           onChange={[Function]}
         >
           <option

@@ -237,7 +237,7 @@ describe( 'Filter Panel', () => {
 
       cy.get( '.list-panel .card-container' )
         .should( 'have.length', 25 );
-      cy.get( '#choose-size' )
+      cy.get( '#select-size' )
         .select( '10 results' )
       cy.wait( '@get10Complaints' )
       cy.get( '.list-panel .card-container' )

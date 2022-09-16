@@ -61,7 +61,7 @@ describe( 'Document View', () => {
         '?searchText=pizza&has_narrative=true&size=10&sort=relevance_desc&tab=List'
       )
 
-      cy.get( '#choose-sort' )
+      cy.get( '#select-sort' )
         .should( 'have.value', 'relevance_desc' )
 
       cy.contains( '.pill', 'Has narrative' )
@@ -73,7 +73,7 @@ describe( 'Document View', () => {
       request = `${ccdbApiUrl.dev}3146099`;
       fixture = { fixture: 'document/get-detail.json' };
       cy.intercept( request, fixture ).as( 'getDetail' );
-  
+
       cy.get( '.cards-panel .card-container a' )
         .first()
         .click()
@@ -90,7 +90,7 @@ describe( 'Document View', () => {
       cy.wait( '@getAggsResults' )
       cy.wait( '@getResults' )
 
-      cy.get( '#choose-sort' )
+      cy.get( '#select-sort' )
         .should( 'have.value', 'relevance_desc' )
 
       cy.contains( '.pill', 'Has narrative' )

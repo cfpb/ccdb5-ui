@@ -15,7 +15,7 @@ export const TabbedNavigation = () => {
   }
 
   return (
-      <div className="tabbed-navigation">
+      <div className="tabbed-navigation" data-tour={'tabbed-navigation'}>
         <section>
           <button
             className={ getTabClass( 'Trends' ) }

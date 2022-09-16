@@ -2,11 +2,12 @@
 
 exports[`component:Select renders array of objects without crashing 1`] = `
 <section
-  className="cf-select cf-select__txt"
+  className="cf-select"
+  data-tour="select-txt"
 >
   <label
     className="u-visually-hidden"
-    htmlFor="choose-txt"
+    htmlFor="select-txt"
   >
     Select something
   </label>
@@ -14,7 +15,7 @@ exports[`component:Select renders array of objects without crashing 1`] = `
     Show sumthing
   </p>
   <select
-    id="choose-txt"
+    id="select-txt"
     onChange={[MockFunction]}
     value="Dos"
   >
@@ -39,11 +40,12 @@ exports[`component:Select renders array of objects without crashing 1`] = `
 
 exports[`component:Select renders array values without crashing 1`] = `
 <section
-  className="cf-select cf-select__txt"
+  className="cf-select"
+  data-tour="select-txt"
 >
   <label
     className="u-visually-hidden"
-    htmlFor="choose-txt"
+    htmlFor="select-txt"
   >
     Select something
   </label>
@@ -51,7 +53,7 @@ exports[`component:Select renders array values without crashing 1`] = `
     Show sumthing
   </p>
   <select
-    id="choose-txt"
+    id="select-txt"
     onChange={[MockFunction]}
     value="Dos"
   >
@@ -79,11 +81,12 @@ exports[`component:Select renders array values without crashing 1`] = `
 
 exports[`component:Select renders object values without crashing 1`] = `
 <section
-  className="cf-select cf-select__size"
+  className="cf-select"
+  data-tour="select-size"
 >
   <label
     className="u-visually-hidden"
-    htmlFor="choose-size"
+    htmlFor="select-size"
   >
     Select size
   </label>
@@ -91,7 +94,7 @@ exports[`component:Select renders object values without crashing 1`] = `
     Show
   </p>
   <select
-    id="choose-size"
+    id="select-size"
     onChange={[MockFunction]}
     value={10}
   >

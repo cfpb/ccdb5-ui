@@ -66,7 +66,7 @@ export const TOUR_STEPS = {
     {
       element: GEO.STEP_1.selector,
       intro:
-         '<div>' +
+        '<div>' +
         '<div class="left">' +
         'Welcome to the Consumer Complaint Database!' +
         '<br /><br />' +

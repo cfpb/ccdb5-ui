@@ -1198,6 +1198,7 @@ exports[`initial state renders without crashing 1`] = `
         </div>
         <div
           className="tabbed-navigation"
+          data-tour="tabbed-navigation"
         >
           <section>
             <button
@@ -1268,11 +1269,12 @@ exports[`initial state renders without crashing 1`] = `
             </div>
           </section>
           <section
-            className="cf-select cf-select__lens"
+            className="cf-select"
+            data-tour="select-lens"
           >
             <label
               className="u-visually-hidden"
-              htmlFor="choose-lens"
+              htmlFor="select-lens"
             >
               Aggregate complaints by
             </label>
@@ -1280,7 +1282,7 @@ exports[`initial state renders without crashing 1`] = `
               Aggregate by
             </p>
             <select
-              id="choose-lens"
+              id="select-lens"
               onChange={[Function]}
               value="Product"
             >
@@ -1308,11 +1310,12 @@ exports[`initial state renders without crashing 1`] = `
             className="separator"
           />
           <section
-            className="cf-select cf-select__interval"
+            className="cf-select"
+            data-tour="select-interval"
           >
             <label
               className="u-visually-hidden"
-              htmlFor="choose-interval"
+              htmlFor="select-interval"
             >
               Choose the Date interval
             </label>
@@ -1320,7 +1323,7 @@ exports[`initial state renders without crashing 1`] = `
               Date interval
             </p>
             <select
-              id="choose-interval"
+              id="select-interval"
               onChange={[Function]}
               value="Month"
             >

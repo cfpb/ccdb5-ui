@@ -44,11 +44,12 @@ export class Select extends React.Component {
   }
 
   render() {
-    const id = 'choose-' + this.props.id
+    const id = 'select-' + this.props.id
     const values = this.getValues()
 
     return (
-      <section className={'cf-select cf-select__' + this.props.id}>
+      <section className={'cf-select'}
+               data-tour={id}>
         <label className="u-visually-hidden"
                htmlFor={ id }>
           { this.props.label }
@@ -56,7 +57,8 @@ export class Select extends React.Component {
         <p>
           { this.props.title }
         </p>
-        <select value={ this.props.value } id={ id }
+        <select value={ this.props.value }
+                id={ id }
                 onChange={ this.props.handleChange }>
 
           { values.map( x =>

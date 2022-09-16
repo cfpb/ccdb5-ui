@@ -51,7 +51,7 @@ describe( 'List View', () => {
       fixture = { fixture: 'list/get-10-complaints.json' };
       cy.intercept( 'GET', request, fixture ).as( 'get10Complaints' );
 
-      cy.get( '#choose-size' ).select( '10 results' )
+      cy.get( '#select-size' ).select( '10 results' )
 
       cy.wait( '@get10Complaints' );
 
@@ -76,7 +76,7 @@ describe( 'List View', () => {
 
       cy.url().should( 'contain', 'page=2' )
 
-      cy.get( '#choose-sort' ).select( 'relevance_desc' )
+      cy.get( '#select-sort' ).select( 'relevance_desc' )
       cy.wait( '@getRelevanceComplaints' );
 
       cy.url().should( 'contain', 'sort=relevance_desc' )
