@@ -2,7 +2,7 @@ import './Pill.less';
 import {
   dateRangeToggled,
   removeFilter,
-  replaceFilters,
+  replaceFilters
 } from '../../actions/filter';
 import { filterPatch, SLUG_SEPARATOR } from '../../constants';
 import { formatPillPrefix, getUpdatedFilters } from '../../utils/filters';
@@ -14,31 +14,31 @@ import React from 'react';
 import { selectAggsState } from '../../reducers/aggs/selectors';
 import { selectQueryState } from '../../reducers/query/selectors';
 
-export const Pill = ({ fieldName, value }) => {
-  const aggsState = useSelector(selectAggsState);
-  const queryState = useSelector(selectQueryState);
-  const aggs = coalesce(aggsState, fieldName, []);
-  const filters = coalesce(queryState, fieldName, []);
-  const prefix = formatPillPrefix(fieldName);
-  const trimmed = value.split(SLUG_SEPARATOR).pop();
+export const Pill = ( { fieldName, value } ) => {
+  const aggsState = useSelector( selectAggsState );
+  const queryState = useSelector( selectQueryState );
+  const aggs = coalesce( aggsState, fieldName, [] );
+  const filters = coalesce( queryState, fieldName, [] );
+  const prefix = formatPillPrefix( fieldName );
+  const trimmed = value.split( SLUG_SEPARATOR ).pop();
   const dispatch = useDispatch();
 
   const remove = () => {
-    if (fieldName === 'date_received') {
+    if ( fieldName === 'date_received' ) {
       // reset date range
-      dispatch(dateRangeToggled('All'));
+      dispatch( dateRangeToggled( 'All' ) );
     } else {
       const filterName = value;
-      if (filterPatch.includes(fieldName)) {
+      if ( filterPatch.includes( fieldName ) ) {
         const updatedFilters = getUpdatedFilters(
           filterName,
           filters,
           aggs,
           fieldName
         );
-        dispatch(replaceFilters(fieldName, updatedFilters));
+        dispatch( replaceFilters( fieldName, updatedFilters ) );
       } else {
-        dispatch(removeFilter(fieldName, filterName));
+        dispatch( removeFilter( fieldName, filterName ) );
       }
     }
   };
@@ -51,9 +51,9 @@ export const Pill = ({ fieldName, value }) => {
       </span>
       <button onClick={remove}>
         <span className="u-visually-hidden">
-          {`Remove ${trimmed} as a filter`}
+          {`Remove ${ trimmed } as a filter`}
         </span>
-        {iconMap.getIcon('delete')}
+        {iconMap.getIcon( 'delete' )}
       </button>
     </li>
   );
@@ -61,5 +61,5 @@ export const Pill = ({ fieldName, value }) => {
 
 Pill.propTypes = {
   fieldName: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired
 };

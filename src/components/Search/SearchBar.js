@@ -12,42 +12,42 @@ const searchFields = {
   all: 'All data',
   company: 'Company name',
   // eslint-disable-next-line camelcase
-  complaint_what_happened: 'Narratives',
+  complaint_what_happened: 'Narratives'
 };
 
 export class SearchBar extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor( props ) {
+    super( props );
     this.state = {
       inputValue: props.searchText,
-      searchField: props.searchField,
+      searchField: props.searchField
     };
 
     // This binding is necessary to make `this` work in the callback
     // https://facebook.github.io/react/docs/handling-events.html
-    this._handleSubmit = this._handleSubmit.bind(this);
-    this._onInputChange = this._onInputChange.bind(this);
-    this._onSelectSearchField = this._onSelectSearchField.bind(this);
-    this._onTypeaheadSelected = this._onTypeaheadSelected.bind(this);
-    this._onAdvancedClicked = this._onAdvancedClicked.bind(this);
-    this._updateLocalState = this._updateLocalState.bind(this);
+    this._handleSubmit = this._handleSubmit.bind( this );
+    this._onInputChange = this._onInputChange.bind( this );
+    this._onSelectSearchField = this._onSelectSearchField.bind( this );
+    this._onTypeaheadSelected = this._onTypeaheadSelected.bind( this );
+    this._onAdvancedClicked = this._onAdvancedClicked.bind( this );
+    this._updateLocalState = this._updateLocalState.bind( this );
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate( prevProps ) {
     const { searchField, searchText } = this.props;
     if (
       prevProps.searchText !== searchText ||
       prevProps.searchField !== searchField
     ) {
       // sync local state from redux
-      this._updateLocalState(searchField, searchText);
+      this._updateLocalState( searchField, searchText );
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate( nextProps, nextState ) {
     return (
-      JSON.stringify(this.state) !== JSON.stringify(nextState) ||
-      JSON.stringify(this.props) !== JSON.stringify(nextProps)
+      JSON.stringify( this.state ) !== JSON.stringify( nextState ) ||
+      JSON.stringify( this.props ) !== JSON.stringify( nextProps )
     );
   }
 
@@ -66,11 +66,11 @@ export class SearchBar extends React.Component {
                   value={this.state.searchField}
                 >
                   <optgroup label="Search Within">
-                    {Object.keys(searchFields).map((x) => (
+                    {Object.keys( searchFields ).map( x =>
                       <option key={x} value={x}>
                         {searchFields[x]}
                       </option>
-                    ))}
+                    )}
                   </optgroup>
                 </select>
               </div>
@@ -92,7 +92,7 @@ export class SearchBar extends React.Component {
               <button
                 type="submit"
                 className="a-btn flex-fixed"
-                ref={(elem) => {
+                ref={elem => {
                   this.submitButton = elem;
                 }}
               >
@@ -123,70 +123,70 @@ export class SearchBar extends React.Component {
   // --------------------------------------------------------------------------
   // Event Handlers
 
-  _handleSubmit(event) {
+  _handleSubmit( event ) {
     event.preventDefault();
-    this.props.onSearchText(this.state.inputValue);
+    this.props.onSearchText( this.state.inputValue );
   }
 
-  _onSelectSearchField(event) {
-    this.props.onSearchField(event.target.value);
+  _onSelectSearchField( event ) {
+    this.props.onSearchField( event.target.value );
   }
 
-  _onAdvancedClicked(event) {
+  _onAdvancedClicked( event ) {
     event.preventDefault();
-    this.props.onSearchTipToggle(this.props.showAdvancedSearchTips);
+    this.props.onSearchTipToggle( this.props.showAdvancedSearchTips );
   }
 
-  _updateLocalState(searchField, searchText) {
-    this.setState({
+  _updateLocalState( searchField, searchText ) {
+    this.setState( {
       inputValue: searchText,
-      searchField: searchField,
-    });
+      searchField: searchField
+    } );
   }
 
   // --------------------------------------------------------------------------
   // Typeahead interface
 
-  _onInputChange(value) {
-    this.setState({
-      inputValue: value,
-    });
+  _onInputChange( value ) {
+    this.setState( {
+      inputValue: value
+    } );
 
-    if (this.state.searchField === 'company') {
+    if ( this.state.searchField === 'company' ) {
       const n = value.toLowerCase();
       const uriCompany = '@@API_suggest_company/?text=' + value;
 
-      return fetch(uriCompany)
-        .then((result) => result.json())
-        .then((items) =>
-          items.map((x) => ({
+      return fetch( uriCompany )
+        .then( result => result.json() )
+        .then( items =>
+          items.map( x => ( {
             key: x,
             label: x,
-            position: x.toLowerCase().indexOf(n),
-            value,
-          }))
+            position: x.toLowerCase().indexOf( n ),
+            value
+          } ) )
         );
     }
 
-    const emptyPromise = Promise.resolve({
-      then: function () {
+    const emptyPromise = Promise.resolve( {
+      then: function() {
         return;
-      },
-    });
+      }
+    } );
 
-    return emptyPromise.then(() => []);
+    return emptyPromise.then( () => [] );
   }
 
-  _renderOption(obj) {
+  _renderOption( obj ) {
     return {
       value: obj.key,
-      component: <HighlightingOption {...obj} />,
+      component: <HighlightingOption {...obj} />
     };
   }
 
-  _onTypeaheadSelected(obj) {
+  _onTypeaheadSelected( obj ) {
     const inputValue = typeof obj === 'object' ? obj.key : obj;
-    this.props.onSearchText(inputValue);
+    this.props.onSearchText( inputValue );
   }
 }
 
@@ -194,33 +194,33 @@ export class SearchBar extends React.Component {
 // Meta
 
 SearchBar.propTypes = {
-  debounceWait: PropTypes.number,
+  debounceWait: PropTypes.number
 };
 
 SearchBar.defaultProps = {
-  debounceWait: 250,
+  debounceWait: 250
 };
 
-export const mapStateToProps = (state) => ({
+export const mapStateToProps = state => ( {
   searchText: state.query.searchText,
   searchField: state.query.searchField,
-  showAdvancedSearchTips: state.view.showAdvancedSearchTips,
-});
+  showAdvancedSearchTips: state.view.showAdvancedSearchTips
+} );
 
-export const mapDispatchToProps = (dispatch) => ({
-  onSearchField: (field) => {
-    dispatch(searchFieldChanged(field));
+export const mapDispatchToProps = dispatch => ( {
+  onSearchField: field => {
+    dispatch( searchFieldChanged( field ) );
   },
-  onSearchText: (text) => {
-    dispatch(searchTextChanged(text));
+  onSearchText: text => {
+    dispatch( searchTextChanged( text ) );
   },
-  onSearchTipToggle: (isOn) => {
-    if (isOn) {
-      dispatch(hideAdvancedTips());
+  onSearchTipToggle: isOn => {
+    if ( isOn ) {
+      dispatch( hideAdvancedTips() );
     } else {
-      dispatch(showAdvancedTips());
+      dispatch( showAdvancedTips() );
     }
-  },
-});
+  }
+} );
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
+export default connect( mapStateToProps, mapDispatchToProps )( SearchBar );

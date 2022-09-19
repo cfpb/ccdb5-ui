@@ -32,7 +32,12 @@ const fixture = [
   },
 ];
 
-function setupSnapshot(items = [], initialStore = {}, tab = 'List', printMode) {
+function setupSnapshot(
+  items = [],
+  initialStore = {},
+  tab = 'List',
+  printMode
+) {
   const results = Object.assign(
     {
       error: '',

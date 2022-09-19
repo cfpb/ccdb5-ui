@@ -24,7 +24,7 @@ export const TRENDS_DATE_WARNING_DISMISSED = 'TRENDS_DATE_WARNING_DISMISSED';
 export function filterVisibilityToggled() {
   return {
     type: TOGGLE_FILTER_VISIBILITY,
-    requery: REQUERY_NEVER,
+    requery: REQUERY_NEVER
   };
 }
 
@@ -36,7 +36,7 @@ export function filterVisibilityToggled() {
 export function mapWarningDismissed() {
   return {
     type: MAP_WARNING_DISMISSED,
-    requery: REQUERY_NEVER,
+    requery: REQUERY_NEVER
   };
 }
 
@@ -48,7 +48,7 @@ export function mapWarningDismissed() {
 export function printModeOn() {
   return {
     type: PRINT_MODE_ON,
-    requery: REQUERY_NEVER,
+    requery: REQUERY_NEVER
   };
 }
 
@@ -60,7 +60,7 @@ export function printModeOn() {
 export function printModeOff() {
   return {
     type: PRINT_MODE_OFF,
-    requery: REQUERY_NEVER,
+    requery: REQUERY_NEVER
   };
 }
 
@@ -72,7 +72,7 @@ export function printModeOff() {
 export function showAdvancedTips() {
   return {
     type: SHOW_ADVANCED_SEARCH_TIPS,
-    requery: REQUERY_NEVER,
+    requery: REQUERY_NEVER
   };
 }
 
@@ -84,7 +84,7 @@ export function showAdvancedTips() {
 export function hideAdvancedTips() {
   return {
     type: HIDE_ADVANCED_SEARCH_TIPS,
-    requery: REQUERY_NEVER,
+    requery: REQUERY_NEVER
   };
 }
 
@@ -94,11 +94,11 @@ export function hideAdvancedTips() {
  * @param {string} value of trend agg that was toggled
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function collapseRow(value) {
+export function collapseRow( value ) {
   return {
     type: ROW_COLLAPSED,
     requery: REQUERY_NEVER,
-    value,
+    value
   };
 }
 
@@ -108,11 +108,11 @@ export function collapseRow(value) {
  * @param {string} value of trend agg that was toggled
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function expandRow(value) {
+export function expandRow( value ) {
   return {
     type: ROW_EXPANDED,
     requery: REQUERY_NEVER,
-    value,
+    value
   };
 }
 
@@ -121,11 +121,11 @@ export function expandRow(value) {
  * @param {string} width the width of the screen
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function screenResized(width) {
+export function screenResized( width ) {
   return {
     type: SCREEN_RESIZED,
     screenWidth: width,
-    requery: REQUERY_NEVER,
+    requery: REQUERY_NEVER
   };
 }
 
@@ -135,11 +135,11 @@ export function screenResized(width) {
  * @param {string} tab the new tab name
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function tabChanged(tab) {
+export function tabChanged( tab ) {
   return {
     type: TAB_CHANGED,
     tab,
-    requery: REQUERY_HITS_ONLY,
+    requery: REQUERY_HITS_ONLY
   };
 }
 
@@ -151,7 +151,7 @@ export function tabChanged(tab) {
 export function tourHidden() {
   return {
     type: HIDE_TOUR,
-    requery: REQUERY_NEVER,
+    requery: REQUERY_NEVER
   };
 }
 
@@ -163,7 +163,7 @@ export function tourHidden() {
 export function tourShown() {
   return {
     type: SHOW_TOUR,
-    requery: REQUERY_NEVER,
+    requery: REQUERY_NEVER
   };
 }
 
@@ -175,6 +175,6 @@ export function tourShown() {
 export function trendsDateWarningDismissed() {
   return {
     type: TRENDS_DATE_WARNING_DISMISSED,
-    requery: REQUERY_NEVER,
+    requery: REQUERY_NEVER
   };
 }

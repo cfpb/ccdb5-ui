@@ -21,14 +21,14 @@ export class FilterPanelToggle extends React.Component {
   }
 }
 
-export const mapStateToProps = (state) => ({
-  showFilters: state.view.showFilters,
-});
+export const mapStateToProps = state => ( {
+  showFilters: state.view.showFilters
+} );
 
-export const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = dispatch => ( {
   onFilterToggle: () => {
-    dispatch(filterVisibilityToggled());
-  },
-});
+    dispatch( filterVisibilityToggled() );
+  }
+} );
 
-export default connect(mapStateToProps, mapDispatchToProps)(FilterPanelToggle);
+export default connect( mapStateToProps, mapDispatchToProps )( FilterPanelToggle );

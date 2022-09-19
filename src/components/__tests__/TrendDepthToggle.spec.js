@@ -124,7 +124,12 @@ describe('component:TrendDepthToggle', () => {
     });
 
     it('increaseDepth is called when the increase button is clicked', () => {
-      target = setupEnzyme({ cbIncrease, cbReset, diff: 1000, resultCount: 5 });
+      target = setupEnzyme({
+        cbIncrease,
+        cbReset,
+        diff: 1000,
+        resultCount: 5,
+      });
       const prev = target.find('#trend-depth-button');
       prev.simulate('click');
       expect(cbIncrease).toHaveBeenCalledWith(1000);

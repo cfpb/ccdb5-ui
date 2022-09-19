@@ -8,7 +8,7 @@ export const defaultView = {
   showAdvancedSearchTips: false,
   showFilters: true,
   showTour: false,
-  width: 0,
+  width: 0
 };
 
 /**
@@ -19,14 +19,14 @@ export const defaultView = {
  * @returns {object} a filtered set of key/value pairs with the values set to
  * the correct type
  */
-function processParams(state, action) {
+function processParams( state, action ) {
   const params = action.params;
 
   state.printMode = params.printMode === 'true';
   state.fromExternal = params.fromExternal === 'true';
 
-  const arrayParams = ['expandedRows'];
-  processUrlArrayParams(params, state, arrayParams);
+  const arrayParams = [ 'expandedRows' ];
+  processUrlArrayParams( params, state, arrayParams );
 
   return state;
 }
@@ -37,10 +37,10 @@ function processParams(state, action) {
  * @param {object} state the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
-export function hideAdvancedSearchTips(state) {
+export function hideAdvancedSearchTips( state ) {
   return {
     ...state,
-    showAdvancedSearchTips: false,
+    showAdvancedSearchTips: false
   };
 }
 
@@ -50,10 +50,10 @@ export function hideAdvancedSearchTips(state) {
  * @param {object} state the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
-export function showAdvancedSearchTips(state) {
+export function showAdvancedSearchTips( state ) {
   return {
     ...state,
-    showAdvancedSearchTips: true,
+    showAdvancedSearchTips: true
   };
 }
 
@@ -63,10 +63,10 @@ export function showAdvancedSearchTips(state) {
  * @param {object} state the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
-export function updatePrintModeOn(state) {
+export function updatePrintModeOn( state ) {
   return {
     ...state,
-    printMode: true,
+    printMode: true
   };
 }
 
@@ -76,11 +76,11 @@ export function updatePrintModeOn(state) {
  * @param {object} state the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
-export function updatePrintModeOff(state) {
+export function updatePrintModeOff( state ) {
   return {
     ...state,
     fromExternal: false,
-    printMode: false,
+    printMode: false
   };
 }
 
@@ -91,11 +91,11 @@ export function updatePrintModeOff(state) {
  * @param {object} action the command being executed
  * @returns {object} the new state for the Redux store
  */
-export function updateScreenSize(state, action) {
+export function updateScreenSize( state, action ) {
   return {
     ...state,
     showFilters: action.screenWidth > 749,
-    width: action.screenWidth,
+    width: action.screenWidth
   };
 }
 
@@ -105,10 +105,10 @@ export function updateScreenSize(state, action) {
  * @param {object} state the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
-export function updateFilterVisibility(state) {
+export function updateFilterVisibility( state ) {
   return {
     ...state,
-    showFilters: !state.showFilters,
+    showFilters: !state.showFilters
   };
 }
 
@@ -118,10 +118,10 @@ export function updateFilterVisibility(state) {
  * @param {object} state the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
-export function tourHidden(state) {
+export function tourHidden( state ) {
   return {
     ...state,
-    showTour: false,
+    showTour: false
   };
 }
 
@@ -132,12 +132,12 @@ export function tourHidden(state) {
  * @param {object} state the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
-export function tourShown(state) {
+export function tourShown( state ) {
   return {
     ...state,
     expandedRows: [],
     showAdvancedSearchTips: false,
-    showTour: true,
+    showTour: true
   };
 }
 
@@ -148,13 +148,13 @@ export function tourShown(state) {
  * @param {object} action the command being executed
  * @returns {object} the new state for the Redux store
  */
-export function collapseRow(state, action) {
+export function collapseRow( state, action ) {
   const { expandedRows } = state;
   const item = action.value;
 
   return {
     ...state,
-    expandedRows: expandedRows.filter((o) => o !== item),
+    expandedRows: expandedRows.filter( o => o !== item )
   };
 }
 
@@ -165,17 +165,17 @@ export function collapseRow(state, action) {
  * @param {object} action the command being executed
  * @returns {object} the new state for the Redux store
  */
-export function expandRow(state, action) {
+export function expandRow( state, action ) {
   const { expandedRows } = state;
   const item = action.value;
 
-  if (!expandedRows.includes(item)) {
-    expandedRows.push(item);
+  if ( !expandedRows.includes( item ) ) {
+    expandedRows.push( item );
   }
 
   return {
     ...state,
-    expandedRows,
+    expandedRows
   };
 }
 
@@ -186,10 +186,10 @@ export function expandRow(state, action) {
  * @param {object} state the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
-export function resetExpandedRows(state) {
+export function resetExpandedRows( state ) {
   return {
     ...state,
-    expandedRows: [],
+    expandedRows: []
   };
 }
 
@@ -228,15 +228,15 @@ const _handlers = _buildHandlerMap();
  * @param {object} action the command being executed
  * @returns {object} the new state for the Redux store
  */
-function handleSpecificAction(state, action) {
-  if (action.type in _handlers) {
-    return _handlers[action.type](state, action);
+function handleSpecificAction( state, action ) {
+  if ( action.type in _handlers ) {
+    return _handlers[action.type]( state, action );
   }
 
   return state;
 }
 
-export default (state = defaultView, action) => {
-  const newState = handleSpecificAction(state, action);
+export default ( state = defaultView, action ) => {
+  const newState = handleSpecificAction( state, action );
   return newState;
 };

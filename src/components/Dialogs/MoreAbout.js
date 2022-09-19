@@ -26,8 +26,8 @@ export default class MoreAbout extends React.Component {
           </p>
           <p className="body-copy">
             This database is not a statistical sample of consumers’ experiences
-            in the marketplace. Complaints are not necessarily representative of
-            all consumers’ experiences with a financial product or company.
+            in the marketplace. Complaints are not necessarily representative
+            of all consumers’ experiences with a financial product or company.
             Company-specific information should be considered in the context of
             that company’s size and/or market share.
           </p>
@@ -39,12 +39,12 @@ export default class MoreAbout extends React.Component {
               remove personal information
             </a>
             .&nbsp; One consumer’s experience is not necessarily representative
-            of all consumers’ experiences and narratives are not verified before
-            publication.
+            of all consumers’ experiences and narratives are not verified
+            before publication.
           </p>
           <p className="body-copy">
-            This database generally updates daily and doesn’t include complaints
-            that don’t meet our&nbsp;
+            This database generally updates daily and doesn’t include
+            complaints that don’t meet our&nbsp;
             <a href={urlCriteria} target="_blank" rel="noopener noreferrer">
               publication criteria
             </a>

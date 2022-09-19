@@ -4,22 +4,22 @@ import React from 'react';
 
 export class RefinePanel extends React.Component {
   _getTabClass() {
-    const classes = ['content_sidebar', this.props.tab.toLowerCase()];
-    return classes.join(' ');
+    const classes = [ 'content_sidebar', this.props.tab.toLowerCase() ];
+    return classes.join( ' ' );
   }
 
   render() {
-    return this.props.showDesktopFilters ? (
+    return this.props.showDesktopFilters ?
       <aside className={this._getTabClass()}>
         <FilterPanel />
-      </aside>
-    ) : null;
+      </aside> :
+     null;
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ( {
   tab: state.query.tab,
-  showDesktopFilters: state.view.width > 749,
-});
+  showDesktopFilters: state.view.width > 749
+} );
 
-export default connect(mapStateToProps)(RefinePanel);
+export default connect( mapStateToProps )( RefinePanel );

@@ -9,11 +9,11 @@ import { SLUG_SEPARATOR } from '../../constants';
 import Typeahead from '../Typeahead/HighlightingTypeahead';
 
 export class Issue extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor( props ) {
+    super( props );
 
-    this._onOptionSelected = this._onOptionSelected.bind(this);
-    this._onBucket = this._onBucket.bind(this);
+    this._onOptionSelected = this._onOptionSelected.bind( this );
+    this._onBucket = this._onBucket.bind( this );
   }
 
   render() {
@@ -22,7 +22,7 @@ export class Issue extends React.Component {
       'in the complaint';
 
     const listComponentProps = {
-      fieldName: 'issue',
+      fieldName: 'issue'
     };
 
     return (
@@ -52,59 +52,59 @@ export class Issue extends React.Component {
   // --------------------------------------------------------------------------
   // Typeahead Helpers
 
-  _onOptionSelected(item) {
+  _onOptionSelected( item ) {
     const { filters } = this.props;
     const replacementFilters = filters
       // remove child items
-      .filter((o) => o.indexOf(item.key + SLUG_SEPARATOR) === -1)
+      .filter( o => o.indexOf( item.key + SLUG_SEPARATOR ) === -1 )
       // add parent item
-      .concat(item.key);
-    this.props.typeaheadSelect(replacementFilters);
+      .concat( item.key );
+    this.props.typeaheadSelect( replacementFilters );
   }
 
   // --------------------------------------------------------------------------
   // MoreOrLess Helpers
 
-  _onBucket(bucket, props) {
+  _onBucket( bucket, props ) {
     props.subitems = bucket['sub_issue.raw'].buckets;
     return props;
   }
 }
 
-export const mapStateToProps = (state) => {
+export const mapStateToProps = state => {
   // See if there are an active issue filters
-  const allIssues = coalesce(state.query, 'issue', []);
+  const allIssues = coalesce( state.query, 'issue', [] );
   const selections = [];
 
   // Reduce the issues to the parent keys (and dedup)
-  allIssues.forEach((x) => {
-    const idx = x.indexOf(SLUG_SEPARATOR);
-    const key = idx === -1 ? x : x.substr(0, idx);
-    if (selections.indexOf(key) === -1) {
-      selections.push(key);
+  allIssues.forEach( x => {
+    const idx = x.indexOf( SLUG_SEPARATOR );
+    const key = idx === -1 ? x : x.substr( 0, idx );
+    if ( selections.indexOf( key ) === -1 ) {
+      selections.push( key );
     }
-  });
+  } );
 
   // Make a cloned, sorted version of the aggs
   const options = sortSelThenCount(
-    coalesce(state.aggs, 'issue', []),
+    coalesce( state.aggs, 'issue', [] ),
     selections
   );
 
   // create an array optimized for typeahead
-  const forTypeahead = options.map((x) => x.key);
+  const forTypeahead = options.map( x => x.key );
 
   return {
     filters: allIssues,
     options,
-    forTypeahead,
+    forTypeahead
   };
 };
 
-export const mapDispatchToProps = (dispatch) => ({
-  typeaheadSelect: (values) => {
-    dispatch(replaceFilters('issue', values));
-  },
-});
+export const mapDispatchToProps = dispatch => ( {
+  typeaheadSelect: values => {
+    dispatch( replaceFilters( 'issue', values ) );
+  }
+} );
 
-export default connect(mapStateToProps, mapDispatchToProps)(Issue);
+export default connect( mapStateToProps, mapDispatchToProps )( Issue );

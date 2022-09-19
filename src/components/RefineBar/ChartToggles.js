@@ -6,18 +6,18 @@ import React from 'react';
 import { sendAnalyticsEvent } from '../../utils';
 
 export class ChartToggles extends React.Component {
-  _toggleChartType(chartType) {
-    if (this.props.chartType !== chartType) {
-      this.props.toggleChartType(chartType);
+  _toggleChartType( chartType ) {
+    if ( this.props.chartType !== chartType ) {
+      this.props.toggleChartType( chartType );
     }
   }
 
-  _btnClassName(chartType) {
-    const classes = ['a-btn', 'toggle', chartType];
-    if (chartType === this.props.chartType) {
-      classes.push('selected');
+  _btnClassName( chartType ) {
+    const classes = [ 'a-btn', 'toggle', chartType ];
+    if ( chartType === this.props.chartType ) {
+      classes.push( 'selected' );
     }
-    return classes.join(' ');
+    return classes.join( ' ' );
   }
 
   render() {
@@ -25,31 +25,31 @@ export class ChartToggles extends React.Component {
       <section className="chart-toggles m-btn-group">
         <p>Chart type</p>
         <button
-          onClick={() => this._toggleChartType('line')}
-          className={this._btnClassName('line')}
+          onClick={() => this._toggleChartType( 'line' )}
+          className={this._btnClassName( 'line' )}
         >
-          {iconMap.getIcon('line-chart')}
+          {iconMap.getIcon( 'line-chart' )}
         </button>
         <button
-          onClick={() => this._toggleChartType('area')}
-          className={this._btnClassName('area')}
+          onClick={() => this._toggleChartType( 'area' )}
+          className={this._btnClassName( 'area' )}
         >
-          {iconMap.getIcon('area-chart')}
+          {iconMap.getIcon( 'area-chart' )}
         </button>
       </section>
     );
   }
 }
 
-export const mapStateToProps = (state) => ({
-  chartType: state.trends.chartType,
-});
+export const mapStateToProps = state => ( {
+  chartType: state.trends.chartType
+} );
 
-export const mapDispatchToProps = (dispatch) => ({
-  toggleChartType: (chartType) => {
-    sendAnalyticsEvent('Button', 'Trends:' + chartType);
-    dispatch(changeChartType(chartType));
-  },
-});
+export const mapDispatchToProps = dispatch => ( {
+  toggleChartType: chartType => {
+    sendAnalyticsEvent( 'Button', 'Trends:' + chartType );
+    dispatch( changeChartType( chartType ) );
+  }
+} );
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChartToggles);
+export default connect( mapStateToProps, mapDispatchToProps )( ChartToggles );

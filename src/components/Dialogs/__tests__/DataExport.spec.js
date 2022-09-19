@@ -7,7 +7,10 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import ReduxDataExport, { DataExport, mapDispatchToProps } from '../DataExport';
+import ReduxDataExport, {
+  DataExport,
+  mapDispatchToProps,
+} from '../DataExport';
 import * as utils from '../../../utils';
 
 const mockDataExportActions = require('../../../actions/dataExport');

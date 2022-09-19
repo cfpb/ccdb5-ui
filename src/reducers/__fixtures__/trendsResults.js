@@ -374,7 +374,11 @@ export const trendsAggs = {
                   ],
                 },
               },
-              { key: 'Auto debt', doc_count: 4, trend_period: { buckets: [] } },
+              {
+                key: 'Auto debt',
+                doc_count: 4,
+                trend_period: { buckets: [] },
+              },
               {
                 key: 'Credit card debt',
                 doc_count: 4,

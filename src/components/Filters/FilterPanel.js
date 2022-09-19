@@ -21,14 +21,14 @@ export class FilterPanel extends React.Component {
       'select a response from a pre-set list of options that will be ' +
       'posted on the public database.';
     const descConsumerConsent =
-      'Whether a consumer opted in to publish' + ' their complaint narrative';
+      'Whether a consumer opted in to publish their complaint narrative';
     const descTags =
       'Data that supports easier searching and sorting of ' +
       'complaints submitted by or on behalf of consumers';
 
     return (
       <div>
-        {this.props.showFilterToggle && (
+        {this.props.showFilterToggle &&
           <div className="filter-button">
             <button
               className="a-btn"
@@ -38,20 +38,20 @@ export class FilterPanel extends React.Component {
               Filter results
             </button>
           </div>
-        )}
-        {this.props.showFilters && (
+        }
+        {this.props.showFilters &&
           <section className="filter-panel">
-            {this.props.showButton && (
+            {this.props.showButton &&
               <div className="filter-button">
                 <button
                   className="a-btn"
                   title="Close filters"
                   onClick={this.props.onFilterToggle}
                 >
-                  Close filters {iconMap.getIcon('delete')}
+                  Close filters {iconMap.getIcon( 'delete' )}
                 </button>
               </div>
-            )}
+            }
             <h3>Filter results by...</h3>
             <DateFilter />
             <hr />
@@ -102,22 +102,22 @@ export class FilterPanel extends React.Component {
             <hr />
             <SimpleFilter title="Tags" desc={descTags} fieldName="tags" />
           </section>
-        )}
+        }
       </div>
     );
   }
 }
 
-export const mapStateToProps = (state) => ({
+export const mapStateToProps = state => ( {
   showButton: state.view.width < 750,
   showFilterToggle: state.view.width < 600 && !state.view.showFilters,
-  showFilters: state.view.showFilters,
-});
+  showFilters: state.view.showFilters
+} );
 
-export const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = dispatch => ( {
   onFilterToggle: () => {
-    dispatch(filterVisibilityToggled());
-  },
-});
+    dispatch( filterVisibilityToggled() );
+  }
+} );
 
-export default connect(mapStateToProps, mapDispatchToProps)(FilterPanel);
+export default connect( mapStateToProps, mapDispatchToProps )( FilterPanel );

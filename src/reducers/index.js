@@ -8,7 +8,7 @@ import results from './results';
 import trends from './trends';
 import view from './view';
 
-export default combineReducers({
+export default combineReducers( {
   aggs,
   detail,
   map,
@@ -16,5 +16,5 @@ export default combineReducers({
   query,
   results,
   trends,
-  view,
-});
+  view
+} );
