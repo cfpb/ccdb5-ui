@@ -3,6 +3,7 @@ import './TrendDepthToggle.less';
 import { changeDepth, resetDepth } from '../../actions/trends';
 import { clamp, coalesce } from '../../utils';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { SLUG_SEPARATOR } from '../../constants';
 
@@ -26,8 +27,8 @@ export class TrendDepthToggle extends React.Component {
   }
 
   render() {
-    const { diff, increaseDepth, depthReset, showToggle } = this.props;
-    if ( showToggle ) {
+    const { diff, increaseDepth, depthReset, hasToggle } = this.props;
+    if ( hasToggle ) {
       if ( this._showMore() ) {
         return (
           <div className={'trend-depth-toggle'}>
@@ -114,8 +115,17 @@ export const mapStateToProps = state => {
     diff: totalResultsLength - resultCount,
     resultCount,
     queryCount,
-    showToggle: showToggle( lens, focus, resultCount, queryCount )
+    hasToggle: showToggle( lens, focus, resultCount, queryCount )
   };
 };
 
 export default connect( mapStateToProps, mapDispatchToProps )( TrendDepthToggle );
+
+TrendDepthToggle.propTypes = {
+  queryCount: PropTypes.number,
+  resultCount: PropTypes.number.isRequired,
+  diff: PropTypes.number.isRequired,
+  increaseDepth: PropTypes.func.isRequired,
+  depthReset: PropTypes.func.isRequired,
+  hasToggle: PropTypes.bool.isRequired
+};

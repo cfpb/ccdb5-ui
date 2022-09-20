@@ -108,14 +108,14 @@ export class SearchBar extends React.Component {
                   className="a-btn a-btn__link"
                   onClick={this._onAdvancedClicked}
                 >
-                  {this.props.showAdvancedSearchTips ? 'Hide ' : 'Show '}
+                  {this.props.hasAdvancedSearchTips ? 'Hide ' : 'Show '}
                   advanced search tips
                 </button>
               </div>
             </div>
           </form>
         </div>
-        {this.props.showAdvancedSearchTips ? <AdvancedTips /> : null}
+        {this.props.hasAdvancedSearchTips ? <AdvancedTips /> : null}
       </div>
     );
   }
@@ -134,7 +134,7 @@ export class SearchBar extends React.Component {
 
   _onAdvancedClicked( event ) {
     event.preventDefault();
-    this.props.onSearchTipToggle( this.props.showAdvancedSearchTips );
+    this.props.onSearchTipToggle( this.props.hasAdvancedSearchTips );
   }
 
   _updateLocalState( searchField, searchText ) {
@@ -193,18 +193,10 @@ export class SearchBar extends React.Component {
 // ----------------------------------------------------------------------------
 // Meta
 
-SearchBar.propTypes = {
-  debounceWait: PropTypes.number
-};
-
-SearchBar.defaultProps = {
-  debounceWait: 250
-};
-
 export const mapStateToProps = state => ( {
   searchText: state.query.searchText,
   searchField: state.query.searchField,
-  showAdvancedSearchTips: state.view.showAdvancedSearchTips
+  hasAdvancedSearchTips: state.view.hasAdvancedSearchTips
 } );
 
 export const mapDispatchToProps = dispatch => ( {
@@ -224,3 +216,17 @@ export const mapDispatchToProps = dispatch => ( {
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( SearchBar );
+
+SearchBar.propTypes = {
+  debounceWait: PropTypes.number,
+  searchText: PropTypes.string,
+  searchField: PropTypes.string.isRequired,
+  hasAdvancedSearchTips: PropTypes.bool,
+  onSearchText: PropTypes.func.isRequired,
+  onSearchField: PropTypes.func.isRequired,
+  onSearchTipToggle: PropTypes.func
+};
+
+SearchBar.defaultProps = {
+  debounceWait: 250
+};

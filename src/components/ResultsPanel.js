@@ -5,36 +5,37 @@ import ListPanel from './List/ListPanel';
 import MapPanel from './Map/MapPanel';
 import PrintInfo from './Print/PrintInfo';
 import PrintInfoFooter from './Print/PrintInfoFooter';
+import PropTypes from 'prop-types';
 import React from 'react';
 import TrendsPanel from './Trends/TrendsPanel';
 
 export class ResultsPanel extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor( props ) {
+    super( props );
     // Bindings
-    this._updatePrintStyleOn = this._togglePrintStylesOn.bind(this);
-    this._updatePrintStyleOff = this._togglePrintStylesOff.bind(this);
+    this._updatePrintStyleOn = this._togglePrintStylesOn.bind( this );
+    this._updatePrintStyleOff = this._togglePrintStylesOff.bind( this );
   }
 
   componentDidMount() {
-    window.addEventListener('afterprint', this._updatePrintStyleOff);
-    window.addEventListener('beforeprint', this._updatePrintStyleOn);
+    window.addEventListener( 'afterprint', this._updatePrintStyleOff );
+    window.addEventListener( 'beforeprint', this._updatePrintStyleOn );
   }
 
   componentWillUnmount() {
-    window.removeEventListener('afterprint', this._updatePrintStyleOff);
-    window.removeEventListener('beforeprint', this._updatePrintStyleOn);
+    window.removeEventListener( 'afterprint', this._updatePrintStyleOff );
+    window.removeEventListener( 'beforeprint', this._updatePrintStyleOn );
   }
 
   _getTabClass() {
-    const classes = ['content_main', this.props.tab.toLowerCase()];
-    return classes.join(' ');
+    const classes = [ 'content_main', this.props.tab.toLowerCase() ];
+    return classes.join( ' ' );
   }
   /* eslint complexity: ["error", 6] */
   render() {
     let currentPanel;
 
-    switch (this.props.tab) {
+    switch ( this.props.tab ) {
       case MODE_MAP:
         currentPanel = <MapPanel />;
         break;
@@ -66,18 +67,25 @@ export class ResultsPanel extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ( {
   isPrintMode: state.view.isPrintMode,
-  tab: state.query.tab,
-});
+  tab: state.query.tab
+} );
 
-export const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = dispatch => ( {
   togglePrintModeOn: () => {
-    dispatch(printModeOn());
+    dispatch( printModeOn() );
   },
   togglePrintModeOff: () => {
-    dispatch(printModeOff());
-  },
-});
+    dispatch( printModeOff() );
+  }
+} );
 
-export default connect(mapStateToProps, mapDispatchToProps)(ResultsPanel);
+export default connect( mapStateToProps, mapDispatchToProps )( ResultsPanel );
+
+ResultsPanel.propTypes = {
+  tab: PropTypes.string.isRequired,
+  isPrintMode: PropTypes.bool,
+  togglePrintModeOn: PropTypes.func,
+  togglePrintModeOff: PropTypes.func
+};

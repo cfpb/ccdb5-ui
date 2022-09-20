@@ -6,7 +6,7 @@ import React from 'react';
 export class MoreOrLess extends React.Component {
   constructor( props ) {
     super( props );
-    this.state = { showMore: props.showMore };
+    this.state = { hasMore: props.hasMore };
     this._toggleShowMore = this._toggleShowMore.bind( this );
   }
 
@@ -22,7 +22,7 @@ export class MoreOrLess extends React.Component {
 
   _toggleShowMore() {
     this.setState( {
-      showMore: !this.state.showMore
+      hasMore: !this.state.hasMore
     } );
   }
 
@@ -34,7 +34,7 @@ export class MoreOrLess extends React.Component {
     return (
       <div>
         <ul>
-          {this.state.showMore ?
+          {this.state.hasMore ?
             all.map( bucket => this._buildListComponent( bucket ) ) :
             some.map( bucket => this._buildListComponent( bucket ) )}
         </ul>
@@ -44,7 +44,7 @@ export class MoreOrLess extends React.Component {
               className="a-btn a-btn__link more"
               onClick={this._toggleShowMore}
             >
-              {this.state.showMore ?
+              {this.state.hasMore ?
                 `- Show ${ remain } less` :
                 `+ Show ${ remain } more`}
             </button>
@@ -64,13 +64,31 @@ MoreOrLess.propTypes = {
   listComponentProps: PropTypes.object,
   options: PropTypes.array.isRequired,
   perBucketProps: PropTypes.func,
-  showMore: PropTypes.bool
+  hasMore: PropTypes.bool
 };
 
 MoreOrLess.defaultProps = {
   listComponentProps: {},
   perBucketProps: ( bucket, props ) => props,
-  showMore: false
+  hasMore: false
 };
 
 export default MoreOrLess;
+
+MoreOrLess.propTypes = {
+  listComponent: PropTypes.oneOfType( [
+    PropTypes.element,
+    PropTypes.func,
+    PropTypes.object
+  ] ).isRequired,
+  listComponentProps: PropTypes.object,
+  options: PropTypes.array.isRequired,
+  perBucketProps: PropTypes.func,
+  hasMore: PropTypes.bool
+};
+
+MoreOrLess.defaultProps = {
+  listComponentProps: {},
+  perBucketProps: ( bucket, props ) => props,
+  hasMore: false
+};

@@ -3,6 +3,7 @@ import AggregationBranch from './AggregationBranch';
 import CollapsibleFilter from './CollapsibleFilter';
 import { connect } from 'react-redux';
 import MoreOrLess from './MoreOrLess';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { replaceFilters } from '../../actions/filter';
 import { SLUG_SEPARATOR } from '../../constants';
@@ -29,7 +30,7 @@ export class Issue extends React.Component {
       <CollapsibleFilter
         title="Issue / sub-issue"
         desc={desc}
-        showChildren={this.props.showChildren}
+        hasChildren={this.props.hasChildren}
         className="aggregation issue"
       >
         <Typeahead
@@ -108,3 +109,11 @@ export const mapDispatchToProps = dispatch => ( {
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( Issue );
+
+Issue.propTypes = {
+  forTypeahead: PropTypes.array.isRequired,
+  filters: PropTypes.array.isRequired,
+  options: PropTypes.array.isRequired,
+  hasChildren: PropTypes.bool,
+  typeaheadSelect: PropTypes.func.isRequired
+};

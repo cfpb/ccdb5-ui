@@ -1,5 +1,6 @@
 import './PrintInfo.less';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { shortFormat } from '../../utils';
 
@@ -54,3 +55,9 @@ export const mapStateToProps = state => {
 };
 
 export default connect( mapStateToProps )( PrintInfo );
+
+PrintInfo.propTypes = {
+  complaintCountText: PropTypes.object,
+  dates: PropTypes.string.isRequired,
+  searchText: PropTypes.string
+};

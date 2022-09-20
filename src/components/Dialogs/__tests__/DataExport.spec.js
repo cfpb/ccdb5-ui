@@ -21,7 +21,7 @@ function setupEnzyme() {
     exportAll: jest.fn(),
     exportSome: jest.fn(),
     someComplaints: 99,
-    queryState: 'foo',
+    queryState: { foo: 'bar' },
   };
 
   const target = shallow(<DataExport {...props} />);
@@ -198,7 +198,7 @@ describe('component::DataExport', () => {
         expect(mockDataExportActions.buildSomeResultsUri).toHaveBeenCalledWith(
           'csv',
           99,
-          'foo'
+          { foo: 'bar' }
         );
       });
     });

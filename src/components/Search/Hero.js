@@ -1,6 +1,7 @@
 import './Hero.less';
 import { MODAL_SHOWN, MODAL_TYPE_MORE_ABOUT } from '../../constants';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 /**
@@ -61,3 +62,7 @@ export const mapDispatchToProps = dispatch => ( {
 } );
 
 export default connect( null, mapDispatchToProps )( Hero );
+
+Hero.propTypes = {
+  onMoreAbout: PropTypes.func.isRequired
+};

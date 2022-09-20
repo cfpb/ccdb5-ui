@@ -77,14 +77,6 @@ export class ZipCode extends React.Component {
   }
 }
 
-ZipCode.propTypes = {
-  debounceWait: PropTypes.number
-};
-
-ZipCode.defaultProps = {
-  debounceWait: 250
-};
-
 export const mapStateToProps = state => {
   const options = coalesce( state.aggs, FIELD_NAME, [] );
 
@@ -106,3 +98,15 @@ export const mapDispatchToProps = dispatch => ( {
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( ZipCode );
+
+ZipCode.propTypes = {
+  debounceWait: PropTypes.number,
+  options: PropTypes.array.isRequired,
+  selections: PropTypes.array,
+  queryString: PropTypes.string.isRequired,
+  typeaheadSelect: PropTypes.func.isRequired
+};
+
+ZipCode.defaultProps = {
+  debounceWait: 250
+};

@@ -12,7 +12,7 @@ import { shallow } from 'enzyme';
 import { slugify } from '../../../utils';
 import thunk from 'redux-thunk';
 
-function setupEnzyme(rmCb, addCb, active) {
+function setupEnzyme(rmCb, addCb, isActive) {
   return shallow(
     <AggregationItem
       fieldName={'foo'}
@@ -23,7 +23,7 @@ function setupEnzyme(rmCb, addCb, active) {
       }}
       removeFilter={rmCb}
       addFilter={addCb}
-      active={active}
+      isActive={isActive}
     />
   );
 }
@@ -247,26 +247,26 @@ describe('component:AggregationItem', () => {
     it('returns correct active value when no filter present', () => {
       ownProps = { fieldName: 'foobar', item: { key: 'Yes' } };
       propsReturn = mapStateToProps(state, ownProps);
-      expect(propsReturn.active).toEqual(false);
+      expect(propsReturn.isActive).toEqual(false);
     });
 
     it('returns correct active value fieldName key matches query', () => {
       ownProps = { fieldName: 'timely', item: { key: 'Yes' } };
       propsReturn = mapStateToProps(state, ownProps);
-      expect(propsReturn.active).toEqual(true);
+      expect(propsReturn.isActive).toEqual(true);
     });
 
     it('returns correct value when same fieldName passed with different value', () => {
       ownProps = { fieldName: 'timely', item: { key: 'No' } };
       propsReturn = mapStateToProps(state, ownProps);
-      expect(propsReturn.active).toEqual(false);
+      expect(propsReturn.isActive).toEqual(false);
     });
 
     it('maps aggs & filters with fieldName', () => {
       ownProps = { fieldName: 'issue', item: { key: 'No Money' } };
       propsReturn = mapStateToProps(state, ownProps);
       expect(propsReturn).toEqual({
-        active: false,
+        isActive: false,
         aggs: [1, 2, 3],
         filters: [1],
       });

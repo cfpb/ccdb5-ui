@@ -32,14 +32,14 @@ function setupEnzyme(initial) {
   };
 }
 
-function setupSnapshot(showMore) {
+function setupSnapshot(hasMore) {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
   const store = mockStore({
     query: {},
   });
   const props = {
-    showMore,
+    hasMore,
     listComponent: AggregationItem,
     listComponentProps: { fieldName: 'myfield' },
     options: fixture,
@@ -58,11 +58,11 @@ describe('component:MoreOrLess', () => {
   it('expects showAll to start false and toggle all bool states', () => {
     const { target } = setupEnzyme(fixture);
     // Initial state should be false
-    expect(target.state().showMore).toEqual(false);
+    expect(target.state().hasMore).toEqual(false);
     target.instance()._toggleShowMore();
-    expect(target.state().showMore).toEqual(true);
+    expect(target.state().hasMore).toEqual(true);
     target.instance()._toggleShowMore();
-    expect(target.state().showMore).toEqual(false);
+    expect(target.state().hasMore).toEqual(false);
   });
 
   it('matches - Show NN less', () => {

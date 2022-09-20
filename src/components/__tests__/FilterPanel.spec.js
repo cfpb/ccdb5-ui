@@ -13,9 +13,9 @@ import { shallow } from 'enzyme';
 function setupEnzyme() {
   const props = {
     onFilterToggle: jest.fn(),
-    showButton: true,
-    showFilterToggle: true,
-    showFilters: false,
+    hasButton: true,
+    hasFilterToggle: true,
+    hasFilters: false,
   };
 
   const target = shallow(<FilterPanel {...props} />);
@@ -46,7 +46,7 @@ describe('initial state', () => {
   let viewStore;
   beforeEach(() => {
     viewStore = {
-      showFilters: true,
+      hasFilters: true,
       width: 1000,
     };
   });
@@ -58,7 +58,7 @@ describe('initial state', () => {
 
   it('renders button at mobile width', () => {
     viewStore.width = 600;
-    viewStore.showFilters = true;
+    viewStore.hasFilters = true;
     const target = setupSnapshot(viewStore);
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
@@ -66,7 +66,7 @@ describe('initial state', () => {
 
   it('renders filter toggle at mobile width', () => {
     viewStore.width = 600;
-    viewStore.showFilters = false;
+    viewStore.hasFilters = false;
     const target = setupSnapshot(viewStore);
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
@@ -93,15 +93,15 @@ describe('mapStateToProps', () => {
   it('maps state and props', () => {
     const state = {
       view: {
-        showFilters: true,
+        hasFilters: true,
         width: 1000,
       },
     };
     let actual = mapStateToProps(state);
     expect(actual).toEqual({
-      showButton: false,
-      showFilterToggle: false,
-      showFilters: true,
+      hasButton: false,
+      hasFilterToggle: false,
+      hasFilters: true,
     });
   });
 });

@@ -2,6 +2,7 @@ import { cloneDeep, coalesce } from '../../utils';
 import CollapsibleFilter from './CollapsibleFilter';
 import CompanyTypeahead from './CompanyTypeahead';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import React from 'react';
 import StickyOptions from './StickyOptions';
 
@@ -46,3 +47,8 @@ export const mapStateToProps = state => {
 };
 
 export default connect( mapStateToProps )( Company );
+
+Company.propTypes = {
+  options: PropTypes.array.isRequired,
+  selections: PropTypes.array.isRequired
+};

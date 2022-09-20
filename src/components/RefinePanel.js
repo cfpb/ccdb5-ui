@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import FilterPanel from './Filters/FilterPanel';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export class RefinePanel extends React.Component {
@@ -9,7 +10,7 @@ export class RefinePanel extends React.Component {
   }
 
   render() {
-    return this.props.showDesktopFilters ?
+    return this.props.hasDesktopFilters ?
       <aside className={this._getTabClass()}>
         <FilterPanel />
       </aside> :
@@ -19,7 +20,12 @@ export class RefinePanel extends React.Component {
 
 const mapStateToProps = state => ( {
   tab: state.query.tab,
-  showDesktopFilters: state.view.width > 749
+  hasDesktopFilters: state.view.width > 749
 } );
 
 export default connect( mapStateToProps )( RefinePanel );
+
+RefinePanel.propTypes = {
+  tab: PropTypes.string.isRequired,
+  hasDesktopFilters: PropTypes.bool.isRequired
+};

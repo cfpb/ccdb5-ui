@@ -16,23 +16,23 @@ describe('component:CollapsibleFilter', () => {
   });
 
   it('hides the children when Hide is clicked', () => {
-    const target = mount(<CollapsibleFilter showChildren={true} />);
+    const target = mount(<CollapsibleFilter hasChildren={true} />);
     const theButton = target.find('button.o-expandable_cue');
 
-    expect(target.state('showChildren')).toEqual(true);
+    expect(target.state('hasChildren')).toEqual(true);
     theButton.simulate('click');
-    expect(target.state('showChildren')).toEqual(false);
+    expect(target.state('hasChildren')).toEqual(false);
   });
 
   describe('componentDidUpdate', () => {
     it('triggers a new state update when props change', () => {
       const props = {
-        showChildren: false,
+        hasChildren: false,
       };
 
       const target = mount(<CollapsibleFilter {...props} />);
-      target.setProps({ showChildren: true });
-      const sv = target.state('showChildren');
+      target.setProps({ hasChildren: true });
+      const sv = target.state('hasChildren');
       expect(sv).toEqual(true);
     });
   });

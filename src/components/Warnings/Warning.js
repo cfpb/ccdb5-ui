@@ -1,5 +1,6 @@
 import './Warning.less';
 import iconMap from '../iconMap';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export const Warning = ( { text, closeFn } ) =>
@@ -23,3 +24,8 @@ export const Warning = ( { text, closeFn } ) =>
 ;
 
 export default Warning;
+
+Warning.propTypes = {
+  text: PropTypes.string.isRequired,
+  closeFn: PropTypes.func
+};

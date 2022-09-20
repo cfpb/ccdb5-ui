@@ -251,7 +251,7 @@ describe('component: LineChart', () => {
           title={'foo'}
           tooltip={{ date: '5/30/2021' }}
           lastDate={lastDate}
-          showChart={true}
+          hasChart={true}
         />
       );
       target._redrawChart = jest.fn();
@@ -303,7 +303,7 @@ describe('component: LineChart', () => {
           title={'foo'}
           tooltip={{ date: '5/30/2021' }}
           lastDate={lastDate}
-          showChart={true}
+          hasChart={true}
         />
       );
       target._redrawChart = jest.fn();
@@ -329,7 +329,7 @@ describe('component: LineChart', () => {
           title={'foo'}
           tooltip={{ date: '5/30/2021' }}
           lastDate={lastDate}
-          showChart={true}
+          hasChart={true}
         />
       );
       target._redrawChart = jest.fn();
@@ -389,7 +389,7 @@ describe('component: LineChart', () => {
         isPrintMode: false,
         processData: [],
         tooltip: false,
-        showChart: false,
+        hasChart: false,
         width: 1000,
       });
     });

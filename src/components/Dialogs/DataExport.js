@@ -9,6 +9,7 @@ import {
 import { connect } from 'react-redux';
 import { FormattedNumber } from 'react-intl';
 import iconMap from '../iconMap';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 // ----------------------------------------------------------------------------
@@ -399,3 +400,13 @@ export const mapDispatchToProps = dispatch => ( {
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( DataExport );
+
+DataExport.propTypes = {
+  someComplaints: PropTypes.number,
+  queryState: PropTypes.object,
+  onClose: PropTypes.func,
+  exportAll: PropTypes.func.isRequired,
+  tab: PropTypes.string,
+  exportSome: PropTypes.func.isRequired,
+  allComplaints: PropTypes.number.isRequired
+};

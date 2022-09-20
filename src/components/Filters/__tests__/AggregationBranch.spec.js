@@ -110,9 +110,9 @@ describe('component::AggregationBranch', () => {
       const { target, props } = setupEnzyme();
       const theButton = target.find('button');
 
-      expect(target.state('showChildren')).toEqual(false);
+      expect(target.state('hasChildren')).toEqual(false);
       theButton.simulate('click');
-      expect(target.state('showChildren')).toEqual(true);
+      expect(target.state('hasChildren')).toEqual(true);
     });
   });
 

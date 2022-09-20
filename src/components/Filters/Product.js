@@ -4,6 +4,7 @@ import AggregationBranch from './AggregationBranch';
 import CollapsibleFilter from './CollapsibleFilter';
 import { connect } from 'react-redux';
 import MoreOrLess from './MoreOrLess';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export class Product extends React.Component {
@@ -26,7 +27,7 @@ export class Product extends React.Component {
       <CollapsibleFilter
         title="Product / sub-product"
         desc={desc}
-        showChildren={this.props.showChildren}
+        hasChildren={this.props.hasChildren}
         className="aggregation product"
       >
         <MoreOrLess
@@ -81,3 +82,8 @@ export const mapStateToProps = state => {
 };
 
 export default connect( mapStateToProps )( Product );
+
+Product.propTypes = {
+  hasChildren: PropTypes.bool,
+  options: PropTypes.array.isRequired
+};

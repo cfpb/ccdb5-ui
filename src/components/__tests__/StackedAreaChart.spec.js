@@ -241,7 +241,7 @@ describe('component: StackedAreaChart', () => {
         interval: 'Month',
         lens: 'Overview',
         isPrintMode: false,
-        showChart: false,
+        hasChart: false,
         tooltip: {},
         width: 1000,
       });
@@ -268,7 +268,7 @@ describe('component: StackedAreaChart', () => {
           filteredData={[2, 3, 4]}
           tooltip={{ date: '2000' }}
           tooltipUpdated={cb}
-          showChart={true}
+          hasChart={true}
         />
       );
       const instance = target.instance();
@@ -289,7 +289,7 @@ describe('component: StackedAreaChart', () => {
           filteredData={[2, 3, 4]}
           tooltip={{ date: '2000' }}
           tooltipUpdated={cb}
-          showChart={true}
+          hasChart={true}
         />
       );
       const instance = target.instance();

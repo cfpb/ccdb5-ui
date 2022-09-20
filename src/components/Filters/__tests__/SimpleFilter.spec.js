@@ -56,7 +56,7 @@ describe('mapStateToProps', () => {
     let actual = mapStateToProps(state, ownProps);
     expect(actual).toEqual({
       options: [1, 2, 3, 4, 5, 6],
-      showChildren: true,
+      hasChildren: true,
     });
   });
 
@@ -66,7 +66,7 @@ describe('mapStateToProps', () => {
     let actual = mapStateToProps(state, ownProps);
     expect(actual).toEqual({
       options: [1, 2, 3, 4, 5, 6],
-      showChildren: false,
+      hasChildren: false,
     });
   });
 });

@@ -23,7 +23,7 @@ describe('reducer:map', () => {
       type: actions.PRINT_MODE_OFF,
     };
     expect(target({}, action)).toEqual({
-      fromExternal: false,
+      isFromExternal: false,
       isPrintMode: false,
     });
   });
@@ -35,7 +35,7 @@ describe('reducer:map', () => {
         screenWidth: 1000,
       };
       expect(target({}, action)).toEqual({
-        showFilters: true,
+        hasFilters: true,
         width: 1000,
       });
     });
@@ -47,7 +47,7 @@ describe('reducer:map', () => {
       screenWidth: 375,
     };
     expect(target({}, action)).toEqual({
-      showFilters: false,
+      hasFilters: false,
       width: 375,
     });
   });
@@ -57,7 +57,7 @@ describe('reducer:map', () => {
       type: actions.TOGGLE_FILTER_VISIBILITY,
     };
     expect(target({}, action)).toEqual({
-      showFilters: true,
+      hasFilters: true,
     });
   });
 
@@ -122,10 +122,10 @@ describe('reducer:map', () => {
       expect(actual).toEqual({
         expandedRows: [],
         isFromExternal: true,
-        showAdvancedSearchTips: false,
-        showTour: false,
+        hasAdvancedSearchTips: false,
+        hasTour: false,
         isPrintMode: true,
-        showFilters: true,
+        hasFilters: true,
         width: 0,
       });
     });
