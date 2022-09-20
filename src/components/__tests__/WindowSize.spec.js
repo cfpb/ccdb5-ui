@@ -56,8 +56,8 @@ describe('component:WindowSize', () => {
       target = shallow(
         <WindowSize
           updateWindowSize={jest.fn()}
-          fromExternal={false}
-          printMode={false}
+          isFromExternal={false}
+          isPrintMode={false}
         />
       );
     });
@@ -66,13 +66,13 @@ describe('component:WindowSize', () => {
       window.print.mockClear();
     });
     it('trigger print when params changes', () => {
-      target.setProps({ fromExternal: true, printMode: true });
+      target.setProps({ isFromExternal: true, isPrintMode: true });
       jest.advanceTimersByTime(4000);
       expect(window.print).toHaveBeenCalledTimes(1);
     });
 
-    it('does not print when only printMode changes', () => {
-      target.setProps({ printMode: true });
+    it('does not print when only isPrintMode changes', () => {
+      target.setProps({ isPrintMode: true });
       jest.advanceTimersByTime(4000);
       expect(window.print).toHaveBeenCalledTimes(0);
     });

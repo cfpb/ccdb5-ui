@@ -116,7 +116,7 @@ function setupSnapshot(lens) {
       tooltip: false,
     },
     view: {
-      printMode: false,
+      isPrintMode: false,
       width: 1000,
     },
   });
@@ -287,13 +287,13 @@ describe('component: LineChart', () => {
       expect(sp).toHaveBeenCalledTimes(1);
     });
 
-    it('trigger a new update when printMode changes', () => {
+    it('trigger a new update when isPrintMode changes', () => {
       const target = shallow(
         <LineChart
           data={data}
           tooltipUpdated={jest.fn()}
           colorMap={colorMap}
-          printMode={'false'}
+          isPrintMode={false}
           dateRange={{
             from: '1/1/2020',
             to: '5/30/2021',
@@ -308,7 +308,7 @@ describe('component: LineChart', () => {
       );
       target._redrawChart = jest.fn();
       const sp = jest.spyOn(target.instance(), '_redrawChart');
-      target.setProps({ printMode: true });
+      target.setProps({ isPrintMode: true });
       expect(sp).toHaveBeenCalledTimes(1);
     });
 
@@ -323,7 +323,7 @@ describe('component: LineChart', () => {
           }}
           interval={'Month'}
           tooltipUpdated={jest.fn()}
-          printMode={'false'}
+          isPrintMode={false}
           processData={data}
           width={1000}
           title={'foo'}
@@ -372,7 +372,7 @@ describe('component: LineChart', () => {
           tooltip: false,
         },
         view: {
-          printMode: false,
+          isPrintMode: false,
           width: 1000,
         },
       };
@@ -386,7 +386,7 @@ describe('component: LineChart', () => {
           to: '',
         },
         lens: 'Overview',
-        printMode: false,
+        isPrintMode: false,
         processData: [],
         tooltip: false,
         showChart: false,
@@ -470,7 +470,7 @@ describe('component: LineChart', () => {
         };
         const target = shallow(
           <LineChart
-            printMode={true}
+            isPrintMode={true}
             lens={'Overview'}
             data={data}
             interval={'Month'}

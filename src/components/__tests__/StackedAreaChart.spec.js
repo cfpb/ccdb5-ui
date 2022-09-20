@@ -91,7 +91,7 @@ function setupSnapshot() {
       tooltip: false,
     },
     view: {
-      printMode: false,
+      isPrintMode: false,
       width: 1000,
     },
   };
@@ -155,7 +155,7 @@ describe('component: StackedAreaChart', () => {
       expect(sp).toHaveBeenCalledTimes(1);
     });
 
-    it('trigger a new update when printMode changes', () => {
+    it('trigger a new update when isPrintMode changes', () => {
       const target = shallow(
         <StackedAreaChart
           tooltipUpdated={jest.fn()}
@@ -163,12 +163,12 @@ describe('component: StackedAreaChart', () => {
           data={[23, 4, 3]}
           dateRange={{ from: '1/1/2021', to: '1/1/2022' }}
           interval={'Month'}
-          printMode={'false'}
+          isPrintMode={false}
         />
       );
       target._redrawChart = jest.fn();
       const sp = jest.spyOn(target.instance(), '_redrawChart');
-      target.setProps({ printMode: true });
+      target.setProps({ isPrintMode: true });
       expect(sp).toHaveBeenCalledTimes(1);
     });
 
@@ -180,7 +180,7 @@ describe('component: StackedAreaChart', () => {
           data={[23, 4, 3]}
           dateRange={{ from: '1/1/2021', to: '1/1/2022' }}
           interval={'Month'}
-          printMode={'false'}
+          isPrintMode={false}
           width={1000}
         />
       );
@@ -224,7 +224,7 @@ describe('component: StackedAreaChart', () => {
           tooltip: {},
         },
         view: {
-          printMode: false,
+          isPrintMode: false,
           width: 1000,
         },
       };
@@ -240,7 +240,7 @@ describe('component: StackedAreaChart', () => {
         filteredData: [],
         interval: 'Month',
         lens: 'Overview',
-        printMode: false,
+        isPrintMode: false,
         showChart: false,
         tooltip: {},
         width: 1000,
@@ -302,7 +302,7 @@ describe('component: StackedAreaChart', () => {
       it('gets print width', () => {
         const target = shallow(
           <StackedAreaChart
-            printMode={true}
+            isPrintMode={true}
             colorMap={{ a: '#eee', b: '#444' }}
             lens={'Overview'}
             data={[3, 5, 6]}

@@ -7,7 +7,7 @@ import renderer from 'react-test-renderer';
 import thunk from 'redux-thunk';
 import { MODE_MAP } from '../../constants';
 
-function setupSnapshot({ enablePer1000, printMode }) {
+function setupSnapshot({ enablePer1000, isPrintMode }) {
   const items = [
     { key: 'CA', doc_count: 62519 },
     { key: 'FL', doc_count: 47358 },
@@ -38,7 +38,7 @@ function setupSnapshot({ enablePer1000, printMode }) {
       tab: MODE_MAP,
     },
     view: {
-      printMode,
+      isPrintMode,
       width: 1000,
     },
   });
@@ -55,13 +55,13 @@ function setupSnapshot({ enablePer1000, printMode }) {
 describe('component:MapPanel', () => {
   let target, tree;
   it('renders without crashing', () => {
-    target = setupSnapshot({ enablePer1000: true, printMode: false });
+    target = setupSnapshot({ enablePer1000: true, isPrintMode: false });
     tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('renders Print without crashing', () => {
-    target = setupSnapshot({ enablePer1000: true, printMode: true });
+    target = setupSnapshot({ enablePer1000: true, isPrintMode: true });
     tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   });

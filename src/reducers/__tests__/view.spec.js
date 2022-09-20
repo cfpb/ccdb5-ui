@@ -15,7 +15,7 @@ describe('reducer:map', () => {
       type: actions.PRINT_MODE_ON,
     };
     expect(target({}, action)).toEqual({
-      printMode: true,
+      isPrintMode: true,
     });
   });
   describe('handles PRINT_MODE_OFF', () => {
@@ -24,7 +24,7 @@ describe('reducer:map', () => {
     };
     expect(target({}, action)).toEqual({
       fromExternal: false,
-      printMode: false,
+      isPrintMode: false,
     });
   });
 
@@ -117,14 +117,14 @@ describe('reducer:map', () => {
     });
 
     it('handles PRINT params', () => {
-      action.params = { fromExternal: 'true', printMode: 'true' };
+      action.params = { isFromExternal: 'true', isPrintMode: 'true' };
       const actual = target(state, action);
       expect(actual).toEqual({
         expandedRows: [],
-        fromExternal: true,
+        isFromExternal: true,
         showAdvancedSearchTips: false,
         showTour: false,
-        printMode: true,
+        isPrintMode: true,
         showFilters: true,
         width: 0,
       });

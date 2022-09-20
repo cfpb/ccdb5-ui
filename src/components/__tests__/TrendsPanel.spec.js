@@ -183,7 +183,7 @@ describe('component:TrendsPanel', () => {
         expandedRows: [],
         focus: '',
         lens: 'Overview',
-        printMode: false,
+        isPrintMode: false,
         showMobileFilters: false,
         subLens: 'sub_product',
         tooltip: { date: '1/1/2020', title: 'Foo Bar' },
@@ -233,7 +233,7 @@ describe('component:TrendsPanel', () => {
     });
 
     it('renders print mode without crashing', () => {
-      params.printMode = true;
+      params.isPrintMode = true;
       const target = setupSnapshot(params);
       const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
