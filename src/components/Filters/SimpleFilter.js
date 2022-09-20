@@ -9,7 +9,7 @@ import React from 'react';
 export class SimpleFilter extends React.Component {
   render() {
     const listComponentProps = {
-      fieldName: this.props.fieldName,
+      fieldName: this.props.fieldName
     };
     const { desc, fieldName, options, showChildren, title } = this.props;
 
@@ -30,14 +30,14 @@ export class SimpleFilter extends React.Component {
   }
 }
 
-export const mapStateToProps = (state, ownProps) => {
+export const mapStateToProps = ( state, ownProps ) => {
   // Find all query filters that refer to the field name
-  const activeChildren = coalesce(state.query, ownProps.fieldName, []);
+  const activeChildren = coalesce( state.query, ownProps.fieldName, [] );
 
   return {
-    options: coalesce(state.aggs, ownProps.fieldName, []),
-    showChildren: activeChildren.length > 0,
+    options: coalesce( state.aggs, ownProps.fieldName, [] ),
+    showChildren: activeChildren.length > 0
   };
 };
 
-export default connect(mapStateToProps)(SimpleFilter);
+export default connect( mapStateToProps )( SimpleFilter );

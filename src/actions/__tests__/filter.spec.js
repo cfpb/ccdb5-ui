@@ -64,7 +64,9 @@ describe('action:filterActions', () => {
         filterValue,
         requery: REQUERY_ALWAYS,
       };
-      expect(sut.toggleFilter(filterName, filterValue)).toEqual(expectedAction);
+      expect(sut.toggleFilter(filterName, filterValue)).toEqual(
+        expectedAction
+      );
     });
   });
 
@@ -92,7 +94,9 @@ describe('action:filterActions', () => {
         filterValue,
         requery: REQUERY_ALWAYS,
       };
-      expect(sut.removeFilter(filterName, filterValue)).toEqual(expectedAction);
+      expect(sut.removeFilter(filterName, filterValue)).toEqual(
+        expectedAction
+      );
     });
   });
 

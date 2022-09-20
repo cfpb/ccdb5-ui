@@ -1,7 +1,7 @@
 import {
   AGGREGATIONS_API_CALLED,
   AGGREGATIONS_FAILED,
-  AGGREGATIONS_RECEIVED,
+  AGGREGATIONS_RECEIVED
 } from '../actions/complaints';
 import { processErrorMessage } from '../utils';
 
@@ -29,7 +29,7 @@ export const defaultAggs = {
   submitted_via: [],
   tag: [],
   timely: [],
-  zip_code: [],
+  zip_code: []
 };
 
 // ----------------------------------------------------------------------------
@@ -41,11 +41,11 @@ export const defaultAggs = {
  * @param {object} action the payload containing the key/value pairs
  * @returns {object} new state for the Redux store
  */
-export function aggregationsCallInProcess(state, action) {
+export function aggregationsCallInProcess( state, action ) {
   return {
     ...state,
     activeCall: action.url,
-    isLoading: true,
+    isLoading: true
   };
 }
 
@@ -56,9 +56,9 @@ export function aggregationsCallInProcess(state, action) {
  * @param {object} action the payload containing the key/value pairs
  * @returns {object} new state for the Redux store
  */
-export function processAggregationResults(state, action) {
+export function processAggregationResults( state, action ) {
   const aggs = action.data.aggregations;
-  const keys = Object.keys(aggs);
+  const keys = Object.keys( aggs );
 
   const doc_count = Math.max(
     state.doc_count,
@@ -75,12 +75,12 @@ export function processAggregationResults(state, action) {
     lastIndexed: action.data._meta.last_indexed,
     hasDataIssue: action.data._meta.has_data_issue,
     isDataStale: action.data._meta.is_data_stale,
-    total: action.data.hits.total.value,
+    total: action.data.hits.total.value
   };
 
-  keys.forEach((key) => {
+  keys.forEach( key => {
     result[key] = aggs[key][key].buckets;
-  });
+  } );
 
   return result;
 }
@@ -92,11 +92,11 @@ export function processAggregationResults(state, action) {
  * @param {object} action the payload containing the key/value pairs
  * @returns {object} new state for the Redux store
  */
-export function processAggregationError(state, action) {
+export function processAggregationError( state, action ) {
   return {
     ...defaultAggs,
     isLoading: false,
-    error: processErrorMessage(action.error),
+    error: processErrorMessage( action.error )
   };
 }
 
@@ -123,15 +123,15 @@ const _handlers = _buildHandlerMap();
  * @param {object} action the command being executed
  * @returns {object} the new state for the Redux store
  */
-function handleSpecificAction(state, action) {
-  if (action.type in _handlers) {
-    return _handlers[action.type](state, action);
+function handleSpecificAction( state, action ) {
+  if ( action.type in _handlers ) {
+    return _handlers[action.type]( state, action );
   }
 
   return state;
 }
 
-export default (state = defaultAggs, action) => {
-  const newState = handleSpecificAction(state, action);
+export default ( state = defaultAggs, action ) => {
+  const newState = handleSpecificAction( state, action );
   return newState;
 };

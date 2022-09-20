@@ -30,13 +30,14 @@ import { trendsDateWarningDismissed } from '../../actions/view';
 import Warning from '../Warnings/Warning';
 
 const WARNING_MESSAGE =
-  '“Day” interval is disabled when the date range is' + ' longer than one year';
+  '“Day” interval is disabled when the date range is' +
+  ' longer than one year';
 
 const subLensMap = {
   sub_product: 'Sub-products',
   sub_issue: 'Sub-issues',
   issue: 'Issues',
-  product: 'Products',
+  product: 'Products'
 };
 
 const lensHelperTextMap = {
@@ -54,21 +55,21 @@ const lensHelperTextMap = {
     ' Click on a product to expand issues.',
   overview:
     'Product the consumer identified in the complaint. Click on a ' +
-    ' product to expand sub-products',
+    ' product to expand sub-products'
 };
 
 const focusHelperTextMap = {
   sub_product: 'Sub-products the consumer identified in the complaint',
   product: 'Product the consumer identified in the complaint',
-  issue: 'Issues the consumer identified in the complaint',
+  issue: 'Issues the consumer identified in the complaint'
 };
 
 export class TrendsPanel extends React.Component {
   _areaChartTitle() {
     const { focus, overview, subLens } = this.props;
-    if (overview) {
+    if ( overview ) {
       return 'Complaints by date received by the CFPB';
-    } else if (focus) {
+    } else if ( focus ) {
       return (
         'Complaints by ' +
         subLensMap[subLens].toLowerCase() +
@@ -79,11 +80,11 @@ export class TrendsPanel extends React.Component {
   }
 
   _className() {
-    const classes = ['trends-panel'];
-    if (!this.props.overview) {
-      classes.push('external-tooltip');
+    const classes = [ 'trends-panel' ];
+    if ( !this.props.overview ) {
+      classes.push( 'external-tooltip' );
     }
-    return classes.join(' ');
+    return classes.join( ' ' );
   }
 
   _phaseMap() {
@@ -99,14 +100,14 @@ export class TrendsPanel extends React.Component {
       maxDate,
       productData,
       subLensTitle,
-      total,
+      total
     } = this.props;
 
-    if (companyOverlay) {
+    if ( companyOverlay ) {
       return null;
     }
 
-    if (overview) {
+    if ( overview ) {
       return (
         <RowChart
           id="product"
@@ -121,7 +122,7 @@ export class TrendsPanel extends React.Component {
       );
     }
 
-    if (this.props.focus) {
+    if ( this.props.focus ) {
       return (
         <RowChart
           id={lens}
@@ -144,7 +145,7 @@ export class TrendsPanel extends React.Component {
         helperText={lensHelperText}
         total={total}
         key={lens + 'row'}
-      />,
+      />
     ];
   }
 
@@ -162,18 +163,18 @@ export class TrendsPanel extends React.Component {
       overview,
       showMobileFilters,
       total,
-      trendsDateWarningEnabled,
+      trendsDateWarningEnabled
     } = this.props;
     return (
       <section className={this._className()}>
         <ActionBar />
         <TabbedNavigation />
-        {trendsDateWarningEnabled && (
+        {trendsDateWarningEnabled &&
           <Warning
             text={WARNING_MESSAGE}
             closeFn={this.props.onDismissWarning}
           />
-        )}
+        }
         {showMobileFilters && <FilterPanel />}
         <div className="layout-row refine-bar">
           <FilterPanelToggle />
@@ -196,39 +197,39 @@ export class TrendsPanel extends React.Component {
           />
           {!overview && [
             <Separator key={'separator'} />,
-            <ChartToggles key={'chart-toggles'} />,
+            <ChartToggles key={'chart-toggles'} />
           ]}
         </div>
 
-        {companyOverlay && (
+        {companyOverlay &&
           <div className="layout-row company-overlay">
             <section className="company-search">
               <p>
                 Choose a company to start your visualization using the
-                type-ahead menu below. You can add more than one company to your
-                view
+                type-ahead menu below. You can add more than one company to
+                your view
               </p>
               <CompanyTypeahead id={'modal-search'} />
             </section>
           </div>
-        )}
+        }
 
         {focus && <FocusHeader />}
 
-        {!companyOverlay && overview && total > 0 && (
+        {!companyOverlay && overview && total > 0 &&
           <div className="layout-row">
             <section className="chart-description">
               <h2 className="area-chart-title">{this._areaChartTitle()}</h2>
               <p className="chart-helper-text">
                 A time series graph of complaints for the selected date range.
-                Hover on the chart to see the count for each date interval. Your
-                filter selections will update what you see on the graph.
+                Hover on the chart to see the count for each date interval.
+                Your filter selections will update what you see on the graph.
               </p>
             </section>
           </div>
-        )}
+        }
 
-        {!companyOverlay && !overview && total > 0 && (
+        {!companyOverlay && !overview && total > 0 &&
           <div className="layout-row">
             <section className="chart-description">
               <h2 className="area-chart-title">{this._areaChartTitle()}</h2>
@@ -241,9 +242,9 @@ export class TrendsPanel extends React.Component {
               </p>
             </section>
           </div>
-        )}
+        }
 
-        {!companyOverlay && total > 0 && (
+        {!companyOverlay && total > 0 &&
           <>
             <div className="layout-row date-range-disclaimer">
               <strong>
@@ -258,7 +259,7 @@ export class TrendsPanel extends React.Component {
               {!overview && <ExternalTooltip />}
             </div>
           </>
-        )}
+        }
 
         {total > 0 && this._phaseMap()}
         <TrendDepthToggle />
@@ -268,7 +269,7 @@ export class TrendsPanel extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const {
     company: companyFilters,
     dateInterval,
@@ -276,7 +277,7 @@ const mapStateToProps = (state) => {
     date_received_min: minDate,
     lens,
     subLens,
-    trendsDateWarningEnabled,
+    trendsDateWarningEnabled
   } = state.query;
 
   const { chartType, colorMap, focus, isLoading, results, total } =
@@ -285,7 +286,7 @@ const mapStateToProps = (state) => {
   const { expandedRows } = state.view;
 
   const lensKey = lens.toLowerCase();
-  const focusKey = subLens.replace('_', '-');
+  const focusKey = subLens.replace( '_', '-' );
   const lensHelperText =
     subLens === '' ? lensHelperTextMap[lensKey] : lensHelperTextMap[subLens];
   const focusHelperText =
@@ -293,18 +294,18 @@ const mapStateToProps = (state) => {
 
   return {
     chartType,
-    companyData: processRows(results.company, false, lens, expandedRows),
-    companyOverlay: showCompanyOverLay(lens, companyFilters, isLoading),
+    companyData: processRows( results.company, false, lens, expandedRows ),
+    companyOverlay: showCompanyOverLay( lens, companyFilters, isLoading ),
     dateInterval,
     focus,
-    focusData: processRows(results[focusKey], colorMap, lens, expandedRows),
-    intervals: getIntervals(minDate, maxDate),
+    focusData: processRows( results[focusKey], colorMap, lens, expandedRows ),
+    intervals: getIntervals( minDate, maxDate ),
     isLoading,
-    productData: processRows(results.product, false, lens, expandedRows),
-    dataLensData: processRows(results[lensKey], colorMap, lens, expandedRows),
+    productData: processRows( results.product, false, lens, expandedRows ),
+    dataLensData: processRows( results[lensKey], colorMap, lens, expandedRows ),
     lens,
-    minDate: shortFormat(minDate),
-    maxDate: shortFormat(maxDate),
+    minDate: shortFormat( minDate ),
+    maxDate: shortFormat( maxDate ),
     overview: lens === 'Overview',
     showMobileFilters: state.view.width < 750,
     subLens,
@@ -312,24 +313,24 @@ const mapStateToProps = (state) => {
     lensHelperText: lensHelperText,
     focusHelperText: focusHelperText,
     total,
-    trendsDateWarningEnabled,
+    trendsDateWarningEnabled
   };
 };
 
-export const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = dispatch => ( {
   onDismissWarning: () => {
-    dispatch(trendsDateWarningDismissed());
+    dispatch( trendsDateWarningDismissed() );
   },
-  onInterval: (ev) => {
+  onInterval: ev => {
     const { value } = ev.target;
-    sendAnalyticsEvent('Dropdown', 'Trends:' + value);
-    dispatch(changeDateInterval(value));
+    sendAnalyticsEvent( 'Dropdown', 'Trends:' + value );
+    dispatch( changeDateInterval( value ) );
   },
-  onLens: (ev) => {
+  onLens: ev => {
     const { value } = ev.target;
-    sendAnalyticsEvent('Dropdown', 'Trends:' + value);
-    dispatch(changeDataLens(value));
-  },
-});
+    sendAnalyticsEvent( 'Dropdown', 'Trends:' + value );
+    dispatch( changeDataLens( value ) );
+  }
+} );
 
-export default connect(mapStateToProps, mapDispatchToProps)(TrendsPanel);
+export default connect( mapStateToProps, mapDispatchToProps )( TrendsPanel );

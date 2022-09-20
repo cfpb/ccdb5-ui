@@ -19,7 +19,7 @@ export class StaleDataWarnings extends React.Component {
     const { hasDataIssue, isDataStale } = this.props;
     const anything = hasDataIssue || isDataStale;
 
-    if (!anything) return null;
+    if ( !anything ) return null;
 
     return (
       <div>
@@ -30,9 +30,9 @@ export class StaleDataWarnings extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ( {
   hasDataIssue: state.aggs.hasDataIssue,
-  isDataStale: state.aggs.isDataStale,
-});
+  isDataStale: state.aggs.isDataStale
+} );
 
-export default connect(mapStateToProps)(StaleDataWarnings);
+export default connect( mapStateToProps )( StaleDataWarnings );

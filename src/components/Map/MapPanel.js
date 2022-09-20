@@ -39,15 +39,15 @@ export class MapPanel extends React.Component {
       <section className="map-panel">
         <ActionBar />
         <TabbedNavigation />
-        {this.props.error && (
+        {this.props.error &&
           <ErrorBlock text="There was a problem executing your search" />
-        )}
-        {this.props.showWarning && (
+        }
+        {this.props.showWarning &&
           <Warning
             text={WARNING_MESSAGE}
             closeFn={this.props.onDismissWarning}
           />
-        )}
+        }
         {this.props.showMobileFilters && <FilterPanel />}
         <div className="layout-row refine-bar">
           <FilterPanelToggle />
@@ -71,14 +71,14 @@ export class MapPanel extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const { error, isLoading, results } = state.map;
 
   const {
     date_received_max: maxDate,
     date_received_min: minDate,
     enablePer1000,
-    mapWarningEnabled,
+    mapWarningEnabled
   } = state.query;
 
   const { expandedRows, width } = state.view;
@@ -86,19 +86,19 @@ const mapStateToProps = (state) => {
   return {
     error,
     isLoading,
-    minDate: shortFormat(minDate),
-    maxDate: shortFormat(maxDate),
-    productData: processRows(results.product, false, 'Product', expandedRows),
+    minDate: shortFormat( minDate ),
+    maxDate: shortFormat( maxDate ),
+    productData: processRows( results.product, false, 'Product', expandedRows ),
     showMobileFilters: width < 750,
     showWarning: !enablePer1000 && mapWarningEnabled,
-    total: state.aggs.total,
+    total: state.aggs.total
   };
 };
 
-export const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = dispatch => ( {
   onDismissWarning: () => {
-    dispatch(mapWarningDismissed());
-  },
-});
+    dispatch( mapWarningDismissed() );
+  }
+} );
 
-export default connect(mapStateToProps, mapDispatchToProps)(MapPanel);
+export default connect( mapStateToProps, mapDispatchToProps )( MapPanel );

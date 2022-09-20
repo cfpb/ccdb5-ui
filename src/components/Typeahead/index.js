@@ -29,9 +29,9 @@ const RESULTS = 'RESULTS';
 const TOO_MANY = 'TOO_MANY';
 const CHOSEN = 'CHOSEN';
 
-export const nextStateFromValue = (value, props) => {
+export const nextStateFromValue = ( value, props ) => {
   let phase = value ? WAITING : EMPTY;
-  if (value && value.length < props.minLength) {
+  if ( value && value.length < props.minLength ) {
     phase = ACCUM;
   }
 
@@ -39,22 +39,22 @@ export const nextStateFromValue = (value, props) => {
     inputValue: value,
     phase,
     searchResults: [],
-    selectedIndex: -1,
+    selectedIndex: -1
   };
 };
 
-export const nextStateFromOptions = (options, props) => {
+export const nextStateFromOptions = ( options, props ) => {
   let phase = RESULTS;
-  if (!options || options.length === 0) {
+  if ( !options || options.length === 0 ) {
     phase = NO_RESULTS;
-  } else if (options.length > props.maxVisible) {
+  } else if ( options.length > props.maxVisible ) {
     phase = TOO_MANY;
   }
 
   return {
     phase,
     searchResults: options,
-    selectedIndex: -1,
+    selectedIndex: -1
   };
 };
 
@@ -62,15 +62,15 @@ export const nextStateFromOptions = (options, props) => {
 // Class
 
 export default class Typeahead extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor( props ) {
+    super( props );
     this.state = {
-      ...nextStateFromValue(props.value, props),
-      focused: false,
+      ...nextStateFromValue( props.value, props ),
+      focused: false
     };
 
     // Bindings
-    bindAll(this, [
+    bindAll( this, [
       '_callForOptions',
       '_closedChooseIndex',
       '_closedKeyCancel',
@@ -89,8 +89,8 @@ export default class Typeahead extends React.Component {
       '_openKeyEnter',
       '_selectOption',
       '_setOptions',
-      '_valueUpdated',
-    ]);
+      '_valueUpdated'
+    ] );
 
     // Render/Phase Map
     this.renderMap = {
@@ -101,16 +101,16 @@ export default class Typeahead extends React.Component {
       NO_RESULTS: this._renderNoResults,
       RESULTS: this._renderResults,
       TOO_MANY: this._renderTooManyResults,
-      CHOSEN: this._renderEmpty,
+      CHOSEN: this._renderEmpty
     };
 
     // Key/function map
     this.keyMap = {};
 
-    if (props.mode === MODE_OPEN) {
+    if ( props.mode === MODE_OPEN ) {
       this.keyMap[keys.VK_ESCAPE] = this._openKeyCancel;
-      this.keyMap[keys.VK_UP] = this._openNav.bind(this, -1);
-      this.keyMap[keys.VK_DOWN] = this._openNav.bind(this, 1);
+      this.keyMap[keys.VK_UP] = this._openNav.bind( this, -1 );
+      this.keyMap[keys.VK_DOWN] = this._openNav.bind( this, 1 );
       this.keyMap[keys.VK_ENTER] = this._openKeyEnter;
       this.keyMap[keys.VK_RETURN] = this._openKeyEnter;
       this.keyMap[keys.VK_TAB] = this._closedChooseIndex;
@@ -119,21 +119,21 @@ export default class Typeahead extends React.Component {
       this.renderMap[NO_RESULTS] = this._renderEmpty;
     } else {
       this.keyMap[keys.VK_ESCAPE] = this._closedKeyCancel;
-      this.keyMap[keys.VK_UP] = this._closedNav.bind(this, -1);
-      this.keyMap[keys.VK_DOWN] = this._closedNav.bind(this, 1);
+      this.keyMap[keys.VK_UP] = this._closedNav.bind( this, -1 );
+      this.keyMap[keys.VK_DOWN] = this._closedNav.bind( this, 1 );
       this.keyMap[keys.VK_ENTER] = this._closedChooseIndex;
       this.keyMap[keys.VK_RETURN] = this._closedChooseIndex;
       this.keyMap[keys.VK_TAB] = this._closedChooseIndex;
     }
 
-    this.search = props.debounceWait
-      ? debounce(this._callForOptions, props.debounceWait)
-      : this._callForOptions;
+    this.search = props.debounceWait ?
+      debounce( this._callForOptions, props.debounceWait ) :
+      this._callForOptions;
   }
 
   // eslint-disable-next-line camelcase
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    this.setState(nextStateFromValue(nextProps.value, nextProps));
+  UNSAFE_componentWillReceiveProps( nextProps ) {
+    this.setState( nextStateFromValue( nextProps.value, nextProps ) );
   }
 
   componentDidUpdate() {
@@ -144,16 +144,15 @@ export default class Typeahead extends React.Component {
     const clearAction =
       this.props.mode === MODE_OPEN ? this._openClear : this._closedKeyCancel;
 
-    const clear = (
+    const clear =
       <button className="a-btn a-btn__link" onClick={clearAction}>
-        {iconMap.getIcon('delete')}
+        {iconMap.getIcon( 'delete' )}
         Clear
       </button>
-    );
-
+    ;
     return (
       <section
-        className={`typeahead ${this.props.className}`}
+        className={`typeahead ${ this.props.className }`}
         onBlur={this._onBlur}
         onFocus={this._onFocus}
       >
@@ -162,7 +161,7 @@ export default class Typeahead extends React.Component {
             className="input-contains-label_before
                           input-contains-label_before__search"
           >
-            {iconMap.getIcon('search')}
+            {iconMap.getIcon( 'search' )}
           </div>
 
           <label className="u-visually-hidden" htmlFor={this.props.htmlId}>
@@ -191,43 +190,43 @@ export default class Typeahead extends React.Component {
   // Event Methods
 
   _onBlur() {
-    this.setState({ focused: false });
+    this.setState( { focused: false } );
   }
 
   _onFocus() {
-    this.setState({ focused: true });
+    this.setState( { focused: true } );
   }
 
-  _onKeyDown(event) {
+  _onKeyDown( event ) {
     const handler = this.keyMap[event.which];
-    if (handler) {
-      handler(event);
+    if ( handler ) {
+      handler( event );
     }
   }
 
-  _valueUpdated(event) {
-    const nextState = nextStateFromValue(event.target.value, this.props);
-    this.setState(nextState);
+  _valueUpdated( event ) {
+    const nextState = nextStateFromValue( event.target.value, this.props );
+    this.setState( nextState );
   }
 
   // --------------------------------------------------------------------------
   // Search Methods
 
-  _calculateNewIndex(delta) {
+  _calculateNewIndex( delta ) {
     const max = Math.min(
       this.props.maxVisible,
       this.state.searchResults.length
     );
-    if (max === 0) {
+    if ( max === 0 ) {
       return -1;
     }
 
     // Clamp the new index
     let newIndex = this.state.selectedIndex + delta;
-    if (newIndex < 0) {
+    if ( newIndex < 0 ) {
       newIndex = 0;
     }
-    if (newIndex >= max) {
+    if ( newIndex >= max ) {
       newIndex = max - 1;
     }
 
@@ -235,106 +234,106 @@ export default class Typeahead extends React.Component {
   }
 
   _callForOptions() {
-    if (this.state.phase !== WAITING) {
+    if ( this.state.phase !== WAITING ) {
       return;
     }
 
     const value = this.state.inputValue;
-    const returned = this.props.onInputChange(value);
+    const returned = this.props.onInputChange( value );
 
     // Did the callback produce a promise?
-    if (typeof returned.then === 'function') {
+    if ( typeof returned.then === 'function' ) {
       returned.then(
-        (options) => this._setOptions(options),
-        (error) => this._onOptionsError(error)
+        options => this._setOptions( options ),
+        error => this._onOptionsError( error )
       );
     } else {
-      this._setOptions(returned);
+      this._setOptions( returned );
     }
   }
 
   _onOptionsError() {
-    this.setState({ phase: ERROR });
+    this.setState( { phase: ERROR } );
   }
 
-  _setOptions(options) {
-    const nextState = nextStateFromOptions(options, this.props);
-    this.setState(nextState);
+  _setOptions( options ) {
+    const nextState = nextStateFromOptions( options, this.props );
+    this.setState( nextState );
   }
 
-  _selectOption(index) {
-    this.props.onOptionSelected(this.state.searchResults[index]);
+  _selectOption( index ) {
+    this.props.onOptionSelected( this.state.searchResults[index] );
     const nextState = {
       phase: CHOSEN,
       searchResults: [],
-      selectedIndex: -1,
+      selectedIndex: -1
     };
 
-    if (this.props.mode === MODE_CLOSED) {
+    if ( this.props.mode === MODE_CLOSED ) {
       nextState.inputValue = '';
     }
 
-    this.setState(nextState);
+    this.setState( nextState );
   }
 
   // --------------------------------------------------------------------------
   // Key Helpers
 
-  _closedChooseIndex(event) {
-    if (this.state.searchResults.length === 0) {
+  _closedChooseIndex( event ) {
+    if ( this.state.searchResults.length === 0 ) {
       return;
     }
 
     let idx = this.state.selectedIndex;
-    if (idx === -1) {
+    if ( idx === -1 ) {
       idx = 0;
     }
 
-    this._selectOption(idx);
+    this._selectOption( idx );
     event.preventDefault();
   }
 
-  _closedKeyCancel(event) {
+  _closedKeyCancel( event ) {
     event.preventDefault();
-    this.setState(nextStateFromValue('', this.props));
+    this.setState( nextStateFromValue( '', this.props ) );
   }
 
-  _closedNav(delta, event) {
+  _closedNav( delta, event ) {
     event.preventDefault();
-    const newIndex = this._calculateNewIndex(delta);
-    if (newIndex >= 0) {
-      this.setState({ selectedIndex: newIndex });
+    const newIndex = this._calculateNewIndex( delta );
+    if ( newIndex >= 0 ) {
+      this.setState( { selectedIndex: newIndex } );
     }
   }
 
   _openClear() {
-    this.setState(nextStateFromValue('', this.props));
-    this.props.onOptionSelected('');
+    this.setState( nextStateFromValue( '', this.props ) );
+    this.props.onOptionSelected( '' );
   }
 
-  _openKeyEnter(event) {
+  _openKeyEnter( event ) {
     event.preventDefault();
-    this.props.onOptionSelected(this.state.inputValue);
-    this.setState({ phase: CHOSEN });
+    this.props.onOptionSelected( this.state.inputValue );
+    this.setState( { phase: CHOSEN } );
   }
 
-  _openKeyCancel(event) {
+  _openKeyCancel( event ) {
     event.preventDefault();
-    this.setState({ phase: CHOSEN });
+    this.setState( { phase: CHOSEN } );
   }
 
-  _openNav(delta, event) {
+  _openNav( delta, event ) {
     event.preventDefault();
-    const newIndex = this._calculateNewIndex(delta);
-    if (newIndex >= 0) {
+    const newIndex = this._calculateNewIndex( delta );
+    if ( newIndex >= 0 ) {
       // May need an extractor callback eventually
       // For now, assume the shape of the options
       const inputValue = this.state.searchResults[newIndex].key;
 
-      this.setState({
+      this.setState( {
         selectedIndex: newIndex,
-        inputValue,
-      });
+        inputValue
+      } );
     }
   }
 
@@ -352,9 +351,9 @@ export default class Typeahead extends React.Component {
   }
 
   _renderWaiting() {
-    return this.props.disableTypeahead ? null : (
+    return this.props.disableTypeahead ? null :
       <span className="waiting">waiting...</span>
-    );
+    ;
   }
 
   _renderNoResults() {
@@ -373,7 +372,7 @@ export default class Typeahead extends React.Component {
   }
 
   _renderTooManyResults() {
-    const subset = this.state.searchResults.slice(0, this.props.maxVisible);
+    const subset = this.state.searchResults.slice( 0, this.props.maxVisible );
     return (
       <Selector
         options={subset}
@@ -394,13 +393,13 @@ Typeahead.propTypes = {
   htmlId: PropTypes.string.isRequired,
   maxVisible: PropTypes.number,
   minLength: PropTypes.number,
-  mode: PropTypes.oneOf([MODE_OPEN, MODE_CLOSED]).isRequired,
+  mode: PropTypes.oneOf( [ MODE_OPEN, MODE_CLOSED ] ).isRequired,
   onInputChange: PropTypes.func.isRequired,
   onOptionSelected: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   renderOption: PropTypes.func,
   textBoxProps: PropTypes.object,
-  value: PropTypes.string,
+  value: PropTypes.string
 };
 
 Typeahead.defaultProps = {
@@ -410,10 +409,10 @@ Typeahead.defaultProps = {
   minLength: 2,
   mode: MODE_CLOSED,
   placeholder: 'Enter your search text',
-  renderOption: (x) => ({
+  renderOption: x => ( {
     value: x,
-    component: x,
-  }),
+    component: x
+  } ),
   textBoxProps: {},
-  value: '',
+  value: ''
 };

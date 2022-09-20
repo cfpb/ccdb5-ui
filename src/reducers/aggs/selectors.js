@@ -1,1 +1,1 @@
-export const selectAggsState = (state) => state.aggs;
+export const selectAggsState = state => state.aggs;

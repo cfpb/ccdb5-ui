@@ -14,13 +14,12 @@ export class ActionBar extends React.Component {
       <div>
         <summary className="action-bar" id="search-summary">
           <div>
-            {hits === total ? (
+            {hits === total ?
               <h2>
                 Showing&nbsp;
                 <FormattedNumber value={total} />
                 &nbsp;total complaints
-              </h2>
-            ) : (
+              </h2> :
               <h2>
                 Showing&nbsp;
                 <FormattedNumber value={hits} />
@@ -28,7 +27,7 @@ export class ActionBar extends React.Component {
                 <FormattedNumber value={total} />
                 &nbsp;total complaints
               </h2>
-            )}
+            }
           </div>
           <div>
             <h3 className="h4 flex-all export-results">
@@ -36,7 +35,7 @@ export class ActionBar extends React.Component {
                 className="a-btn a-btn__link export-btn"
                 data-gtm_ignore="true"
                 onClick={() => {
-                  this.props.onExportResults(tab);
+                  this.props.onExportResults( tab );
                 }}
               >
                 Export data
@@ -44,10 +43,10 @@ export class ActionBar extends React.Component {
               <button
                 className="a-btn a-btn__link print-preview"
                 onClick={() => {
-                  this._showPrintView(tab);
+                  this._showPrintView( tab );
                 }}
               >
-                {iconMap.getIcon('printer')}
+                {iconMap.getIcon( 'printer' )}
                 Print
               </button>
             </h3>
@@ -58,25 +57,26 @@ export class ActionBar extends React.Component {
     );
   }
 
-  _showPrintView(tab) {
-    sendAnalyticsEvent('Print', 'tab:' + tab);
-    const printUrl = window.location.href + '&printMode=true&fromExternal=true';
-    window.location.assign(printUrl);
+  _showPrintView( tab ) {
+    sendAnalyticsEvent( 'Print', 'tab:' + tab );
+    const printUrl =
+      window.location.href + '&printMode=true&fromExternal=true';
+    window.location.assign( printUrl );
   }
 }
 
-export const mapStateToProps = (state) => ({
+export const mapStateToProps = state => ( {
   hits: state.aggs.total,
   printMode: state.view.printMode,
   total: state.aggs.doc_count,
-  tab: state.query.tab,
-});
+  tab: state.query.tab
+} );
 
-export const mapDispatchToProps = (dispatch) => ({
-  onExportResults: (tab) => {
-    sendAnalyticsEvent('Export', tab + ':User Opens Export Modal');
-    dispatch(showExportDialog());
-  },
-});
+export const mapDispatchToProps = dispatch => ( {
+  onExportResults: tab => {
+    sendAnalyticsEvent( 'Export', tab + ':User Opens Export Modal' );
+    dispatch( showExportDialog() );
+  }
+} );
 
-export default connect(mapStateToProps, mapDispatchToProps)(ActionBar);
+export default connect( mapStateToProps, mapDispatchToProps )( ActionBar );

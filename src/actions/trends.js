@@ -15,11 +15,11 @@ export const TRENDS_TOOLTIP_CHANGED = 'TRENDS_TOOLTIP_CHANGED';
  * @param {string} chartType which chartType was selected, line or stacked area
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function changeChartType(chartType) {
+export function changeChartType( chartType ) {
   return {
     type: CHART_TYPE_CHANGED,
     chartType,
-    requery: REQUERY_NEVER,
+    requery: REQUERY_NEVER
   };
 }
 
@@ -29,11 +29,11 @@ export function changeChartType(chartType) {
  * @param {string} lens which lens was selected
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function changeDataLens(lens) {
+export function changeDataLens( lens ) {
   return {
     type: DATA_LENS_CHANGED,
     lens,
-    requery: REQUERY_ALWAYS,
+    requery: REQUERY_ALWAYS
   };
 }
 
@@ -43,11 +43,11 @@ export function changeDataLens(lens) {
  * @param {string} subLens the tab selected for row charts
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function changeDataSubLens(subLens) {
+export function changeDataSubLens( subLens ) {
   return {
     type: DATA_SUBLENS_CHANGED,
     requery: REQUERY_ALWAYS,
-    subLens,
+    subLens
   };
 }
 
@@ -57,11 +57,11 @@ export function changeDataSubLens(subLens) {
  * @param {string} depth the max number of aggregations returned
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function changeDepth(depth) {
+export function changeDepth( depth ) {
   return {
     type: DEPTH_CHANGED,
     requery: REQUERY_ALWAYS,
-    depth,
+    depth
   };
 }
 
@@ -73,7 +73,7 @@ export function changeDepth(depth) {
 export function resetDepth() {
   return {
     type: DEPTH_RESET,
-    requery: REQUERY_ALWAYS,
+    requery: REQUERY_ALWAYS
   };
 }
 
@@ -85,13 +85,13 @@ export function resetDepth() {
  * @param {array} filterValues the parent/child focus sub-aggs to apply
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function changeFocus(focus, lens, filterValues) {
+export function changeFocus( focus, lens, filterValues ) {
   return {
     type: FOCUS_CHANGED,
     requery: REQUERY_ALWAYS,
     filterValues,
     focus,
-    lens,
+    lens
   };
 }
 
@@ -103,7 +103,7 @@ export function changeFocus(focus, lens, filterValues) {
 export function removeFocus() {
   return {
     type: FOCUS_REMOVED,
-    requery: REQUERY_ALWAYS,
+    requery: REQUERY_ALWAYS
   };
 }
 
@@ -113,10 +113,10 @@ export function removeFocus() {
  * @param {string} value the new payload from the tooltip
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function updateTrendsTooltip(value) {
+export function updateTrendsTooltip( value ) {
   return {
     type: TRENDS_TOOLTIP_CHANGED,
     value,
-    requery: REQUERY_NEVER,
+    requery: REQUERY_NEVER
   };
 }

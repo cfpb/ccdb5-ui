@@ -15,7 +15,7 @@ export const SORT_CHANGED = 'SORT_CHANGED';
 export function nextPageShown() {
   return {
     type: NEXT_PAGE_SHOWN,
-    requery: REQUERY_HITS_ONLY,
+    requery: REQUERY_HITS_ONLY
   };
 }
 
@@ -27,7 +27,7 @@ export function nextPageShown() {
 export function prevPageShown() {
   return {
     type: PREV_PAGE_SHOWN,
-    requery: REQUERY_HITS_ONLY,
+    requery: REQUERY_HITS_ONLY
   };
 }
 
@@ -37,13 +37,13 @@ export function prevPageShown() {
  * @param {int} size the new size of a page
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function changeSize(size) {
+export function changeSize( size ) {
   // eslint-disable-next-line no-console
-  console.assert(typeof size === 'number');
+  console.assert( typeof size === 'number' );
   return {
     type: SIZE_CHANGED,
     size,
-    requery: REQUERY_HITS_ONLY,
+    requery: REQUERY_HITS_ONLY
   };
 }
 
@@ -53,10 +53,10 @@ export function changeSize(size) {
  * @param {string} sort the new sort.  Should match a value expected by the API
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function changeSort(sort) {
+export function changeSort( sort ) {
   return {
     type: SORT_CHANGED,
     sort,
-    requery: REQUERY_HITS_ONLY,
+    requery: REQUERY_HITS_ONLY
   };
 }

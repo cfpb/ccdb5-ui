@@ -37,15 +37,16 @@ export default class AdvancedTips extends React.Component {
                 <div className="tip-description">
                   <p>Use AND when results must contain both terms</p>
                   <p>
-                    Use OR when results should contain at least one of the terms
+                    Use OR when results should contain at least one of the
+                    terms
                   </p>
                 </div>
               </div>
               <div className="tip">
                 <h4>Wildcard search</h4>
                 <label className="u-visually-hidden" htmlFor="example-wc-star">
-                  Use * after a few letters or a word to show results that start
-                  with those letters or word
+                  Use * after a few letters or a word to show results that
+                  start with those letters or word
                 </label>
                 <input
                   className="a-text-input example-input first"

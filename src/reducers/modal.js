@@ -4,18 +4,18 @@ import { MODAL_HID, MODAL_SHOWN } from '../constants';
 
 const initialState = {
   modalType: null,
-  modalProps: {},
+  modalProps: {}
 };
 
 // ----------------------------------------------------------------------------
 // Action Handler
 
-export default (state = initialState, action) => {
-  switch (action.type) {
+export default ( state = initialState, action ) => {
+  switch ( action.type ) {
     case MODAL_SHOWN:
       return {
         modalType: action.modalType,
-        modalProps: action.modalProps,
+        modalProps: action.modalProps
       };
     case MODAL_HID:
       return initialState;
