@@ -65,14 +65,6 @@ export class CompanyTypeahead extends React.Component {
   }
 }
 
-CompanyTypeahead.propTypes = {
-  debounceWait: PropTypes.number
-};
-
-CompanyTypeahead.defaultProps = {
-  debounceWait: 250
-};
-
 export const mapStateToProps = state => {
   const queryState = Object.assign( {}, state.query );
   // make sure searchAfter doesn't appear, it'll mess up your search endpoint
@@ -90,3 +82,15 @@ export const mapDispatchToProps = dispatch => ( {
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( CompanyTypeahead );
+
+CompanyTypeahead.propTypes = {
+  debounceWait: PropTypes.number,
+  id: PropTypes.string,
+  isDisabled: PropTypes.oneOfType( [ PropTypes.bool, PropTypes.string ] ),
+  queryString: PropTypes.string.isRequired,
+  typeaheadSelect: PropTypes.func.isRequired
+};
+
+CompanyTypeahead.defaultProps = {
+  debounceWait: 250
+};

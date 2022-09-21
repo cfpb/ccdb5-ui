@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import Hero from './Hero';
 import { IntlProvider } from 'react-intl';
+import PropTypes from 'prop-types';
 import React from 'react';
 import RefinePanel from '../RefinePanel';
 import ResultsPanel from '../ResultsPanel';
@@ -35,7 +36,11 @@ export class SearchComponents extends React.Component {
 }
 
 export const mapStateToProps = state => ( {
-  printClass: state.view.printMode ? 'print' : ''
+  printClass: state.view.isPrintMode ? 'print' : ''
 } );
 
 export default connect( mapStateToProps )( SearchComponents );
+
+SearchComponents.propTypes = {
+  printClass: PropTypes.string.isRequired
+};

@@ -19,6 +19,7 @@ import LensTabs from './LensTabs';
 import LineChart from '../Charts/LineChart';
 import Loading from '../Dialogs/Loading';
 import { processRows } from '../../utils/chart';
+import PropTypes from 'prop-types';
 import React from 'react';
 import RowChart from '../Charts/RowChart';
 import Select from '../RefineBar/Select';
@@ -66,8 +67,8 @@ const focusHelperTextMap = {
 
 export class TrendsPanel extends React.Component {
   _areaChartTitle() {
-    const { focus, overview, subLens } = this.props;
-    if ( overview ) {
+    const { focus, hasOverview, subLens } = this.props;
+    if ( hasOverview ) {
       return 'Complaints by date received by the CFPB';
     } else if ( focus ) {
       return (
@@ -81,7 +82,7 @@ export class TrendsPanel extends React.Component {
 
   _className() {
     const classes = [ 'trends-panel' ];
-    if ( !this.props.overview ) {
+    if ( !this.props.hasOverview ) {
       classes.push( 'external-tooltip' );
     }
     return classes.join( ' ' );
@@ -93,7 +94,7 @@ export class TrendsPanel extends React.Component {
       dataLensData,
       focusData,
       focusHelperText,
-      overview,
+      hasOverview,
       lens,
       lensHelperText,
       minDate,
@@ -107,7 +108,7 @@ export class TrendsPanel extends React.Component {
       return null;
     }
 
-    if ( overview ) {
+    if ( hasOverview ) {
       return (
         <RowChart
           id="product"
@@ -160,8 +161,8 @@ export class TrendsPanel extends React.Component {
       lens,
       onInterval,
       onLens,
-      overview,
-      showMobileFilters,
+      hasOverview,
+      hasMobileFilters,
       total,
       trendsDateWarningEnabled
     } = this.props;
@@ -175,7 +176,7 @@ export class TrendsPanel extends React.Component {
             closeFn={this.props.onDismissWarning}
           />
         }
-        {showMobileFilters && <FilterPanel />}
+        {hasMobileFilters && <FilterPanel />}
         <div className="layout-row refine-bar">
           <FilterPanelToggle />
           <Select
@@ -195,7 +196,7 @@ export class TrendsPanel extends React.Component {
             value={dateInterval}
             handleChange={onInterval}
           />
-          {!overview && [
+          {!hasOverview && [
             <Separator key={'separator'} />,
             <ChartToggles key={'chart-toggles'} />
           ]}
@@ -216,7 +217,7 @@ export class TrendsPanel extends React.Component {
 
         {focus && <FocusHeader />}
 
-        {!companyOverlay && overview && total > 0 &&
+        {!companyOverlay && hasOverview && total > 0 &&
           <div className="layout-row">
             <section className="chart-description">
               <h2 className="area-chart-title">{this._areaChartTitle()}</h2>
@@ -229,7 +230,7 @@ export class TrendsPanel extends React.Component {
           </div>
         }
 
-        {!companyOverlay && !overview && total > 0 &&
+        {!companyOverlay && !hasOverview && total > 0 &&
           <div className="layout-row">
             <section className="chart-description">
               <h2 className="area-chart-title">{this._areaChartTitle()}</h2>
@@ -256,7 +257,7 @@ export class TrendsPanel extends React.Component {
                 {chartType === 'line' && <LineChart />}
                 {chartType === 'area' && <StackedAreaChart />}
               </section>
-              {!overview && <ExternalTooltip />}
+              {!hasOverview && <ExternalTooltip />}
             </div>
           </>
         }
@@ -306,8 +307,8 @@ const mapStateToProps = state => {
     lens,
     minDate: shortFormat( minDate ),
     maxDate: shortFormat( maxDate ),
-    overview: lens === 'Overview',
-    showMobileFilters: state.view.width < 750,
+    hasOverview: lens === 'Overview',
+    hasMobileFilters: state.view.width < 750,
     subLens,
     subLensTitle: subLensMap[subLens] + ', by ' + lens.toLowerCase() + ' from',
     lensHelperText: lensHelperText,
@@ -334,3 +335,29 @@ export const mapDispatchToProps = dispatch => ( {
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( TrendsPanel );
+
+TrendsPanel.propTypes = {
+  focus: PropTypes.string,
+  hasOverview: PropTypes.bool.isRequired,
+  subLens: PropTypes.string.isRequired,
+  hasCompanyOverlay: PropTypes.bool,
+  dataLensData: PropTypes.object,
+  focusData: PropTypes.object,
+  focusHelperText: PropTypes.string,
+  lens: PropTypes.string.isRequired,
+  lensHelperText: PropTypes.string,
+  minDate: PropTypes.string,
+  maxDate: PropTypes.string,
+  productData: PropTypes.object,
+  subLensTitle: PropTypes.string,
+  total: PropTypes.number,
+  chartType: PropTypes.string,
+  dateInterval: PropTypes.string,
+  intervals: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool,
+  onInterval: PropTypes.func.isRequired,
+  onLens: PropTypes.func.isRequired,
+  hasMobileFilters: PropTypes.bool,
+  isTrendsDateWarningEnabled: PropTypes.bool,
+  onDismissWarning: PropTypes.func
+};

@@ -2,6 +2,7 @@ import * as types from '../constants';
 import announceUrlChanged from '../actions/url';
 import { connect } from 'react-redux';
 import { createBrowserHistory as createHistory } from 'history';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { shortIsoFormat } from '../utils';
 
@@ -142,3 +143,7 @@ export const mapDispatchToProps = dispatch => ( {
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( UrlBarSynch );
+
+UrlBarSynch.propTypes = {
+  onUrlChanged: PropTypes.func.isRequired
+};

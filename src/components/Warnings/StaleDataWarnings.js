@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import React from 'react';
 import Warning from './Warning';
 
@@ -36,3 +37,8 @@ const mapStateToProps = state => ( {
 } );
 
 export default connect( mapStateToProps )( StaleDataWarnings );
+
+StaleDataWarnings.propTypes = {
+  hasDataIssue: PropTypes.bool,
+  isDataStale: PropTypes.bool
+};

@@ -5,6 +5,7 @@ import { addMultipleFilters } from '../../actions/filter';
 import CollapsibleFilter from './CollapsibleFilter';
 import { connect } from 'react-redux';
 import HighlightingOption from '../Typeahead/HighlightingOption';
+import PropTypes from 'prop-types';
 import React from 'react';
 import StickyOptions from './StickyOptions';
 import { THESE_UNITED_STATES } from '../../constants';
@@ -27,7 +28,7 @@ export class FederalState extends React.Component {
       <CollapsibleFilter
         title="State"
         desc={desc}
-        showChildren={this.props.showChildren}
+        hasChildren={this.props.hasChildren}
         className="aggregation state"
       >
         <Typeahead
@@ -144,3 +145,11 @@ export const mapDispatchToProps = dispatch => ( {
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( FederalState );
+
+FederalState.propTypes = {
+  hasChildren: PropTypes.bool,
+  options: PropTypes.array.isRequired,
+  selections: PropTypes.array.isRequired,
+  forTypeahead: PropTypes.array.isRequired,
+  typeaheadSelect: PropTypes.func.isRequired
+};

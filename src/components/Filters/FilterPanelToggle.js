@@ -1,6 +1,7 @@
 import './FilterPanelToggle.less';
 import { connect } from 'react-redux';
 import { filterVisibilityToggled } from '../../actions/view';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export class FilterPanelToggle extends React.Component {
@@ -13,7 +14,7 @@ export class FilterPanelToggle extends React.Component {
             className={'a-btn'}
             onClick={() => this.props.onFilterToggle()}
           >
-            {this.props.showFilters ? 'Close Filters' : 'Filter results'}
+            {this.props.hasFilters ? 'Close Filters' : 'Filter results'}
           </button>
         </div>
       </section>
@@ -22,7 +23,7 @@ export class FilterPanelToggle extends React.Component {
 }
 
 export const mapStateToProps = state => ( {
-  showFilters: state.view.showFilters
+  hasFilters: state.view.hasFilters
 } );
 
 export const mapDispatchToProps = dispatch => ( {
@@ -32,3 +33,8 @@ export const mapDispatchToProps = dispatch => ( {
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( FilterPanelToggle );
+
+FilterPanelToggle.propTypes = {
+  onFilterToggle: PropTypes.func.isRequired,
+  hasFilters: PropTypes.bool
+};

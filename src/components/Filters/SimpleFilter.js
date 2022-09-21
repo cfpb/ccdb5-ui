@@ -4,6 +4,7 @@ import { coalesce } from '../../utils';
 import CollapsibleFilter from './CollapsibleFilter';
 import { connect } from 'react-redux';
 import MoreOrLess from './MoreOrLess';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export class SimpleFilter extends React.Component {
@@ -11,13 +12,13 @@ export class SimpleFilter extends React.Component {
     const listComponentProps = {
       fieldName: this.props.fieldName
     };
-    const { desc, fieldName, options, showChildren, title } = this.props;
+    const { desc, fieldName, options, hasChildren, title } = this.props;
 
     return (
       <CollapsibleFilter
         title={title}
         desc={desc}
-        showChildren={showChildren}
+        hasChildren={hasChildren}
         className={'aggregation simple ' + fieldName}
       >
         <MoreOrLess
@@ -36,8 +37,16 @@ export const mapStateToProps = ( state, ownProps ) => {
 
   return {
     options: coalesce( state.aggs, ownProps.fieldName, [] ),
-    showChildren: activeChildren.length > 0
+    hasChildren: activeChildren.length > 0
   };
 };
 
 export default connect( mapStateToProps )( SimpleFilter );
+
+SimpleFilter.propTypes = {
+  fieldName: PropTypes.string.isRequired,
+  desc: PropTypes.string,
+  options: PropTypes.array.isRequired,
+  hasChildren: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired
+};

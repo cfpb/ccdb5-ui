@@ -48,17 +48,6 @@ export class Pagination extends React.Component {
   }
 }
 
-Pagination.defaultProps = {
-  total: 1,
-  value: 1
-};
-
-Pagination.propTypes = {
-  // eslint-disable-next-line camelcase
-  total: PropTypes.number,
-  value: PropTypes.number
-};
-
 export const mapStateToProps = state => ( {
   page: state.query.page,
   size: state.query.size,
@@ -75,3 +64,14 @@ export const mapDispatchToProps = dispatch => ( {
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( Pagination );
+
+Pagination.defaultProps = {
+  total: 1
+};
+
+Pagination.propTypes = {
+  total: PropTypes.number.isRequired,
+  prevPage: PropTypes.func,
+  page: PropTypes.number,
+  nextPage: PropTypes.func
+};

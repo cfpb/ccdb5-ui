@@ -111,11 +111,11 @@ export class RowChart extends React.Component {
   // Event Handlers
   // eslint-disable-next-line complexity
   _redrawChart() {
-    const { colorScheme, data, id, printMode, total } = this.props;
+    const { colorScheme, data, id, isPrintMode, total } = this.props;
     // deep copy
     // do this to prevent REDUX pollution
     const rows = cloneDeep( data ).filter( o => {
-      if ( o.name && printMode ) {
+      if ( o.name && isPrintMode ) {
         // remove spacer text if we are in print mode
         return o.name.indexOf( 'Visualize trends for' ) === -1;
       }
@@ -135,7 +135,7 @@ export class RowChart extends React.Component {
     const rowContainer = d3.select( chartID );
 
     // added padding to make up for margin
-    const width = printMode ?
+    const width = isPrintMode ?
       750 :
       rowContainer.node().getBoundingClientRect().width + 30;
 
@@ -255,16 +255,18 @@ export const mapStateToProps = state => {
   const { tab } = state.query;
   const lens = tab === MODE_MAP ? 'Product' : state.query.lens;
   const { aggs } = state;
-  const { expandedRows, printMode, width } = state.view;
+  const { expandedRows, isPrintMode, width } = state.view;
   return {
     aggs,
     expandedRows,
     lens,
-    printMode,
+    isPrintMode,
     tab,
     width
   };
 };
+
+export default connect( mapStateToProps, mapDispatchToProps )( RowChart );
 
 RowChart.propTypes = {
   id: PropTypes.string.isRequired,
@@ -272,7 +274,6 @@ RowChart.propTypes = {
     .isRequired,
   data: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired
+  total: PropTypes.number.isRequired,
+  isPrintMode: PropTypes.bool
 };
-
-export default connect( mapStateToProps, mapDispatchToProps )( RowChart );

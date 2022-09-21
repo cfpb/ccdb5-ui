@@ -5,6 +5,7 @@ import * as types from '../../constants';
 import { connect } from 'react-redux';
 import DataExport from './DataExport';
 import MoreAbout from './MoreAbout';
+import PropTypes from 'prop-types';
 import React from 'react';
 import ReactModal from 'react-modal';
 
@@ -50,3 +51,9 @@ export const mapDispatchToProps = dispatch => ( {
 } );
 
 export default connect( state => state.modal, mapDispatchToProps )( RootModal );
+
+RootModal.propTypes = {
+  modalType: PropTypes.string,
+  modalProps: PropTypes.object,
+  onClose: PropTypes.func.isRequired
+};

@@ -2,6 +2,7 @@ import './ChartToggles.less';
 import { changeChartType } from '../../actions/trends';
 import { connect } from 'react-redux';
 import iconMap from '../iconMap';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { sendAnalyticsEvent } from '../../utils';
 
@@ -53,3 +54,8 @@ export const mapDispatchToProps = dispatch => ( {
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( ChartToggles );
+
+ChartToggles.propTypes = {
+  chartType: PropTypes.string.isRequired,
+  toggleChartType: PropTypes.func.isRequired
+};

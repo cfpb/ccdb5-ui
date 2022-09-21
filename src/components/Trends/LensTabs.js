@@ -96,8 +96,11 @@ export const mapDispatchToProps = dispatch => ( {
   }
 } );
 
-LensTabs.propTypes = {
-  showTitle: PropTypes.bool.isRequired
-};
-
 export default connect( mapStateToProps, mapDispatchToProps )( LensTabs );
+
+LensTabs.propTypes = {
+  subLens: PropTypes.string.isRequired,
+  lens: PropTypes.string.isRequired,
+  hasProductTab: PropTypes.bool,
+  onTab: PropTypes.func.isRequired
+};

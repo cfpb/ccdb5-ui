@@ -26,7 +26,7 @@ export class AggregationBranch extends React.Component {
   constructor( props ) {
     super( props );
 
-    this.state = { showChildren: props.showChildren };
+    this.state = { hasChildren: props.hasChildren };
 
     bindAll( this, [ '_decideClickAction', '_toggleChildDisplay' ] );
   }
@@ -54,7 +54,7 @@ export class AggregationBranch extends React.Component {
 
   _toggleChildDisplay() {
     this.setState( {
-      showChildren: !this.state.showChildren
+      hasChildren: !this.state.hasChildren
     } );
   }
 
@@ -81,7 +81,7 @@ export class AggregationBranch extends React.Component {
     const id = sanitizeHtmlId( fieldName + '-' + item.key );
 
     let chevronIcon;
-    if ( this.state.showChildren ) {
+    if ( this.state.hasChildren ) {
       chevronIcon = iconMap.getIcon( 'up' );
     } else {
       chevronIcon = iconMap.getIcon( 'down' );
@@ -113,7 +113,7 @@ export class AggregationBranch extends React.Component {
             <FormattedNumber value={item.doc_count} />
           </span>
         </li>
-        {this.state.showChildren === false ? null :
+        {this.state.hasChildren === false ? null :
           <ul className="children">
             {buckets.map( bucket =>
               <AggregationItem
@@ -141,27 +141,6 @@ export class AggregationBranch extends React.Component {
   }
 }
 
-AggregationBranch.propTypes = {
-  activeChildren: PropTypes.array,
-  checkParent: PropTypes.func.isRequired,
-  checkedState: PropTypes.string,
-  fieldName: PropTypes.string.isRequired,
-  item: PropTypes.shape( {
-    // eslint-disable-next-line camelcase
-    doc_count: PropTypes.number.isRequired,
-    key: PropTypes.string.isRequired,
-    value: PropTypes.string
-  } ).isRequired,
-  showChildren: PropTypes.bool,
-  subitems: PropTypes.array.isRequired,
-  uncheckParent: PropTypes.func.isRequired
-};
-
-AggregationBranch.defaultProps = {
-  checkedState: UNCHECKED,
-  showChildren: false
-};
-
 export const mapStateToProps = ( state, ownProps ) => {
   // Find all query filters that refer to the field name
   const candidates = coalesce( state.query, ownProps.fieldName, [] );
@@ -187,7 +166,7 @@ export const mapStateToProps = ( state, ownProps ) => {
     checkedState,
     filters: candidates,
     focus: state.query.focus,
-    showChildren: activeChildren.length > 0
+    hasChildren: activeChildren.length > 0
   };
 };
 
@@ -208,3 +187,25 @@ export const mapDispatchToProps = dispatch => ( {
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( AggregationBranch );
+
+AggregationBranch.propTypes = {
+  activeChildren: PropTypes.array,
+  checkParent: PropTypes.func.isRequired,
+  checkedState: PropTypes.string,
+  fieldName: PropTypes.string.isRequired,
+  item: PropTypes.shape( {
+    // eslint-disable-next-line camelcase
+    doc_count: PropTypes.number.isRequired,
+    key: PropTypes.string.isRequired,
+    value: PropTypes.string
+  } ).isRequired,
+  hasChildren: PropTypes.bool,
+  subitems: PropTypes.array.isRequired,
+  uncheckParent: PropTypes.func.isRequired,
+  filters: PropTypes.array.isRequired
+};
+
+AggregationBranch.defaultProps = {
+  checkedState: UNCHECKED,
+  hasChildren: false
+};

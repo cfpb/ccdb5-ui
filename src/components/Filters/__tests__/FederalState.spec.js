@@ -33,7 +33,7 @@ function setupEnzyme() {
       { key: 'WY', label: 'Wyoming (WY)', normalized: 'wyoming (wy)' },
     ],
     selections: ['DC'],
-    showChildren: true,
+    hasChildren: true,
     typeaheadSelect: jest.fn(),
   };
 

@@ -88,7 +88,7 @@ function setupSnapshot() {
     },
     view: {
       expandedRows: [],
-      printMode: false,
+      isPrintMode: false,
       width: 1000,
     },
   });
@@ -171,7 +171,7 @@ describe('component: RowChart', () => {
       expect(sp).toHaveBeenCalledTimes(1);
     });
 
-    it('trigger a new update when printMode changes', () => {
+    it('trigger a new update when isPrintMode changes', () => {
       const target = shallow(
         <RowChart
           colorScheme={[]}
@@ -186,12 +186,12 @@ describe('component: RowChart', () => {
           ]}
           id={'foo'}
           total={1000}
-          printMode={'false'}
+          isPrintMode={false}
         />
       );
       target._redrawChart = jest.fn();
       const sp = jest.spyOn(target.instance(), '_redrawChart');
-      target.setProps({ printMode: true });
+      target.setProps({ isPrintMode: true });
       expect(sp).toHaveBeenCalledTimes(1);
     });
 
@@ -203,7 +203,7 @@ describe('component: RowChart', () => {
           data={[23, 4, 3]}
           id={'foo'}
           total={1000}
-          printMode={'false'}
+          isPrintMode={false}
           width={1000}
         />
       );
@@ -487,7 +487,7 @@ describe('component: RowChart', () => {
         trends: {},
         view: {
           expandedRows: [],
-          printMode: false,
+          isPrintMode: false,
           width: 1000,
         },
       };
@@ -500,7 +500,7 @@ describe('component: RowChart', () => {
       expect(actual).toEqual({
         expandedRows: [],
         lens: 'Product',
-        printMode: false,
+        isPrintMode: false,
         tab: 'Map',
         width: 1000,
       });
@@ -517,7 +517,7 @@ describe('component: RowChart', () => {
       expect(actual).toEqual({
         expandedRows: [],
         lens: 'Foo',
-        printMode: false,
+        isPrintMode: false,
         tab: 'Trends',
         width: 1000,
       });

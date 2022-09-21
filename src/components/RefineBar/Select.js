@@ -73,12 +73,13 @@ export class Select extends React.Component {
   }
 }
 
+export default Select;
+
 Select.propTypes = {
   id: PropTypes.string,
   handleChange: PropTypes.func.isRequired,
   label: PropTypes.string,
   title: PropTypes.string,
-  values: PropTypes.oneOfType( [ PropTypes.array, PropTypes.object ] ).isRequired
+  values: PropTypes.oneOfType( [ PropTypes.array, PropTypes.object ] ).isRequired,
+  value: PropTypes.oneOfType( [ PropTypes.string, PropTypes.number ] )
 };
-
-export default Select;

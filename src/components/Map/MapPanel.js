@@ -9,6 +9,7 @@ import MapToolbar from './MapToolbar';
 import { mapWarningDismissed } from '../../actions/view';
 import { PerCapita } from '../RefineBar/PerCapita';
 import { processRows } from '../../utils/chart';
+import PropTypes from 'prop-types';
 import React from 'react';
 import RowChart from '../Charts/RowChart';
 import { Separator } from '../RefineBar/Separator';
@@ -39,16 +40,16 @@ export class MapPanel extends React.Component {
       <section className="map-panel">
         <ActionBar />
         <TabbedNavigation />
-        {this.props.error &&
+        {this.props.hasError &&
           <ErrorBlock text="There was a problem executing your search" />
         }
-        {this.props.showWarning &&
+        {this.props.hasWarning &&
           <Warning
             text={WARNING_MESSAGE}
             closeFn={this.props.onDismissWarning}
           />
         }
-        {this.props.showMobileFilters && <FilterPanel />}
+        {this.props.hasMobileFilters && <FilterPanel />}
         <div className="layout-row refine-bar">
           <FilterPanelToggle />
           <Separator />
@@ -72,7 +73,7 @@ export class MapPanel extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const { error, isLoading, results } = state.map;
+  const { hasError, isLoading, results } = state.map;
 
   const {
     date_received_max: maxDate,
@@ -84,13 +85,13 @@ const mapStateToProps = state => {
   const { expandedRows, width } = state.view;
 
   return {
-    error,
+    hasError,
     isLoading,
     minDate: shortFormat( minDate ),
     maxDate: shortFormat( maxDate ),
     productData: processRows( results.product, false, 'Product', expandedRows ),
-    showMobileFilters: width < 750,
-    showWarning: !enablePer1000 && mapWarningEnabled,
+    hasMobileFilters: width < 750,
+    hasWarning: !enablePer1000 && mapWarningEnabled,
     total: state.aggs.total
   };
 };
@@ -102,3 +103,15 @@ export const mapDispatchToProps = dispatch => ( {
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( MapPanel );
+
+MapPanel.propTypes = {
+  minDate: PropTypes.string.isRequired,
+  maxDate: PropTypes.string.isRequired,
+  hasError: PropTypes.bool,
+  hasWarning: PropTypes.bool,
+  onDismissWarning: PropTypes.func.isRequired,
+  hasMobileFilters: PropTypes.bool.isRequired,
+  productData: PropTypes.object.isRequired,
+  total: PropTypes.number.isRequired,
+  isLoading: PropTypes.bool
+};

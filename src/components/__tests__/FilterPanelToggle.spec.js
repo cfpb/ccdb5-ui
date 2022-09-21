@@ -14,9 +14,9 @@ function setupEnzyme() {
   const props = {
     aggs: {},
     onFilterToggle: jest.fn(),
-    showButton: true,
-    showFilterToggle: true,
-    showFilters: false,
+    hasButton: true,
+    hasFilterToggle: true,
+    hasFilters: false,
   };
 
   const target = shallow(<FilterPanelToggle {...props} />);
@@ -27,12 +27,12 @@ function setupEnzyme() {
   };
 }
 
-function setupSnapshot(showFilters) {
+function setupSnapshot(hasFilters) {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
   const store = mockStore({
     view: {
-      showFilters,
+      hasFilters,
     },
   });
 
@@ -77,12 +77,12 @@ describe('mapStateToProps', () => {
   it('maps state and props', () => {
     const state = {
       view: {
-        showFilters: true,
+        hasFilters: true,
       },
     };
     let actual = mapStateToProps(state);
     expect(actual).toEqual({
-      showFilters: true,
+      hasFilters: true,
     });
   });
 });

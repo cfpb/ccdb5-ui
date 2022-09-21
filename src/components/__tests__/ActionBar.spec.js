@@ -19,7 +19,7 @@ describe('initial state', () => {
       },
       query: { tab: 'Map' },
       view: {
-        printMode: false,
+        isPrintMode: false,
       },
     });
     const target = renderer.create(
@@ -76,7 +76,7 @@ describe('initial state', () => {
       const button = target.find('.print-preview');
       button.simulate('click');
       expect(window.location.assign).toHaveBeenCalledWith(
-        'http://ccdb-website.gov&printMode=true&' + 'fromExternal=true'
+        'http://ccdb-website.gov&isPrintMode=true&' + 'isFromExternal=true'
       );
       expect(gaSpy).toHaveBeenCalledWith('Print', 'tab:Pepsi');
     });

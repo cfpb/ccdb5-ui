@@ -3,13 +3,14 @@ import CompanyTypeahead from '../Filters/CompanyTypeahead';
 import { connect } from 'react-redux';
 import { externalTooltipFormatter } from '../../utils/chart';
 import iconMap from '../iconMap';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { removeFilter } from '../../actions/filter';
 import { sanitizeHtmlId } from '../../utils';
 
 export class ExternalTooltip extends React.Component {
   _spanFormatter( value ) {
-    const { focus, lens, showCompanyTypeahead, subLens } = this.props;
+    const { focus, lens, hasCompanyTypeahead, subLens } = this.props;
     const elements = [];
     const lensToUse = focus ? subLens : lens;
     const plurals = {
@@ -51,7 +52,7 @@ export class ExternalTooltip extends React.Component {
     );
 
     // add in the close button for Company and there's no focus yet
-    if ( showCompanyTypeahead ) {
+    if ( hasCompanyTypeahead ) {
       elements.push(
         <span
           className="u-right a-btn a-btn__link close"
@@ -69,11 +70,11 @@ export class ExternalTooltip extends React.Component {
   }
 
   render() {
-    const { focus, showTotal, tooltip } = this.props;
+    const { focus, hasTotal, tooltip } = this.props;
     if ( tooltip && tooltip.values ) {
       return (
         <section className={'tooltip-container u-clearfix ' + focus}>
-          {this.props.showCompanyTypeahead &&
+          {this.props.hasCompanyTypeahead &&
             <CompanyTypeahead id={'external-tooltip'} />
           }
           <p className="a-micro-copy">
@@ -90,7 +91,7 @@ export class ExternalTooltip extends React.Component {
               )}
             </ul>
 
-            {showTotal &&
+            {hasTotal &&
               <ul className="m-list__unstyled tooltip-ul total">
                 <li>
                   <span className="u-left">Total</span>
@@ -121,10 +122,20 @@ export const mapStateToProps = state => {
     focus: focus ? 'focus' : '',
     lens,
     subLens,
-    showCompanyTypeahead: lens === 'Company' && !focus,
-    showTotal: chartType === 'area',
+    hasCompanyTypeahead: lens === 'Company' && !focus,
+    hasTotal: chartType === 'area',
     tooltip: externalTooltipFormatter( tooltip )
   };
 };
 
 export default connect( mapStateToProps, mapDispatchToProps )( ExternalTooltip );
+
+ExternalTooltip.propTypes = {
+  focus: PropTypes.string,
+  lens: PropTypes.string.isRequired,
+  hasCompanyTypeahead: PropTypes.bool.isRequired,
+  subLens: PropTypes.string,
+  remove: PropTypes.func.isRequired,
+  hasTotal: PropTypes.bool,
+  tooltip: PropTypes.oneOfType( [ PropTypes.bool, PropTypes.object ] ).isRequired
+};

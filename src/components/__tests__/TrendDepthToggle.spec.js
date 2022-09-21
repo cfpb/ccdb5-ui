@@ -21,7 +21,7 @@ function setupEnzyme({ cbIncrease, cbReset, diff, queryCount, resultCount }) {
       depthReset={cbReset}
       queryCount={queryCount}
       resultCount={resultCount}
-      showToggle={true}
+      hasToggle={true}
     />
   );
 }
@@ -211,7 +211,7 @@ describe('component:TrendDepthToggle', () => {
         diff: 11,
         queryCount: 11,
         resultCount: 0,
-        showToggle: true,
+        hasToggle: true,
       });
     });
 
@@ -262,7 +262,7 @@ describe('component:TrendDepthToggle', () => {
           diff: 10,
           queryCount: 11,
           resultCount: 0,
-          showToggle: true,
+          hasToggle: true,
         });
       });
 
@@ -274,7 +274,7 @@ describe('component:TrendDepthToggle', () => {
           diff: 10,
           queryCount: 11,
           resultCount: 0,
-          showToggle: true,
+          hasToggle: true,
         });
       });
 
@@ -298,7 +298,7 @@ describe('component:TrendDepthToggle', () => {
           diff: 0,
           queryCount: 1,
           resultCount: 1,
-          showToggle: false,
+          hasToggle: false,
         });
       });
     });

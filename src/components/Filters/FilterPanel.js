@@ -9,6 +9,7 @@ import HasNarrative from './HasNarrative';
 import iconMap from '../iconMap';
 import Issue from './Issue';
 import Product from './Product';
+import PropTypes from 'prop-types';
 import React from 'react';
 import SimpleFilter from './SimpleFilter';
 import ZipCode from './ZipCode';
@@ -28,7 +29,7 @@ export class FilterPanel extends React.Component {
 
     return (
       <div>
-        {this.props.showFilterToggle &&
+        {this.props.hasFilterToggle &&
           <div className="filter-button">
             <button
               className="a-btn"
@@ -39,9 +40,9 @@ export class FilterPanel extends React.Component {
             </button>
           </div>
         }
-        {this.props.showFilters &&
+        {this.props.hasFilters &&
           <section className="filter-panel">
-            {this.props.showButton &&
+            {this.props.hasButton &&
               <div className="filter-button">
                 <button
                   className="a-btn"
@@ -109,9 +110,9 @@ export class FilterPanel extends React.Component {
 }
 
 export const mapStateToProps = state => ( {
-  showButton: state.view.width < 750,
-  showFilterToggle: state.view.width < 600 && !state.view.showFilters,
-  showFilters: state.view.showFilters
+  hasButton: state.view.width < 750,
+  hasFilterToggle: state.view.width < 600 && !state.view.hasFilters,
+  hasFilters: state.view.hasFilters
 } );
 
 export const mapDispatchToProps = dispatch => ( {
@@ -121,3 +122,14 @@ export const mapDispatchToProps = dispatch => ( {
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( FilterPanel );
+
+FilterPanel.defaultProps = {
+  hasFilters: true
+};
+
+FilterPanel.propTypes = {
+  hasFilterToggle: PropTypes.bool.isRequired,
+  onFilterToggle: PropTypes.func.isRequired,
+  hasFilters: PropTypes.bool,
+  hasButton: PropTypes.bool.isRequired
+};

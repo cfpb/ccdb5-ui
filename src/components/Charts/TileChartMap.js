@@ -3,6 +3,7 @@ import { addStateFilter, removeStateFilter } from '../../actions/map';
 import { coalesce, hashObject, sendAnalyticsEvent } from '../../utils';
 import { GEO_NORM_NONE, STATE_DATA } from '../../constants';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import React from 'react';
 import TileMap from './TileMap';
 
@@ -137,13 +138,13 @@ export const processStates = state => {
 
 export const mapStateToProps = state => {
   const refStateFilters = coalesce( state.query, 'state', [] );
-  const { printMode, width } = state.view;
+  const { isPrintMode, width } = state.view;
 
   return {
     data: processStates( state ),
     dataNormalization: state.query.dataNormalization,
-    hasTip: !printMode,
-    printClass: printMode ? 'print' : '',
+    hasTip: !isPrintMode,
+    printClass: isPrintMode ? 'print' : '',
     stateFilters: [ ...refStateFilters ],
     width
   };
@@ -161,3 +162,10 @@ export const mapDispatchToProps = dispatch => ( {
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( TileChartMap );
+
+TileChartMap.propTypes = {
+  data: PropTypes.array,
+  printClass: PropTypes.string,
+  dataNormalization: PropTypes.string,
+  hasTip: PropTypes.bool
+};

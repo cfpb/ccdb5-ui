@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import ErrorBlock from '../Warnings/Error';
 import { hashObject } from '../../utils';
 import { isDateEqual } from '../../utils/formatDate';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { updateTrendsTooltip } from '../../actions/trends';
 
@@ -33,7 +34,7 @@ export class LineChart extends React.Component {
     if (
       hashObject( prevProps.data ) !== hashObject( props.data ) ||
       prevProps.width !== props.width ||
-      prevProps.printMode !== props.printMode
+      prevProps.isPrintMode !== props.isPrintMode
     ) {
       this._redrawChart();
     }
@@ -59,8 +60,8 @@ export class LineChart extends React.Component {
   }
 
   _chartWidth( chartID ) {
-    const { lens, printMode } = this.props;
-    if ( printMode ) {
+    const { lens, isPrintMode } = this.props;
+    if ( isPrintMode ) {
       return lens === 'Overview' ? 750 : 540;
     }
     const container = d3.select( chartID );
@@ -69,9 +70,9 @@ export class LineChart extends React.Component {
 
   /* eslint max-statements: ["error", 23] */
   _redrawChart() {
-    const { colorMap, dateRange, interval, lens, processData, showChart } =
+    const { colorMap, dateRange, interval, lens, processData, hasChart } =
       this.props;
-    if ( !showChart ) {
+    if ( !hasChart ) {
       return;
     }
 
@@ -128,7 +129,7 @@ export class LineChart extends React.Component {
   }
 
   render() {
-    return this.props.showChart ?
+    return this.props.hasChart ?
       <div className={'chart-wrapper'}>
         <p className={'y-axis-label'}>Complaints</p>
         <div id="line-chart"></div>
@@ -159,7 +160,7 @@ export const mapStateToProps = state => {
   // clone the data so this doesn't mutate redux store
   const processData = cloneDeep( data );
   pruneIncompleteLineInterval( processData, dateRange, interval );
-  const showChart = Boolean(
+  const hasChart = Boolean(
     processData.dataByTopic && processData.dataByTopic[0].dates.length > 1
   );
 
@@ -169,12 +170,26 @@ export const mapStateToProps = state => {
     dateRange,
     interval,
     lens: state.query.lens,
-    printMode: state.view.printMode,
+    isPrintMode: state.view.isPrintMode,
     processData,
     tooltip: state.trends.tooltip,
-    showChart,
+    hasChart,
     width: state.view.width
   };
 };
 
 export default connect( mapStateToProps, mapDispatchToProps )( LineChart );
+
+LineChart.propTypes = {
+  data: PropTypes.oneOfType( [ PropTypes.object, PropTypes.array ] ).isRequired,
+  width: PropTypes.number,
+  isPrintMode: PropTypes.bool,
+  tooltip: PropTypes.oneOfType( [ PropTypes.bool, PropTypes.object ] ),
+  tooltipUpdated: PropTypes.func,
+  dateRange: PropTypes.object,
+  interval: PropTypes.string,
+  lens: PropTypes.string,
+  colorMap: PropTypes.object,
+  processData: PropTypes.oneOfType( [ PropTypes.object, PropTypes.array ] ),
+  hasChart: PropTypes.bool
+};

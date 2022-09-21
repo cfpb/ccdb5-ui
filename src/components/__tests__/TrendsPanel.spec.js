@@ -84,12 +84,12 @@ jest.mock('d3', () => {
   return mock;
 });
 
-function setupEnzyme({ focus, overview, lens, subLens }) {
+function setupEnzyme({ focus, hasOverview, lens, subLens }) {
   const props = {
     focus,
     lenses: ['Foo', 'Baz', 'Bar'],
     intervals: ['Month', 'Quarter', 'Nickel', 'Day'],
-    overview,
+    hasOverview,
     lens,
     subLens,
     onChartType: jest.fn(),
@@ -183,8 +183,8 @@ describe('component:TrendsPanel', () => {
         expandedRows: [],
         focus: '',
         lens: 'Overview',
-        printMode: false,
-        showMobileFilters: false,
+        isPrintMode: false,
+        hasMobileFilters: false,
         subLens: 'sub_product',
         tooltip: { date: '1/1/2020', title: 'Foo Bar' },
         trendsDateWarningEnabled: false,
@@ -233,7 +233,7 @@ describe('component:TrendsPanel', () => {
     });
 
     it('renders print mode without crashing', () => {
-      params.printMode = true;
+      params.isPrintMode = true;
       const target = setupSnapshot(params);
       const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
@@ -260,13 +260,13 @@ describe('component:TrendsPanel', () => {
       beforeEach(() => {
         params = {
           focus: '',
-          overview: false,
+          hasOverview: false,
           lens: 'Overview',
           subLens: 'sub_product',
         };
       });
       it('gets area chart title - Overview', () => {
-        params.overview = true;
+        params.hasOverview = true;
         const target = setupEnzyme(params);
         expect(target.instance()._areaChartTitle()).toEqual(
           'Complaints by date received by the CFPB'

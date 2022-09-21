@@ -5,6 +5,7 @@ import ListPanel from './List/ListPanel';
 import MapPanel from './Map/MapPanel';
 import PrintInfo from './Print/PrintInfo';
 import PrintInfoFooter from './Print/PrintInfoFooter';
+import PropTypes from 'prop-types';
 import React from 'react';
 import TrendsPanel from './Trends/TrendsPanel';
 
@@ -49,9 +50,9 @@ export class ResultsPanel extends React.Component {
 
     return (
       <div className={this._getTabClass()}>
-        {this.props.printMode && <PrintInfo />}
+        {this.props.isPrintMode && <PrintInfo />}
         {currentPanel}
-        {this.props.printMode && <PrintInfoFooter />}
+        {this.props.isPrintMode && <PrintInfoFooter />}
       </div>
     );
   }
@@ -67,7 +68,7 @@ export class ResultsPanel extends React.Component {
 }
 
 const mapStateToProps = state => ( {
-  printMode: state.view.printMode,
+  isPrintMode: state.view.isPrintMode,
   tab: state.query.tab
 } );
 
@@ -81,3 +82,10 @@ export const mapDispatchToProps = dispatch => ( {
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( ResultsPanel );
+
+ResultsPanel.propTypes = {
+  tab: PropTypes.string.isRequired,
+  isPrintMode: PropTypes.bool,
+  togglePrintModeOn: PropTypes.func,
+  togglePrintModeOff: PropTypes.func
+};

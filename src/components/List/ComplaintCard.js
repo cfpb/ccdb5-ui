@@ -1,6 +1,7 @@
 import './ComplaintCard.less';
 import { ariaReadoutNumbers } from '../../utils';
 import { FormattedDate } from 'react-intl';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 const MAX_NARRATIVE = 300;
@@ -124,3 +125,7 @@ export default class ComplaintCard extends React.Component {
      null;
   }
 }
+
+ComplaintCard.propTypes = {
+  row: PropTypes.object.isRequired
+};

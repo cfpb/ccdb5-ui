@@ -10,7 +10,7 @@ import React from 'react';
 
 export class AggregationItem extends React.Component {
   _onChange() {
-    if ( this.props.active ) {
+    if ( this.props.isActive ) {
       this.props.removeFilter( this.props );
     } else {
       this.props.addFilter( this.props );
@@ -18,7 +18,7 @@ export class AggregationItem extends React.Component {
   }
 
   render() {
-    const { active, item, fieldName } = this.props;
+    const { isActive, item, fieldName } = this.props;
     const value = item.value || item.key;
     const liStyle = 'layout-row m-form-field m-form-field__checkbox';
     const id = sanitizeHtmlId( fieldName + '-' + item.key );
@@ -29,7 +29,7 @@ export class AggregationItem extends React.Component {
           className="flex-fixed a-checkbox"
           aria-label={item.key}
           disabled={item.disabled}
-          checked={active}
+          checked={isActive}
           id={id}
           onChange={() => this._onChange()}
         />
@@ -44,29 +44,14 @@ export class AggregationItem extends React.Component {
   }
 }
 
-AggregationItem.propTypes = {
-  active: PropTypes.bool,
-  fieldName: PropTypes.string.isRequired,
-  item: PropTypes.shape( {
-    // eslint-disable-next-line camelcase
-    doc_count: PropTypes.number.isRequired,
-    key: PropTypes.string.isRequired,
-    value: PropTypes.string
-  } ).isRequired
-};
-
-AggregationItem.defaultProps = {
-  active: false
-};
-
 export const mapStateToProps = ( state, ownProps ) => {
   const aggs = coalesce( state.aggs, ownProps.fieldName, [] );
   const filters = coalesce( state.query, ownProps.fieldName, [] );
   const value = ownProps.item.key;
   const parentKey = value.split( SLUG_SEPARATOR )[0];
-  const active = filters.includes( value ) || filters.includes( parentKey );
+  const isActive = filters.includes( value ) || filters.includes( parentKey );
   return {
-    active,
+    isActive,
     aggs,
     filters
   };
@@ -137,3 +122,20 @@ export const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( AggregationItem );
+
+AggregationItem.propTypes = {
+  isActive: PropTypes.bool,
+  fieldName: PropTypes.string.isRequired,
+  item: PropTypes.shape( {
+    // eslint-disable-next-line camelcase
+    doc_count: PropTypes.number.isRequired,
+    key: PropTypes.string.isRequired,
+    value: PropTypes.string
+  } ).isRequired,
+  removeFilter: PropTypes.func.isRequired,
+  addFilter: PropTypes.func.isRequired
+};
+
+AggregationItem.defaultProps = {
+  isActive: false
+};

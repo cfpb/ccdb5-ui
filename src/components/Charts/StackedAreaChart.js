@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import ErrorBlock from '../Warnings/Error';
 import { hashObject } from '../../utils';
 import { isDateEqual } from '../../utils/formatDate';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { stackedArea } from 'britecharts';
 import { updateTrendsTooltip } from '../../actions/trends';
@@ -29,7 +30,7 @@ export class StackedAreaChart extends React.Component {
     if (
       hashObject( prevProps.data ) !== hashObject( props.data ) ||
       prevProps.width !== props.width ||
-      prevProps.printMode !== props.printMode
+      prevProps.isPrintMode !== props.isPrintMode
     ) {
       this._redrawChart();
     }
@@ -47,8 +48,8 @@ export class StackedAreaChart extends React.Component {
   }
 
   _chartWidth( chartID ) {
-    const { printMode } = this.props;
-    if ( printMode ) {
+    const { isPrintMode } = this.props;
+    if ( isPrintMode ) {
       return 540;
     }
     const container = d3.select( chartID );
@@ -56,9 +57,9 @@ export class StackedAreaChart extends React.Component {
   }
 
   _redrawChart() {
-    const { colorMap, dateRange, filteredData, interval, showChart } =
+    const { colorMap, dateRange, filteredData, interval, hasChart } =
       this.props;
-    if ( !showChart ) {
+    if ( !hasChart ) {
       return;
     }
 
@@ -98,7 +99,7 @@ export class StackedAreaChart extends React.Component {
   }
 
   render() {
-    return this.props.showChart ?
+    return this.props.hasChart ?
       <div className={'chart-wrapper'}>
         <p className={'y-axis-label'}>Complaints</p>
         <div id="stacked-area-chart"></div>
@@ -133,7 +134,7 @@ export const mapStateToProps = state => {
     dateRange,
     interval
   );
-  const showChart = filteredData.length > 1;
+  const hasChart = filteredData.length > 1;
 
   return {
     colorMap: state.trends.colorMap,
@@ -142,11 +143,24 @@ export const mapStateToProps = state => {
     filteredData,
     interval,
     lens: state.trends.lens,
-    printMode: state.view.printMode,
+    isPrintMode: state.view.isPrintMode,
     tooltip: state.trends.tooltip,
-    showChart,
+    hasChart,
     width: state.view.width
   };
 };
 
 export default connect( mapStateToProps, mapDispatchToProps )( StackedAreaChart );
+
+StackedAreaChart.propTypes = {
+  data: PropTypes.array.isRequired,
+  width: PropTypes.number,
+  isPrintMode: PropTypes.bool,
+  tooltip: PropTypes.oneOfType( [ PropTypes.bool, PropTypes.object ] ),
+  tooltipUpdated: PropTypes.func,
+  dateRange: PropTypes.object,
+  interval: PropTypes.string,
+  colorMap: PropTypes.object.isRequired,
+  filteredData: PropTypes.array,
+  hasChart: PropTypes.bool
+};

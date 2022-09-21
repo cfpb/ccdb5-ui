@@ -3,6 +3,7 @@ import { clearStateFilter, showStateComplaints } from '../../actions/map';
 import { coalesce } from '../../utils';
 import { connect } from 'react-redux';
 import iconMap from '../iconMap';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { THESE_UNITED_STATES } from '../../constants';
 
@@ -58,3 +59,9 @@ export const mapDispatchToProps = dispatch => ( {
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( MapToolbar );
+
+MapToolbar.propTypes = {
+  filteredStates: PropTypes.string.isRequired,
+  clearStates: PropTypes.func.isRequired,
+  showComplaints: PropTypes.func.isRequired
+};

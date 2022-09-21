@@ -11,7 +11,7 @@ function setupSnapshot() {
   const mockStore = configureMockStore(middlewares);
   const store = mockStore({
     aggs: {
-      lastIndexed: new Date('2016-02-01T05:00:00.000Z'),
+      lastIndexed: new Date('2016-02-01T05:00:00.000Z').toString(),
     },
     query: {
       date_received_max: '2020-04-05T12:00:00.000Z',
@@ -20,7 +20,7 @@ function setupSnapshot() {
       searchText: 'something searching',
     },
     view: {
-      showAdvancedSearchTips: false,
+      hasAdvancedSearchTips: false,
     },
   });
 

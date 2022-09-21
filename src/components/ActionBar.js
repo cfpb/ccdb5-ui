@@ -2,6 +2,7 @@ import './ActionBar.less';
 import { connect } from 'react-redux';
 import { FormattedNumber } from 'react-intl';
 import iconMap from './iconMap';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { sendAnalyticsEvent } from '../utils';
 import { showExportDialog } from '../actions/dataExport';
@@ -60,14 +61,14 @@ export class ActionBar extends React.Component {
   _showPrintView( tab ) {
     sendAnalyticsEvent( 'Print', 'tab:' + tab );
     const printUrl =
-      window.location.href + '&printMode=true&fromExternal=true';
+      window.location.href + '&isPrintMode=true&isFromExternal=true';
     window.location.assign( printUrl );
   }
 }
 
 export const mapStateToProps = state => ( {
   hits: state.aggs.total,
-  printMode: state.view.printMode,
+  isPrintMode: state.view.isPrintMode,
   total: state.aggs.doc_count,
   tab: state.query.tab
 } );
@@ -80,3 +81,10 @@ export const mapDispatchToProps = dispatch => ( {
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( ActionBar );
+
+ActionBar.propTypes = {
+  hits: PropTypes.number.isRequired,
+  tab: PropTypes.string,
+  total: PropTypes.number.isRequired,
+  onExportResults: PropTypes.func.isRequired
+};

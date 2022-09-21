@@ -15,7 +15,7 @@ import * as types from '../../constants';
 
 jest.mock('../Charts/TileMap');
 
-function setupSnapshot(printMode) {
+function setupSnapshot(isPrintMode) {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
   const store = mockStore({
@@ -28,7 +28,7 @@ function setupSnapshot(printMode) {
       state: [],
     },
     view: {
-      printMode,
+      isPrintMode,
     },
   });
 
@@ -147,7 +147,7 @@ describe('component: TileChartMap', () => {
       expect(TileMap).toHaveBeenCalledTimes(1);
     });
 
-    it('trigger a new update when printMode changes', () => {
+    it('trigger a new update when isPrintMode changes', () => {
       target = shallow(
         <TileChartMap
           data={[
@@ -156,11 +156,11 @@ describe('component: TileChartMap', () => {
               { name: 'LA', value: 10 },
             ],
           ]}
-          printMode={false}
+          isPrintMode={false}
         />
       );
       redrawSpy = jest.spyOn(target.instance(), '_redrawMap');
-      target.setProps({ printMode: true });
+      target.setProps({ isPrintMode: true });
       expect(redrawSpy).toHaveBeenCalledTimes(1);
       expect(TileMap).toHaveBeenCalledTimes(1);
     });
@@ -174,7 +174,7 @@ describe('component: TileChartMap', () => {
               { name: 'LA', value: 10 },
             ],
           ]}
-          printMode={false}
+          isPrintMode={false}
           width={1000}
         />
       );
@@ -234,7 +234,7 @@ describe('component: TileChartMap', () => {
           state: ['TX'],
         },
         view: {
-          printMode: false,
+          isPrintMode: false,
           width: 1000,
         },
       };
@@ -319,7 +319,7 @@ describe('component: TileChartMap', () => {
           dataNormalization: types.GEO_NORM_NONE,
         },
         view: {
-          printMode: false,
+          isPrintMode: false,
           width: 1000,
         },
       };

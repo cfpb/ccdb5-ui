@@ -1,4 +1,5 @@
 import iconMap from '../iconMap';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export const ErrorBlock = ( { text } ) =>
@@ -15,3 +16,7 @@ export const ErrorBlock = ( { text } ) =>
 ;
 
 export default ErrorBlock;
+
+Error.propTypes = {
+  text: PropTypes.string.isRequired
+};

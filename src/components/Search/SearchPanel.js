@@ -2,6 +2,7 @@ import './SearchPanel.less';
 import { connect } from 'react-redux';
 import { FormattedDate } from 'react-intl';
 import { PillPanel } from './PillPanel';
+import PropTypes from 'prop-types';
 import React from 'react';
 import SearchBar from './SearchBar';
 
@@ -32,3 +33,7 @@ const mapStateToProps = state => ( {
 } );
 
 export default connect( mapStateToProps )( SearchPanel );
+
+SearchPanel.propTypes = {
+  lastIndexed: PropTypes.string
+};

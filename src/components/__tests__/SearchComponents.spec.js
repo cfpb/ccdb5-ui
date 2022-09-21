@@ -6,7 +6,7 @@ describe('component: SearchComponents', () => {
     it('maps state and props', () => {
       const state = {
         view: {
-          printMode: false,
+          isPrintMode: false,
         },
       };
       let actual = mapStateToProps(state);
@@ -18,7 +18,7 @@ describe('component: SearchComponents', () => {
     it('maps state and props print', () => {
       const state = {
         view: {
-          printMode: true,
+          isPrintMode: true,
         },
       };
       let actual = mapStateToProps(state);

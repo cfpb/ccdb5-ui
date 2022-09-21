@@ -2,6 +2,7 @@ import './FocusHeader.less';
 import { connect } from 'react-redux';
 import iconMap from '../iconMap';
 import LensTabs from './LensTabs';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { removeFocus } from '../../actions/trends';
 
@@ -46,3 +47,10 @@ export const mapStateToProps = state => ( {
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( FocusHeader );
+
+FocusHeader.propTypes = {
+  focus: PropTypes.string,
+  lens: PropTypes.string.isRequired,
+  total: PropTypes.string.isRequired,
+  clearFocus: PropTypes.func.isRequired
+};

@@ -3,11 +3,11 @@ import { processUrlArrayParams } from '../utils';
 
 export const defaultView = {
   expandedRows: [],
-  fromExternal: false,
-  printMode: false,
-  showAdvancedSearchTips: false,
-  showFilters: true,
-  showTour: false,
+  isFromExternal: false,
+  isPrintMode: false,
+  hasAdvancedSearchTips: false,
+  hasFilters: true,
+  hasTour: false,
   width: 0
 };
 
@@ -22,8 +22,8 @@ export const defaultView = {
 function processParams( state, action ) {
   const params = action.params;
 
-  state.printMode = params.printMode === 'true';
-  state.fromExternal = params.fromExternal === 'true';
+  state.isPrintMode = params.isPrintMode === 'true';
+  state.isFromExternal = params.isFromExternal === 'true';
 
   const arrayParams = [ 'expandedRows' ];
   processUrlArrayParams( params, state, arrayParams );
@@ -40,7 +40,7 @@ function processParams( state, action ) {
 export function hideAdvancedSearchTips( state ) {
   return {
     ...state,
-    showAdvancedSearchTips: false
+    hasAdvancedSearchTips: false
   };
 }
 
@@ -53,7 +53,7 @@ export function hideAdvancedSearchTips( state ) {
 export function showAdvancedSearchTips( state ) {
   return {
     ...state,
-    showAdvancedSearchTips: true
+    hasAdvancedSearchTips: true
   };
 }
 
@@ -66,7 +66,7 @@ export function showAdvancedSearchTips( state ) {
 export function updatePrintModeOn( state ) {
   return {
     ...state,
-    printMode: true
+    isPrintMode: true
   };
 }
 
@@ -79,8 +79,8 @@ export function updatePrintModeOn( state ) {
 export function updatePrintModeOff( state ) {
   return {
     ...state,
-    fromExternal: false,
-    printMode: false
+    isFromExternal: false,
+    isPrintMode: false
   };
 }
 
@@ -94,7 +94,7 @@ export function updatePrintModeOff( state ) {
 export function updateScreenSize( state, action ) {
   return {
     ...state,
-    showFilters: action.screenWidth > 749,
+    hasFilters: action.screenWidth > 749,
     width: action.screenWidth
   };
 }
@@ -108,7 +108,7 @@ export function updateScreenSize( state, action ) {
 export function updateFilterVisibility( state ) {
   return {
     ...state,
-    showFilters: !state.showFilters
+    hasFilters: !state.hasFilters
   };
 }
 
@@ -136,7 +136,7 @@ export function tourShown( state ) {
   return {
     ...state,
     expandedRows: [],
-    showAdvancedSearchTips: false,
+    hasAdvancedSearchTips: false,
     showTour: true
   };
 }

@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { debounce } from '../utils';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { screenResized } from '../actions/view';
 
@@ -18,7 +19,7 @@ export class WindowSize extends React.Component {
   }
 
   componentDidUpdate() {
-    if ( this.props.printMode && this.props.fromExternal ) {
+    if ( this.props.isPrintMode && this.props.isFromExternal ) {
       setTimeout( function() {
         window.print();
       }, 3000 );
@@ -31,8 +32,8 @@ export class WindowSize extends React.Component {
 }
 
 const mapStateToProps = state => ( {
-  fromExternal: state.view.fromExternal,
-  printMode: state.view.printMode
+  isFromExternal: state.view.isFromExternal,
+  isPrintMode: state.view.isPrintMode
 } );
 
 export const mapDispatchToProps = dispatch => ( {
@@ -42,3 +43,9 @@ export const mapDispatchToProps = dispatch => ( {
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( WindowSize );
+
+WindowSize.propTypes = {
+  updateWindowSize: PropTypes.func.isRequired,
+  isPrintMode: PropTypes.bool,
+  isFromExternal: PropTypes.bool
+};

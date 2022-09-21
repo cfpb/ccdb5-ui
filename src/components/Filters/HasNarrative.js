@@ -71,3 +71,8 @@ export const mapDispatchToProps = dispatch => ( {
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( HasNarrative );
+
+HasNarrative.propTypes = {
+  options: PropTypes.object.isRequired,
+  toggleFlag: PropTypes.func.isRequired
+};

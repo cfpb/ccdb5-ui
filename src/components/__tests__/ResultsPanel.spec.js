@@ -36,7 +36,7 @@ function setupSnapshot(
   items = [],
   initialStore = {},
   tab = 'List',
-  printMode
+  isPrintMode
 ) {
   const results = Object.assign(
     {
@@ -74,7 +74,7 @@ function setupSnapshot(
       results: {},
     },
     view: {
-      printMode,
+      isPrintMode,
     },
   });
 

@@ -95,7 +95,7 @@ describe('buttons', () => {
         remove={cb}
         lens={'Foo'}
         add={cbFocus}
-        showCompanyTypeahead={true}
+        hasCompanyTypeahead={true}
         tooltip={{
           title: 'foo title',
           total: 20,
@@ -164,8 +164,8 @@ describe('mapStateToProps', () => {
     expect(actual).toEqual({
       focus: '',
       lens: 'Overview',
-      showCompanyTypeahead: false,
-      showTotal: false,
+      hasCompanyTypeahead: false,
+      hasTotal: false,
       tooltip: {
         date: '1/1/2015',
         heading: 'Date:',
@@ -188,8 +188,8 @@ describe('mapStateToProps', () => {
     expect(actual).toEqual({
       focus: '',
       lens: 'Overview',
-      showCompanyTypeahead: false,
-      showTotal: false,
+      hasCompanyTypeahead: false,
+      hasTotal: false,
       tooltip: {
         date: '',
         heading: 'something else:',

@@ -11,6 +11,7 @@ import FilterPanelToggle from '../Filters/FilterPanelToggle';
 import Loading from '../Dialogs/Loading';
 import { NarrativesButtons } from '../RefineBar/NarrativesButtons';
 import Pagination from './Pagination';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Select } from '../RefineBar/Select';
 import { sendAnalyticsEvent } from '../../utils';
@@ -40,7 +41,7 @@ export class ListPanel extends React.Component {
       <section className="list-panel">
         <ActionBar />
         <TabbedNavigation />
-        {this.props.showMobileFilters && <FilterPanel />}
+        {this.props.hasMobileFilters && <FilterPanel />}
         <div className="layout-row refine-bar">
           <FilterPanelToggle />
           <Separator />
@@ -75,7 +76,7 @@ export class ListPanel extends React.Component {
   _determinePhase() {
     // determine the phase
     let phase = NO_RESULTS;
-    if ( this.props.error ) {
+    if ( this.props.hasError ) {
       phase = ERROR;
     } else if ( this.props.items.length > 0 ) {
       phase = RESULTS;
@@ -107,10 +108,10 @@ export class ListPanel extends React.Component {
 }
 
 const mapStateToProps = state => ( {
-  error: state.aggs.error,
+  hasError: state.aggs.hasError,
   isLoading: state.results.isLoading,
   items: state.results.items,
-  showMobileFilters: state.view.width < 750,
+  hasMobileFilters: state.view.width < 750,
   size: state.query.size,
   sort: state.query.sort
 } );
@@ -129,3 +130,14 @@ export const mapDispatchToProps = dispatch => ( {
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( ListPanel );
+
+ListPanel.propTypes = {
+  hasMobileFilters: PropTypes.bool.isRequired,
+  size: PropTypes.number,
+  onSize: PropTypes.func.isRequired,
+  sort: PropTypes.string,
+  onSort: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool,
+  hasError: PropTypes.bool,
+  items: PropTypes.array.isRequired
+};

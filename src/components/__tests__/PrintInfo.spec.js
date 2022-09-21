@@ -24,7 +24,7 @@ function setupSnapshot() {
     },
     view: {
       expandedRows: [],
-      printMode: false,
+      isPrintMode: false,
       width: 1000,
     },
   });

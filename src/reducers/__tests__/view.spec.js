@@ -15,7 +15,7 @@ describe('reducer:map', () => {
       type: actions.PRINT_MODE_ON,
     };
     expect(target({}, action)).toEqual({
-      printMode: true,
+      isPrintMode: true,
     });
   });
   describe('handles PRINT_MODE_OFF', () => {
@@ -23,8 +23,8 @@ describe('reducer:map', () => {
       type: actions.PRINT_MODE_OFF,
     };
     expect(target({}, action)).toEqual({
-      fromExternal: false,
-      printMode: false,
+      isFromExternal: false,
+      isPrintMode: false,
     });
   });
 
@@ -35,7 +35,7 @@ describe('reducer:map', () => {
         screenWidth: 1000,
       };
       expect(target({}, action)).toEqual({
-        showFilters: true,
+        hasFilters: true,
         width: 1000,
       });
     });
@@ -47,7 +47,7 @@ describe('reducer:map', () => {
       screenWidth: 375,
     };
     expect(target({}, action)).toEqual({
-      showFilters: false,
+      hasFilters: false,
       width: 375,
     });
   });
@@ -57,7 +57,7 @@ describe('reducer:map', () => {
       type: actions.TOGGLE_FILTER_VISIBILITY,
     };
     expect(target({}, action)).toEqual({
-      showFilters: true,
+      hasFilters: true,
     });
   });
 
@@ -117,15 +117,15 @@ describe('reducer:map', () => {
     });
 
     it('handles PRINT params', () => {
-      action.params = { fromExternal: 'true', printMode: 'true' };
+      action.params = { isFromExternal: 'true', isPrintMode: 'true' };
       const actual = target(state, action);
       expect(actual).toEqual({
         expandedRows: [],
-        fromExternal: true,
-        showAdvancedSearchTips: false,
-        showTour: false,
-        printMode: true,
-        showFilters: true,
+        isFromExternal: true,
+        hasAdvancedSearchTips: false,
+        hasTour: false,
+        isPrintMode: true,
+        hasFilters: true,
         width: 0,
       });
     });

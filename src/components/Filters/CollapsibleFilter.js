@@ -7,7 +7,7 @@ export default class CollapsibleFilter extends React.Component {
   constructor( props ) {
     super( props );
     this.state = {
-      showChildren: props.showChildren
+      hasChildren: props.hasChildren
     };
 
     // This binding is necessary to make `this` work in the callback
@@ -17,15 +17,15 @@ export default class CollapsibleFilter extends React.Component {
 
   _toggleChildDisplay() {
     this.setState( {
-      showChildren: !this.state.showChildren
+      hasChildren: !this.state.hasChildren
     } );
   }
 
   componentDidUpdate( prevProps ) {
-    if ( prevProps.showChildren !== this.props.showChildren ) {
+    if ( prevProps.hasChildren !== this.props.hasChildren ) {
       // sync local state
       this.setState( {
-        showChildren: this.props.showChildren
+        hasChildren: this.props.hasChildren
       } );
     }
   }
@@ -65,10 +65,10 @@ export default class CollapsibleFilter extends React.Component {
             {this.props.title}
           </h4>
           <span className="o-expandable_header-right o-expandable_link">
-            {this.state.showChildren ? opened : closed}
+            {this.state.hasChildren ? opened : closed}
           </span>
         </div>
-        {this.state.showChildren ?
+        {this.state.hasChildren ?
           <>
             <p>{this.props.desc}</p>
             {this.props.children}
@@ -80,9 +80,13 @@ export default class CollapsibleFilter extends React.Component {
 }
 
 CollapsibleFilter.propTypes = {
-  showChildren: PropTypes.bool
+  hasChildren: PropTypes.bool,
+  className: PropTypes.string,
+  title: PropTypes.string,
+  desc: PropTypes.string,
+  children: PropTypes.node
 };
 
 CollapsibleFilter.defaultProps = {
-  showChildren: true
+  hasChildren: true
 };
