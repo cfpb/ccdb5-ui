@@ -11,48 +11,48 @@ import { getSubLens } from './trends';
  * @param {string} field key of the query object we need to validate
  * @returns {string|int|*} valid value
  */
-export const enforceValues = ( value, field ) => {
+export const enforceValues = (value, field) => {
   const valMap = {
     chartType: {
       defaultVal: 'line',
-      values: [ 'line', 'area' ]
+      values: ['line', 'area'],
     },
     dataNormalization: {
       defaultVal: types.GEO_NORM_NONE,
-      values: [ types.GEO_NORM_NONE, types.GEO_NORM_PER1000 ]
+      values: [types.GEO_NORM_NONE, types.GEO_NORM_PER1000],
     },
     dateInterval: {
       defaultVal: 'Month',
-      values: types.dateIntervals
+      values: types.dateIntervals,
     },
     dateRange: {
       defaultVal: '3y',
-      values: types.dateRanges
+      values: types.dateRanges,
     },
     lens: {
       defaultVal: 'Overview',
-      values: types.lenses
+      values: types.lenses,
     },
     searchField: {
       defaultVal: 'all',
-      values: [ 'all', 'company', 'complaint_what_happened' ]
+      values: ['all', 'company', 'complaint_what_happened'],
     },
     size: {
       defaultVal: 10,
-      values: Object.keys( types.sizes ).map( o => parseInt( o, 10 ) )
+      values: Object.keys(types.sizes).map((o) => parseInt(o, 10)),
     },
     sort: {
       defaultVal: 'created_date_desc',
-      values: Object.keys( types.sorts )
+      values: Object.keys(types.sorts),
     },
     tab: {
       defaultVal: types.MODE_TRENDS,
-      values: [ types.MODE_TRENDS, types.MODE_LIST, types.MODE_MAP ]
-    }
+      values: [types.MODE_TRENDS, types.MODE_LIST, types.MODE_MAP],
+    },
   };
-  if ( valMap[field] ) {
+  if (valMap[field]) {
     const validValues = valMap[field];
-    if ( validValues.values.includes( value ) ) {
+    if (validValues.values.includes(value)) {
       return value;
     }
     return validValues.defaultVal;
@@ -68,21 +68,21 @@ export const enforceValues = ( value, field ) => {
  * @param {object} state in redux to check against
  * @returns {object} state modified state
  */
-export const validateTrendsReducer = state => {
-  state.chartType = enforceValues( state.chartType, 'chartType' );
+export const validateTrendsReducer = (state) => {
+  state.chartType = enforceValues(state.chartType, 'chartType');
   state.chartType = state.lens === 'Overview' ? 'line' : state.chartType;
 
   const validLens = {
-    Overview: [ '' ],
-    Company: [ 'product' ],
-    Product: [ 'sub_product', 'issue' ]
+    Overview: [''],
+    Company: ['product'],
+    Product: ['sub_product', 'issue'],
   };
 
   if (
     validLens[state.lens] &&
-    !validLens[state.lens].includes( state.subLens )
+    !validLens[state.lens].includes(state.subLens)
   ) {
-    state.subLens = getSubLens( state.lens );
+    state.subLens = getSubLens(state.lens);
   }
 
   return state;

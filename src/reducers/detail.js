@@ -1,25 +1,25 @@
 import {
   COMPLAINT_DETAIL_FAILED,
-  COMPLAINT_DETAIL_RECEIVED
+  COMPLAINT_DETAIL_RECEIVED,
 } from '../actions/complaints';
 
 const defaultDetail = {
   data: {},
-  error: ''
+  error: '',
 };
 
-export default ( state = defaultDetail, action ) => {
-  switch ( action.type ) {
+export default (state = defaultDetail, action) => {
+  switch (action.type) {
     case COMPLAINT_DETAIL_RECEIVED:
       return {
         data: action.data.hits.hits[0]._source,
-        error: ''
+        error: '',
       };
 
     case COMPLAINT_DETAIL_FAILED:
       return {
         data: {},
-        error: action.error
+        error: action.error,
       };
 
     default:

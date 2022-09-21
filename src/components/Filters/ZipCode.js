@@ -12,11 +12,11 @@ import Typeahead from '../Typeahead';
 const FIELD_NAME = 'zip_code';
 
 export class ZipCode extends React.Component {
-  constructor( props ) {
-    super( props );
+  constructor(props) {
+    super(props);
 
     // Bindings
-    bindAll( this, [ '_onInputChange', '_onOptionSelected', '_renderOption' ] );
+    bindAll(this, ['_onInputChange', '_onOptionSelected', '_renderOption']);
   }
 
   render() {
@@ -47,66 +47,66 @@ export class ZipCode extends React.Component {
   // --------------------------------------------------------------------------
   // Typeahead interface
 
-  _onInputChange( value ) {
+  _onInputChange(value) {
     const n = value.toLowerCase();
 
     const qs = this.props.queryString + '&text=' + value;
 
     const uri = '@@API_suggest_zip/' + qs;
-    return fetch( uri )
-      .then( result => result.json() )
-      .then( items =>
-        items.map( x => ( {
+    return fetch(uri)
+      .then((result) => result.json())
+      .then((items) =>
+        items.map((x) => ({
           key: x,
           label: x,
-          position: x.toLowerCase().indexOf( n ),
-          value
-        } ) )
+          position: x.toLowerCase().indexOf(n),
+          value,
+        }))
       );
   }
 
-  _renderOption( obj ) {
+  _renderOption(obj) {
     return {
       value: obj.key,
-      component: <HighlightingOption {...obj} />
+      component: <HighlightingOption {...obj} />,
     };
   }
 
-  _onOptionSelected( item ) {
-    this.props.typeaheadSelect( item.key );
+  _onOptionSelected(item) {
+    this.props.typeaheadSelect(item.key);
   }
 }
 
-export const mapStateToProps = state => {
-  const options = coalesce( state.aggs, FIELD_NAME, [] );
+export const mapStateToProps = (state) => {
+  const options = coalesce(state.aggs, FIELD_NAME, []);
 
-  const queryState = Object.assign( {}, state.query );
+  const queryState = Object.assign({}, state.query);
   // make sure searchAfter doesn't appear, it'll mess up your search endpoint
   queryState.searchAfter = '';
 
   return {
     options,
-    queryString: stateToQS( queryState ),
-    selections: coalesce( state.query, FIELD_NAME, [] )
+    queryString: stateToQS(queryState),
+    selections: coalesce(state.query, FIELD_NAME, []),
   };
 };
 
-export const mapDispatchToProps = dispatch => ( {
-  typeaheadSelect: value => {
-    dispatch( addMultipleFilters( FIELD_NAME, [ value ] ) );
-  }
-} );
+export const mapDispatchToProps = (dispatch) => ({
+  typeaheadSelect: (value) => {
+    dispatch(addMultipleFilters(FIELD_NAME, [value]));
+  },
+});
 
-export default connect( mapStateToProps, mapDispatchToProps )( ZipCode );
+export default connect(mapStateToProps, mapDispatchToProps)(ZipCode);
 
 ZipCode.propTypes = {
   debounceWait: PropTypes.number,
   options: PropTypes.array.isRequired,
   selections: PropTypes.array,
   queryString: PropTypes.string.isRequired,
-  typeaheadSelect: PropTypes.func.isRequired
+  typeaheadSelect: PropTypes.func.isRequired,
 };
 
 ZipCode.defaultProps = {
-  debounceWait: 250
+  debounceWait: 250,
 };

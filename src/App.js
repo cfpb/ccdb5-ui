@@ -15,19 +15,19 @@ import reducers from './reducers';
 import SearchComponents from './components/Search/SearchComponents';
 import thunkMiddleware from 'redux-thunk';
 
-const middleware = [ thunkMiddleware, queryManager ];
+const middleware = [thunkMiddleware, queryManager];
 
-const composeEnhancers = composeWithDevTools( {
+const composeEnhancers = composeWithDevTools({
   // required for redux-devtools-extension
   // Specify name here, actionsBlacklist, actionsCreators and other options
   // if needed
-} );
+});
 
 // required format for redux-devtools-extension
 const store = createStore(
   reducers,
   composeEnhancers(
-    applyMiddleware( ...middleware )
+    applyMiddleware(...middleware)
     // other store enhancers if any
   )
 );

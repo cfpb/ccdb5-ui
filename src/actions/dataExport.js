@@ -17,7 +17,7 @@ const DATA_HOST = 'https://files.consumerfinance.gov';
  * @param {string} format CSV or JSON
  * @returns {string} the URI for the specific type of format
  */
-export function buildAllResultsUri( format ) {
+export function buildAllResultsUri(format) {
   return DATA_HOST + '/ccdb/complaints.' + format + '.zip';
 }
 
@@ -29,7 +29,7 @@ export function buildAllResultsUri( format ) {
  * @param {Object} queryState the current state of the query reducer
  * @returns {string} the URI for the specific type of format
  */
-export function buildSomeResultsUri( format, size, queryState ) {
+export function buildSomeResultsUri(format, size, queryState) {
   const params = { ...queryState };
 
   params.size = size;
@@ -37,7 +37,7 @@ export function buildSomeResultsUri( format, size, queryState ) {
   // eslint-disable-next-line camelcase
   params.no_aggs = true;
 
-  return '@@API' + stateToQS( params );
+  return '@@API' + stateToQS(params);
 }
 
 // ----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ export function showExportDialog() {
   return {
     type: MODAL_SHOWN,
     modalType: MODAL_TYPE_DATA_EXPORT,
-    modalProps: {}
+    modalProps: {},
   };
 }
 
@@ -62,11 +62,11 @@ export function showExportDialog() {
  * @param {string} format JSON or CSV
  * @returns {function} a set of steps to execute
  */
-export function exportAllResults( format ) {
+export function exportAllResults(format) {
   return () => {
-    const uri = buildAllResultsUri( format );
-    const link = buildLink( uri, 'download.' + format );
-    simulateClick( link );
+    const uri = buildAllResultsUri(format);
+    const link = buildLink(uri, 'download.' + format);
+    simulateClick(link);
   };
 }
 
@@ -77,10 +77,10 @@ export function exportAllResults( format ) {
  * @param {int} size The number of rows in the dataset
  * @returns {function} a set of steps to execute
  */
-export function exportSomeResults( format, size ) {
-  return ( _, getState ) => {
-    const uri = buildSomeResultsUri( format, size, getState().query );
-    const link = buildLink( uri, 'download.' + format );
-    simulateClick( link );
+export function exportSomeResults(format, size) {
+  return (_, getState) => {
+    const uri = buildSomeResultsUri(format, size, getState().query);
+    const link = buildLink(uri, 'download.' + format);
+    simulateClick(link);
   };
 }

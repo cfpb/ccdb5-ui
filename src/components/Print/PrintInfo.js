@@ -12,20 +12,20 @@ export class PrintInfo extends React.Component {
         <p>
           <span>Dates:</span> {dates}
         </p>
-        {searchText &&
+        {searchText && (
           <p>
             <span>Search Term:</span> {searchText}
           </p>
-        }
+        )}
         <div>{complaintCountText}</div>
       </section>
     );
   }
 }
 
-export const getComplaintCountText = aggs => {
+export const getComplaintCountText = (aggs) => {
   const { doc_count: docCount, total } = aggs;
-  if ( docCount === total ) {
+  if (docCount === total) {
     return (
       <div>
         Showing <span>{total.toLocaleString()}</span> complaints
@@ -40,24 +40,24 @@ export const getComplaintCountText = aggs => {
   );
 };
 
-const getDateText = query => {
+const getDateText = (query) => {
   const { date_received_min: dateMin, date_received_max: dateMax } = query;
-  return shortFormat( dateMin ) + ' - ' + shortFormat( dateMax );
+  return shortFormat(dateMin) + ' - ' + shortFormat(dateMax);
 };
 
-export const mapStateToProps = state => {
+export const mapStateToProps = (state) => {
   const { aggs, query } = state;
   return {
-    complaintCountText: getComplaintCountText( aggs ),
-    dates: getDateText( query ),
-    searchText: query.searchText
+    complaintCountText: getComplaintCountText(aggs),
+    dates: getDateText(query),
+    searchText: query.searchText,
   };
 };
 
-export default connect( mapStateToProps )( PrintInfo );
+export default connect(mapStateToProps)(PrintInfo);
 
 PrintInfo.propTypes = {
   complaintCountText: PropTypes.object,
   dates: PropTypes.string.isRequired,
-  searchText: PropTypes.string
+  searchText: PropTypes.string,
 };

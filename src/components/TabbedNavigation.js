@@ -7,9 +7,9 @@ import { tabChanged } from '../actions/view';
 
 export const TabbedNavigation = () => {
   const dispatch = useDispatch();
-  const tab = useSelector( selectQueryTab );
+  const tab = useSelector(selectQueryTab);
 
-  const getTabClass = selectedTab => {
+  const getTabClass = (selectedTab) => {
     const tabName = selectedTab.toLowerCase() + ' tab';
     return tab === selectedTab ? tabName + ' active' : tabName;
   };
@@ -18,26 +18,26 @@ export const TabbedNavigation = () => {
     <div className="tabbed-navigation" data-tour={'tabbed-navigation'}>
       <section>
         <button
-          className={getTabClass( 'Trends' )}
-          onClick={() => dispatch( tabChanged( 'Trends' ) )}
+          className={getTabClass('Trends')}
+          onClick={() => dispatch(tabChanged('Trends'))}
         >
-          {iconMap.getIcon( 'chart' )}
+          {iconMap.getIcon('chart')}
           Trends
         </button>
 
         <button
-          className={getTabClass( 'List' )}
-          onClick={() => dispatch( tabChanged( 'List' ) )}
+          className={getTabClass('List')}
+          onClick={() => dispatch(tabChanged('List'))}
         >
-          {iconMap.getIcon( 'list' )}
+          {iconMap.getIcon('list')}
           List
         </button>
 
         <button
-          className={getTabClass( 'Map' )}
-          onClick={() => dispatch( tabChanged( 'Map' ) )}
+          className={getTabClass('Map')}
+          onClick={() => dispatch(tabChanged('Map'))}
         >
-          {iconMap.getIcon( 'map' )}
+          {iconMap.getIcon('map')}
           Map
         </button>
       </section>

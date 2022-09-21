@@ -1,1 +1,1 @@
-export const selectViewShowTour = state => state.view.showTour;
+export const selectViewShowTour = (state) => state.view.showTour;

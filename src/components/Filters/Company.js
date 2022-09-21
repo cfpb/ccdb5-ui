@@ -29,26 +29,26 @@ export class Company extends React.Component {
   }
 }
 
-export const mapStateToProps = state => {
-  const options = cloneDeep( coalesce( state.aggs, FIELD_NAME, [] ) );
-  const selections = coalesce( state.query, FIELD_NAME, [] );
+export const mapStateToProps = (state) => {
+  const options = cloneDeep(coalesce(state.aggs, FIELD_NAME, []));
+  const selections = coalesce(state.query, FIELD_NAME, []);
   const { focus } = state.query;
   const isFocusPage = focus && state.query.lens === 'Company';
 
-  options.forEach( o => {
-    o.disabled = Boolean( isFocusPage && o.key !== focus );
-  } );
+  options.forEach((o) => {
+    o.disabled = Boolean(isFocusPage && o.key !== focus);
+  });
 
   return {
     options,
     queryString: state.query.queryString,
-    selections
+    selections,
   };
 };
 
-export default connect( mapStateToProps )( Company );
+export default connect(mapStateToProps)(Company);
 
 Company.propTypes = {
   options: PropTypes.array.isRequired,
-  selections: PropTypes.array.isRequired
+  selections: PropTypes.array.isRequired,
 };

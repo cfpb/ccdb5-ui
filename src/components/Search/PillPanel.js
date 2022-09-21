@@ -5,7 +5,7 @@ import {
   selectQueryDateReceivedMax,
   selectQueryDateReceivedMin,
   selectQueryHasNarrative,
-  selectQueryState
+  selectQueryState,
 } from '../../reducers/query/selectors';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,43 +20,43 @@ import { startOfToday } from '../../utils';
 /* eslint complexity: ["error", 5] */
 export const PillPanel = () => {
   const dispatch = useDispatch();
-  const query = useSelector( selectQueryState );
-  const dateReceivedMin = useSelector( selectQueryDateReceivedMin );
-  const dateReceivedMax = useSelector( selectQueryDateReceivedMax );
-  const hasNarrative = useSelector( selectQueryHasNarrative );
+  const query = useSelector(selectQueryState);
+  const dateReceivedMin = useSelector(selectQueryDateReceivedMin);
+  const dateReceivedMax = useSelector(selectQueryDateReceivedMax);
+  const hasNarrative = useSelector(selectQueryHasNarrative);
   const filters = knownFilters
     // Only use the known filters that are in the query
-    .filter( x => x in query )
+    .filter((x) => x in query)
     // Create a flattened array of pill objects
-    .reduce( ( accum, fieldName ) => {
-      const arr = query[fieldName].map( value => ( { fieldName, value } ) );
-      return accum.concat( arr );
-    }, [] );
+    .reduce((accum, fieldName) => {
+      const arr = query[fieldName].map((value) => ({ fieldName, value }));
+      return accum.concat(arr);
+    }, []);
 
   // Add Has Narrative, if it exists
-  if ( hasNarrative ) {
-    filters.push( {
+  if (hasNarrative) {
+    filters.push({
       fieldName: 'has_narrative',
-      value: 'Has narrative'
-    } );
+      value: 'Has narrative',
+    });
   }
 
   // only add the filter the date is NOT the "All"
   if (
-    !dayjs( dateReceivedMin ).isSame( dayjs( DATE_RANGE_MIN ), 'day' ) ||
-    !dayjs( dateReceivedMax ).isSame( dayjs( startOfToday() ), 'day' )
+    !dayjs(dateReceivedMin).isSame(dayjs(DATE_RANGE_MIN), 'day') ||
+    !dayjs(dateReceivedMax).isSame(dayjs(startOfToday()), 'day')
   ) {
-    filters.unshift( {
+    filters.unshift({
       fieldName: 'date_received',
       value:
         'Date Received: ' +
-        dayjs( dateReceivedMin ).format( 'M/D/YYYY' ) +
+        dayjs(dateReceivedMin).format('M/D/YYYY') +
         ' - ' +
-        dayjs( dateReceivedMax ).format( 'M/D/YYYY' )
-    } );
+        dayjs(dateReceivedMax).format('M/D/YYYY'),
+    });
   }
 
-  if ( !filters.length ) {
+  if (!filters.length) {
     return null;
   }
 
@@ -64,19 +64,19 @@ export const PillPanel = () => {
     <section className="pill-panel">
       <h3 className="h4 pill-label flex-fixed">Filters applied:</h3>
       <ul className="layout-row">
-        {filters.map( x =>
+        {filters.map((x) => (
           <Pill
             key={x.fieldName + x.value}
             fieldName={x.fieldName}
             value={x.value}
           />
-        )}
+        ))}
         <li className="clear-all">
           <button
             className="a-btn a-btn__link body-copy"
-            onClick={() => dispatch( removeAllFilters() )}
+            onClick={() => dispatch(removeAllFilters())}
           >
-            {iconMap.getIcon( 'delete' )}
+            {iconMap.getIcon('delete')}
             Clear all filters
           </button>
         </li>

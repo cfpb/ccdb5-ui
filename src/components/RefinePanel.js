@@ -5,27 +5,27 @@ import React from 'react';
 
 export class RefinePanel extends React.Component {
   _getTabClass() {
-    const classes = [ 'content_sidebar', this.props.tab.toLowerCase() ];
-    return classes.join( ' ' );
+    const classes = ['content_sidebar', this.props.tab.toLowerCase()];
+    return classes.join(' ');
   }
 
   render() {
-    return this.props.hasDesktopFilters ?
+    return this.props.hasDesktopFilters ? (
       <aside className={this._getTabClass()}>
         <FilterPanel />
-      </aside> :
-     null;
+      </aside>
+    ) : null;
   }
 }
 
-const mapStateToProps = state => ( {
+const mapStateToProps = (state) => ({
   tab: state.query.tab,
-  hasDesktopFilters: state.view.width > 749
-} );
+  hasDesktopFilters: state.view.width > 749,
+});
 
-export default connect( mapStateToProps )( RefinePanel );
+export default connect(mapStateToProps)(RefinePanel);
 
 RefinePanel.propTypes = {
   tab: PropTypes.string.isRequired,
-  hasDesktopFilters: PropTypes.bool.isRequired
+  hasDesktopFilters: PropTypes.bool.isRequired,
 };

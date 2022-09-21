@@ -21,11 +21,11 @@ export const FILTER_REPLACED = 'FILTER_REPLACED';
  * @param {string} dateInterval which interval was selected
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function changeDateInterval( dateInterval ) {
+export function changeDateInterval(dateInterval) {
   return {
     type: DATE_INTERVAL_CHANGED,
     dateInterval,
-    requery: REQUERY_ALWAYS
+    requery: REQUERY_ALWAYS,
   };
 }
 
@@ -37,13 +37,13 @@ export function changeDateInterval( dateInterval ) {
  * @param {Date} maxDate the maximum date in the range
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function changeDates( filterName, minDate, maxDate ) {
+export function changeDates(filterName, minDate, maxDate) {
   return {
     type: DATES_CHANGED,
     filterName,
     minDate,
     maxDate,
-    requery: REQUERY_ALWAYS
+    requery: REQUERY_ALWAYS,
   };
 }
 
@@ -53,11 +53,11 @@ export function changeDates( filterName, minDate, maxDate ) {
  * @param {string} dateRange which filter is being updated
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function dateRangeToggled( dateRange ) {
+export function dateRangeToggled(dateRange) {
   return {
     type: DATE_RANGE_CHANGED,
     dateRange,
-    requery: REQUERY_ALWAYS
+    requery: REQUERY_ALWAYS,
   };
 }
 
@@ -68,12 +68,12 @@ export function dateRangeToggled( dateRange ) {
  * @param {string} filterValue the value of the filter that was clicked
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function toggleFilter( filterName, filterValue ) {
+export function toggleFilter(filterName, filterValue) {
   return {
     type: FILTER_CHANGED,
     filterName,
     filterValue,
-    requery: REQUERY_ALWAYS
+    requery: REQUERY_ALWAYS,
   };
 }
 
@@ -83,11 +83,11 @@ export function toggleFilter( filterName, filterValue ) {
  * @param {string} filterName which filter was clicked
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function toggleFlagFilter( filterName ) {
+export function toggleFlagFilter(filterName) {
   return {
     type: FILTER_FLAG_CHANGED,
     filterName,
-    requery: REQUERY_ALWAYS
+    requery: REQUERY_ALWAYS,
   };
 }
 
@@ -98,12 +98,12 @@ export function toggleFlagFilter( filterName ) {
  * @param {string} filterValue the value of the filter that was clicked
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function addFilter( filterName, filterValue ) {
+export function addFilter(filterName, filterValue) {
   return {
     type: FILTER_ADDED,
     filterName,
     filterValue,
-    requery: REQUERY_ALWAYS
+    requery: REQUERY_ALWAYS,
   };
 }
 
@@ -114,12 +114,12 @@ export function addFilter( filterName, filterValue ) {
  * @param {string} filterValue the value of the filter that was clicked
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function removeFilter( filterName, filterValue ) {
+export function removeFilter(filterName, filterValue) {
   return {
     type: FILTER_REMOVED,
     filterName,
     filterValue,
-    requery: REQUERY_ALWAYS
+    requery: REQUERY_ALWAYS,
   };
 }
 
@@ -131,7 +131,7 @@ export function removeFilter( filterName, filterValue ) {
 export function removeAllFilters() {
   return {
     type: FILTER_ALL_REMOVED,
-    requery: REQUERY_ALWAYS
+    requery: REQUERY_ALWAYS,
   };
 }
 
@@ -142,14 +142,14 @@ export function removeAllFilters() {
  * @param {array} values one or more values to add to the filter set
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function addMultipleFilters( filterName, values ) {
+export function addMultipleFilters(filterName, values) {
   // eslint-disable-next-line no-console
-  console.assert( Array.isArray( values ) );
+  console.assert(Array.isArray(values));
   return {
     type: FILTER_MULTIPLE_ADDED,
     filterName,
     values,
-    requery: REQUERY_ALWAYS
+    requery: REQUERY_ALWAYS,
   };
 }
 
@@ -160,14 +160,14 @@ export function addMultipleFilters( filterName, values ) {
  * @param {array} values one or more values to remove to the filter set
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function removeMultipleFilters( filterName, values ) {
+export function removeMultipleFilters(filterName, values) {
   // eslint-disable-next-line no-console
-  console.assert( Array.isArray( values ) );
+  console.assert(Array.isArray(values));
   return {
     type: FILTER_MULTIPLE_REMOVED,
     filterName,
     values,
-    requery: REQUERY_ALWAYS
+    requery: REQUERY_ALWAYS,
   };
 }
 
@@ -178,13 +178,13 @@ export function removeMultipleFilters( filterName, values ) {
  * @param {array} values one or more values to replace in the filter set
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function replaceFilters( filterName, values ) {
+export function replaceFilters(filterName, values) {
   // eslint-disable-next-line no-console
-  console.assert( Array.isArray( values ) );
+  console.assert(Array.isArray(values));
   return {
     type: FILTER_REPLACED,
     filterName,
     values,
-    requery: REQUERY_ALWAYS
+    requery: REQUERY_ALWAYS,
   };
 }

@@ -23,7 +23,7 @@ function combineActions() {
     ...search,
     ...trends,
     ...url,
-    ...view
+    ...view,
   };
 }
 

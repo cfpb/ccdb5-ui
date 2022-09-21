@@ -2,28 +2,28 @@
 import {
   COMPLAINTS_API_CALLED,
   COMPLAINTS_FAILED,
-  COMPLAINTS_RECEIVED
+  COMPLAINTS_RECEIVED,
 } from '../actions/complaints';
 
 const defaultResults = {
   activeCall: '',
   error: '',
   isLoading: false,
-  items: []
+  items: [],
 };
 
-export const _processHits = data =>
-  data.hits.hits.map( x => {
+export const _processHits = (data) =>
+  data.hits.hits.map((x) => {
     const item = { ...x._source };
 
-    if ( x.highlight ) {
-      Object.keys( x.highlight ).forEach( field => {
+    if (x.highlight) {
+      Object.keys(x.highlight).forEach((field) => {
         item[field] = x.highlight[field][0];
-      } );
+      });
     }
 
     return item;
-  } );
+  });
 
 // ----------------------------------------------------------------------------
 // Action Handlers
@@ -34,11 +34,11 @@ export const _processHits = data =>
  * @param {object} action the payload containing the key/value pairs
  * @returns {object} new state for the Redux store
  */
-export function hitsCallInProcess( state, action ) {
+export function hitsCallInProcess(state, action) {
   return {
     ...state,
     activeCall: action.url,
-    isLoading: true
+    isLoading: true,
   };
 }
 
@@ -49,15 +49,15 @@ export function hitsCallInProcess( state, action ) {
  * @param {object} action the payload containing the key/value pairs
  * @returns {object} new state for the Redux store
  */
-export function processHitsResults( state, action ) {
-  const items = _processHits( action.data );
+export function processHitsResults(state, action) {
+  const items = _processHits(action.data);
 
   return {
     ...state,
     activeCall: '',
     error: '',
     isLoading: false,
-    items: items
+    items: items,
   };
 }
 
@@ -68,10 +68,10 @@ export function processHitsResults( state, action ) {
  * @param {object} action the payload containing the key/value pairs
  * @returns {object} new state for the Redux store
  */
-export function processHitsError( state, action ) {
+export function processHitsError(state, action) {
   return {
     ...defaultResults,
-    error: action.error
+    error: action.error,
   };
 }
 
@@ -101,15 +101,15 @@ const _handlers = _buildHandlerMap();
  * @param {object} action the command being executed
  * @returns {object} the new state for the Redux store
  */
-function handleSpecificAction( state, action ) {
-  if ( action.type in _handlers ) {
-    return _handlers[action.type]( state, action );
+function handleSpecificAction(state, action) {
+  if (action.type in _handlers) {
+    return _handlers[action.type](state, action);
   }
 
   return state;
 }
 
-export default ( state = defaultResults, action ) => {
-  const newState = handleSpecificAction( state, action );
+export default (state = defaultResults, action) => {
+  const newState = handleSpecificAction(state, action);
   return newState;
 };

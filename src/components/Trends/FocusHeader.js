@@ -15,10 +15,10 @@ export class FocusHeader extends React.Component {
           className={'a-btn a-btn__link clear-focus'}
           id={'clear-focus'}
           onClick={() => {
-            this.props.clearFocus( lens );
+            this.props.clearFocus(lens);
           }}
         >
-          {iconMap.getIcon( 'left' )}
+          {iconMap.getIcon('left')}
           {'View ' + lens.toLowerCase() + ' trends'}
         </button>
         <div>
@@ -34,23 +34,23 @@ export class FocusHeader extends React.Component {
   }
 }
 
-export const mapDispatchToProps = dispatch => ( {
+export const mapDispatchToProps = (dispatch) => ({
   clearFocus: () => {
-    dispatch( removeFocus() );
-  }
-} );
+    dispatch(removeFocus());
+  },
+});
 
-export const mapStateToProps = state => ( {
+export const mapStateToProps = (state) => ({
   focus: state.query.focus,
   lens: state.query.lens,
-  total: state.trends.total.toLocaleString()
-} );
+  total: state.trends.total.toLocaleString(),
+});
 
-export default connect( mapStateToProps, mapDispatchToProps )( FocusHeader );
+export default connect(mapStateToProps, mapDispatchToProps)(FocusHeader);
 
 FocusHeader.propTypes = {
   focus: PropTypes.string,
   lens: PropTypes.string.isRequired,
   total: PropTypes.string.isRequired,
-  clearFocus: PropTypes.func.isRequired
+  clearFocus: PropTypes.func.isRequired,
 };

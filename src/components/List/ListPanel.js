@@ -23,14 +23,14 @@ const NO_RESULTS = 'NO_RESULTS';
 const RESULTS = 'RESULTS';
 
 export class ListPanel extends React.Component {
-  constructor( props ) {
-    super( props );
+  constructor(props) {
+    super(props);
 
     // Render/Phase Map
     this.renderMap = {
-      ERROR: this._renderError.bind( this ),
-      NO_RESULTS: this._renderNoResults.bind( this ),
-      RESULTS: this._renderResults.bind( this )
+      ERROR: this._renderError.bind(this),
+      NO_RESULTS: this._renderNoResults.bind(this),
+      RESULTS: this._renderResults.bind(this),
     };
   }
 
@@ -76,9 +76,9 @@ export class ListPanel extends React.Component {
   _determinePhase() {
     // determine the phase
     let phase = NO_RESULTS;
-    if ( this.props.hasError ) {
+    if (this.props.hasError) {
       phase = ERROR;
-    } else if ( this.props.items.length > 0 ) {
+    } else if (this.props.items.length > 0) {
       phase = RESULTS;
     }
 
@@ -99,37 +99,37 @@ export class ListPanel extends React.Component {
   _renderResults() {
     return (
       <ul className="cards-panel">
-        {this.props.items.map( item =>
+        {this.props.items.map((item) => (
           <ComplaintCard key={item.complaint_id} row={item} />
-        )}
+        ))}
       </ul>
     );
   }
 }
 
-const mapStateToProps = state => ( {
+const mapStateToProps = (state) => ({
   hasError: state.aggs.hasError,
   isLoading: state.results.isLoading,
   items: state.results.items,
   hasMobileFilters: state.view.width < 750,
   size: state.query.size,
-  sort: state.query.sort
-} );
+  sort: state.query.sort,
+});
 
-export const mapDispatchToProps = dispatch => ( {
-  onSize: ev => {
-    const iSize = parseInt( ev.target.value, 10 );
-    sendAnalyticsEvent( 'Dropdown', iSize + ' results' );
-    dispatch( changeSize( iSize ) );
+export const mapDispatchToProps = (dispatch) => ({
+  onSize: (ev) => {
+    const iSize = parseInt(ev.target.value, 10);
+    sendAnalyticsEvent('Dropdown', iSize + ' results');
+    dispatch(changeSize(iSize));
   },
-  onSort: ev => {
+  onSort: (ev) => {
     const { value } = ev.target;
-    sendAnalyticsEvent( 'Dropdown', sorts[value] );
-    dispatch( changeSort( value ) );
-  }
-} );
+    sendAnalyticsEvent('Dropdown', sorts[value]);
+    dispatch(changeSort(value));
+  },
+});
 
-export default connect( mapStateToProps, mapDispatchToProps )( ListPanel );
+export default connect(mapStateToProps, mapDispatchToProps)(ListPanel);
 
 ListPanel.propTypes = {
   hasMobileFilters: PropTypes.bool.isRequired,
@@ -139,5 +139,5 @@ ListPanel.propTypes = {
   onSort: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
   hasError: PropTypes.bool,
-  items: PropTypes.array.isRequired
+  items: PropTypes.array.isRequired,
 };

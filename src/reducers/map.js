@@ -9,29 +9,29 @@ export const defaultState = {
   isLoading: false,
   results: {
     product: [],
-    state: []
-  }
+    state: [],
+  },
 };
 
-export const processStateAggregations = agg => {
-  const states = Object.values( agg.state.buckets )
-    .filter( o => TILE_MAP_STATES.includes( o.key ) )
-    .map( o => ( {
+export const processStateAggregations = (agg) => {
+  const states = Object.values(agg.state.buckets)
+    .filter((o) => TILE_MAP_STATES.includes(o.key))
+    .map((o) => ({
       name: o.key,
       value: o.doc_count,
       issue: o.issue.buckets[0].key,
-      product: o.product.buckets[0].key
-    } ) );
+      product: o.product.buckets[0].key,
+    }));
 
-  const stateNames = states.map( o => o.name );
+  const stateNames = states.map((o) => o.name);
 
   // patch any missing data
-  if ( stateNames.length > 0 ) {
-    TILE_MAP_STATES.forEach( o => {
-      if ( !stateNames.includes( o ) ) {
-        states.push( { name: o, value: 0, issue: '', product: '' } );
+  if (stateNames.length > 0) {
+    TILE_MAP_STATES.forEach((o) => {
+      if (!stateNames.includes(o)) {
+        states.push({ name: o, value: 0, issue: '', product: '' });
       }
-    } );
+    });
   }
   return states;
 };
@@ -45,13 +45,13 @@ export const processStateAggregations = agg => {
  * @param {object} state the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
-export function handleTabChanged( state ) {
+export function handleTabChanged(state) {
   return {
     ...state,
     results: {
       product: [],
-      state: []
-    }
+      state: [],
+    },
   };
 }
 
@@ -62,11 +62,11 @@ export function handleTabChanged( state ) {
  * @param {object} action the payload containing the key/value pairs
  * @returns {object} the new state for the Redux store
  */
-export function statesCallInProcess( state, action ) {
+export function statesCallInProcess(state, action) {
   return {
     ...state,
     activeCall: action.url,
-    isLoading: true
+    isLoading: true,
   };
 }
 
@@ -77,20 +77,20 @@ export function statesCallInProcess( state, action ) {
  * @param {object} action the payload containing the key/value pairs
  * @returns {object} new state for the Redux store
  */
-export function processStatesResults( state, action ) {
+export function processStatesResults(state, action) {
   const aggregations = action.data.aggregations;
   const { state: stateData } = aggregations;
   // add in "issue" if we ever need issue row chart again
-  const keys = [ 'product' ];
+  const keys = ['product'];
   const results = {};
-  processAggregations( keys, state, aggregations, results );
-  results.state = processStateAggregations( stateData );
+  processAggregations(keys, state, aggregations, results);
+  results.state = processStateAggregations(stateData);
 
   return {
     ...state,
     activeCall: '',
     isLoading: false,
-    results
+    results,
   };
 }
 
@@ -101,16 +101,16 @@ export function processStatesResults( state, action ) {
  * @param {object} action the payload containing the key/value pairs
  * @returns {object} new state for the Redux store
  */
-export function processStatesError( state, action ) {
+export function processStatesError(state, action) {
   return {
     ...state,
     activeCall: '',
-    error: processErrorMessage( action.error ),
+    error: processErrorMessage(action.error),
     isLoading: false,
     results: {
       product: [],
-      state: []
-    }
+      state: [],
+    },
   };
 }
 
@@ -142,15 +142,15 @@ const _handlers = _buildHandlerMap();
  * @param {object} action the command being executed
  * @returns {object} the new state for the Redux store
  */
-function handleSpecificAction( state, action ) {
-  if ( action.type in _handlers ) {
-    return _handlers[action.type]( state, action );
+function handleSpecificAction(state, action) {
+  if (action.type in _handlers) {
+    return _handlers[action.type](state, action);
   }
 
   return state;
 }
 
-export default ( state = defaultState, action ) => {
-  const newState = handleSpecificAction( state, action );
+export default (state = defaultState, action) => {
+  const newState = handleSpecificAction(state, action);
   return newState;
 };

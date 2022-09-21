@@ -5,17 +5,17 @@ import React from 'react';
 const FIELD_NAME = 'has_narrative';
 
 export const NarrativesButtons = () => {
-  const isChecked = useSelector( state => state.query[FIELD_NAME] || false );
+  const isChecked = useSelector((state) => state.query[FIELD_NAME] || false);
   const dispatch = useDispatch();
   const _handleAddNarrative = () => {
-    if ( !isChecked ) {
-      dispatch( addFilter( FIELD_NAME, '' ) );
+    if (!isChecked) {
+      dispatch(addFilter(FIELD_NAME, ''));
     }
   };
 
   const _handleRemoveNarrative = () => {
-    if ( isChecked ) {
-      dispatch( removeFilter( FIELD_NAME, '' ) );
+    if (isChecked) {
+      dispatch(removeFilter(FIELD_NAME, ''));
     }
   };
 

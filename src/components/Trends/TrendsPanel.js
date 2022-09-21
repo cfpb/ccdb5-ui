@@ -38,7 +38,7 @@ const subLensMap = {
   sub_product: 'Sub-products',
   sub_issue: 'Sub-issues',
   issue: 'Issues',
-  product: 'Products'
+  product: 'Products',
 };
 
 const lensHelperTextMap = {
@@ -56,21 +56,21 @@ const lensHelperTextMap = {
     ' Click on a product to expand issues.',
   overview:
     'Product the consumer identified in the complaint. Click on a ' +
-    ' product to expand sub-products'
+    ' product to expand sub-products',
 };
 
 const focusHelperTextMap = {
   sub_product: 'Sub-products the consumer identified in the complaint',
   product: 'Product the consumer identified in the complaint',
-  issue: 'Issues the consumer identified in the complaint'
+  issue: 'Issues the consumer identified in the complaint',
 };
 
 export class TrendsPanel extends React.Component {
   _areaChartTitle() {
     const { focus, hasOverview, subLens } = this.props;
-    if ( hasOverview ) {
+    if (hasOverview) {
       return 'Complaints by date received by the CFPB';
-    } else if ( focus ) {
+    } else if (focus) {
       return (
         'Complaints by ' +
         subLensMap[subLens].toLowerCase() +
@@ -81,11 +81,11 @@ export class TrendsPanel extends React.Component {
   }
 
   _className() {
-    const classes = [ 'trends-panel' ];
-    if ( !this.props.hasOverview ) {
-      classes.push( 'external-tooltip' );
+    const classes = ['trends-panel'];
+    if (!this.props.hasOverview) {
+      classes.push('external-tooltip');
     }
-    return classes.join( ' ' );
+    return classes.join(' ');
   }
 
   _phaseMap() {
@@ -101,14 +101,14 @@ export class TrendsPanel extends React.Component {
       maxDate,
       productData,
       subLensTitle,
-      total
+      total,
     } = this.props;
 
-    if ( companyOverlay ) {
+    if (companyOverlay) {
       return null;
     }
 
-    if ( hasOverview ) {
+    if (hasOverview) {
       return (
         <RowChart
           id="product"
@@ -123,7 +123,7 @@ export class TrendsPanel extends React.Component {
       );
     }
 
-    if ( this.props.focus ) {
+    if (this.props.focus) {
       return (
         <RowChart
           id={lens}
@@ -146,7 +146,7 @@ export class TrendsPanel extends React.Component {
         helperText={lensHelperText}
         total={total}
         key={lens + 'row'}
-      />
+      />,
     ];
   }
 
@@ -164,18 +164,18 @@ export class TrendsPanel extends React.Component {
       hasOverview,
       hasMobileFilters,
       total,
-      trendsDateWarningEnabled
+      trendsDateWarningEnabled,
     } = this.props;
     return (
       <section className={this._className()}>
         <ActionBar />
         <TabbedNavigation />
-        {trendsDateWarningEnabled &&
+        {trendsDateWarningEnabled && (
           <Warning
             text={WARNING_MESSAGE}
             closeFn={this.props.onDismissWarning}
           />
-        }
+        )}
         {hasMobileFilters && <FilterPanel />}
         <div className="layout-row refine-bar">
           <FilterPanelToggle />
@@ -198,11 +198,11 @@ export class TrendsPanel extends React.Component {
           />
           {!hasOverview && [
             <Separator key={'separator'} />,
-            <ChartToggles key={'chart-toggles'} />
+            <ChartToggles key={'chart-toggles'} />,
           ]}
         </div>
 
-        {companyOverlay &&
+        {companyOverlay && (
           <div className="layout-row company-overlay">
             <section className="company-search">
               <p>
@@ -213,11 +213,11 @@ export class TrendsPanel extends React.Component {
               <CompanyTypeahead id={'modal-search'} />
             </section>
           </div>
-        }
+        )}
 
         {focus && <FocusHeader />}
 
-        {!companyOverlay && hasOverview && total > 0 &&
+        {!companyOverlay && hasOverview && total > 0 && (
           <div className="layout-row">
             <section className="chart-description">
               <h2 className="area-chart-title">{this._areaChartTitle()}</h2>
@@ -228,9 +228,9 @@ export class TrendsPanel extends React.Component {
               </p>
             </section>
           </div>
-        }
+        )}
 
-        {!companyOverlay && !hasOverview && total > 0 &&
+        {!companyOverlay && !hasOverview && total > 0 && (
           <div className="layout-row">
             <section className="chart-description">
               <h2 className="area-chart-title">{this._areaChartTitle()}</h2>
@@ -243,9 +243,9 @@ export class TrendsPanel extends React.Component {
               </p>
             </section>
           </div>
-        }
+        )}
 
-        {!companyOverlay && total > 0 &&
+        {!companyOverlay && total > 0 && (
           <>
             <div className="layout-row date-range-disclaimer">
               <strong>
@@ -260,7 +260,7 @@ export class TrendsPanel extends React.Component {
               {!hasOverview && <ExternalTooltip />}
             </div>
           </>
-        }
+        )}
 
         {total > 0 && this._phaseMap()}
         <TrendDepthToggle />
@@ -270,7 +270,7 @@ export class TrendsPanel extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const {
     company: companyFilters,
     dateInterval,
@@ -278,7 +278,7 @@ const mapStateToProps = state => {
     date_received_min: minDate,
     lens,
     subLens,
-    trendsDateWarningEnabled
+    trendsDateWarningEnabled,
   } = state.query;
 
   const { chartType, colorMap, focus, isLoading, results, total } =
@@ -287,7 +287,7 @@ const mapStateToProps = state => {
   const { expandedRows } = state.view;
 
   const lensKey = lens.toLowerCase();
-  const focusKey = subLens.replace( '_', '-' );
+  const focusKey = subLens.replace('_', '-');
   const lensHelperText =
     subLens === '' ? lensHelperTextMap[lensKey] : lensHelperTextMap[subLens];
   const focusHelperText =
@@ -295,18 +295,18 @@ const mapStateToProps = state => {
 
   return {
     chartType,
-    companyData: processRows( results.company, false, lens, expandedRows ),
-    companyOverlay: showCompanyOverLay( lens, companyFilters, isLoading ),
+    companyData: processRows(results.company, false, lens, expandedRows),
+    companyOverlay: showCompanyOverLay(lens, companyFilters, isLoading),
     dateInterval,
     focus,
-    focusData: processRows( results[focusKey], colorMap, lens, expandedRows ),
-    intervals: getIntervals( minDate, maxDate ),
+    focusData: processRows(results[focusKey], colorMap, lens, expandedRows),
+    intervals: getIntervals(minDate, maxDate),
     isLoading,
-    productData: processRows( results.product, false, lens, expandedRows ),
-    dataLensData: processRows( results[lensKey], colorMap, lens, expandedRows ),
+    productData: processRows(results.product, false, lens, expandedRows),
+    dataLensData: processRows(results[lensKey], colorMap, lens, expandedRows),
     lens,
-    minDate: shortFormat( minDate ),
-    maxDate: shortFormat( maxDate ),
+    minDate: shortFormat(minDate),
+    maxDate: shortFormat(maxDate),
     hasOverview: lens === 'Overview',
     hasMobileFilters: state.view.width < 750,
     subLens,
@@ -314,27 +314,27 @@ const mapStateToProps = state => {
     lensHelperText: lensHelperText,
     focusHelperText: focusHelperText,
     total,
-    trendsDateWarningEnabled
+    trendsDateWarningEnabled,
   };
 };
 
-export const mapDispatchToProps = dispatch => ( {
+export const mapDispatchToProps = (dispatch) => ({
   onDismissWarning: () => {
-    dispatch( trendsDateWarningDismissed() );
+    dispatch(trendsDateWarningDismissed());
   },
-  onInterval: ev => {
+  onInterval: (ev) => {
     const { value } = ev.target;
-    sendAnalyticsEvent( 'Dropdown', 'Trends:' + value );
-    dispatch( changeDateInterval( value ) );
+    sendAnalyticsEvent('Dropdown', 'Trends:' + value);
+    dispatch(changeDateInterval(value));
   },
-  onLens: ev => {
+  onLens: (ev) => {
     const { value } = ev.target;
-    sendAnalyticsEvent( 'Dropdown', 'Trends:' + value );
-    dispatch( changeDataLens( value ) );
-  }
-} );
+    sendAnalyticsEvent('Dropdown', 'Trends:' + value);
+    dispatch(changeDataLens(value));
+  },
+});
 
-export default connect( mapStateToProps, mapDispatchToProps )( TrendsPanel );
+export default connect(mapStateToProps, mapDispatchToProps)(TrendsPanel);
 
 TrendsPanel.propTypes = {
   focus: PropTypes.string,
@@ -359,5 +359,5 @@ TrendsPanel.propTypes = {
   onLens: PropTypes.func.isRequired,
   hasMobileFilters: PropTypes.bool,
   isTrendsDateWarningEnabled: PropTypes.bool,
-  onDismissWarning: PropTypes.func
+  onDismissWarning: PropTypes.func,
 };
