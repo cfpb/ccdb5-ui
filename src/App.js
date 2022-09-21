@@ -1,6 +1,6 @@
 import './css/App.less';
 import { applyMiddleware, createStore } from 'redux';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
@@ -56,17 +56,18 @@ DetailComponents.propTypes = {
 /* eslint-enable camelcase */
 
 // eslint-disable-next-line react/no-multi-comp
-export class App extends React.Component {
-  render() {
+/**
+ *
+ */
+export function App() {
     return (
       <Provider store={store}>
         <Router>
-          <Switch>
-            <Route path="*/detail/:id" component={DetailComponents} />
-            <Route path="/" component={SearchComponents} />
-          </Switch>
+          <Routes>
+            <Route path="/" element={<SearchComponents />} />
+            <Route path="*/detail/:id" element={<DetailComponents />} />
+          </Routes>
         </Router>
       </Provider>
     );
-  }
 }
