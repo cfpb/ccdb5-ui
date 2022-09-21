@@ -8,7 +8,8 @@ export const STATE_FILTER_REMOVED = 'STATE_FILTER_REMOVED';
 
 /**
  * Indicates data normalization (yes, Per 1000 population) value was selected
- * @param {object} value of the data normalization
+ *
+ * @param {object} value - of the data normalization
  * @returns {object} a packaged payload to be used by Redux reducers
  */
 export function dataNormalizationChanged(value) {
@@ -22,7 +23,7 @@ export function dataNormalizationChanged(value) {
 /**
  * Creates an action in response after state tile clicked
  *
- * @param {object} selectedState the tile map state that is toggled
+ * @param {object} selectedState - the tile map state that is toggled
  * @returns {string} a packaged payload to be used by Redux reducers
  */
 export function addStateFilter(selectedState) {
@@ -60,7 +61,7 @@ export function showStateComplaints() {
 /**
  * Creates an action in response after state tile clicked
  *
- * @param {object} selectedState the tile map state that is toggled
+ * @param {object} selectedState - the tile map state that is toggled
  * @returns {string} a packaged payload to be used by Redux reducers
  */
 export function removeStateFilter(selectedState) {

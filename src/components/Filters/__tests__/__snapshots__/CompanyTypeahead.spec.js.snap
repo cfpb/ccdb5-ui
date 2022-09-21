@@ -31,7 +31,6 @@ exports[`component::CompanyTypeahead snapshots renders disabled without crashing
     <input
       autoComplete="off"
       className="a-text-input"
-      disabled={true}
       id="company-typeahead-foobar"
       onChange={[Function]}
       onKeyDown={[Function]}

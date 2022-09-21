@@ -6,7 +6,7 @@ import React from 'react';
 export default class Option extends React.Component {
   render() {
     const classes = ['typeahead-option', 'body-copy'];
-    if (this.props.selected) {
+    if (this.props.isSelected) {
       classes.push('selected');
     }
 
@@ -23,10 +23,11 @@ export default class Option extends React.Component {
 }
 
 Option.propTypes = {
-  selected: PropTypes.bool,
+  children: PropTypes.node,
+  isSelected: PropTypes.bool,
   onClick: PropTypes.func.isRequired,
 };
 
 Option.defaultProps = {
-  selected: false,
+  isSelected: false,
 };

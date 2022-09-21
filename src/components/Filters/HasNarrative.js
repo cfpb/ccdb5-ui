@@ -42,10 +42,6 @@ export class HasNarrative extends React.Component {
 // ----------------------------------------------------------------------------
 // Meta
 
-HasNarrative.propTypes = {
-  isChecked: PropTypes.bool,
-};
-
 export const mapStateToProps = (state) => {
   const isChecked = coalesce(state.query, FIELD_NAME, false);
   const searchField = state.query.searchField;

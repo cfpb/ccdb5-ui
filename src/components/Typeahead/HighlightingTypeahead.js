@@ -67,7 +67,6 @@ export default class HighlightingTypeahead extends React.Component {
 }
 
 HighlightingTypeahead.propTypes = {
-  disabled: PropTypes.bool,
   maxVisible: PropTypes.number,
   minLength: PropTypes.number,
   onOptionSelected: PropTypes.func.isRequired,
@@ -77,7 +76,6 @@ HighlightingTypeahead.propTypes = {
 };
 
 HighlightingTypeahead.defaultProps = {
-  disabled: false,
   maxVisible: 5,
   minLength: 2,
   placeholder: 'Enter your search text',

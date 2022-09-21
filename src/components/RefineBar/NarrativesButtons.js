@@ -5,7 +5,8 @@ import React from 'react';
 const FIELD_NAME = 'has_narrative';
 
 export const NarrativesButtons = () => {
-  const isChecked = useSelector((state) => state.query[FIELD_NAME] || false);
+  const fieldQuerySelector = (state) => state.query[FIELD_NAME] || false;
+  const isChecked = useSelector(fieldQuerySelector);
   const dispatch = useDispatch();
   const _handleAddNarrative = () => {
     if (!isChecked) {

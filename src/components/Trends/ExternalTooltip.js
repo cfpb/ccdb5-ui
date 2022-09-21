@@ -75,11 +75,11 @@ export class ExternalTooltip extends React.Component {
       return (
         <section className={'tooltip-container u-clearfix ' + focus}>
           {this.props.hasCompanyTypeahead && (
-            <CompanyTypeahead id={'external-tooltip'} />
+            <CompanyTypeahead id="external-tooltip" />
           )}
           <p className="a-micro-copy">
-            <span className={'heading'}>{this.props.tooltip.heading}</span>
-            <span className={'date'}>{this.props.tooltip.date}</span>
+            <span className="heading">{this.props.tooltip.heading}</span>
+            <span className="date">{this.props.tooltip.date}</span>
           </p>
           <div>
             <ul className="tooltip-ul">

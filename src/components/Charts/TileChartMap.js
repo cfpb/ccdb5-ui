@@ -30,7 +30,7 @@ export class TileChartMap extends React.Component {
           id="tile-chart-map"
           className={'cfpb-chart ' + this.props.printClass}
           data-chart-type="tile_map"
-        ></div>
+        />
       </div>
     );
   }
@@ -85,7 +85,8 @@ export class TileChartMap extends React.Component {
 
 /**
  * helper function to get display value of tile based on selected dropdown.
- * @param {object} props contains data and normalization
+ *
+ * @param {object} props - contains data and normalization
  * @returns {object} data provided to tile map
  */
 function updateData(props) {
@@ -101,8 +102,9 @@ function updateData(props) {
 
 /**
  * helper function to calculate percapita value
- * @param {object} stateObj a state containing abbr and value
- * @param {object} stateInfo other information about the state
+ *
+ * @param {object} stateObj - a state containing abbr and value
+ * @param {object} stateInfo - other information about the state
  * @returns {string} the Per 1000 population value
  */
 function getPerCapita(stateObj, stateInfo) {

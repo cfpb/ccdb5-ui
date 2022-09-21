@@ -34,7 +34,7 @@ export function prevPageShown() {
 /**
  * Notifies the application that the size of a page of results has changed
  *
- * @param {int} size the new size of a page
+ * @param {int} size - the new size of a page
  * @returns {string} a packaged payload to be used by Redux reducers
  */
 export function changeSize(size) {
@@ -50,7 +50,7 @@ export function changeSize(size) {
 /**
  * Notifies the application that the sort order of results has changed
  *
- * @param {string} sort the new sort.  Should match a value expected by the API
+ * @param {string} sort - the new sort.  Should match a value expected by the API
  * @returns {string} a packaged payload to be used by Redux reducers
  */
 export function changeSort(sort) {

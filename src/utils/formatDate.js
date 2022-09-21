@@ -9,7 +9,8 @@ dayjs.extend(dayjsUtc);
 
 /**
  * Function to format/convert a string to format we want
- * @param {(string | object)} uglyDate the input string to convert
+ *
+ * @param {(string | object)} uglyDate - the input string to convert
  * @returns {string} the cleaned up string in YYYY-MM-DD
  */
 export const formatDate = (uglyDate) =>
@@ -17,7 +18,8 @@ export const formatDate = (uglyDate) =>
 
 /**
  * adjusting dates coming from the charts so the dates are correct
- * @param {(string | object)} dateIn the input string to convert
+ *
+ * @param {(string | object)} dateIn - the input string to convert
  * @returns {string} the cleaned up string in M/D/YYYY
  */
 export const adjustDate = (dateIn) =>
@@ -25,7 +27,8 @@ export const adjustDate = (dateIn) =>
 
 /**
  * Function to format/convert a string to format we want for the model
- * @param {(string | object)} dateIn the input string to convert
+ *
+ * @param {(string | object)} dateIn - the input string to convert
  * @returns {string} the cleaned up string in YYYY-MM-DD
  */
 export const formatDateModel = (dateIn) =>
@@ -33,7 +36,8 @@ export const formatDateModel = (dateIn) =>
 
 /**
  * Function to format/convert a string to format we want for the model
- * @param {(string | object)} dateIn the input string to convert
+ *
+ * @param {(string | object)} dateIn - the input string to convert
  * @returns {string} the cleaned up string in Jul 4, 2010
  */
 export const formatDateLocaleShort = (dateIn) =>
@@ -41,8 +45,9 @@ export const formatDateLocaleShort = (dateIn) =>
 
 /**
  * function to convert and compare 2 strings as dates
- * @param {string} a input date string to compare MM/DD/YYYY or YYYY-MM-DD
- * @param {string} b input date string to compare MM/DD/YYYY or YYYY-MM-DD
+ *
+ * @param {string} a - input date string to compare MM/DD/YYYY or YYYY-MM-DD
+ * @param {string} b - input date string to compare MM/DD/YYYY or YYYY-MM-DD
  * @returns {boolean} lets us know if date is equal
  */
 export const isDateEqual = (a, b) =>
@@ -50,8 +55,9 @@ export const isDateEqual = (a, b) =>
 
 /**
  * function to convert and compare 2 strings as dates
- * @param {string} a input date string to compare MM/DD/YYYY or YYYY-MM-DD
- * @param {string} b input date string to compare MM/DD/YYYY or YYYY-MM-DD
+ *
+ * @param {string} a - input date string to compare MM/DD/YYYY or YYYY-MM-DD
+ * @param {string} b - input date string to compare MM/DD/YYYY or YYYY-MM-DD
  * @returns {number} the return of the compared converted values
  */
 export const compareDates = (a, b) => {

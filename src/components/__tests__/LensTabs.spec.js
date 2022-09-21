@@ -94,7 +94,7 @@ describe('component:LensTabs', () => {
         <LensTabs
           onTab={cb}
           lens={'Product'}
-          showProductTab={true}
+          hasProductTab={true}
           subLens={'Issue'}
           showTitle={true}
         />
@@ -150,7 +150,7 @@ describe('component:LensTabs', () => {
       expect(actual).toEqual({
         focus: '',
         lens: 'foo',
-        showProductTab: true,
+        hasProductTab: true,
         subLens: 'bar',
       });
     });

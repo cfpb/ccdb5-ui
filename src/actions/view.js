@@ -91,7 +91,7 @@ export function hideAdvancedTips() {
 /**
  * Indicates a bar in row chart has been collapsed
  *
- * @param {string} value of trend agg that was toggled
+ * @param {string} value - of trend agg that was toggled
  * @returns {string} a packaged payload to be used by Redux reducers
  */
 export function collapseRow(value) {
@@ -105,7 +105,7 @@ export function collapseRow(value) {
 /**
  * Indicates a bar in row chart has been expanded
  *
- * @param {string} value of trend agg that was toggled
+ * @param {string} value - of trend agg that was toggled
  * @returns {string} a packaged payload to be used by Redux reducers
  */
 export function expandRow(value) {
@@ -118,7 +118,8 @@ export function expandRow(value) {
 
 /**
  * Notifies the application that the screen has resized
- * @param {string} width the width of the screen
+ *
+ * @param {string} width - the width of the screen
  * @returns {string} a packaged payload to be used by Redux reducers
  */
 export function screenResized(width) {
@@ -132,7 +133,7 @@ export function screenResized(width) {
 /**
  * Notifies the application that the tab has changed
  *
- * @param {string} tab the new tab name
+ * @param {string} tab - the new tab name
  * @returns {string} a packaged payload to be used by Redux reducers
  */
 export function tabChanged(tab) {

@@ -10,10 +10,10 @@ export class FocusHeader extends React.Component {
   render() {
     const { focus, lens, total } = this.props;
     return (
-      <div className={'focus-header'}>
+      <div className="focus-header">
         <button
-          className={'a-btn a-btn__link clear-focus'}
-          id={'clear-focus'}
+          className="a-btn a-btn__link clear-focus"
+          id="clear-focus"
           onClick={() => {
             this.props.clearFocus(lens);
           }}
@@ -24,11 +24,11 @@ export class FocusHeader extends React.Component {
         <div>
           <section className="focus">
             <h1>{focus}</h1>
-            <span className={'divider'}></span>
+            <span className="divider" />
             <h2>{total} Complaints</h2>
           </section>
         </div>
-        <LensTabs showTitle={false} key={'lens-tab'} />
+        <LensTabs showTitle={false} key="lens-tab" />
       </div>
     );
   }

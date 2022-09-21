@@ -27,7 +27,7 @@ export class CompanyTypeahead extends React.Component {
         onOptionSelected={this._onOptionSelected}
         placeholder="Enter company name"
         renderOption={this._renderOption}
-        disabled={this.props.disabled}
+        disabled={this.props.isDisabled}
       />
     );
   }
@@ -70,7 +70,7 @@ export const mapStateToProps = (state) => {
   // make sure searchAfter doesn't appear, it'll mess up your search endpoint
   queryState.searchAfter = '';
   return {
-    disabled: state.query.focus && state.query.lens === 'Company',
+    isDisabled: state.query.focus && state.query.lens === 'Company',
     queryString: stateToQS(queryState),
   };
 };

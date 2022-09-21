@@ -130,10 +130,10 @@ export class LineChart extends React.Component {
 
   render() {
     return this.props.hasChart ? (
-      <div className={'chart-wrapper'}>
-        <p className={'y-axis-label'}>Complaints</p>
-        <div id="line-chart"></div>
-        <p className={'x-axis-label'}>Date received by the CFPB</p>
+      <div className="chart-wrapper">
+        <p className="y-axis-label">Complaints</p>
+        <div id="line-chart" />
+        <p className="x-axis-label">Date received by the CFPB</p>
       </div>
     ) : (
       <ErrorBlock text="Cannot display chart. Adjust your date range or date interval." />

@@ -11,7 +11,7 @@ const queryString = require('query-string');
 /**
  * Converts the properties into a query string
  *
- * @param {string} props the props of a component
+ * @param {string} props - the props of a component
  * @returns {string} a formatted query string that can be appended to a URL
  */
 export function toQS(props) {

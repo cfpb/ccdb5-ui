@@ -46,10 +46,10 @@ export class ListPanel extends React.Component {
           <FilterPanelToggle />
           <Separator />
           <Select
-            label={'Select the number of results to display at a time'}
-            title={'Show'}
+            label="Select the number of results to display at a time"
+            title="Show"
             values={sizes}
-            id={'size'}
+            id="size"
             value={this.props.size}
             handleChange={this.props.onSize}
           />

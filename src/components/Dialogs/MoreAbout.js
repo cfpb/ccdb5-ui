@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class MoreAbout extends React.Component {
@@ -60,3 +61,7 @@ export default class MoreAbout extends React.Component {
     );
   }
 }
+
+MoreAbout.propTypes = {
+  onClose: PropTypes.func,
+};

@@ -4,12 +4,11 @@ import { dataNormalizationChanged } from '../../actions/map';
 import React from 'react';
 
 export const PerCapita = () => {
-  const dataNormalization = useSelector(
-    (state) => state.query.dataNormalization || GEO_NORM_NONE
-  );
-  const enablePer1000 = useSelector(
-    (state) => state.query.enablePer1000 || false
-  );
+  const dataNormalizationSelector = (state) =>
+    state.query.dataNormalization || GEO_NORM_NONE;
+  const enablePer1000Selector = (state) => state.query.enablePer1000 || false;
+  const dataNormalization = useSelector(dataNormalizationSelector);
+  const enablePer1000 = useSelector(enablePer1000Selector);
   const dispatch = useDispatch();
 
   const _setNormalization = (val) => {

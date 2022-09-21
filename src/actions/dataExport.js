@@ -14,7 +14,7 @@ const DATA_HOST = 'https://files.consumerfinance.gov';
 /**
  * Builds the URI for exporting all results
  *
- * @param {string} format CSV or JSON
+ * @param {string} format - CSV or JSON
  * @returns {string} the URI for the specific type of format
  */
 export function buildAllResultsUri(format) {
@@ -24,9 +24,9 @@ export function buildAllResultsUri(format) {
 /**
  * Builds the URI for exporting some results
  *
- * @param {string} format CSV or JSON
- * @param {number} size the number of results to export
- * @param {Object} queryState the current state of the query reducer
+ * @param {string} format - CSV or JSON
+ * @param {number} size - the number of results to export
+ * @param {object} queryState - the current state of the query reducer
  * @returns {string} the URI for the specific type of format
  */
 export function buildSomeResultsUri(format, size, queryState) {
@@ -59,8 +59,8 @@ export function showExportDialog() {
 /**
  * Call the URL that contains the entire dataset
  *
- * @param {string} format JSON or CSV
- * @returns {function} a set of steps to execute
+ * @param {string} format - JSON or CSV
+ * @returns {Function} a set of steps to execute
  */
 export function exportAllResults(format) {
   return () => {
@@ -73,9 +73,9 @@ export function exportAllResults(format) {
 /**
  * Call the export endpoint of the API with the current filter criteria
  *
- * @param {string} format JSON or CSV
- * @param {int} size The number of rows in the dataset
- * @returns {function} a set of steps to execute
+ * @param {string} format - JSON or CSV
+ * @param {int} size - The number of rows in the dataset
+ * @returns {Function} a set of steps to execute
  */
 export function exportSomeResults(format, size) {
   return (_, getState) => {

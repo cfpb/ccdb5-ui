@@ -66,7 +66,6 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
       <input
         autoComplete="off"
         className="a-text-input"
-        disabled={false}
         id="issue-typeahead"
         onChange={[Function]}
         onKeyDown={[Function]}
@@ -332,7 +331,6 @@ exports[`component:Issue snapshots renders without crashing 1`] = `
       <input
         autoComplete="off"
         className="a-text-input"
-        disabled={false}
         id="issue-typeahead"
         onChange={[Function]}
         onKeyDown={[Function]}

@@ -90,7 +90,7 @@ export class TrendsPanel extends React.Component {
 
   _phaseMap() {
     const {
-      companyOverlay,
+      hasCompanyOverlay,
       dataLensData,
       focusData,
       focusHelperText,
@@ -104,7 +104,7 @@ export class TrendsPanel extends React.Component {
       total,
     } = this.props;
 
-    if (companyOverlay) {
+    if (hasCompanyOverlay) {
       return null;
     }
 
@@ -137,7 +137,7 @@ export class TrendsPanel extends React.Component {
     }
 
     return [
-      <LensTabs key={'lens-tab'} showTitle={true} />,
+      <LensTabs key="lens-tab" showTitle={true} />,
       <RowChart
         id={lens}
         colorScheme={dataLensData.colorScheme}
@@ -153,7 +153,7 @@ export class TrendsPanel extends React.Component {
   render() {
     const {
       chartType,
-      companyOverlay,
+      hasCompanyOverlay,
       dateInterval,
       focus,
       intervals,
@@ -164,13 +164,13 @@ export class TrendsPanel extends React.Component {
       hasOverview,
       hasMobileFilters,
       total,
-      trendsDateWarningEnabled,
+      isTrendsDateWarningEnabled,
     } = this.props;
     return (
       <section className={this._className()}>
         <ActionBar />
         <TabbedNavigation />
-        {trendsDateWarningEnabled && (
+        {isTrendsDateWarningEnabled && (
           <Warning
             text={WARNING_MESSAGE}
             closeFn={this.props.onDismissWarning}
@@ -180,29 +180,29 @@ export class TrendsPanel extends React.Component {
         <div className="layout-row refine-bar">
           <FilterPanelToggle />
           <Select
-            label={'Aggregate complaints by'}
-            title={'Aggregate by'}
+            label="Aggregate complaints by"
+            title="Aggregate by"
             values={lenses}
-            id={'lens'}
+            id="lens"
             value={lens}
             handleChange={onLens}
           />
           <Separator />
           <Select
-            label={'Choose the Date interval'}
-            title={'Date interval'}
+            label="Choose the Date interval"
+            title="Date interval"
             values={intervals}
-            id={'interval'}
+            id="interval"
             value={dateInterval}
             handleChange={onInterval}
           />
           {!hasOverview && [
-            <Separator key={'separator'} />,
-            <ChartToggles key={'chart-toggles'} />,
+            <Separator key="separator" />,
+            <ChartToggles key="chart-toggles" />,
           ]}
         </div>
 
-        {companyOverlay && (
+        {hasCompanyOverlay && (
           <div className="layout-row company-overlay">
             <section className="company-search">
               <p>
@@ -210,14 +210,14 @@ export class TrendsPanel extends React.Component {
                 type-ahead menu below. You can add more than one company to
                 your view
               </p>
-              <CompanyTypeahead id={'modal-search'} />
+              <CompanyTypeahead id="modal-search" />
             </section>
           </div>
         )}
 
         {focus && <FocusHeader />}
 
-        {!companyOverlay && hasOverview && total > 0 && (
+        {!hasCompanyOverlay && hasOverview && total > 0 && (
           <div className="layout-row">
             <section className="chart-description">
               <h2 className="area-chart-title">{this._areaChartTitle()}</h2>
@@ -230,7 +230,7 @@ export class TrendsPanel extends React.Component {
           </div>
         )}
 
-        {!companyOverlay && !hasOverview && total > 0 && (
+        {!hasCompanyOverlay && !hasOverview && total > 0 && (
           <div className="layout-row">
             <section className="chart-description">
               <h2 className="area-chart-title">{this._areaChartTitle()}</h2>
@@ -245,7 +245,7 @@ export class TrendsPanel extends React.Component {
           </div>
         )}
 
-        {!companyOverlay && total > 0 && (
+        {!hasCompanyOverlay && total > 0 && (
           <>
             <div className="layout-row date-range-disclaimer">
               <strong>
@@ -278,7 +278,7 @@ const mapStateToProps = (state) => {
     date_received_min: minDate,
     lens,
     subLens,
-    trendsDateWarningEnabled,
+    isTrendsDateWarningEnabled,
   } = state.query;
 
   const { chartType, colorMap, focus, isLoading, results, total } =
@@ -296,7 +296,7 @@ const mapStateToProps = (state) => {
   return {
     chartType,
     companyData: processRows(results.company, false, lens, expandedRows),
-    companyOverlay: showCompanyOverLay(lens, companyFilters, isLoading),
+    hasCompanyOverlay: showCompanyOverLay(lens, companyFilters, isLoading),
     dateInterval,
     focus,
     focusData: processRows(results[focusKey], colorMap, lens, expandedRows),
@@ -314,7 +314,7 @@ const mapStateToProps = (state) => {
     lensHelperText: lensHelperText,
     focusHelperText: focusHelperText,
     total,
-    trendsDateWarningEnabled,
+    isTrendsDateWarningEnabled,
   };
 };
 

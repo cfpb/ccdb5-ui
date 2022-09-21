@@ -23,7 +23,7 @@ module.exports = {
     'plugin:react-redux/recommended',
     'plugin:react/jsx-runtime',
     'plugin:jsdoc/recommended',
-    'plugin:jsx-a11y/recommended',
+    //'plugin:jsx-a11y/recommended',
     'react-app',
     'react-app/jest',
     'prettier',

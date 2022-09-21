@@ -27,7 +27,7 @@ export class LensTabs extends React.Component {
   }
 
   render() {
-    const { lens, showProductTab } = this.props;
+    const { lens, hasProductTab } = this.props;
     if (lens === 'Overview') {
       return null;
     }
@@ -36,7 +36,7 @@ export class LensTabs extends React.Component {
     return (
       <div className="tabbed-navigation lens">
         <section>
-          {showProductTab && (
+          {hasProductTab && (
             <button
               className={this._getTabClass(currentLens.tab1.filterName)}
               onClick={() => {
@@ -77,7 +77,7 @@ export const mapStateToProps = (state) => {
   return {
     focus,
     lens,
-    showProductTab: displayProductTab(lens, focus, results),
+    hasProductTab: displayProductTab(lens, focus, results),
     subLens,
   };
 };

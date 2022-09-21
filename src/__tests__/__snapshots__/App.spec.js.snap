@@ -536,7 +536,6 @@ exports[`initial state renders without crashing 1`] = `
                 <input
                   autoComplete="off"
                   className="a-text-input"
-                  disabled={false}
                   id="issue-typeahead"
                   onChange={[Function]}
                   onKeyDown={[Function]}
@@ -770,7 +769,6 @@ exports[`initial state renders without crashing 1`] = `
                 <input
                   autoComplete="off"
                   className="a-text-input"
-                  disabled=""
                   id="company-typeahead-filter-company"
                   onChange={[Function]}
                   onKeyDown={[Function]}

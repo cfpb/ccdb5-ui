@@ -1,9 +1,8 @@
 import './css/App.less';
 import { applyMiddleware, createStore } from 'redux';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-import ComplaintDetail from './components/ComplaintDetail';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { IntlProvider } from 'react-intl';
+import { DetailComponents } from './DetailComponents';
 import { Provider } from 'react-redux';
 import queryManager from './middleware/queryManager';
 import React from 'react';
@@ -31,24 +30,6 @@ const store = createStore(
     // other store enhancers if any
   )
 );
-
-/* eslint-disable camelcase */
-
-export class DetailComponents extends React.Component {
-  render() {
-    const complaint_id = this.props.match.params.id;
-
-    return (
-      <IntlProvider locale="en">
-        <main role="main">
-          <ComplaintDetail complaint_id={complaint_id} />
-        </main>
-      </IntlProvider>
-    );
-  }
-}
-
-/* eslint-enable camelcase */
 
 export class App extends React.Component {
   render() {

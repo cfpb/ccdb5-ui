@@ -178,12 +178,12 @@ export class ComplaintDetail extends React.Component {
               <FormattedDate value={row.date_received} />
             </span>
             <br />
-            <h4 tabIndex="0">Consumer's state</h4>
+            <h4 tabIndex="0">Consumer&apos;s state</h4>
             <span className="body-copy" tabIndex="0">
               {row.state}
             </span>
             <br />
-            <h4 tabIndex="0">Consumer's zip</h4>
+            <h4 tabIndex="0">Consumer&apos;s zip</h4>
             <span className="body-copy" tabIndex="0">
               {row.zip_code}
             </span>
@@ -282,20 +282,6 @@ export class ComplaintDetail extends React.Component {
 // ----------------------------------------------------------------------------
 // Meta
 
-ComplaintDetail.propTypes = {
-  // eslint-disable-next-line camelcase
-  complaint_id: PropTypes.string.isRequired,
-  onClickedBack: PropTypes.func,
-  phase: PropTypes.string,
-  row: PropTypes.object,
-};
-
-ComplaintDetail.defaultProps = {
-  onClickedBack: () => window.history.go(-1),
-  phase: WAITING,
-  row: {},
-};
-
 export const mapStateToProps = (state) => {
   const row = state.detail.data;
   let phase = typeof row.date_received === 'undefined' ? WAITING : RESULTS;
@@ -318,3 +304,18 @@ export const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ComplaintDetail);
+
+ComplaintDetail.propTypes = {
+  // eslint-disable-next-line camelcase
+  complaint_id: PropTypes.string.isRequired,
+  onClickedBack: PropTypes.func,
+  phase: PropTypes.string,
+  row: PropTypes.object,
+  loadDetail: PropTypes.func,
+};
+
+ComplaintDetail.defaultProps = {
+  onClickedBack: () => window.history.go(-1),
+  phase: WAITING,
+  row: {},
+};

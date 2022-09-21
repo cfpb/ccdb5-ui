@@ -22,7 +22,7 @@ export class Select extends React.Component {
 
     if (Array.isArray(this.props.values)) {
       // do nothing, case 2
-      if (this.props.values[0].hasOwnProperty('name')) {
+      if (Object.prototype.hasOwnProperty.call(this.props.values[0], 'name')) {
         values = this.props.values;
       } else {
         // case 1
@@ -48,7 +48,7 @@ export class Select extends React.Component {
     const values = this.getValues();
 
     return (
-      <section className={'cf-select'} data-tour={id}>
+      <section className="cf-select" data-tour={id}>
         <label className="u-visually-hidden" htmlFor={id}>
           {this.props.label}
         </label>

@@ -185,8 +185,8 @@ export class DataExport extends React.Component {
           : this._renderDatasetGroup()}
         {this._renderExportUrl()}
         <div className="timeliness-warning">
-          The export process could take several minutes if you're downloading
-          many complaints
+          The export process could take several minutes if you&apos;re
+          downloading many complaints
         </div>
       </div>
     );
@@ -314,7 +314,7 @@ export class DataExport extends React.Component {
     return (
       <div className="group">
         <div className="group-title">
-          Select which complaints you'd like to export
+          Select which complaints you&apos;d like to export
           <span className="required-helper"> (required)</span>
         </div>
         <div className="body-copy">

@@ -171,7 +171,7 @@ export default class Typeahead extends React.Component {
             type="text"
             autoComplete="off"
             className="a-text-input"
-            disabled={this.props.disabled}
+            disabled={this.props.isDisabled}
             id={this.props.htmlId}
             onChange={this._valueUpdated}
             onKeyDown={this._onKeyDown}
@@ -351,7 +351,7 @@ export default class Typeahead extends React.Component {
   }
 
   _renderWaiting() {
-    return this.props.disableTypeahead ? null : (
+    return this.props.isDisableTypeahead ? null : (
       <span className="waiting">waiting...</span>
     );
   }
@@ -389,7 +389,8 @@ Typeahead.propTypes = {
   ariaLabel: PropTypes.string.isRequired,
   className: PropTypes.string,
   debounceWait: PropTypes.number,
-  disableTypeahead: PropTypes.bool,
+  isDisabled: PropTypes.bool,
+  isDisableTypeahead: PropTypes.bool,
   htmlId: PropTypes.string.isRequired,
   maxVisible: PropTypes.number,
   minLength: PropTypes.number,

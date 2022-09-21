@@ -43,7 +43,7 @@ export default class ComplaintCard extends React.Component {
               </div>
               <div className="spacer" />
               <div className="layout-row">
-                <h4 tabIndex="0">Consumer's state:</h4>
+                <h4 tabIndex="0">Consumer&apos;s state:</h4>
                 {this._renderPossibleHighlight(row.state)}
               </div>
             </div>
@@ -52,7 +52,7 @@ export default class ComplaintCard extends React.Component {
             <h3
               dangerouslySetInnerHTML={{ __html: row.product }}
               tabIndex="0"
-            ></h3>
+            />
             {row.sub_product ? (
               <div className="layout-row">
                 <span className="body-copy subitem" tabIndex="0">
@@ -63,10 +63,7 @@ export default class ComplaintCard extends React.Component {
             ) : null}
             <br />
             <h4 tabIndex="0">Issue</h4>
-            <h3
-              dangerouslySetInnerHTML={{ __html: row.issue }}
-              tabIndex="0"
-            ></h3>
+            <h3 dangerouslySetInnerHTML={{ __html: row.issue }} tabIndex="0" />
             {row.sub_issue ? (
               <div className="layout-row">
                 <span className="body-copy subitem" tabIndex="0">
@@ -102,7 +99,7 @@ export default class ComplaintCard extends React.Component {
         className="body-copy"
         dangerouslySetInnerHTML={{ __html: s }}
         tabIndex="0"
-      ></span>
+      />
     );
   }
 

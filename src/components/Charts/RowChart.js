@@ -218,7 +218,7 @@ export class RowChart extends React.Component {
         <div className="row-chart-section">
           <h3>{this.props.title}</h3>
           <p>{this.props.helperText}</p>
-          <div id={'row-chart-' + this.props.id}></div>
+          <div id={'row-chart-' + this.props.id} />
         </div>
       )
     );
@@ -269,11 +269,18 @@ export const mapStateToProps = (state) => {
 export default connect(mapStateToProps, mapDispatchToProps)(RowChart);
 
 RowChart.propTypes = {
+  isPrintMode: PropTypes.bool,
+  lens: PropTypes.string,
+  aggs: PropTypes.object,
+  selectFocus: PropTypes.func,
+  expandedRows: PropTypes.array,
+  collapseRow: PropTypes.func,
+  expandRow: PropTypes.func,
+  helperText: PropTypes.string,
   id: PropTypes.string.isRequired,
   colorScheme: PropTypes.oneOfType([PropTypes.array, PropTypes.bool])
     .isRequired,
   data: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
   total: PropTypes.number.isRequired,
-  isPrintMode: PropTypes.bool,
 };

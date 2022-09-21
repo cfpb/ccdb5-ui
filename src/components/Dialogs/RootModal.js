@@ -40,7 +40,7 @@ export const RootModal = ({ modalType, modalProps, onClose }) => {
     <ReactModal
       appElement={document.querySelector('#ccdb-ui-root')}
       isOpen={false}
-    ></ReactModal>
+    />
   );
 };
 
@@ -50,7 +50,9 @@ export const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect((state) => state.modal, mapDispatchToProps)(RootModal);
+export const mapStateToProps = (state) => state.modal;
+
+export default connect(mapStateToProps, mapDispatchToProps)(RootModal);
 
 RootModal.propTypes = {
   modalType: PropTypes.string,

@@ -37,8 +37,8 @@ export const defaultAggs = {
 /**
  * handles complaint api call in progress
  *
- * @param {object} state the current state in the Redux store
- * @param {object} action the payload containing the key/value pairs
+ * @param {object} state - the current state in the Redux store
+ * @param {object} action - the payload containing the key/value pairs
  * @returns {object} new state for the Redux store
  */
 export function aggregationsCallInProcess(state, action) {
@@ -52,8 +52,8 @@ export function aggregationsCallInProcess(state, action) {
 /**
  * expanded logic to process complaint data
  *
- * @param {object} state the current state in the Redux store
- * @param {object} action the payload containing the key/value pairs
+ * @param {object} state - the current state in the Redux store
+ * @param {object} action - the payload containing the key/value pairs
  * @returns {object} new state for the Redux store
  */
 export function processAggregationResults(state, action) {
@@ -88,8 +88,8 @@ export function processAggregationResults(state, action) {
 /**
  * handling errors from an complaint api call
  *
- * @param {object} state the current state in the Redux store
- * @param {object} action the payload containing the key/value pairs
+ * @param {object} state - the current state in the Redux store
+ * @param {object} action - the payload containing the key/value pairs
  * @returns {object} new state for the Redux store
  */
 export function processAggregationError(state, action) {
@@ -119,8 +119,8 @@ const _handlers = _buildHandlerMap();
 /**
  * Routes an action to an appropriate handler
  *
- * @param {object} state the current state in the Redux store
- * @param {object} action the command being executed
+ * @param {object} state - the current state in the Redux store
+ * @param {object} action - the command being executed
  * @returns {object} the new state for the Redux store
  */
 function handleSpecificAction(state, action) {

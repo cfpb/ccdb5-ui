@@ -63,7 +63,7 @@ export class AggregationBranch extends React.Component {
 
     // Fix up the subitems to prepend the current item key
     const buckets = subitems.map((sub) => ({
-      disabled: item.disabled,
+      disabled: item.isDisabled,
       key: slugify(item.key, sub.key),
       value: sub.key,
       // eslint-disable-next-line camelcase
@@ -93,7 +93,7 @@ export class AggregationBranch extends React.Component {
           <input
             type="checkbox"
             aria-label={item.key}
-            disabled={item.disabled}
+            disabled={item.isDisabled}
             checked={checkedState === CHECKED}
             className="flex-fixed a-checkbox"
             id={id}
@@ -198,6 +198,7 @@ AggregationBranch.propTypes = {
     doc_count: PropTypes.number.isRequired,
     key: PropTypes.string.isRequired,
     value: PropTypes.string,
+    isDisabled: PropTypes.bool,
   }).isRequired,
   hasChildren: PropTypes.bool,
   subitems: PropTypes.array.isRequired,

@@ -49,10 +49,11 @@ export const defaultState = getDefaultState();
 // Helpers
 /**
  * helper function to process all of the aggregations and fill out results
- * @param {array} keys list of aggs we check product, issue, company, etc
- * @param {object} state redux state
- * @param {object} aggregations coming from the APIO
- * @param {object} results object we are processing and filling out
+ *
+ * @param {Array} keys - list of aggs we check product, issue, company, etc
+ * @param {object} state - redux state
+ * @param {object} aggregations - coming from the APIO
+ * @param {object} results - object we are processing and filling out
  */
 export function processAggregations(keys, state, aggregations, results) {
   keys.forEach((k) => {
@@ -66,8 +67,9 @@ export function processAggregations(keys, state, aggregations, results) {
 /* eslint-disable complexity */
 /**
  * helper function to drill down a bucket and generate special names for D3
- * @param {object} state the state in redux
- * @param {array} agg list of aggregations to go through
+ *
+ * @param {object} state - the state in redux
+ * @param {Array} agg - list of aggregations to go through
  * @returns {object} the representative bar in a d3 row chart
  */
 export function processBucket(state, agg) {
@@ -121,7 +123,8 @@ export function processBucket(state, agg) {
 
 /**
  * helper function to pluralize field values
- * @param {lens} lens value we are processing
+ *
+ * @param {lens} lens - value we are processing
  * @returns {string} for consumption by AreaData function
  */
 export function mainNameLens(lens) {
@@ -135,8 +138,9 @@ export function mainNameLens(lens) {
 
 /**
  * processes the stuff for the area chart, combining them if necessary
- * @param {object} state redux state
- * @param {object} aggregations coming from the trends api
+ *
+ * @param {object} state - redux state
+ * @param {object} aggregations - coming from the trends api
  * @returns {object} the data areas for the stacked area chart
  */
 function processAreaData(state, aggregations) {
@@ -218,10 +222,11 @@ function processAreaData(state, aggregations) {
 
 /**
  * Process aggs and convert them into a format for Line Charts
- * @param {string} lens Overview, Issue, Product, etc
- * @param {object} aggregations comes from the API
- * @param {string} focus if a focus item was selected
- * @param {string} subLens current subLens
+ *
+ * @param {string} lens - Overview, Issue, Product, etc
+ * @param {object} aggregations - comes from the API
+ * @param {string} focus - if a focus item was selected
+ * @param {string} subLens - current subLens
  * @returns {{dataByTopic: ([{dashed: boolean, show: boolean, topic: string,
  * topicName: string, dates: *}]|[])}} theformatted object containing line info
  */
@@ -282,7 +287,8 @@ function processLineData(lens, aggregations, focus, subLens) {
 
 /**
  * processes the aggregation buckets set the parent rows for expandable chart
- * @param {object} bucket subagg bucket with difference intervals
+ *
+ * @param {object} bucket - subagg bucket with difference intervals
  */
 export function processTrendPeriod(bucket) {
   const subKeyName = getSubKeyName(bucket);
@@ -297,8 +303,9 @@ export function processTrendPeriod(bucket) {
 
 /**
  * helper function to map color schemes to available data
- * @param {string} lens selected data lens
- * @param {array} rowNames rows that are in the stacked area charts
+ *
+ * @param {string} lens - selected data lens
+ * @param {Array} rowNames - rows that are in the stacked area charts
  * @returns {object} contains Name:Color map
  */
 export const getColorScheme = (lens, rowNames) => {
@@ -330,8 +337,8 @@ export const getColorScheme = (lens, rowNames) => {
 /**
  * Copies the results locally
  *
- * @param {object} state the current state in the Redux store
- * @param {object} action the command being executed
+ * @param {object} state - the current state in the Redux store
+ * @param {object} action - the command being executed
  * @returns {object} the new state for the Redux store
  */
 export function processTrends(state, action) {
@@ -397,8 +404,8 @@ export function processTrends(state, action) {
 /**
  * Updates the state when an tab changed occurs, reset values to start clean
  *
- * @param {object} state the current state in the Redux store
- * @param {object} action the payload containing the tab we are changing to
+ * @param {object} state - the current state in the Redux store
+ * @param {object} action - the payload containing the tab we are changing to
  * @returns {object} the new state for the Redux store
  */
 export function handleTabChanged(state, action) {
@@ -412,8 +419,8 @@ export function handleTabChanged(state, action) {
 /**
  * Updates the state when an aggregations call is in progress
  *
- * @param {object} state the current state in the Redux store
- * @param {object} action the payload containing the key/value pairs
+ * @param {object} state - the current state in the Redux store
+ * @param {object} action - the payload containing the key/value pairs
  * @returns {object} the new state for the Redux store
  */
 export function trendsCallInProcess(state, action) {
@@ -428,8 +435,8 @@ export function trendsCallInProcess(state, action) {
 /**
  * handling errors from an aggregation call
  *
- * @param {object} state the current state in the Redux store
- * @param {object} action the payload containing the key/value pairs
+ * @param {object} state - the current state in the Redux store
+ * @param {object} action - the payload containing the key/value pairs
  * @returns {object} new state for the Redux store
  */
 export function processTrendsError(state, action) {
@@ -444,8 +451,8 @@ export function processTrendsError(state, action) {
 /**
  * Handler for the update chart type action, dont allow area when Overview
  *
- * @param {object} state the current state in the Redux store
- * @param {object} action the command being executed
+ * @param {object} state - the current state in the Redux store
+ * @param {object} action - the command being executed
  * @returns {object} the new state for the Redux store
  */
 export function updateChartType(state, action) {
@@ -459,8 +466,8 @@ export function updateChartType(state, action) {
 /**
  * Handler for the update data lens action
  *
- * @param {object} state the current state in the Redux store
- * @param {object} action the command being executed
+ * @param {object} state - the current state in the Redux store
+ * @param {object} action - the command being executed
  * @returns {object} the new state for the Redux store
  */
 export function updateDataLens(state, action) {
@@ -478,8 +485,8 @@ export function updateDataLens(state, action) {
 /**
  * Handler for the update sub lens action
  *
- * @param {object} state the current state in the Redux store
- * @param {object} action the command being executed
+ * @param {object} state - the current state in the Redux store
+ * @param {object} action - the command being executed
  * @returns {object} the new state for the Redux store
  */
 export function updateDataSubLens(state, action) {
@@ -489,10 +496,11 @@ export function updateDataSubLens(state, action) {
   };
 }
 
-/** Handler for the focus selected action
+/**
+ * Handler for the focus selected action
  *
- * @param {object} state the current state in the Redux store
- * @param {object} action the command being executed
+ * @param {object} state - the current state in the Redux store
+ * @param {object} action - the command being executed
  * @returns {object} the new state for the Redux store
  */
 function changeFocus(state, action) {
@@ -505,9 +513,10 @@ function changeFocus(state, action) {
   };
 }
 
-/** Handler for the focus removed action
+/**
+ * Handler for the focus removed action
  *
- * @param {object} state the current state in the Redux store
+ * @param {object} state - the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
 function removeFocus(state) {
@@ -522,8 +531,8 @@ function removeFocus(state) {
 /**
  * Processes an object of key/value strings into the correct internal format
  *
- * @param {object} state the current state in the Redux store
- * @param {object} action the payload containing the key/value pairs
+ * @param {object} state - the current state in the Redux store
+ * @param {object} action - the payload containing the key/value pairs
  * @returns {object} a filtered set of key/value pairs with the values set to
  * the correct type
  */
@@ -545,8 +554,8 @@ function processParams(state, action) {
 /**
  * Handler for the tooltipUpdate action
  *
- * @param {object} state the current state in the Redux store
- * @param {object} action the command being executed
+ * @param {object} state - the current state in the Redux store
+ * @param {object} action - the command being executed
  * @returns {object} the new state for the Redux store
  */
 function updateTooltip(state, action) {
@@ -588,7 +597,7 @@ function updateTooltip(state, action) {
 /**
  * reset the filters selected for the focus too
  *
- * @param {object} state the current state in the Redux store
+ * @param {object} state - the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
 export function removeAllFilters(state) {
@@ -601,8 +610,8 @@ export function removeAllFilters(state) {
 /**
  * Removes multiple filters from the current set
  *
- * @param {object} state the current state in the Redux store
- * @param {object} action the payload containing the filters to remove
+ * @param {object} state - the current state in the Redux store
+ * @param {object} action - the payload containing the filters to remove
  * @returns {object} the new state for the Redux store
  */
 function removeMultipleFilters(state, action) {
@@ -646,8 +655,8 @@ const _handlers = _buildHandlerMap();
 /**
  * Routes an action to an appropriate handler
  *
- * @param {object} state the current state in the Redux store
- * @param {object} action the command being executed
+ * @param {object} state - the current state in the Redux store
+ * @param {object} action - the command being executed
  * @returns {object} the new state for the Redux store
  */
 function handleSpecificAction(state, action) {

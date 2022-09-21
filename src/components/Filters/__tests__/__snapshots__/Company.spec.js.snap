@@ -162,7 +162,6 @@ exports[`component::Company snapshots renders without crashing 1`] = `
         aria-label="Monocle Popper Inc"
         checked={true}
         className="flex-fixed a-checkbox"
-        disabled={false}
         id="company-monocle-popper-inc"
         onChange={[Function]}
         type="checkbox"

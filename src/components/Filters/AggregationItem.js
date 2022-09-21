@@ -28,7 +28,7 @@ export class AggregationItem extends React.Component {
           type="checkbox"
           className="flex-fixed a-checkbox"
           aria-label={item.key}
-          disabled={item.disabled}
+          disabled={item.isDisabled}
           checked={isActive}
           id={id}
           onChange={() => this._onChange()}
@@ -131,6 +131,7 @@ AggregationItem.propTypes = {
     doc_count: PropTypes.number.isRequired,
     key: PropTypes.string.isRequired,
     value: PropTypes.string,
+    isDisabled: PropTypes.bool,
   }).isRequired,
   removeFilter: PropTypes.func.isRequired,
   addFilter: PropTypes.func.isRequired,

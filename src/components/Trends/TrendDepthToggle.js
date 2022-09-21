@@ -31,30 +31,30 @@ export class TrendDepthToggle extends React.Component {
     if (hasToggle) {
       if (this._showMore()) {
         return (
-          <div className={'trend-depth-toggle'}>
+          <div className="trend-depth-toggle">
             <button
-              className={'a-btn a-btn__link'}
-              id={'trend-depth-button'}
+              className="a-btn a-btn__link"
+              id="trend-depth-button"
               onClick={() => {
                 increaseDepth(diff);
               }}
             >
-              <span className={'plus'}></span>
+              <span className="plus" />
               Show more
             </button>
           </div>
         );
       }
       return (
-        <div className={'trend-depth-toggle'}>
+        <div className="trend-depth-toggle">
           <button
-            className={'a-btn a-btn__link'}
-            id={'trend-depth-button'}
+            className="a-btn a-btn__link"
+            id="trend-depth-button"
             onClick={() => {
               depthReset();
             }}
           >
-            <span className={'minus'}></span>
+            <span className="minus" />
             Show less
           </button>
         </div>
@@ -66,10 +66,11 @@ export class TrendDepthToggle extends React.Component {
 
 /**
  * helper containing logic to determine when to show the toggle
- * @param {string} lens selected value
- * @param {string} focus which focus we are on
- * @param {number} resultCount count coming from trends results
- * @param {number} queryCount count froming from aggs
+ *
+ * @param {string} lens - selected value
+ * @param {string} focus - which focus we are on
+ * @param {number} resultCount - count coming from trends results
+ * @param {number} queryCount - count froming from aggs
  * @returns {boolean} whether to display the toggle
  */
 export const showToggle = (lens, focus, resultCount, queryCount) => {

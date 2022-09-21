@@ -7,8 +7,9 @@ import { getSubLens } from './trends';
 
 /**
  * helper function to enforce valid values when someone pastes in a url
- * @param {string | int} value input val to check
- * @param {string} field key of the query object we need to validate
+ *
+ * @param {string | int} value - input val to check
+ * @param {string} field - key of the query object we need to validate
  * @returns {string|int|*} valid value
  */
 export const enforceValues = (value, field) => {
@@ -65,7 +66,8 @@ export const enforceValues = (value, field) => {
  * helper function to make sure the proper chartType is selected for trends
  * also validate lens/subLens combos
  * we can't have Overview and area chart at the same time
- * @param {object} state in redux to check against
+ *
+ * @param {object} state - in redux to check against
  * @returns {object} state modified state
  */
 export const validateTrendsReducer = (state) => {

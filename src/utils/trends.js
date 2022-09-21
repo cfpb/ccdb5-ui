@@ -35,8 +35,9 @@ export const getSubLens = (lens) => {
 /**
  * helper function to strip out the "Other" data points from stacked area if
  * they don't have any values
- * @param {array} buckets contains all of the date points for the stacked area
- * @returns {array} cleaned up array or not
+ *
+ * @param {Array} buckets - contains all of the date points for the stacked area
+ * @returns {Array} cleaned up array or not
  */
 export const pruneOther = (buckets) => {
   const sumOther = buckets
@@ -55,9 +56,10 @@ export const isGreaterThanYear = (from, to) => {
 /**
  * gets the valid intervals based on dates selected.
  * get rid of Day if range > 1yr
- * @param {object} from date
- * @param {object} to date
- * @returns {array} array of date intervals
+ *
+ * @param {object} from - date
+ * @param {object} to - date
+ * @returns {Array} array of date intervals
  */
 export const getIntervals = (from, to) =>
   types.dateIntervals.map((o) => ({
