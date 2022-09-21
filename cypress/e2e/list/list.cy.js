@@ -51,6 +51,7 @@ describe('List View', () => {
       fixture = { fixture: 'list/get-10-complaints.json' };
       cy.intercept('GET', request, fixture).as('get10Complaints');
 
+      cy.get('#select-size').select('25 results');
       cy.get('#select-size').select('10 results');
 
       cy.wait('@get10Complaints');
