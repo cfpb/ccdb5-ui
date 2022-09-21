@@ -88,7 +88,7 @@ export class ComplaintDetail extends React.Component {
   }
 
   _renderBackDirect() {
-    const root = this._getRootUrl(location.pathname);
+    const root = this._getRootUrl(window.location.pathname);
     return (
       <button
         className="a-btn a-btn__link"
@@ -291,7 +291,7 @@ ComplaintDetail.propTypes = {
 };
 
 ComplaintDetail.defaultProps = {
-  onClickedBack: () => history.go(-1),
+  onClickedBack: () => window.history.go(-1),
   phase: WAITING,
   row: {},
 };
