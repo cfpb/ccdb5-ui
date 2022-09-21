@@ -1,5 +1,3 @@
-
-
 const autoprefixer = require('autoprefixer');
 const path = require('path');
 const webpack = require('webpack');
@@ -46,9 +44,9 @@ module.exports = {
     // Note: instead of the default WebpackDevServer client, we use a custom one
     // to bring better experience for Create React App users. You can replace
     // the line below with these two lines if you prefer the stock client:
-    // require.resolve('webpack-dev-server/client') + '?/',
-    // require.resolve('webpack/hot/dev-server'),
-    require.resolve('react-dev-utils/webpackHotDevClient'),
+    require.resolve('webpack-dev-server/client') + '?/',
+    require.resolve('webpack/hot/dev-server'),
+    //require.resolve('react-dev-utils/webpackHotDevClient'),
     // Finally, this is your app's code:
     paths.appIndexJs,
     // We include the app code last so that if there is a runtime error during
@@ -67,9 +65,9 @@ module.exports = {
     // This is the URL that app is served from. We use "/" in development.
     publicPath: publicPath,
     // Point sourcemap entries to original disk location (format as URL on Windows)
-    devtoolModuleFilenameTemplate: info =>
+    devtoolModuleFilenameTemplate: (info) =>
       path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
-    library: 'ccdb5_ui'
+    library: 'ccdb5_ui',
   },
   resolve: {
     // This allows you to set a fallback for where Webpack should look for modules.
@@ -88,7 +86,6 @@ module.exports = {
     // for React Native Web.
     extensions: ['.web.js', '.js', '.json', '.web.jsx', '.jsx'],
     alias: {
-
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
@@ -139,29 +136,33 @@ module.exports = {
               {
                 loader: 'babel-loader',
                 options: {
-                  presets: [ [ '@babel/preset-env', {
-
-                    /* Use useBuiltIns: 'usage' and set `debug: true` to see what
+                  presets: [
+                    [
+                      '@babel/preset-env',
+                      {
+                        /* Use useBuiltIns: 'usage' and set `debug: true` to see what
                        scripts require polyfilling. */
-                    useBuiltIns: false,
-                    debug: false
-                  } ] ],
+                        useBuiltIns: false,
+                        debug: false,
+                      },
+                    ],
+                  ],
 
                   // This is a feature of `babel-loader` for webpack (not Babel itself).
                   // It enables caching results in ./node_modules/.cache/babel-loader/
                   // directory for faster rebuilds.
                   cacheDirectory: true,
-                }
+                },
               },
               {
                 loader: require.resolve('string-replace-loader'),
                 options: {
                   search: '@@API',
                   replace: ccdbApiUrl,
-                  flags: 'g'
-                }
-              }
-            ]
+                  flags: 'g',
+                },
+              },
+            ],
           },
           // "postcss" loader applies autoprefixer to our CSS.
           // "css" loader resolves paths in CSS and adds assets as dependencies.
@@ -198,7 +199,7 @@ module.exports = {
                   ],
                 },
               },
-              require.resolve('less-loader')
+              require.resolve('less-loader'),
             ],
           },
           // This loader doesn't use a "test" so it will catch all modules
@@ -209,9 +210,7 @@ module.exports = {
             // it's runtime that would otherwise processed through "file" loader.
             // Also exclude `html` and `json` extensions so they get processed
             // by webpacks internal loaders.
-            exclude: [
-              /\.js$/, /\.html$/, /\.json$/
-            ]
+            exclude: [/\.js$/, /\.html$/, /\.json$/],
           },
         ],
       },
@@ -243,7 +242,7 @@ module.exports = {
     }),
   ],
   optimization: {
-    moduleIds: 'named'
+    moduleIds: 'named',
   },
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
@@ -255,7 +254,7 @@ module.exports = {
       net: false,
       tls: false,
       child_process: false,
-    }
+    },
   },
   // Turn off performance hints during development because we don't do any
   // splitting or minification in interest of speed. These warnings become
