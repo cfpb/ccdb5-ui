@@ -10,12 +10,12 @@ export class SearchPanel extends React.Component {
   render() {
     let lastIndexedMessage = null;
 
-    if ( this.props.lastIndexed ) {
-      lastIndexedMessage =
+    if (this.props.lastIndexed) {
+      lastIndexedMessage = (
         <span className="date-subscript">
           (last updated: <FormattedDate value={this.props.lastIndexed} />)
         </span>
-      ;
+      );
     }
 
     return (
@@ -28,12 +28,12 @@ export class SearchPanel extends React.Component {
   }
 }
 
-const mapStateToProps = state => ( {
-  lastIndexed: state.aggs.lastIndexed
-} );
+const mapStateToProps = (state) => ({
+  lastIndexed: state.aggs.lastIndexed,
+});
 
-export default connect( mapStateToProps )( SearchPanel );
+export default connect(mapStateToProps)(SearchPanel);
 
 SearchPanel.propTypes = {
-  lastIndexed: PropTypes.string
+  lastIndexed: PropTypes.string,
 };

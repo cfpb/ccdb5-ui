@@ -11,7 +11,7 @@ export class FilterPanelToggle extends React.Component {
         <div className="m-btn-group">
           <p>&nbsp;</p>
           <button
-            className={'a-btn'}
+            className="a-btn"
             onClick={() => this.props.onFilterToggle()}
           >
             {this.props.hasFilters ? 'Close Filters' : 'Filter results'}
@@ -22,19 +22,19 @@ export class FilterPanelToggle extends React.Component {
   }
 }
 
-export const mapStateToProps = state => ( {
-  hasFilters: state.view.hasFilters
-} );
+export const mapStateToProps = (state) => ({
+  hasFilters: state.view.hasFilters,
+});
 
-export const mapDispatchToProps = dispatch => ( {
+export const mapDispatchToProps = (dispatch) => ({
   onFilterToggle: () => {
-    dispatch( filterVisibilityToggled() );
-  }
-} );
+    dispatch(filterVisibilityToggled());
+  },
+});
 
-export default connect( mapStateToProps, mapDispatchToProps )( FilterPanelToggle );
+export default connect(mapStateToProps, mapDispatchToProps)(FilterPanelToggle);
 
 FilterPanelToggle.propTypes = {
   onFilterToggle: PropTypes.func.isRequired,
-  hasFilters: PropTypes.bool
+  hasFilters: PropTypes.bool,
 };

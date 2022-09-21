@@ -35,12 +35,12 @@ export class SearchComponents extends React.Component {
   }
 }
 
-export const mapStateToProps = state => ( {
-  printClass: state.view.isPrintMode ? 'print' : ''
-} );
+export const mapStateToProps = (state) => ({
+  printClass: state.view.isPrintMode ? 'print' : '',
+});
 
-export default connect( mapStateToProps )( SearchComponents );
+export default connect(mapStateToProps)(SearchComponents);
 
 SearchComponents.propTypes = {
-  printClass: PropTypes.string.isRequired
+  printClass: PropTypes.string.isRequired,
 };

@@ -2047,7 +2047,6 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
             <input
               autoComplete="off"
               className="a-text-input"
-              disabled={false}
               id="issue-typeahead"
               onChange={[Function]}
               onKeyDown={[Function]}

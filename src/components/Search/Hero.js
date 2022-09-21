@@ -13,7 +13,7 @@ export function showMoreAboutDialog() {
   return {
     type: MODAL_SHOWN,
     modalType: MODAL_TYPE_MORE_ABOUT,
-    modalProps: {}
+    modalProps: {},
   };
 }
 
@@ -55,14 +55,14 @@ export class Hero extends React.Component {
   }
 }
 
-export const mapDispatchToProps = dispatch => ( {
+export const mapDispatchToProps = (dispatch) => ({
   onMoreAbout: () => {
-    dispatch( showMoreAboutDialog() );
-  }
-} );
+    dispatch(showMoreAboutDialog());
+  },
+});
 
-export default connect( null, mapDispatchToProps )( Hero );
+export default connect(null, mapDispatchToProps)(Hero);
 
 Hero.propTypes = {
-  onMoreAbout: PropTypes.func.isRequired
+  onMoreAbout: PropTypes.func.isRequired,
 };

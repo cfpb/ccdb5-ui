@@ -29,7 +29,7 @@ export class FilterPanel extends React.Component {
 
     return (
       <div>
-        {this.props.hasFilterToggle &&
+        {this.props.hasFilterToggle && (
           <div className="filter-button">
             <button
               className="a-btn"
@@ -39,20 +39,20 @@ export class FilterPanel extends React.Component {
               Filter results
             </button>
           </div>
-        }
-        {this.props.hasFilters &&
+        )}
+        {this.props.hasFilters && (
           <section className="filter-panel">
-            {this.props.hasButton &&
+            {this.props.hasButton && (
               <div className="filter-button">
                 <button
                   className="a-btn"
                   title="Close filters"
                   onClick={this.props.onFilterToggle}
                 >
-                  Close filters {iconMap.getIcon( 'delete' )}
+                  Close filters {iconMap.getIcon('delete')}
                 </button>
               </div>
-            }
+            )}
             <h3>Filter results by...</h3>
             <DateFilter />
             <hr />
@@ -103,33 +103,33 @@ export class FilterPanel extends React.Component {
             <hr />
             <SimpleFilter title="Tags" desc={descTags} fieldName="tags" />
           </section>
-        }
+        )}
       </div>
     );
   }
 }
 
-export const mapStateToProps = state => ( {
+export const mapStateToProps = (state) => ({
   hasButton: state.view.width < 750,
   hasFilterToggle: state.view.width < 600 && !state.view.hasFilters,
-  hasFilters: state.view.hasFilters
-} );
+  hasFilters: state.view.hasFilters,
+});
 
-export const mapDispatchToProps = dispatch => ( {
+export const mapDispatchToProps = (dispatch) => ({
   onFilterToggle: () => {
-    dispatch( filterVisibilityToggled() );
-  }
-} );
+    dispatch(filterVisibilityToggled());
+  },
+});
 
-export default connect( mapStateToProps, mapDispatchToProps )( FilterPanel );
+export default connect(mapStateToProps, mapDispatchToProps)(FilterPanel);
 
 FilterPanel.defaultProps = {
-  hasFilters: true
+  hasFilters: true,
 };
 
 FilterPanel.propTypes = {
   hasFilterToggle: PropTypes.bool.isRequired,
   onFilterToggle: PropTypes.func.isRequired,
   hasFilters: PropTypes.bool,
-  hasButton: PropTypes.bool.isRequired
+  hasButton: PropTypes.bool.isRequired,
 };

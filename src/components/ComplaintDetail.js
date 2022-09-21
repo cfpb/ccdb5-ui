@@ -13,22 +13,22 @@ const WAITING = 'WAITING';
 const RESULTS = 'RESULTS';
 
 export class ComplaintDetail extends React.Component {
-  constructor( props ) {
-    super( props );
+  constructor(props) {
+    super(props);
 
-    bindAll( this, [
+    bindAll(this, [
       '_renderBackDefault',
       '_renderBackDirect',
       '_renderError',
       '_renderResults',
-      '_renderWaiting'
-    ] );
+      '_renderWaiting',
+    ]);
 
     // Render/Phase Map
     this.renderMap = {
       ERROR: this._renderError,
       WAITING: this._renderWaiting,
-      RESULTS: this._renderResults
+      RESULTS: this._renderResults,
     };
   }
 
@@ -36,7 +36,7 @@ export class ComplaintDetail extends React.Component {
   // React Methods
 
   componentDidMount() {
-    this.props.loadDetail( this.props.complaint_id );
+    this.props.loadDetail(this.props.complaint_id);
   }
 
   render() {
@@ -44,7 +44,7 @@ export class ComplaintDetail extends React.Component {
       <section className="card-container">
         <nav className="layout-row">
           <div className="back-to-search flex-fixed">
-            {this._selectWhichBackButton( document )}
+            {this._selectWhichBackButton(document)}
           </div>
           <div className="meaning flex-fixed">
             <a
@@ -64,15 +64,15 @@ export class ComplaintDetail extends React.Component {
   // --------------------------------------------------------------------------
   // Global Access Methods
 
-  _selectWhichBackButton( doc ) {
-    return doc.referrer === '' ?
-      this._renderBackDirect() :
-      this._renderBackDefault();
+  _selectWhichBackButton(doc) {
+    return doc.referrer === ''
+      ? this._renderBackDirect()
+      : this._renderBackDefault();
   }
 
-  _getRootUrl( fullPath ) {
-    const idx = fullPath.indexOf( 'detail' );
-    return fullPath.substring( 0, idx );
+  _getRootUrl(fullPath) {
+    const idx = fullPath.indexOf('detail');
+    return fullPath.substring(0, idx);
   }
 
   // --------------------------------------------------------------------------
@@ -81,14 +81,14 @@ export class ComplaintDetail extends React.Component {
   _renderBackDefault() {
     return (
       <button className="a-btn a-btn__link" onClick={this.props.onClickedBack}>
-        {iconMap.getIcon( 'left', 'cf-icon-left' )}
+        {iconMap.getIcon('left', 'cf-icon-left')}
         Back to search results
       </button>
     );
   }
 
   _renderBackDirect() {
-    const root = this._getRootUrl( location.pathname );
+    const root = this._getRootUrl(window.location.pathname);
     return (
       <button
         className="a-btn a-btn__link"
@@ -96,16 +96,16 @@ export class ComplaintDetail extends React.Component {
           window.location = root;
         }}
       >
-        {iconMap.getIcon( 'left', 'cf-icon-left' )}
+        {iconMap.getIcon('left', 'cf-icon-left')}
         Go to search home page
       </button>
     );
   }
 
-  _renderCompanyTimely( value ) {
-    const styles = [ 'cf-icon__before' ];
-    if ( value.toLowerCase() === 'no' ) {
-      styles.push( 'not-timely' );
+  _renderCompanyTimely(value) {
+    const styles = ['cf-icon__before'];
+    if (value.toLowerCase() === 'no') {
+      styles.push('not-timely');
     }
 
     return (
@@ -114,7 +114,7 @@ export class ComplaintDetail extends React.Component {
           {iconMap.getIcon(
             'clock-round',
             'cf-icon-clock-round' +
-              ( value.toLowerCase() === 'no' ? ' not-timely' : '' )
+              (value.toLowerCase() === 'no' ? ' not-timely' : '')
           )}
         </span>
         <span className="body-copy" tabIndex="0">
@@ -124,24 +124,24 @@ export class ComplaintDetail extends React.Component {
     );
   }
 
-  _renderConsumerConsent( value ) {
+  _renderConsumerConsent(value) {
     // Arrays are for SVG icon call and add custom classes for setting color.
     const iconLookupMap = {
-      'Consent provided': [ 'approved-round', 'cf-icon-approved-round' ],
-      'Consent not provided': [ 'delete-round', 'cf-icon-delete-round' ],
-      'Consent withdrawn': [ 'minus-round', 'cf-icon-minus-round' ],
-      'N/A': [ 'help-round', 'cf-icon-help-round' ],
-      'Other': [ 'help-round', 'cf-icon-help-round' ]
+      'Consent provided': ['approved-round', 'cf-icon-approved-round'],
+      'Consent not provided': ['delete-round', 'cf-icon-delete-round'],
+      'Consent withdrawn': ['minus-round', 'cf-icon-minus-round'],
+      'N/A': ['help-round', 'cf-icon-help-round'],
+      Other: ['help-round', 'cf-icon-help-round'],
     };
 
     let consentIcon;
-    if ( value in iconLookupMap ) {
+    if (value in iconLookupMap) {
       const consentIconLookup = iconLookupMap[value];
       const iconName = consentIconLookup[0];
       const customClass = consentIconLookup[1];
-      consentIcon = iconMap.getIcon( iconName, customClass );
+      consentIcon = iconMap.getIcon(iconName, customClass);
     } else {
-      consentIcon = iconMap.getIcon( 'error-round', 'cf-icon-error-round' );
+      consentIcon = iconMap.getIcon('error-round', 'cf-icon-error-round');
       value = 'No data available';
     }
 
@@ -164,7 +164,7 @@ export class ComplaintDetail extends React.Component {
 
     // Process the narrative
     const narrative = row.complaint_what_happened || '';
-    const h1ReadOut = ariaReadoutNumbers( this.props.complaint_id );
+    const h1ReadOut = ariaReadoutNumbers(this.props.complaint_id);
 
     return (
       <article>
@@ -178,12 +178,12 @@ export class ComplaintDetail extends React.Component {
               <FormattedDate value={row.date_received} />
             </span>
             <br />
-            <h4 tabIndex="0">Consumer's state</h4>
+            <h4 tabIndex="0">Consumer&apos;s state</h4>
             <span className="body-copy" tabIndex="0">
               {row.state}
             </span>
             <br />
-            <h4 tabIndex="0">Consumer's zip</h4>
+            <h4 tabIndex="0">Consumer&apos;s zip</h4>
             <span className="body-copy" tabIndex="0">
               {row.zip_code}
             </span>
@@ -206,23 +206,23 @@ export class ComplaintDetail extends React.Component {
           <div className="card-right layout-column">
             <h4 tabIndex="0">Product</h4>
             <h3 tabIndex="0">{row.product}</h3>
-            {this._renderSub( 'Sub-product:', row.sub_product )}
+            {this._renderSub('Sub-product:', row.sub_product)}
             <br />
             <h4 tabIndex="0">Issue</h4>
             <h3 tabIndex="0">{row.issue}</h3>
-            {this._renderSub( 'Sub-issue:', row.sub_issue )}
+            {this._renderSub('Sub-issue:', row.sub_issue)}
             <br />
             <h4 tabIndex="0">Consumer consent to publish narrative</h4>
-            {this._renderConsumerConsent( row.consumer_consent_provided )}
+            {this._renderConsumerConsent(row.consumer_consent_provided)}
             <br />
-            {narrative ?
+            {narrative ? (
               <div>
                 <h4 tabIndex="0">Consumer complaint narrative</h4>
                 <span className="body-copy" tabIndex="0">
                   {narrative}
                 </span>
-              </div> :
-             null}
+              </div>
+            ) : null}
           </div>
         </div>
 
@@ -244,7 +244,7 @@ export class ComplaintDetail extends React.Component {
           </div>
           <div className="card-right layout-column">
             <h4 tabIndex="0">Timely response?</h4>
-            {this._renderCompanyTimely( row.timely )}
+            {this._renderCompanyTimely(row.timely)}
             <br />
             <h4 tabIndex="0">Company response to consumer</h4>
             <span className="body-copy" tabIndex="0">
@@ -261,8 +261,8 @@ export class ComplaintDetail extends React.Component {
     );
   }
 
-  _renderSub( label, value ) {
-    return value ?
+  _renderSub(label, value) {
+    return value ? (
       <div className="layout-row">
         <span className="body-copy subitem" tabIndex="0">
           {label}
@@ -270,8 +270,8 @@ export class ComplaintDetail extends React.Component {
         <span className="body-copy" tabIndex="0">
           {value}
         </span>
-      </div> :
-     null;
+      </div>
+    ) : null;
   }
 
   _renderWaiting() {
@@ -282,39 +282,40 @@ export class ComplaintDetail extends React.Component {
 // ----------------------------------------------------------------------------
 // Meta
 
-ComplaintDetail.propTypes = {
-  // eslint-disable-next-line camelcase
-  complaint_id: PropTypes.string.isRequired,
-  onClickedBack: PropTypes.func,
-  phase: PropTypes.string,
-  row: PropTypes.object
-};
-
-ComplaintDetail.defaultProps = {
-  onClickedBack: () => history.go( -1 ),
-  phase: WAITING,
-  row: {}
-};
-
-export const mapStateToProps = state => {
+export const mapStateToProps = (state) => {
   const row = state.detail.data;
   let phase = typeof row.date_received === 'undefined' ? WAITING : RESULTS;
 
   // Phase Logic
-  if ( state.detail.error ) {
+  if (state.detail.error) {
     phase = ERROR;
   }
 
   return {
     phase,
-    row
+    row,
   };
 };
 
-export const mapDispatchToProps = dispatch => ( {
-  loadDetail: id => {
-    dispatch( getComplaintDetail( id ) );
-  }
-} );
+export const mapDispatchToProps = (dispatch) => ({
+  loadDetail: (id) => {
+    dispatch(getComplaintDetail(id));
+  },
+});
 
-export default connect( mapStateToProps, mapDispatchToProps )( ComplaintDetail );
+export default connect(mapStateToProps, mapDispatchToProps)(ComplaintDetail);
+
+ComplaintDetail.propTypes = {
+  // eslint-disable-next-line camelcase
+  complaint_id: PropTypes.string.isRequired,
+  onClickedBack: PropTypes.func,
+  phase: PropTypes.string,
+  row: PropTypes.object,
+  loadDetail: PropTypes.func,
+};
+
+ComplaintDetail.defaultProps = {
+  onClickedBack: () => window.history.go(-1),
+  phase: WAITING,
+  row: {},
+};

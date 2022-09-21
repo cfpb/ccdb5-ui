@@ -4,7 +4,7 @@ import {
   coalesce,
   getAllFilters,
   sanitizeHtmlId,
-  slugify
+  slugify,
 } from '../../utils';
 import { removeMultipleFilters, replaceFilters } from '../../actions/filter';
 import AggregationItem from './AggregationItem';
@@ -23,12 +23,12 @@ export const CHECKED = 'CHECKED';
 // Class
 
 export class AggregationBranch extends React.Component {
-  constructor( props ) {
-    super( props );
+  constructor(props) {
+    super(props);
 
     this.state = { hasChildren: props.hasChildren };
 
-    bindAll( this, [ '_decideClickAction', '_toggleChildDisplay' ] );
+    bindAll(this, ['_decideClickAction', '_toggleChildDisplay']);
   }
 
   _decideClickAction() {
@@ -38,62 +38,62 @@ export class AggregationBranch extends React.Component {
       subitems,
       filters,
       fieldName,
-      checkedState
+      checkedState,
     } = this.props;
 
-    const values = getAllFilters( item.key, subitems );
+    const values = getAllFilters(item.key, subitems);
     // Add the active filters (that might be hidden)
-    activeChildren.forEach( child => values.add( child ) );
+    activeChildren.forEach((child) => values.add(child));
 
-    if ( checkedState === CHECKED ) {
-      this.props.uncheckParent( fieldName, [ ...values ] );
+    if (checkedState === CHECKED) {
+      this.props.uncheckParent(fieldName, [...values]);
     } else {
-      this.props.checkParent( { fieldName, filters, item } );
+      this.props.checkParent({ fieldName, filters, item });
     }
   }
 
   _toggleChildDisplay() {
-    this.setState( {
-      hasChildren: !this.state.hasChildren
-    } );
+    this.setState({
+      hasChildren: !this.state.hasChildren,
+    });
   }
 
   render() {
     const { item, subitems, fieldName, checkedState } = this.props;
 
     // Fix up the subitems to prepend the current item key
-    const buckets = subitems.map( sub => ( {
-      disabled: item.disabled,
-      key: slugify( item.key, sub.key ),
+    const buckets = subitems.map((sub) => ({
+      disabled: item.isDisabled,
+      key: slugify(item.key, sub.key),
       value: sub.key,
       // eslint-disable-next-line camelcase
-      doc_count: sub.doc_count
-    } ) );
+      doc_count: sub.doc_count,
+    }));
 
     // Special returns
-    if ( buckets.length === 0 ) {
+    if (buckets.length === 0) {
       return (
         <AggregationItem item={item} key={item.key} fieldName={fieldName} />
       );
     }
 
     const liStyle = 'parent m-form-field m-form-field__checkbox body-copy';
-    const id = sanitizeHtmlId( fieldName + '-' + item.key );
+    const id = sanitizeHtmlId(fieldName + '-' + item.key);
 
     let chevronIcon;
-    if ( this.state.hasChildren ) {
-      chevronIcon = iconMap.getIcon( 'up' );
+    if (this.state.hasChildren) {
+      chevronIcon = iconMap.getIcon('up');
     } else {
-      chevronIcon = iconMap.getIcon( 'down' );
+      chevronIcon = iconMap.getIcon('down');
     }
 
     return (
-      <div className={'aggregation-branch ' + sanitizeHtmlId( item.key )}>
+      <div className={'aggregation-branch ' + sanitizeHtmlId(item.key)}>
         <li className={liStyle}>
           <input
             type="checkbox"
             aria-label={item.key}
-            disabled={item.disabled}
+            disabled={item.isDisabled}
             checked={checkedState === CHECKED}
             className="flex-fixed a-checkbox"
             id={id}
@@ -113,17 +113,17 @@ export class AggregationBranch extends React.Component {
             <FormattedNumber value={item.doc_count} />
           </span>
         </li>
-        {this.state.hasChildren === false ? null :
+        {this.state.hasChildren === false ? null : (
           <ul className="children">
-            {buckets.map( bucket =>
+            {buckets.map((bucket) => (
               <AggregationItem
                 item={bucket}
                 key={bucket.key}
                 fieldName={fieldName}
               />
-            )}
+            ))}
           </ul>
-        }
+        )}
       </div>
     );
   }
@@ -133,7 +133,7 @@ export class AggregationBranch extends React.Component {
 
   get _labelStyle() {
     let s = 'toggle a-label';
-    if ( this.props.checkedState === INDETERMINATE ) {
+    if (this.props.checkedState === INDETERMINATE) {
       s += ' indeterminate';
     }
 
@@ -141,23 +141,23 @@ export class AggregationBranch extends React.Component {
   }
 }
 
-export const mapStateToProps = ( state, ownProps ) => {
+export const mapStateToProps = (state, ownProps) => {
   // Find all query filters that refer to the field name
-  const candidates = coalesce( state.query, ownProps.fieldName, [] );
+  const candidates = coalesce(state.query, ownProps.fieldName, []);
 
   // Do any of these values start with the key?
-  const hasKey = candidates.filter( x => x.indexOf( ownProps.item.key ) === 0 );
+  const hasKey = candidates.filter((x) => x.indexOf(ownProps.item.key) === 0);
 
   // Does the key contain the separator?
   const activeChildren = hasKey.filter(
-    x => x.indexOf( SLUG_SEPARATOR ) !== -1
+    (x) => x.indexOf(SLUG_SEPARATOR) !== -1
   );
-  const activeParent = hasKey.filter( x => x === ownProps.item.key );
+  const activeParent = hasKey.filter((x) => x === ownProps.item.key);
 
   let checkedState = UNCHECKED;
-  if ( activeParent.length === 0 && activeChildren.length > 0 ) {
+  if (activeParent.length === 0 && activeChildren.length > 0) {
     checkedState = INDETERMINATE;
-  } else if ( activeParent.length > 0 ) {
+  } else if (activeParent.length > 0) {
     checkedState = CHECKED;
   }
 
@@ -166,46 +166,47 @@ export const mapStateToProps = ( state, ownProps ) => {
     checkedState,
     filters: candidates,
     focus: state.query.focus,
-    hasChildren: activeChildren.length > 0
+    hasChildren: activeChildren.length > 0,
   };
 };
 
-export const mapDispatchToProps = dispatch => ( {
-  uncheckParent: ( fieldName, values ) => {
-    dispatch( removeMultipleFilters( fieldName, values ) );
+export const mapDispatchToProps = (dispatch) => ({
+  uncheckParent: (fieldName, values) => {
+    dispatch(removeMultipleFilters(fieldName, values));
   },
-  checkParent: props => {
+  checkParent: (props) => {
     const { fieldName, filters, item } = props;
     // remove all of the child filters
     const replacementFilters = filters.filter(
-      o => o.indexOf( item.key + SLUG_SEPARATOR ) === -1
+      (o) => o.indexOf(item.key + SLUG_SEPARATOR) === -1
     );
     // add self/ parent filter
-    replacementFilters.push( item.key );
-    dispatch( replaceFilters( fieldName, replacementFilters ) );
-  }
-} );
+    replacementFilters.push(item.key);
+    dispatch(replaceFilters(fieldName, replacementFilters));
+  },
+});
 
-export default connect( mapStateToProps, mapDispatchToProps )( AggregationBranch );
+export default connect(mapStateToProps, mapDispatchToProps)(AggregationBranch);
 
 AggregationBranch.propTypes = {
   activeChildren: PropTypes.array,
   checkParent: PropTypes.func.isRequired,
   checkedState: PropTypes.string,
   fieldName: PropTypes.string.isRequired,
-  item: PropTypes.shape( {
+  item: PropTypes.shape({
     // eslint-disable-next-line camelcase
     doc_count: PropTypes.number.isRequired,
     key: PropTypes.string.isRequired,
-    value: PropTypes.string
-  } ).isRequired,
+    value: PropTypes.string,
+    isDisabled: PropTypes.bool,
+  }).isRequired,
   hasChildren: PropTypes.bool,
   subitems: PropTypes.array.isRequired,
   uncheckParent: PropTypes.func.isRequired,
-  filters: PropTypes.array.isRequired
+  filters: PropTypes.array.isRequired,
 };
 
 AggregationBranch.defaultProps = {
   checkedState: UNCHECKED,
-  hasChildren: false
+  hasChildren: false,
 };

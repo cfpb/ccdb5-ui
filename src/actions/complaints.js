@@ -25,21 +25,21 @@ export const TRENDS_FAILED = 'TRENDS_FAILED';
  */
 export function sendQuery() {
   // eslint-disable-next-line complexity
-  return ( dispatch, getState ) => {
+  return (dispatch, getState) => {
     const state = getState();
     const viewMode = state.query.tab;
-    switch ( viewMode ) {
+    switch (viewMode) {
       case MODE_MAP:
       case MODE_LIST:
       case MODE_TRENDS:
-        dispatch( getAggregations() );
+        dispatch(getAggregations());
         break;
       default:
         return;
     }
 
     // Send the right-hand queries
-    dispatch( sendHitsQuery() );
+    dispatch(sendHitsQuery());
   };
 }
 
@@ -50,18 +50,18 @@ export function sendQuery() {
  */
 export function sendHitsQuery() {
   // eslint-disable-next-line complexity
-  return ( dispatch, getState ) => {
+  return (dispatch, getState) => {
     const state = getState();
     const viewMode = state.query.tab;
-    switch ( viewMode ) {
+    switch (viewMode) {
       case MODE_MAP:
-        dispatch( getStates() );
+        dispatch(getStates());
         break;
       case MODE_TRENDS:
-        dispatch( getTrends() );
+        dispatch(getTrends());
         break;
       case MODE_LIST:
-        dispatch( getComplaints() );
+        dispatch(getComplaints());
         break;
       default:
         break;
@@ -78,21 +78,21 @@ export function sendHitsQuery() {
  * @returns {Promise} a chain of promises that will update the Redux store
  */
 export function getAggregations() {
-  return ( dispatch, getState ) => {
+  return (dispatch, getState) => {
     const store = getState();
     const qs = store.query.queryString;
     const uri = '@@API' + qs + '&size=0';
 
     // This call is already in process
-    if ( store.results.loadingAggregations ) {
+    if (store.results.loadingAggregations) {
       return null;
     }
 
-    dispatch( callingApi( AGGREGATIONS_API_CALLED, uri ) );
-    return fetch( uri )
-      .then( result => result.json() )
-      .then( items => dispatch( aggregationsReceived( items ) ) )
-      .catch( error => dispatch( aggregationsFailed( error ) ) );
+    dispatch(callingApi(AGGREGATIONS_API_CALLED, uri));
+    return fetch(uri)
+      .then((result) => result.json())
+      .then((items) => dispatch(aggregationsReceived(items)))
+      .catch((error) => dispatch(aggregationsFailed(error)));
   };
 }
 
@@ -102,38 +102,38 @@ export function getAggregations() {
  * @returns {Promise} a chain of promises that will update the Redux store
  */
 export function getComplaints() {
-  return ( dispatch, getState ) => {
+  return (dispatch, getState) => {
     const store = getState();
     const qs = store.query.queryString;
     const uri = '@@API' + qs;
 
     // This call is already in process
-    if ( uri === store.results.activeCall ) {
+    if (uri === store.results.activeCall) {
       return null;
     }
 
-    dispatch( callingApi( COMPLAINTS_API_CALLED, uri ) );
-    return fetch( uri )
-      .then( result => result.json() )
-      .then( items => dispatch( complaintsReceived( items ) ) )
-      .catch( error => dispatch( complaintsFailed( error ) ) );
+    dispatch(callingApi(COMPLAINTS_API_CALLED, uri));
+    return fetch(uri)
+      .then((result) => result.json())
+      .then((items) => dispatch(complaintsReceived(items)))
+      .catch((error) => dispatch(complaintsFailed(error)));
   };
 }
 
 /**
  * Calls the detail endpoint of the API
  *
- * @param {string} id the id of the complaint to retrieve
+ * @param {string} id - the id of the complaint to retrieve
  * @returns {Promise} a chain of promises that will update the Redux store
  */
-export function getComplaintDetail( id ) {
-  return dispatch => {
+export function getComplaintDetail(id) {
+  return (dispatch) => {
     const uri = '@@API' + id;
-    dispatch( callingApi( COMPLAINTS_API_CALLED, uri ) );
-    fetch( uri )
-      .then( result => result.json() )
-      .then( data => dispatch( complaintDetailReceived( data ) ) )
-      .catch( error => dispatch( complaintDetailFailed( error ) ) );
+    dispatch(callingApi(COMPLAINTS_API_CALLED, uri));
+    fetch(uri)
+      .then((result) => result.json())
+      .then((data) => dispatch(complaintDetailReceived(data)))
+      .catch((error) => dispatch(complaintDetailFailed(error)));
   };
 }
 
@@ -143,21 +143,21 @@ export function getComplaintDetail( id ) {
  * @returns {Promise} a chain of promises that will update the Redux store
  */
 export function getStates() {
-  return ( dispatch, getState ) => {
+  return (dispatch, getState) => {
     const store = getState();
     const qs = 'geo/states/' + store.query.queryString;
     const uri = '@@API' + qs + '&no_aggs=true';
 
     // This call is already in process
-    if ( uri === store.map.activeCall ) {
+    if (uri === store.map.activeCall) {
       return null;
     }
 
-    dispatch( callingApi( STATES_API_CALLED, uri ) );
-    return fetch( uri )
-      .then( result => result.json() )
-      .then( items => dispatch( statesReceived( items ) ) )
-      .catch( error => dispatch( statesFailed( error ) ) );
+    dispatch(callingApi(STATES_API_CALLED, uri));
+    return fetch(uri)
+      .then((result) => result.json())
+      .then((items) => dispatch(statesReceived(items)))
+      .catch((error) => dispatch(statesFailed(error)));
   };
 }
 
@@ -167,173 +167,173 @@ export function getStates() {
  * @returns {Promise} a chain of promises that will update the Redux store
  */
 export function getTrends() {
-  return ( dispatch, getState ) => {
+  return (dispatch, getState) => {
     const store = getState();
     const { query, trends } = store;
     const qs = 'trends/' + query.queryString;
     const uri = '@@API' + qs + '&no_aggs=true';
 
     // This call is already in process
-    if ( uri === trends.activeCall ) {
+    if (uri === trends.activeCall) {
       return null;
     }
 
     // kill query if Company param criteria aren't met
     if (
       trends.lens === 'Company' &&
-      ( !query.company || !query.company.length )
+      (!query.company || !query.company.length)
     ) {
       return null;
     }
 
-    dispatch( callingApi( TRENDS_API_CALLED, uri ) );
-    return fetch( uri )
-      .then( result => result.json() )
-      .then( items => dispatch( trendsReceived( items ) ) )
-      .catch( error => dispatch( trendsFailed( error ) ) );
+    dispatch(callingApi(TRENDS_API_CALLED, uri));
+    return fetch(uri)
+      .then((result) => result.json())
+      .then((items) => dispatch(trendsReceived(items)))
+      .catch((error) => dispatch(trendsFailed(error)));
   };
 }
 
 /**
  * Notifies the application that an API call is happening
  *
- * @param {string} type action type
- * @param {string} url the url being called
+ * @param {string} type - action type
+ * @param {string} url - the url being called
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function callingApi( type, url ) {
+export function callingApi(type, url) {
   return {
     type,
-    url
+    url,
   };
 }
 
 /**
  * Creates an action in response to aggregations being received from the API
  *
- * @param {string} data the raw data returned from the API
+ * @param {string} data - the raw data returned from the API
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function aggregationsReceived( data ) {
+export function aggregationsReceived(data) {
   return {
     type: AGGREGATIONS_RECEIVED,
-    data
+    data,
   };
 }
 
 /**
  * Creates an action in response after aggregation search fails
  *
- * @param {string} error the error returned from `fetch`, not the API
+ * @param {string} error - the error returned from `fetch`, not the API
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function aggregationsFailed( error ) {
+export function aggregationsFailed(error) {
   return {
     type: AGGREGATIONS_FAILED,
-    error
+    error,
   };
 }
 
 /**
  * Creates an action in response to search results being received from the API
  *
- * @param {string} data the raw data returned from the API
+ * @param {string} data - the raw data returned from the API
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function complaintsReceived( data ) {
+export function complaintsReceived(data) {
   return {
     type: COMPLAINTS_RECEIVED,
-    data
+    data,
   };
 }
 
 /**
  * Creates an action in response after a search fails
  *
- * @param {string} error the error returned from `fetch`, not the API
+ * @param {string} error - the error returned from `fetch`, not the API
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function complaintsFailed( error ) {
+export function complaintsFailed(error) {
   return {
     type: COMPLAINTS_FAILED,
-    error
+    error,
   };
 }
 
 /**
  * Creates an action in response to complaint detail being received from the API
  *
- * @param {string} data the raw data returned from the API
+ * @param {string} data - the raw data returned from the API
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function complaintDetailReceived( data ) {
+export function complaintDetailReceived(data) {
   return {
     type: COMPLAINT_DETAIL_RECEIVED,
-    data
+    data,
   };
 }
 
 /**
  * Creates an action in response after a detail search fails
  *
- * @param {string} error the error returned from `fetch`, not the API
+ * @param {string} error - the error returned from `fetch`, not the API
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function complaintDetailFailed( error ) {
+export function complaintDetailFailed(error) {
   return {
     type: COMPLAINT_DETAIL_FAILED,
-    error
+    error,
   };
 }
 
 /**
  * Creates an action in response to states results being received from the API
  *
- * @param {string} data the raw data returned from the API
+ * @param {string} data - the raw data returned from the API
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function statesReceived( data ) {
+export function statesReceived(data) {
   return {
     type: STATES_RECEIVED,
-    data
+    data,
   };
 }
 
 /**
  * Creates an action in response after states results fails
  *
- * @param {string} error the error returned from `fetch`, not the API
+ * @param {string} error - the error returned from `fetch`, not the API
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function statesFailed( error ) {
+export function statesFailed(error) {
   return {
     type: STATES_FAILED,
-    error
+    error,
   };
 }
 
 /**
  * Creates an action in response to trends results being received from the API
  *
- * @param {string} data the raw data returned from the API
+ * @param {string} data - the raw data returned from the API
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function trendsReceived( data ) {
+export function trendsReceived(data) {
   return {
     type: TRENDS_RECEIVED,
-    data
+    data,
   };
 }
 
 /**
  * Creates an action in response after trends results fails
  *
- * @param {string} error the error returned from `fetch`, not the API
+ * @param {string} error - the error returned from `fetch`, not the API
  * @returns {string} a packaged payload to be used by Redux reducers
  */
-export function trendsFailed( error ) {
+export function trendsFailed(error) {
   return {
     type: TRENDS_FAILED,
-    error
+    error,
   };
 }

@@ -42,37 +42,33 @@ export class HasNarrative extends React.Component {
 // ----------------------------------------------------------------------------
 // Meta
 
-HasNarrative.propTypes = {
-  isChecked: PropTypes.bool
-};
-
-export const mapStateToProps = state => {
-  const isChecked = coalesce( state.query, FIELD_NAME, false );
+export const mapStateToProps = (state) => {
+  const isChecked = coalesce(state.query, FIELD_NAME, false);
   const searchField = state.query.searchField;
 
   let phase = NOTHING;
-  if ( searchField === NARRATIVE_SEARCH_FIELD ) {
+  if (searchField === NARRATIVE_SEARCH_FIELD) {
     phase = SEARCHING;
-  } else if ( isChecked ) {
+  } else if (isChecked) {
     phase = FILTERING;
   }
 
   return {
     options: {
-      phase
-    }
+      phase,
+    },
   };
 };
 
-export const mapDispatchToProps = dispatch => ( {
+export const mapDispatchToProps = (dispatch) => ({
   toggleFlag: () => {
-    dispatch( toggleFlagFilter( FIELD_NAME ) );
-  }
-} );
+    dispatch(toggleFlagFilter(FIELD_NAME));
+  },
+});
 
-export default connect( mapStateToProps, mapDispatchToProps )( HasNarrative );
+export default connect(mapStateToProps, mapDispatchToProps)(HasNarrative);
 
 HasNarrative.propTypes = {
   options: PropTypes.object.isRequired,
-  toggleFlag: PropTypes.func.isRequired
+  toggleFlag: PropTypes.func.isRequired,
 };

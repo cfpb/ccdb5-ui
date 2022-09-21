@@ -18,13 +18,13 @@ const buildMap = () => {
 
 export const MODAL_COMPONENTS = buildMap();
 
-export const RootModal = ( { modalType, modalProps, onClose } ) => {
-  if ( modalType in MODAL_COMPONENTS ) {
+export const RootModal = ({ modalType, modalProps, onClose }) => {
+  if (modalType in MODAL_COMPONENTS) {
     const SpecificModal = MODAL_COMPONENTS[modalType];
 
     return (
       <ReactModal
-        appElement={document.querySelector( '#ccdb-ui-root' )}
+        appElement={document.querySelector('#ccdb-ui-root')}
         isOpen={true}
         contentLabel="CFPB Modal Dialog"
         className="modal-body"
@@ -38,22 +38,24 @@ export const RootModal = ( { modalType, modalProps, onClose } ) => {
 
   return (
     <ReactModal
-      appElement={document.querySelector( '#ccdb-ui-root' )}
+      appElement={document.querySelector('#ccdb-ui-root')}
       isOpen={false}
-    ></ReactModal>
+    />
   );
 };
 
-export const mapDispatchToProps = dispatch => ( {
+export const mapDispatchToProps = (dispatch) => ({
   onClose: () => {
-    dispatch( { type: types.MODAL_HID } );
-  }
-} );
+    dispatch({ type: types.MODAL_HID });
+  },
+});
 
-export default connect( state => state.modal, mapDispatchToProps )( RootModal );
+export const mapStateToProps = (state) => state.modal;
+
+export default connect(mapStateToProps, mapDispatchToProps)(RootModal);
 
 RootModal.propTypes = {
   modalType: PropTypes.string,
   modalProps: PropTypes.object,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
 };

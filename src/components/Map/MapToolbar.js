@@ -15,14 +15,14 @@ export class MapToolbar extends React.Component {
         <section className="state-heading">
           {!filteredStates && <span>United States of America</span>}
           <span>{filteredStates}</span>
-          {filteredStates &&
+          {filteredStates && (
             <a className="clear" onClick={() => this.props.clearStates()}>
-              {iconMap.getIcon( 'delete-round' )}
+              {iconMap.getIcon('delete-round')}
               Clear
             </a>
-          }
+          )}
         </section>
-        {filteredStates &&
+        {filteredStates && (
           <section className="state-navigation">
             <a
               href="#"
@@ -32,36 +32,36 @@ export class MapToolbar extends React.Component {
               View complaints for filtered states
             </a>
           </section>
-        }
+        )}
       </div>
     );
   }
 }
 
-export const mapStateToProps = state => {
-  const abbrs = coalesce( state.query, 'state', [] );
+export const mapStateToProps = (state) => {
+  const abbrs = coalesce(state.query, 'state', []);
 
   return {
     filteredStates: abbrs
-      .filter( x => x in THESE_UNITED_STATES )
-      .map( x => THESE_UNITED_STATES[x] )
-      .join( ', ' )
+      .filter((x) => x in THESE_UNITED_STATES)
+      .map((x) => THESE_UNITED_STATES[x])
+      .join(', '),
   };
 };
 
-export const mapDispatchToProps = dispatch => ( {
+export const mapDispatchToProps = (dispatch) => ({
   clearStates: () => {
-    dispatch( clearStateFilter() );
+    dispatch(clearStateFilter());
   },
   showComplaints: () => {
-    dispatch( showStateComplaints() );
-  }
-} );
+    dispatch(showStateComplaints());
+  },
+});
 
-export default connect( mapStateToProps, mapDispatchToProps )( MapToolbar );
+export default connect(mapStateToProps, mapDispatchToProps)(MapToolbar);
 
 MapToolbar.propTypes = {
   filteredStates: PropTypes.string.isRequired,
   clearStates: PropTypes.func.isRequired,
-  showComplaints: PropTypes.func.isRequired
+  showComplaints: PropTypes.func.isRequired,
 };

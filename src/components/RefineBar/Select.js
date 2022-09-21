@@ -20,25 +20,25 @@ export class Select extends React.Component {
     // array of objects
     let values;
 
-    if ( Array.isArray( this.props.values ) ) {
+    if (Array.isArray(this.props.values)) {
       // do nothing, case 2
-      if ( this.props.values[0].hasOwnProperty( 'name' ) ) {
+      if (Object.prototype.hasOwnProperty.call(this.props.values[0], 'name')) {
         values = this.props.values;
       } else {
         // case 1
-        values = this.props.values.map( o => ( {
+        values = this.props.values.map((o) => ({
           name: o,
           value: o,
-          disabled: false
-        } ) );
+          disabled: false,
+        }));
       }
     } else {
       // case 3
-      values = Object.keys( this.props.values ).map( o => ( {
+      values = Object.keys(this.props.values).map((o) => ({
         name: this.props.values[o],
         value: o,
-        disabled: false
-      } ) );
+        disabled: false,
+      }));
     }
     return values;
   }
@@ -48,7 +48,7 @@ export class Select extends React.Component {
     const values = this.getValues();
 
     return (
-      <section className={'cf-select'} data-tour={id}>
+      <section className="cf-select" data-tour={id}>
         <label className="u-visually-hidden" htmlFor={id}>
           {this.props.label}
         </label>
@@ -58,7 +58,7 @@ export class Select extends React.Component {
           id={id}
           onChange={this.props.handleChange}
         >
-          {values.map( x =>
+          {values.map((x) => (
             <option
               disabled={x.disabled}
               key={x.name}
@@ -66,7 +66,7 @@ export class Select extends React.Component {
             >
               {x.name}
             </option>
-          )}
+          ))}
         </select>
       </section>
     );
@@ -80,6 +80,6 @@ Select.propTypes = {
   handleChange: PropTypes.func.isRequired,
   label: PropTypes.string,
   title: PropTypes.string,
-  values: PropTypes.oneOfType( [ PropTypes.array, PropTypes.object ] ).isRequired,
-  value: PropTypes.oneOfType( [ PropTypes.string, PropTypes.number ] )
+  values: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };

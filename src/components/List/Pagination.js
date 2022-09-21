@@ -20,7 +20,7 @@ export class Pagination extends React.Component {
             disabled={this.props.page <= 1}
           >
             <span className="a-btn_icon a-btn_icon__on-left">
-              {iconMap.getIcon( 'left' )}
+              {iconMap.getIcon('left')}
             </span>
             Previous
           </button>
@@ -34,7 +34,7 @@ export class Pagination extends React.Component {
               className="a-btn_icon
                                a-btn_icon__on-right"
             >
-              {iconMap.getIcon( 'right' )}
+              {iconMap.getIcon('right')}
             </span>
           </button>
           <div className="m-pagination_form">
@@ -48,30 +48,30 @@ export class Pagination extends React.Component {
   }
 }
 
-export const mapStateToProps = state => ( {
+export const mapStateToProps = (state) => ({
   page: state.query.page,
   size: state.query.size,
-  total: state.query.totalPages
-} );
+  total: state.query.totalPages,
+});
 
-export const mapDispatchToProps = dispatch => ( {
+export const mapDispatchToProps = (dispatch) => ({
   nextPage: () => {
-    dispatch( nextPageShown() );
+    dispatch(nextPageShown());
   },
   prevPage: () => {
-    dispatch( prevPageShown() );
-  }
-} );
+    dispatch(prevPageShown());
+  },
+});
 
-export default connect( mapStateToProps, mapDispatchToProps )( Pagination );
+export default connect(mapStateToProps, mapDispatchToProps)(Pagination);
 
 Pagination.defaultProps = {
-  total: 1
+  total: 1,
 };
 
 Pagination.propTypes = {
   total: PropTypes.number.isRequired,
   prevPage: PropTypes.func,
   page: PropTypes.number,
-  nextPage: PropTypes.func
+  nextPage: PropTypes.func,
 };

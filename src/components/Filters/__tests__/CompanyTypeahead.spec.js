@@ -143,7 +143,7 @@ describe('component::CompanyTypeahead', () => {
       };
       let actual = mapStateToProps(state);
       expect(actual).toEqual({
-        disabled: false,
+        isDisabled: false,
         queryString: '?state=TX&state=FL',
       });
     });

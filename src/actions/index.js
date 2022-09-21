@@ -11,7 +11,7 @@ import * as view from './view';
 /**
  * Aggregates all the known actions into one importable object
  *
- * @returns {Object} a merged object of all available actions
+ * @returns {object} a merged object of all available actions
  */
 function combineActions() {
   return {
@@ -23,7 +23,7 @@ function combineActions() {
     ...search,
     ...trends,
     ...url,
-    ...view
+    ...view,
   };
 }
 

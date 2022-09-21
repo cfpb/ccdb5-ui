@@ -11,9 +11,9 @@ import { tourHidden } from '../../actions/view';
 
 export const Tour = () => {
   const dispatch = useDispatch();
-  const showTour = useSelector( selectViewShowTour );
-  const tab = useSelector( selectQueryTab );
-  const steps = useMemo( () => TOUR_STEPS[tab], [ TOUR_STEPS, tab ] );
+  const showTour = useSelector(selectViewShowTour);
+  const tab = useSelector(selectQueryTab);
+  const steps = useMemo(() => TOUR_STEPS[tab], [TOUR_STEPS, tab]);
   const stepRef = useRef();
 
   // INTRODUCTION / TUTORIAL OPTIONS:
@@ -27,7 +27,7 @@ export const Tour = () => {
     nextLabel: 'Next',
     prevLabel: 'Previous',
     doneLabel: 'End Tour',
-    steps: steps
+    steps: steps,
   };
 
   /**
@@ -35,31 +35,31 @@ export const Tour = () => {
    *
    * @param {object} ref - React component reference.
    */
-  function handleBeforeChange( ref ) {
+  function handleBeforeChange(ref) {
     const currentStep = ref.current.introJs.currentStep();
 
     // exit out when we're on last step and keyboard nav pressed
-    if ( !steps[currentStep] ) {
+    if (!steps[currentStep]) {
       return;
     }
 
-    if ( steps[currentStep].element === '.row-chart-section' ) {
+    if (steps[currentStep].element === '.row-chart-section') {
       // when the tour is initiated, we reset the chart so that the
       // rows are collapsed. This way we can click the first row to expand it
       // to guarantee a consistent tour.
-      const expandable = d3.select( '#row-chart-product .tick.expandable' );
-      expandable.dispatch( 'click' );
+      const expandable = d3.select('#row-chart-product .tick.expandable');
+      expandable.dispatch('click');
     }
 
     const callBack = () => {
-      steps.forEach( ( step, i ) => {
-        if ( ref.current !== null ) {
-          ref.current.updateStepElement( i );
+      steps.forEach((step, i) => {
+        if (ref.current !== null) {
+          ref.current.updateStepElement(i);
         }
-      } );
+      });
     };
-    const waitOn = new MutationObserver( callBack );
-    waitOn.observe( document, { subtree: true, childList: true } );
+    const waitOn = new MutationObserver(callBack);
+    waitOn.observe(document, { subtree: true, childList: true });
   }
 
   /**
@@ -68,13 +68,13 @@ export const Tour = () => {
    * @param {object} ref - React component reference.
    * @returns {boolean} Can we exit?
    */
-  function handleBeforeExit( ref ) {
-    if ( ref.current === null ) {
+  function handleBeforeExit(ref) {
+    if (ref.current === null) {
       return true;
     }
-    if ( ref.current.introJs.currentStep() + 1 < steps.length ) {
+    if (ref.current.introJs.currentStep() + 1 < steps.length) {
       // eslint-disable-next-line no-alert
-      return window.confirm( 'Are you sure you want to exit the tour?' );
+      return window.confirm('Are you sure you want to exit the tour?');
     }
     return true;
   }
@@ -87,10 +87,10 @@ export const Tour = () => {
         enabled={showTour}
         initialStep={0}
         steps={steps}
-        onExit={() => dispatch( tourHidden() )}
+        onExit={() => dispatch(tourHidden())}
         options={options}
-        onBeforeChange={() => handleBeforeChange( stepRef )}
-        onBeforeExit={() => handleBeforeExit( stepRef )}
+        onBeforeChange={() => handleBeforeChange(stepRef)}
+        onBeforeExit={() => handleBeforeExit(stepRef)}
         ref={stepRef}
       />
     </>

@@ -10,47 +10,47 @@ export class FocusHeader extends React.Component {
   render() {
     const { focus, lens, total } = this.props;
     return (
-      <div className={'focus-header'}>
+      <div className="focus-header">
         <button
-          className={'a-btn a-btn__link clear-focus'}
-          id={'clear-focus'}
+          className="a-btn a-btn__link clear-focus"
+          id="clear-focus"
           onClick={() => {
-            this.props.clearFocus( lens );
+            this.props.clearFocus(lens);
           }}
         >
-          {iconMap.getIcon( 'left' )}
+          {iconMap.getIcon('left')}
           {'View ' + lens.toLowerCase() + ' trends'}
         </button>
         <div>
           <section className="focus">
             <h1>{focus}</h1>
-            <span className={'divider'}></span>
+            <span className="divider" />
             <h2>{total} Complaints</h2>
           </section>
         </div>
-        <LensTabs showTitle={false} key={'lens-tab'} />
+        <LensTabs showTitle={false} key="lens-tab" />
       </div>
     );
   }
 }
 
-export const mapDispatchToProps = dispatch => ( {
+export const mapDispatchToProps = (dispatch) => ({
   clearFocus: () => {
-    dispatch( removeFocus() );
-  }
-} );
+    dispatch(removeFocus());
+  },
+});
 
-export const mapStateToProps = state => ( {
+export const mapStateToProps = (state) => ({
   focus: state.query.focus,
   lens: state.query.lens,
-  total: state.trends.total.toLocaleString()
-} );
+  total: state.trends.total.toLocaleString(),
+});
 
-export default connect( mapStateToProps, mapDispatchToProps )( FocusHeader );
+export default connect(mapStateToProps, mapDispatchToProps)(FocusHeader);
 
 FocusHeader.propTypes = {
   focus: PropTypes.string,
   lens: PropTypes.string.isRequired,
   total: PropTypes.string.isRequired,
-  clearFocus: PropTypes.func.isRequired
+  clearFocus: PropTypes.func.isRequired,
 };
