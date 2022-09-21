@@ -19,7 +19,7 @@
   "scripts": {
     "build": "node scripts/build.js",
     "dev-flow": "node scripts/test.js --env=jsdom --coverage --watch",
-    "lint": "yarn prettier \"src/**/*.{js,jsx,ts,tsx,json,md}\" --write && yarn eslint ./src --fix && yarn stylelint \"src/**/*.{css,less}\" --fix && yarn lint:cypress",
+    "lint": "yarn prettier \"src/**/*.{js,jsx,ts,tsx,json,md}\" --write && yarn eslint ./src --fix && yarn stylelint \"src/**/*.{css,less}\" --fix",
     "release": "yarn run build && release-it --only-version --npm.skipChecks",
     "start": "node scripts/start.js",
     "test": "node scripts/test.js --env=jsdom --coverage",
@@ -83,6 +83,7 @@
     "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^8.23.1",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-flowtype": "^8.0.3",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsdoc": "^39.3.6",
