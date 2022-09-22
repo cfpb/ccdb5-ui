@@ -19,27 +19,18 @@
   "scripts": {
     "build": "node scripts/build.js",
     "dev-flow": "node scripts/test.js --env=jsdom --coverage --watch",
-    "lint": "yarn prettier \"src/**/*.{js,jsx,ts,tsx,json,md}\" --write && yarn eslint ./src --fix && yarn stylelint \"src/**/*.{css,less}\" --fix",
+    "lint": "yarn prettier \"src/**/*.{js,jsx,ts,tsx,json,md}\" --write && yarn eslint ./src --fix && yarn stylelint \"src/**/*.{css,less}\" --fix && yarn lint:cypress",
     "release": "yarn run build && release-it --only-version --npm.skipChecks",
     "start": "node scripts/start.js",
     "test": "node scripts/test.js --env=jsdom --coverage",
     "lint:cypress": "yarn eslint ./cypress --fix"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all",
+    "not ie > 0"
+  ],
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/eslint-parser": "^7.19.1",
@@ -48,7 +39,7 @@
     "@babel/preset-react": "^7.8.3",
     "@svgr/webpack": "4.3.2",
     "@testing-library/react": "^13.4.0",
-    "autoprefixer": "7.1.5",
+    "autoprefixer": "^10.4.12",
     "babel-jest": "^27.4.5",
     "babel-loader": "^8.2.5",
     "babel-plugin-named-asset-import": "^0.3.6",
@@ -68,10 +59,11 @@
     "cf-typography": "^4.1.0",
     "chalk": "2.2.0",
     "connect-history-api-fallback": "1.4.0",
-    "core-js": "^2.6.11",
+    "core-js": "^3.25.2",
     "coveralls": "^3.0.9",
     "cross-spawn": "5.1.0",
     "css-loader": "2.1.1",
+    "cssnano": "^5.1.13",
     "cypress": "^10.7.0",
     "d3": "^5.12.0",
     "d3-selection": "^1.4.0",
@@ -111,18 +103,16 @@
     "less": "^3.11.1",
     "less-loader": "^4.0.5",
     "lodash": "^4.17.21",
-    "mini-css-extract-plugin": "0.5.0",
+    "mini-css-extract-plugin": "^2.6.1",
     "mockdate": "^3.0.5",
     "object-assign": "4.1.1",
     "optimize-css-assets-webpack-plugin": "^6.0.1",
     "pnp-webpack-plugin": "^1.7.0",
     "postcss": "^8.4.16",
-    "postcss-flexbugs-fixes": "4.1.0",
     "postcss-less": "^6.0.0",
-    "postcss-loader": "3.0.0",
-    "postcss-normalize": "7.0.1",
-    "postcss-preset-env": "6.7.0",
-    "postcss-safe-parser": "4.0.1",
+    "postcss-loader": "^7.0.1",
+    "postcss-preset-env": "^7.8.2",
+    "postcss-safe-parser": "^6.0.0",
     "prettier": "^2.7.1",
     "promise": "8.0.1",
     "prop-types": "^15.5.10",

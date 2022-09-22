@@ -64,4 +64,3 @@ module.exports = {
     'less/no-duplicate-variables': null,
   },
 };
-

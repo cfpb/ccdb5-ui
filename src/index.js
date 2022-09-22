@@ -1,7 +1,6 @@
-import 'core-js/es6/array';
-import 'core-js/es6/object';
-import 'core-js/es6/set';
-import 'core-js/es7/object';
+import 'core-js/es/array';
+import 'core-js/es/object';
+import 'core-js/es/set';
 
 /* eslint-disable global-require */
 

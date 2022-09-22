@@ -8,9 +8,9 @@ import { getSubLens } from './trends';
 /**
  * helper function to enforce valid values when someone pastes in a url
  *
- * @param {string | int} value - input val to check
+ * @param {string|number} value - input val to check
  * @param {string} field - key of the query object we need to validate
- * @returns {string|int|*} valid value
+ * @returns {string|number|*} valid value
  */
 export const enforceValues = (value, field) => {
   const valMap = {

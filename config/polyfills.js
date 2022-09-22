@@ -1,5 +1,3 @@
-
-
 if (typeof Promise === 'undefined') {
   // Rejection tracking prevents a common issue where React gets into an
   // inconsistent state due to an error, but it gets swallowed by a Promise,
@@ -9,8 +7,8 @@ if (typeof Promise === 'undefined') {
 }
 
 if (typeof Set === 'undefined') {
-  window.Set = require('core-js/es6/set');
-  window.Map = require('core-js/es6/map');
+  window.Set = require('core-js/es/set');
+  window.Map = require('core-js/es/map');
 }
 
 // fetch() polyfill for making API calls.
@@ -23,14 +21,14 @@ Object.assign = require('object-assign');
 // Removes:
 // Warning: React depends on requestAnimationFrame. Make sure that you load a
 // polyfill in older browsers.
-global.requestAnimationFrame = function(callback) {
+global.requestAnimationFrame = function (callback) {
   setTimeout(callback, 0);
 };
 
 /* eslint-disable */
 // Ensuring polyfills for include available to IE
 if (!String.prototype.includes) {
-  String.prototype.includes = function(search, start) {
+  String.prototype.includes = function (search, start) {
     'use strict';
     if (typeof start !== 'number') {
       start = 0;
@@ -44,14 +42,12 @@ if (!String.prototype.includes) {
   };
 }
 
-
 // https://tc39.github.io/ecma262/#sec-array.prototype.includes
 //Array.includes is used in query.jsx to process boolean flags
 
 if (!Array.prototype.includes) {
   Object.defineProperty(Array.prototype, 'includes', {
-    value: function(searchElement, fromIndex) {
-
+    value: function (searchElement, fromIndex) {
       // 1. Let O be ? ToObject(this value).
       if (this == null) {
         throw new TypeError('"this" is null or not defined');
@@ -79,7 +75,13 @@ if (!Array.prototype.includes) {
       var k = Math.max(n >= 0 ? n : len - Math.abs(n), 0);
 
       function sameValueZero(x, y) {
-        return x === y || (typeof x === 'number' && typeof y === 'number' && isNaN(x) && isNaN(y));
+        return (
+          x === y ||
+          (typeof x === 'number' &&
+            typeof y === 'number' &&
+            isNaN(x) &&
+            isNaN(y))
+        );
       }
 
       // 7. Repeat, while k < len
@@ -95,7 +97,7 @@ if (!Array.prototype.includes) {
 
       // 8. Return false
       return false;
-    }
+    },
   });
 }
 
