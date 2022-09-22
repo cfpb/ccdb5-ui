@@ -20,7 +20,7 @@
     "build": "node scripts/build.js",
     "dev-flow": "node scripts/test.js --env=jsdom --coverage --watch",
     "lint": "yarn prettier \"src/**/*.{js,jsx,ts,tsx,json,md}\" --write && yarn eslint ./src --fix && yarn stylelint \"src/**/*.{css,less}\" --fix && yarn lint:cypress",
-    "release": "yarn run build && release-it --only-version --npm.skipChecks",
+    "release": "yarn run build && release-it --npm.skipChecks",
     "start": "node scripts/start.js",
     "test": "node scripts/test.js --env=jsdom --coverage",
     "lint:cypress": "yarn eslint ./cypress --fix"
