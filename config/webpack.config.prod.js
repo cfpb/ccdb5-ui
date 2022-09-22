@@ -119,8 +119,8 @@ module.exports = {
   // Stop compilation early in production
   bail: true,
   devtool: shouldUseSourceMap ? 'source-map' : false,
-  // In production, we only want to load the polyfills and the app code.
-  entry: [require.resolve('./polyfills'), paths.appIndexJs],
+  // In production, we only want to load the app code.
+  entry: [paths.appIndexJs],
   output: {
     // The build folder.
     path: paths.appBuild,

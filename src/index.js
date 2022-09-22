@@ -1,9 +1,3 @@
-import 'core-js/es/array';
-import 'core-js/es/object';
-import 'core-js/es/set';
-
-/* eslint-disable global-require */
-
 /**
  * Checks for specific features in the browser
  *
@@ -38,7 +32,6 @@ function loadScript(src, done) {
  */
 function main(err) {
   if (err) {
-    // eslint-disable-next-line no-alert
     alert('There was a problem on the page: ', err);
   } else {
     const App = require('./App').App;
