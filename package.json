@@ -113,7 +113,6 @@
     "postcss-preset-env": "^7.8.2",
     "postcss-safe-parser": "^6.0.0",
     "prettier": "^2.7.1",
-    "promise": "8.0.1",
     "prop-types": "^15.5.10",
     "query-string": "^5.0.0",
     "react": "16.14.0",
