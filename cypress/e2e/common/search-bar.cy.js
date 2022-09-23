@@ -15,7 +15,7 @@ describe('Search Bar', () => {
     cy.intercept(request, fixture).as('getComplaints');
 
     request = '**/ccdb/metadata.js';
-    fixture = { fixture: 'metadata.js' };
+    fixture = { fixture: 'metadata.json' };
     cy.intercept(request, fixture).as('metadata');
 
     const typeAheadRequest =
@@ -40,7 +40,8 @@ describe('Search Bar', () => {
 
   describe('Typeaheads', () => {
     it('has no typeahead functionality in All Data', () => {
-      cy.get(searchInput).clear().wait(400).type('bank', { delay: 200 });
+      cy.get(searchInput).clear();
+      cy.get(searchInput).type('bank', { delay: 200 });
       cy.get('@typeahead.all').should('have.length', 0);
     });
 
@@ -48,7 +49,8 @@ describe('Search Bar', () => {
       cy.get(searchFieldDropDown).select('complaint_what_happened');
       cy.wait('@getComplaints');
 
-      cy.get(searchInput).clear().wait(400).type('bank', { delay: 200 });
+      cy.get(searchInput).clear();
+      cy.get(searchInput).type('bank', { delay: 200 });
       cy.get('@typeahead.all').should('have.length', 0);
     });
 
@@ -56,7 +58,8 @@ describe('Search Bar', () => {
       cy.get(searchFieldDropDown).select('company');
       cy.wait('@getComplaints');
 
-      cy.get(searchInput).clear().wait(400).type('bank', { delay: 200 });
+      cy.get(searchInput).clear();
+      cy.get(searchInput).type('bank', { delay: 200 });
 
       cy.wait('@typeahead').wait('@typeahead').wait('@typeahead');
 

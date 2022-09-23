@@ -56,9 +56,9 @@ export const calculateDateRange = (minDate, maxDate) => {
 /**
  * Function to set the limit of the range of a set of numbers
  *
- * @param {int} x - value we are checking
- * @param {int} min - smallest number it can me
- * @param {int} max - biggest number it can be
+ * @param {number} x - value we are checking
+ * @param {number} min - smallest number it can me
+ * @param {number} max - biggest number it can be
  * @returns {*}the limited value
  */
 export const clamp = (x, min, max) => {
@@ -117,7 +117,7 @@ export const coalesce = (o, field, alternateValue) => {
  * Creates a hash from a string
  *
  * @param {string} someString - the string to hash
- * @returns {int} a hashing of the string
+ * @returns {number} a hashing of the string
  */
 export function hashCode(someString) {
   const s = String(someString);
@@ -295,7 +295,7 @@ export function startOfToday() {
  * still happening
  *
  * @param {Function} func - a function with an embedded expensive call
- * @param {int} wait - the number of msecs to delay before calling the function
+ * @param {number} wait - the number of msecs to delay before calling the function
  * @returns {Function} a replacement function to use in place of the original
  */
 export function debounce(func, wait) {

@@ -74,7 +74,7 @@ export function exportAllResults(format) {
  * Call the export endpoint of the API with the current filter criteria
  *
  * @param {string} format - JSON or CSV
- * @param {int} size - The number of rows in the dataset
+ * @param {number} size - The number of rows in the dataset
  * @returns {Function} a set of steps to execute
  */
 export function exportSomeResults(format, size) {
