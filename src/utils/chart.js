@@ -77,7 +77,8 @@ export const getTooltipDate = (inputDate, dateRange) => {
 
 export const getTooltipTitle = (inputDate, interval, dateRange, external) => {
   /* eslint complexity: ["error", 6] */
-  let givenDate = inputDate;
+  let givenDate =
+    typeof inputDate !== 'object' ? new Date(inputDate) : inputDate;
   givenDate = dayjs(givenDate).utc().startOf('day').toDate();
   interval = interval.toLowerCase();
   const startDate = getTooltipDate(givenDate, dateRange);
