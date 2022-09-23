@@ -77,23 +77,25 @@ export const getTooltipDate = (inputDate, dateRange) => {
 
 export const getTooltipTitle = (inputDate, interval, dateRange, external) => {
   /* eslint complexity: ["error", 6] */
+  let givenDate = inputDate;
+  givenDate = dayjs(givenDate).utc().startOf('day').toDate();
   interval = interval.toLowerCase();
-  const startDate = getTooltipDate(inputDate, dateRange);
+  const startDate = getTooltipDate(givenDate, dateRange);
 
   let endDate;
 
   switch (interval) {
     case 'day':
-      endDate = dayjs(inputDate).format();
+      endDate = dayjs(givenDate).format();
       break;
 
     case 'week':
     case 'year':
-      endDate = dayjs(inputDate).add(1, interval).subtract(1, 'day').format();
+      endDate = dayjs(givenDate).add(1, interval).subtract(1, 'day').format();
       break;
 
     case 'quarter':
-      endDate = dayjs(inputDate)
+      endDate = dayjs(givenDate)
         .utc()
         .endOf(interval)
         .subtract(1, 'day')
@@ -101,7 +103,11 @@ export const getTooltipTitle = (inputDate, interval, dateRange, external) => {
       break;
     case 'month':
     default:
-      endDate = dayjs(inputDate).endOf(interval).subtract(1, 'day').format();
+      endDate = dayjs(givenDate)
+        .add(1, interval)
+        .endOf(interval)
+        .subtract(1, 'day')
+        .format();
       break;
   }
 
