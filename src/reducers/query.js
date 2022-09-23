@@ -683,7 +683,7 @@ export function dismissTrendsDateWarning(state) {
 /**
  * gets the pagination state
  *
- * @param {int} page - the page we are on
+ * @param {number} page - the page we are on
  * @param {object} state - the redux state
  * @returns {object} contains the from and searchAfter params
  */
@@ -731,7 +731,7 @@ function nextPage(state) {
  * Get search results after specified page
  *
  * @param {object} state - the current state in the Redux store
- * @param {int} page - page number
+ * @param {number} page - page number
  * @returns {Array} array containing complaint's received date and id
  */
 function getSearchAfter(state, page) {
