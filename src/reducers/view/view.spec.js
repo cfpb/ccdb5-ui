@@ -1,4 +1,4 @@
-import target, { defaultView } from '../view';
+import target, { defaultView } from './view';
 import actions from '../../actions';
 
 describe('reducer:map', () => {

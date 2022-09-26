@@ -2,7 +2,7 @@ import target, {
   alignDateRange,
   defaultQuery,
   filterArrayAction,
-} from '../query';
+} from './query';
 import actions from '../../actions';
 import * as types from '../../constants';
 import dayjs from 'dayjs';
