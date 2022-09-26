@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
-import ComplaintCard from '../List/ComplaintCard';
+import { ComplaintCard } from '../List/ComplaintCard';
 import renderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router';
 

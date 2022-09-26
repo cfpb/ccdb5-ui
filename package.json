@@ -139,5 +139,8 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
+  },
+  "dependencies": {
+    "eslint-config-react-app": "^7.0.1"
   }
 }
