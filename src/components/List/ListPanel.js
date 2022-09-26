@@ -4,140 +4,122 @@ import { changeSize, changeSort } from '../../actions/paging';
 import { sizes, sorts } from '../../constants';
 import ActionBar from '../ActionBar';
 import { ComplaintCard } from './ComplaintCard';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ErrorBlock from '../Warnings/Error';
 import FilterPanel from '../Filters/FilterPanel';
 import FilterPanelToggle from '../Filters/FilterPanelToggle';
 import Loading from '../Dialogs/Loading';
 import { NarrativesButtons } from '../RefineBar/NarrativesButtons';
 import Pagination from './Pagination';
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Select } from '../RefineBar/Select';
 import { sendAnalyticsEvent } from '../../utils';
 import { Separator } from '../RefineBar/Separator';
 import { TabbedNavigation } from '../TabbedNavigation';
+import { selectAggsHasError } from '../../reducers/aggs/selectors';
+import {
+  selectResultsIsLoading,
+  selectResultsItems,
+} from '../../reducers/results/selectors';
+import { selectViewWidth } from '../../reducers/view/selectors';
+import {
+  selectQuerySize,
+  selectQuerySort,
+} from '../../reducers/query/selectors';
 
 const ERROR = 'ERROR';
 const NO_RESULTS = 'NO_RESULTS';
 const RESULTS = 'RESULTS';
 
-export class ListPanel extends React.Component {
-  constructor(props) {
-    super(props);
+export const ListPanel = () => {
+  const dispatch = useDispatch();
+  const hasError = useSelector(selectAggsHasError);
+  const size = useSelector(selectQuerySize);
+  const sort = useSelector(selectQuerySort);
+  const isLoading = useSelector(selectResultsIsLoading);
+  const items = useSelector(selectResultsItems);
+  const width = useSelector(selectViewWidth);
 
-    // Render/Phase Map
-    this.renderMap = {
-      ERROR: this._renderError.bind(this),
-      NO_RESULTS: this._renderNoResults.bind(this),
-      RESULTS: this._renderResults.bind(this),
-    };
-  }
+  const hasMobileFilters = useMemo(() => width < 750);
 
-  render() {
-    const phase = this._determinePhase();
+  const onSize = (ev) => {
+    const iSize = parseInt(ev.target.value, 10);
+    sendAnalyticsEvent('Dropdown', iSize + ' results');
+    dispatch(changeSize(iSize));
+  };
 
-    return (
-      <section className="list-panel">
-        <ActionBar />
-        <TabbedNavigation />
-        {this.props.hasMobileFilters && <FilterPanel />}
-        <div className="layout-row refine-bar">
-          <FilterPanelToggle />
-          <Separator />
-          <Select
-            label="Select the number of results to display at a time"
-            title="Show"
-            values={sizes}
-            id="size"
-            value={this.props.size}
-            handleChange={this.props.onSize}
-          />
-          <Select
-            label="Choose the order in which the results are displayed"
-            title="Sort"
-            values={sorts}
-            id="sort"
-            value={this.props.sort}
-            handleChange={this.props.onSort}
-          />
-          <NarrativesButtons />
-        </div>
-        {this.renderMap[phase]()}
-        <Pagination />
-        <Loading isLoading={this.props.isLoading || false} />
-      </section>
-    );
-  }
+  const onSort = (ev) => {
+    const { value } = ev.target;
+    sendAnalyticsEvent('Dropdown', sorts[value]);
+    dispatch(changeSort(value));
+  };
 
-  // --------------------------------------------------------------------------
-  // Phase Machine
-
-  _determinePhase() {
+  const _determinePhase = () => {
     // determine the phase
     let phase = NO_RESULTS;
-    if (this.props.hasError) {
+    if (hasError) {
       phase = ERROR;
-    } else if (this.props.items.length > 0) {
+    } else if (items.length > 0) {
       phase = RESULTS;
     }
 
     return phase;
-  }
+  };
 
   // --------------------------------------------------------------------------
   // Subrender Methods
-
-  _renderError() {
+  const _renderError = () => {
     return <ErrorBlock text="There was a problem executing your search" />;
-  }
-
-  _renderNoResults() {
+  };
+  const _renderNoResults = () => {
     return <h2>No results were found for your search</h2>;
-  }
-
-  _renderResults() {
+  };
+  const _renderResults = () => {
     return (
       <ul className="cards-panel">
-        {this.props.items.map((item) => (
+        {items.map((item) => (
           <ComplaintCard key={item.complaint_id} row={item} />
         ))}
       </ul>
     );
-  }
-}
+  };
 
-const mapStateToProps = (state) => ({
-  hasError: state.aggs.hasError,
-  isLoading: state.results.isLoading,
-  items: state.results.items,
-  hasMobileFilters: state.view.width < 750,
-  size: state.query.size,
-  sort: state.query.sort,
-});
+  const renderMap = {
+    ERROR: _renderError,
+    NO_RESULTS: _renderNoResults,
+    RESULTS: _renderResults,
+  };
+  const phase = _determinePhase();
 
-export const mapDispatchToProps = (dispatch) => ({
-  onSize: (ev) => {
-    const iSize = parseInt(ev.target.value, 10);
-    sendAnalyticsEvent('Dropdown', iSize + ' results');
-    dispatch(changeSize(iSize));
-  },
-  onSort: (ev) => {
-    const { value } = ev.target;
-    sendAnalyticsEvent('Dropdown', sorts[value]);
-    dispatch(changeSort(value));
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ListPanel);
-
-ListPanel.propTypes = {
-  hasMobileFilters: PropTypes.bool.isRequired,
-  size: PropTypes.number,
-  onSize: PropTypes.func.isRequired,
-  sort: PropTypes.string,
-  onSort: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool,
-  hasError: PropTypes.bool,
-  items: PropTypes.array.isRequired,
+  return (
+    <section className="list-panel">
+      <ActionBar />
+      <TabbedNavigation />
+      {hasMobileFilters && <FilterPanel />}
+      <div className="layout-row refine-bar">
+        <FilterPanelToggle />
+        <Separator />
+        <Select
+          label="Select the number of results to display at a time"
+          title="Show"
+          values={sizes}
+          id="size"
+          value={size}
+          handleChange={onSize}
+        />
+        <Select
+          label="Choose the order in which the results are displayed"
+          title="Sort"
+          values={sorts}
+          id="sort"
+          value={sort}
+          handleChange={onSort}
+        />
+        <NarrativesButtons />
+      </div>
+      {renderMap[phase]()}
+      <Pagination />
+      <Loading isLoading={isLoading || false} />
+    </section>
+  );
 };

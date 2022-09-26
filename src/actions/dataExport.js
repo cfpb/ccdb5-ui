@@ -4,7 +4,7 @@
 
 import { buildLink, simulateClick } from './domUtils';
 import { MODAL_SHOWN, MODAL_TYPE_DATA_EXPORT } from '../constants';
-import { stateToQS } from '../reducers/query';
+import { stateToQS } from '../reducers/query/query';
 
 const DATA_HOST = 'https://files.consumerfinance.gov';
 

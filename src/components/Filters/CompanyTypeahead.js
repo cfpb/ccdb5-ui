@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import HighlightingOption from '../Typeahead/HighlightingOption';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { stateToQS } from '../../reducers/query';
+import { stateToQS } from '../../reducers/query/query';
 import Typeahead from '../Typeahead';
 
 const FIELD_NAME = 'company';
