@@ -93,15 +93,7 @@ export const getTooltipTitle = (inputDate, interval, dateRange, external) => {
     case 'quarter':
     case 'month':
     default:
-      console.log('inputDate');
-      // console.log(inputDate);
-      console.log(endDate.format());
-      console.log(endDate.add(1, interval).format());
-      endDate = endDate
-        // .add(1, interval)
-        .endOf(interval)
-        .subtract(1, 'day')
-        .format();
+      endDate = endDate.endOf(interval).subtract(1, 'day').format();
       break;
   }
 

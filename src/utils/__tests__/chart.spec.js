@@ -69,8 +69,7 @@ describe('getTooltipTitle', () => {
 
   it('sets tooltip title - month', () => {
     interval = 'Month';
-    let inDate = new Date('September 1, 2015 UTC');
-    inDate = inDate.toISOString();
+    const inDate = '2015-09-01T10:00:00.000Z';
     res = sut.getTooltipTitle(inDate, interval, dateRange, true);
     expect(res).toEqual('Date range: 9/1/2015 - 9/30/2015');
     res = sut.getTooltipTitle(inDate, interval, dateRange, false);
