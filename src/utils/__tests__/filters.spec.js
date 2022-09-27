@@ -11,14 +11,12 @@ describe('formatPillPrefix', () => {
   });
 
   it('formats Timely filter names', () => {
-    let res;
-    res = sut.formatPillPrefix('timely');
+    const res = sut.formatPillPrefix('timely');
     expect(res).toEqual('Timely: ');
   });
 
   it('ignores other filter names', () => {
-    let res;
-    res = sut.formatPillPrefix('zip_code');
+    const res = sut.formatPillPrefix('zip_code');
     expect(res).toEqual('');
   });
 });

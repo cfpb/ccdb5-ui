@@ -10,7 +10,7 @@ describe('component:CollapsibleFilter', () => {
         <CollapsibleFilter title="foo" desc="bar" />
       );
 
-      let tree = target.toJSON();
+      const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
     });
   });

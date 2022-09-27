@@ -1,6 +1,6 @@
-jest.mock('../complaints');
 import { processLocation, urlChanged } from '../url';
 import * as sut from '../url';
+jest.mock('../complaints');
 
 const locationFixture = {
   hash: '#?from=10&size=100&foo=bar',

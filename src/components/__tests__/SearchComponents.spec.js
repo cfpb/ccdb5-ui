@@ -9,7 +9,7 @@ describe('component: SearchComponents', () => {
           isPrintMode: false,
         },
       };
-      let actual = mapStateToProps(state);
+      const actual = mapStateToProps(state);
       expect(actual).toEqual({
         printClass: '',
       });
@@ -21,7 +21,7 @@ describe('component: SearchComponents', () => {
           isPrintMode: true,
         },
       };
-      let actual = mapStateToProps(state);
+      const actual = mapStateToProps(state);
       expect(actual).toEqual({
         printClass: 'print',
       });

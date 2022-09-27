@@ -140,7 +140,7 @@ describe('getTooltipTitle', () => {
 });
 
 describe('getTooltipDate', () => {
-  it('returns a short format of a date string', () => {
+  it('returns a short format of a from-to date string', () => {
     const shortDate = sut.getTooltipDate('2021-01-01T00:00:00.000Z', {
       from: '2020-12-31T00:00:00.000Z',
       to: '2021-08-23T00:00:00.000Z',

@@ -1,8 +1,11 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import HighlightingTypeahead from '../HighlightingTypeahead';
-import renderer from 'react-test-renderer';
 
+/**
+ *
+ * @param disableTypeahead
+ */
 function setupEnzyme(disableTypeahead = false) {
   const props = {
     ariaLabel: 'Start typing to...',
@@ -39,8 +42,8 @@ describe('component::HighlightingTypeahead', () => {
     it('produces a custom component', () => {
       const { target } = setupEnzyme();
       const options = target.instance()._onInputChange('FOO');
-      const actual = target.instance()._renderOption(options[0]);
-      expect(actual).toEqual({
+      const view = target.instance()._renderOption(options[0]);
+      expect(view).toEqual({
         value: 'Foo',
         component: expect.anything(),
       });

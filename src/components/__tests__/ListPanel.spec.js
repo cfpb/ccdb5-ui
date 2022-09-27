@@ -29,6 +29,13 @@ const fixture = [
   },
 ];
 
+/**
+ *
+ * @param items
+ * @param initialStore
+ * @param queryStore
+ * @param viewStore
+ */
 function setupSnapshot(
   items = [],
   initialStore = {},

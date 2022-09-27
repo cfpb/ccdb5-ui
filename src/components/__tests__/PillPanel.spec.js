@@ -7,6 +7,11 @@ import renderer from 'react-test-renderer';
 // import MockDate from "mockdate";
 // import dayjs from "dayjs";
 
+/**
+ *
+ * @param initialQueryState
+ * @param initialAggState
+ */
 function setupSnapshot(initialQueryState = {}, initialAggState = {}) {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);

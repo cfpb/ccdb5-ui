@@ -77,6 +77,9 @@ jest.mock('d3', () => {
   return mock;
 });
 
+/**
+ *
+ */
 function setupSnapshot() {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
@@ -96,10 +99,10 @@ function setupSnapshot() {
   return renderer.create(
     <Provider store={store}>
       <ReduxRowChart
-        id={'foo'}
+        id="foo"
         data={[1, 2, 3]}
-        title={'Foo title we want'}
-        helperText={'sub title under title'}
+        title="Foo title we want"
+        helperText="sub title under title"
         colorScheme={[]}
         total={1000}
       />
@@ -111,7 +114,7 @@ describe('component: RowChart', () => {
   describe('initial state', () => {
     it('renders without crashing', () => {
       const target = setupSnapshot();
-      let tree = target.toJSON();
+      const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
     });
   });
@@ -139,8 +142,8 @@ describe('component: RowChart', () => {
         <RowChart
           colorScheme={[]}
           data={[]}
-          id={'foo'}
-          title={'test'}
+          id="foo"
+          title="test"
           total={0}
         />
       );
@@ -153,7 +156,7 @@ describe('component: RowChart', () => {
       const target = shallow(
         <RowChart
           colorScheme={[]}
-          title={'test'}
+          title="test"
           data={[
             23,
             4,
@@ -161,7 +164,7 @@ describe('component: RowChart', () => {
             { name: 'More Information about xy', value: 10 },
             { name: 'Athing about xy', value: 10 },
           ]}
-          id={'foo'}
+          id="foo"
           total={1000}
         />
       );
@@ -175,7 +178,7 @@ describe('component: RowChart', () => {
       const target = shallow(
         <RowChart
           colorScheme={[]}
-          title={'test'}
+          title="test"
           data={[
             { name: 'fOO', value: 1 },
             { name: 'fO1', value: 1 },
@@ -184,7 +187,7 @@ describe('component: RowChart', () => {
               value: 1,
             },
           ]}
-          id={'foo'}
+          id="foo"
           total={1000}
           isPrintMode={false}
         />
@@ -199,9 +202,9 @@ describe('component: RowChart', () => {
       const target = shallow(
         <RowChart
           colorScheme={[]}
-          title={'test'}
+          title="test"
           data={[23, 4, 3]}
-          id={'foo'}
+          id="foo"
           total={1000}
           isPrintMode={false}
           width={1000}
@@ -220,10 +223,10 @@ describe('component: RowChart', () => {
           aggs={{ product: [1, 2, 3] }}
           selectFocus={cb}
           colorScheme={[]}
-          title={'test'}
-          lens={'Product'}
+          title="test"
+          lens="Product"
           data={[23, 4, 3]}
-          id={'foo'}
+          id="foo"
           total={1000}
         />
       );
@@ -237,12 +240,12 @@ describe('component: RowChart', () => {
       const target = shallow(
         <RowChart
           aggs={{ product: [1, 2, 3] }}
-          lens={'Overview'}
+          lens="Overview"
           selectFocus={cb}
           colorScheme={[]}
-          title={'test'}
+          title="test"
           data={[23, 4, 3]}
-          id={'foo'}
+          id="foo"
           total={1000}
         />
       );
@@ -261,14 +264,14 @@ describe('component: RowChart', () => {
       it('collapses a row', () => {
         const target = shallow(
           <RowChart
-            lens={'Overview'}
+            lens="Overview"
             collapseRow={collapseCb}
             expandRow={expandCb}
             colorScheme={[]}
-            title={'test'}
+            title="test"
             data={[{ name: 'a', isParent: true }]}
             expandedRows={['a']}
-            id={'foo'}
+            id="foo"
             total={1000}
           />
         );
@@ -281,14 +284,14 @@ describe('component: RowChart', () => {
       it('expands a row', () => {
         const target = shallow(
           <RowChart
-            lens={'Overview'}
+            lens="Overview"
             collapseRow={collapseCb}
             expandRow={expandCb}
             colorScheme={[]}
-            title={'test'}
+            title="test"
             data={[{ name: 'a', isParent: true }]}
             expandedRows={[]}
-            id={'foo'}
+            id="foo"
             total={1000}
           />
         );
@@ -301,14 +304,14 @@ describe('component: RowChart', () => {
       it('ignores non-parent rows', () => {
         const target = shallow(
           <RowChart
-            lens={'Overview'}
+            lens="Overview"
             collapseRow={collapseCb}
             expandRow={expandCb}
             colorScheme={[]}
-            title={'test'}
+            title="test"
             data={[{ name: 'a', isParent: false }]}
             expandedRows={[]}
-            id={'foo'}
+            id="foo"
             total={1000}
           />
         );
@@ -496,7 +499,7 @@ describe('component: RowChart', () => {
       const ownProps = {
         id: 'baz',
       };
-      let actual = mapStateToProps(state, ownProps);
+      const actual = mapStateToProps(state, ownProps);
       expect(actual).toEqual({
         expandedRows: [],
         lens: 'Product',
@@ -513,7 +516,7 @@ describe('component: RowChart', () => {
 
       state.query.tab = 'Trends';
 
-      let actual = mapStateToProps(state, ownProps);
+      const actual = mapStateToProps(state, ownProps);
       expect(actual).toEqual({
         expandedRows: [],
         lens: 'Foo',
@@ -529,10 +532,10 @@ describe('component: RowChart', () => {
       const target = mount(
         <RowChart
           colorScheme={[]}
-          title={'test'}
+          title="test"
           total={10}
           data={[23, 4, 3]}
-          id={'foo'}
+          id="foo"
         />
       );
       let res = target.instance()._getHeight(1);
@@ -545,13 +548,13 @@ describe('component: RowChart', () => {
       const target = mount(
         <RowChart
           colorScheme={[]}
-          title={'test'}
+          title="test"
           total={1000}
           data={[23, 4, 3]}
-          id={'foo'}
+          id="foo"
         />
       );
-      let res = target.instance()._formatTip(100000);
+      const res = target.instance()._formatTip(100000);
       expect(res).toEqual('100,000 complaints');
     });
   });

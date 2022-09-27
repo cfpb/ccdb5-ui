@@ -12,6 +12,9 @@ import { REQUERY_ALWAYS } from '../../constants';
 import thunk from 'redux-thunk';
 import { shallow } from 'enzyme';
 
+/**
+ *
+ */
 function setupSnapshot() {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
@@ -55,9 +58,9 @@ describe('component:FocusHeader', () => {
       target = shallow(
         <FocusHeader
           clearFocus={cb}
-          focus={'Focus item'}
-          lens={'Foo'}
-          total={'9,123'}
+          focus="Focus item"
+          lens="Foo"
+          total="9,123"
         />
       );
     });
@@ -95,7 +98,7 @@ describe('component:FocusHeader', () => {
           total: 1000,
         },
       };
-      let actual = mapStateToProps(state);
+      const actual = mapStateToProps(state);
       expect(actual).toEqual({
         focus: 'Foo',
         lens: 'Bar',

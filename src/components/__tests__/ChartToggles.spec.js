@@ -11,9 +11,17 @@ import { shallow } from 'enzyme';
 import thunk from 'redux-thunk';
 import * as utils from '../../utils';
 
+/**
+ *
+ * @param cb
+ * @param chartType
+ */
 function setupEnzyme(cb, chartType) {
   return shallow(<ChartToggles toggleChartType={cb} chartType={chartType} />);
 }
+/**
+ *
+ */
 function setupSnapshot() {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
@@ -34,7 +42,7 @@ describe('component: ChartToggles', () => {
   describe('initial state', () => {
     it('renders without crashing', () => {
       const target = setupSnapshot();
-      let tree = target.toJSON();
+      const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
     });
   });
@@ -94,7 +102,7 @@ describe('component: ChartToggles', () => {
           chartType: 'foo',
         },
       };
-      let actual = mapStateToProps(state);
+      const actual = mapStateToProps(state);
       expect(actual).toEqual({ chartType: 'foo' });
     });
   });

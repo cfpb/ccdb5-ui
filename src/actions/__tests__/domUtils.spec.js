@@ -3,7 +3,7 @@ import * as sut from '../domUtils';
 describe('module::domUtils', () => {
   describe('buildLink', () => {
     beforeEach(() => {
-      global.document.createElement = jest.fn().mockImplementation((s) => {
+      global.document.createElement = jest.fn().mockImplementation(() => {
         return {};
       });
     });
