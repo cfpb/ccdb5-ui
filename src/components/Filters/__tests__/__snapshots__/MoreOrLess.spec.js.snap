@@ -23,9 +23,7 @@ exports[`component:MoreOrLess matches + Show NN more 1`] = `
       <span
         className="flex-fixed bucket-count"
       >
-        <span>
-          99
-        </span>
+        99
       </span>
     </li>
     <li
@@ -48,9 +46,7 @@ exports[`component:MoreOrLess matches + Show NN more 1`] = `
       <span
         className="flex-fixed bucket-count"
       >
-        <span>
-          99
-        </span>
+        99
       </span>
     </li>
     <li
@@ -73,9 +69,7 @@ exports[`component:MoreOrLess matches + Show NN more 1`] = `
       <span
         className="flex-fixed bucket-count"
       >
-        <span>
-          99
-        </span>
+        99
       </span>
     </li>
     <li
@@ -98,9 +92,7 @@ exports[`component:MoreOrLess matches + Show NN more 1`] = `
       <span
         className="flex-fixed bucket-count"
       >
-        <span>
-          99
-        </span>
+        99
       </span>
     </li>
     <li
@@ -123,9 +115,7 @@ exports[`component:MoreOrLess matches + Show NN more 1`] = `
       <span
         className="flex-fixed bucket-count"
       >
-        <span>
-          99
-        </span>
+        99
       </span>
     </li>
   </ul>
@@ -163,9 +153,7 @@ exports[`component:MoreOrLess matches - Show NN less 1`] = `
       <span
         className="flex-fixed bucket-count"
       >
-        <span>
-          99
-        </span>
+        99
       </span>
     </li>
     <li
@@ -188,9 +176,7 @@ exports[`component:MoreOrLess matches - Show NN less 1`] = `
       <span
         className="flex-fixed bucket-count"
       >
-        <span>
-          99
-        </span>
+        99
       </span>
     </li>
     <li
@@ -213,9 +199,7 @@ exports[`component:MoreOrLess matches - Show NN less 1`] = `
       <span
         className="flex-fixed bucket-count"
       >
-        <span>
-          99
-        </span>
+        99
       </span>
     </li>
     <li
@@ -238,9 +222,7 @@ exports[`component:MoreOrLess matches - Show NN less 1`] = `
       <span
         className="flex-fixed bucket-count"
       >
-        <span>
-          99
-        </span>
+        99
       </span>
     </li>
     <li
@@ -263,9 +245,7 @@ exports[`component:MoreOrLess matches - Show NN less 1`] = `
       <span
         className="flex-fixed bucket-count"
       >
-        <span>
-          99
-        </span>
+        99
       </span>
     </li>
     <li
@@ -288,9 +268,7 @@ exports[`component:MoreOrLess matches - Show NN less 1`] = `
       <span
         className="flex-fixed bucket-count"
       >
-        <span>
-          99
-        </span>
+        99
       </span>
     </li>
     <li
@@ -313,9 +291,7 @@ exports[`component:MoreOrLess matches - Show NN less 1`] = `
       <span
         className="flex-fixed bucket-count"
       >
-        <span>
-          99
-        </span>
+        99
       </span>
     </li>
     <li
@@ -338,9 +314,7 @@ exports[`component:MoreOrLess matches - Show NN less 1`] = `
       <span
         className="flex-fixed bucket-count"
       >
-        <span>
-          99
-        </span>
+        99
       </span>
     </li>
   </ul>

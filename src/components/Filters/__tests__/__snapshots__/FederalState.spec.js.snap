@@ -175,9 +175,7 @@ exports[`component::FederalState initial state renders without crashing 1`] = `
       <span
         className="flex-fixed bucket-count"
       >
-        <span>
-          999
-        </span>
+        999
       </span>
     </li>
   </ul>

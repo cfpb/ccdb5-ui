@@ -175,9 +175,7 @@ exports[`component::Company snapshots renders without crashing 1`] = `
       <span
         className="flex-fixed bucket-count"
       >
-        <span>
-          9,999
-        </span>
+        9,999
       </span>
     </li>
   </ul>

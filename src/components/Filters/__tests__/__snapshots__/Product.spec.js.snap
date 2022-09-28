@@ -82,9 +82,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
           <span
             className="flex-fixed parent-count"
           >
-            <span>
-              3,277
-            </span>
+            3,277
           </span>
         </li>
       </div>
@@ -132,9 +130,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
           <span
             className="flex-fixed parent-count"
           >
-            <span>
-              2,299
-            </span>
+            2,299
           </span>
         </li>
       </div>
@@ -158,9 +154,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
         <span
           className="flex-fixed bucket-count"
         >
-          <span>
-            1,052
-          </span>
+          1,052
         </span>
       </li>
       <li
@@ -183,9 +177,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
         <span
           className="flex-fixed bucket-count"
         >
-          <span>
-            959
-          </span>
+          959
         </span>
       </li>
       <li
@@ -208,9 +200,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
         <span
           className="flex-fixed bucket-count"
         >
-          <span>
-            836
-          </span>
+          836
         </span>
       </li>
     </ul>
