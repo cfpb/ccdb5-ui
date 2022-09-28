@@ -1,13 +1,24 @@
 module.exports = {
   collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.d.ts'],
+  coverageThreshold: {
+    global: {
+      branches: 85.97,
+      functions: 91,
+      lines: 93,
+      statements: 93,
+    },
+  },
+  coverageReporters: ['text', 'html', 'text-summary'],
   coveragePathIgnorePatterns: ['src/index.js'],
-  setupFiles: ['<rootDir>/config/setup.js'],
+  setupFilesAfterEnv: ['<rootDir>/config/setup.js'],
+  testEnvironment: 'jsdom',
+  testEnvironmentOptions: {
+    url: 'http://localhost',
+  },
   testMatch: [
     '<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}',
     '<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}',
   ],
-  testEnvironment: 'jsdom',
-  testURL: 'http://localhost',
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest',
     '^.+\\.(css|less)$': '<rootDir>/config/jest/cssTransform.js',
