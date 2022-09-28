@@ -167,14 +167,14 @@ describe('getColorScheme', () => {
     expect(actual).toEqual(['#20aa3f', '#20aa3f', '#20aa3f']);
   });
 
-  it('gets color scheme - provided color map', () => {
+  it('gets color scheme - provided color map and rows without parents', () => {
     const colorMap = { Complaint: '#124', abc: '#aaa', def: '#bbb' };
     const rowNames = [{ name: 'abc' }, { name: 'def' }, { name: 'Complaint' }];
     const actual = sut.getColorScheme(rowNames, colorMap, 'Overview');
     expect(actual).toEqual(['#aaa', '#bbb', '#124']);
   });
 
-  it('gets color scheme - provided color map', () => {
+  it('gets color scheme - provided color map and rows with parents', () => {
     const colorMap = { Complaint: '#124', abc: '#aaa', def: '#bbb' };
     const rowNames = [
       { name: 'abc' },

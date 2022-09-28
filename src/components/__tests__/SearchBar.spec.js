@@ -92,7 +92,7 @@ describe('component:SearchBar - All data', () => {
 
       it('sets the state', () => {
         const { target } = setup();
-        const actual = target.instance()._onInputChange('BA');
+        target.instance()._onInputChange('BA');
         expect(target.state('inputValue')).toEqual('BA');
       });
     });

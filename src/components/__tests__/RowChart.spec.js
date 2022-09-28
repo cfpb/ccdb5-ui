@@ -139,13 +139,7 @@ describe('component: RowChart', () => {
 
     it('does nothing when no data', () => {
       const target = shallow(
-        <RowChart
-          colorScheme={[]}
-          data={[]}
-          id="foo"
-          title="test"
-          total={0}
-        />
+        <RowChart colorScheme={[]} data={[]} id="foo" title="test" total={0} />
       );
       target._redrawChart = jest.fn();
       target.setProps({ data: [] });

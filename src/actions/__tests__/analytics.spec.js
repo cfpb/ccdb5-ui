@@ -3,18 +3,18 @@ import Analytics from '../analytics';
 describe('action:analytics', () => {
   describe('.init()', () => {
     it('should have a proper state after initialization', () => {
-      expect(Analytics.tagManagerIsLoaded === false).toBeTrue;
+      expect(Analytics.tagManagerIsLoaded).toBe(false);
       window.google_tag_manager = {};
       Analytics.init();
-      expect(Analytics.tagManagerIsLoaded === true).toBeTrue;
+      expect(Analytics.tagManagerIsLoaded).toBe(true);
     });
 
     it('should properly set the google_tag_manager object', () => {
       const mockGTMObject = { testing: true };
       Analytics.init();
-      expect(Analytics.tagManagerIsLoaded === false).toBeTrue;
+      expect(Analytics.tagManagerIsLoaded).toBe(false);
       window.google_tag_manager = mockGTMObject;
-      expect(Analytics.tagManagerIsLoaded === true).toBeTrue;
+      expect(Analytics.tagManagerIsLoaded).toBe(true);
       expect(window.google_tag_manager).toEqual(mockGTMObject);
     });
   });
