@@ -10,7 +10,7 @@
 @import (less) '~cf-tables/src/cf-tables.less';
 
 @import (less) './base.less';
-@import (less) '../css/notification.less';
+@import (less) './notification.less';
 
 @import (less) '../components/Print/print.less';
 
@@ -33,7 +33,7 @@
 
 // Fix Webpack not packing "approved.svg"
 
-.m-form-field__checkbox .a-checkbox:checked+.a-label:before {
+.m-form-field__checkbox .a-checkbox:checked + .a-label:before {
   background-image: url('data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20742.5%201200%22%20width%3D%2216%22%20height%3D%2216%22%20class%3D%22cf-icon-svg%22%3E%3Cpath%20d%3D%22M710%20186c-31.1-18-70.8-7.4-88.8%2023.7v.1L275%20809.5%20114.9%20617.3c-23-27.5-64-31.2-91.6-8.1-27.4%2023-31.2%2063.8-8.3%2091.3l219.8%20263.8c12.3%2014.8%2030.6%2023.4%2049.9%2023.4%201.8%200%203.7-.1%205.6-.2%2021.2-1.8%2040.1-13.9%2050.7-32.3l392.8-680.4c17.9-31.1%207.3-70.9-23.8-88.8z%22%2F%3E%3C%2Fsvg%3E%0A');
 }
 
@@ -192,7 +192,6 @@
   }
 }
 
-
 @media @phone {
   .filter-button {
     display: block;
@@ -208,7 +207,6 @@
       &_main {
         width: 100%;
       }
-
     }
   }
 }

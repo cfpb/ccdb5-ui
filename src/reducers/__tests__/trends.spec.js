@@ -403,7 +403,7 @@ describe('reducer:trends', () => {
       expect(result.results['sub-product'].length).toBeTruthy();
     });
 
-    it('backfills periods based on dateRangeBuckets ', () => {
+    it('backfills periods based on dateRangeBuckets', () => {
       // aka: the "covid" search
       state.chartType = 'area';
       state.lens = 'Product';

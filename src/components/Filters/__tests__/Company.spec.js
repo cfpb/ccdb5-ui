@@ -13,6 +13,10 @@ const fixture = [
   { key: 'EZ Credit', doc_count: 9 },
 ];
 
+/**
+ *
+ * @param initialFixture
+ */
 function setupSnapshot(initialFixture) {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
@@ -38,13 +42,13 @@ describe('component::Company', () => {
   describe('snapshots', () => {
     it('renders empty values without crashing', () => {
       const target = setupSnapshot();
-      let tree = target.toJSON();
+      const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
     });
 
     it('renders without crashing', () => {
       const target = setupSnapshot(fixture);
-      let tree = target.toJSON();
+      const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
     });
   });
@@ -62,7 +66,7 @@ describe('component::Company', () => {
           queryString: '?dsaf=fdas',
         },
       };
-      let actual = mapStateToProps(state);
+      const actual = mapStateToProps(state);
       expect(actual).toEqual({
         options: [
           { disabled: false, key: 'a' },
@@ -86,7 +90,7 @@ describe('component::Company', () => {
           queryString: '?dsaf=fdas',
         },
       };
-      let actual = mapStateToProps(state);
+      const actual = mapStateToProps(state);
       expect(actual).toEqual({
         options: [
           { disabled: false, key: 'a' },

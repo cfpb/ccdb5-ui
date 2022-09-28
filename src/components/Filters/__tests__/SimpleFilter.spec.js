@@ -3,11 +3,14 @@ import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { IntlProvider } from 'react-intl';
-import { mapStateToProps, SimpleFilter } from '../SimpleFilter';
-import ReduxSimpleFilter from '../SimpleFilter';
+import ReduxSimpleFilter, { mapStateToProps } from '../SimpleFilter';
 
 import renderer from 'react-test-renderer';
 
+/**
+ *
+ * @param initialAggs
+ */
 function setupSnapshot(initialAggs) {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
@@ -53,7 +56,7 @@ describe('mapStateToProps', () => {
   });
 
   it('shows if there are any active children', () => {
-    let actual = mapStateToProps(state, ownProps);
+    const actual = mapStateToProps(state, ownProps);
     expect(actual).toEqual({
       options: [1, 2, 3, 4, 5, 6],
       hasChildren: true,
@@ -63,7 +66,7 @@ describe('mapStateToProps', () => {
   it('hides if there are no active children', () => {
     state.query.foo = [];
 
-    let actual = mapStateToProps(state, ownProps);
+    const actual = mapStateToProps(state, ownProps);
     expect(actual).toEqual({
       options: [1, 2, 3, 4, 5, 6],
       hasChildren: false,

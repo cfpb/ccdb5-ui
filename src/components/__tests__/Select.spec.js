@@ -7,11 +7,11 @@ describe('component:Select', () => {
     const options = ['Uno', 'Dos', 'Tres'];
     const target = renderer.create(
       <Select
-        label={'Select something'}
-        title={'Show sumthing'}
+        label="Select something"
+        title="Show sumthing"
         values={options}
-        id={'txt'}
-        value={'Dos'}
+        id="txt"
+        value="Dos"
         handleChange={jest.fn()}
       />
     );
@@ -29,10 +29,10 @@ describe('component:Select', () => {
     };
     const target = renderer.create(
       <Select
-        label={'Select size'}
-        title={'Show'}
+        label="Select size"
+        title="Show"
         values={options}
-        id={'size'}
+        id="size"
         value={10}
         handleChange={jest.fn()}
       />
@@ -51,11 +51,11 @@ describe('component:Select', () => {
 
     const target = renderer.create(
       <Select
-        label={'Select something'}
-        title={'Show sumthing'}
+        label="Select something"
+        title="Show sumthing"
         values={options}
-        id={'txt'}
-        value={'Dos'}
+        id="txt"
+        value="Dos"
         handleChange={jest.fn()}
       />
     );

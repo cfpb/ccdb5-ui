@@ -3,6 +3,10 @@ import thunk from 'redux-thunk';
 import { queryManager } from '../queryManager';
 import { REQUERY_ALWAYS, REQUERY_HITS_ONLY } from '../../constants';
 
+/**
+ *
+ * @param viewMode
+ */
 function setupStore(viewMode = 'Map') {
   const middlewares = [thunk, queryManager];
   const mockStore = configureMockStore(middlewares);

@@ -5,6 +5,10 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import thunk from 'redux-thunk';
 
+/**
+ *
+ * @param query
+ */
 function setupSnapshot(query) {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);

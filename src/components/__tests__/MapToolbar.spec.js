@@ -10,6 +10,9 @@ import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 import thunk from 'redux-thunk';
 
+/**
+ *
+ */
 function setupEnzyme() {
   const props = {
     clearStates: jest.fn(),
@@ -25,6 +28,10 @@ function setupEnzyme() {
   };
 }
 
+/**
+ *
+ * @param filteredStates
+ */
 function setupSnapshot(filteredStates) {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
@@ -45,13 +52,13 @@ describe('component: MapToolbar', () => {
   describe('initial state', () => {
     it('renders without crashing', () => {
       const target = setupSnapshot([]);
-      let tree = target.toJSON();
+      const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
     });
 
     it('renders filtered states without crashing', () => {
       const target = setupSnapshot(['FL', 'TX']);
-      let tree = target.toJSON();
+      const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
     });
   });
@@ -79,7 +86,7 @@ describe('component: MapToolbar', () => {
           state: ['LA', 'MS', 'ZZ'],
         },
       };
-      let actual = mapStateToProps(state);
+      const actual = mapStateToProps(state);
       expect(actual).toEqual({
         filteredStates: 'Louisiana, Mississippi',
       });
@@ -94,7 +101,7 @@ describe('component: MapToolbar', () => {
       button.simulate('click');
       expect(props.clearStates).toHaveBeenCalled();
     });
-    it('allows the user to view complaints by state ', () => {
+    it('allows the user to view complaints by state', () => {
       const { target, props } = setupEnzyme();
       const button = target.find('a.list');
 

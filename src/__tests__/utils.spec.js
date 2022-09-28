@@ -126,42 +126,42 @@ describe('module::utils', () => {
     it('returns empty when end date is not today', () => {
       start = new Date(2011, 1, 3);
       end = new Date(2013, 1, 3);
-      let actual = calculateDateRange(start, end);
+      const actual = calculateDateRange(start, end);
       expect(actual).toEqual('');
     });
 
-    it('returns empty when start date doesnt match anything ', () => {
+    it('returns empty when start date doesnt match anything', () => {
       start = new Date(1970, 1, 4);
-      let actual = calculateDateRange(start, end);
+      const actual = calculateDateRange(start, end);
       expect(actual).toEqual('');
     });
 
     it('returns All when dates is full range', () => {
       start = DATE_RANGE_MIN;
-      let actual = calculateDateRange(start, end);
+      const actual = calculateDateRange(start, end);
       expect(actual).toEqual('All');
     });
 
     it('returns 3y', () => {
       start = new Date(dayjs(end).subtract(3, 'years').calendar());
-      let actual = calculateDateRange(start, end);
+      const actual = calculateDateRange(start, end);
       expect(actual).toEqual('3y');
     });
 
     it('returns 6m', () => {
       start = new Date(dayjs(end).subtract(6, 'months').calendar());
-      let actual = calculateDateRange(start, end);
+      const actual = calculateDateRange(start, end);
       expect(actual).toEqual('6m');
     });
   });
 
   describe('formatPercentage', () => {
     it('handles regular values', () => {
-      let actual = formatPercentage(0.5);
+      const actual = formatPercentage(0.5);
       expect(actual).toEqual(50.0);
     });
     it('handles NaN values', () => {
-      let actual = formatPercentage(NaN);
+      const actual = formatPercentage(NaN);
       expect(actual).toEqual(0.0);
     });
   });

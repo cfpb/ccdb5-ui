@@ -10,6 +10,9 @@ import ReduxFilterPanel, {
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
+/**
+ *
+ */
 function setupEnzyme() {
   const props = {
     onFilterToggle: jest.fn(),
@@ -26,6 +29,10 @@ function setupEnzyme() {
   };
 }
 
+/**
+ *
+ * @param view
+ */
 function setupSnapshot(view) {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
@@ -97,7 +104,7 @@ describe('mapStateToProps', () => {
         width: 1000,
       },
     };
-    let actual = mapStateToProps(state);
+    const actual = mapStateToProps(state);
     expect(actual).toEqual({
       hasButton: false,
       hasFilterToggle: false,

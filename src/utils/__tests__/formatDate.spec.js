@@ -11,12 +11,12 @@ describe('formatDate', function () {
     expect(actual).toEqual('1980-12-12');
   });
 
-  it('converts a date object ', function () {
+  it('converts a date object', function () {
     const actual = sut.formatDate(new Date('January 12, 1980'));
     expect(actual).toEqual('1980-01-12');
   });
 
-  it('converts string to data model ', function () {
+  it('converts string to data model', function () {
     const actual = sut.formatDateModel(new Date('January 12, 1980'));
     expect(actual).toEqual('1980-01-12');
   });

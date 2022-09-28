@@ -19,6 +19,10 @@ const fixture = [
   { key: 'theta', doc_count: 99 },
 ];
 
+/**
+ *
+ * @param initial
+ */
 function setupEnzyme(initial) {
   const props = {
     listComponent: AggregationItem,
@@ -32,6 +36,10 @@ function setupEnzyme(initial) {
   };
 }
 
+/**
+ *
+ * @param hasMore
+ */
 function setupSnapshot(hasMore) {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);

@@ -4,9 +4,12 @@ import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../../constants';
 import { Provider } from 'react-redux';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { shallow } from 'enzyme';
 import thunk from 'redux-thunk';
 
+/**
+ *
+ * @param tab
+ */
 function setupSnapshot(tab) {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
@@ -27,25 +30,25 @@ describe('component: TabbedNavigation', () => {
   describe('initial state', () => {
     it('renders without crashing', () => {
       const target = setupSnapshot();
-      let tree = target.toJSON();
+      const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
     });
 
     it('shows the List tab', () => {
       const target = setupSnapshot(MODE_LIST);
-      let tree = target.toJSON();
+      const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
     });
 
     it('shows the Map tab', () => {
       const target = setupSnapshot(MODE_MAP);
-      let tree = target.toJSON();
+      const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
     });
 
     it('shows the Trends tab', () => {
       const target = setupSnapshot(MODE_TRENDS);
-      let tree = target.toJSON();
+      const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
     });
   });

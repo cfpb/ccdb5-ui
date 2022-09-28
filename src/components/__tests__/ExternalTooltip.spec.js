@@ -11,6 +11,11 @@ import thunk from 'redux-thunk';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
+/**
+ *
+ * @param query
+ * @param tooltip
+ */
 function setupSnapshot(query, tooltip) {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
@@ -93,7 +98,7 @@ describe('buttons', () => {
     target = shallow(
       <ExternalTooltip
         remove={cb}
-        lens={'Foo'}
+        lens="Foo"
         add={cbFocus}
         hasCompanyTypeahead={true}
         tooltip={{
@@ -160,7 +165,7 @@ describe('mapStateToProps', () => {
     };
   });
   it('maps state and props', () => {
-    let actual = mapStateToProps(state);
+    const actual = mapStateToProps(state);
     expect(actual).toEqual({
       focus: '',
       lens: 'Overview',
@@ -178,13 +183,13 @@ describe('mapStateToProps', () => {
 
   it('maps state and props - focus', () => {
     state.query.focus = 'something else';
-    let actual = mapStateToProps(state);
+    const actual = mapStateToProps(state);
     expect(actual.focus).toEqual('focus');
   });
 
   it('handles broken tooltip title', () => {
     state.trends.tooltip.title = 'something else';
-    let actual = mapStateToProps(state);
+    const actual = mapStateToProps(state);
     expect(actual).toEqual({
       focus: '',
       lens: 'Overview',

@@ -1,4 +1,4 @@
-import ReduxSearchPanel, { SearchPanel } from '../Search/SearchPanel';
+import ReduxSearchPanel from '../Search/SearchPanel';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import thunk from 'redux-thunk';
@@ -6,6 +6,9 @@ import configureMockStore from 'redux-mock-store';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
 
+/**
+ *
+ */
 function setupSnapshot() {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
