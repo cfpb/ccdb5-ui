@@ -1,16 +1,7 @@
 module.exports = {
   collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.d.ts'],
-  coverageThreshold: {
-    global: {
-      branches: 85.97,
-      functions: 91,
-      lines: 93,
-      statements: 93,
-    },
-  },
-  coverageReporters: ['text', 'html', 'text-summary'],
   coveragePathIgnorePatterns: ['src/index.js'],
-  setupFilesAfterEnv: ['<rootDir>/config/setup.js'],
+  setupFilesAfterEnv: ['<rootDir>/config/setup-jest.js'],
   testEnvironment: 'jsdom',
   testEnvironmentOptions: {
     url: 'http://localhost',
