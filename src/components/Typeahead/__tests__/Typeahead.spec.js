@@ -149,7 +149,8 @@ describe('component::Typeahead', () => {
 
       fakePromise = {
         then: (x, y) => {
-          (onSuccess = x), (onFail = y);
+          onSuccess = x;
+          onFail = y;
         },
       };
       props.onInputChange.mockImplementation(() => fakePromise);

@@ -174,6 +174,7 @@ describe('component::DataExport', () => {
   });
 
   describe('getDerivedStateFromProps', () => {
+    // eslint-disable-next-line no-unused-vars
     let target, state, props;
     beforeEach(() => {
       ({ target, props } = setupEnzyme());

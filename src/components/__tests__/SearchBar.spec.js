@@ -44,6 +44,8 @@ describe('component:SearchBar - Company', () => {
     const node = document.createElement('div');
     const { props } = setup('foo', 'company');
 
+    // TODO: refactor to fix linter error. Probably fixed with func components.
+    // eslint-disable-next-line react/no-render-return-value
     const view = ReactDOM.render(<SearchBar {...props} />, node);
 
     props.searchText = 'bar';
@@ -56,6 +58,9 @@ describe('component:SearchBar - All data', () => {
   it('receives updates when the parent state changes', () => {
     const node = document.createElement('div');
     const { props } = setup('foo', 'all');
+
+    // TODO: refactor to fix linter error. Probably fixed with func components.
+    // eslint-disable-next-line react/no-render-return-value
     const view = ReactDOM.render(<SearchBar {...props} />, node);
     props.searchField = 'all';
     props.searchText = 'bar';
