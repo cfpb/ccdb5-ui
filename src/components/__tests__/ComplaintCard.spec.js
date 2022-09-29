@@ -38,7 +38,7 @@ describe('initial state', () => {
       </MemoryRouter>
     );
 
-    let tree = target.toJSON();
+    const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
     expect(tree).not.toContain('foo');
   });
@@ -53,7 +53,7 @@ describe('initial state', () => {
       </MemoryRouter>
     );
 
-    let tree = target.toJSON();
+    const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
     expect(tree).not.toContain('Oh baby you');
   });
@@ -85,7 +85,7 @@ ocean with me.";
       </MemoryRouter>
     );
 
-    let tree = target.toJSON();
+    const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
     expect(tree).not.toContain('November');
   });
@@ -100,7 +100,7 @@ ocean with me.";
       </MemoryRouter>
     );
 
-    let tree = target.toJSON();
+    const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
     expect(tree).not.toContain('Gamma');
   });
@@ -115,7 +115,7 @@ ocean with me.";
       </MemoryRouter>
     );
 
-    let tree = target.toJSON();
+    const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
     expect(tree).not.toContain('Delta');
   });
@@ -129,7 +129,7 @@ ocean with me.";
         </IntlProvider>
       </MemoryRouter>
     );
-    let tree = target.toJSON();
+    const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
     expect(tree).not.toContain(
       '<a href="detail/<em>99990909</em>"><em>99990909</em></a>'

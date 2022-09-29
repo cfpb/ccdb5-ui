@@ -1,4 +1,4 @@
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import ReduxPagination, {
   Pagination,
   mapStateToProps,
@@ -12,6 +12,9 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import thunk from 'redux-thunk';
 
+/**
+ *
+ */
 function setupSnapshot() {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
@@ -35,7 +38,7 @@ function setupSnapshot() {
 describe('component::Pagination', () => {
   it('renders without crashing', () => {
     const target = setupSnapshot();
-    let tree = target.toJSON();
+    const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   });
 

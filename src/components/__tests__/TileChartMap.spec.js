@@ -15,6 +15,10 @@ import * as types from '../../constants';
 
 jest.mock('../Charts/TileMap');
 
+/**
+ *
+ * @param isPrintMode
+ */
 function setupSnapshot(isPrintMode) {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
@@ -48,13 +52,13 @@ describe('component: TileChartMap', () => {
 
     it('renders without crashing', () => {
       const target = setupSnapshot(false);
-      let tree = target.toJSON();
+      const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
     });
 
     it('renders print mode without crashing', () => {
       const target = setupSnapshot(true);
-      let tree = target.toJSON();
+      const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
     });
 
@@ -131,7 +135,7 @@ describe('component: TileChartMap', () => {
               { name: 'LA', value: 10 },
             ],
           ]}
-          dataNormalization={'None'}
+          dataNormalization="None"
         />
       );
       redrawSpy = jest.spyOn(target.instance(), '_redrawMap');
@@ -238,7 +242,7 @@ describe('component: TileChartMap', () => {
           width: 1000,
         },
       };
-      let actual = mapStateToProps(state);
+      const actual = mapStateToProps(state);
       expect(actual).toEqual({
         data: [
           [
@@ -323,7 +327,7 @@ describe('component: TileChartMap', () => {
           width: 1000,
         },
       };
-      let actual = mapStateToProps(state);
+      const actual = mapStateToProps(state);
       expect(actual).toEqual({
         data: [
           [

@@ -8,6 +8,11 @@ const fixture = [
   { key: 'WA', doc_count: 9 },
 ];
 
+/**
+ *
+ * @param options
+ * @param selections
+ */
 function setupEnzyme(options, selections) {
   const props = {
     fieldName: 'foo',
@@ -37,7 +42,7 @@ describe('component::StickyOptions', () => {
       expect(target.state('tracked')).toEqual(['DC']);
     });
 
-    it('adds new selections without removing previous selections ', () => {
+    it('adds new selections without removing previous selections', () => {
       target.setProps({ selections: ['MS', 'DC', 'WA'], options: [] });
       expect(target.state('tracked')).toEqual(['DC', 'MS', 'WA']);
     });

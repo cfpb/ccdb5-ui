@@ -17,6 +17,9 @@ const fixture = [
   },
 ];
 
+/**
+ *
+ */
 function setupEnzyme() {
   const props = {
     options: fixture,
@@ -45,6 +48,10 @@ function setupEnzyme() {
   };
 }
 
+/**
+ *
+ * @param initialFixture
+ */
 function setupSnapshot(initialFixture) {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
@@ -112,8 +119,8 @@ describe('component::FederalState', () => {
     describe('_renderOption', () => {
       it('produces a custom component', () => {
         const options = target.instance()._onInputChange('ARI');
-        const actual = target.instance()._renderOption(options[0]);
-        expect(actual).toEqual({
+        const view = target.instance()._renderOption(options[0]);
+        expect(view).toEqual({
           value: 'AZ',
           component: expect.anything(),
         });

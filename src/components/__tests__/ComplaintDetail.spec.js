@@ -29,6 +29,9 @@ const fixture = {
   zip_code: '423XX',
 };
 
+/**
+ *
+ */
 function setupEnzyme() {
   const props = {
     complaint_id: '123456789',
@@ -43,6 +46,11 @@ function setupEnzyme() {
   };
 }
 
+/**
+ *
+ * @param overrides
+ * @param error
+ */
 function setupSnapshot(overrides = {}, error = '') {
   let data = Object.assign({}, fixture, overrides);
   if (error) {

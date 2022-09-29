@@ -69,6 +69,9 @@ jest.mock('d3', () => {
   return mock;
 });
 
+/**
+ *
+ */
 function setupSnapshot() {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
@@ -107,7 +110,7 @@ describe('component: StackedAreaChart', () => {
   describe('initial state', () => {
     it('renders without crashing', () => {
       const target = setupSnapshot();
-      let tree = target.toJSON();
+      const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
     });
   });
@@ -146,7 +149,7 @@ describe('component: StackedAreaChart', () => {
           colorMap={{ foo: 'bar', shi: 'oio' }}
           data={[23, 4, 3]}
           dateRange={{ from: '1/1/2021', to: '1/1/2022' }}
-          interval={'Month'}
+          interval="Month"
         />
       );
       target._redrawChart = jest.fn();
@@ -162,7 +165,7 @@ describe('component: StackedAreaChart', () => {
           colorMap={{ foo: 'bar', shi: 'oio' }}
           data={[23, 4, 3]}
           dateRange={{ from: '1/1/2021', to: '1/1/2022' }}
-          interval={'Month'}
+          interval="Month"
           isPrintMode={false}
         />
       );
@@ -179,7 +182,7 @@ describe('component: StackedAreaChart', () => {
           colorMap={{ foo: 'bar', shi: 'oio' }}
           data={[23, 4, 3]}
           dateRange={{ from: '1/1/2021', to: '1/1/2022' }}
-          interval={'Month'}
+          interval="Month"
           isPrintMode={false}
           width={1000}
         />
@@ -229,7 +232,7 @@ describe('component: StackedAreaChart', () => {
         },
       };
 
-      let actual = mapStateToProps(state);
+      const actual = mapStateToProps(state);
       expect(actual).toEqual({
         colorMap: {},
         data: [],
@@ -260,7 +263,7 @@ describe('component: StackedAreaChart', () => {
         <StackedAreaChart
           colorMap={{ a: '#eee', b: '#444' }}
           data={[2, 3, 4]}
-          interval={'Month'}
+          interval="Month"
           dateRange={{
             from: '2012',
             to: '2020',
@@ -281,7 +284,7 @@ describe('component: StackedAreaChart', () => {
         <StackedAreaChart
           colorMap={{ a: '#eee', b: '#444' }}
           data={[3, 5, 6]}
-          interval={'Month'}
+          interval="Month"
           dateRange={{
             from: '2012',
             to: '2020',
@@ -304,9 +307,9 @@ describe('component: StackedAreaChart', () => {
           <StackedAreaChart
             isPrintMode={true}
             colorMap={{ a: '#eee', b: '#444' }}
-            lens={'Overview'}
+            lens="Overview"
             data={[3, 5, 6]}
-            interval={'Month'}
+            interval="Month"
             dateRange={{
               from: '2012',
               to: '2020',

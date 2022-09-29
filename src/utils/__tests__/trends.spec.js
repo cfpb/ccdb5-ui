@@ -79,8 +79,7 @@ describe('pruneOther', () => {
 
 describe('scrollToFocus', () => {
   it('scrolls to the search summary', () => {
-    let selectElement;
-    selectElement = document.createElement('div');
+    const selectElement = document.createElement('div');
     selectElement.setAttribute('id', 'search-summary');
     selectElement.scrollIntoView = jest.fn();
     window.domNode = selectElement;
@@ -93,8 +92,7 @@ describe('scrollToFocus', () => {
   });
 
   it('does nothing if no element found', () => {
-    let selectElement;
-    selectElement = document.createElement('div');
+    const selectElement = document.createElement('div');
     selectElement.setAttribute('id', 'not-search-summary');
     selectElement.scrollIntoView = jest.fn();
     sut.scrollToFocus();

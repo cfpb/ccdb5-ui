@@ -12,10 +12,16 @@ import { shallow } from 'enzyme';
 import { slugify } from '../../../utils';
 import thunk from 'redux-thunk';
 
+/**
+ *
+ * @param rmCb
+ * @param addCb
+ * @param isActive
+ */
 function setupEnzyme(rmCb, addCb, isActive) {
   return shallow(
     <AggregationItem
-      fieldName={'foo'}
+      fieldName="foo"
       item={{
         key: 'hole',
         doc_count: 100,
@@ -28,13 +34,15 @@ function setupEnzyme(rmCb, addCb, isActive) {
   );
 }
 
+/**
+ *
+ */
 function setupSnapshot() {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
-  let active, onClick;
 
-  active = false;
-  onClick = jest.fn();
+  const active = false;
+  const onClick = jest.fn();
 
   const store = mockStore({
     query: {
@@ -47,7 +55,7 @@ function setupSnapshot() {
       <Provider store={store}>
         <ReduxAggregationItem
           item={{ key: 'foo', doc_count: 1000 }}
-          fieldName={'fieldName'}
+          fieldName="fieldName"
           active={active}
           onClick={onClick}
         />
@@ -64,7 +72,7 @@ describe('component:AggregationItem', () => {
   });
   it('renders without crashing', () => {
     const target = setupSnapshot();
-    let tree = target.toJSON();
+    const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   });
 

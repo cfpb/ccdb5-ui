@@ -27,6 +27,10 @@ const subitems = [
   { key: 'qaz', doc_count: 4 },
 ];
 
+/**
+ *
+ * @param checkedState
+ */
 function setupEnzyme(checkedState = UNCHECKED) {
   const props = {
     activeChildren: [
@@ -52,6 +56,10 @@ function setupEnzyme(checkedState = UNCHECKED) {
   };
 }
 
+/**
+ *
+ * @param selections
+ */
 function setupSnapshot(selections) {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
@@ -107,7 +115,7 @@ describe('component::AggregationBranch', () => {
 
   describe('toggle behavior', () => {
     it('shows the children when the label is clicked', () => {
-      const { target, props } = setupEnzyme();
+      const { target } = setupEnzyme();
       const theButton = target.find('button');
 
       expect(target.state('hasChildren')).toEqual(false);

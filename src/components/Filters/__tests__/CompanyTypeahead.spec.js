@@ -11,6 +11,9 @@ import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 import thunk from 'redux-thunk';
 
+/**
+ *
+ */
 function setupEnzyme() {
   const props = {
     queryString: '?foo=bar&baz=qaz',
@@ -25,6 +28,13 @@ function setupEnzyme() {
   };
 }
 
+/**
+ *
+ * @param root0
+ * @param root0.focus
+ * @param root0.lens
+ * @param root0.queryString
+ */
 function setupSnapshot({ focus, lens, queryString }) {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
@@ -49,7 +59,7 @@ describe('component::CompanyTypeahead', () => {
   describe('snapshots', () => {
     it('renders without crashing', () => {
       const target = setupSnapshot({});
-      let tree = target.toJSON();
+      const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
     });
 
@@ -60,7 +70,7 @@ describe('component::CompanyTypeahead', () => {
         queryString: '?fdsfds=fds',
       });
 
-      let tree = target.toJSON();
+      const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
     });
   });
@@ -90,16 +100,16 @@ describe('component::CompanyTypeahead', () => {
 
     describe('_renderOption', () => {
       it('produces a custom component', () => {
-        const { target, props } = setupEnzyme();
+        const { target } = setupEnzyme();
         const option = {
           key: 'Foo',
           label: 'foo',
           position: 0,
           value: 'FOO',
         };
-        const actual = target.instance()._renderOption(option);
-        expect(actual.value).toEqual('Foo');
-        expect(actual.component).toMatchObject({
+        const { value, component } = target.instance()._renderOption(option);
+        expect(value).toEqual('Foo');
+        expect(component).toMatchObject({
           props: {
             label: 'foo',
             position: 0,
@@ -141,7 +151,7 @@ describe('component::CompanyTypeahead', () => {
           zip_code: '',
         },
       };
-      let actual = mapStateToProps(state);
+      const actual = mapStateToProps(state);
       expect(actual).toEqual({
         isDisabled: false,
         queryString: '?state=TX&state=FL',

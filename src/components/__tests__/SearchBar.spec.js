@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom';
 import { mount } from 'enzyme';
 import { mapDispatchToProps, SearchBar } from '../Search/SearchBar';
 
+/**
+ *
+ * @param initialText
+ * @param searchField
+ */
 function setup(initialText, searchField = 'all') {
   const props = {
     debounceWait: 0,
@@ -39,11 +44,13 @@ describe('component:SearchBar - Company', () => {
     const node = document.createElement('div');
     const { props } = setup('foo', 'company');
 
-    const target = ReactDOM.render(<SearchBar {...props} />, node);
+    // TODO: refactor to fix linter error. Probably fixed with func components.
+    // eslint-disable-next-line react/no-render-return-value
+    const view = ReactDOM.render(<SearchBar {...props} />, node);
 
     props.searchText = 'bar';
     ReactDOM.render(<SearchBar {...props} />, node);
-    expect(target.state.inputValue).toEqual('bar');
+    expect(view.state.inputValue).toEqual('bar');
   });
 });
 
@@ -51,11 +58,14 @@ describe('component:SearchBar - All data', () => {
   it('receives updates when the parent state changes', () => {
     const node = document.createElement('div');
     const { props } = setup('foo', 'all');
-    const target = ReactDOM.render(<SearchBar {...props} />, node);
+
+    // TODO: refactor to fix linter error. Probably fixed with func components.
+    // eslint-disable-next-line react/no-render-return-value
+    const view = ReactDOM.render(<SearchBar {...props} />, node);
     props.searchField = 'all';
     props.searchText = 'bar';
     ReactDOM.render(<SearchBar {...props} />, node);
-    expect(target.state.inputValue).toEqual('bar');
+    expect(view.state.inputValue).toEqual('bar');
   });
 
   it('calls the callback when the form is submitted', () => {
@@ -87,7 +97,7 @@ describe('component:SearchBar - All data', () => {
 
       it('sets the state', () => {
         const { target } = setup();
-        const actual = target.instance()._onInputChange('BA');
+        target.instance()._onInputChange('BA');
         expect(target.state('inputValue')).toEqual('BA');
       });
     });
@@ -101,9 +111,9 @@ describe('component:SearchBar - All data', () => {
           position: 0,
           value: 'FOO',
         };
-        const actual = target.instance()._renderOption(option);
-        expect(actual.value).toEqual('Foo');
-        expect(actual.component).toMatchObject({
+        const { value, component } = target.instance()._renderOption(option);
+        expect(value).toEqual('Foo');
+        expect(component).toMatchObject({
           props: {
             label: 'foo',
             position: 0,

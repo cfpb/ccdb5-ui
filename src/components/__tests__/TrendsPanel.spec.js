@@ -84,6 +84,14 @@ jest.mock('d3', () => {
   return mock;
 });
 
+/**
+ *
+ * @param root0
+ * @param root0.focus
+ * @param root0.hasOverview
+ * @param root0.lens
+ * @param root0.subLens
+ */
 function setupEnzyme({ focus, hasOverview, lens, subLens }) {
   const props = {
     focus,
@@ -100,6 +108,19 @@ function setupEnzyme({ focus, hasOverview, lens, subLens }) {
   return target;
 }
 
+/**
+ *
+ * @param root0
+ * @param root0.chartType
+ * @param root0.company
+ * @param root0.focus
+ * @param root0.dateInterval
+ * @param root0.lens
+ * @param root0.subLens
+ * @param root0.tooltip
+ * @param root0.trendsDateWarningEnabled
+ * @param root0.width
+ */
 function setupSnapshot({
   chartType,
   company,

@@ -13,6 +13,13 @@ import thunk from 'redux-thunk';
 import { shallow } from 'enzyme';
 import * as utils from '../../utils';
 
+/**
+ *
+ * @param root0
+ * @param root0.focus
+ * @param root0.lens
+ * @param root0.results
+ */
 function setupSnapshot({ focus, lens, results }) {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
@@ -93,9 +100,9 @@ describe('component:LensTabs', () => {
       target = shallow(
         <LensTabs
           onTab={cb}
-          lens={'Product'}
+          lens="Product"
           hasProductTab={true}
-          subLens={'Issue'}
+          subLens="Issue"
           showTitle={true}
         />
       );
@@ -146,7 +153,7 @@ describe('component:LensTabs', () => {
           },
         },
       };
-      let actual = mapStateToProps(state);
+      const actual = mapStateToProps(state);
       expect(actual).toEqual({
         focus: '',
         lens: 'foo',

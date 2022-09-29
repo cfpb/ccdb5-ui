@@ -9,6 +9,9 @@ import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 
+/**
+ *
+ */
 function setupSnapshot() {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
@@ -42,7 +45,7 @@ describe('component: PrintInfo', () => {
   describe('initial state', () => {
     it('renders without crashing', () => {
       const target = setupSnapshot();
-      let tree = target.toJSON();
+      const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
     });
   });
@@ -60,7 +63,7 @@ describe('component: PrintInfo', () => {
           searchText: 'foobar',
         },
       };
-      let actual = mapStateToProps(state);
+      const actual = mapStateToProps(state);
       expect(actual.complaintCountText).toBeTruthy();
       expect(actual).toEqual(
         expect.objectContaining({
