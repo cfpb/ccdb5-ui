@@ -1,31 +1,31 @@
 import './ListPanel.less';
 import '../RefineBar/RefineBar.less';
-import { changeSize, changeSort } from '../../actions/paging';
-import { sizes, sorts } from '../../constants';
-import ActionBar from '../ActionBar';
-import { ComplaintCard } from './ComplaintCard';
+import { changeSize, changeSort } from '../../../actions/paging';
+import { sizes, sorts } from '../../../constants';
+import ActionBar from '../../ActionBar';
+import { ComplaintCard } from '../ComplaintCard';
 import { useDispatch, useSelector } from 'react-redux';
-import ErrorBlock from '../Warnings/Error';
-import FilterPanel from '../Filters/FilterPanel';
-import FilterPanelToggle from '../Filters/FilterPanelToggle';
-import Loading from '../Dialogs/Loading';
-import { NarrativesButtons } from '../RefineBar/NarrativesButtons';
-import Pagination from './Pagination';
+import ErrorBlock from '../../Warnings/Error';
+import FilterPanel from '../../Filters/FilterPanel';
+import FilterPanelToggle from '../../Filters/FilterPanelToggle';
+import Loading from '../../Dialogs/Loading';
+import { NarrativesButtons } from '../../RefineBar/NarrativesButtons';
+import { Pagination } from '../Pagination';
 import React, { useMemo } from 'react';
-import { Select } from '../RefineBar/Select';
-import { sendAnalyticsEvent } from '../../utils';
-import { Separator } from '../RefineBar/Separator';
-import { TabbedNavigation } from '../TabbedNavigation';
-import { selectAggsHasError } from '../../reducers/aggs/selectors';
+import { Select } from '../../RefineBar/Select';
+import { sendAnalyticsEvent } from '../../../utils';
+import { Separator } from '../../RefineBar/Separator';
+import { TabbedNavigation } from '../../TabbedNavigation';
+import { selectAggsHasError } from '../../../reducers/aggs/selectors';
 import {
   selectResultsIsLoading,
   selectResultsItems,
-} from '../../reducers/results/selectors';
-import { selectViewWidth } from '../../reducers/view/selectors';
+} from '../../../reducers/results/selectors';
+import { selectViewWidth } from '../../../reducers/view/selectors';
 import {
   selectQuerySize,
   selectQuerySort,
-} from '../../reducers/query/selectors';
+} from '../../../reducers/query/selectors';
 
 const ERROR = 'ERROR';
 const NO_RESULTS = 'NO_RESULTS';
@@ -62,7 +62,6 @@ export const ListPanel = () => {
     } else if (items.length > 0) {
       phase = RESULTS;
     }
-
     return phase;
   };
 

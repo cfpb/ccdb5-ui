@@ -3,7 +3,8 @@ import ReduxPagination, {
   Pagination,
   mapStateToProps,
   mapDispatchToProps,
-} from '../List/Pagination';
+} from '../List/Pagination/Pagination';
+// import { Pagination } from '../List/Pagination';
 import configureMockStore from 'redux-mock-store';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
@@ -89,33 +90,6 @@ describe('component::Pagination', () => {
       const target = shallow(<Pagination page={10} total={10} />);
       const next = target.find('.m-pagination_btn-next');
       expect(next.props().disabled).toEqual(true);
-    });
-  });
-
-  describe('mapDispatchToProps', () => {
-    it('hooks into nextPage', () => {
-      const dispatch = jest.fn();
-      mapDispatchToProps(dispatch).nextPage();
-      expect(dispatch.mock.calls.length).toEqual(1);
-    });
-    it('hooks into prevPage', () => {
-      const dispatch = jest.fn();
-      mapDispatchToProps(dispatch).prevPage();
-      expect(dispatch.mock.calls.length).toEqual(1);
-    });
-  });
-
-  describe('mapStateToProps', () => {
-    it('maps state and props', () => {
-      const state = {
-        query: {
-          page: 1,
-          size: 25,
-          totalPages: 100,
-        },
-      };
-      let actual = mapStateToProps(state);
-      expect(actual).toEqual({ page: 1, size: 25, total: 100 });
     });
   });
 });

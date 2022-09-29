@@ -5,7 +5,7 @@ import {
   COMPLAINTS_RECEIVED,
 } from '../../actions/complaints';
 
-const defaultResults = {
+export const defaultResults = {
   activeCall: '',
   error: '',
   isLoading: false,
