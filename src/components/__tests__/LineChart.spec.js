@@ -83,6 +83,10 @@ jest.mock('d3', () => {
   return mock;
 });
 
+/**
+ *
+ * @param lens
+ */
 function setupSnapshot(lens) {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
@@ -91,7 +95,7 @@ function setupSnapshot(lens) {
       dateInterval: 'Month',
       date_received_min: '2012',
       date_received_max: '2016',
-      lens: 'Overview',
+      lens,
     },
     trends: {
       colorMap: { Complaints: '#ADDC91', Other: '#a2a3a4' },
@@ -123,7 +127,7 @@ function setupSnapshot(lens) {
 
   return renderer.create(
     <Provider store={store}>
-      <ReduxLineChart title={'foo'} />
+      <ReduxLineChart title="foo" />
     </Provider>
   );
 }
@@ -132,13 +136,13 @@ describe('component: LineChart', () => {
   describe('initial state', () => {
     it('renders without crashing', () => {
       const target = setupSnapshot('Overview');
-      let tree = target.toJSON();
+      const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
     });
 
     it('renders data lens without crashing', () => {
       const target = setupSnapshot('Issue');
-      let tree = target.toJSON();
+      const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
     });
   });
@@ -230,7 +234,7 @@ describe('component: LineChart', () => {
     });
 
     it('does nothing when no data', () => {
-      const target = shallow(<LineChart data={[]} title={'foo'} />);
+      const target = shallow(<LineChart data={[]} title="foo" />);
       target._redrawChart = jest.fn();
       target.setProps({ data: [] });
       expect(target._redrawChart).toHaveBeenCalledTimes(0);
@@ -246,9 +250,9 @@ describe('component: LineChart', () => {
             from: '1/1/2020',
             to: '5/30/2021',
           }}
-          interval={'Month'}
+          interval="Month"
           processData={data}
-          title={'foo'}
+          title="foo"
           tooltip={{ date: '5/30/2021' }}
           lastDate={lastDate}
           hasChart={true}
@@ -298,9 +302,9 @@ describe('component: LineChart', () => {
             from: '1/1/2020',
             to: '5/30/2021',
           }}
-          interval={'Month'}
+          interval="Month"
           processData={data}
-          title={'foo'}
+          title="foo"
           tooltip={{ date: '5/30/2021' }}
           lastDate={lastDate}
           hasChart={true}
@@ -321,12 +325,12 @@ describe('component: LineChart', () => {
             from: '1/1/2020',
             to: '1/1/2021',
           }}
-          interval={'Month'}
+          interval="Month"
           tooltipUpdated={jest.fn()}
           isPrintMode={false}
           processData={data}
           width={1000}
-          title={'foo'}
+          title="foo"
           tooltip={{ date: '5/30/2021' }}
           lastDate={lastDate}
           hasChart={true}
@@ -376,7 +380,7 @@ describe('component: LineChart', () => {
           width: 1000,
         },
       };
-      let actual = mapStateToProps(state);
+      const actual = mapStateToProps(state);
       expect(actual).toEqual({
         colorMap: {},
         data: [],
@@ -409,9 +413,9 @@ describe('component: LineChart', () => {
       target = shallow(
         <LineChart
           data={data}
-          interval={'Month'}
+          interval="Month"
           dateRange={{ from: '2012', to: '2020' }}
-          title={'foo'}
+          title="foo"
           tooltip={{ date: '2000' }}
           tooltipUpdated={cb}
         />
@@ -428,9 +432,9 @@ describe('component: LineChart', () => {
       target = shallow(
         <LineChart
           data={data}
-          interval={'Month'}
+          interval="Month"
           dateRange={{ from: '2012', to: '2020' }}
-          title={'foo'}
+          title="foo"
           tooltip={{ date: '2000' }}
           tooltipUpdated={cb}
         />
@@ -447,9 +451,9 @@ describe('component: LineChart', () => {
       target = shallow(
         <LineChart
           data={data}
-          interval={'Month'}
+          interval="Month"
           dateRange={{ from: '2012', to: '2020' }}
-          title={'foo'}
+          title="foo"
         />
       );
       const instance = target.instance();
@@ -471,14 +475,14 @@ describe('component: LineChart', () => {
         const target = shallow(
           <LineChart
             isPrintMode={true}
-            lens={'Overview'}
+            lens="Overview"
             data={data}
-            interval={'Month'}
+            interval="Month"
             dateRange={{
               from: '2012',
               to: '2020',
             }}
-            title={'foo'}
+            title="foo"
           />
         );
         expect(target.instance()._chartWidth('#foo')).toEqual(750);

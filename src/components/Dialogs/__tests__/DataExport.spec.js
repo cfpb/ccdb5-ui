@@ -1,5 +1,3 @@
-jest.mock('../../../actions/dataExport');
-
 import { shallow } from 'enzyme';
 import React from 'react';
 import { IntlProvider } from 'react-intl';
@@ -13,8 +11,13 @@ import ReduxDataExport, {
 } from '../DataExport';
 import * as utils from '../../../utils';
 
+jest.mock('../../../actions/dataExport');
+
 const mockDataExportActions = require('../../../actions/dataExport');
 
+/**
+ *
+ */
 function setupEnzyme() {
   const props = {
     allComplaints: 999,
@@ -32,6 +35,10 @@ function setupEnzyme() {
   };
 }
 
+/**
+ *
+ * @param total
+ */
 function setupSnapshot(total = 1001) {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
@@ -56,7 +63,7 @@ function setupSnapshot(total = 1001) {
 
 describe('component::DataExport', () => {
   beforeAll(() => {
-    document.queryCommandSupported = jest.fn((_) => true);
+    document.queryCommandSupported = jest.fn(() => true);
   });
 
   describe('initial state', () => {
@@ -74,9 +81,9 @@ describe('component::DataExport', () => {
   });
 
   describe('visual changes', () => {
-    it('switches the button after a copy', () => {
+    it('switches the button after a copy', async () => {
       const target = setupSnapshot();
-      const ctlDataExport = target.root.findByType(DataExport);
+      const ctlDataExport = await target.root.findByType(DataExport);
       ctlDataExport.instance.setState({
         copied: true,
         dataset: 'full',
@@ -123,7 +130,7 @@ describe('component::DataExport', () => {
         const el = { select: jest.fn() };
         const ev = { target: { focus: jest.fn() } };
         document.execCommand = jest.fn();
-        document.getElementById = jest.fn((_) => el);
+        document.getElementById = jest.fn(() => el);
 
         target.setState({ dataset: 'filtered', format: 'csv' });
         copyToClipboardBtn.simulate('click', ev);
@@ -167,6 +174,7 @@ describe('component::DataExport', () => {
   });
 
   describe('getDerivedStateFromProps', () => {
+    // eslint-disable-next-line no-unused-vars
     let target, state, props;
     beforeEach(() => {
       ({ target, props } = setupEnzyme());

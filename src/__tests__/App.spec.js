@@ -27,7 +27,7 @@ describe('initial state', () => {
       target = create(<App />);
     });
 
-    let tree = target.toJSON();
+    const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
@@ -46,7 +46,7 @@ describe('initial state', () => {
       </MemoryRouter>
     );
 
-    let detailTree = detailTarget.toJSON();
+    const detailTree = detailTarget.toJSON();
     expect(detailTree).toMatchSnapshot();
   });
 });

@@ -13,7 +13,7 @@ describe('Filter Panel', () => {
     cy.intercept(request, fixture).as('getComplaints');
 
     request = '**/ccdb/metadata.js';
-    fixture = { fixture: 'metadata.js' };
+    fixture = { fixture: 'metadata.json' };
     cy.intercept(request, fixture).as('metadata');
 
     cy.visit('?tab=List');
@@ -235,7 +235,8 @@ describe('Filter Panel', () => {
       cy.log('open again');
       cy.get('.state .o-expandable_link').click();
       cy.log('searches a typeahead filter');
-      cy.get('.state input').clear().wait(400).type('texas');
+      cy.get('.state input').clear();
+      cy.get('.state input').type('texas');
 
       cy.get('.state .typeahead-selector').should('exist');
 

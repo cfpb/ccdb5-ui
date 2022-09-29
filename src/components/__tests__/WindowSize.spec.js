@@ -5,6 +5,9 @@ import { shallow } from 'enzyme';
 // tell jest to mock all timeout functions
 jest.useFakeTimers();
 
+/**
+ *
+ */
 function setupEnzyme() {
   const props = {
     updateWindowSize: jest.fn(),
@@ -21,7 +24,7 @@ function setupEnzyme() {
 describe('component:WindowSize', () => {
   describe('componentDidMount', () => {
     it('initializes the window size', () => {
-      const { target, props } = setupEnzyme();
+      const { props } = setupEnzyme();
       expect(props.updateWindowSize).toHaveBeenCalledTimes(1);
     });
 
@@ -29,7 +32,7 @@ describe('component:WindowSize', () => {
       const props = {
         updateWindowSize: jest.fn(),
       };
-      let target = new WindowSize(props);
+      new WindowSize(props);
 
       // Change the viewport to 500px.
       global.innerWidth = 500;

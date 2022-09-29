@@ -5,6 +5,10 @@ import * as sut from '../complaints';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
+/**
+ *
+ * @param tab
+ */
 function setupStore(tab) {
   return mockStore({
     map: {},
@@ -343,6 +347,11 @@ describe('action::complaints', () => {
   describe('getTrends', () => {
     let onSuccess, onFail, store;
 
+    /**
+     *
+     * @param company
+     * @param lens
+     */
     function setupStore(company, lens) {
       const mockState = {
         query: {

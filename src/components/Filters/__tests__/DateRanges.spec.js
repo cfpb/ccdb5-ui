@@ -6,6 +6,9 @@ import renderer from 'react-test-renderer';
 import * as types from '../../../constants';
 import thunk from 'redux-thunk';
 
+/**
+ *
+ */
 function setupSnapshot() {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
@@ -27,7 +30,7 @@ describe('component: DateRanges', () => {
   describe('initial state', () => {
     it('renders without crashing', () => {
       const target = setupSnapshot();
-      let tree = target.toJSON();
+      const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
     });
   });

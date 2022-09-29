@@ -1,12 +1,18 @@
 import configureMockStore from 'redux-mock-store';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
-import ReduxMapPanel, { MapPanel, mapDispatchToProps } from '../Map/MapPanel';
+import ReduxMapPanel, { mapDispatchToProps } from '../Map/MapPanel';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import thunk from 'redux-thunk';
 import { MODE_MAP } from '../../constants';
 
+/**
+ *
+ * @param root0
+ * @param root0.enablePer1000
+ * @param root0.isPrintMode
+ */
 function setupSnapshot({ enablePer1000, isPrintMode }) {
   const items = [
     { key: 'CA', doc_count: 62519 },

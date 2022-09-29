@@ -9,6 +9,10 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import thunk from 'redux-thunk';
 
+/**
+ *
+ * @param initialProps
+ */
 function setupEnzyme(initialProps = {}) {
   const props = Object.assign(
     {
@@ -29,6 +33,10 @@ function setupEnzyme(initialProps = {}) {
   };
 }
 
+/**
+ *
+ * @param query
+ */
 function setupSnapshot(query = {}) {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);

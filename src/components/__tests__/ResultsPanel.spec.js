@@ -32,6 +32,13 @@ const fixture = [
   },
 ];
 
+/**
+ *
+ * @param items
+ * @param initialStore
+ * @param tab
+ * @param isPrintMode
+ */
 function setupSnapshot(
   items = [],
   initialStore = {},
@@ -89,7 +96,7 @@ function setupSnapshot(
 
 describe('component:Results', () => {
   let target;
-  let actionMock = jest.fn();
+  const actionMock = jest.fn();
   it('renders map panel without crashing', () => {
     const target = setupSnapshot(fixture, null, 'Map');
     const tree = target.toJSON();
@@ -130,7 +137,7 @@ describe('component:Results', () => {
       const a = window.addEventListener;
       const b = window.removeEventListener;
 
-      target = shallow(<ResultsPanel tab={'foo'} />);
+      target = shallow(<ResultsPanel tab="foo" />);
       expect(a.mock.calls.length).toBe(2);
       expect(a.mock.calls[0][0]).toBe('afterprint');
       expect(a.mock.calls[1][0]).toBe('beforeprint');
@@ -150,7 +157,7 @@ describe('component:Results', () => {
     });
     it('toggles print mode on', () => {
       target = shallow(
-        <ResultsPanel togglePrintModeOn={actionMock} tab={'Foobar'} />
+        <ResultsPanel togglePrintModeOn={actionMock} tab="Foobar" />
       );
       const instance = target.instance();
       instance._togglePrintStylesOn();
@@ -159,7 +166,7 @@ describe('component:Results', () => {
 
     it('toggles print mode off', () => {
       target = shallow(
-        <ResultsPanel togglePrintModeOff={actionMock} tab={'Foobar'} />
+        <ResultsPanel togglePrintModeOff={actionMock} tab="Foobar" />
       );
       const instance = target.instance();
       instance._togglePrintStylesOff();

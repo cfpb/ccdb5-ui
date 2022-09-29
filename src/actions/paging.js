@@ -34,7 +34,7 @@ export function prevPageShown() {
 /**
  * Notifies the application that the size of a page of results has changed
  *
- * @param {int} size - the new size of a page
+ * @param {number} size - the new size of a page
  * @returns {string} a packaged payload to be used by Redux reducers
  */
 export function changeSize(size) {

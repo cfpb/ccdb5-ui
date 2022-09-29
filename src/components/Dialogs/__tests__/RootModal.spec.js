@@ -9,6 +9,9 @@ import ReduxRootModal, { RootModal, mapDispatchToProps } from '../RootModal';
 
 // import { shallow } from 'enzyme';
 
+/**
+ *
+ */
 function setupEnzyme() {
   const props = {
     modalType: types.MODAL_TYPE_DATA_EXPORT,
@@ -24,6 +27,9 @@ function setupEnzyme() {
   };
 }
 
+/**
+ *
+ */
 function setupSnapshot() {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
@@ -48,7 +54,7 @@ describe('component::RootModal', () => {
   });
 
   it('only renders registered dialogs', () => {
-    const { target, props } = setupEnzyme();
+    const { target } = setupEnzyme();
     expect(target.getElements()[0].type).not.toEqual('span');
     expect(target.getElements()[0].type).toBeInstanceOf(Function);
   });

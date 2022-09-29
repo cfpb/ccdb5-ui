@@ -2,6 +2,9 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import AdvancedTips from '../AdvancedTips';
 
+/**
+ *
+ */
 function setupSnapshot() {
   return renderer.create(<AdvancedTips />);
 }

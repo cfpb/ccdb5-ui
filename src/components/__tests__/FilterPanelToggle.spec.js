@@ -10,6 +10,9 @@ import ReduxFilterPanelToggle, {
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
+/**
+ *
+ */
 function setupEnzyme() {
   const props = {
     aggs: {},
@@ -27,6 +30,10 @@ function setupEnzyme() {
   };
 }
 
+/**
+ *
+ * @param hasFilters
+ */
 function setupSnapshot(hasFilters) {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
@@ -80,7 +87,7 @@ describe('mapStateToProps', () => {
         hasFilters: true,
       },
     };
-    let actual = mapStateToProps(state);
+    const actual = mapStateToProps(state);
     expect(actual).toEqual({
       hasFilters: true,
     });

@@ -18,6 +18,9 @@ const fixture = [
   { key: '500XX', doc_count: 9 },
 ];
 
+/**
+ *
+ */
 function setupEnzyme() {
   const props = {
     forTypeahead: [],
@@ -34,6 +37,10 @@ function setupEnzyme() {
   };
 }
 
+/**
+ *
+ * @param initialFixture
+ */
 function setupSnapshot(initialFixture) {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
@@ -59,13 +66,13 @@ describe('component::ZipCode', () => {
   describe('snapshots', () => {
     it('renders empty values without crashing', () => {
       const target = setupSnapshot();
-      let tree = target.toJSON();
+      const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
     });
 
     it('renders without crashing', () => {
       const target = setupSnapshot(fixture);
-      let tree = target.toJSON();
+      const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
     });
   });
@@ -95,16 +102,16 @@ describe('component::ZipCode', () => {
 
     describe('_renderOption', () => {
       it('produces a custom component', () => {
-        const { target, props } = setupEnzyme();
+        const { target } = setupEnzyme();
         const option = {
           key: 'Foo',
           label: 'foo',
           position: 0,
           value: 'FOO',
         };
-        const actual = target.instance()._renderOption(option);
-        expect(actual.value).toEqual('Foo');
-        expect(actual.component).toMatchObject({
+        const { value, component } = target.instance()._renderOption(option);
+        expect(value).toEqual('Foo');
+        expect(component).toMatchObject({
           props: {
             label: 'foo',
             position: 0,
@@ -144,7 +151,7 @@ describe('component::ZipCode', () => {
           zip_code: '',
         },
       };
-      let actual = mapStateToProps(state);
+      const actual = mapStateToProps(state);
       expect(actual).toEqual({
         options: [123, 456, 789],
         queryString: '?state=TX&state=FL',

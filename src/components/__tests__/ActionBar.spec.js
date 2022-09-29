@@ -30,7 +30,7 @@ describe('initial state', () => {
       </Provider>
     );
 
-    let tree = target.toJSON();
+    const tree = target.toJSON();
     expect(tree).toMatchSnapshot();
   });
 

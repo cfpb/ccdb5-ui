@@ -4,8 +4,7 @@ import thunk from 'redux-thunk';
 import renderer from 'react-test-renderer';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
-import { shallow } from 'enzyme';
-import ReduxProduct, { Product, mapStateToProps } from '../Product';
+import ReduxProduct, { mapStateToProps } from '../Product';
 import { slugify } from '../../../utils';
 
 const fixture = [
@@ -60,19 +59,10 @@ const fixture = [
   },
 ];
 
-function setupEnzyme(initial) {
-  const props = {
-    options: initial,
-  };
-
-  const target = shallow(<Product {...props} />);
-
-  return {
-    props,
-    target,
-  };
-}
-
+/**
+ *
+ * @param initial
+ */
 function setupSnapshot(initial) {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
@@ -96,13 +86,13 @@ describe('component:Product', () => {
   describe('snapshots', () => {
     it('renders without crashing', () => {
       const target = setupSnapshot([]);
-      let tree = target.toJSON();
+      const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
     });
 
     it('only shows the first five items', () => {
       const target = setupSnapshot(fixture);
-      let tree = target.toJSON();
+      const tree = target.toJSON();
       expect(tree).toMatchSnapshot();
     });
   });

@@ -73,7 +73,7 @@ describe('PerCapita', () => {
   it('should skip dataNormalizationChanged action when same', () => {
     spyOnUseSelector.mockReturnValue('None');
     const wrapper = mount(<PerCapita />);
-    let button = wrapper.find('.raw');
+    const button = wrapper.find('.raw');
     expect(button.hasClass('selected')).toBeTruthy();
 
     button.simulate('click');

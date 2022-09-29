@@ -2,6 +2,9 @@ import React from 'react';
 import { mount } from 'enzyme';
 import Selector from '../Selector';
 
+/**
+ *
+ */
 function setupEnzyme() {
   const props = {
     options: ['foo', 'bar', 'baz'],

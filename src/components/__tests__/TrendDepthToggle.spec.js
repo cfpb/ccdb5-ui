@@ -12,12 +12,21 @@ import { REQUERY_ALWAYS } from '../../constants';
 import { shallow } from 'enzyme';
 import thunk from 'redux-thunk';
 
+/**
+ *
+ * @param root0
+ * @param root0.cbIncrease
+ * @param root0.cbReset
+ * @param root0.diff
+ * @param root0.queryCount
+ * @param root0.resultCount
+ */
 function setupEnzyme({ cbIncrease, cbReset, diff, queryCount, resultCount }) {
   return shallow(
     <TrendDepthToggle
       diff={diff}
       increaseDepth={cbIncrease}
-      lens={'Product'}
+      lens="Product"
       depthReset={cbReset}
       queryCount={queryCount}
       resultCount={resultCount}
@@ -26,6 +35,14 @@ function setupEnzyme({ cbIncrease, cbReset, diff, queryCount, resultCount }) {
   );
 }
 
+/**
+ *
+ * @param root0
+ * @param root0.focus
+ * @param root0.lens
+ * @param root0.productAggs
+ * @param root0.productResults
+ */
 function setupSnapshot({ focus, lens, productAggs, productResults }) {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
@@ -206,7 +223,7 @@ describe('component:TrendDepthToggle', () => {
           },
         },
       };
-      let actual = mapStateToProps(state);
+      const actual = mapStateToProps(state);
       expect(actual).toEqual({
         diff: 11,
         queryCount: 11,

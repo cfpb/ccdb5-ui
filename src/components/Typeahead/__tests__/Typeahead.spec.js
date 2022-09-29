@@ -4,12 +4,17 @@ import renderer from 'react-test-renderer';
 import Typeahead, { MODE_OPEN } from '../index';
 import * as keys from '../../../constants';
 
+/**
+ *
+ * @param initalProps
+ * @param removeDebounce
+ */
 function setupEnzyme(initalProps = {}, removeDebounce = true) {
   const props = Object.assign(
     {
       ariaLabel: 'Start typing to...',
       htmlId: 'typeahead-foo',
-      onInputChange: jest.fn((x) => ['alpha', 'beta', 'gamma']),
+      onInputChange: jest.fn(() => ['alpha', 'beta', 'gamma']),
       onOptionSelected: jest.fn(),
       renderOption: jest.fn(),
     },
@@ -30,6 +35,10 @@ function setupEnzyme(initalProps = {}, removeDebounce = true) {
   };
 }
 
+/**
+ *
+ * @param initialValue
+ */
 function setupSnapshot(initialValue = '') {
   const target = renderer.create(
     <Typeahead
@@ -140,7 +149,8 @@ describe('component::Typeahead', () => {
 
       fakePromise = {
         then: (x, y) => {
-          (onSuccess = x), (onFail = y);
+          onSuccess = x;
+          onFail = y;
         },
       };
       props.onInputChange.mockImplementation(() => fakePromise);

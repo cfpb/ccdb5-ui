@@ -27,6 +27,8 @@ const makeChartMock = () => {
 };
 
 describe('Tile map', () => {
+  const sutClone = { ...sut };
+
   const colors = [
     'rgba(247, 248, 249, 0.5)',
     'rgba(212, 231, 230, 0.5)',
@@ -56,7 +58,7 @@ describe('Tile map', () => {
         data.push({ displayValue: i * i });
       }
 
-      const actual = sut.makeScale(data, colors);
+      const actual = sutClone.makeScale(data, colors);
       expect(actual(0)).toEqual('#ffffff');
       expect(actual(100)).toEqual(colors[0]);
       expect(actual(361)).toEqual(colors[1]); // 19^2
@@ -73,7 +75,7 @@ describe('Tile map', () => {
       }
       data[3].displayValue = 900;
 
-      const actual = sut.makeScale(data, colors);
+      const actual = sutClone.makeScale(data, colors);
       expect(actual(0)).toEqual('#ffffff');
       expect(actual(300)).toEqual(colors[1]);
       expect(actual(450)).toEqual(colors[2]);
@@ -102,7 +104,7 @@ describe('Tile map', () => {
         { from: 13910, color: 13910, name: '≥ 13,910', shortName: '≥ 13K' },
       ];
 
-      const result = sut.getBins(quantiles, scaleFn);
+      const result = sutClone.getBins(quantiles, scaleFn);
       expect(result).toEqual(expected);
     });
 
@@ -119,7 +121,7 @@ describe('Tile map', () => {
         { from: 916, color: 916, name: '≥ 916', shortName: '≥ 916' },
       ];
 
-      const result = sut.getBins(quantiles, scaleFn);
+      const result = sutClone.getBins(quantiles, scaleFn);
       expect(result).toEqual(expected);
     });
 
@@ -134,7 +136,7 @@ describe('Tile map', () => {
         { from: 2, color: 2, name: '≥ 2', shortName: '≥ 2' },
       ];
 
-      const result = sut.getBins(quantiles, scaleFn);
+      const result = sutClone.getBins(quantiles, scaleFn);
       expect(result).toEqual(expected);
     });
 
@@ -148,7 +150,7 @@ describe('Tile map', () => {
         { from: 1, color: 1, name: '≥ 1', shortName: '≥ 1' },
       ];
 
-      const result = sut.getBins(quantiles, scaleFn);
+      const result = sutClone.getBins(quantiles, scaleFn);
       expect(result).toEqual(expected);
     });
 
@@ -197,7 +199,7 @@ describe('Tile map', () => {
         },
       ];
 
-      const result = sut.getPerCapitaBins(quantiles, scaleFn);
+      const result = sutClone.getPerCapitaBins(quantiles, scaleFn);
       expect(result).toEqual(expected);
     });
   });
@@ -209,19 +211,19 @@ describe('Tile map', () => {
     });
 
     it('returns WHITE when no value', () => {
-      const res = sut.getColorByValue(false, scaleFn);
+      const res = sutClone.getColorByValue(false, scaleFn);
       expect(res).toEqual('#ffffff');
     });
   });
 
   it('formats a map tile', () => {
-    sut.point = {
+    sutClone.point = {
       className: 'default',
       displayValue: 10000,
       name: 'FA',
     };
 
-    const result = sut.tileFormatter();
+    const result = sutClone.tileFormatter();
     expect(result).toEqual(
       '<div class="highcharts-data-label-state tile-FA default ">' +
         '<span class="abbr">FA</span>' +
@@ -230,9 +232,9 @@ describe('Tile map', () => {
   });
 
   it('formats the map tooltip w/ missing data', () => {
-    sut.fullName = 'Another Name';
-    sut.value = 10000;
-    const result = sut.tooltipFormatter();
+    sutClone.fullName = 'Another Name';
+    sutClone.value = 10000;
+    const result = sutClone.tooltipFormatter();
     expect(result).toEqual(
       '<div class="title">Another Name' +
         '</div><div class="row u-clearfix"><p class="u-float-left">Complaints' +
@@ -241,12 +243,12 @@ describe('Tile map', () => {
   });
 
   it('formats the map tooltip w/ prod & issue', () => {
-    sut.fullName = 'State Name';
-    sut.value = 10000;
-    sut.perCapita = 3.12;
-    sut.product = 'Expensive Item';
-    sut.issue = 'Being Broke';
-    const result = sut.tooltipFormatter();
+    sutClone.fullName = 'State Name';
+    sutClone.value = 10000;
+    sutClone.perCapita = 3.12;
+    sutClone.product = 'Expensive Item';
+    sutClone.issue = 'Being Broke';
+    const result = sutClone.tooltipFormatter();
     expect(result).toEqual(
       '<div class="title">State Name' +
         '</div><div class="row u-clearfix"><p class="u-float-left">Complaints' +
@@ -265,14 +267,14 @@ describe('Tile map', () => {
       fullName: 'Foo',
       displayValue: '13',
     };
-    const actual = sut.descriptionFormatter(point);
+    const actual = sutClone.descriptionFormatter(point);
     expect(actual).toEqual('Foo 13');
   });
 
   it('Processes the map data', () => {
     const scale = jest.fn().mockReturnValue('rgba(247, 248, 249, 1)');
 
-    const result = sut.processMapData(complaints.raw, scale);
+    const result = sutClone.processMapData(complaints.raw, scale);
     // test only the first one just make sure that the path and color are found
     expect(result[0]).toEqual({
       className: 'default',
@@ -320,7 +322,7 @@ describe('Tile map', () => {
   it('Processes the map data - empty shading', () => {
     const scale = jest.fn().mockReturnValue('#ffffff');
 
-    const result = sut.processMapData(complaints.raw, scale);
+    const result = sutClone.processMapData(complaints.raw, scale);
     // test only the first one & 3rd for path, className, color are found
     expect(result[0]).toEqual({
       className: 'empty',
@@ -413,17 +415,16 @@ describe('Tile map', () => {
     it('draws a large legend', () => {
       chart.renderer = makeChartMock();
       chart.chartWidth = 900;
-      sut._drawLegend(chart);
+      sutClone._drawLegend(chart);
       expect(chart.renderer.add).toHaveBeenCalledTimes(24);
       expect(chart.renderer.rect).toHaveBeenCalledWith(0, 0, 65, 17);
       expect(chart.renderer.text).toHaveBeenCalledWith('≥ 82169', 0, 17);
-      expect;
     });
 
     it('draws a small legend', () => {
       chart.renderer = makeChartMock();
       chart.chartWidth = 599;
-      sut._drawLegend(chart);
+      sutClone._drawLegend(chart);
       expect(chart.renderer.add).toHaveBeenCalledTimes(24);
       expect(chart.renderer.rect).toHaveBeenCalledWith(0, 0, 45, 17);
       expect(chart.renderer.text).toHaveBeenCalledWith('≥ 82K', 0, 17);
@@ -504,7 +505,7 @@ describe('Tile map', () => {
     ];
 
     cases.forEach((x) => {
-      expect(sut.makeShortName(x.n)).toEqual(x.e);
+      expect(sutClone.makeShortName(x.n)).toEqual(x.e);
     });
   });
 });
