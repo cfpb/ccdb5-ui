@@ -1,5 +1,5 @@
 import './ListPanel.less';
-import '../RefineBar/RefineBar.less';
+import '../../RefineBar/RefineBar.less';
 import { changeSize, changeSort } from '../../../actions/paging';
 import { sizes, sorts } from '../../../constants';
 import ActionBar from '../../ActionBar';
@@ -10,7 +10,7 @@ import FilterPanel from '../../Filters/FilterPanel';
 import FilterPanelToggle from '../../Filters/FilterPanelToggle';
 import Loading from '../../Dialogs/Loading';
 import { NarrativesButtons } from '../../RefineBar/NarrativesButtons';
-import { Pagination } from '../Pagination';
+import { Pagination } from '../Pagination/Pagination';
 import React, { useMemo } from 'react';
 import { Select } from '../../RefineBar/Select';
 import { sendAnalyticsEvent } from '../../../utils';

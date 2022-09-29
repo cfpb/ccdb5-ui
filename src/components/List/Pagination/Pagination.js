@@ -1,12 +1,12 @@
-import { nextPageShown, prevPageShown } from '../../actions/paging';
+import { nextPageShown, prevPageShown } from '../../../actions/paging';
 import { useDispatch, useSelector } from 'react-redux';
-import iconMap from '../iconMap';
+import iconMap from '../../iconMap';
 import { IntlProvider } from 'react-intl';
 import React from 'react';
 import {
   selectQueryPage,
   selectQueryTotalPages,
-} from '../../reducers/query/selectors';
+} from '../../../reducers/query/selectors';
 
 export const Pagination = () => {
   const dispatch = useDispatch();
