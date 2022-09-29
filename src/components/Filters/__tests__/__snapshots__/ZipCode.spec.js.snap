@@ -175,7 +175,9 @@ exports[`component::ZipCode snapshots renders without crashing 1`] = `
       <span
         className="flex-fixed bucket-count"
       >
-        999
+        <span>
+          999
+        </span>
       </span>
     </li>
   </ul>

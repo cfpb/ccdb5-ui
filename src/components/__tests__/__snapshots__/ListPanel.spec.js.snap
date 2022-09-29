@@ -12,9 +12,13 @@ exports[`component:ListPanel displays a message when an error has occurred 1`] =
       <div>
         <h2>
           Showing 
-          0
+          <span>
+            0
+          </span>
            matches out of 
-          100
+          <span>
+            100
+          </span>
            total complaints
         </h2>
       </div>
@@ -309,9 +313,13 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
       <div>
         <h2>
           Showing 
-          1
+          <span>
+            1
+          </span>
            matches out of 
-          100
+          <span>
+            100
+          </span>
            total complaints
         </h2>
       </div>
@@ -641,7 +649,9 @@ exports[`component:ListPanel displays a message when the data has issues 1`] = `
               <span
                 className="body-copy"
               >
-                2/3/2013
+                <span>
+                  2/3/2013
+                </span>
               </span>
             </div>
             <div
@@ -824,9 +834,13 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
       <div>
         <h2>
           Showing 
-          1
+          <span>
+            1
+          </span>
            matches out of 
-          100
+          <span>
+            100
+          </span>
            total complaints
         </h2>
       </div>
@@ -1156,7 +1170,9 @@ exports[`component:ListPanel displays a message when the data is stale 1`] = `
               <span
                 className="body-copy"
               >
-                2/3/2013
+                <span>
+                  2/3/2013
+                </span>
               </span>
             </div>
             <div
@@ -1339,9 +1355,13 @@ exports[`component:ListPanel displays a message when there are no results 1`] = 
       <div>
         <h2>
           Showing 
-          0
+          <span>
+            0
+          </span>
            matches out of 
-          100
+          <span>
+            100
+          </span>
            total complaints
         </h2>
       </div>
@@ -1636,9 +1656,13 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
       <div>
         <h2>
           Showing 
-          1
+          <span>
+            1
+          </span>
            matches out of 
-          100
+          <span>
+            100
+          </span>
            total complaints
         </h2>
       </div>
@@ -2843,7 +2867,9 @@ exports[`component:ListPanel renders mobile filters without crashing 1`] = `
               <span
                 className="body-copy"
               >
-                2/3/2013
+                <span>
+                  2/3/2013
+                </span>
               </span>
             </div>
             <div
@@ -3026,9 +3052,13 @@ exports[`component:ListPanel renders without crashing 1`] = `
       <div>
         <h2>
           Showing 
-          1
+          <span>
+            1
+          </span>
            matches out of 
-          100
+          <span>
+            100
+          </span>
            total complaints
         </h2>
       </div>
@@ -3333,7 +3363,9 @@ exports[`component:ListPanel renders without crashing 1`] = `
               <span
                 className="body-copy"
               >
-                2/3/2013
+                <span>
+                  2/3/2013
+                </span>
               </span>
             </div>
             <div

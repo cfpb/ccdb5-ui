@@ -166,7 +166,9 @@ exports[`component::ComplaintDetail snapshots renders without a narrative 1`] = 
           className="body-copy"
           tabIndex="0"
         >
-          3/4/2017
+          <span>
+            3/4/2017
+          </span>
         </span>
         <br />
         <h4
@@ -336,7 +338,9 @@ exports[`component::ComplaintDetail snapshots renders without a narrative 1`] = 
           className="body-copy"
           tabIndex="0"
         >
-          3/4/2017
+          <span>
+            3/4/2017
+          </span>
         </span>
         <br />
         <h4
@@ -474,7 +478,9 @@ exports[`component::ComplaintDetail snapshots renders without a sub-issue 1`] = 
           className="body-copy"
           tabIndex="0"
         >
-          3/4/2017
+          <span>
+            3/4/2017
+          </span>
         </span>
         <br />
         <h4
@@ -641,7 +647,9 @@ exports[`component::ComplaintDetail snapshots renders without a sub-issue 1`] = 
           className="body-copy"
           tabIndex="0"
         >
-          3/4/2017
+          <span>
+            3/4/2017
+          </span>
         </span>
         <br />
         <h4
@@ -779,7 +787,9 @@ exports[`component::ComplaintDetail snapshots renders without a sub-product 1`] 
           className="body-copy"
           tabIndex="0"
         >
-          3/4/2017
+          <span>
+            3/4/2017
+          </span>
         </span>
         <br />
         <h4
@@ -946,7 +956,9 @@ exports[`component::ComplaintDetail snapshots renders without a sub-product 1`] 
           className="body-copy"
           tabIndex="0"
         >
-          3/4/2017
+          <span>
+            3/4/2017
+          </span>
         </span>
         <br />
         <h4
@@ -1084,7 +1096,9 @@ exports[`component::ComplaintDetail snapshots renders without crashing 1`] = `
           className="body-copy"
           tabIndex="0"
         >
-          3/4/2017
+          <span>
+            3/4/2017
+          </span>
         </span>
         <br />
         <h4
@@ -1267,7 +1281,9 @@ exports[`component::ComplaintDetail snapshots renders without crashing 1`] = `
           className="body-copy"
           tabIndex="0"
         >
-          3/4/2017
+          <span>
+            3/4/2017
+          </span>
         </span>
         <br />
         <h4
@@ -1405,7 +1421,9 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
           className="body-copy"
           tabIndex="0"
         >
-          3/4/2017
+          <span>
+            3/4/2017
+          </span>
         </span>
         <br />
         <h4
@@ -1588,7 +1606,9 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
           className="body-copy"
           tabIndex="0"
         >
-          3/4/2017
+          <span>
+            3/4/2017
+          </span>
         </span>
         <br />
         <h4
@@ -1726,7 +1746,9 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
           className="body-copy"
           tabIndex="0"
         >
-          3/4/2017
+          <span>
+            3/4/2017
+          </span>
         </span>
         <br />
         <h4
@@ -1909,7 +1931,9 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
           className="body-copy"
           tabIndex="0"
         >
-          3/4/2017
+          <span>
+            3/4/2017
+          </span>
         </span>
         <br />
         <h4
@@ -2047,7 +2071,9 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
           className="body-copy"
           tabIndex="0"
         >
-          3/4/2017
+          <span>
+            3/4/2017
+          </span>
         </span>
         <br />
         <h4
@@ -2230,7 +2256,9 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
           className="body-copy"
           tabIndex="0"
         >
-          3/4/2017
+          <span>
+            3/4/2017
+          </span>
         </span>
         <br />
         <h4
@@ -2368,7 +2396,9 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
           className="body-copy"
           tabIndex="0"
         >
-          3/4/2017
+          <span>
+            3/4/2017
+          </span>
         </span>
         <br />
         <h4
@@ -2551,7 +2581,9 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
           className="body-copy"
           tabIndex="0"
         >
-          3/4/2017
+          <span>
+            3/4/2017
+          </span>
         </span>
         <br />
         <h4
@@ -2689,7 +2721,9 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
           className="body-copy"
           tabIndex="0"
         >
-          3/4/2017
+          <span>
+            3/4/2017
+          </span>
         </span>
         <br />
         <h4
@@ -2872,7 +2906,9 @@ exports[`component::ComplaintDetail snapshots supports "Consumer Consent Provide
           className="body-copy"
           tabIndex="0"
         >
-          3/4/2017
+          <span>
+            3/4/2017
+          </span>
         </span>
         <br />
         <h4
@@ -3010,7 +3046,9 @@ exports[`component::ComplaintDetail snapshots supports "Timely Response" icons 1
           className="body-copy"
           tabIndex="0"
         >
-          3/4/2017
+          <span>
+            3/4/2017
+          </span>
         </span>
         <br />
         <h4
@@ -3193,7 +3231,9 @@ exports[`component::ComplaintDetail snapshots supports "Timely Response" icons 1
           className="body-copy"
           tabIndex="0"
         >
-          3/4/2017
+          <span>
+            3/4/2017
+          </span>
         </span>
         <br />
         <h4
@@ -3331,7 +3371,9 @@ exports[`component::ComplaintDetail snapshots supports "Timely Response" icons 2
           className="body-copy"
           tabIndex="0"
         >
-          3/4/2017
+          <span>
+            3/4/2017
+          </span>
         </span>
         <br />
         <h4
@@ -3514,7 +3556,9 @@ exports[`component::ComplaintDetail snapshots supports "Timely Response" icons 2
           className="body-copy"
           tabIndex="0"
         >
-          3/4/2017
+          <span>
+            3/4/2017
+          </span>
         </span>
         <br />
         <h4

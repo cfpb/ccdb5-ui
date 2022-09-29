@@ -12,9 +12,13 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
       <div>
         <h2>
           Showing 
-          2
+          <span>
+            2
+          </span>
            matches out of 
-          100
+          <span>
+            100
+          </span>
            total complaints
         </h2>
       </div>
@@ -200,9 +204,13 @@ exports[`component:MapPanel renders warning without crashing 1`] = `
       <div>
         <h2>
           Showing 
-          2
+          <span>
+            2
+          </span>
            matches out of 
-          100
+          <span>
+            100
+          </span>
            total complaints
         </h2>
       </div>
@@ -425,9 +433,13 @@ exports[`component:MapPanel renders without crashing 1`] = `
       <div>
         <h2>
           Showing 
-          2
+          <span>
+            2
+          </span>
            matches out of 
-          100
+          <span>
+            100
+          </span>
            total complaints
         </h2>
       </div>

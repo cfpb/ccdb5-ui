@@ -21,7 +21,9 @@ exports[`component:AggregationItem renders without crashing 1`] = `
   <span
     className="flex-fixed bucket-count"
   >
-    1,000
+    <span>
+      1,000
+    </span>
   </span>
 </li>
 `;

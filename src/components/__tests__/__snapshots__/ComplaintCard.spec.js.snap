@@ -82,7 +82,9 @@ exports[`initial state hides the section when there is no narrative 1`] = `
           <span
             className="body-copy"
           >
-            2/3/2013
+            <span>
+              2/3/2013
+            </span>
           </span>
         </div>
         <div
@@ -260,7 +262,9 @@ exports[`initial state hides the section when there is no sub-issue 1`] = `
           <span
             className="body-copy"
           >
-            2/3/2013
+            <span>
+              2/3/2013
+            </span>
           </span>
         </div>
         <div
@@ -436,7 +440,9 @@ exports[`initial state hides the section when there is no sub-product 1`] = `
           <span
             className="body-copy"
           >
-            2/3/2013
+            <span>
+              2/3/2013
+            </span>
           </span>
         </div>
         <div
@@ -612,7 +618,9 @@ exports[`initial state includes an overflow link when the narrative is long 1`] 
           <span
             className="body-copy"
           >
-            2/3/2013
+            <span>
+              2/3/2013
+            </span>
           </span>
         </div>
         <div
@@ -815,7 +823,9 @@ exports[`initial state removes <em> highlighting tags effectively from text 1`] 
           <span
             className="body-copy"
           >
-            2/3/2013
+            <span>
+              2/3/2013
+            </span>
           </span>
         </div>
         <div
@@ -1010,7 +1020,9 @@ exports[`initial state renders without crashing 1`] = `
           <span
             className="body-copy"
           >
-            2/3/2013
+            <span>
+              2/3/2013
+            </span>
           </span>
         </div>
         <div

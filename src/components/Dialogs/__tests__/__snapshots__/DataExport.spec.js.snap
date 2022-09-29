@@ -282,7 +282,9 @@ exports[`component::DataExport initial state renders without crashing 1`] = `
             >
               <div>
                 Filtered dataset (
-                1,001
+                <span>
+                  1,001
+                </span>
                  complaints)
               </div>
               <div
@@ -313,7 +315,9 @@ exports[`component::DataExport initial state renders without crashing 1`] = `
             >
               <div>
                 Full dataset (
-                9,999
+                <span>
+                  9,999
+                </span>
                  complaints)
               </div>
               <div
@@ -518,7 +522,9 @@ exports[`component::DataExport visual changes switches the button after a copy 1
             >
               <div>
                 Filtered dataset (
-                1,001
+                <span>
+                  1,001
+                </span>
                  complaints)
               </div>
               <div
@@ -549,7 +555,9 @@ exports[`component::DataExport visual changes switches the button after a copy 1
             >
               <div>
                 Full dataset (
-                9,999
+                <span>
+                  9,999
+                </span>
                  complaints)
               </div>
               <div

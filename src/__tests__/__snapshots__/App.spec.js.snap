@@ -1155,7 +1155,9 @@ exports[`initial state renders without crashing 1`] = `
             <div>
               <h2>
                 Showing 
-                0
+                <span>
+                  0
+                </span>
                  total complaints
               </h2>
             </div>
