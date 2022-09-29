@@ -2,11 +2,11 @@ import { act, create } from 'react-test-renderer';
 import { App, DetailComponents } from '../App';
 import configureMockStore from 'redux-mock-store';
 import { defaultQuery } from '../reducers/query';
-import { MemoryRouter } from 'react-router';
 import { Provider } from 'react-redux';
 import React from 'react';
 import thunk from 'redux-thunk';
 import 'regenerator-runtime/runtime';
+import {MemoryRouter, Route, Routes} from "react-router-dom";
 
 jest.mock('highcharts/modules/accessibility');
 jest.mock('highcharts/highmaps');
@@ -24,11 +24,7 @@ describe('initial state', () => {
 
     let target;
     await act(async () => {
-      target = create(
-        <MemoryRouter initialEntries={['/']}>
-          <App />
-        </MemoryRouter>
-      );
+      target = create(<App />);
     });
 
     let tree = target.toJSON();
@@ -42,12 +38,11 @@ describe('initial state', () => {
       detail: { data: {}, error: '' },
     });
 
-    const match = { params: { id: '1234' } };
     const detailTarget = create(
       <MemoryRouter initialEntries={['/detail/1234']}>
-        <Provider store={store}>
-          <DetailComponents match={match} />
-        </Provider>
+        <Routes>
+          <Route path="/detail/:id" element={<DetailComponents />} />
+        </Routes>
       </MemoryRouter>
     );
 
