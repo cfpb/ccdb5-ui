@@ -3,7 +3,7 @@ import '../../RefineBar/RefineBar.less';
 import { changeSize, changeSort } from '../../../actions/paging';
 import { sizes, sorts } from '../../../constants';
 import ActionBar from '../../ActionBar';
-import { ComplaintCard } from '../ComplaintCard';
+import { ComplaintCard } from '../ComplaintCard/ComplaintCard';
 import { useDispatch, useSelector } from 'react-redux';
 import ErrorBlock from '../../Warnings/Error';
 import FilterPanel from '../../Filters/FilterPanel';

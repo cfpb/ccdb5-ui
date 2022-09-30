@@ -1,5 +1,5 @@
 import './ComplaintCard.less';
-import { ariaReadoutNumbers } from '../../utils';
+import { ariaReadoutNumbers } from '../../../utils';
 import { FormattedDate } from 'react-intl';
 import PropTypes from 'prop-types';
 import React from 'react';
