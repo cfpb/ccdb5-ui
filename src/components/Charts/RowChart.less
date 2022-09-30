@@ -3,6 +3,7 @@
 .row-chart-section {
   margin-top: @grid_gutter-width;
   margin-left: @grid_gutter-width;
+
   p {
     max-width: none;
   }
@@ -15,19 +16,27 @@
 }
 
 .row-chart {
-  .bg-hover, .visibility, line, path.domain, .x-axis-group {
+  .bg-hover,
+  .visibility,
+  line,
+  path.domain,
+  .x-axis-group {
     display: none;
   }
+
   .expandable {
     color: @pacific;
   }
+
   text {
     font-size: 16px;
+
     &.adjust-upwards {
       transform: translateY(-12px);
     }
+
     &.hidden {
-      display:none;
+      display: none;
     }
   }
 
