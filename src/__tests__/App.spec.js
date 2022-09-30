@@ -1,12 +1,14 @@
 import { act, create } from 'react-test-renderer';
-import { App, DetailComponents } from '../App';
-import configureMockStore from 'redux-mock-store';
+import { App
+  // , DetailComponents
+} from '../App';
+// import configureMockStore from 'redux-mock-store';
 import { defaultQuery } from '../reducers/query';
 // import { Provider } from 'react-redux';
 import React from 'react';
-import thunk from 'redux-thunk';
+// import thunk from 'redux-thunk';
 import 'regenerator-runtime/runtime';
-import {MemoryRouter, Route, Routes} from "react-router-dom";
+// import {MemoryRouter, Route, Routes} from "react-router-dom";
 
 jest.mock('highcharts/modules/accessibility');
 jest.mock('highcharts/highmaps');
@@ -32,22 +34,22 @@ describe('initial state', () => {
   });
 
   // TODO: rewrite this test when we upgrade to react18 and testing-library
-  xit('renders the detail route', () => {
-    const middlewares = [thunk];
-    const mockStore = configureMockStore(middlewares);
-    // const store = mockStore({
-    //   detail: { data: {}, error: '' },
-    // });
-
-    const detailTarget = create(
-      <MemoryRouter initialEntries={['/detail/1234']}>
-        <Routes>
-          <Route path="/detail/:id" element={<DetailComponents />} />
-        </Routes>
-      </MemoryRouter>
-    );
-
-    const detailTree = detailTarget.toJSON();
-    expect(detailTree).toMatchSnapshot();
-  });
+  // xit('renders the detail route', () => {
+  //   const middlewares = [thunk];
+  //   // const mockStore = configureMockStore(middlewares);
+  //   // const store = mockStore({
+  //   //   detail: { data: {}, error: '' },
+  //   // });
+  //
+  //   const detailTarget = create(
+  //     <MemoryRouter initialEntries={['/detail/1234']}>
+  //       <Routes>
+  //         <Route path="/detail/:id" element={<DetailComponents />} />
+  //       </Routes>
+  //     </MemoryRouter>
+  //   );
+  //
+  //   const detailTree = detailTarget.toJSON();
+  //   expect(detailTree).toMatchSnapshot();
+  // });
 });
