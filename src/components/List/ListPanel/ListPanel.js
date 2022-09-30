@@ -40,7 +40,7 @@ export const ListPanel = () => {
   const items = useSelector(selectResultsItems);
   const width = useSelector(selectViewWidth);
 
-  const hasMobileFilters = useMemo(() => width < 750);
+  const hasMobileFilters = useMemo(() => width < 750, [width]);
 
   const onSize = (ev) => {
     const iSize = parseInt(ev.target.value, 10);
