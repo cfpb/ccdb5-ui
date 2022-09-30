@@ -4,7 +4,6 @@ import {
   screen,
   fireEvent,
 } from '../../../testUtils/test-utils';
-import renderer from 'react-test-renderer';
 import { ListPanel } from './ListPanel';
 import { IntlProvider } from 'react-intl';
 import { merge } from '../../../testUtils/functionHelpers';

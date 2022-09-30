@@ -5,7 +5,6 @@ import {
   screen,
   fireEvent,
 } from '../../../testUtils/test-utils';
-import renderer from 'react-test-renderer';
 import { merge } from '../../../testUtils/functionHelpers';
 import { IntlProvider } from 'react-intl';
 import { Pagination } from './Pagination';

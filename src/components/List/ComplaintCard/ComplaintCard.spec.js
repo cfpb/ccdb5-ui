@@ -65,7 +65,9 @@ describe('ComplaintCard', () => {
     expect(
       screen.getByRole('heading', { name: /Consumer Complaint Narrative/ })
     ).toBeDefined();
-    expect(screen.getByText(expectedItem.complaint_what_happened));
+    expect(
+      screen.getByText(expectedItem.complaint_what_happened)
+    ).toBeDefined();
   });
 
   test('Renders narrative with overflow', () => {
@@ -92,8 +94,8 @@ describe('ComplaintCard', () => {
     expect(
       screen.getByRole('heading', { name: /Consumer Complaint Narrative/ })
     ).toBeDefined();
-    expect(screen.getByText(expectedText));
-    expect(screen.getByText('[...]'));
+    expect(screen.getByText(expectedText)).toBeDefined();
+    expect(screen.getByText('[...]')).toBeDefined();
   });
 
   test('Renders product and sub product', () => {
