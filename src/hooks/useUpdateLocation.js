@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import {useDispatch} from 'react-redux';
-import announceUrlChanged from "../actions/url";
+import { useDispatch } from 'react-redux';
+import announceUrlChanged from '../actions/url';
 import { useLocation } from 'react-router-dom';
 
 /**

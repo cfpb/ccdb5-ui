@@ -1,4 +1,4 @@
-import {createBrowserHistory} from 'history';
+import { createBrowserHistory } from 'history';
 
 /**
  *
@@ -16,7 +16,8 @@ const synchUrl = (store) => (next) => (action) => {
   const url = state.query.url;
   // Update the application
   const history = createBrowserHistory();
-  if(history.location.search !== url) {
+  const location = history.location;
+  if (location.search !== url && !location.pathname.includes('/detail/')) {
     history.push({
       search: url,
     });
