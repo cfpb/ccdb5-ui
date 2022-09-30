@@ -36,13 +36,6 @@ function testRender(
         trends: trends,
         view: view,
       },
-      //   middleware: (getDefaultMiddleware) =>
-      //     getDefaultMiddleware({
-      //       serializableCheck: {
-      //         // Ignore these action types
-      //         // ignoredActions: ['HTTP_GET_REQUEST', 'HTTP_POST_REQUEST'],
-      //       },
-      //     }),
       preloadedState,
     }),
     ...renderOptions

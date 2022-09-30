@@ -55,7 +55,6 @@ export const ListPanel = () => {
   };
 
   const _determinePhase = () => {
-    // determine the phase
     let phase = NO_RESULTS;
     if (hasError) {
       phase = ERROR;
@@ -65,14 +64,14 @@ export const ListPanel = () => {
     return phase;
   };
 
-  // --------------------------------------------------------------------------
-  // Subrender Methods
   const _renderError = () => {
     return <ErrorBlock text="There was a problem executing your search" />;
   };
+
   const _renderNoResults = () => {
     return <h2>No results were found for your search</h2>;
   };
+
   const _renderResults = () => {
     return (
       <ul className="cards-panel">
