@@ -1,10 +1,3 @@
-/**
- * function to capitalize only first letter of word
- * yolo => Yolo
- *
- * @param {string} input - string we want to capitalize.
- * @returns {string} string with capitalized first letter
- */
 import {
   DATE_RANGE_MIN,
   flagFilters,
