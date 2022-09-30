@@ -13,10 +13,11 @@ import queryManager from './middleware/queryManager';
 import ComplaintDetail from './components/ComplaintDetail';
 import React from 'react';
 import reducers from './reducers';
-import SearchComponents from './components/Search/SearchComponents';
+import { SearchComponents } from './components/Search/SearchComponents';
 import thunkMiddleware from 'redux-thunk';
+import synchUrl from "./middleware/synchUrl/synchUrl";
 
-const middleware = [thunkMiddleware, queryManager];
+const middleware = [thunkMiddleware, queryManager, synchUrl];
 
 const composeEnhancers = composeWithDevTools({
   // required for redux-devtools-extension

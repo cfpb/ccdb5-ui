@@ -31,6 +31,7 @@ export const defaultQuery = {
   mapWarningEnabled: true,
   lens: 'Product',
   page: 1,
+  queryString: '',
   searchAfter: '',
   searchField: 'all',
   searchText: '',
@@ -1062,6 +1063,82 @@ export function stateToQS(state) {
   return '?' + queryString.stringify(filteredParams);
 }
 
+
+/**
+ * Converts a set of key/value pairs into a query string for URL history
+ *
+ * @param {string} state - a set of key/value pairs
+ * @returns {string} a formatted query string
+ */
+export function stateToURL(state) {
+  const params = {};
+  const fields = Object.keys(state);
+
+  // Copy over the fields
+  // eslint-disable-next-line complexity
+  fields.forEach((field) => {
+    // Do not include empty fields
+    if (!state[field]) {
+      return;
+    }
+
+    // Avoid recursion
+    if (['queryString', 'url', 'breakPoints'].includes(field)) {
+      return;
+    }
+
+    let value = state[field];
+
+    // Process dates
+    if (types.dateFilters.indexOf(field) !== -1) {
+      value = shortIsoFormat(value);
+    }
+
+    // Process boolean flags
+    const positives = ['yes', 'true'];
+    if (types.flagFilters.indexOf(field) !== -1) {
+      value = positives.includes(String(value).toLowerCase());
+    }
+
+    params[field] = value;
+  });
+
+  // list of API params
+  // https://cfpb.github.io/api/ccdb/api/index.html#/
+  const commonParams = [].concat(
+    ['searchText', 'searchField', 'tab'],
+    types.dateFilters,
+    types.knownFilters,
+    types.flagFilters
+  );
+
+  const paramMap = {
+    List: ['sort', 'size', 'page'],
+    Map: ['dataNormalization', 'dateRange', 'expandedRows'],
+    Trends: [
+      'chartType',
+      'dateRange',
+      'dateInterval',
+      'expandedRows',
+      'lens',
+      'focus',
+      'subLens',
+    ],
+  };
+
+  const filterKeys = [].concat(commonParams, paramMap[params.tab]);
+
+  // where we only filter out the params required for each of the tabs
+  const filteredParams = Object.keys(params)
+    .filter((key) => filterKeys.includes(key))
+    .reduce((obj, key) => {
+      obj[key] = params[key];
+      return obj;
+    }, {});
+
+  return '?' + queryString.stringify(filteredParams);
+}
+
 /**
  * helper function to check if per1000 & map warnings should be enabled
  *
@@ -1199,6 +1276,7 @@ export default (state = defaultQuery, action) => {
 
   const qs = stateToQS(newState);
   newState.queryString = qs === '?' ? '' : qs;
+  newState.url = stateToURL(newState);
 
   return newState;
 };
