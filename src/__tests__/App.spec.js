@@ -2,7 +2,7 @@ import { act, create } from 'react-test-renderer';
 import { App, DetailComponents } from '../App';
 import configureMockStore from 'redux-mock-store';
 import { defaultQuery } from '../reducers/query';
-import { Provider } from 'react-redux';
+// import { Provider } from 'react-redux';
 import React from 'react';
 import thunk from 'redux-thunk';
 import 'regenerator-runtime/runtime';
@@ -35,9 +35,9 @@ describe('initial state', () => {
   xit('renders the detail route', () => {
     const middlewares = [thunk];
     const mockStore = configureMockStore(middlewares);
-    const store = mockStore({
-      detail: { data: {}, error: '' },
-    });
+    // const store = mockStore({
+    //   detail: { data: {}, error: '' },
+    // });
 
     const detailTarget = create(
       <MemoryRouter initialEntries={['/detail/1234']}>

@@ -35,7 +35,7 @@ const store = createStore(
 
 /* eslint-disable camelcase */
 
-const DetailComponents = () => {
+export const DetailComponents = () => {
   const {id} = useParams();
 
   return (
