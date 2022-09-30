@@ -43,6 +43,7 @@ describe('reducer:query', () => {
         totalPages: 0,
         trendDepth: 5,
         trendsDateWarningEnabled: false,
+        url: '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
       });
     });
   });
@@ -82,6 +83,7 @@ describe('reducer:query', () => {
         queryString: '',
         size: 100,
         totalPages: 5,
+        url: '?',
       });
     });
 
@@ -119,6 +121,7 @@ describe('reducer:query', () => {
         queryString: '',
         size: 100,
         totalPages: 5,
+        url: '?',
       });
     });
   });
@@ -142,6 +145,7 @@ describe('reducer:query', () => {
       searchField: 'bar',
       searchText: 'foo',
       size: 100,
+      url: '?searchField=bar&searchText=foo',
     });
   });
 
@@ -163,6 +167,7 @@ describe('reducer:query', () => {
       searchAfter: '',
       searchText: 'bar',
       size: 100,
+      url: '?searchText=bar',
     });
   });
 
@@ -184,6 +189,7 @@ describe('reducer:query', () => {
         tab: types.MODE_TRENDS,
         trendDepth: 13,
         trendsDateWarningEnabled: false,
+        url: '?chartType=line&tab=Trends',
       });
     });
     it('handles DEPTH_RESET', () => {
@@ -197,6 +203,7 @@ describe('reducer:query', () => {
         tab: types.MODE_TRENDS,
         trendDepth: 5,
         trendsDateWarningEnabled: false,
+        url: '?chartType=line&tab=Trends',
       });
     });
   });
@@ -228,6 +235,7 @@ describe('reducer:query', () => {
         searchAfter: '909_131',
         size: 100,
         tab: types.MODE_LIST,
+        url: '?page=3&size=100&tab=List',
       });
     });
 
@@ -257,6 +265,7 @@ describe('reducer:query', () => {
         searchAfter: '99_22131',
         size: 100,
         tab: types.MODE_LIST,
+        url: '?page=2&size=100&tab=List',
       });
     });
 
@@ -286,6 +295,7 @@ describe('reducer:query', () => {
         searchAfter: '',
         size: 100,
         tab: types.MODE_LIST,
+        url: '?page=1&size=100&tab=List',
       });
     });
   });
@@ -308,6 +318,7 @@ describe('reducer:query', () => {
         searchAfter: '',
         size: 50,
         tab: types.MODE_LIST,
+        url: '?page=1&size=50&tab=List',
       });
     });
 
@@ -330,6 +341,7 @@ describe('reducer:query', () => {
         sort: 'created_date_desc',
         size: 100,
         tab: types.MODE_LIST,
+        url: '?page=1&size=100&sort=created_date_desc&tab=List',
       });
     });
 
@@ -352,6 +364,7 @@ describe('reducer:query', () => {
         sort: 'relevance_asc',
         size: 100,
         tab: types.MODE_LIST,
+        url: '?page=1&size=100&sort=relevance_asc&tab=List',
       });
     });
   });
@@ -379,6 +392,7 @@ describe('reducer:query', () => {
         tab: 'Trends',
         queryString: '?focus=Yoyo',
         trendsDateWarningEnabled: false,
+        url: '?chartType=line&focus=Yoyo&tab=Trends',
       });
     });
 
@@ -394,6 +408,7 @@ describe('reducer:query', () => {
         tab: 'Trends',
         queryString: '?focus=Yoyo',
         trendsDateWarningEnabled: false,
+        url: '?chartType=line&focus=Yoyo&tab=Trends',
       });
     });
 
@@ -401,6 +416,7 @@ describe('reducer:query', () => {
       action.tab = types.MODE_MAP;
       expect(target(state, action)).toEqual({
         breakPoints: {},
+        dataNormalization: 'None',
         from: 0,
         page: 1,
         searchAfter: '',
@@ -409,6 +425,7 @@ describe('reducer:query', () => {
         mapWarningEnabled: true,
         tab: types.MODE_MAP,
         queryString: '',
+        url: '?dataNormalization=None&tab=Map',
       });
     });
 
@@ -422,6 +439,7 @@ describe('reducer:query', () => {
         focus: '',
         tab: types.MODE_LIST,
         queryString: '',
+        url: '?page=1&tab=List',
       });
     });
   });
@@ -647,6 +665,7 @@ describe('reducer:query', () => {
           [filterName]: [key],
           queryString: '?issue=affirmative',
           searchAfter: '',
+          url: '?issue=affirmative',
         });
       });
 
@@ -659,6 +678,7 @@ describe('reducer:query', () => {
           page: 1,
           queryString: '',
           searchAfter: '',
+          url: '?',
         });
       });
 
@@ -674,6 +694,7 @@ describe('reducer:query', () => {
           queryString: '?issue=affirmative',
           searchAfter: '',
           tab: types.MODE_MAP,
+          url: '?dataNormalization=None&issue=affirmative&tab=Map',
         });
       });
 
@@ -714,6 +735,7 @@ describe('reducer:query', () => {
           product: ['bar', 'qaz', 'baz'],
           queryString: '?product=bar&product=qaz&product=baz',
           searchAfter: '',
+          url: '?product=bar&product=qaz&product=baz',
         });
       });
 
@@ -728,6 +750,7 @@ describe('reducer:query', () => {
           product: ['bar', 'qaz', 'baz'],
           queryString: '?product=bar&product=qaz&product=baz',
           searchAfter: '',
+          url: '?product=bar&product=qaz&product=baz',
         });
       });
 
@@ -743,6 +766,7 @@ describe('reducer:query', () => {
           page: 1,
           queryString: '?issue=bar&issue=baz&issue=qaz&product=baz',
           searchAfter: '',
+          url: '?issue=bar&issue=baz&issue=qaz&product=baz',
         });
       });
 
@@ -757,6 +781,7 @@ describe('reducer:query', () => {
           product: ['bar', 'qaz', 'baz'],
           queryString: '?product=bar&product=qaz&product=baz',
           searchAfter: '',
+          url: '?product=bar&product=qaz&product=baz',
         });
       });
 
@@ -773,6 +798,7 @@ describe('reducer:query', () => {
             page: 1,
             queryString: '?has_narrative=true',
             searchAfter: '',
+            url: '?has_narrative=true',
           });
         });
 
@@ -793,6 +819,7 @@ describe('reducer:query', () => {
             queryString: '?has_narrative=true',
             searchAfter: '',
             tab: types.MODE_MAP,
+            url: '?dataNormalization=None&has_narrative=true&tab=Map',
           });
         });
 
@@ -806,6 +833,7 @@ describe('reducer:query', () => {
             page: 1,
             queryString: '?has_narrative=true',
             searchAfter: '',
+            url: '?has_narrative=true',
           });
         });
       });
@@ -832,6 +860,7 @@ describe('reducer:query', () => {
           product: ['bar', 'qaz'],
           queryString: '?product=bar&product=qaz',
           searchAfter: '',
+          url: '?product=bar&product=qaz',
         });
       });
 
@@ -852,6 +881,7 @@ describe('reducer:query', () => {
           queryString: '?product=bar&product=qaz',
           searchAfter: '',
           tab: types.MODE_MAP,
+          url: '?dataNormalization=None&product=bar&product=qaz&tab=Map',
         });
       });
 
@@ -866,6 +896,7 @@ describe('reducer:query', () => {
           page: 1,
           queryString: '?issue=bar&issue=baz&issue=qaz',
           searchAfter: '',
+          url: '?issue=bar&issue=baz&issue=qaz',
         });
       });
 
@@ -880,6 +911,7 @@ describe('reducer:query', () => {
           product: ['bar', 'qaz'],
           queryString: '?product=bar&product=qaz',
           searchAfter: '',
+          url: '?product=bar&product=qaz',
         });
       });
 
@@ -895,6 +927,7 @@ describe('reducer:query', () => {
             page: 1,
             queryString: '',
             searchAfter: '',
+            url: '?',
           });
         });
 
@@ -915,6 +948,7 @@ describe('reducer:query', () => {
             queryString: '',
             searchAfter: '',
             tab: types.MODE_MAP,
+            url: '?dataNormalization=None&tab=Map',
           });
         });
 
@@ -927,6 +961,7 @@ describe('reducer:query', () => {
             page: 1,
             queryString: '',
             searchAfter: '',
+            url: '?',
           });
         });
       });
@@ -1022,6 +1057,7 @@ describe('reducer:query', () => {
           page: 1,
           queryString: '?issue=Mo%20Money&issue=Mo%20Problems',
           searchAfter: '',
+          url: '?issue=Mo%20Money&issue=Mo%20Problems',
         });
       });
 
@@ -1046,6 +1082,7 @@ describe('reducer:query', () => {
           queryString: '?issue=Mo%20Money&issue=Mo%20Problems',
           searchAfter: '',
           tab: types.MODE_MAP,
+          url: '?dataNormalization=None&issue=Mo%20Money&issue=Mo%20Problems&tab=Map',
         });
       });
 
@@ -1062,6 +1099,7 @@ describe('reducer:query', () => {
           page: 1,
           queryString: '?issue=foo&issue=Mo%20Money&issue=Mo%20Problems',
           searchAfter: '',
+          url: '?issue=foo&issue=Mo%20Money&issue=Mo%20Problems',
         });
       });
 
@@ -1079,9 +1117,10 @@ describe('reducer:query', () => {
           from: 0,
           issue: ['foo', 'Mo Money', 'Mo Problems'],
           page: 1,
-          queryString: '?issue=foo&issue=Mo%20Money&issue=Mo%20Problems' + '',
+          queryString: '?issue=foo&issue=Mo%20Money&issue=Mo%20Problems',
           searchAfter: '',
           tab: types.MODE_MAP,
+          url: '?dataNormalization=None&issue=foo&issue=Mo%20Money&issue=Mo%20Problems&tab=Map',
         });
       });
     });
@@ -1109,6 +1148,7 @@ describe('reducer:query', () => {
           page: 1,
           queryString: '?issue=foo',
           searchAfter: '',
+          url: '?issue=foo',
         });
       });
 
@@ -1129,16 +1169,19 @@ describe('reducer:query', () => {
           queryString: '?issue=foo',
           searchAfter: '',
           tab: types.MODE_MAP,
+          url: '?dataNormalization=None&issue=foo&tab=Map',
         });
       });
 
       it('ignores unknown filters', () => {
         expect(target({}, action)).toEqual({
           breakPoints: {},
+          focus: '',
           from: 0,
           page: 1,
           queryString: '',
           searchAfter: '',
+          url: '?',
         });
       });
     });
@@ -1162,6 +1205,7 @@ describe('reducer:query', () => {
           has_narrative: true,
           queryString: '?has_narrative=true',
           searchAfter: '',
+          url: '?has_narrative=true',
         });
       });
 
@@ -1173,6 +1217,7 @@ describe('reducer:query', () => {
           page: 1,
           queryString: '',
           searchAfter: '',
+          url: '?',
         });
       });
     });
@@ -1197,6 +1242,7 @@ describe('reducer:query', () => {
           page: 1,
           queryString: '',
           searchAfter: '',
+          url: '?',
         });
       });
     });
@@ -1223,8 +1269,9 @@ describe('reducer:query', () => {
           from: 0,
           page: 1,
           queryString:
-            '?date_received_max=2013-02-03' + '&date_received_min=2001-01-30',
+            '?date_received_max=2013-02-03&date_received_min=2001-01-30',
           searchAfter: '',
+          url: '?date_received_max=2013-02-03&date_received_min=2001-01-30',
         });
       });
 
@@ -1250,6 +1297,7 @@ describe('reducer:query', () => {
           page: 1,
           queryString: '',
           searchAfter: '',
+          url: '?',
         });
       });
     });
@@ -1282,8 +1330,9 @@ describe('reducer:query', () => {
           from: 0,
           page: 1,
           queryString:
-            '?date_received_max=2020-05-05' + '&date_received_min=2019-05-05',
+            '?date_received_max=2020-05-05&date_received_min=2019-05-05',
           searchAfter: '',
+          url: '?date_received_max=2020-05-05&date_received_min=2019-05-05',
         });
       });
 
@@ -1299,8 +1348,9 @@ describe('reducer:query', () => {
           from: 0,
           page: 1,
           queryString:
-            '?date_received_max=2020-05-05' + '&date_received_min=2017-05-05',
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05',
           searchAfter: '',
+          url: '?date_received_max=2020-05-05&date_received_min=2017-05-05',
         });
       });
 
@@ -1332,6 +1382,7 @@ describe('reducer:query', () => {
           mapWarningEnabled: true,
           queryString: '',
           tab: types.MODE_MAP,
+          url: '?dataNormalization=None&tab=Map',
         });
       });
 
@@ -1343,6 +1394,7 @@ describe('reducer:query', () => {
           mapWarningEnabled: true,
           queryString: '',
           tab: types.MODE_MAP,
+          url: '?dataNormalization=Per%201000%20pop.&tab=Map',
         });
       });
     });
@@ -1366,6 +1418,7 @@ describe('reducer:query', () => {
           mapWarningEnabled: false,
           queryString: '?company=1&company=2&company=3&product=bar',
           tab: types.MODE_MAP,
+          url: '?company=1&company=2&company=3&dataNormalization=None&product=bar&tab=Map',
         });
       });
     });
@@ -1387,6 +1440,7 @@ describe('reducer:query', () => {
         expect(result).toEqual({
           queryString: '',
           tab: types.MODE_LIST,
+          url: '?tab=List',
         });
       });
 
@@ -1411,6 +1465,7 @@ describe('reducer:query', () => {
           queryString: '?state=TX&state=MX&state=FO',
           state: ['TX', 'MX', 'FO'],
           tab: types.MODE_LIST,
+          url: '?state=TX&state=MX&state=FO&tab=List',
         });
       });
     });
@@ -1425,11 +1480,13 @@ describe('reducer:query', () => {
       it('adds state filter', () => {
         result = target({ tab: types.MODE_MAP }, action);
         expect(result).toEqual({
+          dataNormalization: 'None',
           enablePer1000: true,
           mapWarningEnabled: true,
           queryString: '?state=IL',
           state: ['IL'],
           tab: types.MODE_MAP,
+          url: '?dataNormalization=None&state=IL&tab=Map',
         });
       });
       it('does not add dupe state filter', () => {
@@ -1442,11 +1499,13 @@ describe('reducer:query', () => {
         );
 
         expect(result).toEqual({
+          dataNormalization: 'None',
           enablePer1000: true,
           mapWarningEnabled: true,
           queryString: '?state=IL&state=TX',
           state: ['IL', 'TX'],
           tab: types.MODE_MAP,
+          url: '?dataNormalization=None&state=IL&state=TX&tab=Map',
         });
       });
     });
@@ -1466,10 +1525,12 @@ describe('reducer:query', () => {
         );
 
         expect(result).toEqual({
+          dataNormalization: 'None',
           enablePer1000: true,
           mapWarningEnabled: true,
           queryString: '',
           tab: types.MODE_MAP,
+          url: '?dataNormalization=None&tab=Map',
         });
       });
 
@@ -1481,10 +1542,12 @@ describe('reducer:query', () => {
         result = target({ tab: types.MODE_MAP }, action);
 
         expect(result).toEqual({
+          dataNormalization: 'None',
           enablePer1000: true,
           mapWarningEnabled: true,
           queryString: '',
           tab: types.MODE_MAP,
+          url: '?dataNormalization=None&tab=Map',
         });
       });
     });
@@ -1505,20 +1568,24 @@ describe('reducer:query', () => {
           action
         );
         expect(result).toEqual({
+          dataNormalization: 'None',
           enablePer1000: true,
           mapWarningEnabled: true,
           queryString: '?state=CA',
           state: ['CA'],
           tab: types.MODE_MAP,
+          url: '?dataNormalization=None&state=CA&tab=Map',
         });
       });
       it('handles empty state', () => {
         result = target({ tab: types.MODE_MAP }, action);
         expect(result).toEqual({
+          dataNormalization: 'None',
           enablePer1000: true,
           mapWarningEnabled: true,
           queryString: '',
           tab: types.MODE_MAP,
+          url: '?dataNormalization=None&tab=Map',
         });
       });
     });
@@ -1542,6 +1609,7 @@ describe('reducer:query', () => {
           queryString: '',
           tab: types.MODE_TRENDS,
           trendsDateWarningEnabled: false,
+          url: '?chartType=line&tab=Trends',
         });
       });
     });
@@ -1559,6 +1627,7 @@ describe('reducer:query', () => {
           queryString: '',
           tab: types.MODE_TRENDS,
           trendsDateWarningEnabled: false,
+          url: '?chartType=line&tab=Trends',
         });
       });
     });
@@ -1580,6 +1649,7 @@ describe('reducer:query', () => {
           tab: 'Trends',
           trendDepth: 5,
           trendsDateWarningEnabled: false,
+          url: '?chartType=line&lens=Overview&tab=Trends',
         });
       });
 
@@ -1598,6 +1668,7 @@ describe('reducer:query', () => {
           tab: 'Trends',
           trendDepth: 10,
           trendsDateWarningEnabled: false,
+          url: '?chartType=line&lens=Company&subLens=product&tab=Trends',
         });
       });
 
@@ -1616,6 +1687,7 @@ describe('reducer:query', () => {
           tab: 'Trends',
           trendDepth: 5,
           trendsDateWarningEnabled: false,
+          url: '?chartType=line&lens=Product&subLens=sub_product&tab=Trends',
         });
       });
     });
@@ -1633,6 +1705,7 @@ describe('reducer:query', () => {
           queryString: '?sub_lens=issue',
           tab: 'Trends',
           trendsDateWarningEnabled: false,
+          url: '?chartType=line&subLens=issue&tab=Trends',
         });
       });
     });
@@ -1654,6 +1727,7 @@ describe('reducer:query', () => {
           searchAfter: '',
           tab: 'Trends',
           trendsDateWarningEnabled: false,
+          url: '?chartType=line&dateInterval=Day&tab=Trends',
         });
       });
     });
@@ -1679,6 +1753,7 @@ describe('reducer:query', () => {
           tab: 'Trends',
           trendDepth: 25,
           trendsDateWarningEnabled: false,
+          url: '?chartType=line&focus=A&lens=Product&product=A&product=A%E2%80%A2B&subLens=sub_product&tab=Trends',
         });
       });
 
@@ -1702,6 +1777,7 @@ describe('reducer:query', () => {
           tab: 'Trends',
           trendDepth: 25,
           trendsDateWarningEnabled: false,
+          url: '?chartType=line&company=A&focus=A&lens=Company&subLens=product&tab=Trends',
         });
       });
     });
@@ -1721,6 +1797,7 @@ describe('reducer:query', () => {
           tab: 'Trends',
           trendDepth: 5,
           trendsDateWarningEnabled: false,
+          url: '?chartType=line&lens=Product&subLens=sub_product&tab=Trends',
         });
       });
     });

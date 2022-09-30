@@ -9,6 +9,7 @@ import {
   shortIsoFormat,
   startOfToday,
 } from '../utils';
+
 import { enforceValues, validateTrendsReducer } from '../utils/reducers';
 import actions from '../actions';
 import dayjs from 'dayjs';
@@ -641,7 +642,9 @@ function removeMultipleFilters(state, action) {
   const newState = { ...state };
   const a = newState[action.filterName];
   // remove the focus if it exists in one of the filter values we are removing
-  newState.focus = action.values.includes(state.focus) ? '' : state.focus;
+  newState.focus = action.values.includes(state.focus)
+    ? ''
+    : state.focus || '';
 
   if (a) {
     action.values.forEach((x) => {
@@ -1063,7 +1066,6 @@ export function stateToQS(state) {
   return '?' + queryString.stringify(filteredParams);
 }
 
-
 /**
  * Converts a set of key/value pairs into a query string for URL history
  *
@@ -1151,7 +1153,7 @@ export function validatePer1000(queryState) {
   }
   // if we enable per1k then don't reset it
   queryState.dataNormalization = queryState.enablePer1000
-    ? queryState.dataNormalization
+    ? queryState.dataNormalization || types.GEO_NORM_NONE
     : types.GEO_NORM_NONE;
 }
 

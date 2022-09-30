@@ -259,7 +259,7 @@ exports[`initial state renders without crashing 1`] = `
                       onKeyDown={[Function]}
                       placeholder="M/D/YYYY"
                       type="date"
-                      value="2017-09-01"
+                      value="2018-12-01"
                     />
                     <button
                       className="a-btn a-btn__link"
@@ -302,7 +302,7 @@ exports[`initial state renders without crashing 1`] = `
                       onKeyDown={[Function]}
                       placeholder="M/D/YYYY"
                       type="date"
-                      value="2017-09-01"
+                      value="2018-12-01"
                     />
                     <button
                       className="a-btn a-btn__link"
