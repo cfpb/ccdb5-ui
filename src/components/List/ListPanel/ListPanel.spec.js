@@ -3,16 +3,17 @@ import {
   testRender as render,
   screen,
   fireEvent,
-} from '../../testUtils/test-utils';
+} from '../../../testUtils/test-utils';
+import renderer from 'react-test-renderer';
 import { ListPanel } from './ListPanel';
 import { IntlProvider } from 'react-intl';
-import { merge } from '../../testUtils/functionHelpers';
-import { defaultAggs } from '../../reducers/aggs/aggs';
-import { defaultQuery } from '../../reducers/query/query';
-import { defaultResults } from '../../reducers/results/results';
-import { defaultView } from '../../reducers/view/view';
-import * as utils from '../../utils';
-import * as pagingActions from '../../actions/paging';
+import { merge } from '../../../testUtils/functionHelpers';
+import { defaultAggs } from '../../../reducers/aggs/aggs';
+import { defaultQuery } from '../../../reducers/query/query';
+import { defaultResults } from '../../../reducers/results/results';
+import { defaultView } from '../../../reducers/view/view';
+import * as utils from '../../../utils';
+import * as pagingActions from '../../../actions/paging';
 
 describe('ListPanel', () => {
   const renderComponent = (

@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import renderer from 'react-test-renderer';
 import { ComplaintCard } from './ComplaintCard';
 import { IntlProvider } from 'react-intl';
 
@@ -25,7 +26,18 @@ describe('ComplaintCard', () => {
     };
   });
 
-  test('ComplaintCard renders', () => {
+  test('it renders correctly', () => {
+    const tree = renderer
+      .create(
+        <IntlProvider locale="en">
+          <ComplaintCard row={itemFixture} />
+        </IntlProvider>
+      )
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  test('ComplaintCard renders with basic information', () => {
     render(
       <IntlProvider locale="en">
         <ComplaintCard row={itemFixture} />
