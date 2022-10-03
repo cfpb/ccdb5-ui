@@ -41,10 +41,6 @@ describe('initial state', () => {
       detail: { data: {}, error: '' },
     });
 
-    const history = createMemoryHistory();
-    const route = '/detail/6026335';
-    history.push(route);
-
     render(
       <MemoryRouter initialEntries={['/detail/6026335']}>
         <Provider store={store}>
@@ -58,7 +54,6 @@ describe('initial state', () => {
     expect(
       screen.getByRole('button', { name: /Back to search results/ })
     ).toBeInTheDocument();
-
     expect(screen.getByText('This page is loading')).toBeInTheDocument();
   });
 });
