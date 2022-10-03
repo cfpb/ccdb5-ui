@@ -94,35 +94,29 @@ describe('Filter Panel', () => {
       cy.get('.pill-panel .pill').should('have.length', 1);
 
       cy.log('open simple filter');
+      cy.get('.timely > .o-expandable_target').click();
       cy.get(
-        '.timely > .o-expandable_header > .o-expandable_header-right > .a-btn'
-      ).click();
-      cy.get('.timely > :nth-child(3) > ul > :nth-child(1) > .a-label').should(
-        'be.visible'
-      );
+        '.timely > .o-expandable_content > ul > :nth-child(1) > .a-label'
+      ).should('be.visible');
 
       cy.log('close it');
 
       // Close it after opening it
+      cy.get('.timely > .o-expandable_target').click();
       cy.get(
-        '.timely > .o-expandable_header > .o-expandable_header-right > .a-btn'
-      ).click();
-      cy.get('.timely > :nth-child(3) > ul > :nth-child(1) > .a-label').should(
-        'not.exist'
-      );
+        '.timely > .o-expandable_content > ul > :nth-child(1) > .a-label'
+      ).should('not.exist');
 
       cy.log('open it again');
+      cy.get('.timely > .o-expandable_target').click();
       cy.get(
-        '.timely > .o-expandable_header > .o-expandable_header-right > .a-btn'
-      ).click();
-      cy.get('.timely > :nth-child(3) > ul > :nth-child(1) > .a-label').should(
-        'be.visible'
-      );
+        '.timely > .o-expandable_content > ul > :nth-child(1) > .a-label'
+      ).should('be.visible');
 
       cy.log('apply filter');
 
       cy.get(
-        '.timely > :nth-child(3) > ul > :nth-child(1) > .a-label'
+        '.timely > .o-expandable_content > ul > :nth-child(1) > .a-label'
       ).click();
 
       cy.url().should('include', 'timely=Yes');

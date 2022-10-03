@@ -47,7 +47,6 @@ describe('component:SearchBar - Company', () => {
     // TODO: refactor to fix linter error. Probably fixed with func components.
     // eslint-disable-next-line react/no-render-return-value
     const view = ReactDOM.render(<SearchBar {...props} />, node);
-
     props.searchText = 'bar';
     ReactDOM.render(<SearchBar {...props} />, node);
     expect(view.state.inputValue).toEqual('bar');
@@ -74,6 +73,15 @@ describe('component:SearchBar - All data', () => {
 
     theForm.simulate('submit', { preventDefault: () => {} });
     expect(props.onSearchText).toHaveBeenCalledWith('bar');
+  });
+
+  xit('changes AdvancedShown state from initial false, to true and back', () => {
+    const { target } = setup('foo');
+    expect(target.state('advancedShown')).toEqual(false);
+    target.instance()._onAdvancedClicked({ preventDefault: () => {} });
+    expect(target.state('advancedShown')).toEqual(true);
+    target.instance()._onAdvancedClicked({ preventDefault: () => {} });
+    expect(target.state('advancedShown')).toEqual(false);
   });
 
   describe('Typeahead interface', () => {
@@ -157,12 +165,6 @@ describe('component:SearchBar - All data', () => {
     it('hooks into onSearchText', () => {
       const dispatch = jest.fn();
       mapDispatchToProps(dispatch).onSearchText('foo');
-      expect(dispatch.mock.calls.length).toEqual(1);
-    });
-
-    it('hooks into onSearchTipToggle', () => {
-      const dispatch = jest.fn();
-      mapDispatchToProps(dispatch).onSearchTipToggle(true);
       expect(dispatch.mock.calls.length).toEqual(1);
     });
   });

@@ -59,7 +59,7 @@ describe('initial state', () => {
     );
 
     expect(
-      screen.getByRole('button', { name: /Back to search results/ })
+      screen.getByRole('button', { name: /Go to search home page/ })
     ).toBeInTheDocument();
     expect(screen.getByText('This page is loading')).toBeInTheDocument();
   });

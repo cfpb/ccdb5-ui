@@ -4,23 +4,27 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
 <section
   className="o-expandable aggregation issue"
 >
-  <div
-    className="o-expandable_header o-expandable_target"
+  <button
+    aria-label="Hide Issue / sub-issue filter"
+    className="o-expandable_header o-expandable_target o-expandable_target__expanded"
+    onClick={[Function]}
   >
-    <h4
-      className="o-expandable_header-left o-expandable_label"
+    <h3
+      className="h4 o-expandable_header-left o-expandable_label"
     >
       Issue / sub-issue
-    </h4>
+    </h3>
     <span
       className="o-expandable_header-right o-expandable_link"
     >
-      <button
-        aria-label="Hide Issue / sub-issue filter"
-        className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
-        onClick={[Function]}
+      <span
+        className="o-expandable_cue o-expandable_cue-close"
       >
-        Hide
+        <span
+          className="u-visually-hidden-on-mobile"
+        >
+          Hide
+        </span>
         <svg
           className="cf-icon-svg"
           viewBox="0 0 1000 1200"
@@ -30,52 +34,54 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
             d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h527.1c27.6 0 50 22.4 50 50s-22.4 50-50 50z"
           />
         </svg>
-      </button>
+      </span>
     </span>
-  </div>
-  <p>
-    The type of issue and sub-issue the consumer identified in the complaint
-  </p>
-  <section
-    className="typeahead "
-    onBlur={[Function]}
-    onFocus={[Function]}
+  </button>
+  <div
+    className="o-expandable_content"
   >
-    <div
-      className="m-btn-inside-input input-contains-label"
+    <p>
+      The type of issue and sub-issue the consumer identified in the complaint
+    </p>
+    <section
+      className="typeahead "
+      onBlur={[Function]}
+      onFocus={[Function]}
     >
       <div
-        className="input-contains-label_before input-contains-label_before__search"
+        className="m-btn-inside-input input-contains-label"
       >
-        <svg
-          className="cf-icon-svg"
-          viewBox="0 0 880.6 1200"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          className="input-contains-label_before input-contains-label_before__search"
         >
-          <path
-            d="M860.1 879.2L645.7 664.8c90.8-136.8 76-323-44.6-443.5-137.5-137.5-360.5-137.5-498 0s-137.5 360.5 0 498c118.5 118.4 303.9 137 443.5 44.6L761 978.3c27.3 27.3 71.7 27.3 99 0s27.4-71.8.1-99.1zm-508-116.9C191.4 762 61.3 631.5 61.6 470.8c.3-160.7 130.8-290.8 291.5-290.5s290.8 130.8 290.5 291.5c-.2 118.2-71.9 224.6-181.5 269.1-34.9 14.2-72.3 21.5-110 21.4z"
-          />
-        </svg>
+          <svg
+            className="cf-icon-svg"
+            viewBox="0 0 880.6 1200"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M860.1 879.2L645.7 664.8c90.8-136.8 76-323-44.6-443.5-137.5-137.5-360.5-137.5-498 0s-137.5 360.5 0 498c118.5 118.4 303.9 137 443.5 44.6L761 978.3c27.3 27.3 71.7 27.3 99 0s27.4-71.8.1-99.1zm-508-116.9C191.4 762 61.3 631.5 61.6 470.8c.3-160.7 130.8-290.8 291.5-290.5s290.8 130.8 290.5 291.5c-.2 118.2-71.9 224.6-181.5 269.1-34.9 14.2-72.3 21.5-110 21.4z"
+            />
+          </svg>
+        </div>
+        <label
+          className="u-visually-hidden"
+          htmlFor="issue-typeahead"
+        >
+          Start typing to begin listing issues
+        </label>
+        <input
+          autoComplete="off"
+          className="a-text-input"
+          id="issue-typeahead"
+          onChange={[Function]}
+          onKeyDown={[Function]}
+          placeholder="Enter name of issue"
+          type="text"
+          value=""
+        />
       </div>
-      <label
-        className="u-visually-hidden"
-        htmlFor="issue-typeahead"
-      >
-        Start typing to begin listing issues
-      </label>
-      <input
-        autoComplete="off"
-        className="a-text-input"
-        id="issue-typeahead"
-        onChange={[Function]}
-        onKeyDown={[Function]}
-        placeholder="Enter name of issue"
-        type="text"
-        value=""
-      />
-    </div>
-  </section>
-  <div>
+    </section>
     <ul>
       <div
         className="aggregation-branch incorrect-information-on-credit-report"
@@ -121,9 +127,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
           <span
             className="flex-fixed parent-count"
           >
-            <span>
-              20,991
-            </span>
+            20,991
           </span>
         </li>
       </div>
@@ -171,9 +175,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
           <span
             className="flex-fixed parent-count"
           >
-            <span>
-              17,244
-            </span>
+            17,244
           </span>
         </li>
       </div>
@@ -197,9 +199,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
         <span
           className="flex-fixed bucket-count"
         >
-          <span>
-            14,605
-          </span>
+          14,605
         </span>
       </li>
       <li
@@ -222,9 +222,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
         <span
           className="flex-fixed bucket-count"
         >
-          <span>
-            10,716
-          </span>
+          10,716
         </span>
       </li>
       <li
@@ -247,9 +245,7 @@ exports[`component:Issue snapshots only shows the first five items 1`] = `
         <span
           className="flex-fixed bucket-count"
         >
-          <span>
-            7,783
-          </span>
+          7,783
         </span>
       </li>
     </ul>
@@ -269,23 +265,27 @@ exports[`component:Issue snapshots renders without crashing 1`] = `
 <section
   className="o-expandable aggregation issue"
 >
-  <div
-    className="o-expandable_header o-expandable_target"
+  <button
+    aria-label="Hide Issue / sub-issue filter"
+    className="o-expandable_header o-expandable_target o-expandable_target__expanded"
+    onClick={[Function]}
   >
-    <h4
-      className="o-expandable_header-left o-expandable_label"
+    <h3
+      className="h4 o-expandable_header-left o-expandable_label"
     >
       Issue / sub-issue
-    </h4>
+    </h3>
     <span
       className="o-expandable_header-right o-expandable_link"
     >
-      <button
-        aria-label="Hide Issue / sub-issue filter"
-        className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
-        onClick={[Function]}
+      <span
+        className="o-expandable_cue o-expandable_cue-close"
       >
-        Hide
+        <span
+          className="u-visually-hidden-on-mobile"
+        >
+          Hide
+        </span>
         <svg
           className="cf-icon-svg"
           viewBox="0 0 1000 1200"
@@ -295,52 +295,54 @@ exports[`component:Issue snapshots renders without crashing 1`] = `
             d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h527.1c27.6 0 50 22.4 50 50s-22.4 50-50 50z"
           />
         </svg>
-      </button>
+      </span>
     </span>
-  </div>
-  <p>
-    The type of issue and sub-issue the consumer identified in the complaint
-  </p>
-  <section
-    className="typeahead "
-    onBlur={[Function]}
-    onFocus={[Function]}
+  </button>
+  <div
+    className="o-expandable_content"
   >
-    <div
-      className="m-btn-inside-input input-contains-label"
+    <p>
+      The type of issue and sub-issue the consumer identified in the complaint
+    </p>
+    <section
+      className="typeahead "
+      onBlur={[Function]}
+      onFocus={[Function]}
     >
       <div
-        className="input-contains-label_before input-contains-label_before__search"
+        className="m-btn-inside-input input-contains-label"
       >
-        <svg
-          className="cf-icon-svg"
-          viewBox="0 0 880.6 1200"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          className="input-contains-label_before input-contains-label_before__search"
         >
-          <path
-            d="M860.1 879.2L645.7 664.8c90.8-136.8 76-323-44.6-443.5-137.5-137.5-360.5-137.5-498 0s-137.5 360.5 0 498c118.5 118.4 303.9 137 443.5 44.6L761 978.3c27.3 27.3 71.7 27.3 99 0s27.4-71.8.1-99.1zm-508-116.9C191.4 762 61.3 631.5 61.6 470.8c.3-160.7 130.8-290.8 291.5-290.5s290.8 130.8 290.5 291.5c-.2 118.2-71.9 224.6-181.5 269.1-34.9 14.2-72.3 21.5-110 21.4z"
-          />
-        </svg>
+          <svg
+            className="cf-icon-svg"
+            viewBox="0 0 880.6 1200"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M860.1 879.2L645.7 664.8c90.8-136.8 76-323-44.6-443.5-137.5-137.5-360.5-137.5-498 0s-137.5 360.5 0 498c118.5 118.4 303.9 137 443.5 44.6L761 978.3c27.3 27.3 71.7 27.3 99 0s27.4-71.8.1-99.1zm-508-116.9C191.4 762 61.3 631.5 61.6 470.8c.3-160.7 130.8-290.8 291.5-290.5s290.8 130.8 290.5 291.5c-.2 118.2-71.9 224.6-181.5 269.1-34.9 14.2-72.3 21.5-110 21.4z"
+            />
+          </svg>
+        </div>
+        <label
+          className="u-visually-hidden"
+          htmlFor="issue-typeahead"
+        >
+          Start typing to begin listing issues
+        </label>
+        <input
+          autoComplete="off"
+          className="a-text-input"
+          id="issue-typeahead"
+          onChange={[Function]}
+          onKeyDown={[Function]}
+          placeholder="Enter name of issue"
+          type="text"
+          value=""
+        />
       </div>
-      <label
-        className="u-visually-hidden"
-        htmlFor="issue-typeahead"
-      >
-        Start typing to begin listing issues
-      </label>
-      <input
-        autoComplete="off"
-        className="a-text-input"
-        id="issue-typeahead"
-        onChange={[Function]}
-        onKeyDown={[Function]}
-        placeholder="Enter name of issue"
-        type="text"
-        value=""
-      />
-    </div>
-  </section>
-  <div>
+    </section>
     <ul />
   </div>
 </section>

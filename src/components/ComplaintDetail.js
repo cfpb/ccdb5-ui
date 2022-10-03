@@ -81,8 +81,7 @@ export class ComplaintDetail extends React.Component {
   _renderBackDefault() {
     return (
       <button className="a-btn a-btn__link" onClick={this.props.onClickedBack}>
-        {iconMap.getIcon('left', 'cf-icon-left')}
-        Back to search results
+        {iconMap.getIcon('left', 'cf-icon-left')} Back to search results
       </button>
     );
   }
@@ -96,8 +95,7 @@ export class ComplaintDetail extends React.Component {
           window.location = root;
         }}
       >
-        {iconMap.getIcon('left', 'cf-icon-left')}
-        Go to search home page
+        {iconMap.getIcon('left', 'cf-icon-left')} Go to search home page
       </button>
     );
   }

@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import HighlightingOption from '../Typeahead/HighlightingOption';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { API_PLACEHOLDER } from '../../constants';
 
 const searchFields = {
   all: 'All data',
@@ -154,7 +155,7 @@ export class SearchBar extends React.Component {
 
     if (this.state.searchField === 'company') {
       const n = value.toLowerCase();
-      const uriCompany = '@@API_suggest_company/?text=' + value;
+      const uriCompany = `${API_PLACEHOLDER}_suggest_company/?text=${value}`;
 
       return fetch(uriCompany)
         .then((result) => result.json())
