@@ -1,12 +1,10 @@
-import { act, create } from 'react-test-renderer';
 import { App, DetailComponents } from '../App';
 import configureMockStore from 'redux-mock-store';
-import { defaultQuery } from '../reducers/query/query';
 import { Provider } from 'react-redux';
 import React from 'react';
 import thunk from 'redux-thunk';
 import 'regenerator-runtime/runtime';
-import { BrowserRouter, MemoryRouter, Route, Routes } from 'react-router-dom';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
