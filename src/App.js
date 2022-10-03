@@ -35,7 +35,6 @@ const store = createStore(
 );
 
 /* eslint-disable camelcase */
-
 export const DetailComponents = () => {
   const { id } = useParams();
 
@@ -47,7 +46,6 @@ export const DetailComponents = () => {
     </IntlProvider>
   );
 };
-
 /* eslint-enable camelcase */
 
 // eslint-disable-next-line react/no-multi-comp
