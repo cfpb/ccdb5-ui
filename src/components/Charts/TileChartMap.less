@@ -17,7 +17,8 @@
   z-index: 0;
   /* #1072 */
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Arial, Helvetica, sans-serif;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Arial, Helvetica,
+    sans-serif;
   font-size: 12px;
 }
 // legend
@@ -125,7 +126,7 @@ x/y positioning on the SVG elements.
       text-align: center;
       cursor: default;
       &.deselected {
-        color: @gray
+        color: @gray;
       }
     }
   }
@@ -167,7 +168,8 @@ x/y positioning on the SVG elements.
     }
   }
 
-  .u-point-hover-state, .selected {
+  .u-point-hover-state,
+  .selected {
     stroke: @black;
     cursor: default;
     stroke-linecap: square;
@@ -256,8 +258,8 @@ x/y positioning on the SVG elements.
 // -----------------------------------------------------------------------------
 // State Tile Break Points
 
-@mobile-tiles:  ~"only screen and (max-width:1024px)";
-@mobile-xs-tiles:  ~"only screen and (max-width:400px)";
+@mobile-tiles: ~'only screen and (max-width:1024px)';
+@mobile-xs-tiles: ~'only screen and (max-width:400px)';
 
 .highcharts-data-label {
   font-size: 14px;
@@ -284,7 +286,8 @@ x/y positioning on the SVG elements.
       font-size: 12px;
     }
     &.hover {
-      .abbr, .value {
+      .abbr,
+      .value {
         text-decoration: underline;
       }
     }
@@ -292,7 +295,6 @@ x/y positioning on the SVG elements.
       color: rgba(90, 93, 97, 1);
     }
   }
-
 }
 
 // This takes over for looking good at the minimum height of 400px
@@ -351,7 +353,7 @@ x/y positioning on the SVG elements.
   }
 }
 
-@media @phone{
+@media @phone {
   .highcharts-series-group {
     transform: translate(0, 15px);
   }
