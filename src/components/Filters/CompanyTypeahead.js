@@ -1,7 +1,7 @@
 import { bindAll, sanitizeHtmlId } from '../../utils';
 import { addMultipleFilters } from '../../actions/filter';
 import { connect } from 'react-redux';
-import HighlightingOption from '../Typeahead/HighlightingOption';
+import { HighlightingOption } from '../Typeahead/HighlightingOption/HighlightingOption';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { stateToQS } from '../../reducers/query/query';

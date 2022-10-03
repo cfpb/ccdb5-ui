@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { replaceFilters } from '../../actions/filter';
 import { SLUG_SEPARATOR } from '../../constants';
-import { HighlightingTypeahead } from '../Typeahead/HighlightingTypeahead';
+import { HighlightingTypeahead } from '../Typeahead/HighlightingTypeahead/HighlightingTypeahead';
 
 export class Issue extends React.Component {
   constructor(props) {

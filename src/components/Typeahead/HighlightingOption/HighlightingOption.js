@@ -2,6 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export const HighlightingOption = ({ label, position, value }) => {
+  console.log(label);
+  console.log(position);
+  console.log(value);
   if (position < 0) {
     return <span>{label}</span>;
   }
@@ -18,8 +21,6 @@ export const HighlightingOption = ({ label, position, value }) => {
     </span>
   );
 };
-
-export default HighlightingOption;
 
 HighlightingOption.propTypes = {
   label: PropTypes.string.isRequired,

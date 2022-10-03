@@ -4,7 +4,7 @@ import { searchFieldChanged, searchTextChanged } from '../../actions/search';
 import Typeahead, { MODE_OPEN } from '../Typeahead';
 import AdvancedTips from '../Dialogs/AdvancedTips';
 import { connect } from 'react-redux';
-import HighlightingOption from '../Typeahead/HighlightingOption';
+import { HighlightingOption } from '../Typeahead/HighlightingOption/HighlightingOption';
 import PropTypes from 'prop-types';
 import React from 'react';
 

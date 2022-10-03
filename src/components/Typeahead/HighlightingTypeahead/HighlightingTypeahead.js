@@ -1,8 +1,8 @@
-import HighlightingOption from './HighlightingOption';
-import { normalize } from '../../utils';
+import { HighlightingOption } from '../HighlightingOption/HighlightingOption';
+import { normalize } from '../../../utils';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import Typeahead from './index';
+import Typeahead from '../index';
 
 export const compileOptions = (options) =>
   options.map((x) => ({

@@ -2,7 +2,7 @@ import { bindAll, coalesce } from '../../utils';
 import { addMultipleFilters } from '../../actions/filter';
 import CollapsibleFilter from './CollapsibleFilter';
 import { connect } from 'react-redux';
-import HighlightingOption from '../Typeahead/HighlightingOption';
+import { HighlightingOption } from '../Typeahead/HighlightingOption/HighlightingOption';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { stateToQS } from '../../reducers/query/query';

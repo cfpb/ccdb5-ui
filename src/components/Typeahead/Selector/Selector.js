@@ -2,7 +2,7 @@
 
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Option } from './Option/Option';
+import { Option } from '../Option/Option';
 
 export const Selector = ({
   options,
@@ -12,6 +12,7 @@ export const Selector = ({
   footer,
 }) => {
   const handleClick = (event, index) => {
+    console.log('HERE IN HAANDLE CLICK');
     onOptionSelected(index);
     event.preventDefault();
   };
