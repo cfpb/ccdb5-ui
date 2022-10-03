@@ -7,7 +7,6 @@ import 'regenerator-runtime/runtime';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
 import { render, screen } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
 
 jest.mock('highcharts/modules/accessibility');
 jest.mock('highcharts/highmaps');
