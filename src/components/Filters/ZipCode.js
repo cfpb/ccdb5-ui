@@ -8,6 +8,7 @@ import React from 'react';
 import { stateToQS } from '../../reducers/query/query';
 import StickyOptions from './StickyOptions';
 import Typeahead from '../Typeahead';
+import { API_PLACEHOLDER } from '../../constants';
 
 const FIELD_NAME = 'zip_code';
 
@@ -52,7 +53,7 @@ export class ZipCode extends React.Component {
 
     const qs = this.props.queryString + '&text=' + value;
 
-    const uri = '@@API_suggest_zip/' + qs;
+    const uri = `${API_PLACEHOLDER}_suggest_zip/${qs}`;
     return fetch(uri)
       .then((result) => result.json())
       .then((items) =>
