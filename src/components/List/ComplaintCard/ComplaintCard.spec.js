@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import renderer from 'react-test-renderer';
 import { ComplaintCard } from './ComplaintCard';
 import { IntlProvider } from 'react-intl';
 
@@ -13,6 +12,9 @@ describe('ComplaintCard', () => {
       zip_code: '12345',
       tags: null,
       has_narrative: false,
+      issue: 'Incorrect information on your report',
+      product:
+        'Credit reporting, credit repair services, or other personal consumer reports',
       complaint_id: '7990095',
       timely: 'Yes',
       consumer_consent_provided: null,
@@ -26,17 +28,6 @@ describe('ComplaintCard', () => {
     };
   });
 
-  test('it renders correctly', () => {
-    const tree = renderer
-      .create(
-        <IntlProvider locale="en">
-          <ComplaintCard row={itemFixture} />
-        </IntlProvider>
-      )
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
   test('ComplaintCard renders with basic information', () => {
     render(
       <IntlProvider locale="en">
@@ -44,11 +35,26 @@ describe('ComplaintCard', () => {
       </IntlProvider>
     );
 
+    expect(screen.getByText(itemFixture.complaint_id)).toBeDefined();
+    expect(screen.getByText('Company name')).toBeDefined();
     expect(screen.getByText(itemFixture.company)).toBeDefined();
+    expect(screen.getByText('Date received:')).toBeDefined();
     expect(screen.getByText('11/16/2022')).toBeDefined();
+    expect(screen.getByText(`Consumer's state:`)).toBeDefined();
     expect(screen.getByText(itemFixture.state)).toBeDefined();
+    expect(screen.getByText('Company response to consumer')).toBeDefined();
     expect(screen.getByText(itemFixture.company_response)).toBeDefined();
+    expect(screen.getByText('Timely response?')).toBeDefined();
     expect(screen.getByText(itemFixture.timely)).toBeDefined();
+    expect(screen.getByRole('heading', { name: 'Product' })).toBeDefined();
+    expect(screen.getByText(itemFixture.product)).toBeDefined();
+    expect(screen.queryByText(/Sub-product:/)).toBeNull();
+    expect(screen.getByRole('heading', { name: 'Issue' })).toBeDefined();
+    expect(screen.getByText(itemFixture.issue)).toBeDefined();
+    expect(screen.queryByText(/Sub-issue:/)).toBeNull();
+    expect(
+      screen.queryByRole('heading', { name: 'Consumer Complaint Narrative' })
+    ).toBeNull();
   });
 
   test('Renders narrative without overflow', () => {
@@ -98,9 +104,7 @@ describe('ComplaintCard', () => {
     expect(screen.getByText('[...]')).toBeDefined();
   });
 
-  test('Renders product and sub product', () => {
-    itemFixture.product =
-      'Credit reporting, credit repair services, or other personal consumer reports';
+  test('Renders sub product', () => {
     itemFixture.sub_product = 'Credit reporting';
 
     render(
@@ -109,12 +113,11 @@ describe('ComplaintCard', () => {
       </IntlProvider>
     );
 
-    expect(screen.getByText(itemFixture.product)).toBeDefined();
+    expect(screen.getByText(/Sub-product:/)).toBeDefined();
     expect(screen.getByText(itemFixture.sub_product)).toBeDefined();
   });
 
-  test('Renders issue and sub issue', () => {
-    itemFixture.issue = 'Incorrect information on your report';
+  test('Renders sub issue', () => {
     itemFixture.sub_issue = 'Public record information inaccurate';
 
     render(
@@ -123,7 +126,7 @@ describe('ComplaintCard', () => {
       </IntlProvider>
     );
 
-    expect(screen.getByText(itemFixture.issue)).toBeDefined();
+    expect(screen.getByText(/Sub-issue:/)).toBeDefined();
     expect(screen.getByText(itemFixture.sub_issue)).toBeDefined();
   });
 });
