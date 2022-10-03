@@ -1,7 +1,7 @@
 import { act, create } from 'react-test-renderer';
 import { App, DetailComponents } from '../App';
 import configureMockStore from 'redux-mock-store';
-import { defaultQuery } from '../reducers/query';
+import { defaultQuery } from '../reducers/query/query';
 import { MemoryRouter } from 'react-router';
 import { Provider } from 'react-redux';
 import React from 'react';

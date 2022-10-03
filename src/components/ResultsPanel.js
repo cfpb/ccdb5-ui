@@ -1,7 +1,7 @@
 import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../constants';
 import { printModeOff, printModeOn } from '../actions/view';
 import { connect } from 'react-redux';
-import ListPanel from './List/ListPanel';
+import { ListPanel } from './List/ListPanel/ListPanel';
 import MapPanel from './Map/MapPanel';
 import PrintInfo from './Print/PrintInfo';
 import PrintInfoFooter from './Print/PrintInfoFooter';

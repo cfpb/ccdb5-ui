@@ -1,29 +1,36 @@
-/* eslint-disable camelcase */
 import {
-  COMPLAINTS_API_CALLED,
-  COMPLAINTS_FAILED,
-  COMPLAINTS_RECEIVED,
-} from '../actions/complaints';
+  AGGREGATIONS_API_CALLED,
+  AGGREGATIONS_FAILED,
+  AGGREGATIONS_RECEIVED,
+} from '../../actions/complaints';
+import { processErrorMessage } from '../../utils';
 
-const defaultResults = {
+/* eslint-disable camelcase */
+
+export const defaultAggs = {
   activeCall: '',
-  error: '',
+  doc_count: 0,
   isLoading: false,
-  items: [],
+  total: 0,
+  error: '',
+  lastUpdated: null,
+  lastIndexed: null,
+  loadingAggregations: false,
+  hasDataIssue: false,
+  isDataStale: false,
+  company: [],
+  company_public_response: [],
+  company_response: [],
+  consumer_consent_provided: [],
+  consumer_disputed: [],
+  issue: [],
+  product: [],
+  state: [],
+  submitted_via: [],
+  tag: [],
+  timely: [],
+  zip_code: [],
 };
-
-export const _processHits = (data) =>
-  data.hits.hits.map((x) => {
-    const item = { ...x._source };
-
-    if (x.highlight) {
-      Object.keys(x.highlight).forEach((field) => {
-        item[field] = x.highlight[field][0];
-      });
-    }
-
-    return item;
-  });
 
 // ----------------------------------------------------------------------------
 // Action Handlers
@@ -34,7 +41,7 @@ export const _processHits = (data) =>
  * @param {object} action - the payload containing the key/value pairs
  * @returns {object} new state for the Redux store
  */
-export function hitsCallInProcess(state, action) {
+export function aggregationsCallInProcess(state, action) {
   return {
     ...state,
     activeCall: action.url,
@@ -49,16 +56,33 @@ export function hitsCallInProcess(state, action) {
  * @param {object} action - the payload containing the key/value pairs
  * @returns {object} new state for the Redux store
  */
-export function processHitsResults(state, action) {
-  const items = _processHits(action.data);
+export function processAggregationResults(state, action) {
+  const aggs = action.data.aggregations;
+  const keys = Object.keys(aggs);
 
-  return {
+  const doc_count = Math.max(
+    state.doc_count,
+    action.data.hits.total.value,
+    action.data._meta.total_record_count
+  );
+
+  const result = {
     ...state,
-    activeCall: '',
+    doc_count,
     error: '',
     isLoading: false,
-    items: items,
+    lastUpdated: action.data._meta.last_updated,
+    lastIndexed: action.data._meta.last_indexed,
+    hasDataIssue: action.data._meta.has_data_issue,
+    isDataStale: action.data._meta.is_data_stale,
+    total: action.data.hits.total.value,
   };
+
+  keys.forEach((key) => {
+    result[key] = aggs[key][key].buckets;
+  });
+
+  return result;
 }
 
 /**
@@ -68,15 +92,13 @@ export function processHitsResults(state, action) {
  * @param {object} action - the payload containing the key/value pairs
  * @returns {object} new state for the Redux store
  */
-export function processHitsError(state, action) {
+export function processAggregationError(state, action) {
   return {
-    ...defaultResults,
-    error: action.error,
+    ...defaultAggs,
+    isLoading: false,
+    error: processErrorMessage(action.error),
   };
 }
-
-// ----------------------------------------------------------------------------
-// Action Handlers
 
 /**
  * Creates a hash table of action types to handlers
@@ -85,9 +107,9 @@ export function processHitsError(state, action) {
  */
 export function _buildHandlerMap() {
   const handlers = {};
-  handlers[COMPLAINTS_API_CALLED] = hitsCallInProcess;
-  handlers[COMPLAINTS_RECEIVED] = processHitsResults;
-  handlers[COMPLAINTS_FAILED] = processHitsError;
+  handlers[AGGREGATIONS_API_CALLED] = aggregationsCallInProcess;
+  handlers[AGGREGATIONS_RECEIVED] = processAggregationResults;
+  handlers[AGGREGATIONS_FAILED] = processAggregationError;
 
   return handlers;
 }
@@ -109,7 +131,7 @@ function handleSpecificAction(state, action) {
   return state;
 }
 
-export default (state = defaultResults, action) => {
+export default (state = defaultAggs, action) => {
   const newState = handleSpecificAction(state, action);
   return newState;
 };

@@ -1,6 +1,8 @@
 import Adapter from 'enzyme-adapter-react-16';
 import { configure } from 'enzyme';
 import MockDate from 'mockdate';
+// add custom jest matchers from jest-dom for testing library tests
+import '@testing-library/jest-dom';
 
 configure({ adapter: new Adapter() });
 

@@ -1,5 +1,5 @@
 /* eslint complexity: ["error", 5] */
-import * as types from '../constants';
+import * as types from '../../constants';
 import {
   calculateDateRange,
   clamp,
@@ -8,11 +8,11 @@ import {
   processUrlArrayParams,
   shortIsoFormat,
   startOfToday,
-} from '../utils';
-import { enforceValues, validateTrendsReducer } from '../utils/reducers';
-import actions from '../actions';
+} from '../../utils';
+import { enforceValues, validateTrendsReducer } from '../../utils/reducers';
+import actions from '../../actions';
 import dayjs from 'dayjs';
-import { isGreaterThanYear } from '../utils/trends';
+import { isGreaterThanYear } from '../../utils/trends';
 
 const queryString = require('query-string');
 
