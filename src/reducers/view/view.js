@@ -1,5 +1,5 @@
-import actions from '../actions';
-import { processUrlArrayParams } from '../utils';
+import actions from '../../actions';
+import { processUrlArrayParams } from '../../utils';
 
 export const defaultView = {
   expandedRows: [],

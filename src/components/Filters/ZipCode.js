@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import HighlightingOption from '../Typeahead/HighlightingOption';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { stateToQS } from '../../reducers/query';
+import { stateToQS } from '../../reducers/query/query';
 import StickyOptions from './StickyOptions';
 import Typeahead from '../Typeahead';
 import { API_PLACEHOLDER } from '../../constants';

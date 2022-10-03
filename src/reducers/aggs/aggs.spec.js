@@ -1,4 +1,4 @@
-import target, { defaultAggs } from '../aggs';
+import target, { defaultAggs } from './aggs';
 import {
   AGGREGATIONS_API_CALLED,
   AGGREGATIONS_FAILED,

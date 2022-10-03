@@ -1,4 +1,4 @@
-import target from '../results';
+import target from './results';
 import * as sut from '../../actions/complaints';
 
 describe('reducer:results', () => {
