@@ -3,8 +3,12 @@
 // https://stackoverflow.com/questions/3916191
 
 import { buildLink, simulateClick } from './domUtils';
-import { MODAL_SHOWN, MODAL_TYPE_DATA_EXPORT } from '../constants';
-import { stateToQS } from '../reducers/query';
+import {
+  API_PLACEHOLDER,
+  MODAL_SHOWN,
+  MODAL_TYPE_DATA_EXPORT,
+} from '../constants';
+import { stateToQS } from '../reducers/query/query';
 
 const DATA_HOST = 'https://files.consumerfinance.gov';
 
@@ -37,7 +41,7 @@ export function buildSomeResultsUri(format, size, queryState) {
   // eslint-disable-next-line camelcase
   params.no_aggs = true;
 
-  return '@@API' + stateToQS(params);
+  return API_PLACEHOLDER + stateToQS(params);
 }
 
 // ----------------------------------------------------------------------------

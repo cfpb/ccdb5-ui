@@ -1,5 +1,10 @@
 /* eslint complexity: ["error", 5] */
-import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../constants';
+import {
+  API_PLACEHOLDER,
+  MODE_LIST,
+  MODE_MAP,
+  MODE_TRENDS,
+} from '../constants';
 
 export const AGGREGATIONS_API_CALLED = 'AGGREGATIONS_API_CALLED';
 export const AGGREGATIONS_RECEIVED = 'AGGREGATIONS_RECEIVED';
@@ -81,7 +86,7 @@ export function getAggregations() {
   return (dispatch, getState) => {
     const store = getState();
     const qs = store.query.queryString;
-    const uri = '@@API' + qs + '&size=0';
+    const uri = API_PLACEHOLDER + qs + '&size=0';
 
     // This call is already in process
     if (store.results.loadingAggregations) {
@@ -105,7 +110,7 @@ export function getComplaints() {
   return (dispatch, getState) => {
     const store = getState();
     const qs = store.query.queryString;
-    const uri = '@@API' + qs;
+    const uri = API_PLACEHOLDER + qs;
 
     // This call is already in process
     if (uri === store.results.activeCall) {
@@ -128,7 +133,7 @@ export function getComplaints() {
  */
 export function getComplaintDetail(id) {
   return (dispatch) => {
-    const uri = '@@API' + id;
+    const uri = API_PLACEHOLDER + id;
     dispatch(callingApi(COMPLAINTS_API_CALLED, uri));
     fetch(uri)
       .then((result) => result.json())
@@ -146,7 +151,7 @@ export function getStates() {
   return (dispatch, getState) => {
     const store = getState();
     const qs = 'geo/states/' + store.query.queryString;
-    const uri = '@@API' + qs + '&no_aggs=true';
+    const uri = API_PLACEHOLDER + qs + '&no_aggs=true';
 
     // This call is already in process
     if (uri === store.map.activeCall) {
@@ -171,7 +176,7 @@ export function getTrends() {
     const store = getState();
     const { query, trends } = store;
     const qs = 'trends/' + query.queryString;
-    const uri = '@@API' + qs + '&no_aggs=true';
+    const uri = API_PLACEHOLDER + qs + '&no_aggs=true';
 
     // This call is already in process
     if (uri === trends.activeCall) {

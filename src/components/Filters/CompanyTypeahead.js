@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import HighlightingOption from '../Typeahead/HighlightingOption';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { stateToQS } from '../../reducers/query';
+import { stateToQS } from '../../reducers/query/query';
 import Typeahead from '../Typeahead';
+import { API_PLACEHOLDER } from '../../constants';
 
 const FIELD_NAME = 'company';
 
@@ -40,7 +41,7 @@ export class CompanyTypeahead extends React.Component {
 
     const qs = this.props.queryString + '&text=' + value;
 
-    const uri = '@@API_suggest_company/' + qs;
+    const uri = `${API_PLACEHOLDER}_suggest_company/${qs}`;
     return fetch(uri)
       .then((result) => result.json())
       .then((items) =>

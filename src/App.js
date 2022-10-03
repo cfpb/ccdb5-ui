@@ -4,7 +4,7 @@ import {
   Route,
   BrowserRouter as Router,
   Routes,
-  useParams
+  useParams,
 } from 'react-router-dom';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { IntlProvider } from 'react-intl';
@@ -15,7 +15,7 @@ import React from 'react';
 import reducers from './reducers';
 import { SearchComponents } from './components/Search/SearchComponents';
 import thunkMiddleware from 'redux-thunk';
-import synchUrl from "./middleware/synchUrl/synchUrl";
+import synchUrl from './middleware/synchUrl/synchUrl';
 
 const middleware = [thunkMiddleware, queryManager, synchUrl];
 
@@ -37,16 +37,16 @@ const store = createStore(
 /* eslint-disable camelcase */
 
 export const DetailComponents = () => {
-  const {id} = useParams();
+  const { id } = useParams();
 
   return (
     <IntlProvider locale="en">
       <main role="main">
-        <ComplaintDetail complaint_id={id}/>
+        <ComplaintDetail complaint_id={id} />
       </main>
     </IntlProvider>
   );
-}
+};
 
 /* eslint-enable camelcase */
 
@@ -54,15 +54,15 @@ export const DetailComponents = () => {
 /**
  *
  */
-export function App() {
-    return (
-      <Provider store={store}>
-        <Router>
-          <Routes>
-            <Route path="/" element={<SearchComponents />} />
-            <Route path="/detail/:id" element={<DetailComponents />} />
-          </Routes>
-        </Router>
-      </Provider>
-    );
-}
+export const App = () => {
+  return (
+    <Provider store={store}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<SearchComponents />} />
+          <Route path="/detail/:id" element={<DetailComponents />} />
+        </Routes>
+      </Router>
+    </Provider>
+  );
+};
