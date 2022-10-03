@@ -546,3 +546,5 @@ export const STATE_DATA = {
     id: '56',
   },
 };
+
+export const API_PLACEHOLDER = '@@API';
