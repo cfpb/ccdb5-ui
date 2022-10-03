@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { replaceFilters } from '../../actions/filter';
 import { SLUG_SEPARATOR } from '../../constants';
-import Typeahead from '../Typeahead/HighlightingTypeahead';
+import { HighlightingTypeahead } from '../Typeahead/HighlightingTypeahead';
 
 export class Issue extends React.Component {
   constructor(props) {
@@ -33,7 +33,7 @@ export class Issue extends React.Component {
         hasChildren={this.props.hasChildren}
         className="aggregation issue"
       >
-        <Typeahead
+        <HighlightingTypeahead
           ariaLabel="Start typing to begin listing issues"
           htmlId="issue-typeahead"
           placeholder="Enter name of issue"

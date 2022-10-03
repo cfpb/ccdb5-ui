@@ -6,7 +6,7 @@ import { bindAll, debounce } from '../../utils';
 import iconMap from '../iconMap';
 import PropTypes from 'prop-types';
 import React from 'react';
-import Selector from './Selector';
+import { Selector } from './Selector';
 
 // ----------------------------------------------------------------------------
 // Usage Mode

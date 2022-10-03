@@ -1,7 +1,7 @@
 import HighlightingOption from './HighlightingOption';
 import { normalize } from '../../utils';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Typeahead from './index';
 
 export const compileOptions = (options) =>
@@ -10,39 +10,25 @@ export const compileOptions = (options) =>
     normalized: normalize(x),
   }));
 
-export default class HighlightingTypeahead extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      compiled: compileOptions(props.options),
-    };
-    this._onInputChange = this._onInputChange.bind(this);
-  }
+export const HighlightingTypeahead = ({
+  maxVisible = 5,
+  minLength = 2,
+  onOptionSelected,
+  options,
+  placeholder = 'Enter your search text',
+  value = '',
+  ...otherProps
+}) => {
+  const [compiled, setCompiled] = useState(compileOptions(options));
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.options !== this.props.options) {
-      this.setState({
-        compiled: compileOptions(this.props.options),
-      });
-    }
-  }
+  useEffect(() => {
+    setCompiled(compileOptions(options));
+  }, [options]);
 
-  render() {
-    return (
-      <Typeahead
-        {...this.props}
-        onInputChange={this._onInputChange}
-        renderOption={this._renderOption}
-      />
-    );
-  }
-
-  _onInputChange(value) {
-    // Normalize the input value
+  const handleInputChange = (value) => {
     const normalized = normalize(value);
 
-    // Find the matches
-    const filtered = this.state.compiled
+    const filteredMatches = compiled
       .filter((x) => x.normalized.indexOf(normalized) !== -1)
       .map((x) => ({
         key: x.key,
@@ -51,20 +37,31 @@ export default class HighlightingTypeahead extends React.Component {
         value,
       }));
 
-    // Sort the matches so that matches at the beginning of the string
-    // appear first
-    filtered.sort((a, b) => a.position - b.position);
+    filteredMatches.sort((a, b) => a.position - b.position);
 
-    return filtered;
-  }
+    return filteredMatches;
+  };
 
-  _renderOption(obj) {
+  const handleRenderOption = (obj) => {
     return {
       value: obj.key,
       component: <HighlightingOption {...obj} />,
     };
-  }
-}
+  };
+
+  return (
+    <Typeahead
+      {...otherProps}
+      maxVisible={maxVisible}
+      minLength={minLength}
+      onInputChange={handleInputChange}
+      onOptionSelected={onOptionSelected}
+      placeholder={placeholder}
+      renderOption={handleRenderOption}
+      value={value}
+    />
+  );
+};
 
 HighlightingTypeahead.propTypes = {
   maxVisible: PropTypes.number,
@@ -73,11 +70,4 @@ HighlightingTypeahead.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.string,
-};
-
-HighlightingTypeahead.defaultProps = {
-  maxVisible: 5,
-  minLength: 2,
-  placeholder: 'Enter your search text',
-  value: '',
 };
