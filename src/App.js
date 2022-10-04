@@ -50,7 +50,7 @@ export const DetailComponents = () => {
 
 // eslint-disable-next-line react/no-multi-comp
 /**
- *
+ * Main App Component
  */
 export const App = () => {
   return (
