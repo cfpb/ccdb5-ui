@@ -31,6 +31,7 @@ export const defaultQuery = {
   mapWarningEnabled: true,
   lens: 'Product',
   page: 1,
+  queryString: '',
   searchAfter: '',
   searchField: 'all',
   searchText: '',
@@ -640,7 +641,9 @@ function removeMultipleFilters(state, action) {
   const newState = { ...state };
   const a = newState[action.filterName];
   // remove the focus if it exists in one of the filter values we are removing
-  newState.focus = action.values.includes(state.focus) ? '' : state.focus;
+  newState.focus = action.values.includes(state.focus)
+    ? ''
+    : state.focus || '';
 
   if (a) {
     action.values.forEach((x) => {
@@ -1063,6 +1066,74 @@ export function stateToQS(state) {
 }
 
 /**
+ * Converts a set of key/value pairs into a query string for URL history.
+ *
+ * @param {string} state - a set of key/value pairs
+ * @returns {string} a formatted query string
+ */
+export function stateToURL(state) {
+  const params = {};
+  const fields = Object.keys(state);
+
+  // Copy over the fields
+  // eslint-disable-next-line complexity
+  fields.forEach((field) => {
+    // Do not include empty fields
+    if (!state[field]) {
+      return;
+    }
+
+    // Exclude these params from the browser url
+    if (['queryString', 'url', 'breakPoints'].includes(field)) {
+      return;
+    }
+
+    let value = state[field];
+
+    // Process date filters url-friendly display
+    if (types.dateFilters.indexOf(field) !== -1) {
+      value = shortIsoFormat(value);
+    }
+    params[field] = value;
+  });
+
+  // list of API params
+  // https://cfpb.github.io/api/ccdb/api/index.html#/
+  const commonParams = [].concat(
+    ['searchText', 'searchField', 'tab'],
+    types.dateFilters,
+    types.knownFilters,
+    types.flagFilters
+  );
+
+  const paramMap = {
+    List: ['sort', 'size', 'page'],
+    Map: ['dataNormalization', 'dateRange', 'expandedRows'],
+    Trends: [
+      'chartType',
+      'dateRange',
+      'dateInterval',
+      'expandedRows',
+      'lens',
+      'focus',
+      'subLens',
+    ],
+  };
+
+  const filterKeys = [].concat(commonParams, paramMap[params.tab]);
+
+  // where we only filter out the params required for each of the tabs
+  const filteredParams = Object.keys(params)
+    .filter((key) => filterKeys.includes(key))
+    .reduce((obj, key) => {
+      obj[key] = params[key];
+      return obj;
+    }, {});
+
+  return '?' + queryString.stringify(filteredParams);
+}
+
+/**
  * helper function to check if per1000 & map warnings should be enabled
  *
  * @param {object} queryState - state we need to validate
@@ -1074,7 +1145,7 @@ export function validatePer1000(queryState) {
   }
   // if we enable per1k then don't reset it
   queryState.dataNormalization = queryState.enablePer1000
-    ? queryState.dataNormalization
+    ? queryState.dataNormalization || types.GEO_NORM_NONE
     : types.GEO_NORM_NONE;
 }
 
@@ -1199,6 +1270,7 @@ export default (state = defaultQuery, action) => {
 
   const qs = stateToQS(newState);
   newState.queryString = qs === '?' ? '' : qs;
+  newState.url = stateToURL(newState);
 
   return newState;
 };
