@@ -9,7 +9,7 @@ import SearchPanel from './SearchPanel';
 import { selectViewIsPrintMode } from '../../reducers/view/selectors';
 import { Tour } from '../Tour/Tour';
 import WindowSize from '../WindowSize';
-import useUpdateLocation from '../../hooks/useUpdateLocation';
+import { useUpdateLocation } from '../../hooks/useUpdateLocation';
 
 export const SearchComponents = () => {
   useUpdateLocation();

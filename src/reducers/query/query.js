@@ -1066,7 +1066,7 @@ export function stateToQS(state) {
 }
 
 /**
- * Converts a set of key/value pairs into a query string for URL history
+ * Converts a set of key/value pairs into a query string for URL history.
  *
  * @param {string} state - a set of key/value pairs
  * @returns {string} a formatted query string
@@ -1083,24 +1083,17 @@ export function stateToURL(state) {
       return;
     }
 
-    // Avoid recursion
+    // Exclude these params from the browser url
     if (['queryString', 'url', 'breakPoints'].includes(field)) {
       return;
     }
 
     let value = state[field];
 
-    // Process dates
+    // Process date filters url-friendly display
     if (types.dateFilters.indexOf(field) !== -1) {
       value = shortIsoFormat(value);
     }
-
-    // Process boolean flags
-    const positives = ['yes', 'true'];
-    if (types.flagFilters.indexOf(field) !== -1) {
-      value = positives.includes(String(value).toLowerCase());
-    }
-
     params[field] = value;
   });
 

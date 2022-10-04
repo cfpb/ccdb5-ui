@@ -5,23 +5,31 @@ import React from 'react';
 import thunk from 'redux-thunk';
 import 'regenerator-runtime/runtime';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-
 import { render, screen } from '@testing-library/react';
+import * as useUpdateLocationHook from '../hooks/useUpdateLocation';
+import { defaultQuery } from '../reducers/query/query';
 
 jest.mock('highcharts/modules/accessibility');
 jest.mock('highcharts/highmaps');
 
 describe('initial state', () => {
   test('renders search page', () => {
+    const updateLocationHookSpy = jest
+      .spyOn(useUpdateLocationHook, 'useUpdateLocation')
+      .mockImplementation(() => jest.fn());
     const middlewares = [thunk];
     const mockStore = configureMockStore(middlewares);
-    const store = mockStore({});
+    const store = mockStore({
+      query: defaultQuery,
+    });
 
     render(
       <Provider store={store}>
         <App />
       </Provider>
     );
+
+    expect(updateLocationHookSpy).toBeCalledTimes(1);
 
     expect(screen.getByText(/Consumer Complaint Database/)).toBeDefined();
     expect(screen.getByText(/Search within/)).toBeDefined();
