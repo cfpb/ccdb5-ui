@@ -4,23 +4,27 @@ exports[`component:CollapsibleFilter initial state renders without crashing 1`] 
 <section
   className="o-expandable"
 >
-  <div
-    className="o-expandable_header o-expandable_target"
+  <button
+    aria-label="Hide foo filter"
+    className="o-expandable_header o-expandable_target o-expandable_target__expanded"
+    onClick={[Function]}
   >
-    <h4
-      className="o-expandable_header-left o-expandable_label"
+    <h3
+      className="h4 o-expandable_header-left o-expandable_label"
     >
       foo
-    </h4>
+    </h3>
     <span
       className="o-expandable_header-right o-expandable_link"
     >
-      <button
-        aria-label="Hide foo filter"
-        className="a-btn a-btn__link o-expandable_cue o-expandable_cue-close"
-        onClick={[Function]}
+      <span
+        className="o-expandable_cue o-expandable_cue-close"
       >
-        Hide
+        <span
+          className="u-visually-hidden-on-mobile"
+        >
+          Hide
+        </span>
         <svg
           className="cf-icon-svg"
           viewBox="0 0 1000 1200"
@@ -30,11 +34,15 @@ exports[`component:CollapsibleFilter initial state renders without crashing 1`] 
             d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h527.1c27.6 0 50 22.4 50 50s-22.4 50-50 50z"
           />
         </svg>
-      </button>
+      </span>
     </span>
+  </button>
+  <div
+    className="o-expandable_content"
+  >
+    <p>
+      bar
+    </p>
   </div>
-  <p>
-    bar
-  </p>
 </section>
 `;

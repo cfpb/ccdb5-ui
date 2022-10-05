@@ -36,43 +36,48 @@ export default class CollapsibleFilter extends React.Component {
       composeClasses += ' ' + this.props.className;
     }
 
-    const buttonClasses = 'a-btn a-btn__link o-expandable_cue ';
+    const buttonClasses = this.state.hasChildren
+      ? '__expanded'
+      : '__collapsed';
 
     const opened = (
-      <button
-        aria-label={`Hide ${this.props.title} filter`}
-        className={buttonClasses + 'o-expandable_cue-close'}
-        onClick={this._toggleChildDisplay}
-      >
-        Hide
-        {iconMap.getIcon('minus-round')}
-      </button>
+      <>
+        <span className="o-expandable_cue o-expandable_cue-close">
+          <span className="u-visually-hidden-on-mobile">Hide</span>
+          {iconMap.getIcon('minus-round')}
+        </span>
+      </>
     );
     const closed = (
-      <button
-        aria-label={`Show ${this.props.title} filter`}
-        className={buttonClasses + 'o-expandable_cue-open'}
-        onClick={this._toggleChildDisplay}
-      >
-        Show
-        {iconMap.getIcon('plus-round')}
-      </button>
+      <>
+        <span className="o-expandable_cue o-expandable_cue-open">
+          <span className="u-visually-hidden-on-mobile">Show</span>
+          {iconMap.getIcon('plus-round')}
+        </span>
+      </>
     );
     return (
       <section className={composeClasses}>
-        <div className="o-expandable_header o-expandable_target">
-          <h4 className="o-expandable_header-left o-expandable_label">
+        <button
+          className={
+            'o-expandable_header o-expandable_target o-expandable_target' +
+            buttonClasses
+          }
+          aria-label={`Hide ${this.props.title} filter`}
+          onClick={this._toggleChildDisplay}
+        >
+          <h3 className="h4 o-expandable_header-left o-expandable_label">
             {this.props.title}
-          </h4>
+          </h3>
           <span className="o-expandable_header-right o-expandable_link">
             {this.state.hasChildren ? opened : closed}
           </span>
-        </div>
+        </button>
         {this.state.hasChildren ? (
-          <>
+          <div className="o-expandable_content">
             <p>{this.props.desc}</p>
             {this.props.children}
-          </>
+          </div>
         ) : null}
       </section>
     );
