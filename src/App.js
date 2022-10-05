@@ -57,7 +57,15 @@ export const App = () => {
               /data-research/consumer-complaints/search
               from CF.gov
           */}
-          <Route path="/*" element={<SearchComponents />} />
+          <Route index element={<SearchComponents />} />
+          <Route
+            path="/data-research/consumer-complaints/search"
+            element={<SearchComponents />}
+          />
+          <Route
+            path="/data-research/consumer-complaints/search/detail/:id"
+            element={<DetailComponents />}
+          />
           <Route path="/detail/:id" element={<DetailComponents />} />
         </Routes>
       </Router>
