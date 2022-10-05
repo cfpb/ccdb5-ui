@@ -1,6 +1,6 @@
 import aggs from './aggs/aggs';
 import { combineReducers } from 'redux';
-import detail from './detail';
+import detail from './detail/detail';
 import map from './map';
 import modal from './modal';
 import query from './query/query';

@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import aggs from '../reducers/aggs/aggs';
-import detail from '../reducers/detail';
+import detail from '../reducers/detail/detail';
 import map from '../reducers/map';
 import modal from '../reducers/modal';
 import query from '../reducers/query/query';

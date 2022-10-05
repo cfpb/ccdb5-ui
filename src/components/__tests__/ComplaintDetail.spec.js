@@ -1,4 +1,6 @@
-import ReduxComplaintDetail, { ComplaintDetail } from '../ComplaintDetail';
+import ReduxComplaintDetail, {
+  ComplaintDetail,
+} from '../ComplaintDetail/ComplaintDetail';
 import configureMockStore from 'redux-mock-store';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';

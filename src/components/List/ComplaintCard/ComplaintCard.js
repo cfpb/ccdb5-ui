@@ -1,6 +1,7 @@
 import './ComplaintCard.less';
 import { ariaReadoutNumbers } from '../../../utils';
 import { FormattedDate } from 'react-intl';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -48,12 +49,12 @@ export const ComplaintCard = ({ row }) => {
       <div className="card">
         <div className="card-left layout-column">
           <h3 className="to-detail">
-            <a
-              href={_stripPossibleHighlight(complaintIdPath)}
+            <Link
+              to={complaintIdPath}
               aria-label={'Complaint ' + ariaReadoutNumbers(cleanId)}
             >
               {cleanId}
-            </a>
+            </Link>
           </h3>
           <h4 tabIndex="0">Company name</h4>
           {_renderPossibleHighlight(row.company)}

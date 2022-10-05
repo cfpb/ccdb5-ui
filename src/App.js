@@ -1,16 +1,11 @@
 import './css/App.less';
 import { applyMiddleware, createStore } from 'redux';
-import {
-  Route,
-  BrowserRouter as Router,
-  Routes,
-  useParams,
-} from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
 import queryManager from './middleware/queryManager';
-import ComplaintDetail from './components/ComplaintDetail';
+import { ComplaintDetail } from './components/ComplaintDetail/ComplaintDetail';
 import React from 'react';
 import reducers from './reducers';
 import { SearchComponents } from './components/Search/SearchComponents';
@@ -36,12 +31,10 @@ const store = createStore(
 
 /* eslint-disable camelcase */
 export const DetailComponents = () => {
-  const { id } = useParams();
-
   return (
     <IntlProvider locale="en">
       <main role="main">
-        <ComplaintDetail complaint_id={id} />
+        <ComplaintDetail />
       </main>
     </IntlProvider>
   );

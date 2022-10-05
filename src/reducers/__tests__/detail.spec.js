@@ -1,5 +1,5 @@
 import * as sut from '../../actions/complaints';
-import target from '../detail';
+import target from '../detail/detail';
 
 describe('reducer::detail', () => {
   it('has a default state', () => {

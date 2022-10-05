@@ -14,6 +14,7 @@ export const COMPLAINTS_RECEIVED = 'COMPLAINTS_RECEIVED';
 export const COMPLAINTS_FAILED = 'COMPLAINTS_FAILED';
 export const COMPLAINT_DETAIL_RECEIVED = 'COMPLAINT_DETAIL_RECEIVED';
 export const COMPLAINT_DETAIL_FAILED = 'COMPLAINT_DETAIL_FAILED';
+export const COMPLAINT_DETAIL_CALLED = 'COMPLAINT_DETAIL_CALLED';
 export const STATES_API_CALLED = 'STATES_API_CALLED';
 export const STATES_RECEIVED = 'STATES_RECEIVED';
 export const STATES_FAILED = 'STATES_FAILED';
@@ -134,7 +135,7 @@ export function getComplaints() {
 export function getComplaintDetail(id) {
   return (dispatch) => {
     const uri = API_PLACEHOLDER + id;
-    dispatch(callingApi(COMPLAINTS_API_CALLED, uri));
+    dispatch(callingApi(COMPLAINT_DETAIL_CALLED, uri));
     fetch(uri)
       .then((result) => result.json())
       .then((data) => dispatch(complaintDetailReceived(data)))
