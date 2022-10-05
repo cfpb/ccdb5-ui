@@ -1,2 +1,2 @@
-**/__fixtures__/*.js
+\*_/**fixtures**/_.js
 serviceWorker.js

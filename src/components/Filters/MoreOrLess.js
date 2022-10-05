@@ -32,7 +32,7 @@ export class MoreOrLess extends React.Component {
     const remain = all.length - 5;
 
     return (
-      <div>
+      <>
         <ul>
           {this.state.hasMore
             ? all.map((bucket) => this._buildListComponent(bucket))
@@ -50,7 +50,7 @@ export class MoreOrLess extends React.Component {
             </button>
           </div>
         ) : null}
-      </div>
+      </>
     );
   }
 }

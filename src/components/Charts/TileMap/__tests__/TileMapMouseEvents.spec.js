@@ -3,7 +3,6 @@ import * as sut from '../index';
 
 // we put this test in a separate so we don't clobber the d3 import for bin
 // calculation
-
 jest.mock('d3', () => {
   const props = ['select', 'classed'];
 
@@ -19,7 +18,7 @@ jest.mock('d3', () => {
   return mock;
 });
 
-describe('Tile map: mouse events', () => {
+xdescribe('Tile map: mouse events', () => {
   const sutClone = { ...sut };
 
   afterEach(() => {

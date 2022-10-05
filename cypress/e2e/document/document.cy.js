@@ -1,6 +1,9 @@
 /// <reference types="cypress" />
 
-import { ccdbApiUrl } from '../../../config/env.js';
+const ccdbApiUrl = {
+  dev: 'http://localhost:8000/data-research/consumer-complaints/search/api/v1/',
+  prod: '/data-research/consumer-complaints/search/api/v1/',
+};
 
 describe('Document View', () => {
   describe('error handling', () => {

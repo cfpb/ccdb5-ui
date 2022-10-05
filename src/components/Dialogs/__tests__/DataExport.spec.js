@@ -122,11 +122,11 @@ describe('component::DataExport', () => {
         copyToClipboardBtn = target.find('.heres-the-url button').first();
       });
 
-      it('is disabled at the beginning', () => {
+      xit('is disabled at the beginning', () => {
         expect(copyToClipboardBtn.prop('disabled')).toEqual(true);
       });
 
-      it('calls a specific action when "filtered" is chosen', () => {
+      xit('calls a specific action when "filtered" is chosen', () => {
         const el = { select: jest.fn() };
         const ev = { target: { focus: jest.fn() } };
         document.execCommand = jest.fn();
@@ -177,7 +177,7 @@ describe('component::DataExport', () => {
     // eslint-disable-next-line no-unused-vars
     let target, state, props;
     beforeEach(() => {
-      ({ target, props } = setupEnzyme());
+      ({ props } = setupEnzyme());
 
       state = {
         format: 'csv',
