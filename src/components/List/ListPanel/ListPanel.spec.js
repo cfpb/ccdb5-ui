@@ -5,7 +5,6 @@ import {
   fireEvent,
 } from '../../../testUtils/test-utils';
 import { ListPanel } from './ListPanel';
-import { IntlProvider } from 'react-intl';
 import { merge } from '../../../testUtils/functionHelpers';
 import { defaultAggs } from '../../../reducers/aggs/aggs';
 import { defaultQuery } from '../../../reducers/query/query';
@@ -32,14 +31,9 @@ describe('ListPanel', () => {
       view: newViewState,
     };
 
-    render(
-      <IntlProvider locale="en">
-        <ListPanel />
-      </IntlProvider>,
-      {
-        preloadedState: data,
-      }
-    );
+    render(<ListPanel />, {
+      preloadedState: data,
+    });
   };
 
   const analyticsSpy = jest

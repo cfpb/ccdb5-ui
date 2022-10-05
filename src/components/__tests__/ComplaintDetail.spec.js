@@ -1,13 +1,14 @@
-import ReduxComplaintDetail, {
-  ComplaintDetail,
-} from '../ComplaintDetail/ComplaintDetail';
-import configureMockStore from 'redux-mock-store';
-import { IntlProvider } from 'react-intl';
-import { Provider } from 'react-redux';
+import { ComplaintDetail } from '../ComplaintDetail/ComplaintDetail';
 import React from 'react';
-import renderer from 'react-test-renderer';
-import { shallow } from 'enzyme';
-import thunk from 'redux-thunk';
+import {
+  testRenderWithMemoryRouter as render,
+  screen,
+} from '../../testUtils/test-utils';
+import { merge } from '../../testUtils/functionHelpers';
+import { defaultDetail } from '../../reducers/detail/detail';
+import { defaultQuery } from '../../reducers/query/query';
+import { waitFor } from '@testing-library/react';
+import * as complaintActions from '../../actions/complaints';
 
 const fixture = {
   company: 'JPMORGAN CHASE & CO.',
@@ -31,148 +32,203 @@ const fixture = {
   zip_code: '423XX',
 };
 
-/**
- *
- */
-function setupEnzyme() {
-  const props = {
-    complaint_id: '123456789',
-    loadDetail: jest.fn(),
+const renderComponent = (newDetailState, newQueryState) => {
+  merge(newDetailState, defaultDetail);
+  merge(newQueryState, defaultQuery);
+  const data = {
+    detail: newDetailState,
+    query: newQueryState,
   };
-
-  const target = shallow(<ComplaintDetail {...props} />);
-
-  return {
-    props,
-    target,
-  };
-}
-
-/**
- *
- * @param overrides
- * @param error
- */
-function setupSnapshot(overrides = {}, error = '') {
-  let data = Object.assign({}, fixture, overrides);
-  if (error) {
-    data = {};
-  }
-
-  const middlewares = [thunk];
-  const mockStore = configureMockStore(middlewares);
-  const store = mockStore({
-    detail: { data, error },
+  render(<ComplaintDetail />, {
+    preloadedState: data,
+    initialEntries: ['/detail/2371744'],
   });
-
-  const target = renderer.create(
-    <Provider store={store}>
-      <IntlProvider locale="en">
-        <ReduxComplaintDetail complaint_id="123456789" />
-      </IntlProvider>
-    </Provider>
-  );
-
-  return target;
-}
+};
 
 describe('component::ComplaintDetail', () => {
-  describe('snapshots', () => {
-    it('renders without crashing', () => {
-      const target = setupSnapshot();
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
+  it('renders loading page', () => {
+    const activeCall = '/api/call/detailid';
+    const newDetailState = {
+      activeCall: activeCall,
+      error: '',
+    };
 
-    it('supports "Consumer Consent Provided" icons', () => {
-      const values = [
-        'Consent provided',
-        'Consent not provided',
-        'Consent withdrawn',
-        'N/A',
-        'FOO',
-      ];
-
-      values.forEach((v) => {
-        const target = setupSnapshot({ consumer_consent_provided: v });
-        const tree = target.toJSON();
-        expect(tree).toMatchSnapshot();
-      });
-    });
-
-    it('supports "Timely Response" icons', () => {
-      const values = ['Yes', 'No'];
-
-      values.forEach((v) => {
-        const target = setupSnapshot({ timely: v });
-        const tree = target.toJSON();
-        expect(tree).toMatchSnapshot();
-      });
-    });
-
-    it('renders without a narrative', () => {
-      const target = setupSnapshot({ complaint_what_happened: '' });
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-
-    it('renders without a sub-issue', () => {
-      const target = setupSnapshot({ sub_issue: '' });
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-
-    it('renders without a sub-product', () => {
-      const target = setupSnapshot({ sub_product: '' });
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-
-    it('renders WAITING phase', () => {
-      const middlewares = [thunk];
-      const mockStore = configureMockStore(middlewares);
-      const store = mockStore({
-        detail: { data: {}, error: '' },
-      });
-
-      const target = renderer.create(
-        <Provider store={store}>
-          <IntlProvider locale="en">
-            <ReduxComplaintDetail complaint_id="123456789" />
-          </IntlProvider>
-        </Provider>
-      );
-
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-
-    it('renders ERROR phase', () => {
-      const target = setupSnapshot({}, 'Error fetching data');
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
+    renderComponent(newDetailState, {});
+    expect(screen.getByText('Back to search results')).toBeInTheDocument();
+    expect(screen.getByText('Back to search results')).toHaveAttribute(
+      'href',
+      '/?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends'
+    );
+    expect(screen.getByText('This page is loading')).toBeInTheDocument();
+    expect(screen.getByText('Back to search results')).toBeInTheDocument();
   });
 
-  describe('navigation', () => {
-    xit('takes the user back to the previous page', () => {
-      global.history.go = jest.fn();
+  it('renders error', async () => {
+    const newDetailState = {
+      activeCall: '',
+      data: {},
+      error: { some: 'value' },
+    };
 
-      const { target } = setupEnzyme();
-      const back = target.find('.back-to-search button');
-      back.simulate('click');
-      expect(global.history.go).toHaveBeenCalledWith(-1);
-    });
+    const complaintApiSpy = jest
+      .spyOn(complaintActions, 'getComplaintDetail')
+      .mockImplementation(() => jest.fn());
 
-    it('takes the user back to the home page', () => {
-      const orig = document.referrer;
-      Object.defineProperty(document, 'referrer', { value: '' });
-      const { target } = setupEnzyme();
-      Object.defineProperty(document, 'referrer', { value: orig });
+    renderComponent(newDetailState, {});
 
-      const back = target.find('.back-to-search button');
-      back.simulate('click');
-      expect(document.URL).toEqual('http://localhost/');
-    });
+    expect(complaintApiSpy).toHaveBeenCalledTimes(1);
+    expect(screen.getByText('Back to search results')).toBeInTheDocument();
+    expect(screen.getByText('Back to search results')).toHaveAttribute(
+      'href',
+      '/?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends'
+    );
+
+    expect(
+      screen.getByText('There was a problem retrieving')
+    ).toBeInTheDocument();
+  });
+
+  it('renders document', async () => {
+    const newDetailState = {
+      activeCall: '',
+      data: fixture,
+      error: '',
+    };
+
+    const complaintApiSpy = jest
+      .spyOn(complaintActions, 'getComplaintDetail')
+      .mockImplementation(() => jest.fn());
+
+    renderComponent(newDetailState, {});
+
+    expect(complaintApiSpy).toHaveBeenCalledTimes(1);
+    expect(screen.getByText(fixture.sub_issue)).toBeInTheDocument();
+    expect(screen.getByText(fixture.sub_product)).toBeInTheDocument();
+    expect(screen.getByText('Back to search results')).toBeInTheDocument();
+    expect(screen.getByText('Back to search results')).toHaveAttribute(
+      'href',
+      '/?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends'
+    );
+
+    await waitFor(() =>
+      expect(screen.queryByText('This page is loading')).toBeNull()
+    );
+
+    expect(
+      screen.getByText('Date CFPB received the complaint')
+    ).toBeInTheDocument();
+
+    expect(screen.getAllByText('Yes')).toHaveLength(2);
+    expect(screen.getByText(fixture.company)).toBeInTheDocument();
+    expect(screen.getByText(fixture.company_response)).toBeInTheDocument();
+    expect(
+      screen.getByText(fixture.company_public_response)
+    ).toBeInTheDocument();
+    expect(screen.getByText(fixture.submitted_via)).toBeInTheDocument();
+  });
+
+  it('handles missing narrative, sub-agg and timely values', async () => {
+    const dataFixture = Object.assign({}, fixture);
+    dataFixture.complaint_what_happened = '';
+    dataFixture.consumer_disputed = 'No';
+    dataFixture.timely = '';
+    dataFixture.sub_issue = '';
+    dataFixture.sub_product = '';
+
+    const newDetailState = {
+      activeCall: '',
+      data: dataFixture,
+      error: '',
+    };
+
+    const complaintApiSpy = jest
+      .spyOn(complaintActions, 'getComplaintDetail')
+      .mockImplementation(() => jest.fn());
+
+    renderComponent(newDetailState, {});
+
+    expect(complaintApiSpy).toHaveBeenCalledTimes(1);
+    expect(screen.getByText('Back to search results')).toBeInTheDocument();
+    expect(screen.getByText('Back to search results')).toHaveAttribute(
+      'href',
+      '/?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends'
+    );
+
+    await waitFor(() =>
+      expect(screen.queryByText('This page is loading')).toBeNull()
+    );
+
+    expect(
+      screen.getByText('Date CFPB received the complaint')
+    ).toBeInTheDocument();
+
+    expect(screen.getByText(dataFixture.company)).toBeInTheDocument();
+    expect(screen.getByText(dataFixture.company_response)).toBeInTheDocument();
+    expect(
+      screen.getByText(dataFixture.company_public_response)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(dataFixture.consumer_disputed)
+    ).toBeInTheDocument();
+    expect(screen.getByText(dataFixture.submitted_via)).toBeInTheDocument();
+    expect(screen.queryByText('Sub-product:')).toBeNull();
+    expect(screen.queryByText('Sub-issue:')).toBeNull();
+    expect(screen.queryByText('Consumer complaint narrative')).toBeNull();
+  });
+
+  it('handles errors with "Consumer Consent Provided" icons', async () => {
+    const dataFixture = Object.assign({}, fixture);
+    dataFixture.complaint_what_happened = '';
+    dataFixture.consumer_consent_provided = 'Bad Value';
+
+    const newDetailState = {
+      activeCall: '',
+      data: dataFixture,
+      error: '',
+    };
+
+    const complaintApiSpy = jest
+      .spyOn(complaintActions, 'getComplaintDetail')
+      .mockImplementation(() => jest.fn());
+
+    renderComponent(newDetailState, {});
+
+    expect(complaintApiSpy).toHaveBeenCalledTimes(1);
+
+    await waitFor(() =>
+      expect(screen.queryByText('This page is loading')).toBeNull()
+    );
+
+    expect(
+      screen.getByText('Date CFPB received the complaint')
+    ).toBeInTheDocument();
+
+    expect(screen.getByText('No data available')).toBeInTheDocument();
+  });
+
+  it('Not Timely', async () => {
+    const dataFixture = Object.assign({}, fixture);
+    dataFixture.timely = 'No';
+
+    const newDetailState = {
+      activeCall: '',
+      data: dataFixture,
+      error: '',
+    };
+
+    const complaintApiSpy = jest
+      .spyOn(complaintActions, 'getComplaintDetail')
+      .mockImplementation(() => jest.fn());
+
+    renderComponent(newDetailState, {});
+
+    expect(complaintApiSpy).toHaveBeenCalledTimes(1);
+
+    await waitFor(() =>
+      expect(screen.queryByText('This page is loading')).toBeNull()
+    );
+
+    expect(screen.getByText('Timely response?')).toBeInTheDocument();
+    expect(screen.getByText('No')).toBeInTheDocument();
   });
 });

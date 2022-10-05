@@ -53,9 +53,11 @@ export const App = () => {
       <Router>
         <Routes>
           {/*
-              we need the wildcard to match relative path
+              we need these duplicate routes to match relative path
               /data-research/consumer-complaints/search
               from CF.gov
+              local
+              which is just the root at localhost:3000/
           */}
           <Route index element={<SearchComponents />} />
           <Route

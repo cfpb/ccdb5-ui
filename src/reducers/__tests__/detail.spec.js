@@ -4,6 +4,7 @@ import target from '../detail/detail';
 describe('reducer::detail', () => {
   it('has a default state', () => {
     expect(target(undefined, {})).toEqual({
+      activeCall: '',
       data: {},
       error: '',
     });
@@ -20,6 +21,7 @@ describe('reducer::detail', () => {
       },
     };
     expect(target({}, action)).toEqual({
+      activeCall: '',
       data: '123',
       error: '',
     });
@@ -31,6 +33,7 @@ describe('reducer::detail', () => {
       error: 'foo bar',
     };
     expect(target({}, action)).toEqual({
+      activeCall: '',
       data: {},
       error: 'foo bar',
     });

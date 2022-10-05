@@ -4,7 +4,7 @@ import {
   COMPLAINT_DETAIL_RECEIVED,
 } from '../../actions/complaints';
 
-const defaultDetail = {
+export const defaultDetail = {
   activeCall: '',
   data: {},
   error: '',

@@ -6,7 +6,6 @@ import {
   fireEvent,
 } from '../../../testUtils/test-utils';
 import { merge } from '../../../testUtils/functionHelpers';
-import { IntlProvider } from 'react-intl';
 import { Pagination } from './Pagination';
 import * as pagingActions from '../../../actions/paging';
 
@@ -19,14 +18,9 @@ describe('Pagination', () => {
       query: newQueryState,
     };
 
-    render(
-      <IntlProvider locale="en">
-        <Pagination />
-      </IntlProvider>,
-      {
-        preloadedState: data,
-      }
-    );
+    render(<Pagination />, {
+      preloadedState: data,
+    });
   };
 
   test('nextPageShown dispatched when Next button clicked', () => {

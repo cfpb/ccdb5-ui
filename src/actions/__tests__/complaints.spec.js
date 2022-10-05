@@ -249,7 +249,7 @@ describe('action::complaints', () => {
 
       it('sends a simple action when data is received', () => {
         const expectedActions = [
-          { type: sut.COMPLAINTS_API_CALLED, url: '@@API123' },
+          { type: sut.COMPLAINT_DETAIL_CALLED, url: '@@API123' },
           { type: sut.COMPLAINT_DETAIL_RECEIVED, data: { foo: 'bar' } },
         ];
         onSuccess({ foo: 'bar' });
@@ -258,7 +258,7 @@ describe('action::complaints', () => {
 
       it('sends a different simple action when an error occurs', () => {
         const expectedActions = [
-          { type: sut.COMPLAINTS_API_CALLED, url: '@@API123' },
+          { type: sut.COMPLAINT_DETAIL_CALLED, url: '@@API123' },
           { type: sut.COMPLAINT_DETAIL_FAILED, error: 'oops' },
         ];
         onFail('oops');

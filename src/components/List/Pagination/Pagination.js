@@ -1,7 +1,6 @@
 import { nextPageShown, prevPageShown } from '../../../actions/paging';
 import { useDispatch, useSelector } from 'react-redux';
 import iconMap from '../../iconMap';
-import { IntlProvider } from 'react-intl';
 import React from 'react';
 import {
   selectQueryPage,
@@ -21,35 +20,33 @@ export const Pagination = () => {
   };
 
   return (
-    <IntlProvider locale="en">
-      <nav className="m-pagination" role="navigation" aria-label="Pagination">
-        <button
-          className="a-btn m-pagination_btn-prev"
-          onClick={() => prevPage()}
-          disabled={page <= 1}
-        >
-          <span className="a-btn_icon a-btn_icon__on-left">
-            {iconMap.getIcon('left')}
-          </span>
-          Previous
-        </button>
-        <button
-          className="a-btn m-pagination_btn-next"
-          onClick={() => nextPage()}
-          disabled={page >= total}
-        >
-          Next
-          <span
-            className="a-btn_icon
+    <nav className="m-pagination" role="navigation" aria-label="Pagination">
+      <button
+        className="a-btn m-pagination_btn-prev"
+        onClick={() => prevPage()}
+        disabled={page <= 1}
+      >
+        <span className="a-btn_icon a-btn_icon__on-left">
+          {iconMap.getIcon('left')}
+        </span>
+        Previous
+      </button>
+      <button
+        className="a-btn m-pagination_btn-next"
+        onClick={() => nextPage()}
+        disabled={page >= total}
+      >
+        Next
+        <span
+          className="a-btn_icon
                              a-btn_icon__on-right"
-          >
-            {iconMap.getIcon('right')}
-          </span>
-        </button>
-        <div className="m-pagination_form">
-          <label className="m-pagination_label">Page {page}</label>
-        </div>
-      </nav>
-    </IntlProvider>
+        >
+          {iconMap.getIcon('right')}
+        </span>
+      </button>
+      <div className="m-pagination_form">
+        <label className="m-pagination_label">Page {page}</label>
+      </div>
+    </nav>
   );
 };

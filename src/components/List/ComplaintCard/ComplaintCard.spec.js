@@ -1,7 +1,6 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { testRender as render, screen } from '../../../testUtils/test-utils';
 import { ComplaintCard } from './ComplaintCard';
-import { IntlProvider } from 'react-intl';
 
 describe('ComplaintCard', () => {
   let itemFixture;
@@ -29,11 +28,7 @@ describe('ComplaintCard', () => {
   });
 
   test('ComplaintCard renders with basic information', () => {
-    render(
-      <IntlProvider locale="en">
-        <ComplaintCard row={itemFixture} />
-      </IntlProvider>
-    );
+    render(<ComplaintCard row={itemFixture} />);
 
     expect(screen.getByText(itemFixture.complaint_id)).toBeDefined();
     expect(screen.getByText('Company name')).toBeDefined();
@@ -62,11 +57,7 @@ describe('ComplaintCard', () => {
     itemFixture.complaint_what_happened = 'what happened goes here';
     const expectedItem = itemFixture;
 
-    render(
-      <IntlProvider locale="en">
-        <ComplaintCard row={itemFixture} />
-      </IntlProvider>
-    );
+    render(<ComplaintCard row={itemFixture} />);
 
     expect(
       screen.getByRole('heading', { name: /Consumer Complaint Narrative/ })
@@ -91,11 +82,7 @@ describe('ComplaintCard', () => {
       'Vestibulum tincidunt nunc eget porta pulvinar. Mauris ullamcorper, ' +
       'diam et eleifend auctor, odio nulla dapibus odio p';
 
-    render(
-      <IntlProvider locale="en">
-        <ComplaintCard row={itemFixture} />
-      </IntlProvider>
-    );
+    render(<ComplaintCard row={itemFixture} />);
 
     expect(
       screen.getByRole('heading', { name: /Consumer Complaint Narrative/ })
@@ -107,11 +94,7 @@ describe('ComplaintCard', () => {
   test('Renders sub product', () => {
     itemFixture.sub_product = 'Credit reporting';
 
-    render(
-      <IntlProvider locale="en">
-        <ComplaintCard row={itemFixture} />
-      </IntlProvider>
-    );
+    render(<ComplaintCard row={itemFixture} />);
 
     expect(screen.getByText(/Sub-product:/)).toBeDefined();
     expect(screen.getByText(itemFixture.sub_product)).toBeDefined();
@@ -120,11 +103,7 @@ describe('ComplaintCard', () => {
   test('Renders sub issue', () => {
     itemFixture.sub_issue = 'Public record information inaccurate';
 
-    render(
-      <IntlProvider locale="en">
-        <ComplaintCard row={itemFixture} />
-      </IntlProvider>
-    );
+    render(<ComplaintCard row={itemFixture} />);
 
     expect(screen.getByText(/Sub-issue:/)).toBeDefined();
     expect(screen.getByText(itemFixture.sub_issue)).toBeDefined();
