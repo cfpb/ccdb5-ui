@@ -52,7 +52,12 @@ export const App = () => {
     <Provider store={store}>
       <Router>
         <Routes>
-          <Route path="/" element={<SearchComponents />} />
+          {/*
+              we need the wildcard to match relative path
+              /data-research/consumer-complaints/search
+              from CF.gov
+          */}
+          <Route path="/*" element={<SearchComponents />} />
           <Route path="/detail/:id" element={<DetailComponents />} />
         </Routes>
       </Router>
