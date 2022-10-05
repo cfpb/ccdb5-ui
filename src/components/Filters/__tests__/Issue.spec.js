@@ -1,15 +1,6 @@
 import React from 'react';
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import renderer from 'react-test-renderer';
-import { IntlProvider } from 'react-intl';
-import { Provider } from 'react-redux';
 import { shallow } from 'enzyme';
-import ReduxIssue, {
-  Issue,
-  mapStateToProps,
-  mapDispatchToProps,
-} from '../Issue';
+import { Issue, mapStateToProps, mapDispatchToProps } from '../Issue';
 import { slugify } from '../../../utils';
 
 const fixture = [
@@ -84,44 +75,7 @@ function setupEnzyme(options, filters) {
   };
 }
 
-/**
- *
- * @param initial
- */
-function setupSnapshot(initial) {
-  const middlewares = [thunk];
-  const mockStore = configureMockStore(middlewares);
-  const store = mockStore({
-    query: {},
-    aggs: {
-      issue: initial,
-    },
-  });
-
-  return renderer.create(
-    <Provider store={store}>
-      <IntlProvider locale="en">
-        <ReduxIssue />
-      </IntlProvider>
-    </Provider>
-  );
-}
-
 describe('component:Issue', () => {
-  describe('snapshots', () => {
-    it('renders without crashing', () => {
-      const target = setupSnapshot([]);
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-
-    it('only shows the first five items', () => {
-      const target = setupSnapshot(fixture);
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-  });
-
   describe('Typeahead interface', () => {
     describe('_onOptionSelected', () => {
       it('checks all the filters associated with the option', () => {

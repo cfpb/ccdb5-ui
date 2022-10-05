@@ -1,14 +1,6 @@
 import React from 'react';
-import configureMockStore from 'redux-mock-store';
-import renderer from 'react-test-renderer';
-import thunk from 'redux-thunk';
-import { IntlProvider } from 'react-intl';
-import { Provider } from 'react-redux';
 import { shallow } from 'enzyme';
-import ReduxFederalState, {
-  FederalState,
-  mapDispatchToProps,
-} from '../FederalState';
+import { FederalState, mapDispatchToProps } from '../FederalState';
 
 const fixture = [
   {
@@ -48,45 +40,7 @@ function setupEnzyme() {
   };
 }
 
-/**
- *
- * @param initialFixture
- */
-function setupSnapshot(initialFixture) {
-  const middlewares = [thunk];
-  const mockStore = configureMockStore(middlewares);
-  const store = mockStore({
-    query: {
-      state: ['DC'],
-    },
-    aggs: {
-      state: initialFixture,
-    },
-  });
-
-  return renderer.create(
-    <Provider store={store}>
-      <IntlProvider locale="en">
-        <ReduxFederalState />
-      </IntlProvider>
-    </Provider>
-  );
-}
-
 describe('component::FederalState', () => {
-  describe('initial state', () => {
-    it('renders empty values without crashing', () => {
-      const target = setupSnapshot();
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-    it('renders without crashing', () => {
-      const target = setupSnapshot(fixture);
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-  });
-
   describe('Typeahead interface', () => {
     let target, props;
     beforeEach(() => {

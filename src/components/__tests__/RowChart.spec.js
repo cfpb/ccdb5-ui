@@ -1,15 +1,11 @@
 import * as trendsUtils from '../../utils/trends';
-import configureMockStore from 'redux-mock-store';
-import ReduxRowChart, {
+import {
   mapDispatchToProps,
   mapStateToProps,
   RowChart,
 } from '../Charts/RowChart';
 import { mount, shallow } from 'enzyme';
-import { Provider } from 'react-redux';
 import React from 'react';
-import renderer from 'react-test-renderer';
-import thunk from 'redux-thunk';
 import * as utils from '../../utils';
 
 // this is how you override and mock an imported constructor
@@ -77,48 +73,7 @@ jest.mock('d3', () => {
   return mock;
 });
 
-/**
- *
- */
-function setupSnapshot() {
-  const middlewares = [thunk];
-  const mockStore = configureMockStore(middlewares);
-  const store = mockStore({
-    aggs: {},
-    query: {
-      lens: 'bar',
-      tab: 'foo',
-    },
-    view: {
-      expandedRows: [],
-      isPrintMode: false,
-      width: 1000,
-    },
-  });
-
-  return renderer.create(
-    <Provider store={store}>
-      <ReduxRowChart
-        id="foo"
-        data={[1, 2, 3]}
-        title="Foo title we want"
-        helperText="sub title under title"
-        colorScheme={[]}
-        total={1000}
-      />
-    </Provider>
-  );
-}
-
 describe('component: RowChart', () => {
-  describe('initial state', () => {
-    it('renders without crashing', () => {
-      const target = setupSnapshot();
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-  });
-
   describe('componentDidUpdate', () => {
     let mapDiv;
 

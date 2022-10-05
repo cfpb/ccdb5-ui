@@ -1,16 +1,11 @@
-import ReduxAggregationItem, {
+import {
   AggregationItem,
   mapDispatchToProps,
   mapStateToProps,
 } from '../AggregationItem';
-import configureMockStore from 'redux-mock-store';
-import { IntlProvider } from 'react-intl';
-import { Provider } from 'react-redux';
 import React from 'react';
-import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 import { slugify } from '../../../utils';
-import thunk from 'redux-thunk';
 
 /**
  *
@@ -34,46 +29,11 @@ function setupEnzyme(rmCb, addCb, isActive) {
   );
 }
 
-/**
- *
- */
-function setupSnapshot() {
-  const middlewares = [thunk];
-  const mockStore = configureMockStore(middlewares);
-
-  const active = false;
-  const onClick = jest.fn();
-
-  const store = mockStore({
-    query: {
-      fieldName: [213],
-    },
-  });
-
-  return renderer.create(
-    <IntlProvider locale="en">
-      <Provider store={store}>
-        <ReduxAggregationItem
-          item={{ key: 'foo', doc_count: 1000 }}
-          fieldName="fieldName"
-          active={active}
-          onClick={onClick}
-        />
-      </Provider>
-    </IntlProvider>
-  );
-}
-
 describe('component:AggregationItem', () => {
   let fieldName, item;
   beforeEach(() => {
     item = { key: 'foo', doc_count: 1000 };
     fieldName = 'fieldName';
-  });
-  it('renders without crashing', () => {
-    const target = setupSnapshot();
-    const tree = target.toJSON();
-    expect(tree).toMatchSnapshot();
   });
 
   describe('_onChange', () => {

@@ -1,14 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import { IntlProvider } from 'react-intl';
-import { Provider } from 'react-redux';
-import renderer from 'react-test-renderer';
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import ReduxDataExport, {
-  DataExport,
-  mapDispatchToProps,
-} from '../DataExport';
+import { DataExport, mapDispatchToProps } from '../DataExport';
 import * as utils from '../../../utils';
 
 jest.mock('../../../actions/dataExport');
@@ -35,65 +27,9 @@ function setupEnzyme() {
   };
 }
 
-/**
- *
- * @param total
- */
-function setupSnapshot(total = 1001) {
-  const middlewares = [thunk];
-  const mockStore = configureMockStore(middlewares);
-  const store = mockStore({
-    aggs: {
-      doc_count: 9999,
-      total,
-    },
-    query: {
-      tab: 'foo',
-    },
-  });
-
-  return renderer.create(
-    <Provider store={store}>
-      <IntlProvider locale="en">
-        <ReduxDataExport />
-      </IntlProvider>
-    </Provider>
-  );
-}
-
 describe('component::DataExport', () => {
   beforeAll(() => {
     document.queryCommandSupported = jest.fn(() => true);
-  });
-
-  describe('initial state', () => {
-    it('renders without crashing', () => {
-      const target = setupSnapshot();
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-
-    it('hides the dataset radio buttons when there is no filter', () => {
-      const target = setupSnapshot(9999);
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-  });
-
-  describe('visual changes', () => {
-    it('switches the button after a copy', async () => {
-      const target = setupSnapshot();
-      const ctlDataExport = await target.root.findByType(DataExport);
-      ctlDataExport.instance.setState({
-        copied: true,
-        dataset: 'full',
-        exportUri: 'http://www.example.org',
-        format: 'csv',
-      });
-
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
   });
 
   describe('user interaction', () => {

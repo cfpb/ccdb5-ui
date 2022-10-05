@@ -1,54 +1,13 @@
-import configureMockStore from 'redux-mock-store';
-import { IntlProvider } from 'react-intl';
-import { Provider } from 'react-redux';
-import ReduxFocusHeader, {
+import {
   FocusHeader,
   mapDispatchToProps,
   mapStateToProps,
 } from '../Trends/FocusHeader';
 import React from 'react';
-import renderer from 'react-test-renderer';
 import { REQUERY_ALWAYS } from '../../constants';
-import thunk from 'redux-thunk';
 import { shallow } from 'enzyme';
 
-/**
- *
- */
-function setupSnapshot() {
-  const middlewares = [thunk];
-  const mockStore = configureMockStore(middlewares);
-  const store = mockStore({
-    query: {
-      focus: 'Foo Bar',
-      lens: 'Product',
-      subLens: 'sub_product',
-    },
-    trends: {
-      total: 90120,
-      results: {
-        issue: [2, 3, 4],
-        'sub-product': [1, 2, 3],
-      },
-    },
-  });
-
-  return renderer.create(
-    <Provider store={store}>
-      <IntlProvider locale="en">
-        <ReduxFocusHeader />
-      </IntlProvider>
-    </Provider>
-  );
-}
-
 describe('component:FocusHeader', () => {
-  it('renders both tabs without crashing', () => {
-    const target = setupSnapshot();
-    const tree = target.toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
   describe('buttons', () => {
     let cb = null;
     let target = null;

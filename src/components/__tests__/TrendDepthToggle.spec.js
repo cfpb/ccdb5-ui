@@ -1,16 +1,11 @@
-import configureMockStore from 'redux-mock-store';
-import { IntlProvider } from 'react-intl';
-import { Provider } from 'react-redux';
-import ReduxTrendDepthToggle, {
+import {
   TrendDepthToggle,
   mapDispatchToProps,
   mapStateToProps,
 } from '../Trends/TrendDepthToggle';
 import React from 'react';
-import renderer from 'react-test-renderer';
 import { REQUERY_ALWAYS } from '../../constants';
 import { shallow } from 'enzyme';
-import thunk from 'redux-thunk';
 
 /**
  *
@@ -35,101 +30,7 @@ function setupEnzyme({ cbIncrease, cbReset, diff, queryCount, resultCount }) {
   );
 }
 
-/**
- *
- * @param root0
- * @param root0.focus
- * @param root0.lens
- * @param root0.productAggs
- * @param root0.productResults
- */
-function setupSnapshot({ focus, lens, productAggs, productResults }) {
-  const middlewares = [thunk];
-  const mockStore = configureMockStore(middlewares);
-  const store = mockStore({
-    aggs: {
-      product: productAggs,
-    },
-    query: {
-      focus,
-      lens,
-    },
-    trends: {
-      results: {
-        product: productResults,
-      },
-    },
-  });
-
-  return renderer.create(
-    <Provider store={store}>
-      <IntlProvider locale="en">
-        <ReduxTrendDepthToggle />
-      </IntlProvider>
-    </Provider>
-  );
-}
-
 describe('component:TrendDepthToggle', () => {
-  let params;
-
-  beforeEach(() => {
-    params = {
-      focus: '',
-      lens: '',
-      productAggs: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      productResults: [
-        { name: 'a', visible: true },
-        { name: 'b', visible: true },
-        { name: 'c', visible: true },
-        { name: 'd', visible: true },
-        { name: 'e', visible: true },
-        { name: 'f', visible: true },
-        { name: 'g', visible: true },
-        { name: 'h', visible: true },
-      ],
-    };
-  });
-
-  it('does not render when Focus', () => {
-    params.focus = 'A focus item';
-    const target = setupSnapshot(params);
-    const tree = target.toJSON();
-    expect(tree).toBeNull();
-  });
-
-  it('does not render lens is not Product', () => {
-    params.lens = 'Cannot See';
-    const target = setupSnapshot(params);
-    const tree = target.toJSON();
-    expect(tree).toBeNull();
-  });
-
-  it('renders Product view more without crashing', () => {
-    params.lens = 'Product';
-    const target = setupSnapshot(params);
-    const tree = target.toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
-  it('renders Product view less without crashing', () => {
-    params.lens = 'Product';
-    params.productAggs = [1, 2, 3, 4, 5];
-    params.productResults = [
-      { name: 'a', visible: true, isParent: true },
-      { name: 'b', visible: true, isParent: true },
-      { name: 'c', visible: true, isParent: true },
-      { name: 'd', visible: true, isParent: true },
-      { name: 'e', visible: true, isParent: true },
-      { name: 'f', visible: true, isParent: true },
-      { name: 'g', visible: true, isParent: true },
-      { name: 'h', visible: true, isParent: true },
-    ];
-    const target = setupSnapshot(params);
-    const tree = target.toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
   describe('buttons', () => {
     let cbIncrease = null;
     let cbReset = null;

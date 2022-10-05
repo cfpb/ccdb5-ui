@@ -1,11 +1,6 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
-import { Provider } from 'react-redux';
 import { shallow } from 'enzyme';
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import renderer from 'react-test-renderer';
-import ReduxAggregationBranch, {
+import {
   AggregationBranch,
   CHECKED,
   mapDispatchToProps,
@@ -56,63 +51,10 @@ function setupEnzyme(checkedState = UNCHECKED) {
   };
 }
 
-/**
- *
- * @param selections
- */
-function setupSnapshot(selections) {
-  const middlewares = [thunk];
-  const mockStore = configureMockStore(middlewares);
-  const store = mockStore({
-    query: {
-      issue: selections,
-    },
-  });
-
-  return renderer.create(
-    <Provider store={store}>
-      <IntlProvider locale="en">
-        <ReduxAggregationBranch
-          item={item}
-          subitems={subitems}
-          fieldName="issue"
-        />
-      </IntlProvider>
-    </Provider>
-  );
-}
-
 // ----------------------------------------------------------------------------
 // Test
 
 describe('component::AggregationBranch', () => {
-  describe('snapshots', () => {
-    it('renders with all checked', () => {
-      const selections = [
-        'foo',
-        slugify('foo', 'bar'),
-        slugify('foo', 'baz'),
-        slugify('foo', 'qaz'),
-      ];
-      const target = setupSnapshot(selections);
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-
-    it('renders with indeterminate', () => {
-      const selections = [slugify('foo', 'bar')];
-      const target = setupSnapshot(selections);
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-
-    it('renders with none checked', () => {
-      const target = setupSnapshot([]);
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-  });
-
   describe('toggle behavior', () => {
     it('shows the children when the label is clicked', () => {
       const { target } = setupEnzyme();

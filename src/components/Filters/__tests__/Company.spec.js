@@ -1,58 +1,6 @@
-import configureMockStore from 'redux-mock-store';
-import { IntlProvider } from 'react-intl';
-import { Provider } from 'react-redux';
-import React from 'react';
-import ReduxCompany, { mapStateToProps } from '../Company';
-import renderer from 'react-test-renderer';
-import thunk from 'redux-thunk';
-
-const fixture = [
-  { key: 'Monocle Popper Inc', doc_count: 9999 },
-  { key: 'Safe-T Deposits LLC', doc_count: 999 },
-  { key: 'Securitized Collateral Risk Obligations Credit Co', doc_count: 99 },
-  { key: 'EZ Credit', doc_count: 9 },
-];
-
-/**
- *
- * @param initialFixture
- */
-function setupSnapshot(initialFixture) {
-  const middlewares = [thunk];
-  const mockStore = configureMockStore(middlewares);
-  const store = mockStore({
-    query: {
-      company: ['Monocle Popper Inc'],
-    },
-    aggs: {
-      company: initialFixture,
-    },
-  });
-
-  return renderer.create(
-    <Provider store={store}>
-      <IntlProvider locale="en">
-        <ReduxCompany />
-      </IntlProvider>
-    </Provider>
-  );
-}
+import { mapStateToProps } from '../Company';
 
 describe('component::Company', () => {
-  describe('snapshots', () => {
-    it('renders empty values without crashing', () => {
-      const target = setupSnapshot();
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-
-    it('renders without crashing', () => {
-      const target = setupSnapshot(fixture);
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-  });
-
   describe('mapStateToProps', () => {
     it('maps state and props', () => {
       const state = {

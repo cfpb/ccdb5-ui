@@ -1,10 +1,4 @@
-import React from 'react';
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import renderer from 'react-test-renderer';
-import { IntlProvider } from 'react-intl';
-import { Provider } from 'react-redux';
-import ReduxProduct, { mapStateToProps } from '../Product';
+import { mapStateToProps } from '../Product';
 import { slugify } from '../../../utils';
 
 const fixture = [
@@ -59,44 +53,7 @@ const fixture = [
   },
 ];
 
-/**
- *
- * @param initial
- */
-function setupSnapshot(initial) {
-  const middlewares = [thunk];
-  const mockStore = configureMockStore(middlewares);
-  const store = mockStore({
-    query: {},
-    aggs: {
-      product: initial,
-    },
-  });
-
-  return renderer.create(
-    <Provider store={store}>
-      <IntlProvider locale="en">
-        <ReduxProduct />
-      </IntlProvider>
-    </Provider>
-  );
-}
-
 describe('component:Product', () => {
-  describe('snapshots', () => {
-    it('renders without crashing', () => {
-      const target = setupSnapshot([]);
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-
-    it('only shows the first five items', () => {
-      const target = setupSnapshot(fixture);
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-  });
-
   describe('sorting', () => {
     it('places selections ahead of unselected', () => {
       const selected = [

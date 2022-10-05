@@ -1,14 +1,10 @@
-import configureMockStore from 'redux-mock-store';
-import ReduxStackedAreaChart, {
+import {
   mapDispatchToProps,
   mapStateToProps,
   StackedAreaChart,
 } from '../Charts/StackedAreaChart';
 import { shallow } from 'enzyme';
-import { Provider } from 'react-redux';
 import React from 'react';
-import renderer from 'react-test-renderer';
-import thunk from 'redux-thunk';
 
 // this is how you override and mock an imported constructor
 jest.mock('britecharts', () => {
@@ -69,52 +65,7 @@ jest.mock('d3', () => {
   return mock;
 });
 
-/**
- *
- */
-function setupSnapshot() {
-  const middlewares = [thunk];
-  const mockStore = configureMockStore(middlewares);
-  const state = {
-    query: {
-      dateInterval: 'Month',
-      date_received_min: '2012',
-      date_received_max: '2014',
-    },
-    trends: {
-      colorMap: {
-        foo: '#fff',
-        bar: '#eee',
-      },
-      lastDate: '2014-01-01',
-      lens: 'Overview',
-      results: {
-        dateRangeArea: [1, 2, 3],
-      },
-      tooltip: false,
-    },
-    view: {
-      isPrintMode: false,
-      width: 1000,
-    },
-  };
-  const store = mockStore(state);
-  return renderer.create(
-    <Provider store={store}>
-      <ReduxStackedAreaChart />
-    </Provider>
-  );
-}
-
 describe('component: StackedAreaChart', () => {
-  describe('initial state', () => {
-    it('renders without crashing', () => {
-      const target = setupSnapshot();
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-  });
-
   describe('componentDidUpdate', () => {
     let mapDiv;
 

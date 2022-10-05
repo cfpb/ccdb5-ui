@@ -1,13 +1,9 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import ReduxFilterPanel, {
+import {
   FilterPanel,
   mapDispatchToProps,
   mapStateToProps,
 } from '../Filters/FilterPanel';
-import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
 /**
@@ -28,57 +24,6 @@ function setupEnzyme() {
     target,
   };
 }
-
-/**
- *
- * @param view
- */
-function setupSnapshot(view) {
-  const middlewares = [thunk];
-  const mockStore = configureMockStore(middlewares);
-  const store = mockStore({
-    aggs: {},
-    query: {},
-    view,
-  });
-
-  return renderer.create(
-    <Provider store={store}>
-      <ReduxFilterPanel />
-    </Provider>
-  );
-}
-
-describe('initial state', () => {
-  let viewStore;
-  beforeEach(() => {
-    viewStore = {
-      hasFilters: true,
-      width: 1000,
-    };
-  });
-  it('renders without crashing', () => {
-    const target = setupSnapshot(viewStore);
-    const tree = target.toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
-  it('renders button at mobile width', () => {
-    viewStore.width = 600;
-    viewStore.hasFilters = true;
-    const target = setupSnapshot(viewStore);
-    const tree = target.toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
-  it('renders filter toggle at mobile width', () => {
-    viewStore.width = 600;
-    viewStore.hasFilters = false;
-    const target = setupSnapshot(viewStore);
-    const tree = target.toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-});
 
 describe('mapDispatchToProps', () => {
   it('hooks into onFilterToggle', () => {

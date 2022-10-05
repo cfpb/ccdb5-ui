@@ -1,14 +1,10 @@
-import configureMockStore from 'redux-mock-store';
-import ReduxMapToolbar, {
+import {
   mapDispatchToProps,
   mapStateToProps,
   MapToolbar,
 } from '../Map/MapToolbar';
-import { Provider } from 'react-redux';
 import React from 'react';
-import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
-import thunk from 'redux-thunk';
 
 /**
  *
@@ -28,41 +24,7 @@ function setupEnzyme() {
   };
 }
 
-/**
- *
- * @param filteredStates
- */
-function setupSnapshot(filteredStates) {
-  const middlewares = [thunk];
-  const mockStore = configureMockStore(middlewares);
-  const store = mockStore({
-    query: {
-      state: filteredStates,
-    },
-  });
-
-  return renderer.create(
-    <Provider store={store}>
-      <ReduxMapToolbar />
-    </Provider>
-  );
-}
-
 describe('component: MapToolbar', () => {
-  describe('initial state', () => {
-    it('renders without crashing', () => {
-      const target = setupSnapshot([]);
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-
-    it('renders filtered states without crashing', () => {
-      const target = setupSnapshot(['FL', 'TX']);
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-  });
-
   describe('mapDispatchToProps', () => {
     beforeEach(() => {
       jest.clearAllMocks();

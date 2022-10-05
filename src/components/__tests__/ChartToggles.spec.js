@@ -1,14 +1,10 @@
-import configureMockStore from 'redux-mock-store';
-import ReduxChartToggles, {
+import {
   mapDispatchToProps,
   mapStateToProps,
   ChartToggles,
 } from '../RefineBar/ChartToggles';
-import { Provider } from 'react-redux';
 import React from 'react';
-import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
-import thunk from 'redux-thunk';
 import * as utils from '../../utils';
 
 /**
@@ -19,34 +15,8 @@ import * as utils from '../../utils';
 function setupEnzyme(cb, chartType) {
   return shallow(<ChartToggles toggleChartType={cb} chartType={chartType} />);
 }
-/**
- *
- */
-function setupSnapshot() {
-  const middlewares = [thunk];
-  const mockStore = configureMockStore(middlewares);
-  const store = mockStore({
-    trends: {
-      chartType: 'line',
-    },
-  });
-
-  return renderer.create(
-    <Provider store={store}>
-      <ReduxChartToggles />
-    </Provider>
-  );
-}
 
 describe('component: ChartToggles', () => {
-  describe('initial state', () => {
-    it('renders without crashing', () => {
-      const target = setupSnapshot();
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-  });
-
   describe('buttons', () => {
     let cb = null;
     let target = null;

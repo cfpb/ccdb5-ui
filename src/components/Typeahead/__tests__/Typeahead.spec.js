@@ -1,6 +1,5 @@
 import { mount } from 'enzyme';
 import React from 'react';
-import renderer from 'react-test-renderer';
 import Typeahead, { MODE_OPEN } from '../index';
 import * as keys from '../../../constants';
 
@@ -35,69 +34,7 @@ function setupEnzyme(initalProps = {}, removeDebounce = true) {
   };
 }
 
-/**
- *
- * @param initialValue
- */
-function setupSnapshot(initialValue = '') {
-  const target = renderer.create(
-    <Typeahead
-      value={initialValue}
-      ariaLabel="Start typing to..."
-      htmlId="typeahead-foo"
-      onInputChange={jest.fn()}
-      onOptionSelected={jest.fn()}
-    />
-  );
-  target.getInstance().setState({ focused: true });
-  return target;
-}
-
 describe('component::Typeahead', () => {
-  describe('render phases', () => {
-    it('renders the EMPTY phase', () => {
-      const target = setupSnapshot();
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-
-    it('renders the ERROR phase', () => {
-      const target = setupSnapshot();
-      target.getInstance().setState({ phase: 'ERROR' });
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-
-    it('renders the ACCUM phase', () => {
-      const target = setupSnapshot('i');
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-
-    it('renders the NO_RESULTS phase', () => {
-      const target = setupSnapshot();
-      target.getInstance()._setOptions([]);
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-
-    it('renders the RESULTS phase', () => {
-      const target = setupSnapshot();
-      target.getInstance()._setOptions(['foo']);
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-
-    it('renders the TOO_MANY phase', () => {
-      const target = setupSnapshot();
-      target
-        .getInstance()
-        ._setOptions(['foo', 'bar', 'baz', 'qaz', 'quux', 'nuux']);
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-  });
-
   describe('focus/blur', () => {
     const renderOption = (x) => ({
       value: x,

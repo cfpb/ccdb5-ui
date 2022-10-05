@@ -1,14 +1,10 @@
-import configureMockStore from 'redux-mock-store';
-import ReduxLineChart, {
+import {
   LineChart,
   mapDispatchToProps,
   mapStateToProps,
 } from '../Charts/LineChart';
 import { shallow } from 'enzyme';
-import { Provider } from 'react-redux';
 import React from 'react';
-import renderer from 'react-test-renderer';
-import thunk from 'redux-thunk';
 
 // this is how you override and mock an imported constructor
 jest.mock('britecharts', () => {
@@ -83,70 +79,7 @@ jest.mock('d3', () => {
   return mock;
 });
 
-/**
- *
- * @param lens
- */
-function setupSnapshot(lens) {
-  const middlewares = [thunk];
-  const mockStore = configureMockStore(middlewares);
-  const store = mockStore({
-    query: {
-      dateInterval: 'Month',
-      date_received_min: '2012',
-      date_received_max: '2016',
-      lens,
-    },
-    trends: {
-      colorMap: { Complaints: '#ADDC91', Other: '#a2a3a4' },
-      lastDate: '2015-01-01',
-      results: {
-        dateRangeLine: {
-          dataByTopic: [
-            {
-              topic: 'Complaints',
-              topicName: 'Complaints',
-              dashed: false,
-              show: true,
-              dates: [
-                { date: '2020-03-01T00:00:00.000Z', value: 29068 },
-                { date: '2020-04-01T00:00:00.000Z', value: 35112 },
-                { date: '2020-05-01T00:00:00.000Z', value: 9821 },
-              ],
-            },
-          ],
-        },
-      },
-      tooltip: false,
-    },
-    view: {
-      isPrintMode: false,
-      width: 1000,
-    },
-  });
-
-  return renderer.create(
-    <Provider store={store}>
-      <ReduxLineChart title="foo" />
-    </Provider>
-  );
-}
-
 describe('component: LineChart', () => {
-  describe('initial state', () => {
-    it('renders without crashing', () => {
-      const target = setupSnapshot('Overview');
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-
-    it('renders data lens without crashing', () => {
-      const target = setupSnapshot('Issue');
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-  });
-
   describe('componentDidUpdate', () => {
     let mapDiv;
     const lastDate = '2020-05-01T00:00:00.000Z';

@@ -1,25 +1,9 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import { IntlProvider } from 'react-intl';
-import { Provider } from 'react-redux';
-import renderer from 'react-test-renderer';
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import ReduxZipCode, {
-  mapDispatchToProps,
-  mapStateToProps,
-  ZipCode,
-} from '../ZipCode';
-
-const fixture = [
-  { key: '200XX', doc_count: 9999 },
-  { key: '300XX', doc_count: 999 },
-  { key: '400XX', doc_count: 99 },
-  { key: '500XX', doc_count: 9 },
-];
+import { mapDispatchToProps, mapStateToProps, ZipCode } from '../ZipCode';
 
 /**
- *
+ * Sets up enzyme.
  */
 function setupEnzyme() {
   const props = {
@@ -37,46 +21,7 @@ function setupEnzyme() {
   };
 }
 
-/**
- *
- * @param initialFixture
- */
-function setupSnapshot(initialFixture) {
-  const middlewares = [thunk];
-  const mockStore = configureMockStore(middlewares);
-  const store = mockStore({
-    query: {
-      zip_code: ['300XX'],
-    },
-    aggs: {
-      zip_code: initialFixture,
-    },
-  });
-
-  return renderer.create(
-    <Provider store={store}>
-      <IntlProvider locale="en">
-        <ReduxZipCode />
-      </IntlProvider>
-    </Provider>
-  );
-}
-
 describe('component::ZipCode', () => {
-  describe('snapshots', () => {
-    it('renders empty values without crashing', () => {
-      const target = setupSnapshot();
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-
-    it('renders without crashing', () => {
-      const target = setupSnapshot(fixture);
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-  });
-
   describe('Typeahead interface', () => {
     beforeEach(() => {
       global.fetch = jest.fn().mockImplementation((url) => {
