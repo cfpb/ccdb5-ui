@@ -5,7 +5,7 @@ import { HighlightingOption } from '../Typeahead/HighlightingOption/Highlighting
 import PropTypes from 'prop-types';
 import React from 'react';
 import { stateToQS } from '../../reducers/query/query';
-import Typeahead from '../Typeahead';
+import { Typeahead } from '../Typeahead/Typeahead';
 import { API_PLACEHOLDER } from '../../constants';
 
 const FIELD_NAME = 'company';

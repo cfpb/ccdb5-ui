@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { stateToQS } from '../../reducers/query/query';
 import StickyOptions from './StickyOptions';
-import Typeahead from '../Typeahead';
+import { Typeahead } from '../Typeahead/Typeahead';
 import { API_PLACEHOLDER } from '../../constants';
 
 const FIELD_NAME = 'zip_code';
@@ -21,6 +21,9 @@ export class ZipCode extends React.Component {
   }
 
   render() {
+    console.log('ZIP');
+    console.log(this.props.options);
+    console.log(this.props.selections);
     return (
       <CollapsibleFilter
         title="ZIP code"
@@ -52,6 +55,9 @@ export class ZipCode extends React.Component {
     const n = value.toLowerCase();
 
     const qs = this.props.queryString + '&text=' + value;
+
+    console.log('zip on input change');
+    console.log('qs', qs);
 
     const uri = `${API_PLACEHOLDER}_suggest_zip/${qs}`;
     return fetch(uri)

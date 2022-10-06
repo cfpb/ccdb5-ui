@@ -1,7 +1,8 @@
 import { mount } from 'enzyme';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Typeahead, { MODE_OPEN } from '../index';
+import { MODE_OPEN } from '../index';
+import { Typeahead } from '../Typeahead';
 import * as keys from '../../../constants';
 
 /**

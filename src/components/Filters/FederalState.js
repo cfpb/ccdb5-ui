@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import StickyOptions from './StickyOptions';
 import { THESE_UNITED_STATES } from '../../constants';
-import Typeahead from '../Typeahead';
+import { Typeahead } from '../Typeahead/Typeahead';
 
 const buildLabel = (x) => THESE_UNITED_STATES[x] + ' (' + x + ')';
 

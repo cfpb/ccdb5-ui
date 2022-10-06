@@ -12,7 +12,6 @@ export const Selector = ({
   footer,
 }) => {
   const handleClick = (event, index) => {
-    console.log('HERE IN HAANDLE CLICK');
     onOptionSelected(index);
     event.preventDefault();
   };
