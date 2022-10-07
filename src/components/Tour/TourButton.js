@@ -10,7 +10,7 @@ export const TourButton = () => {
   return (
     <button
       onClick={() => dispatch(tourShown())}
-      className="tour-button a-btn"
+      className="a-btn tour-button"
     >
       {iconMap.getIcon('help-round')} Take a tour
     </button>
