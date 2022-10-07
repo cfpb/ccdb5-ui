@@ -6,4 +6,4 @@ import '@testing-library/jest-dom';
 
 configure({ adapter: new Adapter() });
 
-jest.useFakeTimers().setSystemTime(new Date('2020-05-06'));
+jest.useFakeTimers().setSystemTime(new Date('2020-05-05T04:00:00.000Z'));
