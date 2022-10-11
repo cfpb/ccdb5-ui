@@ -352,6 +352,7 @@ describe('action::complaints', () => {
      *
      * @param {Array} company - The companies we are viewing trends for
      * @param {string} lens - Aggregate by selected in trends
+     * @returns {object} mocked redux store
      */
     function setupStore(company, lens) {
       const mockState = {
