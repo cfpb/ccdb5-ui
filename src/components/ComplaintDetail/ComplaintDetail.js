@@ -12,6 +12,7 @@ import iconMap from '../iconMap';
 import Loading from '../Dialogs/Loading';
 import { selectQuerySearch } from '../../reducers/query/selectors';
 import { ComplaintDetailBody } from './ComplaintDetailBody';
+import { LINK_DATA_USE } from '../../constants';
 
 export const ComplaintDetail = () => {
   const location = useLocation();
@@ -24,7 +25,12 @@ export const ComplaintDetail = () => {
 
   const isLoading = activeCall !== '';
   const backUrl = useMemo(() => {
-    const pathName = location.pathname || '';
+    // exit out if not initialized
+    if (!location) {
+      return '';
+    }
+
+    const pathName = location.pathname;
     const idx = pathName.indexOf('detail');
     return pathName.substring(0, idx) + search;
   }, [location, search]);
@@ -43,11 +49,7 @@ export const ComplaintDetail = () => {
           </Link>
         </div>
         <div className="meaning flex-fixed">
-          <a
-            href="https://www.consumerfinance.gov/complaint/data-use/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href={LINK_DATA_USE} target="_blank" rel="noopener noreferrer">
             What do all these data points mean?
           </a>
         </div>

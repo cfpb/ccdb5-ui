@@ -7,7 +7,8 @@ const mockStore = configureMockStore(middlewares);
 
 /**
  *
- * @param tab
+ * @param {string} tab - Trends, List, Map view we are testing
+ * @returns {object} mocked redux store
  */
 function setupStore(tab) {
   return mockStore({
@@ -349,8 +350,8 @@ describe('action::complaints', () => {
 
     /**
      *
-     * @param company
-     * @param lens
+     * @param {Array} company - The companies we are viewing trends for
+     * @param {string} lens - Aggregate by selected in trends
      */
     function setupStore(company, lens) {
       const mockState = {
