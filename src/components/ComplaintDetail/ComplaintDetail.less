@@ -1,0 +1,122 @@
+.card-container {
+  max-width: 100%;
+  padding: @gutter-normal;
+  margin-bottom: @grid_gutter-width;
+
+  nav {
+    width: 100%;
+    justify-content: space-between;
+
+    a,
+    button {
+      color: @btn-bg;
+      font-size: @base-font-size-px;
+
+      &:hover {
+        color: @btn-bg-hover;
+      }
+    }
+
+    .a-btn__link {
+      border: 0;
+
+      span {
+        margin-right: @gutter-normal;
+      }
+    }
+  }
+
+  h1 {
+    margin: @gutter-normal 0;
+    margin-top: @grid_gutter-width;
+  }
+
+  h2.company-information {
+    margin-top: @gutter-wide;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    @media @phone {
+      flex-wrap: wrap;
+    }
+
+    .card-left {
+      box-sizing: border-box;
+      min-width: 260px;
+      width: 33%;
+      padding-right: @grid_gutter-width;
+
+      @media @tablet {
+        padding-right: @gutter-normal;
+      }
+
+      @media @phone {
+        width: 100%;
+        padding-right: @gutter-narrow;
+      }
+    }
+    .card-right {
+      width: 67%;
+
+      @media @phone {
+        width: 100%;
+        padding-top: @gutter-normal;
+      }
+    }
+
+    .cf-icon__before {
+      padding-right: @gutter-narrow;
+      font-size: 16px;
+
+      &.cf-icon-approved-round {
+        color: @green;
+      }
+
+      &.cf-icon-delete-round {
+        color: @red;
+      }
+
+      &.cf-icon-minus-round {
+        color: @gold;
+      }
+
+      &.cf-icon-help-round {
+        color: @navy;
+      }
+
+      &.cf-icon-error-round {
+        color: @gray-80;
+      }
+
+      &.cf-icon-clock-round {
+        color: @green;
+      }
+
+      &.cf-icon-clock-round.not-timely {
+        color: @gold;
+      }
+    }
+
+    .layout-column {
+      h3 {
+        margin-top: 0;
+        margin-bottom: @gutter-minimum;
+      }
+
+      h4 {
+        margin-top: 0;
+        margin-bottom: @gutter-minimum;
+      }
+    }
+
+    .subitem {
+      margin-right: @gutter-minimum;
+
+      font-family: @webfont-demi;
+    }
+  }
+}

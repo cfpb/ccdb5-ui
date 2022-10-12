@@ -13,13 +13,13 @@ const synchUrl = (store) => (next) => (action) => {
   // Get the current state
   const state = store.getState();
   // See if processing should continue
-  const url = state.query.url;
+  const search = state.query.search;
   // Update the application
   const history = createBrowserHistory();
   const location = history.location;
-  if (location.search !== url && !location.pathname.includes('/detail/')) {
+  if (location.search !== search && !location.pathname.includes('/detail/')) {
     history.push({
-      search: url,
+      search: search,
     });
   } else {
     return result;

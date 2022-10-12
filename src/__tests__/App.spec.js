@@ -46,6 +46,9 @@ describe('initial state', () => {
     const mockStore = configureMockStore(middlewares);
     const store = mockStore({
       detail: { data: {}, error: '' },
+      query: {
+        search: '?something',
+      },
     });
 
     render(
@@ -59,8 +62,12 @@ describe('initial state', () => {
     );
 
     expect(
-      screen.getByRole('button', { name: /Go to search home page/ })
+      screen.getByRole('link', { name: /Back to search results/ })
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: /Back to search results/ })
+    ).toHaveAttribute('href', '/?something');
+
     expect(screen.getByText('This page is loading')).toBeInTheDocument();
   });
 });

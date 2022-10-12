@@ -32,6 +32,7 @@ export const defaultQuery = {
   lens: 'Product',
   page: 1,
   queryString: '',
+  search: '',
   searchAfter: '',
   searchField: 'all',
   searchText: '',
@@ -1270,7 +1271,7 @@ export default (state = defaultQuery, action) => {
 
   const qs = stateToQS(newState);
   newState.queryString = qs === '?' ? '' : qs;
-  newState.url = stateToURL(newState);
+  newState.search = stateToURL(newState);
 
   return newState;
 };

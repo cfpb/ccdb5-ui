@@ -10,6 +10,9 @@ import { IntlProvider } from 'react-intl';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 import { trendsResults } from '../../reducers/__fixtures__/trendsResults';
+import { MemoryRouter } from 'react-router-dom';
+import { render, screen } from '@testing-library/react';
+
 const fixture = [
   {
     company: 'foo',
@@ -85,6 +88,8 @@ function setupSnapshot(
     },
   });
 
+  // TODO: these tests need to be stripped out along with the snapshots
+  // when we switch to functional components
   return renderer.create(
     <Provider store={store}>
       <IntlProvider locale="en">
@@ -94,6 +99,64 @@ function setupSnapshot(
   );
 }
 
+/**
+ *
+ * @param items
+ * @param initialStore
+ * @param tab
+ * @param isPrintMode
+ */
+function setupTest(items = [], initialStore = {}, tab = 'List', isPrintMode) {
+  const results = Object.assign(
+    {
+      error: '',
+      hasDataIssue: false,
+      isDataStale: false,
+      items,
+    },
+    initialStore
+  );
+
+  const middlewares = [thunk];
+  const mockStore = configureMockStore(middlewares);
+  const store = mockStore({
+    aggs: {
+      doc_count: 100,
+      total: items.length,
+    },
+    map: {
+      results: {
+        issue: [],
+        product: [],
+        state: [],
+      },
+    },
+    results,
+    query: {
+      lens: 'Overview',
+      subLens: '',
+      tab: tab,
+      date_received_min: new Date('7/10/2017'),
+      date_received_max: new Date('7/10/2020'),
+    },
+    trends: {
+      results: {},
+    },
+    view: {
+      isPrintMode,
+    },
+  });
+
+  render(
+    <MemoryRouter>
+      <IntlProvider locale="en">
+        <Provider store={store}>
+          <ResultsPanel tab={tab} />
+        </Provider>
+      </IntlProvider>
+    </MemoryRouter>
+  );
+}
 describe('component:Results', () => {
   let target;
   const actionMock = jest.fn();
@@ -110,9 +173,8 @@ describe('component:Results', () => {
   });
 
   it('renders list panel without crashing', () => {
-    const target = setupSnapshot(fixture, null, 'List');
-    const tree = target.toJSON();
-    expect(tree).toMatchSnapshot();
+    setupTest([], {}, 'List', false);
+    expect(screen.getByRole('navigation')).toBeInTheDocument();
   });
 
   it('renders Map print mode without crashing', () => {
@@ -122,9 +184,9 @@ describe('component:Results', () => {
   });
 
   it('renders List print mode without crashing', () => {
-    const target = setupSnapshot(fixture, null, 'List', true);
-    const tree = target.toJSON();
-    expect(tree).toMatchSnapshot();
+    setupTest([], {}, 'List', true);
+    // TODO: in print mode, there should not be a pager
+    expect(screen.getByRole('navigation')).toBeInTheDocument();
   });
 
   describe('event listeners', () => {
