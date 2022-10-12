@@ -54,6 +54,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "12.1.5",
     "babel-loader": "^8.2.5",
+    "bootstrap": "^5.2.2",
     "britecharts": "git+https://github.com/cfpb/britecharts.git#v2.4.2",
     "coveralls": "^3.0.9",
     "craco-less": "^2.0.0",
@@ -71,6 +72,7 @@
     "eslint-plugin-react-redux": "^4.0.0",
     "highcharts": "9.2.2",
     "history": "^4.10.1",
+    "http-proxy-middleware": "^2.0.6",
     "husky": "^8.0.1",
     "identity-obj-proxy": "3.0.0",
     "intro.js": "^6.0.0",
@@ -92,6 +94,7 @@
     "prop-types": "^15.5.10",
     "query-string": "^5.0.0",
     "react": "16.14.0",
+    "react-bootstrap-typeahead": "^6.0.0",
     "react-dom": "16.14.0",
     "react-intl": "6.0.5",
     "react-modal": "^3.11.2",
@@ -111,5 +114,6 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
-  }
+  },
+  "proxy": "http://localhost:8000"
 }

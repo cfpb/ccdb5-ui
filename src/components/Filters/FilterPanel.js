@@ -12,7 +12,7 @@ import Product from './Product';
 import PropTypes from 'prop-types';
 import React from 'react';
 import SimpleFilter from './SimpleFilter';
-import ZipCode from './ZipCode';
+import { ZipCode } from './ZipCode';
 
 export class FilterPanel extends React.Component {
   render() {
