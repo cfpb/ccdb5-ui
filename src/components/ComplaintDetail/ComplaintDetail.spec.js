@@ -1,4 +1,4 @@
-import { ComplaintDetail } from '../ComplaintDetail/ComplaintDetail';
+import { ComplaintDetail } from './ComplaintDetail';
 import React from 'react';
 import {
   testRenderWithMemoryRouter as render,
