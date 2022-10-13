@@ -182,7 +182,7 @@ Ready to publish changes to npm?
    [consumerfinance.gov](https://github.com/cfpb/consumerfinance.gov) repo.
 2. Create a new branch.
 3. Move to CCDB asset app directory with `cd cfgov/unprocessed/apps/ccdb-search/`.
-4. `npx yarn-check -u` and update to the latest ccdb5-ui version.
+4. `npx yarn-check -u` and update to the latest ccdb5-ui version. Note: you might need to hit the space bar to properly set the new version number.
 5. Commit the changes to the npm package and node cache.
 6. Open a Pull Request from the branch for review.
 
