@@ -1,4 +1,4 @@
-import target, { getDefaultState, mainNameLens } from '../trends';
+import target, { getDefaultState, mainNameLens } from '../trends/trends';
 import actions from '../../actions';
 import {
   trendsBackfill,

@@ -36,7 +36,7 @@ export const defaultQuery = {
   searchAfter: '',
   searchField: 'all',
   searchText: '',
-  size: 25,
+  size: '25',
   sort: 'created_date_desc',
   subLens: 'sub_product',
   tab: types.MODE_TRENDS,
@@ -68,12 +68,13 @@ const urlParams = [
   'lens',
   'searchText',
   'searchField',
+  'size',
   'sort',
   'subLens',
   'tab',
 ];
 
-const urlParamsInt = ['from', 'page', 'size', 'trendDepth'];
+const urlParamsInt = ['from', 'page', 'trendDepth'];
 
 // ----------------------------------------------------------------------------
 // Helper functions

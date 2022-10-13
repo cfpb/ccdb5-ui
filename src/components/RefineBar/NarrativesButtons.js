@@ -1,43 +1,37 @@
 import { addFilter, removeFilter } from '../../actions/filter';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
+import { selectQueryHasNarrative } from '../../reducers/query/selectors';
 
 const FIELD_NAME = 'has_narrative';
 
 export const NarrativesButtons = () => {
-  const fieldQuerySelector = (state) => state.query[FIELD_NAME] || false;
-  const isChecked = useSelector(fieldQuerySelector);
+  const isChecked = useSelector(selectQueryHasNarrative);
   const dispatch = useDispatch();
-  const _handleAddNarrative = () => {
-    if (!isChecked) {
-      dispatch(addFilter(FIELD_NAME, ''));
-    }
-  };
-
-  const _handleRemoveNarrative = () => {
-    if (isChecked) {
-      dispatch(removeFilter(FIELD_NAME, ''));
-    }
-  };
 
   return (
     <section className="m-btn-group">
       <p>Read</p>
       <button
+        aria-label="Show only complaints with narratives"
         id="refineAddNarrativesButton"
-        className={`a-btn toggle-button ${
-          isChecked ? 'selected' : 'deselected'
-        }`}
-        onClick={() => _handleAddNarrative()}
+        className={`a-btn ${isChecked ? 'selected' : ''}`}
+        disabled={isChecked}
+        onClick={() => {
+          dispatch(addFilter(FIELD_NAME, ''));
+        }}
       >
         Only complaints with narratives
       </button>
+
       <button
+        aria-label="Show all complaints"
         id="refineRemoveNarrativesButton"
-        className={`a-btn toggle-button ${
-          isChecked ? 'deselected' : 'selected'
-        }`}
-        onClick={() => _handleRemoveNarrative()}
+        className={`a-btn ${isChecked ? '' : 'selected'}`}
+        disabled={!isChecked}
+        onClick={() => {
+          dispatch(removeFilter(FIELD_NAME, ''));
+        }}
       >
         All complaints
       </button>

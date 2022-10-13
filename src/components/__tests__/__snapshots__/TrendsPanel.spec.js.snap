@@ -224,7 +224,9 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
         Chart type
       </p>
       <button
-        className="a-btn toggle line selected"
+        aria-label="Toggle line chart"
+        className="a-btn selected"
+        disabled={true}
         onClick={[Function]}
       >
         <svg
@@ -287,7 +289,9 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
         </svg>
       </button>
       <button
-        className="a-btn toggle area"
+        aria-label="Toggle area chart"
+        className="a-btn"
+        disabled={false}
         onClick={[Function]}
       >
         <svg
@@ -662,7 +666,9 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
         Chart type
       </p>
       <button
-        className="a-btn toggle line"
+        aria-label="Toggle line chart"
+        className="a-btn"
+        disabled={false}
         onClick={[Function]}
       >
         <svg
@@ -725,7 +731,9 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
         </svg>
       </button>
       <button
-        className="a-btn toggle area selected"
+        aria-label="Toggle area chart"
+        className="a-btn selected"
+        disabled={true}
         onClick={[Function]}
       >
         <svg
@@ -1067,7 +1075,9 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
         Chart type
       </p>
       <button
-        className="a-btn toggle line selected"
+        aria-label="Toggle line chart"
+        className="a-btn selected"
+        disabled={true}
         onClick={[Function]}
       >
         <svg
@@ -1130,7 +1140,9 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
         </svg>
       </button>
       <button
-        className="a-btn toggle area"
+        aria-label="Toggle area chart"
+        className="a-btn"
+        disabled={false}
         onClick={[Function]}
       >
         <svg
@@ -1723,7 +1735,9 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
         Chart type
       </p>
       <button
-        className="a-btn toggle line selected"
+        aria-label="Toggle line chart"
+        className="a-btn selected"
+        disabled={true}
         onClick={[Function]}
       >
         <svg
@@ -1786,7 +1800,9 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
         </svg>
       </button>
       <button
-        className="a-btn toggle area"
+        aria-label="Toggle area chart"
+        className="a-btn"
+        disabled={false}
         onClick={[Function]}
       >
         <svg

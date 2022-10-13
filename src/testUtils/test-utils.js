@@ -11,7 +11,7 @@ import map from '../reducers/map';
 import modal from '../reducers/modal';
 import query from '../reducers/query/query';
 import results from '../reducers/results/results';
-import trends from '../reducers/trends';
+import trends from '../reducers/trends/trends';
 import view from '../reducers/view/view';
 
 /**

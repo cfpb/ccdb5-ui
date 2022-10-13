@@ -7,7 +7,7 @@ import { sendAnalyticsEvent, shortFormat } from '../../utils';
 import { ActionBar } from '../ActionBar/ActionBar';
 import { changeDataLens } from '../../actions/trends';
 import { changeDateInterval } from '../../actions/filter';
-import ChartToggles from '../RefineBar/ChartToggles';
+import { ChartToggles } from '../RefineBar/ChartToggles';
 import CompanyTypeahead from '../Filters/CompanyTypeahead';
 import { connect } from 'react-redux';
 import ExternalTooltip from './ExternalTooltip';

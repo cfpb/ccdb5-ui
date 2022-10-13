@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useMemo } from 'react';
 
-export class Select extends React.Component {
-  getValues() {
-    // different cases Array
+export const Select = ({ id, handleChange, label, title, value, values }) => {
+  const idSelect = 'select-' + id;
+  const vals = useMemo(() => {
+    // different cases that values can me:
+    // Array
     // handle cases where an array of single entries
     // case 1: values = [1,2,4]
     // case 2: values = [
@@ -18,60 +20,50 @@ export class Select extends React.Component {
     //   relevance_asc: 'Relevance (asc)'
     // }
     // array of objects
-    let values;
 
-    if (Array.isArray(this.props.values)) {
+    if (Array.isArray(values)) {
       // do nothing, case 2
-      if (Object.prototype.hasOwnProperty.call(this.props.values[0], 'name')) {
-        values = this.props.values;
+      if (Object.prototype.hasOwnProperty.call(values[0], 'name')) {
+        return values;
       } else {
         // case 1
-        values = this.props.values.map((o) => ({
+        return values.map((o) => ({
           name: o,
           value: o,
-          disabled: false,
+          disabled: o.disabled,
         }));
       }
     } else {
       // case 3
-      values = Object.keys(this.props.values).map((o) => ({
-        name: this.props.values[o],
+      return Object.keys(values).map((o) => ({
+        name: values[o],
         value: o,
-        disabled: false,
+        disabled: o.disabled,
       }));
     }
-    return values;
-  }
+  }, [values]);
 
-  render() {
-    const id = 'select-' + this.props.id;
-    const values = this.getValues();
-
-    return (
-      <section className="cf-select" data-tour={id}>
-        <label className="u-visually-hidden" htmlFor={id}>
-          {this.props.label}
-        </label>
-        <p>{this.props.title}</p>
-        <select
-          value={this.props.value}
-          id={id}
-          onChange={this.props.handleChange}
-        >
-          {values.map((x) => (
-            <option
-              disabled={x.disabled}
-              key={x.name}
-              value={x.value || x.name}
-            >
-              {x.name}
-            </option>
-          ))}
-        </select>
-      </section>
-    );
-  }
-}
+  console.log(values, value);
+  return (
+    <section className="cf-select" data-tour={idSelect}>
+      <label className="u-visually-hidden" htmlFor={idSelect}>
+        {label}
+      </label>
+      <p>{title}</p>
+      <select value={value} id={idSelect} onChange={handleChange}>
+        {vals.map((x) => (
+          <option
+            disabled={[x.value, x.name].includes(value) || x.disabled}
+            key={x.name}
+            value={x.value || x.name}
+          >
+            {x.name}
+          </option>
+        ))}
+      </select>
+    </section>
+  );
+};
 
 export default Select;
 

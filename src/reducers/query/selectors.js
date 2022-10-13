@@ -4,11 +4,15 @@ export const selectQueryCompanyReceivedMax = (state) =>
 export const selectQueryCompanyReceivedMin = (state) =>
   state.query.company_received_min;
 
+export const selectQueryDataNormalization = (state) =>
+  state.query.dataNormalization;
+
 export const selectQueryDateReceivedMax = (state) =>
   state.query.date_received_max;
 export const selectQueryDateReceivedMin = (state) =>
   state.query.date_received_min;
 export const selectQueryDateRange = (state) => state.query.dateRange;
+export const selectQueryEnablePer1000 = (state) => state.query.enablePer1000;
 
 export const selectQueryHasNarrative = (state) => state.query.has_narrative;
 export const selectQueryPage = (state) => state.query.page;
