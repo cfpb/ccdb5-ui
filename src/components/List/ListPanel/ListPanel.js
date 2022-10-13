@@ -2,7 +2,7 @@ import './ListPanel.less';
 import '../../RefineBar/RefineBar.less';
 import { changeSize, changeSort } from '../../../actions/paging';
 import { sizes, sorts } from '../../../constants';
-import ActionBar from '../../ActionBar';
+import { ActionBar } from '../../ActionBar/ActionBar';
 import { ComplaintCard } from '../ComplaintCard/ComplaintCard';
 import { useDispatch, useSelector } from 'react-redux';
 import ErrorBlock from '../../Warnings/Error';

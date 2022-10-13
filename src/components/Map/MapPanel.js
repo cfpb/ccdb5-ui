@@ -1,5 +1,5 @@
 import '../RefineBar/RefineBar.less';
-import ActionBar from '../ActionBar';
+import { ActionBar } from '../ActionBar/ActionBar';
 import { connect } from 'react-redux';
 import ErrorBlock from '../Warnings/Error';
 import FilterPanel from '../Filters/FilterPanel';
