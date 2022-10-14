@@ -7,6 +7,7 @@ import { stateToQS } from '../../reducers/query/query';
 import { API_PLACEHOLDER } from '../../constants';
 import { selectQueryState } from '../../reducers/query/selectors';
 import { AsyncTypeahead } from '../Typeahead/AsyncTypeahead';
+import { handleFetchSearch } from '../Typeahead/utils';
 
 const FIELD_NAME = 'zip_code';
 
@@ -25,24 +26,9 @@ export const ZipCode = ({ delayWait }) => {
   };
 
   const onInputChange = (value) => {
-    const n = value.toLowerCase();
-    if (n === '') {
-      setDropdownOptions([]);
-      return;
-    }
     const qs = queryString + '&text=' + value;
     const uri = `${API_PLACEHOLDER}_suggest_zip/${qs}`;
-    fetch(uri)
-      .then((response) => response.json())
-      .then((items) => {
-        const options = items.map((x) => ({
-          key: x,
-          label: x,
-          position: x.toLowerCase().indexOf(n),
-          value,
-        }));
-        setDropdownOptions(options);
-      });
+    handleFetchSearch(value, setDropdownOptions, uri);
   };
 
   return (

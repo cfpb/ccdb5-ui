@@ -7,10 +7,11 @@ import iconMap from '../iconMap';
 import HighlightingOption from './HighlightingOption';
 
 export const AsyncTypeahead = ({
+  ariaLabel,
   className,
   delayWait,
   htmlId,
-  ariaLabel,
+  isDisabled,
   handleChange,
   handleSearch,
   maxResults,
@@ -38,6 +39,7 @@ export const AsyncTypeahead = ({
           className="typeahead-selector"
           clearButton={true}
           delay={delayWait}
+          disabled={isDisabled}
           isLoading={false}
           ref={ref}
           onSearch={(input) => handleSearch(input)}
@@ -64,6 +66,7 @@ AsyncTypeahead.propTypes = {
   ariaLabel: PropTypes.string.isRequired,
   className: PropTypes.string,
   delayWait: PropTypes.number.isRequired,
+  isDisabled: PropTypes.bool.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
   htmlId: PropTypes.string.isRequired,
@@ -76,6 +79,7 @@ AsyncTypeahead.propTypes = {
 AsyncTypeahead.defaultProps = {
   className: '',
   delayWait: 0,
+  isDisabled: false,
   maxResults: 5,
   minLength: 2,
   placeholder: 'Enter your search text',
