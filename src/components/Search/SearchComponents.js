@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import Hero from './Hero';
+import { Hero } from './Hero/Hero';
 import { IntlProvider } from 'react-intl';
 import React from 'react';
 import RefinePanel from '../RefinePanel';
