@@ -5,7 +5,7 @@ import iconMap from '../iconMap';
 import React from 'react';
 import { sendAnalyticsEvent } from '../../utils';
 import { showExportDialog } from '../../actions/dataExport';
-import StaleDataWarnings from '../Warnings/StaleDataWarnings';
+import { StaleDataWarnings } from '../Warnings/StaleDataWarnings';
 import {
   selectAggsDocCount,
   selectAggsTotal,
