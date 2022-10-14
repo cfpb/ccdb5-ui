@@ -36,9 +36,7 @@ describe('Document View', () => {
       cy.url().should('contain', '/detail');
 
       cy.log('go back to search');
-      cy.get('.back-to-search button')
-        .contains('Back to search results')
-        .click();
+      cy.get('.back-to-search a').contains('Back to search results').click();
 
       cy.url().should('not.contain', '/detail');
     });
@@ -77,9 +75,7 @@ describe('Document View', () => {
 
       cy.url().should('contain', '/detail');
 
-      cy.get('.back-to-search button')
-        .contains('Back to search results')
-        .click();
+      cy.get('.back-to-search a').contains('Back to search results').click();
 
       cy.wait('@getAggsResults');
       cy.wait('@getResults');

@@ -1,4 +1,9 @@
-import { REQUERY_HITS_ONLY, REQUERY_NEVER } from '../constants';
+import {
+  MODAL_SHOWN,
+  MODAL_TYPE_MORE_ABOUT,
+  REQUERY_HITS_ONLY,
+  REQUERY_NEVER,
+} from '../constants';
 
 export const MAP_WARNING_DISMISSED = 'MAP_WARNING_DISMISSED';
 export const PRINT_MODE_ON = 'PRINT_MODE_ON';
@@ -177,5 +182,18 @@ export function trendsDateWarningDismissed() {
   return {
     type: TRENDS_DATE_WARNING_DISMISSED,
     requery: REQUERY_NEVER,
+  };
+}
+
+/**
+ * Notifies the application that the "More About..." dialog box should appear
+ *
+ * @returns {string} a packaged payload to be used by Redux reducers
+ */
+export function showMoreAboutDialog() {
+  return {
+    type: MODAL_SHOWN,
+    modalType: MODAL_TYPE_MORE_ABOUT,
+    modalProps: {},
   };
 }

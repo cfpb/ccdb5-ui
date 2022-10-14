@@ -1,16 +1,11 @@
 import './css/App.less';
 import { applyMiddleware, createStore } from 'redux';
-import {
-  Route,
-  BrowserRouter as Router,
-  Routes,
-  useParams,
-} from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
 import queryManager from './middleware/queryManager';
-import ComplaintDetail from './components/ComplaintDetail';
+import { ComplaintDetail } from './components/ComplaintDetail/ComplaintDetail';
 import React from 'react';
 import reducers from './reducers';
 import { SearchComponents } from './components/Search/SearchComponents';
@@ -36,12 +31,10 @@ const store = createStore(
 
 /* eslint-disable camelcase */
 export const DetailComponents = () => {
-  const { id } = useParams();
-
   return (
     <IntlProvider locale="en">
       <main role="main">
-        <ComplaintDetail complaint_id={id} />
+        <ComplaintDetail />
       </main>
     </IntlProvider>
   );
@@ -60,11 +53,21 @@ export const App = () => {
       <Router>
         <Routes>
           {/*
-              we need the wildcard to match relative path
+              we need these duplicate routes to match relative path
               /data-research/consumer-complaints/search
               from CF.gov
+              local
+              which is just the root at localhost:3000/
           */}
-          <Route path="/*" element={<SearchComponents />} />
+          <Route index element={<SearchComponents />} />
+          <Route
+            path="/data-research/consumer-complaints/search"
+            element={<SearchComponents />}
+          />
+          <Route
+            path="/data-research/consumer-complaints/search/detail/:id"
+            element={<DetailComponents />}
+          />
           <Route path="/detail/:id" element={<DetailComponents />} />
         </Routes>
       </Router>

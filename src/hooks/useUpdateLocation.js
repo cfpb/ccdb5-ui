@@ -12,5 +12,7 @@ export function useUpdateLocation() {
   const location = useLocation();
   useEffect(() => {
     dispatch(announceUrlChanged(location));
+    // this is intentional since we want this to run only once
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }

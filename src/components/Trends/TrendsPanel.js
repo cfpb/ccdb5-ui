@@ -4,7 +4,7 @@ import './TrendsPanel.less';
 
 import { getIntervals, showCompanyOverLay } from '../../utils/trends';
 import { sendAnalyticsEvent, shortFormat } from '../../utils';
-import ActionBar from '../ActionBar';
+import { ActionBar } from '../ActionBar/ActionBar';
 import { changeDataLens } from '../../actions/trends';
 import { changeDateInterval } from '../../actions/filter';
 import ChartToggles from '../RefineBar/ChartToggles';
@@ -23,7 +23,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import RowChart from '../Charts/RowChart';
 import Select from '../RefineBar/Select';
-import Separator from '../RefineBar/Separator';
+import { Separator } from '../RefineBar/Separator';
 import StackedAreaChart from '../Charts/StackedAreaChart';
 import { TabbedNavigation } from '../TabbedNavigation';
 import TrendDepthToggle from './TrendDepthToggle';

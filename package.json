@@ -1,6 +1,6 @@
 {
   "name": "@cfpb/ccdb5-ui",
-  "version": "2.5.1",
+  "version": "2.6.0",
   "description": "Consumer Complaint Database UI",
   "homepage": "https://www.consumerfinance.gov/",
   "repository": {
@@ -39,8 +39,8 @@
     "@cfpb/cfpb-atomic-component": "0.17.9",
     "@cfpb/cfpb-buttons": "0.17.9",
     "@cfpb/cfpb-core": "0.17.9",
-    "@cfpb/cfpb-design-system": "^0.17.9",
-    "@cfpb/cfpb-expandables": "0.17.9",
+    "@cfpb/cfpb-design-system": "0.17.11",
+    "@cfpb/cfpb-expandables": "0.17.11",
     "@cfpb/cfpb-forms": "0.17.9",
     "@cfpb/cfpb-grid": "0.17.9",
     "@cfpb/cfpb-icons": "0.17.9",
