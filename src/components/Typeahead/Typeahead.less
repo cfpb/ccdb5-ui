@@ -43,6 +43,15 @@
         text-align: center;
       }
     }
+
+    input {
+      &:extend(.a-text-input);
+      &:focus {
+        &:extend(.a-text-input:focus);
+      }
+      padding-left: 1.78571429em !important;
+      padding-bottom: 0.28em !important;
+    }
   }
 
   li.typeahead-option {
@@ -74,5 +83,8 @@
   &__search .cf-icon-svg {
     position: relative;
     top: 2px;
+  }
+  .cf-icon-svg {
+    z-index: 100;
   }
 }

@@ -94,7 +94,7 @@
     "prop-types": "^15.5.10",
     "query-string": "^5.0.0",
     "react": "16.14.0",
-    "react-bootstrap-typeahead": "^6.0.0",
+    "react-bootstrap-typeahead": "^6.0.0-rc.3",
     "react-dom": "16.14.0",
     "react-intl": "6.0.5",
     "react-modal": "^3.11.2",
