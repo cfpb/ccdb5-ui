@@ -164,7 +164,7 @@ exports[`component:Results renders Map print mode without crashing 1`] = `
         </p>
         <button
           aria-label="Display map by complaints"
-          className="a-btn "
+          className="a-btn"
           disabled={false}
           onClick={[Function]}
         >
@@ -371,7 +371,7 @@ exports[`component:Results renders map panel without crashing 1`] = `
         </p>
         <button
           aria-label="Display map by complaints"
-          className="a-btn "
+          className="a-btn"
           disabled={false}
           onClick={[Function]}
         >

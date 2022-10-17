@@ -20,7 +20,7 @@ export const ChartToggles = () => {
       <p>Chart type</p>
       <button
         aria-label="Toggle line chart"
-        className={'a-btn ' + selectedClass('line', chartType)}
+        className={'a-btn' + selectedClass('line', chartType)}
         disabled={chartType === 'line'}
         onClick={() => {
           toggleChartType('line');

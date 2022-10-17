@@ -443,8 +443,8 @@ export const sendAnalyticsEvent = (action, label) => {
 /**
  * Helper function to get the selected class based on two different values
  *
- * @param {string| number} a - Value 1 to compare
- * @param {string| number} b - Value 2 to compare
+ * @param {string|number|boolean} a - Value 1 to compare
+ * @param {string|number|boolean} b - Value 2 to compare
  * @param {string} selectedClassName - The value that should be returned if both are the same
  * @returns {string} The selected class
  */

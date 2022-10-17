@@ -35,7 +35,7 @@ export const PerCapita = () => {
       </button>
       <button
         aria-label="Display map by complaints per 1,000 people"
-        className={'a-btn' + perCapButtonClass}
+        className={'a-btn ' + perCapButtonClass}
         disabled={dataNormalization === GEO_NORM_PER1000}
         onClick={() => {
           dispatch(dataNormalizationChanged(GEO_NORM_PER1000));

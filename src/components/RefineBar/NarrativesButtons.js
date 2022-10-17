@@ -28,7 +28,7 @@ export const NarrativesButtons = () => {
       <button
         aria-label="Show all complaints"
         id="btn-remove-narratives"
-        className={'a-btn' + selectedClass(false, isChecked)}
+        className={'a-btn' + selectedClass(false, !!isChecked)}
         disabled={!isChecked}
         onClick={() => {
           dispatch(removeFilter(FIELD_NAME, ''));
