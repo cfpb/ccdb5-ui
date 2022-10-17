@@ -1,12 +1,7 @@
 import React from 'react';
 
 import { Select } from './Select';
-import {
-  testRender as render,
-  // fireEvent,
-  screen,
-  // userEvent,
-} from '../../testUtils/test-utils';
+import { testRender as render, screen } from '../../testUtils/test-utils';
 import { sizes } from '../../constants';
 
 import userEvent from '@testing-library/user-event';
