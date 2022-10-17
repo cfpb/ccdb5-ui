@@ -6,19 +6,16 @@ import {
   selectQueryDataNormalization,
   selectQueryEnablePer1000,
 } from '../../reducers/query/selectors';
+import { selectedClass } from '../../utils';
 
 export const PerCapita = () => {
   const dataNormalization = useSelector(selectQueryDataNormalization);
   const enablePer1000 = useSelector(selectQueryEnablePer1000);
   const dispatch = useDispatch();
 
-  const rawButtonClass = useMemo(() => {
-    return dataNormalization === GEO_NORM_NONE ? 'selected' : '';
-  }, [dataNormalization]);
-
   const perCapButtonClass = useMemo(() => {
     if (enablePer1000) {
-      return dataNormalization === GEO_NORM_PER1000 ? 'selected' : '';
+      return selectedClass(dataNormalization, GEO_NORM_PER1000);
     }
     return 'a-btn__disabled';
   }, [dataNormalization, enablePer1000]);
@@ -28,7 +25,7 @@ export const PerCapita = () => {
       <p>Map shading</p>
       <button
         aria-label="Display map by complaints"
-        className={'a-btn ' + rawButtonClass}
+        className={'a-btn' + selectedClass(dataNormalization, GEO_NORM_NONE)}
         onClick={() => {
           dispatch(dataNormalizationChanged(GEO_NORM_NONE));
         }}
@@ -38,7 +35,7 @@ export const PerCapita = () => {
       </button>
       <button
         aria-label="Display map by complaints per 1,000 people"
-        className={'a-btn ' + perCapButtonClass}
+        className={'a-btn' + perCapButtonClass}
         disabled={dataNormalization === GEO_NORM_PER1000}
         onClick={() => {
           dispatch(dataNormalizationChanged(GEO_NORM_PER1000));

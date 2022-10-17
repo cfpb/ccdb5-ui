@@ -43,13 +43,6 @@ describe('Select', () => {
   //
   it('renders object values without crashing', () => {
     const changeSpy = jest.fn();
-
-    // const options = {
-    //   10: '10 results',
-    //   25: '25 results',
-    //   50: '50 results',
-    //   100: '100 results',
-    // };
     render(
       <Select
         label="Select size"

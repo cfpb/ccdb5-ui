@@ -1,6 +1,7 @@
 import { addFilter, removeFilter } from '../../actions/filter';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
+import { selectedClass } from '../../utils';
 import { selectQueryHasNarrative } from '../../reducers/query/selectors';
 
 const FIELD_NAME = 'has_narrative';
@@ -15,7 +16,7 @@ export const NarrativesButtons = () => {
       <button
         aria-label="Show only complaints with narratives"
         id="btn-add-narratives"
-        className={`a-btn ${isChecked ? 'selected' : ''}`}
+        className={'a-btn' + selectedClass(true, isChecked)}
         disabled={isChecked}
         onClick={() => {
           dispatch(addFilter(FIELD_NAME, ''));
@@ -27,7 +28,7 @@ export const NarrativesButtons = () => {
       <button
         aria-label="Show all complaints"
         id="btn-remove-narratives"
-        className={`a-btn ${isChecked ? '' : 'selected'}`}
+        className={'a-btn' + selectedClass(false, isChecked)}
         disabled={!isChecked}
         onClick={() => {
           dispatch(removeFilter(FIELD_NAME, ''));
