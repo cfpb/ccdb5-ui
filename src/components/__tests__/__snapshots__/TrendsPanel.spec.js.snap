@@ -142,19 +142,17 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
         value="Product"
       >
         <option
-          disabled={false}
           value="Overview"
         >
           Overview
         </option>
         <option
-          disabled={false}
           value="Company"
         >
           Company
         </option>
         <option
-          disabled={false}
+          disabled={true}
           value="Product"
         >
           Product
@@ -195,7 +193,7 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
           Week
         </option>
         <option
-          disabled={false}
+          disabled={true}
           value="Month"
         >
           Month
@@ -584,19 +582,17 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
         value="Product"
       >
         <option
-          disabled={false}
           value="Overview"
         >
           Overview
         </option>
         <option
-          disabled={false}
           value="Company"
         >
           Company
         </option>
         <option
-          disabled={false}
+          disabled={true}
           value="Product"
         >
           Product
@@ -637,7 +633,7 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
           Week
         </option>
         <option
-          disabled={false}
+          disabled={true}
           value="Month"
         >
           Month
@@ -993,19 +989,17 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
         value="Company"
       >
         <option
-          disabled={false}
           value="Overview"
         >
           Overview
         </option>
         <option
-          disabled={false}
+          disabled={true}
           value="Company"
         >
           Company
         </option>
         <option
-          disabled={false}
           value="Product"
         >
           Product
@@ -1046,7 +1040,7 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
           Week
         </option>
         <option
-          disabled={false}
+          disabled={true}
           value="Month"
         >
           Month
@@ -1366,19 +1360,17 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
         value="Overview"
       >
         <option
-          disabled={false}
+          disabled={true}
           value="Overview"
         >
           Overview
         </option>
         <option
-          disabled={false}
           value="Company"
         >
           Company
         </option>
         <option
-          disabled={false}
           value="Product"
         >
           Product
@@ -1419,7 +1411,7 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
           Week
         </option>
         <option
-          disabled={false}
+          disabled={true}
           value="Month"
         >
           Month
@@ -1653,19 +1645,17 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
         value="Product"
       >
         <option
-          disabled={false}
           value="Overview"
         >
           Overview
         </option>
         <option
-          disabled={false}
           value="Company"
         >
           Company
         </option>
         <option
-          disabled={false}
+          disabled={true}
           value="Product"
         >
           Product
@@ -1706,7 +1696,7 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
           Week
         </option>
         <option
-          disabled={false}
+          disabled={true}
           value="Month"
         >
           Month
@@ -2062,19 +2052,17 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
         value="Overview"
       >
         <option
-          disabled={false}
+          disabled={true}
           value="Overview"
         >
           Overview
         </option>
         <option
-          disabled={false}
           value="Company"
         >
           Company
         </option>
         <option
-          disabled={false}
           value="Product"
         >
           Product
@@ -2115,7 +2103,7 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
           Week
         </option>
         <option
-          disabled={false}
+          disabled={true}
           value="Month"
         >
           Month
@@ -3325,19 +3313,17 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
         value="Overview"
       >
         <option
-          disabled={false}
+          disabled={true}
           value="Overview"
         >
           Overview
         </option>
         <option
-          disabled={false}
           value="Company"
         >
           Company
         </option>
         <option
-          disabled={false}
           value="Product"
         >
           Product
@@ -3378,7 +3364,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
           Week
         </option>
         <option
-          disabled={false}
+          disabled={true}
           value="Month"
         >
           Month
@@ -3612,19 +3598,17 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
         value="Overview"
       >
         <option
-          disabled={false}
+          disabled={true}
           value="Overview"
         >
           Overview
         </option>
         <option
-          disabled={false}
           value="Company"
         >
           Company
         </option>
         <option
-          disabled={false}
           value="Product"
         >
           Product
@@ -3665,7 +3649,7 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
           Week
         </option>
         <option
-          disabled={false}
+          disabled={true}
           value="Month"
         >
           Month

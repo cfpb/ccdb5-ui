@@ -43,7 +43,6 @@ export const Select = ({ id, handleChange, label, title, value, values }) => {
     }
   }, [values]);
 
-  console.log(values, value);
   return (
     <section className="cf-select" data-tour={idSelect}>
       <label className="u-visually-hidden" htmlFor={idSelect}>

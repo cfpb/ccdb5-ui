@@ -88,25 +88,52 @@ describe('Select', () => {
     expect(changeSpy).toHaveBeenCalledTimes(1);
   });
 
-  // it('renders array of objects without crashing', () => {
-  //   const options = [
-  //     { name: 'Uno', disabled: true },
-  //     { name: 'Dos', disabled: false },
-  //     { name: 'Tres', disabled: true },
-  //   ];
-  //
-  //   const target = renderer.create(
-  //     <Select
-  //       label="Select something"
-  //       title="Show sumthing"
-  //       values={options}
-  //       id="txt"
-  //       value="Dos"
-  //       handleChange={jest.fn()}
-  //     />
-  //   );
-  //
-  //   const tree = target.toJSON();
-  //   expect(tree).toMatchSnapshot();
-  // });
+  it('renders disabled and selected options', () => {
+    const changeSpy = jest.fn();
+    const options = [
+      { name: 'Uno', disabled: true },
+      { name: 'Dos', disabled: false },
+      { name: 'Tres', disabled: false },
+    ];
+
+    render(
+      <Select
+        label="Select something"
+        title="Show sumthing"
+        values={options}
+        id="txt"
+        value="Dos"
+        handleChange={changeSpy}
+      />
+    );
+
+    expect(screen.getByRole('option', { name: 'Uno' })).toBeDisabled();
+    expect(screen.getByRole('option', { name: 'Uno' }).selected).toBe(false);
+    const opts = screen.getAllByRole('option');
+    expect(opts.length).toBe(3);
+    expect(opts[0].value).toBe('Uno');
+    expect(opts[1].value).toBe('Dos');
+    expect(opts[2].value).toBe('Tres');
+
+    expect(screen.getByRole('option', { name: 'Dos' }).selected).toBe(true);
+
+    userEvent.selectOptions(
+      screen.getByRole('combobox'),
+      screen.getByRole('option', { name: 'Uno' })
+    );
+    expect(changeSpy).toHaveBeenCalledTimes(0);
+
+    // Currently selected option, do nothing
+    userEvent.selectOptions(
+      screen.getByRole('combobox'),
+      screen.getByRole('option', { name: 'Dos' })
+    );
+    expect(changeSpy).toHaveBeenCalledTimes(0);
+
+    userEvent.selectOptions(
+      screen.getByRole('combobox'),
+      screen.getByRole('option', { name: 'Tres' })
+    );
+    expect(changeSpy).toHaveBeenCalledTimes(1);
+  });
 });

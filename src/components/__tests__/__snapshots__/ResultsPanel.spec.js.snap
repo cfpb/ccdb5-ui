@@ -575,19 +575,17 @@ exports[`component:Results renders trends panel without crashing 1`] = `
           value="Overview"
         >
           <option
-            disabled={false}
+            disabled={true}
             value="Overview"
           >
             Overview
           </option>
           <option
-            disabled={false}
             value="Company"
           >
             Company
           </option>
           <option
-            disabled={false}
             value="Product"
           >
             Product
@@ -621,25 +619,25 @@ exports[`component:Results renders trends panel without crashing 1`] = `
             Day
           </option>
           <option
-            disabled={false}
+            disabled={true}
             value="Week"
           >
             Week
           </option>
           <option
-            disabled={false}
+            disabled={true}
             value="Month"
           >
             Month
           </option>
           <option
-            disabled={false}
+            disabled={true}
             value="Quarter"
           >
             Quarter
           </option>
           <option
-            disabled={false}
+            disabled={true}
             value="Year"
           >
             Year
