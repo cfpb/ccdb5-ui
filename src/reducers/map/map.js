@@ -1,11 +1,12 @@
 // reducer for the Map Tab
-import actions from '../actions';
-import { processAggregations } from './trends';
-import { processErrorMessage } from '../utils';
-import { TILE_MAP_STATES } from '../constants';
+import actions from '../../actions';
+import { processAggregations } from '../trends';
+import { processErrorMessage } from '../../utils';
+import { TILE_MAP_STATES } from '../../constants';
 
 export const defaultState = {
   activeCall: '',
+  error: false,
   isLoading: false,
   results: {
     product: [],

@@ -9,7 +9,9 @@ export const selectQueryDateReceivedMax = (state) =>
 export const selectQueryDateReceivedMin = (state) =>
   state.query.date_received_min;
 export const selectQueryDateRange = (state) => state.query.dateRange;
-
+export const selectQueryEnablePer1000 = (state) => state.query.enablePer1000;
+export const selectQueryMapWarningEnabled = (state) =>
+  state.query.mapWarningEnabled;
 export const selectQueryHasNarrative = (state) => state.query.has_narrative;
 export const selectQueryPage = (state) => state.query.page;
 export const selectQuerySearch = (state) => state.query.search;

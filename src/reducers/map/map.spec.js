@@ -1,4 +1,4 @@
-import target, { processStateAggregations } from '../map';
+import target, { processStateAggregations } from './map';
 import actions from '../../actions';
 import stateAggs from '../__fixtures__/stateAggs';
 
