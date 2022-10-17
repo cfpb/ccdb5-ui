@@ -5,7 +5,7 @@ import ErrorBlock from '../Warnings/Error';
 import FilterPanel from '../Filters/FilterPanel';
 import FilterPanelToggle from '../Filters/FilterPanelToggle';
 import Loading from '../Dialogs/Loading';
-import MapToolbar from './MapToolbar';
+import { MapToolbar } from './MapToolbar';
 import { mapWarningDismissed } from '../../actions/view';
 import { PerCapita } from '../RefineBar/PerCapita';
 import { processRows } from '../../utils/chart';
