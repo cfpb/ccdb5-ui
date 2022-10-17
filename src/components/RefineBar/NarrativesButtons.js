@@ -14,7 +14,7 @@ export const NarrativesButtons = () => {
       <p>Read</p>
       <button
         aria-label="Show only complaints with narratives"
-        id="refineAddNarrativesButton"
+        id="btn-add-narratives"
         className={`a-btn ${isChecked ? 'selected' : ''}`}
         disabled={isChecked}
         onClick={() => {
@@ -26,7 +26,7 @@ export const NarrativesButtons = () => {
 
       <button
         aria-label="Show all complaints"
-        id="refineRemoveNarrativesButton"
+        id="btn-remove-narratives"
         className={`a-btn ${isChecked ? '' : 'selected'}`}
         disabled={!isChecked}
         onClick={() => {

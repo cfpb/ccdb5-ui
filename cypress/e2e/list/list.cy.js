@@ -3,8 +3,8 @@ describe('List View', () => {
   const currentPage = '.m-pagination_label';
   const nextButton = '.m-pagination .m-pagination_btn-next';
   const prevButton = '.m-pagination .m-pagination_btn-prev';
-  const addNarrativesButton = '#refineAddNarrativesButton';
-  const removeNarrativesButton = '#refineRemoveNarrativesButton';
+  const addNarrativesButton = '#btn-add-narratives';
+  const removeNarrativesButton = '#btn-remove-narratives';
   const filterHasNarrative = '#filterHasNarrative';
 
   beforeEach(() => {
