@@ -1,155 +1,66 @@
-// It uses this name rather than 'State' to distinguish from the React state
-// Idea https://en.wikipedia.org/wiki/U.S._state
-import { coalesce, normalize } from '../../utils';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import { normalize } from '../../utils';
 import { addMultipleFilters } from '../../actions/filter';
 import CollapsibleFilter from './CollapsibleFilter';
-import { connect } from 'react-redux';
-import HighlightingOption from '../Typeahead/HighlightingOption';
-import PropTypes from 'prop-types';
-import React from 'react';
-import StickyOptions from './StickyOptions';
 import { THESE_UNITED_STATES } from '../../constants';
-import Typeahead from '../Typeahead';
+import { Typeahead } from '../Typeahead/Typeahead';
 
-const buildLabel = (x) => THESE_UNITED_STATES[x] + ' (' + x + ')';
-
-export class FederalState extends React.Component {
-  constructor(props) {
-    super(props);
-    this._onInputChange = this._onInputChange.bind(this);
-    this._onOptionSelected = this._onOptionSelected.bind(this);
-    this._onMissingItem = this._onMissingItem.bind(this);
-  }
-
-  render() {
-    const desc = 'The state in the mailing address provided by the consumer';
-
-    return (
-      <CollapsibleFilter
-        title="State"
-        desc={desc}
-        hasChildren={this.props.hasChildren}
-        className="aggregation state"
-      >
-        <Typeahead
-          ariaLabel="Start typing to begin listing US states"
-          htmlId="state-typeahead"
-          placeholder="Enter state name or abbreviation"
-          onInputChange={this._onInputChange}
-          onOptionSelected={this._onOptionSelected}
-          renderOption={this._renderOption}
-        />
-        <StickyOptions
-          fieldName="state"
-          onMissingItem={this._onMissingItem}
-          options={this.props.options}
-          selections={this.props.selections}
-        />
-      </CollapsibleFilter>
-    );
-  }
-
-  // --------------------------------------------------------------------------
-  // Typeahead Helpers
-
-  _onInputChange(value) {
-    // Normalize the input value
-    const normalized = normalize(value);
-    const allUpper = normalized.toUpperCase();
-
-    // Find the matches
-    const filtered = this.props.forTypeahead
-      .filter((x) => x.normalized.indexOf(normalized) !== -1)
-      .map((x) => ({
-        key: x.key,
-        label: x.label,
-        position: x.normalized.indexOf(normalized),
-        value,
-      }));
-
-    // Sort the matches so that:
-    /* eslint complexity: ["error", 5] */
-    filtered.sort((a, b) => {
-      // 1.) A matching state abbreviation appears first (OR > North Carolina)
-      const aMatched = a.key === allUpper;
-      const bMatched = b.key === allUpper;
-
-      if (aMatched && !bMatched) {
-        return -1;
-      }
-      if (!aMatched && bMatched) {
-        return 1;
-      }
-
-      // 2.) matches at the beginning of the string appear before later matches
-      return a.position - b.position;
-    });
-
-    return filtered;
-  }
-
-  _renderOption(obj) {
-    return {
-      value: obj.key,
-      component: <HighlightingOption {...obj} />,
-    };
-  }
-
-  _onOptionSelected(item) {
-    this.props.typeaheadSelect(item.key);
-  }
-
-  // --------------------------------------------------------------------------
-  // StickyOption Helpers
-
-  _onMissingItem(key) {
-    return {
-      key,
-      value: buildLabel(key),
-      // eslint-disable-next-line camelcase
-      doc_count: 0,
-    };
-  }
-}
-
-export const mapStateToProps = (state) => {
-  // See if there are an active Federal State filters
-  const selections = coalesce(state.query, 'state', []);
-  const options = coalesce(state.aggs, 'state', []).map((x) => ({
-    ...x,
-    value: buildLabel(x.key),
-  }));
-
-  // create an array optimized for typeahead
-  const forTypeahead = Object.keys(THESE_UNITED_STATES).map((x) => {
+export const FederalState = ({ hasChildren }) => {
+  const dispatch = useDispatch();
+  const buildLabel = (x) => THESE_UNITED_STATES[x] + ' (' + x + ')';
+  const starterOptions = Object.keys(THESE_UNITED_STATES).map((x) => {
     const label = buildLabel(x);
-
     return {
       key: x,
       label,
+      position: 0,
       normalized: normalize(label),
     };
   });
+  const [dropdownOptions, setDropdownOptions] = useState(starterOptions);
+  const desc = 'The state in the mailing address provided by the consumer';
 
-  return {
-    forTypeahead,
-    options,
-    selections,
+  const onInputChange = (value) => {
+    const n = normalize(value);
+    if (n === '') {
+      setDropdownOptions(starterOptions);
+      return;
+    }
+    const options = starterOptions.map((x) => ({
+      key: x.key,
+      label: x.label,
+      normalized: x.normalized,
+      position: x.normalized.indexOf(n),
+      value,
+    }));
+    setDropdownOptions(options);
   };
+
+  const onSelection = (item) => {
+    dispatch(addMultipleFilters('state', [item[0].key]));
+  };
+
+  return (
+    <CollapsibleFilter
+      title="State"
+      desc={desc}
+      hasChildren={hasChildren}
+      className="aggregation state"
+    >
+      <Typeahead
+        ariaLabel="Start typing to begin listing US states"
+        htmlId="state-typeahead"
+        handleChange={onSelection}
+        handleInputChange={onInputChange}
+        options={dropdownOptions}
+        placeholder="Enter state name or abbreviation"
+      />
+    </CollapsibleFilter>
+  );
 };
-
-export const mapDispatchToProps = (dispatch) => ({
-  typeaheadSelect: (value) => {
-    dispatch(addMultipleFilters('state', [value]));
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(FederalState);
 
 FederalState.propTypes = {
   hasChildren: PropTypes.bool,
-  options: PropTypes.array.isRequired,
-  selections: PropTypes.array.isRequired,
-  forTypeahead: PropTypes.array.isRequired,
-  typeaheadSelect: PropTypes.func.isRequired,
 };

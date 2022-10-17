@@ -61,7 +61,7 @@ export const nextStateFromOptions = (options, props) => {
 // ----------------------------------------------------------------------------
 // Class
 
-export default class Typeahead extends React.Component {
+export default class Typeahead2 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -385,7 +385,7 @@ export default class Typeahead extends React.Component {
   }
 }
 
-Typeahead.propTypes = {
+Typeahead2.propTypes = {
   ariaLabel: PropTypes.string.isRequired,
   className: PropTypes.string,
   debounceWait: PropTypes.number,
@@ -403,7 +403,7 @@ Typeahead.propTypes = {
   value: PropTypes.string,
 };
 
-Typeahead.defaultProps = {
+Typeahead2.defaultProps = {
   className: '',
   debounceWait: 0,
   maxVisible: 5,

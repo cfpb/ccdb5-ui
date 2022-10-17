@@ -3,7 +3,7 @@ import Company from './Company';
 import { CompanyReceivedFilter } from './CompanyReceivedFilter';
 import { connect } from 'react-redux';
 import { DateFilter } from './DateFilter';
-import FederalState from './FederalState';
+import { FederalState } from './FederalState';
 import { filterVisibilityToggled } from '../../actions/view';
 import HasNarrative from './HasNarrative';
 import iconMap from '../iconMap';
