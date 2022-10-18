@@ -53,9 +53,7 @@ export class LineChart extends React.Component {
 
   _updateInternalTooltip(dataPoint, topicColorMap, dataPointXPosition) {
     const { dateRange, interval } = this.props;
-    this.tip.title(
-      getTooltipTitle(dataPoint.date, interval, dateRange, false)
-    );
+    this.tip.title(getTooltipTitle(dataPoint.date, interval, dateRange, false));
     this.tip.update(dataPoint, topicColorMap, dataPointXPosition);
   }
 

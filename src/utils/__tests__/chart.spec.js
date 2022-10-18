@@ -355,11 +355,7 @@ describe('pruneIncompleteStackedAreaInterval', () => {
     ];
 
     const dateRange = { from: '01/01/2011', to: '12/31/2014' };
-    const res = sut.pruneIncompleteStackedAreaInterval(
-      data,
-      dateRange,
-      'Year'
-    );
+    const res = sut.pruneIncompleteStackedAreaInterval(data, dateRange, 'Year');
     expect(res).toEqual(data);
   });
 

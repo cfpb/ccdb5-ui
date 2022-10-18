@@ -10,10 +10,7 @@ export class FilterPanelToggle extends React.Component {
       <section className="filter-panel-toggle">
         <div className="m-btn-group">
           <p>&nbsp;</p>
-          <button
-            className="a-btn"
-            onClick={() => this.props.onFilterToggle()}
-          >
+          <button className="a-btn" onClick={() => this.props.onFilterToggle()}>
             {this.props.hasFilters ? 'Close Filters' : 'Filter results'}
           </button>
         </div>

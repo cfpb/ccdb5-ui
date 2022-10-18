@@ -585,9 +585,7 @@ describe('reducer:query', () => {
       });
 
       it('clears the default range if the dates are not 3 years apart', () => {
-        state.date_received_min = new Date(
-          dayjs(maxDate).subtract(2, 'years')
-        );
+        state.date_received_min = new Date(dayjs(maxDate).subtract(2, 'years'));
         expected.dateRange = '';
         expected.date_received_min = state.date_received_min;
 
@@ -1691,8 +1689,7 @@ describe('reducer:query', () => {
           tab: 'Trends',
           trendDepth: 5,
           trendsDateWarningEnabled: false,
-          search:
-            '?chartType=line&lens=Product&subLens=sub_product&tab=Trends',
+          search: '?chartType=line&lens=Product&subLens=sub_product&tab=Trends',
         });
       });
     });
@@ -1804,8 +1801,7 @@ describe('reducer:query', () => {
           tab: 'Trends',
           trendDepth: 5,
           trendsDateWarningEnabled: false,
-          search:
-            '?chartType=line&lens=Product&subLens=sub_product&tab=Trends',
+          search: '?chartType=line&lens=Product&subLens=sub_product&tab=Trends',
         });
       });
     });

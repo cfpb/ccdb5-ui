@@ -5,11 +5,7 @@
 import * as colors from '../constants/colors';
 import { clamp, coalesce, getSubKeyName, processErrorMessage } from '../utils';
 import { enforceValues, validateTrendsReducer } from '../utils/reducers';
-import {
-  getD3Names,
-  getTooltipTitle,
-  updateDateBuckets,
-} from '../utils/chart';
+import { getD3Names, getTooltipTitle, updateDateBuckets } from '../utils/chart';
 import actions from '../actions';
 import { isDateEqual } from '../utils/formatDate';
 import { MODE_TRENDS } from '../constants';
