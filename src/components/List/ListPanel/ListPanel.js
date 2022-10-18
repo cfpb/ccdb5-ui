@@ -43,7 +43,7 @@ export const ListPanel = () => {
   const hasMobileFilters = useMemo(() => width < 750, [width]);
 
   const onSize = (ev) => {
-    const iSize = parseInt(ev.target.value, 10);
+    const iSize = ev.target.value;
     sendAnalyticsEvent('Dropdown', iSize + ' results');
     dispatch(changeSize(iSize));
   };

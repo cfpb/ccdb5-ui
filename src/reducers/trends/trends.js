@@ -2,14 +2,23 @@
 /* eslint-disable camelcase */
 
 // reducer for the Map Tab
-import * as colors from '../constants/colors';
-import { clamp, coalesce, getSubKeyName, processErrorMessage } from '../utils';
-import { enforceValues, validateTrendsReducer } from '../utils/reducers';
-import { getD3Names, getTooltipTitle, updateDateBuckets } from '../utils/chart';
-import actions from '../actions';
-import { isDateEqual } from '../utils/formatDate';
-import { MODE_TRENDS } from '../constants';
-import { pruneOther } from '../utils/trends';
+import * as colors from '../../constants/colors';
+import {
+  clamp,
+  coalesce,
+  getSubKeyName,
+  processErrorMessage,
+} from '../../utils';
+import { enforceValues, validateTrendsReducer } from '../../utils/reducers';
+import {
+  getD3Names,
+  getTooltipTitle,
+  updateDateBuckets,
+} from '../../utils/chart';
+import actions from '../../actions';
+import { isDateEqual } from '../../utils/formatDate';
+import { MODE_TRENDS } from '../../constants';
+import { pruneOther } from '../../utils/trends';
 
 export const emptyResults = () => ({
   dateRangeArea: [],
@@ -39,7 +48,7 @@ export const getDefaultState = () =>
     { ...getResetState() }
   );
 
-export const defaultState = getDefaultState();
+export const defaultTrends = getDefaultState();
 
 // ----------------------------------------------------------------------------
 // Helpers
@@ -534,7 +543,7 @@ function removeFocus(state) {
  */
 function processParams(state, action) {
   const params = action.params;
-  const processed = Object.assign({}, defaultState);
+  const processed = Object.assign({}, defaultTrends);
 
   // Handle flag filters
   const filters = ['chartType', 'focus', 'lens', 'subLens'];
@@ -663,7 +672,7 @@ function handleSpecificAction(state, action) {
   return state;
 }
 
-export default (state = defaultState, action) => {
+export default (state = defaultTrends, action) => {
   const newState = handleSpecificAction(state, action);
   validateTrendsReducer(newState);
   return newState;

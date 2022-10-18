@@ -1,61 +1,43 @@
 import './ChartToggles.less';
 import { changeChartType } from '../../actions/trends';
-import { connect } from 'react-redux';
 import iconMap from '../iconMap';
-import PropTypes from 'prop-types';
 import React from 'react';
-import { sendAnalyticsEvent } from '../../utils';
+import { selectedClass, sendAnalyticsEvent } from '../../utils';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectTrendsChartType } from '../../reducers/trends/selectors';
 
-export class ChartToggles extends React.Component {
-  _toggleChartType(chartType) {
-    if (this.props.chartType !== chartType) {
-      this.props.toggleChartType(chartType);
-    }
-  }
+export const ChartToggles = () => {
+  const dispatch = useDispatch();
+  const chartType = useSelector(selectTrendsChartType);
 
-  _btnClassName(chartType) {
-    const classes = ['a-btn', 'toggle', chartType];
-    if (chartType === this.props.chartType) {
-      classes.push('selected');
-    }
-    return classes.join(' ');
-  }
-
-  render() {
-    return (
-      <section className="chart-toggles m-btn-group">
-        <p>Chart type</p>
-        <button
-          onClick={() => this._toggleChartType('line')}
-          className={this._btnClassName('line')}
-        >
-          {iconMap.getIcon('line-chart')}
-        </button>
-        <button
-          onClick={() => this._toggleChartType('area')}
-          className={this._btnClassName('area')}
-        >
-          {iconMap.getIcon('area-chart')}
-        </button>
-      </section>
-    );
-  }
-}
-
-export const mapStateToProps = (state) => ({
-  chartType: state.trends.chartType,
-});
-
-export const mapDispatchToProps = (dispatch) => ({
-  toggleChartType: (chartType) => {
+  const toggleChartType = (chartType) => {
     sendAnalyticsEvent('Button', 'Trends:' + chartType);
     dispatch(changeChartType(chartType));
-  },
-});
+  };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChartToggles);
-
-ChartToggles.propTypes = {
-  chartType: PropTypes.string.isRequired,
-  toggleChartType: PropTypes.func.isRequired,
+  return (
+    <section className="chart-toggles m-btn-group">
+      <p>Chart type</p>
+      <button
+        aria-label="Toggle line chart"
+        className={'a-btn' + selectedClass('line', chartType)}
+        disabled={chartType === 'line'}
+        onClick={() => {
+          toggleChartType('line');
+        }}
+      >
+        {iconMap.getIcon('line-chart')}
+      </button>
+      <button
+        aria-label="Toggle area chart"
+        className={'a-btn' + selectedClass('area', chartType)}
+        disabled={chartType === 'area'}
+        onClick={() => {
+          toggleChartType('area');
+        }}
+      >
+        {iconMap.getIcon('area-chart')}
+      </button>
+    </section>
+  );
 };

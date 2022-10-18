@@ -133,13 +133,17 @@ exports[`component:MapPanel renders Print without crashing 1`] = `
         Map shading
       </p>
       <button
-        className="a-btn toggle-button raw selected"
+        aria-label="Display map by complaints"
+        className="a-btn"
+        disabled={false}
         onClick={[Function]}
       >
         Complaints
       </button>
       <button
-        className="a-btn toggle-button capita deselected"
+        aria-label="Display map by complaints per 1,000 people"
+        className="a-btn "
+        disabled={false}
         onClick={[Function]}
       >
         Complaints per 1,000 
@@ -358,13 +362,17 @@ exports[`component:MapPanel renders warning without crashing 1`] = `
         Map shading
       </p>
       <button
-        className="a-btn toggle-button raw selected"
+        aria-label="Display map by complaints"
+        className="a-btn"
+        disabled={false}
         onClick={[Function]}
       >
         Complaints
       </button>
       <button
-        className="a-btn toggle-button capita a-btn__disabled"
+        aria-label="Display map by complaints per 1,000 people"
+        className="a-btn a-btn__disabled"
+        disabled={false}
         onClick={[Function]}
       >
         Complaints per 1,000 
@@ -546,13 +554,17 @@ exports[`component:MapPanel renders without crashing 1`] = `
         Map shading
       </p>
       <button
-        className="a-btn toggle-button raw selected"
+        aria-label="Display map by complaints"
+        className="a-btn"
+        disabled={false}
         onClick={[Function]}
       >
         Complaints
       </button>
       <button
-        className="a-btn toggle-button capita deselected"
+        aria-label="Display map by complaints per 1,000 people"
+        className="a-btn "
+        disabled={false}
         onClick={[Function]}
       >
         Complaints per 1,000 
