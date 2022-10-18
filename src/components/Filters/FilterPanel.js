@@ -7,7 +7,7 @@ import { FederalState } from './FederalState';
 import { filterVisibilityToggled } from '../../actions/view';
 import HasNarrative from './HasNarrative';
 import iconMap from '../iconMap';
-import Issue from './Issue';
+import { Issue } from './Issue';
 import Product from './Product';
 import PropTypes from 'prop-types';
 import React from 'react';
