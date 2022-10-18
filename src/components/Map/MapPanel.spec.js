@@ -54,7 +54,7 @@ describe('MapPanel', () => {
     expect(screen.getByRole('button', { name: 'Print' })).toBeInTheDocument();
   });
 
-  it('renders error and warning without crashing', () => {
+  it('renders warning without crashing', () => {
     const items = [
       { key: 'CA', doc_count: 62519 },
       { key: 'FL', doc_count: 47358 },
@@ -65,7 +65,7 @@ describe('MapPanel', () => {
     };
 
     const map = {
-      error: true,
+      error: false,
       results: {
         issue: [],
         product: [],
@@ -99,19 +99,67 @@ describe('MapPanel', () => {
       screen.getByText(/Showing 2 matches out of 100 total complaints/)
     ).toBeInTheDocument();
 
-    expect(
-      screen.getByText('There was a problem executing your search')
-    ).toBeInTheDocument();
-
-    expect(
-      screen.getByText(
-        /“Complaints per 1,000 population” is not available with your filter selections./
-      )
-    ).toBeInTheDocument();
+    expect(screen.getByRole('alert')).toHaveTextContent(
+      '“Complaints per 1,000 population” is not available with your filter selections.'
+    );
 
     fireEvent.click(screen.getByLabelText('Dismiss'));
-
     expect(dismissSpy).toHaveBeenCalledTimes(1);
+
+    expect(
+      screen.queryByRole('button', { name: 'Close filters' })
+    ).not.toBeInTheDocument();
+  });
+
+  it('renders error without crashing', () => {
+    const items = [
+      { key: 'CA', doc_count: 62519 },
+      { key: 'FL', doc_count: 47358 },
+    ];
+    const aggs = {
+      doc_count: 100,
+      total: items.length,
+    };
+
+    const map = {
+      error: true,
+      results: {
+        issue: [],
+        product: [],
+        state: [],
+      },
+    };
+
+    const query = {
+      date_received_min: new Date('7/10/2017'),
+      date_received_max: new Date('7/10/2020'),
+      enablePer1000: true,
+      // this filter is necessary for the reducer validation
+      has_narrative: true,
+      mapWarningEnabled: false,
+      issue: [],
+      product: [],
+      tab: MODE_MAP,
+    };
+
+    const view = {
+      expandedRows: [],
+      width: 1000,
+    };
+
+    const dismissSpy = jest
+      .spyOn(viewActions, 'mapWarningDismissed')
+      .mockReturnValue(jest.fn());
+
+    renderComponent(aggs, map, query, view);
+    expect(
+      screen.getByText(/Showing 2 matches out of 100 total complaints/)
+    ).toBeInTheDocument();
+
+    expect(screen.getByRole('alert')).toHaveTextContent(
+      'There was a problem executing your search'
+    );
+
     expect(
       screen.queryByRole('button', { name: 'Close filters' })
     ).not.toBeInTheDocument();
