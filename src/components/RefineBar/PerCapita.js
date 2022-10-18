@@ -26,9 +26,7 @@ export const PerCapita = () => {
 
   const _getPerCapButtonClass = () => {
     if (enablePer1000) {
-      return dataNormalization === GEO_NORM_PER1000
-        ? 'selected'
-        : 'deselected';
+      return dataNormalization === GEO_NORM_PER1000 ? 'selected' : 'deselected';
     }
     return 'a-btn__disabled';
   };

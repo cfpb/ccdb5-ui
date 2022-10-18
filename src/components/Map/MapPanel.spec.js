@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
-import ReduxMapPanel, { mapDispatchToProps } from '../Map/MapPanel';
+import ReduxMapPanel, { mapDispatchToProps } from './MapPanel';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import thunk from 'redux-thunk';

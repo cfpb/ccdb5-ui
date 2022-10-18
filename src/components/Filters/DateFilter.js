@@ -34,9 +34,7 @@ export const DateFilter = () => {
   const title = 'Date CFPB received the complaint';
   const dateFrom = useSelector(selectQueryDateReceivedMin);
   const dateThrough = useSelector(selectQueryDateReceivedMax);
-  const initialFromDate = dayjs(dateFrom).isValid()
-    ? formatDate(dateFrom)
-    : '';
+  const initialFromDate = dayjs(dateFrom).isValid() ? formatDate(dateFrom) : '';
   const initialThroughDate = dayjs(dateThrough).isValid()
     ? formatDate(dateThrough)
     : '';

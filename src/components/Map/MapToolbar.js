@@ -7,8 +7,8 @@ import { THESE_UNITED_STATES } from '../../constants';
 import { selectQueryStateAggs } from '../../reducers/query/selectors';
 
 export const MapToolbar = () => {
-  const abbrs = useSelector(selectQueryStateAggs);
   const dispatch = useDispatch();
+  const abbrs = useSelector(selectQueryStateAggs);
 
   const filteredStates = abbrs
     ? abbrs
@@ -25,7 +25,6 @@ export const MapToolbar = () => {
         {filteredStates && (
           <a
             aria-label="Clear all map filters"
-            className="clear"
             onClick={() => {
               dispatch(clearStateFilter());
             }}

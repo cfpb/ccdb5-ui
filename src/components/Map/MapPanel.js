@@ -35,8 +35,8 @@ import { selectAggsTotal } from '../../reducers/aggs/selectors';
 import { shortFormat } from '../../utils';
 
 const WARNING_MESSAGE =
-  '“Complaints per 1,000 population” is not available ' +
-  'with your filter selections.';
+  '“Complaints per 1,000 population” is not available with your filter ' +
+  'selections.';
 
 const MAP_ROWCHART_HELPERTEXT =
   'Product the consumer identified in the complaint. Click on a product ' +
@@ -104,7 +104,7 @@ export const MapPanel = () => {
         total={total}
       />
 
-      <Loading isLoading={isLoading} />
+      <Loading isLoading={!!isLoading} />
     </section>
   );
 };

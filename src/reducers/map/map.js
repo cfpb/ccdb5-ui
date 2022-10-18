@@ -49,6 +49,7 @@ export const processStateAggregations = (agg) => {
 export function handleTabChanged(state) {
   return {
     ...state,
+    error: false,
     results: {
       product: [],
       state: [],
@@ -67,6 +68,7 @@ export function statesCallInProcess(state, action) {
   return {
     ...state,
     activeCall: action.url,
+    error: false,
     isLoading: true,
   };
 }
@@ -90,6 +92,7 @@ export function processStatesResults(state, action) {
   return {
     ...state,
     activeCall: '',
+    error: false,
     isLoading: false,
     results,
   };
