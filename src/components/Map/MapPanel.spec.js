@@ -147,10 +147,6 @@ describe('MapPanel', () => {
       width: 1000,
     };
 
-    const dismissSpy = jest
-      .spyOn(viewActions, 'mapWarningDismissed')
-      .mockReturnValue(jest.fn());
-
     renderComponent(aggs, map, query, view);
     expect(
       screen.getByText(/Showing 2 matches out of 100 total complaints/)
