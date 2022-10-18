@@ -1,70 +1,119 @@
-import configureMockStore from 'redux-mock-store';
-import { MapPanel } from './MapPanel';
 import React from 'react';
-import renderer from 'react-test-renderer';
-import thunk from 'redux-thunk';
+import { defaultAggs } from '../../reducers/aggs/aggs';
+import { defaultMap } from '../../reducers/map/map';
+import { defaultQuery } from '../../reducers/query/query';
+import { defaultView } from '../../reducers/view/view';
+import { MapPanel } from './MapPanel';
+import { merge } from '../../testUtils/functionHelpers';
+import {
+  testRender as render,
+  fireEvent,
+  screen,
+} from '../../testUtils/test-utils';
 import { MODE_MAP } from '../../constants';
+import * as viewActions from '../../actions/view';
 
-describe('component:MapPanel', () => {
-  let target, tree;
-  const renderComponent = ({ enablePer1000, isPrintMode }) => {
-    const items = [
-      { key: 'CA', doc_count: 62519 },
-      { key: 'FL', doc_count: 47358 },
-    ];
+describe('MapPanel', () => {
+  const renderComponent = (
+    newAggsState,
+    newMapState,
+    newQueryState,
+    newViewState
+  ) => {
+    merge(newAggsState, defaultAggs);
+    merge(newMapState, defaultMap);
+    merge(newQueryState, defaultQuery);
+    merge(newViewState, defaultView);
 
-    const store = mockStore({
-      aggs: {
-        doc_count: 100,
-        total: items.length,
-      },
-      map: {
-        error: false,
-        results: {
-          issue: [],
-          product: [],
-          state: [],
-        },
-      },
-      query: {
-        date_received_min: new Date('7/10/2017'),
-        date_received_max: new Date('7/10/2020'),
-        enablePer1000,
-        mapWarningEnabled: true,
-        issue: [],
-        product: [],
-        tab: MODE_MAP,
-      },
-      view: {
-        isPrintMode,
-        width: 1000,
-      },
+    const data = {
+      aggs: newAggsState,
+      map: newMapState,
+      query: newQueryState,
+      view: newViewState,
+    };
+
+    render(<MapPanel />, {
+      preloadedState: data,
     });
   };
 
   it('renders without crashing', () => {
-    // target = setupSnapshot({ enablePer1000: true, isPrintMode: false });
-    // tree = target.toJSON();
-    // expect(tree).toMatchSnapshot();
+    renderComponent({}, {}, {}, {});
+    expect(screen.getByText(/Showing 0 total complaints/)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Trends' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'List' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Map' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Close filters' })
+    ).toBeInTheDocument();
+    expect(screen.getByText('Filter results by...')).toBeInTheDocument();
+
+    expect(
+      screen.getByRole('button', { name: 'Export data' })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Print' })).toBeInTheDocument();
   });
 
-  // it('renders Print without crashing', () => {
-  //   target = setupSnapshot({ enablePer1000: true, isPrintMode: true });
-  //   tree = target.toJSON();
-  //   expect(tree).toMatchSnapshot();
-  // });
-  //
-  // it('renders warning without crashing', () => {
-  //   target = setupSnapshot({ enablePer1000: false });
-  //   tree = target.toJSON();
-  //   expect(tree).toMatchSnapshot();
-  // });
+  it('renders error and warning without crashing', () => {
+    const items = [
+      { key: 'CA', doc_count: 62519 },
+      { key: 'FL', doc_count: 47358 },
+    ];
+    const aggs = {
+      doc_count: 100,
+      total: items.length,
+    };
 
-  // describe('mapDispatchToProps', () => {
-  //   it('hooks into dismissWarning', () => {
-  //     const dispatch = jest.fn();
-  //     mapDispatchToProps(dispatch).onDismissWarning();
-  //     expect(dispatch.mock.calls.length).toEqual(1);
-  //   });
-  // });
+    const map = {
+      error: true,
+      results: {
+        issue: [],
+        product: [],
+        state: [],
+      },
+    };
+
+    const query = {
+      date_received_min: new Date('7/10/2017'),
+      date_received_max: new Date('7/10/2020'),
+      enablePer1000: false,
+      // this filter is necessary for the reducer validation
+      has_narrative: true,
+      mapWarningEnabled: true,
+      issue: [],
+      product: [],
+      tab: MODE_MAP,
+    };
+
+    const view = {
+      expandedRows: [],
+      width: 1000,
+    };
+
+    const dismissSpy = jest
+      .spyOn(viewActions, 'mapWarningDismissed')
+      .mockReturnValue(jest.fn());
+
+    renderComponent(aggs, map, query, view);
+    expect(
+      screen.getByText(/Showing 2 matches out of 100 total complaints/)
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByText('There was a problem executing your search')
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByText(
+        /“Complaints per 1,000 population” is not available with your filter selections./
+      )
+    ).toBeInTheDocument();
+
+    fireEvent.click(screen.getByLabelText('Dismiss'));
+
+    expect(dismissSpy).toHaveBeenCalledTimes(1);
+    expect(
+      screen.queryByRole('button', { name: 'Close filters' })
+    ).not.toBeInTheDocument();
+  });
 });

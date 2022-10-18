@@ -400,6 +400,7 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
     >
       <div
         className="m-notification m-notification__visible m-notification__error"
+        role="alert"
       >
         <svg
           className="cf-icon-svg"
@@ -787,6 +788,7 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
     >
       <div
         className="m-notification m-notification__visible m-notification__error"
+        role="alert"
       >
         <svg
           className="cf-icon-svg"
@@ -1461,6 +1463,7 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
     >
       <div
         className="m-notification m-notification__visible m-notification__error"
+        role="alert"
       >
         <svg
           className="cf-icon-svg"
@@ -1848,6 +1851,7 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
     >
       <div
         className="m-notification m-notification__visible m-notification__error"
+        role="alert"
       >
         <svg
           className="cf-icon-svg"
@@ -2153,6 +2157,7 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
     >
       <div
         className="m-notification m-notification__visible m-notification__error"
+        role="alert"
       >
         <svg
           className="cf-icon-svg"
@@ -3416,6 +3421,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
     >
       <div
         className="m-notification m-notification__visible m-notification__error"
+        role="alert"
       >
         <svg
           className="cf-icon-svg"
@@ -3703,6 +3709,7 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
     >
       <div
         className="m-notification m-notification__visible m-notification__error"
+        role="alert"
       >
         <svg
           className="cf-icon-svg"

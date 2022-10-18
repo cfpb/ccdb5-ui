@@ -4,7 +4,7 @@ import { processAggregations } from '../trends';
 import { processErrorMessage } from '../../utils';
 import { TILE_MAP_STATES } from '../../constants';
 
-export const defaultState = {
+export const defaultMap = {
   activeCall: '',
   error: false,
   isLoading: false,
@@ -154,7 +154,7 @@ function handleSpecificAction(state, action) {
   return state;
 }
 
-export default (state = defaultState, action) => {
+export default (state = defaultMap, action) => {
   const newState = handleSpecificAction(state, action);
   return newState;
 };

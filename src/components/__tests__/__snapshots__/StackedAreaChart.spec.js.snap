@@ -3,6 +3,7 @@
 exports[`component: StackedAreaChart initial state renders without crashing 1`] = `
 <div
   className="m-notification m-notification__visible m-notification__error"
+  role="alert"
 >
   <svg
     className="cf-icon-svg"

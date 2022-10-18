@@ -16,22 +16,26 @@ import { Separator } from '../RefineBar/Separator';
 import { TabbedNavigation } from '../TabbedNavigation';
 import TileChartMap from '../Charts/TileChartMap';
 import Warning from '../Warnings/Warning';
+import { selectAggsTotal } from '../../reducers/aggs/selectors';
+
 import {
   selectMapActiveCall,
   selectMapError,
   selectMapResults,
 } from '../../reducers/map/selectors';
-import {
-  selectViewExpandedRows,
-  selectViewWidth,
-} from '../../reducers/view/selectors';
+
 import {
   selectQueryDateReceivedMax,
   selectQueryDateReceivedMin,
   selectQueryEnablePer1000,
   selectQueryMapWarningEnabled,
 } from '../../reducers/query/selectors';
-import { selectAggsTotal } from '../../reducers/aggs/selectors';
+
+import {
+  selectViewExpandedRows,
+  selectViewWidth,
+} from '../../reducers/view/selectors';
+
 import { shortFormat } from '../../utils';
 
 const WARNING_MESSAGE =
@@ -44,34 +48,26 @@ const MAP_ROWCHART_HELPERTEXT =
 
 export const MapPanel = () => {
   const dispatch = useDispatch();
+  const total = useSelector(selectAggsTotal);
+
   const isLoading = useSelector(selectMapActiveCall);
   const results = useSelector(selectMapResults);
   const hasError = useSelector(selectMapError);
-  const maxDate = useSelector(selectQueryDateReceivedMax);
-  const minDate = useSelector(selectQueryDateReceivedMin);
   const enablePer1000 = useSelector(selectQueryEnablePer1000);
   const mapWarningEnabled = useSelector(selectQueryMapWarningEnabled);
+  const maxDate = useSelector(selectQueryDateReceivedMax);
+  const minDate = useSelector(selectQueryDateReceivedMin);
   const expandedRows = useSelector(selectViewExpandedRows);
-  const total = useSelector(selectAggsTotal);
   const width = useSelector(selectViewWidth);
-
   const hasMobileFilters = width < 750;
-
+  const hasWarning = !enablePer1000 && mapWarningEnabled;
   const productData = useMemo(() => {
     return processRows(results.product, false, 'Product', expandedRows);
   }, [results, expandedRows]);
-  // eslint-disable-next-line complexity
-  const MAP_ROWCHART_TITLE = useMemo(() => {
-    return (
-      'Product by highest complaint volume' +
-      ' ' +
-      shortFormat(minDate) +
-      ' to ' +
-      shortFormat(maxDate)
-    );
-  }, [maxDate, minDate]);
 
-  const hasWarning = !enablePer1000 && mapWarningEnabled;
+  const MAP_ROWCHART_TITLE = `Product by highest complaint volume ${shortFormat(
+    minDate
+  )} to ${shortFormat(maxDate)}`;
 
   const onDismissWarning = () => {
     dispatch(mapWarningDismissed());
@@ -108,16 +104,3 @@ export const MapPanel = () => {
     </section>
   );
 };
-
-//
-// MapPanel.propTypes = {
-//   minDate: PropTypes.string.isRequired,
-//   maxDate: PropTypes.string.isRequired,
-//   hasError: PropTypes.bool,
-//   hasWarning: PropTypes.bool,
-//   onDismissWarning: PropTypes.func.isRequired,
-//   hasMobileFilters: PropTypes.bool.isRequired,
-//   productData: PropTypes.object.isRequired,
-//   total: PropTypes.number.isRequired,
-//   isLoading: PropTypes.bool,
-// };
