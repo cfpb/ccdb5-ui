@@ -37,7 +37,7 @@ describe('MapPanel', () => {
     });
   };
 
-  it('renders without crashing', () => {
+  it('renders empty state without crashing', () => {
     renderComponent({}, {}, {}, {});
     expect(screen.getByText(/Showing 0 total complaints/)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Trends' })).toBeInTheDocument();
@@ -54,7 +54,7 @@ describe('MapPanel', () => {
     expect(screen.getByRole('button', { name: 'Print' })).toBeInTheDocument();
   });
 
-  it('renders warning without crashing', () => {
+  it('renders warning', () => {
     const items = [
       { key: 'CA', doc_count: 62519 },
       { key: 'FL', doc_count: 47358 },
@@ -109,9 +109,12 @@ describe('MapPanel', () => {
     expect(
       screen.queryByRole('button', { name: 'Close filters' })
     ).not.toBeInTheDocument();
+
+    expect(document.getElementById('tile-chart-map')).toBeInTheDocument();
+    expect(document.getElementById('row-chart-product')).toBeInTheDocument();
   });
 
-  it('renders error without crashing', () => {
+  it('renders error', () => {
     const items = [
       { key: 'CA', doc_count: 62519 },
       { key: 'FL', doc_count: 47358 },
