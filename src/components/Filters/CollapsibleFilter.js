@@ -36,9 +36,7 @@ export default class CollapsibleFilter extends React.Component {
       composeClasses += ' ' + this.props.className;
     }
 
-    const buttonClasses = this.state.hasChildren
-      ? '__expanded'
-      : '__collapsed';
+    const buttonClasses = this.state.hasChildren ? '__expanded' : '__collapsed';
 
     const opened = (
       <>
