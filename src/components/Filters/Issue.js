@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { coalesce, sortSelThenCount } from '../../utils';
@@ -8,37 +8,36 @@ import { SLUG_SEPARATOR } from '../../constants';
 import { selectQueryState } from '../../reducers/query/selectors';
 import { Typeahead } from '../Typeahead/Typeahead';
 import { selectAggsState } from '../../reducers/aggs/selectors';
+import MoreOrLess from './MoreOrLess';
+import AggregationBranch from './AggregationBranch';
 
 export const Issue = ({ hasChildren }) => {
   const dispatch = useDispatch();
-  const [starterOptions, setStarterOptions] = useState([]);
   const [dropdownOptions, setDropdownOptions] = useState([]);
   const aggs = useSelector(selectAggsState);
   const query = useSelector(selectQueryState);
 
-  const currentFilters = coalesce(query, 'issue', []);
-
-  useEffect(() => {
-    const filters = currentFilters;
-    const selections = [];
-    // Reduce the issues to the parent keys (and dedup)
-    filters.forEach((x) => {
-      const idx = x.indexOf(SLUG_SEPARATOR);
-      const key = idx === -1 ? x : x.substr(0, idx);
-      if (selections.indexOf(key) === -1) {
-        selections.push(key);
-      }
-    });
-    // Make a cloned, sorted version of the aggs
-    const options = sortSelThenCount(coalesce(aggs, 'issue', []), selections);
-    // create an array optimized for typeahead
-    const optionKeys = options.map((x) => x.key);
-    setStarterOptions(optionKeys);
-  }, [aggs, query, currentFilters]);
-
   const desc =
     'The type of issue and sub-issue the consumer identified ' +
     'in the complaint';
+  const listComponentProps = {
+    fieldName: 'issue',
+  };
+
+  const filters = coalesce(query, 'issue', []);
+  const selections = [];
+  // Reduce the issues to the parent keys (and dedup)
+  filters.forEach((x) => {
+    const idx = x.indexOf(SLUG_SEPARATOR);
+    const key = idx === -1 ? x : x.substr(0, idx);
+    if (selections.indexOf(key) === -1) {
+      selections.push(key);
+    }
+  });
+  // Make a cloned, sorted version of the aggs
+  const options = sortSelThenCount(coalesce(aggs, 'issue', []), selections);
+  // create an array optimized for typeahead
+  const optionKeys = options.map((x) => x.key);
 
   const onInputChange = (value) => {
     const n = value.toLowerCase();
@@ -46,7 +45,7 @@ export const Issue = ({ hasChildren }) => {
       setDropdownOptions([]);
       return;
     }
-    const options = starterOptions.map((x) => ({
+    const options = optionKeys.map((x) => ({
       key: x,
       label: x,
       position: x.toLowerCase().indexOf(n),
@@ -56,12 +55,17 @@ export const Issue = ({ hasChildren }) => {
   };
 
   const onSelection = (items) => {
-    const replacementFilters = currentFilters
+    const replacementFilters = filters
       // remove child items
       .filter((o) => o.indexOf(items[0].key + SLUG_SEPARATOR) === -1)
       // add parent item
       .concat(items[0].key);
     dispatch(replaceFilters('issue', replacementFilters));
+  };
+
+  const onBucket = (bucket, props) => {
+    props.subitems = bucket['sub_issue.raw'].buckets;
+    return props;
   };
 
   return (
@@ -78,6 +82,12 @@ export const Issue = ({ hasChildren }) => {
         handleChange={onSelection}
         handleInputChange={onInputChange}
         options={dropdownOptions}
+      />
+      <MoreOrLess
+        listComponent={AggregationBranch}
+        listComponentProps={listComponentProps}
+        options={options}
+        perBucketProps={onBucket}
       />
     </CollapsibleFilter>
   );
