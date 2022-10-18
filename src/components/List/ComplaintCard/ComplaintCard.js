@@ -101,10 +101,7 @@ export const ComplaintCard = ({ row }) => {
               {_renderPossibleHighlight(row.sub_issue)}
             </div>
           ) : null}
-          {_renderNarrative(
-            row.complaint_what_happened || '',
-            complaintIdPath
-          )}
+          {_renderNarrative(row.complaint_what_happened || '', complaintIdPath)}
         </div>
       </div>
     </li>

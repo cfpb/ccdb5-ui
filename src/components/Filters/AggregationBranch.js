@@ -32,14 +32,8 @@ export class AggregationBranch extends React.Component {
   }
 
   _decideClickAction() {
-    const {
-      activeChildren,
-      item,
-      subitems,
-      filters,
-      fieldName,
-      checkedState,
-    } = this.props;
+    const { activeChildren, item, subitems, filters, fieldName, checkedState } =
+      this.props;
 
     const values = getAllFilters(item.key, subitems);
     // Add the active filters (that might be hidden)
@@ -149,9 +143,7 @@ export const mapStateToProps = (state, ownProps) => {
   const hasKey = candidates.filter((x) => x.indexOf(ownProps.item.key) === 0);
 
   // Does the key contain the separator?
-  const activeChildren = hasKey.filter(
-    (x) => x.indexOf(SLUG_SEPARATOR) !== -1
-  );
+  const activeChildren = hasKey.filter((x) => x.indexOf(SLUG_SEPARATOR) !== -1);
   const activeParent = hasKey.filter((x) => x === ownProps.item.key);
 
   let checkedState = UNCHECKED;

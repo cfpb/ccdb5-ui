@@ -24,9 +24,7 @@ export const CompanyReceivedFilter = () => {
   const dateFrom = useSelector(selectQueryCompanyReceivedMin);
   const dateThrough = useSelector(selectQueryCompanyReceivedMax);
 
-  const initialFromDate = dayjs(dateFrom).isValid()
-    ? formatDate(dateFrom)
-    : '';
+  const initialFromDate = dayjs(dateFrom).isValid() ? formatDate(dateFrom) : '';
   const initialThroughDate = dayjs(dateThrough).isValid()
     ? formatDate(dateThrough)
     : '';

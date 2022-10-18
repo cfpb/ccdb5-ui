@@ -31,8 +31,7 @@ import { trendsDateWarningDismissed } from '../../actions/view';
 import Warning from '../Warnings/Warning';
 
 const WARNING_MESSAGE =
-  '“Day” interval is disabled when the date range is' +
-  ' longer than one year';
+  '“Day” interval is disabled when the date range is' + ' longer than one year';
 
 const subLensMap = {
   sub_product: 'Sub-products',
@@ -207,8 +206,8 @@ export class TrendsPanel extends React.Component {
             <section className="company-search">
               <p>
                 Choose a company to start your visualization using the
-                type-ahead menu below. You can add more than one company to
-                your view
+                type-ahead menu below. You can add more than one company to your
+                view
               </p>
               <CompanyTypeahead id="modal-search" />
             </section>
@@ -223,8 +222,8 @@ export class TrendsPanel extends React.Component {
               <h2 className="area-chart-title">{this._areaChartTitle()}</h2>
               <p className="chart-helper-text">
                 A time series graph of complaints for the selected date range.
-                Hover on the chart to see the count for each date interval.
-                Your filter selections will update what you see on the graph.
+                Hover on the chart to see the count for each date interval. Your
+                filter selections will update what you see on the graph.
               </p>
             </section>
           </div>

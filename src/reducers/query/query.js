@@ -643,9 +643,7 @@ function removeMultipleFilters(state, action) {
   const newState = { ...state };
   const a = newState[action.filterName];
   // remove the focus if it exists in one of the filter values we are removing
-  newState.focus = action.values.includes(state.focus)
-    ? ''
-    : state.focus || '';
+  newState.focus = action.values.includes(state.focus) ? '' : state.focus || '';
 
   if (a) {
     action.values.forEach((x) => {

@@ -80,10 +80,7 @@ export const validateTrendsReducer = (state) => {
     Product: ['sub_product', 'issue'],
   };
 
-  if (
-    validLens[state.lens] &&
-    !validLens[state.lens].includes(state.subLens)
-  ) {
+  if (validLens[state.lens] && !validLens[state.lens].includes(state.subLens)) {
     state.subLens = getSubLens(state.lens);
   }
 
