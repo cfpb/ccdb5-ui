@@ -53,7 +53,7 @@
     "@reduxjs/toolkit": "^1.8.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "12.1.5",
-    "@testing-library/user-event": "12.1.5",
+    "@testing-library/user-event": "^14.4.3",
     "babel-loader": "^8.2.5",
     "britecharts": "git+https://github.com/cfpb/britecharts.git#v2.4.2",
     "coveralls": "^3.0.9",

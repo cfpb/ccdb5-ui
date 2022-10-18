@@ -3,13 +3,15 @@ import React from 'react';
 import { Select } from './Select';
 import { testRender as render, screen } from '../../testUtils/test-utils';
 import { sizes } from '../../constants';
-
 import userEvent from '@testing-library/user-event';
 
 describe('Select', () => {
-  it('renders array values without crashing', () => {
+  it('renders array values without crashing', async () => {
     const options = ['Uno', 'Dos', 'Tres'];
     const changeSpy = jest.fn();
+    // fix for setup here
+    // https://github.com/testing-library/user-event/issues/833#issuecomment-1013797822
+    const user = userEvent.setup({ delay: null });
     render(
       <Select
         label="Select something"
@@ -28,21 +30,18 @@ describe('Select', () => {
     expect(opts[0].value).toBe('Uno');
     expect(opts[1].value).toBe('Dos');
     expect(opts[2].value).toBe('Tres');
-    userEvent.selectOptions(
-      screen.getByRole('combobox'),
-      screen.getByRole('option', { name: 'Dos' })
-    );
+
+    await user.selectOptions(screen.getByRole('combobox'), ['Dos']);
     expect(changeSpy).toHaveBeenCalledTimes(0);
 
-    userEvent.selectOptions(
-      screen.getByRole('combobox'),
-      screen.getByRole('option', { name: 'Tres' })
-    );
+    await user.selectOptions(screen.getByRole('combobox'), ['Tres']);
     expect(changeSpy).toHaveBeenCalledTimes(1);
   });
   //
-  it('renders object values without crashing', () => {
+  it('renders object values without crashing', async () => {
     const changeSpy = jest.fn();
+    const user = userEvent.setup({ delay: null });
+
     render(
       <Select
         label="Select size"
@@ -63,21 +62,17 @@ describe('Select', () => {
     expect(opts[2].value).toBe('50');
     expect(opts[3].value).toBe('100');
 
-    userEvent.selectOptions(
-      screen.getByRole('combobox'),
-      screen.getByRole('option', { name: '10 results' })
-    );
+    await user.selectOptions(screen.getByRole('combobox'), ['10 results']);
     expect(changeSpy).toHaveBeenCalledTimes(0);
 
-    userEvent.selectOptions(
-      screen.getByRole('combobox'),
-      screen.getByRole('option', { name: '100 results' })
-    );
+    await user.selectOptions(screen.getByRole('combobox'), ['100 results']);
     expect(changeSpy).toHaveBeenCalledTimes(1);
   });
 
-  it('renders disabled and selected options', () => {
+  it('renders disabled and selected options', async () => {
     const changeSpy = jest.fn();
+    const user = userEvent.setup({ delay: null });
+
     const options = [
       { name: 'Uno', disabled: true },
       { name: 'Dos', disabled: false },
@@ -105,23 +100,14 @@ describe('Select', () => {
 
     expect(screen.getByRole('option', { name: 'Dos' }).selected).toBe(true);
 
-    userEvent.selectOptions(
-      screen.getByRole('combobox'),
-      screen.getByRole('option', { name: 'Uno' })
-    );
+    await user.selectOptions(screen.getByRole('combobox'), ['Uno']);
     expect(changeSpy).toHaveBeenCalledTimes(0);
 
     // Currently selected option, do nothing
-    userEvent.selectOptions(
-      screen.getByRole('combobox'),
-      screen.getByRole('option', { name: 'Dos' })
-    );
+    await user.selectOptions(screen.getByRole('combobox'), ['Dos']);
     expect(changeSpy).toHaveBeenCalledTimes(0);
 
-    userEvent.selectOptions(
-      screen.getByRole('combobox'),
-      screen.getByRole('option', { name: 'Tres' })
-    );
+    await user.selectOptions(screen.getByRole('combobox'), ['Tres']);
     expect(changeSpy).toHaveBeenCalledTimes(1);
   });
 });
