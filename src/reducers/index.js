@@ -5,7 +5,7 @@ import map from './map/map';
 import modal from './modal';
 import query from './query/query';
 import results from './results/results';
-import trends from './trends';
+import trends from './trends/trends';
 import view from './view/view';
 
 export default combineReducers({

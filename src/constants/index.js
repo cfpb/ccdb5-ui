@@ -77,12 +77,14 @@ export const filterPatch = ['issue', 'product'];
 
 export const lenses = ['Overview', 'Company', 'Product'];
 
-export const sizes = {
-  10: '10 results',
-  25: '25 results',
-  50: '50 results',
-  100: '100 results',
-};
+// note the keys need to remain strings here for the select box options
+// we're declaring this so eslint autofix doesn't rename the props without
+// quotes
+export const sizes = {};
+sizes['10'] = '10 results';
+sizes['25'] = '25 results';
+sizes['50'] = '50 results';
+sizes['100'] = '100 results';
 
 /* eslint-disable camelcase */
 

@@ -142,19 +142,17 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
         value="Product"
       >
         <option
-          disabled={false}
           value="Overview"
         >
           Overview
         </option>
         <option
-          disabled={false}
           value="Company"
         >
           Company
         </option>
         <option
-          disabled={false}
+          disabled={true}
           value="Product"
         >
           Product
@@ -195,7 +193,7 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
           Week
         </option>
         <option
-          disabled={false}
+          disabled={true}
           value="Month"
         >
           Month
@@ -224,7 +222,9 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
         Chart type
       </p>
       <button
-        className="a-btn toggle line selected"
+        aria-label="Toggle line chart"
+        className="a-btn selected"
+        disabled={true}
         onClick={[Function]}
       >
         <svg
@@ -287,7 +287,9 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
         </svg>
       </button>
       <button
-        className="a-btn toggle area"
+        aria-label="Toggle area chart"
+        className="a-btn"
+        disabled={false}
         onClick={[Function]}
       >
         <svg
@@ -581,19 +583,17 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
         value="Product"
       >
         <option
-          disabled={false}
           value="Overview"
         >
           Overview
         </option>
         <option
-          disabled={false}
           value="Company"
         >
           Company
         </option>
         <option
-          disabled={false}
+          disabled={true}
           value="Product"
         >
           Product
@@ -634,7 +634,7 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
           Week
         </option>
         <option
-          disabled={false}
+          disabled={true}
           value="Month"
         >
           Month
@@ -663,7 +663,9 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
         Chart type
       </p>
       <button
-        className="a-btn toggle line"
+        aria-label="Toggle line chart"
+        className="a-btn"
+        disabled={false}
         onClick={[Function]}
       >
         <svg
@@ -726,7 +728,9 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
         </svg>
       </button>
       <button
-        className="a-btn toggle area selected"
+        aria-label="Toggle area chart"
+        className="a-btn selected"
+        disabled={true}
         onClick={[Function]}
       >
         <svg
@@ -987,19 +991,17 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
         value="Company"
       >
         <option
-          disabled={false}
           value="Overview"
         >
           Overview
         </option>
         <option
-          disabled={false}
+          disabled={true}
           value="Company"
         >
           Company
         </option>
         <option
-          disabled={false}
           value="Product"
         >
           Product
@@ -1040,7 +1042,7 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
           Week
         </option>
         <option
-          disabled={false}
+          disabled={true}
           value="Month"
         >
           Month
@@ -1069,7 +1071,9 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
         Chart type
       </p>
       <button
-        className="a-btn toggle line selected"
+        aria-label="Toggle line chart"
+        className="a-btn selected"
+        disabled={true}
         onClick={[Function]}
       >
         <svg
@@ -1132,7 +1136,9 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
         </svg>
       </button>
       <button
-        className="a-btn toggle area"
+        aria-label="Toggle area chart"
+        className="a-btn"
+        disabled={false}
         onClick={[Function]}
       >
         <svg
@@ -1356,19 +1362,17 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
         value="Overview"
       >
         <option
-          disabled={false}
+          disabled={true}
           value="Overview"
         >
           Overview
         </option>
         <option
-          disabled={false}
           value="Company"
         >
           Company
         </option>
         <option
-          disabled={false}
           value="Product"
         >
           Product
@@ -1409,7 +1413,7 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
           Week
         </option>
         <option
-          disabled={false}
+          disabled={true}
           value="Month"
         >
           Month
@@ -1644,19 +1648,17 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
         value="Product"
       >
         <option
-          disabled={false}
           value="Overview"
         >
           Overview
         </option>
         <option
-          disabled={false}
           value="Company"
         >
           Company
         </option>
         <option
-          disabled={false}
+          disabled={true}
           value="Product"
         >
           Product
@@ -1697,7 +1699,7 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
           Week
         </option>
         <option
-          disabled={false}
+          disabled={true}
           value="Month"
         >
           Month
@@ -1726,7 +1728,9 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
         Chart type
       </p>
       <button
-        className="a-btn toggle line selected"
+        aria-label="Toggle line chart"
+        className="a-btn selected"
+        disabled={true}
         onClick={[Function]}
       >
         <svg
@@ -1789,7 +1793,9 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
         </svg>
       </button>
       <button
-        className="a-btn toggle area"
+        aria-label="Toggle area chart"
+        className="a-btn"
+        disabled={false}
         onClick={[Function]}
       >
         <svg
@@ -2050,19 +2056,17 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
         value="Overview"
       >
         <option
-          disabled={false}
+          disabled={true}
           value="Overview"
         >
           Overview
         </option>
         <option
-          disabled={false}
           value="Company"
         >
           Company
         </option>
         <option
-          disabled={false}
           value="Product"
         >
           Product
@@ -2103,7 +2107,7 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
           Week
         </option>
         <option
-          disabled={false}
+          disabled={true}
           value="Month"
         >
           Month
@@ -3314,19 +3318,17 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
         value="Overview"
       >
         <option
-          disabled={false}
+          disabled={true}
           value="Overview"
         >
           Overview
         </option>
         <option
-          disabled={false}
           value="Company"
         >
           Company
         </option>
         <option
-          disabled={false}
           value="Product"
         >
           Product
@@ -3367,7 +3369,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
           Week
         </option>
         <option
-          disabled={false}
+          disabled={true}
           value="Month"
         >
           Month
@@ -3602,19 +3604,17 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
         value="Overview"
       >
         <option
-          disabled={false}
+          disabled={true}
           value="Overview"
         >
           Overview
         </option>
         <option
-          disabled={false}
           value="Company"
         >
           Company
         </option>
         <option
-          disabled={false}
           value="Product"
         >
           Product
@@ -3655,7 +3655,7 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
           Week
         </option>
         <option
-          disabled={false}
+          disabled={true}
           value="Month"
         >
           Month

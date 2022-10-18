@@ -1,6 +1,7 @@
 // reducer for the Map Tab
 import actions from '../../actions';
-import { processAggregations } from '../trends';
+
+import { processAggregations } from '../trends/trends';
 import { processErrorMessage } from '../../utils';
 import { TILE_MAP_STATES } from '../../constants';
 
