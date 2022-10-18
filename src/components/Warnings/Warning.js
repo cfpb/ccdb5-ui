@@ -5,6 +5,7 @@ import React from 'react';
 
 export const Warning = ({ text, closeFn }) => (
   <div
+    role="alert"
     className="warning
                m-notification
                m-notification__visible
