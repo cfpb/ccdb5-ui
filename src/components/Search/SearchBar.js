@@ -12,6 +12,7 @@ import {
 } from '../../reducers/query/selectors';
 import { selectViewHasAdvancedSearchTips } from '../../reducers/view/selectors';
 import { AsyncTypeahead } from '../Typeahead/AsyncTypeahead';
+import { Input } from '../Typeahead/Input';
 import { handleFetchSearch } from '../Typeahead/utils';
 
 const searchFields = {
@@ -54,20 +55,10 @@ export const SearchBar = ({ debounceWait }) => {
     onSearchTipToggle(hasAdvancedSearchTips);
   };
 
-  const onInputChange = (value) => {
+  const onSearchChange = (value) => {
     setInputValue(value);
-    if (searchField === 'company') {
-      const uriCompany = `${API_PLACEHOLDER}_suggest_company/?text=${value}`;
-      handleFetchSearch(value, setDropdownOptions, uriCompany);
-    }
-
-    const emptyPromise = Promise.resolve({
-      then: function () {
-        return;
-      },
-    });
-
-    return emptyPromise.then(() => []);
+    const uriCompany = `${API_PLACEHOLDER}_suggest_company/?text=${value}`;
+    handleFetchSearch(value, setDropdownOptions, uriCompany);
   };
 
   const onSelection = (value) => {
@@ -97,25 +88,28 @@ export const SearchBar = ({ debounceWait }) => {
               </select>
             </div>
             <div className="flex-all typeahead-portal">
-              <AsyncTypeahead
-                ariaLabel="Enter the term you want to search for"
-                htmlId="searchText"
-                defaultValue={searchText}
-                delayWait={debounceWait}
-                handleChange={onSelection}
-                handleSearch={onInputChange}
-                options={dropdownOptions}
-                placeholder="Enter your search term(s)"
-              />
+              {searchField === 'company' ? (
+                <AsyncTypeahead
+                  ariaLabel="Enter the term you want to search for"
+                  htmlId="searchText"
+                  defaultValue={searchText}
+                  delayWait={debounceWait}
+                  handleChange={onSelection}
+                  handleSearch={onSearchChange}
+                  options={dropdownOptions}
+                  placeholder="Enter your search term(s)"
+                />
+              ) : (
+                <Input
+                  ariaLabel="Enter the term you want to search for"
+                  htmlId="searchText"
+                  handleChange={(event) => setInputValue(event.target.value)}
+                  placeholder="Enter your search term(s)"
+                  value={inputValue}
+                />
+              )}
             </div>
-
-            <button
-              type="submit"
-              className="a-btn flex-fixed"
-              // ref={(elem) => {
-              //   this.submitButton = elem;
-              // }}
-            >
+            <button type="submit" className="a-btn flex-fixed">
               Search
             </button>
 
