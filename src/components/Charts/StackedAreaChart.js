@@ -50,7 +50,7 @@ export class StackedAreaChart extends React.Component {
   _chartWidth(chartID) {
     const { isPrintMode } = this.props;
     if (isPrintMode) {
-      return 540;
+      return 500;
     }
     const container = d3.select(chartID);
     return container.node().getBoundingClientRect().width;

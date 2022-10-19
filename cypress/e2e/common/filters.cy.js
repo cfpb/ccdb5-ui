@@ -69,11 +69,12 @@ describe('Filter Panel', () => {
 
       cy.get('button.map').click();
       cy.wait('@getGeo');
-
+      // TODO: This seemed to break for no reason. We may be able to remove this
+      // after fully converting to functional and react 18
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(500);
       const maxDate = dayjs(new Date()).format('YYYY-MM-DD');
-      let minDate = dayjs(new Date())
-        .subtract(3, 'years')
-        .format('YYYY-MM-DD');
+      let minDate = dayjs(new Date()).subtract(3, 'years').format('YYYY-MM-DD');
       cy.get('.date-ranges .a-btn.range-3y').contains('3y').click();
       cy.url().should(
         'include',
@@ -109,6 +110,9 @@ describe('Filter Panel', () => {
 
       cy.log('open it again');
       cy.get('.timely > .o-expandable_target').click();
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(500);
+
       cy.get(
         '.timely > .o-expandable_content > ul > :nth-child(1) > .a-label'
       ).should('be.visible');

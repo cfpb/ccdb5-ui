@@ -11,6 +11,7 @@ import {
   selectAggsTotal,
 } from '../../reducers/aggs/selectors';
 import { selectQueryTab } from '../../reducers/query/selectors';
+import { printModeOn } from '../../actions/view';
 
 export const ActionBar = () => {
   const docCount = useSelector(selectAggsDocCount);
@@ -20,9 +21,7 @@ export const ActionBar = () => {
 
   const showPrintView = (tab) => {
     sendAnalyticsEvent('Print', 'tab:' + tab);
-    const printUrl =
-      window.location.href + '&isPrintMode=true&isFromExternal=true';
-    window.location.assign(printUrl);
+    dispatch(printModeOn());
   };
   return (
     <div>

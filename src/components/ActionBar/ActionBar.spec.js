@@ -9,6 +9,7 @@ import {
   screen,
 } from '../../testUtils/test-utils';
 import * as dataExportActions from '../../actions/dataExport';
+import * as viewActions from '../../actions/view';
 import * as utils from '../../utils';
 
 describe('ActionBar', () => {
@@ -27,19 +28,8 @@ describe('ActionBar', () => {
   };
 
   let gaSpy;
-  const { location } = window;
   beforeEach(() => {
     gaSpy = jest.spyOn(utils, 'sendAnalyticsEvent');
-    delete window.location;
-    // provide an empty implementation for window.assign
-    window.location = {
-      assign: jest.fn(),
-      href: 'http://ccdb-website.gov',
-    };
-  });
-
-  afterEach(() => {
-    window.location = location;
   });
 
   test('rendering', () => {
@@ -51,6 +41,10 @@ describe('ActionBar', () => {
     const query = {
       tab: 'Map',
     };
+
+    const printModeOnSpy = jest
+      .spyOn(viewActions, 'printModeOn')
+      .mockImplementation(() => jest.fn());
 
     const dataExportSpy = jest
       .spyOn(dataExportActions, 'showExportDialog')
@@ -68,10 +62,7 @@ describe('ActionBar', () => {
     const buttonPrint = screen.getByRole('button', { name: 'Print' });
     expect(buttonPrint).toBeInTheDocument();
     fireEvent.click(buttonPrint);
-
-    expect(window.location.assign).toHaveBeenCalledWith(
-      'http://ccdb-website.gov&isPrintMode=true&isFromExternal=true'
-    );
     expect(gaSpy).toHaveBeenCalledWith('Print', 'tab:Map');
+    expect(printModeOnSpy).toHaveBeenCalledTimes(1);
   });
 });

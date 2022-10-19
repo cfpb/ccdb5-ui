@@ -1,25 +1,50 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Hero } from './Hero/Hero';
 import { IntlProvider } from 'react-intl';
-import React from 'react';
+import React, { useEffect } from 'react';
 import RefinePanel from '../RefinePanel';
-import ResultsPanel from '../ResultsPanel';
+import { ResultsPanel } from '../ResultsPanel';
 import RootModal from '../Dialogs/RootModal';
 import SearchPanel from './SearchPanel';
 import { selectViewIsPrintMode } from '../../reducers/view/selectors';
 import { Tour } from '../Tour/Tour';
-import WindowSize from '../WindowSize';
 import { useUpdateLocation } from '../../hooks/useUpdateLocation';
+import { useWindowSize } from '../../hooks/useWindowSize';
+import { useEvent } from '../../hooks/useEvent';
+import { printModeOff, printModeOn } from '../../actions/view';
 
 export const SearchComponents = () => {
   useUpdateLocation();
+  useWindowSize();
+
   const isPrintMode = useSelector(selectViewIsPrintMode);
-  const printClass = isPrintMode ? 'print' : '';
+  const dispatch = useDispatch();
+
+  useEvent('afterprint', () => {
+    if (isPrintMode) {
+      dispatch(printModeOff());
+    }
+  });
+  useEvent('beforeprint', () => {
+    if (!isPrintMode) {
+      dispatch(printModeOn());
+    }
+  });
+
+  useEffect(() => {
+    if (isPrintMode) {
+      setTimeout(() => {
+        window.print();
+      }, 1000);
+    }
+  }, [isPrintMode]);
 
   return (
     <IntlProvider locale="en">
-      <main className={'content content__1-3 ' + printClass} role="main">
-        <WindowSize />
+      <main
+        className={`content content__1-3 ${isPrintMode ? 'print' : ''}`}
+        role="main"
+      >
         <Hero />
         <div className="content_wrapper">
           <SearchPanel />
