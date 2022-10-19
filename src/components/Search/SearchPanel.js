@@ -4,7 +4,7 @@ import { FormattedDate } from 'react-intl';
 import { PillPanel } from './PillPanel';
 import PropTypes from 'prop-types';
 import React from 'react';
-import SearchBar from './SearchBar';
+import { SearchBar } from './SearchBar';
 
 export class SearchPanel extends React.Component {
   render() {
