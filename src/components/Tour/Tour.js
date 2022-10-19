@@ -1,9 +1,12 @@
 import './Tour.less';
 import * as d3 from 'd3';
-import React, { useMemo, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectQueryTab } from '../../reducers/query/selectors';
-import { selectViewShowTour } from '../../reducers/view/selectors';
+import {
+  selectViewIsPrintMode,
+  selectViewShowTour,
+} from '../../reducers/view/selectors';
 import { Steps } from 'intro.js-react';
 import { TOUR_STEPS } from './constants/tourStepsConstants';
 import { TourButton } from './TourButton';
@@ -13,7 +16,8 @@ export const Tour = () => {
   const dispatch = useDispatch();
   const showTour = useSelector(selectViewShowTour);
   const tab = useSelector(selectQueryTab);
-  const steps = useMemo(() => TOUR_STEPS[tab], [TOUR_STEPS, tab]);
+  const isPrintMode = useSelector(selectViewIsPrintMode);
+  const steps = TOUR_STEPS[tab];
   const stepRef = useRef();
 
   // INTRODUCTION / TUTORIAL OPTIONS:
@@ -79,7 +83,7 @@ export const Tour = () => {
     return true;
   }
 
-  return (
+  return isPrintMode ? null : (
     // eslint-disable-next-line react/react-in-jsx-scope
     <>
       <TourButton />

@@ -1,14 +1,8 @@
 /* eslint-disable max-len, no-inline-comments */
-import {
-  MODE_DOCUMENT,
-  MODE_LIST,
-  MODE_MAP,
-  MODE_TRENDS,
-} from '../../../constants';
+import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../../../constants';
 
 // eslint-disable-next-line sort-imports
 import {
-  DOCUMENT_STEP_SELECTORS as DOCUMENT,
   GEO_STEP_SELECTORS as GEO,
   LIST_COMPLAINTS_SELECTORS as LIST,
   TRENDS_SELECTORS as TRENDS,
@@ -45,26 +39,6 @@ Object.entries(TRENDS)
   });
 
 export const TOUR_STEPS = {
-  [MODE_DOCUMENT]: [
-    {
-      element: DOCUMENT.STEP_1,
-      intro:
-        'Welcome to the Complaint Explorer! You can view a complaint in more detail on this page',
-    },
-    {
-      element: DOCUMENT.STEP_2,
-      intro: 'Click here to go to the next complaint in your search results',
-    },
-    {
-      element: DOCUMENT.STEP_3,
-      intro:
-        'If you need to export a results set, click here. Remember exports of complaint data with PII should be stored securely on your hard drive and only shared with those who have the proper permissions.',
-    },
-    {
-      element: DOCUMENT.STEP_4,
-      intro: 'This link will take you back to the search results',
-    },
-  ],
   [MODE_MAP]: [
     {
       element: GEO.STEP_1.selector,
