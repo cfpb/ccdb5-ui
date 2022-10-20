@@ -2,6 +2,7 @@ import './Typeahead.less';
 import React from 'react';
 import PropTypes from 'prop-types';
 import iconMap from '../iconMap';
+import { ClearButton } from './ClearButton';
 
 export const Input = ({
   ariaLabel,
@@ -9,6 +10,9 @@ export const Input = ({
   htmlId,
   isDisabled,
   handleChange,
+  handleClear,
+  handlePressEnter,
+  isClearVisible,
   placeholder,
   value,
 }) => {
@@ -30,9 +34,11 @@ export const Input = ({
           disabled={isDisabled}
           id={htmlId}
           onChange={handleChange}
+          onKeyDown={handlePressEnter}
           placeholder={placeholder}
           value={value}
         />
+        {isClearVisible && <ClearButton onClear={handleClear} />}
       </div>
     </section>
   );
@@ -42,12 +48,16 @@ Input.propTypes = {
   className: PropTypes.string,
   isDisabled: PropTypes.bool.isRequired,
   handleChange: PropTypes.func.isRequired,
+  handleClear: PropTypes.func,
+  handlePressEnter: PropTypes.func,
   htmlId: PropTypes.string.isRequired,
+  isClearVisible: PropTypes.bool,
   placeholder: PropTypes.string,
   value: PropTypes.string.isRequired,
 };
 
 Input.defaultProps = {
+  isClearVisible: false,
   isDisabled: false,
   placeholder: 'Enter your search text',
 };

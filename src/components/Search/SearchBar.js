@@ -28,6 +28,10 @@ export const SearchBar = ({ debounceWait }) => {
   const hasAdvancedSearchTips = useSelector(selectViewHasAdvancedSearchTips);
   const [inputValue, setInputValue] = useState(searchText);
   const [dropdownOptions, setDropdownOptions] = useState([]);
+  // handleClear is called whenever the user submits by pressing enter
+  // shouldCallClear prevents handleClear from firing a reset after the search is set
+  const [shouldCallClear, setShouldCallClear] = useState(true);
+  const isVisible = Boolean(searchText || inputValue);
 
   useEffect(() => {
     setInputValue(searchText);
@@ -63,6 +67,21 @@ export const SearchBar = ({ debounceWait }) => {
 
   const onSelection = (value) => {
     dispatch(searchTextChanged(value[0].key));
+  };
+
+  const onClear = () => {
+    if (shouldCallClear) {
+      dispatch(searchTextChanged(''));
+      setInputValue('');
+    }
+    setShouldCallClear(true);
+  };
+
+  const onPressEnter = (event) => {
+    if (event.key === 'Enter') {
+      setShouldCallClear(false);
+      dispatch(searchTextChanged(event.target.value));
+    }
   };
 
   return (
@@ -106,6 +125,9 @@ export const SearchBar = ({ debounceWait }) => {
                   handleChange={(event) => setInputValue(event.target.value)}
                   placeholder="Enter your search term(s)"
                   value={inputValue}
+                  handleClear={onClear}
+                  handlePressEnter={onPressEnter}
+                  isClearVisible={isVisible}
                 />
               )}
             </div>
