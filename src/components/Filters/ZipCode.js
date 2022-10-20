@@ -43,6 +43,7 @@ export const ZipCode = ({ delayWait }) => {
         delayWait={delayWait}
         handleSearch={onInputChange}
         handleChange={onSelection}
+        hasClearButton={true}
         options={dropdownOptions}
         placeholder="Enter first three digits of ZIP code"
       />

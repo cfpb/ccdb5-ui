@@ -52,7 +52,6 @@ export const Typeahead = ({
               <HighlightingOption {...option} />
             </li>
           )}
-          data-cy="input-search"
         />
       </div>
     </section>

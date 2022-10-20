@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { AsyncTypeahead as Typeahead } from 'react-bootstrap-typeahead';
 import iconMap from '../iconMap';
 import HighlightingOption from './HighlightingOption';
+import { ClearButton } from './ClearButton';
 
 export const AsyncTypeahead = ({
   ariaLabel,
@@ -13,7 +14,9 @@ export const AsyncTypeahead = ({
   htmlId,
   isDisabled,
   handleChange,
+  handleClear,
   handleSearch,
+  hasClearButton,
   maxResults,
   minLength,
   options,
@@ -21,15 +24,18 @@ export const AsyncTypeahead = ({
 }) => {
   const ref = useRef();
   const [searchValue, setSearchValue] = useState(defaultValue);
-  // TODO: ClearButton
-  // Leave so eslint doesn't complain about searchValue not being used; will be
-  // used with adding clear button
-  console.log(searchValue);
+  const isVisible = hasClearButton && Boolean(defaultValue || searchValue);
   useEffect(() => {
     ref.current.setState({ text: defaultValue });
     setSearchValue(ref.current.inputNode.value);
     if (defaultValue === '') ref.current.clear();
   }, [defaultValue]);
+
+  const handleTypeaheadClear = () => {
+    if (handleClear) handleClear();
+    ref.current.clear();
+    setSearchValue('');
+  };
 
   return (
     <section className={`typeahead ${className | ''}`}>
@@ -47,7 +53,6 @@ export const AsyncTypeahead = ({
           id="zipcode-typeahead"
           minLength={minLength}
           className="typeahead-selector"
-          clearButton={true}
           defaultInputValue={defaultValue}
           delay={delayWait}
           disabled={isDisabled}
@@ -60,6 +65,7 @@ export const AsyncTypeahead = ({
           onChange={(selected) => {
             handleChange(selected);
             ref.current.clear();
+            setSearchValue('');
           }}
           options={options}
           maxResults={maxResults}
@@ -69,8 +75,8 @@ export const AsyncTypeahead = ({
               <HighlightingOption {...option} />
             </li>
           )}
-          data-cy="input-search"
         />
+        {isVisible && <ClearButton onClear={handleTypeaheadClear} />}
       </div>
     </section>
   );
@@ -83,7 +89,9 @@ AsyncTypeahead.propTypes = {
   delayWait: PropTypes.number.isRequired,
   isDisabled: PropTypes.bool.isRequired,
   handleChange: PropTypes.func.isRequired,
+  handleClear: PropTypes.func,
   handleSearch: PropTypes.func.isRequired,
+  hasClearButton: PropTypes.bool,
   htmlId: PropTypes.string.isRequired,
   maxResults: PropTypes.number,
   minLength: PropTypes.number,
@@ -95,6 +103,7 @@ AsyncTypeahead.defaultProps = {
   className: '',
   defaultValue: '',
   delayWait: 0,
+  hasClearButton: false,
   isDisabled: false,
   maxResults: 5,
   minLength: 2,

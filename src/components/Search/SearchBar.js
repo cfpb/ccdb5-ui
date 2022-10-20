@@ -69,7 +69,11 @@ export const SearchBar = ({ debounceWait }) => {
     dispatch(searchTextChanged(value[0].key));
   };
 
-  const onClear = () => {
+  const onTypeaheadClear = () => {
+    dispatch(searchTextChanged(''));
+  };
+
+  const onClearInput = () => {
     if (shouldCallClear) {
       dispatch(searchTextChanged(''));
       setInputValue('');
@@ -114,7 +118,9 @@ export const SearchBar = ({ debounceWait }) => {
                   defaultValue={searchText}
                   delayWait={debounceWait}
                   handleChange={onSelection}
+                  handleClear={onTypeaheadClear}
                   handleSearch={onSearchChange}
+                  hasClearButton={true}
                   options={dropdownOptions}
                   placeholder="Enter your search term(s)"
                 />
@@ -125,7 +131,7 @@ export const SearchBar = ({ debounceWait }) => {
                   handleChange={(event) => setInputValue(event.target.value)}
                   placeholder="Enter your search term(s)"
                   value={inputValue}
-                  handleClear={onClear}
+                  handleClear={onClearInput}
                   handlePressEnter={onPressEnter}
                   isClearVisible={isVisible}
                 />

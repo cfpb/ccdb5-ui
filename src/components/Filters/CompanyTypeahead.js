@@ -44,6 +44,7 @@ export const CompanyTypeahead = ({ delayWait, id }) => {
       delayWait={delayWait}
       handleChange={onSelection}
       handleSearch={onInputChange}
+      hasClearButton={true}
       options={dropdownOptions}
       placeholder="Enter company name"
       disabled={isDisabled}
