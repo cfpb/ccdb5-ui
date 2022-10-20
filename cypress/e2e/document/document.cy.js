@@ -59,7 +59,10 @@ describe('Document View', () => {
         '?searchText=pizza&has_narrative=true&size=10&sort=relevance_desc&tab=List'
       );
 
-      cy.get('#select-sort').should('have.value', 'relevance_desc');
+      cy.get('select#select-sort option:selected').should(
+        'have.text',
+        'Relevance'
+      );
 
       cy.contains('.pill', 'Has narrative').should('be.visible');
 
@@ -80,7 +83,10 @@ describe('Document View', () => {
       cy.wait('@getAggsResults');
       cy.wait('@getResults');
 
-      cy.get('#select-sort').should('have.value', 'relevance_desc');
+      cy.get('select#select-sort option:selected').should(
+        'have.text',
+        'Relevance'
+      );
 
       cy.contains('.pill', 'Has narrative').should('be.visible');
 

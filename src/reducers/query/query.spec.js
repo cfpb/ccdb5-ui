@@ -467,10 +467,10 @@ describe('reducer:query', () => {
       expect(actual.searchText).toEqual('hello');
     });
 
-    it('converts some parameters to integers', () => {
+    it('handles size parameter', () => {
       action.params = { size: '100' };
       actual = target(state, action);
-      expect(actual.size).toEqual(100);
+      expect(actual.size).toEqual('100');
     });
 
     it('handles page number', () => {
@@ -489,14 +489,8 @@ describe('reducer:query', () => {
     it('handles bogus size & sort parameters', () => {
       action.params = { size: '9999', sort: 'tables' };
       actual = target(state, action);
-      expect(actual.size).toEqual(10);
+      expect(actual.size).toEqual('10');
       expect(actual.sort).toEqual('created_date_desc');
-    });
-
-    it('ignores bad integer parameters', () => {
-      action.params = { size: 'foo' };
-      actual = target(state, action);
-      expect(actual.size).toEqual(25);
     });
 
     it('converts some parameters to dates', () => {
@@ -585,9 +579,7 @@ describe('reducer:query', () => {
       });
 
       it('clears the default range if the dates are not 3 years apart', () => {
-        state.date_received_min = new Date(
-          dayjs(maxDate).subtract(2, 'years')
-        );
+        state.date_received_min = new Date(dayjs(maxDate).subtract(2, 'years'));
         expected.dateRange = '';
         expected.date_received_min = state.date_received_min;
 
@@ -1691,8 +1683,7 @@ describe('reducer:query', () => {
           tab: 'Trends',
           trendDepth: 5,
           trendsDateWarningEnabled: false,
-          search:
-            '?chartType=line&lens=Product&subLens=sub_product&tab=Trends',
+          search: '?chartType=line&lens=Product&subLens=sub_product&tab=Trends',
         });
       });
     });
@@ -1804,8 +1795,7 @@ describe('reducer:query', () => {
           tab: 'Trends',
           trendDepth: 5,
           trendsDateWarningEnabled: false,
-          search:
-            '?chartType=line&lens=Product&subLens=sub_product&tab=Trends',
+          search: '?chartType=line&lens=Product&subLens=sub_product&tab=Trends',
         });
       });
     });

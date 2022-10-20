@@ -167,9 +167,7 @@ describe('component::ComplaintDetail', () => {
     expect(
       screen.getByText(dataFixture.company_public_response)
     ).toBeInTheDocument();
-    expect(
-      screen.getByText(dataFixture.consumer_disputed)
-    ).toBeInTheDocument();
+    expect(screen.getByText(dataFixture.consumer_disputed)).toBeInTheDocument();
     expect(screen.getByText(dataFixture.submitted_via)).toBeInTheDocument();
     expect(screen.queryByText('Sub-product:')).toBeNull();
     expect(screen.queryByText('Sub-issue:')).toBeNull();

@@ -112,7 +112,7 @@ describe('ListPanel', () => {
       error: '',
     };
     const newQueryState = {
-      size: 25,
+      size: '25',
       sort: 'created_date_desc',
     };
     const newResultsState = { items: [itemFixture] };
@@ -126,7 +126,7 @@ describe('ListPanel', () => {
     );
 
     expect(analyticsSpy).toBeCalledWith('Dropdown', '10 results');
-    expect(changeSizeSpy).toBeCalledWith(10);
+    expect(changeSizeSpy).toBeCalledWith('10');
   });
 
   test('onSort triggers dispatch and analtyics event', () => {

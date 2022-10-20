@@ -39,8 +39,8 @@ export const enforceValues = (value, field) => {
       values: ['all', 'company', 'complaint_what_happened'],
     },
     size: {
-      defaultVal: 10,
-      values: Object.keys(types.sizes).map((o) => parseInt(o, 10)),
+      defaultVal: '10',
+      values: Object.keys(types.sizes),
     },
     sort: {
       defaultVal: 'created_date_desc',
@@ -80,10 +80,7 @@ export const validateTrendsReducer = (state) => {
     Product: ['sub_product', 'issue'],
   };
 
-  if (
-    validLens[state.lens] &&
-    !validLens[state.lens].includes(state.subLens)
-  ) {
+  if (validLens[state.lens] && !validLens[state.lens].includes(state.subLens)) {
     state.subLens = getSubLens(state.lens);
   }
 

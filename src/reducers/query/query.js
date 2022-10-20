@@ -36,7 +36,7 @@ export const defaultQuery = {
   searchAfter: '',
   searchField: 'all',
   searchText: '',
-  size: 25,
+  size: '25',
   sort: 'created_date_desc',
   subLens: 'sub_product',
   tab: types.MODE_TRENDS,
@@ -68,12 +68,13 @@ const urlParams = [
   'lens',
   'searchText',
   'searchField',
+  'size',
   'sort',
   'subLens',
   'tab',
 ];
 
-const urlParamsInt = ['from', 'page', 'size', 'trendDepth'];
+const urlParamsInt = ['from', 'page', 'trendDepth'];
 
 // ----------------------------------------------------------------------------
 // Helper functions
@@ -642,9 +643,7 @@ function removeMultipleFilters(state, action) {
   const newState = { ...state };
   const a = newState[action.filterName];
   // remove the focus if it exists in one of the filter values we are removing
-  newState.focus = action.values.includes(state.focus)
-    ? ''
-    : state.focus || '';
+  newState.focus = action.values.includes(state.focus) ? '' : state.focus || '';
 
   if (a) {
     action.values.forEach((x) => {
