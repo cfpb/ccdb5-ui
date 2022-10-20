@@ -81,6 +81,7 @@ export const Issue = ({ hasChildren }) => {
         placeholder="Enter name of issue"
         handleChange={onSelection}
         handleInputChange={onInputChange}
+        hasClearButton={true}
         options={dropdownOptions}
       />
       <MoreOrLess

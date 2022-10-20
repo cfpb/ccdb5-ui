@@ -1,9 +1,10 @@
 import './Typeahead.less';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Typeahead as DropdownTypeahead } from 'react-bootstrap-typeahead';
 import iconMap from '../iconMap';
 import HighlightingOption from './HighlightingOption';
+import { ClearButton } from './ClearButton';
 
 export const Typeahead = ({
   ariaLabel,
@@ -12,12 +13,20 @@ export const Typeahead = ({
   isDisabled,
   handleChange,
   handleInputChange,
+  hasClearButton,
   maxResults,
   minLength,
   options,
   placeholder,
 }) => {
   const ref = useRef();
+  const [input, setInput] = useState('');
+  const isVisible = hasClearButton && input;
+
+  const handleClear = () => {
+    ref.current.clear();
+    setInput('');
+  };
 
   return (
     <section className={`typeahead ${className | ''}`}>
@@ -41,9 +50,12 @@ export const Typeahead = ({
           ref={ref}
           onChange={(selection) => {
             handleChange(selection);
-            ref.current.clear();
+            handleClear();
           }}
-          onInputChange={(value) => handleInputChange(value)}
+          onInputChange={(value) => {
+            handleInputChange(value);
+            setInput(value);
+          }}
           options={options}
           maxResults={maxResults}
           placeholder={placeholder}
@@ -53,6 +65,7 @@ export const Typeahead = ({
             </li>
           )}
         />
+        {isVisible && <ClearButton onClear={handleClear} />}
       </div>
     </section>
   );
@@ -63,6 +76,7 @@ Typeahead.propTypes = {
   isDisabled: PropTypes.bool.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleInputChange: PropTypes.func.isRequired,
+  hasClearButton: PropTypes.bool,
   htmlId: PropTypes.string.isRequired,
   maxResults: PropTypes.number,
   minLength: PropTypes.number,
@@ -72,6 +86,7 @@ Typeahead.propTypes = {
 
 Typeahead.defaultProps = {
   className: '',
+  hasClearButton: false,
   isDisabled: false,
   maxResults: 5,
   minLength: 2,

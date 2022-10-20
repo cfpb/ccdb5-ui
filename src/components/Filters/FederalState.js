@@ -54,6 +54,7 @@ export const FederalState = ({ hasChildren }) => {
         htmlId="state-typeahead"
         handleChange={onSelection}
         handleInputChange={onInputChange}
+        hasClearButton={true}
         options={dropdownOptions}
         placeholder="Enter state name or abbreviation"
       />
