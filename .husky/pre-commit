@@ -1,0 +1,8 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# when running git commit, it starts from the root of ccdb5-ui
+echo "[pre-commit]=> linting"
+yarn lint-staged
+
+

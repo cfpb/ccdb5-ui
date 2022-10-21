@@ -1,67 +1,50 @@
 import './MapToolbar.less';
 import { clearStateFilter, showStateComplaints } from '../../actions/map';
-import { coalesce } from '../../utils';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import iconMap from '../iconMap';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { THESE_UNITED_STATES } from '../../constants';
+import { selectQueryStateFilters } from '../../reducers/query/selectors';
 
-export class MapToolbar extends React.Component {
-  render() {
-    const filteredStates = this.props.filteredStates;
-    return (
-      <div className="map-toolbar">
-        <section className="state-heading">
-          {!filteredStates && <span>United States of America</span>}
-          <span>{filteredStates}</span>
-          {filteredStates && (
-            <a className="clear" onClick={() => this.props.clearStates()}>
-              {iconMap.getIcon('delete-round')}
-              Clear
-            </a>
-          )}
-        </section>
+export const MapToolbar = () => {
+  const dispatch = useDispatch();
+  const stateFilters = useSelector(selectQueryStateFilters);
+  const filteredStates = stateFilters
+    ? stateFilters
+        .filter((x) => x in THESE_UNITED_STATES)
+        .map((x) => THESE_UNITED_STATES[x])
+        .join(', ')
+    : '';
+
+  return (
+    <div className="map-toolbar">
+      <section className="state-heading">
+        {!filteredStates && <span>United States of America</span>}
+        <span>{filteredStates}</span>
         {filteredStates && (
-          <section className="state-navigation">
-            <a
-              href="#"
-              className="list"
-              onClick={() => this.props.showComplaints()}
-            >
-              View complaints for filtered states
-            </a>
-          </section>
+          <a
+            aria-label="Clear all map filters"
+            onClick={() => {
+              dispatch(clearStateFilter());
+            }}
+          >
+            {iconMap.getIcon('delete-round')}
+            Clear
+          </a>
         )}
-      </div>
-    );
-  }
-}
-
-export const mapStateToProps = (state) => {
-  const abbrs = coalesce(state.query, 'state', []);
-
-  return {
-    filteredStates: abbrs
-      .filter((x) => x in THESE_UNITED_STATES)
-      .map((x) => THESE_UNITED_STATES[x])
-      .join(', '),
-  };
-};
-
-export const mapDispatchToProps = (dispatch) => ({
-  clearStates: () => {
-    dispatch(clearStateFilter());
-  },
-  showComplaints: () => {
-    dispatch(showStateComplaints());
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(MapToolbar);
-
-MapToolbar.propTypes = {
-  filteredStates: PropTypes.string.isRequired,
-  clearStates: PropTypes.func.isRequired,
-  showComplaints: PropTypes.func.isRequired,
+      </section>
+      {filteredStates && (
+        <section className="state-navigation">
+          <a
+            className="list"
+            onClick={() => {
+              dispatch(showStateComplaints());
+            }}
+          >
+            View complaints for filtered states
+          </a>
+        </section>
+      )}
+    </div>
+  );
 };
