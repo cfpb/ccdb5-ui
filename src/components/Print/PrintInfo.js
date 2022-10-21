@@ -1,63 +1,57 @@
 import './PrintInfo.less';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import React from 'react';
+import { useSelector } from 'react-redux';
+import React, { useMemo } from 'react';
 import { shortFormat } from '../../utils';
+import {
+  selectAggsDocCount,
+  selectAggsTotal,
+} from '../../reducers/aggs/selectors';
 
-export class PrintInfo extends React.Component {
-  render() {
-    const { complaintCountText, dates, searchText } = this.props;
-    return (
-      <section className="print-info">
-        <p>
-          <span>Dates:</span> {dates}
-        </p>
-        {searchText && (
-          <p>
-            <span>Search Term:</span> {searchText}
-          </p>
-        )}
-        <div>{complaintCountText}</div>
-      </section>
-    );
-  }
-}
+import {
+  selectQueryDateReceivedMax,
+  selectQueryDateReceivedMin,
+  selectQuerySearchText,
+} from '../../reducers/query/selectors';
+import { selectViewIsPrintMode } from '../../reducers/view/selectors';
 
-export const getComplaintCountText = (aggs) => {
-  const { doc_count: docCount, total } = aggs;
-  if (docCount === total) {
+export const PrintInfo = () => {
+  const docCount = useSelector(selectAggsDocCount);
+  const total = useSelector(selectAggsTotal);
+
+  const dateMin = useSelector(selectQueryDateReceivedMin);
+  const dateMax = useSelector(selectQueryDateReceivedMax);
+  const dateText = shortFormat(dateMin) + ' - ' + shortFormat(dateMax);
+
+  const searchText = useSelector(selectQuerySearchText);
+  const isPrintMode = useSelector(selectViewIsPrintMode);
+
+  const complaintCountText = useMemo(() => {
+    if (docCount === total) {
+      return (
+        <div>
+          Showing <span>{total.toLocaleString()}</span> complaints
+        </div>
+      );
+    }
     return (
       <div>
-        Showing <span>{total.toLocaleString()}</span> complaints
+        Showing <span>{total.toLocaleString()}</span> out of
+        <span> {docCount.toLocaleString()} </span> total complaints{' '}
       </div>
     );
-  }
-  return (
-    <div>
-      Showing <span>{total.toLocaleString()}</span> out of
-      <span> {docCount.toLocaleString()} </span> total complaints{' '}
-    </div>
-  );
-};
+  }, [docCount, total]);
 
-const getDateText = (query) => {
-  const { date_received_min: dateMin, date_received_max: dateMax } = query;
-  return shortFormat(dateMin) + ' - ' + shortFormat(dateMax);
-};
-
-export const mapStateToProps = (state) => {
-  const { aggs, query } = state;
-  return {
-    complaintCountText: getComplaintCountText(aggs),
-    dates: getDateText(query),
-    searchText: query.searchText,
-  };
-};
-
-export default connect(mapStateToProps)(PrintInfo);
-
-PrintInfo.propTypes = {
-  complaintCountText: PropTypes.object,
-  dates: PropTypes.string.isRequired,
-  searchText: PropTypes.string,
+  return isPrintMode ? (
+    <section className="print-info">
+      <p>
+        <span>Dates:</span> {dateText}
+      </p>
+      {searchText && (
+        <p>
+          <span>Search Term:</span> {searchText}
+        </p>
+      )}
+      <div>{complaintCountText}</div>
+    </section>
+  ) : null;
 };

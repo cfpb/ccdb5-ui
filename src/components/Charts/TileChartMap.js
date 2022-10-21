@@ -60,8 +60,8 @@ export class TileChartMap extends React.Component {
     const toggleState = this._toggleState;
     const componentProps = this.props;
     const mapElement = document.getElementById('tile-chart-map');
-    const { dataNormalization, hasTip } = componentProps;
-    const width = mapElement.clientWidth || 700;
+    const { dataNormalization, hasTip, isPrintMode } = componentProps;
+    const width = isPrintMode ? 650 : mapElement.clientWidth || 650;
     const data = updateData(this.props);
 
     const options = {
@@ -146,6 +146,7 @@ export const mapStateToProps = (state) => {
     data: processStates(state),
     dataNormalization: state.query.dataNormalization,
     hasTip: !isPrintMode,
+    isPrintMode,
     printClass: isPrintMode ? 'print' : '',
     stateFilters: [...refStateFilters],
     width,
@@ -170,4 +171,5 @@ TileChartMap.propTypes = {
   printClass: PropTypes.string,
   dataNormalization: PropTypes.string,
   hasTip: PropTypes.bool,
+  isPrintMode: PropTypes.bool,
 };

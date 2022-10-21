@@ -1,13 +1,14 @@
 import React from 'react';
+import { selectViewIsPrintMode } from '../../reducers/view/selectors';
+import { useSelector } from 'react-redux';
 
-export default class PrintInfoFooter extends React.Component {
-  render() {
-    return (
-      <section className="print-info-footer">
-        <p>
-          <span>URL:</span> {window.location.href}
-        </p>
-      </section>
-    );
-  }
-}
+export const PrintInfoFooter = () => {
+  const isPrintMode = useSelector(selectViewIsPrintMode);
+  return isPrintMode ? (
+    <section className="print-info-footer">
+      <p>
+        <span>URL:</span> {window.location.href}
+      </p>
+    </section>
+  ) : null;
+};

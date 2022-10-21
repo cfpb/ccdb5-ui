@@ -317,7 +317,7 @@ describe('component: StackedAreaChart', () => {
             tooltipUpdated={jest.fn()}
           />
         );
-        expect(target.instance()._chartWidth('#foo')).toEqual(540);
+        expect(target.instance()._chartWidth('#foo')).toEqual(500);
       });
     });
   });

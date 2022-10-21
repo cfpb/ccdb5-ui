@@ -5,10 +5,8 @@ import React from 'react';
 
 export const Warning = ({ text, closeFn }) => (
   <div
-    className="warning
-                    m-notification
-                    m-notification__visible
-                    m-notification__warning"
+    role="alert"
+    className="warning m-notification m-notification__visible m-notification__warning"
   >
     {iconMap.getIcon('warning-round')}
     <div className="m-notification_content">
