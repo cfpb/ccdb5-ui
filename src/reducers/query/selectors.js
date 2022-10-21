@@ -21,6 +21,6 @@ export const selectQueryPage = (state) => state.query.page;
 export const selectQuerySearch = (state) => state.query.search;
 export const selectQuerySize = (state) => state.query.size;
 export const selectQuerySort = (state) => state.query.sort;
-export const selectQueryStateAggs = (state) => state.query.state;
+export const selectQueryStateFilters = (state) => state.query.state;
 export const selectQueryTab = (state) => state.query.tab;
 export const selectQueryTotalPages = (state) => state.query.totalPages;

@@ -4,14 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import iconMap from '../iconMap';
 import React from 'react';
 import { THESE_UNITED_STATES } from '../../constants';
-import { selectQueryStateAggs } from '../../reducers/query/selectors';
+import { selectQueryStateFilters } from '../../reducers/query/selectors';
 
 export const MapToolbar = () => {
   const dispatch = useDispatch();
-  const abbrs = useSelector(selectQueryStateAggs);
-
-  const filteredStates = abbrs
-    ? abbrs
+  const stateFilters = useSelector(selectQueryStateFilters);
+  const filteredStates = stateFilters
+    ? stateFilters
         .filter((x) => x in THESE_UNITED_STATES)
         .map((x) => THESE_UNITED_STATES[x])
         .join(', ')
