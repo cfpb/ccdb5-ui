@@ -111,6 +111,17 @@
     "stylelint": "^14.14.0",
     "stylelint-config-recommended-less": "^1.0.4"
   },
+  "lint-staged": {
+    "src/**/*.{css,less}": [
+      "stylelint --fix"
+    ],
+    "{cypress,src}/**/*.{js,jsx,ts,tsx,json,md}": [
+      "prettier --write"
+    ],
+    "{cypress,src}/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ]
+  },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
