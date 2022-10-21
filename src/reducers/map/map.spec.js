@@ -1,4 +1,4 @@
-import target, { processStateAggregations } from '../map';
+import target, { processStateAggregations } from './map';
 import actions from '../../actions';
 import stateAggs from '../__fixtures__/stateAggs';
 
@@ -9,6 +9,7 @@ describe('reducer:map', () => {
     it('has a default state', () => {
       expect(target(undefined, {})).toEqual({
         activeCall: '',
+        error: false,
         isLoading: false,
         results: {
           product: [],
@@ -25,6 +26,7 @@ describe('reducer:map', () => {
     };
     expect(target({}, action)).toEqual({
       activeCall: 'http://www.example.org',
+      error: false,
       isLoading: true,
     });
   });
@@ -43,6 +45,7 @@ describe('reducer:map', () => {
       const result = target({}, action);
       expect(result).toEqual({
         activeCall: '',
+        error: false,
         isLoading: false,
         results: {
           state: [
@@ -195,6 +198,7 @@ describe('reducer:map', () => {
           action
         )
       ).toEqual({
+        error: false,
         results: {
           product: [],
           state: [],

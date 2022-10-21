@@ -4,9 +4,8 @@ import React from 'react';
 
 export const ErrorBlock = ({ text }) => (
   <div
-    className="m-notification
-                    m-notification__visible
-                    m-notification__error"
+    role="alert"
+    className="m-notification m-notification__visible m-notification__error"
   >
     {iconMap.getIcon('error-round')}
     <div className="m-notification_content">

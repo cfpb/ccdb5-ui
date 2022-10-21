@@ -1,11 +1,13 @@
 // reducer for the Map Tab
-import actions from '../actions';
-import { processAggregations } from './trends/trends';
-import { processErrorMessage } from '../utils';
-import { TILE_MAP_STATES } from '../constants';
+import actions from '../../actions';
 
-export const defaultState = {
+import { processAggregations } from '../trends/trends';
+import { processErrorMessage } from '../../utils';
+import { TILE_MAP_STATES } from '../../constants';
+
+export const defaultMap = {
   activeCall: '',
+  error: false,
   isLoading: false,
   results: {
     product: [],
@@ -48,6 +50,7 @@ export const processStateAggregations = (agg) => {
 export function handleTabChanged(state) {
   return {
     ...state,
+    error: false,
     results: {
       product: [],
       state: [],
@@ -66,6 +69,7 @@ export function statesCallInProcess(state, action) {
   return {
     ...state,
     activeCall: action.url,
+    error: false,
     isLoading: true,
   };
 }
@@ -89,6 +93,7 @@ export function processStatesResults(state, action) {
   return {
     ...state,
     activeCall: '',
+    error: false,
     isLoading: false,
     results,
   };
@@ -150,7 +155,7 @@ function handleSpecificAction(state, action) {
   return state;
 }
 
-export default (state = defaultState, action) => {
+export default (state = defaultMap, action) => {
   const newState = handleSpecificAction(state, action);
   return newState;
 };
