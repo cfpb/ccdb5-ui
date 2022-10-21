@@ -60,7 +60,7 @@ export class LineChart extends React.Component {
   _chartWidth(chartID) {
     const { lens, isPrintMode } = this.props;
     if (isPrintMode) {
-      return lens === 'Overview' ? 750 : 540;
+      return lens === 'Overview' ? 750 : 500;
     }
     const container = d3.select(chartID);
     return container.node().getBoundingClientRect().width;

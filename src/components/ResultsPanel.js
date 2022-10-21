@@ -1,91 +1,35 @@
 import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../constants';
-import { printModeOff, printModeOn } from '../actions/view';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { ListPanel } from './List/ListPanel/ListPanel';
 import { MapPanel } from './Map/MapPanel';
-import PrintInfo from './Print/PrintInfo';
-import PrintInfoFooter from './Print/PrintInfoFooter';
-import PropTypes from 'prop-types';
+import { PrintInfo } from './Print/PrintInfo';
+import { PrintInfoFooter } from './Print/PrintInfoFooter';
 import React from 'react';
 import TrendsPanel from './Trends/TrendsPanel';
+import { selectQueryTab } from '../reducers/query/selectors';
 
-export class ResultsPanel extends React.Component {
-  constructor(props) {
-    super(props);
-    // Bindings
-    this._updatePrintStyleOn = this._togglePrintStylesOn.bind(this);
-    this._updatePrintStyleOff = this._togglePrintStylesOff.bind(this);
+export const ResultsPanel = () => {
+  const tab = useSelector(selectQueryTab);
+  let currentPanel;
+
+  switch (tab) {
+    case MODE_MAP:
+      currentPanel = <MapPanel />;
+      break;
+    case MODE_LIST:
+      currentPanel = <ListPanel />;
+      break;
+    case MODE_TRENDS:
+    default:
+      currentPanel = <TrendsPanel />;
+      break;
   }
 
-  componentDidMount() {
-    window.addEventListener('afterprint', this._updatePrintStyleOff);
-    window.addEventListener('beforeprint', this._updatePrintStyleOn);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('afterprint', this._updatePrintStyleOff);
-    window.removeEventListener('beforeprint', this._updatePrintStyleOn);
-  }
-
-  _getTabClass() {
-    const classes = ['content_main', this.props.tab.toLowerCase()];
-    return classes.join(' ');
-  }
-  /* eslint complexity: ["error", 6] */
-  render() {
-    let currentPanel;
-
-    switch (this.props.tab) {
-      case MODE_MAP:
-        currentPanel = <MapPanel />;
-        break;
-      case MODE_LIST:
-        currentPanel = <ListPanel />;
-        break;
-      case MODE_TRENDS:
-      default:
-        currentPanel = <TrendsPanel />;
-        break;
-    }
-
-    return (
-      <div className={this._getTabClass()}>
-        {this.props.isPrintMode && <PrintInfo />}
-        {currentPanel}
-        {this.props.isPrintMode && <PrintInfoFooter />}
-      </div>
-    );
-  }
-
-  _togglePrintStylesOn() {
-    const compProps = this.props;
-    compProps.togglePrintModeOn();
-  }
-  _togglePrintStylesOff() {
-    const compProps = this.props;
-    compProps.togglePrintModeOff();
-  }
-}
-
-const mapStateToProps = (state) => ({
-  isPrintMode: state.view.isPrintMode,
-  tab: state.query.tab,
-});
-
-export const mapDispatchToProps = (dispatch) => ({
-  togglePrintModeOn: () => {
-    dispatch(printModeOn());
-  },
-  togglePrintModeOff: () => {
-    dispatch(printModeOff());
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ResultsPanel);
-
-ResultsPanel.propTypes = {
-  tab: PropTypes.string.isRequired,
-  isPrintMode: PropTypes.bool,
-  togglePrintModeOn: PropTypes.func,
-  togglePrintModeOff: PropTypes.func,
+  return (
+    <div className={'content_main ' + tab.toLowerCase()}>
+      <PrintInfo />
+      {currentPanel}
+      <PrintInfoFooter />
+    </div>
+  );
 };
