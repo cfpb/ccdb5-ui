@@ -2,7 +2,7 @@ import './SearchBar.less';
 import { hideAdvancedTips, showAdvancedTips } from '../../actions/view';
 import { searchFieldChanged, searchTextChanged } from '../../actions/search';
 import Typeahead, { MODE_OPEN } from '../Typeahead';
-import AdvancedTips from '../Dialogs/AdvancedTips';
+import { AdvancedTips } from './AdvancedTips/AdvancedTips';
 import { connect } from 'react-redux';
 import HighlightingOption from '../Typeahead/HighlightingOption';
 import PropTypes from 'prop-types';

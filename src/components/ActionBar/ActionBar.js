@@ -4,7 +4,7 @@ import { FormattedNumber } from 'react-intl';
 import iconMap from '../iconMap';
 import React from 'react';
 import { sendAnalyticsEvent } from '../../utils';
-import { showExportDialog } from '../../actions/dataExport';
+import { showModal } from '../../actions/view';
 import { StaleDataWarnings } from '../Warnings/StaleDataWarnings';
 import {
   selectAggsDocCount,
@@ -12,6 +12,7 @@ import {
 } from '../../reducers/aggs/selectors';
 import { selectQueryTab } from '../../reducers/query/selectors';
 import { printModeOn } from '../../actions/view';
+import { MODAL_TYPE_DATA_EXPORT } from '../../constants';
 
 export const ActionBar = () => {
   const docCount = useSelector(selectAggsDocCount);
@@ -50,7 +51,7 @@ export const ActionBar = () => {
               data-gtm_ignore="true"
               onClick={() => {
                 sendAnalyticsEvent('Export', tab + ':User Opens Export Modal');
-                dispatch(showExportDialog());
+                dispatch(showModal(MODAL_TYPE_DATA_EXPORT));
               }}
             >
               Export data

@@ -8,7 +8,6 @@ import {
   fireEvent,
   screen,
 } from '../../testUtils/test-utils';
-import * as dataExportActions from '../../actions/dataExport';
 import * as viewActions from '../../actions/view';
 import * as utils from '../../utils';
 
@@ -47,7 +46,7 @@ describe('ActionBar', () => {
       .mockImplementation(() => jest.fn());
 
     const dataExportSpy = jest
-      .spyOn(dataExportActions, 'showExportDialog')
+      .spyOn(viewActions, 'showModal')
       .mockImplementation(() => jest.fn());
     renderComponent(aggs, query);
 

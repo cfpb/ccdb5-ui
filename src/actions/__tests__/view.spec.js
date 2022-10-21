@@ -22,6 +22,59 @@ describe('action:view', () => {
     });
   });
 
+  describe('Advanced Search tips', () => {
+    it('creates showAdvancedTips actions', () => {
+      const expectedAction = {
+        type: sut.SHOW_ADVANCED_SEARCH_TIPS,
+        requery: REQUERY_NEVER,
+      };
+      expect(sut.showAdvancedTips()).toEqual(expectedAction);
+    });
+
+    it('creates hideAdvancedTips actions', () => {
+      const expectedAction = {
+        type: sut.HIDE_ADVANCED_SEARCH_TIPS,
+        requery: REQUERY_NEVER,
+      };
+      expect(sut.hideAdvancedTips()).toEqual(expectedAction);
+    });
+  });
+
+  describe('modals', () => {
+    it('creates hideModal actions', () => {
+      const expectedAction = {
+        type: sut.MODAL_HID,
+      };
+      expect(sut.hideModal()).toEqual(expectedAction);
+    });
+
+    it('creates showModal actions', () => {
+      const expectedAction = {
+        type: sut.MODAL_SHOWN,
+        modalType: 'foobar',
+      };
+      expect(sut.showModal('foobar')).toEqual(expectedAction);
+    });
+  });
+
+  describe('tour', () => {
+    it('creates tourShown actions', () => {
+      const expectedAction = {
+        type: sut.SHOW_TOUR,
+        requery: REQUERY_NEVER,
+      };
+      expect(sut.tourShown()).toEqual(expectedAction);
+    });
+
+    it('creates tourHidden actions', () => {
+      const expectedAction = {
+        type: sut.HIDE_TOUR,
+        requery: REQUERY_NEVER,
+      };
+      expect(sut.tourHidden()).toEqual(expectedAction);
+    });
+  });
+
   describe('printModeOn', () => {
     it('creates a simple action', () => {
       const expectedAction = {
