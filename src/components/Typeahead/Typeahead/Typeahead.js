@@ -1,10 +1,10 @@
-import './Typeahead.less';
+import '../Typeahead.less';
 import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Typeahead as DropdownTypeahead } from 'react-bootstrap-typeahead';
-import iconMap from '../iconMap';
-import HighlightingOption from './HighlightingOption';
-import { ClearButton } from './ClearButton';
+import iconMap from '../../iconMap';
+import HighlightingOption from '../HighlightingOption';
+import { ClearButton } from '../ClearButton';
 
 export const Typeahead = ({
   ariaLabel,
@@ -44,7 +44,6 @@ export const Typeahead = ({
           id="zipcode-typeahead"
           minLength={minLength}
           className="typeahead-selector"
-          clearButton={true}
           disabled={isDisabled}
           isLoading={false}
           ref={ref}

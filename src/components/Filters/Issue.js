@@ -6,7 +6,7 @@ import CollapsibleFilter from './CollapsibleFilter';
 import { replaceFilters } from '../../actions/filter';
 import { SLUG_SEPARATOR } from '../../constants';
 import { selectQueryState } from '../../reducers/query/selectors';
-import { Typeahead } from '../Typeahead/Typeahead';
+import { Typeahead } from '../Typeahead/Typeahead/Typeahead';
 import { selectAggsState } from '../../reducers/aggs/selectors';
 import MoreOrLess from './MoreOrLess';
 import AggregationBranch from './AggregationBranch';

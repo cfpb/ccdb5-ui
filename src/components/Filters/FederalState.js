@@ -5,7 +5,7 @@ import { normalize } from '../../utils';
 import { addMultipleFilters } from '../../actions/filter';
 import CollapsibleFilter from './CollapsibleFilter';
 import { THESE_UNITED_STATES } from '../../constants';
-import { Typeahead } from '../Typeahead/Typeahead';
+import { Typeahead } from '../Typeahead/Typeahead/Typeahead';
 
 export const FederalState = ({ hasChildren }) => {
   const dispatch = useDispatch();
