@@ -12,7 +12,7 @@ import {
 } from '../../reducers/query/selectors';
 import { selectViewHasAdvancedSearchTips } from '../../reducers/view/selectors';
 import { AsyncTypeahead } from '../Typeahead/AsyncTypeahead/AsyncTypeahead';
-import { Input } from '../Typeahead/Input';
+import { Input } from '../Typeahead/Input/Input';
 import { handleFetchSearch } from '../Typeahead/utils';
 
 const searchFields = {
