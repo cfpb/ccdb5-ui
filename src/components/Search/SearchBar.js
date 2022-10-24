@@ -11,7 +11,7 @@ import {
   selectQuerySearchText,
 } from '../../reducers/query/selectors';
 import { selectViewHasAdvancedSearchTips } from '../../reducers/view/selectors';
-import { AsyncTypeahead } from '../Typeahead/AsyncTypeahead';
+import { AsyncTypeahead } from '../Typeahead/AsyncTypeahead/AsyncTypeahead';
 import { Input } from '../Typeahead/Input';
 import { handleFetchSearch } from '../Typeahead/utils';
 
@@ -146,10 +146,7 @@ export const SearchBar = ({ debounceWait }) => {
             </a>
 
             <div className="advanced-container flex-fixed">
-              <button
-                className="a-btn a-btn__link"
-                onClick={onAdvancedClicked}
-              >
+              <button className="a-btn a-btn__link" onClick={onAdvancedClicked}>
                 {hasAdvancedSearchTips ? 'Hide ' : 'Show '}
                 advanced search tips
               </button>

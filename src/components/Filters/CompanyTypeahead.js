@@ -10,7 +10,7 @@ import {
   selectQueryLens,
   selectQueryState,
 } from '../../reducers/query/selectors';
-import { AsyncTypeahead } from '../Typeahead/AsyncTypeahead';
+import { AsyncTypeahead } from '../Typeahead/AsyncTypeahead/AsyncTypeahead';
 import { handleFetchSearch } from '../Typeahead/utils';
 
 const FIELD_NAME = 'company';

@@ -1,10 +1,10 @@
-import './Typeahead.less';
+import '../Typeahead.less';
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { AsyncTypeahead as Typeahead } from 'react-bootstrap-typeahead';
-import iconMap from '../iconMap';
-import HighlightingOption from './HighlightingOption';
-import { ClearButton } from './ClearButton';
+import iconMap from '../../iconMap';
+import HighlightingOption from '../HighlightingOption';
+import { ClearButton } from '../ClearButton';
 
 export const AsyncTypeahead = ({
   ariaLabel,

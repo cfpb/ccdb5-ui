@@ -6,7 +6,7 @@ import CollapsibleFilter from './CollapsibleFilter';
 import { stateToQS } from '../../reducers/query/query';
 import { API_PLACEHOLDER } from '../../constants';
 import { selectQueryState } from '../../reducers/query/selectors';
-import { AsyncTypeahead } from '../Typeahead/AsyncTypeahead';
+import { AsyncTypeahead } from '../Typeahead/AsyncTypeahead/AsyncTypeahead';
 import { handleFetchSearch } from '../Typeahead/utils';
 
 const FIELD_NAME = 'zip_code';
