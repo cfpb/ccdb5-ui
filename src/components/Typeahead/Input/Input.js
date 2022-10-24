@@ -2,7 +2,7 @@ import '../Typeahead.less';
 import React from 'react';
 import PropTypes from 'prop-types';
 import iconMap from '../../iconMap';
-import { ClearButton } from '../ClearButton';
+import { ClearButton } from '../ClearButton/ClearButton';
 
 export const Input = ({
   ariaLabel,

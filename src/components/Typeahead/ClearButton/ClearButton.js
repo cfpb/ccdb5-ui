@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import iconMap from '../iconMap';
+import iconMap from '../../iconMap';
 
 export const ClearButton = ({ onClear }) => {
   return (
