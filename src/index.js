@@ -1,14 +1,7 @@
-/**
- * The application's entry point
- *
- * @param {string} err - An error object if a problem occurred during load
- */
-function main() {
-  const App = require('./App').App;
-  const ReactDOM = require('react-dom');
-  const React = require('react');
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { App } from './App';
 
-  ReactDOM.render(<App />, document.getElementById('ccdb-ui-root'));
-}
-
-main();
+const container = document.getElementById('ccdb-ui-root');
+const root = createRoot(container);
+root.render(<App />);
