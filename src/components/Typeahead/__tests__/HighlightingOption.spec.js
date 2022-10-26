@@ -2,7 +2,7 @@ import React from 'react';
 import HighlightingOption from '../HighlightingOption';
 import renderer from 'react-test-renderer';
 
-describe('component::HighlightingOption', () => {
+xdescribe('component::HighlightingOption', () => {
   describe('initial state', () => {
     it('renders without crashing', () => {
       const target = renderer.create(

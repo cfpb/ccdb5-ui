@@ -104,14 +104,14 @@ describe('component::Typeahead', () => {
       component: x,
     });
 
-    it('sets the current state on blur', () => {
+    xit('sets the current state on blur', () => {
       const { target } = setupEnzyme({ renderOption, value: 'foo' });
       target.setState({ focused: true });
       target.simulate('blur');
       expect(target.state('focused')).toEqual(false);
     });
 
-    it('sets the state on focus', () => {
+    xit('sets the state on focus', () => {
       const { target } = setupEnzyme({ renderOption, value: 'foo' });
       expect(target.state('phase')).toEqual('WAITING');
       expect(target.state('focused')).toEqual(false);
@@ -120,7 +120,7 @@ describe('component::Typeahead', () => {
     });
   });
 
-  describe('text control', () => {
+  xdescribe('text control', () => {
     let target, props, input;
     beforeEach(() => {
       ({ target, props } = setupEnzyme());
@@ -140,7 +140,7 @@ describe('component::Typeahead', () => {
     });
   });
 
-  describe('asynchronous options', () => {
+  xdescribe('asynchronous options', () => {
     let target, props, input;
     let fakePromise, onSuccess, onFail;
     beforeEach(() => {
@@ -180,7 +180,7 @@ describe('component::Typeahead', () => {
     });
   });
 
-  describe('keyboard events in CLOSED mode', () => {
+  xdescribe('keyboard events in CLOSED mode', () => {
     let fixture, target, props, input;
     beforeEach(() => {
       ({ target, props } = setupEnzyme());
@@ -280,7 +280,7 @@ describe('component::Typeahead', () => {
     });
   });
 
-  describe('keyboard events in OPEN mode', () => {
+  xdescribe('keyboard events in OPEN mode', () => {
     let fixture, target, props, input;
     beforeEach(() => {
       ({ target, props } = setupEnzyme({
@@ -359,7 +359,7 @@ describe('component::Typeahead', () => {
     });
   });
 
-  describe('clear button in OPEN mode', () => {
+  xdescribe('clear button in OPEN mode', () => {
     let target, props, button;
     beforeEach(() => {
       ({ target, props } = setupEnzyme({
