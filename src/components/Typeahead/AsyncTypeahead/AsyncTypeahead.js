@@ -50,7 +50,7 @@ export const AsyncTypeahead = ({
           {ariaLabel}
         </label>
         <Typeahead
-          id="zipcode-typeahead"
+          id={htmlId}
           minLength={minLength}
           className="typeahead-selector"
           defaultInputValue={defaultValue}
@@ -59,6 +59,7 @@ export const AsyncTypeahead = ({
           isLoading={false}
           ref={ref}
           onSearch={(input) => {
+            console.log('AsyncTypeahead HERE HERE HERE');
             setSearchValue(input);
             handleSearch(input);
           }}
