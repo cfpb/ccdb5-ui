@@ -54,6 +54,7 @@
     "@cfpb/cfpb-typography": "0.17.9",
     "@craco/craco": "^6.4.3",
     "@reduxjs/toolkit": "^1.8.5",
+    "@testing-library/cypress": "^8.0.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "13.4.0",
     "@testing-library/user-event": "^14.4.3",

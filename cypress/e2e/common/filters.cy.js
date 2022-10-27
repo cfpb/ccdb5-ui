@@ -95,7 +95,7 @@ describe('Filter Panel', () => {
       cy.get('.pill-panel .pill').should('have.length', 1);
 
       cy.log('open simple filter');
-      cy.get('.timely > .o-expandable_target').click();
+      cy.get('.timely > .o-expandable_target', { timeout: 1000 }).click();
       cy.get(
         '.timely > .o-expandable_content > ul > :nth-child(1) > .a-label'
       ).should('be.visible');
