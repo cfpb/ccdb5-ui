@@ -1,16 +1,16 @@
 .pill {
   padding: @grid_gutter-width / 3 30px @grid_gutter-width / 3 @grid_gutter-width /
     3;
-  border: 1px solid @teal-60;
+  background-color: @teal-20;
+  border: 1px solid @teal-40;
   margin-right: 4px;
   border-radius: 0.28571429em;
-  background-color: @teal-40;
   font-weight: 500;
   color: @black;
   font-size: @size-v;
   &:hover {
-    background-color: #c4dddc;
-    border-color: #9ec4c3;
+    background-color: @teal-30;
+    border-color: @teal-50;
     cursor: pointer;
   }
   // Close button
@@ -18,17 +18,12 @@
     padding: 0;
     padding-left: 5px;
     border: 0;
-    border-left: 1px solid @gray-20;
     margin: 0;
     background-color: transparent;
-    color: @teal-dark;
+    color: @teal-80;
     position: absolute;
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
-    &:hover,
-    &:active {
-      background-color: @gray-40;
-    }
   }
 }

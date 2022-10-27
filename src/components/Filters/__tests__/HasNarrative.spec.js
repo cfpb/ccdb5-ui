@@ -77,7 +77,7 @@ describe('initial state', () => {
 
 describe('component::HasNarrative', () => {
   describe('flag filter changed', () => {
-    it('triggers an update when checkbox is clicked', () => {
+    xit('triggers an update when checkbox is clicked', () => {
       const { target, props } = setupEnzyme();
       const input = target.find('#filterHasNarrative');
       input.simulate('change');

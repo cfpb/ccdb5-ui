@@ -111,71 +111,50 @@ describe('List View', () => {
     });
   });
 
-  describe('Pagination', () => {
-    it('exists', () => {
-      cy.get('.m-pagination').should('be.visible');
-    });
+  it('tests pagination', () => {
+    cy.log('it exists');
+    cy.get('.m-pagination').should('be.visible');
 
-    it('has a disabled prev button', () => {
-      cy.get(prevButton).should('be.disabled');
-      cy.get(nextButton).should('not.be.disabled');
-    });
+    cy.log('has a disabled prev button');
+    cy.get(prevButton).should('be.disabled');
+    cy.get(nextButton).should('not.be.disabled');
 
-    it('goes to the next page', () => {
-      cy.get(nextButton).click();
+    cy.log('goes to the next page');
+    cy.get(nextButton).click();
+    cy.url().should('include', 'page=2');
+    cy.get(cardContainers).should('have.length', 10);
+    cy.get(prevButton)
+      .should('be.visible')
+      .should('not.have.class', 'a-btn__disabled');
+    cy.get(currentPage).should('have.text', 'Page 2');
 
-      cy.url().should('include', 'page=2');
-      cy.get(cardContainers).should('have.length', 10);
+    cy.log('resets after applying filter');
+    // Test failing without wait
+    /* eslint-disable cypress/no-unnecessary-waiting */
+    cy.wait(500);
+    cy.get('.aggregation-branch label.a-label:first').click();
+    cy.get(currentPage).should('have.text', 'Page 1');
 
-      cy.get(prevButton)
+    cy.log('pagination resets after applying date filter');
+    cy.get(nextButton).click();
+    cy.get(currentPage).should('have.text', 'Page 2');
+    cy.get('#date_received-from').clear().type('2018-09-23').blur();
+    cy.get(currentPage).should('have.text', 'Page 1');
+  });
+
+  it('resets after select fields', () => {
+    const fields = ['Company name', 'Narratives', 'All data'];
+    cy.log('it exists');
+    cy.get('.m-pagination').should('be.visible');
+    cy.get(nextButton).click();
+    cy.get(currentPage).should('have.text', 'Page 2');
+
+    fields.forEach((field) => {
+      cy.log(`reset paging when search field changes to ${field}`);
+      cy.get('#searchField')
         .should('be.visible')
-        .should('not.have.class', 'a-btn__disabled');
-
-      cy.get(currentPage).should('have.text', 'Page 2');
-    });
-
-    it('resets after applying filter', () => {
-      cy.get(nextButton).click();
-
-      cy.url().should('include', 'page=2');
-      cy.get(cardContainers).should('have.length', 10);
-
-      cy.get(prevButton)
-        .should('be.visible')
-        .should('not.have.class', 'a-btn__disabled');
-
-      cy.get(currentPage).should('have.text', 'Page 2');
-
-      cy.get('.aggregation-branch label.a-label:first').click();
+        .select(field, { force: true });
       cy.get(currentPage).should('have.text', 'Page 1');
-
-      cy.log('reset after applying date filter');
-      cy.get(nextButton).click();
-      cy.get(currentPage).should('have.text', 'Page 2');
-
-      cy.get('#date_received-from').clear().type('2018-09-23').blur();
-      cy.get(currentPage).should('have.text', 'Page 1');
-    });
-
-    it('resets', () => {
-      const fields = ['Company name', 'Narratives', 'All data'];
-
-      fields.forEach((field) => {
-        cy.log(`reset paging when search field changes to ${field}`);
-
-        cy.get('#searchField')
-          .should('be.visible')
-          .select(field, { force: true });
-
-        cy.get(currentPage).should('have.text', 'Page 1');
-
-        cy.get(nextButton)
-          .should('be.visible')
-          .should('not.have.class', 'a-btn__disabled')
-          .click();
-
-        cy.get(currentPage).should('have.text', 'Page 2');
-      });
     });
   });
 });

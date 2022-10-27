@@ -15,7 +15,7 @@ describe('component:CollapsibleFilter', () => {
     });
   });
 
-  it('hides the children when Hide is clicked', () => {
+  xit('hides the children when Hide is clicked', () => {
     const target = mount(<CollapsibleFilter hasChildren={true} />);
     const theButton = target.find('button.o-expandable_target');
 
@@ -25,7 +25,7 @@ describe('component:CollapsibleFilter', () => {
   });
 
   describe('componentDidUpdate', () => {
-    it('triggers a new state update when props change', () => {
+    xit('triggers a new state update when props change', () => {
       const props = {
         hasChildren: false,
       };
