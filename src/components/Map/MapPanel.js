@@ -14,7 +14,7 @@ import React, { useMemo } from 'react';
 import RowChart from '../Charts/RowChart';
 import { Separator } from '../RefineBar/Separator';
 import { TabbedNavigation } from '../TabbedNavigation';
-import TileChartMap from '../Charts/TileChartMap';
+import { TileChartMap } from './TileChartMap/TileChartMap';
 import Warning from '../Warnings/Warning';
 import { selectAggsTotal } from '../../reducers/aggs/selectors';
 
