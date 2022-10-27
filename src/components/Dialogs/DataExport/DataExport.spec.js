@@ -208,20 +208,23 @@ describe('DataExport', () => {
     expect(radioCsv).toBeChecked();
     expect(radioJson).not.toBeChecked();
 
+    expect(screen.getByRole('textbox')).toHaveValue(
+      'https://files.consumerfinance.gov/ccdb/complaints.csv.zip'
+    );
+
     fireEvent.click(radioJson);
 
+    await waitFor(() => {
+      expect(screen.getByRole('textbox')).toHaveValue(
+        'https://files.consumerfinance.gov/ccdb/complaints.json.zip'
+      );
+    });
     await waitFor(() => {
       expect(radioJson).toBeChecked();
     });
 
     await waitFor(() => {
       expect(radioCsv).not.toBeChecked();
-    });
-
-    await waitFor(() => {
-      expect(screen.getByRole('textbox')).toHaveValue(
-        'https://files.consumerfinance.gov/ccdb/complaints.json.zip'
-      );
     });
 
     fireEvent.click(radioCsv);
@@ -232,9 +235,10 @@ describe('DataExport', () => {
     await waitFor(() => {
       expect(radioJson).not.toBeChecked();
     });
+
     await waitFor(() => {
       expect(screen.getByRole('textbox')).toHaveValue(
-        'https://files.consumerfinance.gov/ccdb/complaints.json.zip'
+        'https://files.consumerfinance.gov/ccdb/complaints.csv.zip'
       );
     });
   });
