@@ -9,9 +9,9 @@ describe('Document View', () => {
   describe('error handling', () => {
     it('handles bogus id', () => {
       cy.visit('/detail/ThisIsNotAValidId');
-      cy.get('h1')
-        .contains('There was a problem retrieving ThisIsNotAValidId')
-        .should('be.visible');
+      cy.findByRole('heading', {
+        name: 'There was a problem retrieving ThisIsNotAValidId',
+      }).should('be.visible');
     });
   });
 

@@ -27,7 +27,7 @@ function setupSnapshot(initialQueryState = {}, initialAggState = {}) {
   );
 }
 
-describe('component:PillPanel', () => {
+xdescribe('component:PillPanel', () => {
   it('renders without crashing', () => {
     const target = setupSnapshot({
       date_received_max: '2019-12-01T12:00:00.000Z',
