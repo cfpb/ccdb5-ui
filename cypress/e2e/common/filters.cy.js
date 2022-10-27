@@ -72,7 +72,7 @@ describe('Filter Panel', () => {
       // TODO: This seemed to break for no reason. We may be able to remove this
       // after fully converting to functional and react 18
       // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(500);
+      cy.wait(750);
       const maxDate = dayjs(new Date()).format('YYYY-MM-DD');
       let minDate = dayjs(new Date()).subtract(3, 'years').format('YYYY-MM-DD');
       cy.get('.date-ranges .a-btn.range-3y').contains('3y').click();
@@ -93,9 +93,13 @@ describe('Filter Panel', () => {
     it('can expand/collapse/apply filter group', () => {
       // default date Filter pills
       cy.get('.pill-panel .pill').should('have.length', 1);
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(750);
 
       cy.log('open simple filter');
       cy.get('.timely > .o-expandable_target').click();
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(750);
       cy.get(
         '.timely > .o-expandable_content > ul > :nth-child(1) > .a-label'
       ).should('be.visible');
@@ -103,7 +107,7 @@ describe('Filter Panel', () => {
       cy.log('close it');
 
       // Close it after opening it
-      cy.get('.timely > .o-expandable_target').click();
+      cy.get('.timely > .o-expandable_target').should('be.visible').click();
       cy.get(
         '.timely > .o-expandable_content > ul > :nth-child(1) > .a-label'
       ).should('not.exist');
@@ -111,7 +115,7 @@ describe('Filter Panel', () => {
       cy.log('open it again');
       cy.get('.timely > .o-expandable_target').click();
       // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(500);
+      cy.wait(750);
 
       cy.get(
         '.timely > .o-expandable_content > ul > :nth-child(1) > .a-label'
