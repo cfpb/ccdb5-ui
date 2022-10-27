@@ -11,6 +11,7 @@ import { defaultAggs } from '../../../reducers/aggs/aggs';
 import { defaultQuery } from '../../../reducers/query/query';
 import * as viewActions from '../../../actions/view';
 import { MODAL_TYPE_EXPORT_CONFIRMATION } from '../../../constants';
+import { waitFor } from '@testing-library/react';
 
 describe('DataExport', () => {
   const originalClipboard = { ...global.navigator.clipboard };
@@ -60,7 +61,7 @@ describe('DataExport', () => {
     expect(buttonCopy).toBeInTheDocument();
     expect(buttonCopy).toHaveClass('a-btn__secondary');
     fireEvent.click(buttonCopy);
-    await (() => {
+    await waitFor(() => {
       expect(buttonCopy).toHaveClass('export-url-copied');
     });
 
@@ -126,8 +127,11 @@ describe('DataExport', () => {
 
     fireEvent.click(radioJson);
 
-    await (() => {
+    await waitFor(() => {
       expect(radioJson).toBeChecked();
+    });
+
+    await waitFor(() => {
       expect(screen.getByRole('textbox')).toHaveValue(
         'https://files.consumerfinance.gov/ccdb/complaints.json.zip'
       );
@@ -165,7 +169,7 @@ describe('DataExport', () => {
     expect(radioFull).toBeInTheDocument();
     expect(radioFull).toBeChecked();
     fireEvent.click(radioFiltered);
-    await (() => {
+    await waitFor(() => {
       expect(radioFiltered).toBeChecked();
     });
 
@@ -206,9 +210,15 @@ describe('DataExport', () => {
 
     fireEvent.click(radioJson);
 
-    await (() => {
+    await waitFor(() => {
       expect(radioJson).toBeChecked();
+    });
+
+    await waitFor(() => {
       expect(radioCsv).not.toBeChecked();
+    });
+
+    await waitFor(() => {
       expect(screen.getByRole('textbox')).toHaveValue(
         'https://files.consumerfinance.gov/ccdb/complaints.json.zip'
       );
@@ -216,9 +226,13 @@ describe('DataExport', () => {
 
     fireEvent.click(radioCsv);
 
-    await (() => {
+    await waitFor(() => {
       expect(radioCsv).toBeChecked();
+    });
+    await waitFor(() => {
       expect(radioJson).not.toBeChecked();
+    });
+    await waitFor(() => {
       expect(screen.getByRole('textbox')).toHaveValue(
         'https://files.consumerfinance.gov/ccdb/complaints.json.zip'
       );
@@ -243,13 +257,17 @@ describe('DataExport', () => {
     expect(radioFull).toBeInTheDocument();
     expect(radioFull).toBeChecked();
     fireEvent.click(radioFiltered);
-    await (() => {
+    await waitFor(() => {
       expect(radioFiltered).toBeChecked();
+    });
+    await waitFor(() => {
       expect(radioFull).not.toBeChecked();
     });
     fireEvent.click(radioFull);
-    await (() => {
+    await waitFor(() => {
       expect(radioFiltered).not.toBeChecked();
+    });
+    await waitFor(() => {
       expect(radioFull).toBeChecked();
     });
   });
