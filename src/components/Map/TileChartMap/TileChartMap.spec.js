@@ -110,6 +110,7 @@ describe('TileChartMap', () => {
       isPrintMode: false,
       width: 1000,
     };
+
     renderComponent(newMap, newQuery, newView);
     expect(screen.getByTestId('tile-chart-map')).toBeInTheDocument();
     expect(screen.getByTestId('tile-chart-map')).not.toHaveClass('print');
@@ -124,6 +125,14 @@ describe('TileChartMap', () => {
 
     await waitFor(() => {
       expect(screen.getByText('0.56')).toBeInTheDocument();
+    });
+
+    // tooltip check
+    userEvent.hover(screen.getByLabelText('1. FL, value: 11,397.'));
+    await waitFor(() => {
+      expect(
+        screen.getByText('Product with highest complaint volume')
+      ).toBeVisible();
     });
 
     userEvent.click(screen.getByLabelText('1. FL, value: 11,397.'));
