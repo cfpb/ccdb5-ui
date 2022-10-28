@@ -22,7 +22,6 @@ export const TileChartMap = () => {
   const dataNormalization = useSelector(selectQueryDataNormalization);
   const stateFilters = useSelector(selectQueryStateFilters);
   const stateMapResultsState = useSelector(selectMapResultsState);
-  console.log(JSON.stringify(stateMapResultsState));
   const data = useMemo(() => {
     return stateMapResultsState.map((o) => {
       const stateInfo = coalesce(STATE_DATA, o.name, {
@@ -32,10 +31,10 @@ export const TileChartMap = () => {
       o.abbr = o.name;
       o.fullName = stateInfo.name;
       o.perCapita = getPerCapita(o, stateInfo);
-      o.className = getStateClass(stateFilters, o.name);
+      // o.className = getStateClass(stateFilters, o.name);
       return o;
     });
-  }, [stateFilters, stateMapResultsState]);
+  }, [stateMapResultsState]);
 
   const isPrintMode = useSelector(selectViewIsPrintMode);
   const width = useSelector(selectViewWidth);
@@ -65,7 +64,7 @@ export const TileChartMap = () => {
   const _redrawMap = useCallback(() => {
     const mapElement = document.getElementById('tile-chart-map');
     const mapWidth = isPrintMode ? 650 : mapElement.clientWidth || width;
-    const dataSet = updateData(data, dataNormalization);
+    const dataSet = updateData(data, dataNormalization, stateFilters);
 
     const options = {
       el: mapElement,
@@ -79,11 +78,19 @@ export const TileChartMap = () => {
       width: mapWidth,
     };
 
-    options.height = width * 0.75;
+    options.height = mapWidth * 0.75;
 
     // eslint-disable-next-line no-unused-vars
     const chart = new TileMap(options);
-  }, [data, dataNormalization, hasTip, isPrintMode, width, _toggleState]);
+  }, [
+    data,
+    dataNormalization,
+    hasTip,
+    isPrintMode,
+    stateFilters,
+    width,
+    _toggleState,
+  ]);
 
   useEffect(() => {
     _redrawMap();
@@ -114,13 +121,15 @@ export const TileChartMap = () => {
  *
  * @param {Array} data - Tiles to display
  * @param {string} dataNormalization - Whether to normalize the data
+ * @param statesFilter
  * @returns {object} data provided to tile map
  */
-function updateData(data, dataNormalization) {
+function updateData(data, dataNormalization, statesFilter) {
   const showDefault = dataNormalization === GEO_NORM_NONE;
   const res = data.map((o) => ({
     ...o,
     displayValue: showDefault ? o.value : o.perCapita,
+    className: getStateClass(statesFilter, o.name),
   }));
 
   return res;
