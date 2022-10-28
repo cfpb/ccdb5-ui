@@ -1,9 +1,6 @@
 // Internal triggers
 import { formatDate } from '../utils/formatDate';
 
-export const MODAL_HID = 'MODAL_HID';
-export const MODAL_SHOWN = 'MODAL_SHOWN';
-
 export const DATE_RANGE_MIN = '2011-12-01T12:00:00.000Z';
 
 // dayjs formatter to uses for custom validation
@@ -15,6 +12,7 @@ export const minDate = formatDate(DATE_RANGE_MIN);
 
 // Modal Dialogs
 export const MODAL_TYPE_DATA_EXPORT = 'MODAL_TYPE_DATA_EXPORT';
+export const MODAL_TYPE_EXPORT_CONFIRMATION = 'MODAL_TYPE_EXPORT_CONFIRMATION';
 export const MODAL_TYPE_MORE_ABOUT = 'MODAL_TYPE_MORE_ABOUT';
 
 // view modes

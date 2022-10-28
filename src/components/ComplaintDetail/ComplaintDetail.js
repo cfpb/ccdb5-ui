@@ -9,7 +9,7 @@ import {
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { getComplaintDetail } from '../../actions/complaints';
 import iconMap from '../iconMap';
-import Loading from '../Dialogs/Loading';
+import { Loading } from '../Loading/Loading';
 import { selectQuerySearch } from '../../reducers/query/selectors';
 import { ComplaintDetailBody } from './ComplaintDetailBody';
 import { LINK_DATA_USE } from '../../constants';

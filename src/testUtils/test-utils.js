@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import aggs from '../reducers/aggs/aggs';
 import detail from '../reducers/detail/detail';
 import map from '../reducers/map/map';
-import modal from '../reducers/modal';
 import query from '../reducers/query/query';
 import results from '../reducers/results/results';
 import trends from '../reducers/trends/trends';
@@ -31,7 +30,6 @@ function testRender(
         aggs: aggs,
         detail: detail,
         map: map,
-        modal: modal,
         query: query,
         results: results,
         trends: trends,
@@ -86,7 +84,6 @@ function testRenderWithMemoryRouter(
         aggs: aggs,
         detail: detail,
         map: map,
-        modal: modal,
         query: query,
         results: results,
         trends: trends,

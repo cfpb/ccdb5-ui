@@ -10,6 +10,69 @@ describe('reducer:map', () => {
     });
   });
 
+  describe('Modal Actions', () => {
+    it('shows a modal', () => {
+      action = {
+        type: actions.MODAL_SHOWN,
+        modalType: 'foo',
+      };
+      expect(target({}, action)).toEqual({
+        modalTypeShown: 'foo',
+      });
+    });
+
+    it('hides a modal', () => {
+      action = {
+        type: actions.MODAL_HID,
+      };
+      expect(target({ modalTypeShown: 'foobar' }, action)).toEqual({
+        modalTypeShown: false,
+      });
+    });
+  });
+
+  describe('Advanced Search Tips actions', () => {
+    it('shows advanced tips', () => {
+      action = {
+        type: actions.SHOW_ADVANCED_SEARCH_TIPS,
+      };
+      expect(target({}, action)).toEqual({
+        hasAdvancedSearchTips: true,
+      });
+    });
+
+    it('hides advanced tips', () => {
+      action = {
+        type: actions.HIDE_ADVANCED_SEARCH_TIPS,
+      };
+      expect(target({}, action)).toEqual({
+        hasAdvancedSearchTips: false,
+      });
+    });
+  });
+
+  describe('Tour Actions', () => {
+    it('shows a tour', () => {
+      action = {
+        type: actions.SHOW_TOUR,
+      };
+      expect(target({}, action)).toEqual({
+        expandedRows: [],
+        hasAdvancedSearchTips: false,
+        showTour: true,
+      });
+    });
+
+    it('hides a Tour', () => {
+      action = {
+        type: actions.HIDE_TOUR,
+      };
+      expect(target({ showTour: true }, action)).toEqual({
+        showTour: false,
+      });
+    });
+  });
+
   describe('handles PRINT_MODE_ON', () => {
     action = {
       type: actions.PRINT_MODE_ON,
@@ -123,9 +186,10 @@ describe('reducer:map', () => {
         expandedRows: [],
         isFromExternal: true,
         hasAdvancedSearchTips: false,
-        hasTour: false,
         isPrintMode: true,
         hasFilters: true,
+        modalTypeShown: false,
+        showTour: false,
         width: 0,
       });
     });

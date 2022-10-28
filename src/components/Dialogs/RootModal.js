@@ -1,61 +1,42 @@
-// Tip of the hat to: https://stackoverflow.com/questions/35623656
-
 import './RootModal.less';
 import * as types from '../../constants';
-import { connect } from 'react-redux';
-import DataExport from './DataExport';
-import MoreAbout from './MoreAbout';
-import PropTypes from 'prop-types';
-import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { DataExport } from './DataExport/DataExport';
+import { ExportConfirmation } from './DataExport/ExportConfirmation';
+import { MoreAbout } from './MoreAbout/MoreAbout';
+import React, { useMemo } from 'react';
 import ReactModal from 'react-modal';
+import { selectViewModalTypeShown } from '../../reducers/view/selectors';
+import { hideModal } from '../../actions/view';
 
-const buildMap = () => {
-  const retVal = {};
-  retVal[types.MODAL_TYPE_DATA_EXPORT] = DataExport;
-  retVal[types.MODAL_TYPE_MORE_ABOUT] = MoreAbout;
-  return retVal;
-};
+export const RootModal = () => {
+  const modalType = useSelector(selectViewModalTypeShown);
+  const dispatch = useDispatch();
+  const SpecificModal = useMemo(() => {
+    const modals = {
+      [types.MODAL_TYPE_DATA_EXPORT]: DataExport,
+      [types.MODAL_TYPE_EXPORT_CONFIRMATION]: ExportConfirmation,
+      [types.MODAL_TYPE_MORE_ABOUT]: MoreAbout,
+    };
+    return modals[modalType];
+  }, [modalType]);
 
-export const MODAL_COMPONENTS = buildMap();
-
-export const RootModal = ({ modalType, modalProps, onClose }) => {
-  if (modalType in MODAL_COMPONENTS) {
-    const SpecificModal = MODAL_COMPONENTS[modalType];
-
-    return (
-      <ReactModal
-        appElement={document.querySelector('#ccdb-ui-root')}
-        isOpen={true}
-        contentLabel="CFPB Modal Dialog"
-        className="modal-body"
-        overlayClassName="modal-overlay"
-        onRequestClose={onClose}
-      >
-        <SpecificModal {...modalProps} onClose={onClose} />
-      </ReactModal>
-    );
-  }
-
-  return (
+  return SpecificModal ? (
     <ReactModal
       appElement={document.querySelector('#ccdb-ui-root')}
-      isOpen={false}
-    />
-  );
-};
-
-export const mapDispatchToProps = (dispatch) => ({
-  onClose: () => {
-    dispatch({ type: types.MODAL_HID });
-  },
-});
-
-export const mapStateToProps = (state) => state.modal;
-
-export default connect(mapStateToProps, mapDispatchToProps)(RootModal);
-
-RootModal.propTypes = {
-  modalType: PropTypes.string,
-  modalProps: PropTypes.object,
-  onClose: PropTypes.func.isRequired,
+      isOpen={true}
+      contentLabel="CFPB Modal Dialog"
+      className="modal-body"
+      overlayClassName="modal-overlay"
+      onRequestClose={() => {
+        dispatch(hideModal());
+      }}
+    >
+      <SpecificModal
+        onClose={() => {
+          dispatch(hideModal());
+        }}
+      />
+    </ReactModal>
+  ) : null;
 };
