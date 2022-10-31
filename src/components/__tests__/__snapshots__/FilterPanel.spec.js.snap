@@ -1262,9 +1262,7 @@ exports[`initial state renders without crashing 1`] = `
           The type of issue and sub-issue the consumer identified in the complaint
         </p>
         <section
-          className="typeahead "
-          onBlur={[Function]}
-          onFocus={[Function]}
+          className="typeahead 0"
         >
           <div
             className="m-btn-inside-input input-contains-label"
@@ -1288,16 +1286,65 @@ exports[`initial state renders without crashing 1`] = `
             >
               Start typing to begin listing issues
             </label>
-            <input
-              autoComplete="off"
-              className="a-text-input"
-              id="issue-typeahead"
-              onChange={[Function]}
-              onKeyDown={[Function]}
-              placeholder="Enter name of issue"
-              type="text"
-              value=""
-            />
+            <div
+              className="rbt typeahead-selector"
+              style={
+                Object {
+                  "outline": "none",
+                  "position": "relative",
+                }
+              }
+              tabIndex={-1}
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "flex": 1,
+                    "height": "100%",
+                    "position": "relative",
+                  }
+                }
+              >
+                <input
+                  aria-autocomplete="both"
+                  aria-expanded={false}
+                  aria-haspopup="listbox"
+                  autoComplete="off"
+                  className="rbt-input-main form-control rbt-input"
+                  disabled={false}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  placeholder="Enter name of issue"
+                  role="combobox"
+                  type="text"
+                  value=""
+                />
+                <input
+                  aria-hidden={true}
+                  className="rbt-input-hint"
+                  readOnly={true}
+                  style={
+                    Object {
+                      "backgroundColor": "transparent",
+                      "borderColor": "transparent",
+                      "boxShadow": "none",
+                      "color": "rgba(0, 0, 0, 0.54)",
+                      "left": 0,
+                      "pointerEvents": "none",
+                      "position": "absolute",
+                      "top": 0,
+                      "width": "100%",
+                    }
+                  }
+                  tabIndex={-1}
+                  value=""
+                />
+              </div>
+            </div>
           </div>
         </section>
         <ul />
@@ -1347,9 +1394,7 @@ exports[`initial state renders without crashing 1`] = `
           The state in the mailing address provided by the consumer
         </p>
         <section
-          className="typeahead "
-          onBlur={[Function]}
-          onFocus={[Function]}
+          className="typeahead 0"
         >
           <div
             className="m-btn-inside-input input-contains-label"
@@ -1373,19 +1418,67 @@ exports[`initial state renders without crashing 1`] = `
             >
               Start typing to begin listing US states
             </label>
-            <input
-              autoComplete="off"
-              className="a-text-input"
-              id="state-typeahead"
-              onChange={[Function]}
-              onKeyDown={[Function]}
-              placeholder="Enter state name or abbreviation"
-              type="text"
-              value=""
-            />
+            <div
+              className="rbt typeahead-selector"
+              style={
+                Object {
+                  "outline": "none",
+                  "position": "relative",
+                }
+              }
+              tabIndex={-1}
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "flex": 1,
+                    "height": "100%",
+                    "position": "relative",
+                  }
+                }
+              >
+                <input
+                  aria-autocomplete="both"
+                  aria-expanded={false}
+                  aria-haspopup="listbox"
+                  autoComplete="off"
+                  className="rbt-input-main form-control rbt-input"
+                  disabled={false}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  placeholder="Enter state name or abbreviation"
+                  role="combobox"
+                  type="text"
+                  value=""
+                />
+                <input
+                  aria-hidden={true}
+                  className="rbt-input-hint"
+                  readOnly={true}
+                  style={
+                    Object {
+                      "backgroundColor": "transparent",
+                      "borderColor": "transparent",
+                      "boxShadow": "none",
+                      "color": "rgba(0, 0, 0, 0.54)",
+                      "left": 0,
+                      "pointerEvents": "none",
+                      "position": "absolute",
+                      "top": 0,
+                      "width": "100%",
+                    }
+                  }
+                  tabIndex={-1}
+                  value=""
+                />
+              </div>
+            </div>
           </div>
         </section>
-        <ul />
       </div>
     </section>
     <hr />
@@ -1432,9 +1525,7 @@ exports[`initial state renders without crashing 1`] = `
           The mailing ZIP code provided by the consumer
         </p>
         <section
-          className="typeahead "
-          onBlur={[Function]}
-          onFocus={[Function]}
+          className="typeahead 0"
         >
           <div
             className="m-btn-inside-input input-contains-label"
@@ -1458,19 +1549,67 @@ exports[`initial state renders without crashing 1`] = `
             >
               Start typing to begin listing zip codes
             </label>
-            <input
-              autoComplete="off"
-              className="a-text-input"
-              id="zipcode-typeahead"
-              onChange={[Function]}
-              onKeyDown={[Function]}
-              placeholder="Enter first three digits of ZIP code"
-              type="text"
-              value=""
-            />
+            <div
+              className="rbt typeahead-selector"
+              style={
+                Object {
+                  "outline": "none",
+                  "position": "relative",
+                }
+              }
+              tabIndex={-1}
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "flex": 1,
+                    "height": "100%",
+                    "position": "relative",
+                  }
+                }
+              >
+                <input
+                  aria-autocomplete="both"
+                  aria-expanded={false}
+                  aria-haspopup="listbox"
+                  autoComplete="off"
+                  className="rbt-input-main form-control rbt-input"
+                  disabled={false}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  placeholder="Enter first three digits of ZIP code"
+                  role="combobox"
+                  type="text"
+                  value=""
+                />
+                <input
+                  aria-hidden={true}
+                  className="rbt-input-hint"
+                  readOnly={true}
+                  style={
+                    Object {
+                      "backgroundColor": "transparent",
+                      "borderColor": "transparent",
+                      "boxShadow": "none",
+                      "color": "rgba(0, 0, 0, 0.54)",
+                      "left": 0,
+                      "pointerEvents": "none",
+                      "position": "absolute",
+                      "top": 0,
+                      "width": "100%",
+                    }
+                  }
+                  tabIndex={-1}
+                  value=""
+                />
+              </div>
+            </div>
           </div>
         </section>
-        <ul />
       </div>
     </section>
     <hr />
@@ -1517,9 +1656,7 @@ exports[`initial state renders without crashing 1`] = `
           The complaint is about this company.
         </p>
         <section
-          className="typeahead "
-          onBlur={[Function]}
-          onFocus={[Function]}
+          className="typeahead 0"
         >
           <div
             className="m-btn-inside-input input-contains-label"
@@ -1543,16 +1680,65 @@ exports[`initial state renders without crashing 1`] = `
             >
               Start typing to begin listing companies
             </label>
-            <input
-              autoComplete="off"
-              className="a-text-input"
-              id="company-typeahead-filter-company"
-              onChange={[Function]}
-              onKeyDown={[Function]}
-              placeholder="Enter company name"
-              type="text"
-              value=""
-            />
+            <div
+              className="rbt typeahead-selector"
+              style={
+                Object {
+                  "outline": "none",
+                  "position": "relative",
+                }
+              }
+              tabIndex={-1}
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "flex": 1,
+                    "height": "100%",
+                    "position": "relative",
+                  }
+                }
+              >
+                <input
+                  aria-autocomplete="both"
+                  aria-expanded={false}
+                  aria-haspopup="listbox"
+                  autoComplete="off"
+                  className="rbt-input-main form-control rbt-input"
+                  disabled={false}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  placeholder="Enter company name"
+                  role="combobox"
+                  type="text"
+                  value=""
+                />
+                <input
+                  aria-hidden={true}
+                  className="rbt-input-hint"
+                  readOnly={true}
+                  style={
+                    Object {
+                      "backgroundColor": "transparent",
+                      "borderColor": "transparent",
+                      "boxShadow": "none",
+                      "color": "rgba(0, 0, 0, 0.54)",
+                      "left": 0,
+                      "pointerEvents": "none",
+                      "position": "absolute",
+                      "top": 0,
+                      "width": "100%",
+                    }
+                  }
+                  tabIndex={-1}
+                  value=""
+                />
+              </div>
+            </div>
           </div>
         </section>
         <ul />
