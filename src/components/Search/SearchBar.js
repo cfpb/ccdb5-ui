@@ -60,8 +60,6 @@ export const SearchBar = ({ debounceWait }) => {
   };
 
   const onSearchChange = (value) => {
-    console.log('HERE HERE HERE ');
-    console.log(value);
     setInputValue(value);
     const uriCompany = `${API_PLACEHOLDER}_suggest_company/?text=${value}`;
     handleFetchSearch(value, setDropdownOptions, uriCompany);

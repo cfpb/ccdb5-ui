@@ -5,37 +5,26 @@ import {
   waitFor,
 } from '../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
+import fetchMock from 'jest-fetch-mock';
 import { merge } from '../../testUtils/functionHelpers';
 import { SearchBar } from './SearchBar';
 import { defaultQuery } from '../../reducers/query/query';
 import { defaultView } from '../../reducers/view/view';
 import * as searchActions from '../../actions/search';
-import * as typeaheadUtils from '../Typeahead/utils';
+
+fetchMock.enableMocks();
 
 describe('SearchBar', () => {
-  const user = userEvent.setup({ delay: null });
-  // const user = userEvent.setup({ delay: 250 });
-  const appleOption = {
-    label: 'apple',
-    key: 'apple',
-    position: 4,
-    value: 'appl',
-  };
+  beforeEach(() => {
+    fetch.resetMocks();
+  });
 
-  const renderComponent = (
-    // newAggsState,
-    newQueryState,
-    // newResultsState,
-    newViewState
-  ) => {
-    // merge(newAggsState, defaultAggs);
+  const user = userEvent.setup({ delay: null });
+  const renderComponent = (newQueryState, newViewState) => {
     merge(newQueryState, defaultQuery);
-    // merge(newResultsState, defaultResults);
     merge(newViewState, defaultView);
     const data = {
-      //   aggs: newAggsState,
       query: newQueryState,
-      //   results: newResultsState,
       view: newViewState,
     };
 
@@ -44,7 +33,7 @@ describe('SearchBar', () => {
     });
   };
 
-  xtest('Search tips toggle', async () => {
+  test('Search tips toggle', async () => {
     const newQueryState = { searchField: 'all', searchText: '' };
     const newViewState = { hasAdvancedSearchTips: false };
 
@@ -63,7 +52,7 @@ describe('SearchBar', () => {
     ).toBeInTheDocument();
   });
 
-  xtest('Change search field', async () => {
+  test('Change search field', async () => {
     const searchFieldChangedSpy = jest
       .spyOn(searchActions, 'searchFieldChanged')
       .mockImplementation(() => jest.fn());
@@ -78,41 +67,68 @@ describe('SearchBar', () => {
     );
   });
 
-  xtest('Input returns options on change', async () => {
-    const handleFetchSearchMock = jest
-      .spyOn(typeaheadUtils, 'handleFetchSearch')
-      .mockImplementation(() => jest.fn())
-      .mockReturnValue([appleOption]);
-
-    const newQueryState = { searchField: 'company', searchText: '' };
+  test('Input can be inputed with enter key', async () => {
+    const searchTextChangedSpy = jest
+      .spyOn(searchActions, 'searchTextChanged')
+      .mockImplementation(() => jest.fn());
+    const newQueryState = { searchField: '', searchText: '' };
     const newViewState = { hasAdvancedSearchTips: false };
 
     renderComponent(newQueryState, newViewState);
-    // const input = screen.getByPlaceholderText('Enter your search term(s)');
-    const input = screen.getByRole('combobox', { name: '' });
-    await user.type(input, 'appl');
-    // await user.click(input);
-    // await user.keyboard('appl');
-    // screen.debug();
-    await waitFor(expect(handleFetchSearchMock).toBeCalled());
-    expect(input).toHaveValue('appl');
+    const input = screen.getByPlaceholderText('Enter your search term(s)');
+    await user.type(input, 'value');
+    expect(input).toHaveValue('value');
+    await user.click(input);
+    await user.keyboard('{Shift}');
+    expect(input).toHaveValue('value');
+    await user.keyboard('{Enter}');
+    await waitFor(() => expect(searchTextChangedSpy).toBeCalledWith('value'));
   });
 
-  test('Input can be cleared', async () => {
-    // const handleFetchSearchMock = jest
-    //   .spyOn(typeaheadUtils, 'handleFetchSearch')
-    //   .mockImplementation(() => jest.fn());
-    // .mockReturnValue([appleOption]);
+  test('Input can be inputed and then cleared', async () => {
+    const newQueryState = { searchField: '', searchText: '' };
+    const newViewState = { hasAdvancedSearchTips: false };
 
+    renderComponent(newQueryState, newViewState);
+    const input = screen.getByPlaceholderText('Enter your search term(s)');
+    await user.type(input, 'value');
+    expect(input).toHaveValue('value');
+    await user.click(screen.getByRole('button', { name: /clear search/ }));
+    expect(input).toHaveValue('');
+  });
+
+  test('When company searchField is selected, options appear when user types and dispatches searchTextChanged on selection', async () => {
+    fetch.mockResponseOnce(JSON.stringify(['Truist', 'Bank of America']));
+    const searchTextChangedSpy = jest
+      .spyOn(searchActions, 'searchTextChanged')
+      .mockImplementation(() => jest.fn());
     const newQueryState = { searchField: 'company', searchText: '' };
     const newViewState = { hasAdvancedSearchTips: false };
 
     renderComponent(newQueryState, newViewState);
     const input = screen.getByPlaceholderText('Enter your search term(s)');
-    // const input = screen.getByRole('combobox', { name: '' });
+    await user.type(input, 'Tru');
+    const option = await screen.findByRole('option', {
+      name: /Truist/,
+    });
+    await user.click(option);
+
+    await waitFor(() => expect(searchTextChangedSpy).toBeCalledWith('Truist'));
+  });
+
+  test('When company searchField is selected, input can be cleared', async () => {
+    fetch.mockResponseOnce(JSON.stringify(['Truist', 'Bank of America']));
+    const searchTextChangedSpy = jest
+      .spyOn(searchActions, 'searchTextChanged')
+      .mockImplementation(() => jest.fn());
+    const newQueryState = { searchField: 'company', searchText: '' };
+    const newViewState = { hasAdvancedSearchTips: false };
+
+    renderComponent(newQueryState, newViewState);
+    const input = screen.getByPlaceholderText('Enter your search term(s)');
     await user.type(input, 'appl');
     expect(input).toHaveValue('appl');
-    // await user.click(screen.getByRole('button', { name: /clear search/ }));
-    // expect(input).toHaveValue('');
+    user.click(await screen.findByRole('button', { name: /clear search/ }));
+    await waitFor(() => expect(searchTextChangedSpy).toBeCalledWith(''));
   });
 });
