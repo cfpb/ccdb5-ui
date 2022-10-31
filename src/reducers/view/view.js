@@ -7,7 +7,8 @@ export const defaultView = {
   isPrintMode: false,
   hasAdvancedSearchTips: false,
   hasFilters: true,
-  hasTour: false,
+  showTour: false,
+  modalTypeShown: false,
   width: 0,
 };
 
@@ -41,6 +42,33 @@ export function hideAdvancedSearchTips(state) {
   return {
     ...state,
     hasAdvancedSearchTips: false,
+  };
+}
+
+/**
+ * Handler for the modal hide
+ *
+ * @param {object} state - the current state in the Redux store
+ * @returns {object} the new state for the Redux store
+ */
+export function modalHidden(state) {
+  return {
+    ...state,
+    modalTypeShown: false,
+  };
+}
+
+/**
+ * Handler for the modal show
+ *
+ * @param {object} state - the current state in the Redux store
+ * @param {object} action - The redux action
+ * @returns {object} the new state for the Redux store
+ */
+export function modalShown(state, action) {
+  return {
+    ...state,
+    modalTypeShown: action.modalType,
   };
 }
 
@@ -205,6 +233,8 @@ export function _buildHandlerMap() {
   const handlers = {};
 
   handlers[actions.DATA_LENS_CHANGED] = resetExpandedRows;
+  handlers[actions.MODAL_HID] = modalHidden;
+  handlers[actions.MODAL_SHOWN] = modalShown;
   handlers[actions.PRINT_MODE_ON] = updatePrintModeOn;
   handlers[actions.PRINT_MODE_OFF] = updatePrintModeOff;
   handlers[actions.SCREEN_RESIZED] = updateScreenSize;

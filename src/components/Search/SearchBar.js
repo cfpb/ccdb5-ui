@@ -1,7 +1,7 @@
 import './SearchBar.less';
 import { hideAdvancedTips, showAdvancedTips } from '../../actions/view';
 import { searchFieldChanged, searchTextChanged } from '../../actions/search';
-import AdvancedTips from '../Dialogs/AdvancedTips';
+import { AdvancedTips } from './AdvancedTips/AdvancedTips';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';

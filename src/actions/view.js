@@ -1,11 +1,8 @@
-import {
-  MODAL_SHOWN,
-  MODAL_TYPE_MORE_ABOUT,
-  REQUERY_HITS_ONLY,
-  REQUERY_NEVER,
-} from '../constants';
+import { REQUERY_HITS_ONLY, REQUERY_NEVER } from '../constants';
 
 export const MAP_WARNING_DISMISSED = 'MAP_WARNING_DISMISSED';
+export const MODAL_HID = 'MODAL_HID';
+export const MODAL_SHOWN = 'MODAL_SHOWN';
 export const PRINT_MODE_ON = 'PRINT_MODE_ON';
 export const PRINT_MODE_OFF = 'PRINT_MODE_OFF';
 export const ROW_COLLAPSED = 'ROW_COLLAPSED';
@@ -108,6 +105,30 @@ export function collapseRow(value) {
 }
 
 /**
+ * Indicates all modals are hidden
+ *
+ * @returns {object} A packaged payload to be used by Redux reducers
+ */
+export function hideModal() {
+  return {
+    type: MODAL_HID,
+  };
+}
+
+/**
+ * Indicates the named modal was opened
+ *
+ * @param {string} value - The name of the modal to open.
+ * @returns {object} A packaged payload to be used by Redux reducers
+ */
+export function showModal(value) {
+  return {
+    type: MODAL_SHOWN,
+    modalType: value,
+  };
+}
+
+/**
  * Indicates a bar in row chart has been expanded
  *
  * @param {string} value - of trend agg that was toggled
@@ -182,18 +203,5 @@ export function trendsDateWarningDismissed() {
   return {
     type: TRENDS_DATE_WARNING_DISMISSED,
     requery: REQUERY_NEVER,
-  };
-}
-
-/**
- * Notifies the application that the "More About..." dialog box should appear
- *
- * @returns {string} a packaged payload to be used by Redux reducers
- */
-export function showMoreAboutDialog() {
-  return {
-    type: MODAL_SHOWN,
-    modalType: MODAL_TYPE_MORE_ABOUT,
-    modalProps: {},
   };
 }
