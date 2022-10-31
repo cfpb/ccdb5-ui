@@ -115,6 +115,9 @@
     "stylelint": "^14.14.0",
     "stylelint-config-recommended-less": "^1.0.4"
   },
+  "jest": {
+    "resetMocks": false
+  },
   "lint-staged": {
     "src/**/*.{css,less}": [
       "stylelint --fix"
