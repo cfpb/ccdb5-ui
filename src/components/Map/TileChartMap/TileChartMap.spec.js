@@ -1,6 +1,10 @@
 import { TileChartMap } from './TileChartMap';
 import React from 'react';
-import { testRender as render, screen } from '../../../testUtils/test-utils';
+import {
+  testRender as render,
+  fireEvent,
+  screen,
+} from '../../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 import { merge } from '../../../testUtils/functionHelpers';
 import { defaultMap } from '../../../reducers/map/map';
@@ -28,7 +32,7 @@ describe('TileChartMap', () => {
     });
   };
 
-  it('renders empty set without crashing', () => {
+  it.only('renders empty set without crashing', () => {
     renderComponent();
     expect(screen.getByTestId('tile-chart-map')).toBeInTheDocument();
     expect(screen.getByTestId('tile-chart-map')).not.toHaveClass('print');
@@ -37,13 +41,13 @@ describe('TileChartMap', () => {
     ).toBeInTheDocument();
   });
 
-  it('renders print mode', () => {
+  it.only('renders print mode', () => {
     renderComponent({}, {}, { isPrintMode: true });
     expect(screen.getByTestId('tile-chart-map')).toBeInTheDocument();
     expect(screen.getByTestId('tile-chart-map')).toHaveClass('print');
   });
 
-  it('renders map with complaint counts', async () => {
+  it.only('renders map with complaint counts', async () => {
     const analyticsSpy = jest
       .spyOn(analyticsActions, 'sendAnalyticsEvent')
       .mockImplementation(() => jest.fn());
@@ -66,15 +70,10 @@ describe('TileChartMap', () => {
     renderComponent(newMap, {}, newView);
     expect(screen.getByTestId('tile-chart-map')).toBeInTheDocument();
     expect(screen.getByTestId('tile-chart-map')).not.toHaveClass('print');
-    await waitFor(() => {
-      expect(screen.getByText('FL')).toBeInTheDocument();
-    });
+    expect(await screen.findByText('FL')).toBeInTheDocument();
+    expect(await screen.findByText('11,397')).toBeInTheDocument();
 
-    await waitFor(() => {
-      expect(screen.getByText('11,397')).toBeInTheDocument();
-    });
-
-    userEvent.click(screen.getByLabelText('1. FL, value: 11,397.'));
+    fireEvent.click(screen.getByLabelText('1. FL, value: 11,397.'));
     await waitFor(() => {
       expect(analyticsSpy).toHaveBeenCalledWith('State Event: add', 'FL');
     });
@@ -87,7 +86,7 @@ describe('TileChartMap', () => {
     });
   });
 
-  it('renders map with per capita values', async () => {
+  it.only('renders map with per capita values', async () => {
     const analyticsSpy = jest
       .spyOn(analyticsActions, 'sendAnalyticsEvent')
       .mockImplementation(() => jest.fn());
@@ -115,36 +114,24 @@ describe('TileChartMap', () => {
     expect(screen.getByTestId('tile-chart-map')).toBeInTheDocument();
     expect(screen.getByTestId('tile-chart-map')).not.toHaveClass('print');
 
-    await waitFor(() => {
-      expect(screen.getByText('Complaints per 1,000')).toBeInTheDocument();
-    });
+    await screen.findByLabelText('1. FL, value: 11,397.');
 
-    await waitFor(() => {
-      expect(screen.getByText('FL')).toBeInTheDocument();
-    });
-
-    await waitFor(() => {
-      expect(screen.getByText('0.56')).toBeInTheDocument();
-    });
+    expect(screen.getByText('Complaints per 1,000')).toBeInTheDocument();
+    expect(screen.getByText('FL')).toBeInTheDocument();
+    expect(screen.getByText('0.56')).toBeInTheDocument();
 
     // tooltip check
-    userEvent.hover(screen.getByLabelText('1. FL, value: 11,397.'));
-    await waitFor(() => {
-      expect(
-        screen.getByText('Product with highest complaint volume')
-      ).toBeVisible();
-    });
+    fireEvent.mouseEnter(screen.getByLabelText('1. FL, value: 11,397.'));
 
-    userEvent.click(screen.getByLabelText('1. FL, value: 11,397.'));
-    await waitFor(() => {
-      expect(analyticsSpy).toHaveBeenCalledWith('State Event: add', 'FL');
-    });
+    expect(
+      screen.getByText('Product with highest complaint volume')
+    ).toBeVisible();
 
-    await waitFor(() => {
-      expect(addStateFilterSpy).toHaveBeenCalledWith({
-        abbr: 'FL',
-        name: 'Florida',
-      });
+    fireEvent.click(screen.getByLabelText('1. FL, value: 11,397.'));
+    expect(analyticsSpy).toHaveBeenCalledWith('State Event: add', 'FL');
+    expect(addStateFilterSpy).toHaveBeenCalledWith({
+      abbr: 'FL',
+      name: 'Florida',
     });
   });
 
@@ -175,15 +162,12 @@ describe('TileChartMap', () => {
     renderComponent(newMap, newQuery, newView);
     expect(screen.getByTestId('tile-chart-map')).toBeInTheDocument();
     expect(screen.getByTestId('tile-chart-map')).not.toHaveClass('print');
-    await waitFor(() => {
-      expect(screen.getByText('FL')).toBeInTheDocument();
-    });
 
-    await waitFor(() => {
-      expect(screen.getByText('11,397')).toBeInTheDocument();
-    });
+    expect(await screen.findByText('FL')).toBeInTheDocument();
+    expect(await screen.findByText('11,397')).toBeInTheDocument();
 
     userEvent.click(screen.getByLabelText('1. FL, value: 11,397.'));
+
     await waitFor(() => {
       expect(analyticsSpy).toHaveBeenCalledWith('State Event: remove', 'FL');
     });
@@ -224,13 +208,8 @@ describe('TileChartMap', () => {
     renderComponent(newMap, newQuery, newView);
     expect(screen.getByTestId('tile-chart-map')).toBeInTheDocument();
     expect(screen.getByTestId('tile-chart-map')).not.toHaveClass('print');
-    await waitFor(() => {
-      expect(screen.getByText('FL')).toBeInTheDocument();
-    });
-
-    await waitFor(() => {
-      expect(screen.getByText('0.56')).toBeInTheDocument();
-    });
+    expect(await screen.findByText('FL')).toBeInTheDocument();
+    expect(await screen.findByText('0.56')).toBeInTheDocument();
 
     expect(screen.getByLabelText('31. OK, value: 535.')).toHaveClass(
       'deselected'
