@@ -5,13 +5,11 @@ import {
   fireEvent,
   screen,
 } from '../../../testUtils/test-utils';
-import userEvent from '@testing-library/user-event';
 import { merge } from '../../../testUtils/functionHelpers';
 import { defaultMap } from '../../../reducers/map/map';
 import { defaultQuery } from '../../../reducers/query/query';
 import { defaultView } from '../../../reducers/view/view';
 import { mapResults } from './__fixtures__/mapResults';
-import { waitFor } from '@testing-library/react';
 import { GEO_NORM_PER1000 } from '../../../constants';
 import * as analyticsActions from '../../../utils';
 import * as mapActions from '../../../actions/map';
@@ -32,7 +30,7 @@ describe('TileChartMap', () => {
     });
   };
 
-  it.only('renders empty set without crashing', () => {
+  it('renders empty set without crashing', () => {
     renderComponent();
     expect(screen.getByTestId('tile-chart-map')).toBeInTheDocument();
     expect(screen.getByTestId('tile-chart-map')).not.toHaveClass('print');
@@ -41,13 +39,13 @@ describe('TileChartMap', () => {
     ).toBeInTheDocument();
   });
 
-  it.only('renders print mode', () => {
+  it('renders print mode', () => {
     renderComponent({}, {}, { isPrintMode: true });
     expect(screen.getByTestId('tile-chart-map')).toBeInTheDocument();
     expect(screen.getByTestId('tile-chart-map')).toHaveClass('print');
   });
 
-  it.only('renders map with complaint counts', async () => {
+  it('renders map with complaint counts', async () => {
     const analyticsSpy = jest
       .spyOn(analyticsActions, 'sendAnalyticsEvent')
       .mockImplementation(() => jest.fn());
@@ -73,20 +71,19 @@ describe('TileChartMap', () => {
     expect(await screen.findByText('FL')).toBeInTheDocument();
     expect(await screen.findByText('11,397')).toBeInTheDocument();
 
+    // need to mouseover to initialize the toggleState handler
+    fireEvent.mouseEnter(screen.getByLabelText('1. FL, value: 11,397.'));
     fireEvent.click(screen.getByLabelText('1. FL, value: 11,397.'));
-    await waitFor(() => {
-      expect(analyticsSpy).toHaveBeenCalledWith('State Event: add', 'FL');
-    });
 
-    await waitFor(() => {
-      expect(addStateFilterSpy).toHaveBeenCalledWith({
-        abbr: 'FL',
-        name: 'Florida',
-      });
+    expect(analyticsSpy).toHaveBeenCalledWith('State Event: add', 'FL');
+
+    expect(addStateFilterSpy).toHaveBeenCalledWith({
+      abbr: 'FL',
+      name: 'Florida',
     });
   });
 
-  it.only('renders map with per capita values', async () => {
+  it('renders map with per capita values', async () => {
     const analyticsSpy = jest
       .spyOn(analyticsActions, 'sendAnalyticsEvent')
       .mockImplementation(() => jest.fn());
@@ -166,17 +163,13 @@ describe('TileChartMap', () => {
     expect(await screen.findByText('FL')).toBeInTheDocument();
     expect(await screen.findByText('11,397')).toBeInTheDocument();
 
-    userEvent.click(screen.getByLabelText('1. FL, value: 11,397.'));
-
-    await waitFor(() => {
-      expect(analyticsSpy).toHaveBeenCalledWith('State Event: remove', 'FL');
-    });
-
-    await waitFor(() => {
-      expect(removeStateFilterSpy).toHaveBeenCalledWith({
-        abbr: 'FL',
-        name: 'Florida',
-      });
+    // need to mouseEnter to initialize the toggleState handler!
+    fireEvent.mouseEnter(screen.getByLabelText('1. FL, value: 11,397.'));
+    fireEvent.click(screen.getByLabelText('1. FL, value: 11,397.'));
+    expect(analyticsSpy).toHaveBeenCalledWith('State Event: remove', 'FL');
+    expect(removeStateFilterSpy).toHaveBeenCalledWith({
+      abbr: 'FL',
+      name: 'Florida',
     });
   });
 
@@ -218,16 +211,14 @@ describe('TileChartMap', () => {
       'selected'
     );
 
-    userEvent.click(screen.getByLabelText('1. FL, value: 11,397.'));
-    await waitFor(() => {
-      expect(analyticsSpy).toHaveBeenCalledWith('State Event: remove', 'FL');
-    });
+    // need to mouseEnter to initialize the toggleState handler!
+    fireEvent.mouseEnter(screen.getByLabelText('1. FL, value: 11,397.'));
+    fireEvent.click(screen.getByLabelText('1. FL, value: 11,397.'));
 
-    await waitFor(() => {
-      expect(removeStateFilterSpy).toHaveBeenCalledWith({
-        abbr: 'FL',
-        name: 'Florida',
-      });
+    expect(analyticsSpy).toHaveBeenCalledWith('State Event: remove', 'FL');
+    expect(removeStateFilterSpy).toHaveBeenCalledWith({
+      abbr: 'FL',
+      name: 'Florida',
     });
   });
 });
