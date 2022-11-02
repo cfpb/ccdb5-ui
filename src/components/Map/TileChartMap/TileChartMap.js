@@ -31,7 +31,6 @@ export const TileChartMap = () => {
       o.abbr = o.name;
       o.fullName = stateInfo.name;
       o.perCapita = getPerCapita(o, stateInfo);
-      // o.className = getStateClass(stateFilters, o.name);
       return o;
     });
   }, [stateMapResultsState]);
@@ -119,10 +118,10 @@ export const TileChartMap = () => {
 /**
  * Helper function to get display value of tile based on Normalization.
  *
- * @param {Array} data - Tiles to display
- * @param {string} dataNormalization - Whether to normalize the data
- * @param statesFilter
- * @returns {object} data provided to tile map
+ * @param {Array} data - Tiles to display.
+ * @param {string} dataNormalization - Whether to normalize the data.
+ * @param {Array} statesFilter - The currently applied states filter.
+ * @returns {object} Data provided to tile map
  */
 function updateData(data, dataNormalization, statesFilter) {
   const showDefault = dataNormalization === GEO_NORM_NONE;
