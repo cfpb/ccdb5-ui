@@ -32,6 +32,10 @@ const fixture = {
   zip_code: '423XX',
 };
 
+beforeEach(() => {
+  jest.resetAllMocks();
+});
+
 const renderComponent = (newDetailState, newQueryState) => {
   merge(newDetailState, defaultDetail);
   merge(newQueryState, defaultQuery);

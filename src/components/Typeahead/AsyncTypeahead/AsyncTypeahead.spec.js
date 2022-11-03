@@ -19,6 +19,10 @@ describe('AsyncTypeahead', () => {
   const handleClearMock = jest.fn();
   const handleSearchMock = jest.fn();
 
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
   const renderComponent = (defaultValue, handleClear, isVisible) => {
     render(
       <AsyncTypeahead

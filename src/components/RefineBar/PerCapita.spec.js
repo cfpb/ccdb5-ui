@@ -11,6 +11,10 @@ import { GEO_NORM_NONE, GEO_NORM_PER1000 } from '../../constants';
 import * as mapActions from '../../actions/map';
 
 describe('PerCapita', () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
   const renderComponent = (newQueryState) => {
     merge(newQueryState, defaultQuery);
     const data = {

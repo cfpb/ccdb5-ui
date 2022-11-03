@@ -10,6 +10,10 @@ import {
 import * as trendsActions from '../../actions/trends';
 
 describe('ChartToggles', () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
   const renderComponent = (newTrendsState) => {
     merge(newTrendsState, defaultTrends);
     const data = {
