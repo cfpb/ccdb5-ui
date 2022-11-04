@@ -10,10 +10,6 @@ import { merge } from '../../testUtils/functionHelpers';
 import { defaultQuery } from '../../reducers/query/query';
 
 describe('NarrativesButtons', () => {
-  beforeEach(() => {
-    jest.resetAllMocks();
-  });
-
   const renderComponent = (newQueryState) => {
     merge(newQueryState, defaultQuery);
     const data = {

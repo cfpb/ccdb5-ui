@@ -86,6 +86,9 @@ describe('SearchBar', () => {
   });
 
   test('Input can be inputed and then cleared', async () => {
+    const searchTextChangedSpy = jest
+      .spyOn(searchActions, 'searchTextChanged')
+      .mockImplementation(() => jest.fn());
     const newQueryState = { searchField: '', searchText: '' };
     const newViewState = { hasAdvancedSearchTips: false };
 
@@ -94,6 +97,7 @@ describe('SearchBar', () => {
     await user.type(input, 'value');
     expect(input).toHaveValue('value');
     await user.click(screen.getByRole('button', { name: /clear search/ }));
+    await waitFor(() => expect(searchTextChangedSpy).toBeCalledWith(''));
     expect(input).toHaveValue('');
   });
 

@@ -58,7 +58,6 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "13.4.0",
     "@testing-library/user-event": "^14.4.3",
-    "bootstrap": "^5.2.2",
     "britecharts": "git+https://github.com/cfpb/britecharts.git#v2.4.2",
     "coveralls": "^3.0.9",
     "craco-less": "^2.0.0",
@@ -76,7 +75,6 @@
     "eslint-plugin-react-redux": "^4.0.0",
     "highcharts": "9.2.2",
     "history": "^4.10.1",
-    "http-proxy-middleware": "^2.0.6",
     "husky": "^8.0.1",
     "identity-obj-proxy": "3.0.0",
     "intro.js": "^6.0.0",
@@ -114,9 +112,6 @@
     "string-replace-loader": "^3.1.0",
     "stylelint": "^14.14.0",
     "stylelint-config-recommended-less": "^1.0.4"
-  },
-  "jest": {
-    "resetMocks": false
   },
   "lint-staged": {
     "src/**/*.{css,less}": [

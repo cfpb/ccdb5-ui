@@ -19,10 +19,6 @@ describe('AsyncTypeahead', () => {
   const handleClearMock = jest.fn();
   const handleSearchMock = jest.fn();
 
-  beforeEach(() => {
-    jest.resetAllMocks();
-  });
-
   const renderComponent = (defaultValue, handleClear, isVisible) => {
     render(
       <AsyncTypeahead
@@ -94,5 +90,20 @@ describe('AsyncTypeahead', () => {
 
     await waitFor(() => expect(handleClearMock).not.toBeCalled());
     expect(input).toHaveValue('');
+  });
+
+  test('Clear button is not visible if user types and then clears results', async () => {
+    renderComponent('', handleClearMock, true);
+    const input = screen.getByPlaceholderText('Enter your search term(s)');
+    expect(input).toHaveValue('');
+    await user.type(input, 'new value');
+    expect(input).toHaveValue('new value');
+    const clearButton = await screen.findByRole('button', {
+      name: /clear search/,
+    });
+    expect(clearButton).toBeInTheDocument();
+    await user.clear(input);
+    expect(input).toHaveValue('');
+    expect(clearButton).not.toBeInTheDocument();
   });
 });

@@ -24,11 +24,16 @@ export const AsyncTypeahead = ({
 }) => {
   const ref = useRef();
   const [searchValue, setSearchValue] = useState(defaultValue);
-  const isVisible = hasClearButton && Boolean(defaultValue || searchValue);
+  const [isVisible, setIsVisible] = useState(
+    hasClearButton && (!!defaultValue || !!searchValue)
+  );
   useEffect(() => {
     ref.current.setState({ text: defaultValue });
     setSearchValue(ref.current.inputNode.value);
-    if (defaultValue === '') ref.current.clear();
+    if (defaultValue === '') {
+      ref.current.clear();
+      setIsVisible(false);
+    } else setIsVisible(true);
   }, [defaultValue]);
 
   const handleTypeaheadClear = () => {
@@ -58,8 +63,11 @@ export const AsyncTypeahead = ({
           disabled={isDisabled}
           isLoading={false}
           ref={ref}
+          onInputChange={(input) => {
+            if (input === '') setIsVisible(false);
+            else setIsVisible(true);
+          }}
           onSearch={(input) => {
-            console.log('AsyncTypeahead HERE HERE HERE');
             setSearchValue(input);
             handleSearch(input);
           }}
@@ -77,7 +85,14 @@ export const AsyncTypeahead = ({
             </li>
           )}
         />
-        {isVisible && <ClearButton onClear={handleTypeaheadClear} />}
+        {isVisible && (
+          <ClearButton
+            onClear={() => {
+              handleTypeaheadClear();
+              setIsVisible(false);
+            }}
+          />
+        )}
       </div>
     </section>
   );
