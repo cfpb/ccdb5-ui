@@ -3,7 +3,9 @@
 describe('Search Bar', () => {
   const searchBar = '.search-bar';
   const searchFieldDropDown = '#searchField';
-  const searchInput = '#searchText';
+  const typeAheadRequest =
+    '**/data-research/consumer-complaints/search/' +
+    'api/v1/_suggest_company/**';
 
   beforeEach(() => {
     let request = '?**&size=0';
@@ -18,10 +20,6 @@ describe('Search Bar', () => {
     fixture = { fixture: 'metadata.json' };
     cy.intercept(request, fixture).as('metadata');
 
-    const typeAheadRequest =
-      '**/data-research/consumer-complaints/search/' +
-      'api/v1/_suggest_company/**';
-    cy.intercept(typeAheadRequest, {}).as('typeahead');
     cy.visit('?tab=List');
     cy.wait('@metadata');
     cy.wait('@getAggs');
@@ -40,30 +38,51 @@ describe('Search Bar', () => {
 
   describe('Typeaheads', () => {
     it('has no typeahead functionality in All Data', () => {
-      cy.get(searchInput).clear();
-      cy.get(searchInput).type('bank', { delay: 200 });
-      cy.get('@typeahead.all').should('have.length', 0);
+      cy.intercept(typeAheadRequest, { body: [] }).as('typeahead');
+      cy.findByPlaceholderText('Enter your search term(s)').clear();
+      cy.findByPlaceholderText('Enter your search term(s)').type('bank', {
+        delay: 200,
+      });
+      cy.findByText('No matches found.').should('not.exist');
     });
 
     it('has no typeahead functionality in Narratives', () => {
+      cy.intercept(typeAheadRequest, { body: [] }).as('typeahead');
       cy.get(searchFieldDropDown).select('complaint_what_happened');
       cy.wait('@getComplaints');
 
-      cy.get(searchInput).clear();
-      cy.get(searchInput).type('bank', { delay: 200 });
-      cy.get('@typeahead.all').should('have.length', 0);
+      cy.findByPlaceholderText('Enter your search term(s)').clear();
+      cy.findByPlaceholderText('Enter your search term(s)').type('bank', {
+        delay: 200,
+      });
+      cy.findByText('No matches found.').should('not.exist');
     });
 
     it('has typeahead functionality in Company', () => {
+      cy.intercept(typeAheadRequest, {
+        body: [
+          'Bank of America, National Association',
+          'CITIBANK, N.A.',
+          'Discover Bank',
+        ],
+      }).as('typeahead');
       cy.get(searchFieldDropDown).select('company');
       cy.wait('@getComplaints');
 
-      cy.get(searchInput).clear();
-      cy.get(searchInput).type('bank', { delay: 200 });
+      cy.findByPlaceholderText('Enter your search term(s)').clear();
+      cy.findByPlaceholderText('Enter your search term(s)').type('bank', {
+        delay: 200,
+      });
 
-      cy.wait('@typeahead').wait('@typeahead').wait('@typeahead');
-
-      cy.get('@typeahead.all').should('have.length', 3);
+      cy.findAllByRole('option', {
+        name: 'Bank of America, National Association',
+      }).should('exist');
+      cy.findAllByRole('option', {
+        name: 'CITIBANK, N.A.',
+      }).should('exist');
+      cy.findAllByRole('option', {
+        name: 'Discover Bank',
+      }).should('exist');
     });
   });
 });
