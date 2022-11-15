@@ -1,5 +1,5 @@
 /* eslint complexity: ["error", 5] */
-import CompanyTypeahead from '../Filters/CompanyTypeahead';
+import { CompanyTypeahead } from '../Filters/CompanyTypeahead';
 import { connect } from 'react-redux';
 import { externalTooltipFormatter } from '../../utils/chart';
 import iconMap from '../iconMap';

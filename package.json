@@ -96,6 +96,7 @@
     "prop-types": "^15.5.10",
     "query-string": "^5.0.0",
     "react": "^18.2.0",
+    "react-bootstrap-typeahead": "^6.0.0",
     "react-dom": "^18.2.0",
     "react-intl": "^6.2.0",
     "react-modal": "^3.16.1",
@@ -126,5 +127,6 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
-  }
+  },
+  "proxy": "http://localhost:8000"
 }

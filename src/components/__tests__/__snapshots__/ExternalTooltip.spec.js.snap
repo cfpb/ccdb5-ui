@@ -122,9 +122,7 @@ exports[`initial state renders Company typehead without crashing 1`] = `
   className="tooltip-container u-clearfix "
 >
   <section
-    className="typeahead "
-    onBlur={[Function]}
-    onFocus={[Function]}
+    className="typeahead 0"
   >
     <div
       className="m-btn-inside-input input-contains-label"
@@ -148,16 +146,65 @@ exports[`initial state renders Company typehead without crashing 1`] = `
       >
         Start typing to begin listing companies
       </label>
-      <input
-        autoComplete="off"
-        className="a-text-input"
-        id="company-typeahead-external-tooltip"
-        onChange={[Function]}
-        onKeyDown={[Function]}
-        placeholder="Enter company name"
-        type="text"
-        value=""
-      />
+      <div
+        className="rbt typeahead-selector"
+        style={
+          Object {
+            "outline": "none",
+            "position": "relative",
+          }
+        }
+        tabIndex={-1}
+      >
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "flex": 1,
+              "height": "100%",
+              "position": "relative",
+            }
+          }
+        >
+          <input
+            aria-autocomplete="both"
+            aria-expanded={false}
+            aria-haspopup="listbox"
+            autoComplete="off"
+            className="rbt-input-main form-control rbt-input"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            placeholder="Enter company name"
+            role="combobox"
+            type="text"
+            value=""
+          />
+          <input
+            aria-hidden={true}
+            className="rbt-input-hint"
+            readOnly={true}
+            style={
+              Object {
+                "backgroundColor": "transparent",
+                "borderColor": "transparent",
+                "boxShadow": "none",
+                "color": "rgba(0, 0, 0, 0.54)",
+                "left": 0,
+                "pointerEvents": "none",
+                "position": "absolute",
+                "top": 0,
+                "width": "100%",
+              }
+            }
+            tabIndex={-1}
+            value=""
+          />
+        </div>
+      </div>
     </div>
   </section>
   <p

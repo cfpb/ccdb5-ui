@@ -237,8 +237,9 @@ describe('Filter Panel', () => {
       cy.log('open again');
       cy.get('.state .o-expandable_link').click();
       cy.log('searches a typeahead filter');
-      cy.get('.state input').clear();
-      cy.get('.state input').type('texas');
+      cy.findByPlaceholderText('Enter state name or abbreviation')
+        .clear()
+        .type('texas');
 
       cy.get('.state .typeahead-selector').should('exist');
 

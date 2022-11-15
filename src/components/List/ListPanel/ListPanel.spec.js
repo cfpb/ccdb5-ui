@@ -112,7 +112,7 @@ describe('ListPanel', () => {
       error: '',
     };
     const newQueryState = {
-      size: '25',
+      size: 25,
       sort: 'created_date_desc',
     };
     const newResultsState = { items: [itemFixture] };

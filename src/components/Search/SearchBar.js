@@ -1,231 +1,166 @@
 import './SearchBar.less';
 import { hideAdvancedTips, showAdvancedTips } from '../../actions/view';
 import { searchFieldChanged, searchTextChanged } from '../../actions/search';
-import Typeahead, { MODE_OPEN } from '../Typeahead';
 import { AdvancedTips } from './AdvancedTips/AdvancedTips';
-import { connect } from 'react-redux';
-import HighlightingOption from '../Typeahead/HighlightingOption';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { API_PLACEHOLDER } from '../../constants';
+import {
+  selectQuerySearchField,
+  selectQuerySearchText,
+} from '../../reducers/query/selectors';
+import { selectViewHasAdvancedSearchTips } from '../../reducers/view/selectors';
+import { AsyncTypeahead } from '../Typeahead/AsyncTypeahead/AsyncTypeahead';
+import { Input } from '../Typeahead/Input/Input';
+import { handleFetchSearch } from '../Typeahead/utils';
 
 const searchFields = {
   all: 'All data',
   company: 'Company name',
-  // eslint-disable-next-line camelcase
   complaint_what_happened: 'Narratives',
 };
 
-export class SearchBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      inputValue: props.searchText,
-      searchField: props.searchField,
-    };
+export const SearchBar = ({ debounceWait }) => {
+  const dispatch = useDispatch();
+  const searchField = useSelector(selectQuerySearchField);
+  const searchText = useSelector(selectQuerySearchText);
+  const hasAdvancedSearchTips = useSelector(selectViewHasAdvancedSearchTips);
+  const [inputValue, setInputValue] = useState(searchText);
+  const [dropdownOptions, setDropdownOptions] = useState([]);
+  // handleClear is called whenever the user submits by pressing enter
+  // shouldCallClear prevents handleClear from firing a reset after the search is set
+  const [shouldCallClear, setShouldCallClear] = useState(true);
+  const isVisible = Boolean(searchText || inputValue);
 
-    // This binding is necessary to make `this` work in the callback
-    // https://facebook.github.io/react/docs/handling-events.html
-    this._handleSubmit = this._handleSubmit.bind(this);
-    this._onInputChange = this._onInputChange.bind(this);
-    this._onSelectSearchField = this._onSelectSearchField.bind(this);
-    this._onTypeaheadSelected = this._onTypeaheadSelected.bind(this);
-    this._onAdvancedClicked = this._onAdvancedClicked.bind(this);
-    this._updateLocalState = this._updateLocalState.bind(this);
-  }
+  useEffect(() => {
+    setInputValue(searchText);
+  }, [searchText]);
 
-  componentDidUpdate(prevProps) {
-    const { searchField, searchText } = this.props;
-    if (
-      prevProps.searchText !== searchText ||
-      prevProps.searchField !== searchField
-    ) {
-      // sync local state from redux
-      this._updateLocalState(searchField, searchText);
-    }
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return (
-      JSON.stringify(this.state) !== JSON.stringify(nextState) ||
-      JSON.stringify(this.props) !== JSON.stringify(nextProps)
-    );
-  }
-
-  render() {
-    return (
-      <div>
-        <div className="search-bar" role="search">
-          <form action="" onSubmit={this._handleSubmit}>
-            <h3 className="h4">Search within</h3>
-            <div className="layout-row">
-              <div className="cf-select flex-fixed">
-                <select
-                  aria-label="Choose which field will be searched"
-                  id="searchField"
-                  onChange={this._onSelectSearchField}
-                  value={this.state.searchField}
-                >
-                  <optgroup label="Search Within">
-                    {Object.keys(searchFields).map((x) => (
-                      <option key={x} value={x}>
-                        {searchFields[x]}
-                      </option>
-                    ))}
-                  </optgroup>
-                </select>
-              </div>
-              <div className="flex-all typeahead-portal">
-                <Typeahead
-                  ariaLabel="Enter the term you want to search for"
-                  debounceWait={this.props.debounceWait}
-                  disableTypeahead={this.props.searchField !== 'company'}
-                  htmlId="searchText"
-                  mode={MODE_OPEN}
-                  onInputChange={this._onInputChange}
-                  onOptionSelected={this._onTypeaheadSelected}
-                  placeholder="Enter your search term(s)"
-                  renderOption={this._renderOption}
-                  value={this.state.inputValue}
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="a-btn flex-fixed"
-                ref={(elem) => {
-                  this.submitButton = elem;
-                }}
-              >
-                Search
-              </button>
-
-              <a className="u-visually-hidden" href="#search-summary">
-                Skip to Results
-              </a>
-
-              <div className="advanced-container flex-fixed">
-                <button
-                  className="a-btn a-btn__link"
-                  onClick={this._onAdvancedClicked}
-                >
-                  {this.props.hasAdvancedSearchTips ? 'Hide ' : 'Show '}
-                  advanced search tips
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-        {this.props.hasAdvancedSearchTips ? <AdvancedTips /> : null}
-      </div>
-    );
-  }
-
-  // --------------------------------------------------------------------------
-  // Event Handlers
-
-  _handleSubmit(event) {
-    event.preventDefault();
-    this.props.onSearchText(this.state.inputValue);
-  }
-
-  _onSelectSearchField(event) {
-    this.props.onSearchField(event.target.value);
-  }
-
-  _onAdvancedClicked(event) {
-    event.preventDefault();
-    this.props.onSearchTipToggle(this.props.hasAdvancedSearchTips);
-  }
-
-  _updateLocalState(searchField, searchText) {
-    this.setState({
-      inputValue: searchText,
-      searchField: searchField,
-    });
-  }
-
-  // --------------------------------------------------------------------------
-  // Typeahead interface
-
-  _onInputChange(value) {
-    this.setState({
-      inputValue: value,
-    });
-
-    if (this.state.searchField === 'company') {
-      const n = value.toLowerCase();
-      const uriCompany = `${API_PLACEHOLDER}_suggest_company/?text=${value}`;
-
-      return fetch(uriCompany)
-        .then((result) => result.json())
-        .then((items) =>
-          items.map((x) => ({
-            key: x,
-            label: x,
-            position: x.toLowerCase().indexOf(n),
-            value,
-          }))
-        );
-    }
-
-    const emptyPromise = Promise.resolve({
-      then: function () {
-        return;
-      },
-    });
-
-    return emptyPromise.then(() => []);
-  }
-
-  _renderOption(obj) {
-    return {
-      value: obj.key,
-      component: <HighlightingOption {...obj} />,
-    };
-  }
-
-  _onTypeaheadSelected(obj) {
-    const inputValue = typeof obj === 'object' ? obj.key : obj;
-    this.props.onSearchText(inputValue);
-  }
-}
-
-// ----------------------------------------------------------------------------
-// Meta
-
-export const mapStateToProps = (state) => ({
-  searchText: state.query.searchText,
-  searchField: state.query.searchField,
-  hasAdvancedSearchTips: state.view.hasAdvancedSearchTips,
-});
-
-export const mapDispatchToProps = (dispatch) => ({
-  onSearchField: (field) => {
-    dispatch(searchFieldChanged(field));
-  },
-  onSearchText: (text) => {
-    dispatch(searchTextChanged(text));
-  },
-  onSearchTipToggle: (isOn) => {
+  const onSearchTipToggle = (isOn) => {
     if (isOn) {
       dispatch(hideAdvancedTips());
     } else {
       dispatch(showAdvancedTips());
     }
-  },
-});
+  };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(searchTextChanged(inputValue));
+  };
+
+  const onSelectSearchField = (event) => {
+    dispatch(searchFieldChanged(event.target.value));
+  };
+
+  const onAdvancedClicked = (event) => {
+    event.preventDefault();
+    onSearchTipToggle(hasAdvancedSearchTips);
+  };
+
+  const onSearchChange = (value) => {
+    setInputValue(value);
+    const uriCompany = `${API_PLACEHOLDER}_suggest_company/?text=${value}`;
+    handleFetchSearch(value, setDropdownOptions, uriCompany);
+  };
+
+  const onSelection = (value) => {
+    dispatch(searchTextChanged(value[0].key));
+  };
+
+  const onTypeaheadClear = () => {
+    dispatch(searchTextChanged(''));
+  };
+
+  const onClearInput = () => {
+    if (shouldCallClear) {
+      dispatch(searchTextChanged(''));
+      setInputValue('');
+    }
+    setShouldCallClear(true);
+  };
+
+  const onPressEnter = (event) => {
+    if (event.key === 'Enter') {
+      setShouldCallClear(false);
+      dispatch(searchTextChanged(event.target.value));
+    }
+  };
+
+  return (
+    <div>
+      <div className="search-bar" role="search">
+        <form action="" onSubmit={handleSubmit}>
+          <h3 className="h4">Search within</h3>
+          <div className="layout-row">
+            <div className="cf-select flex-fixed">
+              <select
+                aria-label="Choose which field will be searched"
+                id="searchField"
+                onChange={onSelectSearchField}
+                value={searchField}
+              >
+                <optgroup label="Search Within">
+                  {Object.keys(searchFields).map((x) => (
+                    <option key={x} value={x}>
+                      {searchFields[x]}
+                    </option>
+                  ))}
+                </optgroup>
+              </select>
+            </div>
+            <div className="flex-all typeahead-portal">
+              {searchField === 'company' ? (
+                <AsyncTypeahead
+                  ariaLabel="Enter the term you want to search for"
+                  htmlId="searchText"
+                  defaultValue={searchText}
+                  delayWait={debounceWait}
+                  handleChange={onSelection}
+                  handleClear={onTypeaheadClear}
+                  handleSearch={onSearchChange}
+                  hasClearButton={true}
+                  options={dropdownOptions}
+                  placeholder="Enter your search term(s)"
+                />
+              ) : (
+                <Input
+                  ariaLabel="Enter the term you want to search for"
+                  htmlId="searchText"
+                  handleChange={(event) => setInputValue(event.target.value)}
+                  placeholder="Enter your search term(s)"
+                  value={inputValue}
+                  handleClear={onClearInput}
+                  handlePressEnter={onPressEnter}
+                  isClearVisible={isVisible}
+                />
+              )}
+            </div>
+            <button type="submit" className="a-btn flex-fixed">
+              Search
+            </button>
+
+            <a className="u-visually-hidden" href="#search-summary">
+              Skip to Results
+            </a>
+
+            <div className="advanced-container flex-fixed">
+              <button className="a-btn a-btn__link" onClick={onAdvancedClicked}>
+                {hasAdvancedSearchTips ? 'Hide ' : 'Show '}
+                advanced search tips
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      {hasAdvancedSearchTips ? <AdvancedTips /> : null}
+    </div>
+  );
+};
 
 SearchBar.propTypes = {
   debounceWait: PropTypes.number,
-  searchText: PropTypes.string,
-  searchField: PropTypes.string.isRequired,
-  hasAdvancedSearchTips: PropTypes.bool,
-  onSearchText: PropTypes.func.isRequired,
-  onSearchField: PropTypes.func.isRequired,
-  onSearchTipToggle: PropTypes.func,
 };
 
 SearchBar.defaultProps = {
