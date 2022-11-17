@@ -3,27 +3,18 @@
   background-color: @gray-20;
 
   //override parent padding
-  margin: 15px -15px -15px -15px;
+  margin: 15px -15px;
   padding: 15px;
 
-  .tips {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
   .tip {
-    flex-basis: 31%;
     padding-right: 2%;
     padding-top: 15px;
     padding-bottom: 15px;
-    .example-input {
+    input {
       box-sizing: border-box;
-      width: 48%;
       color: @gray;
       display: inline-block;
-      &.first {
-        margin-right: 1%;
-      }
+      margin-right: 1%;
     }
     .example-input_full {
       box-sizing: border-box;
