@@ -1,6 +1,7 @@
 import './AdvancedTips.less';
 import React from 'react';
 import { TooltipWrapper } from '../../Common/TooltipWrapper/TooltipWrapper';
+import { ComplexExample } from './ComplexExample';
 
 export const AdvancedTips = () => {
   return (
@@ -72,9 +73,18 @@ export const AdvancedTips = () => {
                 </p>
                 <p>Use NOT when results must not contain the term</p>
               </div>
+              <ComplexExample
+                id="and-or-not"
+                notes={[
+                  'The Boolean operators (AND / OR / NOT) must be capitalized',
+                  'Boolean operators do not honor precedence rules, so parentheses should be used whenever multiple operators are used together – if they are not used correctly (i.e., having multiple operators outside of parentheses), then your results might not return what you intended.',
+                ]}
+                placeholderText="call AND (harass* OR annoy* OR threat OR repeat) AND NOT spam"
+                tooltipText="This example would return results that include the word call (called, calling, etc.) and one of the words in the parentheses, but exclude the word spam (spammed, spamming, etc.)."
+              />
             </div>
             <div className="tip content-l_col content-l_col-1-3">
-              <h4>Must/must not contain</h4>
+              <h4>Must/Must not contain</h4>
               <label className="u-visually-hidden" htmlFor="example-must-plus">
                 Use + if the search must contain the selected term
               </label>
@@ -103,6 +113,15 @@ export const AdvancedTips = () => {
                 <p>Use + if the search must contain the selected term</p>
                 <p>Use - if the search must not contain the selected term</p>
               </div>
+              <ComplexExample
+                id="must-or-must-not"
+                notes={[
+                  'Since the terms "insurance" and "claim" do not have to be included in the results, their appearance will give the result a greater relevance score.',
+                  'There cannot be a space between the operator (+ / -) and searched term.',
+                ]}
+                placeholderText="insurance claim +agent +car -accident"
+                tooltipText="Results must include the terms agent and car but exclude accident – the terms insurance and claim are optional"
+              />
             </div>
             <div className="tip content-l_col content-l_col-1-3">
               <h4>Wildcard search</h4>
@@ -163,6 +182,13 @@ export const AdvancedTips = () => {
                   (&quot; &quot;).
                 </p>
               </div>
+              <ComplexExample
+                id="proximity"
+                notes={[
+                  'Proximity phrase search must use straight quotes (" ") versus curly quotes (“ ”), or else the search function will not perform properly',
+                  'The closer the specified terms are within the data, the more relevant the search results become.',
+                ]}
+              />
             </div>
             <div className="tip content-l_col content-l_col-1-3">
               <h4>Fuzzy Search</h4>
@@ -186,6 +212,15 @@ export const AdvancedTips = () => {
                   error.
                 </p>
               </div>
+              <ComplexExample
+                id="fuzzy"
+                notes={[
+                  'The search looks for a maximum of two changes in the term, where a change is the insertion, deletion or substitution of a single character or transposition of two adjacent characters (this catches about 80% of misspelled words).',
+                  'Fuzzy term search can only be used with single terms, it does not support phrases.',
+                ]}
+                placeholderText="escrow~1 -escrow -escrowed"
+                tooltipText='Results would return the various misspellings of the word "escrow" that fuzzy term search identifies (after excluding the escrow and escrowed).'
+              />
             </div>
             <div className="tip content-l_col content-l_col-1-3">
               <h4>Boost Search</h4>
@@ -208,6 +243,15 @@ export const AdvancedTips = () => {
                   its relevance compared to the other term(s).
                 </p>
               </div>
+              <ComplexExample
+                id="boost"
+                notes={[
+                  'A boost value between 0 and 1.0 decreases the relevance score while a value greater than 1.0 increases the relevance score.',
+                  'Putting a phrase only in quotations (" ") will search for the words in that order, but it will not be an exact match – meaning it may include stemmed versions of the term.',
+                  'The default operator is "AND", meaning if you search "foreclosure house", it will search results that include both words (i.e., foreclosure AND house).',
+                  'Capitalization does not have an effect on searched terms (expect for the AND / OR / NOT operators).',
+                ]}
+              />
             </div>
           </div>
         </div>
