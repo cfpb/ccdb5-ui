@@ -36,37 +36,45 @@ export const ComplexExample = ({ id, notes, placeholderText, tooltipText }) => {
           )}
         </span>
       </button>
-      <div
-        className={`o-expandable_content o-expandable_content__${
-          isOpen ? 'expanded' : 'collapsed u-hidden'
-        }`}
-      >
-        {tooltipText && placeholderText ? (
-          <>
-            <label className="descriptor">Complex example:</label>
-            <label className="u-visually-hidden" htmlFor={`example-${id}`}>
-              {tooltipText}
-            </label>
-            <TooltipWrapper text={tooltipText}>
-              <input
-                className="a-text-input example-input_full"
-                id={`example-${id}`}
-                type="text"
-                readOnly
-                value={placeholderText}
-              />
-            </TooltipWrapper>
-          </>
-        ) : null}
-        <label className="descriptor">Notes:</label>
-        <ul className="m-list">
-          {notes.map((note, index) => (
-            <li className="m-list_item" key={index}>
-              {note}
-            </li>
-          ))}
-        </ul>
-      </div>
+      {isOpen ? (
+        <div className="o-expandable_content">
+          {tooltipText && placeholderText ? (
+            <>
+              <label className="descriptor">Complex example:</label>
+              <label className="u-visually-hidden" htmlFor={`example-${id}`}>
+                {tooltipText}
+              </label>
+              <TooltipWrapper text={tooltipText}>
+                {placeholderText.length > 30 ? (
+                  <textarea
+                    className="a-text-input example-input_full"
+                    id={`example-${id}`}
+                    rows={2}
+                    readOnly
+                    value={placeholderText}
+                  />
+                ) : (
+                  <input
+                    className="a-text-input example-input_full"
+                    id={`example-${id}`}
+                    rows={2}
+                    readOnly
+                    value={placeholderText}
+                  />
+                )}
+              </TooltipWrapper>
+            </>
+          ) : null}
+          <label className="descriptor">Notes:</label>
+          <ul className="m-list">
+            {notes.map((note, index) => (
+              <li className="m-list_item" key={index}>
+                {note}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
     </div>
   );
 };

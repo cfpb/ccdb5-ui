@@ -2,12 +2,13 @@ import './AdvancedTips.less';
 import React from 'react';
 import { TooltipWrapper } from '../../Common/TooltipWrapper/TooltipWrapper';
 import { ComplexExample } from './ComplexExample';
+import iconMap from '../../iconMap';
 
 export const AdvancedTips = () => {
   return (
     <div className="advanced_tips">
       <div className="o-expandable">
-        <div className="o-expandable_content o-expandable_content__onload-open">
+        <div className="o-expandable_content">
           <h3>Search tips</h3>
           <ul className="m-list">
             <li className="m-list_item">
@@ -15,7 +16,7 @@ export const AdvancedTips = () => {
               what their results should return
             </li>
             <li className="m-list_item">
-              When searching within &quot;All data,&quot; terms must be found in
+              When searching within &quot;All data&quot;, terms must be found in
               the same field to be considered a match
             </li>
             <li className="m-list_item">
@@ -26,7 +27,7 @@ export const AdvancedTips = () => {
             </li>
           </ul>
         </div>
-        <div className="o-expandable_content o-expandable_content__onload-open">
+        <div className="o-expandable_content">
           <div className="tips content-l">
             <div className="tip content-l_col content-l_col-1-3">
               <h4>AND / OR / NOT</h4>
@@ -158,7 +159,7 @@ export const AdvancedTips = () => {
               </div>
             </div>
             <div className="tip content-l_col content-l_col-1-3">
-              <h4>Proximity Search</h4>
+              <h4>Proximity search</h4>
               <label className="u-visually-hidden" htmlFor="example-proximity">
                 Use ~[#] at the end of a phrase to search for terms with up to
                 that number of gap words between them; Order does not matter and
@@ -191,7 +192,7 @@ export const AdvancedTips = () => {
               />
             </div>
             <div className="tip content-l_col content-l_col-1-3">
-              <h4>Fuzzy Search</h4>
+              <h4>Fuzzy search</h4>
               <label className="u-visually-hidden" htmlFor="example-fuzzy">
                 Use ~1 at the end of a term to search for terms that are spelled
                 similarly to your keyword within a certain margin of error.
@@ -223,7 +224,7 @@ export const AdvancedTips = () => {
               />
             </div>
             <div className="tip content-l_col content-l_col-1-3">
-              <h4>Boost Search</h4>
+              <h4>Boost search</h4>
               <label className="u-visually-hidden" htmlFor="example-boost">
                 Use ^[#] at the end of a term or terms to increase or decrease
                 its relevance compared to the other term(s).
@@ -247,13 +248,39 @@ export const AdvancedTips = () => {
                 id="boost"
                 notes={[
                   'A boost value between 0 and 1.0 decreases the relevance score while a value greater than 1.0 increases the relevance score.',
-                  'Putting a phrase only in quotations (" ") will search for the words in that order, but it will not be an exact match – meaning it may include stemmed versions of the term.',
-                  'The default operator is "AND", meaning if you search "foreclosure house", it will search results that include both words (i.e., foreclosure AND house).',
-                  'Capitalization does not have an effect on searched terms (expect for the AND / OR / NOT operators).',
                 ]}
               />
             </div>
           </div>
+        </div>
+        <div className="footer o-expandable_content">
+          <h3>Additional notes:</h3>
+          <ul className="m-list">
+            <li className="m-list_item">
+              Putting a phrase only in quotations (&quot; &quot;) will search
+              for the words in that order, but it will not be an exact match –
+              meaning it may include stemmed versions of the term.
+            </li>
+            <li className="m-list_item">
+              The default operator is &quot;AND&quot;, meaning if you search
+              &quot;foreclosure house&quot;, it will search results that include
+              both words (i.e., foreclosure AND house).
+            </li>
+            <li className="m-list_item">
+              Capitalization does not have an effect on searched terms (expect
+              for the AND / OR / NOT operators).
+            </li>
+            <li className="m-list_item">
+              <a
+                href="https://www.elastic.co/guide/en/elasticsearch/reference/7.17/elasticsearch-intro.html"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Find out more {iconMap.getIcon('external-link')}
+              </a>{' '}
+              about Elastic Search
+            </li>
+          </ul>
         </div>
       </div>
     </div>
