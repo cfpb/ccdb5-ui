@@ -1,6 +1,5 @@
 /**
  * Sets the options for the async typeahead
- *
  * @param {string} value - value typed into the typeahead
  * @param {Function} setOptions - function to set local array of options
  * @param {string} uri - the endpoint being hit by the fetch

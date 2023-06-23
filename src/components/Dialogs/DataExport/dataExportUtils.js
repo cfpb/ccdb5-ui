@@ -8,7 +8,6 @@ const DATA_HOST = 'https://files.consumerfinance.gov';
 
 /**
  * Builds the URI for exporting all results
- *
  * @param {string} format - CSV or JSON
  * @returns {string} the URI for the specific type of format
  */
@@ -18,7 +17,6 @@ export function buildAllResultsUri(format) {
 
 /**
  * Builds the URI for exporting some results
- *
  * @param {string} format - CSV or JSON
  * @param {number} size - the number of results to export
  * @param {object} queryState - the current state of the query reducer

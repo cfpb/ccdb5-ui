@@ -39,11 +39,10 @@ describe('Search Bar', () => {
   describe('Typeaheads', () => {
     it('has no typeahead functionality in All Data', () => {
       cy.intercept(typeAheadRequest, { body: [] }).as('typeahead');
-      cy.findByPlaceholderText('Enter your search term(s)')
-        .clear()
-        .type('bank', {
-          delay: 200,
-        });
+      cy.findByPlaceholderText('Enter your search term(s)').clear();
+      cy.findByPlaceholderText('Enter your search term(s)').type('bank', {
+        delay: 200,
+      });
       cy.findByText('No matches found.').should('not.exist');
     });
 

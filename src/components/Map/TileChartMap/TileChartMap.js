@@ -117,7 +117,6 @@ export const TileChartMap = () => {
 
 /**
  * Helper function to get display value of tile based on Normalization.
- *
  * @param {Array} data - Tiles to display.
  * @param {string} dataNormalization - Whether to normalize the data.
  * @param {Array} statesFilter - The currently applied states filter.
@@ -136,7 +135,6 @@ function updateData(data, dataNormalization, statesFilter) {
 
 /**
  * Helper function to calculate Per Capita value
- *
  * @param {object} stateObj - A state containing abbr and value
  * @param {object} stateInfo - other information about the state
  * @returns {string} the Per 1000 population value

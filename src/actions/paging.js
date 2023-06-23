@@ -9,7 +9,6 @@ export const SORT_CHANGED = 'SORT_CHANGED';
 // Simple actions
 /**
  * Notifies the application that the page has changed
- *
  * @returns {string} a packaged payload to be used by Redux reducers
  */
 export function nextPageShown() {
@@ -21,7 +20,6 @@ export function nextPageShown() {
 
 /**
  * Notifies the application that the page has changed
- *
  * @returns {string} a packaged payload to be used by Redux reducers
  */
 export function prevPageShown() {
@@ -33,7 +31,6 @@ export function prevPageShown() {
 
 /**
  * Notifies the application that the size of a page of results has changed
- *
  * @param {number} size - the new size of a page
  * @returns {string} a packaged payload to be used by Redux reducers
  */
@@ -49,7 +46,6 @@ export function changeSize(size) {
 
 /**
  * Notifies the application that the sort order of results has changed
- *
  * @param {string} sort - the new sort.  Should match a value expected by the API
  * @returns {string} a packaged payload to be used by Redux reducers
  */

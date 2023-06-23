@@ -66,7 +66,6 @@ export class TrendDepthToggle extends React.Component {
 
 /**
  * helper containing logic to determine when to show the toggle
- *
  * @param {string} lens - selected value
  * @param {string} focus - which focus we are on
  * @param {number} resultCount - count coming from trends results

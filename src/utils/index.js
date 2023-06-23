@@ -10,7 +10,6 @@ import dayjs from 'dayjs';
 /**
  * Breaks up '123' to '1 2 3' to help screen readers read digits individually
  * https://thatdevgirl.com/blog/accessibility-phone-number-formatting
- *
  * @param {string} s - the string of digits
  * @returns {string} an expanded string of digits
  */
@@ -55,7 +54,6 @@ export const calculateDateRange = (minDate, maxDate) => {
 
 /**
  * Function to set the limit of the range of a set of numbers
- *
  * @param {number} x - value we are checking
  * @param {number} min - smallest number it can me
  * @param {number} max - biggest number it can be
@@ -72,7 +70,6 @@ export const clamp = (x, min, max) => {
 
 /**
  * Function to set the limit of the range of a set of dates
- *
  * @param {string} x - value we are checking
  * @param {string} min - smallest number it can be
  * @param {string} max - biggest number it can be
@@ -94,12 +91,11 @@ export const clampDate = (x, min, max) => {
 /**
  * Replacement for the common pattern:
  * if( o.field )
- *    x = o.field
+ * x = o.field
  * else
- *    x = alternateValue
+ * x = alternateValue
  *
  * Avoids some of the complexity lint warnings
- *
  * @param {object} o - the object being tested
  * @param {string} field - the field to check
  * @param {string | object} alternateValue - the value to use in absence
@@ -115,7 +111,6 @@ export const coalesce = (o, field, alternateValue) => {
 
 /**
  * Creates a hash from a string
- *
  * @param {string} someString - the string to hash
  * @returns {number} a hashing of the string
  */
@@ -140,7 +135,6 @@ export function hashCode(someString) {
  * helper function to determine if we have any filters selected so we can
  * disable the Per 1000 Complaints button
  * enable per1000 if the only filter selected is state
- *
  * @param {object} query - contains values for the filters, etc
  * @returns {boolean} are we enabling the perCap
  */
@@ -177,7 +171,6 @@ export function enablePer1000(query) {
 
 /**
  * Creates a hash from an object
- *
  * @param {string} o - the object to hash
  * @returns {string} a hashing of the object
  */
@@ -189,7 +182,6 @@ export const normalize = (s) => s.toLowerCase();
 /**
  * takes a string and formats it into proper text for an htmd ID
  * Eat at Joe's => eatatjoes
- *
  * @param {string} a - the dirty string Eat at Joe's
  * @returns {string} sanitized string eat-at-joe-s
  */
@@ -201,7 +193,6 @@ export const slugify = (a, b) => a + SLUG_SEPARATOR + b;
  * take in an array or object and clone it as completely new object to remove
  * pointers.  If you .slice() an array of objects, the array is new, but
  * copied objects still point to original objects, you will still have mutations
- *
  * @param {object | Array} input - the thing to copy
  * @returns {object | Array} the copied new thing
  */
@@ -214,7 +205,6 @@ export const cloneDeep = (input) => {
 
 /**
  * Custom sort for array so that selected items appear first, then by doc_count
- *
  * @param {Array} options - input array containing values
  * @param {Array} selected - values
  * @returns {T[]} sorted array
@@ -244,7 +234,6 @@ export const sortSelThenCount = (options, selected) => {
 
 /**
  * Safely format a date
- *
  * @param {Date} date - the date to convert
  * @returns {string} the date formatted for the current locale
  */
@@ -255,7 +244,6 @@ export function shortFormat(date) {
 
 /**
  * Convert a date to a truncated ISO-8601 string
- *
  * @param {Date} date - the date to convert
  * @returns {string} the date formatted as yyyy-mm-ddd
  */
@@ -265,7 +253,6 @@ export function shortIsoFormat(date) {
 
 /**
  * Gets the UTC time for the beginning of the day in the local time zone
- *
  * @returns {Date} midnight today, local
  */
 export function startOfToday() {
@@ -293,7 +280,6 @@ export function startOfToday() {
  * Delay the implementation of a function until after a period of time
  * This prevents expensive calls from being made while triggering events are
  * still happening
- *
  * @param {Function} func - a function with an embedded expensive call
  * @param {number} wait - the number of msecs to delay before calling the function
  * @returns {Function} a replacement function to use in place of the original
@@ -319,7 +305,6 @@ export function debounce(func, wait) {
 /**
  * Binds methods of an object to the object itself, overwriting the existing
  * method
- *
  * @param {object} obj - The object to bind and assign the bound methods to.
  * @param {...(string|string[])} methodNames - The object method names to bind,
  *  specified individually or in arrays.
@@ -338,7 +323,6 @@ export function bindAll(obj, methodNames) {
 
 /**
  * Makes sure that a URI has host, protocol, etc.
- *
  * @param {string} uri - the uri to test
  * @returns {string} a uri with the protocol, host and port if necessary
  */
@@ -353,7 +337,6 @@ export function getFullUrl(uri) {
 
 /**
  * processes error messages so we can see them in redux
- *
  * @param {error} err - the error object from api
  * @returns {{name: string, message: string}} processed error object we can see
  */
@@ -367,7 +350,6 @@ export function processErrorMessage(err) {
 
 /**
  * Takes in a number and outputs to percentage
- *
  * @param {number} num - value we convert .9999
  * @returns {number} 99.99
  */
@@ -379,7 +361,6 @@ export function formatPercentage(num) {
 
 /**
  * helper function
- *
  * @param {object} bucket - contains key value pairs
  * @returns {string} name of the key that has the buckets
  */
@@ -395,7 +376,6 @@ export const getSubKeyName = (bucket) => {
 /**
  * helper function to take in array parameters from the url, filters, etc and
  * set the values in the processed object
- *
  * @param {object} params - the object from the URL_CHANGED action
  * @param {object} processed - the state we will update with a single value or arr
  * @param {object} arrayParams - the array of strings that we will check against
@@ -414,7 +394,6 @@ export const processUrlArrayParams = (params, processed, arrayParams) => {
 
 /**
  * gets a filter and its subagg filters
- *
  * @param {string} filterKey - the filter 'Debt'
  * @param {Array} subitems - the buckets to process to generate slug
  * @returns {Set<any>} returns a set of uniques Debt, Debt*Foo
@@ -432,7 +411,6 @@ export const getAllFilters = (filterKey, subitems) => {
 
 /**
  * Wrapper around analytics event action creator to minimize the copypasta
- *
  * @param {string} action - GA Action (not redux action)
  * @param {string} label - param used by GA
  */
@@ -442,7 +420,6 @@ export const sendAnalyticsEvent = (action, label) => {
 
 /**
  * Helper function to get the selected class based on two different values
- *
  * @param {string|number|boolean} a - Value 1 to compare
  * @param {string|number|boolean} b - Value 2 to compare
  * @param {string} selectedClassName - The value that should be returned if both are the same

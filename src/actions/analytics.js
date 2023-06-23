@@ -5,7 +5,6 @@ const Analytics = {
 
   /**
    * Get data layer object.
-   *
    * @param {string} action - Name of event.
    * @param {string} label - DOM element label.
    * @param {string} category - Type of event.
