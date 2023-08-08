@@ -10,7 +10,6 @@ import * as view from './view';
 
 /**
  * Aggregates all the known actions into one importable object
- *
  * @returns {object} a merged object of all available actions
  */
 function combineActions() {

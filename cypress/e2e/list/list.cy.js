@@ -93,19 +93,20 @@ describe('List View', () => {
       cy.get(filterHasNarrative).should('not.be.checked');
 
       // Click the narrative-only button.
-      cy.get(addNarrativesButton).click().should('have.class', 'selected');
+      cy.get(addNarrativesButton).click();
+      cy.get(addNarrativesButton).should('have.class', 'selected');
 
       cy.get(filterHasNarrative).should('be.checked');
 
       // Click the narrative-only button again. There should be no change.
-      cy.get(addNarrativesButton)
-        .click({ force: true })
-        .should('have.class', 'selected');
+      cy.get(addNarrativesButton).click({ force: true });
+      cy.get(addNarrativesButton).should('have.class', 'selected');
 
       cy.get(filterHasNarrative).should('be.checked');
 
       // Click the all results button. The narratives should be removed.
-      cy.get(removeNarrativesButton).click().should('have.class', 'selected');
+      cy.get(removeNarrativesButton).click();
+      cy.get(removeNarrativesButton).should('have.class', 'selected');
 
       cy.get(filterHasNarrative).should('not.be.checked');
     });
@@ -138,7 +139,9 @@ describe('List View', () => {
     cy.log('pagination resets after applying date filter');
     cy.get(nextButton).click();
     cy.get(currentPage).should('have.text', 'Page 2');
-    cy.get('#date_received-from').clear().type('2018-09-23').blur();
+    cy.get('#date_received-from').clear();
+    cy.get('#date_received-from').type('2018-09-23');
+    cy.get('#date_received-from').blur();
     cy.get(currentPage).should('have.text', 'Page 1');
   });
 

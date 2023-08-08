@@ -11,7 +11,6 @@ export const TRENDS_TOOLTIP_CHANGED = 'TRENDS_TOOLTIP_CHANGED';
 
 /**
  * Notifies the application that chart type toggled
- *
  * @param {string} chartType - which chartType was selected, line or stacked area
  * @returns {string} a packaged payload to be used by Redux reducers
  */
@@ -25,7 +24,6 @@ export function changeChartType(chartType) {
 
 /**
  * Notifies the application that data lens overview, product, issue was toggled
- *
  * @param {string} lens - which lens was selected
  * @returns {string} a packaged payload to be used by Redux reducers
  */
@@ -39,7 +37,6 @@ export function changeDataLens(lens) {
 
 /**
  * Indicates the data subLens selected
- *
  * @param {string} subLens - the tab selected for row charts
  * @returns {string} a packaged payload to be used by Redux reducers
  */
@@ -53,7 +50,6 @@ export function changeDataSubLens(subLens) {
 
 /**
  * Notifies the application that depth is being changed
- *
  * @param {string} depth - the max number of aggregations returned
  * @returns {string} a packaged payload to be used by Redux reducers
  */
@@ -67,7 +63,6 @@ export function changeDepth(depth) {
 
 /**
  * Notifies the application that depth is being reset
- *
  * @returns {string} a packaged payload to be used by Redux reducers
  */
 export function resetDepth() {
@@ -79,7 +74,6 @@ export function resetDepth() {
 
 /**
  * Notifies the application that focus is being changed
- *
  * @param {string} focus - the text to search for
  * @param {string} lens - the lens we're focusing on
  * @param {Array} filterValues - the parent/child focus sub-aggs to apply
@@ -97,7 +91,6 @@ export function changeFocus(focus, lens, filterValues) {
 
 /**
  * Notifies the application that focus is being removed
- *
  * @returns {string} a packaged payload to be used by Redux reducers
  */
 export function removeFocus() {
@@ -109,7 +102,6 @@ export function removeFocus() {
 
 /**
  * Notifies the application that the toolTip for stacked area chart has changed
- *
  * @param {string} value - the new payload from the tooltip
  * @returns {string} a packaged payload to be used by Redux reducers
  */

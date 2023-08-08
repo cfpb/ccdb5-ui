@@ -43,7 +43,6 @@ export const processStateAggregations = (agg) => {
 
 /**
  * Updates the state when an tab changed occurs, reset values to start clean
- *
  * @param {object} state - the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
@@ -60,7 +59,6 @@ export function handleTabChanged(state) {
 
 /**
  * Updates the state when an aggregations call is in progress
- *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the payload containing the key/value pairs
  * @returns {object} the new state for the Redux store
@@ -76,7 +74,6 @@ export function statesCallInProcess(state, action) {
 
 /**
  * Expanded logic for handling aggregations returned from the API
- *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the payload containing the key/value pairs
  * @returns {object} new state for the Redux store
@@ -101,7 +98,6 @@ export function processStatesResults(state, action) {
 
 /**
  * handling errors from an aggregation call
- *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the payload containing the key/value pairs
  * @returns {object} new state for the Redux store
@@ -124,7 +120,6 @@ export function processStatesError(state, action) {
 
 /**
  * Creates a hash table of action types to handlers
- *
  * @returns {object} a map of types to functions
  */
 export function _buildHandlerMap() {
@@ -142,7 +137,6 @@ const _handlers = _buildHandlerMap();
 
 /**
  * Routes an action to an appropriate handler
- *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the command being executed
  * @returns {object} the new state for the Redux store
