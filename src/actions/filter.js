@@ -17,7 +17,6 @@ export const FILTER_REPLACED = 'FILTER_REPLACED';
 
 /**
  * Notifies that date interval (day, week, month, quarter, yr) was changed
- *
  * @param {string} dateInterval - which interval was selected
  * @returns {string} a packaged payload to be used by Redux reducers
  */
@@ -31,7 +30,6 @@ export function changeDateInterval(dateInterval) {
 
 /**
  * Notifies the application that the dates have changed
- *
  * @param {string} filterName - which filter is being updated
  * @param {Date} minDate - the minimum date in the range
  * @param {Date} maxDate - the maximum date in the range
@@ -49,7 +47,6 @@ export function changeDates(filterName, minDate, maxDate) {
 
 /**
  * Notifies the application that the filtered dates have changed
- *
  * @param {string} dateRange - which filter is being updated
  * @returns {string} a packaged payload to be used by Redux reducers
  */
@@ -63,7 +60,6 @@ export function dateRangeToggled(dateRange) {
 
 /**
  * Notifies the application that an aggregation filter changed
- *
  * @param {string} filterName - which filter was clicked
  * @param {string} filterValue - the value of the filter that was clicked
  * @returns {string} a packaged payload to be used by Redux reducers
@@ -79,7 +75,6 @@ export function toggleFilter(filterName, filterValue) {
 
 /**
  * Notifies the application that a flag filter toggled
- *
  * @param {string} filterName - which filter was clicked
  * @returns {string} a packaged payload to be used by Redux reducers
  */
@@ -93,7 +88,6 @@ export function toggleFlagFilter(filterName) {
 
 /**
  * Notifies the application that a filter was added
- *
  * @param {string} filterName - which filter was clicked
  * @param {string} filterValue - the value of the filter that was clicked
  * @returns {string} a packaged payload to be used by Redux reducers
@@ -109,7 +103,6 @@ export function addFilter(filterName, filterValue) {
 
 /**
  * Notifies the application that a filter was removed
- *
  * @param {string} filterName - which filter was clicked
  * @param {string} filterValue - the value of the filter that was clicked
  * @returns {string} a packaged payload to be used by Redux reducers
@@ -125,7 +118,6 @@ export function removeFilter(filterName, filterValue) {
 
 /**
  * Notifies the application that all filters have been removed
- *
  * @returns {string} a packaged payload to be used by Redux reducers
  */
 export function removeAllFilters() {
@@ -137,7 +129,6 @@ export function removeAllFilters() {
 
 /**
  * Notifies the application that several related filters were added
- *
  * @param {string} filterName - which filter is being updated
  * @param {Array} values - one or more values to add to the filter set
  * @returns {string} a packaged payload to be used by Redux reducers
@@ -155,7 +146,6 @@ export function addMultipleFilters(filterName, values) {
 
 /**
  * Notifies the application that several related filters were removed
- *
  * @param {string} filterName - which filter is being updated
  * @param {Array} values - one or more values to remove to the filter set
  * @returns {string} a packaged payload to be used by Redux reducers
@@ -173,7 +163,6 @@ export function removeMultipleFilters(filterName, values) {
 
 /**
  * Notifies the application that filters will be replaced
- *
  * @param {string} filterName - which filter is being updated
  * @param {Array} values - one or more values to replace in the filter set
  * @returns {string} a packaged payload to be used by Redux reducers

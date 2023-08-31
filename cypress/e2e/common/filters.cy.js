@@ -47,7 +47,9 @@ describe('Filter Panel', () => {
       cy.get('.date-filter button.a-btn__link:first').click({ force: true });
       cy.log('apply dates');
 
-      cy.get('#date_received-from').clear().type('2015-09-11').blur();
+      cy.get('#date_received-from').clear();
+      cy.get('#date_received-from').type('2015-09-11');
+      cy.get('#date_received-from').blur();
 
       cy.wait('@getComplaintsDateFrom');
 
@@ -55,7 +57,9 @@ describe('Filter Panel', () => {
 
       cy.log('apply a through date');
 
-      cy.get('#date_received-through').clear().type('2020-10-31').blur();
+      cy.get('#date_received-through').clear();
+      cy.get('#date_received-through').type('2020-10-31');
+      cy.get('#date_received-through').blur();
 
       cy.url().should('include', 'date_received_max=2020-10-31');
 
@@ -237,9 +241,10 @@ describe('Filter Panel', () => {
       cy.log('open again');
       cy.get('.state .o-expandable_link').click();
       cy.log('searches a typeahead filter');
-      cy.findByPlaceholderText('Enter state name or abbreviation')
-        .clear()
-        .type('texas');
+      cy.findByPlaceholderText('Enter state name or abbreviation').clear();
+      cy.findByPlaceholderText('Enter state name or abbreviation').type(
+        'texas'
+      );
 
       cy.get('.state .typeahead-selector').should('exist');
 

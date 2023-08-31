@@ -44,7 +44,6 @@ export const DetailComponents = () => {
 // eslint-disable-next-line react/no-multi-comp
 /**
  * Main App Component
- *
  * @returns {JSX.Element} Main app
  */
 export const App = () => {
