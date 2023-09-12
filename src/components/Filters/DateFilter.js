@@ -25,7 +25,7 @@ const WARN_SERIES_BREAK =
   'CFPB updated product and issue options in April 2017 and August 2023';
 
 const LEARN_SERIES_BREAK =
-  'https://www.consumerfinance.gov/data-research/consumer-complaints/';
+  'https://www.consumerfinance.gov/data-research/consumer-complaints/#past-changes';
 
 export const DateFilter = () => {
   const fieldName = 'date_received';
@@ -222,6 +222,7 @@ export const DateFilter = () => {
               aria-label="Learn more about Product and
                   Issue changes (opens in new window)"
             >
+              {' '}
               Learn More
             </a>
           </p>
