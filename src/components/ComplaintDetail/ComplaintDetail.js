@@ -44,8 +44,7 @@ export const ComplaintDetail = () => {
       <nav className="layout-row">
         <div className="back-to-search flex-fixed">
           <Link to={backUrl}>
-            {iconMap.getIcon('left', 'cf-icon-left')}
-            Back to search results
+            {iconMap.getIcon('left', 'cf-icon-left')} Back to search results
           </Link>
         </div>
         <div className="meaning flex-fixed">
