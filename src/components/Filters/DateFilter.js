@@ -22,12 +22,10 @@ dayjs.extend(dayjsIsBetween);
 dayjs.extend(dayjsUtc);
 
 const WARN_SERIES_BREAK =
-  'CFPB updated product and issue options' +
-  ' available to consumers in April 2017 ';
+  'CFPB updated product and issue options in April 2017 and August 2023';
 
 const LEARN_SERIES_BREAK =
-  'https://files.consumerfinance.gov/f/' +
-  'documents/201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf';
+  'https://www.consumerfinance.gov/data-research/consumer-complaints/#past-changes';
 
 export const DateFilter = () => {
   const fieldName = 'date_received';
@@ -224,6 +222,7 @@ export const DateFilter = () => {
               aria-label="Learn more about Product and
                   Issue changes (opens in new window)"
             >
+              {' '}
               Learn More
             </a>
           </p>
