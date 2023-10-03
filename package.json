@@ -52,7 +52,7 @@
     "@cfpb/cfpb-pagination": "0.27.0",
     "@cfpb/cfpb-tables": "0.27.0",
     "@cfpb/cfpb-typography": "0.27.0",
-    "@craco/craco": "^6.4.3",
+    "@craco/craco": "^7.1.0",
     "@reduxjs/toolkit": "^1.8.5",
     "@testing-library/cypress": "^8.0.3",
     "@testing-library/jest-dom": "^5.16.5",

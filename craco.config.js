@@ -4,6 +4,8 @@ const {
   addAfterLoader,
   addAfterLoaders,
   addBeforeLoader,
+  addAfterAssetModule,
+  assetModuleByName,
   getLoader,
   getLoaders,
   removeLoader,
@@ -47,8 +49,10 @@ module.exports = {
         strReplaceLoader
       );
 
+
       //
       return webpackConfig;
+
     },
   },
   plugins: [
