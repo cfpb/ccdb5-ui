@@ -44,12 +44,12 @@ export const Pill = ({ fieldName, value }) => {
   };
 
   return (
-    <li className="pill flex-fixed">
-      <span className="name">
-        {prefix}
-        {trimmed}
-      </span>
-      <button onClick={remove}>
+    <li>
+      <button className="pill flex-fixed" onClick={remove}>
+        <span className="name">
+          {prefix}
+          {trimmed}
+        </span>
         <span className="u-visually-hidden">
           {`Remove ${trimmed} as a filter`}
         </span>
