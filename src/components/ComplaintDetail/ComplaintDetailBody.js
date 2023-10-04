@@ -168,18 +168,30 @@ export const ComplaintDetailBody = ({ data, error, id }) => {
           <br />
         </div>
         <div className="card-right layout-column">
-          <h4 tabIndex="0">Timely response?</h4>
-          <CompanyTimely value={data.timely} />
-          <br />
-          <h4 tabIndex="0">Company response to consumer</h4>
-          <span className="body-copy" tabIndex="0">
-            {data.company_response}
-          </span>
-          <br />
-          <h4 tabIndex="0">Company public response</h4>
-          <span className="body-copy" tabIndex="0">
-            {data.company_public_response}
-          </span>
+          {!!data.timely && (
+            <>
+              <h4 tabIndex="0">Timely response?</h4>
+              <CompanyTimely value={data.timely} />
+              <br />
+            </>
+          )}
+          {!!data.company_response && (
+            <>
+              <h4 tabIndex="0">Company response to consumer</h4>
+              <span className="body-copy" tabIndex="0">
+                {data.company_response}
+              </span>
+              <br />
+            </>
+          )}
+          {!!data.company_public_response && (
+            <>
+              <h4 tabIndex="0">Company public response</h4>
+              <span className="body-copy" tabIndex="0">
+                {data.company_public_response}
+              </span>
+            </>
+          )}
         </div>
       </div>
     </article>
