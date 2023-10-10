@@ -458,11 +458,11 @@ class TileMap {
 
     // to adjust for legend height
     const mapBreakpoints = [
-      { width: 700, legendHeight: 15 },
-      { width: 580, legendHeight: 20 },
-      { width: 500, legendHeight: 30 },
-      { width: 400, legendHeight: 40 },
-      { width: 370, legendHeight: 55 },
+      { width: 700, legendHeight: 20 },
+      { width: 580, legendHeight: 25 },
+      { width: 500, legendHeight: 35 },
+      { width: 400, legendHeight: 60 },
+      { width: 370, legendHeight: 70 },
     ];
 
     let legendHeight = 10;
