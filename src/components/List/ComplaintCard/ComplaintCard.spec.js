@@ -108,4 +108,15 @@ describe('ComplaintCard', () => {
     expect(screen.getByText(/Sub-issue:/)).toBeDefined();
     expect(screen.getByText(itemFixture.sub_issue)).toBeDefined();
   });
+
+  test('Strips highlighter HTML tags', () => {
+    itemFixture.complaint_id = '<em>7990095</em>';
+
+    render(<ComplaintCard row={itemFixture} />);
+
+    expect(screen.getByText(/7990095/).closest('a')).toHaveAttribute(
+      'href',
+      '/detail/7990095'
+    );
+  });
 });
