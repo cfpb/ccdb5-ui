@@ -8,12 +8,12 @@ import React from 'react';
 const MAX_NARRATIVE = 300;
 
 export const ComplaintCard = ({ row }) => {
-  const complaintIdPath = 'detail/' + row.complaint_id;
   const _stripPossibleHighlight = (s) => {
     const re = /(<em>)?(.*?)(<\/em>)?/gi;
     return s.replace(re, '$2');
   };
   const cleanId = _stripPossibleHighlight(row.complaint_id);
+  const complaintIdPath = 'detail/' + _stripPossibleHighlight(row.complaint_id);
 
   const _renderPossibleHighlight = (s) => {
     return (
