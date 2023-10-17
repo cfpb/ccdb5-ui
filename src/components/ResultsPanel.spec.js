@@ -21,13 +21,13 @@ describe('ResultsPanel', () => {
 
   it('renders trends panel without crashing', () => {
     renderComponent({});
-    expect(screen.getByRole('button', { name: 'Trends' })).toHaveClass(
+    expect(screen.getByRole('button', { name: /Trends/ })).toHaveClass(
       'active'
     );
-    expect(screen.getByRole('button', { name: 'List' })).not.toHaveClass(
+    expect(screen.getByRole('button', { name: /List/ })).not.toHaveClass(
       'active'
     );
-    expect(screen.getByRole('button', { name: 'Map' })).not.toHaveClass(
+    expect(screen.getByRole('button', { name: /Map/ })).not.toHaveClass(
       'active'
     );
     expect(screen.getByText('Export data')).toBeInTheDocument();
@@ -35,11 +35,11 @@ describe('ResultsPanel', () => {
 
   it('renders list panel without crashing', () => {
     renderComponent({ tab: MODE_LIST }, {});
-    expect(screen.getByRole('button', { name: 'Trends' })).not.toHaveClass(
+    expect(screen.getByRole('button', { name: /Trends/ })).not.toHaveClass(
       'active'
     );
-    expect(screen.getByRole('button', { name: 'List' })).toHaveClass('active');
-    expect(screen.getByRole('button', { name: 'Map' })).not.toHaveClass(
+    expect(screen.getByRole('button', { name: /List/ })).toHaveClass('active');
+    expect(screen.getByRole('button', { name: /Map/ })).not.toHaveClass(
       'active'
     );
     expect(screen.getByText('Export data')).toBeInTheDocument();
@@ -47,13 +47,13 @@ describe('ResultsPanel', () => {
 
   it('renders map panel without crashing', () => {
     renderComponent({ tab: MODE_MAP }, {});
-    expect(screen.getByRole('button', { name: 'Trends' })).not.toHaveClass(
+    expect(screen.getByRole('button', { name: /Trends/ })).not.toHaveClass(
       'active'
     );
-    expect(screen.getByRole('button', { name: 'List' })).not.toHaveClass(
+    expect(screen.getByRole('button', { name: /List/ })).not.toHaveClass(
       'active'
     );
-    expect(screen.getByRole('button', { name: 'Map' })).toHaveClass('active');
+    expect(screen.getByRole('button', { name: /Map/ })).toHaveClass('active');
     expect(screen.getByText('Export data')).toBeInTheDocument();
   });
 
@@ -62,13 +62,13 @@ describe('ResultsPanel', () => {
       { searchText: 'Tacos', tab: MODE_MAP },
       { isPrintMode: true }
     );
-    expect(screen.getByRole('button', { name: 'Trends' })).not.toHaveClass(
+    expect(screen.getByRole('button', { name: /Trends/ })).not.toHaveClass(
       'active'
     );
-    expect(screen.getByRole('button', { name: 'List' })).not.toHaveClass(
+    expect(screen.getByRole('button', { name: /List/ })).not.toHaveClass(
       'active'
     );
-    expect(screen.getByRole('button', { name: 'Map' })).toHaveClass('active');
+    expect(screen.getByRole('button', { name: /Map/ })).toHaveClass('active');
     expect(screen.getByText('Export data')).toBeInTheDocument();
     expect(screen.getByText('Search Term:')).toBeInTheDocument();
     expect(screen.getByText('Tacos')).toBeInTheDocument();

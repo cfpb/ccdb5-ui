@@ -73,14 +73,17 @@ const iconMap = {
 /**
  * Retrieve an SVG icon given it's name.
  * @param {string} name - A cf-icon SVG canonical icon name.
- * @param {string} customClass - A custom CSS class name to add to an icon.
+ * @param {string} [customClass] - A custom CSS class name to add to an icon.
  * @returns {object} An SVG icon markup.
  */
 function getIcon(name, customClass) {
-  let Icon = iconMap[name];
-  if (typeof Icon === 'undefined') {
-    throw new Error('Icon not found!');
+  if (!Object.hasOwn(iconMap, name)) {
+    // eslint-disable-next-line no-console
+    console.error(`No icon with the name ${name}.`);
+    return false;
   }
+
+  let Icon = iconMap[name];
 
   if (typeof customClass !== 'undefined') {
     Icon = React.cloneElement(Icon, {

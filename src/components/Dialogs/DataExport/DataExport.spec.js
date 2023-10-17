@@ -54,10 +54,10 @@ describe('DataExport', () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.getByRole('button', { name: 'Start export' })
+      screen.getByRole('button', { name: /Start export/ })
     ).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
-    const buttonCopy = screen.getByRole('button', { name: 'Copy' });
+    expect(screen.getByRole('button', { name: /Cancel/ })).toBeInTheDocument();
+    const buttonCopy = screen.getByRole('button', { name: /Copy/ });
     expect(buttonCopy).toBeInTheDocument();
     expect(buttonCopy).toHaveClass('a-btn__secondary');
     fireEvent.click(buttonCopy);
@@ -65,8 +65,8 @@ describe('DataExport', () => {
       expect(buttonCopy).toHaveClass('export-url-copied');
     });
 
-    expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Close' }));
+    expect(screen.getByRole('button', { name: /Close/ })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /Close/ }));
     expect(hideModalSpy).toHaveBeenCalled();
   });
 
@@ -76,8 +76,8 @@ describe('DataExport', () => {
       .mockImplementation(() => jest.fn());
     renderComponent({}, {});
     expect(screen.getByText('Export complaints')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
+    expect(screen.getByRole('button', { name: /Cancel/ })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /Cancel/ }));
     expect(hideModalSpy).toHaveBeenCalled();
   });
 
@@ -91,12 +91,12 @@ describe('DataExport', () => {
     renderComponent({}, {});
     expect(screen.getByText('Export complaints')).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: 'Start export' })
+      screen.getByRole('button', { name: /Start export/ })
     ).toBeInTheDocument();
     expect(screen.getByRole('textbox')).toHaveValue(
       'https://files.consumerfinance.gov/ccdb/complaints.csv.zip'
     );
-    fireEvent.click(screen.getByRole('button', { name: 'Start export' }));
+    fireEvent.click(screen.getByRole('button', { name: /Start export/ }));
     expect(sendAnalyticsSpy).toHaveBeenCalledWith(
       'Export All Data',
       'Trends:csv'
@@ -114,7 +114,7 @@ describe('DataExport', () => {
     renderComponent({}, {});
     expect(screen.getByText('Export complaints')).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: 'Start export' })
+      screen.getByRole('button', { name: /Start export/ })
     ).toBeInTheDocument();
     expect(screen.getByRole('textbox')).toHaveValue(
       'https://files.consumerfinance.gov/ccdb/complaints.csv.zip'
@@ -137,7 +137,7 @@ describe('DataExport', () => {
       );
     });
 
-    fireEvent.click(screen.getByRole('button', { name: 'Start export' }));
+    fireEvent.click(screen.getByRole('button', { name: /Start export/ }));
     expect(sendAnalyticsSpy).toHaveBeenCalledWith(
       'Export All Data',
       'Trends:json'
@@ -181,9 +181,9 @@ describe('DataExport', () => {
     );
 
     expect(
-      screen.getByRole('button', { name: 'Start export' })
+      screen.getByRole('button', { name: /Start export/ })
     ).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Start export' }));
+    fireEvent.click(screen.getByRole('button', { name: /Start export/ }));
 
     expect(sendAnalyticsSpy).toHaveBeenCalledWith(
       'Export Some Data',
