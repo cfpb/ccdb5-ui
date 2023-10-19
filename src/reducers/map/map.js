@@ -4,8 +4,9 @@ import actions from '../../actions';
 import { processAggregations } from '../trends/trends';
 import { processErrorMessage } from '../../utils';
 import { TILE_MAP_STATES } from '../../constants';
+import {createSlice} from "@reduxjs/toolkit";
 
-export const defaultMap = {
+export const mapState = {
   activeCall: '',
   error: false,
   isLoading: false,
@@ -38,82 +39,60 @@ export const processStateAggregations = (agg) => {
   return states;
 };
 
-// ----------------------------------------------------------------------------
-// Action Handlers
-
-/**
- * Updates the state when an tab changed occurs, reset values to start clean
- * @param {object} state - the current state in the Redux store
- * @returns {object} the new state for the Redux store
- */
-export function handleTabChanged(state) {
-  return {
-    ...state,
-    error: false,
-    results: {
-      product: [],
-      state: [],
+export const mapSlice = createSlice({
+  name: 'map',
+  initialState: mapState,
+  reducers: {
+    handleTabChanged(state) {
+      return {
+        ...state,
+        error: false,
+        results: {
+          product: [],
+          state: [],
+        },
+      };
     },
-  };
-}
-
-/**
- * Updates the state when an aggregations call is in progress
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the payload containing the key/value pairs
- * @returns {object} the new state for the Redux store
- */
-export function statesCallInProcess(state, action) {
-  return {
-    ...state,
-    activeCall: action.url,
-    error: false,
-    isLoading: true,
-  };
-}
-
-/**
- * Expanded logic for handling aggregations returned from the API
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the payload containing the key/value pairs
- * @returns {object} new state for the Redux store
- */
-export function processStatesResults(state, action) {
-  const aggregations = action.data.aggregations;
-  const { state: stateData } = aggregations;
-  // add in "issue" if we ever need issue row chart again
-  const keys = ['product'];
-  const results = {};
-  processAggregations(keys, state, aggregations, results);
-  results.state = processStateAggregations(stateData);
-
-  return {
-    ...state,
-    activeCall: '',
-    error: false,
-    isLoading: false,
-    results,
-  };
-}
-
-/**
- * handling errors from an aggregation call
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the payload containing the key/value pairs
- * @returns {object} new state for the Redux store
- */
-export function processStatesError(state, action) {
-  return {
-    ...state,
-    activeCall: '',
-    error: processErrorMessage(action.error),
-    isLoading: false,
-    results: {
-      product: [],
-      state: [],
+    statesCallInProcess(state, action) {
+      return {
+        ...state,
+        activeCall: action.url,
+        error: false,
+        isLoading: true,
+      };
     },
-  };
-}
+    processStatesResults(state, action) {
+      const aggregations = action.data.aggregations;
+      const { state: stateData } = aggregations;
+      // add in "issue" if we ever need issue row chart again
+      const keys = ['product'];
+      const results = {};
+      processAggregations(keys, state, aggregations, results);
+      results.state = processStateAggregations(stateData);
+
+      return {
+        ...state,
+        activeCall: '',
+        error: false,
+        isLoading: false,
+        results,
+      };
+    },
+    processStatesError(state, action) {
+      return {
+        ...state,
+        activeCall: '',
+        error: processErrorMessage(action.error),
+        isLoading: false,
+        results: {
+          product: [],
+          state: [],
+        },
+      };
+    },
+  }
+});
+
 
 // ----------------------------------------------------------------------------
 // Action Handlers
@@ -149,7 +128,5 @@ function handleSpecificAction(state, action) {
   return state;
 }
 
-export default (state = defaultMap, action) => {
-  const newState = handleSpecificAction(state, action);
-  return newState;
-};
+export const { handleTabChanged, statesCallInProgress, processStatesResults, processStatesError } = mapSlice.actions;
+export default mapSlice.reducer;

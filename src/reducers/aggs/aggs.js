@@ -4,10 +4,11 @@ import {
   AGGREGATIONS_RECEIVED,
 } from '../../actions/complaints';
 import { processErrorMessage } from '../../utils';
+import {createSlice} from "@reduxjs/toolkit";
 
 /* eslint-disable camelcase */
 
-export const defaultAggs = {
+export const aggState = {
   activeCall: '',
   doc_count: 0,
   isLoading: false,
@@ -32,71 +33,55 @@ export const defaultAggs = {
   zip_code: [],
 };
 
-// ----------------------------------------------------------------------------
-// Action Handlers
-/**
- * handles complaint api call in progress
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the payload containing the key/value pairs
- * @returns {object} new state for the Redux store
- */
-export function aggregationsCallInProcess(state, action) {
-  return {
-    ...state,
-    activeCall: action.url,
-    isLoading: true,
-  };
-}
+export const aggSlice = createSlice({
+  name: 'aggs',
+  initialState: aggState,
+  reducers: {
+    aggregationsCallInProcess(state, action) {
+      return {
+        ...state,
+        activeCall: action.url,
+        isLoading: true,
+      };
+    },
+    processAggregationResults(state, action) {
+      const aggs = action.data.aggregations;
+      const keys = Object.keys(aggs);
 
-/**
- * expanded logic to process complaint data
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the payload containing the key/value pairs
- * @returns {object} new state for the Redux store
- */
-export function processAggregationResults(state, action) {
-  const aggs = action.data.aggregations;
-  const keys = Object.keys(aggs);
+      const doc_count = Math.max(
+        state.doc_count,
+        action.data.hits.total.value,
+        action.data._meta.total_record_count
+      );
 
-  const doc_count = Math.max(
-    state.doc_count,
-    action.data.hits.total.value,
-    action.data._meta.total_record_count
-  );
+      const result = {
+        ...state,
+        doc_count,
+        error: '',
+        isLoading: false,
+        lastUpdated: action.data._meta.last_updated,
+        lastIndexed: action.data._meta.last_indexed,
+        hasDataIssue: action.data._meta.has_data_issue,
+        isDataStale: action.data._meta.is_data_stale,
+        total: action.data.hits.total.value,
+      };
 
-  const result = {
-    ...state,
-    doc_count,
-    error: '',
-    isLoading: false,
-    lastUpdated: action.data._meta.last_updated,
-    lastIndexed: action.data._meta.last_indexed,
-    hasDataIssue: action.data._meta.has_data_issue,
-    isDataStale: action.data._meta.is_data_stale,
-    total: action.data.hits.total.value,
-  };
+      keys.forEach((key) => {
+        result[key] = aggs[key][key].buckets;
+      });
 
-  keys.forEach((key) => {
-    result[key] = aggs[key][key].buckets;
-  });
+      return result;
+    },
+    processAggregationError(state, action) {
+      return {
+        ...aggState,
+        isLoading: false,
+        error: processErrorMessage(action.error),
+      };
+    }
+  },
 
-  return result;
-}
-
-/**
- * handling errors from an complaint api call
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the payload containing the key/value pairs
- * @returns {object} new state for the Redux store
- */
-export function processAggregationError(state, action) {
-  return {
-    ...defaultAggs,
-    isLoading: false,
-    error: processErrorMessage(action.error),
-  };
-}
-
+});
 /**
  * Creates a hash table of action types to handlers
  * @returns {object} a map of types to functions
@@ -126,7 +111,8 @@ function handleSpecificAction(state, action) {
   return state;
 }
 
-export default (state = defaultAggs, action) => {
-  const newState = handleSpecificAction(state, action);
-  return newState;
-};
+
+export const { aggregationsCallInProcess, processAggregationResults, processAggregationError } =
+  aggSlice.actions;
+
+export default aggSlice.reducer;

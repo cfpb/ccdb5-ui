@@ -13,11 +13,12 @@ import { enforceValues, validateTrendsReducer } from '../../utils/reducers';
 import actions from '../../actions';
 import dayjs from 'dayjs';
 import { isGreaterThanYear } from '../../utils/trends';
+import { createSlice } from "@reduxjs/toolkit";
 
 const queryString = require('query-string');
 
 /* eslint-disable camelcase */
-export const defaultQuery = {
+export const queryState = {
   breakPoints: {},
   chartType: 'line',
   dataNormalization: types.GEO_NORM_NONE,

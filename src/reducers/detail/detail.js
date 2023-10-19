@@ -1,39 +1,38 @@
-import {
-  COMPLAINT_DETAIL_CALLED,
-  COMPLAINT_DETAIL_FAILED,
-  COMPLAINT_DETAIL_RECEIVED,
-} from '../../actions/complaints';
 
-export const defaultDetail = {
+import {createSlice} from "@reduxjs/toolkit";
+
+export const detailState = {
   activeCall: '',
   data: {},
   error: '',
 };
 
-export default (state = defaultDetail, action) => {
-  switch (action.type) {
-    case COMPLAINT_DETAIL_CALLED:
+export const detailSlice = createSlice({
+  name: 'detail',
+  initialState: detailState,
+  reducers: {
+    complaintDetailCalled(state, action){
       return {
-        activeCall: action.url,
-        data: {},
-        error: '',
-      };
-
-    case COMPLAINT_DETAIL_RECEIVED:
+        ...state,
+        activeCall: action.url
+      }
+    },
+    complaintDetailReceived(state, action){
       return {
-        activeCall: '',
-        data: action.data.hits.hits[0]._source,
-        error: '',
-      };
-
-    case COMPLAINT_DETAIL_FAILED:
+        ...state,
+        data: action.data.hits.hits[0]._source
+      }
+    },
+    complaintDetailFailed(state, action){
       return {
-        activeCall: '',
-        data: {},
-        error: action.error,
-      };
-
-    default:
-      return state;
+        ...state,
+        error: action.error
+      }
+    }
   }
-};
+})
+
+export const { complaintDetailCalled, complaintDetailReceived, complaintDetailFailed } = detailSlice.actions;
+
+export default detailSlice.reducer;
+

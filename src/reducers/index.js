@@ -1,18 +1,23 @@
-import aggs from './aggs/aggs';
-import { combineReducers } from 'redux';
-import detail from './detail/detail';
-import map from './map/map';
-import query from './query/query';
-import results from './results/results';
-import trends from './trends/trends';
-import view from './view/view';
+import aggReducer  from './aggs/aggs';
+import detailReducer from './detail/detail';
+import mapReducer from './map/map';
+import queryReducer from './query/query';
+import resultsReducer from './results/results';
+import trendsReducer from './trends/trends';
+import viewReducer from './view/view';
 
-export default combineReducers({
-  aggs,
-  detail,
-  map,
-  query,
-  results,
-  trends,
-  view,
-});
+import { configureStore } from "@reduxjs/toolkit";
+
+
+export default configureStore({
+  reducer: {
+    aggregations: aggReducer,
+    detail: detailReducer,
+    map: mapReducer,
+    query: queryReducer,
+    results: resultsReducer,
+    trends: trendsReducer,
+    view: viewReducer
+  }
+
+})
