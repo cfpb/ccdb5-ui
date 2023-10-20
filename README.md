@@ -3,6 +3,9 @@
 **Description**:
 This application allows consumers to search complaints submitted to the CFPB by other consumers.
 
+**Website Link**:
+[www.consumerfinance.gov](https://www.consumerfinance.gov/)
+
 #### Technology Stack
 
 This application is written in JavaScript and [Less](http://lesscss.org) within
@@ -21,20 +24,17 @@ Unit testing of the application is performed within
 [yarn](https://yarnpkg.com/) is used to manage the build/test/deploy cycle.
 
 #### Screenshot
-
-![screen August 17, 2017](documentation/screenshot.png)
+![Consumer Financial Protection Bureau - Google Chrome 20-10-2023 10_37_09 PM](https://github.com/kiranrokkam09/ccdb5-ui/assets/85286397/90b9e381-f960-4c49-b956-0b8a254bcae3)
 
 ## Dependencies
 
-This application depends on the following third-party components:
+This application leverages a robust design system, which serves as the foundation for maintaining a consistent and cohesive user interface. While the design system relies on various components and libraries, we'll focus on the design system as a whole, eliminating the need to list each individual dependency.
 
-1. [Capital Framework](https://cfpb.github.io/capital-framework/) - CFPB standard styling and controls
-1. [History](https://github.com/reacttraining/history) - Integrating the address bar with the application
-1. [dayjs](https://day.js.org/) - Better date handling than native JavaScript
+For detailed information about the design system and its underlying components, please refer to the official [Design System Documentation](https://thedesignsystem.guide/documentation). The design system provides standardized styling, controls, and guidelines, ensuring a unified user experience throughout the application.
 
 It also contains portions adapted from:
 
-1. [react-typeahead](https://github.com/fmoo/react-typeahead)
+1. [React bootstrap typeahead](https://www.npmjs.com/package/react-bootstrap-typeahead)
 
 ## Installation
 
