@@ -77,6 +77,456 @@ const urlParams = [
 
 const urlParamsInt = ['from', 'page', 'trendDepth'];
 
+export const querySlice = createSlice({
+  name: 'query',
+  initialState: queryState,
+  reducers: {
+    //Needs reducer/prepare block
+    processParams(state, action) {
+      const params = action.params;
+      let processed = Object.assign({}, defaultQuery);
+
+      // Filter for known
+      urlParams.forEach((field) => {
+        if (typeof params[field] !== 'undefined') {
+          processed[field] = enforceValues(params[field], field);
+        }
+      });
+
+      // Handle the aggregation filters
+      processUrlArrayParams(params, processed, types.knownFilters);
+
+      // Handle date filters
+      types.dateFilters.forEach((field) => {
+        if (typeof params[field] !== 'undefined') {
+          const d = toDate(params[field]);
+          if (d) {
+            processed[field] = d;
+          }
+        }
+      });
+
+      // Handle flag filters
+      types.flagFilters.forEach((field) => {
+        if (typeof params[field] !== 'undefined') {
+          processed[field] = params[field] === 'true';
+        }
+      });
+
+      // Handle numeric params
+      urlParamsInt.forEach((field) => {
+        if (typeof params[field] !== 'undefined') {
+          const n = parseInt(params[field], 10);
+          if (isNaN(n) === false) {
+            processed[field] = enforceValues(n, field);
+          }
+        }
+      });
+
+      // Apply the date range
+      if (dateRangeNoDates(params) || params.dateRange === 'All') {
+        const innerAction = { dateRange: params.dateRange };
+        processed = changeDateRange(processed, innerAction);
+      }
+
+      // this is always page 1 since we don't know breakPoints
+      processed.page = 1;
+
+      return alignDateRange(processed);
+    },
+    changeDateInterval(state, action) {
+      const dateInterval = enforceValues(action.dateInterval, 'dateInterval');
+      return {
+        ...state,
+        dateInterval,
+      };
+    },
+    changeDateRange(state, action) {
+      const dateRange = enforceValues(action.dateRange, 'dateRange');
+      const newState = {
+        ...state,
+        dateRange,
+      };
+
+      const maxDate = startOfToday();
+
+      const res = {
+        All: new Date(types.DATE_RANGE_MIN),
+        '3m': new Date(dayjs(maxDate).subtract(3, 'months')),
+        '6m': new Date(dayjs(maxDate).subtract(6, 'months')),
+        '1y': new Date(dayjs(maxDate).subtract(1, 'year')),
+        '3y': new Date(dayjs(maxDate).subtract(3, 'years')),
+      };
+
+      /* istanbul ignore else */
+      if (res[dateRange]) {
+        newState.date_received_min = res[dateRange];
+      }
+
+      newState.date_received_max = maxDate;
+
+      return newState;
+    },
+    changeDates(state, action) {
+      const fields = [action.filterName + '_min', action.filterName + '_max'];
+
+      let { maxDate, minDate } = action;
+
+      minDate = dayjs(minDate).isValid()
+        ? new Date(dayjs(minDate).startOf('day'))
+        : null;
+      maxDate = dayjs(maxDate).isValid()
+        ? new Date(dayjs(maxDate).startOf('day'))
+        : null;
+
+      const newState = {
+        ...state,
+        [fields[0]]: minDate,
+        [fields[1]]: maxDate,
+      };
+
+      // Remove nulls
+      fields.forEach((field) => {
+        if (newState[field] === null) {
+          delete newState[field];
+        }
+      });
+
+      const dateRange = calculateDateRange(minDate, maxDate);
+      if (dateRange) {
+        newState.dateRange = dateRange;
+      } else {
+        delete newState.dateRange;
+      }
+
+      return newState;
+    },
+    toggleFlagFilter(state, action) {
+      /* eslint-disable camelcase */
+      const newState = {
+        ...state,
+        [action.filterName]: Boolean(!state[action.filterName]),
+      };
+
+      /* eslint-enable camelcase */
+
+      // Remove nulls
+      const fields = ['has_narrative'];
+      fields.forEach((field) => {
+        if (!newState[field]) {
+          delete newState[field];
+        }
+      });
+
+      return newState;
+    },
+    changeSearchField(state, action) {
+      const pagination = getPagination(1, state);
+      return {
+        ...state,
+        ...pagination,
+        searchField: action.searchField,
+      };
+    },
+    changeSearchText(state, action) {
+      const pagination = getPagination(1, state);
+      return {
+        ...state,
+        ...pagination,
+        searchText: action.searchText,
+      };
+    },
+    addMultipleFilters(state, action) {
+      const newState = { ...state };
+      const name = action.filterName;
+      const a = coalesce(newState, name, []);
+
+      // Add the filters
+      action.values.forEach((x) => {
+        if (a.indexOf(x) === -1) {
+          a.push(x);
+        }
+      });
+
+      newState[name] = a;
+
+      return newState;
+    },
+    toggleFilter(state, action) {
+      const newState = {
+        ...state,
+        [action.filterName]: filterArrayAction(
+          state[action.filterName],
+          action.filterValue.key
+        ),
+      };
+
+      return newState;
+    },
+    addStateFilter(state, action) {
+      const stateFilters = coalesce(state, 'state', []);
+      const { abbr } = action.selectedState;
+      if (!stateFilters.includes(abbr)) {
+        stateFilters.push(abbr);
+      }
+
+      const newState = {
+        ...state,
+        state: stateFilters,
+      };
+
+      return newState;
+    },
+    clearStateFilter(state) {
+      const newState = {
+        ...state,
+        state: [],
+      };
+
+      return newState;
+    },
+    showStateComplaints(state) {
+      return {
+        ...state,
+        tab: types.MODE_LIST,
+      };
+    },
+    removeStateFilter(state, action) {
+      const stateFilters = coalesce(state, 'state', []);
+      const { abbr } = action.selectedState;
+
+      const newState = {
+        ...state,
+        state: stateFilters.filter((o) => o !== abbr),
+      };
+
+      return newState;
+    },
+    removeAllFilters(state) {
+      const newState = { ...state };
+
+      const allFilters = types.knownFilters.concat(
+        types.dateFilters,
+        types.flagFilters
+      );
+
+      if (state.searchField === types.NARRATIVE_SEARCH_FIELD) {
+        const idx = allFilters.indexOf('has_narrative');
+        allFilters.splice(idx, 1);
+      }
+
+      allFilters.forEach((kf) => {
+        if (kf in newState) {
+          delete newState[kf];
+        }
+      });
+
+      // set date range to All
+      // adjust date filter for max and min ranges
+      newState.dateRange = 'All';
+      /* eslint-disable camelcase */
+      newState.date_received_min = new Date(types.DATE_RANGE_MIN);
+      newState.date_received_max = startOfToday();
+      newState.focus = '';
+
+      return newState;
+    },
+    addFilter(state, action) {
+      const newState = { ...state };
+      if (action.filterName === 'has_narrative') {
+        newState.has_narrative = true;
+      } else if (action.filterName in newState) {
+        const idx = newState[action.filterName].indexOf(action.filterValue);
+        if (idx === -1) {
+          newState[action.filterName].push(action.filterValue);
+        }
+      } else {
+        newState[action.filterName] = [action.filterValue];
+      }
+
+      return newState;
+    },
+    removeFilter(state, action) {
+      const newState = { ...state };
+      if (action.filterName === 'has_narrative') {
+        delete newState.has_narrative;
+      } else if (action.filterName in newState) {
+        const idx = newState[action.filterName].indexOf(action.filterValue);
+        if (idx !== -1) {
+          newState[action.filterName].splice(idx, 1);
+        }
+      }
+
+      return newState;
+    },
+    replaceFilters(state, action) {
+      const newState = { ...state };
+      // de-dupe the filters in case we messed up somewhere
+      newState[action.filterName] = [...new Set(action.values)];
+      return newState;
+    },
+    removeMultipleFilters(state, action) {
+      const newState = { ...state };
+      const a = newState[action.filterName];
+      // remove the focus if it exists in one of the filter values we are removing
+      newState.focus = action.values.includes(state.focus) ? '' : state.focus || '';
+
+      if (a) {
+        action.values.forEach((x) => {
+          const idx = a.indexOf(x);
+          if (idx !== -1) {
+            a.splice(idx, 1);
+          }
+        });
+      }
+
+      return newState;
+    },
+    dismissMapWarning(state) {
+      return {
+        ...state,
+        mapWarningEnabled: false,
+      };
+    },
+    dismissTrendsDateWarning(state) {
+      return {
+        ...state,
+        trendsDateWarningEnabled: false,
+      };
+    },
+    prevPage(state) {
+      // don't let them go lower than 1
+      const page = clamp(state.page - 1, 1, state.page);
+      const pagination = getPagination(page, state);
+      return {
+        ...state,
+        ...pagination,
+      };
+    },
+    nextPage(state) {
+      // don't let them go past the total num of pages
+      const page = clamp(state.page + 1, 1, state.totalPages);
+      const pagination = getPagination(page, state);
+      return {
+        ...state,
+        ...pagination,
+      };
+    },
+    changeSize(state, action) {
+      const pagination = getPagination(1, state);
+      return {
+        ...state,
+        ...pagination,
+        size: action.size,
+      };
+    },
+    changeSort(state, action) {
+      const pagination = getPagination(1, state);
+      const sort = enforceValues(action.sort, 'sort');
+      return {
+        ...state,
+        ...pagination,
+        sort,
+      };
+    },
+    changeTab(state, action) {
+      const tab = enforceValues(action.tab, 'tab');
+      return {
+        ...state,
+        focus: tab === types.MODE_TRENDS ? state.focus : '',
+        tab,
+      };
+    },
+    updateTotalPages(state, action) {
+      const { _meta, hits } = action.data;
+      const totalPages = Math.ceil(hits.total.value / state.size);
+      // reset pager to 1 if the number of total pages is less than current page
+      const { break_points: breakPoints } = _meta;
+      const page = state.page > totalPages ? totalPages : state.page;
+      return {
+        ...state,
+        breakPoints,
+        page,
+        totalPages: Object.keys(breakPoints).length + 1,
+      };
+    },
+    changeDepth(state, action) {
+      return {
+        ...state,
+        trendDepth: action.depth,
+      };
+    },
+    resetDepth(state) {
+      return {
+        ...state,
+        trendDepth: 5,
+      };
+    },
+    changeFocus(state, action) {
+      const { focus, filterValues, lens } = action;
+      const filterKey = lens.toLowerCase();
+      const activeFilters = [];
+
+      if (filterKey === 'company') {
+        activeFilters.push(focus);
+      } else {
+        filterValues.forEach((o) => {
+          activeFilters.push(o);
+        });
+      }
+
+      return {
+        ...state,
+        [filterKey]: activeFilters,
+        focus,
+        lens,
+        tab: types.MODE_TRENDS,
+        trendDepth: 25,
+      };
+    },
+    removeFocus(state) {
+      const { lens } = state;
+      const filterKey = lens.toLowerCase();
+      return {
+        ...state,
+        [filterKey]: [],
+        focus: '',
+        tab: types.MODE_TRENDS,
+        trendDepth: 5,
+      };
+    },
+    changeDataLens(state, action) {
+      const lens = enforceValues(action.lens, 'lens');
+
+      return {
+        ...state,
+        focus: '',
+        lens,
+        trendDepth: lens === 'Company' ? 10 : 5,
+      };
+    },
+    changeDataSubLens(state, action) {
+      return {
+        ...state,
+        subLens: action.subLens.toLowerCase(),
+      };
+    },
+    updateChartType(state, action) {
+      return {
+        ...state,
+        chartType: action.chartType,
+      };
+    },
+    updateDataNormalization(state, action) {
+      const dataNormalization = enforceValues(action.value, 'dataNormalization');
+      return {
+        ...state,
+        dataNormalization,
+      };
+    }
+  }
+})
+
 // ----------------------------------------------------------------------------
 // Helper functions
 
@@ -171,154 +621,6 @@ export function toDate(value) {
 }
 
 /**
- * Processes an object of key/value strings into the correct internal format
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the payload containing the key/value pairs
- * @returns {object} a filtered set of key/value pairs with the values set to
- * the correct type
- */
-function processParams(state, action) {
-  const params = action.params;
-  let processed = Object.assign({}, defaultQuery);
-
-  // Filter for known
-  urlParams.forEach((field) => {
-    if (typeof params[field] !== 'undefined') {
-      processed[field] = enforceValues(params[field], field);
-    }
-  });
-
-  // Handle the aggregation filters
-  processUrlArrayParams(params, processed, types.knownFilters);
-
-  // Handle date filters
-  types.dateFilters.forEach((field) => {
-    if (typeof params[field] !== 'undefined') {
-      const d = toDate(params[field]);
-      if (d) {
-        processed[field] = d;
-      }
-    }
-  });
-
-  // Handle flag filters
-  types.flagFilters.forEach((field) => {
-    if (typeof params[field] !== 'undefined') {
-      processed[field] = params[field] === 'true';
-    }
-  });
-
-  // Handle numeric params
-  urlParamsInt.forEach((field) => {
-    if (typeof params[field] !== 'undefined') {
-      const n = parseInt(params[field], 10);
-      if (isNaN(n) === false) {
-        processed[field] = enforceValues(n, field);
-      }
-    }
-  });
-
-  // Apply the date range
-  if (dateRangeNoDates(params) || params.dateRange === 'All') {
-    const innerAction = { dateRange: params.dateRange };
-    processed = changeDateRange(processed, innerAction);
-  }
-
-  // this is always page 1 since we don't know breakPoints
-  processed.page = 1;
-
-  return alignDateRange(processed);
-}
-
-/**
- * update state based on changeDateInterval action
- * @param {object} state - current redux state
- * @param {object} action - command executed
- * @returns {object} new state in redux
- */
-function changeDateInterval(state, action) {
-  const dateInterval = enforceValues(action.dateInterval, 'dateInterval');
-  return {
-    ...state,
-    dateInterval,
-  };
-}
-
-/**
- * Change a date range filter according to selected range
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the payload containing the date range
- * @returns {object} the new state for the Redux store
- */
-export function changeDateRange(state, action) {
-  const dateRange = enforceValues(action.dateRange, 'dateRange');
-  const newState = {
-    ...state,
-    dateRange,
-  };
-
-  const maxDate = startOfToday();
-
-  const res = {
-    All: new Date(types.DATE_RANGE_MIN),
-    '3m': new Date(dayjs(maxDate).subtract(3, 'months')),
-    '6m': new Date(dayjs(maxDate).subtract(6, 'months')),
-    '1y': new Date(dayjs(maxDate).subtract(1, 'year')),
-    '3y': new Date(dayjs(maxDate).subtract(3, 'years')),
-  };
-
-  /* istanbul ignore else */
-  if (res[dateRange]) {
-    newState.date_received_min = res[dateRange];
-  }
-
-  newState.date_received_max = maxDate;
-
-  return newState;
-}
-
-/**
- * Change a date range filter
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the payload containing the date range to change
- * @returns {object} the new state for the Redux store
- */
-export function changeDates(state, action) {
-  const fields = [action.filterName + '_min', action.filterName + '_max'];
-
-  let { maxDate, minDate } = action;
-
-  minDate = dayjs(minDate).isValid()
-    ? new Date(dayjs(minDate).startOf('day'))
-    : null;
-  maxDate = dayjs(maxDate).isValid()
-    ? new Date(dayjs(maxDate).startOf('day'))
-    : null;
-
-  const newState = {
-    ...state,
-    [fields[0]]: minDate,
-    [fields[1]]: maxDate,
-  };
-
-  // Remove nulls
-  fields.forEach((field) => {
-    if (newState[field] === null) {
-      delete newState[field];
-    }
-  });
-
-  const dateRange = calculateDateRange(minDate, maxDate);
-  if (dateRange) {
-    newState.dateRange = dateRange;
-  } else {
-    delete newState.dateRange;
-  }
-
-  return newState;
-}
-
-/**
  * Makes sure that we have a valid dateInterval is selected, or moves to week
  * when the date range > 1yr
  * @param {object} queryState - the current state of query reducer
@@ -341,85 +643,6 @@ export function validateDateInterval(queryState) {
 }
 
 /**
- * Change a boolean flag filter
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the payload containing the value to change
- * @returns {object} the new state for the Redux store
- */
-export function toggleFlagFilter(state, action) {
-  /* eslint-disable camelcase */
-  const newState = {
-    ...state,
-    [action.filterName]: Boolean(!state[action.filterName]),
-  };
-
-  /* eslint-enable camelcase */
-
-  // Remove nulls
-  const fields = ['has_narrative'];
-  fields.forEach((field) => {
-    if (!newState[field]) {
-      delete newState[field];
-    }
-  });
-
-  return newState;
-}
-
-/**
- * updates when search text params are changed
- * @param {object} state - current state in redux
- * @param {object} action - payload with search text and field
- * @returns {object} updated state for redux
- */
-export function changeSearchField(state, action) {
-  const pagination = getPagination(1, state);
-  return {
-    ...state,
-    ...pagination,
-    searchField: action.searchField,
-  };
-}
-
-/**
- * updates when search text params are changed
- * @param {object} state - current state in redux
- * @param {object} action - payload with search text and field
- * @returns {object} updated state for redux
- */
-export function changeSearchText(state, action) {
-  const pagination = getPagination(1, state);
-  return {
-    ...state,
-    ...pagination,
-    searchText: action.searchText,
-  };
-}
-
-/**
- * Adds new filters to the current set
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the payload containing the filters to add
- * @returns {object} the new state for the Redux store
- */
-export function addMultipleFilters(state, action) {
-  const newState = { ...state };
-  const name = action.filterName;
-  const a = coalesce(newState, name, []);
-
-  // Add the filters
-  action.values.forEach((x) => {
-    if (a.indexOf(x) === -1) {
-      a.push(x);
-    }
-  });
-
-  newState[name] = a;
-
-  return newState;
-}
-
-/**
  * defaults create new array if param doesn't exist yet
  * if the value doesn't exist in the array, pushes
  * if value exists in the array, filters.
@@ -439,227 +662,6 @@ export function filterArrayAction(target = [], val) {
 }
 
 /**
- * Toggles a filter in the current set
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the payload containing the filters to change
- * @returns {object} the new state for the Redux store
- */
-export function toggleFilter(state, action) {
-  const newState = {
-    ...state,
-    [action.filterName]: filterArrayAction(
-      state[action.filterName],
-      action.filterValue.key
-    ),
-  };
-
-  return newState;
-}
-
-/**
- * adds a state filter in the current set
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the payload containing the filters to change
- * @returns {object} the new state for the Redux store
- */
-export function addStateFilter(state, action) {
-  const stateFilters = coalesce(state, 'state', []);
-  const { abbr } = action.selectedState;
-  if (!stateFilters.includes(abbr)) {
-    stateFilters.push(abbr);
-  }
-
-  const newState = {
-    ...state,
-    state: stateFilters,
-  };
-
-  return newState;
-}
-
-/**
- * removes all state filters in the current set
- * @param {object} state - the current state in the Redux store
- * @returns {object} the new state for the Redux store
- */
-export function clearStateFilter(state) {
-  const newState = {
-    ...state,
-    state: [],
-  };
-
-  return newState;
-}
-
-/**
- * only applies the single state filter and switches view mode to complaints
- * @param {object} state - the current state in the Redux store
- * @returns {object} the new state for the Redux store
- */
-export function showStateComplaints(state) {
-  return {
-    ...state,
-    tab: types.MODE_LIST,
-  };
-}
-
-/**
- * removes one state filters in the current set
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the payload containing the filters to change
- * @returns {object} the new state for the Redux store
- */
-export function removeStateFilter(state, action) {
-  const stateFilters = coalesce(state, 'state', []);
-  const { abbr } = action.selectedState;
-
-  const newState = {
-    ...state,
-    state: stateFilters.filter((o) => o !== abbr),
-  };
-
-  return newState;
-}
-
-/**
- * Removes all filters from the current set
- * @param {object} state - the current state in the Redux store
- * @returns {object} the new state for the Redux store
- */
-export function removeAllFilters(state) {
-  const newState = { ...state };
-
-  const allFilters = types.knownFilters.concat(
-    types.dateFilters,
-    types.flagFilters
-  );
-
-  if (state.searchField === types.NARRATIVE_SEARCH_FIELD) {
-    const idx = allFilters.indexOf('has_narrative');
-    allFilters.splice(idx, 1);
-  }
-
-  allFilters.forEach((kf) => {
-    if (kf in newState) {
-      delete newState[kf];
-    }
-  });
-
-  // set date range to All
-  // adjust date filter for max and min ranges
-  newState.dateRange = 'All';
-  /* eslint-disable camelcase */
-  newState.date_received_min = new Date(types.DATE_RANGE_MIN);
-  newState.date_received_max = startOfToday();
-  newState.focus = '';
-
-  return newState;
-}
-
-/**
- * Adds a filter to the current set
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the payload containing the filter to add
- * @returns {object} the new state for the Redux store
- */
-function addFilter(state, action) {
-  const newState = { ...state };
-  if (action.filterName === 'has_narrative') {
-    newState.has_narrative = true;
-  } else if (action.filterName in newState) {
-    const idx = newState[action.filterName].indexOf(action.filterValue);
-    if (idx === -1) {
-      newState[action.filterName].push(action.filterValue);
-    }
-  } else {
-    newState[action.filterName] = [action.filterValue];
-  }
-
-  return newState;
-}
-
-/**
- * Removes a filter from the current set
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the payload containing the filter to remove
- * @returns {object} the new state for the Redux store
- */
-function removeFilter(state, action) {
-  const newState = { ...state };
-  if (action.filterName === 'has_narrative') {
-    delete newState.has_narrative;
-  } else if (action.filterName in newState) {
-    const idx = newState[action.filterName].indexOf(action.filterValue);
-    if (idx !== -1) {
-      newState[action.filterName].splice(idx, 1);
-    }
-  }
-
-  return newState;
-}
-
-/**
- * replaces filters with whatever we want
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the payload containing the filter to remove
- * @returns {object} the new state for the Redux store
- */
-function replaceFilters(state, action) {
-  const newState = { ...state };
-  // de-dupe the filters in case we messed up somewhere
-  newState[action.filterName] = [...new Set(action.values)];
-  return newState;
-}
-
-/**
- * Removes multiple filters from the current set
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the payload containing the filters to remove
- * @returns {object} the new state for the Redux store
- */
-function removeMultipleFilters(state, action) {
-  const newState = { ...state };
-  const a = newState[action.filterName];
-  // remove the focus if it exists in one of the filter values we are removing
-  newState.focus = action.values.includes(state.focus) ? '' : state.focus || '';
-
-  if (a) {
-    action.values.forEach((x) => {
-      const idx = a.indexOf(x);
-      if (idx !== -1) {
-        a.splice(idx, 1);
-      }
-    });
-  }
-
-  return newState;
-}
-
-/**
- * Handler for the dismiss map warning action
- * @param {object} state - the current state in the Redux store
- * @returns {object} the new state for the Redux store
- */
-export function dismissMapWarning(state) {
-  return {
-    ...state,
-    mapWarningEnabled: false,
-  };
-}
-
-/**
- * Handler for the dismiss trends warning action
- * @param {object} state - the current state in the Redux store
- * @returns {object} the new state for the Redux store
- */
-export function dismissTrendsDateWarning(state) {
-  return {
-    ...state,
-    trendsDateWarningEnabled: false,
-  };
-}
-
-/**
  * gets the pagination state
  * @param {number} page - the page we are on
  * @param {object} state - the redux state
@@ -674,36 +676,6 @@ function getPagination(page, state) {
 }
 
 /**
- * Update state based on the sort order changed action
- * @param {object} state - the current state in the Redux store
- * @returns {object} the new state for the Redux store
- */
-function prevPage(state) {
-  // don't let them go lower than 1
-  const page = clamp(state.page - 1, 1, state.page);
-  const pagination = getPagination(page, state);
-  return {
-    ...state,
-    ...pagination,
-  };
-}
-
-/**
- * Update state based on the sort order changed action
- * @param {object} state - the current state in the Redux store
- * @returns {object} the new state for the Redux store
- */
-function nextPage(state) {
-  // don't let them go past the total num of pages
-  const page = clamp(state.page + 1, 1, state.totalPages);
-  const pagination = getPagination(page, state);
-  return {
-    ...state,
-    ...pagination,
-  };
-}
-
-/**
  * Get search results after specified page
  * @param {object} state - the current state in the Redux store
  * @param {number} page - page number
@@ -712,200 +684,6 @@ function nextPage(state) {
 function getSearchAfter(state, page) {
   const { breakPoints } = state;
   return breakPoints && breakPoints[page] ? breakPoints[page].join('_') : '';
-}
-
-/**
- * update state based on changeSize action
- * @param {object} state - current redux state
- * @param {object} action - command executed
- * @returns {object} new state in redux
- */
-function changeSize(state, action) {
-  const pagination = getPagination(1, state);
-  return {
-    ...state,
-    ...pagination,
-    size: action.size,
-  };
-}
-
-/**
- * update state based on changeSort action
- * @param {object} state - current redux state
- * @param {object} action - command executed
- * @returns {object} new state in redux
- */
-function changeSort(state, action) {
-  const pagination = getPagination(1, state);
-  const sort = enforceValues(action.sort, 'sort');
-  return {
-    ...state,
-    ...pagination,
-    sort,
-  };
-}
-
-/**
- * update state based on tabChanged action
- * @param {object} state - current redux state
- * @param {object} action - command executed
- * @returns {object} new state in redux
- */
-function changeTab(state, action) {
-  const tab = enforceValues(action.tab, 'tab');
-  return {
-    ...state,
-    focus: tab === types.MODE_TRENDS ? state.focus : '',
-    tab,
-  };
-}
-
-/**
- * Upon complaint received, we need to make sure to reset the page
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the command being executed
- * @returns {{page: number, totalPages: number}} the new state
- */
-function updateTotalPages(state, action) {
-  const { _meta, hits } = action.data;
-  const totalPages = Math.ceil(hits.total.value / state.size);
-  // reset pager to 1 if the number of total pages is less than current page
-  const { break_points: breakPoints } = _meta;
-  const page = state.page > totalPages ? totalPages : state.page;
-  return {
-    ...state,
-    breakPoints,
-    page,
-    totalPages: Object.keys(breakPoints).length + 1,
-  };
-}
-
-/**
- * Handler for the depth changed action
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the command being executed
- * @returns {object} the new state for the Redux store
- */
-function changeDepth(state, action) {
-  return {
-    ...state,
-    trendDepth: action.depth,
-  };
-}
-
-/**
- * Handler for the depth reset action
- * @param {object} state - the current state in the Redux store
- * @returns {object} the new state for the Redux store
- */
-function resetDepth(state) {
-  return {
-    ...state,
-    trendDepth: 5,
-  };
-}
-
-/**
- * Handler for the focus selected action
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the command being executed
- * @returns {object} the new state for the Redux store
- */
-function changeFocus(state, action) {
-  const { focus, filterValues, lens } = action;
-  const filterKey = lens.toLowerCase();
-  const activeFilters = [];
-
-  if (filterKey === 'company') {
-    activeFilters.push(focus);
-  } else {
-    filterValues.forEach((o) => {
-      activeFilters.push(o);
-    });
-  }
-
-  return {
-    ...state,
-    [filterKey]: activeFilters,
-    focus,
-    lens,
-    tab: types.MODE_TRENDS,
-    trendDepth: 25,
-  };
-}
-
-/**
- * Handler for the focus selected action
- * @param {object} state - the current state in the Redux store
- * @returns {object} the new state for the Redux store
- */
-function removeFocus(state) {
-  const { lens } = state;
-  const filterKey = lens.toLowerCase();
-  return {
-    ...state,
-    [filterKey]: [],
-    focus: '',
-    tab: types.MODE_TRENDS,
-    trendDepth: 5,
-  };
-}
-
-/**
- * update state based on changeDataLens action
- * @param {object} state - current redux state
- * @param {object} action - command executed
- * @returns {object} new state in redux
- */
-function changeDataLens(state, action) {
-  const lens = enforceValues(action.lens, 'lens');
-
-  return {
-    ...state,
-    focus: '',
-    lens,
-    trendDepth: lens === 'Company' ? 10 : 5,
-  };
-}
-
-/**
- * update state based on changeDataSubLens action
- * @param {object} state - current redux state
- * @param {object} action - command executed
- * @returns {object} new state in redux
- */
-function changeDataSubLens(state, action) {
-  return {
-    ...state,
-    subLens: action.subLens.toLowerCase(),
-  };
-}
-
-/**
- * Handler for the update chart type action
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the command being executed
- * @returns {object} the new state for the Redux store
- */
-export function updateChartType(state, action) {
-  return {
-    ...state,
-    chartType: action.chartType,
-  };
-}
-
-/**
- * Handler for the update data normalization action
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the command being executed
- * @returns {object} the new state for the Redux store
- */
-export function updateDataNormalization(state, action) {
-  const dataNormalization = enforceValues(action.value, 'dataNormalization');
-  return {
-    ...state,
-    dataNormalization,
-  };
 }
 
 /**
