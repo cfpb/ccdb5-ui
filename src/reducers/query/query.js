@@ -527,6 +527,7 @@ export const querySlice = createSlice({
   }
 })
 
+
 // ----------------------------------------------------------------------------
 // Helper functions
 
@@ -959,6 +960,7 @@ function handleSpecificAction(state, action) {
   return state;
 }
 
+/*
 export default (state = defaultQuery, action) => {
   const newState = handleSpecificAction(state, action);
 
@@ -1005,3 +1007,7 @@ export default (state = defaultQuery, action) => {
 
   return newState;
 };
+*/
+
+export const {processParams, changeDateInterval, changeDateRange, changeDates, toggleFlagFilter, changeSearchField, changeSearchText, addMultipleFilters, toggleFilter, addStateFilter, clearStateFilter, showStateComplaints, showStateComplaints, removeStateFilter, removeAllFilters, addFilter, removeFilter, replaceFilters, removeMultipleFilters,dismissMapWarning, dismissTrendsDateWarning, prevPage, nextPage, changeSize, changeSort, changeTab, updateTotalPages, changeDepth, resetDepth, changeFocus, removeFocus, changeDataLens, changeDataSubLens, updateChartType, updateDataNormalization} = querySlice.actions;
+export default querySlice.reducer;
