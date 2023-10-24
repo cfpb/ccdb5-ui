@@ -896,69 +896,6 @@ export function resetBreakpoints(state) {
   state.searchAfter = '';
 }
 
-// ----------------------------------------------------------------------------
-// Action Handlers
-
-/**
- * Creates a hash table of action types to handlers
- * @returns {object} a map of types to functions
- */
-// eslint-disable-next-line max-statements, require-jsdoc
-export function _buildHandlerMap() {
-  const handlers = {};
-  handlers[actions.CHART_TYPE_CHANGED] = updateChartType;
-  handlers[actions.COMPLAINTS_RECEIVED] = updateTotalPages;
-  handlers[actions.DATA_LENS_CHANGED] = changeDataLens;
-  handlers[actions.DATA_NORMALIZATION_SELECTED] = updateDataNormalization;
-  handlers[actions.DATA_SUBLENS_CHANGED] = changeDataSubLens;
-  handlers[actions.DATE_INTERVAL_CHANGED] = changeDateInterval;
-  handlers[actions.DATE_RANGE_CHANGED] = changeDateRange;
-  handlers[actions.DATES_CHANGED] = changeDates;
-  handlers[actions.DEPTH_CHANGED] = changeDepth;
-  handlers[actions.DEPTH_RESET] = resetDepth;
-  handlers[actions.FILTER_ALL_REMOVED] = removeAllFilters;
-  handlers[actions.FILTER_CHANGED] = toggleFilter;
-  handlers[actions.FILTER_FLAG_CHANGED] = toggleFlagFilter;
-  handlers[actions.FILTER_MULTIPLE_ADDED] = addMultipleFilters;
-  handlers[actions.FILTER_MULTIPLE_REMOVED] = removeMultipleFilters;
-  handlers[actions.FILTER_ADDED] = addFilter;
-  handlers[actions.FILTER_REMOVED] = removeFilter;
-  handlers[actions.FILTER_REPLACED] = replaceFilters;
-  handlers[actions.FOCUS_CHANGED] = changeFocus;
-  handlers[actions.FOCUS_REMOVED] = removeFocus;
-  handlers[actions.MAP_WARNING_DISMISSED] = dismissMapWarning;
-  handlers[actions.NEXT_PAGE_SHOWN] = nextPage;
-  handlers[actions.PREV_PAGE_SHOWN] = prevPage;
-  handlers[actions.SIZE_CHANGED] = changeSize;
-  handlers[actions.SORT_CHANGED] = changeSort;
-  handlers[actions.STATE_COMPLAINTS_SHOWN] = showStateComplaints;
-  handlers[actions.STATE_FILTER_ADDED] = addStateFilter;
-  handlers[actions.STATE_FILTER_CLEARED] = clearStateFilter;
-  handlers[actions.STATE_FILTER_REMOVED] = removeStateFilter;
-  handlers[actions.TAB_CHANGED] = changeTab;
-  handlers[actions.TRENDS_DATE_WARNING_DISMISSED] = dismissTrendsDateWarning;
-  handlers[actions.URL_CHANGED] = processParams;
-  handlers[actions.SEARCH_TEXT_CHANGED] = changeSearchText;
-  handlers[actions.SEARCH_FIELD_CHANGED] = changeSearchField;
-
-  return handlers;
-}
-
-const _handlers = _buildHandlerMap();
-
-/**
- * Routes an action to an appropriate handler
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the command being executed
- * @returns {object} the new state for the Redux store
- */
-function handleSpecificAction(state, action) {
-  if (action.type in _handlers) {
-    return _handlers[action.type](state, action);
-  }
-
-  return state;
-}
 
 /*
 export default (state = defaultQuery, action) => {
