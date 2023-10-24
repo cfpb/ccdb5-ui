@@ -19,6 +19,7 @@ import actions from '../../actions';
 import { isDateEqual } from '../../utils/formatDate';
 import { MODE_TRENDS } from '../../constants';
 import { pruneOther } from '../../utils/trends';
+import {createSlice} from "@reduxjs/toolkit";
 
 export const emptyResults = () => ({
   dateRangeArea: [],
@@ -48,7 +49,195 @@ export const getDefaultState = () =>
     { ...getResetState() }
   );
 
-export const defaultTrends = getDefaultState();
+export const trendsState = getDefaultState();
+
+export const trendsSlice = createSlice({
+  name: 'trends',
+  initialState: trendsState,
+  reducers: {
+    processTrends(state, action) {
+      const aggregations = action.data.aggregations;
+      const { focus, lens, subLens } = state;
+      const results = emptyResults();
+      const kR = 'dateRangeArea';
+      const hits = aggregations[kR].doc_count;
+
+      // if hits > 0
+      // no hits, so reset defaults
+      if (hits === 0) {
+        const resetState = getResetState();
+        return {
+          ...state,
+          ...resetState,
+        };
+      }
+
+      const total = aggregations[kR].doc_count;
+
+      if (lens !== 'Overview') {
+        results[kR] = processAreaData(state, aggregations);
+      }
+
+      results.dateRangeLine = processLineData(lens, aggregations, focus, subLens);
+
+      // based on these criteria, the following aggs should only exist
+      const keyMap = {
+        Overview: ['product'],
+        Company: ['company'],
+        Product: ['product'],
+        'Product-focus': ['sub-product', 'issue'],
+        'Company-focus': ['product'],
+      };
+      let keyFilter = lens;
+
+      if (focus) {
+        keyFilter += '-focus';
+      }
+
+      const keys = keyMap[keyFilter];
+
+      processAggregations(keys, state, aggregations, results);
+
+      const colorMap = getColorScheme(lens, results.dateRangeArea);
+
+      return {
+        ...state,
+        activeCall: '',
+        colorMap,
+        error: false,
+        isLoading: false,
+        results,
+        total,
+      };
+    },
+    handleTabChanged(state, action) {
+      return {
+        ...state,
+        focus: action.tab === MODE_TRENDS ? state.focus : '',
+        results: emptyResults(),
+      };
+    },
+    trendsCallInProcess(state, action) {
+      return {
+        ...state,
+        activeCall: action.url,
+        isLoading: true,
+        tooltip: false,
+      };
+    },
+    processTrendsError(state, action) {
+      const emptyState = getResetState();
+      return {
+        ...state,
+        ...emptyState,
+        error: processErrorMessage(action.error),
+      };
+    },
+    updateChartType(state, action) {
+      return {
+        ...state,
+        chartType: action.chartType,
+        tooltip: false,
+      };
+    },
+    updateDataLens(state, action) {
+      const lens = enforceValues(action.lens, 'lens');
+
+      return {
+        ...state,
+        focus: '',
+        lens,
+        results: emptyResults(),
+        tooltip: false,
+      };
+    },
+    updateDataSubLens(state, action) {
+      return {
+        ...state,
+        subLens: action.subLens,
+      };
+    },
+    changeFocus(state, action) {
+      const { focus, lens } = action;
+      return {
+        ...state,
+        focus,
+        lens,
+        tooltip: false,
+      };
+    },
+    removeFocus(state) {
+      return {
+        ...state,
+        focus: '',
+        results: emptyResults(),
+        tooltip: false,
+      };
+    },
+    processParams(state, action) {
+      const params = action.params;
+      const processed = Object.assign({}, trendsState);
+
+      // Handle flag filters
+      const filters = ['chartType', 'focus', 'lens', 'subLens'];
+      for (const val of filters) {
+        if (params[val]) {
+          processed[val] = enforceValues(params[val], val);
+        }
+      }
+
+      return processed;
+    },
+    updateTooltip(state, action) {
+      const tooltip = action.value || false;
+
+      // need to merge in the actual viewed state
+      if (tooltip) {
+        tooltip.title = getTooltipTitle(
+          tooltip.date,
+          tooltip.interval,
+          tooltip.dateRange,
+          true
+        );
+
+        /* istanbul ignore else */
+        if (tooltip.values) {
+          tooltip.values.forEach((o) => {
+            o.colorIndex =
+              Object.values(colors.DataLens).indexOf(state.colorMap[o.name]) || 0;
+            // make sure all values have a value
+            o.value = coalesce(o, 'value', 0);
+          });
+
+          let total = 0;
+          total = tooltip.values.reduce(
+            (accumulator, currentValue) => accumulator + currentValue.value,
+            total
+          );
+          tooltip.total = total;
+        }
+      }
+
+      return {
+        ...state,
+        tooltip,
+      };
+    },
+    removeAllFilters(state) {
+      return {
+        ...state,
+        focus: '',
+      };
+    },
+    removeMultipleFilters(state, action) {
+      const focus = action.values.includes(state.focus) ? '' : state.focus;
+      return {
+        ...state,
+        focus,
+      };
+    }
+  }
+})
 
 // ----------------------------------------------------------------------------
 // Helpers
@@ -332,326 +521,6 @@ export const getColorScheme = (lens, rowNames) => {
   return colScheme;
 };
 
-/**
- * Copies the results locally
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the command being executed
- * @returns {object} the new state for the Redux store
- */
-export function processTrends(state, action) {
-  const aggregations = action.data.aggregations;
-  const { focus, lens, subLens } = state;
-  const results = emptyResults();
-  const kR = 'dateRangeArea';
-  const hits = aggregations[kR].doc_count;
+export const { processTrends, handleTabChanged, trendsCallInProcess, processTrendsError, updateChartType, updateDataLens, updateDataSubLens, changeFocus, removeFocus, processParams, updateTooltip, removeAllFilters, removeMultipleFilters } = trendsSlice.actions;
 
-  // if hits > 0
-  // no hits, so reset defaults
-  if (hits === 0) {
-    const resetState = getResetState();
-    return {
-      ...state,
-      ...resetState,
-    };
-  }
-
-  const total = aggregations[kR].doc_count;
-
-  if (lens !== 'Overview') {
-    results[kR] = processAreaData(state, aggregations);
-  }
-
-  results.dateRangeLine = processLineData(lens, aggregations, focus, subLens);
-
-  // based on these criteria, the following aggs should only exist
-  const keyMap = {
-    Overview: ['product'],
-    Company: ['company'],
-    Product: ['product'],
-    'Product-focus': ['sub-product', 'issue'],
-    'Company-focus': ['product'],
-  };
-  let keyFilter = lens;
-
-  if (focus) {
-    keyFilter += '-focus';
-  }
-
-  const keys = keyMap[keyFilter];
-
-  processAggregations(keys, state, aggregations, results);
-
-  const colorMap = getColorScheme(lens, results.dateRangeArea);
-
-  return {
-    ...state,
-    activeCall: '',
-    colorMap,
-    error: false,
-    isLoading: false,
-    results,
-    total,
-  };
-}
-
-/* eslint-enable complexity */
-
-// ----------------------------------------------------------------------------
-// Action Handlers
-/**
- * Updates the state when an tab changed occurs, reset values to start clean
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the payload containing the tab we are changing to
- * @returns {object} the new state for the Redux store
- */
-export function handleTabChanged(state, action) {
-  return {
-    ...state,
-    focus: action.tab === MODE_TRENDS ? state.focus : '',
-    results: emptyResults(),
-  };
-}
-
-/**
- * Updates the state when an aggregations call is in progress
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the payload containing the key/value pairs
- * @returns {object} the new state for the Redux store
- */
-export function trendsCallInProcess(state, action) {
-  return {
-    ...state,
-    activeCall: action.url,
-    isLoading: true,
-    tooltip: false,
-  };
-}
-
-/**
- * handling errors from an aggregation call
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the payload containing the key/value pairs
- * @returns {object} new state for the Redux store
- */
-export function processTrendsError(state, action) {
-  const emptyState = getResetState();
-  return {
-    ...state,
-    ...emptyState,
-    error: processErrorMessage(action.error),
-  };
-}
-
-/**
- * Handler for the update chart type action, dont allow area when Overview
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the command being executed
- * @returns {object} the new state for the Redux store
- */
-export function updateChartType(state, action) {
-  return {
-    ...state,
-    chartType: action.chartType,
-    tooltip: false,
-  };
-}
-
-/**
- * Handler for the update data lens action
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the command being executed
- * @returns {object} the new state for the Redux store
- */
-export function updateDataLens(state, action) {
-  const lens = enforceValues(action.lens, 'lens');
-
-  return {
-    ...state,
-    focus: '',
-    lens,
-    results: emptyResults(),
-    tooltip: false,
-  };
-}
-
-/**
- * Handler for the update sub lens action
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the command being executed
- * @returns {object} the new state for the Redux store
- */
-export function updateDataSubLens(state, action) {
-  return {
-    ...state,
-    subLens: action.subLens,
-  };
-}
-
-/**
- * Handler for the focus selected action
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the command being executed
- * @returns {object} the new state for the Redux store
- */
-function changeFocus(state, action) {
-  const { focus, lens } = action;
-  return {
-    ...state,
-    focus,
-    lens,
-    tooltip: false,
-  };
-}
-
-/**
- * Handler for the focus removed action
- * @param {object} state - the current state in the Redux store
- * @returns {object} the new state for the Redux store
- */
-function removeFocus(state) {
-  return {
-    ...state,
-    focus: '',
-    results: emptyResults(),
-    tooltip: false,
-  };
-}
-
-/**
- * Processes an object of key/value strings into the correct internal format
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the payload containing the key/value pairs
- * @returns {object} a filtered set of key/value pairs with the values set to
- * the correct type
- */
-function processParams(state, action) {
-  const params = action.params;
-  const processed = Object.assign({}, defaultTrends);
-
-  // Handle flag filters
-  const filters = ['chartType', 'focus', 'lens', 'subLens'];
-  for (const val of filters) {
-    if (params[val]) {
-      processed[val] = enforceValues(params[val], val);
-    }
-  }
-
-  return processed;
-}
-
-/**
- * Handler for the tooltipUpdate action
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the command being executed
- * @returns {object} the new state for the Redux store
- */
-function updateTooltip(state, action) {
-  const tooltip = action.value || false;
-
-  // need to merge in the actual viewed state
-  if (tooltip) {
-    tooltip.title = getTooltipTitle(
-      tooltip.date,
-      tooltip.interval,
-      tooltip.dateRange,
-      true
-    );
-
-    /* istanbul ignore else */
-    if (tooltip.values) {
-      tooltip.values.forEach((o) => {
-        o.colorIndex =
-          Object.values(colors.DataLens).indexOf(state.colorMap[o.name]) || 0;
-        // make sure all values have a value
-        o.value = coalesce(o, 'value', 0);
-      });
-
-      let total = 0;
-      total = tooltip.values.reduce(
-        (accumulator, currentValue) => accumulator + currentValue.value,
-        total
-      );
-      tooltip.total = total;
-    }
-  }
-
-  return {
-    ...state,
-    tooltip,
-  };
-}
-
-/**
- * reset the filters selected for the focus too
- * @param {object} state - the current state in the Redux store
- * @returns {object} the new state for the Redux store
- */
-export function removeAllFilters(state) {
-  return {
-    ...state,
-    focus: '',
-  };
-}
-
-/**
- * Removes multiple filters from the current set
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the payload containing the filters to remove
- * @returns {object} the new state for the Redux store
- */
-function removeMultipleFilters(state, action) {
-  const focus = action.values.includes(state.focus) ? '' : state.focus;
-  return {
-    ...state,
-    focus,
-  };
-}
-
-// ----------------------------------------------------------------------------
-// Action Handlers
-
-/**
- * Creates a hash table of action types to handlers
- * @returns {object} a map of types to functions
- */
-export function _buildHandlerMap() {
-  const handlers = {};
-
-  handlers[actions.CHART_TYPE_CHANGED] = updateChartType;
-  handlers[actions.DATA_LENS_CHANGED] = updateDataLens;
-  handlers[actions.DATA_SUBLENS_CHANGED] = updateDataSubLens;
-  handlers[actions.FILTER_ALL_REMOVED] = removeAllFilters;
-  handlers[actions.FILTER_MULTIPLE_REMOVED] = removeMultipleFilters;
-  handlers[actions.FOCUS_CHANGED] = changeFocus;
-  handlers[actions.FOCUS_REMOVED] = removeFocus;
-  handlers[actions.TAB_CHANGED] = handleTabChanged;
-  handlers[actions.TRENDS_API_CALLED] = trendsCallInProcess;
-  handlers[actions.TRENDS_FAILED] = processTrendsError;
-  handlers[actions.TRENDS_RECEIVED] = processTrends;
-  handlers[actions.TRENDS_TOOLTIP_CHANGED] = updateTooltip;
-  handlers[actions.URL_CHANGED] = processParams;
-
-  return handlers;
-}
-
-const _handlers = _buildHandlerMap();
-
-/**
- * Routes an action to an appropriate handler
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the command being executed
- * @returns {object} the new state for the Redux store
- */
-function handleSpecificAction(state, action) {
-  if (action.type in _handlers) {
-    return _handlers[action.type](state, action);
-  }
-
-  return state;
-}
-
-export default (state = defaultTrends, action) => {
-  const newState = handleSpecificAction(state, action);
-  validateTrendsReducer(newState);
-  return newState;
-};
+export default trendsSlice.reducer;
