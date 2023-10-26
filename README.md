@@ -28,9 +28,7 @@ Unit testing of the application is performed within
 
 ## Dependencies
 
-This application leverages a robust design system, which serves as the foundation for maintaining a consistent and cohesive user interface. While the design system relies on various components and libraries, we'll focus on the design system as a whole, eliminating the need to list each individual dependency.
-
-For detailed information about the design system and its underlying components, please refer to the official [Design System Documentation](https://thedesignsystem.guide/documentation). The design system provides standardized styling, controls, and guidelines, ensuring a unified user experience throughout the application.
+This application relies on a [robust Design System](https://cfpb.github.io/design-system/) to maintain a consistent and cohesive user interface.
 
 It also contains portions adapted from:
 
