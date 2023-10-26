@@ -4,7 +4,7 @@
 This application allows consumers to search complaints submitted to the CFPB by other consumers.
 
 **Website Link**:
-[www.consumerfinance.gov](https://www.consumerfinance.gov/)
+[www.consumerfinance.gov/data-research/consumer-complaints/search](https://www.consumerfinance.gov/data-research/consumer-complaints/search/)
 
 #### Technology Stack
 
