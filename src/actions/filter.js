@@ -1,7 +1,7 @@
 import { REQUERY_ALWAYS } from '../constants';
 
-export const DATE_INTERVAL_CHANGED = 'DATE_INTERVAL_CHANGED';
-export const DATE_RANGE_CHANGED = 'DATE_RANGE_CHANGED';
+export const DATE_INTERVAL_CHANGED = 'changeDateInterval';
+export const DATE_RANGE_CHANGED = 'changeDateRange';
 export const DATES_CHANGED = 'DATES_CHANGED';
 export const FILTER_ALL_REMOVED = 'FILTER_ALL_REMOVED';
 export const FILTER_CHANGED = 'FILTER_CHANGED';
