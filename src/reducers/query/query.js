@@ -9,11 +9,10 @@ import {
   shortIsoFormat,
   startOfToday,
 } from '../../utils';
-import { enforceValues, validateTrendsReducer } from '../../utils/reducers';
-import actions from '../../actions';
+import { enforceValues } from '../../utils/reducers';
 import dayjs from 'dayjs';
 import { isGreaterThanYear } from '../../utils/trends';
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const queryString = require('query-string');
 
@@ -84,7 +83,7 @@ export const querySlice = createSlice({
     //Needs reducer/prepare block
     processParams(state, action) {
       const params = action.params;
-      let processed = Object.assign({}, defaultQuery);
+      let processed = Object.assign({}, queryState);
 
       // Filter for known
       urlParams.forEach((field) => {
@@ -253,15 +252,13 @@ export const querySlice = createSlice({
       return newState;
     },
     toggleFilter(state, action) {
-      const newState = {
+      return {
         ...state,
         [action.filterName]: filterArrayAction(
           state[action.filterName],
           action.filterValue.key
         ),
       };
-
-      return newState;
     },
     addStateFilter(state, action) {
       const stateFilters = coalesce(state, 'state', []);
@@ -270,20 +267,16 @@ export const querySlice = createSlice({
         stateFilters.push(abbr);
       }
 
-      const newState = {
+      return {
         ...state,
         state: stateFilters,
       };
-
-      return newState;
     },
     clearStateFilter(state) {
-      const newState = {
+      return {
         ...state,
         state: [],
       };
-
-      return newState;
     },
     showStateComplaints(state) {
       return {
@@ -295,12 +288,10 @@ export const querySlice = createSlice({
       const stateFilters = coalesce(state, 'state', []);
       const { abbr } = action.selectedState;
 
-      const newState = {
+      return {
         ...state,
         state: stateFilters.filter((o) => o !== abbr),
       };
-
-      return newState;
     },
     removeAllFilters(state) {
       const newState = { ...state };
@@ -369,7 +360,9 @@ export const querySlice = createSlice({
       const newState = { ...state };
       const a = newState[action.filterName];
       // remove the focus if it exists in one of the filter values we are removing
-      newState.focus = action.values.includes(state.focus) ? '' : state.focus || '';
+      newState.focus = action.values.includes(state.focus)
+        ? ''
+        : state.focus || '';
 
       if (a) {
         action.values.forEach((x) => {
@@ -518,15 +511,17 @@ export const querySlice = createSlice({
       };
     },
     updateDataNormalization(state, action) {
-      const dataNormalization = enforceValues(action.value, 'dataNormalization');
+      const dataNormalization = enforceValues(
+        action.value,
+        'dataNormalization'
+      );
       return {
         ...state,
         dataNormalization,
       };
-    }
-  }
-})
-
+    },
+  },
+});
 
 // ----------------------------------------------------------------------------
 // Helper functions
@@ -545,7 +540,7 @@ export function alignDateRange(state) {
 
   // All
   if (
-    dayjs(dateMax).isSame(defaultQuery.date_received_max) &&
+    dayjs(dateMax).isSame(queryState.date_received_max) &&
     dayjs(dateMin).isSame(types.DATE_RANGE_MIN)
   ) {
     state.dateRange = 'All';
@@ -896,7 +891,6 @@ export function resetBreakpoints(state) {
   state.searchAfter = '';
 }
 
-
 /*
 export default (state = defaultQuery, action) => {
   const newState = handleSpecificAction(state, action);
@@ -946,5 +940,40 @@ export default (state = defaultQuery, action) => {
 };
 */
 
-export const {processParams, changeDateInterval, changeDateRange, changeDates, toggleFlagFilter, changeSearchField, changeSearchText, addMultipleFilters, toggleFilter, addStateFilter, clearStateFilter, showStateComplaints, showStateComplaints, removeStateFilter, removeAllFilters, addFilter, removeFilter, replaceFilters, removeMultipleFilters,dismissMapWarning, dismissTrendsDateWarning, prevPage, nextPage, changeSize, changeSort, changeTab, updateTotalPages, changeDepth, resetDepth, changeFocus, removeFocus, changeDataLens, changeDataSubLens, updateChartType, updateDataNormalization} = querySlice.actions;
+export const {
+  processParams,
+  changeDateInterval,
+  changeDateRange,
+  changeDates,
+  toggleFlagFilter,
+  changeSearchField,
+  changeSearchText,
+  addMultipleFilters,
+  toggleFilter,
+  addStateFilter,
+  clearStateFilter,
+  showStateComplaints,
+  removeStateFilter,
+  removeAllFilters,
+  addFilter,
+  removeFilter,
+  replaceFilters,
+  removeMultipleFilters,
+  dismissMapWarning,
+  dismissTrendsDateWarning,
+  prevPage,
+  nextPage,
+  changeSize,
+  changeSort,
+  changeTab,
+  updateTotalPages,
+  changeDepth,
+  resetDepth,
+  changeFocus,
+  removeFocus,
+  changeDataLens,
+  changeDataSubLens,
+  updateChartType,
+  updateDataNormalization,
+} = querySlice.actions;
 export default querySlice.reducer;

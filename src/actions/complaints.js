@@ -6,9 +6,9 @@ import {
   MODE_TRENDS,
 } from '../constants';
 
-export const AGGREGATIONS_API_CALLED = 'AGGREGATIONS_API_CALLED';
-export const AGGREGATIONS_RECEIVED = 'AGGREGATIONS_RECEIVED';
-export const AGGREGATIONS_FAILED = 'AGGREGATIONS_FAILED';
+export const AGGREGATIONS_API_CALLED = 'aggregationsCallInProcess';
+export const AGGREGATIONS_RECEIVED = 'processAggregationResults';
+export const AGGREGATIONS_FAILED = 'processAggregationError';
 export const COMPLAINTS_API_CALLED = 'COMPLAINTS_API_CALLED';
 export const COMPLAINTS_RECEIVED = 'COMPLAINTS_RECEIVED';
 export const COMPLAINTS_FAILED = 'COMPLAINTS_FAILED';

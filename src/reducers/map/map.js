@@ -1,10 +1,8 @@
 // reducer for the Map Tab
-import actions from '../../actions';
-
 import { processAggregations } from '../trends/trends';
 import { processErrorMessage } from '../../utils';
 import { TILE_MAP_STATES } from '../../constants';
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 export const mapState = {
   activeCall: '',
@@ -90,43 +88,13 @@ export const mapSlice = createSlice({
         },
       };
     },
-  }
+  },
 });
 
-
-// ----------------------------------------------------------------------------
-// Action Handlers
-
-/**
- * Creates a hash table of action types to handlers
- * @returns {object} a map of types to functions
- */
-export function _buildHandlerMap() {
-  const handlers = {};
-
-  handlers[actions.STATES_API_CALLED] = statesCallInProcess;
-  handlers[actions.STATES_RECEIVED] = processStatesResults;
-  handlers[actions.STATES_FAILED] = processStatesError;
-  handlers[actions.TAB_CHANGED] = handleTabChanged;
-
-  return handlers;
-}
-
-const _handlers = _buildHandlerMap();
-
-/**
- * Routes an action to an appropriate handler
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the command being executed
- * @returns {object} the new state for the Redux store
- */
-function handleSpecificAction(state, action) {
-  if (action.type in _handlers) {
-    return _handlers[action.type](state, action);
-  }
-
-  return state;
-}
-
-export const { handleTabChanged, statesCallInProgress, processStatesResults, processStatesError } = mapSlice.actions;
+export const {
+  handleTabChanged,
+  statesCallInProgress,
+  processStatesResults,
+  processStatesError,
+} = mapSlice.actions;
 export default mapSlice.reducer;

@@ -1,10 +1,5 @@
-import {
-  AGGREGATIONS_API_CALLED,
-  AGGREGATIONS_FAILED,
-  AGGREGATIONS_RECEIVED,
-} from '../../actions/complaints';
 import { processErrorMessage } from '../../utils';
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 /* eslint-disable camelcase */
 
@@ -78,41 +73,14 @@ export const aggSlice = createSlice({
         isLoading: false,
         error: processErrorMessage(action.error),
       };
-    }
+    },
   },
-
 });
-/**
- * Creates a hash table of action types to handlers
- * @returns {object} a map of types to functions
- */
-export function _buildHandlerMap() {
-  const handlers = {};
-  handlers[AGGREGATIONS_API_CALLED] = aggregationsCallInProcess;
-  handlers[AGGREGATIONS_RECEIVED] = processAggregationResults;
-  handlers[AGGREGATIONS_FAILED] = processAggregationError;
 
-  return handlers;
-}
-
-const _handlers = _buildHandlerMap();
-
-/**
- * Routes an action to an appropriate handler
- * @param {object} state - the current state in the Redux store
- * @param {object} action - the command being executed
- * @returns {object} the new state for the Redux store
- */
-function handleSpecificAction(state, action) {
-  if (action.type in _handlers) {
-    return _handlers[action.type](state, action);
-  }
-
-  return state;
-}
-
-
-export const { aggregationsCallInProcess, processAggregationResults, processAggregationError } =
-  aggSlice.actions;
+export const {
+  aggregationsCallInProcess,
+  processAggregationResults,
+  processAggregationError,
+} = aggSlice.actions;
 
 export default aggSlice.reducer;
