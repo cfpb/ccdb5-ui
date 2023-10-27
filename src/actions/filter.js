@@ -1,16 +1,16 @@
 import { REQUERY_ALWAYS } from '../constants';
 
-export const DATE_INTERVAL_CHANGED = 'DATE_INTERVAL_CHANGED';
-export const DATE_RANGE_CHANGED = 'DATE_RANGE_CHANGED';
-export const DATES_CHANGED = 'DATES_CHANGED';
-export const FILTER_ALL_REMOVED = 'FILTER_ALL_REMOVED';
-export const FILTER_CHANGED = 'FILTER_CHANGED';
-export const FILTER_FLAG_CHANGED = 'FILTER_FLAG_CHANGED';
-export const FILTER_MULTIPLE_ADDED = 'FILTER_MULTIPLE_ADDED';
-export const FILTER_MULTIPLE_REMOVED = 'FILTER_MULTIPLE_REMOVED';
-export const FILTER_ADDED = 'FILTER_ADDED';
-export const FILTER_REMOVED = 'FILTER_REMOVED';
-export const FILTER_REPLACED = 'FILTER_REPLACED';
+export const DATE_INTERVAL_CHANGED = 'changeDateInterval';
+export const DATE_RANGE_CHANGED = 'changeDateRange';
+export const DATES_CHANGED = 'changeDates';
+export const FILTER_ALL_REMOVED = 'removeAllFilters';
+export const FILTER_CHANGED = 'toggleFilter';
+export const FILTER_FLAG_CHANGED = 'toggleFlagFilter';
+export const FILTER_MULTIPLE_ADDED = 'addMultipleFilters';
+export const FILTER_MULTIPLE_REMOVED = 'removeMultipleFilters';
+export const FILTER_ADDED = 'addFilter';
+export const FILTER_REMOVED = 'removeFilter';
+export const FILTER_REPLACED = 'replaceFilter';
 
 // ----------------------------------------------------------------------------
 // Simple actions

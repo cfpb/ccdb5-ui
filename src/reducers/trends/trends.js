@@ -9,17 +9,16 @@ import {
   getSubKeyName,
   processErrorMessage,
 } from '../../utils';
-import { enforceValues, validateTrendsReducer } from '../../utils/reducers';
+import { enforceValues } from '../../utils/reducers';
 import {
   getD3Names,
   getTooltipTitle,
   updateDateBuckets,
 } from '../../utils/chart';
-import actions from '../../actions';
 import { isDateEqual } from '../../utils/formatDate';
 import { MODE_TRENDS } from '../../constants';
 import { pruneOther } from '../../utils/trends';
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 export const emptyResults = () => ({
   dateRangeArea: [],
@@ -78,7 +77,12 @@ export const trendsSlice = createSlice({
         results[kR] = processAreaData(state, aggregations);
       }
 
-      results.dateRangeLine = processLineData(lens, aggregations, focus, subLens);
+      results.dateRangeLine = processLineData(
+        lens,
+        aggregations,
+        focus,
+        subLens
+      );
 
       // based on these criteria, the following aggs should only exist
       const keyMap = {
@@ -204,7 +208,8 @@ export const trendsSlice = createSlice({
         if (tooltip.values) {
           tooltip.values.forEach((o) => {
             o.colorIndex =
-              Object.values(colors.DataLens).indexOf(state.colorMap[o.name]) || 0;
+              Object.values(colors.DataLens).indexOf(state.colorMap[o.name]) ||
+              0;
             // make sure all values have a value
             o.value = coalesce(o, 'value', 0);
           });
@@ -235,9 +240,9 @@ export const trendsSlice = createSlice({
         ...state,
         focus,
       };
-    }
-  }
-})
+    },
+  },
+});
 
 // ----------------------------------------------------------------------------
 // Helpers
@@ -521,6 +526,20 @@ export const getColorScheme = (lens, rowNames) => {
   return colScheme;
 };
 
-export const { processTrends, handleTabChanged, trendsCallInProcess, processTrendsError, updateChartType, updateDataLens, updateDataSubLens, changeFocus, removeFocus, processParams, updateTooltip, removeAllFilters, removeMultipleFilters } = trendsSlice.actions;
+export const {
+  processTrends,
+  handleTabChanged,
+  trendsCallInProcess,
+  processTrendsError,
+  updateChartType,
+  updateDataLens,
+  updateDataSubLens,
+  changeFocus,
+  removeFocus,
+  processParams,
+  updateTooltip,
+  removeAllFilters,
+  removeMultipleFilters,
+} = trendsSlice.actions;
 
 export default trendsSlice.reducer;
