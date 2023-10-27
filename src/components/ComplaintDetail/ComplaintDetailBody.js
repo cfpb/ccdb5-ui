@@ -57,7 +57,7 @@ ConsumerConsent.propTypes = { value: PropTypes.string };
 
 const CompanyTimely = ({ value }) => {
   if (!value) {
-    return null;
+    return 'N/A';
   }
   const styles = ['cf-icon__before'];
   if (value.toLowerCase() === 'no') {
@@ -168,30 +168,26 @@ export const ComplaintDetailBody = ({ data, error, id }) => {
           <br />
         </div>
         <div className="card-right layout-column">
-          {!!data.timely && (
-            <>
-              <h4 tabIndex="0">Timely response?</h4>
-              <CompanyTimely value={data.timely} />
-              <br />
-            </>
-          )}
-          {!!data.company_response && (
-            <>
-              <h4 tabIndex="0">Company response to consumer</h4>
-              <span className="body-copy" tabIndex="0">
-                {data.company_response}
-              </span>
-              <br />
-            </>
-          )}
-          {!!data.company_public_response && (
-            <>
-              <h4 tabIndex="0">Company public response</h4>
-              <span className="body-copy" tabIndex="0">
-                {data.company_public_response}
-              </span>
-            </>
-          )}
+          <>
+            <h4 tabIndex="0">Timely response?</h4>
+            <CompanyTimely value={data.timely} />
+            <br />
+          </>
+          <>
+            <h4 tabIndex="0">Company response to consumer</h4>
+            <span className="body-copy" tabIndex="0">
+              {data.company_response ? data.company_response : 'N/A'}
+            </span>
+            <br />
+          </>
+          <>
+            <h4 tabIndex="0">Company public response</h4>
+            <span className="body-copy" tabIndex="0">
+              {data.company_public_response
+                ? data.company_public_response
+                : 'N/A'}
+            </span>
+          </>
         </div>
       </div>
     </article>
