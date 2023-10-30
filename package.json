@@ -8,6 +8,9 @@
     "url": "http://github.com/cfpb/ccdb5-ui.git"
   },
   "license": "CC0-1.0",
+  "engines": {
+    "node": ">=16.x"
+  },
   "author": {
     "name": "Consumer Financial Protection Bureau",
     "email": "tech@cfpb.gov",
