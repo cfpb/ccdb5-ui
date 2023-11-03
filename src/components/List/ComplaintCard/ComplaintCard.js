@@ -37,7 +37,7 @@ export const ComplaintCard = ({ row }) => {
         {hasOverflow ? (
           <span>
             {' '}
-            <a href={url}>[...]</a>
+            <Link to={url}>[...]</Link>
           </span>
         ) : null}
       </div>
