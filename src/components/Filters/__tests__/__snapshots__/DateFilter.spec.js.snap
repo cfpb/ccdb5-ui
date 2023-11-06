@@ -151,7 +151,9 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
           All
         </button>
       </section>
-      <p>
+      <p
+        className="u-mt15"
+      >
          
         CFPB updated product and issue options in April 2017 and August 2023
         <a
@@ -330,6 +332,21 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
           error-round.svg
         </svg>
       </span>
+      <p
+        className="u-mt15"
+      >
+         
+        CFPB updated product and issue options in April 2017 and August 2023
+        <a
+          aria-label="Learn more about Product and Issue changes (opens in new window)"
+          href="https://www.consumerfinance.gov/data-research/consumer-complaints/#past-changes"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+           
+          Learn More
+        </a>
+      </p>
     </div>
   </div>
 </section>
@@ -486,6 +503,21 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
           All
         </button>
       </section>
+      <p
+        className="u-mt15"
+      >
+         
+        CFPB updated product and issue options in April 2017 and August 2023
+        <a
+          aria-label="Learn more about Product and Issue changes (opens in new window)"
+          href="https://www.consumerfinance.gov/data-research/consumer-complaints/#past-changes"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+           
+          Learn More
+        </a>
+      </p>
     </div>
   </div>
 </section>

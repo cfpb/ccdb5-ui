@@ -40,10 +40,6 @@ export const DateFilter = () => {
   const [throughDate, setThroughDate] = useState(initialThroughDate);
   const dispatch = useDispatch();
 
-  const from = fromDate || minDate;
-  const through = throughDate || maxDate;
-
-  const showWarning = dayjs('2017-04-23').isBetween(from, through, 'day');
   const errorMessageText = "'From' date must be less than 'through' date";
 
   const fromRef = useRef();
@@ -211,22 +207,20 @@ export const DateFilter = () => {
             </span>
           </>
         ) : null}
-        {showWarning ? (
-          <p>
-            {' '}
-            {WARN_SERIES_BREAK}
-            <a
-              href={LEARN_SERIES_BREAK}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Learn more about Product and
+        <p className="u-mt15">
+          {' '}
+          {WARN_SERIES_BREAK}
+          <a
+            href={LEARN_SERIES_BREAK}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Learn more about Product and
                   Issue changes (opens in new window)"
-            >
-              {' '}
-              Learn More
-            </a>
-          </p>
-        ) : null}
+          >
+            {' '}
+            Learn More
+          </a>
+        </p>
       </div>
     </CollapsibleFilter>
   );
