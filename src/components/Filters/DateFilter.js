@@ -22,7 +22,7 @@ dayjs.extend(dayjsIsBetween);
 dayjs.extend(dayjsUtc);
 
 const WARN_SERIES_BREAK =
-  'CFPB updated product and issue options in April 2017 and August 2023';
+  'CFPB updated product and issue options in April 2017 and August 2023.';
 
 const LEARN_SERIES_BREAK =
   'https://www.consumerfinance.gov/data-research/consumer-complaints/#past-changes';
@@ -132,6 +132,19 @@ export const DateFilter = () => {
   return (
     <CollapsibleFilter title={title} className="aggregation date-filter">
       <div>
+        <p className="u-mt15">
+          {' '}
+          {WARN_SERIES_BREAK}{' '}
+          <a
+            href={LEARN_SERIES_BREAK}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Learn more about Product and
+                  Issue changes (opens in new window)"
+          >
+            Learn More
+          </a>
+        </p>
         <ul className="date-inputs">
           <li>
             <label
@@ -207,20 +220,6 @@ export const DateFilter = () => {
             </span>
           </>
         ) : null}
-        <p className="u-mt15">
-          {' '}
-          {WARN_SERIES_BREAK}
-          <a
-            href={LEARN_SERIES_BREAK}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Learn more about Product and
-                  Issue changes (opens in new window)"
-          >
-            {' '}
-            Learn More
-          </a>
-        </p>
       </div>
     </CollapsibleFilter>
   );
