@@ -40,7 +40,7 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
         className="u-mt15"
       >
          
-        CFPB updated product and issue options in April 2017 and August 2023
+        CFPB updated product and issue options in April 2017 and August 2023.
          
         <a
           aria-label="Learn more about Product and Issue changes (opens in new window)"
@@ -211,7 +211,7 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
         className="u-mt15"
       >
          
-        CFPB updated product and issue options in April 2017 and August 2023
+        CFPB updated product and issue options in April 2017 and August 2023.
          
         <a
           aria-label="Learn more about Product and Issue changes (opens in new window)"
@@ -392,7 +392,7 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
         className="u-mt15"
       >
          
-        CFPB updated product and issue options in April 2017 and August 2023
+        CFPB updated product and issue options in April 2017 and August 2023.
          
         <a
           aria-label="Learn more about Product and Issue changes (opens in new window)"
