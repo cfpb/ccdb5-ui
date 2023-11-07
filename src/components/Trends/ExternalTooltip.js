@@ -102,6 +102,9 @@ export class ExternalTooltip extends React.Component {
               </ul>
             )}
           </div>
+          <p className="a-micro-copy warn">
+            CFPB updated product and issue options in April 2017 and August 2023
+          </p>
         </section>
       );
     }
