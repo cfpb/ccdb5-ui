@@ -18,9 +18,9 @@ export const COMPLAINT_DETAIL_CALLED = 'COMPLAINT_DETAIL_CALLED';
 export const STATES_API_CALLED = 'STATES_API_CALLED';
 export const STATES_RECEIVED = 'STATES_RECEIVED';
 export const STATES_FAILED = 'STATES_FAILED';
-export const TRENDS_API_CALLED = 'TRENDS_API_CALLED';
-export const TRENDS_RECEIVED = 'TRENDS_RECEIVED';
-export const TRENDS_FAILED = 'TRENDS_FAILED';
+export const TRENDS_API_CALLED = 'trendsCallInProcess';
+export const TRENDS_RECEIVED = 'processTrends';
+export const TRENDS_FAILED = 'processTrendsError';
 
 // ----------------------------------------------------------------------------
 // Routing action

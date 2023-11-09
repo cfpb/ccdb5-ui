@@ -2,7 +2,7 @@ import { sendQuery } from './complaints';
 
 const queryString = require('query-string');
 
-export const URL_CHANGED = 'URL_CHANGED';
+export const URL_CHANGED = 'processParams';
 //-----------------------------------------------------------------------------
 
 /**

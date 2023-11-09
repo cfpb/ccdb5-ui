@@ -423,11 +423,12 @@ export const querySlice = createSlice({
       };
     },
     changeTab(state, action) {
-      const tab = enforceValues(action.tab, 'tab');
+      console.log(action);
+      const tab = enforceValues(action.payload, 'tab');
       return {
         ...state,
         focus: tab === types.MODE_TRENDS ? state.focus : '',
-        tab,
+        tab: tab,
       };
     },
     updateTotalPages(state, action) {
@@ -890,55 +891,6 @@ export function resetBreakpoints(state) {
   state.page = 1;
   state.searchAfter = '';
 }
-
-/*
-export default (state = defaultQuery, action) => {
-  const newState = handleSpecificAction(state, action);
-
-  const breakPointActions = [
-    actions.DATE_INTERVAL_CHANGED,
-    actions.DATE_RANGE_CHANGED,
-    actions.DATES_CHANGED,
-    actions.FILTER_ALL_REMOVED,
-    actions.FILTER_CHANGED,
-    actions.FILTER_FLAG_CHANGED,
-    actions.FILTER_MULTIPLE_ADDED,
-    actions.FILTER_MULTIPLE_REMOVED,
-    actions.FILTER_ADDED,
-    actions.FILTER_REMOVED,
-    actions.FILTER_REPLACED,
-    actions.SEARCH_FIELD_CHANGED,
-    actions.SEARCH_TEXT_CHANGED,
-    actions.SIZE_CHANGED,
-    actions.SORT_CHANGED,
-    actions.TAB_CHANGED,
-  ];
-  // these actions cause the page to reset to 1 and also clear out breakpts
-  if (breakPointActions.includes(action.type)) {
-    resetBreakpoints(newState);
-  }
-
-  if (newState.tab === types.MODE_MAP) {
-    // only update the map warning items when we're on the map tab
-    validatePer1000(newState);
-  }
-
-  if (newState.tab === types.MODE_TRENDS) {
-    // swap date interval in cases where the date range is > 1yr
-    validateDateInterval(newState);
-    validateTrendsReducer(newState);
-  }
-
-  // remove any filter keys with empty array
-  pruneEmptyFilters(newState);
-
-  const qs = stateToQS(newState);
-  newState.queryString = qs === '?' ? '' : qs;
-  newState.search = stateToURL(newState);
-
-  return newState;
-};
-*/
 
 export const {
   processParams,
