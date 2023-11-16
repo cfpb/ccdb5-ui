@@ -7,13 +7,13 @@ export const PRINT_MODE_ON = 'PRINT_MODE_ON';
 export const PRINT_MODE_OFF = 'PRINT_MODE_OFF';
 export const ROW_COLLAPSED = 'ROW_COLLAPSED';
 export const ROW_EXPANDED = 'ROW_EXPANDED';
-export const SCREEN_RESIZED = 'updateScreenSize';
+export const SCREEN_RESIZED = 'view/updateScreenSize';
 export const HIDE_ADVANCED_SEARCH_TIPS = 'HIDE_ADVANCED_SEARCH_TIPS';
 export const SHOW_ADVANCED_SEARCH_TIPS = 'SHOW_ADVANCED_SEARCH_TIPS';
 export const HIDE_TOUR = 'HIDE_TOUR';
 export const SHOW_TOUR = 'SHOW_TOUR';
-export const TAB_CHANGED = 'changeTab';
-export const TOGGLE_FILTER_VISIBILITY = 'TOGGLE_FILTER_VISIBILITY';
+export const TAB_CHANGED = 'view/changeTab';
+export const TOGGLE_FILTER_VISIBILITY = 'view/updateFilterVisibility';
 export const TRENDS_DATE_WARNING_DISMISSED = 'TRENDS_DATE_WARNING_DISMISSED';
 
 // ----------------------------------------------------------------------------
