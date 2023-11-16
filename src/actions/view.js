@@ -1,17 +1,17 @@
 import { REQUERY_HITS_ONLY, REQUERY_NEVER } from '../constants';
 
 export const MAP_WARNING_DISMISSED = 'MAP_WARNING_DISMISSED';
-export const MODAL_HID = 'MODAL_HID';
-export const MODAL_SHOWN = 'MODAL_SHOWN';
-export const PRINT_MODE_ON = 'PRINT_MODE_ON';
-export const PRINT_MODE_OFF = 'PRINT_MODE_OFF';
-export const ROW_COLLAPSED = 'ROW_COLLAPSED';
-export const ROW_EXPANDED = 'ROW_EXPANDED';
+export const MODAL_HID = 'view/modalHidden';
+export const MODAL_SHOWN = 'view/modalShown';
+export const PRINT_MODE_ON = 'view/updatePrintModeOn';
+export const PRINT_MODE_OFF = 'view/updatePrintModeOff';
+export const ROW_COLLAPSED = 'view/collapseRow';
+export const ROW_EXPANDED = 'view/expandRow';
 export const SCREEN_RESIZED = 'view/updateScreenSize';
-export const HIDE_ADVANCED_SEARCH_TIPS = 'HIDE_ADVANCED_SEARCH_TIPS';
-export const SHOW_ADVANCED_SEARCH_TIPS = 'SHOW_ADVANCED_SEARCH_TIPS';
-export const HIDE_TOUR = 'HIDE_TOUR';
-export const SHOW_TOUR = 'SHOW_TOUR';
+export const HIDE_ADVANCED_SEARCH_TIPS = 'view/hideAdvancedSearchTips';
+export const SHOW_ADVANCED_SEARCH_TIPS = 'view/showAdvancedSearchTips';
+export const HIDE_TOUR = 'view/tourShown';
+export const SHOW_TOUR = 'view/tourHidden';
 export const TAB_CHANGED = 'view/changeTab';
 export const TOGGLE_FILTER_VISIBILITY = 'view/updateFilterVisibility';
 export const TRENDS_DATE_WARNING_DISMISSED = 'TRENDS_DATE_WARNING_DISMISSED';
