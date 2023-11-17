@@ -6,7 +6,7 @@ import FilterPanel from '../Filters/FilterPanel';
 import FilterPanelToggle from '../Filters/FilterPanelToggle';
 import { Loading } from '../Loading/Loading';
 import { MapToolbar } from './MapToolbar';
-import { mapWarningDismissed } from '../../actions/view';
+import { dismissMapWarning } from '../../reducers/query/query';
 import { PerCapita } from '../RefineBar/PerCapita';
 import { processRows } from '../../utils/chart';
 
@@ -70,7 +70,7 @@ export const MapPanel = () => {
   )} to ${shortFormat(maxDate)}`;
 
   const onDismissWarning = () => {
-    dispatch(mapWarningDismissed());
+    dispatch(dismissMapWarning());
   };
 
   return (

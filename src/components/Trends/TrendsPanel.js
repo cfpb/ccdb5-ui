@@ -27,7 +27,7 @@ import { Separator } from '../RefineBar/Separator';
 import StackedAreaChart from '../Charts/StackedAreaChart';
 import { TabbedNavigation } from '../TabbedNavigation';
 import TrendDepthToggle from './TrendDepthToggle';
-import { trendsDateWarningDismissed } from '../../actions/view';
+import { dismissTrendsDateWarning } from '../../reducers/query/query';
 import Warning from '../Warnings/Warning';
 
 const WARNING_MESSAGE =
@@ -319,7 +319,7 @@ const mapStateToProps = (state) => {
 
 export const mapDispatchToProps = (dispatch) => ({
   onDismissWarning: () => {
-    dispatch(trendsDateWarningDismissed());
+    dispatch(dismissTrendsDateWarning());
   },
   onInterval: (ev) => {
     const { value } = ev.target;

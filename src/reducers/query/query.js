@@ -13,7 +13,7 @@ import { enforceValues } from '../../utils/reducers';
 import dayjs from 'dayjs';
 import { isGreaterThanYear } from '../../utils/trends';
 import { createSlice } from '@reduxjs/toolkit';
-import { REQUERY_HITS_ONLY } from '../../constants';
+import { REQUERY_HITS_ONLY, REQUERY_NEVER } from '../../constants';
 
 const queryString = require('query-string');
 
@@ -376,17 +376,31 @@ export const querySlice = createSlice({
 
       return newState;
     },
-    dismissMapWarning(state) {
-      return {
-        ...state,
-        mapWarningEnabled: false,
-      };
+    dismissMapWarning: {
+      reducer: (state) => {
+        state.mapWarningEnabled = false;
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_NEVER,
+          },
+        };
+      },
     },
-    dismissTrendsDateWarning(state) {
-      return {
-        ...state,
-        trendsDateWarningEnabled: false,
-      };
+    dismissTrendsDateWarning: {
+      reducer: (state) => {
+        state.trendsDateWarningEnabled = false;
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_NEVER,
+          },
+        };
+      },
     },
     prevPage(state) {
       // don't let them go lower than 1
