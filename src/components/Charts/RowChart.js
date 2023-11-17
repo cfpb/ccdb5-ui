@@ -9,7 +9,7 @@ import {
   hashObject,
   sendAnalyticsEvent,
 } from '../../utils';
-import { collapseRow, expandRow } from '../../actions/view';
+import { collapseRow, expandRow } from '../../reducers/view/view';
 import { miniTooltip, row } from 'britecharts';
 import { changeFocus } from '../../actions/trends';
 import { connect } from 'react-redux';

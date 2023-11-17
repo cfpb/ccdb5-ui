@@ -1,5 +1,8 @@
 import './SearchBar.less';
-import { hideAdvancedTips, showAdvancedTips } from '../../actions/view';
+import {
+  hideAdvancedSearchTips,
+  showAdvancedSearchTips,
+} from '../../reducers/view/view';
 import { searchFieldChanged, searchTextChanged } from '../../actions/search';
 import { AdvancedTips } from './AdvancedTips/AdvancedTips';
 import { useDispatch, useSelector } from 'react-redux';
@@ -39,9 +42,9 @@ export const SearchBar = ({ debounceWait }) => {
 
   const onSearchTipToggle = (isOn) => {
     if (isOn) {
-      dispatch(hideAdvancedTips());
+      dispatch(hideAdvancedSearchTips());
     } else {
-      dispatch(showAdvancedTips());
+      dispatch(showAdvancedSearchTips());
     }
   };
 

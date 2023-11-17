@@ -4,15 +4,15 @@ import { FormattedNumber } from 'react-intl';
 import iconMap from '../iconMap';
 import React from 'react';
 import { sendAnalyticsEvent } from '../../utils';
-import { showModal } from '../../actions/view';
+import { modalShown } from '../../reducers/view/view';
 import { StaleDataWarnings } from '../Warnings/StaleDataWarnings';
 import {
   selectAggsDocCount,
   selectAggsTotal,
 } from '../../reducers/aggs/selectors';
 import { selectQueryTab } from '../../reducers/query/selectors';
-import { printModeOn } from '../../actions/view';
 import { MODAL_TYPE_DATA_EXPORT } from '../../constants';
+import { updatePrintModeOn } from '../../reducers/view/view';
 
 export const ActionBar = () => {
   const docCount = useSelector(selectAggsDocCount);
@@ -22,7 +22,7 @@ export const ActionBar = () => {
 
   const showPrintView = (tab) => {
     sendAnalyticsEvent('Print', 'tab:' + tab);
-    dispatch(printModeOn());
+    dispatch(updatePrintModeOn());
   };
   return (
     <div>
@@ -51,7 +51,7 @@ export const ActionBar = () => {
               data-gtm_ignore="true"
               onClick={() => {
                 sendAnalyticsEvent('Export', tab + ':User Opens Export Modal');
-                dispatch(showModal(MODAL_TYPE_DATA_EXPORT));
+                dispatch(modalShown(MODAL_TYPE_DATA_EXPORT));
               }}
             >
               Export data

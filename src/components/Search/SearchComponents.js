@@ -10,7 +10,10 @@ import { Tour } from '../Tour/Tour';
 import { useUpdateLocation } from '../../hooks/useUpdateLocation';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { useEvent } from '../../hooks/useEvent';
-import { printModeOff, printModeOn } from '../../actions/view';
+import {
+  updatePrintModeOff,
+  updatePrintModeOn,
+} from '../../reducers/view/view';
 import { SearchPanel } from './SearchPanel';
 
 export const SearchComponents = () => {
@@ -22,12 +25,12 @@ export const SearchComponents = () => {
 
   useEvent('afterprint', () => {
     if (isPrintMode) {
-      dispatch(printModeOff());
+      dispatch(updatePrintModeOff());
     }
   });
   useEvent('beforeprint', () => {
     if (!isPrintMode) {
-      dispatch(printModeOn());
+      dispatch(updatePrintModeOn());
     }
   });
 

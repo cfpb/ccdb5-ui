@@ -1,7 +1,7 @@
 import React from 'react';
 import iconMap from '../../iconMap';
 import { useDispatch } from 'react-redux';
-import { hideModal } from '../../../actions/view';
+import { modalHidden } from '../../../reducers/view/view';
 
 export const ExportConfirmation = () => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ export const ExportConfirmation = () => {
           className="a-btn a-btn__link"
           data-gtm_ignore="true"
           onClick={() => {
-            dispatch(hideModal());
+            dispatch(modalHidden());
           }}
         >
           Close

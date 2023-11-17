@@ -1,8 +1,8 @@
 import './FilterPanelToggle.less';
 import { connect } from 'react-redux';
-import { filterVisibilityToggled } from '../../actions/view';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { updateFilterVisibility } from '../../reducers/view/view';
 
 export class FilterPanelToggle extends React.Component {
   render() {
@@ -25,7 +25,7 @@ export const mapStateToProps = (state) => ({
 
 export const mapDispatchToProps = (dispatch) => ({
   onFilterToggle: () => {
-    dispatch(filterVisibilityToggled());
+    dispatch(updateFilterVisibility());
   },
 });
 

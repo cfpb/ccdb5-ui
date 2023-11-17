@@ -13,6 +13,7 @@ import { enforceValues } from '../../utils/reducers';
 import dayjs from 'dayjs';
 import { isGreaterThanYear } from '../../utils/trends';
 import { createSlice } from '@reduxjs/toolkit';
+import { REQUERY_HITS_ONLY } from '../../constants';
 
 const queryString = require('query-string');
 
@@ -422,14 +423,20 @@ export const querySlice = createSlice({
         sort,
       };
     },
-    changeTab(state, action) {
-      console.log(action);
-      const tab = enforceValues(action.payload, 'tab');
-      return {
-        ...state,
-        focus: tab === types.MODE_TRENDS ? state.focus : '',
-        tab: tab,
-      };
+    changeTab: {
+      reducer: (state, action) => {
+        const tab = enforceValues(action.payload, 'tab');
+        state.focus = tab === types.MODE_TRENDS ? state.focus : '';
+        state.tab = tab;
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_HITS_ONLY,
+          },
+        };
+      },
     },
     updateTotalPages(state, action) {
       const { _meta, hits } = action.data;

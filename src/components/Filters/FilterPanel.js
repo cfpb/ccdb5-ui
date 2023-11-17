@@ -4,7 +4,6 @@ import { CompanyReceivedFilter } from './CompanyReceivedFilter';
 import { connect } from 'react-redux';
 import { DateFilter } from './DateFilter';
 import { FederalState } from './FederalState';
-import { filterVisibilityToggled } from '../../actions/view';
 import HasNarrative from './HasNarrative';
 import iconMap from '../iconMap';
 import { Issue } from './Issue';
@@ -13,6 +12,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import SimpleFilter from './SimpleFilter';
 import { ZipCode } from './ZipCode';
+import { updateFilterVisibility } from '../../reducers/view/view';
 
 export class FilterPanel extends React.Component {
   render() {
@@ -117,7 +117,7 @@ export const mapStateToProps = (state) => ({
 
 export const mapDispatchToProps = (dispatch) => ({
   onFilterToggle: () => {
-    dispatch(filterVisibilityToggled());
+    dispatch(updateFilterVisibility());
   },
 });
 

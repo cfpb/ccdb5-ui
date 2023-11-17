@@ -10,7 +10,7 @@ import {
 import { Steps } from 'intro.js-react';
 import { TOUR_STEPS } from './constants/tourStepsConstants';
 import { TourButton } from './TourButton';
-import { tourHidden } from '../../actions/view';
+import { tourHidden } from '../../reducers/view/view';
 
 export const Tour = () => {
   const dispatch = useDispatch();

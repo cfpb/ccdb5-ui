@@ -1,7 +1,7 @@
 import './DataExport.less';
 import { getFullUrl, sendAnalyticsEvent } from '../../../utils';
 import { buildAllResultsUri, buildSomeResultsUri } from './dataExportUtils';
-import { hideModal, showModal } from '../../../actions/view';
+import { modalHidden, modalShown } from '../../../reducers/view/view';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormattedNumber } from 'react-intl';
 import iconMap from '../../iconMap';
@@ -58,7 +58,7 @@ export const DataExport = () => {
     }
 
     window.location.assign(exportUri);
-    dispatch(showModal(MODAL_TYPE_EXPORT_CONFIRMATION));
+    dispatch(modalShown(MODAL_TYPE_EXPORT_CONFIRMATION));
   };
 
   const copyToClipboard = (ev) => {
@@ -79,7 +79,7 @@ export const DataExport = () => {
           className="a-btn a-btn__link"
           data-gtm_ignore="true"
           onClick={() => {
-            dispatch(hideModal());
+            dispatch(modalHidden());
           }}
         >
           Close
@@ -243,7 +243,7 @@ export const DataExport = () => {
           className="a-btn a-btn__link a-btn__warning"
           data-gtm_ignore="true"
           onClick={() => {
-            dispatch(hideModal());
+            dispatch(modalHidden());
           }}
         >
           Cancel

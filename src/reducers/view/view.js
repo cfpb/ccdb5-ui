@@ -1,5 +1,6 @@
 import { processUrlArrayParams } from '../../utils';
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
+import { REQUERY_NEVER } from '../../constants';
 
 export const viewState = {
   expandedRows: [],
@@ -16,97 +17,118 @@ export const viewSlice = createSlice({
   name: 'view',
   initialState: viewState,
   reducers: {
-    hideAdvancedSearchTips(state) {
-      return {
-        ...state,
-        hasAdvancedSearchTips: false,
-      };
+    hideAdvancedSearchTips: {
+      reducer: (state) => {
+        state.hasAdvancedSearchTips = false;
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_NEVER,
+          },
+        };
+      },
     },
     modalHidden(state) {
-      return {
-        ...state,
-        modalTypeShown: false,
-      };
+      state.modalTypeShown = false;
     },
     modalShown(state, action) {
-      return {
-        ...state,
-        modalTypeShown: action.modalType,
-      };
+      state.modalTypeShown = action.modalType;
     },
-    showAdvancedSearchTips(state) {
-      return {
-        ...state,
-        hasAdvancedSearchTips: true,
-      };
+    showAdvancedSearchTips: {
+      reducer: (state) => {
+        state.hasAdvancedSearchTips = true;
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_NEVER,
+          },
+        };
+      },
     },
     updatePrintModeOn(state) {
-      return {
-        ...state,
-        isPrintMode: true,
-      };
+      state.isPrintMode = true;
     },
     updatePrintModeOff(state) {
-      return {
-        ...state,
-        isFromExternal: false,
-        isPrintMode: false,
-      };
+      state.isPrintMode = false;
+      state.isFromExternal = false;
     },
     updateScreenSize(state, action) {
-      return {
-        ...state,
-        hasFilters: action.screenWidth > 749,
-        width: action.screenWidth,
-      };
+      state.hasFilters = action.payload > 749;
+      state.width = action.payload;
     },
-    updateFilterVisibility(state) {
-      return {
-        ...state,
-        hasFilters: !state.hasFilters,
-      };
+    updateFilterVisibility: {
+      reducer: (state) => {
+        state.hasFilters = !state.hasFilters;
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_NEVER,
+          },
+        };
+      },
     },
-    tourHidden(state) {
-      return {
-        ...state,
-        showTour: false,
-      };
+    tourHidden: {
+      reducer: (state) => {
+        state.showTour = false;
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_NEVER,
+          },
+        };
+      },
     },
-    tourShown(state) {
-      return {
-        ...state,
-        expandedRows: [],
-        hasAdvancedSearchTips: false,
-        showTour: true,
-      };
+    tourShown: {
+      reducer: (state) => {
+        state.showTour = true;
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_NEVER,
+          },
+        };
+      },
     },
-    collapseRow(state, action) {
-      const { expandedRows } = state;
-      const item = action.value;
-
-      return {
-        ...state,
-        expandedRows: expandedRows.filter((o) => o !== item),
-      };
+    collapseRow: {
+      reducer: (state, action) => {
+        state.expandedRows = state.expandedRows.filter((o) => o !== action);
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_NEVER,
+          },
+        };
+      },
     },
-    expandRow(state, action) {
-      const { expandedRows } = state;
-      const item = action.value;
-
-      if (!expandedRows.includes(item)) {
-        expandedRows.push(item);
-      }
-
-      return {
-        ...state,
-        expandedRows,
-      };
+    expandRow: {
+      reducer: (state, action) => {
+        if (!state.expandedRows.includes(action)) {
+          state.expandedRows.push(action);
+        }
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_NEVER,
+          },
+        };
+      },
     },
     resetExpandedRows(state) {
-      return {
-        ...state,
-        expandedRows: [],
-      };
+      state.expandedRows = [];
     },
     processParams(state, action) {
       const params = action.params;
@@ -118,10 +140,24 @@ export const viewSlice = createSlice({
       processUrlArrayParams(params, state, arrayParams);
 
       return state;
-    }
-  }
-})
+    },
+  },
+});
 
-
-export const {processParams, resetExpandedRows, expandRow, collapseRow, tourShown, tourHidden, updateFilterVisibility, updateScreenSize, updatePrintModeOff, updatePrintModeOn, showAdvancedSearchTips, modalShown, modalHidden, hideAdvancedSearchTips } = viewSlice.actions;
+export const {
+  processParams,
+  resetExpandedRows,
+  expandRow,
+  collapseRow,
+  tourShown,
+  tourHidden,
+  updateFilterVisibility,
+  updateScreenSize,
+  updatePrintModeOff,
+  updatePrintModeOn,
+  showAdvancedSearchTips,
+  modalShown,
+  modalHidden,
+  hideAdvancedSearchTips,
+} = viewSlice.actions;
 export default viewSlice.reducer;
