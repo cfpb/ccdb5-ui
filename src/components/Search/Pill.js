@@ -1,9 +1,6 @@
 import './Pill.less';
-import {
-  dateRangeToggled,
-  removeFilter,
-  replaceFilters,
-} from '../../actions/filter';
+import { removeFilter, replaceFilters } from '../../actions/filter';
+import { changeDateRange } from '../../reducers/query/query';
 import { filterPatch, SLUG_SEPARATOR } from '../../constants';
 import { formatPillPrefix, getUpdatedFilters } from '../../utils/filters';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,7 +23,7 @@ export const Pill = ({ fieldName, value }) => {
   const remove = () => {
     if (fieldName === 'date_received') {
       // reset date range
-      dispatch(dateRangeToggled('All'));
+      dispatch(changeDateRange('All'));
     } else {
       const filterName = value;
       if (filterPatch.includes(fieldName)) {

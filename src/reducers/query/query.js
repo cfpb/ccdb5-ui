@@ -155,31 +155,31 @@ export const querySlice = createSlice({
         };
       },
     },
-    changeDateRange(state, action) {
-      const dateRange = enforceValues(action.dateRange, 'dateRange');
-      const newState = {
-        ...state,
-        dateRange,
-      };
-
-      const maxDate = startOfToday();
-
-      const res = {
-        All: new Date(types.DATE_RANGE_MIN),
-        '3m': new Date(dayjs(maxDate).subtract(3, 'months')),
-        '6m': new Date(dayjs(maxDate).subtract(6, 'months')),
-        '1y': new Date(dayjs(maxDate).subtract(1, 'year')),
-        '3y': new Date(dayjs(maxDate).subtract(3, 'years')),
-      };
-
-      /* istanbul ignore else */
-      if (res[dateRange]) {
-        newState.date_received_min = res[dateRange];
-      }
-
-      newState.date_received_max = maxDate;
-
-      return newState;
+    changeDateRange: {
+      reducer: (state, action) => {
+        const dateRange = enforceValues(action.payload, 'dateRange');
+        const maxDate = startOfToday();
+        const res = {
+          All: new Date(types.DATE_RANGE_MIN),
+          '3m': new Date(dayjs(maxDate).subtract(3, 'months')),
+          '6m': new Date(dayjs(maxDate).subtract(6, 'months')),
+          '1y': new Date(dayjs(maxDate).subtract(1, 'year')),
+          '3y': new Date(dayjs(maxDate).subtract(3, 'years')),
+        };
+        state.dateRange = dateRange;
+        state.date_received_min = res[dateRange]
+          ? res[dateRange]
+          : state.date_received_min;
+        state.date_received_max = maxDate;
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
     },
     changeDates: {
       reducer: (state, action) => {

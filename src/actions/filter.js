@@ -1,8 +1,6 @@
 import { REQUERY_ALWAYS } from '../constants';
 
 export const DATE_INTERVAL_CHANGED = 'changeDateInterval';
-export const DATE_RANGE_CHANGED = 'changeDateRange';
-export const DATES_CHANGED = 'changeDates';
 export const FILTER_ALL_REMOVED = 'removeAllFilters';
 export const FILTER_CHANGED = 'toggleFilter';
 export const FILTER_FLAG_CHANGED = 'toggleFlagFilter';
@@ -14,19 +12,6 @@ export const FILTER_REPLACED = 'replaceFilter';
 
 // ----------------------------------------------------------------------------
 // Simple actions
-
-/**
- * Notifies the application that the filtered dates have changed
- * @param {string} dateRange - which filter is being updated
- * @returns {string} a packaged payload to be used by Redux reducers
- */
-export function dateRangeToggled(dateRange) {
-  return {
-    type: DATE_RANGE_CHANGED,
-    dateRange,
-    requery: REQUERY_ALWAYS,
-  };
-}
 
 /**
  * Notifies the application that an aggregation filter changed

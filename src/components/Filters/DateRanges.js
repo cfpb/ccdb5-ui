@@ -5,7 +5,7 @@ import {
 } from '../../reducers/query/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { dateRanges } from '../../constants';
-import { dateRangeToggled } from '../../actions/filter';
+import { changeDateRange } from '../../reducers/query/query';
 import React from 'react';
 import { sendAnalyticsEvent } from '../../utils';
 
@@ -25,7 +25,7 @@ export const DateRanges = () => {
   const toggleDateRange = (selectedDateRange) => {
     if (dateRange !== selectedDateRange) {
       sendAnalyticsEvent('Button', tab + ':' + selectedDateRange);
-      dispatch(dateRangeToggled(selectedDateRange));
+      dispatch(changeDateRange(selectedDateRange));
     }
   };
 
