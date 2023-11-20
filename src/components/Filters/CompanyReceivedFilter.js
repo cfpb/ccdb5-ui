@@ -7,7 +7,7 @@ import {
   selectQueryCompanyReceivedMin,
 } from '../../reducers/query/selectors';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeDates } from '../../actions/filter';
+import { changeDates } from '../../reducers/query/query';
 import CollapsibleFilter from './CollapsibleFilter';
 import dayjs from 'dayjs';
 import dayjsCustomParseFormat from 'dayjs/plugin/customParseFormat';

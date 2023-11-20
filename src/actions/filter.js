@@ -16,23 +16,6 @@ export const FILTER_REPLACED = 'replaceFilter';
 // Simple actions
 
 /**
- * Notifies the application that the dates have changed
- * @param {string} filterName - which filter is being updated
- * @param {Date} minDate - the minimum date in the range
- * @param {Date} maxDate - the maximum date in the range
- * @returns {string} a packaged payload to be used by Redux reducers
- */
-export function changeDates(filterName, minDate, maxDate) {
-  return {
-    type: DATES_CHANGED,
-    filterName,
-    minDate,
-    maxDate,
-    requery: REQUERY_ALWAYS,
-  };
-}
-
-/**
  * Notifies the application that the filtered dates have changed
  * @param {string} dateRange - which filter is being updated
  * @returns {string} a packaged payload to be used by Redux reducers

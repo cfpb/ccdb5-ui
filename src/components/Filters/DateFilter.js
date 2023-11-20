@@ -7,7 +7,7 @@ import {
   selectQueryDateReceivedMin,
 } from '../../reducers/query/selectors';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeDates } from '../../actions/filter';
+import { changeDates } from '../../reducers/query/query';
 import CollapsibleFilter from './CollapsibleFilter';
 import { DateRanges } from './DateRanges';
 import dayjs from 'dayjs';

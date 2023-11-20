@@ -181,39 +181,52 @@ export const querySlice = createSlice({
 
       return newState;
     },
-    changeDates(state, action) {
-      const fields = [action.filterName + '_min', action.filterName + '_max'];
+    changeDates: {
+      reducer: (state, action) => {
+        const fields = [
+          action.payload.filterName + '_min',
+          action.payload.filterName + '_max',
+        ];
 
-      let { maxDate, minDate } = action;
+        let { maxDate, minDate } = action.payload;
 
-      minDate = dayjs(minDate).isValid()
-        ? new Date(dayjs(minDate).startOf('day'))
-        : null;
-      maxDate = dayjs(maxDate).isValid()
-        ? new Date(dayjs(maxDate).startOf('day'))
-        : null;
+        minDate = dayjs(minDate).isValid()
+          ? new Date(dayjs(minDate).startOf('day'))
+          : null;
+        maxDate = dayjs(maxDate).isValid()
+          ? new Date(dayjs(maxDate).startOf('day'))
+          : null;
 
-      const newState = {
-        ...state,
-        [fields[0]]: minDate,
-        [fields[1]]: maxDate,
-      };
+        const newState = {
+          ...state,
+          [fields[0]]: minDate,
+          [fields[1]]: maxDate,
+        };
 
-      // Remove nulls
-      fields.forEach((field) => {
-        if (newState[field] === null) {
-          delete newState[field];
+        // Remove nulls
+        fields.forEach((field) => {
+          if (newState[field] === null) {
+            delete newState[field];
+          }
+        });
+
+        const dateRange = calculateDateRange(minDate, maxDate);
+        if (dateRange) {
+          newState.dateRange = dateRange;
+        } else {
+          delete newState.dateRange;
         }
-      });
 
-      const dateRange = calculateDateRange(minDate, maxDate);
-      if (dateRange) {
-        newState.dateRange = dateRange;
-      } else {
-        delete newState.dateRange;
-      }
-
-      return newState;
+        return newState;
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
     },
     toggleFlagFilter(state, action) {
       /* eslint-disable camelcase */
