@@ -13,7 +13,11 @@ import { enforceValues } from '../../utils/reducers';
 import dayjs from 'dayjs';
 import { isGreaterThanYear } from '../../utils/trends';
 import { createSlice } from '@reduxjs/toolkit';
-import { REQUERY_HITS_ONLY, REQUERY_NEVER } from '../../constants';
+import {
+  REQUERY_ALWAYS,
+  REQUERY_HITS_ONLY,
+  REQUERY_NEVER,
+} from '../../constants';
 
 const queryString = require('query-string');
 
@@ -134,12 +138,22 @@ export const querySlice = createSlice({
 
       return alignDateRange(processed);
     },
-    changeDateInterval(state, action) {
-      const dateInterval = enforceValues(action.dateInterval, 'dateInterval');
-      return {
-        ...state,
-        dateInterval,
-      };
+    changeDateInterval: {
+      reducer: (state, action) => {
+        const dateInterval = enforceValues(action.payload, 'dateInterval');
+        return {
+          ...state,
+          dateInterval,
+        };
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
     },
     changeDateRange(state, action) {
       const dateRange = enforceValues(action.dateRange, 'dateRange');

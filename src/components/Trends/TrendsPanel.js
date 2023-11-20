@@ -6,7 +6,7 @@ import { getIntervals, showCompanyOverLay } from '../../utils/trends';
 import { sendAnalyticsEvent, shortFormat } from '../../utils';
 import { ActionBar } from '../ActionBar/ActionBar';
 import { changeDataLens } from '../../actions/trends';
-import { changeDateInterval } from '../../actions/filter';
+import { changeDateInterval } from '../../reducers/query/query';
 import { ChartToggles } from '../RefineBar/ChartToggles';
 import { CompanyTypeahead } from '../Filters/CompanyTypeahead';
 import { connect } from 'react-redux';
