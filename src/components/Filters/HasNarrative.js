@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { NARRATIVE_SEARCH_FIELD } from '../../constants';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { toggleFlagFilter } from '../../actions/filter';
+import { toggleFlagFilter } from '../../reducers/query/query';
 
 const FIELD_NAME = 'has_narrative';
 

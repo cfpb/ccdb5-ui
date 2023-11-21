@@ -1,6 +1,9 @@
 import './Pill.less';
-import { removeFilter, replaceFilters } from '../../actions/filter';
-import { changeDateRange } from '../../reducers/query/query';
+import {
+  removeFilter,
+  changeDateRange,
+  replaceFilters,
+} from '../../reducers/query/query';
 import { filterPatch, SLUG_SEPARATOR } from '../../constants';
 import { formatPillPrefix, getUpdatedFilters } from '../../utils/filters';
 import { useDispatch, useSelector } from 'react-redux';

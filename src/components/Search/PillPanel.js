@@ -14,7 +14,7 @@ import dayjs from 'dayjs';
 import iconMap from '../iconMap';
 import { Pill } from './Pill';
 import React from 'react';
-import { removeAllFilters } from '../../actions/filter';
+import { removeAllFilters } from '../../reducers/query/query';
 import { startOfToday } from '../../utils';
 
 /* eslint complexity: ["error", 5] */

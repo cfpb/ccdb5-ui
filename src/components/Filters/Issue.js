@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { coalesce, sortSelThenCount } from '../../utils';
 import CollapsibleFilter from './CollapsibleFilter';
-import { replaceFilters } from '../../actions/filter';
+import { replaceFilters } from '../../reducers/query/query';
 import { SLUG_SEPARATOR } from '../../constants';
 import { selectQueryState } from '../../reducers/query/selectors';
 import { Typeahead } from '../Typeahead/Typeahead/Typeahead';

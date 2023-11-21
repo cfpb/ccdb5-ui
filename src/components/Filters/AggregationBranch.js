@@ -6,7 +6,10 @@ import {
   sanitizeHtmlId,
   slugify,
 } from '../../utils';
-import { removeMultipleFilters, replaceFilters } from '../../actions/filter';
+import {
+  removeMultipleFilters,
+  replaceFilters,
+} from '../../reducers/query/query';
 import AggregationItem from './AggregationItem';
 import { connect } from 'react-redux';
 import { FormattedNumber } from 'react-intl';

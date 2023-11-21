@@ -228,24 +228,33 @@ export const querySlice = createSlice({
         };
       },
     },
-    toggleFlagFilter(state, action) {
-      /* eslint-disable camelcase */
-      const newState = {
-        ...state,
-        [action.filterName]: Boolean(!state[action.filterName]),
-      };
+    toggleFlagFilter: {
+      reducer: (state, action) => {
+        const newState = {
+          ...state,
+          [action.payload.filterName]: Boolean(
+            !state[action.payload.filterName]
+          ),
+        };
 
-      /* eslint-enable camelcase */
+        // Remove nulls
+        const fields = ['has_narrative'];
+        fields.forEach((field) => {
+          if (!newState[field]) {
+            delete newState[field];
+          }
+        });
 
-      // Remove nulls
-      const fields = ['has_narrative'];
-      fields.forEach((field) => {
-        if (!newState[field]) {
-          delete newState[field];
-        }
-      });
-
-      return newState;
+        return newState;
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
     },
     changeSearchField(state, action) {
       const pagination = getPagination(1, state);
@@ -263,30 +272,50 @@ export const querySlice = createSlice({
         searchText: action.searchText,
       };
     },
-    addMultipleFilters(state, action) {
-      const newState = { ...state };
-      const name = action.filterName;
-      const a = coalesce(newState, name, []);
+    addMultipleFilters: {
+      reducer: (state, action) => {
+        const newState = { ...state };
+        const name = action.payload.filterName;
+        const a = coalesce(newState, name, []);
 
-      // Add the filters
-      action.values.forEach((x) => {
-        if (a.indexOf(x) === -1) {
-          a.push(x);
-        }
-      });
+        // Add the filters
+        action.payload.values.forEach((x) => {
+          if (a.indexOf(x) === -1) {
+            a.push(x);
+          }
+        });
 
-      newState[name] = a;
+        newState[name] = a;
 
-      return newState;
+        return newState;
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
     },
-    toggleFilter(state, action) {
-      return {
-        ...state,
-        [action.filterName]: filterArrayAction(
-          state[action.filterName],
-          action.filterValue.key
-        ),
-      };
+    toggleFilter: {
+      reducer: (state, action) => {
+        return {
+          ...state,
+          [action.payload.filterName]: filterArrayAction(
+            state[action.payload.filterName],
+            action.payload.filterValue.key
+          ),
+        };
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
     },
     addStateFilter(state, action) {
       const stateFilters = coalesce(state, 'state', []);
@@ -321,87 +350,145 @@ export const querySlice = createSlice({
         state: stateFilters.filter((o) => o !== abbr),
       };
     },
-    removeAllFilters(state) {
-      const newState = { ...state };
+    removeAllFilters: {
+      reducer: (state) => {
+        const newState = { ...state };
 
-      const allFilters = types.knownFilters.concat(
-        types.dateFilters,
-        types.flagFilters
-      );
+        const allFilters = types.knownFilters.concat(
+          types.dateFilters,
+          types.flagFilters
+        );
 
-      if (state.searchField === types.NARRATIVE_SEARCH_FIELD) {
-        const idx = allFilters.indexOf('has_narrative');
-        allFilters.splice(idx, 1);
-      }
-
-      allFilters.forEach((kf) => {
-        if (kf in newState) {
-          delete newState[kf];
+        if (state.searchField === types.NARRATIVE_SEARCH_FIELD) {
+          const idx = allFilters.indexOf('has_narrative');
+          allFilters.splice(idx, 1);
         }
-      });
 
-      // set date range to All
-      // adjust date filter for max and min ranges
-      newState.dateRange = 'All';
-      /* eslint-disable camelcase */
-      newState.date_received_min = new Date(types.DATE_RANGE_MIN);
-      newState.date_received_max = startOfToday();
-      newState.focus = '';
-
-      return newState;
-    },
-    addFilter(state, action) {
-      const newState = { ...state };
-      if (action.filterName === 'has_narrative') {
-        newState.has_narrative = true;
-      } else if (action.filterName in newState) {
-        const idx = newState[action.filterName].indexOf(action.filterValue);
-        if (idx === -1) {
-          newState[action.filterName].push(action.filterValue);
-        }
-      } else {
-        newState[action.filterName] = [action.filterValue];
-      }
-
-      return newState;
-    },
-    removeFilter(state, action) {
-      const newState = { ...state };
-      if (action.filterName === 'has_narrative') {
-        delete newState.has_narrative;
-      } else if (action.filterName in newState) {
-        const idx = newState[action.filterName].indexOf(action.filterValue);
-        if (idx !== -1) {
-          newState[action.filterName].splice(idx, 1);
-        }
-      }
-
-      return newState;
-    },
-    replaceFilters(state, action) {
-      const newState = { ...state };
-      // de-dupe the filters in case we messed up somewhere
-      newState[action.filterName] = [...new Set(action.values)];
-      return newState;
-    },
-    removeMultipleFilters(state, action) {
-      const newState = { ...state };
-      const a = newState[action.filterName];
-      // remove the focus if it exists in one of the filter values we are removing
-      newState.focus = action.values.includes(state.focus)
-        ? ''
-        : state.focus || '';
-
-      if (a) {
-        action.values.forEach((x) => {
-          const idx = a.indexOf(x);
-          if (idx !== -1) {
-            a.splice(idx, 1);
+        allFilters.forEach((kf) => {
+          if (kf in newState) {
+            delete newState[kf];
           }
         });
-      }
 
-      return newState;
+        // set date range to All
+        // adjust date filter for max and min ranges
+        newState.dateRange = 'All';
+        /* eslint-disable camelcase */
+        newState.date_received_min = new Date(types.DATE_RANGE_MIN);
+        newState.date_received_max = startOfToday();
+        newState.focus = '';
+
+        return newState;
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
+    },
+    addFilter: {
+      reducer: (state, action) => {
+        const newState = { ...state };
+        if (action.payload.filterName === 'has_narrative') {
+          newState.has_narrative = true;
+        } else if (action.payload.filterName in newState) {
+          const idx = newState[action.payload.filterName].indexOf(
+            action.payload.filterValue
+          );
+          if (idx === -1) {
+            newState[action.payload.filterName].push(
+              action.payload.filterValue
+            );
+          }
+        } else {
+          newState[action.payload.filterName] = [action.payload.filterValue];
+        }
+
+        return newState;
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
+    },
+    removeFilter: {
+      reducer: (state, action) => {
+        const newState = { ...state };
+        if (action.payload.filterName === 'has_narrative') {
+          delete newState.has_narrative;
+        } else if (action.payload.filterName in newState) {
+          const idx = newState[action.payload.filterName].indexOf(
+            action.payload.filterValue
+          );
+          if (idx !== -1) {
+            newState[action.payload.filterName].splice(idx, 1);
+          }
+        }
+
+        return newState;
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
+    },
+    replaceFilters: {
+      reducer: (state, action) => {
+        const newState = { ...state };
+        // de-dupe the filters in case we messed up somewhere
+        newState[action.payload.filterName] = [
+          ...new Set(action.payload.values),
+        ];
+        return newState;
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
+    },
+    removeMultipleFilters: {
+      reducer: (state, action) => {
+        const newState = { ...state };
+        const a = newState[action.payload.filterName];
+        // remove the focus if it exists in one of the filter values we are removing
+        newState.focus = action.payload.values.includes(state.focus)
+          ? ''
+          : state.focus || '';
+
+        if (a) {
+          action.payload.values.forEach((x) => {
+            const idx = a.indexOf(x);
+            if (idx !== -1) {
+              a.splice(idx, 1);
+            }
+          });
+        }
+
+        return newState;
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
     },
     dismissMapWarning: {
       reducer: (state) => {

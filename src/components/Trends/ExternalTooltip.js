@@ -5,7 +5,7 @@ import { externalTooltipFormatter } from '../../utils/chart';
 import iconMap from '../iconMap';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { removeFilter } from '../../actions/filter';
+import { removeFilter } from '../../reducers/query/query';
 import { sanitizeHtmlId } from '../../utils';
 
 export class ExternalTooltip extends React.Component {

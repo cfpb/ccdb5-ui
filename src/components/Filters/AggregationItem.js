@@ -1,6 +1,6 @@
 import { coalesce, sanitizeHtmlId } from '../../utils';
 import { filterPatch, SLUG_SEPARATOR } from '../../constants';
-import { replaceFilters, toggleFilter } from '../../actions/filter';
+import { replaceFilters, toggleFilter } from '../../reducers/query/query';
 import { arrayEquals } from '../../utils/compare';
 import { connect } from 'react-redux';
 import { FormattedNumber } from 'react-intl';

@@ -1,4 +1,4 @@
-import { addFilter, removeFilter } from '../../actions/filter';
+import { addFilter, removeFilter } from '../../reducers/query/query';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
 import { selectedClass } from '../../utils';
