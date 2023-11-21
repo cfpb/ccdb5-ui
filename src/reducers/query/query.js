@@ -85,7 +85,6 @@ export const querySlice = createSlice({
   name: 'query',
   initialState: queryState,
   reducers: {
-    //Needs reducer/prepare block
     processParams(state, action) {
       const params = action.params;
       let processed = Object.assign({}, queryState);
@@ -556,40 +555,80 @@ export const querySlice = createSlice({
         };
       },
     },
-    prevPage(state) {
-      // don't let them go lower than 1
-      const page = clamp(state.page - 1, 1, state.page);
-      const pagination = getPagination(page, state);
-      return {
-        ...state,
-        ...pagination,
-      };
+    prevPageShown: {
+      reducer: (state) => {
+        // don't let them go lower than 1
+        const page = clamp(state.page - 1, 1, state.page);
+        const pagination = getPagination(page, state);
+        return {
+          ...state,
+          ...pagination,
+        };
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_HITS_ONLY,
+          },
+        };
+      },
     },
-    nextPage(state) {
-      // don't let them go past the total num of pages
-      const page = clamp(state.page + 1, 1, state.totalPages);
-      const pagination = getPagination(page, state);
-      return {
-        ...state,
-        ...pagination,
-      };
+    nextPageShown: {
+      reducer: (state) => {
+        // don't let them go past the total num of pages
+        const page = clamp(state.page + 1, 1, state.totalPages);
+        const pagination = getPagination(page, state);
+        return {
+          ...state,
+          ...pagination,
+        };
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_HITS_ONLY,
+          },
+        };
+      },
     },
-    changeSize(state, action) {
-      const pagination = getPagination(1, state);
-      return {
-        ...state,
-        ...pagination,
-        size: action.size,
-      };
+    changeSize: {
+      reducer: (state, action) => {
+        const pagination = getPagination(1, state);
+        return {
+          ...state,
+          ...pagination,
+          size: action.payload.size,
+        };
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_HITS_ONLY,
+          },
+        };
+      },
     },
-    changeSort(state, action) {
-      const pagination = getPagination(1, state);
-      const sort = enforceValues(action.sort, 'sort');
-      return {
-        ...state,
-        ...pagination,
-        sort,
-      };
+    changeSort: {
+      reducer: (state, action) => {
+        const pagination = getPagination(1, state);
+        const sort = enforceValues(action.payload.sort, 'sort');
+        return {
+          ...state,
+          ...pagination,
+          sort,
+        };
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_HITS_ONLY,
+          },
+        };
+      },
     },
     changeTab: {
       reducer: (state, action) => {
@@ -1098,8 +1137,8 @@ export const {
   removeMultipleFilters,
   dismissMapWarning,
   dismissTrendsDateWarning,
-  prevPage,
-  nextPage,
+  prevPageShown,
+  nextPageShown,
   changeSize,
   changeSort,
   changeTab,

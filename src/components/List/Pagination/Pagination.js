@@ -1,4 +1,4 @@
-import { nextPageShown, prevPageShown } from '../../../actions/paging';
+import { nextPageShown, prevPageShown } from '../../../reducers/query/query';
 import { useDispatch, useSelector } from 'react-redux';
 import iconMap from '../../iconMap';
 import React from 'react';

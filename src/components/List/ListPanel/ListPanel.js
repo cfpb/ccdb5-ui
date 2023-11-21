@@ -1,6 +1,6 @@
 import './ListPanel.less';
 import '../../RefineBar/RefineBar.less';
-import { changeSize, changeSort } from '../../../actions/paging';
+import { changeSize, changeSort } from '../../../reducers/query/query';
 import { sizes, sorts } from '../../../constants';
 import { ActionBar } from '../../ActionBar/ActionBar';
 import { ComplaintCard } from '../ComplaintCard/ComplaintCard';
