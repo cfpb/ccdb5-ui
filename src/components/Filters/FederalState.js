@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { normalize } from '../../utils';
-import { addMultipleFilters } from '../../actions/filter';
+import { addMultipleFilters } from '../../reducers/query/query';
 import CollapsibleFilter from './CollapsibleFilter';
 import { THESE_UNITED_STATES } from '../../constants';
 import { Typeahead } from '../Typeahead/Typeahead/Typeahead';

@@ -1,5 +1,8 @@
 import './TileChartMap.less';
-import { addStateFilter, removeStateFilter } from '../../../actions/map';
+import {
+  addStateFilter,
+  removeStateFilter,
+} from '../../../reducers/query/query';
 import { coalesce, sendAnalyticsEvent } from '../../../utils';
 import { GEO_NORM_NONE, STATE_DATA } from '../../../constants';
 import { useDispatch, useSelector } from 'react-redux';

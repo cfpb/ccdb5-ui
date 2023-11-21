@@ -317,38 +317,78 @@ export const querySlice = createSlice({
         };
       },
     },
-    addStateFilter(state, action) {
-      const stateFilters = coalesce(state, 'state', []);
-      const { abbr } = action.selectedState;
-      if (!stateFilters.includes(abbr)) {
-        stateFilters.push(abbr);
-      }
+    addStateFilter: {
+      reducer: (state, action) => {
+        const stateFilters = coalesce(state, 'state', []);
+        const { abbr } = action.payload.selectedState;
+        if (!stateFilters.includes(abbr)) {
+          stateFilters.push(abbr);
+        }
 
-      return {
-        ...state,
-        state: stateFilters,
-      };
+        return {
+          ...state,
+          state: stateFilters,
+        };
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
     },
-    clearStateFilter(state) {
-      return {
-        ...state,
-        state: [],
-      };
+    clearStateFilter: {
+      reducer: (state) => {
+        return {
+          ...state,
+          state: [],
+        };
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
     },
-    showStateComplaints(state) {
-      return {
-        ...state,
-        tab: types.MODE_LIST,
-      };
+    showStateComplaints: {
+      reducer: (state) => {
+        return {
+          ...state,
+          tab: types.MODE_LIST,
+        };
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
     },
-    removeStateFilter(state, action) {
-      const stateFilters = coalesce(state, 'state', []);
-      const { abbr } = action.selectedState;
+    removeStateFilter: {
+      reducer: (state, action) => {
+        const stateFilters = coalesce(state, 'state', []);
+        const { abbr } = action.payload.selectedState;
 
-      return {
-        ...state,
-        state: stateFilters.filter((o) => o !== abbr),
-      };
+        return {
+          ...state,
+          state: stateFilters.filter((o) => o !== abbr),
+        };
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
     },
     removeAllFilters: {
       reducer: (state) => {
@@ -646,15 +686,25 @@ export const querySlice = createSlice({
         chartType: action.chartType,
       };
     },
-    updateDataNormalization(state, action) {
-      const dataNormalization = enforceValues(
-        action.value,
-        'dataNormalization'
-      );
-      return {
-        ...state,
-        dataNormalization,
-      };
+    updateDataNormalization: {
+      reducer: (state, action) => {
+        const dataNormalization = enforceValues(
+          action.payload,
+          'dataNormalization'
+        );
+        return {
+          ...state,
+          dataNormalization,
+        };
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_NEVER,
+          },
+        };
+      },
     },
   },
 });

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addMultipleFilters } from '../../actions/filter';
 import CollapsibleFilter from './CollapsibleFilter';
-import { stateToQS } from '../../reducers/query/query';
+import { stateToQS, addMultipleFilters } from '../../reducers/query/query';
 import { API_PLACEHOLDER } from '../../constants';
 import { selectQueryState } from '../../reducers/query/selectors';
 import { AsyncTypeahead } from '../Typeahead/AsyncTypeahead/AsyncTypeahead';

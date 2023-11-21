@@ -1,9 +1,8 @@
 import { sanitizeHtmlId } from '../../utils';
-import { addMultipleFilters } from '../../actions/filter';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { stateToQS } from '../../reducers/query/query';
+import { stateToQS, addMultipleFilters } from '../../reducers/query/query';
 import { API_PLACEHOLDER } from '../../constants';
 import {
   selectQueryFocus,

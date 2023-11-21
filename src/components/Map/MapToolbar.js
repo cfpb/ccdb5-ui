@@ -1,5 +1,8 @@
 import './MapToolbar.less';
-import { clearStateFilter, showStateComplaints } from '../../actions/map';
+import {
+  clearStateFilter,
+  showStateComplaints,
+} from '../../reducers/query/query';
 import { useDispatch, useSelector } from 'react-redux';
 import iconMap from '../iconMap';
 import React from 'react';
