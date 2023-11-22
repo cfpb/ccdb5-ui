@@ -13,7 +13,7 @@ import { isDateEqual } from '../../utils/formatDate';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { stackedArea } from 'britecharts';
-import { updateTrendsTooltip } from '../../actions/trends';
+import { updateTooltip } from '../../reducers/trends/trends';
 
 export class StackedAreaChart extends React.Component {
   constructor(props) {
@@ -117,7 +117,7 @@ export const mapDispatchToProps = (dispatch) => ({
     //   Analytics.getDataLayerOptions( 'Trend Event: add',
     //     selectedState.abbr, )
     // )
-    dispatch(updateTrendsTooltip(selectedState));
+    dispatch(updateTooltip(selectedState));
   },
 });
 

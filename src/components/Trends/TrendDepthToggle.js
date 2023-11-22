@@ -1,6 +1,6 @@
 /* eslint complexity: ["error", 5] */
 import './TrendDepthToggle.less';
-import { changeDepth, resetDepth } from '../../actions/trends';
+import { changeDepth, resetDepth } from '../../reducers/query/query';
 import { clamp, coalesce } from '../../utils';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';

@@ -5,7 +5,7 @@ import './TrendsPanel.less';
 import { getIntervals, showCompanyOverLay } from '../../utils/trends';
 import { sendAnalyticsEvent, shortFormat } from '../../utils';
 import { ActionBar } from '../ActionBar/ActionBar';
-import { changeDataLens } from '../../actions/trends';
+import { updateDataLens } from '../../reducers/trends/trends';
 import { changeDateInterval } from '../../reducers/query/query';
 import { ChartToggles } from '../RefineBar/ChartToggles';
 import { CompanyTypeahead } from '../Filters/CompanyTypeahead';
@@ -329,7 +329,7 @@ export const mapDispatchToProps = (dispatch) => ({
   onLens: (ev) => {
     const { value } = ev.target;
     sendAnalyticsEvent('Dropdown', 'Trends:' + value);
-    dispatch(changeDataLens(value));
+    dispatch(updateDataLens(value));
   },
 });
 

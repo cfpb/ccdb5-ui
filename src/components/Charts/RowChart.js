@@ -11,7 +11,7 @@ import {
 } from '../../utils';
 import { collapseRow, expandRow } from '../../reducers/view/view';
 import { miniTooltip, row } from 'britecharts';
-import { changeFocus } from '../../actions/trends';
+import { changeFocus } from '../../reducers/trends/trends';
 import { connect } from 'react-redux';
 import { max } from 'd3-array';
 import { MODE_MAP } from '../../constants';

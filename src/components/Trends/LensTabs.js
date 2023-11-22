@@ -1,5 +1,5 @@
 import './LensTabs.less';
-import { changeDataSubLens } from '../../actions/trends';
+import { updateDataSubLens } from '../../reducers/trends/trends';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -92,7 +92,7 @@ export const mapDispatchToProps = (dispatch) => ({
     };
 
     sendAnalyticsEvent('Button', lens + ':' + labelMap[tab]);
-    dispatch(changeDataSubLens(tab.toLowerCase()));
+    dispatch(updateDataSubLens(tab.toLowerCase()));
   },
 });
 

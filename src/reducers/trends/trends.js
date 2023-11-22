@@ -16,7 +16,7 @@ import {
   updateDateBuckets,
 } from '../../utils/chart';
 import { isDateEqual } from '../../utils/formatDate';
-import { MODE_TRENDS } from '../../constants';
+import { MODE_TRENDS, REQUERY_ALWAYS, REQUERY_NEVER } from '../../constants';
 import { pruneOther } from '../../utils/trends';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -137,46 +137,96 @@ export const trendsSlice = createSlice({
         error: processErrorMessage(action.error),
       };
     },
-    updateChartType(state, action) {
-      return {
-        ...state,
-        chartType: action.chartType,
-        tooltip: false,
-      };
+    updateChartType: {
+      reducer: (state, action) => {
+        return {
+          ...state,
+          chartType: action.payload.chartType,
+          tooltip: false,
+        };
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_NEVER,
+          },
+        };
+      },
     },
-    updateDataLens(state, action) {
-      const lens = enforceValues(action.lens, 'lens');
+    updateDataLens: {
+      reducer: (state, action) => {
+        const lens = enforceValues(action.payload.lens, 'lens');
 
-      return {
-        ...state,
-        focus: '',
-        lens,
-        results: emptyResults(),
-        tooltip: false,
-      };
+        return {
+          ...state,
+          focus: '',
+          lens,
+          results: emptyResults(),
+          tooltip: false,
+        };
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
     },
-    updateDataSubLens(state, action) {
-      return {
-        ...state,
-        subLens: action.subLens,
-      };
+    updateDataSubLens: {
+      reducer: (state, action) => {
+        return {
+          ...state,
+          subLens: action.payload.subLens,
+        };
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
     },
-    changeFocus(state, action) {
-      const { focus, lens } = action;
-      return {
-        ...state,
-        focus,
-        lens,
-        tooltip: false,
-      };
+    changeFocus: {
+      reducer: (state, action) => {
+        const { focus, lens } = action;
+        return {
+          ...state,
+          focus,
+          lens,
+          tooltip: false,
+        };
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
     },
-    removeFocus(state) {
-      return {
-        ...state,
-        focus: '',
-        results: emptyResults(),
-        tooltip: false,
-      };
+    removeFocus: {
+      reducer: (state) => {
+        return {
+          ...state,
+          focus: '',
+          results: emptyResults(),
+          tooltip: false,
+        };
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
     },
     processParams(state, action) {
       const params = action.params;
@@ -192,41 +242,52 @@ export const trendsSlice = createSlice({
 
       return processed;
     },
-    updateTooltip(state, action) {
-      const tooltip = action.value || false;
+    updateTooltip: {
+      reducer: (state, action) => {
+        const tooltip = action.value || false;
 
-      // need to merge in the actual viewed state
-      if (tooltip) {
-        tooltip.title = getTooltipTitle(
-          tooltip.date,
-          tooltip.interval,
-          tooltip.dateRange,
-          true
-        );
-
-        /* istanbul ignore else */
-        if (tooltip.values) {
-          tooltip.values.forEach((o) => {
-            o.colorIndex =
-              Object.values(colors.DataLens).indexOf(state.colorMap[o.name]) ||
-              0;
-            // make sure all values have a value
-            o.value = coalesce(o, 'value', 0);
-          });
-
-          let total = 0;
-          total = tooltip.values.reduce(
-            (accumulator, currentValue) => accumulator + currentValue.value,
-            total
+        // need to merge in the actual viewed state
+        if (tooltip) {
+          tooltip.title = getTooltipTitle(
+            tooltip.date,
+            tooltip.interval,
+            tooltip.dateRange,
+            true
           );
-          tooltip.total = total;
-        }
-      }
 
-      return {
-        ...state,
-        tooltip,
-      };
+          /* istanbul ignore else */
+          if (tooltip.values) {
+            tooltip.values.forEach((o) => {
+              o.colorIndex =
+                Object.values(colors.DataLens).indexOf(
+                  state.colorMap[o.name]
+                ) || 0;
+              // make sure all values have a value
+              o.value = coalesce(o, 'value', 0);
+            });
+
+            let total = 0;
+            total = tooltip.values.reduce(
+              (accumulator, currentValue) => accumulator + currentValue.value,
+              total
+            );
+            tooltip.total = total;
+          }
+        }
+
+        return {
+          ...state,
+          tooltip,
+        };
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_NEVER,
+          },
+        };
+      },
     },
     removeAllFilters(state) {
       return {

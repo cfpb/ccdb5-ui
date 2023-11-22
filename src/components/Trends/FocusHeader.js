@@ -4,7 +4,7 @@ import iconMap from '../iconMap';
 import LensTabs from './LensTabs';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { removeFocus } from '../../actions/trends';
+import { removeFocus } from '../../reducers/trends/trends';
 
 export class FocusHeader extends React.Component {
   render() {

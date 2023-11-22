@@ -15,7 +15,7 @@ import { hashObject } from '../../utils';
 import { isDateEqual } from '../../utils/formatDate';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { updateTrendsTooltip } from '../../actions/trends';
+import { updateTooltip } from '../../reducers/trends/trends';
 
 export class LineChart extends React.Component {
   tip = null;
@@ -145,7 +145,7 @@ export const mapDispatchToProps = (dispatch) => ({
     //   Analytics.getDataLayerOptions( 'Trend Event: add',
     //     selectedState.abbr, )
     // )
-    dispatch(updateTrendsTooltip(tipEvent));
+    dispatch(updateTooltip(tipEvent));
   },
 });
 

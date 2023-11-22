@@ -658,17 +658,31 @@ export const querySlice = createSlice({
         totalPages: Object.keys(breakPoints).length + 1,
       };
     },
-    changeDepth(state, action) {
-      return {
-        ...state,
-        trendDepth: action.depth,
-      };
+    changeDepth: {
+      reducer: (state, action) => {
+        state.trendDepth = action.payload.depth;
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
     },
-    resetDepth(state) {
-      return {
-        ...state,
-        trendDepth: 5,
-      };
+    resetDepth: {
+      reducer: (state) => {
+        state.trendDepth = 5;
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
     },
     changeFocus(state, action) {
       const { focus, filterValues, lens } = action;
@@ -745,6 +759,60 @@ export const querySlice = createSlice({
         };
       },
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase('trends/updateChartType', (state, action) => {
+        state.chartType = action.payload.chartType;
+      })
+      .addCase('trends/updateDataLens', (state, action) => {
+        const lens = enforceValues(action.payload.lens, 'lens');
+        return {
+          ...state,
+          focus: '',
+          lens,
+          trendDepth: lens === 'Company' ? 10 : 5,
+        };
+      })
+      .addCase('trends/updateDataSubLens', (state, action) => {
+        return {
+          ...state,
+          subLens: action.subLens.toLowerCase(),
+        };
+      })
+      .addCase('trends/changeFocus', (state, action) => {
+        const { focus, filterValues, lens } = action.payload;
+        const filterKey = lens.toLowerCase();
+        const activeFilters = [];
+
+        if (filterKey === 'company') {
+          activeFilters.push(focus);
+        } else {
+          filterValues.forEach((o) => {
+            activeFilters.push(o);
+          });
+        }
+
+        return {
+          ...state,
+          [filterKey]: activeFilters,
+          focus,
+          lens,
+          tab: types.MODE_TRENDS,
+          trendDepth: 25,
+        };
+      })
+      .addCase('trends/removeFocus', (state) => {
+        const { lens } = state;
+        const filterKey = lens.toLowerCase();
+        return {
+          ...state,
+          [filterKey]: [],
+          focus: '',
+          tab: types.MODE_TRENDS,
+          trendDepth: 5,
+        };
+      });
   },
 });
 
