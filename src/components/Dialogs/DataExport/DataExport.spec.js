@@ -7,9 +7,9 @@ import {
   fireEvent,
 } from '../../../testUtils/test-utils';
 import { merge } from '../../../testUtils/functionHelpers';
-import { defaultAggs } from '../../../reducers/aggs/aggs';
-import { defaultQuery } from '../../../reducers/query/query';
-import * as viewActions from '../../../actions/view';
+import { aggState } from '../../../reducers/aggs/aggs';
+import { queryState } from '../../../reducers/query/query';
+import * as viewActions from '../../../reducers/view/view';
 import { MODAL_TYPE_EXPORT_CONFIRMATION } from '../../../constants';
 import { waitFor } from '@testing-library/react';
 
@@ -22,8 +22,8 @@ describe('DataExport', () => {
     };
     global.navigator.clipboard = mockClipboard;
 
-    merge(newAggsState, defaultAggs);
-    merge(newQueryState, defaultQuery);
+    merge(newAggsState, aggState);
+    merge(newQueryState, queryState);
     const data = {
       aggs: newAggsState,
       query: newQueryState,
@@ -37,8 +37,8 @@ describe('DataExport', () => {
   });
 
   it('renders default state without crashing', async () => {
-    const hideModalSpy = jest
-      .spyOn(viewActions, 'hideModal')
+    const modalHiddenSpy = jest
+      .spyOn(viewActions, 'modalHidden')
       .mockImplementation(() => jest.fn());
     renderComponent({}, {});
     expect(screen.getByText('Export complaints')).toBeInTheDocument();
@@ -67,23 +67,23 @@ describe('DataExport', () => {
 
     expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Close' }));
-    expect(hideModalSpy).toHaveBeenCalled();
+    expect(modalHiddenSpy).toHaveBeenCalled();
   });
 
   it('closes the modal by clicking cancel', async () => {
-    const hideModalSpy = jest
-      .spyOn(viewActions, 'hideModal')
+    const modalHiddenSpy = jest
+      .spyOn(viewActions, 'modalHidden')
       .mockImplementation(() => jest.fn());
     renderComponent({}, {});
     expect(screen.getByText('Export complaints')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
-    expect(hideModalSpy).toHaveBeenCalled();
+    expect(modalHiddenSpy).toHaveBeenCalled();
   });
 
   it('exports All complaints', async () => {
-    const showModalSpy = jest
-      .spyOn(viewActions, 'showModal')
+    const modalShownSpy = jest
+      .spyOn(viewActions, 'modalShown')
       .mockImplementation(() => jest.fn());
     const sendAnalyticsSpy = jest
       .spyOn(utils, 'sendAnalyticsEvent')
@@ -101,12 +101,12 @@ describe('DataExport', () => {
       'Export All Data',
       'Trends:csv'
     );
-    expect(showModalSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
+    expect(modalShownSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
   });
 
   it('exports All complaints as json', async () => {
-    const showModalSpy = jest
-      .spyOn(viewActions, 'showModal')
+    const modalShownSpy = jest
+      .spyOn(viewActions, 'modalShown')
       .mockImplementation(() => jest.fn());
     const sendAnalyticsSpy = jest
       .spyOn(utils, 'sendAnalyticsEvent')
@@ -142,12 +142,12 @@ describe('DataExport', () => {
       'Export All Data',
       'Trends:json'
     );
-    expect(showModalSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
+    expect(modalShownSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
   });
 
   it('exports some complaints', async () => {
-    const showModalSpy = jest
-      .spyOn(viewActions, 'showModal')
+    const modalShownSpy = jest
+      .spyOn(viewActions, 'modalShown')
       .mockImplementation(() => jest.fn());
     const sendAnalyticsSpy = jest
       .spyOn(utils, 'sendAnalyticsEvent')
@@ -189,7 +189,7 @@ describe('DataExport', () => {
       'Export Some Data',
       'Trends:csv'
     );
-    expect(showModalSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
+    expect(modalShownSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
   });
 
   it('switches csv/json data formats', async () => {
