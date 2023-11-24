@@ -1,5 +1,4 @@
-
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 export const detailState = {
   activeCall: '',
@@ -11,28 +10,31 @@ export const detailSlice = createSlice({
   name: 'detail',
   initialState: detailState,
   reducers: {
-    complaintDetailCalled(state, action){
+    complaintDetailCalled(state, action) {
       return {
         ...state,
-        activeCall: action.url
-      }
+        activeCall: action.payload.url,
+      };
     },
-    complaintDetailReceived(state, action){
+    complaintDetailReceived(state, action) {
       return {
         ...state,
-        data: action.data.hits.hits[0]._source
-      }
+        data: action.payload.data.hits.hits[0]._source,
+      };
     },
-    complaintDetailFailed(state, action){
+    complaintDetailFailed(state, action) {
       return {
         ...state,
-        error: action.error
-      }
-    }
-  }
-})
+        error: action.payload.error,
+      };
+    },
+  },
+});
 
-export const { complaintDetailCalled, complaintDetailReceived, complaintDetailFailed } = detailSlice.actions;
+export const {
+  complaintDetailCalled,
+  complaintDetailReceived,
+  complaintDetailFailed,
+} = detailSlice.actions;
 
 export default detailSlice.reducer;
-

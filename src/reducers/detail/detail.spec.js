@@ -1,18 +1,30 @@
-import * as sut from '../../actions/complaints';
-import target from './detail';
-
+import detail, {
+  complaintDetailCalled,
+  complaintDetailFailed,
+  complaintDetailReceived,
+  detailState,
+} from '../../reducers/detail/detail';
 describe('reducer::detail', () => {
   it('has a default state', () => {
-    expect(target(undefined, {})).toEqual({
+    expect(detail(undefined, {})).toEqual({
       activeCall: '',
       data: {},
       error: '',
     });
   });
 
-  it('handles COMPLAINT_DETAIL_RECEIVED actions', () => {
+  it('handles complaintDetailCalled actions', () => {
     const action = {
-      type: sut.COMPLAINT_DETAIL_RECEIVED,
+      url: 'http://someurl.com',
+    };
+    expect(detail(detailState, complaintDetailCalled(action))).toEqual({
+      ...detailState,
+      activeCall: action.url,
+    });
+  });
+
+  it('handles complaintDetailReceived actions', () => {
+    const action = {
       data: {
         hits: {
           hits: [{ _source: '123' }],
@@ -20,19 +32,18 @@ describe('reducer::detail', () => {
         },
       },
     };
-    expect(target({}, action)).toEqual({
+    expect(detail(detailState, complaintDetailReceived(action))).toEqual({
       activeCall: '',
       data: '123',
       error: '',
     });
   });
 
-  it('handles COMPLAINT_DETAIL_FAILED actions', () => {
+  it('handles complaintDetailFailed actions', () => {
     const action = {
-      type: sut.COMPLAINT_DETAIL_FAILED,
       error: 'foo bar',
     };
-    expect(target({}, action)).toEqual({
+    expect(detail(detailState, complaintDetailFailed(action))).toEqual({
       activeCall: '',
       data: {},
       error: 'foo bar',
