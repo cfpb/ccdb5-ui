@@ -6,12 +6,12 @@ import {
 } from '../../../testUtils/test-utils';
 import { ListPanel } from './ListPanel';
 import { merge } from '../../../testUtils/functionHelpers';
-import { defaultAggs } from '../../../reducers/aggs/aggs';
-import { defaultQuery } from '../../../reducers/query/query';
-import { defaultResults } from '../../../reducers/results/results';
-import { defaultView } from '../../../reducers/view/view';
+import { aggState } from '../../../reducers/aggs/aggs';
+import { queryState } from '../../../reducers/query/query';
+import { resultsState } from '../../../reducers/results/results';
+import { viewState } from '../../../reducers/view/view';
 import * as utils from '../../../utils';
-import * as pagingActions from '../../../actions/paging';
+import * as pagingActions from '../../../reducers/query/query';
 
 describe('ListPanel', () => {
   const renderComponent = (
@@ -20,10 +20,10 @@ describe('ListPanel', () => {
     newResultsState,
     newViewState
   ) => {
-    merge(newAggsState, defaultAggs);
-    merge(newQueryState, defaultQuery);
-    merge(newResultsState, defaultResults);
-    merge(newViewState, defaultView);
+    merge(newAggsState, aggState);
+    merge(newQueryState, queryState);
+    merge(newResultsState, resultsState);
+    merge(newViewState, viewState);
     const data = {
       aggs: newAggsState,
       query: newQueryState,
@@ -71,7 +71,7 @@ describe('ListPanel', () => {
       items: [],
     };
 
-    renderComponent(newAggsState, defaultQuery, newResultsState, defaultView);
+    renderComponent(newAggsState, queryState, newResultsState, viewState);
 
     expect(
       screen.getByRole('heading', {
@@ -85,7 +85,7 @@ describe('ListPanel', () => {
       error: { message: 'error message', name: 'messageTypeName' },
     };
 
-    renderComponent(newAggsState, defaultQuery, defaultResults, defaultView);
+    renderComponent(newAggsState, queryState, resultsState, viewState);
 
     expect(
       screen.getByText(/There was a problem executing your search/)
@@ -98,7 +98,7 @@ describe('ListPanel', () => {
     };
     const newResultsState = { items: [itemFixture] };
 
-    renderComponent(newAggsState, defaultQuery, newResultsState, defaultView);
+    renderComponent(newAggsState, queryState, newResultsState, viewState);
 
     expect(screen.getByText('JP Morgan')).toBeDefined();
     expect(screen.getByText('11/16/2022')).toBeDefined();
@@ -117,7 +117,7 @@ describe('ListPanel', () => {
     };
     const newResultsState = { items: [itemFixture] };
 
-    renderComponent(newAggsState, newQueryState, newResultsState, defaultView);
+    renderComponent(newAggsState, newQueryState, newResultsState, viewState);
     fireEvent.change(
       screen.getByRole('combobox', {
         name: 'Select the number of results to display at a time',
@@ -142,7 +142,7 @@ describe('ListPanel', () => {
     };
     const newResultsState = { items: [itemFixture] };
 
-    renderComponent(newAggsState, newQueryState, newResultsState, defaultView);
+    renderComponent(newAggsState, newQueryState, newResultsState, viewState);
     fireEvent.change(
       screen.getByRole('combobox', {
         name: 'Choose the order in which the results are displayed',
@@ -157,7 +157,7 @@ describe('ListPanel', () => {
   test('FilterPanel showed when width is 500', () => {
     const newViewState = { width: 500 };
 
-    renderComponent(defaultAggs, defaultQuery, defaultResults, newViewState);
+    renderComponent(aggState, queryState, resultsState, newViewState);
 
     expect(screen.getByText('Filter results by...')).toBeDefined();
   });
@@ -165,7 +165,7 @@ describe('ListPanel', () => {
   test('FilterPanel not showed when width is 1000', () => {
     const newViewState = { width: 1000 };
 
-    renderComponent(defaultAggs, defaultQuery, defaultResults, newViewState);
+    renderComponent(aggState, queryState, resultsState, newViewState);
 
     expect(screen.queryByText('Filter results by...')).toBeNull();
   });
