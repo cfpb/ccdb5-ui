@@ -3,7 +3,10 @@ import {
   hideAdvancedSearchTips,
   showAdvancedSearchTips,
 } from '../../reducers/view/view';
-import { searchFieldChanged, searchTextChanged } from '../../actions/search';
+import {
+  changeSearchField,
+  changeSearchText,
+} from '../../reducers/query/query';
 import { AdvancedTips } from './AdvancedTips/AdvancedTips';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -50,11 +53,11 @@ export const SearchBar = ({ debounceWait }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(searchTextChanged(inputValue));
+    dispatch(changeSearchText(inputValue));
   };
 
   const onSelectSearchField = (event) => {
-    dispatch(searchFieldChanged(event.target.value));
+    dispatch(changeSearchField(event.target.value));
   };
 
   const onAdvancedClicked = (event) => {
@@ -69,16 +72,16 @@ export const SearchBar = ({ debounceWait }) => {
   };
 
   const onSelection = (value) => {
-    dispatch(searchTextChanged(value[0].key));
+    dispatch(changeSearchText(value[0].key));
   };
 
   const onTypeaheadClear = () => {
-    dispatch(searchTextChanged(''));
+    dispatch(changeSearchText(''));
   };
 
   const onClearInput = () => {
     if (shouldCallClear) {
-      dispatch(searchTextChanged(''));
+      dispatch(changeSearchText(''));
       setInputValue('');
     }
     setShouldCallClear(true);
@@ -87,7 +90,7 @@ export const SearchBar = ({ debounceWait }) => {
   const onPressEnter = (event) => {
     if (event.key === 'Enter') {
       setShouldCallClear(false);
-      dispatch(searchTextChanged(event.target.value));
+      dispatch(changeSearchText(event.target.value));
     }
   };
 

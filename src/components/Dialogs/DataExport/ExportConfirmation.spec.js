@@ -4,7 +4,7 @@ import {
   screen,
   fireEvent,
 } from '../../../testUtils/test-utils';
-import * as viewActions from '../../../actions/view';
+import * as viewActions from '../../../reducers/view/view';
 import { ExportConfirmation } from './ExportConfirmation';
 
 describe('ExportConfirmation', () => {
@@ -14,7 +14,7 @@ describe('ExportConfirmation', () => {
 
   it('renders default state without crashing', async () => {
     const hideModalSpy = jest
-      .spyOn(viewActions, 'hideModal')
+      .spyOn(viewActions, 'modalHidden')
       .mockImplementation(() => jest.fn());
     renderComponent();
     expect(screen.getByText('Export complaints')).toBeInTheDocument();

@@ -255,21 +255,41 @@ export const querySlice = createSlice({
         };
       },
     },
-    changeSearchField(state, action) {
-      const pagination = getPagination(1, state);
-      return {
-        ...state,
-        ...pagination,
-        searchField: action.searchField,
-      };
+    changeSearchField: {
+      reducer: (state, action) => {
+        const pagination = getPagination(1, state);
+        return {
+          ...state,
+          ...pagination,
+          searchField: action.payload.searchField,
+        };
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
     },
-    changeSearchText(state, action) {
-      const pagination = getPagination(1, state);
-      return {
-        ...state,
-        ...pagination,
-        searchText: action.searchText,
-      };
+    changeSearchText: {
+      reducer: (state, action) => {
+        const pagination = getPagination(1, state);
+        return {
+          ...state,
+          ...pagination,
+          searchText: action.payload.searchText,
+        };
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
     },
     addMultipleFilters: {
       reducer: (state, action) => {
