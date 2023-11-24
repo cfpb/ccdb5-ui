@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 export const resultsState = {
   activeCall: '',
@@ -16,12 +16,12 @@ export const resultsSlice = createSlice({
     hitsCallInProcess(state, action) {
       return {
         ...state,
-        activeCall: action.url,
+        activeCall: action.payload.url,
         isLoading: true,
       };
     },
     processHitsResults(state, action) {
-      const items = _processHits(action.data);
+      const items = _processHits(action.payload.data);
 
       return {
         ...state,
@@ -34,11 +34,11 @@ export const resultsSlice = createSlice({
     processHitsError(state, action) {
       return {
         ...resultsState,
-        error: action.error,
+        error: action.payload.error,
       };
-    }
-  }
-})
+    },
+  },
+});
 
 export const _processHits = (data) =>
   data.hits.hits.map((x) => {
@@ -53,5 +53,6 @@ export const _processHits = (data) =>
     return item;
   });
 
-export const { hitsCallInProcess, processHitsResults, processHitsError } = resultsSlice.actions;
+export const { hitsCallInProcess, processHitsResults, processHitsError } =
+  resultsSlice.actions;
 export default resultsSlice.reducer;

@@ -1,5 +1,9 @@
-import target from './results';
-import * as sut from '../../actions/complaints';
+import target, {
+  hitsCallInProcess,
+  processHitsError,
+  processHitsResults,
+  resultsState,
+} from './results';
 
 describe('reducer:results', () => {
   it('has a default state', () => {
@@ -14,10 +18,10 @@ describe('reducer:results', () => {
   describe('Complaints', () => {
     describe('handles COMPLAINTS_API_CALLED actions', () => {
       const action = {
-        type: sut.COMPLAINTS_API_CALLED,
         url: 'http://www.example.org',
       };
-      expect(target({}, action)).toEqual({
+      expect(target(resultsState, hitsCallInProcess(action))).toEqual({
+        ...resultsState,
         activeCall: 'http://www.example.org',
         isLoading: true,
       });
@@ -28,7 +32,6 @@ describe('reducer:results', () => {
 
       beforeEach(() => {
         action = {
-          type: sut.COMPLAINTS_RECEIVED,
           data: {
             hits: {
               hits: [{ _source: { a: '123' } }, { _source: { a: '456' } }],
@@ -45,7 +48,9 @@ describe('reducer:results', () => {
       });
 
       it('extracts the important data from inside the returned data', () => {
-        expect(target({ error: 'foo' }, action)).toEqual({
+        expect(
+          target({ ...resultsState, error: 'foo' }, processHitsResults(action))
+        ).toEqual({
           activeCall: '',
           error: '',
           isLoading: false,
@@ -56,7 +61,9 @@ describe('reducer:results', () => {
       it('replaces text with highlighted text if it exists', () => {
         action.data.hits.hits[0].highlight = { a: ['<em>123</em>'] };
 
-        expect(target({ error: 'foo' }, action)).toEqual({
+        expect(
+          target({ ...resultsState, error: 'foo' }, processHitsResults(action))
+        ).toEqual({
           activeCall: '',
           error: '',
           isLoading: false,
@@ -67,16 +74,10 @@ describe('reducer:results', () => {
 
     it('handles COMPLAINTS_FAILED actions', () => {
       const action = {
-        type: sut.COMPLAINTS_FAILED,
         error: 'foo bar',
       };
       expect(
-        target(
-          {
-            items: [1, 2, 3],
-          },
-          action
-        )
+        target({ ...resultsState, items: [1, 2, 3] }, processHitsError(action))
       ).toEqual({
         activeCall: '',
         error: 'foo bar',
