@@ -54,13 +54,13 @@ export const mapSlice = createSlice({
     statesCallInProcess(state, action) {
       return {
         ...state,
-        activeCall: action.url,
+        activeCall: action.payload.url,
         error: false,
         isLoading: true,
       };
     },
     processStatesResults(state, action) {
-      const aggregations = action.data.aggregations;
+      const aggregations = action.payload.data.aggregations;
       const { state: stateData } = aggregations;
       // add in "issue" if we ever need issue row chart again
       const keys = ['product'];
@@ -80,7 +80,7 @@ export const mapSlice = createSlice({
       return {
         ...state,
         activeCall: '',
-        error: processErrorMessage(action.error),
+        error: processErrorMessage(action.payload.error),
         isLoading: false,
         results: {
           product: [],
@@ -93,7 +93,7 @@ export const mapSlice = createSlice({
 
 export const {
   handleTabChanged,
-  statesCallInProgress,
+  statesCallInProcess,
   processStatesResults,
   processStatesError,
 } = mapSlice.actions;

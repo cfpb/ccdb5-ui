@@ -1,8 +1,5 @@
 import * as analytics from './analytics';
 import * as complaints from './complaints';
-import * as paging from './paging';
-import * as search from './search';
-import * as trends from './trends';
 import * as url from './url';
 
 /**
@@ -13,9 +10,6 @@ function combineActions() {
   return {
     ...analytics,
     ...complaints,
-    ...paging,
-    ...search,
-    ...trends,
     ...url,
   };
 }

@@ -1,5 +1,11 @@
-import target, { processStateAggregations } from './map';
-import actions from '../../actions';
+import target, {
+  processStatesResults,
+  mapState,
+  processStatesError,
+  statesCallInProcess,
+  handleTabChanged,
+  processStateAggregations,
+} from './map';
 import stateAggs from '../__fixtures__/stateAggs';
 
 describe('reducer:map', () => {
@@ -21,10 +27,10 @@ describe('reducer:map', () => {
 
   describe('handles STATES_API_CALLED actions', () => {
     action = {
-      type: actions.STATES_API_CALLED,
       url: 'http://www.example.org',
     };
-    expect(target({}, action)).toEqual({
+    expect(target(mapState, statesCallInProcess(action))).toEqual({
+      ...mapState,
       activeCall: 'http://www.example.org',
       error: false,
       isLoading: true,
@@ -34,7 +40,6 @@ describe('reducer:map', () => {
   describe('STATES_RECEIVED actions', () => {
     beforeEach(() => {
       action = {
-        type: actions.STATES_RECEIVED,
         data: {
           aggregations: stateAggs,
         },
@@ -42,8 +47,9 @@ describe('reducer:map', () => {
     });
 
     it('maps data to object state', () => {
-      const result = target({}, action);
+      const result = target(mapState, processStatesResults(action));
       expect(result).toEqual({
+        ...mapState,
         activeCall: '',
         error: false,
         isLoading: false,
@@ -156,7 +162,6 @@ describe('reducer:map', () => {
   describe('STATES_FAILED actions', () => {
     it('handles failed error messages', () => {
       action = {
-        type: actions.STATES_FAILED,
         error: { message: 'foo bar', name: 'ErrorTypeName', stack: 'trace' },
       };
 
@@ -169,9 +174,10 @@ describe('reducer:map', () => {
               state: [1, 2, 3],
             },
           },
-          action
+          processStatesError(action)
         )
       ).toEqual({
+        ...mapState,
         activeCall: '',
         error: { message: 'foo bar', name: 'ErrorTypeName', stack: 'trace' },
         isLoading: false,
@@ -185,19 +191,16 @@ describe('reducer:map', () => {
 
   describe('TAB_CHANGED action', () => {
     it('clears results and resets values', () => {
-      action = {
-        type: actions.TAB_CHANGED,
-        tab: 'Foo',
-      };
-
       expect(
         target(
           {
+            ...mapState,
             results: [1, 2, 3],
           },
-          action
+          handleTabChanged()
         )
       ).toEqual({
+        ...mapState,
         error: false,
         results: {
           product: [],
