@@ -6,13 +6,13 @@ import {
   fireEvent,
 } from '../../testUtils/test-utils';
 import { merge } from '../../testUtils/functionHelpers';
-import { defaultQuery } from '../../reducers/query/query';
+import { queryState } from '../../reducers/query/query';
 import { GEO_NORM_NONE, GEO_NORM_PER1000 } from '../../constants';
-import * as mapActions from '../../actions/map';
+import * as mapActions from '../../reducers/query/query';
 
 describe('PerCapita', () => {
   const renderComponent = (newQueryState) => {
-    merge(newQueryState, defaultQuery);
+    merge(newQueryState, queryState);
     const data = {
       query: newQueryState,
     };
@@ -43,7 +43,7 @@ describe('PerCapita', () => {
 
   it('renders dataNormalizationChanged GEO_NORM_NONE and handles action', () => {
     const dataNormalizationSpy = jest
-      .spyOn(mapActions, 'dataNormalizationChanged')
+      .spyOn(mapActions, 'updateDataNormalization')
       .mockImplementation(() => jest.fn());
 
     renderComponent({
@@ -72,7 +72,7 @@ describe('PerCapita', () => {
 
   it('renders dataNormalizationChanged GEO_NORM_PER1000 and handles action', () => {
     const dataNormalizationSpy = jest
-      .spyOn(mapActions, 'dataNormalizationChanged')
+      .spyOn(mapActions, 'updateDataNormalization')
       .mockImplementation(() => jest.fn());
 
     renderComponent({
@@ -102,7 +102,7 @@ describe('PerCapita', () => {
 
   it('renders GEO_NORM_PER1000 selected state and does nothing', () => {
     const dataNormalizationSpy = jest
-      .spyOn(mapActions, 'dataNormalizationChanged')
+      .spyOn(mapActions, 'updateDataNormalization')
       .mockImplementation(() => jest.fn());
 
     renderComponent({
