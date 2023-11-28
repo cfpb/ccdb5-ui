@@ -1,37 +1,35 @@
-import target, { defaultAggs } from './aggs';
-import {
-  AGGREGATIONS_API_CALLED,
-  AGGREGATIONS_FAILED,
-  AGGREGATIONS_RECEIVED,
-} from '../../actions/complaints';
+import target, {
+  aggregationsCallInProcess,
+  aggState,
+  processAggregationError,
+  processAggregationResults,
+} from './aggs';
 
 describe('reducer:aggs', () => {
   it('has a default state', () => {
     const actual = target(undefined, {});
 
-    expect(actual).toEqual(defaultAggs);
+    expect(actual).toEqual(aggState);
   });
 
-  it('handles AGGREGATIONS_API_CALLED actions', () => {
+  it('handles aggregationsCallInProcess actions', () => {
     const action = {
-      type: AGGREGATIONS_API_CALLED,
       url: 'foobar',
     };
 
-    expect(target({}, action)).toEqual({
+    expect(target({}, aggregationsCallInProcess(action))).toEqual({
       activeCall: 'foobar',
       isLoading: true,
     });
   });
 
-  it('handles AGGREGATIONS_FAILED actions', () => {
+  it('handles processAggregationError actions', () => {
     const action = {
-      type: AGGREGATIONS_FAILED,
       error: { message: 'error message', name: 'messageTypeName' },
     };
 
     const expected = {
-      ...defaultAggs,
+      ...aggState,
       error: { message: 'error message', name: 'messageTypeName' },
     };
     expect(
@@ -40,14 +38,13 @@ describe('reducer:aggs', () => {
           company: ['ab', 'cd'],
           error: '',
         },
-        action
+        processAggregationError(action)
       )
     ).toEqual(expected);
   });
 
-  it('handles AGGREGATIONS_RECEIVED actions', () => {
+  it('handles processAggregationResults actions', () => {
     const action = {
-      type: AGGREGATIONS_RECEIVED,
       data: {
         aggregations: {
           company_response: {
@@ -79,6 +76,8 @@ describe('reducer:aggs', () => {
       isDataStale: undefined,
     };
 
-    expect(target({ doc_count: 100 }, action)).toEqual(expected);
+    expect(
+      target({ doc_count: 100 }, processAggregationResults(action))
+    ).toEqual(expected);
   });
 });

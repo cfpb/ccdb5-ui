@@ -35,18 +35,18 @@ export const aggSlice = createSlice({
     aggregationsCallInProcess(state, action) {
       return {
         ...state,
-        activeCall: action.url,
+        activeCall: action.payload.url,
         isLoading: true,
       };
     },
     processAggregationResults(state, action) {
-      const aggs = action.data.aggregations;
+      const aggs = action.payload.data.aggregations;
       const keys = Object.keys(aggs);
 
       const doc_count = Math.max(
         state.doc_count,
-        action.data.hits.total.value,
-        action.data._meta.total_record_count
+        action.payload.data.hits.total.value,
+        action.payload.data._meta.total_record_count
       );
 
       const result = {
@@ -54,11 +54,11 @@ export const aggSlice = createSlice({
         doc_count,
         error: '',
         isLoading: false,
-        lastUpdated: action.data._meta.last_updated,
-        lastIndexed: action.data._meta.last_indexed,
-        hasDataIssue: action.data._meta.has_data_issue,
-        isDataStale: action.data._meta.is_data_stale,
-        total: action.data.hits.total.value,
+        lastUpdated: action.payload.data._meta.last_updated,
+        lastIndexed: action.payload.data._meta.last_indexed,
+        hasDataIssue: action.payload.data._meta.has_data_issue,
+        isDataStale: action.payload.data._meta.is_data_stale,
+        total: action.payload.data.hits.total.value,
       };
 
       keys.forEach((key) => {
@@ -71,7 +71,7 @@ export const aggSlice = createSlice({
       return {
         ...aggState,
         isLoading: false,
-        error: processErrorMessage(action.error),
+        error: processErrorMessage(action.payload.error),
       };
     },
   },

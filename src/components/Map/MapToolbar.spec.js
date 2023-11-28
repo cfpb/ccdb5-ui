@@ -1,17 +1,17 @@
 import React from 'react';
 import { MapToolbar } from './MapToolbar';
 import { merge } from '../../testUtils/functionHelpers';
-import { defaultQuery } from '../../reducers/query/query';
+import { queryState } from '../../reducers/query/query';
 import {
   testRender as render,
   screen,
   fireEvent,
 } from '../../testUtils/test-utils';
-import * as mapActions from '../../actions/map';
+import * as mapActions from '../../reducers/query/query';
 
 describe('MapToolbar', () => {
   const renderComponent = (newQueryState) => {
-    merge(newQueryState, defaultQuery);
+    merge(newQueryState, queryState);
 
     const data = {
       query: newQueryState,

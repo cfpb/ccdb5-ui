@@ -6,19 +6,19 @@ import {
   screen,
 } from '../../../testUtils/test-utils';
 import { merge } from '../../../testUtils/functionHelpers';
-import { defaultMap } from '../../../reducers/map/map';
-import { defaultQuery } from '../../../reducers/query/query';
-import { defaultView } from '../../../reducers/view/view';
+import { mapState } from '../../../reducers/map/map';
+import { queryState } from '../../../reducers/query/query';
+import { viewState } from '../../../reducers/view/view';
 import { mapResults } from './__fixtures__/mapResults';
 import { GEO_NORM_PER1000 } from '../../../constants';
 import * as analyticsActions from '../../../utils';
-import * as mapActions from '../../../actions/map';
+import * as mapActions from '../../../reducers/query/query';
 
 describe('TileChartMap', () => {
   const renderComponent = (newMapState, newQueryState, newViewState) => {
-    merge(newMapState, defaultMap);
-    merge(newQueryState, defaultQuery);
-    merge(newViewState, defaultView);
+    merge(newMapState, mapState);
+    merge(newQueryState, queryState);
+    merge(newViewState, viewState);
 
     const data = {
       map: newMapState,
