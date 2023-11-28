@@ -54,77 +54,87 @@ export const trendsSlice = createSlice({
   name: 'trends',
   initialState: trendsState,
   reducers: {
-    processTrends(state, action) {
-      const aggregations = action.data.aggregations;
-      const { focus, lens, subLens } = state;
-      const results = emptyResults();
-      const kR = 'dateRangeArea';
-      const hits = aggregations[kR].doc_count;
+    processTrends: {
+      reducer: (state, action) => {
+        const aggregations = action.payload.data.aggregations;
+        const { focus, lens, subLens } = state;
+        const results = emptyResults();
+        const kR = 'dateRangeArea';
+        const hits = aggregations[kR].doc_count;
 
-      // if hits > 0
-      // no hits, so reset defaults
-      if (hits === 0) {
-        const resetState = getResetState();
+        // if hits > 0
+        // no hits, so reset defaults
+        if (hits === 0) {
+          const resetState = getResetState();
+          return {
+            ...state,
+            ...resetState,
+          };
+        }
+
+        const total = aggregations[kR].doc_count;
+
+        if (lens !== 'Overview') {
+          results[kR] = processAreaData(state, aggregations);
+        }
+
+        results.dateRangeLine = processLineData(
+          lens,
+          aggregations,
+          focus,
+          subLens
+        );
+
+        // based on these criteria, the following aggs should only exist
+        const keyMap = {
+          Overview: ['product'],
+          Company: ['company'],
+          Product: ['product'],
+          'Product-focus': ['sub-product', 'issue'],
+          'Company-focus': ['product'],
+        };
+        let keyFilter = lens;
+
+        if (focus) {
+          keyFilter += '-focus';
+        }
+
+        const keys = keyMap[keyFilter];
+
+        processAggregations(keys, state, aggregations, results);
+
+        const colorMap = getColorScheme(lens, results.dateRangeArea);
+
         return {
           ...state,
-          ...resetState,
+          activeCall: '',
+          colorMap,
+          error: false,
+          isLoading: false,
+          results,
+          total,
         };
-      }
-
-      const total = aggregations[kR].doc_count;
-
-      if (lens !== 'Overview') {
-        results[kR] = processAreaData(state, aggregations);
-      }
-
-      results.dateRangeLine = processLineData(
-        lens,
-        aggregations,
-        focus,
-        subLens
-      );
-
-      // based on these criteria, the following aggs should only exist
-      const keyMap = {
-        Overview: ['product'],
-        Company: ['company'],
-        Product: ['product'],
-        'Product-focus': ['sub-product', 'issue'],
-        'Company-focus': ['product'],
-      };
-      let keyFilter = lens;
-
-      if (focus) {
-        keyFilter += '-focus';
-      }
-
-      const keys = keyMap[keyFilter];
-
-      processAggregations(keys, state, aggregations, results);
-
-      const colorMap = getColorScheme(lens, results.dateRangeArea);
-
-      return {
-        ...state,
-        activeCall: '',
-        colorMap,
-        error: false,
-        isLoading: false,
-        results,
-        total,
-      };
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
     },
     handleTabChanged(state, action) {
       return {
         ...state,
-        focus: action.tab === MODE_TRENDS ? state.focus : '',
+        focus: action.payload.tab === MODE_TRENDS ? state.focus : '',
         results: emptyResults(),
       };
     },
     trendsCallInProcess(state, action) {
       return {
         ...state,
-        activeCall: action.url,
+        activeCall: action.payload.url,
         isLoading: true,
         tooltip: false,
       };
@@ -134,7 +144,7 @@ export const trendsSlice = createSlice({
       return {
         ...state,
         ...emptyState,
-        error: processErrorMessage(action.error),
+        error: processErrorMessage(action.payload.error),
       };
     },
     updateChartType: {
@@ -193,7 +203,7 @@ export const trendsSlice = createSlice({
     },
     changeFocus: {
       reducer: (state, action) => {
-        const { focus, lens } = action;
+        const { focus, lens } = action.payload;
         return {
           ...state,
           focus,
@@ -229,7 +239,7 @@ export const trendsSlice = createSlice({
       },
     },
     processParams(state, action) {
-      const params = action.params;
+      const params = action.payload.params;
       const processed = Object.assign({}, trendsState);
 
       // Handle flag filters
@@ -244,7 +254,7 @@ export const trendsSlice = createSlice({
     },
     updateTooltip: {
       reducer: (state, action) => {
-        const tooltip = action.value || false;
+        const tooltip = action.payload.value || false;
 
         // need to merge in the actual viewed state
         if (tooltip) {
@@ -296,7 +306,9 @@ export const trendsSlice = createSlice({
       };
     },
     removeMultipleFilters(state, action) {
-      const focus = action.values.includes(state.focus) ? '' : state.focus;
+      const focus = action.payload.values.includes(state.focus)
+        ? ''
+        : state.focus;
       return {
         ...state,
         focus,
@@ -381,7 +393,7 @@ export function processBucket(state, agg) {
 
 /**
  * helper function to pluralize field values
- * @param {lens} lens - value we are processing
+ * @param {string} lens - value we are processing
  * @returns {string} for consumption by AreaData function
  */
 export function mainNameLens(lens) {

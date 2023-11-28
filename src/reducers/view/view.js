@@ -34,7 +34,7 @@ export const viewSlice = createSlice({
       state.modalTypeShown = false;
     },
     modalShown(state, action) {
-      state.modalTypeShown = action.modalType;
+      state.modalTypeShown = action.payload.modalType;
     },
     showAdvancedSearchTips: {
       reducer: (state) => {
@@ -57,8 +57,8 @@ export const viewSlice = createSlice({
       state.isFromExternal = false;
     },
     updateScreenSize(state, action) {
-      state.hasFilters = action.payload > 749;
-      state.width = action.payload;
+      state.hasFilters = action.payload.screenWidth > 749;
+      state.width = action.payload.screenWidth;
     },
     updateFilterVisibility: {
       reducer: (state) => {
@@ -101,7 +101,9 @@ export const viewSlice = createSlice({
     },
     collapseRow: {
       reducer: (state, action) => {
-        state.expandedRows = state.expandedRows.filter((o) => o !== action);
+        state.expandedRows = state.expandedRows.filter(
+          (o) => o !== action.payload.value
+        );
       },
       prepare: (payload) => {
         return {
@@ -114,8 +116,8 @@ export const viewSlice = createSlice({
     },
     expandRow: {
       reducer: (state, action) => {
-        if (!state.expandedRows.includes(action)) {
-          state.expandedRows.push(action);
+        if (!state.expandedRows.includes(action.payload.value)) {
+          state.expandedRows.push(action.payload.value);
         }
       },
       prepare: (payload) => {
