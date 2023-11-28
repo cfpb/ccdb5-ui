@@ -201,9 +201,9 @@ describe('component: StackedAreaChart', () => {
       expect(dispatch.mock.calls).toEqual([
         [
           {
-            requery: 'REQUERY_NEVER',
-            type: 'TRENDS_TOOLTIP_CHANGED',
-            value: 'foo',
+            meta: { requery: 'REQUERY_NEVER' },
+            type: 'trends/updateTooltip',
+            payload: 'foo',
           },
         ],
       ]);

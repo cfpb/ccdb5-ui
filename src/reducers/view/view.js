@@ -144,6 +144,11 @@ export const viewSlice = createSlice({
       return state;
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase('trends/updateDataLens', (state) => {
+      state.expandedRows = [];
+    });
+  },
 });
 
 export const {

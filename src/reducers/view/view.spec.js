@@ -14,6 +14,7 @@ import target, {
   viewState,
 } from './view';
 import actions from '../../actions';
+import { updateDataLens } from '../trends/trends';
 
 describe('reducer:map', () => {
   let action;
@@ -128,7 +129,10 @@ describe('reducer:map', () => {
     let action, result;
 
     it('handles DATA_LENS_CHANGED actions', () => {
-      result = target({ ...viewState, expandedRows: ['foo'] }, action);
+      result = target(
+        { ...viewState, expandedRows: ['foo'] },
+        updateDataLens(action)
+      );
       expect(result).toEqual({ ...viewState, expandedRows: [] });
     });
 

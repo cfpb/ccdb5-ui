@@ -129,9 +129,11 @@ describe('component:LensTabs', () => {
       expect(dispatch.mock.calls).toEqual([
         [
           {
-            requery: REQUERY_ALWAYS,
-            subLens: 'product',
-            type: 'DATA_SUBLENS_CHANGED',
+            meta: {
+              requery: REQUERY_ALWAYS,
+            },
+            payload: 'product',
+            type: 'trends/updateDataSubLens',
           },
         ],
       ]);

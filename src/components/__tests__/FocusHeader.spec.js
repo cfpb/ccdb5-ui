@@ -79,8 +79,10 @@ describe('component:FocusHeader', () => {
       expect(dispatch.mock.calls).toEqual([
         [
           {
-            requery: REQUERY_ALWAYS,
-            type: 'FOCUS_REMOVED',
+            meta: {
+              requery: REQUERY_ALWAYS,
+            },
+            type: 'trends/removeFocus',
           },
         ],
       ]);

@@ -169,9 +169,9 @@ describe('component::AggregationBranch', () => {
         [
           {
             filterName: 'foo',
-            requery: 'REQUERY_ALWAYS',
-            type: 'FILTER_REPLACED',
-            values: ['another filter', 'bay'],
+            meta: { requery: 'REQUERY_ALWAYS' },
+            type: 'query/replaceFilters',
+            payload: ['another filter', 'bay'],
           },
         ],
       ]);

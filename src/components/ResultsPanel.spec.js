@@ -1,15 +1,15 @@
 import { ResultsPanel } from './ResultsPanel';
 import React from 'react';
 import { testRender as render, screen } from '../testUtils/test-utils';
-import { defaultQuery } from '../reducers/query/query';
-import { defaultView } from '../reducers/view/view';
+import { queryState } from '../reducers/query/query';
+import { viewState } from '../reducers/view/view';
 import { merge } from '../testUtils/functionHelpers';
 import { MODE_LIST, MODE_MAP } from '../constants';
 
 describe('ResultsPanel', () => {
   const renderComponent = (newQueryState, newViewState) => {
-    merge(newQueryState, defaultQuery);
-    merge(newViewState, defaultView);
+    merge(newQueryState, queryState);
+    merge(newViewState, viewState);
 
     render(<ResultsPanel />, {
       preloadedState: {

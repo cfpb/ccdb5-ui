@@ -229,9 +229,8 @@ export const trendsSlice = createSlice({
           tooltip: false,
         };
       },
-      prepare: (payload) => {
+      prepare: () => {
         return {
-          payload,
           meta: {
             requery: REQUERY_ALWAYS,
           },
