@@ -395,7 +395,7 @@ describe('reducer:trends', () => {
       state.lens = 'Overview';
       state.subLens = '';
       result = target({ ...trendsState, ...state }, processTrends(action));
-      expect(result).toEqual(trendsResults);
+      expect(result).toEqual({ ...trendsState, ...trendsResults });
     });
 
     it('maps data to object state - Company', () => {
@@ -403,16 +403,16 @@ describe('reducer:trends', () => {
       state.lens = 'Company';
       state.subLens = '';
       action.data.aggregations = trendsCompanyAggs;
-      result = target(state, processTrends(action));
-      expect(result).toEqual(trendsCompanyResults);
+      result = target({ ...trendsState, ...state }, processTrends(action));
+      expect(result).toEqual({ ...trendsState, ...trendsCompanyResults });
     });
 
     it('maps data to object state - dupe rows', () => {
       action.data.aggregations = trendsAggsDupes;
       state.lens = 'Overview';
       state.subLens = '';
-      result = target(state, processTrends(action));
-      expect(result).toEqual(trendsAggsDupeResults);
+      result = target({ ...trendsState, ...state }, processTrends(action));
+      expect(result).toEqual({ ...trendsState, ...trendsAggsDupeResults });
     });
 
     it('maps data to object state - Missing Bucket', () => {
