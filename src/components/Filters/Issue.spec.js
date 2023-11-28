@@ -6,19 +6,19 @@ import {
 } from '../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 import { merge } from '../../testUtils/functionHelpers';
-import { defaultAggs } from '../../reducers/aggs/aggs';
-import { defaultQuery } from '../../reducers/query/query';
+import { aggState } from '../../reducers/aggs/aggs';
+import { queryState } from '../../reducers/query/query';
 import { Issue } from './Issue';
 import { listOfIssues } from '../../testUtils/aggsConstants';
-import * as filterActions from '../../actions/filter';
+import * as filterActions from '../../reducers/query/query';
 
 describe('Issue', () => {
   const user = userEvent.setup({ delay: null });
   const renderComponent = () => {
     const newAggsState = { issue: listOfIssues };
     const newQueryState = { issue: ['Incorrect information on your report'] };
-    merge(newAggsState, defaultAggs);
-    merge(newQueryState, defaultQuery);
+    merge(newAggsState, aggState);
+    merge(newQueryState, queryState);
     const data = {
       aggs: newAggsState,
       query: newQueryState,

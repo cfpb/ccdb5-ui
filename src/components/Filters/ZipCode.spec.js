@@ -6,7 +6,7 @@ import {
 } from '../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 import fetchMock from 'jest-fetch-mock';
-import * as filterActions from '../../actions/filter';
+import * as filterActions from '../../reducers/query/query';
 import { ZipCode } from './ZipCode';
 
 fetchMock.enableMocks();
