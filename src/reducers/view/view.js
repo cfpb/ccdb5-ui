@@ -132,21 +132,22 @@ export const viewSlice = createSlice({
     resetExpandedRows(state) {
       state.expandedRows = [];
     },
-    processParams(state, action) {
-      const params = action.params;
-
-      state.isPrintMode = params.isPrintMode === 'true';
-      state.isFromExternal = params.isFromExternal === 'true';
-
-      const arrayParams = ['expandedRows'];
-      processUrlArrayParams(params, state, arrayParams);
-
-      return state;
-    },
   },
   extraReducers: (builder) => {
-    builder.addCase('trends/updateDataLens', (state) => {
-      state.expandedRows = [];
+    builder
+        .addCase('trends/updateDataLens', (state) => {
+          state.expandedRows = [];
+    })
+        .addCase('query/processParams', (state, action) => {
+          const params = action.payload.params;
+
+          state.isPrintMode = params.isPrintMode === 'true';
+          state.isFromExternal = params.isFromExternal === 'true';
+
+          const arrayParams = ['expandedRows'];
+          processUrlArrayParams(params, state, arrayParams);
+
+          return state;
     });
   },
 });

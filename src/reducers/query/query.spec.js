@@ -1,12 +1,13 @@
 import target, {
   alignDateRange,
-  defaultQuery,
-  filterArrayAction,
+  queryState,
+  filterArrayAction, processParams, changeDateInterval,
 } from './query';
 import actions from '../../actions';
 import * as types from '../../constants';
 import dayjs from 'dayjs';
 import { startOfToday } from '../../utils';
+import {changeFocus, removeFocus, updateDataLens, updateDataSubLens} from "../trends/trends";
 
 const maxDate = startOfToday();
 
@@ -450,45 +451,44 @@ describe('reducer:query', () => {
 
     beforeEach(() => {
       action = {
-        type: actions.URL_CHANGED,
         params: {},
       };
 
-      state = { ...defaultQuery };
+      state = { ...queryState };
     });
 
     xit('handles empty params', () => {
-      expect(target(state, action)).toEqual(state);
+      expect(target(state, processParams(action))).toEqual(state);
     });
 
     it('handles string params', () => {
       action.params = { searchText: 'hello' };
-      actual = target(state, action);
+      actual = target(state, processParams(action));
       expect(actual.searchText).toEqual('hello');
     });
 
     it('handles size parameter', () => {
       action.params = { size: '100' };
-      actual = target(state, action);
+      actual = target(state, processParams(action));
       expect(actual.size).toEqual('100');
     });
 
     it('handles page number', () => {
       action.params = { page: '100' };
-      actual = target(state, action);
+      actual = target(state, processParams(action));
       expect(actual.page).toEqual(1);
     });
 
     it('handles bogus date parameters', () => {
       action.params = { dateInterval: '3y', dateRange: 'Week' };
-      actual = target(state, action);
+      actual = target(state, processParams(action));
       expect(actual.dateInterval).toEqual('Month');
       expect(actual.dateRange).toEqual('3y');
     });
 
     it('handles bogus size & sort parameters', () => {
       action.params = { size: '9999', sort: 'tables' };
-      actual = target(state, action);
+      actual = target(state, processParams(action));
       expect(actual.size).toEqual('10');
       expect(actual.sort).toEqual('created_date_desc');
     });
@@ -496,49 +496,49 @@ describe('reducer:query', () => {
     it('converts some parameters to dates', () => {
       const expected = new Date(2013, 1, 3);
       action.params = { date_received_min: '2013-02-03' };
-      actual = target({}, action).date_received_min;
+      actual = target({}, processParams(action)).date_received_min;
       expect(actual.getFullYear()).toEqual(expected.getFullYear());
       expect(actual.getMonth()).toEqual(expected.getMonth());
     });
 
     it('converts flag parameters to booleans', () => {
       action.params = { has_narrative: 'true' };
-      actual = target({}, action).has_narrative;
+      actual = target({}, processParams(action)).has_narrative;
       expect(actual).toEqual(true);
     });
 
     xit('ignores incorrect dates', () => {
       action.params = { date_received_min: 'foo' };
-      expect(target({}, action)).toEqual(state);
+      expect(target({}, processParams(action))).toEqual(state);
     });
 
     xit('ignores unknown parameters', () => {
       action.params = { foo: 'bar' };
-      expect(target(state, action)).toEqual(state);
+      expect(target(state, processParams(action))).toEqual(state);
     });
 
     it('handles a single filter', () => {
       action.params = { product: 'Debt Collection' };
-      actual = target({}, action);
+      actual = target({}, processParams(action));
       expect(actual.product).toEqual(['Debt Collection']);
     });
 
     it('handles a multiple filters', () => {
       action.params = { product: ['Debt Collection', 'Mortgage'] };
-      actual = target({}, action);
+      actual = target({}, processParams(action));
       expect(actual.product).toEqual(['Debt Collection', 'Mortgage']);
     });
 
     it('handles a multiple filters & focus', () => {
       action.params = { product: ['Debt Collection', 'Mortgage'] };
-      actual = target({ focus: 'Something' }, action);
+      actual = target({ focus: 'Something' }, processParams(action));
       expect(actual.focus).toEqual('');
       expect(actual.product).toEqual(['Debt Collection', 'Mortgage']);
     });
 
     it('handles a trendDepth param', () => {
       action.params = { lens: 'Product', trendDepth: 1000 };
-      actual = target({}, action);
+      actual = target({}, processParams(action));
       expect(actual.lens).toEqual('Product');
       expect(actual.trendDepth).toEqual(1000);
     });
@@ -546,7 +546,7 @@ describe('reducer:query', () => {
     it('handles invalid lens and chartType combo', () => {
       action.params = { chartType: 'area', lens: 'Overview', tab: 'Trends' };
       state.tab = types.MODE_TRENDS;
-      actual = target(state, action);
+      actual = target(state, processParams(action));
       expect(actual.chartType).toEqual('line');
       expect(actual.lens).toEqual('Overview');
       expect(actual.tab).toEqual('Trends');
@@ -554,7 +554,7 @@ describe('reducer:query', () => {
 
     it('handles valid lens and chartType combo', () => {
       action.params = { chartType: 'area', lens: 'Product', tab: 'Trends' };
-      actual = target(state, action);
+      actual = target(state, processParams(action));
       expect(actual.chartType).toEqual('area');
       expect(actual.lens).toEqual('Product');
     });
@@ -564,7 +564,7 @@ describe('reducer:query', () => {
 
       action.params = { dataNormalization: 'None', dateRange: 'All' };
 
-      actual = target({}, action);
+      actual = target({}, processParams(action));
 
       expect(actual.date_received_min).toEqual(dateMin);
       expect(actual.date_received_max).toEqual(maxDate);
@@ -575,7 +575,7 @@ describe('reducer:query', () => {
       let expected;
       beforeEach(() => {
         state.dateRange = '2y';
-        expected = { ...defaultQuery };
+        expected = { ...queryState };
       });
 
       it('clears the default range if the dates are not 3 years apart', () => {
@@ -1631,11 +1631,10 @@ describe('reducer:query', () => {
     describe('DATA_LENS_CHANGED actions', () => {
       it('changes the lens - default', () => {
         action = {
-          type: actions.DATA_LENS_CHANGED,
           lens: 'Foo',
         };
         state.focus = 'ahha';
-        result = target(state, action);
+        result = target(state, updateDataLens(action));
         expect(result).toEqual({
           chartType: 'line',
           focus: '',
@@ -1651,10 +1650,9 @@ describe('reducer:query', () => {
 
       it('has special values when lens = Company', () => {
         action = {
-          type: actions.DATA_LENS_CHANGED,
           lens: 'Company',
         };
-        result = target({ tab: types.MODE_TRENDS, focus: 'ahha' }, action);
+        result = target({ tab: types.MODE_TRENDS, focus: 'ahha' }, updateDataLens(action));
         expect(result).toEqual({
           chartType: 'line',
           focus: '',
@@ -1670,10 +1668,9 @@ describe('reducer:query', () => {
 
       it('changes the lens - Product', () => {
         action = {
-          type: actions.DATA_LENS_CHANGED,
           lens: 'Product',
         };
-        result = target({ tab: types.MODE_TRENDS, focus: 'ahha' }, action);
+        result = target({ tab: types.MODE_TRENDS, focus: 'ahha' }, updateDataLens(action));
         expect(result).toEqual({
           chartType: 'line',
           focus: '',
@@ -1691,10 +1688,9 @@ describe('reducer:query', () => {
     describe('DATA_SUBLENS_CHANGED actions', () => {
       it('changes the sub lens', () => {
         action = {
-          type: actions.DATA_SUBLENS_CHANGED,
           subLens: 'Issue',
         };
-        result = target({ tab: types.MODE_TRENDS }, action);
+        result = target({ tab: types.MODE_TRENDS }, updateDataSubLens(action));
         expect(result).toEqual({
           chartType: 'line',
           subLens: 'issue',
@@ -1709,10 +1705,9 @@ describe('reducer:query', () => {
     describe('DATE_INTERVAL_CHANGED', () => {
       it('changes the dateInterval', () => {
         action = {
-          type: actions.DATE_INTERVAL_CHANGED,
           dateInterval: 'Day',
         };
-        result = target({ tab: types.MODE_TRENDS }, action);
+        result = target({ tab: types.MODE_TRENDS }, changeDateInterval(action));
         expect(result).toEqual({
           breakPoints: {},
           chartType: 'line',
@@ -1731,37 +1726,31 @@ describe('reducer:query', () => {
     describe('FOCUS_CHANGED actions', () => {
       it('changes the focus', () => {
         action = {
-          type: actions.FOCUS_CHANGED,
           filterValues: ['A', 'A' + types.SLUG_SEPARATOR + 'B'],
           focus: 'A',
           lens: 'Product',
         };
-        result = target({ focus: 'Else' }, action);
+        result = target({ ...queryState, focus: 'Else' }, changeFocus(action));
         expect(result).toEqual({
-          chartType: 'line',
+          ...queryState,
+          product: [
+            'A',
+            'A•B'
+          ],
           focus: 'A',
           lens: 'Product',
-          product: ['A', 'A' + types.SLUG_SEPARATOR + 'B'],
-          queryString:
-            '?focus=A&lens=product&product=A&product=A%E2%80%A2B' +
-            '&sub_lens=sub_product&trend_depth=25',
-          subLens: 'sub_product',
           tab: 'Trends',
           trendDepth: 25,
-          trendsDateWarningEnabled: false,
-          search:
-            '?chartType=line&focus=A&lens=Product&product=A&product=A%E2%80%A2B&subLens=sub_product&tab=Trends',
         });
       });
 
       it('changes the Company Focus', () => {
         action = {
-          type: actions.FOCUS_CHANGED,
           filterValues: ['A'],
           focus: 'A',
           lens: 'Company',
         };
-        result = target({ focus: 'Else' }, action);
+        result = target({ focus: 'Else' }, changeFocus(action));
         expect(result).toEqual({
           chartType: 'line',
           focus: 'A',
@@ -1782,11 +1771,9 @@ describe('reducer:query', () => {
 
     describe('FOCUS_REMOVED actions', () => {
       it('clears the focus & resets values', () => {
-        action = {
-          type: actions.FOCUS_REMOVED,
-        };
-        result = target({ lens: 'Product' }, action);
+        result = target({ ...queryState, lens: 'Product' }, removeFocus());
         expect(result).toEqual({
+          ...queryState,
           chartType: 'line',
           focus: '',
           lens: 'Product',

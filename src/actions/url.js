@@ -20,21 +20,6 @@ export function processLocation(location) {
   };
 }
 
-//-----------------------------------------------------------------------------
-
-/**
- * Notifies the application that the application's URL has changed
- * @param {string} pathname - the path of the URL
- * @param {object} params - key/value pairs that represent the query string
- * @returns {string} a packaged payload to be used by Redux reducers
- */
-export function urlChanged(pathname, params) {
-  return {
-    type: URL_CHANGED,
-    pathname,
-    params,
-  };
-}
 
 /**
  * Notify the application that the URL has changed and call the API
