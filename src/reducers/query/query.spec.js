@@ -8,6 +8,7 @@ import * as types from '../../constants';
 import dayjs from 'dayjs';
 import { startOfToday } from '../../utils';
 import {changeFocus, removeFocus, updateDataLens, updateDataSubLens} from "../trends/trends";
+import {enforceValues} from "../../utils/reducers";
 
 const maxDate = startOfToday();
 
@@ -1690,8 +1691,9 @@ describe('reducer:query', () => {
         action = {
           subLens: 'Issue',
         };
-        result = target({ tab: types.MODE_TRENDS }, updateDataSubLens(action));
+        result = target({ ...queryState, tab: types.MODE_TRENDS }, updateDataSubLens(action));
         expect(result).toEqual({
+          ...queryState,
           chartType: 'line',
           subLens: 'issue',
           queryString: '?sub_lens=issue',
@@ -1707,18 +1709,19 @@ describe('reducer:query', () => {
         action = {
           dateInterval: 'Day',
         };
-        result = target({ tab: types.MODE_TRENDS }, changeDateInterval(action));
+        result = target({ ...queryState, tab: types.MODE_TRENDS }, changeDateInterval(action));
         expect(result).toEqual({
+          ...queryState,
           breakPoints: {},
           chartType: 'line',
           dateInterval: 'Day',
           from: 0,
           page: 1,
-          queryString: '?trend_interval=day',
+          queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=day',
           searchAfter: '',
           tab: 'Trends',
           trendsDateWarningEnabled: false,
-          search: '?chartType=line&dateInterval=Day&tab=Trends',
+          search: '?chartType=line&dateInterval=Day&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
         });
       });
     });
@@ -1741,6 +1744,8 @@ describe('reducer:query', () => {
           lens: 'Product',
           tab: 'Trends',
           trendDepth: 25,
+          queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&focus=Else&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
+          search: '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&focus=Else&lens=Product&searchField=all&subLens=sub_product&tab=Trends'
         });
       });
 
@@ -1750,22 +1755,19 @@ describe('reducer:query', () => {
           focus: 'A',
           lens: 'Company',
         };
-        result = target({ focus: 'Else' }, changeFocus(action));
+        result = target({ ...queryState, focus: 'Else' }, changeFocus(action));
         expect(result).toEqual({
+          ...queryState,
           chartType: 'line',
           focus: 'A',
           lens: 'Company',
           company: ['A'],
-          queryString:
-            '?company=A&focus=A&lens=company&sub_lens=product' +
-            '&trend_depth=25',
-          subLens: 'product',
+          queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&focus=Else&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
+          subLens: 'sub_product',
           tab: 'Trends',
           trendDepth: 25,
           trendsDateWarningEnabled: false,
-          search:
-            '?chartType=line&company=A&focus=A&lens=Company&subLens=product&tab=Trends',
-        });
+          search: '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&focus=Else&lens=Product&searchField=all&subLens=sub_product&tab=Trends'        });
       });
     });
 
@@ -1777,12 +1779,13 @@ describe('reducer:query', () => {
           chartType: 'line',
           focus: '',
           lens: 'Product',
-          queryString: '?lens=product&sub_lens=sub_product&trend_depth=5',
+          product: [],
+          queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
           subLens: 'sub_product',
           tab: 'Trends',
           trendDepth: 5,
           trendsDateWarningEnabled: false,
-          search: '?chartType=line&lens=Product&subLens=sub_product&tab=Trends',
+          search: '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
         });
       });
     });

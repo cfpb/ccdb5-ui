@@ -5,8 +5,8 @@ import {
   screen,
 } from '../../testUtils/test-utils';
 import { merge } from '../../testUtils/functionHelpers';
-import { defaultDetail } from '../../reducers/detail/detail';
-import { defaultQuery } from '../../reducers/query/query';
+import { detailState } from '../../reducers/detail/detail';
+import { queryState } from '../../reducers/query/query';
 import { waitFor } from '@testing-library/react';
 import * as complaintActions from '../../actions/complaints';
 
@@ -33,8 +33,8 @@ const fixture = {
 };
 
 const renderComponent = (newDetailState, newQueryState) => {
-  merge(newDetailState, defaultDetail);
-  merge(newQueryState, defaultQuery);
+  merge(newDetailState, detailState);
+  merge(newQueryState, queryState);
   const data = {
     detail: newDetailState,
     query: newQueryState,

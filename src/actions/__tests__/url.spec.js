@@ -1,4 +1,4 @@
-import { processLocation, urlChanged } from '../url';
+import { processLocation } from '../url';
 import * as sut from '../url';
 jest.mock('../complaints');
 
@@ -26,16 +26,4 @@ describe('action:url', () => {
     });
   });
 
-  describe('urlChanged', () => {
-    it('creates a simple action', () => {
-      const pathname = '/path/to/resource';
-      const params = { from: 10, size: 100 };
-      const expectedAction = {
-        type: sut.URL_CHANGED,
-        pathname,
-        params,
-      };
-      expect(urlChanged(pathname, params)).toEqual(expectedAction);
-    });
-  });
 });

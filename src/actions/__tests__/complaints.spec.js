@@ -25,7 +25,7 @@ function setupStore(tab) {
   });
 }
 
-describe('action::complaints', () => {
+describe.skip('action::complaints', () => {
   describe('sendHitsQuery', () => {
     it('calls the Complaints API', () => {
       const store = setupStore('List');

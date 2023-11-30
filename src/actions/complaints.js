@@ -5,6 +5,7 @@ import {
   MODE_MAP,
   MODE_TRENDS,
 } from '../constants';
+import {complaintDetailCalled} from "../reducers/detail/detail";
 
 export const AGGREGATIONS_API_CALLED = 'aggregationsCallInProcess';
 export const AGGREGATIONS_RECEIVED = 'processAggregationResults';
@@ -130,7 +131,7 @@ export function getComplaints() {
 export function getComplaintDetail(id) {
   return (dispatch) => {
     const uri = API_PLACEHOLDER + id;
-    dispatch(callingApi(COMPLAINT_DETAIL_CALLED, uri));
+    dispatch(callingApi(complaintDetailCalled(), uri));
     fetch(uri)
       .then((result) => result.json())
       .then((data) => dispatch(complaintDetailReceived(data)))

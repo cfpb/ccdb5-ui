@@ -86,7 +86,7 @@ export const querySlice = createSlice({
   initialState: queryState,
   reducers: {
     processParams(state, action) {
-      const params = action.params;
+      const params = action.payload.params;
       let processed = Object.assign({}, queryState);
 
       // Filter for known
@@ -139,11 +139,9 @@ export const querySlice = createSlice({
     },
     changeDateInterval: {
       reducer: (state, action) => {
-        const dateInterval = enforceValues(action.payload, 'dateInterval');
-        return {
-          ...state,
-          dateInterval,
-        };
+        state.dateInterval = enforceValues(action.payload.dateInterval, 'dateInterval');
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
       },
       prepare: (payload) => {
         return {
@@ -797,7 +795,9 @@ export const querySlice = createSlice({
       .addCase('trends/updateDataSubLens', (state, action) => {
         return {
           ...state,
-          subLens: action.subLens.toLowerCase(),
+          subLens: action.payload.subLens.toLowerCase(),
+          search: stateToURL(state),
+          queryString: stateToQS(state)
         };
       })
       .addCase('trends/changeFocus', (state, action) => {
@@ -820,10 +820,12 @@ export const querySlice = createSlice({
           lens,
           tab: types.MODE_TRENDS,
           trendDepth: 25,
+          queryString: stateToQS(state),
+          search: stateToURL(state)
         };
       })
       .addCase('trends/removeFocus', (state) => {
-        const { lens } = state;
+        const { lens } = queryState;
         const filterKey = lens.toLowerCase();
         return {
           ...state,
@@ -831,6 +833,8 @@ export const querySlice = createSlice({
           focus: '',
           tab: types.MODE_TRENDS,
           trendDepth: 5,
+          queryString: stateToQS(state),
+          search: stateToURL(state)
         };
       });
   },
