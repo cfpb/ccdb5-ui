@@ -782,23 +782,30 @@ export const querySlice = createSlice({
     builder
       .addCase('trends/updateChartType', (state, action) => {
         state.chartType = action.payload.chartType;
+        state.search = stateToURL(state);
+        state.queryString = stateToQS(state);
       })
       .addCase('trends/updateDataLens', (state, action) => {
-        const lens = enforceValues(action.payload.lens, 'lens');
-        return {
-          ...state,
-          focus: '',
-          lens,
-          trendDepth: lens === 'Company' ? 10 : 5,
-        };
+          state.focus = '';
+          state.lens = enforceValues(action.payload.lens, 'lens');
+          switch(state.lens){
+            case 'Company':
+              state.subLens = 'product';
+              break;
+            case 'Product':
+              state.subLens = 'sub_product';
+              break;
+            default:
+              state.subLens = ''
+          }
+          state.trendDepth = state.lens === 'Company' ? 10 : 5;
+          state.search = stateToURL(state);
+          state.queryString = stateToQS(state);
       })
       .addCase('trends/updateDataSubLens', (state, action) => {
-        return {
-          ...state,
-          subLens: action.payload.subLens.toLowerCase(),
-          search: stateToURL(state),
-          queryString: stateToQS(state)
-        };
+          state.subLens = action.payload.subLens.toLowerCase();
+          state.search = stateToURL(state);
+          state.queryString = stateToQS(state);
       })
       .addCase('trends/changeFocus', (state, action) => {
         const { focus, filterValues, lens } = action.payload;

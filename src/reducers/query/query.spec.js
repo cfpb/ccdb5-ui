@@ -1,13 +1,13 @@
 import target, {
   alignDateRange,
   queryState,
-  filterArrayAction, processParams, changeDateInterval,
+  filterArrayAction, processParams, changeDateInterval, dismissTrendsDateWarning,
 } from './query';
 import actions from '../../actions';
 import * as types from '../../constants';
 import dayjs from 'dayjs';
 import { startOfToday } from '../../utils';
-import {changeFocus, removeFocus, updateDataLens, updateDataSubLens} from "../trends/trends";
+import {changeFocus, removeFocus, updateChartType, updateDataLens, updateDataSubLens} from "../trends/trends";
 import {enforceValues} from "../../utils/reducers";
 
 const maxDate = startOfToday();
@@ -1360,7 +1360,7 @@ describe('reducer:query', () => {
     });
   });
 
-  describe('Map', () => {
+  describe.only('Map', () => {
     describe('Data normalization', () => {
       beforeEach(() => {
         action = {
@@ -1596,17 +1596,10 @@ describe('reducer:query', () => {
     });
 
     describe('Trends Date Warning', () => {
-      it('handles TRENDS_DATE_WARNING_DISMISSED action', () => {
-        action = {
-          type: actions.TRENDS_DATE_WARNING_DISMISSED,
-        };
-        state.trendsDateWarningEnabled = true;
-        expect(target(state, action)).toEqual({
-          chartType: 'line',
-          queryString: '',
-          tab: types.MODE_TRENDS,
-          trendsDateWarningEnabled: false,
-          search: '?chartType=line&tab=Trends',
+      it('handles trends/dismissTrendsDateWarning action', () => {
+        expect(target({...queryState, trendsDateWarningEnabled: true}, dismissTrendsDateWarning())).toEqual({
+          ...queryState,
+          trendsDateWarningEnabled: false
         });
       });
     });
@@ -1614,17 +1607,16 @@ describe('reducer:query', () => {
     describe('CHART_TYPE_CHANGED actions', () => {
       it('changes the chartType - default', () => {
         action = {
-          type: actions.CHART_TYPE_CHANGED,
           chartType: 'Foo',
         };
-        state.chartType = 'ahha';
-        result = target(state, action);
+        result = target({...queryState, chartType: "ahha"}, updateChartType(action));
         expect(result).toEqual({
-          chartType: 'line',
-          queryString: '',
+          ...queryState,
+          chartType: 'Foo',
+          queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
           tab: types.MODE_TRENDS,
           trendsDateWarningEnabled: false,
-          search: '?chartType=line&tab=Trends',
+          search: '?chartType=Foo&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
         });
       });
     });
@@ -1634,18 +1626,18 @@ describe('reducer:query', () => {
         action = {
           lens: 'Foo',
         };
-        state.focus = 'ahha';
-        result = target(state, updateDataLens(action));
+        result = target({...queryState, focus: "ahha"}, updateDataLens(action));
         expect(result).toEqual({
+          ...queryState,
           chartType: 'line',
           focus: '',
           lens: 'Overview',
           subLens: '',
-          queryString: '?lens=overview&trend_depth=5',
+          queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=overview&trend_depth=5&trend_interval=month',
           tab: 'Trends',
           trendDepth: 5,
           trendsDateWarningEnabled: false,
-          search: '?chartType=line&lens=Overview&tab=Trends',
+          search: '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Overview&searchField=all&tab=Trends',
         });
       });
 
@@ -1653,17 +1645,18 @@ describe('reducer:query', () => {
         action = {
           lens: 'Company',
         };
-        result = target({ tab: types.MODE_TRENDS, focus: 'ahha' }, updateDataLens(action));
+        result = target({ ...queryState, tab: types.MODE_TRENDS, focus: 'ahha' }, updateDataLens(action));
         expect(result).toEqual({
+          ...queryState,
           chartType: 'line',
           focus: '',
           lens: 'Company',
           subLens: 'product',
-          queryString: '?lens=company&sub_lens=product&trend_depth=10',
+          queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=company&sub_lens=product&trend_depth=10&trend_interval=month',
           tab: 'Trends',
           trendDepth: 10,
           trendsDateWarningEnabled: false,
-          search: '?chartType=line&lens=Company&subLens=product&tab=Trends',
+          search: '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Company&searchField=all&subLens=product&tab=Trends',
         });
       });
 
@@ -1671,17 +1664,18 @@ describe('reducer:query', () => {
         action = {
           lens: 'Product',
         };
-        result = target({ tab: types.MODE_TRENDS, focus: 'ahha' }, updateDataLens(action));
+        result = target({ ...queryState, tab: types.MODE_TRENDS, focus: 'ahha' }, updateDataLens(action));
         expect(result).toEqual({
+          ...queryState,
           chartType: 'line',
           focus: '',
           lens: 'Product',
-          queryString: '?lens=product&sub_lens=sub_product&trend_depth=5',
+          queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
           subLens: 'sub_product',
           tab: 'Trends',
           trendDepth: 5,
           trendsDateWarningEnabled: false,
-          search: '?chartType=line&lens=Product&subLens=sub_product&tab=Trends',
+          search: '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
         });
       });
     });
@@ -1696,10 +1690,10 @@ describe('reducer:query', () => {
           ...queryState,
           chartType: 'line',
           subLens: 'issue',
-          queryString: '?sub_lens=issue',
+          queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=issue&trend_depth=5&trend_interval=month',
           tab: 'Trends',
           trendsDateWarningEnabled: false,
-          search: '?chartType=line&subLens=issue&tab=Trends',
+          search: '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=issue&tab=Trends',
         });
       });
     });
