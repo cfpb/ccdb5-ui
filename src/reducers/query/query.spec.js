@@ -1,21 +1,35 @@
 import target, {
   alignDateRange,
   queryState,
-  filterArrayAction, processParams, changeDateInterval, dismissTrendsDateWarning,
+  filterArrayAction,
+  processParams,
+  changeDateInterval,
+  dismissTrendsDateWarning,
+  removeStateFilter,
+  clearStateFilter,
+  addStateFilter,
+  showStateComplaints,
+  dismissMapWarning,
+  updateDataNormalization,
 } from './query';
 import actions from '../../actions';
 import * as types from '../../constants';
 import dayjs from 'dayjs';
 import { startOfToday } from '../../utils';
-import {changeFocus, removeFocus, updateChartType, updateDataLens, updateDataSubLens} from "../trends/trends";
-import {enforceValues} from "../../utils/reducers";
+import {
+  changeFocus,
+  removeFocus,
+  updateChartType,
+  updateDataLens,
+  updateDataSubLens,
+} from '../trends/trends';
 
 const maxDate = startOfToday();
 
 describe('reducer:query', () => {
   let action, result, state;
   describe('default', () => {
-    xit('has a default state', () => {
+    it('has a default state', () => {
       result = target(undefined, {});
       expect(result).toEqual({
         breakPoints: {},
@@ -25,7 +39,7 @@ describe('reducer:query', () => {
         dateRange: '3y',
         date_received_max: new Date('2020-05-05T04:00:00.000Z'),
         date_received_min: new Date('2017-05-05T04:00:00.000Z'),
-        enablePer1000: true,
+        enablePer1000: false,
         focus: '',
         from: 0,
         lens: 'Product',
@@ -424,7 +438,7 @@ describe('reducer:query', () => {
         page: 1,
         searchAfter: '',
         focus: '',
-        enablePer1000: true,
+        enablePer1000: false,
         mapWarningEnabled: true,
         tab: types.MODE_MAP,
         queryString: '',
@@ -935,7 +949,7 @@ describe('reducer:query', () => {
           expect(target(state, action)).toEqual({
             breakPoints: {},
             dataNormalization: 'None',
-            enablePer1000: true,
+            enablePer1000: false,
             from: 0,
             mapWarningEnabled: true,
             page: 1,
@@ -1000,7 +1014,7 @@ describe('reducer:query', () => {
         const actual = target(state, action);
         expect(actual).toMatchObject({
           dateRange: 'All',
-          enablePer1000: true,
+          enablePer1000: false,
           from: 0,
           mapWarningEnabled: true,
           searchField: 'all',
@@ -1059,7 +1073,7 @@ describe('reducer:query', () => {
         expect(
           target(
             {
-              enablePer1000: true,
+              enablePer1000: false,
               mapWarningEnabled: true,
               tab: types.MODE_MAP,
             },
@@ -1360,109 +1374,116 @@ describe('reducer:query', () => {
     });
   });
 
-  describe.only('Map', () => {
+  describe('Map', () => {
     describe('Data normalization', () => {
       beforeEach(() => {
         action = {
-          type: actions.DATA_NORMALIZATION_SELECTED,
           value: 'FooBar',
         };
         state = {
+          ...queryState,
           tab: types.MODE_MAP,
         };
       });
       it('handles default value', () => {
-        expect(target(state, action)).toEqual({
+        expect(target(state, updateDataNormalization(action))).toEqual({
+          ...state,
           dataNormalization: 'None',
-          enablePer1000: true,
+          enablePer1000: false,
           mapWarningEnabled: true,
-          queryString: '',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all',
           tab: types.MODE_MAP,
-          search: '?dataNormalization=None&tab=Map',
+          search:
+            '?dataNormalization=None&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&searchField=all&tab=Map',
         });
       });
 
       it('handles per 1000 value', () => {
         action.value = types.GEO_NORM_PER1000;
-        expect(target(state, action)).toEqual({
+        expect(target(state, updateDataNormalization(action))).toEqual({
+          ...state,
           dataNormalization: 'Per 1000 pop.',
           enablePer1000: true,
           mapWarningEnabled: true,
-          queryString: '',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all',
           tab: types.MODE_MAP,
-          search: '?dataNormalization=Per%201000%20pop.&tab=Map',
+          search:
+            '?dataNormalization=Per%201000%20pop.&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&searchField=all&tab=Map',
         });
       });
     });
 
     describe('Map Warning', () => {
-      it('handles MAP_WARNING_DISMISSED action', () => {
-        action = {
-          type: actions.MAP_WARNING_DISMISSED,
-        };
+      it('handles dismissMapWarning action', () => {
         state = {
+          ...queryState,
           company: [1, 2, 3],
           product: 'bar',
           mapWarningEnabled: true,
           tab: types.MODE_MAP,
         };
-        expect(target(state, action)).toEqual({
+        expect(target(state, dismissMapWarning())).toEqual({
+          ...state,
           company: [1, 2, 3],
           dataNormalization: types.GEO_NORM_NONE,
           enablePer1000: false,
           product: 'bar',
           mapWarningEnabled: false,
-          queryString: '?company=1&company=2&company=3&product=bar',
+          queryString:
+            '?company=1&company=2&company=3&date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&product=bar',
           tab: types.MODE_MAP,
           search:
-            '?company=1&company=2&company=3&dataNormalization=None&product=bar&tab=Map',
+            '?company=1&company=2&company=3&dataNormalization=None&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&product=bar&searchField=all&tab=Map',
         });
       });
     });
 
     describe('STATE_COMPLAINTS_SHOWN', () => {
       it('switches to List View', () => {
-        action = {
-          type: actions.STATE_COMPLAINTS_SHOWN,
-        };
-
         result = target(
           {
+            ...queryState,
             state: [],
             tab: types.MODE_MAP,
           },
-          action
+          showStateComplaints()
         );
 
         expect(result).toEqual({
-          queryString: '',
+          ...queryState,
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&size=25&sort=created_date_desc',
           tab: types.MODE_LIST,
-          search: '?tab=List',
+          search:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&page=1&searchField=all&size=25&sort=created_date_desc&tab=List',
+          state: [],
         });
       });
 
       it('saves all state filters and switches to List View', () => {
-        action = {
-          type: actions.STATE_COMPLAINTS_SHOWN,
-        };
-
         result = target(
           {
+            ...queryState,
             enablePer1000: false,
             mapWarningEnabled: true,
             state: ['TX', 'MX', 'FO'],
             tab: types.MODE_MAP,
           },
-          action
+          showStateComplaints()
         );
 
         expect(result).toEqual({
+          ...queryState,
           enablePer1000: false,
           mapWarningEnabled: true,
-          queryString: '?state=TX&state=MX&state=FO',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&size=25&sort=created_date_desc&state=TX&state=MX&state=FO',
           state: ['TX', 'MX', 'FO'],
           tab: types.MODE_LIST,
-          search: '?state=TX&state=MX&state=FO&tab=List',
+          search:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&page=1&searchField=all&size=25&sort=created_date_desc&state=TX&state=MX&state=FO&tab=List',
         });
       });
     });
@@ -1470,81 +1491,94 @@ describe('reducer:query', () => {
     describe('STATE_FILTER_ADDED', () => {
       beforeEach(() => {
         action = {
-          type: actions.STATE_FILTER_ADDED,
           selectedState: { abbr: 'IL', name: 'Illinois' },
         };
       });
       it('adds state filter', () => {
-        result = target({ tab: types.MODE_MAP }, action);
+        result = target(
+          { ...queryState, tab: types.MODE_MAP },
+          addStateFilter(action)
+        );
         expect(result).toEqual({
+          ...queryState,
           dataNormalization: 'None',
-          enablePer1000: true,
+          enablePer1000: false,
           mapWarningEnabled: true,
-          queryString: '?state=IL',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&state=IL',
           state: ['IL'],
           tab: types.MODE_MAP,
-          search: '?dataNormalization=None&state=IL&tab=Map',
+          search:
+            '?dataNormalization=None&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&searchField=all&state=IL&tab=Map',
         });
       });
       it('does not add dupe state filter', () => {
         result = target(
           {
+            ...queryState,
             state: ['IL', 'TX'],
             tab: types.MODE_MAP,
           },
-          action
+          addStateFilter(action)
         );
 
         expect(result).toEqual({
+          ...queryState,
           dataNormalization: 'None',
-          enablePer1000: true,
+          enablePer1000: false,
           mapWarningEnabled: true,
-          queryString: '?state=IL&state=TX',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&state=IL&state=TX',
           state: ['IL', 'TX'],
           tab: types.MODE_MAP,
-          search: '?dataNormalization=None&state=IL&state=TX&tab=Map',
+          search:
+            '?dataNormalization=None&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&searchField=all&state=IL&state=TX&tab=Map',
         });
       });
     });
 
     describe('STATE_FILTER_CLEARED', () => {
       it('removes state filters', () => {
-        action = {
-          type: actions.STATE_FILTER_CLEARED,
-        };
-
         result = target(
           {
+            ...queryState,
             state: ['FO', 'BA'],
             tab: types.MODE_MAP,
           },
-          action
+          clearStateFilter()
         );
 
         expect(result).toEqual({
+          ...queryState,
           dataNormalization: 'None',
-          enablePer1000: true,
+          enablePer1000: false,
           mapWarningEnabled: true,
-          queryString: '',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all',
           tab: types.MODE_MAP,
-          search: '?dataNormalization=None&tab=Map',
+          search:
+            '?dataNormalization=None&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&searchField=all&tab=Map',
+          state: [],
         });
       });
 
       it('handles no state filters', () => {
-        action = {
-          type: actions.STATE_FILTER_CLEARED,
-        };
-
-        result = target({ tab: types.MODE_MAP }, action);
+        result = target(
+          { ...queryState, tab: types.MODE_MAP },
+          clearStateFilter()
+        );
 
         expect(result).toEqual({
+          ...queryState,
           dataNormalization: 'None',
-          enablePer1000: true,
+          enablePer1000: false,
           mapWarningEnabled: true,
-          queryString: '',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all',
           tab: types.MODE_MAP,
-          search: '?dataNormalization=None&tab=Map',
+          search:
+            '?dataNormalization=None&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&searchField=all&tab=Map',
+          state: [],
         });
       });
     });
@@ -1552,37 +1586,41 @@ describe('reducer:query', () => {
     describe('STATE_FILTER_REMOVED', () => {
       beforeEach(() => {
         action = {
-          type: actions.STATE_FILTER_REMOVED,
           selectedState: { abbr: 'IL', name: 'Illinois' },
         };
       });
       it('removes a state filter', () => {
         result = target(
           {
+            ...queryState,
             state: ['CA', 'IL'],
             tab: types.MODE_MAP,
           },
-          action
+          removeStateFilter(action)
         );
         expect(result).toEqual({
+          ...queryState,
           dataNormalization: 'None',
-          enablePer1000: true,
+          enablePer1000: false,
           mapWarningEnabled: true,
-          queryString: '?state=CA',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&state=CA',
           state: ['CA'],
           tab: types.MODE_MAP,
-          search: '?dataNormalization=None&state=CA&tab=Map',
+          search:
+            '?dataNormalization=None&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&searchField=all&state=CA&tab=Map',
         });
       });
       it('handles empty state', () => {
-        result = target({ tab: types.MODE_MAP }, action);
+        result = target({ ...queryState, tab: types.MODE_MAP }, action);
         expect(result).toEqual({
+          ...queryState,
           dataNormalization: 'None',
-          enablePer1000: true,
+          enablePer1000: false,
           mapWarningEnabled: true,
           queryString: '',
           tab: types.MODE_MAP,
-          search: '?dataNormalization=None&tab=Map',
+          search: '',
         });
       });
     });
@@ -1597,9 +1635,14 @@ describe('reducer:query', () => {
 
     describe('Trends Date Warning', () => {
       it('handles trends/dismissTrendsDateWarning action', () => {
-        expect(target({...queryState, trendsDateWarningEnabled: true}, dismissTrendsDateWarning())).toEqual({
+        expect(
+          target(
+            { ...queryState, trendsDateWarningEnabled: true },
+            dismissTrendsDateWarning()
+          )
+        ).toEqual({
           ...queryState,
-          trendsDateWarningEnabled: false
+          trendsDateWarningEnabled: false,
         });
       });
     });
@@ -1609,14 +1652,19 @@ describe('reducer:query', () => {
         action = {
           chartType: 'Foo',
         };
-        result = target({...queryState, chartType: "ahha"}, updateChartType(action));
+        result = target(
+          { ...queryState, chartType: 'ahha' },
+          updateChartType(action)
+        );
         expect(result).toEqual({
           ...queryState,
           chartType: 'Foo',
-          queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
           tab: types.MODE_TRENDS,
           trendsDateWarningEnabled: false,
-          search: '?chartType=Foo&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
+          search:
+            '?chartType=Foo&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
         });
       });
     });
@@ -1626,18 +1674,23 @@ describe('reducer:query', () => {
         action = {
           lens: 'Foo',
         };
-        result = target({...queryState, focus: "ahha"}, updateDataLens(action));
+        result = target(
+          { ...queryState, focus: 'ahha' },
+          updateDataLens(action)
+        );
         expect(result).toEqual({
           ...queryState,
           chartType: 'line',
           focus: '',
           lens: 'Overview',
           subLens: '',
-          queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=overview&trend_depth=5&trend_interval=month',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=overview&trend_depth=5&trend_interval=month',
           tab: 'Trends',
           trendDepth: 5,
           trendsDateWarningEnabled: false,
-          search: '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Overview&searchField=all&tab=Trends',
+          search:
+            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Overview&searchField=all&tab=Trends',
         });
       });
 
@@ -1645,18 +1698,23 @@ describe('reducer:query', () => {
         action = {
           lens: 'Company',
         };
-        result = target({ ...queryState, tab: types.MODE_TRENDS, focus: 'ahha' }, updateDataLens(action));
+        result = target(
+          { ...queryState, tab: types.MODE_TRENDS, focus: 'ahha' },
+          updateDataLens(action)
+        );
         expect(result).toEqual({
           ...queryState,
           chartType: 'line',
           focus: '',
           lens: 'Company',
           subLens: 'product',
-          queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=company&sub_lens=product&trend_depth=10&trend_interval=month',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=company&sub_lens=product&trend_depth=10&trend_interval=month',
           tab: 'Trends',
           trendDepth: 10,
           trendsDateWarningEnabled: false,
-          search: '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Company&searchField=all&subLens=product&tab=Trends',
+          search:
+            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Company&searchField=all&subLens=product&tab=Trends',
         });
       });
 
@@ -1664,18 +1722,23 @@ describe('reducer:query', () => {
         action = {
           lens: 'Product',
         };
-        result = target({ ...queryState, tab: types.MODE_TRENDS, focus: 'ahha' }, updateDataLens(action));
+        result = target(
+          { ...queryState, tab: types.MODE_TRENDS, focus: 'ahha' },
+          updateDataLens(action)
+        );
         expect(result).toEqual({
           ...queryState,
           chartType: 'line',
           focus: '',
           lens: 'Product',
-          queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
           subLens: 'sub_product',
           tab: 'Trends',
           trendDepth: 5,
           trendsDateWarningEnabled: false,
-          search: '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
+          search:
+            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
         });
       });
     });
@@ -1685,15 +1748,20 @@ describe('reducer:query', () => {
         action = {
           subLens: 'Issue',
         };
-        result = target({ ...queryState, tab: types.MODE_TRENDS }, updateDataSubLens(action));
+        result = target(
+          { ...queryState, tab: types.MODE_TRENDS },
+          updateDataSubLens(action)
+        );
         expect(result).toEqual({
           ...queryState,
           chartType: 'line',
           subLens: 'issue',
-          queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=issue&trend_depth=5&trend_interval=month',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=issue&trend_depth=5&trend_interval=month',
           tab: 'Trends',
           trendsDateWarningEnabled: false,
-          search: '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=issue&tab=Trends',
+          search:
+            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=issue&tab=Trends',
         });
       });
     });
@@ -1703,7 +1771,10 @@ describe('reducer:query', () => {
         action = {
           dateInterval: 'Day',
         };
-        result = target({ ...queryState, tab: types.MODE_TRENDS }, changeDateInterval(action));
+        result = target(
+          { ...queryState, tab: types.MODE_TRENDS },
+          changeDateInterval(action)
+        );
         expect(result).toEqual({
           ...queryState,
           breakPoints: {},
@@ -1711,11 +1782,13 @@ describe('reducer:query', () => {
           dateInterval: 'Day',
           from: 0,
           page: 1,
-          queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=day',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=day',
           searchAfter: '',
           tab: 'Trends',
           trendsDateWarningEnabled: false,
-          search: '?chartType=line&dateInterval=Day&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
+          search:
+            '?chartType=line&dateInterval=Day&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
         });
       });
     });
@@ -1730,16 +1803,15 @@ describe('reducer:query', () => {
         result = target({ ...queryState, focus: 'Else' }, changeFocus(action));
         expect(result).toEqual({
           ...queryState,
-          product: [
-            'A',
-            'A•B'
-          ],
+          product: ['A', 'A•B'],
           focus: 'A',
           lens: 'Product',
           tab: 'Trends',
           trendDepth: 25,
-          queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&focus=Else&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
-          search: '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&focus=Else&lens=Product&searchField=all&subLens=sub_product&tab=Trends'
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&focus=Else&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
+          search:
+            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&focus=Else&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
         });
       });
 
@@ -1756,12 +1828,15 @@ describe('reducer:query', () => {
           focus: 'A',
           lens: 'Company',
           company: ['A'],
-          queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&focus=Else&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&focus=Else&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
           subLens: 'sub_product',
           tab: 'Trends',
           trendDepth: 25,
           trendsDateWarningEnabled: false,
-          search: '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&focus=Else&lens=Product&searchField=all&subLens=sub_product&tab=Trends'        });
+          search:
+            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&focus=Else&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
+        });
       });
     });
 
@@ -1774,12 +1849,14 @@ describe('reducer:query', () => {
           focus: '',
           lens: 'Product',
           product: [],
-          queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
           subLens: 'sub_product',
           tab: 'Trends',
           trendDepth: 5,
           trendsDateWarningEnabled: false,
-          search: '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
+          search:
+            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
         });
       });
     });

@@ -30,7 +30,7 @@ export const queryState = {
   dateRange: '3y',
   date_received_max: startOfToday(),
   date_received_min: new Date(dayjs(startOfToday()).subtract(3, 'years')),
-  enablePer1000: true,
+  enablePer1000: false,
   focus: '',
   from: 0,
   mapWarningEnabled: true,
@@ -139,7 +139,10 @@ export const querySlice = createSlice({
     },
     changeDateInterval: {
       reducer: (state, action) => {
-        state.dateInterval = enforceValues(action.payload.dateInterval, 'dateInterval');
+        state.dateInterval = enforceValues(
+          action.payload.dateInterval,
+          'dateInterval'
+        );
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
@@ -342,10 +345,9 @@ export const querySlice = createSlice({
           stateFilters.push(abbr);
         }
 
-        return {
-          ...state,
-          state: stateFilters,
-        };
+        state.state = stateFilters;
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
       },
       prepare: (payload) => {
         return {
@@ -358,10 +360,9 @@ export const querySlice = createSlice({
     },
     clearStateFilter: {
       reducer: (state) => {
-        return {
-          ...state,
-          state: [],
-        };
+        state.state = [];
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
       },
       prepare: (payload) => {
         return {
@@ -374,10 +375,9 @@ export const querySlice = createSlice({
     },
     showStateComplaints: {
       reducer: (state) => {
-        return {
-          ...state,
-          tab: types.MODE_LIST,
-        };
+        state.tab = types.MODE_LIST;
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
       },
       prepare: (payload) => {
         return {
@@ -393,10 +393,9 @@ export const querySlice = createSlice({
         const stateFilters = coalesce(state, 'state', []);
         const { abbr } = action.payload.selectedState;
 
-        return {
-          ...state,
-          state: stateFilters.filter((o) => o !== abbr),
-        };
+        state.state = stateFilters.filter((o) => o !== abbr);
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
       },
       prepare: (payload) => {
         return {
@@ -550,6 +549,8 @@ export const querySlice = createSlice({
     dismissMapWarning: {
       reducer: (state) => {
         state.mapWarningEnabled = false;
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
       },
       prepare: (payload) => {
         return {
@@ -563,6 +564,8 @@ export const querySlice = createSlice({
     dismissTrendsDateWarning: {
       reducer: (state) => {
         state.trendsDateWarningEnabled = false;
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
       },
       prepare: (payload) => {
         return {
@@ -759,14 +762,14 @@ export const querySlice = createSlice({
     },
     updateDataNormalization: {
       reducer: (state, action) => {
-        const dataNormalization = enforceValues(
-          action.payload,
+        state.dataNormalization = enforceValues(
+          action.payload.value,
           'dataNormalization'
         );
-        return {
-          ...state,
-          dataNormalization,
-        };
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
+        state.enablePer1000 =
+          state.dataNormalization === types.GEO_NORM_PER1000;
       },
       prepare: (payload) => {
         return {
@@ -786,26 +789,26 @@ export const querySlice = createSlice({
         state.queryString = stateToQS(state);
       })
       .addCase('trends/updateDataLens', (state, action) => {
-          state.focus = '';
-          state.lens = enforceValues(action.payload.lens, 'lens');
-          switch(state.lens){
-            case 'Company':
-              state.subLens = 'product';
-              break;
-            case 'Product':
-              state.subLens = 'sub_product';
-              break;
-            default:
-              state.subLens = ''
-          }
-          state.trendDepth = state.lens === 'Company' ? 10 : 5;
-          state.search = stateToURL(state);
-          state.queryString = stateToQS(state);
+        state.focus = '';
+        state.lens = enforceValues(action.payload.lens, 'lens');
+        switch (state.lens) {
+          case 'Company':
+            state.subLens = 'product';
+            break;
+          case 'Product':
+            state.subLens = 'sub_product';
+            break;
+          default:
+            state.subLens = '';
+        }
+        state.trendDepth = state.lens === 'Company' ? 10 : 5;
+        state.search = stateToURL(state);
+        state.queryString = stateToQS(state);
       })
       .addCase('trends/updateDataSubLens', (state, action) => {
-          state.subLens = action.payload.subLens.toLowerCase();
-          state.search = stateToURL(state);
-          state.queryString = stateToQS(state);
+        state.subLens = action.payload.subLens.toLowerCase();
+        state.search = stateToURL(state);
+        state.queryString = stateToQS(state);
       })
       .addCase('trends/changeFocus', (state, action) => {
         const { focus, filterValues, lens } = action.payload;
@@ -828,7 +831,7 @@ export const querySlice = createSlice({
           tab: types.MODE_TRENDS,
           trendDepth: 25,
           queryString: stateToQS(state),
-          search: stateToURL(state)
+          search: stateToURL(state),
         };
       })
       .addCase('trends/removeFocus', (state) => {
@@ -841,7 +844,7 @@ export const querySlice = createSlice({
           tab: types.MODE_TRENDS,
           trendDepth: 5,
           queryString: stateToQS(state),
-          search: stateToURL(state)
+          search: stateToURL(state),
         };
       });
   },
