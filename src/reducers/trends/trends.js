@@ -113,6 +113,7 @@ export const trendsSlice = createSlice({
           isLoading: false,
           results,
           total,
+          subLens: 'product'
         };
       },
       prepare: (payload) => {
@@ -172,6 +173,7 @@ export const trendsSlice = createSlice({
           ...state,
           focus: '',
           lens,
+          subLens: (lens === 'Company') ? 'product' : state.subLens,
           results: emptyResults(),
           tooltip: false,
         };

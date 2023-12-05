@@ -348,8 +348,10 @@ describe('component:TrendsPanel', () => {
       expect(dispatch.mock.calls).toEqual([
         [
           {
-            requery: 'REQUERY_NEVER',
-            type: 'TRENDS_DATE_WARNING_DISMISSED',
+            meta: {
+              requery: 'REQUERY_NEVER'
+            },
+            type: 'query/dismissTrendsDateWarning',
           },
         ],
       ]);

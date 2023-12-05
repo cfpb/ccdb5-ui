@@ -136,10 +136,14 @@ describe('mapDispatchToProps', () => {
     expect(dispatch.mock.calls).toEqual([
       [
         {
-          filterName: 'company',
-          filterValue: 'Foo',
-          requery: 'REQUERY_ALWAYS',
-          type: 'FILTER_REMOVED',
+          payload: {
+            filterName: 'company',
+            filterValue: 'Foo'
+          },
+          meta: {
+            requery: 'REQUERY_ALWAYS'
+          },
+          type: 'query/removeFilter',
         },
       ],
     ]);

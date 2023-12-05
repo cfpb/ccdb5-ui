@@ -43,29 +43,22 @@ export const aggSlice = createSlice({
       const aggs = action.payload.data.aggregations;
       const keys = Object.keys(aggs);
 
-      const doc_count = Math.max(
+      state.doc_count = Math.max(
         state.doc_count,
         action.payload.data.hits.total.value,
         action.payload.data._meta.total_record_count
       );
-
-      const result = {
-        ...state,
-        doc_count,
-        error: '',
-        isLoading: false,
-        lastUpdated: action.payload.data._meta.last_updated,
-        lastIndexed: action.payload.data._meta.last_indexed,
-        hasDataIssue: action.payload.data._meta.has_data_issue,
-        isDataStale: action.payload.data._meta.is_data_stale,
-        total: action.payload.data.hits.total.value,
-      };
+      state.error = ''
+      state.isLoading = false;
+      state.lastUpdated= action.payload.data._meta.last_updated;
+      state.lastIndexed= action.payload.data._meta.last_indexed;
+      state.hasDataIssue= action.payload.data._meta.has_data_issue;
+      state.isDataStale= action.payload.data._meta.is_data_stale;
+      state.total= action.payload.data.hits.total.value;
 
       keys.forEach((key) => {
-        result[key] = aggs[key][key].buckets;
+        state[key] = aggs[key][key].buckets;
       });
-
-      return result;
     },
     processAggregationError(state, action) {
       return {

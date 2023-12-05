@@ -5,7 +5,9 @@ import {
   MODE_MAP,
   MODE_TRENDS,
 } from '../constants';
-import {complaintDetailCalled} from "../reducers/detail/detail";
+import {complaintDetailCalled, complaintDetailReceived, complaintDetailFailed} from "../reducers/detail/detail";
+import {processTrends, processTrendsError, trendsCallInProcess} from "../reducers/trends/trends";
+import {processStatesError, processStatesResults, statesCallInProcess} from "../reducers/map/map";
 
 export const AGGREGATIONS_API_CALLED = 'aggregationsCallInProcess';
 export const AGGREGATIONS_RECEIVED = 'processAggregationResults';
@@ -154,11 +156,11 @@ export function getStates() {
       return null;
     }
 
-    dispatch(callingApi(STATES_API_CALLED, uri));
+    dispatch(callingApi(statesCallInProcess(), uri));
     return fetch(uri)
       .then((result) => result.json())
-      .then((items) => dispatch(statesReceived(items)))
-      .catch((error) => dispatch(statesFailed(error)));
+      .then((items) => dispatch(processStatesResults(items)))
+      .catch((error) => dispatch(processStatesError(error)));
   };
 }
 
@@ -186,11 +188,11 @@ export function getTrends() {
       return null;
     }
 
-    dispatch(callingApi(TRENDS_API_CALLED, uri));
+    dispatch(callingApi(trendsCallInProcess(), uri));
     return fetch(uri)
       .then((result) => result.json())
-      .then((items) => dispatch(trendsReceived(items)))
-      .catch((error) => dispatch(trendsFailed(error)));
+      .then((items) => dispatch(processTrends(items)))
+      .catch((error) => dispatch(processTrendsError(error)));
   };
 }
 
@@ -207,122 +209,3 @@ export function callingApi(type, url) {
   };
 }
 
-/**
- * Creates an action in response to aggregations being received from the API
- * @param {string} data - the raw data returned from the API
- * @returns {string} a packaged payload to be used by Redux reducers
- */
-export function aggregationsReceived(data) {
-  return {
-    type: AGGREGATIONS_RECEIVED,
-    data,
-  };
-}
-
-/**
- * Creates an action in response after aggregation search fails
- * @param {string} error - the error returned from `fetch`, not the API
- * @returns {string} a packaged payload to be used by Redux reducers
- */
-export function aggregationsFailed(error) {
-  return {
-    type: AGGREGATIONS_FAILED,
-    error,
-  };
-}
-
-/**
- * Creates an action in response to search results being received from the API
- * @param {string} data - the raw data returned from the API
- * @returns {string} a packaged payload to be used by Redux reducers
- */
-export function complaintsReceived(data) {
-  return {
-    type: COMPLAINTS_RECEIVED,
-    data,
-  };
-}
-
-/**
- * Creates an action in response after a search fails
- * @param {string} error - the error returned from `fetch`, not the API
- * @returns {string} a packaged payload to be used by Redux reducers
- */
-export function complaintsFailed(error) {
-  return {
-    type: COMPLAINTS_FAILED,
-    error,
-  };
-}
-
-/**
- * Creates an action in response to complaint detail being received from the API
- * @param {string} data - the raw data returned from the API
- * @returns {string} a packaged payload to be used by Redux reducers
- */
-export function complaintDetailReceived(data) {
-  return {
-    type: COMPLAINT_DETAIL_RECEIVED,
-    data,
-  };
-}
-
-/**
- * Creates an action in response after a detail search fails
- * @param {string} error - the error returned from `fetch`, not the API
- * @returns {string} a packaged payload to be used by Redux reducers
- */
-export function complaintDetailFailed(error) {
-  return {
-    type: COMPLAINT_DETAIL_FAILED,
-    error,
-  };
-}
-
-/**
- * Creates an action in response to states results being received from the API
- * @param {string} data - the raw data returned from the API
- * @returns {string} a packaged payload to be used by Redux reducers
- */
-export function statesReceived(data) {
-  return {
-    type: STATES_RECEIVED,
-    data,
-  };
-}
-
-/**
- * Creates an action in response after states results fails
- * @param {string} error - the error returned from `fetch`, not the API
- * @returns {string} a packaged payload to be used by Redux reducers
- */
-export function statesFailed(error) {
-  return {
-    type: STATES_FAILED,
-    error,
-  };
-}
-
-/**
- * Creates an action in response to trends results being received from the API
- * @param {string} data - the raw data returned from the API
- * @returns {string} a packaged payload to be used by Redux reducers
- */
-export function trendsReceived(data) {
-  return {
-    type: TRENDS_RECEIVED,
-    data,
-  };
-}
-
-/**
- * Creates an action in response after trends results fails
- * @param {string} error - the error returned from `fetch`, not the API
- * @returns {string} a packaged payload to be used by Redux reducers
- */
-export function trendsFailed(error) {
-  return {
-    type: TRENDS_FAILED,
-    error,
-  };
-}

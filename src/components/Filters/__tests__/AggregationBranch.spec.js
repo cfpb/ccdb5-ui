@@ -168,10 +168,12 @@ describe('component::AggregationBranch', () => {
       expect(dispatch.mock.calls).toEqual([
         [
           {
-            filterName: 'foo',
             meta: { requery: 'REQUERY_ALWAYS' },
             type: 'query/replaceFilters',
-            payload: ['another filter', 'bay'],
+            payload: {
+              filterName: 'foo',
+              filters: ['another filter', 'bay'],
+            }
           },
         ],
       ]);

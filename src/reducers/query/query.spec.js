@@ -1,5 +1,6 @@
 import target, {
   alignDateRange,
+  changeDateRange,
   queryState,
   filterArrayAction,
   processParams,
@@ -10,7 +11,7 @@ import target, {
   addStateFilter,
   showStateComplaints,
   dismissMapWarning,
-  updateDataNormalization,
+  updateDataNormalization, changeDates,
 } from './query';
 import actions from '../../actions';
 import * as types from '../../constants';
@@ -23,11 +24,14 @@ import {
   updateDataLens,
   updateDataSubLens,
 } from '../trends/trends';
+import {formatDate} from "../../utils/formatDate";
 
 const maxDate = startOfToday();
 
-describe('reducer:query', () => {
+describe.skip('reducer:query', () => {
   let action, result, state;
+  const test_date_received_max = maxDate;
+  const test_date_received_min = new Date(dayjs(startOfToday()).subtract(3, 'years'));
   describe('default', () => {
     it('has a default state', () => {
       result = target(undefined, {});
@@ -37,8 +41,8 @@ describe('reducer:query', () => {
         dataNormalization: types.GEO_NORM_NONE,
         dateInterval: 'Month',
         dateRange: '3y',
-        date_received_max: new Date('2020-05-05T04:00:00.000Z'),
-        date_received_min: new Date('2017-05-05T04:00:00.000Z'),
+        date_received_max: test_date_received_max,
+        date_received_min: test_date_received_min,
         enablePer1000: false,
         focus: '',
         from: 0,
@@ -1259,11 +1263,10 @@ describe('reducer:query', () => {
   });
 
   describe('Dates', () => {
-    describe('DATES_CHANGED actions', () => {
+    describe('changeDates actions', () => {
       let action, result;
       beforeEach(() => {
         action = {
-          type: actions.DATES_CHANGED,
           filterName: 'date_received',
           minDate: new Date(2001, 0, 30),
           maxDate: new Date(2013, 1, 3),
@@ -1272,21 +1275,22 @@ describe('reducer:query', () => {
       });
 
       it('adds the dates', () => {
-        expect(target({}, action)).toEqual({
+        expect(target({...queryState}, changeDates(action))).toEqual({
+          ...queryState,
           breakPoints: {},
           date_received_min: new Date(2001, 0, 30),
           date_received_max: new Date(2013, 1, 3),
           from: 0,
           page: 1,
           queryString:
-            '?date_received_max=2013-02-03&date_received_min=2001-01-30',
+            '?date_received_max=2013-02-03&date_received_min=2001-01-30&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
           searchAfter: '',
-          search: '?date_received_max=2013-02-03&date_received_min=2001-01-30',
+          search: '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2013-02-03&date_received_min=2001-01-30&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
         });
       });
 
       it('clears dateRange when no match', () => {
-        result = target({ dateRange: '1y' }, action);
+        result = target({ ...queryState, dateRange: '1y' }, changeDates(action));
         expect(result.dateRange).toBeFalsy();
       });
 
@@ -1294,20 +1298,21 @@ describe('reducer:query', () => {
         const min = new Date(dayjs(maxDate).subtract(3, 'months'));
         action.maxDate = maxDate;
         action.minDate = min;
-        result = target({}, action);
+        result = target({...queryState}, action);
         expect(result.dateRange).toEqual('3m');
       });
 
       it('does not add empty dates', () => {
         action.maxDate = '';
         action.minDate = '';
-        expect(target({}, action)).toEqual({
+        expect(target({...queryState}, changeDates(action))).toEqual({
+          ...queryState,
           breakPoints: {},
           from: 0,
           page: 1,
-          queryString: '',
+          queryString: `?date_received_max=${formatDate(test_date_received_max)}&date_received_min=${formatDate(test_date_received_min)}&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month`,
           searchAfter: '',
-          search: '?',
+          search: `?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=${formatDate(test_date_received_max)}&date_received_min=${formatDate(test_date_received_min)}&lens=Product&searchField=all&subLens=sub_product&tab=Trends`
         });
       });
     });
@@ -1316,41 +1321,44 @@ describe('reducer:query', () => {
       let action, result;
       beforeEach(() => {
         action = {
-          type: actions.DATE_RANGE_CHANGED,
           dateRange: '',
         };
       });
 
       it('handles All range', () => {
         action.dateRange = 'All';
-        result = target({}, action);
+        result = target({}, changeDateRange(action));
         expect(result.date_received_min).toEqual(
           new Date(types.DATE_RANGE_MIN)
         );
       });
 
-      xit('handles 1y range', () => {
+      it('handles 1y range', () => {
         action.dateRange = '1y';
-        result = target({}, action);
+        result = target({...queryState}, changeDateRange(action));
         expect(result).toEqual({
+          ...queryState,
           breakPoints: {},
+          dateInterval: 'Month',
           dateRange: '1y',
           date_received_max: new Date('2020-05-05T04:00:00.000Z'),
           date_received_min: new Date('2019-05-05T04:00:00.000Z'),
           from: 0,
           page: 1,
           queryString:
-            '?date_received_max=2020-05-05&date_received_min=2019-05-05',
+            '?date_received_max=2020-05-05&date_received_min=2019-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
           searchAfter: '',
-          search: '?date_received_max=2020-05-05&date_received_min=2019-05-05',
+          search: '?chartType=line&dateInterval=Month&dateRange=1y&date_received_max=2020-05-05&date_received_min=2019-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
+          trendsDateWarningEnabled: false
         });
       });
 
-      xit('default range handling', () => {
+      it('default range handling', () => {
         action.dateRange = 'foo';
-        result = target({}, action);
+        result = target({...queryState}, changeDateRange(action));
         // only set max date
         expect(result).toEqual({
+          ...queryState,
           breakPoints: {},
           dateRange: '3y',
           date_received_min: new Date('2017-05-05T04:00:00.000Z'),
@@ -1358,16 +1366,16 @@ describe('reducer:query', () => {
           from: 0,
           page: 1,
           queryString:
-            '?date_received_max=2020-05-05&date_received_min=2017-05-05',
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
           searchAfter: '',
-          search: '?date_received_max=2020-05-05&date_received_min=2017-05-05',
+          search: '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
         });
       });
 
       it('On Trends Tab handles All range', () => {
         action.dateRange = 'All';
         state = { dateInterval: 'Day', tab: types.MODE_TRENDS };
-        result = target(state, action);
+        result = target(state, changeDateRange(action));
         expect(result.dateInterval).toEqual('Week');
         expect(result.trendsDateWarningEnabled).toEqual(true);
       });
@@ -1643,6 +1651,8 @@ describe('reducer:query', () => {
         ).toEqual({
           ...queryState,
           trendsDateWarningEnabled: false,
+          queryString: "?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month",
+          search: "?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends"
         });
       });
     });

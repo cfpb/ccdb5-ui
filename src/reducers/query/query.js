@@ -156,8 +156,9 @@ export const querySlice = createSlice({
       },
     },
     changeDateRange: {
+      // eslint-disable-next-line complexity
       reducer: (state, action) => {
-        const dateRange = enforceValues(action.payload, 'dateRange');
+        const dateRange = enforceValues(action.payload.dateRange, 'dateRange');
         const maxDate = startOfToday();
         const res = {
           All: new Date(types.DATE_RANGE_MIN),
@@ -171,6 +172,10 @@ export const querySlice = createSlice({
           ? res[dateRange]
           : state.date_received_min;
         state.date_received_max = maxDate;
+        state.dateInterval = (dateRange === 'All' && state.tab === types.MODE_TRENDS) ? 'Week' : state.dateInterval || queryState.dateInterval;
+        state.trendsDateWarningEnabled = (dateRange === 'All' && state.tab === types.MODE_TRENDS);
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
       },
       prepare: (payload) => {
         return {
@@ -182,6 +187,7 @@ export const querySlice = createSlice({
       },
     },
     changeDates: {
+      // eslint-disable-next-line complexity
       reducer: (state, action) => {
         const fields = [
           action.payload.filterName + '_min',
@@ -197,27 +203,15 @@ export const querySlice = createSlice({
           ? new Date(dayjs(maxDate).startOf('day'))
           : null;
 
-        const newState = {
-          ...state,
-          [fields[0]]: minDate,
-          [fields[1]]: maxDate,
-        };
-
-        // Remove nulls
-        fields.forEach((field) => {
-          if (newState[field] === null) {
-            delete newState[field];
-          }
-        });
+        state[fields[0]] = minDate || state[fields[0]];
+        state[fields[1]] = maxDate || state[fields[1]];
 
         const dateRange = calculateDateRange(minDate, maxDate);
         if (dateRange) {
-          newState.dateRange = dateRange;
-        } else {
-          delete newState.dateRange;
+          state.dateRange = dateRange;
         }
-
-        return newState;
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
       },
       prepare: (payload) => {
         return {
@@ -705,27 +699,30 @@ export const querySlice = createSlice({
         };
       },
     },
-    changeFocus(state, action) {
-      const { focus, filterValues, lens } = action;
-      const filterKey = lens.toLowerCase();
-      const activeFilters = [];
+    changeFocus: {
+      reducer: (state, action) => {
+        const {focus, filterValues, lens} = action.payload;
+        const filterKey = lens.toLowerCase();
+        const activeFilters = [];
 
-      if (filterKey === 'company') {
-        activeFilters.push(focus);
-      } else {
-        filterValues.forEach((o) => {
-          activeFilters.push(o);
-        });
+        if (filterKey === 'company') {
+          activeFilters.push(focus);
+        } else {
+          filterValues.forEach((o) => {
+            activeFilters.push(o);
+          });
+        }
+        state[filterKey] = activeFilters;
+        state.focus = focus;
+        state.lens = lens;
+        state.tab = types.MODE_TRENDS;
+        state.trendDepth = 25;
+      },
+      prepare: (payload) => {
+        return {
+          payload
+        }
       }
-
-      return {
-        ...state,
-        [filterKey]: activeFilters,
-        focus,
-        lens,
-        tab: types.MODE_TRENDS,
-        trendDepth: 25,
-      };
     },
     removeFocus(state) {
       const { lens } = state;
@@ -783,6 +780,10 @@ export const querySlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase('detail/complaintDetailCalled', (state) => {
+        state.search = stateToURL(state);
+        state.queryString = stateToQS(state);
+      })
       .addCase('trends/updateChartType', (state, action) => {
         state.chartType = action.payload.chartType;
         state.search = stateToURL(state);

@@ -239,7 +239,7 @@ export const mapDispatchToProps = (dispatch) => ({
         : [];
     }
     sendAnalyticsEvent('Trends click', element.parent);
-    dispatch(changeFocus(element.parent, lens, [...values]));
+    dispatch(changeFocus({focus: element.parent, lens: lens, filterValues: [...values]}));
   },
   collapseRow: (rowName) => {
     sendAnalyticsEvent('Bar chart collapsed', rowName);

@@ -424,8 +424,10 @@ describe('component: RowChart', () => {
             filterValues: ['Acme'],
             focus: 'Acme',
             lens: 'Company',
-            requery: 'REQUERY_ALWAYS',
-            type: 'FOCUS_CHANGED',
+            meta: {
+              requery: 'REQUERY_ALWAYS'
+            },
+            type: 'trends/changeFocus',
           },
         ],
       ]);
@@ -439,9 +441,11 @@ describe('component: RowChart', () => {
       expect(dispatch.mock.calls).toEqual([
         [
           {
-            requery: 'REQUERY_NEVER',
-            type: 'ROW_COLLAPSED',
-            value: 'Some Expanded row',
+            meta: {
+              requery: 'REQUERY_NEVER'
+            },
+            type: 'view/collapseRow',
+            payload: 'Some Expanded row',
           },
         ],
       ]);
@@ -458,9 +462,11 @@ describe('component: RowChart', () => {
       expect(dispatch.mock.calls).toEqual([
         [
           {
-            requery: 'REQUERY_NEVER',
-            type: 'ROW_EXPANDED',
-            value: 'collapse row name',
+            meta: {
+              requery: 'REQUERY_NEVER'
+            },
+            type: 'view/expandRow',
+            payload: 'collapse row name',
           },
         ],
       ]);

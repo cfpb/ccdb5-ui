@@ -395,7 +395,7 @@ describe('reducer:trends', () => {
       state.lens = 'Overview';
       state.subLens = '';
       result = target({ ...trendsState, ...state }, processTrends(action));
-      expect(result).toEqual({ ...trendsState, ...trendsResults });
+      expect(result).toEqual({ ...trendsResults });
     });
 
     it('maps data to object state - Company', () => {
@@ -404,7 +404,7 @@ describe('reducer:trends', () => {
       state.subLens = '';
       action.data.aggregations = trendsCompanyAggs;
       result = target({ ...trendsState, ...state }, processTrends(action));
-      expect(result).toEqual({ ...trendsState, ...trendsCompanyResults });
+      expect(result).toEqual({ ...trendsCompanyResults });
     });
 
     it('maps data to object state - dupe rows', () => {

@@ -57,8 +57,8 @@ export const viewSlice = createSlice({
       state.isFromExternal = false;
     },
     updateScreenSize(state, action) {
-      state.hasFilters = action.payload > 749;
-      state.width = action.payload;
+      state.hasFilters = action.payload.screenWidth > 749;
+      state.width = action.payload.screenWidth;
     },
     updateFilterVisibility: {
       reducer: (state) => {
