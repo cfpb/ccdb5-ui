@@ -121,10 +121,10 @@ describe('redux middleware::queryManager', () => {
         it('runs both left and right queries', () => {
           const action = {
             type: 'FakeAction',
-            requery: REQUERY_ALWAYS,
+            meta: { requery: REQUERY_ALWAYS },
           };
           const expectedActions = [
-            { type: 'FakeAction', requery: REQUERY_ALWAYS },
+            { type: 'FakeAction', meta: { requery: REQUERY_ALWAYS } },
             { type: 'aggregationsCallInProcess', url: '@@API?foo&size=0' },
             {
               type: 'STATES_API_CALLED',
@@ -141,12 +141,14 @@ describe('redux middleware::queryManager', () => {
         it('only runs right hand queries', () => {
           const action = {
             type: 'FakeAction',
-            requery: REQUERY_HITS_ONLY,
+            meta: {
+              requery: REQUERY_HITS_ONLY,
+            },
           };
           const expectedActions = [
-            { type: 'FakeAction', requery: REQUERY_HITS_ONLY },
+            { type: 'FakeAction', meta: { requery: REQUERY_HITS_ONLY } },
             {
-              type: 'STATES_API_CALLED',
+              type: 'map/statesCallInProcess',
               url: '@@APIgeo/states/?foo&no_aggs=true',
             },
           ];

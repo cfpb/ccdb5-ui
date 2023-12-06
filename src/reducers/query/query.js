@@ -172,8 +172,12 @@ export const querySlice = createSlice({
           ? res[dateRange]
           : state.date_received_min;
         state.date_received_max = maxDate;
-        state.dateInterval = (dateRange === 'All' && state.tab === types.MODE_TRENDS) ? 'Week' : state.dateInterval || queryState.dateInterval;
-        state.trendsDateWarningEnabled = (dateRange === 'All' && state.tab === types.MODE_TRENDS);
+        state.dateInterval =
+          dateRange === 'All' && state.tab === types.MODE_TRENDS
+            ? 'Week'
+            : state.dateInterval || queryState.dateInterval;
+        state.trendsDateWarningEnabled =
+          dateRange === 'All' && state.tab === types.MODE_TRENDS;
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
@@ -196,6 +200,13 @@ export const querySlice = createSlice({
 
         let { maxDate, minDate } = action.payload;
 
+        // If maxDate or minDate are falsy, just set the search and queryStrings and exit
+        if (!maxDate || !minDate) {
+          state.queryString = stateToQS(state);
+          state.search = stateToURL(state);
+          return state;
+        }
+
         minDate = dayjs(minDate).isValid()
           ? new Date(dayjs(minDate).startOf('day'))
           : null;
@@ -203,13 +214,18 @@ export const querySlice = createSlice({
           ? new Date(dayjs(maxDate).startOf('day'))
           : null;
 
+        const datesChanged =
+          state[fields[0]] !== minDate || state[fields[1]] !== maxDate;
+        const dateRange = calculateDateRange(minDate, maxDate);
+
+        if (dateRange && datesChanged) {
+          state.dateRange = dateRange;
+        } else {
+          delete state.dateRange;
+        }
+
         state[fields[0]] = minDate || state[fields[0]];
         state[fields[1]] = maxDate || state[fields[1]];
-
-        const dateRange = calculateDateRange(minDate, maxDate);
-        if (dateRange) {
-          state.dateRange = dateRange;
-        }
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
@@ -701,7 +717,7 @@ export const querySlice = createSlice({
     },
     changeFocus: {
       reducer: (state, action) => {
-        const {focus, filterValues, lens} = action.payload;
+        const { focus, filterValues, lens } = action.payload;
         const filterKey = lens.toLowerCase();
         const activeFilters = [];
 
@@ -720,9 +736,9 @@ export const querySlice = createSlice({
       },
       prepare: (payload) => {
         return {
-          payload
-        }
-      }
+          payload,
+        };
+      },
     },
     removeFocus(state) {
       const { lens } = state;

@@ -7,7 +7,7 @@ export const queryManager = (store) => (next) => (action) => {
   // eslint-disable-next-line callback-return
   const result = next(action);
 
-  const requery = coalesce(action, 'requery', constants.REQUERY_NEVER);
+  const requery = coalesce(action.meta, 'requery', constants.REQUERY_NEVER);
 
   if (requery === constants.REQUERY_ALWAYS) {
     store.dispatch(sendQuery());
