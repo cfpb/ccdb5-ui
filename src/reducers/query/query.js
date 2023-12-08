@@ -240,22 +240,13 @@ export const querySlice = createSlice({
     },
     toggleFlagFilter: {
       reducer: (state, action) => {
-        const newState = {
-          ...state,
-          [action.payload.filterName]: Boolean(
-            !state[action.payload.filterName]
-          ),
-        };
-
-        // Remove nulls
-        const fields = ['has_narrative'];
-        fields.forEach((field) => {
-          if (!newState[field]) {
-            delete newState[field];
-          }
-        });
-
-        return newState;
+        state[action.payload.filterName] = Boolean(
+          !state[action.payload.filterName]
+        );
+        if (!state[action.payload.filterName])
+          delete state[action.payload.filterName];
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
       },
       prepare: (payload) => {
         return {
@@ -304,9 +295,8 @@ export const querySlice = createSlice({
     },
     addMultipleFilters: {
       reducer: (state, action) => {
-        const newState = { ...state };
         const name = action.payload.filterName;
-        const a = coalesce(newState, name, []);
+        const a = coalesce(state, name, []);
 
         // Add the filters
         action.payload.values.forEach((x) => {
@@ -315,9 +305,9 @@ export const querySlice = createSlice({
           }
         });
 
-        newState[name] = a;
-
-        return newState;
+        state[name] = a;
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
       },
       prepare: (payload) => {
         return {
@@ -418,8 +408,6 @@ export const querySlice = createSlice({
     },
     removeAllFilters: {
       reducer: (state) => {
-        const newState = { ...state };
-
         const allFilters = types.knownFilters.concat(
           types.dateFilters,
           types.flagFilters
@@ -431,20 +419,21 @@ export const querySlice = createSlice({
         }
 
         allFilters.forEach((kf) => {
-          if (kf in newState) {
-            delete newState[kf];
+          if (kf in state && kf !== 'has_narrative') {
+            delete state[kf];
           }
         });
 
         // set date range to All
         // adjust date filter for max and min ranges
-        newState.dateRange = 'All';
+        state.dateRange = 'All';
         /* eslint-disable camelcase */
-        newState.date_received_min = new Date(types.DATE_RANGE_MIN);
-        newState.date_received_max = startOfToday();
-        newState.focus = '';
-
-        return newState;
+        state.date_received_min = new Date(types.DATE_RANGE_MIN);
+        state.date_received_max = startOfToday();
+        state.focus = '';
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
+        state.from = 0;
       },
       prepare: (payload) => {
         return {
@@ -486,19 +475,18 @@ export const querySlice = createSlice({
     },
     removeFilter: {
       reducer: (state, action) => {
-        const newState = { ...state };
         if (action.payload.filterName === 'has_narrative') {
-          delete newState.has_narrative;
-        } else if (action.payload.filterName in newState) {
-          const idx = newState[action.payload.filterName].indexOf(
+          delete state.has_narrative;
+        } else if (action.payload.filterName in state) {
+          const idx = state[action.payload.filterName].indexOf(
             action.payload.filterValue
           );
           if (idx !== -1) {
-            newState[action.payload.filterName].splice(idx, 1);
+            state[action.payload.filterName].splice(idx, 1);
           }
         }
-
-        return newState;
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
       },
       prepare: (payload) => {
         return {
@@ -511,12 +499,10 @@ export const querySlice = createSlice({
     },
     replaceFilters: {
       reducer: (state, action) => {
-        const newState = { ...state };
         // de-dupe the filters in case we messed up somewhere
-        newState[action.payload.filterName] = [
-          ...new Set(action.payload.values),
-        ];
-        return newState;
+        state[action.payload.filterName] = [...new Set(action.payload.values)];
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
       },
       prepare: (payload) => {
         return {
@@ -529,23 +515,21 @@ export const querySlice = createSlice({
     },
     removeMultipleFilters: {
       reducer: (state, action) => {
-        const newState = { ...state };
-        const a = newState[action.payload.filterName];
         // remove the focus if it exists in one of the filter values we are removing
-        newState.focus = action.payload.values.includes(state.focus)
+        state.focus = action.payload.values.includes(state.focus)
           ? ''
           : state.focus || '';
 
-        if (a) {
+        if (state[action.payload.filterName]) {
           action.payload.values.forEach((x) => {
-            const idx = a.indexOf(x);
+            const idx = state[action.payload.filterName].indexOf(x);
             if (idx !== -1) {
-              a.splice(idx, 1);
+              state[action.payload.filterName].splice(idx, 1);
             }
           });
         }
-
-        return newState;
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
       },
       prepare: (payload) => {
         return {

@@ -13,6 +13,12 @@ import target, {
   dismissMapWarning,
   updateDataNormalization,
   changeDates,
+  replaceFilters,
+  toggleFlagFilter,
+  removeFilter,
+  removeMultipleFilters,
+  addMultipleFilters,
+  removeAllFilters,
 } from './query';
 import actions from '../../actions';
 import * as types from '../../constants';
@@ -733,7 +739,6 @@ describe('reducer:query', () => {
       let action;
       beforeEach(() => {
         action = {
-          type: actions.FILTER_ADDED,
           filterName: 'product',
           filterValue: 'baz',
         };
@@ -858,7 +863,6 @@ describe('reducer:query', () => {
       let action;
       beforeEach(() => {
         action = {
-          type: actions.FILTER_REMOVED,
           filterName: 'product',
           filterValue: 'baz',
         };
@@ -866,26 +870,32 @@ describe('reducer:query', () => {
 
       it('removes a filter when one exists', () => {
         state = {
+          ...queryState,
           product: ['bar', 'baz', 'qaz'],
         };
-        expect(target(state, action)).toEqual({
+        expect(target(state, removeFilter(action))).toEqual({
+          ...state,
           breakPoints: {},
           from: 0,
           page: 1,
           product: ['bar', 'qaz'],
-          queryString: '?product=bar&product=qaz',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&product=bar&product=qaz&sub_lens=sub_product&trend_depth=5&trend_interval=month',
           searchAfter: '',
-          search: '?product=bar&product=qaz',
+          search:
+            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&product=bar&product=qaz&searchField=all&subLens=sub_product&tab=Trends',
         });
       });
 
       it('removes a filter on Map tab when one exists', () => {
         state = {
+          ...queryState,
           product: ['bar', 'baz', 'qaz'],
           mapWarningEnabled: true,
           tab: types.MODE_MAP,
         };
-        expect(target(state, action)).toEqual({
+        expect(target(state, removeFilter(action))).toEqual({
+          ...state,
           breakPoints: {},
           dataNormalization: types.GEO_NORM_NONE,
           from: 0,
@@ -893,40 +903,50 @@ describe('reducer:query', () => {
           page: 1,
           product: ['bar', 'qaz'],
           mapWarningEnabled: true,
-          queryString: '?product=bar&product=qaz',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&product=bar&product=qaz',
           searchAfter: '',
           tab: types.MODE_MAP,
-          search: '?dataNormalization=None&product=bar&product=qaz&tab=Map',
+          search:
+            '?dataNormalization=None&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&product=bar&product=qaz&searchField=all&tab=Map',
         });
       });
 
       it('handles a missing filter', () => {
         state = {
+          ...queryState,
           issue: ['bar', 'baz', 'qaz'],
         };
-        expect(target(state, action)).toEqual({
+        expect(target(state, removeFilter(action))).toEqual({
+          ...state,
           breakPoints: {},
           from: 0,
           issue: ['bar', 'baz', 'qaz'],
           page: 1,
-          queryString: '?issue=bar&issue=baz&issue=qaz',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&issue=bar&issue=baz&issue=qaz&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
           searchAfter: '',
-          search: '?issue=bar&issue=baz&issue=qaz',
+          search:
+            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&issue=bar&issue=baz&issue=qaz&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
         });
       });
 
       it('handles a missing filter value', () => {
         state = {
+          ...queryState,
           product: ['bar', 'qaz'],
         };
-        expect(target(state, action)).toEqual({
+        expect(target(state, removeFilter(action))).toEqual({
+          ...state,
           breakPoints: {},
           from: 0,
           page: 1,
           product: ['bar', 'qaz'],
-          queryString: '?product=bar&product=qaz',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&product=bar&product=qaz&sub_lens=sub_product&trend_depth=5&trend_interval=month',
           searchAfter: '',
-          search: '?product=bar&product=qaz',
+          search:
+            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&product=bar&product=qaz&searchField=all&subLens=sub_product&tab=Trends',
         });
       });
 
@@ -934,49 +954,63 @@ describe('reducer:query', () => {
         it('handles when present', () => {
           action.filterName = 'has_narrative';
           state = {
+            ...queryState,
             has_narrative: true,
           };
-          expect(target(state, action)).toEqual({
+          const newState = { ...state };
+          delete newState.has_narrative;
+          expect(target(state, removeFilter(action))).toEqual({
+            ...newState,
             breakPoints: {},
             from: 0,
             page: 1,
-            queryString: '',
+            queryString:
+              '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
             searchAfter: '',
-            search: '?',
+            search:
+              '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
           });
         });
 
         it('handles when present - Map', () => {
           action.filterName = 'has_narrative';
           state = {
+            ...queryState,
             dataNormalization: 'None',
             has_narrative: true,
             tab: types.MODE_MAP,
           };
-          expect(target(state, action)).toEqual({
+          const newState = { ...state };
+          delete newState.has_narrative;
+          expect(target(state, removeFilter(action))).toEqual({
+            ...newState,
             breakPoints: {},
             dataNormalization: 'None',
             enablePer1000: false,
             from: 0,
             mapWarningEnabled: true,
             page: 1,
-            queryString: '',
             searchAfter: '',
             tab: types.MODE_MAP,
-            search: '?dataNormalization=None&tab=Map',
+            queryString:
+              '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all',
+            search:
+              '?dataNormalization=None&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&searchField=all&tab=Map',
           });
         });
 
         it('handles when absent', () => {
           action.filterName = 'has_narrative';
-          state = {};
-          expect(target(state, action)).toEqual({
+          expect(target(queryState, removeFilter(action))).toEqual({
+            ...queryState,
             breakPoints: {},
             from: 0,
             page: 1,
-            queryString: '',
+            queryString:
+              '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
             searchAfter: '',
-            search: '?',
+            search:
+              '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
           });
         });
       });
@@ -985,13 +1019,10 @@ describe('reducer:query', () => {
     describe('FILTER_ALL_REMOVED actions', () => {
       let action, state;
       beforeEach(() => {
-        action = {
-          type: actions.FILTER_ALL_REMOVED,
-        };
-
         state = {
+          ...queryState,
           company: ['Acme'],
-          date_received_min: new Date(2012, 0, 1),
+          date_received_min: new Date(types.DATE_RANGE_MIN),
           from: 100,
           has_narrative: true,
           searchField: 'all',
@@ -1002,54 +1033,60 @@ describe('reducer:query', () => {
       });
 
       it('clears all filters', () => {
-        const actual = target(state, action);
+        const actual = target(state, removeAllFilters(action));
+        delete state.company;
+        delete state.timely;
         expect(actual).toMatchObject({
+          ...state,
           dateRange: 'All',
           from: 0,
           searchField: 'all',
           size: 100,
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2011-12-01&field=all&frm=100&has_narrative=true&size=100&sort=created_date_desc',
+          search:
+            '?date_received_max=2020-05-05&date_received_min=2011-12-01&has_narrative=true&page=1&searchField=all&size=100&sort=created_date_desc&tab=List',
         });
-
-        expect(actual.queryString).toEqual(
-          '?date_received_max=' +
-            '2020-05-05&date_received_min=2011-12-01&field=all&size=100'
-        );
       });
 
       it('clears all filters - Map', () => {
         state.tab = types.MODE_MAP;
-        const actual = target(state, action);
+        const actual = target(state, removeAllFilters(action));
+        delete state.company;
+        delete state.timely;
         expect(actual).toMatchObject({
+          ...state,
           dateRange: 'All',
           enablePer1000: false,
           from: 0,
           mapWarningEnabled: true,
           searchField: 'all',
           size: 100,
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2011-12-01&field=all&has_narrative=true',
+          search:
+            '?dataNormalization=None&dateRange=All&date_received_max=2020-05-05&date_received_min=2011-12-01&has_narrative=true&searchField=all&tab=Map',
         });
-
-        expect(actual.queryString).toEqual(
-          '?date_received_max=' +
-            '2020-05-05&date_received_min=2011-12-01&field=all'
-        );
       });
 
       describe('when searching Narratives', () => {
         it('does not clear the hasNarrative filter', () => {
           state.searchField = types.NARRATIVE_SEARCH_FIELD;
-          const actual = target(state, action);
+          delete state.company;
+          delete state.timely;
+          const actual = target(state, removeAllFilters(action));
           expect(actual).toMatchObject({
+            ...state,
             dateRange: 'All',
             from: 0,
             has_narrative: true,
             searchField: types.NARRATIVE_SEARCH_FIELD,
             size: 100,
+            queryString:
+              '?date_received_max=2020-05-05&date_received_min=2011-12-01&field=complaint_what_happened&frm=100&has_narrative=true&size=100&sort=created_date_desc',
+            search:
+              '?date_received_max=2020-05-05&date_received_min=2011-12-01&has_narrative=true&page=1&searchField=complaint_what_happened&size=100&sort=created_date_desc&tab=List',
           });
-          expect(actual.queryString).toEqual(
-            '?date_received_max=2020-05-05&' +
-              'date_received_min=2011-12-01&field=complaint_what_happened&' +
-              'has_narrative=true&size=100'
-          );
         });
       });
     });
@@ -1058,21 +1095,23 @@ describe('reducer:query', () => {
       let action;
       beforeEach(() => {
         action = {
-          type: actions.FILTER_MULTIPLE_ADDED,
           filterName: 'issue',
           values: ['Mo Money', 'Mo Problems'],
         };
       });
 
       it("adds all filters if they didn't exist", () => {
-        expect(target({}, action)).toEqual({
+        expect(target(queryState, addMultipleFilters(action))).toEqual({
+          ...queryState,
           breakPoints: {},
           from: 0,
           issue: ['Mo Money', 'Mo Problems'],
           page: 1,
-          queryString: '?issue=Mo%20Money&issue=Mo%20Problems',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&issue=Mo%20Money&issue=Mo%20Problems&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
           searchAfter: '',
-          search: '?issue=Mo%20Money&issue=Mo%20Problems',
+          search:
+            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&issue=Mo%20Money&issue=Mo%20Problems&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
         });
       });
 
@@ -1080,13 +1119,15 @@ describe('reducer:query', () => {
         expect(
           target(
             {
+              ...queryState,
               enablePer1000: false,
               mapWarningEnabled: true,
               tab: types.MODE_MAP,
             },
-            action
+            addMultipleFilters(action)
           )
         ).toEqual({
+          ...queryState,
           breakPoints: {},
           dataNormalization: types.GEO_NORM_NONE,
           enablePer1000: false,
@@ -1094,50 +1135,58 @@ describe('reducer:query', () => {
           issue: ['Mo Money', 'Mo Problems'],
           mapWarningEnabled: true,
           page: 1,
-          queryString: '?issue=Mo%20Money&issue=Mo%20Problems',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&issue=Mo%20Money&issue=Mo%20Problems',
           searchAfter: '',
           tab: types.MODE_MAP,
           search:
-            '?dataNormalization=None&issue=Mo%20Money&issue=Mo%20Problems&tab=Map',
+            '?dataNormalization=None&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&issue=Mo%20Money&issue=Mo%20Problems&searchField=all&tab=Map',
         });
       });
 
       it('skips filters if they exist already', () => {
         state = {
+          ...queryState,
           issue: ['foo'],
         };
         action.values.push('foo');
 
-        expect(target(state, action)).toEqual({
+        expect(target(state, addMultipleFilters(action))).toEqual({
+          ...state,
           breakPoints: {},
           from: 0,
           issue: ['foo', 'Mo Money', 'Mo Problems'],
           page: 1,
-          queryString: '?issue=foo&issue=Mo%20Money&issue=Mo%20Problems',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&issue=foo&issue=Mo%20Money&issue=Mo%20Problems&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
           searchAfter: '',
-          search: '?issue=foo&issue=Mo%20Money&issue=Mo%20Problems',
+          search:
+            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&issue=foo&issue=Mo%20Money&issue=Mo%20Problems&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
         });
       });
 
       it('skips filters if they exist already - Map', () => {
         state = {
+          ...queryState,
           issue: ['foo'],
           tab: types.MODE_MAP,
         };
         action.values.push('foo');
 
-        expect(target(state, action)).toEqual({
+        expect(target(state, addMultipleFilters(action))).toEqual({
+          ...state,
           breakPoints: {},
           dataNormalization: types.GEO_NORM_NONE,
           enablePer1000: false,
           from: 0,
           issue: ['foo', 'Mo Money', 'Mo Problems'],
           page: 1,
-          queryString: '?issue=foo&issue=Mo%20Money&issue=Mo%20Problems',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&issue=foo&issue=Mo%20Money&issue=Mo%20Problems',
           searchAfter: '',
           tab: types.MODE_MAP,
           search:
-            '?dataNormalization=None&issue=foo&issue=Mo%20Money&issue=Mo%20Problems&tab=Map',
+            '?dataNormalization=None&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&issue=foo&issue=Mo%20Money&issue=Mo%20Problems&searchField=all&tab=Map',
         });
       });
     });
@@ -1146,7 +1195,6 @@ describe('reducer:query', () => {
       let action;
       beforeEach(() => {
         action = {
-          type: actions.FILTER_MULTIPLE_REMOVED,
           filterName: 'issue',
           values: ['Mo Money', 'Mo Problems', 'bar'],
         };
@@ -1154,28 +1202,34 @@ describe('reducer:query', () => {
 
       it('removes filters if they exist', () => {
         state = {
+          ...queryState,
           focus: 'Mo Money',
           issue: ['foo', 'Mo Money', 'Mo Problems'],
         };
-        expect(target(state, action)).toEqual({
+        expect(target(state, removeMultipleFilters(action))).toEqual({
+          ...state,
           breakPoints: {},
           focus: '',
           from: 0,
           issue: ['foo'],
           page: 1,
-          queryString: '?issue=foo',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&issue=foo&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
           searchAfter: '',
-          search: '?issue=foo',
+          search:
+            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&issue=foo&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
         });
       });
 
       it('removes filters if they exist - Map tab', () => {
         state = {
+          ...queryState,
           focus: '',
           issue: ['foo', 'Mo Money', 'Mo Problems'],
           tab: types.MODE_MAP,
         };
-        expect(target(state, action)).toEqual({
+        expect(target(state, removeMultipleFilters(action))).toEqual({
+          ...state,
           breakPoints: {},
           dataNormalization: types.GEO_NORM_NONE,
           enablePer1000: false,
@@ -1183,58 +1237,71 @@ describe('reducer:query', () => {
           from: 0,
           issue: ['foo'],
           page: 1,
-          queryString: '?issue=foo',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&issue=foo',
           searchAfter: '',
           tab: types.MODE_MAP,
-          search: '?dataNormalization=None&issue=foo&tab=Map',
+          search:
+            '?dataNormalization=None&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&issue=foo&searchField=all&tab=Map',
         });
       });
 
       it('ignores unknown filters', () => {
-        expect(target({}, action)).toEqual({
+        expect(target(queryState, removeMultipleFilters(action))).toEqual({
+          ...queryState,
           breakPoints: {},
           focus: '',
           from: 0,
           page: 1,
-          queryString: '',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
           searchAfter: '',
-          search: '?',
+          search:
+            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
         });
       });
     });
 
     describe('FILTER_FLAG_CHANGED actions', () => {
-      let action, state;
+      let action;
       beforeEach(() => {
         action = {
-          type: actions.FILTER_FLAG_CHANGED,
           filterName: 'has_narrative',
-          requery: types.REQUERY_HITS_ONLY,
+          meta: { requery: types.REQUERY_HITS_ONLY },
         };
-        state = {};
       });
 
       it('adds narrative filter to empty state', () => {
-        expect(target(state, action)).toEqual({
+        expect(target(queryState, toggleFlagFilter(action))).toEqual({
+          ...queryState,
           breakPoints: {},
           from: 0,
           page: 1,
           has_narrative: true,
-          queryString: '?has_narrative=true',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&has_narrative=true&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
           searchAfter: '',
-          search: '?has_narrative=true',
+          search:
+            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&has_narrative=true&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
         });
       });
 
       it('toggles off narrative filter', () => {
-        state.has_narrative = true;
-        expect(target(state, action)).toEqual({
+        expect(
+          target(
+            { ...queryState, has_narrative: true },
+            toggleFlagFilter(action)
+          )
+        ).toEqual({
+          ...queryState,
           breakPoints: {},
           from: 0,
           page: 1,
-          queryString: '',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
           searchAfter: '',
-          search: '?',
+          search:
+            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
         });
       });
     });
@@ -1242,24 +1309,27 @@ describe('reducer:query', () => {
     describe('FILTER_REPLACED actions', () => {
       it('replaces existing filter set', () => {
         action = {
-          type: actions.FILTER_REPLACED,
           filterName: 'foobar',
-          requery: types.REQUERY_HITS_ONLY,
+          meta: { requery: types.REQUERY_HITS_ONLY },
           values: [3, 4, 5],
         };
 
         state = {
+          ...queryState,
           foobar: [1, 23, 2],
         };
 
-        expect(target(state, action)).toEqual({
+        expect(target(state, replaceFilters(action))).toEqual({
+          ...state,
           breakPoints: {},
           from: 0,
           foobar: [3, 4, 5],
           page: 1,
-          queryString: '',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
           searchAfter: '',
-          search: '?',
+          search:
+            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
         });
       });
     });
