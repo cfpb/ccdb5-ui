@@ -446,23 +446,20 @@ export const querySlice = createSlice({
     },
     addFilter: {
       reducer: (state, action) => {
-        const newState = { ...state };
         if (action.payload.filterName === 'has_narrative') {
-          newState.has_narrative = true;
-        } else if (action.payload.filterName in newState) {
-          const idx = newState[action.payload.filterName].indexOf(
+          state.has_narrative = true;
+        } else if (action.payload.filterName in state) {
+          const idx = state[action.payload.filterName].indexOf(
             action.payload.filterValue
           );
           if (idx === -1) {
-            newState[action.payload.filterName].push(
-              action.payload.filterValue
-            );
+            state[action.payload.filterName].push(action.payload.filterValue);
           }
         } else {
-          newState[action.payload.filterName] = [action.payload.filterValue];
+          state[action.payload.filterName] = [action.payload.filterValue];
         }
-
-        return newState;
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
       },
       prepare: (payload) => {
         return {
