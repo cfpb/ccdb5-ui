@@ -173,9 +173,11 @@ describe('component:TrendDepthToggle', () => {
       expect(dispatch.mock.calls).toEqual([
         [
           {
-            requery: REQUERY_ALWAYS,
-            depth: 18,
-            type: 'DEPTH_CHANGED',
+            meta: {
+              requery: REQUERY_ALWAYS
+            },
+            type: 'query/changeDepth',
+            payload: 18
           },
         ],
       ]);
@@ -187,8 +189,10 @@ describe('component:TrendDepthToggle', () => {
       expect(dispatch.mock.calls).toEqual([
         [
           {
-            requery: REQUERY_ALWAYS,
-            type: 'DEPTH_RESET',
+            meta: {
+              requery: REQUERY_ALWAYS
+            },
+            type: 'query/resetDepth',
           },
         ],
       ]);

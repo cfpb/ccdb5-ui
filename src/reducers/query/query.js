@@ -9,7 +9,7 @@ import {
   shortIsoFormat,
   startOfToday,
 } from '../../utils';
-import { enforceValues } from '../../utils/reducers';
+import {enforceValues, validateTrendsReducer} from '../../utils/reducers';
 import dayjs from 'dayjs';
 import { isGreaterThanYear } from '../../utils/trends';
 import { createSlice } from '@reduxjs/toolkit';
@@ -41,7 +41,7 @@ export const queryState = {
   searchAfter: '',
   searchField: 'all',
   searchText: '',
-  size: '25',
+  size: 25,
   sort: 'created_date_desc',
   subLens: 'sub_product',
   tab: types.MODE_TRENDS,
@@ -81,30 +81,32 @@ const urlParams = [
 
 const urlParamsInt = ['from', 'page', 'trendDepth'];
 
+queryState.queryString = stateToQS(queryState);
+queryState.search = stateToURL(queryState);
+
 export const querySlice = createSlice({
   name: 'query',
   initialState: queryState,
   reducers: {
     processParams(state, action) {
-      const params = action.payload.params;
-      let processed = Object.assign({}, queryState);
+      const params = {...action.payload.params};
 
       // Filter for known
       urlParams.forEach((field) => {
         if (typeof params[field] !== 'undefined') {
-          processed[field] = enforceValues(params[field], field);
+          state[field] = enforceValues(params[field], field);
         }
       });
 
       // Handle the aggregation filters
-      processUrlArrayParams(params, processed, types.knownFilters);
+      processUrlArrayParams(params, state, types.knownFilters);
 
       // Handle date filters
       types.dateFilters.forEach((field) => {
         if (typeof params[field] !== 'undefined') {
           const d = toDate(params[field]);
           if (d) {
-            processed[field] = d;
+            state[field] = d;
           }
         }
       });
@@ -112,7 +114,7 @@ export const querySlice = createSlice({
       // Handle flag filters
       types.flagFilters.forEach((field) => {
         if (typeof params[field] !== 'undefined') {
-          processed[field] = params[field] === 'true';
+          state[field] = params[field] === 'true';
         }
       });
 
@@ -121,21 +123,23 @@ export const querySlice = createSlice({
         if (typeof params[field] !== 'undefined') {
           const n = parseInt(params[field], 10);
           if (isNaN(n) === false) {
-            processed[field] = enforceValues(n, field);
+            state[field] = enforceValues(n, field);
           }
         }
       });
 
       // Apply the date range
       if (dateRangeNoDates(params) || params.dateRange === 'All') {
-        const innerAction = { dateRange: params.dateRange };
-        processed = changeDateRange(processed, innerAction);
+        const innerAction = { payload: {dateRange: params.dateRange} };
+        querySlice.caseReducers.changeDateRange(state, innerAction);
       }
 
       // this is always page 1 since we don't know breakPoints
-      processed.page = 1;
+      state.page = 1;
+      validateTrendsReducer(state);
 
-      return alignDateRange(processed);
+      state.focus = (typeof params.focus === 'undefined') ? '' : params.focus;
+      return alignDateRange(state);
     },
     changeDateInterval: {
       reducer: (state, action) => {
@@ -263,6 +267,8 @@ export const querySlice = createSlice({
         return {
           ...state,
           ...pagination,
+          queryString: stateToQS(state),
+          search: stateToURL(state),
           searchField: action.payload.searchField,
         };
       },
@@ -282,6 +288,8 @@ export const querySlice = createSlice({
           ...state,
           ...pagination,
           searchText: action.payload.searchText,
+          queryString: stateToQS(state),
+          search: stateToURL(state),
         };
       },
       prepare: (payload) => {
@@ -326,6 +334,8 @@ export const querySlice = createSlice({
             state[action.payload.filterName],
             action.payload.filterValue.key
           ),
+          queryString: stateToQS(state),
+          search: stateToURL(state)
         };
       },
       prepare: (payload) => {
@@ -572,10 +582,11 @@ export const querySlice = createSlice({
         // don't let them go lower than 1
         const page = clamp(state.page - 1, 1, state.page);
         const pagination = getPagination(page, state);
-        return {
-          ...state,
-          ...pagination,
-        };
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
+        state.page = pagination.page;
+        state.from = pagination.from;
+        state.searchAfter = getSearchAfter(state, page);
       },
       prepare: (payload) => {
         return {
@@ -591,10 +602,11 @@ export const querySlice = createSlice({
         // don't let them go past the total num of pages
         const page = clamp(state.page + 1, 1, state.totalPages);
         const pagination = getPagination(page, state);
-        return {
-          ...state,
-          ...pagination,
-        };
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
+        state.page = pagination.page;
+        state.from = pagination.from;
+        state.searchAfter = getSearchAfter(state, page);
       },
       prepare: (payload) => {
         return {
@@ -608,11 +620,11 @@ export const querySlice = createSlice({
     changeSize: {
       reducer: (state, action) => {
         const pagination = getPagination(1, state);
-        return {
-          ...state,
-          ...pagination,
-          size: action.payload.size,
-        };
+        state.from = pagination.from;
+        state.page = pagination.page;
+        state.size = action.payload.size;
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
       },
       prepare: (payload) => {
         return {
@@ -626,12 +638,11 @@ export const querySlice = createSlice({
     changeSort: {
       reducer: (state, action) => {
         const pagination = getPagination(1, state);
-        const sort = enforceValues(action.payload.sort, 'sort');
-        return {
-          ...state,
-          ...pagination,
-          sort,
-        };
+        state.from = pagination.from;
+        state.page = pagination.page;
+        state.sort = enforceValues(action.payload.sort, 'sort');
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
       },
       prepare: (payload) => {
         return {
@@ -644,9 +655,11 @@ export const querySlice = createSlice({
     },
     changeTab: {
       reducer: (state, action) => {
-        const tab = enforceValues(action.payload, 'tab');
+        const tab = enforceValues(action.payload.tab, 'tab');
         state.focus = tab === types.MODE_TRENDS ? state.focus : '';
         state.tab = tab;
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
       },
       prepare: (payload) => {
         return {
@@ -658,21 +671,21 @@ export const querySlice = createSlice({
       },
     },
     updateTotalPages(state, action) {
-      const { _meta, hits } = action.data;
+      const { _meta, hits } = action.payload.data;
       const totalPages = Math.ceil(hits.total.value / state.size);
+
       // reset pager to 1 if the number of total pages is less than current page
       const { break_points: breakPoints } = _meta;
-      const page = state.page > totalPages ? totalPages : state.page;
-      return {
-        ...state,
-        breakPoints,
-        page,
-        totalPages: Object.keys(breakPoints).length + 1,
-      };
+      state.page = state.page > totalPages ? 1 : state.page;
+
+      state.breakPoints = breakPoints;
+      state.totalPages = Object.keys(breakPoints).length + 1;
     },
     changeDepth: {
       reducer: (state, action) => {
         state.trendDepth = action.payload.depth;
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
       },
       prepare: (payload) => {
         return {
@@ -686,10 +699,11 @@ export const querySlice = createSlice({
     resetDepth: {
       reducer: (state) => {
         state.trendDepth = 5;
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
       },
-      prepare: (payload) => {
+      prepare: () => {
         return {
-          payload,
           meta: {
             requery: REQUERY_ALWAYS,
           },
@@ -714,6 +728,8 @@ export const querySlice = createSlice({
         state.lens = lens;
         state.tab = types.MODE_TRENDS;
         state.trendDepth = 25;
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
       },
       prepare: (payload) => {
         return {
@@ -780,6 +796,10 @@ export const querySlice = createSlice({
       .addCase('detail/complaintDetailCalled', (state) => {
         state.search = stateToURL(state);
         state.queryString = stateToQS(state);
+      })
+      .addCase('results/processHitsResults', (state, action) => {
+        querySlice.caseReducers.processParams(state, action);
+        querySlice.caseReducers.updateTotalPages(state, action);
       })
       .addCase('trends/updateChartType', (state, action) => {
         state.chartType = action.payload.chartType;

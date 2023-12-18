@@ -1,16 +1,16 @@
 import { PrintInfo } from './PrintInfo';
 import React from 'react';
-import { defaultAggs } from '../../reducers/aggs/aggs';
-import { defaultQuery } from '../../reducers/query/query';
-import { defaultView } from '../../reducers/view/view';
+import { aggState } from '../../reducers/aggs/aggs';
+import { queryState } from '../../reducers/query/query';
+import { viewState } from '../../reducers/view/view';
 import { merge } from '../../testUtils/functionHelpers';
 import { testRender as render, screen } from '../../testUtils/test-utils';
 
 describe('PrintInfo', () => {
   const renderComponent = (newAggsState, newQueryState, newViewState) => {
-    merge(newAggsState, defaultAggs);
-    merge(newQueryState, defaultQuery);
-    merge(newViewState, defaultView);
+    merge(newAggsState, aggState);
+    merge(newQueryState, queryState);
+    merge(newViewState, viewState);
 
     const data = {
       aggs: newAggsState,
