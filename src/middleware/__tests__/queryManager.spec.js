@@ -127,8 +127,10 @@ describe('redux middleware::queryManager', () => {
             { type: 'FakeAction', meta: { requery: REQUERY_ALWAYS } },
             { type: 'aggregationsCallInProcess', url: '@@API?foo&size=0' },
             {
-              type: 'STATES_API_CALLED',
-              url: '@@APIgeo/states/?foo&no_aggs=true',
+              type: 'map/statesCallInProcess',
+              payload: {
+                url: '@@APIgeo/states/?foo&no_aggs=true'
+              },
             },
           ];
 
@@ -149,7 +151,9 @@ describe('redux middleware::queryManager', () => {
             { type: 'FakeAction', meta: { requery: REQUERY_HITS_ONLY } },
             {
               type: 'map/statesCallInProcess',
-              url: '@@APIgeo/states/?foo&no_aggs=true',
+              payload: {
+                url: '@@APIgeo/states/?foo&no_aggs=true'
+              },
             },
           ];
 

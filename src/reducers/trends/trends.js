@@ -105,15 +105,14 @@ export const trendsSlice = createSlice({
 
         const colorMap = getColorScheme(lens, results.dateRangeArea);
 
-        return {
-          ...state,
-          activeCall: '',
-          colorMap,
-          error: false,
-          isLoading: false,
-          results,
-          total
-        };
+        state.activeCall = '';
+        state.colorMap = colorMap;
+        state.error = false;
+        state.isLoading = false;
+        state.results = results;
+        state.total = total;
+        state.subLens = (lens === 'Company') ? 'product' : state.subLens;
+
       },
       prepare: (payload) => {
         return {
@@ -167,16 +166,24 @@ export const trendsSlice = createSlice({
     updateDataLens: {
       reducer: (state, action) => {
         const lens = enforceValues(action.payload.lens, 'lens');
+        switch(true) {
+          case lens === 'Company':
+          case lens === 'Overview':
+            state.subLens = 'product';
+            break;
+          case lens === 'Product':
+            state.subLens = 'sub_product';
+            break;
+          default:
+            state.subLens = '';
+            break;
+        }
 
-        return {
-          ...state,
-          focus: '',
-          lens,
-          subLens: (lens === 'Company') ? 'product' : state.subLens,
-          results: emptyResults(),
-          tooltip: false,
-          chartType: (lens === 'Overview') ? 'line' : state.chartType
-        };
+          state.focus = '';
+          state.lens = lens;
+          state.results = emptyResults();
+          state.tooltip = false;
+          state.chartType = (lens === 'Overview') ? 'line' : state.chartType;
       },
       prepare: (payload) => {
         return {

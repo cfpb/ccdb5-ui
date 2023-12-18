@@ -36,7 +36,6 @@ import {
   trendsAggsMissingBucketsResults,
 } from '../__fixtures__/trendsAggsMissingBuckets';
 import { updateChartType } from './trends';
-import { urlChanged } from '../../actions/url';
 
 describe('reducer:trends', () => {
   let action, result, state;
@@ -103,17 +102,20 @@ describe('reducer:trends', () => {
       action = {
         chartType: 'FooBar',
       };
-
-      expect(
-        target({ ...trendsState, lens: 'Overview' }, updateChartType(action))
-      ).toEqual({
+      const targetState = {
         ...trendsState,
         chartType: 'line',
         lens: 'Overview',
-        subLens: '',
+        subLens: 'sub_product',
         tooltip: false,
+      }
+
+      expect(
+          target(targetState, updateChartType(action))
+      ).toEqual({
+        ...targetState
       });
-    });
+    })
   });
 
   describe('DATA_LENS_CHANGED action', () => {
@@ -131,7 +133,7 @@ describe('reducer:trends', () => {
         chartType: 'line',
         focus: '',
         lens: 'Overview',
-        subLens: '',
+        subLens: 'product',
         tooltip: false,
       });
     });

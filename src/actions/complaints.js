@@ -8,6 +8,8 @@ import {
 import {complaintDetailCalled, complaintDetailReceived, complaintDetailFailed} from "../reducers/detail/detail";
 import {processTrends, processTrendsError, trendsCallInProcess} from "../reducers/trends/trends";
 import {processStatesError, processStatesResults, statesCallInProcess} from "../reducers/map/map";
+import {processAggregationError, processAggregationResults} from "../reducers/aggs/aggs";
+import {processHitsError, processHitsResults} from "../reducers/results/results";
 
 export const AGGREGATIONS_API_CALLED = 'aggregationsCallInProcess';
 export const AGGREGATIONS_RECEIVED = 'processAggregationResults';
@@ -97,8 +99,8 @@ export function getAggregations() {
     dispatch(callingApi(AGGREGATIONS_API_CALLED, uri));
     return fetch(uri)
       .then((result) => result.json())
-      .then((items) => dispatch(aggregationsReceived(items)))
-      .catch((error) => dispatch(aggregationsFailed(error)));
+      .then((items) => dispatch(processAggregationResults(items)))
+      .catch((error) => dispatch(processAggregationError(error)));
   };
 }
 
@@ -120,8 +122,8 @@ export function getComplaints() {
     dispatch(callingApi(COMPLAINTS_API_CALLED, uri));
     return fetch(uri)
       .then((result) => result.json())
-      .then((items) => dispatch(complaintsReceived(items)))
-      .catch((error) => dispatch(complaintsFailed(error)));
+      .then((items) => dispatch(processHitsResults(items)))
+      .catch((error) => dispatch(processHitsError(error)));
   };
 }
 

@@ -765,10 +765,7 @@ export const querySlice = createSlice({
       };
     },
     updateChartType(state, action) {
-      return {
-        ...state,
-        chartType: action.chartType,
-      };
+        state.chartType = (state.lens === 'Overview') ? 'line' : action.payload.chartType;
     },
     updateDataNormalization: {
       reducer: (state, action) => {

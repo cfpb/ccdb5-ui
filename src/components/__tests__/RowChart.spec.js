@@ -359,11 +359,15 @@ describe('component: RowChart', () => {
       expect(dispatch.mock.calls).toEqual([
         [
           {
-            filterValues: ['A', 'A•B', 'A•C', 'A•D', 'A•E'],
-            focus: 'A',
-            lens: 'Product',
-            requery: 'REQUERY_ALWAYS',
-            type: 'FOCUS_CHANGED',
+            payload: {
+              filterValues: ['A', 'A•B', 'A•C', 'A•D', 'A•E'],
+              focus: 'A',
+              lens: 'Product',
+            },
+            meta: {
+              requery: 'REQUERY_ALWAYS',
+            },
+            type: 'trends/changeFocus',
           },
         ],
       ]);
@@ -397,11 +401,15 @@ describe('component: RowChart', () => {
       expect(dispatch.mock.calls).toEqual([
         [
           {
-            filterValues: [],
-            focus: 'A',
-            lens: 'Product',
-            requery: 'REQUERY_ALWAYS',
-            type: 'FOCUS_CHANGED',
+            payload: {
+              filterValues: [],
+              focus: 'A',
+              lens: 'Product',
+            },
+            meta: {
+              requery: 'REQUERY_ALWAYS',
+            },
+            type: 'trends/changeFocus',
           },
         ],
       ]);
@@ -421,9 +429,11 @@ describe('component: RowChart', () => {
       expect(dispatch.mock.calls).toEqual([
         [
           {
-            filterValues: ['Acme'],
-            focus: 'Acme',
-            lens: 'Company',
+            payload: {
+              filterValues: ['Acme'],
+              focus: 'Acme',
+              lens: 'Company',
+            },
             meta: {
               requery: 'REQUERY_ALWAYS'
             },
