@@ -65,6 +65,7 @@ export const clamp = (x, min, max) => {
   } else if (x > max) {
     x = max;
   }
+
   return x;
 };
 

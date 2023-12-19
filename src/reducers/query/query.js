@@ -9,7 +9,7 @@ import {
   shortIsoFormat,
   startOfToday,
 } from '../../utils';
-import { enforceValues, validateTrendsReducer } from '../../utils/reducers';
+import {enforceValues, validateTrendsReducer} from '../../utils/reducers';
 import dayjs from 'dayjs';
 import { isGreaterThanYear } from '../../utils/trends';
 import { createSlice } from '@reduxjs/toolkit';
@@ -89,7 +89,7 @@ export const querySlice = createSlice({
   initialState: queryState,
   reducers: {
     processParams(state, action) {
-      const params = { ...action.payload.params };
+      const params = {...action.payload.params};
 
       // Filter for known
       urlParams.forEach((field) => {
@@ -130,7 +130,7 @@ export const querySlice = createSlice({
 
       // Apply the date range
       if (dateRangeNoDates(params) || params.dateRange === 'All') {
-        const innerAction = { payload: { dateRange: params.dateRange } };
+        const innerAction = { payload: {dateRange: params.dateRange} };
         querySlice.caseReducers.changeDateRange(state, innerAction);
       }
 
@@ -138,7 +138,7 @@ export const querySlice = createSlice({
       state.page = 1;
       validateTrendsReducer(state);
 
-      state.focus = typeof params.focus === 'undefined' ? '' : params.focus;
+      state.focus = (typeof params.focus === 'undefined') ? '' : params.focus;
       return alignDateRange(state);
     },
     changeDateInterval: {
@@ -162,7 +162,7 @@ export const querySlice = createSlice({
     changeDateRange: {
       // eslint-disable-next-line complexity
       reducer: (state, action) => {
-        const dateRange = enforceValues(action.payload, 'dateRange');
+        const dateRange = enforceValues(action.payload.dateRange, 'dateRange');
         const maxDate = startOfToday();
         const res = {
           All: new Date(types.DATE_RANGE_MIN),
@@ -335,7 +335,7 @@ export const querySlice = createSlice({
             action.payload.filterValue.key
           ),
           queryString: stateToQS(state),
-          search: stateToURL(state),
+          search: stateToURL(state)
         };
       },
       prepare: (payload) => {
@@ -765,8 +765,7 @@ export const querySlice = createSlice({
       };
     },
     updateChartType(state, action) {
-      state.chartType =
-        state.lens === 'Overview' ? 'line' : action.payload.chartType;
+        state.chartType = (state.lens === 'Overview') ? 'line' : action.payload.chartType;
     },
     updateDataNormalization: {
       reducer: (state, action) => {

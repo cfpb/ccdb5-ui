@@ -111,6 +111,7 @@ describe('reducer:query', () => {
         ...queryState,
         page: 10,
         size: 100,
+        totalPages: 5
       };
 
       expect(target(state, processHitsResults(action))).toEqual({
@@ -265,6 +266,7 @@ describe('reducer:query', () => {
         queryString: 'foobar',
         size: 100,
         tab: types.MODE_LIST,
+        totalPages: 3
       };
       expect(target(state, nextPageShown())).toEqual({
         ...state,
@@ -274,11 +276,12 @@ describe('reducer:query', () => {
         },
         from: 200,
         page: 3,
-        queryString: '?frm=200&search_after=909_131&size=100',
+        queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&frm=100&size=100&sort=created_date_desc',
         searchAfter: '909_131',
         size: 100,
         tab: types.MODE_LIST,
-        search: '?page=3&size=100&tab=List',
+        search: '?date_received_max=2020-05-05&date_received_min=2017-05-05&page=2&searchField=all&size=100&sort=created_date_desc&tab=List',
+        totalPages: 3
       });
     });
 
