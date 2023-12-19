@@ -57,8 +57,8 @@ export const viewSlice = createSlice({
       state.isFromExternal = false;
     },
     updateScreenSize(state, action) {
-      state.hasFilters = action.payload.screenWidth > 749;
-      state.width = action.payload.screenWidth;
+      state.hasFilters = action.payload > 749;
+      state.width = action.payload;
     },
     updateFilterVisibility: {
       reducer: (state) => {
@@ -135,20 +135,20 @@ export const viewSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-        .addCase('trends/updateDataLens', (state) => {
-          state.expandedRows = [];
-    })
-        .addCase('query/processParams', (state, action) => {
-          const params = action.payload.params;
+      .addCase('trends/updateDataLens', (state) => {
+        state.expandedRows = [];
+      })
+      .addCase('query/processParams', (state, action) => {
+        const params = action.payload.params;
 
-          state.isPrintMode = params.isPrintMode === 'true';
-          state.isFromExternal = params.isFromExternal === 'true';
+        state.isPrintMode = params.isPrintMode === 'true';
+        state.isFromExternal = params.isFromExternal === 'true';
 
-          const arrayParams = ['expandedRows'];
-          processUrlArrayParams(params, state, arrayParams);
+        const arrayParams = ['expandedRows'];
+        processUrlArrayParams(params, state, arrayParams);
 
-          return state;
-    });
+        return state;
+      });
   },
 });
 

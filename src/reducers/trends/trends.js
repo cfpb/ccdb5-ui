@@ -111,8 +111,7 @@ export const trendsSlice = createSlice({
         state.isLoading = false;
         state.results = results;
         state.total = total;
-        state.subLens = (lens === 'Company') ? 'product' : state.subLens;
-
+        state.subLens = lens === 'Company' ? 'product' : state.subLens;
       },
       prepare: (payload) => {
         return {
@@ -130,20 +129,19 @@ export const trendsSlice = createSlice({
         results: emptyResults(),
       };
     },
-    trendsCallInProcess(state, action) {
-      return {
-        ...state,
-        activeCall: action.payload.url,
-        isLoading: true,
-        tooltip: false,
-      };
+    trendsCallInProcess: {
+      reducer: (state, action) => {
+        state.activeCall = action;
+        state.isLoading = true;
+        state.tooltip = false;
+      },
     },
     processTrendsError(state, action) {
       const emptyState = getResetState();
       return {
         ...state,
         ...emptyState,
-        error: processErrorMessage(action.payload.error),
+        error: processErrorMessage(action.payload),
       };
     },
     updateChartType: {
@@ -166,7 +164,7 @@ export const trendsSlice = createSlice({
     updateDataLens: {
       reducer: (state, action) => {
         const lens = enforceValues(action.payload.lens, 'lens');
-        switch(true) {
+        switch (true) {
           case lens === 'Company':
           case lens === 'Overview':
             state.subLens = 'product';
@@ -179,11 +177,11 @@ export const trendsSlice = createSlice({
             break;
         }
 
-          state.focus = '';
-          state.lens = lens;
-          state.results = emptyResults();
-          state.tooltip = false;
-          state.chartType = (lens === 'Overview') ? 'line' : state.chartType;
+        state.focus = '';
+        state.lens = lens;
+        state.results = emptyResults();
+        state.tooltip = false;
+        state.chartType = lens === 'Overview' ? 'line' : state.chartType;
       },
       prepare: (payload) => {
         return {

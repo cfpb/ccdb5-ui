@@ -48,13 +48,13 @@ export const aggSlice = createSlice({
         action.payload.data.hits.total.value,
         action.payload.data._meta.total_record_count
       );
-      state.error = ''
+      state.error = '';
       state.isLoading = false;
-      state.lastUpdated= action.payload.data._meta.last_updated;
-      state.lastIndexed= action.payload.data._meta.last_indexed;
-      state.hasDataIssue= action.payload.data._meta.has_data_issue;
-      state.isDataStale= action.payload.data._meta.is_data_stale;
-      state.total= action.payload.data.hits.total.value;
+      state.lastUpdated = action.payload.data._meta.last_updated;
+      state.lastIndexed = action.payload.data._meta.last_indexed;
+      state.hasDataIssue = action.payload.data._meta.has_data_issue;
+      state.isDataStale = action.payload.data._meta.is_data_stale;
+      state.total = action.payload.data.hits.total.value;
 
       keys.forEach((key) => {
         state[key] = aggs[key][key].buckets;
@@ -64,7 +64,7 @@ export const aggSlice = createSlice({
       return {
         ...aggState,
         isLoading: false,
-        error: processErrorMessage(action.payload.error),
+        error: processErrorMessage(action.payload),
       };
     },
   },

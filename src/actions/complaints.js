@@ -5,11 +5,29 @@ import {
   MODE_MAP,
   MODE_TRENDS,
 } from '../constants';
-import {complaintDetailCalled, complaintDetailReceived, complaintDetailFailed} from "../reducers/detail/detail";
-import {processTrends, processTrendsError, trendsCallInProcess} from "../reducers/trends/trends";
-import {processStatesError, processStatesResults, statesCallInProcess} from "../reducers/map/map";
-import {processAggregationError, processAggregationResults} from "../reducers/aggs/aggs";
-import {processHitsError, processHitsResults} from "../reducers/results/results";
+import {
+  complaintDetailCalled,
+  complaintDetailReceived,
+  complaintDetailFailed,
+} from '../reducers/detail/detail';
+import {
+  processTrends,
+  processTrendsError,
+  trendsCallInProcess,
+} from '../reducers/trends/trends';
+import {
+  processStatesError,
+  processStatesResults,
+  statesCallInProcess,
+} from '../reducers/map/map';
+import {
+  processAggregationError,
+  processAggregationResults,
+} from '../reducers/aggs/aggs';
+import {
+  processHitsError,
+  processHitsResults,
+} from '../reducers/results/results';
 
 export const AGGREGATIONS_API_CALLED = 'aggregationsCallInProcess';
 export const AGGREGATIONS_RECEIVED = 'processAggregationResults';
@@ -23,9 +41,6 @@ export const COMPLAINT_DETAIL_CALLED = 'complaintsDetailCalled';
 export const STATES_API_CALLED = 'STATES_API_CALLED';
 export const STATES_RECEIVED = 'STATES_RECEIVED';
 export const STATES_FAILED = 'STATES_FAILED';
-export const TRENDS_API_CALLED = 'trendsCallInProcess';
-export const TRENDS_RECEIVED = 'processTrends';
-export const TRENDS_FAILED = 'processTrendsError';
 
 // ----------------------------------------------------------------------------
 // Routing action
@@ -135,7 +150,7 @@ export function getComplaints() {
 export function getComplaintDetail(id) {
   return (dispatch) => {
     const uri = API_PLACEHOLDER + id;
-    dispatch(callingApi(complaintDetailCalled(), uri));
+    dispatch(complaintDetailCalled());
     fetch(uri)
       .then((result) => result.json())
       .then((data) => dispatch(complaintDetailReceived(data)))
@@ -158,7 +173,7 @@ export function getStates() {
       return null;
     }
 
-    dispatch(callingApi(statesCallInProcess(), uri));
+    dispatch(statesCallInProcess());
     return fetch(uri)
       .then((result) => result.json())
       .then((items) => dispatch(processStatesResults(items)))
@@ -190,7 +205,7 @@ export function getTrends() {
       return null;
     }
 
-    dispatch(callingApi(trendsCallInProcess(), uri));
+    dispatch(trendsCallInProcess());
     return fetch(uri)
       .then((result) => result.json())
       .then((items) => dispatch(processTrends(items)))
@@ -210,4 +225,3 @@ export function callingApi(type, url) {
     url,
   };
 }
-
