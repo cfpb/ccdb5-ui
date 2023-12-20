@@ -17,16 +17,15 @@ describe('reducer:aggs', () => {
       url: 'foobar',
     };
 
-    expect(target({}, aggregationsCallInProcess(action))).toEqual({
+    expect(target(aggState, aggregationsCallInProcess(action))).toEqual({
+      ...aggState,
       activeCall: 'foobar',
       isLoading: true,
     });
   });
 
   it('handles processAggregationError actions', () => {
-    const action = {
-      error: { message: 'error message', name: 'messageTypeName' },
-    };
+    const action = { message: 'error message', name: 'messageTypeName' };
 
     const expected = {
       ...aggState,
@@ -35,7 +34,7 @@ describe('reducer:aggs', () => {
     expect(
       target(
         {
-          company: ['ab', 'cd'],
+          ...aggState,
           error: '',
         },
         processAggregationError(action)
@@ -65,6 +64,7 @@ describe('reducer:aggs', () => {
       },
     };
     const expected = {
+      ...aggState,
       doc_count: 162576,
       company_response: [{ key: 'foo', doc_count: 99 }],
       isLoading: false,
@@ -77,7 +77,7 @@ describe('reducer:aggs', () => {
     };
 
     expect(
-      target({ doc_count: 100 }, processAggregationResults(action))
+      target({ ...aggState, doc_count: 100 }, processAggregationResults(action))
     ).toEqual(expected);
   });
 });

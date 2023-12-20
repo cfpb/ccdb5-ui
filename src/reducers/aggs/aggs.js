@@ -33,11 +33,9 @@ export const aggSlice = createSlice({
   initialState: aggState,
   reducers: {
     aggregationsCallInProcess(state, action) {
-      return {
-        ...state,
-        activeCall: action.payload.url,
-        isLoading: true,
-      };
+      state.error = '';
+      state.activeCall = action.payload.url;
+      state.isLoading = true;
     },
     processAggregationResults(state, action) {
       const aggs = action.payload.data.aggregations;
@@ -50,6 +48,7 @@ export const aggSlice = createSlice({
       );
       state.error = '';
       state.isLoading = false;
+      state.activeCall = '';
       state.lastUpdated = action.payload.data._meta.last_updated;
       state.lastIndexed = action.payload.data._meta.last_indexed;
       state.hasDataIssue = action.payload.data._meta.has_data_issue;
@@ -61,11 +60,9 @@ export const aggSlice = createSlice({
       });
     },
     processAggregationError(state, action) {
-      return {
-        ...aggState,
-        isLoading: false,
-        error: processErrorMessage(action.payload),
-      };
+      state.isLoading = false;
+      state.activeCall = '';
+      state.error = processErrorMessage(action.payload);
     },
   },
 });
