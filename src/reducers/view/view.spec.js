@@ -96,9 +96,7 @@ describe('reducer:map', () => {
 
   describe('handles SCREEN_RESIZED', () => {
     it('handles widths over 749', () => {
-      action = {
-        screenWidth: 1000,
-      };
+      action = 1000;
       expect(target(viewState, updateScreenSize(action))).toEqual({
         ...viewState,
         hasFilters: true,
@@ -108,9 +106,7 @@ describe('reducer:map', () => {
   });
 
   it('handles widths under 749', () => {
-    action = {
-      screenWidth: 375,
-    };
+    action = 375;
     expect(target(viewState, updateScreenSize(action))).toEqual({
       ...viewState,
       hasFilters: false,

@@ -162,7 +162,7 @@ describe('reducer:map', () => {
   describe('STATES_FAILED actions', () => {
     it('handles failed error messages', () => {
       action = {
-        error: { message: 'foo bar', name: 'ErrorTypeName', stack: 'trace' },
+        error: { message: 'foo bar', name: 'ErrorTypeName' },
       };
 
       expect(
@@ -179,7 +179,7 @@ describe('reducer:map', () => {
       ).toEqual({
         ...mapState,
         activeCall: '',
-        error: { message: 'foo bar', name: 'ErrorTypeName', stack: 'trace' },
+        error: { message: 'foo bar', name: 'ErrorTypeName' },
         isLoading: false,
         results: {
           product: [],

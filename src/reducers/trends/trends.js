@@ -131,7 +131,7 @@ export const trendsSlice = createSlice({
     },
     trendsCallInProcess: {
       reducer: (state, action) => {
-        state.activeCall = action;
+        state.activeCall = action.payload.url;
         state.isLoading = true;
         state.tooltip = false;
       },
@@ -146,11 +146,8 @@ export const trendsSlice = createSlice({
     },
     updateChartType: {
       reducer: (state, action) => {
-        return {
-          ...state,
-          chartType: action.payload.chartType,
-          tooltip: false,
-        };
+          state.chartType = (state.lens === 'Overview') ? 'line' : action.payload.chartType;
+          state.tooltip = false;
       },
       prepare: (payload) => {
         return {
@@ -166,8 +163,11 @@ export const trendsSlice = createSlice({
         const lens = enforceValues(action.payload.lens, 'lens');
         switch (true) {
           case lens === 'Company':
+            state.subLens = 'product';
+            break;
           case lens === 'Overview':
             state.subLens = 'product';
+            state.chartType = 'line';
             break;
           case lens === 'Product':
             state.subLens = 'sub_product';
@@ -181,7 +181,6 @@ export const trendsSlice = createSlice({
         state.lens = lens;
         state.results = emptyResults();
         state.tooltip = false;
-        state.chartType = lens === 'Overview' ? 'line' : state.chartType;
       },
       prepare: (payload) => {
         return {

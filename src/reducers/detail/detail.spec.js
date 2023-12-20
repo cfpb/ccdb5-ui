@@ -14,12 +14,10 @@ describe('reducer::detail', () => {
   });
 
   it('handles complaintDetailCalled actions', () => {
-    const action = {
-      url: 'http://someurl.com',
-    };
+    const action = 'http://someurl.com';
     expect(detail(detailState, complaintDetailCalled(action))).toEqual({
       ...detailState,
-      activeCall: action.url,
+      activeCall: action,
     });
   });
 

@@ -79,8 +79,8 @@ describe('reducer:trends', () => {
         target({ ...trendsState, tooltip: true }, updateChartType(action))
       ).toEqual({
         ...trendsState,
-        chartType: 'line',
-        tooltip: false,
+        chartType: 'FooBar',
+        tooltip: false
       });
     });
 
@@ -347,9 +347,7 @@ describe('reducer:trends', () => {
 
   describe('TRENDS_FAILED actions', () => {
     it('handles failed error messages', () => {
-      action = {
-        error: { message: 'foo bar', name: 'ErrorTypeName', stack: 'trace' },
-      };
+      action = { message: 'foo bar', name: 'ErrorTypeName' };
       expect(
         target(
           {
@@ -368,7 +366,7 @@ describe('reducer:trends', () => {
         activeCall: '',
         chartType: 'line',
         colorMap: {},
-        error: { message: 'foo bar', name: 'ErrorTypeName', stack: 'trace' },
+        error: { message: 'foo bar', name: 'ErrorTypeName' },
         isLoading: false,
         results: {
           dateRangeArea: [],

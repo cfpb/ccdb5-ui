@@ -297,13 +297,11 @@ describe('module::utils', () => {
     it('parses out an error', () => {
       const actual = processErrorMessage({
         name: 'foo',
-        message: 'bar',
-        stack: 'some stack trace thing',
+        message: 'bar'
       });
       expect(actual).toEqual({
         name: 'foo',
-        message: 'bar',
-        stack: 'some stack trace thing',
+        message: 'bar'
       });
     });
   });
