@@ -7,7 +7,7 @@ import { REQUERY_ALWAYS, REQUERY_HITS_ONLY } from '../../constants';
  *
  * @param viewMode
  */
-function setupStore(viewMode = 'Map') {
+function setupStore(viewMode) {
   const middlewares = [thunk, queryManager];
   const mockStore = configureMockStore(middlewares);
   return mockStore({
@@ -41,10 +41,10 @@ describe('redux middleware::queryManager', () => {
       it('REQUERY_ALWAYS runs no queries', () => {
         const action = {
           type: 'FakeAction',
-          requery: REQUERY_ALWAYS,
+          meta: { requery: REQUERY_ALWAYS },
         };
         const expectedActions = [
-          { type: 'FakeAction', requery: REQUERY_ALWAYS },
+          { type: 'FakeAction', meta: { requery: REQUERY_ALWAYS } },
         ];
 
         store.dispatch(action);
@@ -54,10 +54,10 @@ describe('redux middleware::queryManager', () => {
       it('REQUERY_HITS_ONLY runs no queries', () => {
         const action = {
           type: 'FakeAction',
-          requery: REQUERY_HITS_ONLY,
+          meta: { requery: REQUERY_HITS_ONLY },
         };
         const expectedActions = [
-          { type: 'FakeAction', requery: REQUERY_HITS_ONLY },
+          { type: 'FakeAction', meta: { requery: REQUERY_HITS_ONLY } },
         ];
 
         store.dispatch(action);
@@ -74,7 +74,6 @@ describe('redux middleware::queryManager', () => {
           type: 'FakeAction',
         };
         const expectedActions = [{ type: 'FakeAction' }];
-
         store.dispatch(action);
         expect(store.getActions()).toEqual(expectedActions);
       });
@@ -83,14 +82,16 @@ describe('redux middleware::queryManager', () => {
         it('runs both left and right queries', () => {
           const action = {
             type: 'FakeAction',
-            requery: REQUERY_ALWAYS,
+            meta: { requery: REQUERY_ALWAYS },
           };
           const expectedActions = [
-            { type: 'FakeAction', requery: REQUERY_ALWAYS },
-            { type: 'aggregationsCallInProcess', url: '@@API?foo&size=0' },
-            { type: 'COMPLAINTS_API_CALLED', url: '@@API?foo' },
+            { type: 'FakeAction', meta: { requery: REQUERY_ALWAYS } },
+            {
+              type: 'aggs/aggregationsCallInProcess',
+              payload: '@@API?foo&size=0',
+            },
+            { type: 'results/hitsCallInProcess', payload: '@@API?foo' },
           ];
-
           store.dispatch(action);
           expect(store.getActions()).toEqual(expectedActions);
         });
@@ -100,13 +101,12 @@ describe('redux middleware::queryManager', () => {
         it('only runs right hand queries', () => {
           const action = {
             type: 'FakeAction',
-            requery: REQUERY_HITS_ONLY,
+            meta: { requery: REQUERY_HITS_ONLY },
           };
           const expectedActions = [
-            { type: 'FakeAction', requery: REQUERY_HITS_ONLY },
-            { type: 'COMPLAINTS_API_CALLED', url: '@@API?foo' },
+            { type: 'FakeAction', meta: { requery: REQUERY_HITS_ONLY } },
+            { type: 'results/hitsCallInProcess', payload: '@@API?foo' },
           ];
-
           store.dispatch(action);
           expect(store.getActions()).toEqual(expectedActions);
         });
@@ -125,12 +125,13 @@ describe('redux middleware::queryManager', () => {
           };
           const expectedActions = [
             { type: 'FakeAction', meta: { requery: REQUERY_ALWAYS } },
-            { type: 'aggregationsCallInProcess', url: '@@API?foo&size=0' },
+            {
+              type: 'aggs/aggregationsCallInProcess',
+              payload: '@@API?foo&size=0',
+            },
             {
               type: 'map/statesCallInProcess',
-              payload: {
-                url: '@@APIgeo/states/?foo&no_aggs=true'
-              },
+              payload: '@@APIgeo/states/?foo&no_aggs=true',
             },
           ];
 
@@ -151,9 +152,7 @@ describe('redux middleware::queryManager', () => {
             { type: 'FakeAction', meta: { requery: REQUERY_HITS_ONLY } },
             {
               type: 'map/statesCallInProcess',
-              payload: {
-                url: '@@APIgeo/states/?foo&no_aggs=true'
-              },
+              payload: '@@APIgeo/states/?foo&no_aggs=true',
             },
           ];
 

@@ -21,10 +21,12 @@ import {
   statesCallInProcess,
 } from '../reducers/map/map';
 import {
+  aggregationsCallInProcess,
   processAggregationError,
   processAggregationResults,
 } from '../reducers/aggs/aggs';
 import {
+  hitsCallInProcess,
   processHitsError,
   processHitsResults,
 } from '../reducers/results/results';
@@ -111,7 +113,7 @@ export function getAggregations() {
       return null;
     }
 
-    dispatch(callingApi(AGGREGATIONS_API_CALLED, uri));
+    dispatch(aggregationsCallInProcess(uri));
     return fetch(uri)
       .then((result) => result.json())
       .then((items) => dispatch(processAggregationResults(items)))
@@ -128,13 +130,12 @@ export function getComplaints() {
     const store = getState();
     const qs = store.query.queryString;
     const uri = API_PLACEHOLDER + qs;
-
     // This call is already in process
     if (uri === store.results.activeCall) {
       return null;
     }
 
-    dispatch(callingApi(COMPLAINTS_API_CALLED, uri));
+    dispatch(hitsCallInProcess(uri));
     return fetch(uri)
       .then((result) => result.json())
       .then((items) => dispatch(processHitsResults(items)))
@@ -150,7 +151,7 @@ export function getComplaints() {
 export function getComplaintDetail(id) {
   return (dispatch) => {
     const uri = API_PLACEHOLDER + id;
-    dispatch(complaintDetailCalled());
+    dispatch(complaintDetailCalled(uri));
     fetch(uri)
       .then((result) => result.json())
       .then((data) => dispatch(complaintDetailReceived(data)))
@@ -173,7 +174,7 @@ export function getStates() {
       return null;
     }
 
-    dispatch(statesCallInProcess());
+    dispatch(statesCallInProcess(uri));
     return fetch(uri)
       .then((result) => result.json())
       .then((items) => dispatch(processStatesResults(items)))
@@ -205,7 +206,7 @@ export function getTrends() {
       return null;
     }
 
-    dispatch(trendsCallInProcess());
+    dispatch(trendsCallInProcess(uri));
     return fetch(uri)
       .then((result) => result.json())
       .then((items) => dispatch(processTrends(items)))

@@ -28,9 +28,9 @@ import target, {
   prevPageShown,
   resetDepth,
   changeDepth,
-  changeSearchText, changeSearchField,
+  changeSearchText,
+  changeSearchField,
 } from './query';
-import actions from '../../actions';
 import * as types from '../../constants';
 import dayjs from 'dayjs';
 import { startOfToday } from '../../utils';
@@ -42,7 +42,7 @@ import {
   updateDataSubLens,
 } from '../trends/trends';
 import { formatDate } from '../../utils/formatDate';
-import {processHitsResults} from "../results/results";
+import { processHitsResults } from '../results/results';
 
 const maxDate = startOfToday();
 
@@ -111,7 +111,7 @@ describe('reducer:query', () => {
         ...queryState,
         page: 10,
         size: 100,
-        totalPages: 5
+        totalPages: 5,
       };
 
       expect(target(state, processHitsResults(action))).toEqual({
@@ -122,11 +122,10 @@ describe('reducer:query', () => {
           4: [4, 2],
           5: [5, 2],
         },
-        page: 10,
-        queryString: '',
-        size: 100,
-        totalPages: 5,
-        search: '?',
+        queryString:
+          '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
+        search:
+          '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
       });
     });
 
@@ -162,10 +161,12 @@ describe('reducer:query', () => {
           5: [5, 2],
         },
         page: 100,
-        queryString: '',
+        queryString:
+          '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
         size: 100,
         totalPages: 5,
-        search: '?',
+        search:
+          '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
       });
     });
   });
@@ -185,12 +186,14 @@ describe('reducer:query', () => {
       breakPoints: {},
       from: 0,
       page: 1,
-      queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&search_term=foo&sub_lens=sub_product&trend_depth=5&trend_interval=month',
+      queryString:
+        '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&search_term=foo&sub_lens=sub_product&trend_depth=5&trend_interval=month',
       searchAfter: '',
       searchField: 'bar',
       searchText: 'foo',
       size: 100,
-      search: '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&searchText=foo&subLens=sub_product&tab=Trends',
+      search:
+        '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&searchText=foo&subLens=sub_product&tab=Trends',
     });
   });
 
@@ -209,11 +212,13 @@ describe('reducer:query', () => {
       breakPoints: {},
       from: 0,
       page: 1,
-      queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&search_term=foo&sub_lens=sub_product&trend_depth=5&trend_interval=month',
+      queryString:
+        '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&search_term=foo&sub_lens=sub_product&trend_depth=5&trend_interval=month',
       searchAfter: '',
       searchText: 'bar',
       size: 100,
-      search: '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&searchText=foo&subLens=sub_product&tab=Trends',
+      search:
+        '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&searchText=foo&subLens=sub_product&tab=Trends',
     });
   });
 
@@ -232,11 +237,13 @@ describe('reducer:query', () => {
       expect(target(state, changeDepth(action))).toEqual({
         ...state,
         chartType: 'line',
-        queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=13&trend_interval=month',
+        queryString:
+          '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=13&trend_interval=month',
         tab: types.MODE_TRENDS,
         trendDepth: 13,
         trendsDateWarningEnabled: false,
-        search: '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
+        search:
+          '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
       });
     });
     it('handles DEPTH_RESET', () => {
@@ -244,11 +251,13 @@ describe('reducer:query', () => {
       expect(target(state, resetDepth())).toEqual({
         ...state,
         chartType: 'line',
-        queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
+        queryString:
+          '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
         tab: types.MODE_TRENDS,
         trendDepth: 5,
         trendsDateWarningEnabled: false,
-        search: '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
+        search:
+          '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
       });
     });
   });
@@ -266,7 +275,7 @@ describe('reducer:query', () => {
         queryString: 'foobar',
         size: 100,
         tab: types.MODE_LIST,
-        totalPages: 3
+        totalPages: 3,
       };
       expect(target(state, nextPageShown())).toEqual({
         ...state,
@@ -276,12 +285,14 @@ describe('reducer:query', () => {
         },
         from: 200,
         page: 3,
-        queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&frm=100&size=100&sort=created_date_desc',
+        queryString:
+          '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&frm=100&size=100&sort=created_date_desc',
         searchAfter: '909_131',
         size: 100,
         tab: types.MODE_LIST,
-        search: '?date_received_max=2020-05-05&date_received_min=2017-05-05&page=2&searchField=all&size=100&sort=created_date_desc&tab=List',
-        totalPages: 3
+        search:
+          '?date_received_max=2020-05-05&date_received_min=2017-05-05&page=2&searchField=all&size=100&sort=created_date_desc&tab=List',
+        totalPages: 3,
       });
     });
 
@@ -306,11 +317,13 @@ describe('reducer:query', () => {
         },
         from: 100,
         page: 2,
-        queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&frm=100&size=100&sort=created_date_desc',
+        queryString:
+          '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&frm=100&size=100&sort=created_date_desc',
         searchAfter: '99_22131',
         size: 100,
         tab: types.MODE_LIST,
-        search: '?date_received_max=2020-05-05&date_received_min=2017-05-05&page=3&searchField=all&size=100&sort=created_date_desc&tab=List',
+        search:
+          '?date_received_max=2020-05-05&date_received_min=2017-05-05&page=3&searchField=all&size=100&sort=created_date_desc&tab=List',
       });
     });
 
@@ -335,11 +348,13 @@ describe('reducer:query', () => {
         },
         from: 0,
         page: 1,
-        queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&frm=100&size=100&sort=created_date_desc',
+        queryString:
+          '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&frm=100&size=100&sort=created_date_desc',
         searchAfter: '',
         size: 100,
         tab: types.MODE_LIST,
-        search: '?date_received_max=2020-05-05&date_received_min=2017-05-05&page=2&searchField=all&size=100&sort=created_date_desc&tab=List',
+        search:
+          '?date_received_max=2020-05-05&date_received_min=2017-05-05&page=2&searchField=all&size=100&sort=created_date_desc&tab=List',
       });
     });
   });
@@ -359,11 +374,13 @@ describe('reducer:query', () => {
         breakPoints: {},
         from: 0,
         page: 1,
-        queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&size=50&sort=created_date_desc',
+        queryString:
+          '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&size=50&sort=created_date_desc',
         searchAfter: '',
         size: 50,
         tab: types.MODE_LIST,
-        search: '?date_received_max=2020-05-05&date_received_min=2017-05-05&page=1&searchField=all&size=50&sort=created_date_desc&tab=List',
+        search:
+          '?date_received_max=2020-05-05&date_received_min=2017-05-05&page=1&searchField=all&size=50&sort=created_date_desc&tab=List',
       });
     });
 
@@ -382,12 +399,14 @@ describe('reducer:query', () => {
         breakPoints: {},
         from: 0,
         page: 1,
-        queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&size=100&sort=created_date_desc',
+        queryString:
+          '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&size=100&sort=created_date_desc',
         searchAfter: '',
         sort: 'created_date_desc',
         size: 100,
         tab: types.MODE_LIST,
-        search: '?date_received_max=2020-05-05&date_received_min=2017-05-05&page=1&searchField=all&size=100&sort=created_date_desc&tab=List',
+        search:
+          '?date_received_max=2020-05-05&date_received_min=2017-05-05&page=1&searchField=all&size=100&sort=created_date_desc&tab=List',
       });
     });
 
@@ -406,12 +425,14 @@ describe('reducer:query', () => {
         breakPoints: {},
         from: 0,
         page: 1,
-        queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&size=100&sort=relevance_asc',
+        queryString:
+          '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&size=100&sort=relevance_asc',
         searchAfter: '',
         sort: 'relevance_asc',
         size: 100,
         tab: types.MODE_LIST,
-        search: '?date_received_max=2020-05-05&date_received_min=2017-05-05&page=1&searchField=all&size=100&sort=relevance_asc&tab=List',
+        search:
+          '?date_received_max=2020-05-05&date_received_min=2017-05-05&page=1&searchField=all&size=100&sort=relevance_asc&tab=List',
       });
     });
   });
@@ -437,9 +458,11 @@ describe('reducer:query', () => {
         chartType: 'line',
         focus: 'Yoyo',
         tab: 'Trends',
-        queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&focus=Yoyo&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
+        queryString:
+          '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&focus=Yoyo&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
         trendsDateWarningEnabled: false,
-        search: '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&focus=Yoyo&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
+        search:
+          '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&focus=Yoyo&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
       });
     });
 
@@ -454,9 +477,11 @@ describe('reducer:query', () => {
         chartType: 'line',
         focus: 'Yoyo',
         tab: 'Trends',
-        queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&focus=Yoyo&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
+        queryString:
+          '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&focus=Yoyo&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
         trendsDateWarningEnabled: false,
-        search: '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&focus=Yoyo&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
+        search:
+          '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&focus=Yoyo&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
       });
     });
 
@@ -473,8 +498,10 @@ describe('reducer:query', () => {
         enablePer1000: false,
         mapWarningEnabled: true,
         tab: types.MODE_MAP,
-        queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all',
-        search: '?dataNormalization=None&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&searchField=all&tab=Map',
+        queryString:
+          '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all',
+        search:
+          '?dataNormalization=None&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&searchField=all&tab=Map',
       });
     });
 
@@ -488,8 +515,10 @@ describe('reducer:query', () => {
         searchAfter: '',
         focus: '',
         tab: types.MODE_LIST,
-        queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&size=25&sort=created_date_desc',
-        search: '?date_received_max=2020-05-05&date_received_min=2017-05-05&page=1&searchField=all&size=25&sort=created_date_desc&tab=List',
+        queryString:
+          '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&size=25&sort=created_date_desc',
+        search:
+          '?date_received_max=2020-05-05&date_received_min=2017-05-05&page=1&searchField=all&size=25&sort=created_date_desc&tab=List',
       });
     });
   });
@@ -524,7 +553,7 @@ describe('reducer:query', () => {
     it('handles page number', () => {
       action.params = { page: '100' };
       actual = target(state, processParams(action));
-      expect(actual.page).toEqual(1);
+      expect(actual.page).toEqual('100');
     });
 
     it('handles bogus date parameters', () => {
@@ -705,9 +734,11 @@ describe('reducer:query', () => {
           from: 0,
           page: 1,
           [filterName]: [key],
-          queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
           searchAfter: '',
-          search: '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
+          search:
+            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
         });
       });
 
@@ -719,14 +750,16 @@ describe('reducer:query', () => {
           foobar: ['affirmative'],
           from: 0,
           page: 1,
-          queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
           searchAfter: '',
-          search: '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
+          search:
+            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
         });
       });
 
       it('handles FILTER_CHANGED actions & returns correct object - Map', () => {
-        const newState = {...state, tab: types.MODE_MAP};
+        const newState = { ...state, tab: types.MODE_MAP };
         expect(target(newState, toggleFilter(action))).toEqual({
           ...newState,
           breakPoints: {},
@@ -735,10 +768,12 @@ describe('reducer:query', () => {
           from: 0,
           [filterName]: [key],
           page: 1,
-          queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all',
           searchAfter: '',
           tab: types.MODE_MAP,
-          search: '?dataNormalization=None&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&searchField=all&tab=Map',
+          search:
+            '?dataNormalization=None&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&searchField=all&tab=Map',
         });
       });
 
@@ -1758,16 +1793,21 @@ describe('reducer:query', () => {
         });
       });
       it('handles empty state', () => {
-        result = target({ ...queryState, tab: types.MODE_MAP }, removeStateFilter(action));
+        result = target(
+          { ...queryState, tab: types.MODE_MAP },
+          removeStateFilter(action)
+        );
         expect(result).toEqual({
           ...queryState,
           dataNormalization: 'None',
           enablePer1000: false,
           mapWarningEnabled: true,
-          queryString: '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all',
+          queryString:
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all',
           tab: types.MODE_MAP,
-          search: '?dataNormalization=None&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&searchField=all&tab=Map',
-          state: []
+          search:
+            '?dataNormalization=None&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&searchField=all&tab=Map',
+          state: [],
         });
       });
     });

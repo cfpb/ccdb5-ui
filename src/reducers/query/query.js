@@ -9,7 +9,7 @@ import {
   shortIsoFormat,
   startOfToday,
 } from '../../utils';
-import {enforceValues, validateTrendsReducer} from '../../utils/reducers';
+import { enforceValues, validateTrendsReducer } from '../../utils/reducers';
 import dayjs from 'dayjs';
 import { isGreaterThanYear } from '../../utils/trends';
 import { createSlice } from '@reduxjs/toolkit';
@@ -89,7 +89,7 @@ export const querySlice = createSlice({
   initialState: queryState,
   reducers: {
     processParams(state, action) {
-      const params = {...action.payload.params};
+      const params = { ...action.payload.params };
 
       // Filter for known
       urlParams.forEach((field) => {
@@ -130,15 +130,14 @@ export const querySlice = createSlice({
 
       // Apply the date range
       if (dateRangeNoDates(params) || params.dateRange === 'All') {
-        const innerAction = { payload: {dateRange: params.dateRange} };
+        const innerAction = { payload: { dateRange: params.dateRange } };
         querySlice.caseReducers.changeDateRange(state, innerAction);
       }
 
-      // this is always page 1 since we don't know breakPoints
-      state.page = 1;
+      state.page = params.page ?? state.page;
       validateTrendsReducer(state);
 
-      state.focus = (typeof params.focus === 'undefined') ? '' : params.focus;
+      state.focus = typeof params.focus === 'undefined' ? '' : params.focus;
       return alignDateRange(state);
     },
     changeDateInterval: {
@@ -335,7 +334,7 @@ export const querySlice = createSlice({
             action.payload.filterValue.key
           ),
           queryString: stateToQS(state),
-          search: stateToURL(state)
+          search: stateToURL(state),
         };
       },
       prepare: (payload) => {
@@ -674,9 +673,9 @@ export const querySlice = createSlice({
       const { _meta, hits } = action.payload.data;
       const totalPages = Math.ceil(hits.total.value / state.size);
 
-      // reset pager to 1 if the number of total pages is less than current page
+      // set pager to last page if the number of total pages is less than current page
       const { break_points: breakPoints } = _meta;
-      state.page = state.page > totalPages ? 1 : state.page;
+      state.page = state.page > totalPages ? totalPages : state.page;
 
       state.breakPoints = breakPoints;
       state.totalPages = Object.keys(breakPoints).length + 1;
@@ -765,7 +764,8 @@ export const querySlice = createSlice({
       };
     },
     updateChartType(state, action) {
-        state.chartType = (state.lens === 'Overview') ? 'line' : action.payload.chartType;
+      state.chartType =
+        state.lens === 'Overview' ? 'line' : action.payload.chartType;
     },
     updateDataNormalization: {
       reducer: (state, action) => {

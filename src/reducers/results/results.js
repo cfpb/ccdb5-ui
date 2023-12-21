@@ -13,12 +13,13 @@ export const resultsSlice = createSlice({
   name: 'results',
   initialState: resultsState,
   reducers: {
-    hitsCallInProcess(state, action) {
-      return {
-        ...state,
-        activeCall: action.payload.url,
-        isLoading: true,
-      };
+    hitsCallInProcess: {
+      reducer: (state, action) => {
+        {
+          state.activeCall = action.payload.url;
+          state.isLoading = true;
+        }
+      },
     },
     processHitsResults(state, action) {
       const items = _processHits(action.payload.data);
