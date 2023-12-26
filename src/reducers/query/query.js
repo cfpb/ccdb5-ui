@@ -88,57 +88,66 @@ export const querySlice = createSlice({
   name: 'query',
   initialState: queryState,
   reducers: {
-    processParams(state, action) {
-      const params = { ...action.payload.params };
+    processParams: {
+      reducer: (state, action) => {
+        const params = { ...action.payload.params };
 
-      // Filter for known
-      urlParams.forEach((field) => {
-        if (typeof params[field] !== 'undefined') {
-          state[field] = enforceValues(params[field], field);
-        }
-      });
-
-      // Handle the aggregation filters
-      processUrlArrayParams(params, state, types.knownFilters);
-
-      // Handle date filters
-      types.dateFilters.forEach((field) => {
-        if (typeof params[field] !== 'undefined') {
-          const d = toDate(params[field]);
-          if (d) {
-            state[field] = d;
+        // Filter for known
+        urlParams.forEach((field) => {
+          if (typeof params[field] !== 'undefined') {
+            state[field] = enforceValues(params[field], field);
           }
-        }
-      });
+        });
 
-      // Handle flag filters
-      types.flagFilters.forEach((field) => {
-        if (typeof params[field] !== 'undefined') {
-          state[field] = params[field] === 'true';
-        }
-      });
+        // Handle the aggregation filters
+        processUrlArrayParams(params, state, types.knownFilters);
 
-      // Handle numeric params
-      urlParamsInt.forEach((field) => {
-        if (typeof params[field] !== 'undefined') {
-          const n = parseInt(params[field], 10);
-          if (isNaN(n) === false) {
-            state[field] = enforceValues(n, field);
+        // Handle date filters
+        types.dateFilters.forEach((field) => {
+          if (typeof params[field] !== 'undefined') {
+            const d = toDate(params[field]);
+            if (d) {
+              state[field] = d;
+            }
           }
+        });
+
+        // Handle flag filters
+        types.flagFilters.forEach((field) => {
+          if (typeof params[field] !== 'undefined') {
+            state[field] = params[field] === 'true';
+          }
+        });
+
+        // Handle numeric params
+        urlParamsInt.forEach((field) => {
+          if (typeof params[field] !== 'undefined') {
+            const n = parseInt(params[field], 10);
+            if (isNaN(n) === false) {
+              state[field] = enforceValues(n, field);
+            }
+          }
+        });
+
+        // Apply the date range
+        if (dateRangeNoDates(params) || params.dateRange === 'All') {
+          const innerAction = { payload: { dateRange: params.dateRange } };
+          querySlice.caseReducers.changeDateRange(state, innerAction);
         }
-      });
 
-      // Apply the date range
-      if (dateRangeNoDates(params) || params.dateRange === 'All') {
-        const innerAction = { payload: { dateRange: params.dateRange } };
-        querySlice.caseReducers.changeDateRange(state, innerAction);
-      }
+        state.page = params.page ?? state.page;
+        validateTrendsReducer(state);
 
-      state.page = params.page ?? state.page;
-      validateTrendsReducer(state);
-
-      state.focus = typeof params.focus === 'undefined' ? '' : params.focus;
-      return alignDateRange(state);
+        state.focus = typeof params.focus === 'undefined' ? '' : params.focus;
+        return alignDateRange(state);
+      },
+      prepare: (params) => {
+        return {
+          payload: {
+            params,
+          },
+        };
+      },
     },
     changeDateInterval: {
       reducer: (state, action) => {
@@ -149,9 +158,11 @@ export const querySlice = createSlice({
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
-      prepare: (payload) => {
+      prepare: (dateInterval) => {
         return {
-          payload,
+          payload: {
+            dateInterval,
+          },
           meta: {
             requery: REQUERY_ALWAYS,
           },
@@ -184,9 +195,11 @@ export const querySlice = createSlice({
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
-      prepare: (payload) => {
+      prepare: (dateRange) => {
         return {
-          payload,
+          payload: {
+            dateRange,
+          },
           meta: {
             requery: REQUERY_ALWAYS,
           },
@@ -232,9 +245,11 @@ export const querySlice = createSlice({
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
-      prepare: (payload) => {
+      prepare: (filterName) => {
         return {
-          payload,
+          payload: {
+            filterName,
+          },
           meta: {
             requery: REQUERY_ALWAYS,
           },
@@ -251,9 +266,11 @@ export const querySlice = createSlice({
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
-      prepare: (payload) => {
+      prepare: (filterName) => {
         return {
-          payload,
+          payload: {
+            filterName,
+          },
           meta: {
             requery: REQUERY_ALWAYS,
           },
@@ -271,9 +288,9 @@ export const querySlice = createSlice({
           searchField: action.payload.searchField,
         };
       },
-      prepare: (payload) => {
+      prepare: (searchField) => {
         return {
-          payload,
+          payload: { searchField },
           meta: {
             requery: REQUERY_ALWAYS,
           },
@@ -291,9 +308,9 @@ export const querySlice = createSlice({
           search: stateToURL(state),
         };
       },
-      prepare: (payload) => {
+      prepare: (searchText) => {
         return {
-          payload,
+          payload: { searchText },
           meta: {
             requery: REQUERY_ALWAYS,
           },
@@ -316,9 +333,12 @@ export const querySlice = createSlice({
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
-      prepare: (payload) => {
+      prepare: (filterName, values) => {
         return {
-          payload,
+          payload: {
+            filterName,
+            values,
+          },
           meta: {
             requery: REQUERY_ALWAYS,
           },
@@ -337,9 +357,9 @@ export const querySlice = createSlice({
           search: stateToURL(state),
         };
       },
-      prepare: (payload) => {
+      prepare: (filterName, filterValue) => {
         return {
-          payload,
+          payload: { filterName, filterValue },
           meta: {
             requery: REQUERY_ALWAYS,
           },
@@ -358,9 +378,9 @@ export const querySlice = createSlice({
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
-      prepare: (payload) => {
+      prepare: (selectedState) => {
         return {
-          payload,
+          payload: { selectedState },
           meta: {
             requery: REQUERY_ALWAYS,
           },
@@ -406,9 +426,9 @@ export const querySlice = createSlice({
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
-      prepare: (payload) => {
+      prepare: (selectedState) => {
         return {
-          payload,
+          payload: { selectedState },
           meta: {
             requery: REQUERY_ALWAYS,
           },
@@ -470,9 +490,9 @@ export const querySlice = createSlice({
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
-      prepare: (payload) => {
+      prepare: (filterName, filterValue) => {
         return {
-          payload,
+          payload: { filterName, filterValue },
           meta: {
             requery: REQUERY_ALWAYS,
           },
@@ -494,9 +514,9 @@ export const querySlice = createSlice({
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
-      prepare: (payload) => {
+      prepare: (filterName, filterValue) => {
         return {
-          payload,
+          payload: { filterName, filterValue },
           meta: {
             requery: REQUERY_ALWAYS,
           },
@@ -510,9 +530,9 @@ export const querySlice = createSlice({
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
-      prepare: (payload) => {
+      prepare: (filterName, values) => {
         return {
-          payload,
+          payload: { filterName, values },
           meta: {
             requery: REQUERY_ALWAYS,
           },
@@ -537,9 +557,9 @@ export const querySlice = createSlice({
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
-      prepare: (payload) => {
+      prepare: (filterName, values) => {
         return {
-          payload,
+          payload: { filterName, values },
           meta: {
             requery: REQUERY_ALWAYS,
           },
@@ -625,9 +645,9 @@ export const querySlice = createSlice({
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
-      prepare: (payload) => {
+      prepare: (size) => {
         return {
-          payload,
+          payload: { size },
           meta: {
             requery: REQUERY_HITS_ONLY,
           },
@@ -643,9 +663,9 @@ export const querySlice = createSlice({
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
-      prepare: (payload) => {
+      prepare: (sort) => {
         return {
-          payload,
+          payload: { sort },
           meta: {
             requery: REQUERY_HITS_ONLY,
           },
@@ -660,25 +680,32 @@ export const querySlice = createSlice({
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
-      prepare: (payload) => {
+      prepare: (tab) => {
         return {
-          payload,
+          payload: { tab },
           meta: {
             requery: REQUERY_HITS_ONLY,
           },
         };
       },
     },
-    updateTotalPages(state, action) {
-      const { _meta, hits } = action.payload.data;
-      const totalPages = Math.ceil(hits.total.value / state.size);
+    updateTotalPages: {
+      reducer: (state, action) => {
+        const { _meta, hits } = action.payload.data;
+        const totalPages = Math.ceil(hits.total.value / state.size);
 
-      // set pager to last page if the number of total pages is less than current page
-      const { break_points: breakPoints } = _meta;
-      state.page = state.page > totalPages ? totalPages : state.page;
+        // set pager to last page if the number of total pages is less than current page
+        const { break_points: breakPoints } = _meta;
+        state.page = state.page > totalPages ? totalPages : state.page;
 
-      state.breakPoints = breakPoints;
-      state.totalPages = Object.keys(breakPoints).length + 1;
+        state.breakPoints = breakPoints;
+        state.totalPages = Object.keys(breakPoints).length + 1;
+      },
+      prepare: (data) => {
+        return {
+          payload: { data },
+        };
+      },
     },
     changeDepth: {
       reducer: (state, action) => {
@@ -686,9 +713,9 @@ export const querySlice = createSlice({
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
-      prepare: (payload) => {
+      prepare: (depth) => {
         return {
-          payload,
+          payload: { depth },
           meta: {
             requery: REQUERY_ALWAYS,
           },
@@ -730,9 +757,9 @@ export const querySlice = createSlice({
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
-      prepare: (payload) => {
+      prepare: (focus, filterValues, lens) => {
         return {
-          payload,
+          payload: { focus, filterValues, lens },
         };
       },
     },
@@ -748,7 +775,7 @@ export const querySlice = createSlice({
       };
     },
     changeDataLens(state, action) {
-      const lens = enforceValues(action.lens, 'lens');
+      const lens = enforceValues(action, 'lens');
 
       return {
         ...state,
@@ -760,12 +787,11 @@ export const querySlice = createSlice({
     changeDataSubLens(state, action) {
       return {
         ...state,
-        subLens: action.subLens.toLowerCase(),
+        subLens: action.toLowerCase(),
       };
     },
     updateChartType(state, action) {
-      state.chartType =
-        state.lens === 'Overview' ? 'line' : action.payload.chartType;
+      state.chartType = state.lens === 'Overview' ? 'line' : action;
     },
     updateDataNormalization: {
       reducer: (state, action) => {
@@ -778,9 +804,9 @@ export const querySlice = createSlice({
         state.enablePer1000 =
           state.dataNormalization === types.GEO_NORM_PER1000;
       },
-      prepare: (payload) => {
+      prepare: (value) => {
         return {
-          payload,
+          payload: { value },
           meta: {
             requery: REQUERY_NEVER,
           },
