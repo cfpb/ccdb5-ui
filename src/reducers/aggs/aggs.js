@@ -32,37 +32,65 @@ export const aggSlice = createSlice({
   name: 'aggs',
   initialState: aggState,
   reducers: {
-    aggregationsCallInProcess(state, action) {
-      state.error = '';
-      state.activeCall = action.payload.url;
-      state.isLoading = true;
+    aggregationsCallInProcess: {
+      reducer: (state, action) => {
+        state.error = '';
+        state.activeCall = action.payload.url;
+        state.isLoading = true;
+      },
+      prepare: (url) => {
+        return {
+          payload: {
+            url,
+          },
+        };
+      },
     },
-    processAggregationResults(state, action) {
-      const aggs = action.payload.data.aggregations;
-      const keys = Object.keys(aggs);
+    processAggregationResults: {
+      reducer: (state, action) => {
+        const aggs = action.payload.data.aggregations;
+        const keys = Object.keys(aggs);
 
-      state.doc_count = Math.max(
-        state.doc_count,
-        action.payload.data.hits.total.value,
-        action.payload.data._meta.total_record_count
-      );
-      state.error = '';
-      state.isLoading = false;
-      state.activeCall = '';
-      state.lastUpdated = action.payload.data._meta.last_updated;
-      state.lastIndexed = action.payload.data._meta.last_indexed;
-      state.hasDataIssue = action.payload.data._meta.has_data_issue;
-      state.isDataStale = action.payload.data._meta.is_data_stale;
-      state.total = action.payload.data.hits.total.value;
+        state.doc_count = Math.max(
+          state.doc_count,
+          action.payload.data.hits.total.value,
+          action.payload.data._meta.total_record_count
+        );
+        state.error = '';
+        state.isLoading = false;
+        state.activeCall = '';
+        state.lastUpdated = action.payload.data._meta.last_updated;
+        state.lastIndexed = action.payload.data._meta.last_indexed;
+        state.hasDataIssue = action.payload.data._meta.has_data_issue;
+        state.isDataStale = action.payload.data._meta.is_data_stale;
+        state.total = action.payload.data.hits.total.value;
 
-      keys.forEach((key) => {
-        state[key] = aggs[key][key].buckets;
-      });
+        keys.forEach((key) => {
+          state[key] = aggs[key][key].buckets;
+        });
+      },
+      prepare: (data) => {
+        return {
+          payload: {
+            data,
+          },
+        };
+      },
     },
-    processAggregationError(state, action) {
-      state.isLoading = false;
-      state.activeCall = '';
-      state.error = processErrorMessage(action.payload);
+    processAggregationError: {
+      reducer: (state, action) => {
+        state.isLoading = false;
+        state.activeCall = '';
+        state.error = processErrorMessage(action.payload);
+      },
+      prepare: (error) => {
+        return {
+          payload: {
+            message: error.message,
+            name: error.name,
+          },
+        };
+      },
     },
   },
 });

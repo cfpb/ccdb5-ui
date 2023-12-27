@@ -13,9 +13,7 @@ describe('reducer:aggs', () => {
   });
 
   it('handles aggregationsCallInProcess actions', () => {
-    const action = {
-      url: 'foobar',
-    };
+    const action = 'foobar';
 
     expect(target(aggState, aggregationsCallInProcess(action))).toEqual({
       ...aggState,
@@ -44,23 +42,21 @@ describe('reducer:aggs', () => {
 
   it('handles processAggregationResults actions', () => {
     const action = {
-      data: {
-        aggregations: {
+      aggregations: {
+        company_response: {
           company_response: {
-            company_response: {
-              buckets: [{ key: 'foo', doc_count: 99 }],
-            },
+            buckets: [{ key: 'foo', doc_count: 99 }],
           },
         },
-        hits: {
-          total: { value: 99 },
-        },
-        _meta: {
-          total_record_count: 162576,
-          last_updated: '2017-07-10T00:00:00.000Z',
-          last_indexed: '2017-07-11T00:00:00.000Z',
-          license: 'CC0',
-        },
+      },
+      hits: {
+        total: { value: 99 },
+      },
+      _meta: {
+        total_record_count: 162576,
+        last_updated: '2017-07-10T00:00:00.000Z',
+        last_indexed: '2017-07-11T00:00:00.000Z',
+        license: 'CC0',
       },
     };
     const expected = {
