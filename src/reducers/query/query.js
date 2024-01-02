@@ -215,7 +215,6 @@ export const querySlice = createSlice({
         ];
 
         let { maxDate, minDate } = action.payload;
-
         // If maxDate or minDate are falsy, just set the search and queryStrings and exit
         if (!maxDate || !minDate) {
           state.queryString = stateToQS(state);
@@ -232,6 +231,7 @@ export const querySlice = createSlice({
 
         const datesChanged =
           state[fields[0]] !== minDate || state[fields[1]] !== maxDate;
+
         const dateRange = calculateDateRange(minDate, maxDate);
 
         if (dateRange && datesChanged) {
@@ -245,10 +245,12 @@ export const querySlice = createSlice({
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
-      prepare: (filterName) => {
+      prepare: (filterName, minDate, maxDate) => {
         return {
           payload: {
             filterName,
+            minDate,
+            maxDate
           },
           meta: {
             requery: REQUERY_ALWAYS,
@@ -738,7 +740,7 @@ export const querySlice = createSlice({
     },
     changeFocus: {
       reducer: (state, action) => {
-        const { focus, filterValues, lens } = action.payload;
+        const { focus, lens, filterValues } = action.payload;
         const filterKey = lens.toLowerCase();
         const activeFilters = [];
 
@@ -757,9 +759,9 @@ export const querySlice = createSlice({
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
-      prepare: (focus, filterValues, lens) => {
+      prepare: (focus, lens, filterValues) => {
         return {
-          payload: { focus, filterValues, lens },
+          payload: { focus, lens, filterValues },
         };
       },
     },
@@ -776,7 +778,6 @@ export const querySlice = createSlice({
     },
     changeDataLens(state, action) {
       const lens = enforceValues(action, 'lens');
-
       return {
         ...state,
         focus: '',
@@ -850,30 +851,6 @@ export const querySlice = createSlice({
         state.subLens = action.payload.subLens.toLowerCase();
         state.search = stateToURL(state);
         state.queryString = stateToQS(state);
-      })
-      .addCase('trends/changeFocus', (state, action) => {
-        const { focus, filterValues, lens } = action.payload;
-        const filterKey = lens.toLowerCase();
-        const activeFilters = [];
-
-        if (filterKey === 'company') {
-          activeFilters.push(focus);
-        } else {
-          filterValues.forEach((o) => {
-            activeFilters.push(o);
-          });
-        }
-
-        return {
-          ...state,
-          [filterKey]: activeFilters,
-          focus,
-          lens,
-          tab: types.MODE_TRENDS,
-          trendDepth: 25,
-          queryString: stateToQS(state),
-          search: stateToURL(state),
-        };
       })
       .addCase('trends/removeFocus', (state) => {
         const { lens } = queryState;

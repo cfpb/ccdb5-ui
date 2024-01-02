@@ -90,7 +90,7 @@ describe('redux middleware::queryManager', () => {
               type: 'aggs/aggregationsCallInProcess',
               payload: '@@API?foo&size=0',
             },
-            { type: 'results/hitsCallInProcess', payload: '@@API?foo' },
+            { type: 'results/hitsCallInProcess', payload: { url: '@@API?foo' } },
           ];
           store.dispatch(action);
           expect(store.getActions()).toEqual(expectedActions);
@@ -105,7 +105,7 @@ describe('redux middleware::queryManager', () => {
           };
           const expectedActions = [
             { type: 'FakeAction', meta: { requery: REQUERY_HITS_ONLY } },
-            { type: 'results/hitsCallInProcess', payload: '@@API?foo' },
+            { type: 'results/hitsCallInProcess', payload: { url: '@@API?foo'} },
           ];
           store.dispatch(action);
           expect(store.getActions()).toEqual(expectedActions);
@@ -127,11 +127,11 @@ describe('redux middleware::queryManager', () => {
             { type: 'FakeAction', meta: { requery: REQUERY_ALWAYS } },
             {
               type: 'aggs/aggregationsCallInProcess',
-              payload: '@@API?foo&size=0',
+              payload: { url: '@@API?foo&size=0'},
             },
             {
               type: 'map/statesCallInProcess',
-              payload: '@@APIgeo/states/?foo&no_aggs=true',
+              payload: { url: '@@APIgeo/states/?foo&no_aggs=true'},
             },
           ];
 
@@ -152,7 +152,7 @@ describe('redux middleware::queryManager', () => {
             { type: 'FakeAction', meta: { requery: REQUERY_HITS_ONLY } },
             {
               type: 'map/statesCallInProcess',
-              payload: '@@APIgeo/states/?foo&no_aggs=true',
+              payload: { url: '@@APIgeo/states/?foo&no_aggs=true'},
             },
           ];
 

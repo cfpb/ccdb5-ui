@@ -149,9 +149,9 @@ export const trendsSlice = createSlice({
           state.chartType = (state.lens === 'Overview') ? 'line' : action.payload.chartType;
           state.tooltip = false;
       },
-      prepare: (payload) => {
+      prepare: (chartType) => {
         return {
-          payload,
+          payload: { chartType: chartType },
           meta: {
             requery: REQUERY_NEVER,
           },
@@ -182,9 +182,9 @@ export const trendsSlice = createSlice({
         state.results = emptyResults();
         state.tooltip = false;
       },
-      prepare: (payload) => {
+      prepare: (lens) => {
         return {
-          payload,
+          payload: { lens: lens },
           meta: {
             requery: REQUERY_ALWAYS,
           },
@@ -198,28 +198,9 @@ export const trendsSlice = createSlice({
           subLens: action.payload.subLens,
         };
       },
-      prepare: (payload) => {
+      prepare: (subLens) => {
         return {
-          payload,
-          meta: {
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
-    },
-    changeFocus: {
-      reducer: (state, action) => {
-        const { focus, lens } = action.payload;
-        return {
-          ...state,
-          focus,
-          lens,
-          tooltip: false,
-        };
-      },
-      prepare: (payload) => {
-        return {
-          payload,
+          payload:{ subLens },
           meta: {
             requery: REQUERY_ALWAYS,
           },
@@ -320,6 +301,14 @@ export const trendsSlice = createSlice({
       };
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase('query/changeFocus', (state, action) => {
+        state.focus = action.payload.focus;
+        state.lens = action.payload.lens;
+        state.tooltip = false;
+      })
+  }
 });
 
 // ----------------------------------------------------------------------------

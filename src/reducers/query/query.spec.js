@@ -30,12 +30,12 @@ import target, {
   changeDepth,
   changeSearchText,
   changeSearchField,
+    changeFocus
 } from './query';
 import * as types from '../../constants';
 import dayjs from 'dayjs';
 import { startOfToday } from '../../utils';
 import {
-  changeFocus,
   removeFocus,
   updateChartType,
   updateDataLens,
@@ -1421,20 +1421,18 @@ describe('reducer:query', () => {
 
   describe('Dates', () => {
     describe('changeDates actions', () => {
-      let action, result;
+      let result;
+      const filterName = 'date_received';
+      const minDate = new Date(2001, 0, 30);
+      const maxDate = new Date(2013, 1, 3);
       beforeEach(() => {
-        action = {
-          filterName: 'date_received',
-          minDate: new Date(2001, 0, 30),
-          maxDate: new Date(2013, 1, 3),
-        };
         result = null;
       });
 
       it('adds the dates', () => {
         const testState = { ...queryState };
         delete testState.dateRange;
-        expect(target(testState, changeDates(action))).toEqual({
+        expect(target(testState, changeDates(filterName, minDate, maxDate))).toEqual({
           ...testState,
           breakPoints: {},
           date_received_min: new Date(2001, 0, 30),
@@ -1450,25 +1448,22 @@ describe('reducer:query', () => {
       });
 
       it('clears dateRange when no match, i.e. when one or both dates have actually changed', () => {
+
         result = target(
-          { ...queryState, dateRange: '1y' },
-          changeDates(action)
+          { ...queryState, date_received_min: minDate, date_received_max: maxDate, dateRange: '1y' },
+          changeDates(filterName, minDate, maxDate)
         );
         expect(result.dateRange).toBeFalsy();
       });
 
       it('adds dateRange', () => {
         const min = new Date(dayjs(maxDate).subtract(3, 'months'));
-        action.maxDate = maxDate;
-        action.minDate = min;
-        result = target({ ...queryState }, changeDates(action));
+        result = target({ ...queryState }, changeDates( filterName, min, maxDate ));
         expect(result.dateRange).toEqual('3m');
       });
 
       it('does not add empty dates', () => {
-        action.maxDate = '';
-        action.minDate = '';
-        expect(target({ ...queryState }, changeDates(action))).toEqual({
+        expect(target({ ...queryState }, changeDates(filterName, '', ''))).toEqual({
           ...queryState,
           breakPoints: {},
           from: 0,
@@ -1491,13 +1486,11 @@ describe('reducer:query', () => {
     describe('DATE_RANGE_CHANGED actions', () => {
       let action, result;
       beforeEach(() => {
-        action = {
-          dateRange: '',
-        };
+        action = '';
       });
 
       it('handles All range', () => {
-        action.dateRange = 'All';
+        action = 'All';
         result = target({}, changeDateRange(action));
         expect(result.date_received_min).toEqual(
           new Date(types.DATE_RANGE_MIN)
@@ -1505,7 +1498,7 @@ describe('reducer:query', () => {
       });
 
       it('handles 1y range', () => {
-        action.dateRange = '1y';
+        action = '1y';
         result = target({ ...queryState }, changeDateRange(action));
         expect(result).toEqual({
           ...queryState,
@@ -1526,7 +1519,7 @@ describe('reducer:query', () => {
       });
 
       it('default range handling', () => {
-        action.dateRange = 'foo';
+        action = 'foo';
         result = target({ ...queryState }, changeDateRange(action));
         // only set max date
         expect(result).toEqual({
@@ -1546,7 +1539,7 @@ describe('reducer:query', () => {
       });
 
       it('On Trends Tab handles All range', () => {
-        action.dateRange = 'All';
+        action = 'All';
         state = { dateInterval: 'Day', tab: types.MODE_TRENDS };
         result = target(state, changeDateRange(action));
         expect(result.dateInterval).toEqual('Week');
@@ -1556,11 +1549,10 @@ describe('reducer:query', () => {
   });
 
   describe('Map', () => {
+    let action, state, result;
     describe('Data normalization', () => {
       beforeEach(() => {
-        action = {
-          value: 'FooBar',
-        };
+        action = 'FooBar';
         state = {
           ...queryState,
           tab: types.MODE_MAP,
@@ -1581,7 +1573,7 @@ describe('reducer:query', () => {
       });
 
       it('handles per 1000 value', () => {
-        action.value = types.GEO_NORM_PER1000;
+        action = types.GEO_NORM_PER1000;
         expect(target(state, updateDataNormalization(action))).toEqual({
           ...state,
           dataNormalization: 'Per 1000 pop.',
@@ -1671,9 +1663,7 @@ describe('reducer:query', () => {
 
     describe('STATE_FILTER_ADDED', () => {
       beforeEach(() => {
-        action = {
-          selectedState: { abbr: 'IL', name: 'Illinois' },
-        };
+        action = { abbr: 'IL', name: 'Illinois' };
       });
       it('adds state filter', () => {
         result = target(
@@ -1766,9 +1756,7 @@ describe('reducer:query', () => {
 
     describe('STATE_FILTER_REMOVED', () => {
       beforeEach(() => {
-        action = {
-          selectedState: { abbr: 'IL', name: 'Illinois' },
-        };
+        action =  {abbr: 'IL', name: 'Illinois'};
       });
       it('removes a state filter', () => {
         result = target(
@@ -1814,6 +1802,7 @@ describe('reducer:query', () => {
   });
 
   describe('Trends', () => {
+    let state, action, result;
     beforeEach(() => {
       state = {
         tab: types.MODE_TRENDS,
@@ -1840,9 +1829,7 @@ describe('reducer:query', () => {
 
     describe('CHART_TYPE_CHANGED actions', () => {
       it('changes the chartType - default', () => {
-        action = {
-          chartType: 'Foo',
-        };
+        action = 'Foo';
         result = target(
           { ...queryState, chartType: 'ahha' },
           updateChartType(action)
@@ -1862,9 +1849,7 @@ describe('reducer:query', () => {
 
     describe('DATA_LENS_CHANGED actions', () => {
       it('changes the lens - default', () => {
-        action = {
-          lens: 'Foo',
-        };
+        action = 'Foo';
         result = target(
           { ...queryState, focus: 'ahha' },
           updateDataLens(action)
@@ -1886,9 +1871,7 @@ describe('reducer:query', () => {
       });
 
       it('has special values when lens = Company', () => {
-        action = {
-          lens: 'Company',
-        };
+        action = 'Company';
         result = target(
           { ...queryState, tab: types.MODE_TRENDS, focus: 'ahha' },
           updateDataLens(action)
@@ -1910,9 +1893,7 @@ describe('reducer:query', () => {
       });
 
       it('changes the lens - Product', () => {
-        action = {
-          lens: 'Product',
-        };
+        action = 'Product';
         result = target(
           { ...queryState, tab: types.MODE_TRENDS, focus: 'ahha' },
           updateDataLens(action)
@@ -1936,9 +1917,7 @@ describe('reducer:query', () => {
 
     describe('DATA_SUBLENS_CHANGED actions', () => {
       it('changes the sub lens', () => {
-        action = {
-          subLens: 'Issue',
-        };
+        action = 'Issue';
         result = target(
           { ...queryState, tab: types.MODE_TRENDS },
           updateDataSubLens(action)
@@ -1959,9 +1938,7 @@ describe('reducer:query', () => {
 
     describe('DATE_INTERVAL_CHANGED', () => {
       it('changes the dateInterval', () => {
-        action = {
-          dateInterval: 'Day',
-        };
+        action = 'Day';
         result = target(
           { ...queryState, tab: types.MODE_TRENDS },
           changeDateInterval(action)
@@ -1986,12 +1963,10 @@ describe('reducer:query', () => {
 
     describe('FOCUS_CHANGED actions', () => {
       it('changes the focus', () => {
-        action = {
-          filterValues: ['A', 'A' + types.SLUG_SEPARATOR + 'B'],
-          focus: 'A',
-          lens: 'Product',
-        };
-        result = target({ ...queryState, focus: 'Else' }, changeFocus(action));
+        const filterValues = ['A', 'A' + types.SLUG_SEPARATOR + 'B'];
+        const focus = 'A';
+        const lens = 'Product';
+        result = target({ ...queryState, focus: 'Else' }, changeFocus(focus, lens, filterValues));
         expect(result).toEqual({
           ...queryState,
           product: ['A', 'A•B'],
@@ -2000,19 +1975,16 @@ describe('reducer:query', () => {
           tab: 'Trends',
           trendDepth: 25,
           queryString:
-            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&focus=Else&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&focus=A&lens=product&product=A&product=A%E2%80%A2B&sub_lens=sub_product&trend_depth=25&trend_interval=month',
           search:
-            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&focus=Else&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
-        });
+            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&focus=A&lens=Product&product=A&product=A%E2%80%A2B&searchField=all&subLens=sub_product&tab=Trends'        });
       });
 
       it('changes the Company Focus', () => {
-        action = {
-          filterValues: ['A'],
-          focus: 'A',
-          lens: 'Company',
-        };
-        result = target({ ...queryState, focus: 'Else' }, changeFocus(action));
+        const filterValues = ['A'];
+        const focus = 'A';
+        const lens = 'Company';
+        result = target({ ...queryState, focus: 'Else' }, changeFocus(focus, lens, filterValues));
         expect(result).toEqual({
           ...queryState,
           chartType: 'line',
@@ -2020,13 +1992,13 @@ describe('reducer:query', () => {
           lens: 'Company',
           company: ['A'],
           queryString:
-            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&focus=Else&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
+            '?company=A&date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&focus=A&lens=company&sub_lens=sub_product&trend_depth=25&trend_interval=month',
           subLens: 'sub_product',
           tab: 'Trends',
           trendDepth: 25,
           trendsDateWarningEnabled: false,
           search:
-            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&focus=Else&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
+            '?chartType=line&company=A&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&focus=A&lens=Company&searchField=all&subLens=sub_product&tab=Trends',
         });
       });
     });

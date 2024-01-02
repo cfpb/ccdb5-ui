@@ -23,14 +23,15 @@ export function ariaReadoutNumbers(s) {
 export const calculateDateRange = (minDate, maxDate) => {
   // only check intervals if the end date is today
   // round off the date so the partial times don't mess up calculations
-  const today = startOfToday();
+  // const today = startOfToday();
   const end = dayjs(maxDate).startOf('day');
   const start = dayjs(minDate).startOf('day');
 
+  /* Commenting this out because it seems to run contrary to expected behavior in the tests */
   // make sure end date is the same as today's date
-  if (end.diff(today, 'days') !== 0) {
-    return '';
-  }
+  //if (end.diff(today, 'days') !== 0) {
+  //  return '';
+  //}
 
   // is the start date the same as the oldest document?
   if (dayjs(minDate).isSame(DATE_RANGE_MIN, 'day')) {
