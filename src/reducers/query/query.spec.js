@@ -172,16 +172,14 @@ describe('reducer:query', () => {
   });
 
   it('handles SEARCH_FIELD_CHANGED actions', () => {
-    action = {
-      searchField: 'bar',
-    };
+    const  searchField = 'bar';
     state = {
       ...queryState,
       from: 80,
       searchText: 'foo',
       size: 100,
     };
-    expect(target(state, changeSearchField(action))).toEqual({
+    expect(target(state, changeSearchField(searchField))).toEqual({
       ...state,
       breakPoints: {},
       from: 0,
@@ -198,16 +196,14 @@ describe('reducer:query', () => {
   });
 
   it('handles SEARCH_TEXT_CHANGED actions', () => {
-    action = {
-      searchText: 'bar',
-    };
+    const searchText = 'bar';
     state = {
       ...queryState,
       from: 80,
       searchText: 'foo',
       size: 100,
     };
-    expect(target(state, changeSearchText(action))).toEqual({
+    expect(target(state, changeSearchText(searchText))).toEqual({
       ...state,
       breakPoints: {},
       from: 0,
@@ -360,16 +356,17 @@ describe('reducer:query', () => {
   });
 
   describe('Action Bar', () => {
+    let sort, size;
     it('handles SIZE_CHANGED actions', () => {
-      action = {
-        size: 50,
-      };
+
+      size = 50;
+
       state = {
         ...queryState,
         size: 100,
         tab: types.MODE_LIST,
       };
-      expect(target(state, changeSize(action))).toEqual({
+      expect(target(state, changeSize(size))).toEqual({
         ...state,
         breakPoints: {},
         from: 0,
@@ -385,16 +382,16 @@ describe('reducer:query', () => {
     });
 
     it('handles SORT_CHANGED actions - default', () => {
-      action = {
-        sort: 'foo',
-      };
+
+      sort = 'foo';
+
       state = {
         ...queryState,
         from: 100,
         size: 100,
         tab: types.MODE_LIST,
       };
-      expect(target(state, changeSort(action))).toEqual({
+      expect(target(state, changeSort(sort))).toEqual({
         ...state,
         breakPoints: {},
         from: 0,
@@ -411,16 +408,14 @@ describe('reducer:query', () => {
     });
 
     it('handles SORT_CHANGED actions - valid value', () => {
-      action = {
-        sort: 'relevance_asc',
-      };
+      sort = 'relevance_asc';
       state = {
         ...queryState,
         from: 100,
         size: 100,
         tab: types.MODE_LIST,
       };
-      expect(target(state, changeSort(action))).toEqual({
+      expect(target(state, changeSort(sort))).toEqual({
         ...state,
         breakPoints: {},
         from: 0,
@@ -438,8 +433,8 @@ describe('reducer:query', () => {
   });
 
   describe('Tabs', () => {
+    let tab;
     beforeEach(() => {
-      action = {};
       state = {
         ...queryState,
         focus: 'Yoyo',
@@ -448,8 +443,8 @@ describe('reducer:query', () => {
     });
 
     it('handles TAB_CHANGED actions - default', () => {
-      action.tab = 'foo';
-      expect(target(state, changeTab(action))).toEqual({
+      tab = 'foo';
+      expect(target(state, changeTab(tab))).toEqual({
         ...state,
         breakPoints: {},
         from: 0,
@@ -467,8 +462,8 @@ describe('reducer:query', () => {
     });
 
     it('handles Trends TAB_CHANGED actions', () => {
-      action.tab = 'Trends';
-      expect(target(state, changeTab(action))).toEqual({
+      tab = 'Trends';
+      expect(target(state, changeTab(tab))).toEqual({
         ...state,
         breakPoints: {},
         from: 0,
@@ -486,8 +481,8 @@ describe('reducer:query', () => {
     });
 
     it('handles a Map TAB_CHANGED actions', () => {
-      action.tab = types.MODE_MAP;
-      expect(target(state, changeTab(action))).toEqual({
+      tab = types.MODE_MAP;
+      expect(target(state, changeTab(tab))).toEqual({
         ...state,
         breakPoints: {},
         dataNormalization: 'None',
@@ -506,8 +501,8 @@ describe('reducer:query', () => {
     });
 
     it('handles a List TAB_CHANGED actions', () => {
-      action.tab = types.MODE_LIST;
-      expect(target(state, changeTab(action))).toEqual({
+      tab = types.MODE_LIST;
+      expect(target(state, changeTab(tab))).toEqual({
         ...state,
         breakPoints: {},
         from: 0,
@@ -524,114 +519,111 @@ describe('reducer:query', () => {
   });
 
   describe('URL_CHANGED actions', () => {
-    let action, actual, state;
+    let params, actual, state;
 
     beforeEach(() => {
-      action = {
-        params: {},
-      };
-
+      params = {};
       state = { ...queryState };
     });
 
     xit('handles empty params', () => {
-      expect(target(state, processParams(action))).toEqual(state);
+      expect(target(state, processParams(params))).toEqual(state);
     });
 
     it('handles string params', () => {
-      action.params = { searchText: 'hello' };
-      actual = target(state, processParams(action));
+      params = { searchText: 'hello' };
+      actual = target(state, processParams(params));
       expect(actual.searchText).toEqual('hello');
     });
 
     it('handles size parameter', () => {
-      action.params = { size: '100' };
-      actual = target(state, processParams(action));
+      params = { size: '100' };
+      actual = target(state, processParams(params));
       expect(actual.size).toEqual('100');
     });
 
     it('handles page number', () => {
-      action.params = { page: '100' };
-      actual = target(state, processParams(action));
+      params = { page: '100' };
+      actual = target(state, processParams(params));
       expect(actual.page).toEqual('100');
     });
 
     it('handles bogus date parameters', () => {
-      action.params = { dateInterval: '3y', dateRange: 'Week' };
-      actual = target(state, processParams(action));
+      params = { dateInterval: '3y', dateRange: 'Week' };
+      actual = target(state, processParams(params));
       expect(actual.dateInterval).toEqual('Month');
       expect(actual.dateRange).toEqual('3y');
     });
 
     it('handles bogus size & sort parameters', () => {
-      action.params = { size: '9999', sort: 'tables' };
-      actual = target(state, processParams(action));
+      params = { size: '9999', sort: 'tables' };
+      actual = target(state, processParams(params));
       expect(actual.size).toEqual('10');
       expect(actual.sort).toEqual('created_date_desc');
     });
 
     it('converts some parameters to dates', () => {
       const expected = new Date(2013, 1, 3);
-      action.params = { date_received_min: '2013-02-03' };
-      actual = target(state, processParams(action)).date_received_min;
+      params = { date_received_min: '2013-02-03' };
+      actual = target(state, processParams(params)).date_received_min;
       expect(actual.getFullYear()).toEqual(expected.getFullYear());
       expect(actual.getMonth()).toEqual(expected.getMonth());
     });
 
     it('converts flag parameters to booleans', () => {
-      action.params = { has_narrative: 'true' };
-      actual = target(state, processParams(action)).has_narrative;
+      params = { has_narrative: 'true' };
+      actual = target(state, processParams(params)).has_narrative;
       expect(actual).toEqual(true);
     });
 
     xit('ignores incorrect dates', () => {
-      action.params = { date_received_min: 'foo' };
-      expect(target(state, processParams(action))).toEqual(state);
+      params = { date_received_min: 'foo' };
+      expect(target(state, processParams(params))).toEqual(state);
     });
 
     xit('ignores unknown parameters', () => {
-      action.params = { foo: 'bar' };
-      expect(target(state, processParams(action))).toEqual(state);
+      params = { foo: 'bar' };
+      expect(target(state, processParams(params))).toEqual(state);
     });
 
     it('handles a single filter', () => {
-      action.params = { product: 'Debt Collection' };
-      actual = target(state, processParams(action));
+      params = { product: 'Debt Collection' };
+      actual = target(state, processParams(params));
       expect(actual.product).toEqual(['Debt Collection']);
     });
 
     it('handles a multiple filters', () => {
-      action.params = { product: ['Debt Collection', 'Mortgage'] };
-      actual = target(state, processParams(action));
+      params = { product: ['Debt Collection', 'Mortgage'] };
+      actual = target(state, processParams(params));
       expect(actual.product).toEqual(['Debt Collection', 'Mortgage']);
     });
 
     it('handles a multiple filters & focus', () => {
-      action.params = { product: ['Debt Collection', 'Mortgage'] };
-      actual = target({ ...state, focus: 'Something' }, processParams(action));
+      params = { product: ['Debt Collection', 'Mortgage'] };
+      actual = target({ ...state, focus: 'Something' }, processParams(params));
       expect(actual.focus).toEqual('');
       expect(actual.product).toEqual(['Debt Collection', 'Mortgage']);
     });
 
     it('handles a trendDepth param', () => {
-      action.params = { lens: 'Product', trendDepth: 1000 };
-      actual = target({}, processParams(action));
+      params = { lens: 'Product', trendDepth: 1000 };
+      actual = target({}, processParams(params));
       expect(actual.lens).toEqual('Product');
       expect(actual.trendDepth).toEqual(1000);
     });
 
     it('handles invalid lens and chartType combo', () => {
-      action.params = { chartType: 'area', lens: 'Overview', tab: 'Trends' };
+      params = { chartType: 'area', lens: 'Overview', tab: 'Trends' };
       state.tab = types.MODE_TRENDS;
-      actual = target(state, processParams(action));
+      actual = target(state, processParams(params));
       expect(actual.chartType).toEqual('line');
       expect(actual.lens).toEqual('Overview');
       expect(actual.tab).toEqual('Trends');
     });
 
     it('handles valid lens and chartType combo', () => {
-      action.params = { chartType: 'area', lens: 'Product', tab: 'Trends' };
-      actual = target(state, processParams(action));
+      params = { chartType: 'area', lens: 'Product', tab: 'Trends' };
+      actual = target(state, processParams(params));
       expect(actual.chartType).toEqual('area');
       expect(actual.lens).toEqual('Product');
     });
@@ -641,7 +633,7 @@ describe('reducer:query', () => {
 
       action.params = { dataNormalization: 'None', dateRange: 'All' };
 
-      actual = target(state, processParams(action));
+      actual = target(state, processParams(params));
 
       expect(actual.date_received_min).toEqual(dateMin);
       expect(actual.date_received_max).toEqual(maxDate);
@@ -724,11 +716,10 @@ describe('reducer:query', () => {
         filterName = 'issue';
         filterValue = { key };
         state = queryState;
-        action = { filterName, filterValue };
       });
 
       it('handles FILTER_CHANGED actions and returns correct object', () => {
-        expect(target(state, toggleFilter(action))).toEqual({
+        expect(target(state, toggleFilter(filterName, filterValue))).toEqual({
           ...state,
           breakPoints: {},
           from: 0,
@@ -743,8 +734,8 @@ describe('reducer:query', () => {
       });
 
       it('queryString ignores invalid api FILTER values', () => {
-        action.filterName = 'foobar';
-        expect(target(state, toggleFilter(action))).toEqual({
+        filterName = 'foobar';
+        expect(target(state, toggleFilter(filterName, filterValue))).toEqual({
           ...state,
           breakPoints: {},
           foobar: ['affirmative'],
@@ -760,7 +751,7 @@ describe('reducer:query', () => {
 
       it('handles FILTER_CHANGED actions & returns correct object - Map', () => {
         const newState = { ...state, tab: types.MODE_MAP };
-        expect(target(newState, toggleFilter(action))).toEqual({
+        expect(target(newState, toggleFilter(filterName, filterValue))).toEqual({
           ...newState,
           breakPoints: {},
           dataNormalization: types.GEO_NORM_NONE,
@@ -794,12 +785,10 @@ describe('reducer:query', () => {
     });
 
     describe('FILTER_ADDED actions', () => {
-      let action;
+      let filterName, filterValue;
       beforeEach(() => {
-        action = {
-          filterName: 'product',
-          filterValue: 'baz',
-        };
+          filterName = 'product';
+          filterValue = 'baz';
       });
 
       it('adds a filter when one exists', () => {
@@ -807,7 +796,7 @@ describe('reducer:query', () => {
           ...queryState,
           product: ['bar', 'qaz'],
         };
-        expect(target(state, addFilter(action))).toEqual({
+        expect(target(state, addFilter(filterName, filterValue))).toEqual({
           ...state,
           breakPoints: {},
           from: 0,
@@ -826,7 +815,7 @@ describe('reducer:query', () => {
           ...queryState,
           product: ['bar', 'qaz', 'baz'],
         };
-        expect(target(state, addFilter(action))).toEqual({
+        expect(target(state, addFilter(filterName, filterValue))).toEqual({
           ...state,
           breakPoints: {},
           from: 0,
@@ -845,7 +834,7 @@ describe('reducer:query', () => {
           ...queryState,
           issue: ['bar', 'baz', 'qaz'],
         };
-        expect(target(state, addFilter(action))).toEqual({
+        expect(target(state, addFilter(filterName, filterValue))).toEqual({
           ...state,
           breakPoints: {},
           from: 0,
@@ -865,7 +854,7 @@ describe('reducer:query', () => {
           ...queryState,
           product: ['bar', 'qaz'],
         };
-        expect(target(state, addFilter(action))).toEqual({
+        expect(target(state, addFilter(filterName, filterValue))).toEqual({
           ...state,
           breakPoints: {},
           from: 0,
@@ -881,12 +870,12 @@ describe('reducer:query', () => {
 
       describe('has_narrative', () => {
         it('handles when present', () => {
-          action.filterName = 'has_narrative';
+          filterName = 'has_narrative';
           state = {
             ...queryState,
             has_narrative: true,
           };
-          expect(target(state, addFilter(action))).toEqual({
+          expect(target(state, addFilter(filterName, filterValue))).toEqual({
             ...state,
             breakPoints: {},
             from: 0,
@@ -901,14 +890,14 @@ describe('reducer:query', () => {
         });
 
         it('handles when present - Map', () => {
-          action.filterName = 'has_narrative';
+          filterName = 'has_narrative';
           state = {
             ...queryState,
             dataNormalization: 'None',
             has_narrative: true,
             tab: types.MODE_MAP,
           };
-          expect(target(state, addFilter(action))).toEqual({
+          expect(target(state, addFilter(filterName, filterValue))).toEqual({
             ...state,
             breakPoints: {},
             dataNormalization: 'None',
@@ -926,8 +915,8 @@ describe('reducer:query', () => {
         });
 
         it('handles when absent', () => {
-          action.filterName = 'has_narrative';
-          expect(target(queryState, addFilter(action))).toEqual({
+          filterName = 'has_narrative';
+          expect(target(queryState, addFilter(filterName, filterValue))).toEqual({
             ...queryState,
             breakPoints: {},
             from: 0,
@@ -944,12 +933,10 @@ describe('reducer:query', () => {
     });
 
     describe('FILTER_REMOVED actions', () => {
-      let action;
+      let filterName, filterValue;
       beforeEach(() => {
-        action = {
-          filterName: 'product',
-          filterValue: 'baz',
-        };
+          filterName = 'product';
+          filterValue = 'baz';
       });
 
       it('removes a filter when one exists', () => {
@@ -957,7 +944,7 @@ describe('reducer:query', () => {
           ...queryState,
           product: ['bar', 'baz', 'qaz'],
         };
-        expect(target(state, removeFilter(action))).toEqual({
+        expect(target(state, removeFilter(filterName, filterValue))).toEqual({
           ...state,
           breakPoints: {},
           from: 0,
@@ -978,7 +965,7 @@ describe('reducer:query', () => {
           mapWarningEnabled: true,
           tab: types.MODE_MAP,
         };
-        expect(target(state, removeFilter(action))).toEqual({
+        expect(target(state, removeFilter(filterName, filterValue))).toEqual({
           ...state,
           breakPoints: {},
           dataNormalization: types.GEO_NORM_NONE,
@@ -1001,7 +988,7 @@ describe('reducer:query', () => {
           ...queryState,
           issue: ['bar', 'baz', 'qaz'],
         };
-        expect(target(state, removeFilter(action))).toEqual({
+        expect(target(state, removeFilter(filterName, filterValue))).toEqual({
           ...state,
           breakPoints: {},
           from: 0,
@@ -1020,7 +1007,7 @@ describe('reducer:query', () => {
           ...queryState,
           product: ['bar', 'qaz'],
         };
-        expect(target(state, removeFilter(action))).toEqual({
+        expect(target(state, removeFilter(filterName, filterValue))).toEqual({
           ...state,
           breakPoints: {},
           from: 0,
@@ -1036,14 +1023,14 @@ describe('reducer:query', () => {
 
       describe('has_narrative', () => {
         it('handles when present', () => {
-          action.filterName = 'has_narrative';
+          filterName = 'has_narrative';
           state = {
             ...queryState,
             has_narrative: true,
           };
           const newState = { ...state };
           delete newState.has_narrative;
-          expect(target(state, removeFilter(action))).toEqual({
+          expect(target(state, removeFilter(filterName, filterValue))).toEqual({
             ...newState,
             breakPoints: {},
             from: 0,
@@ -1057,7 +1044,7 @@ describe('reducer:query', () => {
         });
 
         it('handles when present - Map', () => {
-          action.filterName = 'has_narrative';
+          filterName = 'has_narrative';
           state = {
             ...queryState,
             dataNormalization: 'None',
@@ -1066,7 +1053,7 @@ describe('reducer:query', () => {
           };
           const newState = { ...state };
           delete newState.has_narrative;
-          expect(target(state, removeFilter(action))).toEqual({
+          expect(target(state, removeFilter(filterName, filterValue))).toEqual({
             ...newState,
             breakPoints: {},
             dataNormalization: 'None',
@@ -1084,8 +1071,8 @@ describe('reducer:query', () => {
         });
 
         it('handles when absent', () => {
-          action.filterName = 'has_narrative';
-          expect(target(queryState, removeFilter(action))).toEqual({
+          filterName = 'has_narrative';
+          expect(target(queryState, removeFilter(filterName, filterValue))).toEqual({
             ...queryState,
             breakPoints: {},
             from: 0,
@@ -1176,16 +1163,14 @@ describe('reducer:query', () => {
     });
 
     describe('FILTER_MULTIPLE_ADDED actions', () => {
-      let action;
+      let filterName, values;
       beforeEach(() => {
-        action = {
-          filterName: 'issue',
-          values: ['Mo Money', 'Mo Problems'],
-        };
+          filterName = 'issue';
+          values = ['Mo Money', 'Mo Problems'];
       });
 
       it("adds all filters if they didn't exist", () => {
-        expect(target(queryState, addMultipleFilters(action))).toEqual({
+        expect(target(queryState, addMultipleFilters(filterName, values))).toEqual({
           ...queryState,
           breakPoints: {},
           from: 0,
@@ -1208,7 +1193,7 @@ describe('reducer:query', () => {
               mapWarningEnabled: true,
               tab: types.MODE_MAP,
             },
-            addMultipleFilters(action)
+            addMultipleFilters(filterName, values)
           )
         ).toEqual({
           ...queryState,
@@ -1233,9 +1218,9 @@ describe('reducer:query', () => {
           ...queryState,
           issue: ['foo'],
         };
-        action.values.push('foo');
+        values.push('foo');
 
-        expect(target(state, addMultipleFilters(action))).toEqual({
+        expect(target(state, addMultipleFilters(filterName, values))).toEqual({
           ...state,
           breakPoints: {},
           from: 0,
@@ -1255,9 +1240,9 @@ describe('reducer:query', () => {
           issue: ['foo'],
           tab: types.MODE_MAP,
         };
-        action.values.push('foo');
+        values.push('foo');
 
-        expect(target(state, addMultipleFilters(action))).toEqual({
+        expect(target(state, addMultipleFilters(filterName, values))).toEqual({
           ...state,
           breakPoints: {},
           dataNormalization: types.GEO_NORM_NONE,
@@ -1276,12 +1261,10 @@ describe('reducer:query', () => {
     });
 
     describe('FILTER_MULTIPLE_REMOVED actions', () => {
-      let action;
+      let filterName, values;
       beforeEach(() => {
-        action = {
-          filterName: 'issue',
-          values: ['Mo Money', 'Mo Problems', 'bar'],
-        };
+          filterName = 'issue';
+          values = ['Mo Money', 'Mo Problems', 'bar'];
       });
 
       it('removes filters if they exist', () => {
@@ -1290,7 +1273,7 @@ describe('reducer:query', () => {
           focus: 'Mo Money',
           issue: ['foo', 'Mo Money', 'Mo Problems'],
         };
-        expect(target(state, removeMultipleFilters(action))).toEqual({
+        expect(target(state, removeMultipleFilters(filterName, values))).toEqual({
           ...state,
           breakPoints: {},
           focus: '',
@@ -1312,7 +1295,7 @@ describe('reducer:query', () => {
           issue: ['foo', 'Mo Money', 'Mo Problems'],
           tab: types.MODE_MAP,
         };
-        expect(target(state, removeMultipleFilters(action))).toEqual({
+        expect(target(state, removeMultipleFilters(filterName, values))).toEqual({
           ...state,
           breakPoints: {},
           dataNormalization: types.GEO_NORM_NONE,
@@ -1331,7 +1314,7 @@ describe('reducer:query', () => {
       });
 
       it('ignores unknown filters', () => {
-        expect(target(queryState, removeMultipleFilters(action))).toEqual({
+        expect(target(queryState, removeMultipleFilters(filterName, values))).toEqual({
           ...queryState,
           breakPoints: {},
           focus: '',
@@ -1347,16 +1330,13 @@ describe('reducer:query', () => {
     });
 
     describe('FILTER_FLAG_CHANGED actions', () => {
-      let action;
+      let filterName;
       beforeEach(() => {
-        action = {
-          filterName: 'has_narrative',
-          meta: { requery: types.REQUERY_HITS_ONLY },
-        };
+          filterName = 'has_narrative';
       });
 
       it('adds narrative filter to empty state', () => {
-        expect(target(queryState, toggleFlagFilter(action))).toEqual({
+        expect(target(queryState, toggleFlagFilter(filterName))).toEqual({
           ...queryState,
           breakPoints: {},
           from: 0,
@@ -1374,7 +1354,7 @@ describe('reducer:query', () => {
         expect(
           target(
             { ...queryState, has_narrative: true },
-            toggleFlagFilter(action)
+            toggleFlagFilter(filterName)
           )
         ).toEqual({
           ...queryState,
@@ -1392,18 +1372,15 @@ describe('reducer:query', () => {
 
     describe('FILTER_REPLACED actions', () => {
       it('replaces existing filter set', () => {
-        action = {
-          filterName: 'foobar',
-          meta: { requery: types.REQUERY_HITS_ONLY },
-          values: [3, 4, 5],
-        };
+          const filterName = 'foobar';
+          const values = [3, 4, 5];
 
         state = {
           ...queryState,
           foobar: [1, 23, 2],
         };
 
-        expect(target(state, replaceFilters(action))).toEqual({
+        expect(target(state, replaceFilters(filterName, values))).toEqual({
           ...state,
           breakPoints: {},
           from: 0,
