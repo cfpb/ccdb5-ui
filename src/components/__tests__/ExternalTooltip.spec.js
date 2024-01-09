@@ -138,10 +138,10 @@ describe('mapDispatchToProps', () => {
         {
           payload: {
             filterName: 'company',
-            filterValue: 'Foo'
+            filterValue: 'Foo',
           },
           meta: {
-            requery: 'REQUERY_ALWAYS'
+            requery: 'REQUERY_ALWAYS',
           },
           type: 'query/removeFilter',
         },

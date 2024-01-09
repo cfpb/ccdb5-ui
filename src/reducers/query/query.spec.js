@@ -30,7 +30,7 @@ import target, {
   changeDepth,
   changeSearchText,
   changeSearchField,
-    changeFocus
+  changeFocus,
 } from './query';
 import * as types from '../../constants';
 import dayjs from 'dayjs';
@@ -172,7 +172,7 @@ describe('reducer:query', () => {
   });
 
   it('handles SEARCH_FIELD_CHANGED actions', () => {
-    const  searchField = 'bar';
+    const searchField = 'bar';
     state = {
       ...queryState,
       from: 80,
@@ -227,10 +227,8 @@ describe('reducer:query', () => {
       };
     });
     it('handles DEPTH_CHANGED', () => {
-      action = {
-        depth: 13,
-      };
-      expect(target(state, changeDepth(action))).toEqual({
+      const depth = 13;
+      expect(target(state, changeDepth(depth))).toEqual({
         ...state,
         chartType: 'line',
         queryString:
@@ -358,7 +356,6 @@ describe('reducer:query', () => {
   describe('Action Bar', () => {
     let sort, size;
     it('handles SIZE_CHANGED actions', () => {
-
       size = 50;
 
       state = {
@@ -382,7 +379,6 @@ describe('reducer:query', () => {
     });
 
     it('handles SORT_CHANGED actions - default', () => {
-
       sort = 'foo';
 
       state = {
@@ -631,7 +627,7 @@ describe('reducer:query', () => {
     it('handles the "All" button from the landing page', () => {
       const dateMin = new Date(types.DATE_RANGE_MIN);
 
-      action.params = { dataNormalization: 'None', dateRange: 'All' };
+      params = { dataNormalization: 'None', dateRange: 'All' };
 
       actual = target(state, processParams(params));
 
@@ -709,7 +705,6 @@ describe('reducer:query', () => {
       let state = null;
       let filterName = '';
       let filterValue = null;
-      let action = null;
 
       beforeEach(() => {
         key = 'affirmative';
@@ -751,21 +746,23 @@ describe('reducer:query', () => {
 
       it('handles FILTER_CHANGED actions & returns correct object - Map', () => {
         const newState = { ...state, tab: types.MODE_MAP };
-        expect(target(newState, toggleFilter(filterName, filterValue))).toEqual({
-          ...newState,
-          breakPoints: {},
-          dataNormalization: types.GEO_NORM_NONE,
-          enablePer1000: false,
-          from: 0,
-          [filterName]: [key],
-          page: 1,
-          queryString:
-            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all',
-          searchAfter: '',
-          tab: types.MODE_MAP,
-          search:
-            '?dataNormalization=None&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&searchField=all&tab=Map',
-        });
+        expect(target(newState, toggleFilter(filterName, filterValue))).toEqual(
+          {
+            ...newState,
+            breakPoints: {},
+            dataNormalization: types.GEO_NORM_NONE,
+            enablePer1000: false,
+            from: 0,
+            [filterName]: [key],
+            page: 1,
+            queryString:
+              '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all',
+            searchAfter: '',
+            tab: types.MODE_MAP,
+            search:
+              '?dataNormalization=None&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&searchField=all&tab=Map',
+          }
+        );
       });
 
       it('creates a filter array if target is undefined', () => {
@@ -787,8 +784,8 @@ describe('reducer:query', () => {
     describe('FILTER_ADDED actions', () => {
       let filterName, filterValue;
       beforeEach(() => {
-          filterName = 'product';
-          filterValue = 'baz';
+        filterName = 'product';
+        filterValue = 'baz';
       });
 
       it('adds a filter when one exists', () => {
@@ -916,7 +913,9 @@ describe('reducer:query', () => {
 
         it('handles when absent', () => {
           filterName = 'has_narrative';
-          expect(target(queryState, addFilter(filterName, filterValue))).toEqual({
+          expect(
+            target(queryState, addFilter(filterName, filterValue))
+          ).toEqual({
             ...queryState,
             breakPoints: {},
             from: 0,
@@ -935,8 +934,8 @@ describe('reducer:query', () => {
     describe('FILTER_REMOVED actions', () => {
       let filterName, filterValue;
       beforeEach(() => {
-          filterName = 'product';
-          filterValue = 'baz';
+        filterName = 'product';
+        filterValue = 'baz';
       });
 
       it('removes a filter when one exists', () => {
@@ -1072,7 +1071,9 @@ describe('reducer:query', () => {
 
         it('handles when absent', () => {
           filterName = 'has_narrative';
-          expect(target(queryState, removeFilter(filterName, filterValue))).toEqual({
+          expect(
+            target(queryState, removeFilter(filterName, filterValue))
+          ).toEqual({
             ...queryState,
             breakPoints: {},
             from: 0,
@@ -1165,12 +1166,14 @@ describe('reducer:query', () => {
     describe('FILTER_MULTIPLE_ADDED actions', () => {
       let filterName, values;
       beforeEach(() => {
-          filterName = 'issue';
-          values = ['Mo Money', 'Mo Problems'];
+        filterName = 'issue';
+        values = ['Mo Money', 'Mo Problems'];
       });
 
       it("adds all filters if they didn't exist", () => {
-        expect(target(queryState, addMultipleFilters(filterName, values))).toEqual({
+        expect(
+          target(queryState, addMultipleFilters(filterName, values))
+        ).toEqual({
           ...queryState,
           breakPoints: {},
           from: 0,
@@ -1263,8 +1266,8 @@ describe('reducer:query', () => {
     describe('FILTER_MULTIPLE_REMOVED actions', () => {
       let filterName, values;
       beforeEach(() => {
-          filterName = 'issue';
-          values = ['Mo Money', 'Mo Problems', 'bar'];
+        filterName = 'issue';
+        values = ['Mo Money', 'Mo Problems', 'bar'];
       });
 
       it('removes filters if they exist', () => {
@@ -1273,7 +1276,9 @@ describe('reducer:query', () => {
           focus: 'Mo Money',
           issue: ['foo', 'Mo Money', 'Mo Problems'],
         };
-        expect(target(state, removeMultipleFilters(filterName, values))).toEqual({
+        expect(
+          target(state, removeMultipleFilters(filterName, values))
+        ).toEqual({
           ...state,
           breakPoints: {},
           focus: '',
@@ -1295,7 +1300,9 @@ describe('reducer:query', () => {
           issue: ['foo', 'Mo Money', 'Mo Problems'],
           tab: types.MODE_MAP,
         };
-        expect(target(state, removeMultipleFilters(filterName, values))).toEqual({
+        expect(
+          target(state, removeMultipleFilters(filterName, values))
+        ).toEqual({
           ...state,
           breakPoints: {},
           dataNormalization: types.GEO_NORM_NONE,
@@ -1314,7 +1321,9 @@ describe('reducer:query', () => {
       });
 
       it('ignores unknown filters', () => {
-        expect(target(queryState, removeMultipleFilters(filterName, values))).toEqual({
+        expect(
+          target(queryState, removeMultipleFilters(filterName, values))
+        ).toEqual({
           ...queryState,
           breakPoints: {},
           focus: '',
@@ -1332,7 +1341,7 @@ describe('reducer:query', () => {
     describe('FILTER_FLAG_CHANGED actions', () => {
       let filterName;
       beforeEach(() => {
-          filterName = 'has_narrative';
+        filterName = 'has_narrative';
       });
 
       it('adds narrative filter to empty state', () => {
@@ -1372,8 +1381,8 @@ describe('reducer:query', () => {
 
     describe('FILTER_REPLACED actions', () => {
       it('replaces existing filter set', () => {
-          const filterName = 'foobar';
-          const values = [3, 4, 5];
+        const filterName = 'foobar';
+        const values = [3, 4, 5];
 
         state = {
           ...queryState,
@@ -1409,7 +1418,9 @@ describe('reducer:query', () => {
       it('adds the dates', () => {
         const testState = { ...queryState };
         delete testState.dateRange;
-        expect(target(testState, changeDates(filterName, minDate, maxDate))).toEqual({
+        expect(
+          target(testState, changeDates(filterName, minDate, maxDate))
+        ).toEqual({
           ...testState,
           breakPoints: {},
           date_received_min: new Date(2001, 0, 30),
@@ -1425,9 +1436,13 @@ describe('reducer:query', () => {
       });
 
       it('clears dateRange when no match, i.e. when one or both dates have actually changed', () => {
-
         result = target(
-          { ...queryState, date_received_min: minDate, date_received_max: maxDate, dateRange: '1y' },
+          {
+            ...queryState,
+            date_received_min: minDate,
+            date_received_max: maxDate,
+            dateRange: '1y',
+          },
           changeDates(filterName, minDate, maxDate)
         );
         expect(result.dateRange).toBeFalsy();
@@ -1435,12 +1450,17 @@ describe('reducer:query', () => {
 
       it('adds dateRange', () => {
         const min = new Date(dayjs(maxDate).subtract(3, 'months'));
-        result = target({ ...queryState }, changeDates( filterName, min, maxDate ));
+        result = target(
+          { ...queryState },
+          changeDates(filterName, min, maxDate)
+        );
         expect(result.dateRange).toEqual('3m');
       });
 
       it('does not add empty dates', () => {
-        expect(target({ ...queryState }, changeDates(filterName, '', ''))).toEqual({
+        expect(
+          target({ ...queryState }, changeDates(filterName, '', ''))
+        ).toEqual({
           ...queryState,
           breakPoints: {},
           from: 0,
@@ -1733,7 +1753,7 @@ describe('reducer:query', () => {
 
     describe('STATE_FILTER_REMOVED', () => {
       beforeEach(() => {
-        action =  {abbr: 'IL', name: 'Illinois'};
+        action = { abbr: 'IL', name: 'Illinois' };
       });
       it('removes a state filter', () => {
         result = target(
@@ -1779,7 +1799,7 @@ describe('reducer:query', () => {
   });
 
   describe('Trends', () => {
-    let state, action, result;
+    let action, result;
     beforeEach(() => {
       state = {
         tab: types.MODE_TRENDS,
@@ -1943,7 +1963,10 @@ describe('reducer:query', () => {
         const filterValues = ['A', 'A' + types.SLUG_SEPARATOR + 'B'];
         const focus = 'A';
         const lens = 'Product';
-        result = target({ ...queryState, focus: 'Else' }, changeFocus(focus, lens, filterValues));
+        result = target(
+          { ...queryState, focus: 'Else' },
+          changeFocus(focus, lens, filterValues)
+        );
         expect(result).toEqual({
           ...queryState,
           product: ['A', 'A•B'],
@@ -1954,14 +1977,18 @@ describe('reducer:query', () => {
           queryString:
             '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&focus=A&lens=product&product=A&product=A%E2%80%A2B&sub_lens=sub_product&trend_depth=25&trend_interval=month',
           search:
-            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&focus=A&lens=Product&product=A&product=A%E2%80%A2B&searchField=all&subLens=sub_product&tab=Trends'        });
+            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&focus=A&lens=Product&product=A&product=A%E2%80%A2B&searchField=all&subLens=sub_product&tab=Trends',
+        });
       });
 
       it('changes the Company Focus', () => {
         const filterValues = ['A'];
         const focus = 'A';
         const lens = 'Company';
-        result = target({ ...queryState, focus: 'Else' }, changeFocus(focus, lens, filterValues));
+        result = target(
+          { ...queryState, focus: 'Else' },
+          changeFocus(focus, lens, filterValues)
+        );
         expect(result).toEqual({
           ...queryState,
           chartType: 'line',

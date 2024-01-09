@@ -111,7 +111,7 @@ export class ExternalTooltip extends React.Component {
 
 export const mapDispatchToProps = (dispatch) => ({
   remove: (value) => {
-    dispatch(removeFilter({filterName: 'company', filterValue: value}));
+    dispatch(removeFilter('company', value));
   },
 });
 

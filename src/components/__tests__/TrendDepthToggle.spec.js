@@ -174,10 +174,10 @@ describe('component:TrendDepthToggle', () => {
         [
           {
             meta: {
-              requery: REQUERY_ALWAYS
+              requery: REQUERY_ALWAYS,
             },
             type: 'query/changeDepth',
-            payload: 18
+            payload: { depth: 18 },
           },
         ],
       ]);
@@ -190,7 +190,7 @@ describe('component:TrendDepthToggle', () => {
         [
           {
             meta: {
-              requery: REQUERY_ALWAYS
+              requery: REQUERY_ALWAYS,
             },
             type: 'query/resetDepth',
           },

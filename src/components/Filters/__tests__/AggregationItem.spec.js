@@ -128,8 +128,8 @@ describe('component:AggregationItem', () => {
           [
             {
               payload: {
-                fieldName: 'issue',
-                appliedFilters: ['f', 'g', 'h', slugify('a', 'd'), slugify('a', 'b')],
+                filterName: 'issue',
+                values: ['f', 'g', 'h', slugify('a', 'd'), slugify('a', 'b')],
               },
               meta: {
                 requery: 'REQUERY_ALWAYS',
@@ -168,8 +168,8 @@ describe('component:AggregationItem', () => {
                 requery: 'REQUERY_ALWAYS',
               },
               payload: {
-                fieldName: 'issue',
-                appliedFilters: ['f', 'g', 'h', 'a'],
+                filterName: 'issue',
+                values: ['f', 'g', 'h', 'a'],
               },
               type: 'query/replaceFilters',
             },
@@ -187,15 +187,16 @@ describe('component:AggregationItem', () => {
         });
         expect(dispatch.mock.calls).toEqual([
           [
-            { payload: {
-                fieldName: 'fieldName',
-                item: {
+            {
+              payload: {
+                filterName: 'fieldName',
+                filterValue: {
                   doc_count: 1000,
                   key: 'foo',
                 },
               },
               meta: {
-                requery: 'REQUERY_ALWAYS'
+                requery: 'REQUERY_ALWAYS',
               },
               type: 'query/toggleFilter',
             },
@@ -221,9 +222,9 @@ describe('component:AggregationItem', () => {
               },
               type: 'query/replaceFilters',
               payload: {
-                fieldName: 'issue',
-                updatedFilters: [],
-              }
+                filterName: 'issue',
+                values: [],
+              },
             },
           ],
         ]);
@@ -238,12 +239,13 @@ describe('component:AggregationItem', () => {
         });
         expect(dispatch.mock.calls).toEqual([
           [
-            { meta: {
-                requery: "REQUERY_ALWAYS"
+            {
+              meta: {
+                requery: 'REQUERY_ALWAYS',
               },
               payload: {
-                fieldName: 'fieldName',
-                item: {
+                filterName: 'fieldName',
+                filterValue: {
                   doc_count: 1000,
                   key: 'foo',
                 },

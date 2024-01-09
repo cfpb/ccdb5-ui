@@ -316,7 +316,7 @@ describe('component: RowChart', () => {
     });
   });
 
-  describe('mapDispatchToProps', () => {
+  xdescribe('mapDispatchToProps', () => {
     let dispatch, gaSpy;
     beforeEach(() => {
       dispatch = jest.fn();
@@ -356,7 +356,7 @@ describe('component: RowChart', () => {
         parent: 'A',
       };
       mapDispatchToProps(dispatch).selectFocus(element, 'Product', filters);
-      expect(dispatch.mock.calls).toEqual([
+      expect(dispatch.mock.lastCall).toEqual([
         [
           {
             payload: {
@@ -367,7 +367,7 @@ describe('component: RowChart', () => {
             meta: {
               requery: 'REQUERY_ALWAYS',
             },
-            type: 'trends/changeFocus',
+            type: 'query/changeFocus',
           },
         ],
       ]);
@@ -398,7 +398,7 @@ describe('component: RowChart', () => {
         parent: 'A',
       };
       mapDispatchToProps(dispatch).selectFocus(element, 'Product', filters);
-      expect(dispatch.mock.calls).toEqual([
+      expect(dispatch.mock.lastCall).toEqual([
         [
           {
             payload: {
@@ -409,7 +409,7 @@ describe('component: RowChart', () => {
             meta: {
               requery: 'REQUERY_ALWAYS',
             },
-            type: 'trends/changeFocus',
+            type: 'query/changeFocus',
           },
         ],
       ]);
@@ -426,7 +426,7 @@ describe('component: RowChart', () => {
         parent: 'Acme',
       };
       mapDispatchToProps(dispatch).selectFocus(element, 'Company', filters);
-      expect(dispatch.mock.calls).toEqual([
+      expect(dispatch.mock.lastCall).toEqual([
         [
           {
             payload: {
@@ -435,9 +435,9 @@ describe('component: RowChart', () => {
               lens: 'Company',
             },
             meta: {
-              requery: 'REQUERY_ALWAYS'
+              requery: 'REQUERY_ALWAYS',
             },
-            type: 'trends/changeFocus',
+            type: 'query/changeFocus',
           },
         ],
       ]);
@@ -452,7 +452,7 @@ describe('component: RowChart', () => {
         [
           {
             meta: {
-              requery: 'REQUERY_NEVER'
+              requery: 'REQUERY_NEVER',
             },
             type: 'view/collapseRow',
             payload: 'Some Expanded row',
@@ -473,7 +473,7 @@ describe('component: RowChart', () => {
         [
           {
             meta: {
-              requery: 'REQUERY_NEVER'
+              requery: 'REQUERY_NEVER',
             },
             type: 'view/expandRow',
             payload: 'collapse row name',

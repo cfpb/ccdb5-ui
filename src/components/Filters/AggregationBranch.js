@@ -177,7 +177,7 @@ export const mapDispatchToProps = (dispatch) => ({
     );
     // add self/ parent filter
     replacementFilters.push(item.key);
-    dispatch(replaceFilters({ filterName: fieldName, filters: replacementFilters}));
+    dispatch(replaceFilters(fieldName, replacementFilters));
   },
 });
 

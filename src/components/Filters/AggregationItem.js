@@ -98,9 +98,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => ({
         // just add the single filter and apply filters
         appliedFilters = filters.concat(value);
       }
-      dispatch(replaceFilters({fieldName, appliedFilters}));
+      dispatch(replaceFilters(fieldName, appliedFilters));
     } else {
-      dispatch(toggleFilter({fieldName, item}));
+      dispatch(toggleFilter(fieldName, item));
     }
   },
   removeFilter: (props) => {
@@ -114,9 +114,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => ({
         aggs,
         fieldName
       );
-      dispatch(replaceFilters({fieldName, updatedFilters}));
+      dispatch(replaceFilters(fieldName, updatedFilters));
     } else {
-      dispatch(toggleFilter({fieldName, item}));
+      dispatch(toggleFilter(fieldName, item));
     }
   },
 });

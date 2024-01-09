@@ -172,8 +172,8 @@ describe('component::AggregationBranch', () => {
             type: 'query/replaceFilters',
             payload: {
               filterName: 'foo',
-              filters: ['another filter', 'bay'],
-            }
+              values: ['another filter', 'bay'],
+            },
           },
         ],
       ]);

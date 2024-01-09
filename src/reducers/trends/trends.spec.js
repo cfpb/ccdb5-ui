@@ -1,5 +1,4 @@
 import target, {
-  changeFocus,
   getDefaultState,
   handleTabChanged,
   mainNameLens,
@@ -36,6 +35,7 @@ import {
   trendsAggsMissingBucketsResults,
 } from '../__fixtures__/trendsAggsMissingBuckets';
 import { updateChartType } from './trends';
+import { changeFocus } from '../query/query';
 
 describe('reducer:trends', () => {
   let action, result, state;
@@ -71,26 +71,22 @@ describe('reducer:trends', () => {
 
   describe('CHART_TYPE_CHANGED action', () => {
     it('changes the chart type - default', () => {
-      action = {
-        chartType: 'FooBar',
-      };
+      const chartType = 'FooBar';
 
       expect(
-        target({ ...trendsState, tooltip: true }, updateChartType(action))
+        target({ ...trendsState, tooltip: true }, updateChartType(chartType))
       ).toEqual({
         ...trendsState,
         chartType: 'FooBar',
-        tooltip: false
+        tooltip: false,
       });
     });
 
     it('changes the chart type - area', () => {
-      action = {
-        chartType: 'area',
-      };
+      const chartType = 'area';
 
       expect(
-        target({ ...trendsState, tooltip: true }, updateChartType(action))
+        target({ ...trendsState, tooltip: true }, updateChartType(chartType))
       ).toEqual({
         ...trendsState,
         chartType: 'area',
@@ -99,35 +95,29 @@ describe('reducer:trends', () => {
     });
 
     it('changes the chart type to line when lens is Overview', () => {
-      action = {
-        chartType: 'FooBar',
-      };
+      const chartType = 'FooBar';
       const targetState = {
         ...trendsState,
         chartType: 'line',
         lens: 'Overview',
         subLens: 'sub_product',
         tooltip: false,
-      }
+      };
 
-      expect(
-          target(targetState, updateChartType(action))
-      ).toEqual({
-        ...targetState
+      expect(target(targetState, updateChartType(chartType))).toEqual({
+        ...targetState,
       });
-    })
+    });
   });
 
   describe('DATA_LENS_CHANGED action', () => {
+    let lens;
     beforeEach(() => {
-      action = {
-        lens: 'Overview',
-      };
-
+      lens = 'Overview';
       state = { focus: 'gg', tooltip: 'foo', chartType: 'area' };
     });
     it('updates the data lens default', () => {
-      result = target({ ...trendsState, ...state }, updateDataLens(action));
+      result = target({ ...trendsState, ...state }, updateDataLens(lens));
       expect(result).toMatchObject({
         ...trendsState,
         chartType: 'line',
@@ -139,8 +129,8 @@ describe('reducer:trends', () => {
     });
 
     it('updates the data lens - Company', () => {
-      action.lens = 'Company';
-      result = target({ ...trendsState, ...state }, updateDataLens(action));
+      lens = 'Company';
+      result = target({ ...trendsState, ...state }, updateDataLens(lens));
       expect(result).toMatchObject({
         ...trendsState,
         chartType: 'area',
@@ -152,8 +142,8 @@ describe('reducer:trends', () => {
     });
 
     it('updates the data lens - product', () => {
-      action.lens = 'Product';
-      result = target({ ...trendsState, ...state }, updateDataLens(action));
+      lens = 'Product';
+      result = target({ ...trendsState, ...state }, updateDataLens(lens));
       expect(result).toMatchObject({
         ...trendsState,
         chartType: 'area',
@@ -167,12 +157,9 @@ describe('reducer:trends', () => {
 
   describe('DATA_SUBLENS_CHANGED action', () => {
     it('updates the data sublens', () => {
-      action = {
-        subLens: 'sub_something',
-      };
-
+      const subLens = 'sub_something';
       expect(
-        target({ ...trendsState, subLens: 'gg' }, updateDataSubLens(action))
+        target({ ...trendsState, subLens: 'gg' }, updateDataSubLens(subLens))
       ).toEqual({
         ...trendsState,
         chartType: 'line',
@@ -183,10 +170,8 @@ describe('reducer:trends', () => {
 
   describe('FOCUS_CHANGED action', () => {
     it('updates the FOCUS and clears the tooltip', () => {
-      action = {
-        focus: 'Some Rando Text',
-        lens: 'Product',
-      };
+      const focus = 'Some Rando Text';
+      const lens = 'Product';
 
       expect(
         target(
@@ -195,7 +180,7 @@ describe('reducer:trends', () => {
             focus: 'gg',
             tooltip: { wut: 'isthis' },
           },
-          changeFocus(action)
+          changeFocus(focus, lens)
         )
       ).toEqual({
         ...trendsState,
@@ -597,7 +582,7 @@ describe('reducer:trends', () => {
       });
     });
   });
-
+  /*
   describe.skip('URL_CHANGED actions', () => {
     beforeEach(() => {
       action = {
@@ -620,4 +605,5 @@ describe('reducer:trends', () => {
       expect(result.nope).toBeFalsy();
     });
   });
+  */
 });

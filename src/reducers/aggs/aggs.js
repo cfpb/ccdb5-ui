@@ -32,19 +32,10 @@ export const aggSlice = createSlice({
   name: 'aggs',
   initialState: aggState,
   reducers: {
-    aggregationsCallInProcess: {
-      reducer: (state, action) => {
-        state.error = '';
-        state.activeCall = action.payload.url;
-        state.isLoading = true;
-      },
-      prepare: (url) => {
-        return {
-          payload: {
-            url,
-          },
-        };
-      },
+    aggregationsCallInProcess: (state, action) => {
+      state.error = '';
+      state.activeCall = action.payload;
+      state.isLoading = true;
     },
     processAggregationResults: {
       reducer: (state, action) => {
