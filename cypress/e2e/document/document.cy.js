@@ -1,9 +1,6 @@
 /// <reference types="cypress" />
 
-const ccdbApiUrl = {
-  dev: 'http://localhost:8000/data-research/consumer-complaints/search/api/v1/',
-  prod: '/data-research/consumer-complaints/search/api/v1/',
-};
+const ccdbApiUrl = '/data-research/consumer-complaints/search/api/v1/';
 
 describe('Document View', () => {
   describe('error handling', () => {
@@ -68,7 +65,7 @@ describe('Document View', () => {
 
       cy.get('#filterHasNarrative').should('be.checked');
 
-      request = `${ccdbApiUrl.dev}3146099`;
+      request = `${ccdbApiUrl}3146099`;
       fixture = { fixture: 'document/get-detail.json' };
       cy.intercept(request, fixture).as('getDetail');
 
