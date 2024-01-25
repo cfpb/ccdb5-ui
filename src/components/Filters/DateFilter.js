@@ -41,6 +41,7 @@ export const DateFilter = () => {
   const dispatch = useDispatch();
 
   const errorMessageText = "'From' date must be less than 'through' date";
+  const errorSameDate = "'From' date cannot be the same as 'Through' date";
 
   const fromRef = useRef();
   const throughRef = useRef();
@@ -82,6 +83,9 @@ export const DateFilter = () => {
     if (dayjs(fromDate).isAfter(throughDate)) {
       return errorMessageText;
     }
+    if (dayjs(fromDate).isSame(throughDate)) {
+      return errorSameDate;
+    }
     return false;
   }, [fromDate, throughDate]);
 
@@ -111,7 +115,8 @@ export const DateFilter = () => {
     const style = ['a-text-input'];
     if (
       dayjs(fromDate).isBefore(minDate) ||
-      dayjs(fromDate).isAfter(throughDate)
+      dayjs(fromDate).isAfter(throughDate) ||
+      dayjs(fromDate).isSame(throughDate)
     ) {
       style.push('a-text-input__error');
     }
@@ -122,7 +127,8 @@ export const DateFilter = () => {
     const style = ['a-text-input'];
     if (
       dayjs(throughDate).isAfter(maxDate) ||
-      dayjs(throughDate).isBefore(fromDate)
+      dayjs(throughDate).isBefore(fromDate) ||
+      dayjs(throughDate).isSame(fromDate)
     ) {
       style.push('a-text-input__error');
     }
