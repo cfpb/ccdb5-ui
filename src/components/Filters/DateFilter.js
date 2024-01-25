@@ -41,6 +41,7 @@ export const DateFilter = () => {
   const dispatch = useDispatch();
 
   const errorMessageText = "'From' date must be less than 'through' date";
+  const errorSameDate = "'From' date cannot be the same as 'Through' date";
 
   const fromRef = useRef();
   const throughRef = useRef();
@@ -81,6 +82,9 @@ export const DateFilter = () => {
   const errors = useMemo(() => {
     if (dayjs(fromDate).isAfter(throughDate)) {
       return errorMessageText;
+    }
+    if (dayjs(fromDate).isSame(throughDate)) {
+      return errorSameDate;
     }
     return false;
   }, [fromDate, throughDate]);
