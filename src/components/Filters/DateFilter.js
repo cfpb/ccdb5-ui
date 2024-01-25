@@ -111,7 +111,8 @@ export const DateFilter = () => {
     const style = ['a-text-input'];
     if (
       dayjs(fromDate).isBefore(minDate) ||
-      dayjs(fromDate).isAfter(throughDate)
+      dayjs(fromDate).isAfter(throughDate) ||
+      dayjs(fromDate).isSame(throughDate)
     ) {
       style.push('a-text-input__error');
     }
@@ -122,7 +123,8 @@ export const DateFilter = () => {
     const style = ['a-text-input'];
     if (
       dayjs(throughDate).isAfter(maxDate) ||
-      dayjs(throughDate).isBefore(fromDate)
+      dayjs(throughDate).isBefore(fromDate) ||
+      dayjs(throughDate).isSame(fromDate)
     ) {
       style.push('a-text-input__error');
     }
