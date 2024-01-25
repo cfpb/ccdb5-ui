@@ -189,7 +189,7 @@ function setupSnapshot({
       <IntlProvider locale="en">
         <ReduxTrendsPanel />
       </IntlProvider>
-    </Provider>
+    </Provider>,
   );
 }
 
@@ -290,7 +290,7 @@ describe('component:TrendsPanel', () => {
         params.hasOverview = true;
         const target = setupEnzyme(params);
         expect(target.instance()._areaChartTitle()).toEqual(
-          'Complaints by date received by the CFPB'
+          'Complaints by date received by the CFPB',
         );
       });
 
@@ -298,7 +298,7 @@ describe('component:TrendsPanel', () => {
         params.lens = 'Something';
         const target = setupEnzyme(params);
         expect(target.instance()._areaChartTitle()).toEqual(
-          'Complaints by date received by the CFPB'
+          'Complaints by date received by the CFPB',
         );
       });
 
@@ -307,7 +307,7 @@ describe('component:TrendsPanel', () => {
         params.lens = 'Product';
         const target = setupEnzyme(params);
         expect(target.instance()._areaChartTitle()).toEqual(
-          'Complaints by sub-products, by date received by the CFPB'
+          'Complaints by sub-products, by date received by the CFPB',
         );
       });
     });

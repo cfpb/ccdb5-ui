@@ -110,6 +110,7 @@ export const getTooltipTitle = (inputDate, interval, dateRange, external) => {
 
 /**
  * helper to generate chart name for row chart based on trends
+ *
  * @param {Array} rowNames - passed from trends.results reducer
  * @param {object} colorMap - of the chart for display
  * @param {string} lens - determines which colors to use for defaults
@@ -137,6 +138,7 @@ export const getColorScheme = (rowNames, colorMap, lens) =>
 
 /**
  * helper function to get d3 bar chart data
+ *
  * @param {object} obj - rowdata we are processing
  * @param {Array} nameMap - list of names we are keeping track of
  * @returns {object} the rowdata for row chart
@@ -187,6 +189,7 @@ export const processRows = (rows, colorMap, lens, expandedRows) => {
  * The api sends us the date buckets in older -> new order
  * however, in data lens / company aggregation it's reversed
  * we also need to fill any empty area buckets when dates are missing
+ *
  * @param {string} name - bucket name
  * @param {Array} buckets - contains dates and value paired objects
  * @param {Array} areaBuckets - the reference dates we check against
@@ -278,7 +281,7 @@ export const pruneIncompleteLineInterval = (data, dateRange, interval) => {
 export const pruneIncompleteStackedAreaInterval = (
   data,
   dateRange,
-  interval
+  interval,
 ) => {
   const { from: dateFrom, to: dateTo } = dateRange;
 

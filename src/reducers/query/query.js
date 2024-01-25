@@ -83,6 +83,7 @@ const urlParamsInt = ['from', 'page', 'trendDepth'];
 
 /**
  * Makes sure the date range reflects the actual dates selected
+ *
  * @param {object} state - the raw, unvalidated state
  * @returns {object} the validated state
  */
@@ -130,6 +131,7 @@ export function alignDateRange(state) {
 
 /**
  * Check for a common case where there is a date range but no dates
+ *
  * @param {object} params - a set of URL parameters
  * @returns {boolean} true if the params meet this condition
  */
@@ -148,6 +150,7 @@ export function dateRangeNoDates(params) {
 
 /**
  * Safely converts a string to a local date
+ *
  * @param {string} value - Hopefully, an ISO-8601 formatted string
  * @returns {Date} The parsed and validated date, or null
  */
@@ -163,7 +166,7 @@ export function toDate(value) {
   const localTimeThen = new Date(
     utcDate.getFullYear(),
     utcDate.getMonth(),
-    utcDate.getDate() + 1
+    utcDate.getDate() + 1,
   );
 
   return localTimeThen;
@@ -171,6 +174,7 @@ export function toDate(value) {
 
 /**
  * Processes an object of key/value strings into the correct internal format
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the payload containing the key/value pairs
  * @returns {object} a filtered set of key/value pairs with the values set to
@@ -231,6 +235,7 @@ function processParams(state, action) {
 
 /**
  * update state based on changeDateInterval action
+ *
  * @param {object} state - current redux state
  * @param {object} action - command executed
  * @returns {object} new state in redux
@@ -245,6 +250,7 @@ function changeDateInterval(state, action) {
 
 /**
  * Change a date range filter according to selected range
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the payload containing the date range
  * @returns {object} the new state for the Redux store
@@ -278,6 +284,7 @@ export function changeDateRange(state, action) {
 
 /**
  * Change a date range filter
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the payload containing the date range to change
  * @returns {object} the new state for the Redux store
@@ -320,6 +327,7 @@ export function changeDates(state, action) {
 /**
  * Makes sure that we have a valid dateInterval is selected, or moves to week
  * when the date range > 1yr
+ *
  * @param {object} queryState - the current state of query reducer
  */
 export function validateDateInterval(queryState) {
@@ -341,6 +349,7 @@ export function validateDateInterval(queryState) {
 
 /**
  * Change a boolean flag filter
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the payload containing the value to change
  * @returns {object} the new state for the Redux store
@@ -367,6 +376,7 @@ export function toggleFlagFilter(state, action) {
 
 /**
  * updates when search text params are changed
+ *
  * @param {object} state - current state in redux
  * @param {object} action - payload with search text and field
  * @returns {object} updated state for redux
@@ -382,6 +392,7 @@ export function changeSearchField(state, action) {
 
 /**
  * updates when search text params are changed
+ *
  * @param {object} state - current state in redux
  * @param {object} action - payload with search text and field
  * @returns {object} updated state for redux
@@ -397,6 +408,7 @@ export function changeSearchText(state, action) {
 
 /**
  * Adds new filters to the current set
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the payload containing the filters to add
  * @returns {object} the new state for the Redux store
@@ -422,6 +434,7 @@ export function addMultipleFilters(state, action) {
  * defaults create new array if param doesn't exist yet
  * if the value doesn't exist in the array, pushes
  * if value exists in the array, filters.
+ *
  * @param {Array} target - the current filter
  * @param {string} val - the filter to toggle
  * @returns {Array} a cast copy to avoid any state mutation
@@ -439,6 +452,7 @@ export function filterArrayAction(target = [], val) {
 
 /**
  * Toggles a filter in the current set
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the payload containing the filters to change
  * @returns {object} the new state for the Redux store
@@ -448,7 +462,7 @@ export function toggleFilter(state, action) {
     ...state,
     [action.filterName]: filterArrayAction(
       state[action.filterName],
-      action.filterValue.key
+      action.filterValue.key,
     ),
   };
 
@@ -457,6 +471,7 @@ export function toggleFilter(state, action) {
 
 /**
  * adds a state filter in the current set
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the payload containing the filters to change
  * @returns {object} the new state for the Redux store
@@ -478,6 +493,7 @@ export function addStateFilter(state, action) {
 
 /**
  * removes all state filters in the current set
+ *
  * @param {object} state - the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
@@ -492,6 +508,7 @@ export function clearStateFilter(state) {
 
 /**
  * only applies the single state filter and switches view mode to complaints
+ *
  * @param {object} state - the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
@@ -504,6 +521,7 @@ export function showStateComplaints(state) {
 
 /**
  * removes one state filters in the current set
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the payload containing the filters to change
  * @returns {object} the new state for the Redux store
@@ -522,6 +540,7 @@ export function removeStateFilter(state, action) {
 
 /**
  * Removes all filters from the current set
+ *
  * @param {object} state - the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
@@ -530,7 +549,7 @@ export function removeAllFilters(state) {
 
   const allFilters = types.knownFilters.concat(
     types.dateFilters,
-    types.flagFilters
+    types.flagFilters,
   );
 
   if (state.searchField === types.NARRATIVE_SEARCH_FIELD) {
@@ -557,6 +576,7 @@ export function removeAllFilters(state) {
 
 /**
  * Adds a filter to the current set
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the payload containing the filter to add
  * @returns {object} the new state for the Redux store
@@ -579,6 +599,7 @@ function addFilter(state, action) {
 
 /**
  * Removes a filter from the current set
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the payload containing the filter to remove
  * @returns {object} the new state for the Redux store
@@ -599,6 +620,7 @@ function removeFilter(state, action) {
 
 /**
  * replaces filters with whatever we want
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the payload containing the filter to remove
  * @returns {object} the new state for the Redux store
@@ -612,6 +634,7 @@ function replaceFilters(state, action) {
 
 /**
  * Removes multiple filters from the current set
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the payload containing the filters to remove
  * @returns {object} the new state for the Redux store
@@ -636,6 +659,7 @@ function removeMultipleFilters(state, action) {
 
 /**
  * Handler for the dismiss map warning action
+ *
  * @param {object} state - the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
@@ -648,6 +672,7 @@ export function dismissMapWarning(state) {
 
 /**
  * Handler for the dismiss trends warning action
+ *
  * @param {object} state - the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
@@ -660,6 +685,7 @@ export function dismissTrendsDateWarning(state) {
 
 /**
  * gets the pagination state
+ *
  * @param {number} page - the page we are on
  * @param {object} state - the redux state
  * @returns {object} contains the from and searchAfter params
@@ -674,6 +700,7 @@ function getPagination(page, state) {
 
 /**
  * Update state based on the sort order changed action
+ *
  * @param {object} state - the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
@@ -689,6 +716,7 @@ function prevPage(state) {
 
 /**
  * Update state based on the sort order changed action
+ *
  * @param {object} state - the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
@@ -704,6 +732,7 @@ function nextPage(state) {
 
 /**
  * Get search results after specified page
+ *
  * @param {object} state - the current state in the Redux store
  * @param {number} page - page number
  * @returns {Array} array containing complaint's received date and id
@@ -715,6 +744,7 @@ function getSearchAfter(state, page) {
 
 /**
  * update state based on changeSize action
+ *
  * @param {object} state - current redux state
  * @param {object} action - command executed
  * @returns {object} new state in redux
@@ -730,6 +760,7 @@ function changeSize(state, action) {
 
 /**
  * update state based on changeSort action
+ *
  * @param {object} state - current redux state
  * @param {object} action - command executed
  * @returns {object} new state in redux
@@ -746,6 +777,7 @@ function changeSort(state, action) {
 
 /**
  * update state based on tabChanged action
+ *
  * @param {object} state - current redux state
  * @param {object} action - command executed
  * @returns {object} new state in redux
@@ -761,6 +793,7 @@ function changeTab(state, action) {
 
 /**
  * Upon complaint received, we need to make sure to reset the page
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the command being executed
  * @returns {{page: number, totalPages: number}} the new state
@@ -781,6 +814,7 @@ function updateTotalPages(state, action) {
 
 /**
  * Handler for the depth changed action
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the command being executed
  * @returns {object} the new state for the Redux store
@@ -794,6 +828,7 @@ function changeDepth(state, action) {
 
 /**
  * Handler for the depth reset action
+ *
  * @param {object} state - the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
@@ -806,6 +841,7 @@ function resetDepth(state) {
 
 /**
  * Handler for the focus selected action
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the command being executed
  * @returns {object} the new state for the Redux store
@@ -835,6 +871,7 @@ function changeFocus(state, action) {
 
 /**
  * Handler for the focus selected action
+ *
  * @param {object} state - the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
@@ -852,6 +889,7 @@ function removeFocus(state) {
 
 /**
  * update state based on changeDataLens action
+ *
  * @param {object} state - current redux state
  * @param {object} action - command executed
  * @returns {object} new state in redux
@@ -869,6 +907,7 @@ function changeDataLens(state, action) {
 
 /**
  * update state based on changeDataSubLens action
+ *
  * @param {object} state - current redux state
  * @param {object} action - command executed
  * @returns {object} new state in redux
@@ -882,6 +921,7 @@ function changeDataSubLens(state, action) {
 
 /**
  * Handler for the update chart type action
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the command being executed
  * @returns {object} the new state for the Redux store
@@ -895,6 +935,7 @@ export function updateChartType(state, action) {
 
 /**
  * Handler for the update data normalization action
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the command being executed
  * @returns {object} the new state for the Redux store
@@ -909,6 +950,7 @@ export function updateDataNormalization(state, action) {
 
 /**
  * helper function to remove any empty arrays from known filter sets
+ *
  * @param {object} state - we need to clean up
  */
 export function pruneEmptyFilters(state) {
@@ -925,6 +967,7 @@ export function pruneEmptyFilters(state) {
 
 /**
  * Converts a set of key/value pairs into a query string for API calls
+ *
  * @param {string} state - a set of key/value pairs
  * @returns {string} a formatted query string
  */
@@ -974,7 +1017,7 @@ export function stateToQS(state) {
     ['search_term', 'field'],
     types.dateFilters,
     types.knownFilters,
-    types.flagFilters
+    types.flagFilters,
   );
 
   const paramMap = {
@@ -1024,6 +1067,7 @@ export function stateToQS(state) {
 
 /**
  * Converts a set of key/value pairs into a query string for URL history.
+ *
  * @param {string} state - a set of key/value pairs
  * @returns {string} a formatted query string
  */
@@ -1059,7 +1103,7 @@ export function stateToURL(state) {
     ['searchText', 'searchField', 'tab'],
     types.dateFilters,
     types.knownFilters,
-    types.flagFilters
+    types.flagFilters,
   );
 
   const paramMap = {
@@ -1091,6 +1135,7 @@ export function stateToURL(state) {
 
 /**
  * helper function to check if per1000 & map warnings should be enabled
+ *
  * @param {object} queryState - state we need to validate
  */
 export function validatePer1000(queryState) {
@@ -1107,6 +1152,7 @@ export function validatePer1000(queryState) {
 /**
  * helper function to clear out breakpoints, reset page to 1 when any sort
  * or filter changes the query
+ *
  * @param {object} state - redux state
  */
 export function resetBreakpoints(state) {
@@ -1121,6 +1167,7 @@ export function resetBreakpoints(state) {
 
 /**
  * Creates a hash table of action types to handlers
+ *
  * @returns {object} a map of types to functions
  */
 // eslint-disable-next-line max-statements, require-jsdoc
@@ -1168,6 +1215,7 @@ const _handlers = _buildHandlerMap();
 
 /**
  * Routes an action to an appropriate handler
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the command being executed
  * @returns {object} the new state for the Redux store

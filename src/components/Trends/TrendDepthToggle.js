@@ -66,6 +66,7 @@ export class TrendDepthToggle extends React.Component {
 
 /**
  * helper containing logic to determine when to show the toggle
+ *
  * @param {string} lens - selected value
  * @param {string} focus - which focus we are on
  * @param {number} resultCount - count coming from trends results
@@ -95,7 +96,7 @@ export const mapStateToProps = (state) => {
   const { focus, lens } = query;
   const lensKey = lensMap[lens];
   const resultCount = coalesce(trends.results, lensKey, []).filter(
-    (o) => o.isParent
+    (o) => o.isParent,
   ).length;
 
   // The total source depends on the lens.  There are no aggs for companies

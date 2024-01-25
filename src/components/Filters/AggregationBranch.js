@@ -170,7 +170,7 @@ export const mapDispatchToProps = (dispatch) => ({
     const { fieldName, filters, item } = props;
     // remove all of the child filters
     const replacementFilters = filters.filter(
-      (o) => o.indexOf(item.key + SLUG_SEPARATOR) === -1
+      (o) => o.indexOf(item.key + SLUG_SEPARATOR) === -1,
     );
     // add self/ parent filter
     replacementFilters.push(item.key);

@@ -14,6 +14,7 @@ export const defaultView = {
 
 /**
  * Processes an object of key/value strings into the correct internal format
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the payload containing the key/value pairs
  * @returns {object} a filtered set of key/value pairs with the values set to
@@ -33,6 +34,7 @@ function processParams(state, action) {
 
 /**
  * Handler hide advanced tips
+ *
  * @param {object} state - the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
@@ -45,6 +47,7 @@ export function hideAdvancedSearchTips(state) {
 
 /**
  * Handler for the modal hide
+ *
  * @param {object} state - the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
@@ -57,6 +60,7 @@ export function modalHidden(state) {
 
 /**
  * Handler for the modal show
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - The redux action
  * @returns {object} the new state for the Redux store
@@ -70,6 +74,7 @@ export function modalShown(state, action) {
 
 /**
  * Handler show advanced tips
+ *
  * @param {object} state - the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
@@ -82,6 +87,7 @@ export function showAdvancedSearchTips(state) {
 
 /**
  * Handler for the update print mode on action
+ *
  * @param {object} state - the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
@@ -94,6 +100,7 @@ export function updatePrintModeOn(state) {
 
 /**
  * Handler for the update print mode off action
+ *
  * @param {object} state - the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
@@ -107,6 +114,7 @@ export function updatePrintModeOff(state) {
 
 /**
  * Handler for the update screen size action
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the command being executed
  * @returns {object} the new state for the Redux store
@@ -121,6 +129,7 @@ export function updateScreenSize(state, action) {
 
 /**
  * Handler for the update screen size action
+ *
  * @param {object} state - the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
@@ -133,6 +142,7 @@ export function updateFilterVisibility(state) {
 
 /**
  * Handler for the update hide tour
+ *
  * @param {object} state - the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
@@ -146,6 +156,7 @@ export function tourHidden(state) {
 /**
  * Handler for the update show tour action.
  * Reset page state so we can highlight things consistently.
+ *
  * @param {object} state - the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
@@ -160,6 +171,7 @@ export function tourShown(state) {
 
 /**
  * Handler for the Row collapse action
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the command being executed
  * @returns {object} the new state for the Redux store
@@ -176,6 +188,7 @@ export function collapseRow(state, action) {
 
 /**
  * Handler for the Row expand action
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the command being executed
  * @returns {object} the new state for the Redux store
@@ -197,6 +210,7 @@ export function expandRow(state, action) {
 /**
  * reset the expanded rows when the data lens changes so we don't have
  * remnants of rows showing across company/
+ *
  * @param {object} state - the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
@@ -212,6 +226,7 @@ export function resetExpandedRows(state) {
 
 /**
  * Creates a hash table of action types to handlers
+ *
  * @returns {object} a map of types to functions
  */
 export function _buildHandlerMap() {
@@ -238,6 +253,7 @@ const _handlers = _buildHandlerMap();
 
 /**
  * Routes an action to an appropriate handler
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the command being executed
  * @returns {object} the new state for the Redux store

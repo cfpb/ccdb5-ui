@@ -64,7 +64,7 @@ export const Typeahead = ({
             </li>
           )}
         />
-        {isVisible && <ClearButton onClear={handleClear} />}
+        {!!isVisible && <ClearButton onClear={handleClear} />}
       </div>
     </section>
   );

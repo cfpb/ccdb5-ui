@@ -36,6 +36,7 @@ export const Tour = () => {
 
   /**
    * Before Change handler
+   *
    * @param {object} ref - React component reference.
    */
   function handleBeforeChange(ref) {
@@ -67,6 +68,7 @@ export const Tour = () => {
 
   /**
    * Exit handler
+   *
    * @param {object} ref - React component reference.
    * @returns {boolean} Can we exit?
    */

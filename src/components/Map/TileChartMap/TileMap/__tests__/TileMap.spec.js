@@ -227,7 +227,7 @@ describe('Tile map', () => {
     expect(result).toEqual(
       '<div class="highcharts-data-label-state tile-FA default ">' +
         '<span class="abbr">FA</span>' +
-        '<span class="value">10,000</span></div>'
+        '<span class="value">10,000</span></div>',
     );
   });
 
@@ -238,7 +238,7 @@ describe('Tile map', () => {
     expect(result).toEqual(
       '<div class="title">Another Name' +
         '</div><div class="row u-clearfix"><p class="u-float-left">Complaints' +
-        '</p><p class="u-right">10,000</p></div>'
+        '</p><p class="u-right">10,000</p></div>',
     );
   });
 
@@ -258,7 +258,7 @@ describe('Tile map', () => {
         'Product with highest complaint volume</p><p class="u-right">' +
         'Expensive Item</p></div><div class="row u-clearfix">' +
         '<p class="u-float-left">Issue with highest complaint volume</p>' +
-        '<p class="u-right">Being Broke</p></div>'
+        '<p class="u-right">Being Broke</p></div>',
     );
   });
 

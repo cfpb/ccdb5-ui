@@ -74,7 +74,7 @@ const CompanyTimely = ({ value }) => {
         {iconMap.getIcon(
           'clock-round',
           'cf-icon-clock-round' +
-            (value.toLowerCase() === 'no' ? ' not-timely' : '')
+            (value.toLowerCase() === 'no' ? ' not-timely' : ''),
         )}
       </span>
       <span className="body-copy" tabIndex="0">

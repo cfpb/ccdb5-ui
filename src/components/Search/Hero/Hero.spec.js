@@ -20,7 +20,7 @@ describe('Hero', () => {
 
     renderComponent();
     const linkDialog = screen.getByText(
-      'Things to know before you use this database'
+      'Things to know before you use this database',
     );
     expect(linkDialog).toBeInTheDocument();
 
@@ -35,7 +35,7 @@ describe('Hero', () => {
     expect(linkTechDoc).toBeInTheDocument();
     expect(linkTechDoc).toHaveAttribute(
       'href',
-      'https://cfpb.github.io/api/ccdb/'
+      'https://cfpb.github.io/api/ccdb/',
     );
   });
 });

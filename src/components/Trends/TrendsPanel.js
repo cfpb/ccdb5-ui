@@ -169,13 +169,11 @@ export class TrendsPanel extends React.Component {
       <section className={this._className()}>
         <ActionBar />
         <TabbedNavigation />
-        {isTrendsDateWarningEnabled && (
-          <Warning
+        {!!isTrendsDateWarningEnabled && <Warning
             text={WARNING_MESSAGE}
             closeFn={this.props.onDismissWarning}
-          />
-        )}
-        {hasMobileFilters && <FilterPanel />}
+          />}
+        {!!hasMobileFilters && <FilterPanel />}
         <div className="layout-row refine-bar">
           <FilterPanelToggle />
           <Select
@@ -201,8 +199,7 @@ export class TrendsPanel extends React.Component {
           ]}
         </div>
 
-        {hasCompanyOverlay && (
-          <div className="layout-row company-overlay">
+        {!!hasCompanyOverlay && <div className="layout-row company-overlay">
             <section className="company-search">
               <p>
                 Choose a company to start your visualization using the
@@ -211,13 +208,11 @@ export class TrendsPanel extends React.Component {
               </p>
               <CompanyTypeahead id="modal-search" />
             </section>
-          </div>
-        )}
+          </div>}
 
-        {focus && <FocusHeader />}
+        {!!focus && <FocusHeader />}
 
-        {!hasCompanyOverlay && hasOverview && total > 0 && (
-          <div className="layout-row">
+        {!hasCompanyOverlay && !!hasOverview && total > 0 && <div className="layout-row">
             <section className="chart-description">
               <h2 className="area-chart-title">{this._areaChartTitle()}</h2>
               <p className="chart-helper-text">
@@ -226,8 +221,7 @@ export class TrendsPanel extends React.Component {
                 filter selections will update what you see on the graph.
               </p>
             </section>
-          </div>
-        )}
+          </div>}
 
         {!hasCompanyOverlay && !hasOverview && total > 0 && (
           <div className="layout-row">

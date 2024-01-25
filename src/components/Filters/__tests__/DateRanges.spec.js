@@ -22,7 +22,7 @@ function setupSnapshot() {
   return renderer.create(
     <Provider store={store}>
       <DateRanges />
-    </Provider>
+    </Provider>,
   );
 }
 

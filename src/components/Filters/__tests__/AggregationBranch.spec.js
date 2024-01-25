@@ -78,7 +78,7 @@ function setupSnapshot(selections) {
           fieldName="issue"
         />
       </IntlProvider>
-    </Provider>
+    </Provider>,
   );
 }
 

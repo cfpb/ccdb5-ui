@@ -38,7 +38,7 @@ export const Input = ({
           placeholder={placeholder}
           value={value}
         />
-        {isClearVisible && <ClearButton onClear={handleClear} />}
+        {!!isClearVisible && <ClearButton onClear={handleClear} />}
       </div>
     </section>
   );

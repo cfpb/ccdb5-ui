@@ -15,6 +15,7 @@ const WHITE = '#ffffff';
 
 /**
  * Creates N evenly spaced ranges in the data
+ *
  * @param {Array} data - all of the states w/ displayValue, complaintCount, raw
  * @param {Array} colors - an array of colors
  * @returns {Array} floating point numbers that mark the max of each range
@@ -36,6 +37,7 @@ export function makeScale(data, colors) {
 
 /**
  * Creates a shorter version of a number. 1,234 => 1.2K
+ *
  * @param {number} value - the raw value
  * @returns {string} A string representing a shortened value
  */
@@ -56,6 +58,7 @@ export function makeShortName(value) {
 
 /**
  * helper function to get the bins for legend and colors, etc.
+ *
  * @param {Array} quantiles - floats that mark the max of each range
  * @param {Function} scale - scaling function for color
  * @returns {Array} the bins with bounds, name, and color
@@ -88,6 +91,7 @@ export function getBins(quantiles, scale) {
 
 /**
  * helper function to get the Per 1000 population bins for legend and colors
+ *
  * @param {Array} quantiles - floats that mark the max of each range
  * @param {Function} scale - scaling function for color
  * @returns {Array} the bins with bounds, name, and color
@@ -164,6 +168,7 @@ export function processMapData(data, scale) {
  *
  * Also, walk through the array backwards to pick up the most saturated
  * color. This helps the "only three values" case
+ *
  * @param {number} value - the number of complaints or perCapita
  * @param {Function} scale - scaling function for color
  * @returns {string} color hex or rgb code for a color
@@ -179,6 +184,7 @@ export function getColorByValue(value, scale) {
 
 /**
  * callback function for reporting the series point in a voiceover text
+ *
  * @param {object} p - the point in the series
  * @returns {string} the text to speak
  */
@@ -204,6 +210,7 @@ export function mouseoverPoint() {
 
 /**
  * callback function to format the individual tiles in HTML
+ *
  * @returns {string} html output
  */
 export function tileFormatter() {
@@ -226,6 +233,7 @@ export function tileFormatter() {
 
 /**
  * callback function to format the tooltip in HTML
+ *
  * @returns {string} html output
  */
 export function tooltipFormatter() {
@@ -275,6 +283,7 @@ export function tooltipFormatter() {
 
 /**
  * Draw a legend on a chart.
+ *
  * @param {object} chart - A highchart chart.
  */
 export function _drawLegend(chart) {

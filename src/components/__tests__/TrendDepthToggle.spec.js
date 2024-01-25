@@ -31,7 +31,7 @@ function setupEnzyme({ cbIncrease, cbReset, diff, queryCount, resultCount }) {
       queryCount={queryCount}
       resultCount={resultCount}
       hasToggle={true}
-    />
+    />,
   );
 }
 
@@ -66,7 +66,7 @@ function setupSnapshot({ focus, lens, productAggs, productResults }) {
       <IntlProvider locale="en">
         <ReduxTrendDepthToggle />
       </IntlProvider>
-    </Provider>
+    </Provider>,
   );
 }
 

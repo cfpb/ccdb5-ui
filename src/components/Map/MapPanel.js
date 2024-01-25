@@ -66,7 +66,7 @@ export const MapPanel = () => {
   }, [results, expandedRows]);
 
   const MAP_ROWCHART_TITLE = `Product by highest complaint volume ${shortFormat(
-    minDate
+    minDate,
   )} to ${shortFormat(maxDate)}`;
 
   const onDismissWarning = () => {
@@ -77,13 +77,9 @@ export const MapPanel = () => {
     <section className="map-panel">
       <ActionBar />
       <TabbedNavigation />
-      {hasError && (
-        <ErrorBlock text="There was a problem executing your search" />
-      )}
-      {hasWarning && (
-        <Warning text={WARNING_MESSAGE} closeFn={onDismissWarning} />
-      )}
-      {hasMobileFilters && <FilterPanel />}
+      {!!hasError && <ErrorBlock text="There was a problem executing your search" />}
+      {!!hasWarning && <Warning text={WARNING_MESSAGE} closeFn={onDismissWarning} />}
+      {!!hasMobileFilters && <FilterPanel />}
       <div className="layout-row refine-bar">
         <FilterPanelToggle />
         <Separator />

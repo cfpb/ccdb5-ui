@@ -22,7 +22,7 @@ function setupSnapshot(tab) {
   return renderer.create(
     <Provider store={store}>
       <TabbedNavigation />
-    </Provider>
+    </Provider>,
   );
 }
 

@@ -30,7 +30,7 @@ function setupEnzyme(rmCb, addCb, isActive) {
       removeFilter={rmCb}
       addFilter={addCb}
       isActive={isActive}
-    />
+    />,
   );
 }
 
@@ -60,7 +60,7 @@ function setupSnapshot() {
           onClick={onClick}
         />
       </Provider>
-    </IntlProvider>
+    </IntlProvider>,
   );
 }
 

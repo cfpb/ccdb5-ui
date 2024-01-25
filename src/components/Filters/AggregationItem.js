@@ -112,7 +112,7 @@ export const mapDispatchToProps = (dispatch, ownProps) => ({
         filterName,
         filters,
         aggs,
-        fieldName
+        fieldName,
       );
       dispatch(replaceFilters(fieldName, updatedFilters));
     } else {

@@ -24,9 +24,9 @@ const composeEnhancers = composeWithDevTools({
 const store = createStore(
   reducers,
   composeEnhancers(
-    applyMiddleware(...middleware)
+    applyMiddleware(...middleware),
     // other store enhancers if any
-  )
+  ),
 );
 
 /* eslint-disable camelcase */
@@ -44,6 +44,7 @@ export const DetailComponents = () => {
 // eslint-disable-next-line react/no-multi-comp
 /**
  * Main App Component
+ *
  * @returns {JSX.Element} Main app
  */
 export const App = () => {
