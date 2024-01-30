@@ -213,12 +213,14 @@ export const DataExport = () => {
                   Copy
                 </div>
               )}
-              {!!copied && <div>
+              {!!copied && (
+                <div>
                   <span className="a-btn_icon">
                     {iconMap.getIcon('checkmark-round')}
                   </span>
                   Copied
-                </div>}
+                </div>
+              )}
             </button>
           </div>
         </div>

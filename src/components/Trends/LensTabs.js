@@ -36,22 +36,26 @@ export class LensTabs extends React.Component {
     return (
       <div className="tabbed-navigation lens">
         <section>
-          {!!hasProductTab && <button
+          {!!hasProductTab && (
+            <button
               className={this._getTabClass(currentLens.tab1.filterName)}
               onClick={() => {
                 this.props.onTab(lens, currentLens.tab1.filterName);
               }}
             >
               {currentLens.tab1.displayName}
-            </button>}
-          {!!lensMaps[lens].tab2 && <button
+            </button>
+          )}
+          {!!lensMaps[lens].tab2 && (
+            <button
               className={this._getTabClass(currentLens.tab2.filterName)}
               onClick={() => {
                 this.props.onTab(lens, currentLens.tab2.filterName);
               }}
             >
               {currentLens.tab2.displayName}
-            </button>}
+            </button>
+          )}
         </section>
       </div>
     );

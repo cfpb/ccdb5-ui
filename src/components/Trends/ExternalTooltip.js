@@ -80,7 +80,9 @@ export class ExternalTooltip extends React.Component {
     if (tooltip && tooltip.values) {
       return (
         <section className={'tooltip-container u-clearfix ' + focus}>
-          {!!this.props.hasCompanyTypeahead && <CompanyTypeahead id="external-tooltip" />}
+          {!!this.props.hasCompanyTypeahead && (
+            <CompanyTypeahead id="external-tooltip" />
+          )}
           <p className="a-micro-copy">
             <span className="heading">{this.props.tooltip.heading}</span>
             <span className="date">{this.props.tooltip.date}</span>
@@ -95,14 +97,16 @@ export class ExternalTooltip extends React.Component {
               ))}
             </ul>
 
-            {!!hasTotal && <ul className="m-list__unstyled tooltip-ul total">
+            {!!hasTotal && (
+              <ul className="m-list__unstyled tooltip-ul total">
                 <li>
                   <span className="u-left">Total</span>
                   <span className="u-right">
                     {tooltip.total.toLocaleString()}
                   </span>
                 </li>
-              </ul>}
+              </ul>
+            )}
           </div>
           <p className="a-micro-copy warn">
             {WARN_SERIES_BREAK}{' '}

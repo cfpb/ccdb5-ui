@@ -46,9 +46,11 @@ export const PrintInfo = () => {
       <p>
         <span>Dates:</span> {dateText}
       </p>
-      {!!searchText && <p>
+      {!!searchText && (
+        <p>
           <span>Search Term:</span> {searchText}
-        </p>}
+        </p>
+      )}
       <div>{complaintCountText}</div>
     </section>
   ) : null;

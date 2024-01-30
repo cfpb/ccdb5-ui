@@ -41,16 +41,18 @@ export const getSubLens = (lens) => {
  */
 export const pruneOther = (buckets) => {
   const sumOther = buckets
-    .filter((o) => o.name === 'Other')
+    .filter((bucket) => bucket.name === 'Other')
     .reduce((prev, cur) => prev + cur.value, 0);
 
-  return sumOther > 0 ? buckets : buckets.filter((o) => o.name !== 'Other');
+  return sumOther > 0
+    ? buckets
+    : buckets.filter((bucket) => bucket.name !== 'Other');
 };
 
 export const isGreaterThanYear = (from, to) => {
-  const a = dayjs(from);
-  const b = dayjs(to);
-  return b.diff(a, 'days') > 366;
+  const fromDay = dayjs(from);
+  const toDay = dayjs(to);
+  return toDay.diff(fromDay, 'days') > 366;
 };
 
 /**
@@ -62,9 +64,9 @@ export const isGreaterThanYear = (from, to) => {
  * @returns {Array} array of date intervals
  */
 export const getIntervals = (from, to) =>
-  types.dateIntervals.map((o) => ({
-    name: o,
-    disabled: isGreaterThanYear(from, to) && o === 'Day',
+  types.dateIntervals.map((interval) => ({
+    name: interval,
+    disabled: isGreaterThanYear(from, to) && interval === 'Day',
   }));
 
 /**

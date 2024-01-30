@@ -29,7 +29,8 @@ export class FilterPanel extends React.Component {
 
     return (
       <div>
-        {!!this.props.hasFilterToggle && <div className="filter-button">
+        {!!this.props.hasFilterToggle && (
+          <div className="filter-button">
             <button
               className="a-btn"
               title="Filter results"
@@ -37,9 +38,12 @@ export class FilterPanel extends React.Component {
             >
               Filter results
             </button>
-          </div>}
-        {!!this.props.hasFilters && <section className="filter-panel">
-            {!!this.props.hasButton && <div className="filter-button">
+          </div>
+        )}
+        {!!this.props.hasFilters && (
+          <section className="filter-panel">
+            {!!this.props.hasButton && (
+              <div className="filter-button">
                 <button
                   className="a-btn"
                   title="Close filters"
@@ -47,7 +51,8 @@ export class FilterPanel extends React.Component {
                 >
                   Close filters {iconMap.getIcon('delete')}
                 </button>
-              </div>}
+              </div>
+            )}
             <h3>Filter results by...</h3>
             <DateFilter />
             <hr />
@@ -97,7 +102,8 @@ export class FilterPanel extends React.Component {
             />
             <hr />
             <SimpleFilter title="Tags" desc={descTags} fieldName="tags" />
-          </section>}
+          </section>
+        )}
       </div>
     );
   }

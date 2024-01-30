@@ -23,10 +23,12 @@ export const getLastDate = (dataSet, config) => {
   }
 
   const deDuped = [
-    ...new Set(dataSet.map((o) => dayjs(o.date).toISOString())),
+    ...new Set(dataSet.map((obj) => dayjs(obj.date).toISOString())),
   ].sort();
   const lastDate = deDuped.pop();
-  const lastPointValues = dataSet.filter((o) => isDateEqual(o.date, lastDate));
+  const lastPointValues = dataSet.filter((obj) =>
+    isDateEqual(obj.date, lastDate),
+  );
   return {
     key: lastDate,
     date: lastDate,
@@ -43,17 +45,19 @@ export const getLastLineDate = (dataSet, config) => {
   }
 
   let dates = [];
-  dataSet.dataByTopic.forEach((d) => {
-    dates = dates.concat(d.dates);
+  dataSet.dataByTopic.forEach((datum) => {
+    dates = dates.concat(datum.dates);
   });
 
-  const deDuped = [...new Set(dates.map((o) => o.date))].sort();
+  const deDuped = [...new Set(dates.map((obj) => obj.date))].sort();
   const lastDate = deDuped.pop();
-  const values = dataSet.dataByTopic.map((o) => {
-    const lastPoint = o.dates.find((v) => isDateEqual(v.date, lastDate));
+  const values = dataSet.dataByTopic.map((datum) => {
+    const lastPoint = datum.dates.find((val) =>
+      isDateEqual(val.date, lastDate),
+    );
     const value = lastPoint ? lastPoint.value : 0;
     return {
-      name: o.topic,
+      name: datum.topic,
       date: lastDate,
       value,
     };
@@ -117,13 +121,13 @@ export const getTooltipTitle = (inputDate, interval, dateRange, external) => {
  * @returns {Array} the color scheme [blue, red, yellow, etc]
  */
 export const getColorScheme = (rowNames, colorMap, lens) =>
-  rowNames.map((o) => {
+  rowNames.map((obj) => {
     if (!colorMap) {
       return '#20aa3f';
     }
     // bad data. Some titles can appears twice in the product data
-    const name = o.name.trim();
-    const parent = o.parent ? o.parent.trim() : '';
+    const name = obj.name.trim();
+    const parent = obj.parent ? obj.parent.trim() : '';
     // parent should have priority
     if (colorMap[parent]) {
       return colorMap[parent];
@@ -170,7 +174,9 @@ export const getD3Names = (obj, nameMap) => {
 export const processRows = (rows, colorMap, lens, expandedRows) => {
   if (rows) {
     let data = rows;
-    data = data.filter((o) => o.isParent || expandedRows.includes(o.parent));
+    data = data.filter(
+      (datum) => datum.isParent || expandedRows.includes(datum.parent),
+    );
     const colorScheme = getColorScheme(data, colorMap, lens);
 
     return {
@@ -197,12 +203,12 @@ export const processRows = (rows, colorMap, lens, expandedRows) => {
  */
 export const updateDateBuckets = (name, buckets, areaBuckets) => {
   // fill in empty zero values
-  areaBuckets.forEach((o) => {
-    if (!buckets.find((b) => b.key_as_string === o.key_as_string)) {
+  areaBuckets.forEach((obj) => {
+    if (!buckets.find((bucket) => bucket.key_as_string === obj.key_as_string)) {
       buckets.push({
         name: name,
         doc_count: 0,
-        key_as_string: o.key_as_string,
+        key_as_string: obj.key_as_string,
       });
     }
   });
@@ -210,11 +216,13 @@ export const updateDateBuckets = (name, buckets, areaBuckets) => {
   return (
     buckets
       // eslint-disable-next-line no-confusing-arrow, no-extra-parens
-      .sort((a, b) => (a.key_as_string > b.key_as_string ? 1 : -1))
-      .map((o) => ({
+      .sort((first, second) =>
+        first.key_as_string > second.key_as_string ? 1 : -1,
+      )
+      .map((obj) => ({
         name: name,
-        date: o.key_as_string,
-        value: o.doc_count,
+        date: obj.key_as_string,
+        value: obj.doc_count,
       }))
   );
 };
@@ -264,16 +272,16 @@ export const pruneIncompleteLineInterval = (data, dateRange, interval) => {
 
   // start date from chart same as date range from, then go ahead keep it
   if (dateOutOfStartBounds(dateFrom, startFromChart, interval)) {
-    data.dataByTopic.forEach((o) => {
-      o.dates = o.dates.filter((d) => d.date !== startFromChart);
+    data.dataByTopic.forEach((datum) => {
+      datum.dates = datum.dates.filter((date) => date.date !== startFromChart);
     });
   }
 
   // we only eliminate the last incomplete interval
   // this is if the end date of the interval comes after To Date
   if (dateOutOfEndBounds(dateTo, lastFromChart, interval)) {
-    data.dataByTopic.forEach((o) => {
-      o.dates = o.dates.filter((d) => d.date !== lastFromChart);
+    data.dataByTopic.forEach((datum) => {
+      datum.dates = datum.dates.filter((date) => date.date !== lastFromChart);
     });
   }
 };
@@ -290,7 +298,7 @@ export const pruneIncompleteStackedAreaInterval = (
   // https://github.com/jsdom/jsdom/issues/3363
   let filteredData = JSON.parse(JSON.stringify(data));
   //  need to rebuild and sort dates in memory
-  const dates = [...new Set(filteredData.map((o) => o.date))];
+  const dates = [...new Set(filteredData.map((datum) => datum.date))];
   dates.sort();
 
   const startFromChart = dates[0];
@@ -298,11 +306,13 @@ export const pruneIncompleteStackedAreaInterval = (
 
   // start date from chart same as date range from, then go ahead keep it
   if (dateOutOfStartBounds(dateFrom, startFromChart, interval)) {
-    filteredData = filteredData.filter((o) => o.date !== startFromChart);
+    filteredData = filteredData.filter(
+      (datum) => datum.date !== startFromChart,
+    );
   }
 
   if (dateOutOfEndBounds(dateTo, lastFromChart, interval)) {
-    filteredData = filteredData.filter((o) => o.date !== lastFromChart);
+    filteredData = filteredData.filter((datum) => datum.date !== lastFromChart);
   }
 
   return filteredData;

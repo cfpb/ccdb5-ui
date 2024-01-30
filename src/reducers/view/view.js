@@ -182,7 +182,7 @@ export function collapseRow(state, action) {
 
   return {
     ...state,
-    expandedRows: expandedRows.filter((o) => o !== item),
+    expandedRows: expandedRows.filter((row) => row !== item),
   };
 }
 

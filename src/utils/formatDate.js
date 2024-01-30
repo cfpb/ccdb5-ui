@@ -46,24 +46,24 @@ export const formatDateLocaleShort = (dateIn) =>
 /**
  * function to convert and compare 2 strings as dates
  *
- * @param {string} a - input date string to compare MM/DD/YYYY or YYYY-MM-DD
- * @param {string} b - input date string to compare MM/DD/YYYY or YYYY-MM-DD
+ * @param {string} date1 - input date string to compare MM/DD/YYYY or YYYY-MM-DD
+ * @param {string} date2 - input date string to compare MM/DD/YYYY or YYYY-MM-DD
  * @returns {boolean} lets us know if date is equal
  */
-export const isDateEqual = (a, b) =>
-  dayjs(new Date(a)).isSame(new Date(b), 'day');
+export const isDateEqual = (date1, date2) =>
+  dayjs(new Date(date1)).isSame(new Date(date2), 'day');
 
 /**
  * function to convert and compare 2 strings as dates
  *
- * @param {string} a - input date string to compare MM/DD/YYYY or YYYY-MM-DD
- * @param {string} b - input date string to compare MM/DD/YYYY or YYYY-MM-DD
+ * @param {string} date1 - input date string to compare MM/DD/YYYY or YYYY-MM-DD
+ * @param {string} date2 - input date string to compare MM/DD/YYYY or YYYY-MM-DD
  * @returns {number} the return of the compared converted values
  */
-export const compareDates = (a, b) => {
-  if (isDateEqual(a, b)) {
+export const compareDates = (date1, date2) => {
+  if (isDateEqual(date1, date2)) {
     return 0;
   }
 
-  return new Date(a) < new Date(b) ? -1 : 1;
+  return new Date(date1) < new Date(date2) ? -1 : 1;
 };

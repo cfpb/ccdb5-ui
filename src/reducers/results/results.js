@@ -13,12 +13,12 @@ export const defaultResults = {
 };
 
 export const _processHits = (data) =>
-  data.hits.hits.map((x) => {
-    const item = { ...x._source };
+  data.hits.hits.map((hit) => {
+    const item = { ...hit._source };
 
-    if (x.highlight) {
-      Object.keys(x.highlight).forEach((field) => {
-        item[field] = x.highlight[field][0];
+    if (hit.highlight) {
+      Object.keys(hit.highlight).forEach((field) => {
+        item[field] = hit.highlight[field][0];
       });
     }
 

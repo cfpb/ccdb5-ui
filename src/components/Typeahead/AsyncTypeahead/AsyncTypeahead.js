@@ -85,12 +85,14 @@ export const AsyncTypeahead = ({
             </li>
           )}
         />
-        {!!isVisible && <ClearButton
+        {!!isVisible && (
+          <ClearButton
             onClear={() => {
               handleTypeaheadClear();
               setIsVisible(false);
             }}
-          />}
+          />
+        )}
       </div>
     </section>
   );

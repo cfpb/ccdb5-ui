@@ -9,5 +9,5 @@ import mergeWith from 'lodash/mergeWith';
  * @param {object} mergeSource - is the old object
  */
 export function merge(destinationObject, mergeSource) {
-  mergeWith(destinationObject, mergeSource, (a) => a);
+  mergeWith(destinationObject, mergeSource, (arg) => arg);
 }

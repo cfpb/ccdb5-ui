@@ -110,8 +110,8 @@ export function alignDateRange(state) {
   const ranges = Object.keys(rangeMap);
   let matched = false;
 
-  for (let i = 0; i < ranges.length && !matched; i++) {
-    const range = ranges[i];
+  for (let idx = 0; idx < ranges.length && !matched; idx++) {
+    const range = ranges[idx];
 
     if (dayjs(dateMin).isSame(rangeMap[range], 'day')) {
       state.dateRange = range;
@@ -197,9 +197,9 @@ function processParams(state, action) {
   // Handle date filters
   types.dateFilters.forEach((field) => {
     if (typeof params[field] !== 'undefined') {
-      const d = toDate(params[field]);
-      if (d) {
-        processed[field] = d;
+      const date = toDate(params[field]);
+      if (date) {
+        processed[field] = date;
       }
     }
   });
@@ -214,9 +214,9 @@ function processParams(state, action) {
   // Handle numeric params
   urlParamsInt.forEach((field) => {
     if (typeof params[field] !== 'undefined') {
-      const n = parseInt(params[field], 10);
-      if (isNaN(n) === false) {
-        processed[field] = enforceValues(n, field);
+      const num = parseInt(params[field], 10);
+      if (isNaN(num) === false) {
+        processed[field] = enforceValues(num, field);
       }
     }
   });
@@ -416,16 +416,16 @@ export function changeSearchText(state, action) {
 export function addMultipleFilters(state, action) {
   const newState = { ...state };
   const name = action.filterName;
-  const a = coalesce(newState, name, []);
+  const obj = coalesce(newState, name, []);
 
   // Add the filters
-  action.values.forEach((x) => {
-    if (a.indexOf(x) === -1) {
-      a.push(x);
+  action.values.forEach((val) => {
+    if (obj.indexOf(val) === -1) {
+      obj.push(val);
     }
   });
 
-  newState[name] = a;
+  newState[name] = obj;
 
   return newState;
 }
@@ -641,15 +641,15 @@ function replaceFilters(state, action) {
  */
 function removeMultipleFilters(state, action) {
   const newState = { ...state };
-  const a = newState[action.filterName];
+  const obj = newState[action.filterName];
   // remove the focus if it exists in one of the filter values we are removing
   newState.focus = action.values.includes(state.focus) ? '' : state.focus || '';
 
-  if (a) {
-    action.values.forEach((x) => {
-      const idx = a.indexOf(x);
+  if (obj) {
+    action.values.forEach((val) => {
+      const idx = obj.indexOf(val);
       if (idx !== -1) {
-        a.splice(idx, 1);
+        obj.splice(idx, 1);
       }
     });
   }
@@ -854,8 +854,8 @@ function changeFocus(state, action) {
   if (filterKey === 'company') {
     activeFilters.push(focus);
   } else {
-    filterValues.forEach((o) => {
-      activeFilters.push(o);
+    filterValues.forEach((val) => {
+      activeFilters.push(val);
     });
   }
 
@@ -955,9 +955,9 @@ export function updateDataNormalization(state, action) {
  */
 export function pruneEmptyFilters(state) {
   // go through the object and delete any filter keys that have no values in it
-  types.knownFilters.forEach((o) => {
-    if (Array.isArray(state[o]) && state[o].length === 0) {
-      delete state[o];
+  types.knownFilters.forEach((filter) => {
+    if (Array.isArray(state[filter]) && state[filter].length === 0) {
+      delete state[filter];
     }
   });
 }
@@ -1046,10 +1046,10 @@ export function stateToQS(state) {
   // if format exists it means we're exporting, so add it to allowable params
   if (Object.keys(params).includes('format')) {
     const exportParams = ['size', 'format', 'no_aggs'];
-    exportParams.forEach((p) => {
+    exportParams.forEach((param) => {
       /* istanbul ignore else */
-      if (!filterKeys.includes(p)) {
-        filterKeys.push(p);
+      if (!filterKeys.includes(param)) {
+        filterKeys.push(param);
       }
     });
   }

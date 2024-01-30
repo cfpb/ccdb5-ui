@@ -21,7 +21,8 @@ export const MapToolbar = () => {
       <section className="state-heading">
         {!filteredStates && <span>United States of America</span>}
         <span>{filteredStates}</span>
-        {!!filteredStates && <a
+        {!!filteredStates && (
+          <a
             aria-label="Clear all map filters"
             onClick={() => {
               dispatch(clearStateFilter());
@@ -29,9 +30,11 @@ export const MapToolbar = () => {
           >
             {iconMap.getIcon('delete-round')}
             Clear
-          </a>}
+          </a>
+        )}
       </section>
-      {!!filteredStates && <section className="state-navigation">
+      {!!filteredStates && (
+        <section className="state-navigation">
           <a
             className="list"
             onClick={() => {
@@ -40,7 +43,8 @@ export const MapToolbar = () => {
           >
             View complaints for filtered states
           </a>
-        </section>}
+        </section>
+      )}
     </div>
   );
 };

@@ -77,8 +77,12 @@ export const MapPanel = () => {
     <section className="map-panel">
       <ActionBar />
       <TabbedNavigation />
-      {!!hasError && <ErrorBlock text="There was a problem executing your search" />}
-      {!!hasWarning && <Warning text={WARNING_MESSAGE} closeFn={onDismissWarning} />}
+      {!!hasError && (
+        <ErrorBlock text="There was a problem executing your search" />
+      )}
+      {!!hasWarning && (
+        <Warning text={WARNING_MESSAGE} closeFn={onDismissWarning} />
+      )}
       {!!hasMobileFilters && <FilterPanel />}
       <div className="layout-row refine-bar">
         <FilterPanelToggle />

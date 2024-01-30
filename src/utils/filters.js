@@ -23,16 +23,16 @@ export const getUpdatedFilters = (filterName, filters, aggs, fieldName) => {
   const hasParent = filters.includes(parentFilter);
   // remove current filter
   const oldFilters = filters
-    .filter((o) => o !== parentFilter && filterName)
-    .filter((o) => o !== filterName);
+    .filter((filter) => filter !== parentFilter && filterName)
+    .filter((filter) => filter !== filterName);
   // apply siblings
   const sibs = [];
   if (hasParent) {
-    const siblings = aggs.find((o) => o.key === parentFilter);
-    siblings['sub_' + fieldName + '.raw'].buckets.forEach((o) => {
+    const siblings = aggs.find((agg) => agg.key === parentFilter);
+    siblings['sub_' + fieldName + '.raw'].buckets.forEach((bucket) => {
       // don't include self
-      if (o.key !== parts[1]) {
-        sibs.push(slugify(parentFilter, o.key));
+      if (bucket.key !== parts[1]) {
+        sibs.push(slugify(parentFilter, bucket.key));
       }
     });
   }

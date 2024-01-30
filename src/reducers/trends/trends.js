@@ -61,10 +61,10 @@ export const defaultTrends = getDefaultState();
  * @param {object} results - object we are processing and filling out
  */
 export function processAggregations(keys, state, aggregations, results) {
-  keys.forEach((k) => {
+  keys.forEach((key) => {
     /* istanbul ignore else */
-    if (aggregations[k]) {
-      results[k] = processBucket(state, aggregations[k][k].buckets);
+    if (aggregations[key]) {
+      results[key] = processBucket(state, aggregations[key][key].buckets);
     }
   });
 }
@@ -83,10 +83,10 @@ export function processBucket(state, agg) {
   const tabLabels =
     state.lens === 'Company' ? 'product' : 'sub-product and issue';
 
-  for (let i = 0; i < agg.length; i++) {
-    processTrendPeriod(agg[i]);
+  for (let index = 0; index < agg.length; index++) {
+    processTrendPeriod(agg[index]);
 
-    const item = agg[i];
+    const item = agg[index];
     const subKeyName = getSubKeyName(item);
 
     item.isParent = true;
@@ -129,7 +129,7 @@ export function processBucket(state, agg) {
 /**
  * helper function to pluralize field values
  *
- * @param {lens} lens - value we are processing
+ * @param {string} lens - value we are processing
  * @returns {string} for consumption by AreaData function
  */
 export function mainNameLens(lens) {
@@ -164,12 +164,12 @@ function processAreaData(state, aggregations) {
   );
 
   // overall buckets
-  aggregations.dateRangeBuckets.dateRangeBuckets.buckets.forEach((o) => {
-    if (!compBuckets.find((v) => o.key_as_string === v.date)) {
+  aggregations.dateRangeBuckets.dateRangeBuckets.buckets.forEach((obj) => {
+    if (!compBuckets.find((val) => obj.key_as_string === val.date)) {
       compBuckets.push({
         name: mainName,
         value: 0,
-        date: o.key_as_string,
+        date: obj.key_as_string,
       });
     }
   });
@@ -178,41 +178,43 @@ function processAreaData(state, aggregations) {
   const refBuckets = Object.assign({}, compBuckets);
   const trendResults = aggregations[filter][filter].buckets.slice(0, 5);
 
-  for (let i = 0; i < trendResults.length; i++) {
-    const o = trendResults[i];
+  for (let index = 0; index < trendResults.length; index++) {
+    const result = trendResults[index];
     // only take first 10 of the buckets for processing
-    const reverseBuckets = o.trend_period.buckets.reverse();
-    for (let j = 0; j < reverseBuckets.length; j++) {
-      const p = reverseBuckets[j];
+    const reverseBuckets = result.trend_period.buckets.reverse();
+    for (let idx = 0; idx < reverseBuckets.length; idx++) {
+      const bucket = reverseBuckets[idx];
       compBuckets.push({
-        name: o.key,
-        value: p.doc_count,
-        date: p.key_as_string,
+        name: result.key,
+        value: bucket.doc_count,
+        date: bucket.key_as_string,
       });
 
       // delete total from that date
       const pos = compBuckets.findIndex(
-        (k) => k.name === mainName && isDateEqual(k.date, p.key_as_string),
+        (cBuck) =>
+          cBuck.name === mainName &&
+          isDateEqual(cBuck.date, bucket.key_as_string),
       );
 
       /* istanbul ignore else */
       if (pos > -1) {
         // subtract the value from total, so we calculate the "Other" bin
-        compBuckets[pos].value -= p.doc_count;
+        compBuckets[pos].value -= bucket.doc_count;
       }
     }
 
     // we're missing a bucket, so fill it in.
     const referenceBuckets = Object.values(refBuckets);
-    if (o.trend_period.buckets.length !== referenceBuckets.length) {
-      for (let k = 0; k < referenceBuckets.length; k++) {
-        const obj = referenceBuckets[k];
+    if (result.trend_period.buckets.length !== referenceBuckets.length) {
+      for (let index = 0; index < referenceBuckets.length; index++) {
+        const obj = referenceBuckets[index];
         const datePoint = compBuckets
-          .filter((f) => f.name === o.key)
-          .find((f) => isDateEqual(f.date, obj.date));
+          .filter((bckt) => bckt.name === result.key)
+          .find((bckt) => isDateEqual(bckt.date, obj.date));
         if (!datePoint) {
           compBuckets.push({
-            name: o.key,
+            name: result.key,
             value: 0,
             date: obj.date,
           });
@@ -245,35 +247,37 @@ function processLineData(lens, aggregations, focus, subLens) {
       topicName: 'Complaints',
       dashed: false,
       show: true,
-      dates: areaBuckets.map((o) => ({
-        date: o.key_as_string,
-        value: o.doc_count,
+      dates: areaBuckets.map((obj) => ({
+        date: obj.key_as_string,
+        value: obj.doc_count,
       })),
     });
 
     // backfill empties
-    rangeBuckets.forEach((o) => {
-      if (!dataByTopic[0].dates.find((v) => o.key_as_string === v.date)) {
+    rangeBuckets.forEach((obj) => {
+      if (!dataByTopic[0].dates.find((val) => obj.key_as_string === val.date)) {
         dataByTopic[0].dates.push({
-          date: o.key_as_string,
+          date: obj.key_as_string,
           value: 0,
         });
       }
     });
 
     // sort dates so it doesn't break line chart
-    dataByTopic[0].dates.sort((a, b) => new Date(a.date) - new Date(b.date));
+    dataByTopic[0].dates.sort(
+      (first, second) => new Date(first.date) - new Date(second.date),
+    );
   }
 
   if (lens !== 'Overview') {
     // handle Focus Case
     const lensKey = focus ? subLens.replace('_', '-') : lens.toLowerCase();
     const aggBuckets = aggregations[lensKey][lensKey].buckets;
-    for (let i = 0; i < aggBuckets.length; i++) {
-      const name = aggBuckets[i].key;
+    for (let index = 0; index < aggBuckets.length; index++) {
+      const name = aggBuckets[index].key;
       const dateBuckets = updateDateBuckets(
         name,
-        aggBuckets[i].trend_period.buckets,
+        aggBuckets[index].trend_period.buckets,
         rangeBuckets,
       );
       dataByTopic.push({
@@ -299,9 +303,9 @@ export function processTrendPeriod(bucket) {
   const subKeyName = getSubKeyName(bucket);
   if (bucket[subKeyName]) {
     const subaggBuckets = bucket[subKeyName].buckets;
-    for (let j = 0; j < subaggBuckets.length; j++) {
-      subaggBuckets[j].parent = bucket.key;
-      processTrendPeriod(subaggBuckets[j]);
+    for (let index = 0; index < subaggBuckets.length; index++) {
+      subaggBuckets[index].parent = bucket.key;
+      processTrendPeriod(subaggBuckets[index]);
     }
   }
 }
@@ -323,10 +327,10 @@ export const getColorScheme = (lens, rowNames) => {
     ),
   ];
 
-  for (let i = 0; i < uniqueNames.length; i++) {
-    const n = uniqueNames[i];
-    const index = clamp(i, 0, 10);
-    colScheme[n] = colorScheme[index];
+  for (let idx = 0; idx < uniqueNames.length; idx++) {
+    const name = uniqueNames[idx];
+    const index = clamp(idx, 0, 10);
+    colScheme[name] = colorScheme[index];
   }
 
   colScheme.Complaints = colors.BriteCharts.regular;
@@ -577,11 +581,11 @@ function updateTooltip(state, action) {
 
     /* istanbul ignore else */
     if (tooltip.values) {
-      tooltip.values.forEach((o) => {
-        o.colorIndex =
-          Object.values(colors.DataLens).indexOf(state.colorMap[o.name]) || 0;
+      tooltip.values.forEach((val) => {
+        val.colorIndex =
+          Object.values(colors.DataLens).indexOf(state.colorMap[val.name]) || 0;
         // make sure all values have a value
-        o.value = coalesce(o, 'value', 0);
+        val.value = coalesce(val, 'value', 0);
       });
 
       let total = 0;
