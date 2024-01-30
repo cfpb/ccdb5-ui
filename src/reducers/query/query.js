@@ -532,7 +532,7 @@ export function removeStateFilter(state, action) {
 
   const newState = {
     ...state,
-    state: stateFilters.filter((o) => o !== abbr),
+    state: stateFilters.filter((state) => state !== abbr),
   };
 
   return newState;

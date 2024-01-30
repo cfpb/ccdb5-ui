@@ -56,9 +56,9 @@ export const Tour = () => {
     }
 
     const callBack = () => {
-      steps.forEach((step, i) => {
+      steps.forEach((step, idx) => {
         if (ref.current !== null) {
-          ref.current.updateStepElement(i);
+          ref.current.updateStepElement(idx);
         }
       });
     };

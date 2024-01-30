@@ -31,8 +31,8 @@ jest.mock('britecharts', () => {
 
   const mock = {};
 
-  for (let i = 0; i < props.length; i++) {
-    const propName = props[i];
+  for (let idx = 0; idx < props.length; idx++) {
+    const propName = props[idx];
     mock[propName] = jest.fn().mockImplementation(() => {
       return mock;
     });
@@ -56,8 +56,8 @@ jest.mock('d3', () => {
 
   const mock = {};
 
-  for (let i = 0; i < props.length; i++) {
-    const propName = props[i];
+  for (let idx = 0; idx < props.length; idx++) {
+    const propName = props[idx];
     mock[propName] = jest.fn().mockImplementation(() => {
       return mock;
     });
@@ -261,7 +261,7 @@ describe('component: StackedAreaChart', () => {
     xit('updates external tooltip with different data', () => {
       target = shallow(
         <StackedAreaChart
-          colorMap={{ a: '#eee', b: '#444' }}
+          colorMap={{ val1: '#eee', val2: '#444' }}
           data={[2, 3, 4]}
           interval="Month"
           dateRange={{
@@ -282,7 +282,7 @@ describe('component: StackedAreaChart', () => {
     xit('Only updates external tooltip on init', () => {
       target = shallow(
         <StackedAreaChart
-          colorMap={{ a: '#eee', b: '#444' }}
+          colorMap={{ val1: '#eee', val2: '#444' }}
           data={[3, 5, 6]}
           interval="Month"
           dateRange={{
@@ -306,7 +306,7 @@ describe('component: StackedAreaChart', () => {
         const target = shallow(
           <StackedAreaChart
             isPrintMode={true}
-            colorMap={{ a: '#eee', b: '#444' }}
+            colorMap={{ val1: '#eee', val2: '#444' }}
             lens="Overview"
             data={[3, 5, 6]}
             interval="Month"

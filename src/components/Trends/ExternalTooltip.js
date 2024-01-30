@@ -89,10 +89,10 @@ export class ExternalTooltip extends React.Component {
           </p>
           <div>
             <ul className="tooltip-ul">
-              {tooltip.values.map((v, k) => (
-                <li className={'color__' + v.colorIndex} key={k + '-id'}>
-                  {this._spanFormatter(v)}
-                  <span className="u-right">{v.value.toLocaleString()}</span>
+              {tooltip.values.map((val, key) => (
+                <li className={'color__' + val.colorIndex} key={key + '-id'}>
+                  {this._spanFormatter(val)}
+                  <span className="u-right">{val.value.toLocaleString()}</span>
                 </li>
               ))}
             </ul>

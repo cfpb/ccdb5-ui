@@ -46,8 +46,8 @@ jest.mock('britecharts', () => {
 
   const mock = {};
 
-  for (let i = 0; i < props.length; i++) {
-    const propName = props[i];
+  for (let index = 0; index < props.length; index++) {
+    const propName = props[index];
     mock[propName] = jest.fn().mockImplementation(() => {
       return mock;
     });
@@ -71,8 +71,8 @@ jest.mock('d3', () => {
 
   const mock = {};
 
-  for (let i = 0; i < props.length; i++) {
-    const propName = props[i];
+  for (let index = 0; index < props.length; index++) {
+    const propName = props[index];
     mock[propName] = jest.fn().mockImplementation(() => {
       return mock;
     });
