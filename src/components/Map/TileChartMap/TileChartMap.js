@@ -23,15 +23,15 @@ export const TileChartMap = () => {
   const stateFilters = useSelector(selectQueryStateFilters);
   const stateMapResultsState = useSelector(selectMapResultsState);
   const data = useMemo(() => {
-    return stateMapResultsState.map((o) => {
-      const stateInfo = coalesce(STATE_DATA, o.name, {
+    return stateMapResultsState.map((state) => {
+      const stateInfo = coalesce(STATE_DATA, state.name, {
         name: '',
         population: 1,
       });
-      o.abbr = o.name;
-      o.fullName = stateInfo.name;
-      o.perCapita = getPerCapita(o, stateInfo);
-      return o;
+      state.abbr = state.name;
+      state.fullName = stateInfo.name;
+      state.perCapita = getPerCapita(state, stateInfo);
+      return state;
     });
   }, [stateMapResultsState]);
 
@@ -125,10 +125,10 @@ export const TileChartMap = () => {
  */
 function updateData(data, dataNormalization, statesFilter) {
   const showDefault = dataNormalization === GEO_NORM_NONE;
-  const res = data.map((o) => ({
-    ...o,
-    displayValue: showDefault ? o.value : o.perCapita,
-    className: getStateClass(statesFilter, o.name),
+  const res = data.map((datum) => ({
+    ...datum,
+    displayValue: showDefault ? datum.value : datum.perCapita,
+    className: getStateClass(statesFilter, datum.name),
   }));
 
   return res;

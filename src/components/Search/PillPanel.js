@@ -26,7 +26,7 @@ export const PillPanel = () => {
   const hasNarrative = useSelector(selectQueryHasNarrative);
   const filters = knownFilters
     // Only use the known filters that are in the query
-    .filter((x) => x in query)
+    .filter((filter) => filter in query)
     // Create a flattened array of pill objects
     .reduce((accum, fieldName) => {
       const arr = query[fieldName].map((value) => ({ fieldName, value }));
@@ -64,11 +64,11 @@ export const PillPanel = () => {
     <section className="pill-panel">
       <h3 className="h4 pill-label flex-fixed">Filters applied:</h3>
       <ul className="layout-row">
-        {filters.map((x) => (
+        {filters.map((filter) => (
           <Pill
-            key={x.fieldName + x.value}
-            fieldName={x.fieldName}
-            value={x.value}
+            key={filter.fieldName + filter.value}
+            fieldName={filter.fieldName}
+            value={filter.value}
           />
         ))}
         <li className="clear-all">

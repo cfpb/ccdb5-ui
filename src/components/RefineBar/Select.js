@@ -27,18 +27,18 @@ export const Select = ({ id, handleChange, label, title, value, values }) => {
         return values;
       } else {
         // case 1
-        return values.map((o) => ({
-          name: o,
-          value: o,
-          disabled: o.disabled,
+        return values.map((val) => ({
+          name: val,
+          value: val,
+          disabled: val.disabled,
         }));
       }
     } else {
       // case 3
-      return Object.keys(values).map((o) => ({
-        name: values[o],
-        value: o,
-        disabled: o.disabled,
+      return Object.keys(values).map((obj) => ({
+        name: values[obj],
+        value: obj,
+        disabled: obj.disabled,
       }));
     }
   }, [values]);
@@ -50,13 +50,13 @@ export const Select = ({ id, handleChange, label, title, value, values }) => {
       </label>
       <p>{title}</p>
       <select value={value} id={idSelect} onChange={handleChange}>
-        {vals.map((x) => (
+        {vals.map((val) => (
           <option
-            disabled={[x.value, x.name].includes(value) || x.disabled}
-            key={x.name}
-            value={x.value || x.name}
+            disabled={[val.value, val.name].includes(value) || val.disabled}
+            key={val.name}
+            value={val.value || val.name}
           >
-            {x.name}
+            {val.name}
           </option>
         ))}
       </select>
