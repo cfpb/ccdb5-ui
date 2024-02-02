@@ -35,8 +35,8 @@ export const mapStateToProps = (state) => {
   const { focus } = state.query;
   const isFocusPage = focus && state.query.lens === 'Company';
 
-  options.forEach((o) => {
-    o.disabled = Boolean(isFocusPage && o.key !== focus);
+  options.forEach((opt) => {
+    opt.disabled = Boolean(isFocusPage && opt.key !== focus);
   });
 
   return {

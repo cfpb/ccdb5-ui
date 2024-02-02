@@ -266,7 +266,9 @@ function handleSpecificAction(state, action) {
   return state;
 }
 
-export default (state = defaultView, action) => {
+const view = (state = defaultView, action) => {
   const newState = handleSpecificAction(state, action);
   return newState;
 };
+
+export default view;

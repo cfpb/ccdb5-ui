@@ -155,7 +155,9 @@ function handleSpecificAction(state, action) {
   return state;
 }
 
-export default (state = defaultMap, action) => {
+const map = (state = defaultMap, action) => {
   const newState = handleSpecificAction(state, action);
   return newState;
 };
+
+export default map;

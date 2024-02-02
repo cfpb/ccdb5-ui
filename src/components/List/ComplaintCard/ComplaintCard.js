@@ -8,20 +8,16 @@ import React from 'react';
 const MAX_NARRATIVE = 300;
 
 export const ComplaintCard = ({ row }) => {
-  const _stripPossibleHighlight = (s) => {
+  const _stripPossibleHighlight = (str) => {
     const re = /(<em>)?(.*?)(<\/em>)?/gi;
-    return s.replace(re, '$2');
+    return str.replace(re, '$2');
   };
   const cleanId = _stripPossibleHighlight(row.complaint_id);
   const complaintIdPath = 'detail/' + _stripPossibleHighlight(row.complaint_id);
 
-  const _renderPossibleHighlight = (s) => {
+  const _renderPossibleHighlight = (str) => {
     return (
-      <span
-        className="body-copy"
-        dangerouslySetInnerHTML={{ __html: s }}
-        tabIndex="0"
-      />
+      <span className="body-copy" dangerouslySetInnerHTML={{ __html: str }} />
     );
   };
 
@@ -56,48 +52,44 @@ export const ComplaintCard = ({ row }) => {
               {cleanId}
             </Link>
           </h3>
-          <h4 tabIndex="0">Company name</h4>
+          <h4>Company name</h4>
           {_renderPossibleHighlight(row.company)}
           <br />
-          <h4 tabIndex="0">Company response to consumer</h4>
+          <h4>Company response to consumer</h4>
           {_renderPossibleHighlight(row.company_response)}
           <br />
-          <h4 tabIndex="0">Timely response?</h4>
+          <h4>Timely response?</h4>
           {_renderPossibleHighlight(row.timely)}
         </div>
         <div className="card-right layout-column">
           <div className="layout-row">
             <div className="layout-row">
-              <h4 tabIndex="0">Date received:</h4>
+              <h4>Date received:</h4>
               <span className="body-copy">
                 <FormattedDate tabIndex="0" value={row.date_received} />
               </span>
             </div>
             <div className="spacer" />
             <div className="layout-row">
-              <h4 tabIndex="0">Consumer&apos;s state:</h4>
+              <h4>Consumer&apos;s state:</h4>
               {_renderPossibleHighlight(row.state)}
             </div>
           </div>
           <br />
-          <h4 tabIndex="0">Product</h4>
-          <h3 dangerouslySetInnerHTML={{ __html: row.product }} tabIndex="0" />
+          <h4>Product</h4>
+          <h3 dangerouslySetInnerHTML={{ __html: row.product }} />
           {row.sub_product ? (
             <div className="layout-row">
-              <span className="body-copy subitem" tabIndex="0">
-                Sub-product:
-              </span>
+              <span className="body-copy subitem">Sub-product:</span>
               {_renderPossibleHighlight(row.sub_product)}
             </div>
           ) : null}
           <br />
-          <h4 tabIndex="0">Issue</h4>
-          <h3 dangerouslySetInnerHTML={{ __html: row.issue }} tabIndex="0" />
+          <h4>Issue</h4>
+          <h3 dangerouslySetInnerHTML={{ __html: row.issue }} />
           {row.sub_issue ? (
             <div className="layout-row">
-              <span className="body-copy subitem" tabIndex="0">
-                Sub-issue:
-              </span>
+              <span className="body-copy subitem">Sub-issue:</span>
               {_renderPossibleHighlight(row.sub_issue)}
             </div>
           ) : null}

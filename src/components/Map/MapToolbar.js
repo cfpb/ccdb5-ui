@@ -11,8 +11,8 @@ export const MapToolbar = () => {
   const stateFilters = useSelector(selectQueryStateFilters);
   const filteredStates = stateFilters
     ? stateFilters
-        .filter((x) => x in THESE_UNITED_STATES)
-        .map((x) => THESE_UNITED_STATES[x])
+        .filter((state) => state in THESE_UNITED_STATES)
+        .map((state) => THESE_UNITED_STATES[state])
         .join(', ')
     : '';
 

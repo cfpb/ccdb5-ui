@@ -16,8 +16,8 @@ const fixture = [
 function setupEnzyme(options, selections) {
   const props = {
     fieldName: 'foo',
-    onMissingItem: jest.fn((x) => {
-      return StickyOptions.defaultProps.onMissingItem(x);
+    onMissingItem: jest.fn((item) => {
+      return StickyOptions.defaultProps.onMissingItem(item);
     }),
     options: options.slice(),
     selections: selections.slice(),

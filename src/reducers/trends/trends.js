@@ -676,8 +676,10 @@ function handleSpecificAction(state, action) {
   return state;
 }
 
-export default (state = defaultTrends, action) => {
+const trends = (state = defaultTrends, action) => {
   const newState = handleSpecificAction(state, action);
   validateTrendsReducer(newState);
   return newState;
 };
+
+export default trends;

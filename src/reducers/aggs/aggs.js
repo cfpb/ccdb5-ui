@@ -131,7 +131,9 @@ function handleSpecificAction(state, action) {
   return state;
 }
 
-export default (state = defaultAggs, action) => {
+const aggs = (state = defaultAggs, action) => {
   const newState = handleSpecificAction(state, action);
   return newState;
 };
+
+export default aggs;

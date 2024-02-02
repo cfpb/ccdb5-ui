@@ -1228,7 +1228,7 @@ function handleSpecificAction(state, action) {
   return state;
 }
 
-export default (state = defaultQuery, action) => {
+const query = (state = defaultQuery, action) => {
   const newState = handleSpecificAction(state, action);
 
   const breakPointActions = [
@@ -1274,3 +1274,5 @@ export default (state = defaultQuery, action) => {
 
   return newState;
 };
+
+export default query;

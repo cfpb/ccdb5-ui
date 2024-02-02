@@ -109,7 +109,9 @@ function handleSpecificAction(state, action) {
   return state;
 }
 
-export default (state = defaultResults, action) => {
+const results = (state = defaultResults, action) => {
   const newState = handleSpecificAction(state, action);
   return newState;
 };
+
+export default results;

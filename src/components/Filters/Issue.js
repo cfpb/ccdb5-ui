@@ -27,9 +27,9 @@ export const Issue = ({ hasChildren }) => {
   const filters = coalesce(query, 'issue', []);
   const selections = [];
   // Reduce the issues to the parent keys (and dedup)
-  filters.forEach((x) => {
-    const idx = x.indexOf(SLUG_SEPARATOR);
-    const key = idx === -1 ? x : x.substr(0, idx);
+  filters.forEach((filter) => {
+    const idx = filter.indexOf(SLUG_SEPARATOR);
+    const key = idx === -1 ? filter : filter.substr(0, idx);
     if (selections.indexOf(key) === -1) {
       selections.push(key);
     }
@@ -37,18 +37,18 @@ export const Issue = ({ hasChildren }) => {
   // Make a cloned, sorted version of the aggs
   const options = sortSelThenCount(coalesce(aggs, 'issue', []), selections);
   // create an array optimized for typeahead
-  const optionKeys = options.map((x) => x.key);
+  const optionKeys = options.map((opt) => opt.key);
 
   const onInputChange = (value) => {
-    const n = value.toLowerCase();
-    if (n === '') {
+    const num = value.toLowerCase();
+    if (num === '') {
       setDropdownOptions([]);
       return;
     }
-    const options = optionKeys.map((x) => ({
-      key: x,
-      label: x,
-      position: x.toLowerCase().indexOf(n),
+    const options = optionKeys.map((opt) => ({
+      key: opt,
+      label: opt,
+      position: opt.toLowerCase().indexOf(num),
       value,
     }));
     setDropdownOptions(options);
@@ -57,7 +57,7 @@ export const Issue = ({ hasChildren }) => {
   const onSelection = (items) => {
     const replacementFilters = filters
       // remove child items
-      .filter((o) => o.indexOf(items[0].key + SLUG_SEPARATOR) === -1)
+      .filter((filter) => filter.indexOf(items[0].key + SLUG_SEPARATOR) === -1)
       // add parent item
       .concat(items[0].key);
     dispatch(replaceFilters('issue', replacementFilters));
