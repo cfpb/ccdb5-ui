@@ -20,7 +20,7 @@ export const ComplexExample = ({ id, notes, placeholderText, tooltipText }) => {
         <h3 className="h4 o-expandable_label">
           Additional information and examples
         </h3>
-        <span className="o-expandable_link">
+        <span className="o-expandable_link o-expandable_cues">
           {isOpen ? (
             <span className="o-expandable_cue o-expandable_cue-close">
               <span className="u-visually-hidden-on-mobile">
