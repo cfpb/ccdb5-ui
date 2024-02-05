@@ -7,6 +7,7 @@ import { ReactComponent as Copy } from '../icons/copy.svg';
 import { ReactComponent as Down } from '../icons/down.svg';
 import { ReactComponent as Error } from '../icons/error.svg';
 import { ReactComponent as ErrorRound } from '../icons/error-round.svg';
+import { ReactComponent as ExternalLink } from '../icons/external-link.svg';
 import { ReactComponent as HelpRound } from '../icons/help-round.svg';
 import { ReactComponent as Left } from '../icons/left.svg';
 import { ReactComponent as LineChart } from '../icons/line-chart-custom.svg';
@@ -40,6 +41,7 @@ const iconMap = {
   down: <Down />,
   // cf-icon-svg__error-round
   'error-round': <ErrorRound />,
+  'external-link': <ExternalLink />,
   // cf-icon-svg__help-round
   'help-round': <HelpRound />,
   // cf-icon-svg__left
