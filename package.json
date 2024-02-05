@@ -1,6 +1,6 @@
 {
   "name": "@cfpb/ccdb5-ui",
-  "version": "2.7.0",
+  "version": "2.9.2",
   "description": "Consumer Complaint Database UI",
   "homepage": "https://www.consumerfinance.gov/",
   "repository": {
@@ -8,6 +8,9 @@
     "url": "http://github.com/cfpb/ccdb5-ui.git"
   },
   "license": "CC0-1.0",
+  "engines": {
+    "node": ">=16.x"
+  },
   "author": {
     "name": "Consumer Financial Protection Bureau",
     "email": "tech@cfpb.gov",
@@ -46,13 +49,13 @@
     "@cfpb/cfpb-expandables": "^0.17.12",
     "@cfpb/cfpb-forms": "0.27.0",
     "@cfpb/cfpb-grid": "0.27.0",
-    "@cfpb/cfpb-icons": "0.27.0",
+    "@cfpb/cfpb-icons": "^0.31.0",
     "@cfpb/cfpb-layout": "0.27.1",
     "@cfpb/cfpb-notifications": "0.27.0",
     "@cfpb/cfpb-pagination": "0.27.0",
     "@cfpb/cfpb-tables": "0.27.0",
     "@cfpb/cfpb-typography": "0.27.0",
-    "@craco/craco": "^6.4.3",
+    "@craco/craco": "^7.1.0",
     "@reduxjs/toolkit": "^1.8.5",
     "@testing-library/cypress": "^8.0.3",
     "@testing-library/jest-dom": "^5.16.5",
@@ -129,5 +132,5 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "proxy": "http://localhost:8000"
+  "proxy": "https://www.consumerfinance.gov"
 }

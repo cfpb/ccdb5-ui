@@ -22,12 +22,10 @@ dayjs.extend(dayjsIsBetween);
 dayjs.extend(dayjsUtc);
 
 const WARN_SERIES_BREAK =
-  'CFPB updated product and issue options' +
-  ' available to consumers in April 2017 ';
+  'CFPB updated product and issue options in April 2017 and August 2023.';
 
 const LEARN_SERIES_BREAK =
-  'https://files.consumerfinance.gov/f/' +
-  'documents/201704_cfpb_Summary_of_Product_and_Sub-product_Changes.pdf';
+  'https://www.consumerfinance.gov/data-research/consumer-complaints/#past-changes';
 
 export const DateFilter = () => {
   const fieldName = 'date_received';
@@ -42,11 +40,8 @@ export const DateFilter = () => {
   const [throughDate, setThroughDate] = useState(initialThroughDate);
   const dispatch = useDispatch();
 
-  const from = fromDate || minDate;
-  const through = throughDate || maxDate;
-
-  const showWarning = dayjs('2017-04-23').isBetween(from, through, 'day');
   const errorMessageText = "'From' date must be less than 'through' date";
+  const errorSameDate = "'From' date cannot be the same as 'Through' date";
 
   const fromRef = useRef();
   const throughRef = useRef();
@@ -88,6 +83,9 @@ export const DateFilter = () => {
     if (dayjs(fromDate).isAfter(throughDate)) {
       return errorMessageText;
     }
+    if (dayjs(fromDate).isSame(throughDate)) {
+      return errorSameDate;
+    }
     return false;
   }, [fromDate, throughDate]);
 
@@ -117,7 +115,8 @@ export const DateFilter = () => {
     const style = ['a-text-input'];
     if (
       dayjs(fromDate).isBefore(minDate) ||
-      dayjs(fromDate).isAfter(throughDate)
+      dayjs(fromDate).isAfter(throughDate) ||
+      dayjs(fromDate).isSame(throughDate)
     ) {
       style.push('a-text-input__error');
     }
@@ -128,7 +127,8 @@ export const DateFilter = () => {
     const style = ['a-text-input'];
     if (
       dayjs(throughDate).isAfter(maxDate) ||
-      dayjs(throughDate).isBefore(fromDate)
+      dayjs(throughDate).isBefore(fromDate) ||
+      dayjs(throughDate).isSame(fromDate)
     ) {
       style.push('a-text-input__error');
     }
@@ -138,6 +138,19 @@ export const DateFilter = () => {
   return (
     <CollapsibleFilter title={title} className="aggregation date-filter">
       <div>
+        <p className="u-mt15">
+          {' '}
+          {WARN_SERIES_BREAK}{' '}
+          <a
+            href={LEARN_SERIES_BREAK}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Learn more about Product and
+                  Issue changes (opens in new window)"
+          >
+            Learn More
+          </a>
+        </p>
         <ul className="date-inputs">
           <li>
             <label
@@ -212,21 +225,6 @@ export const DateFilter = () => {
               {iconMap.getIcon('delete-round', 'cf-icon-delete-round')}
             </span>
           </>
-        ) : null}
-        {showWarning ? (
-          <p>
-            {' '}
-            {WARN_SERIES_BREAK}
-            <a
-              href={LEARN_SERIES_BREAK}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Learn more about Product and
-                  Issue changes (opens in new window)"
-            >
-              Learn More
-            </a>
-          </p>
         ) : null}
       </div>
     </CollapsibleFilter>

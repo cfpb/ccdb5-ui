@@ -16,7 +16,6 @@ describe('component:WindowSize', () => {
           <div className="h4 m-notification_message">Some nag message</div>
         )
     ).toEqual(true);
-    expect(wrapper.find('svg').length).toEqual(1);
   });
 
   it('renders Warning w/ close button without crashing', () => {
@@ -35,8 +34,6 @@ describe('component:WindowSize', () => {
           </div>
         )
     ).toEqual(true);
-
-    expect(wrapper.find('svg').length).toEqual(2);
 
     const button = wrapper.find('.close');
     button.simulate('click');

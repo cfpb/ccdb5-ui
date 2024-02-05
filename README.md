@@ -54,23 +54,21 @@ Please see the subsection Configuring in [INSTALL](INSTALL.md#configuring)
 This application depends on the [Public Complaints API](https://github.com/cfpb/ccdb5-api)
 to be available.
 
-For local development, you will need to the following:
+To run the app locally using the public consumerfinance.gov API, install dependencies and start the app in development mode:
 
-- [Run consumerfinance.gov locally (which includes the API)](https://github.com/cfpb/consumerfinance.gov#quickstart).
-- [Fill the local Elasticsearch with data](https://github.com/cfpb/ccdb-data-pipeline/blob/main/INSTALL.md).
+```
+yarn
+yarn start
+```
 
-**_Note:_** The Public Complaints API runs as part of consumerfinance.gov, but you can run the API as an independent app:
-
-- Ensure the consumerfinance.gov python container is stopped with `docker-compose stop python`.
-- [Install the API](https://github.com/cfpb/ccdb5-api#setup--running) and run it with `python manage.py runserver`.
-- Edit [`env.js`](https://github.com/cfpb/ccdb5-ui/blob/main/config/env.js#L104) to point `ccdbApiUrl.dev` to the locally running API (likely at `http://localhost:8000/`).
+If you want to run the app against a local version of the API, edit the [`proxy`](https://github.com/cfpb/ccdb5-ui/blob/main/package.json#L134) property to point to your local API server, likely http://localhost:8000. See the [API docs](https://github.com/cfpb/ccdb5-api#setup--running) to learn how to setup and run the API.
 
 ###### Code-Build cycle
 
-To run the app in development mode:
+Run the app in development mode:
 
 ```bash
-yarn run start
+yarn start
 ```
 
 Open http://localhost:3000 to view it in the browser.
@@ -87,7 +85,7 @@ Enter `Control-C` to exit development mode
 To launch the JavaScript test runner in interactive watch/test mode:
 
 ```bash
-yarn run test
+yarn test
 ```
 
 Enter `Control-C` to exit interactive watch mode
@@ -114,19 +112,19 @@ You can run the tests in headless mode and just see results, or you can open the
 To run local tests and just see results:
 
 ```bash
-yarn run cypress run --browser chrome --headless
+yarn cypress run --browser chrome --headless
 ```
 
-This will run Cypress against a local version of consumerfinance.gov running on port 8000. To use a different port, such as the port 3000 used by `yarn run start`, pass a `--baseUrl` parameter:
+This will run Cypress against a local version of consumerfinance.gov running on port 8000. To use a different port, such as the port 3000 used by `yarn start`, pass a `--baseUrl` parameter:
 
 ```bash
-yarn run cypress run --browser chrome --headless --config baseUrl=http://localhost:3000/data-research/consumer-complaints/search/
+yarn cypress run --browser chrome --headless --config baseUrl=http://localhost:3000/data-research/consumer-complaints/search/
 ```
 
 To open a local Cypress test-runner to choose which tests to run and see the browser interactions:
 
 ```bash
-yarn run cypress open --browser chrome
+yarn cypress open --browser chrome
 ```
 
 ### To run against a server
@@ -138,7 +136,7 @@ the tests will probably run into API throttling, which will make tests fail.
 Our internal DEV servers can be deployed with `DEBUG=True` for running Cypress tests.
 
 ```bash
-yarn run cypress run --browser chrome --headless --config baseUrl=https://[DEV SERVER URL]/data-research/consumer-complaints/search/
+yarn cypress run --browser chrome --headless --config baseUrl=https://[DEV SERVER URL]/data-research/consumer-complaints/search/
 ```
 
 ## Release management
@@ -160,11 +158,11 @@ Ready to publish changes to npm?
 ### Steps:
 
 1. Ensure you're on `main` and `git pull` to confirm you're up-to-date.
-2. Run `yarn run build` to ensure you have the latest built artifacts for npm.
+2. Run `yarn build` to ensure you have the latest built artifacts for npm.
    Commit any changes to `/dist/` directory files to `main`.
 3. Source your `.env` with `source ./.env` (if `GITHUB_TOKEN` in unset).
 4. Log into npm with `npm login` (if not already logged in).
-5. Run `yarn run release` to start the release.
+5. Run `yarn release` to start the release.
    This'll run the build scripts to copy the latest JS into
    the `dist` directory. It then uses
    [release-it](https://github.com/release-it/release-it/) to publish to
@@ -189,7 +187,7 @@ Ready to publish changes to npm?
 ### Troubleshooting
 
 - Ensure your npm version is up-to-date.
-- `yarn run release` can't find https://www.npmjs.com/package/@cfpb/ccdb5-ui
+- `yarn release` can't find https://www.npmjs.com/package/@cfpb/ccdb5-ui
   and doesn't succeed.
   - You're probably not an npm maintainer on the ccdb5-ui project.
     Reach out to a core consumerfinance.gov member to get access.

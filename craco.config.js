@@ -4,6 +4,8 @@ const {
   addAfterLoader,
   addAfterLoaders,
   addBeforeLoader,
+  addAfterAssetModule,
+  assetModuleByName,
   getLoader,
   getLoaders,
   removeLoader,
@@ -27,9 +29,7 @@ module.exports = {
               search: '@@API',
               replace(match, p1, offset, string) {
                 const replacement =
-                  process.env.NODE_ENV === 'production'
-                    ? '/data-research/consumer-complaints/search/api/v1/'
-                    : 'http://localhost:8000/data-research/consumer-complaints/search/api/v1/';
+                  '/data-research/consumer-complaints/search/api/v1/';
                 console.log(
                   `Replaced "${match}" in file "${this.resource}" with "${replacement}.`
                 );
