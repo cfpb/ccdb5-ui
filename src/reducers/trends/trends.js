@@ -45,7 +45,7 @@ export const getDefaultState = () =>
       lens: 'Product',
       subLens: 'sub_product',
     },
-    { ...getResetState() },
+    { ...getResetState() }
   );
 
 export const defaultTrends = getDefaultState();
@@ -160,7 +160,7 @@ function processAreaData(state, aggregations) {
       name: mainName,
       value: obj.doc_count,
       date: obj.key_as_string,
-    }),
+    })
   );
 
   // overall buckets
@@ -194,7 +194,7 @@ function processAreaData(state, aggregations) {
       const pos = compBuckets.findIndex(
         (cBuck) =>
           cBuck.name === mainName &&
-          isDateEqual(cBuck.date, bucket.key_as_string),
+          isDateEqual(cBuck.date, bucket.key_as_string)
       );
 
       /* istanbul ignore else */
@@ -265,7 +265,7 @@ function processLineData(lens, aggregations, focus, subLens) {
 
     // sort dates so it doesn't break line chart
     dataByTopic[0].dates.sort(
-      (first, second) => new Date(first.date) - new Date(second.date),
+      (first, second) => new Date(first.date) - new Date(second.date)
     );
   }
 
@@ -278,7 +278,7 @@ function processLineData(lens, aggregations, focus, subLens) {
       const dateBuckets = updateDateBuckets(
         name,
         aggBuckets[index].trend_period.buckets,
-        rangeBuckets,
+        rangeBuckets
       );
       dataByTopic.push({
         topic: name,
@@ -323,7 +323,7 @@ export const getColorScheme = (lens, rowNames) => {
   // remove other so we can shove that color in later
   const uniqueNames = [
     ...new Set(
-      rowNames.filter((item) => item.name !== 'Other').map((item) => item.name),
+      rowNames.filter((item) => item.name !== 'Other').map((item) => item.name)
     ),
   ];
 
@@ -576,7 +576,7 @@ function updateTooltip(state, action) {
       tooltip.date,
       tooltip.interval,
       tooltip.dateRange,
-      true,
+      true
     );
 
     /* istanbul ignore else */
@@ -591,7 +591,7 @@ function updateTooltip(state, action) {
       let total = 0;
       total = tooltip.values.reduce(
         (accumulator, currentValue) => accumulator + currentValue.value,
-        total,
+        total
       );
       tooltip.total = total;
     }

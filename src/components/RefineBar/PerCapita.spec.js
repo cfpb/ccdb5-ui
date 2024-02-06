@@ -37,7 +37,7 @@ describe('PerCapita', () => {
     expect(
       screen.getByRole('button', {
         name: 'Display map by complaints per 1,000 people',
-      }),
+      })
     ).toBeInTheDocument();
   });
 

@@ -78,7 +78,7 @@ function setupSnapshot(initial) {
       <IntlProvider locale="en">
         <ReduxProduct />
       </IntlProvider>
-    </Provider>,
+    </Provider>
   );
 }
 
@@ -103,7 +103,7 @@ describe('component:Product', () => {
         'Credit reporting, credit repair services, or other personal consumer reports',
         slugify(
           'Credit reporting, credit repair services, or other personal consumer reports',
-          'Other personal consumer report',
+          'Other personal consumer report'
         ),
         'Credit card',
       ];

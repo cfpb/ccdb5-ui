@@ -2,7 +2,7 @@ import { ariaReadoutNumbers } from '../../utils';
 import { FormattedDate } from 'react-intl';
 import React from 'react';
 import PropTypes from 'prop-types';
-import iconMap from '../iconMap';
+import getIcon from '../iconMap';
 
 const SubAggregation = ({ label, value }) => {
   return value ? (
@@ -33,9 +33,9 @@ const ConsumerConsent = ({ value }) => {
     const consentIconLookup = iconLookupMap[value];
     const iconName = consentIconLookup[0];
     const customClass = consentIconLookup[1];
-    consentIcon = iconMap.getIcon(iconName, customClass);
+    consentIcon = getIcon(iconName, customClass);
   } else {
-    consentIcon = iconMap.getIcon('error-round', 'cf-icon-error-round');
+    consentIcon = getIcon('error-round', 'cf-icon-error-round');
     value = 'No data available';
   }
 
@@ -61,10 +61,10 @@ const CompanyTimely = ({ value }) => {
   return (
     <div>
       <span className="cf-icon__before">
-        {iconMap.getIcon(
+        {getIcon(
           'clock-round',
           'cf-icon-clock-round' +
-            (value.toLowerCase() === 'no' ? ' not-timely' : ''),
+            (value.toLowerCase() === 'no' ? ' not-timely' : '')
         )}
       </span>
       <span className="body-copy">{value}</span>

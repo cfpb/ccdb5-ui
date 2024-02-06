@@ -23,11 +23,11 @@ describe('StaleDataWarnings', () => {
 
     expect(
       screen.getByText(
-        /We’re currently experiencing technical issues that have delayed the refresh of data on the Consumer Complaint Database./,
-      ),
+        /We’re currently experiencing technical issues that have delayed the refresh of data on the Consumer Complaint Database./
+      )
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/We expect to refresh the data in the next few days./),
+      screen.getByText(/We expect to refresh the data in the next few days./)
     ).toBeInTheDocument();
   });
 
@@ -39,11 +39,11 @@ describe('StaleDataWarnings', () => {
 
     expect(
       screen.getByText(
-        /We’re currently experiencing technical issues that have delayed the refresh of data on the Consumer Complaint Database./,
-      ),
+        /We’re currently experiencing technical issues that have delayed the refresh of data on the Consumer Complaint Database./
+      )
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/We expect to refresh the data in the next few days./),
+      screen.getByText(/We expect to refresh the data in the next few days./)
     ).toBeInTheDocument();
   });
   test('both data issues', () => {
@@ -54,18 +54,18 @@ describe('StaleDataWarnings', () => {
 
     expect(
       screen.getByText(
-        /We’re currently experiencing technical issues that have delayed the refresh of data on the Consumer Complaint Database./,
-      ),
+        /We’re currently experiencing technical issues that have delayed the refresh of data on the Consumer Complaint Database./
+      )
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/We expect to refresh the data in the next few days./),
+      screen.getByText(/We expect to refresh the data in the next few days./)
     ).toBeInTheDocument();
   });
 
   test('no issues', () => {
     renderComponent({});
     expect(
-      screen.queryByText(/We expect to refresh the data in the next few days./),
+      screen.queryByText(/We expect to refresh the data in the next few days./)
     ).toBeNull();
   });
 });

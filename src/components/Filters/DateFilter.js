@@ -15,7 +15,7 @@ import dayjsCustomParseFormat from 'dayjs/plugin/customParseFormat';
 import dayjsIsBetween from 'dayjs/plugin/isBetween';
 import dayjsUtc from 'dayjs/plugin/utc';
 import { formatDate } from '../../utils/formatDate';
-import iconMap from '../iconMap';
+import getIcon from '../iconMap';
 
 dayjs.extend(dayjsCustomParseFormat);
 dayjs.extend(dayjsIsBetween);
@@ -171,7 +171,7 @@ export const DateFilter = () => {
                 className="a-btn a-btn__link"
                 onClick={() => handleClear('from')}
               >
-                {iconMap.getIcon('delete')}
+                {getIcon('delete')}
                 <span className="u-visually-hidden">
                   Clear date received from filter
                 </span>
@@ -203,7 +203,7 @@ export const DateFilter = () => {
                 className="a-btn a-btn__link"
                 onClick={() => handleClear('through')}
               >
-                {iconMap.getIcon('delete')}
+                {getIcon('delete')}
                 <span className="u-visually-hidden">
                   Clear date received through filter
                 </span>
@@ -216,7 +216,7 @@ export const DateFilter = () => {
           <>
             {errors + ' '}
             <span aria-hidden="true">
-              {iconMap.getIcon('delete-round', 'cf-icon-delete-round')}
+              {getIcon('delete-round', 'cf-icon-delete-round')}
             </span>
           </>
         ) : null}

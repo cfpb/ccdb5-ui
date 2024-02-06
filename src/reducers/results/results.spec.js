@@ -75,8 +75,8 @@ describe('reducer:results', () => {
           {
             items: [1, 2, 3],
           },
-          action,
-        ),
+          action
+        )
       ).toEqual({
         activeCall: '',
         error: 'foo bar',

@@ -20,7 +20,7 @@ describe('Select', () => {
         id="txt"
         value="Dos"
         handleChange={changeSpy}
-      />,
+      />
     );
 
     expect(screen.getByRole('option', { name: 'Dos' }).selected).toBe(true);
@@ -50,10 +50,10 @@ describe('Select', () => {
         id="size"
         value="10"
         handleChange={changeSpy}
-      />,
+      />
     );
     expect(screen.getByRole('option', { name: '10 results' }).selected).toBe(
-      true,
+      true
     );
     const opts = screen.getAllByRole('option');
     expect(opts.length).toBe(4);
@@ -87,7 +87,7 @@ describe('Select', () => {
         id="txt"
         value="Dos"
         handleChange={changeSpy}
-      />,
+      />
     );
 
     expect(screen.getByRole('option', { name: 'Uno' })).toBeDisabled();

@@ -452,7 +452,7 @@ export const sendAnalyticsEvent = (action, label) => {
 export const selectedClass = (
   first,
   second,
-  selectedClassName = 'selected',
+  selectedClassName = 'selected'
 ) => {
   return first === second ? ' ' + selectedClassName : '';
 };

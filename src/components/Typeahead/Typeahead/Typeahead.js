@@ -2,7 +2,7 @@ import '../Typeahead.less';
 import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Typeahead as DropdownTypeahead } from 'react-bootstrap-typeahead';
-import iconMap from '../../iconMap';
+import getIcon from '../../iconMap';
 import HighlightingOption from '../HighlightingOption/HighlightingOption';
 import { ClearButton } from '../ClearButton/ClearButton';
 
@@ -35,7 +35,7 @@ export const Typeahead = ({
           className="input-contains-label_before
                             input-contains-label_before__search"
         >
-          {iconMap.getIcon('search')}
+          {getIcon('search')}
         </div>
         <label className="u-visually-hidden" htmlFor={htmlId}>
           {ariaLabel}

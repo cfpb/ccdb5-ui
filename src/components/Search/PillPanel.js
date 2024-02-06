@@ -11,7 +11,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 
 import dayjs from 'dayjs';
-import iconMap from '../iconMap';
+import getIcon from '../iconMap';
 import { Pill } from './Pill';
 import React from 'react';
 import { removeAllFilters } from '../../actions/filter';
@@ -76,7 +76,7 @@ export const PillPanel = () => {
             className="a-btn a-btn__link body-copy"
             onClick={() => dispatch(removeAllFilters())}
           >
-            {iconMap.getIcon('delete')}
+            {getIcon('delete')}
             Clear all filters
           </button>
         </li>

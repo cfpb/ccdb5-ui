@@ -1,11 +1,11 @@
-import iconMap from '../iconMap';
+import getIcon from '../iconMap';
 
 describe('getIcon', () => {
   const consoleSpy = jest.spyOn(console, 'error');
   it('gets a known icon', () => {
-    const res = iconMap.getIcon('minus-round');
+    const res = getIcon('minus-round');
     expect(JSON.stringify(res)).toEqual(
-      '{"type":{},"key":null,"ref":null,"props":{},"_owner":null,"_store":{}}',
+      '{"type":{},"key":null,"ref":null,"props":{},"_owner":null,"_store":{}}'
     );
   });
 

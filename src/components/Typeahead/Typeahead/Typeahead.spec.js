@@ -28,7 +28,7 @@ describe('Typeahead', () => {
         hasClearButton={hasClear || false}
         options={[appleOption]}
         placeholder="Enter search terms"
-      />,
+      />
     );
   };
 

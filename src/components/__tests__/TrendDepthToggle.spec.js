@@ -32,7 +32,7 @@ function setupEnzyme({ cbIncrease, cbReset, diff, queryCount, resultCount }) {
       queryCount={queryCount}
       resultCount={resultCount}
       hasToggle={true}
-    />,
+    />
   );
 }
 
@@ -43,7 +43,7 @@ function setupEnzyme({ cbIncrease, cbReset, diff, queryCount, resultCount }) {
  * @param {string} root0.lens - The lens
  * @param {object} root0.productAggs - Product aggs
  * @param {object} root0.productResults - Product results
- * @returns {React.Component}
+ * @returns {Function} - Trends Depth Toggle component renderer
  */
 function setupSnapshot({ focus, lens, productAggs, productResults }) {
   const middlewares = [thunk];
@@ -68,7 +68,7 @@ function setupSnapshot({ focus, lens, productAggs, productResults }) {
       <IntlProvider locale="en">
         <ReduxTrendDepthToggle />
       </IntlProvider>
-    </Provider>,
+    </Provider>
   );
 }
 

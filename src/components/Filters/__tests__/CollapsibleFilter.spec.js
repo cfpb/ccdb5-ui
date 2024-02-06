@@ -7,7 +7,7 @@ describe('component:CollapsibleFilter', () => {
   describe('initial state', () => {
     it('renders without crashing', () => {
       const target = renderer.create(
-        <CollapsibleFilter title="foo" desc="bar" />,
+        <CollapsibleFilter title="foo" desc="bar" />
       );
 
       const tree = target.toJSON();

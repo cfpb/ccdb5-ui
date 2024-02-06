@@ -8,7 +8,7 @@ import { filterPatch, SLUG_SEPARATOR } from '../../constants';
 import { formatPillPrefix, getUpdatedFilters } from '../../utils/filters';
 import { useDispatch, useSelector } from 'react-redux';
 import { coalesce } from '../../utils';
-import iconMap from '../iconMap';
+import getIcon from '../iconMap';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { selectAggsState } from '../../reducers/aggs/selectors';
@@ -34,7 +34,7 @@ export const Pill = ({ fieldName, value }) => {
           filterName,
           filters,
           aggs,
-          fieldName,
+          fieldName
         );
         dispatch(replaceFilters(fieldName, updatedFilters));
       } else {
@@ -53,7 +53,7 @@ export const Pill = ({ fieldName, value }) => {
         <span className="u-visually-hidden">
           {`Remove ${trimmed} as a filter`}
         </span>
-        {iconMap.getIcon('delete')}
+        {getIcon('delete')}
       </button>
     </li>
   );

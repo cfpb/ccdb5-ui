@@ -18,7 +18,7 @@ describe('ListPanel', () => {
     newAggsState,
     newQueryState,
     newResultsState,
-    newViewState,
+    newViewState
   ) => {
     merge(newAggsState, defaultAggs);
     merge(newQueryState, defaultQuery);
@@ -76,7 +76,7 @@ describe('ListPanel', () => {
     expect(
       screen.getByRole('heading', {
         name: /No results were found for your search/,
-      }),
+      })
     ).toBeDefined();
   });
 
@@ -88,7 +88,7 @@ describe('ListPanel', () => {
     renderComponent(newAggsState, defaultQuery, defaultResults, defaultView);
 
     expect(
-      screen.getByText(/There was a problem executing your search/),
+      screen.getByText(/There was a problem executing your search/)
     ).toBeDefined();
   });
 
@@ -122,7 +122,7 @@ describe('ListPanel', () => {
       screen.getByRole('combobox', {
         name: 'Select the number of results to display at a time',
       }),
-      { target: { value: '10' } },
+      { target: { value: '10' } }
     );
 
     expect(analyticsSpy).toBeCalledWith('Dropdown', '10 results');
@@ -147,7 +147,7 @@ describe('ListPanel', () => {
       screen.getByRole('combobox', {
         name: 'Choose the order in which the results are displayed',
       }),
-      { target: { value: 'created_date_asc' } },
+      { target: { value: 'created_date_asc' } }
     );
 
     expect(analyticsSpy).toBeCalledWith('Dropdown', 'Oldest to newest');

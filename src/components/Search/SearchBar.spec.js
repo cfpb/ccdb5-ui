@@ -39,16 +39,16 @@ describe('SearchBar', () => {
 
     renderComponent(newQueryState, newViewState);
     user.click(
-      screen.getByRole('button', { name: /Show advanced search tips/ }),
+      screen.getByRole('button', { name: /Show advanced search tips/ })
     );
     expect(
-      await screen.findByRole('button', { name: /Hide advanced search tips/ }),
+      await screen.findByRole('button', { name: /Hide advanced search tips/ })
     ).toBeInTheDocument();
     user.click(
-      screen.getByRole('button', { name: /Hide advanced search tips/ }),
+      screen.getByRole('button', { name: /Hide advanced search tips/ })
     );
     expect(
-      await screen.findByRole('button', { name: /Show advanced search tips/ }),
+      await screen.findByRole('button', { name: /Show advanced search tips/ })
     ).toBeInTheDocument();
   });
 
@@ -63,7 +63,7 @@ describe('SearchBar', () => {
     const fieldSelect = screen.getByRole('combobox');
     await user.selectOptions(fieldSelect, 'Company name');
     await waitFor(() =>
-      expect(searchFieldChangedSpy).toBeCalledWith('company'),
+      expect(searchFieldChangedSpy).toBeCalledWith('company')
     );
   });
 

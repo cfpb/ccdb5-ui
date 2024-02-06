@@ -31,7 +31,7 @@ import { trendsDateWarningDismissed } from '../../actions/view';
 import Warning from '../Warnings/Warning';
 
 const WARNING_MESSAGE =
-  '“Day” interval is disabled when the date range is' + ' longer than one year';
+  '“Day” interval is disabled when the date range is longer than one year';
 
 const subLensMap = {
   sub_product: 'Sub-products',
@@ -333,6 +333,7 @@ export const mapDispatchToProps = (dispatch) => ({
   },
 });
 
+// eslint-disable-next-line react-redux/prefer-separate-component-file
 export default connect(mapStateToProps, mapDispatchToProps)(TrendsPanel);
 
 TrendsPanel.propTypes = {

@@ -173,7 +173,7 @@ export class RowChart extends React.Component {
 
     rowContainer.datum(rows).call(chart);
     const tooltipContainer = d3.selectAll(
-      chartID + ' .row-chart .metadata-group',
+      chartID + ' .row-chart .metadata-group'
     );
     tooltipContainer.datum([]).call(tooltip);
     this._wrapText(d3.select(chartID).selectAll('.tick text'), marginLeft);
@@ -181,7 +181,7 @@ export class RowChart extends React.Component {
     this._wrapText(
       d3.select(chartID).selectAll('.view-more-label'),
       width / 2,
-      true,
+      true
     );
 
     rowContainer.selectAll('.y-axis-group .tick').on('click', this._toggleRow);

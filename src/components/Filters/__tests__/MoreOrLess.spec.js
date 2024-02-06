@@ -58,7 +58,7 @@ function setupSnapshot(hasMore) {
       <IntlProvider locale="en">
         <MoreOrLess {...props} />
       </IntlProvider>
-    </Provider>,
+    </Provider>
   );
 }
 

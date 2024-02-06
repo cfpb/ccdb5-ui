@@ -38,7 +38,7 @@ function testRender(
       preloadedState,
     }),
     ...renderOptions
-  } = {},
+  } = {}
 ) {
   /**
    *
@@ -92,7 +92,7 @@ function testRenderWithMemoryRouter(
       preloadedState,
     }),
     ...renderOptions
-  } = {},
+  } = {}
 ) {
   /**
    *

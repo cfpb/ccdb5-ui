@@ -20,7 +20,7 @@ describe('Input', () => {
         handleClear={handleClearMock}
         handlePressEnter={handleEnterMock}
         isClearVisible={isVisible || false}
-      />,
+      />
     );
   };
 

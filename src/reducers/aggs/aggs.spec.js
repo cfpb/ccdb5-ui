@@ -40,8 +40,8 @@ describe('reducer:aggs', () => {
           company: ['ab', 'cd'],
           error: '',
         },
-        action,
-      ),
+        action
+      )
     ).toEqual(expected);
   });
 

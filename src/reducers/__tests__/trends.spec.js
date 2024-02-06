@@ -167,8 +167,8 @@ describe('reducer:trends', () => {
             focus: 'gg',
             tooltip: { wut: 'isthis' },
           },
-          action,
-        ),
+          action
+        )
       ).toEqual({
         chartType: 'line',
         focus: 'Some Rando Text',
@@ -191,8 +191,8 @@ describe('reducer:trends', () => {
             focus: 'gg',
             tooltip: { wut: 'isthis' },
           },
-          action,
-        ),
+          action
+        )
       ).toEqual({
         chartType: 'line',
         focus: '',
@@ -257,8 +257,8 @@ describe('reducer:trends', () => {
             focus: 'Your',
             results: [1, 2, 3],
           },
-          action,
-        ),
+          action
+        )
       ).toEqual({
         chartType: 'line',
         focus: '',
@@ -281,8 +281,8 @@ describe('reducer:trends', () => {
             focus: 'Your',
             results: [1, 2, 3],
           },
-          action,
-        ),
+          action
+        )
       ).toEqual({
         chartType: 'line',
         focus: 'Your',
@@ -323,8 +323,8 @@ describe('reducer:trends', () => {
               product: [13, 25],
             },
           },
-          action,
-        ),
+          action
+        )
       ).toEqual({
         activeCall: '',
         chartType: 'line',

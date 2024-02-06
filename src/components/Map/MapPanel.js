@@ -66,7 +66,7 @@ export const MapPanel = () => {
   }, [results, expandedRows]);
 
   const MAP_ROWCHART_TITLE = `Product by highest complaint volume ${shortFormat(
-    minDate,
+    minDate
   )} to ${shortFormat(maxDate)}`;
 
   const onDismissWarning = () => {

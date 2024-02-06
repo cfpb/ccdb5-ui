@@ -13,7 +13,7 @@ import dayjs from 'dayjs';
 import dayjsCustomParseFormat from 'dayjs/plugin/customParseFormat';
 import dayjsIsBetween from 'dayjs/plugin/isBetween';
 import { formatDate } from '../../utils/formatDate';
-import iconMap from '../iconMap';
+import getIcon from '../iconMap';
 
 dayjs.extend(dayjsCustomParseFormat);
 dayjs.extend(dayjsIsBetween);
@@ -78,13 +78,13 @@ export const CompanyReceivedFilter = () => {
     if (dayjs(fromDate).isBefore(minDate)) {
       errs.push(
         "'From' date must be after " +
-          dayjs(minDate).format(DATE_VALIDATION_FORMAT),
+          dayjs(minDate).format(DATE_VALIDATION_FORMAT)
       );
     }
     if (dayjs(throughDate).isAfter(maxDate)) {
       errs.push(
         "'Through' date must be before " +
-          dayjs(maxDate).format(DATE_VALIDATION_FORMAT),
+          dayjs(maxDate).format(DATE_VALIDATION_FORMAT)
       );
     }
 
@@ -160,7 +160,7 @@ export const CompanyReceivedFilter = () => {
                 className="a-btn a-btn__link"
                 onClick={() => handleClear('from')}
               >
-                {iconMap.getIcon('delete')}
+                {getIcon('delete')}
                 <span className="u-visually-hidden">
                   Clear company received from date filter
                 </span>
@@ -192,7 +192,7 @@ export const CompanyReceivedFilter = () => {
                 className="a-btn a-btn__link"
                 onClick={() => handleClear('through')}
               >
-                {iconMap.getIcon('delete')}
+                {getIcon('delete')}
                 <span className="u-visually-hidden">
                   Clear company received through date filter
                 </span>
@@ -206,7 +206,7 @@ export const CompanyReceivedFilter = () => {
               <div key={key}>
                 {message}
                 <span aria-hidden="true">
-                  {iconMap.getIcon('delete-round', 'cf-icon-delete-round')}
+                  {getIcon('delete-round', 'cf-icon-delete-round')}
                 </span>
               </div>
             ))

@@ -24,9 +24,9 @@ const composeEnhancers = composeWithDevTools({
 const store = createStore(
   reducers,
   composeEnhancers(
-    applyMiddleware(...middleware),
+    applyMiddleware(...middleware)
     // other store enhancers if any
-  ),
+  )
 );
 
 /* eslint-disable camelcase */

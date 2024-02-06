@@ -1,6 +1,6 @@
 import './FocusHeader.less';
 import { connect } from 'react-redux';
-import iconMap from '../iconMap';
+import getIcon from '../iconMap';
 import LensTabs from './LensTabs';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -18,7 +18,7 @@ export class FocusHeader extends React.Component {
             this.props.clearFocus(lens);
           }}
         >
-          {iconMap.getIcon('left')}
+          {getIcon('left')}
           {'View ' + lens.toLowerCase() + ' trends'}
         </button>
         <div>
@@ -46,6 +46,7 @@ export const mapStateToProps = (state) => ({
   total: state.trends.total.toLocaleString(),
 });
 
+// eslint-disable-next-line react-redux/prefer-separate-component-file
 export default connect(mapStateToProps, mapDispatchToProps)(FocusHeader);
 
 FocusHeader.propTypes = {

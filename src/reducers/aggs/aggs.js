@@ -63,7 +63,7 @@ export function processAggregationResults(state, action) {
   const doc_count = Math.max(
     state.doc_count,
     action.data.hits.total.value,
-    action.data._meta.total_record_count,
+    action.data._meta.total_record_count
   );
 
   const result = {

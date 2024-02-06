@@ -2,7 +2,7 @@ import '../Typeahead.less';
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { AsyncTypeahead as Typeahead } from 'react-bootstrap-typeahead';
-import iconMap from '../../iconMap';
+import getIcon from '../../iconMap';
 import HighlightingOption from '../HighlightingOption/HighlightingOption';
 import { ClearButton } from '../ClearButton/ClearButton';
 
@@ -25,7 +25,7 @@ export const AsyncTypeahead = ({
   const ref = useRef();
   const [searchValue, setSearchValue] = useState(defaultValue);
   const [isVisible, setIsVisible] = useState(
-    hasClearButton && (!!defaultValue || !!searchValue),
+    hasClearButton && (!!defaultValue || !!searchValue)
   );
   useEffect(() => {
     ref.current.setState({ text: defaultValue });
@@ -49,7 +49,7 @@ export const AsyncTypeahead = ({
           className="input-contains-label_before
                           input-contains-label_before__search"
         >
-          {iconMap.getIcon('search')}
+          {getIcon('search')}
         </div>
         <label className="u-visually-hidden" htmlFor={htmlId}>
           {ariaLabel}

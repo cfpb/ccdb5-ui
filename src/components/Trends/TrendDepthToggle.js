@@ -96,7 +96,7 @@ export const mapStateToProps = (state) => {
   const { focus, lens } = query;
   const lensKey = lensMap[lens];
   const resultCount = coalesce(trends.results, lensKey, []).filter(
-    (obj) => obj.isParent,
+    (obj) => obj.isParent
   ).length;
 
   // The total source depends on the lens.  There are no aggs for companies
@@ -120,6 +120,7 @@ export const mapStateToProps = (state) => {
   };
 };
 
+// eslint-disable-next-line react-redux/prefer-separate-component-file
 export default connect(mapStateToProps, mapDispatchToProps)(TrendDepthToggle);
 
 TrendDepthToggle.propTypes = {

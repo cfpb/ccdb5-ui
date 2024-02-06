@@ -15,10 +15,11 @@ import * as utils from '../../utils';
 
 /**
  *
- * @param root0
- * @param root0.focus
- * @param root0.lens
- * @param root0.results
+ * @param {object} root0 - Root state
+ * @param {string} root0.focus - Focus
+ * @param {string} root0.lens - Lens
+ * @param {Array} root0.results - Results array
+ * @returns {void}
  */
 function setupSnapshot({ focus, lens, results }) {
   const middlewares = [thunk];
@@ -39,7 +40,7 @@ function setupSnapshot({ focus, lens, results }) {
       <IntlProvider locale="en">
         <ReduxLensTabs showTitle={true} />
       </IntlProvider>
-    </Provider>,
+    </Provider>
   );
 }
 
@@ -104,7 +105,7 @@ describe('component:LensTabs', () => {
           hasProductTab={true}
           subLens="Issue"
           showTitle={true}
-        />,
+        />
       );
     });
 

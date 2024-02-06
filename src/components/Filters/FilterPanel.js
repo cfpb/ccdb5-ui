@@ -6,7 +6,7 @@ import { DateFilter } from './DateFilter';
 import { FederalState } from './FederalState';
 import { filterVisibilityToggled } from '../../actions/view';
 import HasNarrative from './HasNarrative';
-import iconMap from '../iconMap';
+import getIcon from '../iconMap';
 import { Issue } from './Issue';
 import Product from './Product';
 import PropTypes from 'prop-types';
@@ -49,7 +49,7 @@ export class FilterPanel extends React.Component {
                   title="Close filters"
                   onClick={this.props.onFilterToggle}
                 >
-                  Close filters {iconMap.getIcon('delete')}
+                  Close filters {getIcon('delete')}
                 </button>
               </div>
             )}

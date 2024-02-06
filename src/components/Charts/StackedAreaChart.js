@@ -71,7 +71,7 @@ export class StackedAreaChart extends React.Component {
     const stackedAreaChart = stackedArea();
     const colorData = filteredData.filter((item) => item.name !== 'Other');
     const colorScheme = [...new Set(colorData.map((item) => item.name))].map(
-      (obj) => colorMap[obj],
+      (obj) => colorMap[obj]
     );
     colorScheme.push(colors.DataLens[10]);
 
@@ -133,7 +133,7 @@ export const mapStateToProps = (state) => {
   const filteredData = pruneIncompleteStackedAreaInterval(
     processData,
     dateRange,
-    interval,
+    interval
   );
   const hasChart = filteredData.length > 1;
 

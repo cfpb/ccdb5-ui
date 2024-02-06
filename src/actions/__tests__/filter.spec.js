@@ -15,7 +15,7 @@ describe('action:filterActions', () => {
         requery: REQUERY_ALWAYS,
       };
       expect(sut.changeDates(filterName, minDate, maxDate)).toEqual(
-        expectedAction,
+        expectedAction
       );
     });
   });
@@ -117,7 +117,7 @@ describe('action:filterActions', () => {
         requery: REQUERY_ALWAYS,
       };
       expect(sut.addMultipleFilters(filterName, values)).toEqual(
-        expectedAction,
+        expectedAction
       );
     });
   });
@@ -133,7 +133,7 @@ describe('action:filterActions', () => {
         requery: REQUERY_ALWAYS,
       };
       expect(sut.removeMultipleFilters(filterName, values)).toEqual(
-        expectedAction,
+        expectedAction
       );
     });
   });

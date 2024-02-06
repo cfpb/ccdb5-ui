@@ -102,7 +102,7 @@ function setupSnapshot() {
   return renderer.create(
     <Provider store={store}>
       <ReduxStackedAreaChart />
-    </Provider>,
+    </Provider>
   );
 }
 
@@ -135,7 +135,7 @@ describe('component: StackedAreaChart', () => {
 
     it('does nothing when no data', () => {
       const target = shallow(
-        <StackedAreaChart colorMap={{ foo: 'bar' }} data={[]} />,
+        <StackedAreaChart colorMap={{ foo: 'bar' }} data={[]} />
       );
       target._redrawChart = jest.fn();
       target.setProps({ data: [] });
@@ -150,7 +150,7 @@ describe('component: StackedAreaChart', () => {
           data={[23, 4, 3]}
           dateRange={{ from: '1/1/2021', to: '1/1/2022' }}
           interval="Month"
-        />,
+        />
       );
       target._redrawChart = jest.fn();
       const sp = jest.spyOn(target.instance(), '_redrawChart');
@@ -167,7 +167,7 @@ describe('component: StackedAreaChart', () => {
           dateRange={{ from: '1/1/2021', to: '1/1/2022' }}
           interval="Month"
           isPrintMode={false}
-        />,
+        />
       );
       target._redrawChart = jest.fn();
       const sp = jest.spyOn(target.instance(), '_redrawChart');
@@ -185,7 +185,7 @@ describe('component: StackedAreaChart', () => {
           interval="Month"
           isPrintMode={false}
           width={1000}
-        />,
+        />
       );
       target._redrawChart = jest.fn();
       const sp = jest.spyOn(target.instance(), '_redrawChart');
@@ -272,7 +272,7 @@ describe('component: StackedAreaChart', () => {
           tooltip={{ date: '2000' }}
           tooltipUpdated={cb}
           hasChart={true}
-        />,
+        />
       );
       const instance = target.instance();
       instance._updateTooltip({ date: '2012', values: [1, 2, 3] });
@@ -293,7 +293,7 @@ describe('component: StackedAreaChart', () => {
           tooltip={{ date: '2000' }}
           tooltipUpdated={cb}
           hasChart={true}
-        />,
+        />
       );
       const instance = target.instance();
       instance._updateTooltip({ date: '2000', value: 200 });
@@ -315,7 +315,7 @@ describe('component: StackedAreaChart', () => {
               to: '2020',
             }}
             tooltipUpdated={jest.fn()}
-          />,
+          />
         );
         expect(target.instance()._chartWidth('#foo')).toEqual(500);
       });

@@ -87,7 +87,7 @@ export class LineChart extends React.Component {
 
     const tip = this.tip;
     const colorScheme = processData.dataByTopic.map(
-      (obj) => colorMap[obj.topic],
+      (obj) => colorMap[obj.topic]
     );
 
     lineChart
@@ -113,7 +113,7 @@ export class LineChart extends React.Component {
     container.datum(cloneDeep(processData)).call(lineChart);
 
     const tooltipContainer = d3.select(
-      chartID + ' .metadata-group .vertical-marker-container',
+      chartID + ' .metadata-group .vertical-marker-container'
     );
     tooltipContainer.datum([]).call(tip);
 
@@ -162,7 +162,7 @@ export const mapStateToProps = (state) => {
   const processData = cloneDeep(data);
   pruneIncompleteLineInterval(processData, dateRange, interval);
   const hasChart = Boolean(
-    processData.dataByTopic && processData.dataByTopic[0].dates.length > 1,
+    processData.dataByTopic && processData.dataByTopic[0].dates.length > 1
   );
 
   return {

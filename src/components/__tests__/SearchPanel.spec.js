@@ -32,7 +32,7 @@ function setupSnapshot() {
       <IntlProvider locale="en">
         <ReduxSearchPanel />
       </IntlProvider>
-    </Provider>,
+    </Provider>
   );
 }
 

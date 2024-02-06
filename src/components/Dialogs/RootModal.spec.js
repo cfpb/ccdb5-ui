@@ -17,7 +17,7 @@ describe('RootModal', () => {
     Modal.setAppElement(container);
 
     expect(
-      screen.queryByText('Things you should know before you use this database'),
+      screen.queryByText('Things you should know before you use this database')
     ).toBeNull();
     expect(screen.queryByText('Export complaints')).toBeNull();
   });
@@ -72,7 +72,7 @@ describe('RootModal', () => {
     });
     Modal.setAppElement(container);
     expect(
-      screen.getByText('Things you should know before you use this database'),
+      screen.getByText('Things you should know before you use this database')
     ).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: /Close/ }));
     expect(closeSpy).toHaveBeenCalled();

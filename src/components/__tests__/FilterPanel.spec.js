@@ -11,7 +11,7 @@ import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
 /**
- *
+ * @returns {void}
  */
 function setupEnzyme() {
   const props = {
@@ -31,7 +31,8 @@ function setupEnzyme() {
 
 /**
  *
- * @param view
+ * @param {string} view - The view
+ * @returns {void}
  */
 function setupSnapshot(view) {
   const middlewares = [thunk];
@@ -45,7 +46,7 @@ function setupSnapshot(view) {
   return renderer.create(
     <Provider store={store}>
       <ReduxFilterPanel />
-    </Provider>,
+    </Provider>
   );
 }
 

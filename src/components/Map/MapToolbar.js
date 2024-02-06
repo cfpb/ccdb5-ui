@@ -1,7 +1,7 @@
 import './MapToolbar.less';
 import { clearStateFilter, showStateComplaints } from '../../actions/map';
 import { useDispatch, useSelector } from 'react-redux';
-import iconMap from '../iconMap';
+import getIcon from '../iconMap';
 import React from 'react';
 import { THESE_UNITED_STATES } from '../../constants';
 import { selectQueryStateFilters } from '../../reducers/query/selectors';
@@ -28,7 +28,7 @@ export const MapToolbar = () => {
               dispatch(clearStateFilter());
             }}
           >
-            {iconMap.getIcon('delete-round')}
+            {getIcon('delete-round')}
             Clear
           </a>
         )}

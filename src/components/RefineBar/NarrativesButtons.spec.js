@@ -41,7 +41,7 @@ describe('NarrativesButtons', () => {
     expect(removeFilterSpy).toHaveBeenCalledTimes(0);
 
     const btnNarratives = screen.getByLabelText(
-      'Show only complaints with narratives',
+      'Show only complaints with narratives'
     );
     expect(btnNarratives).toBeInTheDocument();
     expect(btnNarratives).toBeEnabled();
@@ -61,7 +61,7 @@ describe('NarrativesButtons', () => {
     expect(screen.getByText('Read')).toBeInTheDocument();
 
     const btnNarratives = screen.getByLabelText(
-      'Show only complaints with narratives',
+      'Show only complaints with narratives'
     );
     expect(btnNarratives).toBeInTheDocument();
     expect(btnNarratives).toBeDisabled();

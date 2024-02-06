@@ -2,7 +2,7 @@
 import { CompanyTypeahead } from '../Filters/CompanyTypeahead';
 import { connect } from 'react-redux';
 import { externalTooltipFormatter } from '../../utils/chart';
-import iconMap from '../iconMap';
+import getIcon from '../iconMap';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { removeFilter } from '../../actions/filter';
@@ -33,7 +33,7 @@ export class ExternalTooltip extends React.Component {
       elements.push(
         <span className="u-left" key={value.name}>
           All other {plurals[lensToUse]}
-        </span>,
+        </span>
       );
       return elements;
     }
@@ -42,7 +42,7 @@ export class ExternalTooltip extends React.Component {
       elements.push(
         <span className="u-left" key={value.name}>
           {value.name}
-        </span>,
+        </span>
       );
       return elements;
     }
@@ -54,21 +54,21 @@ export class ExternalTooltip extends React.Component {
         key={value.name}
       >
         {value.name}
-      </span>,
+      </span>
     );
 
     // add in the close button for Company and there's no focus yet
     if (hasCompanyTypeahead) {
       elements.push(
-        <span
+        <button
           className="u-right a-btn a-btn__link close"
           key={'close_' + value.name}
           onClick={() => {
             this.props.remove(value.name);
           }}
         >
-          {iconMap.getIcon('delete')}
-        </span>,
+          {getIcon('delete')}
+        </button>
       );
     }
 
@@ -146,6 +146,7 @@ export const mapStateToProps = (state) => {
   };
 };
 
+// eslint-disable-next-line react-redux/prefer-separate-component-file
 export default connect(mapStateToProps, mapDispatchToProps)(ExternalTooltip);
 
 ExternalTooltip.propTypes = {

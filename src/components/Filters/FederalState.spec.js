@@ -18,7 +18,7 @@ describe('FederalState', () => {
 
     render(<FederalState />);
     const input = screen.getByPlaceholderText(
-      'Enter state name or abbreviation',
+      'Enter state name or abbreviation'
     );
     await user.type(input, 'Ma');
     const option = await screen.findByRole('option', {
@@ -27,14 +27,14 @@ describe('FederalState', () => {
     await user.click(option);
 
     await waitFor(() =>
-      expect(addMultipleFiltersSpy).toBeCalledWith('state', ['MD']),
+      expect(addMultipleFiltersSpy).toBeCalledWith('state', ['MD'])
     );
   });
 
   test('No matches found appears if user types non-existing option', async () => {
     render(<FederalState />);
     const input = screen.getByPlaceholderText(
-      'Enter state name or abbreviation',
+      'Enter state name or abbreviation'
     );
     await user.type(input, 'Apples');
 
@@ -44,7 +44,7 @@ describe('FederalState', () => {
   test('Option list disappears when user removes text', async () => {
     render(<FederalState />);
     const input = screen.getByPlaceholderText(
-      'Enter state name or abbreviation',
+      'Enter state name or abbreviation'
     );
     await user.type(input, 'Ma');
     const option = await screen.findByRole('option', {

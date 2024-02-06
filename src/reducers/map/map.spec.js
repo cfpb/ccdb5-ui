@@ -169,8 +169,8 @@ describe('reducer:map', () => {
               state: [1, 2, 3],
             },
           },
-          action,
-        ),
+          action
+        )
       ).toEqual({
         activeCall: '',
         error: { message: 'foo bar', name: 'ErrorTypeName', stack: 'trace' },
@@ -195,8 +195,8 @@ describe('reducer:map', () => {
           {
             results: [1, 2, 3],
           },
-          action,
-        ),
+          action
+        )
       ).toEqual({
         error: false,
         results: {

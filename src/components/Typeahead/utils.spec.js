@@ -20,7 +20,7 @@ describe('Typeahead utils', () => {
         { key: 'eagle', label: 'eagle', position: 0, value: 'ea' },
         { key: 'earth', label: 'earth', position: 0, value: 'ea' },
         { key: 'east', label: 'east', position: 0, value: 'ea' },
-      ]),
+      ])
     );
   });
 

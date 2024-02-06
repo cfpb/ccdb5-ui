@@ -20,7 +20,7 @@ describe('ZipCode', () => {
 
   test('Options appear when user types and dispatches addMultipleFilters on selection', async () => {
     fetch.mockResponseOnce(
-      JSON.stringify(['22191', '22202', '22031', '22203', '22204']),
+      JSON.stringify(['22191', '22202', '22031', '22203', '22204'])
     );
     const addMultipleFiltersSpy = jest
       .spyOn(filterActions, 'addMultipleFilters')
@@ -28,7 +28,7 @@ describe('ZipCode', () => {
 
     render(<ZipCode />);
     const input = screen.getByPlaceholderText(
-      'Enter first three digits of ZIP code',
+      'Enter first three digits of ZIP code'
     );
     await user.type(input, '22');
     const option = await screen.findByRole('option', {
@@ -37,7 +37,7 @@ describe('ZipCode', () => {
     await user.click(option);
 
     await waitFor(() =>
-      expect(addMultipleFiltersSpy).toBeCalledWith('zip_code', ['22191']),
+      expect(addMultipleFiltersSpy).toBeCalledWith('zip_code', ['22191'])
     );
   });
 });

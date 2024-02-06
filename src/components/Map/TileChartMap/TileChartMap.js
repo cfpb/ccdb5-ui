@@ -57,7 +57,7 @@ export const TileChartMap = () => {
         dispatch(addStateFilter(selectedState));
       }
     },
-    [stateFilters, dispatch],
+    [stateFilters, dispatch]
   );
 
   const _redrawMap = useCallback(() => {

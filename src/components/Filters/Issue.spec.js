@@ -46,7 +46,7 @@ describe('Issue', () => {
       expect(replaceFiltersSpy).toBeCalledWith('issue', [
         'Incorrect information on your report',
         listOfIssues[0].key,
-      ]),
+      ])
     );
   });
 

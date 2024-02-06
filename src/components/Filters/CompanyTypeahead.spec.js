@@ -20,7 +20,7 @@ describe('CompanyTypeahead', () => {
 
   test('Options appear when user types and dispatches addMultipleFilters on selection', async () => {
     fetch.mockResponseOnce(
-      JSON.stringify(['Truist', 'Bank of America', 'Capital One']),
+      JSON.stringify(['Truist', 'Bank of America', 'Capital One'])
     );
     const addMultipleFiltersSpy = jest
       .spyOn(filterActions, 'addMultipleFilters')
@@ -35,7 +35,7 @@ describe('CompanyTypeahead', () => {
     await user.click(option);
 
     await waitFor(() =>
-      expect(addMultipleFiltersSpy).toBeCalledWith('company', ['Truist']),
+      expect(addMultipleFiltersSpy).toBeCalledWith('company', ['Truist'])
     );
   });
 });

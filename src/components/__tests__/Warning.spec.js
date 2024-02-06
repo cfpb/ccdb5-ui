@@ -13,8 +13,8 @@ describe('component:WindowSize', () => {
       wrapper
         .find('.m-notification_message')
         .equals(
-          <div className="h4 m-notification_message">Some nag message</div>,
-        ),
+          <div className="h4 m-notification_message">Some nag message</div>
+        )
     ).toEqual(true);
   });
 
@@ -31,8 +31,8 @@ describe('component:WindowSize', () => {
         .equals(
           <div className="h4 m-notification_message">
             Some nag message you can close
-          </div>,
-        ),
+          </div>
+        )
     ).toEqual(true);
 
     const button = wrapper.find('.close');
