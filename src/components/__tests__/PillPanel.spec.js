@@ -9,8 +9,9 @@ import renderer from 'react-test-renderer';
 
 /**
  *
- * @param initialQueryState
- * @param initialAggState
+ * @param {object} initialQueryState - Initial query state
+ * @param {object} initialAggState - Initial agg state
+ * @returns {void}
  */
 function setupSnapshot(initialQueryState = {}, initialAggState = {}) {
   const middlewares = [thunk];

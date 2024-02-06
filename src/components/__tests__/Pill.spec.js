@@ -7,7 +7,7 @@ import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 
 /**
- *
+ * @returns {void}
  */
 function setupSnapshot() {
   const middlewares = [thunk];

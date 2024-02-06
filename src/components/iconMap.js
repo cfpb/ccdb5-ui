@@ -95,6 +95,4 @@ function getIcon(name, customClass) {
   return Icon;
 }
 
-export default {
-  getIcon,
-};
+export default getIcon;

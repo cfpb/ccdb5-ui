@@ -8,7 +8,8 @@ import thunk from 'redux-thunk';
 
 /**
  *
- * @param tab
+ * @param {string} tab - The tab
+ * @returns {void}
  */
 function setupSnapshot(tab) {
   const middlewares = [thunk];

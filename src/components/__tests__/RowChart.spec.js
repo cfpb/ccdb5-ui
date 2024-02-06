@@ -78,7 +78,7 @@ jest.mock('d3', () => {
 });
 
 /**
- *
+ * @returns {void}
  */
 function setupSnapshot() {
   const middlewares = [thunk];

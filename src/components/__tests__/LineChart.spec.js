@@ -85,7 +85,8 @@ jest.mock('d3', () => {
 
 /**
  *
- * @param lens
+ * @param {string} lens - The lens
+ * @returns {void}
  */
 function setupSnapshot(lens) {
   const middlewares = [thunk];

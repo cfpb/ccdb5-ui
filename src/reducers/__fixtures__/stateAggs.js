@@ -1,4 +1,4 @@
-export default {
+const stateAggs = {
   foo: {},
   issue: {
     doc_count: 1000,
@@ -414,3 +414,5 @@ export default {
     },
   },
 };
+
+export default stateAggs;

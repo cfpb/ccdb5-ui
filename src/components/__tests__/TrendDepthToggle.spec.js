@@ -20,7 +20,7 @@ import thunk from 'redux-thunk';
  * @param {number} root0.diff - Difference
  * @param {number} root0.queryCount - Query count
  * @param {number} root0.resultCount - Query count
- * @returns {React.Component}
+ * @returns {React.Component} - Trends Depth Toggle component
  */
 function setupEnzyme({ cbIncrease, cbReset, diff, queryCount, resultCount }) {
   return shallow(
