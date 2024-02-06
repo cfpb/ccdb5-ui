@@ -28,6 +28,9 @@ module.exports = {
     'react-app/jest',
     'prettier',
   ],
+  globals: {
+    "JSX": "readonly"
+  },
   overrides: [
     {
       files: ['**/?(*.)+(spec|test).[jt]s?(x)'],

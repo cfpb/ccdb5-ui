@@ -11,7 +11,8 @@ import thunk from 'redux-thunk';
 
 /**
  *
- * @param initialProps
+ * @param {object} initialProps - Initial props object
+ * @returns {object} - Props and component
  */
 function setupEnzyme(initialProps = {}) {
   const props = Object.assign(
@@ -35,7 +36,8 @@ function setupEnzyme(initialProps = {}) {
 
 /**
  *
- * @param query
+ * @param {object} query - Query state object
+ * @returns {Function} - Rendering function
  */
 function setupSnapshot(query = {}) {
   const middlewares = [thunk];

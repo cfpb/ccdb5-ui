@@ -57,7 +57,6 @@ describe('action:analytics', () => {
     Analytics.sendEvent(
       Analytics.getDataLayerOptions('woah nelly action', 'label')
     );
-    console.log('Window Datalayer: ', window.dataLayer);
     expect(window.dataLayer.length > 0).toBe(true);
   });
 });

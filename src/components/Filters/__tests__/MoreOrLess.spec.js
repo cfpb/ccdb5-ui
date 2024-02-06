@@ -21,7 +21,8 @@ const fixture = [
 
 /**
  *
- * @param initial
+ * @param {Array} initial - Array of initial options
+ * @returns {object} - Props and component
  */
 function setupEnzyme(initial) {
   const props = {
@@ -38,7 +39,8 @@ function setupEnzyme(initial) {
 
 /**
  *
- * @param hasMore
+ * @param {boolean} hasMore - Has more?
+ * @returns {Function} - Rendering function
  */
 function setupSnapshot(hasMore) {
   const middlewares = [thunk];

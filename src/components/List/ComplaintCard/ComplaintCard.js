@@ -28,7 +28,7 @@ export const ComplaintCard = ({ row }) => {
     return narrative ? (
       <div>
         <br />
-        <h4 tabIndex="0">Consumer Complaint Narrative</h4>
+        <h4>Consumer Complaint Narrative</h4>
         {_renderPossibleHighlight(narrative)}
         {hasOverflow ? (
           <span>

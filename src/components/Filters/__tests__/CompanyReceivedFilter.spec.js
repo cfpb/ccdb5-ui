@@ -7,7 +7,8 @@ import thunk from 'redux-thunk';
 
 /**
  *
- * @param query
+ * @param {object} query - Query state
+ * @returns {Function} - Rendering function
  */
 function setupSnapshot(query) {
   const middlewares = [thunk];

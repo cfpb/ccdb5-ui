@@ -151,6 +151,7 @@ export const mapStateToProps = (state) => {
   };
 };
 
+// eslint-disable-next-line react-redux/prefer-separate-component-file
 export default connect(mapStateToProps, mapDispatchToProps)(StackedAreaChart);
 
 StackedAreaChart.propTypes = {

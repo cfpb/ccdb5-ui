@@ -36,7 +36,7 @@ export const ChartToggles = () => {
           toggleChartType('area');
         }}
       >
-        {iconMap.getIcon('area-chart')}
+        {getIcon('area-chart')}
       </button>
     </section>
   );

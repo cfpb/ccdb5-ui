@@ -13,7 +13,12 @@ export const Warning = ({ text, closeFn }) => (
       <div className="h4 m-notification_message">{text}</div>
     </div>
     {closeFn ? (
-      <button onClick={closeFn} onKeyDown={closeFn} aria-label="Dismiss" className="close">
+      <button
+        onClick={closeFn}
+        onKeyDown={closeFn}
+        aria-label="Dismiss"
+        className="close"
+      >
         {getIcon('delete')}
       </button>
     ) : (

@@ -10,7 +10,7 @@ describe('getIcon', () => {
   });
 
   it('handles a unknown icons', () => {
-    expect(iconMap.getIcon('bogus')).toBe(false);
+    expect(getIcon('bogus')).toBe(false);
     expect(consoleSpy).toHaveBeenCalledWith('No icon with the name bogus.');
   });
 });

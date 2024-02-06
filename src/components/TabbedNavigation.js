@@ -29,7 +29,7 @@ export const TabbedNavigation = () => {
           className={getTabClass('List')}
           onClick={() => dispatch(tabChanged('List'))}
         >
-          {iconMap.getIcon('list')}
+          {getIcon('list')}
           List
         </button>
 

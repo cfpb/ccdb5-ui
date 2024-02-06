@@ -7,7 +7,7 @@ import * as types from '../../../constants';
 import thunk from 'redux-thunk';
 
 /**
- *
+ * @returns {Function} - Rendering function
  */
 function setupSnapshot() {
   const middlewares = [thunk];

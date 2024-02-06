@@ -15,7 +15,8 @@ const fixture = [
 
 /**
  *
- * @param initialFixture
+ * @param {Array} initialFixture - Initial fixture array
+ * @returns {Function} - Rendering function
  */
 function setupSnapshot(initialFixture) {
   const middlewares = [thunk];

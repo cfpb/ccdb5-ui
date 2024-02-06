@@ -61,7 +61,8 @@ const fixture = [
 
 /**
  *
- * @param initial
+ * @param {string} initial - Initial product
+ * @returns {Function} - Rendering function
  */
 function setupSnapshot(initial) {
   const middlewares = [thunk];

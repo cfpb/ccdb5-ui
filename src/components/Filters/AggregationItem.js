@@ -121,6 +121,7 @@ export const mapDispatchToProps = (dispatch, ownProps) => ({
   },
 });
 
+// eslint-disable-next-line react-redux/prefer-separate-component-file
 export default connect(mapStateToProps, mapDispatchToProps)(AggregationItem);
 
 AggregationItem.propTypes = {

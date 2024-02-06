@@ -32,6 +32,7 @@ const mapStateToProps = (state) => ({
   lastIndexed: state.aggs.lastIndexed,
 });
 
+// eslint-disable-next-line react-redux/prefer-separate-component-file
 export default connect(mapStateToProps)(SearchPanel);
 
 SearchPanel.propTypes = {

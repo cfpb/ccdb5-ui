@@ -10,8 +10,9 @@ const fixture = [
 
 /**
  *
- * @param options
- * @param selections
+ * @param {Array} options - Options array
+ * @param {Array} selections - Selections array
+ * @returns {object} - Props and component
  */
 function setupEnzyme(options, selections) {
   const props = {
