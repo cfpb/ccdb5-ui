@@ -32,5 +32,9 @@ export function buildSomeResultsUri(format, size, queryState) {
   // eslint-disable-next-line camelcase
   params.no_aggs = true;
 
+  // Remove unnecessary pagination query params
+  delete params.from;
+  delete params.searchAfter;
+
   return API_PLACEHOLDER + stateToQS(params);
 }
