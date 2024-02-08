@@ -53,12 +53,12 @@ describe('ActionBar', () => {
     expect(
       screen.getByText('Showing 10 matches out of 100 total complaints')
     ).toBeInTheDocument();
-    const buttonExport = screen.getByRole('button', { name: 'Export data' });
+    const buttonExport = screen.getByRole('button', { name: /Export data/ });
     expect(buttonExport).toBeInTheDocument();
     fireEvent.click(buttonExport);
     expect(dataExportSpy).toHaveBeenCalledTimes(1);
 
-    const buttonPrint = screen.getByRole('button', { name: 'Print' });
+    const buttonPrint = screen.getByRole('button', { name: /Print/ });
     expect(buttonPrint).toBeInTheDocument();
     fireEvent.click(buttonPrint);
     expect(gaSpy).toHaveBeenCalledWith('Print', 'tab:Map');

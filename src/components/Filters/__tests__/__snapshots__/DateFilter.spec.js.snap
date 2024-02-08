@@ -25,14 +25,8 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
         >
           Hide
         </span>
-        <svg
-          className="cf-icon-svg"
-          viewBox="0 0 1000 1200"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h527.1c27.6 0 50 22.4 50 50s-22.4 50-50 50z"
-          />
+        <svg>
+          minus-round.svg
         </svg>
       </span>
     </span>
@@ -42,6 +36,21 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
   >
     <p />
     <div>
+      <p
+        className="u-mt15"
+      >
+         
+        CFPB updated product and issue options in April 2017 and August 2023.
+         
+        <a
+          aria-label="Learn more about Product and Issue changes (opens in new window)"
+          href="https://www.consumerfinance.gov/data-research/consumer-complaints/#past-changes"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Learn More
+        </a>
+      </p>
       <ul
         className="date-inputs"
       >
@@ -71,14 +80,8 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
               className="a-btn a-btn__link"
               onClick={[Function]}
             >
-              <svg
-                className="cf-icon-svg"
-                viewBox="0 0 718.9 1200"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M451.4 613.7l248.1-248.1c25.6-25.1 26-66.3.8-91.9s-66.3-26-91.9-.8l-.8.8-248.1 248.1-248.1-248.1c-25.4-25.4-66.5-25.4-91.9 0s-25.4 66.5 0 91.9l248.1 248.1L19.5 861.8c-25.6 25.1-26 66.3-.8 91.9s66.3 26 91.9.8l.8-.8 248.1-248.1 248.1 248.1c25.4 25.4 66.5 25.4 91.9 0s25.4-66.5 0-91.9L451.4 613.7z"
-                />
+              <svg>
+                error.svg
               </svg>
               <span
                 className="u-visually-hidden"
@@ -114,14 +117,8 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
               className="a-btn a-btn__link"
               onClick={[Function]}
             >
-              <svg
-                className="cf-icon-svg"
-                viewBox="0 0 718.9 1200"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M451.4 613.7l248.1-248.1c25.6-25.1 26-66.3.8-91.9s-66.3-26-91.9-.8l-.8.8-248.1 248.1-248.1-248.1c-25.4-25.4-66.5-25.4-91.9 0s-25.4 66.5 0 91.9l248.1 248.1L19.5 861.8c-25.6 25.1-26 66.3-.8 91.9s66.3 26 91.9.8l.8-.8 248.1-248.1 248.1 248.1c25.4 25.4 66.5 25.4 91.9 0s25.4-66.5 0-91.9L451.4 613.7z"
-                />
+              <svg>
+                error.svg
               </svg>
               <span
                 className="u-visually-hidden"
@@ -169,19 +166,6 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
           All
         </button>
       </section>
-      <p>
-         
-        CFPB updated product and issue options in April 2017 and August 2023
-        <a
-          aria-label="Learn more about Product and Issue changes (opens in new window)"
-          href="https://www.consumerfinance.gov/data-research/consumer-complaints/#past-changes"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-           
-          Learn More
-        </a>
-      </p>
     </div>
   </div>
 </section>
@@ -212,14 +196,8 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
         >
           Hide
         </span>
-        <svg
-          className="cf-icon-svg"
-          viewBox="0 0 1000 1200"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h527.1c27.6 0 50 22.4 50 50s-22.4 50-50 50z"
-          />
+        <svg>
+          minus-round.svg
         </svg>
       </span>
     </span>
@@ -229,6 +207,21 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
   >
     <p />
     <div>
+      <p
+        className="u-mt15"
+      >
+         
+        CFPB updated product and issue options in April 2017 and August 2023.
+         
+        <a
+          aria-label="Learn more about Product and Issue changes (opens in new window)"
+          href="https://www.consumerfinance.gov/data-research/consumer-complaints/#past-changes"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Learn More
+        </a>
+      </p>
       <ul
         className="date-inputs"
       >
@@ -258,14 +251,8 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
               className="a-btn a-btn__link"
               onClick={[Function]}
             >
-              <svg
-                className="cf-icon-svg"
-                viewBox="0 0 718.9 1200"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M451.4 613.7l248.1-248.1c25.6-25.1 26-66.3.8-91.9s-66.3-26-91.9-.8l-.8.8-248.1 248.1-248.1-248.1c-25.4-25.4-66.5-25.4-91.9 0s-25.4 66.5 0 91.9l248.1 248.1L19.5 861.8c-25.6 25.1-26 66.3-.8 91.9s66.3 26 91.9.8l.8-.8 248.1-248.1 248.1 248.1c25.4 25.4 66.5 25.4 91.9 0s25.4-66.5 0-91.9L451.4 613.7z"
-                />
+              <svg>
+                error.svg
               </svg>
               <span
                 className="u-visually-hidden"
@@ -301,14 +288,8 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
               className="a-btn a-btn__link"
               onClick={[Function]}
             >
-              <svg
-                className="cf-icon-svg"
-                viewBox="0 0 718.9 1200"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M451.4 613.7l248.1-248.1c25.6-25.1 26-66.3.8-91.9s-66.3-26-91.9-.8l-.8.8-248.1 248.1-248.1-248.1c-25.4-25.4-66.5-25.4-91.9 0s-25.4 66.5 0 91.9l248.1 248.1L19.5 861.8c-25.6 25.1-26 66.3-.8 91.9s66.3 26 91.9.8l.8-.8 248.1-248.1 248.1 248.1c25.4 25.4 66.5 25.4 91.9 0s25.4-66.5 0-91.9L451.4 613.7z"
-                />
+              <svg>
+                error.svg
               </svg>
               <span
                 className="u-visually-hidden"
@@ -362,12 +343,8 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
       >
         <svg
           className="cf-icon-svg cf-icon-delete-round"
-          viewBox="0 0 1000 1200"
-          xmlns="http://www.w3.org/2000/svg"
         >
-          <path
-            d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"
-          />
+          error-round.svg
         </svg>
       </span>
     </div>
@@ -400,14 +377,8 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
         >
           Hide
         </span>
-        <svg
-          className="cf-icon-svg"
-          viewBox="0 0 1000 1200"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h527.1c27.6 0 50 22.4 50 50s-22.4 50-50 50z"
-          />
+        <svg>
+          minus-round.svg
         </svg>
       </span>
     </span>
@@ -417,6 +388,21 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
   >
     <p />
     <div>
+      <p
+        className="u-mt15"
+      >
+         
+        CFPB updated product and issue options in April 2017 and August 2023.
+         
+        <a
+          aria-label="Learn more about Product and Issue changes (opens in new window)"
+          href="https://www.consumerfinance.gov/data-research/consumer-complaints/#past-changes"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Learn More
+        </a>
+      </p>
       <ul
         className="date-inputs"
       >
@@ -446,14 +432,8 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
               className="a-btn a-btn__link"
               onClick={[Function]}
             >
-              <svg
-                className="cf-icon-svg"
-                viewBox="0 0 718.9 1200"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M451.4 613.7l248.1-248.1c25.6-25.1 26-66.3.8-91.9s-66.3-26-91.9-.8l-.8.8-248.1 248.1-248.1-248.1c-25.4-25.4-66.5-25.4-91.9 0s-25.4 66.5 0 91.9l248.1 248.1L19.5 861.8c-25.6 25.1-26 66.3-.8 91.9s66.3 26 91.9.8l.8-.8 248.1-248.1 248.1 248.1c25.4 25.4 66.5 25.4 91.9 0s25.4-66.5 0-91.9L451.4 613.7z"
-                />
+              <svg>
+                error.svg
               </svg>
               <span
                 className="u-visually-hidden"
@@ -489,14 +469,8 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
               className="a-btn a-btn__link"
               onClick={[Function]}
             >
-              <svg
-                className="cf-icon-svg"
-                viewBox="0 0 718.9 1200"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M451.4 613.7l248.1-248.1c25.6-25.1 26-66.3.8-91.9s-66.3-26-91.9-.8l-.8.8-248.1 248.1-248.1-248.1c-25.4-25.4-66.5-25.4-91.9 0s-25.4 66.5 0 91.9l248.1 248.1L19.5 861.8c-25.6 25.1-26 66.3-.8 91.9s66.3 26 91.9.8l.8-.8 248.1-248.1 248.1 248.1c25.4 25.4 66.5 25.4 91.9 0s25.4-66.5 0-91.9L451.4 613.7z"
-                />
+              <svg>
+                error.svg
               </svg>
               <span
                 className="u-visually-hidden"

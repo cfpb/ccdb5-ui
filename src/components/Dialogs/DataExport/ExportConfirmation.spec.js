@@ -18,8 +18,8 @@ describe('ExportConfirmation', () => {
       .mockImplementation(() => jest.fn());
     renderComponent();
     expect(screen.getByText('Export complaints')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Close' }));
+    expect(screen.getByRole('button', { name: /Close/ })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /Close/ }));
     expect(hideModalSpy).toHaveBeenCalled();
   });
 });

@@ -40,18 +40,18 @@ describe('MapPanel', () => {
   it('renders empty state without crashing', () => {
     renderComponent({}, {}, {}, {});
     expect(screen.getByText(/Showing 0 total complaints/)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Trends' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'List' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Map' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Trends/ })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /List/ })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Map/ })).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: 'Close filters' })
+      screen.getByRole('button', { name: /Close filters/ })
     ).toBeInTheDocument();
     expect(screen.getByText('Filter results by...')).toBeInTheDocument();
 
     expect(
-      screen.getByRole('button', { name: 'Export data' })
+      screen.getByRole('button', { name: /Export data/ })
     ).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Print' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Print/ })).toBeInTheDocument();
   });
 
   it('renders warning', () => {
@@ -107,7 +107,7 @@ describe('MapPanel', () => {
     expect(dismissSpy).toHaveBeenCalledTimes(1);
 
     expect(
-      screen.queryByRole('button', { name: 'Close filters' })
+      screen.queryByRole('button', { name: /Close filters/ })
     ).not.toBeInTheDocument();
 
     expect(document.getElementById('tile-chart-map')).toBeInTheDocument();
@@ -160,7 +160,7 @@ describe('MapPanel', () => {
     );
 
     expect(
-      screen.queryByRole('button', { name: 'Close filters' })
+      screen.queryByRole('button', { name: /Close filters/ })
     ).not.toBeInTheDocument();
   });
 });

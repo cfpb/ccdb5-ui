@@ -35,7 +35,7 @@ describe('RootModal', () => {
     });
     Modal.setAppElement(container);
     expect(screen.getByText('Export complaints')).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Close' }));
+    fireEvent.click(screen.getByRole('button', { name: /Close/ }));
     expect(closeSpy).toHaveBeenCalled();
   });
 
@@ -74,7 +74,7 @@ describe('RootModal', () => {
     expect(
       screen.getByText('Things you should know before you use this database')
     ).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Close' }));
+    fireEvent.click(screen.getByRole('button', { name: /Close/ }));
     expect(closeSpy).toHaveBeenCalled();
   });
 });

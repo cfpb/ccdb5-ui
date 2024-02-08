@@ -8,6 +8,12 @@ import React from 'react';
 import { removeFilter } from '../../reducers/query/query';
 import { sanitizeHtmlId } from '../../utils';
 
+const WARN_SERIES_BREAK =
+  'CFPB updated product and issue options in April 2017 and August 2023.';
+
+const LEARN_SERIES_BREAK =
+  'https://www.consumerfinance.gov/data-research/consumer-complaints/#past-changes';
+
 export class ExternalTooltip extends React.Component {
   _spanFormatter(value) {
     const { focus, lens, hasCompanyTypeahead, subLens } = this.props;
@@ -102,6 +108,18 @@ export class ExternalTooltip extends React.Component {
               </ul>
             )}
           </div>
+          <p className="a-micro-copy warn">
+            {WARN_SERIES_BREAK}{' '}
+            <a
+              href={LEARN_SERIES_BREAK}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Learn more about Product and
+                  Issue changes (opens in new window)"
+            >
+              Learn More
+            </a>
+          </p>
         </section>
       );
     }

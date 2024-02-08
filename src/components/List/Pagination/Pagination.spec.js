@@ -33,7 +33,7 @@ describe('Pagination', () => {
     };
 
     renderComponent(newQueryState);
-    fireEvent.click(screen.getByRole('button', { name: 'Next' }));
+    fireEvent.click(screen.getByRole('button', { name: /Next/ }));
 
     expect(nextPageShownSpy).toBeCalledTimes(1);
   });
@@ -48,7 +48,7 @@ describe('Pagination', () => {
     };
 
     renderComponent(newQueryState);
-    fireEvent.click(screen.getByRole('button', { name: 'Previous' }));
+    fireEvent.click(screen.getByRole('button', { name: /Previous/ }));
 
     expect(prevPageShownSpy).toBeCalledTimes(1);
   });
@@ -58,7 +58,7 @@ describe('Pagination', () => {
 
     renderComponent(newQueryState, true);
 
-    expect(screen.getByRole('button', { name: 'Next' })).toBeDisabled();
-    expect(screen.getByRole('button', { name: 'Previous' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: /Next/ })).toBeDisabled();
+    expect(screen.getByRole('button', { name: /Previous/ })).toBeDisabled();
   });
 });
