@@ -21,16 +21,21 @@ export const resultsSlice = createSlice({
         }
       },
     },
-    processHitsResults(state, action) {
-      const items = _processHits(action.payload.data);
-
-      return {
-        ...state,
-        activeCall: '',
-        error: '',
-        isLoading: false,
-        items: items,
-      };
+    processHitsResults: {
+      reducer: (state, action) => {
+        const items = _processHits(action.payload.data);
+        state.activeCall = '';
+        state.error = '';
+        state.isLoading = false;
+        state.items = items;
+      },
+      prepare: (items) => {
+        return {
+          payload: {
+            data: items,
+          },
+        };
+      },
     },
     processHitsError(state, action) {
       return {

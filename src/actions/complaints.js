@@ -138,7 +138,9 @@ export function getComplaints() {
     dispatch(hitsCallInProcess(uri));
     return fetch(uri)
       .then((result) => result.json())
-      .then((items) => dispatch(processHitsResults(items)))
+      .then((items) => {
+        dispatch(processHitsResults(items));
+      })
       .catch((error) => dispatch(processHitsError(error)));
   };
 }
@@ -209,7 +211,9 @@ export function getTrends() {
     dispatch(trendsCallInProcess(uri));
     return fetch(uri)
       .then((result) => result.json())
-      .then((items) => dispatch(processTrends(items)))
+      .then((items) => {
+        dispatch(processTrends(items));
+      })
       .catch((error) => dispatch(processTrendsError(error)));
   };
 }

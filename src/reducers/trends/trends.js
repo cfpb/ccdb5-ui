@@ -135,6 +135,13 @@ export const trendsSlice = createSlice({
         state.isLoading = true;
         state.tooltip = false;
       },
+      prepare: (url) => {
+        return {
+          payload: {
+            url: url,
+          },
+        };
+      },
     },
     processTrendsError(state, action) {
       const emptyState = getResetState();
@@ -146,8 +153,9 @@ export const trendsSlice = createSlice({
     },
     updateChartType: {
       reducer: (state, action) => {
-          state.chartType = (state.lens === 'Overview') ? 'line' : action.payload.chartType;
-          state.tooltip = false;
+        state.chartType =
+          state.lens === 'Overview' ? 'line' : action.payload.chartType;
+        state.tooltip = false;
       },
       prepare: (chartType) => {
         return {
@@ -200,7 +208,7 @@ export const trendsSlice = createSlice({
       },
       prepare: (subLens) => {
         return {
-          payload:{ subLens },
+          payload: { subLens },
           meta: {
             requery: REQUERY_ALWAYS,
           },
@@ -302,13 +310,12 @@ export const trendsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase('query/changeFocus', (state, action) => {
-        state.focus = action.payload.focus;
-        state.lens = action.payload.lens;
-        state.tooltip = false;
-      })
-  }
+    builder.addCase('query/changeFocus', (state, action) => {
+      state.focus = action.payload.focus;
+      state.lens = action.payload.lens;
+      state.tooltip = false;
+    });
+  },
 });
 
 // ----------------------------------------------------------------------------
