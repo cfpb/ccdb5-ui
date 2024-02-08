@@ -25,7 +25,7 @@ export const AsyncTypeahead = ({
   const ref = useRef();
   const [searchValue, setSearchValue] = useState(defaultValue);
   const [isVisible, setIsVisible] = useState(
-    hasClearButton && (!!defaultValue || !!searchValue)
+    hasClearButton && (!!defaultValue || !!searchValue),
   );
   useEffect(() => {
     ref.current.setState({ text: defaultValue });

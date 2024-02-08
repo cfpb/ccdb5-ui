@@ -22,7 +22,7 @@ function setupSnapshot() {
   return renderer.create(
     <Provider store={store}>
       <Pill fieldName="somefield" value={slugify('foo', 'bar')} />
-    </Provider>
+    </Provider>,
   );
 }
 

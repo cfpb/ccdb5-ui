@@ -38,7 +38,7 @@ function setupSnapshot() {
       <IntlProvider locale="en">
         <ReduxFocusHeader />
       </IntlProvider>
-    </Provider>
+    </Provider>,
   );
 }
 
@@ -61,7 +61,7 @@ describe('component:FocusHeader', () => {
           focus="Focus item"
           lens="Foo"
           total="9,123"
-        />
+        />,
       );
     });
 

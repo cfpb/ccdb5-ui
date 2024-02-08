@@ -13,8 +13,9 @@
   text-align: left;
   line-height: normal;
   z-index: 0;
+
   /* #1072 */
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0%);
   font-family: 'Lucida Grande', 'Lucida Sans Unicode', Arial, Helvetica,
     sans-serif;
   font-size: 12px;
@@ -56,26 +57,25 @@
 .highcharts-button-box {
   fill: inherit;
 }
+
 /* Titles */
 .highcharts-title {
-  fill: #333333;
+  fill: #333;
   font-size: 1.5em;
 }
 
 .highcharts-subtitle {
-  fill: #666666;
+  fill: #666;
 }
 
 /* Highmaps */
 .highcharts-map-series {
   .highcharts-point {
-    -webkit-transition: fill 500ms, fill-opacity 500ms, stroke-width 250ms;
     transition: fill 500ms, fill-opacity 500ms, stroke-width 250ms;
-    stroke: #cccccc;
+    stroke: #ccc;
   }
 
   .highcharts-point-hover {
-    -webkit-transition: fill 0ms, fill-opacity 0ms;
     transition: fill 0ms, fill-opacity 0ms;
     cursor: default;
     fill: @pacific !important;
@@ -177,11 +177,11 @@ x/y positioning on the SVG elements.
       stroke: none;
 
       &.empty {
-        stroke: rgba(231, 232, 233, 1);
+        stroke: rgba(231, 232, 233, 100%);
       }
 
       &.selected {
-        stroke: rgba(0, 45, 114, 1);
+        stroke: rgba(0, 45, 114, 100%);
       }
     }
   }
@@ -230,7 +230,7 @@ x/y positioning on the SVG elements.
   .highcharts-map-series {
     .highcharts-point {
       &:hover {
-        stroke: rgba(0, 45, 114, 1);
+        stroke: rgba(0, 45, 114, 100%);
         stroke-width: 2px !important;
       }
     }
@@ -290,7 +290,7 @@ x/y positioning on the SVG elements.
       }
     }
     &.deselected {
-      color: rgba(90, 93, 97, 1);
+      color: rgba(90, 93, 97, 100%);
     }
   }
 }
@@ -365,6 +365,6 @@ x/y positioning on the SVG elements.
   height: inherit;
 }
 
-.no-js .cfpb-chart:after {
+.no-js .cfpb-chart::after {
   border: 0;
 }

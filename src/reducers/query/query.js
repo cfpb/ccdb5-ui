@@ -166,7 +166,7 @@ export function toDate(value) {
   const localTimeThen = new Date(
     utcDate.getFullYear(),
     utcDate.getMonth(),
-    utcDate.getDate() + 1
+    utcDate.getDate() + 1,
   );
 
   return localTimeThen;
@@ -462,7 +462,7 @@ export function toggleFilter(state, action) {
     ...state,
     [action.filterName]: filterArrayAction(
       state[action.filterName],
-      action.filterValue.key
+      action.filterValue.key,
     ),
   };
 
@@ -549,7 +549,7 @@ export function removeAllFilters(state) {
 
   const allFilters = types.knownFilters.concat(
     types.dateFilters,
-    types.flagFilters
+    types.flagFilters,
   );
 
   if (state.searchField === types.NARRATIVE_SEARCH_FIELD) {
@@ -1017,7 +1017,7 @@ export function stateToQS(state) {
     ['search_term', 'field'],
     types.dateFilters,
     types.knownFilters,
-    types.flagFilters
+    types.flagFilters,
   );
 
   const paramMap = {
@@ -1103,7 +1103,7 @@ export function stateToURL(state) {
     ['searchText', 'searchField', 'tab'],
     types.dateFilters,
     types.knownFilters,
-    types.flagFilters
+    types.flagFilters,
   );
 
   const paramMap = {

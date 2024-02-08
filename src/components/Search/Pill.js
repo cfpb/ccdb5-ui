@@ -34,7 +34,7 @@ export const Pill = ({ fieldName, value }) => {
           filterName,
           filters,
           aggs,
-          fieldName
+          fieldName,
         );
         dispatch(replaceFilters(fieldName, updatedFilters));
       } else {

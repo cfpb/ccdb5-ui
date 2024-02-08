@@ -78,13 +78,13 @@ export const CompanyReceivedFilter = () => {
     if (dayjs(fromDate).isBefore(minDate)) {
       errs.push(
         "'From' date must be after " +
-          dayjs(minDate).format(DATE_VALIDATION_FORMAT)
+          dayjs(minDate).format(DATE_VALIDATION_FORMAT),
       );
     }
     if (dayjs(throughDate).isAfter(maxDate)) {
       errs.push(
         "'Through' date must be before " +
-          dayjs(maxDate).format(DATE_VALIDATION_FORMAT)
+          dayjs(maxDate).format(DATE_VALIDATION_FORMAT),
       );
     }
 

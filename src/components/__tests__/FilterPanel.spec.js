@@ -46,7 +46,7 @@ function setupSnapshot(view) {
   return renderer.create(
     <Provider store={store}>
       <ReduxFilterPanel />
-    </Provider>
+    </Provider>,
   );
 }
 

@@ -33,7 +33,7 @@ export class ExternalTooltip extends React.Component {
       elements.push(
         <span className="u-left" key={value.name}>
           All other {plurals[lensToUse]}
-        </span>
+        </span>,
       );
       return elements;
     }
@@ -42,7 +42,7 @@ export class ExternalTooltip extends React.Component {
       elements.push(
         <span className="u-left" key={value.name}>
           {value.name}
-        </span>
+        </span>,
       );
       return elements;
     }
@@ -54,7 +54,7 @@ export class ExternalTooltip extends React.Component {
         key={value.name}
       >
         {value.name}
-      </span>
+      </span>,
     );
 
     // add in the close button for Company and there's no focus yet
@@ -68,7 +68,7 @@ export class ExternalTooltip extends React.Component {
           }}
         >
           {getIcon('delete')}
-        </button>
+        </button>,
       );
     }
 

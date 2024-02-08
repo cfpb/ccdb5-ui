@@ -35,7 +35,7 @@ function setupSnapshot(initialFixture) {
       <IntlProvider locale="en">
         <ReduxCompany />
       </IntlProvider>
-    </Provider>
+    </Provider>,
   );
 }
 

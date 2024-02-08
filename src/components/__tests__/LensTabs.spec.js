@@ -40,7 +40,7 @@ function setupSnapshot({ focus, lens, results }) {
       <IntlProvider locale="en">
         <ReduxLensTabs showTitle={true} />
       </IntlProvider>
-    </Provider>
+    </Provider>,
   );
 }
 
@@ -105,7 +105,7 @@ describe('component:LensTabs', () => {
           hasProductTab={true}
           subLens="Issue"
           showTitle={true}
-        />
+        />,
       );
     });
 

@@ -18,7 +18,7 @@ describe('MapPanel', () => {
     newAggsState,
     newMapState,
     newQueryState,
-    newViewState
+    newViewState,
   ) => {
     merge(newAggsState, defaultAggs);
     merge(newMapState, defaultMap);
@@ -44,12 +44,12 @@ describe('MapPanel', () => {
     expect(screen.getByRole('button', { name: /List/ })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Map/ })).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: /Close filters/ })
+      screen.getByRole('button', { name: /Close filters/ }),
     ).toBeInTheDocument();
     expect(screen.getByText('Filter results by...')).toBeInTheDocument();
 
     expect(
-      screen.getByRole('button', { name: /Export data/ })
+      screen.getByRole('button', { name: /Export data/ }),
     ).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Print/ })).toBeInTheDocument();
   });
@@ -96,18 +96,18 @@ describe('MapPanel', () => {
 
     renderComponent(aggs, map, query, view);
     expect(
-      screen.getByText(/Showing 2 matches out of 100 total complaints/)
+      screen.getByText(/Showing 2 matches out of 100 total complaints/),
     ).toBeInTheDocument();
 
     expect(screen.getByRole('alert')).toHaveTextContent(
-      '“Complaints per 1,000 population” is not available with your filter selections.'
+      '“Complaints per 1,000 population” is not available with your filter selections.',
     );
 
     fireEvent.click(screen.getByLabelText('Dismiss'));
     expect(dismissSpy).toHaveBeenCalledTimes(1);
 
     expect(
-      screen.queryByRole('button', { name: /Close filters/ })
+      screen.queryByRole('button', { name: /Close filters/ }),
     ).not.toBeInTheDocument();
 
     expect(document.getElementById('tile-chart-map')).toBeInTheDocument();
@@ -152,15 +152,15 @@ describe('MapPanel', () => {
 
     renderComponent(aggs, map, query, view);
     expect(
-      screen.getByText(/Showing 2 matches out of 100 total complaints/)
+      screen.getByText(/Showing 2 matches out of 100 total complaints/),
     ).toBeInTheDocument();
 
     expect(screen.getByRole('alert')).toHaveTextContent(
-      'There was a problem executing your search'
+      'There was a problem executing your search',
     );
 
     expect(
-      screen.queryByRole('button', { name: /Close filters/ })
+      screen.queryByRole('button', { name: /Close filters/ }),
     ).not.toBeInTheDocument();
   });
 });

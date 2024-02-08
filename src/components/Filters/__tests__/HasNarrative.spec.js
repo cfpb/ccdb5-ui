@@ -23,7 +23,7 @@ function setupEnzyme(initialProps = {}) {
         phase: '',
       },
     },
-    initialProps
+    initialProps,
   );
 
   const target = mount(<HasNarrative {...props} />);
@@ -49,7 +49,7 @@ function setupSnapshot(query = {}) {
   return renderer.create(
     <Provider store={store}>
       <ReduxHasNarrative />
-    </Provider>
+    </Provider>,
   );
 }
 

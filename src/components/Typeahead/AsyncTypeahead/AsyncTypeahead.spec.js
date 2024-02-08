@@ -31,7 +31,7 @@ describe('AsyncTypeahead', () => {
         hasClearButton={isVisible || false}
         options={[appleOption]}
         placeholder="Enter your search term(s)"
-      />
+      />,
     );
   };
 
@@ -71,7 +71,7 @@ describe('AsyncTypeahead', () => {
     await user.type(input, 'new value');
     expect(input).toHaveValue('new value');
     await user.click(
-      await screen.findByRole('button', { name: /clear search/ })
+      await screen.findByRole('button', { name: /clear search/ }),
     );
 
     await waitFor(() => expect(handleClearMock).toBeCalledTimes(1));
@@ -85,7 +85,7 @@ describe('AsyncTypeahead', () => {
     await user.type(input, 'new value');
     expect(input).toHaveValue('new value');
     await user.click(
-      await screen.findByRole('button', { name: /clear search/ })
+      await screen.findByRole('button', { name: /clear search/ }),
     );
 
     await waitFor(() => expect(handleClearMock).not.toBeCalled());

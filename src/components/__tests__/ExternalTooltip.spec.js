@@ -32,7 +32,7 @@ function setupSnapshot(query, tooltip) {
   return renderer.create(
     <Provider store={store}>
       <ReduxExternalTooltip />
-    </Provider>
+    </Provider>,
   );
 }
 
@@ -118,7 +118,7 @@ describe('buttons', () => {
             },
           ],
         }}
-      />
+      />,
     );
   });
 

@@ -20,7 +20,7 @@ function setupSnapshot(query) {
   return renderer.create(
     <Provider store={store}>
       <CompanyReceivedFilter />
-    </Provider>
+    </Provider>,
   );
 }
 

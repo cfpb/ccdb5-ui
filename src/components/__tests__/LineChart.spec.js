@@ -129,7 +129,7 @@ function setupSnapshot(lens) {
   return renderer.create(
     <Provider store={store}>
       <ReduxLineChart title="foo" />
-    </Provider>
+    </Provider>,
   );
 }
 
@@ -257,7 +257,7 @@ describe('component: LineChart', () => {
           tooltip={{ date: '5/30/2021' }}
           lastDate={lastDate}
           hasChart={true}
-        />
+        />,
       );
       target._redrawChart = jest.fn();
       const sp = jest.spyOn(target.instance(), '_redrawChart');
@@ -309,7 +309,7 @@ describe('component: LineChart', () => {
           tooltip={{ date: '5/30/2021' }}
           lastDate={lastDate}
           hasChart={true}
-        />
+        />,
       );
       target._redrawChart = jest.fn();
       const sp = jest.spyOn(target.instance(), '_redrawChart');
@@ -335,7 +335,7 @@ describe('component: LineChart', () => {
           tooltip={{ date: '5/30/2021' }}
           lastDate={lastDate}
           hasChart={true}
-        />
+        />,
       );
       target._redrawChart = jest.fn();
       const sp = jest.spyOn(target.instance(), '_redrawChart');
@@ -419,7 +419,7 @@ describe('component: LineChart', () => {
           title="foo"
           tooltip={{ date: '2000' }}
           tooltipUpdated={cb}
-        />
+        />,
       );
       const instance = target.instance();
       instance._updateTooltip({ date: '2012', value: 2000 });
@@ -438,7 +438,7 @@ describe('component: LineChart', () => {
           title="foo"
           tooltip={{ date: '2000' }}
           tooltipUpdated={cb}
-        />
+        />,
       );
       const instance = target.instance();
       instance._updateTooltip({ date: '2000', value: 100 });
@@ -455,7 +455,7 @@ describe('component: LineChart', () => {
           interval="Month"
           dateRange={{ from: '2012', to: '2020' }}
           title="foo"
-        />
+        />,
       );
       const instance = target.instance();
       instance.tip = {
@@ -484,7 +484,7 @@ describe('component: LineChart', () => {
               to: '2020',
             }}
             title="foo"
-          />
+          />,
         );
         expect(target.instance()._chartWidth('#foo')).toEqual(750);
       });

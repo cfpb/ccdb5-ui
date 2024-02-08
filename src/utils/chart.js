@@ -27,7 +27,7 @@ export const getLastDate = (dataSet, config) => {
   ].sort();
   const lastDate = deDuped.pop();
   const lastPointValues = dataSet.filter((obj) =>
-    isDateEqual(obj.date, lastDate)
+    isDateEqual(obj.date, lastDate),
   );
   return {
     key: lastDate,
@@ -53,7 +53,7 @@ export const getLastLineDate = (dataSet, config) => {
   const lastDate = deDuped.pop();
   const values = dataSet.dataByTopic.map((datum) => {
     const lastPoint = datum.dates.find((val) =>
-      isDateEqual(val.date, lastDate)
+      isDateEqual(val.date, lastDate),
     );
     const value = lastPoint ? lastPoint.value : 0;
     return {
@@ -175,7 +175,7 @@ export const processRows = (rows, colorMap, lens, expandedRows) => {
   if (rows) {
     let data = rows;
     data = data.filter(
-      (datum) => datum.isParent || expandedRows.includes(datum.parent)
+      (datum) => datum.isParent || expandedRows.includes(datum.parent),
     );
     const colorScheme = getColorScheme(data, colorMap, lens);
 
@@ -217,7 +217,7 @@ export const updateDateBuckets = (name, buckets, areaBuckets) => {
     buckets
       // eslint-disable-next-line no-confusing-arrow, no-extra-parens
       .sort((first, second) =>
-        first.key_as_string > second.key_as_string ? 1 : -1
+        first.key_as_string > second.key_as_string ? 1 : -1,
       )
       .map((obj) => ({
         name: name,
@@ -289,7 +289,7 @@ export const pruneIncompleteLineInterval = (data, dateRange, interval) => {
 export const pruneIncompleteStackedAreaInterval = (
   data,
   dateRange,
-  interval
+  interval,
 ) => {
   const { from: dateFrom, to: dateTo } = dateRange;
 
@@ -307,7 +307,7 @@ export const pruneIncompleteStackedAreaInterval = (
   // start date from chart same as date range from, then go ahead keep it
   if (dateOutOfStartBounds(dateFrom, startFromChart, interval)) {
     filteredData = filteredData.filter(
-      (datum) => datum.date !== startFromChart
+      (datum) => datum.date !== startFromChart,
     );
   }
 

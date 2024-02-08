@@ -23,7 +23,7 @@ function setupSnapshot(query) {
         fieldName="date_received"
         title="Date CFPB Received the complaint"
       />
-    </Provider>
+    </Provider>,
   );
 }
 

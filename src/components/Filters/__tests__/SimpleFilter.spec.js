@@ -28,7 +28,7 @@ function setupSnapshot(initialAggs) {
       <IntlProvider locale="en">
         <ReduxSimpleFilter fieldName="company_response" title="nana" />
       </IntlProvider>
-    </Provider>
+    </Provider>,
   );
 }
 

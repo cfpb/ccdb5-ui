@@ -47,7 +47,7 @@ function setupSnapshot(hasFilters) {
   return renderer.create(
     <Provider store={store}>
       <ReduxFilterPanelToggle />
-    </Provider>
+    </Provider>,
   );
 }
 
