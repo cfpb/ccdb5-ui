@@ -2,7 +2,7 @@ import './AdvancedTips.less';
 import React from 'react';
 import { TooltipWrapper } from '../../Common/TooltipWrapper/TooltipWrapper';
 import { ComplexExample } from './ComplexExample';
-import iconMap from '../../iconMap';
+import getIcon from '../../iconMap';
 
 export const AdvancedTips = () => {
   return (
@@ -266,7 +266,7 @@ export const AdvancedTips = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Find out more {iconMap.getIcon('external-link')}
+              Find out more {getIcon('external-link')}
             </a>{' '}
             about Elastic Search
           </li>
