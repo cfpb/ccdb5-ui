@@ -21,6 +21,3 @@ sed -i "" -e "s/$search/$replace/g" -e "s/\.[a-zA-Z0-9]*\.woff/.woff/g" dist/ccd
 # Move JS assets.
 mv ./build/static/js/main.*.js ./dist/ccdb5.js
 mv ./build/static/js/main.*.js.map ./dist/ccdb5.js.map
-
-# Move text assets
-mv ./build/static/js/main.*.LICENSE.txt ./dist/ccdb5.js.LICENSE.txt
