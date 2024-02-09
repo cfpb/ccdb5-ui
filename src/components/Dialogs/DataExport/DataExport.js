@@ -149,16 +149,11 @@ export const DataExport = () => {
                   value="filtered"
                 />
                 <label className="a-label" htmlFor="dataset_filtered">
-                  <div className="multiline-label">
-                    <div>
-                      Filtered dataset (
-                      <FormattedNumber value={someComplaintsCount} />
-                      &nbsp;complaints)
-                    </div>
-                    <div className="body-copy">
-                      (only the results of the last search and/or filter)
-                    </div>
-                  </div>
+                  Filtered dataset (
+                  <FormattedNumber value={someComplaintsCount} />
+                  &nbsp;complaints)
+                  <br />
+                  (only the results of the last search and/or filter)
                 </label>
               </div>
               <div className="m-form-field m-form-field__radio m-form-field__lg-target">
@@ -174,16 +169,10 @@ export const DataExport = () => {
                   value="full"
                 />
                 <label className="a-label" htmlFor="dataset_full">
-                  <div className="multiline-label">
-                    <div>
-                      Full dataset (
-                      <FormattedNumber value={allComplaintsCount} />
-                      &nbsp;complaints)
-                    </div>
-                    <div className="body-copy">
-                      (not recommended due to very large file size)
-                    </div>
-                  </div>
+                  Full dataset (<FormattedNumber value={allComplaintsCount} />
+                  &nbsp;complaints)
+                  <br />
+                  (not recommended due to very large file size)
                 </label>
               </div>
             </div>
