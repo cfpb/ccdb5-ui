@@ -38,7 +38,9 @@ export const Pill = ({ fieldName, value }) => {
         );
         dispatch(replaceFilters(fieldName, updatedFilters));
       } else {
-        dispatch(removeFilter({fieldName: fieldName, fieldValue: filterName}));
+        dispatch(
+          removeFilter({ fieldName: fieldName, fieldValue: filterName })
+        );
       }
     }
   };

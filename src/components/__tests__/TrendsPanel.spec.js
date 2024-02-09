@@ -349,7 +349,7 @@ describe('component:TrendsPanel', () => {
         [
           {
             meta: {
-              requery: 'REQUERY_NEVER'
+              requery: 'REQUERY_NEVER',
             },
             type: 'query/dismissTrendsDateWarning',
           },

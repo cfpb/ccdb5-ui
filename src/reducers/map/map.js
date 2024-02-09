@@ -52,12 +52,11 @@ export const mapSlice = createSlice({
       };
     },
     statesCallInProcess: {
-      reducer: (state, action) =>
-        {
-          state.activeCall = action.payload.url;
-          state.error = false;
-          state.isLoading = true;
-        },
+      reducer: (state, action) => {
+        state.activeCall = action.payload.url;
+        state.error = false;
+        state.isLoading = true;
+      },
     },
     processStatesResults(state, action) {
       const aggregations = action.payload.data.aggregations;

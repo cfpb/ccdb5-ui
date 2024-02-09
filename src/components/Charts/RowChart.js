@@ -3,7 +3,6 @@
 import './RowChart.less';
 import * as d3 from 'd3';
 import {
-  cloneDeep,
   coalesce,
   getAllFilters,
   hashObject,
@@ -114,7 +113,7 @@ export class RowChart extends React.Component {
     const { colorScheme, data, id, isPrintMode, total } = this.props;
     // deep copy
     // do this to prevent REDUX pollution
-    const rows = cloneDeep(data).filter((o) => {
+    const rows = JSON.parse(JSON.stringify(data)).filter((o) => {
       if (o.name && isPrintMode) {
         // remove spacer text if we are in print mode
         return o.name.indexOf('Visualize trends for') === -1;
@@ -133,7 +132,6 @@ export class RowChart extends React.Component {
     const chartID = '#row-chart-' + id;
     d3.selectAll(chartID + ' .row-chart').remove();
     const rowContainer = d3.select(chartID);
-
     // added padding to make up for margin
     const width = isPrintMode
       ? 750
@@ -146,6 +144,7 @@ export class RowChart extends React.Component {
     // tweak to make the chart full width at desktop
     // add space at narrow width
     const marginRight = width < 600 ? 40 : -65;
+
     chart
       .margin({
         left: marginLeft,
@@ -171,9 +170,11 @@ export class RowChart extends React.Component {
       .on('customMouseOut', tooltip.hide);
 
     rowContainer.datum(rows).call(chart);
+
     const tooltipContainer = d3.selectAll(
       chartID + ' .row-chart .metadata-group'
     );
+
     tooltipContainer.datum([]).call(tooltip);
     this._wrapText(d3.select(chartID).selectAll('.tick text'), marginLeft);
 

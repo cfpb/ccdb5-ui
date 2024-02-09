@@ -250,7 +250,7 @@ export const querySlice = createSlice({
           payload: {
             filterName,
             minDate,
-            maxDate
+            maxDate,
           },
           meta: {
             requery: REQUERY_ALWAYS,

@@ -25,5 +25,4 @@ describe('action:url', () => {
       expect(params).toEqual({});
     });
   });
-
 });

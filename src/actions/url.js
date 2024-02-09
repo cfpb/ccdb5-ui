@@ -1,5 +1,5 @@
 import { sendQuery } from './complaints';
-import {processParams} from "../reducers/query/query";
+import { processParams } from '../reducers/query/query';
 
 const queryString = require('query-string');
 
@@ -20,7 +20,6 @@ export function processLocation(location) {
   };
 }
 
-
 /**
  * Notify the application that the URL has changed and call the API
  * @param {Location} location - information about the host, path and query string
@@ -29,7 +28,7 @@ export function processLocation(location) {
 export default function announceUrlChanged(location) {
   const { pathname, params } = processLocation(location);
   return (dispatch) => {
-    dispatch(processParams( {pathname, params }));
+    dispatch(processParams({ pathname, params }));
     dispatch(sendQuery());
   };
 }

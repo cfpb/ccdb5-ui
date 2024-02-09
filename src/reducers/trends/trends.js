@@ -113,9 +113,11 @@ export const trendsSlice = createSlice({
         state.total = total;
         state.subLens = lens === 'Company' ? 'product' : state.subLens;
       },
-      prepare: (payload) => {
+      prepare: (items) => {
         return {
-          payload,
+          payload: {
+            data: items,
+          },
           meta: {
             requery: REQUERY_ALWAYS,
           },

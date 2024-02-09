@@ -11,7 +11,7 @@ export const detailSlice = createSlice({
   initialState: detailState,
   reducers: {
     complaintDetailCalled(state, action) {
-        state.activeCall = action.payload;
+      state.activeCall = action.payload;
     },
     complaintDetailReceived(state, action) {
       return {

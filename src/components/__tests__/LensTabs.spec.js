@@ -132,7 +132,7 @@ describe('component:LensTabs', () => {
             meta: {
               requery: REQUERY_ALWAYS,
             },
-            payload: {subLens: 'product' },
+            payload: { subLens: 'product' },
             type: 'trends/updateDataSubLens',
           },
         ],
