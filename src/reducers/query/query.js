@@ -44,7 +44,7 @@ export const queryState = {
   size: 25,
   sort: 'created_date_desc',
   subLens: 'sub_product',
-  tab: types.MODE_TRENDS,
+  tab: types.MODE_LIST,
   totalPages: 0,
   trendDepth: 5,
   trendsDateWarningEnabled: false,
@@ -145,6 +145,9 @@ export const querySlice = createSlice({
         return {
           payload: {
             params,
+          },
+          meta: {
+            requery: REQUERY_ALWAYS,
           },
         };
       },

@@ -112,6 +112,8 @@ export const trendsSlice = createSlice({
         state.results = results;
         state.total = total;
         state.subLens = lens === 'Company' ? 'product' : state.subLens;
+
+
       },
       prepare: (items) => {
         return {
@@ -119,7 +121,7 @@ export const trendsSlice = createSlice({
             data: items,
           },
           meta: {
-            requery: REQUERY_ALWAYS,
+            requery: REQUERY_NEVER,
           },
         };
       },
@@ -146,12 +148,8 @@ export const trendsSlice = createSlice({
       },
     },
     processTrendsError(state, action) {
-      const emptyState = getResetState();
-      return {
-        ...state,
-        ...emptyState,
-        error: processErrorMessage(action.payload),
-      };
+      state = getResetState();
+      state.error = processErrorMessage(action.payload);
     },
     updateChartType: {
       reducer: (state, action) => {
@@ -612,7 +610,6 @@ export const {
   updateDataSubLens,
   changeFocus,
   removeFocus,
-  processParams,
   updateTooltip,
   removeAllFilters,
   removeMultipleFilters,

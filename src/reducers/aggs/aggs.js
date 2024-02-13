@@ -1,5 +1,6 @@
 import { processErrorMessage } from '../../utils';
 import { createSlice } from '@reduxjs/toolkit';
+import {REQUERY_NEVER} from "../../constants";
 
 /* eslint-disable camelcase */
 
@@ -64,6 +65,9 @@ export const aggSlice = createSlice({
         return {
           payload: {
             data,
+          },
+          meta: {
+            requery: REQUERY_NEVER,
           },
         };
       },

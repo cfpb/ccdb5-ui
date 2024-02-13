@@ -104,12 +104,14 @@ export function sendHitsQuery() {
  */
 export function getAggregations() {
   return (dispatch, getState) => {
+    console.log("Get Aggs");
     const store = getState();
     const qs = store.query.queryString;
     const uri = API_PLACEHOLDER + qs + '&size=0';
 
     // This call is already in process
-    if (store.results.loadingAggregations) {
+    if (store.aggs.isLoading) {
+      console.log("Loading")
       return null;
     }
 
@@ -127,6 +129,7 @@ export function getAggregations() {
  */
 export function getComplaints() {
   return (dispatch, getState) => {
+    console.log("Get Complaints");
     const store = getState();
     const qs = store.query.queryString;
     const uri = API_PLACEHOLDER + qs;
@@ -190,20 +193,19 @@ export function getStates() {
  */
 export function getTrends() {
   return (dispatch, getState) => {
+        console.log("Get Trends");
     const store = getState();
-    const { query, trends } = store;
-    const qs = 'trends/' + query.queryString;
+    const qs = 'trends/' + store.query.queryString;
     const uri = API_PLACEHOLDER + qs + '&no_aggs=true';
-
     // This call is already in process
-    if (uri === trends.activeCall) {
+    if (uri === store.trends.activeCall) {
       return null;
     }
 
     // kill query if Company param criteria aren't met
     if (
-      trends.lens === 'Company' &&
-      (!query.company || !query.company.length)
+      store.trends.lens === 'Company' &&
+      (!store.query.company || !store.query.company.length)
     ) {
       return null;
     }
