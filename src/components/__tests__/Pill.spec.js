@@ -7,7 +7,7 @@ import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 
 /**
- *
+ * @returns {void}
  */
 function setupSnapshot() {
   const middlewares = [thunk];
@@ -22,7 +22,7 @@ function setupSnapshot() {
   return renderer.create(
     <Provider store={store}>
       <Pill fieldName="somefield" value={slugify('foo', 'bar')} />
-    </Provider>
+    </Provider>,
   );
 }
 

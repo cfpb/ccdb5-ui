@@ -71,7 +71,7 @@ export class StackedAreaChart extends React.Component {
     const stackedAreaChart = stackedArea();
     const colorData = filteredData.filter((item) => item.name !== 'Other');
     const colorScheme = [...new Set(colorData.map((item) => item.name))].map(
-      (o) => colorMap[o]
+      (obj) => colorMap[obj],
     );
     colorScheme.push(colors.DataLens[10]);
 
@@ -133,7 +133,7 @@ export const mapStateToProps = (state) => {
   const filteredData = pruneIncompleteStackedAreaInterval(
     processData,
     dateRange,
-    interval
+    interval,
   );
   const hasChart = filteredData.length > 1;
 
@@ -151,6 +151,7 @@ export const mapStateToProps = (state) => {
   };
 };
 
+// eslint-disable-next-line react-redux/prefer-separate-component-file
 export default connect(mapStateToProps, mapDispatchToProps)(StackedAreaChart);
 
 StackedAreaChart.propTypes = {

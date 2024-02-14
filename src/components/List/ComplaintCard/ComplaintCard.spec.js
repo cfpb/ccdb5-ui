@@ -48,7 +48,7 @@ describe('ComplaintCard', () => {
     expect(screen.getByText(itemFixture.issue)).toBeDefined();
     expect(screen.queryByText(/Sub-issue:/)).toBeNull();
     expect(
-      screen.queryByRole('heading', { name: 'Consumer Complaint Narrative' })
+      screen.queryByRole('heading', { name: 'Consumer Complaint Narrative' }),
     ).toBeNull();
   });
 
@@ -60,10 +60,10 @@ describe('ComplaintCard', () => {
     render(<ComplaintCard row={itemFixture} />);
 
     expect(
-      screen.getByRole('heading', { name: /Consumer Complaint Narrative/ })
+      screen.getByRole('heading', { name: /Consumer Complaint Narrative/ }),
     ).toBeDefined();
     expect(
-      screen.getByText(expectedItem.complaint_what_happened)
+      screen.getByText(expectedItem.complaint_what_happened),
     ).toBeDefined();
   });
 
@@ -85,7 +85,7 @@ describe('ComplaintCard', () => {
     render(<ComplaintCard row={itemFixture} />);
 
     expect(
-      screen.getByRole('heading', { name: /Consumer Complaint Narrative/ })
+      screen.getByRole('heading', { name: /Consumer Complaint Narrative/ }),
     ).toBeDefined();
     expect(screen.getByText(expectedText)).toBeDefined();
     expect(screen.getByText('[...]')).toBeDefined();
@@ -116,7 +116,7 @@ describe('ComplaintCard', () => {
 
     expect(screen.getByText(/7990095/).closest('a')).toHaveAttribute(
       'href',
-      '/detail/7990095'
+      '/detail/7990095',
     );
   });
 });

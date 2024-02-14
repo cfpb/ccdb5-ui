@@ -371,7 +371,7 @@ describe('pruneIncompleteStackedAreaInterval', () => {
     const res = sut.pruneIncompleteStackedAreaInterval(
       data,
       dateRange,
-      'Month'
+      'Month',
     );
     expect(res).toEqual([
       { date: '01/01/2011' },

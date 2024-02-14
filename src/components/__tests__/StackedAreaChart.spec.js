@@ -31,8 +31,8 @@ jest.mock('britecharts', () => {
 
   const mock = {};
 
-  for (let i = 0; i < props.length; i++) {
-    const propName = props[i];
+  for (let idx = 0; idx < props.length; idx++) {
+    const propName = props[idx];
     mock[propName] = jest.fn().mockImplementation(() => {
       return mock;
     });
@@ -56,8 +56,8 @@ jest.mock('d3', () => {
 
   const mock = {};
 
-  for (let i = 0; i < props.length; i++) {
-    const propName = props[i];
+  for (let idx = 0; idx < props.length; idx++) {
+    const propName = props[idx];
     mock[propName] = jest.fn().mockImplementation(() => {
       return mock;
     });
@@ -70,7 +70,7 @@ jest.mock('d3', () => {
 });
 
 /**
- *
+ * @returns {void}
  */
 function setupSnapshot() {
   const middlewares = [thunk];
@@ -102,7 +102,7 @@ function setupSnapshot() {
   return renderer.create(
     <Provider store={store}>
       <ReduxStackedAreaChart />
-    </Provider>
+    </Provider>,
   );
 }
 
@@ -135,7 +135,7 @@ describe('component: StackedAreaChart', () => {
 
     it('does nothing when no data', () => {
       const target = shallow(
-        <StackedAreaChart colorMap={{ foo: 'bar' }} data={[]} />
+        <StackedAreaChart colorMap={{ foo: 'bar' }} data={[]} />,
       );
       target._redrawChart = jest.fn();
       target.setProps({ data: [] });
@@ -150,7 +150,7 @@ describe('component: StackedAreaChart', () => {
           data={[23, 4, 3]}
           dateRange={{ from: '1/1/2021', to: '1/1/2022' }}
           interval="Month"
-        />
+        />,
       );
       target._redrawChart = jest.fn();
       const sp = jest.spyOn(target.instance(), '_redrawChart');
@@ -167,7 +167,7 @@ describe('component: StackedAreaChart', () => {
           dateRange={{ from: '1/1/2021', to: '1/1/2022' }}
           interval="Month"
           isPrintMode={false}
-        />
+        />,
       );
       target._redrawChart = jest.fn();
       const sp = jest.spyOn(target.instance(), '_redrawChart');
@@ -185,7 +185,7 @@ describe('component: StackedAreaChart', () => {
           interval="Month"
           isPrintMode={false}
           width={1000}
-        />
+        />,
       );
       target._redrawChart = jest.fn();
       const sp = jest.spyOn(target.instance(), '_redrawChart');
@@ -261,7 +261,7 @@ describe('component: StackedAreaChart', () => {
     xit('updates external tooltip with different data', () => {
       target = shallow(
         <StackedAreaChart
-          colorMap={{ a: '#eee', b: '#444' }}
+          colorMap={{ val1: '#eee', val2: '#444' }}
           data={[2, 3, 4]}
           interval="Month"
           dateRange={{
@@ -272,7 +272,7 @@ describe('component: StackedAreaChart', () => {
           tooltip={{ date: '2000' }}
           tooltipUpdated={cb}
           hasChart={true}
-        />
+        />,
       );
       const instance = target.instance();
       instance._updateTooltip({ date: '2012', values: [1, 2, 3] });
@@ -282,7 +282,7 @@ describe('component: StackedAreaChart', () => {
     xit('Only updates external tooltip on init', () => {
       target = shallow(
         <StackedAreaChart
-          colorMap={{ a: '#eee', b: '#444' }}
+          colorMap={{ val1: '#eee', val2: '#444' }}
           data={[3, 5, 6]}
           interval="Month"
           dateRange={{
@@ -293,7 +293,7 @@ describe('component: StackedAreaChart', () => {
           tooltip={{ date: '2000' }}
           tooltipUpdated={cb}
           hasChart={true}
-        />
+        />,
       );
       const instance = target.instance();
       instance._updateTooltip({ date: '2000', value: 200 });
@@ -306,7 +306,7 @@ describe('component: StackedAreaChart', () => {
         const target = shallow(
           <StackedAreaChart
             isPrintMode={true}
-            colorMap={{ a: '#eee', b: '#444' }}
+            colorMap={{ val1: '#eee', val2: '#444' }}
             lens="Overview"
             data={[3, 5, 6]}
             interval="Month"
@@ -315,7 +315,7 @@ describe('component: StackedAreaChart', () => {
               to: '2020',
             }}
             tooltipUpdated={jest.fn()}
-          />
+          />,
         );
         expect(target.instance()._chartWidth('#foo')).toEqual(500);
       });

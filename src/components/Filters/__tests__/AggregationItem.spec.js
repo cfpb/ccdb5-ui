@@ -14,9 +14,10 @@ import thunk from 'redux-thunk';
 
 /**
  *
- * @param rmCb
- * @param addCb
- * @param isActive
+ * @param {Function} rmCb - Remove filter function
+ * @param {Function} addCb - Add filter function
+ * @param {boolean} isActive - Is the filter active?
+ * @returns {Function} - Rendering function
  */
 function setupEnzyme(rmCb, addCb, isActive) {
   return shallow(
@@ -30,12 +31,12 @@ function setupEnzyme(rmCb, addCb, isActive) {
       removeFilter={rmCb}
       addFilter={addCb}
       isActive={isActive}
-    />
+    />,
   );
 }
 
 /**
- *
+ * @returns {Function} - Rendering function
  */
 function setupSnapshot() {
   const middlewares = [thunk];
@@ -60,7 +61,7 @@ function setupSnapshot() {
           onClick={onClick}
         />
       </Provider>
-    </IntlProvider>
+    </IntlProvider>,
   );
 }
 

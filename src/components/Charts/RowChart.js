@@ -49,6 +49,7 @@ export class RowChart extends React.Component {
       const words = innerText.text().split(/\s+/).reverse(),
         // ems
         lineHeight = 1.1,
+        // eslint-disable-next-line id-length
         y = innerText.attr('y') || 0,
         dy = parseFloat(innerText.attr('dy') || 0);
 
@@ -114,10 +115,10 @@ export class RowChart extends React.Component {
     const { colorScheme, data, id, isPrintMode, total } = this.props;
     // deep copy
     // do this to prevent REDUX pollution
-    const rows = cloneDeep(data).filter((o) => {
-      if (o.name && isPrintMode) {
+    const rows = cloneDeep(data).filter((obj) => {
+      if (obj.name && isPrintMode) {
         // remove spacer text if we are in print mode
-        return o.name.indexOf('Visualize trends for') === -1;
+        return obj.name.indexOf('Visualize trends for') === -1;
       }
       return true;
     });
@@ -129,7 +130,7 @@ export class RowChart extends React.Component {
     const tooltip = miniTooltip();
     tooltip.valueFormatter(this._formatTip);
 
-    const ratio = total / max(rows, (o) => o.value);
+    const ratio = total / max(rows, (obj) => obj.value);
     const chartID = '#row-chart-' + id;
     d3.selectAll(chartID + ' .row-chart').remove();
     const rowContainer = d3.select(chartID);
@@ -172,7 +173,7 @@ export class RowChart extends React.Component {
 
     rowContainer.datum(rows).call(chart);
     const tooltipContainer = d3.selectAll(
-      chartID + ' .row-chart .metadata-group'
+      chartID + ' .row-chart .metadata-group',
     );
     tooltipContainer.datum([]).call(tooltip);
     this._wrapText(d3.select(chartID).selectAll('.tick text'), marginLeft);
@@ -180,7 +181,7 @@ export class RowChart extends React.Component {
     this._wrapText(
       d3.select(chartID).selectAll('.view-more-label'),
       width / 2,
-      true
+      true,
     );
 
     rowContainer.selectAll('.y-axis-group .tick').on('click', this._toggleRow);
@@ -198,7 +199,9 @@ export class RowChart extends React.Component {
   _toggleRow(rowName) {
     // fire off different action depending on if the row is expanded or not
     const { data, expandedRows } = this.props;
-    const expandableRows = data.filter((o) => o.isParent).map((o) => o.name);
+    const expandableRows = data
+      .filter((obj) => obj.isParent)
+      .map((obj) => obj.name);
 
     if (!expandableRows.includes(rowName)) {
       // early exit
@@ -232,7 +235,7 @@ export const mapDispatchToProps = (dispatch) => ({
     if (lens === 'Company') {
       values.push(element.parent);
     } else {
-      const filterGroup = filters.find((o) => o.key === element.parent);
+      const filterGroup = filters.find((obj) => obj.key === element.parent);
       const keyName = 'sub_' + lens.toLowerCase() + '.raw';
       values = filterGroup
         ? getAllFilters(element.parent, filterGroup[keyName].buckets)
@@ -266,6 +269,7 @@ export const mapStateToProps = (state) => {
   };
 };
 
+// eslint-disable-next-line react-redux/prefer-separate-component-file
 export default connect(mapStateToProps, mapDispatchToProps)(RowChart);
 
 RowChart.propTypes = {

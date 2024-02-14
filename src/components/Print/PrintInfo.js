@@ -46,7 +46,7 @@ export const PrintInfo = () => {
       <p>
         <span>Dates:</span> {dateText}
       </p>
-      {searchText && (
+      {!!searchText && (
         <p>
           <span>Search Term:</span> {searchText}
         </p>

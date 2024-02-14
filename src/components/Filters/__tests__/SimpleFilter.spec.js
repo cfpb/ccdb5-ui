@@ -9,7 +9,8 @@ import renderer from 'react-test-renderer';
 
 /**
  *
- * @param initialAggs
+ * @param {object} initialAggs - Aggs state object
+ * @returns {Function} - Rendering function
  */
 function setupSnapshot(initialAggs) {
   const middlewares = [thunk];
@@ -27,7 +28,7 @@ function setupSnapshot(initialAggs) {
       <IntlProvider locale="en">
         <ReduxSimpleFilter fieldName="company_response" title="nana" />
       </IntlProvider>
-    </Provider>
+    </Provider>,
   );
 }
 

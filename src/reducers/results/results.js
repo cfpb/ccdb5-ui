@@ -13,12 +13,12 @@ export const defaultResults = {
 };
 
 export const _processHits = (data) =>
-  data.hits.hits.map((x) => {
-    const item = { ...x._source };
+  data.hits.hits.map((hit) => {
+    const item = { ...hit._source };
 
-    if (x.highlight) {
-      Object.keys(x.highlight).forEach((field) => {
-        item[field] = x.highlight[field][0];
+    if (hit.highlight) {
+      Object.keys(hit.highlight).forEach((field) => {
+        item[field] = hit.highlight[field][0];
       });
     }
 
@@ -29,6 +29,7 @@ export const _processHits = (data) =>
 // Action Handlers
 /**
  * handles complaint api call in progress
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the payload containing the key/value pairs
  * @returns {object} new state for the Redux store
@@ -43,6 +44,7 @@ export function hitsCallInProcess(state, action) {
 
 /**
  * expanded logic to process complaint data
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the payload containing the key/value pairs
  * @returns {object} new state for the Redux store
@@ -61,6 +63,7 @@ export function processHitsResults(state, action) {
 
 /**
  * handling errors from an complaint api call
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the payload containing the key/value pairs
  * @returns {object} new state for the Redux store
@@ -77,6 +80,7 @@ export function processHitsError(state, action) {
 
 /**
  * Creates a hash table of action types to handlers
+ *
  * @returns {object} a map of types to functions
  */
 export function _buildHandlerMap() {
@@ -92,6 +96,7 @@ const _handlers = _buildHandlerMap();
 
 /**
  * Routes an action to an appropriate handler
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the command being executed
  * @returns {object} the new state for the Redux store
@@ -104,7 +109,9 @@ function handleSpecificAction(state, action) {
   return state;
 }
 
-export default (state = defaultResults, action) => {
+const results = (state = defaultResults, action) => {
   const newState = handleSpecificAction(state, action);
   return newState;
 };
+
+export default results;

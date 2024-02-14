@@ -8,7 +8,7 @@ import {
 } from '../../reducers/detail/selectors';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { getComplaintDetail } from '../../actions/complaints';
-import iconMap from '../iconMap';
+import getIcon from '../iconMap';
 import { Loading } from '../Loading/Loading';
 import { selectQuerySearch } from '../../reducers/query/selectors';
 import { ComplaintDetailBody } from './ComplaintDetailBody';
@@ -44,7 +44,7 @@ export const ComplaintDetail = () => {
       <nav className="layout-row">
         <div className="back-to-search flex-fixed">
           <Link to={backUrl}>
-            {iconMap.getIcon('left', 'cf-icon-left')} Back to search results
+            {getIcon('left', 'cf-icon-left')} Back to search results
           </Link>
         </div>
         <div className="meaning flex-fixed">

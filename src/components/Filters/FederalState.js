@@ -9,11 +9,11 @@ import { Typeahead } from '../Typeahead/Typeahead/Typeahead';
 
 export const FederalState = ({ hasChildren }) => {
   const dispatch = useDispatch();
-  const buildLabel = (x) => THESE_UNITED_STATES[x] + ' (' + x + ')';
-  const starterOptions = Object.keys(THESE_UNITED_STATES).map((x) => {
-    const label = buildLabel(x);
+  const buildLabel = (state) => THESE_UNITED_STATES[state] + ' (' + state + ')';
+  const starterOptions = Object.keys(THESE_UNITED_STATES).map((key) => {
+    const label = buildLabel(key);
     return {
-      key: x,
+      key: key,
       label,
       position: 0,
       normalized: normalize(label),
@@ -23,16 +23,16 @@ export const FederalState = ({ hasChildren }) => {
   const desc = 'The state in the mailing address provided by the consumer';
 
   const onInputChange = (value) => {
-    const n = normalize(value);
-    if (n === '') {
+    const num = normalize(value);
+    if (num === '') {
       setDropdownOptions(starterOptions);
       return;
     }
-    const options = starterOptions.map((x) => ({
-      key: x.key,
-      label: x.label,
-      normalized: x.normalized,
-      position: x.normalized.indexOf(n),
+    const options = starterOptions.map((opt) => ({
+      key: opt.key,
+      label: opt.label,
+      normalized: opt.normalized,
+      position: opt.normalized.indexOf(num),
       value,
     }));
     setDropdownOptions(options);

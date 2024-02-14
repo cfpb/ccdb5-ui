@@ -5,7 +5,8 @@ import { REQUERY_ALWAYS, REQUERY_HITS_ONLY } from '../../constants';
 
 /**
  *
- * @param viewMode
+ * @param {string} viewMode - The current view mode
+ * @returns {void}
  */
 function setupStore(viewMode = 'Map') {
   const middlewares = [thunk, queryManager];

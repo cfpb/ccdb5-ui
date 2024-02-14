@@ -56,9 +56,9 @@ export const mapStateToProps = (state) => {
   const selections = [];
 
   // Reduce the products to the parent keys (and dedup)
-  allProducts.forEach((x) => {
-    const idx = x.indexOf(SLUG_SEPARATOR);
-    const key = idx === -1 ? x : x.substr(0, idx);
+  allProducts.forEach((prod) => {
+    const idx = prod.indexOf(SLUG_SEPARATOR);
+    const key = idx === -1 ? prod : prod.substr(0, idx);
     if (selections.indexOf(key) === -1) {
       selections.push(key);
     }
@@ -68,10 +68,10 @@ export const mapStateToProps = (state) => {
   const options = sortSelThenCount(state.aggs.product, selections);
   if (focus) {
     const isProductFocus = tab === MODE_TRENDS && lens === 'Product';
-    options.forEach((o) => {
-      o.disabled = isProductFocus ? o.key !== focus : false;
-      o['sub_product.raw'].buckets.forEach((v) => {
-        v.disabled = isProductFocus ? o.disabled : false;
+    options.forEach((opt) => {
+      opt.disabled = isProductFocus ? opt.key !== focus : false;
+      opt['sub_product.raw'].buckets.forEach((bucket) => {
+        bucket.disabled = isProductFocus ? opt.disabled : false;
       });
     });
   }
@@ -81,6 +81,7 @@ export const mapStateToProps = (state) => {
   };
 };
 
+// eslint-disable-next-line react-redux/prefer-separate-component-file
 export default connect(mapStateToProps)(Product);
 
 Product.propTypes = {

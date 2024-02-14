@@ -31,7 +31,7 @@ import { trendsDateWarningDismissed } from '../../actions/view';
 import Warning from '../Warnings/Warning';
 
 const WARNING_MESSAGE =
-  '“Day” interval is disabled when the date range is' + ' longer than one year';
+  '“Day” interval is disabled when the date range is longer than one year';
 
 const subLensMap = {
   sub_product: 'Sub-products',
@@ -169,13 +169,13 @@ export class TrendsPanel extends React.Component {
       <section className={this._className()}>
         <ActionBar />
         <TabbedNavigation />
-        {isTrendsDateWarningEnabled && (
+        {!!isTrendsDateWarningEnabled && (
           <Warning
             text={WARNING_MESSAGE}
             closeFn={this.props.onDismissWarning}
           />
         )}
-        {hasMobileFilters && <FilterPanel />}
+        {!!hasMobileFilters && <FilterPanel />}
         <div className="layout-row refine-bar">
           <FilterPanelToggle />
           <Select
@@ -201,7 +201,7 @@ export class TrendsPanel extends React.Component {
           ]}
         </div>
 
-        {hasCompanyOverlay && (
+        {!!hasCompanyOverlay && (
           <div className="layout-row company-overlay">
             <section className="company-search">
               <p>
@@ -214,9 +214,9 @@ export class TrendsPanel extends React.Component {
           </div>
         )}
 
-        {focus && <FocusHeader />}
+        {!!focus && <FocusHeader />}
 
-        {!hasCompanyOverlay && hasOverview && total > 0 && (
+        {!hasCompanyOverlay && !!hasOverview && total > 0 && (
           <div className="layout-row">
             <section className="chart-description">
               <h2 className="area-chart-title">{this._areaChartTitle()}</h2>
@@ -333,6 +333,7 @@ export const mapDispatchToProps = (dispatch) => ({
   },
 });
 
+// eslint-disable-next-line react-redux/prefer-separate-component-file
 export default connect(mapStateToProps, mapDispatchToProps)(TrendsPanel);
 
 TrendsPanel.propTypes = {

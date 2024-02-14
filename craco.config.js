@@ -1,3 +1,4 @@
+const CracoEsbuildPlugin = require('craco-esbuild');
 const CracoLessPlugin = require('craco-less');
 const path = require('path');
 const {
@@ -12,7 +13,8 @@ const {
   loaderByName,
   throwUnexpectedConfigError,
 } = require('@craco/craco');
-const webpack = require('webpack');
+
+const { ProvidePlugin } = require('webpack');
 
 module.exports = {
   webpack: {
@@ -31,7 +33,7 @@ module.exports = {
                 const replacement =
                   '/data-research/consumer-complaints/search/api/v1/';
                 console.log(
-                  `Replaced "${match}" in file "${this.resource}" with "${replacement}.`
+                  `Replaced "${match}" in file "${this.resource}" with "${replacement}.`,
                 );
                 return replacement;
               },
@@ -41,17 +43,40 @@ module.exports = {
           ],
         },
       };
+
+      webpackConfig.ignoreWarnings = [
+        function ignoreSourcemapsloaderWarnings(warning) {
+          return (
+            warning.module &&
+            warning.module.resource.includes('node_modules') &&
+            warning.details &&
+            warning.details.includes('source-map-loader')
+          );
+        },
+      ];
+
       addBeforeLoader(
         webpackConfig,
         loaderByName('babel-loader'),
-        strReplaceLoader
+        strReplaceLoader,
       );
 
       //
       return webpackConfig;
     },
+    plugins: [
+      new ProvidePlugin({
+        React: 'react',
+      }),
+    ],
   },
   plugins: [
+    {
+      plugin: CracoEsbuildPlugin,
+      options: {
+        skipEsbuildJest: true, // Optional. Set to true if you want to use babel for jest tests,
+      },
+    },
     {
       plugin: CracoLessPlugin,
       options: {
@@ -59,7 +84,7 @@ module.exports = {
           lessOptions: {
             modifyVars: {
               hack: `true;@import (reference) "${require.resolve(
-                './src/css/base.less'
+                './src/css/base.less',
               )}";`,
             },
             javascriptEnabled: true,

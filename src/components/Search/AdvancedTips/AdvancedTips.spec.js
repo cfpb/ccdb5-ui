@@ -20,28 +20,28 @@ describe('AdvancedTips', () => {
     expect(screen.getByText('Additional notes:')).toBeInTheDocument();
 
     expect(
-      screen.getByLabelText('Use AND when results must contain all terms')
+      screen.getByLabelText('Use AND when results must contain all terms'),
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole('label', { name: 'Complex example:' })
+      screen.queryByRole('label', { name: 'Complex example:' }),
     ).toBeNull();
     expect(
       screen.queryByDisplayValue(
-        'call AND (harass* OR annoy* OR threat OR repeat) AND NOT spam'
-      )
+        'call AND (harass* OR annoy* OR threat OR repeat) AND NOT spam',
+      ),
     ).toBeNull();
 
     fireEvent.click(
       screen.getAllByRole('heading', {
         name: 'Additional information and examples',
-      })[0]
+      })[0],
     );
     await waitFor(() =>
       expect(
         screen.getByDisplayValue(
-          'call AND (harass* OR annoy* OR threat OR repeat) AND NOT spam'
-        )
-      ).toBeVisible()
+          'call AND (harass* OR annoy* OR threat OR repeat) AND NOT spam',
+        ),
+      ).toBeVisible(),
     );
   });
 });

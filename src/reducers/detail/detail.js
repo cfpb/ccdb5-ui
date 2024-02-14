@@ -10,7 +10,7 @@ export const defaultDetail = {
   error: '',
 };
 
-export default (state = defaultDetail, action) => {
+const detail = (state = defaultDetail, action) => {
   switch (action.type) {
     case COMPLAINT_DETAIL_CALLED:
       return {
@@ -37,3 +37,5 @@ export default (state = defaultDetail, action) => {
       return state;
   }
 };
+
+export default detail;

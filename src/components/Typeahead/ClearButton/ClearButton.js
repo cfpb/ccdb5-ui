@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import iconMap from '../../iconMap';
+import getIcon from '../../iconMap';
 
 export const ClearButton = ({ onClear }) => {
   return (
@@ -8,7 +8,7 @@ export const ClearButton = ({ onClear }) => {
       onClick={onClear}
       aria-label="clear search"
     >
-      <div>{iconMap.getIcon('delete')} Clear</div>
+      <div>{getIcon('delete')} Clear</div>
     </button>
   );
 };

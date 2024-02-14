@@ -26,8 +26,8 @@ describe('action:analytics', () => {
         'action tracker',
         false,
         'Consumer Complaint Search',
-        mockCallback
-      )
+        mockCallback,
+      ),
     ).toEqual(expectedEvent);
   });
 
@@ -44,8 +44,8 @@ describe('action:analytics', () => {
         'woah nelly action',
         'label',
         'my category',
-        mockCallback
-      )
+        mockCallback,
+      ),
     );
 
     expect(callbackConfirm).toEqual('hello world');
@@ -55,9 +55,8 @@ describe('action:analytics', () => {
     window.dataLayer = [];
     Analytics.tagManagerIsLoaded = true;
     Analytics.sendEvent(
-      Analytics.getDataLayerOptions('woah nelly action', 'label')
+      Analytics.getDataLayerOptions('woah nelly action', 'label'),
     );
-    console.log('Window Datalayer: ', window.dataLayer);
     expect(window.dataLayer.length > 0).toBe(true);
   });
 });

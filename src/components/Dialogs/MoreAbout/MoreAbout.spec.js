@@ -11,7 +11,7 @@ describe('MoreAbout', () => {
     const closeSpy = jest.fn();
     render(<MoreAbout onClose={closeSpy} />);
     expect(
-      screen.getByText('Things you should know before you use this database')
+      screen.getByText('Things you should know before you use this database'),
     ).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Close' }));

@@ -45,16 +45,16 @@ describe('DataExport', () => {
 
     // hide dataset buttons when no filters selected
     expect(
-      screen.queryByText(/Select which complaints you'd like to export/)
+      screen.queryByText(/Select which complaints you'd like to export/),
     ).toBeNull();
     expect(
       screen.getByText(
-        'Link to your complaint search results for future reference'
-      )
+        'Link to your complaint search results for future reference',
+      ),
     ).toBeInTheDocument();
 
     expect(
-      screen.getByRole('button', { name: /Start export/ })
+      screen.getByRole('button', { name: /Start export/ }),
     ).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Cancel/ })).toBeInTheDocument();
     const buttonCopy = screen.getByRole('button', { name: /Copy/ });
@@ -91,15 +91,15 @@ describe('DataExport', () => {
     renderComponent({}, {});
     expect(screen.getByText('Export complaints')).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: /Start export/ })
+      screen.getByRole('button', { name: /Start export/ }),
     ).toBeInTheDocument();
     expect(screen.getByRole('textbox')).toHaveValue(
-      'https://files.consumerfinance.gov/ccdb/complaints.csv.zip'
+      'https://files.consumerfinance.gov/ccdb/complaints.csv.zip',
     );
     fireEvent.click(screen.getByRole('button', { name: /Start export/ }));
     expect(sendAnalyticsSpy).toHaveBeenCalledWith(
       'Export All Data',
-      'Trends:csv'
+      'Trends:csv',
     );
     expect(showModalSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
   });
@@ -114,10 +114,10 @@ describe('DataExport', () => {
     renderComponent({}, {});
     expect(screen.getByText('Export complaints')).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: /Start export/ })
+      screen.getByRole('button', { name: /Start export/ }),
     ).toBeInTheDocument();
     expect(screen.getByRole('textbox')).toHaveValue(
-      'https://files.consumerfinance.gov/ccdb/complaints.csv.zip'
+      'https://files.consumerfinance.gov/ccdb/complaints.csv.zip',
     );
 
     const radioJson = screen.getByRole('radio', {
@@ -133,14 +133,14 @@ describe('DataExport', () => {
 
     await waitFor(() => {
       expect(screen.getByRole('textbox')).toHaveValue(
-        'https://files.consumerfinance.gov/ccdb/complaints.json.zip'
+        'https://files.consumerfinance.gov/ccdb/complaints.json.zip',
       );
     });
 
     fireEvent.click(screen.getByRole('button', { name: /Start export/ }));
     expect(sendAnalyticsSpy).toHaveBeenCalledWith(
       'Export All Data',
-      'Trends:json'
+      'Trends:json',
     );
     expect(showModalSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
   });
@@ -155,7 +155,7 @@ describe('DataExport', () => {
 
     renderComponent({ doc_count: 999, total: 10000 }, {});
     expect(
-      screen.getByText(/Select which complaints you'd like to export/)
+      screen.getByText(/Select which complaints you'd like to export/),
     ).toBeInTheDocument();
     const radioFiltered = screen.getByRole('radio', {
       name: /Filtered dataset/i,
@@ -177,17 +177,17 @@ describe('DataExport', () => {
       'http://localhost/@@API?date_received_max=2020-05-05&' +
         'date_received_min=2017-05-05&field=all&format=csv&lens=product&' +
         'no_aggs=true&size=10000&sub_lens=sub_product&trend_depth=5&' +
-        'trend_interval=month'
+        'trend_interval=month',
     );
 
     expect(
-      screen.getByRole('button', { name: /Start export/ })
+      screen.getByRole('button', { name: /Start export/ }),
     ).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: /Start export/ }));
 
     expect(sendAnalyticsSpy).toHaveBeenCalledWith(
       'Export Some Data',
-      'Trends:csv'
+      'Trends:csv',
     );
     expect(showModalSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
   });
@@ -195,7 +195,7 @@ describe('DataExport', () => {
   it('switches csv/json data formats', async () => {
     renderComponent({ doc_count: 999, total: 10000 }, {});
     expect(
-      screen.getByText(/Select which complaints you'd like to export/)
+      screen.getByText(/Select which complaints you'd like to export/),
     ).toBeInTheDocument();
 
     const radioJson = screen.getByRole('radio', {
@@ -209,14 +209,14 @@ describe('DataExport', () => {
     expect(radioJson).not.toBeChecked();
 
     expect(screen.getByRole('textbox')).toHaveValue(
-      'https://files.consumerfinance.gov/ccdb/complaints.csv.zip'
+      'https://files.consumerfinance.gov/ccdb/complaints.csv.zip',
     );
 
     fireEvent.click(radioJson);
 
     await waitFor(() => {
       expect(screen.getByRole('textbox')).toHaveValue(
-        'https://files.consumerfinance.gov/ccdb/complaints.json.zip'
+        'https://files.consumerfinance.gov/ccdb/complaints.json.zip',
       );
     });
     await waitFor(() => {
@@ -238,7 +238,7 @@ describe('DataExport', () => {
 
     await waitFor(() => {
       expect(screen.getByRole('textbox')).toHaveValue(
-        'https://files.consumerfinance.gov/ccdb/complaints.csv.zip'
+        'https://files.consumerfinance.gov/ccdb/complaints.csv.zip',
       );
     });
   });
@@ -246,7 +246,7 @@ describe('DataExport', () => {
   it('switches dataset selections', async () => {
     renderComponent({ doc_count: 999, total: 10000 }, {});
     expect(
-      screen.getByText(/Select which complaints you'd like to export/)
+      screen.getByText(/Select which complaints you'd like to export/),
     ).toBeInTheDocument();
 
     const radioFiltered = screen.getByRole('radio', {

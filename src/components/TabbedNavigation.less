@@ -5,7 +5,7 @@
     padding-left: 10px;
     .tab {
       margin: 0;
-      padding: 4px 30px 8px 30px;
+      padding: 4px 30px 8px;
 
       font-size: unit(19px / @base-font-size-px, em);
       font-weight: 500;
@@ -30,7 +30,7 @@
           color: @navy-dark;
         }
 
-        &:after {
+        &::after {
           content: '';
           border-top: solid 1px;
           display: block;
@@ -43,7 +43,7 @@
         pointer-events: none;
         position: relative;
 
-        &:after {
+        &::after {
           content: '';
           display: block;
           width: calc(100% - 2px);

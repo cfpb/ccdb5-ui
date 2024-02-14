@@ -1,4 +1,4 @@
-import iconMap from '../../iconMap';
+import getIcon from '../../iconMap';
 import { TooltipWrapper } from '../../Common/TooltipWrapper/TooltipWrapper';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
@@ -24,13 +24,13 @@ export const ComplexExample = ({ id, notes, placeholderText, tooltipText }) => {
           {isOpen ? (
             <span className="o-expandable_cue o-expandable_cue-close">
               <span className="u-visually-hidden-on-mobile">
-                {iconMap.getIcon('up')}
+                {getIcon('up')}
               </span>
             </span>
           ) : (
             <span className="o-expandable_cue o-expandable_cue-open">
               <span className="u-visually-hidden-on-mobile">
-                {iconMap.getIcon('down')}
+                {getIcon('down')}
               </span>
             </span>
           )}
@@ -40,10 +40,10 @@ export const ComplexExample = ({ id, notes, placeholderText, tooltipText }) => {
         <div className="o-expandable_content">
           {tooltipText && placeholderText ? (
             <>
-              <label className="descriptor">Complex example:</label>
-              <label className="u-visually-hidden" htmlFor={`example-${id}`}>
-                {tooltipText}
+              <label className="descriptor" htmlFor={`example-${id}`}>
+                Complex example:
               </label>
+              <span className="u-visually-hidden">{tooltipText}</span>
               <TooltipWrapper text={tooltipText}>
                 {placeholderText.length > 30 ? (
                   <textarea
@@ -65,7 +65,7 @@ export const ComplexExample = ({ id, notes, placeholderText, tooltipText }) => {
               </TooltipWrapper>
             </>
           ) : null}
-          <label className="descriptor">Notes:</label>
+          <h4 className="descriptor">Notes:</h4>
           <ul className="m-list">
             {notes.map((note, index) => (
               <li className="m-list_item" key={index}>

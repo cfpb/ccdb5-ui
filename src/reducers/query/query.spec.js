@@ -598,7 +598,7 @@ describe('reducer:query', () => {
 
       it('sets the 3m range if the dates are right', () => {
         state.date_received_min = new Date(
-          dayjs(maxDate).subtract(3, 'months')
+          dayjs(maxDate).subtract(3, 'months'),
         );
         expected.dateRange = '3m';
         expected.date_received_min = state.date_received_min;
@@ -609,7 +609,7 @@ describe('reducer:query', () => {
 
       it('sets the 6m range if the dates are right', () => {
         state.date_received_min = new Date(
-          dayjs(maxDate).subtract(6, 'months')
+          dayjs(maxDate).subtract(6, 'months'),
         );
         expected.dateRange = '6m';
         expected.date_received_min = state.date_received_min;
@@ -990,7 +990,7 @@ describe('reducer:query', () => {
 
         expect(actual.queryString).toEqual(
           '?date_received_max=' +
-            '2020-05-05&date_received_min=2011-12-01&field=all&size=100'
+            '2020-05-05&date_received_min=2011-12-01&field=all&size=100',
         );
       });
 
@@ -1008,7 +1008,7 @@ describe('reducer:query', () => {
 
         expect(actual.queryString).toEqual(
           '?date_received_max=' +
-            '2020-05-05&date_received_min=2011-12-01&field=all'
+            '2020-05-05&date_received_min=2011-12-01&field=all',
         );
       });
 
@@ -1026,7 +1026,7 @@ describe('reducer:query', () => {
           expect(actual.queryString).toEqual(
             '?date_received_max=2020-05-05&' +
               'date_received_min=2011-12-01&field=complaint_what_happened&' +
-              'has_narrative=true&size=100'
+              'has_narrative=true&size=100',
           );
         });
       });
@@ -1062,8 +1062,8 @@ describe('reducer:query', () => {
               mapWarningEnabled: true,
               tab: types.MODE_MAP,
             },
-            action
-          )
+            action,
+          ),
         ).toEqual({
           breakPoints: {},
           dataNormalization: types.GEO_NORM_NONE,
@@ -1310,7 +1310,7 @@ describe('reducer:query', () => {
         action.dateRange = 'All';
         result = target({}, action);
         expect(result.date_received_min).toEqual(
-          new Date(types.DATE_RANGE_MIN)
+          new Date(types.DATE_RANGE_MIN),
         );
       });
 
@@ -1430,7 +1430,7 @@ describe('reducer:query', () => {
             state: [],
             tab: types.MODE_MAP,
           },
-          action
+          action,
         );
 
         expect(result).toEqual({
@@ -1452,7 +1452,7 @@ describe('reducer:query', () => {
             state: ['TX', 'MX', 'FO'],
             tab: types.MODE_MAP,
           },
-          action
+          action,
         );
 
         expect(result).toEqual({
@@ -1491,7 +1491,7 @@ describe('reducer:query', () => {
             state: ['IL', 'TX'],
             tab: types.MODE_MAP,
           },
-          action
+          action,
         );
 
         expect(result).toEqual({
@@ -1517,7 +1517,7 @@ describe('reducer:query', () => {
             state: ['FO', 'BA'],
             tab: types.MODE_MAP,
           },
-          action
+          action,
         );
 
         expect(result).toEqual({
@@ -1561,7 +1561,7 @@ describe('reducer:query', () => {
             state: ['CA', 'IL'],
             tab: types.MODE_MAP,
           },
-          action
+          action,
         );
         expect(result).toEqual({
           dataNormalization: 'None',

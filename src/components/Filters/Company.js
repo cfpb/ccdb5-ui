@@ -35,8 +35,8 @@ export const mapStateToProps = (state) => {
   const { focus } = state.query;
   const isFocusPage = focus && state.query.lens === 'Company';
 
-  options.forEach((o) => {
-    o.disabled = Boolean(isFocusPage && o.key !== focus);
+  options.forEach((opt) => {
+    opt.disabled = Boolean(isFocusPage && opt.key !== focus);
   });
 
   return {
@@ -46,6 +46,7 @@ export const mapStateToProps = (state) => {
   };
 };
 
+// eslint-disable-next-line react-redux/prefer-separate-component-file
 export default connect(mapStateToProps)(Company);
 
 Company.propTypes = {

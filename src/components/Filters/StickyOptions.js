@@ -6,8 +6,8 @@ import React from 'react';
 // Pure Functions
 
 const mapOfOptions = (options) => {
-  const result = options.reduce((map, x) => {
-    map[x.key] = x;
+  const result = options.reduce((map, opt) => {
+    map[opt.key] = opt;
     return map;
   }, {});
   return result;
@@ -15,9 +15,9 @@ const mapOfOptions = (options) => {
 
 const zeroCounts = (cache) => {
   const result = {};
-  Object.keys(cache).forEach((x) => {
-    result[x] = {
-      ...cache[x],
+  Object.keys(cache).forEach((key) => {
+    result[key] = {
+      ...cache[key],
       // eslint-disable-next-line camelcase
       doc_count: 0,
     };
@@ -51,15 +51,15 @@ export default class StickyOptions extends React.Component {
 
       // this.state.tracked is always additive (the options are "sticky")
       const tracked = this.state.tracked.slice();
-      nextProps.selections.forEach((x) => {
+      nextProps.selections.forEach((selection) => {
         // Add any new selections
-        if (tracked.indexOf(x) === -1) {
-          tracked.push(x);
+        if (tracked.indexOf(selection) === -1) {
+          tracked.push(selection);
         }
 
         // Add missing cache options
-        if (!(x in cache)) {
-          cache[x] = nextProps.onMissingItem(x);
+        if (!(selection in cache)) {
+          cache[selection] = nextProps.onMissingItem(selection);
         }
       });
 
@@ -73,8 +73,8 @@ export default class StickyOptions extends React.Component {
   render() {
     return (
       <ul>
-        {this.state.tracked.map((x) => {
-          const bucket = this.state.cache[x];
+        {this.state.tracked.map((opt) => {
+          const bucket = this.state.cache[opt];
           return bucket ? (
             <AggregationItem
               item={bucket}
@@ -96,8 +96,8 @@ StickyOptions.propTypes = {
 };
 
 StickyOptions.defaultProps = {
-  onMissingItem: (x) => ({
-    key: x,
+  onMissingItem: (item) => ({
+    key: item,
     // eslint-disable-next-line camelcase
     doc_count: 0,
   }),

@@ -20,6 +20,7 @@ export const TRENDS_DATE_WARNING_DISMISSED = 'TRENDS_DATE_WARNING_DISMISSED';
 // Simple actions
 /**
  * Notifies the application that the filter visibility has changed
+ *
  * @returns {string} a packaged payload to be used by Redux reducers
  */
 export function filterVisibilityToggled() {
@@ -31,6 +32,7 @@ export function filterVisibilityToggled() {
 
 /**
  * Notifies the application that user dismissed map warning
+ *
  * @returns {string} a packaged payload to be used by Redux reducers
  */
 export function mapWarningDismissed() {
@@ -42,6 +44,7 @@ export function mapWarningDismissed() {
 
 /**
  * Notifies the application that the print mode has changed
+ *
  * @returns {string} a packaged payload to be used by Redux reducers
  */
 export function printModeOn() {
@@ -53,6 +56,7 @@ export function printModeOn() {
 
 /**
  * Notifies the application that the print mode has changed
+ *
  * @returns {string} a packaged payload to be used by Redux reducers
  */
 export function printModeOff() {
@@ -64,6 +68,7 @@ export function printModeOff() {
 
 /**
  * Notifies the application that advanced tips shown
+ *
  * @returns {string} a packaged payload to be used by Redux reducers
  */
 export function showAdvancedTips() {
@@ -75,6 +80,7 @@ export function showAdvancedTips() {
 
 /**
  * Notifies the application that advanced tips hidden
+ *
  * @returns {string} a packaged payload to be used by Redux reducers
  */
 export function hideAdvancedTips() {
@@ -86,6 +92,7 @@ export function hideAdvancedTips() {
 
 /**
  * Indicates a bar in row chart has been collapsed
+ *
  * @param {string} value - of trend agg that was toggled
  * @returns {string} a packaged payload to be used by Redux reducers
  */
@@ -99,6 +106,7 @@ export function collapseRow(value) {
 
 /**
  * Indicates all modals are hidden
+ *
  * @returns {object} A packaged payload to be used by Redux reducers
  */
 export function hideModal() {
@@ -109,6 +117,7 @@ export function hideModal() {
 
 /**
  * Indicates the named modal was opened
+ *
  * @param {string} value - The name of the modal to open.
  * @returns {object} A packaged payload to be used by Redux reducers
  */
@@ -121,6 +130,7 @@ export function showModal(value) {
 
 /**
  * Indicates a bar in row chart has been expanded
+ *
  * @param {string} value - of trend agg that was toggled
  * @returns {string} a packaged payload to be used by Redux reducers
  */
@@ -134,6 +144,7 @@ export function expandRow(value) {
 
 /**
  * Notifies the application that the screen has resized
+ *
  * @param {string} width - the width of the screen
  * @returns {string} a packaged payload to be used by Redux reducers
  */
@@ -147,6 +158,7 @@ export function screenResized(width) {
 
 /**
  * Notifies the application that the tab has changed
+ *
  * @param {string} tab - the new tab name
  * @returns {string} a packaged payload to be used by Redux reducers
  */
@@ -160,6 +172,7 @@ export function tabChanged(tab) {
 
 /**
  * Notifies the application that the tour was toggled OFF
+ *
  * @returns {string} a packaged payload to be used by Redux reducers
  */
 export function tourHidden() {
@@ -171,6 +184,7 @@ export function tourHidden() {
 
 /**
  * Notifies the application that the tour was toggled on
+ *
  * @returns {string} a packaged payload to be used by Redux reducers
  */
 export function tourShown() {
@@ -182,6 +196,7 @@ export function tourShown() {
 
 /**
  * Notifies the application that user dismissed trends date warning
+ *
  * @returns {string} a packaged payload to be used by Redux reducers
  */
 export function trendsDateWarningDismissed() {

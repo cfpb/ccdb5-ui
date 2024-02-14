@@ -41,6 +41,7 @@ export const mapStateToProps = (state, ownProps) => {
   };
 };
 
+// eslint-disable-next-line react-redux/prefer-separate-component-file
 export default connect(mapStateToProps)(SimpleFilter);
 
 SimpleFilter.propTypes = {

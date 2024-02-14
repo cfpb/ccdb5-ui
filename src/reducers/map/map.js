@@ -17,21 +17,21 @@ export const defaultMap = {
 
 export const processStateAggregations = (agg) => {
   const states = Object.values(agg.state.buckets)
-    .filter((o) => TILE_MAP_STATES.includes(o.key))
-    .map((o) => ({
-      name: o.key,
-      value: o.doc_count,
-      issue: o.issue.buckets[0].key,
-      product: o.product.buckets[0].key,
+    .filter((val) => TILE_MAP_STATES.includes(val.key))
+    .map((val) => ({
+      name: val.key,
+      value: val.doc_count,
+      issue: val.issue.buckets[0].key,
+      product: val.product.buckets[0].key,
     }));
 
-  const stateNames = states.map((o) => o.name);
+  const stateNames = states.map((state) => state.name);
 
   // patch any missing data
   if (stateNames.length > 0) {
-    TILE_MAP_STATES.forEach((o) => {
-      if (!stateNames.includes(o)) {
-        states.push({ name: o, value: 0, issue: '', product: '' });
+    TILE_MAP_STATES.forEach((state) => {
+      if (!stateNames.includes(state)) {
+        states.push({ name: state, value: 0, issue: '', product: '' });
       }
     });
   }
@@ -43,6 +43,7 @@ export const processStateAggregations = (agg) => {
 
 /**
  * Updates the state when an tab changed occurs, reset values to start clean
+ *
  * @param {object} state - the current state in the Redux store
  * @returns {object} the new state for the Redux store
  */
@@ -59,6 +60,7 @@ export function handleTabChanged(state) {
 
 /**
  * Updates the state when an aggregations call is in progress
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the payload containing the key/value pairs
  * @returns {object} the new state for the Redux store
@@ -74,6 +76,7 @@ export function statesCallInProcess(state, action) {
 
 /**
  * Expanded logic for handling aggregations returned from the API
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the payload containing the key/value pairs
  * @returns {object} new state for the Redux store
@@ -98,6 +101,7 @@ export function processStatesResults(state, action) {
 
 /**
  * handling errors from an aggregation call
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the payload containing the key/value pairs
  * @returns {object} new state for the Redux store
@@ -120,6 +124,7 @@ export function processStatesError(state, action) {
 
 /**
  * Creates a hash table of action types to handlers
+ *
  * @returns {object} a map of types to functions
  */
 export function _buildHandlerMap() {
@@ -137,6 +142,7 @@ const _handlers = _buildHandlerMap();
 
 /**
  * Routes an action to an appropriate handler
+ *
  * @param {object} state - the current state in the Redux store
  * @param {object} action - the command being executed
  * @returns {object} the new state for the Redux store
@@ -149,7 +155,9 @@ function handleSpecificAction(state, action) {
   return state;
 }
 
-export default (state = defaultMap, action) => {
+const map = (state = defaultMap, action) => {
   const newState = handleSpecificAction(state, action);
   return newState;
 };
+
+export default map;

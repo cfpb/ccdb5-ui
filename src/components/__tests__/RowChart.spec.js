@@ -38,8 +38,8 @@ jest.mock('britecharts', () => {
 
   const mock = {};
 
-  for (let i = 0; i < props.length; i++) {
-    const propName = props[i];
+  for (let idx = 0; idx < props.length; idx++) {
+    const propName = props[idx];
     mock[propName] = jest.fn().mockImplementation(() => {
       return mock;
     });
@@ -64,8 +64,8 @@ jest.mock('d3', () => {
 
   const mock = {};
 
-  for (let i = 0; i < props.length; i++) {
-    const propName = props[i];
+  for (let idx = 0; idx < props.length; idx++) {
+    const propName = props[idx];
     mock[propName] = jest.fn().mockImplementation(() => {
       return mock;
     });
@@ -78,7 +78,7 @@ jest.mock('d3', () => {
 });
 
 /**
- *
+ * @returns {void}
  */
 function setupSnapshot() {
   const middlewares = [thunk];
@@ -106,7 +106,7 @@ function setupSnapshot() {
         colorScheme={[]}
         total={1000}
       />
-    </Provider>
+    </Provider>,
   );
 }
 
@@ -139,7 +139,7 @@ describe('component: RowChart', () => {
 
     it('does nothing when no data', () => {
       const target = shallow(
-        <RowChart colorScheme={[]} data={[]} id="foo" title="test" total={0} />
+        <RowChart colorScheme={[]} data={[]} id="foo" title="test" total={0} />,
       );
       target._redrawChart = jest.fn();
       target.setProps({ data: [] });
@@ -160,7 +160,7 @@ describe('component: RowChart', () => {
           ]}
           id="foo"
           total={1000}
-        />
+        />,
       );
       target._redrawChart = jest.fn();
       const sp = jest.spyOn(target.instance(), '_redrawChart');
@@ -184,7 +184,7 @@ describe('component: RowChart', () => {
           id="foo"
           total={1000}
           isPrintMode={false}
-        />
+        />,
       );
       target._redrawChart = jest.fn();
       const sp = jest.spyOn(target.instance(), '_redrawChart');
@@ -202,7 +202,7 @@ describe('component: RowChart', () => {
           total={1000}
           isPrintMode={false}
           width={1000}
-        />
+        />,
       );
       target._redrawChart = jest.fn();
       const sp = jest.spyOn(target.instance(), '_redrawChart');
@@ -222,7 +222,7 @@ describe('component: RowChart', () => {
           data={[23, 4, 3]}
           id="foo"
           total={1000}
-        />
+        />,
       );
       target.instance()._selectFocus({ name: 'foo' });
       expect(cb).toHaveBeenCalledTimes(1);
@@ -241,7 +241,7 @@ describe('component: RowChart', () => {
           data={[23, 4, 3]}
           id="foo"
           total={1000}
-        />
+        />,
       );
       target.instance()._selectFocus({ name: 'foo' });
       expect(cb).toHaveBeenCalledTimes(1);
@@ -267,7 +267,7 @@ describe('component: RowChart', () => {
             expandedRows={['a']}
             id="foo"
             total={1000}
-          />
+          />,
         );
         target.instance()._toggleRow('a');
         expect(collapseCb).toHaveBeenCalledTimes(1);
@@ -287,7 +287,7 @@ describe('component: RowChart', () => {
             expandedRows={[]}
             id="foo"
             total={1000}
-          />
+          />,
         );
         target.instance()._toggleRow('a');
         expect(expandCb).toHaveBeenCalledTimes(1);
@@ -307,7 +307,7 @@ describe('component: RowChart', () => {
             expandedRows={[]}
             id="foo"
             total={1000}
-          />
+          />,
         );
         target.instance()._toggleRow('a');
         expect(expandCb).toHaveBeenCalledTimes(0);
@@ -448,7 +448,7 @@ describe('component: RowChart', () => {
       expect(trendsUtils.scrollToFocus).not.toHaveBeenCalled();
       expect(gaSpy).toHaveBeenCalledWith(
         'Bar chart collapsed',
-        'Some Expanded row'
+        'Some Expanded row',
       );
     });
 
@@ -467,7 +467,7 @@ describe('component: RowChart', () => {
       expect(trendsUtils.scrollToFocus).not.toHaveBeenCalled();
       expect(gaSpy).toHaveBeenCalledWith(
         'Bar chart expanded',
-        'collapse row name'
+        'collapse row name',
       );
     });
   });
@@ -530,7 +530,7 @@ describe('component: RowChart', () => {
           total={10}
           data={[23, 4, 3]}
           id="foo"
-        />
+        />,
       );
       let res = target.instance()._getHeight(1);
       expect(res).toEqual(100);
@@ -546,7 +546,7 @@ describe('component: RowChart', () => {
           total={1000}
           data={[23, 4, 3]}
           id="foo"
-        />
+        />,
       );
       const res = target.instance()._formatTip(100000);
       expect(res).toEqual('100,000 complaints');

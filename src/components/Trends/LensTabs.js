@@ -36,7 +36,7 @@ export class LensTabs extends React.Component {
     return (
       <div className="tabbed-navigation lens">
         <section>
-          {hasProductTab && (
+          {!!hasProductTab && (
             <button
               className={this._getTabClass(currentLens.tab1.filterName)}
               onClick={() => {
@@ -46,7 +46,7 @@ export class LensTabs extends React.Component {
               {currentLens.tab1.displayName}
             </button>
           )}
-          {lensMaps[lens].tab2 && (
+          {!!lensMaps[lens].tab2 && (
             <button
               className={this._getTabClass(currentLens.tab2.filterName)}
               onClick={() => {
@@ -96,6 +96,7 @@ export const mapDispatchToProps = (dispatch) => ({
   },
 });
 
+// eslint-disable-next-line react-redux/prefer-separate-component-file
 export default connect(mapStateToProps, mapDispatchToProps)(LensTabs);
 
 LensTabs.propTypes = {

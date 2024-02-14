@@ -75,15 +75,15 @@ export const mapDispatchToProps = (dispatch, ownProps) => ({
       /* eslint-disable no-unexpected-multiline */
       // TODO: reformat to not need the unexpected multiline.
       const subItems = aggs
-        .find((o) => o.key === parentFilter)
-        ['sub_' + fieldName + '.raw'].buckets.map((o) => o.key)
+        .find((agg) => agg.key === parentFilter)
+        ['sub_' + fieldName + '.raw'].buckets.map((agg) => agg.key)
         .sort();
       /* eslint-enable no-unexpected-multiline */
 
       const parentKey = parentFilter + SLUG_SEPARATOR;
       const selectedFilters = filters
-        .filter((o) => o.indexOf(parentKey) > -1)
-        .map((o) => o.replace(parentKey, ''));
+        .filter((filter) => filter.indexOf(parentKey) > -1)
+        .map((filter) => filter.replace(parentKey, ''));
       selectedFilters.push(childFilter);
 
       selectedFilters.sort();
@@ -92,7 +92,7 @@ export const mapDispatchToProps = (dispatch, ownProps) => ({
       if (arrayEquals(selectedFilters, subItems)) {
         // remove subitems, add parent filter
         appliedFilters = filters
-          .filter((o) => o.indexOf(parentKey) === -1)
+          .filter((filter) => filter.indexOf(parentKey) === -1)
           .concat(parentFilter);
       } else {
         // just add the single filter and apply filters
@@ -112,7 +112,7 @@ export const mapDispatchToProps = (dispatch, ownProps) => ({
         filterName,
         filters,
         aggs,
-        fieldName
+        fieldName,
       );
       dispatch(replaceFilters(fieldName, updatedFilters));
     } else {
@@ -121,6 +121,7 @@ export const mapDispatchToProps = (dispatch, ownProps) => ({
   },
 });
 
+// eslint-disable-next-line react-redux/prefer-separate-component-file
 export default connect(mapStateToProps, mapDispatchToProps)(AggregationItem);
 
 AggregationItem.propTypes = {

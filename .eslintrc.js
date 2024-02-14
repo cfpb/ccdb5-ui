@@ -4,7 +4,7 @@ module.exports = {
     'import/resolver': {
       node: {
         paths: ['src'],
-        extensions: ['.js', '.ts', '.d.ts', '.tsx'],
+        extensions: ['.js', '.jsx', '.ts', '.d.ts', '.tsx'],
       },
     },
     react: {
@@ -23,11 +23,14 @@ module.exports = {
     'plugin:react-redux/recommended',
     'plugin:react/jsx-runtime',
     'plugin:jsdoc/recommended',
-    //'plugin:jsx-a11y/recommended',
+    'plugin:jsx-a11y/recommended',
     'react-app',
     'react-app/jest',
     'prettier',
   ],
+  globals: {
+    "JSX": "readonly"
+  },
   overrides: [
     {
       files: ['**/?(*.)+(spec|test).[jt]s?(x)'],
@@ -44,7 +47,9 @@ module.exports = {
   // Run `yarn eslint --print-config foo.js > bar.json` to see included plugins.
   // plugins: [],
   rules: {
+    'id-length': ['error', { min: 2 }],
     'jsdoc/require-hyphen-before-param-description': ['warn', 'always'],
+    'jsdoc/tag-lines': ['error', 'any', { startLines: 1 }],
     'no-console': ['warn'],
     'no-use-before-define': ['error'],
     'no-unused-vars': [
@@ -58,6 +63,10 @@ module.exports = {
     'no-var': ['error'],
     'prefer-const': ['error'],
     radix: ['error'],
+    'react/jsx-no-leaked-render': [
+      'error',
+      { validStrategies: ['coerce', 'ternary'] },
+    ],
     'react/no-multi-comp': ['error', { ignoreStateless: true }],
     'react/no-unstable-nested-components': ['error'],
     'react/self-closing-comp': ['error'],

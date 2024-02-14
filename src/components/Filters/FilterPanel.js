@@ -6,7 +6,7 @@ import { DateFilter } from './DateFilter';
 import { FederalState } from './FederalState';
 import { filterVisibilityToggled } from '../../actions/view';
 import HasNarrative from './HasNarrative';
-import iconMap from '../iconMap';
+import getIcon from '../iconMap';
 import { Issue } from './Issue';
 import Product from './Product';
 import PropTypes from 'prop-types';
@@ -29,7 +29,7 @@ export class FilterPanel extends React.Component {
 
     return (
       <div>
-        {this.props.hasFilterToggle && (
+        {!!this.props.hasFilterToggle && (
           <div className="filter-button">
             <button
               className="a-btn"
@@ -40,16 +40,16 @@ export class FilterPanel extends React.Component {
             </button>
           </div>
         )}
-        {this.props.hasFilters && (
+        {!!this.props.hasFilters && (
           <section className="filter-panel">
-            {this.props.hasButton && (
+            {!!this.props.hasButton && (
               <div className="filter-button">
                 <button
                   className="a-btn"
                   title="Close filters"
                   onClick={this.props.onFilterToggle}
                 >
-                  Close filters {iconMap.getIcon('delete')}
+                  Close filters {getIcon('delete')}
                 </button>
               </div>
             )}
@@ -121,6 +121,7 @@ export const mapDispatchToProps = (dispatch) => ({
   },
 });
 
+// eslint-disable-next-line react-redux/prefer-separate-component-file
 export default connect(mapStateToProps, mapDispatchToProps)(FilterPanel);
 
 FilterPanel.defaultProps = {

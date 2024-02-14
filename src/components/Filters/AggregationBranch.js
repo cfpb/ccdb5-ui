@@ -10,7 +10,7 @@ import { removeMultipleFilters, replaceFilters } from '../../actions/filter';
 import AggregationItem from './AggregationItem';
 import { connect } from 'react-redux';
 import { FormattedNumber } from 'react-intl';
-import iconMap from '../iconMap';
+import getIcon from '../iconMap';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { SLUG_SEPARATOR } from '../../constants';
@@ -76,9 +76,9 @@ export class AggregationBranch extends React.Component {
 
     let chevronIcon;
     if (this.state.hasChildren) {
-      chevronIcon = iconMap.getIcon('up');
+      chevronIcon = getIcon('up');
     } else {
-      chevronIcon = iconMap.getIcon('down');
+      chevronIcon = getIcon('down');
     }
 
     return (
@@ -126,12 +126,12 @@ export class AggregationBranch extends React.Component {
   // Properties
 
   get _labelStyle() {
-    let s = 'toggle a-label';
+    let str = 'toggle a-label';
     if (this.props.checkedState === INDETERMINATE) {
-      s += ' indeterminate';
+      str += ' indeterminate';
     }
 
-    return s;
+    return str;
   }
 }
 
@@ -140,11 +140,15 @@ export const mapStateToProps = (state, ownProps) => {
   const candidates = coalesce(state.query, ownProps.fieldName, []);
 
   // Do any of these values start with the key?
-  const hasKey = candidates.filter((x) => x.indexOf(ownProps.item.key) === 0);
+  const hasKey = candidates.filter(
+    (candidate) => candidate.indexOf(ownProps.item.key) === 0,
+  );
 
   // Does the key contain the separator?
-  const activeChildren = hasKey.filter((x) => x.indexOf(SLUG_SEPARATOR) !== -1);
-  const activeParent = hasKey.filter((x) => x === ownProps.item.key);
+  const activeChildren = hasKey.filter(
+    (key) => key.indexOf(SLUG_SEPARATOR) !== -1,
+  );
+  const activeParent = hasKey.filter((key) => key === ownProps.item.key);
 
   let checkedState = UNCHECKED;
   if (activeParent.length === 0 && activeChildren.length > 0) {
@@ -170,7 +174,7 @@ export const mapDispatchToProps = (dispatch) => ({
     const { fieldName, filters, item } = props;
     // remove all of the child filters
     const replacementFilters = filters.filter(
-      (o) => o.indexOf(item.key + SLUG_SEPARATOR) === -1
+      (filter) => filter.indexOf(item.key + SLUG_SEPARATOR) === -1,
     );
     // add self/ parent filter
     replacementFilters.push(item.key);
@@ -178,6 +182,7 @@ export const mapDispatchToProps = (dispatch) => ({
   },
 });
 
+// eslint-disable-next-line react-redux/prefer-separate-component-file
 export default connect(mapStateToProps, mapDispatchToProps)(AggregationBranch);
 
 AggregationBranch.propTypes = {
