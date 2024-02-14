@@ -104,14 +104,12 @@ export function sendHitsQuery() {
  */
 export function getAggregations() {
   return (dispatch, getState) => {
-    console.log("Get Aggs");
     const store = getState();
     const qs = store.query.queryString;
     const uri = API_PLACEHOLDER + qs + '&size=0';
 
     // This call is already in process
     if (store.aggs.isLoading) {
-      console.log("Loading")
       return null;
     }
 
@@ -129,7 +127,6 @@ export function getAggregations() {
  */
 export function getComplaints() {
   return (dispatch, getState) => {
-    console.log("Get Complaints");
     const store = getState();
     const qs = store.query.queryString;
     const uri = API_PLACEHOLDER + qs;
@@ -193,7 +190,6 @@ export function getStates() {
  */
 export function getTrends() {
   return (dispatch, getState) => {
-        console.log("Get Trends");
     const store = getState();
     const qs = 'trends/' + store.query.queryString;
     const uri = API_PLACEHOLDER + qs + '&no_aggs=true';

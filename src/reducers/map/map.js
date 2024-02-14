@@ -59,7 +59,7 @@ export const mapSlice = createSlice({
       },
     },
     processStatesResults(state, action) {
-      const aggregations = action.payload.data.aggregations;
+      const aggregations = action.payload.aggregations;
       const { state: stateData } = aggregations;
       // add in "issue" if we ever need issue row chart again
       const keys = ['product'];
@@ -79,7 +79,7 @@ export const mapSlice = createSlice({
       return {
         ...state,
         activeCall: '',
-        error: processErrorMessage(action.payload.error),
+        error: processErrorMessage(action.payload),
         isLoading: false,
         results: {
           product: [],

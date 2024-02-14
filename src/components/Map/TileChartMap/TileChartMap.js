@@ -27,14 +27,16 @@ export const TileChartMap = () => {
   const stateMapResultsState = useSelector(selectMapResultsState);
   const data = useMemo(() => {
     return stateMapResultsState.map((o) => {
+      console.log(o);
       const stateInfo = coalesce(STATE_DATA, o.name, {
         name: '',
         population: 1,
       });
-      o.abbr = o.name;
-      o.fullName = stateInfo.name;
-      o.perCapita = getPerCapita(o, stateInfo);
-      return o;
+      const newObj = JSON.parse(JSON.stringify(o));
+      newObj.abbr = o.name;
+      newObj.fullName = stateInfo.name;
+      newObj.perCapita = getPerCapita(o, stateInfo);
+      return newObj;
     });
   }, [stateMapResultsState]);
 
