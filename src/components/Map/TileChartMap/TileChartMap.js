@@ -27,7 +27,6 @@ export const TileChartMap = () => {
   const stateMapResultsState = useSelector(selectMapResultsState);
   const data = useMemo(() => {
     return stateMapResultsState.map((o) => {
-      console.log(o);
       const stateInfo = coalesce(STATE_DATA, o.name, {
         name: '',
         population: 1,

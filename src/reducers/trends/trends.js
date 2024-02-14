@@ -112,8 +112,6 @@ export const trendsSlice = createSlice({
         state.results = results;
         state.total = total;
         state.subLens = lens === 'Company' ? 'product' : state.subLens;
-
-
       },
       prepare: (items) => {
         return {
@@ -248,7 +246,7 @@ export const trendsSlice = createSlice({
     },
     updateTooltip: {
       reducer: (state, action) => {
-        const tooltip = action.payload.value || false;
+        const tooltip = action.payload || false;
 
         // need to merge in the actual viewed state
         if (tooltip) {
@@ -262,12 +260,16 @@ export const trendsSlice = createSlice({
           /* istanbul ignore else */
           if (tooltip.values) {
             tooltip.values.forEach((o) => {
-              o.colorIndex =
-                Object.values(colors.DataLens).indexOf(
-                  state.colorMap[o.name]
-                ) || 0;
+              if (!Object.hasOwn(o, 'colorIndex')) {
+                o.colorIndex =
+                  Object.values(colors.DataLens).indexOf(
+                    state.colorMap[o.name]
+                  ) || 0;
+              }
               // make sure all values have a value
-              o.value = coalesce(o, 'value', 0);
+              if (!Object.hasOwn(o, 'value')) {
+                o.value = coalesce(o, 'value', 0);
+              }
             });
 
             let total = 0;

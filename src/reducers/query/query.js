@@ -44,7 +44,7 @@ export const queryState = {
   size: 25,
   sort: 'created_date_desc',
   subLens: 'sub_product',
-  tab: types.MODE_LIST,
+  tab: types.MODE_TRENDS,
   totalPages: 0,
   trendDepth: 5,
   trendsDateWarningEnabled: false,
