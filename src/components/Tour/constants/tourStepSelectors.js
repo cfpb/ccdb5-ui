@@ -1,13 +1,13 @@
 /* eslint-disable max-len, no-inline-comments */
 export const DOCUMENT_STEP_SELECTORS = {
-  STEP_1: '#step1',
+  STEP_1: '.content',
   STEP_2: '.m-pagination_btn-next',
   STEP_3: '.saved_search-panel div:nth-child(2)',
   STEP_4: '.back-to-results',
 };
 
 export const GEO_STEP_SELECTORS = {
-  STEP_1: { selector: '#step1', label: 'Index' },
+  STEP_1: { selector: '.content', label: 'Index' },
   STEP_2: {
     selector: 'header.content_hero .m-list__horizontal',
     label: 'Help Links',
@@ -40,7 +40,7 @@ export const GEO_STEP_SELECTORS = {
 };
 
 export const LIST_COMPLAINTS_SELECTORS = {
-  STEP_1: { selector: '#step1', label: 'Index' },
+  STEP_1: { selector: '.content', label: 'Index' },
   STEP_2: {
     selector: 'header.content_hero .m-list__horizontal',
     label: 'Help Links',
@@ -78,7 +78,7 @@ export const LIST_COMPLAINTS_SELECTORS = {
 };
 
 export const TRENDS_SELECTORS = {
-  STEP_1: { selector: '#step1', label: 'Index' },
+  STEP_1: { selector: '.content', label: 'Index' },
   STEP_2: {
     selector: 'header.content_hero .m-list__horizontal',
     label: 'Help Links',
