@@ -1,5 +1,14 @@
 .filter-panel-toggle {
-  @media @desktop, @tablet-lg, @phone {
+  @media @superwide, @desktop, @tablet-lg {
     display: none;
+  }
+  @media @tablet-sm, @phone {
+    display: block;
+    width: 100%;
+    padding-right: 15px;
+    & .a-btn {
+      width: 100%;
+      background-color: #0072ce !important;
+    }
   }
 }

@@ -1,6 +1,6 @@
 /* eslint-disable max-len, no-inline-comments */
 export const DOCUMENT_STEP_SELECTORS = {
-  STEP_1: '.content',
+  STEP_1: '.content_hero',
   STEP_2: '.m-pagination_btn-next',
   STEP_3: '.saved_search-panel div:nth-child(2)',
   STEP_4: '.back-to-results',

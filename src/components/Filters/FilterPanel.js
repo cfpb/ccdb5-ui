@@ -29,17 +29,6 @@ export class FilterPanel extends React.Component {
 
     return (
       <div>
-        {!!this.props.hasFilterToggle && (
-          <div className="filter-button">
-            <button
-              className="a-btn"
-              title="Filter results"
-              onClick={this.props.onFilterToggle}
-            >
-              Filter results
-            </button>
-          </div>
-        )}
         {!!this.props.hasFilters && (
           <section className="filter-panel">
             {!!this.props.hasButton && (
@@ -111,7 +100,6 @@ export class FilterPanel extends React.Component {
 
 export const mapStateToProps = (state) => ({
   hasButton: state.view.width < 750,
-  hasFilterToggle: state.view.width < 600 && !state.view.hasFilters,
   hasFilters: state.view.hasFilters,
 });
 
@@ -129,7 +117,6 @@ FilterPanel.defaultProps = {
 };
 
 FilterPanel.propTypes = {
-  hasFilterToggle: PropTypes.bool.isRequired,
   onFilterToggle: PropTypes.func.isRequired,
   hasFilters: PropTypes.bool,
   hasButton: PropTypes.bool.isRequired,
