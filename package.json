@@ -9,7 +9,7 @@
   },
   "license": "CC0-1.0",
   "engines": {
-    "node": ">=16.x"
+    "node": ">=20.x"
   },
   "author": {
     "name": "Consumer Financial Protection Bureau",
