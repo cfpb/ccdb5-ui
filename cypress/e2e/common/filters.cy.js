@@ -82,13 +82,13 @@ describe('Filter Panel', () => {
       cy.get('.date-ranges .a-btn.range-3y').contains('3y').click();
       cy.url().should(
         'include',
-        `date_received_max=${maxDate}&date_received_min=${minDate}`
+        `date_received_max=${maxDate}&date_received_min=${minDate}`,
       );
       minDate = dayjs(new Date()).subtract(6, 'months').format('YYYY-MM-DD');
       cy.get('.date-ranges .a-btn.range-6m').contains('6m').click();
       cy.url().should(
         'include',
-        `date_received_max=${maxDate}&date_received_min=${minDate}`
+        `date_received_max=${maxDate}&date_received_min=${minDate}`,
       );
     });
   });
@@ -101,34 +101,34 @@ describe('Filter Panel', () => {
       cy.wait(750);
 
       cy.log('open simple filter');
-      cy.get('.timely > .o-expandable_target').click();
+      cy.get('.timely > .o-expandable_header').click();
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(750);
       cy.get(
-        '.timely > .o-expandable_content > ul > :nth-child(1) > .a-label'
+        '.timely > .o-expandable_content > ul > :nth-child(1) > .a-label',
       ).should('be.visible');
 
       cy.log('close it');
 
       // Close it after opening it
-      cy.get('.timely > .o-expandable_target').should('be.visible').click();
+      cy.get('.timely > .o-expandable_header').should('be.visible').click();
       cy.get(
-        '.timely > .o-expandable_content > ul > :nth-child(1) > .a-label'
+        '.timely > .o-expandable_content > ul > :nth-child(1) > .a-label',
       ).should('not.exist');
 
       cy.log('open it again');
-      cy.get('.timely > .o-expandable_target').click();
+      cy.get('.timely > .o-expandable_header').click();
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(750);
 
       cy.get(
-        '.timely > .o-expandable_content > ul > :nth-child(1) > .a-label'
+        '.timely > .o-expandable_content > ul > :nth-child(1) > .a-label',
       ).should('be.visible');
 
       cy.log('apply filter');
 
       cy.get(
-        '.timely > .o-expandable_content > ul > :nth-child(1) > .a-label'
+        '.timely > .o-expandable_content > ul > :nth-child(1) > .a-label',
       ).click();
 
       cy.url().should('include', 'timely=Yes');
@@ -144,14 +144,14 @@ describe('Filter Panel', () => {
       cy.log('can collapse/expand a complex filter');
       cy.get('.filter-panel .product .aggregation-branch').should(
         'have.length.gt',
-        1
+        1,
       );
 
       // close it
       cy.get('.filter-panel .product .o-expandable_cue-close').click();
       cy.get('.filter-panel .product .aggregation-branch').should(
         'have.length',
-        0
+        0,
       );
 
       // open it
@@ -159,7 +159,7 @@ describe('Filter Panel', () => {
 
       cy.get('.filter-panel .product .aggregation-branch').should(
         'have.length.gt',
-        1
+        1,
       );
 
       cy.log('can expand sub-filters');
@@ -167,11 +167,11 @@ describe('Filter Panel', () => {
       cy.get('.filter-panel .product .children').should('not.exist');
       // Open sub-filter
       cy.get(
-        '.filter-panel .product .aggregation-branch:first .a-btn__link'
+        '.filter-panel .product .aggregation-branch:first .a-btn__link',
       ).click();
       cy.get('.filter-panel .product .children').should('exist');
       cy.get(
-        '.filter-panel .product .aggregation-branch:first .a-btn__link'
+        '.filter-panel .product .aggregation-branch:first .a-btn__link',
       ).click();
       cy.get('.filter-panel .product .children').should('not.exist');
 
@@ -193,13 +193,13 @@ describe('Filter Panel', () => {
       cy.get('.filter-panel .product .children').should('not.exist');
       // Open sub-filter
       cy.get(
-        '.filter-panel .product .aggregation-branch.mortgage button'
+        '.filter-panel .product .aggregation-branch.mortgage button',
       ).click();
       cy.get(
-        '.filter-panel .product .aggregation-branch.mortgage .children'
+        '.filter-panel .product .aggregation-branch.mortgage .children',
       ).should('exist');
       cy.get(
-        '.filter-panel .product input#product-mortgage-fha-mortgage'
+        '.filter-panel .product input#product-mortgage-fha-mortgage',
       ).click({ force: true });
 
       cy.url().should('include', '&product=Mortgage%E2%80%A2FHA%20mortgage');
@@ -214,7 +214,7 @@ describe('Filter Panel', () => {
 
       cy.url().should(
         'not.include',
-        '&product=Mortgage%E2%80%A2FHA%20mortgage'
+        '&product=Mortgage%E2%80%A2FHA%20mortgage',
       );
       cy.url().should('include', 'product=Mortgage');
 
@@ -234,16 +234,16 @@ describe('Filter Panel', () => {
       cy.get('.state input').should('be.visible');
 
       cy.log('close it');
-      cy.get('.state .o-expandable_link').click();
+      cy.get('.state .o-expandable_cues').click();
 
       cy.get('.state input').should('not.exist');
 
       cy.log('open again');
-      cy.get('.state .o-expandable_link').click();
+      cy.get('.state .o-expandable_cues').click();
       cy.log('searches a typeahead filter');
       cy.findByPlaceholderText('Enter state name or abbreviation').clear();
       cy.findByPlaceholderText('Enter state name or abbreviation').type(
-        'texas'
+        'texas',
       );
 
       cy.get('.state .typeahead-selector').should('exist');
