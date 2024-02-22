@@ -21,11 +21,13 @@ export const Tour = () => {
   const viewWidth = useSelector(selectViewWidth);
 
   const mobileStepOpen = {
+    disableInteraction: false,
     element: '.filter-panel-toggle',
     intro:
       'On mobile devices, click the Filter Panel toggle button to open the Filter Panel. Please click the button to proceed.',
   };
   const mobileStepClose = {
+    disableInteraction: false,
     element: '.filter-panel-toggle',
     intro:
       'Click the Filter Panel toggle button again to close the Filter Panel. Please close the Filter Panel to proceed.',
@@ -88,6 +90,16 @@ export const Tour = () => {
     };
     const waitOn = new MutationObserver(callBack);
     waitOn.observe(document, { subtree: true, childList: true });
+
+    // Add listener to filter toggle if it's mobile and at step 4 or 7
+    if (viewWidth < 750 && (currentStep === 3 || currentStep === 6)) {
+      document
+        .querySelector(mobileStepOpen.element)
+        .addEventListener('click', () => {
+          void ref.current.introJs.nextStep();
+          callBack();
+        });
+    }
   }
 
   /**
