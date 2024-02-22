@@ -6,6 +6,7 @@ import { selectQueryTab } from '../../reducers/query/selectors';
 import {
   selectViewIsPrintMode,
   selectViewShowTour,
+  selectViewWidth,
 } from '../../reducers/view/selectors';
 import { Steps } from 'intro.js-react';
 import { TOUR_STEPS } from './constants/tourStepsConstants';
@@ -17,7 +18,30 @@ export const Tour = () => {
   const showTour = useSelector(selectViewShowTour);
   const tab = useSelector(selectQueryTab);
   const isPrintMode = useSelector(selectViewIsPrintMode);
-  const steps = TOUR_STEPS[tab];
+  const viewWidth = useSelector(selectViewWidth);
+
+  const mobileStepOpen = {
+    element: '.filter-panel-toggle',
+    intro:
+      'On mobile devices, click the Filter Panel toggle button to open the Filter Panel. Please click the button to proceed.',
+  };
+  const mobileStepClose = {
+    element: '.filter-panel-toggle',
+    intro:
+      'Click the Filter Panel toggle button again to close the Filter Panel. Please close the Filter Panel to proceed.',
+  };
+
+  const steps =
+    viewWidth < 750
+      ? TOUR_STEPS[tab]
+          .slice(0, 3)
+          .concat(
+            mobileStepOpen,
+            TOUR_STEPS[tab].slice(4, 7),
+            mobileStepClose,
+            TOUR_STEPS[tab].slice(7),
+          )
+      : TOUR_STEPS[tab];
   const stepRef = useRef();
 
   // INTRODUCTION / TUTORIAL OPTIONS:
