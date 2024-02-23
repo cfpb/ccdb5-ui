@@ -1,6 +1,6 @@
 import './Tour.less';
 import * as d3 from 'd3';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectQueryTab } from '../../reducers/query/selectors';
 import {
@@ -20,15 +20,17 @@ export const Tour = () => {
   const isPrintMode = useSelector(selectViewIsPrintMode);
   const viewWidth = useSelector(selectViewWidth);
 
+  useEffect(() => {});
+
   const mobileStepOpen = {
     disableInteraction: false,
-    element: '.filter-panel-toggle',
+    element: '.filter-panel-toggle .m-btn-group .a-btn',
     intro:
       'On mobile devices, click the Filter Panel toggle button to open the Filter Panel. Please click the button to proceed.',
   };
   const mobileStepClose = {
     disableInteraction: false,
-    element: '.filter-panel-toggle',
+    element: '.filter-panel-toggle .m-btn-group .a-btn',
     intro:
       'Click the Filter Panel toggle button again to close the Filter Panel. Please close the Filter Panel to proceed.',
   };
@@ -89,19 +91,34 @@ export const Tour = () => {
       });
     };
     const waitOn = new MutationObserver(callBack);
-    waitOn.observe(document, { subtree: true, childList: true });
+    waitOn.observe(document.querySelector('#ccdb-ui-root'), {
+      subtree: true,
+      childList: true,
+    });
 
     // Add listener to filter toggle if it's mobile and at step 4 or 7
+    const filterListener = () => {
+      ref.current.introJs.nextStep().then(() => {
+        document
+          .querySelector(mobileStepOpen.element)
+          .removeEventListener('click', filterListener);
+      });
+    };
     if (viewWidth < 750 && (currentStep === 3 || currentStep === 6)) {
       document
         .querySelector(mobileStepOpen.element)
-        .addEventListener('click', () => {
-          void ref.current.introJs.nextStep();
-          callBack();
-        });
+        .addEventListener('click', filterListener);
     }
   }
 
+  /**
+   *
+   * @param ref
+   */
+  function resetAfterChange(ref) {
+    ref.current.introJs.refresh(true);
+    ref.current.updateStepElement(4);
+  }
   /**
    * Exit handler
    *
@@ -131,6 +148,7 @@ export const Tour = () => {
         options={options}
         onBeforeChange={() => handleBeforeChange(stepRef)}
         onBeforeExit={() => handleBeforeExit(stepRef)}
+        onAfterChange={() => resetAfterChange(stepRef)}
         ref={stepRef}
       />
     </>
