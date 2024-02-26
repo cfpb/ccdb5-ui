@@ -100,13 +100,13 @@ export const Tour = () => {
     const filterListener = () => {
       // Wait for date inputs to render, then proceed
       const promise = new Promise((resolve) => {
+        if (currentStep === 6) return resolve();
         const interval = setInterval(() => {
           if (document.querySelector('.date-filter') !== null) {
             clearInterval(interval);
-            ref.current.updateStepElement(4);
             return resolve();
           }
-        }, 100);
+        }, 10);
       });
       promise.then(() => {
         ref.current.introJs.nextStep().then(() => {
