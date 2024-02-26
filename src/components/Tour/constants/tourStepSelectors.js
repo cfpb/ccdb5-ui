@@ -14,7 +14,7 @@ export const GEO_STEP_SELECTORS = {
   },
   STEP_3: { selector: '.tabbed-navigation', label: 'Views' },
   STEP_4: { selector: '.filter-panel', label: 'Filters' },
-  STEP_5: { selector: '.date-filter ul.date-inputs', label: 'Date Received' },
+  STEP_5: { selector: '.date-filter', label: 'Date Received' },
   STEP_6: {
     selector: '.filter-panel .aggregation.product',
     label: 'Product/Issue',
@@ -47,7 +47,7 @@ export const LIST_COMPLAINTS_SELECTORS = {
   },
   STEP_3: { selector: '.tabbed-navigation', label: 'Views' },
   STEP_4: { selector: '.filter-panel', label: 'Filters' },
-  STEP_5: { selector: '.date-inputs', label: 'Date Received' },
+  STEP_5: { selector: '.date-filter', label: 'Date Received' },
   STEP_6: {
     selector: '.filter-panel .aggregation.product',
     label: 'Product/Issue',

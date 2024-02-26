@@ -84,8 +84,8 @@ export const MapPanel = () => {
         <Warning text={WARNING_MESSAGE} closeFn={onDismissWarning} />
       )}
       {!!hasMobileFilters && <FilterPanel />}
+      <FilterPanelToggle />
       <div className="layout-row refine-bar">
-        <FilterPanelToggle />
         <Separator />
         <PerCapita />
       </div>

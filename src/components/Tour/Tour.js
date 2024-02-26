@@ -98,9 +98,13 @@ export const Tour = () => {
 
     // Add listener to filter toggle if it's mobile and at step 4 or 7
     const filterListener = () => {
+      // Make sure next button isn't being hidden from steps 3 or 7
+      document
+        .querySelector('.introjs-nextbutton')
+        ?.setAttribute('style', 'display: inline');
       // Wait for date inputs to render, then proceed
       const promise = new Promise((resolve) => {
-        if (currentStep === 6) return resolve();
+        if (currentStep === 7) return resolve();
         const interval = setInterval(() => {
           if (document.querySelector('.date-filter') !== null) {
             clearInterval(interval);
@@ -116,7 +120,10 @@ export const Tour = () => {
         });
       });
     };
-    if (viewWidth < 750 && (currentStep === 3 || currentStep === 6)) {
+    if (viewWidth < 750 && (currentStep === 3 || currentStep === 7)) {
+      document
+        .querySelector('.introjs-nextbutton')
+        .setAttribute('style', 'display: none');
       document
         .querySelector(mobileStepOpen.element)
         .addEventListener('click', filterListener);
