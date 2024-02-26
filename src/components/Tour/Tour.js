@@ -98,10 +98,22 @@ export const Tour = () => {
 
     // Add listener to filter toggle if it's mobile and at step 4 or 7
     const filterListener = () => {
-      ref.current.introJs.nextStep().then(() => {
-        document
-          .querySelector(mobileStepOpen.element)
-          .removeEventListener('click', filterListener);
+      // Wait for date inputs to render, then proceed
+      const promise = new Promise((resolve) => {
+        const interval = setInterval(() => {
+          if (document.querySelector('.date-filter') !== null) {
+            clearInterval(interval);
+            ref.current.updateStepElement(4);
+            return resolve();
+          }
+        }, 100);
+      });
+      promise.then(() => {
+        ref.current.introJs.nextStep().then(() => {
+          document
+            .querySelector(mobileStepOpen.element)
+            .removeEventListener('click', filterListener);
+        });
       });
     };
     if (viewWidth < 750 && (currentStep === 3 || currentStep === 6)) {
@@ -111,14 +123,6 @@ export const Tour = () => {
     }
   }
 
-  /**
-   *
-   * @param ref
-   */
-  function resetAfterChange(ref) {
-    ref.current.introJs.refresh(true);
-    ref.current.updateStepElement(4);
-  }
   /**
    * Exit handler
    *
@@ -148,7 +152,6 @@ export const Tour = () => {
         options={options}
         onBeforeChange={() => handleBeforeChange(stepRef)}
         onBeforeExit={() => handleBeforeExit(stepRef)}
-        onAfterChange={() => resetAfterChange(stepRef)}
         ref={stepRef}
       />
     </>
