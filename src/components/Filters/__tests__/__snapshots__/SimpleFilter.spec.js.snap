@@ -5,26 +5,24 @@ exports[`initial state renders without crashing 1`] = `
   className="o-expandable aggregation simple company_response"
 >
   <button
+    aria-expanded="false"
     aria-label="Hide nana filter"
-    className="o-expandable_header o-expandable_target o-expandable_target__collapsed"
+    className="o-expandable_header"
     onClick={[Function]}
   >
     <h3
-      className="h4 o-expandable_header-left o-expandable_label"
+      className="h4 o-expandable_label"
     >
       nana
     </h3>
     <span
-      className="o-expandable_header-right o-expandable_link"
+      className="o-expandable_cues"
     >
       <span
-        className="o-expandable_cue o-expandable_cue-open"
+        aria-label="Show"
+        className="o-expandable_cue-open"
+        role="img"
       >
-        <span
-          className="u-visually-hidden-on-mobile"
-        >
-          Show
-        </span>
         <svg>
           plus-round.svg
         </svg>
