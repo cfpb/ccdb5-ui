@@ -1,6 +1,6 @@
 import './Tour.less';
 import * as d3 from 'd3';
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectQueryTab } from '../../reducers/query/selectors';
 import {
@@ -19,8 +19,6 @@ export const Tour = () => {
   const tab = useSelector(selectQueryTab);
   const isPrintMode = useSelector(selectViewIsPrintMode);
   const viewWidth = useSelector(selectViewWidth);
-
-  useEffect(() => {});
 
   const mobileStepOpen = {
     disableInteraction: false,
