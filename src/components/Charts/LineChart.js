@@ -86,7 +86,9 @@ export class LineChart extends React.Component {
       .title('Complaints');
 
     const tip = this.tip;
-    const colorScheme = processData.dataByTopic.map((o) => colorMap[o.topic]);
+    const colorScheme = processData.dataByTopic.map(
+      (obj) => colorMap[obj.topic],
+    );
 
     lineChart
       .margin({ left: 60, right: 10, top: 10, bottom: 40 })
@@ -111,7 +113,7 @@ export class LineChart extends React.Component {
     container.datum(cloneDeep(processData)).call(lineChart);
 
     const tooltipContainer = d3.select(
-      chartID + ' .metadata-group .vertical-marker-container'
+      chartID + ' .metadata-group .vertical-marker-container',
     );
     tooltipContainer.datum([]).call(tip);
 
@@ -160,7 +162,7 @@ export const mapStateToProps = (state) => {
   const processData = cloneDeep(data);
   pruneIncompleteLineInterval(processData, dateRange, interval);
   const hasChart = Boolean(
-    processData.dataByTopic && processData.dataByTopic[0].dates.length > 1
+    processData.dataByTopic && processData.dataByTopic[0].dates.length > 1,
   );
 
   return {
@@ -177,6 +179,7 @@ export const mapStateToProps = (state) => {
   };
 };
 
+// eslint-disable-next-line react-redux/prefer-separate-component-file
 export default connect(mapStateToProps, mapDispatchToProps)(LineChart);
 
 LineChart.propTypes = {

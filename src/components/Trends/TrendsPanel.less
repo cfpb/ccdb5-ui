@@ -56,7 +56,7 @@
             color: @pacific;
             border-bottom-color: @gray-10;
             li {
-              &:before {
+              &::before {
                 opacity: 0;
               }
             }
@@ -95,7 +95,7 @@
           padding-top: 2px;
           padding-left: 0;
           &.recommended {
-            background: rgba(231, 232, 233, 0.4);
+            background: rgba(231, 232, 233, 40%);
           }
           &.active {
             color: @black;
@@ -109,7 +109,7 @@
               background-color: @gold-20;
             }
             li {
-              &:before {
+              &::before {
                 opacity: 1;
               }
             }
@@ -133,7 +133,7 @@
             padding-left: 14px;
             position: relative;
             border-bottom: 1px solid @gray-20;
-            &:before {
+            &::before {
               height: 8px;
               width: 8px;
               border-radius: 50%;
@@ -145,63 +145,63 @@
             }
 
             // if you modify anything here, make sure to update colors constants file
-            &.color__0:before {
+            &.color__0::before {
               background-color: #2cb34a;
             }
 
-            &.color__1:before {
+            &.color__1::before {
               background-color: #addc91;
             }
 
-            &.color__2:before {
+            &.color__2::before {
               background-color: #0072ce;
             }
 
-            &.color__3:before {
+            &.color__3::before {
               background-color: #96c4ed;
             }
 
-            &.color__4:before {
+            &.color__4::before {
               background-color: #257675;
             }
 
-            &.color__5:before {
+            &.color__5::before {
               background-color: #9ec4c3;
             }
 
-            &.color__6:before {
+            &.color__6::before {
               background-color: #254b87;
             }
 
-            &.color__7:before {
+            &.color__7::before {
               background-color: #9daecc;
             }
 
-            &.color__8:before {
+            &.color__8::before {
               background-color: #b4267a;
             }
 
-            &.color__9:before {
+            &.color__9::before {
               background-color: #dc9cbf;
             }
 
-            &.color__10:before {
+            &.color__10::before {
               background-color: #a2a3a4;
             }
 
-            &.color__12:before {
+            &.color__12::before {
               background-color: #93cf7c;
             }
 
-            &.color__13:before {
+            &.color__13::before {
               background-color: @purple-60;
             }
 
-            &.color__14:before {
+            &.color__14::before {
               background-color: @red-60;
             }
 
-            &.color__15:before {
+            &.color__15::before {
               background-color: @gold-80;
             }
           }
@@ -237,7 +237,7 @@
               span.pull-left {
                 display: none;
               }
-              &:before {
+              &::before {
                 content: 'Reset recommended set';
                 border-right: solid 1px @white;
                 padding-right: 10px;
@@ -287,7 +287,7 @@
         width: 46%;
       }
       .date-ranges {
-        margin: 10px 0 10px 0;
+        margin: 10px 0;
       }
       .chart-toggles {
         margin-left: 0;
@@ -320,9 +320,11 @@
     @media @tablet {
       padding-left: 20px;
     }
+
     @media @desktop {
       padding-left: 30px;
     }
+
     @media @superwide {
       padding-left: 40px;
     }

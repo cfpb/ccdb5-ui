@@ -7,7 +7,8 @@ import thunk from 'redux-thunk';
 
 /**
  *
- * @param query
+ * @param {object} query - Query state object
+ * @returns {Function} - Rendering function
  */
 function setupSnapshot(query) {
   const middlewares = [thunk];
@@ -22,7 +23,7 @@ function setupSnapshot(query) {
         fieldName="date_received"
         title="Date CFPB Received the complaint"
       />
-    </Provider>
+    </Provider>,
   );
 }
 

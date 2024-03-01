@@ -35,34 +35,38 @@ export const getSubLens = (lens) => {
 /**
  * helper function to strip out the "Other" data points from stacked area if
  * they don't have any values
+ *
  * @param {Array} buckets - contains all of the date points for the stacked area
  * @returns {Array} cleaned up array or not
  */
 export const pruneOther = (buckets) => {
   const sumOther = buckets
-    .filter((o) => o.name === 'Other')
+    .filter((bucket) => bucket.name === 'Other')
     .reduce((prev, cur) => prev + cur.value, 0);
 
-  return sumOther > 0 ? buckets : buckets.filter((o) => o.name !== 'Other');
+  return sumOther > 0
+    ? buckets
+    : buckets.filter((bucket) => bucket.name !== 'Other');
 };
 
 export const isGreaterThanYear = (from, to) => {
-  const a = dayjs(from);
-  const b = dayjs(to);
-  return b.diff(a, 'days') > 366;
+  const fromDay = dayjs(from);
+  const toDay = dayjs(to);
+  return toDay.diff(fromDay, 'days') > 366;
 };
 
 /**
  * gets the valid intervals based on dates selected.
  * get rid of Day if range > 1yr
+ *
  * @param {object} from - date
  * @param {object} to - date
  * @returns {Array} array of date intervals
  */
 export const getIntervals = (from, to) =>
-  types.dateIntervals.map((o) => ({
-    name: o,
-    disabled: isGreaterThanYear(from, to) && o === 'Day',
+  types.dateIntervals.map((interval) => ({
+    name: interval,
+    disabled: isGreaterThanYear(from, to) && interval === 'Day',
   }));
 
 /**

@@ -9,8 +9,9 @@ import renderer from 'react-test-renderer';
 
 /**
  *
- * @param initialQueryState
- * @param initialAggState
+ * @param {object} initialQueryState - Initial query state
+ * @param {object} initialAggState - Initial agg state
+ * @returns {void}
  */
 function setupSnapshot(initialQueryState = {}, initialAggState = {}) {
   const middlewares = [thunk];
@@ -23,7 +24,7 @@ function setupSnapshot(initialQueryState = {}, initialAggState = {}) {
   return renderer.create(
     <Provider store={store}>
       <PillPanel />
-    </Provider>
+    </Provider>,
   );
 }
 
@@ -56,7 +57,7 @@ xdescribe('component:PillPanel', () => {
         date_received_min: '2011-12-01T12:00:00.000Z',
         issue: ['a', 'Bananas are great'],
       },
-      aggs
+      aggs,
     );
     const tree = target.toJSON();
     expect(tree).toMatchSnapshot();

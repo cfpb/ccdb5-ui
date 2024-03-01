@@ -66,6 +66,7 @@ export class TrendDepthToggle extends React.Component {
 
 /**
  * helper containing logic to determine when to show the toggle
+ *
  * @param {string} lens - selected value
  * @param {string} focus - which focus we are on
  * @param {number} resultCount - count coming from trends results
@@ -95,7 +96,7 @@ export const mapStateToProps = (state) => {
   const { focus, lens } = query;
   const lensKey = lensMap[lens];
   const resultCount = coalesce(trends.results, lensKey, []).filter(
-    (o) => o.isParent
+    (obj) => obj.isParent,
   ).length;
 
   // The total source depends on the lens.  There are no aggs for companies
@@ -108,7 +109,7 @@ export const mapStateToProps = (state) => {
 
   // handle cases where some specified filters are selected
   const queryCount = query[lensKey]
-    ? query[lensKey].filter((o) => o.indexOf(SLUG_SEPARATOR) === -1).length
+    ? query[lensKey].filter((obj) => obj.indexOf(SLUG_SEPARATOR) === -1).length
     : totalResultsLength;
 
   return {
@@ -119,6 +120,7 @@ export const mapStateToProps = (state) => {
   };
 };
 
+// eslint-disable-next-line react-redux/prefer-separate-component-file
 export default connect(mapStateToProps, mapDispatchToProps)(TrendDepthToggle);
 
 TrendDepthToggle.propTypes = {

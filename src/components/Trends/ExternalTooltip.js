@@ -2,7 +2,7 @@
 import { CompanyTypeahead } from '../Filters/CompanyTypeahead';
 import { connect } from 'react-redux';
 import { externalTooltipFormatter } from '../../utils/chart';
-import iconMap from '../iconMap';
+import getIcon from '../iconMap';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { removeFilter } from '../../reducers/query/query';
@@ -33,7 +33,7 @@ export class ExternalTooltip extends React.Component {
       elements.push(
         <span className="u-left" key={value.name}>
           All other {plurals[lensToUse]}
-        </span>
+        </span>,
       );
       return elements;
     }
@@ -42,7 +42,7 @@ export class ExternalTooltip extends React.Component {
       elements.push(
         <span className="u-left" key={value.name}>
           {value.name}
-        </span>
+        </span>,
       );
       return elements;
     }
@@ -54,21 +54,21 @@ export class ExternalTooltip extends React.Component {
         key={value.name}
       >
         {value.name}
-      </span>
+      </span>,
     );
 
     // add in the close button for Company and there's no focus yet
     if (hasCompanyTypeahead) {
       elements.push(
-        <span
+        <button
           className="u-right a-btn a-btn__link close"
           key={'close_' + value.name}
           onClick={() => {
             this.props.remove(value.name);
           }}
         >
-          {iconMap.getIcon('delete')}
-        </span>
+          {getIcon('delete')}
+        </button>,
       );
     }
 
@@ -80,7 +80,7 @@ export class ExternalTooltip extends React.Component {
     if (tooltip && tooltip.values) {
       return (
         <section className={'tooltip-container u-clearfix ' + focus}>
-          {this.props.hasCompanyTypeahead && (
+          {!!this.props.hasCompanyTypeahead && (
             <CompanyTypeahead id="external-tooltip" />
           )}
           <p className="a-micro-copy">
@@ -89,15 +89,15 @@ export class ExternalTooltip extends React.Component {
           </p>
           <div>
             <ul className="tooltip-ul">
-              {tooltip.values.map((v, k) => (
-                <li className={'color__' + v.colorIndex} key={k + '-id'}>
-                  {this._spanFormatter(v)}
-                  <span className="u-right">{v.value.toLocaleString()}</span>
+              {tooltip.values.map((val, key) => (
+                <li className={'color__' + val.colorIndex} key={key + '-id'}>
+                  {this._spanFormatter(val)}
+                  <span className="u-right">{val.value.toLocaleString()}</span>
                 </li>
               ))}
             </ul>
 
-            {hasTotal && (
+            {!!hasTotal && (
               <ul className="m-list__unstyled tooltip-ul total">
                 <li>
                   <span className="u-left">Total</span>
@@ -146,6 +146,7 @@ export const mapStateToProps = (state) => {
   };
 };
 
+// eslint-disable-next-line react-redux/prefer-separate-component-file
 export default connect(mapStateToProps, mapDispatchToProps)(ExternalTooltip);
 
 ExternalTooltip.propTypes = {

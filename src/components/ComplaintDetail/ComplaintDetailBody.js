@@ -2,17 +2,13 @@ import { ariaReadoutNumbers } from '../../utils';
 import { FormattedDate } from 'react-intl';
 import React from 'react';
 import PropTypes from 'prop-types';
-import iconMap from '../iconMap';
+import getIcon from '../iconMap';
 
 const SubAggregation = ({ label, value }) => {
   return value ? (
     <div className="layout-row">
-      <span className="body-copy subitem" tabIndex="0">
-        {label}
-      </span>
-      <span className="body-copy" tabIndex="0">
-        {value}
-      </span>
+      <span className="body-copy subitem">{label}</span>
+      <span className="body-copy">{value}</span>
     </div>
   ) : null;
 };
@@ -37,18 +33,16 @@ const ConsumerConsent = ({ value }) => {
     const consentIconLookup = iconLookupMap[value];
     const iconName = consentIconLookup[0];
     const customClass = consentIconLookup[1];
-    consentIcon = iconMap.getIcon(iconName, customClass);
+    consentIcon = getIcon(iconName, customClass);
   } else {
-    consentIcon = iconMap.getIcon('error-round', 'cf-icon-error-round');
+    consentIcon = getIcon('error-round', 'cf-icon-error-round');
     value = 'No data available';
   }
 
   return (
     <div>
       <span className="cf-icon__before">{consentIcon}</span>
-      <span className="body-copy" tabIndex="0">
-        {value}
-      </span>
+      <span className="body-copy">{value}</span>
     </div>
   );
 };
@@ -57,11 +51,7 @@ ConsumerConsent.propTypes = { value: PropTypes.string };
 
 const CompanyTimely = ({ value }) => {
   if (!value) {
-    return (
-      <span className="body-copy" tabIndex="0">
-        N/A
-      </span>
-    );
+    return <span className="body-copy">N/A</span>;
   }
   const styles = ['cf-icon__before'];
   if (value.toLowerCase() === 'no') {
@@ -71,15 +61,13 @@ const CompanyTimely = ({ value }) => {
   return (
     <div>
       <span className="cf-icon__before">
-        {iconMap.getIcon(
+        {getIcon(
           'clock-round',
           'cf-icon-clock-round' +
-            (value.toLowerCase() === 'no' ? ' not-timely' : '')
+            (value.toLowerCase() === 'no' ? ' not-timely' : ''),
         )}
       </span>
-      <span className="body-copy" tabIndex="0">
-        {value}
-      </span>
+      <span className="body-copy">{value}</span>
     </div>
   );
 };
@@ -97,91 +85,73 @@ export const ComplaintDetailBody = ({ data, error, id }) => {
 
   return (
     <article>
-      <h1 aria-label={'Complaint ' + h1ReadOut} tabIndex="0">
-        {id}
-      </h1>
+      <h1 aria-label={'Complaint ' + h1ReadOut}>{id}</h1>
       <div className="card">
         <div className="card-left layout-column">
-          <h4 tabIndex="0">Date CFPB received the complaint</h4>
-          <span className="body-copy" tabIndex="0">
+          <h4>Date CFPB received the complaint</h4>
+          <span className="body-copy">
             <FormattedDate value={data.date_received} />
           </span>
           <br />
-          <h4 tabIndex="0">Consumer&apos;s state</h4>
-          <span className="body-copy" tabIndex="0">
-            {data.state}
-          </span>
+          <h4>Consumer&apos;s state</h4>
+          <span className="body-copy">{data.state}</span>
           <br />
-          <h4 tabIndex="0">Consumer&apos;s zip</h4>
-          <span className="body-copy" tabIndex="0">
-            {data.zip_code}
-          </span>
+          <h4>Consumer&apos;s zip</h4>
+          <span className="body-copy">{data.zip_code}</span>
           <br />
-          <h4 tabIndex="0">Submitted via</h4>
-          <span className="body-copy" tabIndex="0">
-            {data.submitted_via}
-          </span>
+          <h4>Submitted via</h4>
+          <span className="body-copy">{data.submitted_via}</span>
           <br />
-          <h4 tabIndex="0">Tags</h4>
-          <span className="body-copy" tabIndex="0">
-            {data.tags}
-          </span>
+          <h4>Tags</h4>
+          <span className="body-copy">{data.tags}</span>
           <br />
-          <h4 tabIndex="0">Did consumer dispute the response?</h4>
-          <span className="body-copy" tabIndex="0">
-            {data.consumer_disputed}
-          </span>
+          <h4>Did consumer dispute the response?</h4>
+          <span className="body-copy">{data.consumer_disputed}</span>
         </div>
         <div className="card-right layout-column">
-          <h4 tabIndex="0">Product</h4>
-          <h3 tabIndex="0">{data.product}</h3>
+          <h4>Product</h4>
+          <h3>{data.product}</h3>
           <SubAggregation label="Sub-product:" value={data.sub_product} />
           <br />
-          <h4 tabIndex="0">Issue</h4>
-          <h3 tabIndex="0">{data.issue}</h3>
+          <h4>Issue</h4>
+          <h3>{data.issue}</h3>
           <SubAggregation label="Sub-issue:" value={data.sub_issue} />
           <br />
-          <h4 tabIndex="0">Consumer consent to publish narrative</h4>
+          <h4>Consumer consent to publish narrative</h4>
           <ConsumerConsent value={data.consumer_consent_provided} />
           <br />
           {narrative ? (
             <div>
-              <h4 tabIndex="0">Consumer complaint narrative</h4>
-              <span className="body-copy" tabIndex="0">
-                {narrative}
-              </span>
+              <h4>Consumer complaint narrative</h4>
+              <span className="body-copy">{narrative}</span>
             </div>
           ) : null}
         </div>
       </div>
 
-      <h2 className="company-information" tabIndex="0">
-        Company information
-      </h2>
+      <h2 className="company-information">Company information</h2>
       <div className="card">
         <div className="card-left layout-column">
-          <h4 tabIndex="0">Date complaint sent to company</h4>
-          <span className="body-copy" tabIndex="0">
+          <h4>Date complaint sent to company</h4>
+          <span className="body-copy">
             <FormattedDate value={data.date_sent_to_company} />
           </span>
           <br />
-          <h4 tabIndex="0">Company name</h4>
-          <span className="body-copy" tabIndex="0">
-            {data.company}
-          </span>
+          <h4>Company name</h4>
+          <span className="body-copy">{data.company}</span>
           <br />
         </div>
         <div className="card-right layout-column">
-          <h4 tabIndex="0">Timely response?</h4>
+          <h4>Timely response?</h4>
           <CompanyTimely value={data.timely} />
           <br />
-          <h4 tabIndex="0">Company response to consumer</h4>
-          <span className="body-copy" tabIndex="0">
+          <h4>Company response to consumer</h4>
+          <span className="body-copy">
             {data.company_response ? data.company_response : 'N/A'}
           </span>
           <br />
-          <h4 tabIndex="0">Company public response</h4>
-          <span className="body-copy" tabIndex="0">
+          <h4>Company public response</h4>
+          <span className="body-copy">
             {data.company_public_response
               ? data.company_public_response
               : 'N/A'}

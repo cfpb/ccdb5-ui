@@ -1,7 +1,7 @@
 import './ActionBar.less';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormattedNumber } from 'react-intl';
-import iconMap from '../iconMap';
+import getIcon from '../iconMap';
 import React from 'react';
 import { sendAnalyticsEvent } from '../../utils';
 import { modalShown } from '../../reducers/view/view';
@@ -62,7 +62,7 @@ export const ActionBar = () => {
                 showPrintView(tab);
               }}
             >
-              {iconMap.getIcon('printer')}
+              {getIcon('printer')}
               Print
             </button>
           </h3>

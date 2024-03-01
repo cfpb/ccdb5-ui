@@ -57,7 +57,7 @@ describe('component::ComplaintDetail', () => {
     expect(screen.getByText('Back to search results')).toBeInTheDocument();
     expect(screen.getByText('Back to search results')).toHaveAttribute(
       'href',
-      '/?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends'
+      '/?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
     );
     expect(screen.getByText('This page is loading')).toBeInTheDocument();
     expect(screen.getByText('Back to search results')).toBeInTheDocument();
@@ -80,11 +80,11 @@ describe('component::ComplaintDetail', () => {
     expect(screen.getByText('Back to search results')).toBeInTheDocument();
     expect(screen.getByText('Back to search results')).toHaveAttribute(
       'href',
-      '/?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends'
+      '/?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
     );
 
     expect(
-      screen.getByText('There was a problem retrieving')
+      screen.getByText('There was a problem retrieving'),
     ).toBeInTheDocument();
   });
 
@@ -107,22 +107,22 @@ describe('component::ComplaintDetail', () => {
     expect(screen.getByText('Back to search results')).toBeInTheDocument();
     expect(screen.getByText('Back to search results')).toHaveAttribute(
       'href',
-      '/?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends'
+      '/?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
     );
 
     await waitFor(() =>
-      expect(screen.queryByText('This page is loading')).toBeNull()
+      expect(screen.queryByText('This page is loading')).toBeNull(),
     );
 
     expect(
-      screen.getByText('Date CFPB received the complaint')
+      screen.getByText('Date CFPB received the complaint'),
     ).toBeInTheDocument();
 
     expect(screen.getAllByText('Yes')).toHaveLength(2);
     expect(screen.getByText(fixture.company)).toBeInTheDocument();
     expect(screen.getByText(fixture.company_response)).toBeInTheDocument();
     expect(
-      screen.getByText(fixture.company_public_response)
+      screen.getByText(fixture.company_public_response),
     ).toBeInTheDocument();
     expect(screen.getByText(fixture.submitted_via)).toBeInTheDocument();
   });
@@ -151,21 +151,21 @@ describe('component::ComplaintDetail', () => {
     expect(screen.getByText('Back to search results')).toBeInTheDocument();
     expect(screen.getByText('Back to search results')).toHaveAttribute(
       'href',
-      '/?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends'
+      '/?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
     );
 
     await waitFor(() =>
-      expect(screen.queryByText('This page is loading')).toBeNull()
+      expect(screen.queryByText('This page is loading')).toBeNull(),
     );
 
     expect(
-      screen.getByText('Date CFPB received the complaint')
+      screen.getByText('Date CFPB received the complaint'),
     ).toBeInTheDocument();
 
     expect(screen.getByText(dataFixture.company)).toBeInTheDocument();
     expect(screen.getByText(dataFixture.company_response)).toBeInTheDocument();
     expect(
-      screen.getByText(dataFixture.company_public_response)
+      screen.getByText(dataFixture.company_public_response),
     ).toBeInTheDocument();
     expect(screen.getByText(dataFixture.consumer_disputed)).toBeInTheDocument();
     expect(screen.getByText(dataFixture.submitted_via)).toBeInTheDocument();
@@ -194,11 +194,11 @@ describe('component::ComplaintDetail', () => {
     expect(complaintApiSpy).toHaveBeenCalledTimes(1);
 
     await waitFor(() =>
-      expect(screen.queryByText('This page is loading')).toBeNull()
+      expect(screen.queryByText('This page is loading')).toBeNull(),
     );
 
     expect(
-      screen.getByText('Date CFPB received the complaint')
+      screen.getByText('Date CFPB received the complaint'),
     ).toBeInTheDocument();
 
     expect(screen.getByText('No data available')).toBeInTheDocument();
@@ -223,7 +223,7 @@ describe('component::ComplaintDetail', () => {
     expect(complaintApiSpy).toHaveBeenCalledTimes(1);
 
     await waitFor(() =>
-      expect(screen.queryByText('This page is loading')).toBeNull()
+      expect(screen.queryByText('This page is loading')).toBeNull(),
     );
 
     expect(screen.getByText('Timely response?')).toBeInTheDocument();

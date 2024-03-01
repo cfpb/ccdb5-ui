@@ -1,5 +1,5 @@
 import React from 'react';
-import iconMap from '../../iconMap';
+import getIcon from '../../iconMap';
 import { useDispatch } from 'react-redux';
 import { modalHidden } from '../../../reducers/view/view';
 
@@ -18,7 +18,7 @@ export const ExportConfirmation = () => {
           }}
         >
           Close
-          {iconMap.getIcon('delete-round')}
+          {getIcon('delete-round')}
         </button>
       </div>
       <div className="body">

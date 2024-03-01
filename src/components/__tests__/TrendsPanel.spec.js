@@ -46,8 +46,8 @@ jest.mock('britecharts', () => {
 
   const mock = {};
 
-  for (let i = 0; i < props.length; i++) {
-    const propName = props[i];
+  for (let index = 0; index < props.length; index++) {
+    const propName = props[index];
     mock[propName] = jest.fn().mockImplementation(() => {
       return mock;
     });
@@ -71,8 +71,8 @@ jest.mock('d3', () => {
 
   const mock = {};
 
-  for (let i = 0; i < props.length; i++) {
-    const propName = props[i];
+  for (let index = 0; index < props.length; index++) {
+    const propName = props[index];
     mock[propName] = jest.fn().mockImplementation(() => {
       return mock;
     });
@@ -86,11 +86,12 @@ jest.mock('d3', () => {
 
 /**
  *
- * @param root0
- * @param root0.focus
- * @param root0.hasOverview
- * @param root0.lens
- * @param root0.subLens
+ * @param {object} root0 - The root state
+ * @param {string} root0.focus - The focus
+ * @param {boolean} root0.hasOverview - Is there an overview?
+ * @param {string} root0.lens - The lens
+ * @param {string} root0.subLens - The sublens
+ * @returns {void}
  */
 function setupEnzyme({ focus, hasOverview, lens, subLens }) {
   const props = {
@@ -110,16 +111,17 @@ function setupEnzyme({ focus, hasOverview, lens, subLens }) {
 
 /**
  *
- * @param root0
- * @param root0.chartType
- * @param root0.company
- * @param root0.focus
- * @param root0.dateInterval
- * @param root0.lens
- * @param root0.subLens
- * @param root0.tooltip
- * @param root0.trendsDateWarningEnabled
- * @param root0.width
+ * @param {object} root0 - Root state
+ * @param {string} root0.chartType - Chart type
+ * @param {string} root0.company - Company
+ * @param {string} root0.focus - Focus
+ * @param {string} root0.dateInterval - Date interval
+ * @param {string} root0.lens - Focus
+ * @param {string} root0.subLens - Sublens
+ * @param {object} root0.tooltip - Tooltip
+ * @param {boolean} root0.trendsDateWarningEnabled - Is the date warning enabled?
+ * @param {number} root0.width - Width of the chart
+ * @returns {void}
  */
 function setupSnapshot({
   chartType,
@@ -189,7 +191,7 @@ function setupSnapshot({
       <IntlProvider locale="en">
         <ReduxTrendsPanel />
       </IntlProvider>
-    </Provider>
+    </Provider>,
   );
 }
 
@@ -290,7 +292,7 @@ describe('component:TrendsPanel', () => {
         params.hasOverview = true;
         const target = setupEnzyme(params);
         expect(target.instance()._areaChartTitle()).toEqual(
-          'Complaints by date received by the CFPB'
+          'Complaints by date received by the CFPB',
         );
       });
 
@@ -298,7 +300,7 @@ describe('component:TrendsPanel', () => {
         params.lens = 'Something';
         const target = setupEnzyme(params);
         expect(target.instance()._areaChartTitle()).toEqual(
-          'Complaints by date received by the CFPB'
+          'Complaints by date received by the CFPB',
         );
       });
 
@@ -307,7 +309,7 @@ describe('component:TrendsPanel', () => {
         params.lens = 'Product';
         const target = setupEnzyme(params);
         expect(target.instance()._areaChartTitle()).toEqual(
-          'Complaints by sub-products, by date received by the CFPB'
+          'Complaints by sub-products, by date received by the CFPB',
         );
       });
     });

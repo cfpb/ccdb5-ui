@@ -26,7 +26,7 @@ describe('initial state', () => {
     render(
       <Provider store={store}>
         <App />
-      </Provider>
+      </Provider>,
     );
 
     expect(updateLocationHookSpy).toBeCalledTimes(1);
@@ -34,10 +34,10 @@ describe('initial state', () => {
     expect(screen.getByText(/Consumer Complaint Database/)).toBeDefined();
     expect(screen.getByText(/Search within/)).toBeDefined();
     expect(
-      screen.getByRole('button', { name: /Show advanced search tips/ })
+      screen.getByRole('button', { name: /Show advanced search tips/ }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: /Take a tour/ })
+      screen.getByRole('button', { name: /Take a tour/ }),
     ).toBeInTheDocument();
   });
 
@@ -58,14 +58,14 @@ describe('initial state', () => {
             <Route path="/detail/:id" element={<DetailComponents />} />
           </Routes>
         </Provider>
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     expect(
-      screen.getByRole('link', { name: /Back to search results/ })
+      screen.getByRole('link', { name: /Back to search results/ }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('link', { name: /Back to search results/ })
+      screen.getByRole('link', { name: /Back to search results/ }),
     ).toHaveAttribute('href', '/?something');
 
     expect(screen.getByText('This page is loading')).toBeInTheDocument();

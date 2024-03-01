@@ -93,7 +93,7 @@ export const ListPanel = () => {
     <section className="list-panel">
       <ActionBar />
       <TabbedNavigation />
-      {hasMobileFilters && <FilterPanel />}
+      {!!hasMobileFilters && <FilterPanel />}
       <div className="layout-row refine-bar">
         <FilterPanelToggle />
         <Separator />

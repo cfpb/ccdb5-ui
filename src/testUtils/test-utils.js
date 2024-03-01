@@ -38,7 +38,7 @@ function testRender(
       preloadedState,
     }),
     ...renderOptions
-  } = {}
+  } = {},
 ) {
   /**
    *
@@ -66,6 +66,7 @@ function testRender(
 /**
  * Use this render method to test the react-router-dom hooks such as
  * useLocation or useParams
+ *
  * @param {object} ui - React component we are passing in
  * @param {object} root0 - React component
  * @param {object} root0.preloadedState - The initial component state
@@ -91,7 +92,7 @@ function testRenderWithMemoryRouter(
       preloadedState,
     }),
     ...renderOptions
-  } = {}
+  } = {},
 ) {
   /**
    *

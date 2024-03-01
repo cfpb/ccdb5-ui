@@ -878,6 +878,7 @@ export const querySlice = createSlice({
 
 /**
  * Makes sure the date range reflects the actual dates selected
+ *
  * @param {object} state - the raw, unvalidated state
  * @returns {object} the validated state
  */
@@ -904,8 +905,8 @@ export function alignDateRange(state) {
   const ranges = Object.keys(rangeMap);
   let matched = false;
 
-  for (let i = 0; i < ranges.length && !matched; i++) {
-    const range = ranges[i];
+  for (let idx = 0; idx < ranges.length && !matched; idx++) {
+    const range = ranges[idx];
 
     if (dayjs(dateMin).isSame(rangeMap[range], 'day')) {
       state.dateRange = range;
@@ -925,6 +926,7 @@ export function alignDateRange(state) {
 
 /**
  * Check for a common case where there is a date range but no dates
+ *
  * @param {object} params - a set of URL parameters
  * @returns {boolean} true if the params meet this condition
  */
@@ -943,6 +945,7 @@ export function dateRangeNoDates(params) {
 
 /**
  * Safely converts a string to a local date
+ *
  * @param {string} value - Hopefully, an ISO-8601 formatted string
  * @returns {Date} The parsed and validated date, or null
  */
@@ -958,7 +961,7 @@ export function toDate(value) {
   const localTimeThen = new Date(
     utcDate.getFullYear(),
     utcDate.getMonth(),
-    utcDate.getDate() + 1
+    utcDate.getDate() + 1,
   );
 
   return localTimeThen;
@@ -967,6 +970,7 @@ export function toDate(value) {
 /**
  * Makes sure that we have a valid dateInterval is selected, or moves to week
  * when the date range > 1yr
+ *
  * @param {object} queryState - the current state of query reducer
  */
 export function validateDateInterval(queryState) {
@@ -990,6 +994,7 @@ export function validateDateInterval(queryState) {
  * defaults create new array if param doesn't exist yet
  * if the value doesn't exist in the array, pushes
  * if value exists in the array, filters.
+ *
  * @param {Array} target - the current filter
  * @param {string} val - the filter to toggle
  * @returns {Array} a cast copy to avoid any state mutation
@@ -1007,6 +1012,7 @@ export function filterArrayAction(target = [], val) {
 
 /**
  * gets the pagination state
+ *
  * @param {number} page - the page we are on
  * @param {object} state - the redux state
  * @returns {object} contains the from and searchAfter params
@@ -1021,6 +1027,7 @@ function getPagination(page, state) {
 
 /**
  * Get search results after specified page
+ *
  * @param {object} state - the current state in the Redux store
  * @param {number} page - page number
  * @returns {Array} array containing complaint's received date and id
@@ -1032,13 +1039,14 @@ function getSearchAfter(state, page) {
 
 /**
  * helper function to remove any empty arrays from known filter sets
+ *
  * @param {object} state - we need to clean up
  */
 export function pruneEmptyFilters(state) {
   // go through the object and delete any filter keys that have no values in it
-  types.knownFilters.forEach((o) => {
-    if (Array.isArray(state[o]) && state[o].length === 0) {
-      delete state[o];
+  types.knownFilters.forEach((filter) => {
+    if (Array.isArray(state[filter]) && state[filter].length === 0) {
+      delete state[filter];
     }
   });
 }
@@ -1048,6 +1056,7 @@ export function pruneEmptyFilters(state) {
 
 /**
  * Converts a set of key/value pairs into a query string for API calls
+ *
  * @param {string} state - a set of key/value pairs
  * @returns {string} a formatted query string
  */
@@ -1097,7 +1106,7 @@ export function stateToQS(state) {
     ['search_term', 'field'],
     types.dateFilters,
     types.knownFilters,
-    types.flagFilters
+    types.flagFilters,
   );
 
   const paramMap = {
@@ -1126,10 +1135,10 @@ export function stateToQS(state) {
   // if format exists it means we're exporting, so add it to allowable params
   if (Object.keys(params).includes('format')) {
     const exportParams = ['size', 'format', 'no_aggs'];
-    exportParams.forEach((p) => {
+    exportParams.forEach((param) => {
       /* istanbul ignore else */
-      if (!filterKeys.includes(p)) {
-        filterKeys.push(p);
+      if (!filterKeys.includes(param)) {
+        filterKeys.push(param);
       }
     });
   }
@@ -1147,6 +1156,7 @@ export function stateToQS(state) {
 
 /**
  * Converts a set of key/value pairs into a query string for URL history.
+ *
  * @param {string} state - a set of key/value pairs
  * @returns {string} a formatted query string
  */
@@ -1182,7 +1192,7 @@ export function stateToURL(state) {
     ['searchText', 'searchField', 'tab'],
     types.dateFilters,
     types.knownFilters,
-    types.flagFilters
+    types.flagFilters,
   );
 
   const paramMap = {
@@ -1214,6 +1224,7 @@ export function stateToURL(state) {
 
 /**
  * helper function to check if per1000 & map warnings should be enabled
+ *
  * @param {object} queryState - state we need to validate
  */
 export function validatePer1000(queryState) {
@@ -1230,6 +1241,7 @@ export function validatePer1000(queryState) {
 /**
  * helper function to clear out breakpoints, reset page to 1 when any sort
  * or filter changes the query
+ *
  * @param {object} state - redux state
  */
 export function resetBreakpoints(state) {

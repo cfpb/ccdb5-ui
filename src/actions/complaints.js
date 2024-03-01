@@ -48,6 +48,7 @@ export const STATES_FAILED = 'STATES_FAILED';
 // Routing action
 /**
  * Routes to the correct endpoint based on the state
+ *
  * @returns {Promise} a chain of promises that will update the Redux store
  */
 export function sendQuery() {
@@ -72,6 +73,7 @@ export function sendQuery() {
 
 /**
  * Routes to the correct endpoint based on the state
+ *
  * @returns {Promise} a chain of promises that will update the Redux store
  */
 export function sendHitsQuery() {
@@ -100,6 +102,7 @@ export function sendHitsQuery() {
 
 /**
  * Calls the aggregations endpoint of the API
+ *
  * @returns {Promise} a chain of promises that will update the Redux store
  */
 export function getAggregations() {
@@ -123,6 +126,7 @@ export function getAggregations() {
 
 /**
  * Calls the complaint search endpoint of the API
+ *
  * @returns {Promise} a chain of promises that will update the Redux store
  */
 export function getComplaints() {
@@ -147,6 +151,7 @@ export function getComplaints() {
 
 /**
  * Calls the detail endpoint of the API
+ *
  * @param {string} id - the id of the complaint to retrieve
  * @returns {Promise} a chain of promises that will update the Redux store
  */
@@ -163,6 +168,7 @@ export function getComplaintDetail(id) {
 
 /**
  * Calls the states endpoint of the API
+ *
  * @returns {Promise} a chain of promises that will update the Redux store
  */
 export function getStates() {
@@ -186,6 +192,7 @@ export function getStates() {
 
 /**
  * Calls the trends endpoint of the API
+ *
  * @returns {Promise} a chain of promises that will update the Redux store
  */
 export function getTrends() {
@@ -218,6 +225,7 @@ export function getTrends() {
 
 /**
  * Notifies the application that an API call is happening
+ *
  * @param {string} type - action type
  * @param {string} url - the url being called
  * @returns {string} a packaged payload to be used by Redux reducers

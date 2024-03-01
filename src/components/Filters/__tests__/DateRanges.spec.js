@@ -7,7 +7,7 @@ import * as types from '../../../constants';
 import thunk from 'redux-thunk';
 
 /**
- *
+ * @returns {Function} - Rendering function
  */
 function setupSnapshot() {
   const middlewares = [thunk];
@@ -22,7 +22,7 @@ function setupSnapshot() {
   return renderer.create(
     <Provider store={store}>
       <DateRanges />
-    </Provider>
+    </Provider>,
   );
 }
 

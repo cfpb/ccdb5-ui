@@ -313,7 +313,7 @@ describe('module::utils', () => {
       sendAnalyticsEvent('myAction Name', 'some label');
       expect(Analytics.getDataLayerOptions).toHaveBeenCalledWith(
         'myAction Name',
-        'some label'
+        'some label',
       );
       expect(Analytics.sendEvent).toHaveBeenCalled();
     });

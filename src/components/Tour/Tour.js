@@ -36,6 +36,7 @@ export const Tour = () => {
 
   /**
    * Before Change handler
+   *
    * @param {object} ref - React component reference.
    */
   function handleBeforeChange(ref) {
@@ -55,9 +56,9 @@ export const Tour = () => {
     }
 
     const callBack = () => {
-      steps.forEach((step, i) => {
+      steps.forEach((step, idx) => {
         if (ref.current !== null) {
-          ref.current.updateStepElement(i);
+          ref.current.updateStepElement(idx);
         }
       });
     };
@@ -67,6 +68,7 @@ export const Tour = () => {
 
   /**
    * Exit handler
+   *
    * @param {object} ref - React component reference.
    * @returns {boolean} Can we exit?
    */

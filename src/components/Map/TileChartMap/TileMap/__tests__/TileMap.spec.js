@@ -18,8 +18,8 @@ const makeChartMock = () => {
     'translate',
   ];
 
-  for (let i = 0; i < props.length; i++) {
-    const propName = props[i];
+  for (let idx = 0; idx < props.length; idx++) {
+    const propName = props[idx];
     chartMock[propName] = jest.fn().mockImplementation(() => chartMock);
   }
 
@@ -41,7 +41,9 @@ describe('Tile map', () => {
   // shim this so highcharts test doesn't die
   beforeEach(() => {
     window.SVGElement.prototype.getBBox = () => ({
+      // eslint-disable-next-line id-length
       x: 0,
+      // eslint-disable-next-line id-length
       y: 0,
       // whatever other props you need
     });
@@ -54,8 +56,8 @@ describe('Tile map', () => {
   describe('makeScale', () => {
     it('creates an evenly-spaced scale for a exponential dataset', () => {
       const data = [];
-      for (let i = 1; i <= 50; i++) {
-        data.push({ displayValue: i * i });
+      for (let idx = 1; idx <= 50; idx++) {
+        data.push({ displayValue: idx * idx });
       }
 
       const actual = sutClone.makeScale(data, colors);
@@ -70,7 +72,7 @@ describe('Tile map', () => {
 
     it('scales differently if there are few unique values', () => {
       const data = [];
-      for (let i = 0; i < 51; i++) {
+      for (let idx = 0; idx < 51; idx++) {
         data.push({ displayValue: 0 });
       }
       data[3].displayValue = 900;
@@ -86,7 +88,7 @@ describe('Tile map', () => {
   describe('generating bins', () => {
     let scaleFn;
     beforeEach(() => {
-      scaleFn = jest.fn((x) => x);
+      scaleFn = jest.fn((val) => val);
     });
 
     it('gets complaints bins - All', () => {
@@ -207,7 +209,7 @@ describe('Tile map', () => {
   describe('getColorByValue', () => {
     let scaleFn;
     beforeEach(() => {
-      scaleFn = jest.fn((x) => x);
+      scaleFn = jest.fn((val) => val);
     });
 
     it('returns WHITE when no value', () => {
@@ -227,7 +229,7 @@ describe('Tile map', () => {
     expect(result).toEqual(
       '<div class="highcharts-data-label-state tile-FA default ">' +
         '<span class="abbr">FA</span>' +
-        '<span class="value">10,000</span></div>'
+        '<span class="value">10,000</span></div>',
     );
   });
 
@@ -238,7 +240,7 @@ describe('Tile map', () => {
     expect(result).toEqual(
       '<div class="title">Another Name' +
         '</div><div class="row u-clearfix"><p class="u-float-left">Complaints' +
-        '</p><p class="u-right">10,000</p></div>'
+        '</p><p class="u-right">10,000</p></div>',
     );
   });
 
@@ -258,7 +260,7 @@ describe('Tile map', () => {
         'Product with highest complaint volume</p><p class="u-right">' +
         'Expensive Item</p></div><div class="row u-clearfix">' +
         '<p class="u-float-left">Issue with highest complaint volume</p>' +
-        '<p class="u-right">Being Broke</p></div>'
+        '<p class="u-right">Being Broke</p></div>',
     );
   });
 
@@ -490,6 +492,7 @@ describe('Tile map', () => {
 
   it('shortens long numbers', () => {
     const cases = [
+      /* eslint-disable id-length */
       { n: 0, e: '0' },
       { n: 7, e: '7' },
       { n: 42, e: '42' },
@@ -507,5 +510,6 @@ describe('Tile map', () => {
     cases.forEach((x) => {
       expect(sutClone.makeShortName(x.n)).toEqual(x.e);
     });
+    /* eslint-enable id-length */
   });
 });

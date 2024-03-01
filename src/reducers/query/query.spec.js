@@ -663,7 +663,7 @@ describe('reducer:query', () => {
 
       it('sets the 3m range if the dates are right', () => {
         state.date_received_min = new Date(
-          dayjs(maxDate).subtract(3, 'months')
+          dayjs(maxDate).subtract(3, 'months'),
         );
         expected.dateRange = '3m';
         expected.date_received_min = state.date_received_min;
@@ -674,7 +674,7 @@ describe('reducer:query', () => {
 
       it('sets the 6m range if the dates are right', () => {
         state.date_received_min = new Date(
-          dayjs(maxDate).subtract(6, 'months')
+          dayjs(maxDate).subtract(6, 'months'),
         );
         expected.dateRange = '6m';
         expected.date_received_min = state.date_received_min;
@@ -1490,7 +1490,7 @@ describe('reducer:query', () => {
         action = 'All';
         result = target({}, changeDateRange(action));
         expect(result.date_received_min).toEqual(
-          new Date(types.DATE_RANGE_MIN)
+          new Date(types.DATE_RANGE_MIN),
         );
       });
 

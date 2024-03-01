@@ -35,7 +35,7 @@ describe('TileChartMap', () => {
     expect(screen.getByTestId('tile-chart-map')).toBeInTheDocument();
     expect(screen.getByTestId('tile-chart-map')).not.toHaveClass('print');
     expect(
-      screen.getByText('Map of unspecified region with 1 data series.')
+      screen.getByText('Map of unspecified region with 1 data series.'),
     ).toBeInTheDocument();
   });
 
@@ -121,7 +121,7 @@ describe('TileChartMap', () => {
     fireEvent.mouseEnter(screen.getByLabelText('1. FL, value: 11,397.'));
 
     expect(
-      screen.getByText('Product with highest complaint volume')
+      screen.getByText('Product with highest complaint volume'),
     ).toBeVisible();
 
     fireEvent.click(screen.getByLabelText('1. FL, value: 11,397.'));
@@ -205,10 +205,10 @@ describe('TileChartMap', () => {
     expect(await screen.findByText('0.56')).toBeInTheDocument();
 
     expect(screen.getByLabelText('31. OK, value: 535.')).toHaveClass(
-      'deselected'
+      'deselected',
     );
     expect(screen.getByLabelText('1. FL, value: 11,397.')).toHaveClass(
-      'selected'
+      'selected',
     );
 
     // need to mouseEnter to initialize the toggleState handler!

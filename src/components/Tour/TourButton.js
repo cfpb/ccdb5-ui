@@ -1,5 +1,5 @@
 import './TourButton.less';
-import iconMap from '../iconMap';
+import getIcon from '../iconMap';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { tourShown } from '../../reducers/view/view';
@@ -9,7 +9,7 @@ export const TourButton = () => {
 
   return (
     <button onClick={() => dispatch(tourShown())} className="a-btn tour-button">
-      {iconMap.getIcon('help-round')} Take a tour
+      {getIcon('help-round')} Take a tour
     </button>
   );
 };

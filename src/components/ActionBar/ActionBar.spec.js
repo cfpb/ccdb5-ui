@@ -51,7 +51,7 @@ describe('ActionBar', () => {
     renderComponent(aggs, query);
 
     expect(
-      screen.getByText('Showing 10 matches out of 100 total complaints')
+      screen.getByText('Showing 10 matches out of 100 total complaints'),
     ).toBeInTheDocument();
     const buttonExport = screen.getByRole('button', { name: /Export data/ });
     expect(buttonExport).toBeInTheDocument();

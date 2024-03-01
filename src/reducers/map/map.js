@@ -16,21 +16,21 @@ export const mapState = {
 
 export const processStateAggregations = (agg) => {
   const states = Object.values(agg.state.buckets)
-    .filter((o) => TILE_MAP_STATES.includes(o.key))
-    .map((o) => ({
-      name: o.key,
-      value: o.doc_count,
-      issue: o.issue.buckets[0].key,
-      product: o.product.buckets[0].key,
+    .filter((val) => TILE_MAP_STATES.includes(val.key))
+    .map((val) => ({
+      name: val.key,
+      value: val.doc_count,
+      issue: val.issue.buckets[0].key,
+      product: val.product.buckets[0].key,
     }));
 
-  const stateNames = states.map((o) => o.name);
+  const stateNames = states.map((state) => state.name);
 
   // patch any missing data
   if (stateNames.length > 0) {
-    TILE_MAP_STATES.forEach((o) => {
-      if (!stateNames.includes(o)) {
-        states.push({ name: o, value: 0, issue: '', product: '' });
+    TILE_MAP_STATES.forEach((state) => {
+      if (!stateNames.includes(state)) {
+        states.push({ name: state, value: 0, issue: '', product: '' });
       }
     });
   }
@@ -57,6 +57,7 @@ export const mapSlice = createSlice({
         state.error = false;
         state.isLoading = true;
       },
+
     },
     processStatesResults(state, action) {
       const aggregations = action.payload.aggregations;

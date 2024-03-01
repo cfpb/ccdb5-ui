@@ -7,7 +7,7 @@ import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
 
 /**
- *
+ * @returns {void}
  */
 function setupSnapshot() {
   const middlewares = [thunk];
@@ -32,7 +32,7 @@ function setupSnapshot() {
       <IntlProvider locale="en">
         <ReduxSearchPanel />
       </IntlProvider>
-    </Provider>
+    </Provider>,
   );
 }
 

@@ -7,6 +7,7 @@ const queryString = require('query-string');
 
 /**
  * Converts a Location object into structures needed by the reducers
+ *
  * @param {Location} location - information about the host, path and query string
  * @returns {object} the pathname and a dictionary of the query string params
  */
@@ -22,6 +23,7 @@ export function processLocation(location) {
 
 /**
  * Notify the application that the URL has changed and call the API
+ *
  * @param {Location} location - information about the host, path and query string
  * @returns {Function} a series of simple actions to execute
  */

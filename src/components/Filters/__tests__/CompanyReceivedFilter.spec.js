@@ -7,7 +7,8 @@ import thunk from 'redux-thunk';
 
 /**
  *
- * @param query
+ * @param {object} query - Query state
+ * @returns {Function} - Rendering function
  */
 function setupSnapshot(query) {
   const middlewares = [thunk];
@@ -19,7 +20,7 @@ function setupSnapshot(query) {
   return renderer.create(
     <Provider store={store}>
       <CompanyReceivedFilter />
-    </Provider>
+    </Provider>,
   );
 }
 

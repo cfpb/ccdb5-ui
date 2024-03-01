@@ -90,6 +90,7 @@ export const aggSlice = createSlice({
   },
 });
 
+
 export const {
   aggregationsCallInProcess,
   processAggregationResults,

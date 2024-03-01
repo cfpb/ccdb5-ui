@@ -15,12 +15,13 @@ const WHITE = '#ffffff';
 
 /**
  * Creates N evenly spaced ranges in the data
+ *
  * @param {Array} data - all of the states w/ displayValue, complaintCount, raw
  * @param {Array} colors - an array of colors
  * @returns {Array} floating point numbers that mark the max of each range
  */
 export function makeScale(data, colors) {
-  const allValues = data.map((x) => x.displayValue);
+  const allValues = data.map((datum) => datum.displayValue);
   const uniques = new Set(allValues);
 
   let scale = d3.scaleQuantile().range([WHITE, ...colors]);
@@ -36,6 +37,7 @@ export function makeScale(data, colors) {
 
 /**
  * Creates a shorter version of a number. 1,234 => 1.2K
+ *
  * @param {number} value - the raw value
  * @returns {string} A string representing a shortened value
  */
@@ -56,28 +58,29 @@ export function makeShortName(value) {
 
 /**
  * helper function to get the bins for legend and colors, etc.
+ *
  * @param {Array} quantiles - floats that mark the max of each range
  * @param {Function} scale - scaling function for color
  * @returns {Array} the bins with bounds, name, and color
  */
 export function getBins(quantiles, scale) {
-  const rounds = quantiles.map((x) => Math.round(x));
-  const ceils = quantiles.map((x) => Math.ceil(x));
-  const mins = Array.from(new Set(rounds)).filter((x) => x > 0);
+  const rounds = quantiles.map((quant) => Math.round(quant));
+  const ceils = quantiles.map((quant) => Math.ceil(quant));
+  const mins = Array.from(new Set(rounds)).filter((round) => round > 0);
 
   const bins = [{ from: 0, color: WHITE, name: '≥ 0', shortName: '≥ 0' }];
 
   mins.forEach((minValue) => {
     // The color is the equivalent ceiling from the floor
-    const i = rounds.indexOf(minValue);
+    const idx = rounds.indexOf(minValue);
 
-    const prefix = ceils[i] === minValue ? '≥' : '>';
+    const prefix = ceils[idx] === minValue ? '≥' : '>';
     const displayValue = minValue.toLocaleString();
     const shortened = makeShortName(minValue);
 
     bins.push({
       from: minValue,
-      color: scale(ceils[i]),
+      color: scale(ceils[idx]),
       name: `${prefix} ${displayValue}`,
       shortName: `${prefix} ${shortened}`,
     });
@@ -88,28 +91,29 @@ export function getBins(quantiles, scale) {
 
 /**
  * helper function to get the Per 1000 population bins for legend and colors
+ *
  * @param {Array} quantiles - floats that mark the max of each range
  * @param {Function} scale - scaling function for color
  * @returns {Array} the bins with bounds, name, and color
  */
 export function getPerCapitaBins(quantiles, scale) {
-  const trunc100 = (x) => Math.floor(x * 100) / 100;
+  const trunc100 = (num) => Math.floor(num * 100) / 100;
 
-  const values = quantiles.map((x) => trunc100(x));
-  const mins = Array.from(new Set(values)).filter((x) => x > 0);
+  const values = quantiles.map((val) => trunc100(val));
+  const mins = Array.from(new Set(values)).filter((val) => val > 0);
 
   const bins = [{ from: 0, color: WHITE, name: '≥ 0', shortName: '≥ 0' }];
 
   mins.forEach((minValue) => {
     // The color is the equivalent quantile
-    const i = values.indexOf(minValue);
+    const idx = values.indexOf(minValue);
 
-    const prefix = values[i] === quantiles[i] ? '≥' : '>';
+    const prefix = values[idx] === quantiles[idx] ? '≥' : '>';
     const displayValue = minValue.toFixed(2);
     const name = `${prefix} ${displayValue}`;
     bins.push({
       from: minValue,
-      color: scale(quantiles[i]),
+      color: scale(quantiles[idx]),
       name,
       shortName: name,
     });
@@ -131,7 +135,7 @@ export function processMapData(data, scale) {
     return Boolean(row.name);
   });
 
-  const isFiltered = data.filter((o) => o.className === 'selected').length;
+  const isFiltered = data.filter((obj) => obj.className === 'selected').length;
   data = data.map(function (obj) {
     const path = STATE_TILES[obj.name];
     let color = getColorByValue(obj.displayValue, scale);
@@ -164,6 +168,7 @@ export function processMapData(data, scale) {
  *
  * Also, walk through the array backwards to pick up the most saturated
  * color. This helps the "only three values" case
+ *
  * @param {number} value - the number of complaints or perCapita
  * @param {Function} scale - scaling function for color
  * @returns {string} color hex or rgb code for a color
@@ -179,11 +184,12 @@ export function getColorByValue(value, scale) {
 
 /**
  * callback function for reporting the series point in a voiceover text
- * @param {object} p - the point in the series
+ *
+ * @param {object} point - the point in the series
  * @returns {string} the text to speak
  */
-export function descriptionFormatter(p) {
-  return `${p.fullName} ${p.displayValue}`;
+export function descriptionFormatter(point) {
+  return `${point.fullName} ${point.displayValue}`;
 }
 
 /**
@@ -204,6 +210,7 @@ export function mouseoverPoint() {
 
 /**
  * callback function to format the individual tiles in HTML
+ *
  * @returns {string} html output
  */
 export function tileFormatter() {
@@ -226,6 +233,7 @@ export function tileFormatter() {
 
 /**
  * callback function to format the tooltip in HTML
+ *
  * @returns {string} html output
  */
 export function tooltipFormatter() {
@@ -275,6 +283,7 @@ export function tooltipFormatter() {
 
 /**
  * Draw a legend on a chart.
+ *
  * @param {object} chart - A highchart chart.
  */
 export function _drawLegend(chart) {
@@ -330,25 +339,25 @@ export function _drawLegend(chart) {
     .translate(7, 50)
     .add(legendContainer);
 
-  for (let i = 0; i < bins.length; i++) {
-    const g = chart.renderer
-      .g(`g${i}`)
-      .translate(i * (boxWidth + boxPadding), 0)
+  for (let idx = 0; idx < bins.length; idx++) {
+    const rend = chart.renderer
+      .g(`g${idx}`)
+      .translate(idx * (boxWidth + boxPadding), 0)
       .add(legend);
 
-    const bin = bins[i];
+    const bin = bins[idx];
 
     chart.renderer
       .rect(0, 0, boxWidth, boxHeight)
       .attr({ fill: bin.color })
       .addClass('legend-box')
-      .add(g);
+      .add(rend);
 
     chart.renderer
       .text(beCompact ? bin.shortName : bin.name, 0, boxHeight)
       .addClass('legend-text')
       .translate(3, -3)
-      .add(g);
+      .add(rend);
   }
 }
 

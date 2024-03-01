@@ -14,12 +14,13 @@ import thunk from 'redux-thunk';
 
 /**
  *
- * @param root0
- * @param root0.cbIncrease
- * @param root0.cbReset
- * @param root0.diff
- * @param root0.queryCount
- * @param root0.resultCount
+ * @param {object} root0 - Root state
+ * @param {number} root0.cbIncrease - Amount of depth increase
+ * @param {boolean} root0.cbReset - Rest the depth?
+ * @param {number} root0.diff - Difference
+ * @param {number} root0.queryCount - Query count
+ * @param {number} root0.resultCount - Query count
+ * @returns {React.Component} - Trends Depth Toggle component
  */
 function setupEnzyme({ cbIncrease, cbReset, diff, queryCount, resultCount }) {
   return shallow(
@@ -31,17 +32,18 @@ function setupEnzyme({ cbIncrease, cbReset, diff, queryCount, resultCount }) {
       queryCount={queryCount}
       resultCount={resultCount}
       hasToggle={true}
-    />
+    />,
   );
 }
 
 /**
  *
- * @param root0
- * @param root0.focus
- * @param root0.lens
- * @param root0.productAggs
- * @param root0.productResults
+ * @param {object} root0 - Root state
+ * @param {string} root0.focus - The focus
+ * @param {string} root0.lens - The lens
+ * @param {object} root0.productAggs - Product aggs
+ * @param {object} root0.productResults - Product results
+ * @returns {Function} - Trends Depth Toggle component renderer
  */
 function setupSnapshot({ focus, lens, productAggs, productResults }) {
   const middlewares = [thunk];
@@ -66,7 +68,7 @@ function setupSnapshot({ focus, lens, productAggs, productResults }) {
       <IntlProvider locale="en">
         <ReduxTrendDepthToggle />
       </IntlProvider>
-    </Provider>
+    </Provider>,
   );
 }
 

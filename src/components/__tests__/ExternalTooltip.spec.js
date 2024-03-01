@@ -13,8 +13,9 @@ import { shallow } from 'enzyme';
 
 /**
  *
- * @param query
- * @param tooltip
+ * @param {object} query - Query object
+ * @param {object} tooltip - Tooltip object
+ * @returns {void}
  */
 function setupSnapshot(query, tooltip) {
   const middlewares = [thunk];
@@ -31,7 +32,7 @@ function setupSnapshot(query, tooltip) {
   return renderer.create(
     <Provider store={store}>
       <ReduxExternalTooltip />
-    </Provider>
+    </Provider>,
   );
 }
 
@@ -117,7 +118,7 @@ describe('buttons', () => {
             },
           ],
         }}
-      />
+      />,
     );
   });
 

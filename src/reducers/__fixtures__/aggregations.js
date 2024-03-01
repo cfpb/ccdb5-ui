@@ -1,4 +1,4 @@
-export default {
+const aggregations = {
   foo: {},
   issue: {
     doc_count: 1000,
@@ -99,3 +99,5 @@ export default {
     },
   },
 };
+
+export default aggregations;

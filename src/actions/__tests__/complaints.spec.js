@@ -64,7 +64,7 @@ describe.skip('action::complaints', () => {
     beforeEach(() => {
       global.fetch = jest.fn().mockImplementation((url) => {
         expect(url).toContain('@@API?foo&size=0');
-
+        /* eslint-disable id-length */
         return {
           then: (x) => {
             x({ json: () => ({}) });
@@ -81,7 +81,7 @@ describe.skip('action::complaints', () => {
           },
         };
       });
-
+      /* eslint-enable id-length */
       store = mockStore({
         query: {
           date_received_min: new Date(2013, 1, 3),
@@ -103,9 +103,9 @@ describe.skip('action::complaints', () => {
     });
 
     it('discards duplicate API calls', () => {
-      const s = store.getState();
-      s.results.loadingAggregations = true;
-      store = mockStore(s);
+      const state = store.getState();
+      state.results.loadingAggregations = true;
+      store = mockStore(state);
 
       store.dispatch(sut.getAggregations());
       expect(global.fetch).not.toHaveBeenCalled();
@@ -140,7 +140,7 @@ describe.skip('action::complaints', () => {
     beforeEach(() => {
       global.fetch = jest.fn().mockImplementation((url) => {
         expect(url).toContain('@@API?foo');
-
+        /* eslint-disable id-length */
         return {
           then: (x) => {
             x({ json: () => ({}) });
@@ -157,7 +157,7 @@ describe.skip('action::complaints', () => {
           },
         };
       });
-
+      /* eslint-enable id-length */
       store = mockStore({
         query: {
           date_received_min: new Date(2013, 1, 3),
@@ -179,9 +179,9 @@ describe.skip('action::complaints', () => {
     });
 
     it('discards duplicate API calls', () => {
-      const s = store.getState();
-      s.results.activeCall = '@@API' + s.query.queryString;
-      store = mockStore(s);
+      const state = store.getState();
+      state.results.activeCall = '@@API' + state.query.queryString;
+      store = mockStore(state);
 
       store.dispatch(sut.getComplaints());
       expect(global.fetch).not.toHaveBeenCalled();
@@ -216,7 +216,7 @@ describe.skip('action::complaints', () => {
     beforeEach(() => {
       global.fetch = jest.fn().mockImplementation((url) => {
         expect(url).toContain('@@API123');
-
+        /* eslint-disable id-length */
         return {
           then: (x) => {
             x({ json: () => ({}) });
@@ -234,7 +234,7 @@ describe.skip('action::complaints', () => {
         };
       });
     });
-
+    /* eslint-enable id-length */
     it('calls the API', () => {
       const store = mockStore({});
       store.dispatch(sut.getComplaintDetail('123'));
@@ -274,7 +274,7 @@ describe.skip('action::complaints', () => {
     beforeEach(() => {
       global.fetch = jest.fn().mockImplementation((url) => {
         expect(url).toContain('@@APIgeo/states/?foo&no_aggs=true');
-
+        /* eslint-disable id-length */
         return {
           then: (x) => {
             x({ json: () => ({}) });
@@ -291,7 +291,7 @@ describe.skip('action::complaints', () => {
           },
         };
       });
-
+      /* eslint-enable id-length */
       store = mockStore({
         query: {
           date_received_min: new Date(2013, 1, 3),
@@ -313,10 +313,10 @@ describe.skip('action::complaints', () => {
     });
 
     it('discards duplicate API calls', () => {
-      const s = store.getState();
-      s.map.activeCall =
-        '@@APIgeo/states/' + s.query.queryString + '&no_aggs=true';
-      store = mockStore(s);
+      const state = store.getState();
+      state.map.activeCall =
+        '@@APIgeo/states/' + state.query.queryString + '&no_aggs=true';
+      store = mockStore(state);
 
       store.dispatch(sut.getStates());
       expect(global.fetch).not.toHaveBeenCalled();
@@ -376,7 +376,7 @@ describe.skip('action::complaints', () => {
     beforeEach(() => {
       global.fetch = jest.fn().mockImplementation((url) => {
         expect(url).toContain('@@APItrends/?foo&no_aggs=true');
-
+        /* eslint-disable id-length */
         return {
           then: (x) => {
             x({ json: () => ({}) });
@@ -394,7 +394,7 @@ describe.skip('action::complaints', () => {
         };
       });
     });
-
+    /* eslint-enable id-length */
     it('calls the API', () => {
       store = setupStore();
       store.dispatch(sut.getTrends());
@@ -403,8 +403,8 @@ describe.skip('action::complaints', () => {
 
     it('discards invalid API calls', () => {
       store = setupStore([], 'Company');
-      const s = store.getState();
-      store = mockStore(s);
+      const state = store.getState();
+      store = mockStore(state);
 
       store.dispatch(sut.getTrends());
       expect(global.fetch).not.toHaveBeenCalled();
@@ -412,10 +412,10 @@ describe.skip('action::complaints', () => {
 
     it('discards duplicate API calls', () => {
       store = setupStore();
-      const s = store.getState();
-      s.trends.activeCall =
-        '@@APItrends/' + s.query.queryString + '&no_aggs=true';
-      store = mockStore(s);
+      const state = store.getState();
+      state.trends.activeCall =
+        '@@APItrends/' + state.query.queryString + '&no_aggs=true';
+      store = mockStore(state);
 
       store.dispatch(sut.getTrends());
       expect(global.fetch).not.toHaveBeenCalled();

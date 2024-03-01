@@ -29,7 +29,8 @@ const subitems = [
 
 /**
  *
- * @param checkedState
+ * @param {string} checkedState - The checked state
+ * @returns {object} - Props and the component
  */
 function setupEnzyme(checkedState = UNCHECKED) {
   const props = {
@@ -58,7 +59,8 @@ function setupEnzyme(checkedState = UNCHECKED) {
 
 /**
  *
- * @param selections
+ * @param {Array} selections - Array of selections
+ * @returns {Function} - Rendering function
  */
 function setupSnapshot(selections) {
   const middlewares = [thunk];
@@ -78,7 +80,7 @@ function setupSnapshot(selections) {
           fieldName="issue"
         />
       </IntlProvider>
-    </Provider>
+    </Provider>,
   );
 }
 

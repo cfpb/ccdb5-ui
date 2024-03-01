@@ -1,7 +1,7 @@
 import '../Typeahead.less';
 import React from 'react';
 import PropTypes from 'prop-types';
-import iconMap from '../../iconMap';
+import getIcon from '../../iconMap';
 import { ClearButton } from '../ClearButton/ClearButton';
 
 export const Input = ({
@@ -23,7 +23,7 @@ export const Input = ({
           className="input-contains-label_before
                             input-contains-label_before__search"
         >
-          {iconMap.getIcon('search')}
+          {getIcon('search')}
         </div>
         <label className="u-visually-hidden" htmlFor={htmlId}>
           {ariaLabel}
@@ -38,7 +38,7 @@ export const Input = ({
           placeholder={placeholder}
           value={value}
         />
-        {isClearVisible && <ClearButton onClear={handleClear} />}
+        {!!isClearVisible && <ClearButton onClear={handleClear} />}
       </div>
     </section>
   );

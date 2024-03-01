@@ -1,5 +1,5 @@
 import './CollapsibleFilter.less';
-import iconMap from '../iconMap';
+import getIcon from '../iconMap';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -42,7 +42,7 @@ export default class CollapsibleFilter extends React.Component {
       <>
         <span className="o-expandable_cue o-expandable_cue-close">
           <span className="u-visually-hidden-on-mobile">Hide</span>
-          {iconMap.getIcon('minus-round')}
+          {getIcon('minus-round')}
         </span>
       </>
     );
@@ -50,7 +50,7 @@ export default class CollapsibleFilter extends React.Component {
       <>
         <span className="o-expandable_cue o-expandable_cue-open">
           <span className="u-visually-hidden-on-mobile">Show</span>
-          {iconMap.getIcon('plus-round')}
+          {getIcon('plus-round')}
         </span>
       </>
     );

@@ -34,7 +34,7 @@ describe('reducer:results', () => {
         action = {
           data: {
             hits: {
-              hits: [{ _source: { a: '123' } }, { _source: { a: '456' } }],
+              hits: [{ _source: { val: '123' } }, { _source: { val: '456' } }],
               total: 2,
             },
             _meta: {
@@ -54,12 +54,12 @@ describe('reducer:results', () => {
           activeCall: '',
           error: '',
           isLoading: false,
-          items: [{ a: '123' }, { a: '456' }],
+          items: [{ val: '123' }, { val: '456' }],
         });
       });
 
       it('replaces text with highlighted text if it exists', () => {
-        action.data.hits.hits[0].highlight = { a: ['<em>123</em>'] };
+        action.data.hits.hits[0].highlight = { val: ['<em>123</em>'] };
 
         expect(
           target({ ...resultsState, error: 'foo' }, processHitsResults(action))
@@ -67,7 +67,7 @@ describe('reducer:results', () => {
           activeCall: '',
           error: '',
           isLoading: false,
-          items: [{ a: '<em>123</em>' }, { a: '456' }],
+          items: [{ val: '<em>123</em>' }, { val: '456' }],
         });
       });
     });

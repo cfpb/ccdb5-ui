@@ -1,6 +1,6 @@
 import './ChartToggles.less';
 import { updateChartType } from '../../reducers/trends/trends';
-import iconMap from '../iconMap';
+import getIcon from '../iconMap';
 import React from 'react';
 import { selectedClass, sendAnalyticsEvent } from '../../utils';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,7 +26,7 @@ export const ChartToggles = () => {
           toggleChartType('line');
         }}
       >
-        {iconMap.getIcon('line-chart')}
+        {getIcon('line-chart')}
       </button>
       <button
         aria-label="Toggle area chart"
@@ -36,7 +36,7 @@ export const ChartToggles = () => {
           toggleChartType('area');
         }}
       >
-        {iconMap.getIcon('area-chart')}
+        {getIcon('area-chart')}
       </button>
     </section>
   );

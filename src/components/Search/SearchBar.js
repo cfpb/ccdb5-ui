@@ -108,9 +108,9 @@ export const SearchBar = ({ debounceWait }) => {
                 value={searchField}
               >
                 <optgroup label="Search Within">
-                  {Object.keys(searchFields).map((x) => (
-                    <option key={x} value={x}>
-                      {searchFields[x]}
+                  {Object.keys(searchFields).map((key) => (
+                    <option key={key} value={key}>
+                      {searchFields[key]}
                     </option>
                   ))}
                 </optgroup>

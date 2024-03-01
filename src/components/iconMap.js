@@ -74,6 +74,7 @@ const iconMap = {
 
 /**
  * Retrieve an SVG icon given it's name.
+ *
  * @param {string} name - A cf-icon SVG canonical icon name.
  * @param {string} [customClass] - A custom CSS class name to add to an icon.
  * @returns {object} An SVG icon markup.
@@ -96,6 +97,4 @@ function getIcon(name, customClass) {
   return Icon;
 }
 
-export default {
-  getIcon,
-};
+export default getIcon;

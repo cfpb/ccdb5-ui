@@ -6,7 +6,7 @@
     list-style-type: none;
 
     .toggle {
-      &.a-label:before {
+      &.a-label::before {
         box-sizing: border-box;
         width: 20px;
         height: 20px;
@@ -14,14 +14,14 @@
         text-indent: 0;
       }
 
-      &.indeterminate:before {
+      &.indeterminate::before {
         border: solid 2px @gray-dark;
 
         background: url('indeterminate.png') no-repeat scroll center center
           transparent;
       }
 
-      .a-checkbox:checked + &.a-label:before {
+      .a-checkbox:checked + &.a-label::before {
         border: solid 2px @gray-dark;
       }
     }

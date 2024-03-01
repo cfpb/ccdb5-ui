@@ -8,7 +8,8 @@ import thunk from 'redux-thunk';
 
 /**
  *
- * @param tab
+ * @param {string} tab - The tab
+ * @returns {void}
  */
 function setupSnapshot(tab) {
   const middlewares = [thunk];
@@ -22,7 +23,7 @@ function setupSnapshot(tab) {
   return renderer.create(
     <Provider store={store}>
       <TabbedNavigation />
-    </Provider>
+    </Provider>,
   );
 }
 

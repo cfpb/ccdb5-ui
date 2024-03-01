@@ -34,6 +34,7 @@ const store = configureStore({
   middleware: middleware,
 });
 
+
 /* eslint-disable camelcase */
 export const DetailComponents = () => {
   return (
@@ -49,6 +50,7 @@ export const DetailComponents = () => {
 // eslint-disable-next-line react/no-multi-comp
 /**
  * Main App Component
+ *
  * @returns {JSX.Element} Main app
  */
 export const App = () => {
