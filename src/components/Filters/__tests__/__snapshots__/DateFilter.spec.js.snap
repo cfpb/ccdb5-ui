@@ -5,26 +5,24 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
   className="o-expandable aggregation date-filter"
 >
   <button
+    aria-expanded="true"
     aria-label="Hide Date CFPB received the complaint filter"
-    className="o-expandable_header o-expandable_target o-expandable_target__expanded"
+    className="o-expandable_header"
     onClick={[Function]}
   >
     <h3
-      className="h4 o-expandable_header-left o-expandable_label"
+      className="h4 o-expandable_label"
     >
       Date CFPB received the complaint
     </h3>
     <span
-      className="o-expandable_header-right o-expandable_link"
+      className="o-expandable_cues"
     >
       <span
-        className="o-expandable_cue o-expandable_cue-close"
+        aria-label="Hide"
+        className="o-expandable_cue-close"
+        role="img"
       >
-        <span
-          className="u-visually-hidden-on-mobile"
-        >
-          Hide
-        </span>
         <svg>
           minus-round.svg
         </svg>
@@ -176,26 +174,24 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
   className="o-expandable aggregation date-filter"
 >
   <button
+    aria-expanded="true"
     aria-label="Hide Date CFPB received the complaint filter"
-    className="o-expandable_header o-expandable_target o-expandable_target__expanded"
+    className="o-expandable_header"
     onClick={[Function]}
   >
     <h3
-      className="h4 o-expandable_header-left o-expandable_label"
+      className="h4 o-expandable_label"
     >
       Date CFPB received the complaint
     </h3>
     <span
-      className="o-expandable_header-right o-expandable_link"
+      className="o-expandable_cues"
     >
       <span
-        className="o-expandable_cue o-expandable_cue-close"
+        aria-label="Hide"
+        className="o-expandable_cue-close"
+        role="img"
       >
-        <span
-          className="u-visually-hidden-on-mobile"
-        >
-          Hide
-        </span>
         <svg>
           minus-round.svg
         </svg>
@@ -357,26 +353,24 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
   className="o-expandable aggregation date-filter"
 >
   <button
+    aria-expanded="true"
     aria-label="Hide Date CFPB received the complaint filter"
-    className="o-expandable_header o-expandable_target o-expandable_target__expanded"
+    className="o-expandable_header"
     onClick={[Function]}
   >
     <h3
-      className="h4 o-expandable_header-left o-expandable_label"
+      className="h4 o-expandable_label"
     >
       Date CFPB received the complaint
     </h3>
     <span
-      className="o-expandable_header-right o-expandable_link"
+      className="o-expandable_cues"
     >
       <span
-        className="o-expandable_cue o-expandable_cue-close"
+        aria-label="Hide"
+        className="o-expandable_cue-close"
+        role="img"
       >
-        <span
-          className="u-visually-hidden-on-mobile"
-        >
-          Hide
-        </span>
         <svg>
           minus-round.svg
         </svg>

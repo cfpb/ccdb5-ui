@@ -9,9 +9,8 @@ export const ComplexExample = ({ id, notes, placeholderText, tooltipText }) => {
   return (
     <div className="o-expandable complex-example">
       <button
-        className={`o-expandable_header o-expandable_target o-expandable_target__${
-          isOpen ? 'expanded' : 'collapsed'
-        }`}
+        className="o-expandable_header"
+        aria-expanded={isOpen}
         onClick={() => {
           setIsOpen(!isOpen);
         }}
@@ -20,15 +19,23 @@ export const ComplexExample = ({ id, notes, placeholderText, tooltipText }) => {
         <h3 className="h4 o-expandable_label">
           Additional information and examples
         </h3>
-        <span className="o-expandable_link o-expandable_cues">
+        <span className="o-expandable_cues">
           {isOpen ? (
-            <span className="o-expandable_cue o-expandable_cue-close">
+            <span
+              className="o-expandable_cue-close"
+              role="img"
+              aria-label="Hide"
+            >
               <span className="u-visually-hidden-on-mobile">
                 {getIcon('up')}
               </span>
             </span>
           ) : (
-            <span className="o-expandable_cue o-expandable_cue-open">
+            <span
+              className="o-expandable_cue-open"
+              role="img"
+              aria-label="Show"
+            >
               <span className="u-visually-hidden-on-mobile">
                 {getIcon('down')}
               </span>
