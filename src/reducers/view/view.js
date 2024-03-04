@@ -102,7 +102,7 @@ export const viewSlice = createSlice({
     collapseRow: {
       reducer: (state, action) => {
         state.expandedRows = state.expandedRows.filter(
-          (o) => o !== action.payload.value
+          (obj) => obj !== action.payload.value,
         );
       },
       prepare: (payload) => {

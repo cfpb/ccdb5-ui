@@ -105,9 +105,9 @@ export const querySlice = createSlice({
         // Handle date filters
         types.dateFilters.forEach((field) => {
           if (typeof params[field] !== 'undefined') {
-            const d = toDate(params[field]);
-            if (d) {
-              state[field] = d;
+            const date = toDate(params[field]);
+            if (date) {
+              state[field] = date;
             }
           }
         });
@@ -122,9 +122,9 @@ export const querySlice = createSlice({
         // Handle numeric params
         urlParamsInt.forEach((field) => {
           if (typeof params[field] !== 'undefined') {
-            const n = parseInt(params[field], 10);
-            if (isNaN(n) === false) {
-              state[field] = enforceValues(n, field);
+            const num = parseInt(params[field], 10);
+            if (isNaN(num) === false) {
+              state[field] = enforceValues(num, field);
             }
           }
         });
@@ -156,7 +156,7 @@ export const querySlice = createSlice({
       reducer: (state, action) => {
         state.dateInterval = enforceValues(
           action.payload.dateInterval,
-          'dateInterval'
+          'dateInterval',
         );
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
@@ -264,7 +264,7 @@ export const querySlice = createSlice({
     toggleFlagFilter: {
       reducer: (state, action) => {
         state[action.payload.filterName] = Boolean(
-          !state[action.payload.filterName]
+          !state[action.payload.filterName],
         );
         if (!state[action.payload.filterName])
           delete state[action.payload.filterName];
@@ -325,16 +325,16 @@ export const querySlice = createSlice({
     addMultipleFilters: {
       reducer: (state, action) => {
         const name = action.payload.filterName;
-        const a = coalesce(state, name, []);
+        const arr = coalesce(state, name, []);
 
         // Add the filters
-        action.payload.values.forEach((x) => {
-          if (a.indexOf(x) === -1) {
-            a.push(x);
+        action.payload.values.forEach((val) => {
+          if (arr.indexOf(val) === -1) {
+            arr.push(val);
           }
         });
 
-        state[name] = a;
+        state[name] = arr;
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
@@ -356,7 +356,7 @@ export const querySlice = createSlice({
           ...state,
           [action.payload.filterName]: filterArrayAction(
             state[action.payload.filterName],
-            action.payload.filterValue.key
+            action.payload.filterValue.key,
           ),
           queryString: stateToQS(state),
           search: stateToURL(state),
@@ -427,7 +427,7 @@ export const querySlice = createSlice({
         const stateFilters = coalesce(state, 'state', []);
         const { abbr } = action.payload.selectedState;
 
-        state.state = stateFilters.filter((o) => o !== abbr);
+        state.state = stateFilters.filter((state) => state !== abbr);
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
@@ -444,7 +444,7 @@ export const querySlice = createSlice({
       reducer: (state) => {
         const allFilters = types.knownFilters.concat(
           types.dateFilters,
-          types.flagFilters
+          types.flagFilters,
         );
 
         if (state.searchField === types.NARRATIVE_SEARCH_FIELD) {
@@ -484,7 +484,7 @@ export const querySlice = createSlice({
           state.has_narrative = true;
         } else if (action.payload.filterName in state) {
           const idx = state[action.payload.filterName].indexOf(
-            action.payload.filterValue
+            action.payload.filterValue,
           );
           if (idx === -1) {
             state[action.payload.filterName].push(action.payload.filterValue);
@@ -510,7 +510,7 @@ export const querySlice = createSlice({
           delete state.has_narrative;
         } else if (action.payload.filterName in state) {
           const idx = state[action.payload.filterName].indexOf(
-            action.payload.filterValue
+            action.payload.filterValue,
           );
           if (idx !== -1) {
             state[action.payload.filterName].splice(idx, 1);
@@ -552,8 +552,8 @@ export const querySlice = createSlice({
           : state.focus || '';
 
         if (state[action.payload.filterName]) {
-          action.payload.values.forEach((x) => {
-            const idx = state[action.payload.filterName].indexOf(x);
+          action.payload.values.forEach((val) => {
+            const idx = state[action.payload.filterName].indexOf(val);
             if (idx !== -1) {
               state[action.payload.filterName].splice(idx, 1);
             }
@@ -750,8 +750,8 @@ export const querySlice = createSlice({
         if (filterKey === 'company') {
           activeFilters.push(focus);
         } else {
-          filterValues.forEach((o) => {
-            activeFilters.push(o);
+          filterValues.forEach((val) => {
+            activeFilters.push(val);
           });
         }
         state[filterKey] = activeFilters;
@@ -801,7 +801,7 @@ export const querySlice = createSlice({
       reducer: (state, action) => {
         state.dataNormalization = enforceValues(
           action.payload.value,
-          'dataNormalization'
+          'dataNormalization',
         );
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);

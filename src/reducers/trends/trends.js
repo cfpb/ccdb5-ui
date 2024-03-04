@@ -82,7 +82,7 @@ export const trendsSlice = createSlice({
           lens,
           aggregations,
           focus,
-          subLens
+          subLens,
         );
 
         // based on these criteria, the following aggs should only exist
@@ -254,28 +254,28 @@ export const trendsSlice = createSlice({
             tooltip.date,
             tooltip.interval,
             tooltip.dateRange,
-            true
+            true,
           );
 
           /* istanbul ignore else */
           if (tooltip.values) {
-            tooltip.values.forEach((o) => {
-              if (!Object.hasOwn(o, 'colorIndex')) {
-                o.colorIndex =
+            tooltip.values.forEach((obj) => {
+              if (!Object.hasOwn(obj, 'colorIndex')) {
+                obj.colorIndex =
                   Object.values(colors.DataLens).indexOf(
-                    state.colorMap[o.name]
+                    state.colorMap[obj.name],
                   ) || 0;
               }
               // make sure all values have a value
-              if (!Object.hasOwn(o, 'value')) {
-                o.value = coalesce(o, 'value', 0);
+              if (!Object.hasOwn(obj, 'value')) {
+                obj.value = coalesce(obj, 'value', 0);
               }
             });
 
             let total = 0;
             total = tooltip.values.reduce(
               (accumulator, currentValue) => accumulator + currentValue.value,
-              total
+              total,
             );
             tooltip.total = total;
           }
