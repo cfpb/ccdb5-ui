@@ -270,7 +270,7 @@ export const TOUR_STEPS = {
         trendsIndex +
         '</ul></div>' +
         '</div>',
-      tooltipClass: 'wide',
+      tooltipClass: 'wide first-step',
     },
     {
       element: TRENDS.STEP_2.selector,
