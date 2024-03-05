@@ -94,8 +94,8 @@ export const ListPanel = () => {
       <ActionBar />
       <TabbedNavigation />
       {!!hasMobileFilters && <FilterPanel />}
+      <FilterPanelToggle />
       <div className="layout-row refine-bar">
-        <FilterPanelToggle />
         <Separator />
         <Select
           label="Select the number of results to display at a time"

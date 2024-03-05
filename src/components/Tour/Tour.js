@@ -6,6 +6,7 @@ import { selectQueryTab } from '../../reducers/query/selectors';
 import {
   selectViewIsPrintMode,
   selectViewShowTour,
+  selectViewWidth,
 } from '../../reducers/view/selectors';
 import { Steps } from 'intro.js-react';
 import { TOUR_STEPS } from './constants/tourStepsConstants';
@@ -17,7 +18,32 @@ export const Tour = () => {
   const showTour = useSelector(selectViewShowTour);
   const tab = useSelector(selectQueryTab);
   const isPrintMode = useSelector(selectViewIsPrintMode);
-  const steps = TOUR_STEPS[tab];
+  const viewWidth = useSelector(selectViewWidth);
+
+  const mobileStepOpen = {
+    disableInteraction: false,
+    element: '.filter-panel-toggle .m-btn-group .a-btn',
+    intro:
+      'On mobile devices, click the Filter Panel toggle button to open the Filter Panel. Please click the button to proceed.',
+  };
+  const mobileStepClose = {
+    disableInteraction: false,
+    element: '.filter-panel-toggle .m-btn-group .a-btn',
+    intro:
+      'Click the Filter Panel toggle button again to close the Filter Panel. Please close the Filter Panel to proceed.',
+  };
+
+  const steps =
+    viewWidth < 750
+      ? TOUR_STEPS[tab]
+          .slice(0, 3)
+          .concat(
+            mobileStepOpen,
+            TOUR_STEPS[tab].slice(4, 7),
+            mobileStepClose,
+            TOUR_STEPS[tab].slice(7),
+          )
+      : TOUR_STEPS[tab];
   const stepRef = useRef();
 
   // INTRODUCTION / TUTORIAL OPTIONS:
@@ -63,7 +89,43 @@ export const Tour = () => {
       });
     };
     const waitOn = new MutationObserver(callBack);
-    waitOn.observe(document, { subtree: true, childList: true });
+    waitOn.observe(document.querySelector('#ccdb-ui-root'), {
+      subtree: true,
+      childList: true,
+    });
+
+    // Add listener to filter toggle if it's mobile and at step 4 or 7
+    const filterListener = () => {
+      // Make sure next button isn't being hidden from steps 3 or 7
+      document
+        .querySelector('.introjs-nextbutton')
+        ?.setAttribute('style', 'display: inline');
+      // Wait for date inputs to render, then proceed
+      const promise = new Promise((resolve) => {
+        if (currentStep === 7) return resolve();
+        const interval = setInterval(() => {
+          if (document.querySelector('.date-filter') !== null) {
+            clearInterval(interval);
+            return resolve();
+          }
+        }, 10);
+      });
+      promise.then(() => {
+        ref.current.introJs.nextStep().then(() => {
+          document
+            .querySelector(mobileStepOpen.element)
+            .removeEventListener('click', filterListener);
+        });
+      });
+    };
+    if (viewWidth < 750 && (currentStep === 3 || currentStep === 7)) {
+      document
+        .querySelector('.introjs-nextbutton')
+        .setAttribute('style', 'display: none');
+      document
+        .querySelector(mobileStepOpen.element)
+        .addEventListener('click', filterListener);
+    }
   }
 
   /**

@@ -11,14 +11,13 @@ import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
 /**
- * @returns {void}
+ * @returns {object}
  */
 function setupEnzyme() {
   const props = {
     onFilterToggle: jest.fn(),
     hasButton: true,
-    hasFilterToggle: true,
-    hasFilters: false,
+    hasFilters: true,
   };
 
   const target = shallow(<FilterPanel {...props} />);
@@ -88,7 +87,7 @@ describe('mapDispatchToProps', () => {
     expect(dispatch.mock.calls.length).toEqual(1);
   });
 
-  it('allows the user to trigger Filter Panel', () => {
+  it('allows the user to toggle Filter Panel', () => {
     const { target, props } = setupEnzyme();
     const button = target.find('.filter-button button');
 
@@ -108,7 +107,6 @@ describe('mapStateToProps', () => {
     const actual = mapStateToProps(state);
     expect(actual).toEqual({
       hasButton: false,
-      hasFilterToggle: false,
       hasFilters: true,
     });
   });

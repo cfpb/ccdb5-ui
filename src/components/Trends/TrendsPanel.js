@@ -176,8 +176,8 @@ export class TrendsPanel extends React.Component {
           />
         )}
         {!!hasMobileFilters && <FilterPanel />}
+        <FilterPanelToggle />
         <div className="layout-row refine-bar">
-          <FilterPanelToggle />
           <Select
             label="Aggregate complaints by"
             title="Aggregate by"

@@ -1,20 +1,20 @@
 /* eslint-disable max-len, no-inline-comments */
 export const DOCUMENT_STEP_SELECTORS = {
-  STEP_1: '#step1',
+  STEP_1: '.content_hero',
   STEP_2: '.m-pagination_btn-next',
   STEP_3: '.saved_search-panel div:nth-child(2)',
   STEP_4: '.back-to-results',
 };
 
 export const GEO_STEP_SELECTORS = {
-  STEP_1: { selector: '#step1', label: 'Index' },
+  STEP_1: { selector: '.content', label: 'Index' },
   STEP_2: {
     selector: 'header.content_hero .m-list__horizontal',
     label: 'Help Links',
   },
   STEP_3: { selector: '.tabbed-navigation', label: 'Views' },
   STEP_4: { selector: '.filter-panel', label: 'Filters' },
-  STEP_5: { selector: '.date-inputs', label: 'Date Received' },
+  STEP_5: { selector: '.date-filter', label: 'Date Received' },
   STEP_6: {
     selector: '.filter-panel .aggregation.product',
     label: 'Product/Issue',
@@ -40,14 +40,14 @@ export const GEO_STEP_SELECTORS = {
 };
 
 export const LIST_COMPLAINTS_SELECTORS = {
-  STEP_1: { selector: '#step1', label: 'Index' },
+  STEP_1: { selector: '.content', label: 'Index' },
   STEP_2: {
     selector: 'header.content_hero .m-list__horizontal',
     label: 'Help Links',
   },
   STEP_3: { selector: '.tabbed-navigation', label: 'Views' },
   STEP_4: { selector: '.filter-panel', label: 'Filters' },
-  STEP_5: { selector: '.date-inputs', label: 'Date Received' },
+  STEP_5: { selector: '.date-filter', label: 'Date Received' },
   STEP_6: {
     selector: '.filter-panel .aggregation.product',
     label: 'Product/Issue',
@@ -78,14 +78,14 @@ export const LIST_COMPLAINTS_SELECTORS = {
 };
 
 export const TRENDS_SELECTORS = {
-  STEP_1: { selector: '#step1', label: 'Index' },
+  STEP_1: { selector: '.content', label: 'Index' },
   STEP_2: {
     selector: 'header.content_hero .m-list__horizontal',
     label: 'Help Links',
   },
   STEP_3: { selector: '.tabbed-navigation', label: 'Views' },
   STEP_4: { selector: '.filter-panel', label: 'Filters' },
-  STEP_5: { selector: '.date-inputs', label: 'Date Received' },
+  STEP_5: { selector: '.date-filter', label: 'Date Received' },
   STEP_6: {
     selector: '.filter-panel .aggregation.product',
     label: 'Product/Issue',
