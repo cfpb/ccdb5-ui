@@ -6,7 +6,6 @@ import {
   coalesce,
   enablePer1000,
   processUrlArrayParams,
-  shortIsoFormat,
   startOfToday,
 } from '../../utils';
 import { enforceValues, validateTrendsReducer } from '../../utils/reducers';
@@ -18,6 +17,7 @@ import {
   REQUERY_HITS_ONLY,
   REQUERY_NEVER,
 } from '../../constants';
+import { formatDate, formatDateModel } from '../../utils/formatDate';
 
 const queryString = require('query-string');
 
@@ -29,7 +29,9 @@ export const queryState = {
   dateInterval: 'Month',
   dateRange: '3y',
   date_received_max: startOfToday(),
-  date_received_min: new Date(dayjs(startOfToday()).subtract(3, 'years')),
+  date_received_min: formatDate(
+    new Date(dayjs(startOfToday()).subtract(3, 'years')),
+  ),
   enablePer1000: false,
   focus: '',
   from: 0,
@@ -81,9 +83,6 @@ const urlParams = [
 
 const urlParamsInt = ['from', 'page', 'trendDepth'];
 
-queryState.queryString = stateToQS(queryState);
-queryState.search = stateToURL(queryState);
-
 export const querySlice = createSlice({
   name: 'query',
   initialState: queryState,
@@ -105,7 +104,7 @@ export const querySlice = createSlice({
         // Handle date filters
         types.dateFilters.forEach((field) => {
           if (typeof params[field] !== 'undefined') {
-            const date = toDate(params[field]);
+            const date = formatDateModel(params[field]);
             if (date) {
               state[field] = date;
             }
@@ -135,11 +134,12 @@ export const querySlice = createSlice({
           querySlice.caseReducers.changeDateRange(state, innerAction);
         }
 
+        alignDateRange(state);
         state.page = params.page ?? state.page;
         validateTrendsReducer(state);
-
         state.focus = typeof params.focus === 'undefined' ? '' : params.focus;
-        return alignDateRange(state);
+        state.queryString = stateToQS(state);
+        state.search = stateToURL(state);
       },
       prepare: (params) => {
         return {
@@ -178,11 +178,11 @@ export const querySlice = createSlice({
         const dateRange = enforceValues(action.payload.dateRange, 'dateRange');
         const maxDate = startOfToday();
         const res = {
-          All: new Date(types.DATE_RANGE_MIN),
-          '3m': new Date(dayjs(maxDate).subtract(3, 'months')),
-          '6m': new Date(dayjs(maxDate).subtract(6, 'months')),
-          '1y': new Date(dayjs(maxDate).subtract(1, 'year')),
-          '3y': new Date(dayjs(maxDate).subtract(3, 'years')),
+          All: types.DATE_RANGE_MIN,
+          '3m': formatDate(dayjs(maxDate).subtract(3, 'months')),
+          '6m': formatDate(dayjs(maxDate).subtract(6, 'months')),
+          '1y': formatDate(dayjs(maxDate).subtract(1, 'year')),
+          '3y': formatDate(dayjs(maxDate).subtract(3, 'years')),
         };
         state.dateRange = dateRange;
         state.date_received_min = res[dateRange]
@@ -226,10 +226,10 @@ export const querySlice = createSlice({
         }
 
         minDate = dayjs(minDate).isValid()
-          ? new Date(dayjs(minDate).startOf('day'))
+          ? formatDate(dayjs(minDate).startOf('day'))
           : null;
         maxDate = dayjs(maxDate).isValid()
-          ? new Date(dayjs(maxDate).startOf('day'))
+          ? formatDate(dayjs(maxDate).startOf('day'))
           : null;
 
         const datesChanged =
@@ -462,8 +462,8 @@ export const querySlice = createSlice({
         // adjust date filter for max and min ranges
         state.dateRange = 'All';
         /* eslint-disable camelcase */
-        state.date_received_min = new Date(types.DATE_RANGE_MIN);
-        state.date_received_max = startOfToday();
+        state.date_received_min = formatDate(types.DATE_RANGE_MIN);
+        state.date_received_max = formatDate(startOfToday());
         state.focus = '';
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
@@ -828,6 +828,9 @@ export const querySlice = createSlice({
         querySlice.caseReducers.processParams(state, action);
         querySlice.caseReducers.updateTotalPages(state, action);
       })
+      .addCase('routes/routeChanged', (state, action) => {
+        querySlice.caseReducers.processParams(state, action);
+      })
       .addCase('trends/updateChartType', (state, action) => {
         state.chartType = action.payload.chartType;
         state.search = stateToURL(state);
@@ -880,7 +883,7 @@ export const querySlice = createSlice({
  * Makes sure the date range reflects the actual dates selected
  *
  * @param {object} state - the raw, unvalidated state
- * @returns {object} the validated state
+ * @returns {object} [state] the validated state, or early exit
  */
 export function alignDateRange(state) {
   // Shorten the input field names
@@ -893,14 +896,14 @@ export function alignDateRange(state) {
     dayjs(dateMin).isSame(types.DATE_RANGE_MIN)
   ) {
     state.dateRange = 'All';
-    return state;
+    return;
   }
 
   const rangeMap = {
-    '3y': new Date(dayjs(dateMax).subtract(3, 'years')),
-    '3m': new Date(dayjs(dateMax).subtract(3, 'months')),
-    '6m': new Date(dayjs(dateMax).subtract(6, 'months')),
-    '1y': new Date(dayjs(dateMax).subtract(1, 'year')),
+    '3y': formatDate(dayjs(dateMax).subtract(3, 'years')),
+    '3m': formatDate(dayjs(dateMax).subtract(3, 'months')),
+    '6m': formatDate(dayjs(dateMax).subtract(6, 'months')),
+    '1y': formatDate(dayjs(dateMax).subtract(1, 'year')),
   };
   const ranges = Object.keys(rangeMap);
   let matched = false;
@@ -918,8 +921,6 @@ export function alignDateRange(state) {
   if (!matched) {
     state.dateRange = '';
   }
-
-  return state;
 }
 
 /* eslint-enable complexity */
@@ -1081,7 +1082,7 @@ export function stateToQS(state) {
 
     // Process dates
     if (types.dateFilters.indexOf(field) !== -1) {
-      value = shortIsoFormat(value);
+      value = formatDate(value);
     }
 
     // Process boolean flags
@@ -1176,14 +1177,7 @@ export function stateToURL(state) {
     if (['queryString', 'url', 'breakPoints'].includes(field)) {
       return;
     }
-
-    let value = state[field];
-
-    // Process date filters url-friendly display
-    if (types.dateFilters.indexOf(field) !== -1) {
-      value = shortIsoFormat(value);
-    }
-    params[field] = value;
+    params[field] = state[field];
   });
 
   // list of API params

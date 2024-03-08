@@ -15,8 +15,8 @@ export const resultsSlice = createSlice({
   reducers: {
     hitsCallInProcess: {
       reducer: (state, action) => {
-          state.activeCall = action.payload;
-          state.isLoading = true;
+        state.activeCall = action.payload;
+        state.isLoading = true;
       },
     },
     processHitsResults: {

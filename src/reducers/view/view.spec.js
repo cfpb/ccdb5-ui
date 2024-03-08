@@ -38,7 +38,7 @@ describe('reducer:map', () => {
 
     it('hides a modal', () => {
       expect(
-        target({ ...viewState, modalTypeShown: 'foobar' }, modalHidden())
+        target({ ...viewState, modalTypeShown: 'foobar' }, modalHidden()),
       ).toEqual({
         ...viewState,
         modalTypeShown: false,
@@ -127,7 +127,7 @@ describe('reducer:map', () => {
     it('handles DATA_LENS_CHANGED actions', () => {
       result = target(
         { ...viewState, expandedRows: ['foo'] },
-        updateDataLens(action)
+        updateDataLens(action),
       );
       expect(result).toEqual({ ...viewState, expandedRows: [] });
     });
@@ -138,7 +138,7 @@ describe('reducer:map', () => {
       };
       result = target(
         { ...viewState, expandedRows: ['foo'] },
-        collapseRow(action)
+        collapseRow(action),
       );
       expect(result).toEqual({ ...viewState, expandedRows: [] });
     });
@@ -149,7 +149,7 @@ describe('reducer:map', () => {
       };
       result = target(
         { ...viewState, expandedRows: ['what'] },
-        expandRow(action)
+        expandRow(action),
       );
       expect(result).toEqual({ ...viewState, expandedRows: ['what', 'foo'] });
     });
@@ -160,7 +160,7 @@ describe('reducer:map', () => {
       };
       result = target(
         { ...viewState, expandedRows: ['foo'] },
-        expandRow(action)
+        expandRow(action),
       );
       expect(result).toEqual({ ...viewState, expandedRows: ['foo'] });
     });

@@ -49,7 +49,7 @@ describe('reducer:results', () => {
 
       it('extracts the important data from inside the returned data', () => {
         expect(
-          target({ ...resultsState, error: 'foo' }, processHitsResults(action))
+          target({ ...resultsState, error: 'foo' }, processHitsResults(action)),
         ).toEqual({
           activeCall: '',
           error: '',
@@ -62,7 +62,7 @@ describe('reducer:results', () => {
         action.data.hits.hits[0].highlight = { val: ['<em>123</em>'] };
 
         expect(
-          target({ ...resultsState, error: 'foo' }, processHitsResults(action))
+          target({ ...resultsState, error: 'foo' }, processHitsResults(action)),
         ).toEqual({
           activeCall: '',
           error: '',
@@ -77,7 +77,7 @@ describe('reducer:results', () => {
         error: 'foo bar',
       };
       expect(
-        target({ ...resultsState, items: [1, 2, 3] }, processHitsError(action))
+        target({ ...resultsState, items: [1, 2, 3] }, processHitsError(action)),
       ).toEqual({
         activeCall: '',
         error: 'foo bar',

@@ -1,7 +1,7 @@
 // Internal triggers
 import { formatDate } from '../utils/formatDate';
 
-export const DATE_RANGE_MIN = '2011-12-01T12:00:00.000Z';
+export const DATE_RANGE_MIN = formatDate('2011-12-01T12:00:00.000Z');
 
 // dayjs formatter to uses for custom validation
 // https://day.js.org/docs/en/parse/string-format
@@ -30,6 +30,7 @@ export const NARRATIVE_SEARCH_FIELD = 'complaint_what_happened';
 
 // query manager flags
 // These constants control how the query manager works
+export const PERSIST_LOAD = 'PERSIST_LOAD'; // state will be loaded from params & path
 export const REQUERY_ALWAYS = 'REQUERY_ALWAYS';
 export const REQUERY_HITS_ONLY = 'REQUERY_HITS_ONLY';
 // default if not specified

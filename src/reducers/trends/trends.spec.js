@@ -74,7 +74,7 @@ describe('reducer:trends', () => {
       const chartType = 'FooBar';
 
       expect(
-        target({ ...trendsState, tooltip: true }, updateChartType(chartType))
+        target({ ...trendsState, tooltip: true }, updateChartType(chartType)),
       ).toEqual({
         ...trendsState,
         chartType: 'FooBar',
@@ -86,7 +86,7 @@ describe('reducer:trends', () => {
       const chartType = 'area';
 
       expect(
-        target({ ...trendsState, tooltip: true }, updateChartType(chartType))
+        target({ ...trendsState, tooltip: true }, updateChartType(chartType)),
       ).toEqual({
         ...trendsState,
         chartType: 'area',
@@ -159,7 +159,7 @@ describe('reducer:trends', () => {
     it('updates the data sublens', () => {
       const subLens = 'sub_something';
       expect(
-        target({ ...trendsState, subLens: 'gg' }, updateDataSubLens(subLens))
+        target({ ...trendsState, subLens: 'gg' }, updateDataSubLens(subLens)),
       ).toEqual({
         ...trendsState,
         chartType: 'line',
@@ -180,8 +180,8 @@ describe('reducer:trends', () => {
             focus: 'gg',
             tooltip: { wut: 'isthis' },
           },
-          changeFocus(focus, lens)
-        )
+          changeFocus(focus, lens),
+        ),
       ).toEqual({
         ...trendsState,
         chartType: 'line',
@@ -204,8 +204,8 @@ describe('reducer:trends', () => {
             focus: 'gg',
             tooltip: { wut: 'isthis' },
           },
-          removeFocus(action)
-        )
+          removeFocus(action),
+        ),
       ).toEqual({
         ...trendsState,
         chartType: 'line',
@@ -224,7 +224,7 @@ describe('reducer:trends', () => {
       action = {};
       result = target(
         { ...trendsState, focus: 'gg' },
-        removeAllFilters(action)
+        removeAllFilters(action),
       );
       expect(result).toEqual({
         ...trendsState,
@@ -241,7 +241,7 @@ describe('reducer:trends', () => {
       };
       result = target(
         { ...trendsState, focus: 'A' },
-        removeMultipleFilters(action)
+        removeMultipleFilters(action),
       );
       expect(result).toEqual({
         ...trendsState,
@@ -256,7 +256,7 @@ describe('reducer:trends', () => {
       };
 
       expect(
-        target({ ...trendsState, focus: 'C' }, removeMultipleFilters(action))
+        target({ ...trendsState, focus: 'C' }, removeMultipleFilters(action)),
       ).toEqual({
         ...trendsState,
         chartType: 'line',
@@ -278,8 +278,8 @@ describe('reducer:trends', () => {
             focus: 'Your',
             results: [1, 2, 3],
           },
-          handleTabChanged(action)
-        )
+          handleTabChanged(action),
+        ),
       ).toEqual({
         ...trendsState,
         chartType: 'line',
@@ -303,8 +303,8 @@ describe('reducer:trends', () => {
             focus: 'Your',
             results: [1, 2, 3],
           },
-          handleTabChanged(action)
-        )
+          handleTabChanged(action),
+        ),
       ).toEqual({
         ...trendsState,
         chartType: 'line',
@@ -344,8 +344,8 @@ describe('reducer:trends', () => {
               product: [13, 25],
             },
           },
-          processTrendsError(action)
-        )
+          processTrendsError(action),
+        ),
       ).toEqual({
         ...trendsState,
         activeCall: '',

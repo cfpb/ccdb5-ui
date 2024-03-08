@@ -50,7 +50,7 @@ describe('reducer:query', () => {
   let action, result, state;
   const test_date_received_max = maxDate;
   const test_date_received_min = new Date(
-    dayjs(startOfToday()).subtract(3, 'years')
+    dayjs(startOfToday()).subtract(3, 'years'),
   );
   describe('default', () => {
     it('has a default state', () => {
@@ -761,7 +761,7 @@ describe('reducer:query', () => {
             tab: types.MODE_MAP,
             search:
               '?dataNormalization=None&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&searchField=all&tab=Map',
-          }
+          },
         );
       });
 
@@ -914,7 +914,7 @@ describe('reducer:query', () => {
         it('handles when absent', () => {
           filterName = 'has_narrative';
           expect(
-            target(queryState, addFilter(filterName, filterValue))
+            target(queryState, addFilter(filterName, filterValue)),
           ).toEqual({
             ...queryState,
             breakPoints: {},
@@ -1072,7 +1072,7 @@ describe('reducer:query', () => {
         it('handles when absent', () => {
           filterName = 'has_narrative';
           expect(
-            target(queryState, removeFilter(filterName, filterValue))
+            target(queryState, removeFilter(filterName, filterValue)),
           ).toEqual({
             ...queryState,
             breakPoints: {},
@@ -1172,7 +1172,7 @@ describe('reducer:query', () => {
 
       it("adds all filters if they didn't exist", () => {
         expect(
-          target(queryState, addMultipleFilters(filterName, values))
+          target(queryState, addMultipleFilters(filterName, values)),
         ).toEqual({
           ...queryState,
           breakPoints: {},
@@ -1196,8 +1196,8 @@ describe('reducer:query', () => {
               mapWarningEnabled: true,
               tab: types.MODE_MAP,
             },
-            addMultipleFilters(filterName, values)
-          )
+            addMultipleFilters(filterName, values),
+          ),
         ).toEqual({
           ...queryState,
           breakPoints: {},
@@ -1277,7 +1277,7 @@ describe('reducer:query', () => {
           issue: ['foo', 'Mo Money', 'Mo Problems'],
         };
         expect(
-          target(state, removeMultipleFilters(filterName, values))
+          target(state, removeMultipleFilters(filterName, values)),
         ).toEqual({
           ...state,
           breakPoints: {},
@@ -1301,7 +1301,7 @@ describe('reducer:query', () => {
           tab: types.MODE_MAP,
         };
         expect(
-          target(state, removeMultipleFilters(filterName, values))
+          target(state, removeMultipleFilters(filterName, values)),
         ).toEqual({
           ...state,
           breakPoints: {},
@@ -1322,7 +1322,7 @@ describe('reducer:query', () => {
 
       it('ignores unknown filters', () => {
         expect(
-          target(queryState, removeMultipleFilters(filterName, values))
+          target(queryState, removeMultipleFilters(filterName, values)),
         ).toEqual({
           ...queryState,
           breakPoints: {},
@@ -1363,8 +1363,8 @@ describe('reducer:query', () => {
         expect(
           target(
             { ...queryState, has_narrative: true },
-            toggleFlagFilter(filterName)
-          )
+            toggleFlagFilter(filterName),
+          ),
         ).toEqual({
           ...queryState,
           breakPoints: {},
@@ -1419,7 +1419,7 @@ describe('reducer:query', () => {
         const testState = { ...queryState };
         delete testState.dateRange;
         expect(
-          target(testState, changeDates(filterName, minDate, maxDate))
+          target(testState, changeDates(filterName, minDate, maxDate)),
         ).toEqual({
           ...testState,
           breakPoints: {},
@@ -1443,7 +1443,7 @@ describe('reducer:query', () => {
             date_received_max: maxDate,
             dateRange: '1y',
           },
-          changeDates(filterName, minDate, maxDate)
+          changeDates(filterName, minDate, maxDate),
         );
         expect(result.dateRange).toBeFalsy();
       });
@@ -1452,29 +1452,29 @@ describe('reducer:query', () => {
         const min = new Date(dayjs(maxDate).subtract(3, 'months'));
         result = target(
           { ...queryState },
-          changeDates(filterName, min, maxDate)
+          changeDates(filterName, min, maxDate),
         );
         expect(result.dateRange).toEqual('3m');
       });
 
       it('does not add empty dates', () => {
         expect(
-          target({ ...queryState }, changeDates(filterName, '', ''))
+          target({ ...queryState }, changeDates(filterName, '', '')),
         ).toEqual({
           ...queryState,
           breakPoints: {},
           from: 0,
           page: 1,
           queryString: `?date_received_max=${formatDate(
-            test_date_received_max
+            test_date_received_max,
           )}&date_received_min=${formatDate(
-            test_date_received_min
+            test_date_received_min,
           )}&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month`,
           searchAfter: '',
           search: `?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=${formatDate(
-            test_date_received_max
+            test_date_received_max,
           )}&date_received_min=${formatDate(
-            test_date_received_min
+            test_date_received_min,
           )}&lens=Product&searchField=all&subLens=sub_product&tab=Trends`,
         });
       });
@@ -1618,7 +1618,7 @@ describe('reducer:query', () => {
             state: [],
             tab: types.MODE_MAP,
           },
-          showStateComplaints()
+          showStateComplaints(),
         );
 
         expect(result).toEqual({
@@ -1641,7 +1641,7 @@ describe('reducer:query', () => {
             state: ['TX', 'MX', 'FO'],
             tab: types.MODE_MAP,
           },
-          showStateComplaints()
+          showStateComplaints(),
         );
 
         expect(result).toEqual({
@@ -1665,7 +1665,7 @@ describe('reducer:query', () => {
       it('adds state filter', () => {
         result = target(
           { ...queryState, tab: types.MODE_MAP },
-          addStateFilter(action)
+          addStateFilter(action),
         );
         expect(result).toEqual({
           ...queryState,
@@ -1687,7 +1687,7 @@ describe('reducer:query', () => {
             state: ['IL', 'TX'],
             tab: types.MODE_MAP,
           },
-          addStateFilter(action)
+          addStateFilter(action),
         );
 
         expect(result).toEqual({
@@ -1713,7 +1713,7 @@ describe('reducer:query', () => {
             state: ['FO', 'BA'],
             tab: types.MODE_MAP,
           },
-          clearStateFilter()
+          clearStateFilter(),
         );
 
         expect(result).toEqual({
@@ -1733,7 +1733,7 @@ describe('reducer:query', () => {
       it('handles no state filters', () => {
         result = target(
           { ...queryState, tab: types.MODE_MAP },
-          clearStateFilter()
+          clearStateFilter(),
         );
 
         expect(result).toEqual({
@@ -1762,7 +1762,7 @@ describe('reducer:query', () => {
             state: ['CA', 'IL'],
             tab: types.MODE_MAP,
           },
-          removeStateFilter(action)
+          removeStateFilter(action),
         );
         expect(result).toEqual({
           ...queryState,
@@ -1780,7 +1780,7 @@ describe('reducer:query', () => {
       it('handles empty state', () => {
         result = target(
           { ...queryState, tab: types.MODE_MAP },
-          removeStateFilter(action)
+          removeStateFilter(action),
         );
         expect(result).toEqual({
           ...queryState,
@@ -1811,8 +1811,8 @@ describe('reducer:query', () => {
         expect(
           target(
             { ...queryState, trendsDateWarningEnabled: true },
-            dismissTrendsDateWarning()
-          )
+            dismissTrendsDateWarning(),
+          ),
         ).toEqual({
           ...queryState,
           trendsDateWarningEnabled: false,
@@ -1829,7 +1829,7 @@ describe('reducer:query', () => {
         action = 'Foo';
         result = target(
           { ...queryState, chartType: 'ahha' },
-          updateChartType(action)
+          updateChartType(action),
         );
         expect(result).toEqual({
           ...queryState,
@@ -1849,7 +1849,7 @@ describe('reducer:query', () => {
         action = 'Foo';
         result = target(
           { ...queryState, focus: 'ahha' },
-          updateDataLens(action)
+          updateDataLens(action),
         );
         expect(result).toEqual({
           ...queryState,
@@ -1871,7 +1871,7 @@ describe('reducer:query', () => {
         action = 'Company';
         result = target(
           { ...queryState, tab: types.MODE_TRENDS, focus: 'ahha' },
-          updateDataLens(action)
+          updateDataLens(action),
         );
         expect(result).toEqual({
           ...queryState,
@@ -1893,7 +1893,7 @@ describe('reducer:query', () => {
         action = 'Product';
         result = target(
           { ...queryState, tab: types.MODE_TRENDS, focus: 'ahha' },
-          updateDataLens(action)
+          updateDataLens(action),
         );
         expect(result).toEqual({
           ...queryState,
@@ -1917,7 +1917,7 @@ describe('reducer:query', () => {
         action = 'Issue';
         result = target(
           { ...queryState, tab: types.MODE_TRENDS },
-          updateDataSubLens(action)
+          updateDataSubLens(action),
         );
         expect(result).toEqual({
           ...queryState,
@@ -1938,7 +1938,7 @@ describe('reducer:query', () => {
         action = 'Day';
         result = target(
           { ...queryState, tab: types.MODE_TRENDS },
-          changeDateInterval(action)
+          changeDateInterval(action),
         );
         expect(result).toEqual({
           ...queryState,
@@ -1965,7 +1965,7 @@ describe('reducer:query', () => {
         const lens = 'Product';
         result = target(
           { ...queryState, focus: 'Else' },
-          changeFocus(focus, lens, filterValues)
+          changeFocus(focus, lens, filterValues),
         );
         expect(result).toEqual({
           ...queryState,
@@ -1987,7 +1987,7 @@ describe('reducer:query', () => {
         const lens = 'Company';
         result = target(
           { ...queryState, focus: 'Else' },
-          changeFocus(focus, lens, filterValues)
+          changeFocus(focus, lens, filterValues),
         );
         expect(result).toEqual({
           ...queryState,

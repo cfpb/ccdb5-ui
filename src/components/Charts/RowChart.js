@@ -7,7 +7,7 @@ import {
   getAllFilters,
   hashObject,
   sendAnalyticsEvent,
-  cloneDeep
+  cloneDeep,
 } from '../../utils';
 import { collapseRow, expandRow } from '../../reducers/view/view';
 import { miniTooltip, row } from 'britecharts';

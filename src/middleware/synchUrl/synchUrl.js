@@ -1,4 +1,6 @@
 import { createBrowserHistory } from 'history';
+import { appUrlChanged } from '../../reducers/routes/routesSlice';
+import queryString from 'query-string';
 
 /**
  *
@@ -21,6 +23,10 @@ const synchUrl = (store) => (next) => (action) => {
     history.push({
       search: search,
     });
+    // And record the change in Redux to prevent ROUTE_CHANGED storms
+    store.dispatch(
+      appUrlChanged(location.pathname, queryString.parse(location.search)),
+    );
   } else {
     return result;
   }

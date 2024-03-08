@@ -35,8 +35,8 @@ describe('reducer:aggs', () => {
           ...aggState,
           error: '',
         },
-        processAggregationError(action)
-      )
+        processAggregationError(action),
+      ),
     ).toEqual(expected);
   });
 
@@ -73,7 +73,10 @@ describe('reducer:aggs', () => {
     };
 
     expect(
-      target({ ...aggState, doc_count: 100 }, processAggregationResults(action))
+      target(
+        { ...aggState, doc_count: 100 },
+        processAggregationResults(action),
+      ),
     ).toEqual(expected);
   });
 });

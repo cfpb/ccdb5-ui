@@ -1,6 +1,6 @@
 import { processErrorMessage } from '../../utils';
 import { createSlice } from '@reduxjs/toolkit';
-import {REQUERY_NEVER} from "../../constants";
+import { REQUERY_NEVER } from '../../constants';
 
 /* eslint-disable camelcase */
 
@@ -46,7 +46,7 @@ export const aggSlice = createSlice({
         state.doc_count = Math.max(
           state.doc_count,
           action.payload.data.hits.total.value,
-          action.payload.data._meta.total_record_count
+          action.payload.data._meta.total_record_count,
         );
         state.error = '';
         state.isLoading = false;
@@ -89,7 +89,6 @@ export const aggSlice = createSlice({
     },
   },
 });
-
 
 export const {
   aggregationsCallInProcess,

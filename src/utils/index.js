@@ -6,6 +6,7 @@ import {
 } from '../constants/index';
 import Analytics from '../actions/analytics';
 import dayjs from 'dayjs';
+import { formatDate } from './formatDate';
 
 /**
  * Breaks up '123' to '1 2 3' to help screen readers read digits individually
@@ -268,7 +269,7 @@ export function shortIsoFormat(date) {
 /**
  * Gets the UTC time for the beginning of the day in the local time zone
  *
- * @returns {Date} midnight today, local
+ * @returns {string} midnight today, local
  */
 export function startOfToday() {
   if (!Object.prototype.hasOwnProperty.call(window, 'MAX_DATE')) {
@@ -285,7 +286,7 @@ export function startOfToday() {
   }
 
   // Always return a clone so the global is not exposed or changed
-  return new Date(window.MAX_DATE.valueOf());
+  return formatDate(new Date(window.MAX_DATE));
 }
 
 // ----------------------------------------------------------------------------

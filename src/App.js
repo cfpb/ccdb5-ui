@@ -6,7 +6,6 @@ import queryManager from './middleware/queryManager';
 import { ComplaintDetail } from './components/ComplaintDetail/ComplaintDetail';
 import React from 'react';
 import { SearchComponents } from './components/Search/SearchComponents';
-import thunkMiddleware from 'redux-thunk';
 import synchUrl from './middleware/synchUrl/synchUrl';
 import { configureStore } from '@reduxjs/toolkit';
 import aggReducer from './reducers/aggs/aggs';
@@ -14,10 +13,9 @@ import detailReducer from './reducers/detail/detail';
 import mapReducer from './reducers/map/map';
 import queryReducer from './reducers/query/query';
 import resultsReducer from './reducers/results/results';
+import routesReducer from './reducers/routes/routesSlice';
 import trendsReducer from './reducers/trends/trends';
 import viewReducer from './reducers/view/view';
-
-const middleware = [thunkMiddleware, queryManager, synchUrl];
 
 // required format for redux-devtools-extension
 const store = configureStore({
@@ -28,12 +26,13 @@ const store = configureStore({
     map: mapReducer,
     query: queryReducer,
     results: resultsReducer,
+    routes: routesReducer,
     trends: trendsReducer,
     view: viewReducer,
   },
-  middleware: middleware,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat([queryManager, synchUrl]),
 });
-
 
 /* eslint-disable camelcase */
 export const DetailComponents = () => {

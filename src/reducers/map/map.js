@@ -57,7 +57,6 @@ export const mapSlice = createSlice({
         state.error = false;
         state.isLoading = true;
       },
-
     },
     processStatesResults(state, action) {
       const aggregations = action.payload.aggregations;

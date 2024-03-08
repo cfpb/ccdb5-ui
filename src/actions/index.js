@@ -1,6 +1,5 @@
 import * as analytics from './analytics';
 import * as complaints from './complaints';
-import * as url from './url';
 
 /**
  * Aggregates all the known actions into one importable object
@@ -11,7 +10,6 @@ function combineActions() {
   return {
     ...analytics,
     ...complaints,
-    ...url,
   };
 }
 

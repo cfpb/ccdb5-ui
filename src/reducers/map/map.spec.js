@@ -174,8 +174,8 @@ describe('reducer:map', () => {
               state: [1, 2, 3],
             },
           },
-          processStatesError(action)
-        )
+          processStatesError(action),
+        ),
       ).toEqual({
         ...mapState,
         activeCall: '',
@@ -197,8 +197,8 @@ describe('reducer:map', () => {
             ...mapState,
             results: [1, 2, 3],
           },
-          handleTabChanged()
-        )
+          handleTabChanged(),
+        ),
       ).toEqual({
         ...mapState,
         error: false,
