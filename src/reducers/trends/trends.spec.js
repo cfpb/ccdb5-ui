@@ -1,6 +1,5 @@
-import target, {
+import trends, {
   getDefaultState,
-  handleTabChanged,
   mainNameLens,
   processTrends,
   processTrendsError,
@@ -35,14 +34,14 @@ import {
   trendsAggsMissingBucketsResults,
 } from '../__fixtures__/trendsAggsMissingBuckets';
 import { updateChartType } from './trends';
-import { changeFocus } from '../query/query';
+import { changeFocus, changeTab } from '../query/query';
 
 describe('reducer:trends', () => {
   let action, result, state;
 
   describe('reducer', () => {
     it('has a default state', () => {
-      expect(target(undefined, {})).toEqual({
+      expect(trends(undefined, {})).toEqual({
         activeCall: '',
         chartType: 'line',
         colorMap: {},
@@ -74,7 +73,7 @@ describe('reducer:trends', () => {
       const chartType = 'FooBar';
 
       expect(
-        target({ ...trendsState, tooltip: true }, updateChartType(chartType)),
+        trends({ ...trendsState, tooltip: true }, updateChartType(chartType)),
       ).toEqual({
         ...trendsState,
         chartType: 'FooBar',
@@ -86,7 +85,7 @@ describe('reducer:trends', () => {
       const chartType = 'area';
 
       expect(
-        target({ ...trendsState, tooltip: true }, updateChartType(chartType)),
+        trends({ ...trendsState, tooltip: true }, updateChartType(chartType)),
       ).toEqual({
         ...trendsState,
         chartType: 'area',
@@ -104,7 +103,7 @@ describe('reducer:trends', () => {
         tooltip: false,
       };
 
-      expect(target(targetState, updateChartType(chartType))).toEqual({
+      expect(trends(targetState, updateChartType(chartType))).toEqual({
         ...targetState,
       });
     });
@@ -117,7 +116,7 @@ describe('reducer:trends', () => {
       state = { focus: 'gg', tooltip: 'foo', chartType: 'area' };
     });
     it('updates the data lens default', () => {
-      result = target({ ...trendsState, ...state }, updateDataLens(lens));
+      result = trends({ ...trendsState, ...state }, updateDataLens(lens));
       expect(result).toMatchObject({
         ...trendsState,
         chartType: 'line',
@@ -130,7 +129,7 @@ describe('reducer:trends', () => {
 
     it('updates the data lens - Company', () => {
       lens = 'Company';
-      result = target({ ...trendsState, ...state }, updateDataLens(lens));
+      result = trends({ ...trendsState, ...state }, updateDataLens(lens));
       expect(result).toMatchObject({
         ...trendsState,
         chartType: 'area',
@@ -143,7 +142,7 @@ describe('reducer:trends', () => {
 
     it('updates the data lens - product', () => {
       lens = 'Product';
-      result = target({ ...trendsState, ...state }, updateDataLens(lens));
+      result = trends({ ...trendsState, ...state }, updateDataLens(lens));
       expect(result).toMatchObject({
         ...trendsState,
         chartType: 'area',
@@ -159,7 +158,7 @@ describe('reducer:trends', () => {
     it('updates the data sublens', () => {
       const subLens = 'sub_something';
       expect(
-        target({ ...trendsState, subLens: 'gg' }, updateDataSubLens(subLens)),
+        trends({ ...trendsState, subLens: 'gg' }, updateDataSubLens(subLens)),
       ).toEqual({
         ...trendsState,
         chartType: 'line',
@@ -174,7 +173,7 @@ describe('reducer:trends', () => {
       const lens = 'Product';
 
       expect(
-        target(
+        trends(
           {
             ...trendsState,
             focus: 'gg',
@@ -198,7 +197,7 @@ describe('reducer:trends', () => {
       action = {};
 
       expect(
-        target(
+        trends(
           {
             ...trendsState,
             focus: 'gg',
@@ -222,7 +221,7 @@ describe('reducer:trends', () => {
   describe('FILTER_ALL_REMOVED action', () => {
     it('resets the FOCUS', () => {
       action = {};
-      result = target(
+      result = trends(
         { ...trendsState, focus: 'gg' },
         removeAllFilters(action),
       );
@@ -239,7 +238,7 @@ describe('reducer:trends', () => {
       action = {
         values: ['A', 'B'],
       };
-      result = target(
+      result = trends(
         { ...trendsState, focus: 'A' },
         removeMultipleFilters(action),
       );
@@ -256,7 +255,7 @@ describe('reducer:trends', () => {
       };
 
       expect(
-        target({ ...trendsState, focus: 'C' }, removeMultipleFilters(action)),
+        trends({ ...trendsState, focus: 'C' }, removeMultipleFilters(action)),
       ).toEqual({
         ...trendsState,
         chartType: 'line',
@@ -267,18 +266,16 @@ describe('reducer:trends', () => {
 
   describe('TAB_CHANGED action', () => {
     it('clears results and resets values', () => {
-      action = {
-        tab: 'Foo',
-      };
+      const payload = 'Foo';
 
       expect(
-        target(
+        trends(
           {
             ...trendsState,
             focus: 'Your',
             results: [1, 2, 3],
           },
-          handleTabChanged(action),
+          changeTab(payload),
         ),
       ).toEqual({
         ...trendsState,
@@ -292,18 +289,16 @@ describe('reducer:trends', () => {
     });
 
     it('leaves Focus alone when tab is Trend', () => {
-      action = {
-        tab: 'Trends',
-      };
+      const payload = 'Trends';
 
       expect(
-        target(
+        trends(
           {
             ...trendsState,
             focus: 'Your',
             results: [1, 2, 3],
           },
-          handleTabChanged(action),
+          changeTab(payload),
         ),
       ).toEqual({
         ...trendsState,
@@ -318,10 +313,8 @@ describe('reducer:trends', () => {
   });
 
   describe('TRENDS_API_CALLED actions', () => {
-    action = {
-      url: 'http://www.example.org',
-    };
-    expect(target(trendsState, trendsCallInProcess(action))).toEqual({
+    const payload = 'http://www.example.org';
+    expect(trends(trendsState, trendsCallInProcess(payload))).toEqual({
       ...trendsState,
       activeCall: 'http://www.example.org',
       chartType: 'line',
@@ -334,7 +327,7 @@ describe('reducer:trends', () => {
     it('handles failed error messages', () => {
       action = { message: 'foo bar', name: 'ErrorTypeName' };
       expect(
-        target(
+        trends(
           {
             ...trendsState,
             activeCall: 'someurl',
@@ -347,9 +340,7 @@ describe('reducer:trends', () => {
           processTrendsError(action),
         ),
       ).toEqual({
-        ...trendsState,
         activeCall: '',
-        chartType: 'line',
         colorMap: {},
         error: { message: 'foo bar', name: 'ErrorTypeName' },
         isLoading: false,
@@ -366,8 +357,10 @@ describe('reducer:trends', () => {
   describe('TRENDS_RECEIVED actions', () => {
     beforeEach(() => {
       action = {
-        data: {
-          aggregations: false,
+        payload: {
+          data: {
+            aggregations: false,
+          },
         },
       };
       state = getDefaultState();
@@ -376,10 +369,10 @@ describe('reducer:trends', () => {
     it('maps data to object state - Overview', () => {
       // to replicate
       // just choose All date range and overview
-      action.data.aggregations = trendsAggs;
+      const payload = { aggregations: trendsAggs };
       state.lens = 'Overview';
       state.subLens = '';
-      result = target({ ...trendsState, ...state }, processTrends(action));
+      result = trends({ ...trendsState, ...state }, processTrends(payload));
       expect(result).toEqual({ ...trendsResults });
     });
 
@@ -387,16 +380,16 @@ describe('reducer:trends', () => {
       // just changing
       state.lens = 'Company';
       state.subLens = '';
-      action.data.aggregations = trendsCompanyAggs;
-      result = target({ ...trendsState, ...state }, processTrends(action));
+      const payload = { aggregations: trendsCompanyAggs };
+      result = trends({ ...trendsState, ...state }, processTrends(payload));
       expect(result).toEqual({ ...trendsCompanyResults });
     });
 
     it('maps data to object state - dupe rows', () => {
-      action.data.aggregations = trendsAggsDupes;
       state.lens = 'Overview';
       state.subLens = '';
-      result = target({ ...trendsState, ...state }, processTrends(action));
+      const payload = { aggregations: trendsAggsDupes };
+      result = trends({ ...trendsState, ...state }, processTrends(payload));
       expect(result).toEqual({ ...trendsState, ...trendsAggsDupeResults });
     });
 
@@ -408,8 +401,8 @@ describe('reducer:trends', () => {
       // you'll get broken buckets since the product recategorization in apr
       state.lens = 'Product';
       state.subLens = 'sub_product';
-      action.data.aggregations = trendsAggsMissingBuckets;
-      result = target(state, processTrends(action));
+      const payload = { aggregations: trendsAggsMissingBuckets };
+      result = trends(state, processTrends(payload));
       expect(result).toEqual(trendsAggsMissingBucketsResults);
     });
 
@@ -417,8 +410,8 @@ describe('reducer:trends', () => {
       state.lens = 'Product';
       state.subLens = 'sub_product';
       state.focus = 'Debt collection';
-      action.data.aggregations = trendsFocusAggs;
-      result = target(state, processTrends(action));
+      const payload = { aggregations: trendsFocusAggs };
+      result = trends(state, processTrends(payload));
       expect(result).toEqual(trendsFocusAggsResults);
       expect(result.results.issue.length).toBeTruthy();
       expect(result.results['sub-product'].length).toBeTruthy();
@@ -429,13 +422,13 @@ describe('reducer:trends', () => {
       state.chartType = 'area';
       state.lens = 'Product';
       state.subLens = 'sub_product';
-      action.data.aggregations = trendsBackfill;
-      result = target(state, processTrends(action));
+      const payload = { aggregations: trendsBackfill };
+      result = trends(state, processTrends(payload));
       expect(result).toEqual(trendsBackfillResults);
     });
 
     it('handles zero results', () => {
-      action.data.aggregations = {
+      const emptyAggs = {
         dateRangeArea: {
           doc_count: 0,
         },
@@ -449,7 +442,7 @@ describe('reducer:trends', () => {
         dateRangeLine: [7, 8, 9],
         product: [1, 2, 3],
       };
-      result = target(state, processTrends(action));
+      result = trends(state, processTrends({ aggregations: emptyAggs }));
       expect(result).toEqual({
         activeCall: '',
         chartType: 'area',
@@ -473,53 +466,51 @@ describe('reducer:trends', () => {
     it('handles no value', () => {
       const action = {};
       const state = { ...trendsState, results: {} };
-      const res = target(state, updateTooltip(action));
+      const res = trends(state, updateTooltip(action));
 
       expect(res.tooltip).toBeFalsy();
     });
 
     it('calculates total and sets the title', () => {
-      action = {
-        value: {
-          date: '2021-06-01T00:00:00.000Z',
-          dateRange: {
-            from: '2021-05-23T00:00:00.000Z',
-            to: '2021-08-23T00:00:00.000Z',
-          },
-          interval: 'Month',
-          values: [
-            {
-              topicName: 'Alpha',
-              name: 'Alpha',
-              date: '2021-06-01T00:00:00.000Z',
-              value: 29769,
-            },
-            {
-              topicName: 'Beta',
-              name: 'Beta',
-              date: '2021-06-01T00:00:00.000Z',
-              value: 6610,
-            },
-            {
-              topicName: 'Charlie',
-              name: 'Charlie',
-              date: '2021-06-01T00:00:00.000Z',
-              value: 2317,
-            },
-            {
-              topicName: 'Delta',
-              name: 'Delta',
-              date: '2021-06-01T00:00:00.000Z',
-              value: 2322,
-            },
-            {
-              topicName: 'Echo',
-              name: 'Echo',
-              date: '2021-06-01T00:00:00.000Z',
-              value: 2174,
-            },
-          ],
+      const payload = {
+        date: '2021-06-01T00:00:00.000Z',
+        dateRange: {
+          from: '2021-05-23T00:00:00.000Z',
+          to: '2021-08-23T00:00:00.000Z',
         },
+        interval: 'Month',
+        values: [
+          {
+            topicName: 'Alpha',
+            name: 'Alpha',
+            date: '2021-06-01T00:00:00.000Z',
+            value: 29769,
+          },
+          {
+            topicName: 'Beta',
+            name: 'Beta',
+            date: '2021-06-01T00:00:00.000Z',
+            value: 6610,
+          },
+          {
+            topicName: 'Charlie',
+            name: 'Charlie',
+            date: '2021-06-01T00:00:00.000Z',
+            value: 2317,
+          },
+          {
+            topicName: 'Delta',
+            name: 'Delta',
+            date: '2021-06-01T00:00:00.000Z',
+            value: 2322,
+          },
+          {
+            topicName: 'Echo',
+            name: 'Echo',
+            date: '2021-06-01T00:00:00.000Z',
+            value: 2174,
+          },
+        ],
       };
       state = {
         ...trendsState,
@@ -531,7 +522,7 @@ describe('reducer:trends', () => {
           Echo: '#532423',
         },
       };
-      result = target(state, updateTooltip(action));
+      result = trends(state, updateTooltip(payload));
 
       expect(result.tooltip).toMatchObject({
         date: '2021-06-01T00:00:00.000Z',
@@ -593,13 +584,13 @@ describe('reducer:trends', () => {
     });
 
     it('handles empty params', () => {
-      expect(target(state, urlChanged(action))).toEqual(state);
+      expect(trends(state, urlChanged(action))).toEqual(state);
     });
 
     it('handles lens params', () => {
       action.params = { lens: 'hello', subLens: 'mom', nope: 'hi' };
 
-      result = target(state, urlChanged(action));
+      result = trends(state, urlChanged(action));
       expect(result.lens).toEqual('Overview');
       expect(result.subLens).toEqual('');
       expect(result.nope).toBeFalsy();

@@ -883,7 +883,7 @@ export const querySlice = createSlice({
  * Makes sure the date range reflects the actual dates selected
  *
  * @param {object} state - the raw, unvalidated state
- * @returns {object} [state] the validated state, or early exit
+ * @returns {object|undefined} the validated state, or early exit
  */
 export function alignDateRange(state) {
   // Shorten the input field names

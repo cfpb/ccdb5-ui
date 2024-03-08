@@ -210,7 +210,7 @@ export const slugify = (first, second) => first + SLUG_SEPARATOR + second;
  */
 export const cloneDeep = (input) => {
   if (typeof input !== 'undefined') {
-    JSON.parse(JSON.stringify(input));
+    return JSON.parse(JSON.stringify(input));
   }
   return input;
 };

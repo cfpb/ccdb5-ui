@@ -274,22 +274,14 @@ describe('module::utils', () => {
       };
 
       const actual = startOfToday();
-      expect(actual.getFullYear()).toEqual(2020);
-      expect(actual.getMonth()).toEqual(4);
-      expect(actual.getDate()).toEqual(9);
-      expect(actual.getHours()).toEqual(0);
-      expect(actual.getMinutes()).toEqual(0);
+      expect(actual).toEqual('2020-05-09');
     });
 
     it('defaults MAX_DATE if the metadata is missing', () => {
       MockDate.set(dayjs('5/1/2020').utc());
 
       const actual = startOfToday();
-      expect(actual.getFullYear()).toEqual(2020);
-      expect(actual.getMonth()).toEqual(4);
-      expect(actual.getDate()).toEqual(1);
-      expect(actual.getHours()).toEqual(0);
-      expect(actual.getMinutes()).toEqual(0);
+      expect(actual).toEqual('2020-05-01');
     });
   });
 

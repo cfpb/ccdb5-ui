@@ -31,19 +31,6 @@ import {
   processHitsResults,
 } from '../reducers/results/results';
 
-export const AGGREGATIONS_API_CALLED = 'aggregationsCallInProcess';
-export const AGGREGATIONS_RECEIVED = 'processAggregationResults';
-export const AGGREGATIONS_FAILED = 'processAggregationError';
-export const COMPLAINTS_API_CALLED = 'COMPLAINTS_API_CALLED';
-export const COMPLAINTS_RECEIVED = 'COMPLAINTS_RECEIVED';
-export const COMPLAINTS_FAILED = 'COMPLAINTS_FAILED';
-export const COMPLAINT_DETAIL_RECEIVED = 'complaintsDetailReceived';
-export const COMPLAINT_DETAIL_FAILED = 'complaintsDetailFailed';
-export const COMPLAINT_DETAIL_CALLED = 'complaintsDetailCalled';
-export const STATES_API_CALLED = 'STATES_API_CALLED';
-export const STATES_RECEIVED = 'STATES_RECEIVED';
-export const STATES_FAILED = 'STATES_FAILED';
-
 // ----------------------------------------------------------------------------
 // Routing action
 /**
@@ -220,19 +207,5 @@ export function getTrends() {
         dispatch(processTrends(items));
       })
       .catch((error) => dispatch(processTrendsError(error)));
-  };
-}
-
-/**
- * Notifies the application that an API call is happening
- *
- * @param {string} type - action type
- * @param {string} url - the url being called
- * @returns {string} a packaged payload to be used by Redux reducers
- */
-export function callingApi(type, url) {
-  return {
-    type,
-    url,
   };
 }

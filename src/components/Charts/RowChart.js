@@ -3,11 +3,11 @@
 import './RowChart.less';
 import * as d3 from 'd3';
 import {
+  cloneDeep,
   coalesce,
   getAllFilters,
   hashObject,
   sendAnalyticsEvent,
-  cloneDeep,
 } from '../../utils';
 import { collapseRow, expandRow } from '../../reducers/view/view';
 import { miniTooltip, row } from 'britecharts';
@@ -26,6 +26,16 @@ export class RowChart extends React.Component {
     this._toggleRow = this._toggleRow.bind(this);
   }
 
+  componentDidMount() {
+    this._redrawChart();
+  }
+
+  componentDidUpdate(prevProps) {
+    const props = this.props;
+    if (hashObject(prevProps) !== hashObject(props)) {
+      this._redrawChart();
+    }
+  }
   _formatTip(value) {
     return value.toLocaleString() + ' complaints';
   }
@@ -95,17 +105,6 @@ export class RowChart extends React.Component {
       }
     });
     /* eslint-enable complexity */
-  }
-
-  componentDidMount() {
-    this._redrawChart();
-  }
-
-  componentDidUpdate(prevProps) {
-    const props = this.props;
-    if (hashObject(prevProps) !== hashObject(props)) {
-      this._redrawChart();
-    }
   }
 
   // --------------------------------------------------------------------------

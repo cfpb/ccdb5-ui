@@ -14,15 +14,15 @@ describe('reducer::detail', () => {
   });
 
   it('handles complaintDetailCalled actions', () => {
-    const action = 'http://someurl.com';
-    expect(detail(detailState, complaintDetailCalled(action))).toEqual({
+    const payload = 'http://someurl.com';
+    expect(detail(detailState, complaintDetailCalled(payload))).toEqual({
       ...detailState,
-      activeCall: action,
+      activeCall: payload,
     });
   });
 
   it('handles complaintDetailReceived actions', () => {
-    const action = {
+    const payload = {
       data: {
         hits: {
           hits: [{ _source: '123' }],
@@ -30,7 +30,7 @@ describe('reducer::detail', () => {
         },
       },
     };
-    expect(detail(detailState, complaintDetailReceived(action))).toEqual({
+    expect(detail(detailState, complaintDetailReceived(payload))).toEqual({
       activeCall: '',
       data: '123',
       error: '',
@@ -38,10 +38,10 @@ describe('reducer::detail', () => {
   });
 
   it('handles complaintDetailFailed actions', () => {
-    const action = {
+    const payload = {
       error: 'foo bar',
     };
-    expect(detail(detailState, complaintDetailFailed(action))).toEqual({
+    expect(detail(detailState, complaintDetailFailed(payload))).toEqual({
       activeCall: '',
       data: {},
       error: 'foo bar',

@@ -133,34 +133,28 @@ describe('reducer:map', () => {
     });
 
     it('handles ROW_COLLAPSED actions', () => {
-      action = {
-        value: 'foo',
-      };
+      const payload = 'foo';
       result = target(
         { ...viewState, expandedRows: ['foo'] },
-        collapseRow(action),
+        collapseRow(payload),
       );
       expect(result).toEqual({ ...viewState, expandedRows: [] });
     });
 
     it('handles ROW_EXPANDED actions', () => {
-      action = {
-        value: 'foo',
-      };
+      const payload = 'foo';
       result = target(
         { ...viewState, expandedRows: ['what'] },
-        expandRow(action),
+        expandRow(payload),
       );
       expect(result).toEqual({ ...viewState, expandedRows: ['what', 'foo'] });
     });
 
     it('handles ROW_EXPANDED dupe value', () => {
-      action = {
-        value: 'foo',
-      };
+      const payload = 'foo';
       result = target(
         { ...viewState, expandedRows: ['foo'] },
-        expandRow(action),
+        expandRow(payload),
       );
       expect(result).toEqual({ ...viewState, expandedRows: ['foo'] });
     });

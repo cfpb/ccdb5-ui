@@ -12,6 +12,9 @@ function setupStore(viewMode) {
   const middlewares = [thunk, queryManager];
   const mockStore = configureMockStore(middlewares);
   return mockStore({
+    aggs: {
+      activeCall: '',
+    },
     map: {
       activeCall: '',
     },

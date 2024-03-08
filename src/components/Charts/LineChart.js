@@ -12,7 +12,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import { connect } from 'react-redux';
 import ErrorBlock from '../Warnings/Error';
 import { hashObject } from '../../utils';
-import { isDateEqual } from '../../utils/formatDate';
+import { formatDate, isDateEqual } from '../../utils/formatDate';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { updateTooltip } from '../../reducers/trends/trends';
@@ -43,7 +43,7 @@ export class LineChart extends React.Component {
   _updateTooltip(point) {
     if (!isDateEqual(this.props.tooltip.date, point.date)) {
       this.props.tooltipUpdated({
-        date: point.date,
+        date: formatDate(point.date),
         dateRange: this.props.dateRange,
         interval: this.props.interval,
         values: point.topics,

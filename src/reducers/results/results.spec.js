@@ -17,10 +17,8 @@ describe('reducer:results', () => {
 
   describe('Complaints', () => {
     describe('handles COMPLAINTS_API_CALLED actions', () => {
-      const action = {
-        url: 'http://www.example.org',
-      };
-      expect(target(resultsState, hitsCallInProcess(action))).toEqual({
+      const payload = 'http://www.example.org';
+      expect(target(resultsState, hitsCallInProcess(payload))).toEqual({
         ...resultsState,
         activeCall: 'http://www.example.org',
         isLoading: true,

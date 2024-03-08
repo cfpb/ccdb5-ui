@@ -102,7 +102,7 @@ export const viewSlice = createSlice({
     collapseRow: {
       reducer: (state, action) => {
         state.expandedRows = state.expandedRows.filter(
-          (obj) => obj !== action.payload.value,
+          (obj) => obj !== action.payload,
         );
       },
       prepare: (payload) => {
@@ -116,8 +116,8 @@ export const viewSlice = createSlice({
     },
     expandRow: {
       reducer: (state, action) => {
-        if (!state.expandedRows.includes(action.payload.value)) {
-          state.expandedRows.push(action.payload.value);
+        if (!state.expandedRows.includes(action.payload)) {
+          state.expandedRows.push(action.payload);
         }
       },
       prepare: (payload) => {

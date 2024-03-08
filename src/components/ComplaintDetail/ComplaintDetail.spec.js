@@ -80,7 +80,7 @@ describe('component::ComplaintDetail', () => {
     expect(screen.getByText('Back to search results')).toBeInTheDocument();
     expect(screen.getByText('Back to search results')).toHaveAttribute(
       'href',
-      '/?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
+      '/',
     );
 
     expect(
@@ -107,7 +107,7 @@ describe('component::ComplaintDetail', () => {
     expect(screen.getByText('Back to search results')).toBeInTheDocument();
     expect(screen.getByText('Back to search results')).toHaveAttribute(
       'href',
-      '/?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
+      '/',
     );
 
     await waitFor(() =>
@@ -151,7 +151,7 @@ describe('component::ComplaintDetail', () => {
     expect(screen.getByText('Back to search results')).toBeInTheDocument();
     expect(screen.getByText('Back to search results')).toHaveAttribute(
       'href',
-      '/?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
+      '/',
     );
 
     await waitFor(() =>

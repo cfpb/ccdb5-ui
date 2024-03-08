@@ -124,13 +124,6 @@ export const trendsSlice = createSlice({
         };
       },
     },
-    handleTabChanged(state, action) {
-      return {
-        ...state,
-        focus: action.payload.tab === MODE_TRENDS ? state.focus : '',
-        results: emptyResults(),
-      };
-    },
     trendsCallInProcess: {
       reducer: (state, action) => {
         state.activeCall = action.payload.url;
@@ -148,6 +141,7 @@ export const trendsSlice = createSlice({
     processTrendsError(state, action) {
       state = getResetState();
       state.error = processErrorMessage(action.payload);
+      return state;
     },
     updateChartType: {
       reducer: (state, action) => {
@@ -246,7 +240,7 @@ export const trendsSlice = createSlice({
     },
     updateTooltip: {
       reducer: (state, action) => {
-        const tooltip = action.payload || false;
+        const tooltip = action.payload.date ? action.payload : false;
 
         // need to merge in the actual viewed state
         if (tooltip) {
@@ -312,11 +306,19 @@ export const trendsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase('query/changeFocus', (state, action) => {
-      state.focus = action.payload.focus;
-      state.lens = action.payload.lens;
-      state.tooltip = false;
-    });
+    builder
+      .addCase('query/changeFocus', (state, action) => {
+        state.focus = action.payload.focus;
+        state.lens = action.payload.lens;
+        state.tooltip = false;
+      })
+      .addCase('query/changeTab', (state, action) => {
+        return {
+          ...state,
+          focus: action.payload.tab === MODE_TRENDS ? state.focus : '',
+          results: emptyResults(),
+        };
+      });
   },
 });
 
@@ -398,10 +400,6 @@ export function processBucket(state, agg) {
 
 /**
  * helper function to pluralize field values
- * <<<<<<< HEAD
- * =======
- *
- * >>>>>>> main
  *
  * @param {string} lens - value we are processing
  * @returns {string} for consumption by AreaData function
