@@ -9,11 +9,12 @@ import cloneDeep from 'lodash/cloneDeep';
 import { connect } from 'react-redux';
 import ErrorBlock from '../Warnings/Error';
 import { hashObject } from '../../utils';
-import { isDateEqual } from '../../utils/formatDate';
+import { formatDate, isDateEqual } from '../../utils/formatDate';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { stackedArea } from 'britecharts';
 import { updateTooltip } from '../../reducers/trends/trends';
+import { debounce } from 'lodash';
 
 export class StackedAreaChart extends React.Component {
   constructor(props) {
@@ -38,8 +39,16 @@ export class StackedAreaChart extends React.Component {
 
   _updateTooltip(point) {
     if (!isDateEqual(this.props.tooltip.date, point.date)) {
+      point.date = formatDate(point.date);
+      point.values = point.values.map((val) => {
+        if (typeof val.date !== 'string') {
+          val.date = formatDate(val.date);
+        }
+        return val;
+      });
+
       this.props.tooltipUpdated({
-        date: point.date,
+        date: formatDate(point.date),
         dateRange: this.props.dateRange,
         interval: this.props.interval,
         values: point.values,
@@ -86,7 +95,15 @@ export class StackedAreaChart extends React.Component {
       .width(width)
       .dateLabel('date')
       .colorSchema(colorScheme)
-      .on('customMouseMove', this._updateTooltip);
+      .on(
+        'customMouseMove',
+        debounce((dataPoint) => {
+          const dataCopy = cloneDeep(dataPoint);
+          dataCopy.interval = interval;
+          dataCopy.dateRange = dateRange;
+          this._updateTooltip(dataCopy);
+        }, 200),
+      );
 
     container.datum(cloneDeep(filteredData)).call(stackedAreaChart);
 
