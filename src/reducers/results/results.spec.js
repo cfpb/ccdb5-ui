@@ -1,7 +1,7 @@
 import target, {
   hitsCallInProcess,
   processHitsError,
-  processHitsResults,
+  complaintsReceived,
   resultsState,
 } from './results';
 
@@ -26,28 +26,29 @@ describe('reducer:results', () => {
     });
 
     describe('handles COMPLAINTS_RECEIVED actions', () => {
-      let action;
+      let payload;
 
       beforeEach(() => {
-        action = {
-          data: {
-            hits: {
-              hits: [{ _source: { val: '123' } }, { _source: { val: '456' } }],
-              total: 2,
-            },
-            _meta: {
-              total_record_count: 162576,
-              last_updated: '2017-07-10T00:00:00.000Z',
-              last_indexed: '2017-07-11T00:00:00.000Z',
-              license: 'CC0',
-            },
+        payload = {
+          hits: {
+            hits: [{ _source: { val: '123' } }, { _source: { val: '456' } }],
+            total: 2,
+          },
+          _meta: {
+            total_record_count: 162576,
+            last_updated: '2017-07-10T00:00:00.000Z',
+            last_indexed: '2017-07-11T00:00:00.000Z',
+            license: 'CC0',
           },
         };
       });
 
       it('extracts the important data from inside the returned data', () => {
         expect(
-          target({ ...resultsState, error: 'foo' }, processHitsResults(action)),
+          target(
+            { ...resultsState, error: 'foo' },
+            complaintsReceived(payload),
+          ),
         ).toEqual({
           activeCall: '',
           error: '',
@@ -57,10 +58,13 @@ describe('reducer:results', () => {
       });
 
       it('replaces text with highlighted text if it exists', () => {
-        action.data.hits.hits[0].highlight = { val: ['<em>123</em>'] };
+        payload.hits.hits[0].highlight = { val: ['<em>123</em>'] };
 
         expect(
-          target({ ...resultsState, error: 'foo' }, processHitsResults(action)),
+          target(
+            { ...resultsState, error: 'foo' },
+            complaintsReceived(payload),
+          ),
         ).toEqual({
           activeCall: '',
           error: '',

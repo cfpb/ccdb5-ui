@@ -28,7 +28,7 @@ import {
 import {
   hitsCallInProcess,
   processHitsError,
-  processHitsResults,
+  complaintsReceived,
 } from '../reducers/results/results';
 
 // ----------------------------------------------------------------------------
@@ -130,7 +130,7 @@ export function getComplaints() {
     return fetch(uri)
       .then((result) => result.json())
       .then((items) => {
-        dispatch(processHitsResults(items));
+        dispatch(complaintsReceived(items));
       })
       .catch((error) => dispatch(processHitsError(error)));
   };

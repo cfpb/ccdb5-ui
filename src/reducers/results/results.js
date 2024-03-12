@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 
 import { createSlice } from '@reduxjs/toolkit';
+import cloneDeep from 'lodash/cloneDeep';
 
 export const resultsState = {
   activeCall: '',
@@ -19,9 +20,9 @@ export const resultsSlice = createSlice({
         state.isLoading = true;
       },
     },
-    processHitsResults: {
+    complaintsReceived: {
       reducer: (state, action) => {
-        const items = _processHits(action.payload.data);
+        const items = _processHits(action);
         state.activeCall = '';
         state.error = '';
         state.isLoading = false;
@@ -44,8 +45,9 @@ export const resultsSlice = createSlice({
   },
 });
 
-export const _processHits = (data) =>
-  data.hits.hits.map((hit) => {
+export const _processHits = (action) => {
+  const data = cloneDeep(action.payload.data);
+  return data.hits.hits.map((hit) => {
     const item = { ...hit._source };
 
     if (hit.highlight) {
@@ -56,7 +58,8 @@ export const _processHits = (data) =>
 
     return item;
   });
+};
 
-export const { hitsCallInProcess, processHitsResults, processHitsError } =
+export const { hitsCallInProcess, complaintsReceived, processHitsError } =
   resultsSlice.actions;
 export default resultsSlice.reducer;

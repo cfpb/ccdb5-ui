@@ -1,7 +1,7 @@
 // Internal triggers
 import { formatDate } from '../utils/formatDate';
 
-export const DATE_RANGE_MIN = formatDate('2011-12-01T12:00:00.000Z');
+export const DATE_RANGE_MIN = '2011-12-01T12:00:00.000Z';
 
 // dayjs formatter to uses for custom validation
 // https://day.js.org/docs/en/parse/string-format

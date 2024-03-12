@@ -824,7 +824,7 @@ export const querySlice = createSlice({
         state.search = stateToURL(state);
         state.queryString = stateToQS(state);
       })
-      .addCase('results/processHitsResults', (state, action) => {
+      .addCase('results/complaintsReceived', (state, action) => {
         querySlice.caseReducers.processParams(state, action);
         querySlice.caseReducers.updateTotalPages(state, action);
       })
