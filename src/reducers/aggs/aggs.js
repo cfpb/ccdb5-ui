@@ -33,12 +33,12 @@ export const aggSlice = createSlice({
   name: 'aggs',
   initialState: aggState,
   reducers: {
-    aggregationsCallInProcess: (state, action) => {
+    aggregationsApiCalled: (state, action) => {
       state.error = '';
       state.activeCall = action.payload;
       state.isLoading = true;
     },
-    processAggregationResults: {
+    aggregationsReceived: {
       reducer: (state, action) => {
         const aggs = action.payload.data.aggregations;
         const keys = Object.keys(aggs);
@@ -72,7 +72,7 @@ export const aggSlice = createSlice({
         };
       },
     },
-    processAggregationError: {
+    aggregationsApiFailed: {
       reducer: (state, action) => {
         state.isLoading = false;
         state.activeCall = '';
@@ -91,9 +91,9 @@ export const aggSlice = createSlice({
 });
 
 export const {
-  aggregationsCallInProcess,
-  processAggregationResults,
-  processAggregationError,
+  aggregationsApiCalled,
+  aggregationsReceived,
+  aggregationsApiFailed,
 } = aggSlice.actions;
 
 export default aggSlice.reducer;

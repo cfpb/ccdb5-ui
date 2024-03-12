@@ -11,23 +11,23 @@ import {
   complaintDetailFailed,
 } from '../reducers/detail/detail';
 import {
-  processTrends,
-  processTrendsError,
-  trendsCallInProcess,
+  trendsReceived,
+  trendsApiFailed,
+  trendsApiCalled,
 } from '../reducers/trends/trends';
 import {
-  processStatesError,
-  processStatesResults,
-  statesCallInProcess,
+  statesApiCalled,
+  statesApiFailed,
+  statesReceived,
 } from '../reducers/map/map';
 import {
-  aggregationsCallInProcess,
-  processAggregationError,
-  processAggregationResults,
+  aggregationsApiCalled,
+  aggregationsApiFailed,
+  aggregationsReceived,
 } from '../reducers/aggs/aggs';
 import {
-  hitsCallInProcess,
-  processHitsError,
+  complaintsApiCalled,
+  complaintsApiFailed,
   complaintsReceived,
 } from '../reducers/results/results';
 
@@ -103,11 +103,11 @@ export function getAggregations() {
       return null;
     }
 
-    dispatch(aggregationsCallInProcess(uri));
+    dispatch(aggregationsApiCalled(uri));
     return fetch(uri)
       .then((result) => result.json())
-      .then((items) => dispatch(processAggregationResults(items)))
-      .catch((error) => dispatch(processAggregationError(error)));
+      .then((items) => dispatch(aggregationsReceived(items)))
+      .catch((error) => dispatch(aggregationsApiFailed(error)));
   };
 }
 
@@ -126,13 +126,13 @@ export function getComplaints() {
       return null;
     }
 
-    dispatch(hitsCallInProcess(uri));
+    dispatch(complaintsApiCalled(uri));
     return fetch(uri)
       .then((result) => result.json())
       .then((items) => {
         dispatch(complaintsReceived(items));
       })
-      .catch((error) => dispatch(processHitsError(error)));
+      .catch((error) => dispatch(complaintsApiFailed(error)));
   };
 }
 
@@ -169,11 +169,11 @@ export function getStates() {
       return null;
     }
 
-    dispatch(statesCallInProcess(uri));
+    dispatch(statesApiCalled(uri));
     return fetch(uri)
       .then((result) => result.json())
-      .then((items) => dispatch(processStatesResults(items)))
-      .catch((error) => dispatch(processStatesError(error)));
+      .then((items) => dispatch(statesReceived(items)))
+      .catch((error) => dispatch(statesApiFailed(error)));
   };
 }
 
@@ -200,12 +200,12 @@ export function getTrends() {
       return null;
     }
 
-    dispatch(trendsCallInProcess(uri));
+    dispatch(trendsApiCalled(uri));
     return fetch(uri)
       .then((result) => result.json())
       .then((items) => {
-        dispatch(processTrends(items));
+        dispatch(trendsReceived(items));
       })
-      .catch((error) => dispatch(processTrendsError(error)));
+      .catch((error) => dispatch(trendsApiFailed(error)));
   };
 }

@@ -1,6 +1,6 @@
 import target, {
-  hitsCallInProcess,
-  processHitsError,
+  complaintsApiCalled,
+  complaintsApiFailed,
   complaintsReceived,
   resultsState,
 } from './results';
@@ -18,7 +18,7 @@ describe('reducer:results', () => {
   describe('Complaints', () => {
     describe('handles COMPLAINTS_API_CALLED actions', () => {
       const payload = 'http://www.example.org';
-      expect(target(resultsState, hitsCallInProcess(payload))).toEqual({
+      expect(target(resultsState, complaintsApiCalled(payload))).toEqual({
         ...resultsState,
         activeCall: 'http://www.example.org',
         isLoading: true,
@@ -79,7 +79,10 @@ describe('reducer:results', () => {
         error: 'foo bar',
       };
       expect(
-        target({ ...resultsState, items: [1, 2, 3] }, processHitsError(action)),
+        target(
+          { ...resultsState, items: [1, 2, 3] },
+          complaintsApiFailed(action),
+        ),
       ).toEqual({
         activeCall: '',
         error: 'foo bar',

@@ -1,6 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import * as sut from '../complaints';
+import { complaintsApiCalled } from '../../reducers/results/results';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -14,6 +15,7 @@ function setupStore(tab) {
   return mockStore({
     map: {},
     query: {
+      queryString: '?foobar',
       tab,
     },
     trends: {
@@ -25,14 +27,12 @@ function setupStore(tab) {
   });
 }
 
-describe.skip('action::complaints', () => {
+describe('action::complaints', () => {
   describe('sendHitsQuery', () => {
     it('calls the Complaints API', () => {
       const store = setupStore('List');
       store.dispatch(sut.sendHitsQuery());
-      const expectedActions = [
-        { type: sut.COMPLAINTS_API_CALLED, url: expect.any(String) },
-      ];
+      const expectedActions = [complaintsApiCalled('@@API?foobar')];
 
       expect(store.getActions()).toEqual(expectedActions);
     });

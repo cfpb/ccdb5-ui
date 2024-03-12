@@ -54,7 +54,7 @@ export const trendsSlice = createSlice({
   name: 'trends',
   initialState: trendsState,
   reducers: {
-    processTrends: {
+    trendsReceived: {
       reducer: (state, action) => {
         const aggregations = action.payload.data.aggregations;
         const { focus, lens, subLens } = state;
@@ -124,7 +124,7 @@ export const trendsSlice = createSlice({
         };
       },
     },
-    trendsCallInProcess: {
+    trendsApiCalled: {
       reducer: (state, action) => {
         state.activeCall = action.payload.url;
         state.isLoading = true;
@@ -138,7 +138,7 @@ export const trendsSlice = createSlice({
         };
       },
     },
-    processTrendsError(state, action) {
+    trendsApiFailed(state, action) {
       state = getResetState();
       state.error = processErrorMessage(action.payload);
       return state;
@@ -616,10 +616,10 @@ export const getColorScheme = (lens, rowNames) => {
 };
 
 export const {
-  processTrends,
+  trendsReceived,
   handleTabChanged,
-  trendsCallInProcess,
-  processTrendsError,
+  trendsApiCalled,
+  trendsApiFailed,
   updateChartType,
   updateDataLens,
   updateDataSubLens,

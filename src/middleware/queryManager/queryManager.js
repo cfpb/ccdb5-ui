@@ -1,6 +1,6 @@
-import * as constants from '../constants';
-import { sendHitsQuery, sendQuery } from '../actions/complaints';
-import { coalesce } from '../utils';
+import * as constants from '../../constants';
+import { sendHitsQuery, sendQuery } from '../../actions/complaints';
+import { coalesce } from '../../utils';
 
 export const queryManager = (store) => (next) => (action) => {
   // call the next function

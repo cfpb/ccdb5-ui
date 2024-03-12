@@ -1,8 +1,8 @@
 import target, {
-  processStatesResults,
+  statesReceived,
   mapState,
-  processStatesError,
-  statesCallInProcess,
+  statesApiFailed,
+  statesApiCalled,
   handleTabChanged,
   processStateAggregations,
 } from './map';
@@ -29,7 +29,7 @@ describe('reducer:map', () => {
     action = {
       url: 'http://www.example.org',
     };
-    expect(target(mapState, statesCallInProcess(action))).toEqual({
+    expect(target(mapState, statesApiCalled(action))).toEqual({
       ...mapState,
       activeCall: 'http://www.example.org',
       error: false,
@@ -45,7 +45,7 @@ describe('reducer:map', () => {
     });
 
     it('maps data to object state', () => {
-      const result = target(mapState, processStatesResults(action));
+      const result = target(mapState, statesReceived(action));
       expect(result).toEqual({
         ...mapState,
         activeCall: '',
@@ -173,7 +173,7 @@ describe('reducer:map', () => {
               state: [1, 2, 3],
             },
           },
-          processStatesError(action),
+          statesApiFailed(action),
         ),
       ).toEqual({
         ...mapState,

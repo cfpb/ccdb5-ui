@@ -1,8 +1,8 @@
 import target, {
-  aggregationsCallInProcess,
+  aggregationsApiCalled,
   aggState,
-  processAggregationError,
-  processAggregationResults,
+  aggregationsApiFailed,
+  aggregationsReceived,
 } from './aggs';
 
 describe('reducer:aggs', () => {
@@ -12,17 +12,17 @@ describe('reducer:aggs', () => {
     expect(actual).toEqual(aggState);
   });
 
-  it('handles aggregationsCallInProcess actions', () => {
+  it('handles aggregationsApiCalled actions', () => {
     const action = 'foobar';
 
-    expect(target(aggState, aggregationsCallInProcess(action))).toEqual({
+    expect(target(aggState, aggregationsApiCalled(action))).toEqual({
       ...aggState,
       activeCall: 'foobar',
       isLoading: true,
     });
   });
 
-  it('handles processAggregationError actions', () => {
+  it('handles aggregationsApiFailed actions', () => {
     const action = { message: 'error message', name: 'messageTypeName' };
 
     const expected = {
@@ -35,12 +35,12 @@ describe('reducer:aggs', () => {
           ...aggState,
           error: '',
         },
-        processAggregationError(action),
+        aggregationsApiFailed(action),
       ),
     ).toEqual(expected);
   });
 
-  it('handles processAggregationResults actions', () => {
+  it('handles aggregationsReceived actions', () => {
     const action = {
       aggregations: {
         company_response: {
@@ -73,10 +73,7 @@ describe('reducer:aggs', () => {
     };
 
     expect(
-      target(
-        { ...aggState, doc_count: 100 },
-        processAggregationResults(action),
-      ),
+      target({ ...aggState, doc_count: 100 }, aggregationsReceived(action)),
     ).toEqual(expected);
   });
 });

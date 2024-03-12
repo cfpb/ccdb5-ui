@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { queryManager } from '../queryManager';
+import { queryManager } from './queryManager';
 import { REQUERY_ALWAYS, REQUERY_HITS_ONLY } from '../../constants';
 
 /**
@@ -91,10 +91,10 @@ describe('redux middleware::queryManager', () => {
           const expectedActions = [
             { type: 'FakeAction', meta: { requery: REQUERY_ALWAYS } },
             {
-              type: 'aggs/aggregationsCallInProcess',
+              type: 'aggs/aggregationsApiCalled',
               payload: '@@API?foo&size=0',
             },
-            { type: 'results/hitsCallInProcess', payload: '@@API?foo' },
+            { type: 'results/complaintsApiCalled', payload: '@@API?foo' },
           ];
           store.dispatch(action);
           expect(store.getActions()).toEqual(expectedActions);
@@ -109,7 +109,7 @@ describe('redux middleware::queryManager', () => {
           };
           const expectedActions = [
             { type: 'FakeAction', meta: { requery: REQUERY_HITS_ONLY } },
-            { type: 'results/hitsCallInProcess', payload: '@@API?foo' },
+            { type: 'results/complaintsApiCalled', payload: '@@API?foo' },
           ];
           store.dispatch(action);
           expect(store.getActions()).toEqual(expectedActions);
@@ -130,11 +130,11 @@ describe('redux middleware::queryManager', () => {
           const expectedActions = [
             { type: 'FakeAction', meta: { requery: REQUERY_ALWAYS } },
             {
-              type: 'aggs/aggregationsCallInProcess',
+              type: 'aggs/aggregationsApiCalled',
               payload: '@@API?foo&size=0',
             },
             {
-              type: 'map/statesCallInProcess',
+              type: 'map/statesApiCalled',
               payload: '@@APIgeo/states/?foo&no_aggs=true',
             },
           ];
@@ -155,7 +155,7 @@ describe('redux middleware::queryManager', () => {
           const expectedActions = [
             { type: 'FakeAction', meta: { requery: REQUERY_HITS_ONLY } },
             {
-              type: 'map/statesCallInProcess',
+              type: 'map/statesApiCalled',
               payload: '@@APIgeo/states/?foo&no_aggs=true',
             },
           ];

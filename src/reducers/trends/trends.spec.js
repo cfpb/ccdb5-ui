@@ -1,12 +1,12 @@
 import trends, {
   getDefaultState,
   mainNameLens,
-  processTrends,
-  processTrendsError,
+  trendsReceived,
+  trendsApiFailed,
   removeAllFilters,
   removeFocus,
   removeMultipleFilters,
-  trendsCallInProcess,
+  trendsApiCalled,
   trendsState,
   updateDataLens,
   updateDataSubLens,
@@ -314,7 +314,7 @@ describe('reducer:trends', () => {
 
   describe('TRENDS_API_CALLED actions', () => {
     const payload = 'http://www.example.org';
-    expect(trends(trendsState, trendsCallInProcess(payload))).toEqual({
+    expect(trends(trendsState, trendsApiCalled(payload))).toEqual({
       ...trendsState,
       activeCall: 'http://www.example.org',
       chartType: 'line',
@@ -337,7 +337,7 @@ describe('reducer:trends', () => {
               product: [13, 25],
             },
           },
-          processTrendsError(action),
+          trendsApiFailed(action),
         ),
       ).toEqual({
         activeCall: '',
@@ -372,7 +372,7 @@ describe('reducer:trends', () => {
       const payload = { aggregations: trendsAggs };
       state.lens = 'Overview';
       state.subLens = '';
-      result = trends({ ...trendsState, ...state }, processTrends(payload));
+      result = trends({ ...trendsState, ...state }, trendsReceived(payload));
       expect(result).toEqual({ ...trendsResults });
     });
 
@@ -381,7 +381,7 @@ describe('reducer:trends', () => {
       state.lens = 'Company';
       state.subLens = '';
       const payload = { aggregations: trendsCompanyAggs };
-      result = trends({ ...trendsState, ...state }, processTrends(payload));
+      result = trends({ ...trendsState, ...state }, trendsReceived(payload));
       expect(result).toEqual({ ...trendsCompanyResults });
     });
 
@@ -389,7 +389,7 @@ describe('reducer:trends', () => {
       state.lens = 'Overview';
       state.subLens = '';
       const payload = { aggregations: trendsAggsDupes };
-      result = trends({ ...trendsState, ...state }, processTrends(payload));
+      result = trends({ ...trendsState, ...state }, trendsReceived(payload));
       expect(result).toEqual({ ...trendsState, ...trendsAggsDupeResults });
     });
 
@@ -402,7 +402,7 @@ describe('reducer:trends', () => {
       state.lens = 'Product';
       state.subLens = 'sub_product';
       const payload = { aggregations: trendsAggsMissingBuckets };
-      result = trends(state, processTrends(payload));
+      result = trends(state, trendsReceived(payload));
       expect(result).toEqual(trendsAggsMissingBucketsResults);
     });
 
@@ -411,7 +411,7 @@ describe('reducer:trends', () => {
       state.subLens = 'sub_product';
       state.focus = 'Debt collection';
       const payload = { aggregations: trendsFocusAggs };
-      result = trends(state, processTrends(payload));
+      result = trends(state, trendsReceived(payload));
       expect(result).toEqual(trendsFocusAggsResults);
       expect(result.results.issue.length).toBeTruthy();
       expect(result.results['sub-product'].length).toBeTruthy();
@@ -423,7 +423,7 @@ describe('reducer:trends', () => {
       state.lens = 'Product';
       state.subLens = 'sub_product';
       const payload = { aggregations: trendsBackfill };
-      result = trends(state, processTrends(payload));
+      result = trends(state, trendsReceived(payload));
       expect(result).toEqual(trendsBackfillResults);
     });
 
@@ -442,7 +442,7 @@ describe('reducer:trends', () => {
         dateRangeLine: [7, 8, 9],
         product: [1, 2, 3],
       };
-      result = trends(state, processTrends({ aggregations: emptyAggs }));
+      result = trends(state, trendsReceived({ aggregations: emptyAggs }));
       expect(result).toEqual({
         activeCall: '',
         chartType: 'area',

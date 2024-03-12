@@ -14,7 +14,7 @@ export const resultsSlice = createSlice({
   name: 'results',
   initialState: resultsState,
   reducers: {
-    hitsCallInProcess: {
+    complaintsApiCalled: {
       reducer: (state, action) => {
         state.activeCall = action.payload;
         state.isLoading = true;
@@ -36,7 +36,7 @@ export const resultsSlice = createSlice({
         };
       },
     },
-    processHitsError(state, action) {
+    complaintsApiFailed(state, action) {
       return {
         ...resultsState,
         error: action.payload.error,
@@ -60,6 +60,6 @@ export const _processHits = (action) => {
   });
 };
 
-export const { hitsCallInProcess, complaintsReceived, processHitsError } =
+export const { complaintsApiCalled, complaintsReceived, complaintsApiFailed } =
   resultsSlice.actions;
 export default resultsSlice.reducer;

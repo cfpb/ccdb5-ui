@@ -51,14 +51,14 @@ export const mapSlice = createSlice({
         },
       };
     },
-    statesCallInProcess: {
+    statesApiCalled: {
       reducer: (state, action) => {
         state.activeCall = action.payload.url;
         state.error = false;
         state.isLoading = true;
       },
     },
-    processStatesResults(state, action) {
+    statesReceived(state, action) {
       const aggregations = action.payload.aggregations;
       const { state: stateData } = aggregations;
       // add in "issue" if we ever need issue row chart again
@@ -75,7 +75,7 @@ export const mapSlice = createSlice({
         results,
       };
     },
-    processStatesError(state, action) {
+    statesApiFailed(state, action) {
       return {
         ...state,
         activeCall: '',
@@ -92,8 +92,8 @@ export const mapSlice = createSlice({
 
 export const {
   handleTabChanged,
-  statesCallInProcess,
-  processStatesResults,
-  processStatesError,
+  statesApiCalled,
+  statesReceived,
+  statesApiFailed,
 } = mapSlice.actions;
 export default mapSlice.reducer;

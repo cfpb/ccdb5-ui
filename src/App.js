@@ -2,7 +2,7 @@ import './css/App.less';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
-import queryManager from './middleware/queryManager';
+import queryManager from './middleware/queryManager/queryManager';
 import { ComplaintDetail } from './components/ComplaintDetail/ComplaintDetail';
 import React from 'react';
 import { SearchComponents } from './components/Search/SearchComponents';
