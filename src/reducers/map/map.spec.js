@@ -40,9 +40,7 @@ describe('reducer:map', () => {
   describe('STATES_RECEIVED actions', () => {
     beforeEach(() => {
       action = {
-        data: {
-          aggregations: stateAggs,
-        },
+        aggregations: stateAggs,
       };
     });
 
@@ -162,7 +160,8 @@ describe('reducer:map', () => {
   describe('STATES_FAILED actions', () => {
     it('handles failed error messages', () => {
       action = {
-        error: { message: 'foo bar', name: 'ErrorTypeName' },
+        message: 'foo bar',
+        name: 'ErrorTypeName',
       };
 
       expect(
