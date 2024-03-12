@@ -262,11 +262,11 @@ export function shortFormat(date) {
  */
 export function shortIsoFormat(date) {
   if (typeof date === 'string') {
-    return date ? date.slice(0, 10) : '';
-  } else if (typeof date === 'object') {
+    return date.slice(0, 10);
+  } else if (typeof date === 'object' && date !== null) {
     return dayjs(date).toISOString().slice(0, 10);
   }
-  return date;
+  return '';
 }
 
 /**

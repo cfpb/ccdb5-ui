@@ -57,7 +57,7 @@ describe('DataExport', () => {
       screen.getByRole('button', { name: /Start export/ }),
     ).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
-    const buttonCopy = screen.getByRole('button', { name: 'Copy' });
+    const buttonCopy = screen.getByRole('button', { name: /Copy/ });
     expect(buttonCopy).toBeInTheDocument();
     expect(buttonCopy).toHaveClass('a-btn__secondary');
     fireEvent.click(buttonCopy);
@@ -65,8 +65,8 @@ describe('DataExport', () => {
       expect(buttonCopy).toHaveClass('export-url-copied');
     });
 
-    expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Close' }));
+    expect(screen.getByRole('button', { name: /Close/i })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /Close/i }));
     expect(modalHiddenSpy).toHaveBeenCalled();
   });
 
