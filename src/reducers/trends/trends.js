@@ -9,7 +9,7 @@ import {
   getSubKeyName,
   processErrorMessage,
 } from '../../utils';
-import { enforceValues } from '../../utils/reducers';
+import { enforceValues, validateTrendsReducer } from '../../utils/reducers';
 import {
   getD3Names,
   getTooltipTitle,
@@ -51,7 +51,7 @@ export const trendsState = getDefaultState();
 
 export const trendsSlice = createSlice({
   name: 'trends',
-  initialState: trendsState,
+  initialState: Object.assign({}, trendsState),
   reducers: {
     trendsReceived: {
       reducer: (state, action) => {
@@ -136,7 +136,7 @@ export const trendsSlice = createSlice({
       },
     },
     trendsApiFailed(state, action) {
-      state = getResetState();
+      state = Object.assign({}, trendsState);
       state.error = processErrorMessage(action.payload);
       return state;
     },
@@ -223,17 +223,14 @@ export const trendsSlice = createSlice({
     },
     processParams(state, action) {
       const params = action.payload.params;
-      const processed = Object.assign({}, trendsState);
-
       // Handle flag filters
       const filters = ['chartType', 'focus', 'lens', 'subLens'];
       for (const val of filters) {
         if (params[val]) {
-          processed[val] = enforceValues(params[val], val);
+          state[val] = enforceValues(params[val], val);
         }
       }
-
-      return processed;
+      validateTrendsReducer(state);
     },
     updateTooltip: {
       reducer: (state, action) => {
@@ -315,6 +312,9 @@ export const trendsSlice = createSlice({
           focus: action.payload.tab === MODE_TRENDS ? state.focus : '',
           results: emptyResults(),
         };
+      })
+      .addCase('routes/routeChanged', (state, action) => {
+        trendsSlice.caseReducers.processParams(state, action);
       });
   },
 });

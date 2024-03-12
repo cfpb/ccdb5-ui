@@ -1,5 +1,4 @@
 import trends, {
-  getDefaultState,
   mainNameLens,
   trendsReceived,
   trendsApiFailed,
@@ -11,6 +10,7 @@ import trends, {
   updateDataLens,
   updateDataSubLens,
   updateTooltip,
+  getDefaultState,
 } from './trends';
 import {
   trendsBackfill,
@@ -35,6 +35,7 @@ import {
 } from '../__fixtures__/trendsAggsMissingBuckets';
 import { updateChartType } from './trends';
 import { changeFocus, changeTab } from '../query/query';
+import { routeChanged } from '../routes/routesSlice';
 
 describe('reducer:trends', () => {
   let action, result, state;
@@ -339,12 +340,16 @@ describe('reducer:trends', () => {
         ),
       ).toEqual({
         activeCall: '',
+        chartType: 'line',
         colorMap: {},
         error: { message: 'foo bar', name: 'ErrorTypeName' },
+        focus: '',
+        lens: 'Product',
         results: {
           dateRangeArea: [],
           dateRangeLine: [],
         },
+        subLens: 'sub_product',
         tooltip: false,
         total: 0,
       });
@@ -569,28 +574,42 @@ describe('reducer:trends', () => {
       });
     });
   });
-  /*
-  describe.skip('URL_CHANGED actions', () => {
-    beforeEach(() => {
-      action = {
-        params: {},
-      };
 
-      state = getDefaultState();
+  describe('URL_CHANGED actions', () => {
+    beforeEach(() => {
+      state = trendsState;
     });
 
     it('handles empty params', () => {
-      expect(trends(state, urlChanged(action))).toEqual(state);
+      expect(trends(state, routeChanged('/', {}))).toEqual(state);
+    });
+
+    it('handles invalid lens params', () => {
+      const params = { lens: 'foobar', subLens: 'mom', nope: 'hi' };
+      const path = '/';
+      result = trends(state, routeChanged(path, params));
+      expect(result.lens).toEqual('Product');
+      expect(result.subLens).toEqual('sub_product');
+      expect(result.nope).toBeFalsy();
     });
 
     it('handles lens params', () => {
-      action.params = { lens: 'hello', subLens: 'mom', nope: 'hi' };
+      const params = { lens: 'Overview', subLens: 'product', nope: 'hi' };
+      const path = '/';
 
-      result = trends(state, urlChanged(action));
+      result = trends(state, routeChanged(path, params));
       expect(result.lens).toEqual('Overview');
       expect(result.subLens).toEqual('');
       expect(result.nope).toBeFalsy();
     });
+    it('handles company lens params', () => {
+      const params = { lens: 'Company', subLens: 'product', nope: 'hi' };
+      const path = '/';
+
+      result = trends(state, routeChanged(path, params));
+      expect(result.lens).toEqual('Company');
+      expect(result.subLens).toEqual('product');
+      expect(result.nope).toBeFalsy();
+    });
   });
-  */
 });
