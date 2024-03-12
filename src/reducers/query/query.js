@@ -18,7 +18,7 @@ import {
   REQUERY_HITS_ONLY,
   REQUERY_NEVER,
 } from '../../constants';
-import { formatDateModel } from '../../utils/formatDate';
+import { formatDateIso } from '../../utils/formatDate';
 
 const queryString = require('query-string');
 
@@ -105,7 +105,8 @@ export const querySlice = createSlice({
         // Handle date filters
         types.dateFilters.forEach((field) => {
           if (typeof params[field] !== 'undefined') {
-            const date = formatDateModel(params[field]);
+            const date = formatDateIso(params[field]);
+
             if (date) {
               state[field] = date;
             }
@@ -463,8 +464,8 @@ export const querySlice = createSlice({
         // adjust date filter for max and min ranges
         state.dateRange = 'All';
         /* eslint-disable camelcase */
-        state.date_received_min = types.DATE_RANGE_MIN;
-        state.date_received_max = startOfToday();
+        state.date_received_min = dayjs(types.DATE_RANGE_MIN).toISOString();
+        state.date_received_max = dayjs(startOfToday()).toISOString();
         state.focus = '';
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);

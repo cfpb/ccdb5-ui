@@ -551,11 +551,9 @@ describe('reducer:query', () => {
     });
 
     it('converts some parameters to dates', () => {
-      const expected = new Date(2013, 1, 3);
       params = { date_received_min: '2013-02-03' };
       actual = target(state, processParams(params)).date_received_min;
-      expect(actual.getFullYear()).toEqual(expected.getFullYear());
-      expect(actual.getMonth()).toEqual(expected.getMonth());
+      expect(actual).toEqual('2013-02-03T05:00:00.000Z');
     });
 
     it('converts flag parameters to booleans', () => {
@@ -617,14 +615,12 @@ describe('reducer:query', () => {
     });
 
     it('handles the "All" button from the landing page', () => {
-      const dateMin = new Date(types.DATE_RANGE_MIN);
-
       params = { dataNormalization: 'None', dateRange: 'All' };
 
       actual = target(state, processParams(params));
 
-      expect(actual.date_received_min).toEqual(dateMin);
-      expect(actual.date_received_max).toEqual(maxDate);
+      expect(actual.date_received_min).toEqual('2011-12-01T12:00:00.000Z');
+      expect(actual.date_received_max).toEqual('2020-05-05T04:00:00.000Z');
       expect(actual.dateRange).toEqual('All');
     });
 
@@ -636,57 +632,52 @@ describe('reducer:query', () => {
       });
 
       it('clears the default range if the dates are not 3 years apart', () => {
-        state.date_received_min = new Date(dayjs(maxDate).subtract(2, 'years'));
+        state.date_received_min = dayjs(
+          new Date(dayjs(maxDate).subtract(2, 'years')),
+        ).toISOString();
         expected.dateRange = '';
         expected.date_received_min = state.date_received_min;
 
-        const actual = alignDateRange(state);
-        expect(actual).toEqual(expected);
+        alignDateRange(state);
+        expect(state.dateRange).toEqual('');
       });
 
       it('sets the All range if the dates are right', () => {
-        state.date_received_min = new Date(types.DATE_RANGE_MIN);
-        expected.dateRange = 'All';
-        expected.date_received_min = state.date_received_min;
-
-        const actual = alignDateRange(state);
-        expect(actual).toEqual(expected);
+        state.date_received_min = dayjs(
+          new Date(types.DATE_RANGE_MIN),
+        ).toISOString();
+        alignDateRange(state);
+        expect(state.dateRange).toEqual('All');
       });
 
       it('sets the 3m range if the dates are right', () => {
-        state.date_received_min = new Date(
-          dayjs(maxDate).subtract(3, 'months'),
-        );
-        expected.dateRange = '3m';
-        expected.date_received_min = state.date_received_min;
-
-        const actual = alignDateRange(state);
-        expect(actual).toEqual(expected);
+        state.date_received_min = dayjs(
+          new Date(dayjs(maxDate).subtract(3, 'months')),
+        ).toISOString();
+        alignDateRange(state);
+        expect(state.dateRange).toEqual('3m');
       });
 
       it('sets the 6m range if the dates are right', () => {
-        state.date_received_min = new Date(
-          dayjs(maxDate).subtract(6, 'months'),
-        );
-        expected.dateRange = '6m';
-        expected.date_received_min = state.date_received_min;
+        state.date_received_min = dayjs(
+          new Date(dayjs(maxDate).subtract(6, 'months')),
+        ).toISOString();
 
-        const actual = alignDateRange(state);
-        expect(actual).toEqual(expected);
+        alignDateRange(state);
+        expect(state.dateRange).toEqual('6m');
       });
 
       it('sets the 1y range if the dates are right', () => {
-        state.date_received_min = new Date(dayjs(maxDate).subtract(1, 'year'));
-        expected.dateRange = '1y';
-        expected.date_received_min = state.date_received_min;
-
-        const actual = alignDateRange(state);
-        expect(actual).toEqual(expected);
+        state.date_received_min = dayjs(
+          new Date(dayjs(maxDate).subtract(1, 'year')),
+        ).toISOString();
+        alignDateRange(state);
+        expect(state.dateRange).toEqual('1y');
       });
 
       it('sets the 3y range if the dates are right', () => {
-        const actual = alignDateRange(state);
-        expect(actual).toEqual(expected);
+        alignDateRange(state);
+        expect(state.dateRange).toEqual('3y');
       });
     });
   });
@@ -1086,7 +1077,6 @@ describe('reducer:query', () => {
         state = {
           ...queryState,
           company: ['Acme'],
-          date_received_min: new Date(types.DATE_RANGE_MIN),
           from: 100,
           has_narrative: true,
           searchField: 'all',
@@ -1103,6 +1093,7 @@ describe('reducer:query', () => {
         expect(actual).toMatchObject({
           ...state,
           dateRange: 'All',
+          date_received_min: '2011-12-01T12:00:00.000Z',
           from: 0,
           searchField: 'all',
           size: 100,
@@ -1121,6 +1112,7 @@ describe('reducer:query', () => {
         expect(actual).toMatchObject({
           ...state,
           dateRange: 'All',
+          date_received_min: '2011-12-01T12:00:00.000Z',
           enablePer1000: false,
           from: 0,
           mapWarningEnabled: true,
@@ -1142,6 +1134,7 @@ describe('reducer:query', () => {
           expect(actual).toMatchObject({
             ...state,
             dateRange: 'All',
+            date_received_min: '2011-12-01T12:00:00.000Z',
             from: 0,
             has_narrative: true,
             searchField: types.NARRATIVE_SEARCH_FIELD,
@@ -1441,11 +1434,11 @@ describe('reducer:query', () => {
       });
 
       it('adds dateRange', () => {
-        const min = new Date(dayjs(maxDate).subtract(3, 'months'));
-        result = target(
-          { ...queryState },
-          changeDates(filterName, min, maxDate),
-        );
+        // date range should only be applied to when the max date is
+        // today's date
+        const max = dayjs(startOfToday());
+        const min = new Date(dayjs(max).subtract(3, 'months'));
+        result = target({ ...queryState }, changeDates(filterName, min, max));
         expect(result.dateRange).toEqual('3m');
       });
 

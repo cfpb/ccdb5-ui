@@ -34,6 +34,7 @@ export const adjustDate = (dateIn) =>
 export const formatDateModel = (dateIn) =>
   dayjs(new Date(dateIn)).utc().add(5.5, 'hours').format('YYYY-MM-DD');
 
+export const formatDateIso = (dateIn) => dayjs(dateIn).toISOString();
 /**
  * Function to format/convert a string to format we want for the model
  *
