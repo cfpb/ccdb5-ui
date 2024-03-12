@@ -47,7 +47,6 @@ describe('reducer:trends', () => {
         colorMap: {},
         error: false,
         focus: '',
-        isLoading: false,
         lens: 'Product',
         results: {
           dateRangeArea: [],
@@ -318,7 +317,6 @@ describe('reducer:trends', () => {
       ...trendsState,
       activeCall: 'http://www.example.org',
       chartType: 'line',
-      isLoading: true,
       tooltip: false,
     });
   });
@@ -343,7 +341,6 @@ describe('reducer:trends', () => {
         activeCall: '',
         colorMap: {},
         error: { message: 'foo bar', name: 'ErrorTypeName' },
-        isLoading: false,
         results: {
           dateRangeArea: [],
           dateRangeLine: [],
@@ -449,7 +446,6 @@ describe('reducer:trends', () => {
         colorMap: {},
         error: false,
         focus: '',
-        isLoading: false,
         lens: 'Product',
         results: {
           dateRangeArea: [],

@@ -16,7 +16,6 @@ describe('reducer:map', () => {
       expect(target(undefined, {})).toEqual({
         activeCall: '',
         error: false,
-        isLoading: false,
         results: {
           product: [],
           state: [],
@@ -33,7 +32,6 @@ describe('reducer:map', () => {
       ...mapState,
       activeCall: 'http://www.example.org',
       error: false,
-      isLoading: true,
     });
   });
 
@@ -50,7 +48,6 @@ describe('reducer:map', () => {
         ...mapState,
         activeCall: '',
         error: false,
-        isLoading: false,
         results: {
           state: [
             { name: 'CA', value: 62519, issue: 'issue o', product: 'fo prod' },
@@ -179,7 +176,6 @@ describe('reducer:map', () => {
         ...mapState,
         activeCall: '',
         error: { message: 'foo bar', name: 'ErrorTypeName' },
-        isLoading: false,
         results: {
           product: [],
           state: [],

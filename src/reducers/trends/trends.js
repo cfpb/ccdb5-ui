@@ -30,7 +30,6 @@ export const getResetState = () => ({
   activeCall: '',
   colorMap: {},
   error: false,
-  isLoading: false,
   results: emptyResults(),
   tooltip: false,
   total: 0,
@@ -108,7 +107,6 @@ export const trendsSlice = createSlice({
         state.activeCall = '';
         state.colorMap = colorMap;
         state.error = false;
-        state.isLoading = false;
         state.results = results;
         state.total = total;
         state.subLens = lens === 'Company' ? 'product' : state.subLens;
@@ -127,7 +125,6 @@ export const trendsSlice = createSlice({
     trendsApiCalled: {
       reducer: (state, action) => {
         state.activeCall = action.payload.url;
-        state.isLoading = true;
         state.tooltip = false;
       },
       prepare: (url) => {

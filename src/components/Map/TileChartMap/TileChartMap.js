@@ -19,6 +19,7 @@ import {
   selectViewIsPrintMode,
   selectViewWidth,
 } from '../../../reducers/view/selectors';
+import cloneDeep from 'lodash/cloneDeep';
 
 export const TileChartMap = () => {
   const dispatch = useDispatch();
@@ -27,14 +28,15 @@ export const TileChartMap = () => {
   const stateMapResultsState = useSelector(selectMapResultsState);
   const data = useMemo(() => {
     return stateMapResultsState.map((state) => {
+      const newState = cloneDeep(state);
       const stateInfo = coalesce(STATE_DATA, state.name, {
         name: '',
         population: 1,
       });
-      state.abbr = state.name;
-      state.fullName = stateInfo.name;
-      state.perCapita = getPerCapita(state, stateInfo);
-      return state;
+      newState.abbr = newState.name;
+      newState.fullName = stateInfo.name;
+      newState.perCapita = getPerCapita(newState, stateInfo);
+      return newState;
     });
   }, [stateMapResultsState]);
 

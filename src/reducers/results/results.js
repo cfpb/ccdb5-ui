@@ -6,7 +6,6 @@ import cloneDeep from 'lodash/cloneDeep';
 export const resultsState = {
   activeCall: '',
   error: '',
-  isLoading: false,
   items: [],
 };
 
@@ -17,7 +16,6 @@ export const resultsSlice = createSlice({
     complaintsApiCalled: {
       reducer: (state, action) => {
         state.activeCall = action.payload;
-        state.isLoading = true;
       },
     },
     complaintsReceived: {
@@ -25,7 +23,6 @@ export const resultsSlice = createSlice({
         const items = _processHits(action);
         state.activeCall = '';
         state.error = '';
-        state.isLoading = false;
         state.items = items;
       },
       prepare: (items) => {

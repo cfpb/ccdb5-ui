@@ -280,7 +280,7 @@ const mapStateToProps = (state) => {
     isTrendsDateWarningEnabled,
   } = state.query;
 
-  const { chartType, colorMap, focus, isLoading, results, total } =
+  const { activeCall, chartType, colorMap, focus, results, total } =
     state.trends;
 
   const { expandedRows } = state.view;
@@ -295,12 +295,12 @@ const mapStateToProps = (state) => {
   return {
     chartType,
     companyData: processRows(results.company, false, lens, expandedRows),
-    hasCompanyOverlay: showCompanyOverLay(lens, companyFilters, isLoading),
+    hasCompanyOverlay: showCompanyOverLay(lens, companyFilters, activeCall),
     dateInterval,
     focus,
     focusData: processRows(results[focusKey], colorMap, lens, expandedRows),
     intervals: getIntervals(minDate, maxDate),
-    isLoading,
+    isLoading: !!activeCall,
     productData: processRows(results.product, false, lens, expandedRows),
     dataLensData: processRows(results[lensKey], colorMap, lens, expandedRows),
     lens,

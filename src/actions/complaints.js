@@ -99,7 +99,7 @@ export function getAggregations() {
     const uri = API_PLACEHOLDER + qs + '&size=0';
 
     // This call is already in process
-    if (store.aggs.isLoading) {
+    if (store.aggs.activeCall) {
       return null;
     }
 

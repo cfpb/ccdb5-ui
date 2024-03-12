@@ -7,7 +7,6 @@ import { createSlice } from '@reduxjs/toolkit';
 export const mapState = {
   activeCall: '',
   error: false,
-  isLoading: false,
   results: {
     product: [],
     state: [],
@@ -55,7 +54,6 @@ export const mapSlice = createSlice({
       reducer: (state, action) => {
         state.activeCall = action.payload.url;
         state.error = false;
-        state.isLoading = true;
       },
     },
     statesReceived(state, action) {
@@ -71,7 +69,6 @@ export const mapSlice = createSlice({
         ...state,
         activeCall: '',
         error: false,
-        isLoading: false,
         results,
       };
     },
@@ -80,7 +77,6 @@ export const mapSlice = createSlice({
         ...state,
         activeCall: '',
         error: processErrorMessage(action.payload),
-        isLoading: false,
         results: {
           product: [],
           state: [],

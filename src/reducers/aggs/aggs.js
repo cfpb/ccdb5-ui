@@ -7,12 +7,10 @@ import { REQUERY_NEVER } from '../../constants';
 export const aggState = {
   activeCall: '',
   doc_count: 0,
-  isLoading: false,
   total: 0,
   error: '',
   lastUpdated: null,
   lastIndexed: null,
-  loadingAggregations: false,
   hasDataIssue: false,
   isDataStale: false,
   company: [],
@@ -36,7 +34,6 @@ export const aggSlice = createSlice({
     aggregationsApiCalled: (state, action) => {
       state.error = '';
       state.activeCall = action.payload;
-      state.isLoading = true;
     },
     aggregationsReceived: {
       reducer: (state, action) => {
@@ -49,7 +46,6 @@ export const aggSlice = createSlice({
           action.payload.data._meta.total_record_count,
         );
         state.error = '';
-        state.isLoading = false;
         state.activeCall = '';
         state.lastUpdated = action.payload.data._meta.last_updated;
         state.lastIndexed = action.payload.data._meta.last_indexed;
@@ -74,7 +70,6 @@ export const aggSlice = createSlice({
     },
     aggregationsApiFailed: {
       reducer: (state, action) => {
-        state.isLoading = false;
         state.activeCall = '';
         state.error = processErrorMessage(action.payload);
       },
