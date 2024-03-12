@@ -160,25 +160,19 @@ describe('reducer:map', () => {
     });
   });
 
-  describe.skip('URL_CHANGED actions', () => {
-    let action = null;
+  describe('URL_CHANGED actions', () => {
     let state = null;
     beforeEach(() => {
-      action = {
-        type: actions.URL_CHANGED,
-        params: {},
-      };
-
       state = { ...viewState };
     });
 
     it('handles empty params', () => {
-      expect(target(state, action)).toEqual(state);
+      expect(target(state, actions.routeChanged('/', {}))).toEqual(state);
     });
 
     it('handles PRINT params', () => {
-      action.params = { isFromExternal: 'true', isPrintMode: 'true' };
-      const actual = target(state, action);
+      const params = { isFromExternal: 'true', isPrintMode: 'true' };
+      const actual = target(state, actions.routeChanged('/', params));
       expect(actual).toEqual({
         expandedRows: [],
         isFromExternal: true,
@@ -192,14 +186,16 @@ describe('reducer:map', () => {
     });
 
     it('handles single expandedRows param', () => {
-      action.params = { expandedRows: 'hello' };
-      const actual = target(state, action);
+      const actual = target(
+        state,
+        actions.routeChanged('/', { expandedRows: 'hello' }),
+      );
       expect(actual.expandedRows).toEqual(['hello']);
     });
 
     it('handles multiple expandedRows param', () => {
-      action.params = { expandedRows: ['hello', 'ma'] };
-      const actual = target(state, action);
+      const params = { expandedRows: ['hello', 'ma'] };
+      const actual = target(state, actions.routeChanged('/', params));
       expect(actual.expandedRows).toEqual(['hello', 'ma']);
     });
   });

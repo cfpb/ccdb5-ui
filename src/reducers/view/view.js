@@ -138,7 +138,7 @@ export const viewSlice = createSlice({
       .addCase('trends/updateDataLens', (state) => {
         state.expandedRows = [];
       })
-      .addCase('query/processParams', (state, action) => {
+      .addCase('routes/routeChanged', (state, action) => {
         const params = action.payload.params;
 
         state.isPrintMode = params.isPrintMode === 'true';
