@@ -1838,15 +1838,15 @@ describe('reducer:query', () => {
           ...queryState,
           chartType: 'line',
           focus: '',
-          lens: 'Overview',
-          subLens: '',
+          lens: 'Product',
+          subLens: 'sub_product',
           queryString:
-            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=overview&trend_depth=5&trend_interval=month',
+            '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month',
           tab: 'Trends',
           trendDepth: 5,
           trendsDateWarningEnabled: false,
           search:
-            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Overview&searchField=all&tab=Trends',
+            '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
         });
       });
 
