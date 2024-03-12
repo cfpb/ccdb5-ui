@@ -6,6 +6,7 @@ import {
   coalesce,
   enablePer1000,
   processUrlArrayParams,
+  shortIsoFormat,
   startOfToday,
 } from '../../utils';
 import { enforceValues, validateTrendsReducer } from '../../utils/reducers';
@@ -17,7 +18,7 @@ import {
   REQUERY_HITS_ONLY,
   REQUERY_NEVER,
 } from '../../constants';
-import { formatDate, formatDateModel } from '../../utils/formatDate';
+import { formatDateModel } from '../../utils/formatDate';
 
 const queryString = require('query-string');
 
@@ -28,10 +29,10 @@ export const queryState = {
   dataNormalization: types.GEO_NORM_NONE,
   dateInterval: 'Month',
   dateRange: '3y',
-  date_received_max: startOfToday(),
-  date_received_min: formatDate(
+  date_received_max: dayjs(startOfToday()).toISOString(),
+  date_received_min: dayjs(
     new Date(dayjs(startOfToday()).subtract(3, 'years')),
-  ),
+  ).toISOString(),
   enablePer1000: false,
   focus: '',
   from: 0,
@@ -176,13 +177,13 @@ export const querySlice = createSlice({
       // eslint-disable-next-line complexity
       reducer: (state, action) => {
         const dateRange = enforceValues(action.payload.dateRange, 'dateRange');
-        const maxDate = startOfToday();
+        const maxDate = dayjs(startOfToday()).toISOString();
         const res = {
-          All: types.DATE_RANGE_MIN,
-          '3m': formatDate(dayjs(maxDate).subtract(3, 'months')),
-          '6m': formatDate(dayjs(maxDate).subtract(6, 'months')),
-          '1y': formatDate(dayjs(maxDate).subtract(1, 'year')),
-          '3y': formatDate(dayjs(maxDate).subtract(3, 'years')),
+          All: dayjs(types.DATE_RANGE_MIN).toISOString(),
+          '3m': dayjs(maxDate).subtract(3, 'months').toISOString(),
+          '6m': dayjs(maxDate).subtract(6, 'months').toISOString(),
+          '1y': dayjs(maxDate).subtract(1, 'year').toISOString(),
+          '3y': dayjs(maxDate).subtract(3, 'years').toISOString(),
         };
         state.dateRange = dateRange;
         state.date_received_min = res[dateRange]
@@ -226,10 +227,10 @@ export const querySlice = createSlice({
         }
 
         minDate = dayjs(minDate).isValid()
-          ? formatDate(dayjs(minDate).startOf('day'))
+          ? dayjs(minDate).startOf('day').toISOString()
           : null;
         maxDate = dayjs(maxDate).isValid()
-          ? formatDate(dayjs(maxDate).startOf('day'))
+          ? dayjs(maxDate).startOf('day').toISOString()
           : null;
 
         const datesChanged =
@@ -462,8 +463,8 @@ export const querySlice = createSlice({
         // adjust date filter for max and min ranges
         state.dateRange = 'All';
         /* eslint-disable camelcase */
-        state.date_received_min = formatDate(types.DATE_RANGE_MIN);
-        state.date_received_max = formatDate(startOfToday());
+        state.date_received_min = types.DATE_RANGE_MIN;
+        state.date_received_max = startOfToday();
         state.focus = '';
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
@@ -900,10 +901,10 @@ export function alignDateRange(state) {
   }
 
   const rangeMap = {
-    '3y': formatDate(dayjs(dateMax).subtract(3, 'years')),
-    '3m': formatDate(dayjs(dateMax).subtract(3, 'months')),
-    '6m': formatDate(dayjs(dateMax).subtract(6, 'months')),
-    '1y': formatDate(dayjs(dateMax).subtract(1, 'year')),
+    '3y': dayjs(dateMax).subtract(3, 'years'),
+    '3m': dayjs(dateMax).subtract(3, 'months'),
+    '6m': dayjs(dateMax).subtract(6, 'months'),
+    '1y': dayjs(dateMax).subtract(1, 'year'),
   };
   const ranges = Object.keys(rangeMap);
   let matched = false;
@@ -1082,7 +1083,7 @@ export function stateToQS(state) {
 
     // Process dates
     if (types.dateFilters.indexOf(field) !== -1) {
-      value = formatDate(value);
+      value = shortIsoFormat(value);
     }
 
     // Process boolean flags
@@ -1177,7 +1178,14 @@ export function stateToURL(state) {
     if (['queryString', 'url', 'breakPoints'].includes(field)) {
       return;
     }
-    params[field] = state[field];
+
+    let value = state[field];
+
+    // Process date filters url-friendly display
+    if (types.dateFilters.indexOf(field) !== -1) {
+      value = shortIsoFormat(value);
+    }
+    params[field] = value;
   });
 
   // list of API params

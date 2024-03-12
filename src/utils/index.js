@@ -6,7 +6,6 @@ import {
 } from '../constants/index';
 import Analytics from '../actions/analytics';
 import dayjs from 'dayjs';
-import { formatDate } from './formatDate';
 
 /**
  * Breaks up '123' to '1 2 3' to help screen readers read digits individually
@@ -25,15 +24,14 @@ export function ariaReadoutNumbers(digits) {
 export const calculateDateRange = (minDate, maxDate) => {
   // only check intervals if the end date is today
   // round off the date so the partial times don't mess up calculations
-  // const today = startOfToday();
+  const today = startOfToday();
   const end = dayjs(maxDate).startOf('day');
   const start = dayjs(minDate).startOf('day');
 
-  /* Commenting this out because it seems to run contrary to expected behavior in the tests */
   // make sure end date is the same as today's date
-  //if (end.diff(today, 'days') !== 0) {
-  //  return '';
-  //}
+  if (end.diff(today, 'days') !== 0) {
+    return '';
+  }
 
   // is the start date the same as the oldest document?
   if (dayjs(minDate).isSame(DATE_RANGE_MIN, 'day')) {
@@ -259,11 +257,16 @@ export function shortFormat(date) {
 /**
  * Convert a date to a truncated ISO-8601 string
  *
- * @param {Date} date - the date to convert
+ * @param {string | object | Date} date - the date to convert
  * @returns {string} the date formatted as yyyy-mm-ddd
  */
 export function shortIsoFormat(date) {
-  return date ? date.toISOString().substring(0, 10) : '';
+  if (typeof date === 'string') {
+    return date ? date.slice(0, 10) : '';
+  } else if (typeof date === 'object') {
+    return dayjs(date).toISOString().slice(0, 10);
+  }
+  return date;
 }
 
 /**
@@ -286,7 +289,7 @@ export function startOfToday() {
   }
 
   // Always return a clone so the global is not exposed or changed
-  return formatDate(new Date(window.MAX_DATE));
+  return new Date(window.MAX_DATE.valueOf());
 }
 
 // ----------------------------------------------------------------------------

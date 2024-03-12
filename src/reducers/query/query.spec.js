@@ -42,15 +42,15 @@ import {
   updateDataSubLens,
 } from '../trends/trends';
 import { formatDate } from '../../utils/formatDate';
-import { processHitsResults } from '../results/results';
+import { complaintsReceived } from '../results/results';
 
 const maxDate = startOfToday();
 
 describe('reducer:query', () => {
-  let action, result, state;
-  const test_date_received_max = maxDate;
-  const test_date_received_min = new Date(
-    dayjs(startOfToday()).subtract(3, 'years'),
+  let result, state;
+  const test_date_received_max = dayjs(maxDate).toISOString();
+  const test_date_received_min = dayjs(
+    new Date(dayjs(startOfToday()).subtract(3, 'years')).toISOString(),
   );
   describe('default', () => {
     it('has a default state', () => {
@@ -61,17 +61,14 @@ describe('reducer:query', () => {
         dataNormalization: types.GEO_NORM_NONE,
         dateInterval: 'Month',
         dateRange: '3y',
-        date_received_max: test_date_received_max,
-        date_received_min: test_date_received_min,
+        date_received_max: '2020-05-05T04:00:00.000Z',
+        date_received_min: '2017-05-05T04:00:00.000Z',
         enablePer1000: false,
         focus: '',
         from: 0,
         lens: 'Product',
         mapWarningEnabled: true,
-        queryString:
-          '?date_received_max=2020-05-05&date_received_min=' +
-          '2017-05-05&field=all&lens=product&sub_lens=sub_product&' +
-          'trend_depth=5&trend_interval=month',
+        queryString: '',
         searchText: '',
         searchField: 'all',
         page: 1,
@@ -83,27 +80,24 @@ describe('reducer:query', () => {
         totalPages: 0,
         trendDepth: 5,
         trendsDateWarningEnabled: false,
-        search:
-          '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
+        search: '',
       });
     });
   });
 
   describe('COMPLAINTS_RECEIVED actions', () => {
     it('updates total number of pages', () => {
-      action = {
-        data: {
-          _meta: {
-            break_points: {
-              2: [2, 2],
-              3: [3, 2],
-              4: [4, 2],
-              5: [5, 2],
-            },
+      const payload = {
+        _meta: {
+          break_points: {
+            2: [2, 2],
+            3: [3, 2],
+            4: [4, 2],
+            5: [5, 2],
           },
-          hits: {
-            total: { value: 10000 },
-          },
+        },
+        hits: {
+          total: { value: 10000 },
         },
       };
 
@@ -114,7 +108,7 @@ describe('reducer:query', () => {
         totalPages: 5,
       };
 
-      expect(target(state, processHitsResults(action))).toEqual({
+      expect(target(state, complaintsReceived(payload))).toEqual({
         ...state,
         breakPoints: {
           2: [2, 2],
@@ -130,19 +124,17 @@ describe('reducer:query', () => {
     });
 
     it('limits the current page correctly', () => {
-      action = {
-        data: {
-          _meta: {
-            break_points: {
-              2: [2, 2],
-              3: [3, 2],
-              4: [4, 2],
-              5: [5, 2],
-            },
+      const payload = {
+        _meta: {
+          break_points: {
+            2: [2, 2],
+            3: [3, 2],
+            4: [4, 2],
+            5: [5, 2],
           },
-          hits: {
-            total: { value: 10000 },
-          },
+        },
+        hits: {
+          total: { value: 10000 },
         },
       };
 
@@ -152,7 +144,7 @@ describe('reducer:query', () => {
         size: 100,
       };
 
-      expect(target(state, processHitsResults(action))).toEqual({
+      expect(target(state, complaintsReceived(payload))).toEqual({
         ...state,
         breakPoints: {
           2: [2, 2],
@@ -1423,8 +1415,8 @@ describe('reducer:query', () => {
         ).toEqual({
           ...testState,
           breakPoints: {},
-          date_received_min: new Date(2001, 0, 30),
-          date_received_max: new Date(2013, 1, 3),
+          date_received_min: '2001-01-30T05:00:00.000Z',
+          date_received_max: '2013-02-03T05:00:00.000Z',
           from: 0,
           page: 1,
           queryString:
@@ -1489,9 +1481,7 @@ describe('reducer:query', () => {
       it('handles All range', () => {
         action = 'All';
         result = target({}, changeDateRange(action));
-        expect(result.date_received_min).toEqual(
-          new Date(types.DATE_RANGE_MIN),
-        );
+        expect(result.date_received_min).toEqual('2011-12-01T12:00:00.000Z');
       });
 
       it('handles 1y range', () => {
@@ -1502,8 +1492,8 @@ describe('reducer:query', () => {
           breakPoints: {},
           dateInterval: 'Month',
           dateRange: '1y',
-          date_received_max: new Date('2020-05-05T04:00:00.000Z'),
-          date_received_min: new Date('2019-05-05T04:00:00.000Z'),
+          date_received_max: '2020-05-05T04:00:00.000Z',
+          date_received_min: '2019-05-05T04:00:00.000Z',
           from: 0,
           page: 1,
           queryString:
@@ -1523,8 +1513,8 @@ describe('reducer:query', () => {
           ...queryState,
           breakPoints: {},
           dateRange: '3y',
-          date_received_min: new Date('2017-05-05T04:00:00.000Z'),
-          date_received_max: new Date('2020-05-05T04:00:00.000Z'),
+          date_received_min: '2017-05-05T04:00:00.000Z',
+          date_received_max: '2020-05-05T04:00:00.000Z',
           from: 0,
           page: 1,
           queryString:
