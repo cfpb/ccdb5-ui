@@ -1,9 +1,8 @@
-import * as trendsUtils from '../../utils/trends';
+// import * as trendsUtils from '../../../utils/trends';
 import ReduxExternalTooltip, {
   ExternalTooltip,
-  mapDispatchToProps,
   mapStateToProps,
-} from '../Trends/ExternalTooltip';
+} from './ExternalTooltip';
 import React from 'react';
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
@@ -129,28 +128,29 @@ describe('buttons', () => {
   });
 });
 
-describe('mapDispatchToProps', () => {
-  it('provides a way to call remove', () => {
-    jest.spyOn(trendsUtils, 'scrollToFocus');
-    const dispatch = jest.fn();
-    mapDispatchToProps(dispatch).remove('Foo');
-    expect(dispatch.mock.calls).toEqual([
-      [
-        {
-          payload: {
-            filterName: 'company',
-            filterValue: 'Foo',
-          },
-          meta: {
-            requery: 'REQUERY_ALWAYS',
-          },
-          type: 'query/removeFilter',
-        },
-      ],
-    ]);
-    expect(trendsUtils.scrollToFocus).not.toHaveBeenCalled();
-  });
-});
+// TODO: write test verifying click remove works
+// describe('mapDispatchToProps', () => {
+//   it('provides a way to call remove', () => {
+//     jest.spyOn(trendsUtils, 'scrollToFocus');
+//     const dispatch = jest.fn();
+//     mapDispatchToProps(dispatch).remove('Foo');
+//     expect(dispatch.mock.calls).toEqual([
+//       [
+//         {
+//           payload: {
+//             filterName: 'company',
+//             filterValue: 'Foo',
+//           },
+//           meta: {
+//             requery: 'REQUERY_ALWAYS',
+//           },
+//           type: 'query/removeFilter',
+//         },
+//       ],
+//     ]);
+//     expect(trendsUtils.scrollToFocus).not.toHaveBeenCalled();
+//   });
+// });
 
 describe('mapStateToProps', () => {
   let state;

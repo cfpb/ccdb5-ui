@@ -10,7 +10,7 @@ import { changeDateInterval } from '../../reducers/query/query';
 import { ChartToggles } from '../RefineBar/ChartToggles';
 import { CompanyTypeahead } from '../Filters/CompanyTypeahead';
 import { connect } from 'react-redux';
-import ExternalTooltip from './ExternalTooltip';
+import ExternalTooltip from './ExternalTooltip/ExternalTooltip';
 import { FilterPanel } from '../Filters/FilterPanel';
 import FilterPanelToggle from '../Filters/FilterPanelToggle';
 import FocusHeader from './FocusHeader';
