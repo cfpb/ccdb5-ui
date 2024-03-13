@@ -1,55 +1,45 @@
 import { cloneDeep, coalesce } from '../../utils';
 import CollapsibleFilter from './CollapsibleFilter';
 import { CompanyTypeahead } from './CompanyTypeahead';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import React from 'react';
 import StickyOptions from './StickyOptions';
+import { selectAggsState } from '../../reducers/aggs/selectors';
+import {
+  selectQueryFocus,
+  selectQueryLens,
+  selectQueryState,
+} from '../../reducers/query/selectors';
 
 const FIELD_NAME = 'company';
 
-export class Company extends React.Component {
-  render() {
-    const desc = 'The complaint is about this company.';
-
-    return (
-      <CollapsibleFilter
-        title="Company name"
-        desc={desc}
-        className="aggregation company"
-      >
-        <CompanyTypeahead id={'filter-' + FIELD_NAME} />
-        <StickyOptions
-          fieldName={FIELD_NAME}
-          options={this.props.options}
-          selections={this.props.selections}
-        />
-      </CollapsibleFilter>
-    );
-  }
-}
-
-export const mapStateToProps = (state) => {
-  const options = cloneDeep(coalesce(state.aggs, FIELD_NAME, []));
-  const selections = coalesce(state.query, FIELD_NAME, []);
-  const { focus } = state.query;
-  const isFocusPage = focus && state.query.lens === 'Company';
+export const Company = () => {
+  const aggs = useSelector(selectAggsState);
+  const query = useSelector(selectQueryState);
+  const focus = useSelector(selectQueryFocus);
+  const lens = useSelector(selectQueryLens);
+  const options = cloneDeep(coalesce(aggs, FIELD_NAME, []));
+  const selections = coalesce(query, FIELD_NAME, []);
+  const isFocusPage = focus && lens === 'Company';
 
   options.forEach((opt) => {
     opt.disabled = Boolean(isFocusPage && opt.key !== focus);
   });
 
-  return {
-    options,
-    queryString: state.query.queryString,
-    selections,
-  };
-};
+  const desc = 'The complaint is about this company.';
 
-// eslint-disable-next-line react-redux/prefer-separate-component-file
-export default connect(mapStateToProps)(Company);
-
-Company.propTypes = {
-  options: PropTypes.array.isRequired,
-  selections: PropTypes.array.isRequired,
+  return (
+    <CollapsibleFilter
+      title="Company name"
+      desc={desc}
+      className="aggregation company"
+    >
+      <CompanyTypeahead id={'filter-' + FIELD_NAME} />
+      <StickyOptions
+        fieldName={FIELD_NAME}
+        options={options}
+        selections={selections}
+      />
+    </CollapsibleFilter>
+  );
 };

@@ -2,7 +2,7 @@ import '../RefineBar/RefineBar.less';
 import { ActionBar } from '../ActionBar/ActionBar';
 import { useDispatch, useSelector } from 'react-redux';
 import ErrorBlock from '../Warnings/Error';
-import FilterPanel from '../Filters/FilterPanel';
+import { FilterPanel } from '../Filters/FilterPanel';
 import FilterPanelToggle from '../Filters/FilterPanelToggle';
 import { Loading } from '../Loading/Loading';
 import { MapToolbar } from './MapToolbar';
