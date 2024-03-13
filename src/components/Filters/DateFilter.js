@@ -219,12 +219,12 @@ export const DateFilter = () => {
         </ul>
         <DateRanges />
         {errors ? (
-          <>
-            {errors + ' '}
+          <div className="a-form-alert a-form-alert__error" role="alert">
             <span aria-hidden="true">
               {getIcon('delete-round', 'cf-icon-delete-round')}
             </span>
-          </>
+            <span className="a-form-alert_text">{errors + ' '}</span>
+          </div>
         ) : null}
       </div>
     </CollapsibleFilter>
