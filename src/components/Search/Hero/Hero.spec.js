@@ -6,7 +6,7 @@ import {
   fireEvent,
 } from '../../../testUtils/test-utils';
 import { LINK_DATA_USE, MODAL_TYPE_MORE_ABOUT } from '../../../constants';
-import * as viewActions from '../../../reducers/view/view';
+import * as viewActions from '../../../reducers/view/viewSlice';
 
 describe('Hero', () => {
   const renderComponent = () => {

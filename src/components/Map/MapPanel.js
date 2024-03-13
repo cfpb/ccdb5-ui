@@ -6,18 +6,22 @@ import { FilterPanel } from '../Filters/FilterPanel';
 import FilterPanelToggle from '../Filters/FilterPanelToggle';
 import { Loading } from '../Loading/Loading';
 import { MapToolbar } from './MapToolbar';
-import { dismissMapWarning } from '../../reducers/query/query';
+import { mapWarningDismissed } from '../../reducers/filters/filtersSlice';
 import { PerCapita } from '../RefineBar/PerCapita';
 import { processRows } from '../../utils/chart';
 
 import React, { useMemo } from 'react';
-import { RowChart } from '../Charts/RowChart';
+import RowChart from '../Charts/RowChart';
 import { Separator } from '../RefineBar/Separator';
 import { TabbedNavigation } from '../TabbedNavigation';
 import { TileChartMap } from './TileChartMap/TileChartMap';
 import Warning from '../Warnings/Warning';
 import { selectAggsTotal } from '../../reducers/aggs/selectors';
 
+import {
+  selectFiltersEnablePer1000,
+  selectFiltersMapWarningEnabled,
+} from '../../reducers/filters/selectors';
 import {
   selectMapActiveCall,
   selectMapError,
@@ -27,8 +31,6 @@ import {
 import {
   selectQueryDateReceivedMax,
   selectQueryDateReceivedMin,
-  selectQueryEnablePer1000,
-  selectQueryMapWarningEnabled,
 } from '../../reducers/query/selectors';
 
 import {
@@ -50,11 +52,11 @@ export const MapPanel = () => {
   const dispatch = useDispatch();
   const total = useSelector(selectAggsTotal);
 
-  const isLoading = useSelector(selectMapActiveCall);
+  const activeCall = useSelector(selectMapActiveCall);
   const results = useSelector(selectMapResults);
   const hasError = useSelector(selectMapError);
-  const enablePer1000 = useSelector(selectQueryEnablePer1000);
-  const mapWarningEnabled = useSelector(selectQueryMapWarningEnabled);
+  const enablePer1000 = useSelector(selectFiltersEnablePer1000);
+  const mapWarningEnabled = useSelector(selectFiltersMapWarningEnabled);
   const maxDate = useSelector(selectQueryDateReceivedMax);
   const minDate = useSelector(selectQueryDateReceivedMin);
   const expandedRows = useSelector(selectViewExpandedRows);
@@ -70,7 +72,7 @@ export const MapPanel = () => {
   )} to ${shortFormat(maxDate)}`;
 
   const onDismissWarning = () => {
-    dispatch(dismissMapWarning());
+    dispatch(mapWarningDismissed());
   };
 
   return (
@@ -100,7 +102,7 @@ export const MapPanel = () => {
         total={total}
       />
 
-      <Loading isLoading={!!isLoading} />
+      <Loading isLoading={activeCall !== ''} />
     </section>
   );
 };

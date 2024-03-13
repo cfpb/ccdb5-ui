@@ -1,11 +1,11 @@
 import './PillPanel.less';
 import { DATE_RANGE_MIN, knownFilters } from '../../constants';
 
+import { selectFiltersHasNarrative } from '../../reducers/filters/selectors';
 import {
   selectQueryDateReceivedMax,
   selectQueryDateReceivedMin,
-  selectQueryHasNarrative,
-  selectQueryState,
+  selectQuerySearchField,
 } from '../../reducers/query/selectors';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,22 +14,25 @@ import dayjs from 'dayjs';
 import getIcon from '../iconMap';
 import { Pill } from './Pill';
 import React from 'react';
-import { removeAllFilters } from '../../reducers/query/query';
+import { filtersCleared } from '../../reducers/filters/filtersSlice';
 import { startOfToday } from '../../utils';
+import { selectFiltersFilterState } from '../../reducers/filters/selectors';
 
 /* eslint complexity: ["error", 5] */
 export const PillPanel = () => {
   const dispatch = useDispatch();
-  const query = useSelector(selectQueryState);
+  const filterState = useSelector(selectFiltersFilterState);
   const dateReceivedMin = useSelector(selectQueryDateReceivedMin);
   const dateReceivedMax = useSelector(selectQueryDateReceivedMax);
-  const hasNarrative = useSelector(selectQueryHasNarrative);
+  const hasNarrative = useSelector(selectFiltersHasNarrative);
+  const searchField = useSelector(selectQuerySearchField);
+
   const filters = knownFilters
     // Only use the known filters that are in the query
-    .filter((filter) => filter in query)
+    .filter((filter) => filter in filterState)
     // Create a flattened array of pill objects
     .reduce((accum, fieldName) => {
-      const arr = query[fieldName].map((value) => ({ fieldName, value }));
+      const arr = filterState[fieldName].map((value) => ({ fieldName, value }));
       return accum.concat(arr);
     }, []);
 
@@ -74,7 +77,7 @@ export const PillPanel = () => {
         <li className="clear-all">
           <button
             className="a-btn a-btn__link body-copy"
-            onClick={() => dispatch(removeAllFilters())}
+            onClick={() => dispatch(filtersCleared(searchField))}
           >
             {getIcon('delete')}
             Clear all filters

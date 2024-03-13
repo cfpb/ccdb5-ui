@@ -1,58 +1,25 @@
-import { coalesce, sortSelThenCount } from '../../utils';
 import { MODE_TRENDS, SLUG_SEPARATOR } from '../../constants';
 import AggregationBranch from './AggregationBranch';
 import CollapsibleFilter from './CollapsibleFilter';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { sortSelThenCount } from '../../utils';
 import MoreOrLess from './MoreOrLess';
-import PropTypes from 'prop-types';
 import React from 'react';
+import {
+  selectTrendsFocus,
+  selectTrendsLens,
+} from '../../reducers/trends/selectors';
+import { selectAggsProduct } from '../../reducers/aggs/selectors';
+import { selectFiltersProduct } from '../../reducers/filters/selectors';
+import { selectViewTab } from '../../reducers/view/selectors';
 
-export class Product extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this._onBucket = this._onBucket.bind(this);
-  }
-
-  render() {
-    const desc =
-      'The type of product and sub-product the consumer ' +
-      'identified in the complaint';
-
-    const listComponentProps = {
-      fieldName: 'product',
-    };
-
-    return (
-      <CollapsibleFilter
-        title="Product / sub-product"
-        desc={desc}
-        hasChildren={this.props.hasChildren}
-        className="aggregation product"
-      >
-        <MoreOrLess
-          listComponent={AggregationBranch}
-          listComponentProps={listComponentProps}
-          options={this.props.options}
-          perBucketProps={this._onBucket}
-        />
-      </CollapsibleFilter>
-    );
-  }
-
-  // --------------------------------------------------------------------------
-  // MoreOrLess Helpers
-
-  _onBucket(bucket, props) {
-    props.subitems = bucket['sub_product.raw'].buckets;
-    return props;
-  }
-}
-
-export const mapStateToProps = (state) => {
+export const Product = () => {
   // See if there are an active product filters
-  const { focus, lens, tab } = state.query;
-  const allProducts = coalesce(state.query, 'product', []);
+  const focus = useSelector(selectTrendsFocus);
+  const lens = useSelector(selectTrendsLens);
+  const tab = useSelector(selectViewTab);
+  const allProducts = useSelector(selectFiltersProduct);
+  const aggsProducts = useSelector(selectAggsProduct);
   const selections = [];
 
   // Reduce the products to the parent keys (and dedup)
@@ -65,26 +32,45 @@ export const mapStateToProps = (state) => {
   });
 
   // Make a cloned, sorted version of the aggs
-  const options = sortSelThenCount(state.aggs.product, selections);
+  const options = sortSelThenCount(aggsProducts, selections);
   if (focus) {
     const isProductFocus = tab === MODE_TRENDS && lens === 'Product';
     options.forEach((opt) => {
-      opt.disabled = isProductFocus ? opt.key !== focus : false;
+      opt.isDisabled = isProductFocus ? opt.key !== focus : false;
       opt['sub_product.raw'].buckets.forEach((bucket) => {
-        bucket.disabled = isProductFocus ? opt.disabled : false;
+        bucket.isDisabled = isProductFocus ? opt.isDisabled : false;
       });
     });
   }
 
-  return {
-    options,
+  const desc =
+    'The type of product and sub-product the consumer identified in the ' +
+    'complaint';
+
+  const listComponentProps = {
+    fieldName: 'product',
   };
-};
 
-// eslint-disable-next-line react-redux/prefer-separate-component-file
-export default connect(mapStateToProps)(Product);
+  // --------------------------------------------------------------------------
+  // MoreOrLess Helpers
+  const _onBucket = (bucket, props) => {
+    props.subitems = bucket['sub_product.raw'].buckets;
+    return props;
+  };
 
-Product.propTypes = {
-  hasChildren: PropTypes.bool,
-  options: PropTypes.array.isRequired,
+  return (
+    <CollapsibleFilter
+      title="Product / sub-product"
+      desc={desc}
+      hasChildren={true}
+      className="aggregation product"
+    >
+      <MoreOrLess
+        listComponent={AggregationBranch}
+        listComponentProps={listComponentProps}
+        options={options}
+        perBucketProps={_onBucket}
+      />
+    </CollapsibleFilter>
+  );
 };

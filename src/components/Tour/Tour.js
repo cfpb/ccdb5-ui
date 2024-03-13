@@ -2,7 +2,7 @@ import './Tour.less';
 import * as d3 from 'd3';
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectQueryTab } from '../../reducers/query/selectors';
+import { selectViewTab } from '../../reducers/view/selectors';
 import {
   selectViewIsPrintMode,
   selectViewShowTour,
@@ -11,14 +11,15 @@ import {
 import { Steps } from 'intro.js-react';
 import { TOUR_STEPS } from './constants/tourStepsConstants';
 import { TourButton } from './TourButton';
-import { tourHidden } from '../../reducers/view/view';
+import { tourHidden } from '../../reducers/view/viewSlice';
 
 export const Tour = () => {
   const dispatch = useDispatch();
   const showTour = useSelector(selectViewShowTour);
-  const tab = useSelector(selectQueryTab);
+  const tab = useSelector(selectViewTab);
   const isPrintMode = useSelector(selectViewIsPrintMode);
   const viewWidth = useSelector(selectViewWidth);
+  const stepRef = useRef();
 
   const mobileStepOpen = {
     disableInteraction: false,
@@ -44,7 +45,6 @@ export const Tour = () => {
             TOUR_STEPS[tab].slice(7),
           )
       : TOUR_STEPS[tab];
-  const stepRef = useRef();
 
   // INTRODUCTION / TUTORIAL OPTIONS:
   const options = {
@@ -135,7 +135,7 @@ export const Tour = () => {
    * @returns {boolean} Can we exit?
    */
   function handleBeforeExit(ref) {
-    if (ref.current === null) {
+    if (ref.current === null || !showTour) {
       return true;
     }
     if (ref.current.introJs.currentStep() + 1 < steps.length) {
@@ -153,7 +153,11 @@ export const Tour = () => {
         enabled={showTour}
         initialStep={0}
         steps={steps}
-        onExit={() => dispatch(tourHidden())}
+        onExit={() => {
+          if (showTour) {
+            dispatch(tourHidden());
+          }
+        }}
         options={options}
         onBeforeChange={() => handleBeforeChange(stepRef)}
         onBeforeExit={() => handleBeforeExit(stepRef)}

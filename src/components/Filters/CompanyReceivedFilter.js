@@ -3,11 +3,11 @@ import './DateFilter.less';
 import { DATE_VALIDATION_FORMAT, maxDate, minDate } from '../../constants';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
-  selectQueryCompanyReceivedMax,
-  selectQueryCompanyReceivedMin,
-} from '../../reducers/query/selectors';
+  selectFiltersCompanyReceivedMax,
+  selectFiltersCompanyReceivedMin,
+} from '../../reducers/filters/selectors';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeDates } from '../../reducers/query/query';
+import { companyReceivedDateUpdated } from '../../reducers/filters/filtersSlice';
 import CollapsibleFilter from './CollapsibleFilter';
 import dayjs from 'dayjs';
 import dayjsCustomParseFormat from 'dayjs/plugin/customParseFormat';
@@ -21,9 +21,8 @@ dayjs.extend(dayjsIsBetween);
 export const CompanyReceivedFilter = () => {
   const fieldName = 'company_received';
   const title = 'The date the CFPB sent the complaint to the company';
-  const dateFrom = useSelector(selectQueryCompanyReceivedMin);
-  const dateThrough = useSelector(selectQueryCompanyReceivedMax);
-
+  const dateFrom = useSelector(selectFiltersCompanyReceivedMin);
+  const dateThrough = useSelector(selectFiltersCompanyReceivedMax);
   const initialFromDate = dayjs(dateFrom).isValid() ? formatDate(dateFrom) : '';
   const initialThroughDate = dayjs(dateThrough).isValid()
     ? formatDate(dateThrough)
@@ -51,10 +50,10 @@ export const CompanyReceivedFilter = () => {
 
   const handleClear = (period) => {
     if (period === 'from') {
-      dispatch(changeDates(fieldName, '', throughDate));
+      dispatch(companyReceivedDateUpdated(fieldName, '', throughDate));
     }
     if (period === 'through') {
-      dispatch(changeDates(fieldName, fromDate, ''));
+      dispatch(companyReceivedDateUpdated(fieldName, fromDate, ''));
     }
   };
 
@@ -105,7 +104,7 @@ export const CompanyReceivedFilter = () => {
     const isDateDifferent =
       dateFrom !== _fromDate || dateThrough !== _throughDate;
     if (isDateDifferent) {
-      dispatch(changeDates(fieldName, _fromDate, _throughDate));
+      dispatch(companyReceivedDateUpdated(fieldName, _fromDate, _throughDate));
     }
   };
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { normalize } from '../../utils';
-import { addMultipleFilters } from '../../reducers/query/query';
+import { multipleFiltersAdded } from '../../reducers/filters/filtersSlice';
 import CollapsibleFilter from './CollapsibleFilter';
 import { THESE_UNITED_STATES } from '../../constants';
 import { Typeahead } from '../Typeahead/Typeahead/Typeahead';
@@ -39,7 +39,7 @@ export const FederalState = ({ hasChildren }) => {
   };
 
   const onSelection = (item) => {
-    dispatch(addMultipleFilters('state', [item[0].key]));
+    dispatch(multipleFiltersAdded('state', [item[0].key]));
   };
 
   return (

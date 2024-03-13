@@ -1,16 +1,17 @@
 import { GEO_NORM_NONE, GEO_NORM_PER1000 } from '../../constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateDataNormalization } from '../../reducers/query/query';
+import { dataNormalizationUpdated } from '../../reducers/filters/filtersSlice';
+
 import React, { useMemo } from 'react';
 import {
-  selectQueryDataNormalization,
-  selectQueryEnablePer1000,
-} from '../../reducers/query/selectors';
+  selectFiltersDataNormalization,
+  selectFiltersEnablePer1000,
+} from '../../reducers/filters/selectors';
 import { selectedClass } from '../../utils';
 
 export const PerCapita = () => {
-  const dataNormalization = useSelector(selectQueryDataNormalization);
-  const enablePer1000 = useSelector(selectQueryEnablePer1000);
+  const dataNormalization = useSelector(selectFiltersDataNormalization);
+  const enablePer1000 = useSelector(selectFiltersEnablePer1000);
   const dispatch = useDispatch();
 
   const perCapButtonClass = useMemo(() => {
@@ -27,7 +28,7 @@ export const PerCapita = () => {
         aria-label="Display map by complaints"
         className={'a-btn' + selectedClass(dataNormalization, GEO_NORM_NONE)}
         onClick={() => {
-          dispatch(updateDataNormalization(GEO_NORM_NONE));
+          dispatch(dataNormalizationUpdated(GEO_NORM_NONE));
         }}
         disabled={dataNormalization === GEO_NORM_NONE}
       >
@@ -36,9 +37,9 @@ export const PerCapita = () => {
       <button
         aria-label="Display map by complaints per 1,000 people"
         className={'a-btn ' + perCapButtonClass}
-        disabled={dataNormalization === GEO_NORM_PER1000}
+        disabled={dataNormalization === GEO_NORM_PER1000 || !enablePer1000}
         onClick={() => {
-          dispatch(updateDataNormalization(GEO_NORM_PER1000));
+          dispatch(dataNormalizationUpdated(GEO_NORM_PER1000));
         }}
       >
         Complaints per 1,000 <span>population</span>

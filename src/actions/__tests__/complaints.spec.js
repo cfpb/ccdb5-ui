@@ -5,27 +5,27 @@ import {
   complaintsApiCalled,
   complaintsApiFailed,
   complaintsReceived,
-} from '../../reducers/results/results';
+} from '../../reducers/results/resultsSlice';
 import {
   statesApiCalled,
   statesApiFailed,
   statesReceived,
-} from '../../reducers/map/map';
+} from '../../reducers/map/mapSlice';
 import {
   trendsApiCalled,
   trendsApiFailed,
   trendsReceived,
-} from '../../reducers/trends/trends';
+} from '../../reducers/trends/trendsSlice';
 import {
   aggregationsApiCalled,
   aggregationsApiFailed,
   aggregationsReceived,
-} from '../../reducers/aggs/aggs';
+} from '../../reducers/aggs/aggsSlice';
 import {
   complaintDetailCalled,
   complaintDetailFailed,
   complaintDetailReceived,
-} from '../../reducers/detail/detail';
+} from '../../reducers/detail/detailSlice';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -40,7 +40,6 @@ function setupStore(tab) {
     aggs: { activeCall: '' },
     map: { activeCall: '' },
     query: {
-      queryString: '?foobar',
       tab,
     },
     trends: {
@@ -115,7 +114,6 @@ describe('action::complaints', () => {
           date_received_min: new Date(2013, 1, 3),
           from: 0,
           has_narrative: true,
-          queryString: '?foo',
           searchText: '',
           size: 10,
         },
@@ -191,7 +189,6 @@ describe('action::complaints', () => {
           date_received_min: new Date(2013, 1, 3),
           from: 0,
           has_narrative: true,
-          queryString: '?foo',
           searchText: '',
           size: 10,
         },

@@ -1,13 +1,11 @@
-import React from 'react';
-import {
-  testRender as render,
-  screen,
-  fireEvent,
-} from '../../../testUtils/test-utils';
-import * as viewActions from '../../../reducers/view/view';
+import { testRender as render, screen } from '../../../testUtils/test-utils';
+import * as viewActions from '../../../reducers/view/viewSlice';
 import { ExportConfirmation } from './ExportConfirmation';
+import userEvent from '@testing-library/user-event';
 
+jest.useRealTimers();
 describe('ExportConfirmation', () => {
+  const user = userEvent.setup();
   const renderComponent = () => {
     render(<ExportConfirmation />);
   };
@@ -19,7 +17,7 @@ describe('ExportConfirmation', () => {
     renderComponent();
     expect(screen.getByText('Export complaints')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Close/ })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: /Close/ }));
+    await user.click(screen.getByRole('button', { name: /Close/ }));
     expect(hideModalSpy).toHaveBeenCalled();
   });
 });

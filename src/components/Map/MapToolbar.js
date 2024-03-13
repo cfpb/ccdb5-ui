@@ -1,17 +1,15 @@
 import './MapToolbar.less';
-import {
-  clearStateFilter,
-  showStateComplaints,
-} from '../../reducers/query/query';
 import { useDispatch, useSelector } from 'react-redux';
 import getIcon from '../iconMap';
 import React from 'react';
-import { THESE_UNITED_STATES } from '../../constants';
-import { selectQueryStateFilters } from '../../reducers/query/selectors';
+import { MODE_LIST, THESE_UNITED_STATES } from '../../constants';
+import { stateFilterCleared } from '../../reducers/filters/filtersSlice';
+import { selectFiltersState } from '../../reducers/filters/selectors';
+import { tabChanged } from '../../reducers/view/viewSlice';
 
 export const MapToolbar = () => {
   const dispatch = useDispatch();
-  const stateFilters = useSelector(selectQueryStateFilters);
+  const stateFilters = useSelector(selectFiltersState);
   const filteredStates = stateFilters
     ? stateFilters
         .filter((state) => state in THESE_UNITED_STATES)
@@ -29,7 +27,7 @@ export const MapToolbar = () => {
             aria-label="Clear all map filters"
             className="a-btn a-btn__link"
             onClick={() => {
-              dispatch(clearStateFilter());
+              dispatch(stateFilterCleared());
             }}
           >
             {getIcon('delete-round')}
@@ -42,7 +40,7 @@ export const MapToolbar = () => {
           <button
             className="list a-btn a-btn__link"
             onClick={() => {
-              dispatch(showStateComplaints());
+              dispatch(tabChanged(MODE_LIST));
             }}
           >
             View complaints for filtered states

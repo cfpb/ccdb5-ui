@@ -6,23 +6,23 @@ import {
   screen,
 } from '../../../testUtils/test-utils';
 import { merge } from '../../../testUtils/functionHelpers';
-import { mapState } from '../../../reducers/map/map';
-import { queryState } from '../../../reducers/query/query';
-import { viewState } from '../../../reducers/view/view';
+import { filtersState } from '../../../reducers/filters/filtersSlice';
+import { mapState } from '../../../reducers/map/mapSlice';
+import { viewState } from '../../../reducers/view/viewSlice';
 import { mapResults } from './__fixtures__/mapResults';
-import { GEO_NORM_PER1000 } from '../../../constants';
+import { GEO_NORM_PER1000, MODE_MAP } from '../../../constants';
 import * as analyticsActions from '../../../utils';
-import * as mapActions from '../../../reducers/query/query';
+import * as filterActions from '../../../reducers/filters/filtersSlice';
 
 describe('TileChartMap', () => {
-  const renderComponent = (newMapState, newQueryState, newViewState) => {
+  const renderComponent = (newMapState, newFiltersState, newViewState) => {
     merge(newMapState, mapState);
-    merge(newQueryState, queryState);
+    merge(newFiltersState, filtersState);
     merge(newViewState, viewState);
 
     const data = {
+      filters: newFiltersState,
       map: newMapState,
-      query: newQueryState,
       view: newViewState,
     };
     render(<TileChartMap />, {
@@ -51,7 +51,7 @@ describe('TileChartMap', () => {
       .mockImplementation(() => jest.fn());
 
     const addStateFilterSpy = jest
-      .spyOn(mapActions, 'addStateFilter')
+      .spyOn(filterActions, 'stateFilterAdded')
       .mockImplementation(() => jest.fn());
 
     const newMap = {
@@ -89,7 +89,7 @@ describe('TileChartMap', () => {
       .mockImplementation(() => jest.fn());
 
     const addStateFilterSpy = jest
-      .spyOn(mapActions, 'addStateFilter')
+      .spyOn(filterActions, 'stateFilterAdded')
       .mockImplementation(() => jest.fn());
 
     const newMap = {
@@ -98,7 +98,7 @@ describe('TileChartMap', () => {
       },
     };
 
-    const newQuery = {
+    const newFilters = {
       dataNormalization: GEO_NORM_PER1000,
     };
 
@@ -107,7 +107,7 @@ describe('TileChartMap', () => {
       width: 1000,
     };
 
-    renderComponent(newMap, newQuery, newView);
+    renderComponent(newMap, newFilters, newView);
     expect(screen.getByTestId('tile-chart-map')).toBeInTheDocument();
     expect(screen.getByTestId('tile-chart-map')).not.toHaveClass('print');
 
@@ -138,7 +138,7 @@ describe('TileChartMap', () => {
       .mockImplementation(() => jest.fn());
 
     const removeStateFilterSpy = jest
-      .spyOn(mapActions, 'removeStateFilter')
+      .spyOn(filterActions, 'stateFilterRemoved')
       .mockImplementation(() => jest.fn());
 
     const newMap = {
@@ -147,16 +147,17 @@ describe('TileChartMap', () => {
       },
     };
 
-    const newQuery = {
+    const newFilters = {
       state: ['FL', 'TX'],
     };
 
     const newView = {
       isPrintMode: false,
+      tab: MODE_MAP,
       width: 1000,
     };
 
-    renderComponent(newMap, newQuery, newView);
+    renderComponent(newMap, newFilters, newView);
     expect(screen.getByTestId('tile-chart-map')).toBeInTheDocument();
     expect(screen.getByTestId('tile-chart-map')).not.toHaveClass('print');
 
@@ -179,7 +180,7 @@ describe('TileChartMap', () => {
       .mockImplementation(() => jest.fn());
 
     const removeStateFilterSpy = jest
-      .spyOn(mapActions, 'removeStateFilter')
+      .spyOn(filterActions, 'stateFilterRemoved')
       .mockImplementation(() => jest.fn());
 
     const newMap = {
@@ -188,17 +189,18 @@ describe('TileChartMap', () => {
       },
     };
 
-    const newQuery = {
+    const newFilters = {
       dataNormalization: GEO_NORM_PER1000,
       state: ['FL', 'TX'],
     };
 
     const newView = {
       isPrintMode: false,
+      tab: MODE_MAP,
       width: 1000,
     };
 
-    renderComponent(newMap, newQuery, newView);
+    renderComponent(newMap, newFilters, newView);
     expect(screen.getByTestId('tile-chart-map')).toBeInTheDocument();
     expect(screen.getByTestId('tile-chart-map')).not.toHaveClass('print');
     expect(await screen.findByText('FL')).toBeInTheDocument();

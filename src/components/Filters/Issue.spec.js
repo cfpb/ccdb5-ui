@@ -6,22 +6,22 @@ import {
 } from '../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 import { merge } from '../../testUtils/functionHelpers';
-import { aggState } from '../../reducers/aggs/aggs';
-import { queryState } from '../../reducers/query/query';
+import { aggsState } from '../../reducers/aggs/aggsSlice';
 import { Issue } from './Issue';
 import { listOfIssues } from '../../testUtils/aggsConstants';
-import * as filterActions from '../../reducers/query/query';
+import * as filterActions from '../../reducers/filters/filtersSlice';
+import { filtersState } from '../../reducers/filters/filtersSlice';
 
 describe('Issue', () => {
   const user = userEvent.setup({ delay: null });
   const renderComponent = () => {
     const newAggsState = { issue: listOfIssues };
-    const newQueryState = { issue: ['Incorrect information on your report'] };
-    merge(newAggsState, aggState);
-    merge(newQueryState, queryState);
+    const newFiltersState = { issue: ['Incorrect information on your report'] };
+    merge(newAggsState, aggsState);
+    merge(newFiltersState, filtersState);
     const data = {
       aggs: newAggsState,
-      query: newQueryState,
+      filters: newFiltersState,
     };
 
     render(<Issue />, {
@@ -29,9 +29,9 @@ describe('Issue', () => {
     });
   };
 
-  test('Options appear when user types and dispatches replaceFilters on selection', async () => {
-    const replaceFiltersSpy = jest
-      .spyOn(filterActions, 'replaceFilters')
+  test('Options appear when user types and dispatches filtersReplaced on selection', async () => {
+    const filtersReplacedSpy = jest
+      .spyOn(filterActions, 'filtersReplaced')
       .mockImplementation(() => jest.fn());
 
     renderComponent();
@@ -43,7 +43,7 @@ describe('Issue', () => {
     await user.click(option);
 
     await waitFor(() =>
-      expect(replaceFiltersSpy).toBeCalledWith('issue', [
+      expect(filtersReplacedSpy).toBeCalledWith('issue', [
         'Incorrect information on your report',
         listOfIssues[0].key,
       ]),

@@ -1247,4 +1247,5 @@ export const trendsResults = {
   subLens: '',
   tooltip: false,
   total: 532,
+  trendDepth: 5,
 };

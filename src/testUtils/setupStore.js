@@ -1,13 +1,14 @@
 import { createStore } from 'redux';
 import actionsReducer from '../reducers/actions/actionsSlice';
-import aggregationsReducer from '../reducers/aggs/aggs';
-import detailReducer from '../reducers/detail/detail';
-import mapReducer from '../reducers/map/map';
-import queryReducer from '../reducers/query/query';
-import resultsReducer from '../reducers/results/results';
+import aggregationsReducer from '../reducers/aggs/aggsSlice';
+import detailReducer from '../reducers/detail/detailSlice';
+import filtersReducer from '../reducers/filters/filtersSlice';
+import mapReducer from '../reducers/map/mapSlice';
+import queryReducer from '../reducers/query/querySlice';
+import resultsReducer from '../reducers/results/resultsSlice';
 import routesReducer from '../reducers/routes/routesSlice';
-import trendsReducer from '../reducers/trends/trends';
-import viewModelReducer from '../reducers/view/view';
+import trendsReducer from '../reducers/trends/trendsSlice';
+import viewModelReducer from '../reducers/view/viewSlice';
 import { applyMiddleware, combineReducers } from '@reduxjs/toolkit';
 import actionLogger from '../middleware/actionLogger/actionLogger';
 import cloneDeep from 'lodash/cloneDeep';
@@ -37,6 +38,7 @@ function setupStore(targetState, additionalMiddlewares) {
     actions: actionsReducer,
     aggregations: aggregationsReducer,
     detail: detailReducer,
+    filters: filtersReducer,
     map: mapReducer,
     query: queryReducer,
     results: resultsReducer,

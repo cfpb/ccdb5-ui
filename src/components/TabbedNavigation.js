@@ -2,12 +2,12 @@ import './TabbedNavigation.less';
 import { useDispatch, useSelector } from 'react-redux';
 import getIcon from './iconMap';
 import React from 'react';
-import { selectQueryTab } from '../reducers/query/selectors';
-import { changeTab } from '../reducers/query/query';
+import { selectViewTab } from '../reducers/view/selectors';
+import { tabChanged } from '../reducers/view/viewSlice';
 
 export const TabbedNavigation = () => {
   const dispatch = useDispatch();
-  const tab = useSelector(selectQueryTab);
+  const tab = useSelector(selectViewTab);
 
   const getTabClass = (selectedTab) => {
     const tabName = selectedTab.toLowerCase() + ' tab';
@@ -19,7 +19,7 @@ export const TabbedNavigation = () => {
       <section>
         <button
           className={getTabClass('Trends')}
-          onClick={() => dispatch(changeTab('Trends'))}
+          onClick={() => dispatch(tabChanged('Trends'))}
         >
           {getIcon('chart')}
           Trends
@@ -27,7 +27,7 @@ export const TabbedNavigation = () => {
 
         <button
           className={getTabClass('List')}
-          onClick={() => dispatch(changeTab('List'))}
+          onClick={() => dispatch(tabChanged('List'))}
         >
           {getIcon('list')}
           List
@@ -35,7 +35,7 @@ export const TabbedNavigation = () => {
 
         <button
           className={getTabClass('Map')}
-          onClick={() => dispatch(changeTab('Map'))}
+          onClick={() => dispatch(tabChanged('Map'))}
         >
           {getIcon('map')}
           Map

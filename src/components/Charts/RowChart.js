@@ -9,9 +9,9 @@ import {
   hashObject,
   sendAnalyticsEvent,
 } from '../../utils';
-import { collapseRow, expandRow } from '../../reducers/view/view';
+import { rowCollapsed, rowExpanded } from '../../reducers/view/viewSlice';
 import { miniTooltip, row } from 'britecharts';
-import { changeFocus } from '../../reducers/query/query';
+import { focusChanged } from '../../reducers/trends/trendsSlice';
 import { connect } from 'react-redux';
 import { max } from 'd3-array';
 import { MODE_MAP } from '../../constants';
@@ -243,23 +243,23 @@ export const mapDispatchToProps = (dispatch) => ({
         : [];
     }
     sendAnalyticsEvent('Trends click', element.parent);
-    dispatch(changeFocus(element.parent, lens, [...values]));
+    dispatch(focusChanged(element.parent, lens, [...values]));
   },
   collapseRow: (rowName) => {
     sendAnalyticsEvent('Bar chart collapsed', rowName);
-    dispatch(collapseRow(rowName));
+    dispatch(rowCollapsed(rowName));
   },
   expandRow: (rowName) => {
     sendAnalyticsEvent('Bar chart expanded', rowName);
-    dispatch(expandRow(rowName));
+    dispatch(rowExpanded(rowName));
   },
 });
 
 export const mapStateToProps = (state) => {
-  const { tab } = state.query;
-  const lens = tab === MODE_MAP ? 'Product' : state.query.lens;
   const { aggs } = state;
-  const { expandedRows, isPrintMode, width } = state.view;
+  const { expandedRows, isPrintMode, tab, width } = state.view;
+  const lens = tab === MODE_MAP ? 'Product' : state.trends.lens;
+
   return {
     aggs,
     expandedRows,

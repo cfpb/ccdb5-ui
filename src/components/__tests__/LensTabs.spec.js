@@ -1,5 +1,4 @@
 import configureMockStore from 'redux-mock-store';
-import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
 import ReduxLensTabs, {
   LensTabs,
@@ -37,9 +36,7 @@ function setupSnapshot({ focus, lens, results }) {
 
   return renderer.create(
     <Provider store={store}>
-      <IntlProvider locale="en">
-        <ReduxLensTabs showTitle={true} />
-      </IntlProvider>
+      <ReduxLensTabs showTitle={true} />
     </Provider>,
   );
 }

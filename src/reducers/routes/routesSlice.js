@@ -13,7 +13,9 @@ export const updateParams = (state, action) => {
 };
 
 export const routesState = {
-  path: '/',
+  // path has to be empty so that synchURL fires when the page loads through
+  // useLocation / routes.js
+  path: '',
   params: {},
 };
 

@@ -1,7 +1,7 @@
 // Internal triggers
 import { formatDate } from '../utils/formatDate';
 
-export const DATE_RANGE_MIN = '2011-12-01T12:00:00.000Z';
+export const DATE_RANGE_MIN = '2011-12-01';
 
 // dayjs formatter to uses for custom validation
 // https://day.js.org/docs/en/parse/string-format
@@ -16,7 +16,7 @@ export const MODAL_TYPE_EXPORT_CONFIRMATION = 'MODAL_TYPE_EXPORT_CONFIRMATION';
 export const MODAL_TYPE_MORE_ABOUT = 'MODAL_TYPE_MORE_ABOUT';
 
 // view modes
-export const MODE_DOCUMENT = 'Document';
+export const MODE_DETAIL = 'Detail';
 export const MODE_MAP = 'Map';
 export const MODE_LIST = 'List';
 export const MODE_TRENDS = 'Trends';
@@ -29,12 +29,16 @@ export const GEO_NORM_PER1000 = 'Per 1000 pop.';
 export const NARRATIVE_SEARCH_FIELD = 'complaint_what_happened';
 
 // query manager flags
-// These constants control how the query manager works
 export const PERSIST_LOAD = 'PERSIST_LOAD'; // state will be loaded from params & path
+export const PERSIST_NONE = 'PERSIST_NONE'; // default if not specified
+export const PERSIST_SAVE = 'PERSIST_SAVE'; // state will update path & params
+export const PERSIST_SAVE_PATH = 'PERSIST_SAVE_PATH'; // state will update the path
+export const PERSIST_SAVE_QUERY_STRING = 'PERSIST_SAVE_QUERY_STRING';
+
+// These constants control how the query manager works
 export const REQUERY_ALWAYS = 'REQUERY_ALWAYS';
 export const REQUERY_HITS_ONLY = 'REQUERY_HITS_ONLY';
-// default if not specified
-export const REQUERY_NEVER = 'REQUERY_NEVER';
+export const REQUERY_NEVER = 'REQUERY_NEVER'; // default if not specified
 
 export const knownFilters = [
   'company',

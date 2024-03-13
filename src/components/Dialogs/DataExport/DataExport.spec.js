@@ -1,4 +1,3 @@
-import React from 'react';
 import { DataExport } from './DataExport';
 import * as utils from '../../../utils';
 import {
@@ -7,25 +6,28 @@ import {
   fireEvent,
 } from '../../../testUtils/test-utils';
 import { merge } from '../../../testUtils/functionHelpers';
-import { aggState } from '../../../reducers/aggs/aggs';
-import { queryState } from '../../../reducers/query/query';
-import * as viewActions from '../../../reducers/view/view';
+import { aggsState } from '../../../reducers/aggs/aggsSlice';
+import { filtersState } from '../../../reducers/filters/filtersSlice';
+import { queryState } from '../../../reducers/query/querySlice';
+import * as viewActions from '../../../reducers/view/viewSlice';
 import { MODAL_TYPE_EXPORT_CONFIRMATION } from '../../../constants';
 import { waitFor } from '@testing-library/react';
 
 describe('DataExport', () => {
   const originalClipboard = { ...global.navigator.clipboard };
 
-  const renderComponent = (newAggsState, newQueryState) => {
+  const renderComponent = (newAggsState, newFiltersState, newQueryState) => {
     const mockClipboard = {
       writeText: jest.fn(),
     };
     global.navigator.clipboard = mockClipboard;
 
-    merge(newAggsState, aggState);
+    merge(newAggsState, aggsState);
+    merge(newFiltersState, filtersState);
     merge(newQueryState, queryState);
     const data = {
       aggs: newAggsState,
+      filters: newFiltersState,
       query: newQueryState,
     };
     render(<DataExport />, { preloadedState: data });
@@ -74,7 +76,7 @@ describe('DataExport', () => {
     const modalHiddenSpy = jest
       .spyOn(viewActions, 'modalHidden')
       .mockImplementation(() => jest.fn());
-    renderComponent({}, {});
+    renderComponent({}, {}, {});
     expect(screen.getByText('Export complaints')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
@@ -88,7 +90,7 @@ describe('DataExport', () => {
     const sendAnalyticsSpy = jest
       .spyOn(utils, 'sendAnalyticsEvent')
       .mockImplementation(() => jest.fn());
-    renderComponent({}, {});
+    renderComponent({}, {}, {});
     expect(screen.getByText('Export complaints')).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: /Start export/ }),
@@ -111,7 +113,7 @@ describe('DataExport', () => {
     const sendAnalyticsSpy = jest
       .spyOn(utils, 'sendAnalyticsEvent')
       .mockImplementation(() => jest.fn());
-    renderComponent({}, {});
+    renderComponent({}, {}, {});
     expect(screen.getByText('Export complaints')).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: /Start export/ }),
@@ -153,7 +155,11 @@ describe('DataExport', () => {
       .spyOn(utils, 'sendAnalyticsEvent')
       .mockImplementation(() => jest.fn());
 
-    renderComponent({ doc_count: 999, total: 10000 }, {});
+    renderComponent(
+      { doc_count: 999, total: 10000 },
+      { issue: ['foo'], product: ['bar', 'baz'], state: ['TX', 'CA'] },
+      {},
+    );
     expect(
       screen.getByText(/Select which complaints you'd like to export/),
     ).toBeInTheDocument();
@@ -174,10 +180,9 @@ describe('DataExport', () => {
     });
 
     expect(screen.getByRole('textbox')).toHaveValue(
-      'http://localhost/@@API?date_received_max=2020-05-05&' +
-        'date_received_min=2017-05-05&field=all&format=csv&lens=product&' +
-        'no_aggs=true&size=10000&sub_lens=sub_product&trend_depth=5&' +
-        'trend_interval=month',
+      'http://localhost/@@API?date_received_max=2020-05-05' +
+        '&date_received_min=2017-05-05&field=all&format=csv&issue=foo' +
+        '&no_aggs=true&product=bar&product=baz&size=10000&state=TX&state=CA',
     );
 
     expect(
@@ -244,7 +249,7 @@ describe('DataExport', () => {
   });
 
   it('switches dataset selections', async () => {
-    renderComponent({ doc_count: 999, total: 10000 }, {});
+    renderComponent({ doc_count: 999, total: 10000 }, {}, {});
     expect(
       screen.getByText(/Select which complaints you'd like to export/),
     ).toBeInTheDocument();

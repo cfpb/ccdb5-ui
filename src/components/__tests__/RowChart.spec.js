@@ -524,7 +524,7 @@ describe('component: RowChart', () => {
         id: 'baz',
       };
 
-      state.query.tab = 'Trends';
+      state.view.tab = 'Trends';
 
       const actual = mapStateToProps(state, ownProps);
       expect(actual).toEqual({

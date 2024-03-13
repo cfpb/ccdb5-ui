@@ -9,27 +9,28 @@ import {
   complaintDetailCalled,
   complaintDetailReceived,
   complaintDetailFailed,
-} from '../reducers/detail/detail';
+} from '../reducers/detail/detailSlice';
 import {
   trendsReceived,
   trendsApiFailed,
   trendsApiCalled,
-} from '../reducers/trends/trends';
+} from '../reducers/trends/trendsSlice';
 import {
   statesApiCalled,
   statesApiFailed,
   statesReceived,
-} from '../reducers/map/map';
+} from '../reducers/map/mapSlice';
 import {
   aggregationsApiCalled,
   aggregationsApiFailed,
   aggregationsReceived,
-} from '../reducers/aggs/aggs';
+} from '../reducers/aggs/aggsSlice';
 import {
   complaintsApiCalled,
   complaintsApiFailed,
   complaintsReceived,
-} from '../reducers/results/results';
+} from '../reducers/results/resultsSlice';
+import { buildAggregationUri, buildUri } from '../api/url/url';
 
 // ----------------------------------------------------------------------------
 // Routing action
@@ -42,7 +43,7 @@ export function sendQuery() {
   // eslint-disable-next-line complexity
   return (dispatch, getState) => {
     const state = getState();
-    const viewMode = state.query.tab;
+    const viewMode = state.view.tab;
     switch (viewMode) {
       case MODE_MAP:
       case MODE_LIST:
@@ -67,7 +68,7 @@ export function sendHitsQuery() {
   // eslint-disable-next-line complexity
   return (dispatch, getState) => {
     const state = getState();
-    const viewMode = state.query.tab;
+    const viewMode = state.view.tab;
     switch (viewMode) {
       case MODE_MAP:
         dispatch(getStates());
@@ -95,8 +96,9 @@ export function sendHitsQuery() {
 export function getAggregations() {
   return (dispatch, getState) => {
     const store = getState();
-    const qs = store.query.queryString;
-    const uri = API_PLACEHOLDER + qs + '&size=0';
+
+    const qs = buildAggregationUri(store);
+    const uri = API_PLACEHOLDER + qs;
 
     // This call is already in process
     if (store.aggs.activeCall) {
@@ -119,7 +121,7 @@ export function getAggregations() {
 export function getComplaints() {
   return (dispatch, getState) => {
     const store = getState();
-    const qs = store.query.queryString;
+    const qs = buildUri(store);
     const uri = API_PLACEHOLDER + qs;
     // This call is already in process
     if (uri === store.results.activeCall) {
@@ -143,8 +145,14 @@ export function getComplaints() {
  * @returns {Promise} a chain of promises that will update the Redux store
  */
 export function getComplaintDetail(id) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const store = getState();
     const uri = API_PLACEHOLDER + id;
+
+    if (uri === store.detail.activeCall) {
+      return null;
+    }
+
     dispatch(complaintDetailCalled(uri));
     fetch(uri)
       .then((result) => result.json())
@@ -161,7 +169,7 @@ export function getComplaintDetail(id) {
 export function getStates() {
   return (dispatch, getState) => {
     const store = getState();
-    const qs = 'geo/states/' + store.query.queryString;
+    const qs = 'geo/states/' + buildUri(store);
     const uri = API_PLACEHOLDER + qs + '&no_aggs=true';
 
     // This call is already in process
@@ -185,7 +193,7 @@ export function getStates() {
 export function getTrends() {
   return (dispatch, getState) => {
     const store = getState();
-    const qs = 'trends/' + store.query.queryString;
+    const qs = 'trends' + buildUri(store);
     const uri = API_PLACEHOLDER + qs + '&no_aggs=true';
     // This call is already in process
     if (uri === store.trends.activeCall) {
@@ -195,7 +203,7 @@ export function getTrends() {
     // kill query if Company param criteria aren't met
     if (
       store.trends.lens === 'Company' &&
-      (!store.query.company || !store.query.company.length)
+      (!store.filters.company || !store.filters.company.length)
     ) {
       return null;
     }

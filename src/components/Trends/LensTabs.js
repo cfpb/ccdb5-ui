@@ -1,5 +1,5 @@
 import './LensTabs.less';
-import { updateDataSubLens } from '../../reducers/trends/trends';
+import { dataSubLensChanged } from '../../reducers/trends/trendsSlice';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -72,8 +72,7 @@ const displayProductTab = (lens, focus, results) => {
 };
 
 export const mapStateToProps = (state) => {
-  const { focus, lens, subLens } = state.query;
-  const { results } = state.trends;
+  const { focus, lens, subLens, results } = state.trends;
   return {
     focus,
     lens,
@@ -92,7 +91,7 @@ export const mapDispatchToProps = (dispatch) => ({
     };
 
     sendAnalyticsEvent('Button', lens + ':' + labelMap[tab]);
-    dispatch(updateDataSubLens(tab.toLowerCase()));
+    dispatch(dataSubLensChanged(tab.toLowerCase()));
   },
 });
 

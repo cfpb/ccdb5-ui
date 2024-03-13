@@ -4,7 +4,7 @@ import getIcon from '../iconMap';
 import LensTabs from './LensTabs';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { removeFocus } from '../../reducers/trends/trends';
+import { focusRemoved } from '../../reducers/trends/trendsSlice';
 
 export class FocusHeader extends React.Component {
   render() {
@@ -35,14 +35,14 @@ export class FocusHeader extends React.Component {
 }
 
 export const mapDispatchToProps = (dispatch) => ({
-  clearFocus: () => {
-    dispatch(removeFocus());
+  clearFocus: (lens) => {
+    dispatch(focusRemoved(lens));
   },
 });
 
 export const mapStateToProps = (state) => ({
-  focus: state.query.focus,
-  lens: state.query.lens,
+  focus: state.trends.focus,
+  lens: state.trends.lens,
   total: state.trends.total.toLocaleString(),
 });
 

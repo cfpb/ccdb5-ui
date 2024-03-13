@@ -1,7 +1,7 @@
 import React from 'react';
 import { FilterPanel } from '../Filters/FilterPanel';
 import { merge } from '../../testUtils/functionHelpers';
-import { viewState } from '../../reducers/view/view';
+import { viewState } from '../../reducers/view/viewSlice';
 import { testRender as render, screen } from '../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 

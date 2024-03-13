@@ -1,7 +1,11 @@
 // reducer for the Map Tab
-import { processAggregations } from '../trends/trends';
+import { processAggregations } from '../trends/trendsSlice';
 import { processErrorMessage } from '../../utils';
-import { TILE_MAP_STATES } from '../../constants';
+import {
+  PERSIST_SAVE_QUERY_STRING,
+  REQUERY_NEVER,
+  TILE_MAP_STATES,
+} from '../../constants';
 import { createSlice } from '@reduxjs/toolkit';
 
 export const mapState = {
@@ -40,37 +44,40 @@ export const mapSlice = createSlice({
   name: 'map',
   initialState: mapState,
   reducers: {
-    handleTabChanged(state) {
-      return {
-        ...state,
-        error: false,
-        results: {
-          product: [],
-          state: [],
-        },
-      };
-    },
     statesApiCalled: {
       reducer: (state, action) => {
         state.activeCall = action.payload.url;
         state.error = false;
       },
     },
-    statesReceived(state, action) {
-      const aggregations = action.payload.aggregations;
-      const { state: stateData } = aggregations;
-      // add in "issue" if we ever need issue row chart again
-      const keys = ['product'];
-      const results = {};
-      processAggregations(keys, state, aggregations, results);
-      results.state = processStateAggregations(stateData);
+    statesReceived: {
+      reducer: (state, action) => {
+        const { aggregations } = action.payload.data;
+        const { state: stateData } = aggregations;
+        // add in "issue" if we ever need issue row chart again
+        const keys = ['product'];
+        const results = {};
+        processAggregations(keys, state, aggregations, results);
+        results.state = processStateAggregations(stateData);
 
-      return {
-        ...state,
-        activeCall: '',
-        error: false,
-        results,
-      };
+        return {
+          ...state,
+          activeCall: '',
+          error: false,
+          results,
+        };
+      },
+      prepare: (items) => {
+        return {
+          payload: {
+            data: items,
+          },
+          meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
+            requery: REQUERY_NEVER,
+          },
+        };
+      },
     },
     statesApiFailed(state, action) {
       return {
@@ -84,12 +91,20 @@ export const mapSlice = createSlice({
       };
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase('view/tabChanged', (state) => {
+      return {
+        ...state,
+        error: false,
+        results: {
+          product: [],
+          state: [],
+        },
+      };
+    });
+  },
 });
 
-export const {
-  handleTabChanged,
-  statesApiCalled,
-  statesReceived,
-  statesApiFailed,
-} = mapSlice.actions;
+export const { statesApiCalled, statesReceived, statesApiFailed } =
+  mapSlice.actions;
 export default mapSlice.reducer;

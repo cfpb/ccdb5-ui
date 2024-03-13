@@ -2,7 +2,7 @@ import './Hero.less';
 import { useDispatch } from 'react-redux';
 import React from 'react';
 import { LINK_DATA_USE, MODAL_TYPE_MORE_ABOUT } from '../../../constants';
-import { modalShown } from '../../../reducers/view/view';
+import { modalShown } from '../../../reducers/view/viewSlice';
 
 export const Hero = () => {
   const dispatch = useDispatch();

@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import renderer from 'react-test-renderer';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
-import ReduxProduct, { mapStateToProps } from '../Product';
+import { Product } from '../Product';
 import { slugify } from '../../../utils';
 
 const fixture = [
@@ -131,10 +131,14 @@ describe('component:Product', () => {
         aggs: {
           product: fixture,
         },
-        query: {
+        filters: {
+          product: ['Mortgage'],
+        },
+        trends: {
           focus: 'Mortgage',
           lens: 'Product',
-          product: ['Mortgage'],
+        },
+        view: {
           tab: 'Trends',
         },
       };
@@ -218,12 +222,11 @@ describe('component:Product', () => {
       aggs: {
         product: fixture,
       },
-      query: {
-        focus: 'Mortgage',
-        lens: 'Company',
+      filters: {
         product: ['Mortgage'],
-        tab: 'Trends',
       },
+      trends: { focus: 'Mortgage', lens: 'Company' },
+      view: { tab: 'Trends' },
     };
     const actual = mapStateToProps(state);
     expect(actual).toEqual({

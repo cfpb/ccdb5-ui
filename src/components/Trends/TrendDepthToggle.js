@@ -1,11 +1,16 @@
-/* eslint complexity: ["error", 5] */
 import './TrendDepthToggle.less';
-import { changeDepth, resetDepth } from '../../reducers/query/query';
+import { depthChanged, depthReset } from '../../reducers/trends/trendsSlice';
 import { clamp, coalesce } from '../../utils';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { SLUG_SEPARATOR } from '../../constants';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectTrendsFocus,
+  selectTrendsLens,
+  selectTrendsResults,
+} from '../../reducers/trends/selectors';
+import { selectAggsRootState } from '../../reducers/aggs/selectors';
+import { selectFiltersFilterState } from '../../reducers/filters/selectors';
 
 const maxRows = 5;
 const lensMap = {
@@ -14,88 +19,24 @@ const lensMap = {
   Company: 'company',
 };
 
-export class TrendDepthToggle extends React.Component {
-  _showMore() {
-    const { queryCount, resultCount } = this.props;
-    // scenarios where we want to show more:
-    // you have less visible rows that the max (5)
-    if (resultCount <= maxRows) {
-      return true;
-    }
-    // or more filters count > max Rows and they aren't the same (visible)
-    return queryCount > maxRows && queryCount !== resultCount;
+const _showMore = (filterCount, resultCount) => {
+  // scenarios where we want to show more:
+  // you have less visible rows that the max (5)
+  if (resultCount <= maxRows) {
+    return true;
   }
-
-  render() {
-    const { diff, increaseDepth, depthReset, hasToggle } = this.props;
-    if (hasToggle) {
-      if (this._showMore()) {
-        return (
-          <div className="trend-depth-toggle">
-            <button
-              className="a-btn a-btn__link"
-              id="trend-depth-button"
-              onClick={() => {
-                increaseDepth(diff);
-              }}
-            >
-              <span className="plus" />
-              Show more
-            </button>
-          </div>
-        );
-      }
-      return (
-        <div className="trend-depth-toggle">
-          <button
-            className="a-btn a-btn__link"
-            id="trend-depth-button"
-            onClick={() => {
-              depthReset();
-            }}
-          >
-            <span className="minus" />
-            Show less
-          </button>
-        </div>
-      );
-    }
-    return null;
-  }
-}
-
-/**
- * helper containing logic to determine when to show the toggle
- *
- * @param {string} lens - selected value
- * @param {string} focus - which focus we are on
- * @param {number} resultCount - count coming from trends results
- * @param {number} queryCount - count froming from aggs
- * @returns {boolean} whether to display the toggle
- */
-export const showToggle = (lens, focus, resultCount, queryCount) => {
-  // hide on Overview and Focus pages
-  if (lens === 'Overview' || focus) {
-    return false;
-  }
-
-  return resultCount > 5 || queryCount > 5;
+  // or more filters count > max Rows and they aren't the same (visible)
+  return filterCount > maxRows && filterCount !== resultCount;
 };
-
-export const mapDispatchToProps = (dispatch) => ({
-  increaseDepth: (diff) => {
-    dispatch(changeDepth(diff + 5));
-  },
-  depthReset: () => {
-    dispatch(resetDepth());
-  },
-});
-
-export const mapStateToProps = (state) => {
-  const { aggs, query, trends } = state;
-  const { focus, lens } = query;
+export const TrendDepthToggle = () => {
+  const dispatch = useDispatch();
+  const aggs = useSelector(selectAggsRootState);
+  const filters = useSelector(selectFiltersFilterState);
+  const focus = useSelector(selectTrendsFocus);
+  const lens = useSelector(selectTrendsLens);
+  const results = useSelector(selectTrendsResults);
   const lensKey = lensMap[lens];
-  const resultCount = coalesce(trends.results, lensKey, []).filter(
+  const resultCount = coalesce(results, lensKey, []).filter(
     (obj) => obj.isParent,
   ).length;
 
@@ -104,30 +45,69 @@ export const mapStateToProps = (state) => {
   if (lensKey === 'product') {
     totalResultsLength = coalesce(aggs, lensKey, []).length;
   } else {
-    totalResultsLength = clamp(coalesce(query, lensKey, []).length, 0, 10);
+    totalResultsLength = clamp(coalesce(filters, lensKey, []).length, 0, 10);
   }
 
   // handle cases where some specified filters are selected
-  const queryCount = query[lensKey]
-    ? query[lensKey].filter((obj) => obj.indexOf(SLUG_SEPARATOR) === -1).length
+  const filterCount = filters[lensKey]
+    ? filters[lensKey].filter((obj) => obj.indexOf(SLUG_SEPARATOR) === -1)
+        .length
     : totalResultsLength;
 
-  return {
-    diff: totalResultsLength - resultCount,
-    resultCount,
-    queryCount,
-    hasToggle: showToggle(lens, focus, resultCount, queryCount),
-  };
+  const diff = totalResultsLength - resultCount;
+  const hasToggle = showToggle(totalResultsLength, filterCount);
+
+  // hide on Overview and Focus pages
+  if (focus || lens === 'Overview') {
+    return null;
+  }
+
+  if (hasToggle) {
+    if (_showMore(filterCount, resultCount)) {
+      return (
+        <div className="trend-depth-toggle">
+          <button
+            className="a-btn a-btn__link"
+            id="trend-depth-button"
+            onClick={() => {
+              dispatch(depthChanged(diff + 5));
+            }}
+          >
+            <span className="plus" />
+            Show more
+          </button>
+        </div>
+      );
+    }
+    return (
+      <div className="trend-depth-toggle">
+        <button
+          className="a-btn a-btn__link"
+          id="trend-depth-button"
+          onClick={() => {
+            dispatch(depthReset());
+          }}
+        >
+          <span className="minus" />
+          Show less
+        </button>
+      </div>
+    );
+  }
 };
 
-// eslint-disable-next-line react-redux/prefer-separate-component-file
-export default connect(mapStateToProps, mapDispatchToProps)(TrendDepthToggle);
+/**
+ * helper containing logic to determine when to show the toggle
+ *
+ * @param {number} resultCount - count coming from trends results
+ * @param {number} filterCount - count from filters
+ * @returns {boolean} whether to display the toggle
+ */
+export const showToggle = (resultCount, filterCount) => {
+  // if the filters are selected, show the toggle if they selected more than 5 filters
+  if (filterCount > 0 && filterCount <= 5) {
+    return false;
+  }
 
-TrendDepthToggle.propTypes = {
-  queryCount: PropTypes.number,
-  resultCount: PropTypes.number.isRequired,
-  diff: PropTypes.number.isRequired,
-  increaseDepth: PropTypes.func.isRequired,
-  depthReset: PropTypes.func.isRequired,
-  hasToggle: PropTypes.bool.isRequired,
+  return resultCount > 5 || filterCount > 5;
 };

@@ -4,7 +4,7 @@ import { REQUERY_NEVER } from '../../constants';
 
 /* eslint-disable camelcase */
 
-export const aggState = {
+export const aggsState = {
   activeCall: '',
   doc_count: 0,
   total: 0,
@@ -29,7 +29,7 @@ export const aggState = {
 
 export const aggSlice = createSlice({
   name: 'aggs',
-  initialState: aggState,
+  initialState: aggsState,
   reducers: {
     aggregationsApiCalled: (state, action) => {
       state.error = '';

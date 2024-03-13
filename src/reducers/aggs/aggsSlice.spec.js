@@ -1,22 +1,22 @@
 import target, {
   aggregationsApiCalled,
-  aggState,
+  aggsState,
   aggregationsApiFailed,
   aggregationsReceived,
-} from './aggs';
+} from './aggsSlice';
 
 describe('reducer:aggs', () => {
   it('has a default state', () => {
     const actual = target(undefined, {});
 
-    expect(actual).toEqual(aggState);
+    expect(actual).toEqual(aggsState);
   });
 
   it('handles aggregationsApiCalled actions', () => {
     const action = 'foobar';
 
-    expect(target(aggState, aggregationsApiCalled(action))).toEqual({
-      ...aggState,
+    expect(target(aggsState, aggregationsApiCalled(action))).toEqual({
+      ...aggsState,
       activeCall: 'foobar',
     });
   });
@@ -25,13 +25,13 @@ describe('reducer:aggs', () => {
     const action = { message: 'error message', name: 'messageTypeName' };
 
     const expected = {
-      ...aggState,
+      ...aggsState,
       error: { message: 'error message', name: 'messageTypeName' },
     };
     expect(
       target(
         {
-          ...aggState,
+          ...aggsState,
           error: '',
         },
         aggregationsApiFailed(action),
@@ -59,7 +59,7 @@ describe('reducer:aggs', () => {
       },
     };
     const expected = {
-      ...aggState,
+      ...aggsState,
       doc_count: 162576,
       company_response: [{ key: 'foo', doc_count: 99 }],
       total: 99,
@@ -71,7 +71,7 @@ describe('reducer:aggs', () => {
     };
 
     expect(
-      target({ ...aggState, doc_count: 100 }, aggregationsReceived(action)),
+      target({ ...aggsState, doc_count: 100 }, aggregationsReceived(action)),
     ).toEqual(expected);
   });
 });

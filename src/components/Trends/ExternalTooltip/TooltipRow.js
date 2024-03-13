@@ -1,19 +1,19 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { filterRemoved } from '../../../reducers/filters/filtersSlice';
+import { selectQuerySubLens } from '../../../reducers/query/selectors';
 import {
-  selectQueryFocus,
-  selectQueryLens,
-  selectQuerySubLens,
-} from '../../../reducers/query/selectors';
+  selectTrendsFocus,
+  selectTrendsLens,
+} from '../../../reducers/trends/selectors';
 import { sanitizeHtmlId } from '../../../utils';
 import getIcon from '../../iconMap';
-import { removeFilter } from '../../../reducers/query/query';
 
 export const TooltipRow = ({ value }) => {
   const dispatch = useDispatch();
-  const queryFocus = useSelector(selectQueryFocus);
-  const focus = queryFocus ? 'focus' : '';
-  const lens = useSelector(selectQueryLens);
+  const trendsFocus = useSelector(selectTrendsFocus);
+  const focus = trendsFocus ? 'focus' : '';
+  const lens = useSelector(selectTrendsLens);
   const subLens = useSelector(selectQuerySubLens);
   const hasCompanyTypeahead = lens === 'Company' && !focus;
   const elements = [];
@@ -60,10 +60,11 @@ export const TooltipRow = ({ value }) => {
   if (hasCompanyTypeahead) {
     elements.push(
       <button
+        aria-label={'Remove ' + value.name + ' from comparison set'}
         className="u-right a-btn a-btn__link close"
         key={'close_' + value.name}
         onClick={() => {
-          dispatch(removeFilter('company', value.name));
+          dispatch(filterRemoved('company', value.name));
         }}
       >
         {getIcon('delete')}

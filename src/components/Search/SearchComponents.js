@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Hero } from './Hero/Hero';
-import { IntlProvider } from 'react-intl';
 import React, { useEffect } from 'react';
 import { RefinePanel } from './RefinePanel';
 import { ResultsPanel } from '../ResultsPanel';
@@ -13,7 +12,7 @@ import { useEvent } from '../../hooks/useEvent';
 import {
   updatePrintModeOff,
   updatePrintModeOn,
-} from '../../reducers/view/view';
+} from '../../reducers/view/viewSlice';
 import { SearchPanel } from './SearchPanel';
 
 export const SearchComponents = () => {
@@ -43,20 +42,18 @@ export const SearchComponents = () => {
   }, [isPrintMode]);
 
   return (
-    <IntlProvider locale="en">
-      <main
-        className={`content content__1-3 ${isPrintMode ? 'print' : ''}`}
-        role="main"
-      >
-        <Hero />
-        <div className="content_wrapper">
-          <SearchPanel />
-          <RefinePanel />
-          <ResultsPanel />
-        </div>
-        <Tour />
-        <RootModal />
-      </main>
-    </IntlProvider>
+    <main
+      className={`content content__1-3 ${isPrintMode ? 'print' : ''}`}
+      role="main"
+    >
+      <Hero />
+      <div className="content_wrapper">
+        <SearchPanel />
+        <RefinePanel />
+        <ResultsPanel />
+      </div>
+      <Tour />
+      <RootModal />
+    </main>
   );
 };

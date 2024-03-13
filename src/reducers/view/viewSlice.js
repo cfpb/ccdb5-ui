@@ -1,6 +1,12 @@
 import { processUrlArrayParams } from '../../utils';
 import { createSlice } from '@reduxjs/toolkit';
-import { REQUERY_NEVER } from '../../constants';
+import {
+  PERSIST_SAVE_QUERY_STRING,
+  REQUERY_HITS_ONLY,
+  REQUERY_NEVER,
+} from '../../constants';
+import * as types from '../../constants';
+import { enforceValues } from '../../utils/reducers';
 
 export const viewState = {
   expandedRows: [],
@@ -8,8 +14,9 @@ export const viewState = {
   isPrintMode: false,
   hasAdvancedSearchTips: false,
   hasFilters: true,
-  showTour: false,
   modalTypeShown: false,
+  showTour: false,
+  tab: types.MODE_TRENDS,
   width: 0,
 };
 
@@ -34,7 +41,7 @@ export const viewSlice = createSlice({
       state.modalTypeShown = false;
     },
     modalShown(state, action) {
-      state.modalTypeShown = action.payload.modalType;
+      state.modalTypeShown = action.payload;
     },
     showAdvancedSearchTips: {
       reducer: (state) => {
@@ -73,33 +80,32 @@ export const viewSlice = createSlice({
         };
       },
     },
+    tabChanged: {
+      reducer: (state, action) => {
+        state.tab = enforceValues(action.payload.tab, 'tab');
+        state.expandedRows = [];
+      },
+      prepare: (tab) => {
+        return {
+          payload: { tab },
+          meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
+            requery: REQUERY_HITS_ONLY,
+          },
+        };
+      },
+    },
     tourHidden: {
       reducer: (state) => {
         state.showTour = false;
-      },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            requery: REQUERY_NEVER,
-          },
-        };
       },
     },
     tourShown: {
       reducer: (state) => {
         state.showTour = true;
       },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            requery: REQUERY_NEVER,
-          },
-        };
-      },
     },
-    collapseRow: {
+    rowCollapsed: {
       reducer: (state, action) => {
         state.expandedRows = state.expandedRows.filter(
           (obj) => obj !== action.payload,
@@ -114,7 +120,7 @@ export const viewSlice = createSlice({
         };
       },
     },
-    expandRow: {
+    rowExpanded: {
       reducer: (state, action) => {
         if (!state.expandedRows.includes(action.payload)) {
           state.expandedRows.push(action.payload);
@@ -129,43 +135,42 @@ export const viewSlice = createSlice({
         };
       },
     },
-    resetExpandedRows(state) {
-      state.expandedRows = [];
-    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase('trends/updateDataLens', (state) => {
+      .addCase('trends/dataLensChanged', (state) => {
         state.expandedRows = [];
+      })
+      .addCase('trends/focusChanged', (state) => {
+        state.tab = types.MODE_TRENDS;
       })
       .addCase('routes/routeChanged', (state, action) => {
         const params = action.payload.params;
 
         state.isPrintMode = params.isPrintMode === 'true';
         state.isFromExternal = params.isFromExternal === 'true';
+        state.tab = enforceValues(params.tab, 'tab');
 
         const arrayParams = ['expandedRows'];
         processUrlArrayParams(params, state, arrayParams);
-
-        return state;
       });
   },
 });
 
 export const {
+  hideAdvancedSearchTips,
+  modalHidden,
+  modalShown,
   processParams,
-  resetExpandedRows,
-  expandRow,
-  collapseRow,
-  tourShown,
+  rowCollapsed,
+  rowExpanded,
+  showAdvancedSearchTips,
+  tabChanged,
   tourHidden,
+  tourShown,
   updateFilterVisibility,
-  updateScreenSize,
   updatePrintModeOff,
   updatePrintModeOn,
-  showAdvancedSearchTips,
-  modalShown,
-  modalHidden,
-  hideAdvancedSearchTips,
+  updateScreenSize,
 } = viewSlice.actions;
 export default viewSlice.reducer;

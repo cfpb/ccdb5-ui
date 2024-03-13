@@ -6,7 +6,7 @@ import {
 } from '../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 import fetchMock from 'jest-fetch-mock';
-import * as filterActions from '../../reducers/query/query';
+import * as filterActions from '../../reducers/filters/filtersSlice';
 import { CompanyTypeahead } from './CompanyTypeahead';
 
 fetchMock.enableMocks();
@@ -18,12 +18,12 @@ describe('CompanyTypeahead', () => {
 
   const user = userEvent.setup({ delay: null });
 
-  test('Options appear when user types and dispatches addMultipleFilters on selection', async () => {
+  test('Options appear when user types and dispatches multipleFiltersAdded on selection', async () => {
     fetch.mockResponseOnce(
       JSON.stringify(['Truist', 'Bank of America', 'Capital One']),
     );
-    const addMultipleFiltersSpy = jest
-      .spyOn(filterActions, 'addMultipleFilters')
+    const multipleFiltersAddedSpy = jest
+      .spyOn(filterActions, 'multipleFiltersAdded')
       .mockImplementation(() => jest.fn());
 
     render(<CompanyTypeahead />);
@@ -35,7 +35,7 @@ describe('CompanyTypeahead', () => {
     await user.click(option);
 
     await waitFor(() =>
-      expect(addMultipleFiltersSpy).toBeCalledWith('company', ['Truist']),
+      expect(multipleFiltersAddedSpy).toBeCalledWith('company', ['Truist']),
     );
   });
 });

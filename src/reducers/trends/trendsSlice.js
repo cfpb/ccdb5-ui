@@ -16,7 +16,13 @@ import {
   updateDateBuckets,
 } from '../../utils/chart';
 import { isDateEqual } from '../../utils/formatDate';
-import { MODE_TRENDS, REQUERY_ALWAYS, REQUERY_NEVER } from '../../constants';
+import {
+  MODE_TRENDS,
+  PERSIST_SAVE_QUERY_STRING,
+  REQUERY_ALWAYS,
+  REQUERY_HITS_ONLY,
+  REQUERY_NEVER,
+} from '../../constants';
 import { pruneOther } from '../../utils/trends';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -43,6 +49,7 @@ export const getDefaultState = () =>
       focus: '',
       lens: 'Product',
       subLens: 'sub_product',
+      trendDepth: 5,
     },
     { ...getResetState() },
   );
@@ -51,8 +58,193 @@ export const trendsState = getDefaultState();
 
 export const trendsSlice = createSlice({
   name: 'trends',
-  initialState: Object.assign({}, trendsState),
+  initialState: trendsState,
   reducers: {
+    chartTypeUpdated: {
+      reducer: (state, action) => {
+        state.chartType =
+          state.lens === 'Overview' ? 'line' : action.payload.chartType;
+        state.tooltip = false;
+      },
+      prepare: (chartType) => {
+        return {
+          payload: { chartType: chartType },
+          meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
+            requery: REQUERY_NEVER,
+          },
+        };
+      },
+    },
+    dataLensChanged: {
+      reducer: (state, action) => {
+        const lens = enforceValues(action.payload, 'lens');
+        switch (true) {
+          case lens === 'Company':
+            state.subLens = 'product';
+            break;
+          case lens === 'Overview':
+            state.subLens = 'product';
+            state.chartType = 'line';
+            break;
+          case lens === 'Product':
+            state.subLens = 'sub_product';
+            break;
+          default:
+            state.subLens = '';
+            break;
+        }
+
+        state.focus = '';
+        state.lens = lens;
+        state.results = emptyResults();
+        state.tooltip = false;
+        state.trendDepth = lens === 'Company' ? 10 : 5;
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
+            requery: REQUERY_HITS_ONLY,
+          },
+        };
+      },
+    },
+    dataSubLensChanged: {
+      reducer: (state, action) => {
+        return {
+          ...state,
+          subLens: action.payload.subLens.toLowerCase(),
+        };
+      },
+      prepare: (subLens) => {
+        return {
+          payload: { subLens },
+          meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
+            requery: REQUERY_HITS_ONLY,
+          },
+        };
+      },
+    },
+    depthChanged: {
+      reducer: (state, action) => {
+        state.trendDepth = action.payload.depth;
+      },
+      prepare: (depth) => {
+        return {
+          payload: { depth },
+          meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
+            requery: REQUERY_HITS_ONLY,
+          },
+        };
+      },
+    },
+    depthReset: {
+      reducer: (state) => {
+        state.trendDepth = 5;
+      },
+      prepare: () => {
+        return {
+          meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
+            requery: REQUERY_HITS_ONLY,
+          },
+        };
+      },
+    },
+    focusChanged: {
+      reducer: (state, action) => {
+        const { focus, lens } = action.payload;
+        state.focus = focus;
+        state.lens = enforceValues(lens, 'lens');
+        state.tooltip = false;
+        state.trendDepth = 25;
+        validateTrendsReducer(state);
+      },
+      prepare: (focus, lens, filterValues) => {
+        return {
+          payload: { focus, lens, filterValues },
+          meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
+    },
+    focusRemoved: {
+      reducer: (state) => {
+        return {
+          ...state,
+          focus: '',
+          results: emptyResults(),
+          tooltip: false,
+          trendDepth: 5,
+        };
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
+    },
+    tooltipUpdated: {
+      reducer: (state, action) => {
+        const tooltip = action.payload.date ? action.payload : false;
+
+        // need to merge in the actual viewed state
+        if (tooltip) {
+          tooltip.title = getTooltipTitle(
+            tooltip.date,
+            tooltip.interval,
+            tooltip.dateRange,
+            true,
+          );
+
+          /* istanbul ignore else */
+          if (tooltip.values) {
+            tooltip.values.forEach((obj) => {
+              if (!Object.hasOwn(obj, 'colorIndex')) {
+                obj.colorIndex =
+                  Object.values(colors.DataLens).indexOf(
+                    state.colorMap[obj.name],
+                  ) || 0;
+              }
+              // make sure all values have a value
+              if (!Object.hasOwn(obj, 'value')) {
+                obj.value = coalesce(obj, 'value', 0);
+              }
+            });
+
+            let total = 0;
+            total = tooltip.values.reduce(
+              (accumulator, currentValue) => accumulator + currentValue.value,
+              total,
+            );
+            tooltip.total = total;
+          }
+        }
+
+        return {
+          ...state,
+          tooltip,
+        };
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            requery: REQUERY_NEVER,
+          },
+        };
+      },
+    },
     trendsReceived: {
       reducer: (state, action) => {
         const aggregations = action.payload.data.aggregations;
@@ -117,6 +309,7 @@ export const trendsSlice = createSlice({
             data: items,
           },
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_NEVER,
           },
         };
@@ -124,15 +317,8 @@ export const trendsSlice = createSlice({
     },
     trendsApiCalled: {
       reducer: (state, action) => {
-        state.activeCall = action.payload.url;
+        state.activeCall = action.payload;
         state.tooltip = false;
-      },
-      prepare: (url) => {
-        return {
-          payload: {
-            url: url,
-          },
-        };
       },
     },
     trendsApiFailed(state, action) {
@@ -140,181 +326,35 @@ export const trendsSlice = createSlice({
       state.error = processErrorMessage(action.payload);
       return state;
     },
-    updateChartType: {
-      reducer: (state, action) => {
-        state.chartType =
-          state.lens === 'Overview' ? 'line' : action.payload.chartType;
-        state.tooltip = false;
-      },
-      prepare: (chartType) => {
-        return {
-          payload: { chartType: chartType },
-          meta: {
-            requery: REQUERY_NEVER,
-          },
-        };
-      },
-    },
-    updateDataLens: {
-      reducer: (state, action) => {
-        const lens = enforceValues(action.payload.lens, 'lens');
-        switch (true) {
-          case lens === 'Company':
-            state.subLens = 'product';
-            break;
-          case lens === 'Overview':
-            state.subLens = 'product';
-            state.chartType = 'line';
-            break;
-          case lens === 'Product':
-            state.subLens = 'sub_product';
-            break;
-          default:
-            state.subLens = '';
-            break;
-        }
-
-        state.focus = '';
-        state.lens = lens;
-        state.results = emptyResults();
-        state.tooltip = false;
-      },
-      prepare: (lens) => {
-        return {
-          payload: { lens: lens },
-          meta: {
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
-    },
-    updateDataSubLens: {
-      reducer: (state, action) => {
-        return {
-          ...state,
-          subLens: action.payload.subLens,
-        };
-      },
-      prepare: (subLens) => {
-        return {
-          payload: { subLens },
-          meta: {
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
-    },
-    removeFocus: {
-      reducer: (state) => {
-        return {
-          ...state,
-          focus: '',
-          results: emptyResults(),
-          tooltip: false,
-        };
-      },
-      prepare: () => {
-        return {
-          meta: {
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
-    },
-    processParams(state, action) {
-      const params = action.payload.params;
-      // Handle flag filters
-      const filters = ['chartType', 'focus', 'lens', 'subLens'];
-      for (const val of filters) {
-        if (params[val]) {
-          state[val] = enforceValues(params[val], val);
-        }
-      }
-      validateTrendsReducer(state);
-    },
-    updateTooltip: {
-      reducer: (state, action) => {
-        const tooltip = action.payload.date ? action.payload : false;
-
-        // need to merge in the actual viewed state
-        if (tooltip) {
-          tooltip.title = getTooltipTitle(
-            tooltip.date,
-            tooltip.interval,
-            tooltip.dateRange,
-            true,
-          );
-
-          /* istanbul ignore else */
-          if (tooltip.values) {
-            tooltip.values.forEach((obj) => {
-              if (!Object.hasOwn(obj, 'colorIndex')) {
-                obj.colorIndex =
-                  Object.values(colors.DataLens).indexOf(
-                    state.colorMap[obj.name],
-                  ) || 0;
-              }
-              // make sure all values have a value
-              if (!Object.hasOwn(obj, 'value')) {
-                obj.value = coalesce(obj, 'value', 0);
-              }
-            });
-
-            let total = 0;
-            total = tooltip.values.reduce(
-              (accumulator, currentValue) => accumulator + currentValue.value,
-              total,
-            );
-            tooltip.total = total;
-          }
-        }
-
-        return {
-          ...state,
-          tooltip,
-        };
-      },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            requery: REQUERY_NEVER,
-          },
-        };
-      },
-    },
-    removeAllFilters(state) {
-      return {
-        ...state,
-        focus: '',
-      };
-    },
-    removeMultipleFilters(state, action) {
-      const focus = action.payload.values.includes(state.focus)
-        ? ''
-        : state.focus;
-      return {
-        ...state,
-        focus,
-      };
-    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase('query/changeFocus', (state, action) => {
-        state.focus = action.payload.focus;
-        state.lens = action.payload.lens;
-        state.tooltip = false;
+      .addCase('filters/filtersCleared', (state) => {
+        state.focus = '';
       })
-      .addCase('query/changeTab', (state, action) => {
+      .addCase('filters/multipleFiltersRemoved', (state, action) => {
+        // remove the focus if it exists in one of the filter values we are removing
+        state.focus = action.payload.values.includes(state.focus)
+          ? ''
+          : state.focus;
+      })
+      .addCase('routes/routeChanged', (state, action) => {
+        const params = action.payload.params;
+        // Handle flag filters
+        const filters = ['chartType', 'focus', 'lens', 'subLens'];
+        for (const val of filters) {
+          if (params[val]) {
+            state[val] = enforceValues(params[val], val);
+          }
+        }
+        validateTrendsReducer(state);
+      })
+      .addCase('view/tabChanged', (state, action) => {
         return {
           ...state,
           focus: action.payload.tab === MODE_TRENDS ? state.focus : '',
           results: emptyResults(),
         };
-      })
-      .addCase('routes/routeChanged', (state, action) => {
-        trendsSlice.caseReducers.processParams(state, action);
       });
   },
 });
@@ -613,18 +653,17 @@ export const getColorScheme = (lens, rowNames) => {
 };
 
 export const {
+  chartTypeUpdated,
+  dataLensChanged,
+  dataSubLensChanged,
+  depthChanged,
+  depthReset,
+  focusChanged,
+  focusRemoved,
   trendsReceived,
-  handleTabChanged,
   trendsApiCalled,
   trendsApiFailed,
-  updateChartType,
-  updateDataLens,
-  updateDataSubLens,
-  changeFocus,
-  removeFocus,
-  updateTooltip,
-  removeAllFilters,
-  removeMultipleFilters,
+  tooltipUpdated,
 } = trendsSlice.actions;
 
 export default trendsSlice.reducer;

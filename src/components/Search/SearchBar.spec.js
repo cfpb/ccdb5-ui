@@ -8,9 +8,9 @@ import userEvent from '@testing-library/user-event';
 import fetchMock from 'jest-fetch-mock';
 import { merge } from '../../testUtils/functionHelpers';
 import { SearchBar } from './SearchBar';
-import { queryState } from '../../reducers/query/query';
-import { viewState } from '../../reducers/view/view';
-import * as searchActions from '../../reducers/query/query';
+import { queryState } from '../../reducers/query/querySlice';
+import { viewState } from '../../reducers/view/viewSlice';
+import * as searchActions from '../../reducers/query/querySlice';
 
 fetchMock.enableMocks();
 
@@ -54,7 +54,7 @@ describe('SearchBar', () => {
 
   test('Change search field', async () => {
     const searchFieldChangedSpy = jest
-      .spyOn(searchActions, 'changeSearchField')
+      .spyOn(searchActions, 'searchFieldChanged')
       .mockImplementation(() => jest.fn());
     const newQueryState = { searchField: 'all', searchText: '' };
     const newViewState = { hasAdvancedSearchTips: false };
@@ -69,7 +69,7 @@ describe('SearchBar', () => {
 
   test('Input can be inputed with enter key', async () => {
     const searchTextChangedSpy = jest
-      .spyOn(searchActions, 'changeSearchText')
+      .spyOn(searchActions, 'searchTextChanged')
       .mockImplementation(() => jest.fn());
     const newQueryState = { searchField: '', searchText: '' };
     const newViewState = { hasAdvancedSearchTips: false };
@@ -87,7 +87,7 @@ describe('SearchBar', () => {
 
   test('Input can be inputed and then cleared', async () => {
     const searchTextChangedSpy = jest
-      .spyOn(searchActions, 'changeSearchText')
+      .spyOn(searchActions, 'searchTextChanged')
       .mockImplementation(() => jest.fn());
     const newQueryState = { searchField: '', searchText: '' };
     const newViewState = { hasAdvancedSearchTips: false };
@@ -104,7 +104,7 @@ describe('SearchBar', () => {
   test('When company searchField is selected, options appear when user types and dispatches searchTextChanged on selection', async () => {
     fetch.mockResponseOnce(JSON.stringify(['Truist', 'Bank of America']));
     const searchTextChangedSpy = jest
-      .spyOn(searchActions, 'changeSearchText')
+      .spyOn(searchActions, 'searchTextChanged')
       .mockImplementation(() => jest.fn());
     const newQueryState = { searchField: 'company', searchText: '' };
     const newViewState = { hasAdvancedSearchTips: false };
@@ -123,7 +123,7 @@ describe('SearchBar', () => {
   test('When company searchField is selected, input can be cleared', async () => {
     fetch.mockResponseOnce(JSON.stringify(['Truist', 'Bank of America']));
     const searchTextChangedSpy = jest
-      .spyOn(searchActions, 'changeSearchText')
+      .spyOn(searchActions, 'searchTextChanged')
       .mockImplementation(() => jest.fn());
     const newQueryState = { searchField: 'company', searchText: '' };
     const newViewState = { hasAdvancedSearchTips: false };

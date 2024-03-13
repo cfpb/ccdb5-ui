@@ -1,6 +1,5 @@
-import React from 'react';
 import * as types from '../../constants';
-import * as viewActions from '../../reducers/view/view';
+import * as viewActions from '../../reducers/view/viewSlice';
 import { RootModal } from './RootModal';
 import {
   testRender as render,

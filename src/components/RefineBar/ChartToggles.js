@@ -1,5 +1,5 @@
 import './ChartToggles.less';
-import { updateChartType } from '../../reducers/trends/trends';
+import { chartTypeUpdated } from '../../reducers/trends/trendsSlice';
 import getIcon from '../iconMap';
 import React from 'react';
 import { selectedClass, sendAnalyticsEvent } from '../../utils';
@@ -12,7 +12,7 @@ export const ChartToggles = () => {
 
   const toggleChartType = (chartType) => {
     sendAnalyticsEvent('Button', 'Trends:' + chartType);
-    dispatch(updateChartType(chartType));
+    dispatch(chartTypeUpdated(chartType));
   };
 
   return (

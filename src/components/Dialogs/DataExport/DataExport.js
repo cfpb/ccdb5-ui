@@ -1,22 +1,19 @@
 import './DataExport.less';
 import { getFullUrl, sendAnalyticsEvent } from '../../../utils';
 import { buildAllResultsUri, buildSomeResultsUri } from './dataExportUtils';
-import { modalHidden, modalShown } from '../../../reducers/view/view';
+import { modalHidden, modalShown } from '../../../reducers/view/viewSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { FormattedNumber } from 'react-intl';
 import getIcon from '../../iconMap';
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { MODAL_TYPE_EXPORT_CONFIRMATION } from '../../../constants';
 import {
   selectAggsDocCount,
   selectAggsTotal,
 } from '../../../reducers/aggs/selectors';
-import {
-  selectQueryState,
-  selectQueryTab,
-} from '../../../reducers/query/selectors';
-
+import { selectQueryState } from '../../../reducers/query/selectors';
+import { selectViewTab } from '../../../reducers/view/selectors';
+import { selectFiltersFilterState } from '../../../reducers/filters/selectors';
 const FORMAT_CSV = 'csv';
 const FORMAT_JSON = 'json';
 
@@ -26,9 +23,10 @@ const DATASET_FULL = 'full';
 export const DataExport = () => {
   const dispatch = useDispatch();
   const queryState = useSelector(selectQueryState);
+  const filtersState = useSelector(selectFiltersFilterState);
   const someComplaintsCount = useSelector(selectAggsTotal);
   const allComplaintsCount = useSelector(selectAggsDocCount);
-  const tab = useSelector(selectQueryTab);
+  const tab = useSelector(selectViewTab);
   // can only be full or filtered
   const [dataset, setDataset] = useState(DATASET_FULL);
   // can only be csv or json
@@ -43,12 +41,16 @@ export const DataExport = () => {
   }, [someComplaintsCount, allComplaintsCount]);
 
   const exportUri = useMemo(() => {
+    const mergedState = {
+      ...filtersState,
+      ...queryState,
+    };
     const url =
       dataset === DATASET_FULL
         ? buildAllResultsUri(format)
-        : buildSomeResultsUri(format, someComplaintsCount, queryState);
+        : buildSomeResultsUri(format, someComplaintsCount, mergedState);
     return getFullUrl(url);
-  }, [dataset, format, someComplaintsCount, queryState]);
+  }, [dataset, format, someComplaintsCount, filtersState, queryState]);
 
   const handleExportClicked = () => {
     if (dataset === DATASET_FULL) {
@@ -149,8 +151,7 @@ export const DataExport = () => {
                   value="filtered"
                 />
                 <label className="a-label" htmlFor="dataset_filtered">
-                  Filtered dataset (
-                  <FormattedNumber value={someComplaintsCount} />
+                  Filtered dataset ({someComplaintsCount.toLocaleString()}
                   &nbsp;complaints)
                   <br />
                   (only the results of the last search and/or filter)
@@ -169,7 +170,7 @@ export const DataExport = () => {
                   value="full"
                 />
                 <label className="a-label" htmlFor="dataset_full">
-                  Full dataset (<FormattedNumber value={allComplaintsCount} />
+                  Full dataset ({allComplaintsCount.toLocaleString()}
                   &nbsp;complaints)
                   <br />
                   (not recommended due to very large file size)

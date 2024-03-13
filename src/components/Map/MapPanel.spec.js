@@ -1,8 +1,8 @@
 import React from 'react';
-import { aggState } from '../../reducers/aggs/aggs';
-import { mapState } from '../../reducers/map/map';
-import { queryState } from '../../reducers/query/query';
-import { viewState } from '../../reducers/view/view';
+import { aggsState } from '../../reducers/aggs/aggsSlice';
+import { mapState } from '../../reducers/map/mapSlice';
+import { queryState } from '../../reducers/query/querySlice';
+import { viewState } from '../../reducers/view/viewSlice';
 import { MapPanel } from './MapPanel';
 import { merge } from '../../testUtils/functionHelpers';
 import {
@@ -11,7 +11,7 @@ import {
   screen,
 } from '../../testUtils/test-utils';
 import { MODE_MAP } from '../../constants';
-import * as viewActions from '../../reducers/query/query';
+import * as viewActions from '../../reducers/filters/filtersSlice';
 
 describe('MapPanel', () => {
   const renderComponent = (
@@ -20,7 +20,7 @@ describe('MapPanel', () => {
     newQueryState,
     newViewState,
   ) => {
-    merge(newAggsState, aggState);
+    merge(newAggsState, aggsState);
     merge(newMapState, mapState);
     merge(newQueryState, queryState);
     merge(newViewState, viewState);
@@ -91,7 +91,7 @@ describe('MapPanel', () => {
     };
 
     const dismissSpy = jest
-      .spyOn(viewActions, 'dismissMapWarning')
+      .spyOn(viewActions, 'mapWarningDismissed')
       .mockReturnValue(jest.fn());
 
     renderComponent(aggs, map, query, view);

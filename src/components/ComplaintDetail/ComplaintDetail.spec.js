@@ -5,8 +5,8 @@ import {
   screen,
 } from '../../testUtils/test-utils';
 import { merge } from '../../testUtils/functionHelpers';
-import { detailState } from '../../reducers/detail/detail';
-import { queryState } from '../../reducers/query/query';
+import { detailState } from '../../reducers/detail/detailSlice';
+import { routesState } from '../../reducers/routes/routesSlice';
 import { waitFor } from '@testing-library/react';
 import * as complaintActions from '../../actions/complaints';
 
@@ -32,12 +32,12 @@ const fixture = {
   zip_code: '423XX',
 };
 
-const renderComponent = (newDetailState, newQueryState) => {
+const renderComponent = (newDetailState, newRoutesState) => {
   merge(newDetailState, detailState);
-  merge(newQueryState, queryState);
+  merge(newRoutesState, routesState);
   const data = {
     detail: newDetailState,
-    query: newQueryState,
+    routes: newRoutesState,
   };
   render(<ComplaintDetail />, {
     preloadedState: data,
@@ -53,11 +53,17 @@ describe('component::ComplaintDetail', () => {
       error: '',
     };
 
-    renderComponent(newDetailState, {});
+    renderComponent(newDetailState, {
+      params: {
+        product: 'bar',
+        issue: 'nope',
+        tab: 'List',
+      },
+    });
     expect(screen.getByText('Back to search results')).toBeInTheDocument();
     expect(screen.getByText('Back to search results')).toHaveAttribute(
       'href',
-      '/?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&subLens=sub_product&tab=Trends',
+      '/?issue=nope&product=bar&tab=List',
     );
     expect(screen.getByText('This page is loading')).toBeInTheDocument();
     expect(screen.getByText('Back to search results')).toBeInTheDocument();

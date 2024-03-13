@@ -1,9 +1,8 @@
-import { coalesce } from '../../utils';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NARRATIVE_SEARCH_FIELD } from '../../constants';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { toggleFlagFilter } from '../../reducers/query/query';
+import { toggleFlagFilter } from '../../reducers/filters/filtersSlice';
+import { selectFiltersHasNarrative } from '../../reducers/filters/selectors';
+import { selectQuerySearchField } from '../../reducers/query/selectors';
 
 const FIELD_NAME = 'has_narrative';
 
@@ -14,38 +13,10 @@ const NOTHING = 'NOTHING';
 // ----------------------------------------------------------------------------
 // The Class
 
-export class HasNarrative extends React.Component {
-  render() {
-    const { options, toggleFlag } = this.props;
-    return (
-      <section className="single-checkbox">
-        <h4>Only show complaints with narratives?</h4>
-        <div className="m-form-field m-form-field__checkbox">
-          <input
-            className="a-checkbox"
-            checked={options.phase !== NOTHING}
-            disabled={options.phase === SEARCHING}
-            id="filterHasNarrative"
-            onChange={() => toggleFlag()}
-            type="checkbox"
-            value={FIELD_NAME}
-          />
-          <label className="a-label" htmlFor="filterHasNarrative">
-            Yes
-          </label>
-        </div>
-      </section>
-    );
-  }
-}
-
-// ----------------------------------------------------------------------------
-// Meta
-
-export const mapStateToProps = (state) => {
-  const isChecked = coalesce(state.query, FIELD_NAME, false);
-  const searchField = state.query.searchField;
-
+export const HasNarrative = () => {
+  const dispatch = useDispatch();
+  const isChecked = useSelector(selectFiltersHasNarrative);
+  const searchField = useSelector(selectQuerySearchField);
   let phase = NOTHING;
   if (searchField === NARRATIVE_SEARCH_FIELD) {
     phase = SEARCHING;
@@ -53,23 +24,25 @@ export const mapStateToProps = (state) => {
     phase = FILTERING;
   }
 
-  return {
-    options: {
-      phase,
-    },
-  };
-};
-
-export const mapDispatchToProps = (dispatch) => ({
-  toggleFlag: () => {
-    dispatch(toggleFlagFilter(FIELD_NAME));
-  },
-});
-
-// eslint-disable-next-line react-redux/prefer-separate-component-file
-export default connect(mapStateToProps, mapDispatchToProps)(HasNarrative);
-
-HasNarrative.propTypes = {
-  options: PropTypes.object.isRequired,
-  toggleFlag: PropTypes.func.isRequired,
+  return (
+    <section className="single-checkbox">
+      <h4>Only show complaints with narratives?</h4>
+      <div className="m-form-field m-form-field__checkbox">
+        <input
+          className="a-checkbox"
+          checked={phase !== NOTHING}
+          disabled={phase === SEARCHING}
+          id="filterHasNarrative"
+          onChange={() => {
+            dispatch(toggleFlagFilter(FIELD_NAME));
+          }}
+          type="checkbox"
+          value={FIELD_NAME}
+        />
+        <label className="a-label" htmlFor="filterHasNarrative">
+          Yes
+        </label>
+      </div>
+    </section>
+  );
 };

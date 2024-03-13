@@ -2,11 +2,11 @@ import './FilterPanelToggle.less';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { updateFilterVisibility } from '../../reducers/view/view';
+import { updateFilterVisibility } from '../../reducers/view/viewSlice';
 
 export class FilterPanelToggle extends React.Component {
   render() {
-    return (
+    return this.props.isPrintMode ? null : (
       <section className="filter-panel-toggle">
         <div className="m-btn-group">
           <p>&nbsp;</p>
@@ -21,6 +21,7 @@ export class FilterPanelToggle extends React.Component {
 
 export const mapStateToProps = (state) => ({
   hasFilters: state.view.hasFilters,
+  isPrintMode: state.view.isPrintMode,
 });
 
 export const mapDispatchToProps = (dispatch) => ({
@@ -35,4 +36,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(FilterPanelToggle);
 FilterPanelToggle.propTypes = {
   onFilterToggle: PropTypes.func.isRequired,
   hasFilters: PropTypes.bool,
+  isPrintMode: PropTypes.bool,
 };

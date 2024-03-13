@@ -4,14 +4,14 @@ import { CompanyReceivedFilter } from './CompanyReceivedFilter';
 import { useDispatch, useSelector } from 'react-redux';
 import { DateFilter } from './DateFilter';
 import { FederalState } from './FederalState';
-import HasNarrative from './HasNarrative';
+import { HasNarrative } from './HasNarrative';
 import getIcon from '../iconMap';
 import { Issue } from './Issue';
-import Product from './Product';
+import { Product } from './Product';
 import React from 'react';
 import SimpleFilter from './SimpleFilter';
 import { ZipCode } from './ZipCode';
-import { updateFilterVisibility } from '../../reducers/view/view';
+import { updateFilterVisibility } from '../../reducers/view/viewSlice';
 import {
   selectViewHasFilters,
   selectViewWidth,

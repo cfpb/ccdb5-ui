@@ -54,20 +54,34 @@ export const calculateDateRange = (minDate, maxDate) => {
 };
 
 /**
- * Function to set the limit of the range of a set of numbers
+ * Converts the first character of string to upper case and the remaining to lower case.
+ * https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_capitalize
  *
- * @param {number} num - value we are checking
- * @param {number} min - smallest number it can me
- * @param {number} max - biggest number it can be
- * @returns {*}the limited value
+ * @param {string} str - The string we need to uppercase the first letter case.
+ * @returns {string} The Uppercased string.
  */
-export const clamp = (num, min, max) => {
-  if (num < min) {
-    num = min;
-  } else if (num > max) {
-    num = max;
+export const capitalize = (str) => {
+  return str ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : '';
+};
+
+/**
+ * Clamps number within the inclusive lower and upper bounds.
+ * https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_clamp
+ *
+ * @param {number} number - The value we are checking.
+ * @param {number} boundOne - The lower bound we don't want to go before.
+ * @param {number} boundTwo - The upper bound we can't go past.
+ * @returns {number} The clamped number.
+ */
+export const clamp = (number, boundOne, boundTwo) => {
+  if (!boundTwo) {
+    return Math.max(number, boundOne) === boundOne ? boundOne : number;
+  } else if (Math.min(number, boundOne) === number) {
+    return boundOne;
+  } else if (Math.max(number, boundTwo) === number) {
+    return boundTwo;
   }
-  return num;
+  return number;
 };
 
 /**
@@ -141,11 +155,11 @@ export function hashCode(someString) {
  * disable the Per 1000 Complaints button
  * enable per1000 if the only filter selected is state
  *
- * @param {object} query - contains values for the filters, etc
+ * @param {object} filters - reducer contains values for the filters, etc
  * @returns {boolean} are we enabling the perCap
  */
 // eslint-disable-next-line complexity,require-jsdoc
-export function enablePer1000(query) {
+export function enablePer1000(filters) {
   const keys = [];
   let filter;
   const allFilters = knownFilters.concat(flagFilters);
@@ -154,8 +168,8 @@ export function enablePer1000(query) {
     filter = allFilters[index];
     // eslint-disable-next-line no-mixed-operators
     if (
-      (Array.isArray(query[filter]) && query[filter].length) ||
-      query[filter] === true
+      (Array.isArray(filters[filter]) && filters[filter].length) ||
+      filters[filter] === true
     ) {
       keys.push(filter);
     }
@@ -163,12 +177,13 @@ export function enablePer1000(query) {
   const compReceivedFilters = ['company_received_max', 'company_received_min'];
   for (let index = 0; index < compReceivedFilters.length; index++) {
     filter = compReceivedFilters[index];
-    if (query[filter]) {
+    if (filters[filter]) {
       keys.push(filter);
     }
   }
 
   if (keys.length) {
+    // normalization still okay as long as only State filters are applied
     return keys.length === 1 && keys[0] === 'state';
   }
 
@@ -402,19 +417,25 @@ export const getSubKeyName = (bucket) => {
  * set the values in the processed object
  *
  * @param {object} params - the object from the URL_CHANGED action
- * @param {object} processed - the state we will update with a single value or arr
+ * @param {object} state - the state we will update with a single value or arr
  * @param {object} arrayParams - the array of strings that we will check against
  */
-export const processUrlArrayParams = (params, processed, arrayParams) => {
+export const processUrlArrayParams = (params, state, arrayParams) => {
   arrayParams.forEach((field) => {
     if (typeof params[field] !== 'undefined') {
       if (typeof params[field] === 'string') {
-        processed[field] = [params[field]];
+        state[field] = [params[field]];
       } else {
-        processed[field] = params[field];
+        state[field] = params[field];
       }
     }
   });
+
+  if (params.has_narrative) {
+    state.has_narrative = !!params.has_narrative;
+  } else {
+    delete state.has_narrative;
+  }
 };
 
 /**
@@ -460,3 +481,93 @@ export const selectedClass = (
 ) => {
   return first === second ? ' ' + selectedClassName : '';
 };
+
+/**
+ * Checks if value is an empty object or collection.
+ *
+ * @param {object} obj - The object we are checking.
+ * @returns {boolean} Is it empty?
+ */
+export const isEmpty = (obj) =>
+  [Object, Array].includes((obj || {}).constructor) &&
+  !Object.entries(obj || {}).length;
+
+/**
+ * Turns a string Kebab Case into kebab-case.
+ * https://www.geeksforgeeks.org/how-to-convert-a-string-into-kebab-case-using-javascript/
+ *
+ * @param {string} str - The input string to format.
+ * @returns {string} The string separated by hyphens.
+ */
+export const kebabCase = (str) =>
+  str
+    .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+    .join('-')
+    .toLowerCase();
+
+/**
+ * Remove all properties with the value 'null' from the object
+ *
+ * @param {object} object - the object with potential nulls
+ * @returns {object} the processed object
+ */
+export function removeNullProperties(object) {
+  const keys = Object.keys(object);
+  keys.forEach((key) => {
+    // eslint-disable-next-line no-undefined
+    if (
+      object[key] === null ||
+      object[key] === undefined ||
+      Number.isNaN(object[key])
+    ) {
+      delete object[key];
+    }
+  });
+
+  return object;
+}
+
+/**
+ * Returns an array and removing empty values from it
+ *
+ * @param {Array} arr - The input array to check
+ * @returns {Array | boolean} The sanitized array
+ */
+export function removeNullValues(arr) {
+  return Array.isArray(arr) ? arr.filter((val) => val) : false;
+}
+
+/**
+ * Renames the property of an object
+ *
+ * @param {object} obj - the object to modify
+ * @param {string} oldName - the property to change
+ * @param {string} newName - the property that it will become
+ * @returns {object} the changed object, for use in fluent interfaces
+ */
+export function renameProperty(obj, oldName, newName) {
+  // Do nothing if the names are the same
+  if (oldName === newName) {
+    return obj;
+  }
+  // Check for the old property name to avoid a ReferenceError in
+  // strict mode.
+  if (Object.prototype.hasOwnProperty.call(obj, oldName)) {
+    obj[newName] = obj[oldName];
+    delete obj[oldName];
+  }
+  return obj;
+}
+
+/**
+ * Rounds to a specific decimal place
+ * https://stackoverflow.com/a/7343013
+ *
+ * @param {number} value - the number to round
+ * @param {number} precision - the number of decimal places to round to
+ * @returns {number} the rounded value
+ */
+export function roundTo(value, precision = 0) {
+  const multiplier = Math.pow(10, precision);
+  return Math.round(value * multiplier) / multiplier;
+}

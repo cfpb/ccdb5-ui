@@ -1,7 +1,6 @@
-import React from 'react';
 import getIcon from '../../iconMap';
 import { useDispatch } from 'react-redux';
-import { modalHidden } from '../../../reducers/view/view';
+import { modalHidden } from '../../../reducers/view/viewSlice';
 
 export const ExportConfirmation = () => {
   const dispatch = useDispatch();

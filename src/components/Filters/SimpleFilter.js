@@ -33,7 +33,7 @@ export class SimpleFilter extends React.Component {
 
 export const mapStateToProps = (state, ownProps) => {
   // Find all query filters that refer to the field name
-  const activeChildren = coalesce(state.query, ownProps.fieldName, []);
+  const activeChildren = coalesce(state.filters, ownProps.fieldName, []);
 
   return {
     options: coalesce(state.aggs, ownProps.fieldName, []),

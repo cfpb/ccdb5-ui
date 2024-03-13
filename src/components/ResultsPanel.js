@@ -6,10 +6,10 @@ import { PrintInfo } from './Print/PrintInfo';
 import { PrintInfoFooter } from './Print/PrintInfoFooter';
 import React from 'react';
 import TrendsPanel from './Trends/TrendsPanel';
-import { selectQueryTab } from '../reducers/query/selectors';
+import { selectViewTab } from '../reducers/view/selectors';
 
 export const ResultsPanel = () => {
-  const tab = useSelector(selectQueryTab);
+  const tab = useSelector(selectViewTab);
   let currentPanel;
 
   switch (tab) {

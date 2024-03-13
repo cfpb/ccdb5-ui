@@ -1,19 +1,17 @@
-import React from 'react';
+import userEvent from '@testing-library/user-event';
 import { NarrativesButtons } from './NarrativesButtons';
-import * as filterActions from '../../reducers/query/query';
-import {
-  testRender as render,
-  fireEvent,
-  screen,
-} from '../../testUtils/test-utils';
+import { testRender as render, screen } from '../../testUtils/test-utils';
 import { merge } from '../../testUtils/functionHelpers';
-import { queryState } from '../../reducers/query/query';
+import { filtersState } from '../../reducers/filters/filtersSlice';
+
+jest.useRealTimers();
 
 describe('NarrativesButtons', () => {
-  const renderComponent = (newQueryState) => {
-    merge(newQueryState, queryState);
+  const user = userEvent.setup();
+  const renderComponent = (newFiltersState) => {
+    merge(newFiltersState, filtersState);
     const data = {
-      query: newQueryState,
+      filters: newFiltersState,
     };
 
     render(<NarrativesButtons />, {
@@ -21,61 +19,28 @@ describe('NarrativesButtons', () => {
     });
   };
 
-  it('should render default state', () => {
-    const addFilterSpy = jest
-      .spyOn(filterActions, 'addFilter')
-      .mockImplementation(() => jest.fn());
-    const removeFilterSpy = jest
-      .spyOn(filterActions, 'removeFilter')
-      .mockImplementation(() => jest.fn());
-
-    renderComponent({});
+  it('should render default state', async () => {
+    renderComponent({ foo: 'bar' });
 
     expect(screen.getByText('Read')).toBeInTheDocument();
-    const btnAllComplaints = screen.getByLabelText('Show all complaints');
+    const btnAllComplaints = screen.getByRole('button', {
+      name: 'All complaints',
+    });
+    const btnNarratives = screen.getByRole('button', {
+      name: 'Only complaints with narratives',
+    });
     expect(btnAllComplaints).toBeInTheDocument();
     expect(btnAllComplaints).toBeDisabled();
     expect(btnAllComplaints).toHaveClass('selected');
-    fireEvent.click(btnAllComplaints);
-    expect(addFilterSpy).toHaveBeenCalledTimes(0);
-    expect(removeFilterSpy).toHaveBeenCalledTimes(0);
-
-    const btnNarratives = screen.getByLabelText(
-      'Show only complaints with narratives',
-    );
-    expect(btnNarratives).toBeInTheDocument();
+    // do nothing
+    await user.click(btnAllComplaints);
+    expect(btnAllComplaints).toBeDisabled();
     expect(btnNarratives).toBeEnabled();
-    fireEvent.click(btnNarratives);
-    expect(addFilterSpy).toHaveBeenCalledTimes(1);
-  });
 
-  it('should render has_narrative state', () => {
-    const addFilterSpy = jest
-      .spyOn(filterActions, 'addFilter')
-      .mockImplementation(() => jest.fn());
-    const removeFilterSpy = jest
-      .spyOn(filterActions, 'removeFilter')
-      .mockImplementation(() => jest.fn());
-
-    renderComponent({ has_narrative: true });
-    expect(screen.getByText('Read')).toBeInTheDocument();
-
-    const btnNarratives = screen.getByLabelText(
-      'Show only complaints with narratives',
-    );
-    expect(btnNarratives).toBeInTheDocument();
-    expect(btnNarratives).toBeDisabled();
-    expect(btnNarratives).toHaveClass('selected');
-    fireEvent.click(btnNarratives);
-    expect(addFilterSpy).toHaveBeenCalledTimes(0);
-    expect(removeFilterSpy).toHaveBeenCalledTimes(0);
-
-    const btnAllComplaints = screen.getByLabelText('Show all complaints');
-    expect(btnAllComplaints).toBeInTheDocument();
+    await user.click(btnNarratives);
+    expect(btnNarratives).toHaveClass('a-btn selected');
     expect(btnAllComplaints).toBeEnabled();
-
-    fireEvent.click(btnAllComplaints);
-    expect(addFilterSpy).toHaveBeenCalledTimes(0);
-    expect(removeFilterSpy).toHaveBeenCalledTimes(1);
+    expect(btnNarratives).toBeDisabled();
+    expect(btnNarratives).toBeDisabled();
   });
 });

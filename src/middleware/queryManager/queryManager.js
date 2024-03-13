@@ -1,8 +1,7 @@
 import * as constants from '../../constants';
 import { sendHitsQuery, sendQuery } from '../../actions/complaints';
-import { coalesce } from '../../utils';
 
-export const queryManager = (store) => (next) => (action) => {
+export const queryManager = (store) => (next) => async (action) => {
   // call the next function
   // Pass the action forward in the chain
   // eslint-disable-next-line callback-return
@@ -11,8 +10,7 @@ export const queryManager = (store) => (next) => (action) => {
   } else {
     // eslint-disable-next-line callback-return
     const result = next(action);
-    const requery = coalesce(action.meta, 'requery', constants.REQUERY_NEVER);
-    // const state = store.getState();
+    const requery = action.meta?.requery ?? constants.REQUERY_NEVER;
 
     if (requery === constants.REQUERY_ALWAYS) {
       store.dispatch(sendQuery());

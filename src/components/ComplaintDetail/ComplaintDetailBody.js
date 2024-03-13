@@ -1,8 +1,8 @@
 import { ariaReadoutNumbers } from '../../utils';
-import { FormattedDate } from 'react-intl';
 import React from 'react';
 import PropTypes from 'prop-types';
 import getIcon from '../iconMap';
+import { formatDisplayDate } from '../../utils/formatDate';
 
 const SubAggregation = ({ label, value }) => {
   return value ? (
@@ -90,7 +90,7 @@ export const ComplaintDetailBody = ({ data, error, id }) => {
         <div className="card-left layout-column">
           <h4>Date CFPB received the complaint</h4>
           <span className="body-copy">
-            <FormattedDate value={data.date_received} />
+            {formatDisplayDate(data.date_received)}
           </span>
           <br />
           <h4>Consumer&apos;s state</h4>
@@ -134,7 +134,7 @@ export const ComplaintDetailBody = ({ data, error, id }) => {
         <div className="card-left layout-column">
           <h4>Date complaint sent to company</h4>
           <span className="body-copy">
-            <FormattedDate value={data.date_sent_to_company} />
+            {formatDisplayDate(data.date_sent_to_company)}
           </span>
           <br />
           <h4>Company name</h4>
