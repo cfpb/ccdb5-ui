@@ -10,6 +10,7 @@ import synchUrl from './middleware/synchUrl/synchUrl';
 import { configureStore } from '@reduxjs/toolkit';
 import aggReducer from './reducers/aggs/aggs';
 import detailReducer from './reducers/detail/detail';
+import filtersReducer from './reducers/filters/filtersSlice';
 import mapReducer from './reducers/map/map';
 import queryReducer from './reducers/query/query';
 import resultsReducer from './reducers/results/results';
@@ -23,6 +24,7 @@ const store = configureStore({
   reducer: {
     aggs: aggReducer,
     detail: detailReducer,
+    filters: filtersReducer,
     map: mapReducer,
     query: queryReducer,
     results: resultsReducer,

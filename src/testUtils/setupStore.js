@@ -2,6 +2,7 @@ import { createStore } from 'redux';
 import actionsReducer from '../reducers/actions/actionsSlice';
 import aggregationsReducer from '../reducers/aggs/aggs';
 import detailReducer from '../reducers/detail/detail';
+import filtersReducer from '../reducers/filters/filtersSlice';
 import mapReducer from '../reducers/map/map';
 import queryReducer from '../reducers/query/query';
 import resultsReducer from '../reducers/results/results';
@@ -37,6 +38,7 @@ function setupStore(targetState, additionalMiddlewares) {
     actions: actionsReducer,
     aggregations: aggregationsReducer,
     detail: detailReducer,
+    filters: filtersReducer,
     map: mapReducer,
     query: queryReducer,
     results: resultsReducer,
