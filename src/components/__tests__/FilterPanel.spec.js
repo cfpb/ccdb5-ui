@@ -11,7 +11,7 @@ import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
 /**
- * @returns {object}
+ * @returns {object} - An enzyme configuration object.
  */
 function setupEnzyme() {
   const props = {
