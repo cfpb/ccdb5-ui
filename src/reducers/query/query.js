@@ -759,8 +759,10 @@ export const querySlice = createSlice({
         state[filterKey] = activeFilters;
         state.focus = focus;
         state.lens = lens;
+        //state.lens = enforceValues(lens, 'lens');
         state.tab = types.MODE_TRENDS;
         state.trendDepth = 25;
+        state = validateTrendsReducer(state);
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },

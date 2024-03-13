@@ -1947,7 +1947,7 @@ describe('reducer:query', () => {
         const focus = 'A';
         const lens = 'Product';
         result = target(
-          { ...queryState, focus: 'Else' },
+          { ...queryState, focus: 'Else', subLens: 'Wrong' },
           changeFocus(focus, lens, filterValues),
         );
         expect(result).toEqual({
@@ -1955,6 +1955,7 @@ describe('reducer:query', () => {
           product: ['A', 'A•B'],
           focus: 'A',
           lens: 'Product',
+          subLens: 'sub_product',
           tab: 'Trends',
           trendDepth: 25,
           queryString:
@@ -1979,13 +1980,13 @@ describe('reducer:query', () => {
           lens: 'Company',
           company: ['A'],
           queryString:
-            '?company=A&date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&focus=A&lens=company&sub_lens=sub_product&trend_depth=25&trend_interval=month',
-          subLens: 'sub_product',
+            '?company=A&date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&focus=A&lens=company&sub_lens=product&trend_depth=25&trend_interval=month',
+          subLens: 'product',
           tab: 'Trends',
           trendDepth: 25,
           trendsDateWarningEnabled: false,
           search:
-            '?chartType=line&company=A&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&focus=A&lens=Company&searchField=all&subLens=sub_product&tab=Trends',
+            '?chartType=line&company=A&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&focus=A&lens=Company&searchField=all&subLens=product&tab=Trends',
         });
       });
     });
