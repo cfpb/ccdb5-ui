@@ -6,20 +6,20 @@ import React from 'react';
 import StickyOptions from './StickyOptions';
 import { selectAggsState } from '../../reducers/aggs/selectors';
 import {
-  selectQueryFocus,
-  selectQueryLens,
-  selectQueryState,
-} from '../../reducers/query/selectors';
+  selectTrendsFocus,
+  selectTrendsLens,
+} from '../../reducers/trends/selectors';
+import { selectFiltersState } from '../../reducers/filters/selectors';
 
 const FIELD_NAME = 'company';
 
 export const Company = () => {
   const aggs = useSelector(selectAggsState);
-  const query = useSelector(selectQueryState);
-  const focus = useSelector(selectQueryFocus);
-  const lens = useSelector(selectQueryLens);
+  const filters = useSelector(selectFiltersState);
+  const focus = useSelector(selectTrendsFocus);
+  const lens = useSelector(selectTrendsLens);
   const options = cloneDeep(coalesce(aggs, FIELD_NAME, []));
-  const selections = coalesce(query, FIELD_NAME, []);
+  const selections = coalesce(filters, FIELD_NAME, []);
   const isFocusPage = focus && lens === 'Company';
 
   options.forEach((opt) => {

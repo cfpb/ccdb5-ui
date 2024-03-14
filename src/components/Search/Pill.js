@@ -1,9 +1,9 @@
 import './Pill.less';
+import { changeDateRange } from '../../reducers/query/query';
 import {
-  removeFilter,
-  changeDateRange,
-  replaceFilters,
-} from '../../reducers/query/query';
+  filterRemoved,
+  filtersReplaced,
+} from '../../reducers/filters/filtersSlice';
 import { filterPatch, SLUG_SEPARATOR } from '../../constants';
 import { formatPillPrefix, getUpdatedFilters } from '../../utils/filters';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,13 +12,13 @@ import getIcon from '../iconMap';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { selectAggsState } from '../../reducers/aggs/selectors';
-import { selectQueryState } from '../../reducers/query/selectors';
+import { selectFiltersState } from '../../reducers/filters/selectors';
 
 export const Pill = ({ fieldName, value }) => {
   const aggsState = useSelector(selectAggsState);
-  const queryState = useSelector(selectQueryState);
+  const filtersState = useSelector(selectFiltersState);
   const aggs = coalesce(aggsState, fieldName, []);
-  const filters = coalesce(queryState, fieldName, []);
+  const filters = coalesce(filtersState, fieldName, []);
   const prefix = formatPillPrefix(fieldName);
   const trimmed = value.split(SLUG_SEPARATOR).pop();
   const dispatch = useDispatch();
@@ -36,10 +36,10 @@ export const Pill = ({ fieldName, value }) => {
           aggs,
           fieldName,
         );
-        dispatch(replaceFilters(fieldName, updatedFilters));
+        dispatch(filtersReplaced(fieldName, updatedFilters));
       } else {
         dispatch(
-          removeFilter({ fieldName: fieldName, fieldValue: filterName }),
+          filterRemoved({ fieldName: fieldName, fieldValue: filterName }),
         );
       }
     }

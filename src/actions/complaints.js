@@ -42,7 +42,7 @@ export function sendQuery() {
   // eslint-disable-next-line complexity
   return (dispatch, getState) => {
     const state = getState();
-    const viewMode = state.query.tab;
+    const viewMode = state.view.tab;
     switch (viewMode) {
       case MODE_MAP:
       case MODE_LIST:
@@ -67,7 +67,7 @@ export function sendHitsQuery() {
   // eslint-disable-next-line complexity
   return (dispatch, getState) => {
     const state = getState();
-    const viewMode = state.query.tab;
+    const viewMode = state.view.tab;
     switch (viewMode) {
       case MODE_MAP:
         dispatch(getStates());

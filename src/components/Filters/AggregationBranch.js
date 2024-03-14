@@ -10,7 +10,6 @@ import {
   multipleFiltersRemoved,
   filtersReplaced,
 } from '../../reducers/filters/filtersSlice';
-
 import AggregationItem from './AggregationItem';
 import { connect } from 'react-redux';
 import { FormattedNumber } from 'react-intl';

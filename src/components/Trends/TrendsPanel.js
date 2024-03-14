@@ -5,7 +5,7 @@ import './TrendsPanel.less';
 import { getIntervals, showCompanyOverLay } from '../../utils/trends';
 import { sendAnalyticsEvent, shortFormat } from '../../utils';
 import { ActionBar } from '../ActionBar/ActionBar';
-import { updateDataLens } from '../../reducers/trends/trends';
+import { dataLensChanged } from '../../reducers/trends/trends';
 import { changeDateInterval } from '../../reducers/query/query';
 import { ChartToggles } from '../RefineBar/ChartToggles';
 import { CompanyTypeahead } from '../Filters/CompanyTypeahead';
@@ -271,20 +271,25 @@ export class TrendsPanel extends React.Component {
 
 const mapStateToProps = (state) => {
   const {
-    company: companyFilters,
     dateInterval,
     date_received_max: maxDate,
     date_received_min: minDate,
-    lens,
-    subLens,
     isTrendsDateWarningEnabled,
   } = state.query;
 
-  const { activeCall, chartType, colorMap, focus, results, total } =
-    state.trends;
+  const {
+    activeCall,
+    chartType,
+    colorMap,
+    company: companyFilters,
+    focus,
+    results,
+    lens,
+    subLens,
+    total,
+  } = state.trends;
 
   const { expandedRows } = state.view;
-
   const lensKey = lens.toLowerCase();
   const focusKey = subLens.replace('_', '-');
   const lensHelperText =
@@ -329,7 +334,7 @@ export const mapDispatchToProps = (dispatch) => ({
   onLens: (ev) => {
     const { value } = ev.target;
     sendAnalyticsEvent('Dropdown', 'Trends:' + value);
-    dispatch(updateDataLens(value));
+    dispatch(dataLensChanged(value));
   },
 });
 

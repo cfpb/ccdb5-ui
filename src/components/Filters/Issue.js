@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { coalesce, sortSelThenCount } from '../../utils';
 import CollapsibleFilter from './CollapsibleFilter';
-import { replaceFilters } from '../../reducers/query/query';
+import { filtersReplaced } from '../../reducers/filters/filtersSlice';
 import { SLUG_SEPARATOR } from '../../constants';
-import { selectQueryState } from '../../reducers/query/selectors';
 import { Typeahead } from '../Typeahead/Typeahead/Typeahead';
 import { selectAggsState } from '../../reducers/aggs/selectors';
 import MoreOrLess from './MoreOrLess';
 import AggregationBranch from './AggregationBranch';
+import { selectFiltersState } from '../../reducers/filters/selectors';
 
 export const Issue = ({ hasChildren }) => {
   const dispatch = useDispatch();
   const [dropdownOptions, setDropdownOptions] = useState([]);
   const aggs = useSelector(selectAggsState);
-  const query = useSelector(selectQueryState);
+  const filtersState = useSelector(selectFiltersState);
 
   const desc =
     'The type of issue and sub-issue the consumer identified ' +
@@ -24,7 +24,7 @@ export const Issue = ({ hasChildren }) => {
     fieldName: 'issue',
   };
 
-  const filters = coalesce(query, 'issue', []);
+  const filters = coalesce(filtersState, 'issue', []);
   const selections = [];
   // Reduce the issues to the parent keys (and dedup)
   filters.forEach((filter) => {
@@ -60,7 +60,7 @@ export const Issue = ({ hasChildren }) => {
       .filter((filter) => filter.indexOf(items[0].key + SLUG_SEPARATOR) === -1)
       // add parent item
       .concat(items[0].key);
-    dispatch(replaceFilters('issue', replacementFilters));
+    dispatch(filtersReplaced('issue', replacementFilters));
   };
 
   const onBucket = (bucket, props) => {

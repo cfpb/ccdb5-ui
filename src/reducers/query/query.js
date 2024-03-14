@@ -4,8 +4,7 @@ import {
   calculateDateRange,
   clamp,
   coalesce,
-  enablePer1000,
-  processUrlArrayParams,
+  // processUrlArrayParams,
   shortIsoFormat,
   startOfToday,
 } from '../../utils';
@@ -25,19 +24,13 @@ const queryString = require('query-string');
 /* eslint-disable camelcase */
 export const queryState = {
   breakPoints: {},
-  chartType: 'line',
-  dataNormalization: types.GEO_NORM_NONE,
   dateInterval: 'Month',
   dateRange: '3y',
   date_received_max: dayjs(startOfToday()).toISOString(),
   date_received_min: dayjs(
     new Date(dayjs(startOfToday()).subtract(3, 'years')),
   ).toISOString(),
-  enablePer1000: false,
-  focus: '',
   from: 0,
-  mapWarningEnabled: true,
-  lens: 'Product',
   page: 1,
   queryString: '',
   search: '',
@@ -46,8 +39,6 @@ export const queryState = {
   searchText: '',
   size: 25,
   sort: 'created_date_desc',
-  subLens: 'sub_product',
-  tab: types.MODE_TRENDS,
   totalPages: 0,
   trendDepth: 5,
   trendsDateWarningEnabled: false,
@@ -100,7 +91,7 @@ export const querySlice = createSlice({
         });
 
         // Handle the aggregation filters
-        processUrlArrayParams(params, state, types.knownFilters);
+        // processUrlArrayParams(params, state, types.knownFilters);
 
         // Handle date filters
         types.dateFilters.forEach((field) => {
@@ -324,55 +315,6 @@ export const querySlice = createSlice({
         };
       },
     },
-    addMultipleFilters: {
-      reducer: (state, action) => {
-        const name = action.payload.filterName;
-        const arr = coalesce(state, name, []);
-
-        // Add the filters
-        action.payload.values.forEach((val) => {
-          if (arr.indexOf(val) === -1) {
-            arr.push(val);
-          }
-        });
-
-        state[name] = arr;
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
-      },
-      prepare: (filterName, values) => {
-        return {
-          payload: {
-            filterName,
-            values,
-          },
-          meta: {
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
-    },
-    toggleFilter: {
-      reducer: (state, action) => {
-        return {
-          ...state,
-          [action.payload.filterName]: filterArrayAction(
-            state[action.payload.filterName],
-            action.payload.filterValue.key,
-          ),
-          queryString: stateToQS(state),
-          search: stateToURL(state),
-        };
-      },
-      prepare: (filterName, filterValue) => {
-        return {
-          payload: { filterName, filterValue },
-          meta: {
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
-    },
     addStateFilter: {
       reducer: (state, action) => {
         const stateFilters = coalesce(state, 'state', []);
@@ -382,8 +324,6 @@ export const querySlice = createSlice({
         }
 
         state.state = stateFilters;
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
       },
       prepare: (selectedState) => {
         return {
@@ -480,114 +420,6 @@ export const querySlice = createSlice({
         };
       },
     },
-    addFilter: {
-      reducer: (state, action) => {
-        if (action.payload.filterName === 'has_narrative') {
-          state.has_narrative = true;
-        } else if (action.payload.filterName in state) {
-          const idx = state[action.payload.filterName].indexOf(
-            action.payload.filterValue,
-          );
-          if (idx === -1) {
-            state[action.payload.filterName].push(action.payload.filterValue);
-          }
-        } else {
-          state[action.payload.filterName] = [action.payload.filterValue];
-        }
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
-      },
-      prepare: (filterName, filterValue) => {
-        return {
-          payload: { filterName, filterValue },
-          meta: {
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
-    },
-    removeFilter: {
-      reducer: (state, action) => {
-        if (action.payload.filterName === 'has_narrative') {
-          delete state.has_narrative;
-        } else if (action.payload.filterName in state) {
-          const idx = state[action.payload.filterName].indexOf(
-            action.payload.filterValue,
-          );
-          if (idx !== -1) {
-            state[action.payload.filterName].splice(idx, 1);
-          }
-        }
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
-      },
-      prepare: (filterName, filterValue) => {
-        return {
-          payload: { filterName, filterValue },
-          meta: {
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
-    },
-    replaceFilters: {
-      reducer: (state, action) => {
-        // de-dupe the filters in case we messed up somewhere
-        state[action.payload.filterName] = [...new Set(action.payload.values)];
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
-      },
-      prepare: (filterName, values) => {
-        return {
-          payload: { filterName, values },
-          meta: {
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
-    },
-    removeMultipleFilters: {
-      reducer: (state, action) => {
-        // remove the focus if it exists in one of the filter values we are removing
-        state.focus = action.payload.values.includes(state.focus)
-          ? ''
-          : state.focus || '';
-
-        if (state[action.payload.filterName]) {
-          action.payload.values.forEach((val) => {
-            const idx = state[action.payload.filterName].indexOf(val);
-            if (idx !== -1) {
-              state[action.payload.filterName].splice(idx, 1);
-            }
-          });
-        }
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
-      },
-      prepare: (filterName, values) => {
-        return {
-          payload: { filterName, values },
-          meta: {
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
-    },
-    dismissMapWarning: {
-      reducer: (state) => {
-        state.mapWarningEnabled = false;
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
-      },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            requery: REQUERY_NEVER,
-          },
-        };
-      },
-    },
     dismissTrendsDateWarning: {
       reducer: (state) => {
         state.trendsDateWarningEnabled = false;
@@ -679,23 +511,7 @@ export const querySlice = createSlice({
         };
       },
     },
-    changeTab: {
-      reducer: (state, action) => {
-        const tab = enforceValues(action.payload.tab, 'tab');
-        state.focus = tab === types.MODE_TRENDS ? state.focus : '';
-        state.tab = tab;
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
-      },
-      prepare: (tab) => {
-        return {
-          payload: { tab },
-          meta: {
-            requery: REQUERY_HITS_ONLY,
-          },
-        };
-      },
-    },
+
     updateTotalPages: {
       reducer: (state, action) => {
         const { _meta, hits } = action.payload.data;
@@ -743,84 +559,6 @@ export const querySlice = createSlice({
         };
       },
     },
-    changeFocus: {
-      reducer: (state, action) => {
-        const { focus, lens, filterValues } = action.payload;
-        const filterKey = lens.toLowerCase();
-        const activeFilters = [];
-
-        if (filterKey === 'company') {
-          activeFilters.push(focus);
-        } else {
-          filterValues.forEach((val) => {
-            activeFilters.push(val);
-          });
-        }
-        state[filterKey] = activeFilters;
-        state.focus = focus;
-        state.lens = lens;
-        //state.lens = enforceValues(lens, 'lens');
-        state.tab = types.MODE_TRENDS;
-        state.trendDepth = 25;
-        state = validateTrendsReducer(state);
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
-      },
-      prepare: (focus, lens, filterValues) => {
-        return {
-          payload: { focus, lens, filterValues },
-        };
-      },
-    },
-    removeFocus(state) {
-      const { lens } = state;
-      const filterKey = lens.toLowerCase();
-      return {
-        ...state,
-        [filterKey]: [],
-        focus: '',
-        tab: types.MODE_TRENDS,
-        trendDepth: 5,
-      };
-    },
-    changeDataLens(state, action) {
-      const lens = enforceValues(action, 'lens');
-      return {
-        ...state,
-        focus: '',
-        lens,
-        trendDepth: lens === 'Company' ? 10 : 5,
-      };
-    },
-    changeDataSubLens(state, action) {
-      return {
-        ...state,
-        subLens: action.toLowerCase(),
-      };
-    },
-    updateChartType(state, action) {
-      state.chartType = state.lens === 'Overview' ? 'line' : action;
-    },
-    updateDataNormalization: {
-      reducer: (state, action) => {
-        state.dataNormalization = enforceValues(
-          action.payload.value,
-          'dataNormalization',
-        );
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
-        state.enablePer1000 =
-          state.dataNormalization === types.GEO_NORM_PER1000;
-      },
-      prepare: (value) => {
-        return {
-          payload: { value },
-          meta: {
-            requery: REQUERY_NEVER,
-          },
-        };
-      },
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -834,46 +572,6 @@ export const querySlice = createSlice({
       })
       .addCase('routes/routeChanged', (state, action) => {
         querySlice.caseReducers.processParams(state, action);
-      })
-      .addCase('trends/updateChartType', (state, action) => {
-        state.chartType = action.payload.chartType;
-        state.search = stateToURL(state);
-        state.queryString = stateToQS(state);
-      })
-      .addCase('trends/updateDataLens', (state, action) => {
-        state.focus = '';
-        state.lens = enforceValues(action.payload.lens, 'lens');
-        switch (state.lens) {
-          case 'Company':
-            state.subLens = 'product';
-            break;
-          case 'Product':
-            state.subLens = 'sub_product';
-            break;
-          default:
-            state.subLens = '';
-        }
-        state.trendDepth = state.lens === 'Company' ? 10 : 5;
-        state.search = stateToURL(state);
-        state.queryString = stateToQS(state);
-      })
-      .addCase('trends/updateDataSubLens', (state, action) => {
-        state.subLens = action.payload.subLens.toLowerCase();
-        state.search = stateToURL(state);
-        state.queryString = stateToQS(state);
-      })
-      .addCase('trends/removeFocus', (state) => {
-        const { lens } = queryState;
-        const filterKey = lens.toLowerCase();
-        return {
-          ...state,
-          [filterKey]: [],
-          focus: '',
-          tab: types.MODE_TRENDS,
-          trendDepth: 5,
-          queryString: stateToQS(state),
-          search: stateToURL(state),
-        };
       });
   },
 });
@@ -1228,22 +926,6 @@ export function stateToURL(state) {
 }
 
 /**
- * helper function to check if per1000 & map warnings should be enabled
- *
- * @param {object} queryState - state we need to validate
- */
-export function validatePer1000(queryState) {
-  queryState.enablePer1000 = enablePer1000(queryState);
-  if (queryState.enablePer1000) {
-    queryState.mapWarningEnabled = true;
-  }
-  // if we enable per1k then don't reset it
-  queryState.dataNormalization = queryState.enablePer1000
-    ? queryState.dataNormalization || types.GEO_NORM_NONE
-    : types.GEO_NORM_NONE;
-}
-
-/**
  * helper function to clear out breakpoints, reset page to 1 when any sort
  * or filter changes the query
  *
@@ -1257,39 +939,27 @@ export function resetBreakpoints(state) {
 }
 
 export const {
-  processParams,
+  addMultipleFilters,
+  addStateFilter,
   changeDateInterval,
   changeDateRange,
   changeDates,
-  toggleFlagFilter,
+  changeDepth,
   changeSearchField,
   changeSearchText,
-  addMultipleFilters,
-  toggleFilter,
-  addStateFilter,
-  clearStateFilter,
-  showStateComplaints,
-  removeStateFilter,
-  removeAllFilters,
-  addFilter,
-  removeFilter,
-  replaceFilters,
-  removeMultipleFilters,
-  dismissMapWarning,
-  dismissTrendsDateWarning,
-  prevPageShown,
-  nextPageShown,
   changeSize,
   changeSort,
-  changeTab,
-  updateTotalPages,
-  changeDepth,
+  clearStateFilter,
+  dismissMapWarning,
+  dismissTrendsDateWarning,
+  nextPageShown,
+  prevPageShown,
+  processParams,
+  removeAllFilters,
+  removeStateFilter,
   resetDepth,
-  changeFocus,
-  removeFocus,
-  changeDataLens,
-  changeDataSubLens,
-  updateChartType,
-  updateDataNormalization,
+  showStateComplaints,
+  toggleFlagFilter,
+  updateTotalPages,
 } = querySlice.actions;
 export default querySlice.reducer;

@@ -2,12 +2,10 @@ import { CompanyTypeahead } from '../../Filters/CompanyTypeahead';
 import { useSelector } from 'react-redux';
 import React from 'react';
 import { TooltipRow } from './TooltipRow';
-import {
-  selectQueryFocus,
-  selectQueryLens,
-} from '../../../reducers/query/selectors';
+import { selectQueryFocus } from '../../../reducers/query/selectors';
 import {
   selectTrendsChartType,
+  selectTrendsLens,
   selectTrendsTooltip,
 } from '../../../reducers/trends/selectors';
 import { externalTooltipFormatter } from '../../../utils/chart';
@@ -21,7 +19,7 @@ const LEARN_SERIES_BREAK =
 export const ExternalTooltip = () => {
   const queryFocus = useSelector(selectQueryFocus);
   const focus = queryFocus ? 'focus' : '';
-  const lens = useSelector(selectQueryLens);
+  const lens = useSelector(selectTrendsLens);
   const chartType = useSelector(selectTrendsChartType);
   const tip = useSelector(selectTrendsTooltip);
   const hasCompanyTypeahead = lens === 'Company' && !focus;

@@ -5,7 +5,6 @@ import {
   selectQueryDateReceivedMax,
   selectQueryDateReceivedMin,
   selectQueryHasNarrative,
-  selectQueryState,
 } from '../../reducers/query/selectors';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,20 +15,21 @@ import { Pill } from './Pill';
 import React from 'react';
 import { removeAllFilters } from '../../reducers/query/query';
 import { startOfToday } from '../../utils';
+import { selectFiltersState } from '../../reducers/filters/selectors';
 
 /* eslint complexity: ["error", 5] */
 export const PillPanel = () => {
   const dispatch = useDispatch();
-  const query = useSelector(selectQueryState);
+  const filterState = useSelector(selectFiltersState);
   const dateReceivedMin = useSelector(selectQueryDateReceivedMin);
   const dateReceivedMax = useSelector(selectQueryDateReceivedMax);
   const hasNarrative = useSelector(selectQueryHasNarrative);
   const filters = knownFilters
     // Only use the known filters that are in the query
-    .filter((filter) => filter in query)
+    .filter((filter) => filter in filterState)
     // Create a flattened array of pill objects
     .reduce((accum, fieldName) => {
-      const arr = query[fieldName].map((value) => ({ fieldName, value }));
+      const arr = filterState[fieldName].map((value) => ({ fieldName, value }));
       return accum.concat(arr);
     }, []);
 

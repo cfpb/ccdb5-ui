@@ -122,11 +122,6 @@ export const filtersSlice = createSlice({
     },
     multipleFiltersRemoved: {
       reducer: (state, action) => {
-        // remove the focus if it exists in one of the filter values we are removing
-        state.focus = action.payload.values.includes(state.focus)
-          ? ''
-          : state.focus || '';
-
         if (state[action.payload.filterName]) {
           action.payload.values.forEach((val) => {
             const idx = state[action.payload.filterName].indexOf(val);
@@ -154,9 +149,24 @@ export const filtersSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase('routes/routeChanged', (state, action) => {
-      filtersSlice.caseReducers.processParams(state, action);
-    });
+    builder
+      .addCase('routes/routeChanged', (state, action) => {
+        filtersSlice.caseReducers.processParams(state, action);
+      })
+      .addCase('trends/focusChanged', (state, action) => {
+        const { focus, lens, filterValues } = action.payload;
+        const filterKey = lens.toLowerCase();
+        const activeFilters = [];
+
+        if (filterKey === 'company') {
+          activeFilters.push(focus);
+        } else {
+          filterValues.forEach((val) => {
+            activeFilters.push(val);
+          });
+        }
+        state[filterKey] = activeFilters;
+      });
   },
 });
 

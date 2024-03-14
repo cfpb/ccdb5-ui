@@ -6,9 +6,9 @@ import { stateToQS, addMultipleFilters } from '../../reducers/query/query';
 import { API_PLACEHOLDER } from '../../constants';
 import {
   selectQueryFocus,
-  selectQueryLens,
   selectQueryState,
 } from '../../reducers/query/selectors';
+import { selectTrendsLens } from '../../reducers/trends/selectors';
 import { AsyncTypeahead } from '../Typeahead/AsyncTypeahead/AsyncTypeahead';
 import { handleFetchSearch } from '../Typeahead/utils';
 
@@ -18,7 +18,7 @@ export const CompanyTypeahead = ({ delayWait, id }) => {
   const dispatch = useDispatch();
   const query = useSelector(selectQueryState);
   const focus = useSelector(selectQueryFocus);
-  const lens = useSelector(selectQueryLens);
+  const lens = useSelector(selectTrendsLens);
   const [dropdownOptions, setDropdownOptions] = useState([]);
 
   const queryState = Object.assign({}, query);

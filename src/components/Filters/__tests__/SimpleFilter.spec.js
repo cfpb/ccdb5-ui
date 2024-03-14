@@ -16,7 +16,7 @@ function setupSnapshot(initialAggs) {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
   const store = mockStore({
-    query: {},
+    filters: {},
     aggs: {
       company_response: initialAggs,
       timely: 'yes',
@@ -47,7 +47,7 @@ describe('mapStateToProps', () => {
       aggs: {
         foo: [1, 2, 3, 4, 5, 6],
       },
-      query: {
+      filters: {
         foo: [1],
       },
     };
@@ -65,7 +65,7 @@ describe('mapStateToProps', () => {
   });
 
   it('hides if there are no active children', () => {
-    state.query.foo = [];
+    state.filters.foo = [];
 
     const actual = mapStateToProps(state, ownProps);
     expect(actual).toEqual({

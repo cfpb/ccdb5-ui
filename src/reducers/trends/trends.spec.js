@@ -1,17 +1,24 @@
 import trends, {
+  chartTypeUpdated,
+  dataLensChanged,
+  dataSubLensChanged,
   mainNameLens,
   trendsReceived,
   trendsApiFailed,
-  removeAllFilters,
-  removeFocus,
-  removeMultipleFilters,
+  focusChanged,
+  focusRemoved,
   trendsApiCalled,
   trendsState,
-  updateDataLens,
-  updateDataSubLens,
-  updateTooltip,
+  tooltipUpdated,
   getDefaultState,
 } from './trends';
+
+import {
+  filtersCleared,
+  multipleFiltersRemoved,
+} from '../filters/filtersSlice';
+import { tabChanged } from '../view/view';
+import { routeChanged } from '../routes/routesSlice';
 import {
   trendsBackfill,
   trendsBackfillResults,
@@ -33,9 +40,6 @@ import {
   trendsAggsMissingBuckets,
   trendsAggsMissingBucketsResults,
 } from '../__fixtures__/trendsAggsMissingBuckets';
-import { updateChartType } from './trends';
-import { changeFocus, changeTab } from '../query/query';
-import { routeChanged } from '../routes/routesSlice';
 
 describe('reducer:trends', () => {
   let action, result, state;
@@ -73,7 +77,7 @@ describe('reducer:trends', () => {
       const chartType = 'FooBar';
 
       expect(
-        trends({ ...trendsState, tooltip: true }, updateChartType(chartType)),
+        trends({ ...trendsState, tooltip: true }, chartTypeUpdated(chartType)),
       ).toEqual({
         ...trendsState,
         chartType: 'FooBar',
@@ -85,7 +89,7 @@ describe('reducer:trends', () => {
       const chartType = 'area';
 
       expect(
-        trends({ ...trendsState, tooltip: true }, updateChartType(chartType)),
+        trends({ ...trendsState, tooltip: true }, chartTypeUpdated(chartType)),
       ).toEqual({
         ...trendsState,
         chartType: 'area',
@@ -103,7 +107,7 @@ describe('reducer:trends', () => {
         tooltip: false,
       };
 
-      expect(trends(targetState, updateChartType(chartType))).toEqual({
+      expect(trends(targetState, chartTypeUpdated(chartType))).toEqual({
         ...targetState,
       });
     });
@@ -116,7 +120,7 @@ describe('reducer:trends', () => {
       state = { focus: 'gg', tooltip: 'foo', chartType: 'area' };
     });
     it('updates the data lens default', () => {
-      result = trends({ ...trendsState, ...state }, updateDataLens(lens));
+      result = trends({ ...trendsState, ...state }, dataLensChanged(lens));
       expect(result).toMatchObject({
         ...trendsState,
         chartType: 'line',
@@ -129,7 +133,7 @@ describe('reducer:trends', () => {
 
     it('updates the data lens - Company', () => {
       lens = 'Company';
-      result = trends({ ...trendsState, ...state }, updateDataLens(lens));
+      result = trends({ ...trendsState, ...state }, dataLensChanged(lens));
       expect(result).toMatchObject({
         ...trendsState,
         chartType: 'area',
@@ -142,7 +146,7 @@ describe('reducer:trends', () => {
 
     it('updates the data lens - product', () => {
       lens = 'Product';
-      result = trends({ ...trendsState, ...state }, updateDataLens(lens));
+      result = trends({ ...trendsState, ...state }, dataLensChanged(lens));
       expect(result).toMatchObject({
         ...trendsState,
         chartType: 'area',
@@ -158,7 +162,7 @@ describe('reducer:trends', () => {
     it('updates the data sublens', () => {
       const subLens = 'sub_something';
       expect(
-        trends({ ...trendsState, subLens: 'gg' }, updateDataSubLens(subLens)),
+        trends({ ...trendsState, subLens: 'gg' }, dataSubLensChanged(subLens)),
       ).toEqual({
         ...trendsState,
         chartType: 'line',
@@ -179,7 +183,7 @@ describe('reducer:trends', () => {
             focus: 'gg',
             tooltip: { wut: 'isthis' },
           },
-          changeFocus(focus, lens),
+          focusChanged(focus, lens),
         ),
       ).toEqual({
         ...trendsState,
@@ -188,6 +192,7 @@ describe('reducer:trends', () => {
         lens: 'Product',
         subLens: 'sub_product',
         tooltip: false,
+        trendDepth: 25,
       });
     });
   });
@@ -203,7 +208,7 @@ describe('reducer:trends', () => {
             focus: 'gg',
             tooltip: { wut: 'isthis' },
           },
-          removeFocus(action),
+          focusRemoved(action),
         ),
       ).toEqual({
         ...trendsState,
@@ -214,6 +219,7 @@ describe('reducer:trends', () => {
           dateRangeLine: [],
         },
         tooltip: false,
+        trendDepth: 5,
       });
     });
   });
@@ -221,10 +227,7 @@ describe('reducer:trends', () => {
   describe('FILTER_ALL_REMOVED action', () => {
     it('resets the FOCUS', () => {
       action = {};
-      result = trends(
-        { ...trendsState, focus: 'gg' },
-        removeAllFilters(action),
-      );
+      result = trends({ ...trendsState, focus: 'gg' }, filtersCleared(action));
       expect(result).toEqual({
         ...trendsState,
         chartType: 'line',
@@ -235,12 +238,9 @@ describe('reducer:trends', () => {
 
   describe('FILTER_MULTIPLE_REMOVED action', () => {
     it('resets the FOCUS if it matches one of the filters', () => {
-      action = {
-        values: ['A', 'B'],
-      };
       result = trends(
         { ...trendsState, focus: 'A' },
-        removeMultipleFilters(action),
+        multipleFiltersRemoved('somefilter', ['A', 'B']),
       );
       expect(result).toEqual({
         ...trendsState,
@@ -250,12 +250,11 @@ describe('reducer:trends', () => {
     });
 
     it('leaves the FOCUS alone if no match any filters', () => {
-      action = {
-        values: ['A', 'B'],
-      };
-
       expect(
-        trends({ ...trendsState, focus: 'C' }, removeMultipleFilters(action)),
+        trends(
+          { ...trendsState, focus: 'C' },
+          multipleFiltersRemoved('somefilter', ['A', 'B']),
+        ),
       ).toEqual({
         ...trendsState,
         chartType: 'line',
@@ -275,7 +274,7 @@ describe('reducer:trends', () => {
             focus: 'Your',
             results: [1, 2, 3],
           },
-          changeTab(payload),
+          tabChanged(payload),
         ),
       ).toEqual({
         ...trendsState,
@@ -298,7 +297,7 @@ describe('reducer:trends', () => {
             focus: 'Your',
             results: [1, 2, 3],
           },
-          changeTab(payload),
+          tabChanged(payload),
         ),
       ).toEqual({
         ...trendsState,
@@ -467,7 +466,7 @@ describe('reducer:trends', () => {
     it('handles no value', () => {
       const action = {};
       const state = { ...trendsState, results: {} };
-      const res = trends(state, updateTooltip(action));
+      const res = trends(state, tooltipUpdated(action));
 
       expect(res.tooltip).toBeFalsy();
     });
@@ -523,7 +522,7 @@ describe('reducer:trends', () => {
           Echo: '#532423',
         },
       };
-      result = trends(state, updateTooltip(payload));
+      result = trends(state, tooltipUpdated(payload));
 
       expect(result.tooltip).toMatchObject({
         date: '2021-06-01T00:00:00.000Z',

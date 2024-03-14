@@ -10,14 +10,14 @@ import {
   selectAggsDocCount,
   selectAggsTotal,
 } from '../../reducers/aggs/selectors';
-import { selectQueryTab } from '../../reducers/query/selectors';
+import { selectViewTab } from '../../reducers/view/selectors';
 import { MODAL_TYPE_DATA_EXPORT } from '../../constants';
 import { updatePrintModeOn } from '../../reducers/view/view';
 
 export const ActionBar = () => {
   const docCount = useSelector(selectAggsDocCount);
   const total = useSelector(selectAggsTotal);
-  const tab = useSelector(selectQueryTab);
+  const tab = useSelector(selectViewTab);
   const dispatch = useDispatch();
 
   const showPrintView = (tab) => {

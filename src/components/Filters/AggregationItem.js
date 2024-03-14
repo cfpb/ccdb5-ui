@@ -4,7 +4,6 @@ import {
   filtersReplaced,
   filterToggled,
 } from '../../reducers/filters/filtersSlice';
-
 import { arrayEquals } from '../../utils/compare';
 import { connect } from 'react-redux';
 import { FormattedNumber } from 'react-intl';
@@ -50,7 +49,7 @@ export class AggregationItem extends React.Component {
 
 export const mapStateToProps = (state, ownProps) => {
   const aggs = coalesce(state.aggs, ownProps.fieldName, []);
-  const filters = coalesce(state.query, ownProps.fieldName, []);
+  const filters = coalesce(state.filters, ownProps.fieldName, []);
   const value = ownProps.item.key;
   const parentKey = value.split(SLUG_SEPARATOR)[0];
   const isActive = filters.includes(value) || filters.includes(parentKey);

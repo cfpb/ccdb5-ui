@@ -11,7 +11,7 @@ import {
 } from '../../utils';
 import { collapseRow, expandRow } from '../../reducers/view/view';
 import { miniTooltip, row } from 'britecharts';
-import { changeFocus } from '../../reducers/query/query';
+import { focusChanged } from '../../reducers/trends/trends';
 import { connect } from 'react-redux';
 import { max } from 'd3-array';
 import { MODE_MAP } from '../../constants';
@@ -243,7 +243,7 @@ export const mapDispatchToProps = (dispatch) => ({
         : [];
     }
     sendAnalyticsEvent('Trends click', element.parent);
-    dispatch(changeFocus(element.parent, lens, [...values]));
+    dispatch(focusChanged(element.parent, lens, [...values]));
   },
   collapseRow: (rowName) => {
     sendAnalyticsEvent('Bar chart collapsed', rowName);
@@ -256,10 +256,10 @@ export const mapDispatchToProps = (dispatch) => ({
 });
 
 export const mapStateToProps = (state) => {
-  const { tab } = state.query;
-  const lens = tab === MODE_MAP ? 'Product' : state.query.lens;
   const { aggs } = state;
-  const { expandedRows, isPrintMode, width } = state.view;
+  const { expandedRows, isPrintMode, tab, width } = state.view;
+  const lens = tab === MODE_MAP ? 'Product' : state.trends.lens;
+
   return {
     aggs,
     expandedRows,

@@ -1,6 +1,7 @@
 import { GEO_NORM_NONE, GEO_NORM_PER1000 } from '../../constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateDataNormalization } from '../../reducers/query/query';
+import { dataNormalizationUpdated } from '../../reducers/view/view';
+
 import React, { useMemo } from 'react';
 import {
   selectQueryDataNormalization,
@@ -27,7 +28,7 @@ export const PerCapita = () => {
         aria-label="Display map by complaints"
         className={'a-btn' + selectedClass(dataNormalization, GEO_NORM_NONE)}
         onClick={() => {
-          dispatch(updateDataNormalization(GEO_NORM_NONE));
+          dispatch(dataNormalizationUpdated(GEO_NORM_NONE));
         }}
         disabled={dataNormalization === GEO_NORM_NONE}
       >
@@ -38,7 +39,7 @@ export const PerCapita = () => {
         className={'a-btn ' + perCapButtonClass}
         disabled={dataNormalization === GEO_NORM_PER1000}
         onClick={() => {
-          dispatch(updateDataNormalization(GEO_NORM_PER1000));
+          dispatch(dataNormalizationUpdated(GEO_NORM_PER1000));
         }}
       >
         Complaints per 1,000 <span>population</span>

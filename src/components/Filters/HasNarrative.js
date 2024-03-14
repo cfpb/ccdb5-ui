@@ -43,7 +43,7 @@ export class HasNarrative extends React.Component {
 // Meta
 
 export const mapStateToProps = (state) => {
-  const isChecked = coalesce(state.query, FIELD_NAME, false);
+  const isChecked = coalesce(state.filters, FIELD_NAME, false);
   const searchField = state.query.searchField;
 
   let phase = NOTHING;

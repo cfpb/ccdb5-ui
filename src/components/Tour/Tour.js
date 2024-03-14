@@ -2,7 +2,7 @@ import './Tour.less';
 import * as d3 from 'd3';
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectQueryTab } from '../../reducers/query/selectors';
+import { selectViewTab } from '../../reducers/view/selectors';
 import {
   selectViewIsPrintMode,
   selectViewShowTour,
@@ -16,7 +16,7 @@ import { tourHidden } from '../../reducers/view/view';
 export const Tour = () => {
   const dispatch = useDispatch();
   const showTour = useSelector(selectViewShowTour);
-  const tab = useSelector(selectQueryTab);
+  const tab = useSelector(selectViewTab);
   const isPrintMode = useSelector(selectViewIsPrintMode);
   const viewWidth = useSelector(selectViewWidth);
 

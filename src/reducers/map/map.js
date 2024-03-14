@@ -40,16 +40,6 @@ export const mapSlice = createSlice({
   name: 'map',
   initialState: mapState,
   reducers: {
-    handleTabChanged(state) {
-      return {
-        ...state,
-        error: false,
-        results: {
-          product: [],
-          state: [],
-        },
-      };
-    },
     statesApiCalled: {
       reducer: (state, action) => {
         state.activeCall = action.payload.url;
@@ -83,6 +73,18 @@ export const mapSlice = createSlice({
         },
       };
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase('view/tabChanged', (state) => {
+      return {
+        ...state,
+        error: false,
+        results: {
+          product: [],
+          state: [],
+        },
+      };
+    });
   },
 });
 

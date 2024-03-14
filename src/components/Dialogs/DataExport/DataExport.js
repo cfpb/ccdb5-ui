@@ -12,11 +12,8 @@ import {
   selectAggsDocCount,
   selectAggsTotal,
 } from '../../../reducers/aggs/selectors';
-import {
-  selectQueryState,
-  selectQueryTab,
-} from '../../../reducers/query/selectors';
-
+import { selectQueryState } from '../../../reducers/query/selectors';
+import { selectViewTab } from '../../../reducers/view/selectors';
 const FORMAT_CSV = 'csv';
 const FORMAT_JSON = 'json';
 
@@ -28,7 +25,7 @@ export const DataExport = () => {
   const queryState = useSelector(selectQueryState);
   const someComplaintsCount = useSelector(selectAggsTotal);
   const allComplaintsCount = useSelector(selectAggsDocCount);
-  const tab = useSelector(selectQueryTab);
+  const tab = useSelector(selectViewTab);
   // can only be full or filtered
   const [dataset, setDataset] = useState(DATASET_FULL);
   // can only be csv or json
