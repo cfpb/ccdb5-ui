@@ -2,7 +2,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { REQUERY_ALWAYS } from '../../constants';
 import { filterArrayAction } from '../query/query';
-import { coalesce } from '../../utils';
+import { coalesce, processUrlArrayParams } from '../../utils';
+import * as types from '../../constants';
 
 export const filtersState = {};
 
@@ -144,6 +145,18 @@ export const filtersSlice = createSlice({
         };
       },
     },
+    processParams: {
+      reducer: (state, action) => {
+        const params = { ...action.payload.params };
+        // Handle the aggregation filters
+        processUrlArrayParams(params, state, types.knownFilters);
+      },
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase('routes/routeChanged', (state, action) => {
+      filtersSlice.caseReducers.processParams(state, action);
+    });
   },
 });
 
@@ -155,6 +168,6 @@ export const {
   filterToggled,
   multipleFiltersAdded,
   multipleFiltersRemoved,
-} = filtersSlice.reducer;
+} = filtersSlice.actions;
 
 export default filtersSlice.reducer;

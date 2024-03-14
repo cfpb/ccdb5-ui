@@ -51,8 +51,9 @@ export class Product extends React.Component {
 
 export const mapStateToProps = (state) => {
   // See if there are an active product filters
-  const { focus, lens, tab } = state.query;
-  const allProducts = coalesce(state.query, 'product', []);
+  const { focus, lens } = state.trends;
+  const { tab } = state.view;
+  const allProducts = coalesce(state.filters, 'product', []);
   const selections = [];
 
   // Reduce the products to the parent keys (and dedup)
