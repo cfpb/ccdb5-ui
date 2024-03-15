@@ -23,7 +23,7 @@ describe('ChartToggles', () => {
 
   it('renders default state', () => {
     const changeChartTypeSpy = jest
-      .spyOn(trendsActions, 'updateChartType')
+      .spyOn(trendsActions, 'chartTypeUpdated')
       .mockImplementation(() => jest.fn());
 
     renderComponent({});
@@ -45,7 +45,7 @@ describe('ChartToggles', () => {
 
   it('renders area chartType state without crashing', () => {
     const changeChartTypeSpy = jest
-      .spyOn(trendsActions, 'updateChartType')
+      .spyOn(trendsActions, 'chartTypeUpdated')
       .mockImplementation(() => jest.fn());
 
     renderComponent({ chartType: 'area' });

@@ -2,7 +2,8 @@ import { sanitizeHtmlId } from '../../utils';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { stateToQS, addMultipleFilters } from '../../reducers/query/query';
+import { stateToQS } from '../../reducers/query/query';
+import { multipleFiltersAdded } from '../../reducers/filters/filtersSlice';
 import { API_PLACEHOLDER } from '../../constants';
 import {
   selectQueryFocus,
@@ -27,7 +28,7 @@ export const CompanyTypeahead = ({ delayWait, id }) => {
   const queryString = stateToQS(queryState);
 
   const onSelection = (value) => {
-    dispatch(addMultipleFilters(FIELD_NAME, [value[0].key]));
+    dispatch(multipleFiltersAdded(FIELD_NAME, [value[0].key]));
   };
 
   const onInputChange = (value) => {

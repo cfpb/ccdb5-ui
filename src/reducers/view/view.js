@@ -1,78 +1,28 @@
-import { enablePer1000, processUrlArrayParams } from '../../utils';
+import { processUrlArrayParams } from '../../utils';
 import { createSlice } from '@reduxjs/toolkit';
 import { REQUERY_HITS_ONLY, REQUERY_NEVER } from '../../constants';
 import * as types from '../../constants';
 import { enforceValues } from '../../utils/reducers';
 
 export const viewState = {
-  dataNormalization: types.GEO_NORM_NONE,
-  enablePer1000: false,
   expandedRows: [],
   isFromExternal: false,
   isPrintMode: false,
   hasAdvancedSearchTips: false,
   hasFilters: true,
-  mapWarningEnabled: true,
   modalTypeShown: false,
   showTour: false,
   tab: types.MODE_TRENDS,
   width: 0,
 };
 
-/**
- * helper function to check if per1000 & map warnings should be enabled
- *
- * @param {object} state - state we need to validate
- */
-export function validatePer1000(state) {
-  state.enablePer1000 = enablePer1000(state);
-  if (state.enablePer1000) {
-    state.mapWarningEnabled = true;
-  }
-  // if we enable per1k then don't reset it
-  state.dataNormalization = state.enablePer1000
-    ? state.dataNormalization || types.GEO_NORM_NONE
-    : types.GEO_NORM_NONE;
-}
-
 export const viewSlice = createSlice({
   name: 'view',
   initialState: viewState,
   reducers: {
-    dataNormalizationUpdated: {
-      reducer: (state, action) => {
-        state.dataNormalization = enforceValues(
-          action.payload.value,
-          'dataNormalization',
-        );
-        state.enablePer1000 =
-          state.dataNormalization === types.GEO_NORM_PER1000;
-      },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            requery: REQUERY_NEVER,
-          },
-        };
-      },
-    },
     hideAdvancedSearchTips: {
       reducer: (state) => {
         state.hasAdvancedSearchTips = false;
-      },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            requery: REQUERY_NEVER,
-          },
-        };
-      },
-    },
-    mapWarningDismissed: {
-      reducer: (state) => {
-        state.mapWarningEnabled = false;
       },
       prepare: (payload) => {
         return {
@@ -129,8 +79,6 @@ export const viewSlice = createSlice({
     tabChanged: {
       reducer: (state, action) => {
         state.tab = enforceValues(action.payload.tab, 'tab');
-        state.focus = state.tab === types.MODE_TRENDS ? state.focus : '';
-        validatePer1000(state);
       },
       prepare: (tab) => {
         return {
@@ -222,10 +170,8 @@ export const viewSlice = createSlice({
 
 export const {
   collapseRow,
-  dataNormalizationUpdated,
   expandRow,
   hideAdvancedSearchTips,
-  mapWarningDismissed,
   modalHidden,
   modalShown,
   processParams,

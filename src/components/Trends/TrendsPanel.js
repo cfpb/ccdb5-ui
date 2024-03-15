@@ -274,7 +274,7 @@ const mapStateToProps = (state) => {
     dateInterval,
     date_received_max: maxDate,
     date_received_min: minDate,
-    isTrendsDateWarningEnabled,
+    trendsDateWarningEnabled,
   } = state.query;
 
   const {
@@ -318,7 +318,7 @@ const mapStateToProps = (state) => {
     lensHelperText: lensHelperText,
     focusHelperText: focusHelperText,
     total,
-    isTrendsDateWarningEnabled,
+    isTrendsDateWarningEnabled: trendsDateWarningEnabled,
   };
 };
 

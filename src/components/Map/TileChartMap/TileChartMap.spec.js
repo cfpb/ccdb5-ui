@@ -12,7 +12,7 @@ import { viewState } from '../../../reducers/view/view';
 import { mapResults } from './__fixtures__/mapResults';
 import { GEO_NORM_PER1000 } from '../../../constants';
 import * as analyticsActions from '../../../utils';
-import * as mapActions from '../../../reducers/query/query';
+import * as filterActions from '../../../reducers/filters/filtersSlice';
 
 describe('TileChartMap', () => {
   const renderComponent = (newMapState, newQueryState, newViewState) => {
@@ -51,7 +51,7 @@ describe('TileChartMap', () => {
       .mockImplementation(() => jest.fn());
 
     const addStateFilterSpy = jest
-      .spyOn(mapActions, 'addStateFilter')
+      .spyOn(filterActions, 'stateFilterAdded')
       .mockImplementation(() => jest.fn());
 
     const newMap = {
@@ -89,7 +89,7 @@ describe('TileChartMap', () => {
       .mockImplementation(() => jest.fn());
 
     const addStateFilterSpy = jest
-      .spyOn(mapActions, 'addStateFilter')
+      .spyOn(filterActions, 'stateFilterAdded')
       .mockImplementation(() => jest.fn());
 
     const newMap = {
@@ -138,7 +138,7 @@ describe('TileChartMap', () => {
       .mockImplementation(() => jest.fn());
 
     const removeStateFilterSpy = jest
-      .spyOn(mapActions, 'removeStateFilter')
+      .spyOn(filterActions, 'stateFilterRemoved')
       .mockImplementation(() => jest.fn());
 
     const newMap = {

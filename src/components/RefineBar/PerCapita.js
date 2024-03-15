@@ -1,6 +1,6 @@
 import { GEO_NORM_NONE, GEO_NORM_PER1000 } from '../../constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { dataNormalizationUpdated } from '../../reducers/view/view';
+import { dataNormalizationUpdated } from '../../reducers/filters/filtersSlice';
 
 import React, { useMemo } from 'react';
 import {

@@ -4,6 +4,8 @@ export const selectViewExpandedRows = (state) => state.view.expandedRows;
 export const selectViewHasFilters = (state) => state.view.hasFilters;
 export const selectViewIsFromExternal = (state) => state.view.isFromExternal;
 export const selectViewIsPrintMode = (state) => state.view.isPrintMode;
+export const selectViewMapWarningEnabled = (state) =>
+  state.view.mapWarningEnabled;
 export const selectViewShowTour = (state) => state.view.showTour;
 export const selectViewTab = (state) => state.view.tab;
 export const selectViewWidth = (state) => state.view.width;

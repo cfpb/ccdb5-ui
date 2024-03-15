@@ -3,10 +3,10 @@ import target, {
   mapState,
   statesApiFailed,
   statesApiCalled,
-  handleTabChanged,
   processStateAggregations,
 } from './map';
 import stateAggs from '../__fixtures__/stateAggs';
+import { tabChanged } from '../view/view';
 
 describe('reducer:map', () => {
   let action;
@@ -192,7 +192,7 @@ describe('reducer:map', () => {
             ...mapState,
             results: [1, 2, 3],
           },
-          handleTabChanged(),
+          tabChanged(),
         ),
       ).toEqual({
         ...mapState,

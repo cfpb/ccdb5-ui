@@ -5,6 +5,7 @@ import target, {
   modalHidden,
   modalShown,
   showAdvancedSearchTips,
+  tabChanged,
   tourHidden,
   tourShown,
   updateFilterVisibility,
@@ -14,9 +15,9 @@ import target, {
   viewState,
 } from './view';
 import actions from '../../actions';
-import { updateDataLens } from '../trends/trends';
+import * as types from '../../constants';
 
-describe('reducer:map', () => {
+describe('reducer:View', () => {
   let action;
 
   describe('reducer', () => {
@@ -124,14 +125,6 @@ describe('reducer:map', () => {
   describe('Row Chart actions', () => {
     let action, result;
 
-    it('handles DATA_LENS_CHANGED actions', () => {
-      result = target(
-        { ...viewState, expandedRows: ['foo'] },
-        updateDataLens(action),
-      );
-      expect(result).toEqual({ ...viewState, expandedRows: [] });
-    });
-
     it('handles ROW_COLLAPSED actions', () => {
       const payload = 'foo';
       result = target(
@@ -175,12 +168,13 @@ describe('reducer:map', () => {
       const actual = target(state, actions.routeChanged('/', params));
       expect(actual).toEqual({
         expandedRows: [],
-        isFromExternal: true,
         hasAdvancedSearchTips: false,
-        isPrintMode: true,
         hasFilters: true,
+        isFromExternal: true,
+        isPrintMode: true,
         modalTypeShown: false,
         showTour: false,
+        tab: types.MODE_TRENDS,
         width: 0,
       });
     });
@@ -197,6 +191,32 @@ describe('reducer:map', () => {
       const params = { expandedRows: ['hello', 'ma'] };
       const actual = target(state, actions.routeChanged('/', params));
       expect(actual.expandedRows).toEqual(['hello', 'ma']);
+    });
+  });
+
+  describe('Tabs', () => {
+    let tab, state;
+    beforeEach(() => {
+      state = {
+        ...viewState,
+        tab: 'bar',
+      };
+    });
+
+    it('handles TAB_CHANGED actions - default', () => {
+      tab = 'foo';
+      expect(target(state, tabChanged(tab))).toEqual({
+        ...state,
+        tab: 'Trends',
+      });
+    });
+
+    it('handles Trends TAB_CHANGED actions', () => {
+      tab = 'Trends';
+      expect(target(state, tabChanged(tab))).toEqual({
+        ...state,
+        tab: 'Trends',
+      });
     });
   });
 });

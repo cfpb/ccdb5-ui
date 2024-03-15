@@ -88,10 +88,6 @@ export const mapSlice = createSlice({
   },
 });
 
-export const {
-  handleTabChanged,
-  statesApiCalled,
-  statesReceived,
-  statesApiFailed,
-} = mapSlice.actions;
+export const { statesApiCalled, statesReceived, statesApiFailed } =
+  mapSlice.actions;
 export default mapSlice.reducer;

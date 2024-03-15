@@ -2,15 +2,15 @@ import trends, {
   chartTypeUpdated,
   dataLensChanged,
   dataSubLensChanged,
-  mainNameLens,
-  trendsReceived,
-  trendsApiFailed,
   focusChanged,
   focusRemoved,
-  trendsApiCalled,
-  trendsState,
-  tooltipUpdated,
   getDefaultState,
+  mainNameLens,
+  tooltipUpdated,
+  trendsApiCalled,
+  trendsApiFailed,
+  trendsReceived,
+  trendsState,
 } from './trends';
 
 import {
@@ -40,6 +40,9 @@ import {
   trendsAggsMissingBuckets,
   trendsAggsMissingBucketsResults,
 } from '../__fixtures__/trendsAggsMissingBuckets';
+import * as types from '../../constants';
+
+import { depthChanged, depthReset } from './trends';
 
 describe('reducer:trends', () => {
   let action, result, state;
@@ -120,7 +123,22 @@ describe('reducer:trends', () => {
       state = { focus: 'gg', tooltip: 'foo', chartType: 'area' };
     });
     it('updates the data lens default', () => {
-      result = trends({ ...trendsState, ...state }, dataLensChanged(lens));
+      result = trends({ ...trendsState, ...state }, dataLensChanged('Foo'));
+      expect(result).toMatchObject({
+        ...trendsState,
+        chartType: 'line',
+        focus: '',
+        lens: 'Product',
+        subLens: 'sub_product',
+        tooltip: false,
+      });
+    });
+
+    it('updates the data lens Overview', () => {
+      result = trends(
+        { ...trendsState, ...state },
+        dataLensChanged('Overview'),
+      );
       expect(result).toMatchObject({
         ...trendsState,
         chartType: 'line',
@@ -141,6 +159,7 @@ describe('reducer:trends', () => {
         lens: 'Company',
         subLens: 'product',
         tooltip: false,
+        trendDepth: 10,
       });
     });
 
@@ -175,7 +194,7 @@ describe('reducer:trends', () => {
     it('updates the FOCUS and clears the tooltip', () => {
       const focus = 'Some Rando Text';
       const lens = 'Product';
-
+      const filterVals = ['a', 'b', 'c'];
       expect(
         trends(
           {
@@ -183,7 +202,7 @@ describe('reducer:trends', () => {
             focus: 'gg',
             tooltip: { wut: 'isthis' },
           },
-          focusChanged(focus, lens),
+          focusChanged(focus, lens, filterVals),
         ),
       ).toEqual({
         ...trendsState,
@@ -195,10 +214,28 @@ describe('reducer:trends', () => {
         trendDepth: 25,
       });
     });
+
+    it('changes the Company Focus', () => {
+      const filterValues = ['A'];
+      const focus = 'A';
+      const lens = 'Company';
+      result = trends(
+        { ...trendsState, focus: 'Else' },
+        focusChanged(focus, lens, filterValues),
+      );
+      expect(result).toEqual({
+        ...trendsState,
+        chartType: 'line',
+        focus: 'A',
+        lens: 'Company',
+        subLens: 'product',
+        trendDepth: 25,
+      });
+    });
   });
 
   describe('FOCUS_REMOVED action', () => {
-    it('removes the FOCUS and resets the row info', () => {
+    it('removes the FOCUS and resets values', () => {
       action = {};
 
       expect(
@@ -609,6 +646,32 @@ describe('reducer:trends', () => {
       expect(result.lens).toEqual('Company');
       expect(result.subLens).toEqual('product');
       expect(result.nope).toBeFalsy();
+    });
+  });
+
+  describe('trend depth', () => {
+    beforeEach(() => {
+      state = {
+        ...trendsState,
+        tab: types.MODE_TRENDS,
+        trendDepth: 5,
+      };
+    });
+    it('handles DEPTH_CHANGED', () => {
+      const depth = 13;
+      expect(trends(state, depthChanged(depth))).toEqual({
+        ...state,
+        chartType: 'line',
+        trendDepth: 13,
+      });
+    });
+    it('handles DEPTH_RESET', () => {
+      state.trendDepth = 1000;
+      expect(trends(state, depthReset())).toEqual({
+        ...state,
+        chartType: 'line',
+        trendDepth: 5,
+      });
     });
   });
 });

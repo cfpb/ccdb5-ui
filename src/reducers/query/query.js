@@ -3,12 +3,11 @@ import * as types from '../../constants';
 import {
   calculateDateRange,
   clamp,
-  coalesce,
   // processUrlArrayParams,
   shortIsoFormat,
   startOfToday,
 } from '../../utils';
-import { enforceValues, validateTrendsReducer } from '../../utils/reducers';
+import { enforceValues } from '../../utils/reducers';
 import dayjs from 'dayjs';
 import { isGreaterThanYear } from '../../utils/trends';
 import { createSlice } from '@reduxjs/toolkit';
@@ -40,7 +39,6 @@ export const queryState = {
   size: 25,
   sort: 'created_date_desc',
   totalPages: 0,
-  trendDepth: 5,
   trendsDateWarningEnabled: false,
 };
 
@@ -129,8 +127,6 @@ export const querySlice = createSlice({
 
         alignDateRange(state);
         state.page = params.page ?? state.page;
-        validateTrendsReducer(state);
-        state.focus = typeof params.focus === 'undefined' ? '' : params.focus;
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
@@ -151,6 +147,7 @@ export const querySlice = createSlice({
           action.payload.dateInterval,
           'dateInterval',
         );
+        validateDateInterval(state);
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
@@ -186,8 +183,7 @@ export const querySlice = createSlice({
           dateRange === 'All' && state.tab === types.MODE_TRENDS
             ? 'Week'
             : state.dateInterval || queryState.dateInterval;
-        state.trendsDateWarningEnabled =
-          dateRange === 'All' && state.tab === types.MODE_TRENDS;
+        validateDateInterval(state);
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
@@ -238,6 +234,7 @@ export const querySlice = createSlice({
 
         state[fields[0]] = minDate || state[fields[0]];
         state[fields[1]] = maxDate || state[fields[1]];
+        validateDateInterval(state);
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
       },
@@ -247,27 +244,6 @@ export const querySlice = createSlice({
             filterName,
             minDate,
             maxDate,
-          },
-          meta: {
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
-    },
-    toggleFlagFilter: {
-      reducer: (state, action) => {
-        state[action.payload.filterName] = Boolean(
-          !state[action.payload.filterName],
-        );
-        if (!state[action.payload.filterName])
-          delete state[action.payload.filterName];
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
-      },
-      prepare: (filterName) => {
-        return {
-          payload: {
-            filterName,
           },
           meta: {
             requery: REQUERY_ALWAYS,
@@ -315,73 +291,6 @@ export const querySlice = createSlice({
         };
       },
     },
-    addStateFilter: {
-      reducer: (state, action) => {
-        const stateFilters = coalesce(state, 'state', []);
-        const { abbr } = action.payload.selectedState;
-        if (!stateFilters.includes(abbr)) {
-          stateFilters.push(abbr);
-        }
-
-        state.state = stateFilters;
-      },
-      prepare: (selectedState) => {
-        return {
-          payload: { selectedState },
-          meta: {
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
-    },
-    clearStateFilter: {
-      reducer: (state) => {
-        state.state = [];
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
-      },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
-    },
-    showStateComplaints: {
-      reducer: (state) => {
-        state.tab = types.MODE_LIST;
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
-      },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
-    },
-    removeStateFilter: {
-      reducer: (state, action) => {
-        const stateFilters = coalesce(state, 'state', []);
-        const { abbr } = action.payload.selectedState;
-
-        state.state = stateFilters.filter((state) => state !== abbr);
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
-      },
-      prepare: (selectedState) => {
-        return {
-          payload: { selectedState },
-          meta: {
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
-    },
     removeAllFilters: {
       reducer: (state) => {
         const allFilters = types.knownFilters.concat(
@@ -406,7 +315,6 @@ export const querySlice = createSlice({
         /* eslint-disable camelcase */
         state.date_received_min = dayjs(types.DATE_RANGE_MIN).toISOString();
         state.date_received_max = dayjs(startOfToday()).toISOString();
-        state.focus = '';
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
         state.from = 0;
@@ -423,8 +331,6 @@ export const querySlice = createSlice({
     dismissTrendsDateWarning: {
       reducer: (state) => {
         state.trendsDateWarningEnabled = false;
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
       },
       prepare: (payload) => {
         return {
@@ -511,7 +417,6 @@ export const querySlice = createSlice({
         };
       },
     },
-
     updateTotalPages: {
       reducer: (state, action) => {
         const { _meta, hits } = action.payload.data;
@@ -530,35 +435,6 @@ export const querySlice = createSlice({
         };
       },
     },
-    changeDepth: {
-      reducer: (state, action) => {
-        state.trendDepth = action.payload.depth;
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
-      },
-      prepare: (depth) => {
-        return {
-          payload: { depth },
-          meta: {
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
-    },
-    resetDepth: {
-      reducer: (state) => {
-        state.trendDepth = 5;
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
-      },
-      prepare: () => {
-        return {
-          meta: {
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -572,6 +448,11 @@ export const querySlice = createSlice({
       })
       .addCase('routes/routeChanged', (state, action) => {
         querySlice.caseReducers.processParams(state, action);
+      })
+      .addCase('view/tabChanged', (state) => {
+        state.breakPoints = {};
+        state.totalPages = 0;
+        state.page = 0;
       });
   },
 });
@@ -691,26 +572,6 @@ export function validateDateInterval(queryState) {
   if (!isGreaterThanYear(date_received_min, date_received_max)) {
     queryState.trendsDateWarningEnabled = false;
   }
-}
-
-/**
- * defaults create new array if param doesn't exist yet
- * if the value doesn't exist in the array, pushes
- * if value exists in the array, filters.
- *
- * @param {Array} target - the current filter
- * @param {string} val - the filter to toggle
- * @returns {Array} a cast copy to avoid any state mutation
- */
-export function filterArrayAction(target = [], val) {
-  if (target.indexOf(val) === -1) {
-    target.push(val);
-  } else {
-    target = target.filter(function (value) {
-      return value !== val;
-    });
-  }
-  return [...target];
 }
 
 /**
@@ -939,27 +800,18 @@ export function resetBreakpoints(state) {
 }
 
 export const {
-  addMultipleFilters,
-  addStateFilter,
   changeDateInterval,
   changeDateRange,
   changeDates,
-  changeDepth,
   changeSearchField,
   changeSearchText,
   changeSize,
   changeSort,
-  clearStateFilter,
-  dismissMapWarning,
   dismissTrendsDateWarning,
   nextPageShown,
   prevPageShown,
   processParams,
   removeAllFilters,
-  removeStateFilter,
-  resetDepth,
-  showStateComplaints,
-  toggleFlagFilter,
   updateTotalPages,
 } = querySlice.actions;
 export default querySlice.reducer;

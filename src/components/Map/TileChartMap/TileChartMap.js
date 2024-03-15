@@ -1,8 +1,8 @@
 import './TileChartMap.less';
 import {
-  addStateFilter,
-  removeStateFilter,
-} from '../../../reducers/query/query';
+  stateFilterAdded,
+  stateFilterRemoved,
+} from '../../../reducers/filters/filtersSlice';
 import { coalesce, sendAnalyticsEvent } from '../../../utils';
 import { GEO_NORM_NONE, STATE_DATA } from '../../../constants';
 import { useDispatch, useSelector } from 'react-redux';
@@ -56,10 +56,10 @@ export const TileChartMap = () => {
       };
       if (stateFilters && stateFilters.includes(abbr)) {
         sendAnalyticsEvent('State Event: remove', selectedState.abbr);
-        dispatch(removeStateFilter(selectedState));
+        dispatch(stateFilterRemoved(selectedState));
       } else {
         sendAnalyticsEvent('State Event: add', selectedState.abbr);
-        dispatch(addStateFilter(selectedState));
+        dispatch(stateFilterAdded(selectedState));
       }
     },
     [stateFilters, dispatch],

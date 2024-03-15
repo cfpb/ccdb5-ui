@@ -6,7 +6,7 @@ import { FilterPanel } from '../Filters/FilterPanel';
 import FilterPanelToggle from '../Filters/FilterPanelToggle';
 import { Loading } from '../Loading/Loading';
 import { MapToolbar } from './MapToolbar';
-import { mapWarningDismissed } from '../../reducers/view/view';
+import { mapWarningDismissed } from '../../reducers/filters/filtersSlice';
 import { PerCapita } from '../RefineBar/PerCapita';
 import { processRows } from '../../utils/chart';
 
@@ -28,11 +28,11 @@ import {
   selectQueryDateReceivedMax,
   selectQueryDateReceivedMin,
   selectQueryEnablePer1000,
-  selectQueryMapWarningEnabled,
 } from '../../reducers/query/selectors';
 
 import {
   selectViewExpandedRows,
+  selectViewMapWarningEnabled,
   selectViewWidth,
 } from '../../reducers/view/selectors';
 
@@ -54,7 +54,7 @@ export const MapPanel = () => {
   const results = useSelector(selectMapResults);
   const hasError = useSelector(selectMapError);
   const enablePer1000 = useSelector(selectQueryEnablePer1000);
-  const mapWarningEnabled = useSelector(selectQueryMapWarningEnabled);
+  const mapWarningEnabled = useSelector(selectViewMapWarningEnabled);
   const maxDate = useSelector(selectQueryDateReceivedMax);
   const minDate = useSelector(selectQueryDateReceivedMin);
   const expandedRows = useSelector(selectViewExpandedRows);

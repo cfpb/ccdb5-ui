@@ -5,6 +5,7 @@ import {
   selectQueryDateReceivedMax,
   selectQueryDateReceivedMin,
   selectQueryHasNarrative,
+  selectQuerySearchField,
 } from '../../reducers/query/selectors';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,7 +14,7 @@ import dayjs from 'dayjs';
 import getIcon from '../iconMap';
 import { Pill } from './Pill';
 import React from 'react';
-import { removeAllFilters } from '../../reducers/query/query';
+import { filtersCleared } from '../../reducers/filters/filtersSlice';
 import { startOfToday } from '../../utils';
 import { selectFiltersState } from '../../reducers/filters/selectors';
 
@@ -24,6 +25,8 @@ export const PillPanel = () => {
   const dateReceivedMin = useSelector(selectQueryDateReceivedMin);
   const dateReceivedMax = useSelector(selectQueryDateReceivedMax);
   const hasNarrative = useSelector(selectQueryHasNarrative);
+  const searchField = useSelector(selectQuerySearchField);
+
   const filters = knownFilters
     // Only use the known filters that are in the query
     .filter((filter) => filter in filterState)
@@ -74,7 +77,7 @@ export const PillPanel = () => {
         <li className="clear-all">
           <button
             className="a-btn a-btn__link body-copy"
-            onClick={() => dispatch(removeAllFilters())}
+            onClick={() => dispatch(filtersCleared(searchField))}
           >
             {getIcon('delete')}
             Clear all filters
