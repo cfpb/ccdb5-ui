@@ -1,14 +1,9 @@
 /* eslint-disable camelcase */
 
-import {
-  defaultSort,
-  revSearchFieldMap,
-  searchFieldMap,
-} from '../../../constants';
-import { capitalize, clamp, removeNullProperties } from '../../../utils';
-import { validateDatePeriod } from '../../../reducers/utils/dateReducers';
-
-const isEqual = require('react-fast-compare');
+// import { defaultSort } from '../../../constants';
+// import { validateDatePeriod } from '../../../reducers/utils/dateReducers';
+import { capitalize, clamp, removeNullProperties } from '../../utils';
+// const isEqual = require('react-fast-compare');
 // ----------------------------------------------------------------------------
 // return parameter objects
 
@@ -22,8 +17,7 @@ export function extractAggregationParams(state) {
   const { query } = state;
 
   const set1 = {
-    field: searchFieldMap[query.searchFields],
-    index_name: query._index,
+    field: 'all',
   };
 
   if (query.dateRange) {
@@ -36,14 +30,12 @@ export function extractAggregationParams(state) {
   }
 
   // Grab specific attributes from the reducers
-  const params = Object.assign(
+  return Object.assign(
     {},
     set1,
     extractAgeParams(state.query.ageRange),
     extractReducerAttributes(state.filters, Object.keys(state.filters)),
   );
-
-  return params;
 }
 
 /**
@@ -160,7 +152,7 @@ export const sortNames = (sort) => {
     created_date_desc: 'Newest to oldest',
   };
 
-  return sortMap[sort] || defaultSort;
+  return sortMap[sort] || 'Oldest to newest';
 };
 
 /**
@@ -174,7 +166,7 @@ export function extractQueryParams(queryState) {
   const ageParams = extractAgeParams(query.ageRange);
   const params = {
     ...ageParams,
-    field: searchFieldMap[query.searchFields] || 'all',
+    searchField: query.searchFields ?? 'all',
     // edge case for doc complaint override in
     // actions/complaints.js
     frm:
@@ -182,7 +174,6 @@ export function extractQueryParams(queryState) {
         ? query.from
         : clamp(query.page - 1, 0) * query.size,
     index_name: query._index,
-
     size: query.size,
     sort: buildSort(query.sort),
   };
@@ -258,100 +249,60 @@ export function extractAgeParams(ageRange = {}) {
   return params;
 }
 
-/**
- * Reverses extractQueryParams
- *
- * @param {object} params - the parameters returned from the API
- * @returns {object} a version of the query state
- */
-export function parseParamsToQuery(params) {
-  const {
-    date_received_max,
-    date_received_min,
-    field,
-    frm: frm_as_string,
-    index_name,
-    search_term,
-    size: size_as_string,
-    sort,
-  } = params;
-
-  const size = parseInt(size_as_string, 10);
-  const frm = parseInt(frm_as_string, 10);
-
-  const query = {
-    page: (frm + size) / size,
-    queryText: search_term || '',
-    searchFields: revSearchFieldMap[field],
-    size,
-  };
-
-  // Handle the dates
-  const dateRange = removeNullProperties({
-    to: date_received_max,
-    from: date_received_min,
-  });
-
-  /* istanbul ignore else */
-  if (!isEqual(dateRange, {})) {
-    query.dateRange = dateRange;
-    validateDatePeriod(query.dateRange);
-  }
-
-  // Handle the index name
-  /* istanbul ignore else */
-  if (index_name) {
-    query._index = index_name;
-  }
-
-  // Handle sort
-  /* istanbul ignore else */
-  if (sort) {
-    query.sort = sortNames(sort);
-  }
-
-  return removeNullProperties(query);
-}
-
-/**
- * Selects specific variables from the comparisons reducer to be used in a query str
- *
- * @param {object} state - the current state in the Redux store
- * @returns {object} a dictionary of strings
- */
-export function extractCompareParams(state) {
-  const { compareItem, selectedCompareType } = state.comparisons;
-  const { interval } = state.viewModel;
-  const params = {
-    lens: 'sent_to',
-    compareItem,
-    selectedCompareType: selectedCompareType.toLowerCase(),
-    trend_interval: interval.toLowerCase(),
-  };
-
-  return params;
-}
-
-/**
- * Reverses extractCompareParams
- *
- * @param {object} params - the parameters returned from the API
- * @returns {object} a version of the compare state
- */
-export function parseParamsToCompare(params) {
-  // eslint-disable-next-line prefer-const
-  let { compareItem, selectedCompareType: selCompType } = params;
-
-  // compare_company shows up in history searches, not compareItem
-  if (!compareItem) {
-    compareItem = params.compare_company;
-  }
-
-  return removeNullProperties({
-    compareItem,
-    selectedCompareType: selCompType ? capitalize(selCompType) : selCompType,
-  });
-}
+// /**
+//  * Reverses extractQueryParams
+//  *
+//  * @param {object} params - the parameters returned from the API
+//  * @returns {object} a version of the query state
+//  */
+// export function parseParamsToQuery(params) {
+//   const {
+//     date_received_max,
+//     date_received_min,
+//     field,
+//     frm: frm_as_string,
+//     index_name,
+//     search_term,
+//     size: size_as_string,
+//     sort,
+//   } = params;
+//
+//   const size = parseInt(size_as_string, 10);
+//   const frm = parseInt(frm_as_string, 10);
+//
+//   const query = {
+//     page: (frm + size) / size,
+//     queryText: search_term || '',
+//     // searchFields: revSearchFieldMap[field],
+//     size,
+//   };
+//
+//   // Handle the dates
+//   const dateRange = removeNullProperties({
+//     to: date_received_max,
+//     from: date_received_min,
+//   });
+//
+//   /* istanbul ignore else */
+//   if (!isEqual(dateRange, {})) {
+//     query.dateRange = dateRange;
+//     validateDatePeriod(query.dateRange);
+//   }
+//
+//   // Handle the index name
+//   /* istanbul ignore else */
+//   if (index_name) {
+//     query._index = index_name;
+//   }
+//
+//   // Handle sort
+//   /* istanbul ignore else */
+//   if (sort) {
+//     query.sort = sortNames(sort);
+//   }
+//
+//   return removeNullProperties(query);
+// }
 
 /**
  * Selects specific variables from the trends reducer to be used in a query str
@@ -387,38 +338,15 @@ export function extractTrendsParams(state) {
  * @returns {object} a version of the trends state
  */
 export function parseParamsToTrends(params) {
-  const { focus, lens, sub_lens, trend_depth } = params;
+  const { focus, lens, subLens, trend_depth } = params;
   const trends = {
     focus,
-    // doing this so we get a null value so that it correctly
-    // gets the default value for api_seach_loaded
-    lens: lens ? capitalize(lens) : lens,
+    lens,
+    subLens,
     trend_depth,
   };
 
-  /* istanbul ignore else */
-  if (sub_lens) {
-    trends.subLens = capitalize(sub_lens.replace('_', '-'));
-  }
-
   return removeNullProperties(trends);
-}
-
-/**
- * Selects specific variables to be used in the basic query string
- *
- * @param {object} state - the current state in the Redux store
- * @returns {object} a dictionary of strings
- */
-export function extractTysParams(state) {
-  // Grab specific attributes from the reducers
-  const params = Object.assign(
-    {},
-    extractQueryParams(state.query),
-    extractReducerAttributes(state.filters, Object.keys(state.filters)),
-  );
-
-  return params;
 }
 
 /**

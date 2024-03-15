@@ -45,7 +45,7 @@ export function changeRoute(path, params) {
   // eslint-disable-next-line complexity
   return function (dispatch, getState) {
     const store = getState();
-
+    console.log('CR', path, params);
     const normalized = normalizeRouteParams(params);
     const { routes } = store;
     const sameRoute =
