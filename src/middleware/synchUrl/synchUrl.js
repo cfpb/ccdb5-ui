@@ -4,7 +4,6 @@ import queryString from 'query-string';
 import { MODE_MAP, MODE_TRENDS, PERSIST_NONE } from '../../constants';
 import {
   extractAgeParams,
-  extractGeoParams,
   extractReducerAttributes,
 } from '../../api/params/params';
 
@@ -20,8 +19,6 @@ function buildGeoParams(state, viewMode) {
 
   return Object.assign(
     {},
-    // API params
-    extractGeoParams(state),
     // App-only params
     extractReducerAttributes(state.geo, ['dataNormalization', 'mapType']),
   );
@@ -135,23 +132,19 @@ const synchUrl = (store) => (next) => (action) => {
 
   // Get the current state
   const state = store.getState();
-  console.log('sadfasd');
-  console.log(result);
-  console.log(action);
   // Only process certain messages
   const persist = action.meta?.persist ?? PERSIST_NONE;
-  console.log(persist);
+
   if (persist.indexOf('PERSIST_SAVE') !== 0) {
     return result;
   }
 
   const params = extractQueryStringParams(state);
-
-  console.log('AFTER!');
   // See if processing should continue
   // Update the application
   const history = createBrowserHistory();
   const location = history.location;
+
   // if (location.search !== search && !location.pathname.includes('/detail/')) {
   history.push({
     pathname: location.pathname,
@@ -159,7 +152,6 @@ const synchUrl = (store) => (next) => (action) => {
   });
   // And record the change in Redux to prevent ROUTE_CHANGED storms
   store.dispatch(appUrlChanged(location.pathname, params));
-  // }
   return result;
 };
 

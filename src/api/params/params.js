@@ -81,58 +81,6 @@ export function extractReducerAttributes(reducer, attributes) {
 
 // ----------------------------------------------------------------------------
 // parameter objects <--> reducer
-/**
- * Selects specific variables from the geo reducer to be used in a query string
- *
- * @param {object} state - the current state of geo in the Redux store
- * @returns {object} a dictionary of strings
- */
-export function extractGeoParams(state) {
-  const {
-    boundingBox,
-    center,
-    centroidsEnabled,
-    geographicLevel,
-    geoShading,
-    mapType,
-    zoom,
-  } = state.geo;
-
-  const { almanacId, almanacLevel } = state.almanac;
-
-  const almanacParams = almanacId
-    ? {
-        almanacId,
-        almanacLevel,
-      }
-    : {};
-
-  const boundingBoxParams = boundingBox
-    ? {
-        north: boundingBox.north.toString(10),
-        south: boundingBox.south.toString(10),
-        west: boundingBox.west.toString(10),
-        east: boundingBox.east.toString(10),
-      }
-    : {};
-
-  return mapType === 'leaflet'
-    ? {
-        ...almanacParams,
-        ...boundingBoxParams,
-        centroidsEnabled,
-        // censusYear is not specific to geo
-        geographicLevel,
-        geoShading,
-        lat: center.lat.toString(10),
-        lng: center.lng.toString(10),
-        zoom: zoom.toString(10),
-      }
-    : {
-        ...almanacParams,
-        geographicLevel,
-      };
-}
 
 export const buildSort = (sort) => {
   const sortMap = {
@@ -188,29 +136,6 @@ export function extractQueryParams(queryState) {
   if (query.queryText) {
     params.search_term = query.queryText;
   }
-
-  if (query.searchAfter) {
-    params.search_after = query.searchAfter;
-  }
-
-  return params;
-}
-
-/**
- * Selects specific values from the query reducer to be used in a query string for saved list complaints return
- *
- * @param {object} state - the current state in the Redux store
- * @returns {object} a dictionary of strings
- */
-export function extractSavedListQueryParams(state) {
-  const { query } = state;
-  const params = {
-    frm: query.from,
-    index_name: query._index,
-    no_aggs: true,
-    size: query.size,
-    sort: buildSort(query.sort),
-  };
 
   if (query.searchAfter) {
     params.search_after = query.searchAfter;
@@ -311,13 +236,12 @@ export function extractAgeParams(ageRange = {}) {
  * @returns {object} a dictionary of strings
  */
 export function extractTrendsParams(state) {
-  const { focus, lens, subLens, trend_depth } = state.trends;
-  const { interval } = state.viewModel;
+  const { dateInterval, focus, lens, subLens, trend_depth } = state.trends;
 
   const params = {
     lens: lens.replace(' ', '_').toLowerCase(),
     trend_depth,
-    trend_interval: interval.toLowerCase(),
+    trend_interval: dateInterval.toLowerCase(),
   };
 
   if (subLens) {

@@ -1,6 +1,10 @@
 import { processUrlArrayParams } from '../../utils';
 import { createSlice } from '@reduxjs/toolkit';
-import { REQUERY_HITS_ONLY, REQUERY_NEVER } from '../../constants';
+import {
+  PERSIST_SAVE_QUERY_STRING,
+  REQUERY_HITS_ONLY,
+  REQUERY_NEVER,
+} from '../../constants';
 import * as types from '../../constants';
 import { enforceValues } from '../../utils/reducers';
 
@@ -84,6 +88,7 @@ export const viewSlice = createSlice({
         return {
           payload: { tab },
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_HITS_ONLY,
           },
         };
@@ -93,26 +98,10 @@ export const viewSlice = createSlice({
       reducer: (state) => {
         state.showTour = false;
       },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            requery: REQUERY_NEVER,
-          },
-        };
-      },
     },
     tourShown: {
       reducer: (state) => {
         state.showTour = true;
-      },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            requery: REQUERY_NEVER,
-          },
-        };
       },
     },
     collapseRow: {

@@ -16,9 +16,15 @@ import {
   updateDateBuckets,
 } from '../../utils/chart';
 import { isDateEqual } from '../../utils/formatDate';
-import { MODE_TRENDS, REQUERY_ALWAYS, REQUERY_NEVER } from '../../constants';
+import {
+  MODE_TRENDS,
+  PERSIST_SAVE_QUERY_STRING,
+  REQUERY_ALWAYS,
+  REQUERY_NEVER,
+} from '../../constants';
 import { pruneOther } from '../../utils/trends';
 import { createSlice } from '@reduxjs/toolkit';
+import { validateDateInterval } from '../query/query';
 
 export const emptyResults = () => ({
   dateRangeArea: [],
@@ -40,6 +46,7 @@ export const getDefaultState = () =>
     {},
     {
       chartType: 'line',
+      dateInterval: 'Month',
       focus: '',
       lens: 'Product',
       subLens: 'sub_product',
@@ -63,7 +70,29 @@ export const trendsSlice = createSlice({
         return {
           payload: { chartType: chartType },
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_NEVER,
+          },
+        };
+      },
+    },
+    changeDateInterval: {
+      reducer: (state, action) => {
+        state.dateInterval = enforceValues(
+          action.payload.dateInterval,
+          'dateInterval',
+        );
+
+        validateDateInterval(state);
+      },
+      prepare: (dateInterval) => {
+        return {
+          payload: {
+            dateInterval,
+          },
+          meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
+            requery: REQUERY_ALWAYS,
           },
         };
       },
@@ -97,6 +126,7 @@ export const trendsSlice = createSlice({
         return {
           payload: { lens: lens },
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
           },
         };
@@ -113,6 +143,7 @@ export const trendsSlice = createSlice({
         return {
           payload: { subLens },
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
           },
         };
@@ -126,6 +157,7 @@ export const trendsSlice = createSlice({
         return {
           payload: { depth },
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
           },
         };
@@ -138,6 +170,7 @@ export const trendsSlice = createSlice({
       prepare: () => {
         return {
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
           },
         };
@@ -155,6 +188,10 @@ export const trendsSlice = createSlice({
       prepare: (focus, lens, filterValues) => {
         return {
           payload: { focus, lens, filterValues },
+          meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
+            requery: REQUERY_ALWAYS,
+          },
         };
       },
     },
@@ -171,6 +208,7 @@ export const trendsSlice = createSlice({
       prepare: () => {
         return {
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
           },
         };
@@ -302,6 +340,7 @@ export const trendsSlice = createSlice({
             data: items,
           },
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_NEVER,
           },
         };

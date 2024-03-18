@@ -12,6 +12,7 @@ import dayjs from 'dayjs';
 import { isGreaterThanYear } from '../../utils/trends';
 import { createSlice } from '@reduxjs/toolkit';
 import {
+  PERSIST_SAVE_QUERY_STRING,
   REQUERY_ALWAYS,
   REQUERY_HITS_ONLY,
   REQUERY_NEVER,
@@ -141,27 +142,6 @@ export const querySlice = createSlice({
         };
       },
     },
-    changeDateInterval: {
-      reducer: (state, action) => {
-        state.dateInterval = enforceValues(
-          action.payload.dateInterval,
-          'dateInterval',
-        );
-        validateDateInterval(state);
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
-      },
-      prepare: (dateInterval) => {
-        return {
-          payload: {
-            dateInterval,
-          },
-          meta: {
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
-    },
     changeDateRange: {
       // eslint-disable-next-line complexity
       reducer: (state, action) => {
@@ -179,10 +159,6 @@ export const querySlice = createSlice({
           ? res[dateRange]
           : state.date_received_min;
         state.date_received_max = maxDate;
-        state.dateInterval =
-          dateRange === 'All' && state.tab === types.MODE_TRENDS
-            ? 'Week'
-            : state.dateInterval || queryState.dateInterval;
         validateDateInterval(state);
         state.queryString = stateToQS(state);
         state.search = stateToURL(state);
@@ -193,6 +169,7 @@ export const querySlice = createSlice({
             dateRange,
           },
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
           },
         };
@@ -246,6 +223,7 @@ export const querySlice = createSlice({
             maxDate,
           },
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
           },
         };
@@ -266,6 +244,7 @@ export const querySlice = createSlice({
         return {
           payload: { searchField },
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
           },
         };
@@ -286,6 +265,7 @@ export const querySlice = createSlice({
         return {
           payload: { searchText },
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
           },
         };
@@ -323,6 +303,7 @@ export const querySlice = createSlice({
         return {
           payload,
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
           },
         };
@@ -356,6 +337,7 @@ export const querySlice = createSlice({
         return {
           payload,
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_HITS_ONLY,
           },
         };
@@ -376,6 +358,7 @@ export const querySlice = createSlice({
         return {
           payload,
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_HITS_ONLY,
           },
         };
@@ -394,6 +377,7 @@ export const querySlice = createSlice({
         return {
           payload: { size },
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_HITS_ONLY,
           },
         };
@@ -412,6 +396,7 @@ export const querySlice = createSlice({
         return {
           payload: { sort },
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_HITS_ONLY,
           },
         };

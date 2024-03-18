@@ -30,6 +30,7 @@ import {
   complaintsApiFailed,
   complaintsReceived,
 } from '../reducers/results/results';
+import { buildUri } from '../api/url/url';
 
 // ----------------------------------------------------------------------------
 // Routing action
@@ -119,7 +120,7 @@ export function getAggregations() {
 export function getComplaints() {
   return (dispatch, getState) => {
     const store = getState();
-    const qs = store.query.queryString;
+    const qs = buildUri(store);
     const uri = API_PLACEHOLDER + qs;
     // This call is already in process
     if (uri === store.results.activeCall) {
@@ -161,7 +162,7 @@ export function getComplaintDetail(id) {
 export function getStates() {
   return (dispatch, getState) => {
     const store = getState();
-    const qs = 'geo/states/' + store.query.queryString;
+    const qs = 'geo/states/' + buildUri(store);
     const uri = API_PLACEHOLDER + qs + '&no_aggs=true';
 
     // This call is already in process
@@ -185,8 +186,9 @@ export function getStates() {
 export function getTrends() {
   return (dispatch, getState) => {
     const store = getState();
-    const qs = 'trends/' + store.query.queryString;
+    const qs = 'trends/' + buildUri(store);
     const uri = API_PLACEHOLDER + qs + '&no_aggs=true';
+    //const uri = API_PLACEHOLDER + 'trends' + buildUri(store) + '&no_aggs=true';
     // This call is already in process
     if (uri === store.trends.activeCall) {
       return null;

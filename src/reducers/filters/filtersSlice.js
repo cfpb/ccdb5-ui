@@ -1,6 +1,10 @@
 // default filter state
 import { createSlice } from '@reduxjs/toolkit';
-import { REQUERY_ALWAYS, REQUERY_NEVER } from '../../constants';
+import {
+  PERSIST_SAVE_QUERY_STRING,
+  REQUERY_ALWAYS,
+  REQUERY_NEVER,
+} from '../../constants';
 import { coalesce, enablePer1000, processUrlArrayParams } from '../../utils';
 import * as types from '../../constants';
 import { enforceValues } from '../../utils/reducers';
@@ -52,6 +56,7 @@ export const filtersSlice = createSlice({
         return {
           payload: { filterName, filterValue },
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
           },
         };
@@ -74,6 +79,7 @@ export const filtersSlice = createSlice({
         return {
           payload: { filterName, filterValue },
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
           },
         };
@@ -102,6 +108,7 @@ export const filtersSlice = createSlice({
         return {
           payload: { filterName, values },
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
           },
         };
@@ -121,6 +128,7 @@ export const filtersSlice = createSlice({
         return {
           payload: { filterName, filterValue },
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
           },
         };
@@ -160,6 +168,7 @@ export const filtersSlice = createSlice({
             values,
           },
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
           },
         };
@@ -180,6 +189,7 @@ export const filtersSlice = createSlice({
         return {
           payload: { filterName, values },
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
           },
         };
@@ -206,6 +216,7 @@ export const filtersSlice = createSlice({
         return {
           payload: { selectedState },
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
           },
         };
@@ -219,6 +230,7 @@ export const filtersSlice = createSlice({
         return {
           payload,
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
           },
         };
@@ -237,6 +249,7 @@ export const filtersSlice = createSlice({
         return {
           payload: { selectedState },
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
           },
         };
@@ -256,6 +269,7 @@ export const filtersSlice = createSlice({
             filterName,
           },
           meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
           },
         };

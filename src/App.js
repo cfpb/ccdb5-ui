@@ -1,40 +1,11 @@
 import './css/App.less';
+import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
-import queryManager from './middleware/queryManager/queryManager';
 import { ComplaintDetail } from './components/ComplaintDetail/ComplaintDetail';
-import React from 'react';
 import { SearchComponents } from './components/Search/SearchComponents';
-import synchUrl from './middleware/synchUrl/synchUrl';
-import { configureStore } from '@reduxjs/toolkit';
-import aggReducer from './reducers/aggs/aggs';
-import detailReducer from './reducers/detail/detail';
-import filtersReducer from './reducers/filters/filtersSlice';
-import mapReducer from './reducers/map/map';
-import queryReducer from './reducers/query/query';
-import resultsReducer from './reducers/results/results';
-import routesReducer from './reducers/routes/routesSlice';
-import trendsReducer from './reducers/trends/trends';
-import viewReducer from './reducers/view/view';
-
-// required format for redux-devtools-extension
-const store = configureStore({
-  devTools: true,
-  reducer: {
-    aggs: aggReducer,
-    detail: detailReducer,
-    filters: filtersReducer,
-    map: mapReducer,
-    query: queryReducer,
-    results: resultsReducer,
-    routes: routesReducer,
-    trends: trendsReducer,
-    view: viewReducer,
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat([queryManager, synchUrl]),
-});
+import store from './app/store';
 
 /* eslint-disable camelcase */
 export const DetailComponents = () => {
@@ -46,9 +17,7 @@ export const DetailComponents = () => {
     </IntlProvider>
   );
 };
-/* eslint-enable camelcase */
 
-// eslint-disable-next-line react/no-multi-comp
 /**
  * Main App Component
  *

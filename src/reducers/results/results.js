@@ -2,6 +2,7 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 import cloneDeep from 'lodash/cloneDeep';
+import { PERSIST_SAVE_QUERY_STRING, REQUERY_NEVER } from '../../constants';
 
 export const resultsState = {
   activeCall: '',
@@ -29,6 +30,10 @@ export const resultsSlice = createSlice({
         return {
           payload: {
             data: items,
+            meta: {
+              persist: PERSIST_SAVE_QUERY_STRING,
+              requery: REQUERY_NEVER,
+            },
           },
         };
       },
