@@ -6,7 +6,7 @@ export const selectQueryCompanyReceivedMin = (state) =>
 
 export const selectQueryDataNormalization = (state) =>
   state.query.dataNormalization;
-
+export const selectQueryDateInterval = (state) => state.query.dateInterval;
 export const selectQueryDateReceivedMax = (state) =>
   state.query.date_received_max;
 export const selectQueryDateReceivedMin = (state) =>
