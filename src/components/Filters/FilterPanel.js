@@ -11,7 +11,7 @@ import Product from './Product';
 import React from 'react';
 import SimpleFilter from './SimpleFilter';
 import { ZipCode } from './ZipCode';
-import { updateFilterVisibility } from '../../reducers/view/view';
+import { updateFilterVisibility } from '../../reducers/view/viewSlice';
 import {
   selectViewHasFilters,
   selectViewWidth,

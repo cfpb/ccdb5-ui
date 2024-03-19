@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import getIcon from './iconMap';
 import React from 'react';
 import { selectViewTab } from '../reducers/view/selectors';
-import { tabChanged } from '../reducers/view/view';
+import { tabChanged } from '../reducers/view/viewSlice';
 
 export const TabbedNavigation = () => {
   const dispatch = useDispatch();

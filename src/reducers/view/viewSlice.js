@@ -83,6 +83,7 @@ export const viewSlice = createSlice({
     tabChanged: {
       reducer: (state, action) => {
         state.tab = enforceValues(action.payload.tab, 'tab');
+        state.expandedRows = [];
       },
       prepare: (tab) => {
         return {
@@ -104,7 +105,7 @@ export const viewSlice = createSlice({
         state.showTour = true;
       },
     },
-    collapseRow: {
+    rowCollapsed: {
       reducer: (state, action) => {
         state.expandedRows = state.expandedRows.filter(
           (obj) => obj !== action.payload,
@@ -119,7 +120,7 @@ export const viewSlice = createSlice({
         };
       },
     },
-    expandRow: {
+    rowExpanded: {
       reducer: (state, action) => {
         if (!state.expandedRows.includes(action.payload)) {
           state.expandedRows.push(action.payload);
@@ -134,13 +135,10 @@ export const viewSlice = createSlice({
         };
       },
     },
-    resetExpandedRows(state) {
-      state.expandedRows = [];
-    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase('trends/updateDataLens', (state) => {
+      .addCase('trends/dataLensChanged', (state) => {
         state.expandedRows = [];
       })
       .addCase('routes/routeChanged', (state, action) => {
@@ -158,13 +156,12 @@ export const viewSlice = createSlice({
 });
 
 export const {
-  collapseRow,
-  expandRow,
   hideAdvancedSearchTips,
   modalHidden,
   modalShown,
   processParams,
-  resetExpandedRows,
+  rowCollapsed,
+  rowExpanded,
   showAdvancedSearchTips,
   tabChanged,
   tourHidden,

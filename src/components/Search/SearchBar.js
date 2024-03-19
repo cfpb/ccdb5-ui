@@ -2,11 +2,11 @@ import './SearchBar.less';
 import {
   hideAdvancedSearchTips,
   showAdvancedSearchTips,
-} from '../../reducers/view/view';
+} from '../../reducers/view/viewSlice';
 import {
   changeSearchField,
   changeSearchText,
-} from '../../reducers/query/query';
+} from '../../reducers/query/querySlice';
 import { AdvancedTips } from './AdvancedTips/AdvancedTips';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';

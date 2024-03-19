@@ -1,14 +1,14 @@
 import React from 'react';
 import { MapToolbar } from './MapToolbar';
 import { merge } from '../../testUtils/functionHelpers';
-import { queryState } from '../../reducers/query/query';
+import { queryState } from '../../reducers/query/querySlice';
 import {
   testRender as render,
   screen,
   fireEvent,
 } from '../../testUtils/test-utils';
 import * as filterActions from '../../reducers/filters/filtersSlice';
-import * as viewActions from '../../reducers/view/view';
+import * as viewActions from '../../reducers/view/viewSlice';
 
 describe('MapToolbar', () => {
   const renderComponent = (newQueryState) => {

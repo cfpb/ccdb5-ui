@@ -2,8 +2,8 @@
 import { ExternalTooltip } from './ExternalTooltip';
 import React from 'react';
 import { merge } from '../../../testUtils/functionHelpers';
-import { queryState } from '../../../reducers/query/query';
-import { trendsState } from '../../../reducers/trends/trends';
+import { queryState } from '../../../reducers/query/querySlice';
+import { trendsState } from '../../../reducers/trends/trendsSlice';
 import { testRender as render, screen } from '../../../testUtils/test-utils';
 
 const renderComponent = (newQueryState, newTrendsState) => {

@@ -1,5 +1,5 @@
 import { API_PLACEHOLDER } from '../../../constants';
-import { stateToQS } from '../../../reducers/query/query';
+import { stateToQS } from '../../../reducers/query/querySlice';
 
 const DATA_HOST = 'https://files.consumerfinance.gov';
 

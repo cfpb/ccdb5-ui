@@ -10,12 +10,12 @@ import target, {
   prevPageShown,
   changeSearchText,
   changeSearchField,
-} from './query';
+} from './querySlice';
 import * as types from '../../constants';
 import dayjs from 'dayjs';
 import { startOfToday } from '../../utils';
 import { formatDate } from '../../utils/formatDate';
-import { complaintsReceived } from '../results/results';
+import { complaintsReceived } from '../results/resultsSlice';
 
 const maxDate = startOfToday();
 

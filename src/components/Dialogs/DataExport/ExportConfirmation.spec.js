@@ -4,7 +4,7 @@ import {
   screen,
   fireEvent,
 } from '../../../testUtils/test-utils';
-import * as viewActions from '../../../reducers/view/view';
+import * as viewActions from '../../../reducers/view/viewSlice';
 import { ExportConfirmation } from './ExportConfirmation';
 
 describe('ExportConfirmation', () => {

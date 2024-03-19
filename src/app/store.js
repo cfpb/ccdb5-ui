@@ -1,14 +1,14 @@
 import queryManager from '../middleware/queryManager/queryManager';
 import synchUrl from '../middleware/synchUrl/synchUrl';
-import aggReducer from '../reducers/aggs/aggs';
-import detailReducer from '../reducers/detail/detail';
+import aggReducer from '../reducers/aggs/aggsSlice';
+import detailReducer from '../reducers/detail/detailSlice';
 import filtersReducer from '../reducers/filters/filtersSlice';
-import mapReducer from '../reducers/map/map';
-import queryReducer from '../reducers/query/query';
-import resultsReducer from '../reducers/results/results';
+import mapReducer from '../reducers/map/mapSlice';
+import queryReducer from '../reducers/query/querySlice';
+import resultsReducer from '../reducers/results/resultsSlice';
 import routesReducer from '../reducers/routes/routesSlice';
-import trendsReducer from '../reducers/trends/trends';
-import viewReducer from '../reducers/view/view';
+import trendsReducer from '../reducers/trends/trendsSlice';
+import viewReducer from '../reducers/view/viewSlice';
 import { configureStore } from '@reduxjs/toolkit';
 
 export default configureStore({

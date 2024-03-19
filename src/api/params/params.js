@@ -236,7 +236,13 @@ export function extractAgeParams(ageRange = {}) {
  * @returns {object} a dictionary of strings
  */
 export function extractTrendsParams(state) {
-  const { dateInterval, focus, lens, subLens, trend_depth } = state.trends;
+  const {
+    dateInterval,
+    focus,
+    lens,
+    subLens,
+    trendDepth: trend_depth,
+  } = state.trends;
 
   const params = {
     lens: lens.replace(' ', '_').toLowerCase(),

@@ -4,9 +4,9 @@ import target, {
   statesApiFailed,
   statesApiCalled,
   processStateAggregations,
-} from './map';
+} from './mapSlice';
 import stateAggs from '../__fixtures__/stateAggs';
-import { tabChanged } from '../view/view';
+import { tabChanged } from '../view/viewSlice';
 
 describe('reducer:map', () => {
   let action;

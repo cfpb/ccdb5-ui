@@ -9,27 +9,27 @@ import {
   complaintDetailCalled,
   complaintDetailReceived,
   complaintDetailFailed,
-} from '../reducers/detail/detail';
+} from '../reducers/detail/detailSlice';
 import {
   trendsReceived,
   trendsApiFailed,
   trendsApiCalled,
-} from '../reducers/trends/trends';
+} from '../reducers/trends/trendsSlice';
 import {
   statesApiCalled,
   statesApiFailed,
   statesReceived,
-} from '../reducers/map/map';
+} from '../reducers/map/mapSlice';
 import {
   aggregationsApiCalled,
   aggregationsApiFailed,
   aggregationsReceived,
-} from '../reducers/aggs/aggs';
+} from '../reducers/aggs/aggsSlice';
 import {
   complaintsApiCalled,
   complaintsApiFailed,
   complaintsReceived,
-} from '../reducers/results/results';
+} from '../reducers/results/resultsSlice';
 import { buildUri } from '../api/url/url';
 
 // ----------------------------------------------------------------------------

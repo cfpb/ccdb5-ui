@@ -1,8 +1,8 @@
 import { ResultsPanel } from './ResultsPanel';
 import React from 'react';
 import { testRender as render, screen } from '../testUtils/test-utils';
-import { queryState } from '../reducers/query/query';
-import { viewState } from '../reducers/view/view';
+import { queryState } from '../reducers/query/querySlice';
+import { viewState } from '../reducers/view/viewSlice';
 import { merge } from '../testUtils/functionHelpers';
 import { MODE_LIST, MODE_MAP } from '../constants';
 

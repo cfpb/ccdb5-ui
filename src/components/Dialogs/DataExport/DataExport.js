@@ -1,7 +1,7 @@
 import './DataExport.less';
 import { getFullUrl, sendAnalyticsEvent } from '../../../utils';
 import { buildAllResultsUri, buildSomeResultsUri } from './dataExportUtils';
-import { modalHidden, modalShown } from '../../../reducers/view/view';
+import { modalHidden, modalShown } from '../../../reducers/view/viewSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormattedNumber } from 'react-intl';
 import getIcon from '../../iconMap';

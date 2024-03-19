@@ -7,7 +7,7 @@ import 'regenerator-runtime/runtime';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import * as useUpdateLocationHook from '../hooks/useUpdateLocation';
-import { queryState } from '../reducers/query/query';
+import { queryState } from '../reducers/query/querySlice';
 
 jest.mock('highcharts/modules/accessibility');
 jest.mock('highcharts/highmaps');

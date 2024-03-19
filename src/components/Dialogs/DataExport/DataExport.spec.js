@@ -7,9 +7,9 @@ import {
   fireEvent,
 } from '../../../testUtils/test-utils';
 import { merge } from '../../../testUtils/functionHelpers';
-import { aggState } from '../../../reducers/aggs/aggs';
-import { queryState } from '../../../reducers/query/query';
-import * as viewActions from '../../../reducers/view/view';
+import { aggState } from '../../../reducers/aggs/aggsSlice';
+import { queryState } from '../../../reducers/query/querySlice';
+import * as viewActions from '../../../reducers/view/viewSlice';
 import { MODAL_TYPE_EXPORT_CONFIRMATION } from '../../../constants';
 import { waitFor } from '@testing-library/react';
 

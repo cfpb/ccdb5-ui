@@ -1,8 +1,8 @@
 import { PrintInfo } from './PrintInfo';
 import React from 'react';
-import { aggState } from '../../reducers/aggs/aggs';
-import { queryState } from '../../reducers/query/query';
-import { viewState } from '../../reducers/view/view';
+import { aggState } from '../../reducers/aggs/aggsSlice';
+import { queryState } from '../../reducers/query/querySlice';
+import { viewState } from '../../reducers/view/viewSlice';
 import { merge } from '../../testUtils/functionHelpers';
 import { testRender as render, screen } from '../../testUtils/test-utils';
 

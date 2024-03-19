@@ -3,7 +3,7 @@ import target, {
   aggState,
   aggregationsApiFailed,
   aggregationsReceived,
-} from './aggs';
+} from './aggsSlice';
 
 describe('reducer:aggs', () => {
   it('has a default state', () => {

@@ -4,7 +4,7 @@ import { FormattedNumber } from 'react-intl';
 import getIcon from '../iconMap';
 import React from 'react';
 import { sendAnalyticsEvent } from '../../utils';
-import { modalShown } from '../../reducers/view/view';
+import { modalShown, updatePrintModeOn } from '../../reducers/view/viewSlice';
 import { StaleDataWarnings } from '../Warnings/StaleDataWarnings';
 import {
   selectAggsDocCount,
@@ -12,7 +12,6 @@ import {
 } from '../../reducers/aggs/selectors';
 import { selectViewTab } from '../../reducers/view/selectors';
 import { MODAL_TYPE_DATA_EXPORT } from '../../constants';
-import { updatePrintModeOn } from '../../reducers/view/view';
 
 export const ActionBar = () => {
   const docCount = useSelector(selectAggsDocCount);

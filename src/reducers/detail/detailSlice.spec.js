@@ -3,7 +3,7 @@ import detail, {
   complaintDetailFailed,
   complaintDetailReceived,
   detailState,
-} from '../../reducers/detail/detail';
+} from '../../reducers/detail/detailSlice';
 describe('reducer::detail', () => {
   it('has a default state', () => {
     expect(detail(undefined, {})).toEqual({

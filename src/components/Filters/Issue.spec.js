@@ -6,11 +6,11 @@ import {
 } from '../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 import { merge } from '../../testUtils/functionHelpers';
-import { aggState } from '../../reducers/aggs/aggs';
-import { queryState } from '../../reducers/query/query';
+import { aggState } from '../../reducers/aggs/aggsSlice';
+import { queryState } from '../../reducers/query/querySlice';
 import { Issue } from './Issue';
 import { listOfIssues } from '../../testUtils/aggsConstants';
-import * as filterActions from '../../reducers/query/query';
+import * as filterActions from '../../reducers/query/querySlice';
 
 describe('Issue', () => {
   const user = userEvent.setup({ delay: null });

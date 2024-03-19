@@ -4,7 +4,7 @@ import { selectViewTab } from '../../reducers/view/selectors';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { dateRanges } from '../../constants';
-import { changeDateRange } from '../../reducers/query/query';
+import { changeDateRange } from '../../reducers/query/querySlice';
 import React from 'react';
 import { sendAnalyticsEvent } from '../../utils';
 

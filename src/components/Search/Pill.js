@@ -1,5 +1,5 @@
 import './Pill.less';
-import { changeDateRange } from '../../reducers/query/query';
+import { changeDateRange } from '../../reducers/query/querySlice';
 import {
   filterRemoved,
   filtersReplaced,

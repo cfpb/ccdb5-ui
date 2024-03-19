@@ -11,13 +11,13 @@ import trends, {
   trendsApiFailed,
   trendsReceived,
   trendsState,
-} from './trends';
+} from './trendsSlice';
 
 import {
   filtersCleared,
   multipleFiltersRemoved,
 } from '../filters/filtersSlice';
-import { tabChanged } from '../view/view';
+import { tabChanged } from '../view/viewSlice';
 import { routeChanged } from '../routes/routesSlice';
 import {
   trendsBackfill,

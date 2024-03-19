@@ -5,8 +5,8 @@ import {
   screen,
 } from '../../testUtils/test-utils';
 import { merge } from '../../testUtils/functionHelpers';
-import { detailState } from '../../reducers/detail/detail';
-import { queryState } from '../../reducers/query/query';
+import { detailState } from '../../reducers/detail/detailSlice';
+import { queryState } from '../../reducers/query/querySlice';
 import { waitFor } from '@testing-library/react';
 import * as complaintActions from '../../actions/complaints';
 

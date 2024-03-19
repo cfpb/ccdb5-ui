@@ -1,14 +1,14 @@
 import React from 'react';
 import { ActionBar } from './ActionBar';
-import { aggState } from '../../reducers/aggs/aggs';
-import { queryState } from '../../reducers/query/query';
+import { aggState } from '../../reducers/aggs/aggsSlice';
+import { queryState } from '../../reducers/query/querySlice';
 import { merge } from '../../testUtils/functionHelpers';
 import {
   testRender as render,
   fireEvent,
   screen,
 } from '../../testUtils/test-utils';
-import * as viewActions from '../../reducers/view/view';
+import * as viewActions from '../../reducers/view/viewSlice';
 import * as utils from '../../utils';
 
 describe('ActionBar', () => {

@@ -423,10 +423,6 @@ export const querySlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase('detail/complaintDetailCalled', (state) => {
-        state.search = stateToURL(state);
-        state.queryString = stateToQS(state);
-      })
       .addCase('results/complaintsReceived', (state, action) => {
         querySlice.caseReducers.processParams(state, action);
         querySlice.caseReducers.updateTotalPages(state, action);
@@ -785,7 +781,6 @@ export function resetBreakpoints(state) {
 }
 
 export const {
-  changeDateInterval,
   changeDateRange,
   changeDates,
   changeSearchField,

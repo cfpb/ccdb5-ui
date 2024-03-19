@@ -3,7 +3,7 @@ import target, {
   complaintsApiFailed,
   complaintsReceived,
   resultsState,
-} from './results';
+} from './resultsSlice';
 
 describe('reducer:results', () => {
   it('has a default state', () => {

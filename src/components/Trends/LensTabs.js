@@ -1,5 +1,5 @@
 import './LensTabs.less';
-import { dataSubLensChanged } from '../../reducers/trends/trends';
+import { dataSubLensChanged } from '../../reducers/trends/trendsSlice';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React from 'react';

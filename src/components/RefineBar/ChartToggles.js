@@ -1,5 +1,5 @@
 import './ChartToggles.less';
-import { chartTypeUpdated } from '../../reducers/trends/trends';
+import { chartTypeUpdated } from '../../reducers/trends/trendsSlice';
 import getIcon from '../iconMap';
 import React from 'react';
 import { selectedClass, sendAnalyticsEvent } from '../../utils';

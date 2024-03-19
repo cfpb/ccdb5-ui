@@ -1,9 +1,9 @@
 import target, {
-  collapseRow,
-  expandRow,
   hideAdvancedSearchTips,
   modalHidden,
   modalShown,
+  rowCollapsed,
+  rowExpanded,
   showAdvancedSearchTips,
   tabChanged,
   tourHidden,
@@ -13,7 +13,7 @@ import target, {
   updatePrintModeOn,
   updateScreenSize,
   viewState,
-} from './view';
+} from './viewSlice';
 import actions from '../../actions';
 import * as types from '../../constants';
 
@@ -129,7 +129,7 @@ describe('reducer:View', () => {
       const payload = 'foo';
       result = target(
         { ...viewState, expandedRows: ['foo'] },
-        collapseRow(payload),
+        rowCollapsed(payload),
       );
       expect(result).toEqual({ ...viewState, expandedRows: [] });
     });
@@ -138,7 +138,7 @@ describe('reducer:View', () => {
       const payload = 'foo';
       result = target(
         { ...viewState, expandedRows: ['what'] },
-        expandRow(payload),
+        rowExpanded(payload),
       );
       expect(result).toEqual({ ...viewState, expandedRows: ['what', 'foo'] });
     });
@@ -147,7 +147,7 @@ describe('reducer:View', () => {
       const payload = 'foo';
       result = target(
         { ...viewState, expandedRows: ['foo'] },
-        expandRow(payload),
+        rowExpanded(payload),
       );
       expect(result).toEqual({ ...viewState, expandedRows: ['foo'] });
     });

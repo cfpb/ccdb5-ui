@@ -9,9 +9,9 @@ import {
   hashObject,
   sendAnalyticsEvent,
 } from '../../utils';
-import { collapseRow, expandRow } from '../../reducers/view/view';
+import { rowCollapsed, rowExpanded } from '../../reducers/view/viewSlice';
 import { miniTooltip, row } from 'britecharts';
-import { focusChanged } from '../../reducers/trends/trends';
+import { focusChanged } from '../../reducers/trends/trendsSlice';
 import { connect } from 'react-redux';
 import { max } from 'd3-array';
 import { MODE_MAP } from '../../constants';
@@ -247,11 +247,11 @@ export const mapDispatchToProps = (dispatch) => ({
   },
   collapseRow: (rowName) => {
     sendAnalyticsEvent('Bar chart collapsed', rowName);
-    dispatch(collapseRow(rowName));
+    dispatch(rowCollapsed(rowName));
   },
   expandRow: (rowName) => {
     sendAnalyticsEvent('Bar chart expanded', rowName);
-    dispatch(expandRow(rowName));
+    dispatch(rowExpanded(rowName));
   },
 });
 

@@ -2,7 +2,7 @@
 import { debounce } from '../utils';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { updateScreenSize } from '../reducers/view/view';
+import { updateScreenSize } from '../reducers/view/viewSlice';
 
 // Hook
 /**

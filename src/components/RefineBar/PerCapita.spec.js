@@ -6,9 +6,9 @@ import {
   fireEvent,
 } from '../../testUtils/test-utils';
 import { merge } from '../../testUtils/functionHelpers';
-import { queryState } from '../../reducers/query/query';
+import { queryState } from '../../reducers/query/querySlice';
 import { GEO_NORM_NONE, GEO_NORM_PER1000 } from '../../constants';
-import * as viewActions from '../../reducers/view/view';
+import * as viewActions from '../../reducers/view/viewSlice';
 
 describe('PerCapita', () => {
   const renderComponent = (newQueryState) => {

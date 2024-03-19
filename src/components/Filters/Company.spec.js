@@ -1,7 +1,7 @@
 import React from 'react';
 import { merge } from '../../testUtils/functionHelpers';
-import { aggState } from '../../reducers/aggs/aggs';
-import { queryState } from '../../reducers/query/query';
+import { aggState } from '../../reducers/aggs/aggsSlice';
+import { queryState } from '../../reducers/query/querySlice';
 import { Company } from './Company';
 import { testRender as render, screen } from '../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';

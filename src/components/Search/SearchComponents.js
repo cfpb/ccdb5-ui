@@ -13,7 +13,7 @@ import { useEvent } from '../../hooks/useEvent';
 import {
   updatePrintModeOff,
   updatePrintModeOn,
-} from '../../reducers/view/view';
+} from '../../reducers/view/viewSlice';
 import { SearchPanel } from './SearchPanel';
 
 export const SearchComponents = () => {

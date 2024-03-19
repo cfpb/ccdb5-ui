@@ -1,13 +1,13 @@
 import React from 'react';
 import { NarrativesButtons } from './NarrativesButtons';
-import * as filterActions from '../../reducers/query/query';
+import * as filterActions from '../../reducers/query/querySlice';
 import {
   testRender as render,
   fireEvent,
   screen,
 } from '../../testUtils/test-utils';
 import { merge } from '../../testUtils/functionHelpers';
-import { queryState } from '../../reducers/query/query';
+import { queryState } from '../../reducers/query/querySlice';
 
 describe('NarrativesButtons', () => {
   const renderComponent = (newQueryState) => {

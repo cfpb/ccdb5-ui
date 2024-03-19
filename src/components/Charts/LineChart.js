@@ -15,7 +15,7 @@ import { hashObject } from '../../utils';
 import { formatDate, isDateEqual } from '../../utils/formatDate';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { tooltipUpdated } from '../../reducers/trends/trends';
+import { tooltipUpdated } from '../../reducers/trends/trendsSlice';
 import { debounce } from 'lodash';
 
 export class LineChart extends React.Component {

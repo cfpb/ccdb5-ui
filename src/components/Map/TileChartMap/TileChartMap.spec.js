@@ -6,9 +6,9 @@ import {
   screen,
 } from '../../../testUtils/test-utils';
 import { merge } from '../../../testUtils/functionHelpers';
-import { mapState } from '../../../reducers/map/map';
-import { queryState } from '../../../reducers/query/query';
-import { viewState } from '../../../reducers/view/view';
+import { mapState } from '../../../reducers/map/mapSlice';
+import { queryState } from '../../../reducers/query/querySlice';
+import { viewState } from '../../../reducers/view/viewSlice';
 import { mapResults } from './__fixtures__/mapResults';
 import { GEO_NORM_PER1000 } from '../../../constants';
 import * as analyticsActions from '../../../utils';
@@ -179,7 +179,7 @@ describe('TileChartMap', () => {
       .mockImplementation(() => jest.fn());
 
     const removeStateFilterSpy = jest
-      .spyOn(mapActions, 'removeStateFilter')
+      .spyOn(filterActions, 'stateFilterRemoved')
       .mockImplementation(() => jest.fn());
 
     const newMap = {

@@ -6,7 +6,7 @@ import {
 } from '../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 import { FederalState } from './FederalState';
-import * as filterActions from '../../reducers/query/query';
+import * as filterActions from '../../reducers/query/querySlice';
 
 describe('FederalState', () => {
   const user = userEvent.setup({ delay: null });

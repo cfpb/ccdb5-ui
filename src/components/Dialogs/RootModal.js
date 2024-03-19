@@ -7,7 +7,7 @@ import { MoreAbout } from './MoreAbout/MoreAbout';
 import React, { useMemo } from 'react';
 import ReactModal from 'react-modal';
 import { selectViewModalTypeShown } from '../../reducers/view/selectors';
-import { modalHidden } from '../../reducers/view/view';
+import { modalHidden } from '../../reducers/view/viewSlice';
 
 export const RootModal = () => {
   const modalType = useSelector(selectViewModalTypeShown);

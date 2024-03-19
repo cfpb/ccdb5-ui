@@ -6,12 +6,12 @@ import {
 } from '../../../testUtils/test-utils';
 import { ListPanel } from './ListPanel';
 import { merge } from '../../../testUtils/functionHelpers';
-import { aggState } from '../../../reducers/aggs/aggs';
-import { queryState } from '../../../reducers/query/query';
-import { resultsState } from '../../../reducers/results/results';
-import { viewState } from '../../../reducers/view/view';
+import { aggState } from '../../../reducers/aggs/aggsSlice';
+import { queryState } from '../../../reducers/query/querySlice';
+import { resultsState } from '../../../reducers/results/resultsSlice';
+import { viewState } from '../../../reducers/view/viewSlice';
 import * as utils from '../../../utils';
-import * as pagingActions from '../../../reducers/query/query';
+import * as pagingActions from '../../../reducers/query/querySlice';
 
 describe('ListPanel', () => {
   const renderComponent = (

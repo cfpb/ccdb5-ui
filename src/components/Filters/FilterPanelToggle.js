@@ -2,7 +2,7 @@ import './FilterPanelToggle.less';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { updateFilterVisibility } from '../../reducers/view/view';
+import { updateFilterVisibility } from '../../reducers/view/viewSlice';
 
 export class FilterPanelToggle extends React.Component {
   render() {

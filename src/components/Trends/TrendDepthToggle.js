@@ -1,6 +1,6 @@
 /* eslint complexity: ["error", 5] */
 import './TrendDepthToggle.less';
-import { depthChanged, depthReset } from '../../reducers/trends/trends';
+import { depthChanged, depthReset } from '../../reducers/trends/trendsSlice';
 import { clamp, coalesce } from '../../utils';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -93,9 +93,9 @@ export const mapDispatchToProps = (dispatch) => ({
 
 export const mapStateToProps = (state) => {
   const { aggs, query, trends } = state;
-  const { focus, lens } = query;
+  const { focus, lens, results } = trends;
   const lensKey = lensMap[lens];
-  const resultCount = coalesce(trends.results, lensKey, []).filter(
+  const resultCount = coalesce(results, lensKey, []).filter(
     (obj) => obj.isParent,
   ).length;
 

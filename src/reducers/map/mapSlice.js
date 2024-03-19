@@ -1,5 +1,5 @@
 // reducer for the Map Tab
-import { processAggregations } from '../trends/trends';
+import { processAggregations } from '../trends/trendsSlice';
 import { processErrorMessage } from '../../utils';
 import {
   PERSIST_SAVE_QUERY_STRING,
