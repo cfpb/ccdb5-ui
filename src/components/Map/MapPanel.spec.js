@@ -1,5 +1,5 @@
 import React from 'react';
-import { aggState } from '../../reducers/aggs/aggsSlice';
+import { aggsState } from '../../reducers/aggs/aggsSlice';
 import { mapState } from '../../reducers/map/mapSlice';
 import { queryState } from '../../reducers/query/querySlice';
 import { viewState } from '../../reducers/view/viewSlice';
@@ -20,7 +20,7 @@ describe('MapPanel', () => {
     newQueryState,
     newViewState,
   ) => {
-    merge(newAggsState, aggState);
+    merge(newAggsState, aggsState);
     merge(newMapState, mapState);
     merge(newQueryState, queryState);
     merge(newViewState, viewState);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { merge } from '../../testUtils/functionHelpers';
-import { aggState } from '../../reducers/aggs/aggsSlice';
+import { aggsState } from '../../reducers/aggs/aggsSlice';
 import { queryState } from '../../reducers/query/querySlice';
 import { Company } from './Company';
 import { testRender as render, screen } from '../../testUtils/test-utils';
@@ -15,7 +15,7 @@ const fixture = [
 ];
 
 const renderComponent = (newAggsState, newQueryState) => {
-  merge(newAggsState, aggState);
+  merge(newAggsState, aggsState);
   merge(newQueryState, queryState);
 
   const data = {

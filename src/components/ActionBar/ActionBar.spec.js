@@ -1,6 +1,6 @@
 import React from 'react';
 import { ActionBar } from './ActionBar';
-import { aggState } from '../../reducers/aggs/aggsSlice';
+import { aggsState } from '../../reducers/aggs/aggsSlice';
 import { queryState } from '../../reducers/query/querySlice';
 import { merge } from '../../testUtils/functionHelpers';
 import {
@@ -13,7 +13,7 @@ import * as utils from '../../utils';
 
 describe('ActionBar', () => {
   const renderComponent = (newAggsState, newQueryState) => {
-    merge(newAggsState, aggState);
+    merge(newAggsState, aggsState);
     merge(newQueryState, queryState);
 
     const data = {

@@ -123,7 +123,7 @@ describe('reducer:View', () => {
   });
 
   describe('Row Chart actions', () => {
-    let action, result;
+    let result;
 
     it('handles ROW_COLLAPSED actions', () => {
       const payload = 'foo';

@@ -7,7 +7,7 @@ import {
   fireEvent,
 } from '../../../testUtils/test-utils';
 import { merge } from '../../../testUtils/functionHelpers';
-import { aggState } from '../../../reducers/aggs/aggsSlice';
+import { aggsState } from '../../../reducers/aggs/aggsSlice';
 import { queryState } from '../../../reducers/query/querySlice';
 import * as viewActions from '../../../reducers/view/viewSlice';
 import { MODAL_TYPE_EXPORT_CONFIRMATION } from '../../../constants';
@@ -22,7 +22,7 @@ describe('DataExport', () => {
     };
     global.navigator.clipboard = mockClipboard;
 
-    merge(newAggsState, aggState);
+    merge(newAggsState, aggsState);
     merge(newQueryState, queryState);
     const data = {
       aggs: newAggsState,

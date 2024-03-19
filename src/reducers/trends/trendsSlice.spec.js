@@ -2,6 +2,8 @@ import trends, {
   chartTypeUpdated,
   dataLensChanged,
   dataSubLensChanged,
+  depthChanged,
+  depthReset,
   focusChanged,
   focusRemoved,
   getDefaultState,
@@ -41,8 +43,6 @@ import {
   trendsAggsMissingBucketsResults,
 } from '../__fixtures__/trendsAggsMissingBuckets';
 import * as types from '../../constants';
-
-import { depthChanged, depthReset } from './trends';
 
 describe('reducer:trends', () => {
   let action, result, state;

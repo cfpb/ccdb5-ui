@@ -6,7 +6,7 @@ import {
 } from '../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 import { merge } from '../../testUtils/functionHelpers';
-import { aggState } from '../../reducers/aggs/aggsSlice';
+import { aggsState } from '../../reducers/aggs/aggsSlice';
 import { queryState } from '../../reducers/query/querySlice';
 import { Issue } from './Issue';
 import { listOfIssues } from '../../testUtils/aggsConstants';
@@ -17,7 +17,7 @@ describe('Issue', () => {
   const renderComponent = () => {
     const newAggsState = { issue: listOfIssues };
     const newQueryState = { issue: ['Incorrect information on your report'] };
-    merge(newAggsState, aggState);
+    merge(newAggsState, aggsState);
     merge(newQueryState, queryState);
     const data = {
       aggs: newAggsState,

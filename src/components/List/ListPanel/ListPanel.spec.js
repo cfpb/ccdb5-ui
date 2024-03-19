@@ -6,7 +6,7 @@ import {
 } from '../../../testUtils/test-utils';
 import { ListPanel } from './ListPanel';
 import { merge } from '../../../testUtils/functionHelpers';
-import { aggState } from '../../../reducers/aggs/aggsSlice';
+import { aggsState } from '../../../reducers/aggs/aggsSlice';
 import { queryState } from '../../../reducers/query/querySlice';
 import { resultsState } from '../../../reducers/results/resultsSlice';
 import { viewState } from '../../../reducers/view/viewSlice';
@@ -20,7 +20,7 @@ describe('ListPanel', () => {
     newResultsState,
     newViewState,
   ) => {
-    merge(newAggsState, aggState);
+    merge(newAggsState, aggsState);
     merge(newQueryState, queryState);
     merge(newResultsState, resultsState);
     merge(newViewState, viewState);
@@ -157,7 +157,7 @@ describe('ListPanel', () => {
   test('FilterPanel showed when width is 500', () => {
     const newViewState = { width: 500 };
 
-    renderComponent(aggState, queryState, resultsState, newViewState);
+    renderComponent(aggsState, queryState, resultsState, newViewState);
 
     expect(screen.getByText('Filter results by...')).toBeDefined();
   });
@@ -165,7 +165,7 @@ describe('ListPanel', () => {
   test('FilterPanel not showed when width is 1000', () => {
     const newViewState = { width: 1000 };
 
-    renderComponent(aggState, queryState, resultsState, newViewState);
+    renderComponent(aggsState, queryState, resultsState, newViewState);
 
     expect(screen.queryByText('Filter results by...')).toBeNull();
   });

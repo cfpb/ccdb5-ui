@@ -1,6 +1,6 @@
 import { PrintInfo } from './PrintInfo';
 import React from 'react';
-import { aggState } from '../../reducers/aggs/aggsSlice';
+import { aggsState } from '../../reducers/aggs/aggsSlice';
 import { queryState } from '../../reducers/query/querySlice';
 import { viewState } from '../../reducers/view/viewSlice';
 import { merge } from '../../testUtils/functionHelpers';
@@ -8,7 +8,7 @@ import { testRender as render, screen } from '../../testUtils/test-utils';
 
 describe('PrintInfo', () => {
   const renderComponent = (newAggsState, newQueryState, newViewState) => {
-    merge(newAggsState, aggState);
+    merge(newAggsState, aggsState);
     merge(newQueryState, queryState);
     merge(newViewState, viewState);
 
