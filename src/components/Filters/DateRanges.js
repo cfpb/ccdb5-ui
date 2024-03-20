@@ -4,7 +4,7 @@ import { selectViewTab } from '../../reducers/view/selectors';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { dateRanges } from '../../constants';
-import { changeDateRange } from '../../reducers/query/querySlice';
+import { dateRangeChanged } from '../../reducers/query/querySlice';
 import React from 'react';
 import { sendAnalyticsEvent } from '../../utils';
 
@@ -24,7 +24,7 @@ export const DateRanges = () => {
   const toggleDateRange = (selectedDateRange) => {
     if (dateRange !== selectedDateRange) {
       sendAnalyticsEvent('Button', tab + ':' + selectedDateRange);
-      dispatch(changeDateRange(selectedDateRange));
+      dispatch(dateRangeChanged(selectedDateRange));
     }
   };
 

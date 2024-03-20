@@ -1,5 +1,5 @@
 import './Pill.less';
-import { changeDateRange } from '../../reducers/query/querySlice';
+import { dateRangeChanged } from '../../reducers/query/querySlice';
 import {
   filterRemoved,
   filtersReplaced,
@@ -26,7 +26,7 @@ export const Pill = ({ fieldName, value }) => {
   const remove = () => {
     if (fieldName === 'date_received') {
       // reset date range
-      dispatch(changeDateRange('All'));
+      dispatch(dateRangeChanged('All'));
     } else {
       const filterName = value;
       if (filterPatch.includes(fieldName)) {

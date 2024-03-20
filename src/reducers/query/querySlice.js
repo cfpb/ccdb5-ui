@@ -123,7 +123,7 @@ export const querySlice = createSlice({
         // Apply the date range
         if (dateRangeNoDates(params) || params.dateRange === 'All') {
           const innerAction = { payload: { dateRange: params.dateRange } };
-          querySlice.caseReducers.changeDateRange(state, innerAction);
+          querySlice.caseReducers.dateRangeChanged(state, innerAction);
         }
 
         alignDateRange(state);
@@ -142,17 +142,17 @@ export const querySlice = createSlice({
         };
       },
     },
-    changeDateRange: {
+    dateRangeChanged: {
       // eslint-disable-next-line complexity
       reducer: (state, action) => {
         const dateRange = enforceValues(action.payload.dateRange, 'dateRange');
-        const maxDate = dayjs(startOfToday()).toISOString();
+        const maxDate = formatDate(dayjs(startOfToday()));
         const res = {
-          All: dayjs(types.DATE_RANGE_MIN).toISOString(),
-          '3m': dayjs(maxDate).subtract(3, 'months').toISOString(),
-          '6m': dayjs(maxDate).subtract(6, 'months').toISOString(),
-          '1y': dayjs(maxDate).subtract(1, 'year').toISOString(),
-          '3y': dayjs(maxDate).subtract(3, 'years').toISOString(),
+          All: formatDate(dayjs(types.DATE_RANGE_MIN)),
+          '3m': formatDate(dayjs(maxDate).subtract(3, 'months')),
+          '6m': formatDate(dayjs(maxDate).subtract(6, 'months')),
+          '1y': formatDate(dayjs(maxDate).subtract(1, 'year')),
+          '3y': formatDate(dayjs(maxDate).subtract(3, 'years')),
         };
         state.dateRange = dateRange;
         state.date_received_min = res[dateRange]
@@ -777,7 +777,7 @@ export function resetBreakpoints(state) {
 }
 
 export const {
-  changeDateRange,
+  dateRangeChanged,
   changeDates,
   changeSearchField,
   searchTextChanged,

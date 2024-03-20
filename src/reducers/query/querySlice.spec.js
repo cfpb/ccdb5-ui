@@ -1,6 +1,6 @@
 import target, {
   alignDateRange,
-  changeDateRange,
+  dateRangeChanged,
   queryState,
   processParams,
   changeDates,
@@ -599,13 +599,13 @@ describe('reducer:query', () => {
 
       it('handles All range', () => {
         action = 'All';
-        result = target({}, changeDateRange(action));
+        result = target({}, dateRangeChanged(action));
         expect(result.date_received_min).toEqual('2011-12-01T12:00:00.000Z');
       });
 
       it('handles 1y range', () => {
         action = '1y';
-        result = target({ ...queryState }, changeDateRange(action));
+        result = target({ ...queryState }, dateRangeChanged(action));
         expect(result).toEqual({
           ...queryState,
           breakPoints: {},
@@ -626,7 +626,7 @@ describe('reducer:query', () => {
 
       it('default range handling', () => {
         action = 'foo';
-        result = target({ ...queryState }, changeDateRange(action));
+        result = target({ ...queryState }, dateRangeChanged(action));
         // only set max date
         expect(result).toEqual({
           ...queryState,
@@ -647,7 +647,7 @@ describe('reducer:query', () => {
       it('On Trends Tab handles All range', () => {
         action = 'All';
         state = { dateInterval: 'Day', tab: types.MODE_TRENDS };
-        result = target(state, changeDateRange(action));
+        result = target(state, dateRangeChanged(action));
         expect(result.dateInterval).toEqual('Week');
         expect(result.trendsDateWarningEnabled).toEqual(true);
       });
