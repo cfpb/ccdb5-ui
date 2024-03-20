@@ -96,7 +96,8 @@ export function sendHitsQuery() {
 export function getAggregations() {
   return (dispatch, getState) => {
     const store = getState();
-    const qs = store.query.queryString;
+
+    const qs = buildUri(store);
     const uri = API_PLACEHOLDER + qs + '&size=0';
 
     // This call is already in process
@@ -186,7 +187,7 @@ export function getStates() {
 export function getTrends() {
   return (dispatch, getState) => {
     const store = getState();
-    const qs = 'trends/' + buildUri(store);
+    const qs = 'trends' + buildUri(store);
     const uri = API_PLACEHOLDER + qs + '&no_aggs=true';
     //const uri = API_PLACEHOLDER + 'trends' + buildUri(store) + '&no_aggs=true';
     // This call is already in process

@@ -206,8 +206,9 @@ export const trendsSlice = createSlice({
           trendDepth: 5,
         };
       },
-      prepare: () => {
+      prepare: (payload) => {
         return {
+          payload,
           meta: {
             persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
@@ -349,15 +350,8 @@ export const trendsSlice = createSlice({
     },
     trendsApiCalled: {
       reducer: (state, action) => {
-        state.activeCall = action.payload.url;
+        state.activeCall = action.payload;
         state.tooltip = false;
-      },
-      prepare: (url) => {
-        return {
-          payload: {
-            url: url,
-          },
-        };
       },
     },
     trendsApiFailed(state, action) {

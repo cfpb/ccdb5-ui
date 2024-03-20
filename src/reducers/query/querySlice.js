@@ -17,7 +17,7 @@ import {
   REQUERY_HITS_ONLY,
   REQUERY_NEVER,
 } from '../../constants';
-import { formatDateIso } from '../../utils/formatDate';
+import { formatDate } from '../../utils/formatDate';
 
 const queryString = require('query-string');
 
@@ -26,10 +26,10 @@ export const queryState = {
   breakPoints: {},
   dateInterval: 'Month',
   dateRange: '3y',
-  date_received_max: dayjs(startOfToday()).toISOString(),
-  date_received_min: dayjs(
+  date_received_max: formatDate(dayjs(startOfToday())),
+  date_received_min: formatDate(
     new Date(dayjs(startOfToday()).subtract(3, 'years')),
-  ).toISOString(),
+  ),
   from: 0,
   page: 1,
   queryString: '',
@@ -95,7 +95,7 @@ export const querySlice = createSlice({
         // Handle date filters
         types.dateFilters.forEach((field) => {
           if (typeof params[field] !== 'undefined') {
-            const date = formatDateIso(params[field]);
+            const date = formatDate(params[field]);
 
             if (date) {
               state[field] = date;
@@ -250,20 +250,16 @@ export const querySlice = createSlice({
         };
       },
     },
-    changeSearchText: {
+    searchTextChanged: {
       reducer: (state, action) => {
-        const pagination = getPagination(1, state);
         return {
           ...state,
-          ...pagination,
-          searchText: action.payload.searchText,
-          queryString: stateToQS(state),
-          search: stateToURL(state),
+          searchText: action.payload,
         };
       },
       prepare: (searchText) => {
         return {
-          payload: { searchText },
+          payload: searchText,
           meta: {
             persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
@@ -784,7 +780,7 @@ export const {
   changeDateRange,
   changeDates,
   changeSearchField,
-  changeSearchText,
+  searchTextChanged,
   changeSize,
   changeSort,
   dismissTrendsDateWarning,

@@ -21,19 +21,18 @@ export function extractAggregationParams(state) {
   };
 
   if (query.dateRange) {
-    set1.date_received_max = query.dateRange.to;
-    set1.date_received_min = query.dateRange.from;
+    set1.date_received_max = query.date_received_max;
+    set1.date_received_min = query.date_received_min;
   }
 
-  if (query.queryText) {
-    set1.search_term = query.queryText;
+  if (query.searchText) {
+    set1.search_term = query.searchText;
   }
 
   // Grab specific attributes from the reducers
   return Object.assign(
     {},
     set1,
-    extractAgeParams(state.query.ageRange),
     extractReducerAttributes(state.filters, Object.keys(state.filters)),
   );
 }
@@ -111,9 +110,7 @@ export const sortNames = (sort) => {
  */
 export function extractQueryParams(queryState) {
   const query = queryState;
-  const ageParams = extractAgeParams(query.ageRange);
   const params = {
-    ...ageParams,
     searchField: query.searchFields ?? 'all',
     // edge case for doc complaint override in
     // actions/complaints.js
@@ -128,49 +125,19 @@ export function extractQueryParams(queryState) {
 
   /* istanbul ignore else */
   if (query.dateRange) {
-    params.date_received_max = query.dateRange.to;
-    params.date_received_min = query.dateRange.from;
+    params.date_received_max = query.date_received_max;
+    params.date_received_min = query.date_received_min;
   }
 
   /* istanbul ignore else */
-  if (query.queryText) {
-    params.search_term = query.queryText;
+  if (query.searchText) {
+    params.search_term = query.searchText;
   }
 
   if (query.searchAfter) {
     params.search_after = query.searchAfter;
   }
 
-  return params;
-}
-
-/**
- * helper function to parse out age to use in query string
- *
- * @param {object} ageRange - ageRange object from query reducer
- * @returns {object} params we parsed out
- */
-export function extractAgeParams(ageRange = {}) {
-  const { ageNotProvided, max, min, olderAmerican } = ageRange;
-
-  if (ageNotProvided) {
-    return { age_min: 'None' };
-  }
-  if (olderAmerican) {
-    return {
-      age_min: 62,
-      // age_max needs to be open ended for this to work
-      // age_max: ''
-    };
-  }
-
-  const params = {};
-  if (min) {
-    params.age_min = min;
-  }
-  if (max) {
-    params.age_max = max;
-  }
   return params;
 }
 
@@ -197,7 +164,7 @@ export function extractAgeParams(ageRange = {}) {
 //
 //   const query = {
 //     page: (frm + size) / size,
-//     queryText: search_term || '',
+//     searchText: search_term || '',
 //     // searchFields: revSearchFieldMap[field],
 //     size,
 //   };
@@ -236,6 +203,7 @@ export function extractAgeParams(ageRange = {}) {
  * @returns {object} a dictionary of strings
  */
 export function extractTrendsParams(state) {
+  const { searchField } = state.query;
   const {
     dateInterval,
     focus,
@@ -246,6 +214,7 @@ export function extractTrendsParams(state) {
 
   const params = {
     lens: lens.replace(' ', '_').toLowerCase(),
+    searchField,
     trend_depth,
     trend_interval: dateInterval.toLowerCase(),
   };

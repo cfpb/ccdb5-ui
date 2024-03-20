@@ -22,7 +22,7 @@ export const filtersSlice = createSlice({
     dataNormalizationUpdated: {
       reducer: (state, action) => {
         state.dataNormalization = enforceValues(
-          action.payload.value,
+          action.payload,
           'dataNormalization',
         );
         state.enablePer1000 =
@@ -296,7 +296,7 @@ export const filtersSlice = createSlice({
         state[filterKey] = activeFilters;
       })
       .addCase('trends/focusRemoved', (state, action) => {
-        const { lens } = action.payload;
+        const lens = action.payload;
         const filterKey = lens.toLowerCase();
         delete state[filterKey];
       });

@@ -5,7 +5,7 @@ import {
 } from '../../reducers/view/viewSlice';
 import {
   changeSearchField,
-  changeSearchText,
+  searchTextChanged,
 } from '../../reducers/query/querySlice';
 import { AdvancedTips } from './AdvancedTips/AdvancedTips';
 import { useDispatch, useSelector } from 'react-redux';
@@ -53,7 +53,7 @@ export const SearchBar = ({ debounceWait }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(changeSearchText(inputValue));
+    dispatch(searchTextChanged(inputValue));
   };
 
   const onSelectSearchField = (event) => {
@@ -72,16 +72,16 @@ export const SearchBar = ({ debounceWait }) => {
   };
 
   const onSelection = (value) => {
-    dispatch(changeSearchText(value[0].key));
+    dispatch(searchTextChanged(value[0].key));
   };
 
   const onTypeaheadClear = () => {
-    dispatch(changeSearchText(''));
+    dispatch(searchTextChanged(''));
   };
 
   const onClearInput = () => {
     if (shouldCallClear) {
-      dispatch(changeSearchText(''));
+      dispatch(searchTextChanged(''));
       setInputValue('');
     }
     setShouldCallClear(true);
@@ -90,7 +90,7 @@ export const SearchBar = ({ debounceWait }) => {
   const onPressEnter = (event) => {
     if (event.key === 'Enter') {
       setShouldCallClear(false);
-      dispatch(changeSearchText(event.target.value));
+      dispatch(searchTextChanged(event.target.value));
     }
   };
 

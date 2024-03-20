@@ -2,39 +2,8 @@ import { createBrowserHistory } from 'history';
 import { appUrlChanged } from '../../reducers/routes/routesSlice';
 import queryString from 'query-string';
 import { MODE_MAP, MODE_TRENDS, PERSIST_NONE } from '../../constants';
-import {
-  extractAgeParams,
-  extractReducerAttributes,
-} from '../../api/params/params';
+import { extractReducerAttributes } from '../../api/params/params';
 
-/**
- * Extended logic to build the set of geo params
- *
- * @param {object} state - the current state of the Redux store
- * @param {string} viewMode - current view from viewModel
- * @returns {object} a set of {fieldName: value} pairs
- */
-function buildGeoParams(state, viewMode) {
-  if (viewMode !== MODE_MAP) return {};
-
-  return Object.assign(
-    {},
-    // App-only params
-    extractReducerAttributes(state.geo, ['dataNormalization', 'mapType']),
-  );
-}
-
-/**
- * helper function to return trends params to extract based on view mode
- *
- * @param {string} viewMode - current view from viewModel
- * @returns {Array} lists the params to extract
- */
-function getTrendsAttrs(viewMode) {
-  return viewMode === MODE_TRENDS
-    ? ['chartType', 'focus', 'lens', 'subLens', 'trend_depth']
-    : [];
-}
 /**
  * helper function to return viewModel params to extract based on view mode
  *
@@ -56,14 +25,8 @@ function getViewModelAttrs(viewMode) {
  * @returns {object} the extracted variables
  */
 export function extractDates(state) {
-  const results = {};
-
-  // Special handling for dates
-  const dateRange = state.query?.dateRange ?? { from: '', to: '' };
-  results.date_from = dateRange.from;
-  results.date_to = dateRange.to;
-
-  return results;
+  const { date_received_max, date_received_min } = state.query;
+  return { date_received_max, date_received_min };
 }
 
 /**
@@ -76,37 +39,45 @@ export function extractQueryStringParams(state) {
   // Make a list of the attributes to copy to the URL
 
   // Conditional extractions
-  const { viewMode, viewName } = state.view,
-    attrsTrends = getTrendsAttrs(viewMode),
+  const { tab } = state.view,
+    attrsMap = ['dataNormalization', 'enablePer1000', 'mapWarningEnabled'],
+    attrsTrends =
+      tab === MODE_TRENDS
+        ? ['chartType', 'focus', 'lens', 'subLens', 'trend_depth']
+        : [],
     attrsQuery = [
-      'ind',
-      'mltField',
-      'mltId',
-      'queryText',
+      'dateRange',
+      'date_received_min',
+      'date_received_max',
+      'searchText',
       'searchFields',
       'size',
       'page',
       'sort',
     ],
-    attrsView = getViewModelAttrs(viewMode);
+    attrsView = getViewModelAttrs(tab);
 
-  const geoParams = buildGeoParams(state, viewMode);
+  // removing Map specific props unless on Map page
+  const attrsFilters =
+    tab === MODE_MAP
+      ? Object.keys(state.filters)
+      : Object.keys(state.filters).filter((item) => !attrsMap.includes(item));
 
+  console.log(attrsFilters);
   // Grab specific attributes from the reducers
   const params = Object.assign(
     {},
-    extractAgeParams(state.query.ageRange),
-    // extractReducerAttributes(state.document, ['id']),
+    extractReducerAttributes(state.detail, ['id']),
+    // tab === MODE_MAP ? extractReducerAttributes(state.geo, attrsMap) : {},
     extractReducerAttributes(state.query, attrsQuery),
-    extractReducerAttributes(state.filters, Object.keys(state.filters)),
+    extractReducerAttributes(state.filters, attrsFilters),
     extractReducerAttributes(state.view, attrsView),
-    extractReducerAttributes(state.trends, attrsTrends),
-    geoParams,
-    extractDates(state),
+    tab === MODE_TRENDS
+      ? extractReducerAttributes(state.trends, attrsTrends)
+      : {},
   );
 
-  if (viewName === 'List') params.detailMode = state.view.detailMode;
-
+  console.log(params, tab);
   // Rename some properties (APP query string =/= API query string)
   // for (const apiName in renameThese) {
   //   const appName = renameThese[apiName];

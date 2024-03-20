@@ -60,7 +60,7 @@ describe('api.v2.params', () => {
     });
 
     it('handles search text', () => {
-      fixtureStore.query.queryText = 'foo';
+      fixtureStore.query.searchText = 'foo';
       actual = sut.extractAggregationParams(fixtureStore);
       expect(actual).toEqual({
         census_year: '2019',
@@ -232,7 +232,7 @@ describe('api.v2.params', () => {
   describe('parseParams', () => {
     beforeEach(() => {
       fixtureStore.comparisons.compareItem = 'Important Item';
-      fixtureStore.query.queryText = 'foo';
+      fixtureStore.query.searchText = 'foo';
       fixtureStore.trends.lens = 'Issue';
       fixtureStore.trends.subLens = 'Sub-issue';
     });

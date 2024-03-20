@@ -8,7 +8,7 @@ import target, {
   changeSize,
   nextPageShown,
   prevPageShown,
-  changeSearchText,
+  searchTextChanged,
   changeSearchField,
 } from './querySlice';
 import * as types from '../../constants';
@@ -155,22 +155,16 @@ describe('reducer:query', () => {
     const searchText = 'bar';
     state = {
       ...queryState,
-      from: 80,
       searchText: 'foo',
-      size: 100,
     };
-    expect(target(state, changeSearchText(searchText))).toEqual({
+    expect(target(state, searchTextChanged(searchText))).toEqual({
       ...state,
       breakPoints: {},
       from: 0,
       page: 1,
-      queryString:
-        '?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&search_term=foo&sub_lens=sub_product&trend_depth=5&trend_interval=month',
       searchAfter: '',
       searchText: 'bar',
       size: 100,
-      search:
-        '?chartType=line&dateInterval=Month&dateRange=3y&date_received_max=2020-05-05&date_received_min=2017-05-05&lens=Product&searchField=all&searchText=foo&subLens=sub_product&tab=Trends',
     });
   });
 
