@@ -7,9 +7,11 @@ import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import aggs from '../reducers/aggs/aggsSlice';
 import detail from '../reducers/detail/detailSlice';
+import filters from '../reducers/filters/filtersSlice';
 import map from '../reducers/map/mapSlice';
 import query from '../reducers/query/querySlice';
 import results from '../reducers/results/resultsSlice';
+import routes from '../reducers/routes/routesSlice';
 import trends from '../reducers/trends/trendsSlice';
 import view from '../reducers/view/viewSlice';
 
@@ -27,13 +29,15 @@ function testRender(
     preloadedState,
     store = configureStore({
       reducer: {
-        aggs: aggs,
-        detail: detail,
-        map: map,
-        query: query,
-        results: results,
-        trends: trends,
-        view: view,
+        aggs,
+        detail,
+        filters,
+        map,
+        query,
+        results,
+        routes,
+        trends,
+        view,
       },
       preloadedState,
     }),
@@ -81,13 +85,15 @@ function testRenderWithMemoryRouter(
     preloadedState,
     store = configureStore({
       reducer: {
-        aggs: aggs,
-        detail: detail,
-        map: map,
-        query: query,
-        results: results,
-        trends: trends,
-        view: view,
+        aggs,
+        detail,
+        filters,
+        map,
+        query,
+        results,
+        routes,
+        trends,
+        view,
       },
       preloadedState,
     }),

@@ -7,21 +7,21 @@ import {
 import userEvent from '@testing-library/user-event';
 import { merge } from '../../testUtils/functionHelpers';
 import { aggsState } from '../../reducers/aggs/aggsSlice';
-import { queryState } from '../../reducers/query/querySlice';
 import { Issue } from './Issue';
 import { listOfIssues } from '../../testUtils/aggsConstants';
-import * as filterActions from '../../reducers/query/querySlice';
+import * as filterActions from '../../reducers/filters/filtersSlice';
+import { filtersState } from '../../reducers/filters/filtersSlice';
 
 describe('Issue', () => {
   const user = userEvent.setup({ delay: null });
   const renderComponent = () => {
     const newAggsState = { issue: listOfIssues };
-    const newQueryState = { issue: ['Incorrect information on your report'] };
+    const newFiltersState = { issue: ['Incorrect information on your report'] };
     merge(newAggsState, aggsState);
-    merge(newQueryState, queryState);
+    merge(newFiltersState, filtersState);
     const data = {
       aggs: newAggsState,
-      query: newQueryState,
+      filters: newFiltersState,
     };
 
     render(<Issue />, {
@@ -29,9 +29,9 @@ describe('Issue', () => {
     });
   };
 
-  test('Options appear when user types and dispatches replaceFilters on selection', async () => {
-    const replaceFiltersSpy = jest
-      .spyOn(filterActions, 'replaceFilters')
+  test('Options appear when user types and dispatches filtersReplaced on selection', async () => {
+    const filtersReplacedSpy = jest
+      .spyOn(filterActions, 'filtersReplaced')
       .mockImplementation(() => jest.fn());
 
     renderComponent();
@@ -43,7 +43,7 @@ describe('Issue', () => {
     await user.click(option);
 
     await waitFor(() =>
-      expect(replaceFiltersSpy).toBeCalledWith('issue', [
+      expect(filtersReplacedSpy).toBeCalledWith('issue', [
         'Incorrect information on your report',
         listOfIssues[0].key,
       ]),

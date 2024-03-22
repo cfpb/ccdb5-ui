@@ -360,10 +360,7 @@ describe('Filters', () => {
         action = { abbr: 'IL', name: 'Illinois' };
       });
       it('adds state filter', () => {
-        result = target(
-          { ...filtersState, tab: types.MODE_MAP },
-          stateFilterAdded(action),
-        );
+        result = target({ ...filtersState }, stateFilterAdded(action));
         expect(result).toEqual({
           ...filtersState,
           dataNormalization: 'None',
