@@ -554,3 +554,34 @@ export const LINK_DATA_USE =
   window.location.origin.indexOf('localhost') > -1
     ? 'https://www.consumerfinance.gov/complaint/data-use/'
     : '/complaint/data-use/';
+
+export const SUB_LENS_MAP = {
+  sub_product: 'Sub-products',
+  sub_issue: 'Sub-issues',
+  issue: 'Issues',
+  product: 'Products',
+};
+
+export const LENS_HELPER_TEXT_MAP = {
+  product:
+    'Product the consumer identified in the complaint.' +
+    ' Click on a company name to expand products.',
+  company:
+    'Product the consumer identified in the complaint. Click on' +
+    ' a company name to expand products.',
+  sub_product:
+    'Product and sub-product the consumer identified in the ' +
+    ' complaint. Click on a product to expand sub-products.',
+  issue:
+    'Product and issue the consumer identified in the complaint.' +
+    ' Click on a product to expand issues.',
+  overview:
+    'Product the consumer identified in the complaint. Click on a ' +
+    ' product to expand sub-products',
+};
+
+export const FOCUS_HELPER_TEXT_MAP = {
+  sub_product: 'Sub-products the consumer identified in the complaint',
+  product: 'Product the consumer identified in the complaint',
+  issue: 'Issues the consumer identified in the complaint',
+};

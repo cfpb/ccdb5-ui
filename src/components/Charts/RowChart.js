@@ -6,35 +6,97 @@ import {
   cloneDeep,
   coalesce,
   getAllFilters,
-  hashObject,
   sendAnalyticsEvent,
 } from '../../utils';
 import { collapseRow, expandRow } from '../../actions/view';
-import { miniTooltip, row } from 'britecharts';
 import { changeFocus } from '../../actions/trends';
-import { connect } from 'react-redux';
 import { max } from 'd3-array';
-import { MODE_MAP } from '../../constants';
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { scrollToFocus } from '../../utils/trends';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectTrendsColorScheme,
+  selectTrendsResultsDateRangeArea,
+} from '../../reducers/trends/selectors';
+import {
+  selectViewExpandedRows,
+  selectViewIsPrintMode,
+} from '../../reducers/view/selectors';
+import {
+  selectAggsState,
+  selectAggsTotal,
+} from '../../reducers/aggs/selectors';
+import {
+  selectQueryDateReceivedMax,
+  selectQueryDateReceivedMin,
+  selectQueryFocus,
+  selectQueryLens,
+  selectQuerySubLens,
+} from '../../reducers/query/selectors';
+import { LENS_HELPER_TEXT_MAP, SUB_LENS_MAP } from '../../constants';
+import { FOCUS_HELPER_TEXT_MAP } from '../../constants';
+import row from 'britecharts/dist/umd/row.min';
+import miniTooltip from 'britecharts/dist/umd/miniTooltip.min';
 
-export class RowChart extends React.Component {
-  constructor(props) {
-    super(props);
-    this._selectFocus = this._selectFocus.bind(this);
-    this._toggleRow = this._toggleRow.bind(this);
-  }
+export const RowChart = () => {
+  const dispatch = useDispatch();
+  const colorScheme = useSelector(selectTrendsColorScheme);
+  const isPrintMode = useSelector(selectViewIsPrintMode);
+  const aggs = useSelector(selectAggsState);
+  const expandedRows = useSelector(selectViewExpandedRows);
+  const lens = useSelector(selectQueryLens);
+  const total = useSelector(selectAggsTotal);
+  const data = useSelector(selectTrendsResultsDateRangeArea);
+  const minDate = useSelector(selectQueryDateReceivedMin);
+  const maxDate = useSelector(selectQueryDateReceivedMax);
+  const subLens = useSelector(selectQuerySubLens);
+  const subLensTitle =
+    SUB_LENS_MAP[subLens] + ', by ' + lens.toLowerCase() + ' from';
+  const title =
+    lens === 'Overview'
+      ? 'Product by highest complaint volume ' + minDate + ' to ' + maxDate
+      : subLensTitle + ' ' + minDate + ' to ' + maxDate;
+  const focus = useSelector(selectQueryFocus);
+  const id = (lens === 'Overview' ? 'Product' : lens).toLowerCase();
+  const helperText = focus
+    ? FOCUS_HELPER_TEXT_MAP[focus]
+    : LENS_HELPER_TEXT_MAP[lens];
 
-  _formatTip(value) {
+  const rows = useMemo(() => {
+    // deep copy
+    // do this to prevent REDUX pollution
+    return cloneDeep(data).filter((obj) => {
+      if (obj.name && isPrintMode) {
+        // remove spacer text if we are in print mode
+        return obj.name.indexOf('Visualize trends for') === -1;
+      }
+      return true;
+    });
+  }, [data, isPrintMode]);
+
+  /**
+   *
+   * @param value
+   */
+  function _formatTip(value) {
     return value.toLocaleString() + ' complaints';
   }
 
-  _getHeight(numRows) {
+  /**
+   *
+   * @param numRows
+   */
+  function _getHeight(numRows) {
     return numRows === 1 ? 100 : numRows * 60;
   }
 
-  _wrapText(text, width, viewMore) {
+  /**
+   *
+   * @param text
+   * @param width
+   * @param viewMore
+   */
+  function _wrapText(text, width, viewMore) {
     // ignore test coverage since this is code borrowed from d3 mbostock
     // text wrapping functions
     /* eslint-disable complexity */
@@ -97,50 +159,30 @@ export class RowChart extends React.Component {
     /* eslint-enable complexity */
   }
 
-  componentDidMount() {
-    this._redrawChart();
-  }
-
-  componentDidUpdate(prevProps) {
-    const props = this.props;
-    if (hashObject(prevProps) !== hashObject(props)) {
-      this._redrawChart();
-    }
-  }
-
-  // --------------------------------------------------------------------------
-  // Event Handlers
   // eslint-disable-next-line complexity
-  _redrawChart() {
-    const { colorScheme, data, id, isPrintMode, total } = this.props;
-    // deep copy
-    // do this to prevent REDUX pollution
-    const rows = cloneDeep(data).filter((obj) => {
-      if (obj.name && isPrintMode) {
-        // remove spacer text if we are in print mode
-        return obj.name.indexOf('Visualize trends for') === -1;
-      }
-      return true;
-    });
-
+  useEffect(() => {
+    // --------------------------------------------------------------------------
+    // Event Handlers
     if (!rows || !rows.length || !total) {
       return;
     }
-
     const tooltip = miniTooltip();
-    tooltip.valueFormatter(this._formatTip);
+    tooltip.valueFormatter(_formatTip);
 
     const ratio = total / max(rows, (obj) => obj.value);
-    const chartID = '#row-chart-' + id;
+    const chartID = '#row-chart-' + id.toLowerCase();
     d3.selectAll(chartID + ' .row-chart').remove();
     const rowContainer = d3.select(chartID);
+    if (!rowContainer.node()) {
+      return;
+    }
 
     // added padding to make up for margin
     const width = isPrintMode
       ? 750
       : rowContainer.node().getBoundingClientRect().width + 30;
 
-    const height = this._getHeight(rows.length);
+    const height = _getHeight(rows.length);
     const chart = row();
     const marginLeft = width / 4;
 
@@ -176,115 +218,83 @@ export class RowChart extends React.Component {
       chartID + ' .row-chart .metadata-group',
     );
     tooltipContainer.datum([]).call(tooltip);
-    this._wrapText(d3.select(chartID).selectAll('.tick text'), marginLeft);
+    _wrapText(d3.select(chartID).selectAll('.tick text'), marginLeft);
 
-    this._wrapText(
+    _wrapText(
       d3.select(chartID).selectAll('.view-more-label'),
       width / 2,
       true,
     );
 
-    rowContainer.selectAll('.y-axis-group .tick').on('click', this._toggleRow);
+    rowContainer.selectAll('.y-axis-group .tick').on('click', _toggleRow);
 
-    rowContainer.selectAll('.view-more-label').on('click', this._selectFocus);
-  }
+    rowContainer.selectAll('.view-more-label').on('click', _selectFocus);
 
-  _selectFocus(element) {
-    // make sure to assign a valid lens when a row is clicked
-    const lens = this.props.lens === 'Overview' ? 'Product' : this.props.lens;
-    const filters = coalesce(this.props.aggs, lens.toLowerCase(), []);
-    this.props.selectFocus(element, lens, filters);
-  }
-
-  _toggleRow(rowName) {
-    // fire off different action depending on if the row is expanded or not
-    const { data, expandedRows } = this.props;
-    const expandableRows = data
-      .filter((obj) => obj.isParent)
-      .map((obj) => obj.name);
-
-    if (!expandableRows.includes(rowName)) {
-      // early exit
-      return;
+    /**
+     *
+     * @param element
+     * @param lens
+     * @param filters
+     */
+    function selectFocus(element, lens, filters) {
+      scrollToFocus();
+      let values = [];
+      if (lens === 'Company') {
+        values.push(element.parent);
+      } else {
+        const filterGroup = filters.find((obj) => obj.key === element.parent);
+        const keyName = 'sub_' + lens.toLowerCase() + '.raw';
+        values = filterGroup
+          ? getAllFilters(element.parent, filterGroup[keyName].buckets)
+          : [];
+      }
+      sendAnalyticsEvent('Trends click', element.parent);
+      dispatch(changeFocus(element.parent, lens, [...values]));
     }
 
-    if (expandedRows.includes(rowName)) {
-      this.props.collapseRow(rowName);
-    } else {
-      this.props.expandRow(rowName);
+    /**
+     *
+     * @param {object} element - The element to focus on
+     */
+    function _selectFocus(element) {
+      // make sure to assign a valid lens when a row is clicked
+      const focus = lens === 'Overview' ? 'Product' : lens;
+      const filters = coalesce(aggs, lens.toLowerCase(), []);
+      selectFocus(element, focus, filters);
     }
-  }
 
-  render() {
-    return (
-      this.props.total > 0 && (
-        <div className="row-chart-section">
-          <h3>{this.props.title}</h3>
-          <p>{this.props.helperText}</p>
-          <div id={'row-chart-' + this.props.id} />
-        </div>
-      )
-    );
-  }
-}
+    /**
+     *
+     * @param {string} rowName - The row's name
+     */
+    function _toggleRow(rowName) {
+      // fire off different action depending on if the row is expanded or not
+      const expandableRows = data
+        .filter((obj) => obj.isParent)
+        .map((obj) => obj.name);
 
-export const mapDispatchToProps = (dispatch) => ({
-  selectFocus: (element, lens, filters) => {
-    scrollToFocus();
-    let values = [];
-    if (lens === 'Company') {
-      values.push(element.parent);
-    } else {
-      const filterGroup = filters.find((obj) => obj.key === element.parent);
-      const keyName = 'sub_' + lens.toLowerCase() + '.raw';
-      values = filterGroup
-        ? getAllFilters(element.parent, filterGroup[keyName].buckets)
-        : [];
+      if (!expandableRows.includes(rowName)) {
+        // early exit
+        return;
+      }
+
+      if (expandedRows.includes(rowName)) {
+        sendAnalyticsEvent('Bar chart collapsed', rowName);
+        dispatch(collapseRow(rowName));
+      } else {
+        sendAnalyticsEvent('Bar chart expanded', rowName);
+        dispatch(expandRow(rowName));
+      }
     }
-    sendAnalyticsEvent('Trends click', element.parent);
-    dispatch(changeFocus(element.parent, lens, [...values]));
-  },
-  collapseRow: (rowName) => {
-    sendAnalyticsEvent('Bar chart collapsed', rowName);
-    dispatch(collapseRow(rowName));
-  },
-  expandRow: (rowName) => {
-    sendAnalyticsEvent('Bar chart expanded', rowName);
-    dispatch(expandRow(rowName));
-  },
-});
+  }, [data, total, dispatch, focus, lens, isPrintMode, rows, subLens, id]);
 
-export const mapStateToProps = (state) => {
-  const { tab } = state.query;
-  const lens = tab === MODE_MAP ? 'Product' : state.query.lens;
-  const { aggs } = state;
-  const { expandedRows, isPrintMode, width } = state.view;
-  return {
-    aggs,
-    expandedRows,
-    lens,
-    isPrintMode,
-    tab,
-    width,
-  };
-};
-
-// eslint-disable-next-line react-redux/prefer-separate-component-file
-export default connect(mapStateToProps, mapDispatchToProps)(RowChart);
-
-RowChart.propTypes = {
-  isPrintMode: PropTypes.bool,
-  lens: PropTypes.string,
-  aggs: PropTypes.object,
-  selectFocus: PropTypes.func,
-  expandedRows: PropTypes.array,
-  collapseRow: PropTypes.func,
-  expandRow: PropTypes.func,
-  helperText: PropTypes.string,
-  id: PropTypes.string.isRequired,
-  colorScheme: PropTypes.oneOfType([PropTypes.array, PropTypes.bool])
-    .isRequired,
-  data: PropTypes.array.isRequired,
-  title: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired,
+  return (
+    total > 0 && (
+      <div className="row-chart-section">
+        <h3>{title}</h3>
+        <p>{helperText}</p>
+        <div id={'row-chart-' + id} />
+      </div>
+    )
+  );
 };

@@ -19,6 +19,7 @@ export const selectQueryMapWarningEnabled = (state) =>
 
 export const selectQueryHasNarrative = (state) => state.query.has_narrative;
 export const selectQueryLens = (state) => state.query.lens;
+export const selectQuerySubLens = (state) => state.query.subLens;
 export const selectQueryPage = (state) => state.query.page;
 export const selectQuerySearch = (state) => state.query.search;
 export const selectQuerySearchField = (state) => state.query.searchField;
