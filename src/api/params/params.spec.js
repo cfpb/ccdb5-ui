@@ -1,9 +1,9 @@
 /* eslint-disable camelcase, no-empty-function, max-nested-callbacks */
 
 import cloneDeep from 'lodash/cloneDeep';
-import * as constants from '../../../constants';
+import * as constants from '../../constants';
 import emptyStore from '../../../actions/__fixtures__/emptyStore';
-import sut from '../index';
+import * as sut from './params';
 
 describe('api.v2.params', () => {
   let fixtureStore, actual;
@@ -12,40 +12,7 @@ describe('api.v2.params', () => {
     fixtureStore.query.dateRange.datePeriod = '';
     fixtureStore.query.dateRange.from = '2011-07-21';
     fixtureStore.query.dateRange.to = '2018-01-01';
-    fixtureStore.viewModel.viewMode = constants.MODE_LIST_COMPLAINTS;
-  });
-
-  describe('extractAgeParams', () => {
-    it('handles error', () => {
-      const actual = sut.extractAgeParams();
-      expect(actual).toEqual({});
-    });
-    it('handles ageNotProvided', () => {
-      const actual = sut.extractAgeParams({ ageNotProvided: true });
-      expect(actual).toEqual({ age_min: 'None' });
-    });
-    it('handles olderAmerican', () => {
-      const actual = sut.extractAgeParams({ olderAmerican: true });
-      expect(actual).toEqual({ age_min: 62 });
-    });
-    it('handles age range', () => {
-      const actual = sut.extractAgeParams({ min: 20, max: 50 });
-      expect(actual).toEqual({ age_min: 20, age_max: 50 });
-    });
-  });
-
-  describe('buildSort', () => {
-    it('gets default sort', () => {
-      actual = sut.buildSort();
-      expect(actual).toEqual('relevance_desc');
-    });
-  });
-
-  describe('sortNames', () => {
-    it('gets default sort', () => {
-      actual = sut.sortNames();
-      expect(actual).toEqual(constants.defaultSort);
-    });
+    fixtureStore.view.tab = constants.MODE_LIST;
   });
 
   describe('extractAggregationParams', () => {
@@ -53,7 +20,6 @@ describe('api.v2.params', () => {
       delete fixtureStore.query.dateRange;
       actual = sut.extractAggregationParams(fixtureStore);
       expect(actual).toEqual({
-        census_year: '2019',
         field: 'all',
         index_name: 'complaint-crdb',
       });
@@ -63,7 +29,6 @@ describe('api.v2.params', () => {
       fixtureStore.query.searchText = 'foo';
       actual = sut.extractAggregationParams(fixtureStore);
       expect(actual).toEqual({
-        census_year: '2019',
         date_received_max: '2018-01-01',
         date_received_min: '2011-07-21',
         field: 'all',

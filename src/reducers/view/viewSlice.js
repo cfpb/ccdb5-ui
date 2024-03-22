@@ -146,6 +146,7 @@ export const viewSlice = createSlice({
 
         state.isPrintMode = params.isPrintMode === 'true';
         state.isFromExternal = params.isFromExternal === 'true';
+        state.tab = enforceValues(params.tab, 'tab');
 
         const arrayParams = ['expandedRows'];
         processUrlArrayParams(params, state, arrayParams);

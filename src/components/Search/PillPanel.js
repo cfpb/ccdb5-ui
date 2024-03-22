@@ -1,10 +1,10 @@
 import './PillPanel.less';
 import { DATE_RANGE_MIN, knownFilters } from '../../constants';
 
+import { selectFiltersHasNarrative } from '../../reducers/filters/selectors';
 import {
   selectQueryDateReceivedMax,
   selectQueryDateReceivedMin,
-  selectQueryHasNarrative,
   selectQuerySearchField,
 } from '../../reducers/query/selectors';
 
@@ -24,7 +24,7 @@ export const PillPanel = () => {
   const filterState = useSelector(selectFiltersState);
   const dateReceivedMin = useSelector(selectQueryDateReceivedMin);
   const dateReceivedMax = useSelector(selectQueryDateReceivedMax);
-  const hasNarrative = useSelector(selectQueryHasNarrative);
+  const hasNarrative = useSelector(selectFiltersHasNarrative);
   const searchField = useSelector(selectQuerySearchField);
 
   const filters = knownFilters

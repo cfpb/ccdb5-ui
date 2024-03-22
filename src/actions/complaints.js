@@ -189,7 +189,6 @@ export function getTrends() {
     const store = getState();
     const qs = 'trends' + buildUri(store);
     const uri = API_PLACEHOLDER + qs + '&no_aggs=true';
-    //const uri = API_PLACEHOLDER + 'trends' + buildUri(store) + '&no_aggs=true';
     // This call is already in process
     if (uri === store.trends.activeCall) {
       return null;
@@ -198,7 +197,7 @@ export function getTrends() {
     // kill query if Company param criteria aren't met
     if (
       store.trends.lens === 'Company' &&
-      (!store.query.company || !store.query.company.length)
+      (!store.filters.company || !store.filters.company.length)
     ) {
       return null;
     }

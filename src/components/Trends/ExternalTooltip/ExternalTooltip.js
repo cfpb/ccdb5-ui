@@ -2,9 +2,9 @@ import { CompanyTypeahead } from '../../Filters/CompanyTypeahead';
 import { useSelector } from 'react-redux';
 import React from 'react';
 import { TooltipRow } from './TooltipRow';
-import { selectQueryFocus } from '../../../reducers/query/selectors';
 import {
   selectTrendsChartType,
+  selectTrendsFocus,
   selectTrendsLens,
   selectTrendsTooltip,
 } from '../../../reducers/trends/selectors';
@@ -17,8 +17,8 @@ const LEARN_SERIES_BREAK =
   'https://www.consumerfinance.gov/data-research/consumer-complaints/#past-changes';
 
 export const ExternalTooltip = () => {
-  const queryFocus = useSelector(selectQueryFocus);
-  const focus = queryFocus ? 'focus' : '';
+  const trendsFocus = useSelector(selectTrendsFocus);
+  const focus = trendsFocus ? 'focus' : '';
   const lens = useSelector(selectTrendsLens);
   const chartType = useSelector(selectTrendsChartType);
   const tip = useSelector(selectTrendsTooltip);

@@ -81,27 +81,6 @@ export function extractReducerAttributes(reducer, attributes) {
 // ----------------------------------------------------------------------------
 // parameter objects <--> reducer
 
-export const buildSort = (sort) => {
-  const sortMap = {
-    'Least relevant': 'relevance_asc',
-    'Most relevant': 'relevance_desc',
-    'Oldest to newest': 'created_date_asc',
-    'Newest to oldest': 'created_date_desc',
-  };
-  return sortMap[sort] || 'relevance_desc';
-};
-
-export const sortNames = (sort) => {
-  const sortMap = {
-    relevance_asc: 'Least relevant',
-    relevance_desc: 'Most relevant',
-    created_date_asc: 'Oldest to newest',
-    created_date_desc: 'Newest to oldest',
-  };
-
-  return sortMap[sort] || 'Oldest to newest';
-};
-
 /**
  * Selects specific values from the query reducer to be used in a query string
  *
@@ -118,9 +97,8 @@ export function extractQueryParams(queryState) {
       query.from !== undefined
         ? query.from
         : clamp(query.page - 1, 0) * query.size,
-    index_name: query._index,
     size: query.size,
-    sort: buildSort(query.sort),
+    sort: query.sort,
   };
 
   /* istanbul ignore else */

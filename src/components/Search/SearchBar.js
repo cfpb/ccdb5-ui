@@ -4,7 +4,7 @@ import {
   showAdvancedSearchTips,
 } from '../../reducers/view/viewSlice';
 import {
-  changeSearchField,
+  searchFieldChanged,
   searchTextChanged,
 } from '../../reducers/query/querySlice';
 import { AdvancedTips } from './AdvancedTips/AdvancedTips';
@@ -57,7 +57,7 @@ export const SearchBar = ({ debounceWait }) => {
   };
 
   const onSelectSearchField = (event) => {
-    dispatch(changeSearchField(event.target.value));
+    dispatch(searchFieldChanged(event.target.value));
   };
 
   const onAdvancedClicked = (event) => {

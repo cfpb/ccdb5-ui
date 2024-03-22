@@ -14,7 +14,7 @@ export const detailSlice = createSlice({
       state.activeCall = action.payload;
     },
     complaintDetailReceived(state, action) {
-      state.data = action.payload.data.hits.hits[0]._source;
+      state.data = action.payload.hits.hits[0]._source;
       state.activeCall = '';
     },
     complaintDetailFailed(state, action) {

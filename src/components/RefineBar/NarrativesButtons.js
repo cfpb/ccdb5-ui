@@ -5,12 +5,12 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
 import { selectedClass } from '../../utils';
-import { selectQueryHasNarrative } from '../../reducers/query/selectors';
+import { selectFiltersHasNarrative } from '../../reducers/filters/selectors';
 
 const FIELD_NAME = 'has_narrative';
 
 export const NarrativesButtons = () => {
-  const isChecked = useSelector(selectQueryHasNarrative);
+  const isChecked = useSelector(selectFiltersHasNarrative);
   const dispatch = useDispatch();
 
   return (

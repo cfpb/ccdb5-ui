@@ -1,4 +1,4 @@
-/* eslint complexity: ["error", 5] */
+/* eslint complexity: ["error", 6] */
 import * as types from '../../constants';
 import {
   calculateDateRange,
@@ -10,7 +10,7 @@ import {
 import { enforceValues } from '../../utils/reducers';
 import dayjs from 'dayjs';
 import { isGreaterThanYear } from '../../utils/trends';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import {
   PERSIST_SAVE_QUERY_STRING,
   REQUERY_ALWAYS,
@@ -18,7 +18,13 @@ import {
   REQUERY_NEVER,
 } from '../../constants';
 import { formatDate } from '../../utils/formatDate';
-
+import {
+  filterAdded,
+  filtersReplaced,
+  multipleFiltersAdded,
+  multipleFiltersRemoved,
+} from '../filters/filtersSlice';
+import { tabChanged } from '../view/viewSlice';
 const queryString = require('query-string');
 
 /* eslint-disable camelcase */
@@ -59,20 +65,45 @@ const trendFieldMap = {
 
 const urlParams = [
   'chartType',
-  'dataNormalization',
   'dateInterval',
   'dateRange',
-  'focus',
-  'lens',
   'searchText',
   'searchField',
-  'size',
   'sort',
-  'subLens',
-  'tab',
 ];
 
-const urlParamsInt = ['from', 'page', 'trendDepth'];
+// const urlParamsInt = ['from', 'page', 'size'];
+
+/**
+ * Processes an object of key/value strings into the correct internal format
+ * Note: the passed-in state is modified and returned (Fluent interface)
+ *
+ * @param {object} state - the state being built
+ * @param {object} params - the object containing the key/value pairs
+ */
+export function appQueryStringToState(state, params) {
+  // Set some variables from the URL
+  const keys = [
+    'date_received_min',
+    'date_received_max',
+    'searchFields',
+    'sort',
+  ];
+  for (const item in keys) {
+    if (params[item]) {
+      state[item] = params[item];
+    }
+  }
+  // Handle numeric fields
+  const defaultPage = params.page ?? '1';
+  const defaultSize = params.size ?? '10';
+  state.page = parseInt(defaultPage, 10);
+  state.size = parseInt(defaultSize, 10);
+
+  if (params.search_after) {
+    state.searchAfter = params.search_after;
+  }
+}
 
 export const querySlice = createSlice({
   name: 'query',
@@ -111,14 +142,20 @@ export const querySlice = createSlice({
         });
 
         // Handle numeric params
-        urlParamsInt.forEach((field) => {
-          if (typeof params[field] !== 'undefined') {
-            const num = parseInt(params[field], 10);
-            if (isNaN(num) === false) {
-              state[field] = enforceValues(num, field);
-            }
-          }
-        });
+        // urlParamsInt.forEach((field) => {
+        //   if (typeof params[field] !== 'undefined') {
+        //     const num = parseInt(params[field], 10);
+        //     console.log(num);
+        //     if (isNaN(num) === false) {
+        //       state[field] = enforceValues(num, field);
+        //     }
+        //   }
+        // });
+        // Handle numeric fields
+        const defaultPage = params.page ?? '1';
+        const defaultSize = params.size ?? '10';
+        state.page = parseInt(defaultPage, 10);
+        state.size = parseInt(defaultSize, 10);
 
         // Apply the date range
         if (dateRangeNoDates(params) || params.dateRange === 'All') {
@@ -128,8 +165,6 @@ export const querySlice = createSlice({
 
         alignDateRange(state);
         state.page = params.page ?? state.page;
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
       },
       prepare: (params) => {
         return {
@@ -160,8 +195,7 @@ export const querySlice = createSlice({
           : state.date_received_min;
         state.date_received_max = maxDate;
         validateDateInterval(state);
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
+        clearPager(state);
       },
       prepare: (dateRange) => {
         return {
@@ -184,18 +218,16 @@ export const querySlice = createSlice({
         ];
 
         let { maxDate, minDate } = action.payload;
-        // If maxDate or minDate are falsy, just set the search and queryStrings and exit
+        // If maxDate or minDate are falsy, early exit
         if (!maxDate || !minDate) {
-          state.queryString = stateToQS(state);
-          state.search = stateToURL(state);
           return state;
         }
 
         minDate = dayjs(minDate).isValid()
-          ? dayjs(minDate).startOf('day').toISOString()
+          ? formatDate(dayjs(minDate).startOf('day'))
           : null;
         maxDate = dayjs(maxDate).isValid()
-          ? dayjs(maxDate).startOf('day').toISOString()
+          ? formatDate(dayjs(maxDate).startOf('day'))
           : null;
 
         const datesChanged =
@@ -212,8 +244,7 @@ export const querySlice = createSlice({
         state[fields[0]] = minDate || state[fields[0]];
         state[fields[1]] = maxDate || state[fields[1]];
         validateDateInterval(state);
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
+        clearPager(state);
       },
       prepare: (filterName, minDate, maxDate) => {
         return {
@@ -229,20 +260,14 @@ export const querySlice = createSlice({
         };
       },
     },
-    changeSearchField: {
+    searchFieldChanged: {
       reducer: (state, action) => {
-        const pagination = getPagination(1, state);
-        return {
-          ...state,
-          ...pagination,
-          queryString: stateToQS(state),
-          search: stateToURL(state),
-          searchField: action.payload.searchField,
-        };
+        state.searchField = action.payload;
+        clearPager(state);
       },
-      prepare: (searchField) => {
+      prepare: (payload) => {
         return {
-          payload: { searchField },
+          payload,
           meta: {
             persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
@@ -291,8 +316,6 @@ export const querySlice = createSlice({
         /* eslint-disable camelcase */
         state.date_received_min = dayjs(types.DATE_RANGE_MIN).toISOString();
         state.date_received_max = dayjs(startOfToday()).toISOString();
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
         state.from = 0;
       },
       prepare: (payload) => {
@@ -323,8 +346,6 @@ export const querySlice = createSlice({
         // don't let them go lower than 1
         const page = clamp(state.page - 1, 1, state.page);
         const pagination = getPagination(page, state);
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
         state.page = pagination.page;
         state.from = pagination.from;
         state.searchAfter = getSearchAfter(state, page);
@@ -344,8 +365,6 @@ export const querySlice = createSlice({
         // don't let them go past the total num of pages
         const page = clamp(state.page + 1, 1, state.totalPages);
         const pagination = getPagination(page, state);
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
         state.page = pagination.page;
         state.from = pagination.from;
         state.searchAfter = getSearchAfter(state, page);
@@ -360,18 +379,13 @@ export const querySlice = createSlice({
         };
       },
     },
-    changeSize: {
+    sizeChanged: {
       reducer: (state, action) => {
-        const pagination = getPagination(1, state);
-        state.from = pagination.from;
-        state.page = pagination.page;
-        state.size = action.payload.size;
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
+        state.size = enforceValues(action.payload, 'size');
       },
-      prepare: (size) => {
+      prepare: (payload) => {
         return {
-          payload: { size },
+          payload,
           meta: {
             persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_HITS_ONLY,
@@ -379,18 +393,13 @@ export const querySlice = createSlice({
         };
       },
     },
-    changeSort: {
+    sortChanged: {
       reducer: (state, action) => {
-        const pagination = getPagination(1, state);
-        state.from = pagination.from;
-        state.page = pagination.page;
-        state.sort = enforceValues(action.payload.sort, 'sort');
-        state.queryString = stateToQS(state);
-        state.search = stateToURL(state);
+        state.sort = enforceValues(action.payload, 'sort');
       },
-      prepare: (sort) => {
+      prepare: (payload) => {
         return {
-          payload: { sort },
+          payload,
           meta: {
             persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_HITS_ONLY,
@@ -406,7 +415,6 @@ export const querySlice = createSlice({
         // set pager to last page if the number of total pages is less than current page
         const { break_points: breakPoints } = _meta;
         state.page = state.page > totalPages ? totalPages : state.page;
-
         state.breakPoints = breakPoints;
         state.totalPages = Object.keys(breakPoints).length + 1;
       },
@@ -420,20 +428,36 @@ export const querySlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase('results/complaintsReceived', (state, action) => {
-        querySlice.caseReducers.processParams(state, action);
+        // querySlice.caseReducers.processParams(state, action);
         querySlice.caseReducers.updateTotalPages(state, action);
       })
       .addCase('routes/routeChanged', (state, action) => {
-        querySlice.caseReducers.processParams(state, action);
+        appQueryStringToState(state, action.payload.params);
       })
-      .addCase('view/tabChanged', (state) => {
-        state.breakPoints = {};
-        state.totalPages = 0;
-        state.page = 0;
-      });
+      .addMatcher(
+        isAnyOf(
+          filterAdded,
+          filtersReplaced,
+          sortChanged,
+          multipleFiltersAdded,
+          multipleFiltersRemoved,
+          tabChanged,
+        ),
+        (state) => {
+          clearPager(state);
+        },
+      );
   },
 });
 
+// /**
+//  *
+//  * @param action
+//  */
+// function isBreakPointAction(action) {
+//   console.log(action);
+//   return action.type.endsWith('rejected');
+// }
 // ----------------------------------------------------------------------------
 // Helper functions
 
@@ -559,6 +583,7 @@ export function validateDateInterval(queryState) {
  * @returns {object} contains the from and searchAfter params
  */
 function getPagination(page, state) {
+  console.log(page, state.size);
   return {
     from: (page - 1) * state.size,
     page,
@@ -613,11 +638,6 @@ export function stateToQS(state) {
       return;
     }
 
-    // Avoid recursion
-    if (field === 'queryString') {
-      return;
-    }
-
     let value = state[field];
 
     // Process dates
@@ -651,15 +671,7 @@ export function stateToQS(state) {
   );
 
   const paramMap = {
-    List: [
-      'frm',
-      'search_after',
-      'size',
-      'sort',
-      'format',
-      'no_aggs',
-      'no_highlight',
-    ],
+    List: ['frm', 'search_after', 'size', 'sort', 'format', 'no_aggs'],
     // nothing unique to states endpoint
     Map: [],
     Trends: [
@@ -769,25 +781,26 @@ export function stateToURL(state) {
  *
  * @param {object} state - redux state
  */
-export function resetBreakpoints(state) {
+export function clearPager(state) {
   state.breakPoints = {};
   state.from = 0;
   state.page = 1;
   state.searchAfter = '';
+  state.totalPages = 0;
 }
 
 export const {
-  dateRangeChanged,
   changeDates,
-  changeSearchField,
-  searchTextChanged,
-  changeSize,
-  changeSort,
+  dateRangeChanged,
   dismissTrendsDateWarning,
   nextPageShown,
   prevPageShown,
   processParams,
   removeAllFilters,
+  searchFieldChanged,
+  searchTextChanged,
+  sizeChanged,
+  sortChanged,
   updateTotalPages,
 } = querySlice.actions;
 export default querySlice.reducer;

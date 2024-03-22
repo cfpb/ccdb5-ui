@@ -1,18 +1,18 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { filterRemoved } from '../../../reducers/filters/filtersSlice';
+import { selectQuerySubLens } from '../../../reducers/query/selectors';
 import {
-  selectQueryFocus,
-  selectQuerySubLens,
-} from '../../../reducers/query/selectors';
-import { selectTrendsLens } from '../../../reducers/trends/selectors';
+  selectTrendsFocus,
+  selectTrendsLens,
+} from '../../../reducers/trends/selectors';
 import { sanitizeHtmlId } from '../../../utils';
 import getIcon from '../../iconMap';
 
 export const TooltipRow = ({ value }) => {
   const dispatch = useDispatch();
-  const queryFocus = useSelector(selectQueryFocus);
-  const focus = queryFocus ? 'focus' : '';
+  const trendsFocus = useSelector(selectTrendsFocus);
+  const focus = trendsFocus ? 'focus' : '';
   const lens = useSelector(selectTrendsLens);
   const subLens = useSelector(selectQuerySubLens);
   const hasCompanyTypeahead = lens === 'Company' && !focus;

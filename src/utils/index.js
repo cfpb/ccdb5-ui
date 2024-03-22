@@ -155,11 +155,11 @@ export function hashCode(someString) {
  * disable the Per 1000 Complaints button
  * enable per1000 if the only filter selected is state
  *
- * @param {object} query - contains values for the filters, etc
+ * @param {object} filters - reducer contains values for the filters, etc
  * @returns {boolean} are we enabling the perCap
  */
 // eslint-disable-next-line complexity,require-jsdoc
-export function enablePer1000(query) {
+export function enablePer1000(filters) {
   const keys = [];
   let filter;
   const allFilters = knownFilters.concat(flagFilters);
@@ -168,8 +168,8 @@ export function enablePer1000(query) {
     filter = allFilters[index];
     // eslint-disable-next-line no-mixed-operators
     if (
-      (Array.isArray(query[filter]) && query[filter].length) ||
-      query[filter] === true
+      (Array.isArray(filters[filter]) && filters[filter].length) ||
+      filters[filter] === true
     ) {
       keys.push(filter);
     }
@@ -177,7 +177,7 @@ export function enablePer1000(query) {
   const compReceivedFilters = ['company_received_max', 'company_received_min'];
   for (let index = 0; index < compReceivedFilters.length; index++) {
     filter = compReceivedFilters[index];
-    if (query[filter]) {
+    if (filters[filter]) {
       keys.push(filter);
     }
   }

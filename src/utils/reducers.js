@@ -39,8 +39,8 @@ export const enforceValues = (value, field) => {
       values: ['all', 'company', 'complaint_what_happened'],
     },
     size: {
-      defaultVal: '10',
-      values: Object.keys(types.sizes),
+      defaultVal: 10,
+      values: Object.keys(types.sizes).map((num) => Number.parseInt(num, 10)),
     },
     sort: {
       defaultVal: 'created_date_desc',

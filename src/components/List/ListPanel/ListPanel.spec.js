@@ -105,8 +105,8 @@ describe('ListPanel', () => {
   });
 
   test('onSize triggers dispatch and analtyics event', () => {
-    const changeSizeSpy = jest
-      .spyOn(pagingActions, 'changeSize')
+    const sizeChangedSpy = jest
+      .spyOn(pagingActions, 'sizeChanged')
       .mockImplementation(() => jest.fn());
     const newAggsState = {
       error: '',
@@ -126,12 +126,12 @@ describe('ListPanel', () => {
     );
 
     expect(analyticsSpy).toBeCalledWith('Dropdown', '10 results');
-    expect(changeSizeSpy).toBeCalledWith('10');
+    expect(sizeChangedSpy).toBeCalledWith('10');
   });
 
   test('onSort triggers dispatch and analtyics event', () => {
-    const changeSortSpy = jest
-      .spyOn(pagingActions, 'changeSort')
+    const sortChangedSpy = jest
+      .spyOn(pagingActions, 'sortChanged')
       .mockImplementation(() => jest.fn());
     const newAggsState = {
       error: '',
@@ -151,7 +151,7 @@ describe('ListPanel', () => {
     );
 
     expect(analyticsSpy).toBeCalledWith('Dropdown', 'Oldest to newest');
-    expect(changeSortSpy).toBeCalledWith('created_date_asc');
+    expect(sortChangedSpy).toBeCalledWith('created_date_asc');
   });
 
   test('FilterPanel showed when width is 500', () => {

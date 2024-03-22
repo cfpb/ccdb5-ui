@@ -8,8 +8,12 @@ import {
 import { coalesce, enablePer1000, processUrlArrayParams } from '../../utils';
 import * as types from '../../constants';
 import { enforceValues } from '../../utils/reducers';
+import dayjs from 'dayjs';
+import { formatDate } from '../../utils/formatDate';
 
 export const filtersState = {
+  company_received_max: '',
+  company_received_min: '',
   dataNormalization: types.GEO_NORM_NONE,
   enablePer1000: false,
   mapWarningEnabled: true,
@@ -19,6 +23,40 @@ export const filtersSlice = createSlice({
   name: 'filters',
   initialState: filtersState,
   reducers: {
+    companyReceivedDateUpdated: {
+      // eslint-disable-next-line complexity
+      reducer: (state, action) => {
+        const fields = [
+          action.payload.filterName + '_min',
+          action.payload.filterName + '_max',
+        ];
+
+        let { maxDate, minDate } = action.payload;
+        // If maxDate or minDate are falsy, early exit
+        if (!maxDate || !minDate) {
+          return state;
+        }
+
+        minDate = formatDate(dayjs(minDate).startOf('day'));
+        maxDate = formatDate(dayjs(maxDate).startOf('day'));
+
+        state[fields[0]] = minDate || state[fields[0]];
+        state[fields[1]] = maxDate || state[fields[1]];
+      },
+      prepare: (filterName, minDate, maxDate) => {
+        return {
+          payload: {
+            filterName,
+            minDate,
+            maxDate,
+          },
+          meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
+    },
     dataNormalizationUpdated: {
       reducer: (state, action) => {
         state.dataNormalization = enforceValues(
@@ -39,6 +77,7 @@ export const filtersSlice = createSlice({
     },
     filterAdded: {
       reducer: (state, action) => {
+        console.log(action);
         if (action.payload.filterName === 'has_narrative') {
           state.has_narrative = true;
         } else if (action.payload.filterName in state) {
@@ -339,6 +378,7 @@ export function validatePer1000(state) {
     : types.GEO_NORM_NONE;
 }
 export const {
+  companyReceivedDateUpdated,
   dataNormalizationUpdated,
   filterAdded,
   filterRemoved,

@@ -131,10 +131,14 @@ describe('component:Product', () => {
         aggs: {
           product: fixture,
         },
-        query: {
+        filters: {
+          product: ['Mortgage'],
+        },
+        trends: {
           focus: 'Mortgage',
           lens: 'Product',
-          product: ['Mortgage'],
+        },
+        view: {
           tab: 'Trends',
         },
       };
@@ -218,12 +222,11 @@ describe('component:Product', () => {
       aggs: {
         product: fixture,
       },
-      query: {
-        focus: 'Mortgage',
-        lens: 'Company',
+      filters: {
         product: ['Mortgage'],
-        tab: 'Trends',
       },
+      trends: { focus: 'Mortgage', lens: 'Company' },
+      view: { tab: 'Trends' },
     };
     const actual = mapStateToProps(state);
     expect(actual).toEqual({

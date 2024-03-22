@@ -272,26 +272,27 @@ export class TrendsPanel extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  const { filters, query, trends, view } = state;
+  const { company: companyFilters } = filters;
   const {
     dateInterval,
     date_received_max: maxDate,
     date_received_min: minDate,
     trendsDateWarningEnabled,
-  } = state.query;
+  } = query;
 
   const {
     activeCall,
     chartType,
     colorMap,
-    company: companyFilters,
     focus,
     results,
     lens,
     subLens,
     total,
-  } = state.trends;
+  } = trends;
 
-  const { expandedRows } = state.view;
+  const { expandedRows } = view;
   const lensKey = lens.toLowerCase();
   const focusKey = subLens.replace('_', '-');
   const lensHelperText =

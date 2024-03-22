@@ -5,11 +5,11 @@ import React, { useState } from 'react';
 import { stateToQS } from '../../reducers/query/querySlice';
 import { multipleFiltersAdded } from '../../reducers/filters/filtersSlice';
 import { API_PLACEHOLDER } from '../../constants';
+import { selectQueryState } from '../../reducers/query/selectors';
 import {
-  selectQueryFocus,
-  selectQueryState,
-} from '../../reducers/query/selectors';
-import { selectTrendsLens } from '../../reducers/trends/selectors';
+  selectTrendsFocus,
+  selectTrendsLens,
+} from '../../reducers/trends/selectors';
 import { AsyncTypeahead } from '../Typeahead/AsyncTypeahead/AsyncTypeahead';
 import { handleFetchSearch } from '../Typeahead/utils';
 
@@ -18,7 +18,7 @@ const FIELD_NAME = 'company';
 export const CompanyTypeahead = ({ delayWait, id }) => {
   const dispatch = useDispatch();
   const query = useSelector(selectQueryState);
-  const focus = useSelector(selectQueryFocus);
+  const focus = useSelector(selectTrendsFocus);
   const lens = useSelector(selectTrendsLens);
   const [dropdownOptions, setDropdownOptions] = useState([]);
 

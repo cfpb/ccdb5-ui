@@ -51,9 +51,10 @@ export class Product extends React.Component {
 
 export const mapStateToProps = (state) => {
   // See if there are an active product filters
-  const { focus, lens } = state.trends;
-  const { tab } = state.view;
-  const allProducts = coalesce(state.filters, 'product', []);
+  const { aggs, filters, trends, view } = state;
+  const { focus, lens } = trends;
+  const { tab } = view;
+  const allProducts = coalesce(filters, 'product', []);
   const selections = [];
 
   // Reduce the products to the parent keys (and dedup)
@@ -66,7 +67,7 @@ export const mapStateToProps = (state) => {
   });
 
   // Make a cloned, sorted version of the aggs
-  const options = sortSelThenCount(state.aggs.product, selections);
+  const options = sortSelThenCount(aggs.product, selections);
   if (focus) {
     const isProductFocus = tab === MODE_TRENDS && lens === 'Product';
     options.forEach((opt) => {

@@ -54,7 +54,7 @@ describe('SearchBar', () => {
 
   test('Change search field', async () => {
     const searchFieldChangedSpy = jest
-      .spyOn(searchActions, 'changeSearchField')
+      .spyOn(searchActions, 'searchFieldChanged')
       .mockImplementation(() => jest.fn());
     const newQueryState = { searchField: 'all', searchText: '' };
     const newViewState = { hasAdvancedSearchTips: false };
