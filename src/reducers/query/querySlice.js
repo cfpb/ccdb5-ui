@@ -20,6 +20,8 @@ import {
 import { formatDate } from '../../utils/formatDate';
 import {
   filterAdded,
+  filterRemoved,
+  filtersCleared,
   filtersReplaced,
   multipleFiltersAdded,
   multipleFiltersRemoved,
@@ -38,8 +40,6 @@ export const queryState = {
   ),
   from: 0,
   page: 1,
-  queryString: '',
-  search: '',
   searchAfter: '',
   searchField: 'all',
   searchText: '',
@@ -68,11 +68,12 @@ const urlParams = [
   'dateInterval',
   'dateRange',
   'searchText',
+  'from',
+  'page',
   'searchField',
+  'size',
   'sort',
 ];
-
-// const urlParamsInt = ['from', 'page', 'size'];
 
 /**
  * Processes an object of key/value strings into the correct internal format
@@ -141,22 +142,6 @@ export const querySlice = createSlice({
           }
         });
 
-        // Handle numeric params
-        // urlParamsInt.forEach((field) => {
-        //   if (typeof params[field] !== 'undefined') {
-        //     const num = parseInt(params[field], 10);
-        //     console.log(num);
-        //     if (isNaN(num) === false) {
-        //       state[field] = enforceValues(num, field);
-        //     }
-        //   }
-        // });
-        // Handle numeric fields
-        const defaultPage = params.page ?? '1';
-        const defaultSize = params.size ?? '10';
-        state.page = parseInt(defaultPage, 10);
-        state.size = parseInt(defaultSize, 10);
-
         // Apply the date range
         if (dateRangeNoDates(params) || params.dateRange === 'All') {
           const innerAction = { payload: { dateRange: params.dateRange } };
@@ -172,6 +157,21 @@ export const querySlice = createSlice({
             params,
           },
           meta: {
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
+    },
+    dateIntervalChanged: {
+      reducer: (state, action) => {
+        state.dateInterval = enforceValues(action.payload, 'dateInterval');
+        validateDateInterval(state);
+      },
+      prepare: (payload) => {
+        return {
+          payload,
+          meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
           },
         };
@@ -195,7 +195,6 @@ export const querySlice = createSlice({
           : state.date_received_min;
         state.date_received_max = maxDate;
         validateDateInterval(state);
-        clearPager(state);
       },
       prepare: (dateRange) => {
         return {
@@ -244,7 +243,6 @@ export const querySlice = createSlice({
         state[fields[0]] = minDate || state[fields[0]];
         state[fields[1]] = maxDate || state[fields[1]];
         validateDateInterval(state);
-        clearPager(state);
       },
       prepare: (filterName, minDate, maxDate) => {
         return {
@@ -263,7 +261,6 @@ export const querySlice = createSlice({
     searchFieldChanged: {
       reducer: (state, action) => {
         state.searchField = action.payload;
-        clearPager(state);
       },
       prepare: (payload) => {
         return {
@@ -436,11 +433,24 @@ export const querySlice = createSlice({
       })
       .addMatcher(
         isAnyOf(
+          // actions.DATE_INTERVAL_CHANGED,
+          // actions.DATE_RANGE_CHANGED,
+          // actions.DATES_CHANGED,
+          // actions.FILTER_ALL_REMOVED,
+          // actions.FILTER_CHANGED,
+          // actions.FILTER_FLAG_CHANGED,
+          dateIntervalChanged,
+          dateRangeChanged,
           filterAdded,
+          filterRemoved,
+          filtersCleared,
           filtersReplaced,
-          sortChanged,
           multipleFiltersAdded,
           multipleFiltersRemoved,
+          searchFieldChanged,
+          searchTextChanged,
+          sizeChanged,
+          sortChanged,
           tabChanged,
         ),
         (state) => {
@@ -583,7 +593,6 @@ export function validateDateInterval(queryState) {
  * @returns {object} contains the from and searchAfter params
  */
 function getPagination(page, state) {
-  console.log(page, state.size);
   return {
     from: (page - 1) * state.size,
     page,
@@ -792,6 +801,7 @@ export function clearPager(state) {
 export const {
   changeDates,
   dateRangeChanged,
+  dateIntervalChanged,
   dismissTrendsDateWarning,
   nextPageShown,
   prevPageShown,

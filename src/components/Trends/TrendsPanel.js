@@ -5,10 +5,7 @@ import './TrendsPanel.less';
 import { getIntervals, showCompanyOverLay } from '../../utils/trends';
 import { sendAnalyticsEvent, shortFormat } from '../../utils';
 import { ActionBar } from '../ActionBar/ActionBar';
-import {
-  dataLensChanged,
-  dateIntervalChanged,
-} from '../../reducers/trends/trendsSlice';
+import { dataLensChanged } from '../../reducers/trends/trendsSlice';
 import { ChartToggles } from '../RefineBar/ChartToggles';
 import { CompanyTypeahead } from '../Filters/CompanyTypeahead';
 import { connect } from 'react-redux';
@@ -29,7 +26,10 @@ import { Separator } from '../RefineBar/Separator';
 import StackedAreaChart from '../Charts/StackedAreaChart';
 import { TabbedNavigation } from '../TabbedNavigation';
 import TrendDepthToggle from './TrendDepthToggle';
-import { dismissTrendsDateWarning } from '../../reducers/query/querySlice';
+import {
+  dateIntervalChanged,
+  dismissTrendsDateWarning,
+} from '../../reducers/query/querySlice';
 import Warning from '../Warnings/Warning';
 
 const WARNING_MESSAGE =

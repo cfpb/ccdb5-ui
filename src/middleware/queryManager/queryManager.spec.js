@@ -22,7 +22,6 @@ function setupStore(viewMode) {
       date_received_min: new Date(2013, 1, 3),
       from: 0,
       has_narrative: true,
-      queryString: '?foo',
       searchText: '',
       size: 10,
       tab: viewMode,

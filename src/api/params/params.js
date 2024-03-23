@@ -181,14 +181,8 @@ export function extractQueryParams(queryState) {
  * @returns {object} a dictionary of strings
  */
 export function extractTrendsParams(state) {
-  const { searchField } = state.query;
-  const {
-    dateInterval,
-    focus,
-    lens,
-    subLens,
-    trendDepth: trend_depth,
-  } = state.trends;
+  const { dateInterval, searchField } = state.query;
+  const { focus, lens, subLens, trendDepth: trend_depth } = state.trends;
 
   const params = {
     lens: lens.replace(' ', '_').toLowerCase(),

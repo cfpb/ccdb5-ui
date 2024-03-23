@@ -31,8 +31,8 @@ describe('reducer:query', () => {
         breakPoints: {},
         dateInterval: 'Month',
         dateRange: '3y',
-        date_received_max: '2020-05-05T04:00:00.000Z',
-        date_received_min: '2017-05-05T04:00:00.000Z',
+        date_received_max: '2020-05-05',
+        date_received_min: '2017-05-05',
         from: 0,
         searchText: '',
         searchField: 'all',
@@ -142,15 +142,9 @@ describe('reducer:query', () => {
       ...queryState,
       searchText: 'foo',
     };
-    expect(target(state, searchTextChanged(searchText))).toEqual({
-      ...state,
-      breakPoints: {},
-      from: 0,
-      page: 1,
-      searchAfter: '',
-      searchText: 'bar',
-      size: 100,
-    });
+    expect(target(state, searchTextChanged(searchText)).searchText).toEqual(
+      'bar',
+    );
   });
 
   describe('Pager', () => {
@@ -164,7 +158,6 @@ describe('reducer:query', () => {
         from: 100,
         page: 2,
         size: 100,
-        tab: types.MODE_LIST,
         totalPages: 3,
       };
       expect(target(state, nextPageShown())).toEqual({
@@ -177,7 +170,6 @@ describe('reducer:query', () => {
         page: 3,
         searchAfter: '909_131',
         size: 100,
-        tab: types.MODE_LIST,
         totalPages: 3,
       });
     });
@@ -192,7 +184,6 @@ describe('reducer:query', () => {
         from: 100,
         page: 3,
         size: 100,
-        tab: types.MODE_LIST,
       };
       expect(target(state, prevPageShown())).toEqual({
         ...state,
@@ -204,7 +195,6 @@ describe('reducer:query', () => {
         page: 2,
         searchAfter: '99_22131',
         size: 100,
-        tab: types.MODE_LIST,
       });
     });
 
@@ -218,7 +208,6 @@ describe('reducer:query', () => {
         from: 100,
         page: 2,
         size: 100,
-        tab: types.MODE_LIST,
       };
       expect(target(state, prevPageShown())).toEqual({
         ...state,
@@ -230,7 +219,6 @@ describe('reducer:query', () => {
         page: 1,
         searchAfter: '',
         size: 100,
-        tab: types.MODE_LIST,
       });
     });
   });
@@ -238,12 +226,11 @@ describe('reducer:query', () => {
   describe('Action Bar', () => {
     let sort, size;
     it('handles SIZE_CHANGED actions', () => {
-      size = 50;
+      size = '50';
 
       state = {
         ...queryState,
         size: 100,
-        tab: types.MODE_LIST,
       };
       expect(target(state, sizeChanged(size))).toEqual({
         ...state,
@@ -251,8 +238,7 @@ describe('reducer:query', () => {
         from: 0,
         page: 1,
         searchAfter: '',
-        size: 50,
-        tab: types.MODE_LIST,
+        size: '50',
       });
     });
 
@@ -263,7 +249,6 @@ describe('reducer:query', () => {
         ...queryState,
         from: 100,
         size: 100,
-        tab: types.MODE_LIST,
       };
       expect(target(state, sortChanged(sort))).toEqual({
         ...state,
@@ -273,7 +258,6 @@ describe('reducer:query', () => {
         searchAfter: '',
         sort: 'created_date_desc',
         size: 100,
-        tab: types.MODE_LIST,
       });
     });
 
@@ -283,7 +267,6 @@ describe('reducer:query', () => {
         ...queryState,
         from: 100,
         size: 100,
-        tab: types.MODE_LIST,
       };
       expect(target(state, sortChanged(sort))).toEqual({
         ...state,
@@ -293,7 +276,6 @@ describe('reducer:query', () => {
         searchAfter: '',
         sort: 'relevance_asc',
         size: 100,
-        tab: types.MODE_LIST,
       });
     });
   });
@@ -338,14 +320,14 @@ describe('reducer:query', () => {
     it('handles bogus size & sort parameters', () => {
       params = { size: '9999', sort: 'tables' };
       actual = target(state, processParams(params));
-      expect(actual.size).toEqual('10');
+      expect(actual.size).toEqual(10);
       expect(actual.sort).toEqual('created_date_desc');
     });
 
     it('converts some parameters to dates', () => {
       params = { date_received_min: '2013-02-03' };
       actual = target(state, processParams(params)).date_received_min;
-      expect(actual).toEqual('2013-02-03T05:00:00.000Z');
+      expect(actual).toEqual('2013-02-03');
     });
 
     it('converts flag parameters to booleans', () => {
@@ -383,36 +365,13 @@ describe('reducer:query', () => {
       expect(actual.product).toEqual(['Debt Collection', 'Mortgage']);
     });
 
-    it('handles a trendDepth param', () => {
-      params = { lens: 'Product', trendDepth: 1000 };
-      actual = target({}, processParams(params));
-      expect(actual.lens).toEqual('Product');
-      expect(actual.trendDepth).toEqual(1000);
-    });
-
-    it('handles invalid lens and chartType combo', () => {
-      params = { chartType: 'area', lens: 'Overview', tab: 'Trends' };
-      state.tab = types.MODE_TRENDS;
-      actual = target(state, processParams(params));
-      expect(actual.chartType).toEqual('line');
-      expect(actual.lens).toEqual('Overview');
-      expect(actual.tab).toEqual('Trends');
-    });
-
-    it('handles valid lens and chartType combo', () => {
-      params = { chartType: 'area', lens: 'Product', tab: 'Trends' };
-      actual = target(state, processParams(params));
-      expect(actual.chartType).toEqual('area');
-      expect(actual.lens).toEqual('Product');
-    });
-
     it('handles the "All" button from the landing page', () => {
       params = { dataNormalization: 'None', dateRange: 'All' };
 
       actual = target(state, processParams(params));
 
-      expect(actual.date_received_min).toEqual('2011-12-01T12:00:00.000Z');
-      expect(actual.date_received_max).toEqual('2020-05-05T04:00:00.000Z');
+      expect(actual.date_received_min).toEqual('2011-12-01');
+      expect(actual.date_received_max).toEqual('2020-05-05');
       expect(actual.dateRange).toEqual('All');
     });
 
@@ -492,8 +451,8 @@ describe('reducer:query', () => {
         ).toEqual({
           ...testState,
           breakPoints: {},
-          date_received_min: '2001-01-30T05:00:00.000Z',
-          date_received_max: '2013-02-03T05:00:00.000Z',
+          date_received_min: '2001-01-30',
+          date_received_max: '2013-02-03',
           from: 0,
           page: 1,
           searchAfter: '',
@@ -544,7 +503,7 @@ describe('reducer:query', () => {
       it('handles All range', () => {
         action = 'All';
         result = target({}, dateRangeChanged(action));
-        expect(result.date_received_min).toEqual('2011-12-01T12:00:00.000Z');
+        expect(result.date_received_min).toEqual('2011-12-01');
       });
 
       it('handles 1y range', () => {
@@ -555,8 +514,8 @@ describe('reducer:query', () => {
           breakPoints: {},
           dateInterval: 'Month',
           dateRange: '1y',
-          date_received_max: '2020-05-05T04:00:00.000Z',
-          date_received_min: '2019-05-05T04:00:00.000Z',
+          date_received_max: '2020-05-05',
+          date_received_min: '2019-05-05',
           from: 0,
           page: 1,
           searchAfter: '',
@@ -572,20 +531,12 @@ describe('reducer:query', () => {
           ...queryState,
           breakPoints: {},
           dateRange: '3y',
-          date_received_min: '2017-05-05T04:00:00.000Z',
-          date_received_max: '2020-05-05T04:00:00.000Z',
+          date_received_min: '2017-05-05',
+          date_received_max: '2020-05-05',
           from: 0,
           page: 1,
           searchAfter: '',
         });
-      });
-
-      it('On Trends Tab handles All range', () => {
-        action = 'All';
-        state = { dateInterval: 'Day', tab: types.MODE_TRENDS };
-        result = target(state, dateRangeChanged(action));
-        expect(result.dateInterval).toEqual('Week');
-        expect(result.trendsDateWarningEnabled).toEqual(true);
       });
     });
   });

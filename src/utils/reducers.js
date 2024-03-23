@@ -40,7 +40,7 @@ export const enforceValues = (value, field) => {
     },
     size: {
       defaultVal: 10,
-      values: Object.keys(types.sizes).map((num) => Number.parseInt(num, 10)),
+      values: Object.keys(types.sizes),
     },
     sort: {
       defaultVal: 'created_date_desc',

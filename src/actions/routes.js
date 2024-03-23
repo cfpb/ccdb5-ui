@@ -13,7 +13,7 @@ const isEqual = require('react-fast-compare');
  */
 export function normalizeRouteParams(params) {
   const processed = { ...params };
-  const remove = ['searchType', 'viewName'];
+  const remove = ['search_after'];
   const numbers = ['size', 'page', 'trend_depth'];
 
   remove.forEach((value) => {
@@ -46,6 +46,7 @@ export function changeRoute(path, params) {
   // eslint-disable-next-line complexity
   return function (dispatch, getState) {
     const store = getState();
+    console.log('change route called!!!!', params);
     const normalized = normalizeRouteParams(params);
     const { routes } = store;
     const sameRoute =

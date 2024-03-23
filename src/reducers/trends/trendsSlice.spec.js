@@ -43,6 +43,7 @@ import {
   trendsAggsMissingBucketsResults,
 } from '../__fixtures__/trendsAggsMissingBuckets';
 import * as types from '../../constants';
+import target, { processParams } from '../query/querySlice';
 
 describe('reducer:trends', () => {
   let action, result, state;
@@ -63,6 +64,7 @@ describe('reducer:trends', () => {
         subLens: 'sub_product',
         tooltip: false,
         total: 0,
+        trendDepth: 5,
       });
     });
   });
@@ -646,6 +648,19 @@ describe('reducer:trends', () => {
       expect(result.lens).toEqual('Company');
       expect(result.subLens).toEqual('product');
       expect(result.nope).toBeFalsy();
+    });
+    it('handles invalid lens and chartType combo', () => {
+      const params = { chartType: 'area', lens: 'Overview' };
+      result = target(state, routeChanged('/', params));
+      expect(result.chartType).toEqual('line');
+      expect(result.lens).toEqual('Overview');
+    });
+
+    it('handles valid lens and chartType combo', () => {
+      const params = { chartType: 'area', lens: 'Product' };
+      result = target(state, processParams(params));
+      expect(result.chartType).toEqual('area');
+      expect(result.lens).toEqual('Product');
     });
   });
 

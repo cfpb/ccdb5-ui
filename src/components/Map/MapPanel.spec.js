@@ -11,7 +11,7 @@ import {
   screen,
 } from '../../testUtils/test-utils';
 import { MODE_MAP } from '../../constants';
-import * as viewActions from '../../reducers/query/querySlice';
+import * as viewActions from '../../reducers/filters/filtersSlice';
 
 describe('MapPanel', () => {
   const renderComponent = (
@@ -91,7 +91,7 @@ describe('MapPanel', () => {
     };
 
     const dismissSpy = jest
-      .spyOn(viewActions, 'dismissMapWarning')
+      .spyOn(viewActions, 'mapWarningDismissed')
       .mockReturnValue(jest.fn());
 
     renderComponent(aggs, map, query, view);

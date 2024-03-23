@@ -24,7 +24,6 @@ import {
 } from '../../constants';
 import { pruneOther } from '../../utils/trends';
 import { createSlice } from '@reduxjs/toolkit';
-import { validateDateInterval } from '../query/querySlice';
 
 export const emptyResults = () => ({
   dateRangeArea: [],
@@ -46,7 +45,6 @@ export const getDefaultState = () =>
     {},
     {
       chartType: 'line',
-      dateInterval: 'Month',
       focus: '',
       lens: 'Product',
       subLens: 'sub_product',
@@ -122,27 +120,6 @@ export const trendsSlice = createSlice({
       prepare: (subLens) => {
         return {
           payload: { subLens },
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
-    },
-    dateIntervalChanged: {
-      reducer: (state, action) => {
-        state.dateInterval = enforceValues(
-          action.payload.dateInterval,
-          'dateInterval',
-        );
-
-        validateDateInterval(state);
-      },
-      prepare: (dateInterval) => {
-        return {
-          payload: {
-            dateInterval,
-          },
           meta: {
             persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
@@ -681,7 +658,6 @@ export const {
   chartTypeUpdated,
   dataLensChanged,
   dataSubLensChanged,
-  dateIntervalChanged,
   depthChanged,
   depthReset,
   focusChanged,
