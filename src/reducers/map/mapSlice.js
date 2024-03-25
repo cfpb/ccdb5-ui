@@ -52,7 +52,7 @@ export const mapSlice = createSlice({
     },
     statesReceived: {
       reducer: (state, action) => {
-        const aggregations = action.payload.aggregations;
+        const { aggregations } = action.payload.data;
         const { state: stateData } = aggregations;
         // add in "issue" if we ever need issue row chart again
         const keys = ['product'];

@@ -18,7 +18,10 @@ import { TileChartMap } from './TileChartMap/TileChartMap';
 import Warning from '../Warnings/Warning';
 import { selectAggsTotal } from '../../reducers/aggs/selectors';
 
-import { selectFiltersMapWarningEnabled } from '../../reducers/filters/selectors';
+import {
+  selectFiltersEnablePer1000,
+  selectFiltersMapWarningEnabled,
+} from '../../reducers/filters/selectors';
 import {
   selectMapActiveCall,
   selectMapError,
@@ -28,7 +31,6 @@ import {
 import {
   selectQueryDateReceivedMax,
   selectQueryDateReceivedMin,
-  selectQueryEnablePer1000,
 } from '../../reducers/query/selectors';
 
 import {
@@ -53,7 +55,7 @@ export const MapPanel = () => {
   const isLoading = useSelector(selectMapActiveCall);
   const results = useSelector(selectMapResults);
   const hasError = useSelector(selectMapError);
-  const enablePer1000 = useSelector(selectQueryEnablePer1000);
+  const enablePer1000 = useSelector(selectFiltersEnablePer1000);
   const mapWarningEnabled = useSelector(selectFiltersMapWarningEnabled);
   const maxDate = useSelector(selectQueryDateReceivedMax);
   const minDate = useSelector(selectQueryDateReceivedMin);

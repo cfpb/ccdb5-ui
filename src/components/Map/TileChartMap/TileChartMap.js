@@ -9,11 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import TileMap from './TileMap';
 import { selectMapResultsState } from '../../../reducers/map/selectors';
-
-import {
-  selectQueryDataNormalization,
-  selectQueryStateFilters,
-} from '../../../reducers/query/selectors';
+import { selectFiltersDataNormalization } from '../../../reducers/filters/selectors';
+import { selectQueryStateFilters } from '../../../reducers/query/selectors';
 
 import {
   selectViewIsPrintMode,
@@ -23,7 +20,7 @@ import cloneDeep from 'lodash/cloneDeep';
 
 export const TileChartMap = () => {
   const dispatch = useDispatch();
-  const dataNormalization = useSelector(selectQueryDataNormalization);
+  const dataNormalization = useSelector(selectFiltersDataNormalization);
   const stateFilters = useSelector(selectQueryStateFilters);
   const stateMapResultsState = useSelector(selectMapResultsState);
   const data = useMemo(() => {

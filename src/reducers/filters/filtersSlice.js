@@ -1,5 +1,5 @@
 // default filter state
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import {
   PERSIST_SAVE_QUERY_STRING,
   REQUERY_ALWAYS,
@@ -10,6 +10,7 @@ import * as types from '../../constants';
 import { enforceValues } from '../../utils/reducers';
 import dayjs from 'dayjs';
 import { formatDate } from '../../utils/formatDate';
+import { routeChanged } from '../routes/routesSlice';
 
 export const filtersState = {
   company_received_max: '',
@@ -63,8 +64,6 @@ export const filtersSlice = createSlice({
           action.payload,
           'dataNormalization',
         );
-        state.enablePer1000 =
-          state.dataNormalization === types.GEO_NORM_PER1000;
       },
       prepare: (payload) => {
         return {
@@ -77,7 +76,6 @@ export const filtersSlice = createSlice({
     },
     filterAdded: {
       reducer: (state, action) => {
-        console.log(action);
         if (action.payload.filterName === 'has_narrative') {
           state.has_narrative = true;
         } else if (action.payload.filterName in state) {
@@ -155,13 +153,10 @@ export const filtersSlice = createSlice({
     },
     filterToggled: {
       reducer: (state, action) => {
-        return {
-          ...state,
-          [action.payload.filterName]: filterArrayAction(
-            state[action.payload.filterName],
-            action.payload.filterValue.key,
-          ),
-        };
+        state[action.payload.filterName] = filterArrayAction(
+          state[action.payload.filterName],
+          action.payload.filterValue.key,
+        );
       },
       prepare: (filterName, filterValue) => {
         return {
@@ -338,9 +333,39 @@ export const filtersSlice = createSlice({
         const lens = action.payload;
         const filterKey = lens.toLowerCase();
         delete state[filterKey];
-      });
+      })
+      .addMatcher(
+        isAnyOf(
+          filterAdded,
+          filterRemoved,
+          filtersCleared,
+          filtersReplaced,
+          filterToggled,
+          multipleFiltersAdded,
+          multipleFiltersRemoved,
+          routeChanged,
+        ),
+        (state) => {
+          pruneEmptyFilters(state);
+          validatePer1000(state);
+        },
+      );
   },
 });
+
+/**
+ * helper function to remove any empty arrays from known filter sets
+ *
+ * @param {object} state - we need to clean up
+ */
+export function pruneEmptyFilters(state) {
+  // go through the object and delete any filter keys that have no values in it
+  types.knownFilters.forEach((filter) => {
+    if (Array.isArray(state[filter]) && state[filter].length === 0) {
+      delete state[filter];
+    }
+  });
+}
 
 /**
  * defaults create new array if param doesn't exist yet

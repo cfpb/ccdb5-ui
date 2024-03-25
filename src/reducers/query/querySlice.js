@@ -172,7 +172,7 @@ export const querySlice = createSlice({
           payload,
           meta: {
             persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_ALWAYS,
+            requery: REQUERY_HITS_ONLY,
           },
         };
       },
@@ -610,20 +610,6 @@ function getPagination(page, state) {
 function getSearchAfter(state, page) {
   const { breakPoints } = state;
   return breakPoints && breakPoints[page] ? breakPoints[page].join('_') : '';
-}
-
-/**
- * helper function to remove any empty arrays from known filter sets
- *
- * @param {object} state - we need to clean up
- */
-export function pruneEmptyFilters(state) {
-  // go through the object and delete any filter keys that have no values in it
-  types.knownFilters.forEach((filter) => {
-    if (Array.isArray(state[filter]) && state[filter].length === 0) {
-      delete state[filter];
-    }
-  });
 }
 
 // ----------------------------------------------------------------------------

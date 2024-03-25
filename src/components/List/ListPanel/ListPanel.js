@@ -117,7 +117,7 @@ export const ListPanel = () => {
       </div>
       {renderMap[phase]()}
       <Pagination />
-      <Loading isLoading={!!isLoading || false} />
+      <Loading isLoading={!!isLoading} />
     </section>
   );
 };

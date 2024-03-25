@@ -181,66 +181,66 @@ describe('module::utils', () => {
 
   describe('enablePer1000', () => {
     it('handles no filters', () => {
-      const query = {
+      const filters = {
         date: {},
         bogus: {},
         product: [],
       };
 
-      expect(enablePer1000(query)).toBeTruthy();
+      expect(enablePer1000(filters)).toBeTruthy();
     });
 
     it('handles some filters', () => {
-      const query = {
+      const filters = {
         date: {},
         bogus: {},
         product: [{ name: 'foo', value: 123 }],
       };
 
-      expect(enablePer1000(query)).toBeFalsy();
+      expect(enablePer1000(filters)).toBeFalsy();
     });
 
     it('handles flag filters', () => {
-      const query = {
+      const filters = {
         date: {},
         bogus: {},
         has_narrative: true,
       };
 
-      expect(enablePer1000(query)).toBeFalsy();
+      expect(enablePer1000(filters)).toBeFalsy();
     });
 
     it('handles company_received filters', () => {
-      const query = {
+      const filters = {
         date: {},
         bogus: {},
         product: [],
         company_received_max: 'foo',
       };
 
-      expect(enablePer1000(query)).toBeFalsy();
+      expect(enablePer1000(filters)).toBeFalsy();
     });
 
     it('allows state filter', () => {
-      const query = {
+      const filters = {
         date: {},
         bogus: {},
         product: [],
         state: ['FL', 'OR'],
       };
 
-      expect(enablePer1000(query)).toBeTruthy();
+      expect(enablePer1000(filters)).toBeTruthy();
     });
 
     it('disallows state filter when others valid', () => {
-      const query = {
+      const filters = {
         date: {},
         bogus: {},
         product: ['BA'],
         state: ['FL', 'OR'],
       };
 
-      expect(enablePer1000(query)).toBeFalsy();
+      expect(enablePer1000(filters)).toBeFalsy();
     });
   });
 
