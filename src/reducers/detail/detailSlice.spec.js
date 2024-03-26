@@ -23,11 +23,9 @@ describe('reducer::detail', () => {
 
   it('handles complaintDetailReceived actions', () => {
     const payload = {
-      data: {
-        hits: {
-          hits: [{ _source: '123' }],
-          total: 1,
-        },
+      hits: {
+        hits: [{ _source: '123' }],
+        total: 1,
       },
     };
     expect(detail(detailState, complaintDetailReceived(payload))).toEqual({

@@ -356,6 +356,7 @@ export const filtersSlice = createSlice({
           multipleFiltersAdded,
           multipleFiltersRemoved,
           routeChanged,
+          toggleFlagFilter,
         ),
         (state) => {
           validatePer1000(state);

@@ -28,10 +28,7 @@ describe('reducer:View', () => {
 
   describe('Modal Actions', () => {
     it('shows a modal', () => {
-      action = {
-        modalType: 'foo',
-      };
-      expect(target(viewState, modalShown(action))).toEqual({
+      expect(target(viewState, modalShown('foo'))).toEqual({
         ...viewState,
         modalTypeShown: 'foo',
       });
