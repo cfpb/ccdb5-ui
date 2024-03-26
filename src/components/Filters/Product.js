@@ -1,8 +1,8 @@
-import { coalesce, sortSelThenCount } from '../../utils';
 import { MODE_TRENDS, SLUG_SEPARATOR } from '../../constants';
 import AggregationBranch from './AggregationBranch';
 import CollapsibleFilter from './CollapsibleFilter';
 import { connect } from 'react-redux';
+import { sortSelThenCount } from '../../utils';
 import MoreOrLess from './MoreOrLess';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -54,7 +54,7 @@ export const mapStateToProps = (state) => {
   const { aggs, filters, trends, view } = state;
   const { focus, lens } = trends;
   const { tab } = view;
-  const allProducts = coalesce(filters, 'product', []);
+  const allProducts = filters.product;
   const selections = [];
 
   // Reduce the products to the parent keys (and dedup)

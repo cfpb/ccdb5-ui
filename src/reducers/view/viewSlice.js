@@ -41,7 +41,7 @@ export const viewSlice = createSlice({
       state.modalTypeShown = false;
     },
     modalShown(state, action) {
-      state.modalTypeShown = action.payload.modalType;
+      state.modalTypeShown = action.payload;
     },
     showAdvancedSearchTips: {
       reducer: (state) => {
@@ -141,6 +141,9 @@ export const viewSlice = createSlice({
       .addCase('trends/dataLensChanged', (state) => {
         state.expandedRows = [];
       })
+      .addCase('trends/focusChanged', (state) => {
+        state.tab = types.MODE_TRENDS;
+      })
       .addCase('routes/routeChanged', (state, action) => {
         const params = action.payload.params;
 
@@ -150,8 +153,6 @@ export const viewSlice = createSlice({
 
         const arrayParams = ['expandedRows'];
         processUrlArrayParams(params, state, arrayParams);
-
-        return state;
       });
   },
 });

@@ -403,6 +403,7 @@ describe('Filters', () => {
           dataNormalization: 'None',
           enablePer1000: false,
           mapWarningEnabled: true,
+          state: [],
         });
       });
     });
@@ -428,6 +429,7 @@ describe('Filters', () => {
         result = target({ ...filtersState }, stateFilterRemoved(action));
         expect(result).toEqual({
           ...filtersState,
+          state: [],
         });
       });
     });
@@ -446,7 +448,7 @@ describe('Filters', () => {
         expect(target(state, dataNormalizationUpdated(action))).toEqual({
           ...state,
           dataNormalization: 'None',
-          enablePer1000: false,
+          enablePer1000: true,
           mapWarningEnabled: true,
         });
       });

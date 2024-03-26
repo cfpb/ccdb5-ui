@@ -11,7 +11,7 @@ import { PerCapita } from '../RefineBar/PerCapita';
 import { processRows } from '../../utils/chart';
 
 import React, { useMemo } from 'react';
-import { RowChart } from '../Charts/RowChart';
+import RowChart from '../Charts/RowChart';
 import { Separator } from '../RefineBar/Separator';
 import { TabbedNavigation } from '../TabbedNavigation';
 import { TileChartMap } from './TileChartMap/TileChartMap';
@@ -52,7 +52,7 @@ export const MapPanel = () => {
   const dispatch = useDispatch();
   const total = useSelector(selectAggsTotal);
 
-  const isLoading = useSelector(selectMapActiveCall);
+  const activeCall = useSelector(selectMapActiveCall);
   const results = useSelector(selectMapResults);
   const hasError = useSelector(selectMapError);
   const enablePer1000 = useSelector(selectFiltersEnablePer1000);
@@ -102,7 +102,7 @@ export const MapPanel = () => {
         total={total}
       />
 
-      <Loading isLoading={!!isLoading} />
+      <Loading isLoading={activeCall !== ''} />
     </section>
   );
 };

@@ -9,17 +9,16 @@ import {
   selectTrendsFocus,
   selectTrendsLens,
 } from '../../reducers/trends/selectors';
-import { selectFiltersState } from '../../reducers/filters/selectors';
+import { selectFiltersCompany } from '../../reducers/filters/selectors';
 
 const FIELD_NAME = 'company';
 
 export const Company = () => {
   const aggs = useSelector(selectAggsState);
-  const filters = useSelector(selectFiltersState);
+  const filters = useSelector(selectFiltersCompany);
   const focus = useSelector(selectTrendsFocus);
   const lens = useSelector(selectTrendsLens);
   const options = cloneDeep(coalesce(aggs, FIELD_NAME, []));
-  const selections = coalesce(filters, FIELD_NAME, []);
   const isFocusPage = focus && lens === 'Company';
 
   options.forEach((opt) => {
@@ -38,7 +37,7 @@ export const Company = () => {
       <StickyOptions
         fieldName={FIELD_NAME}
         options={options}
-        selections={selections}
+        selections={filters}
       />
     </CollapsibleFilter>
   );

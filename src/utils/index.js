@@ -416,19 +416,25 @@ export const getSubKeyName = (bucket) => {
  * set the values in the processed object
  *
  * @param {object} params - the object from the URL_CHANGED action
- * @param {object} processed - the state we will update with a single value or arr
+ * @param {object} state - the state we will update with a single value or arr
  * @param {object} arrayParams - the array of strings that we will check against
  */
-export const processUrlArrayParams = (params, processed, arrayParams) => {
+export const processUrlArrayParams = (params, state, arrayParams) => {
   arrayParams.forEach((field) => {
     if (typeof params[field] !== 'undefined') {
       if (typeof params[field] === 'string') {
-        processed[field] = [params[field]];
+        state[field] = [params[field]];
       } else {
-        processed[field] = params[field];
+        state[field] = params[field];
       }
     }
   });
+
+  if (params.has_narrative) {
+    state.has_narrative = params.has_narrative;
+  } else {
+    delete state.has_narrative;
+  }
 };
 
 /**

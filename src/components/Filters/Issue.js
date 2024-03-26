@@ -9,13 +9,13 @@ import { Typeahead } from '../Typeahead/Typeahead/Typeahead';
 import { selectAggsState } from '../../reducers/aggs/selectors';
 import MoreOrLess from './MoreOrLess';
 import AggregationBranch from './AggregationBranch';
-import { selectFiltersState } from '../../reducers/filters/selectors';
+import { selectFiltersIssue } from '../../reducers/filters/selectors';
 
 export const Issue = ({ hasChildren }) => {
   const dispatch = useDispatch();
   const [dropdownOptions, setDropdownOptions] = useState([]);
   const aggs = useSelector(selectAggsState);
-  const filtersState = useSelector(selectFiltersState);
+  const filters = useSelector(selectFiltersIssue);
 
   const desc =
     'The type of issue and sub-issue the consumer identified ' +
@@ -24,7 +24,6 @@ export const Issue = ({ hasChildren }) => {
     fieldName: 'issue',
   };
 
-  const filters = coalesce(filtersState, 'issue', []);
   const selections = [];
   // Reduce the issues to the parent keys (and dedup)
   filters.forEach((filter) => {

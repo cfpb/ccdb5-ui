@@ -13,11 +13,23 @@ import { formatDate } from '../../utils/formatDate';
 import { routeChanged } from '../routes/routesSlice';
 
 export const filtersState = {
+  company: [],
+  company_public_response: [],
   company_received_max: '',
   company_received_min: '',
+  company_response: [],
+  consumer_consent_provided: [],
+  consumer_disputed: [],
   dataNormalization: types.GEO_NORM_NONE,
   enablePer1000: false,
+  issue: [],
   mapWarningEnabled: true,
+  product: [],
+  state: [],
+  submitted_via: [],
+  tags: [],
+  timely: [],
+  zip_code: [],
 };
 
 export const filtersSlice = createSlice({
@@ -258,7 +270,7 @@ export const filtersSlice = createSlice({
     },
     stateFilterCleared: {
       reducer: (state) => {
-        delete state.state;
+        state.state = [];
       },
       prepare: (payload) => {
         return {
@@ -346,26 +358,11 @@ export const filtersSlice = createSlice({
           routeChanged,
         ),
         (state) => {
-          pruneEmptyFilters(state);
           validatePer1000(state);
         },
       );
   },
 });
-
-/**
- * helper function to remove any empty arrays from known filter sets
- *
- * @param {object} state - we need to clean up
- */
-export function pruneEmptyFilters(state) {
-  // go through the object and delete any filter keys that have no values in it
-  types.knownFilters.forEach((filter) => {
-    if (Array.isArray(state[filter]) && state[filter].length === 0) {
-      delete state[filter];
-    }
-  });
-}
 
 /**
  * defaults create new array if param doesn't exist yet

@@ -4,12 +4,12 @@ import getIcon from '../iconMap';
 import React from 'react';
 import { MODE_LIST, THESE_UNITED_STATES } from '../../constants';
 import { stateFilterCleared } from '../../reducers/filters/filtersSlice';
-import { selectQueryStateFilters } from '../../reducers/query/selectors';
+import { selectFiltersState } from '../../reducers/filters/selectors';
 import { tabChanged } from '../../reducers/view/viewSlice';
 
 export const MapToolbar = () => {
   const dispatch = useDispatch();
-  const stateFilters = useSelector(selectQueryStateFilters);
+  const stateFilters = useSelector(selectFiltersState);
   const filteredStates = stateFilters
     ? stateFilters
         .filter((state) => state in THESE_UNITED_STATES)

@@ -16,12 +16,12 @@ import { Pill } from './Pill';
 import React from 'react';
 import { filtersCleared } from '../../reducers/filters/filtersSlice';
 import { startOfToday } from '../../utils';
-import { selectFiltersState } from '../../reducers/filters/selectors';
+import { selectFiltersFilterState } from '../../reducers/filters/selectors';
 
 /* eslint complexity: ["error", 5] */
 export const PillPanel = () => {
   const dispatch = useDispatch();
-  const filterState = useSelector(selectFiltersState);
+  const filterState = useSelector(selectFiltersFilterState);
   const dateReceivedMin = useSelector(selectQueryDateReceivedMin);
   const dateReceivedMax = useSelector(selectQueryDateReceivedMax);
   const hasNarrative = useSelector(selectFiltersHasNarrative);

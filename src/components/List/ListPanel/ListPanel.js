@@ -36,7 +36,7 @@ export const ListPanel = () => {
   const hasError = useSelector(selectAggsHasError);
   const size = useSelector(selectQuerySize);
   const sort = useSelector(selectQuerySort);
-  const isLoading = useSelector(selectResultsActiveCall);
+  const activeCall = useSelector(selectResultsActiveCall);
   const items = useSelector(selectResultsItems);
   const width = useSelector(selectViewWidth);
 
@@ -117,7 +117,7 @@ export const ListPanel = () => {
       </div>
       {renderMap[phase]()}
       <Pagination />
-      <Loading isLoading={!!isLoading} />
+      <Loading isLoading={activeCall !== ''} />
     </section>
   );
 };
