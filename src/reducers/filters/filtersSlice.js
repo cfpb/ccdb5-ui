@@ -138,12 +138,13 @@ export const filtersSlice = createSlice({
     filtersCleared: (state, action) => {
       const allFilters = types.knownFilters.concat(types.flagFilters);
       if (types.NARRATIVE_SEARCH_FIELD === action.payload) {
+        // keep has_narrative intact if we're coming from Narratives search
         const idx = allFilters.indexOf('has_narrative');
         allFilters.splice(idx, 1);
       }
       allFilters.forEach((knownFilter) => {
         if (knownFilter in state) {
-          delete state[knownFilter];
+          state[knownFilter] = [];
         }
       });
     },
@@ -287,9 +288,6 @@ export const filtersSlice = createSlice({
         const stateFilters = coalesce(state, 'state', []);
         const { abbr } = action.payload.selectedState;
         state.state = stateFilters.filter((state) => state !== abbr);
-        if (!state.state.length) {
-          delete state.state;
-        }
       },
       prepare: (selectedState) => {
         return {
@@ -356,6 +354,8 @@ export const filtersSlice = createSlice({
           multipleFiltersAdded,
           multipleFiltersRemoved,
           routeChanged,
+          stateFilterCleared,
+          stateFilterRemoved,
           toggleFlagFilter,
         ),
         (state) => {

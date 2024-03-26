@@ -182,6 +182,7 @@ describe('Filters', () => {
         delete newState.has_narrative;
         expect(target(state, filterRemoved(filterName, filterValue))).toEqual({
           ...newState,
+          enablePer1000: true,
         });
       });
 
@@ -190,6 +191,7 @@ describe('Filters', () => {
         state = {
           ...filtersState,
           dataNormalization: 'None',
+          enablePer1000: true,
           has_narrative: true,
         };
         const newState = { ...state };
@@ -205,13 +207,14 @@ describe('Filters', () => {
           target(filtersState, filterRemoved(filterName, filterValue)),
         ).toEqual({
           ...filtersState,
+          enablePer1000: true,
         });
       });
     });
   });
 
   describe('FILTER_ALL_REMOVED actions', () => {
-    let action, state;
+    let state;
     beforeEach(() => {
       state = {
         ...filtersState,
@@ -226,26 +229,10 @@ describe('Filters', () => {
         state,
         filtersCleared(types.NARRATIVE_SEARCH_FIELD),
       );
-      delete state.company;
-      delete state.timely;
-      expect(actual).toMatchObject({
-        ...state,
-      });
-    });
 
-    // TODO: we need to move this logic to the component level or another action
-    // searchField lives in the query reducer and should not have this logic
-    describe.skip('when searching Narratives', () => {
-      it('does not clear the hasNarrative filter', () => {
-        state.searchField = types.NARRATIVE_SEARCH_FIELD;
-        delete state.company;
-        delete state.timely;
-        const actual = target(state, filtersCleared(action));
-        expect(actual).toMatchObject({
-          ...state,
-          has_narrative: true,
-          searchField: types.NARRATIVE_SEARCH_FIELD,
-        });
+      expect(actual).toMatchObject({
+        ...filtersState,
+        has_narrative: true,
       });
     });
   });
@@ -306,6 +293,7 @@ describe('Filters', () => {
         target(filtersState, multipleFiltersRemoved(filterName, values)),
       ).toEqual({
         ...filtersState,
+        enablePer1000: true,
       });
     });
   });
@@ -331,6 +319,7 @@ describe('Filters', () => {
         ),
       ).toEqual({
         ...filtersState,
+        enablePer1000: true,
       });
     });
   });
@@ -347,6 +336,7 @@ describe('Filters', () => {
       expect(target(state, filtersReplaced(filterName, values))).toEqual({
         ...state,
         foobar: [3, 4, 5],
+        enablePer1000: true,
       });
     });
   });
@@ -400,10 +390,7 @@ describe('Filters', () => {
 
         expect(result).toEqual({
           ...filtersState,
-          dataNormalization: 'None',
-          enablePer1000: false,
-          mapWarningEnabled: true,
-          state: [],
+          enablePer1000: true,
         });
       });
     });
@@ -422,6 +409,7 @@ describe('Filters', () => {
         );
         expect(result).toEqual({
           ...filtersState,
+          enablePer1000: true,
           state: ['CA'],
         });
       });
@@ -429,7 +417,7 @@ describe('Filters', () => {
         result = target({ ...filtersState }, stateFilterRemoved(action));
         expect(result).toEqual({
           ...filtersState,
-          state: [],
+          enablePer1000: true,
         });
       });
     });
@@ -448,8 +436,6 @@ describe('Filters', () => {
         expect(target(state, dataNormalizationUpdated(action))).toEqual({
           ...state,
           dataNormalization: 'None',
-          enablePer1000: true,
-          mapWarningEnabled: true,
         });
       });
 
@@ -458,8 +444,6 @@ describe('Filters', () => {
         expect(target(state, dataNormalizationUpdated(action))).toEqual({
           ...state,
           dataNormalization: 'Per 1000 pop.',
-          enablePer1000: true,
-          mapWarningEnabled: true,
         });
       });
     });

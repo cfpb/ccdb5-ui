@@ -183,6 +183,7 @@ export function enablePer1000(filters) {
   }
 
   if (keys.length) {
+    // normalization still okay as long as only State filters are applied
     return keys.length === 1 && keys[0] === 'state';
   }
 
