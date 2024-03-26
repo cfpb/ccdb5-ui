@@ -25,6 +25,9 @@ export const TileChartMap = () => {
   const dataNormalization = useSelector(selectFiltersDataNormalization);
   const stateFilters = useSelector(selectFiltersState);
   const stateMapResultsState = useSelector(selectMapResultsState);
+  const isPrintMode = useSelector(selectViewIsPrintMode);
+  const width = useSelector(selectViewWidth);
+
   const data = useMemo(() => {
     return stateMapResultsState.map((state) => {
       const newState = cloneDeep(state);
@@ -39,8 +42,6 @@ export const TileChartMap = () => {
     });
   }, [stateMapResultsState]);
 
-  const isPrintMode = useSelector(selectViewIsPrintMode);
-  const width = useSelector(selectViewWidth);
   const hasTip = !isPrintMode;
   const _toggleState = useCallback(
     (event) => {
