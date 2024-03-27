@@ -14,7 +14,7 @@ import { capitalize, clamp, removeNullProperties } from '../../utils';
  * @returns {object} a dictionary of strings
  */
 export function extractAggregationParams(state) {
-  const { query } = state;
+  const { filters, query } = state;
 
   const set1 = {
     field: 'all',
@@ -29,11 +29,18 @@ export function extractAggregationParams(state) {
     set1.search_term = query.searchText;
   }
 
+  const filterParams = Object.keys(filters).filter(
+    (key) =>
+      // exclude these from query
+      !['dataNormalization', 'enablePer1000', 'mapWarningEnabled'].includes(
+        key,
+      ),
+  );
   // Grab specific attributes from the reducers
   return Object.assign(
     {},
     set1,
-    extractReducerAttributes(state.filters, Object.keys(state.filters)),
+    extractReducerAttributes(filters, filterParams),
   );
 }
 
@@ -45,11 +52,19 @@ export function extractAggregationParams(state) {
  * @returns {object} a dictionary of strings
  */
 export function extractBasicParams(filterState, queryState) {
+  const filterParams = Object.keys(filterState).filter(
+    (key) =>
+      // exclude these from query
+      !['dataNormalization', 'enablePer1000', 'mapWarningEnabled'].includes(
+        key,
+      ),
+  );
+
   // Grab specific attributes from the reducers
   return Object.assign(
     {},
     extractQueryParams(queryState),
-    extractReducerAttributes(filterState, Object.keys(filterState)),
+    extractReducerAttributes(filterState, filterParams),
   );
 }
 

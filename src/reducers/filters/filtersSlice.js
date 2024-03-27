@@ -242,13 +242,6 @@ export const filtersSlice = createSlice({
         };
       },
     },
-    processParams: {
-      reducer: (state, action) => {
-        const params = { ...action.payload.params };
-        // Handle the aggregation filters
-        processUrlArrayParams(params, state, types.knownFilters);
-      },
-    },
     stateFilterAdded: {
       reducer: (state, action) => {
         const stateFilters = coalesce(state, 'state', []);
@@ -323,7 +316,9 @@ export const filtersSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase('routes/routeChanged', (state, action) => {
-        filtersSlice.caseReducers.processParams(state, action);
+        const { params } = action.payload;
+        // Handle the aggregation filters
+        processUrlArrayParams(params, state, types.knownFilters);
       })
       .addCase('trends/focusChanged', (state, action) => {
         const { focus, lens, filterValues } = action.payload;

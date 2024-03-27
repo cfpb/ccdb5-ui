@@ -30,7 +30,7 @@ import {
   complaintsApiFailed,
   complaintsReceived,
 } from '../reducers/results/resultsSlice';
-import { buildUri } from '../api/url/url';
+import { buildAggregationUri, buildUri } from '../api/url/url';
 
 // ----------------------------------------------------------------------------
 // Routing action
@@ -97,8 +97,8 @@ export function getAggregations() {
   return (dispatch, getState) => {
     const store = getState();
 
-    const qs = buildUri(store);
-    const uri = API_PLACEHOLDER + qs + '&size=0';
+    const qs = buildAggregationUri(store);
+    const uri = API_PLACEHOLDER + qs;
 
     // This call is already in process
     if (store.aggs.activeCall) {

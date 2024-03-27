@@ -8,15 +8,17 @@ import { selectQueryState } from '../../reducers/query/selectors';
 import { AsyncTypeahead } from '../Typeahead/AsyncTypeahead/AsyncTypeahead';
 import { handleFetchSearch } from '../Typeahead/utils';
 import { multipleFiltersAdded } from '../../reducers/filters/filtersSlice';
+import { selectFiltersFilterState } from '../../reducers/filters/selectors';
 
 const FIELD_NAME = 'zip_code';
 
 export const ZipCode = ({ delayWait }) => {
   const dispatch = useDispatch();
   const query = useSelector(selectQueryState);
+  const filters = useSelector(selectFiltersFilterState);
   const [dropdownOptions, setDropdownOptions] = useState([]);
 
-  const queryState = Object.assign({}, query);
+  const queryState = Object.assign({}, query, filters);
   queryState.searchAfter = '';
   const queryString = stateToQS(queryState);
 

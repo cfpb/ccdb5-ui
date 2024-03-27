@@ -16,6 +16,7 @@ import target, {
   toggleFlagFilter,
 } from './filtersSlice';
 import * as types from '../../constants';
+import { routeChanged } from '../routes/routesSlice';
 
 describe('Filters', () => {
   describe('FILTER_CHANGED actions updates query with filter state', () => {
@@ -465,6 +466,38 @@ describe('Filters', () => {
           mapWarningEnabled: false,
         });
       });
+    });
+  });
+  describe('URL_CHANGED actions', () => {
+    let actual, state;
+
+    beforeEach(() => {
+      state = { ...filtersState };
+    });
+
+    it('handles empty params', () => {
+      expect(target(state, routeChanged('/', {}))).toEqual({
+        ...state,
+        enablePer1000: true,
+      });
+    });
+
+    it('converts flag parameters to booleans', () => {
+      const params = { has_narrative: 'true' };
+      actual = target(state, routeChanged('/', params)).has_narrative;
+      expect(actual).toEqual(true);
+    });
+
+    it('handles a single filter', () => {
+      const params = { product: 'Debt Collection' };
+      actual = target(state, routeChanged('/', params));
+      expect(actual.product).toEqual(['Debt Collection']);
+    });
+
+    it('handles multiple filters', () => {
+      const params = { product: ['Debt Collection', 'Mortgage'] };
+      actual = target(state, routeChanged('/', params));
+      expect(actual.product).toEqual(['Debt Collection', 'Mortgage']);
     });
   });
 });

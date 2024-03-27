@@ -2,7 +2,6 @@ import target, {
   alignDateRange,
   dateRangeChanged,
   queryState,
-  processParams,
   changeDates,
   sortChanged,
   sizeChanged,
@@ -15,15 +14,12 @@ import * as types from '../../constants';
 import dayjs from 'dayjs';
 import { startOfToday } from '../../utils';
 import { complaintsReceived } from '../results/resultsSlice';
+import { routeChanged } from '../routes/routesSlice';
 
 const maxDate = startOfToday();
 
 describe('reducer:query', () => {
   let result, state;
-  const test_date_received_max = dayjs(maxDate).toISOString();
-  const test_date_received_min = dayjs(
-    new Date(dayjs(startOfToday()).subtract(3, 'years')).toISOString(),
-  );
   describe('default', () => {
     it('has a default state', () => {
       result = target(undefined, {});
@@ -288,87 +284,62 @@ describe('reducer:query', () => {
       state = { ...queryState };
     });
 
-    xit('handles empty params', () => {
-      expect(target(state, processParams(params))).toEqual(state);
+    it('handles empty params', () => {
+      expect(target(state, routeChanged('', params))).toEqual(state);
     });
 
     it('handles string params', () => {
       params = { searchText: 'hello' };
-      actual = target(state, processParams(params));
+      actual = target(state, routeChanged('', params));
       expect(actual.searchText).toEqual('hello');
     });
 
     it('handles size parameter', () => {
       params = { size: '100' };
-      actual = target(state, processParams(params));
+      actual = target(state, routeChanged('', params));
       expect(actual.size).toEqual('100');
     });
 
     it('handles page number', () => {
       params = { page: '100' };
-      actual = target(state, processParams(params));
+      actual = target(state, routeChanged('', params));
       expect(actual.page).toEqual('100');
     });
 
     it('handles bogus date parameters', () => {
       params = { dateInterval: '3y', dateRange: 'Week' };
-      actual = target(state, processParams(params));
+      actual = target(state, routeChanged('', params));
       expect(actual.dateInterval).toEqual('Month');
       expect(actual.dateRange).toEqual('3y');
     });
 
     it('handles bogus size & sort parameters', () => {
       params = { size: '9999', sort: 'tables' };
-      actual = target(state, processParams(params));
+      actual = target(state, routeChanged('', params));
       expect(actual.size).toEqual(10);
       expect(actual.sort).toEqual('created_date_desc');
     });
 
     it('converts some parameters to dates', () => {
       params = { date_received_min: '2013-02-03' };
-      actual = target(state, processParams(params)).date_received_min;
+      actual = target(state, routeChanged('', params)).date_received_min;
       expect(actual).toEqual('2013-02-03');
     });
 
-    it('converts flag parameters to booleans', () => {
-      params = { has_narrative: 'true' };
-      actual = target(state, processParams(params)).has_narrative;
-      expect(actual).toEqual(true);
-    });
-
-    xit('ignores incorrect dates', () => {
+    it('ignores incorrect dates', () => {
       params = { date_received_min: 'foo' };
-      expect(target(state, processParams(params))).toEqual(state);
+      expect(target(state, routeChanged('', params))).toEqual(state);
     });
 
-    xit('ignores unknown parameters', () => {
+    it('ignores unknown parameters', () => {
       params = { foo: 'bar' };
-      expect(target(state, processParams(params))).toEqual(state);
-    });
-
-    it('handles a single filter', () => {
-      params = { product: 'Debt Collection' };
-      actual = target(state, processParams(params));
-      expect(actual.product).toEqual(['Debt Collection']);
-    });
-
-    it('handles a multiple filters', () => {
-      params = { product: ['Debt Collection', 'Mortgage'] };
-      actual = target(state, processParams(params));
-      expect(actual.product).toEqual(['Debt Collection', 'Mortgage']);
-    });
-
-    it('handles a multiple filters & focus', () => {
-      params = { product: ['Debt Collection', 'Mortgage'] };
-      actual = target({ ...state }, processParams(params));
-      expect(actual.focus).toEqual('');
-      expect(actual.product).toEqual(['Debt Collection', 'Mortgage']);
+      expect(target(state, routeChanged('', params))).toEqual(state);
     });
 
     it('handles the "All" button from the landing page', () => {
       params = { dataNormalization: 'None', dateRange: 'All' };
 
-      actual = target(state, processParams(params));
+      actual = target(state, routeChanged('', params));
 
       expect(actual.date_received_min).toEqual('2011-12-01');
       expect(actual.date_received_max).toEqual('2020-05-05');

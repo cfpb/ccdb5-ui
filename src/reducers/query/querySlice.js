@@ -1,8 +1,8 @@
-/* eslint complexity: ["error", 6] */
 import * as types from '../../constants';
 import {
   calculateDateRange,
   clamp,
+  coalesce,
   // processUrlArrayParams,
   shortIsoFormat,
   startOfToday,
@@ -23,8 +23,10 @@ import {
   filterRemoved,
   filtersCleared,
   filtersReplaced,
+  filterToggled,
   multipleFiltersAdded,
   multipleFiltersRemoved,
+  toggleFlagFilter,
 } from '../filters/filtersSlice';
 import { tabChanged } from '../view/viewSlice';
 const queryString = require('query-string');
@@ -56,112 +58,10 @@ const fieldMap = {
   from: 'frm',
 };
 
-const trendFieldMap = {
-  dateInterval: 'trend_interval',
-  lens: 'lens',
-  subLens: 'sub_lens',
-  trendDepth: 'trend_depth',
-};
-
-const urlParams = [
-  'chartType',
-  'dateInterval',
-  'dateRange',
-  'searchText',
-  'from',
-  'page',
-  'searchField',
-  'size',
-  'sort',
-];
-
-/**
- * Processes an object of key/value strings into the correct internal format
- * Note: the passed-in state is modified and returned (Fluent interface)
- *
- * @param {object} state - the state being built
- * @param {object} params - the object containing the key/value pairs
- */
-export function appQueryStringToState(state, params) {
-  // Set some variables from the URL
-  const keys = [
-    'date_received_min',
-    'date_received_max',
-    'searchFields',
-    'sort',
-  ];
-  for (const item in keys) {
-    if (params[item]) {
-      state[item] = params[item];
-    }
-  }
-  // Handle numeric fields
-  const defaultPage = params.page ?? '1';
-  const defaultSize = params.size ?? '10';
-  state.page = parseInt(defaultPage, 10);
-  state.size = parseInt(defaultSize, 10);
-
-  if (params.search_after) {
-    state.searchAfter = params.search_after;
-  }
-}
-
 export const querySlice = createSlice({
   name: 'query',
   initialState: queryState,
   reducers: {
-    processParams: {
-      reducer: (state, action) => {
-        const params = { ...action.payload.params };
-
-        // Filter for known
-        urlParams.forEach((field) => {
-          if (typeof params[field] !== 'undefined') {
-            state[field] = enforceValues(params[field], field);
-          }
-        });
-
-        // Handle the aggregation filters
-        // processUrlArrayParams(params, state, types.knownFilters);
-
-        // Handle date filters
-        types.dateFilters.forEach((field) => {
-          if (typeof params[field] !== 'undefined') {
-            const date = formatDate(params[field]);
-
-            if (date) {
-              state[field] = date;
-            }
-          }
-        });
-
-        // Handle flag filters
-        types.flagFilters.forEach((field) => {
-          if (typeof params[field] !== 'undefined') {
-            state[field] = params[field] === 'true';
-          }
-        });
-
-        // Apply the date range
-        if (dateRangeNoDates(params) || params.dateRange === 'All') {
-          const innerAction = { payload: { dateRange: params.dateRange } };
-          querySlice.caseReducers.dateRangeChanged(state, innerAction);
-        }
-
-        alignDateRange(state);
-        state.page = params.page ?? state.page;
-      },
-      prepare: (params) => {
-        return {
-          payload: {
-            params,
-          },
-          meta: {
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
-    },
     dateIntervalChanged: {
       reducer: (state, action) => {
         state.dateInterval = enforceValues(action.payload, 'dateInterval');
@@ -425,24 +325,50 @@ export const querySlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase('results/complaintsReceived', (state, action) => {
-        // querySlice.caseReducers.processParams(state, action);
         querySlice.caseReducers.updateTotalPages(state, action);
       })
       .addCase('routes/routeChanged', (state, action) => {
-        appQueryStringToState(state, action.payload.params);
+        const { params } = action.payload;
+        // Set some variables from the URL
+        const keys = [
+          'date_received_min',
+          'date_received_max',
+          'searchFields',
+          'sort',
+        ];
+        for (const item in keys) {
+          if (params[item]) {
+            state[item] = params[item];
+          }
+        }
+        // Handle numeric fields
+        const defaultPage = coalesce(params, 'page', queryState.page);
+        const defaultSize = coalesce(params, 'size', queryState.size);
+        state.page = parseInt(defaultPage, 10);
+        state.size = parseInt(defaultSize, 10);
+
+        if (params.search_after) {
+          state.searchAfter = params.search_after;
+        }
+
+        // Apply the date range
+        if (dateRangeNoDates(params) || params.dateRange === 'All') {
+          const innerAction = { payload: { dateRange: params.dateRange } };
+          querySlice.caseReducers.dateRangeChanged(state, innerAction);
+        }
+
+        alignDateRange(state);
       })
       .addMatcher(
         isAnyOf(
-          // actions.DATE_INTERVAL_CHANGED,
-          // actions.DATE_RANGE_CHANGED,
           // actions.DATES_CHANGED,
-          // actions.FILTER_ALL_REMOVED,
           // actions.FILTER_CHANGED,
           // actions.FILTER_FLAG_CHANGED,
           dateIntervalChanged,
           dateRangeChanged,
           filterAdded,
           filterRemoved,
+          filterToggled,
           filtersCleared,
           filtersReplaced,
           multipleFiltersAdded,
@@ -452,6 +378,7 @@ export const querySlice = createSlice({
           sizeChanged,
           sortChanged,
           tabChanged,
+          toggleFlagFilter,
         ),
         (state) => {
           clearPager(state);
@@ -649,8 +576,6 @@ export function stateToQS(state) {
     // Map the internal field names to the API field names
     if (fieldMap[field]) {
       params[fieldMap[field]] = value;
-    } else if (trendFieldMap[field]) {
-      params[trendFieldMap[field]] = value.toString().toLowerCase();
     } else {
       params[field] = value;
     }
@@ -702,73 +627,73 @@ export function stateToQS(state) {
   return '?' + queryString.stringify(filteredParams);
 }
 
-/**
- * Converts a set of key/value pairs into a query string for URL history.
- *
- * @param {string} state - a set of key/value pairs
- * @returns {string} a formatted query string
- */
-export function stateToURL(state) {
-  const params = {};
-  const fields = Object.keys(state);
-
-  // Copy over the fields
-  // eslint-disable-next-line complexity
-  fields.forEach((field) => {
-    // Do not include empty fields
-    if (!state[field]) {
-      return;
-    }
-
-    // Exclude these params from the browser url
-    if (['queryString', 'url', 'breakPoints'].includes(field)) {
-      return;
-    }
-
-    let value = state[field];
-
-    // Process date filters url-friendly display
-    if (types.dateFilters.indexOf(field) !== -1) {
-      value = shortIsoFormat(value);
-    }
-    params[field] = value;
-  });
-
-  // list of API params
-  // https://cfpb.github.io/api/ccdb/api/index.html#/
-  const commonParams = [].concat(
-    ['searchText', 'searchField', 'tab'],
-    types.dateFilters,
-    types.knownFilters,
-    types.flagFilters,
-  );
-
-  const paramMap = {
-    List: ['sort', 'size', 'page'],
-    Map: ['dataNormalization', 'dateRange', 'expandedRows'],
-    Trends: [
-      'chartType',
-      'dateRange',
-      'dateInterval',
-      'expandedRows',
-      'lens',
-      'focus',
-      'subLens',
-    ],
-  };
-
-  const filterKeys = [].concat(commonParams, paramMap[params.tab]);
-
-  // where we only filter out the params required for each of the tabs
-  const filteredParams = Object.keys(params)
-    .filter((key) => filterKeys.includes(key))
-    .reduce((obj, key) => {
-      obj[key] = params[key];
-      return obj;
-    }, {});
-
-  return '?' + queryString.stringify(filteredParams);
-}
+// /**
+//  * Converts a set of key/value pairs into a query string for URL history.
+//  *
+//  * @param {string} state - a set of key/value pairs
+//  * @returns {string} a formatted query string
+//  */
+// export function stateToURL(state) {
+//   const params = {};
+//   const fields = Object.keys(state);
+//
+//   // Copy over the fields
+//   // eslint-disable-next-line complexity
+//   fields.forEach((field) => {
+//     // Do not include empty fields
+//     if (!state[field]) {
+//       return;
+//     }
+//
+//     // Exclude these params from the browser url
+//     if (['queryString', 'url', 'breakPoints'].includes(field)) {
+//       return;
+//     }
+//
+//     let value = state[field];
+//
+//     // Process date filters url-friendly display
+//     if (types.dateFilters.indexOf(field) !== -1) {
+//       value = shortIsoFormat(value);
+//     }
+//     params[field] = value;
+//   });
+//
+//   // list of API params
+//   // https://cfpb.github.io/api/ccdb/api/index.html#/
+//   const commonParams = [].concat(
+//     ['searchText', 'searchField', 'tab'],
+//     types.dateFilters,
+//     types.knownFilters,
+//     types.flagFilters,
+//   );
+//
+//   const paramMap = {
+//     List: ['sort', 'size', 'page'],
+//     Map: ['dataNormalization', 'dateRange', 'expandedRows'],
+//     Trends: [
+//       'chartType',
+//       'dateRange',
+//       'dateInterval',
+//       'expandedRows',
+//       'lens',
+//       'focus',
+//       'subLens',
+//     ],
+//   };
+//
+//   const filterKeys = [].concat(commonParams, paramMap[params.tab]);
+//
+//   // where we only filter out the params required for each of the tabs
+//   const filteredParams = Object.keys(params)
+//     .filter((key) => filterKeys.includes(key))
+//     .reduce((obj, key) => {
+//       obj[key] = params[key];
+//       return obj;
+//     }, {});
+//
+//   return '?' + queryString.stringify(filteredParams);
+// }
 
 /**
  * helper function to clear out breakpoints, reset page to 1 when any sort
@@ -791,7 +716,6 @@ export const {
   dismissTrendsDateWarning,
   nextPageShown,
   prevPageShown,
-  processParams,
   removeAllFilters,
   searchFieldChanged,
   searchTextChanged,

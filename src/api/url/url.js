@@ -3,7 +3,6 @@ import * as paramFns from '../params/params';
 import queryString from 'query-string';
 import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../../constants';
 
-const uri = '/';
 /**
  * Creates an aggregation query
  *
@@ -15,7 +14,7 @@ export function buildAggregationUri(state) {
   // Add the no-hits param
   params.size = 0;
 
-  return formatUri(uri, params);
+  return formatUri('', params);
 }
 
 /**
@@ -53,7 +52,7 @@ export function buildUri(state) {
       break;
   }
 
-  return formatUri(uri, params);
+  return formatUri('', params);
 }
 
 /**
@@ -76,23 +75,4 @@ export function formatUri(path, params) {
  */
 export function genDocumentHref(indexPath, referenceNumber = '') {
   return '/' + indexPath + '/document?id=' + referenceNumber;
-}
-
-/**
- * Generates a link for MLT 'See more like this narrative`
- *
- * @param {string} id - The document id we are referencing
- * @returns {string} -The link to the MLT list view search
- */
-export const genMLTHref = (id) => {
-  return `/complaints/mlt?field=what_happened&fields=All%20Data&mltId=${id}`;
-};
-
-/**
- *
- * @param {string} indexPath - complaints or tys
- * @returns {string} The url to the root of search
- */
-export function genBackLink(indexPath) {
-  return '/' + indexPath + '/q';
 }

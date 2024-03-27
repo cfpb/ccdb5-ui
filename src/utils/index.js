@@ -432,7 +432,7 @@ export const processUrlArrayParams = (params, state, arrayParams) => {
   });
 
   if (params.has_narrative) {
-    state.has_narrative = params.has_narrative;
+    state.has_narrative = !!params.has_narrative;
   } else {
     delete state.has_narrative;
   }
