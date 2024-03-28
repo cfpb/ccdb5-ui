@@ -10,7 +10,7 @@
   .cf-select {
     display: flex;
     box-sizing: border-box;
-    background-color: @gray;
+    background-color: var(--gray);
     flex-direction: column;
     justify-content: center;
 
@@ -20,8 +20,8 @@
     }
 
     select {
-      background-color: @gray;
-      color: @white;
+      background-color: var(--gray);
+      color: var(--white);
 
       &:focus {
         outline: none;
@@ -29,9 +29,9 @@
     }
 
     &::after {
-      background-color: @gray;
-      color: @white;
-      border-left: solid 1px @gray-60;
+      background-color: var(--gray);
+      color: var(--white);
+      border-left: solid 1px var(--gray-60);
       padding-left: @grid_gutter-width / 3;
     }
   }
