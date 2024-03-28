@@ -11,11 +11,11 @@ import { coalesce } from '../../utils';
 import getIcon from '../iconMap';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { selectAggsState } from '../../reducers/aggs/selectors';
+import { selectAggsRootState } from '../../reducers/aggs/selectors';
 import { selectFiltersFilterState } from '../../reducers/filters/selectors';
 
 export const Pill = ({ fieldName, value }) => {
-  const aggsState = useSelector(selectAggsState);
+  const aggsState = useSelector(selectAggsRootState);
   const filtersState = useSelector(selectFiltersFilterState);
   const aggs = coalesce(aggsState, fieldName, []);
   const filters = coalesce(filtersState, fieldName, []);

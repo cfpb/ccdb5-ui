@@ -297,13 +297,13 @@ describe('reducer:query', () => {
     it('handles size parameter', () => {
       params = { size: '100' };
       actual = target(state, routeChanged('', params));
-      expect(actual.size).toEqual('100');
+      expect(actual.size).toEqual(100);
     });
 
     it('handles page number', () => {
       params = { page: '100' };
       actual = target(state, routeChanged('', params));
-      expect(actual.page).toEqual('100');
+      expect(actual.page).toEqual(100);
     });
 
     it('handles bogus date parameters', () => {
@@ -316,7 +316,7 @@ describe('reducer:query', () => {
     it('handles bogus size & sort parameters', () => {
       params = { size: '9999', sort: 'tables' };
       actual = target(state, routeChanged('', params));
-      expect(actual.size).toEqual(10);
+      expect(actual.size).toEqual(25);
       expect(actual.sort).toEqual('created_date_desc');
     });
 
@@ -337,7 +337,7 @@ describe('reducer:query', () => {
     });
 
     it('handles the "All" button from the landing page', () => {
-      params = { dataNormalization: 'None', dateRange: 'All' };
+      params = { dateRange: 'All' };
 
       actual = target(state, routeChanged('', params));
 
@@ -347,27 +347,20 @@ describe('reducer:query', () => {
     });
 
     describe('dates', () => {
-      let expected;
       beforeEach(() => {
         state.dateRange = '2y';
-        expected = { ...queryState };
       });
 
       it('clears the default range if the dates are not 3 years apart', () => {
         state.date_received_min = dayjs(
           new Date(dayjs(maxDate).subtract(2, 'years')),
         ).toISOString();
-        expected.dateRange = '';
-        expected.date_received_min = state.date_received_min;
-
         alignDateRange(state);
         expect(state.dateRange).toEqual('');
       });
 
       it('sets the All range if the dates are right', () => {
-        state.date_received_min = dayjs(
-          new Date(types.DATE_RANGE_MIN),
-        ).toISOString();
+        state.date_received_min = types.DATE_RANGE_MIN;
         alignDateRange(state);
         expect(state.dateRange).toEqual('All');
       });

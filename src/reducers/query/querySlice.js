@@ -330,20 +330,28 @@ export const querySlice = createSlice({
       .addCase('routes/routeChanged', (state, action) => {
         const { params } = action.payload;
         // Set some variables from the URL
-        const keys = [
-          'date_received_min',
-          'date_received_max',
-          'searchFields',
-          'sort',
-        ];
-        for (const item in keys) {
+        const keys = ['dateRange', 'searchFields', 'searchText', 'sort'];
+        keys.forEach((item) => {
           if (params[item]) {
-            state[item] = params[item];
+            state[item] = enforceValues(params[item], item);
           }
-        }
+        });
+
+        types.dateFilters.forEach((field) => {
+          if (typeof params[field] !== 'undefined') {
+            const date = toDate(params[field]);
+            if (date) {
+              state[field] = formatDate(date);
+            }
+          }
+        });
+
         // Handle numeric fields
         const defaultPage = coalesce(params, 'page', queryState.page);
-        const defaultSize = coalesce(params, 'size', queryState.size);
+        const defaultSize = enforceValues(
+          coalesce(params, 'size', queryState.size),
+          'size',
+        );
         state.page = parseInt(defaultPage, 10);
         state.size = parseInt(defaultSize, 10);
 
@@ -356,7 +364,6 @@ export const querySlice = createSlice({
           const innerAction = { payload: { dateRange: params.dateRange } };
           querySlice.caseReducers.dateRangeChanged(state, innerAction);
         }
-
         alignDateRange(state);
       })
       .addMatcher(
@@ -387,14 +394,6 @@ export const querySlice = createSlice({
   },
 });
 
-// /**
-//  *
-//  * @param action
-//  */
-// function isBreakPointAction(action) {
-//   console.log(action);
-//   return action.type.endsWith('rejected');
-// }
 // ----------------------------------------------------------------------------
 // Helper functions
 

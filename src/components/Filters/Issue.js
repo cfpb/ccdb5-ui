@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { coalesce, sortSelThenCount } from '../../utils';
+import { sortSelThenCount } from '../../utils';
 import CollapsibleFilter from './CollapsibleFilter';
 import { filtersReplaced } from '../../reducers/filters/filtersSlice';
 import { SLUG_SEPARATOR } from '../../constants';
 import { Typeahead } from '../Typeahead/Typeahead/Typeahead';
-import { selectAggsState } from '../../reducers/aggs/selectors';
+import { selectAggsIssue } from '../../reducers/aggs/selectors';
+import { selectFiltersIssue } from '../../reducers/filters/selectors';
 import MoreOrLess from './MoreOrLess';
 import AggregationBranch from './AggregationBranch';
-import { selectFiltersIssue } from '../../reducers/filters/selectors';
 
 export const Issue = ({ hasChildren }) => {
   const dispatch = useDispatch();
   const [dropdownOptions, setDropdownOptions] = useState([]);
-  const aggs = useSelector(selectAggsState);
+  const aggsFilters = useSelector(selectAggsIssue);
   const filters = useSelector(selectFiltersIssue);
 
   const desc =
@@ -34,7 +34,7 @@ export const Issue = ({ hasChildren }) => {
     }
   });
   // Make a cloned, sorted version of the aggs
-  const options = sortSelThenCount(coalesce(aggs, 'issue', []), selections);
+  const options = sortSelThenCount(aggsFilters, selections);
   // create an array optimized for typeahead
   const optionKeys = options.map((opt) => opt.key);
 
