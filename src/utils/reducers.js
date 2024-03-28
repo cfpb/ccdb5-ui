@@ -31,7 +31,7 @@ export const enforceValues = (value, field) => {
       values: types.dateRanges,
     },
     lens: {
-      defaultVal: 'Overview',
+      defaultVal: 'Product',
       values: types.lenses,
     },
     searchField: {
@@ -39,7 +39,7 @@ export const enforceValues = (value, field) => {
       values: ['all', 'company', 'complaint_what_happened'],
     },
     size: {
-      defaultVal: '10',
+      defaultVal: 25,
       values: Object.keys(types.sizes),
     },
     sort: {

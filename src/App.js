@@ -1,33 +1,11 @@
 import './css/App.less';
-import { applyMiddleware, createStore } from 'redux';
+import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import { composeWithDevTools } from 'redux-devtools-extension';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
-import queryManager from './middleware/queryManager';
 import { ComplaintDetail } from './components/ComplaintDetail/ComplaintDetail';
-import React from 'react';
-import reducers from './reducers';
 import { SearchComponents } from './components/Search/SearchComponents';
-import thunkMiddleware from 'redux-thunk';
-import synchUrl from './middleware/synchUrl/synchUrl';
-
-const middleware = [thunkMiddleware, queryManager, synchUrl];
-
-const composeEnhancers = composeWithDevTools({
-  // required for redux-devtools-extension
-  // Specify name here, actionsBlacklist, actionsCreators and other options
-  // if needed
-});
-
-// required format for redux-devtools-extension
-const store = createStore(
-  reducers,
-  composeEnhancers(
-    applyMiddleware(...middleware),
-    // other store enhancers if any
-  ),
-);
+import store from './app/store';
 
 /* eslint-disable camelcase */
 export const DetailComponents = () => {
@@ -39,9 +17,7 @@ export const DetailComponents = () => {
     </IntlProvider>
   );
 };
-/* eslint-enable camelcase */
 
-// eslint-disable-next-line react/no-multi-comp
 /**
  * Main App Component
  *

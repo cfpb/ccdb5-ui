@@ -410,7 +410,6 @@ export const trendsBackfillResults = {
   },
   error: false,
   focus: '',
-  isLoading: false,
   lens: 'Product',
   results: {
     dateRangeArea: [

@@ -1,6 +1,9 @@
 import { coalesce, sanitizeHtmlId } from '../../utils';
 import { filterPatch, SLUG_SEPARATOR } from '../../constants';
-import { replaceFilters, toggleFilter } from '../../actions/filter';
+import {
+  filtersReplaced,
+  filterToggled,
+} from '../../reducers/filters/filtersSlice';
 import { arrayEquals } from '../../utils/compare';
 import { connect } from 'react-redux';
 import { FormattedNumber } from 'react-intl';
@@ -46,7 +49,7 @@ export class AggregationItem extends React.Component {
 
 export const mapStateToProps = (state, ownProps) => {
   const aggs = coalesce(state.aggs, ownProps.fieldName, []);
-  const filters = coalesce(state.query, ownProps.fieldName, []);
+  const filters = coalesce(state.filters, ownProps.fieldName, []);
   const value = ownProps.item.key;
   const parentKey = value.split(SLUG_SEPARATOR)[0];
   const isActive = filters.includes(value) || filters.includes(parentKey);
@@ -98,9 +101,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => ({
         // just add the single filter and apply filters
         appliedFilters = filters.concat(value);
       }
-      dispatch(replaceFilters(fieldName, appliedFilters));
+      dispatch(filtersReplaced(fieldName, appliedFilters));
     } else {
-      dispatch(toggleFilter(fieldName, item));
+      dispatch(filterToggled(fieldName, item));
     }
   },
   removeFilter: (props) => {
@@ -114,9 +117,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => ({
         aggs,
         fieldName,
       );
-      dispatch(replaceFilters(fieldName, updatedFilters));
+      dispatch(filtersReplaced(fieldName, updatedFilters));
     } else {
-      dispatch(toggleFilter(fieldName, item));
+      dispatch(filterToggled(fieldName, item));
     }
   },
 });

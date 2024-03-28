@@ -7930,7 +7930,6 @@ export const trendsAggsDupeResults = {
   },
   error: false,
   focus: '',
-  isLoading: false,
   lens: 'Overview',
   results: {
     dateRangeArea: [],

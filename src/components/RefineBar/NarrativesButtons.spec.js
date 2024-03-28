@@ -1,19 +1,19 @@
 import React from 'react';
 import { NarrativesButtons } from './NarrativesButtons';
-import * as filterActions from '../../actions/filter';
+import * as filterActions from '../../reducers/filters/filtersSlice';
 import {
   testRender as render,
   fireEvent,
   screen,
 } from '../../testUtils/test-utils';
 import { merge } from '../../testUtils/functionHelpers';
-import { defaultQuery } from '../../reducers/query/query';
+import { filtersState } from '../../reducers/filters/filtersSlice';
 
 describe('NarrativesButtons', () => {
-  const renderComponent = (newQueryState) => {
-    merge(newQueryState, defaultQuery);
+  const renderComponent = (newFiltersState) => {
+    merge(newFiltersState, filtersState);
     const data = {
-      query: newQueryState,
+      filters: newFiltersState,
     };
 
     render(<NarrativesButtons />, {
@@ -51,10 +51,10 @@ describe('NarrativesButtons', () => {
 
   it('should render has_narrative state', () => {
     const addFilterSpy = jest
-      .spyOn(filterActions, 'addFilter')
+      .spyOn(filterActions, 'filterAdded')
       .mockImplementation(() => jest.fn());
     const removeFilterSpy = jest
-      .spyOn(filterActions, 'removeFilter')
+      .spyOn(filterActions, 'filterRemoved')
       .mockImplementation(() => jest.fn());
 
     renderComponent({ has_narrative: true });

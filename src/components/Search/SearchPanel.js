@@ -1,32 +1,29 @@
 import './SearchPanel.less';
-import { connect } from 'react-redux';
 import { FormattedDate } from 'react-intl';
 import { PillPanel } from './PillPanel';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { SearchBar } from './SearchBar';
+import { selectAggsLastIndexed } from '../../reducers/aggs/selectors';
+import { connect, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
-export class SearchPanel extends React.Component {
-  render() {
-    let lastIndexedMessage = null;
+export const SearchPanel = () => {
+  const lastIndexed = useSelector(selectAggsLastIndexed);
 
-    if (this.props.lastIndexed) {
-      lastIndexedMessage = (
-        <span className="date-subscript">
-          (last updated: <FormattedDate value={this.props.lastIndexed} />)
-        </span>
-      );
-    }
+  const lastIndexedMessage = (
+    <span className="date-subscript">
+      (last updated: <FormattedDate value={lastIndexed} />)
+    </span>
+  );
 
-    return (
-      <div className="search-panel">
-        <h2>Search complaint data {lastIndexedMessage}</h2>
-        <SearchBar />
-        <PillPanel />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="search-panel">
+      <h2>Search complaint data {lastIndexedMessage}</h2>
+      <SearchBar />
+      <PillPanel />
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => ({
   lastIndexed: state.aggs.lastIndexed,

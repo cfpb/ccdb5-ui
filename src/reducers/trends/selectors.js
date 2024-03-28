@@ -1,1 +1,4 @@
 export const selectTrendsChartType = (state) => state.trends.chartType;
+export const selectTrendsFocus = (state) => state.trends.focus;
+export const selectTrendsLens = (state) => state.trends.lens;
+export const selectTrendsTooltip = (state) => state.trends.tooltip;

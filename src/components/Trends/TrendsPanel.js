@@ -5,13 +5,12 @@ import './TrendsPanel.less';
 import { getIntervals, showCompanyOverLay } from '../../utils/trends';
 import { sendAnalyticsEvent, shortFormat } from '../../utils';
 import { ActionBar } from '../ActionBar/ActionBar';
-import { changeDataLens } from '../../actions/trends';
-import { changeDateInterval } from '../../actions/filter';
+import { dataLensChanged } from '../../reducers/trends/trendsSlice';
 import { ChartToggles } from '../RefineBar/ChartToggles';
 import { CompanyTypeahead } from '../Filters/CompanyTypeahead';
 import { connect } from 'react-redux';
-import ExternalTooltip from './ExternalTooltip';
-import FilterPanel from '../Filters/FilterPanel';
+import { ExternalTooltip } from './ExternalTooltip/ExternalTooltip';
+import { FilterPanel } from '../Filters/FilterPanel';
 import FilterPanelToggle from '../Filters/FilterPanelToggle';
 import FocusHeader from './FocusHeader';
 import { lenses } from '../../constants';
@@ -27,7 +26,10 @@ import { Separator } from '../RefineBar/Separator';
 import StackedAreaChart from '../Charts/StackedAreaChart';
 import { TabbedNavigation } from '../TabbedNavigation';
 import TrendDepthToggle from './TrendDepthToggle';
-import { trendsDateWarningDismissed } from '../../actions/view';
+import {
+  dateIntervalChanged,
+  dismissTrendsDateWarning,
+} from '../../reducers/query/querySlice';
 import Warning from '../Warnings/Warning';
 
 const WARNING_MESSAGE =
@@ -270,21 +272,27 @@ export class TrendsPanel extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  const { filters, query, trends, view } = state;
+  const { company: companyFilters } = filters;
   const {
-    company: companyFilters,
     dateInterval,
     date_received_max: maxDate,
     date_received_min: minDate,
+    trendsDateWarningEnabled,
+  } = query;
+
+  const {
+    activeCall,
+    chartType,
+    colorMap,
+    focus,
+    results,
     lens,
     subLens,
-    isTrendsDateWarningEnabled,
-  } = state.query;
+    total,
+  } = trends;
 
-  const { chartType, colorMap, focus, isLoading, results, total } =
-    state.trends;
-
-  const { expandedRows } = state.view;
-
+  const { expandedRows } = view;
   const lensKey = lens.toLowerCase();
   const focusKey = subLens.replace('_', '-');
   const lensHelperText =
@@ -295,12 +303,12 @@ const mapStateToProps = (state) => {
   return {
     chartType,
     companyData: processRows(results.company, false, lens, expandedRows),
-    hasCompanyOverlay: showCompanyOverLay(lens, companyFilters, isLoading),
+    hasCompanyOverlay: showCompanyOverLay(lens, companyFilters, activeCall),
     dateInterval,
     focus,
     focusData: processRows(results[focusKey], colorMap, lens, expandedRows),
     intervals: getIntervals(minDate, maxDate),
-    isLoading,
+    isLoading: !!activeCall,
     productData: processRows(results.product, false, lens, expandedRows),
     dataLensData: processRows(results[lensKey], colorMap, lens, expandedRows),
     lens,
@@ -313,23 +321,23 @@ const mapStateToProps = (state) => {
     lensHelperText: lensHelperText,
     focusHelperText: focusHelperText,
     total,
-    isTrendsDateWarningEnabled,
+    isTrendsDateWarningEnabled: trendsDateWarningEnabled,
   };
 };
 
 export const mapDispatchToProps = (dispatch) => ({
   onDismissWarning: () => {
-    dispatch(trendsDateWarningDismissed());
+    dispatch(dismissTrendsDateWarning());
   },
   onInterval: (ev) => {
     const { value } = ev.target;
     sendAnalyticsEvent('Dropdown', 'Trends:' + value);
-    dispatch(changeDateInterval(value));
+    dispatch(dateIntervalChanged(value));
   },
   onLens: (ev) => {
     const { value } = ev.target;
     sendAnalyticsEvent('Dropdown', 'Trends:' + value);
-    dispatch(changeDataLens(value));
+    dispatch(dataLensChanged(value));
   },
 });
 
@@ -337,27 +345,27 @@ export const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(TrendsPanel);
 
 TrendsPanel.propTypes = {
-  focus: PropTypes.string,
-  hasOverview: PropTypes.bool.isRequired,
-  subLens: PropTypes.string.isRequired,
-  hasCompanyOverlay: PropTypes.bool,
+  chartType: PropTypes.string,
   dataLensData: PropTypes.object,
+  dateInterval: PropTypes.string,
+  focus: PropTypes.string,
   focusData: PropTypes.object,
   focusHelperText: PropTypes.string,
-  lens: PropTypes.string.isRequired,
-  lensHelperText: PropTypes.string,
-  minDate: PropTypes.string,
-  maxDate: PropTypes.string,
-  productData: PropTypes.object,
-  subLensTitle: PropTypes.string,
-  total: PropTypes.number,
-  chartType: PropTypes.string,
-  dateInterval: PropTypes.string,
+  hasCompanyOverlay: PropTypes.bool,
+  hasMobileFilters: PropTypes.bool,
+  hasOverview: PropTypes.bool.isRequired,
   intervals: PropTypes.array.isRequired,
   isLoading: PropTypes.bool,
+  isTrendsDateWarningEnabled: PropTypes.bool,
+  lens: PropTypes.string.isRequired,
+  lensHelperText: PropTypes.string,
+  maxDate: PropTypes.string,
+  minDate: PropTypes.string,
+  onDismissWarning: PropTypes.func,
   onInterval: PropTypes.func.isRequired,
   onLens: PropTypes.func.isRequired,
-  hasMobileFilters: PropTypes.bool,
-  isTrendsDateWarningEnabled: PropTypes.bool,
-  onDismissWarning: PropTypes.func,
+  productData: PropTypes.object,
+  subLens: PropTypes.string.isRequired,
+  subLensTitle: PropTypes.string,
+  total: PropTypes.number,
 };

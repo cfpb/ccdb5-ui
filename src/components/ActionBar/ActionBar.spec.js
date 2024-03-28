@@ -1,20 +1,20 @@
 import React from 'react';
 import { ActionBar } from './ActionBar';
-import { defaultAggs } from '../../reducers/aggs/aggs';
-import { defaultQuery } from '../../reducers/query/query';
+import { aggsState } from '../../reducers/aggs/aggsSlice';
+import { queryState } from '../../reducers/query/querySlice';
 import { merge } from '../../testUtils/functionHelpers';
 import {
   testRender as render,
   fireEvent,
   screen,
 } from '../../testUtils/test-utils';
-import * as viewActions from '../../actions/view';
+import * as viewActions from '../../reducers/view/viewSlice';
 import * as utils from '../../utils';
 
 describe('ActionBar', () => {
   const renderComponent = (newAggsState, newQueryState) => {
-    merge(newAggsState, defaultAggs);
-    merge(newQueryState, defaultQuery);
+    merge(newAggsState, aggsState);
+    merge(newQueryState, queryState);
 
     const data = {
       aggs: newAggsState,
@@ -42,11 +42,11 @@ describe('ActionBar', () => {
     };
 
     const printModeOnSpy = jest
-      .spyOn(viewActions, 'printModeOn')
+      .spyOn(viewActions, 'updatePrintModeOn')
       .mockImplementation(() => jest.fn());
 
     const dataExportSpy = jest
-      .spyOn(viewActions, 'showModal')
+      .spyOn(viewActions, 'modalShown')
       .mockImplementation(() => jest.fn());
     renderComponent(aggs, query);
 

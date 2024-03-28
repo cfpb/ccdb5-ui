@@ -2394,7 +2394,6 @@ export const trendsCompanyResults = {
   },
   error: false,
   focus: '',
-  isLoading: false,
   lens: 'Company',
   results: {
     company: [

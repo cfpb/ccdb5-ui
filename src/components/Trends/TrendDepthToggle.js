@@ -1,6 +1,6 @@
 /* eslint complexity: ["error", 5] */
 import './TrendDepthToggle.less';
-import { changeDepth, resetDepth } from '../../actions/trends';
+import { depthChanged, depthReset } from '../../reducers/trends/trendsSlice';
 import { clamp, coalesce } from '../../utils';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -27,7 +27,7 @@ export class TrendDepthToggle extends React.Component {
   }
 
   render() {
-    const { diff, increaseDepth, depthReset, hasToggle } = this.props;
+    const { diff, increaseDepth, resetDepth, hasToggle } = this.props;
     if (hasToggle) {
       if (this._showMore()) {
         return (
@@ -51,7 +51,7 @@ export class TrendDepthToggle extends React.Component {
             className="a-btn a-btn__link"
             id="trend-depth-button"
             onClick={() => {
-              depthReset();
+              resetDepth();
             }}
           >
             <span className="minus" />
@@ -84,18 +84,18 @@ export const showToggle = (lens, focus, resultCount, queryCount) => {
 
 export const mapDispatchToProps = (dispatch) => ({
   increaseDepth: (diff) => {
-    dispatch(changeDepth(diff + 5));
+    dispatch(depthChanged(diff + 5));
   },
-  depthReset: () => {
-    dispatch(resetDepth());
+  resetDepth: () => {
+    dispatch(depthReset());
   },
 });
 
 export const mapStateToProps = (state) => {
   const { aggs, query, trends } = state;
-  const { focus, lens } = query;
+  const { focus, lens, results } = trends;
   const lensKey = lensMap[lens];
-  const resultCount = coalesce(trends.results, lensKey, []).filter(
+  const resultCount = coalesce(results, lensKey, []).filter(
     (obj) => obj.isParent,
   ).length;
 
@@ -128,6 +128,6 @@ TrendDepthToggle.propTypes = {
   resultCount: PropTypes.number.isRequired,
   diff: PropTypes.number.isRequired,
   increaseDepth: PropTypes.func.isRequired,
-  depthReset: PropTypes.func.isRequired,
+  resetDepth: PropTypes.func.isRequired,
   hasToggle: PropTypes.bool.isRequired,
 };

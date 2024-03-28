@@ -1,7 +1,7 @@
 import './DataExport.less';
 import { getFullUrl, sendAnalyticsEvent } from '../../../utils';
 import { buildAllResultsUri, buildSomeResultsUri } from './dataExportUtils';
-import { hideModal, showModal } from '../../../actions/view';
+import { modalHidden, modalShown } from '../../../reducers/view/viewSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormattedNumber } from 'react-intl';
 import getIcon from '../../iconMap';
@@ -12,11 +12,8 @@ import {
   selectAggsDocCount,
   selectAggsTotal,
 } from '../../../reducers/aggs/selectors';
-import {
-  selectQueryState,
-  selectQueryTab,
-} from '../../../reducers/query/selectors';
-
+import { selectQueryState } from '../../../reducers/query/selectors';
+import { selectViewTab } from '../../../reducers/view/selectors';
 const FORMAT_CSV = 'csv';
 const FORMAT_JSON = 'json';
 
@@ -28,7 +25,7 @@ export const DataExport = () => {
   const queryState = useSelector(selectQueryState);
   const someComplaintsCount = useSelector(selectAggsTotal);
   const allComplaintsCount = useSelector(selectAggsDocCount);
-  const tab = useSelector(selectQueryTab);
+  const tab = useSelector(selectViewTab);
   // can only be full or filtered
   const [dataset, setDataset] = useState(DATASET_FULL);
   // can only be csv or json
@@ -58,7 +55,7 @@ export const DataExport = () => {
     }
 
     window.location.assign(exportUri);
-    dispatch(showModal(MODAL_TYPE_EXPORT_CONFIRMATION));
+    dispatch(modalShown(MODAL_TYPE_EXPORT_CONFIRMATION));
   };
 
   const copyToClipboard = (ev) => {
@@ -79,7 +76,7 @@ export const DataExport = () => {
           className="a-btn a-btn__link"
           data-gtm_ignore="true"
           onClick={() => {
-            dispatch(hideModal());
+            dispatch(modalHidden());
           }}
         >
           Close
@@ -232,7 +229,7 @@ export const DataExport = () => {
           className="a-btn a-btn__link a-btn__warning"
           data-gtm_ignore="true"
           onClick={() => {
-            dispatch(hideModal());
+            dispatch(modalHidden());
           }}
         >
           Cancel

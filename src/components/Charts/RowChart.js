@@ -9,9 +9,9 @@ import {
   hashObject,
   sendAnalyticsEvent,
 } from '../../utils';
-import { collapseRow, expandRow } from '../../actions/view';
+import { rowCollapsed, rowExpanded } from '../../reducers/view/viewSlice';
 import { miniTooltip, row } from 'britecharts';
-import { changeFocus } from '../../actions/trends';
+import { focusChanged } from '../../reducers/trends/trendsSlice';
 import { connect } from 'react-redux';
 import { max } from 'd3-array';
 import { MODE_MAP } from '../../constants';
@@ -26,6 +26,16 @@ export class RowChart extends React.Component {
     this._toggleRow = this._toggleRow.bind(this);
   }
 
+  componentDidMount() {
+    this._redrawChart();
+  }
+
+  componentDidUpdate(prevProps) {
+    const props = this.props;
+    if (hashObject(prevProps) !== hashObject(props)) {
+      this._redrawChart();
+    }
+  }
   _formatTip(value) {
     return value.toLocaleString() + ' complaints';
   }
@@ -97,17 +107,6 @@ export class RowChart extends React.Component {
     /* eslint-enable complexity */
   }
 
-  componentDidMount() {
-    this._redrawChart();
-  }
-
-  componentDidUpdate(prevProps) {
-    const props = this.props;
-    if (hashObject(prevProps) !== hashObject(props)) {
-      this._redrawChart();
-    }
-  }
-
   // --------------------------------------------------------------------------
   // Event Handlers
   // eslint-disable-next-line complexity
@@ -134,7 +133,6 @@ export class RowChart extends React.Component {
     const chartID = '#row-chart-' + id;
     d3.selectAll(chartID + ' .row-chart').remove();
     const rowContainer = d3.select(chartID);
-
     // added padding to make up for margin
     const width = isPrintMode
       ? 750
@@ -147,6 +145,7 @@ export class RowChart extends React.Component {
     // tweak to make the chart full width at desktop
     // add space at narrow width
     const marginRight = width < 600 ? 40 : -65;
+
     chart
       .margin({
         left: marginLeft,
@@ -172,9 +171,11 @@ export class RowChart extends React.Component {
       .on('customMouseOut', tooltip.hide);
 
     rowContainer.datum(rows).call(chart);
+
     const tooltipContainer = d3.selectAll(
       chartID + ' .row-chart .metadata-group',
     );
+
     tooltipContainer.datum([]).call(tooltip);
     this._wrapText(d3.select(chartID).selectAll('.tick text'), marginLeft);
 
@@ -242,23 +243,23 @@ export const mapDispatchToProps = (dispatch) => ({
         : [];
     }
     sendAnalyticsEvent('Trends click', element.parent);
-    dispatch(changeFocus(element.parent, lens, [...values]));
+    dispatch(focusChanged(element.parent, lens, [...values]));
   },
   collapseRow: (rowName) => {
     sendAnalyticsEvent('Bar chart collapsed', rowName);
-    dispatch(collapseRow(rowName));
+    dispatch(rowCollapsed(rowName));
   },
   expandRow: (rowName) => {
     sendAnalyticsEvent('Bar chart expanded', rowName);
-    dispatch(expandRow(rowName));
+    dispatch(rowExpanded(rowName));
   },
 });
 
 export const mapStateToProps = (state) => {
-  const { tab } = state.query;
-  const lens = tab === MODE_MAP ? 'Product' : state.query.lens;
   const { aggs } = state;
-  const { expandedRows, isPrintMode, width } = state.view;
+  const { expandedRows, isPrintMode, tab, width } = state.view;
+  const lens = tab === MODE_MAP ? 'Product' : state.trends.lens;
+
   return {
     aggs,
     expandedRows,

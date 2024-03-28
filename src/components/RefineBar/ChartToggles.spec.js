@@ -1,17 +1,17 @@
 import { ChartToggles } from './ChartToggles';
 import React from 'react';
 import { merge } from '../../testUtils/functionHelpers';
-import { defaultTrends } from '../../reducers/trends/trends';
+import { trendsState } from '../../reducers/trends/trendsSlice';
 import {
   testRender as render,
   fireEvent,
   screen,
 } from '../../testUtils/test-utils';
-import * as trendsActions from '../../actions/trends';
+import * as trendsActions from '../../reducers/trends/trendsSlice';
 
 describe('ChartToggles', () => {
   const renderComponent = (newTrendsState) => {
-    merge(newTrendsState, defaultTrends);
+    merge(newTrendsState, trendsState);
     const data = {
       trends: newTrendsState,
     };
@@ -23,7 +23,7 @@ describe('ChartToggles', () => {
 
   it('renders default state', () => {
     const changeChartTypeSpy = jest
-      .spyOn(trendsActions, 'changeChartType')
+      .spyOn(trendsActions, 'chartTypeUpdated')
       .mockImplementation(() => jest.fn());
 
     renderComponent({});
@@ -45,7 +45,7 @@ describe('ChartToggles', () => {
 
   it('renders area chartType state without crashing', () => {
     const changeChartTypeSpy = jest
-      .spyOn(trendsActions, 'changeChartType')
+      .spyOn(trendsActions, 'chartTypeUpdated')
       .mockImplementation(() => jest.fn());
 
     renderComponent({ chartType: 'area' });

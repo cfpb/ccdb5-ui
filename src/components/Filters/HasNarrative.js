@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { NARRATIVE_SEARCH_FIELD } from '../../constants';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { toggleFlagFilter } from '../../actions/filter';
+import { toggleFlagFilter } from '../../reducers/filters/filtersSlice';
 
 const FIELD_NAME = 'has_narrative';
 
@@ -43,7 +43,7 @@ export class HasNarrative extends React.Component {
 // Meta
 
 export const mapStateToProps = (state) => {
-  const isChecked = coalesce(state.query, FIELD_NAME, false);
+  const isChecked = coalesce(state.filters, FIELD_NAME, false);
   const searchField = state.query.searchField;
 
   let phase = NOTHING;

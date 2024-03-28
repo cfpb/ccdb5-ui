@@ -1,13 +1,16 @@
-import { addFilter, removeFilter } from '../../actions/filter';
+import {
+  filterAdded,
+  filterRemoved,
+} from '../../reducers/filters/filtersSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
 import { selectedClass } from '../../utils';
-import { selectQueryHasNarrative } from '../../reducers/query/selectors';
+import { selectFiltersHasNarrative } from '../../reducers/filters/selectors';
 
 const FIELD_NAME = 'has_narrative';
 
 export const NarrativesButtons = () => {
-  const isChecked = useSelector(selectQueryHasNarrative);
+  const isChecked = useSelector(selectFiltersHasNarrative);
   const dispatch = useDispatch();
 
   return (
@@ -19,7 +22,7 @@ export const NarrativesButtons = () => {
         className={'a-btn' + selectedClass(true, isChecked)}
         disabled={isChecked}
         onClick={() => {
-          dispatch(addFilter(FIELD_NAME, ''));
+          dispatch(filterAdded(FIELD_NAME, ''));
         }}
       >
         Only complaints with narratives
@@ -31,7 +34,7 @@ export const NarrativesButtons = () => {
         className={'a-btn' + selectedClass(false, !!isChecked)}
         disabled={!isChecked}
         onClick={() => {
-          dispatch(removeFilter(FIELD_NAME, ''));
+          dispatch(filterRemoved(FIELD_NAME, ''));
         }}
       >
         All complaints

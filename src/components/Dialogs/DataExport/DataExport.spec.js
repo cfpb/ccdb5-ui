@@ -7,9 +7,9 @@ import {
   fireEvent,
 } from '../../../testUtils/test-utils';
 import { merge } from '../../../testUtils/functionHelpers';
-import { defaultAggs } from '../../../reducers/aggs/aggs';
-import { defaultQuery } from '../../../reducers/query/query';
-import * as viewActions from '../../../actions/view';
+import { aggsState } from '../../../reducers/aggs/aggsSlice';
+import { queryState } from '../../../reducers/query/querySlice';
+import * as viewActions from '../../../reducers/view/viewSlice';
 import { MODAL_TYPE_EXPORT_CONFIRMATION } from '../../../constants';
 import { waitFor } from '@testing-library/react';
 
@@ -22,8 +22,8 @@ describe('DataExport', () => {
     };
     global.navigator.clipboard = mockClipboard;
 
-    merge(newAggsState, defaultAggs);
-    merge(newQueryState, defaultQuery);
+    merge(newAggsState, aggsState);
+    merge(newQueryState, queryState);
     const data = {
       aggs: newAggsState,
       query: newQueryState,
@@ -37,8 +37,8 @@ describe('DataExport', () => {
   });
 
   it('renders default state without crashing', async () => {
-    const hideModalSpy = jest
-      .spyOn(viewActions, 'hideModal')
+    const modalHiddenSpy = jest
+      .spyOn(viewActions, 'modalHidden')
       .mockImplementation(() => jest.fn());
     renderComponent({}, {});
     expect(screen.getByText('Export complaints')).toBeInTheDocument();
@@ -56,7 +56,7 @@ describe('DataExport', () => {
     expect(
       screen.getByRole('button', { name: /Start export/ }),
     ).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Cancel/ })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
     const buttonCopy = screen.getByRole('button', { name: /Copy/ });
     expect(buttonCopy).toBeInTheDocument();
     expect(buttonCopy).toHaveClass('a-btn__secondary');
@@ -65,25 +65,25 @@ describe('DataExport', () => {
       expect(buttonCopy).toHaveClass('export-url-copied');
     });
 
-    expect(screen.getByRole('button', { name: /Close/ })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: /Close/ }));
-    expect(hideModalSpy).toHaveBeenCalled();
+    expect(screen.getByRole('button', { name: /Close/i })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /Close/i }));
+    expect(modalHiddenSpy).toHaveBeenCalled();
   });
 
   it('closes the modal by clicking cancel', async () => {
-    const hideModalSpy = jest
-      .spyOn(viewActions, 'hideModal')
+    const modalHiddenSpy = jest
+      .spyOn(viewActions, 'modalHidden')
       .mockImplementation(() => jest.fn());
     renderComponent({}, {});
     expect(screen.getByText('Export complaints')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Cancel/ })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: /Cancel/ }));
-    expect(hideModalSpy).toHaveBeenCalled();
+    expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
+    expect(modalHiddenSpy).toHaveBeenCalled();
   });
 
   it('exports All complaints', async () => {
-    const showModalSpy = jest
-      .spyOn(viewActions, 'showModal')
+    const modalShownSpy = jest
+      .spyOn(viewActions, 'modalShown')
       .mockImplementation(() => jest.fn());
     const sendAnalyticsSpy = jest
       .spyOn(utils, 'sendAnalyticsEvent')
@@ -96,17 +96,17 @@ describe('DataExport', () => {
     expect(screen.getByRole('textbox')).toHaveValue(
       'https://files.consumerfinance.gov/ccdb/complaints.csv.zip',
     );
-    fireEvent.click(screen.getByRole('button', { name: /Start export/ }));
+    fireEvent.click(screen.getByRole('button', { name: 'Start export' }));
     expect(sendAnalyticsSpy).toHaveBeenCalledWith(
       'Export All Data',
       'Trends:csv',
     );
-    expect(showModalSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
+    expect(modalShownSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
   });
 
   it('exports All complaints as json', async () => {
-    const showModalSpy = jest
-      .spyOn(viewActions, 'showModal')
+    const modalShownSpy = jest
+      .spyOn(viewActions, 'modalShown')
       .mockImplementation(() => jest.fn());
     const sendAnalyticsSpy = jest
       .spyOn(utils, 'sendAnalyticsEvent')
@@ -137,17 +137,17 @@ describe('DataExport', () => {
       );
     });
 
-    fireEvent.click(screen.getByRole('button', { name: /Start export/ }));
+    fireEvent.click(screen.getByRole('button', { name: 'Start export' }));
     expect(sendAnalyticsSpy).toHaveBeenCalledWith(
       'Export All Data',
       'Trends:json',
     );
-    expect(showModalSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
+    expect(modalShownSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
   });
 
   it('exports some complaints', async () => {
-    const showModalSpy = jest
-      .spyOn(viewActions, 'showModal')
+    const modalShownSpy = jest
+      .spyOn(viewActions, 'modalShown')
       .mockImplementation(() => jest.fn());
     const sendAnalyticsSpy = jest
       .spyOn(utils, 'sendAnalyticsEvent')
@@ -183,13 +183,13 @@ describe('DataExport', () => {
     expect(
       screen.getByRole('button', { name: /Start export/ }),
     ).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: /Start export/ }));
+    fireEvent.click(screen.getByRole('button', { name: 'Start export' }));
 
     expect(sendAnalyticsSpy).toHaveBeenCalledWith(
       'Export Some Data',
       'Trends:csv',
     );
-    expect(showModalSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
+    expect(modalShownSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
   });
 
   it('switches csv/json data formats', async () => {

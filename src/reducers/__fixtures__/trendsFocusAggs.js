@@ -2586,7 +2586,6 @@ export const trendsFocusAggsResults = {
   },
   error: false,
   focus: 'Debt collection',
-  isLoading: false,
   lens: 'Product',
   results: {
     dateRangeArea: [

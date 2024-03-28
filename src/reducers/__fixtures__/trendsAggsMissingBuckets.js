@@ -3171,7 +3171,6 @@ export const trendsAggsMissingBucketsResults = {
   },
   error: false,
   focus: '',
-  isLoading: false,
   lens: 'Product',
   results: {
     dateRangeArea: [
