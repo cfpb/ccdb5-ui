@@ -14,6 +14,7 @@ import {
 } from '../../../reducers/aggs/selectors';
 import { selectQueryState } from '../../../reducers/query/selectors';
 import { selectViewTab } from '../../../reducers/view/selectors';
+import { selectFiltersFilterState } from '../../../reducers/filters/selectors';
 const FORMAT_CSV = 'csv';
 const FORMAT_JSON = 'json';
 
@@ -23,6 +24,7 @@ const DATASET_FULL = 'full';
 export const DataExport = () => {
   const dispatch = useDispatch();
   const queryState = useSelector(selectQueryState);
+  const filtersState = useSelector(selectFiltersFilterState);
   const someComplaintsCount = useSelector(selectAggsTotal);
   const allComplaintsCount = useSelector(selectAggsDocCount);
   const tab = useSelector(selectViewTab);
@@ -40,12 +42,16 @@ export const DataExport = () => {
   }, [someComplaintsCount, allComplaintsCount]);
 
   const exportUri = useMemo(() => {
+    const mergedState = {
+      ...filtersState,
+      ...queryState,
+    };
     const url =
       dataset === DATASET_FULL
         ? buildAllResultsUri(format)
-        : buildSomeResultsUri(format, someComplaintsCount, queryState);
+        : buildSomeResultsUri(format, someComplaintsCount, mergedState);
     return getFullUrl(url);
-  }, [dataset, format, someComplaintsCount, queryState]);
+  }, [dataset, format, someComplaintsCount, filtersState, queryState]);
 
   const handleExportClicked = () => {
     if (dataset === DATASET_FULL) {

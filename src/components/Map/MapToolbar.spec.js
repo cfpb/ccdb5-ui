@@ -1,7 +1,7 @@
 import React from 'react';
 import { MapToolbar } from './MapToolbar';
 import { merge } from '../../testUtils/functionHelpers';
-import { queryState } from '../../reducers/query/querySlice';
+import { filtersState } from '../../reducers/filters/filtersSlice';
 import {
   testRender as render,
   screen,
@@ -11,11 +11,11 @@ import * as filterActions from '../../reducers/filters/filtersSlice';
 import * as viewActions from '../../reducers/view/viewSlice';
 
 describe('MapToolbar', () => {
-  const renderComponent = (newQueryState) => {
-    merge(newQueryState, queryState);
+  const renderComponent = (newFiltersState) => {
+    merge(newFiltersState, filtersState);
 
     const data = {
-      query: newQueryState,
+      filters: newFiltersState,
     };
 
     render(<MapToolbar />, {
