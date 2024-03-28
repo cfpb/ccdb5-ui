@@ -68,7 +68,6 @@ export const enforceValues = (value, field) => {
  * we can't have Overview and area chart at the same time
  *
  * @param {object} state - in redux to check against
- * @returns {object} state modified state
  */
 export const validateTrendsReducer = (state) => {
   state.chartType = enforceValues(state.chartType, 'chartType');
@@ -83,6 +82,4 @@ export const validateTrendsReducer = (state) => {
   if (validLens[state.lens] && !validLens[state.lens].includes(state.subLens)) {
     state.subLens = getSubLens(state.lens);
   }
-
-  return state;
 };

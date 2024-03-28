@@ -77,7 +77,7 @@ export const trendsSlice = createSlice({
     },
     dataLensChanged: {
       reducer: (state, action) => {
-        const lens = enforceValues(action.payload.lens, 'lens');
+        const lens = enforceValues(action.payload, 'lens');
         switch (true) {
           case lens === 'Company':
             state.subLens = 'product';
@@ -100,9 +100,9 @@ export const trendsSlice = createSlice({
         state.tooltip = false;
         state.trendDepth = lens === 'Company' ? 10 : 5;
       },
-      prepare: (lens) => {
+      prepare: (payload) => {
         return {
-          payload: { lens: lens },
+          payload,
           meta: {
             persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
@@ -192,17 +192,6 @@ export const trendsSlice = createSlice({
           },
         };
       },
-    },
-    processParams(state, action) {
-      const params = action.payload.params;
-      // Handle flag filters
-      const filters = ['chartType', 'focus', 'lens', 'subLens'];
-      for (const val of filters) {
-        if (params[val]) {
-          state[val] = enforceValues(params[val], val);
-        }
-      }
-      validateTrendsReducer(state);
     },
     tooltipUpdated: {
       reducer: (state, action) => {
@@ -349,7 +338,15 @@ export const trendsSlice = createSlice({
           : state.focus;
       })
       .addCase('routes/routeChanged', (state, action) => {
-        trendsSlice.caseReducers.processParams(state, action);
+        const params = action.payload.params;
+        // Handle flag filters
+        const filters = ['chartType', 'focus', 'lens', 'subLens'];
+        for (const val of filters) {
+          if (params[val]) {
+            state[val] = enforceValues(params[val], val);
+          }
+        }
+        validateTrendsReducer(state);
       })
       .addCase('view/tabChanged', (state, action) => {
         return {
