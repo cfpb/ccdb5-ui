@@ -9,17 +9,21 @@
   justify-content: center;
   align-items: center;
 
-  background-color: fade(@gray-dark, 75%);
+  // gray-dark #43484e in hex.
+  --faded-gray-dark: 67, 72, 78;
+  background-color: rgba(var(--faded-gray-dark), 0.75);
+  // TODO: The above can be replaced with the below when Firefox supports "Relative RGB colors".
+  //background-color: rgb(from var(--gray-dark) / 0.75);
 }
 
 .loading-box {
   max-width: 480px;
   padding: @grid_gutter-width;
-  border: 1px solid @gray-dark;
+  border: 1px solid var(--gray-dark);
   border-radius: 4px;
   overflow: auto;
 
-  background: @gray-5;
+  background: var(--gray-5);
   outline: none;
 
   span.cf-icon-svg {

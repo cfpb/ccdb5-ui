@@ -1,7 +1,7 @@
 .action-bar {
-  border: 1px solid @gray-40;
+  border: 1px solid var(--gray-40);
   border-left: 0; // Don't double the border with the filters
-  background-color: @green-20;
+  background-color: var(--green-20);
   padding: @gutter-normal @grid_gutter-width;
 
   h2 {
@@ -17,9 +17,9 @@
     margin: 0;
     margin-bottom: @gutter-minimum;
     .a-btn {
-      border-bottom: dotted 1px @pacific-dark;
+      border-bottom: dotted 1px var(--pacific-dark);
       margin-right: @gutter-normal;
-      color: @pacific-dark;
+      color: var(--pacific-dark);
       font-size: @size-v;
       &:hover {
         color: @link-text-hover;
@@ -33,7 +33,7 @@
 
   @media @phone {
     padding-left: 0;
-    border: 1px solid @gray-40;
+    border: 1px solid var(--gray-40);
     .export-results {
       margin-left: 15px;
     }

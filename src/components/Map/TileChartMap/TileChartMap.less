@@ -42,7 +42,7 @@
 }
 
 .highcharts-background {
-  fill: @white;
+  fill: var(--white);
 }
 
 .highcharts-plot-border,
@@ -71,14 +71,19 @@
 /* Highmaps */
 .highcharts-map-series {
   .highcharts-point {
-    transition: fill 500ms, fill-opacity 500ms, stroke-width 250ms;
+    transition:
+      fill 500ms,
+      fill-opacity 500ms,
+      stroke-width 250ms;
     stroke: #ccc;
   }
 
   .highcharts-point-hover {
-    transition: fill 0ms, fill-opacity 0ms;
+    transition:
+      fill 0ms,
+      fill-opacity 0ms;
     cursor: default;
-    fill: @pacific !important;
+    fill: var(--pacific) !important;
     fill-opacity: 0.5;
   }
 }
@@ -93,7 +98,7 @@ x/y positioning on the SVG elements.
 .u-chart-label {
   font-size: 16px;
   font-family: inherit;
-  color: @gray;
+  color: var(--gray);
 }
 
 .cfpb-chart {
@@ -109,7 +114,7 @@ x/y positioning on the SVG elements.
   .highcharts-tooltip text {
     font-size: 16px;
     font-family: inherit;
-    color: @gray;
+    color: var(--gray);
   }
 }
 
@@ -118,13 +123,13 @@ x/y positioning on the SVG elements.
 .cfpb-chart[data-chart-type='tile_map'] {
   .highcharts-data-label {
     font-weight: 500;
-    color: @black;
+    color: var(--black);
 
     .highcharts-data-label-state {
       text-align: center;
       cursor: default;
       &.deselected {
-        color: @gray;
+        color: var(--gray);
       }
     }
   }
@@ -141,7 +146,7 @@ x/y positioning on the SVG elements.
       font-size: 12px;
       .type {
         font-weight: 500;
-        color: @black;
+        color: var(--black);
       }
     }
   }
@@ -150,14 +155,14 @@ x/y positioning on the SVG elements.
     font-size: 12px;
 
     .legend-box {
-      stroke: @gray;
+      stroke: var(--gray);
     }
   }
 
   .highcharts-label__tile-map {
     font-size: 16px;
     font-family: inherit;
-    color: @gray;
+    color: var(--gray);
     font-weight: 500;
 
     span {
@@ -168,7 +173,7 @@ x/y positioning on the SVG elements.
 
   .u-point-hover-state,
   .selected {
-    stroke: @black;
+    stroke: var(--black);
     cursor: default;
     stroke-linecap: square;
   }
@@ -194,8 +199,8 @@ x/y positioning on the SVG elements.
     min-width: 200px;
 
     span {
-      color: @white;
-      background-color: @black;
+      color: var(--white);
+      background-color: var(--black);
       padding: 5px;
       width: 320px;
 

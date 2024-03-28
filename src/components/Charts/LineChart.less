@@ -32,11 +32,11 @@
 
   .circle-container {
     circle {
-      fill: @white;
+      fill: var(--white);
     }
   }
   .grid-lines-group {
-    stroke: @gray-20;
+    stroke: var(--gray-20);
     stroke-width: 0.1%;
   }
   .x-axis-group {
@@ -46,14 +46,14 @@
   }
   //line on hover for the tooltip.
   .vertical-marker {
-    stroke: @gray-20;
+    stroke: var(--gray-20);
     stroke-width: 2px;
     stroke-dasharray: 4, 4;
   }
   .chart-group {
     .area {
       path.area {
-        fill: @gray-10;
+        fill: var(--gray-10);
         opacity: 0.4;
       }
     }
@@ -63,7 +63,7 @@
   }
 
   .extended-x-line {
-    stroke: @black;
+    stroke: var(--black);
     stroke-width: 0.2%;
   }
 }
@@ -72,7 +72,7 @@
   p {
     font-size: 12px;
     font-weight: 600;
-    color: @gray;
+    color: var(--gray);
 
     &.x-axis-label {
       margin-left: 45%;

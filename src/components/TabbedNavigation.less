@@ -1,6 +1,6 @@
 .tabbed-navigation {
   margin-top: 30px;
-  border-bottom: 1px solid @gray-20;
+  border-bottom: 1px solid var(--gray-20);
   section {
     padding-left: 10px;
     .tab {
@@ -17,17 +17,17 @@
       }
 
       &:not(.active) {
-        color: @pacific-dark;
-        background: @gray-5;
-        border: 1px solid @gray-20;
+        color: var(--pacific-dark);
+        background: var(--gray-5);
+        border: 1px solid var(--gray-20);
         border-bottom: none;
 
         &:hover {
-          color: @pacific-60;
+          color: var(--pacific-60);
         }
 
         &:focus {
-          color: @navy-dark;
+          color: var(--navy-dark);
         }
 
         &::after {
@@ -38,8 +38,8 @@
       }
       &.active {
         padding-top: 8px;
-        border: 1px solid @gray-40;
-        background: @white;
+        border: 1px solid var(--gray-40);
+        background: var(--white);
         pointer-events: none;
         position: relative;
 
@@ -47,7 +47,7 @@
           content: '';
           display: block;
           width: calc(100% - 2px);
-          outline: 1px solid @white;
+          outline: 1px solid var(--white);
           position: absolute;
           bottom: -1px;
           left: 1px;

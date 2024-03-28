@@ -15,14 +15,14 @@
       }
 
       &.indeterminate::before {
-        border: solid 2px @gray-dark;
+        border: solid 2px var(--gray-dark);
 
         background: url('indeterminate.png') no-repeat scroll center center
           transparent;
       }
 
       .a-checkbox:checked + &.a-label::before {
-        border: solid 2px @gray-dark;
+        border: solid 2px var(--gray-dark);
       }
     }
 
@@ -48,7 +48,7 @@
       top: 0;
       right: 0;
 
-      color: @gray-dark;
+      color: var(--gray-dark);
       font-size: 14px;
     }
   }
