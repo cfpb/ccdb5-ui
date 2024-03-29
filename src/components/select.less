@@ -1,7 +1,7 @@
 // select
-@select-border: @gray-40;
-@select-icon: @gray-80;
-@select-icon-bg: @gray-5;
+@select-border: var(--gray-40);
+@select-icon: var(--gray-80);
+@select-icon-bg: var(--gray-5);
 @select-height: @size-ii;
 
 @input-border__focused: @btn-bg;
@@ -14,8 +14,8 @@
 
   select {
     width: 100%;
-    padding:
-    unit(4px / @base-font-size-px, em) 0 unit(6px / @base-font-size-px, em) 1rem;
+    padding: unit(4px / @base-font-size-px, em) 0
+      unit(6px / @base-font-size-px, em) 1rem;
     border: 0;
     border-radius: 0;
     appearance: none;
