@@ -11,7 +11,7 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
     onClick={[Function]}
   >
     <h3
-      className="h4 o-expandable_label"
+      className="o-expandable_label"
     >
       Date CFPB received the complaint
     </h3>
@@ -37,9 +37,9 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
       <p
         className="u-mt15"
       >
-         
+
         CFPB updated product and issue options in April 2017 and August 2023.
-         
+
         <a
           aria-label="Learn more about Product and Issue changes (opens in new window)"
           href="https://www.consumerfinance.gov/data-research/consumer-complaints/#past-changes"
@@ -180,7 +180,7 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
     onClick={[Function]}
   >
     <h3
-      className="h4 o-expandable_label"
+      className="o-expandable_label"
     >
       Date CFPB received the complaint
     </h3>
@@ -206,9 +206,9 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
       <p
         className="u-mt15"
       >
-         
+
         CFPB updated product and issue options in April 2017 and August 2023.
-         
+
         <a
           aria-label="Learn more about Product and Issue changes (opens in new window)"
           href="https://www.consumerfinance.gov/data-research/consumer-complaints/#past-changes"
@@ -349,7 +349,7 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
         <span
           className="a-form-alert_text"
         >
-          'From' date must be less than 'through' date 
+          'From' date must be less than 'through' date
         </span>
       </div>
     </div>
@@ -368,7 +368,7 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
     onClick={[Function]}
   >
     <h3
-      className="h4 o-expandable_label"
+      className="o-expandable_label"
     >
       Date CFPB received the complaint
     </h3>
@@ -394,9 +394,9 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
       <p
         className="u-mt15"
       >
-         
+
         CFPB updated product and issue options in April 2017 and August 2023.
-         
+
         <a
           aria-label="Learn more about Product and Issue changes (opens in new window)"
           href="https://www.consumerfinance.gov/data-research/consumer-complaints/#past-changes"

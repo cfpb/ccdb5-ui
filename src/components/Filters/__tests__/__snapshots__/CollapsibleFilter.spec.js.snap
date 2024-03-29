@@ -11,7 +11,7 @@ exports[`component:CollapsibleFilter initial state renders without crashing 1`] 
     onClick={[Function]}
   >
     <h3
-      className="h4 o-expandable_label"
+      className="o-expandable_label"
     >
       foo
     </h3>

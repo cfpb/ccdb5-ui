@@ -11,7 +11,7 @@ exports[`component:Product snapshots only shows the first five items 1`] = `
     onClick={[Function]}
   >
     <h3
-      className="h4 o-expandable_label"
+      className="o-expandable_label"
     >
       Product / sub-product
     </h3>
@@ -213,7 +213,7 @@ exports[`component:Product snapshots renders without crashing 1`] = `
     onClick={[Function]}
   >
     <h3
-      className="h4 o-expandable_label"
+      className="o-expandable_label"
     >
       Product / sub-product
     </h3>

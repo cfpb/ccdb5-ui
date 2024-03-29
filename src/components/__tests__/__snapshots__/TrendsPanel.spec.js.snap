@@ -417,7 +417,7 @@ exports[`component:TrendsPanel Snapshots renders Focus without crashing 1`] = `
           className="m-notification_content"
         >
           <div
-            className="h4 m-notification_message"
+            className="m-notification_message"
           >
             Cannot display chart. Adjust your date range or date interval.
           </div>
@@ -758,7 +758,7 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
       </button>
     </section>
   </div>
-  
+
   <div
     className="layout-row"
   >
@@ -807,7 +807,7 @@ exports[`component:TrendsPanel Snapshots renders area without crashing 1`] = `
           className="m-notification_content"
         >
           <div
-            className="h4 m-notification_message"
+            className="m-notification_message"
           >
             Cannot display chart. Adjust your date range or date interval.
           </div>
@@ -1216,7 +1216,7 @@ exports[`component:TrendsPanel Snapshots renders company Overlay without crashin
       </section>
     </section>
   </div>
-  
+
 </section>
 `;
 
@@ -1433,7 +1433,7 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
       </select>
     </section>
   </div>
-  
+
   <div
     className="layout-row"
   >
@@ -1482,7 +1482,7 @@ exports[`component:TrendsPanel Snapshots renders date warning without crashing 1
           className="m-notification_content"
         >
           <div
-            className="h4 m-notification_message"
+            className="m-notification_message"
           >
             Cannot display chart. Adjust your date range or date interval.
           </div>
@@ -1823,7 +1823,7 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
       </button>
     </section>
   </div>
-  
+
   <div
     className="layout-row"
   >
@@ -1872,7 +1872,7 @@ exports[`component:TrendsPanel Snapshots renders external Tooltip without crashi
           className="m-notification_content"
         >
           <div
-            className="h4 m-notification_message"
+            className="m-notification_message"
           >
             Cannot display chart. Adjust your date range or date interval.
           </div>
@@ -2127,7 +2127,7 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
       </select>
     </section>
   </div>
-  
+
   <div
     className="layout-row"
   >
@@ -2176,7 +2176,7 @@ exports[`component:TrendsPanel Snapshots renders lineChart Overview without cras
           className="m-notification_content"
         >
           <div
-            className="h4 m-notification_message"
+            className="m-notification_message"
           >
             Cannot display chart. Adjust your date range or date interval.
           </div>
@@ -2315,7 +2315,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
           onClick={[Function]}
           title="Close filters"
         >
-          Close filters 
+          Close filters
           <svg
             className="cf-icon-svg"
             viewBox="0 0 718.9 1200"
@@ -3389,7 +3389,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
       </select>
     </section>
   </div>
-  
+
   <div
     className="layout-row"
   >
@@ -3438,7 +3438,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
           className="m-notification_content"
         >
           <div
-            className="h4 m-notification_message"
+            className="m-notification_message"
           >
             Cannot display chart. Adjust your date range or date interval.
           </div>
@@ -3675,7 +3675,7 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
       </select>
     </section>
   </div>
-  
+
   <div
     className="layout-row"
   >
@@ -3724,7 +3724,7 @@ exports[`component:TrendsPanel Snapshots renders print mode without crashing 1`]
           className="m-notification_content"
         >
           <div
-            className="h4 m-notification_message"
+            className="m-notification_message"
           >
             Cannot display chart. Adjust your date range or date interval.
           </div>
