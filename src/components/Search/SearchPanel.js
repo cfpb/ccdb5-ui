@@ -10,7 +10,7 @@ export const SearchPanel = () => {
   const lastIndexed = useSelector(selectAggsLastIndexed);
   let lastIndexedMessage = null;
 
-  if (this.props.lastIndexed) {
+  if (lastIndexed) {
     lastIndexedMessage = (
       <span className="date-subscript">
         (last updated: <FormattedDate value={lastIndexed} />)
