@@ -1,7 +1,7 @@
 import './FocusHeader.less';
 import { connect } from 'react-redux';
 import getIcon from '../iconMap';
-import LensTabs from './LensTabs';
+import { LensTabs } from './LensTabs';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { removeFocus } from '../../actions/trends';

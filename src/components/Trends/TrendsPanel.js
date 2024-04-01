@@ -15,7 +15,7 @@ import FilterPanel from '../Filters/FilterPanel';
 import FilterPanelToggle from '../Filters/FilterPanelToggle';
 import FocusHeader from './FocusHeader';
 import { lenses } from '../../constants';
-import LensTabs from './LensTabs';
+import { LensTabs } from './LensTabs';
 import LineChart from '../Charts/LineChart';
 import { Loading } from '../Loading/Loading';
 import { processRows } from '../../utils/chart';
