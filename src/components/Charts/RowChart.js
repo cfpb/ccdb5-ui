@@ -15,7 +15,7 @@ import React, { useEffect, useMemo } from 'react';
 import { scrollToFocus } from '../../utils/trends';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  selectTrendsColorScheme,
+  selectTrendsColorMap,
   selectTrendsResultsDateRangeArea,
 } from '../../reducers/trends/selectors';
 import {
@@ -40,7 +40,7 @@ import miniTooltip from 'britecharts/dist/umd/miniTooltip.min';
 
 export const RowChart = () => {
   const dispatch = useDispatch();
-  const colorScheme = useSelector(selectTrendsColorScheme);
+  const colorScheme = useSelector(selectTrendsColorMap);
   const isPrintMode = useSelector(selectViewIsPrintMode);
   const aggs = useSelector(selectAggsState);
   const expandedRows = useSelector(selectViewExpandedRows);
@@ -61,7 +61,7 @@ export const RowChart = () => {
   const helperText = focus
     ? FOCUS_HELPER_TEXT_MAP[focus]
     : LENS_HELPER_TEXT_MAP[lens];
-
+  console.log(data);
   const rows = useMemo(() => {
     // deep copy
     // do this to prevent REDUX pollution
@@ -212,7 +212,6 @@ export const RowChart = () => {
       .on('customMouseOver', tooltip.show)
       .on('customMouseMove', tooltip.update)
       .on('customMouseOut', tooltip.hide);
-
     rowContainer.datum(rows).call(chart);
     const tooltipContainer = d3.selectAll(
       chartID + ' .row-chart .metadata-group',
