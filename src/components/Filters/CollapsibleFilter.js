@@ -60,7 +60,7 @@ export default class CollapsibleFilter extends React.Component {
           aria-label={`Hide ${this.props.title} filter`}
           onClick={this._toggleChildDisplay}
         >
-          <h3 className="h4 o-expandable_label">{this.props.title}</h3>
+          <h3 className="o-expandable_label">{this.props.title}</h3>
           <span className="o-expandable_cues">
             {this.state.hasChildren ? opened : closed}
           </span>

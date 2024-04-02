@@ -11,7 +11,7 @@ exports[`component::CompanyReceivedFilter snapshot shows errors 1`] = `
     onClick={[Function]}
   >
     <h3
-      className="h4 o-expandable_label"
+      className="o-expandable_label"
     >
       The date the CFPB sent the complaint to the company
     </h3>
@@ -140,7 +140,7 @@ exports[`component::CompanyReceivedFilter snapshot supports no dates in the Redu
     onClick={[Function]}
   >
     <h3
-      className="h4 o-expandable_label"
+      className="o-expandable_label"
     >
       The date the CFPB sent the complaint to the company
     </h3>

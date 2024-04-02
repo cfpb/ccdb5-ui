@@ -12,9 +12,7 @@ describe('component:WindowSize', () => {
     expect(
       wrapper
         .find('.m-notification_message')
-        .equals(
-          <div className="h4 m-notification_message">Some nag message</div>,
-        ),
+        .equals(<div className="m-notification_message">Some nag message</div>),
     ).toEqual(true);
   });
 
@@ -29,7 +27,7 @@ describe('component:WindowSize', () => {
       wrapper
         .find('.m-notification_message')
         .equals(
-          <div className="h4 m-notification_message">
+          <div className="m-notification_message">
             Some nag message you can close
           </div>,
         ),

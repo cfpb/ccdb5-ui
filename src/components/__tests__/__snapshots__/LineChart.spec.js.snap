@@ -12,7 +12,7 @@ exports[`component: LineChart initial state renders data lens without crashing 1
     className="m-notification_content"
   >
     <div
-      className="h4 m-notification_message"
+      className="m-notification_message"
     >
       Cannot display chart. Adjust your date range or date interval.
     </div>
@@ -32,7 +32,7 @@ exports[`component: LineChart initial state renders without crashing 1`] = `
     className="m-notification_content"
   >
     <div
-      className="h4 m-notification_message"
+      className="m-notification_message"
     >
       Cannot display chart. Adjust your date range or date interval.
     </div>
