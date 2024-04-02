@@ -1,57 +1,41 @@
 import './FocusHeader.less';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import getIcon from '../iconMap';
 import { LensTabs } from './LensTabs';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { removeFocus } from '../../actions/trends';
+import {
+  selectQueryFocus,
+  selectQueryLens,
+} from '../../reducers/query/selectors';
+import { selectTrendsTotal } from '../../reducers/trends/selectors';
 
-export class FocusHeader extends React.Component {
-  render() {
-    const { focus, lens, total } = this.props;
-    return (
-      <div className="focus-header">
-        <button
-          className="a-btn a-btn__link clear-focus"
-          id="clear-focus"
-          onClick={() => {
-            this.props.clearFocus(lens);
-          }}
-        >
-          {getIcon('left')}
-          {'View ' + lens.toLowerCase() + ' trends'}
-        </button>
-        <div>
-          <section className="focus">
-            <h1>{focus}</h1>
-            <span className="divider" />
-            <h2>{total} Complaints</h2>
-          </section>
-        </div>
-        <LensTabs showTitle={false} key="lens-tab" />
+export const FocusHeader = () => {
+  const focus = useSelector(selectQueryFocus);
+  const lens = useSelector(selectQueryLens);
+  const total = useSelector(selectTrendsTotal).toLocaleString();
+
+  const dispatch = useDispatch();
+  return (
+    <div className="focus-header">
+      <button
+        className="a-btn a-btn__link clear-focus"
+        id="clear-focus"
+        onClick={() => {
+          dispatch(removeFocus(lens));
+        }}
+      >
+        {getIcon('left')}
+        {'View ' + lens.toLowerCase() + ' trends'}
+      </button>
+      <div>
+        <section className="focus">
+          <h1>{focus}</h1>
+          <span className="divider" />
+          <h2>{total} Complaints</h2>
+        </section>
       </div>
-    );
-  }
-}
-
-export const mapDispatchToProps = (dispatch) => ({
-  clearFocus: () => {
-    dispatch(removeFocus());
-  },
-});
-
-export const mapStateToProps = (state) => ({
-  focus: state.query.focus,
-  lens: state.query.lens,
-  total: state.trends.total.toLocaleString(),
-});
-
-// eslint-disable-next-line react-redux/prefer-separate-component-file
-export default connect(mapStateToProps, mapDispatchToProps)(FocusHeader);
-
-FocusHeader.propTypes = {
-  focus: PropTypes.string,
-  lens: PropTypes.string.isRequired,
-  total: PropTypes.string.isRequired,
-  clearFocus: PropTypes.func.isRequired,
+      <LensTabs showTitle={false} key="lens-tab" />
+    </div>
+  );
 };

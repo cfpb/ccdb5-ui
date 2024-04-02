@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import ExternalTooltip from './ExternalTooltip';
 import FilterPanel from '../Filters/FilterPanel';
 import FilterPanelToggle from '../Filters/FilterPanelToggle';
-import FocusHeader from './FocusHeader';
+import { FocusHeader } from './FocusHeader';
 import { lenses } from '../../constants';
 import { LensTabs } from './LensTabs';
 import LineChart from '../Charts/LineChart';
