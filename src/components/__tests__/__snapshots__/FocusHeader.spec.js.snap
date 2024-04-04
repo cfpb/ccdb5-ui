@@ -35,12 +35,6 @@ exports[`component:FocusHeader renders both tabs without crashing 1`] = `
   >
     <section>
       <button
-        className="tab sub_product active"
-        onClick={[Function]}
-      >
-        Sub-products
-      </button>
-      <button
         className="tab issue"
         onClick={[Function]}
       >

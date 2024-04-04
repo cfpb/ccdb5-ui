@@ -1,17 +1,11 @@
 import configureMockStore from 'redux-mock-store';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
-import ReduxLensTabs, {
-  LensTabs,
-  mapDispatchToProps,
-  mapStateToProps,
-} from '../Trends/LensTabs';
+import { LensTabs } from '../Trends/LensTabs';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { REQUERY_ALWAYS } from '../../constants';
 import thunk from 'redux-thunk';
 import { shallow } from 'enzyme';
-import * as utils from '../../utils';
 
 /**
  *
@@ -38,7 +32,7 @@ function setupSnapshot({ focus, lens, results }) {
   return renderer.create(
     <Provider store={store}>
       <IntlProvider locale="en">
-        <ReduxLensTabs showTitle={true} />
+        <LensTabs showTitle={true} />
       </IntlProvider>
     </Provider>,
   );
@@ -119,48 +113,6 @@ describe('component:LensTabs', () => {
       const prev = target.find('.tabbed-navigation button.issue');
       prev.simulate('click');
       expect(cb).toHaveBeenCalledWith('Product', 'issue');
-    });
-  });
-
-  describe('mapDispatchToProps', () => {
-    it('hooks into changeDataSubLens', () => {
-      const dispatch = jest.fn();
-      const gaSpy = jest.spyOn(utils, 'sendAnalyticsEvent');
-      mapDispatchToProps(dispatch).onTab('Some Lens', 'product');
-      expect(dispatch.mock.calls).toEqual([
-        [
-          {
-            requery: REQUERY_ALWAYS,
-            subLens: 'product',
-            type: 'DATA_SUBLENS_CHANGED',
-          },
-        ],
-      ]);
-      expect(gaSpy).toHaveBeenCalledWith('Button', 'Some Lens:Products');
-    });
-  });
-
-  describe('mapStateToProps', () => {
-    it('maps state and props', () => {
-      const state = {
-        query: {
-          focus: '',
-          lens: 'foo',
-          subLens: 'bar',
-        },
-        trends: {
-          results: {
-            foo: [],
-          },
-        },
-      };
-      const actual = mapStateToProps(state);
-      expect(actual).toEqual({
-        focus: '',
-        lens: 'foo',
-        hasProductTab: true,
-        subLens: 'bar',
-      });
     });
   });
 });
