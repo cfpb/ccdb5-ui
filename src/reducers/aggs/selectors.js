@@ -4,4 +4,5 @@ export const selectAggsHasDataIssue = (state) => state.aggs.hasDataIssue;
 export const selectAggsHasError = (state) => state.aggs.error;
 export const selectAggsIsDataStale = (state) => state.aggs.isDataStale;
 export const selectAggsLastIndexed = (state) => state.aggs.lastIndexed;
+export const selectAggsProduct = (state) => state.aggs.product;
 export const selectAggsTotal = (state) => state.aggs.total;
