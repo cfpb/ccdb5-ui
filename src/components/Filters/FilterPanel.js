@@ -1,11 +1,11 @@
 import './FilterPanel.less';
-import Company from './Company';
+import { Company } from './Company';
 import { CompanyReceivedFilter } from './CompanyReceivedFilter';
 import { connect } from 'react-redux';
 import { DateFilter } from './DateFilter';
 import { FederalState } from './FederalState';
 import { filterVisibilityToggled } from '../../actions/view';
-import HasNarrative from './HasNarrative';
+import { HasNarrative } from './HasNarrative';
 import getIcon from '../iconMap';
 import { Issue } from './Issue';
 import Product from './Product';
