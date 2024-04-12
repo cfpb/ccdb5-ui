@@ -16,7 +16,7 @@ export const ComplexExample = ({ id, notes, placeholderText, tooltipText }) => {
         }}
         title="Expand content"
       >
-        <h3 className="h4 o-expandable_label">
+        <h3 className="o-expandable_label">
           Additional information and examples
         </h3>
         <span className="o-expandable_cues">

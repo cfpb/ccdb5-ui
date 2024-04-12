@@ -11,7 +11,7 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
     onClick={[Function]}
   >
     <h3
-      className="h4 o-expandable_label"
+      className="o-expandable_label"
     >
       Date CFPB received the complaint
     </h3>
@@ -180,7 +180,7 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
     onClick={[Function]}
   >
     <h3
-      className="h4 o-expandable_label"
+      className="o-expandable_label"
     >
       Date CFPB received the complaint
     </h3>
@@ -333,16 +333,25 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
           All
         </button>
       </section>
-      'From' date must be less than 'through' date 
-      <span
-        aria-hidden="true"
+      <div
+        className="a-form-alert a-form-alert__error"
+        role="alert"
       >
-        <svg
-          className="cf-icon-svg cf-icon-delete-round"
+        <span
+          aria-hidden="true"
         >
-          error-round.svg
-        </svg>
-      </span>
+          <svg
+            className="cf-icon-svg cf-icon-delete-round"
+          >
+            error-round.svg
+          </svg>
+        </span>
+        <span
+          className="a-form-alert_text"
+        >
+          'From' date must be less than 'through' date 
+        </span>
+      </div>
     </div>
   </div>
 </section>
@@ -359,7 +368,7 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
     onClick={[Function]}
   >
     <h3
-      className="h4 o-expandable_label"
+      className="o-expandable_label"
     >
       Date CFPB received the complaint
     </h3>

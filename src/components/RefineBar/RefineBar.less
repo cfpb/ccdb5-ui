@@ -7,32 +7,32 @@
     p {
       font-size: @size-vi;
       font-weight: 600;
-      color: @gray;
+      color: var(--gray);
     }
     button {
       &.selected {
-        background-color: @pacific-80;
+        background-color: var(--pacific-80);
         font-weight: 600;
       }
       &:not(.selected) {
-        background-color: @pacific-40;
+        background-color: var(--pacific-40);
       }
     }
     &:not(.filter-panel-toggle) {
       button {
-        color: @black;
+        color: var(--black);
       }
     }
 
     &.cf-select {
       border: none;
       select {
-        background-color: @white;
-        color: @black;
-        border: 1px solid @gray-40;
+        background-color: var(--white);
+        color: var(--black);
+        border: 1px solid var(--gray-40);
       }
       &::after {
-        background-color: @white;
+        background-color: var(--white);
         transform: translate(-5px, 0);
       }
     }
@@ -54,7 +54,7 @@
     }
 
     &.disabled.a-btn__disabled {
-      background-color: @gray-10;
+      background-color: var(--gray-10);
     }
   }
 }

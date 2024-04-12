@@ -1,16 +1,5 @@
 .content_hero {
-  padding: @gutter-normal;
-
-  @media @desktop {
-    padding: @grid_gutter-width;
-    padding-top: @gutter-normal;
-  }
-
-  @media @phone {
-    padding: @gutter-narrow;
-  }
-
-  margin-top: @grid_gutter-width;
+  padding-bottom: unit(30px / @base-font-size-px, rem);
 
   p {
     max-width: 670px;
@@ -56,7 +45,7 @@
     box-sizing: border-box;
     margin-left: @gutter-narrow;
     margin-top: 0;
-    color: @gray-dark;
+    color: var(--gray-dark);
     text-transform: uppercase;
     vertical-align: text-bottom;
   }

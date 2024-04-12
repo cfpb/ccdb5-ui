@@ -3,3 +3,4 @@ export const selectTrendsFocus = (state) => state.trends.focus;
 export const selectTrendsLens = (state) => state.trends.lens;
 export const selectTrendsTooltip = (state) => state.trends.tooltip;
 export const selectTrendsResults = (state) => state.trends.results;
+export const selectTrendsTotal = (state) => state.trends.total;

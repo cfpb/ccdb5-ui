@@ -3,9 +3,8 @@ export const selectAggsDocCount = (state) => state.aggs.doc_count;
 export const selectAggsHasDataIssue = (state) => state.aggs.hasDataIssue;
 export const selectAggsHasError = (state) => state.aggs.error;
 export const selectAggsIsDataStale = (state) => state.aggs.isDataStale;
-export const selectAggsTotal = (state) => state.aggs.total;
 export const selectAggsLastIndexed = (state) => state.aggs.lastIndexed;
-
+export const selectAggsTotal = (state) => state.aggs.total;
 export const selectAggsCompany = (state) => state.aggs.company;
 export const selectAggsCompanyPublicResponse = (state) =>
   state.aggs.company_public_response;

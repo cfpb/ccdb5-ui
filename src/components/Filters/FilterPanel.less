@@ -4,18 +4,24 @@
   @media @desktop {
     padding: @grid_gutter-width;
   }
-  border-top: 1px solid @gray-40;
-  border-right: 1px solid @gray-40;
-  background: @gray-5;
+  border-top: 1px solid var(--gray-40);
+  border-right: 1px solid var(--gray-40);
+  background: var(--gray-5);
 
   @media @phone {
     border-right: none;
   }
 
-  hr {
+  .a-form-alert {
     margin-top: @gutter-normal;
-    margin-bottom: @gutter-normal;
+  }
 
-    color: @gray-40;
+  hr {
+    margin: 0;
+    color: var(--gray-40);
+  }
+
+  .single-checkbox {
+    margin: @gutter-normal;
   }
 }
