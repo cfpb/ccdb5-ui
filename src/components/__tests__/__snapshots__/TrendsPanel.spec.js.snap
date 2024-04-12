@@ -2339,7 +2339,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
           onClick={[Function]}
         >
           <h3
-            className="h4 o-expandable_header-left o-expandable_label"
+            className="o-expandable_header-left o-expandable_label"
           >
             Date CFPB received the complaint
           </h3>
@@ -2511,7 +2511,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
           onClick={[Function]}
         >
           <h3
-            className="h4 o-expandable_header-left o-expandable_label"
+            className="o-expandable_header-left o-expandable_label"
           >
             Product / sub-product
           </h3>
@@ -2557,7 +2557,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
           onClick={[Function]}
         >
           <h3
-            className="h4 o-expandable_header-left o-expandable_label"
+            className="o-expandable_header-left o-expandable_label"
           >
             Issue / sub-issue
           </h3>
@@ -2642,7 +2642,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
           onClick={[Function]}
         >
           <h3
-            className="h4 o-expandable_header-left o-expandable_label"
+            className="o-expandable_header-left o-expandable_label"
           >
             State
           </h3>
@@ -2727,7 +2727,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
           onClick={[Function]}
         >
           <h3
-            className="h4 o-expandable_header-left o-expandable_label"
+            className="o-expandable_header-left o-expandable_label"
           >
             ZIP code
           </h3>
@@ -2812,7 +2812,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
           onClick={[Function]}
         >
           <h3
-            className="h4 o-expandable_header-left o-expandable_label"
+            className="o-expandable_header-left o-expandable_label"
           >
             Company name
           </h3>
@@ -2897,7 +2897,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
           onClick={[Function]}
         >
           <h3
-            className="h4 o-expandable_header-left o-expandable_label"
+            className="o-expandable_header-left o-expandable_label"
           >
             Did company provide a timely response?
           </h3>
@@ -2935,7 +2935,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
           onClick={[Function]}
         >
           <h3
-            className="h4 o-expandable_header-left o-expandable_label"
+            className="o-expandable_header-left o-expandable_label"
           >
             Company response to consumer
           </h3>
@@ -2973,7 +2973,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
           onClick={[Function]}
         >
           <h3
-            className="h4 o-expandable_header-left o-expandable_label"
+            className="o-expandable_header-left o-expandable_label"
           >
             Company public response
           </h3>
@@ -3011,7 +3011,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
           onClick={[Function]}
         >
           <h3
-            className="h4 o-expandable_header-left o-expandable_label"
+            className="o-expandable_header-left o-expandable_label"
           >
             The date the CFPB sent the complaint to the company
           </h3>
@@ -3146,7 +3146,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
           onClick={[Function]}
         >
           <h3
-            className="h4 o-expandable_header-left o-expandable_label"
+            className="o-expandable_header-left o-expandable_label"
           >
             Consumer consent provided?
           </h3>
@@ -3211,7 +3211,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
           onClick={[Function]}
         >
           <h3
-            className="h4 o-expandable_header-left o-expandable_label"
+            className="o-expandable_header-left o-expandable_label"
           >
             How did the consumer submit the complaint to the CFPB?
           </h3>
@@ -3249,7 +3249,7 @@ exports[`component:TrendsPanel Snapshots renders mobile filters without crashing
           onClick={[Function]}
         >
           <h3
-            className="h4 o-expandable_header-left o-expandable_label"
+            className="o-expandable_header-left o-expandable_label"
           >
             Tags
           </h3>
