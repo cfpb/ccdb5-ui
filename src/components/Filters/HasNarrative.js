@@ -12,7 +12,6 @@ const FILTERING = 'FILTERING';
 const NOTHING = 'NOTHING';
 
 // ----------------------------------------------------------------------------
-// The Class
 
 export const HasNarrative = () => {
   const dispatch = useDispatch();
