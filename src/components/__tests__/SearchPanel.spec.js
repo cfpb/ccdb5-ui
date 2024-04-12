@@ -1,45 +1,24 @@
-import ReduxSearchPanel from '../Search/SearchPanel';
-import React from 'react';
-import renderer from 'react-test-renderer';
-import thunk from 'redux-thunk';
-import configureMockStore from 'redux-mock-store';
-import { IntlProvider } from 'react-intl';
-import { Provider } from 'react-redux';
+import { SearchPanel } from '../Search/SearchPanel';
+import { testRender as render, screen } from '../../testUtils/test-utils';
 
-/**
- * @returns {void}
- */
-function setupSnapshot() {
-  const middlewares = [thunk];
-  const mockStore = configureMockStore(middlewares);
-  const store = mockStore({
+const renderComponent = () => {
+  const data = {
     aggs: {
       lastIndexed: new Date('2016-02-01T05:00:00.000Z').toString(),
     },
-    query: {
-      date_received_max: '2020-04-05T12:00:00.000Z',
-      date_received_min: '2011-12-31T12:00:00.000Z',
-      searchField: 'all',
-      searchText: 'something searching',
-    },
-    view: {
-      hasAdvancedSearchTips: false,
-    },
+  };
+
+  render(<SearchPanel />, {
+    preloadedState: data,
   });
+};
 
-  return renderer.create(
-    <Provider store={store}>
-      <IntlProvider locale="en">
-        <ReduxSearchPanel />
-      </IntlProvider>
-    </Provider>,
-  );
-}
-
-xdescribe('component:SearchPanel', () => {
+describe('component:SearchPanel', () => {
   it('renders without crashing', () => {
-    const target = setupSnapshot();
-    const tree = target.toJSON();
-    expect(tree).toMatchSnapshot();
+    renderComponent();
+    expect(
+      screen.getByText('Date Received: 5/5/2017 - 5/5/2020'),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/2\/1\/2016/)).toBeInTheDocument();
   });
 });
