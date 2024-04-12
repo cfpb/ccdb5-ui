@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 import { RefinePanel } from './RefinePanel';
 import { ResultsPanel } from '../ResultsPanel';
 import { RootModal } from '../Dialogs/RootModal';
-import SearchPanel from './SearchPanel';
+import { SearchPanel } from './SearchPanel';
 import { selectViewIsPrintMode } from '../../reducers/view/selectors';
 import { Tour } from '../Tour/Tour';
 import { useUpdateLocation } from '../../hooks/useUpdateLocation';
