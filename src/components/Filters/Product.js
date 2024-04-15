@@ -1,90 +1,99 @@
-import { coalesce, sortSelThenCount } from '../../utils';
 import { MODE_TRENDS, SLUG_SEPARATOR } from '../../constants';
 import AggregationBranch from './AggregationBranch';
 import CollapsibleFilter from './CollapsibleFilter';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { sortSelThenCount } from '../../utils';
 import MoreOrLess from './MoreOrLess';
-import PropTypes from 'prop-types';
 import React from 'react';
+import {
+  selectQueryFocus,
+  selectQueryLens,
+  selectQueryProduct,
+  selectQueryTab,
+} from '../../reducers/query/selectors';
+import { selectAggsProduct } from '../../reducers/aggs/selectors';
 
-export class Product extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this._onBucket = this._onBucket.bind(this);
-  }
-
-  render() {
-    const desc =
-      'The type of product and sub-product the consumer ' +
-      'identified in the complaint';
-
-    const listComponentProps = {
-      fieldName: 'product',
-    };
-
-    return (
-      <CollapsibleFilter
-        title="Product / sub-product"
-        desc={desc}
-        hasChildren={this.props.hasChildren}
-        className="aggregation product"
-      >
-        <MoreOrLess
-          listComponent={AggregationBranch}
-          listComponentProps={listComponentProps}
-          options={this.props.options}
-          perBucketProps={this._onBucket}
-        />
-      </CollapsibleFilter>
-    );
-  }
-
-  // --------------------------------------------------------------------------
-  // MoreOrLess Helpers
-
-  _onBucket(bucket, props) {
-    props.subitems = bucket['sub_product.raw'].buckets;
-    return props;
-  }
-}
-
-export const mapStateToProps = (state) => {
-  // See if there are an active product filters
-  const { focus, lens, tab } = state.query;
-  const allProducts = coalesce(state.query, 'product', []);
+/**
+ * Helper function generate and sort options
+ *
+ * @param {Array} aggsProducts - Products array from aggs reducer
+ * @param {Array} queryProduct - Products array from query reducer. TBD this will move to new filters reducer in the future
+ * @param {string} focus - If a current focus is selected
+ * @param {string} lens - Name of the Aggregate By on Trends tab
+ * @param {string} tab - Current tab we are on
+ * @returns {Array} Options for the product filter
+ */
+export const generateOptions = (
+  aggsProducts,
+  queryProduct,
+  focus,
+  lens,
+  tab,
+) => {
   const selections = [];
-
+  const allProducts = queryProduct ? queryProduct : [];
   // Reduce the products to the parent keys (and dedup)
   allProducts.forEach((prod) => {
     const idx = prod.indexOf(SLUG_SEPARATOR);
-    const key = idx === -1 ? prod : prod.substr(0, idx);
+    const key = idx === -1 ? prod : prod.substring(0, idx);
     if (selections.indexOf(key) === -1) {
       selections.push(key);
     }
   });
 
   // Make a cloned, sorted version of the aggs
-  const options = sortSelThenCount(state.aggs.product, selections);
+  const options = sortSelThenCount(aggsProducts, selections);
   if (focus) {
     const isProductFocus = tab === MODE_TRENDS && lens === 'Product';
     options.forEach((opt) => {
-      opt.disabled = isProductFocus ? opt.key !== focus : false;
+      opt.isDisabled = isProductFocus ? opt.key !== focus : false;
       opt['sub_product.raw'].buckets.forEach((bucket) => {
-        bucket.disabled = isProductFocus ? opt.disabled : false;
+        bucket.isDisabled = isProductFocus ? opt.isDisabled : false;
       });
     });
   }
 
-  return {
-    options,
-  };
+  return options;
 };
 
-// eslint-disable-next-line react-redux/prefer-separate-component-file
-export default connect(mapStateToProps)(Product);
+export const Product = () => {
+  // See if there are an active product filters
+  const focus = useSelector(selectQueryFocus);
+  const lens = useSelector(selectQueryLens);
+  const tab = useSelector(selectQueryTab);
+  const queryProduct = useSelector(selectQueryProduct);
+  const aggsProducts = useSelector(selectAggsProduct);
 
-Product.propTypes = {
-  hasChildren: PropTypes.bool,
-  options: PropTypes.array.isRequired,
+  const options = generateOptions(aggsProducts, queryProduct, focus, lens, tab);
+
+  const desc =
+    'The type of product and sub-product the consumer identified in the ' +
+    'complaint';
+
+  const listComponentProps = {
+    fieldName: 'product',
+  };
+
+  // --------------------------------------------------------------------------
+  // MoreOrLess Helpers
+  const _onBucket = (bucket, props) => {
+    props.subitems = bucket['sub_product.raw'].buckets;
+    return props;
+  };
+
+  return (
+    <CollapsibleFilter
+      title="Product / sub-product"
+      desc={desc}
+      hasChildren={true}
+      className="aggregation product"
+    >
+      <MoreOrLess
+        listComponent={AggregationBranch}
+        listComponentProps={listComponentProps}
+        options={options}
+        perBucketProps={_onBucket}
+      />
+    </CollapsibleFilter>
+  );
 };
