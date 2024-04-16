@@ -39,12 +39,12 @@ describe('Filter Panel', () => {
       cy.get('#date_received-from').should('be.visible');
 
       cy.log('collapse it');
-      cy.get('.date-filter button.a-btn__link:first').click({ force: true });
+      cy.get('.date-filter button.a-btn--link:first').click({ force: true });
 
       cy.get('#date-received-agg #start_date').should('not.exist');
 
       cy.log('open it');
-      cy.get('.date-filter button.a-btn__link:first').click({ force: true });
+      cy.get('.date-filter button.a-btn--link:first').click({ force: true });
       cy.log('apply dates');
 
       cy.get('#date_received-from').clear();
@@ -167,11 +167,11 @@ describe('Filter Panel', () => {
       cy.get('.filter-panel .product .children').should('not.exist');
       // Open sub-filter
       cy.get(
-        '.filter-panel .product .aggregation-branch:first .a-btn__link',
+        '.filter-panel .product .aggregation-branch:first .a-btn--link',
       ).click();
       cy.get('.filter-panel .product .children').should('exist');
       cy.get(
-        '.filter-panel .product .aggregation-branch:first .a-btn__link',
+        '.filter-panel .product .aggregation-branch:first .a-btn--link',
       ).click();
       cy.get('.filter-panel .product .children').should('not.exist');
 
