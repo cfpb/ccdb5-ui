@@ -8,7 +8,7 @@ import { filterVisibilityToggled } from '../../actions/view';
 import { HasNarrative } from './HasNarrative';
 import getIcon from '../iconMap';
 import { Issue } from './Issue';
-import Product from './Product';
+import { Product } from './Product';
 import PropTypes from 'prop-types';
 import React from 'react';
 import SimpleFilter from './SimpleFilter';

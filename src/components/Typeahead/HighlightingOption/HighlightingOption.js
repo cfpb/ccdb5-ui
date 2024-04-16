@@ -7,7 +7,7 @@ export const HighlightingOption = ({ label, position, value }) => {
   }
 
   const start = label.substring(0, position);
-  const match = label.substr(position, value.length);
+  const match = label.substring(position, value.length);
   const end = label.substring(position + value.length);
 
   return (

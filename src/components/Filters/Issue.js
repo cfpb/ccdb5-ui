@@ -29,7 +29,7 @@ export const Issue = ({ hasChildren }) => {
   // Reduce the issues to the parent keys (and dedup)
   filters.forEach((filter) => {
     const idx = filter.indexOf(SLUG_SEPARATOR);
-    const key = idx === -1 ? filter : filter.substr(0, idx);
+    const key = idx === -1 ? filter : filter.substring(0, idx);
     if (selections.indexOf(key) === -1) {
       selections.push(key);
     }
