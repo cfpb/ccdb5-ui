@@ -7,20 +7,20 @@ exports[`initial state renders without crashing 1`] = `
   <button
     aria-expanded="false"
     aria-label="Hide nana filter"
-    className="o-expandable_header"
+    className="o-expandable__header"
     onClick={[Function]}
   >
     <h3
-      className="o-expandable_label"
+      className="o-expandable__label"
     >
       nana
     </h3>
     <span
-      className="o-expandable_cues"
+      className="o-expandable__cues"
     >
       <span
         aria-label="Show"
-        className="o-expandable_cue-open"
+        className="o-expandable__cue-open"
         role="img"
       >
         <svg>

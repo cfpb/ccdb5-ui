@@ -10,7 +10,7 @@ export const Warning = ({ text, closeFn }) => (
   >
     {getIcon('warning-round')}
     <div className="m-notification_content">
-      <div className="m-notification_message">{text}</div>
+      <div className="m-notification__message">{text}</div>
     </div>
     {closeFn ? (
       <button

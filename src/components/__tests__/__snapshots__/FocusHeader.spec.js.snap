@@ -5,7 +5,7 @@ exports[`component:FocusHeader renders both tabs without crashing 1`] = `
   className="focus-header"
 >
   <button
-    className="a-btn a-btn__link clear-focus"
+    className="a-btn a-btn--link clear-focus"
     id="clear-focus"
     onClick={[Function]}
   >

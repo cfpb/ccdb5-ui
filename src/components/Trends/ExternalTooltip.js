@@ -61,7 +61,7 @@ export class ExternalTooltip extends React.Component {
     if (hasCompanyTypeahead) {
       elements.push(
         <button
-          className="u-right a-btn a-btn__link close"
+          className="u-right a-btn a-btn--link close"
           key={'close_' + value.name}
           onClick={() => {
             this.props.remove(value.name);
@@ -98,7 +98,7 @@ export class ExternalTooltip extends React.Component {
             </ul>
 
             {!!hasTotal && (
-              <ul className="m-list__unstyled tooltip-ul total">
+              <ul className="m-list--unstyled tooltip-ul total">
                 <li>
                   <span className="u-left">Total</span>
                   <span className="u-right">

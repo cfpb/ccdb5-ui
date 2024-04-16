@@ -12,7 +12,7 @@ export class FocusHeader extends React.Component {
     return (
       <div className="focus-header">
         <button
-          className="a-btn a-btn__link clear-focus"
+          className="a-btn a-btn--link clear-focus"
           id="clear-focus"
           onClick={() => {
             this.props.clearFocus(lens);

@@ -6,19 +6,19 @@ import getIcon from '../../iconMap';
 
 export const AdvancedTips = () => {
   return (
-    <div className="advanced_tips">
+    <div className="advanced__tips">
       <div>
         <h3>Search tips</h3>
         <ul className="m-list">
-          <li className="m-list_item">
+          <li className="m-list__item">
             Hover over the examples within the sample search bars below to see
             what their results should return
           </li>
-          <li className="m-list_item">
+          <li className="m-list__item">
             When searching within &quot;All data&quot;, terms must be found in
             the same field to be considered a match
           </li>
-          <li className="m-list_item">
+          <li className="m-list__item">
             The search function will look for any variations of the word that
             includes the stem – for example, if deferment is searched, it would
             return the following variations: deferment, defer, deferred,
@@ -27,7 +27,7 @@ export const AdvancedTips = () => {
         </ul>
       </div>
       <div className="tips content-l">
-        <div className="tip content-l_col content-l_col-1-3">
+        <div className="tip content-l__col content-l__col-1-3">
           <h4>AND / OR / NOT</h4>
           <label className="u-visually-hidden" htmlFor="example-and">
             Use AND when results must contain all terms
@@ -80,7 +80,7 @@ export const AdvancedTips = () => {
             tooltipText="This example would return results that include the word call (called, calling, etc.) and one of the words in the parentheses, but exclude the word spam (spammed, spamming, etc.)."
           />
         </div>
-        <div className="tip content-l_col content-l_col-1-3">
+        <div className="tip content-l__col content-l__col-1-3">
           <h4>Must/Must not contain</h4>
           <label className="u-visually-hidden" htmlFor="example-must-plus">
             Use + if the search must contain the selected term
@@ -120,7 +120,7 @@ export const AdvancedTips = () => {
             tooltipText="Results must include the terms agent and car but exclude accident – the terms insurance and claim are optional"
           />
         </div>
-        <div className="tip content-l_col content-l_col-1-3">
+        <div className="tip content-l__col content-l__col-1-3">
           <h4>Wildcard search</h4>
           <label className="u-visually-hidden" htmlFor="example-wc-star">
             Use * to substitute any consecutive number of characters.
@@ -151,7 +151,7 @@ export const AdvancedTips = () => {
             <p>Use ? to replace any single character anywhere in a term.</p>
           </div>
         </div>
-        <div className="tip content-l_col content-l_col-1-3">
+        <div className="tip content-l__col content-l__col-1-3">
           <h4>Proximity search</h4>
           <label className="u-visually-hidden" htmlFor="example-proximity">
             Use ~[#] at the end of a phrase to search for terms with up to that
@@ -160,7 +160,7 @@ export const AdvancedTips = () => {
           </label>
           <TooltipWrapper text='Results would include the terms "auto", "loan", and "default" in any order, with up to three (3) gap words in between them. For example, results could include: "defaulted auto loan", "auto loan that went into default", "Auto Loan with the same defaulted", etc.'>
             <input
-              className="a-text-input example-input_full"
+              className="a-text-input example-input__full"
               id="example-proximity"
               type="text"
               readOnly
@@ -183,7 +183,7 @@ export const AdvancedTips = () => {
             ]}
           />
         </div>
-        <div className="tip content-l_col content-l_col-1-3">
+        <div className="tip content-l__col content-l__col-1-3">
           <h4>Fuzzy search</h4>
           <label className="u-visually-hidden" htmlFor="example-fuzzy">
             Use ~1 at the end of a term to search for terms that are spelled
@@ -191,7 +191,7 @@ export const AdvancedTips = () => {
           </label>
           <TooltipWrapper text="Results would include the correct spelling of escrow, as well as other (potentially misspelled) versions, such as: escrow, escrowed, escro, esrow, etc.">
             <input
-              className="a-text-input example-input_full"
+              className="a-text-input example-input__full"
               id="example-fuzzy"
               type="text"
               readOnly
@@ -214,7 +214,7 @@ export const AdvancedTips = () => {
             tooltipText='Results would return the various misspellings of the word "escrow" that fuzzy term search identifies (after excluding the escrow and escrowed).'
           />
         </div>
-        <div className="tip content-l_col content-l_col-1-3">
+        <div className="tip content-l__col content-l__col-1-3">
           <h4>Boost search</h4>
           <label className="u-visually-hidden" htmlFor="example-boost">
             Use ^[#] at the end of a term or terms to increase or decrease its
@@ -222,7 +222,7 @@ export const AdvancedTips = () => {
           </label>
           <TooltipWrapper text='Results would be sorted by relevance in favor of the term "pay"'>
             <input
-              className="a-text-input example-input_full"
+              className="a-text-input example-input__full"
               id="example-boost"
               type="text"
               readOnly
@@ -246,21 +246,21 @@ export const AdvancedTips = () => {
       <div className="footer">
         <h3>Additional notes:</h3>
         <ul className="m-list">
-          <li className="m-list_item">
+          <li className="m-list__item">
             Putting a phrase only in quotations (&quot; &quot;) will search for
             the words in that order, but it will not be an exact match – meaning
             it may include stemmed versions of the term.
           </li>
-          <li className="m-list_item">
+          <li className="m-list__item">
             The default operator is &quot;AND&quot;, meaning if you search
             &quot;foreclosure house&quot;, it will search results that include
             both words (i.e., foreclosure AND house).
           </li>
-          <li className="m-list_item">
+          <li className="m-list__item">
             Capitalization does not have an effect on searched terms (expect for
             the AND / OR / NOT operators).
           </li>
-          <li className="m-list_item">
+          <li className="m-list__item">
             <a
               href="https://www.elastic.co/guide/en/elasticsearch/reference/7.17/elasticsearch-intro.html"
               target="_blank"

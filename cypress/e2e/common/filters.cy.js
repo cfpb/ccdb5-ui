@@ -101,34 +101,34 @@ describe('Filter Panel', () => {
       cy.wait(750);
 
       cy.log('open simple filter');
-      cy.get('.timely > .o-expandable_header').click();
+      cy.get('.timely > .o-expandable__header').click();
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(750);
       cy.get(
-        '.timely > .o-expandable_content > ul > :nth-child(1) > .a-label',
+        '.timely > .o-expandable__content > ul > :nth-child(1) > .a-label',
       ).should('be.visible');
 
       cy.log('close it');
 
       // Close it after opening it
-      cy.get('.timely > .o-expandable_header').should('be.visible').click();
+      cy.get('.timely > .o-expandable__header').should('be.visible').click();
       cy.get(
-        '.timely > .o-expandable_content > ul > :nth-child(1) > .a-label',
+        '.timely > .o-expandable__content > ul > :nth-child(1) > .a-label',
       ).should('not.exist');
 
       cy.log('open it again');
-      cy.get('.timely > .o-expandable_header').click();
+      cy.get('.timely > .o-expandable__header').click();
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(750);
 
       cy.get(
-        '.timely > .o-expandable_content > ul > :nth-child(1) > .a-label',
+        '.timely > .o-expandable__content > ul > :nth-child(1) > .a-label',
       ).should('be.visible');
 
       cy.log('apply filter');
 
       cy.get(
-        '.timely > .o-expandable_content > ul > :nth-child(1) > .a-label',
+        '.timely > .o-expandable__content > ul > :nth-child(1) > .a-label',
       ).click();
 
       cy.url().should('include', 'timely=Yes');
@@ -148,14 +148,14 @@ describe('Filter Panel', () => {
       );
 
       // close it
-      cy.get('.filter-panel .product .o-expandable_cue-close').click();
+      cy.get('.filter-panel .product .o-expandable__cue-close').click();
       cy.get('.filter-panel .product .aggregation-branch').should(
         'have.length',
         0,
       );
 
       // open it
-      cy.get('.filter-panel .product .o-expandable_cue-open').click();
+      cy.get('.filter-panel .product .o-expandable__cue-open').click();
 
       cy.get('.filter-panel .product .aggregation-branch').should(
         'have.length.gt',
@@ -234,12 +234,12 @@ describe('Filter Panel', () => {
       cy.get('.state input').should('be.visible');
 
       cy.log('close it');
-      cy.get('.state .o-expandable_cues').click();
+      cy.get('.state .o-expandable__cues').click();
 
       cy.get('.state input').should('not.exist');
 
       cy.log('open again');
-      cy.get('.state .o-expandable_cues').click();
+      cy.get('.state .o-expandable__cues').click();
       cy.log('searches a typeahead filter');
       cy.findByPlaceholderText('Enter state name or abbreviation').clear();
       cy.findByPlaceholderText('Enter state name or abbreviation').type(

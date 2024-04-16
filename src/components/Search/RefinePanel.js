@@ -10,7 +10,7 @@ export const RefinePanel = () => {
   const hasDesktopFilters = width > 749;
 
   return hasDesktopFilters ? (
-    <aside className={`content_sidebar ${tab.toLowerCase()}`}>
+    <aside className={`content__sidebar ${tab.toLowerCase()}`}>
       <FilterPanel />
     </aside>
   ) : null;

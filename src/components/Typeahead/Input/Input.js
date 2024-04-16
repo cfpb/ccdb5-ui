@@ -20,8 +20,8 @@ export const Input = ({
     <section className={`typeahead ${className | ''}`}>
       <div className="m-btn-inside-input input-contains-label">
         <div
-          className="input-contains-label_before
-                            input-contains-label_before__search"
+          className="input-contains-label__before
+                            input-contains-label__before--search"
         >
           {getIcon('search')}
         </div>

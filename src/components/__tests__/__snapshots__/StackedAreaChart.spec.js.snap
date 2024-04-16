@@ -12,7 +12,7 @@ exports[`component: StackedAreaChart initial state renders without crashing 1`] 
     className="m-notification_content"
   >
     <div
-      className="m-notification_message"
+      className="m-notification__message"
     >
       Cannot display chart. Adjust your date range or date interval.
     </div>

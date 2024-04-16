@@ -9,7 +9,7 @@ import {
 } from './tourStepSelectors';
 
 const generateLinkText = (index, linkObject) =>
-  `<li><button class="a-btn a-btn__link" onclick="document.querySelectorAll('.introjs-bullets li a')[${
+  `<li><button class="a-btn a-btn--link" onclick="document.querySelectorAll('.introjs-bullets li a')[${
     index + 1
   }].click()">` +
   linkObject[1].label +

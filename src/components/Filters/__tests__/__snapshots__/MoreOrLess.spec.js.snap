@@ -4,7 +4,7 @@ exports[`component:MoreOrLess matches + Show NN more 1`] = `
 Array [
   <ul>
     <li
-      className="layout-row m-form-field m-form-field__checkbox"
+      className="layout-row m-form-field m-form-field--checkbox"
     >
       <input
         aria-label="alpha"
@@ -27,7 +27,7 @@ Array [
       </span>
     </li>
     <li
-      className="layout-row m-form-field m-form-field__checkbox"
+      className="layout-row m-form-field m-form-field--checkbox"
     >
       <input
         aria-label="beta"
@@ -50,7 +50,7 @@ Array [
       </span>
     </li>
     <li
-      className="layout-row m-form-field m-form-field__checkbox"
+      className="layout-row m-form-field m-form-field--checkbox"
     >
       <input
         aria-label="gamma"
@@ -73,7 +73,7 @@ Array [
       </span>
     </li>
     <li
-      className="layout-row m-form-field m-form-field__checkbox"
+      className="layout-row m-form-field m-form-field--checkbox"
     >
       <input
         aria-label="delta"
@@ -96,7 +96,7 @@ Array [
       </span>
     </li>
     <li
-      className="layout-row m-form-field m-form-field__checkbox"
+      className="layout-row m-form-field m-form-field--checkbox"
     >
       <input
         aria-label="epsilon"
@@ -121,7 +121,7 @@ Array [
   </ul>,
   <div>
     <button
-      className="a-btn a-btn__link more"
+      className="a-btn a-btn--link more"
       onClick={[Function]}
     >
       + Show 3 more
@@ -134,7 +134,7 @@ exports[`component:MoreOrLess matches - Show NN less 1`] = `
 Array [
   <ul>
     <li
-      className="layout-row m-form-field m-form-field__checkbox"
+      className="layout-row m-form-field m-form-field--checkbox"
     >
       <input
         aria-label="alpha"
@@ -157,7 +157,7 @@ Array [
       </span>
     </li>
     <li
-      className="layout-row m-form-field m-form-field__checkbox"
+      className="layout-row m-form-field m-form-field--checkbox"
     >
       <input
         aria-label="beta"
@@ -180,7 +180,7 @@ Array [
       </span>
     </li>
     <li
-      className="layout-row m-form-field m-form-field__checkbox"
+      className="layout-row m-form-field m-form-field--checkbox"
     >
       <input
         aria-label="gamma"
@@ -203,7 +203,7 @@ Array [
       </span>
     </li>
     <li
-      className="layout-row m-form-field m-form-field__checkbox"
+      className="layout-row m-form-field m-form-field--checkbox"
     >
       <input
         aria-label="delta"
@@ -226,7 +226,7 @@ Array [
       </span>
     </li>
     <li
-      className="layout-row m-form-field m-form-field__checkbox"
+      className="layout-row m-form-field m-form-field--checkbox"
     >
       <input
         aria-label="epsilon"
@@ -249,7 +249,7 @@ Array [
       </span>
     </li>
     <li
-      className="layout-row m-form-field m-form-field__checkbox"
+      className="layout-row m-form-field m-form-field--checkbox"
     >
       <input
         aria-label="zeta"
@@ -272,7 +272,7 @@ Array [
       </span>
     </li>
     <li
-      className="layout-row m-form-field m-form-field__checkbox"
+      className="layout-row m-form-field m-form-field--checkbox"
     >
       <input
         aria-label="eta"
@@ -295,7 +295,7 @@ Array [
       </span>
     </li>
     <li
-      className="layout-row m-form-field m-form-field__checkbox"
+      className="layout-row m-form-field m-form-field--checkbox"
     >
       <input
         aria-label="theta"
@@ -320,7 +320,7 @@ Array [
   </ul>,
   <div>
     <button
-      className="a-btn a-btn__link more"
+      className="a-btn a-btn--link more"
       onClick={[Function]}
     >
       - Show 3 less
