@@ -33,7 +33,7 @@ export const Typeahead = ({
       <div className="m-btn-inside-input input-contains-label">
         <div
           className="input-contains-label__before
-                            input-contains-label__before__search"
+                            input-contains-label__before--search"
         >
           {getIcon('search')}
         </div>

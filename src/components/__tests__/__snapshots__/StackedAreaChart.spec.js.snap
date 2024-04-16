@@ -9,7 +9,7 @@ exports[`component: StackedAreaChart initial state renders without crashing 1`] 
     error-round.svg
   </svg>
   <div
-    className="m-notification_content"
+    className="m-notification__content"
   >
     <div
       className="m-notification__message"
