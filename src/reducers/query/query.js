@@ -13,8 +13,7 @@ import { enforceValues, validateTrendsReducer } from '../../utils/reducers';
 import actions from '../../actions';
 import dayjs from 'dayjs';
 import { isGreaterThanYear } from '../../utils/trends';
-
-const queryString = require('query-string');
+import queryString from 'query-string';
 
 /* eslint-disable camelcase */
 export const defaultQuery = {

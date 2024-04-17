@@ -1,6 +1,5 @@
 import { sendQuery } from './complaints';
-
-const queryString = require('query-string');
+import queryString from 'query-string';
 
 export const URL_CHANGED = 'URL_CHANGED';
 //-----------------------------------------------------------------------------
