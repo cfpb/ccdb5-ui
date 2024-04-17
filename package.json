@@ -59,15 +59,15 @@
     "@reduxjs/toolkit": "^2.2.1",
     "@testing-library/cypress": "^10.0.1",
     "@testing-library/jest-dom": "^6.4.2",
-    "@testing-library/react": "14.2.1",
+    "@testing-library/react": "15.0.2",
     "@testing-library/user-event": "^14.5.2",
     "britecharts": "git+https://github.com/cfpb/britecharts.git#v2.4.2",
     "coveralls": "^3.0.9",
-    "craco-esbuild": "^0.5.2",
+    "craco-esbuild": "^0.6.1",
     "craco-less": "^3.0.1",
     "cypress": "^13.7.3",
-    "d3": "^5.12.0",
-    "d3-selection": "^1.4.0",
+    "d3": "^7.9.0",
+    "d3-selection": "^3.0.0",
     "dayjs": "^1.11.10",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
@@ -88,7 +88,7 @@
     "less-plugin-clean-css": "^1.5.1",
     "lint-staged": "^15.2.2",
     "lodash": "^4.17.21",
-    "mini-css-extract-plugin": "^2.8.1",
+    "mini-css-extract-plugin": "^2.9.0",
     "mockdate": "^3.0.5",
     "postcss": "^8.4.38",
     "postcss-less": "^6.0.0",
@@ -96,7 +96,7 @@
     "postcss-safe-parser": "^7.0.0",
     "prettier": "^3.2.4",
     "prop-types": "^15.5.10",
-    "query-string": "^5.0.0",
+    "query-string": "^9.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.6.0",
     "react-bootstrap-typeahead": "^6.3.2",
@@ -121,6 +121,37 @@
     ],
     "{cypress,src}/**/*.{js,jsx,ts,tsx}": [
       "eslint --fix"
+    ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!<rootDir>/node_modules/",
+      "!**/constants/**",
+      "!**/__fixtures__/**",
+      "!**/index.js",
+      "**/utils/*.{js,jsx}",
+      "!**/serviceWorker.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 83,
+        "functions": 91,
+        "lines": 91,
+        "statements": 91
+      }
+    },
+    "coverageReporters": [
+      "lcov",
+      "text",
+      "html",
+      "text-summary"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less)$": "identity-obj-proxy"
+    },
+    "transformIgnorePatterns": [
+      "^.+\\.module\\.(css|less)$"
     ]
   },
   "publishConfig": {
