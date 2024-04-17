@@ -74,6 +74,11 @@ module.exports = {
     {
       plugin: CracoEsbuildPlugin,
       options: {
+        esbuildLoaderOptions: {
+          // Optional. Defaults to auto-detect loader.
+          loader: 'jsx', // Set the value to 'tsx' if you use typescript
+          target: 'es2015',
+        },
         skipEsbuildJest: true, // Optional. Set to true if you want to use babel for jest tests,
       },
     },
