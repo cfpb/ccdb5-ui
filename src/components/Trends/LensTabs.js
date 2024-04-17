@@ -8,7 +8,7 @@ import {
   selectQueryLens,
   selectQuerySubLens,
 } from '../../reducers/query/selectors';
-import { selectResultsItems } from '../../reducers/results/selectors';
+import { selectTrendsResultsSubProduct } from '../../reducers/trends/selectors';
 
 const lensMaps = {
   Company: {
@@ -20,27 +20,26 @@ const lensMaps = {
   },
 };
 
+const displayProductTab = (lens, focus, subProducts) => {
+  if (!focus) {
+    return true;
+  } else if (subProducts && subProducts.length) {
+    return true;
+  }
+  return false;
+};
+
 export const LensTabs = () => {
   const dispatch = useDispatch();
   const focus = useSelector(selectQueryFocus);
   const lens = useSelector(selectQueryLens);
   const subLens = useSelector(selectQuerySubLens);
-  const results = useSelector(selectResultsItems);
+  const subProducts = useSelector(selectTrendsResultsSubProduct);
 
   if (lens === 'Overview') {
     return null;
   }
-
-  const displayProductTab = (lens, focus, results) => {
-    if (!focus) {
-      return true;
-    } else if (results['sub-product'] && results['sub-product'].length) {
-      return true;
-    }
-    return false;
-  };
-
-  const hasProductTab = displayProductTab(lens, focus, results);
+  const hasProductTab = displayProductTab(lens, focus, subProducts);
   const onTab = (lens, tab) => {
     const labelMap = {
       // eslint-disable-next-line camelcase

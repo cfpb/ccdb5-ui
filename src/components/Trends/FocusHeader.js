@@ -2,7 +2,6 @@ import './FocusHeader.less';
 import { useDispatch, useSelector } from 'react-redux';
 import getIcon from '../iconMap';
 import { LensTabs } from './LensTabs';
-import React from 'react';
 import { removeFocus } from '../../actions/trends';
 import {
   selectQueryFocus,
@@ -16,7 +15,7 @@ export const FocusHeader = () => {
   const total = useSelector(selectTrendsTotal).toLocaleString();
 
   const dispatch = useDispatch();
-  return (
+  return focus ? (
     <div className="focus-header">
       <button
         className="a-btn a-btn__link clear-focus"
@@ -32,10 +31,10 @@ export const FocusHeader = () => {
         <section className="focus">
           <h1>{focus}</h1>
           <span className="divider" />
-          <h2>{total} Complaints</h2>
+          <h2>{total + ' Complaints'}</h2>
         </section>
       </div>
       <LensTabs showTitle={false} key="lens-tab" />
     </div>
-  );
+  ) : null;
 };
