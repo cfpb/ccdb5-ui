@@ -148,6 +148,7 @@
       }
     },
     "coverageReporters": [
+      "lcov",
       "text",
       "html",
       "text-summary"
