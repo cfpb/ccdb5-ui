@@ -29,7 +29,7 @@ import {
   toggleFlagFilter,
 } from '../filters/filtersSlice';
 import { tabChanged } from '../view/viewSlice';
-const queryString = require('query-string');
+import queryString from 'query-string';
 
 /* eslint-disable camelcase */
 export const queryState = {

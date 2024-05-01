@@ -78,7 +78,7 @@ export const DataExport = () => {
       <div className="header layout-row">
         <h3 className="flex-all">Export complaints</h3>
         <button
-          className="a-btn a-btn__link"
+          className="a-btn a-btn--link"
           data-gtm_ignore="true"
           onClick={() => {
             dispatch(modalHidden());
@@ -199,13 +199,13 @@ export const DataExport = () => {
             >
               {!copied && (
                 <div>
-                  <span className="a-btn_icon">{getIcon('copy')}</span>
+                  <span className="a-btn__icon">{getIcon('copy')}</span>
                   Copy
                 </div>
               )}
               {!!copied && (
                 <div>
-                  <span className="a-btn_icon">
+                  <span className="a-btn__icon">
                     {getIcon('checkmark-round')}
                   </span>
                   Copied
@@ -230,7 +230,7 @@ export const DataExport = () => {
           Start export
         </button>
         <button
-          className="a-btn a-btn__link a-btn__warning"
+          className="a-btn a-btn--link a-btn__warning"
           data-gtm_ignore="true"
           onClick={() => {
             dispatch(modalHidden());

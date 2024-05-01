@@ -25,7 +25,7 @@ export const MapToolbar = () => {
         {!!filteredStates && (
           <button
             aria-label="Clear all map filters"
-            className="a-btn a-btn__link"
+            className="a-btn a-btn--link"
             onClick={() => {
               dispatch(stateFilterCleared());
             }}
@@ -38,7 +38,7 @@ export const MapToolbar = () => {
       {!!filteredStates && (
         <section className="state-navigation">
           <button
-            className="list a-btn a-btn__link"
+            className="list a-btn a-btn--link"
             onClick={() => {
               dispatch(tabChanged(MODE_LIST));
             }}

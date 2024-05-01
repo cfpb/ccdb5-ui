@@ -176,7 +176,7 @@ export const DateFilter = () => {
                 value={fromDate}
               />
               <button
-                className="a-btn a-btn__link"
+                className="a-btn a-btn--link"
                 onClick={() => handleClear('from')}
               >
                 {getIcon('delete')}
@@ -208,7 +208,7 @@ export const DateFilter = () => {
                 value={throughDate}
               />
               <button
-                className="a-btn a-btn__link"
+                className="a-btn a-btn--link"
                 onClick={() => handleClear('through')}
               >
                 {getIcon('delete')}
@@ -225,7 +225,7 @@ export const DateFilter = () => {
             <span aria-hidden="true">
               {getIcon('delete-round', 'cf-icon-delete-round')}
             </span>
-            <span className="a-form-alert_text">{errors + ' '}</span>
+            <span className="a-form-alert__text">{errors + ' '}</span>
           </div>
         ) : null}
       </div>

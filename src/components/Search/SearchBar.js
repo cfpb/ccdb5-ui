@@ -152,7 +152,7 @@ export const SearchBar = ({ debounceWait }) => {
             </a>
 
             <div className="advanced-container flex-fixed">
-              <button className="a-btn a-btn__link" onClick={onAdvancedClicked}>
+              <button className="a-btn a-btn--link" onClick={onAdvancedClicked}>
                 {hasAdvancedSearchTips ? 'Hide ' : 'Show '}
                 advanced search tips
               </button>

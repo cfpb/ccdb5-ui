@@ -1,9 +1,14 @@
 import './LensTabs.less';
 import { dataSubLensChanged } from '../../reducers/trends/trendsSlice';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
 import { sendAnalyticsEvent } from '../../utils';
+import {
+  selectTrendsFocus,
+  selectTrendsLens,
+  selectTrendsResultsSubProduct,
+  selectTrendsSubLens,
+} from '../../reducers/trends/selectors';
 
 const lensMaps = {
   Company: {
@@ -15,92 +20,72 @@ const lensMaps = {
   },
 };
 
-export class LensTabs extends React.Component {
-  _getTabClass(tab) {
-    tab = tab.toLowerCase();
-    const classes = ['tab', tab];
-    const regex = new RegExp(this.props.subLens.toLowerCase(), 'g');
-    if (tab.replace('-', '_').match(regex)) {
-      classes.push('active');
-    }
-    return classes.join(' ');
-  }
-
-  render() {
-    const { lens, hasProductTab } = this.props;
-    if (lens === 'Overview') {
-      return null;
-    }
-
-    const currentLens = lensMaps[lens];
-    return (
-      <div className="tabbed-navigation lens">
-        <section>
-          {!!hasProductTab && (
-            <button
-              className={this._getTabClass(currentLens.tab1.filterName)}
-              onClick={() => {
-                this.props.onTab(lens, currentLens.tab1.filterName);
-              }}
-            >
-              {currentLens.tab1.displayName}
-            </button>
-          )}
-          {!!lensMaps[lens].tab2 && (
-            <button
-              className={this._getTabClass(currentLens.tab2.filterName)}
-              onClick={() => {
-                this.props.onTab(lens, currentLens.tab2.filterName);
-              }}
-            >
-              {currentLens.tab2.displayName}
-            </button>
-          )}
-        </section>
-      </div>
-    );
-  }
-}
-
-const displayProductTab = (lens, focus, results) => {
+const displayProductTab = (lens, focus, subProducts) => {
   if (!focus) {
     return true;
-  } else if (results['sub-product'] && results['sub-product'].length) {
+  } else if (subProducts && subProducts.length) {
     return true;
   }
   return false;
 };
 
-export const mapStateToProps = (state) => {
-  const { focus, lens, subLens, results } = state.trends;
-  return {
-    focus,
-    lens,
-    hasProductTab: displayProductTab(lens, focus, results),
-    subLens,
-  };
-};
+export const LensTabs = () => {
+  const dispatch = useDispatch();
+  const focus = useSelector(selectTrendsFocus);
+  const lens = useSelector(selectTrendsLens);
+  const subLens = useSelector(selectTrendsSubLens);
+  const subProducts = useSelector(selectTrendsResultsSubProduct);
 
-export const mapDispatchToProps = (dispatch) => ({
-  onTab: (lens, tab) => {
+  if (lens === 'Overview') {
+    return null;
+  }
+  const hasProductTab = displayProductTab(lens, focus, subProducts);
+  const onTab = (lens, tab) => {
     const labelMap = {
       // eslint-disable-next-line camelcase
       sub_product: 'Sub-products',
       issue: 'Issues',
       product: 'Products',
     };
-
     sendAnalyticsEvent('Button', lens + ':' + labelMap[tab]);
+
     dispatch(dataSubLensChanged(tab.toLowerCase()));
-  },
-});
+  };
+  const _getTabClass = (tab) => {
+    tab = tab.toLowerCase();
+    const classes = ['tab', tab];
+    const regex = new RegExp(subLens.toLowerCase(), 'g');
+    if (tab.replace('-', '_').match(regex)) {
+      classes.push('active');
+    }
+    return classes.join(' ');
+  };
 
-// eslint-disable-next-line react-redux/prefer-separate-component-file
-export default connect(mapStateToProps, mapDispatchToProps)(LensTabs);
-
-LensTabs.propTypes = {
-  subLens: PropTypes.string.isRequired,
-  lens: PropTypes.string.isRequired,
-  hasProductTab: PropTypes.bool,
-  onTab: PropTypes.func.isRequired,
+  const currentLens = lensMaps[lens];
+  return (
+    <div className="tabbed-navigation lens">
+      <section>
+        {!!hasProductTab && (
+          <button
+            className={_getTabClass(currentLens.tab1.filterName)}
+            onClick={() => {
+              onTab(lens, currentLens.tab1.filterName);
+            }}
+          >
+            {currentLens.tab1.displayName}
+          </button>
+        )}
+        {!!lensMaps[lens].tab2 && (
+          <button
+            className={_getTabClass(currentLens.tab2.filterName)}
+            onClick={() => {
+              onTab(lens, currentLens.tab2.filterName);
+            }}
+          >
+            {currentLens.tab2.displayName}
+          </button>
+        )}
+      </section>
+    </div>
+  );
 };

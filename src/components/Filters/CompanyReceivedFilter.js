@@ -156,7 +156,7 @@ export const CompanyReceivedFilter = () => {
                 value={fromDate}
               />
               <button
-                className="a-btn a-btn__link"
+                className="a-btn a-btn--link"
                 onClick={() => handleClear('from')}
               >
                 {getIcon('delete')}
@@ -188,7 +188,7 @@ export const CompanyReceivedFilter = () => {
                 value={throughDate}
               />
               <button
-                className="a-btn a-btn__link"
+                className="a-btn a-btn--link"
                 onClick={() => handleClear('through')}
               >
                 {getIcon('delete')}

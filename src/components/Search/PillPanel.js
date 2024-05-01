@@ -76,7 +76,7 @@ export const PillPanel = () => {
         ))}
         <li className="clear-all">
           <button
-            className="a-btn a-btn__link body-copy"
+            className="a-btn a-btn--link body-copy"
             onClick={() => dispatch(filtersCleared(searchField))}
           >
             {getIcon('delete')}

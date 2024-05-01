@@ -73,7 +73,7 @@ export class AggregationBranch extends React.Component {
       );
     }
 
-    const liStyle = 'parent m-form-field m-form-field__checkbox body-copy';
+    const liStyle = 'parent m-form-field m-form-field--checkbox body-copy';
     const id = sanitizeHtmlId(fieldName + '-' + item.key);
 
     let chevronIcon;
@@ -99,7 +99,7 @@ export class AggregationBranch extends React.Component {
             <span className="u-visually-hidden">{item.key}</span>
           </label>
           <button
-            className="flex-all a-btn a-btn__link"
+            className="flex-all a-btn a-btn--link"
             onClick={this._toggleChildDisplay}
           >
             <span>{item.key}</span>

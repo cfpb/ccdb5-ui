@@ -1,6 +1,6 @@
 describe('Complaint export', () => {
-  const currentPage = '.m-pagination_label';
-  const nextButton = '.m-pagination .m-pagination_btn-next';
+  const currentPage = '.m-pagination__label';
+  const nextButton = '.m-pagination .m-pagination__btn-next';
 
   const exportButton = '.export-btn';
   const filteredDataset = 'label[for=dataset_filtered]';

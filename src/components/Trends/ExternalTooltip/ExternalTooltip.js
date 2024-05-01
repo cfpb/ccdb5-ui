@@ -44,7 +44,7 @@ export const ExternalTooltip = () => {
           </ul>
 
           {!!hasTotal && (
-            <ul className="m-list__unstyled tooltip-ul total">
+            <ul className="m-list--unstyled tooltip-ul total">
               <li>
                 <span className="u-left">Total</span>
                 <span className="u-right">

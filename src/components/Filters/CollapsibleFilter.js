@@ -40,14 +40,14 @@ export default class CollapsibleFilter extends React.Component {
 
     const opened = (
       <>
-        <span className="o-expandable_cue-close" role="img" aria-label="Hide">
+        <span className="o-expandable__cue-close" role="img" aria-label="Hide">
           {getIcon('minus-round')}
         </span>
       </>
     );
     const closed = (
       <>
-        <span className="o-expandable_cue-open" role="img" aria-label="Show">
+        <span className="o-expandable__cue-open" role="img" aria-label="Show">
           {getIcon('plus-round')}
         </span>
       </>
@@ -55,18 +55,18 @@ export default class CollapsibleFilter extends React.Component {
     return (
       <section className={composeClasses}>
         <button
-          className="o-expandable_header"
+          className="o-expandable__header"
           aria-expanded={buttonAttr}
           aria-label={`Hide ${this.props.title} filter`}
           onClick={this._toggleChildDisplay}
         >
-          <h3 className="o-expandable_label">{this.props.title}</h3>
-          <span className="o-expandable_cues">
+          <h3 className="o-expandable__label">{this.props.title}</h3>
+          <span className="o-expandable__cues">
             {this.state.hasChildren ? opened : closed}
           </span>
         </button>
         {this.state.hasChildren ? (
-          <div className="o-expandable_content">
+          <div className="o-expandable__content">
             <p>{this.props.desc}</p>
             {this.props.children}
           </div>

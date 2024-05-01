@@ -9,20 +9,20 @@ export const ComplexExample = ({ id, notes, placeholderText, tooltipText }) => {
   return (
     <div className="o-expandable complex-example">
       <button
-        className="o-expandable_header"
+        className="o-expandable__header"
         aria-expanded={isOpen}
         onClick={() => {
           setIsOpen(!isOpen);
         }}
         title="Expand content"
       >
-        <h3 className="o-expandable_label">
+        <h3 className="o-expandable__label">
           Additional information and examples
         </h3>
-        <span className="o-expandable_cues">
+        <span className="o-expandable__cues">
           {isOpen ? (
             <span
-              className="o-expandable_cue-close"
+              className="o-expandable__cue-close"
               role="img"
               aria-label="Hide"
             >
@@ -32,7 +32,7 @@ export const ComplexExample = ({ id, notes, placeholderText, tooltipText }) => {
             </span>
           ) : (
             <span
-              className="o-expandable_cue-open"
+              className="o-expandable__cue-open"
               role="img"
               aria-label="Show"
             >
@@ -44,7 +44,7 @@ export const ComplexExample = ({ id, notes, placeholderText, tooltipText }) => {
         </span>
       </button>
       {isOpen ? (
-        <div className="o-expandable_content">
+        <div className="o-expandable__content">
           {tooltipText && placeholderText ? (
             <>
               <label className="descriptor" htmlFor={`example-${id}`}>
@@ -54,7 +54,7 @@ export const ComplexExample = ({ id, notes, placeholderText, tooltipText }) => {
               <TooltipWrapper text={tooltipText}>
                 {placeholderText.length > 30 ? (
                   <textarea
-                    className="a-text-input example-input_full"
+                    className="a-text-input example-input__full"
                     id={`example-${id}`}
                     rows={2}
                     readOnly
@@ -62,7 +62,7 @@ export const ComplexExample = ({ id, notes, placeholderText, tooltipText }) => {
                   />
                 ) : (
                   <input
-                    className="a-text-input example-input_full"
+                    className="a-text-input example-input__full"
                     id={`example-${id}`}
                     rows={2}
                     readOnly
@@ -75,7 +75,7 @@ export const ComplexExample = ({ id, notes, placeholderText, tooltipText }) => {
           <h4 className="descriptor">Notes:</h4>
           <ul className="m-list">
             {notes.map((note, index) => (
-              <li className="m-list_item" key={index}>
+              <li className="m-list__item" key={index}>
                 {note}
               </li>
             ))}

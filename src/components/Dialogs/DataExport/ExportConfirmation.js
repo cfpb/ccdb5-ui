@@ -10,7 +10,7 @@ export const ExportConfirmation = () => {
       <div className="header layout-row">
         <h3 className="flex-all">Export complaints</h3>
         <button
-          className="a-btn a-btn__link"
+          className="a-btn a-btn--link"
           data-gtm_ignore="true"
           onClick={() => {
             dispatch(modalHidden());

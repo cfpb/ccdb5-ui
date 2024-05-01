@@ -9,10 +9,10 @@ exports[`component: LineChart initial state renders data lens without crashing 1
     error-round.svg
   </svg>
   <div
-    className="m-notification_content"
+    className="m-notification__content"
   >
     <div
-      className="m-notification_message"
+      className="m-notification__message"
     >
       Cannot display chart. Adjust your date range or date interval.
     </div>
@@ -29,10 +29,10 @@ exports[`component: LineChart initial state renders without crashing 1`] = `
     error-round.svg
   </svg>
   <div
-    className="m-notification_content"
+    className="m-notification__content"
   >
     <div
-      className="m-notification_message"
+      className="m-notification__message"
     >
       Cannot display chart. Adjust your date range or date interval.
     </div>

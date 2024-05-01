@@ -26,7 +26,7 @@ export const ResultsPanel = () => {
   }
 
   return (
-    <div className={'content_main ' + tab.toLowerCase()}>
+    <div className={'content__main ' + tab.toLowerCase()}>
       <PrintInfo />
       {currentPanel}
       <PrintInfoFooter />

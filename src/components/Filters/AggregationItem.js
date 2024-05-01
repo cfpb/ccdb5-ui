@@ -22,7 +22,7 @@ export class AggregationItem extends React.Component {
   render() {
     const { isActive, item, fieldName } = this.props;
     const value = item.value || item.key;
-    const liStyle = 'layout-row m-form-field m-form-field__checkbox';
+    const liStyle = 'layout-row m-form-field m-form-field--checkbox';
     const id = sanitizeHtmlId(fieldName + '-' + item.key);
     return (
       <li className={liStyle}>

@@ -43,11 +43,11 @@ export const SearchComponents = () => {
 
   return (
     <main
-      className={`content content__1-3 ${isPrintMode ? 'print' : ''}`}
+      className={`content content--1-3 ${isPrintMode ? 'print' : ''}`}
       role="main"
     >
       <Hero />
-      <div className="content_wrapper">
+      <div className="content__wrapper">
         <SearchPanel />
         <RefinePanel />
         <ResultsPanel />
