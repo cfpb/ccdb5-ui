@@ -21,7 +21,7 @@ export const TRENDS_DATE_WARNING_DISMISSED = 'TRENDS_DATE_WARNING_DISMISSED';
 /**
  * Notifies the application that the filter visibility has changed
  *
- * @returns {string} a packaged payload to be used by Redux reducers
+ * @returns {object} a packaged payload to be used by Redux reducers
  */
 export function filterVisibilityToggled() {
   return {
