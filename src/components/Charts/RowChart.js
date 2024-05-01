@@ -197,7 +197,8 @@ export class RowChart extends React.Component {
     this.props.selectFocus(element, lens, filters);
   }
 
-  _toggleRow(rowName) {
+  _toggleRow(element) {
+    const rowName = element.target.__data__;
     // fire off different action depending on if the row is expanded or not
     const { data, expandedRows } = this.props;
     const expandableRows = data
