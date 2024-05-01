@@ -41,7 +41,7 @@ export class MoreOrLess extends React.Component {
         {remain > 0 ? (
           <div>
             <button
-              className="a-btn a-btn__link more"
+              className="a-btn a-btn--link more"
               onClick={this._toggleShowMore}
             >
               {this.state.hasMore

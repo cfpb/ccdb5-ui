@@ -1,8 +1,8 @@
 describe('List View', () => {
   const cardContainers = '.cards-panel .card-container';
-  const currentPage = '.m-pagination_label';
-  const nextButton = '.m-pagination .m-pagination_btn-next';
-  const prevButton = '.m-pagination .m-pagination_btn-prev';
+  const currentPage = '.m-pagination__label';
+  const nextButton = '.m-pagination .m-pagination__btn-next';
+  const prevButton = '.m-pagination .m-pagination__btn-prev';
   const addNarrativesButton = '#btn-add-narratives';
   const removeNarrativesButton = '#btn-remove-narratives';
   const filterHasNarrative = '#filterHasNarrative';

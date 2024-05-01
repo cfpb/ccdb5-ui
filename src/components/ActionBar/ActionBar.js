@@ -47,7 +47,7 @@ export const ActionBar = () => {
         <div>
           <h3 className="h4 flex-all export-results">
             <button
-              className="a-btn a-btn__link export-btn"
+              className="a-btn a-btn--link export-btn"
               data-gtm_ignore="true"
               onClick={() => {
                 sendAnalyticsEvent('Export', tab + ':User Opens Export Modal');
@@ -57,7 +57,7 @@ export const ActionBar = () => {
               Export data
             </button>
             <button
-              className="a-btn a-btn__link print-preview"
+              className="a-btn a-btn--link print-preview"
               onClick={() => {
                 showPrintView(tab);
               }}

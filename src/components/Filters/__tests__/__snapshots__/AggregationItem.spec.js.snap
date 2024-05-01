@@ -2,7 +2,7 @@
 
 exports[`component:AggregationItem renders without crashing 1`] = `
 <li
-  className="layout-row m-form-field m-form-field__checkbox"
+  className="layout-row m-form-field m-form-field--checkbox"
 >
   <input
     aria-label="foo"

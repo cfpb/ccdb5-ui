@@ -18,7 +18,7 @@ export const FocusHeader = () => {
   return focus ? (
     <div className="focus-header">
       <button
-        className="a-btn a-btn__link clear-focus"
+        className="a-btn a-btn--link clear-focus"
         id="clear-focus"
         onClick={() => {
           dispatch(removeFocus(lens));

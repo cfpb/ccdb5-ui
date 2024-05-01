@@ -11,8 +11,10 @@ describe('component:WindowSize', () => {
     const wrapper = shallow(<Warning {...props} />);
     expect(
       wrapper
-        .find('.m-notification_message')
-        .equals(<div className="m-notification_message">Some nag message</div>),
+        .find('.m-notification__message')
+        .equals(
+          <div className="m-notification__message">Some nag message</div>,
+        ),
     ).toEqual(true);
   });
 
@@ -25,9 +27,9 @@ describe('component:WindowSize', () => {
     const wrapper = shallow(<Warning {...props} />);
     expect(
       wrapper
-        .find('.m-notification_message')
+        .find('.m-notification__message')
         .equals(
-          <div className="m-notification_message">
+          <div className="m-notification__message">
             Some nag message you can close
           </div>,
         ),

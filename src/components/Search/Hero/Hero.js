@@ -8,12 +8,12 @@ export const Hero = () => {
   const dispatch = useDispatch();
 
   return (
-    <header className="content_hero">
+    <header className="content__hero">
       <h1 className="content-header">Consumer Complaint Database</h1>
-      <ul className="m-list m-list__horizontal">
-        <li className="m-list_item">
+      <ul className="m-list m-list--horizontal">
+        <li className="m-list__item">
           <button
-            className="a-btn a-btn__link"
+            className="a-btn a-btn--link"
             onClick={() => {
               dispatch(showModal(MODAL_TYPE_MORE_ABOUT));
             }}
@@ -21,12 +21,12 @@ export const Hero = () => {
             Things to know before you use this database
           </button>
         </li>
-        <li className="m-list_item">
+        <li className="m-list__item">
           <a href={LINK_DATA_USE} target="_blank" rel="noopener noreferrer">
             How we use complaint data
           </a>
         </li>
-        <li className="m-list_item">
+        <li className="m-list__item">
           <a
             href="https://cfpb.github.io/api/ccdb/"
             target="_blank"
