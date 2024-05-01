@@ -112,7 +112,7 @@ export function addFilter(filterName, filterValue) {
  *
  * @param {string} filterName - which filter was clicked
  * @param {string} filterValue - the value of the filter that was clicked
- * @returns {string} a packaged payload to be used by Redux reducers
+ * @returns {object} a packaged payload to be used by Redux reducers
  */
 export function removeFilter(filterName, filterValue) {
   return {
