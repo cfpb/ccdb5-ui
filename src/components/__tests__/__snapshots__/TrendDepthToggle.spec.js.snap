@@ -5,7 +5,7 @@ exports[`component:TrendDepthToggle renders Product view less without crashing 1
   className="trend-depth-toggle"
 >
   <button
-    className="a-btn a-btn__link"
+    className="a-btn a-btn--link"
     id="trend-depth-button"
     onClick={[Function]}
   >
@@ -22,7 +22,7 @@ exports[`component:TrendDepthToggle renders Product view more without crashing 1
   className="trend-depth-toggle"
 >
   <button
-    className="a-btn a-btn__link"
+    className="a-btn a-btn--link"
     id="trend-depth-button"
     onClick={[Function]}
   >

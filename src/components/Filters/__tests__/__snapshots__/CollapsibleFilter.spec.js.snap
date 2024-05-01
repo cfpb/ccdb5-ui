@@ -7,20 +7,20 @@ exports[`component:CollapsibleFilter initial state renders without crashing 1`] 
   <button
     aria-expanded="true"
     aria-label="Hide foo filter"
-    className="o-expandable_header"
+    className="o-expandable__header"
     onClick={[Function]}
   >
     <h3
-      className="o-expandable_label"
+      className="o-expandable__label"
     >
       foo
     </h3>
     <span
-      className="o-expandable_cues"
+      className="o-expandable__cues"
     >
       <span
         aria-label="Hide"
-        className="o-expandable_cue-close"
+        className="o-expandable__cue-close"
         role="img"
       >
         <svg>
@@ -30,7 +30,7 @@ exports[`component:CollapsibleFilter initial state renders without crashing 1`] 
     </span>
   </button>
   <div
-    className="o-expandable_content"
+    className="o-expandable__content"
   >
     <p>
       bar

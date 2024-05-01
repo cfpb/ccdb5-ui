@@ -4,7 +4,7 @@ import getIcon from '../../iconMap';
 export const ClearButton = ({ onClear }) => {
   return (
     <button
-      className="a-btn a-btn__link"
+      className="a-btn a-btn--link"
       onClick={onClear}
       aria-label="clear search"
     >

@@ -1,15 +1,15 @@
 /* eslint-disable max-len, no-inline-comments */
 export const DOCUMENT_STEP_SELECTORS = {
-  STEP_1: '.content_hero',
-  STEP_2: '.m-pagination_btn-next',
-  STEP_3: '.saved_search-panel div:nth-child(2)',
+  STEP_1: '.content__hero',
+  STEP_2: '.m-pagination__btn-next',
+  STEP_3: '.saved__search-panel div:nth-child(2)',
   STEP_4: '.back-to-results',
 };
 
 export const GEO_STEP_SELECTORS = {
   STEP_1: { selector: '.content', label: 'Index' },
   STEP_2: {
-    selector: 'header.content_hero .m-list__horizontal',
+    selector: 'header.content__hero .m-list--horizontal',
     label: 'Help Links',
   },
   STEP_3: { selector: '.tabbed-navigation', label: 'Views' },
@@ -42,7 +42,7 @@ export const GEO_STEP_SELECTORS = {
 export const LIST_COMPLAINTS_SELECTORS = {
   STEP_1: { selector: '.content', label: 'Index' },
   STEP_2: {
-    selector: 'header.content_hero .m-list__horizontal',
+    selector: 'header.content__hero .m-list--horizontal',
     label: 'Help Links',
   },
   STEP_3: { selector: '.tabbed-navigation', label: 'Views' },
@@ -80,7 +80,7 @@ export const LIST_COMPLAINTS_SELECTORS = {
 export const TRENDS_SELECTORS = {
   STEP_1: { selector: '.content', label: 'Index' },
   STEP_2: {
-    selector: 'header.content_hero .m-list__horizontal',
+    selector: 'header.content__hero .m-list--horizontal',
     label: 'Help Links',
   },
   STEP_3: { selector: '.tabbed-navigation', label: 'Views' },

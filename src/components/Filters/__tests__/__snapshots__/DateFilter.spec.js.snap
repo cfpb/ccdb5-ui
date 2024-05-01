@@ -7,20 +7,20 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
   <button
     aria-expanded="true"
     aria-label="Hide Date CFPB received the complaint filter"
-    className="o-expandable_header"
+    className="o-expandable__header"
     onClick={[Function]}
   >
     <h3
-      className="o-expandable_label"
+      className="o-expandable__label"
     >
       Date CFPB received the complaint
     </h3>
     <span
-      className="o-expandable_cues"
+      className="o-expandable__cues"
     >
       <span
         aria-label="Hide"
-        className="o-expandable_cue-close"
+        className="o-expandable__cue-close"
         role="img"
       >
         <svg>
@@ -30,7 +30,7 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
     </span>
   </button>
   <div
-    className="o-expandable_content"
+    className="o-expandable__content"
   >
     <p />
     <div>
@@ -75,7 +75,7 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
               value="2016-01-01"
             />
             <button
-              className="a-btn a-btn__link"
+              className="a-btn a-btn--link"
               onClick={[Function]}
             >
               <svg>
@@ -112,7 +112,7 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
               value="2018-01-01"
             />
             <button
-              className="a-btn a-btn__link"
+              className="a-btn a-btn--link"
               onClick={[Function]}
             >
               <svg>
@@ -176,20 +176,20 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
   <button
     aria-expanded="true"
     aria-label="Hide Date CFPB received the complaint filter"
-    className="o-expandable_header"
+    className="o-expandable__header"
     onClick={[Function]}
   >
     <h3
-      className="o-expandable_label"
+      className="o-expandable__label"
     >
       Date CFPB received the complaint
     </h3>
     <span
-      className="o-expandable_cues"
+      className="o-expandable__cues"
     >
       <span
         aria-label="Hide"
-        className="o-expandable_cue-close"
+        className="o-expandable__cue-close"
         role="img"
       >
         <svg>
@@ -199,7 +199,7 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
     </span>
   </button>
   <div
-    className="o-expandable_content"
+    className="o-expandable__content"
   >
     <p />
     <div>
@@ -244,7 +244,7 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
               value="2016-01-01"
             />
             <button
-              className="a-btn a-btn__link"
+              className="a-btn a-btn--link"
               onClick={[Function]}
             >
               <svg>
@@ -281,7 +281,7 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
               value="2000-01-01"
             />
             <button
-              className="a-btn a-btn__link"
+              className="a-btn a-btn--link"
               onClick={[Function]}
             >
               <svg>
@@ -347,7 +347,7 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
           </svg>
         </span>
         <span
-          className="a-form-alert_text"
+          className="a-form-alert__text"
         >
           'From' date must be less than 'through' date 
         </span>
@@ -364,20 +364,20 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
   <button
     aria-expanded="true"
     aria-label="Hide Date CFPB received the complaint filter"
-    className="o-expandable_header"
+    className="o-expandable__header"
     onClick={[Function]}
   >
     <h3
-      className="o-expandable_label"
+      className="o-expandable__label"
     >
       Date CFPB received the complaint
     </h3>
     <span
-      className="o-expandable_cues"
+      className="o-expandable__cues"
     >
       <span
         aria-label="Hide"
-        className="o-expandable_cue-close"
+        className="o-expandable__cue-close"
         role="img"
       >
         <svg>
@@ -387,7 +387,7 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
     </span>
   </button>
   <div
-    className="o-expandable_content"
+    className="o-expandable__content"
   >
     <p />
     <div>
@@ -432,7 +432,7 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
               value="Invalid Date"
             />
             <button
-              className="a-btn a-btn__link"
+              className="a-btn a-btn--link"
               onClick={[Function]}
             >
               <svg>
@@ -469,7 +469,7 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
               value="Invalid Date"
             />
             <button
-              className="a-btn a-btn__link"
+              className="a-btn a-btn--link"
               onClick={[Function]}
             >
               <svg>

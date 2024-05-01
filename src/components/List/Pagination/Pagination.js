@@ -22,30 +22,30 @@ export const Pagination = () => {
   return (
     <nav className="m-pagination" role="navigation" aria-label="Pagination">
       <button
-        className="a-btn m-pagination_btn-prev"
+        className="a-btn m-pagination__btn-prev"
         onClick={() => prevPage()}
         disabled={page <= 1}
       >
-        <span className="a-btn_icon a-btn_icon__on-left">
+        <span className="a-btn__icon a-btn__icon--on-left">
           {getIcon('left')}
         </span>
         Previous
       </button>
       <button
-        className="a-btn m-pagination_btn-next"
+        className="a-btn m-pagination__btn-next"
         onClick={() => nextPage()}
         disabled={page >= total}
       >
         Next
         <span
-          className="a-btn_icon
-                             a-btn_icon__on-right"
+          className="a-btn__icon
+                             a-btn__icon--on-right"
         >
           {getIcon('right')}
         </span>
       </button>
-      <div className="m-pagination_form">
-        <label className="m-pagination_label">Page {page}</label>
+      <div className="m-pagination__form">
+        <label className="m-pagination__label">Page {page}</label>
       </div>
     </nav>
   );

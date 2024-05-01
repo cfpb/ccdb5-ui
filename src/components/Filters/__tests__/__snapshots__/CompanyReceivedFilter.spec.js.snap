@@ -7,20 +7,20 @@ exports[`component::CompanyReceivedFilter snapshot shows errors 1`] = `
   <button
     aria-expanded="true"
     aria-label="Hide The date the CFPB sent the complaint to the company filter"
-    className="o-expandable_header"
+    className="o-expandable__header"
     onClick={[Function]}
   >
     <h3
-      className="o-expandable_label"
+      className="o-expandable__label"
     >
       The date the CFPB sent the complaint to the company
     </h3>
     <span
-      className="o-expandable_cues"
+      className="o-expandable__cues"
     >
       <span
         aria-label="Hide"
-        className="o-expandable_cue-close"
+        className="o-expandable__cue-close"
         role="img"
       >
         <svg>
@@ -30,7 +30,7 @@ exports[`component::CompanyReceivedFilter snapshot shows errors 1`] = `
     </span>
   </button>
   <div
-    className="o-expandable_content"
+    className="o-expandable__content"
   >
     <p />
     <div>
@@ -60,7 +60,7 @@ exports[`component::CompanyReceivedFilter snapshot shows errors 1`] = `
               value="2016-01-01"
             />
             <button
-              className="a-btn a-btn__link"
+              className="a-btn a-btn--link"
               onClick={[Function]}
             >
               <svg>
@@ -97,7 +97,7 @@ exports[`component::CompanyReceivedFilter snapshot shows errors 1`] = `
               value="2000-01-01"
             />
             <button
-              className="a-btn a-btn__link"
+              className="a-btn a-btn--link"
               onClick={[Function]}
             >
               <svg>
@@ -136,20 +136,20 @@ exports[`component::CompanyReceivedFilter snapshot supports no dates in the Redu
   <button
     aria-expanded="true"
     aria-label="Hide The date the CFPB sent the complaint to the company filter"
-    className="o-expandable_header"
+    className="o-expandable__header"
     onClick={[Function]}
   >
     <h3
-      className="o-expandable_label"
+      className="o-expandable__label"
     >
       The date the CFPB sent the complaint to the company
     </h3>
     <span
-      className="o-expandable_cues"
+      className="o-expandable__cues"
     >
       <span
         aria-label="Hide"
-        className="o-expandable_cue-close"
+        className="o-expandable__cue-close"
         role="img"
       >
         <svg>
@@ -159,7 +159,7 @@ exports[`component::CompanyReceivedFilter snapshot supports no dates in the Redu
     </span>
   </button>
   <div
-    className="o-expandable_content"
+    className="o-expandable__content"
   >
     <p />
     <div>
@@ -189,7 +189,7 @@ exports[`component::CompanyReceivedFilter snapshot supports no dates in the Redu
               value="Invalid Date"
             />
             <button
-              className="a-btn a-btn__link"
+              className="a-btn a-btn--link"
               onClick={[Function]}
             >
               <svg>
@@ -226,7 +226,7 @@ exports[`component::CompanyReceivedFilter snapshot supports no dates in the Redu
               value="Invalid Date"
             />
             <button
-              className="a-btn a-btn__link"
+              className="a-btn a-btn--link"
               onClick={[Function]}
             >
               <svg>

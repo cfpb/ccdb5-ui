@@ -33,7 +33,7 @@ export class TrendDepthToggle extends React.Component {
         return (
           <div className="trend-depth-toggle">
             <button
-              className="a-btn a-btn__link"
+              className="a-btn a-btn--link"
               id="trend-depth-button"
               onClick={() => {
                 increaseDepth(diff);
@@ -48,7 +48,7 @@ export class TrendDepthToggle extends React.Component {
       return (
         <div className="trend-depth-toggle">
           <button
-            className="a-btn a-btn__link"
+            className="a-btn a-btn--link"
             id="trend-depth-button"
             onClick={() => {
               depthReset();
