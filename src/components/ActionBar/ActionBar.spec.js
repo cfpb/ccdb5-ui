@@ -1,4 +1,3 @@
-import React from 'react';
 import { ActionBar } from './ActionBar';
 import { aggsState } from '../../reducers/aggs/aggsSlice';
 import { viewState } from '../../reducers/view/viewSlice';

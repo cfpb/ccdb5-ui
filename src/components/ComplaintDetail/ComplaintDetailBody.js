@@ -1,5 +1,4 @@
 import { ariaReadoutNumbers } from '../../utils';
-import React from 'react';
 import PropTypes from 'prop-types';
 import getIcon from '../iconMap';
 import { formatDisplayDate } from '../../utils/formatDate';

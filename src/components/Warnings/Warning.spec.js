@@ -1,4 +1,4 @@
-import Warning from '../Warnings/Warning';
+import Warning from './Warning';
 import { testRender as render, screen } from '../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 

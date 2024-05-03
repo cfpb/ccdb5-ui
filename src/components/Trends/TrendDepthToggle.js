@@ -1,7 +1,6 @@
 import './TrendDepthToggle.less';
 import { depthChanged, depthReset } from '../../reducers/trends/trendsSlice';
 import { clamp, coalesce } from '../../utils';
-import React from 'react';
 import { SLUG_SEPARATOR } from '../../constants';
 import { useDispatch, useSelector } from 'react-redux';
 import {

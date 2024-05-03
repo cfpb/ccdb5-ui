@@ -4,7 +4,6 @@ import CollapsibleFilter from './CollapsibleFilter';
 import { useSelector } from 'react-redux';
 import { sortSelThenCount } from '../../utils';
 import MoreOrLess from './MoreOrLess';
-import React from 'react';
 import {
   selectTrendsFocus,
   selectTrendsLens,

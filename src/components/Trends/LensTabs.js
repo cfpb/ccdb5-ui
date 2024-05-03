@@ -1,7 +1,6 @@
 import './LensTabs.less';
 import { dataSubLensChanged } from '../../reducers/trends/trendsSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import React from 'react';
 import { sendAnalyticsEvent } from '../../utils';
 import {
   selectTrendsFocus,

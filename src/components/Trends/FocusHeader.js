@@ -2,7 +2,6 @@ import './FocusHeader.less';
 import { useDispatch, useSelector } from 'react-redux';
 import getIcon from '../iconMap';
 import { LensTabs } from './LensTabs';
-import React from 'react';
 import { focusRemoved } from '../../reducers/trends/trendsSlice';
 import {
   selectTrendsFocus,

@@ -5,7 +5,6 @@ import { selectViewTab } from '../../reducers/view/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { dateRanges } from '../../constants';
 import { dateRangeChanged } from '../../reducers/query/querySlice';
-import React from 'react';
 import { sendAnalyticsEvent } from '../../utils';
 
 export const DateRanges = () => {

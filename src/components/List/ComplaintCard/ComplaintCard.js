@@ -2,7 +2,6 @@ import './ComplaintCard.less';
 import { ariaReadoutNumbers } from '../../../utils';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import React from 'react';
 import { formatDisplayDate } from '../../../utils/formatDate';
 
 const MAX_NARRATIVE = 300;

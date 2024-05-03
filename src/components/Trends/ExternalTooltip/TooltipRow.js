@@ -1,4 +1,3 @@
-import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { filterRemoved } from '../../../reducers/filters/filtersSlice';
 import { selectQuerySubLens } from '../../../reducers/query/selectors';

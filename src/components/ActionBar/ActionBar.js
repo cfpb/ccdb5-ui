@@ -1,7 +1,6 @@
 import './ActionBar.less';
 import { useDispatch, useSelector } from 'react-redux';
 import getIcon from '../iconMap';
-import React from 'react';
 import { sendAnalyticsEvent } from '../../utils';
 import { modalShown, updatePrintModeOn } from '../../reducers/view/viewSlice';
 import { StaleDataWarnings } from '../Warnings/StaleDataWarnings';
