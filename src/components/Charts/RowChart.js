@@ -191,10 +191,11 @@ export class RowChart extends React.Component {
   }
 
   _selectFocus(element) {
+    const focusName = element.target.__data__;
     // make sure to assign a valid lens when a row is clicked
     const lens = this.props.lens === 'Overview' ? 'Product' : this.props.lens;
     const filters = coalesce(this.props.aggs, lens.toLowerCase(), []);
-    this.props.selectFocus(element, lens, filters);
+    this.props.selectFocus(focusName, lens, filters);
   }
 
   _toggleRow(element) {

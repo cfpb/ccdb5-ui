@@ -7,7 +7,7 @@ import { ComplaintCard } from '../ComplaintCard/ComplaintCard';
 import { useDispatch, useSelector } from 'react-redux';
 import ErrorBlock from '../../Warnings/Error';
 import { FilterPanel } from '../../Filters/FilterPanel';
-import FilterPanelToggle from '../../Filters/FilterPanelToggle';
+import { FilterPanelToggle } from '../../Filters/FilterPanelToggle';
 import { Loading } from '../../Loading/Loading';
 import { NarrativesButtons } from '../../RefineBar/NarrativesButtons';
 import { Pagination } from '../Pagination/Pagination';

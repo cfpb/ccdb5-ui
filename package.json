@@ -30,18 +30,14 @@
     "start": "NODE_ENV=development craco start",
     "test": "craco test --coverage --watchAll=false"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not op_mini all",
-    "not ie > 0"
-  ],
+  "browserslist": "> 0.2% in @cfpb/browserslist-config stats",
   "devDependencies": {
     "@babel/cli": "^7.24.5",
     "@babel/core": "^7.24.5",
     "@babel/eslint-parser": "^7.24.5",
     "@babel/preset-react": "^7.24.1",
     "@babel/runtime": "^7.24.5",
+    "@cfpb/browserslist-config": "0.0.2",
     "@cfpb/cfpb-atomic-component": "1.0.0",
     "@cfpb/cfpb-buttons": "1.1.1",
     "@cfpb/cfpb-core": "1.1.0",

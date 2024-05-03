@@ -18,19 +18,21 @@ import {
 } from '../../reducers/view/selectors';
 
 export const FilterPanel = () => {
+  const dispatch = useDispatch();
+  const width = useSelector(selectViewWidth);
+  const hasFilters = useSelector(selectViewHasFilters);
+  const hasButton = width < 750;
   const descPublicResponse =
-    "The company's optional public-facing response to a consumer's complaint. " +
-    'Companies can choose to select a response from a pre-set list of options ' +
-    'that will be posted on the public database.';
+    "The company's optional public-facing " +
+    "response to a consumer's complaint. Companies can choose to " +
+    'select a response from a pre-set list of options that will be ' +
+    'posted on the public database.';
   const descConsumerConsent =
     'Whether a consumer opted in to publish their complaint narrative';
   const descTags =
-    'Data that supports easier searching and sorting of complaints ' +
-    'submitted by or on behalf of consumers';
-  const dispatch = useDispatch();
-  const viewWidth = useSelector(selectViewWidth);
-  const hasFilters = useSelector(selectViewHasFilters);
-  const hasButton = viewWidth < 750;
+    'Data that supports easier searching and sorting of ' +
+    'complaints submitted by or on behalf of consumers';
+
   return (
     <div>
       {!!hasFilters && (
@@ -99,8 +101,3 @@ export const FilterPanel = () => {
     </div>
   );
 };
-
-export const mapStateToProps = (state) => ({
-  hasButton: state.view.width < 750,
-  hasFilters: state.view.hasFilters,
-});

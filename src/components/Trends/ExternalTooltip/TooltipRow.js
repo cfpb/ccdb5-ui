@@ -61,7 +61,7 @@ export const TooltipRow = ({ value }) => {
     elements.push(
       <button
         aria-label={'Remove ' + value.name + ' from comparison set'}
-        className="u-right a-btn a-btn__link close"
+        className="u-right a-btn a-btn--link close"
         key={'close_' + value.name}
         onClick={() => {
           dispatch(filterRemoved('company', value.name));
