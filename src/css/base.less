@@ -13,8 +13,6 @@
 @base-font-size-px: 16px;
 @base-line-height-px: 22px;
 @base-line-height: unit(@base-line-height-px / @base-font-size-px);
-@mobile-max: 599px;
-@tablet-min: 600px;
 
 @size-xl: 48px; // Super-size
 @size-i: 34px; // h1-size
@@ -46,20 +44,11 @@
 @link-text-active: var(--navy-dark);
 @link-underline-active: var(--navy-dark);
 
-// thead
-@thead-text: var(--white);
-@thead-bg: var(--gray-dark);
-@td-bg: var(--gray-5);
-@td-bg-alt: var(--gray-10);
-
 // input
 @input-bg: var(--white);
 @input-border: var(--gray-80);
 @input-border-focus: var(--pacific);
 @input-placeholder: var(--gray-60);
-
-// .figure__bordered
-@figure__bordered: var(--gray-40);
 
 // Color variables
 // .btn
@@ -89,33 +78,6 @@
 // .btn
 @btn-font-size: 14px;
 @btn-v-padding: 8px;
-@btn-v-padding-modifier-ie: 0.8;
-@super-btn-font-size: 18px;
-
-// Color variables
-// .expandable
-@expandable-focus: var(--black);
-
-// .expandable_label
-@expandable_label-text: var(--black);
-
-// .expandable_link
-@expandable_link-text: var(--pacific);
-
-// .expandable__padded
-@expandable__padded-bg: var(--gray-10);
-@expandable__padded-bg-hover: var(--gray-10);
-@expandable__padded-divider: var(--gray-40);
-
-// .expandable-group
-@expandable-group_header-text: var(--gray-80);
-@expandable-group_header-bg: var(--gray-10);
-@expandable-group-bg: var(--white);
-@expandable-group-divider: var(--gray-40);
-
-// Sizing variables
-// .expandable_link
-@expandable_link-font-size: @btn-font-size;
 
 // Color variables
 // .error
@@ -133,16 +95,7 @@
 // .form-label-helper-text
 @label-helper: var(--gray-dark);
 
-// .form-l-inset_container
-@input-inset-bg: var(--gray-10);
-
-// .form-l-inset_container.is-checked
-@input-inset-selected: var(--pacific-20);
-
 // Sizing variables
-
-// .input__super
-@input__super-font-size: @super-btn-font-size;
 
 @grid_wrapper-width: 1230px;
 @grid_gutter-width: 30px;
@@ -161,74 +114,22 @@
 // .content__main
 @content__main-border: var(--gray-40);
 
-// .content__sidebar
-@content__sidebar-bg: var(--gray-10);
-@content__sidebar-border: var(--gray-40);
-
-// DEPRECATED
-// .content_bar
-@content_bar: var(--green);
-
 // Color variables
 @pagination-text: var(--gray-80);
 @pagination-bg: var(--gray-10);
-
-// Sizing variables
-
-@pagination-font-size: 16px;
-@pagination-bp: 640px;
 
 // Color variables
 // .pull-quote
 @pull-quote_body: var(--black);
 @pull-quote_citation: var(--gray-80);
 
-// .micro-copy
-@micro-copy-text: var(--gray-80);
-
-// .date
-@date-text: var(--gray-80);
-
-// .category-slug
-@category-slug-text: var(--black);
-@category-slug-hover: @link-text-hover;
-
-// .header-slug
-@header-slug-thin-border: var(--gray-10);
-@header-slug-thick-border: var(--green);
-
-// .padded-header
-@padded-header-text: var(--gray-dark);
-@padded-header-bg: var(--gray-10);
-@padded-header-border: var(--gray-40);
-
-// .fancy-slug
-@fancy-slug-text: var(--black);
-@fancy-slug-bg: var(--white);
-@fancy-slug-border: var(--gray-40);
-
-// .meta-header
-@meta-header-border: var(--gray-40);
-
-// .jump-link
-@jump-link__bg: var(--gray-10);
-@jump-link__bg-border: var(--gray-10);
-
-// .list__branded
-@list__branded-bullet: var(--green);
-
 ///////////////////////////////////////////////////////////////////////////////
 // Application variables
 
-@gray-border: solid 2px var(--gray-20);
-@gray-border-light: solid 2px var(--gray-10);
 @gutter-minimum: @grid_gutter-width / 6;
 @gutter-narrow: @grid_gutter-width / 3;
 @gutter-normal: @grid_gutter-width / 2;
 @gutter-wide: @grid_gutter-width * 1.5;
-
-@main-aside-left-guideline: @gutter-narrow;
-@main-section-left-guideline: @grid_gutter-width / 1.5;
 
 @bucket-indent: @grid_gutter-width;
 @max-count-width: 65px;
