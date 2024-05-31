@@ -6,20 +6,9 @@
       border: solid 2px var(--pacific);
     }
   }
-  .m-btn-inside-input {
-    .a-btn {
-      position: absolute;
-      right: 1em;
-      top: ~'calc(50% - 8px)';
-    }
-    .cf-icon-svg {
-      padding-right: @gutter-minimum * 0.8;
-    }
-  }
   &-selector {
+    width: 100%;
     position: relative;
-
-    // z-index: 99;
 
     ul {
       padding-left: 0;
@@ -98,6 +87,13 @@
       border-top: solid 2px var(--pacific);
       border-bottom: solid 2px var(--pacific);
       background-color: var(--gray-10);
+    }
+  }
+
+  .o-search-input__input {
+    //display: block;
+    &-label {
+      z-index: 1;
     }
   }
 }

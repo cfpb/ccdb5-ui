@@ -8,19 +8,19 @@ import { ClearButton } from '../ClearButton/ClearButton';
 
 export const AsyncTypeahead = ({
   ariaLabel,
-  className,
-  defaultValue,
-  delayWait,
+  defaultValue = '',
+  delayWait = 0,
   htmlId,
-  isDisabled,
+  isDisabled = false,
   handleChange,
   handleClear,
   handleSearch,
-  hasClearButton,
-  maxResults,
-  minLength,
+  hasClearButton = false,
+  hasSearchButton = false,
+  maxResults = 5,
+  minLength = 2,
   options,
-  placeholder,
+  placeholder = 'Enter your search text',
 }) => {
   const ref = useRef();
   const [searchValue, setSearchValue] = useState(defaultValue);
@@ -43,55 +43,65 @@ export const AsyncTypeahead = ({
   };
 
   return (
-    <section className={`typeahead ${className | ''}`}>
-      <div className="m-btn-inside-input input-contains-label">
-        <div
-          className="input-contains-label__before
-                          input-contains-label__before--search"
-        >
-          {getIcon('search')}
-        </div>
-        <label className="u-visually-hidden" htmlFor={htmlId}>
-          {ariaLabel}
-        </label>
-        <Typeahead
-          id={htmlId}
-          minLength={minLength}
-          className="typeahead-selector"
-          defaultInputValue={defaultValue}
-          delay={delayWait}
-          disabled={isDisabled}
-          isLoading={false}
-          ref={ref}
-          onInputChange={(input) => {
-            if (input === '') setIsVisible(false);
-            else setIsVisible(true);
-          }}
-          onSearch={(input) => {
-            setSearchValue(input);
-            handleSearch(input);
-          }}
-          onChange={(selected) => {
-            handleChange(selected);
-            ref.current.clear();
-            setSearchValue('');
-          }}
-          options={options}
-          maxResults={maxResults}
-          placeholder={placeholder}
-          renderMenuItemChildren={(option) => (
-            <li className="typeahead-option body-copy">
-              <HighlightingOption {...option} />
-            </li>
-          )}
-        />
-        {!!isVisible && (
-          <ClearButton
-            onClear={() => {
-              handleTypeaheadClear();
-              setIsVisible(false);
+    <section className="typeahead">
+      <div className="o-search-input">
+        <div className="o-search-input__input">
+          <label
+            aria-label={ariaLabel}
+            className="o-search-input__input-label"
+            htmlFor={htmlId}
+          >
+            {getIcon('search')}
+          </label>
+          <Typeahead
+            id={htmlId}
+            minLength={minLength}
+            className="typeahead-selector"
+            defaultInputValue={defaultValue}
+            delay={delayWait}
+            disabled={isDisabled}
+            inputProps={{
+              id: htmlId,
+              className: 'a-text-input a-text-input__full',
             }}
+            isLoading={false}
+            ref={ref}
+            onInputChange={(input) => {
+              if (input === '') setIsVisible(false);
+              else setIsVisible(true);
+            }}
+            onSearch={(input) => {
+              setSearchValue(input);
+              handleSearch(input);
+            }}
+            onChange={(selected) => {
+              handleChange(selected);
+              ref.current.clear();
+              setSearchValue('');
+            }}
+            options={options}
+            maxResults={maxResults}
+            placeholder={placeholder}
+            renderMenuItemChildren={(option) => (
+              <li className="typeahead-option body-copy">
+                <HighlightingOption {...option} />
+              </li>
+            )}
           />
+
+          {!!isVisible && (
+            <ClearButton
+              onClear={() => {
+                handleTypeaheadClear();
+                setIsVisible(false);
+              }}
+            />
+          )}
+        </div>
+        {!!hasSearchButton && (
+          <button type="submit" className="a-btn">
+            Search
+          </button>
         )}
       </div>
     </section>
@@ -100,28 +110,17 @@ export const AsyncTypeahead = ({
 
 AsyncTypeahead.propTypes = {
   ariaLabel: PropTypes.string.isRequired,
-  className: PropTypes.string,
   defaultValue: PropTypes.string,
   delayWait: PropTypes.number.isRequired,
-  isDisabled: PropTypes.bool.isRequired,
+  isDisabled: PropTypes.bool,
   handleChange: PropTypes.func.isRequired,
   handleClear: PropTypes.func,
   handleSearch: PropTypes.func.isRequired,
   hasClearButton: PropTypes.bool,
+  hasSearchButton: PropTypes.bool,
   htmlId: PropTypes.string.isRequired,
   maxResults: PropTypes.number,
   minLength: PropTypes.number,
   options: PropTypes.array,
   placeholder: PropTypes.string,
-};
-
-AsyncTypeahead.defaultProps = {
-  className: '',
-  defaultValue: '',
-  delayWait: 0,
-  hasClearButton: false,
-  isDisabled: false,
-  maxResults: 5,
-  minLength: 2,
-  placeholder: 'Enter your search text',
 };

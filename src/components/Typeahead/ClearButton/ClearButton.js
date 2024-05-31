@@ -4,11 +4,12 @@ import getIcon from '../../iconMap';
 export const ClearButton = ({ onClear }) => {
   return (
     <button
-      className="a-btn a-btn--link"
+      type="reset"
+      title="Clear search"
       onClick={onClear}
       aria-label="clear search"
     >
-      <div>{getIcon('delete')} Clear</div>
+      <div>{getIcon('delete')}</div>
     </button>
   );
 };

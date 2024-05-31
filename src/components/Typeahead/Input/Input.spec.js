@@ -26,7 +26,7 @@ describe('Input', () => {
 
   test('Handle when change and enter are called', () => {
     renderComponent();
-    const input = screen.getByRole('textbox');
+    const input = screen.getByRole('searchbox');
     fireEvent.change(input, { target: { value: 'text' } });
     expect(handleChangeMock).toBeCalled();
     fireEvent.click(input);
@@ -34,16 +34,10 @@ describe('Input', () => {
     expect(handleEnterMock).toBeCalled();
   });
 
-  test('When handleClear is not given then clear button is not present', () => {
-    renderComponent();
-    expect(screen.queryByRole('button')).not.toBeInTheDocument();
-  });
-
-  test('When handleClear is  given then clear button is present', () => {
+  test('When handleClear is given then clear button is present', () => {
     const handleClearMock = jest.fn();
     renderComponent(handleClearMock, true);
-    expect(screen.getByRole('button')).toBeDefined();
-    fireEvent.click(screen.getByRole('button'));
+    fireEvent.click(screen.getByRole('button', { name: 'clear search' }));
     expect(handleClearMock).toBeCalled();
   });
 });

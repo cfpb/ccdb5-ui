@@ -60,33 +60,24 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
             From
           </label>
           <div
-            className="m-btn-inside-input"
+            className="o-search-input"
           >
-            <input
-              className="a-text-input"
-              id="date_received-from"
-              max="2020-05-05"
-              min="2011-12-01"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onKeyDown={[Function]}
-              placeholder="M/D/YYYY"
-              type="date"
-              value="2016-01-01"
-            />
-            <button
-              className="a-btn a-btn--link"
-              onClick={[Function]}
+            <div
+              className="o-search-input__input"
             >
-              <svg>
-                error.svg
-              </svg>
-              <span
-                className="u-visually-hidden"
-              >
-                Clear date received from filter
-              </span>
-            </button>
+              <input
+                className="a-text-input"
+                id="date_received-from"
+                max="2020-05-05"
+                min="2011-12-01"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onKeyDown={[Function]}
+                placeholder="M/D/YYYY"
+                type="date"
+                value="2016-01-01"
+              />
+            </div>
           </div>
         </li>
         <li>
@@ -97,33 +88,24 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
             Through
           </label>
           <div
-            className="m-btn-inside-input"
+            className="o-search-input"
           >
-            <input
-              className="a-text-input"
-              id="date_received-through"
-              max="2020-05-05"
-              min="2011-12-01"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onKeyDown={[Function]}
-              placeholder="M/D/YYYY"
-              type="date"
-              value="2018-01-01"
-            />
-            <button
-              className="a-btn a-btn--link"
-              onClick={[Function]}
+            <div
+              className="o-search-input__input"
             >
-              <svg>
-                error.svg
-              </svg>
-              <span
-                className="u-visually-hidden"
-              >
-                Clear date received through filter
-              </span>
-            </button>
+              <input
+                className="a-text-input"
+                id="date_received-through"
+                max="2020-05-05"
+                min="2011-12-01"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onKeyDown={[Function]}
+                placeholder="M/D/YYYY"
+                type="date"
+                value="2018-01-01"
+              />
+            </div>
           </div>
         </li>
       </ul>
@@ -229,33 +211,24 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
             From
           </label>
           <div
-            className="m-btn-inside-input"
+            className="o-search-input"
           >
-            <input
-              className="a-text-input a-text-input__error"
-              id="date_received-from"
-              max="2020-05-05"
-              min="2011-12-01"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onKeyDown={[Function]}
-              placeholder="M/D/YYYY"
-              type="date"
-              value="2016-01-01"
-            />
-            <button
-              className="a-btn a-btn--link"
-              onClick={[Function]}
+            <div
+              className="o-search-input__input"
             >
-              <svg>
-                error.svg
-              </svg>
-              <span
-                className="u-visually-hidden"
-              >
-                Clear date received from filter
-              </span>
-            </button>
+              <input
+                className="a-text-input a-text-input--error"
+                id="date_received-from"
+                max="2020-05-05"
+                min="2011-12-01"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onKeyDown={[Function]}
+                placeholder="M/D/YYYY"
+                type="date"
+                value="2016-01-01"
+              />
+            </div>
           </div>
         </li>
         <li>
@@ -266,33 +239,24 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
             Through
           </label>
           <div
-            className="m-btn-inside-input"
+            className="o-search-input"
           >
-            <input
-              className="a-text-input a-text-input__error"
-              id="date_received-through"
-              max="2020-05-05"
-              min="2011-12-01"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onKeyDown={[Function]}
-              placeholder="M/D/YYYY"
-              type="date"
-              value="2000-01-01"
-            />
-            <button
-              className="a-btn a-btn--link"
-              onClick={[Function]}
+            <div
+              className="o-search-input__input"
             >
-              <svg>
-                error.svg
-              </svg>
-              <span
-                className="u-visually-hidden"
-              >
-                Clear date received through filter
-              </span>
-            </button>
+              <input
+                className="a-text-input a-text-input--error"
+                id="date_received-through"
+                max="2020-05-05"
+                min="2011-12-01"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onKeyDown={[Function]}
+                placeholder="M/D/YYYY"
+                type="date"
+                value="2000-01-01"
+              />
+            </div>
           </div>
         </li>
       </ul>
@@ -417,33 +381,24 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
             From
           </label>
           <div
-            className="m-btn-inside-input"
+            className="o-search-input"
           >
-            <input
-              className="a-text-input"
-              id="date_received-from"
-              max="2020-05-05"
-              min="2011-12-01"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onKeyDown={[Function]}
-              placeholder="M/D/YYYY"
-              type="date"
-              value="Invalid Date"
-            />
-            <button
-              className="a-btn a-btn--link"
-              onClick={[Function]}
+            <div
+              className="o-search-input__input"
             >
-              <svg>
-                error.svg
-              </svg>
-              <span
-                className="u-visually-hidden"
-              >
-                Clear date received from filter
-              </span>
-            </button>
+              <input
+                className="a-text-input"
+                id="date_received-from"
+                max="2020-05-05"
+                min="2011-12-01"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onKeyDown={[Function]}
+                placeholder="M/D/YYYY"
+                type="date"
+                value="Invalid Date"
+              />
+            </div>
           </div>
         </li>
         <li>
@@ -454,33 +409,24 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
             Through
           </label>
           <div
-            className="m-btn-inside-input"
+            className="o-search-input"
           >
-            <input
-              className="a-text-input"
-              id="date_received-through"
-              max="2020-05-05"
-              min="2011-12-01"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onKeyDown={[Function]}
-              placeholder="M/D/YYYY"
-              type="date"
-              value="Invalid Date"
-            />
-            <button
-              className="a-btn a-btn--link"
-              onClick={[Function]}
+            <div
+              className="o-search-input__input"
             >
-              <svg>
-                error.svg
-              </svg>
-              <span
-                className="u-visually-hidden"
-              >
-                Clear date received through filter
-              </span>
-            </button>
+              <input
+                className="a-text-input"
+                id="date_received-through"
+                max="2020-05-05"
+                min="2011-12-01"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onKeyDown={[Function]}
+                placeholder="M/D/YYYY"
+                type="date"
+                value="Invalid Date"
+              />
+            </div>
           </div>
         </li>
       </ul>

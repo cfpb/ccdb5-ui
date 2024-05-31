@@ -45,33 +45,24 @@ exports[`component::CompanyReceivedFilter snapshot shows errors 1`] = `
             From
           </label>
           <div
-            className="m-btn-inside-input"
+            className="o-search-input"
           >
-            <input
-              className="a-text-input a-text-input__error"
-              id="company_received-from"
-              max="2020-05-05"
-              min="2011-12-01"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onKeyDown={[Function]}
-              placeholder="M/D/YYYY"
-              type="date"
-              value="2016-01-01"
-            />
-            <button
-              className="a-btn a-btn--link"
-              onClick={[Function]}
+            <div
+              className="o-search-input__input"
             >
-              <svg>
-                error.svg
-              </svg>
-              <span
-                className="u-visually-hidden"
-              >
-                Clear company received from date filter
-              </span>
-            </button>
+              <input
+                className="a-text-input a-text-input--error"
+                id="company_received-from"
+                max="2020-05-05"
+                min="2011-12-01"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onKeyDown={[Function]}
+                placeholder="M/D/YYYY"
+                type="date"
+                value="2016-01-01"
+              />
+            </div>
           </div>
         </li>
         <li>
@@ -82,47 +73,43 @@ exports[`component::CompanyReceivedFilter snapshot shows errors 1`] = `
             Through
           </label>
           <div
-            className="m-btn-inside-input"
+            className="o-search-input"
           >
-            <input
-              className="a-text-input a-text-input__error"
-              id="company_received-through"
-              max="2020-05-05"
-              min="2011-12-01"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onKeyDown={[Function]}
-              placeholder="M/D/YYYY"
-              type="date"
-              value="2000-01-01"
-            />
-            <button
-              className="a-btn a-btn--link"
-              onClick={[Function]}
+            <div
+              className="o-search-input__input"
             >
-              <svg>
-                error.svg
-              </svg>
-              <span
-                className="u-visually-hidden"
-              >
-                Clear company received through date filter
-              </span>
-            </button>
+              <input
+                className="a-text-input a-text-input--error"
+                id="company_received-through"
+                max="2020-05-05"
+                min="2011-12-01"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onKeyDown={[Function]}
+                placeholder="M/D/YYYY"
+                type="date"
+                value="2000-01-01"
+              />
+            </div>
           </div>
         </li>
       </ul>
-      <div>
-        'From' date must be less than 'through' date
-        <span
-          aria-hidden="true"
-        >
-          <svg
-            className="cf-icon-svg cf-icon-delete-round"
+      <div
+        className="a-form-alert a-form-alert__error"
+        role="alert"
+      >
+        <div>
+          'From' date must be less than 'through' date
+          <span
+            aria-hidden="true"
           >
-            error-round.svg
-          </svg>
-        </span>
+            <svg
+              className="cf-icon-svg cf-icon-delete-round"
+            >
+              error-round.svg
+            </svg>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -174,33 +161,24 @@ exports[`component::CompanyReceivedFilter snapshot supports no dates in the Redu
             From
           </label>
           <div
-            className="m-btn-inside-input"
+            className="o-search-input"
           >
-            <input
-              className="a-text-input"
-              id="company_received-from"
-              max="2020-05-05"
-              min="2011-12-01"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onKeyDown={[Function]}
-              placeholder="M/D/YYYY"
-              type="date"
-              value="Invalid Date"
-            />
-            <button
-              className="a-btn a-btn--link"
-              onClick={[Function]}
+            <div
+              className="o-search-input__input"
             >
-              <svg>
-                error.svg
-              </svg>
-              <span
-                className="u-visually-hidden"
-              >
-                Clear company received from date filter
-              </span>
-            </button>
+              <input
+                className="a-text-input"
+                id="company_received-from"
+                max="2020-05-05"
+                min="2011-12-01"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onKeyDown={[Function]}
+                placeholder="M/D/YYYY"
+                type="date"
+                value="Invalid Date"
+              />
+            </div>
           </div>
         </li>
         <li>
@@ -211,33 +189,24 @@ exports[`component::CompanyReceivedFilter snapshot supports no dates in the Redu
             Through
           </label>
           <div
-            className="m-btn-inside-input"
+            className="o-search-input"
           >
-            <input
-              className="a-text-input"
-              id="company_received-through"
-              max="2020-05-05"
-              min="2011-12-01"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onKeyDown={[Function]}
-              placeholder="M/D/YYYY"
-              type="date"
-              value="Invalid Date"
-            />
-            <button
-              className="a-btn a-btn--link"
-              onClick={[Function]}
+            <div
+              className="o-search-input__input"
             >
-              <svg>
-                error.svg
-              </svg>
-              <span
-                className="u-visually-hidden"
-              >
-                Clear company received through date filter
-              </span>
-            </button>
+              <input
+                className="a-text-input"
+                id="company_received-through"
+                max="2020-05-05"
+                min="2011-12-01"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onKeyDown={[Function]}
+                placeholder="M/D/YYYY"
+                type="date"
+                value="Invalid Date"
+              />
+            </div>
           </div>
         </li>
       </ul>
