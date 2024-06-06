@@ -252,7 +252,7 @@ describe('Filter Panel', () => {
 
       cy.get('.state .typeahead-selector').should('exist');
 
-      cy.get('.state .typeahead-selector li').contains('Texas').click();
+      cy.get('.state .typeahead-selector li').contains('texas').click();
 
       cy.get('.pill-panel .pill').contains('TX').should('exist');
     });
