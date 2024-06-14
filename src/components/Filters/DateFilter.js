@@ -202,7 +202,7 @@ export const DateFilter = () => {
         </ul>
         <DateRanges />
         {errors ? (
-          <div className="a-form-alert a-form-alert__error" role="alert">
+          <div className="a-form-alert a-form-alert--error" role="alert">
             <span aria-hidden="true">
               {getIcon('delete-round', 'cf-icon-delete-round')}
             </span>

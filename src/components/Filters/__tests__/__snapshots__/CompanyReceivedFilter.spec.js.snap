@@ -95,7 +95,7 @@ exports[`component::CompanyReceivedFilter snapshot shows errors 1`] = `
         </li>
       </ul>
       <div
-        className="a-form-alert a-form-alert__error"
+        className="a-form-alert a-form-alert--error"
         role="alert"
       >
         <div>

@@ -179,7 +179,7 @@ export const CompanyReceivedFilter = () => {
         </ul>
 
         {errors.length ? (
-          <div className="a-form-alert a-form-alert__error" role="alert">
+          <div className="a-form-alert a-form-alert--error" role="alert">
             {errors.map((message, key) => (
               <div key={key}>
                 {message}

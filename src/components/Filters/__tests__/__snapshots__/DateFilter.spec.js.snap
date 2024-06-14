@@ -37,9 +37,9 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
       <p
         className="u-mt15"
       >
-         
+
         CFPB updated product and issue options in April 2017 and August 2023.
-         
+
         <a
           aria-label="Learn more about Product and Issue changes (opens in new window)"
           href="https://www.consumerfinance.gov/data-research/consumer-complaints/#past-changes"
@@ -188,9 +188,9 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
       <p
         className="u-mt15"
       >
-         
+
         CFPB updated product and issue options in April 2017 and August 2023.
-         
+
         <a
           aria-label="Learn more about Product and Issue changes (opens in new window)"
           href="https://www.consumerfinance.gov/data-research/consumer-complaints/#past-changes"
@@ -298,7 +298,7 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
         </button>
       </section>
       <div
-        className="a-form-alert a-form-alert__error"
+        className="a-form-alert a-form-alert--error"
         role="alert"
       >
         <span
@@ -313,7 +313,7 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
         <span
           className="a-form-alert__text"
         >
-          'From' date must be less than 'through' date 
+          'From' date must be less than 'through' date
         </span>
       </div>
     </div>
@@ -358,9 +358,9 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
       <p
         className="u-mt15"
       >
-         
+
         CFPB updated product and issue options in April 2017 and August 2023.
-         
+
         <a
           aria-label="Learn more about Product and Issue changes (opens in new window)"
           href="https://www.consumerfinance.gov/data-research/consumer-complaints/#past-changes"
