@@ -1,7 +1,6 @@
-import React from 'react';
 import getIcon from '../../iconMap';
 import { useDispatch } from 'react-redux';
-import { hideModal } from '../../../actions/view';
+import { modalHidden } from '../../../reducers/view/viewSlice';
 
 export const ExportConfirmation = () => {
   const dispatch = useDispatch();
@@ -14,7 +13,7 @@ export const ExportConfirmation = () => {
           className="a-btn a-btn--link"
           data-gtm_ignore="true"
           onClick={() => {
-            dispatch(hideModal());
+            dispatch(modalHidden());
           }}
         >
           Close

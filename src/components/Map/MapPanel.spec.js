@@ -1,8 +1,8 @@
 import React from 'react';
-import { defaultAggs } from '../../reducers/aggs/aggs';
-import { defaultMap } from '../../reducers/map/map';
-import { defaultQuery } from '../../reducers/query/query';
-import { defaultView } from '../../reducers/view/view';
+import { aggsState } from '../../reducers/aggs/aggsSlice';
+import { mapState } from '../../reducers/map/mapSlice';
+import { queryState } from '../../reducers/query/querySlice';
+import { viewState } from '../../reducers/view/viewSlice';
 import { MapPanel } from './MapPanel';
 import { merge } from '../../testUtils/functionHelpers';
 import {
@@ -11,7 +11,7 @@ import {
   screen,
 } from '../../testUtils/test-utils';
 import { MODE_MAP } from '../../constants';
-import * as viewActions from '../../actions/view';
+import * as viewActions from '../../reducers/filters/filtersSlice';
 
 describe('MapPanel', () => {
   const renderComponent = (
@@ -20,10 +20,10 @@ describe('MapPanel', () => {
     newQueryState,
     newViewState,
   ) => {
-    merge(newAggsState, defaultAggs);
-    merge(newMapState, defaultMap);
-    merge(newQueryState, defaultQuery);
-    merge(newViewState, defaultView);
+    merge(newAggsState, aggsState);
+    merge(newMapState, mapState);
+    merge(newQueryState, queryState);
+    merge(newViewState, viewState);
 
     const data = {
       aggs: newAggsState,

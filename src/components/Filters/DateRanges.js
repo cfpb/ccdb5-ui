@@ -1,18 +1,16 @@
 import './DateRanges.less';
-import {
-  selectQueryDateRange,
-  selectQueryTab,
-} from '../../reducers/query/selectors';
+import { selectQueryDateRange } from '../../reducers/query/selectors';
+import { selectViewTab } from '../../reducers/view/selectors';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { dateRanges } from '../../constants';
-import { dateRangeToggled } from '../../actions/filter';
-import React from 'react';
+import { dateRangeChanged } from '../../reducers/query/querySlice';
 import { sendAnalyticsEvent } from '../../utils';
 
 export const DateRanges = () => {
   const dispatch = useDispatch();
   const dateRange = useSelector(selectQueryDateRange);
-  const tab = useSelector(selectQueryTab);
+  const tab = useSelector(selectViewTab);
 
   const btnClassName = (selectedDateRange) => {
     const classes = ['a-btn', 'date-selector', 'range-' + selectedDateRange];
@@ -25,7 +23,7 @@ export const DateRanges = () => {
   const toggleDateRange = (selectedDateRange) => {
     if (dateRange !== selectedDateRange) {
       sendAnalyticsEvent('Button', tab + ':' + selectedDateRange);
-      dispatch(dateRangeToggled(selectedDateRange));
+      dispatch(dateRangeChanged(selectedDateRange));
     }
   };
 

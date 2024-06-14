@@ -1,7 +1,7 @@
 import { generateOptions, Product } from './Product';
 import { slugify } from '../../utils';
-import { defaultAggs } from '../../reducers/aggs/aggs';
-import { defaultQuery } from '../../reducers/query/query';
+import { aggsState } from '../../reducers/aggs/aggsSlice';
+import { filtersState } from '../../reducers/filters/filtersSlice';
 import { merge } from '../../testUtils/functionHelpers';
 import { screen, testRender as render } from '../../testUtils/test-utils';
 import { MODE_TRENDS } from '../../constants';
@@ -58,12 +58,12 @@ const aggsProduct = [
   },
 ];
 
-const renderComponent = (newAggsState, newQueryState) => {
-  merge(newAggsState, defaultAggs);
-  merge(newQueryState, defaultQuery);
+const renderComponent = (newAggsState, newFiltersState) => {
+  merge(newAggsState, aggsState);
+  merge(newFiltersState, filtersState);
   const data = {
-    query: newQueryState,
     aggs: newAggsState,
+    filters: newFiltersState,
   };
 
   render(<Product />, { preloadedState: data });
@@ -116,10 +116,10 @@ describe('generateOptions', () => {
     it('disable the non-focus options', () => {
       const focus = 'Mortgage';
       const lens = 'Product';
-      const queryProduct = ['Mortgage'];
+      const filtersProduct = ['Mortgage'];
       const options = generateOptions(
         aggsProduct,
-        queryProduct,
+        filtersProduct,
         focus,
         lens,
         MODE_TRENDS,
@@ -197,10 +197,10 @@ describe('generateOptions', () => {
     it('does not disable items when lens not Product', () => {
       const queryFocus = 'Mortgage';
       const queryLens = 'Company';
-      const queryProduct = ['Mortgage'];
+      const filtersProduct = ['Mortgage'];
       const options = generateOptions(
         aggsProduct,
-        queryProduct,
+        filtersProduct,
         queryFocus,
         queryLens,
         MODE_TRENDS,

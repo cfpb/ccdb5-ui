@@ -128,10 +128,14 @@ describe('component:AggregationItem', () => {
         expect(dispatch.mock.calls).toEqual([
           [
             {
-              filterName: 'issue',
-              requery: 'REQUERY_ALWAYS',
-              type: 'FILTER_REPLACED',
-              values: ['f', 'g', 'h', slugify('a', 'd'), slugify('a', 'b')],
+              payload: {
+                filterName: 'issue',
+                values: ['f', 'g', 'h', slugify('a', 'd'), slugify('a', 'b')],
+              },
+              meta: {
+                requery: 'REQUERY_ALWAYS',
+              },
+              type: 'query/replaceFilters',
             },
           ],
         ]);
@@ -161,10 +165,14 @@ describe('component:AggregationItem', () => {
         expect(dispatch.mock.calls).toEqual([
           [
             {
-              filterName: 'issue',
-              requery: 'REQUERY_ALWAYS',
-              type: 'FILTER_REPLACED',
-              values: ['f', 'g', 'h', 'a'],
+              meta: {
+                requery: 'REQUERY_ALWAYS',
+              },
+              payload: {
+                filterName: 'issue',
+                values: ['f', 'g', 'h', 'a'],
+              },
+              type: 'query/replaceFilters',
             },
           ],
         ]);
@@ -181,13 +189,17 @@ describe('component:AggregationItem', () => {
         expect(dispatch.mock.calls).toEqual([
           [
             {
-              filterName: 'fieldName',
-              filterValue: {
-                doc_count: 1000,
-                key: 'foo',
+              payload: {
+                filterName: 'fieldName',
+                filterValue: {
+                  doc_count: 1000,
+                  key: 'foo',
+                },
               },
-              requery: 'REQUERY_ALWAYS',
-              type: 'FILTER_CHANGED',
+              meta: {
+                requery: 'REQUERY_ALWAYS',
+              },
+              type: 'query/toggleFilter',
             },
           ],
         ]);
@@ -206,10 +218,14 @@ describe('component:AggregationItem', () => {
         expect(dispatch.mock.calls).toEqual([
           [
             {
-              filterName: 'issue',
-              requery: 'REQUERY_ALWAYS',
-              type: 'FILTER_REPLACED',
-              values: [],
+              meta: {
+                requery: 'REQUERY_ALWAYS',
+              },
+              type: 'query/replaceFilters',
+              payload: {
+                filterName: 'issue',
+                values: [],
+              },
             },
           ],
         ]);
@@ -225,13 +241,17 @@ describe('component:AggregationItem', () => {
         expect(dispatch.mock.calls).toEqual([
           [
             {
-              filterName: 'fieldName',
-              filterValue: {
-                doc_count: 1000,
-                key: 'foo',
+              meta: {
+                requery: 'REQUERY_ALWAYS',
               },
-              requery: 'REQUERY_ALWAYS',
-              type: 'FILTER_CHANGED',
+              payload: {
+                filterName: 'fieldName',
+                filterValue: {
+                  doc_count: 1000,
+                  key: 'foo',
+                },
+              },
+              type: 'query/toggleFilter',
             },
           ],
         ]);

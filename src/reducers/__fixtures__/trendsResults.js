@@ -911,7 +911,6 @@ export const trendsResults = {
   },
   error: false,
   focus: '',
-  isLoading: false,
   lens: 'Overview',
   results: {
     dateRangeArea: [],
@@ -1248,4 +1247,5 @@ export const trendsResults = {
   subLens: '',
   tooltip: false,
   total: 532,
+  trendDepth: 5,
 };

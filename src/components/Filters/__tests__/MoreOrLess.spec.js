@@ -1,6 +1,5 @@
 import AggregationItem from '../AggregationItem';
 import configureMockStore from 'redux-mock-store';
-import { IntlProvider } from 'react-intl';
 import MoreOrLess from '../MoreOrLess';
 import { Provider } from 'react-redux';
 import React from 'react';
@@ -56,10 +55,8 @@ function setupSnapshot(hasMore) {
   };
 
   return renderer.create(
-    <Provider locale="en" store={store}>
-      <IntlProvider locale="en">
-        <MoreOrLess {...props} />
-      </IntlProvider>
+    <Provider store={store}>
+      <MoreOrLess {...props} />
     </Provider>,
   );
 }

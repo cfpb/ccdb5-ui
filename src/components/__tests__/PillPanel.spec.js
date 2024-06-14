@@ -1,4 +1,3 @@
-import React from 'react';
 import { PillPanel } from '../Search/PillPanel';
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';

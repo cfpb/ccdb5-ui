@@ -6,7 +6,7 @@ import { FilterPanel } from '../Filters/FilterPanel';
 import { FilterPanelToggle } from '../Filters/FilterPanelToggle';
 import { Loading } from '../Loading/Loading';
 import { MapToolbar } from './MapToolbar';
-import { mapWarningDismissed } from '../../actions/view';
+import { mapWarningDismissed } from '../../reducers/filters/filtersSlice';
 import { PerCapita } from '../RefineBar/PerCapita';
 import { processRows } from '../../utils/chart';
 
@@ -19,6 +19,10 @@ import Warning from '../Warnings/Warning';
 import { selectAggsTotal } from '../../reducers/aggs/selectors';
 
 import {
+  selectFiltersEnablePer1000,
+  selectFiltersMapWarningEnabled,
+} from '../../reducers/filters/selectors';
+import {
   selectMapActiveCall,
   selectMapError,
   selectMapResults,
@@ -27,8 +31,6 @@ import {
 import {
   selectQueryDateReceivedMax,
   selectQueryDateReceivedMin,
-  selectQueryEnablePer1000,
-  selectQueryMapWarningEnabled,
 } from '../../reducers/query/selectors';
 
 import {
@@ -50,11 +52,11 @@ export const MapPanel = () => {
   const dispatch = useDispatch();
   const total = useSelector(selectAggsTotal);
 
-  const isLoading = useSelector(selectMapActiveCall);
+  const activeCall = useSelector(selectMapActiveCall);
   const results = useSelector(selectMapResults);
   const hasError = useSelector(selectMapError);
-  const enablePer1000 = useSelector(selectQueryEnablePer1000);
-  const mapWarningEnabled = useSelector(selectQueryMapWarningEnabled);
+  const enablePer1000 = useSelector(selectFiltersEnablePer1000);
+  const mapWarningEnabled = useSelector(selectFiltersMapWarningEnabled);
   const maxDate = useSelector(selectQueryDateReceivedMax);
   const minDate = useSelector(selectQueryDateReceivedMin);
   const expandedRows = useSelector(selectViewExpandedRows);
@@ -100,7 +102,7 @@ export const MapPanel = () => {
         total={total}
       />
 
-      <Loading isLoading={!!isLoading} />
+      <Loading isLoading={activeCall !== ''} />
     </section>
   );
 };

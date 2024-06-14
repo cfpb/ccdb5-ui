@@ -1,6 +1,7 @@
+import React from 'react';
 import { merge } from '../../testUtils/functionHelpers';
-import { defaultAggs } from '../../reducers/aggs/aggs';
-import { defaultQuery } from '../../reducers/query/query';
+import { aggsState } from '../../reducers/aggs/aggsSlice';
+import { filtersState } from '../../reducers/filters/filtersSlice';
 import { Company } from './Company';
 import { testRender as render, screen } from '../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
@@ -13,13 +14,13 @@ const fixture = [
   { key: 'EZ Credit', doc_count: 9 },
 ];
 
-const renderComponent = (newAggsState, newQueryState) => {
-  merge(newAggsState, defaultAggs);
-  merge(newQueryState, defaultQuery);
+const renderComponent = (newAggsState, newFiltersState) => {
+  merge(newAggsState, aggsState);
+  merge(newFiltersState, filtersState);
 
   const data = {
     aggs: newAggsState,
-    query: newQueryState,
+    filters: newFiltersState,
   };
 
   render(<Company />, {
@@ -38,11 +39,11 @@ describe('component::Company', () => {
       company: fixture,
     };
 
-    const query = {
+    const filters = {
       company: ['Monocle Popper Inc'],
     };
 
-    renderComponent(aggs, query);
+    renderComponent(aggs, filters);
     expect(
       screen.getByText('The complaint is about this company.'),
     ).toBeInTheDocument();

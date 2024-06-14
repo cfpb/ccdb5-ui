@@ -1,14 +1,14 @@
 import { LensTabs } from './LensTabs';
 import { merge } from '../../testUtils/functionHelpers';
-import { defaultQuery } from '../../reducers/query/query';
-import { defaultTrends } from '../../reducers/trends/trends';
+import { queryState } from '../../reducers/query/querySlice';
+import { trendsState } from '../../reducers/trends/trendsSlice';
 import { testRender as render, screen } from '../../testUtils/test-utils';
-import * as trendsActions from '../../actions/trends';
+import * as trendsActions from '../../reducers/trends/trendsSlice';
 import userEvent from '@testing-library/user-event';
 
 const renderComponent = (newQueryState, newTrendsState) => {
-  merge(newQueryState, defaultQuery);
-  merge(newTrendsState, defaultTrends);
+  merge(newQueryState, queryState);
+  merge(newTrendsState, trendsState);
   const data = {
     query: newQueryState,
     trends: newTrendsState,
@@ -22,7 +22,7 @@ describe('component:LensTabs', () => {
   let changeDataSubLensSpy;
   beforeEach(() => {
     changeDataSubLensSpy = jest
-      .spyOn(trendsActions, 'changeDataSubLens')
+      .spyOn(trendsActions, 'dataSubLensChanged')
       .mockImplementation(() => jest.fn());
   });
 
