@@ -39,12 +39,16 @@ describe('Filter Panel', () => {
       cy.get('#date_received-from').should('be.visible');
 
       cy.log('collapse it');
-      cy.get('.date-filter button.a-btn--link:first').click({ force: true });
+      cy.get('.date-filter > button.o-expandable__header:first').click({
+        force: true,
+      });
 
       cy.get('#date-received-agg #start_date').should('not.exist');
 
       cy.log('open it');
-      cy.get('.date-filter button.a-btn--link:first').click({ force: true });
+      cy.get('.date-filter > button.o-expandable__header:first').click({
+        force: true,
+      });
       cy.log('apply dates');
 
       cy.get('#date_received-from').clear();
@@ -248,7 +252,7 @@ describe('Filter Panel', () => {
 
       cy.get('.state .typeahead-selector').should('exist');
 
-      cy.get('.state .typeahead-selector li').contains('Texas').click();
+      cy.get('.state .typeahead-selector li').contains('texas').click();
 
       cy.get('.pill-panel .pill').contains('TX').should('exist');
     });

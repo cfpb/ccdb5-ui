@@ -94,6 +94,9 @@ module.exports = {
             },
             javascriptEnabled: true,
             math: 'always',
+            paths: [
+              path.resolve(__dirname, 'node_modules/@cfpb/cfpb-core/src'),
+            ],
           },
         },
       },
