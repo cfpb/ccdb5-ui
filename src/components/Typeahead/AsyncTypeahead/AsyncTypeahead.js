@@ -62,7 +62,7 @@ export const AsyncTypeahead = ({
             disabled={isDisabled}
             inputProps={{
               id: htmlId,
-              className: 'a-text-input a-text-input__full',
+              className: 'a-text-input a-text-input--full',
             }}
             isLoading={false}
             ref={ref}

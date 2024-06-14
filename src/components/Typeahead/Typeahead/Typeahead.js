@@ -61,7 +61,7 @@ export const Typeahead = ({
             )}
             inputProps={{
               id: htmlId,
-              className: 'a-text-input a-text-input__full',
+              className: 'a-text-input a-text-input--full',
             }}
           />
           {!!input && <ClearButton onClear={handleClear} />}

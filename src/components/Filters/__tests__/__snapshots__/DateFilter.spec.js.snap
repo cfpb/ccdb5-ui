@@ -298,7 +298,7 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
         </button>
       </section>
       <div
-        className="a-form-alert a-form-alert__error"
+        className="a-form-alert a-form-alert--error"
         role="alert"
       >
         <span
