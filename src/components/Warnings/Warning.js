@@ -6,7 +6,7 @@ import React from 'react';
 export const Warning = ({ text, closeFn }) => (
   <div
     role="alert"
-    className="warning m-notification m-notification__visible m-notification__warning"
+    className="warning m-notification m-notification--visible m-notification--warning"
   >
     {getIcon('warning-round')}
     <div className="m-notification__content">

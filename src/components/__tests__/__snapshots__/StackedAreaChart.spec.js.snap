@@ -2,7 +2,7 @@
 
 exports[`component: StackedAreaChart initial state renders without crashing 1`] = `
 <div
-  className="m-notification m-notification__visible m-notification__error"
+  className="m-notification m-notification--visible m-notification--error"
   role="alert"
 >
   <svg>
