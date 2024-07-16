@@ -4,9 +4,10 @@
 @select-icon-bg: var(--gray-5);
 @select-height: @size-ii;
 
-@input-border__focused: @btn-bg;
-@input-text__disabled: @btn__disabled-text;
-@input-bg__disabled: @btn__disabled-bg;
+@input-border__focused: var(--pacific);
+@input-text__disabled: var(--gray-80);
+@input-bg: var(--white);
+@input-bg__disabled: var(--gray-10);
 
 .cf-select {
   position: relative;
@@ -20,7 +21,7 @@
     border-radius: 0;
     appearance: none;
     background-color: @input-bg;
-    color: @text;
+    color: var(--black);
     margin-right: @grid_gutter-width;
     &:hover,
     &.hover,
@@ -44,7 +45,7 @@
   select[disabled] option,
   select[disabled] option:disabled,
   select option:disabled {
-    color: @input-disabled;
+    color: var(--gray-10);
   }
 
   select::-ms-expand {
