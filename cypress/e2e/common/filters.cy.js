@@ -200,7 +200,7 @@ describe('Filter Panel', () => {
         '.filter-panel .product .aggregation-branch.mortgage button',
       ).click();
       cy.get(
-        '.filter-panel .product .aggregation-branch.mortgage .children',
+        '.filter-panel .product .aggregation-branch.mortgage+.children',
       ).should('exist');
       cy.get(
         '.filter-panel .product input#product-mortgage-fha-mortgage',

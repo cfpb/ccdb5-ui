@@ -82,8 +82,12 @@ export class AggregationBranch extends React.Component {
     }
 
     return (
-      <div className={'aggregation-branch ' + sanitizeHtmlId(item.key)}>
-        <li className={liStyle}>
+      <>
+        <li
+          className={
+            'aggregation-branch ' + sanitizeHtmlId(item.key) + ' ' + liStyle
+          }
+        >
           <input
             type="checkbox"
             aria-label={item.key}
@@ -118,7 +122,7 @@ export class AggregationBranch extends React.Component {
             ))}
           </ul>
         )}
-      </div>
+      </>
     );
   }
 
