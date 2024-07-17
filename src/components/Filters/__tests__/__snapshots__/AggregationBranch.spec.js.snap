@@ -1,11 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`component::AggregationBranch snapshots renders with all checked 1`] = `
-<div
-  className="aggregation-branch foo"
->
+Array [
   <li
-    className="parent m-form-field m-form-field--checkbox body-copy"
+    className="aggregation-branch foo parent m-form-field m-form-field--checkbox body-copy"
   >
     <input
       aria-label="foo"
@@ -41,7 +39,7 @@ exports[`component::AggregationBranch snapshots renders with all checked 1`] = `
     >
       99
     </span>
-  </li>
+  </li>,
   <ul
     className="children"
   >
@@ -114,16 +112,14 @@ exports[`component::AggregationBranch snapshots renders with all checked 1`] = `
         4
       </span>
     </li>
-  </ul>
-</div>
+  </ul>,
+]
 `;
 
 exports[`component::AggregationBranch snapshots renders with indeterminate 1`] = `
-<div
-  className="aggregation-branch foo"
->
+Array [
   <li
-    className="parent m-form-field m-form-field--checkbox body-copy"
+    className="aggregation-branch foo parent m-form-field m-form-field--checkbox body-copy"
   >
     <input
       aria-label="foo"
@@ -159,7 +155,7 @@ exports[`component::AggregationBranch snapshots renders with indeterminate 1`] =
     >
       99
     </span>
-  </li>
+  </li>,
   <ul
     className="children"
   >
@@ -232,51 +228,47 @@ exports[`component::AggregationBranch snapshots renders with indeterminate 1`] =
         4
       </span>
     </li>
-  </ul>
-</div>
+  </ul>,
+]
 `;
 
 exports[`component::AggregationBranch snapshots renders with none checked 1`] = `
-<div
-  className="aggregation-branch foo"
+<li
+  className="aggregation-branch foo parent m-form-field m-form-field--checkbox body-copy"
 >
-  <li
-    className="parent m-form-field m-form-field--checkbox body-copy"
+  <input
+    aria-label="foo"
+    checked={false}
+    className="flex-fixed a-checkbox"
+    id="issue-foo"
+    onChange={[Function]}
+    type="checkbox"
+  />
+  <label
+    className="toggle a-label"
+    htmlFor="issue-foo"
   >
-    <input
-      aria-label="foo"
-      checked={false}
-      className="flex-fixed a-checkbox"
-      id="issue-foo"
-      onChange={[Function]}
-      type="checkbox"
-    />
-    <label
-      className="toggle a-label"
-      htmlFor="issue-foo"
-    >
-      <span
-        className="u-visually-hidden"
-      >
-        foo
-      </span>
-    </label>
-    <button
-      className="flex-all a-btn a-btn--link"
-      onClick={[Function]}
-    >
-      <span>
-        foo
-      </span>
-      <svg>
-        down.svg
-      </svg>
-    </button>
     <span
-      className="flex-fixed parent-count"
+      className="u-visually-hidden"
     >
-      99
+      foo
     </span>
-  </li>
-</div>
+  </label>
+  <button
+    className="flex-all a-btn a-btn--link"
+    onClick={[Function]}
+  >
+    <span>
+      foo
+    </span>
+    <svg>
+      down.svg
+    </svg>
+  </button>
+  <span
+    className="flex-fixed parent-count"
+  >
+    99
+  </span>
+</li>
 `;
