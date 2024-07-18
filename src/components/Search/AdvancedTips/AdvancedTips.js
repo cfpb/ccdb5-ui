@@ -6,7 +6,7 @@ import getIcon from '../../iconMap';
 
 export const AdvancedTips = () => {
   return (
-    <div className="advanced__tips">
+    <div className="advanced-tips">
       <div>
         <h3>Search tips</h3>
         <ul className="m-list">
