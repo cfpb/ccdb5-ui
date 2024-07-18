@@ -34,7 +34,7 @@ export const AdvancedTips = () => {
           </label>
           <TooltipWrapper text="Results would include both call (call, called, calling, etc.) as well as harass (harass, harassed, harassing, etc.).">
             <input
-              className="a-text-input example-input"
+              className="a-text-input"
               id="example-and"
               type="text"
               readOnly
@@ -46,7 +46,7 @@ export const AdvancedTips = () => {
           </label>
           <TooltipWrapper text="Results would include either loan (loan, loans, loaned, etc.) or mortage (mortgage, mortgages, etc.).">
             <input
-              className="a-text-input example-input"
+              className="a-text-input"
               id="example-or"
               type="text"
               readOnly
@@ -58,7 +58,7 @@ export const AdvancedTips = () => {
           </label>
           <TooltipWrapper text="Results would only include claim (claim, claims, claimed, etc.) and cannot include the term accident (accident, accidents, etc.)">
             <input
-              className="a-text-input example-input"
+              className="a-text-input"
               id="example-not"
               type="text"
               readOnly
@@ -87,7 +87,7 @@ export const AdvancedTips = () => {
           </label>
           <TooltipWrapper text="Results must include the word foreclosure (foreclosure, foreclosed, etc.).">
             <input
-              className="a-text-input example-input"
+              className="a-text-input"
               id="example-must-plus"
               type="text"
               readOnly
@@ -99,7 +99,7 @@ export const AdvancedTips = () => {
           </label>
           <TooltipWrapper text="Results cannot include the word collect (collect, collects, collecting, etc.).">
             <input
-              className="a-text-input example-input"
+              className="a-text-input"
               id="example-must-minus"
               type="text"
               readOnly
@@ -127,7 +127,7 @@ export const AdvancedTips = () => {
           </label>
           <TooltipWrapper text='Results would include all terms that start with the base "report" (report, reports, reported, reporting, etc.) and "$*.00" would include all variations of whole number dollar values ($8.00, $1234.00, etc.).'>
             <input
-              className="a-text-input example-input"
+              className="a-text-input"
               id="example-wc-star"
               type="text"
               readOnly
@@ -139,7 +139,7 @@ export const AdvancedTips = () => {
           </label>
           <TooltipWrapper text="Results would return variations such as: woman, women, etc.">
             <input
-              className="a-text-input example-input"
+              className="a-text-input"
               id="example-wc-question"
               type="text"
               readOnly
@@ -160,7 +160,7 @@ export const AdvancedTips = () => {
           </label>
           <TooltipWrapper text='Results would include the terms "auto", "loan", and "default" in any order, with up to three (3) gap words in between them. For example, results could include: "defaulted auto loan", "auto loan that went into default", "Auto Loan with the same defaulted", etc.'>
             <input
-              className="a-text-input example-input__full"
+              className="a-text-input example-input"
               id="example-proximity"
               type="text"
               readOnly
@@ -191,7 +191,7 @@ export const AdvancedTips = () => {
           </label>
           <TooltipWrapper text="Results would include the correct spelling of escrow, as well as other (potentially misspelled) versions, such as: escrow, escrowed, escro, esrow, etc.">
             <input
-              className="a-text-input example-input__full"
+              className="a-text-input example-input"
               id="example-fuzzy"
               type="text"
               readOnly
@@ -222,7 +222,7 @@ export const AdvancedTips = () => {
           </label>
           <TooltipWrapper text='Results would be sorted by relevance in favor of the term "pay"'>
             <input
-              className="a-text-input example-input__full"
+              className="a-text-input example-input"
               id="example-boost"
               type="text"
               readOnly
