@@ -98,7 +98,7 @@ export const DataExport = () => {
             Select a format for the exported file
           </div>
           <div className="body-copy">
-            <div className="m-form-field m-form-field__radio m-form-field__lg-target">
+            <div className="m-form-field m-form-field--radio m-form-field--lg-target">
               <input
                 checked={format === FORMAT_CSV}
                 className="a-radio"
@@ -114,7 +114,7 @@ export const DataExport = () => {
                 CSV
               </label>
             </div>
-            <div className="m-form-field m-form-field__radio m-form-field__lg-target">
+            <div className="m-form-field m-form-field--radio m-form-field--lg-target">
               <input
                 checked={format === FORMAT_JSON}
                 className="a-radio"
@@ -138,7 +138,7 @@ export const DataExport = () => {
               Select which complaints you&apos;d like to export
             </div>
             <div className="body-copy">
-              <div className="m-form-field m-form-field__radio m-form-field__lg-target">
+              <div className="m-form-field m-form-field--radio m-form-field--lg-target">
                 <input
                   checked={dataset === DATASET_FILTERED}
                   className="a-radio"
@@ -157,7 +157,7 @@ export const DataExport = () => {
                   (only the results of the last search and/or filter)
                 </label>
               </div>
-              <div className="m-form-field m-form-field__radio m-form-field__lg-target">
+              <div className="m-form-field m-form-field--radio m-form-field--lg-target">
                 <input
                   checked={dataset === DATASET_FULL}
                   className="a-radio"

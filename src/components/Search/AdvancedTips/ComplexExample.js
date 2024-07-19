@@ -54,7 +54,7 @@ export const ComplexExample = ({ id, notes, placeholderText, tooltipText }) => {
               <TooltipWrapper text={tooltipText}>
                 {placeholderText.length > 30 ? (
                   <textarea
-                    className="a-text-input example-input__full"
+                    className="a-text-input example-input"
                     id={`example-${id}`}
                     rows={2}
                     readOnly
@@ -62,7 +62,7 @@ export const ComplexExample = ({ id, notes, placeholderText, tooltipText }) => {
                   />
                 ) : (
                   <input
-                    className="a-text-input example-input__full"
+                    className="a-text-input example-input"
                     id={`example-${id}`}
                     rows={2}
                     readOnly

@@ -8,7 +8,7 @@ describe('HighlightingOption', () => {
       <HighlightingOption label="Maryland (MD)" position={0} value="mar" />,
     );
 
-    expect(container.innerHTML).toEqual(`<span><b>Mar</b>yland (MD)</span>`);
+    expect(container.innerHTML).toEqual(`<span><b>mar</b>yland (MD)</span>`);
   });
 
   test('Handles position < 0', () => {
@@ -17,5 +17,13 @@ describe('HighlightingOption', () => {
     );
 
     expect(container.innerHTML).toEqual(`<span>Maryland (MD)</span>`);
+  });
+
+  test('Renders partially bolded text in the middle', () => {
+    const { container } = render(
+      <HighlightingOption label="Maryland (MD)" position={2} value="ryl" />,
+    );
+
+    expect(container.innerHTML).toEqual(`<span>Ma<b>ryl</b>and (MD)</span>`);
   });
 });

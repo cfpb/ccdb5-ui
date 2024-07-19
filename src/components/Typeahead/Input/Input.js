@@ -1,5 +1,3 @@
-import '../Typeahead.less';
-import React from 'react';
 import PropTypes from 'prop-types';
 import getIcon from '../../iconMap';
 import { ClearButton } from '../ClearButton/ClearButton';
@@ -12,35 +10,38 @@ export const Input = ({
   handleChange,
   handleClear,
   handlePressEnter,
-  isClearVisible,
   placeholder,
   value,
 }) => {
   return (
-    <section className={`typeahead ${className | ''}`}>
-      <div className="m-btn-inside-input input-contains-label">
-        <div
-          className="input-contains-label__before
-                            input-contains-label__before--search"
+    <div className="o-search-input">
+      <div className="o-search-input__input">
+        <label
+          htmlFor={htmlId}
+          className="o-search-input__input-label"
+          aria-label={ariaLabel}
         >
           {getIcon('search')}
-        </div>
-        <label className="u-visually-hidden" htmlFor={htmlId}>
-          {ariaLabel}
         </label>
         <input
-          type="text"
-          className="a-text-input"
-          disabled={isDisabled}
+          type="search"
           id={htmlId}
+          disabled={isDisabled}
+          value={value}
           onChange={handleChange}
           onKeyDown={handlePressEnter}
+          className={'a-text-input a-text-input--full ' + className}
           placeholder={placeholder}
-          value={value}
+          title={placeholder}
+          autoComplete="off"
+          maxLength="75"
         />
-        {!!isClearVisible && <ClearButton onClear={handleClear} />}
+        <ClearButton onClear={handleClear} />
       </div>
-    </section>
+      <button type="submit" className="a-btn">
+        Search
+      </button>
+    </div>
   );
 };
 Input.propTypes = {
@@ -51,13 +52,11 @@ Input.propTypes = {
   handleClear: PropTypes.func,
   handlePressEnter: PropTypes.func,
   htmlId: PropTypes.string.isRequired,
-  isClearVisible: PropTypes.bool,
   placeholder: PropTypes.string,
   value: PropTypes.string.isRequired,
 };
 
 Input.defaultProps = {
-  isClearVisible: false,
   isDisabled: false,
   placeholder: 'Enter your search text',
 };

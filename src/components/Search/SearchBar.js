@@ -37,7 +37,6 @@ export const SearchBar = ({ debounceWait }) => {
   // handleClear is called whenever the user submits by pressing enter
   // shouldCallClear prevents handleClear from firing a reset after the search is set
   const [shouldCallClear, setShouldCallClear] = useState(true);
-  const isVisible = Boolean(searchText || inputValue);
 
   useEffect(() => {
     setInputValue(searchText);
@@ -119,7 +118,7 @@ export const SearchBar = ({ debounceWait }) => {
             <div className="flex-all typeahead-portal">
               {searchField === 'company' ? (
                 <AsyncTypeahead
-                  ariaLabel="Enter the term you want to search for"
+                  ariaLabel="Enter your search term(s)"
                   htmlId="searchText"
                   defaultValue={searchText}
                   delayWait={debounceWait}
@@ -127,34 +126,31 @@ export const SearchBar = ({ debounceWait }) => {
                   handleClear={onTypeaheadClear}
                   handleSearch={onSearchChange}
                   hasClearButton={true}
+                  hasSearchButton={true}
                   options={dropdownOptions}
                   placeholder="Enter your search term(s)"
                 />
               ) : (
                 <Input
-                  ariaLabel="Enter the term you want to search for"
-                  htmlId="searchText"
                   handleChange={(event) => setInputValue(event.target.value)}
-                  placeholder="Enter your search term(s)"
-                  value={inputValue}
                   handleClear={onClearInput}
                   handlePressEnter={onPressEnter}
-                  isClearVisible={isVisible}
+                  htmlId="searchText"
+                  value={inputValue}
+                  ariaLabel="Enter the term you want to search for"
+                  placeholder="Enter your search term(s)"
                 />
               )}
             </div>
-            <button type="submit" className="a-btn flex-fixed">
-              Search
-            </button>
-
             <a className="u-visually-hidden" href="#search-summary">
               Skip to Results
             </a>
 
             <div className="advanced-container flex-fixed">
               <button className="a-btn a-btn--link" onClick={onAdvancedClicked}>
-                {hasAdvancedSearchTips ? 'Hide ' : 'Show '}
-                advanced search tips
+                {hasAdvancedSearchTips
+                  ? 'Hide advanced search tips'
+                  : 'Show advanced search tips'}
               </button>
             </div>
           </div>

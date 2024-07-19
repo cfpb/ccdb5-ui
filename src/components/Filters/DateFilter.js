@@ -60,15 +60,6 @@ export const DateFilter = () => {
     setThroughDate(validThroughDate);
   }, [dateThrough]);
 
-  const handleClear = (period) => {
-    if (period === 'from') {
-      dispatch(changeDates(fieldName, minDate, throughDate));
-    }
-    if (period === 'through') {
-      dispatch(changeDates(fieldName, fromDate, maxDate));
-    }
-  };
-
   const handleKeyDownFromDate = (event) => {
     if (event.key === 'Enter') {
       fromRef.current.blur();
@@ -120,7 +111,7 @@ export const DateFilter = () => {
       dayjs(fromDate).isAfter(throughDate) ||
       dayjs(fromDate).isSame(throughDate)
     ) {
-      style.push('a-text-input__error');
+      style.push('a-text-input--error');
     }
     return style.join(' ');
   }, [fromDate, throughDate]);
@@ -132,7 +123,7 @@ export const DateFilter = () => {
       dayjs(throughDate).isBefore(fromDate) ||
       dayjs(throughDate).isSame(fromDate)
     ) {
-      style.push('a-text-input__error');
+      style.push('a-text-input--error');
     }
     return style.join(' ');
   }, [fromDate, throughDate]);
@@ -161,29 +152,25 @@ export const DateFilter = () => {
             >
               From
             </label>
-            <div className="m-btn-inside-input">
-              <input
-                id={`${fieldName}-from`}
-                className={inputFromClassName}
-                onBlur={handleDateChange}
-                onChange={(evt) => setFromDate(evt.target.value)}
-                onKeyDown={handleKeyDownFromDate}
-                min={minDate}
-                max={maxDate}
-                ref={fromRef}
-                placeholder={DATE_VALIDATION_FORMAT}
-                type="date"
-                value={fromDate}
-              />
-              <button
-                className="a-btn a-btn--link"
-                onClick={() => handleClear('from')}
-              >
-                {getIcon('delete')}
-                <span className="u-visually-hidden">
-                  Clear date received from filter
-                </span>
-              </button>
+            <div className="o-search-input">
+              <div className="o-search-input__input">
+                <input
+                  id={`${fieldName}-from`}
+                  className={inputFromClassName}
+                  onBlur={handleDateChange}
+                  onChange={(evt) => {
+                    const value = evt.target.value || minDate;
+                    setFromDate(value);
+                  }}
+                  onKeyDown={handleKeyDownFromDate}
+                  min={minDate}
+                  max={maxDate}
+                  ref={fromRef}
+                  placeholder={DATE_VALIDATION_FORMAT}
+                  type="date"
+                  value={fromDate}
+                />
+              </div>
             </div>
           </li>
           <li>
@@ -193,35 +180,31 @@ export const DateFilter = () => {
             >
               Through
             </label>
-            <div className="m-btn-inside-input">
-              <input
-                id={`${fieldName}-through`}
-                className={inputThroughClassName}
-                onBlur={handleDateChange}
-                onChange={(evt) => setThroughDate(evt.target.value)}
-                onKeyDown={handleKeyDownThroughDate}
-                min={minDate}
-                max={maxDate}
-                placeholder={DATE_VALIDATION_FORMAT}
-                ref={throughRef}
-                type="date"
-                value={throughDate}
-              />
-              <button
-                className="a-btn a-btn--link"
-                onClick={() => handleClear('through')}
-              >
-                {getIcon('delete')}
-                <span className="u-visually-hidden">
-                  Clear date received through filter
-                </span>
-              </button>
+            <div className="o-search-input">
+              <div className="o-search-input__input">
+                <input
+                  id={`${fieldName}-through`}
+                  className={inputThroughClassName}
+                  onBlur={handleDateChange}
+                  onChange={(evt) => {
+                    const value = evt.target.value || minDate;
+                    setThroughDate(value);
+                  }}
+                  onKeyDown={handleKeyDownThroughDate}
+                  min={minDate}
+                  max={maxDate}
+                  placeholder={DATE_VALIDATION_FORMAT}
+                  ref={throughRef}
+                  type="date"
+                  value={throughDate}
+                />
+              </div>
             </div>
           </li>
         </ul>
         <DateRanges />
         {errors ? (
-          <div className="a-form-alert a-form-alert__error" role="alert">
+          <div className="a-form-alert a-form-alert--error" role="alert">
             <span aria-hidden="true">
               {getIcon('delete-round', 'cf-icon-delete-round')}
             </span>
