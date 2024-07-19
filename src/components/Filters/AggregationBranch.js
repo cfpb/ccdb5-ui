@@ -7,7 +7,8 @@ import {
   slugify,
 } from '../../utils';
 import { removeMultipleFilters, replaceFilters } from '../../actions/filter';
-import AggregationItem from './AggregationItem';
+//import AggregationItem from './AggregationItem';
+import AggregationItem from './AggregationItem/AggregationItem';
 import { connect } from 'react-redux';
 import { FormattedNumber } from 'react-intl';
 import getIcon from '../iconMap';
