@@ -9,11 +9,6 @@ import { getUpdatedFilters } from '../../../utils/filters';
 import { selectAggsState } from '../../../reducers/aggs/selectors';
 import { selectQueryState } from '../../../reducers/query/selectors';
 
-const isActive = (item, filters) => {
-  const parentKey = item.key.split(SLUG_SEPARATOR)[0];
-  return filters.includes(item.key) || filters.includes(parentKey);
-};
-
 const AggregationItem = ({ fieldName, item }) => {
   const aggsState = useSelector(selectAggsState);
   const queryState = useSelector(selectQueryState);
@@ -21,7 +16,9 @@ const AggregationItem = ({ fieldName, item }) => {
 
   const aggs = coalesce(aggsState, fieldName, []);
   const filters = coalesce(queryState, fieldName, []);
-  const active = isActive(item, filters);
+  const active =
+    filters.includes(item.key) ||
+    filters.includes(item.key.split(SLUG_SEPARATOR)[0]);
 
   const value = item.value || item.key;
   const liStyle = 'layout-row m-form-field m-form-field--checkbox';

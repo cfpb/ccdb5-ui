@@ -1,4 +1,4 @@
-import AggregationItem from './AggregationItem';
+import AggregationItem from './AggregationItem/AggregationItem';
 import PropTypes from 'prop-types';
 import React from 'react';
 
