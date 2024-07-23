@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
+import { IntlProvider } from 'react-intl';
 import AggregationItem from './AggregationItem';
 
 const defaultTestProps = {
@@ -21,9 +22,11 @@ const store = mockStore({
 
 const renderComponent = (testProps = defaultTestProps) => {
   render(
-    <Provider store={store}>
-      <AggregationItem {...testProps} />
-    </Provider>,
+    <IntlProvider locale="en">
+      <Provider store={store}>
+        <AggregationItem {...testProps} />
+      </Provider>
+    </IntlProvider>,
   );
 };
 
