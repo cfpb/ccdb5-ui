@@ -10,7 +10,7 @@ import {
   multipleFiltersRemoved,
   filtersReplaced,
 } from '../../reducers/filters/filtersSlice';
-import AggregationItem from './AggregationItem';
+import AggregationItem from './AggregationItem/AggregationItem';
 import { connect } from 'react-redux';
 import getIcon from '../iconMap';
 import PropTypes from 'prop-types';

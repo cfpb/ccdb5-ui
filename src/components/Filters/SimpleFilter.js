@@ -1,5 +1,5 @@
 import './Aggregation.less';
-import AggregationItem from './AggregationItem';
+import AggregationItem from './AggregationItem/AggregationItem';
 import { coalesce } from '../../utils';
 import CollapsibleFilter from './CollapsibleFilter';
 import { connect } from 'react-redux';

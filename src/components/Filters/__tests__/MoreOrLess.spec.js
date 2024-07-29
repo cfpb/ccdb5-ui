@@ -1,4 +1,4 @@
-import AggregationItem from '../AggregationItem';
+import AggregationItem from '../AggregationItem/AggregationItem';
 import configureMockStore from 'redux-mock-store';
 import MoreOrLess from '../MoreOrLess';
 import { Provider } from 'react-redux';
