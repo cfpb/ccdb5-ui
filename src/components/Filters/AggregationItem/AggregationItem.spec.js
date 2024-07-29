@@ -256,14 +256,22 @@ describe('component::AggregationItem', () => {
     });
 
     describe('removeFilter', () => {
-      /*test('handles product/issue filters', async () => {
+      test('handles product/issue filters', async () => {
         const ownProps = {
           fieldName: 'issue',
           item: { key: 'foo', doc_count: 1000 },
         };
 
-        const aggs = {};
-        const filters = [];
+        const aggs = [
+          {
+            key: 'foo',
+            doc_count: 1,
+            'sub_issue.raw': {
+              buckets: [],
+            },
+          },
+        ];
+        const filters = ['foo'];
 
         coalesceFn.mockReturnValueOnce(aggs).mockReturnValueOnce(filters);
 
@@ -271,16 +279,16 @@ describe('component::AggregationItem', () => {
 
         await user.click(screen.getByRole('checkbox'));
 
-        // expect(replaceFiltersFn).toHaveBeenCalled();
-        // expect(replaceFiltersFn).toHaveReturnedWith({
-        //   filterName: 'issue',
-        //   requery: 'REQUERY_ALWAYS',
-        //   type: 'FILTER_REPLACED',
-        //   values: [],
-        // });
+        expect(replaceFiltersFn).toHaveBeenCalled();
+        expect(replaceFiltersFn).toHaveReturnedWith({
+          filterName: 'issue',
+          requery: 'REQUERY_ALWAYS',
+          type: 'FILTER_REPLACED',
+          values: [],
+        });
 
-        // expect(toggleFilterFn).not.toHaveBeenCalled();
-      });*/
+        expect(toggleFilterFn).not.toHaveBeenCalled();
+      });
 
       test('handles non product & issue filters', async () => {
         const ownProps = {
@@ -289,7 +297,7 @@ describe('component::AggregationItem', () => {
         };
 
         const aggs = {};
-        const filters = [];
+        const filters = ['foo'];
 
         coalesceFn.mockReturnValueOnce(aggs).mockReturnValueOnce(filters);
 
