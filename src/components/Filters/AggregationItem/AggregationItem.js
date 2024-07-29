@@ -49,7 +49,7 @@ const AggregationItem = ({ fieldName, item }) => {
 
   const aggs = coalesce(aggsState, fieldName, []);
   const filters = coalesce(queryState, fieldName, []);
-  const active =
+  const isActive =
     filters.includes(item.key) ||
     filters.includes(item.key.split(SLUG_SEPARATOR)[0]);
 
@@ -84,7 +84,7 @@ const AggregationItem = ({ fieldName, item }) => {
   };
 
   const onChange = () => {
-    if (active) {
+    if (isActive) {
       removeFilter();
     } else {
       addFilter();
@@ -98,7 +98,7 @@ const AggregationItem = ({ fieldName, item }) => {
         className="flex-fixed a-checkbox"
         aria-label={item.key}
         disabled={item.isDisabled}
-        checked={active}
+        checked={isActive}
         id={id}
         onChange={onChange}
       />
