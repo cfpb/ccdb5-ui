@@ -28,7 +28,7 @@
     "prepare": "husky",
     "release": "yarn run build && release-it --npm.skipChecks",
     "start": "NODE_ENV=development craco start",
-    "test": "craco test --coverage --watchAll=false"
+    "test": "TZ=UTC craco test --coverage --watchAll=false"
   },
   "browserslist": "> 0.2% in @cfpb/browserslist-config stats",
   "devDependencies": {

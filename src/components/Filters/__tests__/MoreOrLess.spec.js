@@ -1,4 +1,4 @@
-import AggregationItem from '../AggregationItem';
+import AggregationItem from '../AggregationItem/AggregationItem';
 import configureMockStore from 'redux-mock-store';
 import { IntlProvider } from 'react-intl';
 import MoreOrLess from '../MoreOrLess';
