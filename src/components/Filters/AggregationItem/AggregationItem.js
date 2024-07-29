@@ -9,6 +9,39 @@ import { getUpdatedFilters } from '../../../utils/filters';
 import { selectAggsState } from '../../../reducers/aggs/selectors';
 import { selectQueryState } from '../../../reducers/query/selectors';
 
+const appliedFilters = ({ fieldName, item, aggs, filters }) => {
+  // We should find the parent
+  // determine if the other siblings are already checked
+  // check the parent only, and uncheck the rest so that the fake check
+  // will take affect
+  const [parentFilter, childFilter] = item.key.split(SLUG_SEPARATOR);
+  /* eslint-disable no-unexpected-multiline */
+  // TODO: reformat to not need the unexpected multiline.
+  const subItems = aggs
+    .find((agg) => agg.key === parentFilter)
+    ['sub_' + fieldName + '.raw'].buckets.map((agg) => agg.key)
+    .sort();
+  /* eslint-enable no-unexpected-multiline */
+
+  const parentKey = parentFilter + SLUG_SEPARATOR;
+  const selectedFilters = filters
+    .filter((filter) => filter.indexOf(parentKey) > -1)
+    .map((filter) => filter.replace(parentKey, ''));
+  selectedFilters.push(childFilter);
+
+  selectedFilters.sort();
+
+  if (arrayEquals(selectedFilters, subItems)) {
+    // remove subitems, add parent filter
+    return filters
+      .filter((filter) => filter.indexOf(parentKey) === -1)
+      .concat(parentFilter);
+  } else {
+    // just add the single filter and apply filters
+    return filters.concat(item.key);
+  }
+};
+
 const AggregationItem = ({ fieldName, item }) => {
   const aggsState = useSelector(selectAggsState);
   const queryState = useSelector(selectQueryState);
@@ -28,38 +61,8 @@ const AggregationItem = ({ fieldName, item }) => {
     const isChildItem = item.key.indexOf(SLUG_SEPARATOR) > -1;
     // cases where its issue / product
     if (isChildItem && filterPatch.includes(fieldName)) {
-      // We should find the parent
-      // determine if the other siblings are already checked
-      // check the parent only, and uncheck the rest so that the fake check
-      // will take affect
-      const [parentFilter, childFilter] = item.key.split(SLUG_SEPARATOR);
-      /* eslint-disable no-unexpected-multiline */
-      // TODO: reformat to not need the unexpected multiline.
-      const subItems = aggs
-        .find((agg) => agg.key === parentFilter)
-        ['sub_' + fieldName + '.raw'].buckets.map((agg) => agg.key)
-        .sort();
-      /* eslint-enable no-unexpected-multiline */
-
-      const parentKey = parentFilter + SLUG_SEPARATOR;
-      const selectedFilters = filters
-        .filter((filter) => filter.indexOf(parentKey) > -1)
-        .map((filter) => filter.replace(parentKey, ''));
-      selectedFilters.push(childFilter);
-
-      selectedFilters.sort();
-
-      let appliedFilters;
-      if (arrayEquals(selectedFilters, subItems)) {
-        // remove subitems, add parent filter
-        appliedFilters = filters
-          .filter((filter) => filter.indexOf(parentKey) === -1)
-          .concat(parentFilter);
-      } else {
-        // just add the single filter and apply filters
-        appliedFilters = filters.concat(item.key);
-      }
-      dispatch(replaceFilters(fieldName, appliedFilters));
+      const filtersToApply = appliedFilters({ fieldName, item, aggs, filters });
+      dispatch(replaceFilters(fieldName, filtersToApply));
     } else {
       dispatch(toggleFilter(fieldName, item));
     }
