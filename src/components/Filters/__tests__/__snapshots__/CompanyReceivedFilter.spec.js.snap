@@ -3,6 +3,7 @@
 exports[`component::CompanyReceivedFilter snapshot shows errors 1`] = `
 <section
   className="o-expandable aggregation date-filter"
+  data-testid="collapse-filter"
 >
   <button
     aria-expanded="true"
@@ -119,6 +120,7 @@ exports[`component::CompanyReceivedFilter snapshot shows errors 1`] = `
 exports[`component::CompanyReceivedFilter snapshot supports no dates in the Redux Store 1`] = `
 <section
   className="o-expandable aggregation date-filter"
+  data-testid="collapse-filter"
 >
   <button
     aria-expanded="true"
