@@ -7,21 +7,15 @@ import CollapsibleFilter from '../CollapsibleFilter';
 import MoreOrLess from '../MoreOrLess';
 import AggregationItem from '../AggregationItem/AggregationItem';
 
-//TODO: when upgraded to redux toolkit, use createSelector
-//to derive this data directly from aggs and query state
-export const extraData = (fieldName, aggs, query) => {
+const SimpleFilter = ({ fieldName, title, desc }) => {
+  const aggs = useSelector(selectAggsState);
+  const query = useSelector(selectQueryState);
   const activeChildren = coalesce(query, fieldName, []);
   const options = coalesce(aggs, fieldName, []);
   const hasChildren = activeChildren.length > 0;
 
-  return { options, hasChildren };
-};
-
-const SimpleFilter = ({ fieldName, title, desc }) => {
-  const aggs = useSelector(selectAggsState);
-  const query = useSelector(selectQueryState);
-
-  const { options, hasChildren } = extraData(fieldName, aggs, query);
+  console.log(JSON.stringify(aggs));
+  console.log(JSON.stringify(query));
 
   const listComponentProps = { fieldName };
 

@@ -103,7 +103,7 @@ export const clampDate = (val, min, max) => {
  * @param {object} object - the object being tested
  * @param {string} field - the field to check
  * @param {string | object} alternateValue - the value to use in absence
- * @returns {string} the value to use
+ * @returns {string | Array | object} the value to use
  */
 export const coalesce = (object, field, alternateValue) => {
   if (typeof object !== 'object') {
