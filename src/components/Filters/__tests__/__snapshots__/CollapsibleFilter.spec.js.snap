@@ -3,7 +3,6 @@
 exports[`component:CollapsibleFilter initial state renders without crashing 1`] = `
 <section
   className="o-expandable"
-  data-testid="collapse-filter"
 >
   <button
     aria-expanded="true"

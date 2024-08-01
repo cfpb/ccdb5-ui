@@ -3,7 +3,6 @@
 exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
 <section
   className="o-expandable aggregation date-filter"
-  data-testid="collapse-filter"
 >
   <button
     aria-expanded="true"
@@ -155,7 +154,6 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
 exports[`component::DateFilter snapshot shows errors 1`] = `
 <section
   className="o-expandable aggregation date-filter"
-  data-testid="collapse-filter"
 >
   <button
     aria-expanded="true"
@@ -326,7 +324,6 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
 exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`] = `
 <section
   className="o-expandable aggregation date-filter"
-  data-testid="collapse-filter"
 >
   <button
     aria-expanded="true"

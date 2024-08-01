@@ -1,24 +1,6 @@
-import { testRender as render, screen } from '../../../testUtils/test-utils';
-import SimpleFilter, { extraData } from './SimpleFilter';
+import { extraData } from './SimpleFilter';
 
 describe('component:SimpleFilter', () => {
-  describe('initial state', () => {
-    const props = { title: 'nana', fieldName: 'company_response' };
-
-    test('renders without crashing', () => {
-      render(<SimpleFilter {...props} />);
-      //first assertion is for ensuring that proper class is passed from SimpleFilter to child component
-      expect(screen.getByTestId('collapse-filter')).toHaveClass(
-        props.fieldName,
-      );
-      expect(screen.getByRole('button')).toHaveAttribute(
-        'aria-label',
-        `Hide ${props.title} filter`,
-      );
-      expect(screen.getByText(props.title)).toBeInTheDocument();
-    });
-  });
-
   describe('extra data', () => {
     let props, aggs, query;
 

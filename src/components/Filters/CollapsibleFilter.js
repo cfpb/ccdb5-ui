@@ -53,7 +53,7 @@ export default class CollapsibleFilter extends React.Component {
       </>
     );
     return (
-      <section className={composeClasses} data-testid="collapse-filter">
+      <section className={composeClasses}>
         <button
           className="o-expandable__header"
           aria-expanded={buttonAttr}
