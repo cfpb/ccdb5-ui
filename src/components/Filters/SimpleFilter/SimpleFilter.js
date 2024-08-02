@@ -14,9 +14,6 @@ const SimpleFilter = ({ fieldName, title, desc }) => {
   const options = coalesce(aggs, fieldName, []);
   const hasChildren = activeChildren.length > 0;
 
-  console.log(JSON.stringify(aggs));
-  console.log(JSON.stringify(query));
-
   const listComponentProps = { fieldName };
 
   return (
