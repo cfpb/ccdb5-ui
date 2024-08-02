@@ -196,15 +196,21 @@ export function collapseRow(state, action) {
 export function expandRow(state, action) {
   const { expandedRows } = state;
   const item = action.value;
+  let newState;
 
   if (!expandedRows.includes(item)) {
-    expandedRows.push(item);
+    newState = {
+      ...state,
+      expandedRows: [...expandedRows, item],
+    };
+  } else {
+    newState = {
+      ...state,
+      expandedRows,
+    };
   }
 
-  return {
-    ...state,
-    expandedRows,
-  };
+  return newState;
 }
 
 /**
