@@ -10,7 +10,7 @@ import getIcon from '../iconMap';
 import { Issue } from './Issue';
 import { Product } from './Product';
 import React from 'react';
-import SimpleFilter from './SimpleFilter';
+import SimpleFilter from './SimpleFilter/SimpleFilter';
 import { ZipCode } from './ZipCode';
 import {
   selectViewHasFilters,
