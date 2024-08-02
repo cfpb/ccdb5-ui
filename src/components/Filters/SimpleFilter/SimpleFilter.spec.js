@@ -4,13 +4,13 @@ import { merge } from '../../../testUtils/functionHelpers';
 import { aggsState } from '../../../reducers/aggs/aggsSlice';
 import { filtersState } from '../../../reducers/filters/filtersSlice';
 
-const renderComponent = (props, newAggsState, newQueryState) => {
+const renderComponent = (props, newAggsState, newFiltersState) => {
   merge(newAggsState, aggsState);
-  merge(newQueryState, filtersState);
+  merge(newFiltersState, filtersState);
 
   const data = {
     aggs: newAggsState,
-    query: newQueryState,
+    filters: newFiltersState,
   };
 
   return render(<SimpleFilter {...props} />, {
@@ -19,7 +19,7 @@ const renderComponent = (props, newAggsState, newQueryState) => {
 };
 
 describe('component:SimpleFilter', () => {
-  let props, aggs, query;
+  let props, aggs, filters;
 
   beforeEach(() => {
     props = {
@@ -38,7 +38,7 @@ describe('component:SimpleFilter', () => {
       ],
     };
 
-    query = {};
+    filters = {};
   });
 
   describe('initial state', () => {
@@ -54,11 +54,11 @@ describe('component:SimpleFilter', () => {
     });
 
     test('shows if there are any active children', () => {
-      query = {
+      filters = {
         company_response: ['Closed with non-monetary relief'],
       };
 
-      renderComponent(props, aggs, query);
+      renderComponent(props, aggs, filters);
 
       expect(screen.getByRole('button')).toHaveAttribute(
         'aria-expanded',
@@ -71,7 +71,7 @@ describe('component:SimpleFilter', () => {
     });
 
     test('hides if there are no active children', () => {
-      renderComponent(props, aggs, query);
+      renderComponent(props, aggs, filters);
 
       expect(screen.getByRole('button')).toHaveAttribute(
         'aria-expanded',
