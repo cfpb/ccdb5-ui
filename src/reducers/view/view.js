@@ -204,10 +204,7 @@ export function expandRow(state, action) {
       expandedRows: [...expandedRows, item],
     };
   } else {
-    newState = {
-      ...state,
-      expandedRows,
-    };
+    newState = { ...state };
   }
 
   return newState;
