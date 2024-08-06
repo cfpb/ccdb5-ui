@@ -6,6 +6,7 @@ import { coalesce } from '../../../utils';
 import CollapsibleFilter from '../CollapsibleFilter';
 import MoreOrLess from '../MoreOrLess';
 import AggregationItem from '../AggregationItem/AggregationItem';
+import '../Aggregation.less';
 
 const SimpleFilter = ({ fieldName, title, desc }) => {
   const aggs = useSelector(selectAggsState);
