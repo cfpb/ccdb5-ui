@@ -1,14 +1,14 @@
 import { FocusHeader } from './FocusHeader';
-import { defaultQuery } from '../../reducers/query/query';
-import { defaultTrends } from '../../reducers/trends/trends';
+import { queryState } from '../../reducers/query/querySlice';
+import { trendsState } from '../../reducers/trends/trendsSlice';
 import { merge } from '../../testUtils/functionHelpers';
 import { testRender as render, screen } from '../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
-import * as trendsActions from '../../actions/trends';
+import * as trendsActions from '../../reducers/trends/trendsSlice';
 
 const renderComponent = (newQueryState, newTrendsState) => {
-  merge(newQueryState, defaultQuery);
-  merge(newTrendsState, defaultTrends);
+  merge(newQueryState, queryState);
+  merge(newTrendsState, trendsState);
   const data = {
     query: newQueryState,
     trends: newTrendsState,
@@ -23,7 +23,7 @@ describe('component:FocusHeader', () => {
   let removeFocusSpy;
   beforeEach(() => {
     removeFocusSpy = jest
-      .spyOn(trendsActions, 'removeFocus')
+      .spyOn(trendsActions, 'focusRemoved')
       .mockImplementation(() => jest.fn());
   });
 

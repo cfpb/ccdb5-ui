@@ -6,10 +6,12 @@ import {
   sanitizeHtmlId,
   slugify,
 } from '../../utils';
-import { removeMultipleFilters, replaceFilters } from '../../actions/filter';
+import {
+  multipleFiltersRemoved,
+  filtersReplaced,
+} from '../../reducers/filters/filtersSlice';
 import AggregationItem from './AggregationItem/AggregationItem';
 import { connect } from 'react-redux';
-import { FormattedNumber } from 'react-intl';
 import getIcon from '../iconMap';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -57,7 +59,7 @@ export class AggregationBranch extends React.Component {
 
     // Fix up the subitems to prepend the current item key
     const buckets = subitems.map((sub) => ({
-      disabled: item.isDisabled,
+      isDisabled: item.isDisabled,
       key: slugify(item.key, sub.key),
       value: sub.key,
       // eslint-disable-next-line camelcase
@@ -108,7 +110,7 @@ export class AggregationBranch extends React.Component {
             {chevronIcon}
           </button>
           <span className="flex-fixed parent-count">
-            <FormattedNumber value={item.doc_count} />
+            {item.doc_count.toLocaleString()}
           </span>
         </li>
         {this.state.hasChildren === false ? null : (
@@ -141,7 +143,7 @@ export class AggregationBranch extends React.Component {
 
 export const mapStateToProps = (state, ownProps) => {
   // Find all query filters that refer to the field name
-  const candidates = coalesce(state.query, ownProps.fieldName, []);
+  const candidates = coalesce(state.filters, ownProps.fieldName, []);
 
   // Do any of these values start with the key?
   const hasKey = candidates.filter(
@@ -165,14 +167,14 @@ export const mapStateToProps = (state, ownProps) => {
     activeChildren,
     checkedState,
     filters: candidates,
-    focus: state.query.focus,
+    focus: state.trends.focus,
     hasChildren: activeChildren.length > 0,
   };
 };
 
 export const mapDispatchToProps = (dispatch) => ({
   uncheckParent: (fieldName, values) => {
-    dispatch(removeMultipleFilters(fieldName, values));
+    dispatch(multipleFiltersRemoved(fieldName, values));
   },
   checkParent: (props) => {
     const { fieldName, filters, item } = props;
@@ -182,7 +184,7 @@ export const mapDispatchToProps = (dispatch) => ({
     );
     // add self/ parent filter
     replacementFilters.push(item.key);
-    dispatch(replaceFilters(fieldName, replacementFilters));
+    dispatch(filtersReplaced(fieldName, replacementFilters));
   },
 });
 

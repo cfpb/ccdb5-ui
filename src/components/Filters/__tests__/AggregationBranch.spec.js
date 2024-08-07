@@ -1,5 +1,4 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
 import { shallow } from 'enzyme';
 import configureMockStore from 'redux-mock-store';
@@ -73,13 +72,11 @@ function setupSnapshot(selections) {
 
   return renderer.create(
     <Provider store={store}>
-      <IntlProvider locale="en">
-        <ReduxAggregationBranch
-          item={item}
-          subitems={subitems}
-          fieldName="issue"
-        />
-      </IntlProvider>
+      <ReduxAggregationBranch
+        item={item}
+        subitems={subitems}
+        fieldName="issue"
+      />
     </Provider>,
   );
 }
@@ -170,10 +167,15 @@ describe('component::AggregationBranch', () => {
       expect(dispatch.mock.calls).toEqual([
         [
           {
-            filterName: 'foo',
-            requery: 'REQUERY_ALWAYS',
-            type: 'FILTER_REPLACED',
-            values: ['another filter', 'bay'],
+            meta: {
+              persist: 'PERSIST_SAVE_QUERY_STRING',
+              requery: 'REQUERY_ALWAYS',
+            },
+            type: 'filters/filtersReplaced',
+            payload: {
+              filterName: 'foo',
+              values: ['another filter', 'bay'],
+            },
           },
         ],
       ]);

@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { FormattedNumber } from 'react-intl';
 import { filterPatch, SLUG_SEPARATOR } from '../../../constants';
 import { coalesce, sanitizeHtmlId } from '../../../utils';
 import { arrayEquals } from '../../../utils/compare';
-import { replaceFilters, toggleFilter } from '../../../actions/filter';
+import {
+  filtersReplaced,
+  filterToggled,
+} from '../../../reducers/filters/filtersSlice';
 import { getUpdatedFilters } from '../../../utils/filters';
 import { selectAggsState } from '../../../reducers/aggs/selectors';
-import { selectQueryState } from '../../../reducers/query/selectors';
+import { selectFiltersState } from '../../../reducers/filters/selectors';
 
 const appliedFilters = ({ fieldName, item, aggs, filters }) => {
   // We should find the parent
@@ -44,11 +46,11 @@ const appliedFilters = ({ fieldName, item, aggs, filters }) => {
 
 const AggregationItem = ({ fieldName, item }) => {
   const aggsState = useSelector(selectAggsState);
-  const queryState = useSelector(selectQueryState);
+  const filtersState = useSelector(selectFiltersState);
   const dispatch = useDispatch();
 
   const aggs = coalesce(aggsState, fieldName, []);
-  const filters = coalesce(queryState, fieldName, []);
+  const filters = coalesce(filtersState, fieldName, []);
   const isActive =
     filters.includes(item.key) ||
     filters.includes(item.key.split(SLUG_SEPARATOR)[0]);
@@ -62,9 +64,9 @@ const AggregationItem = ({ fieldName, item }) => {
     // cases where its issue / product
     if (isChildItem && filterPatch.includes(fieldName)) {
       const filtersToApply = appliedFilters({ fieldName, item, aggs, filters });
-      dispatch(replaceFilters(fieldName, filtersToApply));
+      dispatch(filtersReplaced(fieldName, filtersToApply));
     } else {
-      dispatch(toggleFilter(fieldName, item));
+      dispatch(filterToggled(fieldName, item));
     }
   };
 
@@ -77,9 +79,9 @@ const AggregationItem = ({ fieldName, item }) => {
         aggs,
         fieldName,
       );
-      dispatch(replaceFilters(fieldName, updatedFilters));
+      dispatch(filtersReplaced(fieldName, updatedFilters));
     } else {
-      dispatch(toggleFilter(fieldName, item));
+      dispatch(filterToggled(fieldName, item));
     }
   };
 
@@ -106,7 +108,7 @@ const AggregationItem = ({ fieldName, item }) => {
         {value}
       </label>
       <span className="flex-fixed bucket-count">
-        <FormattedNumber value={item.doc_count} />
+        {item.doc_count.toLocaleString()}
       </span>
     </li>
   );

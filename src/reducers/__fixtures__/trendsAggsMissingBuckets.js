@@ -3171,7 +3171,6 @@ export const trendsAggsMissingBucketsResults = {
   },
   error: false,
   focus: '',
-  isLoading: false,
   lens: 'Product',
   results: {
     dateRangeArea: [
@@ -4122,4 +4121,5 @@ export const trendsAggsMissingBucketsResults = {
   subLens: 'sub_product',
   tooltip: false,
   total: 75777,
+  trendDepth: 5,
 };

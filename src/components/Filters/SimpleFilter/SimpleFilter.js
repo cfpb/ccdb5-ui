@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { selectAggsState } from '../../../reducers/aggs/selectors';
-import { selectQueryState } from '../../../reducers/query/selectors';
+import { selectFiltersState } from '../../../reducers/filters/selectors';
 import { coalesce } from '../../../utils';
 import CollapsibleFilter from '../CollapsibleFilter';
 import MoreOrLess from '../MoreOrLess/MoreOrLess';
@@ -10,8 +10,8 @@ import '../Aggregation.less';
 
 const SimpleFilter = ({ fieldName, title, desc }) => {
   const aggs = useSelector(selectAggsState);
-  const query = useSelector(selectQueryState);
-  const activeChildren = coalesce(query, fieldName, []);
+  const filters = useSelector(selectFiltersState);
+  const activeChildren = coalesce(filters, fieldName, []);
   const options = coalesce(aggs, fieldName, []);
   const hasChildren = activeChildren.length > 0;
 

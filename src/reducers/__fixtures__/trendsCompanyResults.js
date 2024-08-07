@@ -2394,7 +2394,6 @@ export const trendsCompanyResults = {
   },
   error: false,
   focus: '',
-  isLoading: false,
   lens: 'Company',
   results: {
     company: [
@@ -2499,4 +2498,5 @@ export const trendsCompanyResults = {
   subLens: 'product',
   tooltip: false,
   total: 52,
+  trendDepth: 5,
 };

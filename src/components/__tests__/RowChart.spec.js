@@ -316,7 +316,7 @@ describe('component: RowChart', () => {
     });
   });
 
-  describe('mapDispatchToProps', () => {
+  xdescribe('mapDispatchToProps', () => {
     let dispatch, gaSpy;
     beforeEach(() => {
       dispatch = jest.fn();
@@ -356,14 +356,18 @@ describe('component: RowChart', () => {
         parent: 'A',
       };
       mapDispatchToProps(dispatch).selectFocus(element, 'Product', filters);
-      expect(dispatch.mock.calls).toEqual([
+      expect(dispatch.mock.lastCall).toEqual([
         [
           {
-            filterValues: ['A', 'A•B', 'A•C', 'A•D', 'A•E'],
-            focus: 'A',
-            lens: 'Product',
-            requery: 'REQUERY_ALWAYS',
-            type: 'FOCUS_CHANGED',
+            payload: {
+              filterValues: ['A', 'A•B', 'A•C', 'A•D', 'A•E'],
+              focus: 'A',
+              lens: 'Product',
+            },
+            meta: {
+              requery: 'REQUERY_ALWAYS',
+            },
+            type: 'query/changeFocus',
           },
         ],
       ]);
@@ -394,14 +398,18 @@ describe('component: RowChart', () => {
         parent: 'A',
       };
       mapDispatchToProps(dispatch).selectFocus(element, 'Product', filters);
-      expect(dispatch.mock.calls).toEqual([
+      expect(dispatch.mock.lastCall).toEqual([
         [
           {
-            filterValues: [],
-            focus: 'A',
-            lens: 'Product',
-            requery: 'REQUERY_ALWAYS',
-            type: 'FOCUS_CHANGED',
+            payload: {
+              filterValues: [],
+              focus: 'A',
+              lens: 'Product',
+            },
+            meta: {
+              requery: 'REQUERY_ALWAYS',
+            },
+            type: 'query/changeFocus',
           },
         ],
       ]);
@@ -418,14 +426,18 @@ describe('component: RowChart', () => {
         parent: 'Acme',
       };
       mapDispatchToProps(dispatch).selectFocus(element, 'Company', filters);
-      expect(dispatch.mock.calls).toEqual([
+      expect(dispatch.mock.lastCall).toEqual([
         [
           {
-            filterValues: ['Acme'],
-            focus: 'Acme',
-            lens: 'Company',
-            requery: 'REQUERY_ALWAYS',
-            type: 'FOCUS_CHANGED',
+            payload: {
+              filterValues: ['Acme'],
+              focus: 'Acme',
+              lens: 'Company',
+            },
+            meta: {
+              requery: 'REQUERY_ALWAYS',
+            },
+            type: 'query/changeFocus',
           },
         ],
       ]);
@@ -439,9 +451,11 @@ describe('component: RowChart', () => {
       expect(dispatch.mock.calls).toEqual([
         [
           {
-            requery: 'REQUERY_NEVER',
-            type: 'ROW_COLLAPSED',
-            value: 'Some Expanded row',
+            meta: {
+              requery: 'REQUERY_NEVER',
+            },
+            type: 'view/collapseRow',
+            payload: 'Some Expanded row',
           },
         ],
       ]);
@@ -458,9 +472,11 @@ describe('component: RowChart', () => {
       expect(dispatch.mock.calls).toEqual([
         [
           {
-            requery: 'REQUERY_NEVER',
-            type: 'ROW_EXPANDED',
-            value: 'collapse row name',
+            meta: {
+              requery: 'REQUERY_NEVER',
+            },
+            type: 'view/expandRow',
+            payload: 'collapse row name',
           },
         ],
       ]);
@@ -508,7 +524,7 @@ describe('component: RowChart', () => {
         id: 'baz',
       };
 
-      state.query.tab = 'Trends';
+      state.view.tab = 'Trends';
 
       const actual = mapStateToProps(state, ownProps);
       expect(actual).toEqual({

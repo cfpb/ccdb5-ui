@@ -12,10 +12,11 @@ import cloneDeep from 'lodash/cloneDeep';
 import { connect } from 'react-redux';
 import ErrorBlock from '../Warnings/Error';
 import { hashObject } from '../../utils';
-import { isDateEqual } from '../../utils/formatDate';
+import { formatDate, isDateEqual } from '../../utils/formatDate';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { updateTrendsTooltip } from '../../actions/trends';
+import { tooltipUpdated } from '../../reducers/trends/trendsSlice';
+import { debounce } from 'lodash';
 
 export class LineChart extends React.Component {
   tip = null;
@@ -43,7 +44,7 @@ export class LineChart extends React.Component {
   _updateTooltip(point) {
     if (!isDateEqual(this.props.tooltip.date, point.date)) {
       this.props.tooltipUpdated({
-        date: point.date,
+        date: formatDate(point.date),
         dateRange: this.props.dateRange,
         interval: this.props.interval,
         values: point.topics,
@@ -107,7 +108,15 @@ export class LineChart extends React.Component {
         .on('customMouseMove', this._updateInternalTooltip)
         .on('customMouseOut', tip.hide);
     } else {
-      lineChart.on('customMouseMove', this._updateTooltip);
+      lineChart.on(
+        'customMouseMove',
+        debounce((dataPoint) => {
+          const dataCopy = cloneDeep(dataPoint);
+          dataCopy.interval = interval;
+          dataCopy.dateRange = dateRange;
+          this._updateTooltip(dataCopy);
+        }, 200),
+      );
     }
 
     container.datum(cloneDeep(processData)).call(lineChart);
@@ -147,7 +156,7 @@ export const mapDispatchToProps = (dispatch) => ({
     //   Analytics.getDataLayerOptions( 'Trend Event: add',
     //     selectedState.abbr, )
     // )
-    dispatch(updateTrendsTooltip(tipEvent));
+    dispatch(tooltipUpdated(tipEvent));
   },
 });
 
@@ -170,7 +179,7 @@ export const mapStateToProps = (state) => {
     data,
     dateRange,
     interval,
-    lens: state.query.lens,
+    lens: state.trends.lens,
     isPrintMode: state.view.isPrintMode,
     processData,
     tooltip: state.trends.tooltip,

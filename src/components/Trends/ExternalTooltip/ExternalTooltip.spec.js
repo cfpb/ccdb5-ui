@@ -1,17 +1,14 @@
 import { ExternalTooltip } from './ExternalTooltip';
 import { merge } from '../../../testUtils/functionHelpers';
-import { defaultQuery } from '../../../reducers/query/query';
-import { defaultTrends } from '../../../reducers/trends/trends';
-import * as filterActions from '../../../actions/filter';
+import { trendsState } from '../../../reducers/trends/trendsSlice';
+import * as filterActions from '../../../reducers/filters/filtersSlice';
 import { testRender as render, screen } from '../../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 
-const renderComponent = (newQueryState, newTrendsState) => {
-  merge(newTrendsState, defaultQuery);
-  merge(newTrendsState, defaultTrends);
+const renderComponent = (newTrendsState) => {
+  merge(newTrendsState, trendsState);
 
   const data = {
-    query: newQueryState,
     trends: newTrendsState,
   };
 
@@ -25,15 +22,13 @@ jest.useRealTimers();
 describe('component: ExternalTooltip', () => {
   const user = userEvent.setup();
   test('empty rendering', () => {
-    renderComponent({}, {});
+    renderComponent({});
     expect(screen.queryByText('foobar')).toBeNull();
   });
   test('rendering', () => {
-    const query = {
+    const trends = {
       focus: '',
       lens: '',
-    };
-    const trends = {
       tooltip: {
         title: 'Date Range: 1/1/1900 - 1/1/2000',
         total: 2900,
@@ -45,7 +40,7 @@ describe('component: ExternalTooltip', () => {
         ],
       },
     };
-    renderComponent(query, trends);
+    renderComponent(trends);
     expect(screen.getByText('foo')).toBeInTheDocument();
     expect(screen.getByText('Date Range:')).toBeInTheDocument();
     expect(screen.getByText('1/1/1900 - 1/1/2000')).toBeInTheDocument();
@@ -53,9 +48,10 @@ describe('component: ExternalTooltip', () => {
   });
 
   test('rendering Company typeahead', async () => {
-    const filterRemovedSpy = jest.spyOn(filterActions, 'removeFilter');
-    const query = { focus: '', lens: 'Company' };
+    const filterRemovedSpy = jest.spyOn(filterActions, 'filterRemoved');
     const trends = {
+      focus: '',
+      lens: 'Company',
       tooltip: {
         title: 'Date Range: 1/1/1900 - 1/1/2000',
         total: 2900,
@@ -67,7 +63,7 @@ describe('component: ExternalTooltip', () => {
         ],
       },
     };
-    renderComponent(query, trends);
+    renderComponent(trends);
     expect(screen.getByText('foo')).toBeInTheDocument();
     expect(
       screen.getByPlaceholderText('Enter company name'),
@@ -82,11 +78,9 @@ describe('component: ExternalTooltip', () => {
   });
 
   test('hide Company typeahead in company Focus Mode', () => {
-    const query = {
+    const trends = {
       focus: 'Acme Foobar',
       lens: 'Company',
-    };
-    const trends = {
       tooltip: {
         title: 'Date Range: 1/1/1900 - 1/1/2000',
         total: 2900,
@@ -98,7 +92,7 @@ describe('component: ExternalTooltip', () => {
         ],
       },
     };
-    renderComponent(query, trends);
+    renderComponent(trends);
     expect(screen.getByText('foo')).toBeInTheDocument();
     expect(screen.queryByPlaceholderText('Enter company name')).toBeNull();
   });
