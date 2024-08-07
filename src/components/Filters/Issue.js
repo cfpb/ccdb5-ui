@@ -8,7 +8,7 @@ import { SLUG_SEPARATOR } from '../../constants';
 import { selectQueryState } from '../../reducers/query/selectors';
 import { Typeahead } from '../Typeahead/Typeahead/Typeahead';
 import { selectAggsState } from '../../reducers/aggs/selectors';
-import MoreOrLess from './MoreOrLess';
+import MoreOrLess from './MoreOrLess/MoreOrLess';
 import AggregationBranch from './AggregationBranch';
 
 export const Issue = ({ hasChildren }) => {
