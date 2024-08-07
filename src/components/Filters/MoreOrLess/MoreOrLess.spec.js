@@ -20,25 +20,39 @@ const renderComponent = (props) => {
 
 describe('component:MoreOrLess', () => {
   const user = userEvent.setup({ delay: null });
-  const props = {
-    hasMore: true,
-    listComponent: AggregationItem,
-    listComponentProps: { fieldName: 'myfield' },
-    options: fixture,
-  };
+  let props;
 
-  test('matches - Show NN less', () => {
+  beforeEach(() => {
+    props = {
+      hasMore: true,
+      listComponent: AggregationItem,
+      listComponentProps: { fieldName: 'myfield' },
+      options: fixture,
+    };
+  });
+
+  test('displays and toggles properly when more results are available', async () => {
     renderComponent(props);
+
+    const lessButton = screen.getByRole('button', { name: /Show 3 less/ });
+    expect(lessButton).toBeInTheDocument();
+
+    await user.click(lessButton);
     expect(
-      screen.getByRole('button', { name: /Show 3 less/ }),
+      screen.getByRole('button', { name: /Show 3 more/ }),
     ).toBeInTheDocument();
   });
 
-  test('matches - Show NN more', async () => {
+  test('displays and toggles properly when no more results are available', async () => {
+    props.hasMore = false;
     renderComponent(props);
-    await user.click(screen.getByRole('button', { name: /Show 3 less/ }));
+
+    const moreButton = screen.getByRole('button', { name: /Show 3 more/ });
+    expect(moreButton).toBeInTheDocument();
+
+    await user.click(moreButton);
     expect(
-      screen.getByRole('button', { name: /Show 3 more/ }),
+      screen.getByRole('button', { name: /Show 3 less/ }),
     ).toBeInTheDocument();
   });
 });
