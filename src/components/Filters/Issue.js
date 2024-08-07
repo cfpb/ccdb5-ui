@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { sortSelThenCount } from '../../utils';
@@ -8,7 +8,7 @@ import { SLUG_SEPARATOR } from '../../constants';
 import { Typeahead } from '../Typeahead/Typeahead/Typeahead';
 import { selectAggsIssue } from '../../reducers/aggs/selectors';
 import { selectFiltersIssue } from '../../reducers/filters/selectors';
-import MoreOrLess from './MoreOrLess';
+import MoreOrLess from './MoreOrLess/MoreOrLess';
 import AggregationBranch from './AggregationBranch';
 
 export const Issue = ({ hasChildren }) => {

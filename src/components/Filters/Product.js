@@ -3,7 +3,8 @@ import AggregationBranch from './AggregationBranch';
 import CollapsibleFilter from './CollapsibleFilter';
 import { useSelector } from 'react-redux';
 import { sortSelThenCount } from '../../utils';
-import MoreOrLess from './MoreOrLess';
+import MoreOrLess from './MoreOrLess/MoreOrLess';
+
 import {
   selectTrendsFocus,
   selectTrendsLens,

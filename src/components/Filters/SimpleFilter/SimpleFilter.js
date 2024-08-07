@@ -4,8 +4,9 @@ import { selectAggsState } from '../../../reducers/aggs/selectors';
 import { selectFiltersState } from '../../../reducers/filters/selectors';
 import { coalesce } from '../../../utils';
 import CollapsibleFilter from '../CollapsibleFilter';
-import MoreOrLess from '../MoreOrLess';
+import MoreOrLess from '../MoreOrLess/MoreOrLess';
 import AggregationItem from '../AggregationItem/AggregationItem';
+import '../Aggregation.less';
 
 const SimpleFilter = ({ fieldName, title, desc }) => {
   const aggs = useSelector(selectAggsState);
