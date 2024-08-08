@@ -18,7 +18,7 @@ const renderComponent = (props, newAggsState, newQueryState) => {
   });
 };
 
-describe('component:SimpleFilter', () => {
+describe('component::SimpleFilter', () => {
   let props, aggs, query;
 
   beforeEach(() => {
