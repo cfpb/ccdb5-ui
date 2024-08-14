@@ -22,8 +22,8 @@ const zeroCounts = (cache) => {
 };
 
 const StickyOptions = ({ fieldName, options, selections }) => {
-  const [trackedSelections, setTrackedSelections] = useState(selections);
-  const [cache, setCache] = useState(mapOfOptions(options));
+  const [trackedSelections, setTrackedSelections] = useState([]);
+  const [cache, setCache] = useState({});
 
   useEffect(() => {
     // Zero out the counts in the cache
@@ -39,17 +39,6 @@ const StickyOptions = ({ fieldName, options, selections }) => {
       // Add any new selections
       if (toBeTrackedSelections.indexOf(selection) === -1) {
         toBeTrackedSelections.push(selection);
-      }
-
-      // Add missing cache options
-      if (!(selection in updatedCache)) {
-        updatedCache[selection] = (selection) => {
-          return {
-            key: selection,
-            // eslint-disable-next-line camelcase
-            doc_count: 0,
-          };
-        };
       }
     });
 
