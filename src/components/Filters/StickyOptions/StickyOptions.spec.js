@@ -49,4 +49,11 @@ describe('component::StickyOptions', () => {
       expect(screen.getByLabelText(selection)).toBeInTheDocument();
     });
   });
+
+  test('should not render selection when its not part of options', () => {
+    props.selections = ['DC'];
+    props.options = [];
+    renderComponent(props);
+    expect(screen.queryByLabelText('DC')).not.toBeInTheDocument();
+  });
 });
