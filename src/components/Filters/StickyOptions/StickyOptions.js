@@ -21,7 +21,7 @@ const zeroCounts = (cache) => {
   return result;
 };
 
-const StickyOptions = ({ fieldName, options, selections = [] }) => {
+const StickyOptions = ({ fieldName, options, selections }) => {
   const [trackedSelections, setTrackedSelections] = useState(selections);
   const [cache, setCache] = useState(mapOfOptions(options));
 
@@ -34,7 +34,7 @@ const StickyOptions = ({ fieldName, options, selections = [] }) => {
     const updatedCache = Object.assign(zeroed, mapOfOptions(options));
 
     // always additive (the options are "sticky")
-    const toBeTrackedSelections = [...trackedSelections].slice();
+    const toBeTrackedSelections = [...trackedSelections];
     selections.forEach((selection) => {
       // Add any new selections
       if (toBeTrackedSelections.indexOf(selection) === -1) {
