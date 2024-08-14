@@ -1,8 +1,4 @@
 // TODO: This and the jest.config.js entry can be removed when enzyme is removed
-/* eslint-disable */
-import { TextEncoder } from 'util';
-global.TextEncoder = TextEncoder;
-
 import Adapter from 'enzyme-adapter-react-16';
 import { configure } from 'enzyme';
 // add custom jest matchers from jest-dom for testing library tests
