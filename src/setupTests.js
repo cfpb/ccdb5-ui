@@ -1,5 +1,4 @@
 // TODO: This and the jest.config.js entry can be removed when enzyme is removed
-
 import { TextEncoder } from 'util';
 
 import Adapter from 'enzyme-adapter-react-16';
