@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import AggregationItem from '../AggregationItem/AggregationItem';
 
@@ -23,53 +23,52 @@ const zeroCounts = (cache) => {
   return result;
 };
 
-const StickyOptions = ({
-  fieldName,
-  options,
-  selections = [],
-  onMissingItem = (item) => ({
-    key: item,
-    // eslint-disable-next-line camelcase
-    doc_count: 0,
-  }),
-}) => {
-  const [trackedSelections, setTrackedSelections] = useState(
-    selections.slice(),
-  );
-  const [cache, setCache] = useState(mapOfOptions(options));
+const StickyOptions = ({ fieldName, options, selections }) => {
+  //const [trackedSelections, setTrackedSelections] = useState(selections);
+  //const [cache, setCache] = useState(mapOfOptions(options));
+  const [cache, setCache] = useState({});
+  const [trackedSelections, setTrackedSelections] = useState([]);
+  //console.log('trackedSelections: ', trackedSelections);
+  //console.log('cache: ', cache);
 
-  const updateValues = () => {
+  console.log('selections: ', selections);
+
+  const updatedCache = useMemo(() => {
     // Zero out the counts in the cache
-    const zeroed = zeroCounts(cache);
+    // Update the cache with the new values and zero out the rest
+    //return Object.assign(zeroCounts(cache), mapOfOptions(options));
+    return Object.assign(zeroCounts(options), mapOfOptions(options));
+  }, [options]);
 
-    // Update the cache with the new values
-    // and zero out the rest
-    const updatedCache = Object.assign(zeroed, mapOfOptions(options));
+  const selectionsToBeTracked = useMemo(() => {
+    const toBeTracked = [...selections];
+    console.log('inside useMemo ');
+    console.log('toBeTracked: ', toBeTracked);
 
-    // always additive (the options are "sticky")
-    const toBeTrackedSelections = [...trackedSelections].slice();
+    // //   toBeTracked.forEach((selection) => {
+    // //    // Add any new selections
+    // //         if (selectionsToBeTracked.indexOf(selection) === -1) {
+    // //           selectionsToBeTracked.push(selection);
+    // //         }
+    // //         // Add missing cache options
+    // //         if (!(selection in updatedCache)) {
+    // //           updatedCache[selection] = {
+    // //             key: selection,
+    // //             // eslint-disable-next-line camelcase
+    // //             doc_count: 0,
+    // //           };
+    // //         }
+    // //  });
 
-    selections.forEach((selection) => {
-      // Add any new selections
-      if (toBeTrackedSelections.indexOf(selection) === -1) {
-        toBeTrackedSelections.push(selection);
-      }
+    return toBeTracked;
+  }, [selections]);
 
-      // Add missing cache options
-      if (!(selection in updatedCache)) {
-        updatedCache[selection] = onMissingItem(selection);
-      }
-    });
-
-    return { updatedCache, updatedTrackedSelections: toBeTrackedSelections };
-  };
+  console.log('selectionsToBeTracked: ', selectionsToBeTracked);
 
   useEffect(() => {
-    const { updatedCache, updatedTrackedSelections } = updateValues();
-
-    setTrackedSelections(updatedTrackedSelections);
     setCache(updatedCache);
-  }, [options]);
+    setTrackedSelections(selectionsToBeTracked);
+  }, [updatedCache, selectionsToBeTracked]);
 
   return (
     <ul>
@@ -89,7 +88,6 @@ const StickyOptions = ({
 
 StickyOptions.propTypes = {
   fieldName: PropTypes.string.isRequired,
-  onMissingItem: PropTypes.func,
   options: PropTypes.array.isRequired,
   selections: PropTypes.array,
 };

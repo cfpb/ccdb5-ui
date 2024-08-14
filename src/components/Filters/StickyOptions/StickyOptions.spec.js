@@ -1,4 +1,5 @@
 import { testRender as render, screen } from '../../../testUtils/test-utils';
+import userEvent from '@testing-library/user-event';
 import StickyOptions from './StickyOptions';
 
 const fixture = [
@@ -8,6 +9,7 @@ const fixture = [
 ];
 
 const renderComponent = (theProps) => render(<StickyOptions {...theProps} />);
+const user = userEvent.setup({ delay: null });
 
 describe('component::StickyOptions', () => {
   let props;
@@ -17,28 +19,34 @@ describe('component::StickyOptions', () => {
       fieldName: 'foo',
       options: fixture,
       selections: [],
-      onMissingItem: jest.fn(),
     };
   });
 
-  test('should render a selected option', () => {
+  test('should render an initially selected option', () => {
     props.selections = ['DC'];
     renderComponent(props);
     expect(screen.getByLabelText('DC')).toBeInTheDocument();
   });
 
-  test('should add new selections without removing previous selections', () => {
-    props.selections = ['DC', 'MS', 'WA'];
-    props.options = [];
+  test('should render nothing when no selections are made', () => {
     renderComponent(props);
-    props.selections.forEach((selection) => {
-      expect(screen.queryByLabelText(selection)).not.toBeInTheDocument();
-    });
+    const listElement = screen.getByRole('list');
+    //ul element should have no child elements)
+    expect(listElement.childNodes.length).toBe(0);
   });
 
-  test('should ask for the missing option when a selection is not in the cache', () => {
-    props.selections = ['NJ'];
+  test('should update properly with an additional selection', async () => {
+    props.selections = ['DC', 'WA'];
     renderComponent(props);
-    expect(props.onMissingItem).toHaveBeenCalled();
+    const checkboxes = screen.getAllByRole('checkbox');
+
+    //both options should still be present, regardless of checkbox states
+    checkboxes.forEach(async (checkbox) => {
+      await user.click(checkbox);
+    });
+
+    props.selections.forEach((selection) => {
+      expect(screen.getByLabelText(selection)).toBeInTheDocument();
+    });
   });
 });
