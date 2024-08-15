@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import AggregationItem from '../AggregationItem/AggregationItem';
+import { isEqual } from '../../../utils/compare';
 const mapOfOptions = (options) => {
   return options.reduce((map, opt) => {
     map[opt.key] = opt;
@@ -42,13 +43,10 @@ const StickyOptions = ({ fieldName, options, selections }) => {
       }
     });
 
-    if (
-      JSON.stringify(toBeTrackedSelections) !==
-      JSON.stringify(trackedSelections)
-    ) {
+    if (!isEqual(toBeTrackedSelections, trackedSelections)) {
       setTrackedSelections(toBeTrackedSelections);
     }
-    if (JSON.stringify(cache) !== JSON.stringify(updatedCache)) {
+    if (!isEqual(cache, updatedCache)) {
       setCache(updatedCache);
     }
   }, [cache, options, selections, trackedSelections]);
