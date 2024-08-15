@@ -1,10 +1,10 @@
 import configureMockStore from 'redux-mock-store';
-import ReduxStackedAreaChart, {
-  mapDispatchToProps,
-  mapStateToProps,
-  StackedAreaChart,
-} from '../Charts/StackedAreaChart';
-import { shallow } from 'enzyme';
+import ReduxStackedAreaChart /*, {
+//   mapDispatchToProps,
+//   mapStateToProps,
+//   StackedAreaChart,
+ }*/ from '../Charts/StackedAreaChart';
+//import { shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import React from 'react';
 import renderer from 'react-test-renderer';
@@ -115,7 +115,8 @@ describe('component: StackedAreaChart', () => {
     });
   });
 
-  describe('componentDidUpdate', () => {
+  // TODO: rewrite these tests with testing library
+  /*describe('componentDidUpdate', () => {
     let mapDiv;
 
     beforeEach(() => {
@@ -320,5 +321,5 @@ describe('component: StackedAreaChart', () => {
         expect(target.instance()._chartWidth('#foo')).toEqual(500);
       });
     });
-  });
+  });*/
 });

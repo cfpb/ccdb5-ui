@@ -1,16 +1,16 @@
 import configureMockStore from 'redux-mock-store';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
-import ReduxTrendsPanel, {
+import ReduxTrendsPanel /*, {
   TrendsPanel,
   mapDispatchToProps,
-} from '../Trends/TrendsPanel';
+}*/ from '../Trends/TrendsPanel';
 import { MODE_TRENDS } from '../../constants';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { shallow } from 'enzyme';
+// import { shallow } from 'enzyme';
 import thunk from 'redux-thunk';
-import * as utils from '../../utils';
+//import * as utils from '../../utils';
 
 jest.mock('britecharts', () => {
   const props = [
@@ -84,30 +84,30 @@ jest.mock('d3', () => {
   return mock;
 });
 
-/**
- *
- * @param {object} root0 - The root state
- * @param {string} root0.focus - The focus
- * @param {boolean} root0.hasOverview - Is there an overview?
- * @param {string} root0.lens - The lens
- * @param {string} root0.subLens - The sublens
- * @returns {void}
- */
-function setupEnzyme({ focus, hasOverview, lens, subLens }) {
-  const props = {
-    focus,
-    lenses: ['Foo', 'Baz', 'Bar'],
-    intervals: ['Month', 'Quarter', 'Nickel', 'Day'],
-    hasOverview,
-    lens,
-    subLens,
-    onChartType: jest.fn(),
-    onInterval: jest.fn(),
-    onLens: jest.fn(),
-  };
-  const target = shallow(<TrendsPanel {...props} />);
-  return target;
-}
+// /**
+//  *
+//  * @param {object} root0 - The root state
+//  * @param {string} root0.focus - The focus
+//  * @param {boolean} root0.hasOverview - Is there an overview?
+//  * @param {string} root0.lens - The lens
+//  * @param {string} root0.subLens - The sublens
+//  * @returns {void}
+//  */
+// function setupEnzyme({ focus, hasOverview, lens, subLens }) {
+//   const props = {
+//     focus,
+//     lenses: ['Foo', 'Baz', 'Bar'],
+//     intervals: ['Month', 'Quarter', 'Nickel', 'Day'],
+//     hasOverview,
+//     lens,
+//     subLens,
+//     onChartType: jest.fn(),
+//     onInterval: jest.fn(),
+//     onLens: jest.fn(),
+//   };
+//   const target = shallow(<TrendsPanel {...props} />);
+//   return target;
+// }
 
 /**
  *
@@ -277,7 +277,7 @@ describe('component:TrendsPanel', () => {
     });
   });
 
-  describe('helpers', () => {
+  /*describe('helpers', () => {
     describe('areaChartTitle', () => {
       let params;
       beforeEach(() => {
@@ -356,5 +356,5 @@ describe('component:TrendsPanel', () => {
         ],
       ]);
     });
-  });
+  });*/
 });

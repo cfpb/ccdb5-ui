@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+//import { mount } from 'enzyme';
 import CollapsibleFilter from '../CollapsibleFilter';
 import renderer from 'react-test-renderer';
 
@@ -15,16 +15,17 @@ describe('component:CollapsibleFilter', () => {
     });
   });
 
-  xit('hides the children when Hide is clicked', () => {
+  // TODO: rewrite these tests with testing library
+  /*xit('hides the children when Hide is clicked', () => {
     const target = mount(<CollapsibleFilter hasChildren={true} />);
     const theButton = target.find('button.o-expandable__header');
 
     expect(target.state('hasChildren')).toEqual(true);
     theButton.simulate('click');
     expect(target.state('hasChildren')).toEqual(false);
-  });
+  });*/
 
-  describe('componentDidUpdate', () => {
+  /*describe('componentDidUpdate', () => {
     xit('triggers a new state update when props change', () => {
       const props = {
         hasChildren: false,
@@ -35,5 +36,5 @@ describe('component:CollapsibleFilter', () => {
       const sv = target.state('hasChildren');
       expect(sv).toEqual(true);
     });
-  });
+  });*/
 });

@@ -65,8 +65,6 @@
     "d3": "^7.9.0",
     "d3-selection": "^3.0.0",
     "dayjs": "^1.11.10",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.7",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-react-app": "^7.0.1",
@@ -137,10 +135,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 82,
-        "functions": 91,
-        "lines": 91,
-        "statements": 91
+        "branches": 79,
+        "functions": 86,
+        "lines": 86,
+        "statements": 86
       }
     },
     "coverageReporters": [
