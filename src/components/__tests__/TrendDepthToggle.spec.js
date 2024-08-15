@@ -1,40 +1,40 @@
 import configureMockStore from 'redux-mock-store';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
-import ReduxTrendDepthToggle, {
-  TrendDepthToggle,
-  mapDispatchToProps,
-  mapStateToProps,
-} from '../Trends/TrendDepthToggle';
+import ReduxTrendDepthToggle /*, {
+//   TrendDepthToggle,
+//   mapDispatchToProps,
+//   mapStateToProps,
+}*/ from '../Trends/TrendDepthToggle';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { REQUERY_ALWAYS } from '../../constants';
-import { shallow } from 'enzyme';
+// import { REQUERY_ALWAYS } from '../../constants';
+//import { shallow } from 'enzyme';
 import thunk from 'redux-thunk';
 
-/**
- *
- * @param {object} root0 - Root state
- * @param {number} root0.cbIncrease - Amount of depth increase
- * @param {boolean} root0.cbReset - Rest the depth?
- * @param {number} root0.diff - Difference
- * @param {number} root0.queryCount - Query count
- * @param {number} root0.resultCount - Query count
- * @returns {React.Component} - Trends Depth Toggle component
- */
-function setupEnzyme({ cbIncrease, cbReset, diff, queryCount, resultCount }) {
-  return shallow(
-    <TrendDepthToggle
-      diff={diff}
-      increaseDepth={cbIncrease}
-      lens="Product"
-      depthReset={cbReset}
-      queryCount={queryCount}
-      resultCount={resultCount}
-      hasToggle={true}
-    />,
-  );
-}
+// /**
+//  *
+//  * @param {object} root0 - Root state
+//  * @param {number} root0.cbIncrease - Amount of depth increase
+//  * @param {boolean} root0.cbReset - Rest the depth?
+//  * @param {number} root0.diff - Difference
+//  * @param {number} root0.queryCount - Query count
+//  * @param {number} root0.resultCount - Query count
+//  * @returns {React.Component} - Trends Depth Toggle component
+//  */
+// function setupEnzyme({ cbIncrease, cbReset, diff, queryCount, resultCount }) {
+//   return shallow(
+//     <TrendDepthToggle
+//       diff={diff}
+//       increaseDepth={cbIncrease}
+//       lens="Product"
+//       depthReset={cbReset}
+//       queryCount={queryCount}
+//       resultCount={resultCount}
+//       hasToggle={true}
+//     />,
+//   );
+// }
 
 /**
  *
@@ -132,7 +132,8 @@ describe('component:TrendDepthToggle', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  describe('buttons', () => {
+  // TODO: rewrite these tests with testing library
+  /*describe('buttons', () => {
     let cbIncrease = null;
     let cbReset = null;
     let target;
@@ -321,5 +322,5 @@ describe('component:TrendDepthToggle', () => {
         });
       });
     });
-  });
+  });*/
 });

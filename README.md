@@ -16,7 +16,7 @@ of JavaScript. Backwards compatibility is achieved by compiling the script with
 
 Unit testing of the application is performed within
 [Jest](https://facebook.github.io/jest/) with
-[Enzyme](http://airbnb.io/enzyme/index.html) providing support for event testing.
+[Testing Library](https://testing-library.com/) providing support for event testing.
 
 [yarn](https://yarnpkg.com/) is used to manage the build/test/deploy cycle.
 
