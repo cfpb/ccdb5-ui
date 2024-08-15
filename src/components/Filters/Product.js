@@ -1,6 +1,6 @@
 import { MODE_TRENDS, SLUG_SEPARATOR } from '../../constants';
 import AggregationBranch from './AggregationBranch';
-import CollapsibleFilter from './CollapsibleFilter';
+import CollapsibleFilter from './CollapsibleFilter/CollapsibleFilter';
 import { useSelector } from 'react-redux';
 import { sortSelThenCount } from '../../utils';
 import MoreOrLess from './MoreOrLess/MoreOrLess';

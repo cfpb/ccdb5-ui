@@ -5,7 +5,7 @@ exports[`component::CompanyReceivedFilter snapshot shows errors 1`] = `
   className="o-expandable aggregation date-filter"
 >
   <button
-    aria-expanded="true"
+    aria-expanded={true}
     aria-label="Hide The date the CFPB sent the complaint to the company filter"
     className="o-expandable__header"
     onClick={[Function]}
@@ -121,7 +121,7 @@ exports[`component::CompanyReceivedFilter snapshot supports no dates in the Redu
   className="o-expandable aggregation date-filter"
 >
   <button
-    aria-expanded="true"
+    aria-expanded={true}
     aria-label="Hide The date the CFPB sent the complaint to the company filter"
     className="o-expandable__header"
     onClick={[Function]}

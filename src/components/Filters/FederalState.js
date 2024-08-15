@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { normalize } from '../../utils';
 import { addMultipleFilters } from '../../actions/filter';
-import CollapsibleFilter from './CollapsibleFilter';
+import CollapsibleFilter from './CollapsibleFilter/CollapsibleFilter';
 import { THESE_UNITED_STATES } from '../../constants';
 import { Typeahead } from '../Typeahead/Typeahead/Typeahead';
 

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { selectAggsState } from '../../../reducers/aggs/selectors';
 import { selectQueryState } from '../../../reducers/query/selectors';
 import { coalesce } from '../../../utils';
-import CollapsibleFilter from '../CollapsibleFilter';
+import CollapsibleFilter from '../CollapsibleFilter/CollapsibleFilter';
 import MoreOrLess from '../MoreOrLess/MoreOrLess';
 import AggregationItem from '../AggregationItem/AggregationItem';
 import '../Aggregation.less';
