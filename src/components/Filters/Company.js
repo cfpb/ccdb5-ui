@@ -1,5 +1,6 @@
 import { cloneDeep, coalesce } from '../../utils';
-import CollapsibleFilter from './CollapsibleFilter';
+//import CollapsibleFilter from './CollapsibleFilter';
+import CollapsibleFilter from './CollapsibleFilter/CollapsibleFilter';
 import { CompanyTypeahead } from './CompanyTypeahead';
 import { useSelector } from 'react-redux';
 import React from 'react';
