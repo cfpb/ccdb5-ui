@@ -162,6 +162,7 @@ export function addMultipleFilters(filterName, values) {
  */
 export function removeMultipleFilters(filterName, values) {
   // eslint-disable-next-line no-console
+  console.log('value: ', values);
   console.assert(Array.isArray(values));
   return {
     type: FILTER_MULTIPLE_REMOVED,

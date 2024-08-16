@@ -1,11 +1,11 @@
-import { testRender as render, screen } from '../../../testUtils/test-utils';
-import { merge } from '../../../testUtils/functionHelpers';
+import { testRender as render, screen } from '../../../../testUtils/test-utils';
+import { merge } from '../../../../testUtils/functionHelpers';
 import userEvent from '@testing-library/user-event';
-import * as filter from '../../../actions/filter';
-import * as utils from '../../../utils';
-import { slugify } from '../../../utils';
-import { defaultAggs } from '../../../reducers/aggs/aggs';
-import { defaultQuery } from '../../../reducers/query/query';
+import * as filter from '../../../../actions/filter';
+import * as utils from '../../../../utils';
+import { slugify } from '../../../../utils';
+import { defaultAggs } from '../../../../reducers/aggs/aggs';
+import { defaultQuery } from '../../../../reducers/query/query';
 import AggregationItem from './AggregationItem';
 
 const defaultTestProps = {

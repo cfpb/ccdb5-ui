@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { FormattedNumber } from 'react-intl';
-import { filterPatch, SLUG_SEPARATOR } from '../../../constants';
-import { coalesce, sanitizeHtmlId } from '../../../utils';
-import { arrayEquals } from '../../../utils/compare';
-import { replaceFilters, toggleFilter } from '../../../actions/filter';
-import { getUpdatedFilters } from '../../../utils/filters';
-import { selectAggsState } from '../../../reducers/aggs/selectors';
-import { selectQueryState } from '../../../reducers/query/selectors';
+import { filterPatch, SLUG_SEPARATOR } from '../../../../constants';
+import { coalesce, sanitizeHtmlId } from '../../../../utils';
+import { arrayEquals } from '../../../../utils/compare';
+import { replaceFilters, toggleFilter } from '../../../../actions/filter';
+import { getUpdatedFilters } from '../../../../utils/filters';
+import { selectAggsState } from '../../../../reducers/aggs/selectors';
+import { selectQueryState } from '../../../../reducers/query/selectors';
 
 const appliedFilters = ({ fieldName, item, aggs, filters }) => {
   // We should find the parent

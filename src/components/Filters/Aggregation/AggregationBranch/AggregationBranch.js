@@ -1,0 +1,160 @@
+import './AggregationBranch.less';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import { FormattedNumber } from 'react-intl';
+import {
+  coalesce,
+  getAllFilters,
+  sanitizeHtmlId,
+  slugify,
+} from '../../../../utils';
+import {
+  removeMultipleFilters,
+  replaceFilters,
+} from '../../../../actions/filter';
+import { selectQueryState } from '../../../../reducers/query/selectors';
+import AggregationItem from '../AggregationItem/AggregationItem';
+import getIcon from '../../../iconMap';
+import { SLUG_SEPARATOR } from '../../../../constants';
+
+export const UNCHECKED = 'UNCHECKED';
+export const INDETERMINATE = 'INDETERMINATE';
+export const CHECKED = 'CHECKED';
+
+const AggregationBranch = ({ fieldName, item, subitems }) => {
+  const dispatch = useDispatch();
+  const query = useSelector(selectQueryState);
+
+  // Find all query filters that refer to the field name
+  const allFilters = coalesce(query, fieldName, []);
+
+  // Do any of these values start with the key?
+  const keyFilters = allFilters.filter(
+    (aFilter) => aFilter.indexOf(item.key) === 0,
+  );
+
+  // Does the key contain the separator?
+  const activeChildren = keyFilters.filter(
+    (key) => key.indexOf(SLUG_SEPARATOR) !== -1,
+  );
+  const activeParent = keyFilters.filter((key) => key === item.key);
+
+  const [hasChildren, setHasChildren] = useState(activeChildren.length > 0);
+
+  let checkedState = UNCHECKED;
+  if (activeParent.length === 0 && hasChildren) {
+    checkedState = INDETERMINATE;
+  } else if (activeParent.length > 0) {
+    checkedState = CHECKED;
+  }
+
+  // Fix up the subitems to prepend the current item key
+  const buckets = subitems.map((sub) => ({
+    disabled: item.isDisabled,
+    key: slugify(item.key, sub.key),
+    value: sub.key,
+    // eslint-disable-next-line camelcase
+    doc_count: sub.doc_count,
+  }));
+
+  const labelStyle = () => {
+    let str = 'toggle a-label';
+    if (checkedState === INDETERMINATE) {
+      str += ' indeterminate';
+    }
+
+    return str;
+  };
+
+  // Special returns
+  if (buckets.length === 0) {
+    return <AggregationItem item={item} key={item.key} fieldName={fieldName} />;
+  }
+
+  const liStyle = 'parent m-form-field m-form-field--checkbox body-copy';
+  const id = sanitizeHtmlId(fieldName + '-' + item.key);
+
+  /*let chevronIcon;
+  if (hasChildren) {
+    chevronIcon = getIcon('up');
+  } else {
+    chevronIcon = getIcon('down');
+  }*/
+
+  const toggleParent = () => {
+    const values = getAllFilters(item.key, subitems);
+
+    // Add the active filters (that might be hidden)
+    activeChildren.forEach((child) => values.add(child));
+
+    if (checkedState === CHECKED) {
+      dispatch(removeMultipleFilters(fieldName, [...values]));
+    } else {
+      // remove all of the child filters
+      const replacementFilters = allFilters.filter(
+        (filter) => filter.indexOf(item.key + SLUG_SEPARATOR) === -1,
+      );
+      // add self/ parent filter
+      replacementFilters.push(item.key);
+      dispatch(replaceFilters(fieldName, [...replacementFilters]));
+    }
+  };
+
+  const toggleChild = () => {
+    setHasChildren(!hasChildren);
+  };
+
+  return (
+    <>
+      <li
+        className={`aggregation-branch ${sanitizeHtmlId(item.key)} ${liStyle}`}
+      >
+        <input
+          type="checkbox"
+          aria-label={item.key}
+          disabled={item.isDisabled}
+          checked={checkedState === CHECKED}
+          className="flex-fixed a-checkbox"
+          id={id}
+          onChange={toggleParent}
+        />
+        <label className={labelStyle()} htmlFor={id}>
+          <span className="u-visually-hidden">{item.key}</span>
+        </label>
+        <button className="flex-all a-btn a-btn--link" onClick={toggleChild}>
+          <span>{item.key}</span>
+          {hasChildren ? getIcon('up') : getIcon('down')}
+        </button>
+        <span className="flex-fixed parent-count">
+          <FormattedNumber value={item.doc_count} />
+        </span>
+      </li>
+      {hasChildren === false ? null : (
+        <ul className="children">
+          {buckets.map((bucket) => (
+            <AggregationItem
+              item={bucket}
+              key={bucket.key}
+              fieldName={fieldName}
+            />
+          ))}
+        </ul>
+      )}
+    </>
+  );
+};
+
+AggregationBranch.propTypes = {
+  fieldName: PropTypes.string.isRequired,
+  item: PropTypes.shape({
+    // eslint-disable-next-line camelcase
+    doc_count: PropTypes.number.isRequired,
+    key: PropTypes.string.isRequired,
+    value: PropTypes.string,
+    isDisabled: PropTypes.bool,
+  }).isRequired,
+  subitems: PropTypes.array.isRequired,
+};
+
+export default AggregationBranch;
