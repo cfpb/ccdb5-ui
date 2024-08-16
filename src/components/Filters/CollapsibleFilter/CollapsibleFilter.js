@@ -46,7 +46,7 @@ const CollapsibleFilter = ({
 
 CollapsibleFilter.propTypes = {
   hasChildren: PropTypes.bool.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   title: PropTypes.string.isRequired,
   desc: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,

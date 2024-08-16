@@ -16,6 +16,7 @@ describe('component::CollapsibleFilter', () => {
 
   beforeEach(() => {
     props = {
+      hasChildren: true,
       title: 'A Title',
       desc: 'The description',
     };
