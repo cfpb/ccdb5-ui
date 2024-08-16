@@ -58,19 +58,14 @@ const AggregationBranch = ({ fieldName, item, subitems }) => {
     doc_count: sub.doc_count,
   }));
 
-  const labelStyle = () => {
+  /*const labelStyle = () => {
     let str = 'toggle a-label';
     if (checkedState === INDETERMINATE) {
       str += ' indeterminate';
     }
 
     return str;
-  };
-
-  // Special returns
-  if (buckets.length === 0) {
-    return <AggregationItem item={item} key={item.key} fieldName={fieldName} />;
-  }
+  };*/
 
   const liStyle = 'parent m-form-field m-form-field--checkbox body-copy';
   const id = sanitizeHtmlId(fieldName + '-' + item.key);
@@ -105,6 +100,10 @@ const AggregationBranch = ({ fieldName, item, subitems }) => {
     setHasChildren(!hasChildren);
   };
 
+  if (buckets.length === 0) {
+    return <AggregationItem item={item} key={item.key} fieldName={fieldName} />;
+  }
+
   return (
     <>
       <li
@@ -119,7 +118,10 @@ const AggregationBranch = ({ fieldName, item, subitems }) => {
           id={id}
           onChange={toggleParent}
         />
-        <label className={labelStyle()} htmlFor={id}>
+        <label
+          className={`toggle a-label ${checkedState === INDETERMINATE ? ' indeterminate' : ''}`}
+          htmlFor={id}
+        >
           <span className="u-visually-hidden">{item.key}</span>
         </label>
         <button className="flex-all a-btn a-btn--link" onClick={toggleChild}>
