@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 
 const CollapsibleFilter = ({
-  hasChildren = true,
+  hasChildren,
   className = '',
   title,
   desc,
@@ -45,11 +45,11 @@ const CollapsibleFilter = ({
 };
 
 CollapsibleFilter.propTypes = {
-  hasChildren: PropTypes.bool,
-  className: PropTypes.string,
-  title: PropTypes.string,
-  desc: PropTypes.string,
-  children: PropTypes.node,
+  hasChildren: PropTypes.bool.isRequired,
+  className: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  desc: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default CollapsibleFilter;
