@@ -3,14 +3,8 @@ import getIcon from '../../iconMap';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-const CollapsibleFilter = ({
-  hasChildren,
-  className = '',
-  title,
-  desc,
-  children,
-}) => {
-  const [isOpen, setOpen] = useState(hasChildren);
+const CollapsibleFilter = ({ className = '', title, desc, children }) => {
+  const [isOpen, setOpen] = useState(true);
 
   const opened = (
     <span className="o-expandable__cue-close" role="img" aria-label="Hide">
@@ -45,7 +39,6 @@ const CollapsibleFilter = ({
 };
 
 CollapsibleFilter.propTypes = {
-  hasChildren: PropTypes.bool.isRequired,
   className: PropTypes.string,
   title: PropTypes.string.isRequired,
   desc: PropTypes.string.isRequired,

@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
 import { normalize } from '../../utils';
 import { addMultipleFilters } from '../../actions/filter';
 import CollapsibleFilter from './CollapsibleFilter/CollapsibleFilter';
 import { THESE_UNITED_STATES } from '../../constants';
 import { Typeahead } from '../Typeahead/Typeahead/Typeahead';
 
-export const FederalState = ({ hasChildren }) => {
+export const FederalState = () => {
   const dispatch = useDispatch();
   const buildLabel = (state) => THESE_UNITED_STATES[state] + ' (' + state + ')';
   const starterOptions = Object.keys(THESE_UNITED_STATES).map((key) => {
@@ -43,12 +42,7 @@ export const FederalState = ({ hasChildren }) => {
   };
 
   return (
-    <CollapsibleFilter
-      title="State"
-      desc={desc}
-      hasChildren={hasChildren}
-      className="aggregation state"
-    >
+    <CollapsibleFilter title="State" desc={desc} className="aggregation state">
       <Typeahead
         ariaLabel="Start typing to begin listing US states"
         htmlId="state-typeahead"
@@ -60,8 +54,4 @@ export const FederalState = ({ hasChildren }) => {
       />
     </CollapsibleFilter>
   );
-};
-
-FederalState.propTypes = {
-  hasChildren: PropTypes.bool,
 };

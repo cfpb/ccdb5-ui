@@ -16,7 +16,6 @@ describe('component::CollapsibleFilter', () => {
 
   beforeEach(() => {
     props = {
-      hasChildren: true,
       title: 'A Title',
       desc: 'The description',
     };
@@ -33,30 +32,28 @@ describe('component::CollapsibleFilter', () => {
 
   describe('toggle states', () => {
     test('hides children when Hide button is clicked', async () => {
-      props.hasChildren = true;
       renderComponent(props);
       const buttonBefore = screen.getByRole('button');
       await user.click(buttonBefore);
 
       const buttonAfter = screen.getByRole('button', {
         expanded: false,
-        label: `Hide ${props.title} filter`,
       });
       expect(buttonAfter).toBeInTheDocument();
       expect(screen.queryByText('test child element')).not.toBeInTheDocument();
     });
 
     test('shows children when Show button is clicked', async () => {
-      props.hasChildren = false;
       renderComponent(props);
-      const buttonBefore = screen.getByRole('button');
-      await user.click(buttonBefore);
+      await user.click(screen.getByRole('button'));
+      await user.click(screen.getByRole('button'));
 
       const buttonAfter = screen.getByRole('button', {
         expanded: true,
-        label: `Show ${props.title} filter`,
       });
+
       expect(buttonAfter).toBeInTheDocument();
+      expect(screen.getByText(props.desc)).toBeInTheDocument();
       expect(screen.getByText('test child element')).toBeInTheDocument();
     });
   });
