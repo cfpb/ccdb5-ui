@@ -1,11 +1,11 @@
 import configureMockStore from 'redux-mock-store';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
-import ReduxTrendDepthToggle /*, {
-//   TrendDepthToggle,
-//   mapDispatchToProps,
-//   mapStateToProps,
-}*/ from '../Trends/TrendDepthToggle';
+// import ReduxTrendDepthToggle /*, {
+// //   TrendDepthToggle,
+// //   mapDispatchToProps,
+// //   mapStateToProps,
+// }*/ from './TrendDepthToggle';
 import React from 'react';
 import renderer from 'react-test-renderer';
 // import { REQUERY_ALWAYS } from '../../constants';
