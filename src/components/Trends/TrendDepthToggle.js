@@ -66,7 +66,7 @@ export const TrendDepthToggle = () => {
       return (
         <div className="trend-depth-toggle">
           <button
-            className="a-btn a-btn__link"
+            className="a-btn a-btn--ink"
             id="trend-depth-button"
             onClick={() => {
               dispatch(depthChanged(diff + 5));
@@ -81,7 +81,7 @@ export const TrendDepthToggle = () => {
     return (
       <div className="trend-depth-toggle">
         <button
-          className="a-btn a-btn__link"
+          className="a-btn a-btn--ink"
           id="trend-depth-button"
           onClick={() => {
             dispatch(depthReset());

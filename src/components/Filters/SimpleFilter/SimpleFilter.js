@@ -1,27 +1,22 @@
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { selectAggsState } from '../../../reducers/aggs/selectors';
-import { selectFiltersState } from '../../../reducers/filters/selectors';
 import { coalesce } from '../../../utils';
-import CollapsibleFilter from '../CollapsibleFilter';
+import CollapsibleFilter from '../CollapsibleFilter/CollapsibleFilter';
 import MoreOrLess from '../MoreOrLess/MoreOrLess';
 import AggregationItem from '../AggregationItem/AggregationItem';
 import '../Aggregation.less';
 
 const SimpleFilter = ({ fieldName, title, desc }) => {
   const aggs = useSelector(selectAggsState);
-  const filters = useSelector(selectFiltersState);
-  const activeChildren = coalesce(filters, fieldName, []);
-  const options = coalesce(aggs, fieldName, []);
-  const hasChildren = activeChildren.length > 0;
 
+  const options = coalesce(aggs, fieldName, []);
   const listComponentProps = { fieldName };
 
   return (
     <CollapsibleFilter
       title={title}
       desc={desc}
-      hasChildren={hasChildren}
       className={'aggregation simple ' + fieldName}
     >
       <MoreOrLess

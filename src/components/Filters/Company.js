@@ -1,8 +1,8 @@
 import { cloneDeep } from '../../utils';
-import CollapsibleFilter from './CollapsibleFilter';
+import CollapsibleFilter from './CollapsibleFilter/CollapsibleFilter';
 import { CompanyTypeahead } from './CompanyTypeahead';
 import { useSelector } from 'react-redux';
-import StickyOptions from './StickyOptions';
+import StickyOptions from './StickyOptions/StickyOptions';
 import { selectAggsCompany } from '../../reducers/aggs/selectors';
 import {
   selectTrendsFocus,

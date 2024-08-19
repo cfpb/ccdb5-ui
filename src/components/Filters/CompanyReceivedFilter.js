@@ -8,7 +8,7 @@ import {
 } from '../../reducers/filters/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { companyReceivedDateUpdated } from '../../reducers/filters/filtersSlice';
-import CollapsibleFilter from './CollapsibleFilter';
+import CollapsibleFilter from './CollapsibleFilter/CollapsibleFilter';
 import dayjs from 'dayjs';
 import dayjsCustomParseFormat from 'dayjs/plugin/customParseFormat';
 import dayjsIsBetween from 'dayjs/plugin/isBetween';
@@ -122,7 +122,11 @@ export const CompanyReceivedFilter = () => {
   }, [fromDate, throughDate]);
 
   return (
-    <CollapsibleFilter title={title} className="aggregation date-filter">
+    <CollapsibleFilter
+      title={title}
+      className="aggregation date-filter"
+      desc=""
+    >
       <div>
         <ul className="date-inputs">
           <li>
