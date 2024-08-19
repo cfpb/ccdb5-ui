@@ -8,7 +8,7 @@ import {
 } from '../../reducers/query/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDates } from '../../actions/filter';
-import CollapsibleFilter from './CollapsibleFilter';
+import CollapsibleFilter from './CollapsibleFilter/CollapsibleFilter';
 import { DateRanges } from './DateRanges';
 import dayjs from 'dayjs';
 import dayjsCustomParseFormat from 'dayjs/plugin/customParseFormat';
@@ -127,7 +127,11 @@ export const DateFilter = () => {
   }, [fromDate, throughDate]);
 
   return (
-    <CollapsibleFilter title={title} className="aggregation date-filter">
+    <CollapsibleFilter
+      title={title}
+      className="aggregation date-filter"
+      desc=""
+    >
       <div>
         <p className="u-mt15">
           {' '}

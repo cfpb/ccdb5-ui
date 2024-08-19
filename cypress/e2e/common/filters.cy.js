@@ -104,17 +104,9 @@ describe('Filter Panel', () => {
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(750);
 
-      cy.log('open simple filter');
-      cy.get('.timely > .o-expandable__header').click();
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(750);
-      cy.get(
-        '.timely > .o-expandable__content > ul > :nth-child(1) > .a-label',
-      ).should('be.visible');
+      cy.log('close simple filter, as it is open by default');
 
-      cy.log('close it');
-
-      // Close it after opening it
+      // Close it
       cy.get('.timely > .o-expandable__header').should('be.visible').click();
       cy.get(
         '.timely > .o-expandable__content > ul > :nth-child(1) > .a-label',

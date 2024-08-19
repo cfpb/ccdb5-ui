@@ -5,7 +5,7 @@ exports[`component::DateFilter snapshot shows a warning for April 2017 1`] = `
   className="o-expandable aggregation date-filter"
 >
   <button
-    aria-expanded="true"
+    aria-expanded={true}
     aria-label="Hide Date CFPB received the complaint filter"
     className="o-expandable__header"
     onClick={[Function]}
@@ -156,7 +156,7 @@ exports[`component::DateFilter snapshot shows errors 1`] = `
   className="o-expandable aggregation date-filter"
 >
   <button
-    aria-expanded="true"
+    aria-expanded={true}
     aria-label="Hide Date CFPB received the complaint filter"
     className="o-expandable__header"
     onClick={[Function]}
@@ -326,7 +326,7 @@ exports[`component::DateFilter snapshot supports no dates in the Redux Store 1`]
   className="o-expandable aggregation date-filter"
 >
   <button
-    aria-expanded="true"
+    aria-expanded={true}
     aria-label="Hide Date CFPB received the complaint filter"
     className="o-expandable__header"
     onClick={[Function]}

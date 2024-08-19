@@ -96,6 +96,7 @@ export const FilterPanel = () => {
             title="How did the consumer submit the
              complaint to the CFPB?"
             fieldName="submitted_via"
+            desc=""
           />
           <hr />
           <SimpleFilter title="Tags" desc={descTags} fieldName="tags" />
