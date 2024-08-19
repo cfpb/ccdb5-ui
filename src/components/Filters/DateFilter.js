@@ -127,7 +127,11 @@ export const DateFilter = () => {
   }, [fromDate, throughDate]);
 
   return (
-    <CollapsibleFilter title={title} className="aggregation date-filter">
+    <CollapsibleFilter
+      title={title}
+      className="aggregation date-filter"
+      desc=""
+    >
       <div>
         <p className="u-mt15">
           {' '}
