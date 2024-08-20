@@ -23,8 +23,9 @@ export const INDETERMINATE = 'INDETERMINATE';
 export const CHECKED = 'CHECKED';
 
 const AggregationBranch = ({ fieldName, item, subitems }) => {
-  const dispatch = useDispatch();
   const query = useSelector(selectQueryState);
+  const dispatch = useDispatch();
+  const [isOpen, setOpen] = useState(false);
 
   // Find all query filters that refer to the field name
   const allFilters = coalesce(query, fieldName, []);
@@ -40,10 +41,8 @@ const AggregationBranch = ({ fieldName, item, subitems }) => {
   );
   const activeParent = keyFilters.filter((key) => key === item.key);
 
-  const [hasChildren, setHasChildren] = useState(activeChildren.length > 0);
-
   let checkedState = UNCHECKED;
-  if (activeParent.length === 0 && hasChildren) {
+  if (activeParent.length === 0 && activeChildren.length > 0) {
     checkedState = INDETERMINATE;
   } else if (activeParent.length > 0) {
     checkedState = CHECKED;
@@ -58,33 +57,17 @@ const AggregationBranch = ({ fieldName, item, subitems }) => {
     doc_count: sub.doc_count,
   }));
 
-  /*const labelStyle = () => {
-    let str = 'toggle a-label';
-    if (checkedState === INDETERMINATE) {
-      str += ' indeterminate';
-    }
-
-    return str;
-  };*/
-
   const liStyle = 'parent m-form-field m-form-field--checkbox body-copy';
   const id = sanitizeHtmlId(fieldName + '-' + item.key);
 
-  /*let chevronIcon;
-  if (hasChildren) {
-    chevronIcon = getIcon('up');
-  } else {
-    chevronIcon = getIcon('down');
-  }*/
-
   const toggleParent = () => {
-    const values = getAllFilters(item.key, subitems);
+    const subItemFilters = getAllFilters(item.key, subitems);
 
     // Add the active filters (that might be hidden)
-    activeChildren.forEach((child) => values.add(child));
+    activeChildren.forEach((child) => subItemFilters.add(child));
 
     if (checkedState === CHECKED) {
-      dispatch(removeMultipleFilters(fieldName, [...values]));
+      dispatch(removeMultipleFilters(fieldName, [...subItemFilters]));
     } else {
       // remove all of the child filters
       const replacementFilters = allFilters.filter(
@@ -94,10 +77,6 @@ const AggregationBranch = ({ fieldName, item, subitems }) => {
       replacementFilters.push(item.key);
       dispatch(replaceFilters(fieldName, [...replacementFilters]));
     }
-  };
-
-  const toggleChild = () => {
-    setHasChildren(!hasChildren);
   };
 
   if (buckets.length === 0) {
@@ -124,15 +103,18 @@ const AggregationBranch = ({ fieldName, item, subitems }) => {
         >
           <span className="u-visually-hidden">{item.key}</span>
         </label>
-        <button className="flex-all a-btn a-btn--link" onClick={toggleChild}>
+        <button
+          className="flex-all a-btn a-btn--link"
+          onClick={() => setOpen(!isOpen)}
+        >
           <span>{item.key}</span>
-          {hasChildren ? getIcon('up') : getIcon('down')}
+          {isOpen ? getIcon('up') : getIcon('down')}
         </button>
         <span className="flex-fixed parent-count">
           <FormattedNumber value={item.doc_count} />
         </span>
       </li>
-      {hasChildren === false ? null : (
+      {isOpen === false ? null : (
         <ul className="children">
           {buckets.map((bucket) => (
             <AggregationItem
