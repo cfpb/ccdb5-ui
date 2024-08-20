@@ -18,7 +18,7 @@ const lensMap = {
   Company: 'company',
 };
 
-const _showMore = (filterCount, resultCount) => {
+const showMore = (filterCount, resultCount) => {
   // scenarios where we want to show more:
   // you have less visible rows that the max (5)
   if (resultCount <= maxRows) {
@@ -62,7 +62,7 @@ export const TrendDepthToggle = () => {
   }
 
   if (hasToggle) {
-    if (_showMore(filterCount, resultCount)) {
+    if (showMore(filterCount, resultCount)) {
       return (
         <div className="trend-depth-toggle">
           <button
