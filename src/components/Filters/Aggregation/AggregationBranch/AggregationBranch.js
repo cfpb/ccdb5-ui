@@ -76,7 +76,6 @@ const AggregationBranch = ({ fieldName, item, subitems }) => {
       );
       // add self/ parent filter
       replacementFilters.push(item.key);
-      console.log('replacementFilters: ', replacementFilters);
       dispatch(replaceFilters(fieldName, [...replacementFilters]));
     }
   };
