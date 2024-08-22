@@ -115,7 +115,7 @@ const AggregationBranch = ({ fieldName, item, subitems }) => {
           <FormattedNumber value={item.doc_count} />
         </span>
       </li>
-      {isOpen === false ? null : (
+      {isOpen ? (
         <ul className="children">
           {buckets.map((bucket) => (
             <AggregationItem
@@ -125,7 +125,7 @@ const AggregationBranch = ({ fieldName, item, subitems }) => {
             />
           ))}
         </ul>
-      )}
+      ) : null}
     </>
   );
 };

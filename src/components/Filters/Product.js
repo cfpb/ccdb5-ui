@@ -86,7 +86,6 @@ export const Product = () => {
     <CollapsibleFilter
       title="Product / sub-product"
       desc={desc}
-      hasChildren={true}
       className="aggregation product"
     >
       <MoreOrLess
