@@ -40,9 +40,9 @@ const CollapsibleFilter = ({ className = '', title, desc, children }) => {
 
 CollapsibleFilter.propTypes = {
   className: PropTypes.string,
-  title: PropTypes.string,
-  desc: PropTypes.string,
-  children: PropTypes.node,
+  title: PropTypes.string.isRequired,
+  desc: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default CollapsibleFilter;

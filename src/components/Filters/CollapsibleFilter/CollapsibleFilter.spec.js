@@ -53,6 +53,7 @@ describe('component::CollapsibleFilter', () => {
         expanded: true,
       });
       expect(buttonAfter).toBeInTheDocument();
+      expect(screen.getByText(props.desc)).toBeInTheDocument();
       expect(screen.getByText('test child element')).toBeInTheDocument();
     });
   });
