@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { coalesce, sortSelThenCount } from '../../utils';
 import CollapsibleFilter from './CollapsibleFilter/CollapsibleFilter';
@@ -11,7 +10,7 @@ import { selectAggsState } from '../../reducers/aggs/selectors';
 import MoreOrLess from './MoreOrLess/MoreOrLess';
 import AggregationBranch from './Aggregation/AggregationBranch/AggregationBranch';
 
-export const Issue = ({ hasChildren }) => {
+export const Issue = () => {
   const dispatch = useDispatch();
   const [dropdownOptions, setDropdownOptions] = useState([]);
   const aggs = useSelector(selectAggsState);
@@ -72,7 +71,6 @@ export const Issue = ({ hasChildren }) => {
     <CollapsibleFilter
       title="Issue / sub-issue"
       desc={desc}
-      hasChildren={hasChildren}
       className="aggregation issue"
     >
       <Typeahead
@@ -92,8 +90,4 @@ export const Issue = ({ hasChildren }) => {
       />
     </CollapsibleFilter>
   );
-};
-
-Issue.propTypes = {
-  hasChildren: PropTypes.bool,
 };
