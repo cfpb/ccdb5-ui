@@ -39,6 +39,7 @@ const AggregationBranch = ({ fieldName, item, subitems }) => {
   const activeChildren = keyFilters.filter(
     (key) => key.indexOf(SLUG_SEPARATOR) !== -1,
   );
+
   const activeParent = keyFilters.filter((key) => key === item.key);
 
   let checkedState = UNCHECKED;
@@ -58,7 +59,7 @@ const AggregationBranch = ({ fieldName, item, subitems }) => {
   }));
 
   const liStyle = 'parent m-form-field m-form-field--checkbox body-copy';
-  const id = sanitizeHtmlId(fieldName + '-' + item.key);
+  const id = sanitizeHtmlId(`${fieldName} ${item.key}`);
 
   const toggleParent = () => {
     const subItemFilters = getAllFilters(item.key, subitems);
@@ -75,6 +76,7 @@ const AggregationBranch = ({ fieldName, item, subitems }) => {
       );
       // add self/ parent filter
       replacementFilters.push(item.key);
+      console.log('replacementFilters: ', replacementFilters);
       dispatch(replaceFilters(fieldName, [...replacementFilters]));
     }
   };
@@ -107,7 +109,7 @@ const AggregationBranch = ({ fieldName, item, subitems }) => {
           className="flex-all a-btn a-btn--link"
           onClick={() => setOpen(!isOpen)}
         >
-          <span>{item.key}</span>
+          {item.key}
           {isOpen ? getIcon('up') : getIcon('down')}
         </button>
         <span className="flex-fixed parent-count">

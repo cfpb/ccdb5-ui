@@ -640,9 +640,10 @@ function replaceFilters(state, action) {
  */
 function removeMultipleFilters(state, action) {
   const newState = { ...state };
-  let obj = newState[action.filterName];
+
   // remove the focus if it exists in one of the filter values we are removing
   newState.focus = action.values.includes(state.focus) ? '' : state.focus || '';
+  let obj = newState[action.filterName];
 
   if (obj) {
     action.values.forEach((val) => {
