@@ -27,7 +27,7 @@ const renderComponent = (props, newAggsState, newQueryState) => {
     query: newQueryState,
   };
 
-  return render(<AggregationItem {...props} />, {
+  render(<AggregationItem {...props} />, {
     preloadedState: data,
   });
 };
