@@ -45,13 +45,13 @@ describe('component::CollapsibleFilter', () => {
 
     test('shows children when Show button is clicked', async () => {
       renderComponent(props);
-      await user.click(screen.getByRole('button'));
-      await user.click(screen.getByRole('button'));
+      const buttonBefore = screen.getByRole('button');
+      await user.click(buttonBefore);
+      await user.click(buttonBefore);
 
       const buttonAfter = screen.getByRole('button', {
         expanded: true,
       });
-
       expect(buttonAfter).toBeInTheDocument();
       expect(screen.getByText(props.desc)).toBeInTheDocument();
       expect(screen.getByText('test child element')).toBeInTheDocument();

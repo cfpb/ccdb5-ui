@@ -8,7 +8,7 @@ import { selectQueryState } from '../../reducers/query/selectors';
 import { Typeahead } from '../Typeahead/Typeahead/Typeahead';
 import { selectAggsState } from '../../reducers/aggs/selectors';
 import MoreOrLess from './MoreOrLess/MoreOrLess';
-import AggregationBranch from './AggregationBranch';
+import { AggregationBranch } from './Aggregation/AggregationBranch/AggregationBranch';
 
 export const Issue = () => {
   const dispatch = useDispatch();
