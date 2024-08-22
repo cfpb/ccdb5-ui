@@ -22,7 +22,7 @@ export const UNCHECKED = 'UNCHECKED';
 export const INDETERMINATE = 'INDETERMINATE';
 export const CHECKED = 'CHECKED';
 
-const AggregationBranch = ({ fieldName, item, subitems }) => {
+export const AggregationBranch = ({ fieldName, item, subitems }) => {
   const query = useSelector(selectQueryState);
   const dispatch = useDispatch();
   const [isOpen, setOpen] = useState(false);
@@ -141,5 +141,3 @@ AggregationBranch.propTypes = {
   }).isRequired,
   subitems: PropTypes.array.isRequired,
 };
-
-export default AggregationBranch;

@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { merge } from '../../../../testUtils/functionHelpers';
 import { defaultQuery } from '../../../../reducers/query/query';
 import * as filter from '../../../../actions/filter';
-import AggregationBranch from './AggregationBranch';
+import { AggregationBranch } from './AggregationBranch';
 
 const fieldName = 'abc';
 

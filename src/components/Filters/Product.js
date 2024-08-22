@@ -1,5 +1,5 @@
 import { MODE_TRENDS, SLUG_SEPARATOR } from '../../constants';
-import AggregationBranch from './Aggregation/AggregationBranch/AggregationBranch';
+import { AggregationBranch } from './Aggregation/AggregationBranch/AggregationBranch';
 
 import CollapsibleFilter from './CollapsibleFilter/CollapsibleFilter';
 import { useSelector } from 'react-redux';
