@@ -8,8 +8,8 @@ import {
   filterToggled,
 } from '../../../../reducers/filters/filtersSlice';
 import { getUpdatedFilters } from '../../../../utils/filters';
-import { selectAggsState } from '../../../../reducers/aggs/selectors';
-import { selectFiltersState } from '../../../../reducers/filters/selectors';
+import { selectAggsRootState } from '../../../../reducers/aggs/selectors';
+import { selectFiltersFilterState } from '../../../../reducers/filters/selectors';
 
 const appliedFilters = ({ fieldName, item, aggs, filters }) => {
   // We should find the parent
@@ -45,8 +45,8 @@ const appliedFilters = ({ fieldName, item, aggs, filters }) => {
 };
 
 export const AggregationItem = ({ fieldName, item }) => {
-  const aggsState = useSelector(selectAggsState);
-  const filtersState = useSelector(selectFiltersState);
+  const aggsState = useSelector(selectAggsRootState);
+  const filtersState = useSelector(selectFiltersFilterState);
   const dispatch = useDispatch();
   const aggs = coalesce(aggsState, fieldName, []);
   const filters = coalesce(filtersState, fieldName, []);

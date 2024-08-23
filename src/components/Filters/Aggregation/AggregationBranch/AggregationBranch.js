@@ -8,7 +8,7 @@ import {
   sanitizeHtmlId,
   slugify,
 } from '../../../../utils';
-import { selectFiltersState } from '../../../../reducers/filters/selectors';
+import { selectFiltersFilterState } from '../../../../reducers/filters/selectors';
 import { AggregationItem } from '../AggregationItem/AggregationItem';
 import getIcon from '../../../iconMap';
 import { SLUG_SEPARATOR } from '../../../../constants';
@@ -22,7 +22,7 @@ export const INDETERMINATE = 'INDETERMINATE';
 export const CHECKED = 'CHECKED';
 
 export const AggregationBranch = ({ fieldName, item, subitems }) => {
-  const filters = useSelector(selectFiltersState);
+  const filters = useSelector(selectFiltersFilterState);
   const dispatch = useDispatch();
   const [isOpen, setOpen] = useState(false);
 

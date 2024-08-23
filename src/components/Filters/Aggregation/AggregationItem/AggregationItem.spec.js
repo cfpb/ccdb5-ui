@@ -171,6 +171,7 @@ describe('component::AggregationItem', () => {
         const filters = ['f', 'g', 'h', slugify('a', 'd')];
 
         // TODO: i don't we should have to mock return values with this if the render component was set up properly
+        // we should write this with the action logger reducer
         // the render component here should have initial aggs and filtersState set up here.
         coalesceFn.mockReturnValueOnce(aggs).mockReturnValueOnce(filters);
 
