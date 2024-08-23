@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types';
 import { createElement, useState } from 'react';
 
-const MoreOrLess = ({
+export const MoreOrLess = ({
   listComponent,
   listComponentProps = {},
   options,
@@ -62,5 +62,3 @@ MoreOrLess.propTypes = {
   perBucketProps: PropTypes.func,
   hasMore: PropTypes.bool,
 };
-
-export default MoreOrLess;

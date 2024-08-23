@@ -1,7 +1,7 @@
 import { testRender as render, screen } from '../../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
-import MoreOrLess from './MoreOrLess';
-import AggregationItem from '../Aggregation/AggregationItem/AggregationItem';
+import { MoreOrLess } from './MoreOrLess';
+import { AggregationItem } from '../Aggregation/AggregationItem/AggregationItem';
 
 const fixture = [
   { key: 'alpha', doc_count: 99 },
@@ -31,7 +31,7 @@ describe('component:MoreOrLess', () => {
     };
   });
 
-  test('displays and toggles properly when more results are available', async () => {
+  it('displays and toggles properly when more results are available', async () => {
     renderComponent(props);
 
     const lessButton = screen.getByRole('button', { name: /Show 3 less/ });
@@ -43,7 +43,7 @@ describe('component:MoreOrLess', () => {
     ).toBeInTheDocument();
   });
 
-  test('displays and toggles properly when no more results are available', async () => {
+  it('displays and toggles properly when no more results are available', async () => {
     props.hasMore = false;
     renderComponent(props);
 

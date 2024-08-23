@@ -1,6 +1,6 @@
 import { testRender as render, screen } from '../../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
-import StickyOptions from './StickyOptions';
+import { StickyOptions } from './StickyOptions';
 
 const fixture = [
   { key: 'DC', doc_count: 999 },
@@ -22,20 +22,20 @@ describe('component::StickyOptions', () => {
     };
   });
 
-  test('should render an initially selected option', () => {
+  it('should render an initially selected option', () => {
     props.selections = ['DC'];
     renderComponent(props);
     expect(screen.getByLabelText('DC')).toBeInTheDocument();
   });
 
-  test('should render nothing when no selections are made', () => {
+  it('should render nothing when no selections are made', () => {
     renderComponent(props);
     const listElement = screen.getByRole('list');
     //ul element should have no child elements)
     expect(listElement.childNodes.length).toBe(0);
   });
 
-  test('should update properly with an additional selection', async () => {
+  it('should update properly with an additional selection', async () => {
     props.selections = ['DC', 'WA'];
     renderComponent(props);
     const checkboxes = screen.getAllByRole('checkbox');
@@ -50,7 +50,7 @@ describe('component::StickyOptions', () => {
     });
   });
 
-  test('should not render selection when its not part of options', () => {
+  it('should not render selection when its not part of options', () => {
     props.selections = ['DC'];
     props.options = [];
     renderComponent(props);

@@ -1,5 +1,5 @@
 import { testRender as render, screen } from '../../../testUtils/test-utils';
-import SimpleFilter from './SimpleFilter';
+import { SimpleFilter } from './SimpleFilter';
 import { merge } from '../../../testUtils/functionHelpers';
 import { defaultAggs } from '../../../reducers/aggs/aggs';
 
@@ -29,7 +29,7 @@ describe('component::SimpleFilter', () => {
   describe('initial state', () => {
     props = { title: 'nana', fieldName: 'company_response' };
 
-    test('renders without crashing', () => {
+    it('renders without crashing', () => {
       renderComponent(props, {}, {});
       expect(screen.getByRole('button')).toHaveAttribute(
         'aria-label',

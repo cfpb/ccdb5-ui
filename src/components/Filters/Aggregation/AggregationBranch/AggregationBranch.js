@@ -14,7 +14,7 @@ import {
   replaceFilters,
 } from '../../../../actions/filter';
 import { selectQueryState } from '../../../../reducers/query/selectors';
-import AggregationItem from '../AggregationItem/AggregationItem';
+import { AggregationItem } from '../AggregationItem/AggregationItem';
 import getIcon from '../../../iconMap';
 import { SLUG_SEPARATOR } from '../../../../constants';
 
