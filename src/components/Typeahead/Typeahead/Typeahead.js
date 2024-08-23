@@ -9,13 +9,13 @@ import HighlightingOption from '../HighlightingOption/HighlightingOption';
 export const Typeahead = ({
   ariaLabel,
   htmlId,
-  isDisabled,
+  isDisabled = false,
   handleChange,
   handleInputChange,
-  maxResults,
-  minLength,
+  maxResults = 5,
+  minLength = 2,
   options,
-  placeholder,
+  placeholder = 'Enter your search text',
 }) => {
   const ref = useRef();
   const [input, setInput] = useState('');
@@ -80,11 +80,4 @@ Typeahead.propTypes = {
   minLength: PropTypes.number,
   options: PropTypes.array,
   placeholder: PropTypes.string,
-};
-
-Typeahead.defaultProps = {
-  isDisabled: false,
-  maxResults: 5,
-  minLength: 2,
-  placeholder: 'Enter your search text',
 };
