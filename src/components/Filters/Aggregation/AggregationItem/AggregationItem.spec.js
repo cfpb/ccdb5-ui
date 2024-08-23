@@ -1,12 +1,12 @@
-import { testRender as render, screen } from '../../../testUtils/test-utils';
-import { merge } from '../../../testUtils/functionHelpers';
+import { testRender as render, screen } from '../../../../testUtils/test-utils';
+import { merge } from '../../../../testUtils/functionHelpers';
 import userEvent from '@testing-library/user-event';
-import * as filter from '../../../reducers/filters/filtersSlice';
-import * as utils from '../../../utils';
-import { slugify } from '../../../utils';
-import { aggsState } from '../../../reducers/aggs/aggsSlice';
-import { filtersState } from '../../../reducers/filters/filtersSlice';
-import AggregationItem from './AggregationItem';
+import * as filter from '../../../../reducers/filters/filtersSlice';
+import * as utils from '../../../../utils';
+import { slugify } from '../../../../utils';
+import { aggsState } from '../../../../reducers/aggs/aggsSlice';
+import { filtersState } from '../../../../reducers/filters/filtersSlice';
+import { AggregationItem } from './AggregationItem';
 
 const defaultTestProps = {
   fieldName: 'foo',
@@ -170,6 +170,8 @@ describe('component::AggregationItem', () => {
 
         const filters = ['f', 'g', 'h', slugify('a', 'd')];
 
+        // TODO: i don't we should have to mock return values with this if the render component was set up properly
+        // the render component here should have initial aggs and filtersState set up here.
         coalesceFn.mockReturnValueOnce(aggs).mockReturnValueOnce(filters);
 
         renderComponent(ownProps, {}, {});

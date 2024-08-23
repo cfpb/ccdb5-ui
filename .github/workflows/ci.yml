@@ -25,7 +25,7 @@ jobs:
         run: yarn run test
 
       - name: Update Coveralls
-        uses: coverallsapp/github-action@main
+        uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 

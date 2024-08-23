@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { filterPatch, SLUG_SEPARATOR } from '../../../constants';
-import { coalesce, sanitizeHtmlId } from '../../../utils';
-import { arrayEquals } from '../../../utils/compare';
+import { filterPatch, SLUG_SEPARATOR } from '../../../../constants';
+import { coalesce, sanitizeHtmlId } from '../../../../utils';
+import { arrayEquals } from '../../../../utils/compare';
 import {
   filtersReplaced,
   filterToggled,
-} from '../../../reducers/filters/filtersSlice';
-import { getUpdatedFilters } from '../../../utils/filters';
-import { selectAggsState } from '../../../reducers/aggs/selectors';
-import { selectFiltersState } from '../../../reducers/filters/selectors';
+} from '../../../../reducers/filters/filtersSlice';
+import { getUpdatedFilters } from '../../../../utils/filters';
+import { selectAggsState } from '../../../../reducers/aggs/selectors';
+import { selectFiltersState } from '../../../../reducers/filters/selectors';
 
 const appliedFilters = ({ fieldName, item, aggs, filters }) => {
   // We should find the parent
@@ -44,11 +44,10 @@ const appliedFilters = ({ fieldName, item, aggs, filters }) => {
   }
 };
 
-const AggregationItem = ({ fieldName, item }) => {
+export const AggregationItem = ({ fieldName, item }) => {
   const aggsState = useSelector(selectAggsState);
   const filtersState = useSelector(selectFiltersState);
   const dispatch = useDispatch();
-
   const aggs = coalesce(aggsState, fieldName, []);
   const filters = coalesce(filtersState, fieldName, []);
   const isActive =
@@ -124,5 +123,3 @@ AggregationItem.propTypes = {
     isDisabled: PropTypes.bool,
   }).isRequired,
 };
-
-export default AggregationItem;
