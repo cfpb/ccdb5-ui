@@ -29,7 +29,7 @@ describe('component::SimpleFilter', () => {
   describe('initial state', () => {
     props = { title: 'nana', fieldName: 'company_response' };
 
-    test('renders without crashing', () => {
+    it('renders without crashing', () => {
       renderComponent(props, {}, {});
       expect(screen.getByRole('button')).toHaveAttribute(
         'aria-label',

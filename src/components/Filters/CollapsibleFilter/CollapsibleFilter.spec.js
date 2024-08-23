@@ -22,7 +22,7 @@ describe('component::CollapsibleFilter', () => {
   });
 
   describe('initial state', () => {
-    test('renders initially as expected', () => {
+    it('renders initially as expected', () => {
       renderComponent(props);
       expect(screen.getByText(props.title)).toBeInTheDocument();
       expect(screen.getByText(props.desc)).toBeInTheDocument();
@@ -31,7 +31,7 @@ describe('component::CollapsibleFilter', () => {
   });
 
   describe('toggle states', () => {
-    test('hides children when Hide button is clicked', async () => {
+    it('hides children when Hide button is clicked', async () => {
       renderComponent(props);
       const buttonBefore = screen.getByRole('button');
       await user.click(buttonBefore);
@@ -43,7 +43,7 @@ describe('component::CollapsibleFilter', () => {
       expect(screen.queryByText('test child element')).not.toBeInTheDocument();
     });
 
-    test('shows children when Show button is clicked', async () => {
+    it('shows children when Show button is clicked', async () => {
       renderComponent(props);
       const buttonBefore = screen.getByRole('button');
       await user.click(buttonBefore);

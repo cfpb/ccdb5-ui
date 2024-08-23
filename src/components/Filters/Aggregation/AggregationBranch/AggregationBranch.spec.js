@@ -42,7 +42,7 @@ describe('component::AggregationBranch', () => {
   });
 
   describe('initial state', () => {
-    test('renders as list item button with unchecked state when one or more subitems are present', () => {
+    it('renders as list item button with unchecked state when one or more subitems are present', () => {
       renderComponent(props);
 
       expect(screen.getByRole('checkbox')).not.toBeChecked();
@@ -54,7 +54,7 @@ describe('component::AggregationBranch', () => {
       expect(screen.queryByRole('list')).not.toBeInTheDocument();
     });
 
-    test('renders list item button with disabled checkbox when item property is disabled', () => {
+    it('renders list item button with disabled checkbox when item property is disabled', () => {
       const aitem = { ...item, isDisabled: true };
       props.item = aitem;
 
@@ -63,7 +63,7 @@ describe('component::AggregationBranch', () => {
       expect(screen.getByRole('checkbox')).toBeDisabled();
     });
 
-    test('renders AggregationItem when no subitems are present', () => {
+    it('renders AggregationItem when no subitems are present', () => {
       props.subitems = [];
 
       renderComponent(props);
@@ -73,7 +73,7 @@ describe('component::AggregationBranch', () => {
       expect(screen.queryByRole('button')).not.toBeInTheDocument();
     });
 
-    test('renders with checkbox in checked state', () => {
+    it('renders with checkbox in checked state', () => {
       const query = {
         abc: [props.item.key],
       };
@@ -82,7 +82,7 @@ describe('component::AggregationBranch', () => {
       expect(screen.getByRole('checkbox')).toBeChecked();
     });
 
-    test('renders with checkbox in indeterminate state', () => {
+    it('renders with checkbox in indeterminate state', () => {
       const query = {
         abc: [`${props.item.key}•${props.subitems[0].key}`],
       };
@@ -108,7 +108,7 @@ describe('component::AggregationBranch', () => {
       jest.restoreAllMocks();
     });
 
-    test('should properly check the component', async () => {
+    it('should properly check the component', async () => {
       renderComponent(props);
 
       await user.click(screen.getByRole('checkbox'));
@@ -116,7 +116,7 @@ describe('component::AggregationBranch', () => {
       expect(replaceFiltersFn).toHaveBeenCalledWith(props.fieldName, ['foo']);
     });
 
-    test('should properly uncheck the component', async () => {
+    it('should properly uncheck the component', async () => {
       const query = {
         abc: [props.item.key],
       };
@@ -133,7 +133,7 @@ describe('component::AggregationBranch', () => {
       ]);
     });
 
-    test('should show children list items on button click', async () => {
+    it('should show children list items on button click', async () => {
       renderComponent(props);
 
       await user.click(screen.getByRole('button'));

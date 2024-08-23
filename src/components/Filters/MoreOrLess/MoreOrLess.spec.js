@@ -31,7 +31,7 @@ describe('component:MoreOrLess', () => {
     };
   });
 
-  test('displays and toggles properly when more results are available', async () => {
+  it('displays and toggles properly when more results are available', async () => {
     renderComponent(props);
 
     const lessButton = screen.getByRole('button', { name: /Show 3 less/ });
@@ -43,7 +43,7 @@ describe('component:MoreOrLess', () => {
     ).toBeInTheDocument();
   });
 
-  test('displays and toggles properly when no more results are available', async () => {
+  it('displays and toggles properly when no more results are available', async () => {
     props.hasMore = false;
     renderComponent(props);
 
