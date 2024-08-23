@@ -21,7 +21,7 @@ const searchFields = {
   complaint_what_happened: 'Narratives',
 };
 
-export const SearchBar = ({ debounceWait }) => {
+export const SearchBar = ({ debounceWait = 250 }) => {
   const dispatch = useDispatch();
   const searchField = useSelector(selectQuerySearchField);
   const searchText = useSelector(selectQuerySearchText);
@@ -157,8 +157,4 @@ export const SearchBar = ({ debounceWait }) => {
 
 SearchBar.propTypes = {
   debounceWait: PropTypes.number,
-};
-
-SearchBar.defaultProps = {
-  debounceWait: 250,
 };

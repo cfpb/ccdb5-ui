@@ -11,7 +11,7 @@ import { handleFetchSearch } from '../Typeahead/utils';
 
 const FIELD_NAME = 'zip_code';
 
-export const ZipCode = ({ delayWait }) => {
+export const ZipCode = ({ delayWait = 250 }) => {
   const dispatch = useDispatch();
   const query = useSelector(selectQueryState);
   const [dropdownOptions, setDropdownOptions] = useState([]);
@@ -53,8 +53,4 @@ export const ZipCode = ({ delayWait }) => {
 
 ZipCode.propTypes = {
   delayWait: PropTypes.number,
-};
-
-ZipCode.defaultProps = {
-  delayWait: 250,
 };

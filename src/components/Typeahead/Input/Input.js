@@ -6,11 +6,11 @@ export const Input = ({
   ariaLabel,
   className,
   htmlId,
-  isDisabled,
+  isDisabled = false,
   handleChange,
   handleClear,
   handlePressEnter,
-  placeholder,
+  placeholder = 'Enter your search text',
   value,
 }) => {
   return (
@@ -54,9 +54,4 @@ Input.propTypes = {
   htmlId: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.string.isRequired,
-};
-
-Input.defaultProps = {
-  isDisabled: false,
-  placeholder: 'Enter your search text',
 };

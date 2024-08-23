@@ -15,7 +15,7 @@ import { handleFetchSearch } from '../Typeahead/utils';
 
 const FIELD_NAME = 'company';
 
-export const CompanyTypeahead = ({ delayWait, id }) => {
+export const CompanyTypeahead = ({ delayWait = 250, id }) => {
   const dispatch = useDispatch();
   const query = useSelector(selectQueryState);
   const focus = useSelector(selectQueryFocus);
@@ -55,8 +55,4 @@ export const CompanyTypeahead = ({ delayWait, id }) => {
 CompanyTypeahead.propTypes = {
   delayWait: PropTypes.number,
   id: PropTypes.string.isRequired,
-};
-
-CompanyTypeahead.defaultProps = {
-  delayWait: 250,
 };
