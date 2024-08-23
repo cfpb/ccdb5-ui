@@ -42,7 +42,7 @@ const appliedFilters = ({ fieldName, item, aggs, filters }) => {
   }
 };
 
-const AggregationItem = ({ fieldName, item }) => {
+export const AggregationItem = ({ fieldName, item }) => {
   const aggsState = useSelector(selectAggsState);
   const queryState = useSelector(selectQueryState);
   const dispatch = useDispatch();
@@ -122,5 +122,3 @@ AggregationItem.propTypes = {
     isDisabled: PropTypes.bool,
   }).isRequired,
 };
-
-export default AggregationItem;

@@ -3,7 +3,12 @@ import getIcon from '../../iconMap';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-const CollapsibleFilter = ({ className = '', title, desc, children }) => {
+export const CollapsibleFilter = ({
+  className = '',
+  title,
+  desc,
+  children,
+}) => {
   const [isOpen, setOpen] = useState(true);
 
   const opened = (
@@ -44,5 +49,3 @@ CollapsibleFilter.propTypes = {
   desc: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
 };
-
-export default CollapsibleFilter;

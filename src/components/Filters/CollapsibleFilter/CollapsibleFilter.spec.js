@@ -1,6 +1,6 @@
 import { testRender as render, screen } from '../../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
-import CollapsibleFilter from './CollapsibleFilter';
+import { CollapsibleFilter } from './CollapsibleFilter';
 
 const renderComponent = (theProps, children) => {
   return render(

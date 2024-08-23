@@ -1,7 +1,7 @@
 import { testRender as render, screen } from '../../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
-import MoreOrLess from './MoreOrLess';
-import AggregationItem from '../Aggregation/AggregationItem/AggregationItem';
+import { MoreOrLess } from './MoreOrLess';
+import { AggregationItem } from '../Aggregation/AggregationItem/AggregationItem';
 
 const fixture = [
   { key: 'alpha', doc_count: 99 },

@@ -6,7 +6,7 @@ import * as utils from '../../../../utils';
 import { slugify } from '../../../../utils';
 import { defaultAggs } from '../../../../reducers/aggs/aggs';
 import { defaultQuery } from '../../../../reducers/query/query';
-import AggregationItem from './AggregationItem';
+import { AggregationItem } from './AggregationItem';
 
 const defaultTestProps = {
   fieldName: 'foo',
