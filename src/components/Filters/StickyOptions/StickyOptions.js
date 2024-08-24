@@ -22,7 +22,7 @@ const zeroCounts = (cache) => {
   return result;
 };
 
-const StickyOptions = ({ fieldName, options, selections }) => {
+export const StickyOptions = ({ fieldName, options, selections }) => {
   const [trackedSelections, setTrackedSelections] = useState([]);
   const [cache, setCache] = useState({});
 
@@ -72,5 +72,3 @@ StickyOptions.propTypes = {
   options: PropTypes.array.isRequired,
   selections: PropTypes.array,
 };
-
-export default StickyOptions;

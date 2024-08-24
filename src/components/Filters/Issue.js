@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { sortSelThenCount } from '../../utils';
-import CollapsibleFilter from './CollapsibleFilter/CollapsibleFilter';
+import { CollapsibleFilter } from './CollapsibleFilter/CollapsibleFilter';
 import { filtersReplaced } from '../../reducers/filters/filtersSlice';
 import { SLUG_SEPARATOR } from '../../constants';
 import { Typeahead } from '../Typeahead/Typeahead/Typeahead';
 import { selectAggsIssue } from '../../reducers/aggs/selectors';
 import { selectFiltersIssue } from '../../reducers/filters/selectors';
-import MoreOrLess from './MoreOrLess/MoreOrLess';
+import { MoreOrLess } from './MoreOrLess/MoreOrLess';
 import { AggregationBranch } from './Aggregation/AggregationBranch/AggregationBranch';
 
 export const Issue = () => {

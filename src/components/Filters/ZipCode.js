@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import CollapsibleFilter from './CollapsibleFilter/CollapsibleFilter';
+import { CollapsibleFilter } from './CollapsibleFilter/CollapsibleFilter';
 import { stateToQS } from '../../reducers/query/querySlice';
 import { API_PLACEHOLDER } from '../../constants';
 import { selectQueryState } from '../../reducers/query/selectors';
@@ -12,7 +12,7 @@ import { selectFiltersFilterState } from '../../reducers/filters/selectors';
 
 const FIELD_NAME = 'zip_code';
 
-export const ZipCode = ({ delayWait }) => {
+export const ZipCode = ({ delayWait = 250 }) => {
   const dispatch = useDispatch();
   const query = useSelector(selectQueryState);
   const filters = useSelector(selectFiltersFilterState);
@@ -55,8 +55,4 @@ export const ZipCode = ({ delayWait }) => {
 
 ZipCode.propTypes = {
   delayWait: PropTypes.number,
-};
-
-ZipCode.defaultProps = {
-  delayWait: 250,
 };
