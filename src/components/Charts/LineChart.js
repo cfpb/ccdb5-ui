@@ -158,6 +158,7 @@ export const mapStateToProps = (state) => {
     to: state.query.date_received_max,
   };
   const interval = state.query.dateInterval;
+  console.log('interval: ', interval);
   // clone the data so this doesn't mutate redux store
   const processData = cloneDeep(data);
   pruneIncompleteLineInterval(processData, dateRange, interval);
