@@ -37,15 +37,11 @@ export const LineChart = () => {
   const dateFrom = useSelector(selectQueryDateReceivedMin);
   const dateTo = useSelector(selectQueryDateReceivedMax);
 
-  //const dateRange = { from: dateFrom, to: dateTo };
-  //const processData = cloneDeep(areaData);
-  //pruneIncompleteLineInterval(processData, dateRange, interval);
-
   const processData = useMemo(() => {
-    return pruneIncompleteLineInterval(areaData, dateFrom, dateTo, interval);
+    const dateRange = { from: dateFrom, to: dateTo };
+    return pruneIncompleteLineInterval(areaData, dateRange, interval);
   }, [areaData, dateFrom, dateTo, interval]);
 
-  console.log('processData: ', processData);
   const hasChart = Boolean(
     processData.dataByTopic && processData.dataByTopic[0].dates.length > 1,
   );

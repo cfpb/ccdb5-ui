@@ -259,14 +259,9 @@ export const dateOutOfEndBounds = (dateTo, lastFromChart, interval) => {
   return afterEnd && !isSameTo;
 };
 
-export const pruneIncompleteLineInterval = (
-  data,
-  /*dateRange*/ dateFrom,
-  dateTo,
-  interval,
-) => {
+export const pruneIncompleteLineInterval = (data, dateRange, interval) => {
   const dataClone = cloneDeep(data);
-  //const { from: dateFrom, to: dateTo } = dateRange;
+  const { from: dateFrom, to: dateTo } = dateRange;
   if (!dataClone.dataByTopic) {
     return data;
   }
@@ -276,8 +271,6 @@ export const pruneIncompleteLineInterval = (
   const startFromChart = dataClone.dataByTopic[0].dates[0].date;
   const lastFromChart = dataClone.dataByTopic[0].dates[dates.length - 1].date;
 
-  console.log('startFromChart: ', startFromChart);
-  console.log('date');
   // start date from chart same as date range from, then go ahead keep it
   if (dateOutOfStartBounds(dateFrom, startFromChart, interval)) {
     dataClone.dataByTopic.forEach((datum) => {
