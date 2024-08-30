@@ -92,65 +92,61 @@ export const LineChart = () => {
         }
       };
 
-      const lineChart = line();
-      const containerWidth = chartWidth(chartID);
-      const colorScheme = processData.dataByTopic.map(
-        (obj) => colorMap[obj.topic],
-      );
+      const redrawChart = () => {
+        d3.select(chartSelector).remove();
+        const lineChart = line();
+        const containerWidth = chartWidth(chartID);
+        const colorScheme = processData.dataByTopic.map(
+          (obj) => colorMap[obj.topic],
+        );
 
-      lineChart
-        .margin({ left: 60, right: 10, top: 10, bottom: 40 })
-        .initializeVerticalMarker(true)
-        .isAnimated(true)
-        .tooltipThreshold(1)
-        .grid('horizontal')
-        .aspectRatio(0.5)
-        .width(containerWidth)
-        .dateLabel('date')
-        .colorSchema(colorScheme);
-
-      if (lens === 'Overview') {
         lineChart
-          .on('customMouseOver', tip.show)
-          .on('customMouseMove', updateInternalTooltip)
-          .on('customMouseOut', tip.hide);
-      } else {
-        lineChart.on('customMouseMove', updateTooltip);
-      }
+          .margin({ left: 60, right: 10, top: 10, bottom: 40 })
+          .initializeVerticalMarker(true)
+          .isAnimated(true)
+          .tooltipThreshold(1)
+          .grid('horizontal')
+          .aspectRatio(0.5)
+          .width(containerWidth)
+          .dateLabel('date')
+          .colorSchema(colorScheme);
 
-      container.datum(cloneDeep(processData)).call(lineChart);
-
-      const tooltipContainer = d3.select(
-        chartID + ' .metadata-group .vertical-marker-container',
-      );
-      tooltipContainer.datum([]).call(tip);
-
-      const config = { dateRange, interval };
-      if (lens !== 'Overview') {
-        // get the last date and fire it off to redux
-        const item = getLastLineDate(processData, config);
-        if (!isDateEqual(tooltipInfo.date, item.date)) {
-          tooltipUpdated(item);
+        if (lens === 'Overview') {
+          lineChart
+            .on('customMouseOver', tip.show)
+            .on('customMouseMove', updateInternalTooltip)
+            .on('customMouseOut', tip.hide);
+        } else {
+          lineChart.on('customMouseMove', updateTooltip);
         }
-      }
+
+        container.datum(cloneDeep(processData)).call(lineChart);
+
+        const tooltipContainer = d3.select(
+          chartID + ' .metadata-group .vertical-marker-container',
+        );
+        tooltipContainer.datum([]).call(tip);
+
+        const config = { dateRange, interval };
+        if (lens !== 'Overview') {
+          // get the last date and fire it off to redux
+          const item = getLastLineDate(processData, config);
+          if (!isDateEqual(tooltipInfo.date, item.date)) {
+            tooltipUpdated(item);
+          }
+        }
+      };
+
+      redrawChart();
 
       return () => {
         d3.select(chartSelector).remove();
         container.datum([]);
       };
     },
-    [
-      /*areaData,
-    tooltipInfo,
-    colorMap,
-    isPrintMode,
-    dateFrom,
-    dateTo,
-    interval,
-    lens,
-    hasChart,
-    hashObject(areaData),*/
-    ],
+    // this is intentional since we want this to run only once
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
   );
 
   return hasChart ? (
