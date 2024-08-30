@@ -1,21 +1,20 @@
 /* eslint complexity: ["error", 7] */
 import './LineChart.less';
+import React from 'react';
+import { connect } from 'react-redux';
 import * as d3 from 'd3';
-
+import { line, tooltip } from 'britecharts';
+import PropTypes from 'prop-types';
+import { cloneDeep, hashObject } from '../../utils';
 import {
   getLastLineDate,
   getTooltipTitle,
   pruneIncompleteLineInterval,
 } from '../../utils/chart';
-import { line, tooltip } from 'britecharts';
-import cloneDeep from 'lodash/cloneDeep';
-import { connect } from 'react-redux';
-import ErrorBlock from '../Warnings/Error';
-import { hashObject } from '../../utils';
+
 import { isDateEqual } from '../../utils/formatDate';
-import PropTypes from 'prop-types';
-import React from 'react';
 import { updateTrendsTooltip } from '../../actions/trends';
+import ErrorBlock from '../Warnings/Error';
 
 export class LineChart extends React.Component {
   tip = null;
@@ -158,7 +157,6 @@ export const mapStateToProps = (state) => {
     to: state.query.date_received_max,
   };
   const interval = state.query.dateInterval;
-  console.log('interval: ', interval);
   // clone the data so this doesn't mutate redux store
   const processData = cloneDeep(data);
   pruneIncompleteLineInterval(processData, dateRange, interval);
