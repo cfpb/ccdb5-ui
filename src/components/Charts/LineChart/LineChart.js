@@ -2,9 +2,9 @@
 import './LineChart.less';
 import * as d3 from 'd3';
 import { line, tooltip } from 'britecharts';
-import { useEffect /*, useMemo*/ } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { cloneDeep, hashObject } from '../../../utils';
+import { cloneDeep /*, hashObject*/ } from '../../../utils';
 import { isDateEqual } from '../../../utils/formatDate';
 import {
   getLastLineDate,
@@ -37,107 +37,114 @@ export const LineChart = () => {
   const dateFrom = useSelector(selectQueryDateReceivedMin);
   const dateTo = useSelector(selectQueryDateReceivedMax);
 
-  const dateRange = { from: dateFrom, to: dateTo };
-  const processData = cloneDeep(areaData);
-  pruneIncompleteLineInterval(processData, dateRange, interval);
+  //const dateRange = { from: dateFrom, to: dateTo };
+  //const processData = cloneDeep(areaData);
+  //pruneIncompleteLineInterval(processData, dateRange, interval);
 
+  const processData = useMemo(() => {
+    return pruneIncompleteLineInterval(areaData, dateFrom, dateTo, interval);
+  }, [areaData, dateFrom, dateTo, interval]);
+
+  console.log('processData: ', processData);
   const hasChart = Boolean(
     processData.dataByTopic && processData.dataByTopic[0].dates.length > 1,
   );
 
-  useEffect(() => {
-    if (!hasChart) {
-      return;
-    }
-
-    const chartID = '#line-chart';
-    const chartSelector = `${chartID} .line-chart`;
-    const container = d3.select(chartID);
-
-    const tip = tooltip()
-      .shouldShowDateInTitle(false)
-      .topicLabel('topics')
-      .title('Complaints');
-
-    const chartWidth = () => {
-      if (isPrintMode) {
-        return lens === 'Overview' ? 750 : 500;
+  useEffect(
+    () => {
+      if (!hasChart) {
+        return;
       }
-      return container.node().getBoundingClientRect().width;
-    };
+      const dateRange = { from: dateFrom, to: dateTo };
+      const chartID = '#line-chart';
+      const chartSelector = `${chartID} .line-chart`;
+      const container = d3.select(chartID);
 
-    const tooltipUpdated = (tipEvent) => {
-      dispatch(updateTrendsTooltip(tipEvent));
-    };
+      const tip = tooltip()
+        .shouldShowDateInTitle(false)
+        .topicLabel('topics')
+        .title('Complaints');
 
-    const updateInternalTooltip = (
-      dataPoint,
-      topicColorMap,
-      dataPointXPosition,
-    ) => {
-      tip.title(getTooltipTitle(dataPoint.date, interval, dateRange, false));
-      tip.update(dataPoint, topicColorMap, dataPointXPosition);
-    };
+      const chartWidth = () => {
+        if (isPrintMode) {
+          return lens === 'Overview' ? 750 : 500;
+        }
+        return container.node().getBoundingClientRect().width;
+      };
 
-    const updateTooltip = (point) => {
-      if (!isDateEqual(tooltipInfo.date, point.date)) {
-        tooltipUpdated({
-          date: point.date,
-          dateRange,
-          interval,
-          values: point.topics,
-        });
-      }
-    };
+      const tooltipUpdated = (tipEvent) => {
+        dispatch(updateTrendsTooltip(tipEvent));
+      };
 
-    const lineChart = line();
-    const containerWidth = chartWidth(chartID);
-    const colorScheme = processData.dataByTopic.map(
-      (obj) => colorMap[obj.topic],
-    );
+      const updateInternalTooltip = (
+        dataPoint,
+        topicColorMap,
+        dataPointXPosition,
+      ) => {
+        tip.title(getTooltipTitle(dataPoint.date, interval, dateRange, false));
+        tip.update(dataPoint, topicColorMap, dataPointXPosition);
+      };
 
-    lineChart
-      .margin({ left: 60, right: 10, top: 10, bottom: 40 })
-      .initializeVerticalMarker(true)
-      .isAnimated(true)
-      .tooltipThreshold(1)
-      .grid('horizontal')
-      .aspectRatio(0.5)
-      .width(containerWidth)
-      .dateLabel('date')
-      .colorSchema(colorScheme);
+      const updateTooltip = (point) => {
+        if (!isDateEqual(tooltipInfo.date, point.date)) {
+          tooltipUpdated({
+            date: point.date,
+            dateRange,
+            interval,
+            values: point.topics,
+          });
+        }
+      };
 
-    if (lens === 'Overview') {
+      const lineChart = line();
+      const containerWidth = chartWidth(chartID);
+      const colorScheme = processData.dataByTopic.map(
+        (obj) => colorMap[obj.topic],
+      );
+
       lineChart
-        .on('customMouseOver', tip.show)
-        .on('customMouseMove', updateInternalTooltip)
-        .on('customMouseOut', tip.hide);
-    } else {
-      lineChart.on('customMouseMove', updateTooltip);
-    }
+        .margin({ left: 60, right: 10, top: 10, bottom: 40 })
+        .initializeVerticalMarker(true)
+        .isAnimated(true)
+        .tooltipThreshold(1)
+        .grid('horizontal')
+        .aspectRatio(0.5)
+        .width(containerWidth)
+        .dateLabel('date')
+        .colorSchema(colorScheme);
 
-    container.datum(cloneDeep(processData)).call(lineChart);
-
-    const tooltipContainer = d3.select(
-      chartID + ' .metadata-group .vertical-marker-container',
-    );
-    tooltipContainer.datum([]).call(tip);
-
-    const config = { dateRange, interval };
-    if (lens !== 'Overview') {
-      // get the last date and fire it off to redux
-      const item = getLastLineDate(processData, config);
-      if (!isDateEqual(tooltipInfo.date, item.date)) {
-        tooltipUpdated(item);
+      if (lens === 'Overview') {
+        lineChart
+          .on('customMouseOver', tip.show)
+          .on('customMouseMove', updateInternalTooltip)
+          .on('customMouseOut', tip.hide);
+      } else {
+        lineChart.on('customMouseMove', updateTooltip);
       }
-    }
 
-    return () => {
-      d3.select(chartSelector).remove();
-      container.datum([]);
-    };
-  }, [
-    areaData,
+      container.datum(cloneDeep(processData)).call(lineChart);
+
+      const tooltipContainer = d3.select(
+        chartID + ' .metadata-group .vertical-marker-container',
+      );
+      tooltipContainer.datum([]).call(tip);
+
+      const config = { dateRange, interval };
+      if (lens !== 'Overview') {
+        // get the last date and fire it off to redux
+        const item = getLastLineDate(processData, config);
+        if (!isDateEqual(tooltipInfo.date, item.date)) {
+          tooltipUpdated(item);
+        }
+      }
+
+      return () => {
+        d3.select(chartSelector).remove();
+        container.datum([]);
+      };
+    },
+    [
+      /*areaData,
     tooltipInfo,
     colorMap,
     isPrintMode,
@@ -146,8 +153,9 @@ export const LineChart = () => {
     interval,
     lens,
     hasChart,
-    hashObject(areaData),
-  ]);
+    hashObject(areaData),*/
+    ],
+  );
 
   return hasChart ? (
     <div className="chart-wrapper">
