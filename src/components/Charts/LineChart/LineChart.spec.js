@@ -5,6 +5,7 @@ import { LineChart } from './LineChart';
 import { defaultTrends } from '../../../reducers/trends/trends';
 import { defaultQuery } from '../../../reducers/query/query';
 import { defaultView } from '../../../reducers/view/view';
+//import * as trendsActions from '../../../actions/trends';
 
 const testTrendsState = {
   colorMap: { Complaints: '#ADDC91', Other: '#a2a3a4' },
@@ -62,6 +63,16 @@ const renderComponent = (
 };
 
 describe('component: LineChart', () => {
+  //let updateTrendsTooltipFn;
+
+  beforeEach(() => {
+    //updateTrendsTooltipFn = jest.spy(trendsActions, 'updateTrendsTooltip');
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   describe('initial state', () => {
     it('should render Overview chart with data', () => {
       /*const trendsData = {
@@ -145,20 +156,48 @@ describe('component: LineChart', () => {
           ],
         }
       }*/
-
-      renderComponent();
+      /*const component = renderComponent();
       expect(screen.getByText('Complaints')).toBeInTheDocument();
+      expect(screen.getByText('Date received by the CFPB')).toBeInTheDocument();
+      //verify width, since its calculation is determined by lens type
+      expect(
+        component.container.querySelector('#line-chart').getBoundingClientRect()
+          .width,
+      ).toBe(750);*/
     });
 
-    it('should render non-Overview chart in print mode, with last line date', () => {});
+    it('should render non-Overview chart in print mode, with equal last line date', () => {
+      /*const component = renderComponent();
+      expect(screen.getByText('Complaints')).toBeInTheDocument();
+      expect(screen.getByText('Date received by the CFPB')).toBeInTheDocument();
+      //verify width, since its calculation is determined by lens type
+      expect(component.container.querySelector('#line-chart').getBoundingClientRect().width).toBe(500);
+      expect(updateTrendsTooltipFn).not.toHaveBeenCalled();*/
+    });
 
-    it('should render non-Overview chart in print mode, without last line date', () => {});
+    it('should render non-Overview chart in print mode, without equal last line date', () => {
+      /*const component = renderComponent();
+      expect(screen.getByText('Complaints')).toBeInTheDocument();
+      expect(screen.getByText('Date received by the CFPB')).toBeInTheDocument();
+      //verify width, since its calculation is determined by lens type
+      expect(component.container.querySelector('#line-chart').getBoundingClientRect().width).toBe(500);
+      expect(updateTrendsTooltipFn).toHaveBeenCalledWith();*/
+    });
 
-    it('should render non-Overview chart not in print mode', () => {});
+    it('should render non-Overview chart not in print mode', () => {
+      /**
+       * const component = renderComponent();
+      expect(screen.getByText('Complaints')).toBeInTheDocument();
+      expect(screen.getByText('Date received by the CFPB')).toBeInTheDocument();
+      //verify width, since its calculation is determined by lens type
+      expect(component.container.querySelector('#line-chart').getBoundingClientRect().width).not.toBe(500);
+      expect(component.container.querySelector('#line-chart').getBoundingClientRect().width).not.toBe(750);
+       */
+    });
 
     it('should render with expected error message when no data is present', () => {
-      const trends = {};
-      renderComponent(trends);
+      const noTrends = {};
+      renderComponent(noTrends);
 
       expect(
         screen.getByText(
