@@ -64,6 +64,88 @@ const renderComponent = (
 describe('component: LineChart', () => {
   describe('initial state', () => {
     it('should render Overview chart with data', () => {
+      /*const trendsData = {
+        tooltip: false,
+        colorMap: {
+          'Credit reporting': '#2cb34a',
+          'Debt collection': '#addc91',
+          'Credit card or prepaid card': '#257675',
+          Mortgage: '#9ec4c3',
+          'Checking or savings account': '#0072ce',
+          Complaints: '#ADDC91',
+          'All other products': '#a2a3a4',
+        },
+        dataRangeLine: {
+          dataByTopic: [
+            {
+              topic: 'Credit reporting',
+              topicName: 'Credit reporting',
+              dashed: false,
+              show: true,
+              dates: [
+                { date: '2020-03-01T00:00:00.000Z', value: 17231 },
+                { date: '2020-04-01T00:00:00.000Z', value: 21179 },
+                { date: '2020-05-01T00:00:00.000Z', value: 6868 },
+                { date: '2020-06-01T00:00:00.000Z', value: 35112 },
+                { date: '2020-07-01T00:00:00.000Z', value: 54345 },
+              ],
+            },
+            {
+              topic: 'Debt collection',
+              topicName: 'Debt collection',
+              dashed: false,
+              show: true,
+              dates: [
+                { date: '2020-03-01T00:00:00.000Z', value: 4206 },
+                { date: '2020-04-01T00:00:00.000Z', value: 4508 },
+                { date: '2020-05-01T00:00:00.000Z', value: 1068 },
+                { date: '2020-06-01T00:00:00.000Z', value: 35112 },
+                { date: '2020-07-01T00:00:00.000Z', value: 54345 },
+              ],
+            },
+            {
+              topic: 'Credit card or prepaid card',
+              topicName: 'Credit card or prepaid card',
+              dashed: false,
+              show: true,
+              dates: [
+                { date: '2020-03-01T00:00:00.000Z', value: 2435 },
+                { date: '2020-04-01T00:00:00.000Z', value: 3137 },
+                { date: '2020-05-01T00:00:00.000Z', value: 712 },
+                { date: '2020-06-01T00:00:00.000Z', value: 35112 },
+                { date: '2020-07-01T00:00:00.000Z', value: 54345 },
+              ],
+            },
+            {
+              topic: 'Mortgage',
+              topicName: 'Mortgage',
+              dashed: false,
+              show: true,
+              dates: [
+                { date: '2020-03-01T00:00:00.000Z', value: 2132 },
+                { date: '2020-04-01T00:00:00.000Z', value: 2179 },
+                { date: '2020-05-01T00:00:00.000Z', value: 365 },
+                { date: '2020-06-01T00:00:00.000Z', value: 35112 },
+                { date: '2020-07-01T00:00:00.000Z', value: 54345 },
+              ],
+            },
+            {
+              topic: 'Checking or savings account',
+              topicName: 'Checking or savings account',
+              dashed: false,
+              show: true,
+              dates: [
+                { date: '2020-03-01T00:00:00.000Z', value: 1688 },
+                { date: '2020-04-01T00:00:00.000Z', value: 2030 },
+                { date: '2020-05-01T00:00:00.000Z', value: 383 },
+                { date: '2020-06-01T00:00:00.000Z', value: 35112 },
+                { date: '2020-07-01T00:00:00.000Z', value: 54345 },
+              ],
+            },
+          ],
+        }
+      }*/
+
       renderComponent();
       expect(screen.getByText('Complaints')).toBeInTheDocument();
     });
