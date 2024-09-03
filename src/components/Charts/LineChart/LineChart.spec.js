@@ -156,14 +156,14 @@ describe('component: LineChart', () => {
           ],
         }
       }*/
-      /*const component = renderComponent();
+      //const component = renderComponent();
       expect(screen.getByText('Complaints')).toBeInTheDocument();
       expect(screen.getByText('Date received by the CFPB')).toBeInTheDocument();
       //verify width, since its calculation is determined by lens type
-      expect(
+      /*       expect(
         component.container.querySelector('#line-chart').getBoundingClientRect()
           .width,
-      ).toBe(750);*/
+      ).toBe(750); */
     });
 
     it('should render non-Overview chart in print mode, with equal last line date', () => {
