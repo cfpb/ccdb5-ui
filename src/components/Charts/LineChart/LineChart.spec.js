@@ -87,11 +87,13 @@ describe('component: LineChart', () => {
   });
 
   describe('tooltip actions', () => {
-    //TBD - show tooltip
-    //TBD - hide tooltip
-    //TBD - update tooltip (when dates are equal - shouldn't work)
-    //TBD - update tooltip (when dates are not equal - will work)
-    //TBD - update internal tooltip
+    it('should show tooltip for Overview charts', () => {});
+
+    it('should hide tooltip for Overview charts', () => {});
+
+    it('should show tooltip for non-Overview charts, with equal dates', () => {});
+
+    it('should show tooltip for non-Overview charts, with non-equal dates', () => {});
   });
 
   // TODO: rewrite these tests with testing library
