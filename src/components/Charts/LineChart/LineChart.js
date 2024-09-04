@@ -1,20 +1,18 @@
-/* eslint complexity: ["error", 7] */
 import './LineChart.less';
 import * as d3 from 'd3';
 import { line, tooltip } from 'britecharts';
 import { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { cloneDeep /*, hashObject*/ } from '../../../utils';
-import { isDateEqual } from '../../../utils/formatDate';
+import { cloneDeep, debounce /*, hashObject*/ } from '../../../utils';
 import {
   getLastLineDate,
   getTooltipTitle,
+  isLineDataEmpty,
   pruneIncompleteLineInterval,
 } from '../../../utils/chart';
 import {
   selectTrendsColorMap,
   selectTrendsResultsDateRangeLine,
-  selectTrendsTooltip,
 } from '../../../reducers/trends/selectors';
 import { selectViewIsPrintMode } from '../../../reducers/view/selectors';
 import {
@@ -24,37 +22,29 @@ import {
   selectQueryLens,
 } from '../../../reducers/query/selectors';
 import { updateTrendsTooltip } from '../../../actions/trends';
-import ErrorBlock from '../../Warnings/Error';
+import { ChartWrapper } from '../ChartWrapper/ChartWrapper';
 
 export const LineChart = () => {
   const dispatch = useDispatch();
   const colorMap = useSelector(selectTrendsColorMap);
-  const tooltipInfo = useSelector(selectTrendsTooltip);
   const lens = useSelector(selectQueryLens);
   const interval = useSelector(selectQueryDateInterval);
   const isPrintMode = useSelector(selectViewIsPrintMode);
   const areaData = useSelector(selectTrendsResultsDateRangeLine);
   const dateFrom = useSelector(selectQueryDateReceivedMin);
   const dateTo = useSelector(selectQueryDateReceivedMax);
-
+  const hasTooltip = lens !== 'Overview';
   const processData = useMemo(() => {
     const dateRange = { from: dateFrom, to: dateTo };
     return pruneIncompleteLineInterval(areaData, dateRange, interval);
   }, [areaData, dateFrom, dateTo, interval]);
 
-  const hasChart = Boolean(
-    processData.dataByTopic && processData.dataByTopic[0].dates.length > 1,
-  );
-
   useEffect(() => {
-    // if (!hasChart) {
-    //   return;
-    // }
     const dateRange = { from: dateFrom, to: dateTo };
     const chartID = '#line-chart';
     const chartSelector = `${chartID} .line-chart`;
     const container = d3.select(chartID);
-    if (!container.node()) {
+    if (!container.node() || isLineDataEmpty(processData)) {
       return;
     }
     const tip = tooltip()
@@ -83,14 +73,12 @@ export const LineChart = () => {
     };
 
     const updateTooltip = (point) => {
-      if (!isDateEqual(tooltipInfo.date, point.date)) {
-        tooltipUpdated({
-          date: point.date,
-          dateRange,
-          interval,
-          values: point.topics,
-        });
-      }
+      tooltipUpdated({
+        date: point.date,
+        dateRange,
+        interval,
+        values: point.topics,
+      });
     };
 
     // const redrawChart = () => {
@@ -118,7 +106,7 @@ export const LineChart = () => {
         .on('customMouseMove', updateInternalTooltip)
         .on('customMouseOut', tip.hide);
     } else {
-      lineChart.on('customMouseMove', updateTooltip);
+      lineChart.on('customMouseMove', debounce(updateTooltip, 200));
     }
 
     container.datum(cloneDeep(processData)).call(lineChart);
@@ -132,13 +120,8 @@ export const LineChart = () => {
     if (lens !== 'Overview') {
       // get the last date and fire it off to redux
       const item = getLastLineDate(processData, config);
-      if (!isDateEqual(tooltipInfo.date, item.date)) {
-        tooltipUpdated(item);
-      }
+      tooltipUpdated(item);
     }
-    // };
-    //
-    // redrawChart();
 
     return () => {
       d3.select(chartSelector).remove();
@@ -153,16 +136,13 @@ export const LineChart = () => {
     isPrintMode,
     lens,
     processData,
-    // tooltipInfo.date,
   ]);
 
-  return hasChart ? (
-    <div className="chart-wrapper">
-      <p className="y-axis-label">Complaints</p>
-      <div id="line-chart" />
-      <p className="x-axis-label">Date received by the CFPB</p>
-    </div>
-  ) : (
-    <ErrorBlock text="Cannot display chart. Adjust your date range or date interval." />
+  return (
+    <ChartWrapper
+      hasKey={hasTooltip}
+      domId="line-chart"
+      isEmpty={isLineDataEmpty(processData)}
+    />
   );
 };

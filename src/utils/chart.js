@@ -259,6 +259,46 @@ export const dateOutOfEndBounds = (dateTo, lastFromChart, interval) => {
   return afterEnd && !isSameTo;
 };
 
+/**
+ * Helper function to determine if the array passed has no dates
+ *
+ * @param {object} data - Contains an object for the LineCharts.
+ * @returns {boolean} Tells us whether we have dates to render the chart.
+ */
+export const isLineDataEmpty = (data) => {
+  return (
+    !data ||
+    !data.dataByTopic ||
+    !data.dataByTopic.length ||
+    !data.dataByTopic[0].dates.length ||
+    // we consider line data to be empty if length < 2
+    // since you need at least 2 points to plot
+    data.dataByTopic[0].dates.length < 2
+  );
+};
+
+/**
+ * Helper function to determine if the array passed does not have enough dates
+ *
+ * @param {Array} data - Contains an array of objects for the StackedAreaCharts.
+ * @returns {boolean} Tells us whether we have dates to render the chart.
+ */
+export const isStackedAreaDataEmpty = (data) => {
+  if (!data || !data.length) {
+    return true;
+  }
+  const allDates = [...new Set(data.map((obj) => obj.date))];
+  return allDates.length < 2;
+};
+
+/**
+ * Removes incomplete date periods from the line chart
+ *
+ * @param {object} data - Object containing arrays to render a line chart
+ * @param {object} dateRange - Object containing dateFrom and dateTo
+ * @param {string} interval - Month, Day, Year, Quarter, etc
+ * @returns {object} Object containing parameters to render the line charts.
+ */
 export const pruneIncompleteLineInterval = (data, dateRange, interval) => {
   const dataClone = cloneDeep(data);
   const { from: dateFrom, to: dateTo } = dateRange;
