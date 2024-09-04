@@ -110,7 +110,7 @@ export const StackedAreaChart = () => {
     };
 
     redrawChart();
-  });
+  }, []);
 
   return hasChart ? (
     <div className="chart-wrapper">
