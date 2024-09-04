@@ -46,108 +46,115 @@ export const LineChart = () => {
     processData.dataByTopic && processData.dataByTopic[0].dates.length > 1,
   );
 
-  useEffect(
-    () => {
-      if (!hasChart) {
-        return;
+  useEffect(() => {
+    // if (!hasChart) {
+    //   return;
+    // }
+    const dateRange = { from: dateFrom, to: dateTo };
+    const chartID = '#line-chart';
+    const chartSelector = `${chartID} .line-chart`;
+    const container = d3.select(chartID);
+    if (!container.node()) {
+      return;
+    }
+    const tip = tooltip()
+      .shouldShowDateInTitle(false)
+      .topicLabel('topics')
+      .title('Complaints');
+
+    const chartWidth = () => {
+      if (isPrintMode) {
+        return lens === 'Overview' ? 750 : 500;
       }
-      const dateRange = { from: dateFrom, to: dateTo };
-      const chartID = '#line-chart';
-      const chartSelector = `${chartID} .line-chart`;
-      const container = d3.select(chartID);
+      return container.node().getBoundingClientRect().width;
+    };
 
-      const tip = tooltip()
-        .shouldShowDateInTitle(false)
-        .topicLabel('topics')
-        .title('Complaints');
+    const tooltipUpdated = (tipEvent) => {
+      dispatch(updateTrendsTooltip(tipEvent));
+    };
 
-      const chartWidth = () => {
-        if (isPrintMode) {
-          return lens === 'Overview' ? 750 : 500;
-        }
-        return container.node().getBoundingClientRect().width;
-      };
+    const updateInternalTooltip = (
+      dataPoint,
+      topicColorMap,
+      dataPointXPosition,
+    ) => {
+      tip.title(getTooltipTitle(dataPoint.date, interval, dateRange, false));
+      tip.update(dataPoint, topicColorMap, dataPointXPosition);
+    };
 
-      const tooltipUpdated = (tipEvent) => {
-        dispatch(updateTrendsTooltip(tipEvent));
-      };
+    const updateTooltip = (point) => {
+      if (!isDateEqual(tooltipInfo.date, point.date)) {
+        tooltipUpdated({
+          date: point.date,
+          dateRange,
+          interval,
+          values: point.topics,
+        });
+      }
+    };
 
-      const updateInternalTooltip = (
-        dataPoint,
-        topicColorMap,
-        dataPointXPosition,
-      ) => {
-        tip.title(getTooltipTitle(dataPoint.date, interval, dateRange, false));
-        tip.update(dataPoint, topicColorMap, dataPointXPosition);
-      };
+    // const redrawChart = () => {
+    d3.select(chartSelector).remove();
+    const lineChart = line();
+    const containerWidth = chartWidth(chartID);
+    const colorScheme = processData.dataByTopic.map(
+      (obj) => colorMap[obj.topic],
+    );
 
-      const updateTooltip = (point) => {
-        if (!isDateEqual(tooltipInfo.date, point.date)) {
-          tooltipUpdated({
-            date: point.date,
-            dateRange,
-            interval,
-            values: point.topics,
-          });
-        }
-      };
+    lineChart
+      .margin({ left: 60, right: 10, top: 10, bottom: 40 })
+      .initializeVerticalMarker(true)
+      .isAnimated(true)
+      .tooltipThreshold(1)
+      .grid('horizontal')
+      .aspectRatio(0.5)
+      .width(containerWidth)
+      .dateLabel('date')
+      .colorSchema(colorScheme);
 
-      const redrawChart = () => {
-        d3.select(chartSelector).remove();
-        const lineChart = line();
-        const containerWidth = chartWidth(chartID);
-        const colorScheme = processData.dataByTopic.map(
-          (obj) => colorMap[obj.topic],
-        );
+    if (lens === 'Overview') {
+      lineChart
+        .on('customMouseOver', tip.show)
+        .on('customMouseMove', updateInternalTooltip)
+        .on('customMouseOut', tip.hide);
+    } else {
+      lineChart.on('customMouseMove', updateTooltip);
+    }
 
-        lineChart
-          .margin({ left: 60, right: 10, top: 10, bottom: 40 })
-          .initializeVerticalMarker(true)
-          .isAnimated(true)
-          .tooltipThreshold(1)
-          .grid('horizontal')
-          .aspectRatio(0.5)
-          .width(containerWidth)
-          .dateLabel('date')
-          .colorSchema(colorScheme);
+    container.datum(cloneDeep(processData)).call(lineChart);
 
-        if (lens === 'Overview') {
-          lineChart
-            .on('customMouseOver', tip.show)
-            .on('customMouseMove', updateInternalTooltip)
-            .on('customMouseOut', tip.hide);
-        } else {
-          lineChart.on('customMouseMove', updateTooltip);
-        }
+    const tooltipContainer = d3.select(
+      chartID + ' .metadata-group .vertical-marker-container',
+    );
+    tooltipContainer.datum([]).call(tip);
 
-        container.datum(cloneDeep(processData)).call(lineChart);
+    const config = { dateRange, interval };
+    if (lens !== 'Overview') {
+      // get the last date and fire it off to redux
+      const item = getLastLineDate(processData, config);
+      if (!isDateEqual(tooltipInfo.date, item.date)) {
+        tooltipUpdated(item);
+      }
+    }
+    // };
+    //
+    // redrawChart();
 
-        const tooltipContainer = d3.select(
-          chartID + ' .metadata-group .vertical-marker-container',
-        );
-        tooltipContainer.datum([]).call(tip);
-
-        const config = { dateRange, interval };
-        if (lens !== 'Overview') {
-          // get the last date and fire it off to redux
-          const item = getLastLineDate(processData, config);
-          if (!isDateEqual(tooltipInfo.date, item.date)) {
-            tooltipUpdated(item);
-          }
-        }
-      };
-
-      redrawChart();
-
-      return () => {
-        d3.select(chartSelector).remove();
-        container.datum([]);
-      };
-    },
-    // this is intentional since we want this to run only once
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
-  );
+    return () => {
+      d3.select(chartSelector).remove();
+      container.datum([]);
+    };
+  }, [
+    colorMap,
+    dateFrom,
+    dateTo,
+    dispatch,
+    interval,
+    isPrintMode,
+    lens,
+    processData,
+    // tooltipInfo.date,
+  ]);
 
   return hasChart ? (
     <div className="chart-wrapper">
