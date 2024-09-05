@@ -1,5 +1,6 @@
 import { testRender as render, screen } from '../../../testUtils/test-utils';
 import { merge } from '../../../testUtils/functionHelpers';
+//import { buildFluentMock } from '../__fixtures__/buildFluentMock';
 import { LineChart } from './LineChart';
 import { defaultTrends } from '../../../reducers/trends/trends';
 import { defaultQuery } from '../../../reducers/query/query';
@@ -60,11 +61,11 @@ const renderComponent = (queryState, trendsState, viewState) => {
   });
 };
 
+jest.mock('d3');
 describe('component: LineChart', () => {
   //let updateTrendsTooltipFn;
 
   beforeEach(() => {
-    jest.resetAllMocks();
     //updateTrendsTooltipFn = jest.spy(trendsActions, 'updateTrendsTooltip');
   });
 
