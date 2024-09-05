@@ -109,7 +109,7 @@ describe('component: LineChart', () => {
       dateInterval: 'Month',
       date_received_max: new Date('2024-09-02T07:00:00.000Z'),
       date_received_min: new Date('2024-03-02T08:00:00.000Z'),
-      lens: 'Overview',
+      lens: 'Foo',
     };
 
     const view = {
@@ -152,7 +152,7 @@ describe('component: LineChart', () => {
       dateInterval: 'Month',
       date_received_max: new Date('2024-09-02T07:00:00.000Z'),
       date_received_min: new Date('2024-03-02T08:00:00.000Z'),
-      lens: 'Overview',
+      lens: 'Foo',
     };
 
     const view = {
