@@ -26,8 +26,8 @@ const renderComponent = (props, newAggsState, newQueryState, newViewState) => {
 jest.mock('d3');
 
 /**
- * NOTE: Since Britecharts and D3 are being mocked out, code coverage cannot be 100%.
- * As a result, toggle states cannot be tested.
+ * NOTE: Britecharts and D3 are being mocked out, due to rendering issues with these libraries in JSDOM.
+ * As a result, toggle states cannot be tested, and code coverage will not be 100%.
  */
 describe('component::RowChart', () => {
   beforeEach(() => {
