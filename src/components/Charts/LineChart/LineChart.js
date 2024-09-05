@@ -86,7 +86,6 @@ export const LineChart = () => {
       });
     };
 
-    // const redrawChart = () => {
     d3.select(chartSelector).remove();
     const lineChart = line();
     const containerWidth = chartWidth(chartID);
