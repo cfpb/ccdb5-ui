@@ -25,8 +25,6 @@ const renderComponent = (queryState, trendsState, viewState) => {
 
 jest.mock('d3');
 describe('component: LineChart', () => {
-  //let updateTrendsTooltipFn;
-
   beforeEach(() => {
     const fakeD3 = buildFluentMock({ height: 50 });
     // how we add our own implementation of d3
