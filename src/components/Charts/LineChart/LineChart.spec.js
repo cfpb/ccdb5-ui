@@ -1,6 +1,5 @@
 import { testRender as render, screen } from '../../../testUtils/test-utils';
 import { merge } from '../../../testUtils/functionHelpers';
-//import userEvent from '@testing-library/user-event';
 import { LineChart } from './LineChart';
 import { defaultTrends } from '../../../reducers/trends/trends';
 import { defaultQuery } from '../../../reducers/query/query';

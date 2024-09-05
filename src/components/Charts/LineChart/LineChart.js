@@ -4,7 +4,7 @@ import line from 'britecharts/dist/umd/line.min';
 import tooltip from 'britecharts/dist/umd/tooltip.min';
 import { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { cloneDeep, debounce /*, hashObject*/ } from '../../../utils';
+import { cloneDeep, debounce } from '../../../utils';
 import {
   getLastLineDate,
   getTooltipTitle,
@@ -29,21 +29,10 @@ export const LineChart = () => {
   const dispatch = useDispatch();
   const colorMap = useSelector(selectTrendsColorMap);
   const areaData = useSelector(selectTrendsResultsDateRangeLine);
-
-  // console.log(JSON.stringify(areaData));
-  // console.log(JSON.stringify(colorMap));
   const lens = useSelector(selectQueryLens);
   const interval = useSelector(selectQueryDateInterval);
   const dateFrom = useSelector(selectQueryDateReceivedMin);
   const dateTo = useSelector(selectQueryDateReceivedMax);
-  // const myObj = {
-  //   dateInterval: interval,
-  //   date_received_max: dateTo,
-  //   date_received_min: dateFrom,
-  //   lens,
-  // };
-
-  // console.log(JSON.stringify(myObj));
 
   const isPrintMode = useSelector(selectViewIsPrintMode);
 
@@ -95,7 +84,6 @@ export const LineChart = () => {
       });
     };
 
-    // const redrawChart = () => {
     d3.select(chartSelector).remove();
     const lineChart = line();
     const containerWidth = chartWidth(chartID);
