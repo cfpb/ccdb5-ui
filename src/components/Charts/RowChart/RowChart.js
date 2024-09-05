@@ -42,16 +42,13 @@ export const RowChart = ({
   const expandedRows = useSelector(selectViewExpandedRows);
   const isPrintMode = useSelector(selectViewIsPrintMode);
   //const width = useSelector(selectViewWidth);
-
   const lens = tab === MODE_MAP ? 'Product' : queryLens;
 
   useEffect(() => {
+    const chartID = '#row-chart-' + id;
+
     const formatTip = (value) => {
       return value.toLocaleString() + ' complaints';
-    };
-
-    const getHeight = (numRows) => {
-      return numRows === 1 ? 100 : numRows * 60;
     };
 
     const wrapText = (text, width, viewMore) => {
@@ -121,6 +118,7 @@ export const RowChart = ({
       sendAnalyticsEvent('Bar chart collapsed', rowName);
       dispatch(collapseRow(rowName));
     };
+
     const expandARow = (rowName) => {
       sendAnalyticsEvent('Bar chart expanded', rowName);
       dispatch(expandRow(rowName));
@@ -183,8 +181,6 @@ export const RowChart = ({
       tooltip.valueFormatter(formatTip);
 
       const ratio = total / max(rows, (obj) => obj.value);
-      const chartID = '#row-chart-' + id;
-      d3.selectAll(chartID + ' .row-chart').remove();
       const rowContainer = d3.select(chartID);
 
       // added padding to make up for margin
@@ -192,13 +188,14 @@ export const RowChart = ({
         ? 750
         : rowContainer.node().getBoundingClientRect().width + 30;
 
-      const height = getHeight(rows.length);
+      const height = rows.length === 1 ? 100 : rows.length * 60;
       const chart = row();
       const marginLeft = width / 4;
 
       // tweak to make the chart full width at desktop
       // add space at narrow width
       const marginRight = width < 600 ? 40 : -65;
+
       chart
         .margin({
           left: marginLeft,
@@ -230,7 +227,6 @@ export const RowChart = ({
       tooltipContainer.datum([]).call(tooltip);
 
       wrapText(d3.select(chartID).selectAll('.tick text'), marginLeft);
-
       wrapText(
         d3.select(chartID).selectAll('.view-more-label'),
         width / 2,
@@ -238,12 +234,25 @@ export const RowChart = ({
       );
 
       rowContainer.selectAll('.y-axis-group .tick').on('click', toggleRow);
-
       rowContainer.selectAll('.view-more-label').on('click', selectFocus);
     };
 
     redrawChart();
-  }, [aggs, colorScheme, data, expandedRows, id, isPrintMode, lens, total]);
+
+    return () => {
+      d3.selectAll(chartID + ' .row-chart').remove();
+    };
+  }, [
+    dispatch,
+    aggs,
+    colorScheme,
+    data,
+    expandedRows,
+    id,
+    isPrintMode,
+    lens,
+    total,
+  ]);
 
   return total ? (
     <div className="row-chart-section">
