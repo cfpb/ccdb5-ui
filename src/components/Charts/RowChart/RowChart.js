@@ -15,14 +15,12 @@ import {
 import { selectAggsState } from '../../../reducers/aggs/selectors';
 import {
   selectViewIsPrintMode,
-  /*selectViewWidth,*/
   selectViewExpandedRows,
 } from '../../../reducers/view/selectors';
 import {
   cloneDeep,
   coalesce,
   getAllFilters,
-  /* hashObject,*/
   sendAnalyticsEvent,
 } from '../../../utils';
 import { MODE_MAP } from '../../../constants';

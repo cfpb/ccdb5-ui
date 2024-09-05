@@ -1,4 +1,4 @@
-const buildFluentMock = (target) => {
+export const buildFluentMock = (target) => {
   const item = Object.assign(
     {
       apply: jest.fn().mockReturnThis(),
@@ -36,5 +36,3 @@ const buildFluentMock = (target) => {
   );
   return item;
 };
-
-export default buildFluentMock;
