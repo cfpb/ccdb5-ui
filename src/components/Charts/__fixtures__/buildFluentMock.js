@@ -1,0 +1,38 @@
+export const buildFluentMock = (target) => {
+  const item = Object.assign(
+    {
+      apply: jest.fn().mockReturnThis(),
+      append: jest.fn().mockReturnThis(),
+      attr: jest.fn().mockReturnThis(),
+      call: jest.fn().mockReturnThis(),
+      classed: jest.fn().mockReturnThis(),
+      createElement: jest.fn().mockReturnThis(),
+      datum: jest.fn().mockReturnThis(),
+      domain: jest.fn().mockReturnThis(),
+      each: jest.fn().mockReturnThis(),
+      exportChart: jest.fn().mockReturnThis(),
+      font: jest.fn().mockReturnThis(),
+      getBBox: jest.fn().mockReturnThis(),
+      getBoundingClientRect: jest.fn().mockReturnThis(),
+      getComputedTextLength: jest.fn().mockReturnThis(),
+      getContext: jest.fn().mockReturnThis(),
+      grid: jest.fn().mockReturnThis(),
+      height: jest.fn().mockReturnThis(),
+      isPrintMode: jest.fn().mockReturnThis(),
+      length: jest.fn().mockReturnThis(),
+      measureText: jest.fn().mockReturnThis(),
+      node: jest.fn().mockReturnThis(),
+      on: jest.fn().mockReturnThis(),
+      powScale: jest.fn().mockReturnThis(),
+      range: jest.fn().mockReturnThis(),
+      remove: jest.fn().mockReturnThis(),
+      scaleLinear: jest.fn().mockReturnThis(),
+      select: jest.fn().mockReturnThis(),
+      selectAll: jest.fn().mockReturnThis(),
+      text: jest.fn().mockReturnThis(),
+      width: jest.fn().mockReturnThis(),
+    },
+    target,
+  );
+  return item;
+};
