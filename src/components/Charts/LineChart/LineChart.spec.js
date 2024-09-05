@@ -1,6 +1,7 @@
 import { testRender as render, screen } from '../../../testUtils/test-utils';
+import * as d3 from 'd3';
 import { merge } from '../../../testUtils/functionHelpers';
-//import { buildFluentMock } from '../__fixtures__/buildFluentMock';
+import { buildFluentMock } from '../__fixtures__/buildFluentMock';
 import { LineChart } from './LineChart';
 import { defaultTrends } from '../../../reducers/trends/trends';
 import { defaultQuery } from '../../../reducers/query/query';
@@ -66,22 +67,22 @@ describe('component: LineChart', () => {
   //let updateTrendsTooltipFn;
 
   beforeEach(() => {
-    //updateTrendsTooltipFn = jest.spy(trendsActions, 'updateTrendsTooltip');
+    const fakeD3 = buildFluentMock({ height: 50 });
+    // how we add our own implementation of d3
+    // override this so it doesn't crash. we test implementation elsewhere.
+    jest.spyOn(d3, 'select').mockImplementation(fakeD3);
+    jest.spyOn(d3, 'selectAll').mockImplementation(fakeD3);
   });
 
   afterEach(() => {
     jest.restoreAllMocks();
   });
 
-  // describe('initial state', () => {
   it.only('should render Overview chart with data', async () => {
-    const newTrendsState = {
+    const trends = {
       colorMap: {
         Complaints: '#20aa3f',
         Other: '#a2a3a4',
-        'All other products': '#a2a3a4',
-        'All other companies': '#a2a3a4',
-        'All other values': '#a2a3a4',
       },
       results: {
         dateRangeLine: {
@@ -102,21 +103,18 @@ describe('component: LineChart', () => {
         },
       },
     };
-    const newQueryState = {
+    const query = {
       dateInterval: 'Month',
       date_received_max: new Date('2024-09-02T07:00:00.000Z'),
       date_received_min: new Date('2024-03-02T08:00:00.000Z'),
       lens: 'Overview',
     };
 
-    renderComponent(newQueryState, newTrendsState, {});
-    await expect(screen.getByText('Complaints')).toBeInTheDocument();
+    const view = {};
+
+    renderComponent(query, trends, view);
+    expect(screen.getByText('Complaints')).toBeInTheDocument();
     expect(screen.getByText('Date received by the CFPB')).toBeInTheDocument();
-    //verify width, since its calculation is determined by lens type
-    /*       expect(
-        component.container.querySelector('#line-chart').getBoundingClientRect()
-          .width,
-      ).toBe(750); */
   });
   //
   //   it('should render non-Overview chart in print mode, with equal last line date', () => {
