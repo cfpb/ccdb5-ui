@@ -27,11 +27,8 @@ const renderComponent = (queryState, trendsState, viewState) => {
 };
 
 describe('component: LineChart', () => {
-  //let updateTrendsTooltipFn;
-
   beforeEach(() => {
     jest.resetAllMocks();
-    //updateTrendsTooltipFn = jest.spy(trendsActions, 'updateTrendsTooltip');
     const fakeD3 = buildFluentMock({ height: 50 });
     // how we add our own implementation of d3
     jest.spyOn(d3, 'select').mockImplementation(fakeD3);
