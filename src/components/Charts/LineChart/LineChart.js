@@ -30,12 +30,10 @@ export const LineChart = () => {
 
   const colorMap = useSelector(selectTrendsColorMap);
   const areaData = useSelector(selectTrendsResultsDateRangeLine);
-
   const lens = useSelector(selectQueryLens);
   const interval = useSelector(selectQueryDateInterval);
   const dateFrom = useSelector(selectQueryDateReceivedMin);
   const dateTo = useSelector(selectQueryDateReceivedMax);
-
   const isPrintMode = useSelector(selectViewIsPrintMode);
 
   const hasTooltip = lens !== 'Overview';
@@ -124,6 +122,7 @@ export const LineChart = () => {
     if (lens !== 'Overview') {
       // get the last date and fire it off to redux
       const item = getLastLineDate(processData, config);
+
       tooltipUpdated(item);
     }
 

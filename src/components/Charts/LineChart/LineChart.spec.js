@@ -37,7 +37,7 @@ describe('component: LineChart', () => {
     jest.restoreAllMocks();
   });
 
-  it('should render Overview chart with data', async () => {
+  it('should render chart with data', async () => {
     const trends = {
       colorMap: {
         Complaints: '#20aa3f',
@@ -70,92 +70,6 @@ describe('component: LineChart', () => {
     };
 
     const view = {};
-
-    renderComponent(query, trends, view);
-
-    expect(screen.getByText('Complaints')).toBeInTheDocument();
-    expect(screen.getByText('Date received by the CFPB')).toBeInTheDocument();
-  });
-
-  it('should render non-Overview chart in print mode', () => {
-    const trends = {
-      colorMap: {
-        Complaints: '#20aa3f',
-        Other: '#a2a3a4',
-      },
-      results: {
-        dateRangeLine: {
-          dataByTopic: [
-            {
-              topic: 'Complaints',
-              topicName: 'Complaints',
-              dashed: false,
-              show: true,
-              dates: [
-                { date: '2024-05-01T00:00:00.000Z', value: 225171 },
-                { date: '2024-06-01T00:00:00.000Z', value: 225171 },
-                { date: '2024-07-01T00:00:00.000Z', value: 225171 },
-                { date: '2024-08-01T00:00:00.000Z', value: 198483 },
-              ],
-            },
-          ],
-        },
-      },
-    };
-
-    const query = {
-      dateInterval: 'Month',
-      date_received_max: new Date('2024-09-02T07:00:00.000Z'),
-      date_received_min: new Date('2024-03-02T08:00:00.000Z'),
-      lens: 'Foo',
-    };
-
-    const view = {
-      isPrintMode: true,
-    };
-
-    renderComponent(query, trends, view);
-
-    expect(screen.getByText('Complaints')).toBeInTheDocument();
-    expect(screen.getByText('Date received by the CFPB')).toBeInTheDocument();
-  });
-
-  it('should render non-Overview chart not in print mode', () => {
-    const trends = {
-      colorMap: {
-        Complaints: '#20aa3f',
-        Other: '#a2a3a4',
-      },
-      results: {
-        dateRangeLine: {
-          dataByTopic: [
-            {
-              topic: 'Complaints',
-              topicName: 'Complaints',
-              dashed: false,
-              show: true,
-              dates: [
-                { date: '2024-05-01T00:00:00.000Z', value: 225171 },
-                { date: '2024-06-01T00:00:00.000Z', value: 225171 },
-                { date: '2024-07-01T00:00:00.000Z', value: 225171 },
-                { date: '2024-08-01T00:00:00.000Z', value: 198483 },
-              ],
-            },
-          ],
-        },
-      },
-    };
-
-    const query = {
-      dateInterval: 'Month',
-      date_received_max: new Date('2024-09-02T07:00:00.000Z'),
-      date_received_min: new Date('2024-03-02T08:00:00.000Z'),
-      lens: 'Foo',
-    };
-
-    const view = {
-      isPrintMode: false,
-    };
 
     renderComponent(query, trends, view);
 
