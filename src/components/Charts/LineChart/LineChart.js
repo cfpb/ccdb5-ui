@@ -4,7 +4,7 @@ import line from 'britecharts/dist/umd/line.min';
 import tooltip from 'britecharts/dist/umd/tooltip.min';
 import { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { cloneDeep, debounce /*, hashObject*/ } from '../../../utils';
+import { debounce } from '../../../utils';
 import {
   getLastLineDate,
   getTooltipTitle,
@@ -27,23 +27,14 @@ import { ChartWrapper } from '../ChartWrapper/ChartWrapper';
 
 export const LineChart = () => {
   const dispatch = useDispatch();
+
   const colorMap = useSelector(selectTrendsColorMap);
   const areaData = useSelector(selectTrendsResultsDateRangeLine);
 
-  // console.log(JSON.stringify(areaData));
-  // console.log(JSON.stringify(colorMap));
   const lens = useSelector(selectQueryLens);
   const interval = useSelector(selectQueryDateInterval);
   const dateFrom = useSelector(selectQueryDateReceivedMin);
   const dateTo = useSelector(selectQueryDateReceivedMax);
-  // const myObj = {
-  //   dateInterval: interval,
-  //   date_received_max: dateTo,
-  //   date_received_min: dateFrom,
-  //   lens,
-  // };
-
-  // console.log(JSON.stringify(myObj));
 
   const isPrintMode = useSelector(selectViewIsPrintMode);
 
@@ -123,7 +114,7 @@ export const LineChart = () => {
       lineChart.on('customMouseMove', debounce(updateTooltip, 200));
     }
 
-    container.datum(cloneDeep(processData)).call(lineChart);
+    container.datum(processData).call(lineChart);
 
     const tooltipContainer = d3.select(
       chartID + ' .metadata-group .vertical-marker-container',
