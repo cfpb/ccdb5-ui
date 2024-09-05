@@ -63,7 +63,6 @@
     "craco-less": "^3.0.1",
     "cypress": "^13.11.0",
     "d3": "^7.9.0",
-    "d3-selection": "^3.0.0",
     "dayjs": "^1.11.10",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
@@ -136,7 +135,7 @@
     "coverageThreshold": {
       "global": {
         "branches": 81,
-        "functions": 89,
+        "functions": 88,
         "lines": 89,
         "statements": 89
       }

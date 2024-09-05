@@ -4,7 +4,7 @@ import line from 'britecharts/dist/umd/line.min';
 import tooltip from 'britecharts/dist/umd/tooltip.min';
 import { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { cloneDeep, debounce } from '../../../utils';
+import { debounce } from '../../../utils';
 import {
   getLastLineDate,
   getTooltipTitle,
@@ -27,8 +27,10 @@ import { ChartWrapper } from '../ChartWrapper/ChartWrapper';
 
 export const LineChart = () => {
   const dispatch = useDispatch();
+
   const colorMap = useSelector(selectTrendsColorMap);
   const areaData = useSelector(selectTrendsResultsDateRangeLine);
+
   const lens = useSelector(selectQueryLens);
   const interval = useSelector(selectQueryDateInterval);
   const dateFrom = useSelector(selectQueryDateReceivedMin);
@@ -84,6 +86,7 @@ export const LineChart = () => {
       });
     };
 
+    // const redrawChart = () => {
     d3.select(chartSelector).remove();
     const lineChart = line();
     const containerWidth = chartWidth(chartID);
@@ -111,7 +114,7 @@ export const LineChart = () => {
       lineChart.on('customMouseMove', debounce(updateTooltip, 200));
     }
 
-    container.datum(cloneDeep(processData)).call(lineChart);
+    container.datum(processData).call(lineChart);
 
     const tooltipContainer = d3.select(
       chartID + ' .metadata-group .vertical-marker-container',
