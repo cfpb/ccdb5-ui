@@ -335,10 +335,11 @@ export const pruneIncompleteStackedAreaInterval = (
 ) => {
   const { from: dateFrom, to: dateTo } = dateRange;
 
+  const dataClone = cloneDeep(data);
   // eslint-disable-next-line no-warning-comments
   // TODO: switch this to structuredClone when JSDOM fixes the issue
   // https://github.com/jsdom/jsdom/issues/3363
-  let filteredData = JSON.parse(JSON.stringify(data));
+  let filteredData = JSON.parse(JSON.stringify(dataClone));
   //  need to rebuild and sort dates in memory
   const dates = [...new Set(filteredData.map((datum) => datum.date))];
   dates.sort();

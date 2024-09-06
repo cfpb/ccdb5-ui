@@ -1,136 +1,117 @@
 import './StackedAreaChart.less';
 import * as d3 from 'd3';
 import { stackedArea } from 'britecharts';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import * as colors from '../../../constants/colors';
 import {
   getLastDate,
   pruneIncompleteStackedAreaInterval,
+  isStackedAreaDataEmpty,
 } from '../../../utils/chart';
 import { updateTrendsTooltip } from '../../../actions/trends';
-import { cloneDeep } from '../../../utils';
-import { isDateEqual } from '../../../utils/formatDate';
+import { debounce } from '../../../utils';
 import {
   selectTrendsResultsDateRangeArea,
-  selectTrendsTooltip,
   selectTrendsColorMap,
 } from '../../../reducers/trends/selectors';
 import {
   selectQueryCompanyReceivedMin,
   selectQueryCompanyReceivedMax,
   selectQueryDateInterval,
-  // selectQueryLens
+  selectQueryLens,
 } from '../../../reducers/query/selectors';
 import { selectViewIsPrintMode } from '../../../reducers/view/selectors';
-//import { ChartWrapper } from '../ChartWrapper/ChartWrapper';
-import ErrorBlock from '../../Warnings/Error';
+import { ChartWrapper } from '../ChartWrapper/ChartWrapper';
 
 export const StackedAreaChart = () => {
   const dispatch = useDispatch();
+
   const colorMap = useSelector(selectTrendsColorMap);
   const data = useSelector(selectTrendsResultsDateRangeArea);
   const from = useSelector(selectQueryCompanyReceivedMin);
   const to = useSelector(selectQueryCompanyReceivedMax);
-  //const lens = useSelector(selectQueryLens);
+  const lens = useSelector(selectQueryLens);
   const interval = useSelector(selectQueryDateInterval);
   const isPrintMode = useSelector(selectViewIsPrintMode);
-  const tooltipInfo = useSelector(selectTrendsTooltip);
 
-  //const showTooltip = lens !== 'Overview';
+  const showTooltip = lens !== 'Overview';
 
-  const processData = cloneDeep(data);
-  const dateRange = { from, to };
-
-  const filteredData = pruneIncompleteStackedAreaInterval(
-    processData,
-    dateRange,
-    interval,
-  );
-
-  const hasChart = filteredData.length > 1;
+  const filteredData = useMemo(() => {
+    const dateRange = { from, to };
+    return pruneIncompleteStackedAreaInterval(data, dateRange, interval);
+  }, [data, from, to, interval]);
 
   useEffect(() => {
+    const dateRange = { from, to };
+    const chartID = '#stacked-area-chart';
+    const chartSelector = chartID + ' .stacked-area';
+    const container = d3.select(chartID);
+
+    if (!container.node() || isStackedAreaDataEmpty(filteredData)) {
+      return;
+    }
+
     const tooltipUpdated = (selectedState) => {
       dispatch(updateTrendsTooltip(selectedState));
     };
 
     const updateTooltip = (point) => {
-      if (!isDateEqual(tooltipInfo.date, point.date)) {
-        tooltipUpdated({
-          date: point.date,
-          dateRange,
-          interval,
-          values: point.values,
-        });
-      }
-    };
-
-    const chartWidth = (chartID) => {
-      if (isPrintMode) {
-        return 500;
-      }
-      const container = d3.select(chartID);
-      return container.node().getBoundingClientRect().width;
-    };
-
-    const redrawChart = () => {
-      if (!hasChart) {
-        return;
-      }
-
-      const chartID = '#stacked-area-chart';
-      const container = d3.select(chartID);
-      const width = chartWidth(chartID);
-      d3.select(chartID + ' .stacked-area').remove();
-
-      const stackedAreaChart = stackedArea();
-      const colorData = filteredData.filter((item) => item.name !== 'Other');
-      const colorScheme = [...new Set(colorData.map((item) => item.name))].map(
-        (obj) => colorMap[obj],
-      );
-      colorScheme.push(colors.DataLens[10]);
-
-      stackedAreaChart
-        .margin({ left: 70, right: 10, top: 10, bottom: 40 })
-        .areaCurve('linear')
-        .initializeVerticalMarker(true)
-        .isAnimated(false)
-        .tooltipThreshold(1)
-        .grid('horizontal')
-        .aspectRatio(0.5)
-        .width(width)
-        .dateLabel('date')
-        .colorSchema(colorScheme)
-        .on('customMouseMove', updateTooltip);
-
-      container.datum(cloneDeep(filteredData)).call(stackedAreaChart);
-
-      const config = {
+      tooltipUpdated({
+        date: point.date,
         dateRange,
         interval,
-      };
-
-      tooltipUpdated(getLastDate(filteredData, config));
+        values: point.values,
+      });
     };
 
-    redrawChart();
-  }, []);
+    d3.select(chartSelector).remove();
 
-  // return (
-  //   <ChartWrapper
-  //     hasKey={showTooltip}
-  //     domId="line-chart"
-  //     isEmpty={!hasChart}
-  //   />
+    const width = isPrintMode
+      ? 550
+      : container.node().getBoundingClientRect().width;
 
-  return hasChart ? (
-    <div className="chart-wrapper">
-      <p className="y-axis-label">Complaints</p>
-      <div id="stacked-area-chart" />
-      <p className="x-axis-label">Date received by the CFPB</p>
-    </div>
-  ) : (
-    <ErrorBlock text="Cannot display chart. Adjust your date range or date interval." />
+    const colorData = filteredData.filter((item) => item.name !== 'Other');
+    const colorScheme = [...new Set(colorData.map((item) => item.name))].map(
+      (obj) => colorMap[obj],
+    );
+    colorScheme.push(colors.DataLens[10]);
+
+    const stackedAreaChart = stackedArea();
+
+    stackedAreaChart
+      .margin({ left: 70, right: 10, top: 10, bottom: 40 })
+      .areaCurve('linear')
+      .initializeVerticalMarker(true)
+      .isAnimated(false)
+      .tooltipThreshold(1)
+      .grid('horizontal')
+      .aspectRatio(0.5)
+      .width(width)
+      .dateLabel('date')
+      .colorSchema(colorScheme)
+      .on('customMouseMove', debounce(updateTooltip, 200));
+
+    container.datum(filteredData).call(stackedAreaChart);
+
+    const config = {
+      dateRange,
+      interval,
+    };
+
+    tooltipUpdated(getLastDate(filteredData, config));
+
+    return () => {
+      d3.select(chartSelector).remove();
+      container.datum([]);
+    };
+  }, [colorMap, from, to, dispatch, filteredData, interval, isPrintMode]);
+
+  return (
+    <ChartWrapper
+      hasKey={showTooltip}
+      domId="stacked-area-chart"
+      isEmpty={isStackedAreaDataEmpty(filteredData)}
+    />
   );
 };
