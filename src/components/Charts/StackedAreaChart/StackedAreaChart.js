@@ -60,6 +60,7 @@ export const StackedAreaChart = () => {
         });
       }
     };
+    //export const selectTrendsResultsDateRangeArea = (state) =>state.trends.results.dateRangeArea;
 
     const chartWidth = (chartID) => {
       if (isPrintMode) {

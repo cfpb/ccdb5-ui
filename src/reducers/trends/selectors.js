@@ -3,6 +3,8 @@ export const selectTrendsTooltip = (state) => state.trends.tooltip;
 export const selectTrendsTotal = (state) => state.trends.total;
 export const selectTrendsColorMap = (state) => state.trends.colorMap;
 export const selectTrendsResults = (state) => state.trends.results;
+export const selectTrendsResultsDateRangeLine = (state) =>
+  state.trends.results.dataRangeLine;
 export const selectTrendsResultsDateRangeArea = (state) =>
   state.trends.results.dateRangeArea;
 export const selectTrendsResultsSubProduct = (state) =>

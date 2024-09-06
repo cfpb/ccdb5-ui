@@ -1,7 +1,7 @@
 // ----------------------------------------------------------------------------
 /* eslint-disable no-mixed-operators, camelcase, complexity */
 import { adjustDate, isDateEqual } from './formatDate';
-import { clampDate, shortFormat } from '../utils';
+import { clampDate, shortFormat, cloneDeep } from '../utils';
 
 import dayjs from 'dayjs';
 import dayjsQuarterOfYear from 'dayjs/plugin/quarterOfYear';
@@ -259,20 +259,61 @@ export const dateOutOfEndBounds = (dateTo, lastFromChart, interval) => {
   return afterEnd && !isSameTo;
 };
 
+/**
+ * Helper function to determine if the array passed has no dates
+ *
+ * @param {object} data - Contains an object for the LineCharts.
+ * @returns {boolean} Tells us whether we have dates to render the chart.
+ */
+export const isLineDataEmpty = (data) => {
+  return (
+    !data ||
+    !data.dataByTopic ||
+    !data.dataByTopic.length ||
+    !data.dataByTopic[0].dates.length ||
+    // we consider line data to be empty if length < 2
+    // since you need at least 2 points to plot
+    data.dataByTopic[0].dates.length < 2
+  );
+};
+
+/**
+ * Helper function to determine if the array passed does not have enough dates
+ *
+ * @param {Array} data - Contains an array of objects for the StackedAreaCharts.
+ * @returns {boolean} Tells us whether we have dates to render the chart.
+ */
+export const isStackedAreaDataEmpty = (data) => {
+  if (!data || !data.length) {
+    return true;
+  }
+  const allDates = [...new Set(data.map((obj) => obj.date))];
+  return allDates.length < 2;
+};
+
+/**
+ * Removes incomplete date periods from the line chart
+ *
+ * @param {object} data - Object containing arrays to render a line chart
+ * @param {object} dateRange - Object containing dateFrom and dateTo
+ * @param {string} interval - Month, Day, Year, Quarter, etc
+ * @returns {object} Object containing parameters to render the line charts.
+ */
 export const pruneIncompleteLineInterval = (data, dateRange, interval) => {
+  const dataClone = cloneDeep(data);
   const { from: dateFrom, to: dateTo } = dateRange;
-  if (!data.dataByTopic) {
-    return;
+  if (!dataClone.dataByTopic) {
+    return data;
   }
 
-  const dates = data.dataByTopic[0].dates;
+  const dates = dataClone.dataByTopic[0].dates;
   // date from chart
-  const startFromChart = data.dataByTopic[0].dates[0].date;
-  const lastFromChart = data.dataByTopic[0].dates[dates.length - 1].date;
+  const startFromChart = dataClone.dataByTopic[0].dates[0].date;
+  const lastFromChart = dataClone.dataByTopic[0].dates[dates.length - 1].date;
 
   // start date from chart same as date range from, then go ahead keep it
   if (dateOutOfStartBounds(dateFrom, startFromChart, interval)) {
-    data.dataByTopic.forEach((datum) => {
+    dataClone.dataByTopic.forEach((datum) => {
       datum.dates = datum.dates.filter((date) => date.date !== startFromChart);
     });
   }
@@ -280,10 +321,11 @@ export const pruneIncompleteLineInterval = (data, dateRange, interval) => {
   // we only eliminate the last incomplete interval
   // this is if the end date of the interval comes after To Date
   if (dateOutOfEndBounds(dateTo, lastFromChart, interval)) {
-    data.dataByTopic.forEach((datum) => {
+    dataClone.dataByTopic.forEach((datum) => {
       datum.dates = datum.dates.filter((date) => date.date !== lastFromChart);
     });
   }
+  return dataClone;
 };
 
 export const pruneIncompleteStackedAreaInterval = (
