@@ -16,8 +16,8 @@ import {
   selectTrendsColorMap,
 } from '../../../reducers/trends/selectors';
 import {
-  selectQueryCompanyReceivedMin,
-  selectQueryCompanyReceivedMax,
+  selectQueryDateReceivedMin,
+  selectQueryDateReceivedMax,
   selectQueryDateInterval,
   selectQueryLens,
 } from '../../../reducers/query/selectors';
@@ -29,8 +29,8 @@ export const StackedAreaChart = () => {
 
   const colorMap = useSelector(selectTrendsColorMap);
   const data = useSelector(selectTrendsResultsDateRangeArea);
-  const from = useSelector(selectQueryCompanyReceivedMin);
-  const to = useSelector(selectQueryCompanyReceivedMax);
+  const from = useSelector(selectQueryDateReceivedMin);
+  const to = useSelector(selectQueryDateReceivedMax);
   const lens = useSelector(selectQueryLens);
   const interval = useSelector(selectQueryDateInterval);
   const isPrintMode = useSelector(selectViewIsPrintMode);
@@ -42,13 +42,15 @@ export const StackedAreaChart = () => {
     return pruneIncompleteStackedAreaInterval(data, dateRange, interval);
   }, [data, from, to, interval]);
 
+  const isDataEmpty = isStackedAreaDataEmpty(filteredData);
+
   useEffect(() => {
     const dateRange = { from, to };
     const chartID = '#stacked-area-chart';
     const chartSelector = chartID + ' .stacked-area';
     const container = d3.select(chartID);
 
-    if (!container.node() || isStackedAreaDataEmpty(filteredData)) {
+    if (!container.node() || isDataEmpty) {
       return;
     }
 
@@ -105,13 +107,22 @@ export const StackedAreaChart = () => {
       d3.select(chartSelector).remove();
       container.datum([]);
     };
-  }, [colorMap, from, to, dispatch, filteredData, interval, isPrintMode]);
+  }, [
+    colorMap,
+    from,
+    to,
+    dispatch,
+    filteredData,
+    interval,
+    isPrintMode,
+    isDataEmpty,
+  ]);
 
   return (
     <ChartWrapper
       hasKey={showTooltip}
       domId="stacked-area-chart"
-      isEmpty={isStackedAreaDataEmpty(filteredData)}
+      isEmpty={isDataEmpty}
     />
   );
 };

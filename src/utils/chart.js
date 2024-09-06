@@ -346,7 +346,6 @@ export const pruneIncompleteStackedAreaInterval = (
 
   const startFromChart = dates[0];
   const lastFromChart = dates[dates.length - 1];
-
   // start date from chart same as date range from, then go ahead keep it
   if (dateOutOfStartBounds(dateFrom, startFromChart, interval)) {
     filteredData = filteredData.filter(
