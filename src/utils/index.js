@@ -311,26 +311,25 @@ export function startOfToday() {
 // attribution: underscore.js (MIT License)
 
 /**
- * Delay the implementation of a function until after a period of time
- * This prevents expensive calls from being made while triggering events are
- * still happening
+ * Native implementation of lodash debounce
+ * https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_debounce
  *
- * @param {Function} func - a function with an embedded expensive call
- * @param {number} wait - the number of msecs to delay before calling the function
- * @returns {Function} a replacement function to use in place of the original
+ * @param {Function} func - The function to run.
+ * @param {number} wait - Time in milliseconds.
+ * @param {boolean} immediate - Whether we should run function immedately.
+ * @returns {Function} the debounced function
  */
-export function debounce(func, wait) {
-  let timer = null;
-
-  const later = (context, args) => {
-    timer = null;
-    func.apply(context, args);
-  };
-
-  return (...theArgs) => {
-    if (!timer) {
-      timer = setTimeout(later, wait, this, theArgs);
-    }
+export function debounce(func, wait, immediate) {
+  let timeout;
+  return function () {
+    const context = this,
+      args = arguments;
+    clearTimeout(timeout);
+    timeout = setTimeout(function () {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    }, wait);
+    if (immediate && !timeout) func.apply(context, args);
   };
 }
 

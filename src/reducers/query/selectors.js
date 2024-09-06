@@ -16,3 +16,4 @@ export const selectQuerySort = (state) => state.query.sort;
 export const selectQuerySubLens = (state) => state.query.subLens;
 export const selectQueryStateFilters = (state) => state.query.state;
 export const selectQueryTotalPages = (state) => state.query.totalPages;
+export const selectQueryDateInterval = (state) => state.query.dateInterval;

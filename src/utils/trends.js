@@ -1,6 +1,6 @@
 import * as types from '../constants';
 import dayjs from 'dayjs';
-
+import { compareDates } from './formatDate';
 // ----------------------------------------------------------------------------
 export const showCompanyOverLay = (lens, companyFilters, isLoading) => {
   if (isLoading) {
@@ -79,3 +79,36 @@ export const scrollToFocus = () => {
     lensSelect.scrollIntoView();
   }
 };
+
+/**
+ * helper function that takes the flat data format and converts to britecharts
+ * line chart format that groups by dataByTopic
+ *
+ * @param {Array} inputArray - the flat data containing value, name, date
+ * @returns {object} object containing grouped topics with date array
+ */
+export function convertToLineFormat(inputArray) {
+  if (!inputArray) {
+    return [];
+  }
+  const results = {
+    dataByTopic: [],
+  };
+
+  // get all topics/lines first
+  const keyNames = new Set(inputArray.map((key) => key.name));
+  keyNames.forEach((key) => {
+    results.dataByTopic.push({
+      dates: inputArray
+        .filter((datum) => datum.name === key)
+        .map((item) => ({ value: item.value, date: item.date }))
+        .sort((first, second) => compareDates(first.date, second.date)),
+      topic: key,
+      topicName: key,
+      // hide "Other" line, but we still need it for tooltip processing
+      show: key !== 'Other',
+    });
+  });
+
+  return results;
+}
