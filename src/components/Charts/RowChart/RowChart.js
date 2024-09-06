@@ -98,8 +98,7 @@ export const RowChart = ({
           }
         }
 
-        // only allow this to go through if not IE
-        if (wrapCount && !window.document.documentMode) {
+        if (wrapCount) {
           const viewMoreBackground = d3
             .select(innerText.node().parentNode)
             .select('.view-more-background');
