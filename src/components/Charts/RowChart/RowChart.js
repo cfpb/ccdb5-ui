@@ -160,81 +160,73 @@ export const RowChart = ({
       }
     };
 
-    const redrawChart = () => {
-      // do this to prevent REDUX pollution
-      const rows = cloneDeep(data).filter((obj) => {
-        if (obj.name && isPrintMode) {
-          // remove spacer text if we are in print mode
-          return obj.name.indexOf('Visualize trends for') === -1;
-        }
-        return true;
-      });
-
-      if (!rows || !rows.length || !total) {
-        return;
+    // do this to prevent REDUX pollution
+    const rows = cloneDeep(data).filter((obj) => {
+      if (obj.name && isPrintMode) {
+        // remove spacer text if we are in print mode
+        return obj.name.indexOf('Visualize trends for') === -1;
       }
+      return true;
+    });
 
-      const tooltip = miniTooltip();
-      tooltip.valueFormatter(formatTip);
+    if (!rows || !rows.length || !total) {
+      return;
+    }
 
-      const ratio = total / max(rows, (obj) => obj.value);
-      const rowContainer = d3.select(chartID);
+    const tooltip = miniTooltip();
+    tooltip.valueFormatter(formatTip);
 
-      // added padding to make up for margin
-      const width = isPrintMode
-        ? 750
-        : rowContainer.node().getBoundingClientRect().width + 30;
+    const ratio = total / max(rows, (obj) => obj.value);
+    const rowContainer = d3.select(chartID);
 
-      const height = rows.length === 1 ? 100 : rows.length * 60;
-      const chart = row();
-      const marginLeft = width / 4;
+    // added padding to make up for margin
+    const width = isPrintMode
+      ? 750
+      : rowContainer.node().getBoundingClientRect().width + 30;
 
-      // tweak to make the chart full width at desktop
-      // add space at narrow width
-      const marginRight = width < 600 ? 40 : -65;
+    const height = rows.length === 1 ? 100 : rows.length * 60;
+    const chart = row();
+    const marginLeft = width / 4;
 
-      chart
-        .margin({
-          left: marginLeft,
-          right: marginRight,
-          top: 20,
-          bottom: 10,
-        })
-        .colorSchema(colorScheme)
-        .backgroundColor('#f7f8f9')
-        .paddingBetweenGroups(25)
-        .enableLabels(true)
-        .labelsTotalCount(total.toLocaleString())
-        .labelsNumberFormat(',d')
-        .outerPadding(0.1)
-        .percentageAxisToMaxRatio(ratio)
-        .yAxisLineWrapLimit(2)
-        .yAxisPaddingBetweenChart(20)
-        .width(width)
-        .wrapLabels(true)
-        .height(height)
-        .on('customMouseOver', tooltip.show)
-        .on('customMouseMove', tooltip.update)
-        .on('customMouseOut', tooltip.hide);
+    // tweak to make the chart full width at desktop
+    // add space at narrow width
+    const marginRight = width < 600 ? 40 : -65;
 
-      rowContainer.datum(rows).call(chart);
-      const tooltipContainer = d3.selectAll(
-        chartID + ' .row-chart .metadata-group',
-      );
-      tooltipContainer.datum([]).call(tooltip);
+    chart
+      .margin({
+        left: marginLeft,
+        right: marginRight,
+        top: 20,
+        bottom: 10,
+      })
+      .colorSchema(colorScheme)
+      .backgroundColor('#f7f8f9')
+      .paddingBetweenGroups(25)
+      .enableLabels(true)
+      .labelsTotalCount(total.toLocaleString())
+      .labelsNumberFormat(',d')
+      .outerPadding(0.1)
+      .percentageAxisToMaxRatio(ratio)
+      .yAxisLineWrapLimit(2)
+      .yAxisPaddingBetweenChart(20)
+      .width(width)
+      .wrapLabels(true)
+      .height(height)
+      .on('customMouseOver', tooltip.show)
+      .on('customMouseMove', tooltip.update)
+      .on('customMouseOut', tooltip.hide);
 
-      wrapText(d3.select(chartID).selectAll('.tick text'), marginLeft);
-      wrapText(
-        d3.select(chartID).selectAll('.view-more-label'),
-        width / 2,
-        true,
-      );
+    rowContainer.datum(rows).call(chart);
+    const tooltipContainer = d3.selectAll(
+      chartID + ' .row-chart .metadata-group',
+    );
+    tooltipContainer.datum([]).call(tooltip);
 
-      rowContainer.selectAll('.y-axis-group .tick').on('click', toggleRow);
-      rowContainer.selectAll('.view-more-label').on('click', selectFocus);
-    };
+    wrapText(d3.select(chartID).selectAll('.tick text'), marginLeft);
+    wrapText(d3.select(chartID).selectAll('.view-more-label'), width / 2, true);
 
-    redrawChart();
+    rowContainer.selectAll('.y-axis-group .tick').on('click', toggleRow);
+    rowContainer.selectAll('.view-more-label').on('click', selectFocus);
 
     return () => {
       d3.selectAll(chartID + ' .row-chart').remove();
