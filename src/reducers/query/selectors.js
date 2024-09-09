@@ -1,4 +1,5 @@
 export const selectQueryState = (state) => state.query;
+export const selectQueryCompany = (state) => state.query.company;
 export const selectQueryCompanyReceivedMax = (state) =>
   state.query.company_received_max;
 export const selectQueryCompanyReceivedMin = (state) =>
@@ -31,3 +32,5 @@ export const selectQuerySubLens = (state) => state.query.subLens;
 export const selectQueryTab = (state) => state.query.tab;
 export const selectQueryTotalPages = (state) => state.query.totalPages;
 export const selectQueryDateInterval = (state) => state.query.dateInterval;
+export const selectQueryIsTrendsDateWarningDisabled = (state) =>
+  state.query.isTrendsDateWarningEnabled;
