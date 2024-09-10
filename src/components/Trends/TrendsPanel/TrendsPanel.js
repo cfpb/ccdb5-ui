@@ -209,7 +209,7 @@ export const TrendsPanel = () => {
 
   return (
     <section
-      className={'trends-panel' + hasOverview ? ' external-tooltip' : ''}
+      className={'trends-panel' + (!hasOverview ? ' external-tooltip' : '')}
     >
       <ActionBar />
       <TabbedNavigation />
