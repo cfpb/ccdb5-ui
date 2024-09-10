@@ -271,7 +271,7 @@ export const TrendsPanel = () => {
         </div>
       ) : null}
 
-      {!hasCompanyOverlay && !hasOverview && total > 0 && (
+      {!hasCompanyOverlay && !hasOverview && total > 0 ? (
         <div className="layout-row">
           <section className="chart-description">
             <h2 className="area-chart-title">{areaChartTitle()}</h2>
@@ -284,9 +284,9 @@ export const TrendsPanel = () => {
             </p>
           </section>
         </div>
-      )}
+      ) : null}
 
-      {!hasCompanyOverlay && total > 0 && (
+      {!hasCompanyOverlay && total > 0 ? (
         <>
           <div className="layout-row date-range-disclaimer">
             <strong>
@@ -301,7 +301,7 @@ export const TrendsPanel = () => {
             {!hasOverview && <ExternalTooltip />}
           </div>
         </>
-      )}
+      ) : null}
 
       {total > 0 && phaseMap()}
       <TrendDepthToggle />
