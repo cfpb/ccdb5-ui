@@ -334,7 +334,7 @@ export const pruneIncompleteStackedAreaInterval = (
   interval,
 ) => {
   const { from: dateFrom, to: dateTo } = dateRange;
-
+  //Note: this double cloneDeep is intentional to prevent state mutation in updateTrendsTooltip dispatch
   const dataClone = cloneDeep(data);
   // eslint-disable-next-line no-warning-comments
   // TODO: switch this to structuredClone when JSDOM fixes the issue
