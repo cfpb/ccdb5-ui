@@ -43,7 +43,7 @@ import { CompanyTypeahead } from '../../Filters/CompanyTypeahead';
 import { FocusHeader } from '../FocusHeader';
 import { LineChart } from '../../Charts/LineChart/LineChart';
 import { RowChart } from '../../Charts/RowChart/RowChart';
-import StackedAreaChart from '../../Charts/StackedAreaChart';
+import { StackedAreaChart } from '../../Charts/StackedAreaChart/StackedAreaChart';
 import { ExternalTooltip } from '../ExternalTooltip/ExternalTooltip';
 import { TrendDepthToggle } from '../TrendDepthToggle';
 import { Loading } from '../../Loading/Loading';
