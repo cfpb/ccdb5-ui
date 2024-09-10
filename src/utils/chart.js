@@ -334,18 +334,18 @@ export const pruneIncompleteStackedAreaInterval = (
   interval,
 ) => {
   const { from: dateFrom, to: dateTo } = dateRange;
-
+  //Note: this double cloneDeep is intentional to prevent state mutation in updateTrendsTooltip dispatch
+  const dataClone = cloneDeep(data);
   // eslint-disable-next-line no-warning-comments
   // TODO: switch this to structuredClone when JSDOM fixes the issue
   // https://github.com/jsdom/jsdom/issues/3363
-  let filteredData = JSON.parse(JSON.stringify(data));
+  let filteredData = JSON.parse(JSON.stringify(dataClone));
   //  need to rebuild and sort dates in memory
   const dates = [...new Set(filteredData.map((datum) => datum.date))];
   dates.sort();
 
   const startFromChart = dates[0];
   const lastFromChart = dates[dates.length - 1];
-
   // start date from chart same as date range from, then go ahead keep it
   if (dateOutOfStartBounds(dateFrom, startFromChart, interval)) {
     filteredData = filteredData.filter(

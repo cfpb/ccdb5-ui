@@ -2,7 +2,7 @@ import { testRender as render, screen } from '../../../testUtils/test-utils';
 import * as d3 from 'd3';
 import { merge } from '../../../testUtils/functionHelpers';
 import { buildFluentMock } from '../__fixtures__/buildFluentMock';
-import { LineChart } from './LineChart';
+import { StackedAreaChart } from './StackedAreaChart';
 import { queryState } from '../../../reducers/query/querySlice';
 import { trendsState } from '../../../reducers/trends/trendsSlice';
 import { viewState } from '../../../reducers/view/viewSlice';
@@ -18,13 +18,13 @@ const renderComponent = (newQueryState, newTrendsState, newViewState) => {
     view: newViewState,
   };
 
-  render(<LineChart />, {
+  render(<StackedAreaChart />, {
     preloadedState: data,
   });
 };
 
 jest.mock('d3');
-describe('component: LineChart', () => {
+describe('component::StackedAreaChart', () => {
   beforeEach(() => {
     const fakeD3 = buildFluentMock({ height: 50 });
     // how we add our own implementation of d3
@@ -37,66 +37,39 @@ describe('component: LineChart', () => {
     jest.restoreAllMocks();
   });
 
-  it('should render chart with data', async () => {
+  it('should render chart with data as expected', () => {
     const trends = {
       colorMap: {
-        Complaints: '#20aa3f',
-        Other: '#a2a3a4',
+        Other: '#345',
+        foo: '#fff',
+        bar: '#eee',
       },
+      lens: 'Overview',
       results: {
-        dateRangeLine: {
-          dataByTopic: [
-            {
-              topic: 'Complaints',
-              topicName: 'Complaints',
-              dashed: false,
-              show: true,
-              dates: [
-                { date: '2024-05-01T00:00:00.000Z', value: 225171 },
-                { date: '2024-06-01T00:00:00.000Z', value: 225171 },
-                { date: '2024-07-01T00:00:00.000Z', value: 225171 },
-                { date: '2024-08-01T00:00:00.000Z', value: 198483 },
-              ],
-            },
-          ],
-        },
+        dateRangeArea: [
+          { date: '2024-05-01T00:00:00.000Z', value: 225171, name: 'Other' },
+          { date: '2024-06-01T00:00:00.000Z', value: 225171, name: 'Other' },
+          { date: '2024-07-01T00:00:00.000Z', value: 225171, name: 'Other' },
+          { date: '2024-08-01T00:00:00.000Z', value: 198483, name: 'Other' },
+        ],
       },
+      tooltip: false,
     };
+
     const query = {
       dateInterval: 'Month',
-      date_received_max: new Date('2024-09-02T07:00:00.000Z'),
-      date_received_min: new Date('2024-03-02T08:00:00.000Z'),
-      lens: 'Overview',
+      date_received_max: new Date('2024-01-02T07:00:00.000Z'),
+      date_received_min: new Date('2024-12-02T08:00:00.000Z'),
     };
 
     const view = {
       isPrintMode: false,
+      width: 1000,
     };
 
     renderComponent(query, trends, view);
 
     expect(screen.getByText('Complaints')).toBeInTheDocument();
     expect(screen.getByText('Date received by the CFPB')).toBeInTheDocument();
-  });
-
-  it('should render with error message when no data is present', () => {
-    const trends = {};
-    const query = {
-      dateInterval: 'Month',
-      date_received_max: new Date('2024-09-02T07:00:00.000Z'),
-      date_received_min: new Date('2024-03-02T08:00:00.000Z'),
-      lens: 'Overview',
-    };
-
-    const view = {
-      isPrintMode: false,
-    };
-    renderComponent(query, trends, view);
-
-    expect(
-      screen.getByText(
-        'Cannot display chart. Adjust your date range or date interval.',
-      ),
-    ).toBeInTheDocument();
   });
 });

@@ -23,7 +23,7 @@ import React from 'react';
 import { RowChart } from '../Charts/RowChart/RowChart';
 import Select from '../RefineBar/Select';
 import { Separator } from '../RefineBar/Separator';
-import StackedAreaChart from '../Charts/StackedAreaChart';
+import { StackedAreaChart } from '../Charts/StackedAreaChart/StackedAreaChart';
 import { TabbedNavigation } from '../TabbedNavigation';
 import { TrendDepthToggle } from './TrendDepthToggle';
 import {
