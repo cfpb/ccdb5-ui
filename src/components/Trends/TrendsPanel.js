@@ -20,7 +20,7 @@ import { Loading } from '../Loading/Loading';
 import { processRows } from '../../utils/chart';
 import PropTypes from 'prop-types';
 import React from 'react';
-import RowChart from '../Charts/RowChart';
+import { RowChart } from '../Charts/RowChart/RowChart';
 import Select from '../RefineBar/Select';
 import { Separator } from '../RefineBar/Separator';
 import StackedAreaChart from '../Charts/StackedAreaChart';
