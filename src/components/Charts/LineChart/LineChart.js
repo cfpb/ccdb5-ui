@@ -62,8 +62,8 @@ export const LineChart = () => {
       return container.node().getBoundingClientRect().width;
     };
 
-    const extTooltipUpdated = (tipEvent) => {
-      dispatch(tooltipUpdated(tipEvent));
+    const extTooltipUpdated = (item) => {
+      dispatch(tooltipUpdated(item));
     };
 
     const updateInternalTooltip = (
@@ -78,7 +78,7 @@ export const LineChart = () => {
     const updateTooltip = (point) => {
       dispatch(
         tooltipUpdated({
-          date: point.date,
+          date: new Date(point.date).toJSON(),
           dateRange,
           interval,
           values: point.topics,
