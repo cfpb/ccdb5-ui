@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { coalesce, sortSelThenCount } from '../../utils';
 import { CollapsibleFilter } from './CollapsibleFilter/CollapsibleFilter';

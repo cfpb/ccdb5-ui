@@ -1,7 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import { DateRanges } from '../DateRanges';
 import { Provider } from 'react-redux';
-import React from 'react';
 import renderer from 'react-test-renderer';
 import * as types from '../../../constants';
 import thunk from 'redux-thunk';

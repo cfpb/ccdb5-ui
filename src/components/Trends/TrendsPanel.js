@@ -1,7 +1,7 @@
 /* eslint-disable complexity, camelcase */
 import '../RefineBar/RefineBar.less';
 import './TrendsPanel.less';
-
+import { Component } from 'react';
 import { getIntervals, showCompanyOverLay } from '../../utils/trends';
 import { sendAnalyticsEvent, shortFormat } from '../../utils';
 import { ActionBar } from '../ActionBar/ActionBar';
@@ -20,7 +20,6 @@ import { LineChart } from '../Charts/LineChart/LineChart';
 import { Loading } from '../Loading/Loading';
 import { processRows } from '../../utils/chart';
 import PropTypes from 'prop-types';
-import React from 'react';
 import { RowChart } from '../Charts/RowChart/RowChart';
 import Select from '../RefineBar/Select';
 import { Separator } from '../RefineBar/Separator';
@@ -64,7 +63,7 @@ const focusHelperTextMap = {
   issue: 'Issues the consumer identified in the complaint',
 };
 
-export class TrendsPanel extends React.Component {
+export class TrendsPanel extends Component {
   _areaChartTitle() {
     const { focus, hasOverview, subLens } = this.props;
     if (hasOverview) {

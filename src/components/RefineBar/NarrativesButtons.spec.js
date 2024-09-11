@@ -1,4 +1,3 @@
-import React from 'react';
 import { NarrativesButtons } from './NarrativesButtons';
 import * as filterActions from '../../actions/filter';
 import {

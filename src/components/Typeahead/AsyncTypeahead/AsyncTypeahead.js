@@ -1,5 +1,5 @@
 import '../Typeahead.less';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { AsyncTypeahead as Typeahead } from 'react-bootstrap-typeahead';
 import getIcon from '../../iconMap';

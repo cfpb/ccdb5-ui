@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { coalesce } from '../../utils';
 import getIcon from '../iconMap';
 import PropTypes from 'prop-types';
-import React from 'react';
 import { selectAggsState } from '../../reducers/aggs/selectors';
 import { selectQueryState } from '../../reducers/query/selectors';
 

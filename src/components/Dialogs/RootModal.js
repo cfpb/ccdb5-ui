@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DataExport } from './DataExport/DataExport';
 import { ExportConfirmation } from './DataExport/ExportConfirmation';
 import { MoreAbout } from './MoreAbout/MoreAbout';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import ReactModal from 'react-modal';
 import { selectViewModalTypeShown } from '../../reducers/view/selectors';
 import { hideModal } from '../../actions/view';

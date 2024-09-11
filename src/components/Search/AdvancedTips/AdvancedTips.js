@@ -1,5 +1,4 @@
 import './AdvancedTips.less';
-import React from 'react';
 import { TooltipWrapper } from '../../Common/TooltipWrapper/TooltipWrapper';
 import { ComplexExample } from './ComplexExample';
 import getIcon from '../../iconMap';

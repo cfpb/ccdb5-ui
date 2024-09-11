@@ -3,7 +3,7 @@ import { addStateFilter, removeStateFilter } from '../../../actions/map';
 import { coalesce, sendAnalyticsEvent } from '../../../utils';
 import { GEO_NORM_NONE, STATE_DATA } from '../../../constants';
 import { useDispatch, useSelector } from 'react-redux';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import TileMap from './TileMap';
 import { selectMapResultsState } from '../../../reducers/map/selectors';
 

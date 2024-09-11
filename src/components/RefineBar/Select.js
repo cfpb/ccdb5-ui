@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 export const Select = ({ id, handleChange, label, title, value, values }) => {
   const idSelect = 'select-' + id;

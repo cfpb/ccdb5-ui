@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux';
 import { FilterPanel } from '../Filters/FilterPanel';
-import React from 'react';
 import { selectQueryTab } from '../../reducers/query/selectors';
 import { selectViewWidth } from '../../reducers/view/selectors';
 

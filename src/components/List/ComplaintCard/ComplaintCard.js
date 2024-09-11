@@ -3,7 +3,6 @@ import { ariaReadoutNumbers } from '../../../utils';
 import { FormattedDate } from 'react-intl';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 const MAX_NARRATIVE = 300;
 

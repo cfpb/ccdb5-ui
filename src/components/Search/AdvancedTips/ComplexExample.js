@@ -1,6 +1,6 @@
 import getIcon from '../../iconMap';
 import { TooltipWrapper } from '../../Common/TooltipWrapper/TooltipWrapper';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import './ComplexExample.less';
 

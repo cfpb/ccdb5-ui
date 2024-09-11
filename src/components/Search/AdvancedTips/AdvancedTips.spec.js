@@ -1,4 +1,3 @@
-import React from 'react';
 import { AdvancedTips } from './AdvancedTips';
 import {
   testRender as render,
