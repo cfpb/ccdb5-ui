@@ -1,4 +1,3 @@
-import React from 'react';
 import { ActionBar } from './ActionBar';
 import { defaultAggs } from '../../reducers/aggs/aggs';
 import { defaultQuery } from '../../reducers/query/query';

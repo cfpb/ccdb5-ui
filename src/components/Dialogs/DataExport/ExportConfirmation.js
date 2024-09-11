@@ -1,4 +1,3 @@
-import React from 'react';
 import getIcon from '../../iconMap';
 import { useDispatch } from 'react-redux';
 import { hideModal } from '../../../actions/view';

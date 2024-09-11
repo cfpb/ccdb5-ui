@@ -4,8 +4,6 @@ import { ListPanel } from './List/ListPanel/ListPanel';
 import { MapPanel } from './Map/MapPanel';
 import { PrintInfo } from './Print/PrintInfo';
 import { PrintInfoFooter } from './Print/PrintInfoFooter';
-import React from 'react';
-//import TrendsPanel from './Trends/TrendsPanel';
 import { TrendsPanel } from './Trends/TrendsPanel/TrendsPanel';
 import { selectQueryTab } from '../reducers/query/selectors';
 

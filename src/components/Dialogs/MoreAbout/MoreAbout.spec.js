@@ -1,5 +1,4 @@
 import { MoreAbout } from './MoreAbout';
-import React from 'react';
 import {
   testRender as render,
   fireEvent,

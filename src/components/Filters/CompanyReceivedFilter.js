@@ -1,7 +1,7 @@
 /* eslint complexity: ["error", 7] */
 import './DateFilter.less';
 import { DATE_VALIDATION_FORMAT, maxDate, minDate } from '../../constants';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   selectQueryCompanyReceivedMax,
   selectQueryCompanyReceivedMin,

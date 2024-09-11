@@ -1,6 +1,5 @@
 import './TourButton.less';
 import getIcon from '../iconMap';
-import React from 'react';
 import { tourShown } from '../../actions/view';
 import { useDispatch } from 'react-redux';
 

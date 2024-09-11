@@ -1,5 +1,4 @@
 import { ChartToggles } from './ChartToggles';
-import React from 'react';
 import { merge } from '../../testUtils/functionHelpers';
 import { defaultTrends } from '../../reducers/trends/trends';
 import {

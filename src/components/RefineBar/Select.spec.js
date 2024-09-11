@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Select } from './Select';
 import { testRender as render, screen } from '../../testUtils/test-utils';
 import { sizes } from '../../constants';

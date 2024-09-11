@@ -6,7 +6,6 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { dateRanges } from '../../constants';
 import { dateRangeToggled } from '../../actions/filter';
-import React from 'react';
 import { sendAnalyticsEvent } from '../../utils';
 
 export const DateRanges = () => {

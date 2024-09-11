@@ -1,7 +1,6 @@
 import { nextPageShown, prevPageShown } from '../../../actions/paging';
 import { useDispatch, useSelector } from 'react-redux';
 import getIcon from '../../iconMap';
-import React from 'react';
 import {
   selectQueryPage,
   selectQueryTotalPages,

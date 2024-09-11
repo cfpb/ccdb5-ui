@@ -1,4 +1,3 @@
-import React from 'react';
 import { defaultQuery } from '../../../reducers/query/query';
 import {
   testRender as render,

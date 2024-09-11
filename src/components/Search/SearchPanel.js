@@ -2,7 +2,6 @@ import './SearchPanel.less';
 import { useSelector } from 'react-redux';
 import { FormattedDate } from 'react-intl';
 import { PillPanel } from './PillPanel';
-import React from 'react';
 import { SearchBar } from './SearchBar';
 import { selectAggsLastIndexed } from '../../reducers/aggs/selectors';
 

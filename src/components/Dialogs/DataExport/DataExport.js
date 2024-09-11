@@ -5,7 +5,7 @@ import { hideModal, showModal } from '../../../actions/view';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormattedNumber } from 'react-intl';
 import getIcon from '../../iconMap';
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { MODAL_TYPE_EXPORT_CONFIRMATION } from '../../../constants';
 import {

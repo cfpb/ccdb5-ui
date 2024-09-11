@@ -1,4 +1,3 @@
-import React from 'react';
 import { testRender as render, screen } from '../../testUtils/test-utils';
 import { StaleDataWarnings } from './StaleDataWarnings';
 import { merge } from '../../testUtils/functionHelpers';

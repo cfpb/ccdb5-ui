@@ -2,7 +2,6 @@ import './ActionBar.less';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormattedNumber } from 'react-intl';
 import getIcon from '../iconMap';
-import React from 'react';
 import { sendAnalyticsEvent } from '../../utils';
 import { showModal } from '../../actions/view';
 import { StaleDataWarnings } from '../Warnings/StaleDataWarnings';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { defaultAggs } from '../../reducers/aggs/aggs';
 import { defaultMap } from '../../reducers/map/map';
 import { defaultQuery } from '../../reducers/query/query';

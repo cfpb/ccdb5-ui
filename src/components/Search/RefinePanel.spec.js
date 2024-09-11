@@ -1,4 +1,3 @@
-import React from 'react';
 import { RefinePanel } from './RefinePanel';
 import { defaultQuery } from '../../reducers/query/query';
 import { defaultView } from '../../reducers/view/view';

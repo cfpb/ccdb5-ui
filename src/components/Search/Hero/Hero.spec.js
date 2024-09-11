@@ -1,5 +1,4 @@
 import { Hero } from './Hero';
-import React from 'react';
 import {
   testRender as render,
   screen,

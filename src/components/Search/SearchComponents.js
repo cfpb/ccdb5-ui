@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Hero } from './Hero/Hero';
 import { IntlProvider } from 'react-intl';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { RefinePanel } from './RefinePanel';
 import { ResultsPanel } from '../ResultsPanel';
 import { RootModal } from '../Dialogs/RootModal';

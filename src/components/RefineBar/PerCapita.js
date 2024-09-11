@@ -1,7 +1,7 @@
 import { GEO_NORM_NONE, GEO_NORM_PER1000 } from '../../constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { dataNormalizationChanged } from '../../actions/map';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import {
   selectQueryDataNormalization,
   selectQueryEnablePer1000,

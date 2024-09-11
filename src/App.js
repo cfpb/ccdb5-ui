@@ -6,7 +6,6 @@ import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
 import queryManager from './middleware/queryManager';
 import { ComplaintDetail } from './components/ComplaintDetail/ComplaintDetail';
-import React from 'react';
 import reducers from './reducers';
 import { SearchComponents } from './components/Search/SearchComponents';
 import thunkMiddleware from 'redux-thunk';

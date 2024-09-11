@@ -2,7 +2,6 @@ import { cloneDeep, coalesce } from '../../utils';
 import { CollapsibleFilter } from './CollapsibleFilter/CollapsibleFilter';
 import { CompanyTypeahead } from './CompanyTypeahead';
 import { useSelector } from 'react-redux';
-import React from 'react';
 import { StickyOptions } from './StickyOptions/StickyOptions';
 import { selectAggsState } from '../../reducers/aggs/selectors';
 import { selectQueryState } from '../../reducers/query/selectors';

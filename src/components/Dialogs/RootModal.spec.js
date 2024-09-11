@@ -1,4 +1,3 @@
-import React from 'react';
 import * as types from '../../constants';
 import * as viewActions from '../../actions/view';
 import { RootModal } from './RootModal';
