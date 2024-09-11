@@ -1,35 +1,67 @@
+import { testRender as render, screen } from '../../testUtils/test-utils';
+import userEvent from '@testing-library/user-event';
+//import * as filtersActions from '../../actions/filter';
+import { merge } from '../../testUtils/functionHelpers';
+import { defaultAggs } from '../../reducers/aggs/aggs';
+import { defaultQuery } from '../../reducers/query/query';
 import { Pill } from '../Search/Pill';
-import renderer from 'react-test-renderer';
-import { slugify } from '../../utils';
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-import configureMockStore from 'redux-mock-store';
 
-/**
- * @returns {void}
- */
-function setupSnapshot() {
-  const middlewares = [thunk];
-  const mockStore = configureMockStore(middlewares);
-  const store = mockStore({
-    query: {
-      date_received_max: '9/1/2020',
-      date_received_min: '9/1/2017',
-    },
+const renderComponent = (props, newAggsState = {}, newQueryState = {}) => {
+  merge(newAggsState, defaultAggs);
+  merge(newQueryState, defaultQuery);
+
+  const data = {
+    aggs: newAggsState,
+    query: newQueryState,
+  };
+
+  render(<Pill {...props} />, {
+    preloadedState: data,
+  });
+};
+
+describe('component::Pill', () => {
+  const user = userEvent.setup();
+  //let dateRangeToggledFn;
+
+  beforeEach(() => {
+    // dateRangeToggledFn = jest.spyOn(filtersActions, 'dateRangeToggled');
   });
 
-  return renderer.create(
-    <Provider store={store}>
-      <Pill fieldName="somefield" value={slugify('foo', 'bar')} />
-    </Provider>,
-  );
-}
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
 
-describe('component:Pill', () => {
-  xit('renders without crashing', () => {
-    const target = setupSnapshot();
-    const tree = target.toJSON();
-    expect(tree).toMatchSnapshot();
+  it('should render in initial state', () => {
+    const props = {
+      fieldName: 'issue',
+      value: 'abc',
+    };
+    renderComponent(props);
+    expect(screen.getByText('abc')).toBeInTheDocument();
+  });
+
+  it('should remove date_received field as a filter', async () => {
+    const props = {
+      fieldName: 'date_received',
+      value: 'abc',
+    };
+
+    renderComponent(props);
+
+    await user.click(screen.getByRole('button'));
+
+    //expect(dateRangeToggledFn).toHaveBeenCalled();
+  });
+
+  it.skip('should remove other fields as a filter', async () => {
+    const props = {
+      fieldName: 'issue',
+      value: 'abc',
+    };
+    renderComponent(props);
+
+    await user.click(screen.getByRole('button'));
   });
 
   // TODO: rewrite these tests with testing library
