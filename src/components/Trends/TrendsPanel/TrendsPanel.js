@@ -11,7 +11,7 @@ import {
   selectQueryDateInterval,
   selectQueryLens,
   selectQuerySubLens,
-  selectQueryIsTrendsDateWarningDisabled,
+  selectQueryTrendsDateWarningEnabled,
 } from '../../../reducers/query/selectors';
 import {
   selectTrendsChartType,
@@ -21,13 +21,13 @@ import {
   selectTrendsResults,
   selectTrendsTotal,
 } from '../../../reducers/trends/selectors';
-import { trendsDateWarningDismissed } from '../../../actions/view';
-import { changeDateInterval } from '../../../actions/filter';
-import { changeDataLens } from '../../../actions/trends';
 import {
   selectViewExpandedRows,
   selectViewWidth,
 } from '../../../reducers/view/selectors';
+import { trendsDateWarningDismissed } from '../../../actions/view';
+import { changeDateInterval } from '../../../actions/filter';
+import { changeDataLens } from '../../../actions/trends';
 import { processRows } from '../../../utils/chart';
 import { shortFormat, sendAnalyticsEvent } from '../../../utils';
 import { showCompanyOverLay, getIntervals } from '../../../utils/trends';
@@ -92,7 +92,7 @@ export const TrendsPanel = () => {
   const lens = useSelector(selectQueryLens);
   const subLens = useSelector(selectQuerySubLens);
   const isTrendsDateWarningEnabled = useSelector(
-    selectQueryIsTrendsDateWarningDisabled,
+    selectQueryTrendsDateWarningEnabled,
   );
   const chartType = useSelector(selectTrendsChartType);
   const colorMap = useSelector(selectTrendsColorMap);
