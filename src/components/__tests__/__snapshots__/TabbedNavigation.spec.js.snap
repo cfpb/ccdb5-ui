@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component: TabbedNavigation initial state renders without crashing 1`] = `
+<div
+  className="tabbed-navigation"
+  data-tour="tabbed-navigation"
+>
+  <section>
+    <button
+      className="trends tab"
+      onClick={[Function]}
+    >
+      <svg>
+        chart.svg
+      </svg>
+      Trends
+    </button>
+    <button
+      className="list tab"
+      onClick={[Function]}
+    >
+      <svg>
+        list.svg
+      </svg>
+      List
+    </button>
+    <button
+      className="map tab"
+      onClick={[Function]}
+    >
+      <svg>
+        map.svg
+      </svg>
+      Map
+    </button>
+  </section>
+</div>
+`;
+
+exports[`component: TabbedNavigation initial state shows the List tab 1`] = `
+<div
+  className="tabbed-navigation"
+  data-tour="tabbed-navigation"
+>
+  <section>
+    <button
+      className="trends tab"
+      onClick={[Function]}
+    >
+      <svg>
+        chart.svg
+      </svg>
+      Trends
+    </button>
+    <button
+      className="list tab active"
+      onClick={[Function]}
+    >
+      <svg>
+        list.svg
+      </svg>
+      List
+    </button>
+    <button
+      className="map tab"
+      onClick={[Function]}
+    >
+      <svg>
+        map.svg
+      </svg>
+      Map
+    </button>
+  </section>
+</div>
+`;
+
+exports[`component: TabbedNavigation initial state shows the Map tab 1`] = `
+<div
+  className="tabbed-navigation"
+  data-tour="tabbed-navigation"
+>
+  <section>
+    <button
+      className="trends tab"
+      onClick={[Function]}
+    >
+      <svg>
+        chart.svg
+      </svg>
+      Trends
+    </button>
+    <button
+      className="list tab"
+      onClick={[Function]}
+    >
+      <svg>
+        list.svg
+      </svg>
+      List
+    </button>
+    <button
+      className="map tab active"
+      onClick={[Function]}
+    >
+      <svg>
+        map.svg
+      </svg>
+      Map
+    </button>
+  </section>
+</div>
+`;
+
+exports[`component: TabbedNavigation initial state shows the Trends tab 1`] = `
+<div
+  className="tabbed-navigation"
+  data-tour="tabbed-navigation"
+>
+  <section>
+    <button
+      className="trends tab active"
+      onClick={[Function]}
+    >
+      <svg>
+        chart.svg
+      </svg>
+      Trends
+    </button>
+    <button
+      className="list tab"
+      onClick={[Function]}
+    >
+      <svg>
+        list.svg
+      </svg>
+      List
+    </button>
+    <button
+      className="map tab"
+      onClick={[Function]}
+    >
+      <svg>
+        map.svg
+      </svg>
+      Map
+    </button>
+  </section>
+</div>
+`;
