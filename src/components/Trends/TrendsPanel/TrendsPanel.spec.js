@@ -91,7 +91,6 @@ describe('component::TrendsPanel', () => {
     expect(
       screen.getByText('Complaints by date received by the CFPB'),
     ).toBeInTheDocument();
-
     expect(
       screen.getByText(
         'Product by highest complaint volume 1/1/2018 to 1/1/2021',
