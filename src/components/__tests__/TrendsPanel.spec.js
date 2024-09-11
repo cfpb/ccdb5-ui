@@ -6,7 +6,6 @@ import ReduxTrendsPanel /*, {
   mapDispatchToProps,
 }*/ from '../Trends/TrendsPanel';
 import { MODE_TRENDS } from '../../constants';
-import React from 'react';
 import renderer from 'react-test-renderer';
 // import { shallow } from 'enzyme';
 import thunk from 'redux-thunk';

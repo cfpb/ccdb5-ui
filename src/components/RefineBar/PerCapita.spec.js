@@ -1,4 +1,3 @@
-import React from 'react';
 import { PerCapita } from './PerCapita';
 import {
   testRender as render,

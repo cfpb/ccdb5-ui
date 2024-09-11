@@ -11,7 +11,7 @@ import { FilterPanelToggle } from '../../Filters/FilterPanelToggle';
 import { Loading } from '../../Loading/Loading';
 import { NarrativesButtons } from '../../RefineBar/NarrativesButtons';
 import { Pagination } from '../Pagination/Pagination';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Select } from '../../RefineBar/Select';
 import { sendAnalyticsEvent } from '../../../utils';
 import { Separator } from '../../RefineBar/Separator';

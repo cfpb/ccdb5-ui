@@ -1,6 +1,6 @@
 import './PrintInfo.less';
 import { useSelector } from 'react-redux';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { shortFormat } from '../../utils';
 import {
   selectAggsDocCount,

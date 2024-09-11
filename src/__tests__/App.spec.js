@@ -1,7 +1,6 @@
 import { App, DetailComponents } from '../App';
 import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import React from 'react';
 import thunk from 'redux-thunk';
 import 'regenerator-runtime/runtime';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';

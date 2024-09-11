@@ -1,5 +1,4 @@
 import { PrintInfo } from './PrintInfo';
-import React from 'react';
 import { defaultAggs } from '../../reducers/aggs/aggs';
 import { defaultQuery } from '../../reducers/query/query';
 import { defaultView } from '../../reducers/view/view';

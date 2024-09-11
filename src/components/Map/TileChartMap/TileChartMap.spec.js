@@ -1,5 +1,4 @@
 import { TileChartMap } from './TileChartMap';
-import React from 'react';
 import {
   testRender as render,
   fireEvent,

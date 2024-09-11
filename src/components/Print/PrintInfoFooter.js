@@ -1,4 +1,3 @@
-import React from 'react';
 import { selectViewIsPrintMode } from '../../reducers/view/selectors';
 import { useSelector } from 'react-redux';
 

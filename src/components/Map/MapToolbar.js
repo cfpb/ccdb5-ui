@@ -2,7 +2,6 @@ import './MapToolbar.less';
 import { clearStateFilter, showStateComplaints } from '../../actions/map';
 import { useDispatch, useSelector } from 'react-redux';
 import getIcon from '../iconMap';
-import React from 'react';
 import { THESE_UNITED_STATES } from '../../constants';
 import { selectQueryStateFilters } from '../../reducers/query/selectors';
 

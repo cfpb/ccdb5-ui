@@ -1,7 +1,6 @@
 import { coalesce } from '../../utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { NARRATIVE_SEARCH_FIELD } from '../../constants';
-import React from 'react';
 import { toggleFlagFilter } from '../../actions/filter';
 import { selectQueryState } from '../../reducers/query/selectors';
 

@@ -1,6 +1,5 @@
 import getIcon from '../iconMap';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 export const ErrorBlock = ({ text }) => (
   <div

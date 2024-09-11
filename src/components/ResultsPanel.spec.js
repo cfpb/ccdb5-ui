@@ -1,5 +1,4 @@
 import { ResultsPanel } from './ResultsPanel';
-import React from 'react';
 import { testRender as render, screen } from '../testUtils/test-utils';
 import { defaultQuery } from '../reducers/query/query';
 import { defaultView } from '../reducers/view/view';

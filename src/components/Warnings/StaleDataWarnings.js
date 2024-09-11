@@ -1,5 +1,4 @@
 import { useSelector } from 'react-redux';
-import React from 'react';
 import Warning from './Warning';
 import {
   selectAggsHasDataIssue,

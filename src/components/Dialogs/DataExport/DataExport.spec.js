@@ -1,4 +1,3 @@
-import React from 'react';
 import { DataExport } from './DataExport';
 import * as utils from '../../../utils';
 import {

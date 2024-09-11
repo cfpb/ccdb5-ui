@@ -1,6 +1,5 @@
 import { addFilter, removeFilter } from '../../actions/filter';
 import { useDispatch, useSelector } from 'react-redux';
-import React from 'react';
 import { selectedClass } from '../../utils';
 import { selectQueryHasNarrative } from '../../reducers/query/selectors';
 

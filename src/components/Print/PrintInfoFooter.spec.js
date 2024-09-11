@@ -1,5 +1,4 @@
 import { PrintInfoFooter } from './PrintInfoFooter';
-import React from 'react';
 import { testRender as render, screen } from '../../testUtils/test-utils';
 
 describe('PrintInfoFooter', () => {

@@ -1,7 +1,6 @@
 import './LensTabs.less';
 import { changeDataSubLens } from '../../actions/trends';
 import { useDispatch, useSelector } from 'react-redux';
-import React from 'react';
 import { sendAnalyticsEvent } from '../../utils';
 import {
   selectQueryFocus,

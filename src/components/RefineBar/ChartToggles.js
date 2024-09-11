@@ -1,7 +1,6 @@
 import './ChartToggles.less';
 import { changeChartType } from '../../actions/trends';
 import getIcon from '../iconMap';
-import React from 'react';
 import { selectedClass, sendAnalyticsEvent } from '../../utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTrendsChartType } from '../../reducers/trends/selectors';

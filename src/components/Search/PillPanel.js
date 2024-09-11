@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import getIcon from '../iconMap';
 import { Pill } from './Pill';
-import React from 'react';
 import { removeAllFilters } from '../../actions/filter';
 import { startOfToday } from '../../utils';
 
