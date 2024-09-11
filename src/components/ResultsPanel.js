@@ -4,9 +4,8 @@ import { ListPanel } from './List/ListPanel/ListPanel';
 import { MapPanel } from './Map/MapPanel';
 import { PrintInfo } from './Print/PrintInfo';
 import { PrintInfoFooter } from './Print/PrintInfoFooter';
-import React from 'react';
-import TrendsPanel from './Trends/TrendsPanel';
 import { selectViewTab } from '../reducers/view/selectors';
+import { TrendsPanel } from './Trends/TrendsPanel/TrendsPanel';
 
 export const ResultsPanel = () => {
   const tab = useSelector(selectViewTab);

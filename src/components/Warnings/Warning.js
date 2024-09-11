@@ -1,7 +1,6 @@
 import './Warning.less';
 import getIcon from '../iconMap';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 export const Warning = ({ text, closeFn }) => (
   <div

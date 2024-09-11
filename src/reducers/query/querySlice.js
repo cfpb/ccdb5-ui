@@ -225,7 +225,7 @@ export const querySlice = createSlice({
         };
       },
     },
-    dismissTrendsDateWarning: {
+    trendsDateWarningDismissed: {
       reducer: (state) => {
         state.trendsDateWarningEnabled = false;
       },
@@ -712,7 +712,7 @@ export const {
   changeDates,
   dateRangeChanged,
   dateIntervalChanged,
-  dismissTrendsDateWarning,
+  trendsDateWarningDismissed,
   nextPageShown,
   prevPageShown,
   removeAllFilters,

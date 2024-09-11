@@ -1,4 +1,3 @@
-import React from 'react';
 import { RefinePanel } from './RefinePanel';
 import { queryState } from '../../reducers/query/querySlice';
 import { viewState } from '../../reducers/view/viewSlice';

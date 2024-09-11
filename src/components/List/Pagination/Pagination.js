@@ -4,7 +4,6 @@ import {
 } from '../../../reducers/query/querySlice';
 import { useDispatch, useSelector } from 'react-redux';
 import getIcon from '../../iconMap';
-import React from 'react';
 import {
   selectQueryPage,
   selectQueryTotalPages,

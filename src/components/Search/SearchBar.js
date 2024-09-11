@@ -10,7 +10,7 @@ import {
 import { AdvancedTips } from './AdvancedTips/AdvancedTips';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { API_PLACEHOLDER } from '../../constants';
 import {
   selectQuerySearchField,

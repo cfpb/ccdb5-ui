@@ -1,4 +1,3 @@
-import React from 'react';
 import { queryState } from '../../../reducers/query/querySlice';
 import {
   testRender as render,

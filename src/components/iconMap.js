@@ -1,4 +1,4 @@
-import React from 'react';
+import { cloneElement } from 'react';
 import { ReactComponent as ApprovedRound } from '../icons/approved-round.svg';
 import { ReactComponent as AreaChart } from '../icons/area-chart-custom.svg';
 import { ReactComponent as Chart } from '../icons/chart.svg';
@@ -89,7 +89,7 @@ function getIcon(name, customClass) {
   let Icon = iconMap[name];
 
   if (typeof customClass !== 'undefined') {
-    Icon = React.cloneElement(Icon, {
+    Icon = cloneElement(Icon, {
       className: `cf-icon-svg ${customClass}`,
     });
   }

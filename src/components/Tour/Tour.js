@@ -1,6 +1,6 @@
 import './Tour.less';
 import * as d3 from 'd3';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectViewTab } from '../../reducers/view/selectors';
 import {

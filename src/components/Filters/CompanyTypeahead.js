@@ -1,7 +1,7 @@
 import { sanitizeHtmlId } from '../../utils';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { stateToQS } from '../../reducers/query/querySlice';
 import { multipleFiltersAdded } from '../../reducers/filters/filtersSlice';
 import { API_PLACEHOLDER } from '../../constants';

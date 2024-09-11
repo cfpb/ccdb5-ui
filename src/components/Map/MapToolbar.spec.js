@@ -1,4 +1,3 @@
-import React from 'react';
 import { MapToolbar } from './MapToolbar';
 import { merge } from '../../testUtils/functionHelpers';
 import { filtersState } from '../../reducers/filters/filtersSlice';

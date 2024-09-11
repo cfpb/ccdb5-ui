@@ -1,7 +1,6 @@
 import './MapToolbar.less';
 import { useDispatch, useSelector } from 'react-redux';
 import getIcon from '../iconMap';
-import React from 'react';
 import { MODE_LIST, THESE_UNITED_STATES } from '../../constants';
 import { stateFilterCleared } from '../../reducers/filters/filtersSlice';
 import { selectFiltersState } from '../../reducers/filters/selectors';

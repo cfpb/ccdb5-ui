@@ -1,7 +1,6 @@
 import './Loading.less';
 import getIcon from '../iconMap';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 export const Loading = ({ isLoading }) => {
   return isLoading ? (

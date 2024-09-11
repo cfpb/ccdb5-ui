@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { filterRemoved } from '../../../reducers/filters/filtersSlice';
-import { selectQuerySubLens } from '../../../reducers/query/selectors';
+import { selectTrendsSubLens } from '../../../reducers/trends/selectors';
 import {
   selectTrendsFocus,
   selectTrendsLens,
@@ -13,7 +13,7 @@ export const TooltipRow = ({ value }) => {
   const trendsFocus = useSelector(selectTrendsFocus);
   const focus = trendsFocus ? 'focus' : '';
   const lens = useSelector(selectTrendsLens);
-  const subLens = useSelector(selectQuerySubLens);
+  const subLens = useSelector(selectTrendsSubLens);
   const hasCompanyTypeahead = lens === 'Company' && !focus;
   const elements = [];
   const lensToUse = focus ? subLens : lens;

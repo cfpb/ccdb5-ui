@@ -1,5 +1,4 @@
 import { Pill } from '../Search/Pill';
-import React from 'react';
 import renderer from 'react-test-renderer';
 import { slugify } from '../../utils';
 import { Provider } from 'react-redux';
