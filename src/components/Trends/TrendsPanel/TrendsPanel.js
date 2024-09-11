@@ -273,7 +273,6 @@ export const TrendsPanel = () => {
           </section>
         </div>
       ) : null}
-      Comp overlay {hasCompanyOverlay} overview {hasOverview} total {total}
       {!hasCompanyOverlay && !hasOverview && total > 0 ? (
         <div className="layout-row">
           <section className="chart-description">
