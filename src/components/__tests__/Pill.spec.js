@@ -1,6 +1,6 @@
 import { testRender as render, screen } from '../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
-//import * as filtersActions from '../../actions/filter';
+import * as filtersActions from '../../actions/filter';
 import { merge } from '../../testUtils/functionHelpers';
 import { defaultAggs } from '../../reducers/aggs/aggs';
 import { defaultQuery } from '../../reducers/query/query';
@@ -21,11 +21,11 @@ const renderComponent = (props, newAggsState = {}, newQueryState = {}) => {
 };
 
 describe('component::Pill', () => {
-  const user = userEvent.setup();
-  //let dateRangeToggledFn;
+  const user = userEvent.setup({ delay: null });
+  let dateRangeToggledFn;
 
   beforeEach(() => {
-    // dateRangeToggledFn = jest.spyOn(filtersActions, 'dateRangeToggled');
+    dateRangeToggledFn = jest.spyOn(filtersActions, 'dateRangeToggled');
   });
 
   afterEach(() => {
@@ -49,9 +49,13 @@ describe('component::Pill', () => {
 
     renderComponent(props);
 
-    await user.click(screen.getByRole('button'));
-
-    //expect(dateRangeToggledFn).toHaveBeenCalled();
+    expect(
+      screen.getByRole('button', { name: /Remove abc as a filter/ }),
+    ).toBeInTheDocument();
+    await user.click(
+      screen.getByRole('button', { name: /Remove abc as a filter/ }),
+    );
+    expect(dateRangeToggledFn).toHaveBeenCalledWith('All');
   });
 
   it.skip('should remove other fields as a filter', async () => {
