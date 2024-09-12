@@ -1,10 +1,10 @@
-import { testRender as render, screen } from '../../../testUtils/test-utils';
+import { testRender as render, screen } from '../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
-import { merge } from '../../../testUtils/functionHelpers';
-import { defaultQuery } from '../../../reducers/query/query';
-import * as filtersActions from '../../../actions/filter';
-import * as utils from '../../../utils';
-import { DateRanges } from '../DateRanges';
+import { merge } from '../../testUtils/functionHelpers';
+import { defaultQuery } from '../../reducers/query/query';
+import * as filtersActions from '../../actions/filter';
+import * as utils from '../../utils';
+import { DateRanges } from './DateRanges';
 
 const renderComponent = (newQueryState = {}) => {
   merge(newQueryState, defaultQuery);
