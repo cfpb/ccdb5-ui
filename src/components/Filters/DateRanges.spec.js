@@ -60,8 +60,8 @@ describe('component::DateRanges', () => {
 
     await user.click(screen.getByRole('button', { name: '1y' }));
 
-    //expect(dateRangeToggledFn).toHaveBeenCalledWith('1y');
-    // expect(sendAnalyticsEventFn).toHaveBeenCalledWith('Button', 'Trends:1y');
+    expect(dateRangeToggledFn).toHaveBeenCalledWith('1y');
+    expect(sendAnalyticsEventFn).toHaveBeenCalledWith('Button', 'Trends:1y');
   });
 
   it('should not trigger toggle on already selected range', async () => {
