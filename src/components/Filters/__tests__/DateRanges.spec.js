@@ -20,11 +20,16 @@ const renderComponent = (newQueryState = {}) => {
 
 describe('component::DateRanges', () => {
   const user = userEvent.setup({ delay: null });
+
   let dateRangeToggledFn, sendAnalyticsEventFn;
 
   beforeEach(() => {
     dateRangeToggledFn = jest.spyOn(filtersActions, 'dateRangeToggled');
     sendAnalyticsEventFn = jest.spyOn(utils, 'sendAnalyticsEvent');
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
   it('should render initial state', () => {
