@@ -1,60 +1,75 @@
-import configureMockStore from 'redux-mock-store';
+import { testRender as render, screen } from '../../../testUtils/test-utils';
+import userEvent from '@testing-library/user-event';
+import { merge } from '../../../testUtils/functionHelpers';
+import { defaultQuery } from '../../../reducers/query/query';
+import * as filtersActions from '../../../actions/filter';
+import * as utils from '../../../utils';
 import { DateRanges } from '../DateRanges';
-import { Provider } from 'react-redux';
-import renderer from 'react-test-renderer';
-import * as types from '../../../constants';
-import thunk from 'redux-thunk';
 
-/**
- * @returns {Function} - Rendering function
- */
-function setupSnapshot() {
-  const middlewares = [thunk];
-  const mockStore = configureMockStore(middlewares);
-  const store = mockStore({
-    query: {
-      dateRange: '3y',
-      tab: types.MODE_MAP,
-    },
+const renderComponent = (newQueryState = {}) => {
+  merge(newQueryState, defaultQuery);
+
+  const data = {
+    query: newQueryState,
+  };
+
+  render(<DateRanges />, {
+    preloadedState: data,
+  });
+};
+
+describe('component::DateRanges', () => {
+  const user = userEvent.setup({ delay: null });
+  let dateRangeToggledFn, sendAnalyticsEventFn;
+
+  beforeEach(() => {
+    dateRangeToggledFn = jest.spyOn(filtersActions, 'dateRangeToggled');
+    sendAnalyticsEventFn = jest.spyOn(utils, 'sendAnalyticsEvent');
   });
 
-  return renderer.create(
-    <Provider store={store}>
-      <DateRanges />
-    </Provider>,
-  );
-}
+  it('should render initial state', () => {
+    const ranges = ['3m', '6m', '1y', '3y', 'All'];
+    const query = {
+      dateRange: 'All',
+      tab: 'Trends',
+    };
 
-describe('component: DateRanges', () => {
-  describe('initial state', () => {
-    it('renders without crashing', () => {
-      const target = setupSnapshot();
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
+    renderComponent(query);
+
+    expect(
+      screen.getByText('Date range (Click to modify range)'),
+    ).toBeInTheDocument();
+
+    ranges.forEach((range) => {
+      expect(screen.getByRole('button', { name: range })).toBeInTheDocument();
     });
   });
 
-  // TODO: reimplement when we replace enzyme with testing-library
-  // describe('buttons', () => {
-  //   let cb = null
-  //   let target = null
-  //
-  //   beforeEach( () => {
-  //     cb = jest.fn()
-  //   } )
-  //
-  //   it( 'toggleDateRange is called the button is clicked', () => {
-  //     target = setupEnzyme( cb, 'All' )
-  //     const prev = target.find( '.date-ranges .range-3m' )
-  //     prev.simulate( 'click' )
-  //     expect( cb ).toHaveBeenCalledWith( '3m', 'foo' )
-  //   } )
-  //
-  //   it( 'toggleDateRange is NOT called when the value is same', () => {
-  //     target = setupEnzyme( cb, '3m' )
-  //     const prev = target.find( '.date-ranges .range-3m' )
-  //     prev.simulate( 'click' )
-  //     expect( cb ).not.toHaveBeenCalled()
-  //   } )
-  // })
+  it('should select button and trigger toggle on newly selected range', async () => {
+    const query = {
+      dateRange: 'All',
+      tab: 'Trends',
+    };
+
+    renderComponent(query);
+
+    await user.click(screen.getByRole('button', { name: '1y' }));
+
+    //expect(dateRangeToggledFn).toHaveBeenCalledWith('1y');
+    // expect(sendAnalyticsEventFn).toHaveBeenCalledWith('Button', 'Trends:1y');
+  });
+
+  it('should not trigger toggle on already selected range', async () => {
+    const query = {
+      dateRange: 'All',
+      tab: 'Trends',
+    };
+
+    renderComponent(query);
+
+    await user.click(screen.getByRole('button', { name: 'All' }));
+
+    expect(dateRangeToggledFn).not.toHaveBeenCalled();
+    expect(sendAnalyticsEventFn).not.toHaveBeenCalled();
+  });
 });
