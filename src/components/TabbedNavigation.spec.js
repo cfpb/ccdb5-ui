@@ -1,85 +1,81 @@
-import configureMockStore from 'redux-mock-store';
+import { testRender as render, screen } from '../testUtils/test-utils';
 import { TabbedNavigation } from './TabbedNavigation';
 import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../constants';
-import { Provider } from 'react-redux';
-import renderer from 'react-test-renderer';
-import thunk from 'redux-thunk';
+import { merge } from '../testUtils/functionHelpers';
+import { defaultQuery } from '../reducers/query/query';
+import userEvent from '@testing-library/user-event';
+import * as viewActions from '../actions/view';
 
-/**
- *
- * @param {string} tab - The tab
- * @returns {void}
- */
-function setupSnapshot(tab) {
-  const middlewares = [thunk];
-  const mockStore = configureMockStore(middlewares);
-  const store = mockStore({
-    query: {
-      tab,
-    },
+const renderComponent = (tab) => {
+  const newQueryState = {
+    tab,
+  };
+
+  merge(newQueryState, defaultQuery);
+
+  const data = {
+    query: newQueryState,
+  };
+  render(<TabbedNavigation />, {
+    preloadedState: data,
   });
-
-  return renderer.create(
-    <Provider store={store}>
-      <TabbedNavigation />
-    </Provider>,
-  );
-}
+};
 
 describe('component: TabbedNavigation', () => {
-  describe('initial state', () => {
-    it('renders without crashing', () => {
-      const target = setupSnapshot();
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-
-    it('shows the List tab', () => {
-      const target = setupSnapshot(MODE_LIST);
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-
-    it('shows the Map tab', () => {
-      const target = setupSnapshot(MODE_MAP);
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-
-    it('shows the Trends tab', () => {
-      const target = setupSnapshot(MODE_TRENDS);
-      const tree = target.toJSON();
-      expect(tree).toMatchSnapshot();
-    });
+  const user = userEvent.setup({ delay: null });
+  let tabChangedSpy;
+  beforeEach(() => {
+    tabChangedSpy = jest.spyOn(viewActions, 'tabChanged');
+  });
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
-  // TODO: this needs to be reimplemented using modern testing-library
-  // https://kentcdodds.com/blog/why-i-never-use-shallow-rendering
-  // describe('buttons', () => {
-  //   let cb = null
-  //   let target = null
-  //
-  //   beforeEach( () => {
-  //     cb = jest.fn()
-  //     target = shallow( <TabbedNavigation onTab={ cb } /> )
-  //   } )
-  //
-  //   it( 'tabChanged is called with Map when the button is clicked', () => {
-  //     const prev = target.find( '.tabbed-navigation button' )
-  //     prev.simulate( 'click' )
-  //     expect( cb ).toHaveBeenCalledWith('Map')
-  //   } )
-  //
-  //   it( 'tabChanged is called with Trends when the button is clicked', () => {
-  //     const prev = target.find( '.tabbed-navigation button.trends' )
-  //     prev.simulate( 'click' )
-  //     expect( cb ).toHaveBeenCalledWith('Trends')
-  //   } )
-  //
-  //   it( 'tabChanged is called with List when the button is clicked', () => {
-  //     const prev = target.find( '.tabbed-navigation button.list' )
-  //     prev.simulate( 'click' )
-  //     expect( cb ).toHaveBeenCalledWith('List')
-  //   } )
-  // })
+  it('shows the List tab', async () => {
+    renderComponent(MODE_LIST);
+    expect(screen.getByRole('button', { name: /Map/ })).not.toHaveClass(
+      'active',
+    );
+    expect(screen.getByRole('button', { name: /List/ })).toHaveClass('active');
+    expect(screen.getByRole('button', { name: /Trends/ })).not.toHaveClass(
+      'active',
+    );
+
+    await user.click(screen.getByRole('button', { name: /Map/ }));
+    await user.click(screen.getByRole('button', { name: /List/ }));
+    expect(tabChangedSpy).toHaveBeenCalledWith('List');
+  });
+
+  it('shows the Map tab', async () => {
+    renderComponent(MODE_MAP);
+    expect(screen.getByRole('button', { name: /Map/ })).toHaveClass('active');
+    expect(screen.getByRole('button', { name: /List/ })).not.toHaveClass(
+      'active',
+    );
+    expect(screen.getByRole('button', { name: /Trends/ })).not.toHaveClass(
+      'active',
+    );
+
+    // this does nothing
+    await user.click(screen.getByRole('button', { name: /List/ }));
+    await user.click(screen.getByRole('button', { name: /Map/ }));
+    expect(tabChangedSpy).toHaveBeenCalledWith('Map');
+  });
+
+  it('shows the Trends tab', async () => {
+    renderComponent(MODE_TRENDS);
+    expect(screen.getByRole('button', { name: /Map/ })).not.toHaveClass(
+      'active',
+    );
+    expect(screen.getByRole('button', { name: /List/ })).not.toHaveClass(
+      'active',
+    );
+    expect(screen.getByRole('button', { name: /Trends/ })).toHaveClass(
+      'active',
+    );
+
+    await user.click(screen.getByRole('button', { name: /Map/ }));
+    await user.click(screen.getByRole('button', { name: /Trends/ }));
+    expect(tabChangedSpy).toHaveBeenCalledWith('Trends');
+  });
 });
