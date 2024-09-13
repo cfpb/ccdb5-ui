@@ -1,4 +1,4 @@
-import { SearchPanel } from '../Search/SearchPanel';
+import { SearchPanel } from './SearchPanel';
 import { testRender as render, screen } from '../../testUtils/test-utils';
 
 const renderComponent = () => {

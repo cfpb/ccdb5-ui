@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
-import { TabbedNavigation } from '../TabbedNavigation';
-import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../../constants';
+import { TabbedNavigation } from './TabbedNavigation';
+import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../constants';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import thunk from 'redux-thunk';

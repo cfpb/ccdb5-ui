@@ -1,4 +1,4 @@
-import getIcon from '../iconMap';
+import getIcon from './iconMap';
 
 describe('getIcon', () => {
   const consoleSpy = jest.spyOn(console, 'error');
