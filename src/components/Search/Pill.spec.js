@@ -51,12 +51,8 @@ describe('component::Pill', () => {
 
     renderComponent(props);
 
-    expect(
-      screen.getByRole('button', { name: /Remove abc as a filter/ }),
-    ).toBeInTheDocument();
-    await user.click(
-      screen.getByRole('button', { name: /Remove abc as a filter/ }),
-    );
+    expect(screen.getByRole('button', { name: /abc/ })).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: /abc/ }));
     expect(dateRangeToggledFn).toHaveBeenCalledWith('All');
   });
 
@@ -66,12 +62,8 @@ describe('component::Pill', () => {
       value: 'abc',
     };
     renderComponent(props);
-    expect(
-      screen.getByRole('button', { name: /Remove abc as a filter/ }),
-    ).toBeInTheDocument();
-    await user.click(
-      screen.getByRole('button', { name: /Remove abc as a filter/ }),
-    );
+    expect(screen.getByRole('button', { name: /abc/ })).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: /abc/ }));
 
     expect(replaceFilterFn).toHaveBeenCalledWith('issue', []);
   });
@@ -82,12 +74,8 @@ describe('component::Pill', () => {
       value: 'abc',
     };
     renderComponent(props);
-    expect(
-      screen.getByRole('button', { name: /Remove abc as a filter/ }),
-    ).toBeInTheDocument();
-    await user.click(
-      screen.getByRole('button', { name: /Remove abc as a filter/ }),
-    );
+    expect(screen.getByRole('button', { name: /abc/ })).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: /abc/ }));
 
     expect(removeFilterFn).toHaveBeenCalledWith('foobar', 'abc');
   });

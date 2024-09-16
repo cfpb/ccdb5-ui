@@ -9,7 +9,6 @@ import {
 } from '../../reducers/query/selectors';
 
 import { useDispatch, useSelector } from 'react-redux';
-
 import dayjs from 'dayjs';
 import getIcon from '../iconMap';
 import { Pill } from './Pill';
