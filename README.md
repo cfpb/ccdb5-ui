@@ -202,6 +202,9 @@ Ready to publish changes to npm?
     - Run `yarn cache clean; yarn install`
       from `cfgov/unprocessed/apps/ccdb-search/`.
     - Re-add the last two lines to the root `.yarnrc` file.
+- When running the project under CFGOV, you will need to index complaints to have a functioning app. The default docker setup of cfgov does not index any complaint data.
+  You will have to run the [CCDB Data Pipeline](https://github.com/cfpb/ccdb-data-pipeline/blob/main/INSTALL.md) and load complaints into Elasticsearch.
+
 
 ## Getting help
 
