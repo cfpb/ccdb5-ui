@@ -153,7 +153,6 @@ export const TrendsPanel = () => {
   };
 
   const areaChartTitle = () => {
-    console.log('fuck you', hasOverview);
     if (hasOverview) {
       return 'Complaints by date received by the CFPB';
     } else if (focus) {

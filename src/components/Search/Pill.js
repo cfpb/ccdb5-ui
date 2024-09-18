@@ -49,9 +49,6 @@ export const Pill = ({ fieldName, value }) => {
           {prefix}
           {trimmed}
         </span>
-        <span className="u-visually-hidden">
-          {`Remove ${trimmed} as a filter`}
-        </span>
         {getIcon('delete')}
       </button>
     </li>

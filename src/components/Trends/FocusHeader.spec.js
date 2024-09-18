@@ -1,16 +1,13 @@
 import { FocusHeader } from './FocusHeader';
-import { queryState } from '../../reducers/query/querySlice';
 import { trendsState } from '../../reducers/trends/trendsSlice';
 import { merge } from '../../testUtils/functionHelpers';
 import { testRender as render, screen } from '../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 import * as trendsActions from '../../reducers/trends/trendsSlice';
 
-const renderComponent = (newQueryState, newTrendsState) => {
-  merge(newQueryState, queryState);
+const renderComponent = (newTrendsState) => {
   merge(newTrendsState, trendsState);
   const data = {
-    query: newQueryState,
     trends: newTrendsState,
   };
 
@@ -28,12 +25,10 @@ describe('component:FocusHeader', () => {
   });
 
   it('renders header on Product focus page', async () => {
-    const newQ = {
+    const newT = {
       focus: 'Foo Bar',
       lens: 'Product',
       subLens: 'sub_product',
-    };
-    const newT = {
       total: 90120,
       results: {
         issue: [2, 3, 4],
@@ -41,7 +36,7 @@ describe('component:FocusHeader', () => {
       },
     };
 
-    renderComponent(newQ, newT);
+    renderComponent(newT);
     expect(
       screen.getByRole('heading', { name: 'Foo Bar' }),
     ).toBeInTheDocument();
@@ -63,19 +58,17 @@ describe('component:FocusHeader', () => {
   });
 
   it('renders header on Company focus page', async () => {
-    const newQ = {
+    const newT = {
       focus: 'Acme Inc',
       lens: 'Company',
       subLens: 'product',
-    };
-    const newT = {
       total: 1234567,
       results: {
         product: [1, 2, 3],
       },
     };
 
-    renderComponent(newQ, newT);
+    renderComponent(newT);
     expect(
       screen.getByRole('heading', { name: 'Acme Inc' }),
     ).toBeInTheDocument();

@@ -5,7 +5,11 @@ import * as filter from '../../../../reducers/filters/filtersSlice';
 import * as utils from '../../../../utils';
 import { slugify } from '../../../../utils';
 import { aggsState } from '../../../../reducers/aggs/aggsSlice';
-import { filtersState } from '../../../../reducers/filters/filtersSlice';
+import {
+  filtersReplaced,
+  filtersState,
+  filterToggled,
+} from '../../../../reducers/filters/filtersSlice';
 import { AggregationItem } from './AggregationItem';
 
 const defaultTestProps = {
@@ -180,12 +184,12 @@ describe('component::AggregationItem', () => {
         await user.click(screen.getByRole('checkbox'));
 
         expect(replaceFiltersFn).toHaveBeenCalled();
-        expect(replaceFiltersFn).toHaveReturnedWith({
-          filterName: 'issue',
-          requery: 'REQUERY_ALWAYS',
-          type: 'FILTER_REPLACED',
-          values: ['f', 'g', 'h', slugify('a', 'd'), slugify('a', 'b')],
-        });
+        expect(replaceFiltersFn).toHaveReturnedWith(
+          filtersReplaced({
+            filterName: 'issue',
+            values: ['f', 'g', 'h', slugify('a', 'd'), slugify('a', 'b')],
+          }),
+        );
 
         expect(toggleFilterFn).not.toHaveBeenCalled();
       });
@@ -218,12 +222,12 @@ describe('component::AggregationItem', () => {
         await user.click(screen.getByRole('checkbox'));
 
         expect(replaceFiltersFn).toHaveBeenCalled();
-        expect(replaceFiltersFn).toHaveReturnedWith({
-          filterName: 'issue',
-          requery: 'REQUERY_ALWAYS',
-          type: 'FILTER_REPLACED',
-          values: ['f', 'g', 'h', 'a'],
-        });
+        expect(replaceFiltersFn).toHaveReturnedWith(
+          filtersReplaced({
+            filterName: 'issue',
+            values: ['f', 'g', 'h', 'a'],
+          }),
+        );
 
         expect(toggleFilterFn).not.toHaveBeenCalled();
       });
@@ -244,15 +248,15 @@ describe('component::AggregationItem', () => {
         await user.click(screen.getByRole('checkbox'));
 
         expect(toggleFilterFn).toHaveBeenCalled();
-        expect(toggleFilterFn).toHaveReturnedWith({
-          filterName: 'fieldName',
-          filterValue: {
-            doc_count: 1000,
-            key: 'foo',
-          },
-          requery: 'REQUERY_ALWAYS',
-          type: 'FILTER_CHANGED',
-        });
+        expect(toggleFilterFn).toHaveReturnedWith(
+          filterToggled({
+            filterName: 'fieldName',
+            filterValue: {
+              doc_count: 1000,
+              key: 'foo',
+            },
+          }),
+        );
 
         expect(replaceFiltersFn).not.toHaveBeenCalled();
       });
@@ -283,12 +287,12 @@ describe('component::AggregationItem', () => {
         await user.click(screen.getByRole('checkbox'));
 
         expect(replaceFiltersFn).toHaveBeenCalled();
-        expect(replaceFiltersFn).toHaveReturnedWith({
-          filterName: 'issue',
-          requery: 'REQUERY_ALWAYS',
-          type: 'FILTER_REPLACED',
-          values: [],
-        });
+        expect(replaceFiltersFn).toHaveReturnedWith(
+          filtersReplaced({
+            filterName: 'issue',
+            values: [],
+          }),
+        );
 
         expect(toggleFilterFn).not.toHaveBeenCalled();
       });
@@ -309,15 +313,15 @@ describe('component::AggregationItem', () => {
         await user.click(screen.getByRole('checkbox'));
 
         expect(toggleFilterFn).toHaveBeenCalled();
-        expect(toggleFilterFn).toHaveReturnedWith({
-          filterName: 'fieldName',
-          filterValue: {
-            doc_count: 1000,
-            key: 'foo',
-          },
-          requery: 'REQUERY_ALWAYS',
-          type: 'FILTER_CHANGED',
-        });
+        expect(toggleFilterFn).toHaveReturnedWith(
+          filterToggled({
+            filterName: 'fieldName',
+            filterValue: {
+              doc_count: 1000,
+              key: 'foo',
+            },
+          }),
+        );
 
         expect(replaceFiltersFn).not.toHaveBeenCalled();
       });

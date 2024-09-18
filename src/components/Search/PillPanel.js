@@ -9,7 +9,6 @@ import {
 } from '../../reducers/query/selectors';
 
 import { useDispatch, useSelector } from 'react-redux';
-
 import dayjs from 'dayjs';
 import getIcon from '../iconMap';
 import { Pill } from './Pill';
@@ -21,9 +20,10 @@ import { selectFiltersFilterState } from '../../reducers/filters/selectors';
 export const PillPanel = () => {
   const dispatch = useDispatch();
   const filterState = useSelector(selectFiltersFilterState);
+  const hasNarrative = useSelector(selectFiltersHasNarrative);
+
   const dateReceivedMin = useSelector(selectQueryDateReceivedMin);
   const dateReceivedMax = useSelector(selectQueryDateReceivedMax);
-  const hasNarrative = useSelector(selectFiltersHasNarrative);
   const searchField = useSelector(selectQuerySearchField);
 
   const filters = knownFilters
