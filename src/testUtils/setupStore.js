@@ -12,7 +12,7 @@ import viewModelReducer from '../reducers/view/viewSlice';
 import { applyMiddleware, combineReducers } from '@reduxjs/toolkit';
 import actionLogger from '../middleware/actionLogger/actionLogger';
 import cloneDeep from 'lodash/cloneDeep';
-// import emptyStore from '../actions/__fixtures__/emptyStore';
+import emptyStore from '../actions/__fixtures__/emptyStore';
 
 /**
  *
@@ -21,7 +21,7 @@ import cloneDeep from 'lodash/cloneDeep';
  * @returns {object} complete empty redux store
  */
 function initialState() {
-  return cloneDeep({});
+  return cloneDeep(emptyStore);
 }
 
 /**
@@ -36,7 +36,7 @@ function setupStore(targetState, additionalMiddlewares) {
   const preloadedState = targetState ? targetState : initialState();
   const rootReducer = combineReducers({
     actions: actionsReducer,
-    aggregations: aggregationsReducer,
+    aggs: aggregationsReducer,
     detail: detailReducer,
     filters: filtersReducer,
     map: mapReducer,

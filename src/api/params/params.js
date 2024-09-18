@@ -1,9 +1,6 @@
 /* eslint-disable camelcase */
-
-// import { defaultSort } from '../../../constants';
-// import { validateDatePeriod } from '../../../reducers/utils/dateReducers';
-import { capitalize, clamp, removeNullProperties } from '../../utils';
-// const isEqual = require('react-fast-compare');
+import { clamp } from '../../utils';
+import { enforceValues } from '../../utils/reducers';
 // ----------------------------------------------------------------------------
 // return parameter objects
 
@@ -25,6 +22,9 @@ export function extractAggregationParams(state) {
     set1.date_received_min = query.date_received_min;
   }
 
+  if (query.searchField) {
+    set1.field = query.searchField;
+  }
   if (query.searchText) {
     set1.search_term = query.searchText;
   }
@@ -105,7 +105,7 @@ export function extractReducerAttributes(reducer, attributes) {
 export function extractQueryParams(queryState) {
   const query = queryState;
   const params = {
-    searchField: query.searchFields ?? 'all',
+    field: enforceValues(query.searchField, 'searchField'),
     // edge case for doc complaint override in
     // actions/complaints.js
     frm:
@@ -146,7 +146,6 @@ export function extractQueryParams(queryState) {
 //     date_received_min,
 //     field,
 //     frm: frm_as_string,
-//     index_name,
 //     search_term,
 //     size: size_as_string,
 //     sort,
@@ -172,12 +171,6 @@ export function extractQueryParams(queryState) {
 //   if (!isEqual(dateRange, {})) {
 //     query.dateRange = dateRange;
 //     validateDatePeriod(query.dateRange);
-//   }
-//
-//   // Handle the index name
-//   /* istanbul ignore else */
-//   if (index_name) {
-//     query._index = index_name;
 //   }
 //
 //   // Handle sort
@@ -215,36 +208,4 @@ export function extractTrendsParams(state) {
   }
 
   return params;
-}
-
-/**
- * Reverses extractTrendsParams
- *
- * @param {object} params - the parameters returned from the API
- * @returns {object} a version of the trends state
- */
-export function parseParamsToTrends(params) {
-  const { focus, lens, subLens, trend_depth } = params;
-  const trends = {
-    focus,
-    lens,
-    subLens,
-    trend_depth,
-  };
-
-  return removeNullProperties(trends);
-}
-
-/**
- * Handles the view model specific params
- *
- * @param {object} params - the parameters returned from the API
- * @returns {object} a version of the view model state
- */
-export function parseParamsToViewModel(params) {
-  const { trend_interval: interval } = params;
-
-  return removeNullProperties({
-    interval: capitalize(interval),
-  });
 }

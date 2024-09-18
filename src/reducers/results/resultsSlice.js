@@ -26,14 +26,12 @@ export const resultsSlice = createSlice({
         state.error = '';
         state.items = items;
       },
-      prepare: (items) => {
+      prepare: (data) => {
         return {
-          payload: {
-            data: items,
-            meta: {
-              persist: PERSIST_SAVE_QUERY_STRING,
-              requery: REQUERY_NEVER,
-            },
+          payload: data,
+          meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
+            requery: REQUERY_NEVER,
           },
         };
       },

@@ -14,7 +14,7 @@ import target, {
   updateScreenSize,
   viewState,
 } from './viewSlice';
-import actions from '../../actions';
+import * as actions from '../../actions';
 import * as types from '../../constants';
 
 describe('reducer:View', () => {

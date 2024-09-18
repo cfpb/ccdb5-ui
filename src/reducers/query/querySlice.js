@@ -330,7 +330,13 @@ export const querySlice = createSlice({
       .addCase('routes/routeChanged', (state, action) => {
         const { params } = action.payload;
         // Set some variables from the URL
-        const keys = ['dateRange', 'searchFields', 'searchText', 'sort'];
+        const keys = [
+          'dateRange',
+          'dateInterval',
+          'searchField',
+          'searchText',
+          'sort',
+        ];
         keys.forEach((item) => {
           if (params[item]) {
             state[item] = enforceValues(params[item], item);

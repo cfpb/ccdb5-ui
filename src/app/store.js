@@ -10,6 +10,8 @@ import routesReducer from '../reducers/routes/routesSlice';
 import trendsReducer from '../reducers/trends/trendsSlice';
 import viewReducer from '../reducers/view/viewSlice';
 import { configureStore } from '@reduxjs/toolkit';
+import { HTTP_GET_REQUEST } from '../actions/httpRequests/httpRequests';
+import httpRequestHandler from '../middleware/httpRequestHandler/httpRequestHandler';
 
 export default configureStore({
   devTools: true,
@@ -25,5 +27,10 @@ export default configureStore({
     view: viewReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat([queryManager, synchUrl]),
+    getDefaultMiddleware({
+      serializableCheck: {
+        // Ignore these action types
+        ignoredActions: [HTTP_GET_REQUEST],
+      },
+    }).concat([queryManager, synchUrl, httpRequestHandler]),
 });

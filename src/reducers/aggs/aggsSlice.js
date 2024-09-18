@@ -59,9 +59,7 @@ export const aggSlice = createSlice({
       },
       prepare: (data) => {
         return {
-          payload: {
-            data,
-          },
+          payload: data,
           meta: {
             requery: REQUERY_NEVER,
           },

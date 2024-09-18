@@ -67,11 +67,9 @@ export const mapSlice = createSlice({
           results,
         };
       },
-      prepare: (items) => {
+      prepare: (data) => {
         return {
-          payload: {
-            data: items,
-          },
+          payload: data,
           meta: {
             persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_NEVER,

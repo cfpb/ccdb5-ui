@@ -1,10 +1,5 @@
 /* eslint complexity: ["error", 5] */
-import {
-  API_PLACEHOLDER,
-  MODE_LIST,
-  MODE_MAP,
-  MODE_TRENDS,
-} from '../constants';
+import { API_PLACEHOLDER } from '../constants';
 import {
   complaintDetailCalled,
   complaintDetailReceived,
@@ -31,59 +26,7 @@ import {
   complaintsReceived,
 } from '../reducers/results/resultsSlice';
 import { buildAggregationUri, buildUri } from '../api/url/url';
-
-// ----------------------------------------------------------------------------
-// Routing action
-/**
- * Routes to the correct endpoint based on the state
- *
- * @returns {Promise} a chain of promises that will update the Redux store
- */
-export function sendQuery() {
-  // eslint-disable-next-line complexity
-  return (dispatch, getState) => {
-    const state = getState();
-    const viewMode = state.view.tab;
-    switch (viewMode) {
-      case MODE_MAP:
-      case MODE_LIST:
-      case MODE_TRENDS:
-        dispatch(getAggregations());
-        break;
-      default:
-        return;
-    }
-
-    // Send the right-hand queries
-    dispatch(sendHitsQuery());
-  };
-}
-
-/**
- * Routes to the correct endpoint based on the state
- *
- * @returns {Promise} a chain of promises that will update the Redux store
- */
-export function sendHitsQuery() {
-  // eslint-disable-next-line complexity
-  return (dispatch, getState) => {
-    const state = getState();
-    const viewMode = state.view.tab;
-    switch (viewMode) {
-      case MODE_MAP:
-        dispatch(getStates());
-        break;
-      case MODE_TRENDS:
-        dispatch(getTrends());
-        break;
-      case MODE_LIST:
-        dispatch(getComplaints());
-        break;
-      default:
-        break;
-    }
-  };
-}
+import { httpGet } from './httpRequests/httpRequests';
 
 // ----------------------------------------------------------------------------
 // Action Creators
@@ -106,10 +49,7 @@ export function getAggregations() {
     }
 
     dispatch(aggregationsApiCalled(uri));
-    return fetch(uri)
-      .then((result) => result.json())
-      .then((items) => dispatch(aggregationsReceived(items)))
-      .catch((error) => dispatch(aggregationsApiFailed(error)));
+    dispatch(httpGet(uri, aggregationsReceived, aggregationsApiFailed));
   };
 }
 
@@ -129,12 +69,7 @@ export function getComplaints() {
     }
 
     dispatch(complaintsApiCalled(uri));
-    return fetch(uri)
-      .then((result) => result.json())
-      .then((items) => {
-        dispatch(complaintsReceived(items));
-      })
-      .catch((error) => dispatch(complaintsApiFailed(error)));
+    dispatch(httpGet(uri, complaintsReceived, complaintsApiFailed));
   };
 }
 
@@ -154,10 +89,7 @@ export function getComplaintDetail(id) {
     }
 
     dispatch(complaintDetailCalled(uri));
-    fetch(uri)
-      .then((result) => result.json())
-      .then((data) => dispatch(complaintDetailReceived(data)))
-      .catch((error) => dispatch(complaintDetailFailed(error)));
+    dispatch(httpGet(uri, complaintDetailReceived, complaintDetailFailed));
   };
 }
 
@@ -178,10 +110,7 @@ export function getStates() {
     }
 
     dispatch(statesApiCalled(uri));
-    return fetch(uri)
-      .then((result) => result.json())
-      .then((items) => dispatch(statesReceived(items)))
-      .catch((error) => dispatch(statesApiFailed(error)));
+    dispatch(httpGet(uri, statesReceived, statesApiFailed));
   };
 }
 
@@ -209,11 +138,6 @@ export function getTrends() {
     }
 
     dispatch(trendsApiCalled(uri));
-    return fetch(uri)
-      .then((result) => result.json())
-      .then((items) => {
-        dispatch(trendsReceived(items));
-      })
-      .catch((error) => dispatch(trendsApiFailed(error)));
+    dispatch(httpGet(uri, trendsReceived, trendsApiFailed));
   };
 }

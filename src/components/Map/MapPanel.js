@@ -52,13 +52,16 @@ export const MapPanel = () => {
   const dispatch = useDispatch();
   const total = useSelector(selectAggsTotal);
 
+  const enablePer1000 = useSelector(selectFiltersEnablePer1000);
+  const mapWarningEnabled = useSelector(selectFiltersMapWarningEnabled);
+
   const activeCall = useSelector(selectMapActiveCall);
   const results = useSelector(selectMapResults);
   const hasError = useSelector(selectMapError);
-  const enablePer1000 = useSelector(selectFiltersEnablePer1000);
-  const mapWarningEnabled = useSelector(selectFiltersMapWarningEnabled);
+
   const maxDate = useSelector(selectQueryDateReceivedMax);
   const minDate = useSelector(selectQueryDateReceivedMin);
+
   const expandedRows = useSelector(selectViewExpandedRows);
   const width = useSelector(selectViewWidth);
   const hasMobileFilters = width < 750;

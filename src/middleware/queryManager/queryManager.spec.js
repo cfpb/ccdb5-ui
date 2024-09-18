@@ -1,168 +1,84 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import { queryManager } from './queryManager';
-import { REQUERY_ALWAYS, REQUERY_HITS_ONLY } from '../../constants';
-
-/**
- *
- * @param {string} viewMode - The current view mode
- * @returns {void}
- */
-function setupStore(viewMode) {
-  const middlewares = [thunk, queryManager];
-  const mockStore = configureMockStore(middlewares);
-  return mockStore({
-    aggs: {
-      activeCall: '',
-    },
-    map: {
-      activeCall: '',
-    },
-    query: {
-      date_received_min: new Date(2013, 1, 3),
-      from: 0,
-      has_narrative: true,
-      searchText: '',
-      size: 10,
-      tab: viewMode,
-    },
-    results: {
-      activeCall: '',
-    },
-  });
-}
+import {
+  MODE_LIST,
+  REQUERY_ALWAYS,
+  REQUERY_HITS_ONLY,
+  REQUERY_NEVER,
+} from '../../constants';
+import { initialState, setupStore } from '../../testUtils/setupStore';
+import queryManager from './queryManager';
+import {
+  aggregationsApiCalled,
+  complaintsApiCalled,
+  HTTP_GET_REQUEST,
+} from '../../actions';
 
 describe('redux middleware::queryManager', () => {
-  describe('compound actions', () => {
-    let store;
+  let targetStore;
+  beforeEach(() => {
+    targetStore = initialState();
+    targetStore.query.date_received_max = '2018-01-01';
+    targetStore.view.tab = MODE_LIST;
+  });
 
-    describe('Unknown Mode', () => {
-      beforeEach(() => {
-        store = setupStore('bogus');
-      });
-
-      it('REQUERY_ALWAYS runs no queries', () => {
-        const action = {
-          type: 'FakeAction',
-          meta: { requery: REQUERY_ALWAYS },
-        };
-        const expectedActions = [
-          { type: 'FakeAction', meta: { requery: REQUERY_ALWAYS } },
-        ];
-
-        store.dispatch(action);
-        expect(store.getActions()).toEqual(expectedActions);
-      });
-
-      it('REQUERY_HITS_ONLY runs no queries', () => {
-        const action = {
-          type: 'FakeAction',
-          meta: { requery: REQUERY_HITS_ONLY },
-        };
-        const expectedActions = [
-          { type: 'FakeAction', meta: { requery: REQUERY_HITS_ONLY } },
-        ];
-
-        store.dispatch(action);
-        expect(store.getActions()).toEqual(expectedActions);
-      });
+  describe('REQUERY_NEVER', () => {
+    it('does not query if an action has no metadata', () => {
+      const store = setupStore(targetStore, queryManager);
+      const action = {
+        type: 'FakeAction',
+      };
+      store.dispatch(action);
+      const { actions } = store.getState().actions;
+      expect(actions).toEqual([action]);
     });
 
-    describe('List Mode', () => {
-      beforeEach(() => {
-        store = setupStore('List');
-      });
-      it('does not query if an action has no metadata', () => {
-        const action = {
-          type: 'FakeAction',
-        };
-        const expectedActions = [{ type: 'FakeAction' }];
-        store.dispatch(action);
-        expect(store.getActions()).toEqual(expectedActions);
-      });
-
-      describe('REQUERY_ALWAYS', () => {
-        it('runs both left and right queries', () => {
-          const action = {
-            type: 'FakeAction',
-            meta: { requery: REQUERY_ALWAYS },
-          };
-          const expectedActions = [
-            { type: 'FakeAction', meta: { requery: REQUERY_ALWAYS } },
-            {
-              type: 'aggs/aggregationsApiCalled',
-              payload: '@@API?foo&size=0',
-            },
-            { type: 'results/complaintsApiCalled', payload: '@@API?foo' },
-          ];
-          store.dispatch(action);
-          expect(store.getActions()).toEqual(expectedActions);
-        });
-      });
-
-      describe('REQUERY_HITS_ONLY', () => {
-        it('only runs right hand queries', () => {
-          const action = {
-            type: 'FakeAction',
-            meta: { requery: REQUERY_HITS_ONLY },
-          };
-          const expectedActions = [
-            { type: 'FakeAction', meta: { requery: REQUERY_HITS_ONLY } },
-            { type: 'results/complaintsApiCalled', payload: '@@API?foo' },
-          ];
-          store.dispatch(action);
-          expect(store.getActions()).toEqual(expectedActions);
-        });
-      });
+    it('does not query if an action has REQUERY_NEVER', () => {
+      const store = setupStore(targetStore, queryManager);
+      const action = {
+        type: 'FakeAction',
+        meta: { requery: REQUERY_NEVER },
+      };
+      store.dispatch(action);
+      const { actions } = store.getState().actions;
+      expect(actions).toEqual([action]);
     });
+  });
 
-    describe('Map Mode', () => {
-      beforeEach(() => {
-        store = setupStore('Map');
-      });
-      describe('REQUERY_ALWAYS', () => {
-        it('runs both left and right queries', () => {
-          const action = {
-            type: 'FakeAction',
-            meta: { requery: REQUERY_ALWAYS },
-          };
-          const expectedActions = [
-            { type: 'FakeAction', meta: { requery: REQUERY_ALWAYS } },
-            {
-              type: 'aggs/aggregationsApiCalled',
-              payload: '@@API?foo&size=0',
-            },
-            {
-              type: 'map/statesApiCalled',
-              payload: '@@APIgeo/states/?foo&no_aggs=true',
-            },
-          ];
+  describe('REQUERY_ALWAYS', () => {
+    it('runs both left and right queries', async () => {
+      const store = setupStore(targetStore, queryManager);
+      const action = {
+        type: 'FakeAction',
+        meta: { requery: REQUERY_ALWAYS },
+      };
+      store.dispatch(action);
+      const { actions } = store.getState().actions;
+      const actionNames = actions.map((item) => item.type);
+      expect(actionNames).toEqual([
+        action.type,
+        aggregationsApiCalled().type,
+        HTTP_GET_REQUEST,
+        complaintsApiCalled().type,
+        HTTP_GET_REQUEST,
+      ]);
+    });
+  });
 
-          store.dispatch(action);
-          expect(store.getActions()).toEqual(expectedActions);
-        });
-      });
+  describe('REQUERY_HITS_ONLY', () => {
+    it('only runs right hand queries', () => {
+      const store = setupStore(targetStore, queryManager);
+      const action = {
+        type: 'FakeAction',
+        meta: { requery: REQUERY_HITS_ONLY },
+      };
 
-      describe('REQUERY_HITS_ONLY', () => {
-        it('only runs right hand queries', () => {
-          const action = {
-            type: 'FakeAction',
-            meta: {
-              requery: REQUERY_HITS_ONLY,
-            },
-          };
-          const expectedActions = [
-            { type: 'FakeAction', meta: { requery: REQUERY_HITS_ONLY } },
-            {
-              type: 'map/statesApiCalled',
-              payload: '@@APIgeo/states/?foo&no_aggs=true',
-            },
-          ];
-
-          store.dispatch(action);
-          expect(store.getActions()).toEqual(expectedActions);
-        });
-      });
+      store.dispatch(action);
+      const { actions } = store.getState().actions;
+      const actionNames = actions.map((item) => item.type);
+      expect(actionNames).toEqual([
+        action.type,
+        complaintsApiCalled().type,
+        HTTP_GET_REQUEST,
+      ]);
     });
   });
 });

@@ -1,5 +1,6 @@
 import * as constants from '../../constants';
-import { sendHitsQuery, sendQuery } from '../../actions/complaints';
+import { sendQuery } from '../../actions/sendQuery/sendQuery';
+import { sendHitsQuery } from '../../actions/sendHitsQuery/sendHitsQuery';
 
 export const queryManager = (store) => (next) => async (action) => {
   // call the next function

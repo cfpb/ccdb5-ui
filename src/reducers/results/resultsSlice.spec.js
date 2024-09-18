@@ -28,15 +28,17 @@ describe('reducer:results', () => {
 
       beforeEach(() => {
         payload = {
-          hits: {
-            hits: [{ _source: { val: '123' } }, { _source: { val: '456' } }],
-            total: 2,
-          },
-          _meta: {
-            total_record_count: 162576,
-            last_updated: '2017-07-10T00:00:00.000Z',
-            last_indexed: '2017-07-11T00:00:00.000Z',
-            license: 'CC0',
+          data: {
+            hits: {
+              hits: [{ _source: { val: '123' } }, { _source: { val: '456' } }],
+              total: 2,
+            },
+            _meta: {
+              total_record_count: 162576,
+              last_updated: '2017-07-10T00:00:00.000Z',
+              last_indexed: '2017-07-11T00:00:00.000Z',
+              license: 'CC0',
+            },
           },
         };
       });
@@ -55,7 +57,7 @@ describe('reducer:results', () => {
       });
 
       it('replaces text with highlighted text if it exists', () => {
-        payload.hits.hits[0].highlight = { val: ['<em>123</em>'] };
+        payload.data.hits.hits[0].highlight = { val: ['<em>123</em>'] };
 
         expect(
           target(

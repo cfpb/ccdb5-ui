@@ -65,14 +65,3 @@ export function buildUri(state) {
 export function formatUri(path, params) {
   return path + '?' + queryString.stringify(params);
 }
-
-/**
- * Generates a link for each document.
- *
- * @param {string} indexPath - complaints or tys.
- * @param {string} referenceNumber - The complaint id.
- * @returns {string} The document url.
- */
-export function genDocumentHref(indexPath, referenceNumber = '') {
-  return '/' + indexPath + '/document?id=' + referenceNumber;
-}

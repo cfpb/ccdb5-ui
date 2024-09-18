@@ -37,16 +37,17 @@ function getQueryAttrs(tab) {
     'date_received_min',
     'date_received_max',
     'searchText',
-    'searchFields',
+    'searchField',
   ];
 
   // list view needs these params
   if (tab === MODE_LIST) {
     return defaultParams.concat(['size', 'page', 'sort']);
   }
-  // if (tab === MODE_TRENDS) {
+  if (tab === MODE_TRENDS) {
+    return defaultParams.concat(['dateInterval']);
+  }
   return defaultParams;
-  // }
 }
 
 /**

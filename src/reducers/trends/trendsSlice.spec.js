@@ -407,7 +407,7 @@ describe('reducer:trends', () => {
     it('maps data to object state - Overview', () => {
       // to replicate
       // just choose All date range and overview
-      const payload = { aggregations: trendsAggs };
+      const payload = { data: { aggregations: trendsAggs } };
       state.lens = 'Overview';
       state.subLens = '';
       result = trends({ ...trendsState, ...state }, trendsReceived(payload));
@@ -418,7 +418,7 @@ describe('reducer:trends', () => {
       // just changing
       state.lens = 'Company';
       state.subLens = '';
-      const payload = { aggregations: trendsCompanyAggs };
+      const payload = { data: { aggregations: trendsCompanyAggs } };
       result = trends({ ...trendsState, ...state }, trendsReceived(payload));
       expect(result).toEqual({ ...trendsCompanyResults });
     });
@@ -426,7 +426,7 @@ describe('reducer:trends', () => {
     it('maps data to object state - dupe rows', () => {
       state.lens = 'Overview';
       state.subLens = '';
-      const payload = { aggregations: trendsAggsDupes };
+      const payload = { data: { aggregations: trendsAggsDupes } };
       result = trends({ ...trendsState, ...state }, trendsReceived(payload));
       expect(result).toEqual({ ...trendsState, ...trendsAggsDupeResults });
     });
@@ -439,7 +439,7 @@ describe('reducer:trends', () => {
       // you'll get broken buckets since the product recategorization in apr
       state.lens = 'Product';
       state.subLens = 'sub_product';
-      const payload = { aggregations: trendsAggsMissingBuckets };
+      const payload = { data: { aggregations: trendsAggsMissingBuckets } };
       result = trends(state, trendsReceived(payload));
       expect(result).toEqual(trendsAggsMissingBucketsResults);
     });
@@ -448,7 +448,7 @@ describe('reducer:trends', () => {
       state.lens = 'Product';
       state.subLens = 'sub_product';
       state.focus = 'Debt collection';
-      const payload = { aggregations: trendsFocusAggs };
+      const payload = { data: { aggregations: trendsFocusAggs } };
       result = trends(state, trendsReceived(payload));
       expect(result).toEqual(trendsFocusAggsResults);
       expect(result.results.issue.length).toBeTruthy();
@@ -460,7 +460,7 @@ describe('reducer:trends', () => {
       state.chartType = 'area';
       state.lens = 'Product';
       state.subLens = 'sub_product';
-      const payload = { aggregations: trendsBackfill };
+      const payload = { data: { aggregations: trendsBackfill } };
       result = trends(state, trendsReceived(payload));
       expect(result).toEqual(trendsBackfillResults);
     });
@@ -480,7 +480,10 @@ describe('reducer:trends', () => {
         dateRangeLine: [7, 8, 9],
         product: [1, 2, 3],
       };
-      result = trends(state, trendsReceived({ aggregations: emptyAggs }));
+      result = trends(
+        state,
+        trendsReceived({ data: { aggregations: emptyAggs } }),
+      );
       expect(result).toEqual({
         activeCall: '',
         chartType: 'area',

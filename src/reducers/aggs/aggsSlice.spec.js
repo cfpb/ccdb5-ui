@@ -41,21 +41,23 @@ describe('reducer:aggs', () => {
 
   it('handles aggregationsReceived actions', () => {
     const action = {
-      aggregations: {
-        company_response: {
+      data: {
+        aggregations: {
           company_response: {
-            buckets: [{ key: 'foo', doc_count: 99 }],
+            company_response: {
+              buckets: [{ key: 'foo', doc_count: 99 }],
+            },
           },
         },
-      },
-      hits: {
-        total: { value: 99 },
-      },
-      _meta: {
-        total_record_count: 162576,
-        last_updated: '2017-07-10T00:00:00.000Z',
-        last_indexed: '2017-07-11T00:00:00.000Z',
-        license: 'CC0',
+        hits: {
+          total: { value: 99 },
+        },
+        _meta: {
+          total_record_count: 162576,
+          last_updated: '2017-07-10T00:00:00.000Z',
+          last_indexed: '2017-07-11T00:00:00.000Z',
+          license: 'CC0',
+        },
       },
     };
     const expected = {

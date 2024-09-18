@@ -38,7 +38,9 @@ describe('reducer:map', () => {
   describe('STATES_RECEIVED actions', () => {
     beforeEach(() => {
       action = {
-        aggregations: stateAggs,
+        data: {
+          aggregations: stateAggs,
+        },
       };
     });
 

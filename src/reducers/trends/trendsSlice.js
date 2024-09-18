@@ -303,11 +303,9 @@ export const trendsSlice = createSlice({
         state.total = total;
         state.subLens = lens === 'Company' ? 'product' : state.subLens;
       },
-      prepare: (items) => {
+      prepare: (data) => {
         return {
-          payload: {
-            data: items,
-          },
+          payload: data,
           meta: {
             persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_NEVER,

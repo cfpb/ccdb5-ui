@@ -45,16 +45,18 @@ describe('reducer:query', () => {
   describe('COMPLAINTS_RECEIVED actions', () => {
     it('updates total number of pages', () => {
       const payload = {
-        _meta: {
-          break_points: {
-            2: [2, 2],
-            3: [3, 2],
-            4: [4, 2],
-            5: [5, 2],
+        data: {
+          _meta: {
+            break_points: {
+              2: [2, 2],
+              3: [3, 2],
+              4: [4, 2],
+              5: [5, 2],
+            },
           },
-        },
-        hits: {
-          total: { value: 10000 },
+          hits: {
+            total: { value: 10000 },
+          },
         },
       };
 
@@ -78,16 +80,18 @@ describe('reducer:query', () => {
 
     it('limits the current page correctly', () => {
       const payload = {
-        _meta: {
-          break_points: {
-            2: [2, 2],
-            3: [3, 2],
-            4: [4, 2],
-            5: [5, 2],
+        data: {
+          _meta: {
+            break_points: {
+              2: [2, 2],
+              3: [3, 2],
+              4: [4, 2],
+              5: [5, 2],
+            },
           },
-        },
-        hits: {
-          total: { value: 10000 },
+          hits: {
+            total: { value: 10000 },
+          },
         },
       };
 
