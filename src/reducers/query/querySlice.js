@@ -488,7 +488,7 @@ export function toDate(value) {
   const localTimeThen = new Date(
     utcDate.getFullYear(),
     utcDate.getMonth(),
-    utcDate.getDate() + 1,
+    utcDate.getDate(),
   );
 
   return localTimeThen;

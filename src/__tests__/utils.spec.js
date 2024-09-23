@@ -274,14 +274,14 @@ describe('module::utils', () => {
       };
 
       const actual = startOfToday();
-      expect(dayjs(actual).toISOString()).toEqual('2020-05-09T04:00:00.000Z');
+      expect(dayjs(actual).toISOString()).toEqual('2020-05-09T00:00:00.000Z');
     });
 
     it('defaults MAX_DATE if the metadata is missing', () => {
       MockDate.set(dayjs('5/1/2020').utc());
 
       const actual = startOfToday();
-      expect(dayjs(actual).toISOString()).toEqual('2020-05-01T04:00:00.000Z');
+      expect(dayjs(actual).toISOString()).toEqual('2020-05-01T00:00:00.000Z');
     });
   });
 
