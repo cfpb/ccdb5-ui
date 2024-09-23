@@ -16,6 +16,7 @@ import { selectAggsState } from '../../../reducers/aggs/selectors';
 import {
   selectViewIsPrintMode,
   selectViewExpandedRows,
+  selectViewWidth,
 } from '../../../reducers/view/selectors';
 import {
   cloneDeep,
@@ -39,6 +40,7 @@ export const RowChart = ({
   const aggs = useSelector(selectAggsState);
   const expandedRows = useSelector(selectViewExpandedRows);
   const isPrintMode = useSelector(selectViewIsPrintMode);
+  const width = useSelector(selectViewWidth);
   //const width = useSelector(selectViewWidth);
   const lens = tab === MODE_MAP ? 'Product' : queryLens;
 
@@ -241,6 +243,7 @@ export const RowChart = ({
     isPrintMode,
     lens,
     total,
+    width,
   ]);
 
   return total ? (
