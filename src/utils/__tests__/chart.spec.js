@@ -294,8 +294,8 @@ describe('pruneIncompleteLineInterval', () => {
   });
 
   it('returns full set if last interval complete', () => {
-    sut.pruneIncompleteLineInterval(data, dateRange, 'Year');
-    expect(data).toEqual({
+    const result = sut.pruneIncompleteLineInterval(data, dateRange, 'Year');
+    expect(result).toEqual({
       dataByTopic: [
         {
           name: 'Foo',
@@ -312,8 +312,8 @@ describe('pruneIncompleteLineInterval', () => {
 
   it('removes start date if start interval incomplete', () => {
     dateRange.from = '12/23/2011';
-    sut.pruneIncompleteLineInterval(data, dateRange, 'Year');
-    expect(data).toEqual({
+    const result = sut.pruneIncompleteLineInterval(data, dateRange, 'Year');
+    expect(result).toEqual({
       dataByTopic: [
         {
           name: 'Foo',
@@ -329,8 +329,8 @@ describe('pruneIncompleteLineInterval', () => {
 
   it('removes last date if last interval incomplete', () => {
     dateRange.to = '12/23/2014';
-    sut.pruneIncompleteLineInterval(data, dateRange, 'Year');
-    expect(data).toEqual({
+    const result = sut.pruneIncompleteLineInterval(data, dateRange, 'Year');
+    expect(result).toEqual({
       dataByTopic: [
         {
           name: 'Foo',
