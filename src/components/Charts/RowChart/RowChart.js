@@ -15,6 +15,7 @@ import {
   selectViewIsPrintMode,
   selectViewExpandedRows,
   selectViewTab,
+  selectViewWidth,
 } from '../../../reducers/view/selectors';
 import {
   cloneDeep,
@@ -38,7 +39,7 @@ export const RowChart = ({
   const aggs = useSelector(selectAggsRootState);
   const expandedRows = useSelector(selectViewExpandedRows);
   const isPrintMode = useSelector(selectViewIsPrintMode);
-  //const width = useSelector(selectViewWidth);
+  const width = useSelector(selectViewWidth);
   const lens = tab === MODE_MAP ? 'Product' : trendsLens;
 
   useEffect(() => {
@@ -179,17 +180,17 @@ export const RowChart = ({
     const rowContainer = d3.select(chartID);
 
     // added padding to make up for margin
-    const width = isPrintMode
+    const containerWidth = isPrintMode
       ? 750
       : rowContainer.node().getBoundingClientRect().width + 30;
 
     const height = rows.length === 1 ? 100 : rows.length * 60;
     const chart = row();
-    const marginLeft = width / 4;
+    const marginLeft = containerWidth / 4;
 
     // tweak to make the chart full width at desktop
     // add space at narrow width
-    const marginRight = width < 600 ? 40 : -65;
+    const marginRight = containerWidth < 600 ? 40 : -65;
 
     chart
       .margin({
@@ -208,7 +209,7 @@ export const RowChart = ({
       .percentageAxisToMaxRatio(ratio)
       .yAxisLineWrapLimit(2)
       .yAxisPaddingBetweenChart(20)
-      .width(width)
+      .width(containerWidth)
       .wrapLabels(true)
       .height(height)
       .on('customMouseOver', tooltip.show)
@@ -240,6 +241,7 @@ export const RowChart = ({
     isPrintMode,
     lens,
     total,
+    width,
   ]);
 
   return total ? (

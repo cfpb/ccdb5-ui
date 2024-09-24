@@ -17,7 +17,10 @@ import {
   selectTrendsResultsDateRangeLine,
 } from '../../../reducers/trends/selectors';
 import { tooltipUpdated } from '../../../reducers/trends/trendsSlice';
-import { selectViewIsPrintMode } from '../../../reducers/view/selectors';
+import {
+  selectViewIsPrintMode,
+  selectViewWidth,
+} from '../../../reducers/view/selectors';
 import {
   selectQueryDateReceivedMax,
   selectQueryDateReceivedMin,
@@ -35,6 +38,7 @@ export const LineChart = () => {
   const dateFrom = useSelector(selectQueryDateReceivedMin);
   const dateTo = useSelector(selectQueryDateReceivedMax);
   const isPrintMode = useSelector(selectViewIsPrintMode);
+  const width = useSelector(selectViewWidth);
 
   const hasTooltip = lens !== 'Overview';
   const processData = useMemo(() => {
@@ -141,6 +145,7 @@ export const LineChart = () => {
     isPrintMode,
     lens,
     processData,
+    width,
   ]);
 
   return (
