@@ -21,7 +21,10 @@ import {
   selectQueryDateInterval,
   selectQueryLens,
 } from '../../../reducers/query/selectors';
-import { selectViewIsPrintMode } from '../../../reducers/view/selectors';
+import {
+  selectViewIsPrintMode,
+  selectViewWidth,
+} from '../../../reducers/view/selectors';
 import { ChartWrapper } from '../ChartWrapper/ChartWrapper';
 
 export const StackedAreaChart = () => {
@@ -33,7 +36,9 @@ export const StackedAreaChart = () => {
   const to = useSelector(selectQueryDateReceivedMax);
   const lens = useSelector(selectQueryLens);
   const interval = useSelector(selectQueryDateInterval);
+
   const isPrintMode = useSelector(selectViewIsPrintMode);
+  const width = useSelector(selectViewWidth);
 
   const showTooltip = lens !== 'Overview';
 
@@ -116,6 +121,7 @@ export const StackedAreaChart = () => {
     interval,
     isPrintMode,
     isDataEmpty,
+    width,
   ]);
 
   return (
