@@ -3,7 +3,7 @@ import target, {
   defaultQuery,
   filterArrayAction,
 } from './query';
-import actions from '../../actions';
+import * as actions from '../../actions';
 import * as types from '../../constants';
 import dayjs from 'dayjs';
 import { startOfToday } from '../../utils';

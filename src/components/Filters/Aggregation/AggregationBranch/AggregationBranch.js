@@ -2,17 +2,13 @@ import './AggregationBranch.less';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { FormattedNumber } from 'react-intl';
 import {
   coalesce,
   getAllFilters,
   sanitizeHtmlId,
   slugify,
 } from '../../../../utils';
-import {
-  removeMultipleFilters,
-  replaceFilters,
-} from '../../../../actions/filter';
+import { removeMultipleFilters, replaceFilters } from '../../../../actions';
 import { selectQueryState } from '../../../../reducers/query/selectors';
 import { AggregationItem } from '../AggregationItem/AggregationItem';
 import getIcon from '../../../iconMap';
@@ -112,7 +108,7 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
           {isOpen ? getIcon('up') : getIcon('down')}
         </button>
         <span className="flex-fixed parent-count">
-          <FormattedNumber value={item.doc_count} />
+          {item.doc_count.toLocaleString()}
         </span>
       </li>
       {isOpen ? (

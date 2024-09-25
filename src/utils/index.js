@@ -257,11 +257,14 @@ export function shortFormat(date) {
 /**
  * Convert a date to a truncated ISO-8601 string
  *
- * @param {Date} date - the date to convert
+ * @param {Date} value - the date to convert
  * @returns {string} the date formatted as yyyy-mm-ddd
  */
-export function shortIsoFormat(date) {
-  return date ? date.toISOString().substring(0, 10) : '';
+export function shortIsoFormat(value) {
+  if (value instanceof Date && !isNaN(value)) {
+    return value.toISOString().substring(0, 10);
+  }
+  return value ? value : '';
 }
 
 /**

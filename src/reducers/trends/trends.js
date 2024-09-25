@@ -15,7 +15,7 @@ import {
   getTooltipTitle,
   updateDateBuckets,
 } from '../../utils/chart';
-import actions from '../../actions';
+import * as actions from '../../actions';
 import { isDateEqual } from '../../utils/formatDate';
 import { MODE_TRENDS } from '../../constants';
 import { pruneOther } from '../../utils/trends';

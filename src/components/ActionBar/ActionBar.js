@@ -1,16 +1,14 @@
 import './ActionBar.less';
 import { useDispatch, useSelector } from 'react-redux';
-import { FormattedNumber } from 'react-intl';
 import getIcon from '../iconMap';
 import { sendAnalyticsEvent } from '../../utils';
-import { showModal } from '../../actions/view';
+import { printModeOn, showModal } from '../../actions';
 import { StaleDataWarnings } from '../Warnings/StaleDataWarnings';
 import {
   selectAggsDocCount,
   selectAggsTotal,
 } from '../../reducers/aggs/selectors';
 import { selectQueryTab } from '../../reducers/query/selectors';
-import { printModeOn } from '../../actions/view';
 import { MODAL_TYPE_DATA_EXPORT } from '../../constants';
 
 export const ActionBar = () => {
@@ -29,17 +27,15 @@ export const ActionBar = () => {
         <div>
           {total === docCount ? (
             <h2>
-              Showing&nbsp;
-              <FormattedNumber value={docCount} />
-              &nbsp;total complaints
+              {'Showing ' + docCount.toLocaleString() + ' total complaints'}
             </h2>
           ) : (
             <h2>
-              Showing&nbsp;
-              <FormattedNumber value={total} />
-              &nbsp;matches out of&nbsp;
-              <FormattedNumber value={docCount} />
-              &nbsp;total complaints
+              {'Showing ' +
+                total.toLocaleString() +
+                ' matches out of ' +
+                docCount.toLocaleString() +
+                ' total complaints'}
             </h2>
           )}
         </div>

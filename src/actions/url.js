@@ -1,4 +1,4 @@
-import { sendQuery } from './complaints';
+import { sendQuery } from '../actions';
 import queryString from 'query-string';
 
 export const URL_CHANGED = 'URL_CHANGED';

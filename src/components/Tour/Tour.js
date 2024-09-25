@@ -11,7 +11,7 @@ import {
 import { Steps } from 'intro.js-react';
 import { TOUR_STEPS } from './constants/tourStepsConstants';
 import { TourButton } from './TourButton';
-import { tourHidden } from '../../actions/view';
+import { tourHidden } from '../../actions';
 
 export const Tour = () => {
   const dispatch = useDispatch();
@@ -19,6 +19,7 @@ export const Tour = () => {
   const tab = useSelector(selectQueryTab);
   const isPrintMode = useSelector(selectViewIsPrintMode);
   const viewWidth = useSelector(selectViewWidth);
+  const stepRef = useRef();
 
   const mobileStepOpen = {
     disableInteraction: false,
@@ -44,7 +45,6 @@ export const Tour = () => {
             TOUR_STEPS[tab].slice(7),
           )
       : TOUR_STEPS[tab];
-  const stepRef = useRef();
 
   // INTRODUCTION / TUTORIAL OPTIONS:
   const options = {
@@ -135,7 +135,7 @@ export const Tour = () => {
    * @returns {boolean} Can we exit?
    */
   function handleBeforeExit(ref) {
-    if (ref.current === null) {
+    if (ref.current === null || !showTour) {
       return true;
     }
     if (ref.current.introJs.currentStep() + 1 < steps.length) {

@@ -1,5 +1,5 @@
 import target, { defaultView } from './view';
-import actions from '../../actions';
+import * as actions from '../../actions';
 
 describe('reducer:map', () => {
   let action;

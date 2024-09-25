@@ -1,5 +1,5 @@
 // reducer for the Map Tab
-import actions from '../../actions';
+import * as actions from '../../actions';
 
 import { processAggregations } from '../trends/trends';
 import { processErrorMessage } from '../../utils';
