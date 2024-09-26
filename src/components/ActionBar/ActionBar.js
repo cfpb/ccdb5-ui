@@ -2,13 +2,14 @@ import './ActionBar.less';
 import { useDispatch, useSelector } from 'react-redux';
 import getIcon from '../iconMap';
 import { sendAnalyticsEvent } from '../../utils';
-import { printModeOn, showModal } from '../../actions';
+import { showModal } from '../../actions/view';
 import { StaleDataWarnings } from '../Warnings/StaleDataWarnings';
 import {
   selectAggsDocCount,
   selectAggsTotal,
 } from '../../reducers/aggs/selectors';
 import { selectQueryTab } from '../../reducers/query/selectors';
+import { printModeOn } from '../../actions/view';
 import { MODAL_TYPE_DATA_EXPORT } from '../../constants';
 
 export const ActionBar = () => {
@@ -24,21 +25,20 @@ export const ActionBar = () => {
   return (
     <div>
       <summary className="action-bar" id="search-summary">
-        <div>
-          {total === docCount ? (
-            <h2>
-              {'Showing ' + docCount.toLocaleString() + ' total complaints'}
-            </h2>
-          ) : (
-            <h2>
-              {'Showing ' +
-                total.toLocaleString() +
-                ' matches out of ' +
-                docCount.toLocaleString() +
-                ' total complaints'}
-            </h2>
-          )}
-        </div>
+        {total === docCount ? (
+          <h2>
+            {'Showing ' + docCount.toLocaleString() + ' total complaints'}
+          </h2>
+        ) : (
+          <h2>
+            {'Showing ' +
+              total.toLocaleString() +
+              ' matches out of ' +
+              docCount.toLocaleString() +
+              ' total complaints'}
+          </h2>
+        )}
+
         <div>
           <h3 className="h4 flex-all export-results">
             <button
