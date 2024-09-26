@@ -28,6 +28,10 @@ describe('reducer:map', () => {
       activeCall: 'http://www.example.org',
       error: false,
       isLoading: true,
+      results: {
+        product: [],
+        state: [],
+      },
     });
   });
 

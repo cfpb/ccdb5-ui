@@ -10,7 +10,7 @@ import { Tour } from '../Tour/Tour';
 import { useUpdateLocation } from '../../hooks/useUpdateLocation';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { useEvent } from '../../hooks/useEvent';
-import { printModeOff, printModeOn } from '../../actions';
+import { printModeOff, printModeOn } from '../../actions/view';
 
 export const SearchComponents = () => {
   useUpdateLocation();

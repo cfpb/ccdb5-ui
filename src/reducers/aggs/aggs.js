@@ -15,7 +15,6 @@ export const defaultAggs = {
   error: '',
   lastUpdated: null,
   lastIndexed: null,
-  loadingAggregations: false,
   hasDataIssue: false,
   isDataStale: false,
   company: [],
@@ -68,6 +67,7 @@ export function processAggregationResults(state, action) {
 
   const result = {
     ...state,
+    activeCall: '',
     doc_count,
     error: '',
     isLoading: false,
@@ -95,6 +95,7 @@ export function processAggregationResults(state, action) {
 export function processAggregationError(state, action) {
   return {
     ...defaultAggs,
+    activeCall: '',
     isLoading: false,
     error: processErrorMessage(action.error),
   };

@@ -13,7 +13,7 @@ const maxDate = startOfToday();
 describe('reducer:query', () => {
   let action, result, state;
   describe('default', () => {
-    xit('has a default state', () => {
+    it('has a default state', () => {
       result = target(undefined, {});
       expect(result).toEqual({
         breakPoints: {},
@@ -21,8 +21,8 @@ describe('reducer:query', () => {
         dataNormalization: types.GEO_NORM_NONE,
         dateInterval: 'Month',
         dateRange: '3y',
-        date_received_max: new Date('2020-05-05T04:00:00.000Z'),
-        date_received_min: new Date('2017-05-05T04:00:00.000Z'),
+        date_received_max: new Date('2020-05-05T00:00:00.000Z'),
+        date_received_min: new Date('2017-05-05T00:00:00.000Z'),
         enablePer1000: true,
         focus: '',
         from: 0,
@@ -36,7 +36,7 @@ describe('reducer:query', () => {
         searchField: 'all',
         page: 1,
         searchAfter: '',
-        size: 25,
+        size: '25',
         sort: 'created_date_desc',
         subLens: 'sub_product',
         tab: 'Trends',
@@ -457,7 +457,7 @@ describe('reducer:query', () => {
       state = { ...defaultQuery };
     });
 
-    xit('handles empty params', () => {
+    it('handles empty params', () => {
       expect(target(state, action)).toEqual(state);
     });
 
@@ -507,12 +507,12 @@ describe('reducer:query', () => {
       expect(actual).toEqual(true);
     });
 
-    xit('ignores incorrect dates', () => {
+    it('ignores incorrect dates', () => {
       action.params = { date_received_min: 'foo' };
       expect(target({}, action)).toEqual(state);
     });
 
-    xit('ignores unknown parameters', () => {
+    it('ignores unknown parameters', () => {
       action.params = { foo: 'bar' };
       expect(target(state, action)).toEqual(state);
     });
@@ -1314,14 +1314,14 @@ describe('reducer:query', () => {
         );
       });
 
-      xit('handles 1y range', () => {
+      it('handles 1y range', () => {
         action.dateRange = '1y';
         result = target({}, action);
         expect(result).toEqual({
           breakPoints: {},
           dateRange: '1y',
-          date_received_max: new Date('2020-05-05T04:00:00.000Z'),
-          date_received_min: new Date('2019-05-05T04:00:00.000Z'),
+          date_received_max: new Date('2020-05-05T00:00:00.000Z'),
+          date_received_min: new Date('2019-05-05T00:00:00.000Z'),
           from: 0,
           page: 1,
           queryString:
@@ -1331,15 +1331,15 @@ describe('reducer:query', () => {
         });
       });
 
-      xit('default range handling', () => {
+      it('default range handling', () => {
         action.dateRange = 'foo';
         result = target({}, action);
         // only set max date
         expect(result).toEqual({
           breakPoints: {},
           dateRange: '3y',
-          date_received_min: new Date('2017-05-05T04:00:00.000Z'),
-          date_received_max: new Date('2020-05-05T04:00:00.000Z'),
+          date_received_min: new Date('2017-05-05T00:00:00.000Z'),
+          date_received_max: new Date('2020-05-05T00:00:00.000Z'),
           from: 0,
           page: 1,
           queryString:

@@ -1,4 +1,4 @@
-import queryManager from '../middleware/queryManager';
+import queryManager from '../middleware/queryManager/queryManager';
 import synchUrl from '../middleware/synchUrl/synchUrl';
 import aggReducer from '../reducers/aggs/aggs';
 import detailReducer from '../reducers/detail/detail';

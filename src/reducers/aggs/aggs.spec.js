@@ -68,6 +68,7 @@ describe('reducer:aggs', () => {
       },
     };
     const expected = {
+      activeCall: '',
       doc_count: 162576,
       company_response: [{ key: 'foo', doc_count: 99 }],
       isLoading: false,
@@ -79,6 +80,8 @@ describe('reducer:aggs', () => {
       isDataStale: undefined,
     };
 
-    expect(target({ doc_count: 100 }, action)).toEqual(expected);
+    expect(target({ activeCall: 'foobar', doc_count: 100 }, action)).toEqual(
+      expected,
+    );
   });
 });

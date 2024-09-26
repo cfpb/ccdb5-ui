@@ -1,3 +1,4 @@
+export const selectTrendsActiveCall = (state) => state.trends.activeCall;
 export const selectTrendsChartType = (state) => state.trends.chartType;
 export const selectTrendsTooltip = (state) => state.trends.tooltip;
 export const selectTrendsTotal = (state) => state.trends.total;

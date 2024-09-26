@@ -40,7 +40,6 @@ function setupStore(targetState, additionalMiddlewares) {
     query: queryReducer,
     results: resultsReducer,
     trends: trendsReducer,
-
     view: viewModelReducer,
   });
   // this is in case we pass in only a single value
