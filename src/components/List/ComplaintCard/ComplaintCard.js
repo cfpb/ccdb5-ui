@@ -1,6 +1,5 @@
 import './ComplaintCard.less';
-import { ariaReadoutNumbers } from '../../../utils';
-import { FormattedDate } from 'react-intl';
+import { ariaReadoutNumbers, shortFormat } from '../../../utils';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -65,7 +64,7 @@ export const ComplaintCard = ({ row }) => {
             <div className="layout-row">
               <h4>Date received:</h4>
               <span className="body-copy">
-                <FormattedDate tabIndex="0" value={row.date_received} />
+                {shortFormat(row.date_received)}
               </span>
             </div>
             <div className="spacer" />

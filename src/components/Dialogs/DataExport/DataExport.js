@@ -3,7 +3,6 @@ import { getFullUrl, sendAnalyticsEvent } from '../../../utils';
 import { buildAllResultsUri, buildSomeResultsUri } from './dataExportUtils';
 import { hideModal, showModal } from '../../../actions/view';
 import { useDispatch, useSelector } from 'react-redux';
-import { FormattedNumber } from 'react-intl';
 import getIcon from '../../iconMap';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -149,9 +148,9 @@ export const DataExport = () => {
                   value="filtered"
                 />
                 <label className="a-label" htmlFor="dataset_filtered">
-                  Filtered dataset (
-                  <FormattedNumber value={someComplaintsCount} />
-                  &nbsp;complaints)
+                  {'Filtered dataset (' +
+                    someComplaintsCount.toLocaleString() +
+                    ' complaints)'}
                   <br />
                   (only the results of the last search and/or filter)
                 </label>
@@ -169,8 +168,9 @@ export const DataExport = () => {
                   value="full"
                 />
                 <label className="a-label" htmlFor="dataset_full">
-                  Full dataset (<FormattedNumber value={allComplaintsCount} />
-                  &nbsp;complaints)
+                  {'Full dataset (' +
+                    allComplaintsCount.toLocaleString() +
+                    ' complaints)'}
                   <br />
                   (not recommended due to very large file size)
                 </label>

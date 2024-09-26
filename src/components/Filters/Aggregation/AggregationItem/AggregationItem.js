@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { FormattedNumber } from 'react-intl';
 import { filterPatch, SLUG_SEPARATOR } from '../../../../constants';
 import { coalesce, sanitizeHtmlId } from '../../../../utils';
 import { arrayEquals } from '../../../../utils/compare';
@@ -106,7 +105,7 @@ export const AggregationItem = ({ fieldName, item }) => {
         {value}
       </label>
       <span className="flex-fixed bucket-count">
-        <FormattedNumber value={item.doc_count} />
+        {item.doc_count.toLocaleString()}
       </span>
     </li>
   );
