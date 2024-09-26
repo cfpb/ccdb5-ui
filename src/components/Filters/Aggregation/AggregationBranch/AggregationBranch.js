@@ -2,7 +2,6 @@ import './AggregationBranch.less';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { FormattedNumber } from 'react-intl';
 import {
   coalesce,
   getAllFilters,
@@ -112,7 +111,7 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
           {isOpen ? getIcon('up') : getIcon('down')}
         </button>
         <span className="flex-fixed parent-count">
-          <FormattedNumber value={item.doc_count} />
+          {item.doc_count.toLocaleString()}
         </span>
       </li>
       {isOpen ? (

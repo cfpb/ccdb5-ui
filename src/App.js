@@ -2,7 +2,6 @@ import './css/App.less';
 import { applyMiddleware, createStore } from 'redux';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
 import queryManager from './middleware/queryManager';
 import { ComplaintDetail } from './components/ComplaintDetail/ComplaintDetail';
@@ -31,11 +30,9 @@ const store = createStore(
 /* eslint-disable camelcase */
 export const DetailComponents = () => {
   return (
-    <IntlProvider locale="en">
-      <main role="main">
-        <ComplaintDetail />
-      </main>
-    </IntlProvider>
+    <main role="main">
+      <ComplaintDetail />
+    </main>
   );
 };
 /* eslint-enable camelcase */

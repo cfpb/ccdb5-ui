@@ -1,9 +1,9 @@
 import './SearchPanel.less';
 import { useSelector } from 'react-redux';
-import { FormattedDate } from 'react-intl';
 import { PillPanel } from './PillPanel';
 import { SearchBar } from './SearchBar';
 import { selectAggsLastIndexed } from '../../reducers/aggs/selectors';
+import { shortFormat } from '../../utils';
 
 export const SearchPanel = () => {
   const lastIndexed = useSelector(selectAggsLastIndexed);
@@ -12,7 +12,7 @@ export const SearchPanel = () => {
   if (lastIndexed) {
     lastIndexedMessage = (
       <span className="date-subscript">
-        (last updated: <FormattedDate value={lastIndexed} />)
+        (last updated: {shortFormat(lastIndexed)})
       </span>
     );
   }

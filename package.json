@@ -95,7 +95,6 @@
     "react-bootstrap": "^2.6.0",
     "react-bootstrap-typeahead": "^6.3.2",
     "react-dom": "^18.2.0",
-    "react-intl": "^6.6.6",
     "react-modal": "^3.16.1",
     "react-redux": "^7.2.0",
     "react-router-dom": "^6.23.1",

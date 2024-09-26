@@ -1,4 +1,3 @@
-import { IntlProvider } from 'react-intl';
 import { render as rtlRender } from '@testing-library/react';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
@@ -47,11 +46,9 @@ function testRender(
    */
   function Wrapper({ children }) {
     return (
-      <IntlProvider locale="en">
-        <Provider store={store}>
-          <BrowserRouter>{children}</BrowserRouter>
-        </Provider>
-      </IntlProvider>
+      <Provider store={store}>
+        <BrowserRouter>{children}</BrowserRouter>
+      </Provider>
     );
   }
 
@@ -101,13 +98,9 @@ function testRenderWithMemoryRouter(
    */
   function Wrapper({ children }) {
     return (
-      <IntlProvider locale="en">
-        <Provider store={store}>
-          <MemoryRouter initialEntries={initialEntries}>
-            {children}
-          </MemoryRouter>
-        </Provider>
-      </IntlProvider>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
+      </Provider>
     );
   }
 
