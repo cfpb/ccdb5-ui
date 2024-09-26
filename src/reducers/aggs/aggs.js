@@ -15,7 +15,6 @@ export const defaultAggs = {
   error: '',
   lastUpdated: null,
   lastIndexed: null,
-  loadingAggregations: false,
   hasDataIssue: false,
   isDataStale: false,
   company: [],
