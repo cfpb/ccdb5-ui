@@ -86,11 +86,13 @@ export function sendHitsQuery() {
 export function getAggregations() {
   return (dispatch, getState) => {
     const store = getState();
-    const qs = store.query.queryString;
+    const regex = /&size=\d+&/gm;
+    // remove the duplicate size from the qs
+    const qs = store.query.queryString.replace(regex, '&');
     const uri = API_PLACEHOLDER + qs + '&size=0';
 
     // This call is already in process
-    if (store.results.loadingAggregations) {
+    if (uri === store.aggs.activeCall) {
       return null;
     }
 
@@ -133,8 +135,15 @@ export function getComplaints() {
  * @returns {Promise} a chain of promises that will update the Redux store
  */
 export function getComplaintDetail(id) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const store = getState();
     const uri = API_PLACEHOLDER + id;
+
+    // This call is already in process
+    if (uri === store.detail.activeCall) {
+      return null;
+    }
+
     dispatch(callingApi(COMPLAINT_DETAIL_CALLED, uri));
     fetch(uri)
       .then((result) => result.json())

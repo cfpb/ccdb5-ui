@@ -12,6 +12,7 @@ const mockStore = configureMockStore(middlewares);
  */
 function setupStore(tab) {
   return mockStore({
+    aggs: {},
     map: {},
     query: {
       tab,
@@ -83,6 +84,7 @@ describe('action::complaints', () => {
       });
       /* eslint-enable id-length */
       store = mockStore({
+        aggs: {},
         query: {
           date_received_min: new Date(2013, 1, 3),
           from: 0,
@@ -104,7 +106,7 @@ describe('action::complaints', () => {
 
     it('discards duplicate API calls', () => {
       const state = store.getState();
-      state.results.loadingAggregations = true;
+      state.aggs.activeCall = '@@API?foo&size=0';
       store = mockStore(state);
 
       store.dispatch(sut.getAggregations());
@@ -236,7 +238,7 @@ describe('action::complaints', () => {
     });
     /* eslint-enable id-length */
     it('calls the API', () => {
-      const store = mockStore({});
+      const store = mockStore({ detail: {} });
       store.dispatch(sut.getComplaintDetail('123'));
       expect(global.fetch).toHaveBeenCalled();
     });
@@ -244,7 +246,9 @@ describe('action::complaints', () => {
     describe('when the API call is finished', () => {
       let store;
       beforeEach(() => {
-        store = mockStore({});
+        store = mockStore({
+          detail: {},
+        });
         store.dispatch(sut.getComplaintDetail('123'));
       });
 
