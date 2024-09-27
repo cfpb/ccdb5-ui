@@ -79,6 +79,7 @@ export function getComplaintDetail(id) {
   return (dispatch, getState) => {
     const store = getState();
     const uri = API_PLACEHOLDER + id;
+
     // This call is already in process
     if (uri === store.detail.activeCall) {
       return null;
