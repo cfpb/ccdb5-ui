@@ -8,7 +8,6 @@ import {
 export const defaultResults = {
   activeCall: '',
   error: '',
-  isLoading: false,
   items: [],
 };
 
@@ -38,7 +37,6 @@ export function hitsCallInProcess(state, action) {
   return {
     ...state,
     activeCall: action.url,
-    isLoading: true,
   };
 }
 
@@ -56,7 +54,6 @@ export function processHitsResults(state, action) {
     ...state,
     activeCall: '',
     error: '',
-    isLoading: false,
     items: items,
   };
 }

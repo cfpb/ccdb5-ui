@@ -911,7 +911,6 @@ export const trendsResults = {
   },
   error: false,
   focus: '',
-  isLoading: false,
   lens: 'Overview',
   results: {
     dateRangeArea: [],

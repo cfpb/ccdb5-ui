@@ -10,7 +10,6 @@ import { processErrorMessage } from '../../utils';
 export const defaultAggs = {
   activeCall: '',
   doc_count: 0,
-  isLoading: false,
   total: 0,
   error: '',
   lastUpdated: null,
@@ -44,7 +43,6 @@ export function aggregationsCallInProcess(state, action) {
   return {
     ...state,
     activeCall: action.url,
-    isLoading: true,
   };
 }
 
@@ -67,9 +65,9 @@ export function processAggregationResults(state, action) {
 
   const result = {
     ...state,
+    activeCall: '',
     doc_count,
     error: '',
-    isLoading: false,
     lastUpdated: action.data._meta.last_updated,
     lastIndexed: action.data._meta.last_indexed,
     hasDataIssue: action.data._meta.has_data_issue,
@@ -94,7 +92,7 @@ export function processAggregationResults(state, action) {
 export function processAggregationError(state, action) {
   return {
     ...defaultAggs,
-    isLoading: false,
+    activeCall: '',
     error: processErrorMessage(action.error),
   };
 }

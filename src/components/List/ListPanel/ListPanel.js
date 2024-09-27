@@ -18,7 +18,7 @@ import { Separator } from '../../RefineBar/Separator';
 import { TabbedNavigation } from '../../TabbedNavigation';
 import { selectAggsHasError } from '../../../reducers/aggs/selectors';
 import {
-  selectResultsIsLoading,
+  selectResultsActiveCall,
   selectResultsItems,
 } from '../../../reducers/results/selectors';
 import { selectViewWidth } from '../../../reducers/view/selectors';
@@ -36,7 +36,7 @@ export const ListPanel = () => {
   const hasError = useSelector(selectAggsHasError);
   const size = useSelector(selectQuerySize);
   const sort = useSelector(selectQuerySort);
-  const isLoading = useSelector(selectResultsIsLoading);
+  const isLoading = useSelector(selectResultsActiveCall);
   const items = useSelector(selectResultsItems);
   const width = useSelector(selectViewWidth);
 
@@ -117,7 +117,7 @@ export const ListPanel = () => {
       </div>
       {renderMap[phase]()}
       <Pagination />
-      <Loading isLoading={isLoading || false} />
+      <Loading isLoading={!!isLoading} />
     </section>
   );
 };

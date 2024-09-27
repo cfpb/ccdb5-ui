@@ -66,7 +66,7 @@ describe('ListPanel', () => {
       error: '',
     };
     const newResultsState = {
-      isLoading: false,
+      activeCall: '',
       items: [],
     };
 

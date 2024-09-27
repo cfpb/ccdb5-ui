@@ -5,7 +5,6 @@ export const selectTrendsTotal = (state) => state.trends.total;
 export const selectTrendsColorMap = (state) => state.trends.colorMap;
 export const selectTrendsFocus = (state) => state.trends.focus;
 export const selectTrendsResults = (state) => state.trends.results;
-export const selectTrendsIsLoading = (state) => state.trends.isLoading;
 export const selectTrendsResultsDateRangeArea = (state) =>
   state.trends.results.dateRangeArea;
 export const selectTrendsResultsDateRangeLine = (state) =>
