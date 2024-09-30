@@ -10,7 +10,6 @@ describe('reducer:map', () => {
       expect(target(undefined, {})).toEqual({
         activeCall: '',
         error: false,
-        isLoading: false,
         results: {
           product: [],
           state: [],
@@ -27,7 +26,6 @@ describe('reducer:map', () => {
     expect(target({}, action)).toEqual({
       activeCall: 'http://www.example.org',
       error: false,
-      isLoading: true,
       results: {
         product: [],
         state: [],
@@ -50,7 +48,6 @@ describe('reducer:map', () => {
       expect(result).toEqual({
         activeCall: '',
         error: false,
-        isLoading: false,
         results: {
           state: [
             { name: 'CA', value: 62519, issue: 'issue o', product: 'fo prod' },
@@ -178,7 +175,6 @@ describe('reducer:map', () => {
       ).toEqual({
         activeCall: '',
         error: { message: 'foo bar', name: 'ErrorTypeName', stack: 'trace' },
-        isLoading: false,
         results: {
           product: [],
           state: [],

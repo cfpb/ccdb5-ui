@@ -14,10 +14,10 @@ import {
   selectQueryTrendsDateWarningEnabled,
 } from '../../../reducers/query/selectors';
 import {
+  selectTrendsActiveCall,
   selectTrendsChartType,
   selectTrendsColorMap,
   selectTrendsFocus,
-  selectTrendsIsLoading,
   selectTrendsResults,
   selectTrendsTotal,
 } from '../../../reducers/trends/selectors';
@@ -97,7 +97,7 @@ export const TrendsPanel = () => {
   const chartType = useSelector(selectTrendsChartType);
   const colorMap = useSelector(selectTrendsColorMap);
   const focus = useSelector(selectTrendsFocus);
-  const isLoading = useSelector(selectTrendsIsLoading);
+  const isLoading = useSelector(selectTrendsActiveCall);
   const results = useSelector(selectTrendsResults);
   const total = useSelector(selectTrendsTotal);
   const expandedRows = useSelector(selectViewExpandedRows);
@@ -305,7 +305,7 @@ export const TrendsPanel = () => {
 
       {total > 0 && phaseMap()}
       <TrendDepthToggle />
-      <Loading isLoading={isLoading || false} />
+      <Loading isLoading={!!isLoading} />
     </section>
   );
 };
