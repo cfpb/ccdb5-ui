@@ -51,7 +51,9 @@ describe('Filter Panel', () => {
       });
       cy.log('apply dates');
 
-      cy.get('#date_received-from').clear();
+      cy.get('#date_received-from').clear({
+        force: true,
+      });
 
       // TODO: this fails in headless mode for some reason without force:true but it works fine in
       // electron / chrome headed version
@@ -66,7 +68,9 @@ describe('Filter Panel', () => {
 
       cy.log('apply a through date');
 
-      cy.get('#date_received-through').clear();
+      cy.get('#date_received-through').clear({
+        force: true,
+      });
 
       // TODO: this fails in headless mode for some reason without force:true but it works fine in
       // electron / chrome headed version
