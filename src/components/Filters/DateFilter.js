@@ -152,7 +152,7 @@ export const DateFilter = () => {
               className="a-label a-label__heading body-copy"
               htmlFor={`${fieldName}-from`}
             >
-              Date From
+              From
             </label>
             <div className="o-search-input">
               <div className="o-search-input__input">
