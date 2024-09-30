@@ -20,7 +20,6 @@ describe('reducer:aggs', () => {
 
     expect(target({}, action)).toEqual({
       activeCall: 'foobar',
-      isLoading: true,
     });
   });
 
@@ -68,9 +67,9 @@ describe('reducer:aggs', () => {
       },
     };
     const expected = {
+      activeCall: '',
       doc_count: 162576,
       company_response: [{ key: 'foo', doc_count: 99 }],
-      isLoading: false,
       total: 99,
       error: '',
       lastUpdated: '2017-07-10T00:00:00.000Z',

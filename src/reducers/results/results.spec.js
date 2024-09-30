@@ -6,7 +6,6 @@ describe('reducer:results', () => {
     expect(target(undefined, {})).toEqual({
       activeCall: '',
       error: '',
-      isLoading: false,
       items: [],
     });
   });
@@ -19,7 +18,6 @@ describe('reducer:results', () => {
       };
       expect(target({}, action)).toEqual({
         activeCall: 'http://www.example.org',
-        isLoading: true,
       });
     });
 
@@ -48,7 +46,6 @@ describe('reducer:results', () => {
         expect(target({ error: 'foo' }, action)).toEqual({
           activeCall: '',
           error: '',
-          isLoading: false,
           items: [{ val: '123' }, { val: '456' }],
         });
       });
@@ -59,7 +56,6 @@ describe('reducer:results', () => {
         expect(target({ error: 'foo' }, action)).toEqual({
           activeCall: '',
           error: '',
-          isLoading: false,
           items: [{ val: '<em>123</em>' }, { val: '456' }],
         });
       });
@@ -80,7 +76,6 @@ describe('reducer:results', () => {
       ).toEqual({
         activeCall: '',
         error: 'foo bar',
-        isLoading: false,
         items: [],
       });
     });

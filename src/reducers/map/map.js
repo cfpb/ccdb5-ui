@@ -8,7 +8,6 @@ import { TILE_MAP_STATES } from '../../constants';
 export const defaultMap = {
   activeCall: '',
   error: false,
-  isLoading: false,
   results: {
     product: [],
     state: [],
@@ -70,7 +69,6 @@ export function statesCallInProcess(state, action) {
     ...state,
     activeCall: action.url,
     error: false,
-    isLoading: true,
   };
 }
 
@@ -94,7 +92,6 @@ export function processStatesResults(state, action) {
     ...state,
     activeCall: '',
     error: false,
-    isLoading: false,
     results,
   };
 }
@@ -111,7 +108,6 @@ export function processStatesError(state, action) {
     ...state,
     activeCall: '',
     error: processErrorMessage(action.error),
-    isLoading: false,
     results: {
       product: [],
       state: [],
