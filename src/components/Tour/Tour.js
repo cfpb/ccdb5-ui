@@ -12,14 +12,23 @@ import { Steps } from 'intro.js-react';
 import { TOUR_STEPS } from './constants/tourStepsConstants';
 import { TourButton } from './TourButton';
 import { tourHidden } from '../../actions/view';
+import { selectAggsActiveCall } from '../../reducers/aggs/selectors';
+import { selectResultsActiveCall } from '../../reducers/results/selectors';
+import { selectMapActiveCall } from '../../reducers/map/selectors';
+import { selectTrendsActiveCall } from '../../reducers/trends/selectors';
 
 export const Tour = () => {
   const dispatch = useDispatch();
   const showTour = useSelector(selectViewShowTour);
   const tab = useSelector(selectQueryTab);
+  const aggsLoading = useSelector(selectAggsActiveCall);
+  const mapLoading = useSelector(selectMapActiveCall);
+  const resultsLoading = useSelector(selectResultsActiveCall);
+  const trendsLoading = useSelector(selectTrendsActiveCall);
   const isPrintMode = useSelector(selectViewIsPrintMode);
   const viewWidth = useSelector(selectViewWidth);
-
+  const stepRef = useRef();
+  const isLoading = aggsLoading + mapLoading + resultsLoading + trendsLoading;
   const mobileStepOpen = {
     disableInteraction: false,
     element: '.filter-panel-toggle .m-btn-group .a-btn',
@@ -44,7 +53,6 @@ export const Tour = () => {
             TOUR_STEPS[tab].slice(7),
           )
       : TOUR_STEPS[tab];
-  const stepRef = useRef();
 
   // INTRODUCTION / TUTORIAL OPTIONS:
   const options = {
@@ -66,6 +74,10 @@ export const Tour = () => {
    * @param {object} ref - React component reference.
    */
   function handleBeforeChange(ref) {
+    if (!ref.current) {
+      // early exit, tour not set
+      return;
+    }
     const currentStep = ref.current.introJs.currentStep();
 
     // exit out when we're on last step and keyboard nav pressed
@@ -135,7 +147,7 @@ export const Tour = () => {
    * @returns {boolean} Can we exit?
    */
   function handleBeforeExit(ref) {
-    if (ref.current === null) {
+    if (ref.current === null || !showTour) {
       return true;
     }
     if (ref.current.introJs.currentStep() + 1 < steps.length) {
@@ -145,7 +157,7 @@ export const Tour = () => {
     return true;
   }
 
-  return isPrintMode ? null : (
+  return isPrintMode || isLoading ? null : (
     // eslint-disable-next-line react/react-in-jsx-scope
     <>
       <TourButton />

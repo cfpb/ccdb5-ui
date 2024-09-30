@@ -30,7 +30,6 @@ export const getResetState = () => ({
   activeCall: '',
   colorMap: {},
   error: false,
-  isLoading: false,
   results: emptyResults(),
   tooltip: false,
   total: 0,
@@ -400,7 +399,6 @@ export function processTrends(state, action) {
     activeCall: '',
     colorMap,
     error: false,
-    isLoading: false,
     results,
     total,
   };
@@ -436,7 +434,6 @@ export function trendsCallInProcess(state, action) {
   return {
     ...state,
     activeCall: action.url,
-    isLoading: true,
     tooltip: false,
   };
 }
