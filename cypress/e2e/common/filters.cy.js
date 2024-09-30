@@ -52,7 +52,12 @@ describe('Filter Panel', () => {
       cy.log('apply dates');
 
       cy.get('#date_received-from').clear();
-      cy.get('#date_received-from').type('2015-09-11');
+
+      // TODO: this fails in headless mode for some reason without force:true but it works fine in
+      // electron / chrome headed version
+      cy.get('#date_received-from').type('2015-09-11', {
+        force: true,
+      });
       cy.get('#date_received-from').blur();
 
       cy.wait('@getComplaintsDateFrom');
@@ -62,7 +67,12 @@ describe('Filter Panel', () => {
       cy.log('apply a through date');
 
       cy.get('#date_received-through').clear();
-      cy.get('#date_received-through').type('2020-10-31');
+
+      // TODO: this fails in headless mode for some reason without force:true but it works fine in
+      // electron / chrome headed version
+      cy.get('#date_received-through').type('2020-10-31', {
+        force: true,
+      });
       cy.get('#date_received-through').blur();
 
       cy.url().should('include', 'date_received_max=2020-10-31');
