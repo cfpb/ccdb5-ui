@@ -1,6 +1,6 @@
 import './TileChartMap.less';
 import { addStateFilter, removeStateFilter } from '../../../actions/map';
-import { coalesce, sendAnalyticsEvent } from '../../../utils';
+import { cloneDeep, coalesce, sendAnalyticsEvent } from '../../../utils';
 import { GEO_NORM_NONE, STATE_DATA } from '../../../constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCallback, useEffect, useMemo } from 'react';
@@ -23,7 +23,8 @@ export const TileChartMap = () => {
   const stateFilters = useSelector(selectQueryStateFilters);
   const stateMapResultsState = useSelector(selectMapResultsState);
   const data = useMemo(() => {
-    return stateMapResultsState.map((state) => {
+    const newData = cloneDeep(stateMapResultsState);
+    return newData.map((state) => {
       const stateInfo = coalesce(STATE_DATA, state.name, {
         name: '',
         population: 1,
