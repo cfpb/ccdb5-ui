@@ -26,6 +26,24 @@
     }
   }
 
+  .a-btn--link {
+    color: var(--pacific-dark);
+
+    &:hover {
+      color: var(--navy);
+    }
+
+    &:focus {
+      color: var(--pacific-dark);
+      border: 1px dotted var(--pacific-dark);
+    }
+
+    &:active {
+      color: var(--navy);
+      border: 1px dotted var(--navy);
+    }
+  }
+
   @media @phone {
     padding-left: 0;
     border: 1px solid var(--gray-40);
