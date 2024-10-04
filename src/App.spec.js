@@ -25,8 +25,8 @@ describe('initial state', () => {
 
     expect(updateLocationHookSpy).toBeCalled();
 
-    expect(screen.getByText(/Consumer Complaint Database/)).toBeDefined();
-    expect(screen.getByText(/Search within/)).toBeDefined();
+    expect(screen.getByText(/Consumer Complaint Database/)).toBeInTheDocument();
+    expect(screen.getByText(/Search within/)).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: /Show advanced search tips/ }),
     ).toBeInTheDocument();
@@ -45,8 +45,8 @@ describe('initial state', () => {
 
     expect(updateLocationHookSpy).toBeCalled();
 
-    expect(screen.getByText(/Consumer Complaint Database/)).toBeDefined();
-    expect(screen.getByText(/Search within/)).toBeDefined();
+    expect(screen.getByText(/Consumer Complaint Database/)).toBeInTheDocument();
+    expect(screen.getByText(/Search within/)).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: /Show advanced search tips/ }),
     ).toBeInTheDocument();

@@ -1,7 +1,7 @@
 import { setupStore } from '../../testUtils/setupStore';
 
 describe('redux middleware::actionLogger', () => {
-  test('it logs actions', () => {
+  it('logs actions', () => {
     const store = setupStore();
     const action = {
       type: 'fake action',
