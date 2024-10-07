@@ -1,3 +1,4 @@
+import actions from './actions/actions';
 import aggs from './aggs/aggs';
 import { combineReducers } from 'redux';
 import detail from './detail/detail';
@@ -8,6 +9,7 @@ import trends from './trends/trends';
 import view from './view/view';
 
 export default combineReducers({
+  actions,
   aggs,
   detail,
   map,

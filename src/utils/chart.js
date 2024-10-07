@@ -171,7 +171,8 @@ export const getD3Names = (obj, nameMap) => {
       };
 };
 
-export const processRows = (rows, colorMap, lens, expandedRows) => {
+export const processRows = (data, colorMap, lens, expandedRows) => {
+  const rows = cloneDeep(data);
   if (rows) {
     let data = rows;
     data = data.filter(

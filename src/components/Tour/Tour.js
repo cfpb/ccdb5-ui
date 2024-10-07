@@ -19,12 +19,12 @@ import { selectTrendsActiveCall } from '../../reducers/trends/selectors';
 
 export const Tour = () => {
   const dispatch = useDispatch();
-  const showTour = useSelector(selectViewShowTour);
-  const tab = useSelector(selectQueryTab);
   const aggsLoading = useSelector(selectAggsActiveCall);
   const mapLoading = useSelector(selectMapActiveCall);
   const resultsLoading = useSelector(selectResultsActiveCall);
   const trendsLoading = useSelector(selectTrendsActiveCall);
+  const showTour = useSelector(selectViewShowTour);
+  const tab = useSelector(selectQueryTab);
   const isPrintMode = useSelector(selectViewIsPrintMode);
   const viewWidth = useSelector(selectViewWidth);
   const stepRef = useRef();

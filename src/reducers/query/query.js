@@ -10,7 +10,7 @@ import {
   startOfToday,
 } from '../../utils';
 import { enforceValues, validateTrendsReducer } from '../../utils/reducers';
-import actions from '../../actions';
+import * as actions from '../../actions';
 import dayjs from 'dayjs';
 import { isGreaterThanYear } from '../../utils/trends';
 import queryString from 'query-string';
@@ -992,7 +992,7 @@ export function stateToQS(state) {
     let value = state[field];
 
     // Process dates
-    if (types.dateFilters.indexOf(field) !== -1) {
+    if (types.dateFilters.includes(field)) {
       value = shortIsoFormat(value);
     }
 

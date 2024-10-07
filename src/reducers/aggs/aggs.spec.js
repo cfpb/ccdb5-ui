@@ -78,6 +78,8 @@ describe('reducer:aggs', () => {
       isDataStale: undefined,
     };
 
-    expect(target({ doc_count: 100 }, action)).toEqual(expected);
+    expect(target({ activeCall: 'foobar', doc_count: 100 }, action)).toEqual(
+      expected,
+    );
   });
 });

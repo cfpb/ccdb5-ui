@@ -1,10 +1,5 @@
 /* eslint complexity: ["error", 5] */
-import {
-  API_PLACEHOLDER,
-  MODE_LIST,
-  MODE_MAP,
-  MODE_TRENDS,
-} from '../constants';
+import { API_PLACEHOLDER } from '../constants';
 
 export const AGGREGATIONS_API_CALLED = 'AGGREGATIONS_API_CALLED';
 export const AGGREGATIONS_RECEIVED = 'AGGREGATIONS_RECEIVED';
@@ -23,59 +18,6 @@ export const TRENDS_RECEIVED = 'TRENDS_RECEIVED';
 export const TRENDS_FAILED = 'TRENDS_FAILED';
 
 // ----------------------------------------------------------------------------
-// Routing action
-/**
- * Routes to the correct endpoint based on the state
- *
- * @returns {Promise} a chain of promises that will update the Redux store
- */
-export function sendQuery() {
-  // eslint-disable-next-line complexity
-  return (dispatch, getState) => {
-    const state = getState();
-    const viewMode = state.query.tab;
-    switch (viewMode) {
-      case MODE_MAP:
-      case MODE_LIST:
-      case MODE_TRENDS:
-        dispatch(getAggregations());
-        break;
-      default:
-        return;
-    }
-
-    // Send the right-hand queries
-    dispatch(sendHitsQuery());
-  };
-}
-
-/**
- * Routes to the correct endpoint based on the state
- *
- * @returns {Promise} a chain of promises that will update the Redux store
- */
-export function sendHitsQuery() {
-  // eslint-disable-next-line complexity
-  return (dispatch, getState) => {
-    const state = getState();
-    const viewMode = state.query.tab;
-    switch (viewMode) {
-      case MODE_MAP:
-        dispatch(getStates());
-        break;
-      case MODE_TRENDS:
-        dispatch(getTrends());
-        break;
-      case MODE_LIST:
-        dispatch(getComplaints());
-        break;
-      default:
-        break;
-    }
-  };
-}
-
-// ----------------------------------------------------------------------------
 // Action Creators
 
 /**
@@ -90,7 +32,6 @@ export function getAggregations() {
     // remove the duplicate size from the qs
     const qs = store.query.queryString.replace(regex, '&');
     const uri = API_PLACEHOLDER + qs + '&size=0';
-
     // This call is already in process
     if (uri === store.aggs.activeCall) {
       return null;

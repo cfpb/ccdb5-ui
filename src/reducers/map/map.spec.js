@@ -1,5 +1,5 @@
 import target, { processStateAggregations } from './map';
-import actions from '../../actions';
+import * as actions from '../../actions';
 import stateAggs from '../__fixtures__/stateAggs';
 
 describe('reducer:map', () => {
@@ -26,6 +26,10 @@ describe('reducer:map', () => {
     expect(target({}, action)).toEqual({
       activeCall: 'http://www.example.org',
       error: false,
+      results: {
+        product: [],
+        state: [],
+      },
     });
   });
 

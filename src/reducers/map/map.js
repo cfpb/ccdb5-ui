@@ -1,8 +1,7 @@
 // reducer for the Map Tab
-import actions from '../../actions';
-
+import * as actions from '../../actions';
 import { processAggregations } from '../trends/trends';
-import { processErrorMessage } from '../../utils';
+import { cloneDeep, processErrorMessage } from '../../utils';
 import { TILE_MAP_STATES } from '../../constants';
 
 export const defaultMap = {
@@ -69,6 +68,10 @@ export function statesCallInProcess(state, action) {
     ...state,
     activeCall: action.url,
     error: false,
+    results: {
+      product: [],
+      state: [],
+    },
   };
 }
 
@@ -81,7 +84,7 @@ export function statesCallInProcess(state, action) {
  */
 export function processStatesResults(state, action) {
   const aggregations = action.data.aggregations;
-  const { state: stateData } = aggregations;
+  const { state: stateData } = cloneDeep(aggregations);
   // add in "issue" if we ever need issue row chart again
   const keys = ['product'];
   const results = {};
