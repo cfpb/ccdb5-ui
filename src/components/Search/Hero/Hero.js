@@ -1,4 +1,4 @@
-import './Hero.less';
+import './Hero.scss';
 import { useDispatch } from 'react-redux';
 import { LINK_DATA_USE, MODAL_TYPE_MORE_ABOUT } from '../../../constants';
 import { showModal } from '../../../actions/view';

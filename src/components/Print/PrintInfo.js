@@ -1,4 +1,4 @@
-import './PrintInfo.less';
+import './PrintInfo.scss';
 import { useSelector } from 'react-redux';
 import { useMemo } from 'react';
 import { shortFormat } from '../../utils';

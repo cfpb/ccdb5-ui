@@ -1,0 +1,209 @@
+// Import Design System Components.
+@use '@cfpb/cfpb-core/src/cfpb-core.scss' as *;
+@use '@cfpb/cfpb-atomic-component/src/cfpb-atomic-component.scss' as *;
+@use '@cfpb/cfpb-icons/src/cfpb-icons.scss' as *;
+@use '@cfpb/cfpb-buttons/src/cfpb-buttons.scss' as *;
+@use '@cfpb/cfpb-forms/src/cfpb-forms.scss' as *;
+@use '@cfpb/cfpb-grid/src/cfpb-grid.scss' as *;
+@use '@cfpb/cfpb-layout/src/cfpb-layout.scss' as *;
+@use '@cfpb/cfpb-typography/src/cfpb-typography.scss' as *;
+@use '@cfpb/cfpb-notifications/src/cfpb-notifications.scss' as *;
+@use '@cfpb/cfpb-pagination/src/cfpb-pagination.scss' as *;
+@use '@cfpb/cfpb-expandables/src/cfpb-expandables.scss' as *;
+@use '@cfpb/cfpb-tables/src/cfpb-tables.scss' as *;
+@import '../components/Print/print.scss';
+
+// Icon font path
+$cf-icon-path: '../css/fonts';
+
+// Webfont variables
+// This is the path for self-hosted fonts.
+$cf-fonts-path: '/static/fonts';
+
+// Fix for incorrect header width.
+.o-header .wrapper,
+.o-footer .wrapper {
+  max-width: 1170px !important;
+}
+
+// App-wide definitions
+
+.layout-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.layout-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-fixed {
+  flex: none;
+}
+
+.flex-all {
+  flex: 1 0 auto;
+}
+
+.body-copy {
+  font-size: 16px;
+}
+
+.cols {
+  .grid__nested-col-group();
+}
+
+.col::before {
+  display: block;
+
+  width: 100%;
+  content: '';
+}
+
+.col-1 {
+  .grid__column(1);
+}
+
+.col-2 {
+  .grid__column(2);
+}
+
+.col-3 {
+  .grid__column(3);
+}
+
+.col-4 {
+  .grid__column(4);
+}
+
+.col-6 {
+  .grid__column(6);
+}
+
+.col-8 {
+  .grid__column(8);
+}
+
+.col-9 {
+  .grid__column(9);
+}
+
+.col-10 {
+  .grid__column(10);
+}
+
+.col-12 {
+  .grid__column(12);
+}
+
+// Overrides
+
+.content--1-3 {
+  margin-bottom: $grid-gutter-width * 2;
+
+  .content__wrapper {
+    padding-left: 0;
+    padding-right: 0;
+    border: 1px solid var(--gray-40);
+    border-right: none;
+    max-width: initial;
+
+    @media ($phone) {
+      border: none;
+    }
+  }
+
+  .content__sidebar {
+    width: 420px;
+    padding: 0;
+    border: 0;
+    margin: 0;
+  }
+
+  .content__main {
+    width: calc(100% - 420px);
+    padding: 0;
+    border: 0;
+
+    &::after {
+      border-left: 0;
+    }
+  }
+}
+
+// gutters
+.wrapper__match-content {
+  @media ($tablet) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  @media ($desktop) {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  @media($superwide) {
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+}
+
+@media ($tablet-lg) {
+  .content--1-3 {
+    .content__sidebar {
+      width: 305px;
+    }
+
+    .content__main {
+      width: calc(100% - 305px);
+    }
+  }
+}
+
+@media ($tablet-sm) {
+  .content--1-3 {
+    .content__main {
+      width: 100%;
+    }
+    .content__sidebar {
+      &.map,
+      &.list {
+        width: 100%;
+      }
+    }
+  }
+  .filter-button {
+    display: block;
+    margin: 20px 10px;
+    button {
+      width: 100%;
+    }
+  }
+}
+
+@media ($phone) {
+  .filter-button {
+    display: block;
+    margin: 20px 0;
+    button {
+      width: 100%;
+    }
+  }
+  .content--1-3 {
+    margin-bottom: 0;
+    .content {
+      &__sidebar,
+      &__main {
+        width: 100%;
+      }
+    }
+  }
+}
+
+
+::-ms-clear {
+  display: none;
+}

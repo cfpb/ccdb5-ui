@@ -1,4 +1,4 @@
-import './SearchBar.less';
+import './SearchBar.scss';
 import { hideAdvancedTips, showAdvancedTips } from '../../actions/view';
 import { searchFieldChanged, searchTextChanged } from '../../actions/search';
 import { AdvancedTips } from './AdvancedTips/AdvancedTips';

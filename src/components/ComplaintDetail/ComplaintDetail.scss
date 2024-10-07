@@ -1,0 +1,117 @@
+.card-container {
+  max-width: 100%;
+  padding: $gutter-normal;
+  margin-bottom: $grid-gutter-width;
+
+  nav {
+    width: 100%;
+    justify-content: space-between;
+
+    a,
+    button {
+      font-size: $base-font-size-px;
+    }
+
+    .a-btn--link {
+      border: 0;
+
+      span {
+        margin-right: $gutter-normal;
+      }
+    }
+  }
+
+  h1 {
+    margin: $gutter-normal 0;
+    margin-top: $grid-gutter-width;
+  }
+
+  h2.company-information {
+    margin-top: $gutter-wide;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    @media ($phone) {
+      flex-wrap: wrap;
+    }
+
+    .card-left {
+      box-sizing: border-box;
+      min-width: 260px;
+      width: 33%;
+      padding-right: $grid-gutter-width;
+
+      @media ($tablet) {
+        padding-right: $gutter-normal;
+      }
+
+      @media ($phone) {
+        width: 100%;
+        padding-right: $gutter-narrow;
+      }
+    }
+    .card-right {
+      width: 67%;
+
+      @media ($phone) {
+        width: 100%;
+        padding-top: $gutter-normal;
+      }
+    }
+
+    .cf-icon__before {
+      padding-right: $gutter-narrow;
+      font-size: 16px;
+
+      &.cf-icon-approved-round {
+        color: var(--green);
+      }
+
+      &.cf-icon-delete-round {
+        color: var(--red);
+      }
+
+      &.cf-icon-minus-round {
+        color: var(--gold);
+      }
+
+      &.cf-icon-help-round {
+        color: var(--navy);
+      }
+
+      &.cf-icon-error-round {
+        color: var(--gray-80);
+      }
+
+      &.cf-icon-clock-round {
+        color: var(--green);
+      }
+
+      &.cf-icon-clock-round.not-timely {
+        color: var(--gold);
+      }
+    }
+
+    .layout-column {
+      h3 {
+        margin-top: 0;
+        margin-bottom: $gutter-minimum;
+      }
+
+      h4 {
+        margin-top: 0;
+        margin-bottom: $gutter-minimum;
+      }
+    }
+
+    .subitem {
+      margin-right: $gutter-minimum;
+      font-family: 'Avenir Next', sans-serif;
+      font-weight: 500;
+    }
+  }
+}

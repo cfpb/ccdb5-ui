@@ -1,4 +1,4 @@
-import '../RefineBar/RefineBar.less';
+import '../RefineBar/RefineBar.scss';
 import { ActionBar } from '../ActionBar/ActionBar';
 import { useDispatch, useSelector } from 'react-redux';
 import ErrorBlock from '../Warnings/Error';

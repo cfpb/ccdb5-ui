@@ -1,0 +1,23 @@
+.list-panel {
+  // The "No results were found for your search" heading.
+  h2 {
+    margin: 15px;
+  }
+
+  .cards-panel {
+    padding: $grid-gutter-width;
+    margin: 0;
+
+    @media ($phone) {
+      padding: $gutter-normal;
+    }
+  }
+
+  .m-pagination {
+    .a-btn[disabled],
+    .m-pagination__label,
+    .m-pagination__btn-submit {
+      color: var(--gray);
+    }
+  }
+}

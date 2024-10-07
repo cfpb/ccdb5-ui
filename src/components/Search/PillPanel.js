@@ -1,4 +1,4 @@
-import './PillPanel.less';
+import './PillPanel.scss';
 import { DATE_RANGE_MIN, knownFilters } from '../../constants';
 
 import {

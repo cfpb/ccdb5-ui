@@ -1,0 +1,13 @@
+.o-expandable {
+  margin-bottom: 0;
+  h4 {
+    max-width: calc(100% - 55px);
+    box-sizing: border-box;
+    padding-right: $gutter-minimum;
+  }
+
+  p {
+    color: var(--gray);
+    font-size: 16px;
+  }
+}

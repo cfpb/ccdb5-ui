@@ -1,4 +1,4 @@
-import './StackedAreaChart.less';
+import './StackedAreaChart.scss';
 import * as d3 from 'd3';
 import { stackedArea } from 'britecharts';
 import { useEffect, useMemo } from 'react';

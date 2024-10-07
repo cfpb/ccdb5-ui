@@ -1,4 +1,4 @@
-import './ChartToggles.less';
+import './ChartToggles.scss';
 import { changeChartType } from '../../actions/trends';
 import getIcon from '../iconMap';
 import { selectedClass, sendAnalyticsEvent } from '../../utils';

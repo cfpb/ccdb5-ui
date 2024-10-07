@@ -1,0 +1,19 @@
+.search-panel {
+  padding: $gutter-normal;
+  border-right: 1px solid var(--gray-40);
+
+  @media ($desktop) {
+    padding: $grid-gutter-width;
+  }
+
+  @media ($phone) {
+    padding: $gutter-narrow;
+    min-height: 150px;
+  }
+  background-color: var(--gray-5);
+}
+
+.date-subscript {
+  font-size: $base-font-size-px;
+  color: var(--gray);
+}

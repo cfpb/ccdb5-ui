@@ -23,7 +23,7 @@
     "analyze": "craco build; source-map-explorer '../static/js/*.js'",
     "build": "NODE_ENV=production ./scripts/build.sh",
     "eject": "react-scripts eject",
-    "lint": "yarn prettier \"src/**/*.{js,jsx,ts,tsx,json,md}\" --write && yarn eslint ./src --fix && yarn stylelint \"src/**/*.{css,less}\" --fix && yarn lint:cypress",
+    "lint": "yarn prettier \"src/**/*.{js,jsx,ts,tsx,json,md}\" --write && yarn eslint ./src --fix && yarn stylelint \"src/**/*.{css,scss}\" --fix && yarn lint:cypress",
     "lint:cypress": "yarn eslint ./cypress --fix",
     "prepare": "husky",
     "release": "yarn run build && release-it --npm.skipChecks",
@@ -41,7 +41,7 @@
     "@cfpb/cfpb-atomic-component": "1.2.0",
     "@cfpb/cfpb-buttons": "1.3.0",
     "@cfpb/cfpb-core": "1.2.0",
-    "@cfpb/cfpb-design-system": "^1.3.2",
+    "@cfpb/cfpb-design-system": "^3.2.2",
     "@cfpb/cfpb-expandables": "^1.2.0",
     "@cfpb/cfpb-forms": "1.3.0",
     "@cfpb/cfpb-grid": "1.2.0",
@@ -52,6 +52,8 @@
     "@cfpb/cfpb-tables": "1.2.0",
     "@cfpb/cfpb-typography": "1.3.2",
     "@craco/craco": "^7.1.0",
+    "@csstools/postcss-sass": "^5.1.1",
+    "@csstools/sass-import-resolve": "^1.0.0",
     "@reduxjs/toolkit": "^2.2.7",
     "@testing-library/cypress": "^10.0.2",
     "@testing-library/dom": "^10.4.0",
@@ -62,7 +64,6 @@
     "britecharts": "git+https://github.com/cfpb/britecharts.git#v2.4.2",
     "coveralls": "^3.0.9",
     "craco-esbuild": "^0.6.1",
-    "craco-less": "^3.0.1",
     "cypress": "^13.11.0",
     "d3": "^7.9.0",
     "dayjs": "^1.11.10",
@@ -79,17 +80,14 @@
     "intro.js": "^7.2.0",
     "intro.js-react": "1.0.0",
     "jest-fetch-mock": "^3.0.3",
-    "less": "^4.2.0",
-    "less-loader": "^12.2.0",
-    "less-plugin-clean-css": "^1.5.1",
     "lint-staged": "^15.2.7",
     "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^2.9.0",
     "mockdate": "^3.0.5",
     "postcss": "^8.4.38",
-    "postcss-less": "^6.0.0",
     "postcss-preset-env": "^9.5.13",
     "postcss-safe-parser": "^7.0.0",
+    "postcss-scss": "^4.0.9",
     "prettier": "^3.3.1",
     "prop-types": "^15.5.10",
     "query-string": "^9.0.0",
@@ -103,13 +101,14 @@
     "react-scripts": "^5.0.1",
     "react-test-renderer": "^18.2.0",
     "release-it": "^17.3.0",
+    "sass": "^1.79.4",
     "string-replace-loader": "^3.1.0",
     "stylelint": "^16.5.0",
     "stylelint-config-standard": "^36.0.0",
-    "stylelint-less": "^3.0.1"
+    "stylelint-config-standard-scss": "^13.1.0"
   },
   "lint-staged": {
-    "src/**/*.{css,less}": [
+    "src/**/*.{css,scss}": [
       "stylelint --fix"
     ],
     "{cypress,src}/**/*.{js,jsx,ts,tsx,json,md}": [
@@ -144,10 +143,10 @@
       "text-summary"
     ],
     "moduleNameMapper": {
-      "\\.(css|less)$": "identity-obj-proxy"
+      "\\.(css|scss)$": "identity-obj-proxy"
     },
     "transformIgnorePatterns": [
-      "^.+\\.module\\.(css|less)$"
+      "^.+\\.module\\.(css|scss)$"
     ]
   },
   "publishConfig": {

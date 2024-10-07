@@ -1,0 +1,46 @@
+@use 'node_modules/@cfpb/cfpb-design-system/src/abstracts' as *;
+@use 'node_modules/@cfpb/cfpb-design-system/src/base' as *;
+@use 'node_modules/@cfpb/cfpb-design-system/dist/index.css' as *;
+
+/* ==========================================================================
+   Color variables
+   ========================================================================== */
+
+///////////////////////////////////////////////////////////////////////////////
+// theme overrides
+
+// Sizing variables
+
+$base-font-size-px: 16px;
+$base-line-height-px: 22px;
+$base-line-height: unit($base-line-height-px / $base-font-size-px);
+
+$size-xl: 48px; // Super-size
+$size-i: 34px; // h1-size
+$size-ii: 26px; // h2-size
+$size-iii: 22px; // h3-size
+$size-iv: 18px; // h4-size
+$size-v: 14px; // h5-site
+$size-vi: 12px; // h6-size
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Application variables
+
+$gutter-minimum: $grid-gutter-width / 6;
+$gutter-narrow: $grid-gutter-width / 3;
+$gutter-normal: $grid-gutter-width / 2;
+$gutter-wide: $grid-gutter-width * 1.5;
+
+$bucket-indent: $grid-gutter-width;
+$max-count-width: 65px;
+
+///////////////////////////////////////////////////////////////////////////////
+// Device Definitions
+
+$superwide: 'only screen and (min-width: 1800px)';
+$desktop: 'only screen and (min-width: 901px)';
+$tablet: 'only screen and (min-width: 600px) and (max-width: 900px)';
+$tablet-lg: 'only screen and (min-width: 750px) and (max-width: 900px)';
+$tablet-sm: 'only screen and (min-width: 600px) and (max-width: 749px)';
+$phone: 'only screen and (max-width: 599px)';

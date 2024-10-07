@@ -1,0 +1,18 @@
+.separator {
+  border-left: solid 1px var(--gray-40);
+  margin-top: 35px;
+  margin-left: 10px;
+  height: 38px;
+
+  @media ($desktop) {
+    display: none;
+  }
+
+  @media ($tablet-lg) {
+    display: none;
+  }
+
+  @media ($phone) {
+    display: none;
+  }
+}
