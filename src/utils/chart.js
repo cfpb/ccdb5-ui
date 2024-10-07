@@ -1,8 +1,8 @@
 // ----------------------------------------------------------------------------
 /* eslint-disable no-mixed-operators, camelcase, complexity */
 import { adjustDate, isDateEqual } from './formatDate';
-import { clampDate, shortFormat, cloneDeep } from '../utils';
-
+import { clampDate, cloneDeep } from '../utils';
+import { formatDisplayDate } from './formatDate';
 import dayjs from 'dayjs';
 import dayjsQuarterOfYear from 'dayjs/plugin/quarterOfYear';
 import dayjsTimezone from 'dayjs/plugin/timezone';
@@ -76,7 +76,7 @@ export const getLastLineDate = (dataSet, config) => {
 export const getTooltipDate = (inputDate, dateRange) => {
   const adjustedDate = adjustDate(inputDate);
   const returnDate = clampDate(adjustedDate, dateRange.from, dateRange.to);
-  return shortFormat(returnDate);
+  return formatDisplayDate(returnDate);
 };
 
 export const getTooltipTitle = (inputDate, interval, dateRange, external) => {
@@ -171,7 +171,8 @@ export const getD3Names = (obj, nameMap) => {
       };
 };
 
-export const processRows = (rows, colorMap, lens, expandedRows) => {
+export const processRows = (data, colorMap, lens, expandedRows) => {
+  const rows = cloneDeep(data);
   if (rows) {
     let data = rows;
     data = data.filter(

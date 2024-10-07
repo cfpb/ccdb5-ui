@@ -29,7 +29,7 @@ import {
   trendsDateWarningDismissed,
 } from '../../../reducers/query/querySlice';
 import { processRows } from '../../../utils/chart';
-import { shortFormat, sendAnalyticsEvent } from '../../../utils';
+import { sendAnalyticsEvent } from '../../../utils';
 import { showCompanyOverLay, getIntervals } from '../../../utils/trends';
 import { ActionBar } from '../../ActionBar/ActionBar';
 import { TabbedNavigation } from '../../TabbedNavigation';
@@ -50,6 +50,7 @@ import { Loading } from '../../Loading/Loading';
 import { LensTabs } from '../LensTabs';
 import { selectFiltersCompany } from '../../../reducers/filters/selectors';
 import { dataLensChanged } from '../../../reducers/trends/trendsSlice';
+import { formatDisplayDate } from '../../../utils/formatDate';
 
 const WARNING_MESSAGE =
   '“Day” interval is disabled when the date range is longer than one year';
@@ -129,8 +130,8 @@ export const TrendsPanel = () => {
     lens,
     expandedRows,
   );
-  const minDate = shortFormat(dateReceivedMin);
-  const maxDate = shortFormat(dateReceivedMax);
+  const minDate = formatDisplayDate(dateReceivedMin);
+  const maxDate = formatDisplayDate(dateReceivedMax);
   const hasOverview = lens === 'Overview';
   const hasMobileFilters = width < 750;
   const subLensTitle =
@@ -304,7 +305,7 @@ export const TrendsPanel = () => {
       ) : null}
       {total > 0 && phaseMap()}
       <TrendDepthToggle />
-      <Loading isLoading={isLoading || false} />
+      <Loading isLoading={!!isLoading} />
     </section>
   );
 };

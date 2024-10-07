@@ -151,8 +151,9 @@ export const DataExport = () => {
                   value="filtered"
                 />
                 <label className="a-label" htmlFor="dataset_filtered">
-                  Filtered dataset ({someComplaintsCount.toLocaleString()}
-                  &nbsp;complaints)
+                  {'Filtered dataset (' +
+                    someComplaintsCount.toLocaleString() +
+                    ' complaints)'}
                   <br />
                   (only the results of the last search and/or filter)
                 </label>
@@ -170,8 +171,9 @@ export const DataExport = () => {
                   value="full"
                 />
                 <label className="a-label" htmlFor="dataset_full">
-                  Full dataset ({allComplaintsCount.toLocaleString()}
-                  &nbsp;complaints)
+                  {'Full dataset (' +
+                    allComplaintsCount.toLocaleString() +
+                    ' complaints)'}
                   <br />
                   (not recommended due to very large file size)
                 </label>

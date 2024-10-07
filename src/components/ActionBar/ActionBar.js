@@ -24,23 +24,19 @@ export const ActionBar = () => {
   return (
     <div>
       <summary className="action-bar" id="search-summary">
-        <div>
-          {total === docCount ? (
-            <h2>
-              Showing&nbsp;
-              {docCount.toLocaleString()}
-              &nbsp;total complaints
-            </h2>
-          ) : (
-            <h2>
-              Showing&nbsp;
-              {total.toLocaleString()}
-              &nbsp;matches out of&nbsp;
-              {docCount.toLocaleString()}
-              &nbsp;total complaints
-            </h2>
-          )}
-        </div>
+        {total === docCount ? (
+          <h2>
+            {'Showing ' + docCount.toLocaleString() + ' total complaints'}
+          </h2>
+        ) : (
+          <h2>
+            {'Showing ' +
+              total.toLocaleString() +
+              ' matches out of ' +
+              docCount.toLocaleString() +
+              ' total complaints'}
+          </h2>
+        )}
         <div>
           <h3 className="h4 flex-all export-results">
             <button

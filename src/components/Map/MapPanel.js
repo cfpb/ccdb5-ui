@@ -38,7 +38,7 @@ import {
   selectViewWidth,
 } from '../../reducers/view/selectors';
 
-import { shortFormat } from '../../utils';
+import { formatDisplayDate } from '../../utils/formatDate';
 
 const WARNING_MESSAGE =
   '“Complaints per 1,000 population” is not available with your filter ' +
@@ -70,9 +70,9 @@ export const MapPanel = () => {
     return processRows(results.product, false, 'Product', expandedRows);
   }, [results, expandedRows]);
 
-  const MAP_ROWCHART_TITLE = `Product by highest complaint volume ${shortFormat(
+  const MAP_ROWCHART_TITLE = `Product by highest complaint volume ${formatDisplayDate(
     minDate,
-  )} to ${shortFormat(maxDate)}`;
+  )} to ${formatDisplayDate(maxDate)}`;
 
   const onDismissWarning = () => {
     dispatch(mapWarningDismissed());
