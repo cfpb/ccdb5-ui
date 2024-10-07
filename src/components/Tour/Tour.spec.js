@@ -1,6 +1,6 @@
 import { Tour } from './Tour';
 import { testRender as render, screen } from '../../testUtils/test-utils';
-import { defaultAggs } from '../../reducers/aggs/aggs';
+import { defaultAggs } from '../../reducers/aggs/aggsSlice';
 import { defaultQuery } from '../../reducers/query/query';
 import { defaultView } from '../../reducers/view/view';
 import { merge } from '../../testUtils/functionHelpers';

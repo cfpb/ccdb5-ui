@@ -5,7 +5,6 @@ import { buildFluentMock } from '../../Charts/__fixtures__/buildFluentMock';
 import { defaultTrends } from '../../../reducers/trends/trends';
 import { defaultQuery } from '../../../reducers/query/query';
 import { defaultView } from '../../../reducers/view/view';
-import { defaultAggs } from '../../../reducers/aggs/aggs';
 import { TrendsPanel } from './TrendsPanel';
 
 const renderComponent = (queryState, trendsState, viewState) => {
@@ -17,7 +16,6 @@ const renderComponent = (queryState, trendsState, viewState) => {
     query: queryState,
     trends: trendsState,
     view: viewState,
-    aggs: defaultAggs,
   };
 
   render(<TrendsPanel />, {

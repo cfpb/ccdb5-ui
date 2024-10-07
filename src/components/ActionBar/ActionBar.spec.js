@@ -1,5 +1,5 @@
 import { ActionBar } from './ActionBar';
-import { defaultAggs } from '../../reducers/aggs/aggs';
+import { defaultAggs } from '../../reducers/aggs/aggsSlice';
 import { defaultQuery } from '../../reducers/query/query';
 import { merge } from '../../testUtils/functionHelpers';
 import {

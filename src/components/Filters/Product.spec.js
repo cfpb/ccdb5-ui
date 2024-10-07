@@ -1,6 +1,6 @@
 import { generateOptions, Product } from './Product';
 import { slugify } from '../../utils';
-import { defaultAggs } from '../../reducers/aggs/aggs';
+import { defaultAggs } from '../../reducers/aggs/aggsSlice';
 import { defaultQuery } from '../../reducers/query/query';
 import { merge } from '../../testUtils/functionHelpers';
 import { screen, testRender as render } from '../../testUtils/test-utils';

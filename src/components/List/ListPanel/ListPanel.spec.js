@@ -5,7 +5,7 @@ import {
 } from '../../../testUtils/test-utils';
 import { ListPanel } from './ListPanel';
 import { merge } from '../../../testUtils/functionHelpers';
-import { defaultAggs } from '../../../reducers/aggs/aggs';
+import { defaultAggs } from '../../../reducers/aggs/aggsSlice';
 import { defaultQuery } from '../../../reducers/query/query';
 import { defaultResults } from '../../../reducers/results/results';
 import { defaultView } from '../../../reducers/view/view';

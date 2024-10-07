@@ -1,7 +1,7 @@
 import { testRender as render, screen } from '../../../testUtils/test-utils';
 import { SimpleFilter } from './SimpleFilter';
 import { merge } from '../../../testUtils/functionHelpers';
-import { defaultAggs } from '../../../reducers/aggs/aggs';
+import { defaultAggs } from '../../../reducers/aggs/aggsSlice';
 
 const renderComponent = (props, newAggsState) => {
   merge(newAggsState, defaultAggs);

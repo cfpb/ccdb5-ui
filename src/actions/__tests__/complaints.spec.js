@@ -2,12 +2,12 @@ import * as sut from '..';
 import * as constants from '../../constants';
 import { initialState, setupStore } from '../../testUtils/setupStore';
 import {
-  AGGREGATIONS_API_CALLED,
   COMPLAINT_DETAIL_CALLED,
   COMPLAINTS_API_CALLED,
   STATES_API_CALLED,
   TRENDS_API_CALLED,
 } from '..';
+import { aggregationsApiCalled } from '../../reducers/aggs/aggsSlice';
 
 describe('action::complaints', () => {
   let expectedHitsQS, expectedQS, fixtureStore;
@@ -27,7 +27,7 @@ describe('action::complaints', () => {
     it('executes a chain of actions', function () {
       const store = setupStore(fixtureStore);
       const url = expectedQS;
-      const expectedActions = [sut.callingApi(AGGREGATIONS_API_CALLED, url)];
+      const expectedActions = [aggregationsApiCalled(url)];
       store.dispatch(sut.getAggregations());
       const { actions } = store.getState().actions;
       expect(actions).toEqual(expectedActions);

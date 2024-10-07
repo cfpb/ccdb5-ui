@@ -1,7 +1,7 @@
 import { testRender as render, screen } from '../../testUtils/test-utils';
 import { StaleDataWarnings } from './StaleDataWarnings';
 import { merge } from '../../testUtils/functionHelpers';
-import { defaultAggs } from '../../reducers/aggs/aggs';
+import { defaultAggs } from '../../reducers/aggs/aggsSlice';
 
 describe('StaleDataWarnings', () => {
   const renderComponent = (newAggsState) => {

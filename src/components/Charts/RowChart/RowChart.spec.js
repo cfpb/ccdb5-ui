@@ -2,7 +2,7 @@ import { testRender as render, screen } from '../../../testUtils/test-utils';
 import * as d3 from 'd3';
 import { buildFluentMock } from '../__fixtures__/buildFluentMock';
 import { merge } from '../../../testUtils/functionHelpers';
-import { defaultAggs } from '../../../reducers/aggs/aggs';
+import { defaultAggs } from '../../../reducers/aggs/aggsSlice';
 import { defaultView } from '../../../reducers/view/view';
 import { defaultQuery } from '../../../reducers/query/query';
 import { RowChart } from './RowChart';

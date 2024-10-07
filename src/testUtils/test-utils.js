@@ -3,7 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import aggReducer from '../reducers/aggs/aggs';
+import aggregationsReducer from '../reducers/aggs/aggsSlice';
 import detailReducer from '../reducers/detail/detail';
 import mapReducer from '../reducers/map/map';
 import queryReducer from '../reducers/query/query';
@@ -19,7 +19,7 @@ import viewReducer from '../reducers/view/view';
 function configureStoreUtil(preloadedState) {
   return configureStore({
     reducer: {
-      aggs: aggReducer,
+      aggs: aggregationsReducer,
       detail: detailReducer,
       map: mapReducer,
       query: queryReducer,
@@ -93,7 +93,7 @@ function testRenderWithMemoryRouter(
     preloadedState,
     store = configureStore({
       reducer: {
-        aggs: aggReducer,
+        aggs: aggregationsReducer,
         detail: detailReducer,
         map: mapReducer,
         query: queryReducer,

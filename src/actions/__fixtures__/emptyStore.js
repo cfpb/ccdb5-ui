@@ -1,4 +1,4 @@
-import { defaultAggs as aggs } from '../../reducers/aggs/aggs';
+import { defaultAggs as aggs } from '../../reducers/aggs/aggsSlice';
 import { defaultDetail as detail } from '../../reducers/detail/detail';
 import { defaultMap as map } from '../../reducers/map/map';
 import { defaultQuery as query } from '../../reducers/query/query';

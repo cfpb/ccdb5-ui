@@ -6,7 +6,8 @@ import {
 } from '../../constants';
 import { initialState, setupStore } from '../../testUtils/setupStore';
 import queryManager from './queryManager';
-import { AGGREGATIONS_API_CALLED, COMPLAINTS_API_CALLED } from '../../actions';
+import { COMPLAINTS_API_CALLED } from '../../actions';
+import { aggregationsApiCalled } from '../../reducers/aggs/aggsSlice';
 
 describe('redux middleware::queryManager', () => {
   let targetStore;
@@ -51,7 +52,7 @@ describe('redux middleware::queryManager', () => {
       const actionNames = actions.map((item) => item.type);
       expect(actionNames).toEqual([
         action.type,
-        AGGREGATIONS_API_CALLED,
+        aggregationsApiCalled.type,
         COMPLAINTS_API_CALLED,
       ]);
     });

@@ -6,7 +6,7 @@ import {
   fireEvent,
 } from '../../../testUtils/test-utils';
 import { merge } from '../../../testUtils/functionHelpers';
-import { defaultAggs } from '../../../reducers/aggs/aggs';
+import { defaultAggs } from '../../../reducers/aggs/aggsSlice';
 import { defaultQuery } from '../../../reducers/query/query';
 import * as viewActions from '../../../actions/view';
 import { MODAL_TYPE_EXPORT_CONFIRMATION } from '../../../constants';

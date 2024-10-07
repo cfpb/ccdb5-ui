@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import * as filter from '../../../../actions/filter';
 import * as utils from '../../../../utils';
 import { slugify } from '../../../../utils';
-import { defaultAggs } from '../../../../reducers/aggs/aggs';
+import { defaultAggs } from '../../../../reducers/aggs/aggsSlice';
 import { defaultQuery } from '../../../../reducers/query/query';
 import { AggregationItem } from './AggregationItem';
 

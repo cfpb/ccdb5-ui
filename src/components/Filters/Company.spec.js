@@ -1,5 +1,5 @@
 import { merge } from '../../testUtils/functionHelpers';
-import { defaultAggs } from '../../reducers/aggs/aggs';
+import { defaultAggs } from '../../reducers/aggs/aggsSlice';
 import { defaultQuery } from '../../reducers/query/query';
 import { Company } from './Company';
 import { testRender as render, screen } from '../../testUtils/test-utils';

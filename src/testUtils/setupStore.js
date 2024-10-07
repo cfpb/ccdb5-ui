@@ -1,6 +1,6 @@
 import { createStore } from 'redux';
 import actionsReducer from '../reducers/actions/actions';
-import aggregationsReducer from '../reducers/aggs/aggs';
+import aggregationsReducer from '../reducers/aggs/aggsSlice';
 import detailReducer from '../reducers/detail/detail';
 import mapReducer from '../reducers/map/map';
 import queryReducer from '../reducers/query/query';

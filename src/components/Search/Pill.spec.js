@@ -2,7 +2,7 @@ import { testRender as render, screen } from '../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 import * as filtersActions from '../../actions/filter';
 import { merge } from '../../testUtils/functionHelpers';
-import { defaultAggs } from '../../reducers/aggs/aggs';
+import { defaultAggs } from '../../reducers/aggs/aggsSlice';
 import { defaultQuery } from '../../reducers/query/query';
 import { Pill } from './Pill';
 

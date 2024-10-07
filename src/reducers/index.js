@@ -1,5 +1,5 @@
 import actions from './actions/actions';
-import aggs from './aggs/aggs';
+import aggs from './aggs/aggsSlice';
 import { combineReducers } from 'redux';
 import detail from './detail/detail';
 import map from './map/map';

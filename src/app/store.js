@@ -1,6 +1,6 @@
 import queryManager from '../middleware/queryManager/queryManager';
 import synchUrl from '../middleware/synchUrl/synchUrl';
-import aggReducer from '../reducers/aggs/aggs';
+import aggReducer from '../reducers/aggs/aggsSlice';
 import detailReducer from '../reducers/detail/detail';
 import mapReducer from '../reducers/map/map';
 import queryReducer from '../reducers/query/query';

@@ -1,9 +1,11 @@
 /* eslint complexity: ["error", 5] */
 import { API_PLACEHOLDER } from '../constants';
+import {
+  aggregationsApiCalled,
+  aggregationsApiFailed,
+  aggregationsReceived,
+} from '../reducers/aggs/aggsSlice';
 
-export const AGGREGATIONS_API_CALLED = 'AGGREGATIONS_API_CALLED';
-export const AGGREGATIONS_RECEIVED = 'AGGREGATIONS_RECEIVED';
-export const AGGREGATIONS_FAILED = 'AGGREGATIONS_FAILED';
 export const COMPLAINTS_API_CALLED = 'COMPLAINTS_API_CALLED';
 export const COMPLAINTS_RECEIVED = 'COMPLAINTS_RECEIVED';
 export const COMPLAINTS_FAILED = 'COMPLAINTS_FAILED';
@@ -37,11 +39,11 @@ export function getAggregations() {
       return null;
     }
 
-    dispatch(callingApi(AGGREGATIONS_API_CALLED, uri));
+    dispatch(aggregationsApiCalled(uri));
     return fetch(uri)
       .then((result) => result.json())
       .then((items) => dispatch(aggregationsReceived(items)))
-      .catch((error) => dispatch(aggregationsFailed(error)));
+      .catch((error) => dispatch(aggregationsApiFailed(error)));
   };
 }
 
@@ -161,32 +163,6 @@ export function callingApi(type, url) {
   return {
     type,
     url,
-  };
-}
-
-/**
- * Creates an action in response to aggregations being received from the API
- *
- * @param {string} data - the raw data returned from the API
- * @returns {string} a packaged payload to be used by Redux reducers
- */
-export function aggregationsReceived(data) {
-  return {
-    type: AGGREGATIONS_RECEIVED,
-    data,
-  };
-}
-
-/**
- * Creates an action in response after aggregation search fails
- *
- * @param {string} error - the error returned from `fetch`, not the API
- * @returns {string} a packaged payload to be used by Redux reducers
- */
-export function aggregationsFailed(error) {
-  return {
-    type: AGGREGATIONS_FAILED,
-    error,
   };
 }
 
