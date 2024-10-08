@@ -3,17 +3,17 @@ import './DateFilter.less';
 import { DATE_VALIDATION_FORMAT, maxDate, minDate } from '../../constants';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
-  selectFiltersCompanyReceivedMax,
-  selectFiltersCompanyReceivedMin,
-} from '../../reducers/filters/selectors';
+  selectQueryCompanyReceivedMax,
+  selectQueryCompanyReceivedMin,
+} from '../../reducers/query/selectors';
 import { useDispatch, useSelector } from 'react-redux';
-import { companyReceivedDateUpdated } from '../../reducers/filters/filtersSlice';
 import { CollapsibleFilter } from './CollapsibleFilter/CollapsibleFilter';
 import dayjs from 'dayjs';
 import dayjsCustomParseFormat from 'dayjs/plugin/customParseFormat';
 import dayjsIsBetween from 'dayjs/plugin/isBetween';
 import { formatDate } from '../../utils/formatDate';
 import getIcon from '../iconMap';
+import { datesChanged } from '../../reducers/query/querySlice';
 
 dayjs.extend(dayjsCustomParseFormat);
 dayjs.extend(dayjsIsBetween);
@@ -21,8 +21,8 @@ dayjs.extend(dayjsIsBetween);
 export const CompanyReceivedFilter = () => {
   const fieldName = 'company_received';
   const title = 'The date the CFPB sent the complaint to the company';
-  const dateFrom = useSelector(selectFiltersCompanyReceivedMin);
-  const dateThrough = useSelector(selectFiltersCompanyReceivedMax);
+  const dateFrom = useSelector(selectQueryCompanyReceivedMin);
+  const dateThrough = useSelector(selectQueryCompanyReceivedMax);
   const initialFromDate = dayjs(dateFrom).isValid() ? formatDate(dateFrom) : '';
   const initialThroughDate = dayjs(dateThrough).isValid()
     ? formatDate(dateThrough)
@@ -95,7 +95,7 @@ export const CompanyReceivedFilter = () => {
     const isDateDifferent =
       dateFrom !== _fromDate || dateThrough !== _throughDate;
     if (isDateDifferent) {
-      dispatch(companyReceivedDateUpdated(fieldName, _fromDate, _throughDate));
+      dispatch(datesChanged(fieldName, _fromDate, _throughDate));
     }
   };
 

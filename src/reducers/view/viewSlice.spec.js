@@ -16,6 +16,7 @@ import target, {
 } from './viewSlice';
 import * as actions from '../../actions';
 import * as types from '../../constants';
+import { dataLensChanged, focusChanged } from '../../actions';
 
 describe('reducer:View', () => {
   let action;
@@ -87,7 +88,6 @@ describe('reducer:View', () => {
   describe('handles PRINT_MODE_OFF', () => {
     expect(target(viewState, updatePrintModeOff())).toEqual({
       ...viewState,
-      isFromExternal: false,
       isPrintMode: false,
     });
   });
@@ -161,13 +161,12 @@ describe('reducer:View', () => {
     });
 
     it('handles PRINT params', () => {
-      const params = { isFromExternal: 'true', isPrintMode: 'true' };
+      const params = { isPrintMode: 'true' };
       const actual = target(state, actions.routeChanged('/', params));
       expect(actual).toEqual({
         expandedRows: [],
         hasAdvancedSearchTips: false,
         hasFilters: true,
-        isFromExternal: true,
         isPrintMode: true,
         modalTypeShown: false,
         showTour: false,
@@ -212,6 +211,27 @@ describe('reducer:View', () => {
       tab = 'Trends';
       expect(target(state, tabChanged(tab))).toEqual({
         ...state,
+        tab: 'Trends',
+      });
+    });
+  });
+
+  describe('Trends actions', () => {
+    let state;
+    beforeEach(() => {
+      state = {
+        ...viewState,
+      };
+    });
+
+    it('handles dataLensChanged', () => {
+      state.expandedRows = ['a', 'b', 'c'];
+      expect(target(state, dataLensChanged('Product'))).toEqual(viewState);
+    });
+    it('handles focusChanged', () => {
+      state.tab = 'List';
+      expect(target(state, focusChanged('Some product'))).toEqual({
+        ...viewState,
         tab: 'Trends',
       });
     });

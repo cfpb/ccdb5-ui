@@ -44,7 +44,7 @@ export function getAggregations() {
     const uri = API_PLACEHOLDER + qs;
 
     // This call is already in process
-    if (store.aggs.activeCall) {
+    if (uri === store.aggs.activeCall) {
       return null;
     }
 
@@ -102,7 +102,7 @@ export function getStates() {
   return (dispatch, getState) => {
     const store = getState();
     const qs = 'geo/states/' + buildUri(store);
-    const uri = API_PLACEHOLDER + qs + '&no_aggs=true';
+    const uri = API_PLACEHOLDER + qs;
 
     // This call is already in process
     if (uri === store.map.activeCall) {
@@ -123,7 +123,7 @@ export function getTrends() {
   return (dispatch, getState) => {
     const store = getState();
     const qs = 'trends' + buildUri(store);
-    const uri = API_PLACEHOLDER + qs + '&no_aggs=true';
+    const uri = API_PLACEHOLDER + qs;
     // This call is already in process
     if (uri === store.trends.activeCall) {
       return null;

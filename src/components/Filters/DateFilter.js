@@ -7,7 +7,7 @@ import {
   selectQueryDateReceivedMin,
 } from '../../reducers/query/selectors';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeDates } from '../../reducers/query/querySlice';
+import { datesChanged } from '../../reducers/query/querySlice';
 import { CollapsibleFilter } from './CollapsibleFilter/CollapsibleFilter';
 import { DateRanges } from './DateRanges';
 import dayjs from 'dayjs';
@@ -100,7 +100,7 @@ export const DateFilter = () => {
     const isDateDifferent =
       dateFrom !== _fromDate || dateThrough !== _throughDate;
     if (dayjs(_throughDate).isAfter(_fromDate) && isDateDifferent) {
-      dispatch(changeDates(fieldName, _fromDate, _throughDate));
+      dispatch(datesChanged(fieldName, _fromDate, _throughDate));
     }
   };
 

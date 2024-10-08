@@ -8,11 +8,13 @@ import {
   selectQueryPage,
   selectQueryTotalPages,
 } from '../../../reducers/query/selectors';
+import { selectResultsItems } from '../../../reducers/results/selectors';
 
 export const Pagination = () => {
   const dispatch = useDispatch();
   const page = useSelector(selectQueryPage);
-  const total = useSelector(selectQueryTotalPages) || 1;
+  const total = useSelector(selectQueryTotalPages);
+  const items = useSelector(selectResultsItems);
 
   const nextPage = () => {
     dispatch(nextPageShown());
@@ -21,7 +23,7 @@ export const Pagination = () => {
     dispatch(prevPageShown());
   };
 
-  return (
+  return items.length > 0 ? (
     <nav className="m-pagination" role="navigation" aria-label="Pagination">
       <button
         className="a-btn m-pagination__btn-prev"
@@ -50,5 +52,5 @@ export const Pagination = () => {
         <label className="m-pagination__label">Page {page}</label>
       </div>
     </nav>
-  );
+  ) : null;
 };

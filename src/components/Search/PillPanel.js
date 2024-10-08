@@ -14,12 +14,12 @@ import getIcon from '../iconMap';
 import { Pill } from './Pill';
 import { filtersCleared } from '../../reducers/filters/filtersSlice';
 import { startOfToday } from '../../utils';
-import { selectFiltersFilterState } from '../../reducers/filters/selectors';
+import { selectFiltersRoot } from '../../reducers/filters/selectors';
 
 /* eslint complexity: ["error", 5] */
 export const PillPanel = () => {
   const dispatch = useDispatch();
-  const filterState = useSelector(selectFiltersFilterState);
+  const filterState = useSelector(selectFiltersRoot);
   const hasNarrative = useSelector(selectFiltersHasNarrative);
 
   const dateReceivedMin = useSelector(selectQueryDateReceivedMin);

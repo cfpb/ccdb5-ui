@@ -11,9 +11,9 @@ import {
   selectAggsDocCount,
   selectAggsTotal,
 } from '../../../reducers/aggs/selectors';
-import { selectQueryState } from '../../../reducers/query/selectors';
+import { selectQueryRoot } from '../../../reducers/query/selectors';
 import { selectViewTab } from '../../../reducers/view/selectors';
-import { selectFiltersFilterState } from '../../../reducers/filters/selectors';
+import { selectFiltersRoot } from '../../../reducers/filters/selectors';
 const FORMAT_CSV = 'csv';
 const FORMAT_JSON = 'json';
 
@@ -22,8 +22,8 @@ const DATASET_FULL = 'full';
 
 export const DataExport = () => {
   const dispatch = useDispatch();
-  const queryState = useSelector(selectQueryState);
-  const filtersState = useSelector(selectFiltersFilterState);
+  const queryState = useSelector(selectQueryRoot);
+  const filtersState = useSelector(selectFiltersRoot);
   const someComplaintsCount = useSelector(selectAggsTotal);
   const allComplaintsCount = useSelector(selectAggsDocCount);
   const tab = useSelector(selectViewTab);

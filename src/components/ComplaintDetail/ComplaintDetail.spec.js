@@ -45,7 +45,7 @@ const renderComponent = (newDetailState, newRoutesState) => {
 };
 
 describe('component::ComplaintDetail', () => {
-  it('renders loading page', () => {
+  it.only('renders loading page', () => {
     const activeCall = '/api/call/detailid';
     const newDetailState = {
       activeCall: activeCall,

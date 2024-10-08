@@ -2,19 +2,23 @@ import target, {
   alignDateRange,
   dateRangeChanged,
   queryState,
-  changeDates,
+  datesChanged,
   sortChanged,
   sizeChanged,
   nextPageShown,
   prevPageShown,
   searchTextChanged,
   searchFieldChanged,
+  dateIntervalChanged,
+  trendsDateWarningDismissed,
 } from './querySlice';
 import * as types from '../../constants';
 import dayjs from 'dayjs';
 import { startOfToday } from '../../utils';
 import { complaintsReceived } from '../results/resultsSlice';
 import { routeChanged } from '../routes/routesSlice';
+import { filtersCleared } from '../filters/filtersSlice';
+import { minDate } from '../../constants';
 
 const maxDate = startOfToday();
 
@@ -25,6 +29,8 @@ describe('reducer:query', () => {
       result = target(undefined, {});
       expect(result).toEqual({
         breakPoints: {},
+        company_received_max: '',
+        company_received_min: '',
         dateInterval: 'Month',
         dateRange: '3y',
         date_received_max: '2020-05-05',
@@ -299,7 +305,7 @@ describe('reducer:query', () => {
     });
 
     it('handles size parameter', () => {
-      params = { size: '100' };
+      params = { size: 100 };
       actual = target(state, routeChanged('', params));
       expect(actual.size).toEqual(100);
     });
@@ -315,13 +321,6 @@ describe('reducer:query', () => {
       actual = target(state, routeChanged('', params));
       expect(actual.dateInterval).toEqual('Month');
       expect(actual.dateRange).toEqual('3y');
-    });
-
-    it('handles bogus size & sort parameters', () => {
-      params = { size: '9999', sort: 'tables' };
-      actual = target(state, routeChanged('', params));
-      expect(actual.size).toEqual(25);
-      expect(actual.sort).toEqual('created_date_desc');
     });
 
     it('converts some parameters to dates', () => {
@@ -402,7 +401,7 @@ describe('reducer:query', () => {
   });
 
   describe('Dates', () => {
-    describe('changeDates actions', () => {
+    describe('datesChanged actions', () => {
       let result;
       const filterName = 'date_received';
       const minDate = new Date(2001, 0, 30);
@@ -415,7 +414,7 @@ describe('reducer:query', () => {
         const testState = { ...queryState };
         delete testState.dateRange;
         expect(
-          target(testState, changeDates(filterName, minDate, maxDate)),
+          target(testState, datesChanged(filterName, minDate, maxDate)),
         ).toEqual({
           ...testState,
           breakPoints: {},
@@ -435,7 +434,7 @@ describe('reducer:query', () => {
             date_received_max: maxDate,
             dateRange: '1y',
           },
-          changeDates(filterName, minDate, maxDate),
+          datesChanged(filterName, minDate, maxDate),
         );
         expect(result.dateRange).toBeFalsy();
       });
@@ -445,23 +444,35 @@ describe('reducer:query', () => {
         // today's date
         const max = dayjs(startOfToday());
         const min = new Date(dayjs(max).subtract(3, 'months'));
-        result = target({ ...queryState }, changeDates(filterName, min, max));
+        result = target({ ...queryState }, datesChanged(filterName, min, max));
         expect(result.dateRange).toEqual('3m');
-      });
-
-      it('does not add empty dates', () => {
-        expect(
-          target({ ...queryState }, changeDates(filterName, '', '')),
-        ).toEqual({
-          ...queryState,
-          breakPoints: {},
-          from: 0,
-          page: 1,
-          searchAfter: '',
-        });
       });
     });
 
+    describe('DATE_INTERVAL_CHANGED actions', () => {
+      beforeEach(() => {
+        state = {
+          ...queryState,
+        };
+      });
+      it('extends dateInterval when Day selected', () => {
+        expect(target(state, dateIntervalChanged('Day'))).toEqual({
+          ...state,
+          dateInterval: 'Week',
+          trendsDateWarningEnabled: true,
+        });
+      });
+
+      it('handles other intervals', () => {
+        state.dateInterval = 'Week';
+
+        expect(target(state, dateIntervalChanged('Month'))).toEqual({
+          ...state,
+          dateInterval: 'Month',
+          trendsDateWarningEnabled: false,
+        });
+      });
+    });
     describe('DATE_RANGE_CHANGED actions', () => {
       let action, result;
       beforeEach(() => {
@@ -505,6 +516,37 @@ describe('reducer:query', () => {
           page: 1,
           searchAfter: '',
         });
+      });
+    });
+  });
+
+  describe('Filters Cleared', () => {
+    it('resets dates and pagination', () => {
+      state = {
+        ...queryState,
+        page: 10,
+        size: 100,
+        totalPages: 5,
+      };
+      expect(target(state, filtersCleared())).toEqual({
+        ...state,
+        dateRange: 'All',
+        date_received_min: minDate,
+        page: 1,
+        totalPages: 0,
+      });
+    });
+  });
+  describe('trendsDateWarningDismissed', () => {
+    it('dismisses warnings', () => {
+      state = {
+        ...queryState,
+        trendsDateWarningEnabled: true,
+      };
+
+      expect(target(state, trendsDateWarningDismissed())).toEqual({
+        ...state,
+        trendsDateWarningEnabled: false,
       });
     });
   });

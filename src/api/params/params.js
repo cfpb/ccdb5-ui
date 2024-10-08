@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { clamp } from '../../utils';
+import { clamp, removeNullProperties } from '../../utils';
 import { enforceValues } from '../../utils/reducers';
 // ----------------------------------------------------------------------------
 // return parameter objects
@@ -13,21 +13,13 @@ import { enforceValues } from '../../utils/reducers';
 export function extractAggregationParams(state) {
   const { filters, query } = state;
 
-  const set1 = {
-    field: 'all',
-  };
+  const queryState = extractQueryParams(query);
 
-  if (query.dateRange) {
-    set1.date_received_max = query.date_received_max;
-    set1.date_received_min = query.date_received_min;
-  }
-
-  if (query.searchField) {
-    set1.field = query.searchField;
-  }
-  if (query.searchText) {
-    set1.search_term = query.searchText;
-  }
+  const queryParams = Object.keys(queryState).filter(
+    (key) =>
+      // exclude these from query
+      !['frm', 'search_after', 'size', 'sort'].includes(key),
+  );
 
   const filterParams = Object.keys(filters).filter(
     (key) =>
@@ -36,12 +28,15 @@ export function extractAggregationParams(state) {
         key,
       ),
   );
+
   // Grab specific attributes from the reducers
-  return Object.assign(
+  const newObject = Object.assign(
     {},
-    set1,
+    extractReducerAttributes(queryState, queryParams),
     extractReducerAttributes(filters, filterParams),
   );
+
+  return removeNullProperties(newObject);
 }
 
 /**
@@ -105,6 +100,10 @@ export function extractReducerAttributes(reducer, attributes) {
 export function extractQueryParams(queryState) {
   const query = queryState;
   const params = {
+    company_received_max: query.company_received_max,
+    company_received_min: query.company_received_min,
+    date_received_max: query.date_received_max,
+    date_received_min: query.date_received_min,
     field: enforceValues(query.searchField, 'searchField'),
     // edge case for doc complaint override in
     // actions/complaints.js
@@ -117,12 +116,6 @@ export function extractQueryParams(queryState) {
   };
 
   /* istanbul ignore else */
-  if (query.dateRange) {
-    params.date_received_max = query.date_received_max;
-    params.date_received_min = query.date_received_min;
-  }
-
-  /* istanbul ignore else */
   if (query.searchText) {
     params.search_term = query.searchText;
   }
@@ -131,56 +124,8 @@ export function extractQueryParams(queryState) {
     params.search_after = query.searchAfter;
   }
 
-  return params;
+  return removeNullProperties(params);
 }
-
-// /**
-//  * Reverses extractQueryParams
-//  *
-//  * @param {object} params - the parameters returned from the API
-//  * @returns {object} a version of the query state
-//  */
-// export function parseParamsToQuery(params) {
-//   const {
-//     date_received_max,
-//     date_received_min,
-//     field,
-//     frm: frm_as_string,
-//     search_term,
-//     size: size_as_string,
-//     sort,
-//   } = params;
-//
-//   const size = parseInt(size_as_string, 10);
-//   const frm = parseInt(frm_as_string, 10);
-//
-//   const query = {
-//     page: (frm + size) / size,
-//     searchText: search_term || '',
-//     // searchFields: revSearchFieldMap[field],
-//     size,
-//   };
-//
-//   // Handle the dates
-//   const dateRange = removeNullProperties({
-//     to: date_received_max,
-//     from: date_received_min,
-//   });
-//
-//   /* istanbul ignore else */
-//   if (!isEqual(dateRange, {})) {
-//     query.dateRange = dateRange;
-//     validateDatePeriod(query.dateRange);
-//   }
-//
-//   // Handle sort
-//   /* istanbul ignore else */
-//   if (sort) {
-//     query.sort = sortNames(sort);
-//   }
-//
-//   return removeNullProperties(query);
-// }
 
 /**
  * Selects specific variables from the trends reducer to be used in a query str

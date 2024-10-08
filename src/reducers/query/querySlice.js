@@ -12,6 +12,8 @@ import dayjs from 'dayjs';
 import { isGreaterThanYear } from '../../utils/trends';
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import {
+  maxDate,
+  minDate,
   PERSIST_SAVE_QUERY_STRING,
   REQUERY_ALWAYS,
   REQUERY_HITS_ONLY,
@@ -34,6 +36,8 @@ import queryString from 'query-string';
 /* eslint-disable camelcase */
 export const queryState = {
   breakPoints: {},
+  company_received_max: '',
+  company_received_min: '',
   dateInterval: 'Month',
   dateRange: '3y',
   date_received_max: formatDate(dayjs(startOfToday())),
@@ -80,7 +84,7 @@ export const querySlice = createSlice({
     dateRangeChanged: {
       // eslint-disable-next-line complexity
       reducer: (state, action) => {
-        const dateRange = enforceValues(action.payload.dateRange, 'dateRange');
+        const dateRange = enforceValues(action.payload, 'dateRange');
         const maxDate = formatDate(dayjs(startOfToday()));
         const res = {
           All: formatDate(dayjs(types.DATE_RANGE_MIN)),
@@ -96,11 +100,9 @@ export const querySlice = createSlice({
         state.date_received_max = maxDate;
         validateDateInterval(state);
       },
-      prepare: (dateRange) => {
+      prepare: (payload) => {
         return {
-          payload: {
-            dateRange,
-          },
+          payload,
           meta: {
             persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
@@ -108,19 +110,18 @@ export const querySlice = createSlice({
         };
       },
     },
-    changeDates: {
+    datesChanged: {
       // eslint-disable-next-line complexity
       reducer: (state, action) => {
-        const fields = [
-          action.payload.filterName + '_min',
-          action.payload.filterName + '_max',
-        ];
-
+        const { filterName } = action.payload;
         let { maxDate, minDate } = action.payload;
-        // If maxDate or minDate are falsy, early exit
-        if (!maxDate || !minDate) {
-          return state;
-        }
+
+        const fields = [filterName + '_min', filterName + '_max'];
+
+        // // If maxDate AND minDate are falsy, early exit
+        // if (!maxDate && !minDate) {
+        //   return state;
+        // }
 
         minDate = dayjs(minDate).isValid()
           ? formatDate(dayjs(minDate).startOf('day'))
@@ -134,10 +135,13 @@ export const querySlice = createSlice({
 
         const dateRange = calculateDateRange(minDate, maxDate);
 
-        if (dateRange && datesChanged) {
-          state.dateRange = dateRange;
-        } else {
-          delete state.dateRange;
+        // only modify dateRange when we use the date filter, not company filter
+        if (filterName === 'date_received') {
+          if (dateRange && datesChanged) {
+            state.dateRange = dateRange;
+          } else {
+            delete state.dateRange;
+          }
         }
 
         state[fields[0]] = minDate || state[fields[0]];
@@ -182,42 +186,6 @@ export const querySlice = createSlice({
       prepare: (searchText) => {
         return {
           payload: searchText,
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
-    },
-    removeAllFilters: {
-      reducer: (state) => {
-        const allFilters = types.knownFilters.concat(
-          types.dateFilters,
-          types.flagFilters,
-        );
-
-        if (state.searchField === types.NARRATIVE_SEARCH_FIELD) {
-          const idx = allFilters.indexOf('has_narrative');
-          allFilters.splice(idx, 1);
-        }
-
-        allFilters.forEach((kf) => {
-          if (kf in state && kf !== 'has_narrative') {
-            delete state[kf];
-          }
-        });
-
-        // set date range to All
-        // adjust date filter for max and min ranges
-        state.dateRange = 'All';
-        /* eslint-disable camelcase */
-        state.date_received_min = dayjs(types.DATE_RANGE_MIN).toISOString();
-        state.date_received_max = dayjs(startOfToday()).toISOString();
-        state.from = 0;
-      },
-      prepare: (payload) => {
-        return {
-          payload,
           meta: {
             persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
@@ -304,26 +272,24 @@ export const querySlice = createSlice({
         };
       },
     },
-    updateTotalPages: {
-      reducer: (state, action) => {
-        const { _meta, hits } = action.payload.data;
-        const totalPages = Math.ceil(hits.total.value / state.size);
+    updateTotalPages: (state, action) => {
+      const { _meta, hits } = action.payload.data;
+      const totalPages = Math.ceil(hits.total.value / state.size);
 
-        // set pager to last page if the number of total pages is less than current page
-        const { break_points: breakPoints } = _meta;
-        state.page = state.page > totalPages ? totalPages : state.page;
-        state.breakPoints = breakPoints;
-        state.totalPages = Object.keys(breakPoints).length + 1;
-      },
-      prepare: (data) => {
-        return {
-          payload: { data },
-        };
-      },
+      // set pager to last page if the number of total pages is less than current page
+      const { break_points: breakPoints } = _meta;
+      state.page = state.page > totalPages ? totalPages : state.page;
+      state.breakPoints = breakPoints;
+      state.totalPages = Object.keys(breakPoints).length + 1;
     },
   },
   extraReducers: (builder) => {
     builder
+      .addCase('filters/filtersCleared', (state) => {
+        state.dateRange = 'All';
+        state.date_received_min = minDate;
+        state.date_received_max = maxDate;
+      })
       .addCase('results/complaintsReceived', (state, action) => {
         querySlice.caseReducers.updateTotalPages(state, action);
       })
@@ -354,10 +320,7 @@ export const querySlice = createSlice({
 
         // Handle numeric fields
         const defaultPage = coalesce(params, 'page', queryState.page);
-        const defaultSize = enforceValues(
-          coalesce(params, 'size', queryState.size),
-          'size',
-        );
+        const defaultSize = coalesce(params, 'size', queryState.size);
         state.page = parseInt(defaultPage, 10);
         state.size = parseInt(defaultSize, 10);
 
@@ -367,16 +330,14 @@ export const querySlice = createSlice({
 
         // Apply the date range
         if (dateRangeNoDates(params) || params.dateRange === 'All') {
-          const innerAction = { payload: { dateRange: params.dateRange } };
+          const innerAction = { payload: params.dateRange };
           querySlice.caseReducers.dateRangeChanged(state, innerAction);
         }
         alignDateRange(state);
       })
       .addMatcher(
         isAnyOf(
-          // actions.DATES_CHANGED,
-          // actions.FILTER_CHANGED,
-          // actions.FILTER_FLAG_CHANGED,
+          datesChanged,
           dateIntervalChanged,
           dateRangeChanged,
           filterAdded,
@@ -632,74 +593,6 @@ export function stateToQS(state) {
   return '?' + queryString.stringify(filteredParams);
 }
 
-// /**
-//  * Converts a set of key/value pairs into a query string for URL history.
-//  *
-//  * @param {string} state - a set of key/value pairs
-//  * @returns {string} a formatted query string
-//  */
-// export function stateToURL(state) {
-//   const params = {};
-//   const fields = Object.keys(state);
-//
-//   // Copy over the fields
-//   // eslint-disable-next-line complexity
-//   fields.forEach((field) => {
-//     // Do not include empty fields
-//     if (!state[field]) {
-//       return;
-//     }
-//
-//     // Exclude these params from the browser url
-//     if (['queryString', 'url', 'breakPoints'].includes(field)) {
-//       return;
-//     }
-//
-//     let value = state[field];
-//
-//     // Process date filters url-friendly display
-//     if (types.dateFilters.indexOf(field) !== -1) {
-//       value = shortIsoFormat(value);
-//     }
-//     params[field] = value;
-//   });
-//
-//   // list of API params
-//   // https://cfpb.github.io/api/ccdb/api/index.html#/
-//   const commonParams = [].concat(
-//     ['searchText', 'searchField', 'tab'],
-//     types.dateFilters,
-//     types.knownFilters,
-//     types.flagFilters,
-//   );
-//
-//   const paramMap = {
-//     List: ['sort', 'size', 'page'],
-//     Map: ['dataNormalization', 'dateRange', 'expandedRows'],
-//     Trends: [
-//       'chartType',
-//       'dateRange',
-//       'dateInterval',
-//       'expandedRows',
-//       'lens',
-//       'focus',
-//       'subLens',
-//     ],
-//   };
-//
-//   const filterKeys = [].concat(commonParams, paramMap[params.tab]);
-//
-//   // where we only filter out the params required for each of the tabs
-//   const filteredParams = Object.keys(params)
-//     .filter((key) => filterKeys.includes(key))
-//     .reduce((obj, key) => {
-//       obj[key] = params[key];
-//       return obj;
-//     }, {});
-//
-//   return '?' + queryString.stringify(filteredParams);
-// }
-
 /**
  * helper function to clear out breakpoints, reset page to 1 when any sort
  * or filter changes the query
@@ -715,13 +608,12 @@ export function clearPager(state) {
 }
 
 export const {
-  changeDates,
+  datesChanged,
   dateRangeChanged,
   dateIntervalChanged,
   trendsDateWarningDismissed,
   nextPageShown,
   prevPageShown,
-  removeAllFilters,
   searchFieldChanged,
   searchTextChanged,
   sizeChanged,
