@@ -1,3 +1,8 @@
+@use 'node_modules/@cfpb/cfpb-design-system/src/abstracts' as *;
+@use 'node_modules/@cfpb/cfpb-design-system/src/base' as *;
+@use 'node_modules/@cfpb/cfpb-design-system/dist/index.css' as *;
+@import '../../css/base';
+
 .card-container {
   max-width: 100%;
   padding: $gutter-normal;

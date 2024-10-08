@@ -1,5 +1,8 @@
+@use 'sass:math';
+@import '../../../css/base';
+
 .content__hero {
-  padding-bottom: unit(30px / $base-font-size-px, rem);
+  padding-bottom: unit(math.div(30px, $base-font-size-px) rem);
 
   p {
     max-width: 670px;

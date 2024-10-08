@@ -1,3 +1,7 @@
+@use 'node_modules/@cfpb/cfpb-design-system/src/abstracts' as *;
+@use 'node_modules/@cfpb/cfpb-design-system/src/base' as *;
+@use 'node_modules/@cfpb/cfpb-design-system/dist/index.css' as *;
+
 .pill {
   padding: $grid-gutter-width / 3 30px $grid-gutter-width / 3 $grid-gutter-width /
     3;

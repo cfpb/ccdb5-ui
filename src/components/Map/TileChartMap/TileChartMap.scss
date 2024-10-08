@@ -5,6 +5,11 @@
  *
  * License: www.highcharts.com/license
  */
+@use 'node_modules/@cfpb/cfpb-design-system/src/abstracts' as *;
+@use 'node_modules/@cfpb/cfpb-design-system/src/base' as *;
+@use 'node_modules/@cfpb/cfpb-design-system/dist/index.css' as *;
+@import '../../../css/base';
+
 .highcharts-container {
   position: relative;
   overflow: hidden;
@@ -294,7 +299,7 @@ $mobile-xs-tiles: 'only screen and (max-width:400px)';
 }
 
 // This takes over for looking good at the minimum height of 400px
-@media $mobile-tiles {
+@media ($mobile-tiles) {
   .highcharts-data-label {
     line-height: 1;
 
@@ -310,7 +315,7 @@ $mobile-xs-tiles: 'only screen and (max-width:400px)';
   }
 }
 
-@media $mobile-xs-tiles {
+@media ($mobile-xs-tiles) {
   .highcharts-data-label {
     line-height: 1;
 
