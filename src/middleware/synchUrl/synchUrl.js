@@ -34,6 +34,8 @@ function getQueryAttrs(tab) {
   // default query that every route should have
   const defaultParams = [
     'dateRange',
+    'company_received_min',
+    'company_received_max',
     'date_received_min',
     'date_received_max',
     'searchText',
@@ -75,16 +77,6 @@ function getViewModelAttrs(tab) {
   }
   return attrs;
 }
-/**
- * Extract dates from the query reducer
- *
- * @param {object} state - the current state of the Redux store
- * @returns {object} the extracted variables
- */
-export function extractDates(state) {
-  const { date_received_max, date_received_min } = state.query;
-  return { date_received_max, date_received_min };
-}
 
 /**
  * Determine which reducer variables will go into a query string to push into the url
@@ -112,11 +104,6 @@ export function extractQueryStringParams(state) {
     extractReducerAttributes(state.view, attrsView),
     extractReducerAttributes(state.trends, attrsTrends),
   );
-  // Rename some properties (APP query string =/= API query string)
-  // for (const apiName in renameThese) {
-  //   const appName = renameThese[apiName];
-  //   renameProperty(params, apiName, appName);
-  // }
 
   if (state.query.searchAfter) {
     params.search_after = state.query.searchAfter;

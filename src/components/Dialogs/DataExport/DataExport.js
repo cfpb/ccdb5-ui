@@ -11,9 +11,9 @@ import {
   selectAggsDocCount,
   selectAggsTotal,
 } from '../../../reducers/aggs/selectors';
-import { selectQueryState } from '../../../reducers/query/selectors';
+import { selectQueryRoot } from '../../../reducers/query/selectors';
 import { selectViewTab } from '../../../reducers/view/selectors';
-import { selectFiltersFilterState } from '../../../reducers/filters/selectors';
+import { selectFiltersRoot } from '../../../reducers/filters/selectors';
 const FORMAT_CSV = 'csv';
 const FORMAT_JSON = 'json';
 
@@ -22,8 +22,8 @@ const DATASET_FULL = 'full';
 
 export const DataExport = () => {
   const dispatch = useDispatch();
-  const queryState = useSelector(selectQueryState);
-  const filtersState = useSelector(selectFiltersFilterState);
+  const queryState = useSelector(selectQueryRoot);
+  const filtersState = useSelector(selectFiltersRoot);
   const someComplaintsCount = useSelector(selectAggsTotal);
   const allComplaintsCount = useSelector(selectAggsDocCount);
   const tab = useSelector(selectViewTab);
@@ -135,7 +135,7 @@ export const DataExport = () => {
         {someComplaintsCount === allComplaintsCount ? null : (
           <div className="group">
             <div className="group-title">
-              Select which complaints you&apos;d like to export
+              Select which complaints you’d like to export
             </div>
             <div className="body-copy">
               <div className="m-form-field m-form-field--radio m-form-field--lg-target">
@@ -217,8 +217,8 @@ export const DataExport = () => {
           </div>
         </div>
         <div className="timeliness-warning">
-          The export process could take several minutes if you&apos;re
-          downloading many complaints
+          The export process could take several minutes if you’re downloading
+          many complaints
         </div>
       </div>
       <div className="footer layout-row">

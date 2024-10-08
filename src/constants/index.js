@@ -63,7 +63,13 @@ export const dateFilters = [
 ];
 
 export const dateIntervals = ['Day', 'Week', 'Month', 'Quarter', 'Year'];
-export const dateRanges = ['3m', '6m', '1y', '3y', 'All'];
+export const dateRanges = {
+  '3m': '3 months',
+  '6m': '6 months',
+  '1y': '1 year',
+  '3y': '3 years',
+  All: 'Full date range',
+};
 
 // list of fields that we don't include in the URL or Query to keep things tidy
 export const excludeFields = [

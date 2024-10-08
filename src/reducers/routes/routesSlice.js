@@ -1,13 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import * as constants from '../../constants';
+import { enforceValues } from '../../utils/reducers';
 
 export const updateParams = (state, action) => {
   const { params, path } = action.payload;
-  if (params.company) {
-    params.sent_to = params.company;
-    delete params.company;
-  }
-
   state.path = path;
   state.params = params;
 };
@@ -34,6 +30,11 @@ export const routesSlice = createSlice({
     routeChanged: {
       reducer: updateParams,
       prepare: (path, params) => {
+        if (params.size) {
+          // set up the size param so the query reducer can use a valid size
+          params.size = enforceValues(params.size.toString(), 'size');
+        }
+
         return {
           payload: {
             path,

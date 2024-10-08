@@ -1,4 +1,4 @@
-export const selectFiltersFilterState = (state) => state.filters;
+export const selectFiltersRoot = (state) => state.filters;
 export const selectFiltersCompany = (state) => state.filters.company;
 export const selectFiltersCompanyReceivedMax = (state) =>
   state.filters.company_received_max;

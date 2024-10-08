@@ -30,28 +30,21 @@ export function buildUri(state) {
   let params;
 
   switch (tab) {
-    case MODE_LIST:
-      params = paramFns.extractBasicParams(filters, query);
-      params.no_aggs = true;
-      break;
-
-    case MODE_MAP:
-      params = Object.assign(
-        { no_aggs: true },
-        paramFns.extractBasicParams(filters, query),
-      );
-      break;
-
     case MODE_TRENDS:
-    default:
       params = Object.assign(
-        { no_aggs: true },
+        {},
         paramFns.extractBasicParams(filters, query),
         paramFns.extractTrendsParams(state),
       );
       break;
+    case MODE_LIST:
+    case MODE_MAP:
+    default:
+      params = Object.assign(paramFns.extractBasicParams(filters, query));
+      break;
   }
 
+  params.no_aggs = true;
   return formatUri('', params);
 }
 

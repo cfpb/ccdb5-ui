@@ -10,12 +10,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { coalesce } from '../../utils';
 import getIcon from '../iconMap';
 import PropTypes from 'prop-types';
-import { selectAggsRootState } from '../../reducers/aggs/selectors';
-import { selectFiltersFilterState } from '../../reducers/filters/selectors';
+import { selectAggsRoot } from '../../reducers/aggs/selectors';
+import { selectFiltersRoot } from '../../reducers/filters/selectors';
 
 export const Pill = ({ fieldName, value }) => {
-  const aggsState = useSelector(selectAggsRootState);
-  const filtersState = useSelector(selectFiltersFilterState);
+  const aggsState = useSelector(selectAggsRoot);
+  const filtersState = useSelector(selectFiltersRoot);
   const aggs = coalesce(aggsState, fieldName, []);
   const filters = coalesce(filtersState, fieldName, []);
   const prefix = formatPillPrefix(fieldName);

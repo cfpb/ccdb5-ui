@@ -34,7 +34,7 @@ describe('ComplaintCard', () => {
     expect(screen.getByText(itemFixture.company)).toBeDefined();
     expect(screen.getByText('Date received:')).toBeDefined();
     expect(screen.getByText('11/16/2022')).toBeDefined();
-    expect(screen.getByText(`Consumer's state:`)).toBeDefined();
+    expect(screen.getByText(`Consumer’s state:`)).toBeDefined();
     expect(screen.getByText(itemFixture.state)).toBeDefined();
     expect(screen.getByText('Company response to consumer')).toBeDefined();
     expect(screen.getByText(itemFixture.company_response)).toBeDefined();

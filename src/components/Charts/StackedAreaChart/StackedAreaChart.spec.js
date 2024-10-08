@@ -58,8 +58,8 @@ describe('component::StackedAreaChart', () => {
 
     const query = {
       dateInterval: 'Month',
-      date_received_max: new Date('2024-01-02T07:00:00.000Z'),
-      date_received_min: new Date('2024-12-02T08:00:00.000Z'),
+      date_received_max: '2024-01-02',
+      date_received_min: '2024-12-02',
     };
 
     const view = {

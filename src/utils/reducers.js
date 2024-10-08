@@ -28,7 +28,7 @@ export const enforceValues = (value, field) => {
     },
     dateRange: {
       defaultVal: '3y',
-      values: types.dateRanges,
+      values: Object.keys(types.dateRanges),
     },
     lens: {
       defaultVal: 'Product',

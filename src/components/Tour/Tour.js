@@ -93,19 +93,6 @@ export const Tour = () => {
       expandable.dispatch('click');
     }
 
-    const callBack = () => {
-      steps.forEach((step, idx) => {
-        if (ref.current !== null) {
-          ref.current.updateStepElement(idx);
-        }
-      });
-    };
-    const waitOn = new MutationObserver(callBack);
-    waitOn.observe(document.querySelector('#ccdb-ui-root'), {
-      subtree: true,
-      childList: true,
-    });
-
     // Add listener to filter toggle if it's mobile and at step 4 or 7
     const filterListener = () => {
       // Make sure next button isn't being hidden from steps 3 or 7
@@ -157,6 +144,15 @@ export const Tour = () => {
     return true;
   }
 
+  /**
+   * wrapper function to only hide tour when it is visible
+   */
+  function hideTour() {
+    if (showTour) {
+      dispatch(tourHidden());
+    }
+  }
+
   return isPrintMode || isLoading ? null : (
     // eslint-disable-next-line react/react-in-jsx-scope
     <>
@@ -165,7 +161,7 @@ export const Tour = () => {
         enabled={showTour}
         initialStep={0}
         steps={steps}
-        onExit={() => dispatch(tourHidden())}
+        onExit={() => hideTour()}
         options={options}
         onBeforeChange={() => handleBeforeChange(stepRef)}
         onBeforeExit={() => handleBeforeExit(stepRef)}

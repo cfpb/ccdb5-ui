@@ -33,7 +33,7 @@ describe('component::SimpleFilter', () => {
       renderComponent(props, {}, {});
       expect(screen.getByRole('button')).toHaveAttribute(
         'aria-label',
-        `Hide ${props.title} filter`,
+        `Collapse ${props.title} filter`,
       );
       expect(screen.getByText(props.title)).toBeInTheDocument();
     });

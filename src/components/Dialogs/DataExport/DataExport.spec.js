@@ -161,7 +161,7 @@ describe('DataExport', () => {
       {},
     );
     expect(
-      screen.getByText(/Select which complaints you'd like to export/),
+      screen.getByText(/Select which complaints you’d like to export/),
     ).toBeInTheDocument();
     const radioFiltered = screen.getByRole('radio', {
       name: /Filtered dataset/i,
@@ -200,7 +200,7 @@ describe('DataExport', () => {
   it('switches csv/json data formats', async () => {
     renderComponent({ doc_count: 999, total: 10000 }, {});
     expect(
-      screen.getByText(/Select which complaints you'd like to export/),
+      screen.getByText(/Select which complaints you’d like to export/),
     ).toBeInTheDocument();
 
     const radioJson = screen.getByRole('radio', {
@@ -251,7 +251,7 @@ describe('DataExport', () => {
   it('switches dataset selections', async () => {
     renderComponent({ doc_count: 999, total: 10000 }, {}, {});
     expect(
-      screen.getByText(/Select which complaints you'd like to export/),
+      screen.getByText(/Select which complaints you’d like to export/),
     ).toBeInTheDocument();
 
     const radioFiltered = screen.getByRole('radio', {

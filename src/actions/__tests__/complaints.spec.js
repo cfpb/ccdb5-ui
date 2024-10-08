@@ -45,6 +45,7 @@ describe('action::complaints', () => {
   describe('getComplaints', () => {
     let expectedUrl;
     beforeEach(() => {
+      fixtureStore = initialState();
       expectedUrl = expectedHitsQS;
       fixtureStore.view.tab = constants.MODE_LIST;
     });
@@ -79,6 +80,7 @@ describe('action::complaints', () => {
     let expectedUrl;
 
     beforeEach(() => {
+      fixtureStore = initialState();
       fixtureStore.view.tab = constants.MODE_DETAIL;
       expectedUrl = '@@API123';
     });
@@ -112,11 +114,12 @@ describe('action::complaints', () => {
     let expectedUrl;
 
     beforeEach(() => {
+      fixtureStore = initialState();
       fixtureStore.view.tab = constants.MODE_MAP;
       expectedUrl =
         '@@APIgeo/states/?date_received_max=2020-05-05' +
         '&date_received_min=2017-05-05&field=all&frm=0&no_aggs=true' +
-        '&size=25&sort=created_date_desc&no_aggs=true';
+        '&size=25&sort=created_date_desc';
     });
 
     it('executes a series of actions', function () {
@@ -144,12 +147,13 @@ describe('action::complaints', () => {
     let expectedUrl;
 
     beforeEach(() => {
+      fixtureStore = initialState();
       fixtureStore.view.tab = constants.MODE_TRENDS;
       expectedUrl =
         '@@APItrends?date_received_max=2020-05-05' +
         '&date_received_min=2017-05-05&field=all&frm=0&lens=product' +
         '&no_aggs=true&searchField=all&size=25&sort=created_date_desc' +
-        '&sub_lens=sub_product&trend_depth=5&trend_interval=month&no_aggs=true';
+        '&sub_lens=sub_product&trend_depth=5&trend_interval=month';
     });
 
     it('executes a series of actions', function () {

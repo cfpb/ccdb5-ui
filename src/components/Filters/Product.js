@@ -16,7 +16,7 @@ import { selectViewTab } from '../../reducers/view/selectors';
  * Helper function generate and sort options
  *
  * @param {Array} aggsProducts - Products array from aggs reducer
- * @param {Array} filtersProducts - Products array from query reducer. TBD this will move to new filters reducer in the future
+ * @param {Array} filtersProducts - Products array from filters reducer
  * @param {string} focus - If a current focus is selected
  * @param {string} lens - Name of the Aggregate By on Trends tab
  * @param {string} tab - Current tab we are on
@@ -56,12 +56,14 @@ export const generateOptions = (
 };
 
 export const Product = () => {
+  const aggsProducts = useSelector(selectAggsProduct);
+
   // See if there are an active product filters
+  const filtersProducts = useSelector(selectFiltersProduct);
   const focus = useSelector(selectTrendsFocus);
   const lens = useSelector(selectTrendsLens);
+
   const tab = useSelector(selectViewTab);
-  const filtersProducts = useSelector(selectFiltersProduct);
-  const aggsProducts = useSelector(selectAggsProduct);
 
   const options = generateOptions(
     aggsProducts,

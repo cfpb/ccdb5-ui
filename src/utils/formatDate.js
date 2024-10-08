@@ -21,7 +21,7 @@ export const formatDate = (uglyDate) => {
 };
 
 export const formatDisplayDate = (dateString) => {
-  return dayjs(new Date(dateString)).format('M/D/YYYY');
+  return dayjs(new Date(dateString)).utc().format('M/D/YYYY');
 };
 /**
  * adjusting dates coming from the charts so the dates are correct

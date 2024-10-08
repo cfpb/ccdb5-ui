@@ -8,8 +8,8 @@ import {
   selectTrendsLens,
   selectTrendsResults,
 } from '../../reducers/trends/selectors';
-import { selectAggsRootState } from '../../reducers/aggs/selectors';
-import { selectFiltersFilterState } from '../../reducers/filters/selectors';
+import { selectAggsRoot } from '../../reducers/aggs/selectors';
+import { selectFiltersRoot } from '../../reducers/filters/selectors';
 
 const maxRows = 5;
 const lensMap = {
@@ -29,8 +29,8 @@ const showMore = (filterCount, resultCount) => {
 };
 export const TrendDepthToggle = () => {
   const dispatch = useDispatch();
-  const aggs = useSelector(selectAggsRootState);
-  const filters = useSelector(selectFiltersFilterState);
+  const aggs = useSelector(selectAggsRoot);
+  const filters = useSelector(selectFiltersRoot);
   const focus = useSelector(selectTrendsFocus);
   const lens = useSelector(selectTrendsLens);
   const results = useSelector(selectTrendsResults);

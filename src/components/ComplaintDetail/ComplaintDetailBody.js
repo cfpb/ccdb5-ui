@@ -91,39 +91,42 @@ export const ComplaintDetailBody = ({ data, error, id }) => {
           <span className="body-copy">
             {formatDisplayDate(data.date_received)}
           </span>
-          <br />
-          <h4>Consumer&apos;s state</h4>
+
+          <h4 className="u-mt15">Consumer’s state</h4>
           <span className="body-copy">{data.state}</span>
-          <br />
-          <h4>Consumer&apos;s zip</h4>
+
+          <h4 className="u-mt15">Consumer’s zip</h4>
           <span className="body-copy">{data.zip_code}</span>
-          <br />
-          <h4>Submitted via</h4>
+
+          <h4 className="u-mt15">Submitted via</h4>
           <span className="body-copy">{data.submitted_via}</span>
-          <br />
-          <h4>Tags</h4>
-          <span className="body-copy">{data.tags}</span>
-          <br />
-          <h4>Did consumer dispute the response?</h4>
+
+          {data.tags && data.tags.length ? (
+            <>
+              <h4 className="u-mt15">Tags</h4>
+              <span className="body-copy">{data.tags}</span>
+            </>
+          ) : null}
+          <h4 className="u-mt15">Did consumer dispute the response?</h4>
           <span className="body-copy">{data.consumer_disputed}</span>
         </div>
         <div className="card-right layout-column">
           <h4>Product</h4>
           <h3>{data.product}</h3>
           <SubAggregation label="Sub-product:" value={data.sub_product} />
-          <br />
-          <h4>Issue</h4>
+
+          <h4 className="u-mt15">Issue</h4>
           <h3>{data.issue}</h3>
           <SubAggregation label="Sub-issue:" value={data.sub_issue} />
-          <br />
-          <h4>Consumer consent to publish narrative</h4>
+
+          <h4 className="u-mt15">Consumer consent to publish narrative</h4>
           <ConsumerConsent value={data.consumer_consent_provided} />
-          <br />
+
           {narrative ? (
-            <div>
-              <h4>Consumer complaint narrative</h4>
+            <>
+              <h4 className="u-mt15">Consumer complaint narrative</h4>
               <span className="body-copy">{narrative}</span>
-            </div>
+            </>
           ) : null}
         </div>
       </div>
@@ -135,21 +138,20 @@ export const ComplaintDetailBody = ({ data, error, id }) => {
           <span className="body-copy">
             {formatDisplayDate(data.date_sent_to_company)}
           </span>
-          <br />
-          <h4>Company name</h4>
+
+          <h4 className="u-mt15">Company name</h4>
           <span className="body-copy">{data.company}</span>
-          <br />
         </div>
         <div className="card-right layout-column">
           <h4>Timely response?</h4>
           <CompanyTimely value={data.timely} />
-          <br />
-          <h4>Company response to consumer</h4>
+
+          <h4 className="u-mt15">Company response to consumer</h4>
           <span className="body-copy">
             {data.company_response ? data.company_response : 'N/A'}
           </span>
-          <br />
-          <h4>Company public response</h4>
+
+          <h4 className="u-mt15">Company public response</h4>
           <span className="body-copy">
             {data.company_public_response
               ? data.company_public_response

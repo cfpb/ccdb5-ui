@@ -5,8 +5,8 @@ import { useState } from 'react';
 import { stateToQS } from '../../reducers/query/querySlice';
 import { multipleFiltersAdded } from '../../reducers/filters/filtersSlice';
 import { API_PLACEHOLDER } from '../../constants';
-import { selectFiltersFilterState } from '../../reducers/filters/selectors';
-import { selectQueryState } from '../../reducers/query/selectors';
+import { selectFiltersRoot } from '../../reducers/filters/selectors';
+import { selectQueryRoot } from '../../reducers/query/selectors';
 import {
   selectTrendsFocus,
   selectTrendsLens,
@@ -18,8 +18,8 @@ const FIELD_NAME = 'company';
 
 export const CompanyTypeahead = ({ delayWait = 250, id }) => {
   const dispatch = useDispatch();
-  const filters = useSelector(selectFiltersFilterState);
-  const query = useSelector(selectQueryState);
+  const filters = useSelector(selectFiltersRoot);
+  const query = useSelector(selectQueryRoot);
   const focus = useSelector(selectTrendsFocus);
   const lens = useSelector(selectTrendsLens);
   const [dropdownOptions, setDropdownOptions] = useState([]);

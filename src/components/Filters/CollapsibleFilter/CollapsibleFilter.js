@@ -21,13 +21,13 @@ export const CollapsibleFilter = ({
       {getIcon('plus-round')}
     </span>
   );
-
+  const label = isOpen ? `Collapse ${title} filter` : `Expand ${title} filter`;
   return (
     <section className={`o-expandable ${className}`}>
       <button
         className="o-expandable__header"
         aria-expanded={isOpen}
-        aria-label={`Hide ${title} filter`}
+        aria-label={label}
         onClick={() => setOpen(!isOpen)}
       >
         <h3 className="o-expandable__label">{title}</h3>

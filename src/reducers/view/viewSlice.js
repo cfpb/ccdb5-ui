@@ -10,7 +10,6 @@ import { enforceValues } from '../../utils/reducers';
 
 export const viewState = {
   expandedRows: [],
-  isFromExternal: false,
   isPrintMode: false,
   hasAdvancedSearchTips: false,
   hasFilters: true,
@@ -61,7 +60,6 @@ export const viewSlice = createSlice({
     },
     updatePrintModeOff(state) {
       state.isPrintMode = false;
-      state.isFromExternal = false;
     },
     updateScreenSize(state, action) {
       state.hasFilters = action.payload > 749;
@@ -82,12 +80,12 @@ export const viewSlice = createSlice({
     },
     tabChanged: {
       reducer: (state, action) => {
-        state.tab = enforceValues(action.payload.tab, 'tab');
+        state.tab = enforceValues(action.payload, 'tab');
         state.expandedRows = [];
       },
-      prepare: (tab) => {
+      prepare: (payload) => {
         return {
-          payload: { tab },
+          payload,
           meta: {
             persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_HITS_ONLY,
@@ -148,7 +146,6 @@ export const viewSlice = createSlice({
         const params = action.payload.params;
 
         state.isPrintMode = params.isPrintMode === 'true';
-        state.isFromExternal = params.isFromExternal === 'true';
         state.tab = enforceValues(params.tab, 'tab');
 
         const arrayParams = ['expandedRows'];

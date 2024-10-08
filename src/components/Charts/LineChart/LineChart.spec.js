@@ -64,8 +64,8 @@ describe('component: LineChart', () => {
     };
     const query = {
       dateInterval: 'Month',
-      date_received_max: new Date('2024-09-02T07:00:00.000Z'),
-      date_received_min: new Date('2024-03-02T08:00:00.000Z'),
+      date_received_max: '2024-09-02',
+      date_received_min: '2024-03-02',
       lens: 'Overview',
     };
 

@@ -54,17 +54,6 @@ export const calculateDateRange = (minDate, maxDate) => {
 };
 
 /**
- * Converts the first character of string to upper case and the remaining to lower case.
- * https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_capitalize
- *
- * @param {string} str - The string we need to uppercase the first letter case.
- * @returns {string} The Uppercased string.
- */
-export const capitalize = (str) => {
-  return str ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : '';
-};
-
-/**
  * Clamps number within the inclusive lower and upper bounds.
  * https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_clamp
  *
@@ -190,15 +179,6 @@ export function enablePer1000(filters) {
   return true;
 }
 
-/**
- * Creates a hash from an object
- *
- * @param {string} obj - the object to hash
- * @returns {string} a hashing of the object
- */
-export function hashObject(obj) {
-  return hashCode(JSON.stringify(obj));
-}
 export const normalize = (str) => str.toLowerCase();
 
 /**
@@ -333,29 +313,6 @@ export function debounce(func, wait, immediate) {
   };
 }
 
-// ----------------------------------------------------------------------------
-// attribution: lodash.js (Creative Commons License)
-
-/**
- * Binds methods of an object to the object itself, overwriting the existing
- * method
- *
- * @param {object} obj - The object to bind and assign the bound methods to.
- * @param {...(string|string[])} methodNames - The object method names to bind,
- *  specified individually or in arrays.
- * @returns {object} the updated object
- */
-export function bindAll(obj, methodNames) {
-  const length = methodNames.length;
-  for (let index = 0; index < length; index++) {
-    const key = methodNames[index];
-    obj[key] = obj[key].bind(obj);
-  }
-  return obj;
-}
-
-// ----------------------------------------------------------------------------
-
 /**
  * Makes sure that a URI has host, protocol, etc.
  *
@@ -482,91 +439,21 @@ export const selectedClass = (
 };
 
 /**
- * Checks if value is an empty object or collection.
- *
- * @param {object} obj - The object we are checking.
- * @returns {boolean} Is it empty?
- */
-export const isEmpty = (obj) =>
-  [Object, Array].includes((obj || {}).constructor) &&
-  !Object.entries(obj || {}).length;
-
-/**
- * Turns a string Kebab Case into kebab-case.
- * https://www.geeksforgeeks.org/how-to-convert-a-string-into-kebab-case-using-javascript/
- *
- * @param {string} str - The input string to format.
- * @returns {string} The string separated by hyphens.
- */
-export const kebabCase = (str) =>
-  str
-    .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
-    .join('-')
-    .toLowerCase();
-
-/**
- * Remove all properties with the value 'null' from the object
+ * Remove all properties with the value 'null' from the object, or empty string
  *
  * @param {object} object - the object with potential nulls
  * @returns {object} the processed object
  */
 export function removeNullProperties(object) {
-  const keys = Object.keys(object);
-  keys.forEach((key) => {
-    // eslint-disable-next-line no-undefined
+  return Object.keys(object).reduce((acc, key) => {
     if (
-      object[key] === null ||
-      object[key] === undefined ||
-      Number.isNaN(object[key])
+      object[key] !== null &&
+      object[key] !== undefined &&
+      object[key] !== '' &&
+      !Number.isNaN(object[key])
     ) {
-      delete object[key];
+      acc[key] = object[key];
     }
-  });
-
-  return object;
-}
-
-/**
- * Returns an array and removing empty values from it
- *
- * @param {Array} arr - The input array to check
- * @returns {Array | boolean} The sanitized array
- */
-export function removeNullValues(arr) {
-  return Array.isArray(arr) ? arr.filter((val) => val) : false;
-}
-
-/**
- * Renames the property of an object
- *
- * @param {object} obj - the object to modify
- * @param {string} oldName - the property to change
- * @param {string} newName - the property that it will become
- * @returns {object} the changed object, for use in fluent interfaces
- */
-export function renameProperty(obj, oldName, newName) {
-  // Do nothing if the names are the same
-  if (oldName === newName) {
-    return obj;
-  }
-  // Check for the old property name to avoid a ReferenceError in
-  // strict mode.
-  if (Object.prototype.hasOwnProperty.call(obj, oldName)) {
-    obj[newName] = obj[oldName];
-    delete obj[oldName];
-  }
-  return obj;
-}
-
-/**
- * Rounds to a specific decimal place
- * https://stackoverflow.com/a/7343013
- *
- * @param {number} value - the number to round
- * @param {number} precision - the number of decimal places to round to
- * @returns {number} the rounded value
- */
-export function roundTo(value, precision = 0) {
-  const multiplier = Math.pow(10, precision);
-  return Math.round(value * multiplier) / multiplier;
+    return acc;
+  }, {});
 }
