@@ -1,3 +1,4 @@
+// export const selectTrendsRoot = (state) => state.trends;
 export const selectTrendsActiveCall = (state) => state.trends.activeCall;
 export const selectTrendsColorMap = (state) => state.trends.colorMap;
 export const selectTrendsChartType = (state) => state.trends.chartType;

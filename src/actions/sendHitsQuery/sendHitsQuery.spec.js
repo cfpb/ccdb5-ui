@@ -60,5 +60,15 @@ describe('api::sendHitsQuery', () => {
       expect(dispatch.mock.calls.length).toEqual(1);
       expect(spy1).toHaveBeenCalledTimes(1);
     });
+    it('ignores unknown modes', () => {
+      fixtureStore.view.tab = 'foo';
+      spy1 = jest
+        .spyOn(sutComplaints, 'getTrends')
+        .mockImplementation(() => jest.fn());
+
+      sutHits.sendHitsQuery()(dispatch, getState);
+      expect(dispatch.mock.calls.length).toEqual(0);
+      expect(spy1).toHaveBeenCalledTimes(0);
+    });
   });
 });

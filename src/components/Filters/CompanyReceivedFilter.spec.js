@@ -1,16 +1,16 @@
 import { CompanyReceivedFilter } from './CompanyReceivedFilter';
 import React from 'react';
 import { merge } from '../../testUtils/functionHelpers';
-import { filtersState } from '../../reducers/filters/filtersSlice';
-import * as filterActions from '../../reducers/filters/filtersSlice';
+import { queryState } from '../../reducers/query/querySlice';
+import * as filterActions from '../../reducers/query/querySlice';
 import { testRender as render, screen } from '../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 
-const renderComponent = (newFiltersState) => {
-  merge(newFiltersState, filtersState);
+const renderComponent = (newQueryState) => {
+  merge(newQueryState, queryState);
 
   const data = {
-    filters: newFiltersState,
+    query: newQueryState,
   };
   render(<CompanyReceivedFilter />, { preloadedState: data });
 };
@@ -21,7 +21,7 @@ describe('component::CompanyReceivedFilter', () => {
   const user = userEvent.setup();
   const companyReceivedDateUpdatedSpy = jest.spyOn(
     filterActions,
-    'companyReceivedDateUpdated',
+    'datesChanged',
   );
   it('Renders', async () => {
     renderComponent({});

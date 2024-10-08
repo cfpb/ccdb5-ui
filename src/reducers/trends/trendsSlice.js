@@ -78,6 +78,7 @@ export const trendsSlice = createSlice({
     },
     dataLensChanged: {
       reducer: (state, action) => {
+        state.subLens = '';
         const lens = enforceValues(action.payload, 'lens');
         switch (true) {
           case lens === 'Company':
@@ -91,7 +92,6 @@ export const trendsSlice = createSlice({
             state.subLens = 'sub_product';
             break;
           default:
-            state.subLens = '';
             break;
         }
 

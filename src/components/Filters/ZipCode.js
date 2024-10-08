@@ -4,18 +4,18 @@ import PropTypes from 'prop-types';
 import { CollapsibleFilter } from './CollapsibleFilter/CollapsibleFilter';
 import { stateToQS } from '../../reducers/query/querySlice';
 import { API_PLACEHOLDER } from '../../constants';
-import { selectQueryState } from '../../reducers/query/selectors';
+import { selectQueryRoot } from '../../reducers/query/selectors';
 import { AsyncTypeahead } from '../Typeahead/AsyncTypeahead/AsyncTypeahead';
 import { handleFetchSearch } from '../Typeahead/utils';
 import { multipleFiltersAdded } from '../../reducers/filters/filtersSlice';
-import { selectFiltersFilterState } from '../../reducers/filters/selectors';
+import { selectFiltersRoot } from '../../reducers/filters/selectors';
 
 const FIELD_NAME = 'zip_code';
 
 export const ZipCode = ({ delayWait = 250 }) => {
   const dispatch = useDispatch();
-  const query = useSelector(selectQueryState);
-  const filters = useSelector(selectFiltersFilterState);
+  const query = useSelector(selectQueryRoot);
+  const filters = useSelector(selectFiltersRoot);
   const [dropdownOptions, setDropdownOptions] = useState([]);
 
   const queryState = Object.assign({}, query, filters);

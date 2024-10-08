@@ -9,7 +9,7 @@ import { scrollToFocus } from '../../../utils/trends';
 import { focusChanged } from '../../../reducers/trends/trendsSlice';
 import { rowCollapsed, rowExpanded } from '../../../reducers/view/viewSlice';
 
-import { selectAggsRootState } from '../../../reducers/aggs/selectors';
+import { selectAggsRoot } from '../../../reducers/aggs/selectors';
 import { selectTrendsLens } from '../../../reducers/trends/selectors';
 import {
   selectViewIsPrintMode,
@@ -36,7 +36,7 @@ export const RowChart = ({
   const dispatch = useDispatch();
   const tab = useSelector(selectViewTab);
   const trendsLens = useSelector(selectTrendsLens);
-  const aggs = useSelector(selectAggsRootState);
+  const aggs = useSelector(selectAggsRoot);
   const expandedRows = useSelector(selectViewExpandedRows);
   const isPrintMode = useSelector(selectViewIsPrintMode);
   const width = useSelector(selectViewWidth);
