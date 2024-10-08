@@ -17,6 +17,7 @@ import target, {
 } from './filtersSlice';
 import * as types from '../../constants';
 import { routeChanged } from '../routes/routesSlice';
+import { focusChanged, focusRemoved } from '../trends/trendsSlice';
 
 describe('Filters', () => {
   describe('FILTER_CHANGED actions updates query with filter state', () => {
@@ -96,6 +97,18 @@ describe('Filters', () => {
       });
     });
 
+    it('adds unknown filters', () => {
+      state = {
+        ...filtersState,
+        product: ['bar', 'qaz'],
+      };
+      expect(target(state, filterAdded('notafilter', filterValue))).toEqual({
+        ...state,
+        notafilter: ['baz'],
+        product: ['bar', 'qaz'],
+      });
+    });
+
     it('handles a missing filter value', () => {
       state = {
         ...filtersState,
@@ -145,6 +158,17 @@ describe('Filters', () => {
         product: ['bar', 'baz', 'qaz'],
       };
       expect(target(state, filterRemoved(filterName, filterValue))).toEqual({
+        ...state,
+        product: ['bar', 'qaz'],
+      });
+    });
+
+    it('ignores a filter when non existent in state', () => {
+      state = {
+        ...filtersState,
+        product: ['bar', 'qaz'],
+      };
+      expect(target(state, filterRemoved('notafilter', filterValue))).toEqual({
         ...state,
         product: ['bar', 'qaz'],
       });
@@ -278,7 +302,6 @@ describe('Filters', () => {
     it('removes filters if they exist', () => {
       state = {
         ...filtersState,
-        focus: 'Mo Money',
         issue: ['foo', 'Mo Money', 'Mo Problems'],
       };
       expect(target(state, multipleFiltersRemoved(filterName, values))).toEqual(
@@ -287,6 +310,19 @@ describe('Filters', () => {
           issue: ['foo'],
         },
       );
+    });
+
+    it('ignores action if they dont exist', () => {
+      state = {
+        ...filtersState,
+        issue: ['foo'],
+      };
+      expect(
+        target(state, multipleFiltersRemoved('notafilter', values)),
+      ).toEqual({
+        ...state,
+        issue: ['foo'],
+      });
     });
 
     it('ignores unknown filters', () => {
@@ -342,8 +378,42 @@ describe('Filters', () => {
     });
   });
 
-  describe('FOCUS_CHANGED actions', () => {});
+  describe('FOCUS actions', () => {
+    let result, state;
+    it('handles focus changed', () => {
+      state = {
+        ...filtersState,
+      };
+      result = target(state, focusChanged('Foo', 'Product', ['bar', 'baz']));
+      expect(result).toEqual({
+        ...filtersState,
+        product: ['bar', 'baz'],
+      });
+    });
 
+    it('handles company changed', () => {
+      state = {
+        ...filtersState,
+      };
+      result = target(state, focusChanged('Foo', 'Company', ['bar', 'baz']));
+      expect(result).toEqual({
+        ...filtersState,
+        company: ['Foo'],
+        product: [],
+      });
+    });
+
+    it('handles focus removed', () => {
+      state = {
+        ...filtersState,
+        product: ['bar', 'baz', 'qaz'],
+      };
+      result = target(state, focusRemoved('Product'));
+      expect(result).toEqual({
+        ...filtersState,
+      });
+    });
+  });
   describe('STATE_FILTERS', () => {
     let action, result;
     describe('STATE_FILTER_ADDED', () => {

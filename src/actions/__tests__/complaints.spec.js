@@ -45,6 +45,7 @@ describe('action::complaints', () => {
   describe('getComplaints', () => {
     let expectedUrl;
     beforeEach(() => {
+      fixtureStore = initialState();
       expectedUrl = expectedHitsQS;
       fixtureStore.view.tab = constants.MODE_LIST;
     });
@@ -79,6 +80,7 @@ describe('action::complaints', () => {
     let expectedUrl;
 
     beforeEach(() => {
+      fixtureStore = initialState();
       fixtureStore.view.tab = constants.MODE_DETAIL;
       expectedUrl = '@@API123';
     });
@@ -112,6 +114,7 @@ describe('action::complaints', () => {
     let expectedUrl;
 
     beforeEach(() => {
+      fixtureStore = initialState();
       fixtureStore.view.tab = constants.MODE_MAP;
       expectedUrl =
         '@@APIgeo/states/?date_received_max=2020-05-05' +
@@ -144,6 +147,7 @@ describe('action::complaints', () => {
     let expectedUrl;
 
     beforeEach(() => {
+      fixtureStore = initialState();
       fixtureStore.view.tab = constants.MODE_TRENDS;
       expectedUrl =
         '@@APItrends?date_received_max=2020-05-05' +

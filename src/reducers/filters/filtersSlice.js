@@ -88,17 +88,16 @@ export const filtersSlice = createSlice({
     },
     filterAdded: {
       reducer: (state, action) => {
-        if (action.payload.filterName === 'has_narrative') {
+        const { filterName, filterValue } = action.payload;
+        if (filterName === 'has_narrative') {
           state.has_narrative = true;
-        } else if (action.payload.filterName in state) {
-          const idx = state[action.payload.filterName].indexOf(
-            action.payload.filterValue,
-          );
+        } else if (filterName in state) {
+          const idx = state[filterName].indexOf(filterValue);
           if (idx === -1) {
-            state[action.payload.filterName].push(action.payload.filterValue);
+            state[filterName].push(filterValue);
           }
         } else {
-          state[action.payload.filterName] = [action.payload.filterValue];
+          state[filterName] = [filterValue];
         }
       },
       prepare: (filterName, filterValue) => {
@@ -113,14 +112,13 @@ export const filtersSlice = createSlice({
     },
     filterRemoved: {
       reducer: (state, action) => {
-        if (action.payload.filterName === 'has_narrative') {
+        const { filterName, filterValue } = action.payload;
+        if (filterName === 'has_narrative') {
           delete state.has_narrative;
-        } else if (action.payload.filterName in state) {
-          const idx = state[action.payload.filterName].indexOf(
-            action.payload.filterValue,
-          );
+        } else if (filterName in state) {
+          const idx = state[filterName].indexOf(filterValue);
           if (idx !== -1) {
-            state[action.payload.filterName].splice(idx, 1);
+            state[filterName].splice(idx, 1);
           }
         }
       },
@@ -166,9 +164,10 @@ export const filtersSlice = createSlice({
     },
     filterToggled: {
       reducer: (state, action) => {
-        state[action.payload.filterName] = filterArrayAction(
-          state[action.payload.filterName],
-          action.payload.filterValue.key,
+        const { filterName, filterValue } = action.payload;
+        state[filterName] = filterArrayAction(
+          state[filterName],
+          filterValue.key,
         );
       },
       prepare: (filterName, filterValue) => {
@@ -294,17 +293,13 @@ export const filtersSlice = createSlice({
     },
     toggleFlagFilter: {
       reducer: (state, action) => {
-        state[action.payload.filterName] = Boolean(
-          !state[action.payload.filterName],
-        );
-        if (!state[action.payload.filterName])
-          delete state[action.payload.filterName];
+        const filterName = action.payload;
+        state[filterName] = Boolean(!state[filterName]);
+        if (!state[filterName]) delete state[filterName];
       },
-      prepare: (filterName) => {
+      prepare: (payload) => {
         return {
-          payload: {
-            filterName,
-          },
+          payload,
           meta: {
             persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
@@ -337,7 +332,7 @@ export const filtersSlice = createSlice({
       .addCase('trends/focusRemoved', (state, action) => {
         const lens = action.payload;
         const filterKey = lens.toLowerCase();
-        delete state[filterKey];
+        state[filterKey] = [];
       })
       .addMatcher(
         isAnyOf(

@@ -189,42 +189,6 @@ export const querySlice = createSlice({
         };
       },
     },
-    removeAllFilters: {
-      reducer: (state) => {
-        const allFilters = types.knownFilters.concat(
-          types.dateFilters,
-          types.flagFilters,
-        );
-
-        if (state.searchField === types.NARRATIVE_SEARCH_FIELD) {
-          const idx = allFilters.indexOf('has_narrative');
-          allFilters.splice(idx, 1);
-        }
-
-        allFilters.forEach((kf) => {
-          if (kf in state && kf !== 'has_narrative') {
-            delete state[kf];
-          }
-        });
-
-        // set date range to All
-        // adjust date filter for max and min ranges
-        state.dateRange = 'All';
-        /* eslint-disable camelcase */
-        state.date_received_min = dayjs(types.DATE_RANGE_MIN).toISOString();
-        state.date_received_max = dayjs(startOfToday()).toISOString();
-        state.from = 0;
-      },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
-    },
     trendsDateWarningDismissed: {
       reducer: (state) => {
         state.trendsDateWarningEnabled = false;
@@ -632,74 +596,6 @@ export function stateToQS(state) {
   return '?' + queryString.stringify(filteredParams);
 }
 
-// /**
-//  * Converts a set of key/value pairs into a query string for URL history.
-//  *
-//  * @param {string} state - a set of key/value pairs
-//  * @returns {string} a formatted query string
-//  */
-// export function stateToURL(state) {
-//   const params = {};
-//   const fields = Object.keys(state);
-//
-//   // Copy over the fields
-//   // eslint-disable-next-line complexity
-//   fields.forEach((field) => {
-//     // Do not include empty fields
-//     if (!state[field]) {
-//       return;
-//     }
-//
-//     // Exclude these params from the browser url
-//     if (['queryString', 'url', 'breakPoints'].includes(field)) {
-//       return;
-//     }
-//
-//     let value = state[field];
-//
-//     // Process date filters url-friendly display
-//     if (types.dateFilters.indexOf(field) !== -1) {
-//       value = shortIsoFormat(value);
-//     }
-//     params[field] = value;
-//   });
-//
-//   // list of API params
-//   // https://cfpb.github.io/api/ccdb/api/index.html#/
-//   const commonParams = [].concat(
-//     ['searchText', 'searchField', 'tab'],
-//     types.dateFilters,
-//     types.knownFilters,
-//     types.flagFilters,
-//   );
-//
-//   const paramMap = {
-//     List: ['sort', 'size', 'page'],
-//     Map: ['dataNormalization', 'dateRange', 'expandedRows'],
-//     Trends: [
-//       'chartType',
-//       'dateRange',
-//       'dateInterval',
-//       'expandedRows',
-//       'lens',
-//       'focus',
-//       'subLens',
-//     ],
-//   };
-//
-//   const filterKeys = [].concat(commonParams, paramMap[params.tab]);
-//
-//   // where we only filter out the params required for each of the tabs
-//   const filteredParams = Object.keys(params)
-//     .filter((key) => filterKeys.includes(key))
-//     .reduce((obj, key) => {
-//       obj[key] = params[key];
-//       return obj;
-//     }, {});
-//
-//   return '?' + queryString.stringify(filteredParams);
-// }
-
 /**
  * helper function to clear out breakpoints, reset page to 1 when any sort
  * or filter changes the query
@@ -721,7 +617,6 @@ export const {
   trendsDateWarningDismissed,
   nextPageShown,
   prevPageShown,
-  removeAllFilters,
   searchFieldChanged,
   searchTextChanged,
   sizeChanged,

@@ -3,11 +3,6 @@ import * as constants from '../../constants';
 
 export const updateParams = (state, action) => {
   const { params, path } = action.payload;
-  if (params.company) {
-    params.sent_to = params.company;
-    delete params.company;
-  }
-
   state.path = path;
   state.params = params;
 };

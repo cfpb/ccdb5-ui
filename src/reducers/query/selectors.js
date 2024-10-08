@@ -1,4 +1,4 @@
-export const selectQueryState = (state) => state.query;
+export const selectQueryRoot = (state) => state.query;
 export const selectQueryDataNormalization = (state) =>
   state.query.dataNormalization;
 export const selectQueryDateReceivedMax = (state) =>

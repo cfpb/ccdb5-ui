@@ -54,17 +54,6 @@ export const calculateDateRange = (minDate, maxDate) => {
 };
 
 /**
- * Converts the first character of string to upper case and the remaining to lower case.
- * https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_capitalize
- *
- * @param {string} str - The string we need to uppercase the first letter case.
- * @returns {string} The Uppercased string.
- */
-export const capitalize = (str) => {
-  return str ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : '';
-};
-
-/**
  * Clamps number within the inclusive lower and upper bounds.
  * https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_clamp
  *
@@ -190,15 +179,6 @@ export function enablePer1000(filters) {
   return true;
 }
 
-/**
- * Creates a hash from an object
- *
- * @param {string} obj - the object to hash
- * @returns {string} a hashing of the object
- */
-export function hashObject(obj) {
-  return hashCode(JSON.stringify(obj));
-}
 export const normalize = (str) => str.toLowerCase();
 
 /**
@@ -332,29 +312,6 @@ export function debounce(func, wait, immediate) {
     if (immediate && !timeout) func.apply(context, args);
   };
 }
-
-// ----------------------------------------------------------------------------
-// attribution: lodash.js (Creative Commons License)
-
-/**
- * Binds methods of an object to the object itself, overwriting the existing
- * method
- *
- * @param {object} obj - The object to bind and assign the bound methods to.
- * @param {...(string|string[])} methodNames - The object method names to bind,
- *  specified individually or in arrays.
- * @returns {object} the updated object
- */
-export function bindAll(obj, methodNames) {
-  const length = methodNames.length;
-  for (let index = 0; index < length; index++) {
-    const key = methodNames[index];
-    obj[key] = obj[key].bind(obj);
-  }
-  return obj;
-}
-
-// ----------------------------------------------------------------------------
 
 /**
  * Makes sure that a URI has host, protocol, etc.
@@ -503,38 +460,6 @@ export const kebabCase = (str) =>
     .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
     .join('-')
     .toLowerCase();
-
-/**
- * Remove all properties with the value 'null' from the object
- *
- * @param {object} object - the object with potential nulls
- * @returns {object} the processed object
- */
-export function removeNullProperties(object) {
-  const keys = Object.keys(object);
-  keys.forEach((key) => {
-    // eslint-disable-next-line no-undefined
-    if (
-      object[key] === null ||
-      object[key] === undefined ||
-      Number.isNaN(object[key])
-    ) {
-      delete object[key];
-    }
-  });
-
-  return object;
-}
-
-/**
- * Returns an array and removing empty values from it
- *
- * @param {Array} arr - The input array to check
- * @returns {Array | boolean} The sanitized array
- */
-export function removeNullValues(arr) {
-  return Array.isArray(arr) ? arr.filter((val) => val) : false;
-}
 
 /**
  * Renames the property of an object

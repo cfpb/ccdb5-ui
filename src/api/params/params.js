@@ -134,54 +134,6 @@ export function extractQueryParams(queryState) {
   return params;
 }
 
-// /**
-//  * Reverses extractQueryParams
-//  *
-//  * @param {object} params - the parameters returned from the API
-//  * @returns {object} a version of the query state
-//  */
-// export function parseParamsToQuery(params) {
-//   const {
-//     date_received_max,
-//     date_received_min,
-//     field,
-//     frm: frm_as_string,
-//     search_term,
-//     size: size_as_string,
-//     sort,
-//   } = params;
-//
-//   const size = parseInt(size_as_string, 10);
-//   const frm = parseInt(frm_as_string, 10);
-//
-//   const query = {
-//     page: (frm + size) / size,
-//     searchText: search_term || '',
-//     // searchFields: revSearchFieldMap[field],
-//     size,
-//   };
-//
-//   // Handle the dates
-//   const dateRange = removeNullProperties({
-//     to: date_received_max,
-//     from: date_received_min,
-//   });
-//
-//   /* istanbul ignore else */
-//   if (!isEqual(dateRange, {})) {
-//     query.dateRange = dateRange;
-//     validateDatePeriod(query.dateRange);
-//   }
-//
-//   // Handle sort
-//   /* istanbul ignore else */
-//   if (sort) {
-//     query.sort = sortNames(sort);
-//   }
-//
-//   return removeNullProperties(query);
-// }
-
 /**
  * Selects specific variables from the trends reducer to be used in a query str
  *

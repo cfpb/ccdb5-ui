@@ -44,7 +44,7 @@ export function getAggregations() {
     const uri = API_PLACEHOLDER + qs;
 
     // This call is already in process
-    if (store.aggs.activeCall) {
+    if (uri === store.aggs.activeCall) {
       return null;
     }
 
