@@ -1,5 +1,5 @@
 // Import Design System Components.
-@use '@cfpb/cfpb-core/src/cfpb-core.scss' as *;
+/*@use '@cfpb/cfpb-core/src/cfpb-core.scss' as *;
 @use '@cfpb/cfpb-atomic-component/src/cfpb-atomic-component.scss' as *;
 @use '@cfpb/cfpb-icons/src/cfpb-icons.scss' as *;
 @use '@cfpb/cfpb-buttons/src/cfpb-buttons.scss' as *;
@@ -10,7 +10,15 @@
 @use '@cfpb/cfpb-notifications/src/cfpb-notifications.scss' as *;
 @use '@cfpb/cfpb-pagination/src/cfpb-pagination.scss' as *;
 @use '@cfpb/cfpb-expandables/src/cfpb-expandables.scss' as *;
-@use '@cfpb/cfpb-tables/src/cfpb-tables.scss' as *;
+@use '@cfpb/cfpb-tables/src/cfpb-tables.scss' as *;*/
+
+@use 'node_modules/@cfpb/cfpb-design-system/src/abstracts' as *;
+@use 'node_modules/@cfpb/cfpb-design-system/src/base' as *;
+@use 'node_modules/@cfpb/cfpb-design-system/dist/index.css' as *;
+//no atomic components
+//@use '@cfpb/cfpb-design-system/src/components/cfpb-icons/icon.scss';
+//@use '@cfpb/cfpb-design-system/src/components/cfpb-buttons';
+@use '@cfpb/cfpb-design-system/src/components/index.scss';
 @import '../components/Print/print.scss';
 
 // Icon font path
