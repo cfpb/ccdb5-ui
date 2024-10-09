@@ -1,3 +1,6 @@
+@use 'sass:math';
+@use '@cfpb/cfpb-design-system/src/abstracts' as *;
+@use '@cfpb/cfpb-design-system/src/utilities' as *;
 @import '../css/base';
 
 .tabbed-navigation {
@@ -9,13 +12,13 @@
       margin: 0;
       padding: 4px 30px 8px;
 
-      font-size: unit(19px / $base-font-size-px, em);
+      font-size: math.div(19px, $base-font-size-px)em;
       font-weight: 500;
 
       .cf-icon-svg {
         margin-right: 5px;
         margin-top: 4px;
-        font-size: unit(13px / $base-font-size-px, em);
+        font-size: math.div(13px,  $base-font-size-px)em;
       }
 
       &:not(.active) {

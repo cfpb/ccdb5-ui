@@ -1,3 +1,5 @@
+@use '@cfpb/cfpb-design-system/src/abstracts' as *;
+@use '@cfpb/cfpb-design-system/src/utilities' as *;
 @import '../../css/base';
 
 .typeahead {
@@ -37,9 +39,9 @@
 
     input {
       @extend .a-text-input;
-      &:focus {
+      /*&:focus {
         @extend .a-text-input:focus;
-      }
+      }*/
       padding-left: 1.78571429em !important;
       padding-bottom: 0.28em !important;
     }

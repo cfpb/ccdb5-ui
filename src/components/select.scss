@@ -1,3 +1,7 @@
+@use 'sass:math';
+@use '@cfpb/cfpb-design-system/src/abstracts' as *;
+@use '@cfpb/cfpb-design-system/src/utilities' as *;
+
 // select
 $select-border: var(--gray-40);
 $select-icon: var(--gray-80);
@@ -15,8 +19,8 @@ $input-bg__disabled: var(--gray-10);
 
   select {
     width: 100%;
-    padding: unit(4px / $base-font-size-px, em) 0
-      unit(6px / $base-font-size-px, em) 1rem;
+    padding: math.div(4px, $base-font-size-px)em 0
+      math.div(6px, $base-font-size-px)em 1rem;
     border: 0;
     border-radius: 0;
     appearance: none;

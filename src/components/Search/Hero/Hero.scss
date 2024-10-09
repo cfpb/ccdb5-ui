@@ -1,8 +1,10 @@
 @use 'sass:math';
+@use '@cfpb/cfpb-design-system/src/abstracts' as *;
+@use '@cfpb/cfpb-design-system/src/utilities' as *;
 @import '../../../css/base';
 
 .content__hero {
-  padding-bottom: unit(math.div(30px, $base-font-size-px) rem);
+  padding-bottom: math.div(30px, $base-font-size-px)rem;
 
   p {
     max-width: 670px;
