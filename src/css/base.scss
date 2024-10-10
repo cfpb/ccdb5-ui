@@ -1,7 +1,8 @@
 @use 'sass:math';
-@use 'node_modules/@cfpb/cfpb-design-system/src/abstracts/index.scss' as *;
-@use 'node_modules/@cfpb/cfpb-design-system/src/base/index.scss' as *;
-@use 'node_modules/@cfpb/cfpb-design-system/dist/index.css' as *;
+//@use '@cfpb/cfpb-design-system/src/abstracts/index' as *;
+//@use '@cfpb/cfpb-design-system/src/base/index' as *;
+@use '@cfpb/cfpb-design-system/src/index' as *;
+//@use '@cfpb/cfpb-design-system/src/utilities' as *;
 
 /* ==========================================================================
    Color variables

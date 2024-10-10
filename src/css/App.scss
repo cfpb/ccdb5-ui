@@ -12,14 +12,18 @@
 @use '@cfpb/cfpb-expandables/src/cfpb-expandables.scss' as *;
 @use '@cfpb/cfpb-tables/src/cfpb-tables.scss' as *;*/
 
-@use 'node_modules/@cfpb/cfpb-design-system/src/abstracts' as *;
-@use 'node_modules/@cfpb/cfpb-design-system/src/base' as *;
-@use 'node_modules/@cfpb/cfpb-design-system/dist/index.css' as *;
+@use '@cfpb/cfpb-design-system/src/index' as *;
+@use '@cfpb/cfpb-design-system/src/abstracts' as *;
+@use '@cfpb/cfpb-design-system/src/base' as *;
+@use '@cfpb/cfpb-design-system/src/utilities' as *;
+
 //no atomic components
 @use '@cfpb/cfpb-design-system/src/components/cfpb-icons/icon.scss';
 
 @import 'base';
 @import '../components/Print/print.scss';
+
+@include define-custom-props;
 
 // Icon font path
 $cf-icon-path: '../css/fonts';
