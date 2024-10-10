@@ -318,10 +318,7 @@ export const querySlice = createSlice({
 
         // Handle numeric fields
         const defaultPage = coalesce(params, 'page', queryState.page);
-        const defaultSize = enforceValues(
-          coalesce(params, 'size', queryState.size),
-          'size',
-        );
+        const defaultSize = coalesce(params, 'size', queryState.size);
         state.page = parseInt(defaultPage, 10);
         state.size = parseInt(defaultSize, 10);
 
