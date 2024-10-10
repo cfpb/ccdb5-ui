@@ -1,4 +1,4 @@
-import './FocusHeader.less';
+import './FocusHeader.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import getIcon from '../iconMap';
 import { LensTabs } from './LensTabs';

@@ -1,4 +1,4 @@
-import './RowChart.less';
+import './RowChart.scss';
 import * as d3 from 'd3';
 import { max } from 'd3-array';
 import { miniTooltip, row } from 'britecharts';

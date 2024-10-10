@@ -1,4 +1,4 @@
-import '../Typeahead.less';
+import '../Typeahead.scss';
 import { ClearButton } from '../ClearButton/ClearButton';
 import { useRef, useState } from 'react';
 import PropTypes from 'prop-types';

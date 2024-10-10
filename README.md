@@ -5,7 +5,7 @@ This application allows consumers to search complaints submitted to the CFPB by 
 
 #### Technology Stack
 
-This application is written in JavaScript and [Less](http://lesscss.org) within
+This application is written in JavaScript and [Sass](https://sass-lang.com/) within
 the [React](https://facebook.github.io/react/) + [Redux](http://redux.js.org/)
 framework. It uses [Webpack](http://webpack.github.io/docs/) at runtime to
 manage module loading.
