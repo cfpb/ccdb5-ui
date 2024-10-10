@@ -1,8 +1,8 @@
 @use 'node_modules/@cfpb/cfpb-design-system/src/abstracts' as *;
 @use 'node_modules/@cfpb/cfpb-design-system/src/base' as *;
 @use 'node_modules/@cfpb/cfpb-design-system/dist/index.css' as *;
-@import '../../css/base.scss';
-@import '../select.scss';
+@import '../../css/base';
+@import '../select';
 
 .refine-bar {
   section {
@@ -46,9 +46,11 @@
     @media ($desktop) {
       display: none;
     }
+
     @media ($tablet-lg) {
       display: none;
     }
+
     @media ($phone) {
       display: none;
     }

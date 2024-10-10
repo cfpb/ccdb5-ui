@@ -38,10 +38,11 @@
     }
 
     input {
-      @extend .a-text-input;
-      /*&:focus {
+      @extend %a-text-input;
+
+      /* &:focus {
         @extend .a-text-input:focus;
-      }*/
+      } */
       padding-left: 1.78571429em !important;
       padding-bottom: 0.28em !important;
     }
@@ -95,7 +96,7 @@
   }
 
   .o-search-input__input {
-    //display: block;
+    // display: block;
     &-label {
       z-index: 1;
     }

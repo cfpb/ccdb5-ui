@@ -25,6 +25,7 @@
     sans-serif;
   font-size: 12px;
 }
+
 // legend
 .highcharts-root {
   display: block;
@@ -270,6 +271,7 @@ $mobile-xs-tiles: 'only screen and (max-width:400px)';
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+
     // IE 11 fixes
     @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
       display: inline-block;

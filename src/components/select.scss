@@ -7,11 +7,10 @@ $select-border: var(--gray-40);
 $select-icon: var(--gray-80);
 $select-icon-bg: var(--gray-5);
 $select-height: $size-ii;
-
-$input-border__focused: var(--pacific);
-$input-text__disabled: var(--gray-80);
+$input-border-focused: var(--pacific);
+$input-text-disabled: var(--gray-80);
 $input-bg: var(--white);
-$input-bg__disabled: var(--gray-10);
+$input-bg-disabled: var(--gray-10);
 
 .cf-select {
   position: relative;
@@ -31,14 +30,14 @@ $input-bg__disabled: var(--gray-10);
     &.hover,
     &:active,
     &:focus {
-      outline: 2px solid $input-border__focused;
+      outline: 2px solid $input-border-focused;
       outline-offset: 0;
     }
   }
 
   select[disabled] {
-    color: $input-text__disabled;
-    background-color: $input-bg__disabled;
+    color: $input-text-disabled;
+    background-color: $input-bg-disabled;
     cursor: not-allowed;
 
     &:hover {

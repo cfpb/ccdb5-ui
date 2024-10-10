@@ -39,36 +39,6 @@ less/no-duplicate-variables
 module.exports = {
   extends: ['stylelint-config-standard-scss'],
   ignoreFiles: ['packages/**/node_modules/**/*.scss'],
-  /*customSyntax: 'postcss-less',
-  rules: {
-    'at-rule-no-unknown': [true, { ignoreAtRules: 'plugin' }],
-    'color-function-notation': ['legacy'],
-    'declaration-block-no-redundant-longhand-properties': null,
-    'declaration-empty-line-before': null,
-    'declaration-property-value-no-unknown': null,
-    'function-no-unknown': [
-      true,
-      { ignoreFunctions: ['extend', 'fade', 'mix', 'unit'] },
-    ],
-    'media-feature-range-notation': ['prefix'],
-    'media-query-no-invalid': null,
-    'no-descending-specificity': null,
-    'number-max-precision': 10,
-    'rule-empty-line-before': [
-      'always-multi-line',
-      {
-        except: 'first-nested',
-        ignore: ['after-comment', 'inside-block'],
-      },
-    ],
-    'selector-id-pattern': null,
-    'selector-class-pattern': [
-      '^[a-z]([a-z0-9-]+)?(__([a-z0-9]+-?)+)?(--([a-z0-9]+-?)+){0,2}$',
-      { resolveNestedSelectors: true },
-    ],
-    'less/color-no-invalid-hex': null,
-    'less/no-duplicate-variables': null,
-  },*/
   rules: {
     'at-rule-no-unknown': null,
     'color-function-notation': ['legacy'],

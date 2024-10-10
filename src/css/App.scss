@@ -1,28 +1,13 @@
 // Import Design System Components.
-/*@use '@cfpb/cfpb-core/src/cfpb-core.scss' as *;
-@use '@cfpb/cfpb-atomic-component/src/cfpb-atomic-component.scss' as *;
-@use '@cfpb/cfpb-icons/src/cfpb-icons.scss' as *;
-@use '@cfpb/cfpb-buttons/src/cfpb-buttons.scss' as *;
-@use '@cfpb/cfpb-forms/src/cfpb-forms.scss' as *;
-@use '@cfpb/cfpb-grid/src/cfpb-grid.scss' as *;
-@use '@cfpb/cfpb-layout/src/cfpb-layout.scss' as *;
-@use '@cfpb/cfpb-typography/src/cfpb-typography.scss' as *;
-@use '@cfpb/cfpb-notifications/src/cfpb-notifications.scss' as *;
-@use '@cfpb/cfpb-pagination/src/cfpb-pagination.scss' as *;
-@use '@cfpb/cfpb-expandables/src/cfpb-expandables.scss' as *;
-@use '@cfpb/cfpb-tables/src/cfpb-tables.scss' as *;*/
-
 @use '@cfpb/cfpb-design-system/src/index' as *;
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
 @use '@cfpb/cfpb-design-system/src/base' as *;
 @use '@cfpb/cfpb-design-system/src/utilities' as *;
 
-//no atomic components
-@use '@cfpb/cfpb-design-system/src/components/cfpb-icons/icon.scss';
-
+// no atomic components
+@use '@cfpb/cfpb-design-system/src/components/cfpb-icons/icon';
 @import 'base';
-@import '../components/Print/print.scss';
-
+@import '../components/Print/print';
 @include define-custom-props;
 
 // Icon font path
@@ -75,39 +60,39 @@ $cf-fonts-path: '/static/fonts';
 }
 
 .col-1 {
-  //.grid__column(1);
+  // .grid__column(1);
 }
 
 .col-2 {
-  //.grid__column(2);
+  // .grid__column(2);
 }
 
 .col-3 {
-  //.grid__column(3);
+  // .grid__column(3);
 }
 
 .col-4 {
-  //.grid__column(4);
+  // .grid__column(4);
 }
 
 .col-6 {
-  //.grid__column(6);
+  // .grid__column(6);
 }
 
 .col-8 {
-  //.grid__column(8);
+  // .grid__column(8);
 }
 
 .col-9 {
-  //.grid__column(9);
+  // .grid__column(9);
 }
 
 .col-10 {
-  //.grid__column(10);
+  // .grid__column(10);
 }
 
 .col-12 {
-  //.grid__column(12);
+  // .grid__column(12);
 }
 
 // Overrides

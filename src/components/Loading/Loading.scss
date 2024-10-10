@@ -17,8 +17,9 @@
   // gray-dark #43484e in hex.
   --faded-gray-dark: 67, 72, 78;
   background-color: rgba(var(--faded-gray-dark), 0.75);
+
   // TODO: The above can be replaced with the below when Firefox supports "Relative RGB colors".
-  //background-color: rgb(from var(--gray-dark) / 0.75);
+  // background-color: rgb(from var(--gray-dark) / 0.75);
 }
 
 .loading-box {
