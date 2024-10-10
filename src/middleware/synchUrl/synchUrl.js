@@ -112,11 +112,6 @@ export function extractQueryStringParams(state) {
     extractReducerAttributes(state.view, attrsView),
     extractReducerAttributes(state.trends, attrsTrends),
   );
-  // Rename some properties (APP query string =/= API query string)
-  // for (const apiName in renameThese) {
-  //   const appName = renameThese[apiName];
-  //   renameProperty(params, apiName, appName);
-  // }
 
   if (state.query.searchAfter) {
     params.search_after = state.query.searchAfter;
