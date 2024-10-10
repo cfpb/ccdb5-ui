@@ -38,7 +38,6 @@ less/no-duplicate-variables
 */
 module.exports = {
   extends: ['stylelint-config-standard-scss'],
-  plugins: ['stylelint-less'],
   ignoreFiles: ['packages/**/node_modules/**/*.scss'],
   /*customSyntax: 'postcss-less',
   rules: {
