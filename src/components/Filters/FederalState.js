@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { normalize } from '../../utils';
-import { addMultipleFilters } from '../../actions/filter';
+import { multipleFiltersAdded } from '../../reducers/filters/filtersSlice';
 import { CollapsibleFilter } from './CollapsibleFilter/CollapsibleFilter';
 import { THESE_UNITED_STATES } from '../../constants';
 import { Typeahead } from '../Typeahead/Typeahead/Typeahead';
@@ -38,7 +38,7 @@ export const FederalState = () => {
   };
 
   const onSelection = (item) => {
-    dispatch(addMultipleFilters('state', [item[0].key]));
+    dispatch(multipleFiltersAdded('state', [item[0].key]));
   };
 
   return (

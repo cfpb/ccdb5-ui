@@ -13,8 +13,10 @@ import {
 } from '../../../utils/chart';
 import {
   selectTrendsColorMap,
+  selectTrendsLens,
   selectTrendsResultsDateRangeLine,
 } from '../../../reducers/trends/selectors';
+import { tooltipUpdated } from '../../../reducers/trends/trendsSlice';
 import {
   selectViewIsPrintMode,
   selectViewWidth,
@@ -23,9 +25,7 @@ import {
   selectQueryDateReceivedMax,
   selectQueryDateReceivedMin,
   selectQueryDateInterval,
-  selectQueryLens,
 } from '../../../reducers/query/selectors';
-import { updateTrendsTooltip } from '../../../actions/trends';
 import { ChartWrapper } from '../ChartWrapper/ChartWrapper';
 
 export const LineChart = () => {
@@ -33,7 +33,7 @@ export const LineChart = () => {
 
   const colorMap = useSelector(selectTrendsColorMap);
   const areaData = useSelector(selectTrendsResultsDateRangeLine);
-  const lens = useSelector(selectQueryLens);
+  const lens = useSelector(selectTrendsLens);
   const interval = useSelector(selectQueryDateInterval);
   const dateFrom = useSelector(selectQueryDateReceivedMin);
   const dateTo = useSelector(selectQueryDateReceivedMax);
@@ -66,8 +66,8 @@ export const LineChart = () => {
       return container.node().getBoundingClientRect().width;
     };
 
-    const tooltipUpdated = (tipEvent) => {
-      dispatch(updateTrendsTooltip(tipEvent));
+    const extTooltipUpdated = (item) => {
+      dispatch(tooltipUpdated(item));
     };
 
     const updateInternalTooltip = (
@@ -80,12 +80,14 @@ export const LineChart = () => {
     };
 
     const updateTooltip = (point) => {
-      tooltipUpdated({
-        date: point.date,
-        dateRange,
-        interval,
-        values: point.topics,
-      });
+      dispatch(
+        tooltipUpdated({
+          date: new Date(point.date).toJSON(),
+          dateRange,
+          interval,
+          values: point.topics,
+        }),
+      );
     };
 
     d3.select(chartSelector).remove();
@@ -127,7 +129,7 @@ export const LineChart = () => {
       // get the last date and fire it off to redux
       const item = getLastLineDate(processData, config);
 
-      tooltipUpdated(item);
+      extTooltipUpdated(item);
     }
 
     return () => {

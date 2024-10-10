@@ -1,5 +1,5 @@
 import { API_PLACEHOLDER } from '../../../constants';
-import { stateToQS } from '../../../reducers/query/query';
+import { stateToQS } from '../../../reducers/query/querySlice';
 
 const DATA_HOST = 'https://files.consumerfinance.gov';
 
@@ -21,11 +21,11 @@ export function buildAllResultsUri(format) {
  *
  * @param {string} format - CSV or JSON
  * @param {number} size - the number of results to export
- * @param {object} queryState - the current state of the query reducer
+ * @param {object} state - the merged query and filters state
  * @returns {string} the URI for the specific type of format
  */
-export function buildSomeResultsUri(format, size, queryState) {
-  const params = { ...queryState };
+export function buildSomeResultsUri(format, size, state) {
+  const params = { ...state };
 
   params.size = size;
   params.format = format;

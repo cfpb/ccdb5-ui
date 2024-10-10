@@ -1,4 +1,4 @@
-import { defaultQuery } from '../../../reducers/query/query';
+import { queryState } from '../../../reducers/query/querySlice';
 import {
   testRender as render,
   screen,
@@ -6,12 +6,12 @@ import {
 } from '../../../testUtils/test-utils';
 import { merge } from '../../../testUtils/functionHelpers';
 import { Pagination } from './Pagination';
-import * as pagingActions from '../../../actions/paging';
+import * as pagingActions from '../../../reducers/query/querySlice';
 
 describe('Pagination', () => {
   const renderComponent = (newQueryState, isReplacement = false) => {
     if (!isReplacement) {
-      merge(newQueryState, defaultQuery);
+      merge(newQueryState, queryState);
     }
     const data = {
       query: newQueryState,

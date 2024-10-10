@@ -1,25 +1,30 @@
-import { cloneDeep, coalesce } from '../../utils';
+import { cloneDeep } from '../../utils';
 import { CollapsibleFilter } from './CollapsibleFilter/CollapsibleFilter';
 import { CompanyTypeahead } from './CompanyTypeahead';
 import { useSelector } from 'react-redux';
 import { StickyOptions } from './StickyOptions/StickyOptions';
-import { selectAggsState } from '../../reducers/aggs/selectors';
-import { selectQueryState } from '../../reducers/query/selectors';
+import { selectAggsCompany } from '../../reducers/aggs/selectors';
+import {
+  selectTrendsFocus,
+  selectTrendsLens,
+} from '../../reducers/trends/selectors';
+import { selectFiltersCompany } from '../../reducers/filters/selectors';
 
 const FIELD_NAME = 'company';
 
 export const Company = () => {
-  const aggs = useSelector(selectAggsState);
-  const query = useSelector(selectQueryState);
-  const desc = 'The complaint is about this company.';
-  const options = cloneDeep(coalesce(aggs, FIELD_NAME, []));
-  const selections = coalesce(query, FIELD_NAME, []);
-
-  const isFocusPage = query.focus && query.lens === 'Company';
+  const aggsCompany = useSelector(selectAggsCompany);
+  const filters = useSelector(selectFiltersCompany);
+  const focus = useSelector(selectTrendsFocus);
+  const lens = useSelector(selectTrendsLens);
+  const options = cloneDeep(aggsCompany);
+  const isFocusPage = focus && lens === 'Company';
 
   options.forEach((opt) => {
-    opt.disabled = Boolean(isFocusPage && opt.key !== query.focus);
+    opt.disabled = Boolean(isFocusPage && opt.key !== focus);
   });
+
+  const desc = 'The complaint is about this company.';
 
   return (
     <CollapsibleFilter
@@ -31,7 +36,7 @@ export const Company = () => {
       <StickyOptions
         fieldName={FIELD_NAME}
         options={options}
-        selections={selections}
+        selections={filters}
       />
     </CollapsibleFilter>
   );

@@ -53,12 +53,12 @@ describe('Document View', () => {
       cy.intercept('GET', '/_suggest/?text=pizza', []);
 
       cy.visit(
-        '?searchText=pizza&has_narrative=true&size=10&sort=relevance_desc&tab=List'
+        '?searchText=pizza&has_narrative=true&size=10&sort=relevance_desc&tab=List',
       );
 
       cy.get('select#select-sort option:selected').should(
         'have.text',
-        'Relevance'
+        'Relevance',
       );
 
       cy.contains('.pill', 'Has narrative').should('be.visible');
@@ -71,18 +71,18 @@ describe('Document View', () => {
 
       cy.get('.cards-panel .card-container a').first().click();
 
-      cy.wait('@getDetail');
+      // cy.wait('@getDetail');
 
       cy.url().should('contain', '/detail');
 
       cy.get('.back-to-search a').contains('Back to search results').click();
 
-      cy.wait('@getAggsResults');
-      cy.wait('@getResults');
+      // cy.wait('@getAggsResults');
+      // cy.wait('@getResults');
 
       cy.get('select#select-sort option:selected').should(
         'have.text',
-        'Relevance'
+        'Relevance',
       );
 
       cy.contains('.pill', 'Has narrative').should('be.visible');

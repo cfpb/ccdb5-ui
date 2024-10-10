@@ -181,66 +181,66 @@ describe('module::utils', () => {
 
   describe('enablePer1000', () => {
     it('handles no filters', () => {
-      const query = {
+      const filters = {
         date: {},
         bogus: {},
         product: [],
       };
 
-      expect(enablePer1000(query)).toBeTruthy();
+      expect(enablePer1000(filters)).toBeTruthy();
     });
 
     it('handles some filters', () => {
-      const query = {
+      const filters = {
         date: {},
         bogus: {},
         product: [{ name: 'foo', value: 123 }],
       };
 
-      expect(enablePer1000(query)).toBeFalsy();
+      expect(enablePer1000(filters)).toBeFalsy();
     });
 
     it('handles flag filters', () => {
-      const query = {
+      const filters = {
         date: {},
         bogus: {},
         has_narrative: true,
       };
 
-      expect(enablePer1000(query)).toBeFalsy();
+      expect(enablePer1000(filters)).toBeFalsy();
     });
 
     it('handles company_received filters', () => {
-      const query = {
+      const filters = {
         date: {},
         bogus: {},
         product: [],
         company_received_max: 'foo',
       };
 
-      expect(enablePer1000(query)).toBeFalsy();
+      expect(enablePer1000(filters)).toBeFalsy();
     });
 
     it('allows state filter', () => {
-      const query = {
+      const filters = {
         date: {},
         bogus: {},
         product: [],
         state: ['FL', 'OR'],
       };
 
-      expect(enablePer1000(query)).toBeTruthy();
+      expect(enablePer1000(filters)).toBeTruthy();
     });
 
     it('disallows state filter when others valid', () => {
-      const query = {
+      const filters = {
         date: {},
         bogus: {},
         product: ['BA'],
         state: ['FL', 'OR'],
       };
 
-      expect(enablePer1000(query)).toBeFalsy();
+      expect(enablePer1000(filters)).toBeFalsy();
     });
   });
 
@@ -274,22 +274,14 @@ describe('module::utils', () => {
       };
 
       const actual = startOfToday();
-      expect(actual.getFullYear()).toEqual(2020);
-      expect(actual.getMonth()).toEqual(4);
-      expect(actual.getDate()).toEqual(9);
-      expect(actual.getHours()).toEqual(0);
-      expect(actual.getMinutes()).toEqual(0);
+      expect(dayjs(actual).toISOString()).toEqual('2020-05-09T00:00:00.000Z');
     });
 
     it('defaults MAX_DATE if the metadata is missing', () => {
       MockDate.set(dayjs('5/1/2020').utc());
 
       const actual = startOfToday();
-      expect(actual.getFullYear()).toEqual(2020);
-      expect(actual.getMonth()).toEqual(4);
-      expect(actual.getDate()).toEqual(1);
-      expect(actual.getHours()).toEqual(0);
-      expect(actual.getMinutes()).toEqual(0);
+      expect(dayjs(actual).toISOString()).toEqual('2020-05-01T00:00:00.000Z');
     });
   });
 
@@ -298,12 +290,10 @@ describe('module::utils', () => {
       const actual = processErrorMessage({
         name: 'foo',
         message: 'bar',
-        stack: 'some stack trace thing',
       });
       expect(actual).toEqual({
         name: 'foo',
         message: 'bar',
-        stack: 'some stack trace thing',
       });
     });
   });

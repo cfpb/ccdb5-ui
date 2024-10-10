@@ -4,13 +4,16 @@ import { useEffect } from 'react';
 import { RefinePanel } from './RefinePanel';
 import { ResultsPanel } from '../ResultsPanel';
 import { RootModal } from '../Dialogs/RootModal';
-import { SearchPanel } from './SearchPanel';
 import { selectViewIsPrintMode } from '../../reducers/view/selectors';
 import { Tour } from '../Tour/Tour';
 import { useUpdateLocation } from '../../hooks/useUpdateLocation';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { useEvent } from '../../hooks/useEvent';
-import { printModeOff, printModeOn } from '../../actions/view';
+import {
+  updatePrintModeOff,
+  updatePrintModeOn,
+} from '../../reducers/view/viewSlice';
+import { SearchPanel } from './SearchPanel';
 
 export const SearchComponents = () => {
   useUpdateLocation();
@@ -21,12 +24,12 @@ export const SearchComponents = () => {
 
   useEvent('afterprint', () => {
     if (isPrintMode) {
-      dispatch(printModeOff());
+      dispatch(updatePrintModeOff());
     }
   });
   useEvent('beforeprint', () => {
     if (!isPrintMode) {
-      dispatch(printModeOn());
+      dispatch(updatePrintModeOn());
     }
   });
 

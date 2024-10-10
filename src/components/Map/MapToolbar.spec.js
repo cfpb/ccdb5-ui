@@ -1,19 +1,20 @@
 import { MapToolbar } from './MapToolbar';
 import { merge } from '../../testUtils/functionHelpers';
-import { defaultQuery } from '../../reducers/query/query';
+import { filtersState } from '../../reducers/filters/filtersSlice';
 import {
   testRender as render,
   screen,
   fireEvent,
 } from '../../testUtils/test-utils';
-import * as mapActions from '../../actions/map';
+import * as filterActions from '../../reducers/filters/filtersSlice';
+import * as viewActions from '../../reducers/view/viewSlice';
 
 describe('MapToolbar', () => {
-  const renderComponent = (newQueryState) => {
-    merge(newQueryState, defaultQuery);
+  const renderComponent = (newFiltersState) => {
+    merge(newFiltersState, filtersState);
 
     const data = {
-      query: newQueryState,
+      filters: newFiltersState,
     };
 
     render(<MapToolbar />, {
@@ -26,8 +27,8 @@ describe('MapToolbar', () => {
   });
 
   it('renders filtered states and clears filters', () => {
-    const clearStateFilterSpy = jest
-      .spyOn(mapActions, 'clearStateFilter')
+    const stateFilterClearedSpy = jest
+      .spyOn(filterActions, 'stateFilterCleared')
       .mockImplementation(() => jest.fn());
 
     renderComponent({
@@ -36,12 +37,12 @@ describe('MapToolbar', () => {
     expect(screen.getByText('Florida, Texas')).toBeInTheDocument();
     expect(screen.getByLabelText('Clear all map filters')).toBeInTheDocument();
     fireEvent.click(screen.getByText('Clear'));
-    expect(clearStateFilterSpy).toHaveBeenCalledTimes(1);
+    expect(stateFilterClearedSpy).toHaveBeenCalledTimes(1);
   });
 
   it('renders filtered states and goes to list', () => {
     const showStateComplaintsSpy = jest
-      .spyOn(mapActions, 'showStateComplaints')
+      .spyOn(viewActions, 'tabChanged')
       .mockImplementation(() => jest.fn());
 
     renderComponent({
@@ -50,5 +51,6 @@ describe('MapToolbar', () => {
     expect(screen.getByText('Florida, Texas')).toBeInTheDocument();
     fireEvent.click(screen.getByText('View complaints for filtered states'));
     expect(showStateComplaintsSpy).toHaveBeenCalledTimes(1);
+    expect(showStateComplaintsSpy).toHaveBeenCalledWith('List');
   });
 });

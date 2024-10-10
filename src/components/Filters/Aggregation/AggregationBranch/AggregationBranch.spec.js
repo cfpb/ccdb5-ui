@@ -1,8 +1,8 @@
 import { testRender as render, screen } from '../../../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 import { merge } from '../../../../testUtils/functionHelpers';
-import { defaultQuery } from '../../../../reducers/query/query';
-import * as filter from '../../../../actions/filter';
+import { filtersState } from '../../../../reducers/filters/filtersSlice';
+import * as filter from '../../../../reducers/filters/filtersSlice';
 import { AggregationBranch } from './AggregationBranch';
 
 const fieldName = 'abc';
@@ -18,11 +18,11 @@ const subitems = [
   { key: 'qaz', doc_count: 4 },
 ];
 
-const renderComponent = (props, newQueryState) => {
-  merge(newQueryState, defaultQuery);
+const renderComponent = (props, newFiltersState) => {
+  merge(newFiltersState, filtersState);
 
   const data = {
-    query: newQueryState,
+    filters: newFiltersState,
   };
 
   return render(<AggregationBranch {...props} />, {
@@ -100,8 +100,8 @@ describe('component::AggregationBranch', () => {
     let replaceFiltersFn, removeMultipleFiltersFn;
 
     beforeEach(() => {
-      replaceFiltersFn = jest.spyOn(filter, 'replaceFilters');
-      removeMultipleFiltersFn = jest.spyOn(filter, 'removeMultipleFilters');
+      replaceFiltersFn = jest.spyOn(filter, 'filtersReplaced');
+      removeMultipleFiltersFn = jest.spyOn(filter, 'multipleFiltersRemoved');
     });
 
     afterEach(() => {

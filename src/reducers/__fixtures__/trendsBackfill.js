@@ -1093,4 +1093,5 @@ export const trendsBackfillResults = {
   subLens: 'sub_product',
   tooltip: false,
   total: 532,
+  trendDepth: 5,
 };

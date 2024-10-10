@@ -1,7 +1,8 @@
 import './ComplaintCard.less';
-import { ariaReadoutNumbers, shortFormat } from '../../../utils';
+import { ariaReadoutNumbers } from '../../../utils';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { formatDisplayDate } from '../../../utils/formatDate';
 
 const MAX_NARRATIVE = 300;
 
@@ -64,7 +65,7 @@ export const ComplaintCard = ({ row }) => {
             <div className="layout-row">
               <h4>Date received:</h4>
               <span className="body-copy">
-                {shortFormat(row.date_received)}
+                {formatDisplayDate(row.date_received)}
               </span>
             </div>
             <div className="spacer" />

@@ -3,19 +3,19 @@ import * as d3 from 'd3';
 import { merge } from '../../../testUtils/functionHelpers';
 import { buildFluentMock } from '../__fixtures__/buildFluentMock';
 import { LineChart } from './LineChart';
-import { defaultTrends } from '../../../reducers/trends/trends';
-import { defaultQuery } from '../../../reducers/query/query';
-import { defaultView } from '../../../reducers/view/view';
+import { queryState } from '../../../reducers/query/querySlice';
+import { trendsState } from '../../../reducers/trends/trendsSlice';
+import { viewState } from '../../../reducers/view/viewSlice';
 
-const renderComponent = (queryState, trendsState, viewState) => {
-  merge(queryState, defaultQuery);
-  merge(trendsState, defaultTrends);
-  merge(viewState, defaultView);
+const renderComponent = (newQueryState, newTrendsState, newViewState) => {
+  merge(newQueryState, queryState);
+  merge(newTrendsState, trendsState);
+  merge(newViewState, viewState);
 
   const data = {
-    query: queryState,
-    trends: trendsState,
-    view: viewState,
+    query: newQueryState,
+    trends: newTrendsState,
+    view: newViewState,
   };
 
   render(<LineChart />, {
