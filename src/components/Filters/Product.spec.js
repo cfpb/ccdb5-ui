@@ -2,6 +2,9 @@ import { generateOptions, Product } from './Product';
 import { slugify } from '../../utils';
 import { aggsState } from '../../reducers/aggs/aggsSlice';
 import { filtersState } from '../../reducers/filters/filtersSlice';
+import { trendsState } from '../../reducers/trends/trendsSlice';
+import { viewState } from '../../reducers/view/viewSlice';
+
 import { merge } from '../../testUtils/functionHelpers';
 import { screen, testRender as render } from '../../testUtils/test-utils';
 import { MODE_TRENDS } from '../../constants';
@@ -58,12 +61,22 @@ const aggsProduct = [
   },
 ];
 
-const renderComponent = (newAggsState, newFiltersState) => {
+const renderComponent = (
+  newAggsState,
+  newFiltersState,
+  newTrendsState,
+  newViewState,
+) => {
   merge(newAggsState, aggsState);
   merge(newFiltersState, filtersState);
+  merge(newTrendsState, trendsState);
+  merge(newViewState, viewState);
+
   const data = {
     aggs: newAggsState,
     filters: newFiltersState,
+    trends: newTrendsState,
+    view: newViewState,
   };
 
   render(<Product />, { preloadedState: data });
@@ -75,7 +88,7 @@ describe('component:Product', () => {
       product: aggsProduct,
     };
 
-    renderComponent(aggs, {});
+    renderComponent(aggs, {}, {}, {});
     expect(
       screen.getByRole('checkbox', {
         name: 'Credit reporting, credit repair services, or other personal consumer reports',

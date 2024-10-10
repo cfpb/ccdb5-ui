@@ -56,12 +56,14 @@ export const generateOptions = (
 };
 
 export const Product = () => {
+  const aggsProducts = useSelector(selectAggsProduct);
+
   // See if there are an active product filters
+  const filtersProducts = useSelector(selectFiltersProduct);
   const focus = useSelector(selectTrendsFocus);
   const lens = useSelector(selectTrendsLens);
+
   const tab = useSelector(selectViewTab);
-  const filtersProducts = useSelector(selectFiltersProduct);
-  const aggsProducts = useSelector(selectAggsProduct);
 
   const options = generateOptions(
     aggsProducts,
