@@ -5,7 +5,6 @@
 @use '@cfpb/cfpb-design-system/src/utilities' as *;
 
 // no atomic components
-@use '@cfpb/cfpb-design-system/src/components/cfpb-icons/icon';
 @import 'base';
 @import '../components/Print/print';
 @include define-custom-props;

@@ -18,8 +18,8 @@ $input-bg-disabled: var(--gray-10);
 
   select {
     width: 100%;
-    padding: math.div(4px, $base-font-size-px)em 0
-      math.div(6px, $base-font-size-px)em 1rem;
+    padding: math.div(4px, $base-font-size-px) + em 0
+      math.div(6px, $base-font-size-px) + em 1rem;
     border: 0;
     border-radius: 0;
     appearance: none;

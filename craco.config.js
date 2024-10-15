@@ -82,24 +82,5 @@ module.exports = {
         skipEsbuildJest: true, // Optional. Set to true if you want to use babel for jest tests,
       },
     },
-    /*{
-      plugin: CracoLessPlugin,
-      options: {
-        lessLoaderOptions: {
-          lessOptions: {
-            modifyVars: {
-              hack: `true;@import (reference) "${require.resolve(
-                './src/css/base.scss',
-              )}";`,
-            },
-            javascriptEnabled: true,
-            math: 'always',
-            paths: [
-              path.resolve(__dirname, 'node_modules/@cfpb/cfpb-core/src'),
-            ],
-          },
-        },
-      },
-    },*/
   ],
 };
