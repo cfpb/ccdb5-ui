@@ -48,7 +48,7 @@ $cf-fonts-path: '/static/fonts';
 }
 
 .cols {
-  // .grid__nested-col-group();
+  @include u-grid-nested-col-group;
 }
 
 .col::before {
@@ -59,39 +59,39 @@ $cf-fonts-path: '/static/fonts';
 }
 
 .col-1 {
-  // .grid__column(1);
+  @include u-grid-column(1); 
 }
 
 .col-2 {
-  // .grid__column(2);
+  @include u-grid-column(2);
 }
 
 .col-3 {
-  // .grid__column(3);
+  @include u-grid-column(3);
 }
 
 .col-4 {
-  // .grid__column(4);
+  @include u-grid-column(4);
 }
 
 .col-6 {
-  // .grid__column(6);
+  @include u-grid-column(6);
 }
 
 .col-8 {
-  // .grid__column(8);
+  @include u-grid-column(8);
 }
 
 .col-9 {
-  // .grid__column(9);
+  @include u-grid-column(9);
 }
 
 .col-10 {
-  // .grid__column(10);
+  @include u-grid-column(10);
 }
 
 .col-12 {
-  // .grid__column(12);
+  @include u-grid-column(12);
 }
 
 // Overrides
