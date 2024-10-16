@@ -1,5 +1,5 @@
-import * as sut from '../filters';
-import { slugify } from '../../utils';
+import * as sut from './filters';
+import { slugify } from './index';
 
 // ----------------------------------------------------------------------------
 // Tests

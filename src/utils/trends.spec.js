@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import * as sut from '../trends';
+import * as sut from './trends';
 
 // ----------------------------------------------------------------------------
 // Tests

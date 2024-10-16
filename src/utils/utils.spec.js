@@ -13,7 +13,7 @@ import {
   shortIsoFormat,
   sortSelThenCount,
   startOfToday,
-} from '../utils';
+} from './index';
 import Analytics from '../actions/analytics';
 import MockDate from 'mockdate';
 import { DATE_RANGE_MIN } from '../constants';

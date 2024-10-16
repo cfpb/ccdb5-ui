@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import * as sut from '../chart';
+import * as sut from './chart';
 
 // ----------------------------------------------------------------------------
 // Tests

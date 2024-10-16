@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 
-import * as sut from '../formatDate';
+import * as sut from './formatDate';
 
 // ----------------------------------------------------------------------------
 // Tests

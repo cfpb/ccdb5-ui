@@ -1,4 +1,4 @@
-import * as sut from '../compare';
+import * as sut from './compare';
 
 // ----------------------------------------------------------------------------
 // Tests

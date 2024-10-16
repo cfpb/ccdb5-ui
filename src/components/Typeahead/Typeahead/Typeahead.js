@@ -72,7 +72,7 @@ export const Typeahead = ({
 };
 Typeahead.propTypes = {
   ariaLabel: PropTypes.string.isRequired,
-  isDisabled: PropTypes.bool.isRequired,
+  isDisabled: PropTypes.bool,
   handleChange: PropTypes.func.isRequired,
   handleInputChange: PropTypes.func.isRequired,
   htmlId: PropTypes.string.isRequired,

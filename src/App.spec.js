@@ -22,7 +22,7 @@ describe('initial state', () => {
       </Provider>,
     );
 
-    expect(updateLocationHookSpy).toBeCalledTimes(2);
+    expect(updateLocationHookSpy).toBeCalledTimes(1);
     expect(screen.getByText(/Consumer Complaint Database/)).toBeDefined();
     expect(screen.getByText(/Search within/)).toBeDefined();
     expect(
