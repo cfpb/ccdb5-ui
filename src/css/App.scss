@@ -8,6 +8,7 @@
 @import 'base';
 @import '../components/Print/print';
 @include define-custom-props;
+@include licensed-font;
 
 // Icon font path
 $cf-icon-path: '../css/fonts';
