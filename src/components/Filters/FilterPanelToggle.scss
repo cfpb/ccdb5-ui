@@ -1,19 +1,19 @@
 @import '../../css/base';
 
 .filter-panel-toggle {
-  @media ($superwide) {
+  @media screen and (min-width: $layout-breakpoint-superwide-min) {
     display: none;
   }
 
-  @media ($desktop) {
+  @media screen and (min-width: $layout-breakpoint-desktop-min) {
     display: none;
   }
 
-  @media ($tablet-lg) {
+  @media screen and (min-width: $layout-breakpoint-tablet-lg-min) and (max-width: $layout-breakpoint-tablet-lg-max) {
     display: none;
   }
 
-  @media ($tablet-sm) {
+  @media screen and (min-width: $layout-breakpoint-tablet-sm-min) and (max-width: $layout-breakpoint-tablet-sm-max) {
     display: block;
     width: 90vw;
     margin-left: auto;
@@ -23,7 +23,7 @@
     }
   }
 
-  @media ($phone) {
+  @media screen and (max-width: $layout-breakpoint-phone-max) {
     display: block;
     width: 90vw;
     margin-left: auto;

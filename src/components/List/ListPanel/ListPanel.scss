@@ -13,7 +13,7 @@
     padding: $grid-gutter-width;
     margin: 0;
 
-    @media ($phone) {
+    @media screen and (max-width: $layout-breakpoint-phone-max) {
       padding: $gutter-normal;
     }
   }

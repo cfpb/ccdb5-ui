@@ -21,23 +21,24 @@
 /* stylelint-disable selector-class-pattern */
 .introjs-tooltipReferenceLayer > .first-step {
 /* stylelint-enable */
-  @media ($superwide) {
+  @media screen and (min-width: $layout-breakpoint-superwide-min) {
     margin-top: -40vh !important;
   }
 
-  @media ($desktop) and (max-width: 1799px){
+  @media screen and (min-width: $layout-breakpoint-desktop-min) and (max-width: $layout-breakpoint-desktop-max){
     margin-top: -90vh !important;
   }
 
-  @media ($tablet-lg) {
+  @media screen and (min-width: $layout-breakpoint-tablet-lg-min) and (max-width: $layout-breakpoint-tablet-lg-max) {
     margin-top: -110vh !important;
   }
 
-  @media ($tablet-sm) {
+  @media screen and (min-width: $layout-breakpoint-tablet-sm-min
+) and (max-width: $layout-breakpoint-tablet-sm-max) {
     margin-top: -130vh !important;
   }
 
-  @media ($phone) {
+  @media screen and (max-width: $layout-breakpoint-phone-max) {
     margin-top: -110vh !important;
   }
 }

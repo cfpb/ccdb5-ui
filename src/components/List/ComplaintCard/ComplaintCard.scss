@@ -29,7 +29,7 @@ li.card-container {
     flex-direction: row;
     flex-wrap: nowrap;
 
-    @media ($phone) {
+    @media screen and (max-width: $layout-breakpoint-phone-max) {
       flex-wrap: wrap;
     }
 
@@ -38,18 +38,18 @@ li.card-container {
       width: 260px;
       padding-right: $grid-gutter-width;
 
-      @media ($tablet) {
+      @media screen and (min-width: $layout-breakpoint-tablet-min) and (max-width: $layout-breakpoint-tablet-max) {
         width: 50%;
         padding-right: $gutter-normal;
       }
 
-      @media ($phone) {
+      @media screen and (max-width: $layout-breakpoint-phone-max) {
         width: 100%;
         padding-right: $gutter-narrow;
       }
     }
     .card-right {
-      @media ($phone) {
+      @media screen and (max-width: $layout-breakpoint-phone-max) {
         width: 100%;
         padding-top: $gutter-normal;
       }

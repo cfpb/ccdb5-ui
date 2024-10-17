@@ -283,7 +283,7 @@
     padding-bottom: $gutter-normal;
   }
 
-  @media ($phone){
+  @media screen and (max-width: 599px){
     .refine-bar {
       .cf-select {
         flex-grow: 1;
@@ -298,7 +298,8 @@
     }
   }
 
-  @media ($phone) and ($tablet) {
+  @media screen and (max-width: 599px),
+  screen and (min-width: $layout-breakpoint-tablet-min) and (max-width: $layout-breakpoint-tablet-max) {
     .chart {
       width: 100%;
     }
@@ -320,15 +321,15 @@
       margin-bottom: $gutter-normal;
     }
 
-    @media ($tablet) {
+    @media screen and (min-width: $layout-breakpoint-tablet-min) and (max-width: $layout-breakpoint-tablet-max) {
       padding-left: 20px;
     }
 
-    @media ($desktop) {
+    @media screen and (min-width: $layout-breakpoint-desktop-min) {
       padding-left: 30px;
     }
 
-    @media ($superwide) {
+    @media screen and (min-width: $layout-breakpoint-superwide-min) {
       padding-left: 40px;
     }
   }

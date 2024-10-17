@@ -107,7 +107,7 @@ $cf-fonts-path: '/static/fonts';
     border-right: none;
     max-width: initial;
 
-    @media ($phone) {
+    @media screen and (max-width: $layout-breakpoint-phone-max) {
       border: none;
     }
   }
@@ -132,23 +132,23 @@ $cf-fonts-path: '/static/fonts';
 
 // gutters
 .wrapper-match-content {
-  @media ($tablet) {
+  @media screen and (min-width: $layout-breakpoint-tablet-min) and (max-width: $layout-breakpoint-tablet-max) {
     padding-left: 20px;
     padding-right: 20px;
   }
 
-  @media ($desktop) {
+  @media screen and (min-width: $layout-breakpoint-desktop-min) {
     padding-left: 30px;
     padding-right: 30px;
   }
 
-  @media($superwide) {
+  @media screen and (min-width: $layout-breakpoint-superwide-min) {
     padding-left: 80px;
     padding-right: 80px;
   }
 }
 
-@media ($tablet-lg) {
+@media screen and (min-width: $layout-breakpoint-tablet-lg-min) and (max-width: $layout-breakpoint-tablet-lg-max) {
   .content--1-3 {
     .content__sidebar {
       width: 305px;
@@ -160,7 +160,8 @@ $cf-fonts-path: '/static/fonts';
   }
 }
 
-@media ($tablet-sm) {
+@media screen and (min-width: $layout-breakpoint-tablet-sm-min
+) and (max-width: $layout-breakpoint-tablet-sm-max) {
   .content--1-3 {
     .content__main {
       width: 100%;
@@ -181,7 +182,7 @@ $cf-fonts-path: '/static/fonts';
   }
 }
 
-@media ($phone) {
+@media screen and (max-width: $layout-breakpoint-phone-max) {
   .filter-button {
     display: block;
     margin: 20px 0;

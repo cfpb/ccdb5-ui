@@ -7,11 +7,11 @@
   padding: $grid-gutter-width;
   border-right: 1px solid var(--gray-40);
 
-  @media ($desktop) {
+  @media screen and (min-width: $layout-breakpoint-desktop-min) {
     padding: $grid-gutter-width;
   }
 
-  @media ($phone) {
+  @media screen and (max-width: $layout-breakpoint-phone-max) {
     padding: $gutter-narrow;
     min-height: 150px;
   }

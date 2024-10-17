@@ -6,15 +6,15 @@
   margin-left: 10px;
   height: 38px;
 
-  @media ($desktop) {
+  @media screen and (min-width: $layout-breakpoint-desktop-min) {
     display: none;
   }
 
-  @media ($tablet-lg) {
+  @media screen and (min-width: $layout-breakpoint-tablet-lg-min) and (max-width: $layout-breakpoint-tablet-lg-max) {
     display: none;
   }
 
-  @media ($phone) {
+  @media screen and (max-width: $layout-breakpoint-phone-max){
     display: none;
   }
 }

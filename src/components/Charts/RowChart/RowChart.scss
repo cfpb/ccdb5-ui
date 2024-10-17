@@ -12,7 +12,7 @@
   }
 }
 
-@media ($phone) {
+@media screen and (max-width: $layout-breakpoint-phone-max) {
   .row-chart-section {
     margin-left: 0;
   }

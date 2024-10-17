@@ -34,7 +34,7 @@
     padding-top: $gutter-narrow;
   }
 
-  @media ($phone) {
+  @media screen and (max-width: $layout-breakpoint-phone-max) {
     flex-direction: column;
     margin-top: 70px;
     .layout-row {

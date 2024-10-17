@@ -25,10 +25,16 @@ $max-count-width: 65px;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Device Definitions
+$layout-breakpoint-superwide-min: 1800px;
+$layout-breakpoint-desktop-max: 1799px;
+$layout-breakpoint-desktop-min: 901px;
+$layout-breakpoint-tablet-min: 600px;
+$layout-breakpoint-tablet-max: 900px;
+$layout-breakpoint-tablet-lg-min: 750px;
+$layout-breakpoint-tablet-lg-max: 900px;
+$layout-breakpoint-tablet-sm-min: 600px;
+$layout-breakpoint-tablet-sm-max: 749px;
+$layout-breakpoint-phone-max: 599px;
 
-$superwide: 'only screen and (min-width: 1800px)';
-$desktop: 'only screen and (min-width: 901px)';
-$tablet: 'only screen and (min-width: 600px) and (max-width: 900px)';
-$tablet-lg: 'only screen and (min-width: 750px) and (max-width: 900px)';
-$tablet-sm: 'only screen and (min-width: 600px) and (max-width: 749px)';
-$phone: 'only screen and (max-width: 599px)';
+
+

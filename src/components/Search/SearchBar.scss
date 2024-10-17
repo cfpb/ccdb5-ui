@@ -4,7 +4,7 @@
 @import '../../css/base';
 
 .search-bar {
-  @media ($phone) {
+  @media screen and (max-width: $layout-breakpoint-phone-max) {
     h4,
     .advanced-container {
       width: 0;
@@ -19,7 +19,7 @@
     flex-direction: column;
     justify-content: center;
 
-    @media ($phone) {
+    @media screen and (max-width: $layout-breakpoint-phone-max) {
       width: 0;
       display: none;
     }

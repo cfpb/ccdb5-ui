@@ -248,7 +248,8 @@ x/y positioning on the SVG elements.
   }
 }
 
-@media ($tablet-sm) and ($phone) {
+@media screen and ((min-width: $layout-breakpoint-tablet-sm-min) and (max-width: $layout-breakpoint-tablet-sm-max)),
+screen and (max-width: $layout-breakpoint-phone-max) {
   .cfpb-chart[data-chart-type='tile_map'] {
     width: calc(100% - 20px);
     margin-bottom: 10px;
@@ -339,7 +340,7 @@ $mobile-xs-tiles: 'only screen and (max-width:400px)';
 // -----------------------------------------------------------------------------
 // Make the map & legend play nice
 
-@media ($tablet-sm) {
+@media screen and (min-width: $layout-breakpoint-tablet-sm-min) and (max-width: $layout-breakpoint-tablet-sm-max) {
   .highcharts-series-group {
     transform: translate(0, 15px);
   }
@@ -356,7 +357,7 @@ $mobile-xs-tiles: 'only screen and (max-width:400px)';
   }
 }
 
-@media ($phone) {
+@media screen and (max-width: $layout-breakpoint-phone-max) {
   .highcharts-series-group {
     transform: translate(0, 15px);
   }
