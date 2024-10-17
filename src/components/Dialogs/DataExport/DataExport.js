@@ -1,4 +1,4 @@
-import './DataExport.less';
+import './DataExport.scss';
 import { getFullUrl, sendAnalyticsEvent } from '../../../utils';
 import { buildAllResultsUri, buildSomeResultsUri } from './dataExportUtils';
 import { hideModal, showModal } from '../../../actions/view';

@@ -1,4 +1,4 @@
-import './css/App.less';
+import './css/App.scss';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ComplaintDetail } from './components/ComplaintDetail/ComplaintDetail';
 import { SearchComponents } from './components/Search/SearchComponents';

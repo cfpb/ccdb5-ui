@@ -1,4 +1,4 @@
-import './Tour.less';
+import './Tour.scss';
 import * as d3 from 'd3';
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

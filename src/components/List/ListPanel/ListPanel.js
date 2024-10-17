@@ -1,5 +1,5 @@
-import './ListPanel.less';
-import '../../RefineBar/RefineBar.less';
+import './ListPanel.scss';
+import '../../RefineBar/RefineBar.scss';
 import { changeSize, changeSort } from '../../../actions/paging';
 import { sizes, sorts } from '../../../constants';
 import { ActionBar } from '../../ActionBar/ActionBar';

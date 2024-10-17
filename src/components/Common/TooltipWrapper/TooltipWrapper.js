@@ -1,4 +1,4 @@
-import './TooltipWrapper.less';
+import './TooltipWrapper.scss';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import PropTypes from 'prop-types';
 import Tooltip from 'react-bootstrap/Tooltip';
