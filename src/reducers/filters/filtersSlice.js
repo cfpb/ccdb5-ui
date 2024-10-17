@@ -217,16 +217,16 @@ export const filtersSlice = createSlice({
     stateFilterAdded: {
       reducer: (state, action) => {
         const stateFilters = coalesce(state, 'state', []);
-        const { abbr } = action.payload.selectedState;
+        const { abbr } = action.payload;
         if (!stateFilters.includes(abbr)) {
           stateFilters.push(abbr);
         }
 
         state.state = stateFilters;
       },
-      prepare: (selectedState) => {
+      prepare: (payload) => {
         return {
-          payload: { selectedState },
+          payload,
           meta: {
             persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
@@ -251,12 +251,12 @@ export const filtersSlice = createSlice({
     stateFilterRemoved: {
       reducer: (state, action) => {
         const stateFilters = coalesce(state, 'state', []);
-        const { abbr } = action.payload.selectedState;
+        const { abbr } = action.payload;
         state.state = stateFilters.filter((state) => state !== abbr);
       },
-      prepare: (selectedState) => {
+      prepare: (payload) => {
         return {
-          payload: { selectedState },
+          payload,
           meta: {
             persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,

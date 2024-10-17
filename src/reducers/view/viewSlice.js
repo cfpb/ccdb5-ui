@@ -80,12 +80,12 @@ export const viewSlice = createSlice({
     },
     tabChanged: {
       reducer: (state, action) => {
-        state.tab = enforceValues(action.payload.tab, 'tab');
+        state.tab = enforceValues(action.payload, 'tab');
         state.expandedRows = [];
       },
-      prepare: (tab) => {
+      prepare: (payload) => {
         return {
-          payload: { tab },
+          payload,
           meta: {
             persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_HITS_ONLY,

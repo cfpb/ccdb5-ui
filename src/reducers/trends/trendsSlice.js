@@ -62,13 +62,12 @@ export const trendsSlice = createSlice({
   reducers: {
     chartTypeUpdated: {
       reducer: (state, action) => {
-        state.chartType =
-          state.lens === 'Overview' ? 'line' : action.payload.chartType;
+        state.chartType = state.lens === 'Overview' ? 'line' : action.payload;
         state.tooltip = false;
       },
-      prepare: (chartType) => {
+      prepare: (payload) => {
         return {
-          payload: { chartType: chartType },
+          payload,
           meta: {
             persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_NEVER,
@@ -115,12 +114,12 @@ export const trendsSlice = createSlice({
       reducer: (state, action) => {
         return {
           ...state,
-          subLens: action.payload.subLens.toLowerCase(),
+          subLens: action.payload.toLowerCase(),
         };
       },
-      prepare: (subLens) => {
+      prepare: (payload) => {
         return {
-          payload: { subLens },
+          payload,
           meta: {
             persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_HITS_ONLY,
@@ -130,11 +129,11 @@ export const trendsSlice = createSlice({
     },
     depthChanged: {
       reducer: (state, action) => {
-        state.trendDepth = action.payload.depth;
+        state.trendDepth = action.payload;
       },
-      prepare: (depth) => {
+      prepare: (payload) => {
         return {
-          payload: { depth },
+          payload,
           meta: {
             persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_HITS_ONLY,
@@ -350,7 +349,7 @@ export const trendsSlice = createSlice({
       .addCase('view/tabChanged', (state, action) => {
         return {
           ...state,
-          focus: action.payload.tab === MODE_TRENDS ? state.focus : '',
+          focus: action.payload === MODE_TRENDS ? state.focus : '',
           results: emptyResults(),
         };
       });
