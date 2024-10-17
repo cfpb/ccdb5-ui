@@ -1,4 +1,4 @@
-import { addAction } from '../../reducers/actions/actions';
+import { addAction } from '../../reducers/actions/actionsSlice';
 
 //-----------------------------------------------------------------------------
 

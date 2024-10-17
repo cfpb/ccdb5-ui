@@ -8,26 +8,26 @@ import {
   sanitizeHtmlId,
   slugify,
 } from '../../../../utils';
-import {
-  removeMultipleFilters,
-  replaceFilters,
-} from '../../../../actions/filter';
-import { selectQueryState } from '../../../../reducers/query/selectors';
+import { selectFiltersRoot } from '../../../../reducers/filters/selectors';
 import { AggregationItem } from '../AggregationItem/AggregationItem';
 import getIcon from '../../../iconMap';
 import { SLUG_SEPARATOR } from '../../../../constants';
+import {
+  filtersReplaced,
+  multipleFiltersRemoved,
+} from '../../../../reducers/filters/filtersSlice';
 
 export const UNCHECKED = 'UNCHECKED';
 export const INDETERMINATE = 'INDETERMINATE';
 export const CHECKED = 'CHECKED';
 
 export const AggregationBranch = ({ fieldName, item, subitems }) => {
-  const query = useSelector(selectQueryState);
+  const filters = useSelector(selectFiltersRoot);
   const dispatch = useDispatch();
   const [isOpen, setOpen] = useState(false);
 
   // Find all query filters that refer to the field name
-  const allFilters = coalesce(query, fieldName, []);
+  const allFilters = coalesce(filters, fieldName, []);
 
   // Do any of these values start with the key?
   const keyFilters = allFilters.filter(
@@ -67,7 +67,7 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
     activeChildren.forEach((child) => subItemFilters.add(child));
 
     if (checkedState === CHECKED) {
-      dispatch(removeMultipleFilters(fieldName, [...subItemFilters]));
+      dispatch(multipleFiltersRemoved(fieldName, [...subItemFilters]));
     } else {
       // remove all of the child filters
       const replacementFilters = allFilters.filter(
@@ -75,7 +75,7 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
       );
       // add self/ parent filter
       replacementFilters.push(item.key);
-      dispatch(replaceFilters(fieldName, [...replacementFilters]));
+      dispatch(filtersReplaced(fieldName, [...replacementFilters]));
     }
   };
 

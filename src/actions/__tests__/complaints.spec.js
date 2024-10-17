@@ -1,33 +1,31 @@
 import * as sut from '..';
 import * as constants from '../../constants';
 import { initialState, setupStore } from '../../testUtils/setupStore';
-import {
-  AGGREGATIONS_API_CALLED,
-  COMPLAINT_DETAIL_CALLED,
-  COMPLAINTS_API_CALLED,
-  STATES_API_CALLED,
-  TRENDS_API_CALLED,
-} from '..';
 
 describe('action::complaints', () => {
   let expectedHitsQS, expectedQS, fixtureStore;
 
   beforeEach(() => {
     expectedHitsQS =
-      '@@API?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&size=25&sort=created_date_desc';
+      '@@API?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&frm=0&no_aggs=true&size=25&sort=created_date_desc';
   });
   describe('getAggregations', () => {
     beforeEach(() => {
       fixtureStore = initialState();
-      fixtureStore.query.tab = constants.MODE_LIST;
       expectedQS =
-        '@@API?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&sort=created_date_desc&size=0';
+        '@@API?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&size=0';
     });
 
     it('executes a chain of actions', function () {
+      fixtureStore.view.tab = constants.MODE_LIST;
+
       const store = setupStore(fixtureStore);
       const url = expectedQS;
-      const expectedActions = [sut.callingApi(AGGREGATIONS_API_CALLED, url)];
+
+      const expectedActions = [
+        sut.aggregationsApiCalled(url),
+        sut.httpGet(url, sut.aggregationsReceived, sut.aggregationsApiFailed),
+      ];
       store.dispatch(sut.getAggregations());
       const { actions } = store.getState().actions;
       expect(actions).toEqual(expectedActions);
@@ -49,13 +47,18 @@ describe('action::complaints', () => {
     beforeEach(() => {
       fixtureStore = initialState();
       expectedUrl = expectedHitsQS;
-      fixtureStore.query.tab = constants.MODE_LIST;
+      fixtureStore.view.tab = constants.MODE_LIST;
     });
 
     it('executes a chain of actions', function () {
       const store = setupStore(fixtureStore);
       const expectedActions = [
-        sut.callingApi(COMPLAINTS_API_CALLED, expectedUrl),
+        sut.complaintsApiCalled(expectedUrl),
+        sut.httpGet(
+          expectedUrl,
+          sut.complaintsReceived,
+          sut.complaintsApiFailed,
+        ),
       ];
       store.dispatch(sut.getComplaints());
       const { actions } = store.getState().actions;
@@ -78,14 +81,19 @@ describe('action::complaints', () => {
 
     beforeEach(() => {
       fixtureStore = initialState();
-      fixtureStore.query.tab = constants.MODE_DOCUMENT;
+      fixtureStore.view.tab = constants.MODE_DETAIL;
       expectedUrl = '@@API123';
     });
 
     it('executes a series of actions', function () {
       const store = setupStore(fixtureStore);
       const expectedActions = [
-        sut.callingApi(COMPLAINT_DETAIL_CALLED, expectedUrl),
+        sut.complaintDetailCalled(expectedUrl),
+        sut.httpGet(
+          expectedUrl,
+          sut.complaintDetailReceived,
+          sut.complaintDetailFailed,
+        ),
       ];
       store.dispatch(sut.getComplaintDetail(123));
       const { actions } = store.getState().actions;
@@ -107,14 +115,19 @@ describe('action::complaints', () => {
 
     beforeEach(() => {
       fixtureStore = initialState();
-      fixtureStore.query.tab = constants.MODE_MAP;
+      fixtureStore.view.tab = constants.MODE_MAP;
       expectedUrl =
-        '@@APIgeo/states/?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&no_aggs=true';
+        '@@APIgeo/states/?date_received_max=2020-05-05' +
+        '&date_received_min=2017-05-05&field=all&frm=0&no_aggs=true' +
+        '&size=25&sort=created_date_desc';
     });
 
     it('executes a series of actions', function () {
       const store = setupStore(fixtureStore);
-      const expectedActions = [sut.callingApi(STATES_API_CALLED, expectedUrl)];
+      const expectedActions = [
+        sut.statesApiCalled(expectedUrl),
+        sut.httpGet(expectedUrl, sut.statesReceived, sut.statesApiFailed),
+      ];
       store.dispatch(sut.getStates());
       const { actions } = store.getState().actions;
       expect(actions).toEqual(expectedActions);
@@ -135,14 +148,20 @@ describe('action::complaints', () => {
 
     beforeEach(() => {
       fixtureStore = initialState();
-      fixtureStore.query.tab = constants.MODE_TRENDS;
+      fixtureStore.view.tab = constants.MODE_TRENDS;
       expectedUrl =
-        '@@APItrends/?date_received_max=2020-05-05&date_received_min=2017-05-05&field=all&lens=product&sub_lens=sub_product&trend_depth=5&trend_interval=month&no_aggs=true';
+        '@@APItrends?date_received_max=2020-05-05' +
+        '&date_received_min=2017-05-05&field=all&frm=0&lens=product' +
+        '&no_aggs=true&searchField=all&size=25&sort=created_date_desc' +
+        '&sub_lens=sub_product&trend_depth=5&trend_interval=month';
     });
 
     it('executes a series of actions', function () {
       const store = setupStore(fixtureStore);
-      const expectedActions = [sut.callingApi(TRENDS_API_CALLED, expectedUrl)];
+      const expectedActions = [
+        sut.trendsApiCalled(expectedUrl),
+        sut.httpGet(expectedUrl, sut.trendsReceived, sut.trendsApiFailed),
+      ];
       store.dispatch(sut.getTrends());
       const { actions } = store.getState().actions;
       expect(actions).toEqual(expectedActions);

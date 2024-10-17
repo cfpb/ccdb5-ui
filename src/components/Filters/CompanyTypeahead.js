@@ -1,15 +1,16 @@
 import { sanitizeHtmlId } from '../../utils';
-import { addMultipleFilters } from '../../actions/filter';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { stateToQS } from '../../reducers/query/query';
+import { stateToQS } from '../../reducers/query/querySlice';
+import { multipleFiltersAdded } from '../../reducers/filters/filtersSlice';
 import { API_PLACEHOLDER } from '../../constants';
+import { selectFiltersRoot } from '../../reducers/filters/selectors';
+import { selectQueryRoot } from '../../reducers/query/selectors';
 import {
-  selectQueryFocus,
-  selectQueryLens,
-  selectQueryState,
-} from '../../reducers/query/selectors';
+  selectTrendsFocus,
+  selectTrendsLens,
+} from '../../reducers/trends/selectors';
 import { AsyncTypeahead } from '../Typeahead/AsyncTypeahead/AsyncTypeahead';
 import { handleFetchSearch } from '../Typeahead/utils';
 
@@ -17,18 +18,19 @@ const FIELD_NAME = 'company';
 
 export const CompanyTypeahead = ({ delayWait = 250, id }) => {
   const dispatch = useDispatch();
-  const query = useSelector(selectQueryState);
-  const focus = useSelector(selectQueryFocus);
-  const lens = useSelector(selectQueryLens);
+  const filters = useSelector(selectFiltersRoot);
+  const query = useSelector(selectQueryRoot);
+  const focus = useSelector(selectTrendsFocus);
+  const lens = useSelector(selectTrendsLens);
   const [dropdownOptions, setDropdownOptions] = useState([]);
 
-  const queryState = Object.assign({}, query);
+  const queryState = Object.assign({}, query, filters);
   queryState.searchAfter = '';
   const isDisabled = focus && lens === 'Company';
   const queryString = stateToQS(queryState);
 
   const onSelection = (value) => {
-    dispatch(addMultipleFilters(FIELD_NAME, [value[0].key]));
+    dispatch(multipleFiltersAdded(FIELD_NAME, [value[0].key]));
   };
 
   const onInputChange = (value) => {

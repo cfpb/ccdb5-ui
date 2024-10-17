@@ -6,7 +6,7 @@ import { FilterPanel } from '../Filters/FilterPanel';
 import { FilterPanelToggle } from '../Filters/FilterPanelToggle';
 import { Loading } from '../Loading/Loading';
 import { MapToolbar } from './MapToolbar';
-import { mapWarningDismissed } from '../../actions/view';
+import { mapWarningDismissed } from '../../reducers/filters/filtersSlice';
 import { PerCapita } from '../RefineBar/PerCapita';
 import { processRows } from '../../utils/chart';
 
@@ -19,6 +19,10 @@ import Warning from '../Warnings/Warning';
 import { selectAggsTotal } from '../../reducers/aggs/selectors';
 
 import {
+  selectFiltersEnablePer1000,
+  selectFiltersMapWarningEnabled,
+} from '../../reducers/filters/selectors';
+import {
   selectMapActiveCall,
   selectMapError,
   selectMapResults,
@@ -27,8 +31,6 @@ import {
 import {
   selectQueryDateReceivedMax,
   selectQueryDateReceivedMin,
-  selectQueryEnablePer1000,
-  selectQueryMapWarningEnabled,
 } from '../../reducers/query/selectors';
 
 import {
@@ -36,7 +38,7 @@ import {
   selectViewWidth,
 } from '../../reducers/view/selectors';
 
-import { shortFormat } from '../../utils';
+import { formatDisplayDate } from '../../utils/formatDate';
 
 const WARNING_MESSAGE =
   '“Complaints per 1,000 population” is not available with your filter ' +
@@ -50,13 +52,16 @@ export const MapPanel = () => {
   const dispatch = useDispatch();
   const total = useSelector(selectAggsTotal);
 
-  const isLoading = useSelector(selectMapActiveCall);
+  const enablePer1000 = useSelector(selectFiltersEnablePer1000);
+  const mapWarningEnabled = useSelector(selectFiltersMapWarningEnabled);
+
+  const activeCall = useSelector(selectMapActiveCall);
   const results = useSelector(selectMapResults);
   const hasError = useSelector(selectMapError);
-  const enablePer1000 = useSelector(selectQueryEnablePer1000);
-  const mapWarningEnabled = useSelector(selectQueryMapWarningEnabled);
+
   const maxDate = useSelector(selectQueryDateReceivedMax);
   const minDate = useSelector(selectQueryDateReceivedMin);
+
   const expandedRows = useSelector(selectViewExpandedRows);
   const width = useSelector(selectViewWidth);
   const hasMobileFilters = width < 750;
@@ -65,9 +70,9 @@ export const MapPanel = () => {
     return processRows(results.product, false, 'Product', expandedRows);
   }, [results, expandedRows]);
 
-  const MAP_ROWCHART_TITLE = `Product by highest complaint volume ${shortFormat(
+  const MAP_ROWCHART_TITLE = `Product by highest complaint volume ${formatDisplayDate(
     minDate,
-  )} to ${shortFormat(maxDate)}`;
+  )} to ${formatDisplayDate(maxDate)}`;
 
   const onDismissWarning = () => {
     dispatch(mapWarningDismissed());
@@ -100,7 +105,7 @@ export const MapPanel = () => {
         total={total}
       />
 
-      <Loading isLoading={!!isLoading} />
+      <Loading isLoading={activeCall !== ''} />
     </section>
   );
 };

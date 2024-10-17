@@ -1,14 +1,15 @@
 import { testRender as render, screen } from '../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
-import * as filtersActions from '../../actions/filter';
+import * as filtersActions from '../../reducers/filters/filtersSlice';
+import * as queryActions from '../../reducers/query/querySlice';
 import { merge } from '../../testUtils/functionHelpers';
-import { defaultAggs } from '../../reducers/aggs/aggs';
-import { defaultQuery } from '../../reducers/query/query';
+import { aggsState } from '../../reducers/aggs/aggsSlice';
+import { queryState } from '../../reducers/query/querySlice';
 import { Pill } from './Pill';
 
 const renderComponent = (props, newAggsState = {}, newQueryState = {}) => {
-  merge(newAggsState, defaultAggs);
-  merge(newQueryState, defaultQuery);
+  merge(newAggsState, aggsState);
+  merge(newQueryState, queryState);
 
   const data = {
     aggs: newAggsState,
@@ -25,9 +26,9 @@ describe('component::Pill', () => {
   let dateRangeToggledFn, removeFilterFn, replaceFilterFn;
 
   beforeEach(() => {
-    dateRangeToggledFn = jest.spyOn(filtersActions, 'dateRangeToggled');
-    removeFilterFn = jest.spyOn(filtersActions, 'removeFilter');
-    replaceFilterFn = jest.spyOn(filtersActions, 'replaceFilters');
+    dateRangeToggledFn = jest.spyOn(queryActions, 'dateRangeChanged');
+    removeFilterFn = jest.spyOn(filtersActions, 'filterRemoved');
+    replaceFilterFn = jest.spyOn(filtersActions, 'filtersReplaced');
   });
 
   afterEach(() => {

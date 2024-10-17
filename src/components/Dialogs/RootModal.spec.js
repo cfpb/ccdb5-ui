@@ -1,5 +1,5 @@
 import * as types from '../../constants';
-import * as viewActions from '../../actions/view';
+import * as viewActions from '../../reducers/view/viewSlice';
 import { RootModal } from './RootModal';
 import {
   testRender as render,
@@ -23,7 +23,7 @@ describe('RootModal', () => {
 
   it('renders Export dialog', () => {
     const closeSpy = jest
-      .spyOn(viewActions, 'hideModal')
+      .spyOn(viewActions, 'modalHidden')
       .mockImplementation(() => jest.fn());
     const { container } = render(<RootModal />, {
       preloadedState: {
@@ -40,7 +40,7 @@ describe('RootModal', () => {
 
   it('renders Export Confirmation dialog', async () => {
     const closeSpy = jest
-      .spyOn(viewActions, 'hideModal')
+      .spyOn(viewActions, 'modalHidden')
       .mockImplementation(() => jest.fn());
     const { container } = render(<RootModal />, {
       preloadedState: {
@@ -60,7 +60,7 @@ describe('RootModal', () => {
 
   it('renders MoreAbout dialog', () => {
     const closeSpy = jest
-      .spyOn(viewActions, 'hideModal')
+      .spyOn(viewActions, 'modalHidden')
       .mockImplementation(() => jest.fn());
     const { container } = render(<RootModal />, {
       preloadedState: {

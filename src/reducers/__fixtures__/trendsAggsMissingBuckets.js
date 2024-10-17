@@ -4121,4 +4121,5 @@ export const trendsAggsMissingBucketsResults = {
   subLens: 'sub_product',
   tooltip: false,
   total: 75777,
+  trendDepth: 5,
 };
