@@ -68,16 +68,17 @@ export const AsyncTypeahead = ({
             }}
             isLoading={false}
             ref={ref}
-            onSearch={(input) => {
+            onInputChange={(input) => {
               setIsVisible(input !== '');
               setSearchValue(input);
-              handleSearch(input);
             }}
             onChange={(selected) => {
+              console.log(selected);
               handleChange(selected);
               ref.current.clear();
               setSearchValue('');
             }}
+            onSearch={handleSearch}
             options={options}
             maxResults={maxResults}
             placeholder={placeholder}

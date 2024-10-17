@@ -18,7 +18,7 @@ export function extractAggregationParams(state) {
   const queryParams = Object.keys(queryState).filter(
     (key) =>
       // exclude these from query
-      !['frm', 'size', 'sort'].includes(key),
+      !['frm', 'search_after', 'size', 'sort'].includes(key),
   );
 
   const filterParams = Object.keys(filters).filter(
