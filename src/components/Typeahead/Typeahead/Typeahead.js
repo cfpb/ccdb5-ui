@@ -13,7 +13,6 @@ export const Typeahead = ({
   handleChange,
   handleInputChange,
   maxResults = 5,
-  minLength = 2,
   options,
   placeholder = 'Enter your search text',
 }) => {
@@ -38,7 +37,7 @@ export const Typeahead = ({
           </label>
           <DropdownTypeahead
             id={htmlId}
-            minLength={minLength}
+            minLength={2}
             className="typeahead-selector"
             disabled={isDisabled}
             isLoading={false}
@@ -77,7 +76,6 @@ Typeahead.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
   htmlId: PropTypes.string.isRequired,
   maxResults: PropTypes.number,
-  minLength: PropTypes.number,
   options: PropTypes.array,
   placeholder: PropTypes.string,
 };

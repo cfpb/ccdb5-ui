@@ -84,7 +84,7 @@ export const querySlice = createSlice({
     dateRangeChanged: {
       // eslint-disable-next-line complexity
       reducer: (state, action) => {
-        const dateRange = enforceValues(action.payload.dateRange, 'dateRange');
+        const dateRange = enforceValues(action.payload, 'dateRange');
         const maxDate = formatDate(dayjs(startOfToday()));
         const res = {
           All: formatDate(dayjs(types.DATE_RANGE_MIN)),
@@ -100,11 +100,9 @@ export const querySlice = createSlice({
         state.date_received_max = maxDate;
         validateDateInterval(state);
       },
-      prepare: (dateRange) => {
+      prepare: (payload) => {
         return {
-          payload: {
-            dateRange,
-          },
+          payload,
           meta: {
             persist: PERSIST_SAVE_QUERY_STRING,
             requery: REQUERY_ALWAYS,
@@ -332,7 +330,7 @@ export const querySlice = createSlice({
 
         // Apply the date range
         if (dateRangeNoDates(params) || params.dateRange === 'All') {
-          const innerAction = { payload: { dateRange: params.dateRange } };
+          const innerAction = { payload: params.dateRange };
           querySlice.caseReducers.dateRangeChanged(state, innerAction);
         }
         alignDateRange(state);

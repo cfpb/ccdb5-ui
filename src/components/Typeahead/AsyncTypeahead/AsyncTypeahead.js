@@ -18,7 +18,6 @@ export const AsyncTypeahead = ({
   hasClearButton = false,
   hasSearchButton = false,
   maxResults = 5,
-  minLength = 2,
   options,
   placeholder = 'Enter your search text',
 }) => {
@@ -42,6 +41,8 @@ export const AsyncTypeahead = ({
     setSearchValue('');
   };
 
+  const filterBy = () => true;
+
   return (
     <section className="typeahead">
       <div className="o-search-input">
@@ -55,22 +56,20 @@ export const AsyncTypeahead = ({
           </label>
           <Typeahead
             id={htmlId}
-            minLength={minLength}
+            minLength={2}
             className="typeahead-selector"
             defaultInputValue={defaultValue}
             delay={delayWait}
             disabled={isDisabled}
+            filterBy={filterBy}
             inputProps={{
               id: htmlId,
               className: 'a-text-input a-text-input--full',
             }}
             isLoading={false}
             ref={ref}
-            onInputChange={(input) => {
-              if (input === '') setIsVisible(false);
-              else setIsVisible(true);
-            }}
             onSearch={(input) => {
+              setIsVisible(input !== '');
               setSearchValue(input);
               handleSearch(input);
             }}
@@ -120,7 +119,6 @@ AsyncTypeahead.propTypes = {
   hasSearchButton: PropTypes.bool,
   htmlId: PropTypes.string.isRequired,
   maxResults: PropTypes.number,
-  minLength: PropTypes.number,
   options: PropTypes.array,
   placeholder: PropTypes.string,
 };
