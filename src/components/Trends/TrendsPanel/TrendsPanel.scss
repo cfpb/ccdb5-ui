@@ -283,7 +283,7 @@
     padding-bottom: $gutter-normal;
   }
 
-  @media screen and (max-width: 599px){
+  @media screen and (max-width: $layout-breakpoint-phone-max){
     .refine-bar {
       .cf-select {
         flex-grow: 1;
@@ -298,7 +298,7 @@
     }
   }
 
-  @media screen and (max-width: 599px),
+  @media screen and (max-width: $layout-breakpoint-phone-max),
   screen and (min-width: $layout-breakpoint-tablet-min) and (max-width: $layout-breakpoint-tablet-max) {
     .chart {
       width: 100%;

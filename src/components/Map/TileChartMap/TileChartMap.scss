@@ -260,9 +260,8 @@ screen and (max-width: $layout-breakpoint-phone-max) {
 
 // -----------------------------------------------------------------------------
 // State Tile Break Points
-
-$mobile-tiles: 'only screen and (max-width:1024px)';
-$mobile-xs-tiles: 'only screen and (max-width:400px)';
+$mobile-tiles-breakpoint-max: 1024px;
+$mobile-xs-tiles-breakpoint-max: 400px;
 
 .highcharts-data-label {
   font-size: 14px;
@@ -302,7 +301,7 @@ $mobile-xs-tiles: 'only screen and (max-width:400px)';
 }
 
 // This takes over for looking good at the minimum height of 400px
-@media ($mobile-tiles) {
+@media screen and (max-width: $mobile-tiles-breakpoint-max) {
   .highcharts-data-label {
     line-height: 1;
 
@@ -318,7 +317,7 @@ $mobile-xs-tiles: 'only screen and (max-width:400px)';
   }
 }
 
-@media ($mobile-xs-tiles) {
+@media screen and (max-width: $mobile-xs-tiles-breakpoint-max) {
   .highcharts-data-label {
     line-height: 1;
 
