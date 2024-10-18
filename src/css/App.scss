@@ -1,0 +1,206 @@
+// Import Design System Components.
+@use '@cfpb/cfpb-design-system/src/index' as *;
+@use '@cfpb/cfpb-design-system/src/abstracts' as *;
+@use '@cfpb/cfpb-design-system/src/base' as *;
+@use '@cfpb/cfpb-design-system/src/utilities' as *;
+
+// no atomic components
+@import 'base';
+@import '../components/Print/print';
+@include define-custom-props;
+@include licensed-font;
+
+// Icon font path
+$cf-icon-path: '../css/fonts';
+
+// Webfont variables
+// This is the path for self-hosted fonts.
+$cf-fonts-path: '/static/fonts';
+
+// Fix for incorrect header width.
+.o-header .wrapper,
+.o-footer .wrapper {
+  max-width: 1170px !important;
+}
+
+// App-wide definitions
+
+.layout-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.layout-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-fixed {
+  flex: none;
+}
+
+.flex-all {
+  flex: 1 0 auto;
+}
+
+.body-copy {
+  font-size: 16px;
+}
+
+.cols {
+  @include u-grid-nested-col-group;
+}
+
+.col::before {
+  display: block;
+
+  width: 100%;
+  content: '';
+}
+
+.col-1 {
+  @include u-grid-column(1); 
+}
+
+.col-2 {
+  @include u-grid-column(2);
+}
+
+.col-3 {
+  @include u-grid-column(3);
+}
+
+.col-4 {
+  @include u-grid-column(4);
+}
+
+.col-6 {
+  @include u-grid-column(6);
+}
+
+.col-8 {
+  @include u-grid-column(8);
+}
+
+.col-9 {
+  @include u-grid-column(9);
+}
+
+.col-10 {
+  @include u-grid-column(10);
+}
+
+.col-12 {
+  @include u-grid-column(12);
+}
+
+// Overrides
+
+.content--1-3.ccdb-content {
+  margin-bottom: $grid-gutter-width * 2;
+
+  .content__wrapper {
+    padding-left: 0;
+    padding-right: 0;
+    border: 1px solid var(--gray-40);
+    border-right: none;
+    max-width: initial;
+
+    @media screen and (max-width: $layout-breakpoint-phone-max) {
+      border: none;
+    }
+  }
+
+  .content__sidebar {
+    width: 420px; 
+    padding: 0;
+    border: 0;
+    margin: 0;
+  }
+
+  .content__main {
+    width: calc(100% - 420px);
+    padding: 0;
+    border: 0;
+
+    &::after {
+      border-left: 0;
+    }
+  }
+}
+
+// gutters
+.wrapper-match-content {
+  @media screen and (min-width: $layout-breakpoint-tablet-min) and (max-width: $layout-breakpoint-tablet-max) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  @media screen and (min-width: $layout-breakpoint-desktop-min) {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  @media screen and (min-width: $layout-breakpoint-superwide-min) {
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+}
+
+@media screen and (min-width: $layout-breakpoint-tablet-lg-min) and (max-width: $layout-breakpoint-tablet-lg-max) {
+  .content--1-3.ccdb-content {
+    .content__sidebar {
+      width: 305px;
+    }
+
+    .content__main {
+      width: calc(100% - 305px);
+    }
+  }
+}
+
+@media screen and (min-width: $layout-breakpoint-tablet-sm-min) and (max-width: $layout-breakpoint-tablet-sm-max) {
+  .content--1-3.ccdb-content {
+    .content__main {
+      width: 100%;
+    }
+    .content__sidebar {
+      &.map,
+      &.list {
+        width: 100%;
+      }
+    }
+  }
+  .filter-button {
+    display: block;
+    margin: 20px 10px;
+    button {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: $layout-breakpoint-phone-max) {
+  .filter-button {
+    display: block;
+    margin: 20px 0;
+    button {
+      width: 100%;
+    }
+  }
+  .content--1-3.ccdb-content {
+    margin-bottom: 0;
+    .content {
+      &__sidebar,
+      &__main {
+        width: 100%;
+      }
+    }
+  }
+}
+
+
+::-ms-clear {
+  display: none;
+}

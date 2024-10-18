@@ -1,4 +1,4 @@
-import './DateRanges.less';
+import './DateRanges.scss';
 import {
   selectQueryDateRange,
   selectQueryTab,

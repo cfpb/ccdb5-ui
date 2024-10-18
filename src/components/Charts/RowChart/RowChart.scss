@@ -1,0 +1,61 @@
+@use 'node_modules/@cfpb/cfpb-design-system/src/abstracts' as *;
+@use 'node_modules/@cfpb/cfpb-design-system/src/base' as *;
+@use 'node_modules/@cfpb/cfpb-design-system/dist/index.css' as *;
+@import '../../../css/base';
+
+.row-chart-section {
+  margin-top: $grid-gutter-width;
+  margin-left: $grid-gutter-width;
+
+  p {
+    max-width: none;
+  }
+}
+
+@media screen and (max-width: $layout-breakpoint-phone-max) {
+  .row-chart-section {
+    margin-left: 0;
+  }
+}
+
+.row-chart {
+  .bg-hover,
+  .visibility,
+  line,
+  path.domain,
+  .x-axis-group {
+    display: none;
+  }
+
+  .expandable {
+    color: var(--pacific);
+    cursor: pointer;
+  }
+
+  text {
+    font-size: 16px;
+
+    &.adjust-upwards {
+      transform: translateY(-12px);
+    }
+
+    &.hidden {
+      display: none;
+    }
+  }
+
+  .view-more-group {
+    .view-more-background {
+      fill: var(--pacific-20);
+    }
+
+    .view-more-label {
+      font-size: 14px;
+      font-weight: bold;
+      text-decoration: underline;
+      fill: var(--pacific);
+      text-anchor: end;
+      cursor: pointer;
+    }
+  }
+}

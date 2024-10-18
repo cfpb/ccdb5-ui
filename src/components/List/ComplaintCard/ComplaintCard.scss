@@ -1,0 +1,103 @@
+@use 'node_modules/@cfpb/cfpb-design-system/src/abstracts' as *;
+@use 'node_modules/@cfpb/cfpb-design-system/src/base' as *;
+@use 'node_modules/@cfpb/cfpb-design-system/dist/index.css' as *;
+@import '../../../css/base';
+
+// Reset interfering Captial Framework style
+.card-container .card .card-left {
+  min-width: initial;
+}
+
+li.card-container {
+  padding: $grid-gutter-width 0;
+  border-bottom: 1px solid var(--gray-40);
+  margin: 0;
+
+  list-style-type: none;
+
+  &:first-of-type {
+    padding-top: 0;
+  }
+
+  &:last-of-type {
+    border: 0;
+    padding-bottom: 0;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    @media screen and (max-width: $layout-breakpoint-phone-max) {
+      flex-wrap: wrap;
+    }
+
+    .card-left {
+      box-sizing: border-box;
+      width: 260px;
+      padding-right: $grid-gutter-width;
+
+      @media screen and (min-width: $layout-breakpoint-tablet-min) and (max-width: $layout-breakpoint-tablet-max) {
+        width: 50%;
+        padding-right: $gutter-normal;
+      }
+
+      @media screen and (max-width: $layout-breakpoint-phone-max) {
+        width: 100%;
+        padding-right: $gutter-narrow;
+      }
+    }
+    .card-right {
+      @media screen and (max-width: $layout-breakpoint-phone-max) {
+        width: 100%;
+        padding-top: $gutter-normal;
+      }
+    }
+
+    .layout-row {
+      .spacer {
+        margin: $gutter-narrow;
+      }
+
+      h4 {
+        margin-right: $gutter-minimum;
+
+        font-size: 16px;
+      }
+    }
+
+    .layout-column {
+      h3 {
+        margin-top: 0;
+        margin-bottom: $gutter-minimum;
+
+        a {
+          border-bottom-width: 2px;
+        }
+
+        &.to-detail {
+          margin-bottom: $gutter-normal;
+        }
+      }
+
+      h4 {
+        margin-top: 0;
+        margin-bottom: $gutter-minimum;
+      }
+    }
+
+    .subitem {
+      margin-right: $gutter-minimum;
+
+      font-family: 'Avenir Next', sans-serif;
+      font-weight: 500;
+    }
+
+    em {
+      background-color: var(--teal-20);
+      font-family: 'Avenir Next', sans-serif;
+      font-style: normal;
+    }
+  }
+}

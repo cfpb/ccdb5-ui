@@ -1,0 +1,51 @@
+@use 'sass:math';
+@import '../../css/base';
+
+.pill-panel {
+  padding-right: $gutter-narrow;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  .layout-row {
+    display: block;
+  }
+  .clear-all {
+    button {
+      border-color: var(--red-dark);
+      color: var(--red-dark);
+      margin-left: $gutter-narrow;
+      svg {
+        margin-right: math.div($gutter-narrow, 2);
+      }
+    }
+  }
+
+  .pill-label {
+    padding-right: $gutter-normal;
+    margin-bottom: 0;
+  }
+
+  li {
+    display: inline-block;
+    position: relative;
+  }
+
+  ul {
+    padding-top: $gutter-narrow;
+  }
+
+  @media screen and (max-width: $layout-breakpoint-phone-max) {
+    flex-direction: column;
+    margin-top: 70px;
+    .layout-row {
+      padding-left: 0;
+    }
+    .clear-all {
+      display: block;
+      button {
+        margin: 0;
+      }
+    }
+  }
+}

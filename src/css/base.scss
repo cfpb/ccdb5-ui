@@ -1,0 +1,40 @@
+@use 'sass:math';
+@use '@cfpb/cfpb-design-system/src/abstracts/index' as *;
+@use '@cfpb/cfpb-design-system/src/base/index' as *;
+@use '@cfpb/cfpb-design-system/src/index' as *;
+@use '@cfpb/cfpb-design-system/src/utilities' as *;
+
+
+/* ==========================================================================
+   Color variables
+   ========================================================================== */
+
+///////////////////////////////////////////////////////////////////////////////
+// theme overrides
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Application variables
+
+$gutter-minimum: math.div($grid-gutter-width, 6);
+$gutter-narrow: math.div($grid-gutter-width, 3);
+$gutter-normal: math.div($grid-gutter-width, 2);
+$gutter-wide: $grid-gutter-width * 1.5;
+$bucket-indent: $grid-gutter-width;
+$max-count-width: 65px;
+
+///////////////////////////////////////////////////////////////////////////////
+// Device Definitions
+$layout-breakpoint-superwide-min: 1800px;
+$layout-breakpoint-desktop-max: 1799px;
+$layout-breakpoint-desktop-min: 901px;
+$layout-breakpoint-tablet-min: 600px;
+$layout-breakpoint-tablet-max: 900px;
+$layout-breakpoint-tablet-lg-min: 750px;
+$layout-breakpoint-tablet-lg-max: 900px;
+$layout-breakpoint-tablet-sm-min: 600px;
+$layout-breakpoint-tablet-sm-max: 749px;
+$layout-breakpoint-phone-max: 599px;
+
+
+

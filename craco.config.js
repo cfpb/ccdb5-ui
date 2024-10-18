@@ -1,5 +1,4 @@
 const CracoEsbuildPlugin = require('craco-esbuild');
-const CracoLessPlugin = require('craco-less');
 const path = require('path');
 const {
   addAfterLoader,
@@ -80,25 +79,6 @@ module.exports = {
           target: 'es2015',
         },
         skipEsbuildJest: true, // Optional. Set to true if you want to use babel for jest tests,
-      },
-    },
-    {
-      plugin: CracoLessPlugin,
-      options: {
-        lessLoaderOptions: {
-          lessOptions: {
-            modifyVars: {
-              hack: `true;@import (reference) "${require.resolve(
-                './src/css/base.less',
-              )}";`,
-            },
-            javascriptEnabled: true,
-            math: 'always',
-            paths: [
-              path.resolve(__dirname, 'node_modules/@cfpb/cfpb-core/src'),
-            ],
-          },
-        },
       },
     },
   ],

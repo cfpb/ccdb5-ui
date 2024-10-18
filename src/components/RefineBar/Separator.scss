@@ -1,0 +1,20 @@
+@import '../../css/base';
+
+.separator {
+  border-left: solid 1px var(--gray-40);
+  margin-top: 35px;
+  margin-left: 10px;
+  height: 38px;
+
+  @media screen and (min-width: $layout-breakpoint-desktop-min) {
+    display: none;
+  }
+
+  @media screen and (min-width: $layout-breakpoint-tablet-lg-min) and (max-width: $layout-breakpoint-tablet-lg-max) {
+    display: none;
+  }
+
+  @media screen and (max-width: $layout-breakpoint-phone-max){
+    display: none;
+  }
+}

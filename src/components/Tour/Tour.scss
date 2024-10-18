@@ -1,0 +1,44 @@
+@use '../../../node_modules/intro.js/introjs.css' as *;
+
+// Intro.js styles
+@import '../../css/base';
+
+.introjs-tooltip.wide {
+  max-width: 80vw !important;
+  width: 80vw;
+  margin-left: -40vw;
+
+  .left {
+    width: 80%;
+    float: left;
+  }
+  .right {
+    display: inline-block;
+    margin-left: $gutter-normal;
+  }
+}
+
+/* stylelint-disable selector-class-pattern */
+.introjs-tooltipReferenceLayer > .first-step {
+/* stylelint-enable */
+  @media screen and (min-width: $layout-breakpoint-superwide-min) {
+    margin-top: -40vh !important;
+  }
+
+  @media screen and (min-width: $layout-breakpoint-desktop-min) and (max-width: $layout-breakpoint-desktop-max){
+    margin-top: -90vh !important;
+  }
+
+  @media screen and (min-width: $layout-breakpoint-tablet-lg-min) and (max-width: $layout-breakpoint-tablet-lg-max) {
+    margin-top: -110vh !important;
+  }
+
+  @media screen and (min-width: $layout-breakpoint-tablet-sm-min
+) and (max-width: $layout-breakpoint-tablet-sm-max) {
+    margin-top: -130vh !important;
+  }
+
+  @media screen and (max-width: $layout-breakpoint-phone-max) {
+    margin-top: -110vh !important;
+  }
+}

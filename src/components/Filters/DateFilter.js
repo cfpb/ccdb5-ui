@@ -1,5 +1,5 @@
 /* eslint complexity: ["error", 8] */
-import './DateFilter.less';
+import './DateFilter.scss';
 import { DATE_VALIDATION_FORMAT, maxDate, minDate } from '../../constants';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
@@ -180,7 +180,7 @@ export const DateFilter = () => {
               className="a-label a-label__heading body-copy"
               htmlFor={`${fieldName}-through`}
             >
-              Date Through
+              Through
             </label>
             <div className="o-search-input">
               <div className="o-search-input__input">

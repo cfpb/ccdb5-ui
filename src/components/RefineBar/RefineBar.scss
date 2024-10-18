@@ -1,0 +1,73 @@
+@use 'sass:math';
+@use 'node_modules/@cfpb/cfpb-design-system/src/abstracts' as *;
+@use 'node_modules/@cfpb/cfpb-design-system/src/base' as *;
+@use 'node_modules/@cfpb/cfpb-design-system/dist/index.css' as *;
+@import '../../css/base';
+@import '../select';
+
+.refine-bar {
+  section {
+    margin: math.div($grid-gutter-width, 3) 0 math.div($grid-gutter-width, 3) math.div($grid-gutter-width, 2);
+    p {
+      font-size: $size-vi;
+      font-weight: 600;
+      color: var(--gray);
+    }
+    button {
+      &.selected {
+        background-color: var(--pacific-60);
+        font-weight: 600;
+      }
+      &:not(.selected) {
+        background-color: var(--pacific-20);
+      }
+    }
+    &:not(.filter-panel-toggle) {
+      button {
+        color: var(--black);
+      }
+    }
+
+    &.cf-select {
+      border: none;
+      select {
+        background-color: var(--white);
+        color: var(--black);
+        border: 1px solid var(--gray-40);
+      }
+      &::after {
+        background-color: var(--white);
+        transform: translate(-5px, 0);
+      }
+    }
+  }
+
+  .separator {
+    @media screen and (min-width: $layout-breakpoint-desktop-min) {
+      display: none;
+    }
+
+    @media screen and (min-width: $layout-breakpoint-tablet-lg-min) and (max-width: $layout-breakpoint-tablet-lg-max) {
+      display: none;
+    }
+
+    @media screen and (max-width: $layout-breakpoint-phone-max) {
+      display: none;
+    }
+  }
+
+  // Per Capita and Narratives buttons in the refine bar.
+  button {
+    // Only used to hide "population" on per capita refine buttons.
+    @media screen and (max-width: $layout-breakpoint-phone-max),
+      screen and (min-width: $layout-breakpoint-tablet-sm-min) and (max-width: $layout-breakpoint-tablet-sm-max){
+      > span {
+        display: none;
+      }
+    }
+
+    &.disabled.a-btn__disabled {
+      background-color: var(--gray-10);
+    }
+  }
+}

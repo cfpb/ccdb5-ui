@@ -1,4 +1,4 @@
-import './SearchPanel.less';
+import './SearchPanel.scss';
 import { useSelector } from 'react-redux';
 import { PillPanel } from './PillPanel';
 import { SearchBar } from './SearchBar';
