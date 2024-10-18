@@ -97,7 +97,7 @@ $cf-fonts-path: '/static/fonts';
 
 // Overrides
 
-.content--1-3 {
+.content--1-3.ccdb-content {
   margin-bottom: $grid-gutter-width * 2;
 
   .content__wrapper {
@@ -113,7 +113,7 @@ $cf-fonts-path: '/static/fonts';
   }
 
   .content__sidebar {
-    width: 420px;
+    width: 420px; 
     padding: 0;
     border: 0;
     margin: 0;
@@ -149,7 +149,7 @@ $cf-fonts-path: '/static/fonts';
 }
 
 @media screen and (min-width: $layout-breakpoint-tablet-lg-min) and (max-width: $layout-breakpoint-tablet-lg-max) {
-  .content--1-3 {
+  .content--1-3.ccdb-content {
     .content__sidebar {
       width: 305px;
     }
@@ -160,9 +160,8 @@ $cf-fonts-path: '/static/fonts';
   }
 }
 
-@media screen and (min-width: $layout-breakpoint-tablet-sm-min
-) and (max-width: $layout-breakpoint-tablet-sm-max) {
-  .content--1-3 {
+@media screen and (min-width: $layout-breakpoint-tablet-sm-min) and (max-width: $layout-breakpoint-tablet-sm-max) {
+  .content--1-3.ccdb-content {
     .content__main {
       width: 100%;
     }
@@ -190,7 +189,7 @@ $cf-fonts-path: '/static/fonts';
       width: 100%;
     }
   }
-  .content--1-3 {
+  .content--1-3.ccdb-content {
     margin-bottom: 0;
     .content {
       &__sidebar,
