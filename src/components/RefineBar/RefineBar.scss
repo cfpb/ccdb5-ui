@@ -59,14 +59,8 @@
   // Per Capita and Narratives buttons in the refine bar.
   button {
     // Only used to hide "population" on per capita refine buttons.
-    @media screen and (max-width: $layout-breakpoint-phone-max) {
-      > span {
-        display: none;
-      }
-    }
-
-    @media screen and (min-width: $layout-breakpoint-tablet-sm-min
-) and (max-width: $layout-breakpoint-tablet-sm-max) {
+    @media screen and (max-width: $layout-breakpoint-phone-max),
+      screen and (min-width: $layout-breakpoint-tablet-sm-min) and (max-width: $layout-breakpoint-tablet-sm-max){
       > span {
         display: none;
       }

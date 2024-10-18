@@ -1,5 +1,4 @@
 const CracoEsbuildPlugin = require('craco-esbuild');
-//const CracoLessPlugin = require('craco-less');
 const path = require('path');
 const {
   addAfterLoader,
