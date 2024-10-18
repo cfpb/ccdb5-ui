@@ -3,19 +3,19 @@ import * as d3 from 'd3';
 import { merge } from '../../../testUtils/functionHelpers';
 import { buildFluentMock } from '../__fixtures__/buildFluentMock';
 import { LineChart } from './LineChart';
-import { defaultTrends } from '../../../reducers/trends/trends';
-import { defaultQuery } from '../../../reducers/query/query';
-import { defaultView } from '../../../reducers/view/view';
+import { queryState } from '../../../reducers/query/querySlice';
+import { trendsState } from '../../../reducers/trends/trendsSlice';
+import { viewState } from '../../../reducers/view/viewSlice';
 
-const renderComponent = (queryState, trendsState, viewState) => {
-  merge(queryState, defaultQuery);
-  merge(trendsState, defaultTrends);
-  merge(viewState, defaultView);
+const renderComponent = (newQueryState, newTrendsState, newViewState) => {
+  merge(newQueryState, queryState);
+  merge(newTrendsState, trendsState);
+  merge(newViewState, viewState);
 
   const data = {
-    query: queryState,
-    trends: trendsState,
-    view: viewState,
+    query: newQueryState,
+    trends: newTrendsState,
+    view: newViewState,
   };
 
   render(<LineChart />, {
@@ -64,8 +64,8 @@ describe('component: LineChart', () => {
     };
     const query = {
       dateInterval: 'Month',
-      date_received_max: new Date('2024-09-02T07:00:00.000Z'),
-      date_received_min: new Date('2024-03-02T08:00:00.000Z'),
+      date_received_max: '2024-09-02',
+      date_received_min: '2024-03-02',
       lens: 'Overview',
     };
 

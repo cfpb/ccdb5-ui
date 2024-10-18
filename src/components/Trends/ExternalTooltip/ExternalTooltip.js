@@ -1,12 +1,11 @@
 import { CompanyTypeahead } from '../../Filters/CompanyTypeahead';
 import { useSelector } from 'react-redux';
+import React from 'react';
 import { TooltipRow } from './TooltipRow';
 import {
-  selectQueryFocus,
-  selectQueryLens,
-} from '../../../reducers/query/selectors';
-import {
   selectTrendsChartType,
+  selectTrendsFocus,
+  selectTrendsLens,
   selectTrendsTooltip,
 } from '../../../reducers/trends/selectors';
 import { externalTooltipFormatter } from '../../../utils/chart';
@@ -18,9 +17,9 @@ const LEARN_SERIES_BREAK =
   'https://www.consumerfinance.gov/data-research/consumer-complaints/#past-changes';
 
 export const ExternalTooltip = () => {
-  const trendsFocus = useSelector(selectQueryFocus);
+  const trendsFocus = useSelector(selectTrendsFocus);
   const focus = trendsFocus ? 'focus' : '';
-  const lens = useSelector(selectQueryLens);
+  const lens = useSelector(selectTrendsLens);
   const chartType = useSelector(selectTrendsChartType);
   const tip = useSelector(selectTrendsTooltip);
   const hasCompanyTypeahead = lens === 'Company' && !focus;

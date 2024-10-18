@@ -1,19 +1,19 @@
 import { TrendDepthToggle } from './TrendDepthToggle';
 import { testRender as render, screen } from '../../testUtils/test-utils';
 import { merge } from '../../testUtils/functionHelpers';
-import { defaultAggs } from '../../reducers/aggs/aggs';
-import { defaultQuery } from '../../reducers/query/query';
-import { defaultTrends } from '../../reducers/trends/trends';
-import * as trendsActions from '../../actions/trends';
+import { aggsState } from '../../reducers/aggs/aggsSlice';
+import { filtersState } from '../../reducers/filters/filtersSlice';
+import { trendsState } from '../../reducers/trends/trendsSlice';
+import * as trendsActions from '../../reducers/trends/trendsSlice';
 import userEvent from '@testing-library/user-event';
 
-const renderComponent = (newAggsState, newQueryState, newTrendsState) => {
-  merge(newAggsState, defaultAggs);
-  merge(newQueryState, defaultQuery);
-  merge(newTrendsState, defaultTrends);
+const renderComponent = (newAggsState, newFiltersState, newTrendsState) => {
+  merge(newAggsState, aggsState);
+  merge(newFiltersState, filtersState);
+  merge(newTrendsState, trendsState);
   const data = {
     aggs: newAggsState,
-    query: newQueryState,
+    filters: newFiltersState,
     trends: newTrendsState,
   };
   render(<TrendDepthToggle />, { preloadedState: data });
@@ -26,22 +26,22 @@ describe('component:TrendDepthToggle', () => {
   let depthChangedSpy, depthResetSpy;
   beforeEach(() => {
     depthChangedSpy = jest
-      .spyOn(trendsActions, 'changeDepth')
+      .spyOn(trendsActions, 'depthChanged')
       .mockImplementation(() => jest.fn());
     depthResetSpy = jest
-      .spyOn(trendsActions, 'resetDepth')
+      .spyOn(trendsActions, 'depthReset')
       .mockImplementation(() => jest.fn());
   });
   afterEach(() => {
     jest.clearAllMocks();
   });
   it('does not render on Focus page', () => {
-    renderComponent({}, { focus: 'Foo bar' }, {});
+    renderComponent({}, {}, { focus: 'Foo bar' });
     expect(screen.queryByRole('button', { name: 'Show more' })).toBeNull();
   });
 
   it('does not render when lens is Overview', () => {
-    renderComponent({}, { lens: 'Overview' }, {});
+    renderComponent({}, {}, { lens: 'Overview' });
     expect(screen.queryByRole('button', { name: 'Show more' })).toBeNull();
   });
 
@@ -59,8 +59,8 @@ describe('component:TrendDepthToggle', () => {
           { name: 'h', visible: true },
         ],
       },
-      { lens: 'Product', product: [] },
-      {},
+      { product: [] },
+      { lens: 'Product' },
     );
     expect(
       screen.getByRole('button', { name: 'Show more' }),
@@ -84,8 +84,9 @@ describe('component:TrendDepthToggle', () => {
           { name: 'h', visible: true },
         ],
       },
-      { lens: 'Product' },
+      {},
       {
+        lens: 'Product',
         results: {
           product: [
             { name: 'a', visible: true, isParent: true },
@@ -122,8 +123,8 @@ describe('component:TrendDepthToggle', () => {
           { name: 'h', visible: true },
         ],
       },
-      { company: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'], lens: 'Company' },
-      {},
+      { company: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] },
+      { lens: 'Company' },
     );
     expect(
       screen.getByRole('button', { name: 'Show more' }),
@@ -149,9 +150,9 @@ describe('component:TrendDepthToggle', () => {
       },
       {
         company: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'],
-        lens: 'Company',
       },
       {
+        lens: 'Company',
         results: {
           company: [
             { name: 'a', visible: true, isParent: true },

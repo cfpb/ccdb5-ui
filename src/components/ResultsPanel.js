@@ -4,11 +4,11 @@ import { ListPanel } from './List/ListPanel/ListPanel';
 import { MapPanel } from './Map/MapPanel';
 import { PrintInfo } from './Print/PrintInfo';
 import { PrintInfoFooter } from './Print/PrintInfoFooter';
+import { selectViewTab } from '../reducers/view/selectors';
 import { TrendsPanel } from './Trends/TrendsPanel/TrendsPanel';
-import { selectQueryTab } from '../reducers/query/selectors';
 
 export const ResultsPanel = () => {
-  const tab = useSelector(selectQueryTab);
+  const tab = useSelector(selectViewTab);
   let currentPanel;
 
   switch (tab) {

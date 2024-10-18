@@ -46,19 +46,19 @@ describe('Document View', () => {
       cy.intercept(request, fixture).as('getAggsResults');
 
       request =
-        '?**&field=all&has_narrative=true&search_term=pizza&size=10&sort=relevance_desc';
+        '?**&field=all&frm=0&has_narrative=true&no_aggs=true&search_term=pizza&size=10&sort=relevance_desc';
       fixture = { fixture: 'document/get-results.json' };
       cy.intercept(request, fixture).as('getResults');
 
       cy.intercept('GET', '/_suggest/?text=pizza', []);
 
       cy.visit(
-        '?searchText=pizza&has_narrative=true&size=10&sort=relevance_desc&tab=List'
+        '?searchText=pizza&has_narrative=true&size=10&sort=relevance_desc&tab=List',
       );
 
       cy.get('select#select-sort option:selected').should(
         'have.text',
-        'Relevance'
+        'Relevance',
       );
 
       cy.contains('.pill', 'Has narrative').should('be.visible');
@@ -82,7 +82,7 @@ describe('Document View', () => {
 
       cy.get('select#select-sort option:selected').should(
         'have.text',
-        'Relevance'
+        'Relevance',
       );
 
       cy.contains('.pill', 'Has narrative').should('be.visible');

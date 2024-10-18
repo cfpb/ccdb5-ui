@@ -2941,4 +2941,5 @@ export const trendsFocusAggsResults = {
   subLens: 'sub_product',
   tooltip: false,
   total: 4581,
+  trendDepth: 5,
 };

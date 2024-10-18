@@ -3,13 +3,16 @@ import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import aggReducer from '../reducers/aggs/aggs';
-import detailReducer from '../reducers/detail/detail';
-import mapReducer from '../reducers/map/map';
-import queryReducer from '../reducers/query/query';
-import resultsReducer from '../reducers/results/results';
-import trendsReducer from '../reducers/trends/trends';
-import viewReducer from '../reducers/view/view';
+import actions from '../reducers/actions/actionsSlice';
+import aggs from '../reducers/aggs/aggsSlice';
+import detail from '../reducers/detail/detailSlice';
+import filters from '../reducers/filters/filtersSlice';
+import map from '../reducers/map/mapSlice';
+import query from '../reducers/query/querySlice';
+import results from '../reducers/results/resultsSlice';
+import routes from '../reducers/routes/routesSlice';
+import trends from '../reducers/trends/trendsSlice';
+import view from '../reducers/view/viewSlice';
 
 /**
  *
@@ -19,21 +22,18 @@ import viewReducer from '../reducers/view/view';
 function configureStoreUtil(preloadedState) {
   return configureStore({
     reducer: {
-      aggs: aggReducer,
-      detail: detailReducer,
-      map: mapReducer,
-      query: queryReducer,
-      results: resultsReducer,
-      trends: trendsReducer,
-      view: viewReducer,
+      actions,
+      aggs,
+      detail,
+      filters,
+      map,
+      query,
+      results,
+      routes,
+      trends,
+      view,
     },
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware({
-        serializableCheck: {
-          // Ignore these action types
-          ignoredActions: [],
-        },
-      }),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
     preloadedState,
   });
 }
@@ -91,18 +91,7 @@ function testRenderWithMemoryRouter(
   {
     initialEntries = [],
     preloadedState,
-    store = configureStore({
-      reducer: {
-        aggs: aggReducer,
-        detail: detailReducer,
-        map: mapReducer,
-        query: queryReducer,
-        results: resultsReducer,
-        trends: trendsReducer,
-        view: viewReducer,
-      },
-      preloadedState,
-    }),
+    store = configureStoreUtil(preloadedState),
     ...renderOptions
   } = {},
 ) {

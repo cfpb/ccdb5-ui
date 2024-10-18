@@ -1,14 +1,14 @@
 import { RefinePanel } from './RefinePanel';
-import { defaultQuery } from '../../reducers/query/query';
-import { defaultView } from '../../reducers/view/view';
+import { queryState } from '../../reducers/query/querySlice';
+import { viewState } from '../../reducers/view/viewSlice';
 import { merge } from '../../testUtils/functionHelpers';
 import { testRender as render, screen } from '../../testUtils/test-utils';
 import { MODE_TRENDS } from '../../constants';
 
 describe('RefinePanel', () => {
   const renderComponent = (newQueryState, newViewState) => {
-    merge(newQueryState, defaultQuery);
-    merge(newViewState, defaultView);
+    merge(newQueryState, queryState);
+    merge(newViewState, viewState);
     const data = {
       query: newQueryState,
       view: newViewState,

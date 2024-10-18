@@ -1,10 +1,10 @@
 import { testRender as render, screen } from '../../../testUtils/test-utils';
 import { SimpleFilter } from './SimpleFilter';
 import { merge } from '../../../testUtils/functionHelpers';
-import { defaultAggs } from '../../../reducers/aggs/aggs';
+import { aggsState } from '../../../reducers/aggs/aggsSlice';
 
 const renderComponent = (props, newAggsState) => {
-  merge(newAggsState, defaultAggs);
+  merge(newAggsState, aggsState);
 
   const data = {
     aggs: newAggsState,
@@ -33,7 +33,7 @@ describe('component::SimpleFilter', () => {
       renderComponent(props, {}, {});
       expect(screen.getByRole('button')).toHaveAttribute(
         'aria-label',
-        `Hide ${props.title} filter`,
+        `Collapse ${props.title} filter`,
       );
       expect(screen.getByText(props.title)).toBeInTheDocument();
     });

@@ -1,17 +1,17 @@
 import { Tour } from './Tour';
 import { testRender as render, screen } from '../../testUtils/test-utils';
-import { defaultAggs } from '../../reducers/aggs/aggs';
-import { defaultQuery } from '../../reducers/query/query';
-import { defaultView } from '../../reducers/view/view';
+import { aggsState } from '../../reducers/aggs/aggsSlice';
+import { queryState } from '../../reducers/query/querySlice';
+import { viewState } from '../../reducers/view/viewSlice';
 import { merge } from '../../testUtils/functionHelpers';
 import userEvent from '@testing-library/user-event';
 import { MODE_LIST } from '../../constants';
-import * as viewActions from '../../actions/view';
+import * as viewActions from '../../reducers/view/viewSlice';
 
 const renderComponent = (newAggsState, newQueryState, newViewModelState) => {
-  merge(newAggsState, defaultAggs);
-  merge(newQueryState, defaultQuery);
-  merge(newViewModelState, defaultView);
+  merge(newAggsState, aggsState);
+  merge(newQueryState, queryState);
+  merge(newViewModelState, viewState);
 
   const data = {
     aggs: newAggsState,

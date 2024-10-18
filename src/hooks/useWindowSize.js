@@ -2,7 +2,7 @@
 import { debounce } from '../utils';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { screenResized } from '../actions/view';
+import { updateScreenSize } from '../reducers/view/viewSlice';
 
 // Hook
 /**
@@ -14,7 +14,7 @@ export function useWindowSize() {
   useEffect(() => {
     // Handler to call on window resize
     const debouncedResized = debounce(() => {
-      dispatch(screenResized(window.innerWidth));
+      dispatch(updateScreenSize(window.innerWidth));
     }, 500);
     // Add event listener
     window.addEventListener('resize', debouncedResized);

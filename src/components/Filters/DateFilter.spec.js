@@ -1,10 +1,10 @@
 import { testRender as render, screen } from '../../testUtils/test-utils';
 import { merge } from '../../testUtils/functionHelpers';
-import { defaultQuery } from '../../reducers/query/query';
+import { queryState } from '../../reducers/query/querySlice';
 import { DateFilter } from './DateFilter';
 
 const renderComponent = (newQueryState = {}) => {
-  merge(newQueryState, defaultQuery);
+  merge(newQueryState, queryState);
 
   const data = {
     query: newQueryState,

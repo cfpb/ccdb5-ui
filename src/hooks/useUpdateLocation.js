@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import announceUrlChanged from '../actions/url';
 import { useLocation } from 'react-router-dom';
+import queryString from 'query-string';
+import { changeRoute } from '../actions/routes';
 
 /**
  * Hook to dispatch route changes to sync url and state.
@@ -11,8 +12,10 @@ export function useUpdateLocation() {
   const dispatch = useDispatch();
   const location = useLocation();
   useEffect(() => {
-    dispatch(announceUrlChanged(location));
+    dispatch(
+      changeRoute(location.pathname, queryString.parse(location.search)),
+    );
     // this is intentional since we want this to run only once
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [location, dispatch]);
 }

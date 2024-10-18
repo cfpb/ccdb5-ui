@@ -2498,4 +2498,5 @@ export const trendsCompanyResults = {
   subLens: 'product',
   tooltip: false,
   total: 52,
+  trendDepth: 5,
 };

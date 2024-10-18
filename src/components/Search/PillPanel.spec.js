@@ -1,12 +1,15 @@
 import { PillPanel } from './PillPanel';
 import { testRender as render, screen } from '../../testUtils/test-utils';
 import { merge } from '../../testUtils/functionHelpers';
-import { defaultQuery } from '../../reducers/query/query';
+import { filtersState } from '../../reducers/filters/filtersSlice';
+import { queryState } from '../../reducers/query/querySlice';
 
-const renderComponent = (newQueryState) => {
-  merge(newQueryState, defaultQuery);
+const renderComponent = (newFiltersState, newQueryState) => {
+  merge(newFiltersState, filtersState);
+  merge(newQueryState, queryState);
 
   const data = {
+    filters: newFiltersState,
     query: newQueryState,
   };
   render(<PillPanel />, {
@@ -15,10 +18,13 @@ const renderComponent = (newQueryState) => {
 };
 describe('component: PillPanel', () => {
   it('renders without crashing', () => {
-    renderComponent({
-      company: ['Apples', 'Bananas are great'],
-      timely: ['Yes'],
-    });
+    renderComponent(
+      {
+        company: ['Apples', 'Bananas are great'],
+        timely: ['Yes'],
+      },
+      {},
+    );
     expect(screen.getByText('Filters applied:')).toBeInTheDocument();
     expect(
       screen.getByRole('button', {
@@ -45,7 +51,7 @@ describe('component: PillPanel', () => {
   });
 
   it('adds a has narrative pill', () => {
-    renderComponent({ has_narrative: true });
+    renderComponent({ has_narrative: true }, {});
     expect(
       screen.getByRole('button', {
         name: /Has narrative/,

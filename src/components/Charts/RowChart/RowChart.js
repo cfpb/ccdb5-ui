@@ -5,17 +5,16 @@ import { miniTooltip, row } from 'britecharts';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { collapseRow, expandRow } from '../../../actions/view';
-import { changeFocus } from '../../../actions/trends';
 import { scrollToFocus } from '../../../utils/trends';
-import {
-  selectQueryLens,
-  selectQueryTab,
-} from '../../../reducers/query/selectors';
-import { selectAggsState } from '../../../reducers/aggs/selectors';
+import { focusChanged } from '../../../reducers/trends/trendsSlice';
+import { rowCollapsed, rowExpanded } from '../../../reducers/view/viewSlice';
+
+import { selectAggsRoot } from '../../../reducers/aggs/selectors';
+import { selectTrendsLens } from '../../../reducers/trends/selectors';
 import {
   selectViewIsPrintMode,
   selectViewExpandedRows,
+  selectViewTab,
   selectViewWidth,
 } from '../../../reducers/view/selectors';
 import {
@@ -35,14 +34,13 @@ export const RowChart = ({
   total,
 }) => {
   const dispatch = useDispatch();
-  const tab = useSelector(selectQueryTab);
-  const queryLens = useSelector(selectQueryLens);
-  const aggs = useSelector(selectAggsState);
+  const tab = useSelector(selectViewTab);
+  const trendsLens = useSelector(selectTrendsLens);
+  const aggs = useSelector(selectAggsRoot);
   const expandedRows = useSelector(selectViewExpandedRows);
   const isPrintMode = useSelector(selectViewIsPrintMode);
   const width = useSelector(selectViewWidth);
-  //const width = useSelector(selectViewWidth);
-  const lens = tab === MODE_MAP ? 'Product' : queryLens;
+  const lens = tab === MODE_MAP ? 'Product' : trendsLens;
 
   useEffect(() => {
     const chartID = '#row-chart-' + id;
@@ -115,12 +113,12 @@ export const RowChart = ({
 
     const collapseARow = (rowName) => {
       sendAnalyticsEvent('Bar chart collapsed', rowName);
-      dispatch(collapseRow(rowName));
+      dispatch(rowCollapsed(rowName));
     };
 
     const expandARow = (rowName) => {
       sendAnalyticsEvent('Bar chart expanded', rowName);
-      dispatch(expandRow(rowName));
+      dispatch(rowExpanded(rowName));
     };
 
     const selectFocus = (element) => {
@@ -140,7 +138,7 @@ export const RowChart = ({
           : [];
       }
       sendAnalyticsEvent('Trends click', focusName.parent);
-      dispatch(changeFocus(focusName.parent, lens, [...values]));
+      dispatch(focusChanged(focusName.parent, lens, [...values]));
     };
 
     const toggleRow = (element) => {
@@ -182,17 +180,17 @@ export const RowChart = ({
     const rowContainer = d3.select(chartID);
 
     // added padding to make up for margin
-    const width = isPrintMode
+    const containerWidth = isPrintMode
       ? 750
       : rowContainer.node().getBoundingClientRect().width + 30;
 
     const height = rows.length === 1 ? 100 : rows.length * 60;
     const chart = row();
-    const marginLeft = width / 4;
+    const marginLeft = containerWidth / 4;
 
     // tweak to make the chart full width at desktop
     // add space at narrow width
-    const marginRight = width < 600 ? 40 : -65;
+    const marginRight = containerWidth < 600 ? 40 : -65;
 
     chart
       .margin({
@@ -211,7 +209,7 @@ export const RowChart = ({
       .percentageAxisToMaxRatio(ratio)
       .yAxisLineWrapLimit(2)
       .yAxisPaddingBetweenChart(20)
-      .width(width)
+      .width(containerWidth)
       .wrapLabels(true)
       .height(height)
       .on('customMouseOver', tooltip.show)
