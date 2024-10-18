@@ -272,12 +272,6 @@ $mobile-xs-tiles-breakpoint-max: 400px;
     flex-direction: row;
     flex-wrap: wrap;
 
-    // IE 11 fixes
-    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      display: inline-block;
-      float: left;
-    }
-
     .abbr {
       flex: 1 0 auto;
       font-size: 16px;
@@ -322,10 +316,6 @@ $mobile-xs-tiles-breakpoint-max: 400px;
     line-height: 1;
 
     .highcharts-data-label-state {
-      // IE 11 shift tile labels up
-      @media (-ms-high-contrast: none), (-ms-high-contrast: active) {
-        transform: translateY(-10px);
-      }
       .abbr {
         font-size: 12px;
       }
@@ -346,13 +336,6 @@ $mobile-xs-tiles-breakpoint-max: 400px;
 
   .highcharts-data-labels.highcharts-map-series {
     margin-top: 15px;
-  }
-
-  .highcharts-data-label-state {
-    // IE 11 shift tile labels up
-    @media (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      transform: translateY(-10px);
-    }
   }
 }
 
