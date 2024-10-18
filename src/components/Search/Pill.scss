@@ -1,9 +1,9 @@
+@use 'sass:math';
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
 @use '@cfpb/cfpb-design-system/src/utilities' as *;
 
 .pill {
-  padding: $grid-gutter-width / 3 30px $grid-gutter-width / 3 $grid-gutter-width /
-    3;
+  padding: math.div($grid-gutter-width, 3) 30px math.div($grid-gutter-width, 3) math.div($grid-gutter-width, 3);
   background-color: var(--teal-20);
   border: 1px solid var(--teal-40);
   margin-right: 4px;

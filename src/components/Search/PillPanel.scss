@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import '../../css/base';
 
 .pill-panel {
@@ -15,7 +16,7 @@
       color: var(--red-dark);
       margin-left: $gutter-narrow;
       svg {
-        margin-right: $gutter-narrow / 2;
+        margin-right: math.div($gutter-narrow, 2);
       }
     }
   }

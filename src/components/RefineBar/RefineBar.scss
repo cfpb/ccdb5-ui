@@ -1,3 +1,4 @@
+@use 'sass:math';
 @use 'node_modules/@cfpb/cfpb-design-system/src/abstracts' as *;
 @use 'node_modules/@cfpb/cfpb-design-system/src/base' as *;
 @use 'node_modules/@cfpb/cfpb-design-system/dist/index.css' as *;
@@ -6,8 +7,7 @@
 
 .refine-bar {
   section {
-    margin: $grid-gutter-width / 3 0 $grid-gutter-width / 3 $grid-gutter-width /
-      2;
+    margin: math.div($grid-gutter-width, 3) 0 math.div($grid-gutter-width, 3) math.div($grid-gutter-width, 2);
     p {
       font-size: $size-vi;
       font-weight: 600;
