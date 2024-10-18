@@ -30,13 +30,15 @@ export const DateRanges = () => {
   return (
     <section className="date-ranges m-btn-group">
       <p>Date range (Click to modify range)</p>
-      {dateRanges.map((range) => (
+      {Object.keys(dateRanges).map((range) => (
         <button
           onClick={() => {
             toggleDateRange(range);
           }}
+          aria-label={dateRanges[range]}
           className={btnClassName(range)}
           key={range}
+          title={dateRanges[range]}
         >
           {range}
         </button>
