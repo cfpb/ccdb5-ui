@@ -63,7 +63,6 @@ export const dateFilters = [
 ];
 
 export const dateIntervals = ['Day', 'Week', 'Month', 'Quarter', 'Year'];
-// export const dateRanges = ['3m', '6m', '1y', '3y', 'All'];
 export const dateRanges = {
   '3m': '3 months',
   '6m': '6 months',
