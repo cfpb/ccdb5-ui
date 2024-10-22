@@ -41,7 +41,7 @@ module.exports = {
   ignoreFiles: ['packages/**/node_modules/**/*.scss'],
   rules: {
     'at-rule-no-unknown': null,
-    'color-function-notation': ['legacy'],
+    'color-function-notation': ['modern', { ignore: ['with-var-inside'] }],
     'declaration-block-no-redundant-longhand-properties': null,
     'declaration-empty-line-before': null,
     'declaration-property-value-no-unknown': null,
