@@ -89,9 +89,6 @@
         }
 
         ul.tooltip-ul {
-          list-style: none;
-
-          // @extend %m-list--unstyled;
           margin-bottom: 0;
           border-bottom: solid 1px var(--gray-40);
           padding-bottom: 2px;
