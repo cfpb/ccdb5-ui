@@ -1,4 +1,4 @@
-import './ChartWrapper.less';
+import './ChartWrapper.scss';
 import { ErrorBlock } from '../../Warnings/Error';
 import PropTypes from 'prop-types';
 

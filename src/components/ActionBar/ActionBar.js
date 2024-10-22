@@ -1,4 +1,4 @@
-import './ActionBar.less';
+import './ActionBar.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import getIcon from '../iconMap';
 import { sendAnalyticsEvent } from '../../utils';

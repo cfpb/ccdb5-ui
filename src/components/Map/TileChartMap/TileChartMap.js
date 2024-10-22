@@ -1,4 +1,4 @@
-import './TileChartMap.less';
+import './TileChartMap.scss';
 import { addStateFilter, removeStateFilter } from '../../../actions/map';
 import { cloneDeep, coalesce, sendAnalyticsEvent } from '../../../utils';
 import { GEO_NORM_NONE, STATE_DATA } from '../../../constants';

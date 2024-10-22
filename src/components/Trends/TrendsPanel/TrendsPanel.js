@@ -1,6 +1,6 @@
 /* eslint-disable complexity, camelcase */
-import '../../RefineBar/RefineBar.less';
-import './TrendsPanel.less';
+import '../../RefineBar/RefineBar.scss';
+import './TrendsPanel.scss';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { lenses } from '../../../constants';

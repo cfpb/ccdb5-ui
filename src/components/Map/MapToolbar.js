@@ -1,4 +1,4 @@
-import './MapToolbar.less';
+import './MapToolbar.scss';
 import { clearStateFilter, showStateComplaints } from '../../actions/map';
 import { useDispatch, useSelector } from 'react-redux';
 import getIcon from '../iconMap';

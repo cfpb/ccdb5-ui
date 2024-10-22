@@ -40,7 +40,7 @@ export const SearchComponents = () => {
 
   return (
     <main
-      className={`content content--1-3 ${isPrintMode ? 'print' : ''}`}
+      className={`content content--1-3 ccdb-content ${isPrintMode ? 'print' : ''}`}
       role="main"
     >
       <Hero />

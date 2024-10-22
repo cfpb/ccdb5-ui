@@ -1,4 +1,4 @@
-import './Warning.less';
+import './Warning.scss';
 import getIcon from '../iconMap';
 import PropTypes from 'prop-types';
 

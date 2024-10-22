@@ -1,0 +1,37 @@
+@use 'sass:math';
+@use 'node_modules/@cfpb/cfpb-design-system/src/abstracts' as *;
+@use 'node_modules/@cfpb/cfpb-design-system/src/base' as *;
+@use 'node_modules/@cfpb/cfpb-design-system/dist/index.css' as *;
+@import '../../css/base';
+
+.light-box {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  // gray-dark #43484e in hex.
+  --faded-gray-dark: 67, 72, 78;
+
+  background-color: rgb(var(--faded-gray-dark), 0.75);
+}
+
+.loading-box {
+  max-width: 480px;
+  padding: $grid-gutter-width;
+  border: 1px solid var(--gray-dark);
+  border-radius: 4px;
+  overflow: auto;
+
+  background: var(--gray-5);
+  outline: none;
+
+  span.cf-icon-svg {
+    padding-right: $gutter-narrow;
+  }
+}

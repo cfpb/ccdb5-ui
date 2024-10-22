@@ -1,0 +1,32 @@
+@use 'node_modules/@cfpb/cfpb-design-system/src/abstracts' as *;
+@use 'node_modules/@cfpb/cfpb-design-system/src/base' as *;
+@use 'node_modules/@cfpb/cfpb-design-system/dist/index.css' as *;
+@import '../../css/base';
+
+.filter-panel {
+  padding: $gutter-normal;
+
+  @media screen and (min-width: $layout-breakpoint-desktop-min) {
+    padding: $grid-gutter-width;
+  }
+  border-top: 1px solid var(--gray-40);
+  border-right: 1px solid var(--gray-40);
+  background: var(--gray-5);
+
+  @media screen and (max-width: $layout-breakpoint-phone-max) {
+    border-right: none;
+  }
+
+  .a-form-alert {
+    margin-top: $gutter-normal;
+  }
+
+  hr {
+    margin: 0;
+    color: var(--gray-40);
+  }
+
+  .single-checkbox {
+    margin: $gutter-normal;
+  }
+}

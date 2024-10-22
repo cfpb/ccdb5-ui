@@ -1,0 +1,82 @@
+#line-chart {
+  .y-axis-group {
+    path {
+      display: none;
+    }
+  }
+
+  .x-axis-group {
+    .month-axis {
+      .domain {
+        display: none;
+      }
+    }
+  }
+  .masking-rectangle {
+    display: none;
+  }
+}
+
+#stacked-area-chart,
+#line-chart {
+  svg {
+    overflow: visible;
+  }
+
+  .topic .line {
+    fill: none;
+    stroke-width: 3px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .circle-container {
+    circle {
+      fill: var(--white);
+    }
+  }
+  .grid-lines-group {
+    stroke: var(--gray-20);
+    stroke-width: 0.1%;
+  }
+  .x-axis-group {
+    line {
+      display: none;
+    }
+  }
+
+  // line on hover for the tooltip.
+  .vertical-marker {
+    stroke: var(--gray-20);
+    stroke-width: 2px;
+    stroke-dasharray: 4, 4;
+  }
+  .chart-group {
+    .area {
+      path.area {
+        fill: var(--gray-10);
+        opacity: 0.4;
+      }
+    }
+    .area-outline {
+      fill: none;
+    }
+  }
+
+  .extended-x-line {
+    stroke: var(--black);
+    stroke-width: 0.2%;
+  }
+}
+
+.chart-wrapper {
+  p {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gray);
+
+    &.x-axis-label {
+      margin-left: 45%;
+    }
+  }
+}

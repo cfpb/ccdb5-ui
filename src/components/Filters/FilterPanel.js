@@ -1,4 +1,4 @@
-import './FilterPanel.less';
+import './FilterPanel.scss';
 import { Company } from './Company';
 import { CompanyReceivedFilter } from './CompanyReceivedFilter';
 import { useDispatch, useSelector } from 'react-redux';

@@ -1,4 +1,4 @@
-import './Loading.less';
+import './Loading.scss';
 import getIcon from '../iconMap';
 import PropTypes from 'prop-types';
 
