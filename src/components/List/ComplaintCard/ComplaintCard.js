@@ -1,4 +1,4 @@
-import './ComplaintCard.less';
+import './ComplaintCard.scss';
 import { ariaReadoutNumbers } from '../../../utils';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';

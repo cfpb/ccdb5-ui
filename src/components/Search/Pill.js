@@ -1,4 +1,4 @@
-import './Pill.less';
+import './Pill.scss';
 import { dateRangeChanged } from '../../reducers/query/querySlice';
 import {
   filterRemoved,

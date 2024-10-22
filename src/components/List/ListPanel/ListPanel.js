@@ -1,5 +1,5 @@
-import './ListPanel.less';
-import '../../RefineBar/RefineBar.less';
+import './ListPanel.scss';
+import '../../RefineBar/RefineBar.scss';
 import { sizeChanged, sortChanged } from '../../../reducers/query/querySlice';
 import { sizes, sorts } from '../../../constants';
 import { ActionBar } from '../../ActionBar/ActionBar';

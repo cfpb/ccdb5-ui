@@ -1,4 +1,4 @@
-import './FilterPanelToggle.less';
+import './FilterPanelToggle.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateFilterVisibility } from '../../reducers/view/viewSlice';
 import { selectViewHasFilters } from '../../reducers/view/selectors';

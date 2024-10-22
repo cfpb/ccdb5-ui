@@ -1,4 +1,4 @@
-import './SearchBar.less';
+import './SearchBar.scss';
 import {
   hideAdvancedSearchTips,
   showAdvancedSearchTips,

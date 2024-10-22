@@ -2,7 +2,7 @@ import getIcon from '../../iconMap';
 import { TooltipWrapper } from '../../Common/TooltipWrapper/TooltipWrapper';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import './ComplexExample.less';
+import './ComplexExample.scss';
 
 export const ComplexExample = ({ id, notes, placeholderText, tooltipText }) => {
   const [isOpen, setIsOpen] = useState(false);

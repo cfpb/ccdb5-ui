@@ -1,4 +1,4 @@
-import './MapToolbar.less';
+import './MapToolbar.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import getIcon from '../iconMap';
 import { MODE_LIST, THESE_UNITED_STATES } from '../../constants';

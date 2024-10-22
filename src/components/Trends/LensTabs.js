@@ -1,4 +1,4 @@
-import './LensTabs.less';
+import './LensTabs.scss';
 import { dataSubLensChanged } from '../../reducers/trends/trendsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendAnalyticsEvent } from '../../utils';

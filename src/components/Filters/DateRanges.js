@@ -1,7 +1,6 @@
-import './DateRanges.less';
+import './DateRanges.scss';
 import { selectQueryDateRange } from '../../reducers/query/selectors';
 import { selectViewTab } from '../../reducers/view/selectors';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { dateRanges } from '../../constants';
 import { dateRangeChanged } from '../../reducers/query/querySlice';

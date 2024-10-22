@@ -1,5 +1,5 @@
 /* eslint complexity: ["error", 8] */
-import './DateFilter.less';
+import './DateFilter.scss';
 import { DATE_VALIDATION_FORMAT, maxDate, minDate } from '../../constants';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {

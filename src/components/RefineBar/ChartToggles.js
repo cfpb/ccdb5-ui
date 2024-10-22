@@ -1,4 +1,4 @@
-import './ChartToggles.less';
+import './ChartToggles.scss';
 import { chartTypeUpdated } from '../../reducers/trends/trendsSlice';
 import getIcon from '../iconMap';
 import { selectedClass, sendAnalyticsEvent } from '../../utils';

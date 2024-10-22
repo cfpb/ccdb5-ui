@@ -1,4 +1,4 @@
-import './TabbedNavigation.less';
+import './TabbedNavigation.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import getIcon from './iconMap';
 import { selectViewTab } from '../reducers/view/selectors';

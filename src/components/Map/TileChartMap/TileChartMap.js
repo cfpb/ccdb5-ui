@@ -1,4 +1,4 @@
-import './TileChartMap.less';
+import './TileChartMap.scss';
 import {
   stateFilterAdded,
   stateFilterRemoved,

@@ -1,4 +1,4 @@
-import './TourButton.less';
+import './TourButton.scss';
 import getIcon from '../iconMap';
 import { useDispatch } from 'react-redux';
 import { tourShown } from '../../reducers/view/viewSlice';

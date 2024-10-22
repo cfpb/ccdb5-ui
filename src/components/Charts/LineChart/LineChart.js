@@ -1,4 +1,4 @@
-import './LineChart.less';
+import './LineChart.scss';
 import * as d3 from 'd3';
 import line from 'britecharts/dist/umd/line.min';
 import tooltip from 'britecharts/dist/umd/tooltip.min';

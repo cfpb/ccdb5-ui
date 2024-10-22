@@ -1,4 +1,4 @@
-import './RootModal.less';
+import './RootModal.scss';
 import * as types from '../../constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { DataExport } from './DataExport/DataExport';

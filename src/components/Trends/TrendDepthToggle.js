@@ -1,4 +1,4 @@
-import './TrendDepthToggle.less';
+import './TrendDepthToggle.scss';
 import { depthChanged, depthReset } from '../../reducers/trends/trendsSlice';
 import { clamp, coalesce } from '../../utils';
 import { SLUG_SEPARATOR } from '../../constants';

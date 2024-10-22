@@ -1,4 +1,4 @@
-import './ComplaintDetail.less';
+import './ComplaintDetail.scss';
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
