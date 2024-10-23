@@ -1,13 +1,13 @@
 import './LensTabs.scss';
-import { changeDataSubLens } from '../../actions/trends';
+import { dataSubLensChanged } from '../../reducers/trends/trendsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendAnalyticsEvent } from '../../utils';
 import {
-  selectQueryFocus,
-  selectQueryLens,
-  selectQuerySubLens,
-} from '../../reducers/query/selectors';
-import { selectTrendsResultsSubProduct } from '../../reducers/trends/selectors';
+  selectTrendsFocus,
+  selectTrendsLens,
+  selectTrendsResultsSubProduct,
+  selectTrendsSubLens,
+} from '../../reducers/trends/selectors';
 
 const lensMaps = {
   Company: {
@@ -30,9 +30,9 @@ const displayProductTab = (lens, focus, subProducts) => {
 
 export const LensTabs = () => {
   const dispatch = useDispatch();
-  const focus = useSelector(selectQueryFocus);
-  const lens = useSelector(selectQueryLens);
-  const subLens = useSelector(selectQuerySubLens);
+  const focus = useSelector(selectTrendsFocus);
+  const lens = useSelector(selectTrendsLens);
+  const subLens = useSelector(selectTrendsSubLens);
   const subProducts = useSelector(selectTrendsResultsSubProduct);
 
   if (lens === 'Overview') {
@@ -47,7 +47,8 @@ export const LensTabs = () => {
       product: 'Products',
     };
     sendAnalyticsEvent('Button', lens + ':' + labelMap[tab]);
-    dispatch(changeDataSubLens(tab.toLowerCase()));
+
+    dispatch(dataSubLensChanged(tab.toLowerCase()));
   };
   const _getTabClass = (tab) => {
     tab = tab.toLowerCase();

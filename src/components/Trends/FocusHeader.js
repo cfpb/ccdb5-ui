@@ -2,16 +2,16 @@ import './FocusHeader.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import getIcon from '../iconMap';
 import { LensTabs } from './LensTabs';
-import { removeFocus } from '../../actions/trends';
+import { focusRemoved } from '../../reducers/trends/trendsSlice';
 import {
-  selectQueryFocus,
-  selectQueryLens,
-} from '../../reducers/query/selectors';
-import { selectTrendsTotal } from '../../reducers/trends/selectors';
+  selectTrendsFocus,
+  selectTrendsLens,
+  selectTrendsTotal,
+} from '../../reducers/trends/selectors';
 
 export const FocusHeader = () => {
-  const focus = useSelector(selectQueryFocus);
-  const lens = useSelector(selectQueryLens);
+  const focus = useSelector(selectTrendsFocus);
+  const lens = useSelector(selectTrendsLens);
   const total = useSelector(selectTrendsTotal).toLocaleString();
 
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ export const FocusHeader = () => {
         className="a-btn a-btn--link clear-focus"
         id="clear-focus"
         onClick={() => {
-          dispatch(removeFocus(lens));
+          dispatch(focusRemoved(lens));
         }}
       >
         {getIcon('left')}
@@ -34,6 +34,7 @@ export const FocusHeader = () => {
           <h2>{total + ' Complaints'}</h2>
         </section>
       </div>
+
       <LensTabs showTitle={false} key="lens-tab" />
     </div>
   ) : null;

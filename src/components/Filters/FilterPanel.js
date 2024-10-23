@@ -4,13 +4,13 @@ import { CompanyReceivedFilter } from './CompanyReceivedFilter';
 import { useDispatch, useSelector } from 'react-redux';
 import { DateFilter } from './DateFilter';
 import { FederalState } from './FederalState';
-import { filterVisibilityToggled } from '../../actions/view';
 import { HasNarrative } from './HasNarrative';
 import getIcon from '../iconMap';
 import { Issue } from './Issue';
 import { Product } from './Product';
 import { SimpleFilter } from './SimpleFilter/SimpleFilter';
 import { ZipCode } from './ZipCode';
+import { updateFilterVisibility } from '../../reducers/view/viewSlice';
 import {
   selectViewHasFilters,
   selectViewWidth,
@@ -41,9 +41,7 @@ export const FilterPanel = () => {
               <button
                 className="a-btn"
                 title="Close filters"
-                onClick={() => {
-                  dispatch(filterVisibilityToggled());
-                }}
+                onClick={() => dispatch(updateFilterVisibility())}
               >
                 Close filters {getIcon('delete')}
               </button>
@@ -70,8 +68,8 @@ export const FilterPanel = () => {
           <hr />
           <SimpleFilter
             title="Company response to consumer"
-            desc="This is how the company responded. For
-                         example, 'Closed with explanation'."
+            desc="This is how the company responded. For example,
+                'Closed with explanation'."
             fieldName="company_response"
           />
           <hr />
@@ -92,8 +90,7 @@ export const FilterPanel = () => {
           <HasNarrative />
           <hr />
           <SimpleFilter
-            title="How did the consumer submit the
-             complaint to the CFPB?"
+            title="How did the consumer submit the complaint to the CFPB?"
             fieldName="submitted_via"
             desc=""
           />

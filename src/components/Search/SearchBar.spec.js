@@ -7,9 +7,9 @@ import userEvent from '@testing-library/user-event';
 import fetchMock from 'jest-fetch-mock';
 import { merge } from '../../testUtils/functionHelpers';
 import { SearchBar } from './SearchBar';
-import { defaultQuery } from '../../reducers/query/query';
-import { defaultView } from '../../reducers/view/view';
-import * as searchActions from '../../actions/search';
+import { queryState } from '../../reducers/query/querySlice';
+import { viewState } from '../../reducers/view/viewSlice';
+import * as searchActions from '../../reducers/query/querySlice';
 
 fetchMock.enableMocks();
 
@@ -20,8 +20,8 @@ describe('SearchBar', () => {
 
   const user = userEvent.setup({ delay: null });
   const renderComponent = (newQueryState, newViewState) => {
-    merge(newQueryState, defaultQuery);
-    merge(newViewState, defaultView);
+    merge(newQueryState, queryState);
+    merge(newViewState, viewState);
     const data = {
       query: newQueryState,
       view: newViewState,

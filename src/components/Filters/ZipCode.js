@@ -1,27 +1,29 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addMultipleFilters } from '../../actions/filter';
 import { CollapsibleFilter } from './CollapsibleFilter/CollapsibleFilter';
-import { stateToQS } from '../../reducers/query/query';
+import { stateToQS } from '../../reducers/query/querySlice';
 import { API_PLACEHOLDER } from '../../constants';
-import { selectQueryState } from '../../reducers/query/selectors';
+import { selectQueryRoot } from '../../reducers/query/selectors';
 import { AsyncTypeahead } from '../Typeahead/AsyncTypeahead/AsyncTypeahead';
 import { handleFetchSearch } from '../Typeahead/utils';
+import { multipleFiltersAdded } from '../../reducers/filters/filtersSlice';
+import { selectFiltersRoot } from '../../reducers/filters/selectors';
 
 const FIELD_NAME = 'zip_code';
 
 export const ZipCode = ({ delayWait = 250 }) => {
   const dispatch = useDispatch();
-  const query = useSelector(selectQueryState);
+  const query = useSelector(selectQueryRoot);
+  const filters = useSelector(selectFiltersRoot);
   const [dropdownOptions, setDropdownOptions] = useState([]);
 
-  const queryState = Object.assign({}, query);
+  const queryState = Object.assign({}, query, filters);
   queryState.searchAfter = '';
   const queryString = stateToQS(queryState);
 
   const onSelection = (value) => {
-    dispatch(addMultipleFilters(FIELD_NAME, [value[0].key]));
+    dispatch(multipleFiltersAdded(FIELD_NAME, [value[0].key]));
     setDropdownOptions([]);
   };
 

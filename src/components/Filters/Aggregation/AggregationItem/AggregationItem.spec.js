@@ -1,11 +1,15 @@
 import { testRender as render, screen } from '../../../../testUtils/test-utils';
 import { merge } from '../../../../testUtils/functionHelpers';
 import userEvent from '@testing-library/user-event';
-import * as filter from '../../../../actions/filter';
+import * as filter from '../../../../reducers/filters/filtersSlice';
 import * as utils from '../../../../utils';
 import { slugify } from '../../../../utils';
-import { defaultAggs } from '../../../../reducers/aggs/aggs';
-import { defaultQuery } from '../../../../reducers/query/query';
+import { aggsState } from '../../../../reducers/aggs/aggsSlice';
+import {
+  filtersReplaced,
+  filtersState,
+  filterToggled,
+} from '../../../../reducers/filters/filtersSlice';
 import { AggregationItem } from './AggregationItem';
 
 const defaultTestProps = {
@@ -18,13 +22,13 @@ const defaultTestProps = {
   },
 };
 
-const renderComponent = (props, newAggsState, newQueryState) => {
-  merge(newAggsState, defaultAggs);
-  merge(newQueryState, defaultQuery);
+const renderComponent = (props, newAggsState, newFiltersState) => {
+  merge(newAggsState, aggsState);
+  merge(newFiltersState, filtersState);
 
   const data = {
     aggs: newAggsState,
-    query: newQueryState,
+    filters: newFiltersState,
   };
 
   render(<AggregationItem {...props} />, {
@@ -36,7 +40,7 @@ describe('component::AggregationItem', () => {
   const user = userEvent.setup({ delay: null });
 
   describe('initial state', () => {
-    let aggs, query;
+    let aggs, filters;
 
     beforeEach(() => {
       aggs = {
@@ -44,14 +48,14 @@ describe('component::AggregationItem', () => {
         product: ['foo', 'bar'],
       };
 
-      query = {
+      filters = {
         issue: [1],
         timely: ['Yes'],
       };
     });
 
     test('renders properly with given item key and value', () => {
-      renderComponent(defaultTestProps, aggs, query);
+      renderComponent(defaultTestProps, aggs, filters);
 
       expect(
         screen.getByLabelText(defaultTestProps.item.value),
@@ -68,7 +72,7 @@ describe('component::AggregationItem', () => {
         item: { ...defaultTestProps.item, value: null },
       };
 
-      renderComponent(noItemValueProps, aggs, query);
+      renderComponent(noItemValueProps, aggs, filters);
 
       expect(
         screen.getByLabelText(defaultTestProps.item.key),
@@ -85,7 +89,7 @@ describe('component::AggregationItem', () => {
         item: { ...defaultTestProps.item, isDisabled: true },
       };
 
-      renderComponent(disabledItemProps, aggs, query);
+      renderComponent(disabledItemProps, aggs, filters);
 
       expect(screen.getByRole('checkbox')).toBeDisabled();
     });
@@ -96,18 +100,18 @@ describe('component::AggregationItem', () => {
         item: { key: 'Yes', doc_count: 1 },
       };
 
-      renderComponent(ownProps, aggs, query);
+      renderComponent(ownProps, aggs, filters);
 
       expect(screen.getByRole('checkbox')).not.toBeChecked();
     });
 
-    test('checks checkbox when fieldName key matches query', () => {
+    test('checks checkbox when fieldName key matches filters', () => {
       const ownProps = {
         fieldName: 'timely',
         item: { key: 'Yes', doc_count: 1 },
       };
 
-      renderComponent(ownProps, aggs, query);
+      renderComponent(ownProps, aggs, filters);
 
       expect(screen.getByRole('checkbox')).toBeChecked();
     });
@@ -118,7 +122,7 @@ describe('component::AggregationItem', () => {
         item: { key: 'No', doc_count: 1 },
       };
 
-      renderComponent(ownProps, aggs, query);
+      renderComponent(ownProps, aggs, filters);
 
       expect(screen.getByRole('checkbox')).not.toBeChecked();
     });
@@ -129,7 +133,7 @@ describe('component::AggregationItem', () => {
         item: { key: 'No Money', doc_count: 1 },
       };
 
-      renderComponent(ownProps, aggs, query);
+      renderComponent(ownProps, aggs, filters);
 
       expect(screen.getByRole('checkbox')).not.toBeChecked();
     });
@@ -139,8 +143,8 @@ describe('component::AggregationItem', () => {
     let replaceFiltersFn, toggleFilterFn, coalesceFn;
 
     beforeEach(() => {
-      replaceFiltersFn = jest.spyOn(filter, 'replaceFilters');
-      toggleFilterFn = jest.spyOn(filter, 'toggleFilter');
+      replaceFiltersFn = jest.spyOn(filter, 'filtersReplaced');
+      toggleFilterFn = jest.spyOn(filter, 'filterToggled');
       coalesceFn = jest.spyOn(utils, 'coalesce');
     });
 
@@ -170,6 +174,9 @@ describe('component::AggregationItem', () => {
 
         const filters = ['f', 'g', 'h', slugify('a', 'd')];
 
+        // TODO: i don't we should have to mock return values with this if the render component was set up properly
+        // we should write this with the action logger reducer
+        // the render component here should have initial aggs and filtersState set up here.
         coalesceFn.mockReturnValueOnce(aggs).mockReturnValueOnce(filters);
 
         renderComponent(ownProps, {}, {});
@@ -177,12 +184,12 @@ describe('component::AggregationItem', () => {
         await user.click(screen.getByRole('checkbox'));
 
         expect(replaceFiltersFn).toHaveBeenCalled();
-        expect(replaceFiltersFn).toHaveReturnedWith({
-          filterName: 'issue',
-          requery: 'REQUERY_ALWAYS',
-          type: 'FILTER_REPLACED',
-          values: ['f', 'g', 'h', slugify('a', 'd'), slugify('a', 'b')],
-        });
+        expect(replaceFiltersFn).toHaveReturnedWith(
+          filtersReplaced({
+            filterName: 'issue',
+            values: ['f', 'g', 'h', slugify('a', 'd'), slugify('a', 'b')],
+          }),
+        );
 
         expect(toggleFilterFn).not.toHaveBeenCalled();
       });
@@ -215,12 +222,12 @@ describe('component::AggregationItem', () => {
         await user.click(screen.getByRole('checkbox'));
 
         expect(replaceFiltersFn).toHaveBeenCalled();
-        expect(replaceFiltersFn).toHaveReturnedWith({
-          filterName: 'issue',
-          requery: 'REQUERY_ALWAYS',
-          type: 'FILTER_REPLACED',
-          values: ['f', 'g', 'h', 'a'],
-        });
+        expect(replaceFiltersFn).toHaveReturnedWith(
+          filtersReplaced({
+            filterName: 'issue',
+            values: ['f', 'g', 'h', 'a'],
+          }),
+        );
 
         expect(toggleFilterFn).not.toHaveBeenCalled();
       });
@@ -241,15 +248,15 @@ describe('component::AggregationItem', () => {
         await user.click(screen.getByRole('checkbox'));
 
         expect(toggleFilterFn).toHaveBeenCalled();
-        expect(toggleFilterFn).toHaveReturnedWith({
-          filterName: 'fieldName',
-          filterValue: {
-            doc_count: 1000,
-            key: 'foo',
-          },
-          requery: 'REQUERY_ALWAYS',
-          type: 'FILTER_CHANGED',
-        });
+        expect(toggleFilterFn).toHaveReturnedWith(
+          filterToggled({
+            filterName: 'fieldName',
+            filterValue: {
+              doc_count: 1000,
+              key: 'foo',
+            },
+          }),
+        );
 
         expect(replaceFiltersFn).not.toHaveBeenCalled();
       });
@@ -280,12 +287,12 @@ describe('component::AggregationItem', () => {
         await user.click(screen.getByRole('checkbox'));
 
         expect(replaceFiltersFn).toHaveBeenCalled();
-        expect(replaceFiltersFn).toHaveReturnedWith({
-          filterName: 'issue',
-          requery: 'REQUERY_ALWAYS',
-          type: 'FILTER_REPLACED',
-          values: [],
-        });
+        expect(replaceFiltersFn).toHaveReturnedWith(
+          filtersReplaced({
+            filterName: 'issue',
+            values: [],
+          }),
+        );
 
         expect(toggleFilterFn).not.toHaveBeenCalled();
       });
@@ -306,15 +313,15 @@ describe('component::AggregationItem', () => {
         await user.click(screen.getByRole('checkbox'));
 
         expect(toggleFilterFn).toHaveBeenCalled();
-        expect(toggleFilterFn).toHaveReturnedWith({
-          filterName: 'fieldName',
-          filterValue: {
-            doc_count: 1000,
-            key: 'foo',
-          },
-          requery: 'REQUERY_ALWAYS',
-          type: 'FILTER_CHANGED',
-        });
+        expect(toggleFilterFn).toHaveReturnedWith(
+          filterToggled({
+            filterName: 'fieldName',
+            filterValue: {
+              doc_count: 1000,
+              key: 'foo',
+            },
+          }),
+        );
 
         expect(replaceFiltersFn).not.toHaveBeenCalled();
       });

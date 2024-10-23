@@ -6,14 +6,18 @@ import {
 } from '../../constants';
 import { initialState, setupStore } from '../../testUtils/setupStore';
 import queryManager from './queryManager';
-import { AGGREGATIONS_API_CALLED, COMPLAINTS_API_CALLED } from '../../actions';
+import {
+  aggregationsApiCalled,
+  complaintsApiCalled,
+  HTTP_GET_REQUEST,
+} from '../../actions';
 
 describe('redux middleware::queryManager', () => {
   let targetStore;
   beforeEach(() => {
     targetStore = initialState();
     targetStore.query.date_received_max = '2018-01-01';
-    targetStore.query.tab = MODE_LIST;
+    targetStore.view.tab = MODE_LIST;
   });
 
   describe('REQUERY_NEVER', () => {
@@ -44,15 +48,17 @@ describe('redux middleware::queryManager', () => {
       const store = setupStore(targetStore, queryManager);
       const action = {
         type: 'FakeAction',
-        requery: REQUERY_ALWAYS,
+        meta: { requery: REQUERY_ALWAYS },
       };
       store.dispatch(action);
       const { actions } = store.getState().actions;
       const actionNames = actions.map((item) => item.type);
       expect(actionNames).toEqual([
         action.type,
-        AGGREGATIONS_API_CALLED,
-        COMPLAINTS_API_CALLED,
+        aggregationsApiCalled().type,
+        HTTP_GET_REQUEST,
+        complaintsApiCalled().type,
+        HTTP_GET_REQUEST,
       ]);
     });
   });
@@ -62,13 +68,17 @@ describe('redux middleware::queryManager', () => {
       const store = setupStore(targetStore, queryManager);
       const action = {
         type: 'FakeAction',
-        requery: REQUERY_HITS_ONLY,
+        meta: { requery: REQUERY_HITS_ONLY },
       };
 
       store.dispatch(action);
       const { actions } = store.getState().actions;
       const actionNames = actions.map((item) => item.type);
-      expect(actionNames).toEqual([action.type, COMPLAINTS_API_CALLED]);
+      expect(actionNames).toEqual([
+        action.type,
+        complaintsApiCalled().type,
+        HTTP_GET_REQUEST,
+      ]);
     });
   });
 });

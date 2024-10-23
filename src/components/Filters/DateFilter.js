@@ -7,14 +7,14 @@ import {
   selectQueryDateReceivedMin,
 } from '../../reducers/query/selectors';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeDates } from '../../actions/filter';
+import { datesChanged } from '../../reducers/query/querySlice';
 import { CollapsibleFilter } from './CollapsibleFilter/CollapsibleFilter';
 import { DateRanges } from './DateRanges';
 import dayjs from 'dayjs';
 import dayjsCustomParseFormat from 'dayjs/plugin/customParseFormat';
 import dayjsIsBetween from 'dayjs/plugin/isBetween';
 import dayjsUtc from 'dayjs/plugin/utc';
-import { formatDate } from '../../utils/formatDate';
+import { formatDateModel } from '../../utils/formatDate';
 import getIcon from '../iconMap';
 
 dayjs.extend(dayjsCustomParseFormat);
@@ -32,9 +32,11 @@ export const DateFilter = () => {
   const title = 'Date CFPB received the complaint';
   const dateFrom = useSelector(selectQueryDateReceivedMin);
   const dateThrough = useSelector(selectQueryDateReceivedMax);
-  const initialFromDate = dayjs(dateFrom).isValid() ? formatDate(dateFrom) : '';
+  const initialFromDate = dayjs(dateFrom).isValid()
+    ? formatDateModel(dateFrom)
+    : '';
   const initialThroughDate = dayjs(dateThrough).isValid()
-    ? formatDate(dateThrough)
+    ? formatDateModel(dateThrough)
     : '';
   const [fromDate, setFromDate] = useState(initialFromDate);
   const [throughDate, setThroughDate] = useState(initialThroughDate);
@@ -49,12 +51,12 @@ export const DateFilter = () => {
   useEffect(() => {
     // put it in YYYY-MM-DD format
     // validate to make sure it's not invalid
-    const validFromDate = dateFrom ? formatDate(dateFrom) : minDate;
+    const validFromDate = dateFrom ? formatDateModel(dateFrom) : '';
     setFromDate(validFromDate);
   }, [dateFrom]);
 
   useEffect(() => {
-    const validThroughDate = dateThrough ? formatDate(dateThrough) : maxDate;
+    const validThroughDate = dateThrough ? formatDateModel(dateThrough) : '';
     setThroughDate(validThroughDate);
   }, [dateThrough]);
 
@@ -98,7 +100,7 @@ export const DateFilter = () => {
     const isDateDifferent =
       dateFrom !== _fromDate || dateThrough !== _throughDate;
     if (dayjs(_throughDate).isAfter(_fromDate) && isDateDifferent) {
-      dispatch(changeDates(fieldName, _fromDate, _throughDate));
+      dispatch(datesChanged(fieldName, _fromDate, _throughDate));
     }
   };
 

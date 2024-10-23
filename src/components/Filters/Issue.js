@@ -1,20 +1,20 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { coalesce, sortSelThenCount } from '../../utils';
+import { sortSelThenCount } from '../../utils';
 import { CollapsibleFilter } from './CollapsibleFilter/CollapsibleFilter';
-import { replaceFilters } from '../../actions/filter';
+import { filtersReplaced } from '../../reducers/filters/filtersSlice';
 import { SLUG_SEPARATOR } from '../../constants';
-import { selectQueryState } from '../../reducers/query/selectors';
 import { Typeahead } from '../Typeahead/Typeahead/Typeahead';
-import { selectAggsState } from '../../reducers/aggs/selectors';
+import { selectAggsIssue } from '../../reducers/aggs/selectors';
+import { selectFiltersIssue } from '../../reducers/filters/selectors';
 import { MoreOrLess } from './MoreOrLess/MoreOrLess';
 import { AggregationBranch } from './Aggregation/AggregationBranch/AggregationBranch';
 
 export const Issue = () => {
   const dispatch = useDispatch();
   const [dropdownOptions, setDropdownOptions] = useState([]);
-  const aggs = useSelector(selectAggsState);
-  const query = useSelector(selectQueryState);
+  const aggsFilters = useSelector(selectAggsIssue);
+  const filters = useSelector(selectFiltersIssue);
 
   const desc =
     'The type of issue and sub-issue the consumer identified ' +
@@ -23,7 +23,6 @@ export const Issue = () => {
     fieldName: 'issue',
   };
 
-  const filters = coalesce(query, 'issue', []);
   const selections = [];
   // Reduce the issues to the parent keys (and dedup)
   filters.forEach((filter) => {
@@ -34,7 +33,7 @@ export const Issue = () => {
     }
   });
   // Make a cloned, sorted version of the aggs
-  const options = sortSelThenCount(coalesce(aggs, 'issue', []), selections);
+  const options = sortSelThenCount(aggsFilters, selections);
   // create an array optimized for typeahead
   const optionKeys = options.map((opt) => opt.key);
 
@@ -59,7 +58,7 @@ export const Issue = () => {
       .filter((filter) => filter.indexOf(items[0].key + SLUG_SEPARATOR) === -1)
       // add parent item
       .concat(items[0].key);
-    dispatch(replaceFilters('issue', replacementFilters));
+    dispatch(filtersReplaced('issue', replacementFilters));
   };
 
   const onBucket = (bucket, props) => {

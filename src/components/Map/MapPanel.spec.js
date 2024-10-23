@@ -1,7 +1,9 @@
-import { defaultAggs } from '../../reducers/aggs/aggs';
-import { defaultMap } from '../../reducers/map/map';
-import { defaultQuery } from '../../reducers/query/query';
-import { defaultView } from '../../reducers/view/view';
+import React from 'react';
+import { aggsState } from '../../reducers/aggs/aggsSlice';
+import { filtersState } from '../../reducers/filters/filtersSlice';
+import { mapState } from '../../reducers/map/mapSlice';
+import { queryState } from '../../reducers/query/querySlice';
+import { viewState } from '../../reducers/view/viewSlice';
 import { MapPanel } from './MapPanel';
 import { merge } from '../../testUtils/functionHelpers';
 import {
@@ -10,22 +12,25 @@ import {
   screen,
 } from '../../testUtils/test-utils';
 import { MODE_MAP } from '../../constants';
-import * as viewActions from '../../actions/view';
+import * as viewActions from '../../reducers/filters/filtersSlice';
 
 describe('MapPanel', () => {
   const renderComponent = (
     newAggsState,
+    newFiltersState,
     newMapState,
     newQueryState,
     newViewState,
   ) => {
-    merge(newAggsState, defaultAggs);
-    merge(newMapState, defaultMap);
-    merge(newQueryState, defaultQuery);
-    merge(newViewState, defaultView);
+    merge(newAggsState, aggsState);
+    merge(newFiltersState, filtersState);
+    merge(newMapState, mapState);
+    merge(newQueryState, queryState);
+    merge(newViewState, viewState);
 
     const data = {
       aggs: newAggsState,
+      filters: newFiltersState,
       map: newMapState,
       query: newQueryState,
       view: newViewState,
@@ -37,7 +42,7 @@ describe('MapPanel', () => {
   };
 
   it('renders empty state without crashing', () => {
-    renderComponent({}, {}, {}, {});
+    renderComponent({}, {}, {}, {}, {});
     expect(screen.getByText(/Showing 0 total complaints/)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Trends/ })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /List/ })).toBeInTheDocument();
@@ -63,10 +68,15 @@ describe('MapPanel', () => {
       total: items.length,
     };
 
+    const filters = {
+      enablePer1000: false,
+      has_narrative: true,
+      mapWarningEnabled: true,
+    };
+
     const map = {
       error: false,
       results: {
-        issue: [],
         product: [],
         state: [],
       },
@@ -75,17 +85,11 @@ describe('MapPanel', () => {
     const query = {
       date_received_min: new Date('7/10/2017'),
       date_received_max: new Date('7/10/2020'),
-      enablePer1000: false,
-      // this filter is necessary for the reducer validation
-      has_narrative: true,
-      mapWarningEnabled: true,
-      issue: [],
-      product: [],
-      tab: MODE_MAP,
     };
 
     const view = {
       expandedRows: [],
+      tab: MODE_MAP,
       width: 1000,
     };
 
@@ -93,7 +97,7 @@ describe('MapPanel', () => {
       .spyOn(viewActions, 'mapWarningDismissed')
       .mockReturnValue(jest.fn());
 
-    renderComponent(aggs, map, query, view);
+    renderComponent(aggs, filters, map, query, view);
     expect(
       screen.getByText(/Showing 2 matches out of 100 total complaints/),
     ).toBeInTheDocument();
@@ -123,10 +127,15 @@ describe('MapPanel', () => {
       total: items.length,
     };
 
+    const filters = {
+      enablePer1000: true,
+      has_narrative: true,
+      mapWarningEnabled: false,
+    };
+
     const map = {
       error: true,
       results: {
-        issue: [],
         product: [],
         state: [],
       },
@@ -135,21 +144,15 @@ describe('MapPanel', () => {
     const query = {
       date_received_min: new Date('7/10/2017'),
       date_received_max: new Date('7/10/2020'),
-      enablePer1000: true,
-      // this filter is necessary for the reducer validation
-      has_narrative: true,
-      mapWarningEnabled: false,
-      issue: [],
-      product: [],
-      tab: MODE_MAP,
     };
 
     const view = {
       expandedRows: [],
+      tab: MODE_MAP,
       width: 1000,
     };
 
-    renderComponent(aggs, map, query, view);
+    renderComponent(aggs, filters, map, query, view);
     expect(
       screen.getByText(/Showing 2 matches out of 100 total complaints/),
     ).toBeInTheDocument();

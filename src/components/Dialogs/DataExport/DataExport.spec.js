@@ -6,25 +6,28 @@ import {
   fireEvent,
 } from '../../../testUtils/test-utils';
 import { merge } from '../../../testUtils/functionHelpers';
-import { defaultAggs } from '../../../reducers/aggs/aggs';
-import { defaultQuery } from '../../../reducers/query/query';
-import * as viewActions from '../../../actions/view';
+import { aggsState } from '../../../reducers/aggs/aggsSlice';
+import { filtersState } from '../../../reducers/filters/filtersSlice';
+import { queryState } from '../../../reducers/query/querySlice';
+import * as viewActions from '../../../reducers/view/viewSlice';
 import { MODAL_TYPE_EXPORT_CONFIRMATION } from '../../../constants';
 import { waitFor } from '@testing-library/react';
 
 describe('DataExport', () => {
   const originalClipboard = { ...global.navigator.clipboard };
 
-  const renderComponent = (newAggsState, newQueryState) => {
+  const renderComponent = (newAggsState, newFiltersState, newQueryState) => {
     const mockClipboard = {
       writeText: jest.fn(),
     };
     global.navigator.clipboard = mockClipboard;
 
-    merge(newAggsState, defaultAggs);
-    merge(newQueryState, defaultQuery);
+    merge(newAggsState, aggsState);
+    merge(newFiltersState, filtersState);
+    merge(newQueryState, queryState);
     const data = {
       aggs: newAggsState,
+      filters: newFiltersState,
       query: newQueryState,
     };
     render(<DataExport />, { preloadedState: data });
@@ -36,8 +39,8 @@ describe('DataExport', () => {
   });
 
   it('renders default state without crashing', async () => {
-    const hideModalSpy = jest
-      .spyOn(viewActions, 'hideModal')
+    const modalHiddenSpy = jest
+      .spyOn(viewActions, 'modalHidden')
       .mockImplementation(() => jest.fn());
     renderComponent({}, {});
     expect(screen.getByText('Export complaints')).toBeInTheDocument();
@@ -55,7 +58,7 @@ describe('DataExport', () => {
     expect(
       screen.getByRole('button', { name: /Start export/ }),
     ).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Cancel/ })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
     const buttonCopy = screen.getByRole('button', { name: /Copy/ });
     expect(buttonCopy).toBeInTheDocument();
     expect(buttonCopy).toHaveClass('a-btn__secondary');
@@ -64,30 +67,30 @@ describe('DataExport', () => {
       expect(buttonCopy).toHaveClass('export-url-copied');
     });
 
-    expect(screen.getByRole('button', { name: /Close/ })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: /Close/ }));
-    expect(hideModalSpy).toHaveBeenCalled();
+    expect(screen.getByRole('button', { name: /Close/i })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /Close/i }));
+    expect(modalHiddenSpy).toHaveBeenCalled();
   });
 
   it('closes the modal by clicking cancel', async () => {
-    const hideModalSpy = jest
-      .spyOn(viewActions, 'hideModal')
+    const modalHiddenSpy = jest
+      .spyOn(viewActions, 'modalHidden')
       .mockImplementation(() => jest.fn());
-    renderComponent({}, {});
+    renderComponent({}, {}, {});
     expect(screen.getByText('Export complaints')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Cancel/ })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: /Cancel/ }));
-    expect(hideModalSpy).toHaveBeenCalled();
+    expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
+    expect(modalHiddenSpy).toHaveBeenCalled();
   });
 
   it('exports All complaints', async () => {
-    const showModalSpy = jest
-      .spyOn(viewActions, 'showModal')
+    const modalShownSpy = jest
+      .spyOn(viewActions, 'modalShown')
       .mockImplementation(() => jest.fn());
     const sendAnalyticsSpy = jest
       .spyOn(utils, 'sendAnalyticsEvent')
       .mockImplementation(() => jest.fn());
-    renderComponent({}, {});
+    renderComponent({}, {}, {});
     expect(screen.getByText('Export complaints')).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: /Start export/ }),
@@ -95,22 +98,22 @@ describe('DataExport', () => {
     expect(screen.getByRole('textbox')).toHaveValue(
       'https://files.consumerfinance.gov/ccdb/complaints.csv.zip',
     );
-    fireEvent.click(screen.getByRole('button', { name: /Start export/ }));
+    fireEvent.click(screen.getByRole('button', { name: 'Start export' }));
     expect(sendAnalyticsSpy).toHaveBeenCalledWith(
       'Export All Data',
       'Trends:csv',
     );
-    expect(showModalSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
+    expect(modalShownSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
   });
 
   it('exports All complaints as json', async () => {
-    const showModalSpy = jest
-      .spyOn(viewActions, 'showModal')
+    const modalShownSpy = jest
+      .spyOn(viewActions, 'modalShown')
       .mockImplementation(() => jest.fn());
     const sendAnalyticsSpy = jest
       .spyOn(utils, 'sendAnalyticsEvent')
       .mockImplementation(() => jest.fn());
-    renderComponent({}, {});
+    renderComponent({}, {}, {});
     expect(screen.getByText('Export complaints')).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: /Start export/ }),
@@ -136,25 +139,29 @@ describe('DataExport', () => {
       );
     });
 
-    fireEvent.click(screen.getByRole('button', { name: /Start export/ }));
+    fireEvent.click(screen.getByRole('button', { name: 'Start export' }));
     expect(sendAnalyticsSpy).toHaveBeenCalledWith(
       'Export All Data',
       'Trends:json',
     );
-    expect(showModalSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
+    expect(modalShownSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
   });
 
   it('exports some complaints', async () => {
-    const showModalSpy = jest
-      .spyOn(viewActions, 'showModal')
+    const modalShownSpy = jest
+      .spyOn(viewActions, 'modalShown')
       .mockImplementation(() => jest.fn());
     const sendAnalyticsSpy = jest
       .spyOn(utils, 'sendAnalyticsEvent')
       .mockImplementation(() => jest.fn());
 
-    renderComponent({ doc_count: 999, total: 10000 }, {});
+    renderComponent(
+      { doc_count: 999, total: 10000 },
+      { issue: ['foo'], product: ['bar', 'baz'], state: ['TX', 'CA'] },
+      {},
+    );
     expect(
-      screen.getByText(/Select which complaints you'd like to export/),
+      screen.getByText(/Select which complaints you’d like to export/),
     ).toBeInTheDocument();
     const radioFiltered = screen.getByRole('radio', {
       name: /Filtered dataset/i,
@@ -173,28 +180,27 @@ describe('DataExport', () => {
     });
 
     expect(screen.getByRole('textbox')).toHaveValue(
-      'http://localhost/@@API?date_received_max=2020-05-05&' +
-        'date_received_min=2017-05-05&field=all&format=csv&lens=product&' +
-        'no_aggs=true&size=10000&sub_lens=sub_product&trend_depth=5&' +
-        'trend_interval=month',
+      'http://localhost/@@API?date_received_max=2020-05-05' +
+        '&date_received_min=2017-05-05&field=all&format=csv&issue=foo' +
+        '&no_aggs=true&product=bar&product=baz&size=10000&state=TX&state=CA',
     );
 
     expect(
       screen.getByRole('button', { name: /Start export/ }),
     ).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: /Start export/ }));
+    fireEvent.click(screen.getByRole('button', { name: 'Start export' }));
 
     expect(sendAnalyticsSpy).toHaveBeenCalledWith(
       'Export Some Data',
       'Trends:csv',
     );
-    expect(showModalSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
+    expect(modalShownSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
   });
 
   it('switches csv/json data formats', async () => {
     renderComponent({ doc_count: 999, total: 10000 }, {});
     expect(
-      screen.getByText(/Select which complaints you'd like to export/),
+      screen.getByText(/Select which complaints you’d like to export/),
     ).toBeInTheDocument();
 
     const radioJson = screen.getByRole('radio', {
@@ -243,9 +249,9 @@ describe('DataExport', () => {
   });
 
   it('switches dataset selections', async () => {
-    renderComponent({ doc_count: 999, total: 10000 }, {});
+    renderComponent({ doc_count: 999, total: 10000 }, {}, {});
     expect(
-      screen.getByText(/Select which complaints you'd like to export/),
+      screen.getByText(/Select which complaints you’d like to export/),
     ).toBeInTheDocument();
 
     const radioFiltered = screen.getByRole('radio', {

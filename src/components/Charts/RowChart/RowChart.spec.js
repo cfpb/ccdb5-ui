@@ -2,19 +2,19 @@ import { testRender as render, screen } from '../../../testUtils/test-utils';
 import * as d3 from 'd3';
 import { buildFluentMock } from '../__fixtures__/buildFluentMock';
 import { merge } from '../../../testUtils/functionHelpers';
-import { defaultAggs } from '../../../reducers/aggs/aggs';
-import { defaultView } from '../../../reducers/view/view';
-import { defaultQuery } from '../../../reducers/query/query';
+import { aggsState } from '../../../reducers/aggs/aggsSlice';
+import { trendsState } from '../../../reducers/trends/trendsSlice';
+import { viewState } from '../../../reducers/view/viewSlice';
 import { RowChart } from './RowChart';
 
-const renderComponent = (props, newAggsState, newQueryState, newViewState) => {
-  merge(newAggsState, defaultAggs);
-  merge(newQueryState, defaultQuery);
-  merge(newViewState, defaultView);
+const renderComponent = (props, newAggsState, newTrendState, newViewState) => {
+  merge(newAggsState, aggsState);
+  merge(newTrendState, trendsState);
+  merge(newViewState, viewState);
 
   const data = {
     aggs: newAggsState,
-    query: newQueryState,
+    trends: newTrendState,
     view: newViewState,
   };
 
@@ -56,8 +56,7 @@ describe('component::RowChart', () => {
 
     const aggs = {};
 
-    const query = {
-      tab: 'Trends',
+    const trends = {
       lens: 'Foo',
     };
 
@@ -67,7 +66,7 @@ describe('component::RowChart', () => {
       width: 1000,
     };
 
-    renderComponent(props, aggs, query, view);
+    renderComponent(props, aggs, trends, view);
 
     expect(screen.getByRole('heading')).toHaveTextContent(props.title);
     expect(screen.getByText(props.helperText)).toBeInTheDocument();
@@ -90,8 +89,7 @@ describe('component::RowChart', () => {
 
     const aggs = {};
 
-    const query = {
-      tab: 'Trends',
+    const trends = {
       lens: 'Foo',
     };
 
@@ -101,7 +99,7 @@ describe('component::RowChart', () => {
       width: 1000,
     };
 
-    renderComponent(props, aggs, query, view);
+    renderComponent(props, aggs, trends, view);
 
     expect(screen.getByRole('heading')).toHaveTextContent(props.title);
     expect(screen.getByText(props.helperText)).toBeInTheDocument();
@@ -122,8 +120,7 @@ describe('component::RowChart', () => {
 
     const aggs = {};
 
-    const query = {
-      tab: 'Trends',
+    const trends = {
       lens: 'Foo',
     };
 
@@ -133,7 +130,7 @@ describe('component::RowChart', () => {
       width: 1000,
     };
 
-    renderComponent(props, aggs, query, view);
+    renderComponent(props, aggs, trends, view);
     expect(screen.getByRole('heading')).toHaveTextContent(props.title);
     expect(screen.getByText(props.helperText)).toBeInTheDocument();
   });
@@ -150,8 +147,7 @@ describe('component::RowChart', () => {
 
     const aggs = {};
 
-    const query = {
-      tab: 'Trends',
+    const trends = {
       lens: 'Foo',
     };
 
@@ -161,7 +157,7 @@ describe('component::RowChart', () => {
       width: 1000,
     };
 
-    const { container } = renderComponent(props, aggs, query, view);
+    const { container } = renderComponent(props, aggs, trends, view);
     expect(container.firstChild).toBeNull();
   });
 });

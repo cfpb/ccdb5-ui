@@ -2,24 +2,24 @@ import './StackedAreaChart.scss';
 import * as d3 from 'd3';
 import { stackedArea } from 'britecharts';
 import { useEffect, useMemo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as colors from '../../../constants/colors';
 import {
   getLastDate,
-  pruneIncompleteStackedAreaInterval,
   isStackedAreaDataEmpty,
+  pruneIncompleteStackedAreaInterval,
 } from '../../../utils/chart';
-import { updateTrendsTooltip } from '../../../actions/trends';
+import { tooltipUpdated } from '../../../reducers/trends/trendsSlice';
 import { debounce } from '../../../utils';
 import {
-  selectTrendsResultsDateRangeArea,
   selectTrendsColorMap,
+  selectTrendsLens,
+  selectTrendsResultsDateRangeArea,
 } from '../../../reducers/trends/selectors';
 import {
-  selectQueryDateReceivedMin,
-  selectQueryDateReceivedMax,
   selectQueryDateInterval,
-  selectQueryLens,
+  selectQueryDateReceivedMax,
+  selectQueryDateReceivedMin,
 } from '../../../reducers/query/selectors';
 import {
   selectViewIsPrintMode,
@@ -34,7 +34,7 @@ export const StackedAreaChart = () => {
   const data = useSelector(selectTrendsResultsDateRangeArea);
   const from = useSelector(selectQueryDateReceivedMin);
   const to = useSelector(selectQueryDateReceivedMax);
-  const lens = useSelector(selectQueryLens);
+  const lens = useSelector(selectTrendsLens);
   const interval = useSelector(selectQueryDateInterval);
 
   const isPrintMode = useSelector(selectViewIsPrintMode);
@@ -59,17 +59,45 @@ export const StackedAreaChart = () => {
       return;
     }
 
-    const tooltipUpdated = (selectedState) => {
-      dispatch(updateTrendsTooltip(selectedState));
+    const extTooltipUpdated = (item) => {
+      item.values = item.values.map((val) => {
+        if (typeof val.date !== 'string') {
+          return {
+            ...val,
+            date: new Date(val.date).toJSON(),
+          };
+        }
+        return val;
+      });
+      if (typeof item.date !== 'string') {
+        // delete item.date;
+        item.date = new Date(item.date).toJSON();
+      }
+      dispatch(tooltipUpdated(item));
     };
 
     const updateTooltip = (point) => {
-      tooltipUpdated({
-        date: point.date,
-        dateRange,
-        interval,
-        values: point.values,
+      if (typeof point.date !== 'string') {
+        point.date = new Date(point.date).toJSON();
+      }
+      point.values = point.values.map((val) => {
+        if (typeof val.date !== 'string') {
+          return {
+            ...val,
+            date: new Date(val.date).toJSON(),
+          };
+        }
+        return val;
       });
+
+      dispatch(
+        tooltipUpdated({
+          date: point.date,
+          dateRange,
+          interval,
+          values: point.values,
+        }),
+      );
     };
 
     d3.select(chartSelector).remove();
@@ -106,7 +134,7 @@ export const StackedAreaChart = () => {
       interval,
     };
 
-    tooltipUpdated(getLastDate(filteredData, config));
+    extTooltipUpdated(getLastDate(filteredData, config));
 
     return () => {
       d3.select(chartSelector).remove();

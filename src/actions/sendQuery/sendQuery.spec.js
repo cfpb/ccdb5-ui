@@ -1,4 +1,5 @@
 /* eslint-disable max-nested-callbacks, no-empty-function, camelcase */
+
 import * as sutComplaints from '../complaints';
 import * as sutSQ from '../sendQuery/sendQuery';
 import * as sutHits from '../sendHitsQuery/sendHitsQuery';
@@ -28,7 +29,7 @@ describe('api::sendQuery', () => {
     });
 
     it('ignores unknown view modes', function () {
-      fixtureStore.query.tab = 'NOTHING';
+      fixtureStore.view.tab = 'NOTHING';
       sutSQ.sendQuery()(dispatch, getState);
       expect(dispatch).not.toHaveBeenCalled();
     });
@@ -41,7 +42,7 @@ describe('api::sendQuery', () => {
 
     doubleQueries.forEach((mode) => {
       it(`executes a set of actions in ${mode} mode`, () => {
-        fixtureStore.query.tab = mode;
+        fixtureStore.view.tab = mode;
 
         sutSQ.sendQuery()(dispatch, getState);
         expect(dispatch.mock.calls.length).toEqual(2);

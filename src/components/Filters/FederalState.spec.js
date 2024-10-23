@@ -5,14 +5,14 @@ import {
 } from '../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 import { FederalState } from './FederalState';
-import * as filterActions from '../../actions/filter';
+import * as filterActions from '../../reducers/filters/filtersSlice';
 
 describe('FederalState', () => {
   const user = userEvent.setup({ delay: null });
 
-  test('Options appear when user types and dispatches addMultipleFilters on selection', async () => {
-    const addMultipleFiltersSpy = jest
-      .spyOn(filterActions, 'addMultipleFilters')
+  test('Options appear when user types and dispatches multipleFiltersAdded on selection', async () => {
+    const multipleFiltersAddedSpy = jest
+      .spyOn(filterActions, 'multipleFiltersAdded')
       .mockImplementation(() => jest.fn());
 
     render(<FederalState />);
@@ -26,7 +26,7 @@ describe('FederalState', () => {
     await user.click(option);
 
     await waitFor(() =>
-      expect(addMultipleFiltersSpy).toBeCalledWith('state', ['MD']),
+      expect(multipleFiltersAddedSpy).toBeCalledWith('state', ['MD']),
     );
   });
 

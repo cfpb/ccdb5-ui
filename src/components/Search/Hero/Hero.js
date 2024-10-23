@@ -1,7 +1,7 @@
 import './Hero.scss';
 import { useDispatch } from 'react-redux';
 import { LINK_DATA_USE, MODAL_TYPE_MORE_ABOUT } from '../../../constants';
-import { showModal } from '../../../actions/view';
+import { modalShown } from '../../../reducers/view/viewSlice';
 
 export const Hero = () => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ export const Hero = () => {
           <button
             className="a-btn a-btn--link"
             onClick={() => {
-              dispatch(showModal(MODAL_TYPE_MORE_ABOUT));
+              dispatch(modalShown(MODAL_TYPE_MORE_ABOUT));
             }}
           >
             Things to know before you use this database

@@ -1,6 +1,6 @@
 import './ListPanel.scss';
 import '../../RefineBar/RefineBar.scss';
-import { changeSize, changeSort } from '../../../actions/paging';
+import { sizeChanged, sortChanged } from '../../../reducers/query/querySlice';
 import { sizes, sorts } from '../../../constants';
 import { ActionBar } from '../../ActionBar/ActionBar';
 import { ComplaintCard } from '../ComplaintCard/ComplaintCard';
@@ -36,7 +36,7 @@ export const ListPanel = () => {
   const hasError = useSelector(selectAggsHasError);
   const size = useSelector(selectQuerySize);
   const sort = useSelector(selectQuerySort);
-  const isLoading = useSelector(selectResultsActiveCall);
+  const activeCall = useSelector(selectResultsActiveCall);
   const items = useSelector(selectResultsItems);
   const width = useSelector(selectViewWidth);
 
@@ -45,13 +45,13 @@ export const ListPanel = () => {
   const onSize = (ev) => {
     const iSize = ev.target.value;
     sendAnalyticsEvent('Dropdown', iSize + ' results');
-    dispatch(changeSize(iSize));
+    dispatch(sizeChanged(iSize));
   };
 
   const onSort = (ev) => {
     const { value } = ev.target;
     sendAnalyticsEvent('Dropdown', sorts[value]);
-    dispatch(changeSort(value));
+    dispatch(sortChanged(value));
   };
 
   const _determinePhase = () => {
@@ -117,7 +117,7 @@ export const ListPanel = () => {
       </div>
       {renderMap[phase]()}
       <Pagination />
-      <Loading isLoading={!!isLoading} />
+      <Loading isLoading={activeCall !== ''} />
     </section>
   );
 };

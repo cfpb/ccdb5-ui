@@ -34,6 +34,8 @@ describe('Filter Panel', () => {
       fixture = { fixture: 'common/get-complaints-date-to.json' };
       cy.intercept(request, fixture).as('getComplaintsDateTo');
 
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(500);
       cy.log('is expanded');
 
       cy.get('#date_received-from').should('be.visible');

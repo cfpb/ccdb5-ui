@@ -1,6 +1,6 @@
 import './FilterPanelToggle.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterVisibilityToggled } from '../../actions/view';
+import { updateFilterVisibility } from '../../reducers/view/viewSlice';
 import { selectViewHasFilters } from '../../reducers/view/selectors';
 
 export const FilterPanelToggle = () => {
@@ -13,7 +13,7 @@ export const FilterPanelToggle = () => {
         <button
           className="a-btn"
           onClick={() => {
-            dispatch(filterVisibilityToggled());
+            dispatch(updateFilterVisibility());
           }}
         >
           {hasFilters ? 'Close Filters' : 'Filter results'}

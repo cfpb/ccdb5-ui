@@ -1,8 +1,8 @@
-import { coalesce } from '../../utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { NARRATIVE_SEARCH_FIELD } from '../../constants';
-import { toggleFlagFilter } from '../../actions/filter';
-import { selectQueryState } from '../../reducers/query/selectors';
+import { toggleFlagFilter } from '../../reducers/filters/filtersSlice';
+import { selectFiltersHasNarrative } from '../../reducers/filters/selectors';
+import { selectQuerySearchField } from '../../reducers/query/selectors';
 
 const FIELD_NAME = 'has_narrative';
 
@@ -11,14 +11,12 @@ const FILTERING = 'FILTERING';
 const NOTHING = 'NOTHING';
 
 // ----------------------------------------------------------------------------
+// The Class
 
 export const HasNarrative = () => {
   const dispatch = useDispatch();
-  const query = useSelector(selectQueryState);
-
-  const isChecked = coalesce(query, FIELD_NAME, false);
-  const searchField = query.searchField;
-
+  const isChecked = useSelector(selectFiltersHasNarrative);
+  const searchField = useSelector(selectQuerySearchField);
   let phase = NOTHING;
   if (searchField === NARRATIVE_SEARCH_FIELD) {
     phase = SEARCHING;
@@ -35,7 +33,9 @@ export const HasNarrative = () => {
           checked={phase !== NOTHING}
           disabled={phase === SEARCHING}
           id="filterHasNarrative"
-          onChange={() => dispatch(toggleFlagFilter(FIELD_NAME))}
+          onChange={() => {
+            dispatch(toggleFlagFilter(FIELD_NAME));
+          }}
           type="checkbox"
           value={FIELD_NAME}
         />

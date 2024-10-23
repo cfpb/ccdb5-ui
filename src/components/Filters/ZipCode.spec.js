@@ -5,7 +5,7 @@ import {
 } from '../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 import fetchMock from 'jest-fetch-mock';
-import * as filterActions from '../../actions/filter';
+import * as filterActions from '../../reducers/filters/filtersSlice';
 import { ZipCode } from './ZipCode';
 
 fetchMock.enableMocks();
@@ -21,8 +21,8 @@ describe('ZipCode', () => {
     fetch.mockResponseOnce(
       JSON.stringify(['22191', '22202', '22031', '22203', '22204']),
     );
-    const addMultipleFiltersSpy = jest
-      .spyOn(filterActions, 'addMultipleFilters')
+    const multipleFiltersAddedSpy = jest
+      .spyOn(filterActions, 'multipleFiltersAdded')
       .mockImplementation(() => jest.fn());
 
     render(<ZipCode />);
@@ -36,7 +36,7 @@ describe('ZipCode', () => {
     await user.click(option);
 
     await waitFor(() =>
-      expect(addMultipleFiltersSpy).toBeCalledWith('zip_code', ['22191']),
+      expect(multipleFiltersAddedSpy).toBeCalledWith('zip_code', ['22191']),
     );
   });
 });

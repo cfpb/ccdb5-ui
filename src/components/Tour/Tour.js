@@ -2,16 +2,16 @@ import './Tour.scss';
 import * as d3 from 'd3';
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectQueryTab } from '../../reducers/query/selectors';
 import {
   selectViewIsPrintMode,
   selectViewShowTour,
+  selectViewTab,
   selectViewWidth,
 } from '../../reducers/view/selectors';
 import { Steps } from 'intro.js-react';
 import { TOUR_STEPS } from './constants/tourStepsConstants';
 import { TourButton } from './TourButton';
-import { tourHidden } from '../../actions/view';
+import { tourHidden } from '../../reducers/view/viewSlice';
 import { selectAggsActiveCall } from '../../reducers/aggs/selectors';
 import { selectResultsActiveCall } from '../../reducers/results/selectors';
 import { selectMapActiveCall } from '../../reducers/map/selectors';
@@ -24,7 +24,7 @@ export const Tour = () => {
   const resultsLoading = useSelector(selectResultsActiveCall);
   const trendsLoading = useSelector(selectTrendsActiveCall);
   const showTour = useSelector(selectViewShowTour);
-  const tab = useSelector(selectQueryTab);
+  const tab = useSelector(selectViewTab);
   const isPrintMode = useSelector(selectViewIsPrintMode);
   const viewWidth = useSelector(selectViewWidth);
   const stepRef = useRef();
@@ -93,19 +93,6 @@ export const Tour = () => {
       expandable.dispatch('click');
     }
 
-    const callBack = () => {
-      steps.forEach((step, idx) => {
-        if (ref.current !== null) {
-          ref.current.updateStepElement(idx);
-        }
-      });
-    };
-    const waitOn = new MutationObserver(callBack);
-    waitOn.observe(document.querySelector('#ccdb-ui-root'), {
-      subtree: true,
-      childList: true,
-    });
-
     // Add listener to filter toggle if it's mobile and at step 4 or 7
     const filterListener = () => {
       // Make sure next button isn't being hidden from steps 3 or 7
@@ -157,6 +144,15 @@ export const Tour = () => {
     return true;
   }
 
+  /**
+   * wrapper function to only hide tour when it is visible
+   */
+  function hideTour() {
+    if (showTour) {
+      dispatch(tourHidden());
+    }
+  }
+
   return isPrintMode || isLoading ? null : (
     // eslint-disable-next-line react/react-in-jsx-scope
     <>
@@ -165,7 +161,7 @@ export const Tour = () => {
         enabled={showTour}
         initialStep={0}
         steps={steps}
-        onExit={() => dispatch(tourHidden())}
+        onExit={() => hideTour()}
         options={options}
         onBeforeChange={() => handleBeforeChange(stepRef)}
         onBeforeExit={() => handleBeforeExit(stepRef)}

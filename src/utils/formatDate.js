@@ -13,9 +13,16 @@ dayjs.extend(dayjsUtc);
  * @param {(string | object)} uglyDate - the input string to convert
  * @returns {string} the cleaned up string in YYYY-MM-DD
  */
-export const formatDate = (uglyDate) =>
-  dayjs(new Date(uglyDate)).format('YYYY-MM-DD');
+export const formatDate = (uglyDate) => {
+  if (!uglyDate || (typeof uglyDate === 'string' && uglyDate.length === 10)) {
+    return uglyDate;
+  }
+  return dayjs(new Date(uglyDate)).format('YYYY-MM-DD');
+};
 
+export const formatDisplayDate = (dateString) => {
+  return dayjs(new Date(dateString)).utc().format('M/D/YYYY');
+};
 /**
  * adjusting dates coming from the charts so the dates are correct
  *
@@ -34,6 +41,7 @@ export const adjustDate = (dateIn) =>
 export const formatDateModel = (dateIn) =>
   dayjs(new Date(dateIn)).utc().add(5.5, 'hours').format('YYYY-MM-DD');
 
+export const formatDateIso = (dateIn) => dayjs(dateIn).toISOString();
 /**
  * Function to format/convert a string to format we want for the model
  *

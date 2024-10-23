@@ -1,12 +1,12 @@
 import './TabbedNavigation.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import getIcon from './iconMap';
-import { selectQueryTab } from '../reducers/query/selectors';
-import { tabChanged } from '../actions/view';
+import { selectViewTab } from '../reducers/view/selectors';
+import { tabChanged } from '../reducers/view/viewSlice';
 
 export const TabbedNavigation = () => {
   const dispatch = useDispatch();
-  const tab = useSelector(selectQueryTab);
+  const tab = useSelector(selectViewTab);
 
   const getTabClass = (selectedTab) => {
     const tabName = selectedTab.toLowerCase() + ' tab';

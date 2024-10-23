@@ -1,15 +1,15 @@
 import './TrendDepthToggle.scss';
-import { changeDepth, resetDepth } from '../../actions/trends';
+import { depthChanged, depthReset } from '../../reducers/trends/trendsSlice';
 import { clamp, coalesce } from '../../utils';
 import { SLUG_SEPARATOR } from '../../constants';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  selectQueryFocus,
-  selectQueryLens,
-} from '../../reducers/query/selectors';
-import { selectAggsState } from '../../reducers/aggs/selectors';
-import { selectQueryState } from '../../reducers/query/selectors';
-import { selectTrendsResults } from '../../reducers/trends/selectors';
+  selectTrendsFocus,
+  selectTrendsLens,
+  selectTrendsResults,
+} from '../../reducers/trends/selectors';
+import { selectAggsRoot } from '../../reducers/aggs/selectors';
+import { selectFiltersRoot } from '../../reducers/filters/selectors';
 
 const maxRows = 5;
 const lensMap = {
@@ -27,13 +27,12 @@ const showMore = (filterCount, resultCount) => {
   // or more filters count > max Rows and they aren't the same (visible)
   return filterCount > maxRows && filterCount !== resultCount;
 };
-
 export const TrendDepthToggle = () => {
   const dispatch = useDispatch();
-  const aggs = useSelector(selectAggsState);
-  const query = useSelector(selectQueryState);
-  const focus = useSelector(selectQueryFocus);
-  const lens = useSelector(selectQueryLens);
+  const aggs = useSelector(selectAggsRoot);
+  const filters = useSelector(selectFiltersRoot);
+  const focus = useSelector(selectTrendsFocus);
+  const lens = useSelector(selectTrendsLens);
   const results = useSelector(selectTrendsResults);
   const lensKey = lensMap[lens];
   const resultCount = coalesce(results, lensKey, []).filter(
@@ -45,16 +44,17 @@ export const TrendDepthToggle = () => {
   if (lensKey === 'product') {
     totalResultsLength = coalesce(aggs, lensKey, []).length;
   } else {
-    totalResultsLength = clamp(coalesce(query, lensKey, []).length, 0, 10);
+    totalResultsLength = clamp(coalesce(filters, lensKey, []).length, 0, 10);
   }
 
   // handle cases where some specified filters are selected
-  const queryCount = query[lensKey]
-    ? query[lensKey].filter((obj) => obj.indexOf(SLUG_SEPARATOR) === -1).length
+  const filterCount = filters[lensKey]
+    ? filters[lensKey].filter((obj) => obj.indexOf(SLUG_SEPARATOR) === -1)
+        .length
     : totalResultsLength;
 
   const diff = totalResultsLength - resultCount;
-  const hasToggle = showToggle(lens, focus, totalResultsLength, queryCount);
+  const hasToggle = showToggle(totalResultsLength, filterCount);
 
   // hide on Overview and Focus pages
   if (focus || lens === 'Overview') {
@@ -62,14 +62,14 @@ export const TrendDepthToggle = () => {
   }
 
   if (hasToggle) {
-    if (showMore(queryCount, resultCount)) {
+    if (showMore(filterCount, resultCount)) {
       return (
         <div className="trend-depth-toggle">
           <button
             className="a-btn a-btn--link"
             id="trend-depth-button"
             onClick={() => {
-              dispatch(changeDepth(diff + 5));
+              dispatch(depthChanged(diff + 5));
             }}
           >
             <span className="plus" />
@@ -84,7 +84,7 @@ export const TrendDepthToggle = () => {
           className="a-btn a-btn--link"
           id="trend-depth-button"
           onClick={() => {
-            dispatch(resetDepth());
+            dispatch(depthReset());
           }}
         >
           <span className="minus" />
@@ -98,17 +98,15 @@ export const TrendDepthToggle = () => {
 /**
  * helper containing logic to determine when to show the toggle
  *
- * @param {string} lens - selected value
- * @param {string} focus - which focus we are on
  * @param {number} resultCount - count coming from trends results
- * @param {number} queryCount - count from filters
+ * @param {number} filterCount - count from filters
  * @returns {boolean} whether to display the toggle
  */
-export const showToggle = (lens, focus, resultCount, queryCount) => {
-  // hide on Overview and Focus pages
-  if (lens === 'Overview' || focus) {
+export const showToggle = (resultCount, filterCount) => {
+  // if the filters are selected, show the toggle if they selected more than 5 filters
+  if (filterCount > 0 && filterCount <= 5) {
     return false;
   }
 
-  return resultCount > 5 || queryCount > 5;
+  return resultCount > 5 || filterCount > 5;
 };

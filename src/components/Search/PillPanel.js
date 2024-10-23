@@ -1,33 +1,37 @@
 import './PillPanel.scss';
 import { DATE_RANGE_MIN, knownFilters } from '../../constants';
 
+import { selectFiltersHasNarrative } from '../../reducers/filters/selectors';
 import {
   selectQueryDateReceivedMax,
   selectQueryDateReceivedMin,
-  selectQueryHasNarrative,
-  selectQueryState,
+  selectQuerySearchField,
 } from '../../reducers/query/selectors';
 
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import getIcon from '../iconMap';
 import { Pill } from './Pill';
-import { removeAllFilters } from '../../actions/filter';
+import { filtersCleared } from '../../reducers/filters/filtersSlice';
 import { startOfToday } from '../../utils';
+import { selectFiltersRoot } from '../../reducers/filters/selectors';
 
 /* eslint complexity: ["error", 5] */
 export const PillPanel = () => {
   const dispatch = useDispatch();
-  const query = useSelector(selectQueryState);
+  const filterState = useSelector(selectFiltersRoot);
+  const hasNarrative = useSelector(selectFiltersHasNarrative);
+
   const dateReceivedMin = useSelector(selectQueryDateReceivedMin);
   const dateReceivedMax = useSelector(selectQueryDateReceivedMax);
-  const hasNarrative = useSelector(selectQueryHasNarrative);
+  const searchField = useSelector(selectQuerySearchField);
+
   const filters = knownFilters
     // Only use the known filters that are in the query
-    .filter((filter) => filter in query)
+    .filter((filter) => filter in filterState)
     // Create a flattened array of pill objects
     .reduce((accum, fieldName) => {
-      const arr = query[fieldName].map((value) => ({ fieldName, value }));
+      const arr = filterState[fieldName].map((value) => ({ fieldName, value }));
       return accum.concat(arr);
     }, []);
 
@@ -72,7 +76,7 @@ export const PillPanel = () => {
         <li className="clear-all">
           <button
             className="a-btn a-btn--link body-copy"
-            onClick={() => dispatch(removeAllFilters())}
+            onClick={() => dispatch(filtersCleared(searchField))}
           >
             {getIcon('delete')}
             Clear all filters

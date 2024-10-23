@@ -29,7 +29,7 @@ describe('api::sendHitsQuery', () => {
     });
 
     it('executes a specific chain of actions in Map mode', () => {
-      fixtureStore.query.tab = constants.MODE_MAP;
+      fixtureStore.view.tab = constants.MODE_MAP;
       spy1 = jest
         .spyOn(sutComplaints, 'getStates')
         .mockImplementation(() => jest.fn());
@@ -40,7 +40,7 @@ describe('api::sendHitsQuery', () => {
     });
 
     it('executes a specific chain of actions in List Complaints mode', () => {
-      fixtureStore.query.tab = constants.MODE_LIST;
+      fixtureStore.view.tab = constants.MODE_LIST;
       spy1 = jest
         .spyOn(sutComplaints, 'getComplaints')
         .mockImplementation(() => jest.fn());
@@ -51,7 +51,7 @@ describe('api::sendHitsQuery', () => {
     });
 
     it('executes a specific set of actions in Trends mode', () => {
-      fixtureStore.query.tab = constants.MODE_TRENDS;
+      fixtureStore.view.tab = constants.MODE_TRENDS;
       spy1 = jest
         .spyOn(sutComplaints, 'getTrends')
         .mockImplementation(() => jest.fn());
@@ -59,6 +59,16 @@ describe('api::sendHitsQuery', () => {
       sutHits.sendHitsQuery()(dispatch, getState);
       expect(dispatch.mock.calls.length).toEqual(1);
       expect(spy1).toHaveBeenCalledTimes(1);
+    });
+    it('ignores unknown modes', () => {
+      fixtureStore.view.tab = 'foo';
+      spy1 = jest
+        .spyOn(sutComplaints, 'getTrends')
+        .mockImplementation(() => jest.fn());
+
+      sutHits.sendHitsQuery()(dispatch, getState);
+      expect(dispatch.mock.calls.length).toEqual(0);
+      expect(spy1).toHaveBeenCalledTimes(0);
     });
   });
 });

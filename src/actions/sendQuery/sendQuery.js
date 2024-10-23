@@ -11,7 +11,7 @@ export function sendQuery() {
   // eslint-disable-next-line complexity
   return (dispatch, getState) => {
     const state = getState();
-    const viewMode = state.query.tab;
+    const viewMode = state.view.tab;
     switch (viewMode) {
       case constants.MODE_MAP:
       case constants.MODE_LIST:

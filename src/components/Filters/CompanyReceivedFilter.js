@@ -7,13 +7,13 @@ import {
   selectQueryCompanyReceivedMin,
 } from '../../reducers/query/selectors';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeDates } from '../../actions/filter';
 import { CollapsibleFilter } from './CollapsibleFilter/CollapsibleFilter';
 import dayjs from 'dayjs';
 import dayjsCustomParseFormat from 'dayjs/plugin/customParseFormat';
 import dayjsIsBetween from 'dayjs/plugin/isBetween';
 import { formatDate } from '../../utils/formatDate';
 import getIcon from '../iconMap';
+import { datesChanged } from '../../reducers/query/querySlice';
 
 dayjs.extend(dayjsCustomParseFormat);
 dayjs.extend(dayjsIsBetween);
@@ -23,7 +23,6 @@ export const CompanyReceivedFilter = () => {
   const title = 'The date the CFPB sent the complaint to the company';
   const dateFrom = useSelector(selectQueryCompanyReceivedMin);
   const dateThrough = useSelector(selectQueryCompanyReceivedMax);
-
   const initialFromDate = dayjs(dateFrom).isValid() ? formatDate(dateFrom) : '';
   const initialThroughDate = dayjs(dateThrough).isValid()
     ? formatDate(dateThrough)
@@ -96,7 +95,7 @@ export const CompanyReceivedFilter = () => {
     const isDateDifferent =
       dateFrom !== _fromDate || dateThrough !== _throughDate;
     if (isDateDifferent) {
-      dispatch(changeDates(fieldName, _fromDate, _throughDate));
+      dispatch(datesChanged(fieldName, _fromDate, _throughDate));
     }
   };
 

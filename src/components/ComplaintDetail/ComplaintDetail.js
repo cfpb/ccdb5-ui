@@ -10,9 +10,10 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import { getComplaintDetail } from '../../actions/complaints';
 import getIcon from '../iconMap';
 import { Loading } from '../Loading/Loading';
-import { selectQuerySearch } from '../../reducers/query/selectors';
+import { selectRoutesParams } from '../../reducers/routes/selectors';
 import { ComplaintDetailBody } from './ComplaintDetailBody';
 import { LINK_DATA_USE } from '../../constants';
+import { formatUri } from '../../api/url/url';
 
 export const ComplaintDetail = () => {
   const location = useLocation();
@@ -21,7 +22,7 @@ export const ComplaintDetail = () => {
   const data = useSelector(selectDetailData);
   const error = useSelector(selectDetailError);
   const activeCall = useSelector(selectDetailActiveCall);
-  const search = useSelector(selectQuerySearch);
+  const params = useSelector(selectRoutesParams);
 
   const isLoading = activeCall !== '';
   const backUrl = useMemo(() => {
@@ -32,8 +33,8 @@ export const ComplaintDetail = () => {
 
     const pathName = location.pathname;
     const idx = pathName.indexOf('detail');
-    return pathName.substring(0, idx) + search;
-  }, [location, search]);
+    return formatUri(pathName.substring(0, idx), params);
+  }, [location, params]);
 
   useEffect(() => {
     dispatch(getComplaintDetail(id));

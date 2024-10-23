@@ -1,43 +1,47 @@
 import './TileChartMap.scss';
-import { addStateFilter, removeStateFilter } from '../../../actions/map';
-import { cloneDeep, coalesce, sendAnalyticsEvent } from '../../../utils';
+import {
+  stateFilterAdded,
+  stateFilterRemoved,
+} from '../../../reducers/filters/filtersSlice';
+import { coalesce, sendAnalyticsEvent } from '../../../utils';
 import { GEO_NORM_NONE, STATE_DATA } from '../../../constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCallback, useEffect, useMemo } from 'react';
 import TileMap from './TileMap';
 import { selectMapResultsState } from '../../../reducers/map/selectors';
-
 import {
-  selectQueryDataNormalization,
-  selectQueryStateFilters,
-} from '../../../reducers/query/selectors';
+  selectFiltersDataNormalization,
+  selectFiltersState,
+} from '../../../reducers/filters/selectors';
 
 import {
   selectViewIsPrintMode,
   selectViewWidth,
 } from '../../../reducers/view/selectors';
+import cloneDeep from 'lodash/cloneDeep';
 
 export const TileChartMap = () => {
   const dispatch = useDispatch();
-  const dataNormalization = useSelector(selectQueryDataNormalization);
-  const stateFilters = useSelector(selectQueryStateFilters);
+  const dataNormalization = useSelector(selectFiltersDataNormalization);
+  const stateFilters = useSelector(selectFiltersState);
   const stateMapResultsState = useSelector(selectMapResultsState);
+  const isPrintMode = useSelector(selectViewIsPrintMode);
+  const width = useSelector(selectViewWidth);
+
   const data = useMemo(() => {
-    const newData = cloneDeep(stateMapResultsState);
-    return newData.map((state) => {
+    return stateMapResultsState.map((state) => {
+      const newState = cloneDeep(state);
       const stateInfo = coalesce(STATE_DATA, state.name, {
         name: '',
         population: 1,
       });
-      state.abbr = state.name;
-      state.fullName = stateInfo.name;
-      state.perCapita = getPerCapita(state, stateInfo);
-      return state;
+      newState.abbr = newState.name;
+      newState.fullName = stateInfo.name;
+      newState.perCapita = getPerCapita(newState, stateInfo);
+      return newState;
     });
   }, [stateMapResultsState]);
 
-  const isPrintMode = useSelector(selectViewIsPrintMode);
-  const width = useSelector(selectViewWidth);
   const hasTip = !isPrintMode;
   const _toggleState = useCallback(
     (event) => {
@@ -52,10 +56,10 @@ export const TileChartMap = () => {
       };
       if (stateFilters && stateFilters.includes(abbr)) {
         sendAnalyticsEvent('State Event: remove', selectedState.abbr);
-        dispatch(removeStateFilter(selectedState));
+        dispatch(stateFilterRemoved(selectedState));
       } else {
         sendAnalyticsEvent('State Event: add', selectedState.abbr);
-        dispatch(addStateFilter(selectedState));
+        dispatch(stateFilterAdded(selectedState));
       }
     },
     [stateFilters, dispatch],

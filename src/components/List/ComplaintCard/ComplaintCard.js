@@ -1,7 +1,8 @@
 import './ComplaintCard.scss';
-import { ariaReadoutNumbers, shortFormat } from '../../../utils';
+import { ariaReadoutNumbers } from '../../../utils';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { formatDisplayDate } from '../../../utils/formatDate';
 
 const MAX_NARRATIVE = 300;
 
@@ -25,8 +26,7 @@ export const ComplaintCard = ({ row }) => {
 
     return narrative ? (
       <div>
-        <br />
-        <h4>Consumer Complaint Narrative</h4>
+        <h4 className="u-mt15">Consumer Complaint Narrative</h4>
         {_renderPossibleHighlight(narrative)}
         {hasOverflow ? (
           <span>
@@ -52,11 +52,9 @@ export const ComplaintCard = ({ row }) => {
           </h3>
           <h4>Company name</h4>
           {_renderPossibleHighlight(row.company)}
-          <br />
-          <h4>Company response to consumer</h4>
+          <h4 className="u-mt15">Company response to consumer</h4>
           {_renderPossibleHighlight(row.company_response)}
-          <br />
-          <h4>Timely response?</h4>
+          <h4 className="u-mt15">Timely response?</h4>
           {_renderPossibleHighlight(row.timely)}
         </div>
         <div className="card-right layout-column">
@@ -64,17 +62,16 @@ export const ComplaintCard = ({ row }) => {
             <div className="layout-row">
               <h4>Date received:</h4>
               <span className="body-copy">
-                {shortFormat(row.date_received)}
+                {formatDisplayDate(row.date_received)}
               </span>
             </div>
             <div className="spacer" />
             <div className="layout-row">
-              <h4>Consumer&apos;s state:</h4>
+              <h4>Consumer’s state:</h4>
               {_renderPossibleHighlight(row.state)}
             </div>
           </div>
-          <br />
-          <h4>Product</h4>
+          <h4 className="u-mt15">Product</h4>
           <h3 dangerouslySetInnerHTML={{ __html: row.product }} />
           {row.sub_product ? (
             <div className="layout-row">
@@ -82,8 +79,7 @@ export const ComplaintCard = ({ row }) => {
               {_renderPossibleHighlight(row.sub_product)}
             </div>
           ) : null}
-          <br />
-          <h4>Issue</h4>
+          <h4 className="u-mt15">Issue</h4>
           <h3 dangerouslySetInnerHTML={{ __html: row.issue }} />
           {row.sub_issue ? (
             <div className="layout-row">

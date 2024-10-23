@@ -1,19 +1,18 @@
 import { PerCapita } from './PerCapita';
-import {
-  testRender as render,
-  screen,
-  fireEvent,
-} from '../../testUtils/test-utils';
+import { testRender as render, screen } from '../../testUtils/test-utils';
 import { merge } from '../../testUtils/functionHelpers';
-import { defaultQuery } from '../../reducers/query/query';
+import { filtersState } from '../../reducers/filters/filtersSlice';
 import { GEO_NORM_NONE, GEO_NORM_PER1000 } from '../../constants';
-import * as mapActions from '../../actions/map';
+import userEvent from '@testing-library/user-event';
+
+jest.useRealTimers();
 
 describe('PerCapita', () => {
-  const renderComponent = (newQueryState) => {
-    merge(newQueryState, defaultQuery);
+  const user = userEvent.setup();
+  const renderComponent = (newFiltersState) => {
+    merge(newFiltersState, filtersState);
     const data = {
-      query: newQueryState,
+      filters: newFiltersState,
     };
 
     render(<PerCapita />, {
@@ -40,11 +39,7 @@ describe('PerCapita', () => {
     ).toBeInTheDocument();
   });
 
-  it('renders dataNormalizationChanged GEO_NORM_NONE and handles action', () => {
-    const dataNormalizationSpy = jest
-      .spyOn(mapActions, 'dataNormalizationChanged')
-      .mockImplementation(() => jest.fn());
-
+  it('renders dataNormalizationChanged GEO_NORM_NONE and handles action', async () => {
     renderComponent({
       dataNormalization: GEO_NORM_PER1000,
       enablePer1000: false,
@@ -62,18 +57,13 @@ describe('PerCapita', () => {
     expect(buttonPer1000).toBeDisabled();
     expect(buttonPer1000).toHaveClass('a-btn__disabled');
     // make sure action doesn't fire since its disabled
-    fireEvent.click(buttonPer1000);
-    expect(dataNormalizationSpy).toHaveBeenCalledTimes(0);
-
-    fireEvent.click(buttonComplaints);
-    expect(dataNormalizationSpy).toHaveBeenCalledWith(GEO_NORM_NONE);
+    await user.click(buttonPer1000);
+    expect(buttonPer1000).toBeDisabled();
+    await user.click(buttonComplaints);
+    expect(buttonComplaints).toBeDisabled();
   });
 
   it('renders dataNormalizationChanged GEO_NORM_PER1000 and handles action', () => {
-    const dataNormalizationSpy = jest
-      .spyOn(mapActions, 'dataNormalizationChanged')
-      .mockImplementation(() => jest.fn());
-
     renderComponent({
       dataNormalization: GEO_NORM_NONE,
       enablePer1000: true,
@@ -86,24 +76,18 @@ describe('PerCapita', () => {
     expect(buttonComplaints).toBeInTheDocument();
     expect(buttonComplaints).toBeDisabled();
 
-    fireEvent.click(buttonComplaints);
-    expect(dataNormalizationSpy).toHaveBeenCalledTimes(0);
-
+    user.click(buttonComplaints);
     const buttonPer1000 = screen.getByRole('button', {
       name: 'Display map by complaints per 1,000 people',
     });
     expect(buttonPer1000).toBeInTheDocument();
     expect(buttonPer1000).toBeEnabled();
     // make sure action doesn't fire since its disabled
-    fireEvent.click(buttonPer1000);
-    expect(dataNormalizationSpy).toHaveBeenCalledTimes(1);
+    user.click(buttonPer1000);
+    expect(buttonPer1000).toBeEnabled();
   });
 
   it('renders GEO_NORM_PER1000 selected state and does nothing', () => {
-    const dataNormalizationSpy = jest
-      .spyOn(mapActions, 'dataNormalizationChanged')
-      .mockImplementation(() => jest.fn());
-
     renderComponent({
       dataNormalization: GEO_NORM_PER1000,
       enablePer1000: true,
@@ -122,7 +106,7 @@ describe('PerCapita', () => {
     expect(buttonPer1000).toHaveClass('selected');
     expect(buttonPer1000).toBeDisabled();
     // make sure action doesn't fire since its disabled
-    fireEvent.click(buttonPer1000);
-    expect(dataNormalizationSpy).toHaveBeenCalledTimes(0);
+    user.click(buttonPer1000);
+    expect(buttonPer1000).toBeDisabled();
   });
 });

@@ -10,7 +10,7 @@ export function sendHitsQuery() {
   // eslint-disable-next-line complexity
   return (dispatch, getState) => {
     const state = getState();
-    const viewMode = state.query.tab;
+    const viewMode = state.view.tab;
     switch (viewMode) {
       case constants.MODE_MAP:
         dispatch(actions.getStates());

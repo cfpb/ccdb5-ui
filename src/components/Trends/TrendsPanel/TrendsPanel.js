@@ -5,12 +5,9 @@ import './TrendsPanel.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { lenses } from '../../../constants';
 import {
-  selectQueryCompany,
   selectQueryDateReceivedMin,
   selectQueryDateReceivedMax,
   selectQueryDateInterval,
-  selectQueryLens,
-  selectQuerySubLens,
   selectQueryTrendsDateWarningEnabled,
 } from '../../../reducers/query/selectors';
 import {
@@ -18,18 +15,21 @@ import {
   selectTrendsChartType,
   selectTrendsColorMap,
   selectTrendsFocus,
+  selectTrendsLens,
   selectTrendsResults,
+  selectTrendsSubLens,
   selectTrendsTotal,
 } from '../../../reducers/trends/selectors';
 import {
   selectViewExpandedRows,
   selectViewWidth,
 } from '../../../reducers/view/selectors';
-import { trendsDateWarningDismissed } from '../../../actions/view';
-import { changeDateInterval } from '../../../actions/filter';
-import { changeDataLens } from '../../../actions/trends';
+import {
+  dateIntervalChanged,
+  trendsDateWarningDismissed,
+} from '../../../reducers/query/querySlice';
 import { processRows } from '../../../utils/chart';
-import { shortFormat, sendAnalyticsEvent } from '../../../utils';
+import { sendAnalyticsEvent } from '../../../utils';
 import { showCompanyOverLay, getIntervals } from '../../../utils/trends';
 import { ActionBar } from '../../ActionBar/ActionBar';
 import { TabbedNavigation } from '../../TabbedNavigation';
@@ -48,6 +48,9 @@ import { ExternalTooltip } from '../ExternalTooltip/ExternalTooltip';
 import { TrendDepthToggle } from '../TrendDepthToggle';
 import { Loading } from '../../Loading/Loading';
 import { LensTabs } from '../LensTabs';
+import { selectFiltersCompany } from '../../../reducers/filters/selectors';
+import { dataLensChanged } from '../../../reducers/trends/trendsSlice';
+import { formatDisplayDate } from '../../../utils/formatDate';
 
 const WARNING_MESSAGE =
   '“Day” interval is disabled when the date range is longer than one year';
@@ -85,21 +88,24 @@ const focusHelperTextMap = {
 
 export const TrendsPanel = () => {
   const dispatch = useDispatch();
-  const companyFilters = useSelector(selectQueryCompany);
+  const companyFilters = useSelector(selectFiltersCompany);
+
   const dateInterval = useSelector(selectQueryDateInterval);
   const dateReceivedMin = useSelector(selectQueryDateReceivedMin);
   const dateReceivedMax = useSelector(selectQueryDateReceivedMax);
-  const lens = useSelector(selectQueryLens);
-  const subLens = useSelector(selectQuerySubLens);
   const isTrendsDateWarningEnabled = useSelector(
     selectQueryTrendsDateWarningEnabled,
   );
+
   const chartType = useSelector(selectTrendsChartType);
   const colorMap = useSelector(selectTrendsColorMap);
   const focus = useSelector(selectTrendsFocus);
+  const lens = useSelector(selectTrendsLens);
+  const subLens = useSelector(selectTrendsSubLens);
   const isLoading = useSelector(selectTrendsActiveCall);
   const results = useSelector(selectTrendsResults);
   const total = useSelector(selectTrendsTotal);
+
   const expandedRows = useSelector(selectViewExpandedRows);
   const width = useSelector(selectViewWidth);
 
@@ -124,8 +130,8 @@ export const TrendsPanel = () => {
     lens,
     expandedRows,
   );
-  const minDate = shortFormat(dateReceivedMin);
-  const maxDate = shortFormat(dateReceivedMax);
+  const minDate = formatDisplayDate(dateReceivedMin);
+  const maxDate = formatDisplayDate(dateReceivedMax);
   const hasOverview = lens === 'Overview';
   const hasMobileFilters = width < 750;
   const subLensTitle =
@@ -138,13 +144,13 @@ export const TrendsPanel = () => {
   const onInterval = (ev) => {
     const { value } = ev.target;
     sendAnalyticsEvent('Dropdown', 'Trends:' + value);
-    dispatch(changeDateInterval(value));
+    dispatch(dateIntervalChanged(value));
   };
 
   const onLens = (ev) => {
     const { value } = ev.target;
     sendAnalyticsEvent('Dropdown', 'Trends:' + value);
-    dispatch(changeDataLens(value));
+    dispatch(dataLensChanged(value));
   };
 
   const areaChartTitle = () => {
@@ -243,7 +249,6 @@ export const TrendsPanel = () => {
             ]
           : null}
       </div>
-
       {hasCompanyOverlay ? (
         <div className="layout-row company-overlay">
           <section className="company-search">
@@ -255,9 +260,7 @@ export const TrendsPanel = () => {
           </section>
         </div>
       ) : null}
-
       {focus ? <FocusHeader /> : null}
-
       {!hasCompanyOverlay && hasOverview && total > 0 ? (
         <div className="layout-row">
           <section className="chart-description">
@@ -270,7 +273,6 @@ export const TrendsPanel = () => {
           </section>
         </div>
       ) : null}
-
       {!hasCompanyOverlay && !hasOverview && total > 0 ? (
         <div className="layout-row">
           <section className="chart-description">
@@ -285,7 +287,6 @@ export const TrendsPanel = () => {
           </section>
         </div>
       ) : null}
-
       {!hasCompanyOverlay && total > 0 ? (
         <>
           <div className="layout-row date-range-disclaimer">
@@ -302,7 +303,6 @@ export const TrendsPanel = () => {
           </div>
         </>
       ) : null}
-
       {total > 0 && phaseMap()}
       <TrendDepthToggle />
       <Loading isLoading={!!isLoading} />

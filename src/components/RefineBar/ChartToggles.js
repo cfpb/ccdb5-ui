@@ -1,5 +1,5 @@
 import './ChartToggles.scss';
-import { changeChartType } from '../../actions/trends';
+import { chartTypeUpdated } from '../../reducers/trends/trendsSlice';
 import getIcon from '../iconMap';
 import { selectedClass, sendAnalyticsEvent } from '../../utils';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,7 +11,7 @@ export const ChartToggles = () => {
 
   const toggleChartType = (chartType) => {
     sendAnalyticsEvent('Button', 'Trends:' + chartType);
-    dispatch(changeChartType(chartType));
+    dispatch(chartTypeUpdated(chartType));
   };
 
   return (

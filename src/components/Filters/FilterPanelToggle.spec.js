@@ -1,11 +1,11 @@
 import { FilterPanelToggle } from './FilterPanelToggle';
 import { merge } from '../../testUtils/functionHelpers';
-import { defaultView } from '../../reducers/view/view';
+import { viewState } from '../../reducers/view/viewSlice';
 import { testRender as render, screen } from '../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 
 const renderComponent = (newViewState) => {
-  merge(newViewState, defaultView);
+  merge(newViewState, viewState);
 
   const data = {
     view: newViewState,

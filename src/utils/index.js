@@ -24,7 +24,7 @@ export function ariaReadoutNumbers(digits) {
 export const calculateDateRange = (minDate, maxDate) => {
   // only check intervals if the end date is today
   // round off the date so the partial times don't mess up calculations
-  const today = startOfToday();
+  const today = dayjs(startOfToday());
   const end = dayjs(maxDate).startOf('day');
   const start = dayjs(minDate).startOf('day');
 
@@ -54,20 +54,23 @@ export const calculateDateRange = (minDate, maxDate) => {
 };
 
 /**
- * Function to set the limit of the range of a set of numbers
+ * Clamps number within the inclusive lower and upper bounds.
+ * https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_clamp
  *
- * @param {number} num - value we are checking
- * @param {number} min - smallest number it can me
- * @param {number} max - biggest number it can be
- * @returns {*}the limited value
+ * @param {number} number - The value we are checking.
+ * @param {number} boundOne - The lower bound we don't want to go before.
+ * @param {number} boundTwo - The upper bound we can't go past.
+ * @returns {number} The clamped number.
  */
-export const clamp = (num, min, max) => {
-  if (num < min) {
-    num = min;
-  } else if (num > max) {
-    num = max;
+export const clamp = (number, boundOne, boundTwo) => {
+  if (!boundTwo) {
+    return Math.max(number, boundOne) === boundOne ? boundOne : number;
+  } else if (Math.min(number, boundOne) === number) {
+    return boundOne;
+  } else if (Math.max(number, boundTwo) === number) {
+    return boundTwo;
   }
-  return num;
+  return number;
 };
 
 /**
@@ -141,11 +144,11 @@ export function hashCode(someString) {
  * disable the Per 1000 Complaints button
  * enable per1000 if the only filter selected is state
  *
- * @param {object} query - contains values for the filters, etc
+ * @param {object} filters - reducer contains values for the filters, etc
  * @returns {boolean} are we enabling the perCap
  */
 // eslint-disable-next-line complexity,require-jsdoc
-export function enablePer1000(query) {
+export function enablePer1000(filters) {
   const keys = [];
   let filter;
   const allFilters = knownFilters.concat(flagFilters);
@@ -154,8 +157,8 @@ export function enablePer1000(query) {
     filter = allFilters[index];
     // eslint-disable-next-line no-mixed-operators
     if (
-      (Array.isArray(query[filter]) && query[filter].length) ||
-      query[filter] === true
+      (Array.isArray(filters[filter]) && filters[filter].length) ||
+      filters[filter] === true
     ) {
       keys.push(filter);
     }
@@ -163,27 +166,19 @@ export function enablePer1000(query) {
   const compReceivedFilters = ['company_received_max', 'company_received_min'];
   for (let index = 0; index < compReceivedFilters.length; index++) {
     filter = compReceivedFilters[index];
-    if (query[filter]) {
+    if (filters[filter]) {
       keys.push(filter);
     }
   }
 
   if (keys.length) {
+    // normalization still okay as long as only State filters are applied
     return keys.length === 1 && keys[0] === 'state';
   }
 
   return true;
 }
 
-/**
- * Creates a hash from an object
- *
- * @param {string} obj - the object to hash
- * @returns {string} a hashing of the object
- */
-export function hashObject(obj) {
-  return hashCode(JSON.stringify(obj));
-}
 export const normalize = (str) => str.toLowerCase();
 
 /**
@@ -257,20 +252,22 @@ export function shortFormat(date) {
 /**
  * Convert a date to a truncated ISO-8601 string
  *
- * @param {Date} value - the date to convert
+ * @param {string | object | Date} date - the date to convert
  * @returns {string} the date formatted as yyyy-mm-ddd
  */
-export function shortIsoFormat(value) {
-  if (value instanceof Date && !isNaN(value)) {
-    return value.toISOString().substring(0, 10);
+export function shortIsoFormat(date) {
+  if (typeof date === 'string') {
+    return date.slice(0, 10);
+  } else if (typeof date === 'object' && date !== null) {
+    return dayjs(date).toISOString().slice(0, 10);
   }
-  return value ? value : '';
+  return '';
 }
 
 /**
  * Gets the UTC time for the beginning of the day in the local time zone
  *
- * @returns {Date} midnight today, local
+ * @returns {string} midnight today, local
  */
 export function startOfToday() {
   if (!Object.prototype.hasOwnProperty.call(window, 'MAX_DATE')) {
@@ -316,29 +313,6 @@ export function debounce(func, wait, immediate) {
   };
 }
 
-// ----------------------------------------------------------------------------
-// attribution: lodash.js (Creative Commons License)
-
-/**
- * Binds methods of an object to the object itself, overwriting the existing
- * method
- *
- * @param {object} obj - The object to bind and assign the bound methods to.
- * @param {...(string|string[])} methodNames - The object method names to bind,
- *  specified individually or in arrays.
- * @returns {object} the updated object
- */
-export function bindAll(obj, methodNames) {
-  const length = methodNames.length;
-  for (let index = 0; index < length; index++) {
-    const key = methodNames[index];
-    obj[key] = obj[key].bind(obj);
-  }
-  return obj;
-}
-
-// ----------------------------------------------------------------------------
-
 /**
  * Makes sure that a URI has host, protocol, etc.
  *
@@ -364,7 +338,6 @@ export function processErrorMessage(err) {
   return {
     name: err.name,
     message: err.message,
-    stack: err.stack,
   };
 }
 
@@ -400,19 +373,25 @@ export const getSubKeyName = (bucket) => {
  * set the values in the processed object
  *
  * @param {object} params - the object from the URL_CHANGED action
- * @param {object} processed - the state we will update with a single value or arr
+ * @param {object} state - the state we will update with a single value or arr
  * @param {object} arrayParams - the array of strings that we will check against
  */
-export const processUrlArrayParams = (params, processed, arrayParams) => {
+export const processUrlArrayParams = (params, state, arrayParams) => {
   arrayParams.forEach((field) => {
     if (typeof params[field] !== 'undefined') {
       if (typeof params[field] === 'string') {
-        processed[field] = [params[field]];
+        state[field] = [params[field]];
       } else {
-        processed[field] = params[field];
+        state[field] = params[field];
       }
     }
   });
+
+  if (params.has_narrative) {
+    state.has_narrative = !!params.has_narrative;
+  } else {
+    delete state.has_narrative;
+  }
 };
 
 /**
@@ -458,3 +437,23 @@ export const selectedClass = (
 ) => {
   return first === second ? ' ' + selectedClassName : '';
 };
+
+/**
+ * Remove all properties with the value 'null' from the object, or empty string
+ *
+ * @param {object} object - the object with potential nulls
+ * @returns {object} the processed object
+ */
+export function removeNullProperties(object) {
+  return Object.keys(object).reduce((acc, key) => {
+    if (
+      object[key] !== null &&
+      object[key] !== undefined &&
+      object[key] !== '' &&
+      !Number.isNaN(object[key])
+    ) {
+      acc[key] = object[key];
+    }
+    return acc;
+  }, {});
+}

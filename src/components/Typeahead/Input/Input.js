@@ -47,7 +47,7 @@ export const Input = ({
 Input.propTypes = {
   ariaLabel: PropTypes.string.isRequired,
   className: PropTypes.string,
-  isDisabled: PropTypes.bool.isRequired,
+  isDisabled: PropTypes.bool,
   handleChange: PropTypes.func.isRequired,
   handleClear: PropTypes.func,
   handlePressEnter: PropTypes.func,
