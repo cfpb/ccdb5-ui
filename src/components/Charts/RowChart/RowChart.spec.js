@@ -2,18 +2,19 @@ import { testRender as render, screen } from '../../../testUtils/test-utils';
 import * as d3 from 'd3';
 import { buildFluentMock } from '../__fixtures__/buildFluentMock';
 import { merge } from '../../../testUtils/functionHelpers';
-import { aggsState } from '../../../reducers/aggs/aggsSlice';
 import { trendsState } from '../../../reducers/trends/trendsSlice';
 import { viewState } from '../../../reducers/view/viewSlice';
 import { RowChart } from './RowChart';
+import { MODE_TRENDS } from '../../../constants';
+import fetchMock from 'jest-fetch-mock';
+import { aggResponse } from '../../List/ListPanel/fixture';
 
-const renderComponent = (props, newAggsState, newTrendState, newViewState) => {
-  merge(newAggsState, aggsState);
+const renderComponent = (props, newTrendState, newViewState) => {
   merge(newTrendState, trendsState);
   merge(newViewState, viewState);
 
   const data = {
-    aggs: newAggsState,
+    routes: { queryString: '?Sadfa=dsfds' },
     trends: newTrendState,
     view: newViewState,
   };
@@ -31,6 +32,7 @@ jest.mock('d3');
  */
 describe('component::RowChart', () => {
   beforeEach(() => {
+    fetchMock.resetMocks();
     jest.resetAllMocks();
 
     const fakeD3 = buildFluentMock({ height: 50 });
@@ -54,8 +56,6 @@ describe('component::RowChart', () => {
       total: 1000,
     };
 
-    const aggs = {};
-
     const trends = {
       lens: 'Foo',
     };
@@ -63,10 +63,11 @@ describe('component::RowChart', () => {
     const view = {
       isPrintMode: false,
       expandedRows: [],
+      view: MODE_TRENDS,
       width: 1000,
     };
-
-    renderComponent(props, aggs, trends, view);
+    fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
+    renderComponent(props, trends, view);
 
     expect(screen.getByRole('heading')).toHaveTextContent(props.title);
     expect(screen.getByText(props.helperText)).toBeInTheDocument();
@@ -87,8 +88,6 @@ describe('component::RowChart', () => {
       total: 1000,
     };
 
-    const aggs = {};
-
     const trends = {
       lens: 'Foo',
     };
@@ -96,10 +95,11 @@ describe('component::RowChart', () => {
     const view = {
       isPrintMode: true,
       expandedRows: [],
+      view: MODE_TRENDS,
       width: 1000,
     };
-
-    renderComponent(props, aggs, trends, view);
+    fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
+    renderComponent(props, trends, view);
 
     expect(screen.getByRole('heading')).toHaveTextContent(props.title);
     expect(screen.getByText(props.helperText)).toBeInTheDocument();
@@ -117,9 +117,6 @@ describe('component::RowChart', () => {
       helperText: 'Description of the chart',
       total: 1000,
     };
-
-    const aggs = {};
-
     const trends = {
       lens: 'Foo',
     };
@@ -127,10 +124,11 @@ describe('component::RowChart', () => {
     const view = {
       isPrintMode: false,
       expandedRows: [],
+      view: MODE_TRENDS,
       width: 1000,
     };
-
-    renderComponent(props, aggs, trends, view);
+    fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
+    renderComponent(props, trends, view);
     expect(screen.getByRole('heading')).toHaveTextContent(props.title);
     expect(screen.getByText(props.helperText)).toBeInTheDocument();
   });
@@ -145,8 +143,6 @@ describe('component::RowChart', () => {
       total: 0,
     };
 
-    const aggs = {};
-
     const trends = {
       lens: 'Foo',
     };
@@ -154,10 +150,11 @@ describe('component::RowChart', () => {
     const view = {
       isPrintMode: false,
       expandedRows: [],
+      view: MODE_TRENDS,
       width: 1000,
     };
-
-    const { container } = renderComponent(props, aggs, trends, view);
+    fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
+    const { container } = renderComponent(props, trends, view);
     expect(container.firstChild).toBeNull();
   });
 });

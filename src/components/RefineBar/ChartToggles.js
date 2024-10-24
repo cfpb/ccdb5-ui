@@ -1,6 +1,6 @@
 import './ChartToggles.scss';
 import { chartTypeUpdated } from '../../reducers/trends/trendsSlice';
-import getIcon from '../iconMap';
+import getIcon from '../Common/Icon/iconMap';
 import { selectedClass, sendAnalyticsEvent } from '../../utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTrendsChartType } from '../../reducers/trends/selectors';

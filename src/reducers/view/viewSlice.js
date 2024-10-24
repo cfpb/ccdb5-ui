@@ -1,10 +1,5 @@
 import { processUrlArrayParams } from '../../utils';
 import { createSlice } from '@reduxjs/toolkit';
-import {
-  PERSIST_SAVE_QUERY_STRING,
-  REQUERY_HITS_ONLY,
-  REQUERY_NEVER,
-} from '../../constants';
 import * as types from '../../constants';
 import { enforceValues } from '../../utils/reducers';
 
@@ -27,14 +22,6 @@ export const viewSlice = createSlice({
       reducer: (state) => {
         state.hasAdvancedSearchTips = false;
       },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            requery: REQUERY_NEVER,
-          },
-        };
-      },
     },
     modalHidden(state) {
       state.modalTypeShown = false;
@@ -45,14 +32,6 @@ export const viewSlice = createSlice({
     showAdvancedSearchTips: {
       reducer: (state) => {
         state.hasAdvancedSearchTips = true;
-      },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            requery: REQUERY_NEVER,
-          },
-        };
       },
     },
     updatePrintModeOn(state) {
@@ -69,28 +48,11 @@ export const viewSlice = createSlice({
       reducer: (state) => {
         state.hasFilters = !state.hasFilters;
       },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            requery: REQUERY_NEVER,
-          },
-        };
-      },
     },
     tabChanged: {
       reducer: (state, action) => {
         state.tab = enforceValues(action.payload, 'tab');
         state.expandedRows = [];
-      },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_HITS_ONLY,
-          },
-        };
       },
     },
     tourHidden: {
@@ -109,28 +71,12 @@ export const viewSlice = createSlice({
           (obj) => obj !== action.payload,
         );
       },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            requery: REQUERY_NEVER,
-          },
-        };
-      },
     },
     rowExpanded: {
       reducer: (state, action) => {
         if (!state.expandedRows.includes(action.payload)) {
           state.expandedRows.push(action.payload);
         }
-      },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            requery: REQUERY_NEVER,
-          },
-        };
       },
     },
   },

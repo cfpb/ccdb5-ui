@@ -1,10 +1,5 @@
 // default filter state
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import {
-  PERSIST_SAVE_QUERY_STRING,
-  REQUERY_ALWAYS,
-  REQUERY_NEVER,
-} from '../../constants';
 import { coalesce, enablePer1000, processUrlArrayParams } from '../../utils';
 import * as types from '../../constants';
 import { enforceValues } from '../../utils/reducers';
@@ -39,14 +34,6 @@ export const filtersSlice = createSlice({
           'dataNormalization',
         );
       },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            requery: REQUERY_NEVER,
-          },
-        };
-      },
     },
     filterAdded: {
       reducer: (state, action) => {
@@ -65,10 +52,6 @@ export const filtersSlice = createSlice({
       prepare: (filterName, filterValue) => {
         return {
           payload: { filterName, filterValue },
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_ALWAYS,
-          },
         };
       },
     },
@@ -87,10 +70,6 @@ export const filtersSlice = createSlice({
       prepare: (filterName, filterValue) => {
         return {
           payload: { filterName, filterValue },
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_ALWAYS,
-          },
         };
       },
     },
@@ -109,15 +88,6 @@ export const filtersSlice = createSlice({
           }
         });
       },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
     },
     filtersReplaced: {
       reducer: (state, action) => {
@@ -128,10 +98,6 @@ export const filtersSlice = createSlice({
       prepare: (filterName, values) => {
         return {
           payload: { filterName, values },
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_ALWAYS,
-          },
         };
       },
     },
@@ -146,24 +112,12 @@ export const filtersSlice = createSlice({
       prepare: (filterName, filterValue) => {
         return {
           payload: { filterName, filterValue },
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_ALWAYS,
-          },
         };
       },
     },
     mapWarningDismissed: {
       reducer: (state) => {
         state.mapWarningEnabled = false;
-      },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            requery: REQUERY_NEVER,
-          },
-        };
       },
     },
     multipleFiltersAdded: {
@@ -186,10 +140,6 @@ export const filtersSlice = createSlice({
             filterName,
             values,
           },
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_ALWAYS,
-          },
         };
       },
     },
@@ -207,10 +157,6 @@ export const filtersSlice = createSlice({
       prepare: (filterName, values) => {
         return {
           payload: { filterName, values },
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_ALWAYS,
-          },
         };
       },
     },
@@ -224,28 +170,10 @@ export const filtersSlice = createSlice({
 
         state.state = stateFilters;
       },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
     },
     stateFilterCleared: {
       reducer: (state) => {
         state.state = [];
-      },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_ALWAYS,
-          },
-        };
       },
     },
     stateFilterRemoved: {
@@ -254,30 +182,12 @@ export const filtersSlice = createSlice({
         const { abbr } = action.payload;
         state.state = stateFilters.filter((state) => state !== abbr);
       },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
     },
     toggleFlagFilter: {
       reducer: (state, action) => {
         const filterName = action.payload;
         state[filterName] = Boolean(!state[filterName]);
         if (!state[filterName]) delete state[filterName];
-      },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_ALWAYS,
-          },
-        };
       },
     },
   },
@@ -287,6 +197,9 @@ export const filtersSlice = createSlice({
         const { params } = action.payload;
         // Handle the aggregation filters
         processUrlArrayParams(params, state, types.knownFilters);
+        if (params.dataNormalization) {
+          state.dataNormalization = params.dataNormalization;
+        }
       })
       .addCase('trends/focusChanged', (state, action) => {
         const { focus, lens, filterValues } = action.payload;

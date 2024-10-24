@@ -1,5 +1,5 @@
 import './Warning.scss';
-import getIcon from '../iconMap';
+import getIcon from '../Common/Icon/iconMap';
 import PropTypes from 'prop-types';
 
 export const Warning = ({ text, closeFn }) => (

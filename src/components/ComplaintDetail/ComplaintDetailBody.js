@@ -1,6 +1,6 @@
 import { ariaReadoutNumbers } from '../../utils';
 import PropTypes from 'prop-types';
-import getIcon from '../iconMap';
+import getIcon from '../Common/Icon/iconMap';
 import { formatDisplayDate } from '../../utils/formatDate';
 
 const SubAggregation = ({ label, value }) => {

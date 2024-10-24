@@ -1,12 +1,17 @@
 import './SearchPanel.scss';
-import { useSelector } from 'react-redux';
 import { PillPanel } from './PillPanel';
 import { SearchBar } from './SearchBar';
-import { selectAggsLastIndexed } from '../../reducers/aggs/selectors';
 import { formatDisplayDate } from '../../utils/formatDate';
+import { useGetAggregations } from '../../api/hooks/useGetAggregations';
 
 export const SearchPanel = () => {
-  const lastIndexed = useSelector(selectAggsLastIndexed);
+  const { data, isLoading, isFetching } = useGetAggregations();
+
+  if (isLoading || isFetching) {
+    return null;
+  }
+
+  const lastIndexed = data?.lastIndexed;
   let lastIndexedMessage = null;
 
   if (lastIndexed) {

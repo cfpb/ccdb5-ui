@@ -1,0 +1,17 @@
+@use '../../TabbedNavigation/TabbedNavigation';
+
+.tabbed-navigation {
+  &.lens {
+    background: none;
+    border-bottom: 1px solid var(--gray-40);
+    .tab {
+      font-size: medium;
+      &.active {
+        background: var(--white);
+      }
+      &:not(.active) {
+        background: var(--pacific-20);
+      }
+    }
+  }
+}

@@ -1,21 +1,24 @@
 import './ActionBar.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import getIcon from '../iconMap';
+import getIcon from '../Common/Icon/iconMap';
 import { sendAnalyticsEvent } from '../../utils';
 import { modalShown, updatePrintModeOn } from '../../reducers/view/viewSlice';
 import { StaleDataWarnings } from '../Warnings/StaleDataWarnings';
-import {
-  selectAggsDocCount,
-  selectAggsTotal,
-} from '../../reducers/aggs/selectors';
 import { selectViewTab } from '../../reducers/view/selectors';
 import { MODAL_TYPE_DATA_EXPORT } from '../../constants';
+import { useGetAggregations } from '../../api/hooks/useGetAggregations';
 
 export const ActionBar = () => {
-  const docCount = useSelector(selectAggsDocCount);
-  const total = useSelector(selectAggsTotal);
-  const tab = useSelector(selectViewTab);
   const dispatch = useDispatch();
+  const tab = useSelector(selectViewTab);
+  const { data, isLoading } = useGetAggregations();
+
+  if (isLoading) {
+    return;
+  }
+
+  const docCount = data?.doc_count || 0;
+  const total = data?.total || 0;
 
   const showPrintView = (tab) => {
     sendAnalyticsEvent('Print', 'tab:' + tab);

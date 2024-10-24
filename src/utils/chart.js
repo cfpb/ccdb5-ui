@@ -1,12 +1,13 @@
 // ----------------------------------------------------------------------------
 /* eslint-disable no-mixed-operators, camelcase, complexity */
 import { adjustDate, isDateEqual } from './formatDate';
-import { clampDate, cloneDeep } from '../utils';
+import { clampDate, cloneDeep, coalesce } from '../utils';
 import { formatDisplayDate } from './formatDate';
 import dayjs from 'dayjs';
 import dayjsQuarterOfYear from 'dayjs/plugin/quarterOfYear';
 import dayjsTimezone from 'dayjs/plugin/timezone';
 import dayjsUtc from 'dayjs/plugin/utc';
+import * as colors from '../constants/colors';
 
 dayjs.extend(dayjsQuarterOfYear);
 dayjs.extend(dayjsUtc);
@@ -228,13 +229,27 @@ export const updateDateBuckets = (name, buckets, areaBuckets) => {
   );
 };
 
-export const externalTooltipFormatter = (tooltip) => {
+export const externalTooltipFormatter = (tooltip, colorMap) => {
   if (!tooltip) {
     return tooltip;
   }
+  const newTooltip = { ...tooltip };
   const parts = tooltip.title.split(':');
+  newTooltip.values = cloneDeep(tooltip.values);
+  newTooltip.values.forEach((obj) => {
+    // const newObj = { ...obj };
+    if (!Object.hasOwn(obj, 'colorIndex')) {
+      obj.colorIndex =
+        Object.values(colors.DataLens).indexOf(colorMap[obj.name]) || 0;
+    }
+    // make sure all values have a value
+    if (!Object.hasOwn(obj, 'value')) {
+      obj.value = coalesce(obj, 'value', 0);
+    }
+  });
+
   return {
-    ...tooltip,
+    ...newTooltip,
     heading: parts[0] + ':',
     date: parts[1] ? parts[1].trim() : '',
   };

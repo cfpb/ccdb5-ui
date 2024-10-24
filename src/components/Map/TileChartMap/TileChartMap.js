@@ -8,7 +8,6 @@ import { GEO_NORM_NONE, STATE_DATA } from '../../../constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCallback, useEffect, useMemo } from 'react';
 import TileMap from './TileMap';
-import { selectMapResultsState } from '../../../reducers/map/selectors';
 import {
   selectFiltersDataNormalization,
   selectFiltersState,
@@ -19,27 +18,32 @@ import {
   selectViewWidth,
 } from '../../../reducers/view/selectors';
 import cloneDeep from 'lodash/cloneDeep';
+import { useGetMap } from '../../../api/hooks/useGetMap';
 
 export const TileChartMap = () => {
   const dispatch = useDispatch();
   const dataNormalization = useSelector(selectFiltersDataNormalization);
   const stateFilters = useSelector(selectFiltersState);
-  const stateMapResultsState = useSelector(selectMapResultsState);
   const isPrintMode = useSelector(selectViewIsPrintMode);
   const width = useSelector(selectViewWidth);
 
+  const { data: results } = useGetMap();
+  const stateMapResultsState = results?.results.state;
+
   const data = useMemo(() => {
-    return stateMapResultsState.map((state) => {
-      const newState = cloneDeep(state);
-      const stateInfo = coalesce(STATE_DATA, state.name, {
-        name: '',
-        population: 1,
-      });
-      newState.abbr = newState.name;
-      newState.fullName = stateInfo.name;
-      newState.perCapita = getPerCapita(newState, stateInfo);
-      return newState;
-    });
+    return stateMapResultsState
+      ? stateMapResultsState.map((state) => {
+          const newState = cloneDeep(state);
+          const stateInfo = coalesce(STATE_DATA, state.name, {
+            name: '',
+            population: 1,
+          });
+          newState.abbr = newState.name;
+          newState.fullName = stateInfo.name;
+          newState.perCapita = getPerCapita(newState, stateInfo);
+          return newState;
+        })
+      : null;
   }, [stateMapResultsState]);
 
   const hasTip = !isPrintMode;
@@ -68,6 +72,10 @@ export const TileChartMap = () => {
   const _redrawMap = useCallback(() => {
     const mapElement = document.getElementById('tile-chart-map');
     const mapWidth = isPrintMode ? 650 : mapElement.clientWidth || width;
+    if (!data) {
+      return;
+    }
+
     const dataSet = updateData(data, dataNormalization, stateFilters);
 
     const options = {

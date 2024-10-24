@@ -11,11 +11,7 @@ import {
   isLineDataEmpty,
   pruneIncompleteLineInterval,
 } from '../../../utils/chart';
-import {
-  selectTrendsColorMap,
-  selectTrendsLens,
-  selectTrendsResultsDateRangeLine,
-} from '../../../reducers/trends/selectors';
+import { selectTrendsLens } from '../../../reducers/trends/selectors';
 import { tooltipUpdated } from '../../../reducers/trends/trendsSlice';
 import {
   selectViewIsPrintMode,
@@ -27,12 +23,13 @@ import {
   selectQueryDateInterval,
 } from '../../../reducers/query/selectors';
 import { ChartWrapper } from '../ChartWrapper/ChartWrapper';
+import { useGetTrends } from '../../../api/hooks/useGetTrends';
 
 export const LineChart = () => {
   const dispatch = useDispatch();
-
-  const colorMap = useSelector(selectTrendsColorMap);
-  const areaData = useSelector(selectTrendsResultsDateRangeLine);
+  const { data } = useGetTrends();
+  const colorMap = data?.colorMap;
+  const areaData = data?.results?.dateRangeLine;
   const lens = useSelector(selectTrendsLens);
   const interval = useSelector(selectQueryDateInterval);
   const dateFrom = useSelector(selectQueryDateReceivedMin);
@@ -43,6 +40,9 @@ export const LineChart = () => {
   const hasTooltip = lens !== 'Overview';
   const processData = useMemo(() => {
     const dateRange = { from: dateFrom, to: dateTo };
+    if (!areaData) {
+      return [];
+    }
     return pruneIncompleteLineInterval(areaData, dateRange, interval);
   }, [areaData, dateFrom, dateTo, interval]);
 

@@ -11,14 +11,10 @@ import {
   selectQueryTrendsDateWarningEnabled,
 } from '../../../reducers/query/selectors';
 import {
-  selectTrendsActiveCall,
   selectTrendsChartType,
-  selectTrendsColorMap,
   selectTrendsFocus,
   selectTrendsLens,
-  selectTrendsResults,
   selectTrendsSubLens,
-  selectTrendsTotal,
 } from '../../../reducers/trends/selectors';
 import {
   selectViewExpandedRows,
@@ -32,25 +28,26 @@ import { processRows } from '../../../utils/chart';
 import { sendAnalyticsEvent } from '../../../utils';
 import { showCompanyOverLay, getIntervals } from '../../../utils/trends';
 import { ActionBar } from '../../ActionBar/ActionBar';
-import { TabbedNavigation } from '../../TabbedNavigation';
+import { TabbedNavigation } from '../../TabbedNavigation/TabbedNavigation';
 import Warning from '../../Warnings/Warning';
-import { FilterPanel } from '../../Filters/FilterPanel';
-import { FilterPanelToggle } from '../../Filters/FilterPanelToggle';
+import { FilterPanel } from '../../Filters/FilterPanel/FilterPanel';
+import { FilterPanelToggle } from '../../Filters/FilterPanel/FilterPanelToggle';
 import Select from '../../RefineBar/Select';
 import { Separator } from '../../RefineBar/Separator';
 import { ChartToggles } from '../../RefineBar/ChartToggles';
-import { CompanyTypeahead } from '../../Filters/CompanyTypeahead';
-import { FocusHeader } from '../FocusHeader';
+import { CompanyTypeahead } from '../../Filters/Company/CompanyTypeahead';
+import { FocusHeader } from '../FocusHeader/FocusHeader';
 import { LineChart } from '../../Charts/LineChart/LineChart';
 import { RowChart } from '../../Charts/RowChart/RowChart';
 import { StackedAreaChart } from '../../Charts/StackedAreaChart/StackedAreaChart';
 import { ExternalTooltip } from '../ExternalTooltip/ExternalTooltip';
-import { TrendDepthToggle } from '../TrendDepthToggle';
+import { TrendDepthToggle } from '../TrendDepthToggle/TrendDepthToggle';
 import { Loading } from '../../Loading/Loading';
-import { LensTabs } from '../LensTabs';
+import { LensTabs } from '../LensTabs/LensTabs';
 import { selectFiltersCompany } from '../../../reducers/filters/selectors';
 import { dataLensChanged } from '../../../reducers/trends/trendsSlice';
 import { formatDisplayDate } from '../../../utils/formatDate';
+import { useGetTrends } from '../../../api/hooks/useGetTrends';
 
 const WARNING_MESSAGE =
   '“Day” interval is disabled when the date range is longer than one year';
@@ -88,8 +85,8 @@ const focusHelperTextMap = {
 
 export const TrendsPanel = () => {
   const dispatch = useDispatch();
+  const { data, isLoading, isFetching } = useGetTrends();
   const companyFilters = useSelector(selectFiltersCompany);
-
   const dateInterval = useSelector(selectQueryDateInterval);
   const dateReceivedMin = useSelector(selectQueryDateReceivedMin);
   const dateReceivedMax = useSelector(selectQueryDateReceivedMax);
@@ -98,13 +95,9 @@ export const TrendsPanel = () => {
   );
 
   const chartType = useSelector(selectTrendsChartType);
-  const colorMap = useSelector(selectTrendsColorMap);
   const focus = useSelector(selectTrendsFocus);
   const lens = useSelector(selectTrendsLens);
   const subLens = useSelector(selectTrendsSubLens);
-  const isLoading = useSelector(selectTrendsActiveCall);
-  const results = useSelector(selectTrendsResults);
-  const total = useSelector(selectTrendsTotal);
 
   const expandedRows = useSelector(selectViewExpandedRows);
   const width = useSelector(selectViewWidth);
@@ -115,7 +108,15 @@ export const TrendsPanel = () => {
     subLens === '' ? lensHelperTextMap[lensKey] : lensHelperTextMap[subLens];
   const focusHelperText =
     subLens === '' ? focusHelperTextMap[lensKey] : focusHelperTextMap[subLens];
-  const hasCompanyOverlay = showCompanyOverLay(lens, companyFilters, isLoading);
+  const results = data?.results || {};
+  const colorMap = data?.colorMap;
+  const total = data?.total;
+
+  const hasCompanyOverlay = showCompanyOverLay(
+    lens,
+    companyFilters,
+    isLoading || isFetching,
+  );
   const focusData = processRows(
     results[focusKey],
     colorMap,
@@ -305,7 +306,7 @@ export const TrendsPanel = () => {
       ) : null}
       {total > 0 && phaseMap()}
       <TrendDepthToggle />
-      <Loading isLoading={!!isLoading} />
+      <Loading isLoading={isLoading || isFetching} />
     </section>
   );
 };

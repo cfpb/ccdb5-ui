@@ -1,9 +1,5 @@
-import { useSelector } from 'react-redux';
 import Warning from './Warning';
-import {
-  selectAggsHasDataIssue,
-  selectAggsIsDataStale,
-} from '../../reducers/aggs/selectors';
+import { useGetAggregations } from '../../api/hooks/useGetAggregations';
 
 export const WARN_DATA_ISSUE =
   'We’re currently experiencing technical issues that' +
@@ -11,8 +7,10 @@ export const WARN_DATA_ISSUE =
   ' expect to refresh the data in the next few days.';
 
 export const StaleDataWarnings = () => {
-  const hasDataIssue = useSelector(selectAggsHasDataIssue);
-  const isDataStale = useSelector(selectAggsIsDataStale);
+  const { data } = useGetAggregations();
+
+  const hasDataIssue = data?.hasDataIssue;
+  const isDataStale = data?.isDataStale;
   const hasError = hasDataIssue || isDataStale;
 
   if (!hasError) return null;

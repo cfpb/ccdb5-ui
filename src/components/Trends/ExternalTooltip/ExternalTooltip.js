@@ -1,4 +1,4 @@
-import { CompanyTypeahead } from '../../Filters/CompanyTypeahead';
+import { CompanyTypeahead } from '../../Filters/Company/CompanyTypeahead';
 import { useSelector } from 'react-redux';
 import React from 'react';
 import { TooltipRow } from './TooltipRow';
@@ -9,6 +9,7 @@ import {
   selectTrendsTooltip,
 } from '../../../reducers/trends/selectors';
 import { externalTooltipFormatter } from '../../../utils/chart';
+import { useGetTrends } from '../../../api/hooks/useGetTrends';
 
 const WARN_SERIES_BREAK =
   'CFPB updated product and issue options in April 2017 and August 2023.';
@@ -17,6 +18,8 @@ const LEARN_SERIES_BREAK =
   'https://www.consumerfinance.gov/data-research/consumer-complaints/#past-changes';
 
 export const ExternalTooltip = () => {
+  const { data } = useGetTrends();
+  const colorMap = data?.colorMap;
   const trendsFocus = useSelector(selectTrendsFocus);
   const focus = trendsFocus ? 'focus' : '';
   const lens = useSelector(selectTrendsLens);
@@ -24,7 +27,7 @@ export const ExternalTooltip = () => {
   const tip = useSelector(selectTrendsTooltip);
   const hasCompanyTypeahead = lens === 'Company' && !focus;
   const hasTotal = chartType === 'area';
-  const tooltip = externalTooltipFormatter(tip);
+  const tooltip = externalTooltipFormatter(tip, colorMap);
   if (tooltip && tooltip.values) {
     return (
       <section className="tooltip-container u-clearfix">

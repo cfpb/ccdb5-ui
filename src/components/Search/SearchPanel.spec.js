@@ -1,11 +1,11 @@
 import { SearchPanel } from './SearchPanel';
 import { testRender as render, screen } from '../../testUtils/test-utils';
+import fetchMock from 'jest-fetch-mock';
+import { aggResponse } from '../Filters/Company/fixture';
 
 const renderComponent = () => {
   const data = {
-    aggs: {
-      lastIndexed: new Date('2016-02-01T05:00:00.000Z').toString(),
-    },
+    routes: { queryString: '?fdsafsfoo' },
   };
 
   render(<SearchPanel />, {
@@ -14,11 +14,14 @@ const renderComponent = () => {
 };
 
 describe('component:SearchPanel', () => {
-  it('renders without crashing', () => {
+  beforeEach(() => {
+    fetchMock.resetMocks();
+  });
+
+  it('renders without crashing', async () => {
+    fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
     renderComponent();
-    expect(
-      screen.getByText('Date Received: 5/5/2017 - 5/5/2020'),
-    ).toBeInTheDocument();
-    expect(screen.getByText(/2\/1\/2016/)).toBeInTheDocument();
+    await screen.findByText(/last updated:/);
+    expect(screen.getByText(/11\/4\/2024/)).toBeInTheDocument();
   });
 });

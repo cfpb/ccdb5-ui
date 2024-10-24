@@ -8,8 +8,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { scrollToFocus } from '../../../utils/trends';
 import { focusChanged } from '../../../reducers/trends/trendsSlice';
 import { rowCollapsed, rowExpanded } from '../../../reducers/view/viewSlice';
-
-import { selectAggsRoot } from '../../../reducers/aggs/selectors';
 import { selectTrendsLens } from '../../../reducers/trends/selectors';
 import {
   selectViewIsPrintMode,
@@ -24,6 +22,7 @@ import {
   sendAnalyticsEvent,
 } from '../../../utils';
 import { MODE_MAP } from '../../../constants';
+import { useGetAggregations } from '../../../api/hooks/useGetAggregations';
 
 export const RowChart = ({
   helperText,
@@ -34,9 +33,9 @@ export const RowChart = ({
   total,
 }) => {
   const dispatch = useDispatch();
+  const { data: aggs } = useGetAggregations();
   const tab = useSelector(selectViewTab);
   const trendsLens = useSelector(selectTrendsLens);
-  const aggs = useSelector(selectAggsRoot);
   const expandedRows = useSelector(selectViewExpandedRows);
   const isPrintMode = useSelector(selectViewIsPrintMode);
   const width = useSelector(selectViewWidth);
@@ -160,6 +159,10 @@ export const RowChart = ({
       }
     };
 
+    if (!data) {
+      return;
+    }
+
     // do this to prevent REDUX pollution
     const rows = cloneDeep(data).filter((obj) => {
       if (obj.name && isPrintMode) {
@@ -244,11 +247,15 @@ export const RowChart = ({
     width,
   ]);
 
+  if (!data) {
+    return null;
+  }
+
   return total ? (
     <div className="row-chart-section">
       <h3>{title}</h3>
       <p>{helperText}</p>
-      <div id={'row-chart-' + id} />
+      <div id={'row-chart-' + id} data-testid={'row-chart-' + id} />
     </div>
   ) : null;
 };
@@ -260,5 +267,5 @@ RowChart.propTypes = {
     .isRequired,
   data: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired,
+  total: PropTypes.number,
 };

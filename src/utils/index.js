@@ -6,6 +6,7 @@ import {
 } from '../constants/index';
 import Analytics from '../actions/analytics';
 import dayjs from 'dayjs';
+import queryString from 'query-string';
 
 /**
  * Breaks up '123' to '1 2 3' to help screen readers read digits individually
@@ -445,7 +446,7 @@ export const selectedClass = (
  * @returns {object} the processed object
  */
 export function removeNullProperties(object) {
-  return Object.keys(object).reduce((acc, key) => {
+  const myObject = Object.keys(object).reduce((acc, key) => {
     if (
       object[key] !== null &&
       object[key] !== undefined &&
@@ -456,4 +457,23 @@ export function removeNullProperties(object) {
     }
     return acc;
   }, {});
+
+  for (const key in myObject) {
+    if (Array.isArray(myObject[key]) && myObject[key].length === 0) {
+      delete myObject[key];
+    }
+  }
+
+  return myObject;
+}
+
+/**
+ * Builds a URL from a path and dictionary
+ *
+ * @param {string} path - The V2 endpoint.
+ * @param {object} params - A key/value pair of the query string params.
+ * @returns {string} The full endpoint url.
+ */
+export function formatUri(path, params) {
+  return path + '?' + queryString.stringify(params);
 }

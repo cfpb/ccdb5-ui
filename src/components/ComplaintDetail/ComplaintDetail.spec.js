@@ -4,55 +4,75 @@ import {
   screen,
 } from '../../testUtils/test-utils';
 import { merge } from '../../testUtils/functionHelpers';
-import { detailState } from '../../reducers/detail/detailSlice';
 import { routesState } from '../../reducers/routes/routesSlice';
-import { waitFor } from '@testing-library/react';
-import * as complaintActions from '../../actions/complaints';
+import fetchMock from 'jest-fetch-mock';
+import { Route, Routes } from 'react-router-dom';
+import { cloneDeep } from '../../utils';
 
 const fixture = {
-  company: 'JPMORGAN CHASE & CO.',
-  company_public_response: 'Company acknowledges the complaint',
-  company_response: 'Closed with explanation',
-  complaint_id: '2371744',
-  complaint_what_happened: 'Lorem ipsum dolor sit amet',
-  consumer_consent_provided: 'Consent provided',
-  consumer_disputed: 'Yes',
-  date_received: '2017-03-04T12:00:00',
-  date_sent_to_company: '2017-03-04T12:00:00',
-  has_narrative: true,
-  issue: 'Account opening, closing, or management',
-  product: 'Bank account or service',
-  state: 'KY',
-  sub_issue: 'Closing',
-  sub_product: 'Checking account',
-  submitted_via: 'Web',
-  tags: 'Older American',
-  timely: 'Yes',
-  zip_code: '423XX',
+  took: 1,
+  timed_out: false,
+  _shards: { total: 5, successful: 5, skipped: 0, failed: 0 },
+  hits: {
+    total: { value: 1, relation: 'eq' },
+    max_score: 1.0,
+    hits: [
+      {
+        _index: 'complaint-public-v2',
+        _type: '_doc',
+        _id: '2371744',
+        _score: 1.0,
+        _source: {
+          company: 'JPMORGAN CHASE & CO.',
+          company_public_response: 'Company acknowledges the complaint',
+          company_response: 'Closed with explanation',
+          complaint_id: '2371744',
+          complaint_what_happened: 'Lorem ipsum dolor sit amet',
+          consumer_consent_provided: 'Consent provided',
+          consumer_disputed: 'Yes',
+          date_received: '2017-03-04T12:00:00',
+          date_sent_to_company: '2017-03-04T12:00:00',
+          has_narrative: true,
+          issue: 'Account opening, closing, or management',
+          product: 'Bank account or service',
+          state: 'KY',
+          sub_issue: 'Closing',
+          sub_product: 'Checking account',
+          submitted_via: 'Web',
+          tags: 'Older American',
+          timely: 'Yes',
+          zip_code: '423XX',
+        },
+      },
+    ],
+  },
 };
 
-const renderComponent = (newDetailState, newRoutesState) => {
-  merge(newDetailState, detailState);
+const renderComponent = (newRoutesState) => {
   merge(newRoutesState, routesState);
   const data = {
-    detail: newDetailState,
     routes: newRoutesState,
   };
-  render(<ComplaintDetail />, {
-    preloadedState: data,
-    initialEntries: ['/detail/2371744'],
-  });
+  render(
+    <Routes>
+      <Route path="/detail/:id" element={<ComplaintDetail />} />
+    </Routes>,
+    {
+      preloadedState: data,
+      initialEntries: ['/detail/2371744'],
+    },
+  );
 };
 
 describe('component::ComplaintDetail', () => {
-  it('renders loading page', () => {
-    const activeCall = '/api/call/detailid';
-    const newDetailState = {
-      activeCall: activeCall,
-      error: '',
-    };
+  let response;
+  beforeEach(() => {
+    fetchMock.resetMocks();
+    response = cloneDeep(fixture);
+  });
 
-    renderComponent(newDetailState, {
+  it('renders loading page', () => {
+    renderComponent({
       params: {
         product: 'bar',
         issue: 'nope',
@@ -69,168 +89,103 @@ describe('component::ComplaintDetail', () => {
   });
 
   it('renders error', async () => {
-    const newDetailState = {
-      activeCall: '',
-      data: {},
-      error: { some: 'value' },
-    };
-
-    const complaintApiSpy = jest
-      .spyOn(complaintActions, 'getComplaintDetail')
-      .mockImplementation(() => jest.fn());
-
-    renderComponent(newDetailState, {});
-
-    expect(complaintApiSpy).toHaveBeenCalledTimes(1);
+    fetchMock.mockResponseOnce({ foo: 'bar' });
+    renderComponent({});
     expect(screen.getByText('Back to search results')).toBeInTheDocument();
     expect(screen.getByText('Back to search results')).toHaveAttribute(
       'href',
       '/',
     );
 
+    await screen.findByText(/There was a problem retrieving/);
     expect(
-      screen.getByText('There was a problem retrieving'),
+      screen.getByText(/There was a problem retrieving/),
     ).toBeInTheDocument();
   });
 
   it('renders document', async () => {
-    const newDetailState = {
-      activeCall: '',
-      data: fixture,
-      error: '',
-    };
+    const docResponse = response.hits.hits[0]._source;
+    fetchMock.mockResponseOnce(JSON.stringify(response));
+    renderComponent({});
 
-    const complaintApiSpy = jest
-      .spyOn(complaintActions, 'getComplaintDetail')
-      .mockImplementation(() => jest.fn());
-
-    renderComponent(newDetailState, {});
-
-    expect(complaintApiSpy).toHaveBeenCalledTimes(1);
-    expect(screen.getByText(fixture.sub_issue)).toBeInTheDocument();
-    expect(screen.getByText(fixture.sub_product)).toBeInTheDocument();
+    await screen.findByText(docResponse.sub_issue);
+    expect(screen.getByText(docResponse.sub_issue)).toBeInTheDocument();
+    expect(screen.getByText(docResponse.sub_product)).toBeInTheDocument();
     expect(screen.getByText('Back to search results')).toBeInTheDocument();
     expect(screen.getByText('Back to search results')).toHaveAttribute(
       'href',
       '/',
     );
 
-    await waitFor(() =>
-      expect(screen.queryByText('This page is loading')).toBeNull(),
-    );
-
     expect(
       screen.getByText('Date CFPB received the complaint'),
     ).toBeInTheDocument();
-
     expect(screen.getAllByText('Yes')).toHaveLength(2);
-    expect(screen.getByText(fixture.company)).toBeInTheDocument();
-    expect(screen.getByText(fixture.company_response)).toBeInTheDocument();
+    expect(screen.getByText(docResponse.company)).toBeInTheDocument();
+    expect(screen.getByText(docResponse.company_response)).toBeInTheDocument();
     expect(
-      screen.getByText(fixture.company_public_response),
+      screen.getByText(docResponse.company_public_response),
     ).toBeInTheDocument();
-    expect(screen.getByText(fixture.submitted_via)).toBeInTheDocument();
+    expect(screen.getByText(docResponse.submitted_via)).toBeInTheDocument();
   });
 
   it('handles missing narrative, sub-agg and timely values', async () => {
-    const dataFixture = Object.assign({}, fixture);
-    dataFixture.complaint_what_happened = '';
-    dataFixture.consumer_disputed = 'No';
-    dataFixture.timely = '';
-    dataFixture.sub_issue = '';
-    dataFixture.sub_product = '';
+    const docResponse = response.hits.hits[0]._source;
+    docResponse.complaint_what_happened = '';
+    docResponse.consumer_disputed = 'No';
+    docResponse.timely = '';
+    docResponse.sub_issue = '';
+    docResponse.sub_product = '';
+    response.hits.hits[0]._source = docResponse;
+    fetchMock.mockResponseOnce(JSON.stringify(response));
 
-    const newDetailState = {
-      activeCall: '',
-      data: dataFixture,
-      error: '',
-    };
+    renderComponent({});
 
-    const complaintApiSpy = jest
-      .spyOn(complaintActions, 'getComplaintDetail')
-      .mockImplementation(() => jest.fn());
-
-    renderComponent(newDetailState, {});
-
-    expect(complaintApiSpy).toHaveBeenCalledTimes(1);
     expect(screen.getByText('Back to search results')).toBeInTheDocument();
     expect(screen.getByText('Back to search results')).toHaveAttribute(
       'href',
       '/',
     );
 
-    await waitFor(() =>
-      expect(screen.queryByText('This page is loading')).toBeNull(),
-    );
+    await screen.findByText(docResponse.company_public_response);
 
     expect(
       screen.getByText('Date CFPB received the complaint'),
     ).toBeInTheDocument();
 
-    expect(screen.getByText(dataFixture.company)).toBeInTheDocument();
-    expect(screen.getByText(dataFixture.company_response)).toBeInTheDocument();
+    expect(screen.getByText(docResponse.company)).toBeInTheDocument();
+    expect(screen.getByText(docResponse.company_response)).toBeInTheDocument();
     expect(
-      screen.getByText(dataFixture.company_public_response),
+      screen.getByText(docResponse.company_public_response),
     ).toBeInTheDocument();
-    expect(screen.getByText(dataFixture.consumer_disputed)).toBeInTheDocument();
-    expect(screen.getByText(dataFixture.submitted_via)).toBeInTheDocument();
+    expect(screen.getByText(docResponse.consumer_disputed)).toBeInTheDocument();
+    expect(screen.getByText(docResponse.submitted_via)).toBeInTheDocument();
     expect(screen.queryByText('Sub-product:')).toBeNull();
     expect(screen.queryByText('Sub-issue:')).toBeNull();
     expect(screen.queryByText('Consumer complaint narrative')).toBeNull();
   });
 
   it('handles errors with "Consumer Consent Provided" icons', async () => {
-    const dataFixture = Object.assign({}, fixture);
+    const dataFixture = response.hits.hits[0]._source;
     dataFixture.complaint_what_happened = '';
     dataFixture.consumer_consent_provided = 'Bad Value';
-
-    const newDetailState = {
-      activeCall: '',
-      data: dataFixture,
-      error: '',
-    };
-
-    const complaintApiSpy = jest
-      .spyOn(complaintActions, 'getComplaintDetail')
-      .mockImplementation(() => jest.fn());
-
-    renderComponent(newDetailState, {});
-
-    expect(complaintApiSpy).toHaveBeenCalledTimes(1);
-
-    await waitFor(() =>
-      expect(screen.queryByText('This page is loading')).toBeNull(),
-    );
-
+    response.hits.hits[0]._source = dataFixture;
+    fetchMock.mockResponseOnce(JSON.stringify(response));
+    renderComponent({});
+    await screen.findByText('Date CFPB received the complaint');
     expect(
       screen.getByText('Date CFPB received the complaint'),
     ).toBeInTheDocument();
-
     expect(screen.getByText('No data available')).toBeInTheDocument();
   });
 
   it('Not Timely', async () => {
-    const dataFixture = Object.assign({}, fixture);
+    const dataFixture = response.hits.hits[0]._source;
     dataFixture.timely = 'No';
-
-    const newDetailState = {
-      activeCall: '',
-      data: dataFixture,
-      error: '',
-    };
-
-    const complaintApiSpy = jest
-      .spyOn(complaintActions, 'getComplaintDetail')
-      .mockImplementation(() => jest.fn());
-
-    renderComponent(newDetailState, {});
-
-    expect(complaintApiSpy).toHaveBeenCalledTimes(1);
-
-    await waitFor(() =>
-      expect(screen.queryByText('This page is loading')).toBeNull(),
-    );
-
+    response.hits.hits[0]._source = dataFixture;
+    fetchMock.mockResponseOnce(JSON.stringify(response));
+    renderComponent({});
+    await screen.findByText(/Timely response/);
     expect(screen.getByText('Timely response?')).toBeInTheDocument();
     expect(screen.getByText('No')).toBeInTheDocument();
   });

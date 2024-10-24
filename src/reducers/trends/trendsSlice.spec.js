@@ -6,12 +6,9 @@ import trends, {
   depthReset,
   focusChanged,
   focusRemoved,
-  getDefaultState,
-  mainNameLens,
+  // getDefaultState,
   tooltipUpdated,
-  trendsApiCalled,
-  trendsApiFailed,
-  trendsReceived,
+  // trendsReceived,
   trendsState,
 } from './trendsSlice';
 
@@ -21,27 +18,27 @@ import {
 } from '../filters/filtersSlice';
 import { tabChanged } from '../view/viewSlice';
 import { routeChanged } from '../routes/routesSlice';
-import {
-  trendsBackfill,
-  trendsBackfillResults,
-} from '../__fixtures__/trendsBackfill';
-import {
-  trendsCompanyAggs,
-  trendsCompanyResults,
-} from '../__fixtures__/trendsCompanyResults';
-import {
-  trendsFocusAggs,
-  trendsFocusAggsResults,
-} from '../__fixtures__/trendsFocusAggs';
-import { trendsAggs, trendsResults } from '../__fixtures__/trendsResults';
-import {
-  trendsAggsDupes,
-  trendsAggsDupeResults,
-} from '../__fixtures__/trendsAggsDupes';
-import {
-  trendsAggsMissingBuckets,
-  trendsAggsMissingBucketsResults,
-} from '../__fixtures__/trendsAggsMissingBuckets';
+// import {
+//   trendsBackfill,
+//   trendsBackfillResults,
+// } from '../__fixtures__/trendsBackfill';
+// import {
+//   trendsCompanyAggs,
+//   trendsCompanyResults,
+// } from '../__fixtures__/trendsCompanyResults';
+// import {
+//   trendsFocusAggs,
+//   trendsFocusAggsResults,
+// } from '../__fixtures__/trendsFocusAggs';
+// import { trendsAggs, trendsResults } from '../__fixtures__/trendsResults';
+// import {
+//   trendsAggsDupes,
+//   trendsAggsDupeResults,
+// } from '../__fixtures__/trendsAggsDupes';
+// import {
+//   trendsAggsMissingBuckets,
+//   trendsAggsMissingBucketsResults,
+// } from '../__fixtures__/trendsAggsMissingBuckets';
 import * as types from '../../constants';
 
 describe('reducer:trends', () => {
@@ -50,29 +47,13 @@ describe('reducer:trends', () => {
   describe('reducer', () => {
     it('has a default state', () => {
       expect(trends(undefined, {})).toEqual({
-        activeCall: '',
         chartType: 'line',
-        colorMap: {},
-        error: false,
         focus: '',
         lens: 'Product',
-        results: {
-          dateRangeArea: [],
-          dateRangeLine: [],
-        },
         subLens: 'sub_product',
         tooltip: false,
-        total: 0,
         trendDepth: 5,
       });
-    });
-  });
-
-  describe('Lens Name Pluralization Helper', () => {
-    it('pluralizes things properly', () => {
-      expect(mainNameLens('Company')).toEqual('companies');
-      expect(mainNameLens('Product')).toEqual('products');
-      expect(mainNameLens('baz')).toEqual('values');
     });
   });
 
@@ -250,10 +231,6 @@ describe('reducer:trends', () => {
         ...trendsState,
         chartType: 'line',
         focus: '',
-        results: {
-          dateRangeArea: [],
-          dateRangeLine: [],
-        },
         tooltip: false,
         trendDepth: 5,
       });
@@ -308,7 +285,6 @@ describe('reducer:trends', () => {
           {
             ...trendsState,
             focus: 'Your',
-            results: [1, 2, 3],
           },
           tabChanged(payload),
         ),
@@ -316,10 +292,6 @@ describe('reducer:trends', () => {
         ...trendsState,
         chartType: 'line',
         focus: '',
-        results: {
-          dateRangeArea: [],
-          dateRangeLine: [],
-        },
       });
     });
 
@@ -331,7 +303,6 @@ describe('reducer:trends', () => {
           {
             ...trendsState,
             focus: 'Your',
-            results: [1, 2, 3],
           },
           tabChanged(payload),
         ),
@@ -339,169 +310,118 @@ describe('reducer:trends', () => {
         ...trendsState,
         chartType: 'line',
         focus: 'Your',
-        results: {
-          dateRangeArea: [],
-          dateRangeLine: [],
-        },
       });
     });
   });
 
-  describe('TRENDS_API_CALLED actions', () => {
-    const payload = 'http://www.example.org';
-    expect(trends(trendsState, trendsApiCalled(payload))).toEqual({
-      ...trendsState,
-      activeCall: 'http://www.example.org',
-      chartType: 'line',
-      tooltip: false,
-    });
-  });
-
-  describe('TRENDS_FAILED actions', () => {
-    it('handles failed error messages', () => {
-      action = { message: 'foo bar', name: 'ErrorTypeName' };
-      expect(
-        trends(
-          {
-            ...trendsState,
-            activeCall: 'someurl',
-            results: {
-              dateRangeArea: [1, 2, 3],
-              dateRangeLine: [7, 8, 9],
-              product: [13, 25],
-            },
-          },
-          trendsApiFailed(action),
-        ),
-      ).toEqual({
-        activeCall: '',
-        chartType: 'line',
-        colorMap: {},
-        error: { message: 'foo bar', name: 'ErrorTypeName' },
-        focus: '',
-        lens: 'Product',
-        results: {
-          dateRangeArea: [],
-          dateRangeLine: [],
-        },
-        subLens: 'sub_product',
-        tooltip: false,
-        total: 0,
-        trendDepth: 5,
-      });
-    });
-  });
-
-  describe('TRENDS_RECEIVED actions', () => {
-    beforeEach(() => {
-      action = {
-        payload: {
-          data: {
-            aggregations: false,
-          },
-        },
-      };
-      state = getDefaultState();
-    });
-
-    it('maps data to object state - Overview', () => {
-      // to replicate
-      // just choose All date range and overview
-      const payload = { data: { aggregations: trendsAggs } };
-      state.lens = 'Overview';
-      state.subLens = '';
-      result = trends({ ...trendsState, ...state }, trendsReceived(payload));
-      expect(result).toEqual({ ...trendsResults });
-    });
-
-    it('maps data to object state - Company', () => {
-      // just changing
-      state.lens = 'Company';
-      state.subLens = '';
-      const payload = { data: { aggregations: trendsCompanyAggs } };
-      result = trends({ ...trendsState, ...state }, trendsReceived(payload));
-      expect(result).toEqual({ ...trendsCompanyResults });
-    });
-
-    it('maps data to object state - dupe rows', () => {
-      state.lens = 'Overview';
-      state.subLens = '';
-      const payload = { data: { aggregations: trendsAggsDupes } };
-      result = trends({ ...trendsState, ...state }, trendsReceived(payload));
-      expect(result).toEqual({ ...trendsState, ...trendsAggsDupeResults });
-    });
-
-    it('maps data to object state - Missing Bucket', () => {
-      // to replicate this
-      // ?date_received_max=2017-07-08
-      // &date_received_min=2017-03-08
-      // &from=0&lens=Product&tab=Trends
-      // you'll get broken buckets since the product recategorization in apr
-      state.lens = 'Product';
-      state.subLens = 'sub_product';
-      const payload = { data: { aggregations: trendsAggsMissingBuckets } };
-      result = trends(state, trendsReceived(payload));
-      expect(result).toEqual(trendsAggsMissingBucketsResults);
-    });
-
-    it('maps data to object state - Focus', () => {
-      state.lens = 'Product';
-      state.subLens = 'sub_product';
-      state.focus = 'Debt collection';
-      const payload = { data: { aggregations: trendsFocusAggs } };
-      result = trends(state, trendsReceived(payload));
-      expect(result).toEqual(trendsFocusAggsResults);
-      expect(result.results.issue.length).toBeTruthy();
-      expect(result.results['sub-product'].length).toBeTruthy();
-    });
-
-    it('backfills periods based on dateRangeBuckets', () => {
-      // aka: the "covid" search
-      state.chartType = 'area';
-      state.lens = 'Product';
-      state.subLens = 'sub_product';
-      const payload = { data: { aggregations: trendsBackfill } };
-      result = trends(state, trendsReceived(payload));
-      expect(result).toEqual(trendsBackfillResults);
-    });
-
-    it('handles zero results', () => {
-      const emptyAggs = {
-        dateRangeArea: {
-          doc_count: 0,
-        },
-      };
-      state.chartType = 'area';
-      state.lens = 'Product';
-      state.subLens = 'sub_product';
-      state.results = {
-        company: [1, 2, 3],
-        dateRangeArea: [4, 5, 6],
-        dateRangeLine: [7, 8, 9],
-        product: [1, 2, 3],
-      };
-      result = trends(
-        state,
-        trendsReceived({ data: { aggregations: emptyAggs } }),
-      );
-      expect(result).toEqual({
-        activeCall: '',
-        chartType: 'area',
-        colorMap: {},
-        error: false,
-        focus: '',
-        lens: 'Product',
-        results: {
-          dateRangeArea: [],
-          dateRangeLine: [],
-        },
-        subLens: 'sub_product',
-        tooltip: false,
-        total: 0,
-        trendDepth: 5,
-      });
-    });
-  });
+  // describe('TRENDS_RECEIVED actions', () => {
+  //   beforeEach(() => {
+  //     action = {
+  //       payload: {
+  //         data: {
+  //           aggregations: false,
+  //         },
+  //       },
+  //     };
+  //     state = getDefaultState();
+  //   });
+  //
+  //   it('maps data to object state - Overview', () => {
+  //     // to replicate
+  //     // just choose All date range and overview
+  //     const payload = { data: { aggregations: trendsAggs } };
+  //     state.lens = 'Overview';
+  //     state.subLens = '';
+  //     result = trends({ ...trendsState, ...state }, trendsReceived(payload));
+  //     expect(result).toEqual({ ...trendsResults });
+  //   });
+  //
+  //   it('maps data to object state - Company', () => {
+  //     // just changing
+  //     state.lens = 'Company';
+  //     state.subLens = '';
+  //     const payload = { data: { aggregations: trendsCompanyAggs } };
+  //     result = trends({ ...trendsState, ...state }, trendsReceived(payload));
+  //     expect(result).toEqual({ ...trendsCompanyResults });
+  //   });
+  //
+  //   it('maps data to object state - dupe rows', () => {
+  //     state.lens = 'Overview';
+  //     state.subLens = '';
+  //     const payload = { data: { aggregations: trendsAggsDupes } };
+  //     result = trends({ ...trendsState, ...state }, trendsReceived(payload));
+  //     expect(result).toEqual({ ...trendsState, ...trendsAggsDupeResults });
+  //   });
+  //
+  //   it('maps data to object state - Missing Bucket', () => {
+  //     // to replicate this
+  //     // ?date_received_max=2017-07-08
+  //     // &date_received_min=2017-03-08
+  //     // &from=0&lens=Product&tab=Trends
+  //     // you'll get broken buckets since the product recategorization in apr
+  //     state.lens = 'Product';
+  //     state.subLens = 'sub_product';
+  //     const payload = { data: { aggregations: trendsAggsMissingBuckets } };
+  //     result = trends(state, trendsReceived(payload));
+  //     expect(result).toEqual(trendsAggsMissingBucketsResults);
+  //   });
+  //
+  //   it('maps data to object state - Focus', () => {
+  //     state.lens = 'Product';
+  //     state.subLens = 'sub_product';
+  //     state.focus = 'Debt collection';
+  //     const payload = { data: { aggregations: trendsFocusAggs } };
+  //     result = trends(state, trendsReceived(payload));
+  //     expect(result).toEqual(trendsFocusAggsResults);
+  //     expect(result.results.issue.length).toBeTruthy();
+  //     expect(result.results['sub-product'].length).toBeTruthy();
+  //   });
+  //
+  //   it('backfills periods based on dateRangeBuckets', () => {
+  //     // aka: the "covid" search
+  //     state.chartType = 'area';
+  //     state.lens = 'Product';
+  //     state.subLens = 'sub_product';
+  //     const payload = { data: { aggregations: trendsBackfill } };
+  //     result = trends(state, trendsReceived(payload));
+  //     expect(result).toEqual(trendsBackfillResults);
+  //   });
+  //
+  //   it('handles zero results', () => {
+  //     const emptyAggs = {
+  //       dateRangeArea: {
+  //         doc_count: 0,
+  //       },
+  //     };
+  //     state.chartType = 'area';
+  //     state.lens = 'Product';
+  //     state.subLens = 'sub_product';
+  //     state.results = {
+  //       company: [1, 2, 3],
+  //       dateRangeArea: [4, 5, 6],
+  //       dateRangeLine: [7, 8, 9],
+  //       product: [1, 2, 3],
+  //     };
+  //     result = trends(
+  //       state,
+  //       trendsReceived({ data: { aggregations: emptyAggs } }),
+  //     );
+  //     expect(result).toEqual({
+  //       chartType: 'area',
+  //       colorMap: {},
+  //       focus: '',
+  //       lens: 'Product',
+  //       results: {
+  //         dateRangeArea: [],
+  //         dateRangeLine: [],
+  //       },
+  //       subLens: 'sub_product',
+  //       tooltip: false,
+  //       total: 0,
+  //       trendDepth: 5,
+  //     });
+  //   });
+  // });
 
   describe('TRENDS_TOOLTIP_CHANGED', () => {
     it('handles no value', () => {
@@ -578,35 +498,30 @@ describe('reducer:trends', () => {
             name: 'Alpha',
             date: '2021-06-01T00:00:00.000Z',
             value: 29769,
-            colorIndex: 0,
           },
           {
             topicName: 'Beta',
             name: 'Beta',
             date: '2021-06-01T00:00:00.000Z',
             value: 6610,
-            colorIndex: 1,
           },
           {
             topicName: 'Charlie',
             name: 'Charlie',
             date: '2021-06-01T00:00:00.000Z',
             value: 2317,
-            colorIndex: 4,
           },
           {
             topicName: 'Delta',
             name: 'Delta',
             date: '2021-06-01T00:00:00.000Z',
             value: 2322,
-            colorIndex: -1,
           },
           {
             topicName: 'Echo',
             name: 'Echo',
             date: '2021-06-01T00:00:00.000Z',
             value: 2174,
-            colorIndex: -1,
           },
         ],
         title: expect.stringContaining('Date range: 6/1/2021 -'),

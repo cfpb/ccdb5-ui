@@ -1,13 +1,8 @@
 import { createBrowserHistory } from 'history';
-import { appUrlChanged } from '../../reducers/routes/routesSlice';
 import queryString from 'query-string';
-import {
-  MODE_LIST,
-  MODE_MAP,
-  MODE_TRENDS,
-  PERSIST_NONE,
-} from '../../constants';
+import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../../constants';
 import { extractReducerAttributes } from '../../api/params/params';
+import { appUrlChanged } from '../../reducers/routes/routesSlice';
 
 /**
  * Retrieve attributes for the filters reducer
@@ -44,7 +39,7 @@ function getQueryAttrs(tab) {
 
   // list view needs these params
   if (tab === MODE_LIST) {
-    return defaultParams.concat(['size', 'page', 'sort']);
+    return defaultParams.concat(['search_after', 'size', 'page', 'sort']);
   }
   if (tab === MODE_TRENDS) {
     return defaultParams.concat(['dateInterval']);
@@ -97,7 +92,7 @@ export function extractQueryStringParams(state) {
   // Grab specific attributes from the reducers
   const params = Object.assign(
     {},
-    extractReducerAttributes(state.detail, ['id']),
+    // extractReducerAttributes(state.detail, ['id']),
     // no unique map atts
     extractReducerAttributes(state.query, attrsQuery),
     extractReducerAttributes(state.filters, attrsFilters),
@@ -122,28 +117,27 @@ const synchUrl = (store) => (next) => (action) => {
   // eslint-disable-next-line callback-return
   const result = next(action);
 
-  // Get the current state
-  const state = store.getState();
-  // Only process certain messages
-  const persist = action.meta?.persist ?? PERSIST_NONE;
-
-  if (persist.indexOf('PERSIST_SAVE') !== 0) {
+  if (action.type === 'routes/routeChanged') {
     return result;
   }
-
+  // Get the current state
+  const state = store.getState();
   const params = extractQueryStringParams(state);
   // See if processing should continue
   // Update the application
   const history = createBrowserHistory();
   const location = history.location;
 
-  // if (location.search !== search && !location.pathname.includes('/detail/')) {
-  history.push({
-    pathname: location.pathname,
-    search: '?' + queryString.stringify(params),
-  });
+  const { queryString: oldQS } = state.routes;
+  const newQS = queryString.stringify(params);
   // And record the change in Redux to prevent ROUTE_CHANGED storms
-  store.dispatch(appUrlChanged(location.pathname, params));
+  if (oldQS !== '' && oldQS !== newQS) {
+    history.push({
+      pathname: location.pathname,
+      search: '?' + newQS,
+    });
+    store.dispatch(appUrlChanged(location.pathname, params));
+  }
   return result;
 };
 

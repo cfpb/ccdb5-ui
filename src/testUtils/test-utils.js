@@ -4,36 +4,31 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import actions from '../reducers/actions/actionsSlice';
-import aggs from '../reducers/aggs/aggsSlice';
-import detail from '../reducers/detail/detailSlice';
 import filters from '../reducers/filters/filtersSlice';
-import map from '../reducers/map/mapSlice';
 import query from '../reducers/query/querySlice';
-import results from '../reducers/results/resultsSlice';
 import routes from '../reducers/routes/routesSlice';
 import trends from '../reducers/trends/trendsSlice';
 import view from '../reducers/view/viewSlice';
+import { complaintsApi } from '../api/complaints/complaints';
 
 /**
  *
  * @param {object} preloadedState - The initial component state
  * @returns {object} Redux store we are mocking
  */
-function configureStoreUtil(preloadedState) {
+export function configureStoreUtil(preloadedState) {
   return configureStore({
     reducer: {
+      [complaintsApi.reducerPath]: complaintsApi.reducer,
       actions,
-      aggs,
-      detail,
       filters,
-      map,
       query,
-      results,
       routes,
       trends,
       view,
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(complaintsApi.middleware),
     preloadedState,
   });
 }

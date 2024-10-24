@@ -11,11 +11,7 @@ import {
 } from '../../../utils/chart';
 import { tooltipUpdated } from '../../../reducers/trends/trendsSlice';
 import { debounce } from '../../../utils';
-import {
-  selectTrendsColorMap,
-  selectTrendsLens,
-  selectTrendsResultsDateRangeArea,
-} from '../../../reducers/trends/selectors';
+import { selectTrendsLens } from '../../../reducers/trends/selectors';
 import {
   selectQueryDateInterval,
   selectQueryDateReceivedMax,
@@ -26,12 +22,14 @@ import {
   selectViewWidth,
 } from '../../../reducers/view/selectors';
 import { ChartWrapper } from '../ChartWrapper/ChartWrapper';
+import { useGetTrends } from '../../../api/hooks/useGetTrends';
 
 export const StackedAreaChart = () => {
   const dispatch = useDispatch();
 
-  const colorMap = useSelector(selectTrendsColorMap);
-  const data = useSelector(selectTrendsResultsDateRangeArea);
+  const { data } = useGetTrends();
+  const colorMap = data?.colorMap;
+  const areaData = data?.results?.dateRangeArea;
   const from = useSelector(selectQueryDateReceivedMin);
   const to = useSelector(selectQueryDateReceivedMax);
   const lens = useSelector(selectTrendsLens);
@@ -44,8 +42,11 @@ export const StackedAreaChart = () => {
 
   const filteredData = useMemo(() => {
     const dateRange = { from, to };
-    return pruneIncompleteStackedAreaInterval(data, dateRange, interval);
-  }, [data, from, to, interval]);
+    if (!areaData) {
+      return [];
+    }
+    return pruneIncompleteStackedAreaInterval(areaData, dateRange, interval);
+  }, [areaData, from, to, interval]);
 
   const isDataEmpty = isStackedAreaDataEmpty(filteredData);
 
