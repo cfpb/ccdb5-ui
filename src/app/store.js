@@ -1,7 +1,6 @@
-import queryManager from '../middleware/queryManager/queryManager';
-import synchUrl from '../middleware/synchUrl/synchUrl';
+// import queryManager from '../middleware/queryManager/queryManager';
+// import synchUrl from '../middleware/synchUrl/synchUrl';
 import aggReducer from '../reducers/aggs/aggsSlice';
-import detailReducer from '../reducers/detail/detailSlice';
 import filtersReducer from '../reducers/filters/filtersSlice';
 import mapReducer from '../reducers/map/mapSlice';
 import queryReducer from '../reducers/query/querySlice';
@@ -10,14 +9,16 @@ import routesReducer from '../reducers/routes/routesSlice';
 import trendsReducer from '../reducers/trends/trendsSlice';
 import viewReducer from '../reducers/view/viewSlice';
 import { configureStore } from '@reduxjs/toolkit';
-import { HTTP_GET_REQUEST } from '../actions/httpRequests/httpRequests';
-import httpRequestHandler from '../middleware/httpRequestHandler/httpRequestHandler';
+// import { HTTP_GET_REQUEST } from '../actions/httpRequests/httpRequests';
+// import httpRequestHandler from '../middleware/httpRequestHandler/httpRequestHandler';
+import { complaintsApi } from '../api/complaints/complaints';
+import { setupListeners } from '@reduxjs/toolkit/query';
 
-export default configureStore({
+export const store = configureStore({
   devTools: true,
   reducer: {
+    [complaintsApi.reducerPath]: complaintsApi.reducer,
     aggs: aggReducer,
-    detail: detailReducer,
     filters: filtersReducer,
     map: mapReducer,
     query: queryReducer,
@@ -27,10 +28,12 @@ export default configureStore({
     view: viewReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        // Ignore these action types
-        ignoredActions: [HTTP_GET_REQUEST],
-      },
-    }).concat([queryManager, synchUrl, httpRequestHandler]),
+    getDefaultMiddleware().concat(
+      complaintsApi.middleware,
+      // queryManager,
+      // synchUrl,
+      // httpRequestHandler,
+    ),
 });
+
+setupListeners(store.dispatch);
