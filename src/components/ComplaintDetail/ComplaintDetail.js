@@ -1,13 +1,8 @@
 import './ComplaintDetail.scss';
-import { useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectDetailActiveCall,
-  selectDetailData,
-  selectDetailError,
-} from '../../reducers/detail/selectors';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, useLocation, useParams } from 'react-router-dom';
-import { getComplaintDetail } from '../../actions/complaints';
+import { useGetDocumentQuery } from '../../api/complaints/complaints';
 import getIcon from '../iconMap';
 import { Loading } from '../Loading/Loading';
 import { selectRoutesParams } from '../../reducers/routes/selectors';
@@ -18,13 +13,7 @@ import { formatUri } from '../../api/url/url';
 export const ComplaintDetail = () => {
   const location = useLocation();
   const { id } = useParams();
-  const dispatch = useDispatch();
-  const data = useSelector(selectDetailData);
-  const error = useSelector(selectDetailError);
-  const activeCall = useSelector(selectDetailActiveCall);
   const params = useSelector(selectRoutesParams);
-
-  const isLoading = activeCall !== '';
   const backUrl = useMemo(() => {
     // exit out if not initialized
     if (!location) {
@@ -36,9 +25,7 @@ export const ComplaintDetail = () => {
     return formatUri(pathName.substring(0, idx), params);
   }, [location, params]);
 
-  useEffect(() => {
-    dispatch(getComplaintDetail(id));
-  }, [dispatch, id]);
+  const { data, isLoading, error } = useGetDocumentQuery(id);
 
   return (
     <section className="card-container">
