@@ -1,17 +1,15 @@
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
-@use '@cfpb/cfpb-design-system/src/base' as *;
-@use '@cfpb/cfpb-design-system/dist/index.css' as *;
-@import '../../css/base';
+@import 'css/base';
 
 .filter-panel {
   padding: $gutter-normal;
+  border-top: 1px solid var(--gray-40);
+  border-right: 1px solid var(--gray-40);
+  background: var(--gray-5);
 
   @media screen and (min-width: $layout-breakpoint-desktop-min) {
     padding: $grid-gutter-width;
   }
-  border-top: 1px solid var(--gray-40);
-  border-right: 1px solid var(--gray-40);
-  background: var(--gray-5);
 
   @media screen and (max-width: $layout-breakpoint-phone-max) {
     border-right: none;
