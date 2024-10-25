@@ -5,9 +5,9 @@
  *
  * License: www.highcharts.com/license
  */
-@use 'node_modules/@cfpb/cfpb-design-system/src/abstracts' as *;
-@use 'node_modules/@cfpb/cfpb-design-system/src/base' as *;
-@use 'node_modules/@cfpb/cfpb-design-system/dist/index.css' as *;
+@use '@cfpb/cfpb-design-system/src/abstracts' as *;
+@use '@cfpb/cfpb-design-system/src/base' as *;
+@use '@cfpb/cfpb-design-system/dist/index.css' as *;
 @import '../../../css/base';
 
 .highcharts-container {
