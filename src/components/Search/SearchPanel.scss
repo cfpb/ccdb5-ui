@@ -1,5 +1,5 @@
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
-@import 'css/base';
+@use 'css/base' as *;
 
 .search-panel {
   padding: $grid-gutter-width;

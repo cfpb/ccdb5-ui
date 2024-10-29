@@ -1,7 +1,7 @@
 @use '../../../node_modules/intro.js/introjs.css' as *;
 
 // Intro.js styles
-@import 'css/base';
+@use 'css/base' as *;
 
 .introjs-tooltip.wide {
   max-width: 80vw !important;

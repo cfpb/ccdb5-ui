@@ -1,4 +1,4 @@
-@import 'css/base';
+@use 'css/base' as *;
 
 .separator {
   border-left: solid 1px var(--gray-40);

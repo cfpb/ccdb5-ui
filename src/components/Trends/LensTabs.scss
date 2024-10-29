@@ -1,5 +1,4 @@
-@import 'css/base';
-@import '../TabbedNavigation';
+@use '../TabbedNavigation';
 
 .tabbed-navigation {
   &.lens {

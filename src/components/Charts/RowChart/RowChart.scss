@@ -1,5 +1,5 @@
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
-@import 'css/base';
+@use 'css/base' as *;
 
 .row-chart-section {
   margin-top: $grid-gutter-width;

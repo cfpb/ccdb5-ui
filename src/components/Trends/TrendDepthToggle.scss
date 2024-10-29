@@ -1,5 +1,4 @@
-@import 'css/base';
-@import '../TabbedNavigation';
+@use '../TabbedNavigation';
 
 .trend-depth-toggle {
   background: var(--gray-10);

@@ -1,6 +1,6 @@
 @use 'sass:math';
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
-@import 'css/base';
+@use 'css/base' as *;
 
 .content__hero {
   padding-bottom: math.div(30px, $base-font-size-px) + rem;
