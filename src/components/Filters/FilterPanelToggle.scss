@@ -1,4 +1,4 @@
-@import '../../css/base';
+@use 'css/base' as *;
 
 .filter-panel-toggle {
   @media screen and (min-width: $layout-breakpoint-superwide-min) {

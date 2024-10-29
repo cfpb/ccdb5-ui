@@ -1,5 +1,5 @@
 @use 'sass:math';
-@import '../../css/base';
+@use 'css/base' as *;
 
 .pill-panel {
   padding-right: $gutter-narrow;

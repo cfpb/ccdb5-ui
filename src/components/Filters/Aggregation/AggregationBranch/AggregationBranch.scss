@@ -1,4 +1,4 @@
-@import '../../../../css/base';
+@use 'css/base' as *;
 
 li.aggregation-branch {
   &.parent {

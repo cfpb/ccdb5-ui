@@ -1,4 +1,5 @@
-@import '../TabbedNavigation';
+@use 'css/base' as *;
+@use '../TabbedNavigation';
 
 .focus-header {
   .clear-focus {

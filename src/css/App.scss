@@ -1,14 +1,10 @@
 // Import Design System Components.
-@use '@cfpb/cfpb-design-system/src/index' as *;
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
-@use '@cfpb/cfpb-design-system/src/base' as *;
-@use '@cfpb/cfpb-design-system/src/utilities' as *;
 
 // no atomic components
-@import 'base';
-@import '../components/Print/print';
-@include define-custom-props;
-@include licensed-font;
+@use 'base' as *;
+@use 'components/Print/print' as *;
+
 
 // Icon font path
 $cf-icon-path: '../css/fonts';

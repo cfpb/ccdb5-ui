@@ -17,7 +17,10 @@ const { ProvidePlugin } = require('webpack');
 
 module.exports = {
   webpack: {
-    alias: {},
+    alias: {
+      components: path.resolve(__dirname, 'src/components'),
+      css: path.resolve(__dirname, 'src/css')
+    },
     configure: (webpackConfig, { env, paths }) => {
       const strReplaceLoader = {
         // test: /constants\/index\.js$/,
@@ -82,4 +85,14 @@ module.exports = {
       },
     },
   ],
+  style: {
+    sass: {
+      loaderOptions: {
+        api: 'modern',
+        sassOptions: {
+          loadPaths: ['node_modules', 'src']
+        }
+      }
+    }
+  }
 };

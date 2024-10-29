@@ -1,6 +1,5 @@
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
-@use '@cfpb/cfpb-design-system/src/utilities' as *;
-@import '../../css/base';
+@use 'css/base' as *;
 
 .typeahead {
   input {

@@ -1,11 +1,10 @@
-@use 'node_modules/@cfpb/cfpb-design-system/src/abstracts' as *;
-@use 'node_modules/@cfpb/cfpb-design-system/src/base' as *;
-@use 'node_modules/@cfpb/cfpb-design-system/dist/index.css' as *;
-@import '../../css/base';
+@use '@cfpb/cfpb-design-system/src/abstracts' as *;
+@use 'css/base' as *;
 
 .search-panel {
   padding: $grid-gutter-width;
   border-right: 1px solid var(--gray-40);
+  background-color: var(--gray-5);
 
   @media screen and (min-width: $layout-breakpoint-desktop-min) {
     padding: $grid-gutter-width;
@@ -15,7 +14,6 @@
     padding: $gutter-narrow;
     min-height: 150px;
   }
-  background-color: var(--gray-5);
 }
 
 .date-subscript {

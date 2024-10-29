@@ -5,10 +5,8 @@
  *
  * License: www.highcharts.com/license
  */
-@use 'node_modules/@cfpb/cfpb-design-system/src/abstracts' as *;
-@use 'node_modules/@cfpb/cfpb-design-system/src/base' as *;
-@use 'node_modules/@cfpb/cfpb-design-system/dist/index.css' as *;
-@import '../../../css/base';
+@use '@cfpb/cfpb-design-system/src/abstracts' as *;
+@use 'css/base' as *;
 
 .highcharts-container {
   position: relative;
