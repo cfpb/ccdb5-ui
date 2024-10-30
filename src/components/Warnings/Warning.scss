@@ -1,4 +1,8 @@
 .warning {
+  &.m-notification {
+    margin: 10px;
+  }
+
   .close {
     position: absolute;
     right: 0;
