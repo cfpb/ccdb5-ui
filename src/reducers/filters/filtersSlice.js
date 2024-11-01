@@ -364,7 +364,6 @@ export function validatePer1000(state) {
     : types.GEO_NORM_NONE;
 }
 export const {
-  companyReceivedDateUpdated,
   dataNormalizationUpdated,
   filterAdded,
   filterRemoved,

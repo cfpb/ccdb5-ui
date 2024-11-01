@@ -13,7 +13,7 @@ import dayjsCustomParseFormat from 'dayjs/plugin/customParseFormat';
 import dayjsIsBetween from 'dayjs/plugin/isBetween';
 import { formatDate } from '../../utils/formatDate';
 import getIcon from '../iconMap';
-import { datesChanged } from '../../reducers/query/querySlice';
+import { companyReceivedDateChanged } from '../../reducers/query/querySlice';
 
 dayjs.extend(dayjsCustomParseFormat);
 dayjs.extend(dayjsIsBetween);
@@ -95,7 +95,7 @@ export const CompanyReceivedFilter = () => {
     const isDateDifferent =
       dateFrom !== _fromDate || dateThrough !== _throughDate;
     if (isDateDifferent) {
-      dispatch(datesChanged(fieldName, _fromDate, _throughDate));
+      dispatch(companyReceivedDateChanged(_fromDate, _throughDate));
     }
   };
 

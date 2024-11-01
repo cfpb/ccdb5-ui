@@ -21,7 +21,7 @@ describe('component::CompanyReceivedFilter', () => {
   const user = userEvent.setup();
   const companyReceivedDateUpdatedSpy = jest.spyOn(
     filterActions,
-    'datesChanged',
+    'companyReceivedDateChanged',
   );
   it('Renders', async () => {
     renderComponent({});
@@ -31,14 +31,12 @@ describe('component::CompanyReceivedFilter', () => {
     await user.type(screen.getByLabelText('From'), '2018-09-03{Enter}');
     // expect(screen.getByText())
     expect(companyReceivedDateUpdatedSpy).toHaveBeenCalledWith(
-      'company_received',
       '2018-09-03',
       '',
     );
 
     await user.type(screen.getByLabelText('Through'), '2021-09-03{Enter}');
     expect(companyReceivedDateUpdatedSpy).toHaveBeenCalledWith(
-      'company_received',
       '2018-09-03',
       '2021-09-03',
     );
