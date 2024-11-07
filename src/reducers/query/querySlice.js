@@ -110,19 +110,36 @@ export const querySlice = createSlice({
         };
       },
     },
-    datesChanged: {
-      // eslint-disable-next-line complexity
+    companyReceivedDateChanged: {
       reducer: (state, action) => {
-        const { filterName } = action.payload;
         let { maxDate, minDate } = action.payload;
 
-        const fields = [filterName + '_min', filterName + '_max'];
+        minDate = dayjs(minDate).isValid()
+          ? formatDate(dayjs(minDate).startOf('day'))
+          : null;
 
-        // // If maxDate AND minDate are falsy, early exit
-        // if (!maxDate && !minDate) {
-        //   return state;
-        // }
-
+        maxDate = dayjs(maxDate).isValid()
+          ? formatDate(dayjs(maxDate).startOf('day'))
+          : null;
+        state.company_received_min = minDate;
+        state.company_received_max = maxDate;
+      },
+      prepare: (minDate, maxDate) => {
+        return {
+          payload: {
+            minDate,
+            maxDate,
+          },
+          meta: {
+            persist: PERSIST_SAVE_QUERY_STRING,
+            requery: REQUERY_ALWAYS,
+          },
+        };
+      },
+    },
+    datesChanged: {
+      reducer: (state, action) => {
+        let { maxDate, minDate } = action.payload;
         minDate = dayjs(minDate).isValid()
           ? formatDate(dayjs(minDate).startOf('day'))
           : null;
@@ -131,27 +148,24 @@ export const querySlice = createSlice({
           : null;
 
         const datesChanged =
-          state[fields[0]] !== minDate || state[fields[1]] !== maxDate;
+          state.date_received_min !== minDate ||
+          state.date_received_max !== maxDate;
 
         const dateRange = calculateDateRange(minDate, maxDate);
 
-        // only modify dateRange when we use the date filter, not company filter
-        if (filterName === 'date_received') {
-          if (dateRange && datesChanged) {
-            state.dateRange = dateRange;
-          } else {
-            delete state.dateRange;
-          }
+        if (dateRange && datesChanged) {
+          state.dateRange = dateRange;
+        } else {
+          delete state.dateRange;
         }
 
-        state[fields[0]] = minDate || state[fields[0]];
-        state[fields[1]] = maxDate || state[fields[1]];
+        state.date_received_min = minDate || state.date_received_min;
+        state.date_received_max = maxDate || state.date_received_max;
         validateDateInterval(state);
       },
-      prepare: (filterName, minDate, maxDate) => {
+      prepare: (minDate, maxDate) => {
         return {
           payload: {
-            filterName,
             minDate,
             maxDate,
           },
@@ -287,6 +301,8 @@ export const querySlice = createSlice({
     builder
       .addCase('filters/filtersCleared', (state) => {
         state.dateRange = 'All';
+        state.company_received_max = '';
+        state.company_received_min = '';
         state.date_received_min = minDate;
         state.date_received_max = maxDate;
       })
@@ -337,6 +353,7 @@ export const querySlice = createSlice({
       })
       .addMatcher(
         isAnyOf(
+          companyReceivedDateChanged,
           datesChanged,
           dateIntervalChanged,
           dateRangeChanged,
@@ -608,6 +625,7 @@ export function clearPager(state) {
 }
 
 export const {
+  companyReceivedDateChanged,
   datesChanged,
   dateRangeChanged,
   dateIntervalChanged,

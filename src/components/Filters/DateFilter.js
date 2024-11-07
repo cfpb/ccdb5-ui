@@ -100,7 +100,7 @@ export const DateFilter = () => {
     const isDateDifferent =
       dateFrom !== _fromDate || dateThrough !== _throughDate;
     if (dayjs(_throughDate).isAfter(_fromDate) && isDateDifferent) {
-      dispatch(datesChanged(fieldName, _fromDate, _throughDate));
+      dispatch(datesChanged(_fromDate, _throughDate));
     }
   };
 

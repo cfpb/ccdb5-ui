@@ -11,6 +11,7 @@ import target, {
   searchFieldChanged,
   dateIntervalChanged,
   trendsDateWarningDismissed,
+  companyReceivedDateChanged,
 } from './querySlice';
 import * as types from '../../constants';
 import dayjs from 'dayjs';
@@ -401,9 +402,28 @@ describe('reducer:query', () => {
   });
 
   describe('Dates', () => {
+    describe('companyReceivedDate actions', () => {
+      beforeEach(() => {
+        result = null;
+      });
+
+      it('adds the dates', () => {
+        const testState = { ...queryState };
+        expect(
+          target(
+            testState,
+            companyReceivedDateChanged('2011-12-20', '2014-10-09'),
+          ),
+        ).toEqual({
+          ...testState,
+          company_received_min: '2011-12-20',
+          company_received_max: '2014-10-09',
+        });
+      });
+    });
+
     describe('datesChanged actions', () => {
       let result;
-      const filterName = 'date_received';
       const minDate = new Date(2001, 0, 30);
       const maxDate = new Date(2013, 1, 3);
       beforeEach(() => {
@@ -413,9 +433,7 @@ describe('reducer:query', () => {
       it('adds the dates', () => {
         const testState = { ...queryState };
         delete testState.dateRange;
-        expect(
-          target(testState, datesChanged(filterName, minDate, maxDate)),
-        ).toEqual({
+        expect(target(testState, datesChanged(minDate, maxDate))).toEqual({
           ...testState,
           breakPoints: {},
           date_received_min: '2001-01-30',
@@ -434,7 +452,7 @@ describe('reducer:query', () => {
             date_received_max: maxDate,
             dateRange: '1y',
           },
-          datesChanged(filterName, minDate, maxDate),
+          datesChanged(minDate, maxDate),
         );
         expect(result.dateRange).toBeFalsy();
       });
@@ -444,7 +462,7 @@ describe('reducer:query', () => {
         // today's date
         const max = dayjs(startOfToday());
         const min = new Date(dayjs(max).subtract(3, 'months'));
-        result = target({ ...queryState }, datesChanged(filterName, min, max));
+        result = target({ ...queryState }, datesChanged(min, max));
         expect(result.dateRange).toEqual('3m');
       });
     });
