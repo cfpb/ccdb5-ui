@@ -20,7 +20,6 @@ _site/
 *.rar
 *.tar
 *.zip
-yarn.lock
 
 # Logs and databases #
 ######################
