@@ -16,6 +16,8 @@
   --faded-gray-dark: 67, 72, 78;
 
   background-color: rgb(var(--faded-gray-dark), 0.75);
+
+  z-index: 1;
 }
 
 .loading-box {
