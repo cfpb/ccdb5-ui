@@ -38,7 +38,7 @@
     "@babel/preset-react": "^7.24.7",
     "@babel/runtime": "^7.24.7",
     "@cfpb/browserslist-config": "0.0.2",
-    "@cfpb/cfpb-design-system": "3.2.2",
+    "@cfpb/cfpb-design-system": "^3.2.2",
     "@craco/craco": "^7.1.0",
     "@csstools/postcss-sass": "^5.1.1",
     "@csstools/sass-import-resolve": "^1.0.0",
