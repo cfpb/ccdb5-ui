@@ -1,6 +1,10 @@
 .warning {
   &.m-notification {
     margin: 10px;
+
+    .m-notification__message {
+      padding-right: 18px;
+    }
   }
 
   .close {
