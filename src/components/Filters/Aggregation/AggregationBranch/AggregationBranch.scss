@@ -36,6 +36,8 @@ li.aggregation-branch {
       text-align: left;
       vertical-align: top;
 
+      display: inline-block;
+
       .cf-icon-svg {
         padding-left: $gutter-minimum;
       }
