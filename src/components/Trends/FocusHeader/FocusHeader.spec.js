@@ -80,8 +80,12 @@ describe('component:FocusHeader', () => {
     ).toBeInTheDocument();
 
     // no tabs should exist on Company Focus
-    expect(screen.queryByRole('button', { name: /Sub-products/ })).toBeNull();
-    expect(screen.queryByRole('button', { name: /Issue/ })).toBeNull();
+    expect(
+      screen.queryByRole('button', { name: /Sub-products/ }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: /Issue/ }),
+    ).not.toBeInTheDocument();
 
     fireEvent.click(
       screen.getByRole('button', { name: /View company trends/ }),

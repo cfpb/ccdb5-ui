@@ -155,6 +155,6 @@ describe('component::RowChart', () => {
     };
     fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
     const { container } = renderComponent(props, trends, view);
-    expect(container.firstChild).toBeNull();
+    expect(container.firstChild).not.toBeInTheDocument();
   });
 });

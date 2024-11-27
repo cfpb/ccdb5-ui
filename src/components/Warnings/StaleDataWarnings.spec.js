@@ -87,6 +87,6 @@ describe('StaleDataWarnings', () => {
     renderComponent();
     expect(
       screen.queryByText(/We expect to refresh the data in the next few days./),
-    ).toBeNull();
+    ).not.toBeInTheDocument();
   });
 });

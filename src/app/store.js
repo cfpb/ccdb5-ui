@@ -4,7 +4,7 @@ import routesReducer from '../reducers/routes/routesSlice';
 import trendsReducer from '../reducers/trends/trendsSlice';
 import viewReducer from '../reducers/view/viewSlice';
 import { configureStore } from '@reduxjs/toolkit';
-import { complaintsApi } from '../api/complaints/complaints';
+import { complaintsApi } from '../api/complaints';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import synchUrl from '../middleware/synchUrl/synchUrl';
 

@@ -9,7 +9,7 @@ import query from '../reducers/query/querySlice';
 import routes from '../reducers/routes/routesSlice';
 import trends from '../reducers/trends/trendsSlice';
 import view from '../reducers/view/viewSlice';
-import { complaintsApi } from '../api/complaints/complaints';
+import { complaintsApi } from '../api/complaints';
 
 /**
  *

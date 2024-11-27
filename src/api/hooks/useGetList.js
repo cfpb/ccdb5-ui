@@ -1,4 +1,4 @@
-import { useGetListQuery } from '../complaints/complaints';
+import { useGetListQuery } from '../complaints';
 import { useSelector } from 'react-redux';
 import { extractBasicParams } from '../params/params';
 import { selectFiltersRoot } from '../../reducers/filters/selectors';

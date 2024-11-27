@@ -1,4 +1,4 @@
-import { useGetTrendsQuery } from '../complaints/complaints';
+import { useGetTrendsQuery } from '../complaints';
 import { useSelector } from 'react-redux';
 import { extractTrendsParams } from '../params/params';
 import { selectFiltersRoot } from '../../reducers/filters/selectors';

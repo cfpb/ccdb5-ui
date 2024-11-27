@@ -11,12 +11,7 @@ import { useGetAggregations } from '../../api/hooks/useGetAggregations';
 export const ActionBar = () => {
   const dispatch = useDispatch();
   const tab = useSelector(selectViewTab);
-  const { data, isLoading } = useGetAggregations();
-
-  if (isLoading) {
-    return;
-  }
-
+  const { data } = useGetAggregations();
   const docCount = data?.doc_count || 0;
   const total = data?.total || 0;
 

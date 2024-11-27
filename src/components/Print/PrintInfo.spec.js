@@ -27,8 +27,8 @@ describe('PrintInfo', () => {
 
   it('renders default state', () => {
     renderComponent({}, {});
-    expect(screen.queryByText('Dates:')).toBeNull();
-    expect(screen.queryByText('5/5/2017 - 5/5/2020')).toBeNull();
+    expect(screen.queryByText('Dates:')).not.toBeInTheDocument();
+    expect(screen.queryByText('5/5/2017 - 5/5/2020')).not.toBeInTheDocument();
   });
 
   it('renders filtered complaints', async () => {

@@ -1,4 +1,4 @@
-import { useGetMapQuery } from '../complaints/complaints';
+import { useGetMapQuery } from '../complaints';
 import { useSelector } from 'react-redux';
 import { extractAggregationParams } from '../params/params';
 import { selectFiltersRoot } from '../../reducers/filters/selectors';

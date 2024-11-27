@@ -59,7 +59,7 @@ describe('DataExport', () => {
     // hide dataset buttons when no filters selected
     expect(
       screen.queryByText(/Select which complaints you'd like to export/),
-    ).toBeNull();
+    ).not.toBeInTheDocument();
     expect(
       screen.getByText(
         'Link to your complaint search results for future reference',

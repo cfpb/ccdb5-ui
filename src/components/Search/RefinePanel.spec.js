@@ -20,7 +20,7 @@ describe('RefinePanel', () => {
 
   it('renders nothing in mobile view', () => {
     renderComponent({}, {});
-    expect(screen.queryByText('State')).toBeNull();
+    expect(screen.queryByText('State')).not.toBeInTheDocument();
   });
   it('renders in desktop view', () => {
     renderComponent({ tab: MODE_TRENDS }, { width: 1000 });

@@ -34,7 +34,9 @@ describe('FilterPanel', () => {
     expect(
       screen.getByRole('heading', { name: 'Filter results by...' }),
     ).toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: /Close filters/ })).toBeNull();
+    expect(
+      screen.queryByRole('button', { name: /Close filters/ }),
+    ).not.toBeInTheDocument();
   });
 
   it('renders button at mobile width', async () => {
@@ -47,6 +49,6 @@ describe('FilterPanel', () => {
     await user.click(screen.getByRole('button', { name: /Close filters/ }));
     expect(
       screen.queryByRole('heading', { name: 'Filter results by...' }),
-    ).toBeNull();
+    ).not.toBeInTheDocument();
   });
 });

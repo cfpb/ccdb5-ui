@@ -160,9 +160,11 @@ describe('component::ComplaintDetail', () => {
     ).toBeInTheDocument();
     expect(screen.getByText(docResponse.consumer_disputed)).toBeInTheDocument();
     expect(screen.getByText(docResponse.submitted_via)).toBeInTheDocument();
-    expect(screen.queryByText('Sub-product:')).toBeNull();
-    expect(screen.queryByText('Sub-issue:')).toBeNull();
-    expect(screen.queryByText('Consumer complaint narrative')).toBeNull();
+    expect(screen.queryByText('Sub-product:')).not.toBeInTheDocument();
+    expect(screen.queryByText('Sub-issue:')).not.toBeInTheDocument();
+    expect(
+      screen.queryByText('Consumer complaint narrative'),
+    ).not.toBeInTheDocument();
   });
 
   it('handles errors with "Consumer Consent Provided" icons', async () => {

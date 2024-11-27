@@ -23,7 +23,7 @@ describe('component: ExternalTooltip', () => {
   const user = userEvent.setup();
   test('empty rendering', () => {
     renderComponent({});
-    expect(screen.queryByText('foobar')).toBeNull();
+    expect(screen.queryByText('foobar')).not.toBeInTheDocument();
   });
   test('rendering', () => {
     const trends = {
@@ -94,6 +94,8 @@ describe('component: ExternalTooltip', () => {
     };
     renderComponent(trends);
     expect(screen.getByText('foo')).toBeInTheDocument();
-    expect(screen.queryByPlaceholderText('Enter company name')).toBeNull();
+    expect(
+      screen.queryByPlaceholderText('Enter company name'),
+    ).not.toBeInTheDocument();
   });
 });

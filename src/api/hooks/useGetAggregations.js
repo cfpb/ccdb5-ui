@@ -1,4 +1,4 @@
-import { useGetAggregationsQuery } from '../complaints/complaints';
+import { useGetAggregationsQuery } from '../complaints';
 import { useSelector } from 'react-redux';
 import { extractAggregationParams } from '../params/params';
 import { selectFiltersRoot } from '../../reducers/filters/selectors';

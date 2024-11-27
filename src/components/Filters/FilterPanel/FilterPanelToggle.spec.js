@@ -29,7 +29,9 @@ describe('FilterPanelToggle', () => {
       screen.getByRole('button', { name: /Close Filters/ }),
     ).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: /Close Filters/ }));
-    expect(screen.queryByRole('button', { name: /Close Filters/ })).toBeNull();
+    expect(
+      screen.queryByRole('button', { name: /Close Filters/ }),
+    ).not.toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: /Filter results/ }),
     ).toBeInTheDocument();

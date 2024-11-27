@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { API_PLACEHOLDER } from '../../constants';
+import { API_PLACEHOLDER } from '../constants';
 import {
   processAggregations,
   trendsReceived,
-} from '../../reducers/trends/trendsSlice';
-import { processStateAggregations } from '../../utils/map';
+} from '../reducers/trends/trendsSlice';
+import { processStateAggregations } from '../utils/map';
 import queryString from 'query-string';
 
 export const complaintsApi = createApi({

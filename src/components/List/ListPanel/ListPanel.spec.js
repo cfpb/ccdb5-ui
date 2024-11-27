@@ -143,6 +143,6 @@ describe('ListPanel', () => {
     renderComponent(queryState, newViewState);
 
     await screen.findByRole('button', { name: 'Export data' });
-    expect(screen.queryByText('Filter results by...')).toBeNull();
+    expect(screen.queryByText('Filter results by...')).not.toBeInTheDocument();
   });
 });

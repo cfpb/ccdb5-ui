@@ -31,12 +31,12 @@ describe('Tour loading behavior', () => {
 
   test("Tour doesn't load if page still loading", async () => {
     renderComponent({ showTour: false });
-    expect(screen.queryByRole('dialog')).toBeNull();
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
   test("Tour doesn't load unless tourShown state is true", async () => {
     renderComponent({ showTour: false });
-    expect(screen.queryByRole('dialog')).toBeNull();
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     renderComponent({ showTour: true });
     expect(await screen.findByRole('dialog')).toBeDefined();
   });

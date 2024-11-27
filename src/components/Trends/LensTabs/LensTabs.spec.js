@@ -34,7 +34,7 @@ describe('component:LensTabs', () => {
     renderComponent({
       lens: 'Overview',
     });
-    expect(screen.queryByText('Products')).toBeNull();
+    expect(screen.queryByText('Products')).not.toBeInTheDocument();
   });
 
   it('renders on Product without crashing', async () => {

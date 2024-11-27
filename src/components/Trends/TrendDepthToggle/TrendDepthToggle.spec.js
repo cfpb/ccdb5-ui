@@ -61,12 +61,16 @@ describe('component:TrendDepthToggle', () => {
       }
     });
     renderComponent({}, { focus: 'Foo bar' });
-    expect(screen.queryByRole('button', { name: 'Show more' })).toBeNull();
+    expect(
+      screen.queryByRole('button', { name: 'Show more' }),
+    ).not.toBeInTheDocument();
   });
 
   it('does not render when lens is Overview', () => {
     renderComponent({}, { lens: 'Overview' });
-    expect(screen.queryByRole('button', { name: 'Show more' })).toBeNull();
+    expect(
+      screen.queryByRole('button', { name: 'Show more' }),
+    ).not.toBeInTheDocument();
   });
 
   it('renders Product view more link', async () => {

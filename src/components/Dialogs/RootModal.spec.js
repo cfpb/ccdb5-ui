@@ -17,8 +17,8 @@ describe('RootModal', () => {
 
     expect(
       screen.queryByText('Things you should know before you use this database'),
-    ).toBeNull();
-    expect(screen.queryByText('Export complaints')).toBeNull();
+    ).not.toBeInTheDocument();
+    expect(screen.queryByText('Export complaints')).not.toBeInTheDocument();
   });
 
   it('renders Export dialog', () => {

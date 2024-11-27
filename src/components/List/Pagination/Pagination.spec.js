@@ -62,7 +62,11 @@ describe('Pagination', () => {
 
   test('hides when there are no results', () => {
     renderComponent({ page: 1 });
-    expect(screen.queryByRole('button', { name: /Next/ })).toBeNull();
-    expect(screen.queryByRole('button', { name: /Previous/ })).toBeNull();
+    expect(
+      screen.queryByRole('button', { name: /Next/ }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: /Previous/ }),
+    ).not.toBeInTheDocument();
   });
 });
