@@ -131,7 +131,7 @@ const synchUrl = (store) => (next) => (action) => {
   const { queryString: oldQS } = state.routes;
   const newQS = queryString.stringify(params);
   // And record the change in Redux to prevent ROUTE_CHANGED storms
-  if (oldQS !== '' && oldQS !== newQS) {
+  if ((oldQS !== '' && oldQS !== newQS) || oldQS === '') {
     history.push({
       pathname: location.pathname,
       search: '?' + newQS,
