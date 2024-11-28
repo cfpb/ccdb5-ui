@@ -17,7 +17,6 @@ import {
   selectViewIsPrintMode,
   selectViewWidth,
 } from '../../../reducers/view/selectors';
-import cloneDeep from 'lodash/cloneDeep';
 import { useGetMap } from '../../../api/hooks/useGetMap';
 
 export const TileChartMap = () => {
@@ -33,7 +32,7 @@ export const TileChartMap = () => {
   const data = useMemo(() => {
     return stateMapResultsState
       ? stateMapResultsState.map((state) => {
-          const newState = cloneDeep(state);
+          const newState = structuredClone(state);
           const stateInfo = coalesce(STATE_DATA, state.name, {
             name: '',
             population: 1,

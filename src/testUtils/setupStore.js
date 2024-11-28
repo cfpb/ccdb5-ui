@@ -7,7 +7,6 @@ import trendsReducer from '../reducers/trends/trendsSlice';
 import viewModelReducer from '../reducers/view/viewSlice';
 import { applyMiddleware, combineReducers } from '@reduxjs/toolkit';
 import actionLogger from '../middleware/actionLogger/actionLogger';
-import cloneDeep from 'lodash/cloneDeep';
 import emptyStore from '../actions/__fixtures__/emptyStore';
 
 /**
@@ -17,7 +16,7 @@ import emptyStore from '../actions/__fixtures__/emptyStore';
  * @returns {object} complete empty redux store
  */
 function initialState() {
-  return cloneDeep(emptyStore);
+  return structuredClone(emptyStore);
 }
 
 /**

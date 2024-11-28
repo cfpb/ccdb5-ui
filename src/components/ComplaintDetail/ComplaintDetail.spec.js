@@ -7,7 +7,6 @@ import { merge } from '../../testUtils/functionHelpers';
 import { routesState } from '../../reducers/routes/routesSlice';
 import fetchMock from 'jest-fetch-mock';
 import { Route, Routes } from 'react-router-dom';
-import { cloneDeep } from '../../utils';
 
 const fixture = {
   took: 1,
@@ -68,7 +67,7 @@ describe('component::ComplaintDetail', () => {
   let response;
   beforeEach(() => {
     fetchMock.resetMocks();
-    response = cloneDeep(fixture);
+    response = structuredClone(fixture);
   });
 
   it('renders loading page', () => {

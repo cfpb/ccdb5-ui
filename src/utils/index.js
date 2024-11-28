@@ -195,21 +195,6 @@ export const sanitizeHtmlId = (str) =>
 export const slugify = (first, second) => first + SLUG_SEPARATOR + second;
 
 /**
- * take in an array or object and clone it as completely new object to remove
- * pointers.  If you .slice() an array of objects, the array is new, but
- * copied objects still point to original objects, you will still have mutations
- *
- * @param {object | Array} input - the thing to copy
- * @returns {object | Array} the copied new thing
- */
-export const cloneDeep = (input) => {
-  if (typeof input !== 'undefined') {
-    return JSON.parse(JSON.stringify(input));
-  }
-  return input;
-};
-
-/**
  * Custom sort for array so that selected items appear first, then by doc_count
  *
  * @param {Array} options - input array containing values
@@ -217,7 +202,7 @@ export const cloneDeep = (input) => {
  * @returns {Array} sorted array
  */
 export const sortSelThenCount = (options, selected) => {
-  const retVal = (cloneDeep(options) || []).slice();
+  const retVal = (structuredClone(options) || []).slice();
 
   /* eslint complexity: ["error", 5] */
   retVal.sort((first, second) => {

@@ -1,4 +1,3 @@
-import { cloneDeep } from '../../../utils';
 import { CollapsibleFilter } from '../CollapsibleFilter/CollapsibleFilter';
 import { CompanyTypeahead } from './CompanyTypeahead';
 import { useSelector } from 'react-redux';
@@ -18,7 +17,7 @@ export const Company = () => {
   const focus = useSelector(selectTrendsFocus);
   const lens = useSelector(selectTrendsLens);
   const aggsCompany = data?.company || [];
-  const options = cloneDeep(aggsCompany);
+  const options = structuredClone(aggsCompany);
   const isFocusPage = focus && lens === 'Company';
 
   options.forEach((opt) => {

@@ -15,12 +15,7 @@ import {
   selectViewTab,
   selectViewWidth,
 } from '../../../reducers/view/selectors';
-import {
-  cloneDeep,
-  coalesce,
-  getAllFilters,
-  sendAnalyticsEvent,
-} from '../../../utils';
+import { coalesce, getAllFilters, sendAnalyticsEvent } from '../../../utils';
 import { MODE_MAP } from '../../../constants';
 import { useGetAggregations } from '../../../api/hooks/useGetAggregations';
 
@@ -164,7 +159,7 @@ export const RowChart = ({
     }
 
     // do this to prevent REDUX pollution
-    const rows = cloneDeep(data).filter((obj) => {
+    const rows = data.filter((obj) => {
       if (obj.name && isPrintMode) {
         // remove spacer text if we are in print mode
         return obj.name.indexOf('Visualize trends for') === -1;

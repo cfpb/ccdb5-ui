@@ -1,6 +1,5 @@
 import * as routesActions from '../../reducers/routes/routesSlice';
 import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../../constants';
-import cloneDeep from 'lodash/cloneDeep';
 import emptyStore from '../../actions/__fixtures__/emptyStore';
 import synchUrl from './synchUrl';
 import { createStore } from 'redux';
@@ -35,7 +34,7 @@ describe('redux middleware::synchUrl', () => {
   let store, rSpy, targetState;
   beforeEach(() => {
     rSpy = jest.spyOn(routesActions, 'appUrlChanged');
-    targetState = cloneDeep(emptyStore);
+    targetState = structuredClone(emptyStore);
     targetState.query.date_received_min = '09-12-1980';
     targetState.query.date_received_max = '09-20-2000';
     targetState.view.tab = MODE_LIST;
