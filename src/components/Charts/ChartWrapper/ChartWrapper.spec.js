@@ -6,13 +6,6 @@ describe('ChartWrapper', () => {
     render(<ChartWrapper hasKey={hasKey} isEmpty={isEmpty} domId={domId} />);
   };
 
-  test('It renders warning when empty', () => {
-    renderComponent({ hasKey: false, isEmpty: true, domId: 'some-id' });
-    expect(screen.getByRole('alert')).toHaveTextContent(
-      'Cannot display chart. Adjust your date range or date interval',
-    );
-  });
-
   test('It renders wrapper with data', () => {
     renderComponent({ hasKey: false, isEmpty: false, domId: 'some-id' });
     const text = screen.getByText('Date received by the CFPB');

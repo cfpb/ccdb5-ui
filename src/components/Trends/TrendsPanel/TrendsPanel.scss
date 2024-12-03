@@ -320,6 +320,10 @@
       margin-bottom: $gutter-normal;
     }
 
+    .m-notification {
+      width: 100%;
+    }
+
     @media screen and (min-width: $layout-breakpoint-tablet-min) and (max-width: $layout-breakpoint-tablet-max) {
       padding-left: 20px;
     }
