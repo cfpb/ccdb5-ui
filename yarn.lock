@@ -1381,7 +1381,7 @@
   resolved "https://registry.yarnpkg.com/@cfpb/browserslist-config/-/browserslist-config-0.0.3.tgz#c12a9eede0d33820b2770241b4513d753dbe9bf9"
   integrity sha512-MplL75XVXKJEJbmPnrQ2FOglRxYR0+M04mPeoEMqQGeHnpzEdlZXmIVIm1/9/mAhOCfMt6ei4h+dS+sbi22k+g==
 
-"@cfpb/cfpb-design-system@3.6.0":
+"@cfpb/cfpb-design-system@^3.6.0":
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/@cfpb/cfpb-design-system/-/cfpb-design-system-3.6.0.tgz#d14c4881388287c4f34c17e4debf6d20ed7354aa"
   integrity sha512-z849NujZ3R7EQC/uuyl4EQ6uOonikNreE7UZykcJU45FNQXMtlq/EeMxHDvvDVFaG4Lj6gqajnxS1FOMzUkEoQ==
