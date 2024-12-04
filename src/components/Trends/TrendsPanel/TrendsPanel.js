@@ -295,10 +295,10 @@ export const TrendsPanel = () => {
             </strong>
           </div>
           <div className="layout-row">
-            <section className="chart">
+            <>
               {chartType === 'line' && <LineChart />}
               {chartType === 'area' && <StackedAreaChart />}
-            </section>
+            </>
             {!hasOverview && <ExternalTooltip />}
           </div>
         </>

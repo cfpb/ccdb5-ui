@@ -27,6 +27,7 @@ import {
   selectQueryDateInterval,
 } from '../../../reducers/query/selectors';
 import { ChartWrapper } from '../ChartWrapper/ChartWrapper';
+import { ErrorBlock } from '../../Warnings/Error';
 
 export const LineChart = () => {
   const dispatch = useDispatch();
@@ -41,10 +42,13 @@ export const LineChart = () => {
   const width = useSelector(selectViewWidth);
 
   const hasTooltip = lens !== 'Overview';
+
   const processData = useMemo(() => {
     const dateRange = { from: dateFrom, to: dateTo };
     return pruneIncompleteLineInterval(areaData, dateRange, interval);
   }, [areaData, dateFrom, dateTo, interval]);
+
+  const isDataEmpty = isLineDataEmpty(processData);
 
   useEffect(() => {
     const dateRange = { from: dateFrom, to: dateTo };
@@ -148,11 +152,15 @@ export const LineChart = () => {
     width,
   ]);
 
+  if (isDataEmpty) {
+    return (
+      <ErrorBlock text="Cannot display chart. Adjust your date range or date interval." />
+    );
+  }
+
   return (
-    <ChartWrapper
-      hasKey={hasTooltip}
-      domId="line-chart"
-      isEmpty={isLineDataEmpty(processData)}
-    />
+    <section className="chart">
+      <ChartWrapper hasKey={hasTooltip} domId="line-chart" />
+    </section>
   );
 };

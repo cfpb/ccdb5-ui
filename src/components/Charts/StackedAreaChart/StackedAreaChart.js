@@ -26,6 +26,7 @@ import {
   selectViewWidth,
 } from '../../../reducers/view/selectors';
 import { ChartWrapper } from '../ChartWrapper/ChartWrapper';
+import { ErrorBlock } from '../../Warnings/Error';
 
 export const StackedAreaChart = () => {
   const dispatch = useDispatch();
@@ -152,11 +153,15 @@ export const StackedAreaChart = () => {
     width,
   ]);
 
+  if (isDataEmpty) {
+    return (
+      <ErrorBlock text="Cannot display chart. Adjust your date range or date interval." />
+    );
+  }
+
   return (
-    <ChartWrapper
-      hasKey={showTooltip}
-      domId="stacked-area-chart"
-      isEmpty={isDataEmpty}
-    />
+    <section className="chart">
+      <ChartWrapper hasKey={showTooltip} domId="stacked-area-chart" />
+    </section>
   );
 };
