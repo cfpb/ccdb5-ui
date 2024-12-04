@@ -11,7 +11,7 @@ export const FilterPanelToggle = () => {
       <div className="m-btn-group">
         <p>&nbsp;</p>
         <button
-          className="a-btn"
+          className="a-btn filter-toggle-button"
           onClick={() => {
             dispatch(updateFilterVisibility());
           }}
