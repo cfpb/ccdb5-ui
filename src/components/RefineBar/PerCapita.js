@@ -21,28 +21,30 @@ export const PerCapita = () => {
   }, [dataNormalization, enablePer1000]);
 
   return (
-    <section className="m-btn-group">
+    <section className="per-capita">
       <p>Map shading</p>
-      <button
-        aria-label="Display map by complaints"
-        className={'a-btn' + selectedClass(dataNormalization, GEO_NORM_NONE)}
-        onClick={() => {
-          dispatch(dataNormalizationUpdated(GEO_NORM_NONE));
-        }}
-        disabled={dataNormalization === GEO_NORM_NONE}
-      >
-        Complaints
-      </button>
-      <button
-        aria-label="Display map by complaints per 1,000 people"
-        className={'a-btn ' + perCapButtonClass}
-        disabled={dataNormalization === GEO_NORM_PER1000 || !enablePer1000}
-        onClick={() => {
-          dispatch(dataNormalizationUpdated(GEO_NORM_PER1000));
-        }}
-      >
-        Complaints per 1,000 <span>population</span>
-      </button>
+      <div className="m-btn-group">
+        <button
+          aria-label="Display map by complaints"
+          className={'a-btn' + selectedClass(dataNormalization, GEO_NORM_NONE)}
+          onClick={() => {
+            dispatch(dataNormalizationUpdated(GEO_NORM_NONE));
+          }}
+          disabled={dataNormalization === GEO_NORM_NONE}
+        >
+          Complaints
+        </button>
+        <button
+          aria-label="Display map by complaints per 1,000 people"
+          className={'a-btn ' + perCapButtonClass}
+          disabled={dataNormalization === GEO_NORM_PER1000 || !enablePer1000}
+          onClick={() => {
+            dispatch(dataNormalizationUpdated(GEO_NORM_PER1000));
+          }}
+        >
+          Complaints per 1,000 <span>population</span>
+        </button>
+      </div>
     </section>
   );
 };

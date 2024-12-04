@@ -14,29 +14,33 @@ export const NarrativesButtons = () => {
   const isNarrativesButtonDisabled = hasNarrative === true;
 
   return (
-    <section className="m-btn-group">
+    <section className="narratives-buttons">
       <p>Read</p>
-      <button
-        id="btn-add-narratives"
-        className={'a-btn' + selectedClass(true, isNarrativesButtonDisabled)}
-        disabled={isNarrativesButtonDisabled}
-        onClick={() => {
-          dispatch(filterAdded(FIELD_NAME, ''));
-        }}
-      >
-        Only complaints with narratives
-      </button>
+      <div className="m-btn-group">
+        <button
+          id="btn-add-narratives"
+          className={'a-btn' + selectedClass(true, isNarrativesButtonDisabled)}
+          disabled={isNarrativesButtonDisabled}
+          onClick={() => {
+            dispatch(filterAdded(FIELD_NAME, ''));
+          }}
+        >
+          Only complaints with narratives
+        </button>
 
-      <button
-        id="btn-remove-narratives"
-        className={'a-btn' + selectedClass(false, !!isNarrativesButtonDisabled)}
-        disabled={!isNarrativesButtonDisabled}
-        onClick={() => {
-          dispatch(filterRemoved(FIELD_NAME, ''));
-        }}
-      >
-        All complaints
-      </button>
+        <button
+          id="btn-remove-narratives"
+          className={
+            'a-btn' + selectedClass(false, !!isNarrativesButtonDisabled)
+          }
+          disabled={!isNarrativesButtonDisabled}
+          onClick={() => {
+            dispatch(filterRemoved(FIELD_NAME, ''));
+          }}
+        >
+          All complaints
+        </button>
+      </div>
     </section>
   );
 };

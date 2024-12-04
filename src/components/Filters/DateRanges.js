@@ -27,21 +27,23 @@ export const DateRanges = () => {
   };
 
   return (
-    <section className="date-ranges m-btn-group">
+    <section className="date-ranges">
       <p>Date range (Click to modify range)</p>
-      {Object.keys(dateRanges).map((range) => (
-        <button
-          onClick={() => {
-            toggleDateRange(range);
-          }}
-          aria-label={dateRanges[range]}
-          className={btnClassName(range)}
-          key={range}
-          title={dateRanges[range]}
-        >
-          {range}
-        </button>
-      ))}
+      <div className="m-btn-group">
+        {Object.keys(dateRanges).map((range) => (
+          <button
+            onClick={() => {
+              toggleDateRange(range);
+            }}
+            aria-label={dateRanges[range]}
+            className={btnClassName(range)}
+            key={range}
+            title={dateRanges[range]}
+          >
+            {range}
+          </button>
+        ))}
+      </div>
     </section>
   );
 };
