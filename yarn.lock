@@ -1381,10 +1381,12 @@
   resolved "https://registry.yarnpkg.com/@cfpb/browserslist-config/-/browserslist-config-0.0.3.tgz#c12a9eede0d33820b2770241b4513d753dbe9bf9"
   integrity sha512-MplL75XVXKJEJbmPnrQ2FOglRxYR0+M04mPeoEMqQGeHnpzEdlZXmIVIm1/9/mAhOCfMt6ei4h+dS+sbi22k+g==
 
-"@cfpb/cfpb-design-system@3.2.2":
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/@cfpb/cfpb-design-system/-/cfpb-design-system-3.2.2.tgz#05c12b5f33e7b32c8fbc99ec87bb61b88d28727f"
-  integrity sha512-7IwjS1OGKubl1PB6odQK14mlUlPHNG5/jeEriX1qICGdxCmVCemFdXwv5hPgyTkdYRlINsOfFfLOOlbDtwWQyw==
+"@cfpb/cfpb-design-system@^3.6.0":
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/@cfpb/cfpb-design-system/-/cfpb-design-system-3.6.0.tgz#d14c4881388287c4f34c17e4debf6d20ed7354aa"
+  integrity sha512-z849NujZ3R7EQC/uuyl4EQ6uOonikNreE7UZykcJU45FNQXMtlq/EeMxHDvvDVFaG4Lj6gqajnxS1FOMzUkEoQ==
+  dependencies:
+    tippy.js "6.3.7"
 
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
@@ -2686,7 +2688,7 @@
     "@pnpm/network.ca-file" "^1.0.1"
     config-chain "^1.1.11"
 
-"@popperjs/core@^2.10.2", "@popperjs/core@^2.11.6":
+"@popperjs/core@^2.10.2", "@popperjs/core@^2.11.6", "@popperjs/core@^2.9.0":
   version "2.11.8"
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
   integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
@@ -14264,6 +14266,13 @@ thunky@^1.0.2:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/thunky/-/thunky-1.1.0.tgz#5abaf714a9405db0504732bbccd2cedd9ef9537d"
   integrity sha512-eHY7nBftgThBqOyHGVN+l8gF0BucP09fMo0oO/Lb0w1OF80dJv+lDVpXG60WMQvkcxAkNybKsrEIE3ZtKGmPrA==
+
+tippy.js@6.3.7:
+  version "6.3.7"
+  resolved "https://registry.yarnpkg.com/tippy.js/-/tippy.js-6.3.7.tgz#8ccfb651d642010ed9a32ff29b0e9e19c5b8c61c"
+  integrity sha512-E1d3oP2emgJ9dRQZdf3Kkn0qJgI6ZLpyS5z6ZkY1DF3kaQaBsGZsndEpHwx+eC+tYM41HaSNvNtLx8tU57FzTQ==
+  dependencies:
+    "@popperjs/core" "^2.9.0"
 
 tldts-core@^6.1.61:
   version "6.1.61"

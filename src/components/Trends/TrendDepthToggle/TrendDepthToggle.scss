@@ -3,6 +3,8 @@
 .trend-depth-toggle {
   background: var(--gray-10);
   text-align: center;
+  display: flex;
+  justify-content: center;
 
   button {
     margin: 5px;

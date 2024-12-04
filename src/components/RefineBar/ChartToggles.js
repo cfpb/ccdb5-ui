@@ -15,28 +15,30 @@ export const ChartToggles = () => {
   };
 
   return (
-    <section className="chart-toggles m-btn-group">
+    <section className="chart-toggles">
       <p>Chart type</p>
-      <button
-        aria-label="Toggle line chart"
-        className={'a-btn' + selectedClass('line', chartType)}
-        disabled={chartType === 'line'}
-        onClick={() => {
-          toggleChartType('line');
-        }}
-      >
-        {getIcon('line-chart')}
-      </button>
-      <button
-        aria-label="Toggle area chart"
-        className={'a-btn' + selectedClass('area', chartType)}
-        disabled={chartType === 'area'}
-        onClick={() => {
-          toggleChartType('area');
-        }}
-      >
-        {getIcon('area-chart')}
-      </button>
+      <div className="m-btn-group">
+        <button
+          aria-label="Toggle line chart"
+          className={'a-btn' + selectedClass('line', chartType)}
+          disabled={chartType === 'line'}
+          onClick={() => {
+            toggleChartType('line');
+          }}
+        >
+          {getIcon('line-chart')}
+        </button>
+        <button
+          aria-label="Toggle area chart"
+          className={'a-btn' + selectedClass('area', chartType)}
+          disabled={chartType === 'area'}
+          onClick={() => {
+            toggleChartType('area');
+          }}
+        >
+          {getIcon('area-chart')}
+        </button>
+      </div>
     </section>
   );
 };

@@ -7,7 +7,6 @@
     }
     .separator {
       display: inline-block;
-      margin-right: 10px;
     }
   }
 
@@ -318,6 +317,13 @@
   .layout-row {
     &.date-range-disclaimer {
       margin-bottom: $gutter-normal;
+    }
+
+    .m-notification {
+      width: 100%;
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-left: 0;
     }
 
     @media screen and (min-width: $layout-breakpoint-tablet-min) and (max-width: $layout-breakpoint-tablet-max) {
