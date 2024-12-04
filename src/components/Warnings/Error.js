@@ -1,5 +1,6 @@
 import getIcon from '../iconMap';
 import PropTypes from 'prop-types';
+import './Error.scss';
 
 export const ErrorBlock = ({ text }) => (
   <div
