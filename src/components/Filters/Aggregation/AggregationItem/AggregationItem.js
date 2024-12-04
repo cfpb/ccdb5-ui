@@ -8,8 +8,8 @@ import {
   filterToggled,
 } from '../../../../reducers/filters/filtersSlice';
 import { getUpdatedFilters } from '../../../../utils/filters';
-import { selectAggsRoot } from '../../../../reducers/aggs/selectors';
 import { selectFiltersRoot } from '../../../../reducers/filters/selectors';
+import { useGetAggregations } from '../../../../api/hooks/useGetAggregations';
 
 const appliedFilters = ({ fieldName, item, aggs, filters }) => {
   // We should find the parent
@@ -45,11 +45,16 @@ const appliedFilters = ({ fieldName, item, aggs, filters }) => {
 };
 
 export const AggregationItem = ({ fieldName, item }) => {
-  const aggsState = useSelector(selectAggsRoot);
+  const { data: aggsState, isSuccess } = useGetAggregations();
   const filtersState = useSelector(selectFiltersRoot);
   const dispatch = useDispatch();
   const aggs = coalesce(aggsState, fieldName, []);
   const filters = coalesce(filtersState, fieldName, []);
+
+  if (!isSuccess || !aggs) {
+    return null;
+  }
+
   const isActive =
     filters.includes(item.key) ||
     filters.includes(item.key.split(SLUG_SEPARATOR)[0]);

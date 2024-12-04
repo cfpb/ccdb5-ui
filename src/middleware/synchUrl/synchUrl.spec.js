@@ -1,17 +1,17 @@
 import * as routesActions from '../../reducers/routes/routesSlice';
-import {
-  MODE_MAP,
-  MODE_LIST,
-  PERSIST_NONE,
-  PERSIST_SAVE,
-  MODE_TRENDS,
-} from '../../constants';
-import cloneDeep from 'lodash/cloneDeep';
+import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../../constants';
 import emptyStore from '../../actions/__fixtures__/emptyStore';
 import synchUrl from './synchUrl';
 import { createStore } from 'redux';
-import { applyMiddleware } from '@reduxjs/toolkit';
-import rootReducer from '../../reducers/query/querySlice';
+import { applyMiddleware, combineReducers } from '@reduxjs/toolkit';
+import filtersReducer, {
+  filtersReplaced,
+} from '../../reducers/filters/filtersSlice';
+import actionsReducer from '../../reducers/actions/actionsSlice';
+import queryReducer from '../../reducers/query/querySlice';
+import routesReducer from '../../reducers/routes/routesSlice';
+import trendsReducer from '../../reducers/trends/trendsSlice';
+import viewModelReducer from '../../reducers/view/viewSlice';
 
 /**
  *
@@ -19,100 +19,82 @@ import rootReducer from '../../reducers/query/querySlice';
  * @returns {object} A mocked store for testing purposes.
  */
 function setupStore(targetState) {
+  const rootReducer = combineReducers({
+    actions: actionsReducer,
+    filters: filtersReducer,
+    query: queryReducer,
+    routes: routesReducer,
+    trends: trendsReducer,
+    view: viewModelReducer,
+  });
   return createStore(rootReducer, targetState, applyMiddleware(synchUrl));
 }
 
 describe('redux middleware::synchUrl', () => {
-  let store, rSpy, action, targetState;
+  let store, rSpy, targetState;
   beforeEach(() => {
     rSpy = jest.spyOn(routesActions, 'appUrlChanged');
-    targetState = cloneDeep(emptyStore);
+    targetState = structuredClone(emptyStore);
     targetState.query.date_received_min = '09-12-1980';
     targetState.query.date_received_max = '09-20-2000';
-
-    action = {
-      type: 'FakeAction',
-      meta: { persist: PERSIST_SAVE },
-    };
+    targetState.view.tab = MODE_LIST;
+    targetState.routes.queryString =
+      '=3y&date_received_max=09-20-2000&date_received_min=09-12-1980&page=1&searchField=all&size=25&sort=created_date_desc&tab=List';
   });
 
   afterEach(() => {
     rSpy.mockRestore();
   });
 
-  describe('PERSIST_NONE', () => {
-    it('does not query if an action has no metadata', () => {
-      action = {
-        type: 'FakeAction',
-      };
-      store = setupStore(targetState);
-      store.dispatch(action);
-      expect(rSpy).not.toHaveBeenCalled();
-    });
-
-    it('does not query if an action has PERSIST_NONE', () => {
-      action = {
-        type: 'FakeAction',
-        meta: { persist: PERSIST_NONE },
-      };
-      store = setupStore(targetState);
-      store.dispatch(action);
-      expect(rSpy).not.toHaveBeenCalled();
+  it('List view dispatches appUrlChanged if any params changes', () => {
+    targetState.query.search_after = '2314324_1233';
+    store = setupStore(targetState);
+    store.dispatch(filtersReplaced('product', ['foo', 'bar']));
+    expect(rSpy).toHaveBeenCalledWith('/', {
+      date_received_max: '09-20-2000',
+      date_received_min: '09-12-1980',
+      dateRange: '3y',
+      page: 1,
+      product: ['foo', 'bar'],
+      searchField: 'all',
+      search_after: '2314324_1233',
+      size: 25,
+      sort: 'created_date_desc',
+      tab: 'List',
     });
   });
 
-  describe('complaints', () => {
-    it('queries if an action has PERSIST_SAVE', () => {
-      targetState.view.tab = MODE_LIST;
-      store = setupStore(targetState);
-      store.dispatch(action);
-      expect(rSpy).toHaveBeenCalledWith('/', {
-        date_received_max: '09-20-2000',
-        date_received_min: '09-12-1980',
-        dateRange: '3y',
-        page: 1,
-        searchField: 'all',
-        size: 25,
-        sort: 'created_date_desc',
-        tab: 'List',
-      });
+  it('Trends view dispatches appUrlChanged if any params changes', () => {
+    targetState.view.tab = MODE_TRENDS;
+    store = setupStore(targetState);
+    store.dispatch(filtersReplaced('product', ['foo', 'bar']));
+    expect(rSpy).toHaveBeenCalledWith('/', {
+      chartType: 'line',
+      dateInterval: 'Month',
+      date_received_max: '09-20-2000',
+      date_received_min: '09-12-1980',
+      dateRange: '3y',
+      lens: 'Product',
+      product: ['foo', 'bar'],
+      searchField: 'all',
+      subLens: 'sub_product',
+      tab: 'Trends',
     });
   });
 
-  describe('map', () => {
-    it('queries if an action has PERSIST_SAVE', () => {
-      targetState.view.tab = MODE_MAP;
-
-      store = setupStore(targetState);
-      store.dispatch(action);
-      expect(rSpy).toHaveBeenCalledWith('/', {
-        dataNormalization: 'None',
-        dateRange: '3y',
-        date_received_min: '09-12-1980',
-        date_received_max: '09-20-2000',
-        mapWarningEnabled: true,
-        searchField: 'all',
-        tab: 'Map',
-      });
-    });
-  });
-  describe('trends', () => {
-    it('queries if an action has PERSIST_SAVE', () => {
-      targetState.query.dateInterval = 'Month';
-      targetState.view.tab = MODE_TRENDS;
-      store = setupStore(targetState);
-      store.dispatch(action);
-      expect(rSpy).toHaveBeenCalledWith('/', {
-        chartType: 'line',
-        date_received_min: '09-12-1980',
-        date_received_max: '09-20-2000',
-        dateInterval: 'Month',
-        dateRange: '3y',
-        lens: 'Product',
-        searchField: 'all',
-        subLens: 'sub_product',
-        tab: 'Trends',
-      });
+  it('Map view dispatches appUrlChanged if any params changes', () => {
+    targetState.view.tab = MODE_MAP;
+    store = setupStore(targetState);
+    store.dispatch(filtersReplaced('product', ['foo', 'bar']));
+    expect(rSpy).toHaveBeenCalledWith('/', {
+      dataNormalization: 'None',
+      date_received_max: '09-20-2000',
+      date_received_min: '09-12-1980',
+      dateRange: '3y',
+      mapWarningEnabled: true,
+      product: ['foo', 'bar'],
+      searchField: 'all',
+      tab: 'Map',
     });
   });
 });

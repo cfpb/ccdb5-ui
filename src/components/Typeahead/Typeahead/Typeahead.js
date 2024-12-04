@@ -3,7 +3,7 @@ import { ClearButton } from '../ClearButton/ClearButton';
 import { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Typeahead as DropdownTypeahead } from 'react-bootstrap-typeahead';
-import getIcon from '../../iconMap';
+import getIcon from '../../Common/Icon/iconMap';
 import HighlightingOption from '../HighlightingOption/HighlightingOption';
 
 export const Typeahead = ({

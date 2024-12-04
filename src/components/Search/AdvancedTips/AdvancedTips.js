@@ -1,7 +1,7 @@
 import './AdvancedTips.scss';
 import { TooltipWrapper } from '../../Common/TooltipWrapper/TooltipWrapper';
 import { ComplexExample } from './ComplexExample';
-import getIcon from '../../iconMap';
+import getIcon from '../../Common/Icon/iconMap';
 
 export const AdvancedTips = () => {
   return (

@@ -13,7 +13,6 @@ export const selectQuerySearchField = (state) => state.query.searchField;
 export const selectQuerySearchText = (state) => state.query.searchText;
 export const selectQuerySize = (state) => state.query.size;
 export const selectQuerySort = (state) => state.query.sort;
-export const selectQueryTotalPages = (state) => state.query.totalPages;
 export const selectQueryDateInterval = (state) => state.query.dateInterval;
 export const selectQueryTrendsDateWarningEnabled = (state) =>
   state.query.trendsDateWarningEnabled;

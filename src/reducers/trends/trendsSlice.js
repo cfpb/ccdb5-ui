@@ -3,12 +3,7 @@
 
 // reducer for the Map Tab
 import * as colors from '../../constants/colors';
-import {
-  clamp,
-  coalesce,
-  getSubKeyName,
-  processErrorMessage,
-} from '../../utils';
+import { clamp, getSubKeyName } from '../../utils';
 import { enforceValues, validateTrendsReducer } from '../../utils/reducers';
 import {
   getD3Names,
@@ -16,45 +11,19 @@ import {
   updateDateBuckets,
 } from '../../utils/chart';
 import { isDateEqual } from '../../utils/formatDate';
-import {
-  MODE_TRENDS,
-  PERSIST_SAVE_QUERY_STRING,
-  REQUERY_ALWAYS,
-  REQUERY_HITS_ONLY,
-  REQUERY_NEVER,
-} from '../../constants';
+import { MODE_TRENDS } from '../../constants';
 import { pruneOther } from '../../utils/trends';
 import { createSlice } from '@reduxjs/toolkit';
 
-export const emptyResults = () => ({
-  dateRangeArea: [],
-  dateRangeLine: [],
-});
-
 // the minimal State to reset to when things break
-export const getResetState = () => ({
-  activeCall: '',
-  colorMap: {},
-  error: false,
-  results: emptyResults(),
+export const trendsState = {
+  chartType: 'line',
+  focus: '',
+  lens: 'Product',
+  subLens: 'sub_product',
   tooltip: false,
-  total: 0,
-});
-
-export const getDefaultState = () =>
-  Object.assign(
-    {},
-    {
-      chartType: 'line',
-      focus: '',
-      lens: 'Product',
-      subLens: 'sub_product',
-      trendDepth: 5,
-    },
-    { ...getResetState() },
-  );
-
-export const trendsState = getDefaultState();
+  trendDepth: 5,
+};
 
 export const trendsSlice = createSlice({
   name: 'trends',
@@ -64,15 +33,6 @@ export const trendsSlice = createSlice({
       reducer: (state, action) => {
         state.chartType = state.lens === 'Overview' ? 'line' : action.payload;
         state.tooltip = false;
-      },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_NEVER,
-          },
-        };
       },
     },
     dataLensChanged: {
@@ -96,18 +56,8 @@ export const trendsSlice = createSlice({
 
         state.focus = '';
         state.lens = lens;
-        state.results = emptyResults();
         state.tooltip = false;
         state.trendDepth = lens === 'Company' ? 10 : 5;
-      },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_HITS_ONLY,
-          },
-        };
       },
     },
     dataSubLensChanged: {
@@ -117,41 +67,15 @@ export const trendsSlice = createSlice({
           subLens: action.payload.toLowerCase(),
         };
       },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_HITS_ONLY,
-          },
-        };
-      },
     },
     depthChanged: {
       reducer: (state, action) => {
         state.trendDepth = action.payload;
       },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_HITS_ONLY,
-          },
-        };
-      },
     },
     depthReset: {
       reducer: (state) => {
         state.trendDepth = 5;
-      },
-      prepare: () => {
-        return {
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_HITS_ONLY,
-          },
-        };
       },
     },
     focusChanged: {
@@ -166,10 +90,6 @@ export const trendsSlice = createSlice({
       prepare: (focus, lens, filterValues) => {
         return {
           payload: { focus, lens, filterValues },
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_ALWAYS,
-          },
         };
       },
     },
@@ -178,18 +98,8 @@ export const trendsSlice = createSlice({
         return {
           ...state,
           focus: '',
-          results: emptyResults(),
           tooltip: false,
           trendDepth: 5,
-        };
-      },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_ALWAYS,
-          },
         };
       },
     },
@@ -208,19 +118,6 @@ export const trendsSlice = createSlice({
 
           /* istanbul ignore else */
           if (tooltip.values) {
-            tooltip.values.forEach((obj) => {
-              if (!Object.hasOwn(obj, 'colorIndex')) {
-                obj.colorIndex =
-                  Object.values(colors.DataLens).indexOf(
-                    state.colorMap[obj.name],
-                  ) || 0;
-              }
-              // make sure all values have a value
-              if (!Object.hasOwn(obj, 'value')) {
-                obj.value = coalesce(obj, 'value', 0);
-              }
-            });
-
             let total = 0;
             total = tooltip.values.reduce(
               (accumulator, currentValue) => accumulator + currentValue.value,
@@ -235,93 +132,6 @@ export const trendsSlice = createSlice({
           tooltip,
         };
       },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            requery: REQUERY_NEVER,
-          },
-        };
-      },
-    },
-    trendsReceived: {
-      reducer: (state, action) => {
-        const aggregations = action.payload.data.aggregations;
-        const { focus, lens, subLens } = state;
-        const results = emptyResults();
-        const kR = 'dateRangeArea';
-        const hits = aggregations[kR].doc_count;
-
-        // if hits > 0
-        // no hits, so reset defaults
-        if (hits === 0) {
-          const resetState = getResetState();
-          return {
-            ...state,
-            ...resetState,
-          };
-        }
-
-        const total = aggregations[kR].doc_count;
-
-        if (lens !== 'Overview') {
-          results[kR] = processAreaData(state, aggregations);
-        }
-
-        results.dateRangeLine = processLineData(
-          lens,
-          aggregations,
-          focus,
-          subLens,
-        );
-
-        // based on these criteria, the following aggs should only exist
-        const keyMap = {
-          Overview: ['product'],
-          Company: ['company'],
-          Product: ['product'],
-          'Product-focus': ['sub-product', 'issue'],
-          'Company-focus': ['product'],
-        };
-        let keyFilter = lens;
-
-        if (focus) {
-          keyFilter += '-focus';
-        }
-
-        const keys = keyMap[keyFilter];
-
-        processAggregations(keys, state, aggregations, results);
-
-        const colorMap = getColorScheme(lens, results.dateRangeArea);
-
-        state.activeCall = '';
-        state.colorMap = colorMap;
-        state.error = false;
-        state.results = results;
-        state.total = total;
-        state.subLens = lens === 'Company' ? 'product' : state.subLens;
-      },
-      prepare: (data) => {
-        return {
-          payload: data,
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_NEVER,
-          },
-        };
-      },
-    },
-    trendsApiCalled: {
-      reducer: (state, action) => {
-        state.activeCall = action.payload;
-        state.tooltip = false;
-      },
-    },
-    trendsApiFailed(state, action) {
-      state = Object.assign({}, trendsState);
-      state.error = processErrorMessage(action.payload);
-      return state;
     },
   },
   extraReducers: (builder) => {
@@ -350,12 +160,71 @@ export const trendsSlice = createSlice({
         return {
           ...state,
           focus: action.payload === MODE_TRENDS ? state.focus : '',
-          results: emptyResults(),
         };
       });
   },
 });
 
+/**
+ *
+ * @param {object} state - reducer values we use to process aggs
+ * @param {object} data - contains aggregations from api
+ * @returns {object} processed trends for Area and Line Chart
+ */
+export function trendsReceived(state, data) {
+  const aggregations = { ...data };
+  const { focus, lens, subLens } = state;
+  const results = {
+    dateRangeArea: [],
+    dateRangeLine: [],
+  };
+  const kR = 'dateRangeArea';
+  const hits = aggregations[kR].doc_count;
+
+  // if hits > 0
+  // no hits, so reset defaults
+  if (hits === 0) {
+    return {
+      ...state,
+      results: {},
+      tooltip: false,
+      total: 0,
+    };
+  }
+
+  const total = aggregations[kR].doc_count;
+
+  if (lens !== 'Overview') {
+    results[kR] = processAreaData(state, aggregations);
+  }
+
+  results.dateRangeLine = processLineData(lens, aggregations, focus, subLens);
+
+  // based on these criteria, the following aggs should only exist
+  const keyMap = {
+    Overview: ['product'],
+    Company: ['company'],
+    Product: ['product'],
+    'Product-focus': ['sub-product', 'issue'],
+    'Company-focus': ['product'],
+  };
+  let keyFilter = lens;
+
+  if (focus) {
+    keyFilter += '-focus';
+  }
+
+  const keys = keyMap[keyFilter];
+
+  processAggregations(keys, state, aggregations, results);
+
+  state.colorMap = getColorScheme(lens, results.dateRangeArea);
+  state.results = results;
+  state.total = total;
+  state.subLens = lens === 'Company' ? 'product' : state.subLens;
+
+  return state;
+}
 // ----------------------------------------------------------------------------
 // Helpers
 /**
@@ -430,21 +299,6 @@ export function processBucket(state, agg) {
 
   // return flattened list
   return [].concat(...list).map((obj) => getD3Names(obj, nameMap));
-}
-
-/**
- * helper function to pluralize field values
- *
- * @param {string} lens - value we are processing
- * @returns {string} for consumption by AreaData function
- */
-export function mainNameLens(lens) {
-  if (lens === 'Product') {
-    return 'products';
-  } else if (lens === 'Company') {
-    return 'companies';
-  }
-  return 'values';
 }
 
 /**
@@ -657,9 +511,6 @@ export const {
   depthReset,
   focusChanged,
   focusRemoved,
-  trendsReceived,
-  trendsApiCalled,
-  trendsApiFailed,
   tooltipUpdated,
 } = trendsSlice.actions;
 

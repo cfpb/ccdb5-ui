@@ -16,7 +16,6 @@ import target, {
 import * as types from '../../constants';
 import dayjs from 'dayjs';
 import { startOfToday } from '../../utils';
-import { complaintsReceived } from '../results/resultsSlice';
 import { routeChanged } from '../routes/routesSlice';
 import { filtersCleared } from '../filters/filtersSlice';
 import { minDate } from '../../constants';
@@ -29,7 +28,6 @@ describe('reducer:query', () => {
     it('has a default state', () => {
       result = target(undefined, {});
       expect(result).toEqual({
-        breakPoints: {},
         company_received_max: '',
         company_received_min: '',
         dateInterval: 'Month',
@@ -43,85 +41,84 @@ describe('reducer:query', () => {
         searchAfter: '',
         size: 25,
         sort: 'created_date_desc',
-        totalPages: 0,
         trendsDateWarningEnabled: false,
       });
     });
   });
 
-  describe('COMPLAINTS_RECEIVED actions', () => {
-    it('updates total number of pages', () => {
-      const payload = {
-        data: {
-          _meta: {
-            break_points: {
-              2: [2, 2],
-              3: [3, 2],
-              4: [4, 2],
-              5: [5, 2],
-            },
-          },
-          hits: {
-            total: { value: 10000 },
-          },
-        },
-      };
-
-      state = {
-        ...queryState,
-        page: 10,
-        size: 100,
-        totalPages: 5,
-      };
-
-      expect(target(state, complaintsReceived(payload))).toEqual({
-        ...state,
-        breakPoints: {
-          2: [2, 2],
-          3: [3, 2],
-          4: [4, 2],
-          5: [5, 2],
-        },
-      });
-    });
-
-    it('limits the current page correctly', () => {
-      const payload = {
-        data: {
-          _meta: {
-            break_points: {
-              2: [2, 2],
-              3: [3, 2],
-              4: [4, 2],
-              5: [5, 2],
-            },
-          },
-          hits: {
-            total: { value: 10000 },
-          },
-        },
-      };
-
-      state = {
-        ...queryState,
-        page: 101,
-        size: 100,
-      };
-
-      expect(target(state, complaintsReceived(payload))).toEqual({
-        ...state,
-        breakPoints: {
-          2: [2, 2],
-          3: [3, 2],
-          4: [4, 2],
-          5: [5, 2],
-        },
-        page: 100,
-        size: 100,
-        totalPages: 5,
-      });
-    });
-  });
+  // describe('COMPLAINTS_RECEIVED actions', () => {
+  //   it('updates total number of pages', () => {
+  //     const payload = {
+  //       data: {
+  //         _meta: {
+  //           break_points: {
+  //             2: [2, 2],
+  //             3: [3, 2],
+  //             4: [4, 2],
+  //             5: [5, 2],
+  //           },
+  //         },
+  //         hits: {
+  //           total: { value: 10000 },
+  //         },
+  //       },
+  //     };
+  //
+  //     state = {
+  //       ...queryState,
+  //       page: 10,
+  //       size: 100,
+  //       totalPages: 5,
+  //     };
+  //
+  //     expect(target(state, complaintsReceived(payload))).toEqual({
+  //       ...state,
+  //       breakPoints: {
+  //         2: [2, 2],
+  //         3: [3, 2],
+  //         4: [4, 2],
+  //         5: [5, 2],
+  //       },
+  //     });
+  //   });
+  //
+  //   it('limits the current page correctly', () => {
+  //     const payload = {
+  //       data: {
+  //         _meta: {
+  //           break_points: {
+  //             2: [2, 2],
+  //             3: [3, 2],
+  //             4: [4, 2],
+  //             5: [5, 2],
+  //           },
+  //         },
+  //         hits: {
+  //           total: { value: 10000 },
+  //         },
+  //       },
+  //     };
+  //
+  //     state = {
+  //       ...queryState,
+  //       page: 101,
+  //       size: 100,
+  //     };
+  //
+  //     expect(target(state, complaintsReceived(payload))).toEqual({
+  //       ...state,
+  //       breakPoints: {
+  //         2: [2, 2],
+  //         3: [3, 2],
+  //         4: [4, 2],
+  //         5: [5, 2],
+  //       },
+  //       page: 100,
+  //       size: 100,
+  //       totalPages: 5,
+  //     });
+  //   });
+  // });
 
   it('handles SEARCH_FIELD_CHANGED actions', () => {
     const searchField = 'bar';
@@ -133,7 +130,6 @@ describe('reducer:query', () => {
     };
     expect(target(state, searchFieldChanged(searchField))).toEqual({
       ...state,
-      breakPoints: {},
       from: 0,
       page: 1,
       searchAfter: '',
@@ -158,21 +154,21 @@ describe('reducer:query', () => {
     it('handles NEXT_PAGE_SHOWN actions', () => {
       state = {
         ...queryState,
-        breakPoints: {
-          2: [99, 22131],
-          3: [909, 131],
-        },
         from: 100,
         page: 2,
         size: 100,
         totalPages: 3,
       };
-      expect(target(state, nextPageShown())).toEqual({
+      expect(
+        target(
+          state,
+          nextPageShown({
+            2: [99, 22131],
+            3: [909, 131],
+          }),
+        ),
+      ).toEqual({
         ...state,
-        breakPoints: {
-          2: [99, 22131],
-          3: [909, 131],
-        },
         from: 200,
         page: 3,
         searchAfter: '909_131',
@@ -184,20 +180,20 @@ describe('reducer:query', () => {
     it('handles PREV_PAGE_SHOWN actions', () => {
       state = {
         ...queryState,
-        breakPoints: {
-          2: [99, 22131],
-          3: [909, 131],
-        },
         from: 100,
         page: 3,
         size: 100,
       };
-      expect(target(state, prevPageShown())).toEqual({
+      expect(
+        target(
+          state,
+          prevPageShown({
+            2: [99, 22131],
+            3: [909, 131],
+          }),
+        ),
+      ).toEqual({
         ...state,
-        breakPoints: {
-          2: [99, 22131],
-          3: [909, 131],
-        },
         from: 100,
         page: 2,
         searchAfter: '99_22131',
@@ -208,20 +204,20 @@ describe('reducer:query', () => {
     it('handles missing breakPoints actions', () => {
       state = {
         ...queryState,
-        breakPoints: {
-          2: [99, 22131],
-          3: [909, 131],
-        },
         from: 100,
         page: 2,
         size: 100,
       };
-      expect(target(state, prevPageShown())).toEqual({
+      expect(
+        target(
+          state,
+          prevPageShown({
+            2: [99, 22131],
+            3: [909, 131],
+          }),
+        ),
+      ).toEqual({
         ...state,
-        breakPoints: {
-          2: [99, 22131],
-          3: [909, 131],
-        },
         from: 0,
         page: 1,
         searchAfter: '',
@@ -241,7 +237,6 @@ describe('reducer:query', () => {
       };
       expect(target(state, sizeChanged(size))).toEqual({
         ...state,
-        breakPoints: {},
         from: 0,
         page: 1,
         searchAfter: '',
@@ -259,7 +254,6 @@ describe('reducer:query', () => {
       };
       expect(target(state, sortChanged(sort))).toEqual({
         ...state,
-        breakPoints: {},
         from: 0,
         page: 1,
         searchAfter: '',
@@ -277,7 +271,6 @@ describe('reducer:query', () => {
       };
       expect(target(state, sortChanged(sort))).toEqual({
         ...state,
-        breakPoints: {},
         from: 0,
         page: 1,
         searchAfter: '',
@@ -435,7 +428,6 @@ describe('reducer:query', () => {
         delete testState.dateRange;
         expect(target(testState, datesChanged(minDate, maxDate))).toEqual({
           ...testState,
-          breakPoints: {},
           date_received_min: '2001-01-30',
           date_received_max: '2013-02-03',
           from: 0,
@@ -508,7 +500,6 @@ describe('reducer:query', () => {
         result = target({ ...queryState }, dateRangeChanged(action));
         expect(result).toEqual({
           ...queryState,
-          breakPoints: {},
           dateInterval: 'Month',
           dateRange: '1y',
           date_received_max: '2020-05-05',
@@ -526,7 +517,6 @@ describe('reducer:query', () => {
         // only set max date
         expect(result).toEqual({
           ...queryState,
-          breakPoints: {},
           dateRange: '3y',
           date_received_min: '2017-05-05',
           date_received_max: '2020-05-05',
@@ -544,14 +534,12 @@ describe('reducer:query', () => {
         ...queryState,
         page: 10,
         size: 100,
-        totalPages: 5,
       };
       expect(target(state, filtersCleared())).toEqual({
         ...state,
         dateRange: 'All',
         date_received_min: minDate,
         page: 1,
-        totalPages: 0,
       });
     });
   });

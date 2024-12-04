@@ -1,0 +1,22 @@
+@use 'css/base' as *;
+@use '../../TabbedNavigation/TabbedNavigation';
+
+.focus-header {
+  .clear-focus {
+    margin: $gutter-normal;
+    .cf-icon-svg {
+      margin-right: 5px;
+    }
+  }
+
+  .focus {
+    text-align: center;
+    margin-left: calc(10%);
+    .divider {
+      height: 5px;
+      width: 75px;
+      background-color: var(--green-60);
+      display: inline-block;
+    }
+  }
+}

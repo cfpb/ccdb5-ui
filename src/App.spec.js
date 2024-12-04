@@ -4,14 +4,37 @@ import 'regenerator-runtime/runtime';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import * as useUpdateLocationHook from './hooks/useUpdateLocation';
-import store from './app/store';
 import { ComplaintDetail } from './components/ComplaintDetail/ComplaintDetail';
-import { waitFor } from './testUtils/test-utils';
+import { configureStoreUtil, waitFor } from './testUtils/test-utils';
+import fetchMock from 'jest-fetch-mock';
+import { aggResponse } from './components/List/ListPanel/fixture';
+import { trendsResponse } from './components/Trends/fixture';
 jest.mock('highcharts/modules/accessibility');
 jest.mock('highcharts/highmaps');
 
 describe('initial state', () => {
+  let store;
+  beforeEach(() => {
+    fetchMock.resetMocks();
+    store = configureStoreUtil({ routes: { queryString: '??Fdsfdssdf' } });
+  });
+
   it('renders search page', async () => {
+    fetchMock.mockResponse((req) => {
+      const url = new URL(req.url);
+      const params = url.searchParams;
+
+      if (params.get('size') === '0') {
+        // this is the list
+        return Promise.resolve({
+          body: JSON.stringify(aggResponse),
+        });
+      } else if (params.get('no_aggs')) {
+        return Promise.resolve({
+          body: JSON.stringify(trendsResponse),
+        });
+      }
+    });
     const updateLocationHookSpy = jest.spyOn(
       useUpdateLocationHook,
       'useUpdateLocation',
@@ -22,6 +45,7 @@ describe('initial state', () => {
       </Provider>,
     );
 
+    await screen.findByText(/Search within/);
     expect(updateLocationHookSpy).toBeCalledTimes(1);
     expect(screen.getByText(/Consumer Complaint Database/)).toBeInTheDocument();
     expect(screen.getByText(/Search within/)).toBeInTheDocument();

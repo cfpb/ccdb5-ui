@@ -4,29 +4,26 @@ import {
   fireEvent,
 } from '../../../testUtils/test-utils';
 import { ListPanel } from './ListPanel';
+import fetchMock from 'jest-fetch-mock';
 import { merge } from '../../../testUtils/functionHelpers';
-import { aggsState } from '../../../reducers/aggs/aggsSlice';
+import { filtersState } from '../../../reducers/filters/filtersSlice';
+
 import { queryState } from '../../../reducers/query/querySlice';
-import { resultsState } from '../../../reducers/results/resultsSlice';
 import { viewState } from '../../../reducers/view/viewSlice';
 import * as utils from '../../../utils';
 import * as pagingActions from '../../../reducers/query/querySlice';
+import { aggResponse, listResponse } from './fixture';
+import { MODE_LIST } from '../../../constants';
 
 describe('ListPanel', () => {
-  const renderComponent = (
-    newAggsState,
-    newQueryState,
-    newResultsState,
-    newViewState,
-  ) => {
-    merge(newAggsState, aggsState);
+  const renderComponent = (newQueryState, newViewState) => {
+    newViewState.tab = MODE_LIST;
     merge(newQueryState, queryState);
-    merge(newResultsState, resultsState);
     merge(newViewState, viewState);
     const data = {
-      aggs: newAggsState,
+      filters: filtersState,
       query: newQueryState,
-      results: newResultsState,
+      routes: { queryString: '?sdafds' },
       view: newViewState,
     };
 
@@ -38,39 +35,14 @@ describe('ListPanel', () => {
   const analyticsSpy = jest
     .spyOn(utils, 'sendAnalyticsEvent')
     .mockImplementation(() => jest.fn());
-  const itemFixture = {
-    product:
-      'Credit reporting, credit repair services, or other personal consumer reports',
-    complaint_what_happened: '',
-    date_sent_to_company: '2022-11-16T12:00:00-05:00',
-    issue: 'Incorrect information on your report',
-    sub_product: 'Credit reporting',
-    zip_code: '12345',
-    tags: null,
-    has_narrative: false,
-    complaint_id: '7990095',
-    timely: 'Yes',
-    consumer_consent_provided: null,
-    company_response: 'In progress',
-    submitted_via: 'Web',
-    company: 'JP Morgan',
-    date_received: '2022-11-16T12:00:00-05:00',
-    state: 'FL',
-    consumer_disputed: 'N/A',
-    company_public_response: null,
-    sub_issue: 'Public record information inaccurate',
-  };
+
+  beforeEach(() => {
+    fetchMock.resetMocks();
+  });
 
   test('Render ListPanel with no results', () => {
-    const newAggsState = {
-      error: '',
-    };
-    const newResultsState = {
-      activeCall: '',
-      items: [],
-    };
-
-    renderComponent(newAggsState, queryState, newResultsState, viewState);
+    fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
+    renderComponent(queryState, viewState);
 
     expect(
       screen.getByRole('heading', {
@@ -79,44 +51,38 @@ describe('ListPanel', () => {
     ).toBeDefined();
   });
 
-  test('Render ListPanel with an error', () => {
-    const newAggsState = {
-      error: { message: 'error message', name: 'messageTypeName' },
-    };
+  test('Render ListPanel with an error', async () => {
+    fetchMock.mockReject(new Error('Something broke'));
+    renderComponent(queryState, {});
 
-    renderComponent(newAggsState, queryState, resultsState, viewState);
-
+    await screen.findByText(/There was a problem executing your search/);
     expect(
       screen.getByText(/There was a problem executing your search/),
     ).toBeDefined();
   });
 
-  test('Render ListPanel with an item', () => {
-    const newAggsState = {
-      error: '',
-    };
-    const newResultsState = { items: [itemFixture] };
+  test('Render ListPanel with items', async () => {
+    fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
+    fetchMock.mockResponseOnce(JSON.stringify(listResponse));
 
-    renderComponent(newAggsState, queryState, newResultsState, viewState);
+    renderComponent(queryState, {});
 
-    expect(screen.getByText('JP Morgan')).toBeDefined();
-    expect(screen.getByText('11/16/2022')).toBeDefined();
+    const elements = await screen.findAllByText('EQUIFAX, INC.');
+    expect(elements).toHaveLength(25);
+
+    const el = await screen.findAllByText('Date received:');
+    expect(el).toHaveLength(25);
   });
 
-  test('onSize triggers dispatch and analtyics event', () => {
+  test('onSize triggers dispatch and analytics event', () => {
     const sizeChangedSpy = jest
       .spyOn(pagingActions, 'sizeChanged')
       .mockImplementation(() => jest.fn());
-    const newAggsState = {
-      error: '',
-    };
     const newQueryState = {
       size: 25,
       sort: 'created_date_desc',
     };
-    const newResultsState = { items: [itemFixture] };
-
-    renderComponent(newAggsState, newQueryState, newResultsState, viewState);
+    renderComponent(newQueryState, {});
     fireEvent.change(
       screen.getByRole('combobox', {
         name: 'Select the number of results to display at a time',
@@ -128,20 +94,16 @@ describe('ListPanel', () => {
     expect(sizeChangedSpy).toBeCalledWith('10');
   });
 
-  test('onSort triggers dispatch and analtyics event', () => {
+  test('onSort triggers dispatch and analytics event', () => {
     const sortChangedSpy = jest
       .spyOn(pagingActions, 'sortChanged')
       .mockImplementation(() => jest.fn());
-    const newAggsState = {
-      error: '',
-    };
     const newQueryState = {
       size: 25,
       sort: 'created_date_desc',
     };
-    const newResultsState = { items: [itemFixture] };
 
-    renderComponent(newAggsState, newQueryState, newResultsState, viewState);
+    renderComponent(newQueryState, {});
     fireEvent.change(
       screen.getByRole('combobox', {
         name: 'Choose the order in which the results are displayed',
@@ -156,16 +118,31 @@ describe('ListPanel', () => {
   test('FilterPanel showed when width is 500', () => {
     const newViewState = { width: 500 };
 
-    renderComponent(aggsState, queryState, resultsState, newViewState);
+    renderComponent(queryState, newViewState);
 
-    expect(screen.getByText('Filter results by...')).toBeDefined();
+    expect(screen.getByText('Filter results by...')).toBeInTheDocument();
   });
 
-  test('FilterPanel not showed when width is 1000', () => {
+  test('FilterPanel not showed when width is 1000', async () => {
     const newViewState = { width: 1000 };
+    fetchMock.mockResponse((req) => {
+      const url = new URL(req.url);
+      const params = url.searchParams;
 
-    renderComponent(aggsState, queryState, resultsState, newViewState);
+      if (params.get('size') === '0') {
+        // this is the list
+        return Promise.resolve({
+          body: JSON.stringify(aggResponse),
+        });
+      } else if (params.get('size') === '25') {
+        return Promise.resolve({
+          body: JSON.stringify(listResponse),
+        });
+      }
+    });
+    renderComponent(queryState, newViewState);
 
-    expect(screen.queryByText('Filter results by...')).toBeNull();
+    await screen.findByRole('button', { name: 'Export data' });
+    expect(screen.queryByText('Filter results by...')).not.toBeInTheDocument();
   });
 });

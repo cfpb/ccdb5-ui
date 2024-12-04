@@ -10,7 +10,7 @@ import {
 
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
-import getIcon from '../iconMap';
+import getIcon from '../Common/Icon/iconMap';
 import { Pill } from './Pill';
 import { filtersCleared } from '../../reducers/filters/filtersSlice';
 import { startOfToday } from '../../utils';

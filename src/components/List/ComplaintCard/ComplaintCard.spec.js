@@ -42,13 +42,13 @@ describe('ComplaintCard', () => {
     expect(screen.getByText(itemFixture.timely)).toBeDefined();
     expect(screen.getByRole('heading', { name: 'Product' })).toBeDefined();
     expect(screen.getByText(itemFixture.product)).toBeDefined();
-    expect(screen.queryByText(/Sub-product:/)).toBeNull();
+    expect(screen.queryByText(/Sub-product:/)).not.toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Issue' })).toBeDefined();
     expect(screen.getByText(itemFixture.issue)).toBeDefined();
-    expect(screen.queryByText(/Sub-issue:/)).toBeNull();
+    expect(screen.queryByText(/Sub-issue:/)).not.toBeInTheDocument();
     expect(
       screen.queryByRole('heading', { name: 'Consumer Complaint Narrative' }),
-    ).toBeNull();
+    ).not.toBeInTheDocument();
   });
 
   test('Renders narrative without overflow', () => {

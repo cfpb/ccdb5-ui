@@ -1,16 +1,15 @@
-import { testRender as render, screen } from '../../../../testUtils/test-utils';
-import { merge } from '../../../../testUtils/functionHelpers';
-import userEvent from '@testing-library/user-event';
-import * as filter from '../../../../reducers/filters/filtersSlice';
-import * as utils from '../../../../utils';
-import { slugify } from '../../../../utils';
-import { aggsState } from '../../../../reducers/aggs/aggsSlice';
 import {
-  filtersReplaced,
-  filtersState,
-  filterToggled,
-} from '../../../../reducers/filters/filtersSlice';
+  testRender as render,
+  screen,
+  fireEvent,
+} from '../../../../testUtils/test-utils';
+import { merge } from '../../../../testUtils/functionHelpers';
+import * as filter from '../../../../reducers/filters/filtersSlice';
+import { slugify } from '../../../../utils';
+import { filtersState } from '../../../../reducers/filters/filtersSlice';
+import fetchMock from 'jest-fetch-mock';
 import { AggregationItem } from './AggregationItem';
+import { aggResponse } from '../../../List/ListPanel/fixture';
 
 const defaultTestProps = {
   fieldName: 'foo',
@@ -22,13 +21,12 @@ const defaultTestProps = {
   },
 };
 
-const renderComponent = (props, newAggsState, newFiltersState) => {
-  merge(newAggsState, aggsState);
+const renderComponent = (props, newFiltersState) => {
   merge(newFiltersState, filtersState);
 
   const data = {
-    aggs: newAggsState,
     filters: newFiltersState,
+    routes: { queryString: '?dfsdfsa' },
   };
 
   render(<AggregationItem {...props} />, {
@@ -37,26 +35,21 @@ const renderComponent = (props, newAggsState, newFiltersState) => {
 };
 
 describe('component::AggregationItem', () => {
-  const user = userEvent.setup({ delay: null });
-
   describe('initial state', () => {
-    let aggs, filters;
+    let filters;
 
     beforeEach(() => {
-      aggs = {
-        issue: [1, 2, 3],
-        product: ['foo', 'bar'],
-      };
-
       filters = {
         issue: [1],
         timely: ['Yes'],
       };
+      fetchMock.resetMocks();
+      fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
     });
 
-    test('renders properly with given item key and value', () => {
-      renderComponent(defaultTestProps, aggs, filters);
-
+    test('renders properly with given item key and value', async () => {
+      renderComponent(defaultTestProps, filters);
+      await screen.findByLabelText(defaultTestProps.item.value);
       expect(
         screen.getByLabelText(defaultTestProps.item.value),
       ).toBeInTheDocument();
@@ -66,14 +59,13 @@ describe('component::AggregationItem', () => {
       expect(screen.getByRole('checkbox')).toBeEnabled();
     });
 
-    test('renders properly with given item key, but no item value', () => {
+    test('renders properly with given item key, but no item value', async () => {
       const noItemValueProps = {
         ...defaultTestProps,
         item: { ...defaultTestProps.item, value: null },
       };
-
-      renderComponent(noItemValueProps, aggs, filters);
-
+      renderComponent(noItemValueProps, filters);
+      await screen.findByLabelText(defaultTestProps.item.key);
       expect(
         screen.getByLabelText(defaultTestProps.item.key),
       ).toBeInTheDocument();
@@ -83,69 +75,70 @@ describe('component::AggregationItem', () => {
       expect(screen.getByRole('checkbox')).toBeEnabled();
     });
 
-    test('renders properly in its disabled state', () => {
+    test('renders properly in its disabled state', async () => {
       const disabledItemProps = {
         ...defaultTestProps,
         item: { ...defaultTestProps.item, isDisabled: true },
       };
-
-      renderComponent(disabledItemProps, aggs, filters);
-
+      renderComponent(disabledItemProps, filters);
+      await screen.findAllByRole('checkbox');
       expect(screen.getByRole('checkbox')).toBeDisabled();
     });
 
-    test('leaves checkbox unchecked when no filter present', () => {
+    test('leaves checkbox unchecked when no filter present', async () => {
       const ownProps = {
         fieldName: 'foobar',
         item: { key: 'Yes', doc_count: 1 },
       };
-
-      renderComponent(ownProps, aggs, filters);
-
+      fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
+      renderComponent(ownProps, filters);
+      await screen.findAllByRole('checkbox');
       expect(screen.getByRole('checkbox')).not.toBeChecked();
     });
 
-    test('checks checkbox when fieldName key matches filters', () => {
+    test('checks checkbox when fieldName key matches filters', async () => {
       const ownProps = {
         fieldName: 'timely',
         item: { key: 'Yes', doc_count: 1 },
       };
-
-      renderComponent(ownProps, aggs, filters);
-
+      renderComponent(ownProps, filters);
+      await screen.findByRole('checkbox');
       expect(screen.getByRole('checkbox')).toBeChecked();
     });
 
-    test('leaves checkbox unchecked when same fieldName passed with different value', () => {
+    test('leaves checkbox unchecked when same fieldName passed with different value', async () => {
       const ownProps = {
         fieldName: 'timely',
         item: { key: 'No', doc_count: 1 },
       };
-
-      renderComponent(ownProps, aggs, filters);
-
+      renderComponent(ownProps, filters);
+      await screen.findAllByRole('checkbox');
       expect(screen.getByRole('checkbox')).not.toBeChecked();
     });
 
-    test('maps aggs & filters with fieldName', () => {
+    test('maps aggs & filters with fieldName', async () => {
       const ownProps = {
         fieldName: 'issue',
         item: { key: 'No Money', doc_count: 1 },
       };
-
-      renderComponent(ownProps, aggs, filters);
-
+      renderComponent(ownProps, filters);
+      await screen.findByRole('checkbox');
       expect(screen.getByRole('checkbox')).not.toBeChecked();
     });
   });
 
   describe('onChange functionality', () => {
-    let replaceFiltersFn, toggleFilterFn, coalesceFn;
+    let replaceFiltersFn, toggleFilterFn;
 
     beforeEach(() => {
-      replaceFiltersFn = jest.spyOn(filter, 'filtersReplaced');
-      toggleFilterFn = jest.spyOn(filter, 'filterToggled');
-      coalesceFn = jest.spyOn(utils, 'coalesce');
+      replaceFiltersFn = jest
+        .spyOn(filter, 'filtersReplaced')
+        .mockImplementation(() => jest.fn());
+      toggleFilterFn = jest
+        .spyOn(filter, 'filterToggled')
+        .mockImplementation(() => jest.fn());
+      fetchMock.resetMocks();
+      fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
     });
 
     afterEach(() => {
@@ -157,79 +150,91 @@ describe('component::AggregationItem', () => {
         const ownProps = {
           fieldName: 'issue',
           item: {
-            key: slugify('a', 'b'),
+            key: slugify(
+              'Incorrect information on your report',
+              'Information belongs to someone else',
+            ),
             doc_count: 1000,
           },
         };
 
-        const aggs = [
-          {
-            key: 'a',
-            doc_count: 1,
-            'sub_issue.raw': {
-              buckets: [{ key: 'b' }, { key: 'c' }, { key: 'd' }],
-            },
-          },
-        ];
-
-        const filters = ['f', 'g', 'h', slugify('a', 'd')];
-
-        // TODO: i don't we should have to mock return values with this if the render component was set up properly
-        // we should write this with the action logger reducer
-        // the render component here should have initial aggs and filtersState set up here.
-        coalesceFn.mockReturnValueOnce(aggs).mockReturnValueOnce(filters);
-
-        renderComponent(ownProps, {}, {});
-
-        await user.click(screen.getByRole('checkbox'));
-
-        expect(replaceFiltersFn).toHaveBeenCalled();
-        expect(replaceFiltersFn).toHaveReturnedWith(
-          filtersReplaced({
-            filterName: 'issue',
-            values: ['f', 'g', 'h', slugify('a', 'd'), slugify('a', 'b')],
+        renderComponent(ownProps, {});
+        await screen.findByText(
+          slugify(
+            'Incorrect information on your report',
+            'Information belongs to someone else',
+          ),
+        );
+        fireEvent.click(
+          screen.getByRole('checkbox', {
+            name: slugify(
+              'Incorrect information on your report',
+              'Information belongs to someone else',
+            ),
           }),
         );
 
-        expect(toggleFilterFn).not.toHaveBeenCalled();
+        expect(replaceFiltersFn).toHaveBeenCalledWith('issue', [
+          slugify(
+            'Incorrect information on your report',
+            'Information belongs to someone else',
+          ),
+        ]);
       });
 
       test('replaces subItems with parent when children are selected', async () => {
         const ownProps = {
           fieldName: 'issue',
           item: {
-            key: slugify('a', 'b'),
+            key: slugify(
+              'Incorrect information on your report',
+              'Information belongs to someone else',
+            ),
             doc_count: 1000,
           },
         };
+        renderComponent(ownProps, {
+          issue: [
+            slugify(
+              'Incorrect information on your report',
+              'Account information incorrect',
+            ),
+            slugify(
+              'Incorrect information on your report',
+              'Account status incorrect',
+            ),
+            slugify(
+              'Incorrect information on your report',
+              'Personal information incorrect',
+            ),
+            slugify(
+              'Incorrect information on your report',
+              'Public record information inaccurate',
+            ),
+            slugify(
+              'Incorrect information on your report',
+              'Old information reappears or never goes away',
+            ),
+            slugify(
+              'Incorrect information on your report',
+              'Information is missing that should be on the report',
+            ),
+            slugify(
+              'Incorrect information on your report',
+              'Information is incorrect',
+            ),
+            slugify(
+              'Incorrect information on your report',
+              'Information that should be on the report is missing',
+            ),
+          ],
+        });
+        await screen.findByRole('checkbox');
+        fireEvent.click(screen.getByRole('checkbox'));
 
-        const aggs = [
-          {
-            key: 'a',
-            doc_count: 1,
-            'sub_issue.raw': {
-              buckets: [{ key: 'b' }, { key: 'c' }, { key: 'd' }],
-            },
-          },
-        ];
-
-        const filters = ['f', 'g', 'h', slugify('a', 'c'), slugify('a', 'd')];
-
-        coalesceFn.mockReturnValueOnce(aggs).mockReturnValueOnce(filters);
-
-        renderComponent(ownProps, {}, {});
-
-        await user.click(screen.getByRole('checkbox'));
-
-        expect(replaceFiltersFn).toHaveBeenCalled();
-        expect(replaceFiltersFn).toHaveReturnedWith(
-          filtersReplaced({
-            filterName: 'issue',
-            values: ['f', 'g', 'h', 'a'],
-          }),
-        );
-
-        expect(toggleFilterFn).not.toHaveBeenCalled();
+        expect(replaceFiltersFn).toHaveBeenCalledWith('issue', [
+          'Incorrect information on your report',
+        ]);
       });
 
       test('handles non product & issue filters', async () => {
@@ -237,64 +242,60 @@ describe('component::AggregationItem', () => {
           fieldName: 'fieldName',
           item: { key: 'foo', doc_count: 1000 },
         };
-
-        const aggs = {};
-        const filters = [];
-
-        coalesceFn.mockReturnValueOnce(aggs).mockReturnValueOnce(filters);
-
-        renderComponent(ownProps, {}, {});
-
-        await user.click(screen.getByRole('checkbox'));
+        renderComponent(ownProps, {});
+        await screen.findByRole('checkbox');
+        fireEvent.click(screen.getByRole('checkbox'));
 
         expect(toggleFilterFn).toHaveBeenCalled();
-        expect(toggleFilterFn).toHaveReturnedWith(
-          filterToggled({
-            filterName: 'fieldName',
-            filterValue: {
-              doc_count: 1000,
-              key: 'foo',
-            },
-          }),
-        );
+        expect(toggleFilterFn).toHaveBeenCalledWith('fieldName', {
+          doc_count: 1000,
+          key: 'foo',
+        });
 
         expect(replaceFiltersFn).not.toHaveBeenCalled();
       });
     });
 
     describe('removeFilter', () => {
+      beforeEach(() => {
+        fetchMock.resetMocks();
+        fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
+      });
       test('handles product/issue filters', async () => {
         const ownProps = {
           fieldName: 'issue',
-          item: { key: 'foo', doc_count: 1000 },
+          item: {
+            key: 'Incorrect information on your report•Information belongs to someone else',
+            doc_count: 1000,
+          },
         };
 
-        const aggs = [
-          {
-            key: 'foo',
-            doc_count: 1,
-            'sub_issue.raw': {
-              buckets: [],
-            },
-          },
-        ];
-        const filters = ['foo'];
+        renderComponent(ownProps, {
+          issue: [
+            'Incorrect information on your report•Information belongs to someone else',
+            'Incorrect information on your report•Account information incorrect',
+            'Incorrect information on your report•Account status incorrect',
+            'Incorrect information on your report•Personal information incorrect',
+            'Incorrect information on your report•Public record information inaccurate',
+            'Incorrect information on your report•Old information reappears or never goes away',
+            'Incorrect information on your report•Information is missing that should be on the report',
+            'Incorrect information on your report•Information is incorrect',
+            'Incorrect information on your report•Information that should be on the report is missing',
+          ],
+        });
+        await screen.findByRole('checkbox');
+        fireEvent.click(screen.getByRole('checkbox'));
 
-        coalesceFn.mockReturnValueOnce(aggs).mockReturnValueOnce(filters);
-
-        renderComponent(ownProps, {}, {});
-
-        await user.click(screen.getByRole('checkbox'));
-
-        expect(replaceFiltersFn).toHaveBeenCalled();
-        expect(replaceFiltersFn).toHaveReturnedWith(
-          filtersReplaced({
-            filterName: 'issue',
-            values: [],
-          }),
-        );
-
-        expect(toggleFilterFn).not.toHaveBeenCalled();
+        expect(replaceFiltersFn).toHaveBeenCalledWith('issue', [
+          'Incorrect information on your report•Account information incorrect',
+          'Incorrect information on your report•Account status incorrect',
+          'Incorrect information on your report•Personal information incorrect',
+          'Incorrect information on your report•Public record information inaccurate',
+          'Incorrect information on your report•Old information reappears or never goes away',
+          'Incorrect information on your report•Information is missing that should be on the report',
+          'Incorrect information on your report•Information is incorrect',
+          'Incorrect information on your report•Information that should be on the report is missing',
+        ]);
       });
 
       test('handles non product & issue filters', async () => {
@@ -302,28 +303,27 @@ describe('component::AggregationItem', () => {
           fieldName: 'fieldName',
           item: { key: 'foo', doc_count: 1000 },
         };
-
-        const aggs = {};
-        const filters = ['foo'];
-
-        coalesceFn.mockReturnValueOnce(aggs).mockReturnValueOnce(filters);
-
-        renderComponent(ownProps, {}, {});
-
-        await user.click(screen.getByRole('checkbox'));
+        renderComponent(ownProps, {
+          fieldName: [
+            'Incorrect information on your report•Information belongs to someone else',
+            'Incorrect information on your report•Account information incorrect',
+            'Incorrect information on your report•Account status incorrect',
+            'Incorrect information on your report•Personal information incorrect',
+            'Incorrect information on your report•Public record information inaccurate',
+            'Incorrect information on your report•Old information reappears or never goes away',
+            'Incorrect information on your report•Information is missing that should be on the report',
+            'Incorrect information on your report•Information is incorrect',
+            'Incorrect information on your report•Information that should be on the report is missing',
+          ],
+        });
+        await screen.findByRole('checkbox');
+        fireEvent.click(screen.getByRole('checkbox'));
 
         expect(toggleFilterFn).toHaveBeenCalled();
-        expect(toggleFilterFn).toHaveReturnedWith(
-          filterToggled({
-            filterName: 'fieldName',
-            filterValue: {
-              doc_count: 1000,
-              key: 'foo',
-            },
-          }),
-        );
-
-        expect(replaceFiltersFn).not.toHaveBeenCalled();
+        expect(toggleFilterFn).toHaveBeenCalledWith('fieldName', {
+          doc_count: 1000,
+          key: 'foo',
+        });
       });
     });
   });

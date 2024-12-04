@@ -6,6 +6,9 @@ import { LineChart } from './LineChart';
 import { queryState } from '../../../reducers/query/querySlice';
 import { trendsState } from '../../../reducers/trends/trendsSlice';
 import { viewState } from '../../../reducers/view/viewSlice';
+import { MODE_TRENDS } from '../../../constants';
+import fetchMock from 'jest-fetch-mock';
+import { trendsOverviewResponse } from '../../Trends/TrendsPanel/fixture';
 
 const renderComponent = (newQueryState, newTrendsState, newViewState) => {
   merge(newQueryState, queryState);
@@ -14,6 +17,7 @@ const renderComponent = (newQueryState, newTrendsState, newViewState) => {
 
   const data = {
     query: newQueryState,
+    routes: { queryString: 'fdsdfs' },
     trends: newTrendsState,
     view: newViewState,
   };
@@ -31,6 +35,7 @@ describe('component: LineChart', () => {
     // override this so it doesn't crash. we test implementation elsewhere.
     jest.spyOn(d3, 'select').mockImplementation(fakeD3);
     jest.spyOn(d3, 'selectAll').mockImplementation(fakeD3);
+    fetchMock.resetMocks();
   });
 
   afterEach(() => {
@@ -38,43 +43,21 @@ describe('component: LineChart', () => {
   });
 
   it('should render chart with data', async () => {
-    const trends = {
-      colorMap: {
-        Complaints: '#20aa3f',
-        Other: '#a2a3a4',
-      },
-      results: {
-        dateRangeLine: {
-          dataByTopic: [
-            {
-              topic: 'Complaints',
-              topicName: 'Complaints',
-              dashed: false,
-              show: true,
-              dates: [
-                { date: '2024-05-01T00:00:00.000Z', value: 225171 },
-                { date: '2024-06-01T00:00:00.000Z', value: 225171 },
-                { date: '2024-07-01T00:00:00.000Z', value: 225171 },
-                { date: '2024-08-01T00:00:00.000Z', value: 198483 },
-              ],
-            },
-          ],
-        },
-      },
-    };
+    const trends = { lens: 'Overview' };
     const query = {
       dateInterval: 'Month',
       date_received_max: '2024-09-02',
       date_received_min: '2024-03-02',
-      lens: 'Overview',
     };
 
     const view = {
       isPrintMode: false,
+      tab: MODE_TRENDS,
     };
 
+    fetchMock.mockResponseOnce(JSON.stringify(trendsOverviewResponse));
     renderComponent(query, trends, view);
-
+    await screen.findByText('Complaints');
     expect(screen.getByText('Complaints')).toBeInTheDocument();
     expect(screen.getByText('Date received by the CFPB')).toBeInTheDocument();
   });
@@ -90,6 +73,7 @@ describe('component: LineChart', () => {
 
     const view = {
       isPrintMode: false,
+      tab: MODE_TRENDS,
     };
     renderComponent(query, trends, view);
 

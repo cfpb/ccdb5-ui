@@ -6,8 +6,8 @@ import { ActionBar } from '../../ActionBar/ActionBar';
 import { ComplaintCard } from '../ComplaintCard/ComplaintCard';
 import { useDispatch, useSelector } from 'react-redux';
 import ErrorBlock from '../../Warnings/Error';
-import { FilterPanel } from '../../Filters/FilterPanel';
-import { FilterPanelToggle } from '../../Filters/FilterPanelToggle';
+import { FilterPanel } from '../../Filters/FilterPanel/FilterPanel';
+import { FilterPanelToggle } from '../../Filters/FilterPanel/FilterPanelToggle';
 import { Loading } from '../../Loading/Loading';
 import { NarrativesButtons } from '../../RefineBar/NarrativesButtons';
 import { Pagination } from '../Pagination/Pagination';
@@ -15,17 +15,13 @@ import { useMemo } from 'react';
 import { Select } from '../../RefineBar/Select';
 import { sendAnalyticsEvent } from '../../../utils';
 import { Separator } from '../../RefineBar/Separator';
-import { TabbedNavigation } from '../../TabbedNavigation';
-import { selectAggsHasError } from '../../../reducers/aggs/selectors';
-import {
-  selectResultsActiveCall,
-  selectResultsItems,
-} from '../../../reducers/results/selectors';
+import { TabbedNavigation } from '../../TabbedNavigation/TabbedNavigation';
 import { selectViewWidth } from '../../../reducers/view/selectors';
 import {
   selectQuerySize,
   selectQuerySort,
 } from '../../../reducers/query/selectors';
+import { useGetList } from '../../../api/hooks/useGetList';
 
 const ERROR = 'ERROR';
 const NO_RESULTS = 'NO_RESULTS';
@@ -33,14 +29,14 @@ const RESULTS = 'RESULTS';
 
 export const ListPanel = () => {
   const dispatch = useDispatch();
-  const hasError = useSelector(selectAggsHasError);
+  const { data, isLoading, isFetching, error } = useGetList();
   const size = useSelector(selectQuerySize);
   const sort = useSelector(selectQuerySort);
-  const activeCall = useSelector(selectResultsActiveCall);
-  const items = useSelector(selectResultsItems);
   const width = useSelector(selectViewWidth);
 
   const hasMobileFilters = useMemo(() => width < 750, [width]);
+
+  const items = data?.hits || [];
 
   const onSize = (ev) => {
     const iSize = ev.target.value;
@@ -55,13 +51,16 @@ export const ListPanel = () => {
   };
 
   const _determinePhase = () => {
-    let phase = NO_RESULTS;
-    if (hasError) {
-      phase = ERROR;
-    } else if (items.length > 0) {
-      phase = RESULTS;
+    if (error) {
+      return ERROR;
     }
-    return phase;
+    if (isLoading || isFetching || items.length === 0) {
+      return NO_RESULTS;
+    }
+    if (items.length > 0) {
+      return RESULTS;
+    }
+    return NO_RESULTS;
   };
 
   const _renderError = () => {
@@ -117,7 +116,7 @@ export const ListPanel = () => {
       </div>
       {renderMap[phase]()}
       <Pagination />
-      <Loading isLoading={activeCall !== ''} />
+      <Loading isLoading={isLoading || isFetching} />
     </section>
   );
 };

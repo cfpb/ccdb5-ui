@@ -1,17 +1,12 @@
 import { createStore } from 'redux';
 import actionsReducer from '../reducers/actions/actionsSlice';
-import aggregationsReducer from '../reducers/aggs/aggsSlice';
-import detailReducer from '../reducers/detail/detailSlice';
 import filtersReducer from '../reducers/filters/filtersSlice';
-import mapReducer from '../reducers/map/mapSlice';
 import queryReducer from '../reducers/query/querySlice';
-import resultsReducer from '../reducers/results/resultsSlice';
 import routesReducer from '../reducers/routes/routesSlice';
 import trendsReducer from '../reducers/trends/trendsSlice';
 import viewModelReducer from '../reducers/view/viewSlice';
 import { applyMiddleware, combineReducers } from '@reduxjs/toolkit';
 import actionLogger from '../middleware/actionLogger/actionLogger';
-import cloneDeep from 'lodash/cloneDeep';
 import emptyStore from '../actions/__fixtures__/emptyStore';
 
 /**
@@ -21,7 +16,7 @@ import emptyStore from '../actions/__fixtures__/emptyStore';
  * @returns {object} complete empty redux store
  */
 function initialState() {
-  return cloneDeep(emptyStore);
+  return structuredClone(emptyStore);
 }
 
 /**
@@ -36,15 +31,10 @@ function setupStore(targetState, additionalMiddlewares) {
   const preloadedState = targetState ? targetState : initialState();
   const rootReducer = combineReducers({
     actions: actionsReducer,
-    aggs: aggregationsReducer,
-    detail: detailReducer,
     filters: filtersReducer,
-    map: mapReducer,
     query: queryReducer,
-    results: resultsReducer,
     routes: routesReducer,
     trends: trendsReducer,
-
     view: viewModelReducer,
   });
   // this is in case we pass in only a single value

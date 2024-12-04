@@ -1,0 +1,81 @@
+@use 'sass:math';
+@use '@cfpb/cfpb-design-system/src/abstracts/index' as *;
+
+// select
+$select-border: var(--gray-40);
+$select-icon: var(--gray-80);
+$select-icon-bg: var(--gray-5);
+$select-height: $size-ii;
+$input-border-focused: var(--pacific);
+$input-text-disabled: var(--gray-80);
+$input-bg: var(--white);
+$input-bg-disabled: var(--gray-10);
+
+.cf-select {
+  position: relative;
+  border: 1px solid $select-border;
+
+  select {
+    width: 100%;
+    padding: math.div(4px, $base-font-size-px) + em 0
+      math.div(6px, $base-font-size-px) + em 1rem;
+    border: 0;
+    border-radius: 0;
+    appearance: none;
+    background-color: $input-bg;
+    color: var(--black);
+    margin-right: $grid-gutter-width;
+    &:hover,
+    &.hover,
+    &:active,
+    &:focus {
+      outline: 2px solid $input-border-focused;
+      outline-offset: 0;
+    }
+  }
+
+  select[disabled] {
+    color: $input-text-disabled;
+    background-color: $input-bg-disabled;
+    cursor: not-allowed;
+
+    &:hover {
+      outline: none;
+    }
+  }
+
+  select[disabled] option,
+  select[disabled] option:disabled,
+  select option:disabled {
+    color: var(--gray-10);
+  }
+
+  select::-ms-expand {
+    display: none;
+  }
+
+  &::after {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(-50%, -50%);
+    background-color: $select-icon-bg;
+    color: $select-icon;
+    content: '\25BE';
+    text-align: center;
+    pointer-events: none;
+  }
+}
+
+// TODO Add modernizr to CF so this works
+// Right now modern IE doesn't support pointer events causing nothing
+// to happen when you click on the dropdown error.
+
+.no-csspointerevents .cf-select {
+  &::after {
+    height: 0;
+    width: 0;
+    border: 0;
+    content: '';
+  }
+}

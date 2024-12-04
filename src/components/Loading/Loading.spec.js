@@ -4,7 +4,7 @@ import { testRender as render, screen } from '../../testUtils/test-utils';
 describe('Loading', () => {
   it('renders nothing when isLoading is false', () => {
     render(<Loading isLoading={false} />);
-    expect(screen.queryByText('This page is loading')).toBeNull();
+    expect(screen.queryByText('This page is loading')).not.toBeInTheDocument();
   });
 
   it('renders when isLoading is true', () => {

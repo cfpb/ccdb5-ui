@@ -1,15 +1,14 @@
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import { selectAggsRoot } from '../../../reducers/aggs/selectors';
 import { coalesce } from '../../../utils';
 import { CollapsibleFilter } from '../CollapsibleFilter/CollapsibleFilter';
 import { MoreOrLess } from '../MoreOrLess/MoreOrLess';
 import { AggregationItem } from '../Aggregation/AggregationItem/AggregationItem';
 
 import '../Aggregation/Aggregation.scss';
+import { useGetAggregations } from '../../../api/hooks/useGetAggregations';
 
 export const SimpleFilter = ({ fieldName, title, desc }) => {
-  const aggs = useSelector(selectAggsRoot);
+  const { data: aggs } = useGetAggregations();
   const options = coalesce(aggs, fieldName, []);
   const listComponentProps = { fieldName };
 

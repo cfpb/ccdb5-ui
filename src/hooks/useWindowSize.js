@@ -1,8 +1,9 @@
 // adapted from https://usehooks.com/useWindowSize/
 import { debounce } from '../utils';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { updateScreenSize } from '../reducers/view/viewSlice';
+import { selectViewWidth } from '../reducers/view/selectors';
 
 // Hook
 /**
@@ -10,11 +11,14 @@ import { updateScreenSize } from '../reducers/view/viewSlice';
  */
 export function useWindowSize() {
   // Initialize state with undefined width/height so server and client renders match
+  const viewWidth = useSelector(selectViewWidth);
   const dispatch = useDispatch();
   useEffect(() => {
     // Handler to call on window resize
     const debouncedResized = debounce(() => {
-      dispatch(updateScreenSize(window.innerWidth));
+      if (viewWidth !== window.innerWidth) {
+        dispatch(updateScreenSize(window.innerWidth));
+      }
     }, 500);
     // Add event listener
     window.addEventListener('resize', debouncedResized);
@@ -22,5 +26,5 @@ export function useWindowSize() {
     debouncedResized();
     // Remove event listener on cleanup
     return () => window.removeEventListener('resize', debouncedResized);
-  }, [dispatch]); // Empty array ensures that effect is only run on mount
+  }, [dispatch, viewWidth]); // Empty array ensures that effect is only run on mount
 }

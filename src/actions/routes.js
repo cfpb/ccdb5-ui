@@ -49,6 +49,7 @@ export function changeRoute(path, params) {
     const { routes } = store;
     const sameRoute =
       routes.path === path && isEqual(routes.params, normalized);
+
     if (!sameRoute) {
       dispatch(routeChanged(path, normalized));
     }

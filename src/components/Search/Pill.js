@@ -8,13 +8,13 @@ import { filterPatch, SLUG_SEPARATOR } from '../../constants';
 import { formatPillPrefix, getUpdatedFilters } from '../../utils/filters';
 import { useDispatch, useSelector } from 'react-redux';
 import { coalesce } from '../../utils';
-import getIcon from '../iconMap';
+import getIcon from '../Common/Icon/iconMap';
 import PropTypes from 'prop-types';
-import { selectAggsRoot } from '../../reducers/aggs/selectors';
 import { selectFiltersRoot } from '../../reducers/filters/selectors';
+import { useGetAggregations } from '../../api/hooks/useGetAggregations';
 
 export const Pill = ({ fieldName, value }) => {
-  const aggsState = useSelector(selectAggsRoot);
+  const { data: aggsState } = useGetAggregations();
   const filtersState = useSelector(selectFiltersRoot);
   const aggs = coalesce(aggsState, fieldName, []);
   const filters = coalesce(filtersState, fieldName, []);

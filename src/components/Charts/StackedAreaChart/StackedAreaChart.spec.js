@@ -6,6 +6,9 @@ import { StackedAreaChart } from './StackedAreaChart';
 import { queryState } from '../../../reducers/query/querySlice';
 import { trendsState } from '../../../reducers/trends/trendsSlice';
 import { viewState } from '../../../reducers/view/viewSlice';
+import fetchMock from 'jest-fetch-mock';
+import { stackedAreaOverviewResponse } from './fixture';
+import { MODE_TRENDS } from '../../../constants';
 
 const renderComponent = (newQueryState, newTrendsState, newViewState) => {
   merge(newQueryState, queryState);
@@ -14,6 +17,7 @@ const renderComponent = (newQueryState, newTrendsState, newViewState) => {
 
   const data = {
     query: newQueryState,
+    routes: { queryString: 'fdsdfs' },
     trends: newTrendsState,
     view: newViewState,
   };
@@ -31,28 +35,17 @@ describe('component::StackedAreaChart', () => {
     // override this so it doesn't crash. we test implementation elsewhere.
     jest.spyOn(d3, 'select').mockImplementation(fakeD3);
     jest.spyOn(d3, 'selectAll').mockImplementation(fakeD3);
+    fetchMock.resetMocks();
   });
 
   afterEach(() => {
     jest.restoreAllMocks();
   });
 
-  it('should render chart with data as expected', () => {
+  it('should render chart with data as expected', async () => {
     const trends = {
-      colorMap: {
-        Other: '#345',
-        foo: '#fff',
-        bar: '#eee',
-      },
-      lens: 'Overview',
-      results: {
-        dateRangeArea: [
-          { date: '2024-05-01T00:00:00.000Z', value: 225171, name: 'Other' },
-          { date: '2024-06-01T00:00:00.000Z', value: 225171, name: 'Other' },
-          { date: '2024-07-01T00:00:00.000Z', value: 225171, name: 'Other' },
-          { date: '2024-08-01T00:00:00.000Z', value: 198483, name: 'Other' },
-        ],
-      },
+      chartType: 'area',
+      lens: 'Product',
       tooltip: false,
     };
 
@@ -64,11 +57,12 @@ describe('component::StackedAreaChart', () => {
 
     const view = {
       isPrintMode: false,
+      tab: MODE_TRENDS,
       width: 1000,
     };
-
+    fetchMock.mockResponseOnce(JSON.stringify(stackedAreaOverviewResponse));
     renderComponent(query, trends, view);
-
+    await screen.findByText('Complaints');
     expect(screen.getByText('Complaints')).toBeInTheDocument();
     expect(screen.getByText('Date received by the CFPB')).toBeInTheDocument();
   });

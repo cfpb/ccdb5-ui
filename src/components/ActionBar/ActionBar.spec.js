@@ -1,21 +1,22 @@
 import { ActionBar } from './ActionBar';
-import { aggsState } from '../../reducers/aggs/aggsSlice';
 import { viewState } from '../../reducers/view/viewSlice';
 import { merge } from '../../testUtils/functionHelpers';
-import { testRender as render, screen } from '../../testUtils/test-utils';
+import {
+  testRender as render,
+  screen,
+  fireEvent,
+} from '../../testUtils/test-utils';
 import * as viewActions from '../../reducers/view/viewSlice';
 import * as utils from '../../utils';
-import userEvent from '@testing-library/user-event';
+import fetchMock from 'jest-fetch-mock';
+import { aggResponse } from '../List/ListPanel/fixture';
 
-jest.useRealTimers();
 describe('ActionBar', () => {
-  const user = userEvent.setup();
-  const renderComponent = (newAggsState, newViewState) => {
-    merge(newAggsState, aggsState);
+  const renderComponent = (newViewState) => {
     merge(newViewState, viewState);
 
     const data = {
-      aggs: newAggsState,
+      routes: { queryString: '?sdafds' },
       view: newViewState,
     };
 
@@ -27,13 +28,11 @@ describe('ActionBar', () => {
   let gaSpy;
   beforeEach(() => {
     gaSpy = jest.spyOn(utils, 'sendAnalyticsEvent');
+    fetchMock.resetMocks();
   });
 
   test('rendering', async () => {
-    const aggs = {
-      doc_count: 100,
-      total: 10,
-    };
+    fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
 
     const view = {
       tab: 'Map',
@@ -46,19 +45,24 @@ describe('ActionBar', () => {
     const dataExportSpy = jest
       .spyOn(viewActions, 'modalShown')
       .mockImplementation(() => jest.fn());
-    renderComponent(aggs, view);
+    renderComponent(view);
 
+    await screen.findByText(
+      'Showing 4,303,365 matches out of 6,638,372 total complaints',
+    );
     expect(
-      screen.getByText('Showing 10 matches out of 100 total complaints'),
+      screen.getByText(
+        'Showing 4,303,365 matches out of 6,638,372 total complaints',
+      ),
     ).toBeInTheDocument();
     const buttonExport = screen.getByRole('button', { name: /Export data/ });
     expect(buttonExport).toBeInTheDocument();
-    await user.click(buttonExport);
+    fireEvent.click(buttonExport);
     expect(dataExportSpy).toHaveBeenCalledTimes(1);
 
     const buttonPrint = screen.getByRole('button', { name: /Print/ });
     expect(buttonPrint).toBeInTheDocument();
-    await user.click(buttonPrint);
+    fireEvent.click(buttonPrint);
     expect(gaSpy).toHaveBeenCalledWith('Print', 'tab:Map');
     expect(printModeOnSpy).toHaveBeenCalledTimes(1);
   });

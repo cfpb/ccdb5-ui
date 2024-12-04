@@ -1,13 +1,10 @@
 import { testRender as render, screen } from '../../../testUtils/test-utils';
 import { SimpleFilter } from './SimpleFilter';
-import { merge } from '../../../testUtils/functionHelpers';
-import { aggsState } from '../../../reducers/aggs/aggsSlice';
-
-const renderComponent = (props, newAggsState) => {
-  merge(newAggsState, aggsState);
-
+import fetchMock from 'jest-fetch-mock';
+import { aggResponse } from '../../List/ListPanel/fixture';
+const renderComponent = (props) => {
   const data = {
-    aggs: newAggsState,
+    routes: { queryString: '?sfas' },
   };
 
   return render(<SimpleFilter {...props} />, {
@@ -24,13 +21,15 @@ describe('component::SimpleFilter', () => {
       desc: 'This is a description',
       title: 'Title',
     };
+    fetchMock.resetMocks();
   });
 
   describe('initial state', () => {
     props = { title: 'nana', fieldName: 'company_response' };
 
     it('renders without crashing', () => {
-      renderComponent(props, {}, {});
+      fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
+      renderComponent(props);
       expect(screen.getByRole('button')).toHaveAttribute(
         'aria-label',
         `Collapse ${props.title} filter`,

@@ -3,27 +3,23 @@ import { useSelector } from 'react-redux';
 import { useMemo } from 'react';
 import { shortFormat } from '../../utils';
 import {
-  selectAggsDocCount,
-  selectAggsTotal,
-} from '../../reducers/aggs/selectors';
-
-import {
   selectQueryDateReceivedMax,
   selectQueryDateReceivedMin,
   selectQuerySearchText,
 } from '../../reducers/query/selectors';
 import { selectViewIsPrintMode } from '../../reducers/view/selectors';
+import { useGetAggregations } from '../../api/hooks/useGetAggregations';
 
 export const PrintInfo = () => {
-  const docCount = useSelector(selectAggsDocCount);
-  const total = useSelector(selectAggsTotal);
-
+  const { data } = useGetAggregations();
   const dateMin = useSelector(selectQueryDateReceivedMin);
   const dateMax = useSelector(selectQueryDateReceivedMax);
   const dateText = shortFormat(dateMin) + ' - ' + shortFormat(dateMax);
 
   const searchText = useSelector(selectQuerySearchText);
   const isPrintMode = useSelector(selectViewIsPrintMode);
+  const docCount = data?.doc_count || 0;
+  const total = data?.total || 0;
 
   const complaintCountText = useMemo(() => {
     if (docCount === total) {

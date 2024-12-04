@@ -12,23 +12,38 @@ import { Steps } from 'intro.js-react';
 import { TOUR_STEPS } from './constants/tourStepsConstants';
 import { TourButton } from './TourButton';
 import { tourHidden } from '../../reducers/view/viewSlice';
-import { selectAggsActiveCall } from '../../reducers/aggs/selectors';
-import { selectResultsActiveCall } from '../../reducers/results/selectors';
-import { selectMapActiveCall } from '../../reducers/map/selectors';
-import { selectTrendsActiveCall } from '../../reducers/trends/selectors';
+import { useGetAggregations } from '../../api/hooks/useGetAggregations';
+import { useGetMap } from '../../api/hooks/useGetMap';
+import { useGetList } from '../../api/hooks/useGetList';
+import { useGetTrends } from '../../api/hooks/useGetTrends';
 
 export const Tour = () => {
   const dispatch = useDispatch();
-  const aggsLoading = useSelector(selectAggsActiveCall);
-  const mapLoading = useSelector(selectMapActiveCall);
-  const resultsLoading = useSelector(selectResultsActiveCall);
-  const trendsLoading = useSelector(selectTrendsActiveCall);
+  const { isLoading: aggsLoading, isFetching: aggsFetching } =
+    useGetAggregations();
+  const { isLoading: mapLoading, isFetching: mapFetching } = useGetMap();
+  const { isLoading: resultsLoading, isFetching: resultsFetching } =
+    useGetList();
+  const { isLoading: trendsLoading, isFetching: trendsFetching } =
+    useGetTrends();
+
   const showTour = useSelector(selectViewShowTour);
   const tab = useSelector(selectViewTab);
   const isPrintMode = useSelector(selectViewIsPrintMode);
   const viewWidth = useSelector(selectViewWidth);
   const stepRef = useRef();
-  const isLoading = aggsLoading + mapLoading + resultsLoading + trendsLoading;
+  // ORing all of these to prevent complexity warning
+  const isLoading = [
+    aggsLoading,
+    aggsFetching,
+    mapLoading,
+    mapFetching,
+    resultsLoading,
+    resultsFetching,
+    trendsLoading,
+    trendsFetching,
+  ].some((val) => val);
+
   const mobileStepOpen = {
     disableInteraction: false,
     element: '.filter-panel-toggle .m-btn-group .a-btn',

@@ -3,27 +3,26 @@ import {
   prevPageShown,
 } from '../../../reducers/query/querySlice';
 import { useDispatch, useSelector } from 'react-redux';
-import getIcon from '../../iconMap';
-import {
-  selectQueryPage,
-  selectQueryTotalPages,
-} from '../../../reducers/query/selectors';
-import { selectResultsItems } from '../../../reducers/results/selectors';
+import getIcon from '../../Common/Icon/iconMap';
+import { selectQueryPage } from '../../../reducers/query/selectors';
+import { useGetList } from '../../../api/hooks/useGetList';
 
 export const Pagination = () => {
   const dispatch = useDispatch();
   const page = useSelector(selectQueryPage);
-  const total = useSelector(selectQueryTotalPages);
-  const items = useSelector(selectResultsItems);
+  const { data } = useGetList();
+  const items = data?.hits;
+  const total = data?.totalPages || 0;
+  const breakPoints = data?.breakPoints;
 
   const nextPage = () => {
-    dispatch(nextPageShown());
+    dispatch(nextPageShown(breakPoints));
   };
   const prevPage = () => {
-    dispatch(prevPageShown());
+    dispatch(prevPageShown(breakPoints));
   };
 
-  return items.length > 0 ? (
+  return items && items.length > 0 ? (
     <nav className="m-pagination" role="navigation" aria-label="Pagination">
       <button
         className="a-btn m-pagination__btn-prev"
@@ -41,10 +40,7 @@ export const Pagination = () => {
         disabled={page >= total}
       >
         Next
-        <span
-          className="a-btn__icon
-                             a-btn__icon--on-right"
-        >
+        <span className="a-btn__icon a-btn__icon--on-right">
           {getIcon('right')}
         </span>
       </button>

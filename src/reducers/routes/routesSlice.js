@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import * as constants from '../../constants';
 import { enforceValues } from '../../utils/reducers';
+import queryString from 'query-string';
 
 export const updateParams = (state, action) => {
   const { params, path } = action.payload;
   state.path = path;
   state.params = params;
+  state.queryString = queryString.stringify(params);
 };
 
 export const routesState = {
@@ -13,6 +14,7 @@ export const routesState = {
   // useLocation / routes.js
   path: '',
   params: {},
+  queryString: '',
 };
 
 export const routesSlice = createSlice({
@@ -39,10 +41,6 @@ export const routesSlice = createSlice({
           payload: {
             path,
             params,
-          },
-          meta: {
-            persist: constants.PERSIST_LOAD,
-            requery: constants.REQUERY_ALWAYS,
           },
         };
       },

@@ -1,5 +1,5 @@
 import './CollapsibleFilter.scss';
-import getIcon from '../../iconMap';
+import getIcon from '../../Common/Icon/iconMap';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 

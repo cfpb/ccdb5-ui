@@ -1,4 +1,4 @@
-import getIcon from '../../iconMap';
+import getIcon from '../../Common/Icon/iconMap';
 import { TooltipWrapper } from '../../Common/TooltipWrapper/TooltipWrapper';
 import { useState } from 'react';
 import PropTypes from 'prop-types';

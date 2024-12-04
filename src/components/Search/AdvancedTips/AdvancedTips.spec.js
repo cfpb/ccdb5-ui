@@ -23,12 +23,12 @@ describe('AdvancedTips', () => {
     ).toBeInTheDocument();
     expect(
       screen.queryByRole('label', { name: 'Complex example:' }),
-    ).toBeNull();
+    ).not.toBeInTheDocument();
     expect(
       screen.queryByDisplayValue(
         'call AND (harass* OR annoy* OR threat OR repeat) AND NOT spam',
       ),
-    ).toBeNull();
+    ).not.toBeInTheDocument();
 
     fireEvent.click(
       screen.getAllByRole('heading', {

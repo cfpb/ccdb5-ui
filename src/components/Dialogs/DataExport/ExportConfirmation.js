@@ -1,4 +1,4 @@
-import getIcon from '../../iconMap';
+import getIcon from '../../Common/Icon/iconMap';
 import { useDispatch } from 'react-redux';
 import { modalHidden } from '../../../reducers/view/viewSlice';
 

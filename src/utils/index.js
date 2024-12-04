@@ -6,6 +6,7 @@ import {
 } from '../constants/index';
 import Analytics from '../actions/analytics';
 import dayjs from 'dayjs';
+import queryString from 'query-string';
 
 /**
  * Breaks up '123' to '1 2 3' to help screen readers read digits individually
@@ -194,21 +195,6 @@ export const sanitizeHtmlId = (str) =>
 export const slugify = (first, second) => first + SLUG_SEPARATOR + second;
 
 /**
- * take in an array or object and clone it as completely new object to remove
- * pointers.  If you .slice() an array of objects, the array is new, but
- * copied objects still point to original objects, you will still have mutations
- *
- * @param {object | Array} input - the thing to copy
- * @returns {object | Array} the copied new thing
- */
-export const cloneDeep = (input) => {
-  if (typeof input !== 'undefined') {
-    return JSON.parse(JSON.stringify(input));
-  }
-  return input;
-};
-
-/**
  * Custom sort for array so that selected items appear first, then by doc_count
  *
  * @param {Array} options - input array containing values
@@ -216,7 +202,7 @@ export const cloneDeep = (input) => {
  * @returns {Array} sorted array
  */
 export const sortSelThenCount = (options, selected) => {
-  const retVal = (cloneDeep(options) || []).slice();
+  const retVal = (structuredClone(options) || []).slice();
 
   /* eslint complexity: ["error", 5] */
   retVal.sort((first, second) => {
@@ -445,7 +431,7 @@ export const selectedClass = (
  * @returns {object} the processed object
  */
 export function removeNullProperties(object) {
-  return Object.keys(object).reduce((acc, key) => {
+  const myObject = Object.keys(object).reduce((acc, key) => {
     if (
       object[key] !== null &&
       object[key] !== undefined &&
@@ -456,4 +442,23 @@ export function removeNullProperties(object) {
     }
     return acc;
   }, {});
+
+  for (const key in myObject) {
+    if (Array.isArray(myObject[key]) && myObject[key].length === 0) {
+      delete myObject[key];
+    }
+  }
+
+  return myObject;
+}
+
+/**
+ * Builds a URL from a path and dictionary
+ *
+ * @param {string} path - The V2 endpoint.
+ * @param {object} params - A key/value pair of the query string params.
+ * @returns {string} The full endpoint url.
+ */
+export function formatUri(path, params) {
+  return path + '?' + queryString.stringify(params);
 }

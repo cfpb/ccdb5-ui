@@ -900,7 +900,6 @@ export const trendsAggs = {
   },
 };
 export const trendsResults = {
-  activeCall: '',
   chartType: 'line',
   colorMap: {
     Complaints: '#20aa3f',
