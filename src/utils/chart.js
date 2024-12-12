@@ -235,11 +235,11 @@ export const externalTooltipFormatter = (tooltip, colorMap) => {
   }
   const newTooltip = structuredClone(tooltip);
   const parts = tooltip.title.split(':');
+  const colorValues = Object.values(colors.DataLens);
   newTooltip.values.forEach((obj) => {
     // const newObj = { ...obj };
     if (!Object.hasOwn(obj, 'colorIndex')) {
-      obj.colorIndex =
-        Object.values(colors.DataLens).indexOf(colorMap[obj.name]) || 0;
+      obj.colorIndex = colorValues.indexOf(colorMap[obj.name]) || 0;
     }
     // make sure all values have a value
     if (!Object.hasOwn(obj, 'value')) {

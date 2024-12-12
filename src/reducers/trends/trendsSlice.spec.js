@@ -6,9 +6,7 @@ import trends, {
   depthReset,
   focusChanged,
   focusRemoved,
-  // getDefaultState,
   tooltipUpdated,
-  // trendsReceived,
   trendsState,
 } from './trendsSlice';
 
@@ -18,27 +16,6 @@ import {
 } from '../filters/filtersSlice';
 import { tabChanged } from '../view/viewSlice';
 import { routeChanged } from '../routes/routesSlice';
-// import {
-//   trendsBackfill,
-//   trendsBackfillResults,
-// } from '../__fixtures__/trendsBackfill';
-// import {
-//   trendsCompanyAggs,
-//   trendsCompanyResults,
-// } from '../__fixtures__/trendsCompanyResults';
-// import {
-//   trendsFocusAggs,
-//   trendsFocusAggsResults,
-// } from '../__fixtures__/trendsFocusAggs';
-// import { trendsAggs, trendsResults } from '../__fixtures__/trendsResults';
-// import {
-//   trendsAggsDupes,
-//   trendsAggsDupeResults,
-// } from '../__fixtures__/trendsAggsDupes';
-// import {
-//   trendsAggsMissingBuckets,
-//   trendsAggsMissingBucketsResults,
-// } from '../__fixtures__/trendsAggsMissingBuckets';
 import * as types from '../../constants';
 
 describe('reducer:trends', () => {
@@ -313,115 +290,6 @@ describe('reducer:trends', () => {
       });
     });
   });
-
-  // describe('TRENDS_RECEIVED actions', () => {
-  //   beforeEach(() => {
-  //     action = {
-  //       payload: {
-  //         data: {
-  //           aggregations: false,
-  //         },
-  //       },
-  //     };
-  //     state = getDefaultState();
-  //   });
-  //
-  //   it('maps data to object state - Overview', () => {
-  //     // to replicate
-  //     // just choose All date range and overview
-  //     const payload = { data: { aggregations: trendsAggs } };
-  //     state.lens = 'Overview';
-  //     state.subLens = '';
-  //     result = trends({ ...trendsState, ...state }, trendsReceived(payload));
-  //     expect(result).toEqual({ ...trendsResults });
-  //   });
-  //
-  //   it('maps data to object state - Company', () => {
-  //     // just changing
-  //     state.lens = 'Company';
-  //     state.subLens = '';
-  //     const payload = { data: { aggregations: trendsCompanyAggs } };
-  //     result = trends({ ...trendsState, ...state }, trendsReceived(payload));
-  //     expect(result).toEqual({ ...trendsCompanyResults });
-  //   });
-  //
-  //   it('maps data to object state - dupe rows', () => {
-  //     state.lens = 'Overview';
-  //     state.subLens = '';
-  //     const payload = { data: { aggregations: trendsAggsDupes } };
-  //     result = trends({ ...trendsState, ...state }, trendsReceived(payload));
-  //     expect(result).toEqual({ ...trendsState, ...trendsAggsDupeResults });
-  //   });
-  //
-  //   it('maps data to object state - Missing Bucket', () => {
-  //     // to replicate this
-  //     // ?date_received_max=2017-07-08
-  //     // &date_received_min=2017-03-08
-  //     // &from=0&lens=Product&tab=Trends
-  //     // you'll get broken buckets since the product recategorization in apr
-  //     state.lens = 'Product';
-  //     state.subLens = 'sub_product';
-  //     const payload = { data: { aggregations: trendsAggsMissingBuckets } };
-  //     result = trends(state, trendsReceived(payload));
-  //     expect(result).toEqual(trendsAggsMissingBucketsResults);
-  //   });
-  //
-  //   it('maps data to object state - Focus', () => {
-  //     state.lens = 'Product';
-  //     state.subLens = 'sub_product';
-  //     state.focus = 'Debt collection';
-  //     const payload = { data: { aggregations: trendsFocusAggs } };
-  //     result = trends(state, trendsReceived(payload));
-  //     expect(result).toEqual(trendsFocusAggsResults);
-  //     expect(result.results.issue.length).toBeTruthy();
-  //     expect(result.results['sub-product'].length).toBeTruthy();
-  //   });
-  //
-  //   it('backfills periods based on dateRangeBuckets', () => {
-  //     // aka: the "covid" search
-  //     state.chartType = 'area';
-  //     state.lens = 'Product';
-  //     state.subLens = 'sub_product';
-  //     const payload = { data: { aggregations: trendsBackfill } };
-  //     result = trends(state, trendsReceived(payload));
-  //     expect(result).toEqual(trendsBackfillResults);
-  //   });
-  //
-  //   it('handles zero results', () => {
-  //     const emptyAggs = {
-  //       dateRangeArea: {
-  //         doc_count: 0,
-  //       },
-  //     };
-  //     state.chartType = 'area';
-  //     state.lens = 'Product';
-  //     state.subLens = 'sub_product';
-  //     state.results = {
-  //       company: [1, 2, 3],
-  //       dateRangeArea: [4, 5, 6],
-  //       dateRangeLine: [7, 8, 9],
-  //       product: [1, 2, 3],
-  //     };
-  //     result = trends(
-  //       state,
-  //       trendsReceived({ data: { aggregations: emptyAggs } }),
-  //     );
-  //     expect(result).toEqual({
-  //       chartType: 'area',
-  //       colorMap: {},
-  //       focus: '',
-  //       lens: 'Product',
-  //       results: {
-  //         dateRangeArea: [],
-  //         dateRangeLine: [],
-  //       },
-  //       subLens: 'sub_product',
-  //       tooltip: false,
-  //       total: 0,
-  //       trendDepth: 5,
-  //     });
-  //   });
-  // });
 
   describe('TRENDS_TOOLTIP_CHANGED', () => {
     it('handles no value', () => {
