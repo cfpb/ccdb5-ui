@@ -92,7 +92,6 @@ export function extractQueryStringParams(state) {
   // Grab specific attributes from the reducers
   const params = Object.assign(
     {},
-    // extractReducerAttributes(state.detail, ['id']),
     // no unique map atts
     extractReducerAttributes(state.query, attrsQuery),
     extractReducerAttributes(state.filters, attrsFilters),
