@@ -39,7 +39,7 @@ describe('component:Product', () => {
         name: /Credit reporting, credit repair services, or other personal consumer reports/,
       }),
     ).toBeInTheDocument();
-    expect(screen.getAllByRole('checkbox').length).toEqual(5);
+    expect(screen.getAllByRole('checkbox').length).toBe(5);
     // show only 5 items
     expect(
       screen.getByRole('button', { name: '+ Show 1 more' }),

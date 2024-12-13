@@ -71,9 +71,7 @@ describe('reducer:query', () => {
       ...queryState,
       searchText: 'foo',
     };
-    expect(target(state, searchTextChanged(searchText)).searchText).toEqual(
-      'bar',
-    );
+    expect(target(state, searchTextChanged(searchText)).searchText).toBe('bar');
   });
 
   describe('Pager', () => {
@@ -221,7 +219,7 @@ describe('reducer:query', () => {
     it('handles string params', () => {
       params = { searchText: 'hello' };
       actual = target(state, routeChanged('', params));
-      expect(actual.searchText).toEqual('hello');
+      expect(actual.searchText).toBe('hello');
     });
 
     it('handles size parameter', () => {
@@ -239,14 +237,14 @@ describe('reducer:query', () => {
     it('handles bogus date parameters', () => {
       params = { dateInterval: '3y', dateRange: 'Week' };
       actual = target(state, routeChanged('', params));
-      expect(actual.dateInterval).toEqual('Month');
-      expect(actual.dateRange).toEqual('3y');
+      expect(actual.dateInterval).toBe('Month');
+      expect(actual.dateRange).toBe('3y');
     });
 
     it('converts some parameters to dates', () => {
       params = { date_received_min: '2013-02-03' };
       actual = target(state, routeChanged('', params)).date_received_min;
-      expect(actual).toEqual('2013-02-03');
+      expect(actual).toBe('2013-02-03');
     });
 
     it('ignores incorrect dates', () => {
@@ -264,9 +262,9 @@ describe('reducer:query', () => {
 
       actual = target(state, routeChanged('', params));
 
-      expect(actual.date_received_min).toEqual('2011-12-01');
-      expect(actual.date_received_max).toEqual('2020-05-05');
-      expect(actual.dateRange).toEqual('All');
+      expect(actual.date_received_min).toBe('2011-12-01');
+      expect(actual.date_received_max).toBe('2020-05-05');
+      expect(actual.dateRange).toBe('All');
     });
 
     describe('dates', () => {
@@ -279,13 +277,13 @@ describe('reducer:query', () => {
           new Date(dayjs(maxDate).subtract(2, 'years')),
         ).toISOString();
         alignDateRange(state);
-        expect(state.dateRange).toEqual('');
+        expect(state.dateRange).toBe('');
       });
 
       it('sets the All range if the dates are right', () => {
         state.date_received_min = types.DATE_RANGE_MIN;
         alignDateRange(state);
-        expect(state.dateRange).toEqual('All');
+        expect(state.dateRange).toBe('All');
       });
 
       it('sets the 3m range if the dates are right', () => {
@@ -293,7 +291,7 @@ describe('reducer:query', () => {
           new Date(dayjs(maxDate).subtract(3, 'months')),
         ).toISOString();
         alignDateRange(state);
-        expect(state.dateRange).toEqual('3m');
+        expect(state.dateRange).toBe('3m');
       });
 
       it('sets the 6m range if the dates are right', () => {
@@ -302,7 +300,7 @@ describe('reducer:query', () => {
         ).toISOString();
 
         alignDateRange(state);
-        expect(state.dateRange).toEqual('6m');
+        expect(state.dateRange).toBe('6m');
       });
 
       it('sets the 1y range if the dates are right', () => {
@@ -310,12 +308,12 @@ describe('reducer:query', () => {
           new Date(dayjs(maxDate).subtract(1, 'year')),
         ).toISOString();
         alignDateRange(state);
-        expect(state.dateRange).toEqual('1y');
+        expect(state.dateRange).toBe('1y');
       });
 
       it('sets the 3y range if the dates are right', () => {
         alignDateRange(state);
-        expect(state.dateRange).toEqual('3y');
+        expect(state.dateRange).toBe('3y');
       });
     });
   });
@@ -381,7 +379,7 @@ describe('reducer:query', () => {
         const max = dayjs(startOfToday());
         const min = new Date(dayjs(max).subtract(3, 'months'));
         result = target({ ...queryState }, datesChanged(min, max));
-        expect(result.dateRange).toEqual('3m');
+        expect(result.dateRange).toBe('3m');
       });
     });
 
@@ -418,7 +416,7 @@ describe('reducer:query', () => {
       it('handles All range', () => {
         action = 'All';
         result = target({}, dateRangeChanged(action));
-        expect(result.date_received_min).toEqual('2011-12-01');
+        expect(result.date_received_min).toBe('2011-12-01');
       });
 
       it('handles 1y range', () => {

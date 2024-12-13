@@ -61,13 +61,13 @@ describe('Tile map', () => {
       }
 
       const actual = sutClone.makeScale(data, colors);
-      expect(actual(0)).toEqual('#ffffff');
-      expect(actual(100)).toEqual(colors[0]);
-      expect(actual(361)).toEqual(colors[1]); // 19^2
-      expect(actual(784)).toEqual(colors[2]); // 28^2
-      expect(actual(1225)).toEqual(colors[3]); // 35^2
-      expect(actual(1681)).toEqual(colors[4]); // 41^2
-      expect(actual(2500)).toEqual(colors[5]);
+      expect(actual(0)).toBe('#ffffff');
+      expect(actual(100)).toBe(colors[0]);
+      expect(actual(361)).toBe(colors[1]); // 19^2
+      expect(actual(784)).toBe(colors[2]); // 28^2
+      expect(actual(1225)).toBe(colors[3]); // 35^2
+      expect(actual(1681)).toBe(colors[4]); // 41^2
+      expect(actual(2500)).toBe(colors[5]);
     });
 
     it('scales differently if there are few unique values', () => {
@@ -78,8 +78,8 @@ describe('Tile map', () => {
       data[3].displayValue = 900;
 
       const actual = sutClone.makeScale(data, colors);
-      expect(actual(0)).toEqual('#ffffff');
-      expect(actual(300)).toEqual(colors[1]);
+      expect(actual(0)).toBe('#ffffff');
+      expect(actual(300)).toBe(colors[1]);
       expect(actual(450)).toEqual(colors[2]);
       expect(actual(790)).toEqual(colors[5]);
     });
@@ -214,7 +214,7 @@ describe('Tile map', () => {
 
     it('returns WHITE when no value', () => {
       const res = sutClone.getColorByValue(false, scaleFn);
-      expect(res).toEqual('#ffffff');
+      expect(res).toBe('#ffffff');
     });
   });
 
@@ -270,7 +270,7 @@ describe('Tile map', () => {
       displayValue: '13',
     };
     const actual = sutClone.descriptionFormatter(point);
-    expect(actual).toEqual('Foo 13');
+    expect(actual).toBe('Foo 13');
   });
 
   it('Processes the map data', () => {

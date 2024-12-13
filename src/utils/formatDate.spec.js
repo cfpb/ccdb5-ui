@@ -8,22 +8,22 @@ import * as sut from './formatDate';
 describe('formatDate', function () {
   it('converts a string to pretty date format', function () {
     const actual = sut.formatDate('Dec 12, 1980');
-    expect(actual).toEqual('1980-12-12');
+    expect(actual).toBe('1980-12-12');
   });
 
   it('converts a date object', function () {
     const actual = sut.formatDate(new Date('January 12, 1980'));
-    expect(actual).toEqual('1980-01-12');
+    expect(actual).toBe('1980-01-12');
   });
 
   it('converts string to data model', function () {
     const actual = sut.formatDateModel(new Date('January 12, 1980'));
-    expect(actual).toEqual('1980-01-12');
+    expect(actual).toBe('1980-01-12');
   });
 
   it('converts string to short', function () {
     const actual = sut.formatDateLocaleShort(new Date('January 12, 1980'));
-    expect(actual).toEqual('Jan 12, 1980');
+    expect(actual).toBe('Jan 12, 1980');
   });
 
   it('compares dates', function () {

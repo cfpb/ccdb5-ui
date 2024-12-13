@@ -48,7 +48,7 @@ describe('action:analytics', () => {
       ),
     );
 
-    expect(callbackConfirm).toEqual('hello world');
+    expect(callbackConfirm).toBe('hello world');
   });
 
   it('pushes to dataLayer when tagManager is Loaded', () => {

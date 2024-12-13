@@ -411,8 +411,8 @@ describe('reducer:trends', () => {
       const params = { lens: 'foobar', subLens: 'mom', nope: 'hi' };
       const path = '/';
       result = trends(state, routeChanged(path, params));
-      expect(result.lens).toEqual('Product');
-      expect(result.subLens).toEqual('sub_product');
+      expect(result.lens).toBe('Product');
+      expect(result.subLens).toBe('sub_product');
       expect(result.nope).toBeFalsy();
     });
 
@@ -421,8 +421,8 @@ describe('reducer:trends', () => {
       const path = '/';
 
       result = trends(state, routeChanged(path, params));
-      expect(result.lens).toEqual('Overview');
-      expect(result.subLens).toEqual('');
+      expect(result.lens).toBe('Overview');
+      expect(result.subLens).toBe('');
       expect(result.nope).toBeFalsy();
     });
     it('handles company lens params', () => {
@@ -430,23 +430,23 @@ describe('reducer:trends', () => {
       const path = '/';
 
       result = trends(state, routeChanged(path, params));
-      expect(result.lens).toEqual('Company');
-      expect(result.subLens).toEqual('product');
+      expect(result.lens).toBe('Company');
+      expect(result.subLens).toBe('product');
       expect(result.nope).toBeFalsy();
     });
 
     it('handles invalid lens and chartType combo', () => {
       const params = { chartType: 'area', lens: 'Overview' };
       result = trends(state, routeChanged('/', params));
-      expect(result.chartType).toEqual('line');
-      expect(result.lens).toEqual('Overview');
+      expect(result.chartType).toBe('line');
+      expect(result.lens).toBe('Overview');
     });
 
     it('handles valid lens and chartType combo', () => {
       const params = { chartType: 'area', lens: 'Product' };
       result = trends(state, routeChanged('/', params));
-      expect(result.chartType).toEqual('area');
-      expect(result.lens).toEqual('Product');
+      expect(result.chartType).toBe('area');
+      expect(result.lens).toBe('Product');
     });
   });
 

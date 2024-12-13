@@ -125,7 +125,7 @@ describe('api.v2.params', () => {
     it('handles bogus searchFieldMap', () => {
       fixtureStore.query.searchField = 'Bogus value';
       const actual = sut.extractQueryParams(fixtureStore.query);
-      expect(actual.field).toEqual('all');
+      expect(actual.field).toBe('all');
     });
 
     it('calculates frm from page and size when from is not given', () => {
@@ -133,13 +133,13 @@ describe('api.v2.params', () => {
       fixtureStore.query.page = 0;
       fixtureStore.query.size = 10;
       const actual = sut.extractQueryParams(fixtureStore.query);
-      expect(actual.frm).toEqual(0);
+      expect(actual.frm).toBe(0);
     });
 
     it('assigns query.searchAfter to search_after', () => {
       fixtureStore.query.searchAfter = '1__12345';
       const actual = sut.extractQueryParams(fixtureStore.query);
-      expect(actual.search_after).toEqual('1__12345');
+      expect(actual.search_after).toBe('1__12345');
     });
   });
 });
