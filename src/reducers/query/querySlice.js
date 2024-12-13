@@ -1,9 +1,8 @@
 import * as types from '../../constants';
+import { maxDate, minDate } from '../../constants';
 import {
   calculateDateRange,
-  clamp,
   coalesce,
-  // processUrlArrayParams,
   shortIsoFormat,
   startOfToday,
 } from '../../utils';
@@ -11,14 +10,6 @@ import { enforceValues } from '../../utils/reducers';
 import dayjs from 'dayjs';
 import { isGreaterThanYear } from '../../utils/trends';
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import {
-  maxDate,
-  minDate,
-  PERSIST_SAVE_QUERY_STRING,
-  REQUERY_ALWAYS,
-  REQUERY_HITS_ONLY,
-  REQUERY_NEVER,
-} from '../../constants';
 import { formatDate } from '../../utils/formatDate';
 import {
   filterAdded,
@@ -35,7 +26,6 @@ import queryString from 'query-string';
 
 /* eslint-disable camelcase */
 export const queryState = {
-  breakPoints: {},
   company_received_max: '',
   company_received_min: '',
   dateInterval: 'Month',
@@ -51,7 +41,6 @@ export const queryState = {
   searchText: '',
   size: 25,
   sort: 'created_date_desc',
-  totalPages: 0,
   trendsDateWarningEnabled: false,
 };
 
@@ -70,15 +59,6 @@ export const querySlice = createSlice({
       reducer: (state, action) => {
         state.dateInterval = enforceValues(action.payload, 'dateInterval');
         validateDateInterval(state);
-      },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_HITS_ONLY,
-          },
-        };
       },
     },
     dateRangeChanged: {
@@ -100,15 +80,6 @@ export const querySlice = createSlice({
         state.date_received_max = maxDate;
         validateDateInterval(state);
       },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
     },
     companyReceivedDateChanged: {
       reducer: (state, action) => {
@@ -129,10 +100,6 @@ export const querySlice = createSlice({
           payload: {
             minDate,
             maxDate,
-          },
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_ALWAYS,
           },
         };
       },
@@ -169,25 +136,12 @@ export const querySlice = createSlice({
             minDate,
             maxDate,
           },
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_ALWAYS,
-          },
         };
       },
     },
     searchFieldChanged: {
       reducer: (state, action) => {
         state.searchField = action.payload;
-      },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_ALWAYS,
-          },
-        };
       },
     },
     searchTextChanged: {
@@ -197,104 +151,42 @@ export const querySlice = createSlice({
           searchText: action.payload,
         };
       },
-      prepare: (searchText) => {
-        return {
-          payload: searchText,
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_ALWAYS,
-          },
-        };
-      },
     },
     trendsDateWarningDismissed: {
       reducer: (state) => {
         state.trendsDateWarningEnabled = false;
       },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            requery: REQUERY_NEVER,
-          },
-        };
-      },
     },
     prevPageShown: {
-      reducer: (state) => {
+      reducer: (state, action) => {
+        const breakPoints = action.payload;
         // don't let them go lower than 1
-        const page = clamp(state.page - 1, 1, state.page);
-        const pagination = getPagination(page, state);
+        const prevPage = state.page - 1;
+        const pagination = getPagination(prevPage, state);
         state.page = pagination.page;
         state.from = pagination.from;
-        state.searchAfter = getSearchAfter(state, page);
-      },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_HITS_ONLY,
-          },
-        };
+        state.searchAfter = getSearchAfter(breakPoints, prevPage);
       },
     },
     nextPageShown: {
-      reducer: (state) => {
-        // don't let them go past the total num of pages
-        const page = clamp(state.page + 1, 1, state.totalPages);
-        const pagination = getPagination(page, state);
+      reducer: (state, action) => {
+        const breakPoints = action.payload;
+        const nextPage = state.page + 1;
+        const pagination = getPagination(nextPage, state);
         state.page = pagination.page;
         state.from = pagination.from;
-        state.searchAfter = getSearchAfter(state, page);
-      },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_HITS_ONLY,
-          },
-        };
+        state.searchAfter = getSearchAfter(breakPoints, nextPage);
       },
     },
     sizeChanged: {
       reducer: (state, action) => {
         state.size = enforceValues(action.payload, 'size');
       },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_HITS_ONLY,
-          },
-        };
-      },
     },
     sortChanged: {
       reducer: (state, action) => {
         state.sort = enforceValues(action.payload, 'sort');
       },
-      prepare: (payload) => {
-        return {
-          payload,
-          meta: {
-            persist: PERSIST_SAVE_QUERY_STRING,
-            requery: REQUERY_HITS_ONLY,
-          },
-        };
-      },
-    },
-    updateTotalPages: (state, action) => {
-      const { _meta, hits } = action.payload.data;
-      const totalPages = Math.ceil(hits.total.value / state.size);
-
-      // set pager to last page if the number of total pages is less than current page
-      const { break_points: breakPoints } = _meta;
-      state.page = state.page > totalPages ? totalPages : state.page;
-      state.breakPoints = breakPoints;
-      state.totalPages = Object.keys(breakPoints).length + 1;
     },
   },
   extraReducers: (builder) => {
@@ -305,9 +197,8 @@ export const querySlice = createSlice({
         state.company_received_min = '';
         state.date_received_min = minDate;
         state.date_received_max = maxDate;
-      })
-      .addCase('results/complaintsReceived', (state, action) => {
-        querySlice.caseReducers.updateTotalPages(state, action);
+        state.company_received_max = '';
+        state.company_received_min = '';
       })
       .addCase('routes/routeChanged', (state, action) => {
         const { params } = action.payload;
@@ -326,11 +217,11 @@ export const querySlice = createSlice({
         });
 
         types.dateFilters.forEach((field) => {
-          if (typeof params[field] !== 'undefined') {
-            const date = toDate(params[field]);
-            if (date) {
-              state[field] = formatDate(date);
-            }
+          if (
+            typeof params[field] !== 'undefined' &&
+            dayjs(params[field]).isValid()
+          ) {
+            state[field] = toDate(params[field]);
           }
         });
 
@@ -452,24 +343,14 @@ export function dateRangeNoDates(params) {
  * Safely converts a string to a local date
  *
  * @param {string} value - Hopefully, an ISO-8601 formatted string
- * @returns {Date} The parsed and validated date, or null
+ * @returns {string} The parsed and validated date, or null
  */
 export function toDate(value) {
-  if (isNaN(Date.parse(value))) {
-    return null;
+  if (dayjs(value).isValid()) {
+    return formatDate(value);
   }
 
-  // Adjust UTC to local timezone
-  // This code adjusts for daylight saving time
-  // but does not work for locations east of Greenwich
-  const utcDate = new Date(value);
-  const localTimeThen = new Date(
-    utcDate.getFullYear(),
-    utcDate.getMonth(),
-    utcDate.getDate(),
-  );
-
-  return localTimeThen;
+  return null;
 }
 
 /**
@@ -513,12 +394,11 @@ function getPagination(page, state) {
 /**
  * Get search results after specified page
  *
- * @param {object} state - the current state in the Redux store
+ * @param {object} breakPoints - breakPoints from the List API slice
  * @param {number} page - page number
  * @returns {Array} array containing complaint's received date and id
  */
-function getSearchAfter(state, page) {
-  const { breakPoints } = state;
+function getSearchAfter(breakPoints, page) {
   return breakPoints && breakPoints[page] ? breakPoints[page].join('_') : '';
 }
 
@@ -617,11 +497,9 @@ export function stateToQS(state) {
  * @param {object} state - redux state
  */
 export function clearPager(state) {
-  state.breakPoints = {};
   state.from = 0;
   state.page = 1;
   state.searchAfter = '';
-  state.totalPages = 0;
 }
 
 export const {
@@ -636,6 +514,5 @@ export const {
   searchTextChanged,
   sizeChanged,
   sortChanged,
-  updateTotalPages,
 } = querySlice.actions;
 export default querySlice.reducer;

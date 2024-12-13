@@ -3,17 +3,14 @@ import userEvent from '@testing-library/user-event';
 import * as filtersActions from '../../reducers/filters/filtersSlice';
 import * as queryActions from '../../reducers/query/querySlice';
 import { merge } from '../../testUtils/functionHelpers';
-import { aggsState } from '../../reducers/aggs/aggsSlice';
-import { queryState } from '../../reducers/query/querySlice';
 import { Pill } from './Pill';
+import { filtersState } from '../../reducers/filters/filtersSlice';
 
-const renderComponent = (props, newAggsState = {}, newQueryState = {}) => {
-  merge(newAggsState, aggsState);
-  merge(newQueryState, queryState);
+const renderComponent = (props, newFiltersState = {}) => {
+  merge(newFiltersState, filtersState);
 
   const data = {
-    aggs: newAggsState,
-    query: newQueryState,
+    filters: newFiltersState,
   };
 
   render(<Pill {...props} />, {

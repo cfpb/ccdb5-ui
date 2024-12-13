@@ -10,7 +10,7 @@ import {
 } from '../../../../utils';
 import { selectFiltersRoot } from '../../../../reducers/filters/selectors';
 import { AggregationItem } from '../AggregationItem/AggregationItem';
-import getIcon from '../../../iconMap';
+import getIcon from '../../../Common/Icon/iconMap';
 import { SLUG_SEPARATOR } from '../../../../constants';
 import {
   filtersReplaced,

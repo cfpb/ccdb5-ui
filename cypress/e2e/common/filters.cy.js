@@ -87,16 +87,12 @@ describe('Filter Panel', () => {
     });
 
     it('can trigger a pre-selected date range', () => {
-      const request = '**/geo/states/**';
+      const request = '**/geo/states?**&size=0';
       const fixture = { fixture: 'common/get-geo.json' };
       cy.intercept(request, fixture).as('getGeo');
 
       cy.get('button.map').click();
       cy.wait('@getGeo');
-      // TODO: This seemed to break for no reason. We may be able to remove this
-      // after fully converting to functional and react 18
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(750);
       const maxDate = dayjs(new Date()).format('YYYY-MM-DD');
       let minDate = dayjs(new Date()).subtract(3, 'years').format('YYYY-MM-DD');
       cy.get('.date-ranges .a-btn.range-3y').contains('3y').click();

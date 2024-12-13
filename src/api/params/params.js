@@ -5,20 +5,18 @@ import { enforceValues } from '../../utils/reducers';
 // return parameter objects
 
 /**
- * Selects specific variables to be used in an aggregation query
  *
- * @param {object} state - the current state in the Redux store
- * @returns {object} a dictionary of strings
+ * @param {object} filters - store in redux
+ * @param {object} query - store in redux
+ * @returns {object} Object containing the params used in a query
  */
-export function extractAggregationParams(state) {
-  const { filters, query } = state;
-
+export function extractAggregationParams(filters, query) {
   const queryState = extractQueryParams(query);
 
   const queryParams = Object.keys(queryState).filter(
     (key) =>
       // exclude these from query
-      !['frm', 'search_after', 'size', 'sort'].includes(key),
+      !['frm', 'page', 'search_after', 'size', 'sort'].includes(key),
   );
 
   const filterParams = Object.keys(filters).filter(
@@ -30,13 +28,11 @@ export function extractAggregationParams(state) {
   );
 
   // Grab specific attributes from the reducers
-  const newObject = Object.assign(
-    {},
+  return Object.assign(
+    { size: 0 },
     extractReducerAttributes(queryState, queryParams),
     extractReducerAttributes(filters, filterParams),
   );
-
-  return removeNullProperties(newObject);
 }
 
 /**
@@ -57,7 +53,7 @@ export function extractBasicParams(filterState, queryState) {
 
   // Grab specific attributes from the reducers
   return Object.assign(
-    {},
+    { no_aggs: true },
     extractQueryParams(queryState),
     extractReducerAttributes(filterState, filterParams),
   );
@@ -100,8 +96,8 @@ export function extractReducerAttributes(reducer, attributes) {
 export function extractQueryParams(queryState) {
   const query = queryState;
   const params = {
-    company_received_max: query.company_received_max,
-    company_received_min: query.company_received_min,
+    company_received_max: query?.company_received_max,
+    company_received_min: query?.company_received_min,
     date_received_max: query.date_received_max,
     date_received_min: query.date_received_min,
     field: enforceValues(query.searchField, 'searchField'),
@@ -111,6 +107,7 @@ export function extractQueryParams(queryState) {
       query.from !== undefined
         ? query.from
         : clamp(query.page - 1, 0) * query.size,
+    page: query.page,
     size: query.size,
     sort: query.sort,
   };
@@ -130,18 +127,30 @@ export function extractQueryParams(queryState) {
 /**
  * Selects specific variables from the trends reducer to be used in a query str
  *
- * @param {object} state - the current state in the Redux store
+ * @param {object} filters - filter reducer
+ * @param {object} query - query reducer
+ * @param {object} trends - trends reducer
  * @returns {object} a dictionary of strings
  */
-export function extractTrendsParams(state) {
-  const { dateInterval, searchField } = state.query;
-  const { focus, lens, subLens, trendDepth: trend_depth } = state.trends;
+export function extractTrendsParams(filters, query, trends) {
+  const { dateInterval, searchField } = query;
+  const queryState = extractQueryParams(query);
+  const filterState = filters;
+
+  const { chartType, focus, lens, subLens, trendDepth: trend_depth } = trends;
 
   const params = {
+    chartType,
     lens: lens.replace(' ', '_').toLowerCase(),
     searchField,
     trend_depth,
     trend_interval: dateInterval.toLowerCase(),
+    reducerValues: {
+      focus,
+      lens,
+      subLens,
+      trendDepth: trends.trendDepth,
+    },
   };
 
   if (subLens) {
@@ -152,5 +161,25 @@ export function extractTrendsParams(state) {
     params.focus = focus;
   }
 
-  return params;
+  const queryParams = Object.keys(queryState).filter(
+    (key) =>
+      // exclude these from query
+      !['frm', 'page', 'search_after', 'size', 'sort'].includes(key),
+  );
+
+  const filterParams = Object.keys(filterState).filter(
+    (key) =>
+      // exclude these from query
+      !['dataNormalization', 'enablePer1000', 'mapWarningEnabled'].includes(
+        key,
+      ),
+  );
+
+  // Grab specific attributes from the reducers
+  return Object.assign(
+    params,
+    extractReducerAttributes(queryState, queryParams),
+    extractReducerAttributes(filterState, filterParams),
+    { size: 0, no_aggs: true },
+  );
 }

@@ -1,12 +1,13 @@
 // ----------------------------------------------------------------------------
 /* eslint-disable no-mixed-operators, camelcase, complexity */
 import { adjustDate, isDateEqual } from './formatDate';
-import { clampDate, cloneDeep } from '../utils';
+import { clampDate, coalesce } from '../utils';
 import { formatDisplayDate } from './formatDate';
 import dayjs from 'dayjs';
 import dayjsQuarterOfYear from 'dayjs/plugin/quarterOfYear';
 import dayjsTimezone from 'dayjs/plugin/timezone';
 import dayjsUtc from 'dayjs/plugin/utc';
+import * as colors from '../constants/colors';
 
 dayjs.extend(dayjsQuarterOfYear);
 dayjs.extend(dayjsUtc);
@@ -172,7 +173,7 @@ export const getD3Names = (obj, nameMap) => {
 };
 
 export const processRows = (data, colorMap, lens, expandedRows) => {
-  const rows = cloneDeep(data);
+  const rows = structuredClone(data);
   if (rows) {
     let data = rows;
     data = data.filter(
@@ -228,13 +229,26 @@ export const updateDateBuckets = (name, buckets, areaBuckets) => {
   );
 };
 
-export const externalTooltipFormatter = (tooltip) => {
+export const externalTooltipFormatter = (tooltip, colorMap) => {
   if (!tooltip) {
     return tooltip;
   }
+  const newTooltip = structuredClone(tooltip);
   const parts = tooltip.title.split(':');
+  const colorValues = Object.values(colors.DataLens);
+  newTooltip.values.forEach((obj) => {
+    // const newObj = { ...obj };
+    if (!Object.hasOwn(obj, 'colorIndex')) {
+      obj.colorIndex = colorValues.indexOf(colorMap[obj.name]) || 0;
+    }
+    // make sure all values have a value
+    if (!Object.hasOwn(obj, 'value')) {
+      obj.value = coalesce(obj, 'value', 0);
+    }
+  });
+
   return {
-    ...tooltip,
+    ...newTooltip,
     heading: parts[0] + ':',
     date: parts[1] ? parts[1].trim() : '',
   };
@@ -301,7 +315,7 @@ export const isStackedAreaDataEmpty = (data) => {
  * @returns {object} Object containing parameters to render the line charts.
  */
 export const pruneIncompleteLineInterval = (data, dateRange, interval) => {
-  const dataClone = cloneDeep(data);
+  const dataClone = structuredClone(data);
   const { from: dateFrom, to: dateTo } = dateRange;
   if (!dataClone.dataByTopic) {
     return data;
@@ -335,9 +349,7 @@ export const pruneIncompleteStackedAreaInterval = (
   interval,
 ) => {
   const { from: dateFrom, to: dateTo } = dateRange;
-  let filteredData = cloneDeep(data);
-  // TODO: switch this to structuredClone when JSDOM fixes the issue
-  // https://github.com/jsdom/jsdom/issues/3363
+  let filteredData = structuredClone(data);
   //  need to rebuild and sort dates in memory
   const dates = [...new Set(filteredData.map((datum) => datum.date))];
   dates.sort();

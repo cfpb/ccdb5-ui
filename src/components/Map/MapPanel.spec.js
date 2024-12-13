@@ -1,7 +1,4 @@
-import React from 'react';
-import { aggsState } from '../../reducers/aggs/aggsSlice';
 import { filtersState } from '../../reducers/filters/filtersSlice';
-import { mapState } from '../../reducers/map/mapSlice';
 import { queryState } from '../../reducers/query/querySlice';
 import { viewState } from '../../reducers/view/viewSlice';
 import { MapPanel } from './MapPanel';
@@ -13,26 +10,28 @@ import {
 } from '../../testUtils/test-utils';
 import { MODE_MAP } from '../../constants';
 import * as viewActions from '../../reducers/filters/filtersSlice';
+import fetchMock from 'jest-fetch-mock';
+import { aggResponse, geoResponse } from './fixture';
+import { trendsState } from '../../reducers/trends/trendsSlice';
+
+// have to stub this out because I can't figure out how to get the d3 chart to render
+// without mocking everything
+jest.mock('../Charts/RowChart/RowChart', () => ({
+  RowChart: () => <div>ROW CHART</div>,
+}));
 
 describe('MapPanel', () => {
-  const renderComponent = (
-    newAggsState,
-    newFiltersState,
-    newMapState,
-    newQueryState,
-    newViewState,
-  ) => {
-    merge(newAggsState, aggsState);
+  const renderComponent = (newFiltersState, newQueryState, newViewState) => {
     merge(newFiltersState, filtersState);
-    merge(newMapState, mapState);
     merge(newQueryState, queryState);
+    // merge({}, trendsState);
     merge(newViewState, viewState);
 
     const data = {
-      aggs: newAggsState,
       filters: newFiltersState,
-      map: newMapState,
       query: newQueryState,
+      routes: { queryString: '?dsfsf' },
+      trends: trendsState,
       view: newViewState,
     };
 
@@ -41,8 +40,16 @@ describe('MapPanel', () => {
     });
   };
 
-  it('renders empty state without crashing', () => {
-    renderComponent({}, {}, {}, {}, {});
+  beforeEach(() => {
+    fetchMock.resetMocks();
+  });
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
+  it('renders empty state without crashing', async () => {
+    renderComponent({}, {}, {});
+    await screen.findByText('Showing 0 total complaints');
     expect(screen.getByText(/Showing 0 total complaints/)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Trends/ })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /List/ })).toBeInTheDocument();
@@ -58,15 +65,18 @@ describe('MapPanel', () => {
     expect(screen.getByRole('button', { name: /Print/ })).toBeInTheDocument();
   });
 
-  it('renders warning', () => {
-    const items = [
-      { key: 'CA', doc_count: 62519 },
-      { key: 'FL', doc_count: 47358 },
-    ];
-    const aggs = {
-      doc_count: 100,
-      total: items.length,
-    };
+  it('renders warning', async () => {
+    fetchMock.mockResponse((req) => {
+      if (req.url.indexOf('API/geo/states?') > -1) {
+        return Promise.resolve({
+          body: JSON.stringify(geoResponse),
+        });
+      } else if (req.url.indexOf('API?') > -1) {
+        return Promise.resolve({
+          body: JSON.stringify(aggResponse),
+        });
+      }
+    });
 
     const filters = {
       enablePer1000: false,
@@ -74,17 +84,9 @@ describe('MapPanel', () => {
       mapWarningEnabled: true,
     };
 
-    const map = {
-      error: false,
-      results: {
-        product: [],
-        state: [],
-      },
-    };
-
     const query = {
-      date_received_min: new Date('7/10/2017'),
-      date_received_max: new Date('7/10/2020'),
+      date_received_min: '2017-10-07',
+      date_received_max: '2020-10-07',
     };
 
     const view = {
@@ -97,15 +99,21 @@ describe('MapPanel', () => {
       .spyOn(viewActions, 'mapWarningDismissed')
       .mockReturnValue(jest.fn());
 
-    renderComponent(aggs, filters, map, query, view);
-    expect(
-      screen.getByText(/Showing 2 matches out of 100 total complaints/),
-    ).toBeInTheDocument();
+    renderComponent(filters, query, view);
 
+    await screen.findByText(
+      'Showing 794,615 matches out of 6,708,879 total complaints',
+    );
+    await screen.findByRole('alert');
     expect(screen.getByRole('alert')).toHaveTextContent(
       '“Complaints per 1,000 population” is not available with your filter selections.',
     );
 
+    expect(
+      screen.getByText(
+        'Showing 794,615 matches out of 6,708,879 total complaints',
+      ),
+    ).toBeInTheDocument();
     fireEvent.click(screen.getByLabelText('Dismiss'));
     expect(dismissSpy).toHaveBeenCalledTimes(1);
 
@@ -114,18 +122,18 @@ describe('MapPanel', () => {
     ).not.toBeInTheDocument();
 
     expect(document.getElementById('tile-chart-map')).toBeInTheDocument();
-    expect(document.getElementById('row-chart-product')).toBeInTheDocument();
+    expect(screen.getByText('ROW CHART')).toBeInTheDocument();
   });
 
-  it('renders error', () => {
-    const items = [
-      { key: 'CA', doc_count: 62519 },
-      { key: 'FL', doc_count: 47358 },
-    ];
-    const aggs = {
-      doc_count: 100,
-      total: items.length,
-    };
+  it('renders error', async () => {
+    fetchMock.mockResponse((req) => {
+      if (req.url.indexOf('API?') > -1) {
+        return Promise.resolve({
+          body: JSON.stringify(aggResponse),
+        });
+      }
+    });
+    fetchMock.mockReject(new Error('Something broke'));
 
     const filters = {
       enablePer1000: true,
@@ -133,17 +141,9 @@ describe('MapPanel', () => {
       mapWarningEnabled: false,
     };
 
-    const map = {
-      error: true,
-      results: {
-        product: [],
-        state: [],
-      },
-    };
-
     const query = {
-      date_received_min: new Date('7/10/2017'),
-      date_received_max: new Date('7/10/2020'),
+      date_received_min: '2017-10-07',
+      date_received_max: '2020-10-07',
     };
 
     const view = {
@@ -152,11 +152,8 @@ describe('MapPanel', () => {
       width: 1000,
     };
 
-    renderComponent(aggs, filters, map, query, view);
-    expect(
-      screen.getByText(/Showing 2 matches out of 100 total complaints/),
-    ).toBeInTheDocument();
-
+    renderComponent(filters, query, view);
+    await screen.findByRole('alert');
     expect(screen.getByRole('alert')).toHaveTextContent(
       'There was a problem executing your search',
     );

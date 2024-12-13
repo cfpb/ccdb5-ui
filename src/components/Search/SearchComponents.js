@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Hero } from './Hero/Hero';
 import { useEffect } from 'react';
 import { RefinePanel } from './RefinePanel';
-import { ResultsPanel } from '../ResultsPanel';
+import { ResultsPanel } from '../ResultsPanel/ResultsPanel';
 import { RootModal } from '../Dialogs/RootModal';
 import { selectViewIsPrintMode } from '../../reducers/view/selectors';
 import { Tour } from '../Tour/Tour';

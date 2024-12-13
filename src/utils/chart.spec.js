@@ -71,55 +71,55 @@ describe('getTooltipTitle', () => {
     interval = 'Month';
     const inDate = '2015-09-01T10:00:00.000Z';
     res = sut.getTooltipTitle(inDate, interval, dateRange, true);
-    expect(res).toEqual('Date range: 9/1/2015 - 9/30/2015');
+    expect(res).toBe('Date range: 9/1/2015 - 9/30/2015');
     res = sut.getTooltipTitle(inDate, interval, dateRange, false);
-    expect(res).toEqual('9/1/2015 - 9/30/2015');
+    expect(res).toBe('9/1/2015 - 9/30/2015');
   });
 
   it('sets tooltip title - week', () => {
     interval = 'Week';
     const inDate = '2015-08-31T00:00:00.000Z';
     res = sut.getTooltipTitle(inDate, interval, dateRange, true);
-    expect(res).toEqual('Date range: 8/31/2015 - 9/6/2015');
+    expect(res).toBe('Date range: 8/31/2015 - 9/6/2015');
     res = sut.getTooltipTitle(inDate, interval, dateRange, false);
-    expect(res).toEqual('8/31/2015 - 9/6/2015');
+    expect(res).toBe('8/31/2015 - 9/6/2015');
   });
 
   it('sets tooltip title - day', () => {
     interval = 'Day';
     const inDate = '2015-09-23T00:00:00.000Z';
     res = sut.getTooltipTitle(inDate, interval, dateRange, true);
-    expect(res).toEqual('Date: 9/23/2015');
+    expect(res).toBe('Date: 9/23/2015');
     res = sut.getTooltipTitle(inDate, interval, dateRange, false);
-    expect(res).toEqual('Date: 9/23/2015');
+    expect(res).toBe('Date: 9/23/2015');
   });
 
   it('sets tooltip title - year', () => {
     interval = 'Year';
     const inDate = '2016-01-01T00:00:00.000Z';
     res = sut.getTooltipTitle(inDate, interval, dateRange, true);
-    expect(res).toEqual('Date range: 1/1/2016 - 12/31/2016');
+    expect(res).toBe('Date range: 1/1/2016 - 12/31/2016');
   });
 
   it('sets tooltip title - year, odd start offset', () => {
     interval = 'Year';
     const inDate = '2015-01-01T00:00:00.000Z';
     res = sut.getTooltipTitle(inDate, interval, dateRange, true);
-    expect(res).toEqual('Date range: 3/22/2015 - 12/31/2015');
+    expect(res).toBe('Date range: 3/22/2015 - 12/31/2015');
   });
 
   it('sets tooltip title - year, odd end offset', () => {
     interval = 'Year';
     const inDate = '2021-01-01T00:00:00.000Z';
     res = sut.getTooltipTitle(inDate, interval, dateRange, true);
-    expect(res).toEqual('Date range: 1/1/2021 - 8/24/2021');
+    expect(res).toBe('Date range: 1/1/2021 - 8/24/2021');
   });
 
   it('sets tooltip title - quarter', () => {
     interval = 'quarter';
     const inDate = '2020-07-01T00:00:00.000Z';
     res = sut.getTooltipTitle(inDate, interval, dateRange, true);
-    expect(res).toEqual('Date range: 7/1/2020 - 9/30/2020');
+    expect(res).toBe('Date range: 7/1/2020 - 9/30/2020');
   });
 
   it('sets tooltip title - quarter, odd start offset', () => {
@@ -127,7 +127,7 @@ describe('getTooltipTitle', () => {
     dateRange.from = '2020-07-14T04:00:00.000Z';
     const inDate = '2020-07-01T00:00:00.000Z';
     res = sut.getTooltipTitle(inDate, interval, dateRange, true);
-    expect(res).toEqual('Date range: 7/14/2020 - 9/30/2020');
+    expect(res).toBe('Date range: 7/14/2020 - 9/30/2020');
   });
 
   it('sets tooltip title - quarter, odd end offset', () => {
@@ -135,7 +135,7 @@ describe('getTooltipTitle', () => {
     dateRange.to = '2020-08-24T04:00:00.000Z';
     const inDate = '2020-07-01T00:00:00.000Z';
     res = sut.getTooltipTitle(inDate, interval, dateRange, true);
-    expect(res).toEqual('Date range: 7/1/2020 - 8/24/2020');
+    expect(res).toBe('Date range: 7/1/2020 - 8/24/2020');
   });
 });
 
@@ -145,14 +145,14 @@ describe('getTooltipDate', () => {
       from: '2020-12-31T00:00:00.000Z',
       to: '2021-08-23T00:00:00.000Z',
     });
-    expect(shortDate).toEqual('1/1/2021');
+    expect(shortDate).toBe('1/1/2021');
   });
 
   it('returns a short format of a date string', () => {
     const shortDate = sut.getTooltipDate('2021-01-01T00:00:00.000Z', {
       to: '2021-08-23T00:00:00.000Z',
     });
-    expect(shortDate).toEqual('1/1/2021');
+    expect(shortDate).toBe('1/1/2021');
   });
 });
 

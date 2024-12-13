@@ -1,7 +1,7 @@
 @use 'sass:math';
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
 @use 'css/base' as *;
-@use '../select' as *;
+@use 'select' as *;
 
 .refine-bar {
   section {
