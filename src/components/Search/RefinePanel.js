@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { FilterPanel } from '../Filters/FilterPanel';
+import { FilterPanel } from '../Filters/FilterPanel/FilterPanel';
 import { selectViewTab } from '../../reducers/view/selectors';
 import { selectViewWidth } from '../../reducers/view/selectors';
 

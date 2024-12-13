@@ -1,14 +1,8 @@
 export * as Analytics from './analytics';
-export * from './complaints';
-export * from './httpRequests/httpRequests';
 export * from './routes';
 export * from '../reducers/actions/actionsSlice';
-export * from '../reducers/aggs/aggsSlice';
 export * from '../reducers/filters/filtersSlice';
-export * from '../reducers/detail/detailSlice';
-export * from '../reducers/map/mapSlice';
 export * from '../reducers/query/querySlice';
-export * from '../reducers/results/resultsSlice';
 export * from '../reducers/routes/routesSlice';
 export * from '../reducers/trends/trendsSlice';
 export * from '../reducers/view/viewSlice';

@@ -1,5 +1,4 @@
 import { queryState } from '../../../reducers/query/querySlice';
-import { resultsState } from '../../../reducers/results/resultsSlice';
 import {
   testRender as render,
   screen,
@@ -8,15 +7,17 @@ import {
 import { merge } from '../../../testUtils/functionHelpers';
 import { Pagination } from './Pagination';
 import * as pagingActions from '../../../reducers/query/querySlice';
+import fetchMock from 'jest-fetch-mock';
+import { listResponseP1, listResponseP2 } from './fixture';
+import { MODE_LIST } from '../../../constants';
 
 describe('Pagination', () => {
-  const renderComponent = (newQueryState, newResultsState) => {
+  const renderComponent = (newQueryState) => {
     merge(newQueryState, queryState);
-    merge(newResultsState, resultsState);
-
     const data = {
       query: newQueryState,
-      results: newResultsState,
+      routes: { queryString: '?sdfsda' },
+      view: { tab: MODE_LIST },
     };
 
     render(<Pagination />, {
@@ -24,42 +25,48 @@ describe('Pagination', () => {
     });
   };
 
-  test('nextPageShown dispatched when Next button clicked', () => {
+  beforeEach(() => {
+    fetchMock.resetMocks();
+  });
+
+  test('nextPageShown dispatched when Next button clicked', async () => {
     const nextPageShownSpy = jest
       .spyOn(pagingActions, 'nextPageShown')
       .mockImplementation(() => jest.fn());
-    const newQueryState = {
+    fetchMock.mockResponseOnce(JSON.stringify(listResponseP1));
+    renderComponent({
       page: 1,
-      totalPages: 5,
-    };
-
-    renderComponent(newQueryState, { items: [1, 3, 4, 5] });
+    });
+    await screen.findByText('Page 1');
+    expect(screen.getByRole('button', { name: /Previous/ })).toBeDisabled();
     fireEvent.click(screen.getByRole('button', { name: /Next/ }));
-
     expect(nextPageShownSpy).toBeCalledTimes(1);
   });
 
-  test('prevPageShown dispatched when Previous button clicked', () => {
+  test('prevPageShown dispatched when Previous button clicked', async () => {
     const prevPageShownSpy = jest
       .spyOn(pagingActions, 'prevPageShown')
       .mockImplementation(() => jest.fn());
-    const newQueryState = {
-      page: 2,
-      totalPages: 5,
-    };
+    fetchMock.mockResponseOnce(JSON.stringify(listResponseP2));
 
-    renderComponent(newQueryState, { items: [1, 3, 4, 5] });
+    renderComponent({
+      page: 2,
+    });
+
+    await screen.findByText('Page 2');
+
     fireEvent.click(screen.getByRole('button', { name: /Previous/ }));
 
     expect(prevPageShownSpy).toBeCalledTimes(1);
   });
 
   test('hides when there are no results', () => {
-    const newQueryState = { page: 1, totalPages: 1 };
-
-    renderComponent(newQueryState, { items: [] });
-
-    expect(screen.queryByRole('button', { name: /Next/ })).toBeNull();
-    expect(screen.queryByRole('button', { name: /Previous/ })).toBeNull();
+    renderComponent({ page: 1 });
+    expect(
+      screen.queryByRole('button', { name: /Next/ }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: /Previous/ }),
+    ).not.toBeInTheDocument();
   });
 });

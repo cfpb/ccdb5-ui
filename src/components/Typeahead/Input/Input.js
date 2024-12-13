@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import getIcon from '../../iconMap';
+import getIcon from '../../Common/Icon/iconMap';
 import { ClearButton } from '../ClearButton/ClearButton';
 
 export const Input = ({

@@ -46,7 +46,7 @@ describe('Document View', () => {
       cy.intercept(request, fixture).as('getAggsResults');
 
       request =
-        '?**&field=all&frm=0&has_narrative=true&no_aggs=true&search_term=pizza&size=10&sort=relevance_desc';
+        '?**&field=all&frm=0&has_narrative=true&no_aggs=true**&search_term=pizza&size=10&sort=relevance_desc';
       fixture = { fixture: 'document/get-results.json' };
       cy.intercept(request, fixture).as('getResults');
 

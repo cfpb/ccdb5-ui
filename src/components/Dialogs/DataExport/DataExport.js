@@ -3,17 +3,13 @@ import { getFullUrl, sendAnalyticsEvent } from '../../../utils';
 import { buildAllResultsUri, buildSomeResultsUri } from './dataExportUtils';
 import { modalHidden, modalShown } from '../../../reducers/view/viewSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import getIcon from '../../iconMap';
+import getIcon from '../../Common/Icon/iconMap';
 import { useEffect, useMemo, useState } from 'react';
-
 import { MODAL_TYPE_EXPORT_CONFIRMATION } from '../../../constants';
-import {
-  selectAggsDocCount,
-  selectAggsTotal,
-} from '../../../reducers/aggs/selectors';
 import { selectQueryRoot } from '../../../reducers/query/selectors';
 import { selectViewTab } from '../../../reducers/view/selectors';
 import { selectFiltersRoot } from '../../../reducers/filters/selectors';
+import { useGetAggregations } from '../../../api/hooks/useGetAggregations';
 const FORMAT_CSV = 'csv';
 const FORMAT_JSON = 'json';
 
@@ -24,9 +20,11 @@ export const DataExport = () => {
   const dispatch = useDispatch();
   const queryState = useSelector(selectQueryRoot);
   const filtersState = useSelector(selectFiltersRoot);
-  const someComplaintsCount = useSelector(selectAggsTotal);
-  const allComplaintsCount = useSelector(selectAggsDocCount);
   const tab = useSelector(selectViewTab);
+  const { data } = useGetAggregations();
+  const someComplaintsCount = data?.total || 0;
+  const allComplaintsCount = data?.doc_count || 0;
+
   // can only be full or filtered
   const [dataset, setDataset] = useState(DATASET_FULL);
   // can only be csv or json

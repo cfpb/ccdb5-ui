@@ -28,24 +28,24 @@ describe('module::utils', () => {
   describe('ariaReadoutNumbers', () => {
     it('breaks a sequence of numbers into an expanded string', () => {
       const actual = ariaReadoutNumbers('123456');
-      expect(actual).toEqual('1 2 3 4 5 6');
+      expect(actual).toBe('1 2 3 4 5 6');
     });
 
     it('handles empty strings', () => {
       const actual = ariaReadoutNumbers('');
-      expect(actual).toEqual('');
+      expect(actual).toBe('');
     });
 
     it('handles undefined', () => {
       const actual = ariaReadoutNumbers();
-      expect(actual).toEqual('');
+      expect(actual).toBe('');
     });
   });
 
   describe('shortIsoFormat', () => {
     it('handles nulls', () => {
       const actual = shortIsoFormat(null);
-      expect(actual).toEqual('');
+      expect(actual).toBe('');
     });
   });
 
@@ -91,7 +91,7 @@ describe('module::utils', () => {
   describe('coalesce edge cases', () => {
     it('handles non-objects', () => {
       const actual = coalesce(false, 'foo', 'bar');
-      expect(actual).toEqual('bar');
+      expect(actual).toBe('bar');
     });
   });
 
@@ -127,31 +127,31 @@ describe('module::utils', () => {
       start = new Date(2011, 1, 3);
       end = new Date(2013, 1, 3);
       const actual = calculateDateRange(start, end);
-      expect(actual).toEqual('');
+      expect(actual).toBe('');
     });
 
     it('returns empty when start date doesnt match anything', () => {
       start = new Date(1970, 1, 4);
       const actual = calculateDateRange(start, end);
-      expect(actual).toEqual('');
+      expect(actual).toBe('');
     });
 
     it('returns All when dates is full range', () => {
       start = DATE_RANGE_MIN;
       const actual = calculateDateRange(start, end);
-      expect(actual).toEqual('All');
+      expect(actual).toBe('All');
     });
 
     it('returns 3y', () => {
       start = new Date(dayjs(end).subtract(3, 'years').calendar());
       const actual = calculateDateRange(start, end);
-      expect(actual).toEqual('3y');
+      expect(actual).toBe('3y');
     });
 
     it('returns 6m', () => {
       start = new Date(dayjs(end).subtract(6, 'months').calendar());
       const actual = calculateDateRange(start, end);
-      expect(actual).toEqual('6m');
+      expect(actual).toBe('6m');
     });
   });
 
@@ -169,7 +169,7 @@ describe('module::utils', () => {
   describe('getFullUrl', () => {
     it('adds a host if needed', () => {
       const actual = getFullUrl('/foo/bar#baz?qaz=a&b=c');
-      expect(actual).toEqual('http://localhost/foo/bar#baz?qaz=a&b=c');
+      expect(actual).toBe('http://localhost/foo/bar#baz?qaz=a&b=c');
     });
 
     it('does not add a host if it is there', () => {
@@ -274,14 +274,14 @@ describe('module::utils', () => {
       };
 
       const actual = startOfToday();
-      expect(dayjs(actual).toISOString()).toEqual('2020-05-09T00:00:00.000Z');
+      expect(dayjs(actual).toISOString()).toBe('2020-05-09T00:00:00.000Z');
     });
 
     it('defaults MAX_DATE if the metadata is missing', () => {
       MockDate.set(dayjs('5/1/2020').utc());
 
       const actual = startOfToday();
-      expect(dayjs(actual).toISOString()).toEqual('2020-05-01T00:00:00.000Z');
+      expect(dayjs(actual).toISOString()).toBe('2020-05-01T00:00:00.000Z');
     });
   });
 

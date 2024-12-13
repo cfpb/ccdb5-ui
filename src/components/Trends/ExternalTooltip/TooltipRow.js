@@ -6,7 +6,7 @@ import {
   selectTrendsLens,
 } from '../../../reducers/trends/selectors';
 import { sanitizeHtmlId } from '../../../utils';
-import getIcon from '../../iconMap';
+import getIcon from '../../Common/Icon/iconMap';
 
 export const TooltipRow = ({ value }) => {
   const dispatch = useDispatch();

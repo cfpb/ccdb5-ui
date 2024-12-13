@@ -5,19 +5,19 @@ import { slugify } from './index';
 // Tests
 describe('formatPillPrefix', () => {
   it('handles empty value', () => {
-    expect(sut.formatPillPrefix()).toEqual('');
-    expect(sut.formatPillPrefix(null)).toEqual('');
-    expect(sut.formatPillPrefix(false)).toEqual('');
+    expect(sut.formatPillPrefix()).toBe('');
+    expect(sut.formatPillPrefix(null)).toBe('');
+    expect(sut.formatPillPrefix(false)).toBe('');
   });
 
   it('formats Timely filter names', () => {
     const res = sut.formatPillPrefix('timely');
-    expect(res).toEqual('Timely: ');
+    expect(res).toBe('Timely: ');
   });
 
   it('ignores other filter names', () => {
     const res = sut.formatPillPrefix('zip_code');
-    expect(res).toEqual('');
+    expect(res).toBe('');
   });
 });
 describe('getUpdatedFilters', () => {

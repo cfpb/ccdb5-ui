@@ -1,6 +1,6 @@
 import './MapToolbar.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import getIcon from '../iconMap';
+import getIcon from '../Common/Icon/iconMap';
 import { MODE_LIST, THESE_UNITED_STATES } from '../../constants';
 import { stateFilterCleared } from '../../reducers/filters/filtersSlice';
 import { selectFiltersState } from '../../reducers/filters/selectors';
