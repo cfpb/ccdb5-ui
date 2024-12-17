@@ -29,20 +29,16 @@ export const Pagination = () => {
         onClick={() => prevPage()}
         disabled={page <= 1}
       >
-        <span className="a-btn__icon a-btn__icon--on-left">
-          {getIcon('left')}
-        </span>
-        Previous
+        {getIcon('left')}
+        <span>Previous</span>
       </button>
       <button
         className="a-btn m-pagination__btn-next"
         onClick={() => nextPage()}
         disabled={page >= total}
       >
-        Next
-        <span className="a-btn__icon a-btn__icon--on-right">
-          {getIcon('right')}
-        </span>
+        <span>Next</span>
+        {getIcon('right')}
       </button>
       <div className="m-pagination__form">
         <label className="m-pagination__label">Page {page}</label>

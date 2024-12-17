@@ -9,6 +9,10 @@
   button {
     margin: 5px;
     color: var(--pacific-dark);
+
+    &.a-btn {
+      gap: 0;
+    }
   }
 
   span {
