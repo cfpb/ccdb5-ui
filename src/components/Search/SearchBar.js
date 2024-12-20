@@ -66,7 +66,7 @@ export const SearchBar = ({ debounceWait = 250 }) => {
 
   const onSearchChange = (value) => {
     setInputValue(value);
-    const uriCompany = `${API_PLACEHOLDER}_suggest_company/?text=${value}`;
+    const uriCompany = `${API_PLACEHOLDER}_suggest_company/?text=${encodeURIComponent(value)}`;
     handleFetchSearch(value, setDropdownOptions, uriCompany);
   };
 
