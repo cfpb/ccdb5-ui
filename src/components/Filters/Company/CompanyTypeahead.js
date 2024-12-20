@@ -36,7 +36,7 @@ export const CompanyTypeahead = ({ delayWait = 250, id }) => {
   };
 
   const onInputChange = (value) => {
-    const qs = queryString + '&text=' + value;
+    const qs = queryString + '&text=' + encodeURIComponent(value);
     const uri = `${API_PLACEHOLDER}_suggest_company/${qs}`;
     handleFetchSearch(value, setDropdownOptions, uri);
   };
