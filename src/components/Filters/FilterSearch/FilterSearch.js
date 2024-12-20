@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { useGetAggregations } from '../../../api/hooks/useGetAggregations';
 import { SLUG_SEPARATOR } from '../../../constants';
 import { ClearButton } from '../../Typeahead/ClearButton/ClearButton';
+import getIcon from '../../Common/Icon/iconMap';
 
 export const FilterSearch = ({ fieldName }) => {
   const ref = useRef();
@@ -50,6 +51,13 @@ export const FilterSearch = ({ fieldName }) => {
     <section className="typeahead">
       <div className="o-search-input">
         <div className="o-search-input__input">
+          <label
+            aria-label={'Search ' + fieldName}
+            className="o-search-input__input-label"
+            htmlFor={'filter-search' + fieldName}
+          >
+            {getIcon('search')}
+          </label>
           <Typeahead
             id={'filter-search' + fieldName}
             minLength={2}
@@ -63,16 +71,17 @@ export const FilterSearch = ({ fieldName }) => {
             ref={ref}
             inputProps={{
               'aria-label': `${fieldNameNew} Filter Menu Input`,
+              className: 'a-text-input a-text-input--full',
             }}
             renderMenuItemChildren={(option) => (
-              <div>
+              <li className="typeahead-option body-copy">
                 {option.key.split(SLUG_SEPARATOR)[0]}
                 {option.value ? (
                   <div>
                     <small>{option.value}</small>
                   </div>
                 ) : null}
-              </div>
+              </li>
             )}
           />
           {!!inputText && <ClearButton onClear={handleClear} />}
