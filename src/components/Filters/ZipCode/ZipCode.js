@@ -28,7 +28,7 @@ export const ZipCode = ({ delayWait = 250 }) => {
   };
 
   const onInputChange = (value) => {
-    const qs = queryString + '&text=' + value;
+    const qs = queryString + '&text=' + encodeURIComponent(value);
     const uri = `${API_PLACEHOLDER}_suggest_zip/${qs}`;
     handleFetchSearch(value, setDropdownOptions, uri);
   };
