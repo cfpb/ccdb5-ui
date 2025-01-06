@@ -8,7 +8,7 @@ import { useGetAggregations } from '../../../api/hooks/useGetAggregations';
 import { SLUG_SEPARATOR } from '../../../constants';
 import { normalize } from '../../../utils';
 import { ClearButton } from '../../Typeahead/ClearButton/ClearButton';
-import HighlightingOption from 'components/Typeahead/HighlightingOption/HighlightingOption';
+import HighlightingOption from '../../Typeahead/HighlightingOption/HighlightingOption';
 import getIcon from '../../Common/Icon/iconMap';
 
 export const FilterSearch = ({ fieldName }) => {
@@ -93,6 +93,7 @@ export const FilterSearch = ({ fieldName }) => {
           </label>
           <Typeahead
             id={'filter-search' + fieldName}
+            maxResults={5}
             minLength={2}
             className="typeahead-selector"
             filterBy={['key']}
