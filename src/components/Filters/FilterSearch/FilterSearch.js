@@ -2,7 +2,6 @@ import '../../Typeahead/Typeahead.scss';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Typeahead } from 'react-bootstrap-typeahead';
-// import { Typeahead } from '../../Typeahead/Typeahead/Typeahead';
 import { filterAdded } from '../../../actions';
 import PropTypes from 'prop-types';
 import { useGetAggregations } from '../../../api/hooks/useGetAggregations';
@@ -49,7 +48,6 @@ export const FilterSearch = ({ fieldName }) => {
   };
 
   const [inputText, setInputText] = useState('');
-  //const starterOptions = [];
 
   const [dropdownOptions, setDropdownOptions] = useState(buckets);
 
@@ -59,14 +57,6 @@ export const FilterSearch = ({ fieldName }) => {
     if (!rawValue) {
       setDropdownOptions(buckets);
     } else {
-      /*const options = buckets.map((opt) => ({
-        key: opt.key,
-        value: opt.value,
-        label: opt.label,
-        position: 0
-       // position: opt.label.toLowerCase().indexOf(inputText.toLowerCase()),
-       // value,
-      }));*/
       const options = buckets.map((opt) => {
         return {
           key: opt.key,
@@ -76,7 +66,6 @@ export const FilterSearch = ({ fieldName }) => {
           value,
         };
       });
-      //console.log('options: ', options)
       setDropdownOptions(options);
     }
   };
@@ -102,16 +91,6 @@ export const FilterSearch = ({ fieldName }) => {
           >
             {getIcon('search')}
           </label>
-          {/* <Typeahead
-        htmlId={'filter-search-' + fieldName}
-        ariaLabel={`${fieldNameNew} Filter Menu Input`}
-        hasClearButton={true}
-        handleChange={(selected) => handleSelections(selected)}
-        handleInputChange={(text) => handleInputChange(text)}
-        //handleInputChange={(text) => setInputText(text)}
-        options={dropdownOptions}
-        placeholder={'Enter name of ' + fieldNameNew}
-      /> */}
           <Typeahead
             id={'filter-search' + fieldName}
             minLength={2}
@@ -130,15 +109,11 @@ export const FilterSearch = ({ fieldName }) => {
               className: 'a-text-input a-text-input--full',
             }}
             renderMenuItemChildren={(option) => (
-              <li className="typeahead-option body-copy">
-                {option.key.split(SLUG_SEPARATOR)[0]}
-                {option.value ? (
-                  <div>
-                    <div className="typeahead-option body-copy">
-                      <HighlightingOption {...option} />
-                    </div>
-                  </div>
-                ) : null}
+              <li className="typeahead-option typeahead-option--multi body-copy">
+                {option.value ? <HighlightingOption {...option} /> : null}
+                <p className="typeahead-option__sub">
+                  {option.key.split(SLUG_SEPARATOR)[0]}
+                </p>
               </li>
             )}
           />
