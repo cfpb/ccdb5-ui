@@ -55,7 +55,6 @@ export const Typeahead = ({
             placeholder={placeholder}
             renderMenuItemChildren={(option) => (
               <li className="typeahead-option body-copy">
-                {JSON.stringify(option)}
                 <HighlightingOption {...option} />
               </li>
             )}
