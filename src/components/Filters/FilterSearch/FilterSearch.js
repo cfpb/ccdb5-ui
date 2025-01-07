@@ -67,15 +67,11 @@ export const FilterSearch = ({ fieldName }) => {
     } else {
       const options = buckets.map((opt) => {
         return {
-          key: opt.key,
-          label: opt.label,
-          normalized: opt.normalized,
+          ...opt,
           position: opt.normalized.indexOf(rawValue),
           value,
           top: {
-            key: opt.top.key,
-            label: opt.top.label,
-            normalized: opt.top.normalized,
+            ...opt.top,
             position: opt.top.normalized.indexOf(rawValue),
             value,
           },
