@@ -21,11 +21,13 @@ export const FilterSearch = ({ fieldName }) => {
   const aggResults = data[fieldName] || [];
   const subaggName = `sub_${fieldName}.raw`.toLowerCase();
   const buckets = [];
+
   aggResults.forEach((option) => {
     if (!option[subaggName]) {
       option.label = option.key;
       option.normalized = normalize(option.key);
       option.position = 0;
+      option.top = {};
       buckets.push(option);
     } else {
       if (option[subaggName] && option[subaggName].buckets) {
@@ -35,6 +37,12 @@ export const FilterSearch = ({ fieldName }) => {
             label: bucket.key,
             normalized: normalize(bucket.key),
             position: 0,
+            top: {
+              key: option.key,
+              label: option.key,
+              normalized: normalize(option.key),
+              position: 0,
+            },
           };
           buckets.push(item);
         });
@@ -64,8 +72,16 @@ export const FilterSearch = ({ fieldName }) => {
           normalized: opt.normalized,
           position: opt.normalized.indexOf(rawValue),
           value,
+          top: {
+            key: opt.top.key,
+            label: opt.top.label,
+            normalized: opt.top.normalized,
+            position: opt.top.normalized.indexOf(rawValue),
+            value,
+          },
         };
       });
+
       setDropdownOptions(options);
     }
   };
@@ -98,9 +114,7 @@ export const FilterSearch = ({ fieldName }) => {
             className="typeahead-selector"
             filterBy={['key']}
             onChange={(selected) => handleSelections(selected)}
-            onInputChange={
-              (text) => handleInputChange(text) /*setInputText(text)*/
-            }
+            onInputChange={(text) => handleInputChange(text)}
             placeholder={'Enter name of ' + fieldNameNew}
             labelKey="key"
             options={dropdownOptions}
@@ -111,10 +125,10 @@ export const FilterSearch = ({ fieldName }) => {
             }}
             renderMenuItemChildren={(option) => (
               <li className="typeahead-option typeahead-option--multi body-copy">
-                {option.value ? <HighlightingOption {...option} /> : null}
-                <p className="typeahead-option__sub">
-                  {option.key.split(SLUG_SEPARATOR)[0]}
-                </p>
+                <HighlightingOption {...option.top} />
+                <div className="typeahead-option__sub">
+                  {option.value ? <HighlightingOption {...option} /> : null}
+                </div>
               </li>
             )}
           />
