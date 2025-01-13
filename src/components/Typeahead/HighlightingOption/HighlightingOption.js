@@ -6,11 +6,12 @@ export const HighlightingOption = ({ label, position, value }) => {
   }
 
   const start = label.substring(0, position);
+  const match = label.slice(position, position + value.length);
   const end = label.substring(position + value.length);
   return (
     <span>
       {start}
-      <b>{value}</b>
+      <b>{match}</b>
       {end}
     </span>
   );

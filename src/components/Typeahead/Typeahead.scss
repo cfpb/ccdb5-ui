@@ -74,7 +74,7 @@
     width: auto;
   }
 
-  li.typeahead-option {
+  .typeahead-option {
     padding: $gutter-normal;
     border-top: solid 1px var(--gray-40);
     margin: 0;
@@ -87,7 +87,22 @@
       border-bottom: solid 2px var(--pacific);
       background-color: var(--gray-10);
     }
+
+    &__sub {
+      font-size: 14px;
+      margin-left: 10px;
+      color: var(--pacific);
+    }
+
+    &--multi {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      color: var(--pacific);
+    }
   }
+
+
 
   .o-search-input__input {
     &-label {
