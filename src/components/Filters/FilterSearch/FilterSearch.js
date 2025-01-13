@@ -23,30 +23,37 @@ export const FilterSearch = ({ fieldName }) => {
   const buckets = [];
 
   aggResults.forEach((option) => {
-    if (!option[subaggName]) {
-      option.label = option.key;
-      option.normalized = normalize(option.key);
-      option.position = 0;
-      option.top = {};
-      buckets.push(option);
-    } else {
-      if (option[subaggName] && option[subaggName].buckets) {
-        option[subaggName].buckets.forEach((bucket) => {
-          const item = {
-            key: option.key + SLUG_SEPARATOR + bucket.key,
-            label: bucket.key,
-            normalized: normalize(bucket.key),
+    if (buckets.findIndex((item) => item.key === option.key) === -1) {
+      const parentAgg = { ...option };
+      parentAgg.isParent = true;
+      parentAgg.label = option.key;
+      parentAgg.normalized = normalize(option.key);
+      parentAgg.position = 0;
+      parentAgg.top = {
+        key: option.key,
+        label: option.key,
+        normalized: normalize(option.key),
+        position: 0,
+      };
+      buckets.push(parentAgg);
+    }
+
+    if (option[subaggName] && option[subaggName].buckets) {
+      option[subaggName].buckets.forEach((bucket) => {
+        const item = {
+          key: option.key + SLUG_SEPARATOR + bucket.key,
+          label: bucket.key,
+          normalized: normalize(bucket.key),
+          position: 0,
+          top: {
+            key: option.key,
+            label: option.key,
+            normalized: normalize(option.key),
             position: 0,
-            top: {
-              key: option.key,
-              label: option.key,
-              normalized: normalize(option.key),
-              position: 0,
-            },
-          };
-          buckets.push(item);
-        });
-      }
+          },
+        };
+        buckets.push(item);
+      });
     }
   });
 
@@ -122,9 +129,11 @@ export const FilterSearch = ({ fieldName }) => {
             renderMenuItemChildren={(option) => (
               <li className="typeahead-option typeahead-option--multi body-copy">
                 <HighlightingOption {...option.top} />
-                <div className="typeahead-option__sub">
-                  {option.value ? <HighlightingOption {...option} /> : null}
-                </div>
+                {!option.isParent ? (
+                  <div className="typeahead-option__sub">
+                    {option.value ? <HighlightingOption {...option} /> : null}
+                  </div>
+                ) : null}
               </li>
             )}
           />
