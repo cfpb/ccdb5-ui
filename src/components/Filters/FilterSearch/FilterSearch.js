@@ -67,6 +67,7 @@ export const FilterSearch = ({ fieldName }) => {
   const [dropdownOptions, setDropdownOptions] = useState(buckets);
 
   const handleInputChange = (value) => {
+    setInputText(value);
     const rawValue = normalize(value);
 
     if (!rawValue) {
