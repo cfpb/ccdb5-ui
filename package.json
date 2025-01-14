@@ -145,6 +145,5 @@
     "registry": "https://registry.npmjs.org/"
   },
   "proxy": "https://www.consumerfinance.gov",
-  "dependencies": {},
-  "type": "module"
+  "dependencies": {}
 }
