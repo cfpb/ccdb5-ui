@@ -17,8 +17,6 @@ const appliedFilters = ({ fieldName, item, aggs, filters }) => {
   // check the parent only, and uncheck the rest so that the fake check
   // will take affect
   const [parentFilter, childFilter] = item.key.split(SLUG_SEPARATOR);
-
-  // TODO: reformat to not need the unexpected multiline.
   const subItems = aggs
     .find((agg) => agg.key === parentFilter)
     ['sub_' + fieldName + '.raw'].buckets.map((agg) => agg.key)
