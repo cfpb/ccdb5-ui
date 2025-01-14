@@ -17,13 +17,12 @@ const appliedFilters = ({ fieldName, item, aggs, filters }) => {
   // check the parent only, and uncheck the rest so that the fake check
   // will take affect
   const [parentFilter, childFilter] = item.key.split(SLUG_SEPARATOR);
-  /* eslint-disable no-unexpected-multiline */
+
   // TODO: reformat to not need the unexpected multiline.
   const subItems = aggs
     .find((agg) => agg.key === parentFilter)
     ['sub_' + fieldName + '.raw'].buckets.map((agg) => agg.key)
     .sort();
-  /* eslint-enable no-unexpected-multiline */
 
   const parentKey = parentFilter + SLUG_SEPARATOR;
   const selectedFilters = filters
@@ -121,7 +120,6 @@ export const AggregationItem = ({ fieldName, item }) => {
 AggregationItem.propTypes = {
   fieldName: PropTypes.string.isRequired,
   item: PropTypes.shape({
-    // eslint-disable-next-line camelcase
     doc_count: PropTypes.number.isRequired,
     key: PropTypes.string.isRequired,
     value: PropTypes.string,

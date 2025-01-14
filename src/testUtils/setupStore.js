@@ -6,7 +6,7 @@ import routesReducer from '../reducers/routes/routesSlice';
 import trendsReducer from '../reducers/trends/trendsSlice';
 import viewModelReducer from '../reducers/view/viewSlice';
 import { applyMiddleware, combineReducers } from '@reduxjs/toolkit';
-import actionLogger from '../middleware/actionLogger/actionLogger';
+import { actionLogger } from '../middleware/actionLogger/actionLogger';
 import emptyStore from '../actions/__fixtures__/emptyStore';
 
 /**

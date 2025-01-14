@@ -25,5 +25,3 @@ export const actionLogger = (store) => (next) => async (action) => {
     }
   }
 };
-
-export default actionLogger;

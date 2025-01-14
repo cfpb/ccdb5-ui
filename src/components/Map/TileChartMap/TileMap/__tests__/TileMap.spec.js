@@ -402,7 +402,7 @@ describe('Tile map', () => {
               from: 82169,
               name: '≥ 82169',
               shortName: '≥ 82K',
-              // eslint-disable-next-line no-undefined
+
               to: undefined,
             },
           ],

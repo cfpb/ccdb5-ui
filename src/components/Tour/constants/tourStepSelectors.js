@@ -1,4 +1,3 @@
-/* eslint-disable max-len, no-inline-comments */
 export const DOCUMENT_STEP_SELECTORS = {
   STEP_1: '.content__hero',
   STEP_2: '.m-pagination__btn-next',

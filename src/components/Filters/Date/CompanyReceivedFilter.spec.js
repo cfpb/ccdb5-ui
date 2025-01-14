@@ -1,5 +1,4 @@
 import { CompanyReceivedFilter } from './CompanyReceivedFilter';
-import React from 'react';
 import { merge } from '../../../testUtils/functionHelpers';
 import { queryState } from '../../../reducers/query/querySlice';
 import * as filterActions from '../../../reducers/query/querySlice';

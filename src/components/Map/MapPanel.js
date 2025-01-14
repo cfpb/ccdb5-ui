@@ -1,7 +1,7 @@
 import '../RefineBar/RefineBar.scss';
 import { ActionBar } from '../ActionBar/ActionBar';
 import { useDispatch, useSelector } from 'react-redux';
-import ErrorBlock from '../Warnings/Error';
+import { ErrorBlock } from '../Warnings/Error';
 import { FilterPanel } from '../Filters/FilterPanel/FilterPanel';
 import { FilterPanelToggle } from '../Filters/FilterPanel/FilterPanelToggle';
 import { Loading } from '../Loading/Loading';
@@ -15,7 +15,7 @@ import { RowChart } from '../Charts/RowChart/RowChart';
 import { Separator } from '../RefineBar/Separator';
 import { TabbedNavigation } from '../TabbedNavigation/TabbedNavigation';
 import { TileChartMap } from './TileChartMap/TileChartMap';
-import Warning from '../Warnings/Warning';
+import { Warning } from '../Warnings/Warning';
 import {
   selectFiltersEnablePer1000,
   selectFiltersMapWarningEnabled,

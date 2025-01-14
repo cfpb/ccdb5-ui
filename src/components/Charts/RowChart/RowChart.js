@@ -46,7 +46,7 @@ export const RowChart = ({
     const wrapText = (text, width, viewMore) => {
       // ignore test coverage since this is code borrowed from d3 mbostock
       // text wrapping functions
-      /* eslint-disable complexity */
+
       /* istanbul ignore next */
       text.each(function () {
         const innerText = d3.select(this);
@@ -73,7 +73,6 @@ export const RowChart = ({
             .attr('y', y)
             .attr('dy', dy + 'em');
 
-        // eslint-disable-next-line no-cond-assign
         while ((word = words.pop())) {
           line.push(word);
           tspan.text(line.join(' '));
@@ -85,7 +84,7 @@ export const RowChart = ({
               .append('tspan')
               .attr('x', spanWidth)
               .attr('y', y)
-              // eslint-disable-next-line no-mixed-operators
+
               .attr('dy', ++lineNumber * lineHeight + dy + 'em')
               .text(word);
             wrapCount++;
@@ -97,12 +96,11 @@ export const RowChart = ({
             .select(innerText.node().parentNode)
             .select('.view-more-background');
           const oldHeight = viewMoreBackground.attr('height');
-          // eslint-disable-next-line no-mixed-operators
+
           const newHeight = parseFloat(oldHeight) + wrapCount * 12;
           viewMoreBackground.attr('height', newHeight);
         }
       });
-      /* eslint-enable complexity */
     };
 
     const collapseARow = (rowName) => {

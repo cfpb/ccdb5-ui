@@ -14,7 +14,7 @@ const zeroCounts = (cache) => {
   Object.keys(cache).forEach((key) => {
     result[key] = {
       ...cache[key],
-      // eslint-disable-next-line camelcase
+
       doc_count: 0,
     };
   });

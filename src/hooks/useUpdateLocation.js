@@ -15,7 +15,5 @@ export function useUpdateLocation() {
     dispatch(
       changeRoute(location.pathname, queryString.parse(location.search)),
     );
-    // this is intentional since we want this to run only once
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location, dispatch]);
 }

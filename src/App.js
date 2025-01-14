@@ -1,12 +1,12 @@
 import './css/App.scss';
+import { ReactElement } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ComplaintDetail } from './components/ComplaintDetail/ComplaintDetail';
 import { SearchComponents } from './components/Search/SearchComponents';
 
 /**
- * Main App Component
  *
- * @returns {JSX.Element} Main app
+ * @returns {ReactElement} Main application component
  */
 const App = () => {
   return (

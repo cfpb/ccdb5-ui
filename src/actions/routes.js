@@ -42,7 +42,6 @@ export function normalizeRouteParams(params) {
  * @returns {Function} a series of actions to execute
  */
 export function changeRoute(path, params) {
-  // eslint-disable-next-line complexity
   return function (dispatch, getState) {
     const store = getState();
     const normalized = normalizeRouteParams(params);

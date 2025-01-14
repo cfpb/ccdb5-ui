@@ -1,4 +1,3 @@
-import React from 'react';
 import { FilterPanel } from './FilterPanel';
 import { merge } from '../../../testUtils/functionHelpers';
 import { viewState } from '../../../reducers/view/viewSlice';

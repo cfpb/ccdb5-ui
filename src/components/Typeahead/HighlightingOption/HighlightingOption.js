@@ -16,8 +16,6 @@ export const HighlightingOption = ({ label, position, value }) => {
   );
 };
 
-export default HighlightingOption;
-
 HighlightingOption.propTypes = {
   label: PropTypes.string.isRequired,
   position: PropTypes.number.isRequired,

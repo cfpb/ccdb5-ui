@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { filterRemoved } from '../../../reducers/filters/filtersSlice';
-import { selectTrendsSubLens } from '../../../reducers/trends/selectors';
 import {
+  selectTrendsSubLens,
   selectTrendsFocus,
   selectTrendsLens,
 } from '../../../reducers/trends/selectors';

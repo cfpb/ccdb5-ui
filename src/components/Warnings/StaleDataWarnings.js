@@ -1,4 +1,4 @@
-import Warning from './Warning';
+import { Warning } from './Warning';
 import { useGetAggregations } from '../../api/hooks/useGetAggregations';
 
 export const WARN_DATA_ISSUE =

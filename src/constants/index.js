@@ -82,16 +82,12 @@ sizes['25'] = '25 results';
 sizes['50'] = '50 results';
 sizes['100'] = '100 results';
 
-/* eslint-disable camelcase */
-
 export const sorts = {
   created_date_desc: 'Newest to oldest',
   created_date_asc: 'Oldest to newest',
   relevance_desc: 'Relevance',
   relevance_asc: 'Relevance (asc)',
 };
-
-/* eslint-enable camelcase */
 
 export const SLUG_SEPARATOR = '•';
 

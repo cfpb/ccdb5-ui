@@ -1,8 +1,7 @@
 // ----------------------------------------------------------------------------
-/* eslint-disable no-mixed-operators, camelcase, complexity */
-import { adjustDate, isDateEqual } from './formatDate';
+/* eslint-disable complexity */
+import { adjustDate, isDateEqual, formatDisplayDate } from './formatDate';
 import { clampDate, coalesce } from '../utils';
-import { formatDisplayDate } from './formatDate';
 import dayjs from 'dayjs';
 import dayjsQuarterOfYear from 'dayjs/plugin/quarterOfYear';
 import dayjsTimezone from 'dayjs/plugin/timezone';
@@ -215,18 +214,16 @@ export const updateDateBuckets = (name, buckets, areaBuckets) => {
     }
   });
 
-  return (
-    buckets
-      // eslint-disable-next-line no-confusing-arrow, no-extra-parens
-      .sort((first, second) =>
-        first.key_as_string > second.key_as_string ? 1 : -1,
-      )
-      .map((obj) => ({
-        name: name,
-        date: obj.key_as_string,
-        value: obj.doc_count,
-      }))
-  );
+  return buckets
+
+    .sort((first, second) =>
+      first.key_as_string > second.key_as_string ? 1 : -1,
+    )
+    .map((obj) => ({
+      name: name,
+      date: obj.key_as_string,
+      value: obj.doc_count,
+    }));
 };
 
 export const externalTooltipFormatter = (tooltip, colorMap) => {

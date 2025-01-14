@@ -127,6 +127,27 @@ export const TileChartMap = () => {
   );
 };
 
+export const getStateClass = (statesFilter, name) => {
+  // no filters so no classes.
+  if (!statesFilter || statesFilter.length === 0) {
+    return '';
+  }
+
+  return statesFilter.includes(name) ? 'selected' : 'deselected';
+};
+
+/**
+ * Helper function to calculate Per Capita value
+ *
+ * @param {object} stateObj - A state containing abbr and value
+ * @param {object} stateInfo - other information about the state
+ * @returns {string} the Per 1000 population value
+ */
+function getPerCapita(stateObj, stateInfo) {
+  const pop = stateInfo.population;
+  return ((stateObj.value / pop) * 1000).toFixed(2);
+}
+
 /**
  * Helper function to get display value of tile based on Normalization.
  *
@@ -145,24 +166,3 @@ function updateData(data, dataNormalization, statesFilter) {
 
   return res;
 }
-
-/**
- * Helper function to calculate Per Capita value
- *
- * @param {object} stateObj - A state containing abbr and value
- * @param {object} stateInfo - other information about the state
- * @returns {string} the Per 1000 population value
- */
-function getPerCapita(stateObj, stateInfo) {
-  const pop = stateInfo.population;
-  return ((stateObj.value / pop) * 1000).toFixed(2);
-}
-
-export const getStateClass = (statesFilter, name) => {
-  // no filters so no classes.
-  if (!statesFilter || statesFilter.length === 0) {
-    return '';
-  }
-
-  return statesFilter.includes(name) ? 'selected' : 'deselected';
-};

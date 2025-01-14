@@ -53,7 +53,7 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
     disabled: item.isDisabled,
     key: slugify(item.key, sub.key),
     value: sub.key,
-    // eslint-disable-next-line camelcase
+
     doc_count: sub.doc_count,
   }));
 
@@ -132,7 +132,6 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
 AggregationBranch.propTypes = {
   fieldName: PropTypes.string.isRequired,
   item: PropTypes.shape({
-    // eslint-disable-next-line camelcase
     doc_count: PropTypes.number.isRequired,
     key: PropTypes.string.isRequired,
     value: PropTypes.string,

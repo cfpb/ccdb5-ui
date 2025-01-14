@@ -42,7 +42,6 @@ export const LensTabs = () => {
   const hasProductTab = displayProductTab(lens, focus, subProducts);
   const onTab = (lens, tab) => {
     const labelMap = {
-      // eslint-disable-next-line camelcase
       sub_product: 'Sub-products',
       issue: 'Issues',
       product: 'Products',

@@ -1,7 +1,10 @@
 import './PillPanel.scss';
 import { DATE_RANGE_MIN, knownFilters } from '../../constants';
 
-import { selectFiltersHasNarrative } from '../../reducers/filters/selectors';
+import {
+  selectFiltersHasNarrative,
+  selectFiltersRoot,
+} from '../../reducers/filters/selectors';
 import {
   selectQueryDateReceivedMax,
   selectQueryDateReceivedMin,
@@ -14,7 +17,6 @@ import getIcon from '../Common/Icon/iconMap';
 import { Pill } from './Pill';
 import { filtersCleared } from '../../reducers/filters/filtersSlice';
 import { startOfToday } from '../../utils';
-import { selectFiltersRoot } from '../../reducers/filters/selectors';
 
 /* eslint complexity: ["error", 5] */
 export const PillPanel = () => {

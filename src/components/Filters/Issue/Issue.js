@@ -10,7 +10,6 @@ import { MoreOrLess } from '../MoreOrLess/MoreOrLess';
 import { AggregationBranch } from '../Aggregation/AggregationBranch/AggregationBranch';
 import { useGetAggregations } from '../../../api/hooks/useGetAggregations';
 
-// eslint-disable-next-line react/prop-types
 export const Issue = () => {
   const dispatch = useDispatch();
   const [dropdownOptions, setDropdownOptions] = useState([]);

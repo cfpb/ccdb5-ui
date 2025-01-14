@@ -1,7 +1,5 @@
-/* eslint-disable max-len, no-inline-comments */
 import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../../../constants';
 
-// eslint-disable-next-line sort-imports
 import {
   GEO_STEP_SELECTORS as GEO,
   LIST_COMPLAINTS_SELECTORS as LIST,

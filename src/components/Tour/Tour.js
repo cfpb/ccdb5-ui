@@ -153,7 +153,6 @@ export const Tour = () => {
       return true;
     }
     if (ref.current.introJs.currentStep() + 1 < steps.length) {
-      // eslint-disable-next-line no-alert
       return window.confirm('Are you sure you want to exit the tour?');
     }
     return true;
@@ -169,7 +168,6 @@ export const Tour = () => {
   }
 
   return isPrintMode || isLoading ? null : (
-    // eslint-disable-next-line react/react-in-jsx-scope
     <>
       <TourButton />
       <Steps

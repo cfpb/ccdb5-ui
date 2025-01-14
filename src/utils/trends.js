@@ -15,7 +15,6 @@ export const showCompanyOverLay = (lens, companyFilters, isLoading) => {
   return false;
 };
 
-/* eslint-disable-next-line no-extra-parens */
 export const getSubLens = (lens) => {
   if (!lens) {
     return '';

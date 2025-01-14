@@ -14,8 +14,6 @@ export const ErrorBlock = ({ text }) => (
   </div>
 );
 
-export default ErrorBlock;
-
 ErrorBlock.propTypes = {
   text: PropTypes.string.isRequired,
 };
