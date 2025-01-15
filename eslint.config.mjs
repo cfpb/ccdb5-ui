@@ -6,6 +6,8 @@ import importPlugin from 'eslint-plugin-import';
 import jsdoc from 'eslint-plugin-jsdoc';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import reactPlugin from 'eslint-plugin-react';
+import reactHooksPlugin from 'eslint-plugin-react-hooks';
+import reactReduxPlugin from 'eslint-plugin-react-redux';
 import pluginCypress from 'eslint-plugin-cypress/flat';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import babelParser from '@babel/eslint-parser';
@@ -21,7 +23,12 @@ export default [
   reactPlugin.configs.flat.recommended,
   pluginCypress.configs.recommended,
   eslintConfigPrettier,
-
+  {
+    plugins: {
+      'react-hooks': reactHooksPlugin,
+      'react-redux': reactReduxPlugin
+    }
+  },
   {
     languageOptions: {
       ecmaVersion: 2023,
@@ -80,6 +87,8 @@ export default [
         'react/jsx-curly-brace-presence': ['error'],
         'react/jsx-uses-react': 'off',
         'react/react-in-jsx-scope': 'off',
+        ...reactHooksPlugin.configs.recommended.rules,
+        ...reactReduxPlugin.configs.recommended.rules
     },
   },
 ];
