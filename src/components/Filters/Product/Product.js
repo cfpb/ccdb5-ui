@@ -11,6 +11,7 @@ import {
 import { selectFiltersProduct } from '../../../reducers/filters/selectors';
 import { selectViewTab } from '../../../reducers/view/selectors';
 import { useGetAggregations } from '../../../api/hooks/useGetAggregations';
+import { FilterSearch } from '../FilterSearch/FilterSearch';
 
 /**
  * Helper function generate and sort options
@@ -97,6 +98,7 @@ export const Product = () => {
       desc={desc}
       className="aggregation product"
     >
+      <FilterSearch fieldName="product" />
       <MoreOrLess
         listComponent={AggregationBranch}
         listComponentProps={listComponentProps}

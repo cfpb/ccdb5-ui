@@ -1,18 +1,14 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { sortSelThenCount } from '../../../utils';
 import { CollapsibleFilter } from '../CollapsibleFilter/CollapsibleFilter';
-import { filtersReplaced } from '../../../reducers/filters/filtersSlice';
-import { SLUG_SEPARATOR } from '../../../constants';
-import { Typeahead } from '../../Typeahead/Typeahead/Typeahead';
 import { selectFiltersIssue } from '../../../reducers/filters/selectors';
 import { MoreOrLess } from '../MoreOrLess/MoreOrLess';
 import { AggregationBranch } from '../Aggregation/AggregationBranch/AggregationBranch';
 import { useGetAggregations } from '../../../api/hooks/useGetAggregations';
+import { FilterSearch } from '../FilterSearch/FilterSearch';
+import { SLUG_SEPARATOR } from '../../../constants';
 
 export const Issue = () => {
-  const dispatch = useDispatch();
-  const [dropdownOptions, setDropdownOptions] = useState([]);
   const { data } = useGetAggregations();
   const filters = useSelector(selectFiltersIssue);
 
@@ -39,33 +35,6 @@ export const Issue = () => {
   });
   // Make a cloned, sorted version of the aggs
   const options = sortSelThenCount(aggsFilters, selections);
-  // create an array optimized for typeahead
-  const optionKeys = options.map((opt) => opt.key);
-
-  const onInputChange = (value) => {
-    const num = value.toLowerCase();
-    if (num === '') {
-      setDropdownOptions([]);
-      return;
-    }
-    const options = optionKeys.map((opt) => ({
-      key: opt,
-      label: opt,
-      position: opt.toLowerCase().indexOf(num),
-      value,
-    }));
-    setDropdownOptions(options);
-  };
-
-  const onSelection = (items) => {
-    const replacementFilters = filters
-      // remove child items
-      .filter((filter) => filter.indexOf(items[0].key + SLUG_SEPARATOR) === -1)
-      // add parent item
-      .concat(items[0].key);
-    dispatch(filtersReplaced('issue', replacementFilters));
-  };
-
   const onBucket = (bucket, props) => {
     props.subitems = bucket['sub_issue.raw'].buckets;
     return props;
@@ -77,15 +46,7 @@ export const Issue = () => {
       desc={desc}
       className="aggregation issue"
     >
-      <Typeahead
-        ariaLabel="Start typing to begin listing issues"
-        htmlId="issue-typeahead"
-        placeholder="Enter name of issue"
-        handleChange={onSelection}
-        handleInputChange={onInputChange}
-        hasClearButton={true}
-        options={dropdownOptions}
-      />
+      <FilterSearch fieldName="issue" />
       <MoreOrLess
         listComponent={AggregationBranch}
         listComponentProps={listComponentProps}

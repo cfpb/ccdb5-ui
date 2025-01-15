@@ -7,7 +7,7 @@ describe('HighlightingOption', () => {
       <HighlightingOption label="Maryland (MD)" position={0} value="mar" />,
     );
 
-    expect(container.innerHTML).toBe(`<span><b>mar</b>yland (MD)</span>`);
+    expect(container.innerHTML).toBe(`<span><b>Mar</b>yland (MD)</span>`);
   });
 
   test('Handles position < 0', () => {
