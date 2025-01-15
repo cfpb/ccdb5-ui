@@ -1,5 +1,5 @@
 import '../../Typeahead/Typeahead.scss';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import { filterAdded } from '../../../actions';
@@ -12,7 +12,7 @@ import { HighlightingOption } from '../../Typeahead/HighlightingOption/Highlight
 import getIcon from '../../Common/Icon/iconMap';
 
 export const FilterSearch = ({ fieldName }) => {
-  const ref = useRef();
+  const ref = useRef(null);
   const dispatch = useDispatch();
 
   const fieldNameNew = fieldName.replace(/_/g, ' ');
@@ -94,11 +94,6 @@ export const FilterSearch = ({ fieldName }) => {
     dispatch(filterAdded(fieldName, selected[0].key));
     handleClear();
   };
-
-  // give the input focus when the component renders the first time
-  useEffect(() => {
-    ref.current.focus();
-  }, [ref]);
 
   return (
     <div className="typeahead">
