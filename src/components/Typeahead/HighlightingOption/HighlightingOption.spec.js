@@ -1,5 +1,5 @@
 import { testRender as render } from '../../../testUtils/test-utils';
-import HighlightingOption from './HighlightingOption';
+import { HighlightingOption } from './HighlightingOption';
 
 describe('HighlightingOption', () => {
   test('Renders partially bolded text', () => {

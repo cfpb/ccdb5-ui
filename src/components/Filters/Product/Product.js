@@ -56,7 +56,6 @@ export const generateOptions = (
   return options;
 };
 
-// eslint-disable-next-line react/prop-types
 export const Product = () => {
   const { data } = useGetAggregations();
   // See if there are an active product filters

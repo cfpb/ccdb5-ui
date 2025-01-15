@@ -1,4 +1,3 @@
-/* eslint-disable no-inline-comments, camelcase */
 module.exports = Object.freeze({
   BriteCharts: {
     dark: '#118935',

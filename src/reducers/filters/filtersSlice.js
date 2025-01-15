@@ -5,6 +5,42 @@ import * as types from '../../constants';
 import { enforceValues } from '../../utils/reducers';
 import { routeChanged } from '../routes/routesSlice';
 
+/**
+ * defaults create new array if param doesn't exist yet
+ * if the value doesn't exist in the array, pushes
+ * if value exists in the array, filters.
+ *
+ * @param {Array} target - the current filter
+ * @param {string} val - the filter to toggle
+ * @returns {Array} a cast copy to avoid any state mutation
+ */
+export function filterArrayAction(target = [], val) {
+  if (target.indexOf(val) === -1) {
+    target.push(val);
+  } else {
+    target = target.filter(function (value) {
+      return value !== val;
+    });
+  }
+  return [...target];
+}
+
+/**
+ * helper function to check if per1000 & map warnings should be enabled
+ *
+ * @param {object} state - state we need to validate
+ */
+export function validatePer1000(state) {
+  state.enablePer1000 = enablePer1000(state);
+  if (state.enablePer1000) {
+    state.mapWarningEnabled = true;
+  }
+  // if we enable per1k then don't reset it
+  state.dataNormalization = state.enablePer1000
+    ? state.dataNormalization || types.GEO_NORM_NONE
+    : types.GEO_NORM_NONE;
+}
+
 export const filtersState = {
   company: [],
   company_public_response: [],
@@ -222,6 +258,7 @@ export const filtersSlice = createSlice({
       })
       .addMatcher(
         isAnyOf(
+          /*eslint no-use-before-define: ["error", { "variables": false }]*/
           filterAdded,
           filterRemoved,
           filtersCleared,
@@ -241,41 +278,6 @@ export const filtersSlice = createSlice({
   },
 });
 
-/**
- * defaults create new array if param doesn't exist yet
- * if the value doesn't exist in the array, pushes
- * if value exists in the array, filters.
- *
- * @param {Array} target - the current filter
- * @param {string} val - the filter to toggle
- * @returns {Array} a cast copy to avoid any state mutation
- */
-export function filterArrayAction(target = [], val) {
-  if (target.indexOf(val) === -1) {
-    target.push(val);
-  } else {
-    target = target.filter(function (value) {
-      return value !== val;
-    });
-  }
-  return [...target];
-}
-
-/**
- * helper function to check if per1000 & map warnings should be enabled
- *
- * @param {object} state - state we need to validate
- */
-export function validatePer1000(state) {
-  state.enablePer1000 = enablePer1000(state);
-  if (state.enablePer1000) {
-    state.mapWarningEnabled = true;
-  }
-  // if we enable per1k then don't reset it
-  state.dataNormalization = state.enablePer1000
-    ? state.dataNormalization || types.GEO_NORM_NONE
-    : types.GEO_NORM_NONE;
-}
 export const {
   dataNormalizationUpdated,
   filterAdded,

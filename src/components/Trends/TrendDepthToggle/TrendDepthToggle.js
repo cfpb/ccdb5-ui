@@ -28,6 +28,22 @@ const showMore = (filterCount, resultCount) => {
   return filterCount > maxRows && filterCount !== resultCount;
 };
 
+/**
+ * helper containing logic to determine when to show the toggle
+ *
+ * @param {number} resultCount - count coming from trends results
+ * @param {number} filterCount - count from filters
+ * @returns {boolean} whether to display the toggle
+ */
+export const showToggle = (resultCount, filterCount) => {
+  // if the filters are selected, show the toggle if they selected more than 5 filters
+  if (filterCount > 0 && filterCount <= 5) {
+    return false;
+  }
+
+  return resultCount > 5 || filterCount > 5;
+};
+
 export const TrendDepthToggle = () => {
   const dispatch = useDispatch();
   const { data: aggs } = useGetAggregations();
@@ -95,20 +111,4 @@ export const TrendDepthToggle = () => {
       </div>
     );
   }
-};
-
-/**
- * helper containing logic to determine when to show the toggle
- *
- * @param {number} resultCount - count coming from trends results
- * @param {number} filterCount - count from filters
- * @returns {boolean} whether to display the toggle
- */
-export const showToggle = (resultCount, filterCount) => {
-  // if the filters are selected, show the toggle if they selected more than 5 filters
-  if (filterCount > 0 && filterCount <= 5) {
-    return false;
-  }
-
-  return resultCount > 5 || filterCount > 5;
 };

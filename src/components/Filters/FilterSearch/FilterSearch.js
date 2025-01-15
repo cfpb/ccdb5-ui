@@ -8,7 +8,7 @@ import { useGetAggregations } from '../../../api/hooks/useGetAggregations';
 import { SLUG_SEPARATOR } from '../../../constants';
 import { normalize } from '../../../utils';
 import { ClearButton } from '../../Typeahead/ClearButton/ClearButton';
-import HighlightingOption from '../../Typeahead/HighlightingOption/HighlightingOption';
+import { HighlightingOption } from '../../Typeahead/HighlightingOption/HighlightingOption';
 import getIcon from '../../Common/Icon/iconMap';
 
 export const FilterSearch = ({ fieldName }) => {
@@ -21,6 +21,8 @@ export const FilterSearch = ({ fieldName }) => {
   const aggResults = data[fieldName] || [];
   const subaggName = `sub_${fieldName}.raw`.toLowerCase();
   const buckets = [];
+
+  const [inputText, setInputText] = useState('');
 
   aggResults.forEach((option) => {
     if (buckets.findIndex((item) => item.key === option.key) === -1) {
@@ -57,14 +59,12 @@ export const FilterSearch = ({ fieldName }) => {
     }
   });
 
+  const [dropdownOptions, setDropdownOptions] = useState(buckets);
+
   const handleClear = () => {
     ref.current.clear();
     setInputText('');
   };
-
-  const [inputText, setInputText] = useState('');
-
-  const [dropdownOptions, setDropdownOptions] = useState(buckets);
 
   const handleInputChange = (value) => {
     setInputText(value);

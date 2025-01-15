@@ -113,7 +113,7 @@ export function extractQueryStringParams(state) {
  */
 const synchUrl = (store) => (next) => (action) => {
   // Pass the action forward in the chain
-  // eslint-disable-next-line callback-return
+
   const result = next(action);
 
   if (action.type === 'routes/routeChanged') {

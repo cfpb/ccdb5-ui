@@ -5,7 +5,7 @@ import { sizes, sorts } from '../../../constants';
 import { ActionBar } from '../../ActionBar/ActionBar';
 import { ComplaintCard } from '../ComplaintCard/ComplaintCard';
 import { useDispatch, useSelector } from 'react-redux';
-import ErrorBlock from '../../Warnings/Error';
+import { ErrorBlock } from '../../Warnings/Error';
 import { FilterPanel } from '../../Filters/FilterPanel/FilterPanel';
 import { FilterPanelToggle } from '../../Filters/FilterPanel/FilterPanelToggle';
 import { Loading } from '../../Loading/Loading';

@@ -26,8 +26,6 @@ export const Warning = ({ text, closeFn }) => (
   </div>
 );
 
-export default Warning;
-
 Warning.propTypes = {
   text: PropTypes.string.isRequired,
   closeFn: PropTypes.func,

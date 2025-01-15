@@ -148,7 +148,7 @@ export function hashCode(someString) {
  * @param {object} filters - reducer contains values for the filters, etc
  * @returns {boolean} are we enabling the perCap
  */
-// eslint-disable-next-line complexity,require-jsdoc
+// eslint-disable-next-line complexity
 export function enablePer1000(filters) {
   const keys = [];
   let filter;
@@ -156,7 +156,7 @@ export function enablePer1000(filters) {
 
   for (let index = 0; index < allFilters.length; index++) {
     filter = allFilters[index];
-    // eslint-disable-next-line no-mixed-operators
+
     if (
       (Array.isArray(filters[filter]) && filters[filter].length) ||
       filters[filter] === true
@@ -263,7 +263,6 @@ export function startOfToday() {
       const { metadata_timestamp: stamp } = window.complaint_public_metadata;
       window.MAX_DATE = new Date(dayjs(stamp).startOf('day').toString());
     } else {
-      // eslint-disable-next-line no-console
       console.error('complaint_public_metadata is missing');
       window.MAX_DATE = new Date(dayjs().startOf('day').toString());
     }

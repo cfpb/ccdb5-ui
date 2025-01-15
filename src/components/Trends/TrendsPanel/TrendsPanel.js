@@ -1,4 +1,3 @@
-/* eslint-disable complexity, camelcase */
 import '../../RefineBar/RefineBar.scss';
 import './TrendsPanel.scss';
 
@@ -29,10 +28,10 @@ import { sendAnalyticsEvent } from '../../../utils';
 import { showCompanyOverLay, getIntervals } from '../../../utils/trends';
 import { ActionBar } from '../../ActionBar/ActionBar';
 import { TabbedNavigation } from '../../TabbedNavigation/TabbedNavigation';
-import Warning from '../../Warnings/Warning';
+import { Warning } from '../../Warnings/Warning';
 import { FilterPanel } from '../../Filters/FilterPanel/FilterPanel';
 import { FilterPanelToggle } from '../../Filters/FilterPanel/FilterPanelToggle';
-import Select from '../../RefineBar/Select';
+import { Select } from '../../RefineBar/Select';
 import { Separator } from '../../RefineBar/Separator';
 import { ChartToggles } from '../../RefineBar/ChartToggles';
 import { CompanyTypeahead } from '../../Filters/Company/CompanyTypeahead';

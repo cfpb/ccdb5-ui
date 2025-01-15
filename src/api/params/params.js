@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { clamp, removeNullProperties } from '../../utils';
 import { enforceValues } from '../../utils/reducers';
 // ----------------------------------------------------------------------------

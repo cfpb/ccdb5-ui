@@ -1,5 +1,4 @@
 /* eslint max-nested-callbacks: ["error", 4] */
-/* eslint-disable camelcase */
 
 // reducer for the Map Tab
 import * as colors from '../../constants/colors';
@@ -15,155 +14,38 @@ import { MODE_TRENDS } from '../../constants';
 import { pruneOther } from '../../utils/trends';
 import { createSlice } from '@reduxjs/toolkit';
 
-// the minimal State to reset to when things break
-export const trendsState = {
-  chartType: 'line',
-  focus: '',
-  lens: 'Product',
-  subLens: 'sub_product',
-  tooltip: false,
-  trendDepth: 5,
+/**
+ * helper function to map color schemes to available data
+ *
+ * @param {string} lens - selected data lens
+ * @param {Array} rowNames - rows that are in the stacked area charts
+ * @returns {object} contains Name:Color map
+ */
+export const getColorScheme = (lens, rowNames) => {
+  const colScheme = {};
+  const colorScheme = colors.DataLens;
+  // remove other so we can shove that color in later
+  const uniqueNames = [
+    ...new Set(
+      rowNames.filter((item) => item.name !== 'Other').map((item) => item.name),
+    ),
+  ];
+
+  for (let idx = 0; idx < uniqueNames.length; idx++) {
+    const name = uniqueNames[idx];
+    const index = clamp(idx, 0, 10);
+    colScheme[name] = colorScheme[index];
+  }
+
+  colScheme.Complaints = colors.BriteCharts.regular;
+
+  // Set constant grey colors for all possible "other" buckets"
+  colScheme.Other = colors.DataLens[10];
+  colScheme['All other products'] = colors.DataLens[10];
+  colScheme['All other companies'] = colors.DataLens[10];
+  colScheme['All other values'] = colors.DataLens[10];
+  return colScheme;
 };
-
-export const trendsSlice = createSlice({
-  name: 'trends',
-  initialState: trendsState,
-  reducers: {
-    chartTypeUpdated: {
-      reducer: (state, action) => {
-        state.chartType = state.lens === 'Overview' ? 'line' : action.payload;
-        state.tooltip = false;
-      },
-    },
-    dataLensChanged: {
-      reducer: (state, action) => {
-        state.subLens = '';
-        const lens = enforceValues(action.payload, 'lens');
-        switch (lens) {
-          case 'Company':
-            state.subLens = 'product';
-            break;
-          case 'Overview':
-            state.subLens = 'product';
-            state.chartType = 'line';
-            break;
-          case 'Product':
-            state.subLens = 'sub_product';
-            break;
-          default:
-            break;
-        }
-
-        state.focus = '';
-        state.lens = lens;
-        state.tooltip = false;
-        state.trendDepth = lens === 'Company' ? 10 : 5;
-      },
-    },
-    dataSubLensChanged: {
-      reducer: (state, action) => {
-        return {
-          ...state,
-          subLens: action.payload.toLowerCase(),
-        };
-      },
-    },
-    depthChanged: {
-      reducer: (state, action) => {
-        state.trendDepth = action.payload;
-      },
-    },
-    depthReset: {
-      reducer: (state) => {
-        state.trendDepth = 5;
-      },
-    },
-    focusChanged: {
-      reducer: (state, action) => {
-        const { focus, lens } = action.payload;
-        state.focus = focus;
-        state.lens = enforceValues(lens, 'lens');
-        state.tooltip = false;
-        state.trendDepth = 25;
-        validateTrendsReducer(state);
-      },
-      prepare: (focus, lens, filterValues) => {
-        return {
-          payload: { focus, lens, filterValues },
-        };
-      },
-    },
-    focusRemoved: {
-      reducer: (state) => {
-        return {
-          ...state,
-          focus: '',
-          tooltip: false,
-          trendDepth: 5,
-        };
-      },
-    },
-    tooltipUpdated: {
-      reducer: (state, action) => {
-        const tooltip = action.payload.date ? action.payload : false;
-
-        // need to merge in the actual viewed state
-        if (tooltip) {
-          tooltip.title = getTooltipTitle(
-            tooltip.date,
-            tooltip.interval,
-            tooltip.dateRange,
-            true,
-          );
-
-          /* istanbul ignore else */
-          if (tooltip.values) {
-            let total = 0;
-            total = tooltip.values.reduce(
-              (accumulator, currentValue) => accumulator + currentValue.value,
-              total,
-            );
-            tooltip.total = total;
-          }
-        }
-
-        return {
-          ...state,
-          tooltip,
-        };
-      },
-    },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase('filters/filtersCleared', (state) => {
-        state.focus = '';
-      })
-      .addCase('filters/multipleFiltersRemoved', (state, action) => {
-        // remove the focus if it exists in one of the filter values we are removing
-        state.focus = action.payload.values.includes(state.focus)
-          ? ''
-          : state.focus;
-      })
-      .addCase('routes/routeChanged', (state, action) => {
-        const params = action.payload.params;
-        // Handle flag filters
-        const filters = ['chartType', 'focus', 'lens', 'subLens'];
-        for (const val of filters) {
-          if (params[val]) {
-            state[val] = enforceValues(params[val], val);
-          }
-        }
-        validateTrendsReducer(state);
-      })
-      .addCase('view/tabChanged', (state, action) => {
-        return {
-          ...state,
-          focus: action.payload === MODE_TRENDS ? state.focus : '',
-        };
-      });
-  },
-});
 
 /**
  *
@@ -244,7 +126,6 @@ export function processAggregations(keys, state, aggregations, results) {
   });
 }
 
-/* eslint-disable complexity */
 /**
  * helper function to drill down a bucket and generate special names for D3
  *
@@ -470,38 +351,155 @@ export function processTrendPeriod(bucket) {
   }
 }
 
-/**
- * helper function to map color schemes to available data
- *
- * @param {string} lens - selected data lens
- * @param {Array} rowNames - rows that are in the stacked area charts
- * @returns {object} contains Name:Color map
- */
-export const getColorScheme = (lens, rowNames) => {
-  const colScheme = {};
-  const colorScheme = colors.DataLens;
-  // remove other so we can shove that color in later
-  const uniqueNames = [
-    ...new Set(
-      rowNames.filter((item) => item.name !== 'Other').map((item) => item.name),
-    ),
-  ];
-
-  for (let idx = 0; idx < uniqueNames.length; idx++) {
-    const name = uniqueNames[idx];
-    const index = clamp(idx, 0, 10);
-    colScheme[name] = colorScheme[index];
-  }
-
-  colScheme.Complaints = colors.BriteCharts.regular;
-
-  // Set constant grey colors for all possible "other" buckets"
-  colScheme.Other = colors.DataLens[10];
-  colScheme['All other products'] = colors.DataLens[10];
-  colScheme['All other companies'] = colors.DataLens[10];
-  colScheme['All other values'] = colors.DataLens[10];
-  return colScheme;
+// the minimal State to reset to when things break
+export const trendsState = {
+  chartType: 'line',
+  focus: '',
+  lens: 'Product',
+  subLens: 'sub_product',
+  tooltip: false,
+  trendDepth: 5,
 };
+
+export const trendsSlice = createSlice({
+  name: 'trends',
+  initialState: trendsState,
+  reducers: {
+    chartTypeUpdated: {
+      reducer: (state, action) => {
+        state.chartType = state.lens === 'Overview' ? 'line' : action.payload;
+        state.tooltip = false;
+      },
+    },
+    dataLensChanged: {
+      reducer: (state, action) => {
+        state.subLens = '';
+        const lens = enforceValues(action.payload, 'lens');
+        switch (lens) {
+          case 'Company':
+            state.subLens = 'product';
+            break;
+          case 'Overview':
+            state.subLens = 'product';
+            state.chartType = 'line';
+            break;
+          case 'Product':
+            state.subLens = 'sub_product';
+            break;
+          default:
+            break;
+        }
+
+        state.focus = '';
+        state.lens = lens;
+        state.tooltip = false;
+        state.trendDepth = lens === 'Company' ? 10 : 5;
+      },
+    },
+    dataSubLensChanged: {
+      reducer: (state, action) => {
+        return {
+          ...state,
+          subLens: action.payload.toLowerCase(),
+        };
+      },
+    },
+    depthChanged: {
+      reducer: (state, action) => {
+        state.trendDepth = action.payload;
+      },
+    },
+    depthReset: {
+      reducer: (state) => {
+        state.trendDepth = 5;
+      },
+    },
+    focusChanged: {
+      reducer: (state, action) => {
+        const { focus, lens } = action.payload;
+        state.focus = focus;
+        state.lens = enforceValues(lens, 'lens');
+        state.tooltip = false;
+        state.trendDepth = 25;
+        validateTrendsReducer(state);
+      },
+      prepare: (focus, lens, filterValues) => {
+        return {
+          payload: { focus, lens, filterValues },
+        };
+      },
+    },
+    focusRemoved: {
+      reducer: (state) => {
+        return {
+          ...state,
+          focus: '',
+          tooltip: false,
+          trendDepth: 5,
+        };
+      },
+    },
+    tooltipUpdated: {
+      reducer: (state, action) => {
+        const tooltip = action.payload.date ? action.payload : false;
+
+        // need to merge in the actual viewed state
+        if (tooltip) {
+          tooltip.title = getTooltipTitle(
+            tooltip.date,
+            tooltip.interval,
+            tooltip.dateRange,
+            true,
+          );
+
+          /* istanbul ignore else */
+          if (tooltip.values) {
+            let total = 0;
+            total = tooltip.values.reduce(
+              (accumulator, currentValue) => accumulator + currentValue.value,
+              total,
+            );
+            tooltip.total = total;
+          }
+        }
+
+        return {
+          ...state,
+          tooltip,
+        };
+      },
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase('filters/filtersCleared', (state) => {
+        state.focus = '';
+      })
+      .addCase('filters/multipleFiltersRemoved', (state, action) => {
+        // remove the focus if it exists in one of the filter values we are removing
+        state.focus = action.payload.values.includes(state.focus)
+          ? ''
+          : state.focus;
+      })
+      .addCase('routes/routeChanged', (state, action) => {
+        const params = action.payload.params;
+        // Handle flag filters
+        const filters = ['chartType', 'focus', 'lens', 'subLens'];
+        for (const val of filters) {
+          if (params[val]) {
+            state[val] = enforceValues(params[val], val);
+          }
+        }
+        validateTrendsReducer(state);
+      })
+      .addCase('view/tabChanged', (state, action) => {
+        return {
+          ...state,
+          focus: action.payload === MODE_TRENDS ? state.focus : '',
+        };
+      });
+  },
+});
 
 export const {
   chartTypeUpdated,

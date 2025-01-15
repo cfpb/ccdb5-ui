@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Typeahead as DropdownTypeahead } from 'react-bootstrap-typeahead';
 import getIcon from '../../Common/Icon/iconMap';
-import HighlightingOption from '../HighlightingOption/HighlightingOption';
+import { HighlightingOption } from '../HighlightingOption/HighlightingOption';
 
 export const Typeahead = ({
   ariaLabel,

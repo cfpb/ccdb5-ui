@@ -64,8 +64,6 @@ export const Select = ({ id, handleChange, label, title, value, values }) => {
   );
 };
 
-export default Select;
-
 Select.propTypes = {
   id: PropTypes.string,
   handleChange: PropTypes.func.isRequired,

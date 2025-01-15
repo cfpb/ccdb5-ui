@@ -2,6 +2,8 @@
 import PropTypes from 'prop-types';
 import { createElement, useState } from 'react';
 
+//TODO: will make much less complex in implementation
+// eslint-disable-next-line complexity
 export const MoreOrLess = ({
   listComponent,
   listComponentProps = {},

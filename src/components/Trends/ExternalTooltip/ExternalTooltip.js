@@ -1,6 +1,5 @@
 import { CompanyTypeahead } from '../../Filters/Company/CompanyTypeahead';
 import { useSelector } from 'react-redux';
-import React from 'react';
 import { TooltipRow } from './TooltipRow';
 import {
   selectTrendsChartType,

@@ -8,7 +8,6 @@ import { useGetAggregations } from '../../../api/hooks/useGetAggregations';
 import { FilterSearch } from '../FilterSearch/FilterSearch';
 import { SLUG_SEPARATOR } from '../../../constants';
 
-// eslint-disable-next-line react/prop-types
 export const Issue = () => {
   const { data } = useGetAggregations();
   const filters = useSelector(selectFiltersIssue);
