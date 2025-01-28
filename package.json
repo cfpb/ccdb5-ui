@@ -147,5 +147,5 @@
     "registry": "https://registry.npmjs.org/"
   },
   "proxy": "https://www.consumerfinance.gov",
-  "dependencies": {}
+  "packageManager": "yarn@4.6.0"
 }
