@@ -1,7 +1,7 @@
 import './LineChart.scss';
 import * as d3 from 'd3';
-import line from 'britecharts/dist/umd/line.min';
-import tooltip from 'britecharts/dist/umd/tooltip.min';
+import line from '@cfpb/britecharts/dist/umd/line.min';
+import tooltip from '@cfpb/britecharts/dist/umd/tooltip.min';
 import { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { debounce } from '../../../utils';

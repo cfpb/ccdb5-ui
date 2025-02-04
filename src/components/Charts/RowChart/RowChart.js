@@ -1,7 +1,7 @@
 import './RowChart.scss';
 import * as d3 from 'd3';
 import { max } from 'd3-array';
-import { miniTooltip, row } from 'britecharts';
+import { miniTooltip, row } from '@cfpb/britecharts';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';

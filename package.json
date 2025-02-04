@@ -37,6 +37,7 @@
     "@babel/eslint-parser": "^7.26.5",
     "@babel/preset-react": "^7.26.3",
     "@babel/runtime": "^7.26.0",
+    "@cfpb/britecharts": "v2.4.3",
     "@cfpb/browserslist-config": "0.0.3",
     "@cfpb/cfpb-design-system": "^3.6.2",
     "@craco/craco": "^7.1.0",
@@ -49,7 +50,6 @@
     "@testing-library/react": "^16.1.0",
     "@testing-library/react-hooks": "^8.0.0",
     "@testing-library/user-event": "^14.5.2",
-    "britecharts": "git+https://github.com/cfpb/britecharts.git#v2.4.3",
     "coveralls": "^3.0.9",
     "craco-esbuild": "^0.6.1",
     "cypress": "^13.17.0",
@@ -147,5 +147,5 @@
     "registry": "https://registry.npmjs.org/"
   },
   "proxy": "https://www.consumerfinance.gov",
-  "dependencies": {}
+  "packageManager": "yarn@4.6.0"
 }

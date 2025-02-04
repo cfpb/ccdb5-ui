@@ -1,6 +1,6 @@
 import './StackedAreaChart.scss';
 import * as d3 from 'd3';
-import { stackedArea } from 'britecharts';
+import { stackedArea } from '@cfpb/britecharts';
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as colors from '../../../constants/colors';
