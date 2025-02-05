@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import path from 'path';
-import react from '@vitejs/plugin-react'
+import react from '@vitejs/plugin-react';
+import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
     base: '/',
@@ -12,12 +13,12 @@ export default defineConfig({
             }
         }
     },
-    plugins: [ react() ],
+    plugins: [ react(), svgr() ],
     resolve: {
         alias: {
             'components': path.resolve(__dirname, 'src/components'),
             'css': path.resolve(__dirname, 'src/css'),
-            // 'node_modules': path.resolve(__dirname, 'node_modules'),
+            'node_modules': path.resolve(__dirname, 'node_modules') // TODO: temporary; will remove and fix references accordingly
         }
     },
     server: {    

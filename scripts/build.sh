@@ -6,7 +6,7 @@ pwd
 
 # This command overrides the original create react app command.
 echo "Running vite build for $NODE_ENV"
-vite build --no-verify
+vite build
 
 # Move CSS assets.
 mv ./build/static/css/main.*.css ./dist/ccdb5.css
