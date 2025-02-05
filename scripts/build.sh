@@ -5,8 +5,8 @@ pwd
 pwd
 
 # This command overrides the original create react app command.
-echo "Running craco build for $NODE_ENV"
-craco build --no-verify
+echo "Running vite build for $NODE_ENV"
+vite build --no-verify
 
 # Move CSS assets.
 mv ./build/static/css/main.*.css ./dist/ccdb5.css
