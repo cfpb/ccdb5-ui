@@ -227,7 +227,7 @@ export const updateDateBuckets = (name, buckets, areaBuckets) => {
 };
 
 export const externalTooltipFormatter = (tooltip, colorMap) => {
-  if (!tooltip) {
+  if (!tooltip || !colorMap) {
     return tooltip;
   }
   const newTooltip = structuredClone(tooltip);

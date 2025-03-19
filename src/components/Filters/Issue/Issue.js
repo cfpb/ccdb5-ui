@@ -35,6 +35,8 @@ export const Issue = () => {
   });
   // Make a cloned, sorted version of the aggs
   const options = sortSelThenCount(aggsFilters, selections);
+  console.log('issue');
+  console.log(options);
   const onBucket = (bucket, props) => {
     props.subitems = bucket['sub_issue.raw'].buckets;
     return props;

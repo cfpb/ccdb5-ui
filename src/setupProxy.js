@@ -4,7 +4,7 @@ module.exports = function (app) {
   app.use(
     ['/data-research/consumer-complaints/search/api/**/**'],
     createProxyMiddleware({
-      target: 'https://www.consumerfinance.gov',
+      target: 'http://localhost:8000',
       changeOrigin: true,
     }),
   );

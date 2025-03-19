@@ -8,6 +8,10 @@ import {
 } from '../../../reducers/trends/selectors';
 import { selectFiltersCompany } from '../../../reducers/filters/selectors';
 import { useGetAggregations } from '../../../api/hooks/useGetAggregations';
+import { MoreOrLess } from '../MoreOrLess/MoreOrLess';
+import { AggregationBranch } from '../Aggregation/AggregationBranch/AggregationBranch';
+import { coalesce, sortSelThenCount } from '../../../utils';
+import { AggregationItem } from '../Aggregation/AggregationItem/AggregationItem';
 
 const FIELD_NAME = 'company';
 
@@ -26,6 +30,17 @@ export const Company = () => {
 
   const desc = 'The complaint is about this company.';
 
+  const listComponentProps = {
+    fieldName: 'company',
+  };
+
+  console.log('company');
+  console.log(options);
+
+  // const onBucket = (bucket, props) => {
+  //   props.subitems = bucket['sub_issue.raw'].buckets;
+  //   return props;
+  // };
   return isLoading || isFetching ? null : (
     <CollapsibleFilter
       title="Company name"
@@ -33,10 +48,16 @@ export const Company = () => {
       className="aggregation company"
     >
       <CompanyTypeahead id={'filter-' + FIELD_NAME} />
-      <StickyOptions
-        fieldName={FIELD_NAME}
+      {/*<StickyOptions*/}
+      {/*  fieldName={FIELD_NAME}*/}
+      {/*  options={options}*/}
+      {/*  selections={filters}*/}
+      {/*/>*/}
+      <MoreOrLess
+        listComponent={AggregationItem}
+        listComponentProps={listComponentProps}
         options={options}
-        selections={filters}
+        // perBucketProps={() => {}}
       />
     </CollapsibleFilter>
   );

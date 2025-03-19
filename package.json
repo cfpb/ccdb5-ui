@@ -147,6 +147,6 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "proxy": "https://www.consumerfinance.gov",
+  "proxy": "http://localhost:8000",
   "dependencies": {}
 }

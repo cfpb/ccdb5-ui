@@ -42,6 +42,7 @@ const appliedFilters = ({ fieldName, item, aggs, filters }) => {
 };
 
 export const AggregationItem = ({ fieldName, item }) => {
+  console.log(fieldName, item);
   const { data: aggsState, isSuccess } = useGetAggregations();
   const filtersState = useSelector(selectFiltersRoot);
   const dispatch = useDispatch();
