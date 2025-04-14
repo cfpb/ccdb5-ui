@@ -461,3 +461,13 @@ export function removeNullProperties(object) {
 export function formatUri(path, params) {
   return path + '?' + queryString.stringify(params);
 }
+
+/**
+ * Helper function to check if any element in the array is true
+ *
+ * @param {Array} args - array of parameters to check against
+ * @returns {boolean} whether or not any value in the array is true
+ */
+export function isTrue(args) {
+  return args.includes(true);
+}

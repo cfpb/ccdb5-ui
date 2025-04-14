@@ -1,4 +1,4 @@
-/* eslint complexity: ["error", 8] */
+/* eslint complexity: ["error", 7] */
 import './DateFilter.scss';
 import { DATE_VALIDATION_FORMAT, maxDate, minDate } from '../../../constants';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -14,8 +14,9 @@ import dayjs from 'dayjs';
 import dayjsCustomParseFormat from 'dayjs/plugin/customParseFormat';
 import dayjsIsBetween from 'dayjs/plugin/isBetween';
 import dayjsUtc from 'dayjs/plugin/utc';
-import { formatDateModel } from '../../../utils/formatDate';
+import { formatDateModel, formatDisplayDate } from '../../../utils/formatDate';
 import getIcon from '../../Common/Icon/iconMap';
+import { isTrue } from '../../../utils';
 
 dayjs.extend(dayjsCustomParseFormat);
 dayjs.extend(dayjsIsBetween);
@@ -44,6 +45,8 @@ export const DateFilter = () => {
 
   const errorMessageText = "'From' date must be less than 'through' date";
   const errorSameDate = "'From' date cannot be the same as 'Through' date";
+  const errorThroughOutOfBounds =
+    "'Through' date cannot be later than " + formatDisplayDate(maxDate);
 
   const fromRef = useRef();
   const throughRef = useRef();
@@ -79,27 +82,49 @@ export const DateFilter = () => {
     if (dayjs(fromDate).isSame(throughDate)) {
       return errorSameDate;
     }
+    if (dayjs(throughDate).isAfter(maxDate)) {
+      return errorThroughOutOfBounds;
+    }
     return false;
-  }, [fromDate, throughDate]);
+  }, [errorThroughOutOfBounds, fromDate, throughDate]);
 
   const handleDateChange = () => {
     // setFromDate and setThroughDate do not update the state quick enough
     // to be used here
     let _fromDate = fromDate;
     let _throughDate = throughDate;
-    // don't do anything if its empty
-    if (_fromDate < minDate && _fromDate) {
+
+    if (
+      isTrue([
+        // these are the checks, reset the date to minDate if
+        !dayjs(fromDate).isValid(), // date is not valid
+        dayjs(fromDate).isBefore(minDate), // date is before minDate
+        dayjs(fromDate).isAfter(maxDate), // date comes after max date
+        !fromRef.current.value, // input value is empty
+      ])
+    ) {
       fromRef.current.value = minDate;
       _fromDate = minDate;
     }
-    if (_throughDate > maxDate && _throughDate) {
+
+    if (
+      isTrue([
+        // reset the through date to maxDate if date is
+        !dayjs(throughDate).isValid(), // not valid
+        dayjs(throughDate).isAfter(maxDate), //  later than maxDate
+        dayjs(throughDate).isBefore(minDate), // before minDate
+        dayjs(throughDate).isBefore(fromDate), // before current fromDate
+        !throughRef.current.value,
+      ])
+    ) {
       throughRef.current.value = maxDate;
       _throughDate = maxDate;
     }
 
-    const isDateDifferent =
-      dateFrom !== _fromDate || dateThrough !== _throughDate;
-    if (dayjs(_throughDate).isAfter(_fromDate) && isDateDifferent) {
+    // if valid, go ahead and set the correct values
+    if (dayjs(_throughDate).isAfter(_fromDate)) {
+      setFromDate(_fromDate);
+      setThroughDate(_throughDate);
       dispatch(datesChanged(_fromDate, _throughDate));
     }
   };
@@ -107,9 +132,12 @@ export const DateFilter = () => {
   const inputFromClassName = useMemo(() => {
     const style = ['a-text-input'];
     if (
-      dayjs(fromDate).isBefore(minDate) ||
-      dayjs(fromDate).isAfter(throughDate) ||
-      dayjs(fromDate).isSame(throughDate)
+      isTrue([
+        !dayjs(fromDate).isValid(),
+        dayjs(fromDate).isBefore(minDate),
+        dayjs(fromDate).isAfter(throughDate),
+        dayjs(fromDate).isSame(throughDate),
+      ])
     ) {
       style.push('a-text-input--error');
     }
@@ -119,9 +147,12 @@ export const DateFilter = () => {
   const inputThroughClassName = useMemo(() => {
     const style = ['a-text-input'];
     if (
-      dayjs(throughDate).isAfter(maxDate) ||
-      dayjs(throughDate).isBefore(fromDate) ||
-      dayjs(throughDate).isSame(fromDate)
+      isTrue([
+        !dayjs(throughDate).isValid(),
+        dayjs(throughDate).isAfter(maxDate),
+        dayjs(throughDate).isBefore(fromDate),
+        dayjs(throughDate).isSame(fromDate),
+      ])
     ) {
       style.push('a-text-input--error');
     }
@@ -163,8 +194,7 @@ export const DateFilter = () => {
                   className={inputFromClassName}
                   onBlur={handleDateChange}
                   onChange={(evt) => {
-                    const value = evt.target.value || minDate;
-                    setFromDate(value);
+                    setFromDate(evt.target.value);
                   }}
                   onKeyDown={handleKeyDownFromDate}
                   min={minDate}
@@ -191,8 +221,7 @@ export const DateFilter = () => {
                   className={inputThroughClassName}
                   onBlur={handleDateChange}
                   onChange={(evt) => {
-                    const value = evt.target.value || minDate;
-                    setThroughDate(value);
+                    setThroughDate(evt.target.value);
                   }}
                   onKeyDown={handleKeyDownThroughDate}
                   min={minDate}
