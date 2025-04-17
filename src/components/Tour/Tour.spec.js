@@ -38,7 +38,7 @@ describe('Tour loading behavior', () => {
     renderComponent({ showTour: false });
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     renderComponent({ showTour: true });
-    expect(await screen.findByRole('dialog')).toBeDefined();
+    expect(await screen.findByRole('dialog')).toBeInTheDocument();
   });
 
   test('Tour launches by clicking button', async () => {

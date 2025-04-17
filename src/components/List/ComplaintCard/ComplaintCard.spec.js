@@ -29,22 +29,26 @@ describe('ComplaintCard', () => {
   test('ComplaintCard renders with basic information', () => {
     render(<ComplaintCard row={itemFixture} />);
 
-    expect(screen.getByText(itemFixture.complaint_id)).toBeDefined();
-    expect(screen.getByText('Company name')).toBeDefined();
-    expect(screen.getByText(itemFixture.company)).toBeDefined();
-    expect(screen.getByText('Date received:')).toBeDefined();
-    expect(screen.getByText('11/16/2022')).toBeDefined();
-    expect(screen.getByText(`Consumer’s state:`)).toBeDefined();
-    expect(screen.getByText(itemFixture.state)).toBeDefined();
-    expect(screen.getByText('Company response to consumer')).toBeDefined();
-    expect(screen.getByText(itemFixture.company_response)).toBeDefined();
-    expect(screen.getByText('Timely response?')).toBeDefined();
-    expect(screen.getByText(itemFixture.timely)).toBeDefined();
-    expect(screen.getByRole('heading', { name: 'Product' })).toBeDefined();
-    expect(screen.getByText(itemFixture.product)).toBeDefined();
+    expect(screen.getByText(itemFixture.complaint_id)).toBeInTheDocument();
+    expect(screen.getByText('Company name')).toBeInTheDocument();
+    expect(screen.getByText(itemFixture.company)).toBeInTheDocument();
+    expect(screen.getByText('Date received:')).toBeInTheDocument();
+    expect(screen.getByText('11/16/2022')).toBeInTheDocument();
+    expect(screen.getByText(`Consumer’s state:`)).toBeInTheDocument();
+    expect(screen.getByText(itemFixture.state)).toBeInTheDocument();
+    expect(
+      screen.getByText('Company response to consumer'),
+    ).toBeInTheDocument();
+    expect(screen.getByText(itemFixture.company_response)).toBeInTheDocument();
+    expect(screen.getByText('Timely response?')).toBeInTheDocument();
+    expect(screen.getByText(itemFixture.timely)).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: 'Product' }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(itemFixture.product)).toBeInTheDocument();
     expect(screen.queryByText(/Sub-product:/)).not.toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: 'Issue' })).toBeDefined();
-    expect(screen.getByText(itemFixture.issue)).toBeDefined();
+    expect(screen.getByRole('heading', { name: 'Issue' })).toBeInTheDocument();
+    expect(screen.getByText(itemFixture.issue)).toBeInTheDocument();
     expect(screen.queryByText(/Sub-issue:/)).not.toBeInTheDocument();
     expect(
       screen.queryByRole('heading', { name: 'Consumer Complaint Narrative' }),
@@ -60,10 +64,10 @@ describe('ComplaintCard', () => {
 
     expect(
       screen.getByRole('heading', { name: /Consumer Complaint Narrative/ }),
-    ).toBeDefined();
+    ).toBeInTheDocument();
     expect(
       screen.getByText(expectedItem.complaint_what_happened),
-    ).toBeDefined();
+    ).toBeInTheDocument();
   });
 
   test('Renders narrative with overflow', () => {
@@ -85,9 +89,9 @@ describe('ComplaintCard', () => {
 
     expect(
       screen.getByRole('heading', { name: /Consumer Complaint Narrative/ }),
-    ).toBeDefined();
-    expect(screen.getByText(expectedText)).toBeDefined();
-    expect(screen.getByText('[...]')).toBeDefined();
+    ).toBeInTheDocument();
+    expect(screen.getByText(expectedText)).toBeInTheDocument();
+    expect(screen.getByText('[...]')).toBeInTheDocument();
   });
 
   test('Renders sub product', () => {
@@ -95,8 +99,8 @@ describe('ComplaintCard', () => {
 
     render(<ComplaintCard row={itemFixture} />);
 
-    expect(screen.getByText(/Sub-product:/)).toBeDefined();
-    expect(screen.getByText(itemFixture.sub_product)).toBeDefined();
+    expect(screen.getByText(/Sub-product:/)).toBeInTheDocument();
+    expect(screen.getByText(itemFixture.sub_product)).toBeInTheDocument();
   });
 
   test('Renders sub issue', () => {
@@ -104,8 +108,8 @@ describe('ComplaintCard', () => {
 
     render(<ComplaintCard row={itemFixture} />);
 
-    expect(screen.getByText(/Sub-issue:/)).toBeDefined();
-    expect(screen.getByText(itemFixture.sub_issue)).toBeDefined();
+    expect(screen.getByText(/Sub-issue:/)).toBeInTheDocument();
+    expect(screen.getByText(itemFixture.sub_issue)).toBeInTheDocument();
   });
 
   test('Strips highlighter HTML tags', () => {

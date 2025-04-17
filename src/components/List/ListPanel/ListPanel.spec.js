@@ -48,7 +48,7 @@ describe('ListPanel', () => {
       screen.getByRole('heading', {
         name: /No results were found for your search/,
       }),
-    ).toBeDefined();
+    ).toBeInTheDocument();
   });
 
   test('Render ListPanel with an error', async () => {
@@ -58,7 +58,7 @@ describe('ListPanel', () => {
     await screen.findByText(/There was a problem executing your search/);
     expect(
       screen.getByText(/There was a problem executing your search/),
-    ).toBeDefined();
+    ).toBeInTheDocument();
   });
 
   test('Render ListPanel with items', async () => {

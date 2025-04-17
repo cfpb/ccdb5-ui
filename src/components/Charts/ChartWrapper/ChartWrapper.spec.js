@@ -9,7 +9,7 @@ describe('ChartWrapper', () => {
   test('It renders wrapper with data', () => {
     renderComponent({ hasKey: false, isEmpty: false, domId: 'some-id' });
     const text = screen.getByText('Date received by the CFPB');
-    expect(text).toBeDefined();
+    expect(text).toBeInTheDocument();
     const items = document.getElementsByClassName('ext-tooltip');
     expect(items.length).toBe(0);
   });
@@ -17,7 +17,7 @@ describe('ChartWrapper', () => {
   test('It renders wrapper for external tooltip', () => {
     renderComponent({ hasKey: true, isEmpty: false, domId: 'some-id' });
     const text = screen.getByText('Date received by the CFPB');
-    expect(text).toBeDefined();
+    expect(text).toBeInTheDocument();
     const items = document.getElementsByClassName('ext-tooltip');
     expect(items.length).toBe(1);
   });
