@@ -30,6 +30,10 @@ describe('Filter Panel', () => {
       let fixture = { fixture: 'common/get-complaints-date-from.json' };
       cy.intercept(request, fixture).as('getComplaintsDateFrom');
 
+      cy.intercept('?**&date_received_min=2011-12-01**', fixture).as(
+        'getComplaintsDateFromDefault',
+      );
+
       request = '?date_received_max=2020-10-31**';
       fixture = { fixture: 'common/get-complaints-date-to.json' };
       cy.intercept(request, fixture).as('getComplaintsDateTo');
@@ -41,27 +45,18 @@ describe('Filter Panel', () => {
       cy.get('#date_received-from').should('be.visible');
 
       cy.log('collapse it');
-      cy.get('.date-filter > button.o-expandable__header:first').click({
-        force: true,
-      });
+      cy.get('.date-filter > button.o-expandable__header:first').click();
 
       cy.get('#date-received-agg #start_date').should('not.exist');
 
       cy.log('open it');
-      cy.get('.date-filter > button.o-expandable__header:first').click({
-        force: true,
-      });
+      cy.get('.date-filter > button.o-expandable__header:first').click();
       cy.log('apply dates');
 
-      cy.get('#date_received-from').clear({
-        force: true,
-      });
+      cy.get('#date_received-from').clear();
 
-      // TODO: this fails in headless mode for some reason without force:true but it works fine in
       // electron / chrome headed version
-      cy.get('#date_received-from').type('2015-09-11', {
-        force: true,
-      });
+      cy.get('#date_received-from').type('2015-09-11');
       cy.get('#date_received-from').blur();
 
       cy.wait('@getComplaintsDateFrom');
@@ -70,20 +65,21 @@ describe('Filter Panel', () => {
 
       cy.log('apply a through date');
 
-      cy.get('#date_received-through').clear({
-        force: true,
-      });
+      cy.get('#date_received-through').clear();
 
-      // TODO: this fails in headless mode for some reason without force:true but it works fine in
-      // electron / chrome headed version
-      cy.get('#date_received-through').type('2020-10-31', {
-        force: true,
-      });
+      cy.get('#date_received-through').type('2020-10-31');
       cy.get('#date_received-through').blur();
 
       cy.url().should('include', 'date_received_max=2020-10-31');
 
       cy.wait('@getComplaintsDateTo');
+
+      // check error handling and default values
+      cy.get('#date_received-from').type('2000-09-11');
+      cy.get('#date_received-from').blur();
+
+      cy.wait('@getComplaintsDateFrom');
+      cy.url().should('include', 'date_received_min=2011-12-01');
     });
 
     it('can trigger a pre-selected date range', () => {
