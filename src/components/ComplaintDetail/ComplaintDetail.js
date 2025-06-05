@@ -1,7 +1,7 @@
 import './ComplaintDetail.scss';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router';
 import { useGetDocumentQuery } from '../../api/complaints';
 import getIcon from '../Common/Icon/iconMap';
 import { Loading } from '../Loading/Loading';

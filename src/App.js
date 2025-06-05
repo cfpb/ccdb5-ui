@@ -1,6 +1,6 @@
 import './css/App.scss';
 import { ReactElement } from 'react';
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router';
 import { ComplaintDetail } from './components/ComplaintDetail/ComplaintDetail';
 import { SearchComponents } from './components/Search/SearchComponents';
 
