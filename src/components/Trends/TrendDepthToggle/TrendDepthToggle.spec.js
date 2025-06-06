@@ -22,9 +22,11 @@ import { queryState } from '../../../reducers/query/querySlice';
 const renderComponent = (newFiltersState, newTrendsState) => {
   merge(newFiltersState, filtersState);
   merge(newTrendsState, trendsState);
+  const newQueryState = { dateLastIndexed: '2020-01-01' };
+  merge(newQueryState, queryState);
   const data = {
     filters: newFiltersState,
-    query: queryState,
+    query: newQueryState,
     routes: { queryString: '?fdsafsfoo' },
     trends: newTrendsState,
     view: { tab: MODE_TRENDS },

@@ -36,7 +36,7 @@ describe('component::Company', () => {
       company: ['Monocle Popper Inc'],
     };
     fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
-    renderComponent(filters, {}, {});
+    renderComponent(filters, { dateLastIndexed: '2024-10-07' }, {});
 
     await screen.findByRole('checkbox', { name: 'Monocle Popper Inc' });
 

@@ -3,6 +3,8 @@ export const selectQueryCompanyReceivedMax = (state) =>
   state.query.company_received_max;
 export const selectQueryCompanyReceivedMin = (state) =>
   state.query.company_received_min;
+export const selectQueryDateLastIndexed = (state) =>
+  state.query.dateLastIndexed;
 export const selectQueryDateReceivedMax = (state) =>
   state.query.date_received_max;
 export const selectQueryDateReceivedMin = (state) =>

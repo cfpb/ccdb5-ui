@@ -1,3 +1,5 @@
+import { waitForLoading } from '../utils';
+
 describe('List View', () => {
   const cardContainers = '.cards-panel .card-container';
   const currentPage = '.m-pagination__label';
@@ -19,8 +21,7 @@ describe('List View', () => {
     cy.intercept('GET', '_suggest/?text=debt%20recovery', []);
 
     cy.visit('?size=10&searchText=debt%20recovery&tab=List');
-    cy.wait('@getComplaints');
-    cy.wait('@getAggs');
+    waitForLoading();
   });
 
   describe('initial rendering', () => {
@@ -41,7 +42,7 @@ describe('List View', () => {
 
       cy.get(nextButton).click();
 
-      cy.wait('@getNextComplaints');
+      waitForLoading();
 
       cy.url().should('contain', 'page=2');
 
@@ -54,7 +55,7 @@ describe('List View', () => {
       cy.get('#select-size').select('25 results');
       cy.get('#select-size').select('10 results');
 
-      cy.wait('@get10Complaints');
+      waitForLoading();
 
       cy.get(cardContainers).should('have.length', 10);
       cy.url().should('contain', 'size=10');
@@ -73,12 +74,12 @@ describe('List View', () => {
       cy.intercept('GET', request, fixture).as('getNextComplaints');
 
       cy.get(nextButton).click();
-      cy.wait('@getNextComplaints');
+      waitForLoading();
 
       cy.url().should('contain', 'page=2');
 
       cy.get('#select-sort').select('relevance_desc');
-      cy.wait('@getRelevanceComplaints');
+      waitForLoading();
 
       cy.url().should('contain', 'sort=relevance_desc');
 
@@ -130,9 +131,7 @@ describe('List View', () => {
     cy.get(currentPage).should('have.text', 'Page 2');
 
     cy.log('resets after applying filter');
-    // Test failing without wait
-    /* eslint-disable cypress/no-unnecessary-waiting */
-    cy.wait(500);
+    waitForLoading();
     cy.get('.aggregation-branch label.a-label:first').click();
     cy.get(currentPage).should('have.text', 'Page 1');
 

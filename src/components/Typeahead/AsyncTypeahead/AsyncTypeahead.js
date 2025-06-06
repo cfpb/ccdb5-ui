@@ -83,7 +83,12 @@ export const AsyncTypeahead = ({
             placeholder={placeholder}
             renderMenuItemChildren={(option) => (
               <li className="typeahead-option body-copy">
-                <HighlightingOption {...option} />
+                <HighlightingOption
+                  key={option.key}
+                  label={option.label}
+                  position={option.position}
+                  value={option.value}
+                />
               </li>
             )}
           />

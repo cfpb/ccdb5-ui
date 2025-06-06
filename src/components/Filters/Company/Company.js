@@ -12,7 +12,7 @@ import { useGetAggregations } from '../../../api/hooks/useGetAggregations';
 const FIELD_NAME = 'company';
 
 export const Company = () => {
-  const { data, isLoading, isFetching } = useGetAggregations();
+  const { data } = useGetAggregations();
   const filters = useSelector(selectFiltersCompany);
   const focus = useSelector(selectTrendsFocus);
   const lens = useSelector(selectTrendsLens);
@@ -26,7 +26,7 @@ export const Company = () => {
 
   const desc = 'The complaint is about this company.';
 
-  return isLoading || isFetching ? null : (
+  return (
     <CollapsibleFilter
       title="Company name"
       desc={desc}

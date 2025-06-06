@@ -1,24 +1,25 @@
 import target, {
   alignDateRange,
+  companyReceivedDateChanged,
+  dateIntervalChanged,
   dateRangeChanged,
-  queryState,
   datesChanged,
-  sortChanged,
-  sizeChanged,
   nextPageShown,
   prevPageShown,
-  searchTextChanged,
+  queryState,
   searchFieldChanged,
-  dateIntervalChanged,
+  searchTextChanged,
+  sizeChanged,
+  sortChanged,
   trendsDateWarningDismissed,
-  companyReceivedDateChanged,
 } from './querySlice';
 import * as types from '../../constants';
+import { minDate } from '../../constants';
 import dayjs from 'dayjs';
 import { startOfToday } from '../../utils';
 import { routeChanged } from '../routes/routesSlice';
 import { filtersCleared } from '../filters/filtersSlice';
-import { minDate } from '../../constants';
+import { formatDate } from '../../utils/formatDate';
 
 const maxDate = startOfToday();
 
@@ -31,9 +32,10 @@ describe('reducer:query', () => {
         company_received_max: '',
         company_received_min: '',
         dateInterval: 'Month',
-        dateRange: '3y',
-        date_received_max: '2020-05-05',
-        date_received_min: '2017-05-05',
+        dateLastIndexed: '',
+        dateRange: '',
+        date_received_max: '',
+        date_received_min: '',
         from: 0,
         searchText: '',
         searchField: 'all',
@@ -209,7 +211,7 @@ describe('reducer:query', () => {
 
     beforeEach(() => {
       params = {};
-      state = { ...queryState };
+      state = { ...queryState, dateLastIndexed: '2020-05-05' };
     });
 
     it('handles empty params', () => {
@@ -281,6 +283,7 @@ describe('reducer:query', () => {
       });
 
       it('sets the All range if the dates are right', () => {
+        state.date_received_max = startOfToday();
         state.date_received_min = types.DATE_RANGE_MIN;
         alignDateRange(state);
         expect(state.dateRange).toBe('All');
@@ -290,6 +293,7 @@ describe('reducer:query', () => {
         state.date_received_min = dayjs(
           new Date(dayjs(maxDate).subtract(3, 'months')),
         ).toISOString();
+        state.date_received_max = startOfToday();
         alignDateRange(state);
         expect(state.dateRange).toBe('3m');
       });
@@ -298,7 +302,7 @@ describe('reducer:query', () => {
         state.date_received_min = dayjs(
           new Date(dayjs(maxDate).subtract(6, 'months')),
         ).toISOString();
-
+        state.date_received_max = startOfToday();
         alignDateRange(state);
         expect(state.dateRange).toBe('6m');
       });
@@ -307,11 +311,16 @@ describe('reducer:query', () => {
         state.date_received_min = dayjs(
           new Date(dayjs(maxDate).subtract(1, 'year')),
         ).toISOString();
+        state.date_received_max = startOfToday();
         alignDateRange(state);
         expect(state.dateRange).toBe('1y');
       });
 
       it('sets the 3y range if the dates are right', () => {
+        state.date_received_min = dayjs(
+          new Date(dayjs(maxDate).subtract(3, 'year')),
+        ).toISOString();
+        state.date_received_max = startOfToday();
         alignDateRange(state);
         expect(state.dateRange).toBe('3y');
       });
@@ -376,9 +385,12 @@ describe('reducer:query', () => {
       it('adds dateRange', () => {
         // date range should only be applied to when the max date is
         // today's date
-        const max = dayjs(startOfToday());
-        const min = new Date(dayjs(max).subtract(3, 'months'));
-        result = target({ ...queryState }, datesChanged(min, max));
+        const max = formatDate(dayjs(startOfToday()));
+        const min = formatDate(dayjs(max).subtract(3, 'months'));
+        result = target(
+          { ...queryState, dateLastIndexed: max },
+          datesChanged(min, max),
+        );
         expect(result.dateRange).toBe('3m');
       });
     });
@@ -390,6 +402,8 @@ describe('reducer:query', () => {
         };
       });
       it('extends dateInterval when Day selected', () => {
+        state.date_received_min = types.minDate;
+        state.date_received_max = startOfToday();
         expect(target(state, dateIntervalChanged('Day'))).toEqual({
           ...state,
           dateInterval: 'Week',
@@ -421,10 +435,14 @@ describe('reducer:query', () => {
 
       it('handles 1y range', () => {
         action = '1y';
-        result = target({ ...queryState }, dateRangeChanged(action));
+        result = target(
+          { ...queryState, dateLastIndexed: '2020-05-05' },
+          dateRangeChanged(action),
+        );
         expect(result).toEqual({
           ...queryState,
           dateInterval: 'Month',
+          dateLastIndexed: '2020-05-05',
           dateRange: '1y',
           date_received_max: '2020-05-05',
           date_received_min: '2019-05-05',
@@ -437,10 +455,14 @@ describe('reducer:query', () => {
 
       it('default range handling', () => {
         action = 'foo';
-        result = target({ ...queryState }, dateRangeChanged(action));
+        result = target(
+          { ...queryState, dateLastIndexed: '2020-05-05' },
+          dateRangeChanged(action),
+        );
         // only set max date
         expect(result).toEqual({
           ...queryState,
+          dateLastIndexed: '2020-05-05',
           dateRange: '3y',
           date_received_min: '2017-05-05',
           date_received_max: '2020-05-05',
@@ -456,12 +478,14 @@ describe('reducer:query', () => {
     it('resets dates and pagination', () => {
       state = {
         ...queryState,
+        dateLastIndexed: '2020-05-05',
         page: 10,
         size: 100,
       };
       expect(target(state, filtersCleared())).toEqual({
         ...state,
         dateRange: 'All',
+        date_received_max: '2020-05-05',
         date_received_min: minDate,
         page: 1,
       });

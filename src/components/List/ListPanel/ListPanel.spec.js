@@ -18,6 +18,7 @@ import { MODE_LIST } from '../../../constants';
 describe('ListPanel', () => {
   const renderComponent = (newQueryState, newViewState) => {
     newViewState.tab = MODE_LIST;
+    newQueryState.dateLastIndexed = '2020-01-01';
     merge(newQueryState, queryState);
     merge(newViewState, viewState);
     const data = {
@@ -42,7 +43,7 @@ describe('ListPanel', () => {
 
   test('Render ListPanel with no results', () => {
     fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
-    renderComponent(queryState, viewState);
+    renderComponent({}, viewState);
 
     expect(
       screen.getByRole('heading', {
@@ -53,7 +54,7 @@ describe('ListPanel', () => {
 
   test('Render ListPanel with an error', async () => {
     fetchMock.mockReject(new Error('Something broke'));
-    renderComponent(queryState, {});
+    renderComponent({}, {});
 
     await screen.findByText(/There was a problem executing your search/);
     expect(
@@ -65,7 +66,7 @@ describe('ListPanel', () => {
     fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
     fetchMock.mockResponseOnce(JSON.stringify(listResponse));
 
-    renderComponent(queryState, {});
+    renderComponent({}, {});
 
     const elements = await screen.findAllByText('EQUIFAX, INC.');
     expect(elements).toHaveLength(25);
@@ -118,7 +119,7 @@ describe('ListPanel', () => {
   test('FilterPanel showed when width is 500', () => {
     const newViewState = { width: 500 };
 
-    renderComponent(queryState, newViewState);
+    renderComponent({}, newViewState);
 
     expect(screen.getByText('Filter results by...')).toBeInTheDocument();
   });
@@ -140,7 +141,7 @@ describe('ListPanel', () => {
         });
       }
     });
-    renderComponent(queryState, newViewState);
+    renderComponent({}, newViewState);
 
     await screen.findByRole('button', { name: 'Export data' });
     expect(screen.queryByText('Filter results by...')).not.toBeInTheDocument();

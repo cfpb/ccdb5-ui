@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+import { waitForLoading } from '../utils';
+
 describe('Search Bar', () => {
   const searchBar = '.search-bar';
   const searchFieldDropDown = '#searchField';
@@ -8,32 +10,25 @@ describe('Search Bar', () => {
     'api/v1/_suggest_company/**';
 
   beforeEach(() => {
-    let request = '?**&size=0';
     let fixture = { fixture: 'common/get-aggs.json' };
+    let request = '?field=all&size=0';
+    cy.intercept('GET', request, fixture).as('metadata');
+    request = '?**&field=all&size=0';
     cy.intercept('GET', request, fixture).as('getAggs');
-
     request = '?**&sort=created_date_desc';
     fixture = { fixture: 'common/get-complaints.json' };
     cy.intercept(request, fixture).as('getComplaints');
-
-    request = '**/ccdb/metadata.js';
-    fixture = { fixture: 'metadata.json' };
-    cy.intercept(request, fixture).as('metadata');
-
     cy.visit('?tab=List');
-    cy.wait('@metadata');
-    cy.wait('@getAggs');
-    cy.wait('@getComplaints');
+    waitForLoading();
   });
 
   it('has a search bar', () => {
     cy.get(searchBar).should('be.visible');
 
     cy.get(searchFieldDropDown).select('company');
-    cy.wait('@getComplaints');
-
+    waitForLoading();
     cy.get(searchFieldDropDown).select('complaint_what_happened');
-    cy.wait('@getComplaints');
+    waitForLoading();
   });
 
   describe('Typeaheads', () => {
@@ -49,8 +44,7 @@ describe('Search Bar', () => {
     it('has no typeahead functionality in Narratives', () => {
       cy.intercept(typeAheadRequest, { body: [] }).as('typeahead');
       cy.get(searchFieldDropDown).select('complaint_what_happened');
-      cy.wait('@getComplaints');
-
+      waitForLoading();
       cy.findByPlaceholderText('Enter your search term(s)').clear();
       cy.findByPlaceholderText('Enter your search term(s)').type('bank', {
         delay: 200,
@@ -67,8 +61,7 @@ describe('Search Bar', () => {
         ],
       }).as('typeahead');
       cy.get(searchFieldDropDown).select('company');
-      cy.wait('@getComplaints');
-
+      waitForLoading();
       cy.findByPlaceholderText('Enter your search term(s)').clear();
       cy.findByPlaceholderText('Enter your search term(s)').type('bank', {
         delay: 200,

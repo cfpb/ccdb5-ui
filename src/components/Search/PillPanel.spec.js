@@ -4,7 +4,12 @@ import { merge } from '../../testUtils/functionHelpers';
 import { filtersState } from '../../reducers/filters/filtersSlice';
 import { queryState } from '../../reducers/query/querySlice';
 
-const renderComponent = (newFiltersState, newQueryState) => {
+const renderComponent = (newFiltersState) => {
+  const newQueryState = {
+    dateLastIndexed: '2025-01-01',
+    date_received_max: '2020-05-05',
+    date_received_min: '2017-05-05',
+  };
   merge(newFiltersState, filtersState);
   merge(newQueryState, queryState);
 
@@ -18,13 +23,10 @@ const renderComponent = (newFiltersState, newQueryState) => {
 };
 describe('component: PillPanel', () => {
   it('renders without crashing', () => {
-    renderComponent(
-      {
-        company: ['Apples', 'Bananas are great'],
-        timely: ['Yes'],
-      },
-      {},
-    );
+    renderComponent({
+      company: ['Apples', 'Bananas are great'],
+      timely: ['Yes'],
+    });
     expect(screen.getByText('Filters applied:')).toBeInTheDocument();
     expect(
       screen.getByRole('button', {
@@ -51,7 +53,7 @@ describe('component: PillPanel', () => {
   });
 
   it('adds a has narrative pill', () => {
-    renderComponent({ has_narrative: true }, {});
+    renderComponent({ has_narrative: true });
     expect(
       screen.getByRole('button', {
         name: /Has narrative/,

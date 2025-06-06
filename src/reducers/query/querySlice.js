@@ -1,5 +1,5 @@
 import * as types from '../../constants';
-import { maxDate, minDate } from '../../constants';
+import { minDate } from '../../constants';
 import {
   calculateDateRange,
   coalesce,
@@ -23,6 +23,7 @@ import {
 } from '../filters/filtersSlice';
 import { tabChanged } from '../view/viewSlice';
 import queryString from 'query-string';
+import { complaintsApi } from '../../api/complaints';
 
 // ----------------------------------------------------------------------------
 // Helper functions
@@ -35,12 +36,13 @@ import queryString from 'query-string';
  */
 export function alignDateRange(state) {
   // Shorten the input field names
+  const dateLastIndexed = state.dateLastIndexed || startOfToday();
   const dateMax = state.date_received_max;
   const dateMin = state.date_received_min;
 
   // All
   if (
-    dayjs(dateMax).isSame(queryState.date_received_max) &&
+    dayjs(dateMax).isSame(dateLastIndexed) &&
     dayjs(dateMin).isSame(types.DATE_RANGE_MIN)
   ) {
     state.dateRange = 'All';
@@ -257,11 +259,10 @@ export const queryState = {
   company_received_max: '',
   company_received_min: '',
   dateInterval: 'Month',
-  dateRange: '3y',
-  date_received_max: formatDate(dayjs(startOfToday())),
-  date_received_min: formatDate(
-    new Date(dayjs(startOfToday()).subtract(3, 'years')),
-  ),
+  dateRange: '',
+  dateLastIndexed: '',
+  date_received_max: '',
+  date_received_min: '',
   from: 0,
   page: 1,
   searchAfter: '',
@@ -345,7 +346,11 @@ export const querySlice = createSlice({
           state.date_received_min !== minDate ||
           state.date_received_max !== maxDate;
 
-        const dateRange = calculateDateRange(minDate, maxDate);
+        const dateRange = calculateDateRange(
+          minDate,
+          maxDate,
+          state.dateLastIndexed,
+        );
 
         if (dateRange && datesChanged) {
           state.dateRange = dateRange;
@@ -423,7 +428,7 @@ export const querySlice = createSlice({
         state.company_received_max = '';
         state.company_received_min = '';
         state.date_received_min = minDate;
-        state.date_received_max = maxDate;
+        state.date_received_max = state.dateLastIndexed;
         state.company_received_max = '';
         state.company_received_min = '';
       })
@@ -448,6 +453,12 @@ export const querySlice = createSlice({
             typeof params[field] !== 'undefined' &&
             dayjs(params[field]).isValid()
           ) {
+            console.log(
+              field,
+              dayjs(params[field]).isValid(),
+              params[field],
+              toDate(params[field]),
+            );
             state[field] = toDate(params[field]);
           }
         });
@@ -469,6 +480,28 @@ export const querySlice = createSlice({
         }
         alignDateRange(state);
       })
+      .addMatcher(
+        complaintsApi.endpoints.getMeta.matchFulfilled,
+        (state, { payload }) => {
+          state.dateLastIndexed = dayjs(payload._meta.last_updated)
+            .startOf('day')
+            .format('YYYY-MM-DD');
+
+          window.MAX_DATE = formatDate(
+            dayjs(state.dateLastIndexed).startOf('day'),
+          );
+
+          // set defaults if the value is not set yet
+          if (!state.date_received_max) {
+            state.date_received_max = formatDate(dayjs(state.dateLastIndexed));
+          }
+          if (!state.date_received_min) {
+            state.date_received_min = formatDate(
+              new Date(dayjs(state.dateLastIndexed).subtract(3, 'years')),
+            );
+          }
+        },
+      )
       .addMatcher(
         isAnyOf(
           /*eslint no-use-before-define: ["error", { "variables": false }]*/

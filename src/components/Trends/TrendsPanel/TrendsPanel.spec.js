@@ -1,4 +1,4 @@
-import { testRender as render, screen } from '../../../testUtils/test-utils';
+import { screen, testRender as render } from '../../../testUtils/test-utils';
 import * as d3 from 'd3';
 import { merge } from '../../../testUtils/functionHelpers';
 import { buildFluentMock } from '../../Charts/__fixtures__/buildFluentMock';
@@ -52,8 +52,9 @@ describe('component::TrendsPanel', () => {
     fetchMock.resetMocks();
     query = {
       dateInterval: 'Month',
+      dateLastIndexed: '2021-04-01',
       date_received_min: '2018-01-01',
-      date_received_max: '2021/01/01',
+      date_received_max: '2021-01-01',
       trendsDateWarningEnabled: false,
     };
     view = {
@@ -100,8 +101,9 @@ describe('component::TrendsPanel', () => {
     };
     const query = {
       dateInterval: 'Month',
+      dateLastIndexed: '2021-04-01',
       date_received_min: '2018-01-01',
-      date_received_max: '2021/01/01',
+      date_received_max: '2021-01-01',
       trendsDateWarningEnabled: false,
     };
 
@@ -172,6 +174,7 @@ describe('component::TrendsPanel', () => {
       breakPoints: {},
       dateInterval: 'Quarter',
       dateRange: '1y',
+      dateLastIndexed: '2024-11-11',
       date_received_max: '2024-10-07',
       date_received_min: '2023-10-07',
       from: 0,
@@ -283,8 +286,9 @@ describe('component::TrendsPanel', () => {
     };
     const query = {
       dateInterval: 'Month',
+      dateLastIndexed: '2021-01-03',
       date_received_min: '2018-01-01',
-      date_received_max: '2021/01/01',
+      date_received_max: '2021-01-01',
       trendsDateWarningEnabled: false,
     };
 

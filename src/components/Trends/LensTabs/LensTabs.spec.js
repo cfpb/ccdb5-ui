@@ -10,9 +10,14 @@ import * as trendsActions from '../../../reducers/trends/trendsSlice';
 import fetchMock from 'jest-fetch-mock';
 import { focusProductTrends } from '../FocusHeader/fixture';
 import { MODE_TRENDS } from '../../../constants';
+import { queryState } from '../../../reducers/query/querySlice';
 const renderComponent = (newTrendsState) => {
+  const newQueryState = { dateLastIndexed: '2024-10-07' };
   merge(newTrendsState, trendsState);
+  merge(newQueryState, queryState);
+
   const data = {
+    query: newQueryState,
     routes: { queryString: '?sdfsd' },
     trends: newTrendsState,
     view: { tab: MODE_TRENDS },

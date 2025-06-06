@@ -4,9 +4,9 @@ import {
   clamp,
   coalesce,
   debounce,
+  enablePer1000,
   formatPercentage,
   getFullUrl,
-  enablePer1000,
   hashCode,
   processErrorMessage,
   sendAnalyticsEvent,
@@ -15,7 +15,6 @@ import {
   startOfToday,
 } from './index';
 import Analytics from '../actions/analytics';
-import MockDate from 'mockdate';
 import { DATE_RANGE_MIN } from '../constants';
 import dayjs from 'dayjs';
 import dayjsCalendar from 'dayjs/plugin/calendar';
@@ -252,36 +251,10 @@ describe('module::utils', () => {
   });
 
   describe('startOfToday', () => {
-    let origMaxDate;
-    beforeAll(() => {
-      origMaxDate = window.MAX_DATE;
-    });
-
-    beforeEach(() => {
-      delete window.MAX_DATE;
-      delete window.complaint_public_metadata;
-    });
-
-    afterAll(() => {
-      window.MAX_DATE = origMaxDate;
-    });
-
-    it('sets MAX_DATE from the metadata', () => {
-      window.complaint_public_metadata = {
-        metadata_timestamp: '2020-05-09 02:39:23',
-        qas_timestamp: '2020-05-08 23:48:52',
-        total_count: 2611545,
-      };
-
-      const actual = startOfToday();
-      expect(dayjs(actual).toISOString()).toBe('2020-05-09T00:00:00.000Z');
-    });
-
     it('defaults MAX_DATE if the metadata is missing', () => {
-      MockDate.set(dayjs('5/1/2020').utc());
-
       const actual = startOfToday();
-      expect(dayjs(actual).toISOString()).toBe('2020-05-01T00:00:00.000Z');
+      // this date is set in setupTests.js
+      expect(dayjs(actual).toISOString()).toBe('2020-05-05T00:00:00.000Z');
     });
   });
 

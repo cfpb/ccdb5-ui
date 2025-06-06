@@ -7,6 +7,7 @@ import {
 import Analytics from '../actions/analytics';
 import dayjs from 'dayjs';
 import queryString from 'query-string';
+import { formatDate } from './formatDate';
 
 /**
  * Breaks up '123' to '1 2 3' to help screen readers read digits individually
@@ -19,13 +20,11 @@ export function ariaReadoutNumbers(digits) {
   return Array.from(digits || '').join(' ');
 }
 
-/* eslint-disable no-console */
-
 // eslint-disable-next-line complexity
-export const calculateDateRange = (minDate, maxDate) => {
+export const calculateDateRange = (minDate, maxDate, dateLastIndexed) => {
   // only check intervals if the end date is today
   // round off the date so the partial times don't mess up calculations
-  const today = dayjs(startOfToday());
+  const today = dayjs(dateLastIndexed);
   const end = dayjs(maxDate).startOf('day');
   const start = dayjs(minDate).startOf('day');
 
@@ -251,25 +250,16 @@ export function shortIsoFormat(date) {
 }
 
 /**
- * Gets the UTC time for the beginning of the day in the local time zone
+ * This value gets set in the querySlice reducer listening to RTKQuery getMeta hook
  *
  * @returns {string} midnight today, local
  */
 export function startOfToday() {
-  if (!Object.prototype.hasOwnProperty.call(window, 'MAX_DATE')) {
-    if (
-      Object.prototype.hasOwnProperty.call(window, 'complaint_public_metadata')
-    ) {
-      const { metadata_timestamp: stamp } = window.complaint_public_metadata;
-      window.MAX_DATE = new Date(dayjs(stamp).startOf('day').toString());
-    } else {
-      console.error('complaint_public_metadata is missing');
-      window.MAX_DATE = new Date(dayjs().startOf('day').toString());
-    }
+  if (!window.MAX_DATE) {
+    console.error('waiting for API response, setting MAX_DATE to today');
+    window.MAX_DATE = formatDate(dayjs().startOf('day'));
   }
-
-  // Always return a clone so the global is not exposed or changed
-  return new Date(window.MAX_DATE.valueOf());
+  return window.MAX_DATE;
 }
 
 // ----------------------------------------------------------------------------

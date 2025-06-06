@@ -115,12 +115,13 @@ const synchUrl = (store) => (next) => (action) => {
   // Pass the action forward in the chain
 
   const result = next(action);
-
-  if (action.type === 'routes/routeChanged') {
-    return result;
-  }
   // Get the current state
   const state = store.getState();
+
+  if (action.type === 'routes/routeChanged' || !state.query.dateLastIndexed) {
+    return result;
+  }
+
   const params = extractQueryStringParams(state);
   // See if processing should continue
   // Update the application

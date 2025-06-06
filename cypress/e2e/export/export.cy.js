@@ -1,3 +1,5 @@
+import { waitForLoading } from '../utils';
+
 describe('Complaint export', () => {
   const currentPage = '.m-pagination__label';
   const nextButton = '.m-pagination .m-pagination__btn-next';
@@ -16,8 +18,7 @@ describe('Complaint export', () => {
     cy.intercept('GET', request, fixture).as('getAggs');
 
     cy.visit('?size=10&searchText=debt%20recovery&tab=List');
-    cy.wait('@getComplaints');
-    cy.wait('@getAggs');
+    waitForLoading();
   });
 
   it('sends user to an export link without pagination params', () => {

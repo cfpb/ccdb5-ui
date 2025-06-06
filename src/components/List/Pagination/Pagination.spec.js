@@ -35,6 +35,7 @@ describe('Pagination', () => {
       .mockImplementation(() => jest.fn());
     fetchMock.mockResponseOnce(JSON.stringify(listResponseP1));
     renderComponent({
+      dateLastIndexed: '2020-05-05',
       page: 1,
     });
     await screen.findByText('Page 1');
@@ -50,6 +51,7 @@ describe('Pagination', () => {
     fetchMock.mockResponseOnce(JSON.stringify(listResponseP2));
 
     renderComponent({
+      dateLastIndexed: '2020-05-05',
       page: 2,
     });
 
@@ -61,7 +63,7 @@ describe('Pagination', () => {
   });
 
   test('hides when there are no results', () => {
-    renderComponent({ page: 1 });
+    renderComponent({ dateLastIndexed: '2020-05-05', page: 1 });
     expect(
       screen.queryByRole('button', { name: /Next/ }),
     ).not.toBeInTheDocument();

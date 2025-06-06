@@ -1,6 +1,6 @@
 import {
-  testRender as render,
   screen,
+  testRender as render,
   waitFor,
 } from '../../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
@@ -25,7 +25,7 @@ describe('CompanyTypeahead', () => {
       .spyOn(filterActions, 'multipleFiltersAdded')
       .mockImplementation(() => jest.fn());
 
-    render(<CompanyTypeahead />);
+    render(<CompanyTypeahead id="filter-company" />);
     const input = screen.getByPlaceholderText('Enter company name');
     await user.type(input, 'Tr');
     const option = await screen.findByRole('option', {

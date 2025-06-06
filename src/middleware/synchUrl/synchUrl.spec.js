@@ -35,6 +35,7 @@ describe('redux middleware::synchUrl', () => {
   beforeEach(() => {
     rSpy = jest.spyOn(routesActions, 'appUrlChanged');
     targetState = structuredClone(emptyStore);
+    targetState.query.dateLastIndexed = '2021-05-05';
     targetState.query.date_received_min = '09-12-1980';
     targetState.query.date_received_max = '09-20-2000';
     targetState.view.tab = MODE_LIST;
@@ -53,7 +54,6 @@ describe('redux middleware::synchUrl', () => {
     expect(rSpy).toHaveBeenCalledWith('/', {
       date_received_max: '09-20-2000',
       date_received_min: '09-12-1980',
-      dateRange: '3y',
       page: 1,
       product: ['foo', 'bar'],
       searchField: 'all',
@@ -73,7 +73,6 @@ describe('redux middleware::synchUrl', () => {
       dateInterval: 'Month',
       date_received_max: '09-20-2000',
       date_received_min: '09-12-1980',
-      dateRange: '3y',
       lens: 'Product',
       product: ['foo', 'bar'],
       searchField: 'all',
@@ -90,7 +89,6 @@ describe('redux middleware::synchUrl', () => {
       dataNormalization: 'None',
       date_received_max: '09-20-2000',
       date_received_min: '09-12-1980',
-      dateRange: '3y',
       mapWarningEnabled: true,
       product: ['foo', 'bar'],
       searchField: 'all',

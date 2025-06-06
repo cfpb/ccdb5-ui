@@ -26,13 +26,14 @@ describe('PrintInfo', () => {
   });
 
   it('renders default state', () => {
-    renderComponent({}, {});
+    renderComponent({ dateLastIndexed: '2024-10-07' }, {});
     expect(screen.queryByText('Dates:')).not.toBeInTheDocument();
     expect(screen.queryByText('5/5/2017 - 5/5/2020')).not.toBeInTheDocument();
   });
 
   it('renders filtered complaints', async () => {
     const newQuery = {
+      dateLastIndexed: '2024-10-07',
       date_received_max: '2020-03-05T05:00:00.000Z',
       date_received_min: '2017-03-05T05:00:00.000Z',
       searchText: 'foobar',
