@@ -5,22 +5,13 @@ import { formatDisplayDate } from '../../utils/formatDate';
 import { useGetAggregations } from '../../api/hooks/useGetAggregations';
 
 export const SearchPanel = () => {
-  const { data, isLoading, isFetching } = useGetAggregations();
-
-  if (isLoading || isFetching) {
-    return null;
-  }
-
+  const { data } = useGetAggregations();
   const lastIndexed = data?.lastIndexed;
-  let lastIndexedMessage = null;
-
-  if (lastIndexed) {
-    lastIndexedMessage = (
-      <span className="date-subscript">
-        (last updated: {formatDisplayDate(lastIndexed)})
-      </span>
-    );
-  }
+  const lastIndexedMessage = lastIndexed ? (
+    <span className="date-subscript">
+      (last updated: {formatDisplayDate(lastIndexed)})
+    </span>
+  ) : null;
 
   return (
     <div className="search-panel">

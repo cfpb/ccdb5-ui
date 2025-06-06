@@ -1,4 +1,8 @@
-import { clamp, removeNullProperties } from '../../utils';
+import {
+  clamp,
+  escapeElasticsearchCharacters,
+  removeNullProperties,
+} from '../../utils';
 import { enforceValues } from '../../utils/reducers';
 // ----------------------------------------------------------------------------
 // return parameter objects
@@ -113,7 +117,7 @@ export function extractQueryParams(queryState) {
 
   /* istanbul ignore else */
   if (query.searchText) {
-    params.search_term = query.searchText;
+    params.search_term = escapeElasticsearchCharacters(query.searchText);
   }
 
   if (query.searchAfter) {

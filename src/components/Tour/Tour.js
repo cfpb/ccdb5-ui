@@ -16,6 +16,7 @@ import { useGetAggregations } from '../../api/hooks/useGetAggregations';
 import { useGetMap } from '../../api/hooks/useGetMap';
 import { useGetList } from '../../api/hooks/useGetList';
 import { useGetTrends } from '../../api/hooks/useGetTrends';
+import { isTrue } from '../../utils';
 
 export const Tour = () => {
   const dispatch = useDispatch();
@@ -33,16 +34,17 @@ export const Tour = () => {
   const viewWidth = useSelector(selectViewWidth);
   const stepRef = useRef();
   // ORing all of these to prevent complexity warning
-  const isLoading = [
+  const isLoading = isTrue([
     aggsLoading,
     aggsFetching,
+    isPrintMode,
     mapLoading,
     mapFetching,
     resultsLoading,
     resultsFetching,
     trendsLoading,
     trendsFetching,
-  ].some((val) => val);
+  ]);
 
   const mobileStepOpen = {
     disableInteraction: false,
@@ -167,7 +169,7 @@ export const Tour = () => {
     }
   }
 
-  return isPrintMode || isLoading ? null : (
+  return isLoading ? null : (
     <>
       <TourButton />
       <Steps

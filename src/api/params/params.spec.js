@@ -26,7 +26,7 @@ describe('api.v2.params', () => {
     });
 
     it('handles search text', () => {
-      fixtureStore.query.searchText = 'foo';
+      fixtureStore.query.searchText = 'savings / loan';
       actual = sut.extractAggregationParams(
         fixtureStore.filters,
         fixtureStore.query,
@@ -35,7 +35,7 @@ describe('api.v2.params', () => {
         date_received_max: '2018-01-01',
         date_received_min: '2011-07-21',
         field: 'all',
-        search_term: 'foo',
+        search_term: 'savings \\/ loan',
         size: 0,
       });
     });
