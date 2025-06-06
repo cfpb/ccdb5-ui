@@ -1,9 +1,5 @@
 import { TileChartMap } from './TileChartMap';
-import {
-  testRender as render,
-  fireEvent,
-  screen,
-} from '../../../testUtils/test-utils';
+import { testRender as render, screen } from '../../../testUtils/test-utils';
 import { merge } from '../../../testUtils/functionHelpers';
 import { filtersState } from '../../../reducers/filters/filtersSlice';
 import fetchMock from 'jest-fetch-mock';
@@ -12,8 +8,10 @@ import { mapResults } from './__fixtures__/mapResults';
 import { GEO_NORM_PER1000, MODE_MAP } from '../../../constants';
 import * as analyticsActions from '../../../utils';
 import * as filterActions from '../../../reducers/filters/filtersSlice';
+import userEvent from '@testing-library/user-event';
 
 describe('TileChartMap', () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const renderComponent = (newFiltersState, newViewState) => {
     newViewState.tab = MODE_MAP;
     merge(newFiltersState, filtersState);
@@ -46,7 +44,7 @@ describe('TileChartMap', () => {
   });
 
   it('renders map with complaint counts', async () => {
-    fetchMock.mockResponseOnce(JSON.stringify(mapResults));
+    fetchMock.mockResponse(JSON.stringify(mapResults));
     const analyticsSpy = jest
       .spyOn(analyticsActions, 'sendAnalyticsEvent')
       .mockImplementation(() => jest.fn());
@@ -66,13 +64,12 @@ describe('TileChartMap', () => {
     expect(screen.getByTestId('tile-chart-map')).not.toHaveClass('print');
     expect(screen.getByText('FL')).toBeInTheDocument();
     expect(screen.getByText('580,351')).toBeInTheDocument();
+    expect(screen.getByLabelText('FL, value: 580,351.')).toBeInTheDocument();
+    await user.click(screen.getByLabelText('FL, value: 580,351.'));
 
-    // need to mouseover to initialize the toggleState handler
-    fireEvent.mouseEnter(screen.getByLabelText('FL, value: 580,351.'));
-    fireEvent.click(screen.getByLabelText('FL, value: 580,351.'));
-
+    // upgrading highcharts to v12 will cause these tests to fail.
+    // _toggleState handler will not called in tests
     expect(analyticsSpy).toHaveBeenCalledWith('State Event: add', 'FL');
-
     expect(addStateFilterSpy).toHaveBeenCalledWith({
       abbr: 'FL',
       name: 'Florida',
@@ -104,19 +101,16 @@ describe('TileChartMap', () => {
     expect(screen.getByTestId('tile-chart-map')).not.toHaveClass('print');
 
     await screen.findByLabelText('FL, value: 580,351.');
-
+    expect(screen.getByLabelText('FL, value: 580,351.')).toBeInTheDocument();
     expect(screen.getByText('Complaints per 1,000')).toBeInTheDocument();
     expect(screen.getByText('FL')).toBeInTheDocument();
     expect(screen.getByText('28.62')).toBeInTheDocument();
-
     // tooltip check
-    fireEvent.mouseEnter(screen.getByLabelText('FL, value: 580,351.'));
-
+    await user.hover(screen.getByLabelText('FL, value: 580,351.'));
     expect(
       screen.getByText('Product with highest complaint volume'),
     ).toBeVisible();
-
-    fireEvent.click(screen.getByLabelText('FL, value: 580,351.'));
+    await user.click(screen.getByLabelText('FL, value: 580,351.'));
     expect(analyticsSpy).toHaveBeenCalledWith('State Event: add', 'FL');
     expect(addStateFilterSpy).toHaveBeenCalledWith({
       abbr: 'FL',
@@ -125,7 +119,7 @@ describe('TileChartMap', () => {
   });
 
   it('removes map filters when state filters exist', async () => {
-    fetchMock.mockResponseOnce(JSON.stringify(mapResults));
+    fetchMock.mockResponse(JSON.stringify(mapResults));
 
     const analyticsSpy = jest
       .spyOn(analyticsActions, 'sendAnalyticsEvent')
@@ -147,13 +141,9 @@ describe('TileChartMap', () => {
     renderComponent(newFilters, newView);
     expect(screen.getByTestId('tile-chart-map')).toBeInTheDocument();
     expect(screen.getByTestId('tile-chart-map')).not.toHaveClass('print');
-
-    expect(await screen.findByText('FL')).toBeInTheDocument();
-    expect(await screen.findByText('580,351')).toBeInTheDocument();
-
-    // need to mouseEnter to initialize the toggleState handler!
-    fireEvent.mouseEnter(screen.getByLabelText('FL, value: 580,351.'));
-    fireEvent.click(screen.getByLabelText('FL, value: 580,351.'));
+    await screen.findByLabelText('FL, value: 580,351.');
+    expect(screen.getByLabelText('FL, value: 580,351.')).toBeInTheDocument();
+    await user.click(screen.getByLabelText('FL, value: 580,351.'));
     expect(analyticsSpy).toHaveBeenCalledWith('State Event: remove', 'FL');
     expect(removeStateFilterSpy).toHaveBeenCalledWith({
       abbr: 'FL',
@@ -162,7 +152,7 @@ describe('TileChartMap', () => {
   });
 
   it('removes per capita map filters when state filters exist', async () => {
-    fetchMock.mockResponseOnce(JSON.stringify(mapResults));
+    fetchMock.mockResponse(JSON.stringify(mapResults));
     const analyticsSpy = jest
       .spyOn(analyticsActions, 'sendAnalyticsEvent')
       .mockImplementation(() => jest.fn());
@@ -186,18 +176,14 @@ describe('TileChartMap', () => {
     expect(screen.getByTestId('tile-chart-map')).not.toHaveClass('print');
     expect(await screen.findByText('FL')).toBeInTheDocument();
     expect(await screen.findByText('28.62')).toBeInTheDocument();
-
+    expect(screen.getByLabelText('FL, value: 580,351.')).toBeInTheDocument();
     expect(screen.getByLabelText('OK, value: 20,067.')).toHaveClass(
       'deselected',
     );
     expect(screen.getByLabelText('FL, value: 580,351.')).toHaveClass(
       'selected',
     );
-
-    // need to mouseEnter to initialize the toggleState handler!
-    fireEvent.mouseEnter(screen.getByLabelText('FL, value: 580,351.'));
-    fireEvent.click(screen.getByLabelText('FL, value: 580,351.'));
-
+    await user.click(screen.getByLabelText('FL, value: 580,351.'));
     expect(analyticsSpy).toHaveBeenCalledWith('State Event: remove', 'FL');
     expect(removeStateFilterSpy).toHaveBeenCalledWith({
       abbr: 'FL',

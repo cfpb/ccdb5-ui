@@ -1,6 +1,6 @@
 import './ComplaintCard.scss';
 import { ariaReadoutNumbers } from '../../../utils';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { formatDisplayDate } from '../../../utils/formatDate';
 

@@ -1,7 +1,7 @@
 import { render as rtlRender } from '@testing-library/react';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
-import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import { BrowserRouter, MemoryRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import actions from '../reducers/actions/actionsSlice';
 import filters from '../reducers/filters/filtersSlice';

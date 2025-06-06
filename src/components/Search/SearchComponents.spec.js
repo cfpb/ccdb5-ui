@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { MemoryRouter, Route, Routes } from 'react-router';
 import { Provider } from 'react-redux';
 import { SearchComponents } from './SearchComponents';
 import fetchMock from 'jest-fetch-mock';

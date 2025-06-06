@@ -1,7 +1,7 @@
 import App from './App';
 import { Provider } from 'react-redux';
 import 'regenerator-runtime/runtime';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { MemoryRouter, Route, Routes } from 'react-router';
 import { render, screen } from '@testing-library/react';
 import * as useUpdateLocationHook from './hooks/useUpdateLocation';
 import { ComplaintDetail } from './components/ComplaintDetail/ComplaintDetail';

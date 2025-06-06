@@ -6,7 +6,7 @@ import {
 import { merge } from '../../testUtils/functionHelpers';
 import { routesState } from '../../reducers/routes/routesSlice';
 import fetchMock from 'jest-fetch-mock';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router';
 
 const fixture = {
   took: 1,
