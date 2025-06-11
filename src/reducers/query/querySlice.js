@@ -497,9 +497,10 @@ export const querySlice = createSlice({
           }
           if (!state.date_received_min) {
             state.date_received_min = formatDate(
-              new Date(dayjs(state.dateLastIndexed).subtract(3, 'years')),
+              dayjs(state.dateLastIndexed).subtract(3, 'years'),
             );
           }
+          alignDateRange(state);
         },
       )
       .addMatcher(
