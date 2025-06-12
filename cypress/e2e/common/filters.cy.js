@@ -1,25 +1,20 @@
 /// <reference types="cypress" />
 
-import dayjs from 'dayjs';
+import { waitForLoading } from '../utils';
 
 describe('Filter Panel', () => {
   beforeEach(() => {
-    let request = '?**&size=0';
     let fixture = { fixture: 'common/get-aggs.json' };
+    let request = '?field=all&size=0';
+    cy.intercept('GET', request, fixture).as('metadata');
+    request = '?**&field=all&size=0';
     cy.intercept('GET', request, fixture).as('getAggs');
 
     request = '?**&sort=created_date_desc';
     fixture = { fixture: 'common/get-complaints.json' };
     cy.intercept(request, fixture).as('getComplaints');
-
-    request = '**/ccdb/metadata.js';
-    fixture = { fixture: 'metadata.json' };
-    cy.intercept(request, fixture).as('metadata');
-
     cy.visit('?tab=List');
-    cy.wait('@metadata');
-    cy.wait('@getAggs');
-    cy.wait('@getComplaints');
+    waitForLoading();
   });
 
   describe('Date Received Filter', () => {
@@ -37,9 +32,7 @@ describe('Filter Panel', () => {
       request = '?date_received_max=2020-10-31**';
       fixture = { fixture: 'common/get-complaints-date-to.json' };
       cy.intercept(request, fixture).as('getComplaintsDateTo');
-
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(500);
+      waitForLoading();
       cy.log('is expanded');
 
       cy.get('#date_received-from').should('be.visible');
@@ -52,33 +45,30 @@ describe('Filter Panel', () => {
       cy.log('open it');
       cy.get('.date-filter > button.o-expandable__header:first').click();
       cy.log('apply dates');
-
+      cy.get('#date_received-from').should('be.visible');
       cy.get('#date_received-from').clear();
+      waitForLoading();
 
       // electron / chrome headed version
       cy.get('#date_received-from').type('2015-09-11');
       cy.get('#date_received-from').blur();
-
-      cy.wait('@getComplaintsDateFrom');
+      waitForLoading();
 
       cy.url().should('include', 'date_received_min=2015-09-11');
 
       cy.log('apply a through date');
 
       cy.get('#date_received-through').clear();
-
+      waitForLoading();
       cy.get('#date_received-through').type('2020-10-31');
       cy.get('#date_received-through').blur();
 
       cy.url().should('include', 'date_received_max=2020-10-31');
-
-      cy.wait('@getComplaintsDateTo');
-
+      waitForLoading();
       // check error handling and default values
       cy.get('#date_received-from').type('2000-09-11');
       cy.get('#date_received-from').blur();
-
-      cy.wait('@getComplaintsDateFrom');
+      waitForLoading();
       cy.url().should('include', 'date_received_min=2011-12-01');
     });
 
@@ -88,19 +78,16 @@ describe('Filter Panel', () => {
       cy.intercept(request, fixture).as('getGeo');
 
       cy.get('button.map').click();
-      cy.wait('@getGeo');
-      const maxDate = dayjs(new Date()).format('YYYY-MM-DD');
-      let minDate = dayjs(new Date()).subtract(3, 'years').format('YYYY-MM-DD');
+      waitForLoading();
       cy.get('.date-ranges .a-btn.range-3y').contains('3y').click();
       cy.url().should(
         'include',
-        `date_received_max=${maxDate}&date_received_min=${minDate}`,
+        `date_received_max=2021-12-14&date_received_min=2018-12-14`,
       );
-      minDate = dayjs(new Date()).subtract(6, 'months').format('YYYY-MM-DD');
       cy.get('.date-ranges .a-btn.range-6m').contains('6m').click();
       cy.url().should(
         'include',
-        `date_received_max=${maxDate}&date_received_min=${minDate}`,
+        `date_received_max=2021-12-14&date_received_min=2021-06-14`,
       );
     });
   });
@@ -109,22 +96,20 @@ describe('Filter Panel', () => {
     it('can expand/collapse/apply filter group', () => {
       // default date Filter pills
       cy.get('.pill-panel .pill').should('have.length', 1);
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(750);
+      waitForLoading();
 
       cy.log('close simple filter, as it is open by default');
 
       // Close it
-      cy.get('.timely > .o-expandable__header').should('be.visible').click();
+      cy.get('.timely > .o-expandable__header').should('be.visible');
+      cy.get('.timely > .o-expandable__header').click();
       cy.get(
         '.timely > .o-expandable__content > ul > :nth-child(1) > .a-label',
       ).should('not.exist');
 
       cy.log('open it again');
       cy.get('.timely > .o-expandable__header').click();
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(750);
-
+      waitForLoading();
       cy.get(
         '.timely > .o-expandable__content > ul > :nth-child(1) > .a-label',
       ).should('be.visible');
@@ -140,7 +125,8 @@ describe('Filter Panel', () => {
       cy.get('.pill-panel .pill').contains('Timely: Yes').should('exist');
 
       // Filter clear button
-      cy.get('li.clear-all').should('exist').click();
+      cy.get('li.clear-all').should('exist');
+      cy.get('li.clear-all').click();
 
       cy.get('.pill-panel .pill').should('not.exist');
 
@@ -182,14 +168,13 @@ describe('Filter Panel', () => {
       cy.log('toggles a filter by clicking checkbox input');
       cy.log('add filter');
       cy.get('input#product-mortgage').click({ force: true });
-
-      cy.wait('@getAggs');
+      waitForLoading();
 
       cy.get('.pill-panel .pill').contains('Mortgage').should('exist');
       cy.url().should('include', 'product=Mortgage');
       cy.log('remove filter');
       cy.get('input#product-mortgage').click({ force: true });
-      cy.wait('@getAggs');
+      waitForLoading();
 
       cy.url().should('not.include', 'product=Mortgage');
 
@@ -212,7 +197,7 @@ describe('Filter Panel', () => {
 
       cy.log('remove sub-filter when applying parent filter');
       cy.get('input#product-mortgage').click({ force: true });
-      cy.wait('@getComplaints');
+      waitForLoading();
 
       cy.get('.pill-panel .pill').contains('FHA mortgage').should('not.exist');
 
@@ -229,7 +214,7 @@ describe('Filter Panel', () => {
 
       cy.get('.list-panel .card-container').should('have.length', 25);
       cy.get('#select-size').select('10 results');
-      cy.wait('@get10Complaints');
+      waitForLoading();
       cy.get('.list-panel .card-container').should('have.length', 10);
 
       cy.log('Typeahead Filters');

@@ -124,10 +124,12 @@ export const FilterSearch = ({ fieldName }) => {
             }}
             renderMenuItemChildren={(option) => (
               <li className="typeahead-option typeahead-option--multi body-copy">
-                <HighlightingOption {...option.top} />
+                <HighlightingOption key={option.value} {...option.top} />
                 {!option.isParent ? (
                   <div className="typeahead-option__sub">
-                    {option.value ? <HighlightingOption {...option} /> : null}
+                    {option.value ? (
+                      <HighlightingOption key={option.value} {...option} />
+                    ) : null}
                   </div>
                 ) : null}
               </li>

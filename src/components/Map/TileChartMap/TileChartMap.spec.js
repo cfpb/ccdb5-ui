@@ -19,6 +19,7 @@ describe('TileChartMap', () => {
 
     const data = {
       filters: newFiltersState,
+      query: { dateLastIndexed: '2021-10-07' },
       routes: { queryString: '?fasf=sdfsr' },
       view: newViewState,
     };

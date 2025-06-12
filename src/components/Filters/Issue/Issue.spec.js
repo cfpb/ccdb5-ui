@@ -18,6 +18,7 @@ describe('Issue', () => {
     merge(newFiltersState, filtersState);
     const data = {
       filters: newFiltersState,
+      query: { dateLastIndexed: '2025-01-01' },
       routes: { queryString: '?foo=bar' },
     };
 

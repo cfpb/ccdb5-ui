@@ -85,6 +85,11 @@ export const complaintsApi = createApi({
         };
       },
     }),
+    getMeta: builder.query({
+      query: () => ({
+        url: `?field=all&size=0`,
+      }),
+    }),
     getTrends: builder.query({
       query: (params) => {
         const newP = { ...params };
@@ -110,5 +115,6 @@ export const {
   useGetDocumentQuery,
   useGetListQuery,
   useGetMapQuery,
+  useGetMetaQuery,
   useGetTrendsQuery,
 } = complaintsApi;

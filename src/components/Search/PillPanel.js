@@ -6,6 +6,7 @@ import {
   selectFiltersRoot,
 } from '../../reducers/filters/selectors';
 import {
+  selectQueryDateLastIndexed,
   selectQueryDateReceivedMax,
   selectQueryDateReceivedMin,
   selectQuerySearchField,
@@ -16,14 +17,13 @@ import dayjs from 'dayjs';
 import getIcon from '../Common/Icon/iconMap';
 import { Pill } from './Pill';
 import { filtersCleared } from '../../reducers/filters/filtersSlice';
-import { startOfToday } from '../../utils';
 
 /* eslint complexity: ["error", 5] */
 export const PillPanel = () => {
   const dispatch = useDispatch();
   const filterState = useSelector(selectFiltersRoot);
   const hasNarrative = useSelector(selectFiltersHasNarrative);
-
+  const dateLastIndexed = useSelector(selectQueryDateLastIndexed);
   const dateReceivedMin = useSelector(selectQueryDateReceivedMin);
   const dateReceivedMax = useSelector(selectQueryDateReceivedMax);
   const searchField = useSelector(selectQuerySearchField);
@@ -48,7 +48,7 @@ export const PillPanel = () => {
   // only add the filter the date is NOT the "All"
   if (
     !dayjs(dateReceivedMin).isSame(dayjs(DATE_RANGE_MIN), 'day') ||
-    !dayjs(dateReceivedMax).isSame(dayjs(startOfToday()), 'day')
+    !dayjs(dateReceivedMax).isSame(dayjs(dateLastIndexed), 'day')
   ) {
     filters.unshift({
       fieldName: 'date_received',

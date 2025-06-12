@@ -24,7 +24,6 @@ describe('MapPanel', () => {
   const renderComponent = (newFiltersState, newQueryState, newViewState) => {
     merge(newFiltersState, filtersState);
     merge(newQueryState, queryState);
-    // merge({}, trendsState);
     merge(newViewState, viewState);
 
     const data = {
@@ -85,6 +84,7 @@ describe('MapPanel', () => {
     };
 
     const query = {
+      dateLastIndexed: '2020-11-07',
       date_received_min: '2017-10-07',
       date_received_max: '2020-10-07',
     };
@@ -142,6 +142,7 @@ describe('MapPanel', () => {
     };
 
     const query = {
+      dateLastIndexed: '2020-11-07',
       date_received_min: '2017-10-07',
       date_received_max: '2020-10-07',
     };

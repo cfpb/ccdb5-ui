@@ -55,7 +55,7 @@ export const Typeahead = ({
             placeholder={placeholder}
             renderMenuItemChildren={(option) => (
               <li className="typeahead-option body-copy">
-                <HighlightingOption {...option} />
+                <HighlightingOption key={option.value} {...option} />
               </li>
             )}
             inputProps={{

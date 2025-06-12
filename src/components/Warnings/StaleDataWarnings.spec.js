@@ -6,6 +6,7 @@ import fetchMock from 'jest-fetch-mock';
 describe('StaleDataWarnings', () => {
   const renderComponent = () => {
     const data = {
+      query: { dateLastIndexed: '2020-01-01' },
       routes: { queryString: '?fdsfds' },
     };
 

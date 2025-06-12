@@ -16,6 +16,7 @@ const renderComponent = (newFiltersState, newTrendsState, newViewState) => {
 
   const data = {
     filters: newFiltersState,
+    query: { dateLastIndexed: '2024-10-07' },
     routes: { queryString: '?fdsafsfoo' },
     view: newViewState,
   };

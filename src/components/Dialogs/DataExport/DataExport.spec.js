@@ -27,7 +27,7 @@ describe('DataExport', () => {
       writeText: jest.fn(),
     };
     global.navigator.clipboard = mockClipboard;
-
+    merge(newQueryState, { dateLastIndexed: '2020-01-01' });
     merge(newFiltersState, filtersState);
     merge(newQueryState, queryState);
     merge(newQueryState, viewState);
@@ -169,7 +169,13 @@ describe('DataExport', () => {
     fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
     renderComponent(
       { doc_count: 999, total: 10000 },
-      { issue: ['foo'], product: ['bar', 'baz'], state: ['TX', 'CA'] },
+      {
+        date_received_max: '2020-05-05',
+        date_received_min: '2017-05-05',
+        issue: ['foo'],
+        product: ['bar', 'baz'],
+        state: ['TX', 'CA'],
+      },
       { tab: MODE_LIST },
     );
     await screen.findByText(/Select which complaints you’d like to export/);

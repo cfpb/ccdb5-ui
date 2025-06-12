@@ -5,6 +5,7 @@ import { aggResponse } from '../Filters/Company/fixture';
 
 const renderComponent = () => {
   const data = {
+    query: { dateLastIndexed: '2024-10-07' },
     routes: { queryString: '?fdsafsfoo' },
   };
 
@@ -19,9 +20,11 @@ describe('component:SearchPanel', () => {
   });
 
   it('renders without crashing', async () => {
-    fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
+    fetchMock.mockResponse(JSON.stringify(aggResponse));
     renderComponent();
     await screen.findByText(/last updated:/);
-    expect(screen.getByText(/11\/4\/2024/)).toBeInTheDocument();
+    expect(
+      screen.getByText('Date Received: 11/4/2021 - 11/4/2024'),
+    ).toBeInTheDocument();
   });
 });

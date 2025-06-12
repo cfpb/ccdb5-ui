@@ -26,6 +26,7 @@ const renderComponent = (props, newFiltersState) => {
 
   const data = {
     filters: newFiltersState,
+    query: { dateLastIndexed: '2024-10-07' },
     routes: { queryString: '?dfsdfsa' },
   };
 

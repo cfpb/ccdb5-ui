@@ -1,4 +1,6 @@
 import { routeChanged } from '../reducers/routes/routesSlice';
+import dayjs from 'dayjs';
+
 const isEqual = require('react-fast-compare');
 
 // ----------------------------------------------------------------------------
@@ -45,11 +47,14 @@ export function changeRoute(path, params) {
   return function (dispatch, getState) {
     const store = getState();
     const normalized = normalizeRouteParams(params);
+    const isValid =
+      dayjs(params.date_received_max).isValid() &&
+      dayjs(params.date_received_min).isValid();
     const { routes } = store;
     const sameRoute =
       routes.path === path && isEqual(routes.params, normalized);
 
-    if (!sameRoute) {
+    if (!sameRoute && isValid) {
       dispatch(routeChanged(path, normalized));
     }
   };

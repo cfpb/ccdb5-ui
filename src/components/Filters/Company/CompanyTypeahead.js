@@ -18,7 +18,7 @@ import { useGetAggregations } from '../../../api/hooks/useGetAggregations';
 const FIELD_NAME = 'company';
 
 export const CompanyTypeahead = ({ delayWait = 250, id }) => {
-  const { isLoading, isFetching } = useGetAggregations();
+  useGetAggregations();
   const dispatch = useDispatch();
   const filters = useSelector(selectFiltersRoot);
   const query = useSelector(selectQueryRoot);
@@ -41,7 +41,7 @@ export const CompanyTypeahead = ({ delayWait = 250, id }) => {
     handleFetchSearch(value, setDropdownOptions, uri);
   };
 
-  return isLoading || isFetching ? null : (
+  return (
     <AsyncTypeahead
       ariaLabel="Start typing to begin listing companies"
       htmlId={sanitizeHtmlId('company-typeahead-' + id)}

@@ -16,6 +16,7 @@ describe('ActionBar', () => {
     merge(newViewState, viewState);
 
     const data = {
+      query: { dateLastIndexed: '2020-05-05' },
       routes: { queryString: '?sdafds' },
       view: newViewState,
     };

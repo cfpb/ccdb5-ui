@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+import { waitForLoading } from '../utils';
+
 const ccdbApiUrl = '/data-research/consumer-complaints/search/api/v1/';
 
 describe('Document View', () => {
@@ -23,9 +25,7 @@ describe('Document View', () => {
       cy.intercept('GET', request, fixture).as('getAggs');
 
       cy.visit('?tab=List');
-
-      cy.wait('@getAggs');
-      cy.wait('@getComplaints');
+      waitForLoading();
     });
     it('navigates to document detail', () => {
       cy.get('.cards-panel .card-container a').first().click();
@@ -71,14 +71,13 @@ describe('Document View', () => {
 
       cy.get('.cards-panel .card-container a').first().click();
 
-      cy.wait('@getDetail');
+      waitForLoading();
 
       cy.url().should('contain', '/detail');
 
       cy.get('.back-to-search a').contains('Back to search results').click();
 
-      cy.wait('@getAggsResults');
-      cy.wait('@getResults');
+      waitForLoading();
 
       cy.get('select#select-sort option:selected').should(
         'have.text',
