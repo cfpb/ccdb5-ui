@@ -57,17 +57,13 @@ export const generateOptions = (
 };
 
 export const Product = () => {
-  const { data } = useGetAggregations();
+  const { data, error } = useGetAggregations();
   // See if there are an active product filters
   const filtersProducts = useSelector(selectFiltersProduct);
   const focus = useSelector(selectTrendsFocus);
   const lens = useSelector(selectTrendsLens);
   const tab = useSelector(selectViewTab);
-
-  const aggsProducts = data?.product;
-  if (!aggsProducts) {
-    return null;
-  }
+  const aggsProducts = error ? [] : data?.product;
 
   const options = generateOptions(
     aggsProducts,

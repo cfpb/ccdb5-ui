@@ -11,15 +11,15 @@ import { selectViewIsPrintMode } from '../../reducers/view/selectors';
 import { useGetAggregations } from '../../api/hooks/useGetAggregations';
 
 export const PrintInfo = () => {
-  const { data } = useGetAggregations();
+  const { data, error } = useGetAggregations();
   const dateMin = useSelector(selectQueryDateReceivedMin);
   const dateMax = useSelector(selectQueryDateReceivedMax);
   const dateText = shortFormat(dateMin) + ' - ' + shortFormat(dateMax);
 
   const searchText = useSelector(selectQuerySearchText);
   const isPrintMode = useSelector(selectViewIsPrintMode);
-  const docCount = data?.doc_count || 0;
-  const total = data?.total || 0;
+  const docCount = error ? 0 : data?.doc_count || 0;
+  const total = error ? 0 : data?.total || 0;
 
   const complaintCountText = useMemo(() => {
     if (docCount === total) {

@@ -47,6 +47,7 @@ import { selectFiltersCompany } from '../../../reducers/filters/selectors';
 import { dataLensChanged } from '../../../reducers/trends/trendsSlice';
 import { formatDisplayDate } from '../../../utils/formatDate';
 import { useGetTrends } from '../../../api/hooks/useGetTrends';
+import { ErrorBlock } from '../../Warnings/Error';
 
 const WARNING_MESSAGE =
   '“Day” interval is disabled when the date range is longer than one year';
@@ -84,7 +85,7 @@ const focusHelperTextMap = {
 
 export const TrendsPanel = () => {
   const dispatch = useDispatch();
-  const { data, isLoading, isFetching } = useGetTrends();
+  const { data, isLoading, isFetching, error } = useGetTrends();
   const companyFilters = useSelector(selectFiltersCompany);
   const dateInterval = useSelector(selectQueryDateInterval);
   const dateReceivedMin = useSelector(selectQueryDateReceivedMin);
@@ -107,9 +108,9 @@ export const TrendsPanel = () => {
     subLens === '' ? lensHelperTextMap[lensKey] : lensHelperTextMap[subLens];
   const focusHelperText =
     subLens === '' ? focusHelperTextMap[lensKey] : focusHelperTextMap[subLens];
-  const results = data?.results || {};
-  const colorMap = data?.colorMap;
-  const total = data?.total;
+  const results = error ? {} : data?.results || {};
+  const colorMap = error ? {} : data?.colorMap;
+  const total = error ? 0 : data?.total;
 
   const hasCompanyOverlay = showCompanyOverLay(
     lens,
@@ -249,6 +250,10 @@ export const TrendsPanel = () => {
             ]
           : null}
       </div>
+      {error ? (
+        <ErrorBlock text="There was a problem executing your search" />
+      ) : null}
+
       {hasCompanyOverlay ? (
         <div className="layout-row company-overlay">
           <section className="company-search">

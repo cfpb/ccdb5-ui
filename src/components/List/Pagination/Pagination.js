@@ -10,7 +10,7 @@ import { useGetList } from '../../../api/hooks/useGetList';
 export const Pagination = () => {
   const dispatch = useDispatch();
   const page = useSelector(selectQueryPage);
-  const { data } = useGetList();
+  const { data, error } = useGetList();
   const items = data?.hits;
   const total = data?.totalPages || 0;
   const breakPoints = data?.breakPoints;
@@ -22,7 +22,7 @@ export const Pagination = () => {
     dispatch(prevPageShown(breakPoints));
   };
 
-  return items && items.length > 0 ? (
+  return !error && items && items.length > 0 ? (
     <nav className="m-pagination" role="navigation" aria-label="Pagination">
       <button
         className="a-btn m-pagination__btn-prev"

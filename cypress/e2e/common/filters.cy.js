@@ -31,6 +31,7 @@ describe('Filter Panel', () => {
 
       // electron / chrome headed version
       cy.get('#date_received-from').type('2015-09-11');
+      cy.get('#date_received-from').focus();
       cy.get('#date_received-from').blur();
       waitForLoading();
 
@@ -41,13 +42,16 @@ describe('Filter Panel', () => {
       cy.get('#date_received-through').clear();
       waitForLoading();
       cy.get('#date_received-through').type('2020-10-31');
+      cy.get('#date_received-through').focus();
       cy.get('#date_received-through').blur();
 
       cy.url().should('include', 'date_received_max=2020-10-31');
       waitForLoading();
       // check error handling and default values
       cy.get('#date_received-from').type('2000-09-11');
+      cy.get('#date_received-from').focus();
       cy.get('#date_received-from').blur();
+
       waitForLoading();
       cy.url().should('include', 'date_received_min=2011-12-01');
     });
@@ -73,7 +77,7 @@ describe('Filter Panel', () => {
 
       // Close it
       cy.get('.timely > .o-expandable__header').should('be.visible');
-      cy.get('.timely > .o-expandable__header').click();
+      cy.get('.timely button.o-expandable__header').click();
       cy.get(
         '.timely > .o-expandable__content > ul > :nth-child(1) > .a-label',
       ).should('not.exist');
