@@ -1,7 +1,8 @@
-import { testRender as render, screen } from '../../../testUtils/test-utils';
+import { screen, testRender as render } from '../../../testUtils/test-utils';
 import { SimpleFilter } from './SimpleFilter';
 import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from '../../List/ListPanel/fixture';
+
 const renderComponent = (props) => {
   const data = {
     routes: { queryString: '?sfas' },

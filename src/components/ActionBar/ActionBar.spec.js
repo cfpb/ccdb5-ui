@@ -1,12 +1,12 @@
 import { ActionBar } from './ActionBar';
+import * as viewActions from '../../reducers/view/viewSlice';
 import { viewState } from '../../reducers/view/viewSlice';
 import { merge } from '../../testUtils/functionHelpers';
 import {
-  testRender as render,
-  screen,
   fireEvent,
+  screen,
+  testRender as render,
 } from '../../testUtils/test-utils';
-import * as viewActions from '../../reducers/view/viewSlice';
 import * as utils from '../../utils';
 import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from '../List/ListPanel/fixture';

@@ -2,7 +2,7 @@ import { RefinePanel } from './RefinePanel';
 import { queryState } from '../../reducers/query/querySlice';
 import { viewState } from '../../reducers/view/viewSlice';
 import { merge } from '../../testUtils/functionHelpers';
-import { testRender as render, screen } from '../../testUtils/test-utils';
+import { screen, testRender as render } from '../../testUtils/test-utils';
 import { MODE_TRENDS } from '../../constants';
 
 describe('RefinePanel', () => {

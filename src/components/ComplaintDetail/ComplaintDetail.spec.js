@@ -1,7 +1,7 @@
 import { ComplaintDetail } from './ComplaintDetail';
 import {
-  testRenderWithMemoryRouter as render,
   screen,
+  testRenderWithMemoryRouter as render,
 } from '../../testUtils/test-utils';
 import { merge } from '../../testUtils/functionHelpers';
 import { routesState } from '../../reducers/routes/routesSlice';

@@ -10,16 +10,6 @@ describe('List View', () => {
   const filterHasNarrative = '#filterHasNarrative';
 
   beforeEach(() => {
-    let request = '?**&field=all**sort=created_date_desc';
-    let fixture = { fixture: 'list/get-complaints.json' };
-    cy.intercept(request, fixture).as('getComplaints');
-
-    request = '?**&size=0';
-    fixture = { fixture: 'list/get-aggs.json' };
-    cy.intercept('GET', request, fixture).as('getAggs');
-
-    cy.intercept('GET', '_suggest/?text=debt%20recovery', []);
-
     cy.visit('?size=10&searchText=debt%20recovery&tab=List');
     waitForLoading();
   });
@@ -35,11 +25,6 @@ describe('List View', () => {
     it('shows more results', () => {
       cy.get(cardContainers).should('have.length', 10);
       cy.url().should('contain', 'size=10');
-
-      let request = '?**search_after**';
-      let fixture = { fixture: 'list/get-next-complaints.json' };
-      cy.intercept('GET', request, fixture).as('getNextComplaints');
-
       cy.get(nextButton).click();
 
       waitForLoading();
@@ -47,11 +32,6 @@ describe('List View', () => {
       cy.url().should('contain', 'page=2');
 
       cy.log('reset the pager after sort');
-
-      request = '?**size=10&sort=created_date_desc';
-      fixture = { fixture: 'list/get-10-complaints.json' };
-      cy.intercept('GET', request, fixture).as('get10Complaints');
-
       cy.get('#select-size').select('25 results');
       cy.get('#select-size').select('10 results');
 
@@ -64,15 +44,6 @@ describe('List View', () => {
 
     it('changes the sort order', () => {
       cy.url().should('contain', 'sort=created_date_desc');
-
-      let request = '?**&field=all**&size=10&sort=relevance_desc';
-      let fixture = { fixture: 'list/get-relevance-complaints.json' };
-      cy.intercept('GET', request, fixture).as('getRelevanceComplaints');
-
-      request = '?**search_after**';
-      fixture = { fixture: 'list/get-next-complaints.json' };
-      cy.intercept('GET', request, fixture).as('getNextComplaints');
-
       cy.get(nextButton).click();
       waitForLoading();
 

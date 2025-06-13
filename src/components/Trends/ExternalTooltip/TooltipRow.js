@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { filterRemoved } from '../../../reducers/filters/filtersSlice';
 import {
-  selectTrendsSubLens,
   selectTrendsFocus,
   selectTrendsLens,
+  selectTrendsSubLens,
 } from '../../../reducers/trends/selectors';
 import { sanitizeHtmlId } from '../../../utils';
 import getIcon from '../../Common/Icon/iconMap';

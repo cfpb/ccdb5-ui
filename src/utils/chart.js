@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------
 /* eslint-disable complexity */
-import { adjustDate, isDateEqual, formatDisplayDate } from './formatDate';
+import { adjustDate, formatDisplayDate, isDateEqual } from './formatDate';
 import { clampDate, coalesce } from '../utils';
 import dayjs from 'dayjs';
 import dayjsQuarterOfYear from 'dayjs/plugin/quarterOfYear';

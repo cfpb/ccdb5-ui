@@ -2,8 +2,6 @@
 
 import { waitForLoading } from '../utils';
 
-const ccdbApiUrl = '/data-research/consumer-complaints/search/api/v1/';
-
 describe('Document View', () => {
   describe('error handling', () => {
     it('handles bogus id', () => {
@@ -16,14 +14,6 @@ describe('Document View', () => {
 
   describe('document detail view', () => {
     beforeEach(() => {
-      let request = '?**&sort=created_date_desc';
-      let fixture = { fixture: 'document/get-complaints.json' };
-      cy.intercept(request, fixture).as('getComplaints');
-
-      request = '?**&size=0';
-      fixture = { fixture: 'document/get-aggs.json' };
-      cy.intercept('GET', request, fixture).as('getAggs');
-
       cy.visit('?tab=List');
       waitForLoading();
     });
@@ -41,17 +31,6 @@ describe('Document View', () => {
 
   describe('preserve page state', () => {
     it('restores filters after visiting document detail', () => {
-      let request = '?**&search_term=pizza**&size=0';
-      let fixture = { fixture: 'document/get-aggs-results.json' };
-      cy.intercept(request, fixture).as('getAggsResults');
-
-      request =
-        '?**&field=all&frm=0&has_narrative=true&no_aggs=true**&search_term=pizza&size=10&sort=relevance_desc';
-      fixture = { fixture: 'document/get-results.json' };
-      cy.intercept(request, fixture).as('getResults');
-
-      cy.intercept('GET', '/_suggest/?text=pizza', []);
-
       cy.visit(
         '?searchText=pizza&has_narrative=true&size=10&sort=relevance_desc&tab=List',
       );
@@ -64,11 +43,6 @@ describe('Document View', () => {
       cy.contains('.pill', 'Has narrative').should('be.visible');
 
       cy.get('#filterHasNarrative').should('be.checked');
-
-      request = `${ccdbApiUrl}3146099`;
-      fixture = { fixture: 'document/get-detail.json' };
-      cy.intercept(request, fixture).as('getDetail');
-
       cy.get('.cards-panel .card-container a').first().click();
 
       waitForLoading();

@@ -1,12 +1,12 @@
 import '../../RefineBar/RefineBar.scss';
 import './TrendsPanel.scss';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { lenses } from '../../../constants';
 import {
-  selectQueryDateReceivedMin,
-  selectQueryDateReceivedMax,
   selectQueryDateInterval,
+  selectQueryDateReceivedMax,
+  selectQueryDateReceivedMin,
   selectQueryTrendsDateWarningEnabled,
 } from '../../../reducers/query/selectors';
 import {
@@ -25,7 +25,7 @@ import {
 } from '../../../reducers/query/querySlice';
 import { processRows } from '../../../utils/chart';
 import { sendAnalyticsEvent } from '../../../utils';
-import { showCompanyOverLay, getIntervals } from '../../../utils/trends';
+import { getIntervals, showCompanyOverLay } from '../../../utils/trends';
 import { ActionBar } from '../../ActionBar/ActionBar';
 import { TabbedNavigation } from '../../TabbedNavigation/TabbedNavigation';
 import { Warning } from '../../Warnings/Warning';

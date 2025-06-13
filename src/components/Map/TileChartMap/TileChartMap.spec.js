@@ -1,13 +1,13 @@
 import { TileChartMap } from './TileChartMap';
-import { testRender as render, screen } from '../../../testUtils/test-utils';
+import { screen, testRender as render } from '../../../testUtils/test-utils';
 import { merge } from '../../../testUtils/functionHelpers';
+import * as filterActions from '../../../reducers/filters/filtersSlice';
 import { filtersState } from '../../../reducers/filters/filtersSlice';
 import fetchMock from 'jest-fetch-mock';
 import { viewState } from '../../../reducers/view/viewSlice';
 import { mapResults } from './__fixtures__/mapResults';
 import { GEO_NORM_PER1000, MODE_MAP } from '../../../constants';
 import * as analyticsActions from '../../../utils';
-import * as filterActions from '../../../reducers/filters/filtersSlice';
 import userEvent from '@testing-library/user-event';
 
 describe('TileChartMap', () => {

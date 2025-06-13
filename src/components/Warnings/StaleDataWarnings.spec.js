@@ -1,4 +1,4 @@
-import { testRender as render, screen } from '../../testUtils/test-utils';
+import { screen, testRender as render } from '../../testUtils/test-utils';
 import { StaleDataWarnings } from './StaleDataWarnings';
 import { resAggWarning } from './fixture';
 import fetchMock from 'jest-fetch-mock';

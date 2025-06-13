@@ -1,8 +1,8 @@
 import { CompanyReceivedFilter } from './CompanyReceivedFilter';
 import { merge } from '../../../testUtils/functionHelpers';
-import { queryState } from '../../../reducers/query/querySlice';
 import * as filterActions from '../../../reducers/query/querySlice';
-import { testRender as render, screen } from '../../../testUtils/test-utils';
+import { queryState } from '../../../reducers/query/querySlice';
+import { screen, testRender as render } from '../../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 
 const renderComponent = (newQueryState) => {

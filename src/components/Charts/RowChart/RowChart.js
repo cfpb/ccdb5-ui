@@ -4,14 +4,14 @@ import { max } from 'd3-array';
 import { miniTooltip, row } from 'britecharts';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { scrollToFocus } from '../../../utils/trends';
 import { focusChanged } from '../../../reducers/trends/trendsSlice';
 import { rowCollapsed, rowExpanded } from '../../../reducers/view/viewSlice';
 import { selectTrendsLens } from '../../../reducers/trends/selectors';
 import {
-  selectViewIsPrintMode,
   selectViewExpandedRows,
+  selectViewIsPrintMode,
   selectViewTab,
   selectViewWidth,
 } from '../../../reducers/view/selectors';

@@ -1,8 +1,8 @@
-import { testRender as render, screen } from '../../../testUtils/test-utils';
+import { screen, testRender as render } from '../../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 import { merge } from '../../../testUtils/functionHelpers';
-import { queryState } from '../../../reducers/query/querySlice';
 import * as queryActions from '../../../reducers/query/querySlice';
+import { queryState } from '../../../reducers/query/querySlice';
 import * as utils from '../../../utils';
 import { DateRanges } from './DateRanges';
 import { dateRanges } from '../../../constants';

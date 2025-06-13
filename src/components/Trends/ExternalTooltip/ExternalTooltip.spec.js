@@ -2,7 +2,7 @@ import { ExternalTooltip } from './ExternalTooltip';
 import { merge } from '../../../testUtils/functionHelpers';
 import { trendsState } from '../../../reducers/trends/trendsSlice';
 import * as filterActions from '../../../reducers/filters/filtersSlice';
-import { testRender as render, screen } from '../../../testUtils/test-utils';
+import { screen, testRender as render } from '../../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 
 const renderComponent = (newTrendsState) => {

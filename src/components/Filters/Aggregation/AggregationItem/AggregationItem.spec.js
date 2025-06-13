@@ -1,12 +1,12 @@
 import {
-  testRender as render,
-  screen,
   fireEvent,
+  screen,
+  testRender as render,
 } from '../../../../testUtils/test-utils';
 import { merge } from '../../../../testUtils/functionHelpers';
 import * as filter from '../../../../reducers/filters/filtersSlice';
-import { slugify } from '../../../../utils';
 import { filtersState } from '../../../../reducers/filters/filtersSlice';
+import { slugify } from '../../../../utils';
 import fetchMock from 'jest-fetch-mock';
 import { AggregationItem } from './AggregationItem';
 import { aggResponse } from '../../../List/ListPanel/fixture';

@@ -1,10 +1,10 @@
-import { testRender as render, screen } from '../../testUtils/test-utils';
+import { screen, testRender as render } from '../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 import * as filtersActions from '../../reducers/filters/filtersSlice';
+import { filtersState } from '../../reducers/filters/filtersSlice';
 import * as queryActions from '../../reducers/query/querySlice';
 import { merge } from '../../testUtils/functionHelpers';
 import { Pill } from './Pill';
-import { filtersState } from '../../reducers/filters/filtersSlice';
 
 const renderComponent = (props, newFiltersState = {}) => {
   merge(newFiltersState, filtersState);

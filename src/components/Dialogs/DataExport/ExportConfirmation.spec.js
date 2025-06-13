@@ -1,4 +1,4 @@
-import { testRender as render, screen } from '../../../testUtils/test-utils';
+import { screen, testRender as render } from '../../../testUtils/test-utils';
 import * as viewActions from '../../../reducers/view/viewSlice';
 import { ExportConfirmation } from './ExportConfirmation';
 import userEvent from '@testing-library/user-event';

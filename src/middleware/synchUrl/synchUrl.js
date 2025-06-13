@@ -58,6 +58,7 @@ function getTrendsAttrs(tab) {
     ? ['chartType', 'focus', 'lens', 'subLens', 'trend_depth']
     : [];
 }
+
 /**
  * helper function to return viewModel params to extract based on view mode
  *

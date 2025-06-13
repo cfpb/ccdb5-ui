@@ -10,14 +10,6 @@ describe('Search Bar', () => {
     'api/v1/_suggest_company/**';
 
   beforeEach(() => {
-    let fixture = { fixture: 'common/get-aggs.json' };
-    let request = '?field=all&size=0';
-    cy.intercept('GET', request, fixture).as('metadata');
-    request = '?**&field=all&size=0';
-    cy.intercept('GET', request, fixture).as('getAggs');
-    request = '?**&sort=created_date_desc';
-    fixture = { fixture: 'common/get-complaints.json' };
-    cy.intercept(request, fixture).as('getComplaints');
     cy.visit('?tab=List');
     waitForLoading();
   });

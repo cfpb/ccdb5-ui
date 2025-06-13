@@ -1,12 +1,12 @@
 import { MapToolbar } from './MapToolbar';
 import { merge } from '../../testUtils/functionHelpers';
+import * as filterActions from '../../reducers/filters/filtersSlice';
 import { filtersState } from '../../reducers/filters/filtersSlice';
 import {
-  testRender as render,
-  screen,
   fireEvent,
+  screen,
+  testRender as render,
 } from '../../testUtils/test-utils';
-import * as filterActions from '../../reducers/filters/filtersSlice';
 import * as viewActions from '../../reducers/view/viewSlice';
 
 describe('MapToolbar', () => {

@@ -2,9 +2,9 @@ import * as types from '../../constants';
 import * as viewActions from '../../reducers/view/viewSlice';
 import { RootModal } from './RootModal';
 import {
-  testRender as render,
   fireEvent,
   screen,
+  testRender as render,
 } from '../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 import Modal from 'react-modal';

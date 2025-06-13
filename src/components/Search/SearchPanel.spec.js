@@ -1,5 +1,5 @@
 import { SearchPanel } from './SearchPanel';
-import { testRender as render, screen } from '../../testUtils/test-utils';
+import { screen, testRender as render } from '../../testUtils/test-utils';
 import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from '../Filters/Company/fixture';
 

@@ -1,12 +1,12 @@
+import * as pagingActions from '../../../reducers/query/querySlice';
 import { queryState } from '../../../reducers/query/querySlice';
 import {
-  testRender as render,
-  screen,
   fireEvent,
+  screen,
+  testRender as render,
 } from '../../../testUtils/test-utils';
 import { merge } from '../../../testUtils/functionHelpers';
 import { Pagination } from './Pagination';
-import * as pagingActions from '../../../reducers/query/querySlice';
 import fetchMock from 'jest-fetch-mock';
 import { listResponseP1, listResponseP2 } from './fixture';
 import { MODE_LIST } from '../../../constants';

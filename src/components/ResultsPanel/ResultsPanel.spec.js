@@ -1,5 +1,5 @@
 import { ResultsPanel } from './ResultsPanel';
-import { testRender as render, screen } from '../../testUtils/test-utils';
+import { screen, testRender as render } from '../../testUtils/test-utils';
 import { queryState } from '../../reducers/query/querySlice';
 import { viewState } from '../../reducers/view/viewSlice';
 import { merge } from '../../testUtils/functionHelpers';

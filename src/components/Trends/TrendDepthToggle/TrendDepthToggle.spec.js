@@ -1,13 +1,13 @@
 import { TrendDepthToggle } from './TrendDepthToggle';
 import {
-  testRender as render,
-  screen,
   fireEvent,
+  screen,
+  testRender as render,
 } from '../../../testUtils/test-utils';
 import { merge } from '../../../testUtils/functionHelpers';
 import { filtersState } from '../../../reducers/filters/filtersSlice';
-import { trendsState } from '../../../reducers/trends/trendsSlice';
 import * as trendsActions from '../../../reducers/trends/trendsSlice';
+import { trendsState } from '../../../reducers/trends/trendsSlice';
 import fetchMock from 'jest-fetch-mock';
 import { MODE_TRENDS } from '../../../constants';
 import {

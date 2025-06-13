@@ -1,4 +1,5 @@
 import * as routesActions from '../../reducers/routes/routesSlice';
+import routesReducer from '../../reducers/routes/routesSlice';
 import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../../constants';
 import emptyStore from '../../actions/__fixtures__/emptyStore';
 import synchUrl from './synchUrl';
@@ -9,7 +10,6 @@ import filtersReducer, {
 } from '../../reducers/filters/filtersSlice';
 import actionsReducer from '../../reducers/actions/actionsSlice';
 import queryReducer from '../../reducers/query/querySlice';
-import routesReducer from '../../reducers/routes/routesSlice';
 import trendsReducer from '../../reducers/trends/trendsSlice';
 import viewModelReducer from '../../reducers/view/viewSlice';
 

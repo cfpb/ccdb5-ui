@@ -1,8 +1,8 @@
 import { Hero } from './Hero';
 import {
-  testRender as render,
-  screen,
   fireEvent,
+  screen,
+  testRender as render,
 } from '../../../testUtils/test-utils';
 import { LINK_DATA_USE, MODAL_TYPE_MORE_ABOUT } from '../../../constants';
 import * as viewActions from '../../../reducers/view/viewSlice';

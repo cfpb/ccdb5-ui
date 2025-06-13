@@ -1,12 +1,12 @@
 import { ChartToggles } from './ChartToggles';
 import { merge } from '../../testUtils/functionHelpers';
+import * as trendsActions from '../../reducers/trends/trendsSlice';
 import { trendsState } from '../../reducers/trends/trendsSlice';
 import {
-  testRender as render,
   fireEvent,
   screen,
+  testRender as render,
 } from '../../testUtils/test-utils';
-import * as trendsActions from '../../reducers/trends/trendsSlice';
 
 describe('ChartToggles', () => {
   const renderComponent = (newTrendsState) => {

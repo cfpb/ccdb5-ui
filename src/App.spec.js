@@ -9,6 +9,7 @@ import { configureStoreUtil, waitFor } from './testUtils/test-utils';
 import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from './components/List/ListPanel/fixture';
 import { trendsResponse } from './components/Trends/fixture';
+
 jest.mock('highcharts/modules/accessibility');
 jest.mock('highcharts/highmaps');
 

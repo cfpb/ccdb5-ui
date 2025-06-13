@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { filterPatch, SLUG_SEPARATOR } from '../../../../constants';
 import { coalesce, sanitizeHtmlId } from '../../../../utils';
 import { arrayEquals } from '../../../../utils/compare';
