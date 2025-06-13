@@ -9,14 +9,6 @@ describe('Complaint export', () => {
   const exportUriInput = '.heres-the-url input';
 
   beforeEach(() => {
-    let request = '?**&field=all**sort=created_date_desc';
-    let fixture = { fixture: 'list/get-complaints.json' };
-    cy.intercept(request, fixture).as('getComplaints');
-
-    request = '?**&size=0';
-    fixture = { fixture: 'list/get-aggs.json' };
-    cy.intercept('GET', request, fixture).as('getAggs');
-
     cy.visit('?size=10&searchText=debt%20recovery&tab=List');
     waitForLoading();
   });

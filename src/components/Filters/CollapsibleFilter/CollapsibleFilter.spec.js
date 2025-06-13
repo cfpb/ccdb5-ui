@@ -1,4 +1,4 @@
-import { testRender as render, screen } from '../../../testUtils/test-utils';
+import { screen, testRender as render } from '../../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 import { CollapsibleFilter } from './CollapsibleFilter';
 

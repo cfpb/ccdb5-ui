@@ -1,15 +1,15 @@
+import * as viewActions from '../../reducers/filters/filtersSlice';
 import { filtersState } from '../../reducers/filters/filtersSlice';
 import { queryState } from '../../reducers/query/querySlice';
 import { viewState } from '../../reducers/view/viewSlice';
 import { MapPanel } from './MapPanel';
 import { merge } from '../../testUtils/functionHelpers';
 import {
-  testRender as render,
   fireEvent,
   screen,
+  testRender as render,
 } from '../../testUtils/test-utils';
 import { MODE_MAP } from '../../constants';
-import * as viewActions from '../../reducers/filters/filtersSlice';
 import fetchMock from 'jest-fetch-mock';
 import { aggResponse, geoResponse } from './fixture';
 import { trendsState } from '../../reducers/trends/trendsSlice';

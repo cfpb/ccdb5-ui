@@ -1,7 +1,7 @@
 import { TabbedNavigation } from './TabbedNavigation';
 import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../../constants';
 import userEvent from '@testing-library/user-event';
-import { testRender as render, screen } from '../../testUtils/test-utils';
+import { screen, testRender as render } from '../../testUtils/test-utils';
 import { merge } from '../../testUtils/functionHelpers';
 import { viewState } from '../../reducers/view/viewSlice';
 

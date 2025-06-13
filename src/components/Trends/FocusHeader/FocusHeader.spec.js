@@ -1,12 +1,12 @@
 import { FocusHeader } from './FocusHeader';
+import * as trendsActions from '../../../reducers/trends/trendsSlice';
 import { trendsState } from '../../../reducers/trends/trendsSlice';
 import { merge } from '../../../testUtils/functionHelpers';
 import {
-  testRender as render,
-  screen,
   fireEvent,
+  screen,
+  testRender as render,
 } from '../../../testUtils/test-utils';
-import * as trendsActions from '../../../reducers/trends/trendsSlice';
 import fetchMock from 'jest-fetch-mock';
 import { focusCompanyTrends, focusProductTrends } from './fixture';
 import { MODE_TRENDS } from '../../../constants';

@@ -1,17 +1,17 @@
 import {
-  testRender as render,
-  screen,
   fireEvent,
+  screen,
+  testRender as render,
 } from '../../../testUtils/test-utils';
 import { ListPanel } from './ListPanel';
 import fetchMock from 'jest-fetch-mock';
 import { merge } from '../../../testUtils/functionHelpers';
 import { filtersState } from '../../../reducers/filters/filtersSlice';
 
+import * as pagingActions from '../../../reducers/query/querySlice';
 import { queryState } from '../../../reducers/query/querySlice';
 import { viewState } from '../../../reducers/view/viewSlice';
 import * as utils from '../../../utils';
-import * as pagingActions from '../../../reducers/query/querySlice';
 import { aggResponse, listResponse } from './fixture';
 import { MODE_LIST } from '../../../constants';
 

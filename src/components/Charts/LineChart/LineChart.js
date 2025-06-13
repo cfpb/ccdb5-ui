@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 import line from 'britecharts/dist/umd/line.min';
 import tooltip from 'britecharts/dist/umd/tooltip.min';
 import { useEffect, useMemo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { debounce } from '../../../utils';
 import {
   getLastLineDate,
@@ -18,9 +18,9 @@ import {
   selectViewWidth,
 } from '../../../reducers/view/selectors';
 import {
+  selectQueryDateInterval,
   selectQueryDateReceivedMax,
   selectQueryDateReceivedMin,
-  selectQueryDateInterval,
 } from '../../../reducers/query/selectors';
 import { ChartWrapper } from '../ChartWrapper/ChartWrapper';
 import { useGetTrends } from '../../../api/hooks/useGetTrends';

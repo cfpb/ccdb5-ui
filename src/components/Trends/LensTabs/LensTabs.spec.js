@@ -1,16 +1,17 @@
 import { LensTabs } from './LensTabs';
 import { merge } from '../../../testUtils/functionHelpers';
+import * as trendsActions from '../../../reducers/trends/trendsSlice';
 import { trendsState } from '../../../reducers/trends/trendsSlice';
 import {
-  testRender as render,
-  screen,
   fireEvent,
+  screen,
+  testRender as render,
 } from '../../../testUtils/test-utils';
-import * as trendsActions from '../../../reducers/trends/trendsSlice';
 import fetchMock from 'jest-fetch-mock';
 import { focusProductTrends } from '../FocusHeader/fixture';
 import { MODE_TRENDS } from '../../../constants';
 import { queryState } from '../../../reducers/query/querySlice';
+
 const renderComponent = (newTrendsState) => {
   const newQueryState = { dateLastIndexed: '2024-10-07' };
   merge(newTrendsState, trendsState);

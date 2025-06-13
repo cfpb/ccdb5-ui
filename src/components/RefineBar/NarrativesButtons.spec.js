@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event';
 import { NarrativesButtons } from './NarrativesButtons';
-import { testRender as render, screen } from '../../testUtils/test-utils';
+import { screen, testRender as render } from '../../testUtils/test-utils';
 import { merge } from '../../testUtils/functionHelpers';
 import { filtersState } from '../../reducers/filters/filtersSlice';
 

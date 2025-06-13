@@ -1,15 +1,15 @@
 import { DataExport } from './DataExport';
 import * as utils from '../../../utils';
 import {
-  testRender as render,
-  screen,
   fireEvent,
+  screen,
+  testRender as render,
 } from '../../../testUtils/test-utils';
 import { merge } from '../../../testUtils/functionHelpers';
 import { filtersState } from '../../../reducers/filters/filtersSlice';
 import { queryState } from '../../../reducers/query/querySlice';
-import { viewState } from '../../../reducers/view/viewSlice';
 import * as viewActions from '../../../reducers/view/viewSlice';
+import { viewState } from '../../../reducers/view/viewSlice';
 import {
   MODAL_TYPE_EXPORT_CONFIRMATION,
   MODE_LIST,

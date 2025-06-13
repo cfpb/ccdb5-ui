@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { AggregationItem } from '../Aggregation/AggregationItem/AggregationItem';
 import { isEqual } from '../../../utils/compare';
+
 const mapOfOptions = (options) => {
   return options.reduce((map, opt) => {
     map[opt.key] = opt;

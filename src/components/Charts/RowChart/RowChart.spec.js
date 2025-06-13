@@ -1,4 +1,4 @@
-import { testRender as render, screen } from '../../../testUtils/test-utils';
+import { screen, testRender as render } from '../../../testUtils/test-utils';
 import * as d3 from 'd3';
 import { buildFluentMock } from '../__fixtures__/buildFluentMock';
 import { merge } from '../../../testUtils/functionHelpers';

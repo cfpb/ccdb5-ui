@@ -1,5 +1,5 @@
 import { PrintInfoFooter } from './PrintInfoFooter';
-import { testRender as render, screen } from '../../testUtils/test-utils';
+import { screen, testRender as render } from '../../testUtils/test-utils';
 
 describe('PrintInfoFooter', () => {
   it('renders default empty state', () => {

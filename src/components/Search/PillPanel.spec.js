@@ -1,5 +1,5 @@
 import { PillPanel } from './PillPanel';
-import { testRender as render, screen } from '../../testUtils/test-utils';
+import { screen, testRender as render } from '../../testUtils/test-utils';
 import { merge } from '../../testUtils/functionHelpers';
 import { filtersState } from '../../reducers/filters/filtersSlice';
 import { queryState } from '../../reducers/query/querySlice';

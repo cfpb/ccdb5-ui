@@ -1,10 +1,10 @@
 import { Tour } from './Tour';
-import { testRender as render, screen } from '../../testUtils/test-utils';
+import { screen, testRender as render } from '../../testUtils/test-utils';
+import * as viewActions from '../../reducers/view/viewSlice';
 import { viewState } from '../../reducers/view/viewSlice';
 import { merge } from '../../testUtils/functionHelpers';
 import userEvent from '@testing-library/user-event';
 import { MODE_TRENDS } from '../../constants';
-import * as viewActions from '../../reducers/view/viewSlice';
 import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from '../Map/fixture';
 import { trendsOverviewResponse } from '../Trends/TrendsPanel/fixture';

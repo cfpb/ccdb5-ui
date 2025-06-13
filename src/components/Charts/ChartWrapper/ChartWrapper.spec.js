@@ -1,4 +1,4 @@
-import { testRender as render, screen } from '../../../testUtils/test-utils';
+import { screen, testRender as render } from '../../../testUtils/test-utils';
 import { ChartWrapper } from './ChartWrapper';
 
 describe('ChartWrapper', () => {

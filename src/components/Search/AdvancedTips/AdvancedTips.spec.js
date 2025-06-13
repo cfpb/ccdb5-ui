@@ -1,8 +1,8 @@
 import { AdvancedTips } from './AdvancedTips';
 import {
-  testRender as render,
   fireEvent,
   screen,
+  testRender as render,
   waitFor,
 } from '../../../testUtils/test-utils';
 

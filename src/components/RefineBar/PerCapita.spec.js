@@ -1,5 +1,5 @@
 import { PerCapita } from './PerCapita';
-import { testRender as render, screen } from '../../testUtils/test-utils';
+import { screen, testRender as render } from '../../testUtils/test-utils';
 import { merge } from '../../testUtils/functionHelpers';
 import { filtersState } from '../../reducers/filters/filtersSlice';
 import { GEO_NORM_NONE, GEO_NORM_PER1000 } from '../../constants';

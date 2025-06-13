@@ -1,8 +1,8 @@
 import { HasNarrative } from './HasNarrative';
 import { merge } from '../../../testUtils/functionHelpers';
-import { testRender as render, screen } from '../../../testUtils/test-utils';
-import { filtersState } from '../../../reducers/filters/filtersSlice';
+import { screen, testRender as render } from '../../../testUtils/test-utils';
 import * as filtersActions from '../../../reducers/filters/filtersSlice';
+import { filtersState } from '../../../reducers/filters/filtersSlice';
 import { queryState } from '../../../reducers/query/querySlice';
 import userEvent from '@testing-library/user-event';
 

@@ -10,6 +10,7 @@ import { selectQueryRoot } from '../../../reducers/query/selectors';
 import { selectViewTab } from '../../../reducers/view/selectors';
 import { selectFiltersRoot } from '../../../reducers/filters/selectors';
 import { useGetAggregations } from '../../../api/hooks/useGetAggregations';
+
 const FORMAT_CSV = 'csv';
 const FORMAT_JSON = 'json';
 

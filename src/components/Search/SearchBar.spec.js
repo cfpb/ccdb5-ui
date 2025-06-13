@@ -1,15 +1,15 @@
 import {
-  testRender as render,
   screen,
+  testRender as render,
   waitFor,
 } from '../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 import fetchMock from 'jest-fetch-mock';
 import { merge } from '../../testUtils/functionHelpers';
 import { SearchBar } from './SearchBar';
+import * as searchActions from '../../reducers/query/querySlice';
 import { queryState } from '../../reducers/query/querySlice';
 import { viewState } from '../../reducers/view/viewSlice';
-import * as searchActions from '../../reducers/query/querySlice';
 
 fetchMock.enableMocks();
 

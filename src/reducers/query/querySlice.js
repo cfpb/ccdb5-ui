@@ -453,12 +453,6 @@ export const querySlice = createSlice({
             typeof params[field] !== 'undefined' &&
             dayjs(params[field]).isValid()
           ) {
-            console.log(
-              field,
-              dayjs(params[field]).isValid(),
-              params[field],
-              toDate(params[field]),
-            );
             state[field] = toDate(params[field]);
           }
         });

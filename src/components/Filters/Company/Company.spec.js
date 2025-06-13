@@ -2,7 +2,7 @@ import { merge } from '../../../testUtils/functionHelpers';
 import { filtersState } from '../../../reducers/filters/filtersSlice';
 import { queryState } from '../../../reducers/query/querySlice';
 import { Company } from './Company';
-import { testRender as render, screen } from '../../../testUtils/test-utils';
+import { screen, testRender as render } from '../../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from './fixture';

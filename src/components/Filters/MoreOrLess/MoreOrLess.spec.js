@@ -1,4 +1,4 @@
-import { testRender as render, screen } from '../../../testUtils/test-utils';
+import { screen, testRender as render } from '../../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 import { MoreOrLess } from './MoreOrLess';
 import { AggregationItem } from '../Aggregation/AggregationItem/AggregationItem';

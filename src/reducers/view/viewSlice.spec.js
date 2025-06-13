@@ -15,8 +15,8 @@ import target, {
   viewState,
 } from './viewSlice';
 import * as actions from '../../actions';
-import * as types from '../../constants';
 import { dataLensChanged, focusChanged } from '../../actions';
+import * as types from '../../constants';
 
 describe('reducer:View', () => {
   let action;
