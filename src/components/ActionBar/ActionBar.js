@@ -21,7 +21,7 @@ export const ActionBar = () => {
   };
   return (
     <div>
-      <summary className="action-bar" id="search-summary">
+      <div className="action-bar" id="search-summary">
         {total === docCount ? (
           <h2>
             {'Showing ' + docCount.toLocaleString() + ' total complaints'}
@@ -63,7 +63,7 @@ export const ActionBar = () => {
             </h3>
           </div>
         )}
-      </summary>
+      </div>
       <StaleDataWarnings />
     </div>
   );
