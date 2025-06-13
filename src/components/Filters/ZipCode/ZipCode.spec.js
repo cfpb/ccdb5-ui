@@ -26,9 +26,7 @@ describe('ZipCode', () => {
       .mockImplementation(() => jest.fn());
 
     render(<ZipCode />);
-    const input = screen.getByPlaceholderText(
-      'Enter first three digits of ZIP code',
-    );
+    const input = screen.getByPlaceholderText('Enter ZIP code');
     await user.type(input, '22');
     const option = await screen.findByRole('option', {
       name: /22191/,

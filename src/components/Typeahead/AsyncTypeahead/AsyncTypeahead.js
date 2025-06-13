@@ -17,6 +17,7 @@ export const AsyncTypeahead = ({
   handleSearch,
   hasClearButton = false,
   hasSearchButton = false,
+  isLoading = false,
   maxResults = 5,
   options,
   placeholder = 'Enter your search text',
@@ -56,7 +57,7 @@ export const AsyncTypeahead = ({
           </label>
           <Typeahead
             id={htmlId}
-            minLength={2}
+            minLength={1}
             className="typeahead-selector"
             defaultInputValue={defaultValue}
             delay={delayWait}
@@ -66,7 +67,7 @@ export const AsyncTypeahead = ({
               id: htmlId,
               className: 'a-text-input a-text-input--full',
             }}
-            isLoading={false}
+            isLoading={isLoading}
             ref={ref}
             onInputChange={(input) => {
               setIsVisible(input !== '');
@@ -117,6 +118,7 @@ AsyncTypeahead.propTypes = {
   defaultValue: PropTypes.string,
   delayWait: PropTypes.number.isRequired,
   isDisabled: PropTypes.bool,
+  isLoading: PropTypes.bool,
   handleChange: PropTypes.func.isRequired,
   handleClear: PropTypes.func,
   handleSearch: PropTypes.func.isRequired,

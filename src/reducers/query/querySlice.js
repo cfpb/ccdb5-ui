@@ -161,7 +161,7 @@ function getPagination(page, state) {
 /**
  * Converts a set of key/value pairs into a query string for API calls
  *
- * @param {string} state - a set of key/value pairs
+ * @param {object} state - a set of key/value pairs
  * @returns {string} a formatted query string
  */
 export function stateToQS(state) {
