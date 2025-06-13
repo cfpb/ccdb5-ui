@@ -9,13 +9,9 @@ import { FilterSearch } from '../FilterSearch/FilterSearch';
 import { SLUG_SEPARATOR } from '../../../constants';
 
 export const Issue = () => {
-  const { data } = useGetAggregations();
+  const { data, error } = useGetAggregations();
   const filters = useSelector(selectFiltersIssue);
-
-  const aggsFilters = data?.issue;
-  if (!aggsFilters) {
-    return null;
-  }
+  const aggsFilters = error ? [] : data?.issue;
 
   const desc =
     'The type of issue and sub-issue the consumer identified ' +

@@ -16,9 +16,8 @@ export const FilterSearch = ({ fieldName }) => {
   const dispatch = useDispatch();
 
   const fieldNameNew = fieldName.replace(/_/g, ' ');
-  const { data } = useGetAggregations();
-
-  const aggResults = data[fieldName] || [];
+  const { data, error } = useGetAggregations();
+  const aggResults = error || !data ? [] : data[fieldName] || [];
   const subaggName = `sub_${fieldName}.raw`.toLowerCase();
   const buckets = [];
 

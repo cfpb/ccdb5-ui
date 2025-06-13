@@ -44,9 +44,9 @@ const MAP_ROWCHART_HELPERTEXT =
 
 export const MapPanel = () => {
   const dispatch = useDispatch();
-  const { data } = useGetAggregations();
+  const { data, error } = useGetAggregations();
   const { data: results, isLoading, isFetching, error: hasError } = useGetMap();
-  const total = data?.total || 0;
+  const total = error ? 0 : data?.total || 0;
   const enablePer1000 = useSelector(selectFiltersEnablePer1000);
   const mapWarningEnabled = useSelector(selectFiltersMapWarningEnabled);
   const maxDate = useSelector(selectQueryDateReceivedMax);
@@ -56,13 +56,16 @@ export const MapPanel = () => {
   const hasMobileFilters = width < 750;
   const hasWarning = !enablePer1000 && mapWarningEnabled;
   const productData = useMemo(() => {
+    if (hasError) {
+      return [];
+    }
     return processRows(
       results?.results.product,
       false,
       'Product',
       expandedRows,
     );
-  }, [results, expandedRows]);
+  }, [hasError, results, expandedRows]);
 
   const MAP_ROWCHART_TITLE = `Product by highest complaint volume ${formatDisplayDate(
     minDate,
@@ -76,9 +79,7 @@ export const MapPanel = () => {
     <section className="map-panel">
       <ActionBar />
       <TabbedNavigation />
-      {!!hasError && (
-        <ErrorBlock text="There was a problem executing your search" />
-      )}
+
       {!!hasWarning && (
         <Warning text={WARNING_MESSAGE} closeFn={onDismissWarning} />
       )}
@@ -88,17 +89,23 @@ export const MapPanel = () => {
         <Separator />
         <PerCapita />
       </div>
-      <TileChartMap />
-      <MapToolbar />
-      <RowChart
-        id="product"
-        colorScheme={productData.colorScheme}
-        data={productData.data}
-        title={MAP_ROWCHART_TITLE}
-        helperText={MAP_ROWCHART_HELPERTEXT}
-        total={total}
-      />
-
+      {hasError ? (
+        <ErrorBlock text="There was a problem executing your search" />
+      ) : null}
+      {hasError ? null : (
+        <>
+          <TileChartMap />
+          <MapToolbar />
+          <RowChart
+            id="product"
+            colorScheme={productData.colorScheme}
+            data={productData.data}
+            title={MAP_ROWCHART_TITLE}
+            helperText={MAP_ROWCHART_HELPERTEXT}
+            total={total}
+          />
+        </>
+      )}
       <Loading isLoading={isLoading || isFetching} />
     </section>
   );

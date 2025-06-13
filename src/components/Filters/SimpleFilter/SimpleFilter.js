@@ -8,7 +8,8 @@ import '../Aggregation/Aggregation.scss';
 import { useGetAggregations } from '../../../api/hooks/useGetAggregations';
 
 export const SimpleFilter = ({ fieldName, title, desc }) => {
-  const { data: aggs } = useGetAggregations();
+  const { data: aggData, error } = useGetAggregations();
+  const aggs = error ? {} : aggData;
   const options = coalesce(aggs, fieldName, []);
   const listComponentProps = { fieldName };
 

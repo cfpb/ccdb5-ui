@@ -47,7 +47,7 @@ export const showToggle = (resultCount, filterCount) => {
 export const TrendDepthToggle = () => {
   const dispatch = useDispatch();
   const { data: aggs } = useGetAggregations();
-  const { data } = useGetTrends();
+  const { data, error } = useGetTrends();
   const filters = useSelector(selectFiltersRoot);
   const focus = useSelector(selectTrendsFocus);
   const lens = useSelector(selectTrendsLens);
@@ -75,7 +75,7 @@ export const TrendDepthToggle = () => {
   const hasToggle = showToggle(totalResultsLength, filterCount);
 
   // hide on Overview and Focus pages
-  if (focus || lens === 'Overview') {
+  if (focus || lens === 'Overview' || error) {
     return null;
   }
 

@@ -11,9 +11,9 @@ import { useGetAggregations } from '../../api/hooks/useGetAggregations';
 export const ActionBar = () => {
   const dispatch = useDispatch();
   const tab = useSelector(selectViewTab);
-  const { data } = useGetAggregations();
-  const docCount = data?.doc_count || 0;
-  const total = data?.total || 0;
+  const { data, error } = useGetAggregations();
+  const docCount = error ? 0 : data?.doc_count || 0;
+  const total = error ? 0 : data?.total || 0;
 
   const showPrintView = (tab) => {
     sendAnalyticsEvent('Print', 'tab:' + tab);
@@ -21,7 +21,7 @@ export const ActionBar = () => {
   };
   return (
     <div>
-      <summary className="action-bar" id="search-summary">
+      <div className="action-bar" id="search-summary">
         {total === docCount ? (
           <h2>
             {'Showing ' + docCount.toLocaleString() + ' total complaints'}
@@ -35,30 +35,35 @@ export const ActionBar = () => {
               ' total complaints'}
           </h2>
         )}
-        <div>
-          <h3 className="h4 flex-all export-results">
-            <button
-              className="a-btn a-btn--link export-btn"
-              data-gtm_ignore="true"
-              onClick={() => {
-                sendAnalyticsEvent('Export', tab + ':User Opens Export Modal');
-                dispatch(modalShown(MODAL_TYPE_DATA_EXPORT));
-              }}
-            >
-              Export data
-            </button>
-            <button
-              className="a-btn a-btn--link print-preview"
-              onClick={() => {
-                showPrintView(tab);
-              }}
-            >
-              {getIcon('printer')}
-              Print
-            </button>
-          </h3>
-        </div>
-      </summary>
+        {error ? null : (
+          <div>
+            <h3 className="h4 flex-all export-results">
+              <button
+                className="a-btn a-btn--link export-btn"
+                data-gtm_ignore="true"
+                onClick={() => {
+                  sendAnalyticsEvent(
+                    'Export',
+                    tab + ':User Opens Export Modal',
+                  );
+                  dispatch(modalShown(MODAL_TYPE_DATA_EXPORT));
+                }}
+              >
+                Export data
+              </button>
+              <button
+                className="a-btn a-btn--link print-preview"
+                onClick={() => {
+                  showPrintView(tab);
+                }}
+              >
+                {getIcon('printer')}
+                Print
+              </button>
+            </h3>
+          </div>
+        )}
+      </div>
       <StaleDataWarnings />
     </div>
   );

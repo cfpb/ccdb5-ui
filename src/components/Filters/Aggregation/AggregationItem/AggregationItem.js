@@ -42,13 +42,13 @@ const appliedFilters = ({ fieldName, item, aggs, filters }) => {
 };
 
 export const AggregationItem = ({ fieldName, item }) => {
-  const { data: aggsState, isSuccess } = useGetAggregations();
+  const { data: aggsState, isSuccess, error } = useGetAggregations();
   const filtersState = useSelector(selectFiltersRoot);
   const dispatch = useDispatch();
   const aggs = coalesce(aggsState, fieldName, []);
   const filters = coalesce(filtersState, fieldName, []);
 
-  if (!isSuccess || !aggs) {
+  if (!isSuccess || !aggs || error) {
     return null;
   }
 

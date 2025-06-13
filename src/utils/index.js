@@ -459,17 +459,3 @@ export function formatUri(path, params) {
  * @returns {boolean} whether or not any value in the array is true
  */
 export const isTrue = (argArray) => argArray.some((element) => !!element);
-
-/**
- * Escapes special characters in a string for use in Elasticsearch queries
- *
- * The reserved characters are: + - = && || > < ! ( ) { } [ ] ^ " ~ * ? : \ /
- * Failing to escape these special characters correctly could lead to a syntax error which prevents your query from running.
- * https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-query-string-query.html#_reserved_characters
- *
- * @param {string} str - The string with dirty input
- * @returns {string} Sanitized escaped string
- */
-export function escapeElasticsearchCharacters(str) {
-  return str ? str.replace(/([+\-=><!(){}[\]^"~*?:\\/]|&&|\|\|)/g, '\\$1') : '';
-}

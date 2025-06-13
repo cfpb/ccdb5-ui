@@ -12,11 +12,11 @@ import { useGetAggregations } from '../../../api/hooks/useGetAggregations';
 const FIELD_NAME = 'company';
 
 export const Company = () => {
-  const { data } = useGetAggregations();
+  const { data, error } = useGetAggregations();
   const filters = useSelector(selectFiltersCompany);
   const focus = useSelector(selectTrendsFocus);
   const lens = useSelector(selectTrendsLens);
-  const aggsCompany = data?.company || [];
+  const aggsCompany = error ? [] : data?.company || [];
   const options = structuredClone(aggsCompany);
   const isFocusPage = focus && lens === 'Company';
 

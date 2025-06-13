@@ -11,6 +11,7 @@ import fetchMock from 'jest-fetch-mock';
 import { AggregationItem } from './AggregationItem';
 import { aggResponse } from '../../../List/ListPanel/fixture';
 
+fetchMock.enableMocks();
 const defaultTestProps = {
   fieldName: 'foo',
   item: {
