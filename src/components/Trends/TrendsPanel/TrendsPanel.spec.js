@@ -1,10 +1,12 @@
 import { screen, testRender as render } from '../../../testUtils/test-utils';
 import * as d3 from 'd3';
+import * as queryActions from '../../../reducers/query/querySlice';
+import { queryState } from '../../../reducers/query/querySlice';
+import * as trendsActions from '../../../reducers/trends/trendsSlice';
+import { trendsState } from '../../../reducers/trends/trendsSlice';
 import { merge } from '../../../testUtils/functionHelpers';
 import { buildFluentMock } from '../../Charts/__fixtures__/buildFluentMock';
 import { filtersState } from '../../../reducers/filters/filtersSlice';
-import { queryState } from '../../../reducers/query/querySlice';
-import { trendsState } from '../../../reducers/trends/trendsSlice';
 import { viewState } from '../../../reducers/view/viewSlice';
 import { TrendsPanel } from './TrendsPanel';
 import fetchMock from 'jest-fetch-mock';
@@ -15,6 +17,8 @@ import {
 } from './fixture';
 import { MODE_TRENDS } from '../../../constants';
 import { aggResponse } from '../../List/ListPanel/fixture';
+import userEvent from '@testing-library/user-event';
+import { waitFor } from '@testing-library/react';
 
 const renderComponent = (
   newFiltersState,
@@ -41,8 +45,12 @@ const renderComponent = (
 };
 
 jest.mock('d3');
+fetchMock.enableMocks();
+
 describe('component::TrendsPanel', () => {
-  let query, view;
+  let query, view, dateIntervalChangedSpy, dataLensChangedSpy;
+
+  const user = userEvent.setup({ delay: null });
   beforeEach(() => {
     const fakeD3 = buildFluentMock({ height: 50 });
     // how we add our own implementation of d3
@@ -62,13 +70,20 @@ describe('component::TrendsPanel', () => {
       tab: MODE_TRENDS,
       width: 600,
     };
+    dateIntervalChangedSpy = jest
+      .spyOn(queryActions, 'dateIntervalChanged')
+      .mockImplementation(() => jest.fn());
+
+    dataLensChangedSpy = jest
+      .spyOn(trendsActions, 'dataLensChanged')
+      .mockImplementation(() => jest.fn());
   });
 
   it('renders Company overlay', async () => {
     fetchMock.mockResponse((req) => {
       if (req.url.indexOf('API/trends?') > -1) {
         return Promise.resolve({
-          body: JSON.stringify({}),
+          body: JSON.stringify(trendsOverviewResponse),
         });
       }
     });
@@ -321,5 +336,16 @@ describe('component::TrendsPanel', () => {
         /Product and sub-product the consumer identified in the complaint. Click on a product to expand sub-products./,
       ),
     ).toBeInTheDocument();
+    await user.selectOptions(
+      screen.getByLabelText('Choose the Date interval'),
+      'Week',
+    );
+    await waitFor(() => expect(dateIntervalChangedSpy).toBeCalledWith('Week'));
+
+    await user.selectOptions(
+      screen.getByLabelText('Aggregate complaints by'),
+      'Overview',
+    );
+    await waitFor(() => expect(dataLensChangedSpy).toBeCalledWith('Overview'));
   });
 });

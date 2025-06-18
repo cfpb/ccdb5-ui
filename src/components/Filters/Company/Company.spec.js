@@ -25,6 +25,8 @@ const renderComponent = (newFiltersState, newQueryState, newTrendsState) => {
   });
 };
 
+fetchMock.enableMocks();
+
 describe('component::Company', () => {
   const user = userEvent.setup({ delay: null });
 
@@ -35,11 +37,21 @@ describe('component::Company', () => {
     const filters = {
       company: ['Monocle Popper Inc'],
     };
-    fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
+
+    fetchMock.mockResponse((req) => {
+      if (req.url.indexOf('_suggest') > -1) {
+        return Promise.resolve({
+          body: JSON.stringify(['Safe-T Deposits LLC']),
+        });
+      } else {
+        return Promise.resolve({
+          body: JSON.stringify(aggResponse),
+        });
+      }
+    });
+
     renderComponent(filters, { dateLastIndexed: '2024-10-07' }, {});
-
     await screen.findByRole('checkbox', { name: 'Monocle Popper Inc' });
-
     expect(
       screen.getByText('The complaint is about this company.'),
     ).toBeInTheDocument();
@@ -47,9 +59,7 @@ describe('component::Company', () => {
       screen.getByPlaceholderText('Enter company name'),
     ).toBeInTheDocument();
     await user.type(screen.getByPlaceholderText('Enter company name'), 'Safe');
-
-    fetchMock.mockResponseOnce(JSON.stringify(['Safe-T Deposits LLC']));
-
+    fetchMock.mockResponse(JSON.stringify(['Safe-T Deposits LLC']));
     expect(screen.getByPlaceholderText('Enter company name')).toHaveValue(
       'Safe',
     );

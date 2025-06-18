@@ -1,5 +1,6 @@
 import { Warning } from './Warning';
 import { useGetAggregations } from '../../api/hooks/useGetAggregations';
+import { isTrue } from '../../utils';
 
 export const WARN_DATA_ISSUE =
   'We’re currently experiencing technical issues that' +
@@ -8,10 +9,9 @@ export const WARN_DATA_ISSUE =
 
 export const StaleDataWarnings = () => {
   const { data } = useGetAggregations();
-
   const hasDataIssue = data?.hasDataIssue;
   const isDataStale = data?.isDataStale;
-  const hasError = hasDataIssue || isDataStale;
+  const hasError = isTrue([hasDataIssue, isDataStale]);
 
   if (!hasError) return null;
   return (

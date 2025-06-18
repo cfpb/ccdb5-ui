@@ -14,3 +14,4 @@ export const selectFiltersState = (state) => state.filters.state;
 export const selectFiltersHasNarrative = (state) => state.filters.has_narrative;
 export const selectFiltersMapWarningEnabled = (state) =>
   state.filters.mapWarningEnabled;
+export const selectFiltersZipCode = (state) => state.filters.zip_code;

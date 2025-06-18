@@ -23,7 +23,7 @@ describe('StaleDataWarnings', () => {
       ...resAggWarning,
     };
     dataWarning._meta.has_data_issue = true;
-    fetchMock.mockResponseOnce(JSON.stringify(dataWarning));
+    fetchMock.mockResponse(JSON.stringify(dataWarning));
     renderComponent();
 
     await screen.findByText(/We’re currently experiencing technical/);
@@ -42,7 +42,7 @@ describe('StaleDataWarnings', () => {
       ...resAggWarning,
     };
     dataWarning._meta.is_data_stale = true;
-    fetchMock.mockResponseOnce(JSON.stringify(dataWarning));
+    fetchMock.mockResponse(JSON.stringify(dataWarning));
     renderComponent();
 
     await screen.findByText(/We’re currently experiencing technical/);
@@ -62,7 +62,7 @@ describe('StaleDataWarnings', () => {
     dataWarning._meta.has_data_issue = true;
     dataWarning._meta.is_data_stale = true;
 
-    fetchMock.mockResponseOnce(JSON.stringify(dataWarning));
+    fetchMock.mockResponse(JSON.stringify(dataWarning));
 
     renderComponent();
     await screen.findByText(/We’re currently experiencing technical/);
@@ -77,7 +77,7 @@ describe('StaleDataWarnings', () => {
   });
 
   test('no issues', () => {
-    fetchMock.mockResponseOnce(
+    fetchMock.mockResponse(
       JSON.stringify({
         _meta: {
           is_data_stale: false,

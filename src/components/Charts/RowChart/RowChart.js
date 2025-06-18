@@ -124,7 +124,7 @@ export const RowChart = ({
         values.push(focusName.parent);
       } else {
         const filterGroup = filters.find((obj) => obj.key === focusName.parent);
-        const keyName = 'sub_' + lens.toLowerCase() + '.raw';
+        const keyName = 'sub_' + aLens.toLowerCase() + '.raw';
         values = filterGroup
           ? getAllFilters(focusName.parent, filterGroup[keyName].buckets)
           : [];

@@ -27,8 +27,8 @@ export const getUpdatedFilters = (filterName, filters, aggs, fieldName) => {
     .filter((filter) => filter !== filterName);
   // apply siblings
   const sibs = [];
-  if (hasParent) {
-    const siblings = aggs.find((agg) => agg.key === parentFilter);
+  const siblings = aggs.find((agg) => agg.key === parentFilter);
+  if (hasParent && siblings) {
     siblings['sub_' + fieldName + '.raw'].buckets.forEach((bucket) => {
       // don't include self
       if (bucket.key !== parts[1]) {

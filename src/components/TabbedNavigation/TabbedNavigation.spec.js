@@ -22,47 +22,45 @@ describe('component: TabbedNavigation', () => {
     it('renders without crashing', async () => {
       renderComponent({});
       expect(
-        screen.getByRole('button', { name: 'chart.svg Trends' }),
+        screen.getByRole('button', { name: /Trends/ }),
       ).toBeInTheDocument();
-      expect(
-        screen.getByRole('button', { name: 'chart.svg Trends' }),
-      ).toHaveClass('active');
-      expect(
-        screen.getByRole('button', { name: 'list.svg List' }),
-      ).toBeInTheDocument();
-      expect(
-        screen.getByRole('button', { name: 'map.svg Map' }),
-      ).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /Trends/ })).toHaveClass(
+        'active',
+      );
+      expect(screen.getByRole('button', { name: /List/ })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /Map/ })).toBeInTheDocument();
 
-      await user.click(screen.getByRole('button', { name: 'list.svg List' }));
-      expect(screen.getByRole('button', { name: 'list.svg List' })).toHaveClass(
+      await user.click(screen.getByRole('button', { name: /List/ }));
+      expect(screen.getByRole('button', { name: /List/ })).toHaveClass(
         'active',
       );
 
-      await user.click(screen.getByRole('button', { name: 'map.svg Map' }));
-      expect(screen.getByRole('button', { name: 'map.svg Map' })).toHaveClass(
+      await user.click(screen.getByRole('button', { name: /Map/ }));
+      expect(screen.getByRole('button', { name: /Map/ })).toHaveClass('active');
+
+      await user.click(screen.getByRole('button', { name: /Trends/ }));
+      expect(screen.getByRole('button', { name: /Trends/ })).toHaveClass(
         'active',
       );
     });
 
     it('shows the List tab', () => {
       renderComponent({ tab: MODE_LIST });
-      expect(screen.getByRole('button', { name: 'list.svg List' })).toHaveClass(
+      expect(screen.getByRole('button', { name: /List/ })).toHaveClass(
         'active',
       );
     });
 
     it('shows the Map tab', () => {
       renderComponent({ tab: MODE_MAP });
-      expect(screen.getByRole('button', { name: 'map.svg Map' })).toHaveClass(
-        'active',
-      );
+      expect(screen.getByRole('button', { name: /Map/ })).toHaveClass('active');
     });
+
     it('shows the Trends tab', () => {
       renderComponent({ tab: MODE_TRENDS });
-      expect(
-        screen.getByRole('button', { name: 'chart.svg Trends' }),
-      ).toHaveClass('active');
+      expect(screen.getByRole('button', { name: /Trends/ })).toHaveClass(
+        'active',
+      );
     });
   });
 });

@@ -6,8 +6,6 @@ import { DateFilter } from '../Date/DateFilter';
 import { FederalState } from '../FederalState/FederalState';
 import { HasNarrative } from '../HasNarrative/HasNarrative';
 import getIcon from '../../Common/Icon/iconMap';
-import { Issue } from '../Issue/Issue';
-import { Product } from '../Product/Product';
 import { SimpleFilter } from '../SimpleFilter/SimpleFilter';
 import { ZipCode } from '../ZipCode/ZipCode';
 import { updateFilterVisibility } from '../../../reducers/view/viewSlice';
@@ -15,6 +13,7 @@ import {
   selectViewHasFilters,
   selectViewWidth,
 } from '../../../reducers/view/selectors';
+import { NestedFilter } from '../NestedFilter/NestedFilter';
 
 export const FilterPanel = () => {
   const dispatch = useDispatch();
@@ -50,9 +49,21 @@ export const FilterPanel = () => {
           <h3>Filter results by...</h3>
           <DateFilter />
           <hr />
-          <Product />
+          <NestedFilter
+            desc={
+              'The type of product and sub-product the consumer identified ' +
+              'in the complaint'
+            }
+            fieldName="product"
+          />
           <hr />
-          <Issue />
+          <NestedFilter
+            desc={
+              'The type of issue and sub-issue the consumer identified ' +
+              'in the complaint'
+            }
+            fieldName="issue"
+          />
           <hr />
           <FederalState />
           <hr />

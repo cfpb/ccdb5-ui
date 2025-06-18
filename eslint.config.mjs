@@ -46,6 +46,7 @@ export default [
         ...globals.browser,
         ...globals.node,
         ...globals.jest,
+        JSX: 'readonly',
       },
     },
     settings: {
