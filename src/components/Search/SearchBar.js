@@ -9,7 +9,6 @@ import {
 } from '../../reducers/query/querySlice';
 import { AdvancedTips } from './AdvancedTips/AdvancedTips';
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { API_PLACEHOLDER } from '../../constants';
 import {
@@ -27,7 +26,7 @@ const searchFields = {
   complaint_what_happened: 'Narratives',
 };
 
-export const SearchBar = ({ debounceWait = 250 }) => {
+export const SearchBar = () => {
   const dispatch = useDispatch();
   const searchField = useSelector(selectQuerySearchField);
   const searchText = useSelector(selectQuerySearchText);
@@ -121,7 +120,7 @@ export const SearchBar = ({ debounceWait = 250 }) => {
                   ariaLabel="Enter your search term(s)"
                   htmlId="searchText"
                   defaultValue={searchText}
-                  delayWait={debounceWait}
+                  delayWait={250}
                   handleChange={onSelection}
                   handleClear={onTypeaheadClear}
                   handleSearch={onSearchChange}
@@ -159,8 +158,4 @@ export const SearchBar = ({ debounceWait = 250 }) => {
       {hasAdvancedSearchTips ? <AdvancedTips /> : null}
     </div>
   );
-};
-
-SearchBar.propTypes = {
-  debounceWait: PropTypes.number,
 };

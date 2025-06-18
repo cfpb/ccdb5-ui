@@ -1,4 +1,4 @@
-import { generateOptions, Product } from './Product';
+import { generateOptions, NestedFilter } from './NestedFilter';
 import { slugify } from '../../../utils';
 import fetchMock from 'jest-fetch-mock';
 import { filtersState } from '../../../reducers/filters/filtersSlice';
@@ -21,10 +21,10 @@ const renderComponent = (newFiltersState, newTrendsState, newViewState) => {
     view: newViewState,
   };
 
-  render(<Product />, { preloadedState: data });
+  render(<NestedFilter />, { preloadedState: data });
 };
 
-describe('component:Product', () => {
+describe('component:NestedFilter', () => {
   beforeEach(() => {
     fetchMock.resetMocks();
   });

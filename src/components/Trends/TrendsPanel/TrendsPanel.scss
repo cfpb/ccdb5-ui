@@ -47,6 +47,10 @@
       &.tooltip-container {
         width: 25%;
 
+        .typeahead {
+          margin-bottom: 25px;
+        }
+        
         &.legend {
           margin-top: 20px;
 

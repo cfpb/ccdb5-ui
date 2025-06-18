@@ -37,7 +37,7 @@ export const Typeahead = ({
           </label>
           <DropdownTypeahead
             id={htmlId}
-            minLength={2}
+            minLength={1}
             className="typeahead-selector"
             disabled={isDisabled}
             isLoading={false}
