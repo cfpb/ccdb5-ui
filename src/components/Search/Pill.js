@@ -14,7 +14,7 @@ import { selectFiltersRoot } from '../../reducers/filters/selectors';
 import { useGetAggregations } from '../../api/hooks/useGetAggregations';
 
 export const Pill = ({ fieldName, value }) => {
-  const { data: aggsState } = useGetAggregations();
+  const { data: aggsState, error } = useGetAggregations();
   const filtersState = useSelector(selectFiltersRoot);
   const aggs = coalesce(aggsState, fieldName, []);
   const filters = coalesce(filtersState, fieldName, []);
@@ -42,7 +42,7 @@ export const Pill = ({ fieldName, value }) => {
     }
   };
 
-  return (
+  return error ? null : (
     <li>
       <button className="pill flex-fixed" onClick={remove}>
         <span className="name">
