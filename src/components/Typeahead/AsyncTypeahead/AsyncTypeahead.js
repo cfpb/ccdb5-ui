@@ -66,7 +66,7 @@ export const AsyncTypeahead = ({
         handleChange(newSearchTerm);
       }
       setIsOpen(true);
-      setIsVisible(true);
+      setIsVisible(!!newSearchTerm);
       setSearchValue(newSearchTerm);
     },
     [handleChange, setIsOpen, setSearchValue],

@@ -159,13 +159,6 @@ export function hashCode(someString) {
  * @param {object} filters - reducer contains values for the filters, etc
  * @returns {boolean} are we enabling the perCap
  */
-
-/**
- * Filter reducer
- *
- * @param {object} filters
- * @returns {boolean} Whether per 1000 is enabled or not
- */
 export function enablePer1000(filters) {
   const keys = [];
   let filter;
