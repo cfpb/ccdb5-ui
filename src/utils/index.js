@@ -200,6 +200,14 @@ export function enablePer1000(filters) {
 export const normalize = (str) => str.toLowerCase();
 
 /**
+ * Helper function to check if any element in the array is truthy
+ *
+ * @param {Array} argArray - array of parameters to check against
+ * @returns {boolean} whether or not any value in the array is true
+ */
+export const isTrue = (argArray) => argArray.some((element) => !!element);
+
+/**
  * takes a string and formats it into proper text for an htmd ID
  * Eat at Joe's => eatatjoes
  *
@@ -306,7 +314,7 @@ export const sortSelThenCount = (options, selectedFilters, fieldName) => {
         insertParentFilter(retVal, item.split(SLUG_SEPARATOR)[0], fieldName);
         insertChildFilter(retVal, item, fieldName);
       } else {
-        insertParentFilter(retVal, item);
+        insertParentFilter(retVal, item, fieldName);
       }
     });
   }
@@ -542,11 +550,3 @@ export function removeNullProperties(object) {
 export function formatUri(path, params) {
   return path + '?' + queryString.stringify(params);
 }
-
-/**
- * Helper function to check if any element in the array is truthy
- *
- * @param {Array} argArray - array of parameters to check against
- * @returns {boolean} whether or not any value in the array is true
- */
-export const isTrue = (argArray) => argArray.some((element) => !!element);

@@ -18,7 +18,7 @@ const LEARN_SERIES_BREAK =
 
 export const ExternalTooltip = () => {
   const { data } = useGetTrends();
-  const colorMap = data?.colorMap;
+  const colorMap = data ? data?.colorMap : {};
   const trendsFocus = useSelector(selectTrendsFocus);
   const focus = trendsFocus ? 'focus' : '';
   const lens = useSelector(selectTrendsLens);
