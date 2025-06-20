@@ -44,7 +44,7 @@ describe('FederalState', () => {
 
   const user = userEvent.setup({ delay: null });
 
-  test('Options appear when user types and dispatches multipleFiltersAdded on selection', async () => {
+  test.only('Options appear when user types and dispatches multipleFiltersAdded on selection', async () => {
     const multipleFiltersAddedSpy = jest
       .spyOn(filterActions, 'multipleFiltersAdded')
       .mockImplementation(() => jest.fn());

@@ -8,6 +8,7 @@ import { merge } from '../../../testUtils/functionHelpers';
 import { screen, testRender as render } from '../../../testUtils/test-utils';
 import { MODE_TRENDS } from '../../../constants';
 import { aggResponse } from './fixture';
+import userEvent from '@testing-library/user-event';
 
 const renderComponent = (newFiltersState, newTrendsState, newViewState) => {
   merge(newFiltersState, filtersState);
@@ -26,12 +27,15 @@ const renderComponent = (newFiltersState, newTrendsState, newViewState) => {
   });
 };
 
+fetchMock.enableMocks();
+
 describe('component:NestedFilter', () => {
+  const user = userEvent.setup({ delay: null });
   beforeEach(() => {
     fetchMock.resetMocks();
   });
   it('renders a truncated set of filter options', async () => {
-    fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
+    fetchMock.mockResponse(JSON.stringify(aggResponse));
     renderComponent({}, {}, {});
 
     await screen.findByRole('button', {
@@ -46,6 +50,21 @@ describe('component:NestedFilter', () => {
     // show only 5 items
     expect(
       screen.getByRole('button', { name: '+ Show 1 more' }),
+    ).toBeInTheDocument();
+  });
+
+  it('renders typeahead and options', async () => {
+    fetchMock.mockResponse(JSON.stringify(aggResponse));
+    renderComponent({}, {}, {});
+    await screen.findByPlaceholderText('Enter name of product');
+    const input = screen.getByPlaceholderText('Enter name of product');
+    await user.clear(input);
+    await user.type(input, 'Credit');
+    await screen.findAllByRole('option', { name: /Credit/ });
+    expect(
+      screen.getByRole('option', {
+        name: /Other personal consumer report/,
+      }),
     ).toBeInTheDocument();
   });
 });
@@ -84,11 +103,6 @@ describe('generateOptions', () => {
         '',
         'product',
       );
-      aggsProduct.forEach((item, index) => {
-        console.log(item.key, JSON.stringify(item), 'dd' + index);
-      });
-
-      console.log(JSON.stringify(options[0]));
       expect(options[0]).toEqual(aggsProduct[1]);
     });
   });

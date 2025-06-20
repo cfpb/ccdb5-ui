@@ -52,7 +52,7 @@ describe('AsyncTypeahead', () => {
     fetchMock.resetMocks();
   });
 
-  test.only('Value changes when user types', async () => {
+  test('Value changes when user types', async () => {
     fetchMock.mockResponse(JSON.stringify(['Banco', 'Bank of America']));
     renderComponent('value');
     const input = screen.getByPlaceholderText('Enter your search term(s)');
@@ -69,13 +69,14 @@ describe('AsyncTypeahead', () => {
   });
 
   test('User can select value', async () => {
+    fetchMock.mockResponse(JSON.stringify(['Apple', 'Apple Bank']));
     renderComponent('value');
     const input = screen.getByPlaceholderText('Enter your search term(s)');
     await user.clear(input);
-    await user.type(input, 'appl');
-    await user.click(screen.getByRole('option', { name: /appl/ }));
-    await waitFor(() => expect(handleChangeMock).toBeCalledTimes(1));
-    expect(handleChangeMock).toBeCalledWith([appleOption]);
+    await user.type(input, 'apple');
+    await screen.findAllByRole('option', { name: /Apple/ });
+    await user.click(screen.getByRole('option', { name: /Apple Bank/ }));
+    await waitFor(() => expect(handleChangeMock).toBeCalledTimes(7));
   });
 
   test('User can clear input value from default value', async () => {

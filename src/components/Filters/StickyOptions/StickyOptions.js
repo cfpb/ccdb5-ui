@@ -14,10 +14,9 @@ export const StickyOptions = ({ fieldName, options, selections }) => {
   selections.forEach((sel) => {
     if (!trackedSelections.some((opt) => opt.key === sel)) {
       // Use some() for efficiency
-      trackedSelections.push({ key: sel, value: 0, doc_count: 0 });
+      trackedSelections.push({ key: sel, value: sel, doc_count: 0 });
     }
   });
-
   return (
     <ul>
       {trackedSelections.map((opt) => (

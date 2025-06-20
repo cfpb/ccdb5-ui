@@ -25,6 +25,7 @@ export const FederalState = () => {
       label,
       position: 0,
       normalized: normalize(label),
+      value: key,
     };
   });
   const [dropdownOptions, setDropdownOptions] = useState(starterOptions);

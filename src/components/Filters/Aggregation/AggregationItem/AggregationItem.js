@@ -120,7 +120,7 @@ AggregationItem.propTypes = {
   item: PropTypes.shape({
     doc_count: PropTypes.number.isRequired,
     key: PropTypes.string.isRequired,
-    value: PropTypes.number,
+    value: PropTypes.string,
     isDisabled: PropTypes.bool,
   }).isRequired,
 };
