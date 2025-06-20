@@ -21,7 +21,9 @@ const renderComponent = (newFiltersState, newTrendsState, newViewState) => {
     view: newViewState,
   };
 
-  render(<NestedFilter />, { preloadedState: data });
+  render(<NestedFilter desc="Product filter" fieldName="product" />, {
+    preloadedState: data,
+  });
 };
 
 describe('component:NestedFilter', () => {
@@ -61,13 +63,32 @@ describe('generateOptions', () => {
         'Credit card',
       ];
 
-      const options = generateOptions(aggsProduct, selected, '', '', '');
+      const options = generateOptions(
+        aggsProduct,
+        selected,
+        '',
+        '',
+        '',
+        'product',
+      );
       expect(options[1]).toEqual(aggsProduct[5]);
     });
 
     it('treats child selections as parent selections', () => {
       const selected = [slugify('Mortgage', 'Conventional home mortgage')];
-      const options = generateOptions(aggsProduct, selected, '', '', '');
+      const options = generateOptions(
+        aggsProduct,
+        selected,
+        '',
+        '',
+        '',
+        'product',
+      );
+      aggsProduct.forEach((item, index) => {
+        console.log(item.key, JSON.stringify(item), 'dd' + index);
+      });
+
+      console.log(JSON.stringify(options[0]));
       expect(options[0]).toEqual(aggsProduct[1]);
     });
   });
@@ -83,6 +104,7 @@ describe('generateOptions', () => {
         focus,
         lens,
         MODE_TRENDS,
+        'product',
       );
       expect(options).toEqual([
         {
@@ -164,6 +186,7 @@ describe('generateOptions', () => {
         queryFocus,
         queryLens,
         MODE_TRENDS,
+        'product',
       );
       expect(options).toEqual([
         {
