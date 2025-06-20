@@ -66,6 +66,7 @@ export const AsyncTypeahead = ({
         handleChange(newSearchTerm);
       }
       setIsOpen(true);
+      setIsVisible(true);
       setSearchValue(newSearchTerm);
     },
     [handleChange, setIsOpen, setSearchValue],
@@ -147,6 +148,7 @@ export const AsyncTypeahead = ({
             open={isOpen}
             promptText=""
             searchText=""
+            emptyLabel={searchValue ? 'No matches found' : ''}
             // let RTKQ handle caching
             useCache={false}
           />

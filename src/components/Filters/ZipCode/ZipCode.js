@@ -26,6 +26,7 @@ export const ZipCode = () => {
         placeholder="Enter ZIP code"
         ariaLabel="Start typing to begin listing zip codes"
         htmlId={FIELD_NAME + 'typeahead'}
+        hasClearButton={true}
       />
       <StickyOptions
         fieldName={FIELD_NAME}
