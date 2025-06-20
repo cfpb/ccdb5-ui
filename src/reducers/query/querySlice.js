@@ -378,10 +378,7 @@ export const querySlice = createSlice({
     },
     searchTextChanged: {
       reducer: (state, action) => {
-        return {
-          ...state,
-          searchText: action.payload,
-        };
+        state.searchText = action.payload;
       },
     },
     trendsDateWarningDismissed: {

@@ -18,9 +18,12 @@ export const AsyncTypeahead = ({
   fieldName,
   htmlId,
   isDisabled = false,
+  handleChange,
   handleClear,
+  handlePressEnter,
   hasClearButton = false,
   hasSearchButton = false,
+  handleSelectionOverride,
   maxResults = 5,
   placeholder = 'Enter your search text',
 }) => {
@@ -32,6 +35,7 @@ export const AsyncTypeahead = ({
   const [isVisible, setIsVisible] = useState(
     hasClearButton && (!!defaultValue || !!searchValue),
   );
+  const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
     ref.current.setState({ text: defaultValue });
     setSearchValue(ref.current.inputNode.value);
@@ -48,15 +52,23 @@ export const AsyncTypeahead = ({
   };
 
   const onSelection = (value) => {
-    dispatch(multipleFiltersAdded(fieldName, [value[0].key]));
+    if (handleSelectionOverride) {
+      handleSelectionOverride(value);
+    } else {
+      dispatch(multipleFiltersAdded(fieldName, [value[0].key]));
+    }
     setSearchValue('');
   };
 
   const onSearchHandler = useCallback(
     (newSearchTerm) => {
+      if (handleChange) {
+        handleChange(newSearchTerm);
+      }
+      setIsOpen(true);
       setSearchValue(newSearchTerm);
     },
-    [setSearchValue],
+    [handleChange, setIsOpen, setSearchValue],
   );
 
   const filterBy = () => true;
@@ -112,6 +124,12 @@ export const AsyncTypeahead = ({
               ref.current.clear();
               setSearchValue('');
             }}
+            onKeyDown={(evt) => {
+              if (handlePressEnter && evt.key === 'Enter') {
+                handlePressEnter(evt);
+                setIsOpen(false);
+              }
+            }}
             onSearch={onSearchHandler}
             options={options}
             maxResults={maxResults}
@@ -126,6 +144,7 @@ export const AsyncTypeahead = ({
                 />
               </li>
             )}
+            open={isOpen}
             promptText=""
             searchText=""
             // let RTKQ handle caching
@@ -156,7 +175,10 @@ AsyncTypeahead.propTypes = {
   defaultValue: PropTypes.string,
   fieldName: PropTypes.string.isRequired,
   isDisabled: PropTypes.bool,
+  handleChange: PropTypes.func,
   handleClear: PropTypes.func,
+  handlePressEnter: PropTypes.func,
+  handleSelectionOverride: PropTypes.func,
   hasClearButton: PropTypes.bool,
   hasSearchButton: PropTypes.bool,
   htmlId: PropTypes.string.isRequired,
