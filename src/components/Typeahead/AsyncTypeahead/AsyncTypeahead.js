@@ -1,31 +1,41 @@
 import '../Typeahead.scss';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { AsyncTypeahead as Typeahead } from 'react-bootstrap-typeahead';
 import getIcon from '../../Common/Icon/iconMap';
 import { HighlightingOption } from '../HighlightingOption/HighlightingOption';
 import { ClearButton } from '../ClearButton/ClearButton';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectQueryRoot } from '../../../reducers/query/selectors';
+import { selectFiltersRoot } from '../../../reducers/filters/selectors';
+import { stateToQS } from '../../../reducers/query/querySlice';
+import { useGetSuggestQuery } from '../../../api/complaints';
+import { multipleFiltersAdded } from '../../../reducers/filters/filtersSlice';
 
 export const AsyncTypeahead = ({
   ariaLabel,
   defaultValue = '',
-  delayWait = 0,
+  fieldName,
   htmlId,
   isDisabled = false,
   handleChange,
   handleClear,
-  handleSearch,
+  handlePressEnter,
   hasClearButton = false,
   hasSearchButton = false,
+  handleSelectionOverride,
   maxResults = 5,
-  options,
   placeholder = 'Enter your search text',
 }) => {
+  const dispatch = useDispatch();
   const ref = useRef();
+  const query = useSelector(selectQueryRoot);
+  const filters = useSelector(selectFiltersRoot);
   const [searchValue, setSearchValue] = useState(defaultValue);
   const [isVisible, setIsVisible] = useState(
     hasClearButton && (!!defaultValue || !!searchValue),
   );
+  const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
     ref.current.setState({ text: defaultValue });
     setSearchValue(ref.current.inputNode.value);
@@ -41,7 +51,48 @@ export const AsyncTypeahead = ({
     setSearchValue('');
   };
 
+  const onSelection = (value) => {
+    if (handleSelectionOverride) {
+      handleSelectionOverride(value);
+    } else {
+      dispatch(multipleFiltersAdded(fieldName, [value[0].key]));
+    }
+    setSearchValue('');
+  };
+
+  const onSearchHandler = useCallback(
+    (newSearchTerm) => {
+      if (handleChange) {
+        handleChange(newSearchTerm);
+      }
+      setIsOpen(true);
+      setIsVisible(!!newSearchTerm);
+      setSearchValue(newSearchTerm);
+    },
+    [handleChange, setIsOpen, setSearchValue],
+  );
+
   const filterBy = () => true;
+  const suggestField = fieldName === 'company' ? 'company' : 'zip';
+  const queryState = Object.assign({}, query, filters);
+  queryState.searchAfter = '';
+  const queryString = stateToQS(queryState);
+  const qs = queryString + '&text=' + encodeURIComponent(searchValue);
+  const url = `_suggest_${suggestField}/${qs}`;
+  const {
+    currentData: data,
+    isFetching,
+    isLoading,
+  } = useGetSuggestQuery({ url: url }, { skip: !searchValue });
+
+  const options = data
+    ? data.map((item) => ({
+        key: item,
+        label: item,
+        position: item.toLowerCase().indexOf(searchValue.toLowerCase()),
+        value: searchValue,
+      }))
+    : [];
 
   return (
     <section className="typeahead">
@@ -56,28 +107,31 @@ export const AsyncTypeahead = ({
           </label>
           <Typeahead
             id={htmlId}
-            minLength={2}
+            minLength={1}
             className="typeahead-selector"
             defaultInputValue={defaultValue}
-            delay={delayWait}
+            delay={250}
             disabled={isDisabled}
             filterBy={filterBy}
             inputProps={{
               id: htmlId,
               className: 'a-text-input a-text-input--full',
             }}
-            isLoading={false}
+            isLoading={isLoading || isFetching}
             ref={ref}
-            onInputChange={(input) => {
-              setIsVisible(input !== '');
-              setSearchValue(input);
-            }}
+            onInputChange={onSearchHandler}
             onChange={(selected) => {
-              handleChange(selected);
+              onSelection(selected);
               ref.current.clear();
               setSearchValue('');
             }}
-            onSearch={handleSearch}
+            onKeyDown={(evt) => {
+              if (handlePressEnter && evt.key === 'Enter') {
+                handlePressEnter(evt);
+                setIsOpen(false);
+              }
+            }}
+            onSearch={onSearchHandler}
             options={options}
             maxResults={maxResults}
             placeholder={placeholder}
@@ -91,6 +145,12 @@ export const AsyncTypeahead = ({
                 />
               </li>
             )}
+            open={isOpen}
+            promptText=""
+            searchText=""
+            emptyLabel={searchValue ? 'No matches found' : ''}
+            // let RTKQ handle caching
+            useCache={false}
           />
 
           {!!isVisible && (
@@ -115,15 +175,15 @@ export const AsyncTypeahead = ({
 AsyncTypeahead.propTypes = {
   ariaLabel: PropTypes.string.isRequired,
   defaultValue: PropTypes.string,
-  delayWait: PropTypes.number.isRequired,
+  fieldName: PropTypes.string.isRequired,
   isDisabled: PropTypes.bool,
-  handleChange: PropTypes.func.isRequired,
+  handleChange: PropTypes.func,
   handleClear: PropTypes.func,
-  handleSearch: PropTypes.func.isRequired,
+  handlePressEnter: PropTypes.func,
+  handleSelectionOverride: PropTypes.func,
   hasClearButton: PropTypes.bool,
   hasSearchButton: PropTypes.bool,
   htmlId: PropTypes.string.isRequired,
   maxResults: PropTypes.number,
-  options: PropTypes.array,
   placeholder: PropTypes.string,
 };

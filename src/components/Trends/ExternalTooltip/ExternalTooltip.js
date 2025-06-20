@@ -1,4 +1,3 @@
-import { CompanyTypeahead } from '../../Filters/Company/CompanyTypeahead';
 import { useSelector } from 'react-redux';
 import { TooltipRow } from './TooltipRow';
 import {
@@ -9,6 +8,7 @@ import {
 } from '../../../reducers/trends/selectors';
 import { externalTooltipFormatter } from '../../../utils/chart';
 import { useGetTrends } from '../../../api/hooks/useGetTrends';
+import { AsyncTypeahead } from '../../Typeahead/AsyncTypeahead/AsyncTypeahead';
 
 const WARN_SERIES_BREAK =
   'CFPB updated product and issue options in April 2017 and August 2023.';
@@ -18,7 +18,7 @@ const LEARN_SERIES_BREAK =
 
 export const ExternalTooltip = () => {
   const { data } = useGetTrends();
-  const colorMap = data?.colorMap;
+  const colorMap = data ? data?.colorMap : {};
   const trendsFocus = useSelector(selectTrendsFocus);
   const focus = trendsFocus ? 'focus' : '';
   const lens = useSelector(selectTrendsLens);
@@ -30,7 +30,15 @@ export const ExternalTooltip = () => {
   if (tooltip && tooltip.values) {
     return (
       <section className="tooltip-container u-clearfix">
-        {!!hasCompanyTypeahead && <CompanyTypeahead id="external-tooltip" />}
+        {!!hasCompanyTypeahead && (
+          <AsyncTypeahead
+            htmlId="external-tooltip"
+            fieldName="company"
+            label="Start typing to begin listing companies"
+            placeholder="Enter company name"
+            ariaLabel="Company search bar"
+          />
+        )}
         <p className="a-micro-copy">
           <span className="heading">{tooltip.heading}</span>
           <span className="date">{tooltip.date}</span>

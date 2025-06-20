@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { store } from '../app/store';
 import {
@@ -20,7 +20,6 @@ import {
 } from '../components/Trends/fixture';
 
 import fetchMock from 'jest-fetch-mock';
-import { waitFor } from '@testing-library/react';
 import { aggResponseTransformed, documentResponse } from './fixture';
 
 fetchMock.enableMocks();

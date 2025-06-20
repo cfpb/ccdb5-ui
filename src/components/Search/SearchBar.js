@@ -9,9 +9,7 @@ import {
 } from '../../reducers/query/querySlice';
 import { AdvancedTips } from './AdvancedTips/AdvancedTips';
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import { API_PLACEHOLDER } from '../../constants';
 import {
   selectQuerySearchField,
   selectQuerySearchText,
@@ -19,7 +17,6 @@ import {
 import { selectViewHasAdvancedSearchTips } from '../../reducers/view/selectors';
 import { AsyncTypeahead } from '../Typeahead/AsyncTypeahead/AsyncTypeahead';
 import { Input } from '../Typeahead/Input/Input';
-import { handleFetchSearch } from '../Typeahead/utils';
 
 const searchFields = {
   all: 'All data',
@@ -27,13 +24,12 @@ const searchFields = {
   complaint_what_happened: 'Narratives',
 };
 
-export const SearchBar = ({ debounceWait = 250 }) => {
+export const SearchBar = () => {
   const dispatch = useDispatch();
   const searchField = useSelector(selectQuerySearchField);
   const searchText = useSelector(selectQuerySearchText);
   const hasAdvancedSearchTips = useSelector(selectViewHasAdvancedSearchTips);
   const [inputValue, setInputValue] = useState(searchText);
-  const [dropdownOptions, setDropdownOptions] = useState([]);
   // handleClear is called whenever the user submits by pressing enter
   // shouldCallClear prevents handleClear from firing a reset after the search is set
   const [shouldCallClear, setShouldCallClear] = useState(true);
@@ -64,14 +60,9 @@ export const SearchBar = ({ debounceWait = 250 }) => {
     onSearchTipToggle(hasAdvancedSearchTips);
   };
 
-  const onSearchChange = (value) => {
-    setInputValue(value);
-    const uriCompany = `${API_PLACEHOLDER}_suggest_company/?text=${encodeURIComponent(value)}`;
-    handleFetchSearch(value, setDropdownOptions, uriCompany);
-  };
-
   const onSelection = (value) => {
-    dispatch(searchTextChanged(value[0].key));
+    const targetVal = value && value[0] ? value[0].key : '';
+    dispatch(searchTextChanged(targetVal));
   };
 
   const onTypeaheadClear = () => {
@@ -92,10 +83,9 @@ export const SearchBar = ({ debounceWait = 250 }) => {
       dispatch(searchTextChanged(event.target.value));
     }
   };
-
   return (
     <div>
-      <div className="search-bar" role="search">
+      <div className="search-bar u-mb25" role="search">
         <form action="" onSubmit={handleSubmit}>
           <h3 className="h4">Search within</h3>
           <div className="layout-row">
@@ -121,14 +111,14 @@ export const SearchBar = ({ debounceWait = 250 }) => {
                   ariaLabel="Enter your search term(s)"
                   htmlId="searchText"
                   defaultValue={searchText}
-                  delayWait={debounceWait}
                   handleChange={onSelection}
                   handleClear={onTypeaheadClear}
-                  handleSearch={onSearchChange}
+                  handlePressEnter={onPressEnter}
+                  handleSelectionOverride={onSelection}
                   hasClearButton={true}
                   hasSearchButton={true}
-                  options={dropdownOptions}
                   placeholder="Enter your search term(s)"
+                  fieldName="company"
                 />
               ) : (
                 <Input
@@ -159,8 +149,4 @@ export const SearchBar = ({ debounceWait = 250 }) => {
       {hasAdvancedSearchTips ? <AdvancedTips /> : null}
     </div>
   );
-};
-
-SearchBar.propTypes = {
-  debounceWait: PropTypes.number,
 };

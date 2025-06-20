@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 export const HighlightingOption = ({ label, position, value }) => {
-  if (position < 0) {
+  if (position < 0 || !value) {
     return <span>{label}</span>;
   }
 

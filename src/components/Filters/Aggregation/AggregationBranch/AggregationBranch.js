@@ -50,10 +50,9 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
 
   // Fix up the subitems to prepend the current item key
   const buckets = subitems.map((sub) => ({
-    disabled: item.isDisabled,
+    isDisabled: sub.isDisabled,
     key: slugify(item.key, sub.key),
     value: sub.key,
-
     doc_count: sub.doc_count,
   }));
 

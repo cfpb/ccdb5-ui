@@ -5,6 +5,11 @@ import {
 } from '../../../testUtils/test-utils';
 import userEvent from '@testing-library/user-event';
 import { AsyncTypeahead } from './AsyncTypeahead';
+import fetchMock from 'jest-fetch-mock';
+import { queryState } from '../../../reducers/query/querySlice';
+import { viewState } from '../../../reducers/view/viewSlice';
+
+fetchMock.enableMocks();
 
 describe('AsyncTypeahead', () => {
   const user = userEvent.setup({ delay: null });
@@ -19,6 +24,11 @@ describe('AsyncTypeahead', () => {
   const handleSearchMock = jest.fn();
 
   const renderComponent = (defaultValue, handleClear, isVisible) => {
+    const data = {
+      query: queryState,
+      view: viewState,
+    };
+
     render(
       <AsyncTypeahead
         ariaLabel="Enter the term you want to search for"
@@ -30,27 +40,43 @@ describe('AsyncTypeahead', () => {
         hasClearButton={isVisible || false}
         options={[appleOption]}
         placeholder="Enter your search term(s)"
+        fieldName="product"
       />,
+      {
+        preloadedState: data,
+      },
     );
   };
 
-  test('Value changes when user types', async () => {
-    renderComponent('value');
-    const input = screen.getByPlaceholderText('Enter your search term(s)');
-    await user.type(input, 'new value');
-
-    await waitFor(() => expect(handleSearchMock).toBeCalledTimes(1));
+  beforeEach(() => {
+    fetchMock.resetMocks();
   });
 
-  test('User can select value', async () => {
+  test('Value changes when user types', async () => {
+    fetchMock.mockResponse(JSON.stringify(['Banco', 'Bank of America']));
     renderComponent('value');
     const input = screen.getByPlaceholderText('Enter your search term(s)');
     await user.clear(input);
-    await user.type(input, 'appl');
-    await user.click(screen.getByRole('option', { name: /appl/ }));
+    await user.type(input, 'ban');
+    await screen.findByRole('option', {
+      name: /Banco/,
+    });
+    expect(
+      screen.getByRole('option', {
+        name: /Banco/,
+      }),
+    ).toBeInTheDocument();
+  });
 
-    await waitFor(() => expect(handleChangeMock).toBeCalledTimes(1));
-    expect(handleChangeMock).toBeCalledWith([appleOption]);
+  test('User can select value', async () => {
+    fetchMock.mockResponse(JSON.stringify(['Apple', 'Apple Bank']));
+    renderComponent('value');
+    const input = screen.getByPlaceholderText('Enter your search term(s)');
+    await user.clear(input);
+    await user.type(input, 'apple');
+    await screen.findAllByRole('option', { name: /Apple/ });
+    await user.click(screen.getByRole('option', { name: /Apple Bank/ }));
+    await waitFor(() => expect(handleChangeMock).toBeCalledTimes(7));
   });
 
   test('User can clear input value from default value', async () => {

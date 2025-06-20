@@ -34,7 +34,6 @@ import { FilterPanelToggle } from '../../Filters/FilterPanel/FilterPanelToggle';
 import { Select } from '../../RefineBar/Select';
 import { Separator } from '../../RefineBar/Separator';
 import { ChartToggles } from '../../RefineBar/ChartToggles';
-import { CompanyTypeahead } from '../../Filters/Company/CompanyTypeahead';
 import { FocusHeader } from '../FocusHeader/FocusHeader';
 import { LineChart } from '../../Charts/LineChart/LineChart';
 import { RowChart } from '../../Charts/RowChart/RowChart';
@@ -48,6 +47,7 @@ import { dataLensChanged } from '../../../reducers/trends/trendsSlice';
 import { formatDisplayDate } from '../../../utils/formatDate';
 import { useGetTrends } from '../../../api/hooks/useGetTrends';
 import { ErrorBlock } from '../../Warnings/Error';
+import { AsyncTypeahead } from '../../Typeahead/AsyncTypeahead/AsyncTypeahead';
 
 const WARNING_MESSAGE =
   '“Day” interval is disabled when the date range is longer than one year';
@@ -261,7 +261,13 @@ export const TrendsPanel = () => {
               Choose a company to start your visualization using the type-ahead
               menu below. You can add more than one company to your view
             </p>
-            <CompanyTypeahead id="modal-search" />
+            <AsyncTypeahead
+              htmlId="modal-search"
+              fieldName="company"
+              label="Start typing to begin listing companies"
+              placeholder="Enter company name"
+              ariaLabel="Type company name to view in detail"
+            />
           </section>
         </div>
       ) : null}

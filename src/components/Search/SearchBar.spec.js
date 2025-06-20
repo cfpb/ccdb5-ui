@@ -15,7 +15,7 @@ fetchMock.enableMocks();
 
 describe('SearchBar', () => {
   beforeEach(() => {
-    fetch.resetMocks();
+    fetchMock.resetMocks();
   });
 
   const user = userEvent.setup({ delay: null });
@@ -101,7 +101,7 @@ describe('SearchBar', () => {
   });
 
   test('When company searchField is selected, options appear when user types and dispatches searchTextChanged on selection', async () => {
-    fetch.mockResponseOnce(JSON.stringify(['Truist', 'Bank of America']));
+    fetchMock.mockResponse(JSON.stringify(['Truist', 'Bank of America']));
     const searchTextChangedSpy = jest
       .spyOn(searchActions, 'searchTextChanged')
       .mockImplementation(() => jest.fn());
@@ -120,7 +120,7 @@ describe('SearchBar', () => {
   });
 
   test('When company searchField is selected, input can be cleared', async () => {
-    fetch.mockResponseOnce(JSON.stringify(['Truist', 'Bank of America']));
+    fetchMock.mockResponse(JSON.stringify(['Truist', 'Bank of America']));
     const searchTextChangedSpy = jest
       .spyOn(searchActions, 'searchTextChanged')
       .mockImplementation(() => jest.fn());

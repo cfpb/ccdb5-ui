@@ -33,12 +33,14 @@ describe('TileChartMap', () => {
   });
 
   it('renders empty set without crashing', () => {
+    fetchMock.mockResponse(JSON.stringify(mapResults));
     renderComponent({}, {});
     expect(screen.getByTestId('tile-chart-map')).toBeInTheDocument();
     expect(screen.getByTestId('tile-chart-map')).not.toHaveClass('print');
   });
 
   it('renders print mode', () => {
+    fetchMock.mockResponse(JSON.stringify(mapResults));
     renderComponent({}, { isPrintMode: true });
     expect(screen.getByTestId('tile-chart-map')).toBeInTheDocument();
     expect(screen.getByTestId('tile-chart-map')).toHaveClass('print');
@@ -78,8 +80,7 @@ describe('TileChartMap', () => {
   });
 
   it('renders map with per capita values', async () => {
-    fetchMock.mockResponseOnce(JSON.stringify(mapResults));
-
+    fetchMock.mockResponse(JSON.stringify(mapResults));
     const analyticsSpy = jest
       .spyOn(analyticsActions, 'sendAnalyticsEvent')
       .mockImplementation(() => jest.fn());

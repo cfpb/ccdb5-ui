@@ -1,4 +1,4 @@
-import { generateOptions, Product } from './Product';
+import { generateOptions, NestedFilter } from './NestedFilter';
 import { slugify } from '../../../utils';
 import fetchMock from 'jest-fetch-mock';
 import { filtersState } from '../../../reducers/filters/filtersSlice';
@@ -8,6 +8,7 @@ import { merge } from '../../../testUtils/functionHelpers';
 import { screen, testRender as render } from '../../../testUtils/test-utils';
 import { MODE_TRENDS } from '../../../constants';
 import { aggResponse } from './fixture';
+import userEvent from '@testing-library/user-event';
 
 const renderComponent = (newFiltersState, newTrendsState, newViewState) => {
   merge(newFiltersState, filtersState);
@@ -21,15 +22,20 @@ const renderComponent = (newFiltersState, newTrendsState, newViewState) => {
     view: newViewState,
   };
 
-  render(<Product />, { preloadedState: data });
+  render(<NestedFilter desc="Product filter" fieldName="product" />, {
+    preloadedState: data,
+  });
 };
 
-describe('component:Product', () => {
+fetchMock.enableMocks();
+
+describe('component:NestedFilter', () => {
+  const user = userEvent.setup({ delay: null });
   beforeEach(() => {
     fetchMock.resetMocks();
   });
   it('renders a truncated set of filter options', async () => {
-    fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
+    fetchMock.mockResponse(JSON.stringify(aggResponse));
     renderComponent({}, {}, {});
 
     await screen.findByRole('button', {
@@ -44,6 +50,21 @@ describe('component:Product', () => {
     // show only 5 items
     expect(
       screen.getByRole('button', { name: '+ Show 1 more' }),
+    ).toBeInTheDocument();
+  });
+
+  it('renders typeahead and options', async () => {
+    fetchMock.mockResponse(JSON.stringify(aggResponse));
+    renderComponent({}, {}, {});
+    await screen.findByPlaceholderText('Enter name of product');
+    const input = screen.getByPlaceholderText('Enter name of product');
+    await user.clear(input);
+    await user.type(input, 'Credit');
+    await screen.findAllByRole('option', { name: /Credit/ });
+    expect(
+      screen.getByRole('option', {
+        name: /Other personal consumer report/,
+      }),
     ).toBeInTheDocument();
   });
 });
@@ -61,13 +82,27 @@ describe('generateOptions', () => {
         'Credit card',
       ];
 
-      const options = generateOptions(aggsProduct, selected, '', '', '');
+      const options = generateOptions(
+        aggsProduct,
+        selected,
+        '',
+        '',
+        '',
+        'product',
+      );
       expect(options[1]).toEqual(aggsProduct[5]);
     });
 
     it('treats child selections as parent selections', () => {
       const selected = [slugify('Mortgage', 'Conventional home mortgage')];
-      const options = generateOptions(aggsProduct, selected, '', '', '');
+      const options = generateOptions(
+        aggsProduct,
+        selected,
+        '',
+        '',
+        '',
+        'product',
+      );
       expect(options[0]).toEqual(aggsProduct[1]);
     });
   });
@@ -83,6 +118,7 @@ describe('generateOptions', () => {
         focus,
         lens,
         MODE_TRENDS,
+        'product',
       );
       expect(options).toEqual([
         {
@@ -164,6 +200,7 @@ describe('generateOptions', () => {
         queryFocus,
         queryLens,
         MODE_TRENDS,
+        'product',
       );
       expect(options).toEqual([
         {

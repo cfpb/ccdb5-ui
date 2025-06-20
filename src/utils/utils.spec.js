@@ -15,7 +15,7 @@ import {
   startOfToday,
 } from './index';
 import Analytics from '../actions/analytics';
-import { DATE_RANGE_MIN } from '../constants';
+import { DATE_RANGE_MIN, SLUG_SEPARATOR } from '../constants';
 import dayjs from 'dayjs';
 import dayjsCalendar from 'dayjs/plugin/calendar';
 import dayjsUtc from 'dayjs/plugin/utc';
@@ -244,9 +244,134 @@ describe('module::utils', () => {
   });
 
   describe('sortSelThenCount', () => {
+    let options;
+    beforeEach(() => {
+      options = [
+        {
+          key: 'Credit reporting or other personal consumer reports',
+          doc_count: 4782819,
+          'sub_product.raw': {
+            doc_count_error_upper_bound: 0,
+            sum_other_doc_count: 0,
+            buckets: [
+              { key: 'Credit reporting', doc_count: 4761272 },
+              {
+                key: 'Other personal consumer report',
+                doc_count: 21547,
+              },
+            ],
+          },
+        },
+        {
+          key: 'Debt or credit management',
+          doc_count: 5013,
+          'sub_product.raw': {
+            doc_count_error_upper_bound: 0,
+            sum_other_doc_count: 0,
+            buckets: [
+              { key: 'Debt settlement', doc_count: 2574 },
+              {
+                key: 'Credit repair services',
+                doc_count: 2170,
+              },
+              {
+                key: 'Mortgage modification or foreclosure avoidance',
+                doc_count: 203,
+              },
+              { key: 'Student loan debt relief', doc_count: 66 },
+            ],
+          },
+        },
+        {
+          key: 'Other financial service',
+          doc_count: 1058,
+          'sub_product.raw': {
+            doc_count_error_upper_bound: 0,
+            sum_other_doc_count: 0,
+            buckets: [
+              { key: 'Debt settlement', doc_count: 333 },
+              {
+                key: 'Check cashing',
+                doc_count: 266,
+              },
+              { key: 'Money order', doc_count: 143 },
+              {
+                key: 'Credit repair',
+                doc_count: 102,
+              },
+              { key: 'Traveler’s/Cashier’s checks', doc_count: 88 },
+              {
+                key: 'Refund anticipation check',
+                doc_count: 68,
+              },
+              { key: 'Foreign currency exchange', doc_count: 58 },
+            ],
+          },
+        },
+        {
+          key: 'Virtual currency',
+          doc_count: 18,
+          'sub_product.raw': {
+            doc_count_error_upper_bound: 0,
+            sum_other_doc_count: 0,
+            buckets: [
+              {
+                key: 'Domestic (US) money transfer',
+                doc_count: 17,
+              },
+              { key: 'International money transfer', doc_count: 1 },
+            ],
+          },
+        },
+      ];
+    });
     it('handles empty options array', () => {
-      const actual = sortSelThenCount(null, [1, 2, 3]);
-      expect(actual).toEqual([]);
+      const actual = sortSelThenCount(null, ['foo', 'bar', 'zyz'], 'product');
+      expect(actual).toEqual([
+        {
+          doc_count: 0,
+          key: 'foo',
+          'sub_product.raw': {
+            buckets: [],
+            doc_count_error_upper_bound: 0,
+            sum_other_doc_count: 0,
+          },
+        },
+        {
+          doc_count: 0,
+          key: 'bar',
+          'sub_product.raw': {
+            buckets: [],
+            doc_count_error_upper_bound: 0,
+            sum_other_doc_count: 0,
+          },
+        },
+        {
+          doc_count: 0,
+          key: 'zyz',
+          'sub_product.raw': {
+            buckets: [],
+            doc_count_error_upper_bound: 0,
+            sum_other_doc_count: 0,
+          },
+        },
+      ]);
+    });
+
+    it('floats checked items to the top', () => {
+      const filters = ['Virtual currency'];
+      const actual = sortSelThenCount(options, filters, 'product');
+      expect(actual[0].key).toEqual('Virtual currency');
+    });
+
+    it('floats child checked items to the top', () => {
+      const filters = [
+        'Virtual currency',
+        `Debt or credit management${SLUG_SEPARATOR}Debt settlement`,
+      ];
+      const actual = sortSelThenCount(options, filters, 'product');
+      expect(actual[0].key).toEqual('Virtual currency');
+      expect(actual[1].key).toEqual('Debt or credit management');
     });
   });
 
