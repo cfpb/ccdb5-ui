@@ -14,6 +14,7 @@ import { ReactComponent as LineChart } from '../../../icons/line-chart-custom.sv
 import { ReactComponent as List } from '../../../icons/list.svg';
 import { ReactComponent as Map } from '../../../icons/map.svg';
 import { ReactComponent as MinusRound } from '../../../icons/minus-round.svg';
+import { ReactComponent as Plus } from '../../../icons/plus.svg';
 import { ReactComponent as PlusRound } from '../../../icons/plus-round.svg';
 import { ReactComponent as Printer } from '../../../icons/print.svg';
 import { ReactComponent as Right } from '../../../icons/right.svg';
@@ -52,6 +53,7 @@ const iconMap = {
   map: <Map />,
   // cf-icon-svg--minus-round
   'minus-round': <MinusRound />,
+  plus: <Plus />,
   // cf-icon-svg--plus-round
   'plus-round': <PlusRound />,
   // cf-icon-svg--print
