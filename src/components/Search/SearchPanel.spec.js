@@ -1,7 +1,7 @@
 import { SearchPanel } from './SearchPanel';
 import { screen, testRender as render } from '../../testUtils/test-utils';
 import fetchMock from 'jest-fetch-mock';
-import { aggResponse } from '../Filters/Company/fixture';
+import { aggResponse } from '../../api/fixture';
 
 const renderComponent = () => {
   const data = {
