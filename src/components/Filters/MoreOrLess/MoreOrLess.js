@@ -3,21 +3,22 @@ import { createElement, useState } from 'react';
 import { coalesce, sortOptions } from '../../../utils';
 import { useSelector } from 'react-redux';
 import { selectFiltersRoot } from '../../../reducers/filters/selectors';
+import getIcon from '../../Common/Icon/iconMap';
 
 export const MoreOrLess = ({
   fieldName,
   listComponent,
   options,
   perBucketProps = (bucket, props) => props,
-  hasMore = false,
 }) => {
-  const [currentlyHasMore, setCurrentlyHasMore] = useState(hasMore);
   const filters = useSelector(selectFiltersRoot);
   const selectedFilters = coalesce(filters, fieldName, []);
+  const [limit, setLimit] = useState(5);
   const all = sortOptions(options, selectedFilters, fieldName);
-  const some = all.length > 5 ? all.slice(0, 5) : all;
-  const remain = all.length - 5;
-
+  const step = 50;
+  const some = options.slice(0, limit);
+  // either 50, or remaining count
+  const nextStep = step < all.length ? step : all.length - limit;
   const buildListComponent = (bucket) => {
     const itemProps = perBucketProps(bucket, {
       fieldName,
@@ -31,25 +32,20 @@ export const MoreOrLess = ({
   };
 
   const toggleShowMore = () => {
-    setCurrentlyHasMore(!currentlyHasMore);
+    setLimit(limit + nextStep);
   };
 
   return (
     <>
-      <ul>
-        {currentlyHasMore
-          ? all.map((bucket) => buildListComponent(bucket))
-          : some.map((bucket) => buildListComponent(bucket))}
-      </ul>
-      {remain > 0 ? (
+      <ul>{some.map((bucket) => buildListComponent(bucket))}</ul>
+      {some.length < options.length && (
         <div>
           <button className="a-btn a-btn--link more" onClick={toggleShowMore}>
-            {currentlyHasMore
-              ? `- Show ${remain} less`
-              : `+ Show ${remain} more`}
+            {getIcon('plus')}
+            <span>{`Show ${nextStep} more`}</span>
           </button>
         </div>
-      ) : null}
+      )}
     </>
   );
 };
@@ -63,5 +59,4 @@ MoreOrLess.propTypes = {
   ]).isRequired,
   options: PropTypes.array.isRequired,
   perBucketProps: PropTypes.func,
-  hasMore: PropTypes.bool,
 };

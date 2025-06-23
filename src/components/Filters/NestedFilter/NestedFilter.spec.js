@@ -23,9 +23,16 @@ const renderComponent = (newFiltersState, newTrendsState, newViewState) => {
     view: newViewState,
   };
 
-  render(<NestedFilter desc="Product filter" fieldName="product" />, {
-    preloadedState: data,
-  });
+  render(
+    <NestedFilter
+      desc="Product filter"
+      fieldName="product"
+      filterTitle="Product / Sub-product"
+    />,
+    {
+      preloadedState: data,
+    },
+  );
 };
 
 fetchMock.enableMocks();
@@ -59,7 +66,7 @@ describe('component:NestedFilter', () => {
     expect(screen.getAllByRole('checkbox').length).toBe(5);
     // show only 5 items
     expect(
-      screen.getByRole('button', { name: '+ Show 1 more' }),
+      screen.getByRole('button', { name: /Show 1 more/ }),
     ).toBeInTheDocument();
   });
 
