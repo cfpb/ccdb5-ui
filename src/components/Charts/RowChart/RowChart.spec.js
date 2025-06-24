@@ -157,4 +157,29 @@ describe('component::RowChart', () => {
     const { container } = renderComponent(props, trends, view);
     expect(container.firstChild).not.toBeInTheDocument();
   });
+
+  it('should handle null data', () => {
+    const props = {
+      data: null,
+      id: 'foo',
+      colorScheme: [],
+      title: 'Chart Title',
+      helperText: 'Description of the chart',
+      total: 0,
+    };
+
+    const trends = {
+      lens: 'Foo',
+    };
+
+    const view = {
+      isPrintMode: false,
+      expandedRows: [],
+      view: MODE_TRENDS,
+      width: 1000,
+    };
+    fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
+    const { container } = renderComponent(props, trends, view);
+    expect(container.firstChild).not.toBeInTheDocument();
+  });
 });

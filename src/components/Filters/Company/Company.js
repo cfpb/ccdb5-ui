@@ -1,5 +1,4 @@
 import { CollapsibleFilter } from '../CollapsibleFilter/CollapsibleFilter';
-import { CompanyTypeahead } from './CompanyTypeahead';
 import { useSelector } from 'react-redux';
 import { StickyOptions } from '../StickyOptions/StickyOptions';
 import {
@@ -8,6 +7,7 @@ import {
 } from '../../../reducers/trends/selectors';
 import { selectFiltersCompany } from '../../../reducers/filters/selectors';
 import { useGetAggregations } from '../../../api/hooks/useGetAggregations';
+import { AsyncTypeahead } from '../../Typeahead/AsyncTypeahead/AsyncTypeahead';
 
 const FIELD_NAME = 'company';
 
@@ -32,7 +32,14 @@ export const Company = () => {
       desc={desc}
       className="aggregation company"
     >
-      <CompanyTypeahead id={'filter-' + FIELD_NAME} />
+      <AsyncTypeahead
+        fieldName={FIELD_NAME}
+        id="filter-company-typeahead"
+        label="Start typing to begin listing companies"
+        placeholder="Enter company name"
+        ariaLabel="Company Search"
+        htmlId={FIELD_NAME + '-typeahead'}
+      />
       <StickyOptions
         fieldName={FIELD_NAME}
         options={options}

@@ -8,16 +8,24 @@ import { MODE_TRENDS } from '../../constants';
 import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from '../Map/fixture';
 import { trendsOverviewResponse } from '../Trends/TrendsPanel/fixture';
+import { trendsState } from '../../reducers/trends/trendsSlice';
+import { queryState } from '../../reducers/query/querySlice';
 
 const renderComponent = (newViewModelState) => {
+  const newQueryState = { dateLastIndexed: '2021-01-01' };
+  merge(newQueryState, queryState);
   merge(newViewModelState, viewState);
 
   const data = {
+    query: newQueryState,
     routes: { queryString: '?sadfdsf=fdsds' },
+    trends: trendsState,
     view: newViewModelState,
   };
   return render(<Tour />, { preloadedState: data });
 };
+
+fetchMock.enableMocks();
 
 describe('Tour loading behavior', () => {
   beforeEach(() => {

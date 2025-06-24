@@ -20,7 +20,6 @@ export function ariaReadoutNumbers(digits) {
   return Array.from(digits || '').join(' ');
 }
 
-// eslint-disable-next-line complexity
 export const calculateDateRange = (minDate, maxDate, dateLastIndexed) => {
   // only check intervals if the end date is today
   // round off the date so the partial times don't mess up calculations
@@ -51,6 +50,19 @@ export const calculateDateRange = (minDate, maxDate, dateLastIndexed) => {
   }
 
   return '';
+};
+
+/**
+ * Takes a string and returns a string with the first letter capitalized
+ *
+ * @param {string} string - the string to capitalize
+ * @returns {string} the string with the first letter capitalized
+ */
+export const capitalize = (string) => {
+  if (typeof string !== 'string' || string.length === 0) {
+    return string; // Return original if not a string or empty
+  }
+  return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 /**
@@ -147,7 +159,6 @@ export function hashCode(someString) {
  * @param {object} filters - reducer contains values for the filters, etc
  * @returns {boolean} are we enabling the perCap
  */
-// eslint-disable-next-line complexity
 export function enablePer1000(filters) {
   const keys = [];
   let filter;
@@ -182,6 +193,14 @@ export function enablePer1000(filters) {
 export const normalize = (str) => str.toLowerCase();
 
 /**
+ * Helper function to check if any element in the array is truthy
+ *
+ * @param {Array} argArray - array of parameters to check against
+ * @returns {boolean} whether or not any value in the array is true
+ */
+export const isTrue = (argArray) => argArray.some((element) => !!element);
+
+/**
  * takes a string and formats it into proper text for an htmd ID
  * Eat at Joe's => eatatjoes
  *
@@ -193,33 +212,105 @@ export const sanitizeHtmlId = (str) =>
 
 export const slugify = (first, second) => first + SLUG_SEPARATOR + second;
 
+export const insertParentFilter = (filterArray, missingFilter, fieldName) => {
+  const filter = filterArray.find((item) => item.key === missingFilter);
+  if (!filter) {
+    filterArray.push({
+      key: missingFilter,
+      doc_count: 0,
+      [`sub_${fieldName}.raw`]: {
+        doc_count_error_upper_bound: 0,
+        sum_other_doc_count: 0,
+        buckets: [],
+      },
+    });
+  }
+};
+
+export const insertChildFilter = (filterArray, missingFilter, fieldName) => {
+  const filter = filterArray.find(
+    (item) => item.key === missingFilter.split(SLUG_SEPARATOR)[0],
+  );
+  const subAggField = `sub_${fieldName}.raw`;
+  if (
+    filter[subAggField] &&
+    !filter[subAggField].buckets.find(
+      (bucket) => bucket.key === missingFilter.split(SLUG_SEPARATOR)[1],
+    )
+  ) {
+    filter[subAggField].buckets.push({
+      key: missingFilter.split(SLUG_SEPARATOR)[1],
+      doc_count: 0,
+    });
+  }
+};
 /**
- * Custom sort for array so that selected items appear first, then by doc_count
+ * Custom sort for filters:
+ *   - selected parent items appear first
+ *   - then selected child items
+ *   - then by doc_count
  *
- * @param {Array} options - input array containing values
- * @param {Array} selected - values
+ * @param {Array} options - filter vals from aggregations api call
+ * @param {Array} selectedFilters - parent values from Filter Reducer
+ * @param {string} fieldName - the field to grab subaggregations, product or issue
  * @returns {Array} sorted array
  */
-export const sortSelThenCount = (options, selected) => {
+export const sortSelThenCount = (options, selectedFilters, fieldName) => {
+  const selections = [];
+  // Reduce the products to the parent keys (and dedup), since we only want to
+  // float the selected parent filters to the top
+  selectedFilters.forEach((prod) => {
+    const key = prod.split(SLUG_SEPARATOR)[0];
+    if (selections.indexOf(key) === -1) {
+      selections.push(key);
+    }
+  });
+
+  const subAggFieldName = `sub_${fieldName}.raw`;
   const retVal = (structuredClone(options) || []).slice();
-
-  /* eslint complexity: ["error", 5] */
   retVal.sort((first, second) => {
-    const aSel = selected.indexOf(first.key) !== -1;
-    const bSel = selected.indexOf(second.key) !== -1;
-
-    if (aSel && !bSel) {
-      return -1;
-    }
-    if (!aSel && bSel) {
-      return 1;
+    // sort by parent items first
+    const isFirstItemSelected = selectedFilters.includes(first.key);
+    const isSecondItemSelected = selectedFilters.includes(second.key);
+    // If items have different selection status
+    if (isFirstItemSelected !== isSecondItemSelected) {
+      return isFirstItemSelected ? -1 : 1;
     }
 
-    // Both are selected or not selected
+    const isFirstItemChildSelected =
+      first && first[subAggFieldName]
+        ? first[subAggFieldName].buckets.filter((bucket) =>
+            selectedFilters.includes(first.key + SLUG_SEPARATOR + bucket.key),
+          ).length > 0
+        : false;
+
+    const isSecondItemChildSelected =
+      second && second[subAggFieldName]
+        ? second[subAggFieldName].buckets.filter((bucket) =>
+            selectedFilters.includes(second.key + SLUG_SEPARATOR + bucket.key),
+          ).length > 0
+        : false;
+    // then try sorting if parent item has any child selected
+    if (isFirstItemChildSelected !== isSecondItemChildSelected) {
+      return isFirstItemChildSelected ? -1 : 1;
+    }
+
+    // Both items have the same selection status
     // Sort by descending doc_count
     return second.doc_count - first.doc_count;
   });
 
+  // insert any missing filters from Product / Issue
+  if (selectedFilters.length > 0) {
+    selectedFilters.forEach((item) => {
+      if (item.indexOf(SLUG_SEPARATOR) !== -1) {
+        insertParentFilter(retVal, item.split(SLUG_SEPARATOR)[0], fieldName);
+        insertChildFilter(retVal, item, fieldName);
+      } else {
+        insertParentFilter(retVal, item, fieldName);
+      }
+    });
+  }
   return retVal;
 };
 
@@ -256,6 +347,7 @@ export function shortIsoFormat(date) {
  */
 export function startOfToday() {
   if (!window.MAX_DATE) {
+    // eslint-disable-next-line no-console
     console.error('waiting for API response, setting MAX_DATE to today');
     window.MAX_DATE = formatDate(dayjs().startOf('day'));
   }
@@ -451,11 +543,3 @@ export function removeNullProperties(object) {
 export function formatUri(path, params) {
   return path + '?' + queryString.stringify(params);
 }
-
-/**
- * Helper function to check if any element in the array is truthy
- *
- * @param {Array} argArray - array of parameters to check against
- * @returns {boolean} whether or not any value in the array is true
- */
-export const isTrue = (argArray) => argArray.some((element) => !!element);

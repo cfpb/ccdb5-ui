@@ -25,6 +25,7 @@ describe('component: ExternalTooltip', () => {
     renderComponent({});
     expect(screen.queryByText('foobar')).not.toBeInTheDocument();
   });
+
   test('rendering', () => {
     const trends = {
       focus: '',

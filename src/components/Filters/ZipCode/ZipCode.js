@@ -1,37 +1,18 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { CollapsibleFilter } from '../CollapsibleFilter/CollapsibleFilter';
-import { stateToQS } from '../../../reducers/query/querySlice';
-import { API_PLACEHOLDER } from '../../../constants';
-import { selectQueryRoot } from '../../../reducers/query/selectors';
+import { selectFiltersZipCode } from '../../../reducers/filters/selectors';
+import { StickyOptions } from '../StickyOptions/StickyOptions';
+import { useGetAggregations } from '../../../api/hooks/useGetAggregations';
 import { AsyncTypeahead } from '../../Typeahead/AsyncTypeahead/AsyncTypeahead';
-import { handleFetchSearch } from '../../Typeahead/utils';
-import { multipleFiltersAdded } from '../../../reducers/filters/filtersSlice';
-import { selectFiltersRoot } from '../../../reducers/filters/selectors';
 
 const FIELD_NAME = 'zip_code';
 
-export const ZipCode = ({ delayWait = 250 }) => {
-  const dispatch = useDispatch();
-  const query = useSelector(selectQueryRoot);
-  const filters = useSelector(selectFiltersRoot);
-  const [dropdownOptions, setDropdownOptions] = useState([]);
-
-  const queryState = Object.assign({}, query, filters);
-  queryState.searchAfter = '';
-  const queryString = stateToQS(queryState);
-
-  const onSelection = (value) => {
-    dispatch(multipleFiltersAdded(FIELD_NAME, [value[0].key]));
-    setDropdownOptions([]);
-  };
-
-  const onInputChange = (value) => {
-    const qs = queryString + '&text=' + encodeURIComponent(value);
-    const uri = `${API_PLACEHOLDER}_suggest_zip/${qs}`;
-    handleFetchSearch(value, setDropdownOptions, uri);
-  };
+export const ZipCode = () => {
+  const { data: aggsData, error } = useGetAggregations();
+  const filters = useSelector(selectFiltersZipCode);
+  const aggsZipCode = error ? [] : aggsData?.zip_code || [];
+  // Zip code aggregations coming from API
+  const stickyOptions = structuredClone(aggsZipCode);
 
   return (
     <CollapsibleFilter
@@ -40,19 +21,18 @@ export const ZipCode = ({ delayWait = 250 }) => {
       className="aggregation"
     >
       <AsyncTypeahead
-        htmlId="zipcode-typeahead"
+        fieldName={FIELD_NAME}
+        label="Start typing to begin listing zip codes"
+        placeholder="Enter ZIP code"
         ariaLabel="Start typing to begin listing zip codes"
-        delayWait={delayWait}
-        handleSearch={onInputChange}
-        handleChange={onSelection}
+        htmlId={FIELD_NAME + 'typeahead'}
         hasClearButton={true}
-        options={dropdownOptions}
-        placeholder="Enter first three digits of ZIP code"
+      />
+      <StickyOptions
+        fieldName={FIELD_NAME}
+        options={stickyOptions}
+        selections={filters}
       />
     </CollapsibleFilter>
   );
-};
-
-ZipCode.propTypes = {
-  delayWait: PropTypes.number,
 };
