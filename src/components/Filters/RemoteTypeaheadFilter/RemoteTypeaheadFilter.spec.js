@@ -7,7 +7,7 @@ import userEvent from '@testing-library/user-event';
 import fetchMock from 'jest-fetch-mock';
 import * as filterActions from '../../../reducers/filters/filtersSlice';
 import { filtersState } from '../../../reducers/filters/filtersSlice';
-import { ZipCode } from './ZipCode';
+import { RemoteTypeaheadFilter } from './RemoteTypeaheadFilter';
 import { cloneDeep, merge } from 'lodash';
 import { aggResponse } from '../../List/ListPanel/fixture';
 
@@ -21,12 +21,12 @@ const renderComponent = (newFiltersState) => {
     routes: { queryString: '?foo=bar' },
   };
 
-  render(<ZipCode />, {
+  render(<RemoteTypeaheadFilter />, {
     preloadedState: data,
   });
 };
 
-describe('ZipCode', () => {
+describe('RemoteTypeaheadFilter', () => {
   let zipAggsResponse;
   beforeEach(() => {
     fetchMock.resetMocks();
