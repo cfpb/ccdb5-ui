@@ -56,7 +56,7 @@ $cf-fonts-path: '/static/fonts';
 }
 
 .col-1 {
-  @include u-grid-column(1); 
+  @include u-grid-column(1);
 }
 
 .col-2 {
@@ -109,7 +109,7 @@ $cf-fonts-path: '/static/fonts';
   }
 
   .content__sidebar {
-    width: 420px; 
+    width: 420px;
     padding: 0;
     border: 0;
     margin: 0;
@@ -161,6 +161,7 @@ $cf-fonts-path: '/static/fonts';
     .content__main {
       width: 100%;
     }
+
     .content__sidebar {
       &.map,
       &.list {
@@ -171,6 +172,7 @@ $cf-fonts-path: '/static/fonts';
   .filter-button {
     display: block;
     margin: 20px 10px;
+
     button {
       width: 100%;
     }
@@ -181,12 +183,14 @@ $cf-fonts-path: '/static/fonts';
   .filter-button {
     display: block;
     margin: 20px 0;
+
     button {
       width: 100%;
     }
   }
   .content--1-3.ccdb-content {
     margin-bottom: 0;
+
     .content {
       &__sidebar,
       &__main {
