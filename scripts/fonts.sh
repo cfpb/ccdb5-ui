@@ -1,14 +1,12 @@
 #!/usr/bin/env bash
 
+# https://github.com/cfpb/design-system/pull/2309/files#diff-90f15467c133b5bbfee15918b85af670f342d74323094f8caad8fbb2b2628878
+FONT_VARIABLE="source-sans-3-latin-wght-normal.woff2"
+BASE_DIR="./src/static/fonts"
+
 # Add required webfonts locally to src/static/fonts/ directory.
-cd src
-mkdir ./static/
-mkdir ./static/fonts
-cd ./static/fonts
-prefix="https://github.com/cfpb/consumerfinance.gov/blob/main/static.in/cfgov-fonts/fonts/"
-fonts=("2cd55546-ec00-4af9-aeca-4a3cd186da53.woff2" "627fbb5a-3bae-4cd9-b617-2f923e29d55e.woff2")
-for font in ${fonts[@]}; do
-  # Flags: L = follow redirects.
-  curl -L "${prefix}${font}?raw=true" > ${font}
-done
-cd ../../../
+echo "creating $BASE_DIR"
+mkdir -p $BASE_DIR
+echo "Copying ./node_modules/@fontsource-variable/source-sans-3/files/$FONT_VARIABLE to $BASE_DIR/$FONT_VARIABLE"
+cp ./node_modules/@fontsource-variable/source-sans-3/files/$FONT_VARIABLE $BASE_DIR/$FONT_VARIABLE
+

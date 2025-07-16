@@ -46,6 +46,7 @@ li.card-container {
         padding-right: $gutter-narrow;
       }
     }
+
     .card-right {
       @media screen and (max-width: $layout-breakpoint-phone-max) {
         width: 100%;
@@ -87,14 +88,11 @@ li.card-container {
 
     .subitem {
       margin-right: $gutter-minimum;
-
-      font-family: 'Avenir Next', sans-serif;
       font-weight: 500;
     }
 
     em {
       background-color: var(--teal-20);
-      font-family: 'Avenir Next', sans-serif;
       font-style: normal;
     }
   }
