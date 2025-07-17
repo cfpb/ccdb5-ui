@@ -7,7 +7,7 @@ import { FederalState } from '../FederalState/FederalState';
 import { HasNarrative } from '../HasNarrative/HasNarrative';
 import getIcon from '../../Common/Icon/iconMap';
 import { SimpleFilter } from '../SimpleFilter/SimpleFilter';
-import { ZipCode } from '../ZipCode/ZipCode';
+import { RemoteTypeaheadFilter } from '../RemoteTypeaheadFilter/RemoteTypeaheadFilter';
 import { updateFilterVisibility } from '../../../reducers/view/viewSlice';
 import {
   selectViewHasFilters,
@@ -67,7 +67,29 @@ export const FilterPanel = () => {
           <hr />
           <FederalState />
           <hr />
-          <ZipCode />
+          <RemoteTypeaheadFilter
+            desc="The metropolitan statistical area (MSA) of the mailing address provided by the consumer"
+            fieldName="msa"
+            labelText="Start typing to begin listing MSA names"
+            placeholderText="Enter city or metro area name"
+            title="Metropolitan statistical area (MSA)"
+          />
+          <hr />
+          <RemoteTypeaheadFilter
+            desc="The mailing ZIP code provided by the consumer"
+            fieldName="zip_code"
+            labelText="Start typing to begin listing zip codes"
+            placeholderText="Enter ZIP code"
+            title="ZIP code"
+          />
+          <hr />
+          <RemoteTypeaheadFilter
+            desc="The congressional district of the mailing address provided by the consumer, for example, `Maryland Congressional District 4`"
+            fieldName="cong_district"
+            labelText="Start typing to begin listing MSA names"
+            placeholderText="Enter state name"
+            title="Congressional District"
+          />
           <hr />
           <Company />
           <hr />
