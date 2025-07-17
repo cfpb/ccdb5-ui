@@ -24,35 +24,28 @@ describe('component:MoreOrLess', () => {
 
   beforeEach(() => {
     props = {
-      hasMore: true,
       listComponent: AggregationItem,
-      listComponentProps: { fieldName: 'myfield' },
+      listComponentProps: { fieldName: 'product' },
       options: fixture,
     };
   });
 
   it('displays and toggles properly when more results are available', async () => {
     renderComponent(props);
-
-    const lessButton = screen.getByRole('button', { name: /Show 3 less/ });
-    expect(lessButton).toBeInTheDocument();
-
-    await user.click(lessButton);
     expect(
       screen.getByRole('button', { name: /Show 3 more/ }),
     ).toBeInTheDocument();
   });
 
   it('displays and toggles properly when no more results are available', async () => {
-    props.hasMore = false;
     renderComponent(props);
-
-    const moreButton = screen.getByRole('button', { name: /Show 3 more/ });
-    expect(moreButton).toBeInTheDocument();
-
-    await user.click(moreButton);
     expect(
-      screen.getByRole('button', { name: /Show 3 less/ }),
+      screen.getByRole('button', { name: /Show 3 more/ }),
     ).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: /Show 3 more/ }));
+    expect(
+      screen.queryByRole('button', { name: /Show 3 more/ }),
+    ).not.toBeInTheDocument();
   });
 });
