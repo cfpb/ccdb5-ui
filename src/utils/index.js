@@ -302,16 +302,6 @@ export const sortOptions = (options, filters, fieldName) => {
  * @returns {Array} sorted array
  */
 export const sortSelThenCount = (options, selectedFilters, fieldName) => {
-  const selections = [];
-  // Reduce the products to the parent keys (and dedup), since we only want to
-  // float the selected parent filters to the top
-  selectedFilters.forEach((prod) => {
-    const key = prod.split(SLUG_SEPARATOR)[0];
-    if (!selections.includes(key)) {
-      selections.push(key);
-    }
-  });
-
   const retVal = sortOptions(options, selectedFilters, fieldName);
   // insert any missing filters from Product / Issue
   if (selectedFilters.length > 0) {
