@@ -11,7 +11,6 @@ export const SimpleFilter = ({ fieldName, title, desc }) => {
   const { data: aggData, error } = useGetAggregations();
   const aggs = error ? {} : aggData;
   const options = coalesce(aggs, fieldName, []);
-  const listComponentProps = { fieldName };
 
   return (
     <CollapsibleFilter
@@ -20,8 +19,8 @@ export const SimpleFilter = ({ fieldName, title, desc }) => {
       className={'aggregation simple ' + fieldName}
     >
       <MoreOrLess
+        fieldName={fieldName}
         listComponent={AggregationItem}
-        listComponentProps={listComponentProps}
         options={options}
       />
     </CollapsibleFilter>

@@ -1,23 +1,26 @@
 import PropTypes from 'prop-types';
 import { createElement, useState } from 'react';
+import { coalesce, sortOptions } from '../../../utils';
+import { useSelector } from 'react-redux';
+import { selectFiltersRoot } from '../../../reducers/filters/selectors';
 
-//TODO: will make much less complex in implementation
 export const MoreOrLess = ({
+  fieldName,
   listComponent,
-  listComponentProps = {},
   options,
   perBucketProps = (bucket, props) => props,
   hasMore = false,
 }) => {
   const [currentlyHasMore, setCurrentlyHasMore] = useState(hasMore);
-
-  const all = options;
+  const filters = useSelector(selectFiltersRoot);
+  const selectedFilters = coalesce(filters, fieldName, []);
+  const all = sortOptions(options, selectedFilters, fieldName);
   const some = all.length > 5 ? all.slice(0, 5) : all;
   const remain = all.length - 5;
 
   const buildListComponent = (bucket) => {
     const itemProps = perBucketProps(bucket, {
-      ...listComponentProps,
+      fieldName,
       item: bucket,
       key: bucket.key,
     });
@@ -52,12 +55,12 @@ export const MoreOrLess = ({
 };
 
 MoreOrLess.propTypes = {
+  fieldName: PropTypes.string.isRequired,
   listComponent: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.func,
     PropTypes.object,
   ]).isRequired,
-  listComponentProps: PropTypes.object,
   options: PropTypes.array.isRequired,
   perBucketProps: PropTypes.func,
   hasMore: PropTypes.bool,

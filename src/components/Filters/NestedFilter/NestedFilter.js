@@ -79,10 +79,6 @@ export const NestedFilter = ({ desc, fieldName }) => {
     fieldName,
   );
 
-  const listComponentProps = {
-    fieldName: fieldName,
-  };
-
   // --------------------------------------------------------------------------
   // MoreOrLess Helpers
   const _onBucket = (bucket, props) => {
@@ -100,8 +96,8 @@ export const NestedFilter = ({ desc, fieldName }) => {
         <FilterSearch fieldName={fieldName} />
       )}
       <MoreOrLess
+        fieldName={fieldName}
         listComponent={AggregationBranch}
-        listComponentProps={listComponentProps}
         options={options}
         perBucketProps={_onBucket}
       />
