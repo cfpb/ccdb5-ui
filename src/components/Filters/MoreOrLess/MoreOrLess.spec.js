@@ -24,9 +24,9 @@ describe('component:MoreOrLess', () => {
 
   beforeEach(() => {
     props = {
+      fieldName: 'myfield',
       hasMore: true,
       listComponent: AggregationItem,
-      listComponentProps: { fieldName: 'myfield' },
       options: fixture,
     };
   });

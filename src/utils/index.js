@@ -244,31 +244,23 @@ export const insertChildFilter = (filterArray, missingFilter, fieldName) => {
     });
   }
 };
+
 /**
  * Custom sort for filters:
- *   - selected parent items appear first
- *   - then selected child items
- *   - then by doc_count
+ * - selected parent items appear first
+ * - then selected child items
+ * - then by doc_count
  *
- * @param {Array} options - filter vals from aggregations api call
- * @param {Array} selectedFilters - parent values from Filter Reducer
- * @param {string} fieldName - the field to grab subaggregations, product or issue
- * @returns {Array} sorted array
+ * @param {Array} options - filter options
+ * @param {Array} filters - filter state from redux
+ * @param {string} fieldName - the filter field
+ * @returns {Array} Sorted filters
  */
-export const sortSelThenCount = (options, selectedFilters, fieldName) => {
-  const selections = [];
-  // Reduce the products to the parent keys (and dedup), since we only want to
-  // float the selected parent filters to the top
-  selectedFilters.forEach((prod) => {
-    const key = prod.split(SLUG_SEPARATOR)[0];
-    if (selections.indexOf(key) === -1) {
-      selections.push(key);
-    }
-  });
-
+export const sortOptions = (options, filters, fieldName) => {
+  const selectedFilters = filters || [];
   const subAggFieldName = `sub_${fieldName}.raw`;
   const retVal = (structuredClone(options) || []).slice();
-  retVal.sort((first, second) => {
+  return retVal.sort((first, second) => {
     // sort by parent items first
     const isFirstItemSelected = selectedFilters.includes(first.key);
     const isSecondItemSelected = selectedFilters.includes(second.key);
@@ -299,7 +291,18 @@ export const sortSelThenCount = (options, selectedFilters, fieldName) => {
     // Sort by descending doc_count
     return second.doc_count - first.doc_count;
   });
+};
 
+/**
+ * Sorts and inserts missing filter options
+ *
+ * @param {Array} options - filter vals from aggregations api call
+ * @param {Array} selectedFilters - parent values from Filter Reducer
+ * @param {string} fieldName - the field to grab subaggregations, product or issue
+ * @returns {Array} sorted array
+ */
+export const sortSelThenCount = (options, selectedFilters, fieldName) => {
+  const retVal = sortOptions(options, selectedFilters, fieldName);
   // insert any missing filters from Product / Issue
   if (selectedFilters.length > 0) {
     selectedFilters.forEach((item) => {

@@ -7,6 +7,7 @@ import {
   getAllFilters,
   sanitizeHtmlId,
   slugify,
+  sortOptions,
 } from '../../../../utils';
 import { selectFiltersRoot } from '../../../../reducers/filters/selectors';
 import { AggregationItem } from '../AggregationItem/AggregationItem';
@@ -49,13 +50,14 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
   }
 
   // Fix up the subitems to prepend the current item key
-  const buckets = subitems.map((sub) => ({
+  const unsorted = subitems.map((sub) => ({
     isDisabled: sub.isDisabled,
     key: slugify(item.key, sub.key),
     value: sub.key,
     doc_count: sub.doc_count,
   }));
 
+  const buckets = sortOptions(unsorted, allFilters, fieldName);
   const liStyle = 'parent m-form-field m-form-field--checkbox body-copy';
   const id = sanitizeHtmlId(`${fieldName} ${item.key}`);
 
