@@ -1,5 +1,4 @@
 import './FilterPanel.scss';
-import { Company } from '../Company/Company';
 import { CompanyReceivedFilter } from '../Date/CompanyReceivedFilter';
 import { useDispatch, useSelector } from 'react-redux';
 import { DateFilter } from '../Date/DateFilter';
@@ -55,6 +54,7 @@ export const FilterPanel = () => {
               'in the complaint'
             }
             fieldName="product"
+            filterTitle="Product / Sub-product"
           />
           <hr />
           <NestedFilter
@@ -63,13 +63,21 @@ export const FilterPanel = () => {
               'in the complaint'
             }
             fieldName="issue"
+            filterTitle="Issue / Sub-issue"
           />
           <hr />
           <FederalState />
           <hr />
           <ZipCode />
           <hr />
-          <Company />
+          <NestedFilter
+            desc={
+              'The type of issue and sub-issue the consumer identified ' +
+              'in the complaint'
+            }
+            fieldName="company"
+            filterTitle="Company"
+          />
           <hr />
           <SimpleFilter
             title="Did company provide a timely response?"
