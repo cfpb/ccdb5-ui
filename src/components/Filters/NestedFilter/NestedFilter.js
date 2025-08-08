@@ -2,7 +2,7 @@ import { MODE_TRENDS } from '../../../constants';
 import { AggregationBranch } from '../Aggregation/AggregationBranch/AggregationBranch';
 import { CollapsibleFilter } from '../CollapsibleFilter/CollapsibleFilter';
 import { useSelector } from 'react-redux';
-import { capitalize, sortSelThenCount } from '../../../utils';
+import { sortSelThenCount } from '../../../utils';
 import { MoreOrLess } from '../MoreOrLess/MoreOrLess';
 import {
   selectTrendsFocus,
@@ -51,6 +51,7 @@ export const generateOptions = (
       }
     });
   }
+
   return options;
 };
 
@@ -58,9 +59,10 @@ export const generateOptions = (
  * @param {object} params - Params needed to initialize the filter
  * @param {string} params.desc - Description of the filter, used in mouseover tooltips
  * @param {string} params.fieldName - Name of the filter field, used to pick out aggregations
+ * @param {string} params.filterTitle - Name of the filter group, Zip Code, Product / Sub-product
  * @returns {JSX.Element} Element containing a collapsible filter with a list of options
  */
-export const NestedFilter = ({ desc, fieldName }) => {
+export const NestedFilter = ({ desc, fieldName, filterTitle }) => {
   const { data, error } = useGetAggregations();
   // See if there are any active product filters
   const filtersState = useSelector(selectFiltersRoot);
@@ -88,7 +90,7 @@ export const NestedFilter = ({ desc, fieldName }) => {
 
   return (
     <CollapsibleFilter
-      title={capitalize(fieldName) + ' / sub-' + fieldName}
+      title={filterTitle}
       desc={desc}
       className={'aggregation ' + fieldName}
     >
@@ -108,4 +110,5 @@ export const NestedFilter = ({ desc, fieldName }) => {
 NestedFilter.propTypes = {
   desc: PropTypes.string.isRequired,
   fieldName: PropTypes.string.isRequired,
+  filterTitle: PropTypes.string.isRequired,
 };
