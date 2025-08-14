@@ -63,7 +63,7 @@ describe('FederalState', () => {
     await user.click(option);
 
     await waitFor(() =>
-      expect(multipleFiltersAddedSpy).toBeCalledWith('state', ['MD']),
+      expect(multipleFiltersAddedSpy).toHaveBeenCalledWith('state', ['MD']),
     );
   });
 

@@ -3,7 +3,7 @@
 @use '@cfpb/cfpb-design-system/src/base' as *;
 @use '@cfpb/cfpb-design-system/dist/index.css' as *;
 @include define-custom-props;
-@include licensed-font('/static/fonts');
+@include licensed-font('/src/static/fonts');
 
 
 /* ==========================================================================

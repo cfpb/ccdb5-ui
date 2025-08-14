@@ -91,8 +91,8 @@ describe('ListPanel', () => {
       { target: { value: '10' } },
     );
 
-    expect(analyticsSpy).toBeCalledWith('Dropdown', '10 results');
-    expect(sizeChangedSpy).toBeCalledWith('10');
+    expect(analyticsSpy).toHaveBeenCalledWith('Dropdown', '10 results');
+    expect(sizeChangedSpy).toHaveBeenCalledWith('10');
   });
 
   test('onSort triggers dispatch and analytics event', () => {
@@ -112,8 +112,8 @@ describe('ListPanel', () => {
       { target: { value: 'created_date_asc' } },
     );
 
-    expect(analyticsSpy).toBeCalledWith('Dropdown', 'Oldest to newest');
-    expect(sortChangedSpy).toBeCalledWith('created_date_asc');
+    expect(analyticsSpy).toHaveBeenCalledWith('Dropdown', 'Oldest to newest');
+    expect(sortChangedSpy).toHaveBeenCalledWith('created_date_asc');
   });
 
   test('FilterPanel showed when width is 500', () => {

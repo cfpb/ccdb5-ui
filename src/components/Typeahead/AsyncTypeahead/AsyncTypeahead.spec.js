@@ -19,9 +19,10 @@ describe('AsyncTypeahead', () => {
     position: 4,
     value: 'appl',
   };
-  const handleChangeMock = jest.fn();
-  const handleClearMock = jest.fn();
-  const handleSearchMock = jest.fn();
+
+  let handleChangeMock;
+  let handleClearMock;
+  let handleSearchMock;
 
   const renderComponent = (defaultValue, handleClear, isVisible) => {
     const data = {
@@ -50,6 +51,13 @@ describe('AsyncTypeahead', () => {
 
   beforeEach(() => {
     fetchMock.resetMocks();
+    handleChangeMock = jest.fn();
+    handleClearMock = jest.fn();
+    handleSearchMock = jest.fn();
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
   test('Value changes when user types', async () => {
@@ -76,7 +84,7 @@ describe('AsyncTypeahead', () => {
     await user.type(input, 'apple');
     await screen.findAllByRole('option', { name: /Apple/ });
     await user.click(screen.getByRole('option', { name: /Apple Bank/ }));
-    await waitFor(() => expect(handleChangeMock).toBeCalledTimes(7));
+    await waitFor(() => expect(handleChangeMock).toHaveBeenCalledTimes(7));
   });
 
   test('User can clear input value from default value', async () => {
@@ -85,7 +93,7 @@ describe('AsyncTypeahead', () => {
     expect(input).toHaveValue('value');
     await user.click(screen.getByRole('button', { name: /clear search/ }));
 
-    await waitFor(() => expect(handleClearMock).toBeCalledTimes(1));
+    await waitFor(() => expect(handleClearMock).toHaveBeenCalledTimes(1));
     expect(input).toHaveValue('');
   });
 
@@ -99,7 +107,7 @@ describe('AsyncTypeahead', () => {
       await screen.findByRole('button', { name: /clear search/ }),
     );
 
-    await waitFor(() => expect(handleClearMock).toBeCalledTimes(1));
+    await waitFor(() => expect(handleClearMock).toHaveBeenCalledTimes(1));
     expect(input).toHaveValue('');
   });
 
@@ -113,7 +121,7 @@ describe('AsyncTypeahead', () => {
       await screen.findByRole('button', { name: /clear search/ }),
     );
 
-    await waitFor(() => expect(handleClearMock).not.toBeCalled());
+    await waitFor(() => expect(handleClearMock).not.toHaveBeenCalled());
     expect(input).toHaveValue('');
   });
 

@@ -79,16 +79,18 @@ describe('reducer:View', () => {
     });
   });
 
-  describe('handles PRINT_MODE_ON', () => {
-    expect(target(viewState, updatePrintModeOn())).toEqual({
-      ...viewState,
-      isPrintMode: true,
+  describe('Print Actions', () => {
+    it('handles PRINT_MODE_ON', () => {
+      expect(target(viewState, updatePrintModeOn())).toEqual({
+        ...viewState,
+        isPrintMode: true,
+      });
     });
-  });
-  describe('handles PRINT_MODE_OFF', () => {
-    expect(target(viewState, updatePrintModeOff())).toEqual({
-      ...viewState,
-      isPrintMode: false,
+    it('handles PRINT_MODE_OFF', () => {
+      expect(target(viewState, updatePrintModeOff())).toEqual({
+        ...viewState,
+        isPrintMode: false,
+      });
     });
   });
 
@@ -101,21 +103,22 @@ describe('reducer:View', () => {
         width: 1000,
       });
     });
-  });
-
-  it('handles widths under 749', () => {
-    action = 375;
-    expect(target(viewState, updateScreenSize(action))).toEqual({
-      ...viewState,
-      hasFilters: false,
-      width: 375,
+    it('handles widths under 749', () => {
+      action = 375;
+      expect(target(viewState, updateScreenSize(action))).toEqual({
+        ...viewState,
+        hasFilters: false,
+        width: 375,
+      });
     });
   });
 
-  describe('handles TOGGLE_FILTER_VISIBILITY', () => {
-    expect(target(viewState, updateFilterVisibility())).toEqual({
-      ...viewState,
-      hasFilters: false,
+  describe('filter panel actions', () => {
+    it('handles TOGGLE_FILTER_VISIBILITY', () => {
+      expect(target(viewState, updateFilterVisibility())).toEqual({
+        ...viewState,
+        hasFilters: false,
+      });
     });
   });
 

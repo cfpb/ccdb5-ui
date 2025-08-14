@@ -340,12 +340,16 @@ describe('component::TrendsPanel', () => {
       screen.getByLabelText('Choose the Date interval'),
       'Week',
     );
-    await waitFor(() => expect(dateIntervalChangedSpy).toBeCalledWith('Week'));
+    await waitFor(() =>
+      expect(dateIntervalChangedSpy).toHaveBeenCalledWith('Week'),
+    );
 
     await user.selectOptions(
       screen.getByLabelText('Aggregate complaints by'),
       'Overview',
     );
-    await waitFor(() => expect(dataLensChangedSpy).toBeCalledWith('Overview'));
+    await waitFor(() =>
+      expect(dataLensChangedSpy).toHaveBeenCalledWith('Overview'),
+    );
   });
 });

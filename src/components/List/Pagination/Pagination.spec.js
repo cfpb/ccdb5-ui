@@ -41,7 +41,7 @@ describe('Pagination', () => {
     await screen.findByText('Page 1');
     expect(screen.getByRole('button', { name: /Previous/ })).toBeDisabled();
     fireEvent.click(screen.getByRole('button', { name: /Next/ }));
-    expect(nextPageShownSpy).toBeCalledTimes(1);
+    expect(nextPageShownSpy).toHaveBeenCalledTimes(1);
   });
 
   test('prevPageShown dispatched when Previous button clicked', async () => {
@@ -59,7 +59,7 @@ describe('Pagination', () => {
 
     fireEvent.click(screen.getByRole('button', { name: /Previous/ }));
 
-    expect(prevPageShownSpy).toBeCalledTimes(1);
+    expect(prevPageShownSpy).toHaveBeenCalledTimes(1);
   });
 
   test('hides when there are no results', () => {
