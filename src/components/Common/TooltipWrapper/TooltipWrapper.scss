@@ -32,7 +32,7 @@
   word-spacing: normal;
   line-break: auto;
   font-size: var(--bs-tooltip-font-size);
-  word-wrap: break-word;
+  overflow-wrap: break-word;
   opacity: 0;
 }
 
@@ -148,7 +148,7 @@
   word-spacing: normal;
   line-break: auto;
   font-size: var(--bs-popover-font-size);
-  word-wrap: break-word;
+  overflow-wrap: break-word;
   background-color: var(--bs-popover-bg);
   background-clip: padding-box;
   border: var(--bs-popover-border-width) solid var(--bs-popover-border-color);

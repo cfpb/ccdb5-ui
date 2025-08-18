@@ -37,7 +37,7 @@ less/no-duplicate-variables
   https://github.com/ssivanatarajan/stylelint-less/issues/6 is addressed.
 */
 module.exports = {
-  extends: ['stylelint-config-standard-scss'],
+  extends: ['stylelint-config-standard', 'stylelint-config-standard-scss'],
   ignoreFiles: ['packages/**/node_modules/**/*.scss'],
   rules: {
     'at-rule-no-unknown': null,
