@@ -16,6 +16,9 @@
     "email": "tech@cfpb.gov",
     "url": "https://cfpb.github.io/"
   },
+  "browserslist": [
+    "> 0.2% and not dead"
+  ],
   "files": [
     "dist/*"
   ],
