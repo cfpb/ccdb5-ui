@@ -9,32 +9,26 @@ describe('Search Bar', () => {
     '**/data-research/consumer-complaints/search/' +
     'api/v1/_suggest_company/**';
 
-  beforeEach(() => {
-    cy.visit('?tab=List');
-    waitForLoading();
-  });
-
-  it('has a search bar', () => {
-    cy.get(searchBar).should('be.visible');
-
-    cy.get(searchFieldDropDown).select('company');
-    waitForLoading();
-    cy.get(searchFieldDropDown).select('complaint_what_happened');
-    waitForLoading();
-  });
-
   describe('Typeaheads', () => {
-    it('has no typeahead functionality in All Data', () => {
+    it('has a search bar', () => {
+      cy.visit('?tab=List');
+      waitForLoading();
+      cy.get(searchBar).should('be.visible');
+      cy.get(searchFieldDropDown).select('company');
+      waitForLoading();
+      cy.get(searchFieldDropDown).select('complaint_what_happened');
+      waitForLoading();
+      cy.get(searchBar).should('be.visible');
+
+      cy.log('has no typeahead functionality in All Data');
       cy.intercept(typeAheadRequest, { body: [] }).as('typeahead');
       cy.findByPlaceholderText('Enter your search term(s)').clear();
       cy.findByPlaceholderText('Enter your search term(s)').type('bank', {
         delay: 200,
       });
       cy.findByText('No matches found.').should('not.exist');
-    });
 
-    it('has no typeahead functionality in Narratives', () => {
-      cy.intercept(typeAheadRequest, { body: [] }).as('typeahead');
+      cy.log('has no typeahead functionality in Narratives');
       cy.get(searchFieldDropDown).select('complaint_what_happened');
       waitForLoading();
       cy.findByPlaceholderText('Enter your search term(s)').clear();
@@ -42,9 +36,8 @@ describe('Search Bar', () => {
         delay: 200,
       });
       cy.findByText('No matches found.').should('not.exist');
-    });
 
-    it('has typeahead functionality in Company', () => {
+      cy.log('has typeahead functionality in Company');
       cy.intercept(typeAheadRequest, {
         body: [
           'Bank of America, National Association',
