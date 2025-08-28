@@ -29,7 +29,7 @@
     "release": "yarn run build && release-it --npm.skipChecks",
     "test": "TZ=UTC jest --coverage --watchAll=false",
     "start": "rsbuild dev",
-    "build": "rsbuild build",
+    "build": "./scripts/build.sh",
     "preview": "rsbuild preview"
   },
   "devDependencies": {
