@@ -36,7 +36,7 @@ describe('Typeahead', () => {
     const input = screen.getByPlaceholderText('Enter search terms');
     await user.type(input, 'new value');
 
-    await waitFor(() => expect(handleInputChangeMock).toBeCalled());
+    await waitFor(() => expect(handleInputChangeMock).toHaveBeenCalled());
     expect(input).toHaveValue('new value');
   });
 
@@ -46,8 +46,8 @@ describe('Typeahead', () => {
     await user.type(input, 'appl');
     await user.click(screen.getByRole('option', { name: /appl/ }));
 
-    await waitFor(() => expect(handleChangeMock).toBeCalledTimes(1));
-    expect(handleChangeMock).toBeCalledWith([appleOption]);
+    await waitFor(() => expect(handleChangeMock).toHaveBeenCalledTimes(1));
+    expect(handleChangeMock).toHaveBeenCalledWith([appleOption]);
   });
 
   test('User can clear input value', async () => {

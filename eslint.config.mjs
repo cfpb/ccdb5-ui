@@ -3,6 +3,7 @@
 import globals from 'globals';
 import js from '@eslint/js';
 import importPlugin from 'eslint-plugin-import';
+import jestPlugin from 'eslint-plugin-jest';
 import jestDom from 'eslint-plugin-jest-dom';
 import jsdoc from 'eslint-plugin-jsdoc';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
@@ -28,6 +29,7 @@ export default [
   eslintConfigPrettier,
   {
     plugins: {
+      jest: jestPlugin,
       'testing-library': testingLibraryPlugin,
       'react-hooks': reactHooksPlugin,
       'react-redux': reactReduxPlugin,
@@ -56,12 +58,22 @@ export default [
           extensions: ['.js', '.jsx', '.ts', '.d.ts', '.tsx'],
         },
       },
+      jest: {
+        version: 30,
+      },
       react: {
         version: 'detect',
       },
     },
     rules: {
       'id-length': ['error', { min: 2 }],
+      'import/no-unresolved': [
+        'error',
+        {
+          ignore: ['\\.svg\\?react$'],
+        },
+      ],
+      ...jestPlugin.configs.recommended.rules,
       'jsdoc/require-hyphen-before-param-description': ['warn', 'always'],
       'jsdoc/tag-lines': ['error', 'any', { startLines: 1 }],
       'no-console': ['warn'],
@@ -94,6 +106,13 @@ export default [
       'react/react-in-jsx-scope': 'off',
       ...reactHooksPlugin.configs.recommended.rules,
       ...reactReduxPlugin.configs.recommended.rules,
+    },
+  },
+  // Overrides for Cypress files
+  {
+    files: ['cypress/**/*.js', 'cypress/**/*.ts'],
+    rules: {
+      'jest/expect-expect': 'off',
     },
   },
 ];

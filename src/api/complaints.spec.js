@@ -63,7 +63,7 @@ describe('getAggregations', () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBe(false));
     await waitFor(() => expect(result.current.error).toBeTruthy());
-    expect(fetchMock).toBeCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
   it('renders hook and transforms data', async () => {
@@ -85,7 +85,7 @@ describe('getAggregations', () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-    expect(fetchMock).toBeCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(result.current.data).toEqual(aggResponseTransformed);
   });
 });
@@ -107,7 +107,7 @@ describe('getDocument', () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBe(false));
     await waitFor(() => expect(result.current.error).toBeTruthy());
-    expect(fetchMock).toBeCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
   it('renders hook transforms data', async () => {
     fetchMock.mockResponseOnce(JSON.stringify(documentResponse));
@@ -125,7 +125,7 @@ describe('getDocument', () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-    expect(fetchMock).toBeCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(result.current.data).toEqual({
       company: 'JPMORGAN CHASE & CO.',
       company_public_response: 'Company acknowledges the complaint',
@@ -167,7 +167,7 @@ describe('getList', () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBe(false));
     await waitFor(() => expect(result.current.error).toBeTruthy());
-    expect(fetchMock).toBeCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
   it('renders hook and transforms data', async () => {
     fetchMock.mockResponseOnce(JSON.stringify(listResponse));
@@ -185,7 +185,7 @@ describe('getList', () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-    expect(fetchMock).toBeCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(result.current.data).toEqual(listAPIResponse);
   });
 });
@@ -208,7 +208,7 @@ describe('getMap', () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBe(false));
     await waitFor(() => expect(result.current.error).toBeTruthy());
-    expect(fetchMock).toBeCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
   it('renders hook and transforms data', async () => {
     fetchMock.mockResponseOnce(JSON.stringify(geoResponse));
@@ -226,7 +226,7 @@ describe('getMap', () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-    expect(fetchMock).toBeCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(result.current.data).toEqual(geoAPIResponse);
   });
 });
@@ -248,7 +248,7 @@ describe('getTrends', () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBe(false));
     await waitFor(() => expect(result.current.error).toBeTruthy());
-    expect(fetchMock).toBeCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
   it('renders hook and transforms data', async () => {
@@ -281,7 +281,7 @@ describe('getTrends', () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-    expect(fetchMock).toBeCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(result.current.data).toEqual(trendsAPIResponse);
   });
 });

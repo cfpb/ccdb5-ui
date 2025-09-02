@@ -18,7 +18,7 @@ jest.mock('d3', () => {
   return mock;
 });
 
-xdescribe('Tile map: mouse events', () => {
+describe('Tile map: mouse events', () => {
   const sutClone = { ...sut };
 
   afterEach(() => {

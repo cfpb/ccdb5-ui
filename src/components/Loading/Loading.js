@@ -6,7 +6,8 @@ export const Loading = ({ isLoading }) => {
   return isLoading ? (
     <section className="light-box">
       <div className="loading-box">
-        {getIcon('updating')} <span>This page is loading</span>
+        {getIcon('updating', 'cf-icon-svg--updating')}{' '}
+        <span>This page is loading</span>
       </div>
     </section>
   ) : null;

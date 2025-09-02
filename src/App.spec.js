@@ -1,6 +1,5 @@
 import App from './App';
 import { Provider } from 'react-redux';
-import 'regenerator-runtime/runtime';
 import { MemoryRouter, Route, Routes } from 'react-router';
 import { render, screen } from '@testing-library/react';
 import * as useUpdateLocationHook from './hooks/useUpdateLocation';
@@ -47,7 +46,7 @@ describe('initial state', () => {
     );
 
     await screen.findByText(/Search within/);
-    expect(updateLocationHookSpy).toBeCalledTimes(1);
+    expect(updateLocationHookSpy).toHaveBeenCalledTimes(1);
     expect(screen.getByText(/Consumer Complaint Database/)).toBeInTheDocument();
     expect(screen.getByText(/Search within/)).toBeInTheDocument();
     expect(

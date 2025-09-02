@@ -12,6 +12,6 @@ describe('ClearButton', () => {
     render(<ClearButton onClear={mockedOnClear} />);
     fireEvent.click(screen.getByLabelText('clear search'));
 
-    expect(mockedOnClear).toBeCalledTimes(1);
+    expect(mockedOnClear).toHaveBeenCalledTimes(1);
   });
 });

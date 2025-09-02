@@ -73,7 +73,9 @@ describe('ZipCode', () => {
     await user.click(option);
 
     await waitFor(() =>
-      expect(multipleFiltersAddedSpy).toBeCalledWith('zip_code', ['22191']),
+      expect(multipleFiltersAddedSpy).toHaveBeenCalledWith('zip_code', [
+        '22191',
+      ]),
     );
   });
 });

@@ -62,7 +62,7 @@ describe('SearchBar', () => {
     const fieldSelect = screen.getByRole('combobox');
     await user.selectOptions(fieldSelect, 'Company name');
     await waitFor(() =>
-      expect(searchFieldChangedSpy).toBeCalledWith('company'),
+      expect(searchFieldChangedSpy).toHaveBeenCalledWith('company'),
     );
   });
 
@@ -81,7 +81,9 @@ describe('SearchBar', () => {
     await user.keyboard('{Shift}');
     expect(input).toHaveValue('value');
     await user.keyboard('{Enter}');
-    await waitFor(() => expect(searchTextChangedSpy).toBeCalledWith('value'));
+    await waitFor(() =>
+      expect(searchTextChangedSpy).toHaveBeenCalledWith('value'),
+    );
   });
 
   test('Input can be inputed and then cleared', async () => {
@@ -96,7 +98,7 @@ describe('SearchBar', () => {
     await user.type(input, 'value');
     expect(input).toHaveValue('value');
     await user.click(screen.getByRole('button', { name: /clear search/ }));
-    await waitFor(() => expect(searchTextChangedSpy).toBeCalledWith(''));
+    await waitFor(() => expect(searchTextChangedSpy).toHaveBeenCalledWith(''));
     expect(input).toHaveValue('');
   });
 
@@ -116,7 +118,9 @@ describe('SearchBar', () => {
     });
     await user.click(option);
 
-    await waitFor(() => expect(searchTextChangedSpy).toBeCalledWith('Truist'));
+    await waitFor(() =>
+      expect(searchTextChangedSpy).toHaveBeenCalledWith('Truist'),
+    );
   });
 
   test('When company searchField is selected, input can be cleared', async () => {
@@ -132,6 +136,6 @@ describe('SearchBar', () => {
     await user.type(input, 'appl');
     expect(input).toHaveValue('appl');
     user.click(await screen.findByRole('button', { name: /clear search/ }));
-    await waitFor(() => expect(searchTextChangedSpy).toBeCalledWith(''));
+    await waitFor(() => expect(searchTextChangedSpy).toHaveBeenCalledWith(''));
   });
 });

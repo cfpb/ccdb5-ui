@@ -24,6 +24,14 @@ dayjs.extend(dayjsCalendar);
 dayjs.extend(dayjsUtc);
 
 describe('module::utils', () => {
+  describe('startOfToday', () => {
+    it('defaults MAX_DATE if the metadata is missing', () => {
+      const actual = startOfToday();
+      // this date is set in setupTests.js
+      expect(dayjs(actual).toISOString()).toBe('2020-05-05T00:00:00.000Z');
+    });
+  });
+
   describe('ariaReadoutNumbers', () => {
     it('breaks a sequence of numbers into an expanded string', () => {
       const actual = ariaReadoutNumbers('123456');
@@ -372,14 +380,6 @@ describe('module::utils', () => {
       const actual = sortSelThenCount(options, filters, 'product');
       expect(actual[0].key).toEqual('Virtual currency');
       expect(actual[1].key).toEqual('Debt or credit management');
-    });
-  });
-
-  describe('startOfToday', () => {
-    it('defaults MAX_DATE if the metadata is missing', () => {
-      const actual = startOfToday();
-      // this date is set in setupTests.js
-      expect(dayjs(actual).toISOString()).toBe('2020-05-05T00:00:00.000Z');
     });
   });
 

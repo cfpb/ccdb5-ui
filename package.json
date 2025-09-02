@@ -5,7 +5,7 @@
   "homepage": "https://www.consumerfinance.gov/",
   "repository": {
     "type": "git",
-    "url": "http://github.com/cfpb/ccdb5-ui.git"
+    "url": "https://github.com/cfpb/ccdb5-ui.git"
   },
   "license": "CC0-1.0",
   "engines": {
@@ -16,52 +16,60 @@
     "email": "tech@cfpb.gov",
     "url": "https://cfpb.github.io/"
   },
+  "browserslist": [
+    "> 0.2% and not dead"
+  ],
   "files": [
     "dist/*"
   ],
   "scripts": {
-    "analyze": "craco build; source-map-explorer '../static/js/*.js'",
-    "build": "NODE_ENV=production ./scripts/build.sh",
-    "eject": "react-scripts eject",
     "lint": "yarn prettier \"src/**/*.{js,jsx,ts,tsx,json,md}\" --write && yarn eslint ./src --fix && yarn stylelint \"src/**/*.{css,scss}\" --fix && yarn lint:cypress",
     "lint:cypress": "yarn eslint ./cypress --fix",
     "prepare": "husky",
     "release": "yarn run build && release-it --npm.skipChecks",
-    "start": "NODE_ENV=development craco start",
-    "test": "TZ=UTC craco test --coverage --watchAll=false"
+    "test": "TZ=UTC jest --coverage --watchAll=false",
+    "start": "rsbuild dev",
+    "build": "./scripts/build.sh",
+    "preview": "rsbuild preview"
   },
-  "browserslist": "> 0.2% in @cfpb/browserslist-config stats",
   "devDependencies": {
     "@babel/cli": "^7.28.0",
     "@babel/core": "^7.28.0",
     "@babel/eslint-parser": "^7.28.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.27.1",
+    "@babel/preset-env": "^7.28.3",
     "@babel/preset-react": "^7.27.1",
     "@babel/runtime": "^7.27.6",
     "@cfpb/browserslist-config": "0.0.4",
     "@cfpb/cfpb-design-system": "^4.0.1",
-    "@craco/craco": "^7.1.0",
     "@csstools/postcss-sass": "^5.1.1",
     "@csstools/sass-import-resolve": "^1.0.0",
     "@reduxjs/toolkit": "^2.8.2",
+    "@rsbuild/core": "^1.5.1",
+    "@rsbuild/plugin-react": "^1.4.0",
+    "@rsbuild/plugin-sass": "^1.4.0",
+    "@rsbuild/plugin-svgr": "^1.2.2",
     "@testing-library/cypress": "^10.0.2",
     "@testing-library/dom": "^10.4.0",
-    "@testing-library/jest-dom": "^6.4.8",
+    "@testing-library/jest-dom": "^6.8.0",
     "@testing-library/react": "^16.3.0",
     "@testing-library/react-hooks": "^8.0.0",
     "@testing-library/user-event": "^14.5.2",
+    "babel-jest": "^30.1.1",
+    "babel-plugin-module-resolver": "^5.0.2",
     "britecharts": "git+https://github.com/cfpb/britecharts.git#v2.4.3",
     "coveralls": "^3.0.9",
-    "craco-esbuild": "^0.6.1",
     "cypress": "^14.5.1",
     "d3": "^7.9.0",
-    "dayjs": "^1.11.10",
-    "eslint": "^9.31.0",
+    "dayjs": "^1.11.15",
+    "eslint": "^9.34.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-config-react-app": "^7.0.1",
-    "eslint-plugin-cypress": "^5.1.0",
+    "eslint-plugin-cypress": "^5.1.1",
     "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-jest": "^29.0.1",
     "eslint-plugin-jest-dom": "^5.5.0",
-    "eslint-plugin-jsdoc": "^51.4.0",
+    "eslint-plugin-jsdoc": "^54.1.1",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
@@ -74,13 +82,15 @@
     "identity-obj-proxy": "3.0.0",
     "intro.js": "^7.2.0",
     "intro.js-react": "1.0.0",
+    "jest": "^30.1.1",
+    "jest-environment-jsdom": "^30.1.1",
     "jest-fetch-mock": "^3.0.3",
+    "jest-watch-typeahead": "^3.0.1",
     "lint-staged": "^16.1.2",
     "lodash": "^4.17.21",
-    "mini-css-extract-plugin": "^2.9.0",
-    "mockdate": "^3.0.5",
+    "module-resolver": "^1.0.0",
     "postcss": "^8.5.6",
-    "postcss-preset-env": "^10.2.4",
+    "postcss-preset-env": "^10.3.1",
     "postcss-safe-parser": "^7.0.0",
     "postcss-scss": "^4.0.9",
     "prettier": "^3.6.2",
@@ -93,13 +103,12 @@
     "react-fast-compare": "^3.2.2",
     "react-modal": "^3.16.1",
     "react-redux": "^9.2.0",
-    "react-router": "^7.6.3",
-    "react-scripts": "^5.0.1",
+    "react-router": "^7.8.2",
     "release-it": "^19.0.3",
-    "sass": "^1.89.2",
+    "sass": "^1.91.0",
     "string-replace-loader": "^3.2.0",
-    "stylelint": "^16.21.1",
-    "stylelint-config-standard": "^38.0.0",
+    "stylelint": "^16.23.0",
+    "stylelint-config-standard": "^39.0.0",
     "stylelint-config-standard-scss": "^15.0.1"
   },
   "lint-staged": {
@@ -113,41 +122,9 @@
       "eslint --fix"
     ]
   },
-  "jest": {
-    "collectCoverageFrom": [
-      "**/*.{js,jsx}",
-      "!<rootDir>/node_modules/",
-      "!**/constants/**",
-      "!**/__fixtures__/**",
-      "!**/index.js",
-      "**/utils/*.{js,jsx}",
-      "!**/serviceWorker.js"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 86,
-        "functions": 94,
-        "lines": 94,
-        "statements": 94
-      }
-    },
-    "coverageReporters": [
-      "lcov",
-      "text",
-      "html",
-      "text-summary"
-    ],
-    "moduleNameMapper": {
-      "\\.(css|scss)$": "identity-obj-proxy"
-    },
-    "transformIgnorePatterns": [
-      "^.+\\.module\\.(css|scss)$"
-    ]
-  },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "proxy": "https://www.consumerfinance.gov",
   "dependencies": {}
 }

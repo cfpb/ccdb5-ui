@@ -9,82 +9,62 @@ describe('List View', () => {
   const removeNarrativesButton = '#btn-remove-narratives';
   const filterHasNarrative = '#filterHasNarrative';
 
-  beforeEach(() => {
+  it('shows complaints, pagination, sorts and filters', () => {
     cy.visit('?size=10&searchText=debt%20recovery&tab=List');
     waitForLoading();
-  });
+    cy.get('.cards-panel').should('be.visible');
+    cy.get(cardContainers).should('have.length', 10);
+    cy.url().should('contain', 'size=10');
+    cy.get(nextButton).click();
 
-  describe('initial rendering', () => {
-    it('contains a list view', () => {
-      cy.get('.cards-panel').should('be.visible');
-      cy.get(cardContainers).should('have.length', 10);
-    });
-  });
+    waitForLoading();
+    cy.url().should('contain', 'page=2');
 
-  describe('Sort Drop-downs', () => {
-    it('shows more results', () => {
-      cy.get(cardContainers).should('have.length', 10);
-      cy.url().should('contain', 'size=10');
-      cy.get(nextButton).click();
+    cy.log('reset the pager after sort');
+    cy.get('#select-size').select('25 results');
+    cy.get('#select-size').select('10 results');
 
-      waitForLoading();
+    waitForLoading();
 
-      cy.url().should('contain', 'page=2');
+    cy.get(cardContainers).should('have.length', 10);
+    cy.url().should('contain', 'size=10');
+    cy.url().should('contain', 'page=1');
+    cy.log('changes the sort order');
+    cy.url().should('contain', 'sort=created_date_desc');
+    cy.get(nextButton).click();
+    waitForLoading();
 
-      cy.log('reset the pager after sort');
-      cy.get('#select-size').select('25 results');
-      cy.get('#select-size').select('10 results');
+    cy.url().should('contain', 'page=2');
 
-      waitForLoading();
+    cy.get('#select-sort').select('relevance_desc');
+    waitForLoading();
+    cy.url().should('contain', 'sort=relevance_desc');
+    cy.url().should('contain', 'page=1');
 
-      cy.get(cardContainers).should('have.length', 10);
-      cy.url().should('contain', 'size=10');
-      cy.url().should('contain', 'page=1');
-    });
+    cy.log('should filter the results to narrative-only results and back');
+    // Initially all is checked.
+    cy.get(removeNarrativesButton).should('have.class', 'selected');
+    cy.get(filterHasNarrative).should('not.be.checked');
 
-    it('changes the sort order', () => {
-      cy.url().should('contain', 'sort=created_date_desc');
-      cy.get(nextButton).click();
-      waitForLoading();
+    // Click the narrative-only button.
+    cy.get(addNarrativesButton).click();
+    cy.get(addNarrativesButton).should('have.class', 'selected');
 
-      cy.url().should('contain', 'page=2');
+    cy.get(filterHasNarrative).should('be.checked');
 
-      cy.get('#select-sort').select('relevance_desc');
-      waitForLoading();
+    // Click the narrative-only button again. There should be no change.
+    cy.get(addNarrativesButton).click({ force: true });
+    cy.get(addNarrativesButton).should('have.class', 'selected');
 
-      cy.url().should('contain', 'sort=relevance_desc');
+    cy.get(filterHasNarrative).should('be.checked');
 
-      cy.url().should('contain', 'page=1');
-    });
-  });
+    // Click the all results button. The narratives should be removed.
+    cy.get(removeNarrativesButton).click();
+    cy.get(removeNarrativesButton).should('have.class', 'selected');
 
-  describe('Narration buttons', () => {
-    it('should filter the results to narrative-only results and back', () => {
-      // Initially all is checked.
-      cy.get(removeNarrativesButton).should('have.class', 'selected');
-      cy.get(filterHasNarrative).should('not.be.checked');
+    cy.get(filterHasNarrative).should('not.be.checked');
 
-      // Click the narrative-only button.
-      cy.get(addNarrativesButton).click();
-      cy.get(addNarrativesButton).should('have.class', 'selected');
-
-      cy.get(filterHasNarrative).should('be.checked');
-
-      // Click the narrative-only button again. There should be no change.
-      cy.get(addNarrativesButton).click({ force: true });
-      cy.get(addNarrativesButton).should('have.class', 'selected');
-
-      cy.get(filterHasNarrative).should('be.checked');
-
-      // Click the all results button. The narratives should be removed.
-      cy.get(removeNarrativesButton).click();
-      cy.get(removeNarrativesButton).should('have.class', 'selected');
-
-      cy.get(filterHasNarrative).should('not.be.checked');
-    });
-  });
-
-  it('tests pagination', () => {
+    cy.log('tests pagination');
     cy.log('it exists');
     cy.get('.m-pagination').should('be.visible');
 
@@ -113,9 +93,8 @@ describe('List View', () => {
     cy.get('#date_received-from').type('2018-09-23');
     cy.get('#date_received-from').blur();
     cy.get(currentPage).should('have.text', 'Page 1');
-  });
 
-  it('resets after select fields', () => {
+    cy.log('resets after select fields');
     const fields = ['Company name', 'Narratives', 'All data'];
     cy.log('it exists');
     cy.get('.m-pagination').should('be.visible');
