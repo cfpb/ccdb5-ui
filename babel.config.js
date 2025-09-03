@@ -1,12 +1,8 @@
 module.exports = {
   presets: [
-    '@babel/preset-env',
-    [
-      '@babel/preset-react',
-      {
-        runtime: 'automatic',
-      },
-    ],
+    ['@babel/preset-env', { targets: 'defaults' }],
+    ['@babel/preset-react', { runtime: 'automatic' }],
+    ['@babel/preset-typescript', { allowDeclareFields: true }],
   ],
   plugins: [
     '@babel/plugin-transform-modules-commonjs',
