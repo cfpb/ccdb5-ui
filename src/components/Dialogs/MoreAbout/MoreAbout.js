@@ -5,10 +5,6 @@ export const MoreAbout = ({ onClose }) => {
     'https://files.consumerfinance.gov/f/documents/' +
     '201503_cfpb_Narrative-Scrubbing-Standard.pdf';
 
-  const urlCriteria =
-    'https://files.consumerfinance.gov/f/documents/' +
-    '201503_cfpb_disclosure-of-consumer-complaint-narrative-data.pdf';
-
   return (
     <section className="more-about-modal">
       <div className="header">
@@ -41,14 +37,7 @@ export const MoreAbout = ({ onClose }) => {
           all consumers’ experiences and narratives are not verified before
           publication.
         </p>
-        <p className="body-copy">
-          This database generally updates daily and doesn’t include complaints
-          that don’t meet our&nbsp;
-          <a href={urlCriteria} target="_blank" rel="noopener noreferrer">
-            publication criteria
-          </a>
-          .
-        </p>
+        <p className="body-copy">This database generally updates daily.</p>
       </div>
       <div className="footer layout-row">
         <button className="a-btn" onClick={onClose}>
