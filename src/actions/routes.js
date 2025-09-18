@@ -41,7 +41,7 @@ export function normalizeRouteParams(params) {
  *
  * @param {string} path - the new path being used
  * @param {object} params - the query string
- * @returns {Function} a series of actions to execute
+ * @returns {(next: import('../types/reduxTypes').ReduxTypes.Next) => (action: import('../types/reduxTypes').ReduxTypes.PlainAction | import('../types/reduxTypes').ReduxTypes.Thunk) => Promise<unknown>} A Redux middleware function
  */
 export function changeRoute(path, params) {
   return function (dispatch, getState) {

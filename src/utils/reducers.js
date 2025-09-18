@@ -10,7 +10,7 @@ import { getSubLens } from './trends';
  *
  * @param {string|number} value - input val to check
  * @param {string} field - key of the query object we need to validate
- * @returns {string|number|*} valid value
+ * @returns {string|number|unknown} valid value
  */
 export const enforceValues = (value, field) => {
   const valMap = {

@@ -108,9 +108,10 @@ export function extractQueryStringParams(state) {
 }
 
 /**
+ * Middleware function to synch state to url
  *
- * @param {object} store - This is the redux store.
- * @returns {Function} a closure around the Redux middleware function
+ * @param {import('../types/reduxTypes').ReduxTypes.Store} store - Redux store
+ * @returns {(next: import('../types/reduxTypes').ReduxTypes.Next) => (action: import('../types/reduxTypes').ReduxTypes.PlainAction | import('../types/reduxTypes').ReduxTypes.Thunk) => Promise<unknown>} A Redux middleware function
  */
 const synchUrl = (store) => (next) => (action) => {
   // Pass the action forward in the chain

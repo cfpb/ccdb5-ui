@@ -9,7 +9,7 @@ const Analytics = {
    * @param {string} action - Name of event.
    * @param {string} label - DOM element label.
    * @param {string} category - Type of event.
-   * @param {Function} callback - Function to call on GTM submission.
+   * @param {() => void} [callback] - Callback to call on GTM submission.
    * @param {number} timeout - Callback invocation fallback time.
    * @returns {object} Data layer object.
    */

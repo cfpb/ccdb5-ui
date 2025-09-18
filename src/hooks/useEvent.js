@@ -6,7 +6,7 @@ import { useEffect } from 'react';
  * https://atomizedobjects.com/blog/react/add-event-listener-react-hooks/
  *
  * @param {string} event - event to listen to
- * @param {Function} handler - function to run
+ * @param {(e: Event) => void} handler - function to run
  * @param {boolean} passive - if true, means function will never call preventDefault
  */
 export function useEvent(event, handler, passive = false) {
