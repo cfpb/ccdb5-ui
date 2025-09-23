@@ -86,12 +86,12 @@ export const clamp = (number, boundOne, boundTwo) => {
 };
 
 /**
- * Function to set the limit of the range of a set of dates
+ * Function to limit the range (max/min) of a set of dates
  *
  * @param {string} val - value we are checking
- * @param {string} min - smallest number it can be
- * @param {string} max - biggest number it can be
- * @returns {*} the limited value
+ * @param {string} min - earliest date it can be
+ * @param {string} max - oldest date it can be
+ * @returns {Date} the limited value
  */
 export const clampDate = (val, min, max) => {
   let xDate = new Date(val);
@@ -364,10 +364,11 @@ export function startOfToday() {
  * Native implementation of lodash debounce
  * https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_debounce
  *
- * @param {Function} func - The function to run.
+ * @template {(...args: unknown[]) => unknown} F
+ * @param {F} func - The function to run.
  * @param {number} wait - Time in milliseconds.
- * @param {boolean} immediate - Whether we should run function immedately.
- * @returns {Function} the debounced function
+ * @param {boolean} [immediate] - Whether we should run function immediately.
+ * @returns {(...args: Parameters<F>) => void} The debounced function
  */
 export function debounce(func, wait, immediate) {
   let timeout;
@@ -469,7 +470,7 @@ export const processUrlArrayParams = (params, state, arrayParams) => {
  *
  * @param {string} filterKey - the filter 'Debt'
  * @param {Array} subitems - the buckets to process to generate slug
- * @returns {Set<any>} returns a set of uniques Debt, Debt*Foo
+ * @returns {Set<string>} returns a set of uniques Debt, Debt*Foo
  */
 export const getAllFilters = (filterKey, subitems) => {
   const values = new Set();

@@ -275,8 +275,7 @@ function processAreaData(state, aggregations) {
  * @param {object} aggregations - comes from the API
  * @param {string} focus - if a focus item was selected
  * @param {string} subLens - current subLens
- * @returns {{dataByTopic: ([{dashed: boolean, show: boolean, topic: string,
- * topicName: string, dates: *}]|[])}} theformatted object containing line info
+ * @returns {{dataByTopic: ([{dashed: boolean, show: boolean, topic: string, topicName: string, dates: object[]}]|[])}} the formatted object containing line info
  */
 function processLineData(lens, aggregations, focus, subLens) {
   const areaBuckets = aggregations.dateRangeArea.dateRangeArea.buckets;

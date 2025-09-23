@@ -60,7 +60,7 @@ export function makeShortName(value) {
  * helper function to get the bins for legend and colors, etc.
  *
  * @param {Array} quantiles - floats that mark the max of each range
- * @param {Function} scale - scaling function for color
+ * @param {function(number): string} scale - scaling function for color
  * @returns {Array} the bins with bounds, name, and color
  */
 export function getBins(quantiles, scale) {
@@ -93,7 +93,7 @@ export function getBins(quantiles, scale) {
  * helper function to get the Per 1000 population bins for legend and colors
  *
  * @param {Array} quantiles - floats that mark the max of each range
- * @param {Function} scale - scaling function for color
+ * @param {function(number): string} scale - scaling function for color
  * @returns {Array} the bins with bounds, name, and color
  */
 export function getPerCapitaBins(quantiles, scale) {
@@ -126,7 +126,7 @@ export function getPerCapitaBins(quantiles, scale) {
    Utility Functions 2 */
 /**
  * @param {object} data - Data to process. add in state paths to the data obj
- * @param {Function} scale - scaling function for color
+ * @param {function(number): string} scale - scaling function for color
  * @returns {object} The processed data.
  */
 export function processMapData(data, scale) {
@@ -170,7 +170,7 @@ export function processMapData(data, scale) {
  * color. This helps the "only three values" case
  *
  * @param {number} value - the number of complaints or perCapita
- * @param {Function} scale - scaling function for color
+ * @param {function(number): string} scale - scaling function for color
  * @returns {string} color hex or rgb code for a color
  */
 export function getColorByValue(value, scale) {
