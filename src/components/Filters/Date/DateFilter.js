@@ -2,10 +2,7 @@
 import './DateFilter.scss';
 import { DATE_VALIDATION_FORMAT, maxDate, minDate } from '../../../constants';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import {
-  selectQueryDateReceivedMax,
-  selectQueryDateReceivedMin,
-} from '../../../reducers/query/selectors';
+import { selectQueryDateReceivedMax, selectQueryDateReceivedMin } from '../../../reducers/query/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { datesChanged } from '../../../reducers/query/querySlice';
 import { CollapsibleFilter } from '../CollapsibleFilter/CollapsibleFilter';
@@ -88,44 +85,52 @@ export const DateFilter = () => {
     return false;
   }, [errorThroughOutOfBounds, fromDate, throughDate]);
 
-  const handleDateChange = () => {
-    // setFromDate and setThroughDate do not update the state quick enough
-    // to be used here
-    let _fromDate = fromDate;
-    let _throughDate = throughDate;
+  // Centralized validation + dispatch that works with fresh values from the event
+  const commitChange = (nextFrom, nextThrough) => {
+    // Start from the proposed values, not from state (avoids stale state)
+    let _fromDate = nextFrom;
+    let _throughDate = nextThrough;
 
+    // From date auto-clamp to min/max or set to min if invalid/empty
     if (
       isTrue([
-        // these are the checks, reset the date to minDate if
-        !dayjs(fromDate).isValid(), // date is not valid
-        dayjs(fromDate).isBefore(minDate), // date is before minDate
-        dayjs(fromDate).isAfter(maxDate), // date comes after max date
-        !fromRef.current.value, // input value is empty
+        !dayjs(_fromDate).isValid(),
+        dayjs(_fromDate).isBefore(minDate),
+        dayjs(_fromDate).isAfter(maxDate),
+        !_fromDate, // empty string
       ])
     ) {
-      fromRef.current.value = minDate;
+      if (fromRef.current) fromRef.current.value = minDate;
       _fromDate = minDate;
     }
 
+    // Through date auto-clamp to bounds and after from
     if (
       isTrue([
-        // reset the through date to maxDate if date is
-        !dayjs(throughDate).isValid(), // not valid
-        dayjs(throughDate).isAfter(maxDate), //  later than maxDate
-        dayjs(throughDate).isBefore(minDate), // before minDate
-        dayjs(throughDate).isBefore(fromDate), // before current fromDate
-        !throughRef.current.value,
+        !dayjs(_throughDate).isValid(),
+        dayjs(_throughDate).isAfter(maxDate),
+        dayjs(_throughDate).isBefore(minDate),
+        dayjs(_throughDate).isBefore(_fromDate),
+        !_throughDate, // empty
       ])
     ) {
-      throughRef.current.value = maxDate;
+      if (throughRef.current) throughRef.current.value = maxDate;
       _throughDate = maxDate;
     }
 
-    // if valid, go ahead and set the correct values
+    // Only dispatch if valid ordering
     if (dayjs(_throughDate).isAfter(_fromDate)) {
+      // keep local state in sync immediately
       setFromDate(_fromDate);
       setThroughDate(_throughDate);
-      dispatch(datesChanged(_fromDate, _throughDate));
+      // Only dispatch if values actually changed from Redux
+      const isDateDifferent = isTrue([
+        dateFrom !== _fromDate,
+        dateThrough !== _throughDate,
+      ]);
+      if (isDateDifferent) {
+        dispatch(datesChanged(_fromDate, _throughDate));
+      }
     }
   };
 
@@ -192,9 +197,12 @@ export const DateFilter = () => {
                 <input
                   id={`${fieldName}-from`}
                   className={inputFromClassName}
-                  onBlur={handleDateChange}
+                  onBlur={() => commitChange(fromDate, throughDate)}
                   onChange={(evt) => {
-                    setFromDate(evt.target.value);
+                    const val = evt.target.value;
+                    setFromDate(val);
+                    // commit immediately with the fresh value
+                    commitChange(val, throughDate);
                   }}
                   onKeyDown={handleKeyDownFromDate}
                   min={minDate}
@@ -219,9 +227,12 @@ export const DateFilter = () => {
                 <input
                   id={`${fieldName}-through`}
                   className={inputThroughClassName}
-                  onBlur={handleDateChange}
+                  onBlur={() => commitChange(fromDate, throughDate)}
                   onChange={(evt) => {
-                    setThroughDate(evt.target.value);
+                    const val = evt.target.value;
+                    setThroughDate(val);
+                    // commit immediately with the fresh value
+                    commitChange(fromDate, val);
                   }}
                   onKeyDown={handleKeyDownThroughDate}
                   min={minDate}
