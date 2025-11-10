@@ -1,8 +1,10 @@
-/* eslint complexity: ["error", 7] */
 import './DateFilter.scss';
-import { DATE_VALIDATION_FORMAT, maxDate, minDate } from '../../../constants';
+import { maxDate, minDate } from '../../../constants';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { selectQueryDateReceivedMax, selectQueryDateReceivedMin } from '../../../reducers/query/selectors';
+import {
+  selectQueryDateReceivedMax,
+  selectQueryDateReceivedMin,
+} from '../../../reducers/query/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { datesChanged } from '../../../reducers/query/querySlice';
 import { CollapsibleFilter } from '../CollapsibleFilter/CollapsibleFilter';
@@ -14,6 +16,7 @@ import dayjsUtc from 'dayjs/plugin/utc';
 import { formatDateModel, formatDisplayDate } from '../../../utils/formatDate';
 import getIcon from '../../Common/Icon/iconMap';
 import { isTrue } from '../../../utils';
+import { DateRangeInputs } from './DateRangeInputs';
 
 dayjs.extend(dayjsCustomParseFormat);
 dayjs.extend(dayjsIsBetween);
@@ -184,68 +187,20 @@ export const DateFilter = () => {
             Learn More
           </a>
         </p>
-        <ul className="date-inputs">
-          <li>
-            <label
-              className="a-label a-label__heading body-copy"
-              htmlFor={`${fieldName}-from`}
-            >
-              From
-            </label>
-            <div className="o-search-input">
-              <div className="o-search-input__input">
-                <input
-                  id={`${fieldName}-from`}
-                  className={inputFromClassName}
-                  onBlur={() => commitChange(fromDate, throughDate)}
-                  onChange={(evt) => {
-                    const val = evt.target.value;
-                    setFromDate(val);
-                    // commit immediately with the fresh value
-                    commitChange(val, throughDate);
-                  }}
-                  onKeyDown={handleKeyDownFromDate}
-                  min={minDate}
-                  max={maxDate}
-                  ref={fromRef}
-                  placeholder={DATE_VALIDATION_FORMAT}
-                  type="date"
-                  value={fromDate}
-                />
-              </div>
-            </div>
-          </li>
-          <li>
-            <label
-              className="a-label a-label__heading body-copy"
-              htmlFor={`${fieldName}-through`}
-            >
-              Through
-            </label>
-            <div className="o-search-input">
-              <div className="o-search-input__input">
-                <input
-                  id={`${fieldName}-through`}
-                  className={inputThroughClassName}
-                  onBlur={() => commitChange(fromDate, throughDate)}
-                  onChange={(evt) => {
-                    const val = evt.target.value;
-                    setThroughDate(val);
-                    // commit immediately with the fresh value
-                    commitChange(fromDate, val);
-                  }}
-                  onKeyDown={handleKeyDownThroughDate}
-                  min={minDate}
-                  max={maxDate}
-                  placeholder={DATE_VALIDATION_FORMAT}
-                  ref={throughRef}
-                  type="date"
-                  value={throughDate}
-                />
-              </div>
-            </div>
-          </li>
-        </ul>
+        <DateRangeInputs
+          fieldName={fieldName}
+          fromDate={fromDate}
+          throughDate={throughDate}
+          inputFromClassName={inputFromClassName}
+          inputThroughClassName={inputThroughClassName}
+          onCommit={commitChange}
+          onChangeFrom={setFromDate}
+          onChangeThrough={setThroughDate}
+          onKeyDownFrom={handleKeyDownFromDate}
+          onKeyDownThrough={handleKeyDownThroughDate}
+          fromRef={fromRef}
+          throughRef={throughRef}
+        />
         <DateRanges />
         {errors ? (
           <div className="a-form-alert a-form-alert--error" role="alert">

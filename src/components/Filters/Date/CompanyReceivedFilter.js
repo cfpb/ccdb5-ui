@@ -1,8 +1,10 @@
-/* eslint complexity: ["error", 7] */
 import './DateFilter.scss';
 import { DATE_VALIDATION_FORMAT, maxDate, minDate } from '../../../constants';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { selectQueryCompanyReceivedMax, selectQueryCompanyReceivedMin } from '../../../reducers/query/selectors';
+import {
+  selectQueryCompanyReceivedMax,
+  selectQueryCompanyReceivedMin,
+} from '../../../reducers/query/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { CollapsibleFilter } from '../CollapsibleFilter/CollapsibleFilter';
 import dayjs from 'dayjs';
@@ -12,6 +14,7 @@ import { formatDate } from '../../../utils/formatDate';
 import getIcon from '../../Common/Icon/iconMap';
 import { companyReceivedDateChanged } from '../../../reducers/query/querySlice';
 import { isTrue } from '../../../utils';
+import { DateRangeInputs } from './DateRangeInputs';
 
 dayjs.extend(dayjsCustomParseFormat);
 dayjs.extend(dayjsIsBetween);
@@ -79,29 +82,27 @@ export const CompanyReceivedFilter = () => {
     return errs;
   }, [fromDate, throughDate]);
 
-  // Centralized validation + dispatch that works with fresh values from the event
+  // helper: sanitize a single date value; empty string on invalid
+  const sanitizeDate = (value, inputRef) => {
+    if (value && !dayjs(value).isValid()) {
+      if (inputRef?.current) inputRef.current.value = '';
+      return '';
+    }
+    return value;
+  };
+
+  // helper: dispatch only when different
+  const dispatchIfChanged = (nextFrom, nextThrough) => {
+    if (isTrue([dateFrom !== nextFrom, dateThrough !== nextThrough])) {
+      dispatch(companyReceivedDateChanged(nextFrom, nextThrough));
+    }
+  };
+
+  // Centralized validation + dispatch with reduced branching
   const commitChange = (nextFrom, nextThrough) => {
-    let _fromDate = nextFrom;
-    let _throughDate = nextThrough;
-
-    // For CompanyReceived, invalid inputs become empty (no auto-clamp)
-    if (_fromDate && !dayjs(_fromDate).isValid()) {
-      if (fromRef.current) fromRef.current.value = '';
-      _fromDate = '';
-    }
-    if (_throughDate && !dayjs(_throughDate).isValid()) {
-      if (throughRef.current) throughRef.current.value = '';
-      _throughDate = '';
-    }
-
-    // Only dispatch if values actually changed from Redux
-    const isDateDifferent = isTrue([
-      dateFrom !== _fromDate,
-      dateThrough !== _throughDate,
-    ]);
-    if (isDateDifferent) {
-      dispatch(companyReceivedDateChanged(_fromDate, _throughDate));
-    }
+    const _fromDate = sanitizeDate(nextFrom, fromRef);
+    const _throughDate = sanitizeDate(nextThrough, throughRef);
+    dispatchIfChanged(_fromDate, _throughDate);
   };
 
   const inputFromClassName = useMemo(() => {
@@ -137,69 +138,20 @@ export const CompanyReceivedFilter = () => {
       desc=""
     >
       <div>
-        <ul className="date-inputs">
-          <li>
-            <label
-              className="a-label a-label__heading body-copy"
-              htmlFor={`${fieldName}-from`}
-            >
-              From
-            </label>
-            <div className="o-search-input">
-              <div className="o-search-input__input">
-                <input
-                  id={`${fieldName}-from`}
-                  className={inputFromClassName}
-                  onBlur={() => commitChange(fromDate, throughDate)}
-                  onChange={(evt) => {
-                    const val = evt.target.value;
-                    setFromDate(val);
-                    // commit immediately with the fresh value
-                    commitChange(val, throughDate);
-                  }}
-                  onKeyDown={handleKeyDownFromDate}
-                  min={minDate}
-                  max={maxDate}
-                  ref={fromRef}
-                  placeholder={DATE_VALIDATION_FORMAT}
-                  type="date"
-                  value={fromDate}
-                />
-              </div>
-            </div>
-          </li>
-          <li>
-            <label
-              className="a-label a-label__heading body-copy"
-              htmlFor={`${fieldName}-through`}
-            >
-              Through
-            </label>
-            <div className="o-search-input">
-              <div className="o-search-input__input">
-                <input
-                  id={`${fieldName}-through`}
-                  className={inputThroughClassName}
-                  onBlur={() => commitChange(fromDate, throughDate)}
-                  onChange={(evt) => {
-                    const val = evt.target.value;
-                    setThroughDate(val);
-                    // commit immediately with the fresh value
-                    commitChange(fromDate, val);
-                  }}
-                  onKeyDown={handleKeyDownThroughDate}
-                  min={minDate}
-                  max={maxDate}
-                  placeholder={DATE_VALIDATION_FORMAT}
-                  ref={throughRef}
-                  type="date"
-                  value={throughDate}
-                />
-              </div>
-            </div>
-          </li>
-        </ul>
-
+        <DateRangeInputs
+          fieldName={fieldName}
+          fromDate={fromDate}
+          throughDate={throughDate}
+          inputFromClassName={inputFromClassName}
+          inputThroughClassName={inputThroughClassName}
+          onCommit={commitChange}
+          onChangeFrom={setFromDate}
+          onChangeThrough={setThroughDate}
+          onKeyDownFrom={handleKeyDownFromDate}
+          onKeyDownThrough={handleKeyDownThroughDate}
+          fromRef={fromRef}
+          throughRef={throughRef}
+        />
         {errors.length ? (
           <div className="a-form-alert a-form-alert--error" role="alert">
             {errors.map((message, key) => (
