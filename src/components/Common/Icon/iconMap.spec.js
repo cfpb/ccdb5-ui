@@ -5,7 +5,7 @@ describe('getIcon', () => {
   it('gets a known icon', () => {
     const res = getIcon('minus-round');
     expect(JSON.stringify(res)).toBe(
-      '{"type":{},"key":null,"ref":null,"props":{"className":"cf-icon-svg "},"_owner":null,"_store":{}}',
+      '{"type":{},"key":null,"props":{"className":"cf-icon-svg "},"_owner":null,"_store":{}}',
     );
   });
 
