@@ -9,7 +9,8 @@
 /**
  * A plain Redux action.
  *
- * @typedef {object} ReduxTypes.PlainAction
+ * @typedef {object} PlainAction
+ * @memberof ReduxTypes
  * @property {string} type - the type of the action
  * @property {unknown} [payload] - the payload of the action
  * @property {unknown} [error] - any error
@@ -20,31 +21,36 @@
 /**
  * A Redux thunk function.
  *
- * @typedef {(dispatch: ReduxTypes.Dispatch, getState: ReduxTypes.GetState) => unknown} ReduxTypes.Thunk
+ * @typedef {(dispatch: ReduxTypes.Dispatch, getState: ReduxTypes.GetState) => unknown} Thunk
+ * @memberof ReduxTypes
  */
 
 /**
  * Redux dispatch that can handle plain actions or thunks.
  *
- * @typedef {(action: ReduxTypes.PlainAction | ReduxTypes.Thunk) => unknown} ReduxTypes.Dispatch
+ * @typedef {(action: ReduxTypes.PlainAction | ReduxTypes.Thunk) => unknown} Dispatch
+ * @memberof ReduxTypes
  */
 
 /**
  * Redux getState function.
  *
- * @typedef {() => unknown} ReduxTypes.GetState
+ * @typedef {() => unknown} GetState
+ * @memberof ReduxTypes
  */
 
 /**
  * The `next` function in the middleware chain (accepts only plain actions).
  *
- * @typedef {(action: ReduxTypes.PlainAction) => unknown} ReduxTypes.Next
+ * @typedef {(action: ReduxTypes.PlainAction) => unknown} Next
+ * @memberof ReduxTypes
  */
 
 /**
  * Minimal Redux store shape used by middleware.
  *
- * @typedef {object} ReduxTypes.Store
+ * @typedef {object} Store
+ * @memberof ReduxTypes
  * @property {ReduxTypes.Dispatch} dispatch - the dispatch function from redux
  * @property {ReduxTypes.GetState} getState - the getState function from redux
  */
