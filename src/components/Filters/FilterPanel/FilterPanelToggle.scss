@@ -1,15 +1,15 @@
 @use 'css/base' as *;
 
 .filter-panel-toggle {
+  @media screen and (min-width: $layout-breakpoint-tablet-lg-min) and (max-width: $layout-breakpoint-tablet-lg-max) {
+    display: none;
+  }
+
   @media screen and (min-width: $layout-breakpoint-superwide-min) {
     display: none;
   }
 
   @media screen and (min-width: $layout-breakpoint-desktop-min) {
-    display: none;
-  }
-
-  @media screen and (min-width: $layout-breakpoint-tablet-lg-min) and (max-width: $layout-breakpoint-tablet-lg-max) {
     display: none;
   }
 
