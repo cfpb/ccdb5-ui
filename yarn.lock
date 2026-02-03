@@ -1665,7 +1665,7 @@ __metadata:
     history: "npm:^5.3.0"
     husky: "npm:^9.1.7"
     identity-obj-proxy: "npm:3.0.0"
-    intro.js: "npm:^8.3.2"
+    intro.js: "npm:7.2.0"
     intro.js-react: "npm:1.0.0"
     jest: "npm:^30.2.0"
     jest-environment-jsdom: "npm:^30.2.0"
@@ -8657,10 +8657,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"intro.js@npm:^8.3.2":
-  version: 8.3.2
-  resolution: "intro.js@npm:8.3.2"
-  checksum: 10c0/8ee4b54a03cf3399ad4dced9d97d37f7c6765d81cc4c758ee9ad6407c4be94a2538330f32da4f84cecf5d2db51a0706d39ddec76fa54e3b07028a9617cf6cd36
+"intro.js@npm:7.2.0":
+  version: 7.2.0
+  resolution: "intro.js@npm:7.2.0"
+  checksum: 10c0/36570c156409c7197002e4ea13e21e01d43c8d98355f9208ab8263a0476a56abdc8e485b4ef59c5308309dc8c17acc643336713a35d6121095a0470d9d9753f9
   languageName: node
   linkType: hard
 
