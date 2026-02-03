@@ -1,7 +1,7 @@
 /* eslint complexity: ["error", 7] */
 import './DateFilter.scss';
 import { DATE_VALIDATION_FORMAT, maxDate, minDate } from '../../../constants';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import {
   selectQueryCompanyReceivedMax,
   selectQueryCompanyReceivedMin,
@@ -23,30 +23,22 @@ export const CompanyReceivedFilter = () => {
   const title = 'The date the CFPB sent the complaint to the company';
   const dateFrom = useSelector(selectQueryCompanyReceivedMin);
   const dateThrough = useSelector(selectQueryCompanyReceivedMax);
-  const initialFromDate = dayjs(dateFrom).isValid() ? formatDate(dateFrom) : '';
-  const initialThroughDate = dayjs(dateThrough).isValid()
+  const formattedFromDate = dayjs(dateFrom).isValid()
+    ? formatDate(dateFrom)
+    : '';
+  const formattedThroughDate = dayjs(dateThrough).isValid()
     ? formatDate(dateThrough)
     : '';
-
-  const [fromDate, setFromDate] = useState(initialFromDate);
-  const [throughDate, setThroughDate] = useState(initialThroughDate);
+  const [draftFromDate, setDraftFromDate] = useState(null);
+  const [draftThroughDate, setDraftThroughDate] = useState(null);
   const dispatch = useDispatch();
   const errorMessageText = "'From' date must be less than 'through' date";
 
   const fromRef = useRef();
   const throughRef = useRef();
 
-  useEffect(() => {
-    // put it in YYYY-MM-DD format
-    // validate to make sure it's not invalid
-    const validFromDate = dateFrom ? formatDate(dateFrom) : '';
-    setFromDate(validFromDate);
-  }, [dateFrom]);
-
-  useEffect(() => {
-    const validThroughDate = dateThrough ? formatDate(dateThrough) : '';
-    setThroughDate(validThroughDate);
-  }, [dateThrough]);
+  const fromDate = draftFromDate ?? formattedFromDate;
+  const throughDate = draftThroughDate ?? formattedThroughDate;
 
   const handleKeyDownFromDate = (event) => {
     if (event.key === 'Enter') {
@@ -97,6 +89,8 @@ export const CompanyReceivedFilter = () => {
     if (isDateDifferent) {
       dispatch(companyReceivedDateChanged(_fromDate, _throughDate));
     }
+    setDraftFromDate(null);
+    setDraftThroughDate(null);
   };
 
   const inputFromClassName = useMemo(() => {
@@ -142,7 +136,7 @@ export const CompanyReceivedFilter = () => {
                   id={`${fieldName}-from`}
                   className={inputFromClassName}
                   onBlur={handleDateChange}
-                  onChange={(evt) => setFromDate(evt.target.value)}
+                  onChange={(evt) => setDraftFromDate(evt.target.value)}
                   onKeyDown={handleKeyDownFromDate}
                   min={minDate}
                   max={maxDate}
@@ -167,7 +161,7 @@ export const CompanyReceivedFilter = () => {
                   id={`${fieldName}-through`}
                   className={inputThroughClassName}
                   onBlur={handleDateChange}
-                  onChange={(evt) => setThroughDate(evt.target.value)}
+                  onChange={(evt) => setDraftThroughDate(evt.target.value)}
                   onKeyDown={handleKeyDownThroughDate}
                   min={minDate}
                   max={maxDate}

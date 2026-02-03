@@ -6,8 +6,11 @@
 # Clone the project from github
 git clone https://github.com/cfpb/ccdb5-ui.git
 cd ccdb5-ui
+corepack enable
 yarn install
 ```
+
+Yarn is managed via Corepack, using the version pinned in `package.json`.
 
 This installs the dependencies. If you run `yarn build` at this point,
 you should received an error `Module not found: Error: Can't resolve …` in

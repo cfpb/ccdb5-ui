@@ -1,7 +1,7 @@
 /* eslint complexity: ["error", 7] */
 import './DateFilter.scss';
 import { DATE_VALIDATION_FORMAT, maxDate, minDate } from '../../../constants';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import {
   selectQueryDateReceivedMax,
   selectQueryDateReceivedMin,
@@ -33,14 +33,14 @@ export const DateFilter = () => {
   const title = 'Date CFPB received the complaint';
   const dateFrom = useSelector(selectQueryDateReceivedMin);
   const dateThrough = useSelector(selectQueryDateReceivedMax);
-  const initialFromDate = dayjs(dateFrom).isValid()
+  const formattedFromDate = dayjs(dateFrom).isValid()
     ? formatDateModel(dateFrom)
     : '';
-  const initialThroughDate = dayjs(dateThrough).isValid()
+  const formattedThroughDate = dayjs(dateThrough).isValid()
     ? formatDateModel(dateThrough)
     : '';
-  const [fromDate, setFromDate] = useState(initialFromDate);
-  const [throughDate, setThroughDate] = useState(initialThroughDate);
+  const [draftFromDate, setDraftFromDate] = useState(null);
+  const [draftThroughDate, setDraftThroughDate] = useState(null);
   const dispatch = useDispatch();
 
   const errorMessageText = "'From' date must be less than 'through' date";
@@ -51,17 +51,8 @@ export const DateFilter = () => {
   const fromRef = useRef();
   const throughRef = useRef();
 
-  useEffect(() => {
-    // put it in YYYY-MM-DD format
-    // validate to make sure it's not invalid
-    const validFromDate = dateFrom ? formatDateModel(dateFrom) : '';
-    setFromDate(validFromDate);
-  }, [dateFrom]);
-
-  useEffect(() => {
-    const validThroughDate = dateThrough ? formatDateModel(dateThrough) : '';
-    setThroughDate(validThroughDate);
-  }, [dateThrough]);
+  const fromDate = draftFromDate ?? formattedFromDate;
+  const throughDate = draftThroughDate ?? formattedThroughDate;
 
   const handleKeyDownFromDate = (event) => {
     if (event.key === 'Enter') {
@@ -89,8 +80,7 @@ export const DateFilter = () => {
   }, [errorThroughOutOfBounds, fromDate, throughDate]);
 
   const handleDateChange = () => {
-    // setFromDate and setThroughDate do not update the state quick enough
-    // to be used here
+    // use local vars so we can sanitize before committing
     let _fromDate = fromDate;
     let _throughDate = throughDate;
 
@@ -123,10 +113,14 @@ export const DateFilter = () => {
 
     // if valid, go ahead and set the correct values
     if (dayjs(_throughDate).isAfter(_fromDate)) {
-      setFromDate(_fromDate);
-      setThroughDate(_throughDate);
       dispatch(datesChanged(_fromDate, _throughDate));
+      setDraftFromDate(null);
+      setDraftThroughDate(null);
+      return;
     }
+
+    setDraftFromDate(_fromDate);
+    setDraftThroughDate(_throughDate);
   };
 
   const inputFromClassName = useMemo(() => {
@@ -194,7 +188,7 @@ export const DateFilter = () => {
                   className={inputFromClassName}
                   onBlur={handleDateChange}
                   onChange={(evt) => {
-                    setFromDate(evt.target.value);
+                    setDraftFromDate(evt.target.value);
                   }}
                   onKeyDown={handleKeyDownFromDate}
                   min={minDate}
@@ -221,7 +215,7 @@ export const DateFilter = () => {
                   className={inputThroughClassName}
                   onBlur={handleDateChange}
                   onChange={(evt) => {
-                    setThroughDate(evt.target.value);
+                    setDraftThroughDate(evt.target.value);
                   }}
                   onKeyDown={handleKeyDownThroughDate}
                   min={minDate}

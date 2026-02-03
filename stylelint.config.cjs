@@ -56,7 +56,8 @@ module.exports = {
       },
     ],
     'selector-id-pattern': null,
-    'selector-class-pattern': [
+    'selector-class-pattern': null,
+    'scss/selector-class-pattern': [
       '^[a-z]([a-z0-9-]+)?(__([a-z0-9]+-?)+)?(--([a-z0-9]+-?)+){0,2}$',
       { resolveNestedSelectors: true },
     ],

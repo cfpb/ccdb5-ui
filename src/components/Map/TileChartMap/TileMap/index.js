@@ -1,7 +1,7 @@
 /* eslint complexity: ["error", 5] */
 import * as d3 from 'd3';
-import accessibility from 'highcharts/modules/accessibility';
 import Highcharts from 'highcharts/highmaps';
+import 'highcharts/modules/accessibility';
 import { STATE_TILES } from './constants';
 
 const TEN_K = 10000;
@@ -214,15 +214,16 @@ export function mouseoverPoint() {
  * @returns {string} html output
  */
 export function tileFormatter() {
-  const value = this.point.displayValue.toLocaleString();
+  const point = this.point || this;
+  const value = point.displayValue.toLocaleString();
   return (
     '<div class="highcharts-data-label-state tile-' +
-    this.point.name +
+    point.name +
     ' ' +
-    this.point.className +
+    point.className +
     ' ">' +
     '<span class="abbr">' +
-    this.point.name +
+    point.name +
     '</span>' +
     '<span class="value">' +
     value +
@@ -364,8 +365,6 @@ export function _drawLegend(chart) {
 /* ----------------------------------------------------------------------------
    Tile Map class */
 
-accessibility(Highcharts);
-
 Highcharts.setOptions({
   lang: {
     thousandsSep: ',',
@@ -464,11 +463,21 @@ class TileMap {
 
     // our custom passing of information
     if (events && hasTip) {
-      options.plotOptions.series.events = events;
+      const { click, ...seriesEvents } = events;
+      if (Object.keys(seriesEvents).length) {
+        options.plotOptions.series.events = seriesEvents;
+      }
       options.plotOptions.series.point = {
         events: {
           mouseOver: mouseoverPoint,
           mouseOut: mouseoutPoint,
+          click: function (event) {
+            if (!click) return;
+            const normalizedEvent = event
+              ? { ...event, point: this }
+              : { point: this };
+            click(normalizedEvent);
+          },
         },
       };
     }

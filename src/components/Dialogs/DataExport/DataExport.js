@@ -4,7 +4,7 @@ import { buildAllResultsUri, buildSomeResultsUri } from './dataExportUtils';
 import { modalHidden, modalShown } from '../../../reducers/view/viewSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import getIcon from '../../Common/Icon/iconMap';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { MODAL_TYPE_EXPORT_CONFIRMATION } from '../../../constants';
 import { selectQueryRoot } from '../../../reducers/query/selectors';
 import { selectViewTab } from '../../../reducers/view/selectors';
@@ -25,6 +25,7 @@ export const DataExport = () => {
   const { data } = useGetAggregations();
   const someComplaintsCount = data?.total || 0;
   const allComplaintsCount = data?.doc_count || 0;
+  const isFullDatasetOnly = someComplaintsCount === allComplaintsCount;
 
   // can only be full or filtered
   const [dataset, setDataset] = useState(DATASET_FULL);
@@ -33,11 +34,7 @@ export const DataExport = () => {
 
   const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
-    if (someComplaintsCount === allComplaintsCount) {
-      setDataset(DATASET_FULL);
-    }
-  }, [someComplaintsCount, allComplaintsCount]);
+  const exportDataset = isFullDatasetOnly ? DATASET_FULL : dataset;
 
   const exportUri = useMemo(() => {
     const mergedState = {
@@ -45,14 +42,14 @@ export const DataExport = () => {
       ...queryState,
     };
     const url =
-      dataset === DATASET_FULL
+      exportDataset === DATASET_FULL
         ? buildAllResultsUri(format)
         : buildSomeResultsUri(format, someComplaintsCount, mergedState);
     return getFullUrl(url);
-  }, [dataset, format, someComplaintsCount, filtersState, queryState]);
+  }, [exportDataset, format, someComplaintsCount, filtersState, queryState]);
 
   const handleExportClicked = () => {
-    if (dataset === DATASET_FULL) {
+    if (exportDataset === DATASET_FULL) {
       sendAnalyticsEvent('Export All Data', tab + ':' + format);
     } else {
       sendAnalyticsEvent('Export Some Data', tab + ':' + format);
@@ -131,7 +128,7 @@ export const DataExport = () => {
             </div>
           </div>
         </div>
-        {someComplaintsCount === allComplaintsCount ? null : (
+        {isFullDatasetOnly ? null : (
           <div className="group">
             <div className="group-title">
               Select which complaints you’d like to export

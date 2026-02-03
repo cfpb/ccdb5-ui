@@ -73,6 +73,14 @@ node_modules/
 src/vendor/
 src/static/
 
+# Yarn modern
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
 # Build artifacts #
 ###################
 build

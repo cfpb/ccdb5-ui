@@ -1,8 +1,7 @@
 @use 'sass:math';
-@use '@cfpb/cfpb-design-system/src/abstracts' as *;
-@use '@cfpb/cfpb-design-system/src/base' as *;
+@use '@cfpb/cfpb-design-system/src/elements/abstracts' as *;
+@use '@cfpb/cfpb-design-system/src/elements/base' as *;
 @use '@cfpb/cfpb-design-system/dist/index.css' as *;
-@include define-custom-props;
 @include licensed-font('/src/static/fonts');
 
 
@@ -36,6 +35,5 @@ $layout-breakpoint-tablet-lg-max: 900px;
 $layout-breakpoint-tablet-sm-min: 600px;
 $layout-breakpoint-tablet-sm-max: 749px;
 $layout-breakpoint-phone-max: 599px;
-
 
 

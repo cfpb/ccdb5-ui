@@ -11,6 +11,14 @@ if (!global.TextDecoder) {
   global.TextDecoder = TextDecoder;
 }
 
+if (!global.CSS) {
+  global.CSS = {
+    supports: () => false,
+  };
+} else if (typeof global.CSS.supports !== 'function') {
+  global.CSS.supports = () => false;
+}
+
 fetchMock.enableMocks();
 
 jest.useFakeTimers('modern');
