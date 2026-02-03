@@ -11,6 +11,11 @@ import { trendsOverviewResponse } from '../Trends/TrendsPanel/fixture';
 import { trendsState } from '../../reducers/trends/trendsSlice';
 import { queryState } from '../../reducers/query/querySlice';
 
+jest.mock('intro.js-react', () => ({
+  // eslint-disable-next-line react/prop-types
+  Steps: ({ enabled }) => (enabled ? <div role="dialog" /> : null),
+}));
+
 const renderComponent = (newViewModelState) => {
   const newQueryState = { dateLastIndexed: '2021-01-01' };
   merge(newQueryState, queryState);

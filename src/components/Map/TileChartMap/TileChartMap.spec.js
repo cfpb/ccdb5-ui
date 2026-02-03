@@ -3,15 +3,27 @@ import { screen, testRender as render } from '../../../testUtils/test-utils';
 import { merge } from '../../../testUtils/functionHelpers';
 import * as filterActions from '../../../reducers/filters/filtersSlice';
 import { filtersState } from '../../../reducers/filters/filtersSlice';
+import Highcharts from 'highcharts/highmaps';
 import fetchMock from 'jest-fetch-mock';
 import { viewState } from '../../../reducers/view/viewSlice';
 import { mapResults } from './__fixtures__/mapResults';
 import { GEO_NORM_PER1000, MODE_MAP } from '../../../constants';
 import * as analyticsActions from '../../../utils';
-import userEvent from '@testing-library/user-event';
 
 describe('TileChartMap', () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  const getTileMapChart = () =>
+    Highcharts.charts.find(
+      (chart) => chart?.renderTo && chart.renderTo.id === 'tile-chart-map',
+    );
+
+  const getTileMapPoint = (abbr) => {
+    const chart = getTileMapChart();
+    const point = chart?.series?.[0]?.points?.find(
+      (candidate) => candidate.name === abbr,
+    );
+    return { chart, point };
+  };
+
   const renderComponent = (newFiltersState, newViewState) => {
     newViewState.tab = MODE_MAP;
     merge(newFiltersState, filtersState);
@@ -30,6 +42,10 @@ describe('TileChartMap', () => {
 
   beforeEach(() => {
     fetchMock.resetMocks();
+  });
+
+  afterEach(() => {
+    Highcharts.charts.filter(Boolean).forEach((chart) => chart.destroy());
   });
 
   it('renders empty set without crashing', () => {
@@ -68,10 +84,10 @@ describe('TileChartMap', () => {
     expect(screen.getByText('FL')).toBeInTheDocument();
     expect(screen.getByText('580,351')).toBeInTheDocument();
     expect(screen.getByLabelText('FL, value: 580,351.')).toBeInTheDocument();
-    await user.click(screen.getByLabelText('FL, value: 580,351.'));
+    const { point } = getTileMapPoint('FL');
+    expect(point).toBeDefined();
+    point.firePointEvent('click', { point });
 
-    // upgrading highcharts to v12 will cause these tests to fail.
-    // _toggleState handler will not called in tests
     expect(analyticsSpy).toHaveBeenCalledWith('State Event: add', 'FL');
     expect(addStateFilterSpy).toHaveBeenCalledWith({
       abbr: 'FL',
@@ -108,11 +124,14 @@ describe('TileChartMap', () => {
     expect(screen.getByText('FL')).toBeInTheDocument();
     expect(screen.getByText('28.62')).toBeInTheDocument();
     // tooltip check
-    await user.hover(screen.getByLabelText('FL, value: 580,351.'));
+    const { chart, point } = getTileMapPoint('FL');
+    expect(chart).toBeDefined();
+    expect(point).toBeDefined();
+    chart.tooltip.refresh(point);
     expect(
       screen.getByText('Product with highest complaint volume'),
     ).toBeVisible();
-    await user.click(screen.getByLabelText('FL, value: 580,351.'));
+    point.firePointEvent('click', { point });
     expect(analyticsSpy).toHaveBeenCalledWith('State Event: add', 'FL');
     expect(addStateFilterSpy).toHaveBeenCalledWith({
       abbr: 'FL',
@@ -145,7 +164,9 @@ describe('TileChartMap', () => {
     expect(screen.getByTestId('tile-chart-map')).not.toHaveClass('print');
     await screen.findByLabelText('FL, value: 580,351.');
     expect(screen.getByLabelText('FL, value: 580,351.')).toBeInTheDocument();
-    await user.click(screen.getByLabelText('FL, value: 580,351.'));
+    const { point } = getTileMapPoint('FL');
+    expect(point).toBeDefined();
+    point.firePointEvent('click', { point });
     expect(analyticsSpy).toHaveBeenCalledWith('State Event: remove', 'FL');
     expect(removeStateFilterSpy).toHaveBeenCalledWith({
       abbr: 'FL',
@@ -185,7 +206,9 @@ describe('TileChartMap', () => {
     expect(screen.getByLabelText('FL, value: 580,351.')).toHaveClass(
       'selected',
     );
-    await user.click(screen.getByLabelText('FL, value: 580,351.'));
+    const { point } = getTileMapPoint('FL');
+    expect(point).toBeDefined();
+    point.firePointEvent('click', { point });
     expect(analyticsSpy).toHaveBeenCalledWith('State Event: remove', 'FL');
     expect(removeStateFilterSpy).toHaveBeenCalledWith({
       abbr: 'FL',

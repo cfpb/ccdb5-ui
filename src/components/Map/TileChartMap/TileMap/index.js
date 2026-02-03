@@ -463,11 +463,21 @@ class TileMap {
 
     // our custom passing of information
     if (events && hasTip) {
-      options.plotOptions.series.events = events;
+      const { click, ...seriesEvents } = events;
+      if (Object.keys(seriesEvents).length) {
+        options.plotOptions.series.events = seriesEvents;
+      }
       options.plotOptions.series.point = {
         events: {
           mouseOver: mouseoverPoint,
           mouseOut: mouseoutPoint,
+          click: function (event) {
+            if (!click) return;
+            const normalizedEvent = event
+              ? { ...event, point: this }
+              : { point: this };
+            click(normalizedEvent);
+          },
         },
       };
     }
