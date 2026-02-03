@@ -18,7 +18,7 @@ Unit testing of the application is performed within
 [Jest](https://facebook.github.io/jest/) with
 [Testing Library](https://testing-library.com/) providing support for event testing.
 
-[yarn](https://yarnpkg.com/) is used to manage the build/test/deploy cycle.
+[Yarn](https://yarnpkg.com/) (via Corepack) is used to manage the build/test/deploy cycle.
 
 #### Screenshot
 
@@ -55,6 +55,12 @@ This application depends on the [Public Complaints API](https://github.com/cfpb/
 to be available.
 
 To run the app locally using the public consumerfinance.gov API, install dependencies and start the app in development mode:
+
+If you have not enabled Corepack yet, run:
+
+```bash
+corepack enable
+```
 
 ```
 yarn
