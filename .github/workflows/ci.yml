@@ -21,6 +21,9 @@ jobs:
         run: |
           yarn install
 
+      - name: Compile Sass (sanity check)
+        run: ./node_modules/.bin/sass --no-source-map --load-path=node_modules --load-path=src src/css/App.scss /tmp/app.css
+
       - name: Lint the source code
         run: yarn run lint
 
