@@ -14,11 +14,9 @@ jobs:
         with:
           node-version: '24.x'
 
-      - name: Enable Corepack
-        run: corepack enable
-
       - name: Install Node dependencies
         run: |
+          corepack enable
           yarn install
 
       - name: Compile Sass (sanity check)
