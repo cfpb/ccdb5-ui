@@ -18,9 +18,8 @@
   }
 }
 
-/* stylelint-disable selector-class-pattern */
+/* stylelint-disable-next-line scss/selector-class-pattern */
 .introjs-tooltipReferenceLayer > .first-step {
-/* stylelint-enable */
   @media screen and (min-width: $layout-breakpoint-superwide-min) {
     margin-top: -40vh !important;
   }
