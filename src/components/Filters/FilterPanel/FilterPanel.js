@@ -2,10 +2,10 @@ import './FilterPanel.scss';
 import { Company } from '../Company/Company';
 import { CompanyReceivedFilter } from '../Date/CompanyReceivedFilter';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button } from '@cfpb/design-system-react';
 import { DateFilter } from '../Date/DateFilter';
 import { FederalState } from '../FederalState/FederalState';
 import { HasNarrative } from '../HasNarrative/HasNarrative';
-import getIcon from '../../Common/Icon/iconMap';
 import { SimpleFilter } from '../SimpleFilter/SimpleFilter';
 import { ZipCode } from '../ZipCode/ZipCode';
 import { updateFilterVisibility } from '../../../reducers/view/viewSlice';
@@ -37,13 +37,12 @@ export const FilterPanel = () => {
         <section className="filter-panel">
           {!!hasButton && (
             <div className="filter-button">
-              <button
-                className="a-btn"
+              <Button
+                label="Close filters"
+                iconRight="delete"
                 title="Close filters"
                 onClick={() => dispatch(updateFilterVisibility())}
-              >
-                Close filters {getIcon('delete')}
-              </button>
+              />
             </div>
           )}
           <h3>Filter results by...</h3>

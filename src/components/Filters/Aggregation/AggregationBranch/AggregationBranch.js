@@ -2,6 +2,7 @@ import './AggregationBranch.scss';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Button } from '@cfpb/design-system-react';
 import {
   coalesce,
   getAllFilters,
@@ -11,7 +12,6 @@ import {
 } from '../../../../utils';
 import { selectFiltersRoot } from '../../../../reducers/filters/selectors';
 import { AggregationItem } from '../AggregationItem/AggregationItem';
-import getIcon from '../../../Common/Icon/iconMap';
 import { SLUG_SEPARATOR } from '../../../../constants';
 import {
   filtersReplaced,
@@ -104,13 +104,13 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
         >
           <span className="u-visually-hidden">{item.key}</span>
         </label>
-        <button
+        <Button
+          label={item.key}
+          iconRight={isOpen ? 'up' : 'down'}
+          asLink
           className="flex-all a-btn a-btn--link"
           onClick={() => setOpen(!isOpen)}
-        >
-          {item.key}
-          {isOpen ? getIcon('up') : getIcon('down')}
-        </button>
+        />
         <span className="flex-fixed parent-count">
           {item.doc_count.toLocaleString()}
         </span>

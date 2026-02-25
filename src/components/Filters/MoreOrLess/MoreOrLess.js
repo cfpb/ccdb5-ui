@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { createElement, useState } from 'react';
+import { Button } from '@cfpb/design-system-react';
 import { coalesce, sortOptions } from '../../../utils';
 import { useSelector } from 'react-redux';
 import { selectFiltersRoot } from '../../../reducers/filters/selectors';
@@ -43,11 +44,16 @@ export const MoreOrLess = ({
       </ul>
       {remain > 0 ? (
         <div>
-          <button className="a-btn a-btn--link more" onClick={toggleShowMore}>
-            {currentlyHasMore
-              ? `- Show ${remain} less`
-              : `+ Show ${remain} more`}
-          </button>
+          <Button
+            label={
+              currentlyHasMore
+                ? `- Show ${remain} less`
+                : `+ Show ${remain} more`
+            }
+            asLink
+            className="more"
+            onClick={toggleShowMore}
+          />
         </div>
       ) : null}
     </>

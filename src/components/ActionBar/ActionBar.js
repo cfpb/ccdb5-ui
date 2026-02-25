@@ -1,6 +1,6 @@
 import './ActionBar.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import getIcon from '../Common/Icon/iconMap';
+import { Button } from '@cfpb/design-system-react';
 import { sendAnalyticsEvent } from '../../utils';
 import { modalShown, updatePrintModeOn } from '../../reducers/view/viewSlice';
 import { StaleDataWarnings } from '../Warnings/StaleDataWarnings';
@@ -38,8 +38,10 @@ export const ActionBar = () => {
         {error ? null : (
           <div>
             <h3 className="h4 flex-all export-results">
-              <button
-                className="a-btn a-btn--link export-btn"
+              <Button
+                label="Export data"
+                asLink
+                className="export-btn"
                 data-gtm_ignore="true"
                 onClick={() => {
                   sendAnalyticsEvent(
@@ -48,18 +50,16 @@ export const ActionBar = () => {
                   );
                   dispatch(modalShown(MODAL_TYPE_DATA_EXPORT));
                 }}
-              >
-                Export data
-              </button>
-              <button
-                className="a-btn a-btn--link print-preview"
+              />
+              <Button
+                label="Print"
+                asLink
+                iconLeft="printer"
+                className="print-preview"
                 onClick={() => {
                   showPrintView(tab);
                 }}
-              >
-                {getIcon('printer')}
-                Print
-              </button>
+              />
             </h3>
           </div>
         )}

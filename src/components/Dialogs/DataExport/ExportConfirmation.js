@@ -1,4 +1,4 @@
-import getIcon from '../../Common/Icon/iconMap';
+import { Button } from '@cfpb/design-system-react';
 import { useDispatch } from 'react-redux';
 import { modalHidden } from '../../../reducers/view/viewSlice';
 
@@ -9,16 +9,15 @@ export const ExportConfirmation = () => {
     <section className="export-modal">
       <div className="header layout-row">
         <h3 className="flex-all">Export complaints</h3>
-        <button
-          className="a-btn a-btn--link"
+        <Button
+          label="Close"
+          iconRight="delete-round"
+          asLink
           data-gtm_ignore="true"
           onClick={() => {
             dispatch(modalHidden());
           }}
-        >
-          Close
-          {getIcon('delete-round')}
-        </button>
+        />
       </div>
       <div className="body">
         <div className="body-copy instructions">

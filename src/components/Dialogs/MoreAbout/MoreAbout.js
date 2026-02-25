@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Button } from '@cfpb/design-system-react';
 
 export const MoreAbout = ({ onClose }) => {
   const urlScrubbing =
@@ -40,9 +41,7 @@ export const MoreAbout = ({ onClose }) => {
         <p className="body-copy">This database generally updates daily.</p>
       </div>
       <div className="footer layout-row">
-        <button className="a-btn" onClick={onClose}>
-          Close
-        </button>
+        <Button label="Close" onClick={onClose} />
       </div>
     </section>
   );

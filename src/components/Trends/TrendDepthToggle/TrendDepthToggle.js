@@ -3,6 +3,7 @@ import { depthChanged, depthReset } from '../../../reducers/trends/trendsSlice';
 import { clamp, coalesce } from '../../../utils';
 import { SLUG_SEPARATOR } from '../../../constants';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button } from '@cfpb/design-system-react';
 import {
   selectTrendsFocus,
   selectTrendsLens,
@@ -83,31 +84,29 @@ export const TrendDepthToggle = () => {
     if (showMore(filterCount, resultCount)) {
       return (
         <div className="trend-depth-toggle">
-          <button
-            className="a-btn a-btn--link"
+          <Button
+            label="Show more"
+            iconLeft="plus-round"
+            asLink
             id="trend-depth-button"
             onClick={() => {
               dispatch(depthChanged(diff + 5));
             }}
-          >
-            <span className="plus" />
-            Show more
-          </button>
+          />
         </div>
       );
     }
     return (
       <div className="trend-depth-toggle">
-        <button
-          className="a-btn a-btn--link"
+        <Button
+          label="Show less"
+          iconLeft="minus-round"
+          asLink
           id="trend-depth-button"
           onClick={() => {
             dispatch(depthReset());
           }}
-        >
-          <span className="minus" />
-          Show less
-        </button>
+        />
       </div>
     );
   }

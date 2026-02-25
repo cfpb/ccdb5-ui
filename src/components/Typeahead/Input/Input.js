@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import getIcon from '../../Common/Icon/iconMap';
+import { Button } from '@cfpb/design-system-react';
 import { ClearButton } from '../ClearButton/ClearButton';
 
 export const Input = ({
@@ -38,9 +39,7 @@ export const Input = ({
         />
         <ClearButton onClear={handleClear} />
       </div>
-      <button type="submit" className="a-btn">
-        Search
-      </button>
+      <Button type="submit" label="Search" />
     </div>
   );
 };

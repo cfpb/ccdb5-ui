@@ -1,6 +1,6 @@
 import './ChartToggles.scss';
 import { chartTypeUpdated } from '../../reducers/trends/trendsSlice';
-import getIcon from '../Common/Icon/iconMap';
+import { Button } from '@cfpb/design-system-react';
 import { selectedClass, sendAnalyticsEvent } from '../../utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTrendsChartType } from '../../reducers/trends/selectors';
@@ -18,26 +18,26 @@ export const ChartToggles = () => {
     <section className="chart-toggles">
       <p>Chart type</p>
       <div className="m-btn-group">
-        <button
+        <Button
+          label=""
+          iconLeft="line-chart"
           aria-label="Toggle line chart"
           className={'a-btn' + selectedClass('line', chartType)}
           disabled={chartType === 'line'}
           onClick={() => {
             toggleChartType('line');
           }}
-        >
-          {getIcon('line-chart')}
-        </button>
-        <button
+        />
+        <Button
+          label=""
+          iconLeft="area-chart"
           aria-label="Toggle area chart"
           className={'a-btn' + selectedClass('area', chartType)}
           disabled={chartType === 'area'}
           onClick={() => {
             toggleChartType('area');
           }}
-        >
-          {getIcon('area-chart')}
-        </button>
+        />
       </div>
     </section>
   );

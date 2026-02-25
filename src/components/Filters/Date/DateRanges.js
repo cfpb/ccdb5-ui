@@ -2,6 +2,7 @@ import './DateRanges.scss';
 import { selectQueryDateRange } from '../../../reducers/query/selectors';
 import { selectViewTab } from '../../../reducers/view/selectors';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button } from '@cfpb/design-system-react';
 import { dateRanges } from '../../../constants';
 import { dateRangeChanged } from '../../../reducers/query/querySlice';
 import { sendAnalyticsEvent } from '../../../utils';
@@ -31,17 +32,16 @@ export const DateRanges = () => {
       <p>Date range (Click to modify range)</p>
       <div className="m-btn-group">
         {Object.keys(dateRanges).map((range) => (
-          <button
+          <Button
+            key={range}
+            label={range}
+            aria-label={dateRanges[range]}
+            className={btnClassName(range)}
+            title={dateRanges[range]}
             onClick={() => {
               toggleDateRange(range);
             }}
-            aria-label={dateRanges[range]}
-            className={btnClassName(range)}
-            key={range}
-            title={dateRanges[range]}
-          >
-            {range}
-          </button>
+          />
         ))}
       </div>
     </section>

@@ -1,6 +1,6 @@
 import './MapToolbar.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import getIcon from '../Common/Icon/iconMap';
+import { Button } from '@cfpb/design-system-react';
 import { MODE_LIST, THESE_UNITED_STATES } from '../../constants';
 import { stateFilterCleared } from '../../reducers/filters/filtersSlice';
 import { selectFiltersState } from '../../reducers/filters/selectors';
@@ -22,28 +22,27 @@ export const MapToolbar = () => {
         {!filteredStates && <span>United States of America</span>}
         <span>{filteredStates}</span>
         {!!filteredStates && (
-          <button
+          <Button
+            label="Clear"
+            iconLeft="delete-round"
+            asLink
             aria-label="Clear all map filters"
-            className="a-btn a-btn--link"
             onClick={() => {
               dispatch(stateFilterCleared());
             }}
-          >
-            {getIcon('delete-round')}
-            Clear
-          </button>
+          />
         )}
       </section>
       {!!filteredStates && (
         <section className="state-navigation">
-          <button
+          <Button
+            label="View complaints for filtered states"
+            asLink
             className="list a-btn a-btn--link"
             onClick={() => {
               dispatch(tabChanged(MODE_LIST));
             }}
-          >
-            View complaints for filtered states
-          </button>
+          />
         </section>
       )}
     </div>

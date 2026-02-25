@@ -1,5 +1,6 @@
 import './Hero.scss';
 import { useDispatch } from 'react-redux';
+import { Button } from '@cfpb/design-system-react';
 import { LINK_DATA_USE, MODAL_TYPE_MORE_ABOUT } from '../../../constants';
 import { modalShown } from '../../../reducers/view/viewSlice';
 
@@ -11,14 +12,13 @@ export const Hero = () => {
       <h1 className="content-header">Consumer Complaint Database</h1>
       <ul className="m-list m-list--horizontal">
         <li className="m-list__item">
-          <button
-            className="a-btn a-btn--link"
+          <Button
+            label="Things to know before you use this database"
+            asLink
             onClick={() => {
               dispatch(modalShown(MODAL_TYPE_MORE_ABOUT));
             }}
-          >
-            Things to know before you use this database
-          </button>
+          />
         </li>
         <li className="m-list__item">
           <a href={LINK_DATA_USE} target="_blank" rel="noopener noreferrer">

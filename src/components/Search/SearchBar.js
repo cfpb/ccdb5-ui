@@ -7,6 +7,7 @@ import {
   searchFieldChanged,
   searchTextChanged,
 } from '../../reducers/query/querySlice';
+import { Button } from '@cfpb/design-system-react';
 import { AdvancedTips } from './AdvancedTips/AdvancedTips';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -137,11 +138,15 @@ export const SearchBar = () => {
             </a>
 
             <div className="advanced-container flex-fixed">
-              <button className="a-btn a-btn--link" onClick={onAdvancedClicked}>
-                {hasAdvancedSearchTips
-                  ? 'Hide advanced search tips'
-                  : 'Show advanced search tips'}
-              </button>
+              <Button
+                label={
+                  hasAdvancedSearchTips
+                    ? 'Hide advanced search tips'
+                    : 'Show advanced search tips'
+                }
+                asLink
+                onClick={onAdvancedClicked}
+              />
             </div>
           </div>
         </form>

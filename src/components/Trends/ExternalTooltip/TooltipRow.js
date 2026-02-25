@@ -6,7 +6,7 @@ import {
   selectTrendsSubLens,
 } from '../../../reducers/trends/selectors';
 import { sanitizeHtmlId } from '../../../utils';
-import getIcon from '../../Common/Icon/iconMap';
+import { Button } from '@cfpb/design-system-react';
 
 export const TooltipRow = ({ value }) => {
   const dispatch = useDispatch();
@@ -58,16 +58,17 @@ export const TooltipRow = ({ value }) => {
   // add in the close button for Company and there's no focus yet
   if (hasCompanyTypeahead) {
     elements.push(
-      <button
+      <Button
+        label=""
+        iconLeft="delete"
         aria-label={'Remove ' + value.name + ' from comparison set'}
-        className="u-right a-btn a-btn--link close"
+        asLink
+        className="u-right close"
         key={'close_' + value.name}
         onClick={() => {
           dispatch(filterRemoved('company', value.name));
         }}
-      >
-        {getIcon('delete')}
-      </button>,
+      />,
     );
   }
 

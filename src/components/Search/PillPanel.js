@@ -1,6 +1,6 @@
 import './PillPanel.scss';
 import { DATE_RANGE_MIN, knownFilters } from '../../constants';
-
+import { Button } from '@cfpb/design-system-react';
 import {
   selectFiltersHasNarrative,
   selectFiltersRoot,
@@ -14,7 +14,6 @@ import {
 
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
-import getIcon from '../Common/Icon/iconMap';
 import { Pill } from './Pill';
 import { filtersCleared } from '../../reducers/filters/filtersSlice';
 
@@ -76,13 +75,13 @@ export const PillPanel = () => {
           />
         ))}
         <li className="clear-all">
-          <button
-            className="a-btn a-btn--link body-copy"
+          <Button
+            label="Clear all filters"
+            iconLeft="delete"
+            asLink
+            className="body-copy"
             onClick={() => dispatch(filtersCleared(searchField))}
-          >
-            {getIcon('delete')}
-            Clear all filters
-          </button>
+          />
         </li>
       </ul>
     </section>
