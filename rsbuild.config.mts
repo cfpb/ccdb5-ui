@@ -24,6 +24,26 @@ export default defineConfig({
       strategy: 'all-in-one',
     },
   },
+  tools: {
+    rspack: (config, { appendRules }) => {
+      // Inline dynamic imports (e.g. from @cfpb/design-system-react) into the
+      // main bundle so we get a single ccdb5.js instead of many async chunks.
+      config.output = config.output || {};
+      config.output.asyncChunks = false;
+
+      appendRules({
+        test: /\.js/, // Or any other file extension you want to apply the loader to
+        loader: 'string-replace-loader',
+        options: {
+          search: '@@API', // The string or regex to search for
+          replace: '/data-research/consumer-complaints/search/api/v1/', // The string to replace it with
+          // You can also use 'multiple' for multiple replacements or a 'callback' function
+          // multiple: [{ search: 'str1', replace: 'new1' }, { search: 'str2', replace: 'new2' }],
+          // callback: (match) => { /* dynamic replacement logic */ return 'newString'; }
+        },
+      });
+    },
+  },
   plugins: [
     pluginSass({
       include: /\.scss$/,
@@ -70,21 +90,6 @@ export default defineConfig({
       // http://localhost:3000/api -> http://localhost:3000/api
       // http://localhost:3000/api/foo -> http://localhost:3000/api/foo
       '/data-research': 'https://www.consumerfinance.gov',
-    },
-  },
-  tools: {
-    rspack: (config, { appendRules }) => {
-      appendRules({
-        test: /\.js/, // Or any other file extension you want to apply the loader to
-        loader: 'string-replace-loader',
-        options: {
-          search: '@@API', // The string or regex to search for
-          replace: '/data-research/consumer-complaints/search/api/v1/', // The string to replace it with
-          // You can also use 'multiple' for multiple replacements or a 'callback' function
-          // multiple: [{ search: 'str1', replace: 'new1' }, { search: 'str2', replace: 'new2' }],
-          // callback: (match) => { /* dynamic replacement logic */ return 'newString'; }
-        },
-      });
     },
   },
 });
