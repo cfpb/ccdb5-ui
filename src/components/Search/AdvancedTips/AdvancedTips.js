@@ -1,7 +1,7 @@
 import './AdvancedTips.scss';
 import { TooltipWrapper } from '../../Common/TooltipWrapper/TooltipWrapper';
 import { ComplexExample } from './ComplexExample';
-import getIcon from '../../Common/Icon/iconMap';
+import { Icon } from '@cfpb/design-system-react';
 
 export const AdvancedTips = () => {
   return (
@@ -265,7 +265,7 @@ export const AdvancedTips = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Find out more {getIcon('external-link')}
+              Find out more <Icon name="external-link" isPresentational />
             </a>{' '}
             about Elastic Search
           </li>

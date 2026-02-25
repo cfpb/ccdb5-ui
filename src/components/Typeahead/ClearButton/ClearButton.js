@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import getIcon from '../../Common/Icon/iconMap';
+import { Icon } from '@cfpb/design-system-react';
 
 export const ClearButton = ({ onClear }) => {
   return (
@@ -9,7 +9,9 @@ export const ClearButton = ({ onClear }) => {
       onClick={onClear}
       aria-label="clear search"
     >
-      <div>{getIcon('delete')}</div>
+      <div>
+        <Icon name="error" isPresentational />
+      </div>
     </button>
   );
 };

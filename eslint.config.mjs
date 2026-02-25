@@ -70,7 +70,7 @@ export default [
       'import/no-unresolved': [
         'error',
         {
-          ignore: ['\\.svg\\?react$'],
+          ignore: ['\\.svg\\?react$', '^@cfpb/design-system-react$'],
         },
       ],
       ...jestPlugin.configs.recommended.rules,

@@ -1,5 +1,5 @@
 import './Warning.scss';
-import getIcon from '../Common/Icon/iconMap';
+import { Icon } from '@cfpb/design-system-react';
 import PropTypes from 'prop-types';
 
 export const Warning = ({ text, closeFn }) => (
@@ -7,7 +7,7 @@ export const Warning = ({ text, closeFn }) => (
     role="alert"
     className="warning m-notification m-notification--visible m-notification--warning"
   >
-    {getIcon('warning-round')}
+    <Icon name="warning-round" isPresentational />
     <div className="m-notification__content">
       <div className="m-notification__message">{text}</div>
     </div>
@@ -18,7 +18,7 @@ export const Warning = ({ text, closeFn }) => (
         aria-label="Dismiss"
         className="close"
       >
-        {getIcon('delete')}
+        <Icon name="error" isPresentational />
       </button>
     ) : (
       ''

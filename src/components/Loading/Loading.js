@@ -1,12 +1,12 @@
 import './Loading.scss';
-import getIcon from '../Common/Icon/iconMap';
+import { Icon } from '@cfpb/design-system-react';
 import PropTypes from 'prop-types';
 
 export const Loading = ({ isLoading }) => {
   return isLoading ? (
     <section className="light-box">
       <div className="loading-box">
-        {getIcon('updating', 'cf-icon-svg--updating')}{' '}
+        <Icon name="updating" className="cf-icon-svg--updating" isPresentational />{' '}
         <span>This page is loading</span>
       </div>
     </section>

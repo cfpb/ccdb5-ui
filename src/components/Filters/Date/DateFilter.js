@@ -15,7 +15,7 @@ import dayjsCustomParseFormat from 'dayjs/plugin/customParseFormat';
 import dayjsIsBetween from 'dayjs/plugin/isBetween';
 import dayjsUtc from 'dayjs/plugin/utc';
 import { formatDateModel, formatDisplayDate } from '../../../utils/formatDate';
-import getIcon from '../../Common/Icon/iconMap';
+import { Icon } from '@cfpb/design-system-react';
 import { isTrue } from '../../../utils';
 
 dayjs.extend(dayjsCustomParseFormat);
@@ -233,7 +233,7 @@ export const DateFilter = () => {
         {errors ? (
           <div className="a-form-alert a-form-alert--error" role="alert">
             <span aria-hidden="true">
-              {getIcon('delete-round', 'cf-icon-delete-round')}
+              <Icon name="error-round" className="cf-icon-delete-round" isPresentational />
             </span>
             <span className="a-form-alert__text">{errors + ' '}</span>
           </div>

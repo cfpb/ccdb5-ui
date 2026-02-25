@@ -1,6 +1,6 @@
 import { ariaReadoutNumbers } from '../../utils';
 import PropTypes from 'prop-types';
-import getIcon from '../Common/Icon/iconMap';
+import { Icon } from '@cfpb/design-system-react';
 import { formatDisplayDate } from '../../utils/formatDate';
 
 const SubAggregation = ({ label, value }) => {
@@ -18,10 +18,10 @@ SubAggregation.propTypes = {
 };
 
 const ConsumerConsent = ({ value }) => {
-  // Arrays are for SVG icon call and add custom classes for setting color.
+  // Icon name in design-system (delete-round is error-round in DS)
   const iconLookupMap = {
     'Consent provided': ['approved-round', 'cf-icon-approved-round'],
-    'Consent not provided': ['delete-round', 'cf-icon-delete-round'],
+    'Consent not provided': ['error-round', 'cf-icon-delete-round'],
     'Consent withdrawn': ['minus-round', 'cf-icon-minus-round'],
     'N/A': ['help-round', 'cf-icon-help-round'],
     Other: ['help-round', 'cf-icon-help-round'],
@@ -29,12 +29,14 @@ const ConsumerConsent = ({ value }) => {
 
   let consentIcon;
   if (value in iconLookupMap) {
-    const consentIconLookup = iconLookupMap[value];
-    const iconName = consentIconLookup[0];
-    const customClass = consentIconLookup[1];
-    consentIcon = getIcon(iconName, customClass);
+    const [iconName, customClass] = iconLookupMap[value];
+    consentIcon = (
+      <Icon name={iconName} className={customClass} isPresentational />
+    );
   } else {
-    consentIcon = getIcon('error-round', 'cf-icon-error-round');
+    consentIcon = (
+      <Icon name="error-round" className="cf-icon-error-round" isPresentational />
+    );
     value = 'No data available';
   }
 
@@ -60,11 +62,14 @@ const CompanyTimely = ({ value }) => {
   return (
     <div>
       <span className="cf-icon__before">
-        {getIcon(
-          'clock-round',
-          'cf-icon-clock-round' +
-            (value.toLowerCase() === 'no' ? ' not-timely' : ''),
-        )}
+        <Icon
+          name="clock-round"
+          className={
+            'cf-icon-clock-round' +
+            (value.toLowerCase() === 'no' ? ' not-timely' : '')
+          }
+          isPresentational
+        />
       </span>
       <span className="body-copy">{value}</span>
     </div>

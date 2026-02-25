@@ -12,7 +12,7 @@ import dayjs from 'dayjs';
 import dayjsCustomParseFormat from 'dayjs/plugin/customParseFormat';
 import dayjsIsBetween from 'dayjs/plugin/isBetween';
 import { formatDate } from '../../../utils/formatDate';
-import getIcon from '../../Common/Icon/iconMap';
+import { Icon } from '@cfpb/design-system-react';
 import { companyReceivedDateChanged } from '../../../reducers/query/querySlice';
 
 dayjs.extend(dayjsCustomParseFormat);
@@ -180,7 +180,7 @@ export const CompanyReceivedFilter = () => {
             {errors.map((message, key) => (
               <div key={key}>
                 <span aria-hidden="true">
-                  {getIcon('delete-round', 'cf-icon-delete-round')}
+                  <Icon name="error-round" className="cf-icon-delete-round" isPresentational />
                 </span>
                 <div className="a-form-alert__text">{message}</div>
               </div>

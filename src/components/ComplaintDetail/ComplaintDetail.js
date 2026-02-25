@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useLocation, useParams } from 'react-router';
 import { useGetDocumentQuery } from '../../api/complaints';
-import getIcon from '../Common/Icon/iconMap';
+import { Icon } from '@cfpb/design-system-react';
 import { Loading } from '../Loading/Loading';
 import { selectRoutesParams } from '../../reducers/routes/selectors';
 import { ComplaintDetailBody } from './ComplaintDetailBody';
@@ -33,7 +33,7 @@ export const ComplaintDetail = () => {
       <nav className="layout-row">
         <div className="back-to-search flex-fixed">
           <Link to={backUrl}>
-            {getIcon('left', 'cf-icon-left')} Back to search results
+            <Icon name="left" className="cf-icon-left" isPresentational /> Back to search results
           </Link>
         </div>
         <div className="meaning flex-fixed">

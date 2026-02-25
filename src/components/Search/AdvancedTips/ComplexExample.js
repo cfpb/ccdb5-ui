@@ -1,4 +1,4 @@
-import getIcon from '../../Common/Icon/iconMap';
+import { Icon } from '@cfpb/design-system-react';
 import { TooltipWrapper } from '../../Common/TooltipWrapper/TooltipWrapper';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
@@ -27,7 +27,7 @@ export const ComplexExample = ({ id, notes, placeholderText, tooltipText }) => {
               aria-label="Hide"
             >
               <span className="u-visually-hidden-on-mobile">
-                {getIcon('up')}
+                <Icon name="up" isPresentational />
               </span>
             </span>
           ) : (
@@ -37,7 +37,7 @@ export const ComplexExample = ({ id, notes, placeholderText, tooltipText }) => {
               aria-label="Show"
             >
               <span className="u-visually-hidden-on-mobile">
-                {getIcon('down')}
+                <Icon name="down" isPresentational />
               </span>
             </span>
           )}
