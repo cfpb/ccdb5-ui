@@ -1,5 +1,4 @@
 import './Warning.scss';
-import { Button } from '@cfpb/design-system-react';
 import getIcon from '../Common/Icon/iconMap';
 import PropTypes from 'prop-types';
 
@@ -13,14 +12,14 @@ export const Warning = ({ text, closeFn }) => (
       <div className="m-notification__message">{text}</div>
     </div>
     {closeFn ? (
-      <Button
-        label=""
-        iconLeft="delete"
-        aria-label="Dismiss"
-        className="close"
+      <button
         onClick={closeFn}
         onKeyDown={closeFn}
-      />
+        aria-label="Dismiss"
+        className="close"
+      >
+        {getIcon('delete')}
+      </button>
     ) : (
       ''
     )}

@@ -1,16 +1,16 @@
 import PropTypes from 'prop-types';
-import { Button } from '@cfpb/design-system-react';
+import getIcon from '../../Common/Icon/iconMap';
 
 export const ClearButton = ({ onClear }) => {
   return (
-    <Button
+    <button
       type="reset"
       title="Clear search"
-      label=""
-      iconLeft="delete"
-      aria-label="clear search"
       onClick={onClear}
-    />
+      aria-label="clear search"
+    >
+      <div>{getIcon('delete')}</div>
+    </button>
   );
 };
 

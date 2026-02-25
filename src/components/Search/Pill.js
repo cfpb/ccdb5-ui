@@ -8,7 +8,7 @@ import { filterPatch, SLUG_SEPARATOR } from '../../constants';
 import { formatPillPrefix, getUpdatedFilters } from '../../utils/filters';
 import { useDispatch, useSelector } from 'react-redux';
 import { coalesce } from '../../utils';
-import { Button } from '@cfpb/design-system-react';
+import getIcon from '../Common/Icon/iconMap';
 import PropTypes from 'prop-types';
 import { selectFiltersRoot } from '../../reducers/filters/selectors';
 import { useGetAggregations } from '../../api/hooks/useGetAggregations';
@@ -44,12 +44,13 @@ export const Pill = ({ fieldName, value }) => {
 
   return error ? null : (
     <li>
-      <Button
-        label={`${prefix}${trimmed}`}
-        iconRight="delete"
-        className="pill flex-fixed"
-        onClick={remove}
-      />
+      <button className="pill flex-fixed" onClick={remove}>
+        <span className="name">
+          {prefix}
+          {trimmed}
+        </span>
+        {getIcon('delete')}
+      </button>
     </li>
   );
 };

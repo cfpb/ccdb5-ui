@@ -1,7 +1,6 @@
 import './LensTabs.scss';
 import { dataSubLensChanged } from '../../../reducers/trends/trendsSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button } from '@cfpb/design-system-react';
 import { sendAnalyticsEvent } from '../../../utils';
 import {
   selectTrendsFocus,
@@ -66,22 +65,24 @@ export const LensTabs = () => {
     <div className="tabbed-navigation lens">
       <section>
         {!!hasProductTab && (
-          <Button
-            label={currentLens.tab1.displayName}
+          <button
             className={_getTabClass(currentLens.tab1.filterName)}
             onClick={() => {
               onTab(lens, currentLens.tab1.filterName);
             }}
-          />
+          >
+            {currentLens.tab1.displayName}
+          </button>
         )}
         {!!lensMaps[lens].tab2 && (
-          <Button
-            label={currentLens.tab2.displayName}
+          <button
             className={_getTabClass(currentLens.tab2.filterName)}
             onClick={() => {
               onTab(lens, currentLens.tab2.filterName);
             }}
-          />
+          >
+            {currentLens.tab2.displayName}
+          </button>
         )}
       </section>
     </div>
