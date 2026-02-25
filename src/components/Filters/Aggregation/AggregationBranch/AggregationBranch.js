@@ -108,7 +108,7 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
           label={item.key}
           iconRight={isOpen ? 'up' : 'down'}
           asLink
-          className="flex-all a-btn a-btn--link"
+          className="flex-all"
           onClick={() => setOpen(!isOpen)}
         />
         <span className="flex-fixed parent-count">

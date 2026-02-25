@@ -48,7 +48,7 @@ describe('component::AggregationBranch', () => {
       expect(screen.getByRole('checkbox')).not.toBeChecked();
       expect(screen.getByLabelText(props.item.key)).toBeInTheDocument();
       expect(
-        screen.getByText(props.item.key, { selector: 'button' }),
+        screen.getByRole('button', {name: props.item.key}),
       ).toBeInTheDocument();
       expect(screen.getByText(props.item.doc_count)).toBeInTheDocument();
       expect(screen.queryByRole('list')).not.toBeInTheDocument();
