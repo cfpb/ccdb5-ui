@@ -3,7 +3,7 @@ import { getFullUrl, sendAnalyticsEvent } from '../../../utils';
 import { buildAllResultsUri, buildSomeResultsUri } from './dataExportUtils';
 import { modalHidden, modalShown } from '../../../reducers/view/viewSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import getIcon from '../../Common/Icon/iconMap';
+import { Button, Heading } from '@cfpb/design-system-react';
 import { useMemo, useState } from 'react';
 import { MODAL_TYPE_EXPORT_CONFIRMATION } from '../../../constants';
 import { selectQueryRoot } from '../../../reducers/query/selectors';
@@ -72,17 +72,18 @@ export const DataExport = () => {
   return (
     <section className="export-modal">
       <div className="header layout-row">
-        <h3 className="flex-all">Export complaints</h3>
-        <button
-          className="a-btn a-btn--link"
+        <Heading type="3" className="flex-all">
+          Export complaints
+        </Heading>
+        <Button
+          label="Close"
+          iconRight="delete-round"
+          isLink
           data-gtm_ignore="true"
           onClick={() => {
             dispatch(modalHidden());
           }}
-        >
-          Close
-          {getIcon('delete-round')}
-        </button>
+        />
       </div>
       <div className="body">
         <div className="body-copy instructions">
@@ -179,7 +180,9 @@ export const DataExport = () => {
         )}
 
         <div className="heres-the-url">
-          <h4>Link to your complaint search results for future reference</h4>
+          <Heading type="4">
+            Link to your complaint search results for future reference
+          </Heading>
           <div className="layout-row">
             <input
               className="flex-all a-text-input"
@@ -188,28 +191,15 @@ export const DataExport = () => {
               value={exportUri}
               readOnly
             />
-            <button
+            <Button
+              label={copied ? 'Copied' : 'Copy'}
+              iconLeft={copied ? 'checkmark-round' : 'copy'}
               className={`a-btn ${
                 copied ? 'export-url-copied' : 'a-btn__secondary'
               }`}
               disabled={!exportUri}
               onClick={copyToClipboard}
-            >
-              {!copied && (
-                <div>
-                  <span className="a-btn__icon">{getIcon('copy')}</span>
-                  Copy
-                </div>
-              )}
-              {!!copied && (
-                <div>
-                  <span className="a-btn__icon">
-                    {getIcon('checkmark-round')}
-                  </span>
-                  Copied
-                </div>
-              )}
-            </button>
+            />
           </div>
         </div>
         <div className="timeliness-warning">
@@ -218,24 +208,22 @@ export const DataExport = () => {
         </div>
       </div>
       <div className="footer layout-row">
-        <button
-          className="a-btn"
+        <Button
+          label="Start export"
           data-gtm_ignore="true"
           onClick={() => {
             handleExportClicked();
           }}
-        >
-          Start export
-        </button>
-        <button
-          className="a-btn a-btn--link a-btn__warning"
+        />
+        <Button
+          label="Cancel"
+          isLink
+          appearance="warning"
           data-gtm_ignore="true"
           onClick={() => {
             dispatch(modalHidden());
           }}
-        >
-          Cancel
-        </button>
+        />
       </div>
     </section>
   );

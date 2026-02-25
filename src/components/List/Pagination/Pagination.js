@@ -3,7 +3,7 @@ import {
   prevPageShown,
 } from '../../../reducers/query/querySlice';
 import { useDispatch, useSelector } from 'react-redux';
-import getIcon from '../../Common/Icon/iconMap';
+import { Button } from '@cfpb/design-system-react';
 import { selectQueryPage } from '../../../reducers/query/selectors';
 import { useGetList } from '../../../api/hooks/useGetList';
 
@@ -24,22 +24,20 @@ export const Pagination = () => {
 
   return !error && items && items.length > 0 ? (
     <nav className="m-pagination" role="navigation" aria-label="Pagination">
-      <button
+      <Button
+        label="Previous"
+        iconLeft="left"
         className="a-btn m-pagination__btn-prev"
         onClick={() => prevPage()}
         disabled={page <= 1}
-      >
-        {getIcon('left')}
-        <span>Previous</span>
-      </button>
-      <button
+      />
+      <Button
+        label="Next"
+        iconRight="right"
         className="a-btn m-pagination__btn-next"
         onClick={() => nextPage()}
         disabled={page >= total}
-      >
-        <span>Next</span>
-        {getIcon('right')}
-      </button>
+      />
       <div className="m-pagination__form">
         <label className="m-pagination__label">Page {page}</label>
       </div>

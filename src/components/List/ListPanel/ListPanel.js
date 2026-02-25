@@ -22,6 +22,7 @@ import {
   selectQuerySort,
 } from '../../../reducers/query/selectors';
 import { useGetList } from '../../../api/hooks/useGetList';
+import { Heading } from '@cfpb/design-system-react';
 
 const ERROR = 'ERROR';
 const NO_RESULTS = 'NO_RESULTS';
@@ -68,7 +69,7 @@ export const ListPanel = () => {
   };
 
   const _renderNoResults = () => {
-    return <h2>No results were found for your search</h2>;
+    return <Heading type="2">No results were found for your search</Heading>;
   };
 
   const _renderResults = () => {

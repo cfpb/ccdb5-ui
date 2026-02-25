@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import getIcon from '../../Common/Icon/iconMap';
+import { Icon, Button } from '@cfpb/design-system-react';
 import { ClearButton } from '../ClearButton/ClearButton';
 
 export const Input = ({
@@ -21,7 +21,7 @@ export const Input = ({
           className="o-search-input__input-label"
           aria-label={ariaLabel}
         >
-          {getIcon('search')}
+          <Icon name="search" isPresentational />
         </label>
         <input
           type="search"
@@ -38,9 +38,7 @@ export const Input = ({
         />
         <ClearButton onClear={handleClear} />
       </div>
-      <button type="submit" className="a-btn">
-        Search
-      </button>
+      <Button type="submit" label="Search" />
     </div>
   );
 };

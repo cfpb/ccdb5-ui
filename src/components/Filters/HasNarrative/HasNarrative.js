@@ -3,6 +3,7 @@ import { NARRATIVE_SEARCH_FIELD } from '../../../constants';
 import { toggleFlagFilter } from '../../../reducers/filters/filtersSlice';
 import { selectFiltersHasNarrative } from '../../../reducers/filters/selectors';
 import { selectQuerySearchField } from '../../../reducers/query/selectors';
+import { Heading } from '@cfpb/design-system-react';
 
 const FIELD_NAME = 'has_narrative';
 
@@ -26,7 +27,7 @@ export const HasNarrative = () => {
 
   return (
     <section className="single-checkbox">
-      <h4>Only show complaints with narratives?</h4>
+      <Heading type="4">Only show complaints with narratives?</Heading>
       <div className="m-form-field m-form-field--checkbox">
         <input
           className="a-checkbox"

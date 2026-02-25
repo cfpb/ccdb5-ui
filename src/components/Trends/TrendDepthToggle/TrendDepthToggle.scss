@@ -8,22 +8,5 @@
 
   button {
     margin: 5px;
-    color: var(--pacific-dark);
-
-    &.a-btn {
-      gap: 0;
-    }
-  }
-
-  span {
-    font-weight: bold;
-    margin-right: 5px;
-    &.plus::before {
-      content: '+';
-    }
-
-    &.minus::before {
-      content: '-';
-    }
   }
 }

@@ -1,5 +1,5 @@
 import './CollapsibleFilter.scss';
-import getIcon from '../../Common/Icon/iconMap';
+import { Icon, Heading } from '@cfpb/design-system-react';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
@@ -13,12 +13,12 @@ export const CollapsibleFilter = ({
 
   const opened = (
     <span className="o-expandable__cue-close" role="img" aria-label="Hide">
-      {getIcon('minus-round')}
+      <Icon name="minus-round" isPresentational />
     </span>
   );
   const closed = (
     <span className="o-expandable__cue-open" role="img" aria-label="Show">
-      {getIcon('plus-round')}
+      <Icon name="plus-round" isPresentational />
     </span>
   );
   const label = isOpen ? `Collapse ${title} filter` : `Expand ${title} filter`;
@@ -30,7 +30,9 @@ export const CollapsibleFilter = ({
         aria-label={label}
         onClick={() => setOpen(!isOpen)}
       >
-        <h3 className="o-expandable__label">{title}</h3>
+        <Heading type="3" className="o-expandable__label">
+          {title}
+        </Heading>
         <span className="o-expandable__cues">{isOpen ? opened : closed}</span>
       </button>
       {isOpen ? (

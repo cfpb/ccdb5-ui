@@ -3,7 +3,7 @@ import { ariaReadoutNumbers } from '../../../utils';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { formatDisplayDate } from '../../../utils/formatDate';
-
+import { Heading } from '@cfpb/design-system-react';
 const MAX_NARRATIVE = 300;
 
 export const ComplaintCard = ({ row }) => {
@@ -26,7 +26,9 @@ export const ComplaintCard = ({ row }) => {
 
     return narrative ? (
       <div>
-        <h4 className="u-mt15">Consumer Complaint Narrative</h4>
+        <Heading type="4" className="u-mt15">
+          Consumer Complaint Narrative
+        </Heading>
         {_renderPossibleHighlight(narrative)}
         {hasOverflow ? (
           <span>
@@ -42,45 +44,53 @@ export const ComplaintCard = ({ row }) => {
     <li className="card-container">
       <div className="card">
         <div className="card-left layout-column">
-          <h3 className="to-detail">
+          <Heading type="3" className="to-detail">
             <Link
               to={complaintIdPath}
               aria-label={'Complaint ' + ariaReadoutNumbers(cleanId)}
             >
               {cleanId}
             </Link>
-          </h3>
-          <h4>Company name</h4>
+          </Heading>
+          <Heading type="4">Company name</Heading>
           {_renderPossibleHighlight(row.company)}
-          <h4 className="u-mt15">Company response to consumer</h4>
+          <Heading type="4" className="u-mt15">
+            Company response to consumer
+          </Heading>
           {_renderPossibleHighlight(row.company_response)}
-          <h4 className="u-mt15">Timely response?</h4>
+          <Heading type="4" className="u-mt15">
+            Timely response?
+          </Heading>
           {_renderPossibleHighlight(row.timely)}
         </div>
         <div className="card-right layout-column">
           <div className="layout-row">
             <div className="layout-row">
-              <h4>Date received:</h4>
+              <Heading type="4">Date received:</Heading>
               <span className="body-copy">
                 {formatDisplayDate(row.date_received)}
               </span>
             </div>
             <div className="spacer" />
             <div className="layout-row">
-              <h4>Consumer’s state:</h4>
+              <Heading type="4">Consumer’s state:</Heading>
               {_renderPossibleHighlight(row.state)}
             </div>
           </div>
-          <h4 className="u-mt15">Product</h4>
-          <h3 dangerouslySetInnerHTML={{ __html: row.product }} />
+          <Heading type="4" className="u-mt15">
+            Product
+          </Heading>
+          <Heading type="3" dangerouslySetInnerHTML={{ __html: row.product }} />
           {row.sub_product ? (
             <div className="layout-row">
               <span className="body-copy subitem">Sub-product:</span>
               {_renderPossibleHighlight(row.sub_product)}
             </div>
           ) : null}
-          <h4 className="u-mt15">Issue</h4>
-          <h3 dangerouslySetInnerHTML={{ __html: row.issue }} />
+          <Heading type="4" className="u-mt15">
+            Issue
+          </Heading>
+          <Heading type="3" dangerouslySetInnerHTML={{ __html: row.issue }} />
           {row.sub_issue ? (
             <div className="layout-row">
               <span className="body-copy subitem">Sub-issue:</span>

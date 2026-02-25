@@ -1,6 +1,6 @@
 import './ActionBar.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import getIcon from '../Common/Icon/iconMap';
+import { Button, Heading } from '@cfpb/design-system-react';
 import { sendAnalyticsEvent } from '../../utils';
 import { modalShown, updatePrintModeOn } from '../../reducers/view/viewSlice';
 import { StaleDataWarnings } from '../Warnings/StaleDataWarnings';
@@ -23,23 +23,25 @@ export const ActionBar = () => {
     <div>
       <div className="action-bar" id="search-summary">
         {total === docCount ? (
-          <h2>
+          <Heading type="2">
             {'Showing ' + docCount.toLocaleString() + ' total complaints'}
-          </h2>
+          </Heading>
         ) : (
-          <h2>
+          <Heading type="2">
             {'Showing ' +
               total.toLocaleString() +
               ' matches out of ' +
               docCount.toLocaleString() +
               ' total complaints'}
-          </h2>
+          </Heading>
         )}
         {error ? null : (
           <div>
-            <h3 className="h4 flex-all export-results">
-              <button
-                className="a-btn a-btn--link export-btn"
+            <Heading type="3" className="h4 flex-all export-results">
+              <Button
+                label="Export data"
+                isLink
+                className="export-btn"
                 data-gtm_ignore="true"
                 onClick={() => {
                   sendAnalyticsEvent(
@@ -48,19 +50,17 @@ export const ActionBar = () => {
                   );
                   dispatch(modalShown(MODAL_TYPE_DATA_EXPORT));
                 }}
-              >
-                Export data
-              </button>
-              <button
-                className="a-btn a-btn--link print-preview"
+              />
+              <Button
+                label="Print"
+                isLink
+                iconLeft="print"
+                className="print-preview"
                 onClick={() => {
                   showPrintView(tab);
                 }}
-              >
-                {getIcon('printer')}
-                Print
-              </button>
-            </h3>
+              />
+            </Heading>
           </div>
         )}
       </div>

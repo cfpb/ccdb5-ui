@@ -78,23 +78,27 @@ describe('component::ComplaintDetail', () => {
         tab: 'List',
       },
     });
-    expect(screen.getByText('Back to search results')).toBeInTheDocument();
-    expect(screen.getByText('Back to search results')).toHaveAttribute(
-      'href',
-      '/?issue=nope&product=bar&tab=List',
-    );
+    expect(
+      screen.getByRole('link', { name: 'Back to search results' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: 'Back to search results' }),
+    ).toHaveAttribute('href', '/?issue=nope&product=bar&tab=List');
     expect(screen.getByText('This page is loading')).toBeInTheDocument();
-    expect(screen.getByText('Back to search results')).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: 'Back to search results' }),
+    ).toBeInTheDocument();
   });
 
   it('renders error', async () => {
     fetchMock.mockResponseOnce({ foo: 'bar' });
     renderComponent({});
-    expect(screen.getByText('Back to search results')).toBeInTheDocument();
-    expect(screen.getByText('Back to search results')).toHaveAttribute(
-      'href',
-      '/',
-    );
+    expect(
+      screen.getByRole('link', { name: 'Back to search results' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: 'Back to search results' }),
+    ).toHaveAttribute('href', '/');
 
     await screen.findByText(/There was a problem retrieving/);
     expect(
@@ -110,11 +114,12 @@ describe('component::ComplaintDetail', () => {
     await screen.findByText(docResponse.sub_issue);
     expect(screen.getByText(docResponse.sub_issue)).toBeInTheDocument();
     expect(screen.getByText(docResponse.sub_product)).toBeInTheDocument();
-    expect(screen.getByText('Back to search results')).toBeInTheDocument();
-    expect(screen.getByText('Back to search results')).toHaveAttribute(
-      'href',
-      '/',
-    );
+    expect(
+      screen.getByRole('link', { name: 'Back to search results' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: 'Back to search results' }),
+    ).toHaveAttribute('href', '/');
 
     expect(
       screen.getByText('Date CFPB received the complaint'),
@@ -140,11 +145,12 @@ describe('component::ComplaintDetail', () => {
 
     renderComponent({});
 
-    expect(screen.getByText('Back to search results')).toBeInTheDocument();
-    expect(screen.getByText('Back to search results')).toHaveAttribute(
-      'href',
-      '/',
-    );
+    expect(
+      screen.getByRole('link', { name: 'Back to search results' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: 'Back to search results' }),
+    ).toHaveAttribute('href', '/');
 
     await screen.findByText(docResponse.company_public_response);
 

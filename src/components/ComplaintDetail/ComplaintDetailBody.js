@@ -1,6 +1,6 @@
 import { ariaReadoutNumbers } from '../../utils';
 import PropTypes from 'prop-types';
-import getIcon from '../Common/Icon/iconMap';
+import { Icon, Heading } from '@cfpb/design-system-react';
 import { formatDisplayDate } from '../../utils/formatDate';
 
 const SubAggregation = ({ label, value }) => {
@@ -18,23 +18,20 @@ SubAggregation.propTypes = {
 };
 
 const ConsumerConsent = ({ value }) => {
-  // Arrays are for SVG icon call and add custom classes for setting color.
+  // Icon name in design-system (delete-round is error-round in DS)
   const iconLookupMap = {
-    'Consent provided': ['approved-round', 'cf-icon-approved-round'],
-    'Consent not provided': ['delete-round', 'cf-icon-delete-round'],
-    'Consent withdrawn': ['minus-round', 'cf-icon-minus-round'],
-    'N/A': ['help-round', 'cf-icon-help-round'],
-    Other: ['help-round', 'cf-icon-help-round'],
+    'Consent provided': ['approved-round'],
+    'Consent not provided': ['error-round'],
+    'Consent withdrawn': ['minus-round'],
+    'N/A': ['help-round'],
+    Other: ['help-round'],
   };
 
   let consentIcon;
   if (value in iconLookupMap) {
-    const consentIconLookup = iconLookupMap[value];
-    const iconName = consentIconLookup[0];
-    const customClass = consentIconLookup[1];
-    consentIcon = getIcon(iconName, customClass);
+    consentIcon = <Icon name={iconLookupMap[value]} isPresentational />;
   } else {
-    consentIcon = getIcon('error-round', 'cf-icon-error-round');
+    consentIcon = <Icon name="error-round" isPresentational />;
     value = 'No data available';
   }
 
@@ -52,19 +49,11 @@ const CompanyTimely = ({ value }) => {
   if (!value) {
     return <span className="body-copy">N/A</span>;
   }
-  const styles = ['cf-icon__before'];
-  if (value.toLowerCase() === 'no') {
-    styles.push('not-timely');
-  }
 
   return (
     <div>
       <span className="cf-icon__before">
-        {getIcon(
-          'clock-round',
-          'cf-icon-clock-round' +
-            (value.toLowerCase() === 'no' ? ' not-timely' : ''),
-        )}
+        <Icon name="clock-round" isPresentational />
       </span>
       <span className="body-copy">{value}</span>
     </div>
@@ -75,7 +64,7 @@ CompanyTimely.propTypes = { value: PropTypes.string };
 
 export const ComplaintDetailBody = ({ data, error, id }) => {
   if (error) {
-    return <h1>There was a problem retrieving {id}</h1>;
+    return <Heading type="1">There was a problem retrieving {id}</Heading>;
   }
 
   // Process the narrative
@@ -84,74 +73,100 @@ export const ComplaintDetailBody = ({ data, error, id }) => {
 
   return (
     <article>
-      <h1 aria-label={'Complaint ' + h1ReadOut}>{id}</h1>
+      <Heading type="1" aria-label={'Complaint ' + h1ReadOut}>
+        {id}
+      </Heading>
       <div className="card">
         <div className="card-left layout-column">
-          <h4>Date CFPB received the complaint</h4>
+          <Heading type="4">Date CFPB received the complaint</Heading>
           <span className="body-copy">
             {formatDisplayDate(data.date_received)}
           </span>
 
-          <h4 className="u-mt15">Consumer’s state</h4>
+          <Heading type="4" className="u-mt15">
+            Consumer’s state
+          </Heading>
           <span className="body-copy">{data.state}</span>
 
-          <h4 className="u-mt15">Consumer’s zip</h4>
+          <Heading type="4" className="u-mt15">
+            Consumer’s zip
+          </Heading>
           <span className="body-copy">{data.zip_code}</span>
 
-          <h4 className="u-mt15">Submitted via</h4>
+          <Heading type="4" className="u-mt15">
+            Submitted via
+          </Heading>
           <span className="body-copy">{data.submitted_via}</span>
 
           {data.tags && data.tags.length ? (
             <>
-              <h4 className="u-mt15">Tags</h4>
+              <Heading type="4" className="u-mt15">
+                Tags
+              </Heading>
               <span className="body-copy">{data.tags}</span>
             </>
           ) : null}
-          <h4 className="u-mt15">Did consumer dispute the response?</h4>
+          <Heading type="4" className="u-mt15">
+            Did consumer dispute the response?
+          </Heading>
           <span className="body-copy">{data.consumer_disputed}</span>
         </div>
         <div className="card-right layout-column">
-          <h4>Product</h4>
-          <h3>{data.product}</h3>
+          <Heading type="4">Product</Heading>
+          <Heading type="3">{data.product}</Heading>
           <SubAggregation label="Sub-product:" value={data.sub_product} />
 
-          <h4 className="u-mt15">Issue</h4>
-          <h3>{data.issue}</h3>
+          <Heading type="4" className="u-mt15">
+            Issue
+          </Heading>
+          <Heading type="3">{data.issue}</Heading>
           <SubAggregation label="Sub-issue:" value={data.sub_issue} />
 
-          <h4 className="u-mt15">Consumer consent to publish narrative</h4>
+          <Heading type="4" className="u-mt15">
+            Consumer consent to publish narrative
+          </Heading>
           <ConsumerConsent value={data.consumer_consent_provided} />
 
           {narrative ? (
             <>
-              <h4 className="u-mt15">Consumer complaint narrative</h4>
+              <Heading type="4" className="u-mt15">
+                Consumer complaint narrative
+              </Heading>
               <span className="body-copy">{narrative}</span>
             </>
           ) : null}
         </div>
       </div>
 
-      <h2 className="company-information">Company information</h2>
+      <Heading type="2" className="company-information">
+        Company information
+      </Heading>
       <div className="card">
         <div className="card-left layout-column">
-          <h4>Date complaint sent to company</h4>
+          <Heading type="4">Date complaint sent to company</Heading>
           <span className="body-copy">
             {formatDisplayDate(data.date_sent_to_company)}
           </span>
 
-          <h4 className="u-mt15">Company name</h4>
+          <Heading type="4" className="u-mt15">
+            Company name
+          </Heading>
           <span className="body-copy">{data.company}</span>
         </div>
         <div className="card-right layout-column">
-          <h4>Timely response?</h4>
+          <Heading type="4">Timely response?</Heading>
           <CompanyTimely value={data.timely} />
 
-          <h4 className="u-mt15">Company response to consumer</h4>
+          <Heading type="4" className="u-mt15">
+            Company response to consumer
+          </Heading>
           <span className="body-copy">
             {data.company_response ? data.company_response : 'N/A'}
           </span>
 
-          <h4 className="u-mt15">Company public response</h4>
+          <Heading type="4" className="u-mt15">
+            Company public response
+          </Heading>
           <span className="body-copy">
             {data.company_public_response
               ? data.company_public_response

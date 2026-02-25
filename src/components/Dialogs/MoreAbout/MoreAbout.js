@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Button, Heading, Link } from '@cfpb/design-system-react';
 
 export const MoreAbout = ({ onClose }) => {
   const urlScrubbing =
@@ -8,7 +9,9 @@ export const MoreAbout = ({ onClose }) => {
   return (
     <section className="more-about-modal">
       <div className="header">
-        <h3>Things you should know before you use this database</h3>
+        <Heading type="3">
+          Things you should know before you use this database
+        </Heading>
       </div>
       <div className="body">
         <p className="body-copy">
@@ -30,9 +33,12 @@ export const MoreAbout = ({ onClose }) => {
           This database only includes a consumer’s description of what happened
           in their own words if the consumer agrees to share it and after we
           take steps to&nbsp;
-          <a href={urlScrubbing} target="_blank" rel="noopener noreferrer">
-            remove personal information
-          </a>
+          <Link
+            href={urlScrubbing}
+            target="_blank"
+            rel="noopener noreferrer"
+            label="remove personal information"
+          />
           .&nbsp; One consumer’s experience is not necessarily representative of
           all consumers’ experiences and narratives are not verified before
           publication.
@@ -40,9 +46,7 @@ export const MoreAbout = ({ onClose }) => {
         <p className="body-copy">This database generally updates daily.</p>
       </div>
       <div className="footer layout-row">
-        <button className="a-btn" onClick={onClose}>
-          Close
-        </button>
+        <Button label="Close" onClick={onClose} />
       </div>
     </section>
   );
