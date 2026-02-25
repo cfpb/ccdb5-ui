@@ -60,7 +60,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.28.6",
     "@babel/preset-env": "^7.29.0",
     "@babel/preset-react": "^7.28.5",
-    "@cfpb/design-system-react": "0.0.15",
+    "@cfpb/design-system-react": "https://github.com/cfpb/design-system-react.git#rad-link-button-fix",
     "@eslint/js": "^9.39.3",
     "@rsbuild/core": "^1.7.3",
     "@rsbuild/plugin-react": "^1.4.5",

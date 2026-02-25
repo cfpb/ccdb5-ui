@@ -35,6 +35,7 @@ export const ComplaintDetail = () => {
           <Link
             href={backUrl}
             isJump
+            isRouterLink
             iconLeft="left"
             label="Back to search results"
           />

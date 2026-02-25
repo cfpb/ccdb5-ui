@@ -1437,7 +1437,7 @@ __metadata:
     "@babel/plugin-transform-modules-commonjs": "npm:^7.28.6"
     "@babel/preset-env": "npm:^7.29.0"
     "@babel/preset-react": "npm:^7.28.5"
-    "@cfpb/design-system-react": "npm:0.0.15"
+    "@cfpb/design-system-react": "https://github.com/cfpb/design-system-react.git#rad-link-button-fix"
     "@eslint/js": "npm:^9.39.3"
     "@reduxjs/toolkit": "npm:^2.11.2"
     "@rsbuild/core": "npm:^1.7.3"
@@ -1514,9 +1514,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cfpb/design-system-react@npm:0.0.15":
+"@cfpb/design-system-react@https://github.com/cfpb/design-system-react.git#rad-link-button-fix":
   version: 0.0.15
-  resolution: "@cfpb/design-system-react@npm:0.0.15"
+  resolution: "@cfpb/design-system-react@https://github.com/cfpb/design-system-react.git#commit=81a67aa18ae490d25d9030edf78571c9725b4b82"
   dependencies:
     "@cfpb/browserslist-config": "npm:^0.0.6"
     "@cfpb/cfpb-design-system": "npm:4.4.0"
@@ -1525,7 +1525,7 @@ __metadata:
     react: ^18.0.0 || ^19.0.0
     react-dom: ^18.0.0 || ^19.0.0
     react-router: ^7.13.0
-  checksum: 10c0/138ad218f17feb260c0eca816cbacc8c89e9b3a56ca9af96ffe0cbf5ae4c4f89db848ce2e4015c58679bc4e846b38a3d1962509c54b50375e9aa0f2b8798792c
+  checksum: 10c0/59bc60788b0fff5a24dc95445e8a8396b654bddb06d1291f45fc64915a74aad0684d59e85d5cf60ad2d10799d7f023fc010d93e180c5c96161b6873e682fb279
   languageName: node
   linkType: hard
 
