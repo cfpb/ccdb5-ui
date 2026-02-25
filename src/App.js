@@ -1,4 +1,5 @@
 import './css/App.scss';
+import '@cfpb/design-system-react/index.css';
 import { ReactElement } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router';
 import { ComplaintDetail } from './components/ComplaintDetail/ComplaintDetail';

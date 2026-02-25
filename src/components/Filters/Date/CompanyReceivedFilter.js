@@ -180,7 +180,7 @@ export const CompanyReceivedFilter = () => {
             {errors.map((message, key) => (
               <div key={key}>
                 <span aria-hidden="true">
-                  <Icon name="error-round" className="cf-icon-delete-round" isPresentational />
+                  <Icon name="error-round" isPresentational />
                 </span>
                 <div className="a-form-alert__text">{message}</div>
               </div>

@@ -233,7 +233,7 @@ export const DateFilter = () => {
         {errors ? (
           <div className="a-form-alert a-form-alert--error" role="alert">
             <span aria-hidden="true">
-              <Icon name="error-round" className="cf-icon-delete-round" isPresentational />
+              <Icon name="error-round" isPresentational />
             </span>
             <span className="a-form-alert__text">{errors + ' '}</span>
           </div>

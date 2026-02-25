@@ -20,23 +20,18 @@ SubAggregation.propTypes = {
 const ConsumerConsent = ({ value }) => {
   // Icon name in design-system (delete-round is error-round in DS)
   const iconLookupMap = {
-    'Consent provided': ['approved-round', 'cf-icon-approved-round'],
-    'Consent not provided': ['error-round', 'cf-icon-delete-round'],
-    'Consent withdrawn': ['minus-round', 'cf-icon-minus-round'],
-    'N/A': ['help-round', 'cf-icon-help-round'],
-    Other: ['help-round', 'cf-icon-help-round'],
+    'Consent provided': ['approved-round'],
+    'Consent not provided': ['error-round'],
+    'Consent withdrawn': ['minus-round'],
+    'N/A': ['help-round'],
+    Other: ['help-round'],
   };
 
   let consentIcon;
   if (value in iconLookupMap) {
-    const [iconName, customClass] = iconLookupMap[value];
-    consentIcon = (
-      <Icon name={iconName} className={customClass} isPresentational />
-    );
+    consentIcon = <Icon name={iconLookupMap[value]} isPresentational />;
   } else {
-    consentIcon = (
-      <Icon name="error-round" className="cf-icon-error-round" isPresentational />
-    );
+    consentIcon = <Icon name="error-round" isPresentational />;
     value = 'No data available';
   }
 
@@ -54,22 +49,11 @@ const CompanyTimely = ({ value }) => {
   if (!value) {
     return <span className="body-copy">N/A</span>;
   }
-  const styles = ['cf-icon__before'];
-  if (value.toLowerCase() === 'no') {
-    styles.push('not-timely');
-  }
 
   return (
     <div>
       <span className="cf-icon__before">
-        <Icon
-          name="clock-round"
-          className={
-            'cf-icon-clock-round' +
-            (value.toLowerCase() === 'no' ? ' not-timely' : '')
-          }
-          isPresentational
-        />
+        <Icon name="clock-round" isPresentational />
       </span>
       <span className="body-copy">{value}</span>
     </div>

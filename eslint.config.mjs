@@ -11,13 +11,13 @@ import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import reactReduxPlugin from 'eslint-plugin-react-redux';
 import testingLibraryPlugin from 'eslint-plugin-testing-library';
-import pluginCypress from 'eslint-plugin-cypress/flat';
+import pluginCypress from 'eslint-plugin-cypress';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import babelParser from '@babel/eslint-parser';
 
 export default [
   {
-    ignores: ['\*_/**fixtures**/_.js', 'serviceWorker.js'],
+    ignores: ['*_/**fixtures**/_.js', 'serviceWorker.js'],
   },
   js.configs.recommended,
   importPlugin.flatConfigs.recommended,
@@ -54,10 +54,16 @@ export default [
     settings: {
       'import/resolver': {
         node: {
-          paths: ['src'],
-          extensions: ['.js', '.jsx', '.ts', '.d.ts', '.tsx'],
+          moduleDirectory: [
+            'node_modules',
+            'src',
+            'node_modules/@cfpb/cfpb-design-system/src/components/cfpb-icons/icons',
+          ],
+          extensions: ['.js', '.jsx', '.ts', '.d.ts', '.tsx', '.scss', '.css'],
         },
       },
+      // Treat these as internal/global so ESLint doesn't complain about them being unresolved
+      'import/core-modules': ['@cfpb/design-system-react', '@icons'],
       jest: {
         version: 30,
       },
@@ -70,7 +76,7 @@ export default [
       'import/no-unresolved': [
         'error',
         {
-          ignore: ['\\.svg\\?react$', '^@cfpb/design-system-react$'],
+          ignore: ['\\.svg\\?react$', '^@icons', '^@cfpb/design-system-react'],
         },
       ],
       ...jestPlugin.configs.recommended.rules,
@@ -113,6 +119,7 @@ export default [
     files: ['cypress/**/*.js', 'cypress/**/*.ts'],
     rules: {
       'jest/expect-expect': 'off',
+      'jest/valid-expect': 'off',
     },
   },
 ];
