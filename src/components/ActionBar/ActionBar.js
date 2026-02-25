@@ -54,7 +54,7 @@ export const ActionBar = () => {
               <Button
                 label="Print"
                 asLink
-                iconLeft="printer"
+                iconLeft="print"
                 className="print-preview"
                 onClick={() => {
                   showPrintView(tab);

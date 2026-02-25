@@ -86,7 +86,7 @@ export const TrendDepthToggle = () => {
         <div className="trend-depth-toggle">
           <Button
             label="Show more"
-            iconLeft="plus-round"
+            iconLeft="plus"
             asLink
             id="trend-depth-button"
             onClick={() => {
@@ -100,7 +100,7 @@ export const TrendDepthToggle = () => {
       <div className="trend-depth-toggle">
         <Button
           label="Show less"
-          iconLeft="minus-round"
+          iconLeft="minus"
           asLink
           id="trend-depth-button"
           onClick={() => {

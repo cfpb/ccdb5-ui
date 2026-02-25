@@ -4,6 +4,12 @@ import { pluginSass } from '@rsbuild/plugin-sass';
 import { pluginSvgr } from '@rsbuild/plugin-svgr';
 
 export default defineConfig({
+  dev: {
+    // Prevent disk writes in dev to avoid rebuild loops.
+    writeToDisk: false,
+    // Avoid on-demand chunk compilation that can trigger repeated reloads.
+    lazyCompilation: false,
+  },
   html: {
     template: './public/index.html',
   },
@@ -30,6 +36,17 @@ export default defineConfig({
       // main bundle so we get a single ccdb5.js instead of many async chunks.
       config.output = config.output || {};
       config.output.asyncChunks = false;
+
+      // Ignore dist output so file watching doesn't trigger rebuild loops.
+      config.watchOptions = config.watchOptions || {};
+      const ignored = config.watchOptions.ignored;
+      if (!ignored) {
+        config.watchOptions.ignored = ['**/dist/**'];
+      } else if (Array.isArray(ignored)) {
+        config.watchOptions.ignored = [...ignored, '**/dist/**'];
+      } else {
+        config.watchOptions.ignored = [ignored, '**/dist/**'];
+      }
 
       appendRules({
         test: /\.js/, // Or any other file extension you want to apply the loader to
