@@ -1,7 +1,7 @@
 {
   "name": "@cfpb/ccdb5-ui",
   "version": "2.15.6",
-  "packageManager": "yarn@4.12.0",
+  "packageManager": "yarn@4.13.0",
   "description": "Consumer Complaint Database UI",
   "homepage": "https://www.consumerfinance.gov/",
   "repository": {
@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@cfpb/cfpb-design-system": "^4.4.0",
-    "@cfpb/design-system-react": "^0.0.16",
+    "@cfpb/design-system-react": "https://github.com/cfpb/design-system-react.git#rad-header-scoping",
     "@reduxjs/toolkit": "^2.11.2",
     "britecharts": "git+https://github.com/cfpb/cfpb-britecharts.git#v2.5",
     "d3": "^7.9.0",

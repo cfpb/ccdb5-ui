@@ -1439,7 +1439,7 @@ __metadata:
     "@babel/preset-react": "npm:^7.28.5"
     "@cfpb/browserslist-config": "npm:^0.0.6"
     "@cfpb/cfpb-design-system": "npm:^4.4.0"
-    "@cfpb/design-system-react": "npm:^0.0.16"
+    "@cfpb/design-system-react": "https://github.com/cfpb/design-system-react.git#rad-header-scoping"
     "@eslint/js": "npm:^9.39.3"
     "@reduxjs/toolkit": "npm:^2.11.2"
     "@rsbuild/core": "npm:^1.7.3"
@@ -1517,9 +1517,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cfpb/design-system-react@npm:^0.0.16":
+"@cfpb/design-system-react@https://github.com/cfpb/design-system-react.git#rad-header-scoping":
   version: 0.0.16
-  resolution: "@cfpb/design-system-react@npm:0.0.16"
+  resolution: "@cfpb/design-system-react@https://github.com/cfpb/design-system-react.git#commit=701baa3336888d0bb6ecf3a110862e3a922cc5e9"
   dependencies:
     react-select: "npm:^5.10.2"
   peerDependencies:
@@ -1527,7 +1527,7 @@ __metadata:
     react: ^18.0.0 || ^19.0.0
     react-dom: ^18.0.0 || ^19.0.0
     react-router: ^7.13.0
-  checksum: 10c0/7fa195806331d8be3b107ae727ad8e9de2a36f9a7ee0679d0f7b9073748bd0c684c438451a44242955b32c6b232fe8a8f966f811f3d364dd7d6615afb8a5ab2f
+  checksum: 10c0/6854984cac6fbafe74b8421c8f16a54385355607541e257dc6b2cdd4588800de2cc767f5975cde638f81e7d0a76ae5655d8d531070d35aa1bbe708af502079a5
   languageName: node
   linkType: hard
 
