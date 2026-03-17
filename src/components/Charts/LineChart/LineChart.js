@@ -25,6 +25,7 @@ import {
 import { ChartWrapper } from '../ChartWrapper/ChartWrapper';
 import { useGetTrends } from '../../../api/hooks/useGetTrends';
 import { ErrorBlock } from '../../Warnings/Error';
+import { getAppRoot } from '../../../utils/dom';
 
 export const LineChart = () => {
   const dispatch = useDispatch();
@@ -54,7 +55,8 @@ export const LineChart = () => {
     const dateRange = { from: dateFrom, to: dateTo };
     const chartID = '#line-chart';
     const chartSelector = `${chartID} .line-chart`;
-    const container = d3.select(chartID);
+    const root = getAppRoot();
+    const container = d3.select(root).select(chartID);
     if (!container.node() || isLineDataEmpty(processData)) {
       return;
     }
@@ -94,7 +96,7 @@ export const LineChart = () => {
       );
     };
 
-    d3.select(chartSelector).remove();
+    d3.select(root).select(chartSelector).remove();
     const lineChart = line();
     const containerWidth = chartWidth(chartID);
     const colorScheme = processData.dataByTopic.map(
@@ -123,9 +125,9 @@ export const LineChart = () => {
 
     container.datum(processData).call(lineChart);
 
-    const tooltipContainer = d3.select(
-      chartID + ' .metadata-group .vertical-marker-container',
-    );
+    const tooltipContainer = d3
+      .select(root)
+      .select(chartID + ' .metadata-group .vertical-marker-container');
     tooltipContainer.datum([]).call(tip);
 
     const config = { dateRange, interval };
@@ -137,7 +139,7 @@ export const LineChart = () => {
     }
 
     return () => {
-      d3.select(chartSelector).remove();
+      d3.select(root).select(chartSelector).remove();
       container.datum([]);
     };
   }, [

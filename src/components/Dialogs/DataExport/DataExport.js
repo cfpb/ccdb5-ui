@@ -10,6 +10,7 @@ import { selectQueryRoot } from '../../../reducers/query/selectors';
 import { selectViewTab } from '../../../reducers/view/selectors';
 import { selectFiltersRoot } from '../../../reducers/filters/selectors';
 import { useGetAggregations } from '../../../api/hooks/useGetAggregations';
+import { getElementById } from '../../../utils/dom';
 
 const FORMAT_CSV = 'csv';
 const FORMAT_JSON = 'json';
@@ -60,7 +61,7 @@ export const DataExport = () => {
   };
 
   const copyToClipboard = (ev) => {
-    const uriControl = document.getElementById('export-uri-input');
+    const uriControl = getElementById('export-uri-input');
     uriControl.select();
     // For mobile devices
     uriControl.setSelectionRange(0, 99999);

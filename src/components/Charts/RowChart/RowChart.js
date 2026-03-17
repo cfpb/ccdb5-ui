@@ -19,6 +19,7 @@ import {
 import { coalesce, getAllFilters, sendAnalyticsEvent } from '../../../utils';
 import { MODE_MAP } from '../../../constants';
 import { useGetAggregations } from '../../../api/hooks/useGetAggregations';
+import { getAppRoot } from '../../../utils/dom';
 
 export const RowChart = ({
   helperText,
@@ -174,7 +175,8 @@ export const RowChart = ({
     tooltip.valueFormatter(formatTip);
 
     const ratio = total / max(rows, (obj) => obj.value);
-    const rowContainer = d3.select(chartID);
+    const root = getAppRoot();
+    const rowContainer = d3.select(root).select(chartID);
 
     // added padding to make up for margin
     const containerWidth = isPrintMode
@@ -214,19 +216,28 @@ export const RowChart = ({
       .on('customMouseOut', tooltip.hide);
 
     rowContainer.datum(rows).call(chart);
-    const tooltipContainer = d3.selectAll(
-      chartID + ' .row-chart .metadata-group',
-    );
+    const tooltipContainer = d3
+      .select(root)
+      .selectAll(chartID + ' .row-chart .metadata-group');
     tooltipContainer.datum([]).call(tooltip);
 
-    wrapText(d3.select(chartID).selectAll('.tick text'), marginLeft);
-    wrapText(d3.select(chartID).selectAll('.view-more-label'), width / 2, true);
+    wrapText(
+      d3.select(root).select(chartID).selectAll('.tick text'),
+      marginLeft,
+    );
+    wrapText(
+      d3.select(root).select(chartID).selectAll('.view-more-label'),
+      width / 2,
+      true,
+    );
 
     rowContainer.selectAll('.y-axis-group .tick').on('click', toggleRow);
     rowContainer.selectAll('.view-more-label').on('click', selectFocus);
 
     return () => {
-      d3.selectAll(chartID + ' .row-chart').remove();
+      d3.select(root)
+        .selectAll(chartID + ' .row-chart')
+        .remove();
     };
   }, [
     dispatch,
