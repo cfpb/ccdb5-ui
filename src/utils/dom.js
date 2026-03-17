@@ -33,17 +33,6 @@ export const getAppRoot = () => {
   return document;
 };
 
-export const getAppElement = () => {
-  const root = getAppRoot();
-  if (root instanceof ShadowRoot) {
-    return root.host || root;
-  }
-  if (root instanceof HTMLElement) {
-    return root;
-  }
-  return document.body;
-};
-
 export const getElementById = (id) => {
   const root = getAppRoot();
   const escaped = escapeId(id);
@@ -54,6 +43,21 @@ export const getElementById = (id) => {
     }
   }
   return document.getElementById(id);
+};
+
+export const getAppElement = () => {
+  const mount = getElementById(getMountId());
+  if (mount) {
+    return mount;
+  }
+  const root = getAppRoot();
+  if (root instanceof ShadowRoot) {
+    return root.host || null;
+  }
+  if (root instanceof HTMLElement) {
+    return root;
+  }
+  return null;
 };
 
 export const querySelector = (selector) => {

@@ -13,6 +13,7 @@ import { getAppElement } from '../../utils/dom';
 export const RootModal = () => {
   const modalType = useSelector(selectViewModalTypeShown);
   const dispatch = useDispatch();
+  const appElement = getAppElement();
   const SpecificModal = useMemo(() => {
     const modals = {
       [types.MODAL_TYPE_DATA_EXPORT]: DataExport,
@@ -24,7 +25,7 @@ export const RootModal = () => {
 
   return SpecificModal ? (
     <ReactModal
-      appElement={getAppElement()}
+      {...(appElement ? { appElement } : {})}
       isOpen={true}
       contentLabel="CFPB Modal Dialog"
       className="modal-body"
