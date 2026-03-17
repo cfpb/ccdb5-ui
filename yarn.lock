@@ -1233,9 +1233,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/preset-env@npm:^7.29.0":
-  version: 7.29.0
-  resolution: "@babel/preset-env@npm:7.29.0"
+"@babel/preset-env@npm:^7.29.2":
+  version: 7.29.2
+  resolution: "@babel/preset-env@npm:7.29.2"
   dependencies:
     "@babel/compat-data": "npm:^7.29.0"
     "@babel/helper-compilation-targets": "npm:^7.28.6"
@@ -1309,7 +1309,7 @@ __metadata:
     semver: "npm:^6.3.1"
   peerDependencies:
     "@babel/core": ^7.0.0-0
-  checksum: 10c0/08737e333a538703ba20e9e93b5bfbc01abbb9d3b2519b5b62ad05d3b6b92d79445b1dac91229b8cfcfb0b681b22b7c6fa88d7c1cc15df1690a23b21287f55b6
+  checksum: 10c0/d49cb005f2dbc3f2293ab6d80ee8f1380e6215af5518fe26b087c8961c1ea8ebaa554dfce589abe1fbebac25ad7c2515d943dec3859ea2d4981a3f8f4711c580
   languageName: node
   linkType: hard
 
@@ -1435,17 +1435,17 @@ __metadata:
     "@babel/core": "npm:^7.29.0"
     "@babel/eslint-parser": "npm:^7.28.6"
     "@babel/plugin-transform-modules-commonjs": "npm:^7.28.6"
-    "@babel/preset-env": "npm:^7.29.0"
+    "@babel/preset-env": "npm:^7.29.2"
     "@babel/preset-react": "npm:^7.28.5"
     "@cfpb/browserslist-config": "npm:^0.0.6"
     "@cfpb/cfpb-design-system": "npm:^4.4.0"
-    "@cfpb/design-system-react": "https://github.com/cfpb/design-system-react.git#rad-header-scoping"
-    "@eslint/js": "npm:^9.39.3"
+    "@cfpb/design-system-react": "npm:^1.0.0"
+    "@eslint/js": "npm:^9.39.4"
     "@reduxjs/toolkit": "npm:^2.11.2"
     "@rsbuild/core": "npm:^1.7.3"
-    "@rsbuild/plugin-react": "npm:^1.4.5"
-    "@rsbuild/plugin-sass": "npm:^1.5.0"
-    "@rsbuild/plugin-svgr": "npm:^1.3.0"
+    "@rsbuild/plugin-react": "npm:^1.4.6"
+    "@rsbuild/plugin-sass": "npm:^1.5.1"
+    "@rsbuild/plugin-svgr": "npm:^1.3.1"
     "@testing-library/cypress": "npm:^10.1.0"
     "@testing-library/dom": "npm:^10.4.1"
     "@testing-library/jest-dom": "npm:^6.9.1"
@@ -1453,21 +1453,21 @@ __metadata:
     "@testing-library/react-hooks": "npm:^8.0.1"
     "@testing-library/user-event": "npm:^14.6.1"
     autoprefixer: "npm:^10.4.27"
-    babel-jest: "npm:^30.2.0"
-    babel-plugin-module-resolver: "npm:^5.0.2"
+    babel-jest: "npm:^30.3.0"
+    babel-plugin-module-resolver: "npm:^5.0.3"
     britecharts: "git+https://github.com/cfpb/cfpb-britecharts.git#v2.5"
     coveralls-next: "npm:^6.0.1"
-    cypress: "npm:^15.11.0"
+    cypress: "npm:^15.12.0"
     d3: "npm:^7.9.0"
     d3-array: "npm:3.2.4"
-    dayjs: "npm:^1.11.19"
-    eslint: "npm:^9.39.3"
+    dayjs: "npm:^1.11.20"
+    eslint: "npm:^9.39.4"
     eslint-config-prettier: "npm:^10.1.8"
     eslint-plugin-cypress: "npm:^5.3.0"
     eslint-plugin-import: "npm:^2.32.0"
     eslint-plugin-jest: "npm:^29.15.0"
     eslint-plugin-jest-dom: "npm:^5.5.0"
-    eslint-plugin-jsdoc: "npm:^62.7.1"
+    eslint-plugin-jsdoc: "npm:^62.8.0"
     eslint-plugin-jsx-a11y: "npm:^6.10.2"
     eslint-plugin-react: "npm:^7.37.5"
     eslint-plugin-react-hooks: "npm:^7.0.1"
@@ -1480,10 +1480,10 @@ __metadata:
     identity-obj-proxy: "npm:3.0.0"
     intro.js: "npm:7.2.0"
     intro.js-react: "npm:1.0.0"
-    jest: "npm:^30.2.0"
-    jest-environment-jsdom: "npm:^30.2.0"
+    jest: "npm:^30.3.0"
+    jest-environment-jsdom: "npm:^30.3.0"
     jest-fetch-mock: "npm:^3.0.3"
-    lint-staged: "npm:^16.3.2"
+    lint-staged: "npm:^16.4.0"
     lodash: "npm:^4.17.23"
     postcss: "npm:^8.5.8"
     prettier: "npm:^3.8.1"
@@ -1498,7 +1498,7 @@ __metadata:
     react-redux: "npm:^9.2.0"
     react-router: "npm:^7.13.1"
     release-it: "npm:^19.2.4"
-    sass: "npm:^1.97.3"
+    sass: "npm:^1.98.0"
     string-replace-loader: "npm:^3.3.0"
     stylelint: "npm:^17.4.0"
     stylelint-config-standard: "npm:^40.0.0"
@@ -1517,9 +1517,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cfpb/design-system-react@https://github.com/cfpb/design-system-react.git#rad-header-scoping":
-  version: 0.0.16
-  resolution: "@cfpb/design-system-react@https://github.com/cfpb/design-system-react.git#commit=71505be2d5f354d600998bd4f557b345a24581a0"
+"@cfpb/design-system-react@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@cfpb/design-system-react@npm:1.0.0"
   dependencies:
     react-select: "npm:^5.10.2"
   peerDependencies:
@@ -1527,7 +1527,7 @@ __metadata:
     react: ^18.0.0 || ^19.0.0
     react-dom: ^18.0.0 || ^19.0.0
     react-router: ^7.13.0
-  checksum: 10c0/9cb396e4f42c830dbdb301d58c21d886d5caad27b0faa57406f3e3b8810c75361df9fb6b5763d546d91ecdbcb394db8a78e1ff62d943b71cca46c2f2e8d983b1
+  checksum: 10c0/bd62470c0b53f7fabbbcb114fdb152ab2bee4079893334ca6d785535a8da62861835906475684dc6049c9207e1cf5672ec747fd2d8a341383be7862fd5cfd466
   languageName: node
   linkType: hard
 
@@ -1903,7 +1903,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:9.39.4, @eslint/js@npm:^9.39.3":
+"@eslint/js@npm:9.39.4, @eslint/js@npm:^9.39.4":
   version: 9.39.4
   resolution: "@eslint/js@npm:9.39.4"
   checksum: 10c0/5aa7dea2cbc5decf7f5e3b0c6f86a084ccee0f792d288ca8e839f8bc1b64e03e227068968e49b26096e6f71fd857ab6e42691d1b993826b9a3883f1bdd7a0e46
@@ -3191,7 +3191,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rsbuild/plugin-react@npm:^1.4.5, @rsbuild/plugin-react@npm:^1.4.6":
+"@rsbuild/plugin-react@npm:^1.4.6":
   version: 1.4.6
   resolution: "@rsbuild/plugin-react@npm:1.4.6"
   dependencies:
@@ -3206,7 +3206,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rsbuild/plugin-sass@npm:^1.5.0":
+"@rsbuild/plugin-sass@npm:^1.5.1":
   version: 1.5.1
   resolution: "@rsbuild/plugin-sass@npm:1.5.1"
   dependencies:
@@ -3224,7 +3224,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rsbuild/plugin-svgr@npm:^1.3.0":
+"@rsbuild/plugin-svgr@npm:^1.3.1":
   version: 1.3.1
   resolution: "@rsbuild/plugin-svgr@npm:1.3.1"
   dependencies:
@@ -4803,7 +4803,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-jest@npm:30.3.0, babel-jest@npm:^30.2.0":
+"babel-jest@npm:30.3.0, babel-jest@npm:^30.3.0":
   version: 30.3.0
   resolution: "babel-jest@npm:30.3.0"
   dependencies:
@@ -4853,16 +4853,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-module-resolver@npm:^5.0.2":
-  version: 5.0.2
-  resolution: "babel-plugin-module-resolver@npm:5.0.2"
+"babel-plugin-module-resolver@npm:^5.0.3":
+  version: 5.0.3
+  resolution: "babel-plugin-module-resolver@npm:5.0.3"
   dependencies:
     find-babel-config: "npm:^2.1.1"
     glob: "npm:^9.3.3"
     pkg-up: "npm:^3.1.0"
     reselect: "npm:^4.1.7"
     resolve: "npm:^1.22.8"
-  checksum: 10c0/ccbb9e673c4219f68937349267521becb72be292cf30bf70b861c3e709d24fbfa589da0bf6c100a0def799d38199299171cb6eac3fb00b1ea740373e2c1fe54c
+  checksum: 10c0/aa8940ae1eaa7dadbf63b12387ed63ab34a19bf6614ac76e16e4d44af80ae36c4741d307a91f864320c0ad33037b34466854bb9d8de6c1e73936b1af1b6d36a6
   languageName: node
   linkType: hard
 
@@ -4968,11 +4968,11 @@ __metadata:
   linkType: hard
 
 "baseline-browser-mapping@npm:^2.9.0":
-  version: 2.10.7
-  resolution: "baseline-browser-mapping@npm:2.10.7"
+  version: 2.10.8
+  resolution: "baseline-browser-mapping@npm:2.10.8"
   bin:
     baseline-browser-mapping: dist/cli.cjs
-  checksum: 10c0/fe2988088ede5a2dc7936f0a718d4b500b2a28a7ee3e11e2a3844a9444dd217a95a070c00508d8130da73c4fe576d677b21844bc078f6cd7867fb0e1be60caf0
+  checksum: 10c0/a77882e8ac37a900a9a0757b9bf4e50f407829ed17ee7630273ab5da0ae10d9c64ed4c5a1e03afb3490e39713440092417ded4bb856eeb9bd44856eacbd97497
   languageName: node
   linkType: hard
 
@@ -5250,9 +5250,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001759, caniuse-lite@npm:^1.0.30001774":
-  version: 1.0.30001778
-  resolution: "caniuse-lite@npm:1.0.30001778"
-  checksum: 10c0/830042e0a6af0796d3da4d9575f60966b92308c5504577993b618dd196c835d023dbd725fa8b47c33b74c487d75ce01ee3ebd6e7a078714989513110e8ff80e5
+  version: 1.0.30001780
+  resolution: "caniuse-lite@npm:1.0.30001780"
+  checksum: 10c0/8a88f39758a228852d6f3ac92362ecb7694b1b2b022f194d8dfe59123ad40a5de6202bf2dff0fe316bb3d5ca9caf316c22056e0da693459c3be2771cde4f4bf9
   languageName: node
   linkType: hard
 
@@ -5805,9 +5805,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:^15.11.0":
-  version: 15.11.0
-  resolution: "cypress@npm:15.11.0"
+"cypress@npm:^15.12.0":
+  version: 15.12.0
+  resolution: "cypress@npm:15.12.0"
   dependencies:
     "@cypress/request": "npm:^3.0.10"
     "@cypress/xvfb": "npm:^1.2.4"
@@ -5854,7 +5854,7 @@ __metadata:
     yauzl: "npm:^2.10.0"
   bin:
     cypress: bin/cypress
-  checksum: 10c0/6e3e31954bf46802d3f48f84301b224daadfc800ad65c0e297f0c1292f347a0a2385c0db6ecc4215c0aaf991363859db03f0a6e0fba249aee39dbc0dfca7673f
+  checksum: 10c0/aa11220a2da53689de9334975b6c8cbe3d5aa586542ac755c8581c80186b1a12394932d77c44fbeaf4d5f442afb357b1ccb9e66f0e8e6f778ed386131787e6fb
   languageName: node
   linkType: hard
 
@@ -6242,7 +6242,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.10.4, dayjs@npm:^1.11.19":
+"dayjs@npm:^1.10.4, dayjs@npm:^1.11.20":
   version: 1.11.20
   resolution: "dayjs@npm:1.11.20"
   checksum: 10c0/8af525e2aa100c8db9923d706c42b2b2d30579faf89456619413a5c10916efc92c2b166e193c27c02eb3174b30aa440ee1e7b72b0a2876b3da651d204db848a0
@@ -6957,7 +6957,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jsdoc@npm:^62.7.1":
+"eslint-plugin-jsdoc@npm:^62.8.0":
   version: 62.8.0
   resolution: "eslint-plugin-jsdoc@npm:62.8.0"
   dependencies:
@@ -7129,7 +7129,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^9.39.3":
+"eslint@npm:^9.39.4":
   version: 9.39.4
   resolution: "eslint@npm:9.39.4"
   dependencies:
@@ -9168,7 +9168,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-environment-jsdom@npm:^30.2.0":
+"jest-environment-jsdom@npm:^30.3.0":
   version: 30.3.0
   resolution: "jest-environment-jsdom@npm:30.3.0"
   dependencies:
@@ -9483,7 +9483,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest@npm:^30.2.0":
+"jest@npm:^30.3.0":
   version: 30.3.0
   resolution: "jest@npm:30.3.0"
   dependencies:
@@ -9791,19 +9791,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:^16.3.2":
-  version: 16.3.3
-  resolution: "lint-staged@npm:16.3.3"
+"lint-staged@npm:^16.4.0":
+  version: 16.4.0
+  resolution: "lint-staged@npm:16.4.0"
   dependencies:
     commander: "npm:^14.0.3"
     listr2: "npm:^9.0.5"
-    micromatch: "npm:^4.0.8"
+    picomatch: "npm:^4.0.3"
     string-argv: "npm:^0.3.2"
-    tinyexec: "npm:^1.0.2"
+    tinyexec: "npm:^1.0.4"
     yaml: "npm:^2.8.2"
   bin:
     lint-staged: bin/lint-staged.js
-  checksum: 10c0/e404007ca608f2adc8acb1f358a55bc2e613dce7c71dea5ee7a4d1c2da2eaa145f6cffb05eca0db2769586e7cddd58b22ec44934cc62147772d74154aa66f5bd
+  checksum: 10c0/67625a49a2a01368c7df2da7e553567a79c4b261d9faf3436e00fc3a2f9c4bbe7295909012c47b3d9029e269fd7d7469901a5120573527a032f15797aa497c26
   languageName: node
   linkType: hard
 
@@ -12232,7 +12232,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:1.98.0, sass@npm:^1.97.3":
+"sass@npm:1.98.0, sass@npm:^1.98.0":
   version: 1.98.0
   resolution: "sass@npm:1.98.0"
   dependencies:
@@ -13228,6 +13228,13 @@ __metadata:
   version: 1.0.2
   resolution: "tinyexec@npm:1.0.2"
   checksum: 10c0/1261a8e34c9b539a9aae3b7f0bb5372045ff28ee1eba035a2a059e532198fe1a182ec61ac60fa0b4a4129f0c4c4b1d2d57355b5cb9aa2d17ac9454ecace502ee
+  languageName: node
+  linkType: hard
+
+"tinyexec@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "tinyexec@npm:1.0.4"
+  checksum: 10c0/d4a5bbcf6bdb23527a4b74c4aa566f41432167112fe76f420ec7e3a90a3ecfd3a7d944383e2719fc3987b69400f7b928daf08700d145fb527c2e80ec01e198bd
   languageName: node
   linkType: hard
 
