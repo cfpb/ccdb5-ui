@@ -81,3 +81,14 @@ export const querySelectorAll = (selector) => {
   }
   return document.querySelectorAll(selector);
 };
+
+export const debug = (...args) => {
+  if (typeof window === 'undefined') {
+    return;
+  }
+  if (!window.__CCDB_CONFIG__?.debug) {
+    return;
+  }
+  // eslint-disable-next-line no-console
+  console.log('[ccdb5-ui]', ...args);
+};

@@ -19,7 +19,7 @@ import {
 import { coalesce, getAllFilters, sendAnalyticsEvent } from '../../../utils';
 import { MODE_MAP } from '../../../constants';
 import { useGetAggregations } from '../../../api/hooks/useGetAggregations';
-import { getAppRoot } from '../../../utils/dom';
+import { debug, getAppRoot } from '../../../utils/dom';
 
 export const RowChart = ({
   helperText,
@@ -177,11 +177,17 @@ export const RowChart = ({
     const ratio = total / max(rows, (obj) => obj.value);
     const root = getAppRoot();
     const rowContainer = d3.select(root).select(chartID);
+    debug('RowChart root', root);
+    debug('RowChart container node', rowContainer.node());
 
     // added padding to make up for margin
     const containerWidth = isPrintMode
       ? 750
-      : rowContainer.node().getBoundingClientRect().width + 30;
+      : (() => {
+          const node = rowContainer.node();
+          debug('RowChart width node', node);
+          return node.getBoundingClientRect().width + 30;
+        })();
 
     const height = rows.length === 1 ? 100 : rows.length * 60;
     const chart = row();
