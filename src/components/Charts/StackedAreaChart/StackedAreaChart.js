@@ -24,7 +24,7 @@ import {
 import { ChartWrapper } from '../ChartWrapper/ChartWrapper';
 import { useGetTrends } from '../../../api/hooks/useGetTrends';
 import { ErrorBlock } from '../../Warnings/Error';
-import { debug, getAppRoot } from '../../../utils/dom';
+import { getAppRoot } from '../../../utils/dom';
 
 export const StackedAreaChart = () => {
   const dispatch = useDispatch();
@@ -58,9 +58,6 @@ export const StackedAreaChart = () => {
     const chartSelector = chartID + ' .stacked-area';
     const root = getAppRoot();
     const container = d3.select(root).select(chartID);
-    debug('StackedAreaChart root', root);
-    debug('StackedAreaChart container node', container.node());
-
     if (!container.node() || isDataEmpty) {
       return;
     }
@@ -110,11 +107,7 @@ export const StackedAreaChart = () => {
 
     const width = isPrintMode
       ? 550
-      : (() => {
-          const node = container.node();
-          debug('StackedAreaChart width node', node);
-          return node.getBoundingClientRect().width;
-        })();
+      : container.node().getBoundingClientRect().width;
 
     const colorData = filteredData.filter((item) => item.name !== 'Other');
     const colorScheme = [...new Set(colorData.map((item) => item.name))].map(

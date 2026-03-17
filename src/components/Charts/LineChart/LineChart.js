@@ -25,7 +25,7 @@ import {
 import { ChartWrapper } from '../ChartWrapper/ChartWrapper';
 import { useGetTrends } from '../../../api/hooks/useGetTrends';
 import { ErrorBlock } from '../../Warnings/Error';
-import { debug, getAppRoot } from '../../../utils/dom';
+import { getAppRoot } from '../../../utils/dom';
 
 export const LineChart = () => {
   const dispatch = useDispatch();
@@ -57,8 +57,6 @@ export const LineChart = () => {
     const chartSelector = `${chartID} .line-chart`;
     const root = getAppRoot();
     const container = d3.select(root).select(chartID);
-    debug('LineChart root', root);
-    debug('LineChart container node', container.node());
     if (!container.node() || isLineDataEmpty(processData)) {
       return;
     }
@@ -71,9 +69,7 @@ export const LineChart = () => {
       if (isPrintMode) {
         return lens === 'Overview' ? 750 : 500;
       }
-      const node = container.node();
-      debug('LineChart width node', node);
-      return node.getBoundingClientRect().width;
+      return container.node().getBoundingClientRect().width;
     };
 
     const extTooltipUpdated = (item) => {
