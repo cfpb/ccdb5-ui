@@ -3,8 +3,7 @@ import AreaChart from '../../../icons/area-chart-custom.svg?react';
 import LineChart from '../../../icons/line-chart-custom.svg?react';
 
 /**
- * Custom icons not provided by the CFPB design-system-react package.
- * For design-system icons, use <Icon name="icon-name" /> from design-system-react.
+ * Custom icons unique only to CCDB / Complaint Explorer
  */
 const iconMap = {
   'line-chart': <LineChart />,
@@ -13,7 +12,6 @@ const iconMap = {
 
 /**
  * Retrieve an SVG icon for custom (repo-only) icon names.
- * For design-system icons use <Icon name="..." /> from design-system-react.
  *
  * @param {string} name - Custom icon name (line-chart, area-chart).
  * @param {string} [customClass] - Optional CSS class to add to the icon.
