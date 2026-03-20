@@ -17,6 +17,7 @@ import { useGetMap } from '../../api/hooks/useGetMap';
 import { useGetList } from '../../api/hooks/useGetList';
 import { useGetTrends } from '../../api/hooks/useGetTrends';
 import { isTrue } from '../../utils';
+import { getAppRoot, querySelector } from '../../utils/dom';
 
 export const Tour = () => {
   const dispatch = useDispatch();
@@ -106,21 +107,24 @@ export const Tour = () => {
       // when the tour is initiated, we reset the chart so that the
       // rows are collapsed. This way we can click the first row to expand it
       // to guarantee a consistent tour.
-      const expandable = d3.select('#row-chart-product .tick.expandable');
+      const expandable = d3
+        .select(getAppRoot())
+        .select('#row-chart-product .tick.expandable');
       expandable.dispatch('click');
     }
 
     // Add listener to filter toggle if it's mobile and at step 4 or 7
     const filterListener = () => {
       // Make sure next button isn't being hidden from steps 3 or 7
-      document
-        .querySelector('.introjs-nextbutton')
-        ?.setAttribute('style', 'display: inline');
+      querySelector('.introjs-nextbutton')?.setAttribute(
+        'style',
+        'display: inline',
+      );
       // Wait for date inputs to render, then proceed
       const promise = new Promise((resolve) => {
         if (currentStep === 7) return resolve();
         const interval = setInterval(() => {
-          if (document.querySelector('.date-filter') !== null) {
+          if (querySelector('.date-filter') !== null) {
             clearInterval(interval);
             return resolve();
           }
@@ -128,19 +132,22 @@ export const Tour = () => {
       });
       promise.then(() => {
         ref.current.introJs.nextStep().then(() => {
-          document
-            .querySelector(mobileStepOpen.element)
-            .removeEventListener('click', filterListener);
+          querySelector(mobileStepOpen.element).removeEventListener(
+            'click',
+            filterListener,
+          );
         });
       });
     };
     if (viewWidth < 750 && (currentStep === 3 || currentStep === 7)) {
-      document
-        .querySelector('.introjs-nextbutton')
-        .setAttribute('style', 'display: none');
-      document
-        .querySelector(mobileStepOpen.element)
-        .addEventListener('click', filterListener);
+      querySelector('.introjs-nextbutton').setAttribute(
+        'style',
+        'display: none',
+      );
+      querySelector(mobileStepOpen.element).addEventListener(
+        'click',
+        filterListener,
+      );
     }
   }
 

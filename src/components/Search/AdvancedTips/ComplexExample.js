@@ -1,4 +1,4 @@
-import getIcon from '../../Common/Icon/iconMap';
+import { Icon, Heading } from '@cfpb/design-system-react';
 import { TooltipWrapper } from '../../Common/TooltipWrapper/TooltipWrapper';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
@@ -16,9 +16,9 @@ export const ComplexExample = ({ id, notes, placeholderText, tooltipText }) => {
         }}
         title="Expand content"
       >
-        <h3 className="o-expandable__label">
+        <Heading type="3" className="o-expandable__label">
           Additional information and examples
-        </h3>
+        </Heading>
         <span className="o-expandable__cues">
           {isOpen ? (
             <span
@@ -27,7 +27,7 @@ export const ComplexExample = ({ id, notes, placeholderText, tooltipText }) => {
               aria-label="Hide"
             >
               <span className="u-visually-hidden-on-mobile">
-                {getIcon('up')}
+                <Icon name="up" isPresentational />
               </span>
             </span>
           ) : (
@@ -37,7 +37,7 @@ export const ComplexExample = ({ id, notes, placeholderText, tooltipText }) => {
               aria-label="Show"
             >
               <span className="u-visually-hidden-on-mobile">
-                {getIcon('down')}
+                <Icon name="down" isPresentational />
               </span>
             </span>
           )}
@@ -72,7 +72,9 @@ export const ComplexExample = ({ id, notes, placeholderText, tooltipText }) => {
               </TooltipWrapper>
             </>
           ) : null}
-          <h4 className="descriptor">Notes:</h4>
+          <Heading type="4" className="descriptor">
+            Notes:
+          </Heading>
           <ul className="m-list">
             {notes.map((note, index) => (
               <li className="m-list__item" key={index}>

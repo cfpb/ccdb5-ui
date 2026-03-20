@@ -1,9 +1,9 @@
 import './ComplaintDetail.scss';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useLocation, useParams } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 import { useGetDocumentQuery } from '../../api/complaints';
-import getIcon from '../Common/Icon/iconMap';
+import { Link } from '@cfpb/design-system-react';
 import { Loading } from '../Loading/Loading';
 import { selectRoutesParams } from '../../reducers/routes/selectors';
 import { ComplaintDetailBody } from './ComplaintDetailBody';
@@ -32,14 +32,20 @@ export const ComplaintDetail = () => {
     <section className="card-container">
       <nav className="layout-row">
         <div className="back-to-search flex-fixed">
-          <Link to={backUrl}>
-            {getIcon('left', 'cf-icon-left')} Back to search results
-          </Link>
+          <Link
+            href={backUrl}
+            isRouterLink
+            iconLeft="left"
+            label="Back to search results"
+          />
         </div>
         <div className="meaning flex-fixed">
-          <a href={LINK_DATA_USE} target="_blank" rel="noopener noreferrer">
-            What do all these data points mean?
-          </a>
+          <Link
+            href={LINK_DATA_USE}
+            target="_blank"
+            rel="noopener noreferrer"
+            label="What do all these data points mean?"
+          />
         </div>
       </nav>
       {isLoading ? (

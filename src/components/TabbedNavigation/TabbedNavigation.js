@@ -1,6 +1,6 @@
 import './TabbedNavigation.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import getIcon from '../Common/Icon/iconMap';
+import { Icon } from '@cfpb/design-system-react';
 import { selectViewTab } from '../../reducers/view/selectors';
 import { tabChanged } from '../../reducers/view/viewSlice';
 
@@ -20,7 +20,7 @@ export const TabbedNavigation = () => {
           className={getTabClass('Trends')}
           onClick={() => dispatch(tabChanged('Trends'))}
         >
-          {getIcon('chart')}
+          <Icon name="chart" isPresentational />
           Trends
         </button>
 
@@ -28,7 +28,7 @@ export const TabbedNavigation = () => {
           className={getTabClass('List')}
           onClick={() => dispatch(tabChanged('List'))}
         >
-          {getIcon('list')}
+          <Icon name="list" isPresentational />
           List
         </button>
 
@@ -36,7 +36,7 @@ export const TabbedNavigation = () => {
           className={getTabClass('Map')}
           onClick={() => dispatch(tabChanged('Map'))}
         >
-          {getIcon('map')}
+          <Icon name="map" isPresentational />
           Map
         </button>
       </section>

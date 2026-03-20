@@ -18,19 +18,23 @@ describe('Hero', () => {
       .mockImplementation(() => jest.fn());
 
     renderComponent();
-    const linkDialog = screen.getByText(
-      'Things to know before you use this database',
-    );
+    const linkDialog = screen.getByRole('button', {
+      name: 'Things to know before you use this database',
+    });
     expect(linkDialog).toBeInTheDocument();
 
     fireEvent.click(linkDialog);
     expect(showDialogSpy).toHaveBeenCalledWith(MODAL_TYPE_MORE_ABOUT);
 
-    const linkDataUse = screen.getByText('How we use complaint data');
+    const linkDataUse = screen.getByRole('link', {
+      name: 'How we use complaint data',
+    });
     expect(linkDataUse).toBeInTheDocument();
     expect(linkDataUse).toHaveAttribute('href', LINK_DATA_USE);
 
-    const linkTechDoc = screen.getByText('Technical documentation');
+    const linkTechDoc = screen.getByRole('link', {
+      name: 'Technical documentation',
+    });
     expect(linkTechDoc).toBeInTheDocument();
     expect(linkTechDoc).toHaveAttribute(
       'href',

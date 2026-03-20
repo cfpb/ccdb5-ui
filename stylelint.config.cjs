@@ -38,7 +38,7 @@ less/no-duplicate-variables
 */
 module.exports = {
   extends: ['stylelint-config-standard', 'stylelint-config-standard-scss'],
-  ignoreFiles: ['packages/**/node_modules/**/*.scss'],
+  ignoreFiles: ['/node_modules/**/*.scss'],
   rules: {
     'at-rule-no-unknown': null,
     'color-function-notation': ['modern', { ignore: ['with-var-inside'] }],
@@ -56,8 +56,7 @@ module.exports = {
       },
     ],
     'selector-id-pattern': null,
-    'selector-class-pattern': null,
-    'scss/selector-class-pattern': [
+    'selector-class-pattern': [
       '^[a-z]([a-z0-9-]+)?(__([a-z0-9]+-?)+)?(--([a-z0-9]+-?)+){0,2}$',
       { resolveNestedSelectors: true },
     ],

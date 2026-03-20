@@ -24,6 +24,7 @@ import {
 import { ChartWrapper } from '../ChartWrapper/ChartWrapper';
 import { useGetTrends } from '../../../api/hooks/useGetTrends';
 import { ErrorBlock } from '../../Warnings/Error';
+import { getAppRoot } from '../../../utils/dom';
 
 export const StackedAreaChart = () => {
   const dispatch = useDispatch();
@@ -55,8 +56,8 @@ export const StackedAreaChart = () => {
     const dateRange = { from, to };
     const chartID = '#stacked-area-chart';
     const chartSelector = chartID + ' .stacked-area';
-    const container = d3.select(chartID);
-
+    const root = getAppRoot();
+    const container = d3.select(root).select(chartID);
     if (!container.node() || isDataEmpty) {
       return;
     }
@@ -102,7 +103,7 @@ export const StackedAreaChart = () => {
       );
     };
 
-    d3.select(chartSelector).remove();
+    d3.select(root).select(chartSelector).remove();
 
     const width = isPrintMode
       ? 550
@@ -139,7 +140,7 @@ export const StackedAreaChart = () => {
     extTooltipUpdated(getLastDate(filteredData, config));
 
     return () => {
-      d3.select(chartSelector).remove();
+      d3.select(root).select(chartSelector).remove();
       container.datum([]);
     };
   }, [

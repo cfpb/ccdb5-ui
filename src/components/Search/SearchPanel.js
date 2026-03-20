@@ -4,6 +4,7 @@ import { SearchBar } from './SearchBar';
 import { formatDisplayDate } from '../../utils/formatDate';
 import { useGetMetaQuery } from '../../api/complaints';
 import { Loading } from '../Loading/Loading';
+import { Heading } from '@cfpb/design-system-react';
 
 export const SearchPanel = () => {
   const { data, isLoading, isFetching } = useGetMetaQuery('meta');
@@ -18,7 +19,7 @@ export const SearchPanel = () => {
     <Loading isLoading={true} />
   ) : (
     <div className="search-panel">
-      <h2>Search complaint data {lastIndexedMessage}</h2>
+      <Heading type="2">Search complaint data {lastIndexedMessage}</Heading>
       <SearchBar />
       <PillPanel />
     </div>

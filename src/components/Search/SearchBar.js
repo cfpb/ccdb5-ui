@@ -7,6 +7,7 @@ import {
   searchFieldChanged,
   searchTextChanged,
 } from '../../reducers/query/querySlice';
+import { Button, Heading, Link } from '@cfpb/design-system-react';
 import { AdvancedTips } from './AdvancedTips/AdvancedTips';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -87,7 +88,9 @@ export const SearchBar = () => {
     <div>
       <div className="search-bar u-mb25" role="search">
         <form action="" onSubmit={handleSubmit}>
-          <h3 className="h4">Search within</h3>
+          <Heading type="3" className="h4">
+            Search within
+          </Heading>
           <div className="layout-row">
             <div className="cf-select flex-fixed">
               <select
@@ -132,16 +135,22 @@ export const SearchBar = () => {
                 />
               )}
             </div>
-            <a className="u-visually-hidden" href="#search-summary">
-              Skip to Results
-            </a>
+            <Link
+              className="u-visually-hidden"
+              href="#search-summary"
+              label="Skip to Results"
+            />
 
             <div className="advanced-container flex-fixed">
-              <button className="a-btn a-btn--link" onClick={onAdvancedClicked}>
-                {hasAdvancedSearchTips
-                  ? 'Hide advanced search tips'
-                  : 'Show advanced search tips'}
-              </button>
+              <Button
+                label={
+                  hasAdvancedSearchTips
+                    ? 'Hide advanced search tips'
+                    : 'Show advanced search tips'
+                }
+                isLink
+                onClick={onAdvancedClicked}
+              />
             </div>
           </div>
         </form>

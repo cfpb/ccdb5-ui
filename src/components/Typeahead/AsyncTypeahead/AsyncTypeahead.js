@@ -2,7 +2,7 @@ import '../Typeahead.scss';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { AsyncTypeahead as Typeahead } from 'react-bootstrap-typeahead';
-import getIcon from '../../Common/Icon/iconMap';
+import { Icon, Button } from '@cfpb/design-system-react';
 import { HighlightingOption } from '../HighlightingOption/HighlightingOption';
 import { ClearButton } from '../ClearButton/ClearButton';
 import { useDispatch, useSelector } from 'react-redux';
@@ -103,7 +103,7 @@ export const AsyncTypeahead = ({
             className="o-search-input__input-label"
             htmlFor={htmlId}
           >
-            {getIcon('search')}
+            <Icon name="search" isPresentational />
           </label>
           <Typeahead
             id={htmlId}
@@ -162,11 +162,7 @@ export const AsyncTypeahead = ({
             />
           )}
         </div>
-        {!!hasSearchButton && (
-          <button type="submit" className="a-btn">
-            Search
-          </button>
-        )}
+        {!!hasSearchButton && <Button type="submit" label="Search" />}
       </div>
     </section>
   );

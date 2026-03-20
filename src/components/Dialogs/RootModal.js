@@ -8,10 +8,12 @@ import { useMemo } from 'react';
 import ReactModal from 'react-modal';
 import { selectViewModalTypeShown } from '../../reducers/view/selectors';
 import { modalHidden } from '../../reducers/view/viewSlice';
+import { getAppElement } from '../../utils/dom';
 
 export const RootModal = () => {
   const modalType = useSelector(selectViewModalTypeShown);
   const dispatch = useDispatch();
+  const appElement = getAppElement();
   const SpecificModal = useMemo(() => {
     const modals = {
       [types.MODAL_TYPE_DATA_EXPORT]: DataExport,
@@ -23,7 +25,7 @@ export const RootModal = () => {
 
   return SpecificModal ? (
     <ReactModal
-      appElement={document.querySelector('#ccdb-ui-root')}
+      {...(appElement ? { appElement } : {})}
       isOpen={true}
       contentLabel="CFPB Modal Dialog"
       className="modal-body"

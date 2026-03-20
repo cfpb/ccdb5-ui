@@ -48,6 +48,7 @@ import { formatDisplayDate } from '../../../utils/formatDate';
 import { useGetTrends } from '../../../api/hooks/useGetTrends';
 import { ErrorBlock } from '../../Warnings/Error';
 import { AsyncTypeahead } from '../../Typeahead/AsyncTypeahead/AsyncTypeahead';
+import { Heading } from '@cfpb/design-system-react';
 
 const WARNING_MESSAGE =
   '“Day” interval is disabled when the date range is longer than one year';
@@ -275,7 +276,9 @@ export const TrendsPanel = () => {
       {!hasCompanyOverlay && hasOverview && total > 0 ? (
         <div className="layout-row">
           <section className="chart-description">
-            <h2 className="area-chart-title">{areaChartTitle()}</h2>
+            <Heading type="2" className="area-chart-title">
+              {areaChartTitle()}
+            </Heading>
             <p className="chart-helper-text">
               A time series graph of complaints for the selected date range.
               Hover on the chart to see the count for each date interval. Your
@@ -287,7 +290,9 @@ export const TrendsPanel = () => {
       {!hasCompanyOverlay && !hasOverview && total > 0 ? (
         <div className="layout-row">
           <section className="chart-description">
-            <h2 className="area-chart-title">{areaChartTitle()}</h2>
+            <Heading type="2" className="area-chart-title">
+              {areaChartTitle()}
+            </Heading>
             <p className="chart-helper-text">
               A time series graph of the (up to five) highest volume complaints
               for the selected date range. However, you can view all of your

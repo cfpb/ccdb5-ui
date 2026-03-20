@@ -18,6 +18,7 @@ import {
   selectViewWidth,
 } from '../../../reducers/view/selectors';
 import { useGetMap } from '../../../api/hooks/useGetMap';
+import { getElementById } from '../../../utils/dom';
 
 export const TileChartMap = () => {
   const dispatch = useDispatch();
@@ -69,7 +70,7 @@ export const TileChartMap = () => {
   );
 
   const _redrawMap = useCallback(() => {
-    const mapElement = document.getElementById('tile-chart-map');
+    const mapElement = getElementById('tile-chart-map');
     const mapWidth = isPrintMode ? 650 : mapElement.clientWidth || width;
     if (!data) {
       return;
@@ -106,7 +107,7 @@ export const TileChartMap = () => {
   useEffect(() => {
     _redrawMap();
     return function cleanup() {
-      const mapElement = document.getElementById('tile-chart-map');
+      const mapElement = getElementById('tile-chart-map');
       if (mapElement) {
         while (mapElement.firstChild) {
           mapElement.firstChild.remove();

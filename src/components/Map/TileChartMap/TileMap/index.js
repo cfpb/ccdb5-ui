@@ -3,6 +3,7 @@ import * as d3 from 'd3';
 import Highcharts from 'highcharts/highmaps';
 import 'highcharts/modules/accessibility';
 import { STATE_TILES } from './constants';
+import { getAppRoot } from '../../../../utils/dom';
 
 const TEN_K = 10000;
 const HUN_K = 100000;
@@ -197,7 +198,7 @@ export function descriptionFormatter(point) {
  */
 export function mouseoutPoint() {
   const name = '.tile-' + this.name;
-  d3.select(name).classed('hover', false);
+  d3.select(getAppRoot()).select(name).classed('hover', false);
 }
 
 /**
@@ -205,7 +206,7 @@ export function mouseoutPoint() {
  */
 export function mouseoverPoint() {
   const name = '.tile-' + this.name;
-  d3.select(name).classed('hover', true);
+  d3.select(getAppRoot()).select(name).classed('hover', true);
 }
 
 /**

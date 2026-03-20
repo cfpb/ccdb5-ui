@@ -3,7 +3,7 @@ import { ClearButton } from '../ClearButton/ClearButton';
 import { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Typeahead as DropdownTypeahead } from 'react-bootstrap-typeahead';
-import getIcon from '../../Common/Icon/iconMap';
+import { Icon } from '@cfpb/design-system-react';
 import { HighlightingOption } from '../HighlightingOption/HighlightingOption';
 
 export const Typeahead = ({
@@ -33,7 +33,7 @@ export const Typeahead = ({
             className="o-search-input__input-label"
             htmlFor={htmlId}
           >
-            {getIcon('search')}
+            <Icon name="search" isPresentational />
           </label>
           <DropdownTypeahead
             id={htmlId}

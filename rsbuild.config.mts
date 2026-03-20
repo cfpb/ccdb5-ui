@@ -4,6 +4,12 @@ import { pluginSass } from '@rsbuild/plugin-sass';
 import { pluginSvgr } from '@rsbuild/plugin-svgr';
 
 export default defineConfig({
+  dev: {
+    // Prevent disk writes in dev to avoid rebuild loops.
+    writeToDisk: false,
+    // Avoid on-demand chunk compilation that can trigger repeated reloads.
+    lazyCompilation: false,
+  },
   html: {
     template: './public/index.html',
   },
@@ -22,6 +28,37 @@ export default defineConfig({
   performance: {
     chunkSplit: {
       strategy: 'all-in-one',
+    },
+  },
+  tools: {
+    rspack: (config, { appendRules }) => {
+      // Inline dynamic imports (e.g. from @cfpb/design-system-react) into the
+      // main bundle so we get a single ccdb5.js instead of many async chunks.
+      config.output = config.output || {};
+      config.output.asyncChunks = false;
+
+      // Ignore dist output so file watching doesn't trigger rebuild loops.
+      config.watchOptions = config.watchOptions || {};
+      const ignored = config.watchOptions.ignored;
+      if (!ignored) {
+        config.watchOptions.ignored = ['**/dist/**'];
+      } else if (Array.isArray(ignored)) {
+        config.watchOptions.ignored = [...ignored, '**/dist/**'];
+      } else {
+        config.watchOptions.ignored = [ignored, '**/dist/**'];
+      }
+
+      appendRules({
+        test: /\.js/, // Or any other file extension you want to apply the loader to
+        loader: 'string-replace-loader',
+        options: {
+          search: '@@API', // The string or regex to search for
+          replace: '/data-research/consumer-complaints/search/api/v1/', // The string to replace it with
+          // You can also use 'multiple' for multiple replacements or a 'callback' function
+          // multiple: [{ search: 'str1', replace: 'new1' }, { search: 'str2', replace: 'new2' }],
+          // callback: (match) => { /* dynamic replacement logic */ return 'newString'; }
+        },
+      });
     },
   },
   plugins: [
@@ -70,21 +107,6 @@ export default defineConfig({
       // http://localhost:3000/api -> http://localhost:3000/api
       // http://localhost:3000/api/foo -> http://localhost:3000/api/foo
       '/data-research': 'https://www.consumerfinance.gov',
-    },
-  },
-  tools: {
-    rspack: (config, { appendRules }) => {
-      appendRules({
-        test: /\.js/, // Or any other file extension you want to apply the loader to
-        loader: 'string-replace-loader',
-        options: {
-          search: '@@API', // The string or regex to search for
-          replace: '/data-research/consumer-complaints/search/api/v1/', // The string to replace it with
-          // You can also use 'multiple' for multiple replacements or a 'callback' function
-          // multiple: [{ search: 'str1', replace: 'new1' }, { search: 'str2', replace: 'new2' }],
-          // callback: (match) => { /* dynamic replacement logic */ return 'newString'; }
-        },
-      });
     },
   },
 });

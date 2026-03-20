@@ -1,5 +1,6 @@
 import * as types from '../constants';
 import dayjs from 'dayjs';
+import { getElementById } from './dom';
 // ----------------------------------------------------------------------------
 export const showCompanyOverLay = (lens, companyFilters, isLoading) => {
   if (isLoading) {
@@ -72,7 +73,7 @@ export const getIntervals = (from, to) =>
  * so that users don't get a blank wall of content
  */
 export const scrollToFocus = () => {
-  const lensSelect = document.getElementById('search-summary');
+  const lensSelect = getElementById('search-summary');
   if (lensSelect) {
     lensSelect.scrollIntoView();
   }

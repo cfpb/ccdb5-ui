@@ -1,6 +1,6 @@
 import './FocusHeader.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import getIcon from '../../Common/Icon/iconMap';
+import { Button, Heading } from '@cfpb/design-system-react';
 import { LensTabs } from '../LensTabs/LensTabs';
 import { focusRemoved } from '../../../reducers/trends/trendsSlice';
 import {
@@ -18,21 +18,21 @@ export const FocusHeader = () => {
   const dispatch = useDispatch();
   return focus ? (
     <div className="focus-header">
-      <button
-        className="a-btn a-btn--link clear-focus"
+      <Button
+        label={'View ' + lens.toLowerCase() + ' trends'}
+        iconLeft="left"
+        isLink
+        className="clear-focus"
         id="clear-focus"
         onClick={() => {
           dispatch(focusRemoved(lens));
         }}
-      >
-        {getIcon('left')}
-        {'View ' + lens.toLowerCase() + ' trends'}
-      </button>
+      />
       <div>
         <section className="focus">
-          <h1>{focus}</h1>
+          <Heading type="1">{focus}</Heading>
           <span className="divider" />
-          <h2>{total.toLocaleString() + ' Complaints'}</h2>
+          <Heading type="2">{total.toLocaleString() + ' Complaints'}</Heading>
         </section>
       </div>
 

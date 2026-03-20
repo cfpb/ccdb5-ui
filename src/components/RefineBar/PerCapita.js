@@ -1,5 +1,6 @@
 import { GEO_NORM_NONE, GEO_NORM_PER1000 } from '../../constants';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button } from '@cfpb/design-system-react';
 import { dataNormalizationUpdated } from '../../reducers/filters/filtersSlice';
 import { useMemo } from 'react';
 import {
@@ -24,26 +25,24 @@ export const PerCapita = () => {
     <section className="per-capita">
       <p>Map shading</p>
       <div className="m-btn-group">
-        <button
+        <Button
+          label="Complaints"
           aria-label="Display map by complaints"
           className={'a-btn' + selectedClass(dataNormalization, GEO_NORM_NONE)}
           onClick={() => {
             dispatch(dataNormalizationUpdated(GEO_NORM_NONE));
           }}
           disabled={dataNormalization === GEO_NORM_NONE}
-        >
-          Complaints
-        </button>
-        <button
+        />
+        <Button
+          label="Complaints per 1,000 population"
           aria-label="Display map by complaints per 1,000 people"
           className={'a-btn ' + perCapButtonClass}
           disabled={dataNormalization === GEO_NORM_PER1000 || !enablePer1000}
           onClick={() => {
             dispatch(dataNormalizationUpdated(GEO_NORM_PER1000));
           }}
-        >
-          Complaints per 1,000 <span>population</span>
-        </button>
+        />
       </div>
     </section>
   );

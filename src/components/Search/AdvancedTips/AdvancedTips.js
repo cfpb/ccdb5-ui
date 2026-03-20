@@ -1,13 +1,13 @@
 import './AdvancedTips.scss';
 import { TooltipWrapper } from '../../Common/TooltipWrapper/TooltipWrapper';
 import { ComplexExample } from './ComplexExample';
-import getIcon from '../../Common/Icon/iconMap';
+import { Icon, Heading } from '@cfpb/design-system-react';
 
 export const AdvancedTips = () => {
   return (
     <div className="advanced-tips">
       <div>
-        <h3>Search tips</h3>
+        <Heading type="3">Search tips</Heading>
         <ul className="m-list">
           <li className="m-list__item">
             Hover over the examples within the sample search bars below to see
@@ -27,7 +27,7 @@ export const AdvancedTips = () => {
       </div>
       <div className="tips content-l">
         <div className="tip content-l__col content-l__col-1-3">
-          <h4>AND / OR / NOT</h4>
+          <Heading type="4">AND / OR / NOT</Heading>
           <label className="u-visually-hidden" htmlFor="example-and">
             Use AND when results must contain all terms
           </label>
@@ -80,7 +80,7 @@ export const AdvancedTips = () => {
           />
         </div>
         <div className="tip content-l__col content-l__col-1-3">
-          <h4>Must/Must not contain</h4>
+          <Heading type="4">Must/Must not contain</Heading>
           <label className="u-visually-hidden" htmlFor="example-must-plus">
             Use + if the search must contain the selected term
           </label>
@@ -120,7 +120,7 @@ export const AdvancedTips = () => {
           />
         </div>
         <div className="tip content-l__col content-l__col-1-3">
-          <h4>Wildcard search</h4>
+          <Heading type="4">Wildcard search</Heading>
           <label className="u-visually-hidden" htmlFor="example-wc-star">
             Use * to substitute any consecutive number of characters.
           </label>
@@ -151,7 +151,7 @@ export const AdvancedTips = () => {
           </div>
         </div>
         <div className="tip content-l__col content-l__col-1-3">
-          <h4>Proximity search</h4>
+          <Heading type="4">Proximity search</Heading>
           <label className="u-visually-hidden" htmlFor="example-proximity">
             Use ~[#] at the end of a phrase to search for terms with up to that
             number of gap words between them; Order does not matter and the
@@ -183,7 +183,7 @@ export const AdvancedTips = () => {
           />
         </div>
         <div className="tip content-l__col content-l__col-1-3">
-          <h4>Fuzzy search</h4>
+          <Heading type="4">Fuzzy search</Heading>
           <label className="u-visually-hidden" htmlFor="example-fuzzy">
             Use ~1 at the end of a term to search for terms that are spelled
             similarly to your keyword within a certain margin of error.
@@ -214,7 +214,7 @@ export const AdvancedTips = () => {
           />
         </div>
         <div className="tip content-l__col content-l__col-1-3">
-          <h4>Boost search</h4>
+          <Heading type="4">Boost search</Heading>
           <label className="u-visually-hidden" htmlFor="example-boost">
             Use ^[#] at the end of a term or terms to increase or decrease its
             relevance compared to the other term(s).
@@ -243,7 +243,7 @@ export const AdvancedTips = () => {
         </div>
       </div>
       <div className="footer">
-        <h3>Additional notes:</h3>
+        <Heading type="3">Additional notes:</Heading>
         <ul className="m-list">
           <li className="m-list__item">
             Putting a phrase only in quotations (&quot; &quot;) will search for
@@ -265,7 +265,7 @@ export const AdvancedTips = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Find out more {getIcon('external-link')}
+              Find out more <Icon name="external-link" isPresentational />
             </a>{' '}
             about Elastic Search
           </li>

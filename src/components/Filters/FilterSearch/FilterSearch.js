@@ -9,7 +9,7 @@ import { SLUG_SEPARATOR } from '../../../constants';
 import { normalize } from '../../../utils';
 import { ClearButton } from '../../Typeahead/ClearButton/ClearButton';
 import { HighlightingOption } from '../../Typeahead/HighlightingOption/HighlightingOption';
-import getIcon from '../../Common/Icon/iconMap';
+import { Icon } from '@cfpb/design-system-react';
 
 export const FilterSearch = ({ fieldName }) => {
   const ref = useRef(null);
@@ -103,7 +103,7 @@ export const FilterSearch = ({ fieldName }) => {
             className="o-search-input__input-label"
             htmlFor={'filter-search' + fieldName}
           >
-            {getIcon('search')}
+            <Icon name="search" isPresentational />
           </label>
           <Typeahead
             id={'filter-search' + fieldName}

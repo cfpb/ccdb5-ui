@@ -1,11 +1,6 @@
 .chart-toggles {
   button {
-    width: 38px;
-    background-color: var(--pacific-40);
-    padding: 3px;
     svg {
-      height: 25px;
-
       &#line-chart-icon {
         .cls-1 {
           opacity: 0.4;
@@ -22,6 +17,7 @@
           fill: #101820;
         }
       }
+
       &#area-chart-icon {
         .cls-1 {
           fill: #101820;

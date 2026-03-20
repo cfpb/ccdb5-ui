@@ -4,6 +4,7 @@ import getIcon from '../Common/Icon/iconMap';
 import { selectedClass, sendAnalyticsEvent } from '../../utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTrendsChartType } from '../../reducers/trends/selectors';
+import { Button } from '@cfpb/design-system-react';
 
 export const ChartToggles = () => {
   const dispatch = useDispatch();
@@ -18,26 +19,26 @@ export const ChartToggles = () => {
     <section className="chart-toggles">
       <p>Chart type</p>
       <div className="m-btn-group">
-        <button
+        <Button
           aria-label="Toggle line chart"
-          className={'a-btn' + selectedClass('line', chartType)}
+          className={selectedClass('line', chartType)}
           disabled={chartType === 'line'}
           onClick={() => {
             toggleChartType('line');
           }}
         >
           {getIcon('line-chart')}
-        </button>
-        <button
+        </Button>
+        <Button
           aria-label="Toggle area chart"
-          className={'a-btn' + selectedClass('area', chartType)}
+          className={selectedClass('area', chartType)}
           disabled={chartType === 'area'}
           onClick={() => {
             toggleChartType('area');
           }}
         >
           {getIcon('area-chart')}
-        </button>
+        </Button>
       </div>
     </section>
   );
