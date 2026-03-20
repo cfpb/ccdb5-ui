@@ -34,7 +34,6 @@ export const ComplaintDetail = () => {
         <div className="back-to-search flex-fixed">
           <Link
             href={backUrl}
-            isJump
             isRouterLink
             iconLeft="left"
             label="Back to search results"
