@@ -5,8 +5,10 @@
 .tabbed-navigation {
   margin-top: 30px;
   border-bottom: 1px solid var(--gray-20);
+
   section {
     padding-left: 10px;
+
     .tab {
       margin: 0;
       padding: 4px 30px 8px;
@@ -40,6 +42,7 @@
           display: block;
         }
       }
+
       &.active {
         padding-top: 8px;
         border: 1px solid var(--gray-40);

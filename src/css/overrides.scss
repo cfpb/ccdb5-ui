@@ -1,8 +1,0 @@
-// override styles
-
-@media only all and (min-width: 56.3125em) {
-  // this css from DSR Header was breaking the header since it has a mega menu
-  .o-header__content {
-    padding-bottom: 0;
-  }
-}
