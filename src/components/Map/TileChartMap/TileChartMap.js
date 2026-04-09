@@ -117,14 +117,12 @@ export const TileChartMap = () => {
   }, [_redrawMap]);
 
   return (
-    <div>
-      <div
-        id="tile-chart-map"
-        className={`cfpb-chart ${isPrintMode ? 'print' : ''}`}
-        data-chart-type="tile_map"
-        data-testid="tile-chart-map"
-      />
-    </div>
+    <div
+      id="tile-chart-map"
+      className={`cfpb-chart ${isPrintMode ? 'print' : ''}`}
+      data-chart-type="tile_map"
+      data-testid="tile-chart-map"
+    />
   );
 };
 

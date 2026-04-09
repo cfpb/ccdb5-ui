@@ -105,10 +105,13 @@ x/y positioning on the SVG elements.
 
 .cfpb-chart {
   position: relative;
-  width: calc(100% - 60px);
+
+  // width: calc(100% - 60px);
   min-height: 400px;
-  margin-bottom: 25px;
-  margin-left: $grid-gutter-width;
+
+  // border: 1px red solid;
+  // margin-bottom: 25px;
+  // margin-left: $grid-gutter-width;
 
   .highcharts-root,
   .highcharts-container,
@@ -137,13 +140,12 @@ x/y positioning on the SVG elements.
       line-height: 1.1;
 
       .abbr {
-        font-size: 16px;
         font-weight: 600;
+        margin-bottom: 0;
       }
 
       .value {
         margin-top: 4px;
-        font-size: 14px;
       }
 
       &.deselected {
@@ -217,15 +219,16 @@ x/y positioning on the SVG elements.
     filter: drop-shadow(0 2px 6px rgb(0 0 0 / 10%));
 
     span {
-      color: var(--black);
+      color: var(--gray-dark);
       background-color: var(--gray-5);
       border: 1px solid var(--gray-40);
       font-family: inherit;
+      font-size: 16px;
       padding: 15px;
       position: relative;
       overflow: visible;
-      width: 340px;
-      max-width: 340px;
+      width: 385px;
+      max-width: 385px;
       box-sizing: border-box;
       white-space: normal;
 
@@ -235,20 +238,21 @@ x/y positioning on the SVG elements.
       }
 
       .row {
-        border-top: 1px solid var(--gray-40);
-        padding: 10px 0 12px;
+        padding: 0 0 15px;
         margin: 0;
       }
 
-      .row:first-of-type {
-        border-top: 0;
-      }
-
-      .row p {
+      p {
         margin: 0;
         white-space: normal;
         overflow-wrap: anywhere;
         word-break: normal;
+      }
+
+      h5.line {
+        margin-bottom: 10px;
+        padding-top: 15px;
+        border-top: 1px solid var(--gray-40);
       }
     }
   }
@@ -365,7 +369,7 @@ x/y positioning on the SVG elements.
     .highcharts-point {
       &:hover {
         stroke: var(--black);
-        stroke-width: 5px !important;
+        stroke-width: 2px !important;
       }
     }
   }
@@ -387,7 +391,6 @@ $mobile-tiles-breakpoint-max: 1024px;
 $mobile-xs-tiles-breakpoint-max: 400px;
 
 .cfpb-chart[data-chart-type='tile_map'] .highcharts-data-label {
-  font-size: 14px;
   line-height: 1.1;
 
   .highcharts-data-label-state {
@@ -396,13 +399,13 @@ $mobile-xs-tiles-breakpoint-max: 400px;
     align-items: center;
 
     .abbr {
-      font-size: 16px;
       font-weight: 600;
+      margin-bottom: 0;
     }
 
     .value {
       margin-top: 4px;
-      font-size: 14px;
+      font-weight: 400;
     }
 
     &.hover {
@@ -424,13 +427,8 @@ $mobile-xs-tiles-breakpoint-max: 400px;
     line-height: 1;
 
     .highcharts-data-label-state {
-      .abbr {
-        font-size: 12px;
-      }
-
       .value {
-        margin-top: 3px;
-        font-size: 9px;
+        display: none;
       }
     }
   }

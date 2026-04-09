@@ -228,12 +228,12 @@ export function tileFormatter() {
     ' ' +
     point.className +
     ' ">' +
-    '<span class="abbr">' +
+    '<p class="abbr">' +
     point.name +
-    '</span>' +
-    '<span class="value">' +
+    '</p>' +
+    '<p class="value">' +
     value +
-    '</span>' +
+    '</p>' +
     '</div>'
   );
 }
@@ -244,17 +244,23 @@ export function tileFormatter() {
  * @returns {string} html output
  */
 export function tooltipFormatter() {
+  const info =
+    this.product || this.issue
+      ? '<h5 class="line">Highest complaint volume</h5>'
+      : null;
   const product = this.product
-    ? `<div class="row"><h5>Product with highest complaint volume</h5><p>${this.product}</p></div>`
+    ? `<p><strong>Product: </strong>${this.product}</p>`
     : '';
 
   const issue = this.issue
-    ? `<div class="row"><h5>Issue with highest complaint volume</h5><p>${this.issue}</p></div>`
+    ? `<p><strong>Issue: </strong>${this.issue}</p>`
     : '';
 
   const value = this.value.toLocaleString();
   return (
-    `<div class="row"><h4>${this.fullName} (${this.name})</h4></div><div class="row"><h5>Complaints</h5><p>${value}</p></div>` +
+    `<div class=""><h4>${this.fullName} (${this.name})</h4></div>` +
+    `<div class="row"><h5 class="u-mb10">Complaint count</h5><p>${value}</p></div>` +
+    info +
     product +
     issue
   );
@@ -711,6 +717,10 @@ class TileMap {
         },
       };
     }
+    options.chart.marginTop = 30;
+    options.chart.marginBottom = 30;
+    options.chart.marginRight = 30;
+    options.chart.marginLeft = 30;
 
     this.draw(el, options);
   }

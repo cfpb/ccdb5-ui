@@ -121,15 +121,15 @@ $cf-fonts-path: '/static/fonts';
   }
 
   .content__sidebar {
-    width: 420px;
+    width: 370px;
     padding: 0;
     border: 0;
     margin: 0;
   }
 
   .content__main {
-    width: calc(100% - 420px);
-    padding: 0;
+    width: calc(100% - 370px);
+    padding: 0 0 0 15px;
     border: 0;
 
     &::after {

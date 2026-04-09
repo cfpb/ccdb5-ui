@@ -6,6 +6,7 @@
   border-left: 0; // Don't double the border with the filters
   background-color: var(--green-20);
   padding: $gutter-normal $grid-gutter-width;
+  margin-left: -15px;
 
   h2 {
     margin: 0;
@@ -17,8 +18,8 @@
 
   .export-results {
     padding-top: $gutter-minimum;
-    margin: 0;
-    margin-bottom: $gutter-minimum;
+    margin: 0 0 $gutter-minimum;
+
     .a-btn {
       margin-right: $gutter-normal;
       font-size: $size-v;
@@ -56,7 +57,7 @@
     }
   }
 
-  @media screen and (min-width: $layout-breakpoint-superwide-min){
+  @media screen and (min-width: $layout-breakpoint-superwide-min) {
     padding-left: 40px;
   }
 }

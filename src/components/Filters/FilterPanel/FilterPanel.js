@@ -32,7 +32,7 @@ export const FilterPanel = () => {
     'complaints submitted by or on behalf of consumers';
 
   return (
-    <div>
+    <>
       {!!hasFilters && (
         <section className="filter-panel">
           {!!hasButton && (
@@ -108,6 +108,6 @@ export const FilterPanel = () => {
           <SimpleFilter title="Tags" desc={descTags} fieldName="tags" />
         </section>
       )}
-    </div>
+    </>
   );
 };
