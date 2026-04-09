@@ -7,16 +7,26 @@
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: baseline;
+
   .layout-row {
-    display: block;
+    display: inline-flex;
+    align-items: baseline;
+    gap: $gutter-narrow;
   }
+
   .clear-all {
     button {
       border-color: var(--red-dark);
       color: var(--red-dark);
       margin-left: $gutter-narrow;
+      align-items: baseline;
+      display: inline-flex;
+      line-height: 1.4;
+
       svg {
         margin-right: math.div($gutter-narrow, 2);
+        position: relative;
+        top: 3px;
       }
     }
   }
@@ -29,10 +39,12 @@
   li {
     display: inline-block;
     position: relative;
+    vertical-align: baseline;
   }
 
   ul {
     padding-top: $gutter-narrow;
+    margin: 0;
   }
 
   @media screen and (max-width: $layout-breakpoint-phone-max) {
@@ -43,6 +55,7 @@
     }
     .clear-all {
       display: block;
+
       button {
         margin: 0;
       }

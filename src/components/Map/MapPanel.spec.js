@@ -1,14 +1,9 @@
-import * as viewActions from '../../reducers/filters/filtersSlice';
 import { filtersState } from '../../reducers/filters/filtersSlice';
 import { queryState } from '../../reducers/query/querySlice';
 import { viewState } from '../../reducers/view/viewSlice';
 import { MapPanel } from './MapPanel';
 import { merge } from '../../testUtils/functionHelpers';
-import {
-  fireEvent,
-  screen,
-  testRender as render,
-} from '../../testUtils/test-utils';
+import { screen, testRender as render } from '../../testUtils/test-utils';
 import { MODE_MAP } from '../../constants';
 import fetchMock from 'jest-fetch-mock';
 import { aggResponse, geoResponse } from './fixture';
@@ -95,18 +90,10 @@ describe('MapPanel', () => {
       width: 1000,
     };
 
-    const dismissSpy = jest
-      .spyOn(viewActions, 'mapWarningDismissed')
-      .mockReturnValue(jest.fn());
-
     renderComponent(filters, query, view);
 
     await screen.findByText(
       'Showing 794,615 matches out of 6,708,879 total complaints',
-    );
-    await screen.findByRole('alert');
-    expect(screen.getByRole('alert')).toHaveTextContent(
-      '“Complaints per 1,000 population” is not available with your filter selections.',
     );
 
     expect(
@@ -114,8 +101,6 @@ describe('MapPanel', () => {
         'Showing 794,615 matches out of 6,708,879 total complaints',
       ),
     ).toBeInTheDocument();
-    fireEvent.click(screen.getByLabelText('Dismiss'));
-    expect(dismissSpy).toHaveBeenCalledTimes(1);
 
     expect(
       screen.queryByRole('button', { name: /Close filters/ }),

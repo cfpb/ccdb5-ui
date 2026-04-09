@@ -82,7 +82,7 @@ describe('TileChartMap', () => {
     expect(screen.getByTestId('tile-chart-map')).toBeInTheDocument();
     expect(screen.getByTestId('tile-chart-map')).not.toHaveClass('print');
     expect(screen.getByText('FL')).toBeInTheDocument();
-    expect(screen.getByText('580,351')).toBeInTheDocument();
+    expect(screen.getByText('580K')).toBeInTheDocument();
     expect(screen.getByLabelText('FL, value: 580,351.')).toBeInTheDocument();
     const { point } = getTileMapPoint('FL');
     expect(point).toBeDefined();
@@ -120,7 +120,6 @@ describe('TileChartMap', () => {
 
     await screen.findByLabelText('FL, value: 580,351.');
     expect(screen.getByLabelText('FL, value: 580,351.')).toBeInTheDocument();
-    expect(screen.getByText('Complaints per 1,000')).toBeInTheDocument();
     expect(screen.getByText('FL')).toBeInTheDocument();
     expect(screen.getByText('28.62')).toBeInTheDocument();
     // tooltip check

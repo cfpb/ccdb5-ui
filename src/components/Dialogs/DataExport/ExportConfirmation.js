@@ -22,7 +22,7 @@ export const ExportConfirmation = () => {
         />
       </div>
       <div className="body">
-        <div className="body-copy instructions">
+        <div className="instructions">
           It may take a few minutes for your file to download. You can keep
           working while it processes.
         </div>

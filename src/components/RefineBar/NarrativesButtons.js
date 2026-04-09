@@ -3,7 +3,7 @@ import {
   filterRemoved,
 } from '../../reducers/filters/filtersSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button } from '@cfpb/design-system-react';
+import { Button, Paragraph } from '@cfpb/design-system-react';
 import { selectedClass } from '../../utils';
 import { selectFiltersHasNarrative } from '../../reducers/filters/selectors';
 
@@ -16,12 +16,12 @@ export const NarrativesButtons = () => {
 
   return (
     <section className="narratives-buttons">
-      <p>Read</p>
+      <Paragraph>Read</Paragraph>
       <div className="m-btn-group">
         <Button
           id="btn-add-narratives"
           label="Only complaints with narratives"
-          className={'a-btn' + selectedClass(true, isNarrativesButtonDisabled)}
+          className={selectedClass(true, isNarrativesButtonDisabled)}
           disabled={isNarrativesButtonDisabled}
           onClick={() => {
             dispatch(filterAdded(FIELD_NAME, ''));
@@ -31,9 +31,7 @@ export const NarrativesButtons = () => {
         <Button
           id="btn-remove-narratives"
           label="All complaints"
-          className={
-            'a-btn' + selectedClass(false, !!isNarrativesButtonDisabled)
-          }
+          className={selectedClass(false, !!isNarrativesButtonDisabled)}
           disabled={!isNarrativesButtonDisabled}
           onClick={() => {
             dispatch(filterRemoved(FIELD_NAME, ''));

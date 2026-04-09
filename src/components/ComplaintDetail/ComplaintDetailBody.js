@@ -1,13 +1,13 @@
 import { ariaReadoutNumbers } from '../../utils';
 import PropTypes from 'prop-types';
-import { Icon, Heading } from '@cfpb/design-system-react';
+import { Heading, Icon } from '@cfpb/design-system-react';
 import { formatDisplayDate } from '../../utils/formatDate';
 
 const SubAggregation = ({ label, value }) => {
   return value ? (
     <div className="layout-row">
-      <span className="body-copy subitem">{label}</span>
-      <span className="body-copy">{value}</span>
+      <span className="subitem">{label}</span>
+      <span>{value}</span>
     </div>
   ) : null;
 };
@@ -38,7 +38,7 @@ const ConsumerConsent = ({ value }) => {
   return (
     <div>
       <span className="cf-icon__before">{consentIcon}</span>
-      <span className="body-copy">{value}</span>
+      <span>{value}</span>
     </div>
   );
 };
@@ -47,7 +47,7 @@ ConsumerConsent.propTypes = { value: PropTypes.string };
 
 const CompanyTimely = ({ value }) => {
   if (!value) {
-    return <span className="body-copy">N/A</span>;
+    return <span>N/A</span>;
   }
 
   return (
@@ -55,7 +55,7 @@ const CompanyTimely = ({ value }) => {
       <span className="cf-icon__before">
         <Icon name="clock-round" isPresentational />
       </span>
-      <span className="body-copy">{value}</span>
+      <span>{value}</span>
     </div>
   );
 };
@@ -79,37 +79,35 @@ export const ComplaintDetailBody = ({ data, error, id }) => {
       <div className="card">
         <div className="card-left layout-column">
           <Heading type="4">Date CFPB received the complaint</Heading>
-          <span className="body-copy">
-            {formatDisplayDate(data.date_received)}
-          </span>
+          <span>{formatDisplayDate(data.date_received)}</span>
 
           <Heading type="4" className="u-mt15">
             Consumer’s state
           </Heading>
-          <span className="body-copy">{data.state}</span>
+          <span>{data.state}</span>
 
           <Heading type="4" className="u-mt15">
             Consumer’s zip
           </Heading>
-          <span className="body-copy">{data.zip_code}</span>
+          <span>{data.zip_code}</span>
 
           <Heading type="4" className="u-mt15">
             Submitted via
           </Heading>
-          <span className="body-copy">{data.submitted_via}</span>
+          <span>{data.submitted_via}</span>
 
           {data.tags && data.tags.length ? (
             <>
               <Heading type="4" className="u-mt15">
                 Tags
               </Heading>
-              <span className="body-copy">{data.tags}</span>
+              <span>{data.tags}</span>
             </>
           ) : null}
           <Heading type="4" className="u-mt15">
             Did consumer dispute the response?
           </Heading>
-          <span className="body-copy">{data.consumer_disputed}</span>
+          <span>{data.consumer_disputed}</span>
         </div>
         <div className="card-right layout-column">
           <Heading type="4">Product</Heading>
@@ -132,7 +130,7 @@ export const ComplaintDetailBody = ({ data, error, id }) => {
               <Heading type="4" className="u-mt15">
                 Consumer complaint narrative
               </Heading>
-              <span className="body-copy">{narrative}</span>
+              <span>{narrative}</span>
             </>
           ) : null}
         </div>
@@ -144,14 +142,12 @@ export const ComplaintDetailBody = ({ data, error, id }) => {
       <div className="card">
         <div className="card-left layout-column">
           <Heading type="4">Date complaint sent to company</Heading>
-          <span className="body-copy">
-            {formatDisplayDate(data.date_sent_to_company)}
-          </span>
+          <span>{formatDisplayDate(data.date_sent_to_company)}</span>
 
           <Heading type="4" className="u-mt15">
             Company name
           </Heading>
-          <span className="body-copy">{data.company}</span>
+          <span>{data.company}</span>
         </div>
         <div className="card-right layout-column">
           <Heading type="4">Timely response?</Heading>
@@ -160,14 +156,12 @@ export const ComplaintDetailBody = ({ data, error, id }) => {
           <Heading type="4" className="u-mt15">
             Company response to consumer
           </Heading>
-          <span className="body-copy">
-            {data.company_response ? data.company_response : 'N/A'}
-          </span>
+          <span>{data.company_response ? data.company_response : 'N/A'}</span>
 
           <Heading type="4" className="u-mt15">
             Company public response
           </Heading>
-          <span className="body-copy">
+          <span>
             {data.company_public_response
               ? data.company_public_response
               : 'N/A'}

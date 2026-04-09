@@ -9,6 +9,7 @@ import {
 import { externalTooltipFormatter } from '../../../utils/chart';
 import { useGetTrends } from '../../../api/hooks/useGetTrends';
 import { AsyncTypeahead } from '../../Typeahead/AsyncTypeahead/AsyncTypeahead';
+import { Paragraph } from '@cfpb/design-system-react';
 
 const WARN_SERIES_BREAK =
   'CFPB updated product and issue options in April 2017 and August 2023.';
@@ -39,10 +40,10 @@ export const ExternalTooltip = () => {
             ariaLabel="Company search bar"
           />
         )}
-        <p className="a-micro-copy">
+        <Paragraph className="a-micro-copy">
           <span className="heading">{tooltip.heading}</span>
           <span className="date">{tooltip.date}</span>
-        </p>
+        </Paragraph>
         <div>
           <ul className="tooltip-ul">
             {tooltip.values.map((val, key) => (
@@ -73,7 +74,7 @@ export const ExternalTooltip = () => {
             aria-label="Learn more about Product and
                   Issue changes (opens in new window)"
           >
-            Learn More
+            Learn more
           </a>
         </p>
       </section>

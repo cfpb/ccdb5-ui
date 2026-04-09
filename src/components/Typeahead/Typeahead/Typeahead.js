@@ -54,7 +54,7 @@ export const Typeahead = ({
             maxResults={maxResults}
             placeholder={placeholder}
             renderMenuItemChildren={(option) => (
-              <li className="typeahead-option body-copy">
+              <li className="typeahead-option">
                 <HighlightingOption
                   key={option.key}
                   label={option.label}

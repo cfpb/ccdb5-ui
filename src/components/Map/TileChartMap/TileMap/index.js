@@ -216,7 +216,12 @@ export function mouseoverPoint() {
  */
 export function tileFormatter() {
   const point = this.point || this;
-  const value = point.displayValue.toLocaleString();
+  const value =
+    typeof point.displayValue === 'number'
+      ? point.displayValue >= 1000
+        ? `${Math.floor(point.displayValue / 1000)}K`
+        : point.displayValue.toLocaleString()
+      : point.displayValue || '';
   return (
     '<div class="highcharts-data-label-state tile-' +
     point.name +
@@ -240,127 +245,351 @@ export function tileFormatter() {
  */
 export function tooltipFormatter() {
   const product = this.product
-    ? '<div class="row u-clearfix">' +
-      '<p class="u-float-left">Product with highest complaint volume</p>' +
-      '<p class="u-right">' +
-      this.product +
-      '</p>' +
-      '</div>'
+    ? `<div class="row"><h5>Product with highest complaint volume</h5><p>${this.product}</p></div>`
     : '';
 
   const issue = this.issue
-    ? '<div class="row u-clearfix">' +
-      '<p class="u-float-left">Issue with highest complaint volume</p>' +
-      '<p class="u-right">' +
-      this.issue +
-      '</p>' +
-      '</div>'
+    ? `<div class="row"><h5>Issue with highest complaint volume</h5><p>${this.issue}</p></div>`
     : '';
 
   const value = this.value.toLocaleString();
-  const perCapita = this.perCapita
-    ? '<div class="row u-clearfix">' +
-      '<p class="u-float-left">Per 1000 population</p>' +
-      '<p class="u-right">' +
-      this.perCapita +
-      '</p>' +
-      '</div>'
-    : '';
-
   return (
-    '<div class="title">' +
-    this.fullName +
-    '</div>' +
-    '<div class="row u-clearfix">' +
-    '<p class="u-float-left">Complaints</p>' +
-    '<p class="u-right">' +
-    value +
-    '</p>' +
-    '</div>' +
-    perCapita +
+    `<div class="row"><h4>${this.fullName} (${this.name})</h4></div><div class="row"><h5>Complaints</h5><p>${value}</p></div>` +
     product +
     issue
   );
 }
 
 /**
- * Draw a legend on a chart.
+ * Determine tooltip placement based on point and chart bounds.
  *
- * @param {object} chart - A highchart chart.
+ * @param {object} root0 - Tooltip placement inputs.
+ * @param {number} root0.plotX - Point X within plot area.
+ * @param {number} root0.plotY - Point Y within plot area.
+ * @param {number} root0.plotWidth - Plot area width.
+ * @param {number} root0.plotHeight - Plot area height.
+ * @param {number} root0.labelWidth - Tooltip label width.
+ * @param {number} root0.labelHeight - Tooltip label height.
+ * @returns {'top' | 'bottom' | 'left' | 'right'} Placement.
  */
-export function _drawLegend(chart) {
-  const bins = chart.options.bins;
-  let boxWidth = 65;
-  const boxHeight = 17;
-  let boxPadding = 5;
+/**
+ * Compute available space around a point in the plot area.
+ *
+ * @param {object} root0 - Space inputs.
+ * @param {number} root0.plotX - Point X within plot area.
+ * @param {number} root0.plotY - Point Y within plot area.
+ * @param {number} root0.plotWidth - Plot area width.
+ * @param {number} root0.plotHeight - Plot area height.
+ * @returns {object} Space values.
+ */
+function getPointSpaces({ plotX, plotY, plotWidth, plotHeight }) {
+  return {
+    top: plotY,
+    bottom: plotHeight - plotY,
+    left: plotX,
+    right: plotWidth - plotX,
+  };
+}
 
-  const beCompact = chart.chartWidth < 600;
-  if (beCompact) {
-    boxWidth = 45;
-    boxPadding = 1;
+/**
+ * Determine which placements have enough space.
+ *
+ * @param {object} root0 - Space inputs.
+ * @param {object} root0.spaces - Space values.
+ * @param {number} root0.labelWidth - Tooltip label width.
+ * @param {number} root0.labelHeight - Tooltip label height.
+ * @param {number} root0.gap - Gap between point and tooltip.
+ * @returns {object} Fit map.
+ */
+function getPlacementFits({ spaces, labelWidth, labelHeight, gap }) {
+  return {
+    top: spaces.top >= labelHeight + gap,
+    bottom: spaces.bottom >= labelHeight + gap,
+    left: spaces.left >= labelWidth + gap,
+    right: spaces.right >= labelWidth + gap,
+  };
+}
+
+/**
+ * Order preferred placements based on point location.
+ *
+ * @param {object} root0 - Location inputs.
+ * @param {number} root0.plotX - Point X within plot area.
+ * @param {number} root0.plotY - Point Y within plot area.
+ * @param {number} root0.plotWidth - Plot area width.
+ * @param {number} root0.plotHeight - Plot area height.
+ * @returns {Array<'top' | 'bottom' | 'left' | 'right'>} Preference order.
+ */
+function getPreferredPlacements({ plotX, plotY, plotWidth, plotHeight }) {
+  const leftThird = plotWidth * 0.33;
+  const rightThird = plotWidth * 0.66;
+  const topThird = plotHeight * 0.33;
+  const bottomThird = plotHeight * 0.66;
+
+  if (plotX <= leftThird) return ['right', 'top', 'bottom', 'left'];
+  if (plotX >= rightThird) return ['left', 'top', 'bottom', 'right'];
+  if (plotY <= topThird) return ['bottom', 'left', 'right', 'top'];
+  if (plotY >= bottomThird) return ['top', 'left', 'right', 'bottom'];
+
+  return ['top', 'bottom', 'right', 'left'];
+}
+
+/**
+ * Pick the first placement that fits.
+ *
+ * @param {object} fits - Fit map.
+ * @param {Array<'top' | 'bottom' | 'left' | 'right'>} order - Placement order.
+ * @returns {'top' | 'bottom' | 'left' | 'right' | null} Placement.
+ */
+function pickPlacement(fits, order) {
+  for (const placement of order) {
+    if (fits[placement]) {
+      return placement;
+    }
+  }
+  return null;
+}
+
+/**
+ * Determine tooltip placement based on point and chart bounds.
+ *
+ * @param {object} root0 - Tooltip placement inputs.
+ * @param {number} root0.plotX - Point X within plot area.
+ * @param {number} root0.plotY - Point Y within plot area.
+ * @param {number} root0.plotWidth - Plot area width.
+ * @param {number} root0.plotHeight - Plot area height.
+ * @param {number} root0.labelWidth - Tooltip label width.
+ * @param {number} root0.labelHeight - Tooltip label height.
+ * @returns {'top' | 'bottom' | 'left' | 'right'} Placement.
+ */
+function getTooltipPlacement({
+  plotX,
+  plotY,
+  plotWidth,
+  plotHeight,
+  labelWidth,
+  labelHeight,
+}) {
+  const gap = 12;
+  const spaces = getPointSpaces({ plotX, plotY, plotWidth, plotHeight });
+  const fits = getPlacementFits({ spaces, labelWidth, labelHeight, gap });
+  const preferred = pickPlacement(
+    fits,
+    getPreferredPlacements({ plotX, plotY, plotWidth, plotHeight }),
+  );
+  const fallback = pickPlacement(fits, ['top', 'bottom', 'right', 'left']);
+
+  return preferred || fallback || 'top';
+}
+
+/**
+ * Clamp a number between two bounds.
+ *
+ * @param {number} value - Value to clamp.
+ * @param {number} min - Minimum allowed value.
+ * @param {number} max - Maximum allowed value.
+ * @returns {number} Clamped value.
+ */
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+
+const TOOLTIP_AXIS_X = 'x';
+const TOOLTIP_AXIS_Y = 'y';
+const TOOLTIP_INSET = 8;
+
+/**
+ * Compute the tooltip anchor coordinates for a placement.
+ *
+ * @param {'top' | 'bottom' | 'left' | 'right'} placement - Tooltip placement.
+ * @param {number} plotX - Point X within plot area.
+ * @param {number} plotY - Point Y within plot area.
+ * @param {number} labelWidth - Tooltip label width.
+ * @param {number} labelHeight - Tooltip label height.
+ * @returns {object} Anchor coordinates.
+ */
+function getTooltipAnchor(placement, plotX, plotY, labelWidth, labelHeight) {
+  const gap = 12;
+  const centerX = plotX - labelWidth / 2;
+  const aboveY = plotY - labelHeight - gap;
+  if (placement === 'bottom') {
+    return { coordX: centerX, coordY: plotY + gap };
+  }
+  if (placement === 'left') {
+    return {
+      coordX: plotX - labelWidth - gap,
+      coordY: plotY - labelHeight / 2,
+    };
+  }
+  if (placement === 'right') {
+    return { coordX: plotX + gap, coordY: plotY - labelHeight / 2 };
+  }
+  return { coordX: centerX, coordY: aboveY };
+}
+
+/**
+ * Compute caret offset for the tooltip edge.
+ *
+ * @param {'top' | 'bottom' | 'left' | 'right'} placement - Tooltip placement.
+ * @param {number} plotX - Point X within plot area.
+ * @param {number} plotY - Point Y within plot area.
+ * @param {number} coordX - Tooltip X within plot area.
+ * @param {number} coordY - Tooltip Y within plot area.
+ * @param {number} labelWidth - Tooltip label width.
+ * @param {number} labelHeight - Tooltip label height.
+ * @returns {number} Caret offset.
+ */
+function getCaretOffset(
+  placement,
+  plotX,
+  plotY,
+  coordX,
+  coordY,
+  labelWidth,
+  labelHeight,
+) {
+  const edgePadding = 12;
+  const spanWidth = Math.max(labelWidth - TOOLTIP_INSET * 2, 0);
+  const spanHeight = Math.max(labelHeight - TOOLTIP_INSET * 2, 0);
+  if (placement === 'left' || placement === 'right') {
+    return clamp(
+      plotY - coordY - TOOLTIP_INSET,
+      edgePadding,
+      spanHeight - edgePadding,
+    );
+  }
+  return clamp(
+    plotX - coordX - TOOLTIP_INSET,
+    edgePadding,
+    spanWidth - edgePadding,
+  );
+}
+
+/**
+ * Compute tooltip coordinates and caret placement.
+ *
+ * @param {object} root0 - Tooltip geometry inputs.
+ * @param {number} root0.plotX - Point X within plot area.
+ * @param {number} root0.plotY - Point Y within plot area.
+ * @param {number} root0.plotWidth - Plot area width.
+ * @param {number} root0.plotHeight - Plot area height.
+ * @param {number} root0.labelWidth - Tooltip label width.
+ * @param {number} root0.labelHeight - Tooltip label height.
+ * @returns {object} Tooltip position data.
+ */
+function computeTooltipPosition({
+  plotX,
+  plotY,
+  plotWidth,
+  plotHeight,
+  labelWidth,
+  labelHeight,
+}) {
+  const placement = getTooltipPlacement({
+    plotX,
+    plotY,
+    plotWidth,
+    plotHeight,
+    labelWidth,
+    labelHeight,
+  });
+  const anchor = getTooltipAnchor(
+    placement,
+    plotX,
+    plotY,
+    labelWidth,
+    labelHeight,
+  );
+  const coordX = clamp(anchor.coordX, 0, plotWidth - labelWidth);
+  const coordY = clamp(anchor.coordY, 0, plotHeight - labelHeight);
+  const caretPos = getCaretOffset(
+    placement,
+    plotX,
+    plotY,
+    coordX,
+    coordY,
+    labelWidth,
+    labelHeight,
+  );
+
+  return {
+    caretPos,
+    placement,
+    coordX,
+    coordY,
+  };
+}
+
+/**
+ * Resolve tooltip DOM nodes for caret placement.
+ *
+ * @param {object|null} label - Highcharts tooltip label.
+ * @returns {object} Tooltip wrapper and span nodes.
+ */
+// eslint-disable-next-line complexity
+function getTooltipElements(label) {
+  const htmlRoot = label?.div || label?.element || null;
+  const wrapper =
+    htmlRoot && htmlRoot.classList?.contains('highcharts-tooltip')
+      ? htmlRoot
+      : htmlRoot?.parentNode || null;
+  const span = htmlRoot?.querySelector
+    ? htmlRoot.querySelector('span')
+    : wrapper?.querySelector?.('span') || null;
+
+  return { wrapper, span };
+}
+
+/**
+ * Apply caret metadata to tooltip DOM nodes.
+ *
+ * @param {object|null} label - Highcharts tooltip label.
+ * @param {'top' | 'bottom' | 'left' | 'right'} placement - Tooltip placement.
+ * @param {number} caretPos - Caret offset along the tooltip edge.
+ */
+function applyTooltipCaret(label, placement, caretPos) {
+  const { wrapper, span } = getTooltipElements(label);
+  if (wrapper?.setAttribute) {
+    wrapper.setAttribute('data-caret', placement);
+    wrapper.style.setProperty('--caret-pos', `${caretPos}px`);
+  }
+  if (span?.setAttribute) {
+    span.setAttribute('data-caret', placement);
+    span.style.setProperty('--caret-pos', `${caretPos}px`);
+  }
+}
+
+/**
+ * Highcharts tooltip positioner.
+ *
+ * @param {number} labelWidth - Tooltip width.
+ * @param {number} labelHeight - Tooltip height.
+ * @param {object} point - Highcharts point.
+ * @returns {object} Tooltip coordinates.
+ */
+function tooltipPositioner(labelWidth, labelHeight, point) {
+  if (!point) {
+    return { [TOOLTIP_AXIS_X]: 0, [TOOLTIP_AXIS_Y]: 0 };
   }
 
-  /* https://api.highcharts.com/class-reference/Highcharts.SVGRenderer#label
-     boxes and labels for legend buckets */
-  // main container
-  const legendContainer = chart.renderer.g('legend-container').add();
+  const chart = this.chart;
+  const plotX = point.plotX ?? 0;
+  const plotY = point.plotY ?? 0;
+  const position = computeTooltipPosition({
+    plotX,
+    plotY,
+    plotWidth: chart.plotWidth,
+    plotHeight: chart.plotHeight,
+    labelWidth,
+    labelHeight,
+  });
 
-  const legendText = chart.renderer
-    .g('legend-title')
-    .translate(boxPadding, 0)
-    .add(legendContainer);
-  // key
-  chart.renderer
-    .label('Key', 0, 0, null, null, null, true, false, 'legend-key')
-    .add(legendText);
+  applyTooltipCaret(this.label, position.placement, position.caretPos);
 
-  // horizontal separator line
-  const sepWidth = bins.length * (boxWidth + boxPadding);
-  chart.renderer
-    .path(['M', 0, 0, 'L', sepWidth, 0])
-    .attr({
-      class: 'separator',
-      'stroke-width': 1,
-      stroke: 'gray',
-    })
-    .translate(0, 25)
-    .add(legendText);
-
-  // what legend represents
-  const labelTx =
-    'Map shading: <span class="type">' +
-    chart.options.legend.legendTitle +
-    '</span>';
-  chart.renderer
-    .label(labelTx, 0, 28, null, null, null, true, false, 'legend-description')
-    .add(legendText);
-
-  // bars
-  const legend = chart.renderer
-    .g('legend__tile-map')
-    .translate(7, 50)
-    .add(legendContainer);
-
-  for (let idx = 0; idx < bins.length; idx++) {
-    const rend = chart.renderer
-      .g(`g${idx}`)
-      .translate(idx * (boxWidth + boxPadding), 0)
-      .add(legend);
-
-    const bin = bins[idx];
-
-    chart.renderer
-      .rect(0, 0, boxWidth, boxHeight)
-      .attr({ fill: bin.color })
-      .addClass('legend-box')
-      .add(rend);
-
-    chart.renderer
-      .text(beCompact ? bin.shortName : bin.name, 0, boxHeight)
-      .addClass('legend-text')
-      .translate(3, -3)
-      .add(rend);
-  }
+  return {
+    [TOOLTIP_AXIS_X]: chart.plotLeft + position.coordX,
+    [TOOLTIP_AXIS_Y]: chart.plotTop + position.coordY,
+  };
 }
 
 /* ----------------------------------------------------------------------------
@@ -372,13 +601,12 @@ Highcharts.setOptions({
   },
 });
 
-const colors = [
-  'rgba(212, 231, 230, 1)',
-  'rgba(180, 210, 209, 1)',
-  'rgba(158, 196, 195, 1)',
-  'rgba(137, 182, 181, 1)',
-  'rgba(112, 166, 165, 1)',
-  'rgba(87, 150, 149, 1)',
+export const TILE_MAP_COLORS = [
+  'rgb(240, 247, 246)',
+  'rgb(212, 231, 230)',
+  'rgb(180, 210, 209)',
+  'rgb(137, 182, 181)',
+  'rgb(87, 150, 149)',
 ];
 
 /* ----------------------------------------------------------------------------
@@ -386,7 +614,7 @@ const colors = [
 
 class TileMap {
   constructor({ el, data, isPerCapita, events, height, hasTip, width }) {
-    const scale = makeScale(data, colors);
+    const scale = makeScale(data, TILE_MAP_COLORS);
     const quantiles = scale.quantiles();
 
     let bins, legendTitle;
@@ -431,6 +659,7 @@ class TileMap {
         headerFormat: '',
         pointFormatter: tooltipFormatter,
         useHTML: true,
+        positioner: tooltipPositioner,
       },
       plotOptions: {
         series: {
@@ -483,33 +712,11 @@ class TileMap {
       };
     }
 
-    // to adjust for legend height
-    const mapBreakpoints = [
-      { width: 700, legendHeight: 20 },
-      { width: 580, legendHeight: 25 },
-      { width: 500, legendHeight: 35 },
-      { width: 400, legendHeight: 60 },
-      { width: 370, legendHeight: 70 },
-    ];
-
-    let legendHeight = 10;
-
-    mapBreakpoints.forEach((item) => {
-      if (width < item.width) {
-        legendHeight = item.legendHeight;
-      }
-    });
-
-    options.chart.marginRight = 0;
-    options.chart.marginLeft = 0;
-    options.chart.marginTop = legendHeight;
-    options.chart.height += legendHeight;
-
     this.draw(el, options);
   }
 
   draw(el, options) {
-    Highcharts.mapChart(el, options, _drawLegend);
+    Highcharts.mapChart(el, options);
   }
 }
 

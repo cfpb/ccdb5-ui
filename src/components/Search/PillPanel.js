@@ -81,7 +81,6 @@ export const PillPanel = () => {
             label="Clear all filters"
             iconLeft="delete"
             isLink
-            className="body-copy"
             onClick={() => dispatch(filtersCleared(searchField))}
           />
         </li>

@@ -105,7 +105,7 @@ export const AggregationItem = ({ fieldName, item }) => {
         id={id}
         onChange={onChange}
       />
-      <label className="a-label flex-all bucket-key body-copy" htmlFor={id}>
+      <label className="a-label flex-all bucket-key" htmlFor={id}>
         {value}
       </label>
       <span className="flex-fixed bucket-count">

@@ -170,13 +170,13 @@ export const DateFilter = () => {
             aria-label="Learn more about Product and
                   Issue changes (opens in new window)"
           >
-            Learn More
+            Learn more
           </a>
         </p>
         <ul className="date-inputs">
           <li>
             <label
-              className="a-label a-label__heading body-copy"
+              className="a-label a-label__heading"
               htmlFor={`${fieldName}-from`}
             >
               From
@@ -203,7 +203,7 @@ export const DateFilter = () => {
           </li>
           <li>
             <label
-              className="a-label a-label__heading body-copy"
+              className="a-label a-label__heading"
               htmlFor={`${fieldName}-through`}
             >
               Through

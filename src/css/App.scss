@@ -19,6 +19,22 @@ $cf-fonts-path: '/static/fonts';
   max-width: 1170px !important;
 }
 
+// Dev harness layout (localhost:3000).
+.ccdb-dev-harness #ccdb-ui-root {
+  width: 100%;
+  max-width: 1230px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 30px;
+  padding-right: 30px;
+  box-sizing: border-box;
+
+  @media screen and (max-width: $layout-breakpoint-phone-max) {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
 // App-wide definitions
 
 .layout-row {
@@ -38,10 +54,6 @@ $cf-fonts-path: '/static/fonts';
 
 .flex-all {
   flex: 1 0 auto;
-}
-
-.body-copy {
-  font-size: 16px;
 }
 
 .cols {

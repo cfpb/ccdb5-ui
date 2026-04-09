@@ -2,7 +2,7 @@ import '../Typeahead.scss';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { AsyncTypeahead as Typeahead } from 'react-bootstrap-typeahead';
-import { Icon, Button } from '@cfpb/design-system-react';
+import { Button, Icon } from '@cfpb/design-system-react';
 import { HighlightingOption } from '../HighlightingOption/HighlightingOption';
 import { ClearButton } from '../ClearButton/ClearButton';
 import { useDispatch, useSelector } from 'react-redux';
@@ -136,7 +136,7 @@ export const AsyncTypeahead = ({
             maxResults={maxResults}
             placeholder={placeholder}
             renderMenuItemChildren={(option) => (
-              <li className="typeahead-option body-copy">
+              <li className="typeahead-option">
                 <HighlightingOption
                   key={option.key}
                   label={option.label}

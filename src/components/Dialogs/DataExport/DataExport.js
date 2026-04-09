@@ -87,7 +87,7 @@ export const DataExport = () => {
         />
       </div>
       <div className="body">
-        <div className="body-copy instructions">
+        <div className="instructions">
           To download a copy of this dataset, choose the file format and which
           complaints you want to export below.
         </div>
@@ -95,7 +95,7 @@ export const DataExport = () => {
           <div className="group-title">
             Select a format for the exported file
           </div>
-          <div className="body-copy">
+          <div>
             <div className="m-form-field m-form-field--radio m-form-field--lg-target">
               <input
                 checked={format === FORMAT_CSV}
@@ -135,7 +135,7 @@ export const DataExport = () => {
             <div className="group-title">
               Select which complaints you’d like to export
             </div>
-            <div className="body-copy">
+            <div>
               <div className="m-form-field m-form-field--radio m-form-field--lg-target">
                 <input
                   checked={dataset === DATASET_FILTERED}

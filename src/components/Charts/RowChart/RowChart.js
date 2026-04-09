@@ -2,7 +2,7 @@ import './RowChart.scss';
 import * as d3 from 'd3';
 import { max } from 'd3-array';
 import { miniTooltip, row } from 'britecharts';
-import { Heading } from '@cfpb/design-system-react';
+import { Heading, Paragraph } from '@cfpb/design-system-react';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -259,7 +259,7 @@ export const RowChart = ({
   return total ? (
     <div className="row-chart-section">
       <Heading type="3">{title}</Heading>
-      <p>{helperText}</p>
+      <Paragraph>{helperText}</Paragraph>
       <div id={'row-chart-' + id} data-testid={'row-chart-' + id} />
     </div>
   ) : null;

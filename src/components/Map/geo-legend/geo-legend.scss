@@ -1,0 +1,59 @@
+@use '@cfpb/cfpb-design-system/src/elements/abstracts' as *;
+
+.map-legend {
+  background-color: var(--white);
+  display: grid;
+  padding: 30px;
+
+  .map-legend__description {
+    color: var(--label-helper);
+  }
+}
+
+.map-legend__bins {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.map-legend__bin {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+.map-legend__swatch {
+  height: 15px;
+  border-top: 1px solid var(--gray-80);
+  border-bottom: 1px solid var(--gray-80);
+  border-right: 1px solid var(--gray-80);
+}
+
+.map-legend__bin:first-child .map-legend__swatch {
+  border-left: 1px solid var(--gray-80);
+}
+
+.map-legend__label {
+  color: var(--black);
+  margin-top: 10px;
+  text-align: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .map-legend {
+    padding: 0 10px 12px;
+  }
+
+  .map-legend__bins {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    row-gap: 10px;
+  }
+
+  .map-legend__label {
+    white-space: normal;
+  }
+}

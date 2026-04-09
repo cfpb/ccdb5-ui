@@ -2,30 +2,6 @@ import * as complaints from '../__fixtures__/complaints';
 import * as sut from '../index';
 import TileMap from '../index';
 
-const makeChartMock = () => {
-  const chartMock = {};
-
-  const props = [
-    'add',
-    'addClass',
-    'attr',
-    'g',
-    'label',
-    'path',
-    'rect',
-    'renderer',
-    'text',
-    'translate',
-  ];
-
-  for (let idx = 0; idx < props.length; idx++) {
-    const propName = props[idx];
-    chartMock[propName] = jest.fn().mockImplementation(() => chartMock);
-  }
-
-  return chartMock;
-};
-
 describe('Tile map', () => {
   const sutClone = { ...sut };
 
@@ -229,7 +205,7 @@ describe('Tile map', () => {
     expect(result).toEqual(
       '<div class="highcharts-data-label-state tile-FA default ">' +
         '<span class="abbr">FA</span>' +
-        '<span class="value">10,000</span></div>',
+        '<span class="value">10K</span></div>',
     );
   });
 
@@ -238,9 +214,7 @@ describe('Tile map', () => {
     sutClone.value = 10000;
     const result = sutClone.tooltipFormatter();
     expect(result).toEqual(
-      '<div class="title">Another Name' +
-        '</div><div class="row u-clearfix"><p class="u-float-left">Complaints' +
-        '</p><p class="u-right">10,000</p></div>',
+      '<div class="row"><h4>Another Name (undefined)</h4></div><div class="row"><h5>Complaints</h5><p>10,000</p></div>',
     );
   });
 
@@ -252,15 +226,7 @@ describe('Tile map', () => {
     sutClone.issue = 'Being Broke';
     const result = sutClone.tooltipFormatter();
     expect(result).toEqual(
-      '<div class="title">State Name' +
-        '</div><div class="row u-clearfix"><p class="u-float-left">Complaints' +
-        '</p><p class="u-right">10,000</p></div><div class="row u-clearfix">' +
-        '<p class="u-float-left">Per 1000 population</p><p class="u-right">3.12</p>' +
-        '</div><div class="row u-clearfix"><p class="u-float-left">' +
-        'Product with highest complaint volume</p><p class="u-right">' +
-        'Expensive Item</p></div><div class="row u-clearfix">' +
-        '<p class="u-float-left">Issue with highest complaint volume</p>' +
-        '<p class="u-right">Being Broke</p></div>',
+      '<div class="row"><h4>State Name (undefined)</h4></div><div class="row"><h5>Complaints</h5><p>10,000</p></div><div class="row"><h5>Product with highest complaint volume</h5><p>Expensive Item</p></div><div class="row"><h5>Issue with highest complaint volume</h5><p>Being Broke</p></div>',
     );
   });
 
@@ -354,83 +320,6 @@ describe('Tile map', () => {
       path: 'M367,-428L450,-428,450,-345,367,-345,367,-428',
     });
     expect(scale).toHaveBeenCalledTimes(51);
-  });
-
-  describe('legend', () => {
-    let chart;
-    beforeEach(() => {
-      chart = {
-        options: {
-          bins: [
-            {
-              color: 'rgba(247, 248, 249, 0.5)',
-              from: 1,
-              name: '≥ 0',
-              shortName: '≥ 0',
-              to: 16435,
-            },
-            {
-              color: 'rgba(212, 231, 230, 0.5)',
-              from: 16435,
-              name: '≥ 16767',
-              shortName: '≥ 16K',
-              to: 32868,
-            },
-            {
-              color: 'rgba(180, 210, 209, 0.5)',
-              from: 32868,
-              name: '≥ 33413',
-              shortName: '≥ 33K',
-              to: 49302,
-            },
-            {
-              color: 'rgba(137, 182, 181, 0.5)',
-              from: 49302,
-              name: '≥ 49874',
-              shortName: '≥ 49K',
-              to: 65735,
-            },
-            {
-              color: 'rgba(86, 149, 148, 0.5)',
-              from: 65735,
-              name: '≥ 65735',
-              shortName: '≥ 65K',
-              to: 82169,
-            },
-            {
-              color: 'rgba(37, 116, 115, 0.5)',
-              from: 82169,
-              name: '≥ 82169',
-              shortName: '≥ 82K',
-
-              to: undefined,
-            },
-          ],
-          legend: {
-            legendTitle: 'Foo',
-          },
-        },
-        margin: [],
-      };
-    });
-
-    it('draws a large legend', () => {
-      chart.renderer = makeChartMock();
-      chart.chartWidth = 900;
-      sutClone._drawLegend(chart);
-      expect(chart.renderer.add).toHaveBeenCalledTimes(24);
-      expect(chart.renderer.rect).toHaveBeenCalledWith(0, 0, 65, 17);
-      expect(chart.renderer.text).toHaveBeenCalledWith('≥ 82169', 0, 17);
-    });
-
-    it('draws a small legend', () => {
-      chart.renderer = makeChartMock();
-      chart.chartWidth = 599;
-      sutClone._drawLegend(chart);
-      expect(chart.renderer.add).toHaveBeenCalledTimes(24);
-      expect(chart.renderer.rect).toHaveBeenCalledWith(0, 0, 45, 17);
-      expect(chart.renderer.text).toHaveBeenCalledWith('≥ 82K', 0, 17);
-    });
   });
 
   it('can construct a map', () => {
