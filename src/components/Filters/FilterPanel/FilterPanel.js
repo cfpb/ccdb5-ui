@@ -39,7 +39,7 @@ export const FilterPanel = () => {
             <div className="filter-button">
               <Button
                 label="Close filters"
-                iconRight="delete"
+                iconRight="error"
                 title="Close filters"
                 onClick={() => dispatch(updateFilterVisibility())}
               />

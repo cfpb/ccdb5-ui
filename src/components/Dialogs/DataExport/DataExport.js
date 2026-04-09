@@ -78,7 +78,7 @@ export const DataExport = () => {
         </Heading>
         <Button
           label="Close"
-          iconRight="delete-round"
+          iconRight="error-round"
           isLink
           data-gtm_ignore="true"
           onClick={() => {

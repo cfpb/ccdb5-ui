@@ -23,8 +23,9 @@ export const MapToolbar = () => {
         <span>{filteredStates}</span>
         {!!filteredStates && (
           <Button
+            appearance="warning"
             label="Clear"
-            iconLeft="delete-round"
+            iconLeft="error-round"
             isLink
             aria-label="Clear all map filters"
             onClick={() => {
