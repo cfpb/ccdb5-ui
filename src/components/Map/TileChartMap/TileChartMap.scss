@@ -8,6 +8,10 @@
 @use '@cfpb/cfpb-design-system/src/elements/abstracts' as *;
 @use 'css/base' as *;
 
+#tile-chart-map {
+  border: 1px solid red;
+}
+
 .highcharts-container {
   position: relative;
   overflow: hidden;
@@ -228,34 +232,56 @@ x/y positioning on the SVG elements.
       padding: 15px;
       position: relative;
       overflow: visible;
-      width: 385px;
-      max-width: 385px;
+      width: 355px;
+      max-width: 355px;
       box-sizing: border-box;
       white-space: normal;
 
+      h4.title {
+        margin: 0 0 10px;
+        text-align: left;
+        font-weight: 600;
+      }
+
       .row {
-        padding: 0 0 15px;
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        padding: 15px 0;
         margin: 0;
       }
 
-      // top issue and complaints
-      .top-volume {
-        h5.line {
-          margin-bottom: 10px;
-          padding-top: 15px;
-          border-top: 1px solid var(--gray-40);
-        }
+      .row:first-of-type {
+        padding-top: 0;
+      }
 
-        p {
-          margin: 0;
-          white-space: normal;
-          overflow-wrap: anywhere;
-          word-break: normal;
-        }
+      .row p {
+        margin: 0;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: normal;
+      }
 
-        p:nth-last-child(1) {
-          margin-top: 8px;
-        }
+      .row .u-float-left {
+        float: none;
+        display: block;
+        flex: 0 0 45%;
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--gray-dark);
+      }
+
+      .row .u-right {
+        float: none;
+        display: block;
+        flex: 1 1 auto;
+        font-size: 16px;
+        font-weight: 400;
+        color: var(--gray-dark);
+      }
+
+      .row + .row {
+        border-top: 1px solid var(--gray-40);
       }
     }
   }
@@ -434,6 +460,14 @@ $mobile-xs-tiles-breakpoint-max: 400px;
         .value {
           display: none;
         }
+      }
+    }
+
+    // column tooltip
+    .highcharts-tooltip span {
+      .row--product,
+      .row--issue {
+        display: none;
       }
     }
 

@@ -330,28 +330,24 @@ export function tileFormatter() {
  *
  * @returns {string} html output
  */
-// eslint-disable-next-line complexity
+
+/**
+ *
+ */
 export function tooltipFormatter() {
-  const info =
-    this.product || this.issue
-      ? '<h5 class="line">Highest complaint volume</h5>'
-      : '';
-  const product = this.product
-    ? `<p><strong>Product: </strong>${this.product}</p>`
+  const productRow = this.product
+    ? `<div class="row"><p class="u-float-left">Product with highest complaint volume</p><p class="u-right">${this.product}</p></div>`
     : '';
 
-  const issue = this.issue
-    ? `<p><strong>Issue: </strong>${this.issue}</p>`
-    : '';
-
-  const complaintBreakdown = info
-    ? '<div class="top-volume">' + info + product + issue + '</div>'
+  const issueRow = this.issue
+    ? `<div class="row"><p class="u-float-left">Issue with highest complaint volume</p><p class="u-right">${this.issue}</p></div>`
     : '';
   const value = this.value.toLocaleString();
   return (
-    `<div class=""><h4>${this.fullName} (${this.name})</h4></div>` +
-    `<div class="row"><h5 class="u-mb10">Complaint count</h5><p>${value}</p></div>` +
-    complaintBreakdown
+    `<h4 class="title">${this.fullName} (${this.name})</h4>` +
+    `<div class="row"><p class="u-float-left">Complaint count</p><p class="u-right">${value}</p></div>` +
+    productRow +
+    issueRow
   );
 }
 
@@ -742,7 +738,7 @@ class TileMap {
         height,
         width,
         // spacing: [0, 0, 0, 0],
-        margin: [25, 25, 25, 25],
+        margin: [30, 25, 1, 25],
         // margin: [30, 5, 0, 2],
       },
       colorAxis: {
