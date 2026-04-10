@@ -234,27 +234,29 @@ x/y positioning on the SVG elements.
       box-sizing: border-box;
       white-space: normal;
 
-      h4.title {
-        margin: 0 0 10px;
-        text-align: left;
-      }
-
       .row {
         padding: 0 0 15px;
         margin: 0;
       }
 
-      p {
-        margin: 0;
-        white-space: normal;
-        overflow-wrap: anywhere;
-        word-break: normal;
-      }
+      // top issue and complaints
+      .top-volume {
+        h5.line {
+          margin-bottom: 10px;
+          padding-top: 15px;
+          border-top: 1px solid var(--gray-40);
+        }
 
-      h5.line {
-        margin-bottom: 10px;
-        padding-top: 15px;
-        border-top: 1px solid var(--gray-40);
+        p {
+          margin: 0;
+          white-space: normal;
+          overflow-wrap: anywhere;
+          word-break: normal;
+        }
+
+        p:nth-last-child(1) {
+          margin-top: 8px;
+        }
       }
     }
   }
@@ -433,6 +435,14 @@ $mobile-xs-tiles-breakpoint-max: 400px;
         display: none;
       }
     }
+  }
+  .cfpb-chart[data-chart-type='tile_map'] .highcharts-tooltip span {
+    width: 230px;
+    max-width: 230px;
+  }
+  
+  .cfpb-chart[data-chart-type='tile_map'] .highcharts-tooltip .top-volume {
+    display: none;
   }
 }
 

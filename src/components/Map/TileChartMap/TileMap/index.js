@@ -243,6 +243,7 @@ export function tileFormatter() {
  *
  * @returns {string} html output
  */
+// eslint-disable-next-line complexity
 export function tooltipFormatter() {
   const info =
     this.product || this.issue
@@ -256,13 +257,14 @@ export function tooltipFormatter() {
     ? `<p><strong>Issue: </strong>${this.issue}</p>`
     : '';
 
+  const complaintBreakdown = info
+    ? '<div class="top-volume">' + info + product + issue + '</div>'
+    : '';
   const value = this.value.toLocaleString();
   return (
     `<div class=""><h4>${this.fullName} (${this.name})</h4></div>` +
     `<div class="row"><h5 class="u-mb10">Complaint count</h5><p>${value}</p></div>` +
-    info +
-    product +
-    issue
+    complaintBreakdown
   );
 }
 
