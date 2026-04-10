@@ -7,7 +7,7 @@ import { coalesce, sendAnalyticsEvent } from '../../../utils';
 import { GEO_NORM_NONE, STATE_DATA } from '../../../constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCallback, useEffect, useMemo } from 'react';
-import TileMap from './TileMap';
+import TileMap, { TILE_MAP_HEIGHT, TILE_MAP_WIDTH } from './TileMap';
 import {
   selectFiltersDataNormalization,
   selectFiltersState,
@@ -71,9 +71,8 @@ export const TileChartMap = () => {
 
   const _redrawMap = useCallback(() => {
     const mapElement = getElementById('tile-chart-map');
-    const maxWidth = 800;
     const containerWidth = mapElement.clientWidth || width;
-    const mapWidth = isPrintMode ? 650 : Math.min(containerWidth, maxWidth);
+    const mapWidth = isPrintMode ? 650 : containerWidth;
     if (!data) {
       return;
     }
@@ -92,7 +91,8 @@ export const TileChartMap = () => {
       width: mapWidth,
     };
 
-    options.height = mapWidth * 0.75;
+    const tileAspect = TILE_MAP_HEIGHT / TILE_MAP_WIDTH;
+    options.height = Math.round(mapWidth * tileAspect);
 
     // eslint-disable-next-line no-unused-vars
     const chart = new TileMap(options);

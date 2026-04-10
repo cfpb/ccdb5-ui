@@ -435,20 +435,20 @@ $mobile-xs-tiles-breakpoint-max: 400px;
           display: none;
         }
       }
+    }
 
-      // adjustments to make a smaller tooltip at mobile
-      .highcharts-tooltip {
-        span {
-          width: 230px;
-          max-width: 230px;
+    // adjustments to make a smaller tooltip at mobile
+    .highcharts-tooltip {
+      span {
+        width: 230px;
+        max-width: 230px;
 
-          .row {
-            padding: 0;
-          }
+        .row {
+          padding: 0;
+        }
 
-          .top-volume {
-            display: none;
-          }
+        .top-volume {
+          display: none;
         }
       }
     }

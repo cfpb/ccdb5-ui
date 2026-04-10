@@ -207,6 +207,8 @@ function insetTilePath(path, inset) {
 function getTileMapBounds() {
   let minX = Infinity;
   let maxX = -Infinity;
+  let minY = Infinity;
+  let maxY = -Infinity;
 
   Object.values(STATE_TILES).forEach((path) => {
     const points = path.match(/-?\d+(?:\.\d+)?/g);
@@ -215,23 +217,36 @@ function getTileMapBounds() {
     }
     for (let index = 0; index < points.length; index += 2) {
       const xValue = Number(points[index]);
+      const yValue = Number(points[index + 1]);
       if (!Number.isFinite(xValue)) {
         continue;
       }
       minX = Math.min(minX, xValue);
       maxX = Math.max(maxX, xValue);
+      if (!Number.isFinite(yValue)) {
+        continue;
+      }
+      minY = Math.min(minY, yValue);
+      maxY = Math.max(maxY, yValue);
     }
   });
 
-  if (!Number.isFinite(minX) || !Number.isFinite(maxX)) {
-    return { width: 1000 };
+  if (
+    !Number.isFinite(minX) ||
+    !Number.isFinite(maxX) ||
+    !Number.isFinite(minY) ||
+    !Number.isFinite(maxY)
+  ) {
+    return { width: 1000, height: 725 };
   }
 
-  return { width: maxX - minX };
+  return { width: maxX - minX, height: maxY - minY };
 }
 
 const TILE_MAP_BOUNDS = getTileMapBounds();
-const TILE_MAP_WIDTH = TILE_MAP_BOUNDS.width;
+export const TILE_MAP_WIDTH = TILE_MAP_BOUNDS.width;
+export const TILE_MAP_HEIGHT = TILE_MAP_BOUNDS.height;
+export const TILE_BASE_SIZE = 83;
 
 /**
  * helper function to set the color.
@@ -727,7 +742,8 @@ class TileMap {
         height,
         width,
         // spacing: [0, 0, 0, 0],
-        margin: [30, 30, 30, 15],
+        margin: [25, 25, 25, 25],
+        // margin: [30, 5, 0, 2],
       },
       colorAxis: {
         dataClasses: bins,
