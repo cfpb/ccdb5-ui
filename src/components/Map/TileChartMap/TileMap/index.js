@@ -128,15 +128,16 @@ export function getPerCapitaBins(quantiles, scale) {
 /**
  * @param {object} data - Data to process. add in state paths to the data obj
  * @param {function(number): string} scale - scaling function for color
+ * @param {number} inset - How much spacing
  * @returns {object} The processed data.
  */
-export function processMapData(data, scale) {
+export function processMapData(data, scale, inset) {
   // Filter out any empty values just in case
   data = data.filter(function (row) {
     return Boolean(row.name);
   });
 
-  const tileInset = 4;
+  const tileInset = Number.isFinite(inset) ? inset : 0;
 
   const isFiltered = data.filter((obj) => obj.className === 'selected').length;
   data = data.map(function (obj) {
@@ -197,6 +198,40 @@ function insetTilePath(path, inset) {
 
   return `M${nx1},${ny1}L${nx2},${ny1},${nx2},${ny2},${nx1},${ny2},${nx1},${ny1}`;
 }
+
+/**
+ * Compute the base tile map bounds from the SVG paths.
+ *
+ * @returns {object} Tile map bounds.
+ */
+function getTileMapBounds() {
+  let minX = Infinity;
+  let maxX = -Infinity;
+
+  Object.values(STATE_TILES).forEach((path) => {
+    const points = path.match(/-?\d+(?:\.\d+)?/g);
+    if (!points) {
+      return;
+    }
+    for (let index = 0; index < points.length; index += 2) {
+      const xValue = Number(points[index]);
+      if (!Number.isFinite(xValue)) {
+        continue;
+      }
+      minX = Math.min(minX, xValue);
+      maxX = Math.max(maxX, xValue);
+    }
+  });
+
+  if (!Number.isFinite(minX) || !Number.isFinite(maxX)) {
+    return { width: 1000 };
+  }
+
+  return { width: maxX - minX };
+}
+
+const TILE_MAP_BOUNDS = getTileMapBounds();
+const TILE_MAP_WIDTH = TILE_MAP_BOUNDS.width;
 
 /**
  * helper function to set the color.
@@ -658,9 +693,13 @@ export const TILE_MAP_COLORS = [
    Tile Map class */
 
 class TileMap {
+  // eslint-disable-next-line complexity
   constructor({ el, data, isPerCapita, events, height, hasTip, width }) {
     const scale = makeScale(data, TILE_MAP_COLORS);
     const quantiles = scale.quantiles();
+    const targetGap = 4;
+    const plotWidth = Number.isFinite(width) ? width : TILE_MAP_WIDTH;
+    const inset = (targetGap * TILE_MAP_WIDTH) / (2 * plotWidth);
 
     let bins, legendTitle;
     if (isPerCapita) {
@@ -671,7 +710,7 @@ class TileMap {
       legendTitle = 'Complaints';
     }
 
-    data = processMapData(data, scale);
+    data = processMapData(data, scale, inset);
 
     const options = {
       accessibility: {
@@ -687,6 +726,8 @@ class TileMap {
         styledMode: true,
         height,
         width,
+        // spacing: [0, 0, 0, 0],
+        margin: [30, 30, 30, 15],
       },
       colorAxis: {
         dataClasses: bins,
@@ -756,11 +797,6 @@ class TileMap {
         },
       };
     }
-    options.chart.marginTop = 30;
-    options.chart.marginBottom = 30;
-    options.chart.marginRight = 30;
-    options.chart.marginLeft = 30;
-
     this.draw(el, options);
   }
 
