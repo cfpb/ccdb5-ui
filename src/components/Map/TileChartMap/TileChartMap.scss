@@ -10,11 +10,13 @@
 
 #tile-chart-map {
   padding: 30px;
-  border: 1px solid red;
 
-  svg {
-    border: 1px solid green;
-  }
+  // borders for debugging
+  // border: 1px solid red;
+  //
+  // svg {
+  //  border: 1px solid green;
+  // }
 }
 
 .highcharts-container {

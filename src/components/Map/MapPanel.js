@@ -27,8 +27,7 @@ import { useGetAggregations } from '../../api/hooks/useGetAggregations';
 import { useGetMap } from '../../api/hooks/useGetMap';
 
 const MAP_ROWCHART_HELPERTEXT =
-  'Product the consumer identified in the complaint. Click on a product ' +
-  'to expand sub-products';
+  'The chart below reflects the product and sub-product the consumer identified in the complaint. Click on a product name to view sub-products.';
 
 export const MapPanel = () => {
   const { data, error } = useGetAggregations();
@@ -51,9 +50,9 @@ export const MapPanel = () => {
     );
   }, [hasError, results, expandedRows]);
 
-  const MAP_ROWCHART_TITLE = `Product by highest complaint volume ${formatDisplayDate(
+  const MAP_ROWCHART_TITLE = `Product by highest complaint volume (${formatDisplayDate(
     minDate,
-  )} to ${formatDisplayDate(maxDate)}`;
+  )} to ${formatDisplayDate(maxDate)})`;
 
   return (
     <section className="map-panel">

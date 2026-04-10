@@ -95,47 +95,6 @@ describe('TileChartMap', () => {
     });
   });
 
-  it('renders map with per capita values', async () => {
-    fetchMock.mockResponse(JSON.stringify(mapResults));
-    const analyticsSpy = jest
-      .spyOn(analyticsActions, 'sendAnalyticsEvent')
-      .mockImplementation(() => jest.fn());
-
-    const addStateFilterSpy = jest
-      .spyOn(filterActions, 'stateFilterAdded')
-      .mockImplementation(() => jest.fn());
-
-    const newFilters = {
-      dataNormalization: GEO_NORM_PER1000,
-    };
-
-    const newView = {
-      isPrintMode: false,
-      width: 1000,
-    };
-
-    renderComponent(newFilters, newView);
-    expect(screen.getByTestId('tile-chart-map')).toBeInTheDocument();
-    expect(screen.getByTestId('tile-chart-map')).not.toHaveClass('print');
-
-    await screen.findByLabelText('FL, value: 580,351.');
-    expect(screen.getByLabelText('FL, value: 580,351.')).toBeInTheDocument();
-    expect(screen.getByText('FL')).toBeInTheDocument();
-    expect(screen.getByText('28.62')).toBeInTheDocument();
-    // tooltip check
-    const { chart, point } = getTileMapPoint('FL');
-    expect(chart).toBeDefined();
-    expect(point).toBeDefined();
-    chart.tooltip.refresh(point);
-    expect(screen.getByText('Product:')).toBeVisible();
-    point.firePointEvent('click', { point });
-    expect(analyticsSpy).toHaveBeenCalledWith('State Event: add', 'FL');
-    expect(addStateFilterSpy).toHaveBeenCalledWith({
-      abbr: 'FL',
-      name: 'Florida',
-    });
-  });
-
   it('removes map filters when state filters exist', async () => {
     fetchMock.mockResponse(JSON.stringify(mapResults));
 

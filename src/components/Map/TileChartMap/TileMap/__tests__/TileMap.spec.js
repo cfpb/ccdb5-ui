@@ -212,7 +212,7 @@ describe('Tile map', () => {
     sutClone.value = 10000;
     const result = sutClone.tooltipFormatter();
     expect(result).toEqual(
-      '<div class=""><h4>Another Name (undefined)</h4></div><div class="row"><h5 class="u-mb10">Complaint count</h5><p>10,000</p></div>',
+      '<h4 class="title">Another Name (undefined)</h4><div class="row"><p class="u-float-left">Complaint count</p><p class="u-right">10,000</p></div>',
     );
   });
 
@@ -224,7 +224,7 @@ describe('Tile map', () => {
     sutClone.issue = 'Being Broke';
     const result = sutClone.tooltipFormatter();
     expect(result).toEqual(
-      '<div class=""><h4>State Name (undefined)</h4></div><div class="row"><h5 class="u-mb10">Complaint count</h5><p>10,000</p></div><h5 class="line">Highest complaint volume</h5><p><strong>Product: </strong>Expensive Item</p><p><strong>Issue: </strong>Being Broke</p>',
+      '<h4 class="title">State Name (undefined)</h4><div class="row"><p class="u-float-left">Complaint count</p><p class="u-right">10,000</p></div><div class="row"><p class="u-float-left">Product with highest complaint volume</p><p class="u-right">Expensive Item</p></div><div class="row"><p class="u-float-left">Issue with highest complaint volume</p><p class="u-right">Being Broke</p></div>',
     );
   });
 
