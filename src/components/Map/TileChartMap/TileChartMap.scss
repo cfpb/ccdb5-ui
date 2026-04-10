@@ -427,22 +427,32 @@ $mobile-xs-tiles-breakpoint-max: 400px;
 
 // This takes over for looking good at the minimum height of 400px
 @media screen and (max-width: $mobile-tiles-breakpoint-max) {
-  .cfpb-chart[data-chart-type='tile_map'] .highcharts-data-label {
-    line-height: 1;
+  .cfpb-chart[data-chart-type='tile_map'] {
+    .highcharts-data-label {
+      line-height: 1;
 
-    .highcharts-data-label-state {
-      .value {
-        display: none;
+      .highcharts-data-label-state {
+        .value {
+          display: none;
+        }
+      }
+
+      // adjustments to make a smaller tooltip at mobile
+      .highcharts-tooltip {
+        span {
+          width: 230px;
+          max-width: 230px;
+
+          .row {
+            padding: 0;
+          }
+
+          .top-volume {
+            display: none;
+          }
+        }
       }
     }
-  }
-  .cfpb-chart[data-chart-type='tile_map'] .highcharts-tooltip span {
-    width: 230px;
-    max-width: 230px;
-  }
-  
-  .cfpb-chart[data-chart-type='tile_map'] .highcharts-tooltip .top-volume {
-    display: none;
   }
 }
 
@@ -464,7 +474,6 @@ $mobile-xs-tiles-breakpoint-max: 400px;
 
 // -----------------------------------------------------------------------------
 // Make the map & legend play nice
-
 @media screen and (min-width: $layout-breakpoint-tablet-sm-min) and (max-width: $layout-breakpoint-tablet-sm-max) {
   .highcharts-series-group {
     transform: translate(0, 15px);
