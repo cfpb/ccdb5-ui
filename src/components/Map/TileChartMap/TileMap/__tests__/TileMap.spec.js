@@ -203,9 +203,7 @@ describe('Tile map', () => {
 
     const result = sutClone.tileFormatter();
     expect(result).toEqual(
-      '<div class="highcharts-data-label-state tile-FA default ">' +
-        '<span class="abbr">FA</span>' +
-        '<span class="value">10K</span></div>',
+      '<div class="highcharts-data-label-state tile-FA default "><p class="abbr">FA</p><p class="value">10K</p></div>',
     );
   });
 
@@ -214,7 +212,7 @@ describe('Tile map', () => {
     sutClone.value = 10000;
     const result = sutClone.tooltipFormatter();
     expect(result).toEqual(
-      '<div class="row"><h4>Another Name (undefined)</h4></div><div class="row"><h5>Complaints</h5><p>10,000</p></div>',
+      '<div class=""><h4>Another Name (undefined)</h4></div><div class="row"><h5 class="u-mb10">Complaint count</h5><p>10,000</p></div>',
     );
   });
 
@@ -226,7 +224,7 @@ describe('Tile map', () => {
     sutClone.issue = 'Being Broke';
     const result = sutClone.tooltipFormatter();
     expect(result).toEqual(
-      '<div class="row"><h4>State Name (undefined)</h4></div><div class="row"><h5>Complaints</h5><p>10,000</p></div><div class="row"><h5>Product with highest complaint volume</h5><p>Expensive Item</p></div><div class="row"><h5>Issue with highest complaint volume</h5><p>Being Broke</p></div>',
+      '<div class=""><h4>State Name (undefined)</h4></div><div class="row"><h5 class="u-mb10">Complaint count</h5><p>10,000</p></div><h5 class="line">Highest complaint volume</h5><p><strong>Product: </strong>Expensive Item</p><p><strong>Issue: </strong>Being Broke</p>',
     );
   });
 

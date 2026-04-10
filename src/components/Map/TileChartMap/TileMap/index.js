@@ -247,7 +247,7 @@ export function tooltipFormatter() {
   const info =
     this.product || this.issue
       ? '<h5 class="line">Highest complaint volume</h5>'
-      : null;
+      : '';
   const product = this.product
     ? `<p><strong>Product: </strong>${this.product}</p>`
     : '';

@@ -127,9 +127,7 @@ describe('TileChartMap', () => {
     expect(chart).toBeDefined();
     expect(point).toBeDefined();
     chart.tooltip.refresh(point);
-    expect(
-      screen.getByText('Product with highest complaint volume'),
-    ).toBeVisible();
+    expect(screen.getByText('Product:')).toBeVisible();
     point.firePointEvent('click', { point });
     expect(analyticsSpy).toHaveBeenCalledWith('State Event: add', 'FL');
     expect(addStateFilterSpy).toHaveBeenCalledWith({
