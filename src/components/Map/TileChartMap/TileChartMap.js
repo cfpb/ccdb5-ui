@@ -71,7 +71,9 @@ export const TileChartMap = () => {
 
   const _redrawMap = useCallback(() => {
     const mapElement = getElementById('tile-chart-map');
-    const mapWidth = isPrintMode ? 650 : mapElement.clientWidth || width;
+    const maxWidth = 784;
+    const containerWidth = mapElement.clientWidth || width;
+    const mapWidth = isPrintMode ? 650 : Math.min(containerWidth, maxWidth);
     if (!data) {
       return;
     }

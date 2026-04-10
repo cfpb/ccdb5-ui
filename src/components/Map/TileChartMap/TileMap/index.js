@@ -136,9 +136,11 @@ export function processMapData(data, scale) {
     return Boolean(row.name);
   });
 
+  const tileInset = 4;
+
   const isFiltered = data.filter((obj) => obj.className === 'selected').length;
   data = data.map(function (obj) {
-    const path = STATE_TILES[obj.name];
+    const path = insetTilePath(STATE_TILES[obj.name], tileInset);
     let color = getColorByValue(obj.displayValue, scale);
 
     if (isFiltered && obj.className === 'deselected') {
@@ -159,6 +161,41 @@ export function processMapData(data, scale) {
   });
 
   return data;
+}
+
+/**
+ * Shrinks a tile path to create a consistent gap between tiles.
+ *
+ * @param {string} path - SVG path string.
+ * @param {number} inset - Inset amount in pixels.
+ * @returns {string} The inset path string.
+ */
+// eslint-disable-next-line complexity
+function insetTilePath(path, inset) {
+  if (!path || !Number.isFinite(inset) || inset <= 0) {
+    return path;
+  }
+
+  const points = path.match(/-?\d+(?:\.\d+)?/g);
+  if (!points || points.length < 8) {
+    return path;
+  }
+
+  const x1 = Number(points[0]);
+  const y1 = Number(points[1]);
+  const x2 = Number(points[2]);
+  const y2 = Number(points[5]);
+
+  if (![x1, y1, x2, y2].every(Number.isFinite)) {
+    return path;
+  }
+
+  const nx1 = x1 + inset;
+  const ny1 = y1 + inset;
+  const nx2 = x2 - inset;
+  const ny2 = y2 - inset;
+
+  return `M${nx1},${ny1}L${nx2},${ny1},${nx2},${ny2},${nx1},${ny2},${nx1},${ny1}`;
 }
 
 /**
