@@ -2,28 +2,17 @@
   border-top: 2px solid var(--gray-20);
   border-bottom: 1px solid var(--gray-20);
   margin: 0 20px;
-  a {
-    text-decoration: underline;
-    &:link,
-    &:hover,
-    &:active,
-    &:visited {
-      cursor: pointer;
+
+  .state-heading {
+    padding: 0.625rem;
+    border-bottom: 1px solid var(--gray-20);
+
+    span {
+      margin: 0.625rem;
     }
   }
-  .state {
-    &-heading {
-      padding: 0.625rem;
-      border-bottom: 1px solid var(--gray-20);
-      span {
-        margin: 0.625rem;
-      }
-      svg {
-        padding-right: 0.313rem;
-      }
-    }
-    &-navigation {
-      padding: 0.625rem;
-    }
+
+  .state-navigation {
+    padding: 0.625rem;
   }
 }

@@ -78,6 +78,7 @@ export const PillPanel = () => {
         ))}
         <li className="clear-all">
           <Button
+            appearance="warning"
             label="Clear all filters"
             iconLeft="error"
             isLink

@@ -106,7 +106,7 @@ export default defineConfig({
     proxy: {
       // http://localhost:3000/api -> http://localhost:3000/api
       // http://localhost:3000/api/foo -> http://localhost:3000/api/foo
-      '/data-research': 'https://www.consumerfinance.gov',
+      '/data-research': 'http://localhost:8000',
     },
   },
 });

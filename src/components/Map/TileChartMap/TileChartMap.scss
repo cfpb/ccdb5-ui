@@ -203,6 +203,8 @@ x/y positioning on the SVG elements.
   .highcharts-map-series {
     .highcharts-point {
       stroke: var(--gray-80);
+      stroke-width: 1px;
+      cursor: pointer;
     }
   }
 
