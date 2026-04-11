@@ -131,55 +131,6 @@ describe('Tile map', () => {
       const result = sutClone.getBins(quantiles, scaleFn);
       expect(result).toEqual(expected);
     });
-
-    it('gets Per 1000 population bins', () => {
-      const quantiles = [
-        1.1928571428571428, 1.4657142857142857, 1.81, 2.0357142857142856, 2.33,
-        2.845714285714285,
-      ];
-      const expected = [
-        { from: 0, color: '#ffffff', name: '≥ 0', shortName: '≥ 0' },
-        {
-          from: 1.19,
-          color: quantiles[0],
-          name: '> 1.19',
-          shortName: '> 1.19',
-        },
-        {
-          from: 1.46,
-          color: quantiles[1],
-          name: '> 1.46',
-          shortName: '> 1.46',
-        },
-        {
-          from: 1.81,
-          color: quantiles[2],
-          name: '≥ 1.81',
-          shortName: '≥ 1.81',
-        },
-        {
-          from: 2.03,
-          color: quantiles[3],
-          name: '> 2.03',
-          shortName: '> 2.03',
-        },
-        {
-          from: 2.33,
-          color: quantiles[4],
-          name: '≥ 2.33',
-          shortName: '≥ 2.33',
-        },
-        {
-          from: 2.84,
-          color: quantiles[5],
-          name: '> 2.84',
-          shortName: '> 2.84',
-        },
-      ];
-
-      const result = sutClone.getPerCapitaBins(quantiles, scaleFn);
-      expect(result).toEqual(expected);
-    });
   });
 
   describe('getColorByValue', () => {
@@ -219,7 +170,6 @@ describe('Tile map', () => {
   it('formats the map tooltip w/ prod & issue', () => {
     sutClone.fullName = 'State Name';
     sutClone.value = 10000;
-    sutClone.perCapita = 3.12;
     sutClone.product = 'Expensive Item';
     sutClone.issue = 'Being Broke';
     const result = sutClone.tooltipFormatter();
@@ -250,7 +200,6 @@ describe('Tile map', () => {
       issue: 'Incorrect information on your report',
       product:
         'Credit reporting, credit repair services, or other personal consumer reports',
-      perCapita: 0.97,
       displayValue: 713,
       color: 'rgba(247, 248, 249, 1)',
       path: 'M92,-245L175,-245,175,-162,92,-162,92,-245',
@@ -263,7 +212,6 @@ describe('Tile map', () => {
       issue: 'Incorrect information on your report',
       product:
         'Credit reporting, credit repair services, or other personal consumer reports',
-      perCapita: 2.14,
       displayValue: 10380,
       color: 'rgba(247, 248, 249, 0.5)',
       path: 'M550,-337L633,-337,633,-253,550,-253,550,-337',
@@ -277,7 +225,6 @@ describe('Tile map', () => {
       issue: 'Incorrect information on your report',
       product:
         'Credit reporting, credit repair services, or other personal consumer reports',
-      perCapita: 1.48,
       displayValue: 4402,
       color: 'rgba(247, 248, 249, 1)',
       path: 'M367,-428L450,-428,450,-345,367,-345,367,-428',
@@ -298,7 +245,6 @@ describe('Tile map', () => {
       issue: 'Incorrect information on your report',
       product:
         'Credit reporting, credit repair services, or other personal consumer reports',
-      perCapita: 0.97,
       displayValue: 713,
       color: '#ffffff',
       path: 'M92,-245L175,-245,175,-162,92,-162,92,-245',
@@ -312,7 +258,6 @@ describe('Tile map', () => {
       issue: 'Incorrect information on your report',
       product:
         'Credit reporting, credit repair services, or other personal consumer reports',
-      perCapita: 1.48,
       displayValue: 4402,
       color: '#ffffff',
       path: 'M367,-428L450,-428,450,-345,367,-345,367,-428',
@@ -324,7 +269,6 @@ describe('Tile map', () => {
     const options = {
       el: document.createElement('div'),
       data: [],
-      isPerCapita: false,
     };
 
     const drawSpy = jest.spyOn(TileMap.prototype, 'draw');
@@ -337,7 +281,6 @@ describe('Tile map', () => {
     const options = {
       el: document.createElement('div'),
       data: [],
-      isPerCapita: false,
       width: 400,
     };
 
@@ -353,27 +296,12 @@ describe('Tile map', () => {
       data: [],
       events: { foo: jest.fn() },
       hasTip: true,
-      isPerCapita: false,
       width: 400,
     };
 
     const drawSpy = jest.spyOn(TileMap.prototype, 'draw');
     // eslint-disable-next-line no-unused-vars
     const map = new TileMap(options);
-    expect(drawSpy).toHaveBeenCalled();
-  });
-
-  it('can construct a perCapita map', () => {
-    const options = {
-      el: document.createElement('div'),
-      data: [],
-      isPerCapita: true,
-    };
-
-    const drawSpy = jest.spyOn(TileMap.prototype, 'draw');
-    // eslint-disable-next-line no-unused-vars
-    const map = new TileMap(options);
-
     expect(drawSpy).toHaveBeenCalled();
   });
 

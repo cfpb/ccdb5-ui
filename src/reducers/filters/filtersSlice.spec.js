@@ -1,5 +1,4 @@
 import target, {
-  dataNormalizationUpdated,
   filterAdded,
   filterArrayAction,
   filterRemoved,
@@ -7,7 +6,6 @@ import target, {
   filtersReplaced,
   filtersState,
   filterToggled,
-  mapWarningDismissed,
   multipleFiltersAdded,
   multipleFiltersRemoved,
   stateFilterAdded,
@@ -207,7 +205,6 @@ describe('Filters', () => {
         delete newState.has_narrative;
         expect(target(state, filterRemoved(filterName, filterValue))).toEqual({
           ...newState,
-          enablePer1000: true,
         });
       });
 
@@ -215,8 +212,6 @@ describe('Filters', () => {
         filterName = 'has_narrative';
         state = {
           ...filtersState,
-          dataNormalization: 'None',
-          enablePer1000: true,
           has_narrative: true,
         };
         const newState = { ...state };
@@ -232,7 +227,6 @@ describe('Filters', () => {
           target(filtersState, filterRemoved(filterName, filterValue)),
         ).toEqual({
           ...filtersState,
-          enablePer1000: true,
         });
       });
     });
@@ -330,7 +324,6 @@ describe('Filters', () => {
         target(filtersState, multipleFiltersRemoved(filterName, values)),
       ).toEqual({
         ...filtersState,
-        enablePer1000: true,
       });
     });
   });
@@ -356,7 +349,6 @@ describe('Filters', () => {
         ),
       ).toEqual({
         ...filtersState,
-        enablePer1000: true,
       });
     });
   });
@@ -373,7 +365,6 @@ describe('Filters', () => {
       expect(target(state, filtersReplaced(filterName, values))).toEqual({
         ...state,
         foobar: [3, 4, 5],
-        enablePer1000: true,
       });
     });
   });
@@ -424,9 +415,6 @@ describe('Filters', () => {
         result = target({ ...filtersState }, stateFilterAdded(action));
         expect(result).toEqual({
           ...filtersState,
-          dataNormalization: 'None',
-          enablePer1000: false,
-          mapWarningEnabled: true,
           state: ['IL'],
         });
       });
@@ -441,9 +429,6 @@ describe('Filters', () => {
 
         expect(result).toEqual({
           ...filtersState,
-          dataNormalization: 'None',
-          enablePer1000: false,
-          mapWarningEnabled: true,
           state: ['IL', 'TX'],
         });
       });
@@ -461,7 +446,6 @@ describe('Filters', () => {
 
         expect(result).toEqual({
           ...filtersState,
-          enablePer1000: true,
         });
       });
     });
@@ -480,7 +464,6 @@ describe('Filters', () => {
         );
         expect(result).toEqual({
           ...filtersState,
-          enablePer1000: true,
           state: ['CA'],
         });
       });
@@ -488,56 +471,11 @@ describe('Filters', () => {
         result = target({ ...filtersState }, stateFilterRemoved(action));
         expect(result).toEqual({
           ...filtersState,
-          enablePer1000: true,
         });
       });
     });
   });
 
-  describe('Map', () => {
-    let action, state;
-    describe('Data normalization', () => {
-      beforeEach(() => {
-        action = 'FooBar';
-        state = {
-          ...filtersState,
-        };
-      });
-      it('handles default value', () => {
-        expect(target(state, dataNormalizationUpdated(action))).toEqual({
-          ...state,
-          dataNormalization: 'None',
-        });
-      });
-
-      it('handles per 1000 value', () => {
-        action = types.GEO_NORM_PER1000;
-        expect(target(state, dataNormalizationUpdated(action))).toEqual({
-          ...state,
-          dataNormalization: 'Per 1000 pop.',
-        });
-      });
-    });
-
-    describe('Map Warning', () => {
-      it('handles mapWarningDismissed action', () => {
-        state = {
-          ...filtersState,
-          company: [1, 2, 3],
-          product: 'bar',
-          mapWarningEnabled: true,
-        };
-        expect(target(state, mapWarningDismissed())).toEqual({
-          ...state,
-          company: [1, 2, 3],
-          dataNormalization: types.GEO_NORM_NONE,
-          enablePer1000: false,
-          product: 'bar',
-          mapWarningEnabled: false,
-        });
-      });
-    });
-  });
   describe('URL_CHANGED actions', () => {
     let actual, state;
 
@@ -548,7 +486,6 @@ describe('Filters', () => {
     it('handles empty params', () => {
       expect(target(state, routeChanged('/', {}))).toEqual({
         ...state,
-        enablePer1000: true,
       });
     });
 

@@ -1,22 +1,10 @@
 import './geo-legend.scss';
 import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
 import { Heading } from '@cfpb/design-system-react';
 import { useGetMap } from '../../../api/hooks/useGetMap';
-import { GEO_NORM_NONE, STATE_DATA } from '../../../constants';
+import { STATE_DATA } from '../../../constants';
 import { coalesce } from '../../../utils';
-import { selectFiltersDataNormalization } from '../../../reducers/filters/selectors';
-import {
-  getBins,
-  getPerCapitaBins,
-  makeScale,
-  TILE_MAP_COLORS,
-} from '../TileChartMap/TileMap';
-
-const getPerCapita = (stateObj, stateInfo) => {
-  const pop = stateInfo.population;
-  return ((stateObj.value / pop) * 1000).toFixed(2);
-};
+import { getBins, makeScale, TILE_MAP_COLORS } from '../TileChartMap/TileMap';
 
 const buildBaseData = (stateMapResultsState) => {
   if (!stateMapResultsState) {
@@ -27,18 +15,15 @@ const buildBaseData = (stateMapResultsState) => {
     const newState = structuredClone(state);
     const stateInfo = coalesce(STATE_DATA, state.name, {
       name: '',
-      population: 1,
     });
     newState.abbr = newState.name;
     newState.fullName = stateInfo.name;
-    newState.perCapita = getPerCapita(newState, stateInfo);
     return newState;
   });
 };
 
 export const GeoLegend = () => {
   const { data: results, isLoading, isFetching } = useGetMap();
-  const dataNormalization = useSelector(selectFiltersDataNormalization);
   const stateMapResultsState = results?.results?.state;
 
   const baseData = useMemo(
@@ -51,12 +36,11 @@ export const GeoLegend = () => {
       return null;
     }
 
-    const showDefault = dataNormalization === GEO_NORM_NONE;
     return baseData.map((datum) => ({
       ...datum,
-      displayValue: showDefault ? datum.value : datum.perCapita,
+      displayValue: datum.value,
     }));
-  }, [baseData, dataNormalization]);
+  }, [baseData]);
 
   const legendBins = useMemo(() => {
     if (!displayData || displayData.length === 0) {
@@ -64,22 +48,16 @@ export const GeoLegend = () => {
     }
     const scale = makeScale(displayData, TILE_MAP_COLORS);
     const quantiles = scale.quantiles();
-    return dataNormalization === GEO_NORM_NONE
-      ? getBins(quantiles, scale)
-      : getPerCapitaBins(quantiles, scale);
-  }, [displayData, dataNormalization]);
+    return getBins(quantiles, scale);
+  }, [displayData]);
 
   if (isLoading || isFetching || legendBins.length === 0) {
     return null;
   }
 
-  const isPerCapita = dataNormalization !== GEO_NORM_NONE;
-  const title = isPerCapita
-    ? 'Complaints per 1,000 by state'
-    : 'Complaint count by state';
-  const legendDescription = isPerCapita
-    ? 'The map is shaded to reflect complaints per 1,000 population based on the applied filters.'
-    : 'The map is shaded to reflect the total complaint count based on the applied filters.';
+  const title = 'Complaint count by state';
+  const legendDescription =
+    'The map is shaded to reflect the total complaint count based on the applied filters.';
 
   return (
     <div className="map-legend" aria-label="Map shading">

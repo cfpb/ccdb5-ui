@@ -7,7 +7,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 0.97,
     displayValue: 713,
   },
   {
@@ -18,7 +17,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.14,
     displayValue: 10380,
   },
   {
@@ -29,7 +27,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.48,
     displayValue: 4402,
   },
   {
@@ -40,7 +37,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.16,
     displayValue: 14708,
   },
   {
@@ -51,7 +47,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.53,
     displayValue: 98601,
   },
   {
@@ -62,7 +57,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.96,
     displayValue: 10643,
   },
   {
@@ -73,7 +67,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.2,
     displayValue: 7897,
   },
   {
@@ -84,7 +77,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 5.51,
     displayValue: 3704,
   },
   {
@@ -95,7 +87,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 3.59,
     displayValue: 3387,
   },
   {
@@ -106,7 +97,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 4.25,
     displayValue: 86241,
   },
   {
@@ -117,7 +107,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 4.57,
     displayValue: 46649,
   },
   {
@@ -128,7 +117,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.46,
     displayValue: 2081,
   },
   {
@@ -139,7 +127,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 0.85,
     displayValue: 2647,
   },
   {
@@ -150,7 +137,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.12,
     displayValue: 1849,
   },
   {
@@ -161,7 +147,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.42,
     displayValue: 31170,
   },
   {
@@ -172,7 +157,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.28,
     displayValue: 8446,
   },
   {
@@ -183,7 +167,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.22,
     displayValue: 3553,
   },
   {
@@ -194,7 +177,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.14,
     displayValue: 5029,
   },
   {
@@ -205,7 +187,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.41,
     displayValue: 11253,
   },
   {
@@ -216,7 +197,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.77,
     displayValue: 12010,
   },
   {
@@ -227,7 +207,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 3.05,
     displayValue: 18317,
   },
   {
@@ -238,7 +217,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.15,
     displayValue: 1526,
   },
   {
@@ -249,7 +227,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.66,
     displayValue: 16521,
   },
   {
@@ -260,7 +237,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.26,
     displayValue: 6902,
   },
   {
@@ -271,7 +247,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.93,
     displayValue: 11735,
   },
   {
@@ -282,7 +257,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.75,
     displayValue: 5230,
   },
   {
@@ -293,7 +267,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.06,
     displayValue: 1093,
   },
   {
@@ -304,7 +277,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.58,
     displayValue: 25978,
   },
   {
@@ -315,7 +287,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.01,
     displayValue: 753,
   },
   {
@@ -326,7 +297,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 0.95,
     displayValue: 1801,
   },
   {
@@ -337,7 +307,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.4,
     displayValue: 1869,
   },
   {
@@ -348,7 +317,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.86,
     displayValue: 25600,
   },
   {
@@ -359,7 +327,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.31,
     displayValue: 2725,
   },
   {
@@ -370,7 +337,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 3.8,
     displayValue: 10974,
   },
   {
@@ -381,7 +347,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.68,
     displayValue: 53008,
   },
   {
@@ -392,7 +357,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.89,
     displayValue: 21901,
   },
   {
@@ -403,7 +367,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.11,
     displayValue: 4329,
   },
   {
@@ -414,7 +377,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.45,
     displayValue: 5838,
   },
   {
@@ -425,7 +387,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2,
     displayValue: 25605,
   },
   {
@@ -436,7 +397,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.78,
     displayValue: 1884,
   },
   {
@@ -447,7 +407,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.82,
     displayValue: 13788,
   },
   {
@@ -458,7 +417,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 0.82,
     displayValue: 702,
   },
   {
@@ -469,7 +427,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.08,
     displayValue: 13730,
   },
   {
@@ -480,7 +437,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.64,
     displayValue: 72300,
   },
   {
@@ -491,7 +447,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.09,
     displayValue: 6252,
   },
   {
@@ -502,7 +457,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.26,
     displayValue: 18919,
   },
   {
@@ -513,7 +467,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.12,
     displayValue: 702,
   },
   {
@@ -524,7 +477,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.7,
     displayValue: 12217,
   },
   {
@@ -535,7 +487,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.26,
     displayValue: 7234,
   },
   {
@@ -546,7 +497,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 0.84,
     displayValue: 1540,
   },
   {
@@ -557,7 +507,6 @@ export const raw = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.12,
     displayValue: 651,
   },
 ];
@@ -569,7 +518,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 0.97,
     displayValue: 0.97,
   },
   {
@@ -580,7 +528,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.14,
     displayValue: 2.14,
   },
   {
@@ -591,7 +538,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.48,
     displayValue: 1.48,
   },
   {
@@ -602,7 +548,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.16,
     displayValue: 2.16,
   },
   {
@@ -613,7 +558,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.53,
     displayValue: 2.53,
   },
   {
@@ -624,7 +568,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.96,
     displayValue: 1.96,
   },
   {
@@ -635,7 +578,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.2,
     displayValue: 2.2,
   },
   {
@@ -646,7 +588,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 5.51,
     displayValue: 5.51,
   },
   {
@@ -657,7 +598,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 3.59,
     displayValue: 3.59,
   },
   {
@@ -668,7 +608,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 4.25,
     displayValue: 4.25,
   },
   {
@@ -679,7 +618,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 4.57,
     displayValue: 4.57,
   },
   {
@@ -690,7 +628,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.46,
     displayValue: 1.46,
   },
   {
@@ -701,7 +638,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 0.85,
     displayValue: 0.85,
   },
   {
@@ -712,7 +648,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.12,
     displayValue: 1.12,
   },
   {
@@ -723,7 +658,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.42,
     displayValue: 2.42,
   },
   {
@@ -734,7 +668,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.28,
     displayValue: 1.28,
   },
   {
@@ -745,7 +678,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.22,
     displayValue: 1.22,
   },
   {
@@ -756,7 +688,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.14,
     displayValue: 1.14,
   },
   {
@@ -767,7 +698,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.41,
     displayValue: 2.41,
   },
   {
@@ -778,7 +708,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.77,
     displayValue: 1.77,
   },
   {
@@ -789,7 +718,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 3.05,
     displayValue: 3.05,
   },
   {
@@ -800,7 +728,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.15,
     displayValue: 1.15,
   },
   {
@@ -811,7 +738,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.66,
     displayValue: 1.66,
   },
   {
@@ -822,7 +748,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.26,
     displayValue: 1.26,
   },
   {
@@ -833,7 +758,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.93,
     displayValue: 1.93,
   },
   {
@@ -844,7 +768,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.75,
     displayValue: 1.75,
   },
   {
@@ -855,7 +778,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.06,
     displayValue: 1.06,
   },
   {
@@ -866,7 +788,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.58,
     displayValue: 2.58,
   },
   {
@@ -877,7 +798,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.01,
     displayValue: 1.01,
   },
   {
@@ -888,7 +808,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 0.95,
     displayValue: 0.95,
   },
   {
@@ -899,7 +818,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.4,
     displayValue: 1.4,
   },
   {
@@ -910,7 +828,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.86,
     displayValue: 2.86,
   },
   {
@@ -921,7 +838,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.31,
     displayValue: 1.31,
   },
   {
@@ -932,7 +848,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 3.8,
     displayValue: 3.8,
   },
   {
@@ -943,7 +858,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.68,
     displayValue: 2.68,
   },
   {
@@ -954,7 +868,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.89,
     displayValue: 1.89,
   },
   {
@@ -965,7 +878,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.11,
     displayValue: 1.11,
   },
   {
@@ -976,7 +888,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.45,
     displayValue: 1.45,
   },
   {
@@ -987,7 +898,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2,
     displayValue: 2,
   },
   {
@@ -998,7 +908,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.78,
     displayValue: 1.78,
   },
   {
@@ -1009,7 +918,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.82,
     displayValue: 2.82,
   },
   {
@@ -1020,7 +928,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 0.82,
     displayValue: 0.82,
   },
   {
@@ -1031,7 +938,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.08,
     displayValue: 2.08,
   },
   {
@@ -1042,7 +948,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.64,
     displayValue: 2.64,
   },
   {
@@ -1053,7 +958,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.09,
     displayValue: 2.09,
   },
   {
@@ -1064,7 +968,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 2.26,
     displayValue: 2.26,
   },
   {
@@ -1075,7 +978,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.12,
     displayValue: 1.12,
   },
   {
@@ -1086,7 +988,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.7,
     displayValue: 1.7,
   },
   {
@@ -1097,7 +998,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.26,
     displayValue: 1.26,
   },
   {
@@ -1108,7 +1008,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 0.84,
     displayValue: 0.84,
   },
   {
@@ -1119,7 +1018,6 @@ export const perCapita = [
     issue: 'Incorrect information on your report',
     product:
       'Credit reporting, credit repair services, or other personal consumer reports',
-    perCapita: 1.12,
     displayValue: 1.12,
   },
 ];

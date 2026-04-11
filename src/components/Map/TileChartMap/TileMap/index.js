@@ -90,39 +90,6 @@ export function getBins(quantiles, scale) {
   return bins;
 }
 
-/**
- * helper function to get the Per 1000 population bins for legend and colors
- *
- * @param {Array} quantiles - floats that mark the max of each range
- * @param {function(number): string} scale - scaling function for color
- * @returns {Array} the bins with bounds, name, and color
- */
-export function getPerCapitaBins(quantiles, scale) {
-  const trunc100 = (num) => Math.floor(num * 100) / 100;
-
-  const values = quantiles.map((val) => trunc100(val));
-  const mins = Array.from(new Set(values)).filter((val) => val > 0);
-
-  const bins = [{ from: 0, color: WHITE, name: '≥ 0', shortName: '≥ 0' }];
-
-  mins.forEach((minValue) => {
-    // The color is the equivalent quantile
-    const idx = values.indexOf(minValue);
-
-    const prefix = values[idx] === quantiles[idx] ? '≥' : '>';
-    const displayValue = minValue.toFixed(2);
-    const name = `${prefix} ${displayValue}`;
-    bins.push({
-      from: minValue,
-      color: scale(quantiles[idx]),
-      name,
-      shortName: name,
-    });
-  });
-
-  return bins;
-}
-
 /* ----------------------------------------------------------------------------
    Utility Functions 2 */
 /**
@@ -246,18 +213,17 @@ function getTileMapBounds() {
 const TILE_MAP_BOUNDS = getTileMapBounds();
 export const TILE_MAP_WIDTH = TILE_MAP_BOUNDS.width;
 export const TILE_MAP_HEIGHT = TILE_MAP_BOUNDS.height;
-export const TILE_BASE_SIZE = 83;
 
 /**
  * helper function to set the color.
  *
  * Highcharts could normally handle it, but it gets confused by values
- * less than 1 that are frequently encountered in perCapita
+ * less than 1
  *
  * Also, walk through the array backwards to pick up the most saturated
  * color. This helps the "only three values" case
  *
- * @param {number} value - the number of complaints or perCapita
+ * @param {number} value - the number of complaints
  * @param {function(number): string} scale - scaling function for color
  * @returns {string} color hex or rgb code for a color
  */
@@ -704,22 +670,15 @@ export const TILE_MAP_COLORS = [
    Tile Map class */
 
 class TileMap {
-  // eslint-disable-next-line complexity
-  constructor({ el, data, isPerCapita, events, height, hasTip, width }) {
+  constructor({ el, data, events, height, hasTip, width }) {
     const scale = makeScale(data, TILE_MAP_COLORS);
     const quantiles = scale.quantiles();
     const targetGap = 4;
     const plotWidth = Number.isFinite(width) ? width : TILE_MAP_WIDTH;
     const inset = (targetGap * TILE_MAP_WIDTH) / (2 * plotWidth);
 
-    let bins, legendTitle;
-    if (isPerCapita) {
-      bins = getPerCapitaBins(quantiles, scale);
-      legendTitle = 'Complaints per 1,000';
-    } else {
-      bins = getBins(quantiles, scale);
-      legendTitle = 'Complaints';
-    }
+    const bins = getBins(quantiles, scale);
+    const legendTitle = 'Complaints';
 
     data = processMapData(data, scale, inset);
 

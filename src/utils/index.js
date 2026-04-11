@@ -1,9 +1,4 @@
-import {
-  DATE_RANGE_MIN,
-  flagFilters,
-  knownFilters,
-  SLUG_SEPARATOR,
-} from '../constants/index';
+import { DATE_RANGE_MIN, SLUG_SEPARATOR } from '../constants/index';
 import Analytics from '../actions/analytics';
 import dayjs from 'dayjs';
 import queryString from 'query-string';
@@ -149,45 +144,6 @@ export function hashCode(someString) {
     hash |= 0;
   }
   return hash;
-}
-
-/**
- * helper function to determine if we have any filters selected so we can
- * disable the Per 1000 Complaints button
- * enable per1000 if the only filter selected is state
- *
- * @param {object} filters - reducer contains values for the filters, etc
- * @returns {boolean} are we enabling the perCap
- */
-export function enablePer1000(filters) {
-  const keys = [];
-  let filter;
-  const allFilters = knownFilters.concat(flagFilters);
-
-  for (let index = 0; index < allFilters.length; index++) {
-    filter = allFilters[index];
-
-    if (
-      (Array.isArray(filters[filter]) && filters[filter].length) ||
-      filters[filter] === true
-    ) {
-      keys.push(filter);
-    }
-  }
-  const compReceivedFilters = ['company_received_max', 'company_received_min'];
-  for (let index = 0; index < compReceivedFilters.length; index++) {
-    filter = compReceivedFilters[index];
-    if (filters[filter]) {
-      keys.push(filter);
-    }
-  }
-
-  if (keys.length) {
-    // normalization still okay as long as only State filters are applied
-    return keys.length === 1 && keys[0] === 'state';
-  }
-
-  return true;
 }
 
 export const normalize = (str) => str.toLowerCase();
