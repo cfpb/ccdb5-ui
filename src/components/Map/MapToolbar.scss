@@ -1,18 +1,46 @@
 .map-toolbar {
-  border-top: 2px solid var(--gray-20);
-  border-bottom: 1px solid var(--gray-20);
+  border-top: 1px solid var(--gray-20);
   margin: 0 20px;
+  padding: 16px 0;
 
   .state-heading {
-    padding: 0.625rem;
-    border-bottom: 1px solid var(--gray-20);
+    padding: 0 0 12px;
+  }
 
-    span {
-      margin: 0.625rem;
-    }
+  .state-heading__title {
+    font-weight: 600;
+  }
+
+  .state-filters {
+    padding: 0 0 12px;
+  }
+
+  .state-filters__list {
+    margin: 0;
+    padding: 0;
+  }
+
+  .state-filters__clear {
+    display: flex;
+    align-items: baseline;
+  }
+
+  .state-filters__clear-button {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    padding: 4px 0;
+    position: relative;
+    top: 2px;
+  }
+
+  .state-filters__clear-button .cf-icon-svg {
+    align-self: baseline;
+    position: relative;
+    top: 1px;
   }
 
   .state-navigation {
-    padding: 0.625rem;
+    padding: 0;
   }
 }

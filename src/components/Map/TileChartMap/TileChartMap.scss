@@ -208,6 +208,7 @@ x/y positioning on the SVG elements.
     stroke: var(--black);
     cursor: default;
     stroke-linecap: square;
+    stroke-width: 3px;
   }
 
   .highcharts-map-series {
@@ -216,6 +217,31 @@ x/y positioning on the SVG elements.
       stroke-width: 1px;
       cursor: pointer;
     }
+
+    .highcharts-point.selected {
+      stroke: var(--black);
+      stroke-width: 3px;
+    }
+
+    .highcharts-point.highcharts-point-hover {
+      stroke: var(--black);
+      stroke-width: 2px;
+    }
+
+    .highcharts-point.selected.highcharts-point-hover {
+      stroke-width: 3px;
+    }
+  }
+
+  .highcharts-point:focus,
+  .highcharts-point.highcharts-keyboard-focused {
+    outline: none;
+  }
+
+  .highcharts-focus-border {
+    fill: none;
+    stroke: var(--black);
+    stroke-width: 2px;
   }
 
   .highcharts-label-box {
@@ -403,7 +429,7 @@ x/y positioning on the SVG elements.
 .cfpb-chart[data-chart-type='tile_map']:not(.print) {
   .highcharts-map-series {
     .highcharts-point {
-      &:hover {
+      &:not(.selected):hover {
         stroke: var(--black);
         stroke-width: 2px !important;
       }

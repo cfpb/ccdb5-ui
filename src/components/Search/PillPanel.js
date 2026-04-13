@@ -68,7 +68,7 @@ export const PillPanel = () => {
       <Heading type="3" className="h4 pill-label flex-fixed">
         Filters applied:
       </Heading>
-      <ul className="layout-row">
+      <ul className="m-tag-group pill-panel__list">
         {filters.map((filter) => (
           <Pill
             key={filter.fieldName + filter.value}
@@ -76,7 +76,7 @@ export const PillPanel = () => {
             value={filter.value}
           />
         ))}
-        <li className="clear-all">
+        <li className="pill-panel__clear">
           <Button
             appearance="warning"
             label="Clear all filters"

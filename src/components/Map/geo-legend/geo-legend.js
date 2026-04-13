@@ -57,7 +57,7 @@ export const GeoLegend = () => {
 
   const title = 'Complaint count by state';
   const legendDescription =
-    'The map is shaded to reflect the total complaint count based on the applied filters.';
+    'The tiles are shaded to reflect the complaint count for each state, based on the applied filters. Hover over a tile to view details or select a tile to add the state to your filters.';
 
   return (
     <div className="map-legend" aria-label="Map shading">

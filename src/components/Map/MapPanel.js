@@ -12,22 +12,18 @@ import { RowChart } from '../Charts/RowChart/RowChart';
 import { TabbedNavigation } from '../TabbedNavigation/TabbedNavigation';
 import { TileChartMap } from './TileChartMap/TileChartMap';
 import { GeoLegend } from './geo-legend/geo-legend';
+import { MapStateNavigation } from './map-state-navigation';
 import {
   selectQueryDateReceivedMax,
   selectQueryDateReceivedMin,
 } from '../../reducers/query/selectors';
-
 import {
   selectViewExpandedRows,
   selectViewWidth,
 } from '../../reducers/view/selectors';
-
 import { formatDisplayDate } from '../../utils/formatDate';
 import { useGetAggregations } from '../../api/hooks/useGetAggregations';
 import { useGetMap } from '../../api/hooks/useGetMap';
-
-const MAP_ROWCHART_HELPERTEXT =
-  'The chart below reflects the product and sub-product the consumer identified in the complaint. Click on a product name to view sub-products.';
 
 export const MapPanel = () => {
   const { data, error } = useGetAggregations();
@@ -50,9 +46,19 @@ export const MapPanel = () => {
     );
   }, [hasError, results, expandedRows]);
 
-  const MAP_ROWCHART_TITLE = `Product by highest complaint volume (${formatDisplayDate(
-    minDate,
-  )} to ${formatDisplayDate(maxDate)})`;
+  const isPlural =
+    productData?.data.filter((obj) => obj.isParent).length > 1 || false;
+  const prodText = isPlural ? 'Products' : 'Product';
+  const MAP_ROWCHART_TITLE =
+    prodText +
+    ' by highest complaint volume ' +
+    `(${formatDisplayDate(minDate)} to ${formatDisplayDate(maxDate)})`;
+
+  const MAP_ROWCHART_HELPERTEXT = isPlural
+    ? 'The chart below shows the products with the highest complaint volume, ' +
+      'based on the applied filters. Expand each product to view sub-products.'
+    : 'The chart below shows the product with the highest complaint volume, ' +
+      'based on the applied filters. Expand the product to view sub-products.';
 
   return (
     <section className="map-panel">
@@ -75,6 +81,7 @@ export const MapPanel = () => {
             helperText={MAP_ROWCHART_HELPERTEXT}
             total={total}
           />
+          <MapStateNavigation />
         </>
       )}
       <Loading isLoading={isLoading || isFetching} />

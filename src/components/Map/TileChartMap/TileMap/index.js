@@ -109,6 +109,7 @@ export function processMapData(data, scale, inset) {
   const isFiltered = data.filter((obj) => obj.className === 'selected').length;
   data = data.map(function (obj) {
     const path = insetTilePath(STATE_TILES[obj.name], tileInset);
+    const center = getTileCenter(path);
     let color = getColorByValue(obj.displayValue, scale);
 
     if (isFiltered && obj.className === 'deselected') {
@@ -125,7 +126,16 @@ export function processMapData(data, scale, inset) {
       ...obj,
       color,
       path,
+      sortX: center.centerX,
+      sortY: center.centerY,
     };
+  });
+
+  data.sort((first, second) => {
+    if (first.sortY !== second.sortY) {
+      return first.sortY - second.sortY;
+    }
+    return first.sortX - second.sortX;
   });
 
   return data;
@@ -164,6 +174,107 @@ function insetTilePath(path, inset) {
   const ny2 = y2 - inset;
 
   return `M${nx1},${ny1}L${nx2},${ny1},${nx2},${ny2},${nx1},${ny2},${nx1},${ny1}`;
+}
+
+/**
+ * Parse numeric points from an SVG path string.
+ *
+ * @param {string} path - SVG path string.
+ * @returns {number[]} List of numeric coordinates.
+ */
+function getPathPoints(path) {
+  const points = path.match(/-?\d+(?:\.\d+)?/g);
+  return points ? points.map((value) => Number(value)) : [];
+}
+
+/**
+ *
+ * @param points
+ */
+function hasPointPairs(points) {
+  return Array.isArray(points) && points.length >= 8;
+}
+
+/**
+ *
+ */
+function createBounds() {
+  return {
+    minX: Infinity,
+    maxX: -Infinity,
+    minY: Infinity,
+    maxY: -Infinity,
+  };
+}
+
+/**
+ *
+ * @param bounds
+ * @param points
+ */
+function updateBoundsFromPoints(bounds, points) {
+  for (let index = 0; index < points.length; index += 2) {
+    const xValue = points[index];
+    const yValue = points[index + 1];
+    if (!Number.isFinite(xValue) || !Number.isFinite(yValue)) {
+      continue;
+    }
+    bounds.minX = Math.min(bounds.minX, xValue);
+    bounds.maxX = Math.max(bounds.maxX, xValue);
+    bounds.minY = Math.min(bounds.minY, yValue);
+    bounds.maxY = Math.max(bounds.maxY, yValue);
+  }
+}
+
+/**
+ *
+ * @param bounds
+ */
+function isValidBounds(bounds) {
+  return (
+    Number.isFinite(bounds.minX) &&
+    Number.isFinite(bounds.maxX) &&
+    Number.isFinite(bounds.minY) &&
+    Number.isFinite(bounds.maxY)
+  );
+}
+
+/**
+ * Compute bounds from a list of points.
+ *
+ * @param {number[]} points - Numeric coordinates from an SVG path.
+ * @returns {object} Bounds for the path.
+ */
+function getPointsBounds(points) {
+  if (!hasPointPairs(points)) {
+    return null;
+  }
+
+  const bounds = createBounds();
+  updateBoundsFromPoints(bounds, points);
+
+  if (!isValidBounds(bounds)) {
+    return null;
+  }
+
+  return bounds;
+}
+
+/**
+ * Compute the center point of a tile path.
+ *
+ * @param {string} path - SVG path string.
+ * @returns {object} Center coordinates.
+ */
+function getTileCenter(path) {
+  const bounds = getPointsBounds(getPathPoints(path));
+  if (!bounds) {
+    return { centerX: 0, centerY: 0 };
+  }
+  return {
+    centerX: (bounds.minX + bounds.maxX) / 2,
+    centerY: (bounds.minY + bounds.maxY) / 2,
+  };
 }
 
 /**
@@ -248,6 +359,8 @@ export function descriptionFormatter(point) {
 
 /**
  * callback function for mouseout a point to remove hover class from tile label
+ *
+ * @returns {void} No return value.
  */
 export function mouseoutPoint() {
   const name = '.tile-' + this.name;
@@ -256,6 +369,8 @@ export function mouseoutPoint() {
 
 /**
  * callback function for mouseover point to add hover class to tile label
+ *
+ * @returns {void} No return value.
  */
 export function mouseoverPoint() {
   const name = '.tile-' + this.name;
@@ -295,10 +410,6 @@ export function tileFormatter() {
  * callback function to format the tooltip in HTML
  *
  * @returns {string} html output
- */
-
-/**
- *
  */
 export function tooltipFormatter() {
   const productRow = this.product
@@ -688,6 +799,9 @@ class TileMap {
         screenReaderSection: {
           afterChartFormat: '',
           beforeChartFormat: '',
+        },
+        pointNavigation: {
+          order: 'xy',
         },
       },
 
