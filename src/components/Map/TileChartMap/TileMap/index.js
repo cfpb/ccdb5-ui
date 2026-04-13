@@ -106,16 +106,10 @@ export function processMapData(data, scale, inset) {
 
   const tileInset = Number.isFinite(inset) ? inset : 0;
 
-  const isFiltered = data.filter((obj) => obj.className === 'selected').length;
   data = data.map(function (obj) {
     const path = insetTilePath(STATE_TILES[obj.name], tileInset);
     const center = getTileCenter(path);
-    let color = getColorByValue(obj.displayValue, scale);
-
-    if (isFiltered && obj.className === 'deselected') {
-      // update rgba opacity for selected state
-      color = color.replace('1)', '0.5)');
-    }
+    const color = getColorByValue(obj.displayValue, scale);
 
     if (obj.className !== 'selected' && color === WHITE) {
       // handle cases where value is empty or no color, so we can set the border
@@ -413,11 +407,11 @@ export function tileFormatter() {
  */
 export function tooltipFormatter() {
   const productRow = this.product
-    ? `<div class="row"><p class="u-float-left">Product with highest complaint volume</p><p class="u-right">${this.product}</p></div>`
+    ? `<div class="row row--product"><p class="u-float-left">Product with highest complaint volume</p><p class="u-right">${this.product}</p></div>`
     : '';
 
   const issueRow = this.issue
-    ? `<div class="row"><p class="u-float-left">Issue with highest complaint volume</p><p class="u-right">${this.issue}</p></div>`
+    ? `<div class="row row--issue"><p class="u-float-left">Issue with highest complaint volume</p><p class="u-right">${this.issue}</p></div>`
     : '';
   const value = this.value.toLocaleString();
   return (

@@ -1,10 +1,9 @@
 .map-toolbar {
   border-top: 1px solid var(--gray-20);
-  margin: 0 20px;
-  padding: 16px 0;
+  margin: 0 30px;
 
   .state-heading {
-    padding: 0 0 12px;
+    padding: 30px 0 15px;
   }
 
   .state-heading__title {
@@ -12,7 +11,7 @@
   }
 
   .state-filters {
-    padding: 0 0 12px;
+    padding: 0 0 15px;
   }
 
   .state-filters__list {

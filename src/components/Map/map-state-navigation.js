@@ -17,7 +17,7 @@ export const MapStateNavigation = () => {
   return (
     <section className="map-state-navigation">
       <Button
-        label="View complaints based on applied filters"
+        label="View list of complaints based on applied filters"
         isLink
         onClick={() => {
           dispatch(tabChanged(MODE_LIST));

@@ -18,12 +18,11 @@ export const MapToolbar = () => {
   const hasFilters = filteredStates.length > 0;
 
   return (
-    <div className="map-toolbar">
-      <section className="state-heading">
-        {!hasFilters && <span>United States of America</span>}
-        {!!hasFilters && <span className="state-heading__title">State filters applied</span>}
-      </section>
-      {!!hasFilters && (
+    !!hasFilters && (
+      <div className="map-toolbar">
+        <section className="state-heading">
+          <span className="state-heading__title">State filters applied</span>
+        </section>
         <section className="state-filters">
           <ul className="state-filters__list m-tag-group">
             {filteredStates.map((abbr) => (
@@ -49,7 +48,7 @@ export const MapToolbar = () => {
             </li>
           </ul>
         </section>
-      )}
-    </div>
+      </div>
+    )
   );
 };

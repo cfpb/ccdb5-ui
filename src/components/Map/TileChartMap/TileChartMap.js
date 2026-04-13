@@ -87,7 +87,9 @@ export const TileChartMap = () => {
     };
 
     const tileAspect = TILE_MAP_HEIGHT / TILE_MAP_WIDTH;
-    options.height = Math.round(mapWidth * tileAspect);
+    // add more height when filters collapse and window is small
+    const modifier = width < 750 ? 50 : 0;
+    options.height = Math.round(mapWidth * tileAspect) + modifier;
 
     // eslint-disable-next-line no-unused-vars
     const chart = new TileMap(options);
