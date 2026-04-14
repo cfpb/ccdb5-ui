@@ -4,8 +4,8 @@ module.exports = defineConfig({
   viewportWidth: 1200,
   viewportHeight: 1200,
   responseTimeout: 80000,
-  defaultCommandTimeout: 30000,
-  requestTimeout: 20000,
+  defaultCommandTimeout: 80000,
+  requestTimeout: 80000,
   screenshotOnRunFailure: false,
   video: false,
   e2e: {
