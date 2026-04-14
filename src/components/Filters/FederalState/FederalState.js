@@ -17,7 +17,10 @@ export const FederalState = () => {
   const stickyOptions = structuredClone(aggsState);
   const dispatch = useDispatch();
   const filters = useSelector(selectFiltersState);
-  const buildLabel = (state) => THESE_UNITED_STATES[state] + ' (' + state + ')';
+  const buildLabel = (state) =>
+    THESE_UNITED_STATES[state]
+      ? `${THESE_UNITED_STATES[state]} (${state})`
+      : state;
   const starterOptions = Object.keys(THESE_UNITED_STATES).map((key) => {
     const label = buildLabel(key);
     return {
@@ -65,6 +68,7 @@ export const FederalState = () => {
       <StickyOptions
         fieldName={FIELD_NAME}
         options={stickyOptions}
+        getLabel={buildLabel}
         selections={filters}
       />
     </CollapsibleFilter>

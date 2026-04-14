@@ -416,7 +416,7 @@ export function tooltipFormatter() {
   const value = this.value.toLocaleString();
   return (
     `<h4 class="title">${this.fullName} (${this.name})</h4>` +
-    `<div class="row"><p class="u-float-left">Complaint count</p><p class="u-right">${value}</p></div>` +
+    `<div class="row row--count"><p class="u-float-left">Complaint count</p><p class="u-right">${value}</p></div>` +
     productRow +
     issueRow
   );

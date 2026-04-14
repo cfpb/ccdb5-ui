@@ -459,9 +459,9 @@ $mobile-xs-tiles-breakpoint-max: 400px;
 }
 
 // This takes over for looking good at the minimum height of 400px
-@media screen and (max-width: $mobile-tiles-breakpoint-max) {
-  .cfpb-chart[data-chart-type='tile_map'] {
-    padding: 0 !important;
+  @media screen and (max-width: $mobile-tiles-breakpoint-max) {
+    .cfpb-chart[data-chart-type='tile_map'] {
+      padding: 0 !important;
 
     .highcharts-data-label {
       line-height: 1;
@@ -489,6 +489,18 @@ $mobile-xs-tiles-breakpoint-max: 400px;
 
         .row {
           padding: 0;
+        }
+
+        .row--count {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 6px;
+        }
+
+        .row--count .u-float-left,
+        .row--count .u-right {
+          flex: 0 0 auto;
+          width: 100%;
         }
 
         .top-volume {
