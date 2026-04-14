@@ -217,7 +217,7 @@ describe('Tile map', () => {
       product:
         'Credit reporting, credit repair services, or other personal consumer reports',
       displayValue: 10380,
-      color: 'rgba(247, 248, 249, 0.5)',
+      color: 'rgba(247, 248, 249, 1)',
       path: 'M550,-337L633,-337,633,-253,550,-253,550,-337',
     });
 
