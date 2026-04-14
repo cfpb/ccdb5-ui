@@ -8,12 +8,11 @@ export const FilterPanelToggle = () => {
   const dispatch = useDispatch();
   const hasFilters = useSelector(selectViewHasFilters);
   return (
-    <section className="filter-panel-toggle">
+    <section className={'filter-panel-toggle' + (hasFilters ? '' : ' u-mt30')}>
       <div className="m-btn-group">
-        <p>&nbsp;</p>
         <Button
           label={hasFilters ? 'Close Filters' : 'Filter results'}
-          className="a-btn filter-toggle-button"
+          className="filter-toggle-button"
           onClick={() => {
             dispatch(updateFilterVisibility());
           }}

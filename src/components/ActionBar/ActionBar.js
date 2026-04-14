@@ -20,7 +20,7 @@ export const ActionBar = () => {
     dispatch(updatePrintModeOn());
   };
   return (
-    <div>
+    <>
       <div className="action-bar" id="search-summary">
         {total === docCount ? (
           <Heading type="2">
@@ -65,6 +65,6 @@ export const ActionBar = () => {
         )}
       </div>
       <StaleDataWarnings />
-    </div>
+    </>
   );
 };
