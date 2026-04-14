@@ -163,7 +163,7 @@ describe('Tile map', () => {
     sutClone.value = 10000;
     const result = sutClone.tooltipFormatter();
     expect(result).toEqual(
-      '<h4 class="title">Another Name (undefined)</h4><div class="row"><p class="u-float-left">Complaint count</p><p class="u-right">10,000</p></div>',
+      '<h4 class="title">Another Name (undefined)</h4><div class="row row--count"><p class="u-float-left">Complaint count</p><p class="u-right">10,000</p></div>',
     );
   });
 
@@ -174,7 +174,7 @@ describe('Tile map', () => {
     sutClone.issue = 'Being Broke';
     const result = sutClone.tooltipFormatter();
     expect(result).toEqual(
-      '<h4 class="title">State Name (undefined)</h4><div class="row"><p class="u-float-left">Complaint count</p><p class="u-right">10,000</p></div><div class="row"><p class="u-float-left">Product with highest complaint volume</p><p class="u-right">Expensive Item</p></div><div class="row"><p class="u-float-left">Issue with highest complaint volume</p><p class="u-right">Being Broke</p></div>',
+      '<h4 class="title">State Name (undefined)</h4><div class="row row--count"><p class="u-float-left">Complaint count</p><p class="u-right">10,000</p></div><div class="row row--product"><p class="u-float-left">Product with highest complaint volume</p><p class="u-right">Expensive Item</p></div><div class="row row--issue"><p class="u-float-left">Issue with highest complaint volume</p><p class="u-right">Being Broke</p></div>',
     );
   });
 
@@ -192,7 +192,11 @@ describe('Tile map', () => {
 
     const result = sutClone.processMapData(complaints.raw, scale);
     // test only the first one just make sure that the path and color are found
-    expect(result[0]).toEqual({
+    const alaska = result.find((row) => row.name === 'AK');
+    const alabama = result.find((row) => row.name === 'AL');
+    const arkansas = result.find((row) => row.name === 'AR');
+
+    expect(alaska).toMatchObject({
       className: 'default',
       name: 'AK',
       fullName: 'Alaska',
@@ -204,7 +208,7 @@ describe('Tile map', () => {
       color: 'rgba(247, 248, 249, 1)',
       path: 'M92,-245L175,-245,175,-162,92,-162,92,-245',
     });
-    expect(result[1]).toEqual({
+    expect(alabama).toMatchObject({
       className: 'deselected',
       name: 'AL',
       fullName: 'Alabama',
@@ -217,7 +221,7 @@ describe('Tile map', () => {
       path: 'M550,-337L633,-337,633,-253,550,-253,550,-337',
     });
 
-    expect(result[2]).toEqual({
+    expect(arkansas).toMatchObject({
       className: 'selected',
       name: 'AR',
       fullName: 'Arkansas',
@@ -229,6 +233,12 @@ describe('Tile map', () => {
       color: 'rgba(247, 248, 249, 1)',
       path: 'M367,-428L450,-428,450,-345,367,-345,367,-428',
     });
+    expect(alaska.sortX).toEqual(expect.any(Number));
+    expect(alaska.sortY).toEqual(expect.any(Number));
+    expect(alabama.sortX).toEqual(expect.any(Number));
+    expect(alabama.sortY).toEqual(expect.any(Number));
+    expect(arkansas.sortX).toEqual(expect.any(Number));
+    expect(arkansas.sortY).toEqual(expect.any(Number));
     expect(scale).toHaveBeenCalledTimes(51);
   });
 
@@ -236,8 +246,10 @@ describe('Tile map', () => {
     const scale = jest.fn().mockReturnValue('#ffffff');
 
     const result = sutClone.processMapData(complaints.raw, scale);
-    // test only the first one & 3rd for path, className, color are found
-    expect(result[0]).toEqual({
+    const alaska = result.find((row) => row.name === 'AK');
+    const arkansas = result.find((row) => row.name === 'AR');
+
+    expect(alaska).toMatchObject({
       className: 'empty',
       name: 'AK',
       fullName: 'Alaska',
@@ -250,7 +262,7 @@ describe('Tile map', () => {
       path: 'M92,-245L175,-245,175,-162,92,-162,92,-245',
     });
 
-    expect(result[2]).toEqual({
+    expect(arkansas).toMatchObject({
       className: 'selected',
       name: 'AR',
       fullName: 'Arkansas',
@@ -262,6 +274,10 @@ describe('Tile map', () => {
       color: '#ffffff',
       path: 'M367,-428L450,-428,450,-345,367,-345,367,-428',
     });
+    expect(alaska.sortX).toEqual(expect.any(Number));
+    expect(alaska.sortY).toEqual(expect.any(Number));
+    expect(arkansas.sortX).toEqual(expect.any(Number));
+    expect(arkansas.sortY).toEqual(expect.any(Number));
     expect(scale).toHaveBeenCalledTimes(51);
   });
 

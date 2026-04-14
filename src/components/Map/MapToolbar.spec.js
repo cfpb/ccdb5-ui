@@ -7,7 +7,6 @@ import {
   screen,
   testRender as render,
 } from '../../testUtils/test-utils';
-import * as viewActions from '../../reducers/view/viewSlice';
 
 describe('MapToolbar', () => {
   const renderComponent = (newFiltersState) => {
@@ -21,9 +20,9 @@ describe('MapToolbar', () => {
       preloadedState: data,
     });
   };
-  it('renders no states filter without crashing', () => {
+  it('does not render when there are no state filters', () => {
     renderComponent({});
-    expect(screen.getByText('United States of America')).toBeInTheDocument();
+    expect(screen.queryByText('State filters applied')).not.toBeInTheDocument();
   });
 
   it('renders filtered states and clears filters', () => {
@@ -34,23 +33,11 @@ describe('MapToolbar', () => {
     renderComponent({
       state: ['FL', 'TX'],
     });
-    expect(screen.getByText('Florida, Texas')).toBeInTheDocument();
-    expect(screen.getByLabelText('Clear all map filters')).toBeInTheDocument();
-    fireEvent.click(screen.getByText('Clear'));
+    expect(screen.getByRole('button', { name: 'Florida' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Texas' })).toBeInTheDocument();
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Clear all state filters' }),
+    );
     expect(stateFilterClearedSpy).toHaveBeenCalledTimes(1);
-  });
-
-  it('renders filtered states and goes to list', () => {
-    const showStateComplaintsSpy = jest
-      .spyOn(viewActions, 'tabChanged')
-      .mockImplementation(() => jest.fn());
-
-    renderComponent({
-      state: ['FL', 'TX'],
-    });
-    expect(screen.getByText('Florida, Texas')).toBeInTheDocument();
-    fireEvent.click(screen.getByText('View complaints for filtered states'));
-    expect(showStateComplaintsSpy).toHaveBeenCalledTimes(1);
-    expect(showStateComplaintsSpy).toHaveBeenCalledWith('List');
   });
 });

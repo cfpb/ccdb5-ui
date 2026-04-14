@@ -36,18 +36,19 @@ export const MapPanel = () => {
   const hasMobileFilters = width < 750;
   const productData = useMemo(() => {
     if (hasError) {
-      return [];
+      return { data: [], colorScheme: [] };
     }
-    return processRows(
-      results?.results.product,
-      false,
-      'Product',
-      expandedRows,
+    return (
+      processRows(results?.results.product, false, 'Product', expandedRows) || {
+        data: [],
+        colorScheme: [],
+      }
     );
   }, [hasError, results, expandedRows]);
 
+  const productRows = productData?.data || [];
   const isPlural =
-    productData?.data.filter((obj) => obj.isParent).length > 1 || false;
+    productRows.filter((obj) => obj.isParent).length > 1 || false;
   const prodText = isPlural ? 'Products' : 'Product';
   const MAP_ROWCHART_TITLE =
     prodText +
