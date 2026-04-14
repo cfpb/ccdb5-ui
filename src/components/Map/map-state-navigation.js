@@ -15,7 +15,7 @@ export const MapStateNavigation = () => {
   }
 
   return (
-    <section className="map-state-navigation">
+    <section className="map-state-navigation u-mb60">
       <Button
         label="View list of complaints based on applied filters"
         isLink
