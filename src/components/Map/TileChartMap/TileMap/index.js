@@ -417,7 +417,7 @@ export function tooltipFormatter() {
   const value = this.value.toLocaleString();
   const titleLabel = formatStateLabel(this.name);
   return (
-    `<h4 class="title u-mb10">${titleLabel}</h4>` +
+    `<h4 class="title u-mb15">${titleLabel}</h4>` +
     `<div class="row row--count"><p class="u-float-left">Complaint count</p><p class="u-right">${value}</p></div>` +
     productRow +
     issueRow
@@ -821,7 +821,7 @@ class TileMap {
         legendTitle,
       },
       tooltip: {
-        className: 'tooltip',
+        className: 'tilemap-tooltip',
         enabled: hasTip,
         headerFormat: '',
         pointFormatter: tooltipFormatter,

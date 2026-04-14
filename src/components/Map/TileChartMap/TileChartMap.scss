@@ -32,7 +32,6 @@
   -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
 }
 
-// legend
 .highcharts-root {
   display: block;
 
@@ -40,14 +39,6 @@
     stroke-width: 0;
     font-weight: 500;
   }
-}
-
-.highcharts-strong {
-  font-weight: bold;
-}
-
-.highcharts-emphasized {
-  font-style: italic;
 }
 
 .highcharts-anchor {
@@ -69,16 +60,6 @@
 
 .highcharts-button-box {
   fill: inherit;
-}
-
-/* Titles */
-.highcharts-title {
-  fill: #333;
-  font-size: 1.5em;
-}
-
-.highcharts-subtitle {
-  fill: #666;
 }
 
 /* Highmaps */
@@ -142,32 +123,7 @@ x/y positioning on the SVG elements.
     pointer-events: none;
   }
 
-  .highcharts-legend-title {
-    .highcharts-legend-key {
-      font-weight: 500;
-    }
-
-    .highcharts-legend-description {
-      font-size: 12px;
-
-      .type {
-        font-weight: 500;
-        color: var(--black);
-      }
-    }
-  }
-
-  .highcharts-legend__tile-map {
-    font-size: 12px;
-
-    .legend-box {
-      stroke: var(--gray);
-    }
-  }
-
   .highcharts-label__tile-map {
-    font-size: 16px;
-    font-family: inherit;
     color: var(--gray);
     font-weight: 500;
 
@@ -228,14 +184,13 @@ x/y positioning on the SVG elements.
 
     --caret-size: 8px;
     --caret-pos: 50%;
-    filter: drop-shadow(1px 1px 0 rgb(0 0 0 / 20%));
+    filter: drop-shadow(1px 1px 2px rgb(0 0 0 / 20%));
     color: var(--gray-dark);
 
     span {
       background-color: var(--gray-5);
       border: 1px solid var(--gray-40);
       font-family: inherit;
-      font-size: 16px;
       padding: 15px 15px 0;
       position: relative;
       overflow: visible;
@@ -273,7 +228,6 @@ x/y positioning on the SVG elements.
         float: none;
         display: block;
         flex: 0 0 45%;
-        font-size: 16px;
         font-weight: 500;
         color: var(--gray-dark);
       }
@@ -282,7 +236,6 @@ x/y positioning on the SVG elements.
         float: none;
         display: block;
         flex: 1 1 auto;
-        font-size: 16px;
         font-weight: 400;
         color: var(--gray-dark);
       }
