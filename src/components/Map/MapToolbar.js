@@ -8,6 +8,7 @@ import {
 } from '../../reducers/filters/filtersSlice';
 import { selectFiltersState } from '../../reducers/filters/selectors';
 import { Pill } from '../Search/Pill';
+import { formatStateLabel } from '../../utils/filters';
 
 export const MapToolbar = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ export const MapToolbar = () => {
                 key={abbr}
                 fieldName="state"
                 value={abbr}
-                displayValue={THESE_UNITED_STATES[abbr]}
+                displayValue={formatStateLabel(abbr)}
                 onRemove={() => dispatch(stateFilterRemoved({ abbr }))}
               />
             ))}

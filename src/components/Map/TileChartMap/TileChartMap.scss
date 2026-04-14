@@ -30,8 +30,6 @@
 
   /* #1072 */
   -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
-  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Arial, Helvetica, sans-serif;
-  font-size: 12px;
 }
 
 // legend
@@ -459,9 +457,9 @@ $mobile-xs-tiles-breakpoint-max: 400px;
 }
 
 // This takes over for looking good at the minimum height of 400px
-  @media screen and (max-width: $mobile-tiles-breakpoint-max) {
-    .cfpb-chart[data-chart-type='tile_map'] {
-      padding: 0 !important;
+@media screen and (max-width: $mobile-tiles-breakpoint-max) {
+  .cfpb-chart[data-chart-type='tile_map'] {
+    padding: 0 !important;
 
     .highcharts-data-label {
       line-height: 1;

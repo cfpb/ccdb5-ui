@@ -8,6 +8,7 @@ import { Typeahead } from '../../Typeahead/Typeahead/Typeahead';
 import { StickyOptions } from '../StickyOptions/StickyOptions';
 import { selectFiltersState } from '../../../reducers/filters/selectors';
 import { useGetAggregations } from '../../../api/hooks/useGetAggregations';
+import { formatStateLabel } from '../../../utils/filters';
 
 const FIELD_NAME = 'state';
 
@@ -17,10 +18,7 @@ export const FederalState = () => {
   const stickyOptions = structuredClone(aggsState);
   const dispatch = useDispatch();
   const filters = useSelector(selectFiltersState);
-  const buildLabel = (state) =>
-    THESE_UNITED_STATES[state]
-      ? `${THESE_UNITED_STATES[state]} (${state})`
-      : state;
+  const buildLabel = (state) => formatStateLabel(state);
   const starterOptions = Object.keys(THESE_UNITED_STATES).map((key) => {
     const label = buildLabel(key);
     return {

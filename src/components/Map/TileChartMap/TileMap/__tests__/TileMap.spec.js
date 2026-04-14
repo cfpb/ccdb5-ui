@@ -159,22 +159,22 @@ describe('Tile map', () => {
   });
 
   it('formats the map tooltip w/ missing data', () => {
-    sutClone.fullName = 'Another Name';
+    sutClone.name = 'FL';
     sutClone.value = 10000;
     const result = sutClone.tooltipFormatter();
     expect(result).toEqual(
-      '<h4 class="title">Another Name (undefined)</h4><div class="row row--count"><p class="u-float-left">Complaint count</p><p class="u-right">10,000</p></div>',
+      '<h4 class="title">Florida (FL)</h4><div class="row row--count"><p class="u-float-left">Complaint count</p><p class="u-right">10,000</p></div>',
     );
   });
 
   it('formats the map tooltip w/ prod & issue', () => {
-    sutClone.fullName = 'State Name';
+    sutClone.name = 'FL';
     sutClone.value = 10000;
     sutClone.product = 'Expensive Item';
     sutClone.issue = 'Being Broke';
     const result = sutClone.tooltipFormatter();
     expect(result).toEqual(
-      '<h4 class="title">State Name (undefined)</h4><div class="row row--count"><p class="u-float-left">Complaint count</p><p class="u-right">10,000</p></div><div class="row row--product"><p class="u-float-left">Product with highest complaint volume</p><p class="u-right">Expensive Item</p></div><div class="row row--issue"><p class="u-float-left">Issue with highest complaint volume</p><p class="u-right">Being Broke</p></div>',
+      '<h4 class="title">Florida (FL)</h4><div class="row row--count"><p class="u-float-left">Complaint count</p><p class="u-right">10,000</p></div><div class="row row--product"><p class="u-float-left">Product with highest complaint volume</p><p class="u-right">Expensive Item</p></div><div class="row row--issue"><p class="u-float-left">Issue with highest complaint volume</p><p class="u-right">Being Broke</p></div>',
     );
   });
 

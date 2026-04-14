@@ -33,8 +33,12 @@ describe('MapToolbar', () => {
     renderComponent({
       state: ['FL', 'TX'],
     });
-    expect(screen.getByRole('button', { name: 'Florida' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Texas' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Florida (FL)' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Texas (TX)' }),
+    ).toBeInTheDocument();
     fireEvent.click(
       screen.getByRole('button', { name: 'Clear all state filters' }),
     );

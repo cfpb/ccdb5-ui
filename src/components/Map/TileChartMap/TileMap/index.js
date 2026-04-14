@@ -4,6 +4,7 @@ import Highcharts from 'highcharts/highmaps';
 import 'highcharts/modules/accessibility';
 import { STATE_TILES } from './constants';
 import { getAppRoot } from '../../../../utils/dom';
+import { formatStateLabel } from '../../../../utils/filters';
 
 const TEN_K = 10000;
 const HUN_K = 100000;
@@ -414,8 +415,9 @@ export function tooltipFormatter() {
     ? `<div class="row row--issue"><p class="u-float-left">Issue with highest complaint volume</p><p class="u-right">${this.issue}</p></div>`
     : '';
   const value = this.value.toLocaleString();
+  const titleLabel = formatStateLabel(this.name);
   return (
-    `<h4 class="title">${this.fullName} (${this.name})</h4>` +
+    `<h4 class="title">${titleLabel}</h4>` +
     `<div class="row row--count"><p class="u-float-left">Complaint count</p><p class="u-right">${value}</p></div>` +
     productRow +
     issueRow

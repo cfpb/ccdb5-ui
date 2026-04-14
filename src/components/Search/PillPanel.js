@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { Pill } from './Pill';
 import { filtersCleared } from '../../reducers/filters/filtersSlice';
+import { formatStateLabel } from '../../utils/filters';
 
 /* eslint complexity: ["error", 5] */
 export const PillPanel = () => {
@@ -74,6 +75,11 @@ export const PillPanel = () => {
             key={filter.fieldName + filter.value}
             fieldName={filter.fieldName}
             value={filter.value}
+            displayValue={
+              filter.fieldName === 'state'
+                ? formatStateLabel(filter.value)
+                : undefined
+            }
           />
         ))}
         <li className="pill-panel__clear">
