@@ -12,31 +12,31 @@
 
   .state-filters {
     padding: 0 0 15px;
-  }
 
-  .state-filters__list {
-    margin: 0;
-    padding: 0;
-  }
+    .state-filters__list {
+      margin: 0;
+      padding: 0;
+    }
 
-  .state-filters__clear {
-    display: flex;
-    align-items: baseline;
-  }
+    .state-filters__clear {
+      display: flex;
+      align-items: baseline;
+    }
 
-  .state-filters__clear-button {
-    display: inline-flex;
-    align-items: center;
-    line-height: 1;
-    padding: 4px 0;
-    position: relative;
-    top: 2px;
-  }
+    .state-filters__clear-button {
+      display: inline-flex;
+      align-items: center;
+      line-height: 1;
+      padding: 4px 0;
+      position: relative;
+      top: 2px;
+    }
 
-  .state-filters__clear-button .cf-icon-svg {
-    align-self: baseline;
-    position: relative;
-    top: 1px;
+    .state-filters__clear-button .cf-icon-svg {
+      align-self: baseline;
+      position: relative;
+      top: 1px;
+    }
   }
 
   .state-navigation {
