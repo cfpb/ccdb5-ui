@@ -47,15 +47,27 @@
 
 @media only screen and (max-width: 600px) {
   .map-legend {
-    padding: 0 10px 12px;
+    padding: 16px 12px;
   }
 
   .map-legend__bins {
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-    row-gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
+    row-gap: 0;
+    column-gap: 0;
+  }
+
+  .map-legend__swatch {
+    height: 10px;
+    width: 100%;
   }
 
   .map-legend__label {
     white-space: normal;
+    width: 100%;
+    max-width: 96px;
+    overflow-wrap: break-word;
+    font-size: inherit;
+    line-height: 1.3;
+    margin-top: 6px;
   }
 }

@@ -416,6 +416,8 @@ $mobile-xs-tiles-breakpoint-max: 400px;
 
     // column tooltip
     .highcharts-tooltip span {
+      padding: 15px;
+
       .row--product,
       .row--issue {
         display: none;
