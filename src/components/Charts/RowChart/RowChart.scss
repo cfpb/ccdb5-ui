@@ -14,6 +14,12 @@
   .row-chart-section {
     margin-left: 0;
   }
+
+  // hide mouseover tooltip when mobile
+  .metadata-group {
+    display: none;
+  }
+
 }
 
 .row-chart {

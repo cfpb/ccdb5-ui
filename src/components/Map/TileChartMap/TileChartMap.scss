@@ -110,16 +110,6 @@ x/y positioning on the SVG elements.
   // border: 1px red solid;
   // margin-bottom: 25px;
   // margin-left: $grid-gutter-width;
-
-  .highcharts-root,
-  .highcharts-container,
-  .highcharts-legend-box,
-  .highcharts-axis-labels,
-  .highcharts-tooltip text {
-    font-size: 16px;
-    font-family: inherit;
-    color: var(--gray);
-  }
 }
 
 /* TODO: Investigate whether responsive styles can be remove here and handled
@@ -238,15 +228,15 @@ x/y positioning on the SVG elements.
 
     --caret-size: 8px;
     --caret-pos: 50%;
-    filter: drop-shadow(0 2px 6px rgb(0 0 0 / 10%));
+    filter: drop-shadow(1px 1px 0 rgb(0 0 0 / 20%));
+    color: var(--gray-dark);
 
     span {
-      color: var(--gray-dark);
       background-color: var(--gray-5);
       border: 1px solid var(--gray-40);
       font-family: inherit;
       font-size: 16px;
-      padding: 15px;
+      padding: 15px 15px 0;
       position: relative;
       overflow: visible;
       width: 355px;
