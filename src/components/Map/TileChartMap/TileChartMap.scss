@@ -243,6 +243,11 @@ x/y positioning on the SVG elements.
       .row + .row {
         border-top: 1px solid var(--gray-40);
       }
+
+      .row--count-mobile {
+        display: none;
+      }
+
     }
   }
 
