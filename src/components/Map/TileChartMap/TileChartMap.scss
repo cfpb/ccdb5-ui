@@ -63,14 +63,6 @@
 }
 
 /* Highmaps */
-.highcharts-map-series {
-  .highcharts-point {
-    transition: fill 500ms,
-    fill-opacity 500ms,
-    stroke-width 250ms;
-    stroke: #ccc;
-  }
-}
 
 /*
 Updating the charts:
@@ -150,16 +142,17 @@ x/y positioning on the SVG elements.
 
     .highcharts-point.selected {
       stroke: var(--black);
-      stroke-width: 3px;
+      stroke-width: 4px;
     }
 
     .highcharts-point.highcharts-point-hover {
       stroke: var(--black);
-      stroke-width: 2px;
+      stroke-width: 6px;
     }
 
     .highcharts-point.selected.highcharts-point-hover {
-      stroke-width: 3px;
+      stroke: var(--black);
+      stroke-width: 6px;
     }
   }
 
@@ -355,17 +348,6 @@ x/y positioning on the SVG elements.
     border-width: calc(var(--caret-size) - 1px) calc(var(--caret-size) - 1px) calc(var(--caret-size) - 1px) 0;
     border-style: solid;
     border-color: transparent var(--gray-5) transparent transparent;
-  }
-}
-
-.cfpb-chart[data-chart-type='tile_map']:not(.print) {
-  .highcharts-map-series {
-    .highcharts-point {
-      &:not(.selected):hover {
-        stroke: var(--black);
-        stroke-width: 2px !important;
-      }
-    }
   }
 }
 
