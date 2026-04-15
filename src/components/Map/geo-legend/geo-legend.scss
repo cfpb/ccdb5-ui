@@ -32,11 +32,11 @@
   height: 15px;
   border-top: 1px solid var(--gray-80);
   border-bottom: 1px solid var(--gray-80);
-  border-right: 1px solid var(--gray-80);
+  border-left: 1px solid var(--gray-80);
 }
 
-.map-legend__bin:first-child .map-legend__swatch {
-  border-left: 1px solid var(--gray-80);
+.map-legend__bin:last-child .map-legend__swatch {
+  border-right: 1px solid var(--gray-80);
 }
 
 .map-legend__label {
