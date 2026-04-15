@@ -181,7 +181,7 @@ export const RowChart = ({
     // added padding to make up for margin
     const containerWidth = isPrintMode
       ? 750
-      : rowContainer.node().getBoundingClientRect().width + 30;
+      : rowContainer.node().getBoundingClientRect().width; // 30px each side
 
     const height = rows.length === 1 ? 100 : rows.length * 60;
     const chart = row();
@@ -189,7 +189,7 @@ export const RowChart = ({
 
     // tweak to make the chart full width at desktop
     // add space at narrow width
-    const marginRight = containerWidth < 600 ? 40 : -65;
+    const marginRight = containerWidth < 600 ? 40 : -100;
 
     chart
       .margin({
