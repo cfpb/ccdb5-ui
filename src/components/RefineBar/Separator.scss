@@ -1,4 +1,5 @@
 @use 'css/base' as *;
+@use '@cfpb/cfpb-design-system/src/elements/abstracts' as *;
 
 .separator {
   border-left: solid 1px var(--gray-40);
@@ -6,15 +7,15 @@
   margin-left: 10px;
   height: 38px;
 
-  @media screen and (min-width: $layout-breakpoint-desktop-min) {
+  @media screen and (min-width: $bp-lg-min) {
     display: none;
   }
 
-  @media screen and (min-width: $layout-breakpoint-tablet-lg-min) and (max-width: $layout-breakpoint-tablet-lg-max) {
+  @media screen and (min-width: $bp-med-min) and (max-width: $bp-med-max) {
     display: none;
   }
 
-  @media screen and (max-width: $layout-breakpoint-phone-max){
+  @media screen and (max-width: $bp-xs-max){
     display: none;
   }
 }

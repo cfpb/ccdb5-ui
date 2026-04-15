@@ -6,11 +6,11 @@
   border-right: 1px solid var(--gray-40);
   background-color: var(--gray-5);
 
-  @media screen and (min-width: $layout-breakpoint-desktop-min) {
+  @media screen and (min-width: $bp-lg-min) {
     padding: $grid-gutter-width;
   }
 
-  @media screen and (max-width: $layout-breakpoint-phone-max) {
+  @media screen and (max-width: $bp-xs-max) {
     padding: $gutter-narrow;
     min-height: 150px;
   }

@@ -1,4 +1,5 @@
 @use '../../../node_modules/intro.js/introjs.css' as *;
+@use '@cfpb/cfpb-design-system/src/elements/abstracts' as *;
 
 // Intro.js styles
 @use 'css/base' as *;
@@ -20,24 +21,24 @@
 
 /* stylelint-disable-next-line selector-class-pattern */
 .introjs-tooltipReferenceLayer > .first-step {
-  @media screen and (min-width: $layout-breakpoint-superwide-min) {
+  @media screen and (min-width: $bp-xl-min) {
     margin-top: -40vh !important;
   }
 
-  @media screen and (min-width: $layout-breakpoint-desktop-min) and (max-width: $layout-breakpoint-desktop-max){
+  @media screen and (min-width: $bp-lg-min) and (max-width: $bp-lg-max){
     margin-top: -90vh !important;
   }
 
-  @media screen and (min-width: $layout-breakpoint-tablet-lg-min) and (max-width: $layout-breakpoint-tablet-lg-max) {
+  @media screen and (min-width: $bp-med-min) and (max-width: $bp-med-max) {
     margin-top: -110vh !important;
   }
 
-  @media screen and (min-width: $layout-breakpoint-tablet-sm-min
-) and (max-width: $layout-breakpoint-tablet-sm-max) {
+  @media screen and (min-width: $bp-sm-min
+) and (max-width: $bp-sm-max) {
     margin-top: -130vh !important;
   }
 
-  @media screen and (max-width: $layout-breakpoint-phone-max) {
+  @media screen and (max-width: $bp-xs-max) {
     margin-top: -110vh !important;
   }
 }

@@ -11,7 +11,7 @@
   h2 {
     margin: 0;
 
-    @media screen and (max-width: $layout-breakpoint-phone-max) {
+    @media screen and (max-width: $bp-xs-max) {
       padding: $gutter-normal;
     }
   }
@@ -31,7 +31,7 @@
     }
   }
 
-  @media screen and (max-width: $layout-breakpoint-phone-max) {
+  @media screen and (max-width: $bp-xs-max) {
     padding-left: 0;
     border: 1px solid var(--gray-40);
     .export-results {
@@ -39,7 +39,7 @@
     }
   }
 
-  @media screen and (min-width: $layout-breakpoint-superwide-min) {
+  @media screen and (min-width: $bp-xl-min) {
     padding-left: 40px;
   }
 }

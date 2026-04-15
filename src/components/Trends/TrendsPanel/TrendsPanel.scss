@@ -1,4 +1,5 @@
 @use 'css/base' as *;
+@use '@cfpb/cfpb-design-system/src/elements/abstracts' as *;
 
 .trends-panel {
   .refine-bar {
@@ -316,7 +317,7 @@
     padding-bottom: $gutter-normal;
   }
 
-  @media screen and (max-width: $layout-breakpoint-phone-max) {
+  @media screen and (max-width: $bp-xs-max) {
     .refine-bar {
       .cf-select {
         flex-grow: 1;
@@ -333,8 +334,8 @@
     }
   }
 
-  @media screen and (max-width: $layout-breakpoint-phone-max),
-  screen and (min-width: $layout-breakpoint-tablet-min) and (max-width: $layout-breakpoint-tablet-max) {
+  @media screen and (max-width: $bp-xs-max),
+  screen and (min-width: $bp-sm-min) and (max-width: $bp-sm-max) {
     .chart {
       width: 100%;
     }
@@ -363,15 +364,15 @@
       margin-left: 0;
     }
 
-    @media screen and (min-width: $layout-breakpoint-tablet-min) and (max-width: $layout-breakpoint-tablet-max) {
+    @media screen and (min-width: $bp-sm-min) and (max-width: $bp-sm-max) {
       padding-left: 20px;
     }
 
-    @media screen and (min-width: $layout-breakpoint-desktop-min) {
+    @media screen and (min-width: $bp-lg-min) {
       padding-left: 30px;
     }
 
-    @media screen and (min-width: $layout-breakpoint-superwide-min) {
+    @media screen and (min-width: $bp-xl-min) {
       padding-left: 40px;
     }
   }

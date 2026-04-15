@@ -41,15 +41,15 @@
   }
 
   .separator {
-    @media screen and (min-width: $layout-breakpoint-desktop-min) {
+    @media screen and (min-width: $bp-lg-min) {
       display: none;
     }
 
-    @media screen and (min-width: $layout-breakpoint-tablet-lg-min) and (max-width: $layout-breakpoint-tablet-lg-max) {
+    @media screen and (min-width: $bp-med-min) and (max-width: $bp-med-max) {
       display: none;
     }
 
-    @media screen and (max-width: $layout-breakpoint-phone-max) {
+    @media screen and (max-width: $bp-xs-max) {
       display: none;
     }
   }
@@ -57,8 +57,8 @@
   // Per Capita and Narratives buttons in the refine bar.
   button {
     // Only used to hide "population" on per capita refine buttons.
-    @media screen and (max-width: $layout-breakpoint-phone-max),
-      screen and (min-width: $layout-breakpoint-tablet-sm-min) and (max-width: $layout-breakpoint-tablet-sm-max){
+    @media screen and (max-width: $bp-xs-max),
+      screen and (min-width: $bp-sm-min) and (max-width: $bp-sm-max){
       > span {
         display: none;
       }
