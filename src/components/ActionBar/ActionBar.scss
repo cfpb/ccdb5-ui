@@ -2,6 +2,8 @@
 @use 'css/base' as *;
 
 .action-bar {
+  border-right: 1px solid var(--gray-40);
+  border-bottom: 1px solid var(--gray-40);
   background-color: var(--green-20);
   padding: $gutter-normal $grid-gutter-width;
   margin-left: -15px;
