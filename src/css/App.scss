@@ -109,8 +109,6 @@ $cf-fonts-path: '/static/fonts';
   .content__wrapper {
     padding-left: 0;
     padding-right: 0;
-    border: 1px solid var(--gray-40);
-    border-right: none;
     max-width: initial;
 
     @media screen and (max-width: $layout-breakpoint-phone-max) {

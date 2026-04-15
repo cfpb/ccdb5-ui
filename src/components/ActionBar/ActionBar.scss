@@ -2,8 +2,6 @@
 @use 'css/base' as *;
 
 .action-bar {
-  border: 1px solid var(--gray-40);
-  border-left: 0; // Don't double the border with the filters
   background-color: var(--green-20);
   padding: $gutter-normal $grid-gutter-width;
   margin-left: -15px;

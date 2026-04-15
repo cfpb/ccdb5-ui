@@ -18,7 +18,7 @@ export const SearchPanel = () => {
   return isLoading || isFetching ? (
     <Loading isLoading={true} />
   ) : (
-    <div className="search-panel">
+    <div className="search-panel o-well">
       <Heading type="2">Search complaint data {lastIndexedMessage}</Heading>
       <SearchBar />
       <PillPanel />

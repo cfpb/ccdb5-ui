@@ -1,20 +1,6 @@
 @use '@cfpb/cfpb-design-system/src/elements/abstracts' as *;
 @use 'css/base' as *;
 
-.search-panel {
-  padding: $grid-gutter-width;
-  border-right: 1px solid var(--gray-40);
-  background-color: var(--gray-5);
-
-  @media screen and (min-width: $layout-breakpoint-desktop-min) {
-    padding: $grid-gutter-width;
-  }
-
-  @media screen and (max-width: $layout-breakpoint-phone-max) {
-    padding: $gutter-narrow;
-    min-height: 150px;
-  }
-}
 
 .date-subscript {
   font-size: $base-font-size-px;
