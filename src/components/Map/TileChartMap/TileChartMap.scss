@@ -419,8 +419,18 @@ $mobile-xs-tiles-breakpoint-max: 400px;
       padding: 15px;
 
       .row--product,
-      .row--issue {
+      .row--issue,
+      .row--count {
         display: none;
+      }
+
+      .row--count-mobile {
+        display: block;
+        padding: 0;
+      }
+
+      .row + .row {
+        border-top: 0;
       }
     }
 
@@ -431,6 +441,10 @@ $mobile-xs-tiles-breakpoint-max: 400px;
         max-width: 230px;
 
         .row {
+          padding: 0;
+        }
+
+        .row--count-mobile {
           padding: 0;
         }
 

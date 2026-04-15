@@ -415,10 +415,12 @@ export function tooltipFormatter() {
     ? `<div class="row row--issue"><p class="u-float-left">Issue with highest complaint volume</p><p class="u-right">${this.issue}</p></div>`
     : '';
   const value = this.value.toLocaleString();
+  const mobileValue = `${value} complaints`;
   const titleLabel = formatStateLabel(this.name);
   return (
     `<h4 class="title u-mb15">${titleLabel}</h4>` +
     `<div class="row row--count"><p class="u-float-left">Complaint count</p><p class="u-right">${value}</p></div>` +
+    `<div class="row row--count-mobile"><p class="u-right">${mobileValue}</p></div>` +
     productRow +
     issueRow
   );
