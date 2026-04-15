@@ -209,6 +209,11 @@ $cf-fonts-path: '/static/fonts';
         width: 100%;
       }
     }
+
+    .content__main {
+      padding-left: 0;
+      padding-right: 0;
+    }
   }
 }
 

@@ -2,6 +2,7 @@
 @use 'css/base' as *;
 
 .action-bar {
+  border-left: 1px solid transparent;
   border-right: 1px solid var(--gray-40);
   border-bottom: 1px solid var(--gray-40);
   background-color: var(--green-20);
@@ -32,6 +33,7 @@
   }
 
   @media screen and (max-width: $layout-breakpoint-phone-max) {
+    margin: 0;
     padding-left: $gutter-normal;
     padding-right: $gutter-normal;
     border: 1px solid var(--gray-40);
@@ -40,6 +42,10 @@
     .export-results {
       margin-left: 0;
     }
+  }
+
+  @media screen and (max-width: 749px) {
+    border-left: 1px solid var(--gray-40);
   }
 
   @media screen and (min-width: $layout-breakpoint-superwide-min) {
