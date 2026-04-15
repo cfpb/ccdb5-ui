@@ -11,6 +11,7 @@ const HUN_K = 100000;
 const MILLION = 1000000;
 
 const WHITE = '#ffffff';
+const DEFAULT_BIN_COUNT = 5;
 
 /* ----------------------------------------------------------------------------
    Utility Functions */
@@ -23,18 +24,9 @@ const WHITE = '#ffffff';
  * @returns {Array} floating point numbers that mark the max of each range
  */
 export function makeScale(data, colors) {
-  const allValues = data.map((datum) => datum.displayValue);
-  const uniques = new Set(allValues);
-
-  let scale = d3.scaleQuantile().range([WHITE, ...colors]);
-  // This catches the condition where all the complaints are in one state
-  if (uniques.size < colors.length) {
-    scale = scale.domain([...uniques]);
-  } else {
-    scale = scale.domain(allValues);
-  }
-
-  return scale;
+  const max = getMaxValue(data);
+  const domainMax = max > 0 ? max : 1;
+  return d3.scaleQuantize().domain([0, domainMax]).range(colors);
 }
 
 /**
@@ -89,6 +81,92 @@ export function getBins(quantiles, scale) {
   });
 
   return bins;
+}
+
+/**
+ * Round a value to a fixed number of decimal places.
+ *
+ * @param {number} value - Value to round.
+ * @param {number} places - Number of decimal places.
+ * @returns {number} Rounded value.
+ */
+export function roundTo(value, places) {
+  const factor = 10 ** places;
+  return Math.round(value * factor) / factor;
+}
+
+/**
+ * Get the maximum display value in a dataset.
+ *
+ * @param {Array} data - Data points with displayValue values.
+ * @returns {number} Max display value.
+ */
+export function getMaxValue(data) {
+  if (!data || data.length === 0) {
+    return 0;
+  }
+  return data.reduce((max, datum) => {
+    const value = Number.isFinite(datum.displayValue) ? datum.displayValue : 0;
+    return Math.max(max, value);
+  }, 0);
+}
+
+/**
+ *
+ * @param maxValue
+ * @param binCount
+ */
+function getBinPlaces(maxValue, binCount) {
+  return maxValue >= binCount ? 0 : 1;
+}
+
+/**
+ *
+ * @param root0
+ * @param root0.colors
+ * @param root0.binCount
+ * @param root0.maxValue
+ */
+function buildFixedBins({ colors, binCount, maxValue }) {
+  const bins = [];
+  const step = maxValue / binCount;
+  const places = getBinPlaces(maxValue, binCount);
+
+  for (let index = 0; index < binCount; index += 1) {
+    const fromValue = roundTo(step * index, places);
+    const toValue =
+      index === binCount - 1 ? undefined : roundTo(step * (index + 1), places);
+    bins.push({
+      from: fromValue,
+      to: toValue,
+      color: colors[index],
+      name: '',
+      shortName: '',
+    });
+  }
+
+  return bins;
+}
+
+/**
+ * Create a fixed number of bins from data for legend/shading.
+ *
+ * @param {Array} data - Data points with displayValue values.
+ * @param {string[]} colors - Color palette for bins.
+ * @param {number} binCount - Number of bins to generate.
+ * @returns {Array} Fixed bin metadata.
+ */
+export function createFixedBins(data, colors, binCount = DEFAULT_BIN_COUNT) {
+  const max = getMaxValue(data);
+  if (max === 0) {
+    return [];
+  }
+
+  return buildFixedBins({
+    colors,
+    binCount,
+    maxValue: max,
+  });
 }
 
 /* ----------------------------------------------------------------------------
@@ -183,15 +261,19 @@ function getPathPoints(path) {
 }
 
 /**
+ * Check if a points array has valid coordinate pairs.
  *
- * @param points
+ * @param {number[]} points - Numeric coordinates.
+ * @returns {boolean} Whether the array has enough points.
  */
 function hasPointPairs(points) {
   return Array.isArray(points) && points.length >= 8;
 }
 
 /**
+ * Create an empty bounds object.
  *
+ * @returns {object} Bounds with min/max values.
  */
 function createBounds() {
   return {
@@ -203,9 +285,11 @@ function createBounds() {
 }
 
 /**
+ * Update bounds from a list of points.
  *
- * @param bounds
- * @param points
+ * @param {object} bounds - Bounds to update.
+ * @param {number[]} points - Numeric coordinates.
+ * @returns {void} No return value.
  */
 function updateBoundsFromPoints(bounds, points) {
   for (let index = 0; index < points.length; index += 2) {
@@ -222,8 +306,10 @@ function updateBoundsFromPoints(bounds, points) {
 }
 
 /**
+ * Validate bounds values.
  *
- * @param bounds
+ * @param {object} bounds - Bounds to check.
+ * @returns {boolean} Whether bounds are valid.
  */
 function isValidBounds(bounds) {
   return (
@@ -334,7 +420,7 @@ export const TILE_MAP_HEIGHT = TILE_MAP_BOUNDS.height;
  * @returns {string} color hex or rgb code for a color
  */
 export function getColorByValue(value, scale) {
-  if (!value) return WHITE;
+  if (value === null || value === undefined || !value) return WHITE;
 
   return scale(value);
 }
@@ -781,12 +867,11 @@ export const TILE_MAP_COLORS = [
 class TileMap {
   constructor({ el, data, events, height, hasTip, width }) {
     const scale = makeScale(data, TILE_MAP_COLORS);
-    const quantiles = scale.quantiles();
     const targetGap = 4;
     const plotWidth = Number.isFinite(width) ? width : TILE_MAP_WIDTH;
     const inset = (targetGap * TILE_MAP_WIDTH) / (2 * plotWidth);
 
-    const bins = getBins(quantiles, scale);
+    const bins = createFixedBins(data, TILE_MAP_COLORS);
     const legendTitle = 'Complaints';
 
     data = processMapData(data, scale, inset);

@@ -37,11 +37,11 @@ describe('Tile map', () => {
       }
 
       const actual = sutClone.makeScale(data, colors);
-      expect(actual(0)).toBe('#ffffff');
+      expect(actual(0)).toBe(colors[0]);
       expect(actual(100)).toBe(colors[0]);
-      expect(actual(361)).toBe(colors[1]); // 19^2
-      expect(actual(784)).toBe(colors[2]); // 28^2
-      expect(actual(1225)).toBe(colors[3]); // 35^2
+      expect(actual(361)).toBe(colors[0]); // 19^2
+      expect(actual(784)).toBe(colors[1]); // 28^2
+      expect(actual(1225)).toBe(colors[2]); // 35^2
       expect(actual(1681)).toBe(colors[4]); // 41^2
       expect(actual(2500)).toBe(colors[5]);
     });
@@ -54,9 +54,9 @@ describe('Tile map', () => {
       data[3].displayValue = 900;
 
       const actual = sutClone.makeScale(data, colors);
-      expect(actual(0)).toBe('#ffffff');
-      expect(actual(300)).toBe(colors[1]);
-      expect(actual(450)).toEqual(colors[2]);
+      expect(actual(0)).toBe(colors[0]);
+      expect(actual(300)).toBe(colors[2]);
+      expect(actual(450)).toEqual(colors[3]);
       expect(actual(790)).toEqual(colors[5]);
     });
   });

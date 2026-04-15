@@ -5,8 +5,7 @@ import { useGetMap } from '../../../api/hooks/useGetMap';
 import { STATE_DATA } from '../../../constants';
 import { coalesce } from '../../../utils';
 import {
-  getBins,
-  makeScale,
+  createFixedBins,
   makeShortName,
   TILE_MAP_COLORS,
 } from '../TileChartMap/TileMap';
@@ -51,12 +50,9 @@ export const GeoLegend = () => {
     if (!displayData || displayData.length === 0) {
       return [];
     }
-    const scale = makeScale(displayData, TILE_MAP_COLORS);
-    const quantiles = scale.quantiles();
-    return getBins(quantiles, scale);
+    return createFixedBins(displayData, TILE_MAP_COLORS);
   }, [displayData]);
-  const displayBins =
-    legendBins.length > 5 ? legendBins.slice(1, 6) : legendBins;
+  const displayBins = legendBins;
 
   if (isLoading || isFetching || displayBins.length === 0) {
     return null;
@@ -64,11 +60,11 @@ export const GeoLegend = () => {
 
   const title = 'Complaint count by state';
   const legendDescription =
-    'The tiles are shaded to reflect the complaint count for each state, based on the applied filters. Hover over a tile to view details or select a tile to add the state to your filters.';
+    'The map is shaded to reflect the complaint count for each state, based on the applied filters. Hover over a tile to view details or select a tile to add the state to your filters.';
 
   const formatRangeLabel = (bin, nextBin) => {
     if (!nextBin || !Number.isFinite(nextBin.from)) {
-      return `≥ ${makeShortName(bin.from)}`;
+      return `${makeShortName(bin.from)} and up`;
     }
 
     let endValue = nextBin.from - 1;

@@ -63,14 +63,14 @@
 }
 
 /* Highmaps */
-.highcharts-map-series {
-  .highcharts-point {
-    transition: fill 500ms,
-    fill-opacity 500ms,
-    stroke-width 250ms;
-    stroke: #ccc;
-  }
-}
+// .highcharts-map-series {
+//  .highcharts-point {
+//    transition: fill 500ms,
+//    fill-opacity 500ms,
+//    stroke-width 250ms;
+//    stroke: #ccc;
+//  }
+// }
 
 /*
 Updating the charts:
@@ -358,7 +358,7 @@ x/y positioning on the SVG elements.
     .highcharts-point {
       &:not(.selected):hover {
         stroke: var(--black);
-        stroke-width: 2px !important;
+        stroke-width: 10px !important;
       }
     }
   }
