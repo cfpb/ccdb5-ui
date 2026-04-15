@@ -200,7 +200,7 @@ x/y positioning on the SVG elements.
       white-space: normal;
 
       h4.title {
-        margin: 0 0 10px;
+        margin: 0 0 15px;
         text-align: left;
         font-weight: 600;
       }
@@ -417,6 +417,10 @@ $mobile-xs-tiles-breakpoint-max: 400px;
     // column tooltip
     .highcharts-tooltip span {
       padding: 15px;
+
+      h4.title {
+        margin-bottom: 10px;
+      }
 
       .row--product,
       .row--issue,
