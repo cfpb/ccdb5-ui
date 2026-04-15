@@ -133,6 +133,10 @@ $cf-fonts-path: '/static/fonts';
     &::after {
       border-left: 0;
     }
+
+    @media screen and (max-width: $layout-breakpoint-tablet-sm-min) {
+      padding: 15px;
+    }
   }
 }
 

@@ -8,7 +8,7 @@ export const MapStateNavigation = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="map-state-navigation u-mb60">
+    <div className="map-state-navigation">
       <Button
         label="View list of complaints based on applied filters"
         isLink
