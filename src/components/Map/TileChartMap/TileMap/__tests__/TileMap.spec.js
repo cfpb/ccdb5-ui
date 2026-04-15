@@ -163,7 +163,7 @@ describe('Tile map', () => {
     sutClone.value = 10000;
     const result = sutClone.tooltipFormatter();
     expect(result).toEqual(
-      '<h4 class="title u-mb15">Florida (FL)</h4><div class="row row--count"><p class="u-float-left">Complaint count</p><p class="u-right">10,000</p></div>',
+      '<h4 class="title u-mb15">Florida (FL)</h4><div class="row row--count"><p class="u-float-left">Complaint count</p><p class="u-right">10,000</p></div><div class="row row--count-mobile"><p class="u-right">10,000 complaints</p></div>',
     );
   });
 
@@ -174,7 +174,7 @@ describe('Tile map', () => {
     sutClone.issue = 'Being Broke';
     const result = sutClone.tooltipFormatter();
     expect(result).toEqual(
-      '<h4 class="title u-mb15">Florida (FL)</h4><div class="row row--count"><p class="u-float-left">Complaint count</p><p class="u-right">10,000</p></div><div class="row row--product"><p class="u-float-left">Product with highest complaint volume</p><p class="u-right">Expensive Item</p></div><div class="row row--issue"><p class="u-float-left">Issue with highest complaint volume</p><p class="u-right">Being Broke</p></div>',
+      '<h4 class="title u-mb15">Florida (FL)</h4><div class="row row--count"><p class="u-float-left">Complaint count</p><p class="u-right">10,000</p></div><div class="row row--count-mobile"><p class="u-right">10,000 complaints</p></div><div class="row row--product"><p class="u-float-left">Product with highest complaint volume</p><p class="u-right">Expensive Item</p></div><div class="row row--issue"><p class="u-float-left">Issue with highest complaint volume</p><p class="u-right">Being Broke</p></div>',
     );
   });
 
