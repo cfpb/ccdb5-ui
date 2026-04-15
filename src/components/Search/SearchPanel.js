@@ -4,7 +4,7 @@ import { SearchBar } from './SearchBar';
 import { formatDisplayDate } from '../../utils/formatDate';
 import { useGetMetaQuery } from '../../api/complaints';
 import { Loading } from '../Loading/Loading';
-import { Heading } from '@cfpb/design-system-react';
+import { Heading, WellContainer } from '@cfpb/design-system-react';
 
 export const SearchPanel = () => {
   const { data, isLoading, isFetching } = useGetMetaQuery('meta');
@@ -18,10 +18,10 @@ export const SearchPanel = () => {
   return isLoading || isFetching ? (
     <Loading isLoading={true} />
   ) : (
-    <div className="search-panel o-well">
+    <WellContainer className="search-panel">
       <Heading type="2">Search complaint data {lastIndexedMessage}</Heading>
       <SearchBar />
       <PillPanel />
-    </div>
+    </WellContainer>
   );
 };

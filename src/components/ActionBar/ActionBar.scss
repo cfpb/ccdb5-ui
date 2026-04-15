@@ -32,10 +32,13 @@
   }
 
   @media screen and (max-width: $layout-breakpoint-phone-max) {
-    padding-left: 0;
+    padding-left: $gutter-normal;
+    padding-right: $gutter-normal;
     border: 1px solid var(--gray-40);
+    width: 100%;
+    box-sizing: border-box;
     .export-results {
-      margin-left: 15px;
+      margin-left: 0;
     }
   }
 
