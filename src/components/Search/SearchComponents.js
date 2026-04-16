@@ -37,7 +37,7 @@ export const SearchComponents = () => {
     if (isPrintMode) {
       setTimeout(() => {
         window.print();
-      }, 1000);
+      }, 2000);
     }
   }, [isPrintMode]);
 
