@@ -135,12 +135,12 @@ x/y positioning on the SVG elements.
 
     .highcharts-point.highcharts-point-hover {
       stroke: var(--black);
-      stroke-width: 6px;
+      stroke-width: 4px;
     }
 
     .highcharts-point.selected.highcharts-point-hover {
       stroke: var(--black);
-      stroke-width: 4px;
+      stroke-width: 6px;
     }
   }
 
@@ -153,6 +153,7 @@ x/y positioning on the SVG elements.
     fill: none;
     stroke: var(--black);
     stroke-width: 2px;
+    stroke-dasharray: 2 2;
   }
 
   .highcharts-label-box {
