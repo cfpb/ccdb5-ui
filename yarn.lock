@@ -1438,8 +1438,8 @@ __metadata:
     "@babel/preset-env": "npm:^7.29.2"
     "@babel/preset-react": "npm:^7.28.5"
     "@cfpb/browserslist-config": "npm:^0.0.6"
-    "@cfpb/cfpb-design-system": "npm:^5.2.0"
-    "@cfpb/design-system-react": "npm:^1.0.1"
+    "@cfpb/cfpb-design-system": "npm:^5.3.1"
+    "@cfpb/design-system-react": "npm:^1.0.2"
     "@eslint/js": "npm:^9.39.4"
     "@reduxjs/toolkit": "npm:^2.11.2"
     "@rsbuild/core": "npm:^1.7.5"
@@ -1485,8 +1485,8 @@ __metadata:
     jest-fetch-mock: "npm:^3.0.3"
     lint-staged: "npm:^16.4.0"
     lodash: "npm:^4.18.1"
-    postcss: "npm:^8.5.9"
-    prettier: "npm:^3.8.2"
+    postcss: "npm:^8.5.10"
+    prettier: "npm:^3.8.3"
     prop-types: "npm:^15.8.1"
     query-string: "npm:^9.3.1"
     react: "npm:^19.2.5"
@@ -1500,34 +1500,34 @@ __metadata:
     release-it: "npm:^19.2.4"
     sass: "npm:^1.99.0"
     string-replace-loader: "npm:^3.3.0"
-    stylelint: "npm:^17.7.0"
+    stylelint: "npm:^17.8.0"
     stylelint-config-standard: "npm:^40.0.0"
     stylelint-config-standard-scss: "npm:^17.0.0"
-    webpack: "npm:^5.106.1"
+    webpack: "npm:^5.106.2"
   languageName: unknown
   linkType: soft
 
-"@cfpb/cfpb-design-system@npm:^5.2.0":
-  version: 5.2.0
-  resolution: "@cfpb/cfpb-design-system@npm:5.2.0"
+"@cfpb/cfpb-design-system@npm:^5.3.1":
+  version: 5.3.1
+  resolution: "@cfpb/cfpb-design-system@npm:5.3.1"
   dependencies:
     "@fontsource-variable/source-sans-3": "npm:5.2.9"
     tippy.js: "npm:6.3.7"
-  checksum: 10c0/559f2650d21321e70bd335fa581ea11c8fb77ab5cbcc6830d7dcb6f3019e40afcda7e6439941e76cd5fbb93f9a9a2aa77e76009b337ddd7056aba06eb36b6573
+  checksum: 10c0/8b41b37b3c7a41c653ee7317a3f337d77cd7d0e187dd86d366cf731a0495e0ff83d1d7a568862fc83fa97e758ebff369791369f3d55c307f1f5530a5b7c8d4f5
   languageName: node
   linkType: hard
 
-"@cfpb/design-system-react@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "@cfpb/design-system-react@npm:1.0.1"
+"@cfpb/design-system-react@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@cfpb/design-system-react@npm:1.0.2"
   dependencies:
     react-select: "npm:^5.10.2"
   peerDependencies:
-    "@cfpb/cfpb-design-system": 4.4.0
-    react: ^19.0.0
-    react-dom: ^19.0.0
-    react-router: ^7.13.0
-  checksum: 10c0/c101ee6f051d9e73ba0cb309ed46a8c487752a0013bf0b39bf092390af6c2e96c372842a0640bce8121dcf8c1326329cfad0feb2bcd5b3eb7d95fda0678855f6
+    "@cfpb/cfpb-design-system": 5.2.0
+    react: ^19.2.4
+    react-dom: ^19.2.4
+    react-router: ^7.14.0
+  checksum: 10c0/db268556b7cece9d037f37124abee10a5c610ab923c26a880d90748f4335064f3dcdc7e10a354d0dad041d86e8c072663e047fcdea246efeb85d37cd05c1f279
   languageName: node
   linkType: hard
 
@@ -9663,7 +9663,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json-parse-even-better-errors@npm:^2.3.0, json-parse-even-better-errors@npm:^2.3.1":
+"json-parse-even-better-errors@npm:^2.3.0":
   version: 2.3.1
   resolution: "json-parse-even-better-errors@npm:2.3.1"
   checksum: 10c0/140932564c8f0b88455432e0f33c4cb4086b8868e37524e07e723f4eaedb9425bdc2bafd71bd1d9765bd15fd1e2d126972bc83990f55c467168c228c24d665f3
@@ -10282,7 +10282,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mime-types@npm:^2.1.12, mime-types@npm:^2.1.27, mime-types@npm:~2.1.19":
+"mime-types@npm:^2.1.12, mime-types@npm:~2.1.19":
   version: 2.1.35
   resolution: "mime-types@npm:2.1.35"
   dependencies:
@@ -11258,6 +11258,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"postcss@npm:^8.5.10":
+  version: 8.5.10
+  resolution: "postcss@npm:8.5.10"
+  dependencies:
+    nanoid: "npm:^3.3.11"
+    picocolors: "npm:^1.1.1"
+    source-map-js: "npm:^1.2.1"
+  checksum: 10c0/c592dffa0c4873b401f01955b265538d9942f425040df5e2b8f0ad34c83773a792ea0fa5859ccc99cfb5b955b4ebff118ab7056315388dc83b107b0fa8313576
+  languageName: node
+  linkType: hard
+
 "postcss@npm:^8.5.8":
   version: 8.5.8
   resolution: "postcss@npm:8.5.8"
@@ -11287,12 +11298,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^3.8.2":
-  version: 3.8.2
-  resolution: "prettier@npm:3.8.2"
+"prettier@npm:^3.8.3":
+  version: 3.8.3
+  resolution: "prettier@npm:3.8.3"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 10c0/2d64bd01d269c8dd6d8c423a2a2e1fb88230a53aac523204b327de40059ccf8bd8e6fe70b8ce6154b97ed4442e9fd878504ff8a5330f3a4f64bd13d1576f7652
+  checksum: 10c0/754816fd7593eb80f6376d7476d463e832c38a12f32775a82683adb6e35b772b1f484d65f19401507b983a8c8a7cd5a4a9f12006bd56491e8f35503473f77473
   languageName: node
   linkType: hard
 
@@ -13063,9 +13074,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:^17.7.0":
-  version: 17.7.0
-  resolution: "stylelint@npm:17.7.0"
+"stylelint@npm:^17.8.0":
+  version: 17.8.0
+  resolution: "stylelint@npm:17.8.0"
   dependencies:
     "@csstools/css-calc": "npm:^3.1.1"
     "@csstools/css-parser-algorithms": "npm:^4.0.0"
@@ -13094,7 +13105,7 @@ __metadata:
     micromatch: "npm:^4.0.8"
     normalize-path: "npm:^3.0.0"
     picocolors: "npm:^1.1.1"
-    postcss: "npm:^8.5.8"
+    postcss: "npm:^8.5.9"
     postcss-safe-parser: "npm:^7.0.1"
     postcss-selector-parser: "npm:^7.1.1"
     postcss-value-parser: "npm:^4.2.0"
@@ -13105,7 +13116,7 @@ __metadata:
     write-file-atomic: "npm:^7.0.1"
   bin:
     stylelint: bin/stylelint.mjs
-  checksum: 10c0/6af0ddf4462e071f1ab00036b2ae81aa29d33df3ae11ab0109c33844884fad56c8aa2ee6372f947f4d0dbe386e747138e1f014f1d508748335a3ecc7c0bf9a10
+  checksum: 10c0/de822c902944ed094afabb48802e5659ef479e7707cc0a789e11e833fff5d54fb7a82b83052df83882f77de00190c109dbacd0b2d87157857c3ed626eb0fb4d5
   languageName: node
   linkType: hard
 
@@ -13930,9 +13941,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.106.1":
-  version: 5.106.1
-  resolution: "webpack@npm:5.106.1"
+"webpack@npm:^5.106.2":
+  version: 5.106.2
+  resolution: "webpack@npm:5.106.2"
   dependencies:
     "@types/eslint-scope": "npm:^3.7.7"
     "@types/estree": "npm:^1.0.8"
@@ -13950,9 +13961,8 @@ __metadata:
     events: "npm:^3.2.0"
     glob-to-regexp: "npm:^0.4.1"
     graceful-fs: "npm:^4.2.11"
-    json-parse-even-better-errors: "npm:^2.3.1"
     loader-runner: "npm:^4.3.1"
-    mime-types: "npm:^2.1.27"
+    mime-db: "npm:^1.54.0"
     neo-async: "npm:^2.6.2"
     schema-utils: "npm:^4.3.3"
     tapable: "npm:^2.3.0"
@@ -13964,7 +13974,7 @@ __metadata:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: 10c0/eb56ba99564e185c83fb8d898253c0e6b91fcfcab54e3716bc6bc4df2636511686edb79073313ad9394b757c912b9489e28c7a5bd33d4d386d3103ba9608ca47
+  checksum: 10c0/933293ae94b7f3405147aebd824d978696693a7fbd85cfbf4d05b517329c93f69e634400ad70a27f4ba4148e14e2fd502e335cd8d30d75282091ab3c72a1ac01
   languageName: node
   linkType: hard
 

@@ -34,8 +34,8 @@
     "preview": "rsbuild preview"
   },
   "dependencies": {
-    "@cfpb/cfpb-design-system": "^5.2.0",
-    "@cfpb/design-system-react": "^1.0.1",
+    "@cfpb/cfpb-design-system": "^5.3.1",
+    "@cfpb/design-system-react": "^1.0.2",
     "@reduxjs/toolkit": "^2.11.2",
     "britecharts": "git+https://github.com/cfpb/cfpb-britecharts.git#v2.6",
     "d3": "^7.9.0",
@@ -99,15 +99,15 @@
     "jest-fetch-mock": "^3.0.3",
     "lint-staged": "^16.4.0",
     "lodash": "^4.18.1",
-    "postcss": "^8.5.9",
-    "prettier": "^3.8.2",
+    "postcss": "^8.5.10",
+    "prettier": "^3.8.3",
     "release-it": "^19.2.4",
     "sass": "^1.99.0",
     "string-replace-loader": "^3.3.0",
-    "stylelint": "^17.7.0",
+    "stylelint": "^17.8.0",
     "stylelint-config-standard": "^40.0.0",
     "stylelint-config-standard-scss": "^17.0.0",
-    "webpack": "^5.106.1"
+    "webpack": "^5.106.2"
   },
   "lint-staged": {
     "src/**/*.{css,scss}": [
