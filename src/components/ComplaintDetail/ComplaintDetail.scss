@@ -38,7 +38,7 @@
     flex-direction: row;
     flex-wrap: nowrap;
 
-    @media screen and (max-width: $layout-breakpoint-phone-max) {
+    @media screen and (max-width: $bp-xs-max) {
       flex-wrap: wrap;
     }
 
@@ -48,11 +48,11 @@
       width: 33%;
       padding-right: $grid-gutter-width;
 
-      @media screen and (min-width: $layout-breakpoint-tablet-min) and (max-width: $layout-breakpoint-tablet-max) {
+      @media screen and (min-width: $bp-xs-max) and (max-width: $bp-sm-max) {
         padding-right: $gutter-normal;
       }
 
-      @media screen and (max-width: $layout-breakpoint-phone-max) {
+      @media screen and (max-width: $bp-xs-max) {
         width: 100%;
         padding-right: $gutter-narrow;
       }
@@ -61,7 +61,7 @@
     .card-right {
       width: 67%;
 
-      @media screen and (max-width: $layout-breakpoint-phone-max) {
+      @media screen and (max-width: $bp-xs-max) {
         width: 100%;
         padding-top: $gutter-normal;
       }

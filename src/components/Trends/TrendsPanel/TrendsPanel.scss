@@ -50,7 +50,7 @@
         .typeahead {
           margin-bottom: 25px;
         }
-        
+
         &.legend {
           margin-top: 20px;
 
@@ -316,7 +316,7 @@
     padding-bottom: $gutter-normal;
   }
 
-  @media screen and (max-width: $layout-breakpoint-phone-max) {
+  @media screen and (max-width: $bp-xs-max) {
     .refine-bar {
       .cf-select {
         flex-grow: 1;
@@ -333,8 +333,8 @@
     }
   }
 
-  @media screen and (max-width: $layout-breakpoint-phone-max),
-  screen and (min-width: $layout-breakpoint-tablet-min) and (max-width: $layout-breakpoint-tablet-max) {
+  @media screen and (max-width: $bp-xs-max),
+  screen and (min-width: $bp-xs-max) and (max-width: $bp-sm-max) {
     .chart {
       width: 100%;
     }
@@ -363,16 +363,12 @@
       margin-left: 0;
     }
 
-    @media screen and (min-width: $layout-breakpoint-tablet-min) and (max-width: $layout-breakpoint-tablet-max) {
+    @media screen and (min-width: $bp-xs-max) and (max-width: $bp-sm-max) {
       padding-left: 20px;
     }
 
-    @media screen and (min-width: $layout-breakpoint-desktop-min) {
+    @media screen and (min-width: $bp-med-min) {
       padding-left: 30px;
-    }
-
-    @media screen and (min-width: $layout-breakpoint-superwide-min) {
-      padding-left: 40px;
     }
   }
 }

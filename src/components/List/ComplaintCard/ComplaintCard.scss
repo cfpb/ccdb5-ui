@@ -27,7 +27,7 @@ li.card-container {
     flex-direction: row;
     flex-wrap: nowrap;
 
-    @media screen and (max-width: $layout-breakpoint-phone-max) {
+    @media screen and (max-width: $bp-xs-max) {
       flex-wrap: wrap;
     }
 
@@ -36,19 +36,19 @@ li.card-container {
       width: 260px;
       padding-right: $grid-gutter-width;
 
-      @media screen and (min-width: $layout-breakpoint-tablet-min) and (max-width: $layout-breakpoint-tablet-max) {
+      @media screen and (min-width: $bp-xs-max) and (max-width: $bp-sm-max) {
         width: 50%;
         padding-right: $gutter-normal;
       }
 
-      @media screen and (max-width: $layout-breakpoint-phone-max) {
+      @media screen and (max-width: $bp-xs-max) {
         width: 100%;
         padding-right: $gutter-narrow;
       }
     }
 
     .card-right {
-      @media screen and (max-width: $layout-breakpoint-phone-max) {
+      @media screen and (max-width: $bp-xs-max) {
         width: 100%;
         padding-top: $gutter-normal;
       }

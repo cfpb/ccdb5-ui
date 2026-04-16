@@ -33,7 +33,7 @@
     margin: 0;
   }
 
-  @media screen and (max-width: $layout-breakpoint-phone-max) {
+  @media screen and (max-width: $bp-xs-max) {
     flex-direction: column;
     margin-top: 70px;
     .pill-panel__clear {

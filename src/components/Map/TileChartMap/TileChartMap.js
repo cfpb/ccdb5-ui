@@ -67,8 +67,7 @@ export const TileChartMap = () => {
     const mapElement = getElementById('tile-chart-map');
     const containerWidth = mapElement.clientWidth || width;
 
-    // subtract the 30px L/R margins
-    const mapWidth = isPrintMode ? 650 : containerWidth - 60;
+    const mapWidth = isPrintMode ? 650 : containerWidth;
     if (!data) {
       return;
     }

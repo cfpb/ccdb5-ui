@@ -9,7 +9,7 @@
 @use 'css/base' as *;
 
 #tile-chart-map {
-  padding: 30px;
+  margin: 30px;
 
   // borders for debugging
   // border: 1px solid red;
@@ -17,6 +17,10 @@
   // svg {
   //  border: 1px solid green;
   // }
+
+  @media screen and (max-width: $bp-xs-max) {
+    margin: 15px 0;
+  }
 }
 
 .highcharts-container {
@@ -335,15 +339,6 @@ x/y positioning on the SVG elements.
   }
 }
 
-@media screen and ((min-width: $layout-breakpoint-tablet-sm-min) and (max-width: $layout-breakpoint-tablet-sm-max)),
-screen and (max-width: $layout-breakpoint-phone-max) {
-  .cfpb-chart[data-chart-type='tile_map'] {
-    width: calc(100% - 20px);
-    margin-bottom: 10px;
-    margin-left: 10px;
-  }
-}
-
 
 // -----------------------------------------------------------------------------
 // State Tile Break Points
@@ -373,7 +368,7 @@ $mobile-xs-tiles-breakpoint-max: 400px;
 // This takes over for looking good at the minimum height of 400px
 @media screen and (max-width: $mobile-tiles-breakpoint-max) {
   .cfpb-chart[data-chart-type='tile_map'] {
-    padding: 0 !important;
+    // padding: 0 !important;
 
     .highcharts-data-label {
       line-height: 1;
@@ -461,7 +456,7 @@ $mobile-xs-tiles-breakpoint-max: 400px;
 
 // -----------------------------------------------------------------------------
 // Make the map & legend play nice
-@media screen and (min-width: $layout-breakpoint-tablet-sm-min) and (max-width: $layout-breakpoint-tablet-sm-max) {
+@media screen and (min-width: $bp-xs-max) and (max-width: $bp-sm-max) {
   .highcharts-series-group {
     transform: translate(0, 15px);
   }
@@ -471,7 +466,7 @@ $mobile-xs-tiles-breakpoint-max: 400px;
   }
 }
 
-@media screen and (max-width: $layout-breakpoint-phone-max) {
+@media screen and (max-width: $bp-xs-max) {
   .highcharts-series-group {
     transform: translate(0, 15px);
   }

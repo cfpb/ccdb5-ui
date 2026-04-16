@@ -12,7 +12,7 @@
   h2 {
     margin: 0;
 
-    @media screen and (max-width: $layout-breakpoint-phone-max) {
+    @media screen and (max-width: $bp-xs-max) {
       padding: $gutter-normal;
     }
   }
@@ -32,7 +32,7 @@
     }
   }
 
-  @media screen and (max-width: $layout-breakpoint-phone-max) {
+  @media screen and (max-width: $bp-xs-max) {
     margin: 0;
     padding-left: $gutter-normal;
     padding-right: $gutter-normal;
@@ -46,9 +46,5 @@
 
   @media screen and (max-width: 749px) {
     border-left: 1px solid var(--gray-40);
-  }
-
-  @media screen and (min-width: $layout-breakpoint-superwide-min) {
-    padding-left: 40px;
   }
 }

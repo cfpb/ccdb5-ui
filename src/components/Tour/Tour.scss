@@ -12,6 +12,7 @@
     width: 80%;
     float: left;
   }
+
   .right {
     display: inline-block;
     margin-left: $gutter-normal;
@@ -20,24 +21,15 @@
 
 /* stylelint-disable-next-line selector-class-pattern */
 .introjs-tooltipReferenceLayer > .first-step {
-  @media screen and (min-width: $layout-breakpoint-superwide-min) {
-    margin-top: -40vh !important;
-  }
-
-  @media screen and (min-width: $layout-breakpoint-desktop-min) and (max-width: $layout-breakpoint-desktop-max){
-    margin-top: -90vh !important;
-  }
-
-  @media screen and (min-width: $layout-breakpoint-tablet-lg-min) and (max-width: $layout-breakpoint-tablet-lg-max) {
+  @media screen and (min-width: $bp-sm-min) and (max-width: $bp-sm-max) {
     margin-top: -110vh !important;
   }
 
-  @media screen and (min-width: $layout-breakpoint-tablet-sm-min
-) and (max-width: $layout-breakpoint-tablet-sm-max) {
+  @media screen and (min-width: $bp-xs-max) and (max-width: $bp-sm-max) {
     margin-top: -130vh !important;
   }
 
-  @media screen and (max-width: $layout-breakpoint-phone-max) {
+  @media screen and (max-width: $bp-xs-max) {
     margin-top: -110vh !important;
   }
 }

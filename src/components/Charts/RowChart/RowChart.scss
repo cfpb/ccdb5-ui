@@ -10,7 +10,7 @@
   }
 }
 
-@media screen and (max-width: $layout-breakpoint-phone-max) {
+@media screen and (max-width: $bp-xs-max) {
   .row-chart-section {
     margin-left: 0;
   }

@@ -6,7 +6,7 @@
 }
 
 
-@media screen and (max-width: $layout-breakpoint-tablet-sm-max) {
+@media screen and (max-width: $bp-sm-min) {
   .map-state-navigation {
     margin: 0 0 60px;
   }

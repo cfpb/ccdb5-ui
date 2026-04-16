@@ -45,15 +45,9 @@
   text-align: center;
 }
 
-@media only screen and (max-width: 749px) {
+@media only screen and (max-width: $bp-sm-min) {
   .map-legend {
-    padding: 15px;
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .map-legend {
-    padding: 16px 12px;
+    padding: 0 0 30px;
   }
 
   .map-legend__bins {
