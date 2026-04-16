@@ -71,12 +71,6 @@ Updating the charts:
 This appears to handle responsive changes the best, since the JS sets
 x/y positioning on the SVG elements.
 */
-.u-chart-label {
-  font-size: 16px;
-  font-family: inherit;
-  color: var(--gray);
-}
-
 .cfpb-chart {
   position: relative;
 
@@ -113,16 +107,6 @@ x/y positioning on the SVG elements.
 
   .highcharts-label {
     pointer-events: none;
-  }
-
-  .highcharts-label__tile-map {
-    color: var(--gray);
-    font-weight: 500;
-
-    span {
-      position: relative !important;
-      white-space: normal !important;
-    }
   }
 
   .u-point-hover-state,

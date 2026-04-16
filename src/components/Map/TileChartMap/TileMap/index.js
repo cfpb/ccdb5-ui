@@ -894,7 +894,7 @@ class TileMap {
         height,
         width,
         // spacing: [0, 0, 0, 0],
-        margin: [1, 3, 1, 1],
+        margin: [1, 3, 1, 3],
         // margin: [30, 5, 0, 2],
       },
       colorAxis: {

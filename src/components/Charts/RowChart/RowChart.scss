@@ -22,6 +22,12 @@
 
 }
 
+@media screen and (max-width: 749px) {
+  .row-chart-section {
+    margin-left: 0;
+  }
+}
+
 .row-chart {
   .bg-hover,
   .visibility,

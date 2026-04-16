@@ -45,6 +45,12 @@
   text-align: center;
 }
 
+@media only screen and (max-width: 749px) {
+  .map-legend {
+    padding: 15px;
+  }
+}
+
 @media only screen and (max-width: 600px) {
   .map-legend {
     padding: 16px 12px;
