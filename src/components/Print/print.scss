@@ -30,6 +30,7 @@
   .tabbed-navigation,
   .filter-panel hr,
   .refine-bar,
+  .map-toolbar,
   .single-checkbox,
   .state-heading .clear,
   .state-navigation,
@@ -47,9 +48,11 @@
   }
 
   #tile-chart-map {
-    height: 700px;
-    width: 700px;
+    height: 520px;
+    width: 650px;
+    margin: 0 0 15px;
   }
+
   #line-chart,
   #stacked-area-chart {
     width: 550px;
@@ -58,6 +61,7 @@
   .tooltip-container {
     margin-top: 50px;
     width: 100px;
+
     .tooltip-ul {
       span.u-left {
         width: 100% !important;
@@ -73,6 +77,13 @@
 }
 
 @media print {
+  .map-legend,
+  #tile-chart-map {
+    break-inside: avoid;
+  }
+  .map-panel {
+    break-inside: auto;
+  }
   .m-global-eyebrow,
   .m-global-header-cta,
   .action-bar,
