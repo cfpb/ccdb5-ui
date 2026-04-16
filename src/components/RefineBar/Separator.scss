@@ -6,15 +6,15 @@
   margin-left: 10px;
   height: 38px;
 
-  @media screen and (min-width: $layout-breakpoint-desktop-min) {
+  @media screen and (min-width: $bp-med-min) {
     display: none;
   }
 
-  @media screen and (min-width: $layout-breakpoint-tablet-lg-min) and (max-width: $layout-breakpoint-tablet-lg-max) {
+  @media screen and (min-width: $bp-sm-min) and (max-width: $bp-sm-max) {
     display: none;
   }
 
-  @media screen and (max-width: $layout-breakpoint-phone-max){
+  @media screen and (max-width: $bp-xs-max) {
     display: none;
   }
 }

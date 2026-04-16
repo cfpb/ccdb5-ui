@@ -23,7 +23,7 @@ describe('component::DateFilter', () => {
     };
 
     renderComponent(query);
-    expect(screen.getByText('Learn More')).toBeInTheDocument();
+    expect(screen.getByText('Learn more')).toBeInTheDocument();
     expect(
       screen.getByText(
         'CFPB updated product and issue options in April 2017 and August 2023.',

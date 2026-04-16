@@ -4,7 +4,6 @@ import {
   clamp,
   coalesce,
   debounce,
-  enablePer1000,
   formatPercentage,
   getFullUrl,
   hashCode,
@@ -183,71 +182,6 @@ describe('module::utils', () => {
       const uri = 'https://www.example.org:8000/foo/bar#baz?qaz=a&b=c';
       const actual = getFullUrl(uri);
       expect(actual).toEqual(uri);
-    });
-  });
-
-  describe('enablePer1000', () => {
-    it('handles no filters', () => {
-      const filters = {
-        date: {},
-        bogus: {},
-        product: [],
-      };
-
-      expect(enablePer1000(filters)).toBeTruthy();
-    });
-
-    it('handles some filters', () => {
-      const filters = {
-        date: {},
-        bogus: {},
-        product: [{ name: 'foo', value: 123 }],
-      };
-
-      expect(enablePer1000(filters)).toBeFalsy();
-    });
-
-    it('handles flag filters', () => {
-      const filters = {
-        date: {},
-        bogus: {},
-        has_narrative: true,
-      };
-
-      expect(enablePer1000(filters)).toBeFalsy();
-    });
-
-    it('handles company_received filters', () => {
-      const filters = {
-        date: {},
-        bogus: {},
-        product: [],
-        company_received_max: 'foo',
-      };
-
-      expect(enablePer1000(filters)).toBeFalsy();
-    });
-
-    it('allows state filter', () => {
-      const filters = {
-        date: {},
-        bogus: {},
-        product: [],
-        state: ['FL', 'OR'],
-      };
-
-      expect(enablePer1000(filters)).toBeTruthy();
-    });
-
-    it('disallows state filter when others valid', () => {
-      const filters = {
-        date: {},
-        bogus: {},
-        product: ['BA'],
-        state: ['FL', 'OR'],
-      };
-
-      expect(enablePer1000(filters)).toBeFalsy();
     });
   });
 

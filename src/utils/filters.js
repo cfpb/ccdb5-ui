@@ -1,4 +1,4 @@
-import { filterPatch, SLUG_SEPARATOR } from '../constants';
+import { filterPatch, SLUG_SEPARATOR, THESE_UNITED_STATES } from '../constants';
 import { slugify } from '../utils';
 
 export const formatPillPrefix = (fieldName) => {
@@ -9,6 +9,11 @@ export const formatPillPrefix = (fieldName) => {
     return prefix[0].toUpperCase() + prefix.slice(1) + ': ';
   }
   return '';
+};
+
+export const formatStateLabel = (abbr) => {
+  const stateName = THESE_UNITED_STATES[abbr];
+  return stateName ? `${stateName} (${abbr})` : abbr;
 };
 
 export const getUpdatedFilters = (filterName, filters, aggs, fieldName) => {

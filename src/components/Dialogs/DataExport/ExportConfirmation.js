@@ -13,7 +13,7 @@ export const ExportConfirmation = () => {
         </Heading>
         <Button
           label="Close"
-          iconRight="delete-round"
+          iconRight="error-round"
           isLink
           data-gtm_ignore="true"
           onClick={() => {
@@ -22,7 +22,7 @@ export const ExportConfirmation = () => {
         />
       </div>
       <div className="body">
-        <div className="body-copy instructions">
+        <div className="instructions">
           It may take a few minutes for your file to download. You can keep
           working while it processes.
         </div>

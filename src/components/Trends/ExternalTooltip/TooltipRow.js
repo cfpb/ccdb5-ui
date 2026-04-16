@@ -60,7 +60,7 @@ export const TooltipRow = ({ value }) => {
     elements.push(
       <Button
         label=""
-        iconLeft="delete"
+        iconLeft="error"
         aria-label={'Remove ' + value.name + ' from comparison set'}
         isLink
         className="u-right close"

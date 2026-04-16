@@ -2,23 +2,25 @@
 @use 'css/base' as *;
 
 .action-bar {
-  border: 1px solid var(--gray-40);
-  border-left: 0; // Don't double the border with the filters
+  border-left: 1px solid transparent;
+  border-right: 1px solid var(--gray-40);
+  border-bottom: 1px solid var(--gray-40);
   background-color: var(--green-20);
   padding: $gutter-normal $grid-gutter-width;
+  margin-left: -15px;
 
   h2 {
     margin: 0;
 
-    @media screen and (max-width: $layout-breakpoint-phone-max) {
+    @media screen and (max-width: $bp-xs-max) {
       padding: $gutter-normal;
     }
   }
 
   .export-results {
     padding-top: $gutter-minimum;
-    margin: 0;
-    margin-bottom: $gutter-minimum;
+    margin: 0 0 $gutter-minimum;
+
     .a-btn {
       margin-right: $gutter-normal;
       font-size: $size-v;
@@ -30,33 +32,19 @@
     }
   }
 
-  .a-btn--link {
-    color: var(--pacific-dark);
-
-    &:hover {
-      color: var(--navy);
-    }
-
-    &:focus {
-      color: var(--pacific-dark);
-      border: 1px dotted var(--pacific-dark);
-    }
-
-    &:active {
-      color: var(--navy);
-      border: 1px dotted var(--navy);
-    }
-  }
-
-  @media screen and (max-width: $layout-breakpoint-phone-max) {
-    padding-left: 0;
+  @media screen and (max-width: $bp-xs-max) {
+    margin: 0;
+    padding-left: $gutter-normal;
+    padding-right: $gutter-normal;
     border: 1px solid var(--gray-40);
+    width: 100%;
+    box-sizing: border-box;
     .export-results {
-      margin-left: 15px;
+      margin-left: 0;
     }
   }
 
-  @media screen and (min-width: $layout-breakpoint-superwide-min){
-    padding-left: 40px;
+  @media screen and (max-width: 749px) {
+    border-left: 1px solid var(--gray-40);
   }
 }

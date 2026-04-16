@@ -4,14 +4,11 @@ import {
   stateFilterRemoved,
 } from '../../../reducers/filters/filtersSlice';
 import { coalesce, sendAnalyticsEvent } from '../../../utils';
-import { GEO_NORM_NONE, STATE_DATA } from '../../../constants';
+import { STATE_DATA } from '../../../constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCallback, useEffect, useMemo } from 'react';
-import TileMap from './TileMap';
-import {
-  selectFiltersDataNormalization,
-  selectFiltersState,
-} from '../../../reducers/filters/selectors';
+import TileMap, { TILE_MAP_HEIGHT, TILE_MAP_WIDTH } from './TileMap';
+import { selectFiltersState } from '../../../reducers/filters/selectors';
 
 import {
   selectViewIsPrintMode,
@@ -22,7 +19,6 @@ import { getElementById } from '../../../utils/dom';
 
 export const TileChartMap = () => {
   const dispatch = useDispatch();
-  const dataNormalization = useSelector(selectFiltersDataNormalization);
   const stateFilters = useSelector(selectFiltersState);
   const isPrintMode = useSelector(selectViewIsPrintMode);
   const width = useSelector(selectViewWidth);
@@ -36,11 +32,9 @@ export const TileChartMap = () => {
           const newState = structuredClone(state);
           const stateInfo = coalesce(STATE_DATA, state.name, {
             name: '',
-            population: 1,
           });
           newState.abbr = newState.name;
           newState.fullName = stateInfo.name;
-          newState.perCapita = getPerCapita(newState, stateInfo);
           return newState;
         })
       : null;
@@ -71,17 +65,18 @@ export const TileChartMap = () => {
 
   const _redrawMap = useCallback(() => {
     const mapElement = getElementById('tile-chart-map');
-    const mapWidth = isPrintMode ? 650 : mapElement.clientWidth || width;
+    const containerWidth = mapElement.clientWidth || width;
+
+    const mapWidth = isPrintMode ? 650 : containerWidth;
     if (!data) {
       return;
     }
 
-    const dataSet = updateData(data, dataNormalization, stateFilters);
+    const dataSet = updateData(data, stateFilters);
 
     const options = {
       el: mapElement,
       data: dataSet,
-      isPerCapita: dataNormalization !== GEO_NORM_NONE,
       events: {
         // custom event handlers we can pass on
         click: _toggleState,
@@ -90,19 +85,14 @@ export const TileChartMap = () => {
       width: mapWidth,
     };
 
-    options.height = mapWidth * 0.75;
+    const tileAspect = TILE_MAP_HEIGHT / TILE_MAP_WIDTH;
+    // add more height when filters collapse and window is small
+    const modifier = width < 750 ? 50 : 0;
+    options.height = Math.round(mapWidth * tileAspect) + modifier;
 
     // eslint-disable-next-line no-unused-vars
     const chart = new TileMap(options);
-  }, [
-    data,
-    dataNormalization,
-    hasTip,
-    isPrintMode,
-    stateFilters,
-    width,
-    _toggleState,
-  ]);
+  }, [data, hasTip, isPrintMode, stateFilters, width, _toggleState]);
 
   useEffect(() => {
     _redrawMap();
@@ -117,14 +107,12 @@ export const TileChartMap = () => {
   }, [_redrawMap]);
 
   return (
-    <div>
-      <div
-        id="tile-chart-map"
-        className={`cfpb-chart ${isPrintMode ? 'print' : ''}`}
-        data-chart-type="tile_map"
-        data-testid="tile-chart-map"
-      />
-    </div>
+    <div
+      id="tile-chart-map"
+      className={`cfpb-chart ${isPrintMode ? 'print' : ''}`}
+      data-chart-type="tile_map"
+      data-testid="tile-chart-map"
+    />
   );
 };
 
@@ -138,30 +126,16 @@ export const getStateClass = (statesFilter, name) => {
 };
 
 /**
- * Helper function to calculate Per Capita value
- *
- * @param {object} stateObj - A state containing abbr and value
- * @param {object} stateInfo - other information about the state
- * @returns {string} the Per 1000 population value
- */
-function getPerCapita(stateObj, stateInfo) {
-  const pop = stateInfo.population;
-  return ((stateObj.value / pop) * 1000).toFixed(2);
-}
-
-/**
  * Helper function to get display value of tile based on Normalization.
  *
  * @param {Array} data - Tiles to display.
- * @param {string} dataNormalization - Whether to normalize the data.
  * @param {Array} statesFilter - The currently applied states filter.
  * @returns {object} Data provided to tile map
  */
-function updateData(data, dataNormalization, statesFilter) {
-  const showDefault = dataNormalization === GEO_NORM_NONE;
+function updateData(data, statesFilter) {
   const res = data.map((datum) => ({
     ...datum,
-    displayValue: showDefault ? datum.value : datum.perCapita,
+    displayValue: datum.value,
     className: getStateClass(statesFilter, datum.name),
   }));
 

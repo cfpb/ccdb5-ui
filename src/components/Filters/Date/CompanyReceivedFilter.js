@@ -125,7 +125,7 @@ export const CompanyReceivedFilter = () => {
         <ul className="date-inputs">
           <li>
             <label
-              className="a-label a-label__heading body-copy"
+              className="a-label a-label__heading"
               htmlFor={`${fieldName}-from`}
             >
               From
@@ -150,7 +150,7 @@ export const CompanyReceivedFilter = () => {
           </li>
           <li>
             <label
-              className="a-label a-label__heading body-copy"
+              className="a-label a-label__heading"
               htmlFor={`${fieldName}-through`}
             >
               Through

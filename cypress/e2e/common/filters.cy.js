@@ -59,7 +59,7 @@ describe('Filter Panel', () => {
     cy.url().should('include', `date_received_max=202`);
     cy.log('can expand/collapse/apply filter group');
     // default date Filter pills
-    cy.get('.pill-panel .pill').should('have.length', 1);
+    cy.get('.pill-panel .a-tag-filter').should('have.length', 1);
     waitForLoading();
 
     cy.log('close simple filter, as it is open by default');
@@ -86,13 +86,13 @@ describe('Filter Panel', () => {
 
     cy.url().should('include', 'timely=Yes');
     // Filter pill
-    cy.get('.pill-panel .pill').contains('Timely: Yes').should('exist');
+    cy.get('.pill-panel .a-tag-filter').contains('Timely: Yes').should('exist');
 
     // Filter clear button
-    cy.get('li.clear-all').should('exist');
-    cy.get('li.clear-all').click();
+    cy.get('li.pill-panel__clear button').should('exist');
+    cy.get('li.pill-panel__clear button').click();
 
-    cy.get('.pill-panel .pill').should('not.exist');
+    cy.get('.pill-panel .a-tag-filter').should('not.exist');
 
     // Product/Sub-product
     cy.log('can collapse/expand a complex filter');
@@ -134,7 +134,7 @@ describe('Filter Panel', () => {
     cy.get('input#product-mortgage').click({ force: true });
     waitForLoading();
 
-    cy.get('.pill-panel .pill').contains('Mortgage').should('exist');
+    cy.get('.pill-panel .a-tag-filter').contains('Mortgage').should('exist');
     cy.url().should('include', 'product=Mortgage');
     cy.log('remove filter');
     cy.get('input#product-mortgage').click({ force: true });
@@ -157,13 +157,17 @@ describe('Filter Panel', () => {
 
     cy.url().should('include', '&product=Mortgage%E2%80%A2FHA%20mortgage');
 
-    cy.get('.pill-panel .pill').contains('FHA mortgage').should('exist');
+    cy.get('.pill-panel .a-tag-filter')
+      .contains('FHA mortgage')
+      .should('exist');
 
     cy.log('remove sub-filter when applying parent filter');
     cy.get('input#product-mortgage').click({ force: true });
     waitForLoading();
 
-    cy.get('.pill-panel .pill').contains('FHA mortgage').should('not.exist');
+    cy.get('.pill-panel .a-tag-filter')
+      .contains('FHA mortgage')
+      .should('not.exist');
 
     cy.url().should('not.include', '&product=Mortgage%E2%80%A2FHA%20mortgage');
     cy.url().should('include', 'product=Mortgage');
@@ -194,6 +198,6 @@ describe('Filter Panel', () => {
 
     cy.get('.state .typeahead-selector li').contains('Texas').click();
 
-    cy.get('.pill-panel .pill').contains('TX').should('exist');
+    cy.get('.pill-panel .a-tag-filter').contains('TX').should('exist');
   });
 });

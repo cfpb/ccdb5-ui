@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { formatDisplayDate } from '../../../utils/formatDate';
 import { Heading } from '@cfpb/design-system-react';
+
 const MAX_NARRATIVE = 300;
 
 export const ComplaintCard = ({ row }) => {
@@ -15,9 +16,7 @@ export const ComplaintCard = ({ row }) => {
   const complaintIdPath = 'detail/' + _stripPossibleHighlight(row.complaint_id);
 
   const _renderPossibleHighlight = (str) => {
-    return (
-      <span className="body-copy" dangerouslySetInnerHTML={{ __html: str }} />
-    );
+    return <span dangerouslySetInnerHTML={{ __html: str }} />;
   };
 
   const _renderNarrative = (narrative, url) => {
@@ -67,9 +66,7 @@ export const ComplaintCard = ({ row }) => {
           <div className="layout-row">
             <div className="layout-row">
               <Heading type="4">Date received:</Heading>
-              <span className="body-copy">
-                {formatDisplayDate(row.date_received)}
-              </span>
+              <span>{formatDisplayDate(row.date_received)}</span>
             </div>
             <div className="spacer" />
             <div className="layout-row">
@@ -83,7 +80,7 @@ export const ComplaintCard = ({ row }) => {
           <Heading type="3" dangerouslySetInnerHTML={{ __html: row.product }} />
           {row.sub_product ? (
             <div className="layout-row">
-              <span className="body-copy subitem">Sub-product:</span>
+              <span className="subitem">Sub-product:</span>
               {_renderPossibleHighlight(row.sub_product)}
             </div>
           ) : null}
@@ -93,7 +90,7 @@ export const ComplaintCard = ({ row }) => {
           <Heading type="3" dangerouslySetInnerHTML={{ __html: row.issue }} />
           {row.sub_issue ? (
             <div className="layout-row">
-              <span className="body-copy subitem">Sub-issue:</span>
+              <span className="subitem">Sub-issue:</span>
               {_renderPossibleHighlight(row.sub_issue)}
             </div>
           ) : null}

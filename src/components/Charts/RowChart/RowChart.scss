@@ -10,7 +10,19 @@
   }
 }
 
-@media screen and (max-width: $layout-breakpoint-phone-max) {
+@media screen and (max-width: $bp-xs-max) {
+  .row-chart-section {
+    margin-left: 0;
+  }
+
+  // hide mouseover tooltip when mobile
+  .metadata-group {
+    display: none;
+  }
+
+}
+
+@media screen and (max-width: 749px) {
   .row-chart-section {
     margin-left: 0;
   }

@@ -1,4 +1,5 @@
 @use 'sass:math';
+@forward '@cfpb/cfpb-design-system/src/elements/abstracts';
 @use '@cfpb/cfpb-design-system/src/elements/abstracts' as *;
 @use '@cfpb/cfpb-design-system/src/elements/base' as *;
 @use '@cfpb/cfpb-design-system/dist/index.css' as *;
@@ -25,15 +26,36 @@ $max-count-width: 65px;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Device Definitions
-$layout-breakpoint-superwide-min: 1800px;
-$layout-breakpoint-desktop-max: 1799px;
-$layout-breakpoint-desktop-min: 901px;
-$layout-breakpoint-tablet-min: 600px;
-$layout-breakpoint-tablet-max: 900px;
-$layout-breakpoint-tablet-lg-min: 750px;
-$layout-breakpoint-tablet-lg-max: 900px;
-$layout-breakpoint-tablet-sm-min: 600px;
-$layout-breakpoint-tablet-sm-max: 749px;
-$layout-breakpoint-phone-max: 599px;
+// See CFPB DS abstracts/vars-breakpoints for the values
+
+// $bp-xs-max: 600px;
+// $layout-breakpoint-phone-max: 599px;
+
+// $layout-breakpoint-tablet-min: 600px;
+// $layout-breakpoint-tablet-sm-min: 600px;
+// $bp-sm-min: $bp-xs-max + 1px;
+
+// $bp-sm-max: 900px;
+// $layout-breakpoint-tablet-max: 900px;
+// $layout-breakpoint-tablet-lg-max: 900px;
+
+// $bp-med-min: $bp-sm-max + 1px;
+// $layout-breakpoint-desktop-min: 901px;
+
+
+// $bp-med-max: 1020px;
+// $bp-lg-min: $bp-med-max + 1px;
+
+
+// $bp-lg-max: 1230px;
+// $bp-xl-min: $bp-lg-max + 1px;
+
+// Deleted
+// $layout-breakpoint-superwide-min: 1800px;
+// $layout-breakpoint-desktop-max: 1799px;
+
+// replaced these with $bp-sm-max
+// $layout-breakpoint-tablet-lg-min: 750px;
+// $layout-breakpoint-tablet-sm-max: 749px;
 
 

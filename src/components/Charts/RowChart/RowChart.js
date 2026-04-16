@@ -2,7 +2,7 @@ import './RowChart.scss';
 import * as d3 from 'd3';
 import { max } from 'd3-array';
 import { miniTooltip, row } from 'britecharts';
-import { Heading } from '@cfpb/design-system-react';
+import { Heading, Paragraph } from '@cfpb/design-system-react';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -181,7 +181,7 @@ export const RowChart = ({
     // added padding to make up for margin
     const containerWidth = isPrintMode
       ? 750
-      : rowContainer.node().getBoundingClientRect().width + 30;
+      : rowContainer.node().getBoundingClientRect().width; // 30px each side
 
     const height = rows.length === 1 ? 100 : rows.length * 60;
     const chart = row();
@@ -189,7 +189,7 @@ export const RowChart = ({
 
     // tweak to make the chart full width at desktop
     // add space at narrow width
-    const marginRight = containerWidth < 600 ? 40 : -65;
+    const marginRight = containerWidth < 600 ? 40 : -100;
 
     chart
       .margin({
@@ -259,7 +259,7 @@ export const RowChart = ({
   return total ? (
     <div className="row-chart-section">
       <Heading type="3">{title}</Heading>
-      <p>{helperText}</p>
+      <Paragraph>{helperText}</Paragraph>
       <div id={'row-chart-' + id} data-testid={'row-chart-' + id} />
     </div>
   ) : null;

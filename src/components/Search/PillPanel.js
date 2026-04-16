@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { Pill } from './Pill';
 import { filtersCleared } from '../../reducers/filters/filtersSlice';
+import { formatStateLabel } from '../../utils/filters';
 
 /* eslint complexity: ["error", 5] */
 export const PillPanel = () => {
@@ -68,20 +69,25 @@ export const PillPanel = () => {
       <Heading type="3" className="h4 pill-label flex-fixed">
         Filters applied:
       </Heading>
-      <ul className="layout-row">
+      <ul className="m-tag-group pill-panel__list">
         {filters.map((filter) => (
           <Pill
             key={filter.fieldName + filter.value}
             fieldName={filter.fieldName}
             value={filter.value}
+            displayValue={
+              filter.fieldName === 'state'
+                ? formatStateLabel(filter.value)
+                : undefined
+            }
           />
         ))}
-        <li className="clear-all">
+        <li className="pill-panel__clear">
           <Button
+            appearance="warning"
             label="Clear all filters"
-            iconLeft="delete"
+            iconLeft="error"
             isLink
-            className="body-copy"
             onClick={() => dispatch(filtersCleared(searchField))}
           />
         </li>

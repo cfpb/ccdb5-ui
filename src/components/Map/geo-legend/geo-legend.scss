@@ -1,0 +1,73 @@
+@use '@cfpb/cfpb-design-system/src/elements/abstracts' as *;
+
+.map-legend {
+  background-color: var(--white);
+  border-bottom: 1px solid var(--gray-20);
+
+  display: grid;
+  padding: 30px;
+
+  .map-legend__description {
+    color: var(--label-helper);
+  }
+}
+
+.map-legend__bins {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.map-legend__bin {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+.map-legend__swatch {
+  height: 15px;
+  border-top: 1px solid var(--gray-80);
+  border-bottom: 1px solid var(--gray-80);
+  border-left: 1px solid var(--gray-80);
+}
+
+.map-legend__bin:last-child .map-legend__swatch {
+  border-right: 1px solid var(--gray-80);
+}
+
+.map-legend__label {
+  color: var(--black);
+  margin-top: 10px;
+  text-align: center;
+}
+
+@media only screen and (max-width: $bp-sm-min) {
+  .map-legend {
+    padding: 0 0 30px;
+  }
+
+  .map-legend__bins {
+    grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
+    row-gap: 0;
+    column-gap: 0;
+  }
+
+  .map-legend__swatch {
+    height: 10px;
+    width: 100%;
+  }
+
+  .map-legend__label {
+    white-space: normal;
+    width: 100%;
+    max-width: 96px;
+    overflow-wrap: break-word;
+    font-size: inherit;
+    line-height: 1.3;
+    margin-top: 6px;
+  }
+}

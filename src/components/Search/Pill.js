@@ -1,4 +1,3 @@
-import './Pill.scss';
 import { dateRangeChanged } from '../../reducers/query/querySlice';
 import {
   filterRemoved,
@@ -13,16 +12,21 @@ import PropTypes from 'prop-types';
 import { selectFiltersRoot } from '../../reducers/filters/selectors';
 import { useGetAggregations } from '../../api/hooks/useGetAggregations';
 
-export const Pill = ({ fieldName, value }) => {
+export const Pill = ({ fieldName, value, displayValue, onRemove }) => {
   const { data: aggsState, error } = useGetAggregations();
   const filtersState = useSelector(selectFiltersRoot);
   const aggs = coalesce(aggsState, fieldName, []);
   const filters = coalesce(filtersState, fieldName, []);
   const prefix = formatPillPrefix(fieldName);
-  const trimmed = value.split(SLUG_SEPARATOR).pop();
+  const renderedValue = displayValue || value;
+  const trimmed = renderedValue.split(SLUG_SEPARATOR).pop();
   const dispatch = useDispatch();
 
   const remove = () => {
+    if (onRemove) {
+      onRemove(value);
+      return;
+    }
     if (fieldName === 'date_received') {
       // reset date range
       dispatch(dateRangeChanged('All'));
@@ -44,12 +48,16 @@ export const Pill = ({ fieldName, value }) => {
 
   return error ? null : (
     <li>
-      <button className="pill flex-fixed" onClick={remove}>
-        <span className="name">
-          {prefix}
-          {trimmed}
+      <button
+        className="a-tag-filter"
+        aria-label={`${prefix}${trimmed}`}
+        onClick={remove}
+      >
+        {prefix}
+        {trimmed}
+        <span className="a-btn--icon a-btn--icon--on-right">
+          <Icon name="error" isPresentational />
         </span>
-        <Icon name="error" isPresentational />
       </button>
     </li>
   );
@@ -58,4 +66,6 @@ export const Pill = ({ fieldName, value }) => {
 Pill.propTypes = {
   fieldName: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
+  displayValue: PropTypes.string,
+  onRemove: PropTypes.func,
 };

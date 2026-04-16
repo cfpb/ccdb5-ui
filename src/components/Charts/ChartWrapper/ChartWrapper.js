@@ -1,12 +1,13 @@
 import './ChartWrapper.scss';
 import PropTypes from 'prop-types';
+import { Paragraph } from '@cfpb/design-system-react';
 
 export const ChartWrapper = ({ domId, hasKey }) => (
   <section className={`${hasKey ? 'ext-tooltip' : ''}`}>
     <div className="chart-wrapper">
-      <p className="y-axis-label">Complaints</p>
+      <Paragraph className="y-axis-label">Complaints</Paragraph>
       <div id={domId} />
-      <p className="x-axis-label">Date received by the CFPB</p>
+      <Paragraph className="x-axis-label">Date received by the CFPB</Paragraph>
     </div>
   </section>
 );

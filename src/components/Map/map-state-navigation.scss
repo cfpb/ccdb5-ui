@@ -1,0 +1,13 @@
+@use '@cfpb/cfpb-design-system/src/elements/abstracts' as *;
+@use 'css/base' as *;
+
+.map-state-navigation {
+  margin: 15px 30px 60px;
+}
+
+
+@media screen and (max-width: $bp-sm-min) {
+  .map-state-navigation {
+    margin: 0 0 60px;
+  }
+}

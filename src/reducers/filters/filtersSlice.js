@@ -1,9 +1,7 @@
 // default filter state
-import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import { coalesce, enablePer1000, processUrlArrayParams } from '../../utils';
+import { createSlice } from '@reduxjs/toolkit';
+import { coalesce, processUrlArrayParams } from '../../utils';
 import * as types from '../../constants';
-import { enforceValues } from '../../utils/reducers';
-import { routeChanged } from '../routes/routesSlice';
 
 /**
  * defaults create new array if param doesn't exist yet
@@ -25,32 +23,13 @@ export function filterArrayAction(target = [], val) {
   return [...target];
 }
 
-/**
- * helper function to check if per1000 & map warnings should be enabled
- *
- * @param {object} state - state we need to validate
- */
-export function validatePer1000(state) {
-  state.enablePer1000 = enablePer1000(state);
-  if (state.enablePer1000) {
-    state.mapWarningEnabled = true;
-  }
-  // if we enable per1k then don't reset it
-  state.dataNormalization = state.enablePer1000
-    ? state.dataNormalization || types.GEO_NORM_NONE
-    : types.GEO_NORM_NONE;
-}
-
 export const filtersState = {
   company: [],
   company_public_response: [],
   company_response: [],
   consumer_consent_provided: [],
   consumer_disputed: [],
-  dataNormalization: types.GEO_NORM_NONE,
-  enablePer1000: false,
   issue: [],
-  mapWarningEnabled: true,
   product: [],
   state: [],
   submitted_via: [],
@@ -63,14 +42,6 @@ export const filtersSlice = createSlice({
   name: 'filters',
   initialState: filtersState,
   reducers: {
-    dataNormalizationUpdated: {
-      reducer: (state, action) => {
-        state.dataNormalization = enforceValues(
-          action.payload,
-          'dataNormalization',
-        );
-      },
-    },
     filterAdded: {
       reducer: (state, action) => {
         const { filterName, filterValue } = action.payload;
@@ -151,11 +122,6 @@ export const filtersSlice = createSlice({
         };
       },
     },
-    mapWarningDismissed: {
-      reducer: (state) => {
-        state.mapWarningEnabled = false;
-      },
-    },
     multipleFiltersAdded: {
       reducer: (state, action) => {
         const name = action.payload.filterName;
@@ -233,9 +199,6 @@ export const filtersSlice = createSlice({
         const { params } = action.payload;
         // Handle the aggregation filters
         processUrlArrayParams(params, state, types.knownFilters);
-        if (params.dataNormalization) {
-          state.dataNormalization = params.dataNormalization;
-        }
       })
       .addCase('trends/focusChanged', (state, action) => {
         const { focus, lens, filterValues } = action.payload;
@@ -255,37 +218,16 @@ export const filtersSlice = createSlice({
         const lens = action.payload;
         const filterKey = lens.toLowerCase();
         state[filterKey] = [];
-      })
-      .addMatcher(
-        isAnyOf(
-          /*eslint no-use-before-define: ["error", { "variables": false }]*/
-          filterAdded,
-          filterRemoved,
-          filtersCleared,
-          filtersReplaced,
-          filterToggled,
-          multipleFiltersAdded,
-          multipleFiltersRemoved,
-          routeChanged,
-          stateFilterCleared,
-          stateFilterRemoved,
-          toggleFlagFilter,
-        ),
-        (state) => {
-          validatePer1000(state);
-        },
-      );
+      });
   },
 });
 
 export const {
-  dataNormalizationUpdated,
   filterAdded,
   filterRemoved,
   filtersCleared,
   filtersReplaced,
   filterToggled,
-  mapWarningDismissed,
   multipleFiltersAdded,
   multipleFiltersRemoved,
   stateFilterAdded,

@@ -1,6 +1,6 @@
 import { createBrowserHistory } from 'history';
 import queryString from 'query-string';
-import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../../constants';
+import { MODE_LIST, MODE_TRENDS } from '../../constants';
 import { extractReducerAttributes } from '../../api/params/params';
 import { appUrlChanged } from '../../reducers/routes/routesSlice';
 
@@ -8,15 +8,10 @@ import { appUrlChanged } from '../../reducers/routes/routesSlice';
  * Retrieve attributes for the filters reducer
  *
  * @param {object} filters - filtersState in redux
- * @param {string} tab - current tab we are on
  * @returns {Array} list of filter attributes
  */
-function getFiltersAttrs(filters, tab) {
-  const attrsMap = ['dataNormalization', 'enablePer1000', 'mapWarningEnabled'];
-
-  return tab === MODE_MAP
-    ? Object.keys(filters)
-    : Object.keys(filters).filter((item) => !attrsMap.includes(item));
+function getFiltersAttrs(filters) {
+  return Object.keys(filters);
 }
 
 /**
@@ -85,7 +80,7 @@ export function extractQueryStringParams(state) {
 
   // Conditional extractions
   const { tab } = state.view,
-    attrsFilters = getFiltersAttrs(state.filters, tab),
+    attrsFilters = getFiltersAttrs(state.filters),
     attrsTrends = getTrendsAttrs(tab),
     attrsQuery = getQueryAttrs(tab),
     attrsView = getViewModelAttrs(tab);

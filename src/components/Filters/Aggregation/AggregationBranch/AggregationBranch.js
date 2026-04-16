@@ -58,7 +58,7 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
   }));
 
   const buckets = sortOptions(unsorted, allFilters, fieldName);
-  const liStyle = 'parent m-form-field m-form-field--checkbox body-copy';
+  const liStyle = 'parent m-form-field m-form-field--checkbox';
   const id = sanitizeHtmlId(`${fieldName} ${item.key}`);
 
   const toggleParent = () => {

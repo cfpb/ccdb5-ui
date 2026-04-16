@@ -18,10 +18,6 @@ export const enforceValues = (value, field) => {
       defaultVal: 'line',
       values: ['line', 'area'],
     },
-    dataNormalization: {
-      defaultVal: types.GEO_NORM_NONE,
-      values: [types.GEO_NORM_NONE, types.GEO_NORM_PER1000],
-    },
     dateInterval: {
       defaultVal: 'Month',
       values: types.dateIntervals,

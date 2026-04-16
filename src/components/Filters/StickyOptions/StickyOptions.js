@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import { AggregationItem } from '../Aggregation/AggregationItem/AggregationItem';
 
-export const StickyOptions = ({ fieldName, options, selections }) => {
+export const StickyOptions = ({ fieldName, options, selections, getLabel }) => {
   // Pull out filter options that have aggregations and values
   const trackedSelections = options.reduce((acc, opt) => {
     if (selections.includes(opt.key)) {
-      acc.push(opt); // Add the option if its key is in selections
+      const value = getLabel ? getLabel(opt.key) : opt.value;
+      acc.push({ ...opt, value }); // Add the option if its key is in selections
     }
     return acc; // Return the accumulator for the next iteration
   }, []); // Initialize the accumulator as an empty array
@@ -14,7 +15,11 @@ export const StickyOptions = ({ fieldName, options, selections }) => {
   selections.forEach((sel) => {
     if (!trackedSelections.some((opt) => opt.key === sel)) {
       // Use some() for efficiency
-      trackedSelections.push({ key: sel, value: sel, doc_count: 0 });
+      trackedSelections.push({
+        key: sel,
+        value: getLabel ? getLabel(sel) : sel,
+        doc_count: 0,
+      });
     }
   });
   return (
@@ -30,4 +35,5 @@ StickyOptions.propTypes = {
   fieldName: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
   selections: PropTypes.array,
+  getLabel: PropTypes.func,
 };

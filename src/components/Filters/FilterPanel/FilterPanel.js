@@ -32,14 +32,14 @@ export const FilterPanel = () => {
     'complaints submitted by or on behalf of consumers';
 
   return (
-    <div>
+    <>
       {!!hasFilters && (
         <section className="filter-panel">
           {!!hasButton && (
             <div className="filter-button">
               <Button
                 label="Close filters"
-                iconRight="delete"
+                iconRight="error"
                 title="Close filters"
                 onClick={() => dispatch(updateFilterVisibility())}
               />
@@ -108,6 +108,6 @@ export const FilterPanel = () => {
           <SimpleFilter title="Tags" desc={descTags} fieldName="tags" />
         </section>
       )}
-    </div>
+    </>
   );
 };

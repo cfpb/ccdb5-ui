@@ -3,15 +3,15 @@
 
 .filter-panel {
   padding: $gutter-normal;
-  border-top: 1px solid var(--gray-40);
+  border-left: 1px solid var(--gray-40);
   border-right: 1px solid var(--gray-40);
   background: var(--gray-5);
 
-  @media screen and (min-width: $layout-breakpoint-desktop-min) {
+  @media screen and (min-width: $bp-med-min) {
     padding: $grid-gutter-width;
   }
 
-  @media screen and (max-width: $layout-breakpoint-phone-max) {
+  @media screen and (max-width: $bp-xs-max) {
     border-right: none;
   }
 

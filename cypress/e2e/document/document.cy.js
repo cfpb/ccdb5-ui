@@ -40,7 +40,7 @@ describe('Document View', () => {
         'Relevance',
       );
 
-      cy.contains('.pill', 'Has narrative').should('be.visible');
+      cy.contains('.a-tag-filter', 'Has narrative').should('be.visible');
 
       cy.get('#filterHasNarrative').should('be.checked');
       cy.get('.cards-panel .card-container a').first().click();
@@ -58,7 +58,7 @@ describe('Document View', () => {
         'Relevance',
       );
 
-      cy.contains('.pill', 'Has narrative').should('be.visible');
+      cy.contains('.a-tag-filter', 'Has narrative').should('be.visible');
 
       cy.get('#filterHasNarrative').should('be.checked');
     });

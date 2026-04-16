@@ -86,10 +86,8 @@ describe('redux middleware::synchUrl', () => {
     store = setupStore(targetState);
     store.dispatch(filtersReplaced('product', ['foo', 'bar']));
     expect(rSpy).toHaveBeenCalledWith('/', {
-      dataNormalization: 'None',
       date_received_max: '09-20-2000',
       date_received_min: '09-12-1980',
-      mapWarningEnabled: true,
       product: ['foo', 'bar'],
       searchField: 'all',
       tab: 'Map',

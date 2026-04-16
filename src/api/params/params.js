@@ -18,13 +18,7 @@ export function extractAggregationParams(filters, query) {
       !['frm', 'page', 'search_after', 'size', 'sort'].includes(key),
   );
 
-  const filterParams = Object.keys(filters).filter(
-    (key) =>
-      // exclude these from query
-      !['dataNormalization', 'enablePer1000', 'mapWarningEnabled'].includes(
-        key,
-      ),
-  );
+  const filterParams = Object.keys(filters);
 
   // Grab specific attributes from the reducers
   return Object.assign(
@@ -42,13 +36,7 @@ export function extractAggregationParams(filters, query) {
  * @returns {object} a dictionary of strings
  */
 export function extractBasicParams(filterState, queryState) {
-  const filterParams = Object.keys(filterState).filter(
-    (key) =>
-      // exclude these from query
-      !['dataNormalization', 'enablePer1000', 'mapWarningEnabled'].includes(
-        key,
-      ),
-  );
+  const filterParams = Object.keys(filterState);
 
   // Grab specific attributes from the reducers
   return Object.assign(
@@ -166,13 +154,7 @@ export function extractTrendsParams(filters, query, trends) {
       !['frm', 'page', 'search_after', 'size', 'sort'].includes(key),
   );
 
-  const filterParams = Object.keys(filterState).filter(
-    (key) =>
-      // exclude these from query
-      !['dataNormalization', 'enablePer1000', 'mapWarningEnabled'].includes(
-        key,
-      ),
-  );
+  const filterParams = Object.keys(filterState);
 
   // Grab specific attributes from the reducers
   return Object.assign(

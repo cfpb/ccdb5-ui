@@ -8,6 +8,21 @@
 @use '@cfpb/cfpb-design-system/src/elements/abstracts' as *;
 @use 'css/base' as *;
 
+#tile-chart-map {
+  margin: 30px;
+
+  // borders for debugging
+  // border: 1px solid red;
+  //
+  // svg {
+  //  border: 1px solid green;
+  // }
+
+  @media screen and (max-width: $bp-xs-max) {
+    margin: 15px 0;
+  }
+}
+
 .highcharts-container {
   position: relative;
   overflow: hidden;
@@ -19,26 +34,15 @@
 
   /* #1072 */
   -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
-  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Arial, Helvetica,
-    sans-serif;
-  font-size: 12px;
 }
 
-// legend
 .highcharts-root {
   display: block;
+
   text {
     stroke-width: 0;
     font-weight: 500;
   }
-}
-
-.highcharts-strong {
-  font-weight: bold;
-}
-
-.highcharts-emphasized {
-  font-style: italic;
 }
 
 .highcharts-anchor {
@@ -62,35 +66,7 @@
   fill: inherit;
 }
 
-/* Titles */
-.highcharts-title {
-  fill: #333;
-  font-size: 1.5em;
-}
-
-.highcharts-subtitle {
-  fill: #666;
-}
-
 /* Highmaps */
-.highcharts-map-series {
-  .highcharts-point {
-    transition:
-      fill 500ms,
-      fill-opacity 500ms,
-      stroke-width 250ms;
-    stroke: #ccc;
-  }
-
-  .highcharts-point-hover {
-    transition:
-      fill 0ms,
-      fill-opacity 0ms;
-    cursor: default;
-    fill: var(--pacific) !important;
-    fill-opacity: 0.5;
-  }
-}
 
 /*
 Updating the charts:
@@ -99,27 +75,12 @@ Updating the charts:
 This appears to handle responsive changes the best, since the JS sets
 x/y positioning on the SVG elements.
 */
-.u-chart-label {
-  font-size: 16px;
-  font-family: inherit;
-  color: var(--gray);
-}
-
 .cfpb-chart {
   position: relative;
-  width: calc(100% - 60px);
-  min-height: 400px;
-  margin-bottom: 25px;
-  margin-left: $grid-gutter-width;
-  .highcharts-root,
-  .highcharts-container,
-  .highcharts-legend-box,
-  .highcharts-axis-labels,
-  .highcharts-tooltip text {
-    font-size: 16px;
-    font-family: inherit;
-    color: var(--gray);
-  }
+
+  // border: 1px red solid;
+  // margin-bottom: 25px;
+  // margin-left: $grid-gutter-width;
 }
 
 /* TODO: Investigate whether responsive styles can be remove here and handled
@@ -130,10 +91,20 @@ x/y positioning on the SVG elements.
     color: var(--black);
 
     .highcharts-data-label-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
       cursor: default;
-      &.deselected {
-        color: var(--gray);
+      line-height: 1.1;
+
+      .abbr {
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+
+      .value {
+        margin-top: 4px;
       }
     }
   }
@@ -142,57 +113,47 @@ x/y positioning on the SVG elements.
     pointer-events: none;
   }
 
-  .highcharts-legend-title {
-    .highcharts-legend-key {
-      font-weight: 500;
-    }
-    .highcharts-legend-description {
-      font-size: 12px;
-      .type {
-        font-weight: 500;
-        color: var(--black);
-      }
-    }
-  }
-
-  .highcharts-legend__tile-map {
-    font-size: 12px;
-
-    .legend-box {
-      stroke: var(--gray);
-    }
-  }
-
-  .highcharts-label__tile-map {
-    font-size: 16px;
-    font-family: inherit;
-    color: var(--gray);
-    font-weight: 500;
-
-    span {
-      position: relative !important;
-      white-space: normal !important;
-    }
-  }
-
   .u-point-hover-state,
   .selected {
     stroke: var(--black);
     cursor: default;
     stroke-linecap: square;
+    stroke-width: 3px;
   }
+
   .highcharts-map-series {
     .highcharts-point {
-      stroke: none;
-
-      &.empty {
-        stroke: rgb(231 232 233 / 100%);
-      }
-
-      &.selected {
-        stroke: rgb(0 45 114 / 100%);
-      }
+      stroke: var(--gray-80);
+      stroke-width: 1px;
+      cursor: pointer;
     }
+
+    .highcharts-point.selected {
+      stroke: var(--black);
+      stroke-width: 4px;
+    }
+
+    .highcharts-point.highcharts-point-hover {
+      stroke: var(--black);
+      stroke-width: 4px;
+    }
+
+    .highcharts-point.selected.highcharts-point-hover {
+      stroke: var(--black);
+      stroke-width: 6px;
+    }
+  }
+
+  .highcharts-point:focus,
+  .highcharts-point.highcharts-keyboard-focused {
+    outline: none;
+  }
+
+  .highcharts-focus-border {
+    fill: none;
+    stroke: var(--black);
+    stroke-width: 2px;
+    stroke-dasharray: 2 2;
   }
 
   .highcharts-label-box {
@@ -201,57 +162,181 @@ x/y positioning on the SVG elements.
 
   .highcharts-tooltip {
     min-width: 200px;
+    overflow: visible;
+
+    --caret-size: 8px;
+    --caret-pos: 50%;
+    filter: drop-shadow(1px 1px 2px rgb(0 0 0 / 20%));
+    color: var(--gray-dark);
 
     span {
-      color: var(--white);
-      background-color: var(--black);
-      padding: 5px;
-      width: 320px;
+      background-color: var(--gray-5);
+      border: 1px solid var(--gray-40);
+      font-family: inherit;
+      padding: 15px 15px 0;
+      position: relative;
+      overflow: visible;
+      width: 355px;
+      max-width: 355px;
+      box-sizing: border-box;
+      white-space: normal;
 
-      div p {
-        margin: 5px;
-        white-space: normal;
-
-        &.u-float-left {
-          width: 150px;
-          float: left;
-        }
-
-        &.u-right {
-          width: 150px;
-        }
-      }
-
-      .title {
-        text-align: center;
+      h4.title {
+        margin: 0 0 15px;
+        text-align: left;
+        font-weight: 600;
       }
 
       .row {
-        border-top: solid 1px #43484e;
-        margin-top: 5px;
-        padding-top: 5px;
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        padding: 15px 0;
+        margin: 0;
       }
+
+      .row:first-of-type {
+        padding-top: 0;
+      }
+
+      .row p {
+        margin: 0;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: normal;
+      }
+
+      .row .u-float-left {
+        float: none;
+        display: block;
+        flex: 0 0 45%;
+        font-weight: 500;
+        color: var(--gray-dark);
+      }
+
+      .row .u-right {
+        float: none;
+        display: block;
+        flex: 1 1 auto;
+        font-weight: 400;
+        color: var(--gray-dark);
+      }
+
+      .row + .row {
+        border-top: 1px solid var(--gray-40);
+      }
+
+      .row--count-mobile {
+        display: none;
+      }
+
     }
   }
-}
 
-.cfpb-chart[data-chart-type='tile_map']:not(.print) {
-  .highcharts-map-series {
-    .highcharts-point {
-      &:hover {
-        stroke: rgb(0 45 114 / 100%);
-        stroke-width: 2px !important;
-      }
-    }
+  .highcharts-tooltip > span::before,
+  .highcharts-tooltip > span::after,
+  .highcharts-tooltip > span[data-caret]::before,
+  .highcharts-tooltip > span[data-caret]::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
   }
-}
 
-@media screen and ((min-width: $layout-breakpoint-tablet-sm-min) and (max-width: $layout-breakpoint-tablet-sm-max)),
-screen and (max-width: $layout-breakpoint-phone-max) {
-  .cfpb-chart[data-chart-type='tile_map'] {
-    width: calc(100% - 20px);
-    margin-bottom: 10px;
-    margin-left: 10px;
+  .highcharts-tooltip[data-caret='top'] > span::before,
+  .highcharts-tooltip[data-caret='top'] > span::after,
+  .highcharts-tooltip > span[data-caret='top']::before,
+  .highcharts-tooltip > span[data-caret='top']::after {
+    left: var(--caret-pos);
+    transform: translateX(-50%);
+  }
+
+  .highcharts-tooltip[data-caret='top'] > span::before,
+  .highcharts-tooltip > span[data-caret='top']::before {
+    bottom: calc(var(--caret-size) * -1);
+    border-width: var(--caret-size) var(--caret-size) 0 var(--caret-size);
+    border-style: solid;
+    border-color: var(--gray-40) transparent transparent transparent;
+  }
+
+  .highcharts-tooltip[data-caret='top'] > span::after,
+  .highcharts-tooltip > span[data-caret='top']::after {
+    bottom: calc((var(--caret-size) - 1px) * -1);
+    border-width: calc(var(--caret-size) - 1px) calc(var(--caret-size) - 1px) 0;
+    border-style: solid;
+    border-color: var(--gray-5) transparent transparent transparent;
+  }
+
+  .highcharts-tooltip[data-caret='bottom'] > span::before,
+  .highcharts-tooltip[data-caret='bottom'] > span::after,
+  .highcharts-tooltip > span[data-caret='bottom']::before,
+  .highcharts-tooltip > span[data-caret='bottom']::after {
+    left: var(--caret-pos);
+    transform: translateX(-50%);
+  }
+
+  .highcharts-tooltip[data-caret='bottom'] > span::before,
+  .highcharts-tooltip > span[data-caret='bottom']::before {
+    top: calc(var(--caret-size) * -1);
+    border-width: 0 var(--caret-size) var(--caret-size) var(--caret-size);
+    border-style: solid;
+    border-color: transparent transparent var(--gray-40) transparent;
+  }
+
+  .highcharts-tooltip[data-caret='bottom'] > span::after,
+  .highcharts-tooltip > span[data-caret='bottom']::after {
+    top: calc((var(--caret-size) - 1px) * -1);
+    border-width: 0 calc(var(--caret-size) - 1px) calc(var(--caret-size) - 1px);
+    border-style: solid;
+    border-color: transparent transparent var(--gray-5) transparent;
+  }
+
+  .highcharts-tooltip[data-caret='left'] > span::before,
+  .highcharts-tooltip[data-caret='left'] > span::after,
+  .highcharts-tooltip > span[data-caret='left']::before,
+  .highcharts-tooltip > span[data-caret='left']::after {
+    top: var(--caret-pos);
+    transform: translateY(-50%);
+  }
+
+  .highcharts-tooltip[data-caret='left'] > span::before,
+  .highcharts-tooltip > span[data-caret='left']::before {
+    right: calc(var(--caret-size) * -1);
+    border-width: var(--caret-size) 0 var(--caret-size) var(--caret-size);
+    border-style: solid;
+    border-color: transparent transparent transparent var(--gray-40);
+  }
+
+  .highcharts-tooltip[data-caret='left'] > span::after,
+  .highcharts-tooltip > span[data-caret='left']::after {
+    right: calc((var(--caret-size) - 1px) * -1);
+    border-width: calc(var(--caret-size) - 1px) 0 calc(var(--caret-size) - 1px) calc(var(--caret-size) - 1px);
+    border-style: solid;
+    border-color: transparent transparent transparent var(--gray-5);
+  }
+
+  .highcharts-tooltip[data-caret='right'] > span::before,
+  .highcharts-tooltip[data-caret='right'] > span::after,
+  .highcharts-tooltip > span[data-caret='right']::before,
+  .highcharts-tooltip > span[data-caret='right']::after {
+    top: var(--caret-pos);
+    transform: translateY(-50%);
+  }
+
+  .highcharts-tooltip[data-caret='right'] > span::before,
+  .highcharts-tooltip > span[data-caret='right']::before {
+    left: calc(var(--caret-size) * -1);
+    border-width: var(--caret-size) var(--caret-size) var(--caret-size) 0;
+    border-style: solid;
+    border-color: transparent var(--gray-40) transparent transparent;
+  }
+
+  .highcharts-tooltip[data-caret='right'] > span::after,
+  .highcharts-tooltip > span[data-caret='right']::after {
+    left: calc((var(--caret-size) - 1px) * -1);
+    border-width: calc(var(--caret-size) - 1px) calc(var(--caret-size) - 1px) calc(var(--caret-size) - 1px) 0;
+    border-style: solid;
+    border-color: transparent var(--gray-5) transparent transparent;
   }
 }
 
@@ -261,62 +346,108 @@ screen and (max-width: $layout-breakpoint-phone-max) {
 $mobile-tiles-breakpoint-max: 1024px;
 $mobile-xs-tiles-breakpoint-max: 400px;
 
-.highcharts-data-label {
-  font-size: 14px;
-  line-height: 1.3;
+.cfpb-chart[data-chart-type='tile_map'] .highcharts-data-label {
+  line-height: 1.1;
 
   .highcharts-data-label-state {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
 
     .abbr {
-      flex: 1 0 auto;
-      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 0;
     }
 
     .value {
-      flex: 1 0 auto;
-      margin-top: 6px;
-      font-size: 12px;
-    }
-    &.hover {
-      .abbr,
-      .value {
-        text-decoration: underline;
-      }
-    }
-    &.deselected {
-      color: rgb(90 93 97 / 100%);
+      margin-top: 4px;
+      font-weight: 400;
     }
   }
 }
 
 // This takes over for looking good at the minimum height of 400px
 @media screen and (max-width: $mobile-tiles-breakpoint-max) {
-  .highcharts-data-label {
-    line-height: 1;
+  .cfpb-chart[data-chart-type='tile_map'] {
+    // padding: 0 !important;
 
-    .highcharts-data-label-state {
-      .abbr {
-        font-size: 12px;
+    .highcharts-data-label {
+      line-height: 1;
+
+      .highcharts-data-label-state {
+        .value {
+          display: none;
+        }
       }
-      .value {
-        margin-top: 3px;
-        font-size: 9px;
+    }
+
+    // column tooltip
+    .highcharts-tooltip span {
+      padding: 15px;
+
+      h4.title {
+        margin-bottom: 10px;
+      }
+
+      .row--product,
+      .row--issue,
+      .row--count {
+        display: none;
+      }
+
+      .row--count-mobile {
+        display: block;
+        padding: 0;
+      }
+
+      .row + .row {
+        border-top: 0;
+      }
+    }
+
+    // adjustments to make a smaller tooltip at mobile
+    .highcharts-tooltip {
+      span {
+        width: 230px;
+        max-width: 230px;
+
+        .row {
+          padding: 0;
+        }
+
+        .row--count-mobile {
+          padding: 0;
+        }
+
+        .row--count {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 6px;
+        }
+
+        .row--count .u-float-left,
+        .row--count .u-right {
+          flex: 0 0 auto;
+          width: 100%;
+        }
+
+        .top-volume {
+          display: none;
+        }
       }
     }
   }
 }
 
 @media screen and (max-width: $mobile-xs-tiles-breakpoint-max) {
-  .highcharts-data-label {
+  .cfpb-chart[data-chart-type='tile_map'] .highcharts-data-label {
     line-height: 1;
 
     .highcharts-data-label-state {
       .abbr {
         font-size: 12px;
       }
+
       .value {
         display: none;
       }
@@ -326,8 +457,7 @@ $mobile-xs-tiles-breakpoint-max: 400px;
 
 // -----------------------------------------------------------------------------
 // Make the map & legend play nice
-
-@media screen and (min-width: $layout-breakpoint-tablet-sm-min) and (max-width: $layout-breakpoint-tablet-sm-max) {
+@media screen and (min-width: $bp-xs-max) and (max-width: $bp-sm-max) {
   .highcharts-series-group {
     transform: translate(0, 15px);
   }
@@ -337,7 +467,7 @@ $mobile-xs-tiles-breakpoint-max: 400px;
   }
 }
 
-@media screen and (max-width: $layout-breakpoint-phone-max) {
+@media screen and (max-width: $bp-xs-max) {
   .highcharts-series-group {
     transform: translate(0, 15px);
   }
