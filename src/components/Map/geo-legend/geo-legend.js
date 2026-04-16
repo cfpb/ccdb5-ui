@@ -72,7 +72,7 @@ export const GeoLegend = () => {
       endValue = nextBin.from;
     }
 
-    return `${makeShortName(bin.from)} – ${makeShortName(endValue)}`;
+    return `${makeShortName(bin.from)}–${makeShortName(endValue)}`;
   };
 
   return (
