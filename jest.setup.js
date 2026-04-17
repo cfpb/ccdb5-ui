@@ -1,4 +1,10 @@
 // jest.setup.js
+process.env.NODE_ENV = 'test';
+globalThis.IS_REACT_ACT_ENVIRONMENT = true;
+if (typeof window !== 'undefined') {
+  window.IS_REACT_ACT_ENVIRONMENT = true;
+}
+
 import '@testing-library/jest-dom';
 import fetchMock from 'jest-fetch-mock';
 import { TextDecoder, TextEncoder } from 'node:util';

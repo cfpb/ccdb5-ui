@@ -19,7 +19,7 @@
   // }
 
   @media screen and (max-width: $bp-xs-max) {
-    margin: 15px 0;
+    margin: 0;
   }
 }
 
@@ -144,16 +144,10 @@ x/y positioning on the SVG elements.
     }
   }
 
-  .highcharts-point:focus,
-  .highcharts-point.highcharts-keyboard-focused {
-    outline: none;
-  }
-
   .highcharts-focus-border {
     fill: none;
-    stroke: var(--black);
-    stroke-width: 2px;
-    stroke-dasharray: 2 2;
+    stroke: var(--pacific);
+    stroke-width: 6px;
   }
 
   .highcharts-label-box {

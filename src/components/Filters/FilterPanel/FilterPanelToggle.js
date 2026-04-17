@@ -11,11 +11,12 @@ export const FilterPanelToggle = () => {
     <section className={'filter-panel-toggle' + (hasFilters ? '' : ' u-mt30')}>
       <div className="m-btn-group">
         <Button
-          label={hasFilters ? 'Close Filters' : 'Filter results'}
+          label={hasFilters ? 'Close filters' : 'Filter results'}
           className="filter-toggle-button"
           onClick={() => {
             dispatch(updateFilterVisibility());
           }}
+          iconRight={hasFilters ? 'error' : 'filter'}
         />
       </div>
     </section>

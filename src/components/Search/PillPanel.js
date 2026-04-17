@@ -86,7 +86,6 @@ export const PillPanel = () => {
           <Button
             appearance="warning"
             label="Clear all filters"
-            iconLeft="error"
             isLink
             onClick={() => dispatch(filtersCleared(searchField))}
           />

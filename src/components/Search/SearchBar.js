@@ -10,7 +10,7 @@ import {
 import { Button, Heading, Link } from '@cfpb/design-system-react';
 import { AdvancedTips } from './AdvancedTips/AdvancedTips';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   selectQuerySearchField,
   selectQuerySearchText,
@@ -31,13 +31,12 @@ export const SearchBar = () => {
   const searchText = useSelector(selectQuerySearchText);
   const hasAdvancedSearchTips = useSelector(selectViewHasAdvancedSearchTips);
   const [inputValue, setInputValue] = useState(searchText);
+  const [isDirty, setIsDirty] = useState(false);
   // handleClear is called whenever the user submits by pressing enter
   // shouldCallClear prevents handleClear from firing a reset after the search is set
   const [shouldCallClear, setShouldCallClear] = useState(true);
 
-  useEffect(() => {
-    setInputValue(searchText);
-  }, [searchText]);
+  const displayedValue = isDirty ? inputValue : searchText;
 
   const onSearchTipToggle = (isOn) => {
     if (isOn) {
@@ -49,7 +48,8 @@ export const SearchBar = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(searchTextChanged(inputValue));
+    dispatch(searchTextChanged(displayedValue));
+    setIsDirty(false);
   };
 
   const onSelectSearchField = (event) => {
@@ -74,6 +74,7 @@ export const SearchBar = () => {
     if (shouldCallClear) {
       dispatch(searchTextChanged(''));
       setInputValue('');
+      setIsDirty(false);
     }
     setShouldCallClear(true);
   };
@@ -82,6 +83,8 @@ export const SearchBar = () => {
     if (event.key === 'Enter') {
       setShouldCallClear(false);
       dispatch(searchTextChanged(event.target.value));
+      setInputValue(event.target.value);
+      setIsDirty(false);
     }
   };
   return (
@@ -125,11 +128,14 @@ export const SearchBar = () => {
                 />
               ) : (
                 <Input
-                  handleChange={(event) => setInputValue(event.target.value)}
+                  handleChange={(event) => {
+                    setInputValue(event.target.value);
+                    setIsDirty(true);
+                  }}
                   handleClear={onClearInput}
                   handlePressEnter={onPressEnter}
                   htmlId="searchText"
-                  value={inputValue}
+                  value={displayedValue}
                   ariaLabel="Enter the term you want to search for"
                   placeholder="Enter your search term(s)"
                 />

@@ -1,6 +1,8 @@
 @use 'css/base' as *;
 
 .filter-panel-toggle {
+  margin-top: 30px;
+
   @media screen and (min-width: $bp-sm-min) and (max-width: $bp-sm-max) {
     display: none;
   }
@@ -22,8 +24,6 @@
   @media screen and (max-width: $bp-xs-max) {
     display: block;
     width: 90vw;
-    margin-left: auto;
-    margin-right: auto;
     & .a-btn {
       width: 100%;
     }
