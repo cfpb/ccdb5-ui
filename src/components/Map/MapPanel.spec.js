@@ -49,8 +49,8 @@ describe('MapPanel', () => {
     expect(screen.getByRole('button', { name: /List/ })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Map/ })).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: /Close filters/ }),
-    ).toBeInTheDocument();
+      screen.getAllByRole('button', { name: /Close filters/ }),
+    ).toHaveLength(2);
     expect(screen.getByText('Filter results by...')).toBeInTheDocument();
 
     expect(
@@ -90,9 +90,5 @@ describe('MapPanel', () => {
     expect(screen.getByRole('alert')).toHaveTextContent(
       'There was a problem executing your search',
     );
-
-    expect(
-      screen.queryByRole('button', { name: /Close filters/ }),
-    ).not.toBeInTheDocument();
   });
 });

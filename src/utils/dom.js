@@ -1,4 +1,5 @@
 const DEFAULT_MOUNT_ID = 'ccdb-ui-root';
+const MODAL_PORTAL_ID = 'ccdb-ui-modal-portal';
 
 const getConfig = () => {
   if (typeof window === 'undefined') {
@@ -31,6 +32,24 @@ export const getAppRoot = () => {
     return root;
   }
   return document;
+};
+
+export const getModalPortalParent = () => {
+  const root = getAppRoot();
+  if (root instanceof ShadowRoot) {
+    const escaped = escapeId(MODAL_PORTAL_ID);
+    let portal = root.querySelector(`#${escaped}`);
+    if (!portal) {
+      portal = document.createElement('div');
+      portal.id = MODAL_PORTAL_ID;
+      root.appendChild(portal);
+    }
+    return portal;
+  }
+  if (root instanceof HTMLElement) {
+    return root;
+  }
+  return document.body;
 };
 
 export const getElementById = (id) => {

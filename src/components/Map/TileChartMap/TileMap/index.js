@@ -112,20 +112,24 @@ export function getMaxValue(data) {
 }
 
 /**
+ * Determine decimal places for fixed bin labels.
  *
- * @param maxValue
- * @param binCount
+ * @param {number} maxValue - Maximum value in the dataset.
+ * @param {number} binCount - Number of bins to generate.
+ * @returns {number} Decimal places for bin labels.
  */
 function getBinPlaces(maxValue, binCount) {
   return maxValue >= binCount ? 0 : 1;
 }
 
 /**
+ * Build fixed bins from a color palette and max value.
  *
- * @param root0
- * @param root0.colors
- * @param root0.binCount
- * @param root0.maxValue
+ * @param {object} root0 - Bin inputs.
+ * @param {string[]} root0.colors - Color palette for bins.
+ * @param {number} root0.binCount - Number of bins to generate.
+ * @param {number} root0.maxValue - Maximum value for the bins.
+ * @returns {Array} Fixed bin metadata.
  */
 function buildFixedBins({ colors, binCount, maxValue }) {
   const bins = [];
