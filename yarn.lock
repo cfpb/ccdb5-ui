@@ -1439,7 +1439,7 @@ __metadata:
     "@babel/preset-react": "npm:^7.28.5"
     "@cfpb/browserslist-config": "npm:^0.0.6"
     "@cfpb/cfpb-design-system": "npm:^5.3.2"
-    "@cfpb/design-system-react": "npm:^1.0.2"
+    "@cfpb/design-system-react": "npm:^1.0.3"
     "@eslint/js": "npm:^9.39.4"
     "@reduxjs/toolkit": "npm:^2.11.2"
     "@rsbuild/core": "npm:^1.7.5"
@@ -1517,17 +1517,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cfpb/design-system-react@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@cfpb/design-system-react@npm:1.0.2"
+"@cfpb/design-system-react@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@cfpb/design-system-react@npm:1.0.3"
   dependencies:
     react-select: "npm:^5.10.2"
   peerDependencies:
-    "@cfpb/cfpb-design-system": 5.2.0
+    "@cfpb/cfpb-design-system": 5.3.2
     react: ^19.2.4
     react-dom: ^19.2.4
     react-router: ^7.14.0
-  checksum: 10c0/db268556b7cece9d037f37124abee10a5c610ab923c26a880d90748f4335064f3dcdc7e10a354d0dad041d86e8c072663e047fcdea246efeb85d37cd05c1f279
+  checksum: 10c0/c5f1a40e5ef0019e6221af78ae05d47b3c885536988c54dd90de236db64ff366a64fba4dfb2fab6b98f4deb72dc7d057338878579282de045da7c4a36278eaf1
   languageName: node
   linkType: hard
 
