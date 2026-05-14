@@ -1500,7 +1500,7 @@ __metadata:
     release-it: "npm:^20.0.1"
     sass: "npm:^1.99.0"
     string-replace-loader: "npm:^3.3.0"
-    stylelint: "npm:^17.11.1"
+    stylelint: "npm:17.11.1"
     stylelint-config-standard: "npm:^40.0.0"
     stylelint-config-standard-scss: "npm:^17.0.0"
     webpack: "npm:^5.106.2"
@@ -12927,7 +12927,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:^17.11.1":
+"stylelint@npm:17.11.1":
   version: 17.11.1
   resolution: "stylelint@npm:17.11.1"
   dependencies:
