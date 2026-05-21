@@ -12,15 +12,29 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
-          node-version: 24
+          node-version: 26
+
+      - name: Cache Cypress binary
+        id: cypress-cache
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
 
       - name: Install Node dependencies
         run: |
           corepack enable
-          yarn install
+          yarn install --immutable --immutable-cache
 
       - name: Compile Sass (sanity check)
         run: ./node_modules/.bin/sass --no-source-map --load-path=node_modules --load-path=src src/css/App.scss /tmp/app.css
+
+      - name: Install Cypress binary
+        if: steps.cypress-cache.outputs.cache-hit != 'true'
+        run: npx cypress install
+
+      - name: Verify Cypress
+        run: npx cypress verify
 
       - name: Lint the source code
         run: yarn run lint
