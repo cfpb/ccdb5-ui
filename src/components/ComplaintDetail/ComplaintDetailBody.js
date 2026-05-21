@@ -17,34 +17,6 @@ SubAggregation.propTypes = {
   value: PropTypes.string,
 };
 
-const ConsumerConsent = ({ value }) => {
-  // Icon name in design-system (delete-round is error-round in DS)
-  const iconLookupMap = {
-    'Consent provided': ['approved-round'],
-    'Consent not provided': ['error-round'],
-    'Consent withdrawn': ['minus-round'],
-    'N/A': ['help-round'],
-    Other: ['help-round'],
-  };
-
-  let consentIcon;
-  if (value in iconLookupMap) {
-    consentIcon = <Icon name={iconLookupMap[value]} isPresentational />;
-  } else {
-    consentIcon = <Icon name="error-round" isPresentational />;
-    value = 'No data available';
-  }
-
-  return (
-    <div>
-      <span className="cf-icon__before">{consentIcon}</span>
-      <span>{value}</span>
-    </div>
-  );
-};
-
-ConsumerConsent.propTypes = { value: PropTypes.string };
-
 const CompanyTimely = ({ value }) => {
   if (!value) {
     return <span>N/A</span>;
@@ -104,10 +76,6 @@ export const ComplaintDetailBody = ({ data, error, id }) => {
               <span>{data.tags}</span>
             </>
           ) : null}
-          <Heading type="4" className="u-mt15">
-            Did consumer dispute the response?
-          </Heading>
-          <span>{data.consumer_disputed}</span>
         </div>
         <div className="card-right layout-column">
           <Heading type="4">Product</Heading>
@@ -119,11 +87,6 @@ export const ComplaintDetailBody = ({ data, error, id }) => {
           </Heading>
           <Heading type="3">{data.issue}</Heading>
           <SubAggregation label="Sub-issue:" value={data.sub_issue} />
-
-          <Heading type="4" className="u-mt15">
-            Consumer consent to publish narrative
-          </Heading>
-          <ConsumerConsent value={data.consumer_consent_provided} />
 
           {narrative ? (
             <>
