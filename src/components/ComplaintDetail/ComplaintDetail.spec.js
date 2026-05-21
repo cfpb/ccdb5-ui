@@ -27,8 +27,6 @@ const fixture = {
           company_response: 'Closed with explanation',
           complaint_id: '2371744',
           complaint_what_happened: 'Lorem ipsum dolor sit amet',
-          consumer_consent_provided: 'Consent provided',
-          consumer_disputed: 'Yes',
           date_received: '2017-03-04T12:00:00',
           date_sent_to_company: '2017-03-04T12:00:00',
           has_narrative: true,
@@ -124,7 +122,7 @@ describe('component::ComplaintDetail', () => {
     expect(
       screen.getByText('Date CFPB received the complaint'),
     ).toBeInTheDocument();
-    expect(screen.getAllByText('Yes')).toHaveLength(2);
+    expect(screen.getAllByText('Yes')).toHaveLength(1);
     expect(screen.getByText(docResponse.company)).toBeInTheDocument();
     expect(screen.getByText(docResponse.company_response)).toBeInTheDocument();
     expect(
@@ -136,7 +134,6 @@ describe('component::ComplaintDetail', () => {
   it('handles missing narrative, sub-agg and timely values', async () => {
     const docResponse = response.hits.hits[0]._source;
     docResponse.complaint_what_happened = '';
-    docResponse.consumer_disputed = 'No';
     docResponse.timely = '';
     docResponse.sub_issue = '';
     docResponse.sub_product = '';
@@ -163,27 +160,12 @@ describe('component::ComplaintDetail', () => {
     expect(
       screen.getByText(docResponse.company_public_response),
     ).toBeInTheDocument();
-    expect(screen.getByText(docResponse.consumer_disputed)).toBeInTheDocument();
     expect(screen.getByText(docResponse.submitted_via)).toBeInTheDocument();
     expect(screen.queryByText('Sub-product:')).not.toBeInTheDocument();
     expect(screen.queryByText('Sub-issue:')).not.toBeInTheDocument();
     expect(
       screen.queryByText('Consumer complaint narrative'),
     ).not.toBeInTheDocument();
-  });
-
-  it('handles errors with "Consumer Consent Provided" icons', async () => {
-    const dataFixture = response.hits.hits[0]._source;
-    dataFixture.complaint_what_happened = '';
-    dataFixture.consumer_consent_provided = 'Bad Value';
-    response.hits.hits[0]._source = dataFixture;
-    fetchMock.mockResponseOnce(JSON.stringify(response));
-    renderComponent({});
-    await screen.findByText('Date CFPB received the complaint');
-    expect(
-      screen.getByText('Date CFPB received the complaint'),
-    ).toBeInTheDocument();
-    expect(screen.getByText('No data available')).toBeInTheDocument();
   });
 
   it('Not Timely', async () => {

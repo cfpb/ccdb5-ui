@@ -15,13 +15,11 @@ describe('ComplaintCard', () => {
         'Credit reporting, credit repair services, or other personal consumer reports',
       complaint_id: '7990095',
       timely: 'Yes',
-      consumer_consent_provided: null,
       company_response: 'In progress',
       submitted_via: 'Web',
       company: 'JP Morgan',
       date_received: '2022-11-16T12:00:00-05:00',
       state: 'FL',
-      consumer_disputed: 'N/A',
       company_public_response: null,
     };
   });

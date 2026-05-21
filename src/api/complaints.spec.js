@@ -132,8 +132,6 @@ describe('getDocument', () => {
       company_response: 'Closed with explanation',
       complaint_id: '2371744',
       complaint_what_happened: 'Lorem ipsum dolor sit amet',
-      consumer_consent_provided: 'Consent provided',
-      consumer_disputed: 'Yes',
       date_received: '2017-03-04T12:00:00',
       date_sent_to_company: '2017-03-04T12:00:00',
       has_narrative: true,

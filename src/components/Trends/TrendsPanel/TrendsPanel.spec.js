@@ -172,8 +172,6 @@ describe('component::TrendsPanel', () => {
       company_received_max: '',
       company_received_min: '',
       company_response: [],
-      consumer_consent_provided: [],
-      consumer_disputed: [],
       issue: [],
       product: [],
       state: [],
